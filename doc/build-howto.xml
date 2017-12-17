@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+  <!ENTITY % gtkdocentities SYSTEM "xml/gtkdocentities.ent">
+  %gtkdocentities;
+]>
+
+<refentry id="build-howto">
+  <refmeta>
+    <refentrytitle>Compiling with &package_string;</refentrytitle>
+    <manvolnum>3</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>Compiling with &package_string;</refname><refpurpose>Notes on compiling</refpurpose>
+  </refnamediv>
+
+  <refsect2>
+    <title>Using pkg-config</title>
+
+    <para> Like other GNOME libraries,
+    <application>&package_string;</application> uses
+    <application>pkg-config</application> to provide compiler options. The
+    package name is
+    "<literal>&package_ver_str;</literal>". So in
+    your <literal>configure</literal> script, you might specify something
+    like: </para>
+
+    <informalexample><programlisting>
+      PKG_CHECK_MODULES(LIBPLANFAHR, [&package_string;-&package_api_version;])
+      AC_SUBST(LIBPLANFAHR_CFLAGS)
+      AC_SUBST(LIBPLANFAHR_LIBS)
+    </programlisting></informalexample>
+
+    <para>
+      The "<literal>&package_api_version;</literal>" in the package name is the "API version"
+      (indicating "the version of the <application>&package_string;</application> API
+      that first appeared in version &package_api_version;") and is essentially just part of
+      the package name.
+    </para>
+
+  </refsect2>
+
+  <refsect2>
+    <title>Headers</title>
+
+    <para>
+      Code using <application>&package_string;</application> should do:
+    </para>
+
+    <informalexample><programlisting>
+      #include &lt;&package_string;/&package_ver_str;.h&gt;
+    </programlisting></informalexample>
+
+    <para>
+      Including individual headers rather than <literal>&package_string;.h</literal> is not
+      recommended.
+    </para>
+
+  </refsect2>
+
+</refentry>

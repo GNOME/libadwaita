@@ -1,0 +1,11 @@
+ent_conf = configuration_data()
+ent_conf.set('PACKAGE', 'Handy')
+ent_conf.set('PACKAGE_BUGREPORT', 'http://&lt;nobugtrackeryet&gt;')
+ent_conf.set('PACKAGE_NAME', 'Handy')
+ent_conf.set('PACKAGE_STRING', 'libhandy')
+ent_conf.set('PACKAGE_TARNAME', 'libhandy-' + meson.project_version())
+ent_conf.set('PACKAGE_URL', 'http://&lt;nohomepageyet&gt;')
+ent_conf.set('PACKAGE_VERSION', meson.project_version())
+ent_conf.set('PACKAGE_API_VERSION', apiversion)
+configure_file(input: 'gtkdocentities.ent.in', output: 'gtkdocentities.ent', configuration: ent_conf)
+

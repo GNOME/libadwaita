@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+  <!ENTITY % gtkdocentities SYSTEM "xml/gtkdocentities.ent">
+  %gtkdocentities;
+]>
+<book id="index">
+  <bookinfo>
+    <title>&package_name; Reference Manual</title>
+    <releaseinfo>
+      <para>This document is the API reference for for &package_name; &package_version;.</para>
+      <para>
+        Handy is a library to help you write dialers for GTK+/GNOME based mobile phones.
+      </para>
+      <para>
+        If you find any issues in this API reference, please report it
+        using <ulink type="http" url="&package_bugreport;">at the
+        bugtracker</ulink>
+      </para>
+    </releaseinfo>
+
+    <copyright>
+      <year>2017</year>
+      <holder>Guido Günther</holder>
+    </copyright>
+  </bookinfo>
+
+  <chapter id="intro">
+    <title>Introduction</title>
+    <xi:include href="build-howto.xml"/>
+    <xi:include href="visual-index.xml"/>
+  </chapter>
+
+  <chapter id="core-api">
+    <title>Widgets and Objects</title>
+    <xi:include href="xml/hdy-dialer.xml"/>
+    <xi:include href="xml/hdy-dialer-button.xml"/>
+  </chapter>
+
+  <chapter id="helpers">
+    <title>Helpers</title>
+    <xi:include href="xml/hdy-version.xml"/>
+  </chapter>
+
+  <chapter id="object-tree">
+    <title>Object Hierarchy</title>
+    <xi:include href="xml/tree_index.sgml"/>
+  </chapter>
+
+  <index id="api-index-full">
+    <title>API Index</title>
+    <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="deprecated-api-index" role="deprecated">
+    <title>Index of deprecated API</title>
+    <xi:include href="xml/api-index-deprecated.xml"><xi:fallback /></xi:include>
+  </index>
+
+</book>

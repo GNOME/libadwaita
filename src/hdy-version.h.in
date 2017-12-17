@@ -1,0 +1,96 @@
+/* hdy-version.h.in
+ *
+ * Copyright (C) 2017 Guido G̈́ünther <agx@sigxcu.org>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifndef HDY_VERSION_H
+#define HDY_VERSION_H
+
+#if !defined(HANDY_INSIDE) && !defined(HANDY_COMPILATION)
+#error "Only <handy.h> can be included directly."
+#endif
+
+/**
+ * SECTION:hdy-version
+ * @short_description: Handy version checking
+ *
+ * Handy provides macros to check the version of the library at compile-time
+ */
+
+/**
+ * HDY_MAJOR_VERSION:
+ *
+ * Hdy major version component (e.g. 1 if %HDY_VERSION is 1.2.3)
+ */
+#define HDY_MAJOR_VERSION              (@HDY_MAJOR_VERSION@)
+
+/**
+ * HDY_MINOR_VERSION:
+ *
+ * Hdy minor version component (e.g. 2 if %HDY_VERSION is 1.2.3)
+ */
+#define HDY_MINOR_VERSION              (@HDY_MINOR_VERSION@)
+
+/**
+ * HDY_MICRO_VERSION:
+ *
+ * Hdy micro version component (e.g. 3 if %HDY_VERSION is 1.2.3)
+ */
+#define HDY_MICRO_VERSION              (@HDY_MICRO_VERSION@)
+
+/**
+ * HDY_VERSION
+ *
+ * Hdy version.
+ */
+#define HDY_VERSION                    (@HDY_VERSION@)
+
+/**
+ * HDY_VERSION_S:
+ *
+ * Handy version, encoded as a string, useful for printing and
+ * concatenation.
+ */
+#define HDY_VERSION_S                  "@HDY_VERSION@"
+
+#define HDY_ENCODE_VERSION(major,minor,micro) \
+        ((major) << 24 | (minor) << 16 | (micro) << 8)
+
+/**
+ * HDY_VERSION_HEX:
+ *
+ * Handy version, encoded as an hexadecimal number, useful for
+ * integer comparisons.
+ */
+#define HDY_VERSION_HEX \
+        (HDY_ENCODE_VERSION (HDY_MAJOR_VERSION, HDY_MINOR_VERSION, HDY_MICRO_VERSION))
+
+/**
+ * HDY_CHECK_VERSION:
+ * @major: required major version
+ * @minor: required minor version
+ * @micro: required micro version
+ *
+ * Compile-time version checking. Evaluates to %TRUE if the version
+ * of dazzle is greater than the required one.
+ */
+#define HDY_CHECK_VERSION(major,minor,micro)   \
+        (HDY_MAJOR_VERSION > (major) || \
+         (HDY_MAJOR_VERSION == (major) && HDY_MINOR_VERSION > (minor)) || \
+         (HDY_MAJOR_VERSION == (major) && HDY_MINOR_VERSION == (minor) && \
+          HDY_MICRO_VERSION >= (micro)))
+
+#endif /* HDY_VERSION_H */

@@ -1,0 +1,22 @@
+# Performance and debugging related options
+option('enable_profiling', type: 'boolean', value: false)
+
+option('with_introspection', type: 'boolean', value: true)
+option('with_vapi', type: 'boolean', value: true)
+
+# Subproject
+option('package_subdir', type: 'string',
+  description: 'Subdirectory to append to all installed files, for use as subproject'
+)
+
+option('enable_gtk_doc',
+       type: 'boolean', value: false,
+       description: 'Whether to generate the API reference for Handy')
+
+option('enable_tests',
+       type: 'boolean', value: true,
+       description: 'Whether to compile unit tests')
+
+option('enable_examples',
+       type: 'boolean', value: true,
+       description: 'Whether to compile unit tests')
