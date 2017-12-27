@@ -10,9 +10,9 @@
   <bookinfo>
     <title>&package_name; Reference Manual</title>
     <releaseinfo>
-      <para>This document is the API reference for for &package_name; &package_version;.</para>
+      <para>This document is the API reference for &package_name; &package_version;</para>
       <para>
-        Handy is a library to help you write dialers for GTK+/GNOME based mobile phones.
+        <ulink type="http" url="&package_url;">Handy</ulink> is a library to help you write dialers for GTK+/GNOME based mobile phones.
       </para>
       <para>
         If you find any issues in this API reference, please report it
@@ -29,6 +29,7 @@
 
   <chapter id="intro">
     <title>Introduction</title>
+
     <xi:include href="build-howto.xml"/>
     <xi:include href="visual-index.xml"/>
   </chapter>
