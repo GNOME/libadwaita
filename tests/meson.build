@@ -25,4 +25,12 @@ test_dialer = executable('test-dialer', 'test-dialer.c',
 )
 test('test-dialer', test_dialer, env: test_env)
 
+test_string_utf8 = executable('test-string-utf8', 'test-string-utf8.c',
+        c_args: test_cflags,
+     link_args: test_link_args,
+  dependencies: libhandy_deps + [libhandy_dep],
+)
+test('test-string-utf8', test_string_utf8, env: test_env)
+
+
 endif

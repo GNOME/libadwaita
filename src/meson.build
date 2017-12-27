@@ -36,11 +36,13 @@ libhandy_private_sources = []
 src_headers = [
   'hdy-dialer-button.h',
   'hdy-dialer.h',
+  'hdy-string-utf8.h',
 ]
 
 src_sources = [
   'hdy-dialer-button.c',
   'hdy-dialer.c',
+  'hdy-string-utf8.c',
 ]
 
 libhandy_public_headers += files(src_headers)
