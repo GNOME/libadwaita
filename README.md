@@ -23,7 +23,7 @@ For build options see [meson_options.txt](./meson_otions.txt). E.g. to enable do
 
 ## Usage
 
-There a C example:
+There's a C example:
 
      _build/examples/example
 
