@@ -19,8 +19,8 @@ barf (GtkWidget *widget,
 
 
 static void
-dialed (GtkApplication *app,
-        gpointer        user_data)
+show_dialer (GtkApplication *app,
+             gpointer        user_data)
 {
   GtkWidget *window;
   GtkWidget *dialer;
@@ -47,7 +47,7 @@ main (int    argc,
   int status;
 
   app = gtk_application_new ("org.sigxcpu.example", G_APPLICATION_FLAGS_NONE);
-  g_signal_connect (app, "activate", G_CALLBACK (dialed), NULL);
+  g_signal_connect (app, "activate", G_CALLBACK (show_dialer), NULL);
   status = g_application_run (G_APPLICATION (app), argc, argv);
   g_object_unref (app);
 
