@@ -19,6 +19,10 @@
 #ifndef HDY_DIALER_H
 #define HDY_DIALER_H
 
+#if !defined(HANDY_INSIDE) && !defined(HANDY_COMPILATION)
+#error "Only <handy.h> can be included directly."
+#endif
+
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
