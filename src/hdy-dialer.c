@@ -8,7 +8,8 @@
 
 #include "hdy-dialer.h"
 #include "hdy-dialer-button.h"
-
+#include "hdy-dialer-cycle-button.h"
+#include "hdy-string-utf8.h"
 
 /**
  * SECTION:hdy-dialer
@@ -22,7 +23,7 @@
 typedef struct
 {
   HdyDialerButton *btn_0, *btn_1, *btn_2, *btn_3, *btn_4, *btn_5, *btn_6, *btn_7, *btn_8, *btn_9;
-  HdyDialerButton *btn_hash, *btn_star;
+  HdyDialerCycleButton *btn_hash, *btn_star, *cycle_btn;
   GtkLabel *display;
   GtkButton *btn_dial, *btn_del;
   GString *number;
@@ -46,6 +47,18 @@ static guint signals [LAST_SIGNAL];
 
 
 static void
+stop_cycle_mode (HdyDialer *self)
+{
+  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
+
+  if (priv->cycle_btn) {
+    hdy_dialer_cycle_button_stop_cycle (priv->cycle_btn);
+    priv->cycle_btn = NULL;
+  }
+}
+
+
+static void
 hdy_digit_button_clicked (HdyDialer *self,  HdyDialerButton *btn)
 {
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
@@ -54,6 +67,8 @@ hdy_digit_button_clicked (HdyDialer *self,  HdyDialerButton *btn)
   g_return_if_fail (HDY_IS_DIALER (self));
   g_return_if_fail (HDY_IS_DIALER_BUTTON (btn));
 
+  stop_cycle_mode (self);
+
   d = hdy_dialer_button_get_digit(btn);
   g_string_append_printf(priv->number, "%d", d);
   g_object_notify_by_pspec (G_OBJECT (self), props[HDY_DIALER_PROP_NUMBER]);
@@ -61,17 +76,45 @@ hdy_digit_button_clicked (HdyDialer *self,  HdyDialerButton *btn)
 
 
 static void
-hdy_symbol_button_clicked (HdyDialer *self,  HdyDialerButton *btn)
+hdy_cycle_button_clicked (HdyDialer *self,  HdyDialerCycleButton *btn)
 {
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
-  char* symbols;
+  gunichar symbol;
 
   g_return_if_fail (HDY_IS_DIALER (self));
   g_return_if_fail (HDY_IS_DIALER_BUTTON (btn));
 
-  symbols = hdy_dialer_button_get_letters(btn);
-  g_string_append_printf(priv->number, "%c", symbols[0]);
+  if (priv->cycle_btn != btn) {
+    stop_cycle_mode (self);
+    priv->cycle_btn = btn;
+  } else if (priv->number->len) {
+    hdy_string_utf8_truncate (priv->number, hdy_string_utf8_len (priv->number)-1);
+  }
+
+  symbol = hdy_dialer_cycle_button_get_current_symbol (btn);
+  g_string_append_unichar (priv->number, symbol);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[HDY_DIALER_PROP_NUMBER]);
+}
+
+
+static void
+hdy_cycle_button_cycle_start (HdyDialer *self,  HdyDialerCycleButton *btn)
+{
+  /* FIXME: change cursor */
+}
+
+
+static void
+hdy_cycle_button_cycle_end (HdyDialer *self,  HdyDialerCycleButton *btn)
+{
+  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
+
+  /* reset cycle_btn so pressing it again produces a new character */
+  if (priv->cycle_btn == btn) {
+    priv->cycle_btn = NULL;
+    /* FIXME: change cursor */
+  }
 }
 
 
@@ -83,6 +126,8 @@ hdy_dial_button_clicked (HdyDialer *self, GtkButton *btn)
 
   g_return_if_fail (HDY_IS_DIALER (self));
   g_return_if_fail (GTK_IS_BUTTON (btn));
+
+  stop_cycle_mode (self);
 
   number = gtk_label_get_label(priv->display);
   g_signal_emit (self, signals[DIALED], 0, number);
@@ -97,10 +142,12 @@ hdy_del_button_clicked (HdyDialer *self, GtkButton *btn)
   g_return_if_fail (HDY_IS_DIALER (self));
   g_return_if_fail (GTK_IS_BUTTON (btn));
 
+  stop_cycle_mode (self);
+
   if (!priv->number->len)
     return;
 
-  g_string_truncate(priv->number, priv->number->len - 1);
+  hdy_string_utf8_truncate (priv->number, hdy_string_utf8_len (priv->number)-1);
   g_object_notify_by_pspec (G_OBJECT (self), props[HDY_DIALER_PROP_NUMBER]);
 }
 
@@ -301,16 +348,19 @@ hdy_dialer_init (HdyDialer *self)
                            G_CALLBACK (hdy_digit_button_clicked),
                            self,
                            G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_star,
-                           "clicked",
-                           G_CALLBACK (hdy_symbol_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_hash,
-                           "clicked",
-                           G_CALLBACK (hdy_symbol_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
+
+  g_object_connect (priv->btn_star,
+		    "swapped-signal::clicked", G_CALLBACK (hdy_cycle_button_clicked), self,
+		    "swapped-signal::cycle-start", G_CALLBACK (hdy_cycle_button_cycle_start), self,
+		    "swapped-signal::cycle-end", G_CALLBACK (hdy_cycle_button_cycle_end), self,
+		    NULL);
+
+  g_object_connect (priv->btn_hash,
+		    "swapped-signal::clicked", G_CALLBACK (hdy_cycle_button_clicked), self,
+		    "swapped-signal::cycle-start", G_CALLBACK (hdy_cycle_button_cycle_start), self,
+		    "swapped-signal::cycle-end", G_CALLBACK (hdy_cycle_button_cycle_end), self,
+		    NULL);
+
   g_signal_connect_object (priv->btn_dial,
                            "clicked",
                            G_CALLBACK (hdy_dial_button_clicked),
@@ -338,6 +388,7 @@ hdy_dialer_init (HdyDialer *self)
   gtk_button_set_image(priv->btn_dial, image);
 
   priv->number = g_string_new(NULL);
+  priv->cycle_btn = NULL;
 }
 
 

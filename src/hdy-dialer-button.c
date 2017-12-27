@@ -208,4 +208,3 @@ hdy_dialer_button_get_letters(HdyDialerButton *self)
   g_return_val_if_fail (HDY_IS_DIALER_BUTTON (self), NULL);
   return priv->letters;
 }
-

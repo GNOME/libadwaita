@@ -129,9 +129,9 @@
     </child>
 
     <child>
-      <object class="HdyDialerButton" id="btn_star">
+      <object class="HdyDialerCycleButton" id="btn_star">
         <property name="digit">-1</property>
-        <property name="letters">+</property>
+        <property name="letters">*+</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
@@ -157,9 +157,9 @@
     </child>
 
     <child>
-      <object class="HdyDialerButton" id="btn_hash">
+      <object class="HdyDialerCycleButton" id="btn_hash">
         <property name="digit">-1</property>
-        <property name="letters">#</property>
+        <property name="letters">#☃</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
