@@ -45,21 +45,26 @@ format_label(HdyDialerButton *self)
 
   str = g_string_new(NULL);
   if (priv->digit >= 0) {
-    g_string_sprintf(str, "%d", priv->digit);
+    g_string_sprintf (str, "<big>%d</big>", priv->digit);
     if (priv->letters)
-      g_string_append_c(str, '\n');
+      g_string_append_c (str, '\n');
   }
 
   if (priv->letters)
-    g_string_append(str, priv->letters);
-
+    g_string_append (str, priv->letters);
   text = g_string_free (str, FALSE);
-  gtk_button_set_label (GTK_BUTTON(self), text);
 
   label = GTK_LABEL(gtk_bin_get_child (GTK_BIN (self)));
-  gtk_label_set_xalign(label, 0.5);
-  gtk_label_set_yalign(label, 0.5);
-  gtk_label_set_justify (GTK_LABEL(label), GTK_JUSTIFY_CENTER);
+  if (!label) {
+    /* No label yet so let GtkButton set it up */
+    gtk_button_set_label (GTK_BUTTON(self), "");
+
+    label = GTK_LABEL(gtk_bin_get_child (GTK_BIN (self)));
+    gtk_label_set_xalign(label, 0.5);
+    gtk_label_set_yalign(label, 0.5);
+    gtk_label_set_justify (GTK_LABEL(label), GTK_JUSTIFY_CENTER);
+  }
+  gtk_label_set_markup (label, text);
 }
 
 
