@@ -16,7 +16,7 @@ way to get going is to do the following:
 	ninja -C _build
 	ninja -C _build install
 
-For build options see [meson_options.txt](./meson_otions.txt). E.g. to enable documentation:
+For build options see [meson_options.txt](./meson_options.txt). E.g. to enable documentation:
 
      meson . _build -Dgtk_doc=true
      ninja -C _build/ libhandy-doc
