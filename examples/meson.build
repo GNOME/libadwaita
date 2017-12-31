@@ -1,4 +1,4 @@
-if get_option('enable_examples')
+if get_option('examples')
 
 example_sources = [
   'example.c',

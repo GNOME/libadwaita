@@ -70,7 +70,7 @@ test_c_args = [
 if get_option('buildtype') != 'plain'
   test_c_args += '-fstack-protector-strong'
 endif
-if get_option('enable_profiling')
+if get_option('profiling')
   test_c_args += '-pg'
 endif
 
@@ -114,9 +114,11 @@ summary = [
   '------',
   'Handy @0@ (@1@)'.format(current, apiversion),
   '',
-  '             Tests: @0@'.format(get_option('enable_tests')),
-  '          Examples: @0@'.format(get_option('enable_examples')),
-  '     Documentation: @0@'.format(get_option('enable_gtk_doc')),
+  '             Tests: @0@'.format(get_option('tests')),
+  '          Examples: @0@'.format(get_option('examples')),
+  '     Documentation: @0@'.format(get_option('gtk_doc')),
+  '     Introspection: @0@'.format(get_option('introspection')),
+  '              Vapi: @0@'.format(get_option('vapi')),
  '------',
   ''
 ]

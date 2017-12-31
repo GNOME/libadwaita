@@ -1,4 +1,4 @@
-if get_option('enable_tests')
+if get_option('tests')
 
 test_env = [
   'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),

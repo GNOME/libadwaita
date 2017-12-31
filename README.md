@@ -18,7 +18,7 @@ way to get going is to do the following:
 
 For build options see [meson_options.txt](./meson_otions.txt). E.g. to enable documentation:
 
-     meson . _build -Denable_gtk_doc=true
+     meson . _build -Dgtk_doc=true
      ninja -C _build/ libhandy-doc
 
 ## Usage
