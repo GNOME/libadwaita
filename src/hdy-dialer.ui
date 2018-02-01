@@ -23,7 +23,7 @@
     <child>
       <object class="HdyDialerButton" id="btn_2">
         <property name="digit">2</property>
-        <property name="letters">abc</property>
+        <property name="letters">ABC</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
@@ -36,7 +36,7 @@
     <child>
       <object class="HdyDialerButton"  id="btn_3">
         <property name="digit">3</property>
-        <property name="letters">def</property>
+        <property name="letters">DEF</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
@@ -49,7 +49,7 @@
     <child>
       <object class="HdyDialerButton"  id="btn_4">
         <property name="digit">4</property>
-        <property name="letters">ghi</property>
+        <property name="letters">GHI</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
@@ -62,7 +62,7 @@
     <child>
       <object class="HdyDialerButton"  id="btn_5">
         <property name="digit">5</property>
-        <property name="letters">jkl</property>
+        <property name="letters">JKL</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
@@ -75,7 +75,7 @@
     <child>
       <object class="HdyDialerButton" id="btn_6">
         <property name="digit">6</property>
-        <property name="letters">mno</property>
+        <property name="letters">MNO</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
@@ -89,7 +89,7 @@
     <child>
       <object class="HdyDialerButton" id="btn_7">
         <property name="digit">7</property>
-        <property name="letters">pqrs</property>
+        <property name="letters">PQRS</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
@@ -103,7 +103,7 @@
     <child>
       <object class="HdyDialerButton" id="btn_8">
         <property name="digit">8</property>
-        <property name="letters">tuv</property>
+        <property name="letters">TUV</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
@@ -117,7 +117,7 @@
     <child>
       <object class="HdyDialerButton" id="btn_9">
         <property name="digit">9</property>
-        <property name="letters">wxyz</property>
+        <property name="letters">WXYZ</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
@@ -131,7 +131,7 @@
     <child>
       <object class="HdyDialerCycleButton" id="btn_star">
         <property name="digit">-1</property>
-        <property name="letters">*+</property>
+        <property name="letters">*</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
@@ -145,7 +145,7 @@
     <child>
       <object class="HdyDialerButton" id="btn_0">
         <property name="digit">0</property>
-        <property name="letters"></property>
+        <property name="letters">+</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
@@ -159,7 +159,7 @@
     <child>
       <object class="HdyDialerCycleButton" id="btn_hash">
         <property name="digit">-1</property>
-        <property name="letters">#☃</property>
+        <property name="letters">#</property>
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="receives_default">True</property>
