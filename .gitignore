@@ -3,3 +3,6 @@ _build
 *~
 \#*#
 .\#*
+build
+.buildconfig
+.flatpak-builder
