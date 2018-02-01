@@ -87,7 +87,7 @@ hdy_cycle_button_clicked (HdyDialer *self,  HdyDialerCycleButton *btn)
   if (priv->cycle_btn != btn) {
     stop_cycle_mode (self);
     priv->cycle_btn = btn;
-  } else if (priv->number->len) {
+  } else if (priv->number->len && hdy_dialer_cycle_button_is_cycling (btn)) {
     hdy_string_utf8_truncate (priv->number, hdy_string_utf8_len (priv->number)-1);
   }
 
