@@ -6,6 +6,8 @@ example_sources = [
 
 example = executable('example', example_sources,
   dependencies: libhandy_dep,
+  gui_app: true,
+  install: true,
 )
 
 endif
