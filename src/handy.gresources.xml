@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/org/sigxcpu/handy/dialer/ui">
+  <gresource prefix="/sm/puri/handy/dialer/ui">
     <file preprocess="xml-stripblanks">hdy-dialer.ui</file>
   </gresource>
-  <gresource prefix="/org/sigxcpu/handy/icons/scalable/actions">
+  <gresource prefix="/sm/puri/handy/icons/scalable/actions">
     <file preprocess="xml-stripblanks">phone-dial-symbolic.svg</file>
   </gresource>
 </gresources>

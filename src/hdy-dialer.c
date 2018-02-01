@@ -258,7 +258,7 @@ hdy_dialer_class_init (HdyDialerClass *klass)
   g_object_class_install_properties (object_class, HDY_DIALER_PROP_LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
-					       "/org/sigxcpu/handy/dialer/ui/hdy-dialer.ui");
+					       "/sm/puri/handy/dialer/ui/hdy-dialer.ui");
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_0);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_1);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_2);
@@ -382,7 +382,7 @@ hdy_dialer_init (HdyDialer *self)
   gtk_button_set_image(priv->btn_del, image);
 
   gtk_icon_theme_add_resource_path (gtk_icon_theme_get_default (),
-                                    "/org/sigxcpu/handy/icons");
+                                    "/sm/puri/handy/icons");
   image = gtk_image_new_from_icon_name ("phone-dial-symbolic",
 					GTK_ICON_SIZE_BUTTON * 1.3);
   gtk_button_set_image(priv->btn_dial, image);
