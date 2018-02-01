@@ -1,0 +1,33 @@
+{
+  "app-id": "sm.puri.Handy.Example",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "3.26",
+  "sdk": "org.gnome.Sdk",
+  "command": "example",
+  "finish-args": [
+    "--share=ipc", "--socket=x11",
+    "--socket=wayland",
+    "--device=all"
+  ],
+  "build-options": {
+    "cflags": "-O2 -g",
+    "cxxflags": "-O2 -g",
+    "env": {
+      "V": "1"
+    }
+  },
+  "modules": [
+    {
+      "name": "example",
+      "buildsystem": "meson",
+      "builddir": true,
+      "build-options": "examples",
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://code.puri.sm/Librem5/libhandy.git"
+        }
+      ]
+    }
+  ]
+}
