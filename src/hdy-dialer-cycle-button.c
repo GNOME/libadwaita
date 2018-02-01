@@ -79,7 +79,7 @@ button_clicked_cb(HdyDialerCycleButton *self, GdkEventButton *event)
   g_return_val_if_fail (HDY_IS_DIALER_CYCLE_BUTTON (self), FALSE);
 
   /* Only cycle if we have more than one symbol */
-  if (!strlen(hdy_dialer_button_get_letters (HDY_DIALER_BUTTON (self))))
+  if (strlen(hdy_dialer_button_get_letters (HDY_DIALER_BUTTON (self))) < 2)
     return FALSE;
 
   if (hdy_dialer_cycle_button_is_cycling(self)) {
