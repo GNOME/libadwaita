@@ -28,6 +28,7 @@ enum {
 
 typedef struct
 {
+  GtkLabel *label, *secondary_label;
   gint digit;
   gchar *letters;
 } HdyDialerButtonPrivate;
@@ -40,31 +41,17 @@ format_label(HdyDialerButton *self)
 {
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
   GString *str;
-  GtkLabel *label;
   g_autofree gchar *text;
 
   str = g_string_new(NULL);
   if (priv->digit >= 0) {
-    g_string_sprintf (str, "<big>%d</big>", priv->digit);
-    if (priv->letters)
-      g_string_append_c (str, '\n');
+    g_string_sprintf (str, "%d", priv->digit);
   }
 
-  if (priv->letters)
-    g_string_append (str, priv->letters);
   text = g_string_free (str, FALSE);
 
-  label = GTK_LABEL(gtk_bin_get_child (GTK_BIN (self)));
-  if (!label) {
-    /* No label yet so let GtkButton set it up */
-    gtk_button_set_label (GTK_BUTTON(self), "");
-
-    label = GTK_LABEL(gtk_bin_get_child (GTK_BIN (self)));
-    gtk_label_set_xalign(label, 0.5);
-    gtk_label_set_yalign(label, 0.5);
-    gtk_label_set_justify (GTK_LABEL(label), GTK_JUSTIFY_CENTER);
-  }
-  gtk_label_set_markup (label, text);
+  gtk_label_set_label (priv->label, text);
+  gtk_label_set_label (priv->secondary_label, priv->letters);
 }
 
 
@@ -125,6 +112,7 @@ static void
 hdy_dialer_button_class_init (HdyDialerButtonClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->set_property = hdy_dialer_button_set_property;
   object_class->get_property = hdy_dialer_button_get_property;
@@ -145,6 +133,11 @@ hdy_dialer_button_class_init (HdyDialerButtonClass *klass)
 							"dialer letters",
 							"",
 							G_PARAM_READWRITE));
+
+  gtk_widget_class_set_template_from_resource (widget_class,
+					       "/sm/puri/handy/dialer/ui/hdy-dialer-button.ui");
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialerButton, label);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialerButton, secondary_label);
 }
 
 
@@ -169,6 +162,8 @@ static void
 hdy_dialer_button_init (HdyDialerButton *self)
 {
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
+
+  gtk_widget_init_template (GTK_WIDGET (self));
 
   priv->digit = -1;
   priv->letters = NULL;
