@@ -33,9 +33,9 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (HdyDialerCycleButton, hdy_dialer_cycle_button, HDY_TYPE_DIALER_BUTTON)
 
 enum {
-    PROP_0 = 0,
-    PROP_CYCLE_TIMEOUT,
-    PROP_LAST_PROP,
+  PROP_0 = 0,
+  PROP_CYCLE_TIMEOUT,
+  PROP_LAST_PROP,
 };
 static GParamSpec *props[PROP_LAST_PROP] = { NULL, };
 
@@ -98,9 +98,9 @@ button_clicked_cb(HdyDialerCycleButton *self, GdkEventButton *event)
 
 static void
 hdy_dialer_cycle_button_set_property (GObject *object,
-				     guint property_id,
-				     const GValue *value,
-				     GParamSpec *pspec)
+                                      guint property_id,
+                                      const GValue *value,
+                                      GParamSpec *pspec)
 {
   HdyDialerCycleButton *self = HDY_DIALER_CYCLE_BUTTON (object);
   HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private(self);
@@ -120,9 +120,9 @@ hdy_dialer_cycle_button_set_property (GObject *object,
 
 static void
 hdy_dialer_cycle_button_get_property (GObject *object,
-			 guint property_id,
-			 GValue *value,
-			 GParamSpec *pspec)
+                                      guint property_id,
+                                      GValue *value,
+                                      GParamSpec *pspec)
 {
   HdyDialerCycleButton *self = HDY_DIALER_CYCLE_BUTTON (object);
   HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private(self);
