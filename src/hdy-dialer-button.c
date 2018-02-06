@@ -20,9 +20,9 @@
 
 
 enum {
-    HDY_DIALER_BUTTON_PROP_0 = 0,
-    HDY_DIALER_BUTTON_PROP_DIGIT = 1,
-    HDY_DIALER_BUTTON_PROP_LETTERS = 2,
+  HDY_DIALER_BUTTON_PROP_0 = 0,
+  HDY_DIALER_BUTTON_PROP_DIGIT = 1,
+  HDY_DIALER_BUTTON_PROP_LETTERS = 2,
 };
 
 
@@ -85,9 +85,9 @@ hdy_dialer_button_set_property (GObject *object,
 
 static void
 hdy_dialer_button_get_property (GObject *object,
-			       guint property_id,
-			       GValue *value,
-			       GParamSpec *pspec)
+                                guint property_id,
+                                GValue *value,
+                                GParamSpec *pspec)
 {
   HdyDialerButton *self = HDY_DIALER_BUTTON (object);
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
