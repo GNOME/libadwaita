@@ -24,6 +24,7 @@ G_BEGIN_DECLS
 #include "hdy-dialer-button.h"
 #include "hdy-dialer-cycle-button.h"
 #include "hdy-dialer.h"
+#include "hdy-leaflet.h"
 #include "hdy-string-utf8.h"
 #undef HANDY_INSIDE
 

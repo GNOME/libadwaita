@@ -37,6 +37,7 @@ src_headers = [
   'hdy-dialer-button.h',
   'hdy-dialer-cycle-button.h',
   'hdy-dialer.h',
+  'hdy-leaflet.h',
   'hdy-string-utf8.h',
 ]
 
@@ -45,6 +46,7 @@ src_sources = [
   'hdy-dialer-button.c',
   'hdy-dialer-cycle-button.c',
   'hdy-dialer.c',
+  'hdy-leaflet.c',
   'hdy-string-utf8.c',
 ]
 
