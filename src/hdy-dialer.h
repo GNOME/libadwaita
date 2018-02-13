@@ -21,7 +21,7 @@ G_DECLARE_DERIVABLE_TYPE (HdyDialer, hdy_dialer, HDY, DIALER, GtkGrid)
 
 /**
  * HdyDialerClass
- * @parent_class: The parent classqn
+ * @parent_class: The parent class
  * @dialed: Class handler for the #HdyDialer::dialed signal
  */
 struct _HdyDialerClass
