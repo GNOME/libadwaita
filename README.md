@@ -7,6 +7,12 @@ using GTK+/GNOME.
 
 libhandy is licensed under the LGPL-2.1+.
 
+## Build dependencies
+
+To build libhandy you need the following build-deps:
+
+	sudo apt-get -y install gtk-doc-tools libgirepository1.0-dev libgnome-desktop-3-dev libgtk-3-dev meson pkg-config valac
+
 ## Building
 
 We use the meson (and thereby Ninja) build system for libhandy.  The quickest
