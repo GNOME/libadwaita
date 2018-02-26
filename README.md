@@ -5,7 +5,7 @@ using GTK+/GNOME.
 
 ## License
 
-libhandy is licensed under the LGPLv3+.
+libhandy is licensed under the LGPL-2.1+.
 
 ## Building
 
