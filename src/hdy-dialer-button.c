@@ -18,13 +18,13 @@
  * letters that are displayed below the number.
  */
 
-
 enum {
-  HDY_DIALER_BUTTON_PROP_0 = 0,
-  HDY_DIALER_BUTTON_PROP_DIGIT = 1,
-  HDY_DIALER_BUTTON_PROP_LETTERS = 2,
+  PROP_0 = 0,
+  PROP_DIGIT,
+  PROP_LETTERS,
+  PROP_LAST_PROP,
 };
-
+static GParamSpec *props[PROP_LAST_PROP] = { NULL, };
 
 typedef struct
 {
@@ -34,7 +34,6 @@ typedef struct
 } HdyDialerButtonPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (HdyDialerButton, hdy_dialer_button, GTK_TYPE_BUTTON)
-
 
 void
 format_label(HdyDialerButton *self)
@@ -54,23 +53,22 @@ format_label(HdyDialerButton *self)
   gtk_label_set_label (priv->secondary_label, priv->letters);
 }
 
-
 static void
-hdy_dialer_button_set_property (GObject *object,
-				guint property_id,
-				const GValue *value,
-				GParamSpec *pspec)
+hdy_dialer_button_set_property (GObject      *object,
+                                guint         property_id,
+                                const GValue *value,
+                                GParamSpec   *pspec)
 {
   HdyDialerButton *self = HDY_DIALER_BUTTON (object);
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
 
   switch (property_id) {
-  case HDY_DIALER_BUTTON_PROP_DIGIT:
+  case PROP_DIGIT:
     priv->digit = g_value_get_int (value);
     format_label(self);
     break;
 
-  case HDY_DIALER_BUTTON_PROP_LETTERS:
+  case PROP_LETTERS:
     g_free (priv->letters);
     priv->letters = g_value_dup_string (value);
     format_label(self);
@@ -82,22 +80,21 @@ hdy_dialer_button_set_property (GObject *object,
   }
 }
 
-
 static void
-hdy_dialer_button_get_property (GObject *object,
-                                guint property_id,
-                                GValue *value,
+hdy_dialer_button_get_property (GObject    *object,
+                                guint       property_id,
+                                GValue     *value,
                                 GParamSpec *pspec)
 {
   HdyDialerButton *self = HDY_DIALER_BUTTON (object);
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
 
   switch (property_id) {
-  case HDY_DIALER_BUTTON_PROP_DIGIT:
+  case PROP_DIGIT:
     g_value_set_int (value, priv->digit);
     break;
 
-  case HDY_DIALER_BUTTON_PROP_LETTERS:
+  case PROP_LETTERS:
     g_value_set_string (value, priv->letters);
     break;
 
@@ -181,29 +178,27 @@ hdy_dialer_button_class_init (HdyDialerButtonClass *klass)
   widget_class->get_preferred_width_for_height = hdy_dialer_button_get_preferred_width_for_height;
   widget_class->get_preferred_height_for_width = hdy_dialer_button_get_preferred_height_for_width;
 
-  g_object_class_install_property (object_class,
-				   HDY_DIALER_BUTTON_PROP_DIGIT,
-				   g_param_spec_int ("digit",
-						     "dialer digit",
-						     "dialer digit",
-						     -1,
-						     INT_MAX,
-						     0,
-						     G_PARAM_READWRITE));
-  g_object_class_install_property (object_class,
-				   HDY_DIALER_BUTTON_PROP_LETTERS,
-				   g_param_spec_string ("letters",
-							"dialer letters",
-							"dialer letters",
-							"",
-							G_PARAM_READWRITE));
+  props[PROP_DIGIT] =
+    g_param_spec_int ("digit",
+                      _("Digit"),
+                      _("The dialer digit of the button"),
+                      -1, INT_MAX, 0,
+                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_LETTERS] =
+    g_param_spec_string ("letters",
+                         _("Letters"),
+                         _("The dialer letters of the button"),
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
-					       "/sm/puri/handy/dialer/ui/hdy-dialer-button.ui");
+                                               "/sm/puri/handy/dialer/ui/hdy-dialer-button.ui");
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialerButton, label);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialerButton, secondary_label);
 }
-
 
 /**
  * hdy_dialer_button_new:
@@ -216,11 +211,11 @@ hdy_dialer_button_class_init (HdyDialerButtonClass *klass)
  *
  * Returns: the newly created #HdyDialerButton widget
  */
-GtkWidget *hdy_dialer_button_new (int digit, const gchar* letters)
+GtkWidget *hdy_dialer_button_new (int          digit,
+                                  const gchar *letters)
 {
   return g_object_new (HDY_TYPE_DIALER_BUTTON, "digit", digit, "letters", letters, NULL);
 }
-
 
 static void
 hdy_dialer_button_init (HdyDialerButton *self)
@@ -232,7 +227,6 @@ hdy_dialer_button_init (HdyDialerButton *self)
   priv->digit = -1;
   priv->letters = NULL;
 }
-
 
 /**
  * hdy_dialer_button_get_digit:
@@ -248,6 +242,7 @@ hdy_dialer_button_get_digit(HdyDialerButton *self)
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
 
   g_return_val_if_fail (HDY_IS_DIALER_BUTTON (self), -1);
+
   return priv->digit;
 }
 
@@ -265,5 +260,6 @@ hdy_dialer_button_get_letters(HdyDialerButton *self)
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
 
   g_return_val_if_fail (HDY_IS_DIALER_BUTTON (self), NULL);
+
   return priv->letters;
 }
