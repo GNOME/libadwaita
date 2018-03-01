@@ -124,7 +124,9 @@
             <child>
               <object class="HdyDialer" id="dialer">
                 <property name="visible">True</property>
-                <property name="expand">True</property>
+                <property name="expand">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
                 <signal name="dialed" after="yes" handler="dialed_cb"/>
                 <signal name="notify::number" after="yes" handler="notify_number_cb"/>
               </object>
