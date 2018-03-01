@@ -41,6 +41,7 @@ src_headers = [
 ]
 
 src_sources = [
+  'gtkprogresstracker.c',
   'hdy-dialer-button.c',
   'hdy-dialer-cycle-button.c',
   'hdy-dialer.c',
