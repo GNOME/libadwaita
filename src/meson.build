@@ -50,7 +50,7 @@ src_sources = [
 libhandy_public_headers += files(src_headers)
 libhandy_public_sources += files(src_sources)
 
-install_headers(src_headers, subdir: join_paths(libhandy_header_subdir, 'src'))
+install_headers(src_headers, subdir: libhandy_header_subdir)
 
 
 libhandy_sources = [
