@@ -39,26 +39,23 @@ enum {
 };
 static GParamSpec *props[PROP_LAST_PROP] = { NULL, };
 
-
 enum {
-  CYCLE_START = 0,
-  CYCLE_END,
-  LAST_SIGNAL,
+  SIGNAL_CYCLE_START = 0,
+  SIGNAL_CYCLE_END,
+  SIGNAL_LAST_SIGNAL,
 };
-static guint signals [LAST_SIGNAL];
-
+static guint signals [SIGNAL_LAST_SIGNAL];
 
 static void
-end_cycle(HdyDialerCycleButton *self)
+end_cycle (HdyDialerCycleButton *self)
 {
   HdyDialerCycleButtonPrivate *priv =
     hdy_dialer_cycle_button_get_instance_private(HDY_DIALER_CYCLE_BUTTON (self));
 
   priv->num = 0;
   priv->source_id = 0;
-  g_signal_emit (self, signals[CYCLE_END], 0);
+  g_signal_emit (self, signals[SIGNAL_CYCLE_END], 0);
 }
-
 
 static gboolean
 expire_cb (HdyDialerCycleButton *self)
@@ -69,12 +66,11 @@ expire_cb (HdyDialerCycleButton *self)
   return FALSE;
 }
 
-
 static gboolean
-button_clicked_cb(HdyDialerCycleButton *self, GdkEventButton *event)
+button_clicked_cb (HdyDialerCycleButton *self,
+                   GdkEventButton       *event)
 {
-  HdyDialerCycleButtonPrivate *priv =
-    hdy_dialer_cycle_button_get_instance_private(HDY_DIALER_CYCLE_BUTTON (self));
+  HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private(HDY_DIALER_CYCLE_BUTTON (self));
 
   g_return_val_if_fail (HDY_IS_DIALER_CYCLE_BUTTON (self), FALSE);
 
@@ -86,21 +82,20 @@ button_clicked_cb(HdyDialerCycleButton *self, GdkEventButton *event)
     g_source_remove (priv->source_id);
     priv->num++;
   } else {
-    g_signal_emit (self, signals[CYCLE_START], 0);
+    g_signal_emit (self, signals[SIGNAL_CYCLE_START], 0);
   }
 
   priv->source_id = g_timeout_add (priv->timeout,
-				   (GSourceFunc) expire_cb,
-				   self);
+                                   (GSourceFunc) expire_cb,
+                                   self);
   return FALSE;
 }
 
-
 static void
-hdy_dialer_cycle_button_set_property (GObject *object,
-                                      guint property_id,
+hdy_dialer_cycle_button_set_property (GObject      *object,
+                                      guint         property_id,
                                       const GValue *value,
-                                      GParamSpec *pspec)
+                                      GParamSpec   *pspec)
 {
   HdyDialerCycleButton *self = HDY_DIALER_CYCLE_BUTTON (object);
   HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private(self);
@@ -117,11 +112,10 @@ hdy_dialer_cycle_button_set_property (GObject *object,
   }
 }
 
-
 static void
-hdy_dialer_cycle_button_get_property (GObject *object,
-                                      guint property_id,
-                                      GValue *value,
+hdy_dialer_cycle_button_get_property (GObject    *object,
+                                      guint       property_id,
+                                      GValue     *value,
                                       GParamSpec *pspec)
 {
   HdyDialerCycleButton *self = HDY_DIALER_CYCLE_BUTTON (object);
@@ -137,7 +131,6 @@ hdy_dialer_cycle_button_get_property (GObject *object,
     break;
   }
 }
-
 
 static void
 hdy_dialer_cycle_button_dispose (GObject *object)
@@ -155,7 +148,6 @@ hdy_dialer_cycle_button_dispose (GObject *object)
     parent_class->dispose (object);
 }
 
-
 static void
 hdy_dialer_cycle_button_class_init (HdyDialerCycleButtonClass *klass)
 {
@@ -166,14 +158,13 @@ hdy_dialer_cycle_button_class_init (HdyDialerCycleButtonClass *klass)
   object_class->set_property = hdy_dialer_cycle_button_set_property;
   object_class->get_property = hdy_dialer_cycle_button_get_property;
 
-  props[PROP_CYCLE_TIMEOUT] = g_param_spec_int ("cycle-timeout",
-						"the cycle timeout",
-						"The timeout (in seconds) between button "
-						"presses after which a cycle ends",
-						0,
-						G_MAXINT,
-						1000,
-						G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
+  props[PROP_CYCLE_TIMEOUT] =
+    g_param_spec_int ("cycle-timeout",
+                      _("Cycle timeout"),
+                      _("The timeout (in seconds) between button presses after"
+                        "which a cycle ends"),
+                      0, G_MAXINT, 1000,
+                      G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
@@ -184,7 +175,7 @@ hdy_dialer_cycle_button_class_init (HdyDialerCycleButtonClass *klass)
    * This signal is emitted when the button starts cycling (that is on
    * the first button press).
    */
-  signals [CYCLE_START] =
+  signals[SIGNAL_CYCLE_START] =
     g_signal_new ("cycle-start",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
@@ -201,7 +192,7 @@ hdy_dialer_cycle_button_class_init (HdyDialerCycleButtonClass *klass)
    * because of timeout or because #hdy_dialer_cycle_stop_cycle got
    * called.
    */
-  signals [CYCLE_END] =
+  signals[SIGNAL_CYCLE_END] =
     g_signal_new ("cycle-end",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
@@ -210,7 +201,6 @@ hdy_dialer_cycle_button_class_init (HdyDialerCycleButtonClass *klass)
                   G_TYPE_NONE,
                   0);
 }
-
 
 /**
  * hdy_dialer_cycle_button_new:
@@ -228,14 +218,13 @@ GtkWidget *hdy_dialer_cycle_button_new (const gchar* symbols)
   return g_object_new (HDY_TYPE_DIALER_CYCLE_BUTTON, "letters", symbols, NULL);
 }
 
-
 static void
 hdy_dialer_cycle_button_init (HdyDialerCycleButton *self)
 {
-  end_cycle (self);
   g_signal_connect(self, "clicked", G_CALLBACK (button_clicked_cb), NULL);
-}
 
+  end_cycle (self);
+}
 
 /**
  * hdy_dialer_cycle_button_get_current_symbol:
@@ -256,7 +245,6 @@ hdy_dialer_cycle_button_get_current_symbol (HdyDialerCycleButton *self)
   return g_utf8_get_char(g_utf8_offset_to_pointer(symbols, off));
 }
 
-
 /**
  * hdy_dialer_cycle_button_is_cycling:
  * @self: a #HdyDialerCycleButton
@@ -273,7 +261,6 @@ hdy_dialer_cycle_button_is_cycling (HdyDialerCycleButton *self)
 
   return !!priv->source_id;
 }
-
 
 /**
  * hdy_dialer_cycle_button_stop_cycle
@@ -295,7 +282,6 @@ hdy_dialer_cycle_button_stop_cycle (HdyDialerCycleButton *self)
   end_cycle(self);
 }
 
-
 /**
  * hdy_dialer_cycle_button_get_cycle_timeout
  * @self: a #HdyDialerCycleButton
@@ -312,7 +298,6 @@ hdy_dialer_cycle_button_get_cycle_timeout (HdyDialerCycleButton *self)
   return priv->timeout;
 }
 
-
 /**
  * hdy_dialer_cycle_button_set_cycle_timeout
  * @self: a #HdyDialerCycleButton
@@ -320,7 +305,8 @@ hdy_dialer_cycle_button_get_cycle_timeout (HdyDialerCycleButton *self)
  * Set the cycle timeout in milliseconds.
  */
 void
-hdy_dialer_cycle_button_set_cycle_timeout (HdyDialerCycleButton *self, gint timeout)
+hdy_dialer_cycle_button_set_cycle_timeout (HdyDialerCycleButton *self,
+                                           gint                  timeout)
 {
   g_return_if_fail (HDY_IS_DIALER_CYCLE_BUTTON (self));
 
