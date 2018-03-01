@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="ExampleWindow" parent="GtkApplicationWindow">
+    <property name="default-width">600</property>
+    <property name="default-height">300</property>
+    <signal name="key-press-event" after="yes" handler="key_pressed_cb"/>
+    <child type="titlebar">
+      <object class="GtkBox" id="header_box">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkHeaderBar" id="header_bar">
+            <property name="visible">True</property>
+            <property name="show-close-button">False</property>
+            <property name="title">Handy Widget Factory</property>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkHeaderBar" id="sub_header_bar">
+            <property name="visible">True</property>
+            <property name="expand">True</property>
+            <property name="show-close-button">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="content_box">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkStackSidebar" id="sidebar">
+            <property name="visible">True</property>
+            <property name="stack">stack</property>
+            <property name="width-request">270</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStack" id="stack">
+            <property name="visible">True</property>
+            <property name="expand">True</property>
+            <child>
+              <object class="GtkBox" id="welcome">
+                <property name="visible">True</property>
+                <property name="orientation">vertical</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="margin">18</property>
+                <child>
+                  <object class="GtkImage" id="icon">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="pixel_size">128</property>
+                    <property name="icon_name">phone-symbolic</property>
+                    <property name="icon-size">0</property>
+                    <property name="margin-bottom">18</property>
+                    <style>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="box">
+                    <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkLabel" id="label">
+                        <property name="visible">True</property>
+                        <property name="opacity">0.5</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">Welcome to Handy</property>
+                        <property name="halign">center</property>
+                        <property name="xalign">0</property>
+                        <property name="margin-bottom">12</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                          <attribute name="scale" value="2"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="empty-state-label">
+                        <property name="visible">True</property>
+                        <property name="opacity">0.5</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">This is a tour of the widgets the library has to offer.</property>
+                        <property name="justify">left</property>
+                        <property name="use_markup">true</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="name">welcome</property>
+                <property name="title">Welcome</property>
+              </packing>
+            </child>
+            <child>
+              <object class="HdyDialer" id="dialer">
+                <property name="visible">True</property>
+                <property name="expand">True</property>
+                <signal name="dialed" after="yes" handler="dialed_cb"/>
+                <signal name="notify::number" after="yes" handler="notify_number_cb"/>
+              </object>
+              <packing>
+                <property name="name">dialer</property>
+                <property name="title">Dialer</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+  <object class="GtkSizeGroup" id="start_pane_size_group">
+    <property name="mode">horizontal</property>
+    <widgets>
+      <widget name="header_bar"/>
+      <widget name="sidebar"/>
+    </widgets>
+  </object>
+  <object class="GtkSizeGroup" id="end_pane_size_group">
+    <property name="mode">horizontal</property>
+    <widgets>
+      <widget name="sub_header_bar"/>
+      <widget name="stack"/>
+    </widgets>
+  </object>
+</interface>
