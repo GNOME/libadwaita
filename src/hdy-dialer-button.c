@@ -107,6 +107,65 @@ hdy_dialer_button_get_property (GObject *object,
   }
 }
 
+static void
+hdy_dialer_button_get_preferred_width (GtkWidget *widget,
+                                       gint      *minimum_width,
+                                       gint      *natural_width)
+{
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (hdy_dialer_button_parent_class);
+  gint min_width, nat_width, min_height, nat_height;
+
+  widget_class->get_preferred_width (widget, &min_width, &nat_width);
+  widget_class->get_preferred_height (widget, &min_height, &nat_height);
+
+  *minimum_width = MAX (min_width, min_height);
+  *natural_width = MAX (nat_width, nat_height);
+}
+
+static void
+hdy_dialer_button_get_preferred_height (GtkWidget *widget,
+                                        gint      *minimum_height,
+                                        gint      *natural_height)
+{
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (hdy_dialer_button_parent_class);
+  gint min_width, nat_width, min_height, nat_height;
+
+  widget_class->get_preferred_width (widget, &min_width, &nat_width);
+  widget_class->get_preferred_height (widget, &min_height, &nat_height);
+
+  *minimum_height = MAX (min_width, min_height);
+  *natural_height = MAX (nat_width, nat_height);
+}
+
+static void
+hdy_dialer_button_get_preferred_width_for_height (GtkWidget *widget,
+                                                  gint       height,
+                                                  gint      *minimum_width,
+                                                  gint      *natural_width)
+{
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (hdy_dialer_button_parent_class);
+  gint min_width, nat_width;
+
+  widget_class->get_preferred_width_for_height (widget, height, &min_width, &nat_width);
+
+  *minimum_width = MAX (min_width, height);
+  *natural_width = MAX (nat_width, height);
+}
+
+static void
+hdy_dialer_button_get_preferred_height_for_width (GtkWidget *widget,
+                                                  gint       width,
+                                                  gint      *minimum_height,
+                                                  gint      *natural_height)
+{
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (hdy_dialer_button_parent_class);
+  gint min_height, nat_height;
+
+  widget_class->get_preferred_width_for_height (widget, width, &min_height, &nat_height);
+
+  *minimum_height = MAX (min_height, width);
+  *natural_height = MAX (nat_height, width);
+}
 
 static void
 hdy_dialer_button_class_init (HdyDialerButtonClass *klass)
@@ -116,6 +175,11 @@ hdy_dialer_button_class_init (HdyDialerButtonClass *klass)
 
   object_class->set_property = hdy_dialer_button_set_property;
   object_class->get_property = hdy_dialer_button_get_property;
+
+  widget_class->get_preferred_width = hdy_dialer_button_get_preferred_width;
+  widget_class->get_preferred_height = hdy_dialer_button_get_preferred_height;
+  widget_class->get_preferred_width_for_height = hdy_dialer_button_get_preferred_width_for_height;
+  widget_class->get_preferred_height_for_width = hdy_dialer_button_get_preferred_height_for_width;
 
   g_object_class_install_property (object_class,
 				   HDY_DIALER_BUTTON_PROP_DIGIT,
