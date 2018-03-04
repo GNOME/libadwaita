@@ -31,14 +31,14 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (HdyDialer, hdy_dialer, GTK_TYPE_GRID)
 
 enum {
-  PROP_0 = 0,
+  PROP_0,
   PROP_NUMBER,
   PROP_LAST_PROP,
 };
-static GParamSpec *props[PROP_LAST_PROP] = { NULL, };
+static GParamSpec *props[PROP_LAST_PROP];
 
 enum {
-  SIGNAL_DIALED = 0,
+  SIGNAL_DIALED,
   SIGNAL_LAST_SIGNAL,
 };
 static guint signals [SIGNAL_LAST_SIGNAL];
