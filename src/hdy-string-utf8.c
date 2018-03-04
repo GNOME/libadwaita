@@ -16,7 +16,7 @@
  */
 
 /**
- * hdy_string_utf8_truncate
+ * hdy_string_utf8_truncate:
  * @string: a #GString
  * @len: the new size of the string
  *
@@ -32,15 +32,14 @@ hdy_string_utf8_truncate (GString *string, gsize len)
 
   g_return_val_if_fail (string != NULL, NULL);
 
-  cutoff = MIN (len, g_utf8_strlen(string->str, -1));
+  cutoff = MIN (len, g_utf8_strlen (string->str, -1));
   off = g_utf8_offset_to_pointer (string->str, cutoff);
   g_string_truncate (string, off - string->str);
   return string;
 }
 
-
 /**
- * hdy_string_utf8_len
+ * hdy_string_utf8_len:
  * @string: a #GString
  *
  * Computes the length of the string in utf-8 characters. See #g_utf8_strlen.
