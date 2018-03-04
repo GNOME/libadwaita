@@ -35,7 +35,7 @@ struct _HdyDialerClass
 };
 
 GtkWidget       *hdy_dialer_new                   (void);
-const char      *hdy_dialer_get_number            (HdyDialer *self);
+const char      *hdy_dialer_get_number            (HdyDialer  *self);
 void             hdy_dialer_set_number            (HdyDialer  *self,
                                                    const char *newnumber);
 

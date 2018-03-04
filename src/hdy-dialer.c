@@ -66,8 +66,8 @@ digit_button_clicked (HdyDialer       *self,
 
   stop_cycle_mode (self);
 
-  d = hdy_dialer_button_get_digit(btn);
-  g_string_append_printf(priv->number, "%d", d);
+  d = hdy_dialer_button_get_digit (btn);
+  g_string_append_printf (priv->number, "%d", d);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
 }
 
@@ -126,7 +126,7 @@ dial_button_clicked (HdyDialer *self,
 
   stop_cycle_mode (self);
 
-  number = gtk_label_get_label(priv->display);
+  number = gtk_label_get_label (priv->display);
   g_signal_emit (self, signals[SIGNAL_DIALED], 0, number);
 }
 
@@ -178,11 +178,11 @@ hdy_dialer_set_property (GObject      *object,
                          GParamSpec   *pspec)
 {
   HdyDialer *self = HDY_DIALER (object);
-  HdyDialerPrivate *priv = hdy_dialer_get_instance_private(self);
+  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
 
   switch (property_id) {
   case PROP_NUMBER:
-    g_string_overwrite(priv->number, 0, g_value_get_string(value));
+    g_string_overwrite (priv->number, 0, g_value_get_string (value));
     break;
 
   default:
@@ -198,7 +198,7 @@ hdy_dialer_get_property (GObject    *object,
                          GParamSpec *pspec)
 {
   HdyDialer *self = HDY_DIALER (object);
-  HdyDialerPrivate *priv = hdy_dialer_get_instance_private(self);
+  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
 
   switch (property_id) {
   case PROP_NUMBER:
@@ -369,15 +369,15 @@ hdy_dialer_init (HdyDialer *self)
   /* In GTK+4 we can just use the icon-name property */
   image = gtk_image_new_from_icon_name ("edit-clear-symbolic",
                                         GTK_ICON_SIZE_BUTTON);
-  gtk_button_set_image(priv->btn_del, image);
+  gtk_button_set_image (priv->btn_del, image);
 
   gtk_icon_theme_add_resource_path (gtk_icon_theme_get_default (),
                                     "/sm/puri/handy/icons");
   image = gtk_image_new_from_icon_name ("phone-dial-symbolic",
                                         GTK_ICON_SIZE_BUTTON * 1.3);
-  gtk_button_set_image(priv->btn_dial, image);
+  gtk_button_set_image (priv->btn_dial, image);
 
-  priv->number = g_string_new(NULL);
+  priv->number = g_string_new (NULL);
   priv->cycle_btn = NULL;
 }
 
@@ -390,7 +390,7 @@ hdy_dialer_init (HdyDialer *self)
  * Returns: (transfer none): the current number in the display
  */
 const char*
-hdy_dialer_get_number(HdyDialer *self)
+hdy_dialer_get_number (HdyDialer *self)
 {
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
   return priv->number->str;
@@ -405,10 +405,11 @@ hdy_dialer_get_number(HdyDialer *self)
  *
  */
 void
-hdy_dialer_set_number(HdyDialer *self, const char *newnumber)
+hdy_dialer_set_number (HdyDialer  *self,
+                       const char *newnumber)
 {
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
 
-  g_string_overwrite(priv->number, 0, newnumber);
+  g_string_overwrite (priv->number, 0, newnumber);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
 }
