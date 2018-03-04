@@ -11,8 +11,6 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
-#include "hdy-dialer-button.h"
-
 G_BEGIN_DECLS
 
 GString*     hdy_string_utf8_truncate   (GString         *string,
