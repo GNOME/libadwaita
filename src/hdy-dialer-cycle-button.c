@@ -75,10 +75,10 @@ button_clicked_cb (HdyDialerCycleButton *self,
   g_return_val_if_fail (HDY_IS_DIALER_CYCLE_BUTTON (self), FALSE);
 
   /* Only cycle if we have more than one symbol */
-  if (strlen(hdy_dialer_button_get_letters (HDY_DIALER_BUTTON (self))) < 2)
+  if (strlen (hdy_dialer_button_get_letters (HDY_DIALER_BUTTON (self))) < 2)
     return FALSE;
 
-  if (hdy_dialer_cycle_button_is_cycling(self)) {
+  if (hdy_dialer_cycle_button_is_cycling (self)) {
     g_source_remove (priv->source_id);
     priv->num++;
   } else {
@@ -98,7 +98,7 @@ hdy_dialer_cycle_button_set_property (GObject      *object,
                                       GParamSpec   *pspec)
 {
   HdyDialerCycleButton *self = HDY_DIALER_CYCLE_BUTTON (object);
-  HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private(self);
+  HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private (self);
 
   switch (property_id) {
 
@@ -119,7 +119,7 @@ hdy_dialer_cycle_button_get_property (GObject    *object,
                                       GParamSpec *pspec)
 {
   HdyDialerCycleButton *self = HDY_DIALER_CYCLE_BUTTON (object);
-  HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private(self);
+  HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private (self);
 
   switch (property_id) {
   case PROP_CYCLE_TIMEOUT:
@@ -221,7 +221,7 @@ GtkWidget *hdy_dialer_cycle_button_new (const gchar* symbols)
 static void
 hdy_dialer_cycle_button_init (HdyDialerCycleButton *self)
 {
-  g_signal_connect(self, "clicked", G_CALLBACK (button_clicked_cb), NULL);
+  g_signal_connect (self, "clicked", G_CALLBACK (button_clicked_cb), NULL);
 
   end_cycle (self);
 }
@@ -238,11 +238,11 @@ hdy_dialer_cycle_button_init (HdyDialerCycleButton *self)
 gunichar
 hdy_dialer_cycle_button_get_current_symbol (HdyDialerCycleButton *self)
 {
-  HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private(self);
+  HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private (self);
   const gchar *symbols = hdy_dialer_button_get_letters (HDY_DIALER_BUTTON (self));
-  gint off = priv->num % g_utf8_strlen(symbols, -1);
+  gint off = priv->num % g_utf8_strlen (symbols, -1);
 
-  return g_utf8_get_char(g_utf8_offset_to_pointer(symbols, off));
+  return g_utf8_get_char (g_utf8_offset_to_pointer (symbols, off));
 }
 
 /**
@@ -257,7 +257,7 @@ hdy_dialer_cycle_button_get_current_symbol (HdyDialerCycleButton *self)
 gboolean
 hdy_dialer_cycle_button_is_cycling (HdyDialerCycleButton *self)
 {
-  HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private(self);
+  HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private (self);
 
   return !!priv->source_id;
 }
