@@ -25,7 +25,8 @@
  * Returns: (transfer none): @string
  */
 GString *
-hdy_string_utf8_truncate (GString *string, gsize len)
+hdy_string_utf8_truncate (GString *string,
+                          gsize    len)
 {
   gint cutoff;
   gchar *off;

@@ -24,8 +24,8 @@ struct _HdyDialerButtonClass
   GtkButtonClass parent_class;
 };
 
-GtkWidget      *hdy_dialer_button_new                   (int          digit,
-                                                         const gchar *letters);
+GtkWidget      *hdy_dialer_button_new                   (int              digit,
+                                                         const gchar     *letters);
 gint            hdy_dialer_button_get_digit             (HdyDialerButton *self);
 char           *hdy_dialer_button_get_letters           (HdyDialerButton *self);
 
