@@ -276,8 +276,10 @@ hdy_dialer_cycle_button_stop_cycle (HdyDialerCycleButton *self)
 
   g_return_if_fail (HDY_IS_DIALER_CYCLE_BUTTON (self));
 
-  if (priv->source_id)
-    g_source_remove (priv->source_id);
+  if (priv->source_id) {
+      g_source_remove (priv->source_id);
+      priv->source_id = 0;
+    }
 
   end_cycle(self);
 }
