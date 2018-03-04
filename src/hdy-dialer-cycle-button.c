@@ -136,16 +136,14 @@ static void
 hdy_dialer_cycle_button_dispose (GObject *object)
 {
   HdyDialerCycleButton *self = HDY_DIALER_CYCLE_BUTTON (object);
-  HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private(self);
-  GObjectClass *parent_class = G_OBJECT_CLASS (hdy_dialer_cycle_button_parent_class);
+  HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private (self);
 
   if (priv->source_id) {
     g_source_remove (priv->source_id);
     priv->source_id = 0;
   }
 
-  if (parent_class)
-    parent_class->dispose (object);
+  G_OBJECT_CLASS (hdy_dialer_cycle_button_parent_class)->dispose (object);
 }
 
 static void
