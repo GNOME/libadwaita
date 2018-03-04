@@ -33,14 +33,14 @@ typedef struct
 G_DEFINE_TYPE_WITH_PRIVATE (HdyDialerCycleButton, hdy_dialer_cycle_button, HDY_TYPE_DIALER_BUTTON)
 
 enum {
-  PROP_0 = 0,
+  PROP_0,
   PROP_CYCLE_TIMEOUT,
   PROP_LAST_PROP,
 };
-static GParamSpec *props[PROP_LAST_PROP] = { NULL, };
+static GParamSpec *props[PROP_LAST_PROP];
 
 enum {
-  SIGNAL_CYCLE_START = 0,
+  SIGNAL_CYCLE_START,
   SIGNAL_CYCLE_END,
   SIGNAL_LAST_SIGNAL,
 };
