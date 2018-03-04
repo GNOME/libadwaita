@@ -162,13 +162,11 @@ update_label (HdyDialer *self,
 static void
 hdy_dialer_finalize (GObject *object)
 {
-  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (HDY_DIALER(object));
-  GObjectClass *parent_class = G_OBJECT_CLASS (hdy_dialer_parent_class);
+  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (HDY_DIALER (object));
 
   g_string_free (priv->number, TRUE);
 
-  if (parent_class->finalize != NULL)
-    parent_class->finalize (object);
+  G_OBJECT_CLASS (hdy_dialer_parent_class)->finalize (object);
 }
 
 static void
