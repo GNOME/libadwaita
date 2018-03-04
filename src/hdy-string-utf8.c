@@ -27,11 +27,12 @@
 GString *
 hdy_string_utf8_truncate (GString *string, gsize len)
 {
-  gint cutoff = MIN (len, g_utf8_strlen(string->str, -1));
+  gint cutoff;
   gchar *off;
 
   g_return_val_if_fail (string != NULL, NULL);
 
+  cutoff = MIN (len, g_utf8_strlen(string->str, -1));
   off = g_utf8_offset_to_pointer (string->str, cutoff);
   g_string_truncate (string, off - string->str);
   return string;
