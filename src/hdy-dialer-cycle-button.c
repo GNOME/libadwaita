@@ -263,7 +263,7 @@ hdy_dialer_cycle_button_is_cycling (HdyDialerCycleButton *self)
 }
 
 /**
- * hdy_dialer_cycle_button_stop_cycle
+ * hdy_dialer_cycle_button_stop_cycle:
  * @self: a #HdyDialerCycleButton
  *
  * Stop the cycling mode.
@@ -283,7 +283,7 @@ hdy_dialer_cycle_button_stop_cycle (HdyDialerCycleButton *self)
 }
 
 /**
- * hdy_dialer_cycle_button_get_cycle_timeout
+ * hdy_dialer_cycle_button_get_cycle_timeout:
  * @self: a #HdyDialerCycleButton
  *
  * Get the cycle timeout in milliseconds.
@@ -299,7 +299,7 @@ hdy_dialer_cycle_button_get_cycle_timeout (HdyDialerCycleButton *self)
 }
 
 /**
- * hdy_dialer_cycle_button_set_cycle_timeout
+ * hdy_dialer_cycle_button_set_cycle_timeout:
  * @self: a #HdyDialerCycleButton
  *
  * Set the cycle timeout in milliseconds.
