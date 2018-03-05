@@ -20,7 +20,7 @@ G_BEGIN_DECLS
 G_DECLARE_DERIVABLE_TYPE (HdyDialerCycleButton, hdy_dialer_cycle_button, HDY, DIALER_CYCLE_BUTTON, HdyDialerButton)
 
 /**
- * HdyDialerCycleButtonClass
+ * HdyDialerCycleButtonClass:
  * @parent_class: The parent classqn
  * @cycle_start: Class handler for the #HdyDialerCycleButton::cycle-start signal
  * @cycle_end: Class handler for the #HdyDialerCycleButton::cycle-end signal
@@ -34,7 +34,7 @@ struct _HdyDialerCycleButtonClass
   void (*cycle_end)     (HdyDialerCycleButton    *self);
 };
 
-GtkWidget     *hdy_dialer_cycle_button_new                   (const gchar *symbols);
+GtkWidget     *hdy_dialer_cycle_button_new                   (const gchar          *symbols);
 gunichar       hdy_dialer_cycle_button_get_current_symbol    (HdyDialerCycleButton *self);
 gboolean       hdy_dialer_cycle_button_is_cycling            (HdyDialerCycleButton *self);
 void           hdy_dialer_cycle_button_stop_cycle            (HdyDialerCycleButton *self);

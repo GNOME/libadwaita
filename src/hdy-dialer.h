@@ -20,7 +20,7 @@ G_BEGIN_DECLS
 G_DECLARE_DERIVABLE_TYPE (HdyDialer, hdy_dialer, HDY, DIALER, GtkGrid)
 
 /**
- * HdyDialerClass
+ * HdyDialerClass:
  * @parent_class: The parent class
  * @dialed: Class handler for the #HdyDialer::dialed signal
  */
@@ -35,7 +35,7 @@ struct _HdyDialerClass
 };
 
 GtkWidget       *hdy_dialer_new                   (void);
-const char      *hdy_dialer_get_number            (HdyDialer *self);
+const char      *hdy_dialer_get_number            (HdyDialer  *self);
 void             hdy_dialer_set_number            (HdyDialer  *self,
                                                    const char *newnumber);
 

@@ -19,12 +19,12 @@
  */
 
 enum {
-  PROP_0 = 0,
+  PROP_0,
   PROP_DIGIT,
   PROP_LETTERS,
   PROP_LAST_PROP,
 };
-static GParamSpec *props[PROP_LAST_PROP] = { NULL, };
+static GParamSpec *props[PROP_LAST_PROP];
 
 typedef struct
 {
