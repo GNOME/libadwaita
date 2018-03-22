@@ -5,8 +5,11 @@
     <property name="default-height">300</property>
     <signal name="key-press-event" after="yes" handler="key_pressed_cb"/>
     <child type="titlebar">
-      <object class="GtkBox" id="header_box">
+      <object class="HdyLeaflet" id="header_box">
         <property name="visible">True</property>
+        <property name="mode-transition-type">slide</property>
+        <property name="child-transition-type">slide</property>
+        <property name="visible-child-name" bind-source="content_box" bind-property="visible-child-name" bind-flags="sync-create"/>
         <child>
           <object class="GtkHeaderBar" id="header_bar">
             <property name="visible">True</property>
@@ -22,30 +25,64 @@
               </packing>
             </child>
           </object>
+          <packing>
+            <property name="name">sidebar</property>
+          </packing>
         </child>
         <child>
           <object class="GtkHeaderBar" id="sub_header_bar">
             <property name="visible">True</property>
             <property name="expand">True</property>
-            <property name="show-close-button">True</property>
+            <child>
+              <object class="GtkButton" id="back">
+                <property name="valign">center</property>
+                <property name="use-underline">True</property>
+                <signal name="clicked" handler="back_clicked_cb"/>
+                <style>
+                  <class name="image-button"/>
+                </style>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="a11y-back">
+                    <property name="accessible-name" translatable="yes">Back</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImage" id="back_image">
+                    <property name="visible">True</property>
+                    <property name="icon-name">go-previous-symbolic</property>
+                    <property name="icon-size">1</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
+          <packing>
+            <property name="name">content</property>
+          </packing>
         </child>
       </object>
     </child>
     <child>
-      <object class="GtkBox" id="content_box">
+      <object class="HdyLeaflet" id="content_box">
         <property name="visible">True</property>
+        <property name="mode-transition-type">slide</property>
+        <property name="child-transition-type">slide</property>
+        <signal name="notify::folded" after="yes" handler="notify_folded_cb"/>
         <child>
           <object class="GtkStackSidebar" id="sidebar">
             <property name="visible">True</property>
             <property name="stack">stack</property>
             <property name="width-request">270</property>
           </object>
+          <packing>
+            <property name="name">sidebar</property>
+          </packing>
         </child>
         <child>
           <object class="GtkStack" id="stack">
             <property name="visible">True</property>
             <property name="expand">True</property>
+            <signal name="notify::visible-child" after="yes" handler="notify_visible_child_cb"/>
             <child>
               <object class="GtkBox" id="welcome">
                 <property name="visible">True</property>
@@ -137,6 +174,9 @@
               </packing>
             </child>
           </object>
+          <packing>
+            <property name="name">content</property>
+          </packing>
         </child>
       </object>
     </child>
