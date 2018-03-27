@@ -36,8 +36,7 @@ gint
 main (gint argc,
       gchar *argv[])
 {
-  g_test_init (&argc, &argv, NULL);
-  gtk_init(&argc, &argv);
+  gtk_test_init (&argc, &argv, NULL);
 
   g_test_add_func("/Handy/Dialer/setnumber", test_hdy_dialer_setnumber);
   return g_test_run();
