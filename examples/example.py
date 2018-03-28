@@ -20,8 +20,8 @@ def quit(dialer, number=None):
 window = Gtk.Window(title="Dialer Example with Python")
 dialer = Handy.Dialer()
 
-dialer.connect("dialed", print_number)
-dialer.connect("dialed", quit)
+dialer.connect("submitted", print_number)
+dialer.connect("submitted", quit)
 window.connect("destroy", quit)
 
 window.add(dialer)

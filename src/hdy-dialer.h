@@ -22,7 +22,7 @@ G_DECLARE_DERIVABLE_TYPE (HdyDialer, hdy_dialer, HDY, DIALER, GtkGrid)
 /**
  * HdyDialerClass:
  * @parent_class: The parent class
- * @dialed: Class handler for the #HdyDialer::dialed signal
+ * @submitted: Class handler for the #HdyDialer::submitted signal
  */
 struct _HdyDialerClass
 {
@@ -30,8 +30,8 @@ struct _HdyDialerClass
 
   /* Signals
    */
-  void (*dialed)   (HdyDialer    *self,
-                    const gchar  *number);
+  void (*submitted)   (HdyDialer    *self,
+                       const gchar  *number);
 };
 
 GtkWidget       *hdy_dialer_new                   (void);

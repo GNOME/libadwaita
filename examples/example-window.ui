@@ -165,7 +165,7 @@
                 <property name="halign">center</property>
                 <property name="valign">center</property>
                 <property name="margin">12</property>
-                <signal name="dialed" after="yes" handler="dialed_cb"/>
+                <signal name="submitted" after="yes" handler="submitted_cb"/>
                 <signal name="notify::number" after="yes" handler="notify_number_cb"/>
               </object>
               <packing>

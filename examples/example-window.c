@@ -65,7 +65,7 @@ example_window_back_clicked_cb (GtkWidget     *sender,
 }
 
 static void
-example_window_dialed_cb (GtkWidget *widget,
+example_window_submitted_cb (GtkWidget *widget,
                           gchar     *number)
 {
   g_print ("Dial %s\n", number);
@@ -100,8 +100,7 @@ example_window_class_init (ExampleWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_folded_cb", G_CALLBACK(example_window_notify_folded_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(example_window_notify_visible_child_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "back_clicked_cb", G_CALLBACK(example_window_back_clicked_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "dialed_cb", G_CALLBACK(example_window_dialed_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_number_cb", G_CALLBACK(example_window_notify_number_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "submitted_cb", G_CALLBACK(example_window_submitted_cb));
 }
 
 static void
