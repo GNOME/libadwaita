@@ -8,8 +8,6 @@ show_window (GtkApplication *app)
 {
   ExampleWindow *window;
 
-  HDY_TYPE_DIALER;
-
   window = example_window_new (app);
 
   gtk_window_set_title (GTK_WINDOW (window), "Handy Widget Factory");
