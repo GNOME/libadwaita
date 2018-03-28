@@ -24,7 +24,6 @@ typedef struct
 {
   HdyDialerButton *btn_0, *btn_1, *btn_2, *btn_3, *btn_4, *btn_5, *btn_6, *btn_7, *btn_8, *btn_9;
   HdyDialerCycleButton *btn_hash, *btn_star, *cycle_btn;
-  GtkLabel *display;
   GtkButton *btn_submit, *btn_del;
   GString *number;
 } HdyDialerPrivate;
@@ -120,15 +119,13 @@ submit_button_clicked (HdyDialer *self,
                      GtkButton *btn)
 {
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
-  const char *number;
 
   g_return_if_fail (HDY_IS_DIALER (self));
   g_return_if_fail (GTK_IS_BUTTON (btn));
 
   stop_cycle_mode (self);
 
-  number = gtk_label_get_label (priv->display);
-  g_signal_emit (self, signals[SIGNAL_SUBMITTED], 0, number);
+  g_signal_emit (self, signals[SIGNAL_SUBMITTED], 0, priv->number->str);
 }
 
 static void
@@ -149,16 +146,6 @@ del_button_clicked (HdyDialer *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
 }
 
-static void
-update_label (HdyDialer *self,
-              gpointer   data)
-{
-  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
-
-  g_return_if_fail (HDY_IS_DIALER (self));
-
-  gtk_label_set_label (priv->display, priv->number->str);
-}
 
 static void
 hdy_dialer_finalize (GObject *object)
@@ -263,7 +250,6 @@ hdy_dialer_class_init (HdyDialerClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_9);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_hash);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_star);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, display);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_submit);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_del);
 }
@@ -361,10 +347,6 @@ hdy_dialer_init (HdyDialer *self)
                            G_CALLBACK (del_button_clicked),
                            self,
                            G_CONNECT_SWAPPED);
-  g_signal_connect_object (self,
-                           "notify::number",
-                           G_CALLBACK (update_label),
-                           NULL, 0);
 
   /* In GTK+4 we can just use the icon-name property */
   image = gtk_image_new_from_icon_name ("edit-clear-symbolic",
