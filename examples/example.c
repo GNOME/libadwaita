@@ -1,4 +1,5 @@
 #include <gtk/gtk.h>
+#define HANDY_USE_UNSTABLE_API
 #include <handy.h>
 
 #include "example-window.h"

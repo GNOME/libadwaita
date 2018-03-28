@@ -103,7 +103,7 @@ if get_option('introspection')
                  install: true,
          install_dir_gir: girdir,
      install_dir_typelib: typelibdir,
-              extra_args: [ '--c-include=handy.h', '--quiet' ],
+              extra_args: [ '--quiet' ],
    )
 
    if get_option('vapi')
