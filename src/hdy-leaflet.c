@@ -1273,6 +1273,14 @@ hdy_leaflet_set_child_transition_duration (HdyLeaflet *self,
                             props[PROP_CHILD_TRANSITION_DURATION]);
 }
 
+/**
+ * hdy_leaflet_get_visible_child:
+ * @self: a #HdyLeaflet
+ *
+ * Get the visible child widget.
+ *
+ * Returns: (transfer none): the visible child widget
+ */
 GtkWidget *
 hdy_leaflet_get_visible_child (HdyLeaflet *self)
 {
