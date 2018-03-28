@@ -67,7 +67,7 @@
         <property name="visible">True</property>
         <property name="mode-transition-type">slide</property>
         <property name="child-transition-type">slide</property>
-        <signal name="notify::folded" after="yes" handler="notify_folded_cb"/>
+        <signal name="notify::fold" after="yes" handler="notify_fold_cb"/>
         <child>
           <object class="GtkStackSidebar" id="sidebar">
             <property name="visible">True</property>
