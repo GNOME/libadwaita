@@ -169,6 +169,7 @@ hdy_dialer_set_property (GObject      *object,
   switch (property_id) {
   case PROP_NUMBER:
     g_string_assign (priv->number, g_value_get_string (value));
+    g_object_notify_by_pspec (object, pspec);
     break;
 
   default:
