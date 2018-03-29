@@ -20,12 +20,18 @@ G_BEGIN_DECLS
 #endif
 
 #define HANDY_INSIDE
+
+#ifndef HANDY_USE_UNSTABLE_API
+#error    libhandy is unstable API. You must define HANDY_USE_UNSTABLE_API before including handy.h
+#endif
+
 #include "hdy-version.h"
 #include "hdy-dialer-button.h"
 #include "hdy-dialer-cycle-button.h"
 #include "hdy-dialer.h"
 #include "hdy-leaflet.h"
 #include "hdy-string-utf8.h"
+
 #undef HANDY_INSIDE
 
 G_END_DECLS
