@@ -12,6 +12,7 @@
 #endif
 
 #include <gtk/gtk.h>
+#include "hdy-fold.h"
 
 G_BEGIN_DECLS
 
@@ -53,7 +54,7 @@ GType hdy_leaflet_mode_transition_type_get_type (void);
 GType hdy_leaflet_child_transition_type_get_type (void);
 
 GtkWidget       *hdy_leaflet_new (void);
-gboolean         hdy_leaflet_get_folded (HdyLeaflet *self);
+HdyFold          hdy_leaflet_get_fold (HdyLeaflet *self);
 GtkWidget       *hdy_leaflet_get_visible_child (HdyLeaflet *self);
 void             hdy_leaflet_set_visible_child (HdyLeaflet *self,
                                                 GtkWidget  *visible_child);

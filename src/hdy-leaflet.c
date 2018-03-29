@@ -55,7 +55,7 @@
 
 enum {
   PROP_0,
-  PROP_FOLDED,
+  PROP_FOLD,
   PROP_HOMOGENEOUS_FOLDED,
   PROP_HHOMOGENEOUS_FOLDED,
   PROP_VHOMOGENEOUS_FOLDED,
@@ -105,7 +105,7 @@ typedef struct
   GdkWindow* bin_window;
   GdkWindow* view_window;
 
-  gboolean folded;
+  HdyFold fold;
 
   gboolean hhomogeneous_folded;
   gboolean vhomogeneous_folded;
@@ -515,7 +515,7 @@ set_visible_child_info (HdyLeaflet                    *self,
     transition_direction = get_pan_direction (self, new_first);
   }
 
-  if (priv->folded) {
+  if (priv->fold == HDY_FOLD_FOLDED) {
     if (priv->hhomogeneous_folded && priv->vhomogeneous_folded)
       gtk_widget_queue_allocate (widget);
     else
@@ -685,15 +685,15 @@ hdy_leaflet_start_mode_transition (HdyLeaflet *self,
 /* } */
 
 /**
- * hdy_leaflet_get_folded:
+ * hdy_leaflet_get_fold:
  * @self: a #HdyLeaflet
  *
- * Gets whether @self is folded.
+ * Gets the fold of @self.
  *
- * Returns: whether @self is folded.
+ * Returns: the fold of @self.
  */
-gboolean
-hdy_leaflet_get_folded (HdyLeaflet *self)
+HdyFold
+hdy_leaflet_get_fold (HdyLeaflet *self)
 {
   HdyLeafletPrivate *priv;
 
@@ -701,12 +701,12 @@ hdy_leaflet_get_folded (HdyLeaflet *self)
 
   priv = hdy_leaflet_get_instance_private (self);
 
-  return priv->folded;
+  return priv->fold;
 }
 
 static void
-hdy_leaflet_set_folded (HdyLeaflet *self,
-                        gboolean    folded)
+hdy_leaflet_set_fold (HdyLeaflet *self,
+                      HdyFold     fold)
 {
   HdyLeafletPrivate *priv;
 
@@ -714,18 +714,18 @@ hdy_leaflet_set_folded (HdyLeaflet *self,
 
   priv = hdy_leaflet_get_instance_private (self);
 
-  if (priv->folded == folded)
+  if (priv->fold == fold)
     return;
 
-  priv->folded = folded;
+  priv->fold = fold;
 
-  if (folded)
+  if (fold)
     hdy_leaflet_start_mode_transition (self, 0.0);
   else
     hdy_leaflet_start_mode_transition (self, 1.0);
 
   g_object_notify_by_pspec (G_OBJECT (self),
-                            props[PROP_FOLDED]);
+                            props[PROP_FOLD]);
 }
 
 /**
@@ -2156,7 +2156,7 @@ hdy_leaflet_size_allocate (GtkWidget     *widget,
     folded = allocation->height < nat_box_size;
   }
 
-  hdy_leaflet_set_folded (self, folded);
+  hdy_leaflet_set_fold (self, folded ? HDY_FOLD_FOLDED : HDY_FOLD_UNFOLDED);
 
   /* Allocate size to the children. */
   if (folded)
@@ -2363,7 +2363,7 @@ hdy_leaflet_draw (GtkWidget *widget,
   cairo_surface_t *subsurface;
   cairo_t *pattern_cr;
 
-  if (!priv->folded)
+  if (priv->fold == HDY_FOLD_UNFOLDED)
     return GTK_WIDGET_CLASS (hdy_leaflet_parent_class)->draw (widget, cr);
 
   if (gtk_cairo_should_draw_window (cr, priv->view_window)) {
@@ -2379,7 +2379,7 @@ hdy_leaflet_draw (GtkWidget *widget,
 
   if (priv->visible_child) {
     if (gtk_progress_tracker_get_state (&priv->mode_transition.tracker) != GTK_PROGRESS_STATE_AFTER &&
-        priv->folded) {
+        priv->fold == HDY_FOLD_FOLDED) {
       if (priv->mode_transition.start_surface == NULL &&
           priv->mode_transition.start_surface_allocation.width != 0 &&
           priv->mode_transition.start_surface_allocation.height != 0) {
@@ -2580,10 +2580,10 @@ hdy_leaflet_add (GtkContainer *container,
       gtk_widget_get_visible (widget))
     set_visible_child_info (self, child_info, priv->child_transition.type, priv->child_transition.duration);
 
-  if (!priv->folded ||
-      (priv->folded && (priv->hhomogeneous_folded ||
-                        priv->vhomogeneous_folded ||
-                        priv->visible_child == child_info)))
+  if (priv->fold == HDY_FOLD_UNFOLDED ||
+      (priv->fold == HDY_FOLD_FOLDED && (priv->hhomogeneous_folded ||
+                                         priv->vhomogeneous_folded ||
+                                         priv->visible_child == child_info)))
     gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
@@ -2641,8 +2641,8 @@ hdy_leaflet_get_property (GObject    *object,
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
 
   switch (prop_id) {
-  case PROP_FOLDED:
-    g_value_set_enum (value, hdy_leaflet_get_folded (self));
+  case PROP_FOLD:
+    g_value_set_enum (value, hdy_leaflet_get_fold (self));
     break;
   case PROP_HOMOGENEOUS_FOLDED:
     g_value_set_boolean (value, hdy_leaflet_get_homogeneous_folded (self));
@@ -2988,12 +2988,12 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                                     PROP_ORIENTATION,
                                     "orientation");
 
-  props[PROP_FOLDED] =
-    g_param_spec_boolean ("folded",
-                          _("Folded"),
-                          _("Whether the widget is folded"),
-                          FALSE,
-                          G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
+  props[PROP_FOLD] =
+    g_param_spec_enum ("fold",
+                       _("Fold"),
+                       _("The fold of the leaflet"),
+                       HDY_TYPE_FOLD, HDY_FOLD_UNFOLDED,
+                       G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_HOMOGENEOUS_FOLDED] =
     g_param_spec_boolean ("homogeneous-folded",
@@ -3139,7 +3139,7 @@ hdy_leaflet_init (HdyLeaflet *self)
 
   priv->children = NULL;
   priv->visible_child = NULL;
-  priv->folded = FALSE;
+  priv->fold = HDY_FOLD_UNFOLDED;
   priv->hhomogeneous_unfolded = FALSE;
   priv->vhomogeneous_unfolded = FALSE;
   priv->hhomogeneous_folded = TRUE;
