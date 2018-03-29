@@ -30,6 +30,15 @@ test_hdy_dialer_setnumber(void)
   hdy_dialer_set_number(HDY_DIALER (dialer), "#1234");
   g_assert_cmpstr("#1234", ==, hdy_dialer_get_number(HDY_DIALER (dialer)));
   g_assert_cmpint(1, ==, notified);
+
+  /* Check that we're assigning to the string and not overwriting */
+  hdy_dialer_set_number(HDY_DIALER (dialer), "#123");
+  g_assert_cmpstr("#1234", !=, hdy_dialer_get_number(HDY_DIALER (dialer)));
+
+  /* Do the same using the GObject property */
+  g_object_set(G_OBJECT (dialer), "number", "#12", NULL);
+  g_assert_cmpstr("#123", !=, hdy_dialer_get_number(HDY_DIALER (dialer)));
+  g_assert_cmpstr("#12", ==, hdy_dialer_get_number(HDY_DIALER (dialer)));
 }
 
 

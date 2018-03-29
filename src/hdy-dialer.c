@@ -168,7 +168,7 @@ hdy_dialer_set_property (GObject      *object,
 
   switch (property_id) {
   case PROP_NUMBER:
-    g_string_overwrite (priv->number, 0, g_value_get_string (value));
+    g_string_assign (priv->number, g_value_get_string (value));
     break;
 
   default:
@@ -392,6 +392,6 @@ hdy_dialer_set_number (HdyDialer  *self,
 {
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
 
-  g_string_overwrite (priv->number, 0, newnumber);
+  g_string_assign (priv->number, newnumber);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
 }
