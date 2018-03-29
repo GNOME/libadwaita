@@ -13,18 +13,18 @@
 
 /**
  * SECTION:hdy-dialer
- * @short_description: A dialer keypad for phone numbers
+ * @short_description: A keypad for dialing numbers
  * @Title: HdyDialer
  *
- * The #HdyDialer widget is a keypad for dialing mobile phone numbers.
+ * The #HdyDialer widget is a keypad for entering numbers such as phone numbers
+ * or PIN codes.
  */
 
 typedef struct
 {
   HdyDialerButton *btn_0, *btn_1, *btn_2, *btn_3, *btn_4, *btn_5, *btn_6, *btn_7, *btn_8, *btn_9;
   HdyDialerCycleButton *btn_hash, *btn_star, *cycle_btn;
-  GtkLabel *display;
-  GtkButton *btn_dial, *btn_del;
+  GtkButton *btn_submit, *btn_del;
   GString *number;
 } HdyDialerPrivate;
 
@@ -38,7 +38,7 @@ enum {
 static GParamSpec *props[PROP_LAST_PROP];
 
 enum {
-  SIGNAL_DIALED,
+  SIGNAL_SUBMITTED,
   SIGNAL_LAST_SIGNAL,
 };
 static guint signals [SIGNAL_LAST_SIGNAL];
@@ -115,19 +115,17 @@ cycle_end (HdyDialer            *self,
 }
 
 static void
-dial_button_clicked (HdyDialer *self,
+submit_button_clicked (HdyDialer *self,
                      GtkButton *btn)
 {
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
-  const char *number;
 
   g_return_if_fail (HDY_IS_DIALER (self));
   g_return_if_fail (GTK_IS_BUTTON (btn));
 
   stop_cycle_mode (self);
 
-  number = gtk_label_get_label (priv->display);
-  g_signal_emit (self, signals[SIGNAL_DIALED], 0, number);
+  g_signal_emit (self, signals[SIGNAL_SUBMITTED], 0, priv->number->str);
 }
 
 static void
@@ -148,16 +146,6 @@ del_button_clicked (HdyDialer *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
 }
 
-static void
-update_label (HdyDialer *self,
-              gpointer   data)
-{
-  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
-
-  g_return_if_fail (HDY_IS_DIALER (self));
-
-  gtk_label_set_label (priv->display, priv->number->str);
-}
 
 static void
 hdy_dialer_finalize (GObject *object)
@@ -230,18 +218,19 @@ hdy_dialer_class_init (HdyDialerClass *klass)
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
   /**
-   * HdyDialer::dialed:
+   * HdyDialer::submitted:
    * @self: The #HdyDialer instance.
    * @number: The number at the time of activation.
    *
-   * This signal is emitted when the dialer's dial button is activated.
-   * Connect to this signal to perform the dialing.
+   * This signal is emitted when the dialer's 'dial' button is activated.
+   * Connect to this signal to perform to get notified when the user
+   * wants to submit the dialed number.
    */
-  signals[SIGNAL_DIALED] =
-    g_signal_new ("dialed",
+  signals[SIGNAL_SUBMITTED] =
+    g_signal_new ("submitted",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (HdyDialerClass, dialed),
+                  G_STRUCT_OFFSET (HdyDialerClass, submitted),
                   NULL, NULL, NULL,
                   G_TYPE_NONE,
                   1,
@@ -261,8 +250,7 @@ hdy_dialer_class_init (HdyDialerClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_9);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_hash);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_star);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, display);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_dial);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_submit);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_del);
 }
 
@@ -349,9 +337,9 @@ hdy_dialer_init (HdyDialer *self)
                     "swapped-signal::cycle-end", G_CALLBACK (cycle_end), self,
                     NULL);
 
-  g_signal_connect_object (priv->btn_dial,
+  g_signal_connect_object (priv->btn_submit,
                            "clicked",
-                           G_CALLBACK (dial_button_clicked),
+                           G_CALLBACK (submit_button_clicked),
                            self,
                            G_CONNECT_SWAPPED);
   g_signal_connect_object (priv->btn_del,
@@ -359,10 +347,6 @@ hdy_dialer_init (HdyDialer *self)
                            G_CALLBACK (del_button_clicked),
                            self,
                            G_CONNECT_SWAPPED);
-  g_signal_connect_object (self,
-                           "notify::number",
-                           G_CALLBACK (update_label),
-                           NULL, 0);
 
   /* In GTK+4 we can just use the icon-name property */
   image = gtk_image_new_from_icon_name ("edit-clear-symbolic",
@@ -373,7 +357,7 @@ hdy_dialer_init (HdyDialer *self)
                                     "/sm/puri/handy/icons");
   image = gtk_image_new_from_icon_name ("phone-dial-symbolic",
                                         GTK_ICON_SIZE_BUTTON * 1.3);
-  gtk_button_set_image (priv->btn_dial, image);
+  gtk_button_set_image (priv->btn_submit, image);
 
   priv->number = g_string_new (NULL);
   priv->cycle_btn = NULL;

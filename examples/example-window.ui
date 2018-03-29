@@ -159,14 +159,31 @@
               </packing>
             </child>
             <child>
-              <object class="HdyDialer" id="dialer">
+              <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="expand">False</property>
+                <property name="orientation">vertical</property>
+                <property name="can_focus">False</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
-                <property name="margin">12</property>
-                <signal name="dialed" after="yes" handler="dialed_cb"/>
-                <signal name="notify::number" after="yes" handler="notify_number_cb"/>
+                <property name="margin">18</property>
+                <child>
+                  <object class="GtkLabel" id="display">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label"></property>
+                    <property name="single_line_mode">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="HdyDialer" id="dialer">
+                    <property name="visible">True</property>
+                    <property name="expand">False</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="margin">12</property>
+                    <signal name="submitted" after="yes" handler="submitted_cb"/>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="name">dialer</property>
