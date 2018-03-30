@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glade-catalog name="libhandy" library="handy-0.0" depends="gtk+">
+  <glade-widget-classes>
+    <glade-widget-class name="HdyDialer" generic-name="dialer" title="Dialer"/>
+    <glade-widget-class name="HdyLeaflet" generic-name="leaflet" title="Leaflet"/>
+  </glade-widget-classes>
+
+  <glade-widget-group name="handy" title="Libhandy Widgets">
+    <glade-widget-class-ref name="HdyDialer"/>
+    <glade-widget-class-ref name="HdyLeaflet"/>
+  </glade-widget-group>
+</glade-catalog>
