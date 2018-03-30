@@ -31,3 +31,9 @@ and one in Python. When running from the built source tree it
 needs several environment varibles so use \_build/run to set them:
 
      _build/run examples/example.py
+
+### Glade
+To be able to use Handy's widgets in the glade interface designer without
+installing the library use:
+
+     _build/run glade
