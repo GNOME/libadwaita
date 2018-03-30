@@ -101,9 +101,11 @@ subdir('src')
 subdir('examples')
 subdir('tests')
 subdir('doc')
+subdir('data')
 
 run_data = configuration_data()
 run_data.set('ABS_BUILDDIR', meson.current_build_dir())
+run_data.set('ABS_SRCDIR', meson.current_source_dir())
 configure_file(
   input: 'run.in',
   output: 'run',
@@ -119,6 +121,7 @@ summary = [
   '     Documentation: @0@'.format(get_option('gtk_doc')),
   '     Introspection: @0@'.format(get_option('introspection')),
   '              Vapi: @0@'.format(get_option('vapi')),
+  '     Glade Catalog: @0@'.format(get_option('glade_catalog')),
  '------',
   ''
 ]

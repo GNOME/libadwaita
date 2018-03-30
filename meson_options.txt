@@ -20,3 +20,6 @@ option('tests',
 option('examples',
        type: 'boolean', value: true,
        description: 'Whether to compile unit tests')
+
+option('glade_catalog', type: 'boolean', value: true,
+       description: 'Install a glade catalog file')
