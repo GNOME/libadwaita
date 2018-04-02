@@ -1,0 +1,6 @@
+usr/lib/*/libhandy-0.0.so
+usr/include/*
+usr/lib/*/pkgconfig/*
+usr/share/gir-1.0/*
+usr/share/vala/vapi/
+usr/share/gtk-doc/

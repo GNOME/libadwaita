@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@ -- -B_build
+
+override_dh_auto_configure:
+	dh_auto_configure -- -Dgtk_doc=true
+
+override_dh_auto_build:
+	dh_auto_build
+	LC_ALL=C.UTF-8 ninja -C _build meson-libhandy-doc
+
+override_dh_auto_test:
+	xvfb-run ninja -C _build test

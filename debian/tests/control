@@ -1,0 +1,4 @@
+Tests: build-test
+Depends: libhandy-0.0-dev, build-essential, pkg-config
+Restrictions: allow-stderr
+
