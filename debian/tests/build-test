@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+
+CFLAGS=$(shell pkg-config --cflags libhandy-0.0)
+LIBS=$(shell pkg-config --libs libhandy-0.0)
+
+a.out: debian/tests/build-test.c
+	gcc $(CFLAGS) $< $(LIBS)
+	@echo "Build test of $< succeeded"
+	@rm -f a.out
