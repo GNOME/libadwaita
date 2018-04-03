@@ -34,6 +34,11 @@
     </programlisting></informalexample>
 
     <para>
+      Or if using meson/ninja use a <literal>dependency('&package_string;-&package_api_version;')
+    </literal> dependency.
+    </para>
+
+    <para>
       The "<literal>&package_api_version;</literal>" in the package name is the "API version"
       (indicating "the version of the <application>&package_string;</application> API
       that first appeared in version &package_api_version;") and is essentially just part of
