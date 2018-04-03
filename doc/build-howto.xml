@@ -28,10 +28,15 @@
     like: </para>
 
     <informalexample><programlisting>
-      PKG_CHECK_MODULES(LIBPLANFAHR, [&package_string;-&package_api_version;])
-      AC_SUBST(LIBPLANFAHR_CFLAGS)
-      AC_SUBST(LIBPLANFAHR_LIBS)
+      PKG_CHECK_MODULES(LIBHANDY, [&package_string;-&package_api_version;])
+      AC_SUBST(LIBHANDY_CFLAGS)
+      AC_SUBST(LIBHANDY_LIBS)
     </programlisting></informalexample>
+
+    <para>
+      Or if using meson/ninja use a <literal>dependency('&package_string;-&package_api_version;')
+    </literal> dependency.
+    </para>
 
     <para>
       The "<literal>&package_api_version;</literal>" in the package name is the "API version"
@@ -50,12 +55,17 @@
     </para>
 
     <informalexample><programlisting>
-      #include &lt;&package_string;/&package_ver_str;.h&gt;
+      #define HANDY_USE_UNSTABLE_API
+      #include &lt;&package_ver_str;/handy.h&gt;
     </programlisting></informalexample>
 
     <para>
-      Including individual headers rather than <literal>&package_string;.h</literal> is not
+      Including individual headers rather than <literal>&package_ver_str;/handy.h</literal> is not
       recommended.
+    </para>
+    <para>
+      Since the library has not stable API yet <literal>HANDY_USE_UNSTABLE_API</literal> must
+      be defined for compilation to succeed.
     </para>
 
   </refsect2>
