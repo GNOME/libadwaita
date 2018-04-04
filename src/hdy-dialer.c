@@ -39,6 +39,7 @@ static GParamSpec *props[PROP_LAST_PROP];
 
 enum {
   SIGNAL_SUBMITTED,
+  SIGNAL_SYMBOL_CLICKED,
   SIGNAL_LAST_SIGNAL,
 };
 static guint signals [SIGNAL_LAST_SIGNAL];
@@ -69,6 +70,8 @@ digit_button_clicked (HdyDialer       *self,
   d = hdy_dialer_button_get_digit (btn);
   g_string_append_printf (priv->number, "%d", d);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
+
+  g_signal_emit(self, signals[SIGNAL_SYMBOL_CLICKED], 0, '0'+d);
 }
 
 static void
@@ -90,6 +93,10 @@ cycle_button_clicked (HdyDialer            *self,
 
   symbol = hdy_dialer_cycle_button_get_current_symbol (btn);
   g_string_append_unichar (priv->number, symbol);
+  g_signal_emit(self,
+                signals[SIGNAL_SYMBOL_CLICKED],
+                0,
+                hdy_dialer_button_get_letters (HDY_DIALER_BUTTON (btn))[0]);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
 }
@@ -98,7 +105,7 @@ static void
 cycle_start (HdyDialer            *self,
              HdyDialerCycleButton *btn)
 {
-  /* FIXME: change cursor */
+  /* FIXME: emit signal */
 }
 
 static void
@@ -110,7 +117,7 @@ cycle_end (HdyDialer            *self,
   /* reset cycle_btn so pressing it again produces a new character */
   if (priv->cycle_btn == btn) {
     priv->cycle_btn = NULL;
-    /* FIXME: change cursor */
+    /* FIXME: emit signal */
   }
 }
 
@@ -289,6 +296,27 @@ hdy_dialer_class_init (HdyDialerClass *klass)
                   G_TYPE_NONE,
                   1,
                   G_TYPE_STRING);
+
+  /**
+   * HdyDialer::symbol-clicked:
+   * @self: The #HdyDialer instance.
+   * @button: The main symbol on the button that was clicked
+   *
+   * This signal is emitted when one of the symbol buttons (0-9, # or *)
+   * is clicked. Connect to this signal to find out which button was pressed.
+   * This doesn't take any cycling modes into account. So the button with "*"
+   * and "+" on it will always send "*".  Delete and Submit buttons will
+   * not trigger this signal.
+   */
+  signals[SIGNAL_SYMBOL_CLICKED] =
+    g_signal_new ("symbol-clicked",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_CHAR);
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/dialer/ui/hdy-dialer.ui");
