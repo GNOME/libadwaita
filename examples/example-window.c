@@ -83,6 +83,17 @@ number_notify_cb (ExampleWindow *self,
 }
 
 
+static void
+symbol_clicked_cb (HdyDialer *dialer,
+                   gchar symbol,
+                   ExampleWindow *self)
+{
+  g_assert (HDY_IS_DIALER (dialer));
+  g_assert (EXAMPLE_IS_WINDOW (self));
+  g_print ("clicked: %c\n", symbol);
+}
+
+
 ExampleWindow *
 example_window_new (GtkApplication *application)
 {
@@ -125,6 +136,7 @@ example_window_class_init (ExampleWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(example_window_notify_visible_child_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "back_clicked_cb", G_CALLBACK(example_window_back_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "submitted_cb", G_CALLBACK(example_window_submitted_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "symbol_clicked_cb", G_CALLBACK(symbol_clicked_cb));
 }
 
 static void
