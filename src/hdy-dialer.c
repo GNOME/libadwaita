@@ -22,7 +22,7 @@
 
 typedef struct
 {
-  HdyDialerButton *btn_0, *btn_1, *btn_2, *btn_3, *btn_4, *btn_5, *btn_6, *btn_7, *btn_8, *btn_9;
+  HdyDialerButton *number_btns[10];
   HdyDialerCycleButton *btn_hash, *btn_star, *cycle_btn;
   GtkButton *btn_submit, *btn_del;
   GString *number;
@@ -206,56 +206,13 @@ hdy_dialer_constructed (GObject *object)
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
   GtkWidget *image;
 
-  g_signal_connect_object (priv->btn_0,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_1,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_2,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_3,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_4,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_5,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_6,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_7,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_8,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_9,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
+  for (int i = 0; i < 10; i++) {
+    g_signal_connect_object (priv->number_btns[i],
+                             "clicked",
+                             G_CALLBACK (digit_button_clicked),
+                             self,
+                             G_CONNECT_SWAPPED);
+  }
 
   g_object_connect (priv->btn_star,
                     "swapped-signal::clicked", G_CALLBACK (cycle_button_clicked), self,
@@ -335,16 +292,14 @@ hdy_dialer_class_init (HdyDialerClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/dialer/ui/hdy-dialer.ui");
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_0);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_1);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_2);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_3);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_4);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_5);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_6);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_7);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_8);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_9);
+  for (int i=0; i < 10; i++) {
+    g_autofree gchar *name = g_strdup_printf("btn_%d", i);
+    g_return_if_fail (name);
+    gtk_widget_class_bind_template_child_full (widget_class,
+                                               name,
+                                               FALSE,
+                                               G_PRIVATE_OFFSET(HdyDialer, number_btns[i]));
+  }
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_hash);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_star);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_submit);
