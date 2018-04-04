@@ -39,6 +39,7 @@ static GParamSpec *props[PROP_LAST_PROP];
 
 enum {
   SIGNAL_SUBMITTED,
+  SIGNAL_DELETED,
   SIGNAL_SYMBOL_CLICKED,
   SIGNAL_LAST_SIGNAL,
 };
@@ -151,6 +152,7 @@ del_button_clicked (HdyDialer *self,
 
   hdy_string_utf8_truncate (priv->number, hdy_string_utf8_len (priv->number)-1);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
+  g_signal_emit (self, signals[SIGNAL_DELETED], 0);
 }
 
 
@@ -296,6 +298,22 @@ hdy_dialer_class_init (HdyDialerClass *klass)
                   G_TYPE_NONE,
                   1,
                   G_TYPE_STRING);
+
+  /**
+   * HdyDialer::deleted:
+   * @self: The #HdyDialer instance.
+   *
+   * This signal is emitted when the dialer's 'deleted' button is clicked
+   * to delete the last symbol.
+   */
+  signals[SIGNAL_DELETED] =
+    g_signal_new ("deleted",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (HdyDialerClass, submitted),
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  0);
 
   /**
    * HdyDialer::symbol-clicked:
