@@ -182,6 +182,7 @@
                     <property name="valign">center</property>
                     <property name="margin">12</property>
                     <signal name="submitted" after="yes" handler="submitted_cb"/>
+                    <signal name="deleted" after="yes" handler="deleted_cb"/>
                     <signal name="symbol-clicked" after="yes" handler="symbol_clicked_cb"/>
                   </object>
                 </child>
