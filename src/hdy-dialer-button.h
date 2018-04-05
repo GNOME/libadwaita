@@ -27,7 +27,7 @@ struct _HdyDialerButtonClass
 GtkWidget      *hdy_dialer_button_new                   (int              digit,
                                                          const gchar     *letters);
 gint            hdy_dialer_button_get_digit             (HdyDialerButton *self);
-char           *hdy_dialer_button_get_letters           (HdyDialerButton *self);
+const char     *hdy_dialer_button_get_letters           (HdyDialerButton *self);
 
 G_END_DECLS
 

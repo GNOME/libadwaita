@@ -254,7 +254,7 @@ hdy_dialer_button_get_digit(HdyDialerButton *self)
  *
  * Returns: the button's letters.
  */
-char*
+const char*
 hdy_dialer_button_get_letters(HdyDialerButton *self)
 {
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
