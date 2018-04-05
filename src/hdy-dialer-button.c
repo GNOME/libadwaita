@@ -206,7 +206,7 @@ hdy_dialer_button_class_init (HdyDialerButtonClass *klass)
  * @letters: (nullable): the letters displayed on the #HdyDialerButton
  *
  * Create a new #HdyDialerButton which displays @digit and
- * @letters. If @digit is a negative no number will be displayed. If
+ * @letters. If @digit is negative no number will be displayed. If
  * @letters is %NULL no letters will be displayed.
  *
  * Returns: the newly created #HdyDialerButton widget
