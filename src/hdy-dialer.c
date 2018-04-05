@@ -198,83 +198,14 @@ hdy_dialer_get_property (GObject    *object,
   }
 }
 
-static void
-hdy_dialer_class_init (HdyDialerClass *klass)
-{
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-  object_class->finalize = hdy_dialer_finalize;
-
-  object_class->set_property = hdy_dialer_set_property;
-  object_class->get_property = hdy_dialer_get_property;
-
-  props[PROP_NUMBER] =
-    g_param_spec_string ("number",
-                         _("Number"),
-                         _("The phone number to dial"),
-                         "",
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
-
-  /**
-   * HdyDialer::submitted:
-   * @self: The #HdyDialer instance.
-   * @number: The number at the time of activation.
-   *
-   * This signal is emitted when the dialer's 'dial' button is activated.
-   * Connect to this signal to perform to get notified when the user
-   * wants to submit the dialed number.
-   */
-  signals[SIGNAL_SUBMITTED] =
-    g_signal_new ("submitted",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (HdyDialerClass, submitted),
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE,
-                  1,
-                  G_TYPE_STRING);
-
-  gtk_widget_class_set_template_from_resource (widget_class,
-                                               "/sm/puri/handy/dialer/ui/hdy-dialer.ui");
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_0);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_1);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_2);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_3);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_4);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_5);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_6);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_7);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_8);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_9);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_hash);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_star);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_submit);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_del);
-}
-
-/**
- * hdy_dialer_new:
- *
- * Create a new #HdyDialer widget.
- *
- * Returns: the newly created #HdyDialer widget
- *
- */
-GtkWidget *hdy_dialer_new (void)
-{
-  return g_object_new (HDY_TYPE_DIALER, NULL);
-}
 
 static void
-hdy_dialer_init (HdyDialer *self)
+hdy_dialer_constructed (GObject *object)
 {
+  HdyDialer *self = HDY_DIALER (object);
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
   GtkWidget *image;
 
-  gtk_widget_init_template (GTK_WIDGET (self));
   g_signal_connect_object (priv->btn_0,
                            "clicked",
                            G_CALLBACK (digit_button_clicked),
@@ -359,6 +290,86 @@ hdy_dialer_init (HdyDialer *self)
   image = gtk_image_new_from_icon_name ("phone-dial-symbolic",
                                         GTK_ICON_SIZE_BUTTON * 1.3);
   gtk_button_set_image (priv->btn_submit, image);
+}
+
+
+static void
+hdy_dialer_class_init (HdyDialerClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+  object_class->constructed = hdy_dialer_constructed;
+  object_class->finalize = hdy_dialer_finalize;
+
+  object_class->set_property = hdy_dialer_set_property;
+  object_class->get_property = hdy_dialer_get_property;
+
+  props[PROP_NUMBER] =
+    g_param_spec_string ("number",
+                         _("Number"),
+                         _("The phone number to dial"),
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
+
+  /**
+   * HdyDialer::submitted:
+   * @self: The #HdyDialer instance.
+   * @number: The number at the time of activation.
+   *
+   * This signal is emitted when the dialer's 'dial' button is activated.
+   * Connect to this signal to perform to get notified when the user
+   * wants to submit the dialed number.
+   */
+  signals[SIGNAL_SUBMITTED] =
+    g_signal_new ("submitted",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (HdyDialerClass, submitted),
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_STRING);
+
+  gtk_widget_class_set_template_from_resource (widget_class,
+                                               "/sm/puri/handy/dialer/ui/hdy-dialer.ui");
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_0);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_1);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_2);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_3);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_4);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_5);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_6);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_7);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_8);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_9);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_hash);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_star);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_submit);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_del);
+}
+
+/**
+ * hdy_dialer_new:
+ *
+ * Create a new #HdyDialer widget.
+ *
+ * Returns: the newly created #HdyDialer widget
+ *
+ */
+GtkWidget *hdy_dialer_new (void)
+{
+  return g_object_new (HDY_TYPE_DIALER, NULL);
+}
+
+static void
+hdy_dialer_init (HdyDialer *self)
+{
+  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
+
+  gtk_widget_init_template (GTK_WIDGET (self));
 
   priv->number = g_string_new (NULL);
   priv->cycle_btn = NULL;
