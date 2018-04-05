@@ -228,7 +228,7 @@ hdy_dialer_cycle_button_init (HdyDialerCycleButton *self)
  * hdy_dialer_cycle_button_get_current_symbol:
  * @self: a #HdyDialerCycleButton
  *
- * Get the cycle the dialer should display
+ * Get the symbol the dialer should display
  *
  * Returns: a pointer to the symbol
  *

@@ -75,11 +75,32 @@ example_window_submitted_cb (GtkWidget *widget,
 
 
 static void
+deleted_cb (HdyDialer *dialer,
+            ExampleWindow *self)
+{
+  g_assert (HDY_IS_DIALER (dialer));
+  g_assert (EXAMPLE_IS_WINDOW (self));
+  g_print ("Delete btn\n");
+}
+
+
+static void
 number_notify_cb (ExampleWindow *self,
                   gpointer unused)
 {
   gtk_label_set_label (self->display, hdy_dialer_get_number (self->dialer));
   g_print ("wuff: %s\n", hdy_dialer_get_number (self->dialer));
+}
+
+
+static void
+symbol_clicked_cb (HdyDialer *dialer,
+                   gchar symbol,
+                   ExampleWindow *self)
+{
+  g_assert (HDY_IS_DIALER (dialer));
+  g_assert (EXAMPLE_IS_WINDOW (self));
+  g_print ("clicked: %c\n", symbol);
 }
 
 
@@ -125,6 +146,8 @@ example_window_class_init (ExampleWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(example_window_notify_visible_child_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "back_clicked_cb", G_CALLBACK(example_window_back_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "submitted_cb", G_CALLBACK(example_window_submitted_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "symbol_clicked_cb", G_CALLBACK(symbol_clicked_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "deleted_cb", G_CALLBACK(deleted_cb));
 }
 
 static void

@@ -22,7 +22,7 @@
 
 typedef struct
 {
-  HdyDialerButton *btn_0, *btn_1, *btn_2, *btn_3, *btn_4, *btn_5, *btn_6, *btn_7, *btn_8, *btn_9;
+  HdyDialerButton *number_btns[10];
   HdyDialerCycleButton *btn_hash, *btn_star, *cycle_btn;
   GtkButton *btn_submit, *btn_del;
   GString *number;
@@ -39,6 +39,8 @@ static GParamSpec *props[PROP_LAST_PROP];
 
 enum {
   SIGNAL_SUBMITTED,
+  SIGNAL_DELETED,
+  SIGNAL_SYMBOL_CLICKED,
   SIGNAL_LAST_SIGNAL,
 };
 static guint signals [SIGNAL_LAST_SIGNAL];
@@ -69,6 +71,8 @@ digit_button_clicked (HdyDialer       *self,
   d = hdy_dialer_button_get_digit (btn);
   g_string_append_printf (priv->number, "%d", d);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
+
+  g_signal_emit(self, signals[SIGNAL_SYMBOL_CLICKED], 0, '0'+d);
 }
 
 static void
@@ -90,6 +94,10 @@ cycle_button_clicked (HdyDialer            *self,
 
   symbol = hdy_dialer_cycle_button_get_current_symbol (btn);
   g_string_append_unichar (priv->number, symbol);
+  g_signal_emit(self,
+                signals[SIGNAL_SYMBOL_CLICKED],
+                0,
+                hdy_dialer_button_get_letters (HDY_DIALER_BUTTON (btn))[0]);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
 }
@@ -98,7 +106,7 @@ static void
 cycle_start (HdyDialer            *self,
              HdyDialerCycleButton *btn)
 {
-  /* FIXME: change cursor */
+  /* FIXME: emit signal */
 }
 
 static void
@@ -110,7 +118,7 @@ cycle_end (HdyDialer            *self,
   /* reset cycle_btn so pressing it again produces a new character */
   if (priv->cycle_btn == btn) {
     priv->cycle_btn = NULL;
-    /* FIXME: change cursor */
+    /* FIXME: emit signal */
   }
 }
 
@@ -144,6 +152,7 @@ del_button_clicked (HdyDialer *self,
 
   hdy_string_utf8_truncate (priv->number, hdy_string_utf8_len (priv->number)-1);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
+  g_signal_emit (self, signals[SIGNAL_DELETED], 0);
 }
 
 
@@ -206,56 +215,13 @@ hdy_dialer_constructed (GObject *object)
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
   GtkWidget *image;
 
-  g_signal_connect_object (priv->btn_0,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_1,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_2,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_3,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_4,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_5,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_6,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_7,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_8,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->btn_9,
-                           "clicked",
-                           G_CALLBACK (digit_button_clicked),
-                           self,
-                           G_CONNECT_SWAPPED);
+  for (int i = 0; i < 10; i++) {
+    g_signal_connect_object (priv->number_btns[i],
+                             "clicked",
+                             G_CALLBACK (digit_button_clicked),
+                             self,
+                             G_CONNECT_SWAPPED);
+  }
 
   g_object_connect (priv->btn_star,
                     "swapped-signal::clicked", G_CALLBACK (cycle_button_clicked), self,
@@ -333,18 +299,53 @@ hdy_dialer_class_init (HdyDialerClass *klass)
                   1,
                   G_TYPE_STRING);
 
+  /**
+   * HdyDialer::deleted:
+   * @self: The #HdyDialer instance.
+   *
+   * This signal is emitted when the dialer's 'deleted' button is clicked
+   * to delete the last symbol.
+   */
+  signals[SIGNAL_DELETED] =
+    g_signal_new ("deleted",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  G_STRUCT_OFFSET (HdyDialerClass, submitted),
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  0);
+
+  /**
+   * HdyDialer::symbol-clicked:
+   * @self: The #HdyDialer instance.
+   * @button: The main symbol on the button that was clicked
+   *
+   * This signal is emitted when one of the symbol buttons (0-9, # or *)
+   * is clicked. Connect to this signal to find out which button was pressed.
+   * This doesn't take any cycling modes into account. So the button with "*"
+   * and "+" on it will always send "*".  Delete and Submit buttons will
+   * not trigger this signal.
+   */
+  signals[SIGNAL_SYMBOL_CLICKED] =
+    g_signal_new ("symbol-clicked",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_CHAR);
+
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/dialer/ui/hdy-dialer.ui");
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_0);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_1);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_2);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_3);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_4);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_5);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_6);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_7);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_8);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_9);
+  for (int i=0; i < 10; i++) {
+    g_autofree gchar *name = g_strdup_printf("btn_%d", i);
+    g_return_if_fail (name);
+    gtk_widget_class_bind_template_child_full (widget_class,
+                                               name,
+                                               FALSE,
+                                               G_PRIVATE_OFFSET(HdyDialer, number_btns[i]));
+  }
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_hash);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_star);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_submit);
