@@ -61,24 +61,13 @@ void             hdy_leaflet_set_visible_child (HdyLeaflet *self,
 const gchar     *hdy_leaflet_get_visible_child_name (HdyLeaflet *self);
 void             hdy_leaflet_set_visible_child_name (HdyLeaflet  *self,
                                                      const gchar *name);
-gboolean         hdy_leaflet_get_homogeneous_folded (HdyLeaflet *self);
-void             hdy_leaflet_set_homogeneous_folded (HdyLeaflet *self,
-                                                     gboolean    homogeneous);
-gboolean         hdy_leaflet_get_hhomogeneous_folded (HdyLeaflet *self);
-void             hdy_leaflet_set_hhomogeneous_folded (HdyLeaflet *self,
-                                                      gboolean    hhomogeneous);
-gboolean         hdy_leaflet_get_vhomogeneous_folded (HdyLeaflet *self);
-void             hdy_leaflet_set_vhomogeneous_folded (HdyLeaflet *self,
-                                                      gboolean    vhomogeneous);
-gboolean         hdy_leaflet_get_homogeneous_unfolded (HdyLeaflet *self);
-void             hdy_leaflet_set_homogeneous_unfolded (HdyLeaflet *self,
-                                                       gboolean    homogeneous);
-gboolean         hdy_leaflet_get_hhomogeneous_unfolded (HdyLeaflet *self);
-void             hdy_leaflet_set_hhomogeneous_unfolded (HdyLeaflet *self,
-                                                        gboolean    hhomogeneous);
-gboolean         hdy_leaflet_get_vhomogeneous_unfolded (HdyLeaflet *self);
-void             hdy_leaflet_set_vhomogeneous_unfolded (HdyLeaflet *self,
-                                                        gboolean    vhomogeneous);
+gboolean         hdy_leaflet_get_homogeneous (HdyLeaflet     *self,
+                                              HdyFold         fold,
+                                              GtkOrientation  orientation);
+void             hdy_leaflet_set_homogeneous (HdyLeaflet     *self,
+                                              HdyFold         fold,
+                                              GtkOrientation  orientation,
+                                              gboolean        homogeneous);
 HdyLeafletModeTransitionType hdy_leaflet_get_mode_transition_type (HdyLeaflet *self);
 void             hdy_leaflet_set_mode_transition_type (HdyLeaflet                   *self,
                                                        HdyLeafletModeTransitionType  transition);
