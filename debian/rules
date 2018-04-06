@@ -13,4 +13,6 @@ override_dh_auto_build:
 	LC_ALL=C.UTF-8 ninja -C _build meson-libhandy-doc
 
 override_dh_auto_test:
+ifeq ($(filter nocheck,$(DEB_BUILD_OPTIONS)),)
 	xvfb-run ninja -C _build test
+endif
