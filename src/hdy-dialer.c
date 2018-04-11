@@ -26,6 +26,7 @@ typedef struct
   HdyDialerCycleButton *btn_hash, *btn_star, *cycle_btn;
   GtkButton *btn_submit, *btn_del;
   GString *number;
+  gboolean show_action_buttons;
 } HdyDialerPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (HdyDialer, hdy_dialer, GTK_TYPE_GRID)
@@ -33,6 +34,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (HdyDialer, hdy_dialer, GTK_TYPE_GRID)
 enum {
   PROP_0,
   PROP_NUMBER,
+  PROP_SHOW_ACTION_BUTTONS,
   PROP_LAST_PROP,
 };
 static GParamSpec *props[PROP_LAST_PROP];
@@ -181,6 +183,11 @@ hdy_dialer_set_property (GObject      *object,
     g_object_notify_by_pspec (object, pspec);
     break;
 
+  case PROP_SHOW_ACTION_BUTTONS:
+    hdy_dialer_set_show_action_buttons
+      (self, g_value_get_boolean (value));
+    break;
+
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
     break;
@@ -199,6 +206,10 @@ hdy_dialer_get_property (GObject    *object,
   switch (property_id) {
   case PROP_NUMBER:
     g_value_set_string (value, priv->number->str);
+    break;
+
+  case PROP_SHOW_ACTION_BUTTONS:
+    g_value_set_boolean (value, priv->show_action_buttons);
     break;
 
   default:
@@ -276,6 +287,13 @@ hdy_dialer_class_init (HdyDialerClass *klass)
                          _("Number"),
                          _("The phone number to dial"),
                          "",
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_SHOW_ACTION_BUTTONS] =
+    g_param_spec_boolean ("show-action-buttons",
+                         _("Show action buttons"),
+                         _("Whether to show the submit and delete buttons"),
+                         TRUE,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
@@ -416,4 +434,50 @@ hdy_dialer_set_number (HdyDialer   *self,
 
   g_string_assign (priv->number, number);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
+}
+
+/**
+ * hdy_dialer_get_show_action_buttons:
+ * @self: a #HdyDialer
+ *
+ * Get whether the submit and delete buttons are to be shown.
+ *
+ * Returns: whether the buttons are to be shown
+ */
+gboolean
+hdy_dialer_get_show_action_buttons (HdyDialer *self)
+{
+  HdyDialerPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_DIALER (self), FALSE);
+
+  priv = hdy_dialer_get_instance_private (self);
+  return priv->show_action_buttons;
+}
+
+
+/**
+ * hdy_dialer_set_show_action_buttons:
+ * @self: a #HdyDialer
+ * @show: whether to show the buttons
+ *
+ * Set whether to show the submit and delete buttons.
+ *
+ */
+void
+hdy_dialer_set_show_action_buttons (HdyDialer *self,
+                                    gboolean   show)
+{
+  HdyDialerPrivate *priv;
+
+  g_return_if_fail (HDY_IS_DIALER (self));
+
+  priv = hdy_dialer_get_instance_private (self);
+  priv->show_action_buttons = show;
+
+  gtk_widget_set_visible (GTK_WIDGET (priv->btn_submit), show);
+  gtk_widget_set_visible (GTK_WIDGET (priv->btn_del), show);
+
+  g_object_notify_by_pspec
+    (G_OBJECT (self), props[PROP_SHOW_ACTION_BUTTONS]);
 }
