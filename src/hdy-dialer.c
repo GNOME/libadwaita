@@ -384,27 +384,36 @@ hdy_dialer_init (HdyDialer *self)
  *
  * Returns: (transfer none): the current number in the display
  */
-const char*
+const gchar *
 hdy_dialer_get_number (HdyDialer *self)
 {
-  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
+  HdyDialerPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_DIALER (self), NULL);
+
+  priv = hdy_dialer_get_instance_private (self);
   return priv->number->str;
 }
 
 /**
  * hdy_dialer_set_number:
  * @self: a #HdyDialer
- * @newnumber: (transfer none): the number to set
+ * @number: (transfer none): the number to set
  *
  * Set the currently displayed number.
  *
  */
 void
-hdy_dialer_set_number (HdyDialer  *self,
-                       const char *newnumber)
+hdy_dialer_set_number (HdyDialer   *self,
+                       const gchar *number)
 {
-  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
+  HdyDialerPrivate *priv;
 
-  g_string_assign (priv->number, newnumber);
+  g_return_if_fail (HDY_IS_DIALER (self));
+  g_return_if_fail (number != NULL);
+
+  priv = hdy_dialer_get_instance_private (self);
+
+  g_string_assign (priv->number, number);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
 }
