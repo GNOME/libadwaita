@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<glade-catalog name="libhandy" library="handy-0.0" depends="gtk+">
+<glade-catalog name="libhandy" library="handy-0.0" depends="gtk+" book="libhandy">
   <glade-widget-classes>
     <glade-widget-class name="HdyDialer" generic-name="dialer" title="Dialer"/>
     <glade-widget-class name="HdyLeaflet" generic-name="leaflet" title="Leaflet"/>
