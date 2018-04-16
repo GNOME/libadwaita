@@ -3,6 +3,7 @@
   <template class="ExampleWindow" parent="GtkApplicationWindow">
     <property name="default-width">600</property>
     <property name="default-height">300</property>
+    <property name="title">Handy Widget Factory</property>
     <signal name="key-press-event" after="yes" handler="key_pressed_cb"/>
     <child type="titlebar">
       <object class="HdyLeaflet" id="header_box">
