@@ -34,10 +34,13 @@ struct _HdyDialerClass
                        const gchar  *number);
 };
 
-GtkWidget       *hdy_dialer_new                   (void);
-const gchar     *hdy_dialer_get_number            (HdyDialer  *self);
-void             hdy_dialer_set_number            (HdyDialer   *self,
-                                                   const gchar *number);
+GtkWidget       *hdy_dialer_new                     (void);
+const gchar     *hdy_dialer_get_number              (HdyDialer  *self);
+void             hdy_dialer_set_number              (HdyDialer  *self,
+                                                     const char *number);
+gboolean         hdy_dialer_get_show_action_buttons (HdyDialer  *self);
+void             hdy_dialer_set_show_action_buttons (HdyDialer  *self,
+                                                     gboolean    show);
 
 G_END_DECLS
 
