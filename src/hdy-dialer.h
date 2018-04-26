@@ -38,6 +38,8 @@ GtkWidget       *hdy_dialer_new                     (void);
 const gchar     *hdy_dialer_get_number              (HdyDialer  *self);
 void             hdy_dialer_set_number              (HdyDialer  *self,
                                                      const char *number);
+void             hdy_dialer_clear_number            (HdyDialer  *self);
+
 gboolean         hdy_dialer_get_show_action_buttons (HdyDialer  *self);
 void             hdy_dialer_set_show_action_buttons (HdyDialer  *self,
                                                      gboolean    show);
