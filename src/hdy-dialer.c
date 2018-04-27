@@ -437,6 +437,27 @@ hdy_dialer_set_number (HdyDialer   *self,
 }
 
 /**
+ * hdy_dialer_clear_number:
+ * @self: a #HdyDialer
+ *
+ * Set the current number to the empty string. When the number is already
+ * cleared no action is performed.
+ *
+ */
+void
+hdy_dialer_clear_number (HdyDialer   *self)
+{
+  HdyDialerPrivate *priv;
+
+  g_return_if_fail (HDY_IS_DIALER (self));
+
+  priv = hdy_dialer_get_instance_private (self);
+  if (g_strcmp0(priv->number->str, "")) {
+    hdy_dialer_set_number (self, "");
+  }
+}
+
+/**
  * hdy_dialer_get_show_action_buttons:
  * @self: a #HdyDialer
  *
