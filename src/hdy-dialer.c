@@ -72,9 +72,11 @@ digit_button_clicked (HdyDialer       *self,
 
   d = hdy_dialer_button_get_digit (btn);
   g_string_append_printf (priv->number, "%d", d);
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
-
   g_signal_emit(self, signals[SIGNAL_SYMBOL_CLICKED], 0, '0'+d);
+
+  /* Notify about the number update at the very end so the clicked symbol is
+     received before the notify signal */
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
 }
 
 static void
