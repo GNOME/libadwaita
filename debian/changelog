@@ -1,3 +1,44 @@
+libhandy (0.0~git20180429) unstable; urgency=medium
+
+  [ Guido Günther ]
+  * New git snapshot
+  * HdyDialer: Emit symbol-clicked signal.  This signal is emitted when a
+    symbol button (numbers or '#' or '*') is clicked.
+  * HdyDialer: Emit signal when delete button was clicked.
+  * dialer: Make it simple to clear the stored number.
+    This also makes sure we don't send multiple number changed events
+    when nothing changed.
+  * dialer: Delay number notify.  On button press send out the number changed
+    signal at the very end so listeners can process the button event prior to
+    the number update event.
+
+  [ Adrien Plazas ]
+  * leaflet: Refactor homogeneity.
+    This makes factorizes the homogeneity functions of HdyLeaflet to make
+    the code a bit shorter.
+  * build: Add '--c-include=handy.h' GIR options back.
+    This is necessary for introspection to know the header file to use.
+  * dialer: Check params of the 'number' prop accessors.
+    Sanitize the parameters of the 'number' property accessor. This will
+    warn or misusages of the API at runtime and avoid potential crashes.
+  * dialer: Style cleanup of the 'number' prop accessors.
+    Use gchar instead of char, use GNOME style pointer spacing and name the
+    number parameter 'number'. This is all cosmetic but will make the code
+    look a bit more GNOME-like.
+  * example: Drop hardcoded default window size.
+    This avoid overridding with the one we set in the the .ui file of the
+    window.
+  * example: Move window title to .ui file.
+    This avoid hardcoding values when we can put them in the UI description.
+  * example-window: Make the default size more phone-like
+
+  [ Bob Ham ]
+  * dialer: Add "show-action-buttons" property.
+    Add a new boolean "show-action-buttons" property that specifies
+    whether the submit and delete buttons are displayed.
+
+ -- Guido Günther <agx@sigxcpu.org>  Sun, 29 Apr 2018 12:01:58 +0200
+
 libhandy (0.0~git20180402) unstable; urgency=medium
 
   * Initial release
