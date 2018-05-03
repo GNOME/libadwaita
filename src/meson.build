@@ -86,6 +86,10 @@ libhandy_deps = [
   cc.find_library('rt', required: false),
 ]
 
+libhandy_symbols_file = 'libhandy.syms'
+libhandy_symbols_flag = '-Wl,--version-script,@0@/@1@'.format(meson.source_root(),
+                                                              libhandy_symbols_file)
+
 libhandy_args = []
 libhandy = shared_library(
   'handy-' + apiversion,
@@ -96,6 +100,7 @@ libhandy = shared_library(
          dependencies: libhandy_deps,
   include_directories: [ root_inc, src_inc ],
               install: true,
+            link_args: libhandy_symbols_flag,
 )
 
 libhandy_dep = declare_dependency(
