@@ -6,6 +6,7 @@
   </glade-widget-classes>
 
   <glade-widget-group name="handy" title="Libhandy Widgets">
+    <glade-widget-class-ref name="HdyArrows"/>
     <glade-widget-class-ref name="HdyDialer"/>
     <glade-widget-class-ref name="HdyLeaflet"/>
   </glade-widget-group>

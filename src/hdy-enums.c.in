@@ -2,6 +2,7 @@
 
 #include "config.h"
 #include "hdy-enums.h"
+#include "hdy-arrows.h"
 
 /*** END file-header ***/
 
