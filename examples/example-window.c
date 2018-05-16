@@ -13,6 +13,9 @@ struct _ExampleWindow
   GtkStack *stack;
   HdyDialer *dialer;
   GtkLabel *display;
+  GtkWidget *arrows;
+  GtkAdjustment *adj_arrows_count;
+  GtkAdjustment *adj_arrows_duration;
 };
 
 G_DEFINE_TYPE (ExampleWindow, example_window, GTK_TYPE_APPLICATION_WINDOW)
@@ -104,6 +107,84 @@ symbol_clicked_cb (HdyDialer *dialer,
 }
 
 
+static void
+btn_arrows_up_toggled_cb (GtkToggleButton *btn,
+                          ExampleWindow *self)
+{
+  g_assert (GTK_IS_TOGGLE_BUTTON (btn));
+  g_assert (EXAMPLE_IS_WINDOW (self));
+
+  hdy_arrows_set_direction (HDY_ARROWS (self->arrows), HDY_ARROWS_DIRECTION_UP);
+  hdy_arrows_animate (HDY_ARROWS (self->arrows));
+}
+
+
+static void
+btn_arrows_down_toggled_cb (GtkToggleButton *btn,
+                          ExampleWindow *self)
+{
+  g_assert (GTK_IS_TOGGLE_BUTTON (btn));
+  g_assert (EXAMPLE_IS_WINDOW (self));
+
+  hdy_arrows_set_direction (HDY_ARROWS (self->arrows), HDY_ARROWS_DIRECTION_DOWN);
+  hdy_arrows_animate (HDY_ARROWS (self->arrows));
+}
+
+
+static void
+btn_arrows_left_toggled_cb (GtkToggleButton *btn,
+                          ExampleWindow *self)
+{
+  g_assert (GTK_IS_TOGGLE_BUTTON (btn));
+  g_assert (EXAMPLE_IS_WINDOW (self));
+
+  hdy_arrows_set_direction (HDY_ARROWS (self->arrows), HDY_ARROWS_DIRECTION_LEFT);
+  hdy_arrows_animate (HDY_ARROWS (self->arrows));
+}
+
+
+static void
+btn_arrows_right_toggled_cb (GtkToggleButton *btn,
+                          ExampleWindow *self)
+{
+  g_assert (GTK_IS_TOGGLE_BUTTON (btn));
+  g_assert (EXAMPLE_IS_WINDOW (self));
+
+  hdy_arrows_set_direction (HDY_ARROWS (self->arrows), HDY_ARROWS_DIRECTION_RIGHT);
+  hdy_arrows_animate (HDY_ARROWS (self->arrows));
+}
+
+
+static void
+adj_arrows_count_value_changed_cb (GtkAdjustment *adj,
+                                   ExampleWindow *self)
+{
+  gdouble count;
+
+  g_assert (GTK_IS_ADJUSTMENT (adj));
+  g_assert (EXAMPLE_IS_WINDOW (self));
+
+  count = gtk_adjustment_get_value (adj);
+  hdy_arrows_set_count (HDY_ARROWS (self->arrows), count);
+  hdy_arrows_animate (HDY_ARROWS (self->arrows));
+}
+
+
+static void
+adj_arrows_duration_value_changed_cb (GtkAdjustment *adj,
+                                      ExampleWindow *self)
+{
+  gdouble duration;
+
+  g_assert (GTK_IS_ADJUSTMENT (adj));
+  g_assert (EXAMPLE_IS_WINDOW (self));
+
+  duration = gtk_adjustment_get_value (adj);
+  hdy_arrows_set_duration (HDY_ARROWS (self->arrows), duration);
+  hdy_arrows_animate (HDY_ARROWS (self->arrows));
+}
+
+
 ExampleWindow *
 example_window_new (GtkApplication *application)
 {
@@ -122,6 +203,10 @@ example_window_constructed (GObject *object)
                             "notify::number",
                             G_CALLBACK (number_notify_cb),
                             self);
+  gtk_adjustment_set_value (self->adj_arrows_count,
+                            hdy_arrows_get_count (HDY_ARROWS (self->arrows)));
+  gtk_adjustment_set_value (self->adj_arrows_duration,
+                            hdy_arrows_get_duration (HDY_ARROWS (self->arrows)));
 }
 
 
@@ -141,6 +226,9 @@ example_window_class_init (ExampleWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, dialer);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, display);
+  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, arrows);
+  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, adj_arrows_count);
+  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, adj_arrows_duration);
   gtk_widget_class_bind_template_callback_full (widget_class, "key_pressed_cb", G_CALLBACK(example_window_key_pressed_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_fold_cb", G_CALLBACK(example_window_notify_fold_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(example_window_notify_visible_child_cb));
@@ -148,6 +236,12 @@ example_window_class_init (ExampleWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "submitted_cb", G_CALLBACK(example_window_submitted_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "symbol_clicked_cb", G_CALLBACK(symbol_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "deleted_cb", G_CALLBACK(deleted_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "btn_arrows_up_toggled_cb", G_CALLBACK(btn_arrows_up_toggled_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "btn_arrows_down_toggled_cb", G_CALLBACK(btn_arrows_down_toggled_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "btn_arrows_left_toggled_cb", G_CALLBACK(btn_arrows_left_toggled_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "btn_arrows_right_toggled_cb", G_CALLBACK(btn_arrows_right_toggled_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "adj_arrows_count_value_changed_cb", G_CALLBACK(adj_arrows_count_value_changed_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "adj_arrows_duration_value_changed_cb", G_CALLBACK(adj_arrows_duration_value_changed_cb));
 }
 
 static void
