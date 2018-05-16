@@ -7,7 +7,7 @@ libhandy_resources = gnome.compile_resources(
    c_name: 'hdy',
 )
 
-hdy_enum_headers = []
+hdy_enum_headers = ['hdy-arrows.h']
 
 version_data = configuration_data()
 version_data.set('HDY_MAJOR_VERSION', handy_version_major)
@@ -33,7 +33,19 @@ libhandy_public_headers = []
 libhandy_public_sources = []
 libhandy_private_sources = []
 
+hdy_enums = gnome.mkenums('hdy-enums',
+      h_template: 'hdy-enums.h.in',
+      c_template: 'hdy-enums.c.in',
+         sources: hdy_enum_headers,
+  install_header: true,
+     install_dir: libhandy_header_dir,
+)
+
+libhandy_public_sources += [hdy_enums[0]]
+libhandy_generated_headers += [hdy_enums[1]]
+
 src_headers = [
+  'hdy-arrows.h',
   'hdy-dialer-button.h',
   'hdy-dialer-cycle-button.h',
   'hdy-dialer.h',
@@ -44,6 +56,7 @@ src_headers = [
 
 src_sources = [
   'gtkprogresstracker.c',
+  'hdy-arrows.c',
   'hdy-dialer-button.c',
   'hdy-dialer-cycle-button.c',
   'hdy-dialer.c',

@@ -7,6 +7,7 @@ private_headers = [
 ]
 
 images = [
+  'images/arrows.png',
   'images/dialer.png',
 ]
 
