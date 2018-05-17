@@ -1,5 +1,15 @@
 libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  LIBHANDY_0_0_0@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_arrows_animate@LIBHANDY_0_0_0 0.0~git20180517
+ hdy_arrows_direction_get_type@LIBHANDY_0_0_0 0.0~git20180517
+ hdy_arrows_get_count@LIBHANDY_0_0_0 0.0~git20180517
+ hdy_arrows_get_direction@LIBHANDY_0_0_0 0.0~git20180517
+ hdy_arrows_get_duration@LIBHANDY_0_0_0 0.0~git20180517
+ hdy_arrows_get_type@LIBHANDY_0_0_0 0.0~git20180517
+ hdy_arrows_new@LIBHANDY_0_0_0 0.0~git20180517
+ hdy_arrows_set_count@LIBHANDY_0_0_0 0.0~git20180517
+ hdy_arrows_set_direction@LIBHANDY_0_0_0 0.0~git20180517
+ hdy_arrows_set_duration@LIBHANDY_0_0_0 0.0~git20180517
  hdy_dialer_button_get_digit@LIBHANDY_0_0_0 0.0~git20180429
  hdy_dialer_button_get_letters@LIBHANDY_0_0_0 0.0~git20180429
  hdy_dialer_button_get_type@LIBHANDY_0_0_0 0.0~git20180429
