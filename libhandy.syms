@@ -1,0 +1,6 @@
+LIBHANDY_0_0_0 {
+	global:
+		hdy_*;
+	local:
+		*;
+};
