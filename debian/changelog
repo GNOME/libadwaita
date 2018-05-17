@@ -1,3 +1,12 @@
+libhandy (0.0~git20180517) unstable; urgency=medium
+
+  * Add an arrows widget.
+    The widget prints a number of arrows one by one to indicate a sliding
+    direction. Number of arrows and animation duration are configurable.
+  * Add symbols file
+
+ -- Guido Günther <agx@sigxcpu.org>  Thu, 17 May 2018 15:51:01 +0200
+
 libhandy (0.0~git20180429) unstable; urgency=medium
 
   [ Guido Günther ]
