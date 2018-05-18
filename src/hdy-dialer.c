@@ -161,6 +161,52 @@ del_button_clicked (HdyDialer *self,
 
 
 static void
+press_btn (GtkButton *btn,
+           gboolean   pressed)
+{
+  if (pressed) {
+    gtk_button_set_relief (btn, GTK_RELIEF_NORMAL);
+    gtk_button_clicked (btn);
+  } else {
+    gtk_button_set_relief (btn, GTK_RELIEF_NONE);
+  }
+}
+
+
+static gboolean
+key_press_event_cb (GtkWidget   *widget,
+                    GdkEventKey *event,
+                    gpointer     data)
+{
+  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (HDY_DIALER (widget));
+  gboolean pressed = !!GPOINTER_TO_INT (data);
+
+  switch (event->keyval) {
+  case GDK_KEY_0 ... GDK_KEY_9:
+    press_btn (GTK_BUTTON (priv->number_btns[event->keyval % GDK_KEY_0]), pressed);
+    break;
+  case GDK_KEY_numbersign:
+    press_btn (GTK_BUTTON (priv->btn_hash), pressed);
+    break;
+  case GDK_KEY_asterisk:
+    press_btn (GTK_BUTTON (priv->btn_star), pressed);
+    break;
+  case GDK_KEY_Return:
+    if (pressed)
+      gtk_button_clicked (GTK_BUTTON (priv->btn_submit));
+    break;
+  case GDK_KEY_BackSpace:
+    if (pressed)
+      gtk_button_clicked (GTK_BUTTON (priv->btn_del));
+    break;
+  default:
+    return FALSE;
+  }
+  return TRUE;
+}
+
+
+static void
 hdy_dialer_finalize (GObject *object)
 {
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (HDY_DIALER (object));
@@ -269,6 +315,16 @@ hdy_dialer_constructed (GObject *object)
   image = gtk_image_new_from_icon_name ("phone-dial-symbolic",
                                         GTK_ICON_SIZE_BUTTON * 1.3);
   gtk_button_set_image (priv->btn_submit, image);
+
+  gtk_widget_set_events (GTK_WIDGET (self), GDK_KEY_PRESS_MASK);
+  g_signal_connect (G_OBJECT (self),
+                    "key_press_event",
+                    G_CALLBACK (key_press_event_cb),
+                    GINT_TO_POINTER(TRUE));
+  g_signal_connect (G_OBJECT (self),
+                    "key_release_event",
+                    G_CALLBACK (key_press_event_cb),
+                    GINT_TO_POINTER(FALSE));
 }
 
 
