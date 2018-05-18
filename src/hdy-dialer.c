@@ -29,7 +29,7 @@ typedef struct
   gboolean show_action_buttons;
 } HdyDialerPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyDialer, hdy_dialer, GTK_TYPE_GRID)
+G_DEFINE_TYPE_WITH_PRIVATE (HdyDialer, hdy_dialer, GTK_TYPE_EVENT_BOX)
 
 enum {
   PROP_0,
