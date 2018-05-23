@@ -188,7 +188,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkBox">
+              <object class="GtkBox" id="box_dialer">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">center</property>
