@@ -207,6 +207,15 @@ key_press_event_cb (GtkWidget   *widget,
 
 
 static void
+grab_focus_cb (HdyDialer *dialer,
+               gpointer   unused)
+{
+  HdyDialerPrivate *priv = hdy_dialer_get_instance_private (dialer);
+  gtk_widget_grab_focus (GTK_WIDGET (priv->number_btns[0]));
+}
+
+
+static void
 hdy_dialer_finalize (GObject *object)
 {
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (HDY_DIALER (object));
@@ -316,6 +325,7 @@ hdy_dialer_constructed (GObject *object)
                                         GTK_ICON_SIZE_BUTTON * 1.3);
   gtk_button_set_image (priv->btn_submit, image);
 
+  /* Keyboard and focus handling */
   gtk_widget_set_events (GTK_WIDGET (self), GDK_KEY_PRESS_MASK);
   g_signal_connect (G_OBJECT (self),
                     "key_press_event",
@@ -325,6 +335,10 @@ hdy_dialer_constructed (GObject *object)
                     "key_release_event",
                     G_CALLBACK (key_press_event_cb),
                     GINT_TO_POINTER(FALSE));
+  g_signal_connect (G_OBJECT (self),
+                    "grab-focus",
+                    G_CALLBACK (grab_focus_cb),
+                    NULL);
 }
 
 
