@@ -280,7 +280,7 @@ draw_cb (GtkWidget *widget, cairo_t *cr, gpointer data)
 
   cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
   cairo_set_line_width (cr, thickness);
-  for (int i = 0; i < iter; i++) {
+  for (int i = 1; i <= iter; i++) {
     draw_arrow (cr, x, y, aw, ah, thickness, priv->direction);
     y += yd;
     x += xd;
