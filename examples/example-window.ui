@@ -19,10 +19,11 @@
     <signal name="value-changed" handler="adj_arrows_duration_value_changed_cb" swapped="no"/>
   </object>
   <template class="ExampleWindow" parent="GtkApplicationWindow">
-    <property name="default-width">360</property>
-    <property name="default-height">576</property>
+    <property name="can_focus">False</property>
     <property name="title">Handy Widget Factory</property>
-    <signal name="key-press-event" after="yes" handler="key_pressed_cb"/>
+    <property name="default_width">360</property>
+    <property name="default_height">576</property>
+    <signal name="key-press-event" handler="key_pressed_cb" after="yes" swapped="no"/>
     <child type="titlebar">
       <object class="HdyLeaflet" id="header_box">
         <property name="visible">True</property>
@@ -32,11 +33,12 @@
         <child>
           <object class="GtkHeaderBar" id="header_bar">
             <property name="visible">True</property>
-            <property name="show-close-button">False</property>
+            <property name="can_focus">False</property>
             <property name="title">Handy Widget Factory</property>
             <child>
               <object class="GtkSeparator">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
               </object>
               <packing>
@@ -54,6 +56,8 @@
             <property name="expand">True</property>
             <child>
               <object class="GtkButton" id="back">
+                <property name="can_focus">False</property>
+                <property name="receives_default">False</property>
                 <property name="valign">center</property>
                 <property name="use-underline">True</property>
                 <signal name="clicked" handler="back_clicked_cb"/>
@@ -68,8 +72,9 @@
                 <child>
                   <object class="GtkImage" id="back_image">
                     <property name="visible">True</property>
-                    <property name="icon-name">go-previous-symbolic</property>
-                    <property name="icon-size">1</property>
+                    <property name="can_focus">False</property>
+                    <property name="icon_name">go-previous-symbolic</property>
+                    <property name="icon_size">1</property>
                   </object>
                 </child>
               </object>
@@ -84,14 +89,16 @@
     <child>
       <object class="HdyLeaflet" id="content_box">
         <property name="visible">True</property>
-        <property name="mode-transition-type">slide</property>
-        <property name="child-transition-type">slide</property>
-        <signal name="notify::fold" after="yes" handler="notify_fold_cb"/>
+        <property name="can_focus">False</property>
+        <property name="mode_transition_type">slide</property>
+        <property name="child_transition_type">slide</property>
+        <signal name="notify::fold" handler="notify_fold_cb" after="yes" swapped="no"/>
         <child>
           <object class="GtkStackSidebar" id="sidebar">
+            <property name="width_request">270</property>
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="stack">stack</property>
-            <property name="width-request">270</property>
           </object>
           <packing>
             <property name="name">sidebar</property>
@@ -100,25 +107,24 @@
         <child>
           <object class="GtkStack" id="stack">
             <property name="visible">True</property>
-            <property name="expand">True</property>
-            <signal name="notify::visible-child" after="yes" handler="notify_visible_child_cb"/>
+            <property name="can_focus">False</property>
+            <signal name="notify::visible-child" handler="notify_visible_child_cb" after="yes" swapped="no"/>
             <child>
               <object class="GtkBox" id="welcome">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
                 <property name="can_focus">False</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
-                <property name="margin">18</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkImage" id="icon">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="valign">center</property>
+                    <property name="margin_bottom">18</property>
                     <property name="pixel_size">128</property>
                     <property name="icon_name">phone-symbolic</property>
-                    <property name="icon-size">0</property>
-                    <property name="margin-bottom">18</property>
+                    <property name="icon_size">0</property>
                     <style>
                       <class name="dim-label"/>
                     </style>
@@ -126,21 +132,23 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkBox" id="box">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkLabel" id="label">
                         <property name="visible">True</property>
-                        <property name="opacity">0.5</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Welcome to Handy</property>
+                        <property name="opacity">0.5</property>
                         <property name="halign">center</property>
+                        <property name="margin_bottom">12</property>
+                        <property name="label" translatable="yes">Welcome to Handy</property>
                         <property name="xalign">0</property>
-                        <property name="margin-bottom">12</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                           <attribute name="scale" value="2"/>
@@ -149,26 +157,28 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="empty-state-label">
                         <property name="visible">True</property>
-                        <property name="opacity">0.5</property>
                         <property name="can_focus">False</property>
+                        <property name="opacity">0.5</property>
                         <property name="label" translatable="yes">This is a tour of the widgets the library has to offer.</property>
-                        <property name="justify">left</property>
-                        <property name="use_markup">true</property>
+                        <property name="use_markup">True</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
+                        <property name="position">1</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
               </object>
@@ -180,30 +190,37 @@
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
                 <property name="can_focus">False</property>
                 <property name="halign">center</property>
                 <property name="valign">center</property>
-                <property name="margin">18</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkLabel" id="display">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label"></property>
                     <property name="single_line_mode">True</property>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
                 <child>
                   <object class="HdyDialer" id="dialer">
                     <property name="visible">True</property>
-                    <property name="expand">False</property>
+                    <property name="can_focus">False</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
-                    <property name="margin">12</property>
-                    <signal name="submitted" after="yes" handler="submitted_cb"/>
-                    <signal name="deleted" after="yes" handler="deleted_cb"/>
-                    <signal name="symbol-clicked" after="yes" handler="symbol_clicked_cb"/>
+                    <signal name="deleted" handler="deleted_cb" after="yes" swapped="no"/>
+                    <signal name="submitted" handler="submitted_cb" after="yes" swapped="no"/>
+                    <signal name="symbol-clicked" handler="symbol_clicked_cb" after="yes" swapped="no"/>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </object>
               <packing>
@@ -221,12 +238,11 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="HdyArrows" id="arrows">
-		    <property name="count">3</property>
                     <property name="visible">True</property>
-                    <property name="expand">False</property>
+                    <property name="can_focus">False</property>
                     <property name="halign">center</property>
                     <property name="valign">center</property>
-                    <property name="margin">12</property>
+                    <property name="count">3</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
