@@ -17,7 +17,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_DIALER (hdy_dialer_get_type())
 
-G_DECLARE_DERIVABLE_TYPE (HdyDialer, hdy_dialer, HDY, DIALER, GtkGrid)
+G_DECLARE_DERIVABLE_TYPE (HdyDialer, hdy_dialer, HDY, DIALER, GtkEventBox)
 
 /**
  * HdyDialerClass:
@@ -26,7 +26,7 @@ G_DECLARE_DERIVABLE_TYPE (HdyDialer, hdy_dialer, HDY, DIALER, GtkGrid)
  */
 struct _HdyDialerClass
 {
-  GtkButtonClass parent_class;
+  GtkEventBoxClass parent_class;
 
   /* Signals
    */

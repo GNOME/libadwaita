@@ -1,206 +1,203 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generated with glade 3.20.1 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <template class="HdyDialer" parent="GtkGrid">
-    <property name="hexpand">False</property>
-    <property name="vexpand">False</property>
-    <property name="row_homogeneous">True</property>
-    <property name="column_homogeneous">True</property>
+  <template class="HdyDialer" parent="GtkEventBox">
+    <property name="can_focus">False</property>
+    <property name="visible_window">False</property>
+    <property name="above_child">False</property>
     <child>
-      <object class="HdyDialerButton" id="btn_1">
-        <property name="digit">1</property>
-        <property name="letters"></property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
+      <object class="GtkGrid">
+        <property name="can_focus">False</property>
+        <property name="hexpand">False</property>
+        <property name="vexpand">False</property>
+        <property name="row_homogeneous">True</property>
+        <property name="column_homogeneous">True</property>
+        <child>
+          <object class="HdyDialerButton" id="btn_1">
+            <property name="digit">1</property>
+            <property name="letters"/>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+	  </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="HdyDialerButton" id="btn_2">
+            <property name="digit">2</property>
+            <property name="letters">ABC</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+	  </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="HdyDialerButton" id="btn_3">
+            <property name="digit">3</property>
+            <property name="letters">DEF</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+	  </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="HdyDialerButton" id="btn_4">
+            <property name="digit">4</property>
+            <property name="letters">GHI</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+	  </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="HdyDialerButton" id="btn_5">
+            <property name="digit">5</property>
+            <property name="letters">JKL</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+	  </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="HdyDialerButton" id="btn_6">
+            <property name="digit">6</property>
+            <property name="letters">MNO</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+	  </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="HdyDialerButton" id="btn_7">
+            <property name="digit">7</property>
+            <property name="letters">PQRS</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+	  </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="HdyDialerButton" id="btn_8">
+            <property name="digit">8</property>
+            <property name="letters">TUV</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+	  </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="HdyDialerButton" id="btn_9">
+            <property name="digit">9</property>
+            <property name="letters">WXYZ</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+	  </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="HdyDialerCycleButton" id="btn_star">
+            <property name="digit">-1</property>
+            <property name="letters">*+</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+	  </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="HdyDialerButton" id="btn_0">
+            <property name="digit">0</property>
+            <property name="letters"/>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+	  </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="HdyDialerCycleButton" id="btn_hash">
+            <property name="digit">-1</property>
+            <property name="letters">#</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+	  </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_submit">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="always_show_image">True</property>
+            <style>
+              <class name="suggested-action"/>
+            </style>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">4</property>
+            <property name="width">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_del">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="always_show_image">True</property>
+          </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">4</property>
+          </packing>
+        </child>
       </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">0</property>
-      </packing>
     </child>
-    <child>
-      <object class="HdyDialerButton" id="btn_2">
-        <property name="digit">2</property>
-        <property name="letters">ABC</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">0</property>
-      </packing>
-    </child>
-    <child>
-      <object class="HdyDialerButton"  id="btn_3">
-        <property name="digit">3</property>
-        <property name="letters">DEF</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">2</property>
-        <property name="top_attach">0</property>
-      </packing>
-    </child>
-    <child>
-      <object class="HdyDialerButton"  id="btn_4">
-        <property name="digit">4</property>
-        <property name="letters">GHI</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="HdyDialerButton"  id="btn_5">
-        <property name="digit">5</property>
-        <property name="letters">JKL</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">1</property>
-      </packing>
-    </child>
-    <child>
-      <object class="HdyDialerButton" id="btn_6">
-        <property name="digit">6</property>
-        <property name="letters">MNO</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">2</property>
-        <property name="top_attach">1</property>
-      </packing>
-    </child>
-
-    <child>
-      <object class="HdyDialerButton" id="btn_7">
-        <property name="digit">7</property>
-        <property name="letters">PQRS</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">2</property>
-      </packing>
-    </child>
-
-    <child>
-      <object class="HdyDialerButton" id="btn_8">
-        <property name="digit">8</property>
-        <property name="letters">TUV</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">2</property>
-      </packing>
-    </child>
-
-    <child>
-      <object class="HdyDialerButton" id="btn_9">
-        <property name="digit">9</property>
-        <property name="letters">WXYZ</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">2</property>
-        <property name="top_attach">2</property>
-      </packing>
-    </child>
-
-    <child>
-      <object class="HdyDialerCycleButton" id="btn_star">
-        <property name="digit">-1</property>
-        <property name="letters">*+</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">3</property>
-      </packing>
-    </child>
-
-    <child>
-      <object class="HdyDialerButton" id="btn_0">
-        <property name="digit">0</property>
-        <property name="letters"></property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">1</property>
-        <property name="top_attach">3</property>
-      </packing>
-    </child>
-
-    <child>
-      <object class="HdyDialerCycleButton" id="btn_hash">
-        <property name="digit">-1</property>
-        <property name="letters">#</property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">2</property>
-        <property name="top_attach">3</property>
-      </packing>
-    </child>
-
-    <child>
-      <object class="GtkButton" id="btn_submit">
-        <property name="label"></property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-        <property name="always-show-image">True</property>
-        <style>
-          <class name="suggested-action"/>
-        </style>
-      </object>
-      <packing>
-        <property name="left_attach">0</property>
-        <property name="top_attach">4</property>
-        <property name="width">2</property>
-      </packing>
-    </child>
-
-    <child>
-      <object class="GtkButton" id="btn_del">
-        <property name="label"></property>
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="receives_default">True</property>
-        <property name="always-show-image">True</property>
-      </object>
-      <packing>
-        <property name="left_attach">2</property>
-        <property name="top_attach">4</property>
-      </packing>
-    </child>
-
   </template>
 </interface>

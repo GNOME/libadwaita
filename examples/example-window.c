@@ -11,6 +11,7 @@ struct _ExampleWindow
   GtkButton *back;
   GtkStackSidebar *sidebar;
   GtkStack *stack;
+  GtkWidget *box_dialer;
   HdyDialer *dialer;
   GtkLabel *display;
   GtkWidget *arrows;
@@ -104,6 +105,16 @@ symbol_clicked_cb (HdyDialer *dialer,
   g_assert (HDY_IS_DIALER (dialer));
   g_assert (EXAMPLE_IS_WINDOW (self));
   g_print ("clicked: %c\n", symbol);
+}
+
+
+static void
+stack_visible_child_notify_cb (ExampleWindow *self,
+                               gpointer       unused)
+{
+  if (gtk_stack_get_visible_child (GTK_STACK (self->stack)) == GTK_WIDGET (self->box_dialer)) {
+    gtk_widget_grab_focus (GTK_WIDGET (self->dialer));
+  }
 }
 
 
@@ -203,6 +214,12 @@ example_window_constructed (GObject *object)
                             "notify::number",
                             G_CALLBACK (number_notify_cb),
                             self);
+
+  g_signal_connect_swapped (self->stack,
+                            "notify::visible-child",
+                            G_CALLBACK (stack_visible_child_notify_cb),
+                            self);
+
   gtk_adjustment_set_value (self->adj_arrows_count,
                             hdy_arrows_get_count (HDY_ARROWS (self->arrows)));
   gtk_adjustment_set_value (self->adj_arrows_duration,
@@ -224,6 +241,7 @@ example_window_class_init (ExampleWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, back);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, stack);
+  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, box_dialer);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, dialer);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, display);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, arrows);
