@@ -419,6 +419,175 @@
                 <property name="position">2</property>
               </packing>
             </child>
+            <child>
+              <object class="HdyColumn">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">fill</property>
+                <property name="valign">fill</property>
+                <property name="margin-bottom">32</property>
+                <property name="margin-left">24</property>
+                <property name="margin-right">24</property>
+                <property name="margin-top">32</property>
+                <property name="expand">True</property>
+                <property name="maximum-width" bind-source="column_width_adjustment" bind-property="value" bind-flags="sync-create"/>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">start</property>
+                    <property name="expand">True</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="margin-bottom">32</property>
+                        <property name="expand">True</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="pixel_size">128</property>
+                            <property name="icon_name">edit-select-symbolic</property>
+                            <property name="icon-size">0</property>
+                            <property name="margin-bottom">18</property>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="opacity">0.5</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Column</property>
+                                <property name="halign">center</property>
+                                <property name="xalign">0</property>
+                                <property name="margin-bottom">12</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                  <attribute name="scale" value="2"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="opacity">0.5</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">This column smoothly grows up to a maximum width.</property>
+                                <property name="justify">left</property>
+                                <property name="use_markup">true</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="expand">True</property>
+                        <property name="label" translatable="yes">Column</property>
+                        <property name="justify">left</property>
+                        <property name="halign">start</property>
+                        <property name="margin-bottom">12</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkFrame">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="expand">True</property>
+                        <property name="margin-bottom">32</property>
+                        <child>
+                          <object class="GtkListBox">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="expand">True</property>
+                            <property name="selection-mode">none</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="expand">True</property>
+                                <property name="orientation">horizontal</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Maximum width</property>
+                                    <property name="xalign">0</property>
+                                    <property name="margin-bottom">18</property>
+                                    <property name="margin-left">20</property>
+                                    <property name="margin-right">20</property>
+                                    <property name="margin-top">18</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkSpinButton">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="xalign">1</property>
+                                    <property name="margin-bottom">18</property>
+                                    <property name="margin-left">20</property>
+                                    <property name="margin-right">20</property>
+                                    <property name="margin-top">18</property>
+                                    <property name="adjustment">column_width_adjustment</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="name">column</property>
+                <property name="title">Column</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="name">content</property>
@@ -440,5 +609,12 @@
       <widget name="sub_header_bar"/>
       <widget name="stack"/>
     </widgets>
+  </object>
+  <object class="GtkAdjustment" id="column_width_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">10000</property>
+    <property name="value">600</property>
+    <property name="page-increment">100</property>
+    <property name="step-increment">10</property>
   </object>
 </interface>
