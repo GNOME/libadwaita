@@ -46,6 +46,7 @@ libhandy_generated_headers += [hdy_enums[1]]
 
 src_headers = [
   'hdy-arrows.h',
+  'hdy-column.h',
   'hdy-dialer-button.h',
   'hdy-dialer-cycle-button.h',
   'hdy-dialer.h',
@@ -57,6 +58,7 @@ src_headers = [
 src_sources = [
   'gtkprogresstracker.c',
   'hdy-arrows.c',
+  'hdy-column.c',
   'hdy-dialer-button.c',
   'hdy-dialer-cycle-button.c',
   'hdy-dialer.c',
