@@ -37,6 +37,7 @@
   <chapter id="core-api">
     <title>Widgets and Objects</title>
     <xi:include href="xml/hdy-arrows.xml"/>
+    <xi:include href="xml/hdy-column.xml"/>
     <xi:include href="xml/hdy-dialer.xml"/>
     <xi:include href="xml/hdy-dialer-button.xml"/>
     <xi:include href="xml/hdy-dialer-cycle-button.xml"/>
