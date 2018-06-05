@@ -27,6 +27,7 @@ G_BEGIN_DECLS
 
 #include "hdy-version.h"
 #include "hdy-arrows.h"
+#include "hdy-column.h"
 #include "hdy-dialer-button.h"
 #include "hdy-dialer-cycle-button.h"
 #include "hdy-dialer.h"
