@@ -118,6 +118,7 @@ if get_option('introspection')
                  sources: libhandy_generated_headers + libhandy_public_headers + libhandy_public_sources,
                nsversion: apiversion,
                namespace: 'Handy',
+               export_packages: 'libhandy-0.0',
            symbol_prefix: 'hdy',
        identifier_prefix: 'Hdy',
                link_with: libhandy,
