@@ -15,7 +15,7 @@ Build-Depends:
  xvfb,
  xauth,
 Standards-Version: 4.1.3
-Homepage: https://code.puri.sm/Librem5/libhandy
+Homepage: https://source.puri.sm/Librem5/libhandy
 
 Package: libhandy-0.0-0
 Architecture: any

@@ -6,8 +6,8 @@ Release: 1%{?dist}
 Summary: A library full of GTK+ widgets for mobile phones
 
 License: LGPLv2+
-Url:     https://code.puri.sm/Librem5/libhandy
-Source0: https://code.puri.sm/Librem5/libhandy/archive/master.tar.gz
+Url:     https://source.puri.sm/Librem5/libhandy
+Source0: https://source.puri.sm/Librem5/libhandy/archive/master.tar.gz
 
 BuildRequires: gcc
 BuildRequires: meson >= 0.40.1
