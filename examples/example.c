@@ -11,7 +11,7 @@ show_window (GtkApplication *app)
 
   window = example_window_new (app);
 
-  gtk_widget_show_all (GTK_WIDGET (window));
+  gtk_widget_show (GTK_WIDGET (window));
 }
 
 int
