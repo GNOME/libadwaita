@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: libhandy
-Source: https://code.puri.sm/Librem5/libhandy
+Source: https://source.puri.sm/Librem5/libhandy
 
 Files: *
 Copyright: 2018 Purism SPC
