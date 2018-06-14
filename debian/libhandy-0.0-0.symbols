@@ -10,8 +10,15 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_arrows_set_count@LIBHANDY_0_0_0 0.0~git20180517
  hdy_arrows_set_direction@LIBHANDY_0_0_0 0.0~git20180517
  hdy_arrows_set_duration@LIBHANDY_0_0_0 0.0~git20180517
+ hdy_column_get_linear_growth_width@LIBHANDY_0_0_0 0.0.3
+ hdy_column_get_maximum_width@LIBHANDY_0_0_0 0.0.1
+ hdy_column_get_type@LIBHANDY_0_0_0 0.0.1
+ hdy_column_new@LIBHANDY_0_0_0 0.0.1
+ hdy_column_set_linear_growth_width@LIBHANDY_0_0_0 0.0.3
+ hdy_column_set_maximum_width@LIBHANDY_0_0_0 0.0.1
  hdy_dialer_button_get_digit@LIBHANDY_0_0_0 0.0~git20180429
- hdy_dialer_button_get_letters@LIBHANDY_0_0_0 0.0~git20180429
+#MISSING: 0.0.3# hdy_dialer_button_get_letters@LIBHANDY_0_0_0 0.0.4~
+ hdy_dialer_button_get_symbols@LIBHANDY_0_0_0 0.0.3
  hdy_dialer_button_get_type@LIBHANDY_0_0_0 0.0~git20180429
  hdy_dialer_button_new@LIBHANDY_0_0_0 0.0~git20180429
  hdy_dialer_clear_number@LIBHANDY_0_0_0 0.0~git20180429
@@ -23,12 +30,19 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_dialer_cycle_button_set_cycle_timeout@LIBHANDY_0_0_0 0.0~git20180429
  hdy_dialer_cycle_button_stop_cycle@LIBHANDY_0_0_0 0.0~git20180429
  hdy_dialer_get_number@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_dialer_get_relief@LIBHANDY_0_0_0 0.0.3
  hdy_dialer_get_show_action_buttons@LIBHANDY_0_0_0 0.0~git20180429
  hdy_dialer_get_type@LIBHANDY_0_0_0 0.0~git20180429
  hdy_dialer_new@LIBHANDY_0_0_0 0.0~git20180429
  hdy_dialer_set_number@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_dialer_set_relief@LIBHANDY_0_0_0 0.0.3
  hdy_dialer_set_show_action_buttons@LIBHANDY_0_0_0 0.0~git20180429
  hdy_fold_get_type@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_header_group_add_header_bar@LIBHANDY_0_0_0 0.0.3
+ hdy_header_group_get_focus@LIBHANDY_0_0_0 0.0.3
+ hdy_header_group_get_type@LIBHANDY_0_0_0 0.0.3
+ hdy_header_group_new@LIBHANDY_0_0_0 0.0.3
+ hdy_header_group_set_focus@LIBHANDY_0_0_0 0.0.3
  hdy_leaflet_child_transition_type_get_type@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_get_child_transition_duration@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_get_child_transition_running@LIBHANDY_0_0_0 0.0~git20180429
@@ -53,3 +67,7 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_leaflet_set_visible_child_name@LIBHANDY_0_0_0 0.0~git20180429
  hdy_string_utf8_len@LIBHANDY_0_0_0 0.0~git20180429
  hdy_string_utf8_truncate@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_title_bar_get_selection_mode@LIBHANDY_0_0_0 0.0.3
+ hdy_title_bar_get_type@LIBHANDY_0_0_0 0.0.3
+ hdy_title_bar_new@LIBHANDY_0_0_0 0.0.3
+ hdy_title_bar_set_selection_mode@LIBHANDY_0_0_0 0.0.3
