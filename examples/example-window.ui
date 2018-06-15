@@ -210,8 +210,11 @@
                   <object class="HdyDialer" id="dialer">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="column_spacing">10</property>
                     <property name="halign">center</property>
+                    <property name="row_spacing">8</property>
                     <property name="valign">center</property>
+                    <property name="width_request">300</property>
                     <signal name="deleted" handler="deleted_cb" after="yes" swapped="no"/>
                     <signal name="submitted" handler="submitted_cb" after="yes" swapped="no"/>
                     <signal name="symbol-clicked" handler="symbol_clicked_cb" after="yes" swapped="no"/>
