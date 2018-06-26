@@ -16,7 +16,7 @@
 G_BEGIN_DECLS
 
 /**
- * HdyArrowsDirection
+ * HdyArrowsDirection:
  * @HDY_ARROWS_DIRECTION_UP: Arrows point upwards.
  * @HDY_ARROWS_DIRECTION_DOWN: Arrows point to the left.
  * @HDY_ARROWS_DIRECTION_LEFT: Arrows point to the right.
