@@ -338,9 +338,7 @@ hdy_dialer_constructed (GObject *object)
                                         GTK_ICON_SIZE_BUTTON);
   gtk_button_set_image (priv->btn_del, image);
 
-  gtk_icon_theme_add_resource_path (gtk_icon_theme_get_default (),
-                                    "/sm/puri/handy/icons");
-  image = gtk_image_new_from_icon_name ("phone-dial-symbolic",
+  image = gtk_image_new_from_icon_name ("call-start-symbolic",
                                         GTK_ICON_SIZE_BUTTON * 1.3);
   gtk_button_set_image (priv->btn_submit, image);
 

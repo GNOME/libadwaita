@@ -4,7 +4,4 @@
     <file preprocess="xml-stripblanks">hdy-dialer.ui</file>
     <file preprocess="xml-stripblanks">hdy-dialer-button.ui</file>
   </gresource>
-  <gresource prefix="/sm/puri/handy/icons/scalable/actions">
-    <file preprocess="xml-stripblanks">phone-dial-symbolic.svg</file>
-  </gresource>
 </gresources>
