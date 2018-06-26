@@ -7,7 +7,7 @@
 #ifndef HDY_ARROWS_H
 #define HDY_ARROWS_H
 
-#if !defined(HANDY_INSIDE) && !defined(HANDY_COMPILATION)
+#if !defined(_HANDY_INSIDE) && !defined(HANDY_COMPILATION)
 #error "Only <handy.h> can be included directly."
 #endif
 
@@ -16,7 +16,7 @@
 G_BEGIN_DECLS
 
 /**
- * HdyArrowsDirection
+ * HdyArrowsDirection:
  * @HDY_ARROWS_DIRECTION_UP: Arrows point upwards.
  * @HDY_ARROWS_DIRECTION_DOWN: Arrows point to the left.
  * @HDY_ARROWS_DIRECTION_LEFT: Arrows point to the right.

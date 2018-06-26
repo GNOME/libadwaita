@@ -4,6 +4,7 @@ subdir('xml')
 
 private_headers = [
     'config.h',
+    'gtkprogresstrackerprivate.h',
 ]
 
 images = [
