@@ -7,7 +7,7 @@
 #ifndef HDY_STRING_UTF8_H
 #define HDY_STRING_UTF8_H
 
-#if !defined(HANDY_INSIDE) && !defined(HANDY_COMPILATION)
+#if !defined(_HANDY_INSIDE) && !defined(HANDY_COMPILATION)
 #error "Only <handy.h> can be included directly."
 #endif
 

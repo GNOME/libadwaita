@@ -19,7 +19,7 @@ G_BEGIN_DECLS
 # error "libhandy requires glib-2.0 >= 2.50.0"
 #endif
 
-#define HANDY_INSIDE
+#define _HANDY_INSIDE
 
 #ifndef HANDY_USE_UNSTABLE_API
 #error    libhandy is unstable API. You must define HANDY_USE_UNSTABLE_API before including handy.h
@@ -35,7 +35,7 @@ G_BEGIN_DECLS
 #include "hdy-leaflet.h"
 #include "hdy-string-utf8.h"
 
-#undef HANDY_INSIDE
+#undef _HANDY_INSIDE
 
 G_END_DECLS
 

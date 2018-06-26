@@ -7,7 +7,7 @@
 #ifndef HDY_ARROWS_H
 #define HDY_ARROWS_H
 
-#if !defined(HANDY_INSIDE) && !defined(HANDY_COMPILATION)
+#if !defined(_HANDY_INSIDE) && !defined(HANDY_COMPILATION)
 #error "Only <handy.h> can be included directly."
 #endif
 
