@@ -301,6 +301,7 @@ hdy_dialer_cycle_button_get_cycle_timeout (HdyDialerCycleButton *self)
 /**
  * hdy_dialer_cycle_button_set_cycle_timeout:
  * @self: a #HdyDialerCycleButton
+ * @timeout: the timeout in milliseconds
  *
  * Set the cycle timeout in milliseconds.
  */
