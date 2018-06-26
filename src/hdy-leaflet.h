@@ -39,11 +39,12 @@ typedef enum {
 /**
  * HdyLeafletClass
  * @parent_class: The parent class
- * @todo: Class handler for the #HdyLeaflet::todos signal
  */
 struct _HdyLeafletClass
 {
   GtkContainerClass parent;
+
+  /*< private >*/
 
   /* Signals
    */
