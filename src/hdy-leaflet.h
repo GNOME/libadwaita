@@ -42,7 +42,7 @@ typedef enum {
  */
 struct _HdyLeafletClass
 {
-  GtkContainerClass parent;
+  GtkContainerClass parent_class;
 
   /*< private >*/
 
