@@ -82,6 +82,38 @@ hdy_column_set_property (GObject      *object,
   }
 }
 
+static gint
+get_child_width (HdyColumn *self,
+                 gint       width)
+{
+  GtkBin *bin = GTK_BIN (self);
+  GtkWidget *child;
+  gint minimum_width = 0, maximum_width;
+  gdouble amplitude, threshold, progress;
+
+  child = gtk_bin_get_child (bin);
+  if (child == NULL)
+    return 0;
+
+  if (gtk_widget_get_visible (child))
+    gtk_widget_get_preferred_width (child, &minimum_width, NULL);
+
+  if (width <= minimum_width)
+    return width;
+
+  /* Sanitize the maximum width to use for computations. */
+  maximum_width = MAX (minimum_width, self->maximum_width);
+  amplitude = maximum_width - minimum_width;
+  threshold = (HDY_EASE_OUT_TAN_CUBIC * amplitude + (gdouble) minimum_width);
+
+  if (width >= threshold)
+    return maximum_width;
+
+  progress = (width - minimum_width) / (threshold - minimum_width);
+
+  return ease_out_cubic (progress) * amplitude + minimum_width;
+}
+
 static void
 hdy_column_get_preferred_width (GtkWidget *widget,
                                 gint      *minimum,
@@ -109,8 +141,10 @@ hdy_column_get_preferred_height_and_baseline_for_width (GtkWidget *widget,
                                                         gint      *minimum_baseline,
                                                         gint      *natural_baseline)
 {
+  HdyColumn *self = HDY_COLUMN (widget);
   GtkBin *bin = GTK_BIN (widget);
   GtkWidget *child;
+  gint child_width;
 
   *minimum = 0;
   *natural = 0;
@@ -121,10 +155,12 @@ hdy_column_get_preferred_height_and_baseline_for_width (GtkWidget *widget,
   if (natural_baseline)
     *natural_baseline = -1;
 
+  child_width = get_child_width (self, width);
+
   child = gtk_bin_get_child (bin);
   if (child && gtk_widget_get_visible (child))
     gtk_widget_get_preferred_height_and_baseline_for_width (child,
-                                                            width,
+                                                            child_width,
                                                             minimum,
                                                             natural,
                                                             minimum_baseline,
@@ -148,8 +184,6 @@ hdy_column_size_allocate (GtkWidget     *widget,
   HdyColumn *self = HDY_COLUMN (widget);
   GtkBin *bin = GTK_BIN (widget);
   GtkAllocation child_allocation;
-  gint minimum_width = 0, maximum_width;
-  gdouble amplitude, threshold, progress;
   gint baseline;
   GtkWidget *child;
 
@@ -159,21 +193,7 @@ hdy_column_size_allocate (GtkWidget     *widget,
   if (child == NULL)
     return;
 
-  if (gtk_widget_get_visible (child))
-    gtk_widget_get_preferred_width (child, &minimum_width, NULL);
-
-  /* Sanitize the maximum width to use for computations. */
-  maximum_width = MAX (minimum_width, self->maximum_width);
-  amplitude = maximum_width - minimum_width;
-  threshold = (HDY_EASE_OUT_TAN_CUBIC * amplitude + (gdouble) minimum_width);
-  if (allocation->width <= minimum_width)
-    child_allocation.width = (gdouble) allocation->width;
-  else if (allocation->width >= threshold)
-    child_allocation.width = maximum_width;
-  else {
-    progress = (allocation->width - minimum_width) / (threshold - minimum_width);
-    child_allocation.width = (ease_out_cubic (progress) * amplitude + minimum_width);
-  }
+  child_allocation.width = get_child_width (self, allocation->width);
   child_allocation.height = allocation->height;
 
   if (!gtk_widget_get_has_window (widget)) {
