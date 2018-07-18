@@ -12,7 +12,7 @@ build-debian:
   stage: build
   script:
     - export LC_ALL=C.UTF-8
-    - meson . _build -Dgtk_doc=true
+    - meson . _build -Dgtk_doc=true --werror
     - ninja -C _build
     - ninja -C _build meson-libhandy-doc 2>&1 | tee _build/doc/buildlog
     # Check gtk-doc did not produce any new warnings
