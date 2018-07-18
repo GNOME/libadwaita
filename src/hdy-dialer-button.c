@@ -172,6 +172,7 @@ hdy_dialer_button_finalize (GObject *object)
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
 
   g_clear_pointer (&priv->letters, g_free);
+  G_OBJECT_CLASS (hdy_dialer_button_parent_class)->finalize (object);
 }
 
 
