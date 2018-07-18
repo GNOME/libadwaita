@@ -417,7 +417,7 @@ set_visible_child_info (HdyLeaflet                    *self,
   GtkWidget *widget = GTK_WIDGET (self);
   GList *children;
   HdyLeafletChildInfo *child_info;
-  GtkPanDirection transition_direction;
+  GtkPanDirection transition_direction = GTK_PAN_DIRECTION_LEFT;
 
   /* If we are being destroyed, do not bother with transitions and   *
    * notifications.
@@ -1621,7 +1621,7 @@ hdy_leaflet_size_allocate_unfolded (GtkWidget     *widget,
   GtkAllocation remaining_alloc;
   GList *children;
   HdyLeafletChildInfo *child_info, *visible_child;
-  gint homogeneous_size, min_size, extra_size;
+  gint homogeneous_size = 0, min_size, extra_size;
   gint per_child_extra, n_extra_widgets;
   gint n_visible_children, n_expand_children;
   gint start_pad = 0, end_pad = 0;
