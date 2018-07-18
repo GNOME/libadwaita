@@ -1,3 +1,25 @@
+libhandy (0.0.2) experimental; urgency=medium
+
+  [ Guido Günther ]
+  * Use source.puri.sm instead of code.puri.sm.
+  * Add AUTHORS file
+  * gitlab-ci: Build on Debian buster using provided build-deps.
+  * arrows: test object construction
+  * Multiple gtk-doc fixes
+  * docs: Abort on warnings.
+  * DialerButton: free letters
+
+  [ Adrien Plazas ]
+  * dialer: Make the grid visible and forbid show all.
+  * example: Drop usage of show_all()
+  * dialer: Add column-spacing and row-spacing props.
+  * example: Change the grid's spacing and minimum size request.
+  * flatpak: Allow access to the dconf config dir.
+  * Replace phone-dial-symbolic by call-start-symbolic.
+  * column: Fix height for width request.
+
+ -- Guido Günther <agx@sigxcpu.org>  Wed, 18 Jul 2018 13:12:10 +0200
+
 libhandy (0.0.1) experimental; urgency=medium
 
   [ Guido Günther ]
