@@ -31,10 +31,19 @@
         <property name="child-transition-type">slide</property>
         <property name="visible-child-name" bind-source="content_box" bind-property="visible-child-name" bind-flags="sync-create"/>
         <child>
-          <object class="GtkHeaderBar" id="header_bar">
+          <object class="GtkBox" id="header_bar_box">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="title">Handy Widget Factory</property>
+            <property name="hexpand">False</property>
+            <property name="orientation">horizontal</property>
+            <child>
+              <object class="GtkHeaderBar" id="header_bar">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="title">Handy Widget Factory</property>
+              </object>
+            </child>
             <child>
               <object class="GtkSeparator">
                 <property name="visible">True</property>
@@ -602,7 +611,7 @@
   <object class="GtkSizeGroup" id="start_pane_size_group">
     <property name="mode">horizontal</property>
     <widgets>
-      <widget name="header_bar"/>
+      <widget name="header_bar_box"/>
       <widget name="sidebar"/>
     </widgets>
   </object>
