@@ -2,15 +2,15 @@
 <glade-catalog name="libhandy" library="handy-0.0" depends="gtk+" book="libhandy">
   <glade-widget-classes>
     <glade-widget-class name="HdyArrows" generic-name="dialer" title="Arrows"/>
+    <glade-widget-class name="HdyColumn" generic-name="column" title="Column"/>
     <glade-widget-class name="HdyDialer" generic-name="dialer" title="Dialer"/>
     <glade-widget-class name="HdyLeaflet" generic-name="leaflet" title="Leaflet"/>
-    <glade-widget-class name="HdyColumn" generic-name="column" title="Column"/>
   </glade-widget-classes>
 
   <glade-widget-group name="handy" title="Libhandy Widgets">
     <glade-widget-class-ref name="HdyArrows"/>
+    <glade-widget-class-ref name="HdyColumn"/>
     <glade-widget-class-ref name="HdyDialer"/>
     <glade-widget-class-ref name="HdyLeaflet"/>
-    <glade-widget-class-ref name="HdyColumn"/>
   </glade-widget-group>
 </glade-catalog>
