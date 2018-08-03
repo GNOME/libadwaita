@@ -87,6 +87,34 @@
                     </child>
                   </object>
                 </child>
+                <child>
+                  <object class="GtkToggleButton" id="search_button">
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="valign">center</property>
+                    <property name="use-underline">True</property>
+                    <property name="active" bind-source="search_bar" bind-property="search-mode-enabled" bind-flags="sync-create|bidirectional"/>
+                    <style>
+                      <class name="image-button"/>
+                    </style>
+                    <child internal-child="accessible">
+                      <object class="AtkObject" id="a11y-search">
+                        <property name="accessible-name" translatable="yes">Back</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImage" id="search_image">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="icon_name">edit-find-symbolic</property>
+                        <property name="icon_size">1</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="pack_type">end</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="name">content</property>
@@ -672,6 +700,136 @@
               <packing>
                 <property name="name">column</property>
                 <property name="title">Column</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkOverlay">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child type="overlay">
+                  <object class="HdySearchBar" id="search_bar">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">fill</property>
+                    <property name="valign">start</property>
+                    <property name="hexpand">True</property>
+                    <property name="show-close-button">True</property>
+                    <child>
+                      <object class="HdyColumn">
+                        <property name="visible">True</property>
+                        <property name="hexpand">True</property>
+                        <property name="maximum-width">600</property>
+                        <child>
+                          <object class="GtkSearchEntry" id="search_entry">
+                            <property name="visible">True</property>
+                            <property name="hexpand">True</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="vexpand">True</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="valign">center</property>
+                        <property name="margin_bottom">18</property>
+                        <property name="pixel_size">128</property>
+                        <property name="icon_name">edit-find-symbolic</property>
+                        <property name="icon_size">0</property>
+                        <style>
+                          <class name="dim-label"/>
+                        </style>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
+                        <property name="margin_start">12</property>
+                        <property name="margin_end">12</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="opacity">0.5</property>
+                            <property name="halign">center</property>
+                            <property name="margin_bottom">12</property>
+                            <property name="label" translatable="yes">Search bar</property>
+                            <property name="justify">center</property>
+                            <property name="wrap">True</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                              <attribute name="scale" value="2"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="opacity">0.5</property>
+                            <property name="margin_bottom">6</property>
+                            <property name="label" translatable="yes">A search bar that gives your search entry all the space it needs.</property>
+                            <property name="justify">center</property>
+                            <property name="wrap">True</property>
+                            <property name="use_markup">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="opacity">0.5</property>
+                            <property name="label" translatable="yes">Try using it with an horizontaly expanded column to make your search entry adaptive.</property>
+                            <property name="justify">center</property>
+                            <property name="wrap">True</property>
+                            <property name="use_markup">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="name">search-bar</property>
+                <property name="title">Search bar</property>
               </packing>
             </child>
           </object>
