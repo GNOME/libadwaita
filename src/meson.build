@@ -57,6 +57,7 @@ src_headers = [
   'hdy-header-group.h',
   'hdy-leaflet.h',
   'hdy-main.h',
+  'hdy-search-bar.h',
   'hdy-string-utf8.h',
   'hdy-title-bar.h',
 ]
@@ -84,6 +85,7 @@ src_sources = [
   'hdy-header-group.c',
   'hdy-leaflet.c',
   'hdy-main.c',
+  'hdy-search-bar.c',
   'hdy-string-utf8.c',
   'hdy-title-bar.c',
 ]

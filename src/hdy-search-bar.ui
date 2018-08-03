@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="HdySearchBar" parent="GtkBin">
+    <child>
+      <object class="GtkRevealer" id="revealer">
+        <property name="visible">True</property>
+        <property name="hexpand">True</property>
+        <child>
+          <object class="GtkBox" id="tool_box">
+            <property name="visible">True</property>
+            <property name="border-width">6</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkBox" id="start">
+                <property name="visible">True</property>
+                <property name="halign">start</property>
+                <property name="orientation">vertical</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="end">
+                <property name="visible">True</property>
+                <property name="halign">end</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkButton" id="close_button">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">1</property>
+                    <property name="relief">none</property>
+                    <style>
+                      <class name="close"/>
+                    </style>
+                    <child>
+                      <object class="GtkImage" id="close_image">
+                        <property name="visible">True</property>
+                        <property name="icon-size">1</property>
+                        <property name="icon-name">window-close-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+  <object class="GtkSizeGroup">
+    <property name="mode">horizontal</property>
+    <widgets>
+      <widget name="start"/>
+      <widget name="end"/>
+    </widgets>
+  </object>
+</interface>
