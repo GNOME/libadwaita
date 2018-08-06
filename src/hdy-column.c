@@ -60,6 +60,7 @@ hdy_column_get_property (GObject    *object,
   switch (prop_id) {
   case PROP_MAXIMUM_WIDTH:
     g_value_set_int (value, hdy_column_get_maximum_width (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
