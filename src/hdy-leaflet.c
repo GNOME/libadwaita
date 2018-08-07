@@ -209,7 +209,7 @@ find_child_info_for_name (HdyLeaflet  *self,
 }
 
 static gboolean
-get_enable_animations ()
+get_enable_animations (void)
 {
   gboolean enable_animations;
 
