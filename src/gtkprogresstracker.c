@@ -38,18 +38,6 @@
 
 static gdouble gtk_slowdown = 1.0;
 
-void
-_gtk_set_slowdown (gdouble factor)
-{
-  gtk_slowdown = factor;
-}
-
-gdouble
-_gtk_get_slowdown (gdouble factor)
-{
-  return gtk_slowdown;
-}
-
 /**
  * gtk_progress_tracker_init_copy:
  * @source: The source progress tracker
