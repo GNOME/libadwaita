@@ -606,7 +606,6 @@ hdy_arrows_set_duration (HdyArrows *self,
   HdyArrowsPrivate *priv;
 
   g_return_if_fail (HDY_IS_ARROWS (self));
-  g_return_if_fail (duration >= 0);
 
   priv = hdy_arrows_get_instance_private (self);
   priv->animation.duration = duration;
