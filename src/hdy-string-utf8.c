@@ -6,6 +6,7 @@
 
 #include <stdlib.h>
 #include <gmodule.h>
+#include "hdy-string-utf8.h"
 
 /**
  * SECTION:hdy-string-utf8
