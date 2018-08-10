@@ -1387,7 +1387,7 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
   gint start_size, end_size, visible_size;
   gint remaining_start_size, remaining_end_size, remaining_size;
   gint current_pad;
-  gint max_child_size;
+  gint max_child_size = 0;
   gboolean box_homogeneous;
   HdyLeafletModeTransitionType mode_transition_type;
 
@@ -1454,7 +1454,6 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
     box_homogeneous = (priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] && orientation == GTK_ORIENTATION_HORIZONTAL) ||
                       (priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL] && orientation == GTK_ORIENTATION_VERTICAL);
     if (box_homogeneous) {
-      max_child_size = 0;
       for (children = priv->children; children; children = children->next) {
         child_info = children->data;
 
