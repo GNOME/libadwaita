@@ -53,6 +53,7 @@ src_headers = [
   'hdy-fold.h',
   'hdy-leaflet.h',
   'hdy-string-utf8.h',
+  'hdy-title-bar.h',
 ]
 
 src_sources = [
@@ -65,6 +66,7 @@ src_sources = [
   'hdy-fold.c',
   'hdy-leaflet.c',
   'hdy-string-utf8.c',
+  'hdy-title-bar.c',
 ]
 
 libhandy_public_headers += files(src_headers)
