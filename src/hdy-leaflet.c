@@ -2840,8 +2840,8 @@ hdy_leaflet_init (HdyLeaflet *self)
   priv->mode_transition.duration = 250;
   priv->child_transition.type = HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE;
   priv->child_transition.duration = 200;
-  priv->mode_transition.current_pos = 0.0;
-  priv->mode_transition.target_pos = 0.0;
+  priv->mode_transition.current_pos = 1.0;
+  priv->mode_transition.target_pos = 1.0;
 
   gtk_widget_set_has_window (widget, FALSE);
   gtk_widget_set_can_focus (widget, FALSE);
