@@ -313,7 +313,8 @@ hdy_leaflet_child_progress_updated (HdyLeaflet *self)
     }
 
     if (priv->last_visible_child != NULL) {
-      gtk_widget_set_child_visible (priv->last_visible_child->widget, FALSE);
+      if (hdy_leaflet_get_fold (self) == HDY_FOLD_FOLDED)
+        gtk_widget_set_child_visible (priv->last_visible_child->widget, FALSE);
       priv->last_visible_child = NULL;
     }
   }
