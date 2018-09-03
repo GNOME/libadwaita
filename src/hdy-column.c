@@ -27,6 +27,7 @@
 enum {
   PROP_0,
   PROP_MAXIMUM_WIDTH,
+  PROP_LINEAR_GROWTH_WIDTH,
   LAST_PROP,
 };
 
@@ -35,6 +36,7 @@ struct _HdyColumn
   GtkBin parent_instance;
 
   gint maximum_width;
+  gint linear_growth_width;
 };
 
 static GParamSpec *props[LAST_PROP];
@@ -61,6 +63,9 @@ hdy_column_get_property (GObject    *object,
   case PROP_MAXIMUM_WIDTH:
     g_value_set_int (value, hdy_column_get_maximum_width (self));
     break;
+  case PROP_LINEAR_GROWTH_WIDTH:
+    g_value_set_int (value, hdy_column_get_linear_growth_width (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -77,6 +82,9 @@ hdy_column_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_MAXIMUM_WIDTH:
     hdy_column_set_maximum_width (self, g_value_get_int (value));
+    break;
+  case PROP_LINEAR_GROWTH_WIDTH:
+    hdy_column_set_linear_growth_width (self, g_value_get_int (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -98,6 +106,9 @@ get_child_width (HdyColumn *self,
 
   if (gtk_widget_get_visible (child))
     gtk_widget_get_preferred_width (child, &minimum_width, NULL);
+
+  /* Sanitize the minimum width to use for computations. */
+  minimum_width = MIN (MAX (minimum_width, self->linear_growth_width), self->maximum_width);
 
   if (width <= minimum_width)
     return width;
@@ -240,6 +251,18 @@ hdy_column_class_init (HdyColumnClass *klass)
                         0, G_MAXINT, 0,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * HdyColumn:linear_growth_width:
+   *
+   * The width up to which the child will be allocated all the width.
+   */
+  props[PROP_LINEAR_GROWTH_WIDTH] =
+      g_param_spec_int ("linear-growth-width",
+                        _("Linear growth width"),
+                        _("The width up to which the child will be allocated all the width"),
+                        0, G_MAXINT, 0,
+                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
 
@@ -291,4 +314,44 @@ hdy_column_set_maximum_width (HdyColumn *self,
   g_return_if_fail (HDY_IS_COLUMN (self));
 
   self->maximum_width = maximum_width;
+}
+
+/**
+ * hdy_column_get_linear_growth_width:
+ * @self: a #HdyColumn
+ *
+ * Gets the width up to which the child will be allocated all the available
+ * width and starting from which it will be allocated a portion of the available
+ * width. In bith cases the allocated width won't exceed the declared maximum.
+ *
+ * Returns: the width up to which the child will be allocated all the available
+ * width.
+ */
+gint
+hdy_column_get_linear_growth_width (HdyColumn *self)
+{
+  g_return_val_if_fail (HDY_IS_COLUMN (self), 0);
+
+  return self->linear_growth_width;
+}
+
+/**
+ * hdy_column_set_linear_growth_width:
+ * @self: a #HdyColumn
+ * @linear_growth_width: the linear growth width
+ *
+ * Sets the width up to which the child will be allocated all the available
+ * width and starting from which it will be allocated a portion of the available
+ * width. In bith cases the allocated width won't exceed the declared maximum.
+ *
+ */
+void
+hdy_column_set_linear_growth_width (HdyColumn *self,
+                              gint       linear_growth_width)
+{
+  g_return_if_fail (HDY_IS_COLUMN (self));
+
+  self->linear_growth_width = linear_growth_width;
+
+  gtk_widget_queue_resize (GTK_WIDGET (self));
 }

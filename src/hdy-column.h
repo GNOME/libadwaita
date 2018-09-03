@@ -18,5 +18,8 @@ HdyColumn *hdy_column_new (void);
 gint hdy_column_get_maximum_width (HdyColumn *self);
 void hdy_column_set_maximum_width (HdyColumn *self,
                                    gint       maximum_width);
+gint hdy_column_get_linear_growth_width (HdyColumn *self);
+void hdy_column_set_linear_growth_width (HdyColumn *self,
+                                         gint       linear_growth_width);
 
 G_END_DECLS
