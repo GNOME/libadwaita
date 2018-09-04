@@ -525,12 +525,12 @@ set_visible_child_info (HdyLeaflet                    *self,
       gtk_widget_queue_allocate (widget);
     else
       gtk_widget_queue_resize (widget);
+
+    hdy_leaflet_start_child_transition (self, transition_type, transition_duration, transition_direction);
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD]);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD_NAME]);
-
-  hdy_leaflet_start_child_transition (self, transition_type, transition_duration, transition_direction);
 }
 
 static void
