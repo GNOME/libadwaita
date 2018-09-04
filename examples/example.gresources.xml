@@ -2,5 +2,6 @@
 <gresources>
   <gresource prefix="/sm/puri/handy/example/ui">
     <file preprocess="xml-stripblanks">example-window.ui</file>
+    <file compressed="true">style.css</file>
   </gresource>
 </gresources>
