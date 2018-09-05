@@ -7,7 +7,7 @@ struct _ExampleWindow
   GtkApplicationWindow parent_instance;
 
   HdyLeaflet *content_box;
-  GtkHeaderBar *sub_header_bar;
+  GtkHeaderBar *header_bar;
   GtkButton *back;
   GtkStackSidebar *sidebar;
   GtkStack *stack;
@@ -43,7 +43,7 @@ update (ExampleWindow *self)
 {
   HdyFold fold = hdy_leaflet_get_fold (self->content_box);
 
-  gtk_header_bar_set_show_close_button (self->sub_header_bar, fold == HDY_FOLD_UNFOLDED);
+  gtk_header_bar_set_show_close_button (self->header_bar, fold == HDY_FOLD_FOLDED);
   gtk_widget_set_visible (GTK_WIDGET (self->back), fold == HDY_FOLD_FOLDED);
 }
 
@@ -237,7 +237,7 @@ example_window_class_init (ExampleWindowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/sm/puri/handy/example/ui/example-window.ui");
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, content_box);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, sub_header_bar);
+  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, header_bar);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, back);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, stack);
