@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
+  <gresource prefix="/sm/puri/Handy/Demo">
+    <file preprocess="xml-stripblanks">icons/dark-mode-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/light-mode-symbolic.svg</file>
+  </gresource>
   <gresource prefix="/sm/puri/Handy/Demo/ui">
     <file preprocess="xml-stripblanks">hdy-demo-preferences-window.ui</file>
     <file preprocess="xml-stripblanks">hdy-demo-window.ui</file>

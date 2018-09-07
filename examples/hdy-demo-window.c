@@ -11,6 +11,7 @@ struct _HdyDemoWindow
 
   HdyLeaflet *header_box;
   HdyLeaflet *content_box;
+  GtkImage *theme_variant_image;
   GtkButton *back;
   GtkToggleButton *search_button;
   GtkStackSidebar *sidebar;
@@ -35,6 +36,29 @@ struct _HdyDemoWindow
 };
 
 G_DEFINE_TYPE (HdyDemoWindow, hdy_demo_window, GTK_TYPE_APPLICATION_WINDOW)
+
+static void
+theme_variant_button_clicked_cb (HdyDemoWindow *self)
+{
+  GtkSettings *settings = gtk_settings_get_default ();
+  gboolean prefer_dark_theme;
+
+  g_object_get (settings, "gtk-application-prefer-dark-theme", &prefer_dark_theme, NULL);
+  g_object_set (settings, "gtk-application-prefer-dark-theme", !prefer_dark_theme, NULL);
+}
+
+static gboolean
+prefer_dark_theme_to_icon_name_cb (GBinding     *binding,
+                                   const GValue *from_value,
+                                   GValue       *to_value,
+                                   gpointer      user_data)
+{
+  g_value_set_string (to_value,
+                      g_value_get_boolean (from_value) ? "light-mode-symbolic" :
+                                                         "dark-mode-symbolic");
+
+  return TRUE;
+}
 
 static gboolean
 hdy_demo_window_key_pressed_cb (GtkWidget     *sender,
@@ -414,6 +438,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class, "/sm/puri/Handy/Demo/ui/hdy-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, header_box);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, content_box);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, theme_variant_image);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, back);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_button);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, sidebar);
@@ -441,6 +466,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(hdy_demo_window_notify_visible_child_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "back_clicked_cb", G_CALLBACK(hdy_demo_window_back_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_leaflet_transition_cb", G_CALLBACK(notify_leaflet_transition_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "theme_variant_button_clicked_cb", G_CALLBACK(theme_variant_button_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "dialog_clicked_cb", G_CALLBACK(dialog_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "dialog_action_clicked_cb", G_CALLBACK(dialog_action_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "dialog_complex_clicked_cb", G_CALLBACK(dialog_complex_clicked_cb));
@@ -481,7 +507,17 @@ lists_page_init (HdyDemoWindow *self)
 static void
 hdy_demo_window_init (HdyDemoWindow *self)
 {
+  GtkSettings *settings = gtk_settings_get_default ();
+
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  g_object_bind_property_full (settings, "gtk-application-prefer-dark-theme",
+                               self->theme_variant_image, "icon-name",
+                               G_BINDING_SYNC_CREATE,
+                               prefer_dark_theme_to_icon_name_cb,
+                               NULL,
+                               NULL,
+                               NULL);
 
   hdy_combo_row_set_for_enum (self->leaflet_transition_row, HDY_TYPE_LEAFLET_TRANSITION_TYPE, leaflet_transition_name, NULL, NULL);
   hdy_combo_row_set_selected_index (self->leaflet_transition_row, HDY_LEAFLET_TRANSITION_TYPE_OVER);
