@@ -21,3 +21,12 @@ separator.sidebar.selection-mode,
 .selection-mode separator.sidebar {
   background-color: mix(@theme_selected_bg_color, #000, 0.2);
 }
+
+/* Needed for HdyTitleBar to work. This has been merged upstream but no release
+ * include it yet, it is likely to be released as part of GTK+ 3.24.1.
+ */
+headerbar.titlebar headerbar:not(.titlebar) {
+  background-color: rgba (0, 0, 0, 0);
+  background-image: none;
+  box-shadow: none;
+}
