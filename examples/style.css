@@ -1,0 +1,23 @@
+stacksidebar * {
+  border-left-width: 0px;
+  border-right-width: 0px;
+}
+
+/* Needed for seaprators to look good. These have been submitted upstream here:
+ * https://gitlab.gnome.org/GNOME/gtk/merge_requests/323
+ */
+
+separator.sidebar {
+  background-color: @borders;
+  border-style: none;
+  margin: 0px 0px 0px 0px;
+}
+
+separator.sidebar:backdrop {
+  background-color: @unfocused_borders;
+}
+
+separator.sidebar.selection-mode,
+.selection-mode separator.sidebar {
+  background-color: mix(@theme_selected_bg_color, #000, 0.2);
+}
