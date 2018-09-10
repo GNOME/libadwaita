@@ -25,65 +25,70 @@
     <property name="default_height">576</property>
     <signal name="key-press-event" handler="key_pressed_cb" after="yes" swapped="no"/>
     <child type="titlebar">
-      <object class="HdyLeaflet" id="header_box">
+      <object class="HdyTitleBar">
         <property name="visible">True</property>
-        <property name="mode-transition-type">slide</property>
-        <property name="child-transition-type">slide</property>
-        <property name="visible-child-name" bind-source="content_box" bind-property="visible-child-name" bind-flags="sync-create"/>
         <child>
-          <object class="GtkHeaderBar" id="header_bar">
+          <object class="HdyLeaflet" id="header_box">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="title">Handy Widget Factory</property>
-          </object>
-          <packing>
-            <property name="name">sidebar</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-            <style>
-              <class name="sidebar"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkHeaderBar" id="sub_header_bar">
-            <property name="visible">True</property>
-            <property name="expand">True</property>
-            <property name="show_close_button">True</property>
+            <property name="mode-transition-type">slide</property>
+            <property name="child-transition-type">slide</property>
+            <property name="visible-child-name" bind-source="content_box" bind-property="visible-child-name" bind-flags="sync-create"/>
             <child>
-              <object class="GtkButton" id="back">
+              <object class="GtkHeaderBar" id="header_bar">
+                <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="receives_default">False</property>
-                <property name="valign">center</property>
-                <property name="use-underline">True</property>
-                <signal name="clicked" handler="back_clicked_cb"/>
+                <property name="title">Handy Widget Factory</property>
+              </object>
+              <packing>
+                <property name="name">sidebar</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
                 <style>
-                  <class name="image-button"/>
+                  <class name="sidebar"/>
                 </style>
-                <child internal-child="accessible">
-                  <object class="AtkObject" id="a11y-back">
-                    <property name="accessible-name" translatable="yes">Back</property>
-                  </object>
-                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkHeaderBar" id="sub_header_bar">
+                <property name="visible">True</property>
+                <property name="expand">True</property>
+                <property name="show_close_button">True</property>
                 <child>
-                  <object class="GtkImage" id="back_image">
-                    <property name="visible">True</property>
+                  <object class="GtkButton" id="back">
                     <property name="can_focus">False</property>
-                    <property name="icon_name">go-previous-symbolic</property>
-                    <property name="icon_size">1</property>
+                    <property name="receives_default">False</property>
+                    <property name="valign">center</property>
+                    <property name="use-underline">True</property>
+                    <signal name="clicked" handler="back_clicked_cb"/>
+                    <style>
+                      <class name="image-button"/>
+                    </style>
+                    <child internal-child="accessible">
+                      <object class="AtkObject" id="a11y-back">
+                        <property name="accessible-name" translatable="yes">Back</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImage" id="back_image">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="icon_name">go-previous-symbolic</property>
+                        <property name="icon_size">1</property>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
+              <packing>
+                <property name="name">content</property>
+              </packing>
             </child>
           </object>
-          <packing>
-            <property name="name">content</property>
-          </packing>
         </child>
       </object>
     </child>
