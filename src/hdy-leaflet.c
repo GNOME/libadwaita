@@ -2828,6 +2828,8 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                          G_PARAM_READWRITE);
 
   gtk_container_class_install_child_properties (container_class, LAST_CHILD_PROP, child_props);
+
+  gtk_widget_class_set_css_name (widget_class, "hdyleaflet");
 }
 
 GtkWidget *

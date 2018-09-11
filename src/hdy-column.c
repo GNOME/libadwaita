@@ -264,6 +264,8 @@ hdy_column_class_init (HdyColumnClass *klass)
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
+
+  gtk_widget_class_set_css_name (widget_class, "hdycolumn");
 }
 
 static void
