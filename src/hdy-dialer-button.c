@@ -197,14 +197,14 @@ hdy_dialer_button_class_init (HdyDialerButtonClass *klass)
                       _("Digit"),
                       _("The dialer digit of the button"),
                       -1, INT_MAX, 0,
-                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                      G_PARAM_READWRITE);
 
   props[PROP_LETTERS] =
     g_param_spec_string ("letters",
                          _("Letters"),
                          _("The dialer letters of the button"),
                          "",
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE);
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
