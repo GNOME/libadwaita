@@ -1,3 +1,40 @@
+libhandy (0.0.3) experimental; urgency=medium
+
+  [ Adrien Plazas ]
+  * New HdyTitleBar widget. This coupled with a transparent headerbar
+    background can work around graphical glitches when animation header bars
+    in a leaflet.
+  * column: Add the linear-growth-width property
+  * glade: Fix the generic name of HdyArrows
+  * flatpak: Switch the runtime of the example to master.
+  * column: Add a missing break statement.
+  * leaflet: Hide children on transition end only when folded.
+  * leaflet: Init mode transition positions to the final values.
+  * example: Always show a close button.
+  * example: Load custom style from CSS resource
+  * example: Draw the right color for sidebar separators.
+  * example: Use separators to separate the panels.
+  * leaflet: Start the child transition only when folded.
+
+  [ Christopher Davis ]
+  * Add HdyColumn to libhandy.xml for glade.
+
+  [ Heather Ellsworth ]
+  * Add issue template
+
+  [ Jordan Petridis ]
+  * leaflet: initialize a variable.
+
+  [ Guido Günther ]
+  * HdyButton: Chain up to parent on finalize
+  * gitlab-ci: Fail on compile warnings
+  * meson: Warn about possible uninitialized variables
+  * HdyLeaflet: Fix two uninitialized variables
+  * Update list of compiler warnings from phosh
+    and fix the fallout.
+
+ -- Guido Günther <agx@sigxcpu.org>  Wed, 12 Sep 2018 12:03:54 +0200
+
 libhandy (0.0.2) experimental; urgency=medium
 
   [ Guido Günther ]
