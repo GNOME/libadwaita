@@ -32,6 +32,7 @@ G_BEGIN_DECLS
 #include "hdy-dialer-cycle-button.h"
 #include "hdy-dialer.h"
 #include "hdy-fold.h"
+#include "hdy-header-group.h"
 #include "hdy-leaflet.h"
 #include "hdy-string-utf8.h"
 #include "hdy-title-bar.h"
