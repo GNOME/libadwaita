@@ -56,6 +56,7 @@
 enum {
   PROP_0,
   PROP_FOLD,
+  PROP_FOLDED,
   PROP_HHOMOGENEOUS_FOLDED,
   PROP_VHOMOGENEOUS_FOLDED,
   PROP_HHOMOGENEOUS_UNFOLDED,
@@ -731,6 +732,8 @@ hdy_leaflet_set_fold (HdyLeaflet *self,
 
   g_object_notify_by_pspec (G_OBJECT (self),
                             props[PROP_FOLD]);
+  g_object_notify_by_pspec (G_OBJECT (self),
+                            props[PROP_FOLDED]);
 }
 
 /**
@@ -2362,6 +2365,9 @@ hdy_leaflet_get_property (GObject    *object,
   case PROP_FOLD:
     g_value_set_enum (value, hdy_leaflet_get_fold (self));
     break;
+  case PROP_FOLDED:
+    g_value_set_boolean (value, hdy_leaflet_get_fold (self) == HDY_FOLD_FOLDED);
+    break;
   case PROP_HHOMOGENEOUS_FOLDED:
     g_value_set_boolean (value, hdy_leaflet_get_homogeneous (self, TRUE, GTK_ORIENTATION_HORIZONTAL));
     break;
@@ -2700,6 +2706,13 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                        _("Whether the widget is folded"),
                        HDY_TYPE_FOLD, HDY_FOLD_UNFOLDED,
                        G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_FOLDED] =
+    g_param_spec_boolean ("folded",
+                          _("Folded"),
+                          _("Whether the widget is folded"),
+                          FALSE,
+                          G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * HdyLeaflet:hhomogeneous_folded:
