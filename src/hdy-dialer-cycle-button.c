@@ -219,9 +219,16 @@ GtkWidget *hdy_dialer_cycle_button_new (const gchar* symbols)
 static void
 hdy_dialer_cycle_button_init (HdyDialerCycleButton *self)
 {
+  GtkStyleContext *context;
+  GObject *secondary_label;
+
   g_signal_connect (self, "clicked", G_CALLBACK (button_clicked_cb), NULL);
 
   end_cycle (self);
+
+  secondary_label = gtk_widget_get_template_child (GTK_WIDGET (self), HDY_TYPE_DIALER_BUTTON, "secondary_label");
+  context = gtk_widget_get_style_context (GTK_WIDGET (secondary_label));
+  gtk_style_context_remove_class (context, "dim-label");
 }
 
 /**
