@@ -105,7 +105,7 @@ cycle_button_clicked (HdyDialer            *self,
   g_signal_emit(self,
                 signals[SIGNAL_SYMBOL_CLICKED],
                 0,
-                hdy_dialer_button_get_letters (HDY_DIALER_BUTTON (btn))[0]);
+                hdy_dialer_button_get_symbols (HDY_DIALER_BUTTON (btn))[0]);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
 }

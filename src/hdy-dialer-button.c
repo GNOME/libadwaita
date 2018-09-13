@@ -14,14 +14,14 @@
  * @Title: HdyDialerButton
  *
  * The #HdyDialerButton widget is a single button on an #HdyDialer. It
- * can represent a single digit (0-9) plus an arbitrary number of
- * letters that are displayed below the number.
+ * can represent a single symbol (typically a digit) plus an arbitrary
+ * number of symbols that are displayed below it.
  */
 
 enum {
   PROP_0,
   PROP_DIGIT,
-  PROP_LETTERS,
+  PROP_SYMBOLS,
   PROP_LAST_PROP,
 };
 static GParamSpec *props[PROP_LAST_PROP];
@@ -29,8 +29,7 @@ static GParamSpec *props[PROP_LAST_PROP];
 typedef struct
 {
   GtkLabel *label, *secondary_label;
-  gint digit;
-  gchar *letters;
+  gchar *symbols;
 } HdyDialerButtonPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (HdyDialerButton, hdy_dialer_button, GTK_TYPE_BUTTON)
@@ -39,18 +38,23 @@ static void
 format_label(HdyDialerButton *self)
 {
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
-  GString *str;
-  g_autofree gchar *text;
+  gchar *symbols = priv->symbols != NULL ? priv->symbols : "";
+  g_autofree gchar *text = NULL;
+  gchar *secondary_text = NULL;
 
-  str = g_string_new(NULL);
-  if (priv->digit >= 0) {
-    g_string_sprintf (str, "%d", priv->digit);
+  if (*symbols != '\0') {
+    secondary_text = g_utf8_find_next_char (symbols, NULL);
+    /* Allocate memory for the first character and '\0'. */
+    text = g_malloc0 (secondary_text - symbols + 1);
+    g_utf8_strncpy (text, symbols, 1);
+  }
+  else {
+    text = g_malloc0 (sizeof (gchar));
+    secondary_text = "";
   }
 
-  text = g_string_free (str, FALSE);
-
   gtk_label_set_label (priv->label, text);
-  gtk_label_set_label (priv->secondary_label, priv->letters);
+  gtk_label_set_label (priv->secondary_label, secondary_text);
 }
 
 static void
@@ -63,14 +67,9 @@ hdy_dialer_button_set_property (GObject      *object,
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
 
   switch (property_id) {
-  case PROP_DIGIT:
-    priv->digit = g_value_get_int (value);
-    format_label(self);
-    break;
-
-  case PROP_LETTERS:
-    g_free (priv->letters);
-    priv->letters = g_value_dup_string (value);
+  case PROP_SYMBOLS:
+    g_free (priv->symbols);
+    priv->symbols = g_value_dup_string (value);
     format_label(self);
     break;
 
@@ -91,11 +90,11 @@ hdy_dialer_button_get_property (GObject    *object,
 
   switch (property_id) {
   case PROP_DIGIT:
-    g_value_set_int (value, priv->digit);
+    g_value_set_int (value, hdy_dialer_button_get_digit (self));
     break;
 
-  case PROP_LETTERS:
-    g_value_set_string (value, priv->letters);
+  case PROP_SYMBOLS:
+    g_value_set_string (value, priv->symbols);
     break;
 
   default:
@@ -171,7 +170,7 @@ hdy_dialer_button_finalize (GObject *object)
   HdyDialerButton *self = HDY_DIALER_BUTTON (object);
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
 
-  g_clear_pointer (&priv->letters, g_free);
+  g_clear_pointer (&priv->symbols, g_free);
   G_OBJECT_CLASS (hdy_dialer_button_parent_class)->finalize (object);
 }
 
@@ -197,12 +196,12 @@ hdy_dialer_button_class_init (HdyDialerButtonClass *klass)
                       _("Digit"),
                       _("The dialer digit of the button"),
                       -1, INT_MAX, 0,
-                      G_PARAM_READWRITE);
+                      G_PARAM_READABLE);
 
-  props[PROP_LETTERS] =
-    g_param_spec_string ("letters",
-                         _("Letters"),
-                         _("The dialer letters of the button"),
+  props[PROP_SYMBOLS] =
+    g_param_spec_string ("symbols",
+                         _("Symbols"),
+                         _("The dialer symbols of the button"),
                          "",
                          G_PARAM_READWRITE);
 
@@ -216,19 +215,17 @@ hdy_dialer_button_class_init (HdyDialerButtonClass *klass)
 
 /**
  * hdy_dialer_button_new:
- * @digit: the digit displayed on the #HdyDialerButton
- * @letters: (nullable): the letters displayed on the #HdyDialerButton
+ * @symbols: (nullable): the symbols displayed on the #HdyDialerButton
  *
- * Create a new #HdyDialerButton which displays @digit and
- * @letters. If @digit is negative no number will be displayed. If
- * @letters is %NULL no letters will be displayed.
+ * Create a new #HdyDialerButton which displays
+ * @symbols. If
+ * @symbols is %NULL no symbols will be displayed.
  *
  * Returns: the newly created #HdyDialerButton widget
  */
-GtkWidget *hdy_dialer_button_new (int          digit,
-                                  const gchar *letters)
+GtkWidget *hdy_dialer_button_new (const gchar *symbols)
 {
-  return g_object_new (HDY_TYPE_DIALER_BUTTON, "digit", digit, "letters", letters, NULL);
+  return g_object_new (HDY_TYPE_DIALER_BUTTON, "symbols", symbols, NULL);
 }
 
 static void
@@ -238,8 +235,7 @@ hdy_dialer_button_init (HdyDialerButton *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  priv->digit = -1;
-  priv->letters = NULL;
+  priv->symbols = NULL;
 }
 
 /**
@@ -251,29 +247,36 @@ hdy_dialer_button_init (HdyDialerButton *self)
  * Returns: the button's digit
  */
 gint
-hdy_dialer_button_get_digit(HdyDialerButton *self)
+hdy_dialer_button_get_digit (HdyDialerButton *self)
 {
-  HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
+  HdyDialerButtonPrivate *priv;
+  gchar *symbols;
 
   g_return_val_if_fail (HDY_IS_DIALER_BUTTON (self), -1);
 
-  return priv->digit;
+  priv = hdy_dialer_button_get_instance_private(self);
+  symbols = priv->symbols;
+
+  g_return_val_if_fail (symbols != NULL, -1);
+  g_return_val_if_fail (g_ascii_isdigit (*symbols), -1);
+
+  return *symbols - '0';
 }
 
 /**
- * hdy_dialer_button_get_letters:
+ * hdy_dialer_button_get_symbols:
  * @self: a #HdyDialerButton
  *
- * Get the #HdyDialerButton's letters.
+ * Get the #HdyDialerButton's symbols.
  *
- * Returns: the button's letters.
+ * Returns: the button's symbols.
  */
 const char*
-hdy_dialer_button_get_letters(HdyDialerButton *self)
+hdy_dialer_button_get_symbols (HdyDialerButton *self)
 {
   HdyDialerButtonPrivate *priv = hdy_dialer_button_get_instance_private(self);
 
   g_return_val_if_fail (HDY_IS_DIALER_BUTTON (self), NULL);
 
-  return priv->letters;
+  return priv->symbols;
 }

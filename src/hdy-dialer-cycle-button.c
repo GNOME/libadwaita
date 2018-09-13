@@ -14,7 +14,7 @@
  * @Title: HdyDialerCycleButton
  *
  * The #HdyDialerCycleButton widget is a single button on a #HdyDialer
- * representing symbols such as regular letters or symbols like #, +
+ * representing symbols such as digits, letters, #, +
  * or ☃.  When the button is pressed multiple times in a row, the
  * symbols are cycled through. That is a call to #get_curent_symbol
  * returns another symbol each time the button is pressed. If no
@@ -75,7 +75,7 @@ button_clicked_cb (HdyDialerCycleButton *self,
   g_return_val_if_fail (HDY_IS_DIALER_CYCLE_BUTTON (self), FALSE);
 
   /* Only cycle if we have more than one symbol */
-  if (strlen (hdy_dialer_button_get_letters (HDY_DIALER_BUTTON (self))) < 2)
+  if (strlen (hdy_dialer_button_get_symbols (HDY_DIALER_BUTTON (self))) < 2)
     return FALSE;
 
   if (hdy_dialer_cycle_button_is_cycling (self)) {
@@ -213,7 +213,7 @@ hdy_dialer_cycle_button_class_init (HdyDialerCycleButtonClass *klass)
 GtkWidget *hdy_dialer_cycle_button_new (const gchar* symbols)
 {
   /* FIXME: we should call this 'symbols' in the base class already */
-  return g_object_new (HDY_TYPE_DIALER_CYCLE_BUTTON, "letters", symbols, NULL);
+  return g_object_new (HDY_TYPE_DIALER_CYCLE_BUTTON, "symbols", symbols, NULL);
 }
 
 static void
@@ -237,7 +237,7 @@ gunichar
 hdy_dialer_cycle_button_get_current_symbol (HdyDialerCycleButton *self)
 {
   HdyDialerCycleButtonPrivate *priv = hdy_dialer_cycle_button_get_instance_private (self);
-  const gchar *symbols = hdy_dialer_button_get_letters (HDY_DIALER_BUTTON (self));
+  const gchar *symbols = hdy_dialer_button_get_symbols (HDY_DIALER_BUTTON (self));
   gint off = priv->num % g_utf8_strlen (symbols, -1);
 
   return g_utf8_get_char (g_utf8_offset_to_pointer (symbols, off));
