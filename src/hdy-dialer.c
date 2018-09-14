@@ -29,6 +29,7 @@ typedef struct
   GtkGesture *long_press_del_gesture;
   GString *number;
   gboolean show_action_buttons;
+  GtkReliefStyle relief;
 } HdyDialerPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (HdyDialer, hdy_dialer, GTK_TYPE_EVENT_BOX)
@@ -39,6 +40,7 @@ enum {
   PROP_SHOW_ACTION_BUTTONS,
   PROP_COLUMN_SPACING,
   PROP_ROW_SPACING,
+  PROP_RELIEF,
   PROP_LAST_PROP,
 };
 static GParamSpec *props[PROP_LAST_PROP];
@@ -270,6 +272,10 @@ hdy_dialer_set_property (GObject      *object,
       (self, g_value_get_boolean (value));
     break;
 
+  case PROP_RELIEF:
+    hdy_dialer_set_relief (self, g_value_get_enum (value));
+    break;
+
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
     break;
@@ -300,6 +306,10 @@ hdy_dialer_get_property (GObject    *object,
 
   case PROP_SHOW_ACTION_BUTTONS:
     g_value_set_boolean (value, priv->show_action_buttons);
+    break;
+
+  case PROP_RELIEF:
+    g_value_set_enum (value, hdy_dialer_get_relief (self));
     break;
 
   default:
@@ -418,6 +428,19 @@ hdy_dialer_class_init (HdyDialerClass *klass)
                          0, G_MAXUINT, 0,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * HdyDialer:relief:
+   *
+   * The relief style of the edges of the main buttons.
+   */
+  props[PROP_RELIEF] =
+    g_param_spec_enum ("relief",
+                       _("Main buttons' border relief"),
+                       _("The border relief style of the main buttons"),
+                       GTK_TYPE_RELIEF_STYLE,
+                       GTK_RELIEF_NORMAL,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
   /**
@@ -514,6 +537,9 @@ hdy_dialer_init (HdyDialer *self)
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (self);
 
   gtk_widget_init_template (GTK_WIDGET (self));
+  g_object_bind_property (self, "relief",
+                          priv->number_btns[0], "relief",
+                          G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
 
   priv->number = g_string_new (NULL);
   priv->cycle_btn = NULL;
@@ -626,4 +652,52 @@ hdy_dialer_set_show_action_buttons (HdyDialer *self,
 
   g_object_notify_by_pspec
     (G_OBJECT (self), props[PROP_SHOW_ACTION_BUTTONS]);
+}
+
+/**
+ * hdy_dialer_set_relief:
+ * @self: The #HdyDialer whose main buttons you want to set relief styles of
+ * @relief: The #GtkReliefStyle as described above
+ *
+ * Sets the relief style of the edges of the main buttons for the given
+ * #HdyDialer widget.
+ * Two styles exist, %GTK_RELIEF_NORMAL and %GTK_RELIEF_NONE.
+ * The default style is, as one can guess, %GTK_RELIEF_NORMAL.
+ */
+void
+hdy_dialer_set_relief (HdyDialer      *self,
+                       GtkReliefStyle  relief)
+{
+  HdyDialerPrivate *priv;
+
+  g_return_if_fail (HDY_IS_DIALER (self));
+
+  priv = hdy_dialer_get_instance_private (self);
+
+  if (priv->relief == relief)
+    return;
+
+  priv->relief = relief;
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_RELIEF]);
+}
+
+/**
+ * hdy_dialer_get_relief:
+ * @self: The #HdyDialer whose main buttons you want the #GtkReliefStyle from
+ *
+ * Returns the current relief style of the main buttons for the given
+ * #HdyDialer.
+ *
+ * Returns: The current #GtkReliefStyle
+ */
+GtkReliefStyle
+hdy_dialer_get_relief (HdyDialer *self)
+{
+  HdyDialerPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_DIALER (self), GTK_RELIEF_NORMAL);
+
+  priv = hdy_dialer_get_instance_private (self);
+
+  return priv->relief;
 }

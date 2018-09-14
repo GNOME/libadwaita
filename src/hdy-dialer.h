@@ -44,6 +44,10 @@ gboolean         hdy_dialer_get_show_action_buttons (HdyDialer  *self);
 void             hdy_dialer_set_show_action_buttons (HdyDialer  *self,
                                                      gboolean    show);
 
+GtkReliefStyle   hdy_dialer_get_relief              (HdyDialer *self);
+void             hdy_dialer_set_relief              (HdyDialer      *self,
+                                                     GtkReliefStyle  relief);
+
 G_END_DECLS
 
 #endif /* HDY_DIALER_H */
