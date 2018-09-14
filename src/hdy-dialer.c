@@ -26,6 +26,7 @@ typedef struct
   HdyDialerButton *number_btns[10];
   HdyDialerCycleButton *btn_hash, *btn_star, *cycle_btn;
   GtkButton *btn_submit, *btn_del;
+  GtkGesture *long_press_del_gesture;
   GString *number;
   gboolean show_action_buttons;
 } HdyDialerPrivate;
@@ -217,6 +218,18 @@ grab_focus_cb (HdyDialer *dialer,
   gtk_widget_grab_focus (GTK_WIDGET (priv->number_btns[0]));
 }
 
+static void
+long_press_del_cb (GtkGestureLongPress *gesture,
+                   gdouble              x,
+                   gdouble              y,
+                   HdyDialer           *self)
+{
+  stop_cycle_mode (self);
+  hdy_dialer_clear_number (self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NUMBER]);
+  g_signal_emit (self, signals[SIGNAL_DELETED], 0);
+}
 
 static void
 hdy_dialer_finalize (GObject *object)
@@ -224,6 +237,7 @@ hdy_dialer_finalize (GObject *object)
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (HDY_DIALER (object));
 
   g_string_free (priv->number, TRUE);
+  g_object_unref (priv->long_press_del_gesture);
 
   G_OBJECT_CLASS (hdy_dialer_parent_class)->finalize (object);
 }
@@ -310,6 +324,11 @@ hdy_dialer_constructed (GObject *object)
                              G_CONNECT_SWAPPED);
   }
 
+  priv->long_press_del_gesture = gtk_gesture_long_press_new (GTK_WIDGET (priv->btn_del));
+  g_signal_connect (priv->long_press_del_gesture, "pressed",
+                    G_CALLBACK (long_press_del_cb), self);
+  gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (priv->long_press_del_gesture),
+                                              GTK_PHASE_BUBBLE);
   g_object_connect (priv->btn_star,
                     "swapped-signal::clicked", G_CALLBACK (cycle_button_clicked), self,
                     "swapped-signal::cycle-start", G_CALLBACK (cycle_start), self,
