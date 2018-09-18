@@ -90,7 +90,7 @@ libhandy_sources = [
 libhandy_deps = [
   dependency('gio-2.0'),
   dependency('gmodule-2.0'),
-  dependency('gtk+-3.0'),
+  dependency('gtk+-3.0', version: '>= 3.24.1'),
   cc.find_library('m', required: false),
   cc.find_library('rt', required: false),
 ]
