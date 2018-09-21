@@ -39,23 +39,6 @@ example_window_key_pressed_cb (GtkWidget     *sender,
 }
 
 static void
-update (ExampleWindow *self)
-{
-  HdyFold fold = hdy_leaflet_get_fold (self->content_box);
-
-  gtk_header_bar_set_show_close_button (self->header_bar, fold == HDY_FOLD_FOLDED);
-  gtk_widget_set_visible (GTK_WIDGET (self->back), fold == HDY_FOLD_FOLDED);
-}
-
-static void
-example_window_notify_fold_cb (GObject       *sender,
-                                 GParamSpec    *pspec,
-                                 ExampleWindow *self)
-{
-  update (self);
-}
-
-static void
 example_window_notify_visible_child_cb (GObject       *sender,
                                         GParamSpec    *pspec,
                                         ExampleWindow *self)
@@ -248,7 +231,6 @@ example_window_class_init (ExampleWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, adj_arrows_count);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, adj_arrows_duration);
   gtk_widget_class_bind_template_callback_full (widget_class, "key_pressed_cb", G_CALLBACK(example_window_key_pressed_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_fold_cb", G_CALLBACK(example_window_notify_fold_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(example_window_notify_visible_child_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "back_clicked_cb", G_CALLBACK(example_window_back_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "submitted_cb", G_CALLBACK(example_window_submitted_cb));
@@ -268,6 +250,4 @@ example_window_init (ExampleWindow *self)
   gtk_widget_init_template (GTK_WIDGET (self));
 
   hdy_leaflet_set_visible_child (self->content_box, GTK_WIDGET (self->stack));
-
-  update (self);
 }
