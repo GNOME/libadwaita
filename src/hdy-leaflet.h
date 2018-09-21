@@ -13,12 +13,9 @@
 
 #include <gtk/gtk.h>
 #include "hdy-fold.h"
+#include "hdy-enums.h"
 
 G_BEGIN_DECLS
-
-#define HDY_TYPE_LEAFLET_MODE_TRANSITION_TYPE (hdy_leaflet_mode_transition_type_get_type ())
-
-#define HDY_TYPE_LEAFLET_CHILD_TRANSITION_TYPE (hdy_leaflet_child_transition_type_get_type ())
 
 #define HDY_TYPE_LEAFLET (hdy_leaflet_get_type())
 
@@ -50,9 +47,6 @@ struct _HdyLeafletClass
    */
   void (*todo) (HdyLeaflet *self);
 };
-
-GType hdy_leaflet_mode_transition_type_get_type (void);
-GType hdy_leaflet_child_transition_type_get_type (void);
 
 GtkWidget       *hdy_leaflet_new (void);
 HdyFold          hdy_leaflet_get_fold (HdyLeaflet *self);

@@ -7,7 +7,9 @@ libhandy_resources = gnome.compile_resources(
    c_name: 'hdy',
 )
 
-hdy_enum_headers = ['hdy-arrows.h']
+hdy_enum_headers = ['hdy-arrows.h',
+                    'hdy-leaflet.h',
+                   ]
 
 version_data = configuration_data()
 version_data.set('HDY_MAJOR_VERSION', handy_version_major)
