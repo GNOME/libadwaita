@@ -7,6 +7,12 @@
 #include "hdy-fold.h"
 
 /**
+ * SECTION:hdy-fold
+ * @short_description: Element folding states
+ * @title: HdyFold
+ */
+
+/**
  * HdyFold:
  * @HDY_FOLD_UNFOLDED: The element isn't folded
  * @HDY_FOLD_FOLDED: The element is folded

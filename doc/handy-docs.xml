@@ -50,6 +50,7 @@
     <title>Helpers</title>
     <xi:include href="xml/hdy-version.xml"/>
     <xi:include href="xml/hdy-string-utf8.xml"/>
+    <xi:include href="xml/hdy-fold.xml"/>
   </chapter>
 
   <chapter id="object-tree">
