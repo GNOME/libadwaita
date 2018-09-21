@@ -163,6 +163,12 @@ hdy_header_group_set_focus (HdyHeaderGroup *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FOCUS]);
 }
 
+/**
+ * hdy_header_group_get_focus:
+ * @self: a #HdyHeaderGroup
+ *
+ * Returns: (transfer none): The currently focused child
+ */
 GtkWidget *
 hdy_header_group_get_focus (HdyHeaderGroup *self)
 {
