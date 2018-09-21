@@ -2700,6 +2700,16 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                                     PROP_ORIENTATION,
                                     "orientation");
 
+  /**
+   * HdyLeaflet:fold:
+   *
+   * The fold of the leaflet.
+   *
+   * The leaflet will be folded if the size allocated to it is smaller than the
+   * sum of the natural size of its children, it will be unfolded otherwise.
+   *
+   * See also: #HdyLeaflet:folded.
+   */
   props[PROP_FOLD] =
     g_param_spec_enum ("fold",
                        _("Fold"),
@@ -2707,6 +2717,16 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                        HDY_TYPE_FOLD, HDY_FOLD_UNFOLDED,
                        G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * HdyLeaflet:folded:
+   *
+   * %TRUE if the leaflet is folded.
+   *
+   * This is similar to the #HdyLeaflet:fold property but expressed as a
+   * #gboolean rather than a #GEnum. This makes it convenient to bind the
+   * #HdyLeaflet:fold of a leaflet to any other #gboolean property of other
+   * #GObject's using #g_object_bind_property().
+   */
   props[PROP_FOLDED] =
     g_param_spec_boolean ("folded",
                           _("Folded"),
