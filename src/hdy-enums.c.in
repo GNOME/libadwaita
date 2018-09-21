@@ -3,6 +3,7 @@
 #include "config.h"
 #include "hdy-arrows.h"
 #include "hdy-enums.h"
+#include "hdy-fold.h"
 #include "hdy-leaflet.h"
 
 /*** END file-header ***/

@@ -8,6 +8,7 @@ libhandy_resources = gnome.compile_resources(
 )
 
 hdy_enum_headers = ['hdy-arrows.h',
+                    'hdy-fold.h',
                     'hdy-leaflet.h',
                    ]
 
