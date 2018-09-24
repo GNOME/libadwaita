@@ -169,10 +169,10 @@ press_btn (GtkButton *btn,
            gboolean   pressed)
 {
   if (pressed) {
-    gtk_button_set_relief (btn, GTK_RELIEF_NORMAL);
+    gtk_widget_set_state_flags (GTK_WIDGET (btn), GTK_STATE_FLAG_CHECKED, FALSE);
     gtk_button_clicked (btn);
   } else {
-    gtk_button_set_relief (btn, GTK_RELIEF_NONE);
+    gtk_widget_unset_state_flags (GTK_WIDGET (btn), GTK_STATE_FLAG_CHECKED);
   }
 }
 
