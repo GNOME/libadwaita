@@ -448,8 +448,8 @@
                 <property name="halign">fill</property>
                 <property name="valign">fill</property>
                 <property name="margin-bottom">32</property>
-                <property name="margin-left">24</property>
-                <property name="margin-right">24</property>
+                <property name="margin-left">12</property>
+                <property name="margin-right">12</property>
                 <property name="margin-top">32</property>
                 <property name="expand">True</property>
                 <property name="maximum-width" bind-source="column_width_adjustment" bind-property="value" bind-flags="sync-create"/>
@@ -517,8 +517,9 @@
                                 <property name="opacity">0.5</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">This column smoothly grows up to a maximum width.</property>
-                                <property name="justify">left</property>
+                                <property name="justify">center</property>
                                 <property name="use_markup">true</property>
+                                <property name="wrap">True</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -573,8 +574,9 @@
                                     <property name="xalign">0</property>
                                     <property name="margin-bottom">18</property>
                                     <property name="margin-left">20</property>
-                                    <property name="margin-right">20</property>
+                                    <property name="margin-right">6</property>
                                     <property name="margin-top">18</property>
+                                    <property name="ellipsize">end</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
@@ -613,8 +615,9 @@
                                     <property name="xalign">0</property>
                                     <property name="margin-bottom">18</property>
                                     <property name="margin-left">20</property>
-                                    <property name="margin-right">20</property>
+                                    <property name="margin-right">6</property>
                                     <property name="margin-top">18</property>
+                                    <property name="ellipsize">end</property>
                                   </object>
                                   <packing>
                                     <property name="expand">True</property>
