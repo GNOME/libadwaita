@@ -15,8 +15,7 @@ build-debian:
     - meson . _build -Dgtk_doc=true -Db_coverage=true --werror
     - ninja -C _build
     - ninja -C _build meson-libhandy-doc 2>&1 | tee _build/doc/buildlog
-    # Check gtk-doc did not produce any new warnings
-    - "! grep -qs 'warning' _build/doc/buildlog"
+    - if grep -qs 'warning' _build/doc/buildlog; then exit 1; fi
     - xvfb-run ninja -C _build test
     - ninja -C _build coverage
   coverage: '/^\s+lines\.+:\s+([\d.]+\%)\s+/'
