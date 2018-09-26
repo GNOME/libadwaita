@@ -53,8 +53,6 @@ update_decoration_layouts (HdyHeaderGroup *self)
   g_autofree gchar *end_layout = NULL;
   g_auto(GStrv) ends = NULL;
 
-  g_message ("update");
-
   g_return_if_fail (HDY_IS_HEADER_GROUP (self));
 
   priv = hdy_header_group_get_instance_private (self);
@@ -149,8 +147,6 @@ hdy_header_group_set_focus (HdyHeaderGroup *self,
                             GtkWidget      *child)
 {
   HdyHeaderGroupPrivate *priv;
-
-  g_message ("focused");
 
   g_return_if_fail (HDY_IS_HEADER_GROUP (self));
 
