@@ -41,6 +41,22 @@ enum {
 
 static GParamSpec *props [N_PROPS];
 
+static gboolean
+contains (HdyHeaderGroup *self,
+          GtkHeaderBar   *header_bar)
+{
+  HdyHeaderGroupPrivate *priv;
+  GSList *header_bars;
+
+  priv = hdy_header_group_get_instance_private (self);
+
+  for (header_bars = priv->header_bars; header_bars != NULL; header_bars = header_bars->next)
+    if (header_bars->data == header_bar)
+      return TRUE;
+
+  return FALSE;
+}
+
 static void
 update_decoration_layouts (HdyHeaderGroup *self)
 {
@@ -165,6 +181,8 @@ hdy_header_group_set_focus (HdyHeaderGroup *self,
   HdyHeaderGroupPrivate *priv;
 
   g_return_if_fail (HDY_IS_HEADER_GROUP (self));
+  g_return_if_fail (header_bar == NULL || GTK_IS_HEADER_BAR (header_bar));
+  g_return_if_fail (header_bar == NULL || contains (self, header_bar));
 
   priv = hdy_header_group_get_instance_private (self);
 
