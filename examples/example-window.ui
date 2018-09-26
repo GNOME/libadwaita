@@ -555,7 +555,7 @@
                         <property name="expand">True</property>
                         <property name="margin-bottom">32</property>
                         <child>
-                          <object class="GtkListBox">
+                          <object class="GtkListBox" id="column_listbox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="expand">True</property>

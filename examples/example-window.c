@@ -15,12 +15,35 @@ struct _ExampleWindow
   HdyDialer *dialer;
   GtkLabel *display;
   GtkWidget *arrows;
+  GtkListBox *column_listbox;
   HdyHeaderGroup *header_group;
   GtkAdjustment *adj_arrows_count;
   GtkAdjustment *adj_arrows_duration;
 };
 
 G_DEFINE_TYPE (ExampleWindow, example_window, GTK_TYPE_APPLICATION_WINDOW)
+
+static void
+list_box_separator_header_func (GtkListBoxRow *row,
+                                GtkListBoxRow *before,
+                                gpointer       user_data)
+{
+  GtkWidget *header;
+
+  if (before == NULL) {
+    gtk_list_box_row_set_header (row, NULL);
+
+    return;
+  }
+
+  header = gtk_list_box_row_get_header (row);
+  if (header != NULL)
+    return;
+
+  header = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
+  gtk_widget_show (header);
+  gtk_list_box_row_set_header (row, header);
+}
 
 static gboolean
 example_window_key_pressed_cb (GtkWidget     *sender,
@@ -256,6 +279,7 @@ example_window_class_init (ExampleWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, dialer);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, display);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, arrows);
+  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, column_listbox);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, header_group);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, adj_arrows_count);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, adj_arrows_duration);
@@ -279,6 +303,7 @@ static void
 example_window_init (ExampleWindow *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
+  gtk_list_box_set_header_func (self->column_listbox, list_box_separator_header_func, NULL, NULL);
 
   hdy_leaflet_set_visible_child (self->content_box, GTK_WIDGET (self->stack));
 }
