@@ -63,6 +63,8 @@ update_decoration_layouts (HdyHeaderGroup *self)
 
   settings = gtk_settings_get_default ();
   g_object_get (G_OBJECT (settings), "gtk-decoration-layout", &layout, NULL);
+  if (layout == NULL)
+    layout = g_strdup (":");
 
   if (priv->focus != NULL) {
     for (; header_bars != NULL; header_bars = header_bars->next)
@@ -97,8 +99,13 @@ update_decoration_layouts (HdyHeaderGroup *self)
   }
 
   ends = g_strsplit (layout, ":", 2);
-  start_layout = g_strdup_printf ("%s:", ends[0]);
-  end_layout = g_strdup_printf (":%s", ends[1]);
+  if (g_strv_length (ends) >= 2) {
+    start_layout = g_strdup_printf ("%s:", ends[0]);
+    end_layout = g_strdup_printf (":%s", ends[1]);
+  } else {
+    start_layout = g_strdup (":");
+    end_layout = g_strdup (":");
+  }
   gtk_header_bar_set_decoration_layout (start_headerbar, start_layout);
   gtk_header_bar_set_decoration_layout (end_headerbar, end_layout);
 }
