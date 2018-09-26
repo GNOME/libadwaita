@@ -149,6 +149,15 @@ hdy_header_group_add_header_bar (HdyHeaderGroup *self,
   update_decoration_layouts (self);
 }
 
+/**
+ * hdy_header_group_set_focus:
+ * @self: a #HdyHeaderGroup
+ * @header_bar: (nullable): a #GtkHeaderBar of @self, or %NULL
+ *
+ * Sets the the currently focused header bar. If @header_bar is %NULL, the
+ * decoration will be spread as if the header bars of the group were only one,
+ * otherwise @header_bar will be the only one to receive the decoration.
+ */
 void
 hdy_header_group_set_focus (HdyHeaderGroup *self,
                             GtkHeaderBar   *header_bar)
@@ -170,7 +179,7 @@ hdy_header_group_set_focus (HdyHeaderGroup *self,
  * hdy_header_group_get_focus:
  * @self: a #HdyHeaderGroup
  *
- * Returns: (transfer none): The currently focused child
+ * Returns: (nullable) (transfer none): The currently focused header bar
  */
 GtkHeaderBar *
 hdy_header_group_get_focus (HdyHeaderGroup *self)
@@ -483,7 +492,9 @@ hdy_header_group_class_init (HdyHeaderGroupClass *klass)
   /**
    * HdyHeaderGroup:focus:
    *
-   * %TRUE if the header group is focused on a single headerbar.
+   * The the currently focused header bar. If %NULL, the decoration will be
+   * spread as if the header bars of the group were only one, otherwise the
+   * focused header bar will be the only one to receive the decoration.
    */
   props[PROP_FOCUS] =
     g_param_spec_object ("focus",
