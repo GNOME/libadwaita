@@ -144,7 +144,7 @@ hdy_header_group_add_header_bar (HdyHeaderGroup *self,
 
   g_signal_connect_swapped (header_bar, "map", G_CALLBACK (update_decoration_layouts), self);
   g_signal_connect_swapped (header_bar, "unmap", G_CALLBACK (update_decoration_layouts), self);
-  priv->header_bars = g_slist_prepend (priv->header_bars, header_bar);
+  priv->header_bars = g_slist_prepend (priv->header_bars, g_object_ref_sink (header_bar));
 
   update_decoration_layouts (self);
 }
@@ -159,7 +159,7 @@ hdy_header_group_set_focus (HdyHeaderGroup *self,
 
   priv = hdy_header_group_get_instance_private (self);
 
-  g_set_object (&priv->focus, child);
+  priv->focus = child;
 
   update_decoration_layouts (self);
 
@@ -208,9 +208,12 @@ typedef struct {
 static void
 hdy_header_group_finalize (GObject *object)
 {
-  /* FIXME */
-  /* HdyHeaderGroup *self = (HdyHeaderGroup *)object; */
-  /* HdyHeaderGroupPrivate *priv = hdy_header_group_get_instance_private (self); */
+  HdyHeaderGroup *self = (HdyHeaderGroup *)object;
+  HdyHeaderGroupPrivate *priv = hdy_header_group_get_instance_private (self);
+
+  g_slist_free_full (priv->header_bars, (GDestroyNotify) g_object_unref);
+  priv->header_bars = NULL;
+  priv->focus = NULL;
 
   G_OBJECT_CLASS (hdy_header_group_parent_class)->finalize (object);
 }
