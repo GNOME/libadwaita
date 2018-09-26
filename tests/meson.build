@@ -22,6 +22,7 @@ test_names = [
   'test-arrows',
   'test-dialer',
   'test-dialer-cycle-button',
+  'test-header-group',
   'test-string-utf8',
 ]
 
