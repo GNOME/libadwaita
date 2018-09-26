@@ -33,9 +33,9 @@ HdyHeaderGroup *hdy_header_group_new (void);
 void hdy_header_group_add_header_bar (HdyHeaderGroup *self,
                                       GtkHeaderBar   *header_bar);
 
-GtkWidget *hdy_header_group_get_focus (HdyHeaderGroup *self);
-void       hdy_header_group_set_focus (HdyHeaderGroup *self,
-                                       GtkWidget      *child);
+GtkHeaderBar *hdy_header_group_get_focus (HdyHeaderGroup *self);
+void          hdy_header_group_set_focus (HdyHeaderGroup *self,
+                                          GtkHeaderBar   *header_bar);
 
 G_END_DECLS
 

@@ -70,7 +70,7 @@ update (ExampleWindow *self)
 
   g_assert (header_child == NULL || GTK_IS_HEADER_BAR (header_child));
 
-  hdy_header_group_set_focus (self->header_group, fold == HDY_FOLD_FOLDED ? header_child : NULL);
+  hdy_header_group_set_focus (self->header_group, fold == HDY_FOLD_FOLDED ? GTK_HEADER_BAR (header_child) : NULL);
 }
 
 static void
