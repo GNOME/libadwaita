@@ -159,6 +159,8 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="orientation">vertical</property>
+                    <property name="margin_start">12</property>
+                    <property name="margin_end">12</property>
                     <child>
                       <object class="GtkLabel" id="label">
                         <property name="visible">True</property>
@@ -167,7 +169,8 @@
                         <property name="halign">center</property>
                         <property name="margin_bottom">12</property>
                         <property name="label" translatable="yes">Welcome to Handy</property>
-                        <property name="xalign">0</property>
+                        <property name="justify">center</property>
+                        <property name="wrap">True</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                           <attribute name="scale" value="2"/>
@@ -185,6 +188,8 @@
                         <property name="can_focus">False</property>
                         <property name="opacity">0.5</property>
                         <property name="label" translatable="yes">This is a tour of the widgets the library has to offer.</property>
+                        <property name="justify">center</property>
+                        <property name="wrap">True</property>
                         <property name="use_markup">True</property>
                       </object>
                       <packing>
