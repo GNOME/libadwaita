@@ -117,7 +117,6 @@ subdir('src')
 subdir('examples')
 subdir('tests')
 subdir('doc')
-subdir('data')
 subdir('glade')
 
 run_data = configuration_data()
