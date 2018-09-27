@@ -1,0 +1,151 @@
+<!ELEMENT glade-catalog (glade-widget-classes?, 
+			 glade-widget-group*)>
+
+<!ATTLIST glade-catalog name     CDATA #REQUIRED
+                        version  CDATA #IMPLIED
+                        targetable CDATA #IMPLIED
+                        library  CDATA #IMPLIED
+                        depends  CDATA #IMPLIED
+                        domain   CDATA #IMPLIED
+                        book     CDATA #IMPLIED
+                        icon-prefix CDATA #IMPLIED
+                        init-function CDATA #IMPLIED
+			requires CDATA #IMPLIED>
+
+<!ELEMENT glade-widget-classes (glade-widget-class+)>
+
+<!ELEMENT glade-widget-class (post-create-function?,
+			      get-internal-child-function?,
+			      child-property-applies-function?,
+			      read-widget-function?,
+			      write-widget-function?,
+			      set-property-function?,
+			      properties?,
+			      children?,
+			      packing-defaults?)>
+
+<!ATTLIST glade-widget-class toplevel     CDATA #IMPLIED
+                             since        CDATA #IMPLIED
+                             deprecated   CDATA #IMPLIED
+                             use-placeholders CDATA #IMPLIED
+                             default-width CDATA #IMPLIED
+                             default-height CDATA #IMPLIED
+			     name         CDATA #REQUIRED
+                             generic-name CDATA #IMPLIED
+                             icon-name    CDATA #IMPLIED
+			     title        CDATA #REQUIRED
+                             parent       CDATA #IMPLIED
+                             get-type-function CDATA #IMPLIED
+                             adaptor      CDATA #IMPLIED>
+
+<!ELEMENT properties (property+)>
+
+<!ELEMENT property (spec?, 
+		    type?,
+		    parameter-spec?,
+		    tooltip?, 
+		    parameters?,
+		    set-function?,
+		    get-function?,
+		    verify-function?)>
+
+<!ATTLIST property id               CDATA #REQUIRED
+                   since            CDATA #IMPLIED
+                   deprecated       CDATA #IMPLIED
+                   create-type      CDATA #IMPLIED
+                   name             CDATA #IMPLIED
+                   tooltip          CDATA #IMPLIED
+                   themed-icon      CDATA #IMPLIED
+                   stock            CDATA #IMPLIED
+                   stock-icon       CDATA #IMPLIED
+                   weight           CDATA #IMPLIED
+                   transfer-on-paste CDATA #IMPLIED
+                   save-always      CDATA #IMPLIED
+                   parentless-widget CDATA #IMPLIED
+                   atk-property     CDATA #IMPLIED
+		   default          CDATA #IMPLIED
+		   query            CDATA #IMPLIED
+                   save             CDATA #IMPLIED
+		   common           CDATA #IMPLIED
+		   disabled         CDATA #IMPLIED
+		   visible          CDATA #IMPLIED
+                   custom-layout    CDATA #IMPLIED
+                   multiline        CDATA #IMPLIED
+		   optional         CDATA #IMPLIED
+		   optional-default CDATA #IMPLIED
+                   ignore           CDATA #IMPLIED
+                   needs-sync       CDATA #IMPLIED
+                   construct-only   CDATA #IMPLIED
+		   translatable     CDATA #IMPLIED>
+
+<!ELEMENT parameter-spec (type?, 
+		          value-type?)>
+<!ELEMENT set-function (#PCDATA)>
+<!ELEMENT get-function (#PCDATA)>
+<!ELEMENT spec (#PCDATA)>
+<!ELEMENT tooltip (#PCDATA)>
+<!ELEMENT verify-function (#PCDATA)>
+
+<!ELEMENT parameters (parameter+)>
+
+<!ELEMENT parameter EMPTY>
+
+<!ATTLIST parameter key   CDATA #REQUIRED
+                    value CDATA #REQUIRED>
+
+<!ELEMENT paremter-spec (type,
+			 value-type)>
+<!ELEMENT value-type (#PCDATA)>
+
+<!ELEMENT children (child+)>
+
+<!ELEMENT child (type, 
+		 add-child-function?, 
+		 remove-child-function?, 
+		 get-children-function?, 
+		 get-all-children-function?,
+		 set-property-function?, 
+		 get-property-function?, 
+		 replace-child-function?, 
+		 fill-empty-function?, 
+		 properties?)>
+
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT add-child-function (#PCDATA)>
+<!ELEMENT remove-child-function (#PCDATA)>
+<!ELEMENT get-children-function (#PCDATA)>
+<!ELEMENT get-all-children-function (#PCDATA)>
+<!ELEMENT set-prop-function (#PCDATA)>
+<!ELEMENT get-prop-function (#PCDATA)>
+<!ELEMENT fill-empty-function (#PCDATA)>
+<!ELEMENT replace-child-function (#PCDATA)>
+
+<!ELEMENT post-create-function (#PCDATA)>
+<!ELEMENT get-internal-child-function (#PCDATA)>
+<!ELEMENT child-property-applies-function (#PCDATA)>
+
+<!ELEMENT read-widget-function (#PCDATA)>
+<!ELEMENT write-widget-function (#PCDATA)>
+<!ELEMENT set-property-function (#PCDATA)>
+
+<!ELEMENT glade-widget-group (default-palette-state?, 
+			      glade-widget-class-ref+)>
+
+<!ATTLIST glade-widget-group name  CDATA #REQUIRED
+                             title CDATA #REQUIRED>
+
+<!ELEMENT default-palette-state EMPTY>
+<!ATTLIST default-palette-state expanded CDATA #IMPLIED>
+
+<!ELEMENT glade-widget-class-ref EMPTY>
+<!ATTLIST glade-widget-class-ref name CDATA #REQUIRED>
+
+<!ELEMENT packing-defaults (parent-class+)>
+
+<!ELEMENT parent-class (child-property+)>
+<!ATTLIST parent-class name CDATA #REQUIRED>
+
+<!ELEMENT child-property EMPTY>
+<!ATTLIST child-property id      CDATA #REQUIRED
+                         default CDATA #REQUIRED>
+
