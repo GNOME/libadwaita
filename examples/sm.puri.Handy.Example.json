@@ -23,6 +23,9 @@
       "buildsystem": "meson",
       "builddir": true,
       "build-options": "examples",
+      "config-opts": [
+        "-Dglade_catalog=false"
+      ],
       "sources": [
         {
           "type": "git",
