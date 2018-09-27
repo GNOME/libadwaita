@@ -40,8 +40,10 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_fold_get_type@LIBHANDY_0_0_0 0.0~git20180429
  hdy_header_group_add_header_bar@LIBHANDY_0_0_0 0.0.3
  hdy_header_group_get_focus@LIBHANDY_0_0_0 0.0.3
+ hdy_header_group_get_header_bars@LIBHANDY_0_0_0 0.0.4~
  hdy_header_group_get_type@LIBHANDY_0_0_0 0.0.3
  hdy_header_group_new@LIBHANDY_0_0_0 0.0.3
+ hdy_header_group_remove_header_bar@LIBHANDY_0_0_0 0.0.4~
  hdy_header_group_set_focus@LIBHANDY_0_0_0 0.0.3
  hdy_leaflet_child_transition_type_get_type@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_get_child_transition_duration@LIBHANDY_0_0_0 0.0~git20180429
