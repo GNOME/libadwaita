@@ -37,6 +37,7 @@ Multi-Arch: same
 Section: libdevel
 Depends:
  ${misc:Depends},
+ ${shlibs:Depends},
  gir1.2-handy-0.0 (= ${binary:Version}),
  libhandy-0.0-0 (= ${binary:Version}),
 Recommends: pkg-config
