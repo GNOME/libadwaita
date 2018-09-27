@@ -57,6 +57,7 @@ contains (HdyHeaderGroup *self,
   return FALSE;
 }
 
+
 static void
 update_decoration_layouts (HdyHeaderGroup *self)
 {
@@ -165,6 +166,54 @@ hdy_header_group_add_header_bar (HdyHeaderGroup *self,
   update_decoration_layouts (self);
 }
 
+
+/**
+ * hdy_header_group_remove_header_bar:
+ * @self: a #HdyHeaderGroup
+ * @header_bar: the #GtkHeaderBar to remove
+ *
+ * Removes a widget from a #HdyHeaderGroup
+ **/
+void
+hdy_header_group_remove_header_bar (HdyHeaderGroup *self,
+                                    GtkHeaderBar *header_bar)
+{
+  HdyHeaderGroupPrivate *priv;
+
+  g_return_if_fail (HDY_IS_HEADER_GROUP (self));
+  g_return_if_fail (GTK_IS_HEADER_BAR (header_bar));
+  g_return_if_fail (contains (self, header_bar));
+
+  priv = hdy_header_group_get_instance_private (self);
+  priv->header_bars = g_slist_remove (priv->header_bars, header_bar);
+
+  if (priv->focus == header_bar)
+    hdy_header_group_set_focus (self, NULL);
+
+  g_object_unref (header_bar);
+}
+
+
+/**
+ * hdy_header_group_get_header_bars:
+ * @self: a #HdyHeaderGroup
+ *
+ * Returns the list of headerbars associated with @self.
+ *
+ * Returns:  (element-type GtkHeaderBar) (transfer none): a #GSList of
+ *   headerbars. The list is owned by libhandy and should not be modified.
+ **/
+GSList *
+hdy_header_group_get_header_bars (HdyHeaderGroup *self)
+{
+  HdyHeaderGroupPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_HEADER_GROUP (self), NULL);
+  priv = hdy_header_group_get_instance_private (self);
+  return priv->header_bars;
+}
+
+
 /**
  * hdy_header_group_set_focus:
  * @self: a #HdyHeaderGroup
@@ -210,6 +259,7 @@ hdy_header_group_get_focus (HdyHeaderGroup *self)
 
   return priv->focus;
 }
+
 
 typedef struct {
   gchar *name;
@@ -431,6 +481,7 @@ header_group_start_element (GMarkupParseContext  *context,
                                         error);
     }
 }
+
 
 /* This has been copied and modified from gtksizegroup.c. */
 static const GMarkupParser header_group_parser =
