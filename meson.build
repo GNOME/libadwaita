@@ -118,6 +118,7 @@ subdir('examples')
 subdir('tests')
 subdir('doc')
 subdir('data')
+subdir('glade')
 
 run_data = configuration_data()
 run_data.set('ABS_BUILDDIR', meson.current_build_dir())
