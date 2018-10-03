@@ -5,7 +5,7 @@
   <template class="HdyDialerButton" parent="GtkButton">
     <property name="can_focus">True</property>
     <style>
-      <class name="circular"/>
+      <class name="keypad"/>
     </style>
     <child>
       <object class="GtkBox">
