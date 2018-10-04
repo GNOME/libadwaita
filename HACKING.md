@@ -133,6 +133,12 @@ Static functions don't need the class prefix.  E.g. with a type foo_bar:
     foo_bar_button_clicked_cb (HdyDialerCycleButton *self,
                                GdkEventButton       *event)
 
+Note however that virtual methods like
+*<class_name>_{init,constructed,finalize,dispose}* do use the class prefix.
+These functions are usually never called directly but only assigned once in
+*<class_name>_constructed* so the longer name is kind of acceptable. This also
+helps to distinguish virtual methods from regular private methods.
+
 Self argument
 -------------
 The first argument is usually the object itself so call it *self*. E.g. for a
