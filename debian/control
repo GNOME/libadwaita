@@ -40,6 +40,7 @@ Depends:
  ${shlibs:Depends},
  gir1.2-handy-0.0 (= ${binary:Version}),
  libhandy-0.0-0 (= ${binary:Version}),
+ libgtk-3-dev,
 Recommends: pkg-config
 Description: Development files for libhandy
  libhandy provides GTK+ widgets and GObjects to ease developing
