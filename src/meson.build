@@ -113,7 +113,7 @@ libhandy = shared_library(
 )
 
 libhandy_dep = declare_dependency(
-              sources: libhandy_public_headers,
+              sources: libhandy_generated_headers,
          dependencies: libhandy_deps,
             link_with: libhandy,
   include_directories: include_directories('.'),
