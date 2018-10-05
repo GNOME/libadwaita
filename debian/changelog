@@ -1,3 +1,135 @@
+libhandy (0.0.4) experimental; urgency=medium
+
+  [ Mohammed Sadiq ]
+  * dialer-button: Fix emitting signal.
+    As the properties where set to not explicitly fire ::notify, no
+    signals where emitted. Let it be not explicit so that
+    the signal will be emitted on change
+  * ci: Enable code coverage.
+    GitLab pages isn't supported now. So simply store the artifacts.
+  * README: Add build and coverage status images
+  * dialer: Handle delete button long press.
+    Make the delete button clear the whole user input on long press
+
+  [ Alexander Mikhaylenko ]
+  * example: Remove sidebar border less aggressively.
+    Applying the style to every element inside 'stacksidebar' also removes
+    border from unrelated elements such as scrollbars. Hence only remove it
+    from lists.
+
+  [ Adrien Plazas ]
+  * leaflet: Add the folded property.
+    This is a boolean equivalent of the fold property, it is a needed
+    convenience as is can be used in GtkBuilder declarations while the fold
+    property is more convenient to use from C as it enables stronger typing.
+  * example: Bind back and close buttons visibility to fold.
+    Directly bind whether the back button and the close button are visible
+    to whether the headerbar is folded.
+  * Add HdyHeaderGroup
+  * example: Use a HdyHeaderGroup.
+    This automatically updates the headerbars' window decoration layout.
+  * dialer-button: Replace digit and letters by symbols.
+    Unify the digit and the letters of a dialer button as its symbols. This
+    allows to make the code simpler by limiting the number of special cases.
+    digit. This also handles Unicode characters.
+  * dialer-cycle-button: Don't make the secondary label dim.
+    This helps making it clear that these symbols are available, contrary to
+    the dim ones from a regular dialer button.
+  * dialer-button: Make the secondary label smaller.
+    Makes the secondary text smaller to better match the mockups for Calls.
+  * Add CSS names to the widgets
+  * leaflet: Document the fold and folded properties
+  * dialer: Set buttons checked instead setting relief.
+    When digit keys are pressed, check the buttons state to checked rather
+    than changing the relief.
+  * dialer: Add the relief property.
+    This allows to set the relief of the dialer buttons.
+  * header-group: Drop forgotten log.
+    This was accidentally left in.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/47
+  * example: Let the Column panel reach narrower widths.
+    Readjust the column widget's margins and ellipsize its labels to let it
+    reach narrower widths.
+  * example: Separate the listbox items
+  * example: Let the Dialer panel reach narrower widths.
+    Put the dialer into a column rather than forcing its width to let it
+    reach narrower widths.
+  * example: Enlarge the dialer label.
+    This makes the dialed number more readable.
+  * example: Let the Welcome panel reach narrower widths.
+    Let the welcome panel's labels wrap to let it reach narrower widths.
+  * header-group: Sanitize the decoration layout.
+    Checks whether the decoration layout is NULL, empty or has at least one
+    colon.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/44
+  * header-group: Better handle references of header bars.
+    Take a reference when adding a header bar, release them on destruction
+    and don't take extra references on the focused child. This avoids using
+    pointers to dead header bars or to leak them.
+  * header-group: Fix the type of the focus property.
+    This also fixes the types of the accessor functions.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/46
+  * header-group: Fix the docs of the focus property.
+    This also improves the documentation of its accessor functions.
+  * header-group: Guard the focused header bar setter.
+    Better guard the focused header bar setter by checking that the set
+    header bar actually is one and is part of the group.
+  * meson: Require GTK+ 3.24.1 or newer.
+    GTK+ 3.24.1 received style fixes required for HdyTitleBar to work as
+    expected.
+
+  [ Felix Pojtinger ]
+  * docs: Format README to enable syntax highlighting.
+    This also adds code fences and blanks around headers.
+
+  [ Guido Günther ]
+  * Depend on generated headers.
+    If tests or examples are built early we want that hdy-enums.h is alread
+    there.
+  * docs: Add HdyFold.
+    This makes sure it can be linked to by HdyLeaflet.
+  * HdyLealflet: Use glib-mkenums.
+    This makes the enums clickable in the HdyLeaflet documentation
+    and makes the code smaller.
+  * HdyFold: Use glib-mkenums.
+    This makes the enums clickable in the HdyLeaflet documentation,
+    HdyFold usable in GtkBuild and makes the code smaller.
+  * HdyHeaderGroup: Document hdy_group_set_focus()
+    This makes newer newer Gir scanner happy (and is a good thing anyway).
+  * debian: Update shared library symbols
+  * d/rules: Set a proper locale for the tests.
+  * Check the debian package build during CI as well.
+    This make sure we notice build breackage before it hits Jenkins to build
+    the official debs.
+  * ci: Fail on gtkdoc warnings.
+    Gitlab seems to get confused by the '!' expression so use if instead.
+  * tests: Test hdy_header_group_{get,set}_focus
+  * HdyDialer: Apply 'keypad' style class.
+    This applies the 'keypad' style class to both the keypad itself and its
+    buttons. This allows to style the buttons and the keypad in the
+    application.
+  * glade: Verify catalog data via xmllint
+  * debian: Add dependenies for running xmllint.
+    This also makes sure we have it available during CI
+  * HdyHeaderGroup: Allow to get and remove the headerbars
+  * debian: Add new symbols
+  * glade: Add a module so we can handle HdyHeaderGroup
+  * run: Add glade lib to LD_LIBRARY_PATH.
+    This makes it simple to test the built version.
+  * Move glade catalog from data/ to glade/
+    Given that there will be more complex widgets lets keep the catalog
+    and module together.
+  * glade: Use a custom DTD.
+    Glades DTD is not up to date. Use a custom copy until this is fixed
+    upstream:
+        https://gitlab.gnome.org/GNOME/glade/merge_requests/11
+    We do this as a separate commit so we can revert it once upstream glade is
+    fixed.
+  * glade: Support HdyHeaderGroup (Closes: #38)
+  * debian: Ship glade module
+
+ -- Guido Günther <agx@sigxcpu.org>  Fri, 05 Oct 2018 18:32:42 +0200
+
 libhandy (0.0.3) experimental; urgency=medium
 
   [ Adrien Plazas ]
