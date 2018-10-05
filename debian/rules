@@ -3,19 +3,14 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh $@ --with gir -- -B_build
+	dh $@ --with gir
 
 override_dh_auto_configure:
 	dh_auto_configure -- -Dgtk_doc=true
 
-override_dh_auto_build:
-	dh_auto_build
-	LC_ALL=C.UTF-8 ninja -C _build meson-libhandy-doc
+override_dh_auto_test:
+	xvfb-run dh_auto_test
 
 override_dh_makeshlibs:
 	dh_makeshlibs -VUpstream-Version
 
-override_dh_auto_test:
-ifeq ($(filter nocheck,$(DEB_BUILD_OPTIONS)),)
-	LC_ALL=C.UTF-8 xvfb-run ninja -C _build test
-endif
