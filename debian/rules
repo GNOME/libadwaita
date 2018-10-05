@@ -3,7 +3,7 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
-	dh $@ -- -B_build
+	dh $@ --with gir -- -B_build
 
 override_dh_auto_configure:
 	dh_auto_configure -- -Dgtk_doc=true
