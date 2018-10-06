@@ -1194,7 +1194,6 @@ hdy_leaflet_get_preferred_width (GtkWidget *widget,
   gint child_nat, max_nat, sum_nat;
 
   visible_children = 0;
-  visible_child_progress = 0.0;
   child_min = max_min = visible_min = last_visible_min = 0;
   child_nat = max_nat = sum_nat = 0;
   for (children = priv->children; children; children = children->next) {
@@ -1242,7 +1241,6 @@ hdy_leaflet_get_preferred_height (GtkWidget *widget,
   gint child_nat, max_nat, sum_nat;
 
   visible_children = 0;
-  visible_child_progress = 0.0;
   child_min = max_min = visible_min = last_visible_min = 0;
   child_nat = max_nat = sum_nat = 0;
   for (children = priv->children; children; children = children->next) {
@@ -1291,7 +1289,6 @@ hdy_leaflet_get_preferred_width_for_height (GtkWidget *widget,
   gint child_nat, max_nat, sum_nat;
 
   visible_children = 0;
-  visible_child_progress = 0.0;
   child_min = max_min = visible_min = last_visible_min = 0;
   child_nat = max_nat = sum_nat = 0;
   for (children = priv->children; children; children = children->next) {
@@ -1343,7 +1340,6 @@ hdy_leaflet_get_preferred_height_for_width (GtkWidget *widget,
   gint child_nat, max_nat, sum_nat;
 
   visible_children = 0;
-  visible_child_progress = 0.0;
   child_min = max_min = visible_min = last_visible_min = 0;
   child_nat = max_nat = sum_nat = 0;
   for (children = priv->children; children; children = children->next) {
