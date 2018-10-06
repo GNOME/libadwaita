@@ -1,14 +1,15 @@
 stages:
   - build
 
+before_script:
+  - apt-get -y update
+  - apt-get -y install build-essential libgtk-3-doc lcov
+  - apt-get -y build-dep .
+
 build-debian:
   image: debian:buster
   tags:
     - librem5
-  before_script:
-    - apt-get -y update
-    - apt-get -y install build-essential libgtk-3-doc lcov
-    - apt-get -y build-dep .
   stage: build
   script:
     - export LC_ALL=C.UTF-8
@@ -28,10 +29,6 @@ build-debian-package:
   image: debian:buster
   tags:
     - librem5
-  before_script:
-    - apt-get -y update
-    - apt-get -y install build-essential dpkg-dev libgtk-3-doc lcov
-    - apt-get -y build-dep .
   stage: build
   script:
     - dpkg-buildpackage -uc -us
