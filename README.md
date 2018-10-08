@@ -58,3 +58,23 @@ installing the library use:
 ```sh
 _build/run glade
 ```
+
+## Documentation
+
+The documentation can be found online
+[here](http://honk.sigxcpu.org/projects/libhandy/doc/). Further examples on how
+to the widgets in you favorite programming language can be found here:
+
+### C
+- [calls](https://source.puri.sm/Librem5/calls) (HdyDialer)
+- [phosh](https://source.puri.sm/Librem5/phosh) (HdyDialer)
+
+### Python 3
+- [PasswordSafe](https://gitlab.gnome.org/World/PasswordSafe) (HdyColumn)
+
+### Rust
+- [Fractal](https://gitlab.gnome.org/World/fractal) (HdyColumn)
+- [Podcasts](https://gitlab.gnome.org/World/podcasts) (HdyColumn)
+
+### Vala
+- [GNOME Games](https://gitlab.gnome.org/GNOME/gnome-games) (HdyColumn, HdyTitleBar)
