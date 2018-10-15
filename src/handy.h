@@ -34,6 +34,7 @@ G_BEGIN_DECLS
 #include "hdy-fold.h"
 #include "hdy-header-group.h"
 #include "hdy-leaflet.h"
+#include "hdy-main.h"
 #include "hdy-string-utf8.h"
 #include "hdy-title-bar.h"
 
