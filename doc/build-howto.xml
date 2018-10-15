@@ -45,6 +45,13 @@
       the package name.
     </para>
 
+    <para>
+      When using the <productname>meson build system</productname> you can declare a dependency like
+    </para>
+    <informalexample><programlisting>
+      dependency('libhandy-0.0')
+    </programlisting></informalexample>
+
   </refsect2>
 
   <refsect2>
