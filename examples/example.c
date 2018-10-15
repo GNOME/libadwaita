@@ -34,6 +34,7 @@ main (int    argc,
   GtkApplication *app;
   int status;
 
+  hdy_init (&argc, &argv);
   app = gtk_application_new ("sm.puri.Handy.Example", G_APPLICATION_FLAGS_NONE);
   g_signal_connect (app, "startup", G_CALLBACK (startup), NULL);
   g_signal_connect (app, "activate", G_CALLBACK (show_window), NULL);
