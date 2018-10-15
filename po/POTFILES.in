@@ -1,0 +1,11 @@
+src/gtkprogresstracker.c
+src/hdy-arrows.c
+src/hdy-column.c
+src/hdy-dialer-button.c
+src/hdy-dialer.c
+src/hdy-dialer-cycle-button.c
+src/hdy-fold.c
+src/hdy-header-group.c
+src/hdy-leaflet.c
+src/hdy-string-utf8.c
+src/hdy-title-bar.c

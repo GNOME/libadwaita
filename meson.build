@@ -114,6 +114,7 @@ endif
 gnome = import('gnome')
 
 subdir('src')
+subdir('po')
 subdir('examples')
 subdir('tests')
 subdir('doc')

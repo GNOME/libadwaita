@@ -1,0 +1,256 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the libhandy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: libhandy\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-15 11:34+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/hdy-arrows.c:418
+msgid "Number of arrows"
+msgstr ""
+
+#: src/hdy-arrows.c:419
+msgid "Number of arrows to display"
+msgstr ""
+
+#: src/hdy-arrows.c:427
+msgid "Arrows Direction"
+msgstr ""
+
+#: src/hdy-arrows.c:428
+msgid "Direction the arrows should point to"
+msgstr ""
+
+#: src/hdy-arrows.c:435
+msgid "Arrow animation duration"
+msgstr ""
+
+#: src/hdy-arrows.c:436
+msgid "The duration of the arrow animation in milliseconds"
+msgstr ""
+
+#: src/hdy-column.c:249
+msgid "Maximum width"
+msgstr ""
+
+#: src/hdy-column.c:250
+msgid "The maximum width allocated to the child"
+msgstr ""
+
+#: src/hdy-column.c:261
+msgid "Linear growth width"
+msgstr ""
+
+#: src/hdy-column.c:262
+msgid "The width up to which the child will be allocated all the width"
+msgstr ""
+
+#: src/hdy-dialer-button.c:196
+msgid "Digit"
+msgstr ""
+
+#: src/hdy-dialer-button.c:197
+msgid "The dialer digit of the button"
+msgstr ""
+
+#: src/hdy-dialer-button.c:203
+msgid "Symbols"
+msgstr ""
+
+#: src/hdy-dialer-button.c:204
+msgid "The dialer symbols of the button"
+msgstr ""
+
+#: src/hdy-dialer.c:405
+msgid "Number"
+msgstr ""
+
+#: src/hdy-dialer.c:406
+msgid "The phone number to dial"
+msgstr ""
+
+#: src/hdy-dialer.c:412
+msgid "Show action buttons"
+msgstr ""
+
+#: src/hdy-dialer.c:413
+msgid "Whether to show the submit and delete buttons"
+msgstr ""
+
+#: src/hdy-dialer.c:419
+msgid "Column spacing"
+msgstr ""
+
+#: src/hdy-dialer.c:420
+msgid "The amount of space between two consecutive columns"
+msgstr ""
+
+#: src/hdy-dialer.c:426
+msgid "Row spacing"
+msgstr ""
+
+#: src/hdy-dialer.c:427
+msgid "The amount of space between two consecutive rows"
+msgstr ""
+
+#: src/hdy-dialer.c:438
+msgid "Main buttons' border relief"
+msgstr ""
+
+#: src/hdy-dialer.c:439
+msgid "The border relief style of the main buttons"
+msgstr ""
+
+#: src/hdy-dialer-cycle-button.c:161
+msgid "Cycle timeout"
+msgstr ""
+
+#: src/hdy-dialer-cycle-button.c:162
+msgid "The timeout (in seconds) between button presses afterwhich a cycle ends"
+msgstr ""
+
+#: src/hdy-header-group.c:570
+msgid "Focus"
+msgstr ""
+
+#: src/hdy-header-group.c:571
+msgid "The header bar that should have the focus"
+msgstr ""
+
+#: src/hdy-leaflet.c:2711
+msgid "Fold"
+msgstr ""
+
+#: src/hdy-leaflet.c:2712 src/hdy-leaflet.c:2729
+msgid "Whether the widget is folded"
+msgstr ""
+
+#: src/hdy-leaflet.c:2728
+msgid "Folded"
+msgstr ""
+
+#: src/hdy-leaflet.c:2740
+msgid "Horizontally homogeneous folded"
+msgstr ""
+
+#: src/hdy-leaflet.c:2741
+msgid "Horizontally homogeneous sizing when the leaflet is folded"
+msgstr ""
+
+#: src/hdy-leaflet.c:2752
+msgid "Vertically homogeneous folded"
+msgstr ""
+
+#: src/hdy-leaflet.c:2753
+msgid "Vertically homogeneous sizing when the leaflet is folded"
+msgstr ""
+
+#: src/hdy-leaflet.c:2764
+msgid "Box horizontally homogeneous"
+msgstr ""
+
+#: src/hdy-leaflet.c:2765
+msgid "Horizontally homogeneous sizing when the leaflet is unfolded"
+msgstr ""
+
+#: src/hdy-leaflet.c:2776
+msgid "Box vertically homogeneous"
+msgstr ""
+
+#: src/hdy-leaflet.c:2777
+msgid "Vertically homogeneous sizing when the leaflet is unfolded"
+msgstr ""
+
+#: src/hdy-leaflet.c:2783
+msgid "Visible child"
+msgstr ""
+
+#: src/hdy-leaflet.c:2784
+msgid "The widget currently visible when the leaflet is folded"
+msgstr ""
+
+#: src/hdy-leaflet.c:2790
+msgid "Name of visible child"
+msgstr ""
+
+#: src/hdy-leaflet.c:2791
+msgid "The name of the widget currently visible when the children are stacked"
+msgstr ""
+
+#: src/hdy-leaflet.c:2797
+msgid "Mode transition type"
+msgstr ""
+
+#: src/hdy-leaflet.c:2798
+msgid "The type of animation used to transition between modes"
+msgstr ""
+
+#: src/hdy-leaflet.c:2804
+msgid "Mode transition duration"
+msgstr ""
+
+#: src/hdy-leaflet.c:2805
+msgid "The mode transition animation duration, in milliseconds"
+msgstr ""
+
+#: src/hdy-leaflet.c:2811
+msgid "Child transition type"
+msgstr ""
+
+#: src/hdy-leaflet.c:2812
+msgid "The type of animation used to transition between children"
+msgstr ""
+
+#: src/hdy-leaflet.c:2818
+msgid "Child transition duration"
+msgstr ""
+
+#: src/hdy-leaflet.c:2819
+msgid "The child transition animation duration, in milliseconds"
+msgstr ""
+
+#: src/hdy-leaflet.c:2825
+msgid "Child transition running"
+msgstr ""
+
+#: src/hdy-leaflet.c:2826
+msgid "Whether or not the child transition is currently running"
+msgstr ""
+
+#: src/hdy-leaflet.c:2832
+msgid "Interpolate size"
+msgstr ""
+
+#: src/hdy-leaflet.c:2833
+msgid ""
+"Whether or not the size should smoothly change when changing between "
+"differently sized children"
+msgstr ""
+
+#: src/hdy-leaflet.c:2841
+msgid "Name"
+msgstr ""
+
+#: src/hdy-leaflet.c:2842
+msgid "The name of the child page"
+msgstr ""
+
+#: src/hdy-title-bar.c:184
+msgid "Selection mode"
+msgstr ""
+
+#: src/hdy-title-bar.c:185
+msgid "Whether or not the title bar is in selection mode"
+msgstr ""
