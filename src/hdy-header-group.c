@@ -283,7 +283,7 @@ typedef struct {
 } GSListSubParserData;
 
 static void
-hdy_header_group_finalize (GObject *object)
+hdy_header_group_dispose (GObject *object)
 {
   HdyHeaderGroup *self = (HdyHeaderGroup *)object;
   HdyHeaderGroupPrivate *priv = hdy_header_group_get_instance_private (self);
@@ -292,7 +292,7 @@ hdy_header_group_finalize (GObject *object)
   priv->header_bars = NULL;
   priv->focus = NULL;
 
-  G_OBJECT_CLASS (hdy_header_group_parent_class)->finalize (object);
+  G_OBJECT_CLASS (hdy_header_group_parent_class)->dispose (object);
 }
 
 static void
@@ -554,7 +554,7 @@ hdy_header_group_class_init (HdyHeaderGroupClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  object_class->finalize = hdy_header_group_finalize;
+  object_class->dispose = hdy_header_group_dispose;
   object_class->get_property = hdy_header_group_get_property;
   object_class->set_property = hdy_header_group_set_property;
 
