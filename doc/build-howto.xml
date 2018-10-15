@@ -63,11 +63,11 @@
 
     <informalexample><programlisting>
       #define HANDY_USE_UNSTABLE_API
-      #include &lt;&package_ver_str;/handy.h&gt;
+      #include &lt;handy.h&gt;
     </programlisting></informalexample>
 
     <para>
-      Including individual headers rather than <literal>&package_ver_str;/handy.h</literal> is not
+      Including individual headers rather than <literal>handy.h</literal> is not
       recommended.
     </para>
     <para>
