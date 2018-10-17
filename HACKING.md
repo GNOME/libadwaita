@@ -183,3 +183,21 @@ Use minus signs instead of underscores in property names:
 *Bad":
 
 	<property name="margin_left">12</property>
+
+Automatic cleanup
+-----------------
+It's recommended to use `g_auto()`, `g_autoptr()`, `g_autofree()` for
+automatic resource cleanup when possible.
+
+*Good*:
+
+	g_autoptr(GdkPixbuf) sigterm = pixbuf = gtk_icon_info_load_icon (info, NULL);
+
+*Bad*:
+
+	GdkPixbuf *pixbuf = gtk_icon_info_load_icon (info, NULL);
+	...
+	g_object_unref (pixbuf);
+
+Using the above is fine since libhandy doesn't target any older glib versions
+or non GCC/Clang compilers at the moment.
