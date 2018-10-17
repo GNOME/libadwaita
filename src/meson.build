@@ -89,9 +89,12 @@ libhandy_sources = [
   libhandy_resources,
 ]
 
+glib_min_version = '>= 2.44'
+
 libhandy_deps = [
-  dependency('gio-2.0'),
-  dependency('gmodule-2.0'),
+  dependency('glib-2.0', version: glib_min_version),
+  dependency('gio-2.0', version: glib_min_version),
+  dependency('gmodule-2.0', version: glib_min_version),
   dependency('gtk+-3.0', version: '>= 3.24.1'),
   cc.find_library('m', required: false),
   cc.find_library('rt', required: false),
