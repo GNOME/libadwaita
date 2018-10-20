@@ -2,31 +2,3 @@ stacksidebar list {
   border-left-width: 0px;
   border-right-width: 0px;
 }
-
-/* Needed for seaprators to look good. These have been submitted upstream here:
- * https://gitlab.gnome.org/GNOME/gtk/merge_requests/323
- */
-
-separator.sidebar {
-  background-color: @borders;
-  border-style: none;
-  margin: 0px 0px 0px 0px;
-}
-
-separator.sidebar:backdrop {
-  background-color: @unfocused_borders;
-}
-
-separator.sidebar.selection-mode,
-.selection-mode separator.sidebar {
-  background-color: mix(@theme_selected_bg_color, #000, 0.2);
-}
-
-/* Needed for HdyTitleBar to work. This has been merged upstream but no release
- * include it yet, it is likely to be released as part of GTK+ 3.24.1.
- */
-headerbar.titlebar headerbar:not(.titlebar) {
-  background-color: rgba (0, 0, 0, 0);
-  background-image: none;
-  box-shadow: none;
-}
