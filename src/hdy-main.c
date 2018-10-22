@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 #include "config.h"
-#include "hdy-main.h"
+#include "hdy-main-private.h"
 #include <glib/gi18n.h>
 
 static gint hdy_initialized = FALSE;
@@ -41,6 +41,7 @@ hdy_init (int *argc, char ***argv)
   textdomain (GETTEXT_PACKAGE);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+  hdy_init_public_types ();
 
   hdy_initialized = TRUE;
 
