@@ -113,6 +113,7 @@ libhandy_deps = [
   cc.find_library('rt', required: false),
 ]
 
+libhandy_c_args = []
 libhandy_link_args = []
 libhandy_symbols_file = 'libhandy.syms'
 
@@ -123,13 +124,12 @@ if cc.links('int main() { return 0; }', args : ld_version_script_arg, name : 'ld
   libhandy_link_args += [ld_version_script_arg]
 endif
 
-libhandy_args = []
 libhandy = shared_library(
   'handy-' + apiversion,
   libhandy_sources,
 
             soversion: 0,
-               c_args: libhandy_args,
+               c_args: libhandy_c_args,
          dependencies: libhandy_deps,
   include_directories: [ root_inc, src_inc ],
               install: true,
