@@ -126,23 +126,55 @@ get_child_width (HdyColumn *self,
   return ease_out_cubic (progress) * amplitude + minimum_width;
 }
 
+/* This private method is prefixed by the call name because it will be a virtual
+ * method in GTK+ 4.
+ */
+static void
+hdy_column_measure (GtkWidget      *widget,
+                    GtkOrientation  orientation,
+                    int             for_size,
+                    int            *minimum,
+                    int            *natural,
+                    int            *minimum_baseline,
+                    int            *natural_baseline)
+{
+  GtkBin *bin = GTK_BIN (widget);
+  GtkWidget *child;
+
+  if (minimum)
+    *minimum = 0;
+  if (natural)
+    *natural = 0;
+  if (minimum_baseline)
+    *minimum_baseline = -1;
+  if (natural_baseline)
+    *natural_baseline = -1;
+
+  child = gtk_bin_get_child (bin);
+  if (!(child && gtk_widget_get_visible (child)))
+    return;
+
+  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+    gtk_widget_get_preferred_width (child, minimum, natural);
+  else {
+    gint child_width = get_child_width (HDY_COLUMN (widget), for_size);
+
+    gtk_widget_get_preferred_height_and_baseline_for_width (child,
+                                                            child_width,
+                                                            minimum,
+                                                            natural,
+                                                            minimum_baseline,
+                                                            natural_baseline);
+  }
+}
+
 static void
 hdy_column_get_preferred_width (GtkWidget *widget,
                                 gint      *minimum,
                                 gint      *natural)
 {
-  GtkBin *bin = GTK_BIN (widget);
-  GtkWidget *child;
-
-  *minimum = 0;
-  *natural = 0;
-
-  child = gtk_bin_get_child (bin);
-  if (child && gtk_widget_get_visible (child))
-    gtk_widget_get_preferred_width (child, minimum, natural);
-
-  *minimum = (gdouble) *minimum;
-  *natural = (gdouble) *natural;
+  hdy_column_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
+                      minimum, natural, NULL, NULL);
 }
 
 static void
@@ -153,30 +185,8 @@ hdy_column_get_preferred_height_and_baseline_for_width (GtkWidget *widget,
                                                         gint      *minimum_baseline,
                                                         gint      *natural_baseline)
 {
-  HdyColumn *self = HDY_COLUMN (widget);
-  GtkBin *bin = GTK_BIN (widget);
-  GtkWidget *child;
-  gint child_width;
-
-  *minimum = 0;
-  *natural = 0;
-
-  if (minimum_baseline)
-    *minimum_baseline = -1;
-
-  if (natural_baseline)
-    *natural_baseline = -1;
-
-  child_width = get_child_width (self, width);
-
-  child = gtk_bin_get_child (bin);
-  if (child && gtk_widget_get_visible (child))
-    gtk_widget_get_preferred_height_and_baseline_for_width (child,
-                                                            child_width,
-                                                            minimum,
-                                                            natural,
-                                                            minimum_baseline,
-                                                            natural_baseline);
+  hdy_column_measure (widget, GTK_ORIENTATION_VERTICAL, width,
+                      minimum, natural, minimum_baseline, natural_baseline);
 }
 
 static void
@@ -184,9 +194,8 @@ hdy_column_get_preferred_height (GtkWidget *widget,
                                  gint      *minimum,
                                  gint      *natural)
 {
-  hdy_column_get_preferred_height_and_baseline_for_width (widget, -1,
-                                                          minimum, natural,
-                                                          NULL, NULL);
+  hdy_column_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
+                      minimum, natural, NULL, NULL);
 }
 
 static void
