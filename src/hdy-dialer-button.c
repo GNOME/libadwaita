@@ -103,19 +103,46 @@ hdy_dialer_button_get_property (GObject    *object,
   }
 }
 
+/* This private method is prefixed by the call name because it will be a virtual
+ * method in GTK+ 4.
+ */
+static void
+hdy_dialer_button_measure (GtkWidget      *widget,
+                           GtkOrientation  orientation,
+                           int             for_size,
+                           int            *minimum,
+                           int            *natural,
+                           int            *minimum_baseline,
+                           int            *natural_baseline)
+{
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (hdy_dialer_button_parent_class);
+  gint min1, min2, nat1, nat2;
+
+  if (for_size < 0) {
+    widget_class->get_preferred_width (widget, &min1, &nat1);
+    widget_class->get_preferred_height (widget, &min2, &nat2);
+  }
+  else {
+    if (orientation == GTK_ORIENTATION_HORIZONTAL)
+      widget_class->get_preferred_width_for_height (widget, for_size, &min1, &nat1);
+    else
+      widget_class->get_preferred_height_for_width (widget, for_size, &min1, &nat1);
+    min2 = nat2 = for_size;
+  }
+
+  if (minimum)
+    *minimum = MAX (min1, min2);
+  if (natural)
+    *natural = MAX (nat1, nat2);
+}
+
 static void
 hdy_dialer_button_get_preferred_width (GtkWidget *widget,
                                        gint      *minimum_width,
                                        gint      *natural_width)
 {
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (hdy_dialer_button_parent_class);
-  gint min_width, nat_width, min_height, nat_height;
-
-  widget_class->get_preferred_width (widget, &min_width, &nat_width);
-  widget_class->get_preferred_height (widget, &min_height, &nat_height);
-
-  *minimum_width = MAX (min_width, min_height);
-  *natural_width = MAX (nat_width, nat_height);
+  hdy_dialer_button_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
+                             minimum_width, natural_width, NULL, NULL);
 }
 
 static void
@@ -123,14 +150,8 @@ hdy_dialer_button_get_preferred_height (GtkWidget *widget,
                                         gint      *minimum_height,
                                         gint      *natural_height)
 {
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (hdy_dialer_button_parent_class);
-  gint min_width, nat_width, min_height, nat_height;
-
-  widget_class->get_preferred_width (widget, &min_width, &nat_width);
-  widget_class->get_preferred_height (widget, &min_height, &nat_height);
-
-  *minimum_height = MAX (min_width, min_height);
-  *natural_height = MAX (nat_width, nat_height);
+  hdy_dialer_button_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
+                             minimum_height, natural_height, NULL, NULL);
 }
 
 static void
@@ -139,13 +160,8 @@ hdy_dialer_button_get_preferred_width_for_height (GtkWidget *widget,
                                                   gint      *minimum_width,
                                                   gint      *natural_width)
 {
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (hdy_dialer_button_parent_class);
-  gint min_width, nat_width;
-
-  widget_class->get_preferred_width_for_height (widget, height, &min_width, &nat_width);
-
-  *minimum_width = MAX (min_width, height);
-  *natural_width = MAX (nat_width, height);
+  hdy_dialer_button_measure (widget, GTK_ORIENTATION_HORIZONTAL, height,
+                             minimum_width, natural_width, NULL, NULL);
 }
 
 static void
@@ -154,13 +170,8 @@ hdy_dialer_button_get_preferred_height_for_width (GtkWidget *widget,
                                                   gint      *minimum_height,
                                                   gint      *natural_height)
 {
-  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (hdy_dialer_button_parent_class);
-  gint min_height, nat_height;
-
-  widget_class->get_preferred_width_for_height (widget, width, &min_height, &nat_height);
-
-  *minimum_height = MAX (min_height, width);
-  *natural_height = MAX (nat_height, width);
+  hdy_dialer_button_measure (widget, GTK_ORIENTATION_VERTICAL, width,
+                             minimum_height, natural_height, NULL, NULL);
 }
 
 
