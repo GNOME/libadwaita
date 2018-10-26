@@ -1179,10 +1179,17 @@ get_preferred_size (gint     *min,
   }
 }
 
+/* This private method is prefixed by the call name because it will be a virtual
+ * method in GTK+ 4.
+ */
 static void
-hdy_leaflet_get_preferred_width (GtkWidget *widget,
-                                 gint      *minimum_width,
-                                 gint      *natural_width)
+hdy_leaflet_measure (GtkWidget      *widget,
+                     GtkOrientation  orientation,
+                     int             for_size,
+                     int            *minimum,
+                     int            *natural,
+                     int            *minimum_baseline,
+                     int            *natural_baseline)
 {
   HdyLeaflet *self = HDY_LEAFLET (widget);
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
@@ -1192,6 +1199,20 @@ hdy_leaflet_get_preferred_width (GtkWidget *widget,
   gdouble visible_child_progress;
   gint child_min, max_min, visible_min, last_visible_min;
   gint child_nat, max_nat, sum_nat;
+  void (*get_preferred_size_static) (GtkWidget *widget,
+                                     gint      *minimum_width,
+                                     gint      *natural_width);
+  void (*get_preferred_size_for_size) (GtkWidget *widget,
+                                       gint       height,
+                                       gint      *minimum_width,
+                                       gint      *natural_width);
+
+  get_preferred_size_static = orientation == GTK_ORIENTATION_HORIZONTAL ?
+    gtk_widget_get_preferred_width :
+    gtk_widget_get_preferred_height;
+  get_preferred_size_for_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
+    gtk_widget_get_preferred_width_for_height :
+    gtk_widget_get_preferred_height_for_width;
 
   visible_children = 0;
   child_min = max_min = visible_min = last_visible_min = 0;
@@ -1203,27 +1224,53 @@ hdy_leaflet_get_preferred_width (GtkWidget *widget,
       continue;
 
     visible_children++;
-    gtk_widget_get_preferred_width (child_info->widget, &child_min, &child_nat);
+    if (for_size < 0)
+      get_preferred_size_static (child_info->widget,
+                                 &child_min, &child_nat);
+    else
+      get_preferred_size_for_size (child_info->widget, for_size,
+                                   &child_min, &child_nat);
 
     max_min = MAX (max_min, child_min);
     max_nat = MAX (max_nat, child_nat);
     sum_nat += child_nat;
   }
 
-  if (priv->visible_child != NULL)
-    gtk_widget_get_preferred_width (priv->visible_child->widget, &visible_min, NULL);
+  if (priv->visible_child != NULL) {
+    if (for_size < 0)
+      get_preferred_size_static (priv->visible_child->widget,
+                                 &visible_min, NULL);
+    else
+      get_preferred_size_for_size (priv->visible_child->widget, for_size,
+                                   &visible_min, NULL);
+  }
 
-  if (priv->last_visible_child != NULL)
-    gtk_widget_get_preferred_width (priv->last_visible_child->widget, &last_visible_min, NULL);
+  if (priv->last_visible_child != NULL) {
+    if (for_size < 0)
+      get_preferred_size_static (priv->last_visible_child->widget,
+                                 &last_visible_min, NULL);
+    else
+      get_preferred_size_for_size (priv->last_visible_child->widget, for_size,
+                                   &last_visible_min, NULL);
+  }
 
   visible_child_progress = priv->child_transition.interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE) : 1.0;
 
-  get_preferred_size (minimum_width, natural_width,
-                      gtk_orientable_get_orientation (GTK_ORIENTABLE (widget)) == GTK_ORIENTATION_HORIZONTAL,
-                      priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL],
-                      priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL],
+  get_preferred_size (minimum, natural,
+                      gtk_orientable_get_orientation (GTK_ORIENTABLE (widget)) == orientation,
+                      priv->homogeneous[HDY_FOLD_FOLDED][orientation],
+                      priv->homogeneous[HDY_FOLD_UNFOLDED][orientation],
                       visible_children, visible_child_progress,
                       sum_nat, max_min, max_nat, visible_min, last_visible_min);
+}
+
+static void
+hdy_leaflet_get_preferred_width (GtkWidget *widget,
+                                 gint      *minimum_width,
+                                 gint      *natural_width)
+{
+  hdy_leaflet_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
+                       minimum_width, natural_width, NULL, NULL);
 }
 
 static void
@@ -1231,46 +1278,8 @@ hdy_leaflet_get_preferred_height (GtkWidget *widget,
                                   gint      *minimum_height,
                                   gint      *natural_height)
 {
-  HdyLeaflet *self = HDY_LEAFLET (widget);
-  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
-  GList *children;
-  HdyLeafletChildInfo *child_info;
-  gint visible_children;
-  gdouble visible_child_progress;
-  gint child_min, max_min, visible_min, last_visible_min;
-  gint child_nat, max_nat, sum_nat;
-
-  visible_children = 0;
-  child_min = max_min = visible_min = last_visible_min = 0;
-  child_nat = max_nat = sum_nat = 0;
-  for (children = priv->children; children; children = children->next) {
-    child_info = children->data;
-
-    visible_children++;
-    if (child_info->widget == NULL || !gtk_widget_get_visible (child_info->widget))
-      continue;
-
-    gtk_widget_get_preferred_height (child_info->widget, &child_min, &child_nat);
-
-    max_min = MAX (max_min, child_min);
-    max_nat = MAX (max_nat, child_nat);
-    sum_nat += child_nat;
-  }
-
-  if (priv->visible_child != NULL)
-    gtk_widget_get_preferred_height (priv->visible_child->widget, &visible_min, NULL);
-
-  if (priv->last_visible_child != NULL)
-    gtk_widget_get_preferred_height (priv->last_visible_child->widget, &last_visible_min, NULL);
-
-  visible_child_progress = priv->child_transition.interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE) : 1.0;
-
-  get_preferred_size (minimum_height, natural_height,
-                      gtk_orientable_get_orientation (GTK_ORIENTABLE (widget)) == GTK_ORIENTATION_VERTICAL,
-                      priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL],
-                      priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL],
-                      visible_children, visible_child_progress,
-                      sum_nat, max_min, max_nat, visible_min, last_visible_min);
+  hdy_leaflet_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
+                       minimum_height, natural_height, NULL, NULL);
 }
 
 static void
@@ -1279,49 +1288,8 @@ hdy_leaflet_get_preferred_width_for_height (GtkWidget *widget,
                                             gint      *minimum_width,
                                             gint      *natural_width)
 {
-  HdyLeaflet *self = HDY_LEAFLET (widget);
-  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
-  GList *children;
-  HdyLeafletChildInfo *child_info;
-  gint visible_children;
-  gdouble visible_child_progress;
-  gint child_min, max_min, visible_min, last_visible_min;
-  gint child_nat, max_nat, sum_nat;
-
-  visible_children = 0;
-  child_min = max_min = visible_min = last_visible_min = 0;
-  child_nat = max_nat = sum_nat = 0;
-  for (children = priv->children; children; children = children->next) {
-    child_info = children->data;
-
-    if (child_info->widget == NULL || !gtk_widget_get_visible (child_info->widget))
-      continue;
-
-    visible_children++;
-    gtk_widget_get_preferred_width_for_height (child_info->widget, height,
-                                               &child_min, &child_nat);
-
-    max_min = MAX (max_min, child_min);
-    max_nat = MAX (max_nat, child_nat);
-    sum_nat += child_nat;
-  }
-
-  if (priv->visible_child != NULL)
-    gtk_widget_get_preferred_width_for_height (priv->visible_child->widget, height,
-                                               &visible_min, NULL);
-
-  if (priv->last_visible_child != NULL)
-    gtk_widget_get_preferred_width_for_height (priv->last_visible_child->widget, height,
-                                               &last_visible_min, NULL);
-
-  visible_child_progress = priv->child_transition.interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE) : 1.0;
-
-  get_preferred_size (minimum_width, natural_width,
-                      gtk_orientable_get_orientation (GTK_ORIENTABLE (widget)) == GTK_ORIENTATION_HORIZONTAL,
-                      priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL],
-                      priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL],
-                      visible_children, visible_child_progress,
-                      sum_nat, max_min, max_nat, visible_min, last_visible_min);
+  hdy_leaflet_measure (widget, GTK_ORIENTATION_HORIZONTAL, height,
+                       minimum_width, natural_width, NULL, NULL);
 }
 
 static void
@@ -1330,49 +1298,8 @@ hdy_leaflet_get_preferred_height_for_width (GtkWidget *widget,
                                             gint      *minimum_height,
                                             gint      *natural_height)
 {
-  HdyLeaflet *self = HDY_LEAFLET (widget);
-  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
-  GList *children;
-  HdyLeafletChildInfo *child_info;
-  gint visible_children;
-  gdouble visible_child_progress;
-  gint child_min, max_min, visible_min, last_visible_min;
-  gint child_nat, max_nat, sum_nat;
-
-  visible_children = 0;
-  child_min = max_min = visible_min = last_visible_min = 0;
-  child_nat = max_nat = sum_nat = 0;
-  for (children = priv->children; children; children = children->next) {
-    child_info = children->data;
-
-    if (child_info->widget == NULL || !gtk_widget_get_visible (child_info->widget))
-      continue;
-
-    visible_children++;
-    gtk_widget_get_preferred_height_for_width (child_info->widget, width,
-                                               &child_min, &child_nat);
-
-    max_min = MAX (max_min, child_min);
-    max_nat = MAX (max_nat, child_nat);
-    sum_nat += child_nat;
-  }
-
-  if (priv->visible_child != NULL)
-    gtk_widget_get_preferred_height_for_width (priv->visible_child->widget, width,
-                                               &visible_min, NULL);
-
-  if (priv->last_visible_child != NULL)
-    gtk_widget_get_preferred_height_for_width (priv->last_visible_child->widget, width,
-                                               &last_visible_min, NULL);
-
-  visible_child_progress = priv->child_transition.interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE) : 1.0;
-
-  get_preferred_size (minimum_height, natural_height,
-                      gtk_orientable_get_orientation (GTK_ORIENTABLE (widget)) == GTK_ORIENTATION_VERTICAL,
-                      priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL],
-                      priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL],
-                      visible_children, visible_child_progress,
-                      sum_nat, max_min, max_nat, visible_min, last_visible_min);
+  hdy_leaflet_measure (widget, GTK_ORIENTATION_VERTICAL, width,
+                       minimum_height, natural_height, NULL, NULL);
 }
 
 static void
