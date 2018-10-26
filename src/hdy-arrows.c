@@ -344,40 +344,49 @@ hdy_arrows_get_property (GObject    *object,
 }
 
 
+/* This private method is prefixed by the call name because it will be a virtual
+ * method in GTK+ 4.
+ */
 static void
-get_preferred_width (GtkWidget *widget, gint *minimum, gint *natural)
+hdy_arrows_measure (GtkWidget      *widget,
+                    GtkOrientation  orientation,
+                    int             for_size,
+                    int            *minimum,
+                    int            *natural,
+                    int            *minimum_baseline,
+                    int            *natural_baseline)
 {
   HdyArrows *self = HDY_ARROWS (widget);
   HdyArrowsPrivate *priv = hdy_arrows_get_instance_private (self);
-  guint thickness, facter;
-
-  if (priv->direction == HDY_ARROWS_DIRECTION_LEFT ||
-      priv->direction == HDY_ARROWS_DIRECTION_RIGHT)
-    facter = 2;
-  else
-    facter = 3;
+  guint thickness, facter, size;
 
   thickness = get_thickness (self);
-  *minimum = *natural = thickness * priv->count * facter;
+  facter = priv->direction == HDY_ARROWS_DIRECTION_LEFT ||
+           priv->direction == HDY_ARROWS_DIRECTION_RIGHT ?
+           2 : 3;
+
+  size = thickness * priv->count * facter;
+
+  if(minimum)
+    *minimum = size;
+  if(natural)
+    *natural = size;
+}
+
+
+static void
+get_preferred_width (GtkWidget *widget, gint *minimum, gint *natural)
+{
+  hdy_arrows_measure (widget, GTK_ORIENTATION_HORIZONTAL, 0,
+                      minimum, natural, NULL, NULL);
 }
 
 
 static void
 get_preferred_height (GtkWidget *widget, gint *minimum, gint *natural)
 {
-  HdyArrows *self = HDY_ARROWS (widget);
-  HdyArrowsPrivate *priv = hdy_arrows_get_instance_private (self);
-  guint thickness, facter;
-
-  thickness = get_thickness (self);
-
-  if (priv->direction == HDY_ARROWS_DIRECTION_UP ||
-      priv->direction == HDY_ARROWS_DIRECTION_DOWN)
-    facter = 3;
-  else
-    facter = 2;
-
-  *minimum = *natural = thickness * priv->count * facter;
+  hdy_arrows_measure (widget, GTK_ORIENTATION_HORIZONTAL, 0,
+                      minimum, natural, NULL, NULL);
 }
 
 
