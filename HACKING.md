@@ -209,13 +209,13 @@ Use minus signs instead of underscores in property names:
 *Good*:
 
 ```xml
-<property name="margin-left">12</property>
+<property name="margin-start">12</property>
 ```
 
 *Bad":
 
 ```xml
-<property name="margin_left">12</property>
+<property name="margin_start">12</property>
 ```
 
 Automatic cleanup
