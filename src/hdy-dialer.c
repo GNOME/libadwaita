@@ -32,7 +32,7 @@ typedef struct
   GtkReliefStyle relief;
 } HdyDialerPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyDialer, hdy_dialer, GTK_TYPE_EVENT_BOX)
+G_DEFINE_TYPE_WITH_PRIVATE (HdyDialer, hdy_dialer, GTK_TYPE_BIN)
 
 enum {
   PROP_0,
