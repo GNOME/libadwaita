@@ -4,7 +4,7 @@ glade_xml = 'libhandy.xml'
 gladeui_dep = dependency('gladeui-2.0')
 module_dir = gladeui_dep.get_pkgconfig_variable('moduledir')
 dtd = join_paths(meson.current_source_dir(), 'glade-catalog.dtd')
-glade_catalogdir = join_paths(get_option('prefix'), get_option('datadir'), 'glade', 'catalogs')
+glade_catalogdir = gladeui_dep.get_pkgconfig_variable('catalogdir')
 
 libglade_hdy_sources = [
   'glade-hdy-header-group.c',
