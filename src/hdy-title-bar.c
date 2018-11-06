@@ -20,7 +20,7 @@
  * it, including a GtkHeaderBar.
  *
  * HdyTitleBar becomes really useful when you want to animate header bars, like
- * an adaptive application using #HdyTitleBar would do.
+ * an adaptive application using #HdyLeaflet would do.
  */
 
 enum {
