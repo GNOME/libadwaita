@@ -188,6 +188,7 @@ hdy_title_bar_class_init (HdyTitleBarClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
+  gtk_widget_class_set_accessible_role (widget_class, ATK_ROLE_TITLE_BAR);
   /* Adwaita states it expects a headerbar to be the top-level titlebar widget,
    * so style-wise HdyTitleBar pretends to be one as its role is to be the
    * top-level titlebar widget.

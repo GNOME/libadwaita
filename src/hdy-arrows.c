@@ -451,6 +451,7 @@ hdy_arrows_class_init (HdyArrowsClass *klass)
                        (G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
   gtk_widget_class_install_style_property (widget_class, style_properties [STYLE_PROP_THICKNESS]);
 
+  gtk_widget_class_set_accessible_role (widget_class, ATK_ROLE_ARROW);
   gtk_widget_class_set_css_name (widget_class, "hdyarrows");
 }
 

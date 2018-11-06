@@ -518,6 +518,7 @@ hdy_dialer_class_init (HdyDialerClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_submit);
   gtk_widget_class_bind_template_child_private (widget_class, HdyDialer, btn_del);
 
+  gtk_widget_class_set_accessible_role (widget_class, ATK_ROLE_DIAL);
   gtk_widget_class_set_css_name (widget_class, "hdydialer");
 }
 
