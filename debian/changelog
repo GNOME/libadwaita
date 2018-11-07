@@ -1,3 +1,74 @@
+libhandy (0.0.5) experimental; urgency=medium
+
+  [ Guido Günther ]
+  * Release libhandy 0.0.5
+  * meson: Properly depend on the generated headers.
+    This fixes dependency problems with the generated headers such as
+        https://arm01.puri.sm/job/debs/job/deb-libhandy-buster-armhf/263/console
+    See
+        http://mesonbuild.com/Wrap-best-practices-and-tips.html#eclare-generated-headers-explicitly
+  * debian: Make sure we create a strict shlibs file libhandy's ABI changes a
+    lot so make sure we generate dependencies that always require the upstream
+    version built against.
+  * debian: Mark buil-deps for tests as <!nocheck>
+  * gitlab-ci: Deduplicate before_script
+  * gitlab-ci: Build with clang (scan-build) as well.
+    We currently don't fail on warnings:
+        https://github.com/mesonbuild/meson/issues/4334
+  * HdyLeaflet: Remove unused initializations spotted by clang
+  * doc: Add that virtual methods carry the class prefix (Closes: #53)
+  * docs: Add libhandy users.  This allows to find in uses examples easily.
+  * docs: Mention meson as well.  Fewer and fewer GNOME projects use
+    autotools.
+  * docs: Drop package_ver_str from include path.  We add this in the
+    pkg-config file so no need to specify it again.
+  * Add i18n infrastructure
+  * Add hdy_init() This initializes i18n. (Closes: #36)
+  * meson: Depend on glib that supports g_auto*. Related to #33
+  * HACKING: document using g_auto* is o.k. (Closes: #33)
+  * HACKING: Use syntax highlighting.
+  * Drop Jenkinsfile.  We run in gitlab-ci now
+  * build: Detect if ld supports a version script.  This is e.g. not the case
+    for Clang on OSX. (Closes: #58)
+
+  [ Jeremy Bicha ]
+  * debian: Have libhandy-0.0-dev depend on libgtk-3-dev (Closes: #910384)
+  * debian: Use dh --with gir so that gir1.2-handy gets its dependencies set
+    correctly
+  * debian: Simplify debian/rules.
+
+  [ Adrien Plazas ]
+  * example: Drop Glade support in flatpak build.
+  * main: Init public GObject types in hdy_init() This will avoid our users to
+    manually ensure libhandy widget types are loaded before using them in
+    GtkBuilder templates.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/20
+  * dialer: Descend from GtkBin directly.
+    Makes HdyDialer descend from GtkBin directly rather than from
+    GtkEventBox. GtkEventBox will be dropped in GTK+ 4 and brings no
+    functionality to HdyDialer.
+  * example: Rename margin-left/right to margin-start/end.
+    Left and right margin names are not RTL friendly and will be dropped in
+    GTK+ 4.
+  * HACKING.md: Rename margin-left to margin-start.
+    Left and right margin names are not RTL friendly and will be dropped in
+    GTK+ 4.
+  * titlebar: Fix a mention of HdyLeaflet in the docs
+  * example: Do not access event fields.
+    This is needed to port to GTK+ 4 as these fields will be private.
+  * dialer: Do not access event fields.
+    This is needed to port to GTK+ 4 as these fields will be private.
+
+  [ Alexander Mikhaylenko ]
+  * example: Remove styles present in GTK+ 3.24.1.
+    Libhandy requires `gtk+-3.0 >= 3.24.1` anyway, so these styles aren't
+    necessary, and also break upstream `.devel` style.
+
+  [ Jan Tojnar ]
+  * Use pkg-config for obtaining glade catalogdir
+
+ -- Guido Günther <agx@sigxcpu.org>  Wed, 07 Nov 2018 11:17:14 +0100
+
 libhandy (0.0.4) experimental; urgency=medium
 
   [ Mohammed Sadiq ]
