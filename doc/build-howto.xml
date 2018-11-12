@@ -55,10 +55,15 @@
   </refsect2>
 
   <refsect2>
-    <title>Headers</title>
+    <title>Acknowledge the Unstability</title>
 
     <para>
-      Code using <application>&package_string;</application> should do:
+      Since the library is young and is still changing a lot, in order to use it you are required to acknowledge that your are using an unstable API.
+      To do so, <literal>HANDY_USE_UNSTABLE_API</literal> must be defined for compilation to succeed.
+    </para>
+
+    <para>
+      From C code or any compatible language, you can prefix your inclusioin of the libhandy header like so:
     </para>
 
     <informalexample><programlisting>
@@ -71,8 +76,7 @@
       recommended.
     </para>
     <para>
-      Since the library has not stable API yet <literal>HANDY_USE_UNSTABLE_API</literal> must
-      be defined for compilation to succeed.
+      You can also acknoledge this with the definition option of your C compiler, like <literal>-DHANDY_USE_UNSTABLE_API</literal>.
     </para>
 
   </refsect2>
