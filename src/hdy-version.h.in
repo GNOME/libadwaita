@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#ifndef HDY_VERSION_H
-#define HDY_VERSION_H
+#pragma once
 
 #if !defined(_HANDY_INSIDE) && !defined(HANDY_COMPILATION)
 #error "Only <handy.h> can be included directly."
@@ -80,5 +79,3 @@
          (HDY_MAJOR_VERSION == (major) && HDY_MINOR_VERSION > (minor)) || \
          (HDY_MAJOR_VERSION == (major) && HDY_MINOR_VERSION == (minor) && \
           HDY_MICRO_VERSION >= (micro)))
-
-#endif /* HDY_VERSION_H */

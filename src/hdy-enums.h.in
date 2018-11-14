@@ -1,6 +1,5 @@
 /*** BEGIN file-header ***/
-#ifndef HDY_ENUMS_H
-#define HDY_ENUMS_H
+#pragma once
 
 #if !defined(_HANDY_INSIDE) && !defined(HANDY_COMPILATION)
 #error "Only <handy.h> can be included directly."
@@ -23,6 +22,4 @@ GType @enum_name@_get_type (void);
 
 /*** BEGIN file-tail ***/
 G_END_DECLS
-
-#endif /* DZL_ENUMS_H */
 /*** END file-tail ***/

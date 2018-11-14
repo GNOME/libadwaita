@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#ifndef HANDY_H
-#define HANDY_H
+#pragma once
 
 #include <gtk/gtk.h>
 
@@ -41,5 +40,3 @@ G_BEGIN_DECLS
 #undef _HANDY_INSIDE
 
 G_END_DECLS
-
-#endif /* HANDY_H */

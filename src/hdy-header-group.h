@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#ifndef HDY_HEADER_GROUP_H
-#define HDY_HEADER_GROUP_H
+#pragma once
 
 #if !defined(_HANDY_INSIDE) && !defined(HANDY_COMPILATION)
 #error "Only <handy.h> can be included directly."
@@ -42,5 +41,3 @@ void          hdy_header_group_remove_header_bar (HdyHeaderGroup *self,
 
 
 G_END_DECLS
-
-#endif /* HDY_HEADER_GROUP_H */

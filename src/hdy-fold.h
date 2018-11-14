@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#ifndef HDY_FOLD_H
-#define HDY_FOLD_H
+#pragma once
 
 #if !defined(_HANDY_INSIDE) && !defined(HANDY_COMPILATION)
 #error "Only <handy.h> can be included directly."
@@ -22,5 +21,3 @@ typedef enum {
 } HdyFold;
 
 G_END_DECLS
-
-#endif /* HDY_FOLD_H */

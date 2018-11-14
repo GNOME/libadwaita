@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#ifndef HDY_ARROWS_H
-#define HDY_ARROWS_H
+#pragma once
 
 #if !defined(_HANDY_INSIDE) && !defined(HANDY_COMPILATION)
 #error "Only <handy.h> can be included directly."
@@ -57,5 +56,3 @@ guint              hdy_arrows_get_duration         (HdyArrows  *self);
 void               hdy_arrows_animate              (HdyArrows  *self);
 
 G_END_DECLS
-
-#endif /* HDY_ARROWS_H */
