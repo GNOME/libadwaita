@@ -70,6 +70,12 @@ if (i < 0)
 ```
 
 
+Header Inclusion Guards
+-----------------------
+Guard header inclusion with `#pragma once` rather than the traditional
+`#ifndef`-`#define`-`#endif` trio.
+
+
 Signals
 -------
 Prefix signal enum names with *SIGNAL_*.
