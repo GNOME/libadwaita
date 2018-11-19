@@ -229,6 +229,57 @@ adj_arrows_duration_value_changed_cb (GtkAdjustment *adj,
   hdy_arrows_animate (HDY_ARROWS (self->arrows));
 }
 
+static void
+dialog_close_cb (GtkDialog *self)
+{
+  gtk_widget_destroy (GTK_WIDGET (self));
+}
+
+static void
+dialog_clicked_cb (GtkButton     *btn,
+                   ExampleWindow *self)
+{
+  GtkWidget *dlg;
+  GtkWidget *lbl;
+
+  dlg = hdy_dialog_new (GTK_WINDOW (self));
+  gtk_window_set_title (GTK_WINDOW (dlg), "HdyDialog");
+  lbl = gtk_label_new ("Hello, World!");
+  gtk_widget_set_vexpand (lbl, TRUE);
+  gtk_widget_set_valign (lbl, GTK_ALIGN_CENTER);
+  gtk_widget_set_halign (lbl, GTK_ALIGN_CENTER);
+  gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dlg))),
+                     lbl);
+
+  gtk_widget_show (lbl);
+  gtk_widget_show (dlg);
+}
+
+static void
+dialog_action_clicked_cb (GtkButton     *btn,
+                          ExampleWindow *self)
+{
+  GtkWidget *dlg;
+  GtkWidget *lbl;
+
+  dlg = hdy_dialog_new (GTK_WINDOW (self));
+  gtk_window_set_title (GTK_WINDOW (dlg), "HdyDialog");
+  gtk_dialog_add_buttons (GTK_DIALOG (dlg),
+                          "Done", GTK_RESPONSE_ACCEPT,
+                          "Cancel", GTK_RESPONSE_CANCEL,
+                          NULL);
+  gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_ACCEPT);
+  g_signal_connect (G_OBJECT (dlg), "response", G_CALLBACK (dialog_close_cb), NULL);
+  lbl = gtk_label_new ("Hello, World!");
+  gtk_widget_set_vexpand (lbl, TRUE);
+  gtk_widget_set_valign (lbl, GTK_ALIGN_CENTER);
+  gtk_widget_set_halign (lbl, GTK_ALIGN_CENTER);
+  gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dlg))),
+                     lbl);
+
+  gtk_widget_show (lbl);
+  gtk_widget_show (dlg);
+}
 
 ExampleWindow *
 example_window_new (GtkApplication *application)
@@ -304,6 +355,8 @@ example_window_class_init (ExampleWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "btn_arrows_right_toggled_cb", G_CALLBACK(btn_arrows_right_toggled_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "adj_arrows_count_value_changed_cb", G_CALLBACK(adj_arrows_count_value_changed_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "adj_arrows_duration_value_changed_cb", G_CALLBACK(adj_arrows_duration_value_changed_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "dialog_clicked_cb", G_CALLBACK(dialog_clicked_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "dialog_action_clicked_cb", G_CALLBACK(dialog_action_clicked_cb));
 }
 
 static gchar *
