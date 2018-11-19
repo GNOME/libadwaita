@@ -32,6 +32,7 @@ G_BEGIN_DECLS
 #include "hdy-dialer-button.h"
 #include "hdy-dialer-cycle-button.h"
 #include "hdy-dialer.h"
+#include "hdy-dialog.h"
 #include "hdy-enum-value-object.h"
 #include "hdy-expander-row.h"
 #include "hdy-fold.h"
