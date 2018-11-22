@@ -5,11 +5,11 @@
  */
 #pragma once
 
-#include <glib.h>
-
 #if !defined(_HANDY_INSIDE) && !defined(HANDY_COMPILATION)
 #error "Only <handy.h> can be included directly."
 #endif
+
+#include <glib.h>
 
 G_BEGIN_DECLS
 

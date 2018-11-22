@@ -5,11 +5,11 @@
  */
 #pragma once
 
-#include "hdy-main.h"
-
 #if !defined(_HANDY_INSIDE) && !defined(HANDY_COMPILATION)
 #error "Only <handy.h> can be included directly."
 #endif
+
+#include "hdy-main.h"
 
 G_BEGIN_DECLS
 
