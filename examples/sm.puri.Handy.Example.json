@@ -24,7 +24,10 @@
       "builddir": true,
       "build-options": "examples",
       "config-opts": [
-        "-Dglade_catalog=false"
+        "-Dglade_catalog=false",
+        "-Dintrospection=false",
+        "-Dtests=false",
+        "-Dvapi=false"
       ],
       "sources": [
         {
