@@ -14,6 +14,7 @@ BuildRequires: gobject-introspection
 BuildRequires: gtk-doc
 BuildRequires: meson >= 0.40.1
 BuildRequires: pkgconfig(gio-2.0)
+BuildRequires: pkgconfig(gladeui-2.0)
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(gmodule-2.0)
 BuildRequires: pkgconfig(gtk+-3.0)
