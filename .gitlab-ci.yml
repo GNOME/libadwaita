@@ -6,10 +6,13 @@ before_script:
   - apt-get -y install build-essential libgtk-3-doc lcov
   - apt-get -y build-dep .
 
-build-debian-gcc:
-  image: debian:buster
+.tags: &tags
   tags:
     - librem5
+
+build-debian-gcc:
+  image: debian:buster
+  <<: *tags
   stage: build
   script:
     - export LC_ALL=C.UTF-8
@@ -31,8 +34,7 @@ build-debian-clang:
     - apt-get -y update
     - apt-get -y install build-essential clang-3.9
     - apt-get -y build-dep .
-  tags:
-    - librem5
+  <<: *tags
   stage: build
   script:
     - export LC_ALL=C.UTF-8
@@ -48,8 +50,7 @@ build-debian-clang:
 
 build-debian-package:
   image: debian:buster
-  tags:
-    - librem5
+  <<: *tags
   stage: build
   script:
     - dpkg-buildpackage -uc -us
