@@ -69,6 +69,62 @@ if (i < 0)
 }
 ```
 
+Single line `if` or `else` statements don't need braces but if either `if` or
+`else` have braces both get them:
+
+*Good*:
+
+```c
+if (i < 0)
+  i++;
+else
+  i--;
+```
+
+```c
+if (i < 0) {
+  i++;
+  j++;
+} else {
+  i--;
+}
+```
+
+```c
+if (i < 0) {
+  i++;
+} else {
+  i--;
+  j--;
+}
+```
+
+*Bad*:
+
+```c
+if (i < 0) {
+  i++;
+} else {
+  i--;
+}
+```
+
+```c
+if (i < 0) {
+  i++;
+  j++;
+} else
+  i--;
+```
+
+```c
+if (i < 0)
+  i++;
+else {
+  i--;
+  j--;
+}
+```
 
 Header Inclusion Guards
 -----------------------
