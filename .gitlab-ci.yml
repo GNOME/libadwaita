@@ -48,6 +48,19 @@ build-debian-clang:
     paths:
       - _build/meson-logs/scanbuild
 
+build-fedora-gcc:
+  image: fedora:29
+  <<: *tags
+  stage: build
+  before_script:
+    - dnf -y update
+    - dnf -y install @development-tools redhat-rpm-config dnf-plugins-core
+    - dnf -y builddep data/packaging/rpm/libhandy.spec
+  script:
+    - export LC_ALL=C.UTF-8
+    - meson . _build -Dgtk_doc=true -Db_coverage=true --werror
+    - ninja -C _build
+
 build-debian-package:
   image: debian:buster
   <<: *tags
