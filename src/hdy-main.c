@@ -28,7 +28,8 @@ static gint hdy_initialized = FALSE;
  *     understood by Handy are stripped before return.
  *
  * Call this function before using any other Handy functions in your
- * GUI applications.
+ * GUI applications. If libhandy has already been initialized, the function will
+ * simply return without processing the new arguments.
  *
  * Returns: %TRUE if initialization was successful, %FALSE otherwise.
  */
