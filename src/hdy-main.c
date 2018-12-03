@@ -23,9 +23,9 @@ static gint hdy_initialized = FALSE;
  * @argc: (inout) (optional): Address of the <parameter>argc</parameter>
  *     parameter of your main() function (or 0 if @argv is %NULL). This will be
  *     changed if any arguments were handled.
- * @argv: (array length=argc) (inout) (nullable) (optional): Address of the
- *     <parameter>argv</parameter> parameter of main(), or %NULL. Any options
- *     understood by Handy are stripped before return.
+ * @argv: (array length=argc) (inout) (nullable) (optional) (transfer none):
+ *     Address of the <parameter>argv</parameter> parameter of main(), or %NULL.
+ *     Any options understood by Handy are stripped before return.
  *
  * Call this function before using any other Handy functions in your
  * GUI applications. If libhandy has already been initialized, the function will
