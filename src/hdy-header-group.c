@@ -307,10 +307,6 @@ hdy_header_group_dispose (GObject *object)
   HdyHeaderGroup *self = (HdyHeaderGroup *)object;
   HdyHeaderGroupPrivate *priv = hdy_header_group_get_instance_private (self);
 
-  for (GSList *elem = priv->header_bars; elem; elem = elem->next) {
-    GtkHeaderBar *bar = GTK_HEADER_BAR (elem->data);
-    g_signal_handlers_disconnect_by_data (bar, self);
-  }
   g_slist_free_full (priv->header_bars, (GDestroyNotify) g_object_unref);
   priv->header_bars = NULL;
   priv->focus = NULL;
