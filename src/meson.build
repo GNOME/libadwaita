@@ -48,6 +48,7 @@ libhandy_public_sources += [hdy_enums[0]]
 libhandy_generated_headers += [hdy_enums[1]]
 
 src_headers = [
+  'hdy-action-row.h',
   'hdy-arrows.h',
   'hdy-column.h',
   'hdy-dialer-button.h',
@@ -75,6 +76,7 @@ libhandy_init_public_types = custom_target('hdy-public-types.c',
 
 src_sources = [
   'gtkprogresstracker.c',
+  'hdy-action-row.c',
   'hdy-arrows.c',
   'hdy-column.c',
   'hdy-dialer-button.c',

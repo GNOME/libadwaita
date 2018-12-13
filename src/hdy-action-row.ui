@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="HdyActionRow" parent="GtkListBoxRow">
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="orientation">vertical</property>
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkBox" id="header">
+            <property name="can_focus">False</property>
+            <property name="height_request">50</property>
+            <property name="margin_end">12</property>
+            <property name="margin_start">12</property>
+            <property name="spacing">12</property>
+            <property name="valign">center</property>
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkBox" id="prefixes">
+                <property name="can_focus">False</property>
+                <property name="spacing">12</property>
+                <property name="visible">False</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkImage" id="image">
+                <property name="pixel_size">32</property>
+                <property name="valign">center</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox" id="title_box">
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="margin_bottom">8</property>
+                <property name="margin_top">8</property>
+                <property name="orientation">vertical</property>
+                <property name="valign">center</property>
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkLabel" id="title">
+                    <property name="can_focus">False</property>
+                    <property name="ellipsize">end</property>
+                    <property name="halign">start</property>
+                    <property name="hexpand">True</property>
+                    <property name="visible">True</property>
+                    <property name="xalign">0</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="subtitle">
+                    <property name="can_focus">False</property>
+                    <property name="ellipsize">end</property>
+                    <property name="halign">start</property>
+                    <property name="hexpand">True</property>
+                    <property name="xalign">0</property>
+                    <style>
+                      <class name="dim-label" />
+                    </style>
+                    <attributes>
+                      <attribute name="scale" value="0.8" />
+                    </attributes>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
