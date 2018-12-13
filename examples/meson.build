@@ -10,6 +10,7 @@ handy_demo_resources = gnome.compile_resources(
 handy_demo_sources = [
   handy_demo_resources,
   'handy-demo.c',
+  'hdy-demo-preferences-window.c',
   'hdy-demo-window.c',
   'hdy-view-switcher-demo-window.c',
   libhandy_generated_headers,
