@@ -112,7 +112,7 @@ example_window_notify_visible_child_cb (GObject       *sender,
                                         GParamSpec    *pspec,
                                         ExampleWindow *self)
 {
-  hdy_leaflet_set_visible_child (self->content_box, GTK_WIDGET (self->stack));
+  hdy_leaflet_set_visible_child_name (self->content_box, "content");
   update_header_bar (self);
 }
 
@@ -120,7 +120,7 @@ static void
 example_window_back_clicked_cb (GtkWidget     *sender,
                                 ExampleWindow *self)
 {
-  hdy_leaflet_set_visible_child (self->content_box, GTK_WIDGET (self->sidebar));
+  hdy_leaflet_set_visible_child_name (self->content_box, "sidebar");
 }
 
 static void
@@ -328,6 +328,6 @@ example_window_init (ExampleWindow *self)
   gtk_widget_init_template (GTK_WIDGET (self));
   gtk_list_box_set_header_func (self->column_listbox, list_box_separator_header_func, NULL, NULL);
 
-  hdy_leaflet_set_visible_child (self->content_box, GTK_WIDGET (self->stack));
+  hdy_leaflet_set_visible_child_name (self->content_box, "content");
   update_header_bar (self);
 }
