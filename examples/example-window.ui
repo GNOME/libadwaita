@@ -614,84 +614,30 @@
                                 <property name="expand">True</property>
                                 <property name="selection-mode">none</property>
                                 <child>
-                                  <object class="GtkBox">
-                                    <property name="visible">True</property>
+                                  <object class="HdyActionRow">
                                     <property name="can_focus">False</property>
-                                    <property name="expand">True</property>
-                                    <property name="orientation">horizontal</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Maximum width</property>
-                                        <property name="xalign">0</property>
-                                        <property name="margin-bottom">18</property>
-                                        <property name="margin-start">20</property>
-                                        <property name="margin-end">6</property>
-                                        <property name="margin-top">18</property>
-                                        <property name="ellipsize">end</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                    <child>
+                                    <property name="title" translatable="yes">Maximum width</property>
+                                    <property name="visible">True</property>
+                                    <child type="action">
                                       <object class="GtkSpinButton">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="xalign">1</property>
-                                        <property name="margin-bottom">18</property>
-                                        <property name="margin-start">20</property>
-                                        <property name="margin-end">20</property>
-                                        <property name="margin-top">18</property>
                                         <property name="adjustment">column_width_adjustment</property>
+                                        <property name="valign">center</property>
+                                        <property name="visible">True</property>
                                       </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
                                     </child>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkBox">
-                                    <property name="visible">True</property>
+                                  <object class="HdyActionRow">
                                     <property name="can_focus">False</property>
-                                    <property name="expand">True</property>
-                                    <property name="orientation">horizontal</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Linear growth width</property>
-                                        <property name="xalign">0</property>
-                                        <property name="margin-bottom">18</property>
-                                        <property name="margin-start">20</property>
-                                        <property name="margin-end">6</property>
-                                        <property name="margin-top">18</property>
-                                        <property name="ellipsize">end</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">True</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                    <child>
+                                    <property name="title" translatable="yes">Linear growth width</property>
+                                    <property name="visible">True</property>
+                                    <child type="action">
                                       <object class="GtkSpinButton">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="xalign">1</property>
-                                        <property name="margin-bottom">18</property>
-                                        <property name="margin-start">20</property>
-                                        <property name="margin-end">20</property>
-                                        <property name="margin-top">18</property>
                                         <property name="adjustment">column_linear_width_adjustment</property>
+                                        <property name="valign">center</property>
+                                        <property name="visible">True</property>
                                       </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
                                     </child>
                                   </object>
                                 </child>
