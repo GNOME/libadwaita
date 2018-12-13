@@ -2265,10 +2265,15 @@ hdy_leaflet_forall (GtkContainer *container,
 {
   HdyLeaflet *self = HDY_LEAFLET (container);
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+  /* This shallow copy is needed when the callback changes the list while we are
+   * looping through it, for example by calling hdy_leaflet_remove() on all
+   * children when destroying the HdyLeaflet_private_offset.
+   */
+  g_autoptr (GList) children_copy = g_list_copy (priv->children);
   GList *children;
   HdyLeafletChildInfo *child_info;
 
-  for (children = priv->children; children; children = children->next) {
+  for (children = children_copy; children; children = children->next) {
     child_info = children->data;
 
     (* callback) (child_info->widget, callback_data);
