@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="HdyExpanderRow" parent="HdyActionRow">
+    <child type="action">
+      <object class="GtkSwitch" id="enable_switch">
+        <property name="can_focus">True</property>
+        <property name="halign">end</property>
+        <property name="valign">center</property>
+      </object>
+    </child>
+    <child type="action">
+      <object class="GtkSeparator" id="separator">
+        <property name="height_request">32</property>
+        <property name="margin_bottom">8</property>
+        <property name="margin_top">8</property>
+        <property name="orientation">vertical</property>
+      </object>
+    </child>
+    <child type="action">
+      <object class="GtkToggleButton" id="button">
+        <property name="active" bind-source="revealer" bind-property="reveal-child" bind-flags="bidirectional|sync-create"/>
+        <property name="can_focus">True</property>
+        <property name="halign">end</property>
+        <property name="relief">none</property>
+        <property name="valign">center</property>
+        <property name="visible">True</property>
+        <signal name="notify::active" handler="button_active_cb" swapped="yes"/>
+        <style>
+          <class name="image-button"/>
+        </style>
+        <child>
+          <object class="GtkImage" id="image">
+            <property name="visible">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRevealer" id="revealer">
+        <property name="transition_type">slide-up</property>
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkBox" id="box">
+            <property name="orientation">vertical</property>
+            <property name="visible">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

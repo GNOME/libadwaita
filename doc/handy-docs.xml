@@ -42,6 +42,7 @@
     <xi:include href="xml/hdy-dialer.xml"/>
     <xi:include href="xml/hdy-dialer-button.xml"/>
     <xi:include href="xml/hdy-dialer-cycle-button.xml"/>
+    <xi:include href="xml/hdy-expander-row.xml"/>
     <xi:include href="xml/hdy-header-group.xml"/>
     <xi:include href="xml/hdy-leaflet.xml"/>
     <xi:include href="xml/hdy-search-bar.xml"/>

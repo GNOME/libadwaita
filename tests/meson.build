@@ -23,6 +23,7 @@ test_names = [
   'test-arrows',
   'test-dialer',
   'test-dialer-cycle-button',
+  'test-expander-row',
   'test-header-group',
   'test-search-bar',
   'test-string-utf8',
