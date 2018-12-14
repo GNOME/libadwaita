@@ -70,8 +70,6 @@ libhandy_init_public_types = custom_target('hdy-public-types.c',
   input : [src_headers, libhandy_generated_headers],
   command : [gen_public_types, '@INPUT@'],
   capture: true,
-  install : true,
-  install_dir : 'subdir',
 )
 
 src_sources = [
