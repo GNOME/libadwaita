@@ -136,6 +136,7 @@ libhandy = shared_library(
   include_directories: [ root_inc, src_inc ],
               install: true,
             link_args: libhandy_link_args,
+          install_dir: libdir,
 )
 
 libhandy_dep = declare_dependency(
