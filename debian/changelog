@@ -1,3 +1,129 @@
+libhandy (0.0.6) experimental; urgency=medium
+
+  [ Adrien Plazas ]
+  * Set relevant ATK roles.
+    This will help the widgets to be more accessible.
+  * doc: Rephrase the unstability ack section.
+    Rephrase the documentation explaining how to include libhandy in a way
+    that could include other languages such as Vala.
+  * doc: Document the unstability ack for Vala
+  * Guard header inclusions with #pragma once.
+    This standardizes the header inclusion guards to #pragma once, which
+    shouldn't be a problem as we already were using it in some files.
+  * hacking: Document header inclusion guard preferences
+  * example: Disable more libhandy options in Flatpak.
+    Disable generation of the GObject Introspection files, the VAPI and the
+    tests in the example Flatpak as they are not used by it.
+  * arrow: Use a measure() method.
+    This will simplify porting to GTK+ 4.
+  * column: Use a measure() method.
+    This will simplify porting to GTK+ 4.
+  * dialer-button: Use a measure() method.
+    This will simplify porting to GTK+ 4.
+  * leaflet: Use a measure() method.
+    This will simplify porting to GTK+ 4.
+  * init: Make the arguments optional.
+    Annotate the arguments of hdy_init() with (optional) to specify that NULL
+    arguments are valid. This also replaces the deprecated (allow-none) by
+    (nullable) to specify that the array pointed at by argv can be NULL.
+  * init: Document that libhandy can't be reinitialized
+  * Normalize and document private header guards
+  * Add HdySearchBar.
+    This is similar to GtkSearchBar except it allows the central widget
+    (typically a GtkEntry) to fill all the available space. This is needed to
+    manage an entry's width via a HdyColumn, letting the entry (and by
+    extention the search bar) have a limited maximum width while allowing it to
+    shrink to accomodate smaller windows.
+  * example: Add the 'Search bar' page.
+    This adds a demo of HdySearchBar.
+  * example: Put the content in a scrolled window.
+    This ensures the example can fit windows of any height.  This also makes
+    the stack containing the content non vertically homogeneous so the
+    scrollbar appears only on examples needing it, while keeping it
+    horizontally homogeneous for to keep when the leaflets will be folded
+    consistent.
+  * build: Set the shared object install directory.
+    This is required for Meson subprojects to work as intended.
+  * build: Do not install hdy-public-types.c.
+    There is no point in installing this generated C file.
+  * leaflet: Allow editing the children list when looping through it.
+    This avoids potential crashes when destroying a leaflet and this avoids
+    leaks as not all children where looped through as the children list was
+    edited while being looped through when destroying the leaflet.  This fixes
+    https://source.puri.sm/Librem5/libhandy/issues/42.
+  * Add hdy_list_box_separator_header()
+    This list box header update function is commonly used by many applications
+    and is going to be used by HdyComboRow which is going to be added to
+    libhandy later.This makes it available for everyone.
+  * examples: Use hdy_list_box_separator_header()
+    This makes the code simpler.
+  * Add HdyActionRow.
+    This implements a very commonly used list box row pattern and make it
+    convenient to use. It is going to be used as the base class for many
+    other commonly used row types.
+  * examples: Use HdyRow.
+    This makes the code simpler and demoes the widget.
+  * Add HdyExpanderRow
+  * Add HdyEnumValueObject.
+    This will be used in the next commit to use enumeration values in a
+    GListModel.
+  * Add HdyComboRow
+  * examples: Add the Lists page.
+    This page presents GtkListBox related widgets like HdyRow and its
+    descendants.
+  * examples: Put the scrolled window in the end pane size group.
+    This fixes the fold synchronization of the leaflets in the example
+    application's window.
+
+  [ Guido Günther ]
+  * hdy-enums: Make build reproducible.
+    Use @basename@ instead of @filename@ since the later uses the full
+    path which varies across builds.
+  * HACKING: Clarify braces in if-else.
+    Document common practice in the other files.
+  * spec: Sort dependencies
+  * spec: Build-depend on libgladeui-2.0
+  * gitlab-ci: Deduplicate tags
+  * gitlab-ci: Build on Fedora as well.
+    This gives us more confidence that we build succesfully and without
+    warnings on an OS much used by GNOME developers.  It also makes sure we
+    validate the spec file.
+  * gitlab-ci: Switch to clang-tools
+    clang-3.9 does not contain scan-build anymore.
+  * HdyHeaderGroup: Cleanup references to header bars in dispose.
+    The dispose heandler is meant to break refs to other objects, not
+    finalize.
+  * HdyHeaderGroup: Disconnect from header bar's signals during dispose.  The
+    header bars might still emit signals which leads to CRITICALS or actual
+    crashes. Fixes parts of #56
+  * docs: Add section for new symbols in 0.0.6
+  * Annotate APIs new in 0.0.6
+  * Release libhandy 0.0.6
+
+  [ Alexander Mikhaylenko ]
+  * init: Add (transfer none) to argv parameter.
+    This allows to call the function from Vala more easily.
+  * header-group: Ref itself instead of header bars.
+    When adding a header bar, ref the header group and connect to 'destroy'
+    signal of the header bar. When a header bar is destroyed or
+    hdy_header_group_remove_header_bar() is called, unref the header bar and
+    remove it from the list.
+    This way, a non-empty header group is only destroyed after every header
+    bar it contains has been removed from the group or destroyed.
+    Fixes #56
+  * Revert "HdyHeaderGroup: Disconnect from header bar's signals during
+    dispose"
+    Since commit c5bf27d44022bdfa94b3f560aac8c22115e06363 header bars are
+    destroyed before header group, so when destroying the header group, the
+    list of header bars is always empty, so there's nothing to unref anymore.
+    Reverts commit 14e5fc7b923440a99c3a62635cf895e73c5a49cd.
+
+  [ tallero ]
+  * build: Don't use -fstack-protector-strong on mingw64.
+    This unbreaks compilation on that platform. (Closes: #64)
+
+ -- Guido Günther <agx@sigxcpu.org>  Mon, 17 Dec 2018 16:26:19 +0100
+
 libhandy (0.0.5) experimental; urgency=medium
 
   [ Guido Günther ]

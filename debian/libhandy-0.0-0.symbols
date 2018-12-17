@@ -1,5 +1,18 @@
 libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  LIBHANDY_0_0_0@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_action_row_activate@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_add_action@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_add_prefix@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_get_icon_name@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_get_subtitle@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_get_title@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_get_type@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_get_use_underline@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_new@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_set_icon_name@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_set_subtitle@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_set_title@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_set_use_underline@LIBHANDY_0_0_0 0.0.6
  hdy_arrows_animate@LIBHANDY_0_0_0 0.0~git20180517
  hdy_arrows_direction_get_type@LIBHANDY_0_0_0 0.0~git20180517
  hdy_arrows_get_count@LIBHANDY_0_0_0 0.0~git20180517
@@ -16,6 +29,12 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_column_new@LIBHANDY_0_0_0 0.0.1
  hdy_column_set_linear_growth_width@LIBHANDY_0_0_0 0.0.3
  hdy_column_set_maximum_width@LIBHANDY_0_0_0 0.0.1
+ hdy_combo_row_bind_model@LIBHANDY_0_0_0 0.0.6
+ hdy_combo_row_bind_name_model@LIBHANDY_0_0_0 0.0.6
+ hdy_combo_row_get_model@LIBHANDY_0_0_0 0.0.6
+ hdy_combo_row_get_type@LIBHANDY_0_0_0 0.0.6
+ hdy_combo_row_new@LIBHANDY_0_0_0 0.0.6
+ hdy_combo_row_set_for_enum@LIBHANDY_0_0_0 0.0.6
  hdy_dialer_button_get_digit@LIBHANDY_0_0_0 0.0~git20180429
 #MISSING: 0.0.3# hdy_dialer_button_get_letters@LIBHANDY_0_0_0 0.0.4~
  hdy_dialer_button_get_symbols@LIBHANDY_0_0_0 0.0.3
@@ -37,6 +56,18 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_dialer_set_number@LIBHANDY_0_0_0 0.0~git20180429
  hdy_dialer_set_relief@LIBHANDY_0_0_0 0.0.3
  hdy_dialer_set_show_action_buttons@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_enum_value_object_get_name@LIBHANDY_0_0_0 0.0.6
+ hdy_enum_value_object_get_nick@LIBHANDY_0_0_0 0.0.6
+ hdy_enum_value_object_get_type@LIBHANDY_0_0_0 0.0.6
+ hdy_enum_value_object_get_value@LIBHANDY_0_0_0 0.0.6
+ hdy_enum_value_object_new@LIBHANDY_0_0_0 0.0.6
+ hdy_enum_value_row_name@LIBHANDY_0_0_0 0.0.6
+ hdy_expander_row_get_enable_expansion@LIBHANDY_0_0_0 0.0.6
+ hdy_expander_row_get_show_enable_switch@LIBHANDY_0_0_0 0.0.6
+ hdy_expander_row_get_type@LIBHANDY_0_0_0 0.0.6
+ hdy_expander_row_new@LIBHANDY_0_0_0 0.0.6
+ hdy_expander_row_set_enable_expansion@LIBHANDY_0_0_0 0.0.6
+ hdy_expander_row_set_show_enable_switch@LIBHANDY_0_0_0 0.0.6
  hdy_fold_get_type@LIBHANDY_0_0_0 0.0~git20180429
  hdy_header_group_add_header_bar@LIBHANDY_0_0_0 0.0.3
  hdy_header_group_get_focus@LIBHANDY_0_0_0 0.0.3
@@ -69,6 +100,15 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_leaflet_set_mode_transition_type@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_set_visible_child@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_set_visible_child_name@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_list_box_separator_header@LIBHANDY_0_0_0 0.0.6
+ hdy_search_bar_connect_entry@LIBHANDY_0_0_0 0.0.6
+ hdy_search_bar_get_search_mode@LIBHANDY_0_0_0 0.0.6
+ hdy_search_bar_get_show_close_button@LIBHANDY_0_0_0 0.0.6
+ hdy_search_bar_get_type@LIBHANDY_0_0_0 0.0.6
+ hdy_search_bar_handle_event@LIBHANDY_0_0_0 0.0.6
+ hdy_search_bar_new@LIBHANDY_0_0_0 0.0.6
+ hdy_search_bar_set_search_mode@LIBHANDY_0_0_0 0.0.6
+ hdy_search_bar_set_show_close_button@LIBHANDY_0_0_0 0.0.6
  hdy_string_utf8_len@LIBHANDY_0_0_0 0.0~git20180429
  hdy_string_utf8_truncate@LIBHANDY_0_0_0 0.0~git20180429
  hdy_title_bar_get_selection_mode@LIBHANDY_0_0_0 0.0.3
