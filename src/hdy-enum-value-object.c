@@ -13,6 +13,8 @@
  *
  * The #HdyEnumValueObject object represents a #GEnumValue, allowing it to be
  * used with #GListModel.
+ *
+ * Since: 0.0.6
  */
 
 struct _HdyEnumValueObject

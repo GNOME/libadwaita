@@ -29,6 +29,8 @@
  *
  * It also supports setting a child as a prefix widget by specifying “prefix” as
  * the “type” attribute of a &lt;child&gt; element.
+ *
+ * Since: 0.0.6
  */
 
 typedef struct
@@ -343,6 +345,8 @@ hdy_action_row_buildable_init (GtkBuildableIface *iface)
  * Creates a new #HdyActionRow.
  *
  * Returns: a new #HdyActionRow
+ *
+ * Since: 0.0.6
  */
 HdyActionRow *
 hdy_action_row_new (void)
@@ -357,6 +361,8 @@ hdy_action_row_new (void)
  * Gets the title for @self.
  *
  * Returns: the title for @self.
+ *
+ * Since: 0.0.6
  */
 const gchar *
 hdy_action_row_get_title (HdyActionRow *self)
@@ -376,6 +382,8 @@ hdy_action_row_get_title (HdyActionRow *self)
  * @title: the title
  *
  * Sets the title for @self.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_action_row_set_title (HdyActionRow *self,
@@ -404,6 +412,8 @@ hdy_action_row_set_title (HdyActionRow *self,
  * Gets the subtitle for @self.
  *
  * Returns: the subtitle for @self.
+ *
+ * Since: 0.0.6
  */
 const gchar *
 hdy_action_row_get_subtitle (HdyActionRow *self)
@@ -423,6 +433,8 @@ hdy_action_row_get_subtitle (HdyActionRow *self)
  * @subtitle: the subtitle
  *
  * Sets the subtitle for @self.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_action_row_set_subtitle (HdyActionRow *self,
@@ -451,6 +463,8 @@ hdy_action_row_set_subtitle (HdyActionRow *self,
  * Gets the icon name for @self.
  *
  * Returns: the icon name for @self.
+ *
+ * Since: 0.0.6
  */
 const gchar *
 hdy_action_row_get_icon_name (HdyActionRow *self)
@@ -473,6 +487,8 @@ hdy_action_row_get_icon_name (HdyActionRow *self)
  * @icon_name: the icon name
  *
  * Sets the icon name for @self.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_action_row_set_icon_name (HdyActionRow *self,
@@ -505,6 +521,8 @@ hdy_action_row_set_icon_name (HdyActionRow *self,
  *
  * Returns: %TRUE if an embedded underline in the title and subtitle labels
  *          indicates the mnemonic accelerator keys.
+ *
+ * Since: 0.0.6
  */
 gboolean
 hdy_action_row_get_use_underline (HdyActionRow *self)
@@ -525,6 +543,8 @@ hdy_action_row_get_use_underline (HdyActionRow *self)
  *
  * If true, an underline in the text of the title and subtitle labels indicates
  * the next character should be used for the mnemonic accelerator key.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_action_row_set_use_underline (HdyActionRow *self,
@@ -554,6 +574,8 @@ hdy_action_row_set_use_underline (HdyActionRow *self,
  * @widget: (allow-none): the action widget
  *
  * Adds an action widget to @self.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_action_row_add_action (HdyActionRow *self,
@@ -574,6 +596,8 @@ hdy_action_row_add_action (HdyActionRow *self,
  * @widget: (allow-none): the prefix widget
  *
  * Adds a prefix widget to @self.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_action_row_add_prefix (HdyActionRow *self,

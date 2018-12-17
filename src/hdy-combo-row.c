@@ -21,6 +21,8 @@
  * The #HdyComboRow uses the model-view pattern; the list of valid choices
  * is specified in the form of a #GListModel, and the display of the choices can
  * be adapted to the data in the model via widget creation functions.
+ *
+ * Since: 0.0.6
  */
 
 /*
@@ -305,6 +307,8 @@ hdy_combo_row_init (HdyComboRow *self)
  * Creates a new #HdyComboRow.
  *
  * Returns: a new #HdyComboRow
+ *
+ * Since: 0.0.6
  */
 HdyComboRow *
 hdy_combo_row_new (void)
@@ -319,6 +323,8 @@ hdy_combo_row_new (void)
  * Gets the model bound to @self, or %NULL if none is bound.
  *
  * Returns: (transfer none) (nullable): the #GListModel bound to @self or %NULL
+ *
+ * Since: 0.0.6
  */
 GListModel *
 hdy_combo_row_get_model (HdyComboRow *self)
@@ -353,6 +359,8 @@ hdy_combo_row_get_model (HdyComboRow *self)
  * The contents of @self are cleared and then filled with widgets that represent
  * items from @model. @self is updated whenever @model changes. If @model is
  * %NULL, @self is left empty.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_combo_row_bind_model (HdyComboRow                *self,
@@ -414,6 +422,8 @@ hdy_combo_row_bind_model (HdyComboRow                *self,
  *
  * This is more conventient to use than hdy_combo_row_bind_model() if you want
  * to represent items of the model with names.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_combo_row_bind_name_model (HdyComboRow            *self,
@@ -458,6 +468,8 @@ hdy_combo_row_bind_name_model (HdyComboRow            *self,
  * want to represent values of an enumeration with names.
  *
  * See hdy_enum_value_row_name().
+ *
+ * Since: 0.0.6
  */
 void
 hdy_combo_row_set_for_enum (HdyComboRow                     *self,
@@ -488,6 +500,8 @@ hdy_combo_row_set_for_enum (HdyComboRow                     *self,
  * will return it, otherwise it will return its name.
  *
  * Returns: (transfer full): a newly allocated displayable name that represents @value
+ *
+ * Since: 0.0.6
  */
 gchar *
 hdy_enum_value_row_name (HdyEnumValueObject *value,

@@ -12,6 +12,8 @@
  * SECTION:hdy-list-box
  * @short_description: Helper functions for #GtkListBox
  * @Title: GtkListBox helpers
+ *
+ * Since: 0.0.6
  */
 
 /**
@@ -22,6 +24,8 @@
  *
  * Separates rows by using #GtkSeparator as headers. The first row doesn't have
  * a separator as there is no row above it.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_list_box_separator_header (GtkListBoxRow *row,

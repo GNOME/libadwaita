@@ -73,6 +73,8 @@
  * # CSS nodes
  *
  * HdySearchBar has a single CSS node with name searchbar.
+ *
+ * Since: 0.0.6
  */
 
 typedef struct {
@@ -243,6 +245,8 @@ hdy_search_bar_handle_event_for_entry (HdySearchBar *self,
  * Returns: %GDK_EVENT_STOP if the key press event resulted
  *     in text being entered in the search entry (and revealing
  *     the search bar if necessary), %GDK_EVENT_PROPAGATE otherwise.
+ *
+ * Since: 0.0.6
  */
 gboolean
 hdy_search_bar_handle_event (HdySearchBar *self,
@@ -503,6 +507,8 @@ hdy_search_bar_init (HdySearchBar *self)
  * hdy_search_bar_connect_entry().
  *
  * Returns: a new #HdySearchBar
+ *
+ * Since: 0.0.6
  */
 GtkWidget *
 hdy_search_bar_new (void)
@@ -546,6 +552,8 @@ hdy_search_bar_set_entry (HdySearchBar *self,
  * this search bar. The entry should be a descendant of the search bar.
  * This is only required if the entry isn’t the direct child of the
  * search bar (as in our main example).
+ *
+ * Since: 0.0.6
  */
 void
 hdy_search_bar_connect_entry (HdySearchBar *self,
@@ -564,6 +572,8 @@ hdy_search_bar_connect_entry (HdySearchBar *self,
  * Returns whether the search mode is on or off.
  *
  * Returns: whether search mode is toggled on
+ *
+ * Since: 0.0.6
  */
 gboolean
 hdy_search_bar_get_search_mode (HdySearchBar *self)
@@ -581,6 +591,8 @@ hdy_search_bar_get_search_mode (HdySearchBar *self)
  * @search_mode: the new state of the search mode
  *
  * Switches the search mode on or off.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_search_bar_set_search_mode (HdySearchBar *self,
@@ -600,6 +612,8 @@ hdy_search_bar_set_search_mode (HdySearchBar *self,
  * Returns whether the close button is shown.
  *
  * Returns: whether the close button is shown
+ *
+ * Since: 0.0.6
  */
 gboolean
 hdy_search_bar_get_show_close_button (HdySearchBar *self)
@@ -620,6 +634,8 @@ hdy_search_bar_get_show_close_button (HdySearchBar *self)
  * already have a “search” toggle button should not show a close
  * button in their search bar, as it duplicates the role of the
  * toggle button.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_search_bar_set_show_close_button (HdySearchBar *self,

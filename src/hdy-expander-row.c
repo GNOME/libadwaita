@@ -16,6 +16,8 @@
  * The #HdyExpanderRow allows the user to reveal of hide widgets below it. It
  * also allows the user to enable the expansion of the row, allowing to disable
  * all that the row contains.
+ *
+ * Since: 0.0.6
  */
 
 typedef struct
@@ -242,6 +244,8 @@ hdy_expander_row_init (HdyExpanderRow *self)
  * Creates a new #HdyExpanderRow.
  *
  * Returns: a new #HdyExpanderRow
+ *
+ * Since: 0.0.6
  */
 HdyExpanderRow *
 hdy_expander_row_new (void)
@@ -256,6 +260,8 @@ hdy_expander_row_new (void)
  * Gets whether the expansion of @self is enabled.
  *
  * Returns: whether the expansion of @self is enabled.
+ *
+ * Since: 0.0.6
  */
 gboolean
 hdy_expander_row_get_enable_expansion (HdyExpanderRow *self)
@@ -275,6 +281,8 @@ hdy_expander_row_get_enable_expansion (HdyExpanderRow *self)
  * @enable_expansion: %TRUE to enable the expansion
  *
  * Sets whether the expansion of @self is enabled.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_expander_row_set_enable_expansion (HdyExpanderRow *self,
@@ -303,6 +311,8 @@ hdy_expander_row_set_enable_expansion (HdyExpanderRow *self,
  * Gets whether the switch enabling the expansion of @self is visible.
  *
  * Returns: whether the switch enabling the expansion of @self is visible.
+ *
+ * Since: 0.0.6
  */
 gboolean
 hdy_expander_row_get_show_enable_switch (HdyExpanderRow *self)
@@ -322,6 +332,8 @@ hdy_expander_row_get_show_enable_switch (HdyExpanderRow *self)
  * @show_enable_switch: %TRUE to show the switch enabling the expansion
  *
  * Sets whether the switch enabling the expansion of @self is visible.
+ *
+ * Since: 0.0.6
  */
 void
 hdy_expander_row_set_show_enable_switch (HdyExpanderRow *self,
