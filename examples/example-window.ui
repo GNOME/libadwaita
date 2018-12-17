@@ -152,7 +152,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkScrolledWindow">
+          <object class="GtkScrolledWindow" id="scrolled_window">
             <property name="hscrollbar_policy">never</property>
             <property name="visible">True</property>
             <child>
@@ -1010,7 +1010,7 @@
     <property name="mode">horizontal</property>
     <widgets>
       <widget name="sub_header_bar"/>
-      <widget name="stack"/>
+      <widget name="scrolled_window"/>
     </widgets>
   </object>
   <object class="HdyHeaderGroup" id="header_group">
