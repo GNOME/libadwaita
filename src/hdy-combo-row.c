@@ -45,6 +45,14 @@ typedef struct
 
 G_DEFINE_TYPE_WITH_PRIVATE (HdyComboRow, hdy_combo_row, HDY_TYPE_ACTION_ROW)
 
+enum {
+  PROP_0,
+  PROP_SELECTED_INDEX,
+  LAST_PROP,
+};
+
+static GParamSpec *props[LAST_PROP];
+
 typedef struct
 {
   HdyComboRowGetNameFunc get_name_func;
@@ -196,6 +204,40 @@ destroy_model (HdyComboRow *self)
 }
 
 static void
+hdy_combo_row_get_property (GObject    *object,
+                            guint       prop_id,
+                            GValue     *value,
+                            GParamSpec *pspec)
+{
+  HdyComboRow *self = HDY_COMBO_ROW (object);
+
+  switch (prop_id) {
+  case PROP_SELECTED_INDEX:
+    g_value_set_int (value, hdy_combo_row_get_selected_index (self));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
+hdy_combo_row_set_property (GObject      *object,
+                            guint         prop_id,
+                            const GValue *value,
+                            GParamSpec   *pspec)
+{
+  HdyComboRow *self = HDY_COMBO_ROW (object);
+
+  switch (prop_id) {
+  case PROP_SELECTED_INDEX:
+    hdy_combo_row_set_selected_index (self, g_value_get_int (value));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
 hdy_combo_row_dispose (GObject *object)
 {
   HdyComboRow *self = HDY_COMBO_ROW (object);
@@ -253,11 +295,29 @@ hdy_combo_row_class_init (HdyComboRowClass *klass)
   GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
   HdyActionRowClass *row_class = HDY_ACTION_ROW_CLASS (klass);
 
+  object_class->get_property = hdy_combo_row_get_property;
+  object_class->set_property = hdy_combo_row_set_property;
   object_class->dispose = hdy_combo_row_dispose;
 
   container_class->forall = hdy_combo_row_forall;
 
   row_class->activate = hdy_combo_row_activate;
+
+  /**
+   * HdyComboRow:selected-index:
+   *
+   * The index of the selected item in its #GListModel.
+   *
+   * Since: 0.0.7
+   */
+  props[PROP_SELECTED_INDEX] =
+      g_param_spec_int ("selected-index",
+                        _("Selected index"),
+                        _("The index of the selected item"),
+                        -1, G_MAXINT, -1,
+                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/dialer/ui/hdy-combo-row.ui");
@@ -491,6 +551,60 @@ hdy_combo_row_set_for_enum (HdyComboRow                     *self,
 
   hdy_combo_row_bind_name_model (self, G_LIST_MODEL (store), (HdyComboRowGetNameFunc) get_name_func, user_data, user_data_free_func);
   g_type_class_unref (enum_class);
+}
+
+/**
+ * hdy_combo_row_get_selected_index:
+ * @self: a #GtkListBoxRow
+ *
+ * Gets the index of the selected item in its #GListModel.
+ *
+ * Returns: the index of the selected item, or -1 if no item is selected
+ *
+ * Since: 0.0.7
+ */
+gint
+hdy_combo_row_get_selected_index (HdyComboRow *self)
+{
+  HdyComboRowPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_COMBO_ROW (self), -1);
+
+  priv = hdy_combo_row_get_instance_private (self);
+
+  return priv->selected_index;
+}
+
+/**
+ * hdy_combo_row_set_selected_index:
+ * @self: a #HdyComboRow
+ * @selected_index: the index of the selected item
+ *
+ * Sets the index of the selected item in its #GListModel.
+ *
+ * Since: 0.0.7
+ */
+void
+hdy_combo_row_set_selected_index (HdyComboRow *self,
+                                  gint         selected_index)
+{
+  HdyComboRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_COMBO_ROW (self));
+  g_return_if_fail (selected_index >= -1);
+
+  priv = hdy_combo_row_get_instance_private (self);
+
+  g_return_if_fail ((priv->bound_model == NULL && selected_index == -1) || (priv->bound_model != NULL && selected_index != -1));
+  g_return_if_fail (selected_index < g_list_model_get_n_items (priv->bound_model));
+
+  if (priv->selected_index == selected_index)
+    return;
+
+  priv->selected_index = selected_index;
+  update (self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SELECTED_INDEX]);
 }
 
 /**

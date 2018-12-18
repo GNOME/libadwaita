@@ -76,6 +76,10 @@ void hdy_combo_row_set_for_enum    (HdyComboRow                     *self,
                                     gpointer                         user_data,
                                     GDestroyNotify                   user_data_free_func);
 
+gint hdy_combo_row_get_selected_index (HdyComboRow *self);
+void hdy_combo_row_set_selected_index (HdyComboRow *self,
+                                       gint         selected_index);
+
 gchar *hdy_enum_value_row_name (HdyEnumValueObject *value,
                                 gpointer            user_data);
 
