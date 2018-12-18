@@ -783,10 +783,11 @@
                                 </child>
                                 <child>
                                   <object class="HdyActionRow">
+                                    <property name="activatable_widget">frobnicate</property>
                                     <property name="title" translatable="yes">Rows can have action widgets</property>
                                     <property name="visible">True</property>
                                     <child type="action">
-                                      <object class="GtkButton">
+                                      <object class="GtkButton" id="frobnicate">
                                         <property name="can_focus">True</property>
                                         <property name="halign">end</property>
                                         <property name="label" translatable="yes">Frobnicate</property>
@@ -798,11 +799,26 @@
                                 </child>
                                 <child>
                                   <object class="HdyActionRow">
+                                    <property name="activatable_widget">radio_button_1</property>
                                     <property name="title" translatable="yes">Rows can have prefix widgets</property>
                                     <property name="visible">True</property>
                                     <child type="prefix">
-                                      <object class="GtkRadioButton">
+                                      <object class="GtkRadioButton" id="radio_button_1">
                                         <property name="can_focus">True</property>
+                                        <property name="visible">True</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="activatable_widget">radio_button_2</property>
+                                    <property name="title" translatable="yes">Rows can have prefix widgets</property>
+                                    <property name="visible">True</property>
+                                    <child type="prefix">
+                                      <object class="GtkRadioButton" id="radio_button_2">
+                                        <property name="can_focus">True</property>
+                                        <property name="group">radio_button_1</property>
                                         <property name="visible">True</property>
                                       </object>
                                     </child>

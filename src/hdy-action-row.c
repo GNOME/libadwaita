@@ -46,6 +46,7 @@ typedef struct
   GtkWidget *previous_parent;
 
   gboolean use_underline;
+  GtkWidget *activatable_widget;
 } HdyActionRowPrivate;
 
 static void hdy_action_row_buildable_init (GtkBuildableIface *iface);
@@ -60,6 +61,7 @@ static GtkBuildableIface *parent_buildable_iface;
 enum {
   PROP_0,
   PROP_ICON_NAME,
+  PROP_ACTIVATABLE_WIDGET,
   PROP_SUBTITLE,
   PROP_TITLE,
   PROP_USE_UNDERLINE,
@@ -116,6 +118,9 @@ hdy_action_row_get_property (GObject    *object,
   case PROP_ICON_NAME:
     g_value_set_string (value, hdy_action_row_get_icon_name (self));
     break;
+  case PROP_ACTIVATABLE_WIDGET:
+    g_value_set_object (value, (GObject *) hdy_action_row_get_activatable_widget (self));
+    break;
   case PROP_SUBTITLE:
     g_value_set_string (value, hdy_action_row_get_subtitle (self));
     break;
@@ -141,6 +146,9 @@ hdy_action_row_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_ICON_NAME:
     hdy_action_row_set_icon_name (self, g_value_get_string (value));
+    break;
+  case PROP_ACTIVATABLE_WIDGET:
+    hdy_action_row_set_activatable_widget (self, (GtkWidget*) g_value_get_object (value));
     break;
   case PROP_SUBTITLE:
     hdy_action_row_set_subtitle (self, g_value_get_string (value));
@@ -183,6 +191,16 @@ hdy_action_row_show_all (GtkWidget *widget)
                          (GtkCallback) gtk_widget_show_all,
                          NULL);
   GTK_WIDGET_CLASS (hdy_action_row_parent_class)->show_all (widget);
+}
+
+static void
+hdy_action_row_destroy (GtkWidget *widget)
+{
+  HdyActionRow *self = HDY_ACTION_ROW (widget);
+
+  hdy_action_row_set_activatable_widget (self, NULL);
+
+  GTK_WIDGET_CLASS (hdy_action_row_parent_class)->destroy (widget);
 }
 
 static void
@@ -249,6 +267,10 @@ hdy_action_row_forall (GtkContainer *container,
 static void
 hdy_action_row_activate_real (HdyActionRow *self)
 {
+  HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
+
+  if (priv->activatable_widget)
+    gtk_widget_mnemonic_activate (priv->activatable_widget, FALSE);
 }
 
 static void
@@ -262,6 +284,7 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
   object_class->set_property = hdy_action_row_set_property;
   object_class->dispose = hdy_action_row_dispose;
 
+  widget_class->destroy = hdy_action_row_destroy;
   widget_class->show_all = hdy_action_row_show_all;
 
   container_class->add = hdy_action_row_add;
@@ -282,6 +305,20 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
                          _("Icon name"),
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyActionRow:activatable-widget:
+   *
+   * The activatable widget for this row.
+   *
+   * Since: 0.0.7
+   */
+  props[PROP_ACTIVATABLE_WIDGET] =
+      g_param_spec_object ("activatable-widget",
+                           _("Activatable widget"),
+                           _("The widget to be activated when the row is activated"),
+                           GTK_TYPE_WIDGET,
+                           G_PARAM_READWRITE);
 
   /**
    * HdyActionRow:subtitle:
@@ -542,6 +579,86 @@ hdy_action_row_set_icon_name (HdyActionRow *self,
                           icon_name != NULL && g_strcmp0 (icon_name, "") != 0);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
+}
+
+/**
+ * hdy_action_row_get_activatable_widget:
+ * @self: a #HdyActionRow
+ *
+ * Gets the widget activated when @self is activated.
+ *
+ * Returns: (nullable) (transfer none): the widget activated when @self is
+ *          activated, or %NULL if none has been set.
+ *
+ * Since: 0.0.7
+ */
+GtkWidget *
+hdy_action_row_get_activatable_widget (HdyActionRow *self)
+{
+  HdyActionRowPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_ACTION_ROW (self), NULL);
+
+  priv = hdy_action_row_get_instance_private (self);
+
+  return priv->activatable_widget;
+}
+
+static void
+activatable_widget_weak_notify (gpointer  data,
+                                GObject  *where_the_object_was)
+{
+  HdyActionRow *self = HDY_ACTION_ROW (data);
+  HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
+
+  priv->activatable_widget = NULL;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTIVATABLE_WIDGET]);
+}
+
+/**
+ * hdy_action_row_set_activatable_widget:
+ * @self: a #HdyActionRow
+ * @widget: (nullable): the target #GtkWidget, or %NULL to unset
+ *
+ * Sets the widget to activate when @self is activated, either by clicking
+ * on it, by calling hdy_action_row_activate(), or via mnemonics in the title or
+ * the subtitle. See the “use_underline” property to enable mnemonics.
+ *
+ * The target widget will be activated by emitting the
+ * GtkWidget::mnemonic-activate signal on it.
+ *
+ * Since: 0.0.7
+ */
+void
+hdy_action_row_set_activatable_widget (HdyActionRow *self,
+                                       GtkWidget    *widget)
+{
+  HdyActionRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_ACTION_ROW (self));
+
+  priv = hdy_action_row_get_instance_private (self);
+
+  if (priv->activatable_widget == widget)
+    return;
+
+  if (widget != NULL)
+    g_return_if_fail (GTK_IS_WIDGET (widget));
+
+  if (priv->activatable_widget)
+    g_object_weak_unref (G_OBJECT (priv->activatable_widget),
+                         activatable_widget_weak_notify,
+                         self);
+
+  priv->activatable_widget = widget;
+
+  if (priv->activatable_widget != NULL)
+    g_object_weak_ref (G_OBJECT (priv->activatable_widget),
+                       activatable_widget_weak_notify,
+                       self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTIVATABLE_WIDGET]);
 }
 
 /**

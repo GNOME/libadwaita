@@ -44,6 +44,10 @@ const gchar *hdy_action_row_get_icon_name (HdyActionRow *self);
 void         hdy_action_row_set_icon_name (HdyActionRow *self,
                                            const gchar  *icon_name);
 
+GtkWidget *hdy_action_row_get_activatable_widget (HdyActionRow *self);
+void       hdy_action_row_set_activatable_widget (HdyActionRow *self,
+                                                  GtkWidget    *widget);
+
 gboolean hdy_action_row_get_use_underline (HdyActionRow *self);
 void     hdy_action_row_set_use_underline (HdyActionRow *self,
                                            gboolean      use_underline);
