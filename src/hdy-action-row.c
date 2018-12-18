@@ -170,11 +170,12 @@ hdy_action_row_dispose (GObject *object)
   HdyActionRow *self = HDY_ACTION_ROW (object);
   HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
 
-  if (priv->previous_parent == NULL)
-    return;
+  if (priv->previous_parent != NULL) {
+    g_signal_handlers_disconnect_by_func (priv->previous_parent, G_CALLBACK (row_activated_cb), self);
+    priv->previous_parent = NULL;
+  }
 
-  g_signal_handlers_disconnect_by_func (priv->previous_parent, G_CALLBACK (row_activated_cb), self);
-  priv->previous_parent = NULL;
+  G_OBJECT_CLASS (hdy_action_row_parent_class)->dispose (object);
 }
 
 static void
