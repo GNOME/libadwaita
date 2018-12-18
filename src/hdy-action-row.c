@@ -273,6 +273,8 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
    * HdyActionRow:icon-name:
    *
    * The icon name for this row.
+   *
+   * Since: 0.0.6
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
@@ -285,6 +287,8 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
    * HdyActionRow:subtitle:
    *
    * The subtitle for this row.
+   *
+   * Since: 0.0.6
    */
   props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle",
@@ -297,6 +301,8 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
    * HdyActionRow:title:
    *
    * The title for this row.
+   *
+   * Since: 0.0.6
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title",
@@ -305,6 +311,14 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * HdyActionRow:use-underline:
+   *
+   * Whether an embedded underline in the text of the title and subtitle labels
+   * indicates a mnemonic.
+   *
+   * Since: 0.0.6
+   */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline",
                           _("Use underline"),
