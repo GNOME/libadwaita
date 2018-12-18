@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glade-catalog name="libhandy" library="glade-handy" depends="gtk+" book="libhandy">
   <glade-widget-classes>
+    <glade-widget-class name="HdyActionRow" generic-name="actionrow" title="Action Row" since="0.0.6"/>
     <glade-widget-class name="HdyArrows" generic-name="arrows" title="Arrows"/>
     <glade-widget-class name="HdyColumn" generic-name="column" title="Column"/>
+    <glade-widget-class name="HdyComboRow" generic-name="comborow" title="Combo Row" since="0.0.6"/>
     <glade-widget-class name="HdyDialer" generic-name="dialer" title="Dialer"/>
+    <glade-widget-class name="HdyExpanderRow" generic-name="expanderrow" title="Expander Row" since="0.0.6"/>
     <glade-widget-class name="HdyHeaderGroup" generic-name="headergroup" title="Header Group" toplevel="True">
       <read-widget-function>glade_hdy_header_group_read_widget</read-widget-function>
       <write-widget-function>glade_hdy_header_group_write_widget</write-widget-function>
