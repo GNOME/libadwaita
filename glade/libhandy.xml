@@ -22,7 +22,7 @@
       </properties>
     </glade-widget-class>
     <glade-widget-class name="HdyLeaflet" generic-name="leaflet" title="Leaflet"/>
-    <glade-widget-class name="HdySearchBar" generic-name="searchbar" title="Search Bar"/>
+    <glade-widget-class name="HdySearchBar" generic-name="searchbar" title="Search Bar" since="0.0.6"/>
     <glade-widget-class name="HdyTitleBar" generic-name="titlebar" title="Title Bar"/>
   </glade-widget-classes>
 
