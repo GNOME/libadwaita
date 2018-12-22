@@ -11,10 +11,12 @@ libhandy is licensed under the LGPL-2.1+.
 
 ## Build dependencies
 
-To build libhandy you need the following build-deps:
+To build libhandy you need to first install the build-deps defined by [the debian/control file](https://source.puri.sm/Librem5/libhandy/blob/master/debian/control#L6)
+
+If you are running a Debian based distribution, you can easily install all those the dependencies making use of the following command
 
 ```sh
-sudo apt-get -y install gtk-doc-tools libgirepository1.0-dev libgnome-desktop-3-dev libgtk-3-dev meson pkg-config valac
+sudo apt-get build-dep .
 ```
 
 ## Building
