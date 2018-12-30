@@ -77,4 +77,5 @@ to the widgets in you favorite programming language can be found here:
 - [Podcasts](https://gitlab.gnome.org/World/podcasts) (HdyColumn)
 
 ### Vala
+- [GNOME Contacts](https://gitlab.gnome.org/GNOME/gnome-contacts) (HdyHeaderGroup, HdyTitleBar)
 - [GNOME Games](https://gitlab.gnome.org/GNOME/gnome-games) (HdyColumn, HdyTitleBar)
