@@ -170,6 +170,22 @@ hdy_action_row_dispose (GObject *object)
 }
 
 static void
+hdy_action_row_show_all (GtkWidget *widget)
+{
+  HdyActionRow *self = HDY_ACTION_ROW (widget);
+  HdyActionRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_ACTION_ROW (self));
+
+  priv = hdy_action_row_get_instance_private (self);
+
+  gtk_container_foreach (GTK_CONTAINER (priv->prefixes),
+                         (GtkCallback) gtk_widget_show_all,
+                         NULL);
+  GTK_WIDGET_CLASS (hdy_action_row_parent_class)->show_all (widget);
+}
+
+static void
 hdy_action_row_add (GtkContainer *container,
                     GtkWidget    *child)
 {
@@ -245,6 +261,8 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
   object_class->get_property = hdy_action_row_get_property;
   object_class->set_property = hdy_action_row_set_property;
   object_class->dispose = hdy_action_row_dispose;
+
+  widget_class->show_all = hdy_action_row_show_all;
 
   container_class->add = hdy_action_row_add;
   container_class->forall = hdy_action_row_forall;

@@ -17,12 +17,14 @@
             <child>
               <object class="GtkBox" id="prefixes">
                 <property name="can_focus">False</property>
+                <property name="no_show_all">True</property>
                 <property name="spacing">12</property>
                 <property name="visible">False</property>
               </object>
             </child>
             <child>
               <object class="GtkImage" id="image">
+                <property name="no_show_all">True</property>
                 <property name="pixel_size">32</property>
                 <property name="valign">center</property>
               </object>
@@ -33,6 +35,7 @@
                 <property name="halign">start</property>
                 <property name="margin_bottom">8</property>
                 <property name="margin_top">8</property>
+                <property name="no_show_all">True</property>
                 <property name="orientation">vertical</property>
                 <property name="valign">center</property>
                 <property name="visible">True</property>
