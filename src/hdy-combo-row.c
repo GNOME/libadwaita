@@ -479,15 +479,18 @@ hdy_combo_row_set_for_enum (HdyComboRow                     *self,
                             GDestroyNotify                   user_data_free_func)
 {
   g_autoptr (GListStore) store = g_list_store_new (HDY_TYPE_ENUM_VALUE_OBJECT);
-  g_autoptr (GEnumClass) enum_class = g_type_class_ref (enum_type);
+  /* g_autoptr for GEnumClass would require glib > 2.56 */
+  GEnumClass *enum_class = NULL;
   gsize i;
 
   g_return_if_fail (HDY_IS_COMBO_ROW (self));
 
+  enum_class = g_type_class_ref (enum_type);
   for (i = 0; i < enum_class->n_values; i++)
     g_list_store_append (store, hdy_enum_value_object_new (&enum_class->values[i]));
 
   hdy_combo_row_bind_name_model (self, G_LIST_MODEL (store), (HdyComboRowGetNameFunc) get_name_func, user_data, user_data_free_func);
+  g_type_class_unref (enum_class);
 }
 
 /**
