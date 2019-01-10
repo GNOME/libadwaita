@@ -69,6 +69,7 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
+  hdy_init (&argc, &argv);
 
   g_test_add_func("/Handy/HeaderGroup/focus", test_hdy_header_group_focus);
   g_test_add_func("/Handy/HeaderGroup/add_remove", test_hdy_header_group_add_remove);

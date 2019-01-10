@@ -49,6 +49,7 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
+  hdy_init (&argc, &argv);
 
   g_test_add_func("/Handy/ExpanderRow/enable_expansion", test_hdy_expander_row_enable_expansion);
   g_test_add_func("/Handy/ExpanderRow/show_enable_switch", test_hdy_expander_row_show_enable_switch);

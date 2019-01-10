@@ -58,6 +58,7 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
+  hdy_init (&argc, &argv);
 
   g_test_add_func("/Handy/Arrows/methods", test_hdy_arrows_setters);
   g_test_add_func("/Handy/Arrows/gobject", test_hdy_arrows_gobject);
