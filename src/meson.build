@@ -136,7 +136,14 @@ if cc.links('int main() { return 0; }', args : ld_version_script_arg, name : 'ld
   libhandy_link_args += [ld_version_script_arg]
 endif
 
-libhandy = shared_library(
+static = get_option('static')
+if static
+  libtype = 'static_library'
+else
+  libtype = 'shared_library'
+endif
+
+libhandy = build_target(
   'handy-' + apiversion,
   libhandy_sources,
 
@@ -147,6 +154,7 @@ libhandy = shared_library(
               install: true,
             link_args: libhandy_link_args,
           install_dir: libdir,
+          target_type: libtype,
 )
 
 libhandy_dep = declare_dependency(
