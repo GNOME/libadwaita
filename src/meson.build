@@ -156,7 +156,7 @@ libhandy_dep = declare_dependency(
   include_directories: include_directories('.'),
 )
 
-if get_option('introspection')
+if introspection
 
    libhandy_gir = gnome.generate_gir(libhandy,
                  sources: libhandy_generated_headers + libhandy_public_headers + libhandy_public_sources,

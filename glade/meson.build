@@ -1,7 +1,6 @@
-if get_option('glade_catalog')
+if glade_catalog
 
 glade_xml = 'libhandy.xml'
-gladeui_dep = dependency('gladeui-2.0')
 module_dir = gladeui_dep.get_pkgconfig_variable('moduledir')
 dtd = join_paths(meson.current_source_dir(), 'glade-catalog.dtd')
 glade_catalogdir = gladeui_dep.get_pkgconfig_variable('catalogdir')

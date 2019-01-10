@@ -24,8 +24,8 @@
       "builddir": true,
       "build-options": "examples",
       "config-opts": [
-        "-Dglade_catalog=false",
-        "-Dintrospection=false",
+        "-Dglade_catalog=disabled",
+        "-Dintrospection=disabled",
         "-Dtests=false",
         "-Dvapi=false"
       ],
