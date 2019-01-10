@@ -774,6 +774,7 @@
                                 <property name="selection-mode">none</property>
                                 <child>
                                   <object class="HdyActionRow">
+                                    <property name="activatable">False</property>
                                     <property name="icon_name" translatable="yes">preferences-other-symbolic</property>
                                     <property name="subtitle" translatable="yes">They also have a subtitle and an icon</property>
                                     <property name="title" translatable="yes">Rows have a title</property>
