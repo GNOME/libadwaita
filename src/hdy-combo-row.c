@@ -35,7 +35,7 @@ typedef struct
   GtkImage *image;
   GtkListBox *list;
   GtkPopover *popover;
-  gint selected_position;
+  gint selected_index;
 
   GListModel *bound_model;
   GtkListBoxCreateWidgetFunc create_list_widget_func;
@@ -117,24 +117,24 @@ update (HdyComboRow *self)
 
   if (priv->bound_model == NULL || g_list_model_get_n_items (priv->bound_model) == 0) {
     gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
-    priv->selected_position = -1;
+    priv->selected_index = -1;
 
     return;
   }
 
-  if (priv->selected_position == -1)
-    priv->selected_position = 0;
+  if (priv->selected_index == -1)
+    priv->selected_index = 0;
 
   gtk_widget_set_sensitive (GTK_WIDGET (self), TRUE);
 
-  item = g_list_model_get_item (priv->bound_model, priv->selected_position);
+  item = g_list_model_get_item (priv->bound_model, priv->selected_index);
   widget = priv->create_current_widget_func (item, priv->create_widget_func_data);
   gtk_container_add (GTK_CONTAINER (priv->current), widget);
 }
 
 static void
 bound_model_changed (GListModel *list,
-                     guint       position,
+                     guint       index,
                      guint       removed,
                      guint       added,
                      gpointer    user_data)
@@ -142,16 +142,16 @@ bound_model_changed (GListModel *list,
   HdyComboRow *self = HDY_COMBO_ROW (user_data);
   HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
 
-  if (priv->selected_position < position)
+  if (priv->selected_index < index)
     return;
 
-  if (priv->selected_position < position + removed) {
-    priv->selected_position = -1;
+  if (priv->selected_index < index + removed) {
+    priv->selected_index = -1;
 
     return;
   }
 
-  priv->selected_position += added;
+  priv->selected_index += added;
 
   update (self);
 }
@@ -162,7 +162,7 @@ row_activated_cb (HdyComboRow   *self,
 {
   HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
 
-  priv->selected_position = gtk_list_box_row_get_index (row);
+  priv->selected_index = gtk_list_box_row_get_index (row);
   update (self);
 }
 
@@ -290,7 +290,7 @@ hdy_combo_row_init (HdyComboRow *self)
 
   list_init (self);
 
-  priv->selected_position = -1;
+  priv->selected_index = -1;
 
   gtk_list_box_set_header_func (priv->list, hdy_list_box_separator_header, NULL, NULL);
   g_signal_connect_object (priv->list, "row-activated", G_CALLBACK (gtk_widget_hide),
@@ -382,7 +382,7 @@ hdy_combo_row_bind_model (HdyComboRow                *self,
   destroy_model (self);
 
   gtk_container_foreach (GTK_CONTAINER (priv->current), (GtkCallback) gtk_widget_destroy, NULL);
-  priv->selected_position = -1;
+  priv->selected_index = -1;
 
   if (model == NULL) {
     update (self);
