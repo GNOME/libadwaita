@@ -476,7 +476,7 @@ hdy_dialer_class_init (HdyDialerClass *klass)
     g_signal_new ("deleted",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (HdyDialerClass, submitted),
+                  0,
                   NULL, NULL, NULL,
                   G_TYPE_NONE,
                   0);
