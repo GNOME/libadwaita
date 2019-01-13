@@ -342,9 +342,9 @@ hdy_combo_row_get_model (HdyComboRow *self)
  * hdy_combo_row_bind_model:
  * @self: a #HdyComboRow
  * @model: (nullable): the #GListModel to be bound to @self
- * @create_list_widget_func: (nullable): a function that creates widgets for
- *   items to display in the list, or %NULL in case you also passed %NULL as
- *   @model
+ * @create_list_widget_func: (nullable) (scope call): a function that creates
+ *   widgets for items to display in the list, or %NULL in case you also passed
+ *   %NULL as @model
  * @create_current_widget_func: (nullable) (scope call): a function that creates
  *   widgets for items to display as the seleted item, or %NULL in case you also
  *   passed %NULL as @model
