@@ -185,24 +185,24 @@ destroy_model (HdyComboRow *self)
     g_signal_handlers_disconnect_by_func (priv->bound_model, bound_model_changed, self);
 
     /* Destroy the model and the user data. */
-    gtk_list_box_bind_model (priv->list, NULL, NULL, NULL, NULL);
+    if (priv->list)
+      gtk_list_box_bind_model (priv->list, NULL, NULL, NULL, NULL);
 
     priv->bound_model = NULL;
     priv->create_list_widget_func = NULL;
     priv->create_current_widget_func = NULL;
     priv->create_widget_func_data = NULL;
-
   }
 }
 
 static void
-hdy_combo_row_finalize (GObject *object)
+hdy_combo_row_dispose (GObject *object)
 {
   HdyComboRow *self = HDY_COMBO_ROW (object);
 
   destroy_model (self);
 
-  G_OBJECT_CLASS (hdy_combo_row_parent_class)->finalize (object);
+  G_OBJECT_CLASS (hdy_combo_row_parent_class)->dispose (object);
 }
 
 typedef struct {
@@ -253,7 +253,7 @@ hdy_combo_row_class_init (HdyComboRowClass *klass)
   GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
   HdyActionRowClass *row_class = HDY_ACTION_ROW_CLASS (klass);
 
-  object_class->finalize = hdy_combo_row_finalize;
+  object_class->dispose = hdy_combo_row_dispose;
 
   container_class->forall = hdy_combo_row_forall;
 
