@@ -28,6 +28,17 @@ build-debian-gcc:
     paths:
       - _build
 
+build-debian-gcc-static:
+  image: debian:buster
+  <<: *tags
+  stage: build
+  script:
+    - export LC_ALL=C.UTF-8
+    - meson . _build -Dintrospection=disabled -Dstatic=true -Dgtk_doc=false --werror
+    - ninja -C _build
+    - test -f _build/src/libhandy-0.0.a
+    - xvfb-run ninja -C _build test
+
 build-debian-clang:
   image: debian:buster
   before_script:
