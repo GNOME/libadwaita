@@ -5,6 +5,7 @@
  */
 #include "config.h"
 #include "hdy-main-private.h"
+#include <gio/gio.h>
 #include <glib/gi18n.h>
 
 static gint hdy_initialized = FALSE;
@@ -17,6 +18,8 @@ static gint hdy_initialized = FALSE;
  * Before using the Handy libarary you should initialize it. This makes
  * sure translations for the Handy library are set up properly.
  */
+
+GResource *hdy_get_resource (void);
 
 /**
  * hdy_init:
@@ -42,6 +45,7 @@ hdy_init (int *argc, char ***argv)
   textdomain (GETTEXT_PACKAGE);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
+  g_resources_register (hdy_get_resource ());
   hdy_init_public_types ();
 
   hdy_initialized = TRUE;
