@@ -1,7 +1,7 @@
 project('libhandy', 'c',
           version: '0.0.6',
           license: 'LGPL-2.1+',
-    meson_version: '>= 0.40.1',
+    meson_version: '>= 0.47.0',
   default_options: [ 'warning_level=1', 'buildtype=debugoptimized', 'c_std=gnu11' ],
 )
 
