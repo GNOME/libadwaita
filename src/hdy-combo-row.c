@@ -125,13 +125,12 @@ update (HdyComboRow *self)
 
   if (priv->bound_model == NULL || g_list_model_get_n_items (priv->bound_model) == 0) {
     gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
-    priv->selected_index = -1;
+    g_assert (priv->selected_index == -1);
 
     return;
   }
 
-  if (priv->selected_index == -1)
-    priv->selected_index = 0;
+  g_assert (priv->selected_index >= 0 && priv->selected_index <= g_list_model_get_n_items (priv->bound_model));
 
   gtk_widget_set_sensitive (GTK_WIDGET (self), TRUE);
 
@@ -147,31 +146,34 @@ bound_model_changed (GListModel *list,
                      guint       added,
                      gpointer    user_data)
 {
+  gint new_idx;
   HdyComboRow *self = HDY_COMBO_ROW (user_data);
   HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
 
-  if (priv->selected_index < index)
+  /* Selection is in front of insertion/removal point, nothing to do */
+  if (priv->selected_index > 0 && priv->selected_index < index)
     return;
 
   if (priv->selected_index < index + removed) {
-    priv->selected_index = -1;
-
-    return;
+    /* The item selected item was removed (or none is selected) */
+    new_idx = -1;
+  } else {
+    /* The item selected item was behind the insertion/removal */
+    new_idx = priv->selected_index + added - removed;
   }
 
-  priv->selected_index += added;
+  /* Select the first item if none is selected. */
+  if (new_idx == -1 && g_list_model_get_n_items (list) > 0)
+    new_idx = 0;
 
-  update (self);
+  hdy_combo_row_set_selected_index (self, new_idx);
 }
 
 static void
 row_activated_cb (HdyComboRow   *self,
                   GtkListBoxRow *row)
 {
-  HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
-
-  priv->selected_index = gtk_list_box_row_get_index (row);
-  update (self);
+  hdy_combo_row_set_selected_index (self, gtk_list_box_row_get_index (row));
 }
 
 static void
@@ -447,6 +449,7 @@ hdy_combo_row_bind_model (HdyComboRow                *self,
   if (model == NULL) {
     update (self);
 
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SELECTED_INDEX]);
     return;
   }
 
@@ -460,7 +463,12 @@ hdy_combo_row_bind_model (HdyComboRow                *self,
 
   g_signal_connect (priv->bound_model, "items-changed", G_CALLBACK (bound_model_changed), self);
 
+  if (g_list_model_get_n_items (priv->bound_model) > 0)
+    priv->selected_index = 0;
+
   update (self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SELECTED_INDEX]);
 }
 
 /**
@@ -595,8 +603,8 @@ hdy_combo_row_set_selected_index (HdyComboRow *self,
 
   priv = hdy_combo_row_get_instance_private (self);
 
-  g_return_if_fail ((priv->bound_model == NULL && selected_index == -1) || (priv->bound_model != NULL && selected_index != -1));
-  g_return_if_fail (selected_index < g_list_model_get_n_items (priv->bound_model));
+  g_return_if_fail (selected_index >= 0 || priv->bound_model == NULL || g_list_model_get_n_items (priv->bound_model) == 0);
+  g_return_if_fail (selected_index == -1 || (priv->bound_model != NULL && selected_index < g_list_model_get_n_items (priv->bound_model)));
 
   if (priv->selected_index == selected_index)
     return;
