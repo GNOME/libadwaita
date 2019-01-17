@@ -312,8 +312,7 @@ back_clicked_cb (GtkButton *back,
 {
   HdyDialog *self = HDY_DIALOG (user_data);
 
-  /* Close ourself */
-  gtk_widget_destroy (GTK_WIDGET (self));
+  g_signal_emit_by_name (self, "close", NULL);
 }
 
 static void
