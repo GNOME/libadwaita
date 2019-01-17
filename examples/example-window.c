@@ -245,6 +245,7 @@ dialog_clicked_cb (GtkButton     *btn,
   dlg = hdy_dialog_new (GTK_WINDOW (self));
   gtk_window_set_title (GTK_WINDOW (dlg), "HdyDialog");
   lbl = gtk_label_new ("Hello, World!");
+  g_object_set (lbl, "margin", 12, NULL);
   gtk_widget_set_vexpand (lbl, TRUE);
   gtk_widget_set_valign (lbl, GTK_ALIGN_CENTER);
   gtk_widget_set_halign (lbl, GTK_ALIGN_CENTER);
@@ -271,6 +272,7 @@ dialog_action_clicked_cb (GtkButton     *btn,
   gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_ACCEPT);
   g_signal_connect (G_OBJECT (dlg), "response", G_CALLBACK (dialog_close_cb), NULL);
   lbl = gtk_label_new ("Hello, World!");
+  g_object_set (lbl, "margin", 12, NULL);
   gtk_widget_set_vexpand (lbl, TRUE);
   gtk_widget_set_valign (lbl, GTK_ALIGN_CENTER);
   gtk_widget_set_halign (lbl, GTK_ALIGN_CENTER);
