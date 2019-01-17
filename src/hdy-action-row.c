@@ -198,8 +198,13 @@ static void
 hdy_action_row_destroy (GtkWidget *widget)
 {
   HdyActionRow *self = HDY_ACTION_ROW (widget);
+  HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
 
   hdy_action_row_set_activatable_widget (self, NULL);
+
+  priv->prefixes = NULL;
+  priv->header = NULL;
+  priv->box = NULL;
 
   GTK_WIDGET_CLASS (hdy_action_row_parent_class)->destroy (widget);
 }
@@ -260,9 +265,12 @@ hdy_action_row_forall (GtkContainer *container,
   data.callback = callback;
   data.callback_data = callback_data;
 
-  GTK_CONTAINER_GET_CLASS (priv->prefixes)->forall (GTK_CONTAINER (priv->prefixes), include_internals, for_non_internal_child, &data);
-  GTK_CONTAINER_GET_CLASS (priv->header)->forall (GTK_CONTAINER (priv->header), include_internals, for_non_internal_child, &data);
-  GTK_CONTAINER_GET_CLASS (priv->box)->forall (GTK_CONTAINER (priv->box), include_internals, for_non_internal_child, &data);
+  if (priv->prefixes)
+    GTK_CONTAINER_GET_CLASS (priv->prefixes)->forall (GTK_CONTAINER (priv->prefixes), include_internals, for_non_internal_child, &data);
+  if (priv->header)
+    GTK_CONTAINER_GET_CLASS (priv->header)->forall (GTK_CONTAINER (priv->header), include_internals, for_non_internal_child, &data);
+  if (priv->box)
+    GTK_CONTAINER_GET_CLASS (priv->box)->forall (GTK_CONTAINER (priv->box), include_internals, for_non_internal_child, &data);
 }
 
 static void
