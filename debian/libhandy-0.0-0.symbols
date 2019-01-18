@@ -3,12 +3,14 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_action_row_activate@LIBHANDY_0_0_0 0.0.6
  hdy_action_row_add_action@LIBHANDY_0_0_0 0.0.6
  hdy_action_row_add_prefix@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_get_activatable_widget@LIBHANDY_0_0_0 0.0.7
  hdy_action_row_get_icon_name@LIBHANDY_0_0_0 0.0.6
  hdy_action_row_get_subtitle@LIBHANDY_0_0_0 0.0.6
  hdy_action_row_get_title@LIBHANDY_0_0_0 0.0.6
  hdy_action_row_get_type@LIBHANDY_0_0_0 0.0.6
  hdy_action_row_get_use_underline@LIBHANDY_0_0_0 0.0.6
  hdy_action_row_new@LIBHANDY_0_0_0 0.0.6
+ hdy_action_row_set_activatable_widget@LIBHANDY_0_0_0 0.0.7
  hdy_action_row_set_icon_name@LIBHANDY_0_0_0 0.0.6
  hdy_action_row_set_subtitle@LIBHANDY_0_0_0 0.0.6
  hdy_action_row_set_title@LIBHANDY_0_0_0 0.0.6
@@ -32,9 +34,11 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_combo_row_bind_model@LIBHANDY_0_0_0 0.0.6
  hdy_combo_row_bind_name_model@LIBHANDY_0_0_0 0.0.6
  hdy_combo_row_get_model@LIBHANDY_0_0_0 0.0.6
+ hdy_combo_row_get_selected_index@LIBHANDY_0_0_0 0.0.7
  hdy_combo_row_get_type@LIBHANDY_0_0_0 0.0.6
  hdy_combo_row_new@LIBHANDY_0_0_0 0.0.6
  hdy_combo_row_set_for_enum@LIBHANDY_0_0_0 0.0.6
+ hdy_combo_row_set_selected_index@LIBHANDY_0_0_0 0.0.7
  hdy_dialer_button_get_digit@LIBHANDY_0_0_0 0.0~git20180429
 #MISSING: 0.0.3# hdy_dialer_button_get_letters@LIBHANDY_0_0_0 0.0.4~
  hdy_dialer_button_get_symbols@LIBHANDY_0_0_0 0.0.3
@@ -56,6 +60,8 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_dialer_set_number@LIBHANDY_0_0_0 0.0~git20180429
  hdy_dialer_set_relief@LIBHANDY_0_0_0 0.0.3
  hdy_dialer_set_show_action_buttons@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_dialog_get_type@LIBHANDY_0_0_0 0.0.7
+ hdy_dialog_new@LIBHANDY_0_0_0 0.0.7
  hdy_enum_value_object_get_name@LIBHANDY_0_0_0 0.0.6
  hdy_enum_value_object_get_nick@LIBHANDY_0_0_0 0.0.6
  hdy_enum_value_object_get_type@LIBHANDY_0_0_0 0.0.6

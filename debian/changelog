@@ -1,3 +1,94 @@
+libhandy (0.0.7) experimental; urgency=medium
+
+  [ Adrien Plazas ]
+  * glade: Add row widgets to the widget classes.  They are missing and don't
+    appear in Glade.
+  * glade: Add that HdySearchBar. It's in libhandy since 0.0.6
+  * action-row: Handle show_all()
+    This avoids an empty image, an empty subtitle and an empty prefixes box
+    to be visible when calling show_all(), as they are handled by the row
+    itself.
+  * action-row: Add the Since annotation to properties
+  * example: Make the row with no action non-activatable
+  * tests: Init libhandy.
+    This ensures we run the test the same way applications are expected to
+    run libhandy.
+  * docs: Add section for new symbols in 0.0.7
+  * action-row: Add the activatable-widget property.
+    This allows to bind the activation of the row by a click or a mnemonic
+    to the activation of a widget.
+  * action-row: Chain up the parent dispose method
+  * combo-row: Release the model on dispose.
+    This avoids errors when trying to disconnect signals on finalization.
+  * combo-box: Rename selected_position to selecxted_index.
+    This will better match the name for its accessors which will be added in
+    the next commit.
+  * combo-row: Add the selected-index property.
+    This allows to access the selected item.
+  * main: Explicitely load the resources in hdy_init()
+    This is mandatory to use resources of a static version of libhandy, and
+    is hence mandatory to allow to build libhandy as a static library.
+  * meson: Bump Meson to 0.47.0.
+    This is required to use the feature option type in the next commit.
+  * meson: Make introspection and the Glade catalog features.
+    This avoids having to disable them when their dependencies aren't
+    available and it will allow to disable them properly when libhandy will
+    be allowed to be built as a static library in the next commit.
+  * meson: Allow to build as a static library.
+    This also disables the Glade catalog as it doesn't work with a static
+    libhandy.
+  * action-row: Drop pointers to internals on destruction.
+    This avoids crashes when trying to access pointers to already dropped
+    widgets.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/69
+  * expander-row: Drop pointers to internals on destruction.
+    This avoids crashes when trying to access pointers to already dropped
+    widgets.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/69
+  * examples: Make the Dialog section look nicer.
+    This improves the spacing, adds and icon and adds a description to the
+    Dialog section.
+  * dialog: Close when pressing the back button.
+    Close the dialog instead of destroying it when clicking the back button.
+    This is the same behavior as when pressing escape or clicking the close
+    button and allows the dialog to be reused as some applications like to
+    do.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/70
+
+  [ louib ]
+  * Add GNOME Contacts as example
+
+  [ Guido Günther ]
+  * HdyComboRow: Don't use g_autoptr for GEnumClass
+    g_autoptr for GEnumClass was added post 2.56, so using it makes it
+    harder for people to package for distros. Not using g_autoptr there
+    doesn't make the code much less readable.
+  * HdyDialer: Don't use class method slot for 'delete'
+    We used the one of 'submit' so far due to a c'n'p error. (Closes: #67)
+  * HdyComboRow: hdy_combo_row_get_model: Add missing scope annotation
+  * gitlab-ci: Build static library.
+    The library build is sufficiently different that we want to run the
+    build and tests.
+  * Release libhandy 0.0.7
+
+  [ David Cordero ]
+  * Update documentation regarding build dependencies
+
+  [ Zander Brown ]
+  * Implement HdyDialog, an adaptive GtkDialog
+    https://source.puri.sm/Librem5/libhandy/issues/52
+  * example: Add to example application.
+    Silly simple demo of HdyDialog.
+
+  [ Benjamin Berg ]
+  * combo-row: Rework selected-index property setting and notification.
+    The notify::selected-index signal was not selected in most cases. Rework
+    the selection handling to ensure that it is always emited when it changes
+    or if the module is replaced.
+    Also fixed are a few checks on whether the selection index is valid.
+
+ -- Guido Günther <agx@sigxcpu.org>  Fri, 18 Jan 2019 14:38:30 +0100
+
 libhandy (0.0.6) experimental; urgency=medium
 
   [ Adrien Plazas ]
