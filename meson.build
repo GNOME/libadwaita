@@ -120,6 +120,8 @@ endif
 
 static = get_option('static')
 
+installable = not (static and meson.is_subproject())
+
 glade_catalog_feature = get_option('glade_catalog')
 if static and glade_catalog_feature.enabled()
   error('The Glade Catalog isn’t available for static libhandy.')
