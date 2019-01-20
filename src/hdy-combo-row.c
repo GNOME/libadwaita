@@ -118,7 +118,7 @@ static void
 update (HdyComboRow *self)
 {
   HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
-  gpointer item;
+  g_autoptr(GObject) item = NULL;
   GtkWidget *widget;
 
   gtk_container_foreach (GTK_CONTAINER (priv->current), (GtkCallback) gtk_widget_destroy, NULL);
