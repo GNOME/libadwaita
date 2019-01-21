@@ -602,43 +602,38 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkFrame">
+                          <object class="GtkListBox" id="column_listbox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="expand">True</property>
-                            <property name="margin-bottom">32</property>
+                            <property name="selection-mode">none</property>
+                            <style>
+                              <class name="frame"/>
+                            </style>
                             <child>
-                              <object class="GtkListBox" id="column_listbox">
-                                <property name="visible">True</property>
+                              <object class="HdyActionRow">
                                 <property name="can_focus">False</property>
-                                <property name="expand">True</property>
-                                <property name="selection-mode">none</property>
-                                <child>
-                                  <object class="HdyActionRow">
-                                    <property name="can_focus">False</property>
-                                    <property name="title" translatable="yes">Maximum width</property>
+                                <property name="title" translatable="yes">Maximum width</property>
+                                <property name="visible">True</property>
+                                <child type="action">
+                                  <object class="GtkSpinButton">
+                                    <property name="adjustment">column_width_adjustment</property>
+                                    <property name="valign">center</property>
                                     <property name="visible">True</property>
-                                    <child type="action">
-                                      <object class="GtkSpinButton">
-                                        <property name="adjustment">column_width_adjustment</property>
-                                        <property name="valign">center</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
                                   </object>
                                 </child>
-                                <child>
-                                  <object class="HdyActionRow">
-                                    <property name="can_focus">False</property>
-                                    <property name="title" translatable="yes">Linear growth width</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyActionRow">
+                                <property name="can_focus">False</property>
+                                <property name="title" translatable="yes">Linear growth width</property>
+                                <property name="visible">True</property>
+                                <child type="action">
+                                  <object class="GtkSpinButton">
+                                    <property name="adjustment">column_linear_width_adjustment</property>
+                                    <property name="valign">center</property>
                                     <property name="visible">True</property>
-                                    <child type="action">
-                                      <object class="GtkSpinButton">
-                                        <property name="adjustment">column_linear_width_adjustment</property>
-                                        <property name="valign">center</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
                                   </object>
                                 </child>
                               </object>
@@ -761,107 +756,102 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkFrame">
+                          <object class="GtkListBox" id="lists_listbox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="expand">True</property>
-                            <property name="margin-bottom">32</property>
+                            <property name="selection-mode">none</property>
+                            <style>
+                              <class name="frame"/>
+                            </style>
                             <child>
-                              <object class="GtkListBox" id="lists_listbox">
+                              <object class="HdyActionRow">
+                                <property name="activatable">False</property>
+                                <property name="icon_name" translatable="yes">preferences-other-symbolic</property>
+                                <property name="subtitle" translatable="yes">They also have a subtitle and an icon</property>
+                                <property name="title" translatable="yes">Rows have a title</property>
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="expand">True</property>
-                                <property name="selection-mode">none</property>
-                                <child>
-                                  <object class="HdyActionRow">
-                                    <property name="activatable">False</property>
-                                    <property name="icon_name" translatable="yes">preferences-other-symbolic</property>
-                                    <property name="subtitle" translatable="yes">They also have a subtitle and an icon</property>
-                                    <property name="title" translatable="yes">Rows have a title</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyActionRow">
+                                <property name="activatable_widget">frobnicate</property>
+                                <property name="title" translatable="yes">Rows can have action widgets</property>
+                                <property name="visible">True</property>
+                                <child type="action">
+                                  <object class="GtkButton" id="frobnicate">
+                                    <property name="can_focus">True</property>
+                                    <property name="halign">end</property>
+                                    <property name="label" translatable="yes">Frobnicate</property>
+                                    <property name="valign">center</property>
                                     <property name="visible">True</property>
                                   </object>
                                 </child>
-                                <child>
-                                  <object class="HdyActionRow">
-                                    <property name="activatable_widget">frobnicate</property>
-                                    <property name="title" translatable="yes">Rows can have action widgets</property>
-                                    <property name="visible">True</property>
-                                    <child type="action">
-                                      <object class="GtkButton" id="frobnicate">
-                                        <property name="can_focus">True</property>
-                                        <property name="halign">end</property>
-                                        <property name="label" translatable="yes">Frobnicate</property>
-                                        <property name="valign">center</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyActionRow">
-                                    <property name="activatable_widget">radio_button_1</property>
-                                    <property name="title" translatable="yes">Rows can have prefix widgets</property>
-                                    <property name="visible">True</property>
-                                    <child type="prefix">
-                                      <object class="GtkRadioButton" id="radio_button_1">
-                                        <property name="can_focus">True</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyActionRow">
-                                    <property name="activatable_widget">radio_button_2</property>
-                                    <property name="title" translatable="yes">Rows can have prefix widgets</property>
-                                    <property name="visible">True</property>
-                                    <child type="prefix">
-                                      <object class="GtkRadioButton" id="radio_button_2">
-                                        <property name="can_focus">True</property>
-                                        <property name="group">radio_button_1</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyComboRow" id="combo_row">
-                                    <property name="title" translatable="yes">Combo row</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyActionRow">
+                                <property name="activatable_widget">radio_button_1</property>
+                                <property name="title" translatable="yes">Rows can have prefix widgets</property>
+                                <property name="visible">True</property>
+                                <child type="prefix">
+                                  <object class="GtkRadioButton" id="radio_button_1">
+                                    <property name="can_focus">True</property>
                                     <property name="visible">True</property>
                                   </object>
                                 </child>
-                                <child>
-                                  <object class="HdyComboRow" id="enum_combo_row">
-                                    <property name="subtitle" translatable="yes">This combo row was created from an enumeration</property>
-                                    <property name="title" translatable="yes">Enumeration combo row</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyActionRow">
+                                <property name="activatable_widget">radio_button_2</property>
+                                <property name="title" translatable="yes">Rows can have prefix widgets</property>
+                                <property name="visible">True</property>
+                                <child type="prefix">
+                                  <object class="GtkRadioButton" id="radio_button_2">
+                                    <property name="can_focus">True</property>
+                                    <property name="group">radio_button_1</property>
                                     <property name="visible">True</property>
                                   </object>
                                 </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyComboRow" id="combo_row">
+                                <property name="title" translatable="yes">Combo row</property>
+                                <property name="visible">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyComboRow" id="enum_combo_row">
+                                <property name="subtitle" translatable="yes">This combo row was created from an enumeration</property>
+                                <property name="title" translatable="yes">Enumeration combo row</property>
+                                <property name="visible">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyExpanderRow" id="expander_row">
+                                <property name="title" translatable="yes">Expander row</property>
+                                <property name="visible">True</property>
                                 <child>
-                                  <object class="HdyExpanderRow" id="expander_row">
-                                    <property name="title" translatable="yes">Expander row</property>
+                                  <object class="GtkLabel">
+                                    <property name="label" translatable="yes">Hello, world!</property>
+                                    <property name="margin">12</property>
                                     <property name="visible">True</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label" translatable="yes">Hello, world!</property>
-                                        <property name="margin">12</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
                                   </object>
                                 </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyExpanderRow" id="enable_expander_row">
+                                <property name="show_enable_switch">True</property>
+                                <property name="title" translatable="yes">Toggleable expander row</property>
+                                <property name="visible">True</property>
                                 <child>
-                                  <object class="HdyExpanderRow" id="enable_expander_row">
-                                    <property name="show_enable_switch">True</property>
-                                    <property name="title" translatable="yes">Toggleable expander row</property>
+                                  <object class="GtkLabel">
+                                    <property name="label" translatable="yes">Hello, world!</property>
+                                    <property name="margin">12</property>
                                     <property name="visible">True</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label" translatable="yes">Hello, world!</property>
-                                        <property name="margin">12</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
                                   </object>
                                 </child>
                               </object>
