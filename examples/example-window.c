@@ -352,56 +352,29 @@ example_window_class_init (ExampleWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "dialog_action_clicked_cb", G_CALLBACK(dialog_action_clicked_cb));
 }
 
-static gchar *
-combo_get_name (gpointer item,
-                gpointer user_data)
-{
-  return g_strdup (gtk_label_get_text (GTK_LABEL (item)));
-}
-
 static void
 lists_page_init (ExampleWindow *self)
 {
   GListStore *list_store;
+  HdyValueObject *obj;
 
   gtk_list_box_set_header_func (self->lists_listbox, hdy_list_box_separator_header, NULL, NULL);
 
-  list_store = g_list_store_new (GTK_TYPE_LABEL);
+  list_store = g_list_store_new (HDY_TYPE_VALUE_OBJECT);
 
-  g_list_store_insert (list_store, 0,
-                       g_object_new (GTK_TYPE_LABEL,
-                                     "ellipsize", PANGO_ELLIPSIZE_END,
-                                     "label", "Foo",
-                                     "margin", 12,
-                                     "max-width-chars", 20,
-                                     "visible", TRUE,
-                                     "width-chars", 20,
-                                     "xalign", 0.0,
-                                      NULL));
+  obj = hdy_value_object_new_string ("Foo");
+  g_list_store_insert (list_store, 0, obj);
+  g_clear_object (&obj);
 
-  g_list_store_insert (list_store, 1,
-                       g_object_new (GTK_TYPE_LABEL,
-                                     "ellipsize", PANGO_ELLIPSIZE_END,
-                                     "label", "Bar",
-                                     "margin", 12,
-                                     "max-width-chars", 20,
-                                     "visible", TRUE,
-                                     "width-chars", 20,
-                                     "xalign", 0.0,
-                                      NULL));
+  obj = hdy_value_object_new_string ("Bar");
+  g_list_store_insert (list_store, 1, obj);
+  g_clear_object (&obj);
 
-  g_list_store_insert (list_store, 2,
-                       g_object_new (GTK_TYPE_LABEL,
-                                     "ellipsize", PANGO_ELLIPSIZE_END,
-                                     "label", "Baz",
-                                     "margin", 12,
-                                     "max-width-chars", 20,
-                                     "visible", TRUE,
-                                     "width-chars", 20,
-                                     "xalign", 0.0,
-                                      NULL));
+  obj = hdy_value_object_new_string ("Baz");
+  g_list_store_insert (list_store, 2, obj);
+  g_clear_object (&obj);
 
-  hdy_combo_row_bind_name_model (self->combo_row, G_LIST_MODEL (list_store), combo_get_name, NULL, NULL);
+  hdy_combo_row_bind_name_model (self->combo_row, G_LIST_MODEL (list_store), (HdyComboRowGetNameFunc) hdy_value_object_dup_string, NULL, NULL);
 
   hdy_combo_row_set_for_enum (self->enum_combo_row, GTK_TYPE_LICENSE, hdy_enum_value_row_name, NULL, NULL);
 }
