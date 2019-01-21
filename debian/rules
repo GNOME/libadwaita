@@ -9,7 +9,7 @@ override_dh_auto_configure:
 	dh_auto_configure -- -Dgtk_doc=true
 
 override_dh_auto_test:
-	xvfb-run dh_auto_test
+	xvfb-run -s -noreset dh_auto_test
 
 override_dh_makeshlibs:
 	dh_makeshlibs -VUpstream-Version
