@@ -66,6 +66,7 @@ src_headers = [
   'hdy-search-bar.h',
   'hdy-string-utf8.h',
   'hdy-title-bar.h',
+  'hdy-value-object.h',
 ]
 
 sed = find_program('sed', required: true)
@@ -98,6 +99,7 @@ src_sources = [
   'hdy-search-bar.c',
   'hdy-string-utf8.c',
   'hdy-title-bar.c',
+  'hdy-value-object.c',
 ]
 
 libhandy_public_headers += files(src_headers)
