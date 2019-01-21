@@ -29,6 +29,7 @@ test_names = [
   'test-header-group',
   'test-search-bar',
   'test-string-utf8',
+  'test-value-object',
 ]
 
 foreach test_name : test_names
