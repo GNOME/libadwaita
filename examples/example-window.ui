@@ -741,8 +741,8 @@
                     <property name="margin-end">12</property>
                     <property name="margin-top">32</property>
                     <property name="expand">True</property>
-                    <property name="maximum-width" bind-source="column_width_adjustment" bind-property="value" bind-flags="sync-create"/>
-                    <property name="linear-growth-width" bind-source="column_linear_width_adjustment" bind-property="value" bind-flags="sync-create"/>
+                    <property name="maximum-width">400</property>
+                    <property name="linear-growth-width">300</property>
                     <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
