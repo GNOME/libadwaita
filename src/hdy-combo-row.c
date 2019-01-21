@@ -555,7 +555,11 @@ hdy_combo_row_set_for_enum (HdyComboRow                     *self,
 
   enum_class = g_type_class_ref (enum_type);
   for (i = 0; i < enum_class->n_values; i++)
-    g_list_store_append (store, hdy_enum_value_object_new (&enum_class->values[i]));
+    {
+      g_autoptr(HdyEnumValueObject) obj = hdy_enum_value_object_new (&enum_class->values[i]);
+
+      g_list_store_append (store, obj);
+    }
 
   hdy_combo_row_bind_name_model (self, G_LIST_MODEL (store), (HdyComboRowGetNameFunc) get_name_func, user_data, user_data_free_func);
   g_type_class_unref (enum_class);
