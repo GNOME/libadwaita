@@ -1,4 +1,6 @@
 #include "example-window.h"
+
+#include <glib/gi18n.h>
 #define HANDY_USE_UNSTABLE_API
 #include <handy.h>
 
@@ -18,6 +20,8 @@ struct _ExampleWindow
   GtkWidget *arrows;
   HdySearchBar *search_bar;
   GtkEntry *search_entry;
+  GtkListBox *arrows_listbox;
+  HdyComboRow *arrows_direction_row;
   GtkListBox *column_listbox;
   GtkListBox *lists_listbox;
   HdyComboRow *combo_row;
@@ -152,50 +156,38 @@ stack_visible_child_notify_cb (ExampleWindow *self,
 }
 
 
-static void
-btn_arrows_up_toggled_cb (GtkToggleButton *btn,
-                          ExampleWindow *self)
+static gchar *
+arrows_direction_name (HdyEnumValueObject *value,
+                       gpointer            user_data)
 {
-  g_assert (GTK_IS_TOGGLE_BUTTON (btn));
-  g_assert (EXAMPLE_IS_WINDOW (self));
+  g_return_val_if_fail (HDY_IS_ENUM_VALUE_OBJECT (value), NULL);
 
-  hdy_arrows_set_direction (HDY_ARROWS (self->arrows), HDY_ARROWS_DIRECTION_UP);
-  hdy_arrows_animate (HDY_ARROWS (self->arrows));
+  switch (hdy_enum_value_object_get_value (value)) {
+  case HDY_ARROWS_DIRECTION_UP:
+    return g_strdup (_("Up"));
+  case HDY_ARROWS_DIRECTION_DOWN:
+    return g_strdup (_("Down"));
+  case HDY_ARROWS_DIRECTION_LEFT:
+    return g_strdup (_("Left"));
+  case HDY_ARROWS_DIRECTION_RIGHT:
+    return g_strdup (_("Right"));
+  default:
+    return NULL;
+  }
 }
 
 
 static void
-btn_arrows_down_toggled_cb (GtkToggleButton *btn,
-                          ExampleWindow *self)
+notify_arrows_direction_cb (GObject       *sender,
+                            GParamSpec    *pspec,
+                            ExampleWindow *self)
 {
-  g_assert (GTK_IS_TOGGLE_BUTTON (btn));
+  HdyComboRow *row = HDY_COMBO_ROW (sender);
+
+  g_assert (HDY_IS_COMBO_ROW (row));
   g_assert (EXAMPLE_IS_WINDOW (self));
 
-  hdy_arrows_set_direction (HDY_ARROWS (self->arrows), HDY_ARROWS_DIRECTION_DOWN);
-  hdy_arrows_animate (HDY_ARROWS (self->arrows));
-}
-
-
-static void
-btn_arrows_left_toggled_cb (GtkToggleButton *btn,
-                          ExampleWindow *self)
-{
-  g_assert (GTK_IS_TOGGLE_BUTTON (btn));
-  g_assert (EXAMPLE_IS_WINDOW (self));
-
-  hdy_arrows_set_direction (HDY_ARROWS (self->arrows), HDY_ARROWS_DIRECTION_LEFT);
-  hdy_arrows_animate (HDY_ARROWS (self->arrows));
-}
-
-
-static void
-btn_arrows_right_toggled_cb (GtkToggleButton *btn,
-                          ExampleWindow *self)
-{
-  g_assert (GTK_IS_TOGGLE_BUTTON (btn));
-  g_assert (EXAMPLE_IS_WINDOW (self));
-
-  hdy_arrows_set_direction (HDY_ARROWS (self->arrows), HDY_ARROWS_DIRECTION_RIGHT);
+  hdy_arrows_set_direction (HDY_ARROWS (self->arrows), hdy_combo_row_get_selected_index (row));
   hdy_arrows_animate (HDY_ARROWS (self->arrows));
 }
 
@@ -336,6 +328,8 @@ example_window_class_init (ExampleWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, arrows);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, search_bar);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, search_entry);
+  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, arrows_listbox);
+  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, arrows_direction_row);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, column_listbox);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, lists_listbox);
   gtk_widget_class_bind_template_child (widget_class, ExampleWindow, combo_row);
@@ -351,10 +345,7 @@ example_window_class_init (ExampleWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "submitted_cb", G_CALLBACK(example_window_submitted_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "symbol_clicked_cb", G_CALLBACK(symbol_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "deleted_cb", G_CALLBACK(deleted_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "btn_arrows_up_toggled_cb", G_CALLBACK(btn_arrows_up_toggled_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "btn_arrows_down_toggled_cb", G_CALLBACK(btn_arrows_down_toggled_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "btn_arrows_left_toggled_cb", G_CALLBACK(btn_arrows_left_toggled_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "btn_arrows_right_toggled_cb", G_CALLBACK(btn_arrows_right_toggled_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "notify_arrows_direction_cb", G_CALLBACK(notify_arrows_direction_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "adj_arrows_count_value_changed_cb", G_CALLBACK(adj_arrows_count_value_changed_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "adj_arrows_duration_value_changed_cb", G_CALLBACK(adj_arrows_duration_value_changed_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "dialog_clicked_cb", G_CALLBACK(dialog_clicked_cb));
@@ -420,6 +411,9 @@ example_window_init (ExampleWindow *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
   gtk_list_box_set_header_func (self->column_listbox, hdy_list_box_separator_header, NULL, NULL);
+
+  gtk_list_box_set_header_func (self->arrows_listbox, hdy_list_box_separator_header, NULL, NULL);
+  hdy_combo_row_set_for_enum (self->arrows_direction_row, HDY_TYPE_ARROWS_DIRECTION, arrows_direction_name, NULL, NULL);
 
   lists_page_init (self);
 
