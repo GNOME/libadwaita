@@ -9,7 +9,6 @@
 
 #include "hdy-preferences-group-private.h"
 
-#include "hdy-list-box.h"
 #include "hdy-preferences-row.h"
 
 /**
@@ -266,11 +265,7 @@ hdy_preferences_group_class_init (HdyPreferencesGroupClass *klass)
 static void
 hdy_preferences_group_init (HdyPreferencesGroup *self)
 {
-  HdyPreferencesGroupPrivate *priv = hdy_preferences_group_get_instance_private (self);
-
   gtk_widget_init_template (GTK_WIDGET (self));
-
-  gtk_list_box_set_header_func (priv->listbox, hdy_list_box_separator_header, NULL, NULL);
 
   update_description_visibility (self);
   update_title_visibility (self);

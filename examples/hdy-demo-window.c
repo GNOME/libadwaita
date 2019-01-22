@@ -404,8 +404,6 @@ lists_page_init (HdyDemoWindow *self)
   GListStore *list_store;
   HdyValueObject *obj;
 
-  gtk_list_box_set_header_func (self->lists_listbox, hdy_list_box_separator_header, NULL, NULL);
-
   list_store = g_list_store_new (HDY_TYPE_VALUE_OBJECT);
 
   obj = hdy_value_object_new_string ("Foo");
@@ -433,12 +431,8 @@ hdy_demo_window_init (HdyDemoWindow *self)
   hdy_combo_row_set_for_enum (self->leaflet_transition_row, HDY_TYPE_LEAFLET_TRANSITION_TYPE, leaflet_transition_name, NULL, NULL);
   hdy_combo_row_set_selected_index (self->leaflet_transition_row, HDY_LEAFLET_TRANSITION_TYPE_OVER);
 
-  gtk_list_box_set_header_func (self->column_listbox, hdy_list_box_separator_header, NULL, NULL);
-  gtk_list_box_set_header_func (self->keypad_listbox, hdy_list_box_separator_header, NULL, NULL);
-
   lists_page_init (self);
 
-  gtk_list_box_set_header_func (self->carousel_listbox, hdy_list_box_separator_header, NULL, NULL);
   hdy_combo_row_set_for_enum (self->carousel_orientation_row, GTK_TYPE_ORIENTATION, carousel_orientation_name, NULL, NULL);
   hdy_combo_row_set_for_enum (self->carousel_indicator_style_row, HDY_TYPE_CAROUSEL_INDICATOR_STYLE, carousel_indicator_style_name, NULL, NULL);
   hdy_combo_row_set_selected_index (self->carousel_indicator_style_row, HDY_CAROUSEL_INDICATOR_STYLE_DOTS);

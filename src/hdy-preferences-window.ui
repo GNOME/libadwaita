@@ -160,7 +160,7 @@
                         <property name="visible">True</property>
                         <signal name="row-activated" handler="search_result_activated" swapped="yes"/>
                         <style>
-                          <class name="frame"/>
+                          <class name="preferences"/>
                         </style>
                       </object>
                     </child>

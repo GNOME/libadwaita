@@ -10,7 +10,6 @@
 #include "hdy-preferences-window.h"
 
 #include "hdy-action-row.h"
-#include "hdy-list-box.h"
 #include "hdy-preferences-group-private.h"
 #include "hdy-preferences-page-private.h"
 #include "hdy-squeezer.h"
@@ -382,7 +381,6 @@ hdy_preferences_window_init (HdyPreferencesWindow *self)
                                priv->title_label,
                                NULL);
 
-  gtk_list_box_set_header_func (priv->search_results, hdy_list_box_separator_header, NULL, NULL);
   gtk_list_box_set_filter_func (priv->search_results, (GtkListBoxFilterFunc) filter_search_results, self, NULL);
 
   update_pages_switcher_visibility (self);
