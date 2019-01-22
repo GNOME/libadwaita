@@ -14,6 +14,13 @@
  * @short_description: Helper functions for #GtkListBox.
  * @Title: GtkListBox helpers
  *
+ * # CSS nodes
+ *
+ * GtkListBox can receive the .preferences style class to receive borders,
+ * rounded corners, row separators and to isolate an expanded #HdyExpanderRow.
+ * Please note you should not have row header for the last row to be styled as
+ * expected.
+ *
  * Since: 0.0.6
  */
 

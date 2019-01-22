@@ -235,3 +235,82 @@ viewswitcher > button.needs-attention > stack > box label:dir(rtl) {
 viewswitcherbar actionbar > revealer > box {
   padding: 0;
 }
+
+/* Preferences list */
+
+list.preferences,
+list.preferences list {
+  background-color: transparent;
+}
+
+/* Regular rows and expander header rows background */
+list.preferences > row:not(.expander):not(:active):not(:hover):not(:selected),
+list.preferences > row:not(.expander):not(:active):hover:not(.activatable):not(:selected),
+list.preferences > row.expander row.header:not(:active):not(:hover):not(:selected),
+list.preferences > row.expander row.header:not(:active):hover:not(.activatable):not(:selected) {
+  background-color: @theme_base_color;
+}
+
+/* Nested rows background */
+list.preferences list.nested > row:not(:active):not(:hover):not(:selected),
+list.preferences list.nested > row:not(:active):hover:not(.activatable):not(:selected) {
+  background-color: mix(@theme_bg_color, @theme_base_color, 0.5);
+}
+
+list.preferences > row:not(.expander):not(:active):hover.activatable:not(:selected),
+list.preferences > row.expander row.header:not(:active):hover.activatable:not(:selected),
+list.preferences list.nested > row:not(:active):hover.activatable:not(:selected), {
+  background-color: mix(@theme_fg_color, @theme_base_color, 0.95);
+}
+
+list.preferences > row,
+list.preferences > row list > row {
+  border-color: alpha(@borders, 0.7);
+  border-style: solid;
+  transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Top border */
+list.preferences > row:not(:last-child) {
+  border-width: 1px 1px 0px 1px;
+}
+
+/* Rounded top */
+list.preferences > row:first-child,
+list.preferences > row.expander:first-child row.header,
+list.preferences > row.expander:checked,
+list.preferences > row.expander:checked row.header,
+list.preferences > row.expander:checked + row,
+list.preferences > row.expander:checked + row.expander row.header {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  -gtk-outline-top-left-radius: 7px;
+  -gtk-outline-top-right-radius: 7px;
+}
+
+/* Bottom border */
+list.preferences > row:last-child,
+list.preferences > row.checked-expander-row-previous-sibling,
+list.preferences > row.expander:checked {
+  border-width: 1px;
+}
+
+/* Rounded bottom */
+list.preferences > row:last-child,
+list.preferences > row.checked-expander-row-previous-sibling,
+list.preferences > row.expander:checked,
+list.preferences > row.expander:not(:checked):last-child row.header,
+list.preferences > row.expander:not(:checked).checked-expander-row-previous-sibling row.header,
+list.preferences > row.expander.empty:checked row.header,
+row.expander list.nested > row:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  -gtk-outline-bottom-left-radius: 7px;
+  -gtk-outline-bottom-right-radius: 7px;
+}
+
+/* Add space around expanded rows */
+list.preferences > row.expander:checked:not(:first-child),
+list.preferences > row.expander:checked + row {
+  margin-top: 6px;
+}
