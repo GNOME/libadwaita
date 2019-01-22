@@ -27,13 +27,15 @@
         <property name="relief">none</property>
         <property name="valign">center</property>
         <property name="visible">True</property>
-        <signal name="notify::active" handler="button_active_cb" swapped="yes"/>
         <style>
           <class name="image-button"/>
         </style>
         <child>
           <object class="GtkImage" id="image">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="icon_name">pan-down-symbolic</property>
+            <property name="icon_size">1</property>
           </object>
         </child>
       </object>
