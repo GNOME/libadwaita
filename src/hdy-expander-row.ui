@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="HdyExpanderRow" parent="HdyActionRow">
+    <style>
+      <class name="expander"/>
+    </style>
     <child type="action">
       <object class="GtkSwitch" id="enable_switch">
         <property name="can_focus">True</property>
