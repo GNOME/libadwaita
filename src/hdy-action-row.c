@@ -200,11 +200,15 @@ hdy_action_row_destroy (GtkWidget *widget)
   HdyActionRow *self = HDY_ACTION_ROW (widget);
   HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
 
+  if (priv->box) {
+    gtk_widget_destroy (GTK_WIDGET (priv->box));
+    priv->box = NULL;
+  }
+
   hdy_action_row_set_activatable_widget (self, NULL);
 
   priv->prefixes = NULL;
   priv->header = NULL;
-  priv->box = NULL;
 
   GTK_WIDGET_CLASS (hdy_action_row_parent_class)->destroy (widget);
 }
