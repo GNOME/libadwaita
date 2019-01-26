@@ -69,6 +69,8 @@ to the widgets in you favorite programming language can be found here:
 
 ### C
 - [calls](https://source.puri.sm/Librem5/calls) (HdyDialer)
+- [GNOME Settings](https://gitlab.gnome.org/GNOME/gnome-control-center) (HdyActionRow, HdyColumn, HdyLeaflet, HdyTitleBar)
+- [GNOME Web](https://gitlab.gnome.org/GNOME/epiphany) (HdyActionRow, HdyColumn, HdyComboRow, HdySearchBar)
 - [phosh](https://source.puri.sm/Librem5/phosh) (HdyDialer)
 
 ### Python 3
