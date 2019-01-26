@@ -72,6 +72,7 @@ to the widgets in you favorite programming language can be found here:
 - [phosh](https://source.puri.sm/Librem5/phosh) (HdyDialer)
 
 ### Python 3
+- [Daty](https://gitlab.gnome.org/World/Daty) (HdyColumn, HdyLeaflet, HdySearchBar, HdyTitleBar)
 - [PasswordSafe](https://gitlab.gnome.org/World/PasswordSafe) (HdyColumn)
 
 ### Rust
