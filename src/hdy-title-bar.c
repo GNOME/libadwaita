@@ -7,7 +7,6 @@
 #include "hdy-title-bar.h"
 
 #include <glib/gi18n.h>
-#include <math.h>
 
 /**
  * SECTION:hdy-title-bar
@@ -28,8 +27,6 @@ enum {
   PROP_SELECTION_MODE,
   LAST_PROP,
 };
-
-#define HDY_EASE_OUT_TAN_CUBIC 3
 
 struct _HdyTitleBar
 {
