@@ -289,7 +289,6 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init (&argc, &argv);
 
   g_test_add_func("/Handy/Paginator/add_remove", test_hdy_paginator_add_remove);
   g_test_add_func("/Handy/Paginator/scroll_to", test_hdy_paginator_scroll_to);

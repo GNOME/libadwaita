@@ -49,7 +49,6 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init (&argc, &argv);
 
   g_test_add_func("/Handy/PreferencesRow/title", test_hdy_preferences_row_title);
   g_test_add_func("/Handy/PreferencesRow/use_underline", test_hdy_preferences_row_use_undeline);

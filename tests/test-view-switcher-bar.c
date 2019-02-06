@@ -92,7 +92,6 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init (&argc, &argv);
 
   g_test_add_func("/Handy/ViewSwitcherBar/policy", test_hdy_view_switcher_bar_policy);
   g_test_add_func("/Handy/ViewSwitcherBar/icon_size", test_hdy_view_switcher_bar_icon_size);

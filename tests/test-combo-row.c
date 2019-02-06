@@ -59,7 +59,6 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init (&argc, &argv);
 
   g_test_add_func("/Handy/ComboRow/set_for_enum", test_hdy_combo_row_set_for_enum);
   g_test_add_func("/Handy/ComboRow/use_subtitle", test_hdy_combo_row_use_subtitle);

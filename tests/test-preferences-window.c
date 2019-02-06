@@ -35,7 +35,6 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init (&argc, &argv);
 
   g_test_add_func("/Handy/PreferencesWindow/add", test_hdy_preferences_window_add);
 

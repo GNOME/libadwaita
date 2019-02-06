@@ -48,7 +48,6 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init (&argc, &argv);
 
   g_test_add_func("/Handy/StringUTF8/truncate", test_hdy_string_utf8_truncate);
   g_test_add_func("/Handy/StringUTF8/len", test_hdy_string_utf8_len);

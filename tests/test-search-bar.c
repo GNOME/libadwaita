@@ -86,7 +86,6 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init (&argc, &argv);
 
   g_test_add_func("/Handy/SearchBar/add", test_hdy_search_bar_add);
   g_test_add_func("/Handy/SearchBar/connect_entry", test_hdy_search_bar_connect_entry);

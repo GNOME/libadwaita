@@ -199,7 +199,6 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init (&argc, &argv);
 
   g_test_add_func("/Handy/HeaderBar/pack", test_hdy_header_bar_pack);
   g_test_add_func("/Handy/HeaderBar/title", test_hdy_header_bar_title);
