@@ -51,7 +51,6 @@ main (int    argc,
     { "preferences", show_preferences, NULL, NULL, NULL },
   };
 
-  hdy_init (&argc, &argv);
   app = gtk_application_new ("sm.puri.Handy.Demo", G_APPLICATION_FLAGS_NONE);
   g_action_map_add_action_entries (G_ACTION_MAP (app),
                                    app_entries, G_N_ELEMENTS (app_entries),
