@@ -186,6 +186,12 @@ libhandy_dep = declare_dependency(
 
 if introspection
 
+   libhandy_gir_extra_args = [
+     '--c-include=handy.h',
+     '--quiet',
+     '-DHANDY_COMPILATION',
+   ]
+
    libhandy_gir = gnome.generate_gir(libhandy,
                  sources: libhandy_generated_headers + libhandy_public_headers + libhandy_public_sources,
                nsversion: apiversion,
@@ -198,7 +204,7 @@ if introspection
                  install: true,
          install_dir_gir: girdir,
      install_dir_typelib: typelibdir,
-              extra_args: [ '--c-include=handy.h', '--quiet' ],
+              extra_args: libhandy_gir_extra_args,
    )
 
    if get_option('vapi')
