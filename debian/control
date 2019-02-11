@@ -3,7 +3,7 @@ Section: libs
 Priority: optional
 Maintainer: Guido Günther <agx@sigxcpu.org>
 Build-Depends:
- debhelper (>= 11),
+ debhelper-compat (= 12),
  gobject-introspection,
  gtk-doc-tools,
  libgirepository1.0-dev,
