@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Guido Günther <agx@sigxcpu.org>
 Build-Depends:
  debhelper-compat (= 12),
- gobject-introspection,
+ dh-sequence-gir,
  gtk-doc-tools,
  libgirepository1.0-dev,
  libgladeui-dev,
