@@ -1749,9 +1749,14 @@ hdy_leaflet_size_allocate (GtkWidget     *widget,
     gdk_window_move_resize (priv->view_window,
                             allocation->x, allocation->y,
                             allocation->width, allocation->height);
-    gdk_window_move_resize (priv->bin_window,
-                            get_bin_window_x (self, allocation), get_bin_window_y (self, allocation),
-                            allocation->width, allocation->height);
+    if (priv->bin_window != NULL &&
+        is_window_moving_child_transition (priv->child_transition.active_type))
+      gdk_window_move_resize (priv->bin_window,
+                              get_bin_window_x (self, allocation), get_bin_window_y (self, allocation),
+                              allocation->width, allocation->height);
+    else
+      gdk_window_resize (priv->bin_window,
+                         allocation->width, allocation->height);
   }
 
   /* Prepare children information. */
