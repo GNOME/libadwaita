@@ -1888,22 +1888,26 @@ hdy_leaflet_draw_under (GtkWidget *widget,
 {
   HdyLeaflet *self = HDY_LEAFLET (widget);
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+  GtkAllocation allocation;
+  int x, y;
 
-  if (gtk_cairo_should_draw_window (cr, priv->bin_window))
+  gtk_widget_get_allocation (widget, &allocation);
+
+  x = get_bin_window_x (self, &allocation);
+  y = get_bin_window_y (self, &allocation);
+
+  if (gtk_cairo_should_draw_window (cr, priv->bin_window)) {
+    cairo_save (cr);
+    cairo_rectangle (cr, x, y, allocation.width, allocation.height);
+    cairo_clip (cr);
     gtk_container_propagate_draw (GTK_CONTAINER (self),
                                   priv->visible_child->widget,
                                   cr);
+    cairo_restore (cr);
+  }
 
   if (priv->child_transition.last_visible_surface &&
       gtk_cairo_should_draw_window (cr, priv->view_window)) {
-    GtkAllocation allocation;
-    int x, y;
-
-    gtk_widget_get_allocation (widget, &allocation);
-
-    x = get_bin_window_x (self, &allocation);
-    y = get_bin_window_y (self, &allocation);
-
     switch (priv->child_transition.active_direction) {
     case GTK_PAN_DIRECTION_LEFT:
       x -= allocation.width;
@@ -1948,21 +1952,29 @@ hdy_leaflet_draw_over (GtkWidget *widget,
   if (priv->child_transition.last_visible_surface &&
       gtk_cairo_should_draw_window (cr, priv->view_window)) {
     GtkAllocation allocation;
-    int x, y;
+    int x, y, clip_x, clip_y;
 
     gtk_widget_get_allocation (widget, &allocation);
 
-    x = get_bin_window_x (self, &allocation);
-    y = get_bin_window_y (self, &allocation);
+    x = clip_x = get_bin_window_x (self, &allocation);
+    y = clip_y = get_bin_window_y (self, &allocation);
 
     switch (priv->child_transition.active_direction) {
     case GTK_PAN_DIRECTION_LEFT:
+      x = 0;
+      clip_x -= allocation.width;
+      break;
     case GTK_PAN_DIRECTION_RIGHT:
       x = 0;
+      clip_x += allocation.width;
       break;
     case GTK_PAN_DIRECTION_UP:
+      y = 0;
+      clip_y -= allocation.height;
+      break;
     case GTK_PAN_DIRECTION_DOWN:
       y = 0;
+      clip_y += allocation.height;
       break;
     default:
       g_assert_not_reached ();
@@ -1979,6 +1991,8 @@ hdy_leaflet_draw_over (GtkWidget *widget,
       y -= (priv->child_transition.last_visible_widget_height - allocation.height) / 2;
 
     cairo_save (cr);
+    cairo_rectangle (cr, clip_x, clip_y, allocation.width, allocation.height);
+    cairo_clip (cr);
     cairo_set_source_surface (cr, priv->child_transition.last_visible_surface, x, y);
     cairo_paint (cr);
     cairo_restore (cr);
