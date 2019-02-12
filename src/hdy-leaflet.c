@@ -45,7 +45,8 @@
  * @HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE: No transition
  * @HDY_LEAFLET_CHILD_TRANSITION_TYPE_CROSSFADE: A cross-fade
  * @HDY_LEAFLET_CHILD_TRANSITION_TYPE_SLIDE: Slide from left, right, up or down according to orientation, text direction and order
- * @HDY_LEAFLET_CHILD_TRANSITION_TYPE_OVER: Cover the old page or uncover the new page, sliding according to orientation, text direction and order
+ * @HDY_LEAFLET_CHILD_TRANSITION_TYPE_OVER: Cover the old page or uncover the new page, sliding from or towards the end according to orientation, text direction and children order
+ * @HDY_LEAFLET_CHILD_TRANSITION_TYPE_UNDER: Uncover the new page or cover the old page, sliding from or towards the start according to orientation, text direction and children order
  *
  * These enumeration values describe the possible transitions between pages in a
  * #HdyLeaflet widget.
@@ -228,11 +229,12 @@ is_window_moving_child_transition (HdyLeaflet *self)
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
   GtkPanDirection direction;
   gboolean is_rtl;
-  GtkPanDirection left_or_right;
+  GtkPanDirection left_or_right, right_or_left;
 
   direction = priv->child_transition.active_direction;
   is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
   left_or_right = is_rtl ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_LEFT;
+  right_or_left = is_rtl ? GTK_PAN_DIRECTION_LEFT : GTK_PAN_DIRECTION_RIGHT;
 
   switch (priv->child_transition.active_type) {
   case HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE:
@@ -242,6 +244,8 @@ is_window_moving_child_transition (HdyLeaflet *self)
     return TRUE;
   case HDY_LEAFLET_CHILD_TRANSITION_TYPE_OVER:
     return direction == GTK_PAN_DIRECTION_UP || direction == left_or_right;
+  case HDY_LEAFLET_CHILD_TRANSITION_TYPE_UNDER:
+    return direction == GTK_PAN_DIRECTION_DOWN || direction == right_or_left;
   default:
     g_assert_not_reached ();
   }
@@ -253,7 +257,8 @@ static inline gboolean
 is_direction_dependent_child_transition (HdyLeafletChildTransitionType transition_type)
 {
   return (transition_type == HDY_LEAFLET_CHILD_TRANSITION_TYPE_SLIDE ||
-          transition_type == HDY_LEAFLET_CHILD_TRANSITION_TYPE_OVER);
+          transition_type == HDY_LEAFLET_CHILD_TRANSITION_TYPE_OVER ||
+          transition_type == HDY_LEAFLET_CHILD_TRANSITION_TYPE_UNDER);
 }
 
 static GtkPanDirection
@@ -2056,12 +2061,29 @@ hdy_leaflet_draw_over_or_under (GtkWidget *widget,
   left_or_right = is_rtl ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_LEFT;
   right_or_left = is_rtl ? GTK_PAN_DIRECTION_LEFT : GTK_PAN_DIRECTION_RIGHT;
 
-  if (direction == GTK_PAN_DIRECTION_UP || direction == left_or_right)
-    hdy_leaflet_draw_over (widget, cr);
-  else if (direction == GTK_PAN_DIRECTION_DOWN || direction == right_or_left)
-    hdy_leaflet_draw_under (widget, cr);
-  else
+  switch (priv->child_transition.active_type) {
+  case HDY_LEAFLET_CHILD_TRANSITION_TYPE_OVER:
+    if (direction == GTK_PAN_DIRECTION_UP || direction == left_or_right)
+      hdy_leaflet_draw_over (widget, cr);
+    else if (direction == GTK_PAN_DIRECTION_DOWN || direction == right_or_left)
+      hdy_leaflet_draw_under (widget, cr);
+    else
+      g_assert_not_reached ();
+    break;
+  case HDY_LEAFLET_CHILD_TRANSITION_TYPE_UNDER:
+    if (direction == GTK_PAN_DIRECTION_UP || direction == left_or_right)
+      hdy_leaflet_draw_under (widget, cr);
+    else if (direction == GTK_PAN_DIRECTION_DOWN || direction == right_or_left)
+      hdy_leaflet_draw_over (widget, cr);
+    else
+      g_assert_not_reached ();
+    break;
+  case HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE:
+  case HDY_LEAFLET_CHILD_TRANSITION_TYPE_CROSSFADE:
+  case HDY_LEAFLET_CHILD_TRANSITION_TYPE_SLIDE:
+  default:
     g_assert_not_reached ();
+  }
 }
 
 static gboolean
@@ -2222,6 +2244,7 @@ hdy_leaflet_draw (GtkWidget *widget,
         hdy_leaflet_draw_slide (widget, cr);
         break;
       case HDY_LEAFLET_CHILD_TRANSITION_TYPE_OVER:
+      case HDY_LEAFLET_CHILD_TRANSITION_TYPE_UNDER:
         hdy_leaflet_draw_over_or_under (widget, cr);
         break;
       case HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE:
