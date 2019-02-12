@@ -1861,65 +1861,6 @@ hdy_leaflet_draw_crossfade (GtkWidget *widget,
   cairo_paint (cr);
 }
 
-/* FIXME This was copied from GtkStack and should be used to implement the UNDER
- * child transition animation, if ever.
- */
-/* static void */
-/* hdy_leaflet_draw_under (GtkWidget *widget, */
-/*                         cairo_t   *cr) */
-/* { */
-/*   HdyLeaflet *self = HDY_LEAFLET (widget); */
-/*   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self); */
-/*   GtkAllocation allocation; */
-/*   gint x, y, width, height, pos_x, pos_y; */
-
-/*   gtk_widget_get_allocation (widget, &allocation); */
-/*   x = y = 0; */
-/*   width = allocation.width; */
-/*   height = allocation.height; */
-/*   pos_x = pos_y = 0; */
-
-/*   switch (priv->child_transition.active_direction) { */
-/*   case GTK_PAN_DIRECTION_LEFT: */
-/*     x = allocation.width * (1 - gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE)); */
-/*     width = allocation.width - x; */
-/*     pos_x = x - allocation.width; */
-/*     break; */
-/*   case GTK_PAN_DIRECTION_RIGHT: */
-/*     x = 0; */
-/*     width = allocation.width * (gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE)); */
-/*     pos_x = width; */
-/*     break; */
-/*   case GTK_PAN_DIRECTION_DOWN: */
-/*     y = 0; */
-/*     height = allocation.height * (gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE)); */
-/*     pos_y = height; */
-/*     break; */
-/*   case GTK_PAN_DIRECTION_UP: */
-/*     y = allocation.height * (1 - gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE)); */
-/*     height = allocation.height - y; */
-/*     pos_y = y - allocation.height; */
-/*     break; */
-/*   default: */
-/*     g_assert_not_reached (); */
-/*   } */
-
-/*   cairo_save (cr); */
-/*   cairo_rectangle (cr, x, y, width, height); */
-/*   cairo_clip (cr); */
-
-/*   gtk_container_propagate_draw (GTK_CONTAINER (self), */
-/*                                 priv->visible_child->widget, */
-/*                                 cr); */
-
-/*   cairo_restore (cr); */
-
-/*   if (priv->child_transition.last_visible_surface) { */
-/*     cairo_set_source_surface (cr, priv->child_transition.last_visible_surface, pos_x, pos_y); */
-/*     cairo_paint (cr); */
-/*   } */
-/* } */
-
 static void
 hdy_leaflet_draw_slide (GtkWidget *widget,
                         cairo_t   *cr)
@@ -2158,11 +2099,6 @@ hdy_leaflet_draw (GtkWidget *widget,
       case HDY_LEAFLET_CHILD_TRANSITION_TYPE_OVER:
         hdy_leaflet_draw_slide (widget, cr);
         break;
-      /* FIXME */
-      /* case HDY_LEAFLET_CHILD_TRANSITION_TYPE_UNDER: */
-      /*   if (gtk_cairo_should_draw_window (cr, priv->bin_window)) */
-      /*     hdy_leaflet_draw_under (widget, cr); */
-      /*   break; */
       case HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE:
       default:
         g_assert_not_reached ();
