@@ -58,7 +58,6 @@ Section: introspection
 Depends:
  ${gir:Depends},
  ${misc:Depends},
- ${shlibs:Depends},
 Description: GObject introspection files for libhandy
  libhandy provides GTK widgets and GObjects to ease developing
  applications for mobile phones.
