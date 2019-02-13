@@ -1,10 +1,10 @@
-#include "example-window.h"
+#include "hdy-demo-window.h"
 
 #include <glib/gi18n.h>
 #define HANDY_USE_UNSTABLE_API
 #include <handy.h>
 
-struct _ExampleWindow
+struct _HdyDemoWindow
 {
   GtkApplicationWindow parent_instance;
 
@@ -31,12 +31,12 @@ struct _ExampleWindow
   GtkAdjustment *adj_arrows_duration;
 };
 
-G_DEFINE_TYPE (ExampleWindow, example_window, GTK_TYPE_APPLICATION_WINDOW)
+G_DEFINE_TYPE (HdyDemoWindow, hdy_demo_window, GTK_TYPE_APPLICATION_WINDOW)
 
 static gboolean
-example_window_key_pressed_cb (GtkWidget     *sender,
-                               GdkEventKey   *event,
-                               ExampleWindow *self)
+hdy_demo_window_key_pressed_cb (GtkWidget     *sender,
+                                GdkEventKey   *event,
+                                HdyDemoWindow *self)
 {
   GdkModifierType default_modifiers = gtk_accelerator_get_default_mod_mask ();
   guint keyval;
@@ -56,7 +56,7 @@ example_window_key_pressed_cb (GtkWidget     *sender,
 }
 
 static void
-update (ExampleWindow *self)
+update (HdyDemoWindow *self)
 {
   GtkWidget *header_child = hdy_leaflet_get_visible_child (self->header_box);
   HdyFold fold = hdy_leaflet_get_fold (self->header_box);
@@ -67,7 +67,7 @@ update (ExampleWindow *self)
 }
 
 static void
-update_header_bar (ExampleWindow *self)
+update_header_bar (HdyDemoWindow *self)
 {
   const gchar *visible_child_name;
 
@@ -77,58 +77,58 @@ update_header_bar (ExampleWindow *self)
 }
 
 static void
-example_window_notify_header_visible_child_cb (GObject       *sender,
-                                               GParamSpec    *pspec,
-                                               ExampleWindow *self)
+hdy_demo_window_notify_header_visible_child_cb (GObject       *sender,
+                                                GParamSpec    *pspec,
+                                                HdyDemoWindow *self)
 {
   update (self);
 }
 
 static void
-example_window_notify_fold_cb (GObject       *sender,
-                                 GParamSpec    *pspec,
-                                 ExampleWindow *self)
+hdy_demo_window_notify_fold_cb (GObject       *sender,
+                                GParamSpec    *pspec,
+                                HdyDemoWindow *self)
 {
   update (self);
 }
 
 static void
-example_window_notify_visible_child_cb (GObject       *sender,
-                                        GParamSpec    *pspec,
-                                        ExampleWindow *self)
+hdy_demo_window_notify_visible_child_cb (GObject       *sender,
+                                         GParamSpec    *pspec,
+                                         HdyDemoWindow *self)
 {
   hdy_leaflet_set_visible_child_name (self->content_box, "content");
   update_header_bar (self);
 }
 
 static void
-example_window_back_clicked_cb (GtkWidget     *sender,
-                                ExampleWindow *self)
+hdy_demo_window_back_clicked_cb (GtkWidget     *sender,
+                                 HdyDemoWindow *self)
 {
   hdy_leaflet_set_visible_child_name (self->content_box, "sidebar");
 }
 
 static void
-example_window_submitted_cb (GtkWidget *widget,
-                          gchar     *number)
+hdy_demo_window_submitted_cb (GtkWidget *widget,
+                              gchar     *number)
 {
   g_print ("Submit %s\n", number);
 }
 
 
 static void
-deleted_cb (HdyDialer *dialer,
-            ExampleWindow *self)
+deleted_cb (HdyDialer     *dialer,
+            HdyDemoWindow *self)
 {
   g_assert (HDY_IS_DIALER (dialer));
-  g_assert (EXAMPLE_IS_WINDOW (self));
+  g_assert (HDY_IS_DEMO_WINDOW (self));
   g_print ("Delete btn\n");
 }
 
 
 static void
-number_notify_cb (ExampleWindow *self,
-                  gpointer unused)
+number_notify_cb (HdyDemoWindow *self,
+                  gpointer       unused)
 {
   gtk_label_set_label (self->display, hdy_dialer_get_number (self->dialer));
   g_print ("wuff: %s\n", hdy_dialer_get_number (self->dialer));
@@ -136,18 +136,18 @@ number_notify_cb (ExampleWindow *self,
 
 
 static void
-symbol_clicked_cb (HdyDialer *dialer,
-                   gchar symbol,
-                   ExampleWindow *self)
+symbol_clicked_cb (HdyDialer     *dialer,
+                   gchar          symbol,
+                   HdyDemoWindow *self)
 {
   g_assert (HDY_IS_DIALER (dialer));
-  g_assert (EXAMPLE_IS_WINDOW (self));
+  g_assert (HDY_IS_DEMO_WINDOW (self));
   g_print ("clicked: %c\n", symbol);
 }
 
 
 static void
-stack_visible_child_notify_cb (ExampleWindow *self,
+stack_visible_child_notify_cb (HdyDemoWindow *self,
                                gpointer       unused)
 {
   if (gtk_stack_get_visible_child (GTK_STACK (self->stack)) == GTK_WIDGET (self->box_dialer)) {
@@ -180,12 +180,12 @@ arrows_direction_name (HdyEnumValueObject *value,
 static void
 notify_arrows_direction_cb (GObject       *sender,
                             GParamSpec    *pspec,
-                            ExampleWindow *self)
+                            HdyDemoWindow *self)
 {
   HdyComboRow *row = HDY_COMBO_ROW (sender);
 
   g_assert (HDY_IS_COMBO_ROW (row));
-  g_assert (EXAMPLE_IS_WINDOW (self));
+  g_assert (HDY_IS_DEMO_WINDOW (self));
 
   hdy_arrows_set_direction (HDY_ARROWS (self->arrows), hdy_combo_row_get_selected_index (row));
   hdy_arrows_animate (HDY_ARROWS (self->arrows));
@@ -194,12 +194,12 @@ notify_arrows_direction_cb (GObject       *sender,
 
 static void
 adj_arrows_count_value_changed_cb (GtkAdjustment *adj,
-                                   ExampleWindow *self)
+                                   HdyDemoWindow *self)
 {
   gdouble count;
 
   g_assert (GTK_IS_ADJUSTMENT (adj));
-  g_assert (EXAMPLE_IS_WINDOW (self));
+  g_assert (HDY_IS_DEMO_WINDOW (self));
 
   count = gtk_adjustment_get_value (adj);
   hdy_arrows_set_count (HDY_ARROWS (self->arrows), count);
@@ -209,12 +209,12 @@ adj_arrows_count_value_changed_cb (GtkAdjustment *adj,
 
 static void
 adj_arrows_duration_value_changed_cb (GtkAdjustment *adj,
-                                      ExampleWindow *self)
+                                      HdyDemoWindow *self)
 {
   gdouble duration;
 
   g_assert (GTK_IS_ADJUSTMENT (adj));
-  g_assert (EXAMPLE_IS_WINDOW (self));
+  g_assert (HDY_IS_DEMO_WINDOW (self));
 
   duration = gtk_adjustment_get_value (adj);
   hdy_arrows_set_duration (HDY_ARROWS (self->arrows), duration);
@@ -229,7 +229,7 @@ dialog_close_cb (GtkDialog *self)
 
 static void
 dialog_clicked_cb (GtkButton     *btn,
-                   ExampleWindow *self)
+                   HdyDemoWindow *self)
 {
   GtkWidget *dlg;
   GtkWidget *lbl;
@@ -250,7 +250,7 @@ dialog_clicked_cb (GtkButton     *btn,
 
 static void
 dialog_action_clicked_cb (GtkButton     *btn,
-                          ExampleWindow *self)
+                          HdyDemoWindow *self)
 {
   GtkWidget *dlg;
   GtkWidget *lbl;
@@ -275,19 +275,19 @@ dialog_action_clicked_cb (GtkButton     *btn,
   gtk_widget_show (dlg);
 }
 
-ExampleWindow *
-example_window_new (GtkApplication *application)
+HdyDemoWindow *
+hdy_demo_window_new (GtkApplication *application)
 {
-  return g_object_new (EXAMPLE_TYPE_WINDOW, "application", application, NULL);
+  return g_object_new (HDY_TYPE_DEMO_WINDOW, "application", application, NULL);
 }
 
 
 static void
-example_window_constructed (GObject *object)
+hdy_demo_window_constructed (GObject *object)
 {
-  ExampleWindow *self = EXAMPLE_WINDOW (object);
+  HdyDemoWindow *self = HDY_DEMO_WINDOW (object);
 
-  G_OBJECT_CLASS (example_window_parent_class)->constructed (object);
+  G_OBJECT_CLASS (hdy_demo_window_parent_class)->constructed (object);
 
   g_signal_connect_swapped (self->dialer,
                             "notify::number",
@@ -308,41 +308,41 @@ example_window_constructed (GObject *object)
 
 
 static void
-example_window_class_init (ExampleWindowClass *klass)
+hdy_demo_window_class_init (HdyDemoWindowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-  object_class->constructed = example_window_constructed;
+  object_class->constructed = hdy_demo_window_constructed;
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/sm/puri/handy/example/ui/example-window.ui");
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, header_box);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, content_box);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, back);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, search_button);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, sidebar);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, stack);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, box_dialer);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, dialer);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, display);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, arrows);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, search_bar);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, search_entry);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, arrows_listbox);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, arrows_direction_row);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, column_listbox);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, lists_listbox);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, combo_row);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, enum_combo_row);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, header_group);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, adj_arrows_count);
-  gtk_widget_class_bind_template_child (widget_class, ExampleWindow, adj_arrows_duration);
-  gtk_widget_class_bind_template_callback_full (widget_class, "key_pressed_cb", G_CALLBACK(example_window_key_pressed_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_header_visible_child_cb", G_CALLBACK(example_window_notify_header_visible_child_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_fold_cb", G_CALLBACK(example_window_notify_fold_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(example_window_notify_visible_child_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "back_clicked_cb", G_CALLBACK(example_window_back_clicked_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "submitted_cb", G_CALLBACK(example_window_submitted_cb));
+  gtk_widget_class_set_template_from_resource (widget_class, "/sm/puri/handy/demo/ui/hdy-demo-window.ui");
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, header_box);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, content_box);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, back);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_button);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, sidebar);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, stack);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, box_dialer);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, dialer);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, display);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, arrows);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_bar);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_entry);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, arrows_listbox);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, arrows_direction_row);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, column_listbox);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, lists_listbox);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, combo_row);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, enum_combo_row);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, header_group);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, adj_arrows_count);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, adj_arrows_duration);
+  gtk_widget_class_bind_template_callback_full (widget_class, "key_pressed_cb", G_CALLBACK(hdy_demo_window_key_pressed_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "notify_header_visible_child_cb", G_CALLBACK(hdy_demo_window_notify_header_visible_child_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "notify_fold_cb", G_CALLBACK(hdy_demo_window_notify_fold_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(hdy_demo_window_notify_visible_child_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "back_clicked_cb", G_CALLBACK(hdy_demo_window_back_clicked_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "submitted_cb", G_CALLBACK(hdy_demo_window_submitted_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "symbol_clicked_cb", G_CALLBACK(symbol_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "deleted_cb", G_CALLBACK(deleted_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_arrows_direction_cb", G_CALLBACK(notify_arrows_direction_cb));
@@ -353,7 +353,7 @@ example_window_class_init (ExampleWindowClass *klass)
 }
 
 static void
-lists_page_init (ExampleWindow *self)
+lists_page_init (HdyDemoWindow *self)
 {
   GListStore *list_store;
   HdyValueObject *obj;
@@ -380,7 +380,7 @@ lists_page_init (ExampleWindow *self)
 }
 
 static void
-example_window_init (ExampleWindow *self)
+hdy_demo_window_init (HdyDemoWindow *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
   gtk_list_box_set_header_func (self->column_listbox, hdy_list_box_separator_header, NULL, NULL);

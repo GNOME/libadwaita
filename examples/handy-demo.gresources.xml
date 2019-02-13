@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/sm/puri/handy/example/ui">
-    <file preprocess="xml-stripblanks">example-window.ui</file>
+  <gresource prefix="/sm/puri/handy/demo/ui">
+    <file preprocess="xml-stripblanks">hdy-demo-window.ui</file>
     <file compressed="true">style.css</file>
   </gresource>
 </gresources>

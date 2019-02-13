@@ -1,20 +1,20 @@
 if get_option('examples')
 
-example_resources = gnome.compile_resources(
-   'example-resources',
-   'example.gresources.xml',
+handy_demo_resources = gnome.compile_resources(
+   'handy-demo-resources',
+   'handy-demo.gresources.xml',
 
    c_name: 'hdy',
 )
 
-example_sources = [
-  example_resources,
-  'example-window.c',
-  'example.c',
+handy_demo_sources = [
+  handy_demo_resources,
+  'handy-demo.c',
+  'hdy-demo-window.c',
   libhandy_generated_headers,
 ]
 
-example = executable('example', example_sources,
+handy_demo = executable('handy-demo', handy_demo_sources,
   dependencies: libhandy_dep,
   gui_app: true,
   install: installable,

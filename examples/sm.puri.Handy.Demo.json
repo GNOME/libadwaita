@@ -1,9 +1,9 @@
 {
-  "app-id": "sm.puri.Handy.Example",
+  "app-id": "sm.puri.Handy.Demo",
   "runtime": "org.gnome.Platform",
   "runtime-version": "master",
   "sdk": "org.gnome.Sdk",
-  "command": "example",
+  "command": "handy-demo",
   "finish-args": [
     "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
     "--share=ipc", "--socket=x11",
@@ -19,7 +19,7 @@
   },
   "modules": [
     {
-      "name": "example",
+      "name": "handy-demo",
       "buildsystem": "meson",
       "builddir": true,
       "build-options": "examples",
