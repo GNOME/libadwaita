@@ -102,6 +102,11 @@ struct _HdyLeafletChildInfo
 typedef struct
 {
   GList *children;
+  /* It is probably cheaper to store and maintain a reversed copy of the
+   * children list that to reverse the list every time we need to allocate or
+   * draw children for RTL languages on a horizontal leaflet.
+   */
+  GList *children_reversed;
   HdyLeafletChildInfo *visible_child;
   HdyLeafletChildInfo *last_visible_child;
 
@@ -208,6 +213,16 @@ find_child_info_for_name (HdyLeaflet  *self,
   }
 
   return NULL;
+}
+
+static GList *
+get_directed_children (HdyLeaflet *self)
+{
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+
+  return priv->orientation == GTK_ORIENTATION_HORIZONTAL &&
+         gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL ?
+         priv->children_reversed : priv->children;
 }
 
 static gboolean
@@ -1331,7 +1346,7 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
   HdyLeaflet *self = HDY_LEAFLET (widget);
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
   GtkOrientation orientation = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget));
-  GList *children;
+  GList *directed_children, *children;
   HdyLeafletChildInfo *child_info, *visible_child;
   gint start_size, end_size, visible_size;
   gint remaining_start_size, remaining_end_size, remaining_size;
@@ -1340,9 +1355,10 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
   gboolean box_homogeneous;
   HdyLeafletModeTransitionType mode_transition_type;
 
+  directed_children = get_directed_children (self);
   visible_child = priv->visible_child;
 
-  for (children = priv->children; children; children = children->next) {
+  for (children = directed_children; children; children = children->next) {
     child_info = children->data;
 
     if (!child_info->widget)
@@ -1375,7 +1391,7 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
     /* Child transitions should be applied only when folded and when no mode
      * transition is ongoing.
      */
-    for (children = priv->children; children; children = children->next) {
+    for (children = directed_children; children; children = children->next) {
       child_info = children->data;
 
       if (child_info != visible_child) {
@@ -1403,7 +1419,7 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
     box_homogeneous = (priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] && orientation == GTK_ORIENTATION_HORIZONTAL) ||
                       (priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL] && orientation == GTK_ORIENTATION_VERTICAL);
     if (box_homogeneous) {
-      for (children = priv->children; children; children = children->next) {
+      for (children = directed_children; children; children = children->next) {
         child_info = children->data;
 
         max_child_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
@@ -1414,7 +1430,7 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
 
     /* Compute the start size. */
     start_size = 0;
-    for (children = priv->children; children; children = children->next) {
+    for (children = directed_children; children; children = children->next) {
       child_info = children->data;
 
       if (child_info == visible_child)
@@ -1427,7 +1443,7 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
 
     /* Compute the end size. */
     end_size = 0;
-    for (children = g_list_last (priv->children); children; children = children->prev) {
+    for (children = g_list_last (directed_children); children; children = children->prev) {
       child_info = children->data;
 
       if (child_info == visible_child)
@@ -1491,7 +1507,7 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
 
     /* Allocate starting children. */
     current_pad = start_size - remaining_start_size;
-    for (children = priv->children; children; children = children->next) {
+    for (children = directed_children; children; children = children->next) {
       child_info = children->data;
 
       if (child_info == visible_child)
@@ -1523,7 +1539,7 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
 
     /* Allocate ending children. */
     current_pad = end_size - remaining_end_size;
-    for (children = g_list_last (priv->children); children; children = children->prev) {
+    for (children = g_list_last (directed_children); children; children = children->prev) {
       child_info = children->data;
 
       if (child_info == visible_child)
@@ -1567,7 +1583,7 @@ hdy_leaflet_size_allocate_unfolded (GtkWidget     *widget,
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
   GtkOrientation orientation = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget));
   GtkAllocation remaining_alloc;
-  GList *children;
+  GList *directed_children, *children;
   HdyLeafletChildInfo *child_info, *visible_child;
   gint homogeneous_size = 0, min_size, extra_size;
   gint per_child_extra, n_extra_widgets;
@@ -1575,13 +1591,14 @@ hdy_leaflet_size_allocate_unfolded (GtkWidget     *widget,
   gint start_pad = 0, end_pad = 0;
   gboolean box_homogeneous;
 
+  directed_children = get_directed_children (self);
   visible_child = priv->visible_child;
 
   box_homogeneous = (priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] && orientation == GTK_ORIENTATION_HORIZONTAL) ||
                     (priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL] && orientation == GTK_ORIENTATION_VERTICAL);
 
   n_visible_children = n_expand_children = 0;
-  for (children = priv->children; children; children = children->next) {
+  for (children = directed_children; children; children = children->next) {
     child_info = children->data;
 
     child_info->visible = child_info->widget != NULL && gtk_widget_get_visible (child_info->widget);
@@ -1614,14 +1631,14 @@ hdy_leaflet_size_allocate_unfolded (GtkWidget     *widget,
   else {
     min_size = 0;
     if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-      for (children = priv->children; children; children = children->next) {
+      for (children = directed_children; children; children = children->next) {
         child_info = children->data;
 
         min_size += child_info->nat.width;
       }
     }
     else {
-      for (children = priv->children; children; children = children->next) {
+      for (children = directed_children; children; children = children->next) {
         child_info = children->data;
 
         min_size += child_info->nat.height;
@@ -1645,7 +1662,7 @@ hdy_leaflet_size_allocate_unfolded (GtkWidget     *widget,
   }
 
   /* Compute children allocation */
-  for (children = priv->children; children; children = children->next) {
+  for (children = directed_children; children; children = children->next) {
     child_info = children->data;
 
     if (!child_info->visible)
@@ -1713,7 +1730,7 @@ hdy_leaflet_size_allocate_unfolded (GtkWidget     *widget,
     end_pad = (gint) ((allocation->height - (visible_child->alloc.y + visible_child->alloc.height)) * (1.0 - priv->mode_transition.current_pos));
   }
 
-  for (children = priv->children; children; children = children->next) {
+  for (children = directed_children; children; children = children->next) {
     child_info = children->data;
 
     if (child_info == visible_child)
@@ -1728,7 +1745,7 @@ hdy_leaflet_size_allocate_unfolded (GtkWidget     *widget,
       child_info->alloc.y -= start_pad;
   }
 
-  for (children = g_list_last (priv->children); children; children = children->prev) {
+  for (children = g_list_last (directed_children); children; children = children->prev) {
     child_info = children->data;
 
     if (child_info == visible_child)
@@ -1760,10 +1777,12 @@ hdy_leaflet_size_allocate (GtkWidget     *widget,
   HdyLeaflet *self = HDY_LEAFLET (widget);
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
   GtkOrientation orientation = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget));
-  GList *children;
+  GList *directed_children, *children;
   HdyLeafletChildInfo *child_info;
   gint nat_box_size, nat_max_size, visible_children;
   gboolean folded;
+
+  directed_children = get_directed_children (self);
 
   gtk_widget_set_allocation (widget, allocation);
 
@@ -1781,7 +1800,7 @@ hdy_leaflet_size_allocate (GtkWidget     *widget,
   }
 
   /* Prepare children information. */
-  for (children = priv->children; children; children = children->next) {
+  for (children = directed_children; children; children = children->next) {
     child_info = children->data;
 
     gtk_widget_get_preferred_size (child_info->widget, &child_info->min, &child_info->nat);
@@ -1794,7 +1813,7 @@ hdy_leaflet_size_allocate (GtkWidget     *widget,
   nat_max_size = 0;
   visible_children = 0;
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-    for (children = priv->children; children; children = children->next) {
+    for (children = directed_children; children; children = children->next) {
       child_info = children->data;
 
       /* FIXME Check the child is visible. */
@@ -1810,7 +1829,7 @@ hdy_leaflet_size_allocate (GtkWidget     *widget,
     folded = allocation->width < nat_box_size;
   }
   else {
-    for (children = priv->children; children; children = children->next) {
+    for (children = directed_children; children; children = children->next) {
       child_info = children->data;
 
       /* FIXME Check the child is visible. */
@@ -1835,7 +1854,7 @@ hdy_leaflet_size_allocate (GtkWidget     *widget,
     hdy_leaflet_size_allocate_unfolded (widget, allocation);
 
   /* Apply visibility and allocation. */
-  for (children = priv->children; children; children = children->next) {
+  for (children = directed_children; children; children = children->next) {
     child_info = children->data;
 
     gtk_widget_set_child_visible (child_info->widget, child_info->visible);
@@ -2106,7 +2125,7 @@ hdy_leaflet_draw (GtkWidget *widget,
 {
   HdyLeaflet *self = HDY_LEAFLET (widget);
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
-  GList *children;
+  GList *directed_children, *children;
   HdyLeafletChildInfo *child_info;
   GtkAllocation allocation;
   cairo_surface_t *subsurface;
@@ -2114,6 +2133,8 @@ hdy_leaflet_draw (GtkWidget *widget,
 
   if (priv->fold == HDY_FOLD_UNFOLDED)
     return GTK_WIDGET_CLASS (hdy_leaflet_parent_class)->draw (widget, cr);
+
+  directed_children = get_directed_children (self);
 
   if (gtk_cairo_should_draw_window (cr, priv->view_window)) {
     GtkStyleContext *context;
@@ -2138,7 +2159,7 @@ hdy_leaflet_draw (GtkWidget *widget,
                                              priv->mode_transition.start_surface_allocation.width,
                                              priv->mode_transition.start_surface_allocation.height);
 
-        for (children = priv->children; children; children = children->next) {
+        for (children = directed_children; children; children = children->next) {
           child_info = children->data;
 
           if (child_info == priv->visible_child)
@@ -2169,7 +2190,7 @@ hdy_leaflet_draw (GtkWidget *widget,
                                              priv->mode_transition.end_surface_allocation.width,
                                              priv->mode_transition.end_surface_allocation.height);
 
-        for (children = g_list_last (priv->children); children; children = children->prev) {
+        for (children = g_list_last (directed_children); children; children = children->prev) {
           child_info = children->data;
 
           if (child_info == priv->visible_child)
@@ -2314,6 +2335,7 @@ hdy_leaflet_add (GtkContainer *container,
   child_info->widget = widget;
 
   priv->children = g_list_append (priv->children, child_info);
+  priv->children_reversed = g_list_prepend (priv->children_reversed, child_info);
 
   if (priv->bin_window)
     gdk_window_set_events (priv->bin_window,
@@ -2349,6 +2371,7 @@ hdy_leaflet_remove (GtkContainer *container,
   g_return_if_fail (contains_child);
 
   priv->children = g_list_remove (priv->children, child_info);
+  priv->children_reversed = g_list_remove (priv->children_reversed, child_info);
   free_child_info (child_info);
 
   if (hdy_leaflet_get_visible_child (self) == widget)
@@ -2381,6 +2404,10 @@ hdy_leaflet_forall (GtkContainer *container,
 
     (* callback) (child_info->widget, callback_data);
   }
+
+  g_list_free (priv->children_reversed);
+  priv->children_reversed = g_list_copy (priv->children);
+  priv->children_reversed = g_list_reverse (priv->children_reversed);
 }
 
 static void
@@ -2897,6 +2924,7 @@ hdy_leaflet_init (HdyLeaflet *self)
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
 
   priv->children = NULL;
+  priv->children_reversed = NULL;
   priv->visible_child = NULL;
   priv->fold = HDY_FOLD_UNFOLDED;
   priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] = FALSE;
