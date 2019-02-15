@@ -1,3 +1,94 @@
+libhandy (0.0.8) experimental; urgency=medium
+
+  [ Adrien Plazas ]
+  * examples: Use the "frame" stylesheet on listboxes.
+    This avoids using GtkFrame where it's not relevant and shows the
+    example.
+  * examples: Refactor the Dialer panel.
+    This makes it more in line with the other panels.
+  * examples: Refactor the Arrows panel.
+    This makes it more in line with the other panels.
+  * examples: Fix the Lists panel column width.
+    We were accidentally using the widths from the Column panel.
+  * examples: Fix a typo
+  * action-row: Add the row-header style class to the header box.
+    This will allow to style the row's header separately.
+  * expander-row: Add the expander style class.
+    This will allow to style the row's padding appropriately to be used as
+    an expander.
+  * README.md: Add GNOME Settings and GNOME Web to users
+  * meson: Don't install if it's a static subproject
+  * title-bar: Drop useless definitions and inclusions.
+    These were copy and paste errors.
+  * README.md: Add gnome-bluetooth as a user
+  * examples: Rename the example program to handy-demo.
+    This also renames the type and files to match the new name.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/81
+  * meson: Fix the examples option description.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/82
+  * expander-row: Animate the arrow rotation.
+    Because we can!
+  * leaflet: Support RTL languages when unfolded.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/86
+
+  [ Benjamin Berg ]
+  * Add -s -noreset to xvfb-run calls.
+    Xvfb will close when the last client exists, which may be the cause of
+    sporadic test failures. Add -s -noreset to the command line to prevent
+    this from happening.
+  * combo-row: Fix memory leak
+    g_list_model_get_item returns a referenced GObject which needs to be
+    unref'ed.
+  * combo-row: Fix memory leak in set_for_enum
+  * value-object: Add an object to stuff a GValue into a GListModel.
+    This is useful to store arbitrary (but simple) values inside a
+    HdyComboRow.
+  * example: Use value object rather.
+    The code was storing strings in labels, just to extract them again.
+    Also, the code was leaking the labels as g_list_store_insert does not
+    sink the reference of the passed object.
+  * tests: Add tests for HdyValueObject
+  * action-row: Destroy the contained widget.
+    The GtkBox that contains everything is an internal child which must be
+    destroyed explicitly.
+
+  [ Guido Günther ]
+  * run.in: Set GLADE_MODULE_SEARCH_PATH as well.
+    This makes sure we're using the freshly built module when running
+    from the source tree.
+  * Release libhandy 0.0.8
+
+  [ Pellegrino Prevete ]
+  * README: added Daty to example apps
+  * build: Force default libdir location for libhandy target on Windows to
+    keep MinGW compatibility
+
+  [ Alexander Mikhaylenko ]
+  * leaflet: Add missing check for moving child window.
+    Prevent child window from moving in transitions that don't require it,
+    instead just resize it.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/80
+  * leaflet: Drop commented out 'under' child transition.
+    It's going to be replaced with the actual implementation in the next
+    commit.
+  * leaflet: Make 'over' child transition symmetric.
+    Implement 'under' child transition animation, use it for 'over' for right
+    and down directions, matching 'over' description.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/79
+  * leaflet: Add 'under' child transition.
+    Use same animations as 'over', but with reversed directions.
+    Documentation descriptions by Adrien Plazas.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/84
+  * leaflet: Clip bottom child during child transitions.
+    Prevents bottom child from being visible through the top one during 'over'
+    and 'under' child transitions.
+
+  [ maxice8 ]
+  * meson: pass -DHANDY_COMPILATION to GIR compiler.
+    Fixes cross compilation of GIR in Void Linux.
+
+ -- Guido Günther <agx@sigxcpu.org>  Fri, 15 Feb 2019 11:27:35 +0100
+
 libhandy (0.0.7) experimental; urgency=medium
 
   [ Adrien Plazas ]

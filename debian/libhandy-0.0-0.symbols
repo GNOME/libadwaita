@@ -121,3 +121,12 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_title_bar_get_type@LIBHANDY_0_0_0 0.0.3
  hdy_title_bar_new@LIBHANDY_0_0_0 0.0.3
  hdy_title_bar_set_selection_mode@LIBHANDY_0_0_0 0.0.3
+ hdy_value_object_copy_value@LIBHANDY_0_0_0 0.0.8
+ hdy_value_object_dup_string@LIBHANDY_0_0_0 0.0.8
+ hdy_value_object_get_string@LIBHANDY_0_0_0 0.0.8
+ hdy_value_object_get_type@LIBHANDY_0_0_0 0.0.8
+ hdy_value_object_get_value@LIBHANDY_0_0_0 0.0.8
+ hdy_value_object_new@LIBHANDY_0_0_0 0.0.8
+ hdy_value_object_new_collect@LIBHANDY_0_0_0 0.0.8
+ hdy_value_object_new_string@LIBHANDY_0_0_0 0.0.8
+ hdy_value_object_new_take_string@LIBHANDY_0_0_0 0.0.8
