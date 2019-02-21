@@ -135,6 +135,7 @@ typedef struct
     GtkAllocation start_surface_allocation;
     cairo_surface_t *end_surface;
     GtkAllocation end_surface_allocation;
+    GtkAllocation end_surface_clip;
     guint tick_id;
     GtkProgressTracker tracker;
   } mode_transition;
@@ -1506,6 +1507,10 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
       /* FIXME RTL */
       priv->mode_transition.end_surface_allocation.x = remaining_start_size + visible_size;
       priv->mode_transition.end_surface_allocation.y = 0;
+      priv->mode_transition.end_surface_clip.width = end_size;
+      priv->mode_transition.end_surface_clip.height = priv->mode_transition.end_surface_allocation.height;
+      priv->mode_transition.end_surface_clip.x = remaining_start_size + visible_size;
+      priv->mode_transition.end_surface_clip.y = priv->mode_transition.end_surface_allocation.y;
       break;
     case GTK_ORIENTATION_VERTICAL:
       priv->mode_transition.start_surface_allocation.width = allocation->width;
@@ -1516,6 +1521,10 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
       priv->mode_transition.end_surface_allocation.height = end_size;
       priv->mode_transition.end_surface_allocation.x = 0;
       priv->mode_transition.end_surface_allocation.y = remaining_start_size + visible_size;
+      priv->mode_transition.end_surface_clip.width = priv->mode_transition.end_surface_allocation.width;
+      priv->mode_transition.end_surface_clip.height = end_size;
+      priv->mode_transition.end_surface_clip.x = priv->mode_transition.end_surface_allocation.x;
+      priv->mode_transition.end_surface_clip.y = remaining_start_size + visible_size;
       break;
     default:
       g_assert_not_reached ();
@@ -2308,12 +2317,27 @@ hdy_leaflet_draw (GtkWidget *widget,
 
       cairo_save (cr);
       if (priv->mode_transition.start_surface != NULL) {
+        cairo_rectangle (cr,
+                         priv->mode_transition.start_surface_allocation.x,
+                         priv->mode_transition.start_surface_allocation.y,
+                         priv->mode_transition.start_surface_allocation.width,
+                         priv->mode_transition.start_surface_allocation.height);
+        cairo_clip (cr);
         cairo_set_source_surface (cr, priv->mode_transition.start_surface,
                                   priv->mode_transition.start_surface_allocation.x,
                                   priv->mode_transition.start_surface_allocation.y);
         cairo_paint (cr);
       }
+      cairo_restore (cr);
+
+      cairo_save (cr);
       if (priv->mode_transition.end_surface != NULL) {
+        cairo_rectangle (cr,
+                         priv->mode_transition.end_surface_clip.x,
+                         priv->mode_transition.end_surface_clip.y,
+                         priv->mode_transition.end_surface_clip.width,
+                         priv->mode_transition.end_surface_clip.height);
+        cairo_clip (cr);
         cairo_set_source_surface (cr, priv->mode_transition.end_surface,
                                   priv->mode_transition.end_surface_allocation.x,
                                   priv->mode_transition.end_surface_allocation.y);
