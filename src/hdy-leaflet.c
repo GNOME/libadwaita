@@ -2146,6 +2146,68 @@ hdy_leaflet_draw_over_or_under (GtkWidget *widget,
 }
 
 static gboolean
+hdy_leaflet_draw_unfolded (GtkWidget *widget,
+                           cairo_t   *cr)
+{
+  HdyLeaflet *self = HDY_LEAFLET (widget);
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+  gboolean is_horizontal = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget)) == GTK_ORIENTATION_HORIZONTAL;
+  GList *directed_children, *children;
+  HdyLeafletChildInfo *child_info;
+  GtkAllocation allocation, child_allocation;
+
+  directed_children = get_directed_children (self);
+
+  gtk_widget_get_allocation (widget, &allocation);
+
+  gtk_widget_get_allocation (priv->visible_child->widget, &child_allocation);
+  cairo_save (cr);
+  cairo_rectangle (cr,
+                   0,
+                   0,
+                   is_horizontal ? child_allocation.x : allocation.width,
+                   is_horizontal ? allocation.height : child_allocation.y);
+  cairo_clip (cr);
+  for (children = directed_children; children; children = children->next) {
+    child_info = children->data;
+
+    if (child_info == priv->visible_child)
+      break;
+
+    gtk_container_propagate_draw (GTK_CONTAINER (self),
+                                  child_info->widget,
+                                  cr);
+  }
+  cairo_restore (cr);
+
+  gtk_container_propagate_draw (GTK_CONTAINER (self),
+                                priv->visible_child->widget,
+                                cr);
+
+  gtk_widget_get_allocation (priv->visible_child->widget, &child_allocation);
+  cairo_save (cr);
+  cairo_rectangle (cr,
+                   is_horizontal ? child_allocation.x + child_allocation.width : 0,
+                   is_horizontal ? 0 : child_allocation.y + child_allocation.height,
+                   is_horizontal ? allocation.width - child_allocation.x - child_allocation.width : allocation.width,
+                   is_horizontal ? allocation.height : allocation.height - child_allocation.y - child_allocation.height);
+  cairo_clip (cr);
+  for (children = g_list_last (directed_children); children; children = children->prev) {
+    child_info = children->data;
+
+    if (child_info == priv->visible_child)
+      break;
+
+    gtk_container_propagate_draw (GTK_CONTAINER (self),
+                                  child_info->widget,
+                                  cr);
+  }
+  cairo_restore (cr);
+
+  return FALSE;
+}
+
+static gboolean
 hdy_leaflet_draw (GtkWidget *widget,
                   cairo_t   *cr)
 {
@@ -2158,7 +2220,7 @@ hdy_leaflet_draw (GtkWidget *widget,
   cairo_t *pattern_cr;
 
   if (priv->fold == HDY_FOLD_UNFOLDED)
-    return GTK_WIDGET_CLASS (hdy_leaflet_parent_class)->draw (widget, cr);
+    return hdy_leaflet_draw_unfolded (widget, cr);
 
   directed_children = get_directed_children (self);
 
