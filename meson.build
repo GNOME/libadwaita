@@ -1,5 +1,5 @@
 project('libhandy', 'c',
-          version: '0.0.13',
+          version: '0.9.90',
           license: 'LGPL-2.1+',
     meson_version: '>= 0.49.0',
   default_options: [ 'warning_level=1', 'buildtype=debugoptimized', 'c_std=gnu11' ],
@@ -10,7 +10,9 @@ handy_version_major = version_arr[0].to_int()
 handy_version_minor = version_arr[1].to_int()
 handy_version_micro = version_arr[2].to_int()
 
-apiversion = '0.0'
+# The major api version as encoded in the libraries name
+apiversion = '1'
+# The so major version of the library
 soversion = 0
 package_api_name = '@0@-@1@'.format(meson.project_name(), apiversion)
 
