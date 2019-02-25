@@ -196,7 +196,7 @@ if introspection
                  sources: libhandy_generated_headers + libhandy_public_headers + libhandy_public_sources,
                nsversion: apiversion,
                namespace: 'Handy',
-               export_packages: 'libhandy-0.0',
+               export_packages: 'libhandy-@0@'.format(apiversion),
            symbol_prefix: 'hdy',
        identifier_prefix: 'Hdy',
                link_with: libhandy,
