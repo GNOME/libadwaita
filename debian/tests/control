@@ -2,3 +2,7 @@ Tests: build-test
 Depends: libhandy-0.0-dev, build-essential, pkg-config
 Restrictions: allow-stderr
 
+Tests: python-gi-test
+Depends: gir1.2-handy-0.0, python3-gi, python3
+Restrictions: allow-stderr
+

@@ -1,0 +1,13 @@
+#!/usr/bin/python3
+#
+# Make sure gobject introspection works
+
+import gi
+
+from gi.repository import GLib
+gi.require_version('Handy', '0.0')
+from gi.repository import Handy
+
+s = GLib.String().append("asdü")
+
+assert Handy.string_utf8_len(s) == 4
