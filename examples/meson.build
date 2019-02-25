@@ -14,7 +14,8 @@ handy_demo_sources = [
   libhandy_generated_headers,
 ]
 
-handy_demo = executable('handy-demo', handy_demo_sources,
+handy_demo = executable('handy-@0@-demo'.format(apiversion),
+  handy_demo_sources,
   dependencies: libhandy_dep,
   gui_app: true,
   install: installable,
