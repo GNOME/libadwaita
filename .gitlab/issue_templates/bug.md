@@ -31,11 +31,11 @@
 
 ```
 $ dpkg -l | grep libhandy
-ii  gir1.2-handy-0.0:amd64                0.0.3~203.gbp18952a                     amd64        GObject introspection files for libhandy
-ii  libhandy-0.0-0:amd64                  0.0.3~203.gbp18952a                     amd64        Library with GTK widgets for mobile phones
-ii  libhandy-0.0-dev:amd64                0.0.3~203.gbp18952a                     amd64        Development files for libhandy
+ii  gir1.2-handy-1:amd64                1.0.0~203.gbp18952a                     amd64        GObject introspection files for libhandy
+ii  libhandy-1-0:amd64                  1.0.0~203.gbp18952a                     amd64        Library with GTK+ widgets for mobile phones
+ii  libhandy-1-dev:amd64                1.0.0~203.gbp18952a                     amd64        Development files for libhandy
 
-$ dpkg -s libhandy-0.0-0
+$ dpkg -s libhandy-1-0
 ```
 
 # What hardware are you running libhandy on?
