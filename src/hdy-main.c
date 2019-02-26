@@ -6,7 +6,7 @@
 #include "config.h"
 #include "hdy-main-private.h"
 #include <gio/gio.h>
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 static gint hdy_initialized = FALSE;
 

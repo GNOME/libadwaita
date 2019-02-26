@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#include <glib/gi18n.h>
+#include "config.h"
+#include <glib/gi18n-lib.h>
 
 #include "hdy-dialer.h"
 #include "hdy-dialer-button.h"

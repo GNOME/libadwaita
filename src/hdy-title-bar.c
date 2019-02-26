@@ -4,9 +4,10 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
+#include "config.h"
 #include "hdy-title-bar.h"
 
-#include <glib/gi18n.h>
+#include <glib/gi18n-lib.h>
 
 /**
  * SECTION:hdy-title-bar

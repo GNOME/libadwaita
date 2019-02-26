@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
+#include "config.h"
 #include "hdy-fold.h"
 
 /**
