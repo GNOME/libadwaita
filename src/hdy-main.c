@@ -42,7 +42,6 @@ hdy_init (int *argc, char ***argv)
   if (hdy_initialized)
     return TRUE;
 
-  textdomain (GETTEXT_PACKAGE);
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
   g_resources_register (hdy_get_resource ());
