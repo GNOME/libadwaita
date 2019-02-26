@@ -3,7 +3,7 @@
   "runtime": "org.gnome.Platform",
   "runtime-version": "master",
   "sdk": "org.gnome.Sdk",
-  "command": "handy-demo",
+  "command": "handy-0.0-demo",
   "finish-args": [
     "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
     "--share=ipc", "--socket=x11",
