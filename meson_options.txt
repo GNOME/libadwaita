@@ -1,10 +1,6 @@
 # Performance and debugging related options
 option('profiling', type: 'boolean', value: false)
 
-option('static', type: 'boolean', value: false,
-  description: 'Build as a static library'
-)
-
 option('introspection', type: 'feature', value: 'auto')
 option('vapi', type: 'boolean', value: true)
 
