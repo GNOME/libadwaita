@@ -42,15 +42,6 @@ build-debian-gcc:
     paths:
       - _build
 
-build-debian-gcc-static:
-  image: debian:buster
-  <<: *tags
-  stage: build
-  variables:
-    BUILD_OPTS: -Dintrospection=disabled -Dstatic=true -Dgtk_doc=false --werror
-  script:
-    - *build_steps
-
 build-debian-clang:
   image: debian:buster
   before_script:
