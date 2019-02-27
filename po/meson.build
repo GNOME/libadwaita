@@ -1,4 +1,2 @@
 i18n = import('i18n')
-i18n.gettext('libhandy',
-             preset : 'glib',
-             install : installable)
+i18n.gettext('libhandy', preset : 'glib')

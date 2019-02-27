@@ -20,7 +20,7 @@ handy_demo = executable('handy-@0@-demo'.format(apiversion),
   handy_demo_sources,
   dependencies: libhandy_dep,
   gui_app: true,
-  install: installable,
+  install: true,
 )
 
 endif

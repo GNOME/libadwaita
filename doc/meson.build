@@ -64,6 +64,6 @@ gnome.gtkdoc('libhandy',
         install_dir: 'libhandy',
       content_files: content_files,
         html_assets: images,
-            install: installable)
+            install: true)
 
 endif

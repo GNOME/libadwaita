@@ -21,27 +21,18 @@ version_data.set('HDY_MINOR_VERSION', handy_version_minor)
 version_data.set('HDY_MICRO_VERSION', handy_version_micro)
 version_data.set('HDY_VERSION', meson.project_version())
 
-# TODO: Once Meson 0.50.0 is required, use this to prevent installation:
-#       install: installable,
-if installable
-  hdy_version_h = configure_file(
-             input: 'hdy-version.h.in',
-            output: 'hdy-version.h',
-       install_dir: libhandy_header_dir,
-     configuration: version_data)
-else
-  hdy_version_h = configure_file(
-             input: 'hdy-version.h.in',
-            output: 'hdy-version.h',
-     configuration: version_data)
-endif
+hdy_version_h = configure_file(
+           input: 'hdy-version.h.in',
+          output: 'hdy-version.h',
+     install_dir: libhandy_header_dir,
+         install: true,
+   configuration: version_data)
 
 libhandy_generated_headers = [
 ]
-if installable
-  install_headers(['handy.h'],
-    subdir: libhandy_header_subdir)
-endif
+
+install_headers(['handy.h'],
+  subdir: libhandy_header_subdir)
 
 # Filled out in the subdirs
 libhandy_public_headers = []
@@ -52,7 +43,7 @@ hdy_enums = gnome.mkenums('hdy-enums',
       h_template: 'hdy-enums.h.in',
       c_template: 'hdy-enums.c.in',
          sources: hdy_enum_headers,
-  install_header: installable,
+  install_header: true,
      install_dir: libhandy_header_dir,
 )
 
@@ -142,9 +133,7 @@ src_sources = [
 libhandy_public_headers += files(src_headers)
 libhandy_public_sources += files(src_sources)
 
-if installable
-  install_headers(src_headers, subdir: libhandy_header_subdir)
-endif
+install_headers(src_headers, subdir: libhandy_header_subdir)
 
 
 libhandy_sources = [
@@ -201,7 +190,7 @@ libhandy = build_target(
                c_args: libhandy_c_args,
          dependencies: libhandy_deps,
   include_directories: [ root_inc, src_inc ],
-              install: installable,
+              install: true,
             link_args: libhandy_link_args,
           install_dir: handy_libdir,
           target_type: libtype,
@@ -252,15 +241,13 @@ endif
 
 pkgg = import('pkgconfig')
 
-if installable
-  pkgg.generate(
-      libraries: [libhandy],
-        subdirs: libhandy_header_subdir,
-        version: meson.project_version(),
-           name: 'Handy',
-       filebase: package_api_name,
-    description: 'Handy Mobile widgets',
-       requires: 'gtk+-3.0',
-    install_dir: libdir / 'pkgconfig',
-  )
-endif
+pkgg.generate(
+    libraries: [libhandy],
+      subdirs: libhandy_header_subdir,
+      version: meson.project_version(),
+         name: 'Handy',
+     filebase: package_api_name,
+  description: 'Handy Mobile widgets',
+     requires: 'gtk+-3.0',
+  install_dir: libdir / 'pkgconfig',
+)
