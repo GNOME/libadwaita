@@ -30,6 +30,10 @@ struct _HdyExpanderRowClass
 
 HdyExpanderRow *hdy_expander_row_new (void);
 
+gboolean hdy_expander_row_get_expanded (HdyExpanderRow *self);
+void     hdy_expander_row_set_expanded (HdyExpanderRow *self,
+                                        gboolean        expanded);
+
 gboolean hdy_expander_row_get_enable_expansion (HdyExpanderRow *self);
 void     hdy_expander_row_set_enable_expansion (HdyExpanderRow *self,
                                                 gboolean        enable_expansion);
