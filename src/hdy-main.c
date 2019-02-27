@@ -19,8 +19,6 @@ static gint hdy_initialized = FALSE;
  * sure translations for the Handy library are set up properly.
  */
 
-GResource *hdy_get_resource (void);
-
 /**
  * hdy_init:
  * @argc: (inout) (optional): Address of the <parameter>argc</parameter>
@@ -44,7 +42,6 @@ hdy_init (int *argc, char ***argv)
 
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
-  g_resources_register (hdy_get_resource ());
   hdy_init_public_types ();
 
   hdy_initialized = TRUE;
