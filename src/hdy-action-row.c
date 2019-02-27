@@ -72,10 +72,11 @@ enum {
 static GParamSpec *props[LAST_PROP];
 
 static void
-row_activated_cb (HdyActionRow        *self,
+row_activated_cb (HdyActionRow  *self,
                   GtkListBoxRow *row)
 {
-  if (self == HDY_ACTION_ROW (row))
+  /* No need to use GTK_LIST_BOX_ROW() for a pointer comparison. */
+  if ((GtkListBoxRow *) self == row)
     hdy_action_row_activate (self);
 }
 
