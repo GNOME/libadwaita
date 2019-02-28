@@ -328,6 +328,37 @@ get_bin_window_y (HdyLeaflet          *self,
 }
 
 static void
+move_resize_bin_window (HdyLeaflet    *self,
+                        GtkAllocation *allocation,
+                        gboolean       resize)
+{
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+  GtkAllocation alloc;
+  gboolean move;
+
+  if (priv->bin_window == NULL)
+    return;
+
+  if (allocation == NULL) {
+    gtk_widget_get_allocation (GTK_WIDGET (self), &alloc);
+    allocation = &alloc;
+  }
+
+  move = is_window_moving_child_transition (self);
+
+  if (move && resize)
+    gdk_window_move_resize (priv->bin_window,
+                            get_bin_window_x (self, allocation), get_bin_window_y (self, allocation),
+                            allocation->width, allocation->height);
+  else if (move)
+    gdk_window_move (priv->bin_window,
+                     get_bin_window_x (self, allocation), get_bin_window_y (self, allocation));
+  else if (resize)
+    gdk_window_resize (priv->bin_window,
+                       allocation->width, allocation->height);
+}
+
+static void
 hdy_leaflet_child_progress_updated (HdyLeaflet *self)
 {
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
@@ -338,12 +369,7 @@ hdy_leaflet_child_progress_updated (HdyLeaflet *self)
       !priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL])
     gtk_widget_queue_resize (GTK_WIDGET (self));
 
-  if (priv->bin_window != NULL && is_window_moving_child_transition (self)) {
-    GtkAllocation allocation;
-    gtk_widget_get_allocation (GTK_WIDGET (self), &allocation);
-    gdk_window_move (priv->bin_window,
-                     get_bin_window_x (self, &allocation), get_bin_window_y (self, &allocation));
-  }
+  move_resize_bin_window (self, NULL, FALSE);
 
   if (gtk_progress_tracker_get_state (&priv->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER) {
     if (priv->child_transition.last_visible_surface != NULL) {
@@ -1798,13 +1824,7 @@ hdy_leaflet_size_allocate (GtkWidget     *widget,
     gdk_window_move_resize (priv->view_window,
                             allocation->x, allocation->y,
                             allocation->width, allocation->height);
-    if (priv->bin_window != NULL && is_window_moving_child_transition (self))
-      gdk_window_move_resize (priv->bin_window,
-                              get_bin_window_x (self, allocation), get_bin_window_y (self, allocation),
-                              allocation->width, allocation->height);
-    else
-      gdk_window_resize (priv->bin_window,
-                         allocation->width, allocation->height);
+    move_resize_bin_window (self, allocation, TRUE);
   }
 
   /* Prepare children information. */
