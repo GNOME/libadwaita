@@ -337,9 +337,7 @@ list_init (HdyComboRow *self)
   HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
   g_autoptr (GtkCssProvider) provider = gtk_css_provider_new ();
 
-  /* This makes the list's background transparent. */
-  gtk_css_provider_load_from_data (GTK_CSS_PROVIDER (provider),
-                                   "list { border-style: none; background-color: transparent; }", -1, NULL);
+  gtk_css_provider_load_from_resource (provider, "/sm/puri/handy/style/hdy-combo-row-list.css");
   gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->list)),
                                   GTK_STYLE_PROVIDER (provider),
                                   HDY_STYLE_PROVIDER_PRIORITY);

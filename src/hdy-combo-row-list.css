@@ -1,0 +1,6 @@
+/* Make the list's background transparent. */
+
+list {
+  border-style: none;
+  background-color: transparent;
+}
