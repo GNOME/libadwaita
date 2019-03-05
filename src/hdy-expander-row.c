@@ -8,6 +8,7 @@
 #include "hdy-expander-row.h"
 
 #include <glib/gi18n-lib.h>
+#include "hdy-style-private.h"
 
 /**
  * SECTION:hdy-expander-row
@@ -71,7 +72,7 @@ arrow_init (HdyExpanderRow *self)
   gtk_css_provider_load_from_data (GTK_CSS_PROVIDER (provider), style, -1, NULL);
   gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->image)),
                                   GTK_STYLE_PROVIDER (provider),
-                                  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+                                  HDY_STYLE_PROVIDER_PRIORITY);
 }
 
 static void

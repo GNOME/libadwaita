@@ -9,6 +9,7 @@
 
 #include <glib/gi18n-lib.h>
 #include "hdy-list-box.h"
+#include "hdy-style-private.h"
 
 /**
  * SECTION:hdy-combo-row
@@ -341,7 +342,7 @@ list_init (HdyComboRow *self)
                                    "list { border-style: none; background-color: transparent; }", -1, NULL);
   gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->list)),
                                   GTK_STYLE_PROVIDER (provider),
-                                  GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+                                  HDY_STYLE_PROVIDER_PRIORITY);
 }
 
 static void

@@ -6,6 +6,7 @@ private_headers = [
     'config.h',
     'gtkprogresstrackerprivate.h',
     'hdy-main-private.h',
+    'hdy-style-private.h',
 ]
 
 images = [
