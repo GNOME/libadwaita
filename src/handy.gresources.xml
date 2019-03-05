@@ -8,4 +8,7 @@
     <file preprocess="xml-stripblanks">hdy-expander-row.ui</file>
     <file preprocess="xml-stripblanks">hdy-search-bar.ui</file>
   </gresource>
+  <gresource prefix="/sm/puri/handy/style">
+    <file>hdy-expander-row-arrow.css</file>
+  </gresource>
 </gresources>

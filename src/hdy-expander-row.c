@@ -44,8 +44,6 @@ enum {
   LAST_PROP,
 };
 
-#define ANIMATION_TRANSITION "transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);\n"
-
 static GParamSpec *props[LAST_PROP];
 
 static void
@@ -53,23 +51,8 @@ arrow_init (HdyExpanderRow *self)
 {
   HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
   g_autoptr (GtkCssProvider) provider = gtk_css_provider_new ();
-  static const gchar *style =
-    "row button:checked:dir(ltr) image,\n"
-    "row button:checked:dir(rtl) image {\n"
-    ANIMATION_TRANSITION
-    "  -gtk-icon-transform: rotate(0turn);\n"
-    "}\n"
-    "row button:not(checked):dir(ltr) image {\n"
-    ANIMATION_TRANSITION
-    "  -gtk-icon-transform: rotate(-0.25turn);\n"
-    "}\n"
-    "row button:not(checked):dir(rtl) image {\n"
-    ANIMATION_TRANSITION
-    "  -gtk-icon-transform: rotate(0.25turn);\n"
-    "}";
 
-  /* This animated the arrow's roation. */
-  gtk_css_provider_load_from_data (GTK_CSS_PROVIDER (provider), style, -1, NULL);
+  gtk_css_provider_load_from_resource (provider, "/sm/puri/handy/style/hdy-expander-row-arrow.css");
   gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->image)),
                                   GTK_STYLE_PROVIDER (provider),
                                   HDY_STYLE_PROVIDER_PRIORITY);

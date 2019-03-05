@@ -1,0 +1,17 @@
+/* Animate the arrow's rotation */
+
+row button:checked:dir(ltr) image,
+row button:checked:dir(rtl) image {
+  transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -gtk-icon-transform: rotate(0turn);
+}
+
+row button:not(checked):dir(ltr) image {
+  transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -gtk-icon-transform: rotate(-0.25turn);
+}
+
+row button:not(checked):dir(rtl) image {
+  transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  -gtk-icon-transform: rotate(0.25turn);
+}
