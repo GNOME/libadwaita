@@ -414,6 +414,24 @@ hdy_leaflet_unschedule_child_ticks (HdyLeaflet *self)
 }
 
 static void
+hdy_leaflet_stop_child_transition (HdyLeaflet *self)
+{
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+
+  hdy_leaflet_unschedule_child_ticks (self);
+  priv->child_transition.active_type = HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE;
+  gtk_progress_tracker_finish (&priv->child_transition.tracker);
+  if (priv->child_transition.last_visible_surface != NULL) {
+    cairo_surface_destroy (priv->child_transition.last_visible_surface);
+    priv->child_transition.last_visible_surface = NULL;
+  }
+  if (priv->last_visible_child != NULL) {
+    gtk_widget_set_child_visible (priv->last_visible_child->widget, FALSE);
+    priv->last_visible_child = NULL;
+  }
+}
+
+static void
 hdy_leaflet_start_child_transition (HdyLeaflet                    *self,
                                     HdyLeafletChildTransitionType  transition_type,
                                     guint                          transition_duration,
@@ -680,18 +698,7 @@ hdy_leaflet_start_mode_transition (HdyLeaflet *self,
   /* FIXME PROP_REVEAL_CHILD needs to be implemented. */
   /* g_object_notify_by_pspec (G_OBJECT (revealer), props[PROP_REVEAL_CHILD]); */
 
-  /* Stop the ongoing child transition, */
-  hdy_leaflet_unschedule_child_ticks (self);
-  priv->child_transition.active_type = HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE;
-  gtk_progress_tracker_finish (&priv->child_transition.tracker);
-  if (priv->child_transition.last_visible_surface != NULL) {
-    cairo_surface_destroy (priv->child_transition.last_visible_surface);
-    priv->child_transition.last_visible_surface = NULL;
-  }
-  if (priv->last_visible_child != NULL) {
-    gtk_widget_set_child_visible (priv->last_visible_child->widget, FALSE);
-    priv->last_visible_child = NULL;
-  }
+  hdy_leaflet_stop_child_transition (self);
 
   transition = priv->mode_transition.type;
   if (gtk_widget_get_mapped (widget) &&
