@@ -470,7 +470,7 @@ hdy_search_bar_class_init (HdySearchBarClass *klass)
   g_object_class_install_properties (object_class, LAST_PROPERTY, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
-                                               "/sm/puri/handy/dialer/ui/hdy-search-bar.ui");
+                                               "/sm/puri/handy/ui/hdy-search-bar.ui");
   gtk_widget_class_bind_template_child_private (widget_class, HdySearchBar, tool_box);
   gtk_widget_class_bind_template_child_private (widget_class, HdySearchBar, revealer);
   gtk_widget_class_bind_template_child_private (widget_class, HdySearchBar, close_button);

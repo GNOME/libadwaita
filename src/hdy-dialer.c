@@ -504,7 +504,7 @@ hdy_dialer_class_init (HdyDialerClass *klass)
                   G_TYPE_CHAR);
 
   gtk_widget_class_set_template_from_resource (widget_class,
-                                               "/sm/puri/handy/dialer/ui/hdy-dialer.ui");
+                                               "/sm/puri/handy/ui/hdy-dialer.ui");
   for (int i=0; i < 10; i++) {
     g_autofree gchar *name = g_strdup_printf("btn_%d", i);
     g_return_if_fail (name);

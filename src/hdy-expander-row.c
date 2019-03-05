@@ -242,7 +242,7 @@ hdy_expander_row_class_init (HdyExpanderRowClass *klass)
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
-                                               "/sm/puri/handy/dialer/ui/hdy-expander-row.ui");
+                                               "/sm/puri/handy/ui/hdy-expander-row.ui");
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, box);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, button);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, image);

@@ -381,7 +381,7 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
-                                               "/sm/puri/handy/dialer/ui/hdy-action-row.ui");
+                                               "/sm/puri/handy/ui/hdy-action-row.ui");
   gtk_widget_class_bind_template_child_private (widget_class, HdyActionRow, box);
   gtk_widget_class_bind_template_child_private (widget_class, HdyActionRow, header);
   gtk_widget_class_bind_template_child_private (widget_class, HdyActionRow, image);

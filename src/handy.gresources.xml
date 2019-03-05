@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/sm/puri/handy/dialer/ui">
+  <gresource prefix="/sm/puri/handy/ui">
     <file preprocess="xml-stripblanks">hdy-action-row.ui</file>
     <file preprocess="xml-stripblanks">hdy-combo-row.ui</file>
     <file preprocess="xml-stripblanks">hdy-dialer.ui</file>
