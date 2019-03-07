@@ -33,6 +33,13 @@
 
 typedef struct
 {
+  HdyComboRowGetNameFunc func;
+  gpointer func_data;
+  GDestroyNotify func_data_destroy;
+} HdyComboRowGetName;
+
+typedef struct
+{
   GtkBox *current;
   GtkImage *image;
   GtkListBox *list;
@@ -43,6 +50,10 @@ typedef struct
   GtkListBoxCreateWidgetFunc create_list_widget_func;
   GtkListBoxCreateWidgetFunc create_current_widget_func;
   gpointer create_widget_func_data;
+  /* This is owned by create_widget_func_data, which is ultimately owned by the
+   * list box, and hence should not be destroyed manually.
+   */
+  HdyComboRowGetName *get_name_internal;
 } HdyComboRowPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (HdyComboRow, hdy_combo_row, HDY_TYPE_ACTION_ROW)
@@ -55,19 +66,12 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
-typedef struct
-{
-  HdyComboRowGetNameFunc get_name_func;
-  gpointer get_name_func_data;
-  GDestroyNotify get_name_func_data_destroy;
-} HdyComboRowCreateLabelData;
-
 static GtkWidget *
 create_list_label (gpointer item,
                    gpointer user_data)
 {
-  HdyComboRowCreateLabelData *data = user_data;
-  g_autofree gchar *name = data->get_name_func (item, data->get_name_func_data);
+  HdyComboRowGetName *get_name = (HdyComboRowGetName *) user_data;
+  g_autofree gchar *name = get_name->func (item, get_name->func_data);
 
   return g_object_new (GTK_TYPE_LABEL,
                        "ellipsize", PANGO_ELLIPSIZE_END,
@@ -84,11 +88,11 @@ static GtkWidget *
 create_current_label (gpointer item,
                       gpointer user_data)
 {
-  HdyComboRowCreateLabelData *data = user_data;
+  HdyComboRowGetName *get_name = (HdyComboRowGetName *) user_data;
   g_autofree gchar *name = NULL;
 
-  if (data->get_name_func)
-    name = data->get_name_func (item, data->get_name_func_data);
+  if (get_name->func)
+    name = get_name->func (item, get_name->func_data);
 
   return g_object_new (GTK_TYPE_LABEL,
                        "ellipsize", PANGO_ELLIPSIZE_END,
@@ -101,19 +105,18 @@ create_current_label (gpointer item,
 }
 
 static void
-create_label_data_free (gpointer user_data)
+get_name_free (HdyComboRowGetName *get_name)
 {
-  HdyComboRowCreateLabelData *data = user_data;
-
-  if (data == NULL)
+  if (get_name == NULL)
     return;
 
-  if (data->get_name_func_data_destroy)
-    data->get_name_func_data_destroy (data->get_name_func_data);
-  data->get_name_func_data = NULL;
-  data->get_name_func_data_destroy = NULL;
+  if (get_name->func_data_destroy)
+    get_name->func_data_destroy (get_name->func_data);
+  get_name->func = NULL;
+  get_name->func_data = NULL;
+  get_name->func_data_destroy = NULL;
 
-  g_free (data);
+  g_free (get_name);
 }
 
 static void
@@ -500,18 +503,18 @@ hdy_combo_row_bind_name_model (HdyComboRow            *self,
                                gpointer                user_data,
                                GDestroyNotify          user_data_free_func)
 {
-  HdyComboRowCreateLabelData *data;
+  HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
 
   g_return_if_fail (HDY_IS_COMBO_ROW (self));
   g_return_if_fail (model == NULL || G_IS_LIST_MODEL (model));
   g_return_if_fail (model == NULL || get_name_func != NULL);
 
-  data = g_new0 (HdyComboRowCreateLabelData, 1);
-  data->get_name_func = get_name_func;
-  data->get_name_func_data = user_data;
-  data->get_name_func_data_destroy = user_data_free_func;
+  priv->get_name_internal = g_new0 (HdyComboRowGetName, 1);
+  priv->get_name_internal->func = get_name_func;
+  priv->get_name_internal->func_data = user_data;
+  priv->get_name_internal->func_data_destroy = user_data_free_func;
 
-  hdy_combo_row_bind_model (self, model, create_list_label, create_current_label, data, create_label_data_free);
+  hdy_combo_row_bind_model (self, model, create_list_label, create_current_label, priv->get_name_internal, (GDestroyNotify) get_name_free);
 }
 
 /**
