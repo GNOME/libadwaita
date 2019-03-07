@@ -1,3 +1,68 @@
+libhandy (0.0.9) experimental; urgency=medium
+
+  [ Benjamin Berg ]
+  * glade: Mark ActionRow properties as translatable/icon.
+    Without this, it is impossible to set the translatable flag in glade,
+    making it hard to create proper UI definitions.
+
+  [ Bastien Nocera ]
+  * Use correct i18n include.
+    From the Internationalization section of the GLib API docs:
+    In order to use these macros in an application, you must include
+    <glib/gi18n.h>. For use in a library, you must include <glib/gi18n-lib.h>
+    after defining the GETTEXT_PACKAGE macro suitably for your library
+  * Fix broken translations in all libhandy applications.
+    Translations in all the applications using libhandy would be broken
+    after a call to hdy_init() as it changed the default gettext translation
+    domain.
+    See https://gitlab.gnome.org/GNOME/gnome-control-center/issues/393
+
+  [ Adrien Plazas ]
+  * examples: Update the Flatpak command.
+    The command should changed with the demo application name.
+  * leaflet: Improve the slide child transition description.
+    This makes the slide child transition description match the one of the
+    slide mode transition one.
+  * action-row: Upcast self to check the activated row.
+    Upcast the HdyActionRow rather than downcasting the activated row to
+    compare their pointers. This prevents error messages when a sibbling row
+    that isn't a HdyActionRow is activated. Also use a simple cast rather
+    than a safe cast as it is there only to please the compiler and is
+    useless for a pointer comparison and it's faster.
+  * Drop 'dialer' from the UI resources path.
+    This makes the UI file paths more correct and simpler.
+  * leaflet: Add hdy_leaflet_stop_child_transition()
+    This makes the code clearer by encapsulating child mode transition
+    cancellation into its own function.
+  * leaflet: Factorize bin window move and resize.
+    This ensures we move or resize it consistently.
+  * leaflet: Move the bin window on child transition cancellation.
+    This avoids the children to be drawn out of place when a mode transition
+    is triggered while a child transition was ongoing.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/93
+  * Add HDY_STYLE_PROVIDER_PRIORITY.
+    Add and use HDY_STYLE_PROVIDER_PRIORITY to help ensuring custom styling
+    is applied consistently and correctly accross all the library.
+  * expander-row: Move the custom style to a resource.
+    This makes the code cleaner, easier to read, and simnpler to modify.
+  * combo-row: Move the custom style to a resource.
+    This makes the code cleaner, easier to read, and simnpler to modify.
+  * expander-row: Add the expanded property.
+    This can be used to reveal external widgets depending on the state of
+    the row.
+
+  [ Guido Günther ]
+  * debian: Test GObject introspection.
+    This makes sure we have the typelib file installed correctly.
+  * debian/tests: Drop API version from include.
+    This makes sure we respect pkg-config's findings.
+  * examples: Add API version to demo name.
+    This makes different versions co-installable.
+  * build: Don't hardcode API version
+  * Release libhandy 0.0.9
+
+ -- Guido Günther <agx@sigxcpu.org>  Thu, 07 Mar 2019 12:37:34 +0100
+
 libhandy (0.0.8) experimental; urgency=medium
 
   [ Adrien Plazas ]

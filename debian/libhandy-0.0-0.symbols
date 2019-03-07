@@ -69,10 +69,12 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_enum_value_object_new@LIBHANDY_0_0_0 0.0.6
  hdy_enum_value_row_name@LIBHANDY_0_0_0 0.0.6
  hdy_expander_row_get_enable_expansion@LIBHANDY_0_0_0 0.0.6
+ hdy_expander_row_get_expanded@LIBHANDY_0_0_0 0.0.9
  hdy_expander_row_get_show_enable_switch@LIBHANDY_0_0_0 0.0.6
  hdy_expander_row_get_type@LIBHANDY_0_0_0 0.0.6
  hdy_expander_row_new@LIBHANDY_0_0_0 0.0.6
  hdy_expander_row_set_enable_expansion@LIBHANDY_0_0_0 0.0.6
+ hdy_expander_row_set_expanded@LIBHANDY_0_0_0 0.0.9
  hdy_expander_row_set_show_enable_switch@LIBHANDY_0_0_0 0.0.6
  hdy_fold_get_type@LIBHANDY_0_0_0 0.0~git20180429
  hdy_header_group_add_header_bar@LIBHANDY_0_0_0 0.0.3
