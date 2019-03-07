@@ -36,6 +36,24 @@ test_hdy_combo_row_set_for_enum (void)
 }
 
 
+static void
+test_hdy_combo_row_use_subtitle (void)
+{
+  g_autoptr (HdyComboRow) row = NULL;
+
+  row = g_object_ref_sink (HDY_COMBO_ROW (hdy_combo_row_new ()));
+  g_assert_nonnull (row);
+
+  g_assert_false (hdy_combo_row_get_use_subtitle (row));
+
+  hdy_combo_row_set_use_subtitle (row, TRUE);
+  g_assert_true (hdy_combo_row_get_use_subtitle (row));
+
+  hdy_combo_row_set_use_subtitle (row, FALSE);
+  g_assert_false (hdy_combo_row_get_use_subtitle (row));
+}
+
+
 gint
 main (gint argc,
       gchar *argv[])
@@ -44,6 +62,7 @@ main (gint argc,
   hdy_init (&argc, &argv);
 
   g_test_add_func("/Handy/ComboRow/set_for_enum", test_hdy_combo_row_set_for_enum);
+  g_test_add_func("/Handy/ComboRow/use_subtitle", test_hdy_combo_row_use_subtitle);
 
   return g_test_run();
 }

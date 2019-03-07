@@ -80,6 +80,15 @@ gint hdy_combo_row_get_selected_index (HdyComboRow *self);
 void hdy_combo_row_set_selected_index (HdyComboRow *self,
                                        gint         selected_index);
 
+gboolean hdy_combo_row_get_use_subtitle (HdyComboRow *self);
+void     hdy_combo_row_set_use_subtitle (HdyComboRow *self,
+                                         gboolean     use_subtitle);
+
+void hdy_combo_row_set_get_name_func (HdyComboRow            *self,
+                                      HdyComboRowGetNameFunc  get_name_func,
+                                      gpointer                user_data,
+                                      GDestroyNotify          user_data_free_func);
+
 gchar *hdy_enum_value_row_name (HdyEnumValueObject *value,
                                 gpointer            user_data);
 
