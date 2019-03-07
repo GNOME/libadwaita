@@ -5,6 +5,7 @@
       <object class="GtkImage" id="image">
         <property name="icon_name">pan-down-symbolic</property>
         <property name="icon_size">1</property>
+        <property name="valign">center</property>
         <property name="visible">True</property>
       </object>
     </child>
@@ -18,7 +19,7 @@
   </template>
   <object class="GtkPopover" id="popover">
     <property name="position">bottom</property>
-    <property name="relative_to">current</property>
+    <property name="relative_to">image</property>
     <child>
       <object class="GtkScrolledWindow">
         <property name="hscrollbar_policy">never</property>
