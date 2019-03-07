@@ -2,16 +2,16 @@
 <interface>
   <template class="HdyComboRow" parent="HdyActionRow">
     <child>
-      <object class="GtkImage" id="image">
-        <property name="icon_name">pan-down-symbolic</property>
-        <property name="icon_size">1</property>
+      <object class="GtkBox" id="current">
+        <property name="halign">end</property>
         <property name="valign">center</property>
         <property name="visible">True</property>
       </object>
     </child>
     <child>
-      <object class="GtkBox" id="current">
-        <property name="halign">end</property>
+      <object class="GtkImage" id="image">
+        <property name="icon_name">pan-down-symbolic</property>
+        <property name="icon_size">1</property>
         <property name="valign">center</property>
         <property name="visible">True</property>
       </object>

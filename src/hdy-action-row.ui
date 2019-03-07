@@ -65,6 +65,17 @@
             </child>
           </object>
         </child>
+        <child>
+          <object class="GtkBox" id="suffixes">
+            <property name="can_focus">False</property>
+            <property name="no_show_all">True</property>
+            <property name="spacing">12</property>
+            <property name="visible">False</property>
+          </object>
+          <packing>
+            <property name="pack-type">end</property>
+          </packing>
+        </child>
       </object>
     </child>
   </template>
