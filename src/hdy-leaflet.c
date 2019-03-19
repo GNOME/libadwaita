@@ -11,6 +11,8 @@
 #include "hdy-animation-private.h"
 #include "hdy-leaflet.h"
 #include "hdy-shadow-helper-private.h"
+#include "hdy-swipeable-private.h"
+#include "hdy-swipe-tracker-private.h"
 
 /* TODO:
  * - Ensure folding and unfolding animations behave similarly.
@@ -146,6 +148,8 @@ typedef struct
 
   HdyLeafletTransitionType transition_type;
 
+  HdySwipeTracker *tracker;
+
   struct {
     HdyLeafletModeTransitionType type;
     guint duration;
@@ -171,6 +175,13 @@ typedef struct
   struct {
     HdyLeafletChildTransitionType type;
     guint duration;
+
+    gdouble progress;
+    gdouble start_progress;
+    gdouble end_progress;
+
+    gboolean is_gesture_active;
+    gboolean is_cancelled;
 
     cairo_surface_t *last_visible_surface;
     GtkAllocation last_visible_surface_allocation;
@@ -201,11 +212,13 @@ static gint HOMOGENEOUS_PROP[HDY_FOLD_MAX][GTK_ORIENTATION_MAX] = {
 };
 
 static void hdy_leaflet_buildable_init (GtkBuildableIface  *iface);
+static void hdy_leaflet_swipeable_init (HdySwipeableInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (HdyLeaflet, hdy_leaflet, GTK_TYPE_CONTAINER,
                          G_ADD_PRIVATE (HdyLeaflet)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, hdy_leaflet_buildable_init))
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, hdy_leaflet_buildable_init)
+                         G_IMPLEMENT_INTERFACE (HDY_TYPE_SWIPEABLE, hdy_leaflet_swipeable_init))
 
 static void
 free_child_info (HdyLeafletChildInfo *child_info)
@@ -322,11 +335,12 @@ get_bin_window_x (HdyLeaflet          *self,
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
   int x = 0;
 
-  if (gtk_progress_tracker_get_state (&priv->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
+  if (priv->child_transition.is_gesture_active ||
+      gtk_progress_tracker_get_state (&priv->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
     if (priv->child_transition.active_direction == GTK_PAN_DIRECTION_LEFT)
-      x = allocation->width * (1 - gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE));
+      x = allocation->width * (1 - priv->child_transition.progress);
     if (priv->child_transition.active_direction == GTK_PAN_DIRECTION_RIGHT)
-      x = -allocation->width * (1 - gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE));
+      x = -allocation->width * (1 - priv->child_transition.progress);
   }
 
   return x;
@@ -339,11 +353,12 @@ get_bin_window_y (HdyLeaflet          *self,
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
   int y = 0;
 
-  if (gtk_progress_tracker_get_state (&priv->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
+  if (priv->child_transition.is_gesture_active ||
+      gtk_progress_tracker_get_state (&priv->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
     if (priv->child_transition.active_direction == GTK_PAN_DIRECTION_UP)
-      y = allocation->height * (1 - gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE));
+      y = allocation->height * (1 - priv->child_transition.progress);
     if (priv->child_transition.active_direction == GTK_PAN_DIRECTION_DOWN)
-      y = -allocation->height * (1 - gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE));
+      y = -allocation->height * (1 - priv->child_transition.progress);
   }
 
   return y;
@@ -395,16 +410,33 @@ hdy_leaflet_child_progress_updated (HdyLeaflet *self)
 
   move_resize_bin_window (self, NULL, FALSE);
 
-  if (gtk_progress_tracker_get_state (&priv->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER) {
+  if (!priv->child_transition.is_gesture_active &&
+      gtk_progress_tracker_get_state (&priv->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER) {
     if (priv->child_transition.last_visible_surface != NULL) {
       cairo_surface_destroy (priv->child_transition.last_visible_surface);
       priv->child_transition.last_visible_surface = NULL;
     }
 
-    if (priv->last_visible_child != NULL) {
-      if (hdy_leaflet_get_fold (self) == HDY_FOLD_FOLDED)
-        gtk_widget_set_child_visible (priv->last_visible_child->widget, FALSE);
-      priv->last_visible_child = NULL;
+    if (priv->child_transition.is_cancelled) {
+      if (priv->last_visible_child != NULL) {
+        if (hdy_leaflet_get_fold (self) == HDY_FOLD_FOLDED) {
+          gtk_widget_set_child_visible (priv->last_visible_child->widget, TRUE);
+          gtk_widget_set_child_visible (priv->visible_child->widget, FALSE);
+        }
+        priv->visible_child = priv->last_visible_child;
+        priv->last_visible_child = NULL;
+      }
+
+      g_object_freeze_notify (G_OBJECT (self));
+      g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD]);
+      g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD_NAME]);
+      g_object_thaw_notify (G_OBJECT (self));
+    } else {
+      if (priv->last_visible_child != NULL) {
+        if (hdy_leaflet_get_fold (self) == HDY_FOLD_FOLDED)
+          gtk_widget_set_child_visible (priv->last_visible_child->widget, FALSE);
+        priv->last_visible_child = NULL;
+      }
     }
 
     hdy_shadow_helper_clear_cache (priv->shadow_helper);
@@ -418,11 +450,16 @@ hdy_leaflet_child_transition_cb (GtkWidget     *widget,
 {
   HdyLeaflet *self = HDY_LEAFLET (widget);
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+  gdouble progress;
 
-  if (priv->child_transition.first_frame_skipped)
+  if (priv->child_transition.first_frame_skipped) {
     gtk_progress_tracker_advance_frame (&priv->child_transition.tracker,
                                         gdk_frame_clock_get_frame_time (frame_clock));
-  else
+    progress = gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE);
+    priv->child_transition.progress =
+      hdy_lerp (priv->child_transition.end_progress,
+                priv->child_transition.start_progress, progress);
+  } else
     priv->child_transition.first_frame_skipped = TRUE;
 
   /* Finish animation early if not mapped anymore */
@@ -449,7 +486,8 @@ hdy_leaflet_schedule_child_ticks (HdyLeaflet *self)
   if (priv->child_transition.tick_id == 0) {
     priv->child_transition.tick_id =
       gtk_widget_add_tick_callback (GTK_WIDGET (self), hdy_leaflet_child_transition_cb, self, NULL);
-    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_TRANSITION_RUNNING]);
+    if (!priv->child_transition.is_gesture_active)
+      g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_TRANSITION_RUNNING]);
   }
 }
 
@@ -498,7 +536,7 @@ hdy_leaflet_start_child_transition (HdyLeaflet                    *self,
   GtkWidget *widget = GTK_WIDGET (self);
 
   if (gtk_widget_get_mapped (widget) &&
-      hdy_get_enable_animations (widget) &&
+      (hdy_get_enable_animations (widget) || priv->child_transition.is_gesture_active) &&
       transition_type != HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE &&
       transition_duration != 0 &&
       priv->last_visible_child != NULL &&
@@ -507,11 +545,18 @@ hdy_leaflet_start_child_transition (HdyLeaflet                    *self,
     priv->child_transition.active_type = transition_type;
     priv->child_transition.active_direction = transition_direction;
     priv->child_transition.first_frame_skipped = FALSE;
-    hdy_leaflet_schedule_child_ticks (self);
-    gtk_progress_tracker_start (&priv->child_transition.tracker,
-                                transition_duration * 1000,
-                                0,
-                                1.0);
+    priv->child_transition.start_progress = 0;
+    priv->child_transition.end_progress = 1;
+    priv->child_transition.progress = 0;
+    priv->child_transition.is_cancelled = FALSE;
+
+    if (!priv->child_transition.is_gesture_active) {
+      hdy_leaflet_schedule_child_ticks (self);
+      gtk_progress_tracker_start (&priv->child_transition.tracker,
+                                  transition_duration * 1000,
+                                  0,
+                                  1.0);
+    }
   }
   else {
     hdy_leaflet_unschedule_child_ticks (self);
@@ -526,7 +571,8 @@ static void
 set_visible_child_info (HdyLeaflet                    *self,
                         HdyLeafletChildInfo           *new_visible_child,
                         HdyLeafletChildTransitionType  transition_type,
-                        guint                          transition_duration)
+                        guint                          transition_duration,
+                        gboolean                       emit_switch_child)
 {
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
   GtkWidget *widget = GTK_WIDGET (self);
@@ -643,6 +689,16 @@ set_visible_child_info (HdyLeaflet                    *self,
       gtk_widget_queue_resize (widget);
 
     hdy_leaflet_start_child_transition (self, transition_type, transition_duration, transition_direction);
+  }
+
+  if (emit_switch_child) {
+    gint n;
+
+    children = gtk_container_get_children (GTK_CONTAINER (self));
+    n = g_list_index (children, new_visible_child->widget);
+    g_list_free (children);
+
+    hdy_swipeable_emit_switch_child (HDY_SWIPEABLE (self), n, transition_duration);
   }
 
   g_object_freeze_notify (G_OBJECT (self));
@@ -1247,7 +1303,7 @@ hdy_leaflet_set_visible_child (HdyLeaflet *self,
 
   g_return_if_fail (contains_child);
 
-  set_visible_child_info (self, child_info, get_old_child_transition_type (self), priv->child_transition.duration);
+  set_visible_child_info (self, child_info, get_old_child_transition_type (self), priv->child_transition.duration, TRUE);
 }
 
 const gchar *
@@ -1283,7 +1339,7 @@ hdy_leaflet_set_visible_child_name (HdyLeaflet  *self,
 
   g_return_if_fail (contains_child);
 
-  set_visible_child_info (self, child_info, get_old_child_transition_type (self), priv->child_transition.duration);
+  set_visible_child_info (self, child_info, get_old_child_transition_type (self), priv->child_transition.duration, TRUE);
 }
 
 /**
@@ -1304,7 +1360,8 @@ hdy_leaflet_get_child_transition_running (HdyLeaflet *self)
 
   priv = hdy_leaflet_get_instance_private (self);
 
-  return (priv->child_transition.tick_id != 0);
+  return (priv->child_transition.tick_id != 0 ||
+          priv->child_transition.is_gesture_active);
 }
 
 /**
@@ -1384,6 +1441,7 @@ hdy_leaflet_set_can_swipe_back (HdyLeaflet *self,
     return;
 
   priv->child_transition.can_swipe_back = can_swipe_back;
+  hdy_swipe_tracker_set_enabled (priv->tracker, can_swipe_back || priv->child_transition.can_swipe_forward);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_SWIPE_BACK]);
 }
@@ -1436,6 +1494,7 @@ hdy_leaflet_set_can_swipe_forward (HdyLeaflet *self,
     return;
 
   priv->child_transition.can_swipe_forward = can_swipe_forward;
+  hdy_swipe_tracker_set_enabled (priv->tracker, priv->child_transition.can_swipe_back || can_swipe_forward);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_SWIPE_FORWARD]);
 }
@@ -1567,7 +1626,7 @@ hdy_leaflet_measure (GtkWidget      *widget,
                                    &last_visible_min, NULL);
   }
 
-  visible_child_progress = priv->child_transition.interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE) : 1.0;
+  visible_child_progress = priv->child_transition.interpolate_size ? priv->child_transition.progress : 1.0;
 
   get_preferred_size (minimum, natural,
                       gtk_orientable_get_orientation (GTK_ORIENTABLE (widget)) == orientation,
@@ -2214,7 +2273,7 @@ hdy_leaflet_draw_crossfade (GtkWidget *widget,
 {
   HdyLeaflet *self = HDY_LEAFLET (widget);
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
-  gdouble progress = gtk_progress_tracker_get_progress (&priv->child_transition.tracker, FALSE);
+  gdouble progress = priv->child_transition.progress;
 
   cairo_push_group (cr);
   gtk_container_propagate_draw (GTK_CONTAINER (self),
@@ -2285,7 +2344,7 @@ hdy_leaflet_draw_under (GtkWidget *widget,
       break;
     }
 
-    progress = gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE);
+    progress = priv->child_transition.progress;
 
     cairo_save (cr);
     cairo_rectangle (cr, clip_x, clip_y, clip_w, clip_h);
@@ -2401,7 +2460,7 @@ hdy_leaflet_draw_over (GtkWidget *widget,
     else if (gtk_widget_get_valign (priv->last_visible_child->widget) == GTK_ALIGN_CENTER)
       y -= (priv->child_transition.last_visible_widget_height - allocation.height) / 2;
 
-    progress = 1 - gtk_progress_tracker_get_ease_out_cubic (&priv->child_transition.tracker, FALSE);
+    progress = 1 - priv->child_transition.progress;
 
     cairo_save (cr);
     cairo_rectangle (cr, clip_x, clip_y, clip_w, clip_h);
@@ -2800,7 +2859,9 @@ hdy_leaflet_draw (GtkWidget *widget,
                                       priv->visible_child->widget,
                                       cr);
     }
-    else if (gtk_progress_tracker_get_state (&priv->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
+    else if ((priv->child_transition.is_gesture_active &&
+              get_old_child_transition_type (self) != HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE) ||
+             gtk_progress_tracker_get_state (&priv->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
       if (priv->child_transition.last_visible_surface == NULL &&
           priv->last_visible_child != NULL) {
         gtk_widget_get_allocation (priv->last_visible_child->widget,
@@ -2859,6 +2920,30 @@ hdy_leaflet_draw (GtkWidget *widget,
 }
 
 static void
+update_tracker_orientation (HdyLeaflet *self)
+{
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+  gboolean reverse;
+
+  reverse = (priv->orientation == GTK_ORIENTATION_HORIZONTAL &&
+             gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL);
+
+  g_object_set (priv->tracker,
+                "orientation", priv->orientation,
+                "reversed", reverse,
+                NULL);
+}
+
+static void
+hdy_leaflet_direction_changed (GtkWidget        *widget,
+                               GtkTextDirection  previous_direction)
+{
+  HdyLeaflet *self = HDY_LEAFLET (widget);
+
+  update_tracker_orientation (self);
+}
+
+static void
 hdy_leaflet_child_visibility_notify_cb (GObject    *obj,
                                         GParamSpec *pspec,
                                         gpointer    user_data)
@@ -2871,9 +2956,9 @@ hdy_leaflet_child_visibility_notify_cb (GObject    *obj,
   child_info = find_child_info_for_widget (self, widget);
 
   if (priv->visible_child == NULL && gtk_widget_get_visible (widget))
-    set_visible_child_info (self, child_info, get_old_child_transition_type (self), priv->child_transition.duration);
+    set_visible_child_info (self, child_info, get_old_child_transition_type (self), priv->child_transition.duration, TRUE);
   else if (priv->visible_child == child_info && !gtk_widget_get_visible (widget))
-    set_visible_child_info (self, NULL, get_old_child_transition_type (self), priv->child_transition.duration);
+    set_visible_child_info (self, NULL, get_old_child_transition_type (self), priv->child_transition.duration, TRUE);
 }
 
 static void
@@ -2909,8 +2994,9 @@ hdy_leaflet_add (GtkContainer *container,
                     G_CALLBACK (hdy_leaflet_child_visibility_notify_cb), self);
 
   if (hdy_leaflet_get_visible_child (self) == NULL &&
-      gtk_widget_get_visible (widget))
-    set_visible_child_info (self, child_info, get_old_child_transition_type (self), priv->child_transition.duration);
+      gtk_widget_get_visible (widget)) {
+    set_visible_child_info (self, child_info, get_old_child_transition_type (self), priv->child_transition.duration, FALSE);
+  }
 
   if (priv->fold == HDY_FOLD_UNFOLDED ||
       (priv->fold == HDY_FOLD_FOLDED && (priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] ||
@@ -2938,7 +3024,7 @@ hdy_leaflet_remove (GtkContainer *container,
   free_child_info (child_info);
 
   if (hdy_leaflet_get_visible_child (self) == widget)
-    set_visible_child_info (self, NULL, get_old_child_transition_type (self), priv->child_transition.duration);
+    set_visible_child_info (self, NULL, get_old_child_transition_type (self), priv->child_transition.duration, TRUE);
 
   if (gtk_widget_get_visible (widget))
     gtk_widget_queue_resize (GTK_WIDGET (container));
@@ -3099,6 +3185,7 @@ hdy_leaflet_set_property (GObject      *object,
       GtkOrientation orientation = g_value_get_enum (value);
       if (priv->orientation != orientation) {
         priv->orientation = orientation;
+        update_tracker_orientation (self);
         gtk_widget_queue_resize (GTK_WIDGET (self));
         g_object_notify (object, "orientation");
       }
@@ -3133,6 +3220,8 @@ hdy_leaflet_finalize (GObject *object)
 
   if (priv->child_transition.last_visible_surface != NULL)
     cairo_surface_destroy (priv->child_transition.last_visible_surface);
+
+  g_object_set_data (object, "captured-event-handler", NULL);
 
   G_OBJECT_CLASS (hdy_leaflet_parent_class)->finalize (object);
 }
@@ -3220,7 +3309,7 @@ hdy_leaflet_set_child_property (GtkContainer *container,
 
     if (!child_info->allow_visible &&
         hdy_leaflet_get_visible_child (self) == widget)
-      set_visible_child_info (self, NULL, get_old_child_transition_type (self), priv->child_transition.duration);
+      set_visible_child_info (self, NULL, get_old_child_transition_type (self), priv->child_transition.duration, TRUE);
 
     break;
 
@@ -3323,6 +3412,199 @@ hdy_leaflet_unmap (GtkWidget *widget)
 }
 
 static void
+hdy_leaflet_switch_child (HdySwipeable *swipeable,
+                          guint         index,
+                          gint64        duration)
+{
+  HdyLeaflet *self = HDY_LEAFLET (swipeable);
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+  HdyLeafletChildInfo *child_info;
+
+  child_info = g_list_nth_data (priv->children, index);
+
+  set_visible_child_info (self, child_info, get_old_child_transition_type (self),
+                          duration, FALSE);
+}
+
+static HdyLeafletChildInfo *
+find_swipeable_child (HdyLeaflet *self,
+                      gint        direction)
+{
+  HdyLeafletPrivate *priv;
+  GList *children;
+  HdyLeafletChildInfo *child = NULL;
+
+  priv = hdy_leaflet_get_instance_private (self);
+
+  children = g_list_find (priv->children, priv->visible_child);
+  do {
+    children = (direction < 0) ? children->prev : children->next;
+
+    if (children == NULL)
+      break;
+
+    child = children->data;
+  } while (child && !child->allow_visible);
+
+  return child;
+}
+
+static double
+get_current_progress (HdyLeaflet *self)
+{
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+  gboolean new_first = FALSE;
+  GList *children;
+
+  if (!priv->child_transition.is_gesture_active &&
+      gtk_progress_tracker_get_state (&priv->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER)
+    return 0;
+
+  for (children = priv->children; children; children = children->next) {
+    if (priv->last_visible_child == children->data) {
+      new_first = TRUE;
+
+      break;
+    }
+    if (priv->visible_child == children->data)
+      break;
+  }
+
+  return priv->child_transition.progress * (new_first ? 1 : -1);
+}
+
+static void
+hdy_leaflet_begin_swipe (HdySwipeable *swipeable,
+                         gint          direction,
+                         gboolean      direct)
+{
+  HdyLeaflet *self = HDY_LEAFLET (swipeable);
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+  gint n;
+  gdouble *points, distance, progress;
+
+  if (priv->orientation == GTK_ORIENTATION_HORIZONTAL)
+    distance = gtk_widget_get_allocated_width (GTK_WIDGET (self));
+  else
+    distance = gtk_widget_get_allocated_height (GTK_WIDGET (self));
+
+  if (priv->child_transition.tick_id > 0) {
+    gint current_direction;
+    gboolean is_rtl;
+
+    is_rtl = (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL);
+
+    switch (priv->child_transition.active_direction) {
+    case GTK_PAN_DIRECTION_UP:
+      current_direction = 1;
+      break;
+    case GTK_PAN_DIRECTION_DOWN:
+      current_direction = -1;
+      break;
+    case GTK_PAN_DIRECTION_LEFT:
+      current_direction = is_rtl ? -1 : 1;
+      break;
+    case GTK_PAN_DIRECTION_RIGHT:
+      current_direction = is_rtl ? 1 : -1;
+      break;
+    default:
+      g_assert_not_reached ();
+    }
+
+    n = 2;
+    points = g_new0 (gdouble, n);
+    points[current_direction > 0 ? 1 : 0] = current_direction;
+
+    progress = get_current_progress (self);
+
+    gtk_widget_remove_tick_callback (GTK_WIDGET (self), priv->child_transition.tick_id);
+    priv->child_transition.tick_id = 0;
+    priv->child_transition.is_gesture_active = TRUE;
+    priv->child_transition.is_cancelled = FALSE;
+  } else {
+    HdyLeafletChildInfo *child;
+
+    if (((direction < 0 && priv->child_transition.can_swipe_back) ||
+        (direction > 0 && priv->child_transition.can_swipe_forward) ||
+         !direct) && priv->fold == HDY_FOLD_FOLDED)
+      child = find_swipeable_child (self, direction);
+    else
+      child = NULL;
+
+    if (child) {
+      priv->child_transition.is_gesture_active = TRUE;
+      set_visible_child_info (self, child, get_old_child_transition_type (self),
+                              priv->child_transition.duration, FALSE);
+
+      g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_TRANSITION_RUNNING]);
+    }
+
+    progress = 0;
+
+    n = child ? 2 : 1;
+    points = g_new0 (gdouble, n);
+    if (child)
+      points[direction > 0 ? 1 : 0] = direction;
+  }
+
+  hdy_swipe_tracker_confirm_swipe (priv->tracker, distance, points, n, progress, 0);
+}
+
+static void
+hdy_leaflet_update_swipe (HdySwipeable *swipeable,
+                          gdouble       value)
+{
+  HdyLeaflet *self = HDY_LEAFLET (swipeable);
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+
+  priv->child_transition.progress = ABS (value);
+  hdy_leaflet_child_progress_updated (self);
+}
+
+static void
+hdy_leaflet_end_swipe (HdySwipeable    *swipeable,
+                       gint64           duration,
+                       gdouble          to)
+{
+  HdyLeaflet *self = HDY_LEAFLET (swipeable);
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+
+ if (!priv->child_transition.is_gesture_active)
+    return;
+
+  priv->child_transition.start_progress = priv->child_transition.progress;
+  priv->child_transition.end_progress = ABS (to);
+  priv->child_transition.is_cancelled = (to == 0);
+  priv->child_transition.first_frame_skipped = TRUE;
+
+  hdy_leaflet_schedule_child_ticks (self);
+  if (hdy_get_enable_animations (GTK_WIDGET (self)) &&
+      get_old_child_transition_type (self) != HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE) {
+    gtk_progress_tracker_start (&priv->child_transition.tracker,
+                                duration * 1000,
+                                0,
+                                1.0);
+  } else {
+    priv->child_transition.progress = priv->child_transition.end_progress;
+    gtk_progress_tracker_finish (&priv->child_transition.tracker);
+  }
+
+  priv->child_transition.is_gesture_active = FALSE;
+  hdy_leaflet_child_progress_updated (self);
+
+  gtk_widget_queue_draw (GTK_WIDGET (self));
+}
+
+static gboolean
+captured_event_cb (HdyLeaflet *self,
+                   GdkEvent   *event)
+{
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+
+  return hdy_swipe_tracker_captured_event (priv->tracker, event);
+}
+
+static void
 hdy_leaflet_class_init (HdyLeafletClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -3344,6 +3626,7 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
   widget_class->get_preferred_height_for_width = hdy_leaflet_get_preferred_height_for_width;
   widget_class->size_allocate = hdy_leaflet_size_allocate;
   widget_class->draw = hdy_leaflet_draw;
+  widget_class->direction_changed = hdy_leaflet_direction_changed;
 
   container_class->add = hdy_leaflet_add;
   container_class->remove = hdy_leaflet_remove;
@@ -3603,12 +3886,23 @@ hdy_leaflet_init (HdyLeaflet *self)
   priv->mode_transition.current_pos = 1.0;
   priv->mode_transition.target_pos = 1.0;
 
+  priv->tracker = hdy_swipe_tracker_new (HDY_SWIPEABLE (self));
+  g_object_set (priv->tracker, "orientation", priv->orientation, "enabled", FALSE, NULL);
+
   priv->shadow_helper = hdy_shadow_helper_new (widget,
                                                "/sm/puri/handy/style/hdy-leaflet.css");
 
   gtk_widget_set_has_window (widget, FALSE);
   gtk_widget_set_can_focus (widget, FALSE);
   gtk_widget_set_redraw_on_allocate (widget, FALSE);
+
+  /*
+   * HACK: GTK3 has no other way to get events on capture phase.
+   * This is a reimplementation of _gtk_widget_set_captured_event_handler(),
+   * which is private. In GTK4 it can be replaced with GtkEventControllerLegacy
+   * with capture propagation phase
+   */
+  g_object_set_data (G_OBJECT (self), "captured-event-handler", captured_event_cb);
 }
 
 static void
@@ -3616,3 +3910,11 @@ hdy_leaflet_buildable_init (GtkBuildableIface *iface)
 {
 }
 
+static void
+hdy_leaflet_swipeable_init (HdySwipeableInterface *iface)
+{
+  iface->switch_child = hdy_leaflet_switch_child;
+  iface->begin_swipe = hdy_leaflet_begin_swipe;
+  iface->update_swipe = hdy_leaflet_update_swipe;
+  iface->end_swipe = hdy_leaflet_end_swipe;
+}
