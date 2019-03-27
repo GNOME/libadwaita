@@ -89,6 +89,8 @@ enum {
   PROP_CHILD_TRANSITION_DURATION,
   PROP_CHILD_TRANSITION_RUNNING,
   PROP_INTERPOLATE_SIZE,
+  PROP_CAN_SWIPE_BACK,
+  PROP_CAN_SWIPE_FORWARD,
 
   /* orientable */
   PROP_ORIENTATION,
@@ -180,6 +182,8 @@ typedef struct
     gint last_visible_widget_height;
 
     gboolean interpolate_size;
+    gboolean can_swipe_back;
+    gboolean can_swipe_forward;
 
     HdyLeafletChildTransitionType active_type;
     GtkPanDirection active_direction;
@@ -1352,6 +1356,110 @@ hdy_leaflet_get_interpolate_size (HdyLeaflet *self)
   priv = hdy_leaflet_get_instance_private (self);
 
   return priv->child_transition.interpolate_size;
+}
+
+/**
+ * hdy_leaflet_set_can_swipe_back:
+ * @self: a #HdyLeaflet
+ * @can_swipe_back: the new value
+ *
+ * Sets whether or not @self allows switching to the previous child that has
+ * 'allow-visible' child property set to %TRUE via a swipe gesture
+ *
+ * Since: 0.0.12
+ */
+void
+hdy_leaflet_set_can_swipe_back (HdyLeaflet *self,
+                                gboolean    can_swipe_back)
+{
+  HdyLeafletPrivate *priv;
+
+  g_return_if_fail (HDY_IS_LEAFLET (self));
+
+  priv = hdy_leaflet_get_instance_private (self);
+
+  can_swipe_back = !!can_swipe_back;
+
+  if (priv->child_transition.can_swipe_back == can_swipe_back)
+    return;
+
+  priv->child_transition.can_swipe_back = can_swipe_back;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_SWIPE_BACK]);
+}
+
+/**
+ * hdy_leaflet_get_can_swipe_back
+ * @self: a #HdyLeaflet
+ *
+ * Returns whether the #HdyLeaflet allows swiping to the previous child.
+ *
+ * Returns: %TRUE if back swipe is enabled.
+ *
+ * Since: 0.0.12
+ */
+gboolean
+hdy_leaflet_get_can_swipe_back (HdyLeaflet *self)
+{
+  HdyLeafletPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_LEAFLET (self), FALSE);
+
+  priv = hdy_leaflet_get_instance_private (self);
+
+  return priv->child_transition.can_swipe_back;
+}
+
+/**
+ * hdy_leaflet_set_can_swipe_forward:
+ * @self: a #HdyLeaflet
+ * @can_swipe_forward: the new value
+ *
+ * Sets whether or not @self allows switching to the next child that has
+ * 'allow-visible' child property set to %TRUE via a swipe gesture.
+ *
+ * Since: 0.0.12
+ */
+void
+hdy_leaflet_set_can_swipe_forward (HdyLeaflet *self,
+                                   gboolean    can_swipe_forward)
+{
+  HdyLeafletPrivate *priv;
+
+  g_return_if_fail (HDY_IS_LEAFLET (self));
+
+  priv = hdy_leaflet_get_instance_private (self);
+
+  can_swipe_forward = !!can_swipe_forward;
+
+  if (priv->child_transition.can_swipe_forward == can_swipe_forward)
+    return;
+
+  priv->child_transition.can_swipe_forward = can_swipe_forward;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_SWIPE_FORWARD]);
+}
+
+/**
+ * hdy_leaflet_get_can_swipe_forward
+ * @self: a #HdyLeaflet
+ *
+ * Returns whether the #HdyLeaflet allows swiping to the next child.
+ *
+ * Returns: %TRUE if back swipe is enabled.
+ *
+ * Since: 0.0.12
+ */
+gboolean
+hdy_leaflet_get_can_swipe_forward (HdyLeaflet *self)
+{
+  HdyLeafletPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_LEAFLET (self), FALSE);
+
+  priv = hdy_leaflet_get_instance_private (self);
+
+  return priv->child_transition.can_swipe_forward;
 }
 
 static void
@@ -2920,6 +3028,12 @@ hdy_leaflet_get_property (GObject    *object,
   case PROP_INTERPOLATE_SIZE:
     g_value_set_boolean (value, hdy_leaflet_get_interpolate_size (self));
     break;
+  case PROP_CAN_SWIPE_BACK:
+    g_value_set_boolean (value, hdy_leaflet_get_can_swipe_back (self));
+    break;
+  case PROP_CAN_SWIPE_FORWARD:
+    g_value_set_boolean (value, hdy_leaflet_get_can_swipe_forward (self));
+    break;
   case PROP_ORIENTATION:
     g_value_set_enum (value, priv->orientation);
     break;
@@ -2973,6 +3087,12 @@ hdy_leaflet_set_property (GObject      *object,
     break;
   case PROP_INTERPOLATE_SIZE:
     hdy_leaflet_set_interpolate_size (self, g_value_get_boolean (value));
+    break;
+  case PROP_CAN_SWIPE_BACK:
+    hdy_leaflet_set_can_swipe_back (self, g_value_get_boolean (value));
+    break;
+  case PROP_CAN_SWIPE_FORWARD:
+    hdy_leaflet_set_can_swipe_forward (self, g_value_get_boolean (value));
     break;
   case PROP_ORIENTATION:
     {
@@ -3390,6 +3510,36 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
       g_param_spec_boolean ("interpolate-size",
                             _("Interpolate size"),
                             _("Whether or not the size should smoothly change when changing between differently sized children"),
+                            FALSE,
+                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyLeaflet:can-swipe-back:
+   *
+   * Whether or not @self allows switching to the previous child that has
+   * 'allow-visible' child property set to %TRUE via a swipe gesture.
+   *
+   * Since: 0.0.12
+   */
+  props[PROP_CAN_SWIPE_BACK] =
+      g_param_spec_boolean ("can-swipe-back",
+                            _("Can swipe back"),
+                            _("Whether or not swipe gesture can be used to switch to the previous child"),
+                            FALSE,
+                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyLeaflet:can-swipe-forward:
+   *
+   * Whether or not @self allows switching to the next child that has
+   * 'allow-visible' child property set to %TRUE via a swipe gesture.
+   *
+   * Since: 0.0.12
+   */
+  props[PROP_CAN_SWIPE_FORWARD] =
+      g_param_spec_boolean ("can-swipe-forward",
+                            _("Can swipe forward"),
+                            _("Whether or not swipe gesture can be used to switch to the next child"),
                             FALSE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 

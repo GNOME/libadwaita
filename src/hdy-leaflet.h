@@ -104,5 +104,11 @@ gboolean         hdy_leaflet_get_child_transition_running (HdyLeaflet *self);
 gboolean         hdy_leaflet_get_interpolate_size (HdyLeaflet *self);
 void             hdy_leaflet_set_interpolate_size (HdyLeaflet *self,
                                                    gboolean    interpolate_size);
+gboolean         hdy_leaflet_get_can_swipe_back (HdyLeaflet *self);
+void             hdy_leaflet_set_can_swipe_back (HdyLeaflet *self,
+                                                 gboolean    can_swipe_back);
+gboolean         hdy_leaflet_get_can_swipe_forward (HdyLeaflet *self);
+void             hdy_leaflet_set_can_swipe_forward (HdyLeaflet *self,
+                                                    gboolean    can_swipe_forward);
 
 G_END_DECLS
