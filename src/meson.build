@@ -10,6 +10,7 @@ libhandy_resources = gnome.compile_resources(
 hdy_enum_headers = ['hdy-arrows.h',
                     'hdy-fold.h',
                     'hdy-leaflet.h',
+                    'hdy-squeezer.h',
                     'hdy-view-switcher.h',
                    ]
 
@@ -74,6 +75,7 @@ src_headers = [
   'hdy-list-box.h',
   'hdy-main.h',
   'hdy-search-bar.h',
+  'hdy-squeezer.h',
   'hdy-string-utf8.h',
   'hdy-title-bar.h',
   'hdy-value-object.h',
@@ -109,6 +111,7 @@ src_sources = [
   'hdy-list-box.c',
   'hdy-main.c',
   'hdy-search-bar.c',
+  'hdy-squeezer.c',
   'hdy-string-utf8.c',
   'hdy-title-bar.c',
   'hdy-value-object.c',

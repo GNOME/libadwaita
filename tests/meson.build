@@ -28,6 +28,7 @@ test_names = [
   'test-expander-row',
   'test-header-group',
   'test-search-bar',
+  'test-squeezer',
   'test-string-utf8',
   'test-value-object',
   'test-view-switcher',

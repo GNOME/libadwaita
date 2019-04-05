@@ -41,6 +41,7 @@ G_BEGIN_DECLS
 #include "hdy-list-box.h"
 #include "hdy-main.h"
 #include "hdy-search-bar.h"
+#include "hdy-squeezer.h"
 #include "hdy-string-utf8.h"
 #include "hdy-title-bar.h"
 #include "hdy-value-object.h"

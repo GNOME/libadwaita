@@ -5,6 +5,7 @@
 #include "hdy-enums.h"
 #include "hdy-fold.h"
 #include "hdy-leaflet.h"
+#include "hdy-squeezer.h"
 #include "hdy-view-switcher.h"
 
 /*** END file-header ***/
