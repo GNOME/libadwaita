@@ -16,6 +16,7 @@ private_headers = [
 images = [
   'images/arrows.png',
   'images/dialer.png',
+  'images/header-bar.png',
   'images/preferences-window.png',
 ]
 

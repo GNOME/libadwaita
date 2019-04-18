@@ -36,6 +36,7 @@ G_BEGIN_DECLS
 #include "hdy-enum-value-object.h"
 #include "hdy-expander-row.h"
 #include "hdy-fold.h"
+#include "hdy-header-bar.h"
 #include "hdy-header-group.h"
 #include "hdy-leaflet.h"
 #include "hdy-list-box.h"

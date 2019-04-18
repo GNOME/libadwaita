@@ -14,6 +14,7 @@
     <glade-widget-class name="HdyDialer" generic-name="dialer" title="Dialer"/>
     <glade-widget-class name="HdyDialog" generic-name="dialog" title="Dialog" since="0.0.7"/>
     <glade-widget-class name="HdyExpanderRow" generic-name="expanderrow" title="Expander Row" since="0.0.6"/>
+    <glade-widget-class name="HdyHeaderBar" generic-name="headerbar" title="Header Bar" since="0.0.10"/>
     <glade-widget-class name="HdyHeaderGroup" generic-name="headergroup" title="Header Group" toplevel="True">
       <read-widget-function>glade_hdy_header_group_read_widget</read-widget-function>
       <write-widget-function>glade_hdy_header_group_write_widget</write-widget-function>
@@ -53,6 +54,7 @@
     <glade-widget-class-ref name="HdyDialer"/>
     <glade-widget-class-ref name="HdyDialog"/>
     <glade-widget-class-ref name="HdyExpanderRow"/>
+    <glade-widget-class-ref name="HdyHeaderBar"/>
     <glade-widget-class-ref name="HdyHeaderGroup"/>
     <glade-widget-class-ref name="HdyLeaflet"/>
     <glade-widget-class-ref name="HdyPreferencesGroup"/>
