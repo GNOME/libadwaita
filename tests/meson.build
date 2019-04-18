@@ -31,6 +31,7 @@ test_names = [
   'test-string-utf8',
   'test-value-object',
   'test-view-switcher',
+  'test-view-switcher-bar',
 ]
 
 foreach test_name : test_names

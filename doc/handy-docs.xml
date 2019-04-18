@@ -52,6 +52,7 @@
     <xi:include href="xml/hdy-title-bar.xml"/>
     <xi:include href="xml/hdy-value-object.xml"/>
     <xi:include href="xml/hdy-view-switcher.xml"/>
+    <xi:include href="xml/hdy-view-switcher-bar.xml"/>
   </chapter>
 
   <chapter id="helpers">

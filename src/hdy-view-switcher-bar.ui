@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.0"/>
+  <template class="HdyViewSwitcherBar" parent="GtkBin">
+    <child>
+      <object class="GtkActionBar" id="action_bar">
+        <property name="visible">True</property>
+        <child type="center">
+          <object class="HdyViewSwitcher" id="view_switcher">
+            <property name="icon-size" bind-source="HdyViewSwitcherBar" bind-property="icon-size" bind-flags="sync-create|bidirectional" />
+            <property name="policy" bind-source="HdyViewSwitcherBar" bind-property="policy" bind-flags="sync-create|bidirectional" />
+            <property name="visible">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
