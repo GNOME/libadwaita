@@ -44,6 +44,7 @@ G_BEGIN_DECLS
 #include "hdy-string-utf8.h"
 #include "hdy-title-bar.h"
 #include "hdy-value-object.h"
+#include "hdy-view-switcher.h"
 
 #undef _HANDY_INSIDE
 

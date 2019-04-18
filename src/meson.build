@@ -10,6 +10,7 @@ libhandy_resources = gnome.compile_resources(
 hdy_enum_headers = ['hdy-arrows.h',
                     'hdy-fold.h',
                     'hdy-leaflet.h',
+                    'hdy-view-switcher.h',
                    ]
 
 version_data = configuration_data()
@@ -76,6 +77,7 @@ src_headers = [
   'hdy-string-utf8.h',
   'hdy-title-bar.h',
   'hdy-value-object.h',
+  'hdy-view-switcher.h',
 ]
 
 sed = find_program('sed', required: true)
@@ -109,6 +111,7 @@ src_sources = [
   'hdy-string-utf8.c',
   'hdy-title-bar.c',
   'hdy-value-object.c',
+  'hdy-view-switcher.c',
   'hdy-view-switcher-button.c',
 ]
 
