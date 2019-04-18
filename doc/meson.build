@@ -7,6 +7,7 @@ private_headers = [
     'gtkprogresstrackerprivate.h',
     'hdy-main-private.h',
     'hdy-style-private.h',
+    'hdy-view-switcher-button-private.h',
 ]
 
 images = [

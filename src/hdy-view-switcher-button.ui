@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.0"/>
+  <template class="HdyViewSwitcherButton" parent="GtkRadioButton">
+    <child>
+      <object class="GtkStack" id="stack">
+        <property name="hhomogeneous">False</property>
+        <property name="transition-type">crossfade</property>
+        <property name="vhomogeneous">True</property>
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkBox" id="horizontal_box">
+            <property name="halign">center</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">8</property>
+            <property name="valign">center</property>
+            <property name="visible">True</property>
+            <style>
+              <class name="wide"/>
+            </style>
+            <child>
+              <object class="GtkImage" id="horizontal_image">
+                <property name="icon-name" bind-source="HdyViewSwitcherButton" bind-property="icon-name" bind-flags="sync-create" />
+                <property name="icon-size" bind-source="HdyViewSwitcherButton" bind-property="icon-size" bind-flags="sync-create" />
+                <property name="visible">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="horizontal_label">
+                <property name="label" bind-source="HdyViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                <property name="visible">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox" id="vertical_box">
+            <property name="halign">center</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">4</property>
+            <property name="valign">center</property>
+            <property name="visible">True</property>
+            <style>
+              <class name="narrow"/>
+            </style>
+            <child>
+              <object class="GtkImage" id="vertical_image">
+                <property name="icon-name" bind-source="HdyViewSwitcherButton" bind-property="icon-name" bind-flags="sync-create" />
+                <property name="icon-size" bind-source="HdyViewSwitcherButton" bind-property="icon-size" bind-flags="sync-create" />
+                <property name="visible">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="vertical_label">
+                <property name="label" bind-source="HdyViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                <property name="visible">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
