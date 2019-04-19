@@ -5,6 +5,7 @@ subdir('xml')
 private_headers = [
     'config.h',
     'gtkprogresstrackerprivate.h',
+    'gtk-window-private.h',
     'hdy-main-private.h',
     'hdy-preferences-group-private.h',
     'hdy-preferences-page-private.h',
