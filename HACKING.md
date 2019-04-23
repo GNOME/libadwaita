@@ -126,6 +126,21 @@ else {
 }
 ```
 
+Function calls have a space between function name and invocation:
+
+*Good*:
+
+```c
+visible_child_name = gtk_stack_get_visible_child_name (GTK_STACK (self->stack));
+```
+
+*Bad*:
+
+```c
+visible_child_name = gtk_stack_get_visible_child_name(GTK_STACK(self->stack));
+```
+
+
 Header Inclusion Guards
 -----------------------
 Guard header inclusion with `#pragma once` rather than the traditional
