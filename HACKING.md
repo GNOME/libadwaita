@@ -285,7 +285,7 @@ Use minus signs instead of underscores in property names:
 <property name="margin-start">12</property>
 ```
 
-*Bad":
+*Bad*:
 
 ```xml
 <property name="margin_start">12</property>
