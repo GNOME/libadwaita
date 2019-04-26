@@ -14,13 +14,6 @@
 
 G_BEGIN_DECLS
 
-/**
- * HdyArrowsDirection:
- * @HDY_ARROWS_DIRECTION_UP: Arrows point upwards.
- * @HDY_ARROWS_DIRECTION_DOWN: Arrows point to the left.
- * @HDY_ARROWS_DIRECTION_LEFT: Arrows point to the right.
- * @HDY_ARROWS_DIRECTION_RIGHT: Arrows point downwards
- */
 typedef enum
 {
   HDY_ARROWS_DIRECTION_UP,
