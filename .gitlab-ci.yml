@@ -1,5 +1,6 @@
 stages:
   - build
+  - docs
 
 before_script:
   - apt-get -y update
@@ -18,8 +19,6 @@ build-debian-gcc:
     - export LC_ALL=C.UTF-8
     - meson . _build -Dgtk_doc=true -Db_coverage=true --werror
     - ninja -C _build
-    - ninja -C _build meson-libhandy-doc 2>&1 | tee _build/doc/buildlog
-    - if grep -qs 'warning' _build/doc/buildlog; then exit 1; fi
     - xvfb-run -s -noreset ninja -C _build test
     - ninja -C _build coverage
   coverage: '/^\s+lines\.+:\s+([\d.]+\%)\s+/'
@@ -78,3 +77,17 @@ build-debian-package:
   stage: build
   script:
     - dpkg-buildpackage -uc -us
+
+build-gtkdoc:
+  image: debian:buster
+  <<: *tags
+  stage: docs
+  dependencies:
+    - build-debian-gcc
+  script:
+    - ninja -C _build meson-libhandy-doc 2>&1 | tee _build/doc/buildlog
+    - if grep -qs 'warning' _build/doc/buildlog; then exit 1; fi
+  artifacts:
+    when: always
+    paths:
+      - _build/doc/html
