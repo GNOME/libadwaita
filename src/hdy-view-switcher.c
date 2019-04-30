@@ -215,8 +215,8 @@ hdy_view_switcher_drag_leave (GtkWidget      *widget,
 }
 
 static void
-add_button_for_stack_child (GtkWidget       *stack_child,
-                            HdyViewSwitcher *self)
+add_button_for_stack_child (HdyViewSwitcher *self,
+                            GtkWidget       *stack_child)
 {
   HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
   g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (self));
@@ -243,8 +243,18 @@ add_button_for_stack_child (GtkWidget       *stack_child,
 }
 
 static void
-remove_button_for_stack_child (GtkWidget       *stack_child,
+add_button_for_stack_child_cb (GtkWidget       *stack_child,
                                HdyViewSwitcher *self)
+{
+  g_return_if_fail (HDY_IS_VIEW_SWITCHER (self));
+  g_return_if_fail (GTK_IS_WIDGET (stack_child));
+
+  add_button_for_stack_child (self, stack_child);
+}
+
+static void
+remove_button_for_stack_child (HdyViewSwitcher *self,
+                               GtkWidget       *stack_child)
 {
   HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
 
@@ -252,6 +262,16 @@ remove_button_for_stack_child (GtkWidget       *stack_child,
   g_signal_handlers_disconnect_by_func (stack_child, on_position_updated, self);
   gtk_container_remove (GTK_CONTAINER (self), g_hash_table_lookup (priv->buttons, stack_child));
   g_hash_table_remove (priv->buttons, stack_child);
+}
+
+static void
+remove_button_for_stack_child_cb (GtkWidget       *stack_child,
+                                  HdyViewSwitcher *self)
+{
+  g_return_if_fail (HDY_IS_VIEW_SWITCHER (self));
+  g_return_if_fail (GTK_IS_WIDGET (stack_child));
+
+  remove_button_for_stack_child (self, stack_child);
 }
 
 static void
@@ -285,14 +305,18 @@ connect_stack_signals (HdyViewSwitcher *self)
 {
   HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
 
-  g_signal_connect_after (priv->stack, "add",
-                          G_CALLBACK (add_button_for_stack_child), self);
-  g_signal_connect_after (priv->stack, "remove",
-                          G_CALLBACK (remove_button_for_stack_child), self);
-  g_signal_connect_swapped (priv->stack, "notify::visible-child",
-                            G_CALLBACK (update_active_button_for_visible_stack_child), self);
-  g_signal_connect_swapped (priv->stack, "destroy",
-                            G_CALLBACK (disconnect_stack_signals), self);
+  g_signal_connect_object (priv->stack, "add",
+                           G_CALLBACK (add_button_for_stack_child), self,
+                           G_CONNECT_AFTER | G_CONNECT_SWAPPED);
+  g_signal_connect_object (priv->stack, "remove",
+                           G_CALLBACK (remove_button_for_stack_child), self,
+                           G_CONNECT_AFTER | G_CONNECT_SWAPPED);
+  g_signal_connect_object (priv->stack, "notify::visible-child",
+                           G_CALLBACK (update_active_button_for_visible_stack_child), self,
+                           G_CONNECT_SWAPPED);
+  g_signal_connect_object (priv->stack, "destroy",
+                           G_CALLBACK (disconnect_stack_signals), self,
+                           G_CONNECT_SWAPPED);
 }
 
 static void
@@ -701,13 +725,13 @@ hdy_view_switcher_set_stack (HdyViewSwitcher *self,
 
   if (priv->stack) {
     disconnect_stack_signals (self);
-    gtk_container_foreach (GTK_CONTAINER (priv->stack), (GtkCallback) remove_button_for_stack_child, self);
+    gtk_container_foreach (GTK_CONTAINER (priv->stack), (GtkCallback) remove_button_for_stack_child_cb, self);
   }
 
   g_set_object (&priv->stack, stack);
 
   if (priv->stack) {
-    gtk_container_foreach (GTK_CONTAINER (priv->stack), (GtkCallback) add_button_for_stack_child, self);
+    gtk_container_foreach (GTK_CONTAINER (priv->stack), (GtkCallback) add_button_for_stack_child_cb, self);
     update_active_button_for_visible_stack_child (self);
     connect_stack_signals (self);
   }
