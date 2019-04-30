@@ -1,6 +1,7 @@
 stages:
   - build
   - docs
+  - test
 
 before_script:
   - apt-get -y update
@@ -19,9 +20,6 @@ build-debian-gcc:
     - export LC_ALL=C.UTF-8
     - meson . _build -Dgtk_doc=true -Db_coverage=true --werror
     - ninja -C _build
-    - xvfb-run -s -noreset ninja -C _build test
-    - ninja -C _build coverage
-  coverage: '/^\s+lines\.+:\s+([\d.]+\%)\s+/'
   artifacts:
     when: always
     paths:
@@ -91,3 +89,18 @@ build-gtkdoc:
     when: always
     paths:
       - _build/doc/html
+
+unit-test:
+  image: debian:buster
+  <<: *tags
+  stage: test
+  dependencies:
+    - build-debian-gcc
+  script:
+    - xvfb-run -s -noreset ninja -C _build test
+    - ninja -C _build coverage
+  coverage: '/^\s+lines\.+:\s+([\d.]+\%)\s+/'
+  artifacts:
+    when: always
+    paths:
+      - _build
