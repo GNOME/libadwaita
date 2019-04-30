@@ -96,10 +96,38 @@
         <property name="show_close_button">True</property>
         <property name="title">HdyViewSwitcher Demo</property>
         <child type="title">
-          <object class="HdyViewSwitcher" id="title_switcher">
+          <object class="HdySqueezer" id="squeezer">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="stack">stack</property>
+            <property name="transition-type">crossfade</property>
+            <signal name="notify::visible-child" handler="notify_header_visible_child_cb" swapped="no"/>
+            <child>
+              <object class="HdyViewSwitcher" id="title_wide_switcher">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="policy">wide</property>
+                <property name="stack">stack</property>
+              </object>
+            </child>
+            <child>
+              <object class="HdyViewSwitcher" id="title_narrow_switcher">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">center</property>
+                <property name="policy">narrow</property>
+                <property name="stack">stack</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="title_label">
+                <property name="visible">True</property>
+                <property name="halign">center</property>
+                <property name="label">Clocks</property>
+                <style>
+                  <class name="title"/>
+                </style>
+              </object>
+            </child>
           </object>
         </child>
       </object>
