@@ -12,14 +12,20 @@ before_script:
   tags:
     - librem5
 
+.build: &build_steps
+    echo "BUILD_OPTS=${BUILD_OPTS}" &&
+    export LC_ALL=C.UTF-8 &&
+    meson ${BUILD_OPTS} . _build  &&
+    ninja -C _build
+
 build-debian-gcc:
   image: debian:buster
   <<: *tags
   stage: build
+  variables:
+    BUILD_OPTS: -Dgtk_doc=true -Db_coverage=true --werror
   script:
-    - export LC_ALL=C.UTF-8
-    - meson . _build -Dgtk_doc=true -Db_coverage=true --werror
-    - ninja -C _build
+    - *build_steps
   artifacts:
     when: always
     paths:
@@ -29,11 +35,10 @@ build-debian-gcc-static:
   image: debian:buster
   <<: *tags
   stage: build
+  variables:
+    BUILD_OPTS: -Dintrospection=disabled -Dstatic=true -Dgtk_doc=false --werror
   script:
-    - export LC_ALL=C.UTF-8
-    - meson . _build -Dintrospection=disabled -Dstatic=true -Dgtk_doc=false --werror
-    - ninja -C _build
-    - test -f _build/src/libhandy-0.0.a
+    - *build_steps
     - xvfb-run -s -noreset ninja -C _build test
 
 build-debian-clang:
@@ -60,14 +65,14 @@ build-fedora-gcc:
   image: fedora:29
   <<: *tags
   stage: build
+  variables:
+    BUILD_OPTS: -Dgtk_doc=true --werror
   before_script:
     - dnf -y update
     - dnf -y install @development-tools redhat-rpm-config dnf-plugins-core
     - dnf -y builddep data/packaging/rpm/libhandy.spec
   script:
-    - export LC_ALL=C.UTF-8
-    - meson . _build -Dgtk_doc=true --werror
-    - ninja -C _build
+    - *build_steps
 
 build-debian-package:
   image: debian:buster
