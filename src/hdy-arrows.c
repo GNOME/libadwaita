@@ -537,6 +537,7 @@ hdy_arrows_set_count (HdyArrows   *self, guint count)
 
   priv->count = count;
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_COUNT]);
+  hdy_arrows_animate (self);
 }
 
 /**
@@ -594,6 +595,7 @@ hdy_arrows_set_direction (HdyArrows *self,
     return;
   priv->direction = direction;
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DIRECTION]);
+  hdy_arrows_animate (self);
 }
 
 /**
@@ -639,6 +641,7 @@ hdy_arrows_set_duration (HdyArrows *self,
 
   priv->animation.duration = duration;
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DURATION]);
+  hdy_arrows_animate (self);
 }
 
 /**
