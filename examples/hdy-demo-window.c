@@ -189,7 +189,6 @@ notify_arrows_direction_cb (GObject       *sender,
   g_assert (HDY_IS_DEMO_WINDOW (self));
 
   hdy_arrows_set_direction (HDY_ARROWS (self->arrows), hdy_combo_row_get_selected_index (row));
-  hdy_arrows_animate (HDY_ARROWS (self->arrows));
 }
 
 
@@ -204,7 +203,6 @@ adj_arrows_count_value_changed_cb (GtkAdjustment *adj,
 
   count = gtk_adjustment_get_value (adj);
   hdy_arrows_set_count (HDY_ARROWS (self->arrows), count);
-  hdy_arrows_animate (HDY_ARROWS (self->arrows));
 }
 
 
@@ -219,7 +217,6 @@ adj_arrows_duration_value_changed_cb (GtkAdjustment *adj,
 
   duration = gtk_adjustment_get_value (adj);
   hdy_arrows_set_duration (HDY_ARROWS (self->arrows), duration);
-  hdy_arrows_animate (HDY_ARROWS (self->arrows));
 }
 
 static void

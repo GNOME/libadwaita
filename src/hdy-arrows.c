@@ -593,6 +593,7 @@ hdy_arrows_set_direction (HdyArrows *self,
 
   if (priv->direction == direction)
     return;
+
   priv->direction = direction;
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DIRECTION]);
   hdy_arrows_animate (self);
