@@ -499,7 +499,7 @@ hdy_arrows_init (HdyArrows *self)
  * hdy_arrows_get_count:
  * @self: a #HdyArrows
  *
- * Get the number of errors in displayed in the widget.
+ * Get the number of arrows displayed in the widget.
  *
  * Returns: the current number of arrows
  */
@@ -596,7 +596,7 @@ hdy_arrows_set_direction (HdyArrows *self,
  *
  * Get the duration of the arrows animation.
  *
- * Returns: the arrows
+ * Returns: the duration of the animation in ms
  */
 HdyArrowsDirection
 hdy_arrows_get_duration (HdyArrows *self)
