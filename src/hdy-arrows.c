@@ -532,6 +532,9 @@ hdy_arrows_set_count (HdyArrows   *self, guint count)
 
   priv = hdy_arrows_get_instance_private (self);
 
+  if (priv->count == count)
+    return;
+
   priv->count = count;
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_COUNT]);
 }
@@ -586,6 +589,9 @@ hdy_arrows_set_direction (HdyArrows *self,
   default:
     direction = HDY_ARROWS_DIRECTION_UP;
   }
+
+  if (priv->direction == direction)
+    return;
   priv->direction = direction;
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DIRECTION]);
 }
@@ -627,6 +633,10 @@ hdy_arrows_set_duration (HdyArrows *self,
   g_return_if_fail (HDY_IS_ARROWS (self));
 
   priv = hdy_arrows_get_instance_private (self);
+
+  if (priv->animation.duration == duration)
+    return;
+
   priv->animation.duration = duration;
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DURATION]);
 }
