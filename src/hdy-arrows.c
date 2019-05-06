@@ -642,6 +642,6 @@ hdy_arrows_animate (HdyArrows *self)
 {
   g_return_if_fail (HDY_IS_ARROWS (self));
 
-  gtk_widget_hide (GTK_WIDGET (self));
-  gtk_widget_show (GTK_WIDGET (self));
+  if (gtk_widget_get_mapped (GTK_WIDGET (self)))
+    map_cb (GTK_WIDGET (self), NULL);
 }
