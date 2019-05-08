@@ -79,9 +79,9 @@ to the widgets in you favorite programming language can be found here:
 - [PasswordSafe](https://gitlab.gnome.org/World/PasswordSafe) (HdyColumn)
 
 ### Rust
-- [Fractal](https://gitlab.gnome.org/World/fractal) (HdyColumn)
+- [Fractal](https://gitlab.gnome.org/World/fractal) (HdyColumn, HdyLeaflet)
 - [Podcasts](https://gitlab.gnome.org/World/podcasts) (HdyColumn)
 
 ### Vala
-- [GNOME Contacts](https://gitlab.gnome.org/GNOME/gnome-contacts) (HdyHeaderGroup, HdyTitleBar)
+- [GNOME Contacts](https://gitlab.gnome.org/GNOME/gnome-contacts) (HdyLeaflet, HdyHeaderGroup, HdyTitleBar)
 - [GNOME Games](https://gitlab.gnome.org/GNOME/gnome-games) (HdyColumn, HdyTitleBar)
