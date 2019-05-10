@@ -619,8 +619,10 @@ set_visible_child_info (HdyLeaflet                    *self,
     hdy_leaflet_start_child_transition (self, transition_type, transition_duration, transition_direction);
   }
 
+  g_object_freeze_notify (G_OBJECT (self));
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD]);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD_NAME]);
+  g_object_thaw_notify (G_OBJECT (self));
 }
 
 static void
@@ -808,10 +810,12 @@ hdy_leaflet_set_fold (HdyLeaflet *self,
   else
     hdy_leaflet_start_mode_transition (self, 1.0);
 
+  g_object_freeze_notify (G_OBJECT (self));
   g_object_notify_by_pspec (G_OBJECT (self),
                             props[PROP_FOLD]);
   g_object_notify_by_pspec (G_OBJECT (self),
                             props[PROP_FOLDED]);
+  g_object_thaw_notify (G_OBJECT (self));
 }
 
 /**
