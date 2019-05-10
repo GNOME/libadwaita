@@ -30,6 +30,7 @@ test_names = [
   'test-preferences-group',
   'test-preferences-page',
   'test-preferences-row',
+  'test-preferences-window',
   'test-search-bar',
   'test-squeezer',
   'test-string-utf8',
