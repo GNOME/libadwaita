@@ -40,6 +40,7 @@ G_BEGIN_DECLS
 #include "hdy-leaflet.h"
 #include "hdy-list-box.h"
 #include "hdy-main.h"
+#include "hdy-preferences-group.h"
 #include "hdy-preferences-row.h"
 #include "hdy-search-bar.h"
 #include "hdy-squeezer.h"

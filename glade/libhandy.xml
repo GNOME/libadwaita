@@ -29,6 +29,7 @@
       </properties>
     </glade-widget-class>
     <glade-widget-class name="HdyLeaflet" generic-name="leaflet" title="Leaflet"/>
+    <glade-widget-class name="HdyPreferencesGroup" generic-name="preferencesgroup" title="Preferences Group" since="0.0.10"/>
     <glade-widget-class name="HdyPreferencesRow" generic-name="preferencesrow" title="Preferences Row" since="0.0.10"/>
     <glade-widget-class name="HdySearchBar" generic-name="searchbar" title="Search Bar" since="0.0.6"/>
     <glade-widget-class name="HdySqueezer" generic-name="squeezer" title="Squeezer" since="0.0.10"/>
@@ -47,6 +48,7 @@
     <glade-widget-class-ref name="HdyExpanderRow"/>
     <glade-widget-class-ref name="HdyHeaderGroup"/>
     <glade-widget-class-ref name="HdyLeaflet"/>
+    <glade-widget-class-ref name="HdyPreferencesGroup"/>
     <glade-widget-class-ref name="HdyPreferencesRow"/>
     <glade-widget-class-ref name="HdySearchBar"/>
     <glade-widget-class-ref name="HdySqueezer"/>
