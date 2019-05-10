@@ -52,7 +52,7 @@ typedef struct
 
 static void hdy_action_row_buildable_init (GtkBuildableIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (HdyActionRow, hdy_action_row, GTK_TYPE_LIST_BOX_ROW,
+G_DEFINE_TYPE_WITH_CODE (HdyActionRow, hdy_action_row, HDY_TYPE_PREFERENCES_ROW,
                          G_ADD_PRIVATE (HdyActionRow)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
                          hdy_action_row_buildable_init))
@@ -478,6 +478,7 @@ hdy_action_row_set_title (HdyActionRow *self,
   g_return_if_fail (HDY_IS_ACTION_ROW (self));
 
   priv = hdy_action_row_get_instance_private (self);
+  hdy_preferences_row_set_title (HDY_PREFERENCES_ROW (self), title);
 
   if (g_strcmp0 (gtk_label_get_text (priv->title), title) == 0)
     return;
@@ -724,6 +725,7 @@ hdy_action_row_set_use_underline (HdyActionRow *self,
     return;
 
   priv->use_underline = !!use_underline;
+  hdy_preferences_row_set_use_underline (HDY_PREFERENCES_ROW (self), priv->use_underline);
   gtk_label_set_use_underline (priv->title, priv->use_underline);
   gtk_label_set_use_underline (priv->subtitle, priv->use_underline);
   gtk_label_set_mnemonic_widget (priv->title, GTK_WIDGET (self));

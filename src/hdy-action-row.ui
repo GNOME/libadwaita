@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="HdyActionRow" parent="GtkListBoxRow">
+  <template class="HdyActionRow" parent="HdyPreferencesRow">
     <child>
       <object class="GtkBox" id="box">
         <property name="orientation">vertical</property>

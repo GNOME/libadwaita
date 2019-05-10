@@ -10,13 +10,13 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
-#include <gtk/gtk.h>
+#include "hdy-preferences-row.h"
 
 G_BEGIN_DECLS
 
 #define HDY_TYPE_ACTION_ROW (hdy_action_row_get_type())
 
-G_DECLARE_DERIVABLE_TYPE (HdyActionRow, hdy_action_row, HDY, ACTION_ROW, GtkListBoxRow)
+G_DECLARE_DERIVABLE_TYPE (HdyActionRow, hdy_action_row, HDY, ACTION_ROW, HdyPreferencesRow)
 
 /**
  * HdyActionRowClass
