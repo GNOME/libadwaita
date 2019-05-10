@@ -28,6 +28,7 @@ test_names = [
   'test-expander-row',
   'test-header-group',
   'test-preferences-group',
+  'test-preferences-page',
   'test-preferences-row',
   'test-search-bar',
   'test-squeezer',
