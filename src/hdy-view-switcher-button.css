@@ -24,7 +24,8 @@ hdyviewswitcher > button > stack > box.narrow {
   padding-bottom: 5px;
 }
 
-hdyviewswitcher > button > stack > box.narrow > * {
+hdyviewswitcher > button > stack > box.narrow image,
+hdyviewswitcher > button > stack > box.narrow label {
   padding-left: 8px;
   padding-right: 8px;
 }
@@ -33,21 +34,25 @@ hdyviewswitcher > button box.wide {
   padding: 8px 12px;
 }
 
-hdyviewswitcher > button > stack > box.wide > label:dir(ltr) {
+hdyviewswitcher > button > stack > box.wide label:dir(ltr) {
   padding-right: 7px;
 }
 
-hdyviewswitcher > button > stack > box.wide > label:dir(rtl) {
+hdyviewswitcher > button > stack > box.wide label:dir(rtl) {
   padding-left: 7px;
 }
 
-hdyviewswitcher > button.needs-attention:active > stack > box > label,
-hdyviewswitcher > button.needs-attention:checked > stack > box > label {
+hdyviewswitcher > button > stack > box label.active {
+  font-weight: bold;
+}
+
+hdyviewswitcher > button.needs-attention:active > stack > box label,
+hdyviewswitcher > button.needs-attention:checked > stack > box label {
   animation: none;
   background-image: none;
 }
 
-hdyviewswitcher > button.needs-attention > stack > box > label {
+hdyviewswitcher > button.needs-attention > stack > box label {
   animation: needs_attention 150ms ease-in;
   background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(#3584e4), to(transparent)), -gtk-gradient(radial, center center, 0, center center, 0.5, to(rgba(255, 255, 255, 0.769231)), to(transparent));
   background-size: 6px 6px, 6px 6px;
@@ -55,10 +60,10 @@ hdyviewswitcher > button.needs-attention > stack > box > label {
   background-position: right 0px, right 1px;
 }
 
-hdyviewswitcher > button.needs-attention > stack > box > label:backdrop {
+hdyviewswitcher > button.needs-attention > stack > box label:backdrop {
   background-size: 6px 6px, 0 0;
 }
 
-hdyviewswitcher > button.needs-attention > stack > box > label:dir(rtl) {
+hdyviewswitcher > button.needs-attention > stack > box label:dir(rtl) {
   background-position: left 0px, left 1px;
 }

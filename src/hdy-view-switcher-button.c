@@ -40,11 +40,15 @@ enum {
 typedef struct {
   GtkBox *horizontal_box;
   GtkImage *horizontal_image;
-  GtkLabel *horizontal_label;
+  GtkLabel *horizontal_label_active;
+  GtkLabel *horizontal_label_inactive;
+  GtkStack *horizontal_label_stack;
   GtkStack *stack;
   GtkBox *vertical_box;
   GtkImage *vertical_image;
-  GtkLabel *vertical_label;
+  GtkLabel *vertical_label_active;
+  GtkLabel *vertical_label_inactive;
+  GtkStack *vertical_label_stack;
 
   gchar *icon_name;
   GtkIconSize icon_size;
@@ -57,6 +61,24 @@ static GParamSpec *props[LAST_PROP];
 G_DEFINE_TYPE_WITH_CODE (HdyViewSwitcherButton, hdy_view_switcher_button, GTK_TYPE_RADIO_BUTTON,
                          G_ADD_PRIVATE (HdyViewSwitcherButton)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
+
+static void
+on_active_changed (HdyViewSwitcherButton *self)
+{
+  HdyViewSwitcherButtonPrivate *priv;
+
+  g_return_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self));
+
+  priv = hdy_view_switcher_button_get_instance_private (self);
+
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self))) {
+    gtk_stack_set_visible_child (priv->horizontal_label_stack, GTK_WIDGET (priv->horizontal_label_active));
+    gtk_stack_set_visible_child (priv->vertical_label_stack, GTK_WIDGET (priv->vertical_label_active));
+  } else {
+    gtk_stack_set_visible_child (priv->horizontal_label_stack, GTK_WIDGET (priv->horizontal_label_inactive));
+    gtk_stack_set_visible_child (priv->vertical_label_stack, GTK_WIDGET (priv->vertical_label_inactive));
+  }
+}
 
 static GtkOrientation
 get_orientation (HdyViewSwitcherButton *self)
@@ -239,11 +261,16 @@ hdy_view_switcher_button_class_init (HdyViewSwitcherButtonClass *klass)
                                                "/sm/puri/handy/ui/hdy-view-switcher-button.ui");
   gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, horizontal_box);
   gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, horizontal_image);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, horizontal_label);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, horizontal_label_active);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, horizontal_label_inactive);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, horizontal_label_stack);
   gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, stack);
   gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, vertical_box);
   gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, vertical_image);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, vertical_label);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, vertical_label_active);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, vertical_label_inactive);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, vertical_label_stack);
+  gtk_widget_class_bind_template_callback (widget_class, on_active_changed);
 }
 
 static void
@@ -267,7 +294,13 @@ hdy_view_switcher_button_init (HdyViewSwitcherButton *self)
   gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->horizontal_image)),
                                   GTK_STYLE_PROVIDER (provider),
                                   HDY_STYLE_PROVIDER_PRIORITY);
-  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->horizontal_label)),
+  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->horizontal_label_active)),
+                                  GTK_STYLE_PROVIDER (provider),
+                                  HDY_STYLE_PROVIDER_PRIORITY);
+  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->horizontal_label_inactive)),
+                                  GTK_STYLE_PROVIDER (provider),
+                                  HDY_STYLE_PROVIDER_PRIORITY);
+  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->horizontal_label_stack)),
                                   GTK_STYLE_PROVIDER (provider),
                                   HDY_STYLE_PROVIDER_PRIORITY);
   gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->vertical_box)),
@@ -276,7 +309,13 @@ hdy_view_switcher_button_init (HdyViewSwitcherButton *self)
   gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->vertical_image)),
                                   GTK_STYLE_PROVIDER (provider),
                                   HDY_STYLE_PROVIDER_PRIORITY);
-  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->vertical_label)),
+  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->vertical_label_active)),
+                                  GTK_STYLE_PROVIDER (provider),
+                                  HDY_STYLE_PROVIDER_PRIORITY);
+  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->vertical_label_inactive)),
+                                  GTK_STYLE_PROVIDER (provider),
+                                  HDY_STYLE_PROVIDER_PRIORITY);
+  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->vertical_label_stack)),
                                   GTK_STYLE_PROVIDER (provider),
                                   HDY_STYLE_PROVIDER_PRIORITY);
 
@@ -285,6 +324,8 @@ hdy_view_switcher_button_init (HdyViewSwitcherButton *self)
   gtk_widget_set_focus_on_click (GTK_WIDGET (self), FALSE);
   /* Make the button look like a regular button and not a radio button. */
   gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (self), FALSE);
+
+  on_active_changed (self);
 }
 
 /**

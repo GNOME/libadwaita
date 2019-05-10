@@ -2,6 +2,7 @@
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <template class="HdyViewSwitcherButton" parent="GtkRadioButton">
+    <signal name="notify::active" handler="on_active_changed" after="yes"/>
     <child>
       <object class="GtkStack" id="stack">
         <property name="hhomogeneous">False</property>
@@ -26,9 +27,29 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="horizontal_label">
-                <property name="label" bind-source="HdyViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+              <object class="GtkStack" id="horizontal_label_stack">
                 <property name="visible">True</property>
+                <child>
+                  <object class="GtkLabel" id="horizontal_label_inactive">
+                    <property name="label" bind-source="HdyViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                    <property name="visible">True</property>
+                  </object>
+                  <packing>
+                    <property name="name">inactive</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="horizontal_label_active">
+                    <property name="label" bind-source="HdyViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                    <property name="visible">True</property>
+                    <style>
+                      <class name="active"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="name">active</property>
+                  </packing>
+                </child>
               </object>
             </child>
           </object>
@@ -51,9 +72,29 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="vertical_label">
-                <property name="label" bind-source="HdyViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+              <object class="GtkStack" id="vertical_label_stack">
                 <property name="visible">True</property>
+                <child>
+                  <object class="GtkLabel" id="vertical_label_inactive">
+                    <property name="label" bind-source="HdyViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                    <property name="visible">True</property>
+                  </object>
+                  <packing>
+                    <property name="name">inactive</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="vertical_label_active">
+                    <property name="label" bind-source="HdyViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                    <property name="visible">True</property>
+                    <style>
+                      <class name="active"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="name">active</property>
+                  </packing>
+                </child>
               </object>
             </child>
           </object>
