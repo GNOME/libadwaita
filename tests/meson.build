@@ -27,6 +27,7 @@ test_names = [
   'test-dialog',
   'test-expander-row',
   'test-header-group',
+  'test-preferences-row',
   'test-search-bar',
   'test-squeezer',
   'test-string-utf8',
