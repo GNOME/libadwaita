@@ -45,6 +45,7 @@ enum {
   PROP_0,
   PROP_POLICY,
   PROP_ICON_SIZE,
+  PROP_NARROW_ELLIPSIZE,
   PROP_STACK,
   LAST_PROP,
 };
@@ -57,6 +58,7 @@ typedef struct {
 
   HdyViewSwitcherPolicy policy;
   GtkIconSize icon_size;
+  PangoEllipsizeMode narrow_ellipsize;
   GtkStack *stack;
 } HdyViewSwitcherPrivate;
 
@@ -224,6 +226,7 @@ add_button_for_stack_child (HdyViewSwitcher *self,
 
   g_object_set_data (G_OBJECT (button), "stack-child", stack_child);
   g_object_bind_property (self, "icon-size", button, "icon-size", G_BINDING_SYNC_CREATE);
+  hdy_view_switcher_button_set_narrow_ellipsize (button, priv->narrow_ellipsize);
 
   update_button (self, stack_child, button);
 
@@ -334,6 +337,9 @@ hdy_view_switcher_get_property (GObject    *object,
   case PROP_ICON_SIZE:
     g_value_set_int (value, hdy_view_switcher_get_icon_size (self));
     break;
+  case PROP_NARROW_ELLIPSIZE:
+    g_value_set_enum (value, hdy_view_switcher_get_narrow_ellipsize (self));
+    break;
   case PROP_STACK:
     g_value_set_object (value, hdy_view_switcher_get_stack (self));
     break;
@@ -357,6 +363,9 @@ hdy_view_switcher_set_property (GObject      *object,
     break;
   case PROP_ICON_SIZE:
     hdy_view_switcher_set_icon_size (self, g_value_get_int (value));
+    break;
+  case PROP_NARROW_ELLIPSIZE:
+    hdy_view_switcher_set_narrow_ellipsize (self, g_value_get_enum (value));
     break;
   case PROP_STACK:
     hdy_view_switcher_set_stack (self, g_value_get_object (value));
@@ -518,6 +527,27 @@ hdy_view_switcher_class_init (HdyViewSwitcherClass *klass)
                       G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
+   * HdyViewSwitcher:narrow-ellipsize:
+   *
+   * The preferred place to ellipsize the string, if the narrow mode label does
+   * not have enough room to display the entire string, specified as a
+   * #PangoEllipsizeMode.
+   *
+   * Note that setting this property to a value other than %PANGO_ELLIPSIZE_NONE
+   * has the side-effect that the label requests only enough space to display
+   * the ellipsis.
+   *
+   * Since: 0.0.10
+   */
+  props[PROP_NARROW_ELLIPSIZE] =
+    g_param_spec_enum ("narrow-ellipsize",
+                       _("Narrow ellipsize"),
+                       _("The preferred place to ellipsize the string, if the narrow mode label does not have enough room to display the entire string"),
+                       PANGO_TYPE_ELLIPSIZE_MODE,
+                       PANGO_ELLIPSIZE_NONE,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
    * HdyViewSwitcher:stack:
    *
    * The #GtkStack the view switcher controls.
@@ -674,6 +704,64 @@ hdy_view_switcher_set_icon_size (HdyViewSwitcher *self,
   priv->icon_size = icon_size;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_SIZE]);
+}
+
+/**
+ * hdy_view_switcher_get_narrow_ellipsize:
+ * @self: a #HdyViewSwitcher
+ *
+ * Get the ellipsizing position of the narrow mode label. See
+ * hdy_view_switcher_set_narrow_ellipsize().
+ *
+ * Returns: #PangoEllipsizeMode
+ *
+ * Since: 0.0.10
+ **/
+PangoEllipsizeMode
+hdy_view_switcher_get_narrow_ellipsize (HdyViewSwitcher *self)
+{
+  HdyViewSwitcherPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_VIEW_SWITCHER (self), PANGO_ELLIPSIZE_NONE);
+
+  priv = hdy_view_switcher_get_instance_private (self);
+
+  return priv->narrow_ellipsize;
+}
+
+/**
+ * hdy_view_switcher_set_narrow_ellipsize:
+ * @self: a #HdyViewSwitcher
+ * @mode: a #PangoEllipsizeMode
+ *
+ * Set the mode used to ellipsize the text in narrow mode if there is not
+ * enough space to render the entire string.
+ *
+ * Since: 0.0.10
+ **/
+void
+hdy_view_switcher_set_narrow_ellipsize (HdyViewSwitcher    *self,
+                                        PangoEllipsizeMode  mode)
+{
+  HdyViewSwitcherPrivate *priv;
+  GHashTableIter iter;
+  gpointer button;
+
+  g_return_if_fail (HDY_IS_VIEW_SWITCHER (self));
+  g_return_if_fail (mode >= PANGO_ELLIPSIZE_NONE && mode <= PANGO_ELLIPSIZE_END);
+
+  priv = hdy_view_switcher_get_instance_private (self);
+
+  if ((PangoEllipsizeMode) priv->narrow_ellipsize == mode)
+    return;
+
+  priv->narrow_ellipsize = mode;
+
+  g_hash_table_iter_init (&iter, priv->buttons);
+  while (g_hash_table_iter_next (&iter, NULL, &button))
+    hdy_view_switcher_button_set_narrow_ellipsize (HDY_VIEW_SWITCHER_BUTTON (button), mode);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NARROW_ELLIPSIZE]);
 }
 
 /**

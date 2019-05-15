@@ -39,6 +39,10 @@ GtkIconSize hdy_view_switcher_get_icon_size (HdyViewSwitcher *self);
 void        hdy_view_switcher_set_icon_size (HdyViewSwitcher *self,
                                              GtkIconSize      icon_size);
 
+PangoEllipsizeMode hdy_view_switcher_get_narrow_ellipsize (HdyViewSwitcher *self);
+void               hdy_view_switcher_set_narrow_ellipsize (HdyViewSwitcher    *self,
+                                                           PangoEllipsizeMode  mode);
+
 GtkStack *hdy_view_switcher_get_stack (HdyViewSwitcher *self);
 void      hdy_view_switcher_set_stack (HdyViewSwitcher *self,
                                        GtkStack        *stack);
