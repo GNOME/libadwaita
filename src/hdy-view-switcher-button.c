@@ -546,6 +546,31 @@ hdy_view_switcher_button_set_label (HdyViewSwitcherButton *self,
 }
 
 /**
+ * hdy_view_switcher_button_set_narrow_ellipsize:
+ * @self: a #HdyViewSwitcherButton
+ * @mode: a #PangoEllipsizeMode
+ *
+ * Set the mode used to ellipsize the text in narrow mode if there is not
+ * enough space to render the entire string.
+ *
+ * Since: 0.0.10
+ **/
+void
+hdy_view_switcher_button_set_narrow_ellipsize (HdyViewSwitcherButton *self,
+                                               PangoEllipsizeMode     mode)
+{
+  HdyViewSwitcherButtonPrivate *priv;
+
+  g_return_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self));
+  g_return_if_fail (mode >= PANGO_ELLIPSIZE_NONE && mode <= PANGO_ELLIPSIZE_END);
+
+  priv = hdy_view_switcher_button_get_instance_private (self);
+
+  gtk_label_set_ellipsize (priv->vertical_label_active, mode);
+  gtk_label_set_ellipsize (priv->vertical_label_inactive, mode);
+}
+
+/**
  * hdy_view_switcher_button_get_size:
  * @self: a #HdyViewSwitcherButton
  * @h_min_width: (out) (nullable): the minimum width when horizontal

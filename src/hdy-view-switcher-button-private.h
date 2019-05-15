@@ -41,6 +41,9 @@ const gchar *hdy_view_switcher_button_get_label (HdyViewSwitcherButton *self);
 void         hdy_view_switcher_button_set_label (HdyViewSwitcherButton *self,
                                                  const gchar           *label);
 
+void hdy_view_switcher_button_set_narrow_ellipsize (HdyViewSwitcherButton *self,
+                                                    PangoEllipsizeMode     mode);
+
 void hdy_view_switcher_button_get_size (HdyViewSwitcherButton *self,
                                         gint                  *h_min_width,
                                         gint                  *h_nat_width,
