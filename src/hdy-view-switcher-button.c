@@ -590,6 +590,9 @@ hdy_view_switcher_button_get_size (HdyViewSwitcherButton *self,
                                    gint                  *v_nat_width)
 {
   HdyViewSwitcherButtonPrivate *priv = hdy_view_switcher_button_get_instance_private (self);
+  GtkStyleContext *context;
+  GtkStateFlags state;
+  GtkBorder border;
 
   /* gtk_widget_get_preferred_width() doesn't accept both its out parameters to
    * be NULL, so we must have guards.
@@ -598,4 +601,16 @@ hdy_view_switcher_button_get_size (HdyViewSwitcherButton *self,
     gtk_widget_get_preferred_width (GTK_WIDGET (priv->horizontal_box), h_min_width, h_nat_width);
   if (v_min_width != NULL || v_nat_width != NULL)
     gtk_widget_get_preferred_width (GTK_WIDGET (priv->vertical_box), v_min_width, v_nat_width);
+
+  context = gtk_widget_get_style_context (GTK_WIDGET (self));
+  state = gtk_style_context_get_state (context);
+  gtk_style_context_get_border (context, state, &border);
+  if (h_min_width != NULL)
+    *h_min_width += border.left + border.right;
+  if (h_nat_width != NULL)
+    *h_nat_width += border.left + border.right;
+  if (v_min_width != NULL)
+    *v_min_width += border.left + border.right;
+  if (v_nat_width != NULL)
+    *v_nat_width += border.left + border.right;
 }
