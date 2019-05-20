@@ -8,8 +8,8 @@
         <child type="center">
           <object class="HdyViewSwitcher" id="view_switcher">
             <property name="icon-size" bind-source="HdyViewSwitcherBar" bind-property="icon-size" bind-flags="sync-create|bidirectional" />
-            <property name="policy" bind-source="HdyViewSwitcherBar" bind-property="policy" bind-flags="sync-create|bidirectional" />
             <property name="narrow-ellipsize">end</property>
+            <property name="policy" bind-source="HdyViewSwitcherBar" bind-property="policy" bind-flags="sync-create|bidirectional" />
             <property name="visible">True</property>
           </object>
         </child>
