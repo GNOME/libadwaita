@@ -39,6 +39,7 @@
  * @HDY_VIEW_SWITCHER_POLICY_WIDE: Force the wide mode
  */
 
+#define MIN_NAT_BUTTON_WIDTH 100
 #define TIMEOUT_EXPAND 500
 
 enum {
@@ -412,6 +413,9 @@ hdy_view_switcher_get_preferred_width (GtkWidget *widget,
   for (GList *l = children; l != NULL; l = g_list_next (l)) {
     gint h_min = 0, h_nat = 0, v_min = 0, v_nat = 0;
 
+    if (!gtk_widget_get_visible (l->data))
+      continue;
+
     hdy_view_switcher_button_get_size (HDY_VIEW_SWITCHER_BUTTON (l->data), &h_min, &h_nat, &v_min, &v_nat);
     max_h_min = MAX (h_min, max_h_min);
     max_h_nat = MAX (h_nat, max_h_nat);
@@ -420,6 +424,12 @@ hdy_view_switcher_get_preferred_width (GtkWidget *widget,
 
     n_children++;
   }
+
+  /* Make the buttons ask at least a minimum arbitrary size for their natural
+   * width. This prevents them from looking terribly narrow in a very wide bar.
+   */
+  max_h_nat = MAX (max_h_nat, MIN_NAT_BUTTON_WIDTH);
+  max_v_nat = MAX (max_v_nat, MIN_NAT_BUTTON_WIDTH);
 
   switch (priv->policy) {
   case HDY_VIEW_SWITCHER_POLICY_NARROW:
