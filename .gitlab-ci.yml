@@ -39,7 +39,6 @@ build-debian-gcc-static:
     BUILD_OPTS: -Dintrospection=disabled -Dstatic=true -Dgtk_doc=false --werror
   script:
     - *build_steps
-    - xvfb-run -s -noreset ninja -C _build test
 
 build-debian-clang:
   image: debian:buster
