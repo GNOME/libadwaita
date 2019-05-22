@@ -2,6 +2,7 @@ stages:
   - build
   - docs
   - test
+  - package
 
 before_script:
   - apt-get -y update
@@ -73,13 +74,6 @@ build-fedora-gcc:
   script:
     - *build_steps
 
-build-debian-package:
-  image: debian:buster
-  <<: *tags
-  stage: build
-  script:
-    - dpkg-buildpackage -uc -us
-
 build-gtkdoc:
   image: debian:buster
   <<: *tags
@@ -108,3 +102,10 @@ unit-test:
     when: always
     paths:
       - _build
+
+package-debian:
+  image: debian:buster
+  <<: *tags
+  stage: package
+  script:
+    - dpkg-buildpackage -uc -us
