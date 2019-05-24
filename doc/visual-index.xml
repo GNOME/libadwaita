@@ -18,18 +18,44 @@
   <refsect2>
     <title>Widgets</title>
     <para role="gallery">
-      <link linkend="HdyDialer">
-	<inlinegraphic fileref="dialer.png" format="PNG"></inlinegraphic>
-      </link>
       <link linkend="HdyArrows">
-	<inlinegraphic fileref="arrows.png" format="PNG"></inlinegraphic>
+        <inlinegraphic fileref="arrows.png" format="PNG"></inlinegraphic>
       </link>
+      <link linkend="HdyDialer">
+        <inlinegraphic fileref="dialer.png" format="PNG"></inlinegraphic>
+      </link>
+    </para>
+    <para role="gallery">
+      <link>
+        <inlinegraphic fileref="list.png" format="PNG" scale="60"></inlinegraphic>
+      </link>
+      <link linkend="HdySearchBar">
+        <inlinegraphic fileref="search.png" format="PNG"></inlinegraphic>
+      </link>
+    </para>
+    <para role="gallery">
       <link linkend="HdyHeaderBar">
 	<inlinegraphic fileref="header-bar.png" format="PNG"></inlinegraphic>
       </link>
       <link linkend="HdyPreferencesWindow">
 	<inlinegraphic fileref="preferences-window.png" format="PNG"></inlinegraphic>
       </link>
+    </para>
+  </refsect2>
+  <refsect2>
+    <title>HdyDialog - on mobile and desktop</title>
+    <para role="gallery">
+      <link linkend="HdyDialog">
+        <inlinegraphic fileref="dialog-mobile.png" format="PNG" scale="60"></inlinegraphic>
+      </link>
+      <link linkend="HdyDialog">
+        <inlinegraphic fileref="dialog-desktop.png" format="PNG" scale="95"></inlinegraphic>
+      </link>
+    </para>
+  </refsect2>
+  <refsect2>
+    <title>HdyViewSwitcher</title>
+    <para role="gallery">
       <link linkend="HdyViewSwitcher">
 	<inlinegraphic fileref="view-switcher.png" format="PNG"></inlinegraphic>
       </link>
