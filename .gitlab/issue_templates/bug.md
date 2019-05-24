@@ -32,7 +32,7 @@
 ```
 $ dpkg -l | grep libhandy
 ii  gir1.2-handy-0.0:amd64                0.0.3~203.gbp18952a                     amd64        GObject introspection files for libhandy
-ii  libhandy-0.0-0:amd64                  0.0.3~203.gbp18952a                     amd64        Library with GTK+ widgets for mobile phones
+ii  libhandy-0.0-0:amd64                  0.0.3~203.gbp18952a                     amd64        Library with GTK widgets for mobile phones
 ii  libhandy-0.0-dev:amd64                0.0.3~203.gbp18952a                     amd64        Development files for libhandy
 
 $ dpkg -s libhandy-0.0-0

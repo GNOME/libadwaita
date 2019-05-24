@@ -27,9 +27,9 @@ We mostly use kernel style but
 * Use spaces, never tabs
 * Use 2 spaces for inentation
 
-GTK+ style function argument indentation
+GTK style function argument indentation
 ----------------------------------------
-Use GTK+ style function argument indentation. It's harder for renames but it's
+Use GTK style function argument indentation. It's harder for renames but it's
 what GNOME upstream projects do.
 
 *Good*:

@@ -26,8 +26,8 @@ Multi-Arch: same
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
-Description: Library with GTK+ widgets for mobile phones
- libhandy provides GTK+ widgets and GObjects to ease developing
+Description: Library with GTK widgets for mobile phones
+ libhandy provides GTK widgets and GObjects to ease developing
  applications for mobile phones.
  .
  This package contains the shared library.
@@ -44,7 +44,7 @@ Depends:
  libgtk-3-dev,
 Recommends: pkg-config
 Description: Development files for libhandy
- libhandy provides GTK+ widgets and GObjects to ease developing
+ libhandy provides GTK widgets and GObjects to ease developing
  applications for mobile phones.
  .
  This package contains the development files and documentation.
@@ -58,7 +58,7 @@ Depends:
  ${misc:Depends},
  ${shlibs:Depends},
 Description: GObject introspection files for libhandy
- libhandy provides GTK+ widgets and GObjects to ease developing
+ libhandy provides GTK widgets and GObjects to ease developing
  applications for mobile phones.
  .
  This package contains the GObject-introspection data in binary typelib format.

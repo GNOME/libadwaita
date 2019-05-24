@@ -354,7 +354,7 @@ hdy_arrows_get_property (GObject    *object,
 
 
 /* This private method is prefixed by the call name because it will be a virtual
- * method in GTK+ 4.
+ * method in GTK 4.
  */
 static void
 hdy_arrows_measure (GtkWidget      *widget,

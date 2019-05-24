@@ -12,7 +12,7 @@
     <releaseinfo>
       <para>This document is the API reference for &package_name; &package_version;</para>
       <para>
-        <ulink type="http" url="&package_url;">Handy</ulink> is a library to help you write apps for GTK+/GNOME based mobile phones.
+        <ulink type="http" url="&package_url;">Handy</ulink> is a library to help you write apps for GTK/GNOME based mobile phones.
       </para>
       <para>
         If you find any issues in this API reference, please report it

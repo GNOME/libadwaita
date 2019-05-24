@@ -863,7 +863,7 @@ hdy_squeezer_size_allocate (GtkWidget     *widget,
 #define LERP(a, b, t) ((a) + (((b) - (a)) * (1.0 - (t))))
 
 /* This private method is prefixed by the class name because it will be a
- * virtual method in GTK+ 4.
+ * virtual method in GTK 4.
  */
 static void
 hdy_squeezer_measure (GtkWidget      *widget,

@@ -3,7 +3,7 @@
 [![Code coverage](https://source.puri.sm/Librem5/libhandy/badges/master/coverage.svg)](https://source.puri.sm/Librem5/libhandy/commits/master)
 
 The aim of The handy library is to help with developing UI for mobile devices
-using GTK+/GNOME.
+using GTK/GNOME.
 
 ## License
 

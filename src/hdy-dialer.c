@@ -366,7 +366,7 @@ hdy_dialer_constructed (GObject *object)
                            self,
                            G_CONNECT_SWAPPED);
 
-  /* In GTK+4 we can just use the icon-name property */
+  /* In GTK 4 we can just use the icon-name property */
   image = gtk_image_new_from_icon_name ("edit-clear-symbolic",
                                         GTK_ICON_SIZE_BUTTON);
   gtk_button_set_image (priv->btn_del, image);

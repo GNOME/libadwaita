@@ -24,16 +24,16 @@
 
 /*
  * Modified by the GTK+ Team and others 2013.  See the AUTHORS
- * file for a list of people on the GTK+ Team.  See the ChangeLog
+ * file for a list of people on the GTK Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
+ * GTK at ftp://ftp.gtk.org/pub/gtk/.
  */
 
 /*
  * Forked from the GTK+ 3.94.0 GtkSearchBar widget and modified for libhandy by
  * Adrien Plazas on behalf of Purism SPC 2018.
  *
- * The AUTHORS file referenced above is part of GTK+ and not present in
+ * The AUTHORS file referenced above is part of GTK and not present in
  * libhandy. At the time of the fork it was available here:
  * https://gitlab.gnome.org/GNOME/gtk/blob/faba0f0145b1281facba20fb90699e3db594fbb0/AUTHORS
  *
@@ -99,7 +99,7 @@ enum {
 
 static GParamSpec *props[LAST_PROPERTY] = { NULL, };
 
-/* This comes from gtksearchentry.c in GTK+. */
+/* This comes from gtksearchentry.c in GTK. */
 static gboolean
 gtk_search_entry_is_keynav_event (GdkEvent *event)
 {

@@ -1262,7 +1262,7 @@ get_preferred_size (gint     *min,
 }
 
 /* This private method is prefixed by the call name because it will be a virtual
- * method in GTK+ 4.
+ * method in GTK 4.
  */
 static void
 hdy_leaflet_measure (GtkWidget      *widget,

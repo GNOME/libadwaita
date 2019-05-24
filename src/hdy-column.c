@@ -128,7 +128,7 @@ get_child_width (HdyColumn *self,
 }
 
 /* This private method is prefixed by the call name because it will be a virtual
- * method in GTK+ 4.
+ * method in GTK 4.
  */
 static void
 hdy_column_measure (GtkWidget      *widget,

@@ -105,7 +105,7 @@ hdy_dialer_button_get_property (GObject    *object,
 }
 
 /* This private method is prefixed by the call name because it will be a virtual
- * method in GTK+ 4.
+ * method in GTK 4.
  */
 static void
 hdy_dialer_button_measure (GtkWidget      *widget,
