@@ -195,7 +195,7 @@ adding further properties.
 
 Comment style
 -------------
-In comments use full sentences and proper capitalization, punctation.
+In comments use full sentences with proper capitalization and punctuation.
 
 *Good*:
 

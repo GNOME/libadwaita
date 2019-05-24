@@ -21,7 +21,7 @@ sudo apt-get build-dep .
 
 ## Building
 
-We use the meson (and thereby Ninja) build system for libhandy. The quickest
+We use the Meson (and thereby Ninja) build system for libhandy. The quickest
 way to get going is to do the following:
 
 ```sh
@@ -65,7 +65,7 @@ _build/run glade
 
 The documentation can be found online
 [here](http://honk.sigxcpu.org/projects/libhandy/doc/). Further examples on how
-to the widgets in you favorite programming language can be found here:
+to use the widgets in your favorite programming language can be found here:
 
 ### C
 - [calls](https://source.puri.sm/Librem5/calls) (HdyDialer)

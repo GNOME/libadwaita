@@ -24,7 +24,7 @@
     <application>pkg-config</application> to provide compiler options. The
     package name is
     "<literal>&package_ver_str;</literal>". So in
-    your <literal>configure</literal> script, you might specify something
+    your <literal>configure.ac</literal> script, you might specify something
     like: </para>
 
     <informalexample><programlisting>
@@ -34,7 +34,7 @@
     </programlisting></informalexample>
 
     <para>
-      Or if using meson/ninja use a <literal>dependency('&package_string;-&package_api_version;')
+      Or if using Meson/Ninja use a <literal>dependency('&package_string;-&package_api_version;')
     </literal> dependency.
     </para>
 
@@ -46,7 +46,7 @@
     </para>
 
     <para>
-      When using the <productname>meson build system</productname> you can declare a dependency like
+      When using the Meson build system you can declare a dependency like
     </para>
     <informalexample><programlisting>
       dependency('libhandy-0.0')
@@ -55,7 +55,7 @@
   </refsect2>
 
   <refsect2>
-    <title>Acknowledge the Unstability</title>
+    <title>Acknowledge the Instability</title>
 
     <para>
       Since the library is young and is still changing a lot, in order to use it you are required to acknowledge that your are using an unstable API.
@@ -63,7 +63,7 @@
     </para>
 
     <para>
-      From C code or any compatible language, you can prefix your inclusioin of the libhandy header like so:
+      From C code or any compatible language, you can prefix your inclusion of the libhandy header like so:
     </para>
 
     <informalexample><programlisting>

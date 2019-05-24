@@ -15,9 +15,8 @@
         <ulink type="http" url="&package_url;">Handy</ulink> is a library to help you write apps for GTK/GNOME based mobile phones.
       </para>
       <para>
-        If you find any issues in this API reference, please report it
-        using <ulink type="http" url="&package_bugreport;">at the
-        bugtracker</ulink>
+        If you find any issues in this API reference, please report it using
+        <ulink type="http" url="&package_bugreport;">the bugtracker</ulink>.
       </para>
     </releaseinfo>
 
