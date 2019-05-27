@@ -18,6 +18,8 @@ images = [
   'images/dialer.png',
   'images/header-bar.png',
   'images/preferences-window.png',
+  'images/view-switcher.png',
+  'images/view-switcher-bar.png',
 ]
 
 content_files = [
