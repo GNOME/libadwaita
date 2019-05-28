@@ -97,6 +97,32 @@ test_hdy_dialer_action_buttons (void)
 }
 
 
+static void
+test_hdy_dialer_relief (void)
+{
+  HdyDialer *dialer = HDY_DIALER (hdy_dialer_new ());
+  GtkReliefStyle style;
+
+  notified = 0;
+  g_signal_connect (dialer, "notify::relief", G_CALLBACK (notify_cb), NULL);
+  g_assert_cmpint (hdy_dialer_get_relief (dialer), ==, GTK_RELIEF_NORMAL);
+  hdy_dialer_set_relief (dialer, GTK_RELIEF_NONE);
+  g_assert_cmpint (hdy_dialer_get_relief (dialer), ==, GTK_RELIEF_NONE);
+  hdy_dialer_set_relief (dialer, GTK_RELIEF_NORMAL);
+  g_assert_cmpint (hdy_dialer_get_relief (dialer), ==, GTK_RELIEF_NORMAL);
+  g_assert_cmpint (notified, ==, 2);
+
+  /* Property */
+  g_object_set (dialer, "relief", GTK_RELIEF_NONE, NULL);
+  g_object_get (dialer, "relief", &style, NULL);
+  g_assert_cmpint (style, ==, GTK_RELIEF_NONE);
+
+  /* Setting the same value should not notify */
+  hdy_dialer_set_relief (dialer, GTK_RELIEF_NONE);
+  g_assert_cmpint (notified, ==, 3);
+}
+
+
 gint
 main (gint argc,
       gchar *argv[])
@@ -107,5 +133,6 @@ main (gint argc,
   g_test_add_func ("/Handy/Dialer/setnumber", test_hdy_dialer_setnumber);
   g_test_add_func ("/Handy/Dialer/clear_number", test_hdy_dialer_clear_number);
   g_test_add_func ("/Handy/Dialer/action_buttons", test_hdy_dialer_action_buttons);
+  g_test_add_func ("/Handy/Dialer/relief", test_hdy_dialer_relief);
   return g_test_run ();
 }
