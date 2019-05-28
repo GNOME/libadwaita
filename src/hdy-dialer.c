@@ -650,6 +650,10 @@ hdy_dialer_set_show_action_buttons (HdyDialer *self,
   g_return_if_fail (HDY_IS_DIALER (self));
 
   priv = hdy_dialer_get_instance_private (self);
+
+  if (priv->show_action_buttons == show)
+    return;
+
   priv->show_action_buttons = show;
 
   gtk_widget_set_visible (GTK_WIDGET (priv->btn_submit), show);
