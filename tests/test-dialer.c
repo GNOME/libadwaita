@@ -26,22 +26,22 @@ test_hdy_dialer_setnumber (void)
   dialer = hdy_dialer_new ();
   g_signal_connect (dialer, "notify::number", G_CALLBACK (notify_cb), NULL);
 
-  g_assert_cmpstr ("", ==, hdy_dialer_get_number (HDY_DIALER (dialer)));
+  g_assert_cmpstr (hdy_dialer_get_number (HDY_DIALER (dialer)), ==, "");
 
   hdy_dialer_set_number (HDY_DIALER (dialer), "#1234");
-  g_assert_cmpstr ("#1234", ==, hdy_dialer_get_number (HDY_DIALER (dialer)));
-  g_assert_cmpint (1, ==, notified);
+  g_assert_cmpstr (hdy_dialer_get_number (HDY_DIALER (dialer)), ==, "#1234");
+  g_assert_cmpint (notified, ==, 1);
 
   /* Check that we're assigning to the string and not overwriting */
   hdy_dialer_set_number (HDY_DIALER (dialer), "#123");
-  g_assert_cmpstr ("#1234", !=, hdy_dialer_get_number (HDY_DIALER (dialer)));
-  g_assert_cmpint (2, ==, notified);
+  g_assert_cmpstr (hdy_dialer_get_number (HDY_DIALER (dialer)), !=, "#1234");
+  g_assert_cmpint (notified, ==, 2);
 
   /* Do the same using the GObject property */
   g_object_set (G_OBJECT (dialer), "number", "#12", NULL);
-  g_assert_cmpstr ("#123", !=, hdy_dialer_get_number (HDY_DIALER (dialer)));
-  g_assert_cmpstr ("#12", ==, hdy_dialer_get_number (HDY_DIALER (dialer)));
-  g_assert_cmpint (3, ==, notified);
+  g_assert_cmpstr (hdy_dialer_get_number (HDY_DIALER (dialer)), !=, "#123");
+  g_assert_cmpstr (hdy_dialer_get_number (HDY_DIALER (dialer)), ==, "#12");
+  g_assert_cmpint (notified, ==, 3);
 }
 
 
@@ -54,17 +54,17 @@ test_hdy_dialer_clear_number (void)
   dialer = hdy_dialer_new ();
   g_signal_connect (dialer, "notify::number", G_CALLBACK (notify_cb), NULL);
 
-  g_assert_cmpstr ("", ==, hdy_dialer_get_number (HDY_DIALER (dialer)));
+  g_assert_cmpstr (hdy_dialer_get_number (HDY_DIALER (dialer)), ==, "");
   hdy_dialer_clear_number (HDY_DIALER (dialer));
-  g_assert_cmpint (0, ==, notified);
+  g_assert_cmpint (notified, ==, 0);
 
   hdy_dialer_set_number (HDY_DIALER (dialer), "#1234");
-  g_assert_cmpstr ("#1234", ==, hdy_dialer_get_number (HDY_DIALER (dialer)));
-  g_assert_cmpint (1, ==, notified);
+  g_assert_cmpstr (hdy_dialer_get_number (HDY_DIALER (dialer)), ==, "#1234");
+  g_assert_cmpint (notified, ==, 1);
   hdy_dialer_clear_number (HDY_DIALER (dialer));
-  g_assert_cmpint (2, ==, notified);
+  g_assert_cmpint (notified, ==, 2);
   hdy_dialer_clear_number (HDY_DIALER (dialer));
-  g_assert_cmpint (2, ==, notified);
+  g_assert_cmpint (notified, ==, 2);
 }
 
 
