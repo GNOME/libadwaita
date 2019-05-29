@@ -100,7 +100,6 @@
           <object class="HdySqueezer" id="squeezer">
             <property name="visible">True</property>
             <property name="transition-type">crossfade</property>
-            <signal name="notify::visible-child" handler="notify_header_visible_child_cb" swapped="no"/>
             <child>
               <object class="HdyViewSwitcher" id="title_wide_switcher">
                 <property name="visible">True</property>
