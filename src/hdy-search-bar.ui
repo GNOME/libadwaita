@@ -12,14 +12,14 @@
             <property name="spacing">6</property>
             <child>
               <object class="GtkBox" id="start">
-                <property name="visible">True</property>
+                <property name="visible">False</property>
                 <property name="halign">start</property>
                 <property name="orientation">vertical</property>
               </object>
             </child>
             <child>
               <object class="GtkBox" id="end">
-                <property name="visible">True</property>
+                <property name="visible">False</property>
                 <property name="halign">end</property>
                 <property name="orientation">vertical</property>
                 <child>
