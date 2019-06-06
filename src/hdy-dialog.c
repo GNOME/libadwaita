@@ -37,8 +37,8 @@
  * Ideally when using #HdyDialog you shouldn't need to know you are using
  * it rather than #GtkDialog however there are some notable differences:
  * #GtkWindow:modal is %TRUE by default as is #GtkWindow:destroy-with-parent as
- * the behaviour demonstrated by #HdyDialog would be a bad user experiance
- * when not moda
+ * the behaviour demonstrated by #HdyDialog would be a bad user experience
+ * when not modal
  *
  * Since: 0.0.7
  */
