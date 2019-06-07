@@ -560,7 +560,7 @@
                               <object class="HdyComboRow" id="arrows_direction_row">
                                 <property name="title" translatable="yes">Direction</property>
                                 <property name="visible">True</property>
-                                <signal name="notify::seclected-index" handler="notify_arrows_direction_cb" swapped="no"/>
+                                <signal name="notify::selected-index" handler="notify_arrows_direction_cb" swapped="no"/>
                               </object>
                             </child>
                             <child>
