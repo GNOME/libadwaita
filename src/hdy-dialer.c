@@ -548,6 +548,7 @@ hdy_dialer_init (HdyDialer *self)
 
   priv->number = g_string_new (NULL);
   priv->cycle_btn = NULL;
+  priv->show_action_buttons = TRUE;
 }
 
 /**

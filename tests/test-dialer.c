@@ -78,21 +78,21 @@ test_hdy_dialer_action_buttons (void)
   g_signal_connect (dialer, "notify::show-action-buttons", G_CALLBACK (notify_cb), NULL);
 
   /* Getters/setters */
-  g_assert_false (hdy_dialer_get_show_action_buttons (dialer));
-  hdy_dialer_set_show_action_buttons (dialer, TRUE);
   g_assert_true (hdy_dialer_get_show_action_buttons (dialer));
   hdy_dialer_set_show_action_buttons (dialer, FALSE);
   g_assert_false (hdy_dialer_get_show_action_buttons (dialer));
+  hdy_dialer_set_show_action_buttons (dialer, TRUE);
+  g_assert_true (hdy_dialer_get_show_action_buttons (dialer));
   g_assert_cmpint (notified, ==, 2);
 
   /* Property */
-  g_object_set (dialer, "show-action-buttons", TRUE, NULL);
+  g_object_set (dialer, "show-action-buttons", FALSE, NULL);
   g_object_get (dialer, "show-action-buttons", &val, NULL);
-  g_assert_true (val);
+  g_assert_false (val);
   g_assert_cmpint (notified, ==, 3);
 
   /* Setting the same value should not notify */
-  hdy_dialer_set_show_action_buttons (dialer, TRUE);
+  hdy_dialer_set_show_action_buttons (dialer, FALSE);
   g_assert_cmpint (notified, ==, 3);
 }
 
