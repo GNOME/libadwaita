@@ -901,7 +901,9 @@ hdy_header_bar_measure (GtkWidget      *widget,
                         gint           *minimum_baseline,
                         gint           *natural_baseline)
 {
-  GtkBorder padding;
+  GtkStyleContext *style_context;
+  GtkStateFlags state_flags;
+  GtkBorder border, margin, padding;
 
   if (for_size < 0)
     hdy_header_bar_get_size (widget, orientation, minimum, natural);
@@ -910,16 +912,24 @@ hdy_header_bar_measure (GtkWidget      *widget,
   else
     hdy_header_bar_compute_size_for_opposing_orientation (widget, for_size, minimum, natural);
 
-  /* Manually apply the padding as we can't use the private GtkGagdet. */
-  gtk_style_context_get_padding (gtk_widget_get_style_context (widget),
-                                 gtk_widget_get_state_flags (widget),
-                                 &padding);
+  /* Manually apply the border, the padding and the margin as we can't use the
+   * private GtkGagdet.
+   */
+  style_context = gtk_widget_get_style_context (widget);
+  state_flags = gtk_widget_get_state_flags (widget);
+  gtk_style_context_get_border (style_context, state_flags, &border);
+  gtk_style_context_get_margin (style_context, state_flags, &margin);
+  gtk_style_context_get_padding (style_context, state_flags, &padding);
   if (orientation == GTK_ORIENTATION_VERTICAL) {
-    *minimum += padding.top + padding.bottom;
-    *natural += padding.top + padding.bottom;
+    *minimum += border.top + margin.top + padding.top +
+                border.bottom + margin.bottom + padding.bottom;
+    *natural += border.top + margin.top + padding.top +
+                border.bottom + margin.bottom + padding.bottom;
   } else {
-    *minimum += padding.left + padding.right;
-    *natural += padding.left + padding.right;
+    *minimum += border.left + margin.left + padding.left +
+                border.right + margin.right + padding.right;
+    *natural += border.left + margin.left + padding.left +
+                border.right + margin.right + padding.right;
   }
 }
 
@@ -1357,20 +1367,30 @@ hdy_header_bar_size_allocate (GtkWidget     *widget,
   Child *child;
   GtkAllocation child_allocation;
   GtkTextDirection direction;
-  GtkBorder padding;
+  GtkStyleContext *style_context;
+  GtkStateFlags state_flags;
+  GtkBorder border, margin, padding;
   GtkWidget *decoration_box[2] = { priv->titlebar_start_box, priv->titlebar_end_box };
   gint decoration_width[2] = { 0 };
 
   gtk_widget_set_allocation (widget, allocation);
 
-  /* Manually apply the padding as we can't use the private GtkGagdet. */
-  gtk_style_context_get_padding (gtk_widget_get_style_context (widget),
-                                 gtk_widget_get_state_flags (widget),
-                                 &padding);
-  allocation->width -= padding.left + padding.right;
-  allocation->height -= padding.top + padding.bottom;
-  allocation->x += padding.left;
-  allocation->y += padding.top;
+  /* Manually apply the border, the padding and the margin as we can't use the
+   * private GtkGagdet.
+   */
+  style_context = gtk_widget_get_style_context (widget);
+  state_flags = gtk_widget_get_state_flags (widget);
+  gtk_style_context_get_border (style_context, state_flags, &border);
+  gtk_style_context_get_margin (style_context, state_flags, &margin);
+  gtk_style_context_get_padding (style_context, state_flags, &padding);
+  allocation->width -= border.left + border.right +
+                       margin.left + margin.right +
+                       padding.left + padding.right;
+  allocation->height -= border.top + border.bottom +
+                        margin.top + margin.bottom +
+                        padding.top + padding.bottom;
+  allocation->x += border.left + margin.left + padding.left;
+  allocation->y += border.top + margin.top + padding.top;
 
   direction = gtk_widget_get_direction (widget);
   nvis_children = count_visible_children (self);
@@ -1861,6 +1881,12 @@ hdy_header_bar_draw (GtkWidget *widget,
                          0, 0,
                          gtk_widget_get_allocated_width (widget),
                          gtk_widget_get_allocated_height (widget));
+  /* Ditto for the borders. */
+  gtk_render_frame (context,
+                    cr,
+                    0, 0,
+                    gtk_widget_get_allocated_width (widget),
+                    gtk_widget_get_allocated_height (widget));
 
   return GTK_WIDGET_CLASS (hdy_header_bar_parent_class)->draw (widget, cr);
 }
