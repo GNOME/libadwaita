@@ -2,7 +2,7 @@
 [![Pipeline status](https://source.puri.sm/Librem5/libhandy/badges/master/build.svg)](https://source.puri.sm/Librem5/libhandy/commits/master)
 [![Code coverage](https://source.puri.sm/Librem5/libhandy/badges/master/coverage.svg)](https://source.puri.sm/Librem5/libhandy/commits/master)
 
-The aim of The handy library is to help with developing UI for mobile devices
+The aim of the Handy library is to help with developing UI for mobile devices
 using GTK/GNOME.
 
 ## License
@@ -11,7 +11,7 @@ libhandy is licensed under the LGPL-2.1+.
 
 ## Build dependencies
 
-To build libhandy you need to first install the build-deps defined by [the debian/control file](https://source.puri.sm/Librem5/libhandy/blob/master/debian/control#L6)
+To build libhandy you need to first install the build-deps defined by [the debian/control file](https://source.puri.sm/Librem5/libhandy/blob/master/debian/control#L6).
 
 If you are running a Debian based distribution, you can easily install all those the dependencies making use of the following command
 
@@ -34,7 +34,7 @@ For build options see [meson_options.txt](./meson_options.txt). E.g. to enable d
 
 ```sh
 meson . _build -Dgtk_doc=true
-ninja -C _build/ libhandy-doc
+ninja -C _build libhandy-doc
 ```
 
 ## Usage
@@ -64,7 +64,7 @@ _build/run glade
 ## Documentation
 
 The documentation can be found online
-[here](https://developer.puri.sm/projects/libhandy/unstable/). Further examples on how
+[here](https://developer.puri.sm/projects/libhandy/unstable). Further examples on how
 to use the widgets in your favorite programming language can be found here:
 
 ### C
@@ -81,7 +81,7 @@ to use the widgets in your favorite programming language can be found here:
 - [Unifydmin](https://gitlab.com/gabmus/unifydmin) (HdyColumn, HdyLeaflet, HdyTitleBar)
 
 ### Rust
-- [Fractal](https://gitlab.gnome.org/World/fractal) (HdyColumn, HdyLeaflet)
+- [Fractal](https://gitlab.gnome.org/GNOME/fractal) (HdyColumn, HdyLeaflet)
 - [Podcasts](https://gitlab.gnome.org/World/podcasts) (HdyColumn)
 
 ### Vala
