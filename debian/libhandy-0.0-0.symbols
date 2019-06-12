@@ -25,6 +25,7 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_arrows_set_count@LIBHANDY_0_0_0 0.0~git20180517
  hdy_arrows_set_direction@LIBHANDY_0_0_0 0.0~git20180517
  hdy_arrows_set_duration@LIBHANDY_0_0_0 0.0~git20180517
+ hdy_centering_policy_get_type@LIBHANDY_0_0_0 0.0.10
  hdy_column_get_linear_growth_width@LIBHANDY_0_0_0 0.0.3
  hdy_column_get_maximum_width@LIBHANDY_0_0_0 0.0.1
  hdy_column_get_type@LIBHANDY_0_0_0 0.0.1
@@ -36,9 +37,12 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_combo_row_get_model@LIBHANDY_0_0_0 0.0.6
  hdy_combo_row_get_selected_index@LIBHANDY_0_0_0 0.0.7
  hdy_combo_row_get_type@LIBHANDY_0_0_0 0.0.6
+ hdy_combo_row_get_use_subtitle@LIBHANDY_0_0_0 0.0.10
  hdy_combo_row_new@LIBHANDY_0_0_0 0.0.6
  hdy_combo_row_set_for_enum@LIBHANDY_0_0_0 0.0.6
+ hdy_combo_row_set_get_name_func@LIBHANDY_0_0_0 0.0.10
  hdy_combo_row_set_selected_index@LIBHANDY_0_0_0 0.0.7
+ hdy_combo_row_set_use_subtitle@LIBHANDY_0_0_0 0.0.10
  hdy_dialer_button_get_digit@LIBHANDY_0_0_0 0.0~git20180429
 #MISSING: 0.0.3# hdy_dialer_button_get_letters@LIBHANDY_0_0_0 0.0.4~
  hdy_dialer_button_get_symbols@LIBHANDY_0_0_0 0.0.3
@@ -77,6 +81,31 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_expander_row_set_expanded@LIBHANDY_0_0_0 0.0.9
  hdy_expander_row_set_show_enable_switch@LIBHANDY_0_0_0 0.0.6
  hdy_fold_get_type@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_gtk_window_get_icon_for_size@LIBHANDY_0_0_0 0.0.10
+ hdy_gtk_window_toggle_maximized@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_get_centering_policy@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_get_custom_title@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_get_decoration_layout@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_get_has_subtitle@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_get_interpolate_size@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_get_show_close_button@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_get_subtitle@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_get_title@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_get_transition_duration@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_get_transition_running@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_get_type@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_new@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_pack_end@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_pack_start@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_set_centering_policy@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_set_custom_title@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_set_decoration_layout@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_set_has_subtitle@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_set_interpolate_size@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_set_show_close_button@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_set_subtitle@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_set_title@LIBHANDY_0_0_0 0.0.10
+ hdy_header_bar_set_transition_duration@LIBHANDY_0_0_0 0.0.10
  hdy_header_group_add_header_bar@LIBHANDY_0_0_0 0.0.3
  hdy_header_group_get_focus@LIBHANDY_0_0_0 0.0.3
  hdy_header_group_get_header_bars@LIBHANDY_0_0_0 0.0.4~
@@ -109,6 +138,28 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_leaflet_set_visible_child@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_set_visible_child_name@LIBHANDY_0_0_0 0.0~git20180429
  hdy_list_box_separator_header@LIBHANDY_0_0_0 0.0.6
+ hdy_preferences_group_add_preferences_to_model@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_group_get_description@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_group_get_title@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_group_get_type@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_group_new@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_group_set_description@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_group_set_title@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_page_add_preferences_to_model@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_page_get_icon_name@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_page_get_title@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_page_get_type@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_page_new@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_page_set_icon_name@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_page_set_title@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_row_get_title@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_row_get_type@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_row_get_use_underline@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_row_new@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_row_set_title@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_row_set_use_underline@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_window_get_type@LIBHANDY_0_0_0 0.0.10
+ hdy_preferences_window_new@LIBHANDY_0_0_0 0.0.10
  hdy_search_bar_connect_entry@LIBHANDY_0_0_0 0.0.6
  hdy_search_bar_get_search_mode@LIBHANDY_0_0_0 0.0.6
  hdy_search_bar_get_show_close_button@LIBHANDY_0_0_0 0.0.6
@@ -117,6 +168,21 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_search_bar_new@LIBHANDY_0_0_0 0.0.6
  hdy_search_bar_set_search_mode@LIBHANDY_0_0_0 0.0.6
  hdy_search_bar_set_show_close_button@LIBHANDY_0_0_0 0.0.6
+ hdy_squeezer_get_child_enabled@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_get_homogeneous@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_get_interpolate_size@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_get_transition_duration@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_get_transition_running@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_get_transition_type@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_get_type@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_get_visible_child@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_new@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_set_child_enabled@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_set_homogeneous@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_set_interpolate_size@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_set_transition_duration@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_set_transition_type@LIBHANDY_0_0_0 0.0.10
+ hdy_squeezer_transition_type_get_type@LIBHANDY_0_0_0 0.0.10
  hdy_string_utf8_len@LIBHANDY_0_0_0 0.0~git20180429
  hdy_string_utf8_truncate@LIBHANDY_0_0_0 0.0~git20180429
  hdy_title_bar_get_selection_mode@LIBHANDY_0_0_0 0.0.3
@@ -132,3 +198,36 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_value_object_new_collect@LIBHANDY_0_0_0 0.0.8
  hdy_value_object_new_string@LIBHANDY_0_0_0 0.0.8
  hdy_value_object_new_take_string@LIBHANDY_0_0_0 0.0.8
+ hdy_view_switcher_bar_get_icon_size@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_bar_get_policy@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_bar_get_reveal@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_bar_get_stack@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_bar_get_type@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_bar_new@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_bar_set_icon_size@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_bar_set_policy@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_bar_set_reveal@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_bar_set_stack@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_button_get_icon_name@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_button_get_icon_size@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_button_get_label@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_button_get_needs_attention@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_button_get_size@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_button_get_type@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_button_new@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_button_set_icon_name@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_button_set_icon_size@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_button_set_label@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_button_set_narrow_ellipsize@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_button_set_needs_attention@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_get_icon_size@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_get_narrow_ellipsize@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_get_policy@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_get_stack@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_get_type@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_new@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_policy_get_type@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_set_icon_size@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_set_narrow_ellipsize@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_set_policy@LIBHANDY_0_0_0 0.0.10
+ hdy_view_switcher_set_stack@LIBHANDY_0_0_0 0.0.10

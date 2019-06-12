@@ -1,3 +1,156 @@
+libhandy (0.0.10) experimental; urgency=medium
+
+  [ Adrien Plazas ]
+  * .editorconfig: Add CSS
+  * arrows: Refresh HdyArrowsDirection docs.
+    This moves the HdyArrowsDirection documentation to the C file and
+    removes the final period from the values definitions, like for all other
+    enums documentations.
+  * docs: Add section for new symbols in 0.0.10
+  * view-switcher: Fix stack children callbacks.
+    This fixes the callbacks when a child is added or removed from the view
+    switcher's stack.
+  * view-switcher-button: Make an active button's label bold.
+    This makes the view switcher easier to read.
+    It uses multiple labels with or without the specific style rather than a
+    single label with the style toggled on and off to ensure the size
+    requests don't change depending on whether the button is active or not.
+  * leaflet: Synchronize paired notifications.
+    This ensures users can't react to a visible child change notification or
+    a fold change notification before we finish emitting all related
+    notifications.
+  * Add HdySqueezer.
+    This can be used to automatically hide a widget like a HdyViewSwitcher
+    in a header bar when there is not enough space for it and show a title
+    label instead.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/100
+  * examples: Use a HdySqueezer.
+    Use a HdySqueezer in the view switcher window to show either the view
+    switcher in the header bar, or a window title and a view switcher bar
+    depending on the window's width.
+  * view-switcher-button: Allow to elipsize in narrow mode.
+    This will be used to let HdyViewSwitcherBar reach even narrower widths.
+  * view-switcher: Allow to elipsize in narrow mode.
+    This will be used to let HdyViewSwitcherBar reach even narrower widths.
+  * view-switcher-bar: Ellipsize in narrow mode.
+    This lets HdyViewSwitcherBar reach even narrower widths.
+  * view-switcher-button: Use buttons borders in size.
+    When computing the size of the button, take the button's border into
+    account.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/108
+  * view-switcher-bar: Sort properties by alphabetical order.
+    This fixes a code style error and will avoid to propagate it as the file
+    gets edited.
+  * view-switcher-bar: Add margins.
+    Add margings around the view switcher to better match the mockups.
+  * view-switcher: Define a minimum natural width.
+    This prevents the buttons from looking terribly narrow in a wide bar by
+    making them request a minimum good looking natural size.
+  * Add HdyPreferencesRow.
+    This will be used as the base row for the preferences window, offering
+    data needed to search a preference entry.
+  * action-row: Extend HdyPreferencesRow.
+    This allows to use HdyActionRow and its derivatives as preferences rows.
+  * Add HdyPreferencesGroup.
+    This will be used to group preferences rows as a coherent group in a
+    preferences page.
+  * Add HdyPreferencesPage.
+    This will be used to group preferences as pages in a preferences window.
+  * Add HdyPreferencesWindow.
+    This allows to easily create searchable preferences windows.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/101
+  * examples: Add a HdyPreferencesWindow example
+  * Add private GtkWindow functions.
+    Add the private GtkWindow functions _gtk_window_toggle_maximized()
+    and gtk_window_get_icon_for_size() which will be used in the next commit
+    by HdyHeaderBar.
+  * Add HdyHeaderBar.
+    Fork GtkHeaderBar to help fixing shortcomings caused by adaptive designs
+    or coming from GtkHeaderBar itself as features are not accepted into GTK
+    3 anymore.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/102
+  * examples: Use HdyHeaderBar in the View Switcher page.
+    This correctly centers the view switcher and demoes HdyHeaderBar.
+  * view-switcher: Recommend to use a HdyHeaderBar.
+    This will help users of HdyViewSwitcher to know how to make it look
+    good in a header bar.
+  * examples: Drop un unused signal connection.
+    This avoids a run time warning.
+  * docs: Add images for HdyViewSwitcher and HdyViewSwitcherBar
+  * preferences-window: Strictly center the header bar.
+    This makes the header bar's widgets look better by ensuring they are
+    always centered, even if it means they will be narrower.
+  * conbo-row: Make the popover relative to the arrow.
+    Consistently point to the arrow rather than sometimes to the arrow and
+    sometimes to the invisible box containing the current value.
+  * combo-row: Add HdyComboRowGetName.
+    Replace HdyComboRowCreateLabelData by HdyComboRowGetName and keep a
+    reference to in the combo row to allow accessing it externally. It will
+    be needed to automatically handle converting the value into a name to
+    display as the subtitle of the row.
+  * combo-row: Add the use-subtitle property.
+    Allow to display the current value as the subtitle rather than at the
+    end of the row.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/95
+  * header-bar: Render margins and borders.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/121
+
+  [ Zander Brown ]
+  * Add HdyViewSwitcherButton.
+    This will be used in the next commit by HdyViewSwitcher.
+  * Add HdyViewSwitcher.
+    This more modern and adaptive take on GtkStackSwitcher helps building
+    adaptive UIs for phones.
+    Fixes https://source.puri.sm/Librem5/libhandy/issues/64
+  * Add HdyViewSwitcherBar.
+    This action bar offers a HdyViewSwitcher and is designed to be put at
+    the bottom of windows. It is designed to be revealed when the header bar
+    doesn't have enough room to fit a HdyViewSwitcher, helping the windows
+    to reach narrower widths.
+  * examples: Add the View Switcher page.
+    This example presents a HdyViewSwitcher and a HdyViewSwitcherBar in
+    their own window. Currently both are visible at the same time, a later
+    commit should make only one visible at a time, depending on the
+    available width.
+
+  [ Aearil ]
+  * Update components list for the external projects in the README
+
+  [ Mohammed Sadiq ]
+  * dialog: Fix typos in documentation
+  * demo-window: Fix typo in property name
+
+  [ Oliver Galvin ]
+  * Change GTK+ to GTK
+  * Fix a few typos and grammatical mistakes
+  * Expand the visual overview.
+    Add more widgets and a comparison of HdyDialog
+
+  [ Guido Günther ]
+  * Release libhandy 0.0.10
+  * HACKING:
+    - Properly end emphasis
+    - Document extra space after function calls
+  * ci improvements
+    - Split doc build to different stage
+    - Split out unit tests to different stage
+    - Drop coverage on Fedora. It's not evaulated anyway
+    - Split out build commands
+    - Drop tests from static build
+    - Move Debian package to packaging stage
+  * gitlab-ci: Archive the build debs
+  * HdyArrows: 
+    - Fix obvious documentation errors
+    - Only redraw widget if visible
+    - Don't emit notify signals on unchanged properties
+    - Redraw arrows on property changes
+  * HdyDemoWindow: Don't schedule arrow redraws
+  * Add suppression for ASAN
+  * tests-dialer: cleanups
+  * HdyDialer: Make show_action_buttons match the initial property default
+
+ -- Guido Günther <agx@sigxcpu.org>  Wed, 12 Jun 2019 17:23:21 +0200
+
 libhandy (0.0.9) experimental; urgency=medium
 
   [ Benjamin Berg ]
