@@ -11,7 +11,7 @@
 
 /**
  * SECTION:hdy-action-row
- * @short_description: A #GtkListBox row used to present actions
+ * @short_description: A #GtkListBox row used to present actions.
  * @Title: HdyActionRow
  *
  * The #HdyActionRow widget can have a title, a subtitle and an icon. The row

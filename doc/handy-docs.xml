@@ -10,7 +10,7 @@
   <bookinfo>
     <title>&package_name; Reference Manual</title>
     <releaseinfo>
-      <para>This document is the API reference for &package_name; &package_version;</para>
+      <para>This document is the API reference for &package_name; &package_version;.</para>
       <para>
         <ulink type="http" url="&package_url;">Handy</ulink> is a library to help you write apps for GTK/GNOME based mobile phones.
       </para>

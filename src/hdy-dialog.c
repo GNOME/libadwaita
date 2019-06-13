@@ -11,35 +11,35 @@
 
 /**
  * SECTION:hdy-dialog
- * @short_description: An adaptive dialog
+ * @short_description: An adaptive dialog.
  * @title: HdyDialog
  * @See_also: #HdyHeaderBar
- * 
- * A #GtkDialog that adapts to smaller displays
- * 
+ *
+ * A #GtkDialog that adapts to smaller displays.
+ *
  * Small is defined as:
  * |[<!-- language="C" -->
  * is_small = ((             width <= 400 && height <= 800) ||
  *             (maximized && width <= 800 && height <= 400));
  * ]|
- * 
- * In the smaller view a HdyDialog matches it's size to that of it's
+ *
+ * In the smaller view a HdyDialog matches its size to that of its
  * parent and for ["Presentation Dialogs"](https://developer.gnome.org/hig/stable/dialogs.html)
  * uses a back button rather than close button to dismiss.
- * 
+ *
  * It's recommended that dialog contents are wrapped in a #GtkScrolledWindow
- * to ensure they don't overflow the screen
- * 
- * #HdyDialog works best when #GtkDialog:use-header-bar is %TRUE (which is 
- * the case when using hdy_dialog_new())
- * 
+ * to ensure they don't overflow the screen.
+ *
+ * #HdyDialog works best when #GtkDialog:use-header-bar is %TRUE (which is
+ * the case when using hdy_dialog_new()).
+ *
  * Design Information: [GitLab Issue](https://source.puri.sm/Librem5/libhandy/issues/52)
- * 
+ *
  * Ideally when using #HdyDialog you shouldn't need to know you are using
  * it rather than #GtkDialog however there are some notable differences:
  * #GtkWindow:modal is %TRUE by default as is #GtkWindow:destroy-with-parent as
  * the behaviour demonstrated by #HdyDialog would be a bad user experience
- * when not modal
+ * when not modal.
  *
  * If you want to replace the titlebar by your own, we recommend using
  * #HdyHeaderBar as it will retain the abiity to present a back button when the

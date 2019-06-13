@@ -14,7 +14,7 @@
 
 /**
  * SECTION:hdy-dialer
- * @short_description: A keypad for dialing numbers
+ * @short_description: A keypad for dialing numbers.
  * @Title: HdyDialer
  *
  * The #HdyDialer widget is a keypad for entering numbers such as phone numbers

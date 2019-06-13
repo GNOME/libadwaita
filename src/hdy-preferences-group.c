@@ -14,7 +14,7 @@
 
 /**
  * SECTION:hdy-preferences-group
- * @short_description: A group gathering preferences rows
+ * @short_description: A group gathering preferences rows.
  * @Title: HdyPreferencesGroup
  *
  * A #HdyPreferencesGroup represents a group or tightly related preferences,

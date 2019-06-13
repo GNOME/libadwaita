@@ -12,10 +12,10 @@
 
 /**
  * SECTION:hdy-expander-row
- * @short_description: A #GtkListBox row used to reveal widgets
+ * @short_description: A #GtkListBox row used to reveal widgets.
  * @Title: HdyExpanderRow
  *
- * The #HdyExpanderRow allows the user to reveal of hide widgets below it. It
+ * The #HdyExpanderRow allows the user to reveal or hide widgets below it. It
  * also allows the user to enable the expansion of the row, allowing to disable
  * all that the row contains.
  *

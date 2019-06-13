@@ -13,12 +13,12 @@
 
 /**
  * PRIVATE:hdy-view-switcher-button
- * @short_description: Button used in #HdyViewSwitcher
+ * @short_description: Button used in #HdyViewSwitcher.
  * @title: HdyViewSwitcherButton
  * @See_also: #HdyViewSwitcher
  * @stability: Private
  *
- * #HdyViewSwitcherButton represents an application's view. It is design to be
+ * #HdyViewSwitcherButton represents an application's view. It is designed to be
  * used exclusively internally by #HdyViewSwitcher.
  *
  * Since: 0.0.10

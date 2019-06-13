@@ -32,7 +32,7 @@
 
 /**
  * SECTION:hdy-header-bar
- * @Short_description: A box with a centered child
+ * @short_description: A box with a centered child.
  * @Title: HdyHeaderBar
  * @See_also: #GtkHeaderBar, #HdyTitleBar, #HdyViewSwitcher, #HdyDialog
  *

@@ -11,15 +11,15 @@
 
 /**
  * SECTION:hdy-dialer-cycle-button
- * @short_description: A button on a #HdyDialer keypad cycling through available symbols
+ * @short_description: A button on a #HdyDialer keypad cycling through available symbols.
  * @Title: HdyDialerCycleButton
  *
- * The #HdyDialerCycleButton widget is a single button on a #HdyDialer
+ * The #HdyDialerCycleButton widget is a single button on an #HdyDialer
  * representing symbols such as digits, letters, #, +
  * or ☃.  When the button is pressed multiple times in a row, the
  * symbols are cycled through. That is a call to #get_curent_symbol
  * returns another symbol each time the button is pressed. If no
- * further button presses are received cycling mode ends after a
+ * further button presses are received, cycling mode ends after a
  * timeout. This is configurable via the
  * #HdyDialerCycleButton:cycle-timeout property.
  *

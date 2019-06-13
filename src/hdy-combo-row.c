@@ -13,7 +13,7 @@
 
 /**
  * SECTION:hdy-combo-row
- * @short_description: A #GtkListBox row used to choose from a list of items
+ * @short_description: A #GtkListBox row used to choose from a list of items.
  * @Title: HdyComboRow
  *
  * The #HdyComboRow widget allows the user to choose from a list of valid

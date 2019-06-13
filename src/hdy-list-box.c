@@ -11,7 +11,7 @@
 
 /**
  * SECTION:hdy-list-box
- * @short_description: Helper functions for #GtkListBox
+ * @short_description: Helper functions for #GtkListBox.
  * @Title: GtkListBox helpers
  *
  * Since: 0.0.6

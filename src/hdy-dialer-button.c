@@ -11,7 +11,7 @@
 
 /**
  * SECTION:hdy-dialer-button
- * @short_description: A button on a #HdyDialer keypad
+ * @short_description: A button on a #HdyDialer keypad.
  * @Title: HdyDialerButton
  *
  * The #HdyDialerButton widget is a single button on an #HdyDialer. It

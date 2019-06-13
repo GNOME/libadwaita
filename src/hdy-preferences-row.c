@@ -11,7 +11,7 @@
 
 /**
  * SECTION:hdy-preferences-row
- * @short_description: A #GtkListBox row used to present preferences
+ * @short_description: A #GtkListBox row used to present preferences.
  * @Title: HdyPreferencesRow
  *
  * The #HdyPreferencesRow widget has a title that #HdyPreferencesWindow will use

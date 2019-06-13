@@ -9,7 +9,7 @@
 
 /**
  * SECTION:hdy-fold
- * @short_description: Element folding states
+ * @short_description: Element folding states.
  * @title: HdyFold
  */
 

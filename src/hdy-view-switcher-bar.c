@@ -14,11 +14,11 @@
 
 /**
  * SECTION:hdy-view-switcher-bar
- * @short_description: An view switcher action bar
+ * @short_description: An view switcher action bar.
  * @title: HdyViewSwitcherBar
  *
  * An action bar letting you switch between multiple views offered by a
- * #GtkStack, via a #HdyViewSwitcher. It is designed to be put at the bottom of
+ * #GtkStack, via an #HdyViewSwitcher. It is designed to be put at the bottom of
  * a window and to be revealed only on really narrow windows e.g. on mobile
  * phones.
  *

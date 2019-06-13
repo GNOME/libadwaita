@@ -16,7 +16,7 @@
 
 /**
  * SECTION:hdy-arrows
- * @short_description: Arrows indicating a swipe direction
+ * @short_description: Arrows indicating a swipe direction.
  * @Title: HdyArrows
  *
  * The #HdyArrows widget displays arrows indicating a swiping direction.

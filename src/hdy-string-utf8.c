@@ -10,10 +10,10 @@
 
 /**
  * SECTION:hdy-string-utf8
- * @short_description: #GString utf-8 helpers
+ * @short_description: #GString utf-8 helpers.
  * @title: HdyStringUtf8
  *
- * Helpers to ease utf-8 handling based on #GString
+ * Helpers to ease utf-8 handling based on #GString.
  */
 
 /**
@@ -21,7 +21,7 @@
  * @string: a #GString
  * @len: the new size of the string
  *
- * Cut of the end of the string @string so that @len utf8 characters remain
+ * Cut of the end of the string @string so that @len utf8 characters remain.
  *
  * Returns: (transfer none): @string
  */

@@ -48,7 +48,7 @@
 
 /**
  * SECTION:hdy-search-bar
- * @Short_description: A toolbar to integrate a search entry with
+ * @short_description: A toolbar to integrate a search entry with.
  * @Title: HdySearchBar
  *
  * #HdySearchBar is a container made to have a search entry (possibly

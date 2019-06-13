@@ -12,7 +12,7 @@ static gint hdy_initialized = FALSE;
 
 /**
  * SECTION:hdy-main
- * @Short_description: Library initialization
+ * @short_description: Library initialization.
  * @Title: hdy-main
  *
  * Before using the Handy libarary you should initialize it. This makes

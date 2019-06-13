@@ -24,12 +24,12 @@
 
 /**
  * SECTION:hdy-squeezer
- * @Short_description: A best fit container
+ * @short_description: A best fit container.
  * @Title: HdySqueezer
  *
  * The HdySqueezer widget is a container which only shows the first of its
  * children that fits in the available size. It is convenient to offer different
- * widgets to represent the same data with different levels of details, making
+ * widgets to represent the same data with different levels of detail, making
  * the widget seem to squeeze itself to fit in the available space.
  *
  * Transitions between children can be animated as fades. This can be controlled

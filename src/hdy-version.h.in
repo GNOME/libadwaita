@@ -12,9 +12,9 @@
 
 /**
  * SECTION:hdy-version
- * @short_description: Handy version checking
+ * @short_description: Handy version checking.
  *
- * Handy provides macros to check the version of the library at compile-time
+ * Handy provides macros to check the version of the library at compile-time.
  */
 
 /**
