@@ -21,7 +21,7 @@
     </releaseinfo>
 
     <copyright>
-      <year>2017-2019</year>
+      <year>2017-2020</year>
       <holder>Purism SPC</holder>
     </copyright>
   </bookinfo>
@@ -118,6 +118,11 @@
   <index id="api-index-0-0-12" role="0.0.12">
     <title>Index of new symbols in 0.0.12</title>
     <xi:include href="xml/api-index-0.0.12.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="api-index-1-0" role="1.0">
+    <title>Index of new symbols in 1.0</title>
+    <xi:include href="xml/api-index-1.0.xml"><xi:fallback /></xi:include>
   </index>
 
   <index id="annotations-glossary">
