@@ -17,53 +17,121 @@
   </refnamediv>
 
   <refsect2>
+    <title>Building</title>
+
+    <para>
+      If you need to build <application>&package_string;</application>, get the
+      source from <ulink type="http" url="&package_url;">here</ulink> and see
+      the <literal>README.md</literal> file.
+    </para>
+  </refsect2>
+
+  <refsect2>
     <title>Using pkg-config</title>
 
     <para> Like other GNOME libraries,
-    <application>&package_string;</application> uses
-    <application>pkg-config</application> to provide compiler options. The
-    package name is
-    "<literal>&package_ver_str;</literal>". So in
-    your <literal>configure.ac</literal> script, you might specify something
-    like: </para>
+      <application>&package_string;</application> uses
+      <application>pkg-config</application> to provide compiler options. The
+      package name is "<literal>&package_ver_str;</literal>".
+    </para>
+
+    <para>
+      If you use Automake/Autoconf, in your <literal>configure.ac</literal>
+      script, you might specify something like:
+    </para>
 
     <informalexample><programlisting>
-      PKG_CHECK_MODULES(LIBHANDY, [&package_string;-&package_api_version;])
+      PKG_CHECK_MODULES(LIBHANDY, [&package_ver_str;])
       AC_SUBST(LIBHANDY_CFLAGS)
       AC_SUBST(LIBHANDY_LIBS)
     </programlisting></informalexample>
 
     <para>
-      Or if using Meson/Ninja use a <literal>dependency('&package_string;-&package_api_version;')
-    </literal> dependency.
+      Or when using the Meson build system you can declare a dependency like:
     </para>
 
-    <para>
-      The "<literal>&package_api_version;</literal>" in the package name is the "API version"
-      (indicating "the version of the <application>&package_string;</application> API
-      that first appeared in version &package_api_version;") and is essentially just part of
-      the package name.
-    </para>
-
-    <para>
-      When using the Meson build system you can declare a dependency like
-    </para>
     <informalexample><programlisting>
-      dependency('libhandy-0.0')
+      dependency('&package_ver_str;')
     </programlisting></informalexample>
 
+    <para>
+      The "<literal>&package_api_version;</literal>" in the package name is the
+      "API version" (indicating "the version of the <application>
+      &package_string;</application> API that first appeared in version
+      &package_api_version;") and is essentially just part of the package name.
+    </para>
+  </refsect2>
+
+  <refsect2>
+    <title>Bundling the library</title>
+
+    <para>
+      As <application>&package_string;</application> uses the Meson build
+      system, bundling it as a subproject when it is not installed is easy.
+      Add this to your <literal>meson.build</literal>:
+    </para>
+
+    <informalexample><programlisting>
+      &package_string;_dep = dependency('&package_ver_str;', version: '>= &package_version;')
+      if not &package_string;_dep.found()
+        &package_string; = subproject(
+          '&package_string;',
+          install: false,
+          default_options: [
+            'examples=false',
+            'package_subdir=my-project-name',
+            'tests=false',
+          ]
+        )
+        &package_string;_dep = &package_string;.get_variable('&package_string;_dep')
+      endif
+    </programlisting></informalexample>
+
+    <para>
+      Then add &package_string; as a git submodule:
+    </para>
+
+    <informalexample><programlisting>
+      git submodule add &package_url;.git subprojects/&package_string;
+    </programlisting></informalexample>
+
+    <para>
+      To bundle the library with your Flatpak application, add the following
+      module to your manifest:
+    </para>
+
+    <informalexample><programlisting>
+      {
+        "name" : "&package_string;",
+        "buildsystem" : "meson",
+        "builddir" : true,
+        "config-opts": [
+          "-Dexamples=false",
+          "-Dtests=false"
+        ],
+        "sources" : [
+          {
+            "type" : "git",
+            "url" : "&package_url;.git"
+          }
+        ]
+      }
+    </programlisting></informalexample>
   </refsect2>
 
   <refsect2>
     <title>Acknowledge the Instability</title>
 
     <para>
-      Since the library is young and is still changing a lot, in order to use it you are required to acknowledge that your are using an unstable API.
-      To do so, <literal>HANDY_USE_UNSTABLE_API</literal> must be defined for compilation to succeed.
+      Since the library is young and is still changing a lot, in order to use
+      it you are required to acknowledge that your are using an unstable API.
+      To do so, <literal>HANDY_USE_UNSTABLE_API</literal> must be defined for
+      compilation to succeed.
     </para>
 
     <para>
-      From C code or any compatible language, you can prefix your inclusion of the libhandy header like so:
+      From C code or any compatible language, you can prefix your inclusion of
+      the &package_string; header like so:
     </para>
 
     <informalexample><programlisting>
@@ -72,18 +140,23 @@
     </programlisting></informalexample>
 
     <para>
-      Including individual headers rather than <literal>handy.h</literal> is not
-      recommended.
-    </para>
-    <para>
-      You can also acknoledge this with the definition option of your C compiler, like <literal>-DHANDY_USE_UNSTABLE_API</literal>.
-      This is required from Vala.
+      Including individual headers rather than <literal>handy.h</literal> is
+      not recommended.
     </para>
 
     <para>
-      To use libhandy from Vala, you must define the acknowledgment in C via <literal>-X -DHANDY_USE_UNSTABLE_API</literal>.
-      If your build system uses a two pass compilation and hence your Vala compiler outputs C (Meson, Automake, or using the <literal>--ccode</literal> Vala compiler option trigger that) then you must add <literal>-DHANDY_USE_UNSTABLE_API</literal> to your C compiler argments instead.
+      You can also acknoledge this with the definition option of your C
+      compiler, like <literal>-DHANDY_USE_UNSTABLE_API</literal>. This is
+      required from Vala.
+    </para>
+
+    <para>
+      To use libhandy from Vala, you must define the acknowledgment in C via
+      <literal>-X -DHANDY_USE_UNSTABLE_API</literal>. If your build system uses
+      a two pass compilation and hence your Vala compiler outputs C (Meson,
+      Automake, or using the <literal>--ccode</literal> Vala compiler option to
+      trigger that) then you must add <literal>-DHANDY_USE_UNSTABLE_API
+      </literal> to your C compiler argments instead.
     </para>
   </refsect2>
-
 </refentry>
