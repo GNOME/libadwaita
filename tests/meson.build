@@ -10,7 +10,6 @@ test_env = [
 ]
 
 test_cflags = [
-  '-fPIE',
   '-DHDY_LOG_DOMAIN="Handy"',
   '-DTEST_DATA_DIR="@0@/data"'.format(meson.current_source_dir()),
 ]
@@ -49,6 +48,7 @@ foreach test_name : test_names
 		 c_args: test_cflags,
 		 link_args: test_link_args,
 		 dependencies: libhandy_deps + [libhandy_dep],
+                 pie: true,
 		)
   test(test_name, t, env: test_env)
 endforeach
