@@ -38,10 +38,10 @@
     </para>
     <para role="gallery">
       <link linkend="HdyHeaderBar">
-	<inlinegraphic fileref="header-bar.png" format="PNG"></inlinegraphic>
+        <inlinegraphic fileref="header-bar.png" format="PNG"></inlinegraphic>
       </link>
       <link linkend="HdyPreferencesWindow">
-	<inlinegraphic fileref="preferences-window.png" format="PNG"></inlinegraphic>
+        <inlinegraphic fileref="preferences-window.png" format="PNG"></inlinegraphic>
       </link>
     </para>
   </refsect2>
@@ -60,10 +60,10 @@
     <title>HdyViewSwitcher</title>
     <para role="gallery">
       <link linkend="HdyViewSwitcher">
-	<inlinegraphic fileref="view-switcher.png" format="PNG"></inlinegraphic>
+        <inlinegraphic fileref="view-switcher.png" format="PNG"></inlinegraphic>
       </link>
       <link linkend="HdyViewSwitcherBar">
-	<inlinegraphic fileref="view-switcher-bar.png" format="PNG"></inlinegraphic>
+        <inlinegraphic fileref="view-switcher-bar.png" format="PNG"></inlinegraphic>
       </link>
     </para>
   </refsect2>

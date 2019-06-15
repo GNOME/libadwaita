@@ -25,7 +25,7 @@ Coding Style
 We mostly use kernel style but
 
 * Use spaces, never tabs
-* Use 2 spaces for inentation
+* Use 2 spaces for indentation
 
 GTK style function argument indentation
 ----------------------------------------

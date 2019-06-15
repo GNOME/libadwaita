@@ -1,5 +1,5 @@
 <!ELEMENT glade-catalog (glade-widget-classes?, 
-			 glade-widget-group*)>
+                         glade-widget-group*)>
 
 <!ATTLIST glade-catalog name     CDATA #REQUIRED
                         version  CDATA #IMPLIED
@@ -10,28 +10,28 @@
                         book     CDATA #IMPLIED
                         icon-prefix CDATA #IMPLIED
                         init-function CDATA #IMPLIED
-			requires CDATA #IMPLIED>
+                        requires CDATA #IMPLIED>
 
 <!ELEMENT glade-widget-classes (glade-widget-class+)>
 
 <!ELEMENT glade-widget-class (post-create-function?,
-			      add-child-verify-function?,
-			      add-child-function?,
-			      remove-child-function?,
-			      replace-child-function?,
-			      get-internal-child-function?,
-			      child-property-applies-function?,
-			      child-action-activate-function?,
-			      read-widget-function?,
-			      write-widget-function?,
-			      get-property-function?,
-			      set-property-function?,
-			      verify-function?,
-			      special-child-type?,
-			      packing-actions?,
-			      properties?,
-			      children?,
-			      packing-defaults?)>
+                              add-child-verify-function?,
+                              add-child-function?,
+                              remove-child-function?,
+                              replace-child-function?,
+                              get-internal-child-function?,
+                              child-property-applies-function?,
+                              child-action-activate-function?,
+                              read-widget-function?,
+                              write-widget-function?,
+                              get-property-function?,
+                              set-property-function?,
+                              verify-function?,
+                              special-child-type?,
+                              packing-actions?,
+                              properties?,
+                              children?,
+                              packing-defaults?)>
 
 <!ATTLIST glade-widget-class toplevel     CDATA #IMPLIED
                              since        CDATA #IMPLIED
@@ -39,10 +39,10 @@
                              use-placeholders CDATA #IMPLIED
                              default-width CDATA #IMPLIED
                              default-height CDATA #IMPLIED
-			     name         CDATA #REQUIRED
+                             name         CDATA #REQUIRED
                              generic-name CDATA #IMPLIED
                              icon-name    CDATA #IMPLIED
-			     title        CDATA #REQUIRED
+                             title        CDATA #REQUIRED
                              parent       CDATA #IMPLIED
                              get-type-function CDATA #IMPLIED
                              adaptor      CDATA #IMPLIED>
@@ -50,14 +50,14 @@
 <!ELEMENT properties (property+)>
 
 <!ELEMENT property (spec?, 
-		    type?,
-		    parameter-spec?,
-		    tooltip?, 
-		    parameters?,
-		    set-function?,
-		    get-function?,
-		    verify-function?,
-		    displayable-values?)>
+                    type?,
+                    parameter-spec?,
+                    tooltip?,
+                    parameters?,
+                    set-function?,
+                    get-function?,
+                    verify-function?,
+                    displayable-values?)>
 
 <!ATTLIST property id               CDATA #REQUIRED
                    since            CDATA #IMPLIED
@@ -73,24 +73,24 @@
                    save-always      CDATA #IMPLIED
                    parentless-widget CDATA #IMPLIED
                    atk-property     CDATA #IMPLIED
-		   default          CDATA #IMPLIED
-		   query            CDATA #IMPLIED
+                   default          CDATA #IMPLIED
+                   query            CDATA #IMPLIED
                    save             CDATA #IMPLIED
-		   common           CDATA #IMPLIED
-		   disabled         CDATA #IMPLIED
-		   visible          CDATA #IMPLIED
+                   common           CDATA #IMPLIED
+                   disabled         CDATA #IMPLIED
+                   visible          CDATA #IMPLIED
                    custom-layout    CDATA #IMPLIED
                    multiline        CDATA #IMPLIED
-		   optional         CDATA #IMPLIED
-		   optional-default CDATA #IMPLIED
+                   optional         CDATA #IMPLIED
+                   optional-default CDATA #IMPLIED
                    ignore           CDATA #IMPLIED
                    needs-sync       CDATA #IMPLIED
                    construct-only   CDATA #IMPLIED
-		   translatable     CDATA #IMPLIED>
+                   translatable     CDATA #IMPLIED>
 
 <!ELEMENT parameter-spec (type?, 
-		          value-type?,
-		          min?)>
+                          value-type?,
+                          min?)>
 <!ELEMENT value-type (#PCDATA)>
 <!ELEMENT min (#PCDATA)>
 <!ELEMENT set-function (#PCDATA)>
@@ -116,15 +116,15 @@
 <!ELEMENT children (child+)>
 
 <!ELEMENT child (type, 
-		 add-child-function?, 
-		 remove-child-function?, 
-		 get-children-function?, 
-		 get-all-children-function?,
-		 set-property-function?, 
-		 get-property-function?, 
-		 replace-child-function?, 
-		 fill-empty-function?, 
-		 properties?)>
+                 add-child-function?,
+                 remove-child-function?,
+                 get-children-function?,
+                 get-all-children-function?,
+                 set-property-function?,
+                 get-property-function?,
+                 replace-child-function?,
+                 fill-empty-function?,
+                 properties?)>
 
 <!ELEMENT type (#PCDATA)>
 <!ELEMENT add-child-verify-function (#PCDATA)>
@@ -149,7 +149,7 @@
 <!ELEMENT set-property-function (#PCDATA)>
 
 <!ELEMENT glade-widget-group (default-palette-state?, 
-			      glade-widget-class-ref+)>
+                              glade-widget-class-ref+)>
 
 <!ATTLIST glade-widget-group name  CDATA #REQUIRED
                              title CDATA #REQUIRED>

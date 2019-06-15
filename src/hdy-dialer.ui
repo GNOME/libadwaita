@@ -19,7 +19,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="relief" bind-source="btn_0" bind-property="relief" bind-flags="bidirectional|sync-create"/>
-	  </object>
+          </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">0</property>
@@ -32,7 +32,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="relief" bind-source="btn_0" bind-property="relief" bind-flags="bidirectional|sync-create"/>
-	  </object>
+          </object>
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">0</property>
@@ -45,7 +45,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="relief" bind-source="btn_0" bind-property="relief" bind-flags="bidirectional|sync-create"/>
-	  </object>
+          </object>
           <packing>
             <property name="left_attach">2</property>
             <property name="top_attach">0</property>
@@ -58,7 +58,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="relief" bind-source="btn_0" bind-property="relief" bind-flags="bidirectional|sync-create"/>
-	  </object>
+          </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">1</property>
@@ -71,7 +71,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="relief" bind-source="btn_0" bind-property="relief" bind-flags="bidirectional|sync-create"/>
-	  </object>
+          </object>
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">1</property>
@@ -84,7 +84,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="relief" bind-source="btn_0" bind-property="relief" bind-flags="bidirectional|sync-create"/>
-	  </object>
+          </object>
           <packing>
             <property name="left_attach">2</property>
             <property name="top_attach">1</property>
@@ -97,7 +97,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="relief" bind-source="btn_0" bind-property="relief" bind-flags="bidirectional|sync-create"/>
-	  </object>
+          </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">2</property>
@@ -110,7 +110,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="relief" bind-source="btn_0" bind-property="relief" bind-flags="bidirectional|sync-create"/>
-	  </object>
+          </object>
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">2</property>
@@ -123,7 +123,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="relief" bind-source="btn_0" bind-property="relief" bind-flags="bidirectional|sync-create"/>
-	  </object>
+          </object>
           <packing>
             <property name="left_attach">2</property>
             <property name="top_attach">2</property>
@@ -136,7 +136,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="relief" bind-source="btn_0" bind-property="relief" bind-flags="bidirectional|sync-create"/>
-	  </object>
+          </object>
           <packing>
             <property name="left_attach">0</property>
             <property name="top_attach">3</property>
@@ -148,7 +148,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-	  </object>
+          </object>
           <packing>
             <property name="left_attach">1</property>
             <property name="top_attach">3</property>
@@ -161,7 +161,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="relief" bind-source="btn_0" bind-property="relief" bind-flags="bidirectional|sync-create"/>
-	  </object>
+          </object>
           <packing>
             <property name="left_attach">2</property>
             <property name="top_attach">3</property>
