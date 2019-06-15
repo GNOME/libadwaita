@@ -45,10 +45,10 @@ test_names = [
 
 foreach test_name : test_names
   t = executable(test_name, [test_name + '.c'] + libhandy_generated_headers,
-		 c_args: test_cflags,
-		 link_args: test_link_args,
+		       c_args: test_cflags,
+		    link_args: test_link_args,
 		 dependencies: libhandy_deps + [libhandy_dep],
-                 pie: true,
+                          pie: true,
 		)
   test(test_name, t, env: test_env)
 endforeach

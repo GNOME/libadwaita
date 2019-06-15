@@ -38,15 +38,15 @@ content_files = [
   'visual-index.xml',
 ]
 
-glib_prefix = dependency('glib-2.0').get_pkgconfig_variable('prefix')
-glib_docpath = join_paths(glib_prefix, 'share', 'gtk-doc', 'html')
-docpath = join_paths(get_option('datadir'), 'gtk-doc', 'html')
+glib_prefix  = dependency('glib-2.0').get_pkgconfig_variable('prefix')
+glib_docpath = glib_prefix / 'share' / 'gtk-doc' / 'html'
+docpath      = get_option('datadir') / 'gtk-doc' / 'html'
 
 gnome.gtkdoc('libhandy',
            main_xml: 'handy-docs.xml',
             src_dir: [
-                       join_paths(meson.source_root(), 'src'),
-                       join_paths(meson.build_root(), 'src'),
+                       meson.source_root() / 'src',
+                       meson.build_root()  / 'src',
                      ],
        dependencies: libhandy_dep,
   gobject_typesfile: 'libhandy.types',
@@ -56,11 +56,11 @@ gnome.gtkdoc('libhandy',
                      ],
        fixxref_args: [
                        '--html-dir=@0@'.format(docpath),
-                       '--extra-dir=@0@'.format(join_paths(glib_docpath, 'glib')),
-                       '--extra-dir=@0@'.format(join_paths(glib_docpath, 'gobject')),
-                       '--extra-dir=@0@'.format(join_paths(glib_docpath, 'gio')),
-                       '--extra-dir=@0@'.format(join_paths(glib_docpath, 'gi')),
-                       '--extra-dir=@0@'.format(join_paths(glib_docpath, 'gtk3')),
+                       '--extra-dir=@0@'.format(glib_docpath / 'glib'),
+                       '--extra-dir=@0@'.format(glib_docpath / 'gobject'),
+                       '--extra-dir=@0@'.format(glib_docpath / 'gio'),
+                       '--extra-dir=@0@'.format(glib_docpath / 'gi'),
+                       '--extra-dir=@0@'.format(glib_docpath / 'gtk3'),
                      ],
         install_dir: 'libhandy',
       content_files: content_files,

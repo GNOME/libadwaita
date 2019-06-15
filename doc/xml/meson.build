@@ -7,5 +7,6 @@ ent_conf.set('PACKAGE_TARNAME', 'libhandy-' + meson.project_version())
 ent_conf.set('PACKAGE_URL', 'https://source.puri.sm/Librem5/libhandy')
 ent_conf.set('PACKAGE_VERSION', meson.project_version())
 ent_conf.set('PACKAGE_API_VERSION', apiversion)
+ent_conf.set('PACKAGE_API_NAME', package_api_name)
 configure_file(input: 'gtkdocentities.ent.in', output: 'gtkdocentities.ent', configuration: ent_conf)
 

@@ -12,6 +12,7 @@ handy_version_micro = version_arr[2].to_int()
 
 apiversion = '0.0'
 soversion = 0
+package_api_name = '@0@-@1@'.format(meson.project_name(), apiversion)
 
 if handy_version_minor.is_odd()
   handy_interface_age = 0
@@ -28,10 +29,10 @@ libversion = '@0@.@1@.@2@'.format(soversion, current, revision)
 
 config_h = configuration_data()
 config_h.set_quoted('GETTEXT_PACKAGE', 'libhandy')
-config_h.set_quoted('LOCALEDIR', join_paths(get_option('prefix'), get_option('localedir')))
+config_h.set_quoted('LOCALEDIR', get_option('prefix') / get_option('localedir'))
 
 configure_file(
-  output: 'config.h',
+         output: 'config.h',
   configuration: config_h,
 )
 
@@ -109,14 +110,14 @@ add_project_arguments(
 
 # Setup various paths that subdirectory meson.build files need
 package_subdir = get_option('package_subdir') # When used as subproject
-datadir = join_paths(get_option('datadir'), package_subdir)
-libdir = join_paths(get_option('libdir'), package_subdir)
-girdir = join_paths(get_option('datadir'), package_subdir, 'gir-1.0')
-typelibdir = join_paths(get_option('libdir'), package_subdir, 'girepository-1.0')
+datadir        = get_option('datadir')  / package_subdir
+libdir         = get_option('libdir')  / package_subdir
+girdir         = get_option('datadir') / package_subdir / 'gir-1.0'
+typelibdir     = get_option('libdir')  / package_subdir / 'girepository-1.0'
 if package_subdir != ''
-  vapidir = join_paths(get_option('datadir'), package_subdir, 'vapi')
+  vapidir = get_option('datadir') / package_subdir / 'vapi'
 else
-  vapidir = join_paths(get_option('datadir'), 'vala', 'vapi')
+  vapidir = get_option('datadir') / 'vala' / 'vapi'
 endif
 
 static = get_option('static')
@@ -149,8 +150,8 @@ run_data = configuration_data()
 run_data.set('ABS_BUILDDIR', meson.current_build_dir())
 run_data.set('ABS_SRCDIR', meson.current_source_dir())
 configure_file(
-  input: 'run.in',
-  output: 'run',
+          input: 'run.in',
+         output: 'run',
   configuration: run_data)
 
 summary = [

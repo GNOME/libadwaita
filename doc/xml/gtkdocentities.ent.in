@@ -6,4 +6,4 @@
 <!ENTITY package_url "@PACKAGE_URL@">
 <!ENTITY package_version "@PACKAGE_VERSION@">
 <!ENTITY package_api_version "@PACKAGE_API_VERSION@">
-<!ENTITY package_ver_str "@PACKAGE_STRING@-@PACKAGE_API_VERSION@">
+<!ENTITY package_ver_str "@PACKAGE_API_NAME@">

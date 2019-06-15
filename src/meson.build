@@ -1,5 +1,5 @@
-libhandy_header_subdir = join_paths(package_subdir, 'libhandy-' + apiversion)
-libhandy_header_dir = join_paths(get_option('includedir'), libhandy_header_subdir)
+libhandy_header_subdir = package_subdir / package_api_name
+libhandy_header_dir = get_option('includedir') / libhandy_header_subdir
 libhandy_resources = gnome.compile_resources(
    'hdy-resources',
    'handy.gresources.xml',
@@ -100,9 +100,9 @@ sed = find_program('sed', required: true)
 gen_public_types = find_program('gen-public-types.sh', required: true)
 
 libhandy_init_public_types = custom_target('hdy-public-types.c',
-  output : 'hdy-public-types.c',
-  input : [src_headers, libhandy_generated_headers],
-  command : [gen_public_types, '@INPUT@'],
+   output: 'hdy-public-types.c',
+    input: [src_headers, libhandy_generated_headers],
+  command: [gen_public_types, '@INPUT@'],
   capture: true,
 )
 
@@ -206,7 +206,7 @@ libhandy = build_target(
   'handy-' + apiversion,
   libhandy_sources,
 
-            soversion: 0,
+            soversion: soversion,
                c_args: libhandy_c_args,
          dependencies: libhandy_deps,
   include_directories: [ root_inc, src_inc ],
@@ -235,7 +235,7 @@ if introspection
                  sources: libhandy_generated_headers + libhandy_public_headers + libhandy_public_sources,
                nsversion: apiversion,
                namespace: 'Handy',
-               export_packages: 'libhandy-@0@'.format(apiversion),
+         export_packages: package_api_name,
            symbol_prefix: 'hdy',
        identifier_prefix: 'Hdy',
                link_with: libhandy,
@@ -248,7 +248,7 @@ if introspection
 
    if get_option('vapi')
 
-     libhandy_vapi = gnome.generate_vapi('libhandy-' + apiversion,
+     libhandy_vapi = gnome.generate_vapi(package_api_name,
              sources: libhandy_gir[0],
             packages: [ 'gio-2.0', 'gtk+-3.0' ],
              install: true,
@@ -267,9 +267,9 @@ if installable
         subdirs: libhandy_header_subdir,
         version: meson.project_version(),
            name: 'Handy',
-       filebase: 'libhandy-@0@'.format(apiversion),
+       filebase: package_api_name,
     description: 'Handy Mobile widgets',
        requires: 'gtk+-3.0',
-    install_dir: join_paths(libdir, 'pkgconfig'),
+    install_dir: libdir / 'pkgconfig',
   )
 endif
