@@ -77,6 +77,7 @@ to use the widgets in your favorite programming language can be found here:
 ### Python 3
 - [Daty](https://gitlab.gnome.org/World/Daty) (HdyColumn, HdyLeaflet, HdySearchBar, HdyTitleBar)
 - [PasswordSafe](https://gitlab.gnome.org/World/PasswordSafe) (HdyColumn)
+- [Unifydmin](https://gitlab.com/gabmus/unifydmin) (HdyColumn, HdyLeaflet, HdyTitleBar)
 
 ### Rust
 - [Fractal](https://gitlab.gnome.org/World/fractal) (HdyColumn, HdyLeaflet)
