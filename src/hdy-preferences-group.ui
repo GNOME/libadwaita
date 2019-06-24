@@ -10,9 +10,9 @@
         <property name="ellipsize">end</property>
         <property name="halign">start</property>
         <property name="xalign">0</property>
-        <attributes>
-          <attribute name="weight" value="bold"/>
-        </attributes>
+        <style>
+          <class name="h4"/>
+        </style>
       </object>
     </child>
     <child>

@@ -263,6 +263,7 @@ static void
 hdy_preferences_group_init (HdyPreferencesGroup *self)
 {
   HdyPreferencesGroupPrivate *priv = hdy_preferences_group_get_instance_private (self);
+  g_autoptr (GtkCssProvider) provider = gtk_css_provider_new ();
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -271,6 +272,11 @@ hdy_preferences_group_init (HdyPreferencesGroup *self)
   update_description_visibility (self);
   update_title_visibility (self);
   update_listbox_visibility (self);
+
+  gtk_css_provider_load_from_resource (provider, "/sm/puri/handy/style/hdy-text.css");
+  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->title)),
+                                  GTK_STYLE_PROVIDER (provider),
+                                  GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
 }
 
 /**

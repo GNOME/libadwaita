@@ -17,6 +17,7 @@
   <gresource prefix="/sm/puri/handy/style">
     <file>hdy-combo-row-list.css</file>
     <file>hdy-expander-row-arrow.css</file>
+    <file>hdy-text.css</file>
     <file>hdy-view-switcher.css</file>
     <file>hdy-view-switcher-bar-box.css</file>
     <file>hdy-view-switcher-button.css</file>
