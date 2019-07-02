@@ -68,7 +68,8 @@ update_titlebar (HdyDialog *self,
   titlebar = gtk_window_get_titlebar (GTK_WINDOW (self));
 
   /* We don't know what to do with things that aren't headerbars */
-  g_return_if_fail (GTK_IS_HEADER_BAR (titlebar));
+  if (!GTK_IS_HEADER_BAR (titlebar))
+    return;
 
   /* Dialog already had close hidden (probably action dialog) */
   if (!priv->no_actions) {
