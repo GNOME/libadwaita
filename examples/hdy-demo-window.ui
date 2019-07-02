@@ -1225,6 +1225,13 @@
                             <property name="position">1</property>
                           </packing>
                         </child>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes">Complex Dialog</property>
+                            <signal name="clicked" handler="dialog_complex_clicked_cb" swapped="no"/>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>

@@ -273,6 +273,35 @@ dialog_action_clicked_cb (GtkButton     *btn,
   gtk_widget_show (dlg);
 }
 
+static void
+dialog_complex_deeper_clicked_cb (GtkStack *stack)
+{
+  gtk_stack_set_visible_child_name (stack, "sub");
+}
+
+static void
+dialog_complex_back_clicked_cb (GtkStack *stack)
+{
+  gtk_stack_set_visible_child_name (stack, "main");
+}
+
+static void
+dialog_complex_clicked_cb (GtkButton     *btn,
+                           HdyDemoWindow *self)
+{
+  g_autoptr (GtkBuilder) builder = gtk_builder_new_from_resource ("/sm/puri/handy/demo/ui/hdy-dialog-complex-example.ui");
+  GtkWidget *dlg, *back, *deeper, *stack;
+
+  dlg = GTK_WIDGET (gtk_builder_get_object (builder, "dialog"));
+  back = GTK_WIDGET (gtk_builder_get_object (builder, "back"));
+  deeper = GTK_WIDGET (gtk_builder_get_object (builder, "deeper"));
+  stack = GTK_WIDGET (gtk_builder_get_object (builder, "content_stack"));
+  g_signal_connect_swapped (deeper, "clicked", G_CALLBACK (dialog_complex_deeper_clicked_cb), stack);
+  g_signal_connect_swapped (back, "clicked", G_CALLBACK (dialog_complex_back_clicked_cb), stack);
+  gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (self));
+
+  gtk_widget_show (dlg);
+}
 
 static void
 view_switcher_demo_clicked_cb (GtkButton     *btn,
@@ -359,6 +388,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "adj_arrows_duration_value_changed_cb", G_CALLBACK(adj_arrows_duration_value_changed_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "dialog_clicked_cb", G_CALLBACK(dialog_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "dialog_action_clicked_cb", G_CALLBACK(dialog_action_clicked_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "dialog_complex_clicked_cb", G_CALLBACK(dialog_complex_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "view_switcher_demo_clicked_cb", G_CALLBACK(view_switcher_demo_clicked_cb));
 }
 
