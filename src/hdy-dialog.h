@@ -24,4 +24,6 @@ G_DECLARE_DERIVABLE_TYPE (HdyDialog, hdy_dialog, HDY, DIALOG, GtkDialog)
 
 GtkWidget *hdy_dialog_new (GtkWindow *parent);
 
+gboolean hdy_dialog_get_narrow (HdyDialog *self);
+
 G_END_DECLS
