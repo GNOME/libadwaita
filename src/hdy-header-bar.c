@@ -24,6 +24,7 @@
 
 #include "hdy-header-bar.h"
 
+#include "hdy-dialog.h"
 #include "hdy-enums.h"
 #include "gtkprogresstrackerprivate.h"
 #include "gtk-window-private.h"
@@ -32,7 +33,7 @@
  * SECTION:hdy-header-bar
  * @Short_description: A box with a centered child
  * @Title: HdyHeaderBar
- * @See_also: #GtkHeaderBar, #HdyTitleBar, #HdyViewSwitcher
+ * @See_also: #GtkHeaderBar, #HdyTitleBar, #HdyViewSwitcher, #HdyDialog
  *
  * HdyHeaderBar is similar to #GtkHeaderBar but is designed to fix some of its
  * shortcomings for adaptive applications.
@@ -40,6 +41,10 @@
  * HdyHeaderBar doesn't force the custom title widget to be vertically centered,
  * hence allowing it to fill up the whole height, which is e.g. needed for
  * #HdyViewSwitcher.
+ *
+ * When used in a #HdyDialog, HdyHeaderBar will replace its window decorations
+ * by a back button allowing to close it. It doesn't have to be its direct child
+ * and you can use any complex contraption you like as the dialog's titlebar.
  */
 
 /**
@@ -84,6 +89,8 @@ typedef struct {
   HdyCenteringPolicy centering_policy;
   guint transition_duration;
   gboolean interpolate_size;
+
+  gulong toplevel_dialog_notify_narrow_id;
 } HdyHeaderBarPrivate;
 
 typedef struct _Child Child;
@@ -357,6 +364,7 @@ hdy_header_bar_update_window_buttons (HdyHeaderBar *self)
   GMenuModel *menu;
   gboolean shown_by_shell;
   gboolean is_sovereign_window;
+  gboolean is_mobile;
 
   toplevel = gtk_widget_get_toplevel (widget);
   if (!gtk_widget_is_toplevel (toplevel))
@@ -385,7 +393,13 @@ hdy_header_bar_update_window_buttons (HdyHeaderBar *self)
                 "gtk-decoration-layout", &layout_desc,
                 NULL);
 
-  if (priv->decoration_layout_set) {
+  is_mobile = HDY_IS_DIALOG (toplevel) &&
+              hdy_dialog_get_narrow (HDY_DIALOG (toplevel));
+
+  if (is_mobile) {
+    g_free (layout_desc);
+    layout_desc = g_strdup ("back:");
+  } else if (priv->decoration_layout_set) {
     g_free (layout_desc);
     layout_desc = g_strdup (priv->decoration_layout);
   }
@@ -518,6 +532,21 @@ hdy_header_bar_update_window_buttons (HdyHeaderBar *self)
           accessible = gtk_widget_get_accessible (button);
           if (GTK_IS_ACCESSIBLE (accessible))
             atk_object_set_name (accessible, _("Close"));
+        } else if (strcmp (t[j], "back") == 0 &&
+                 gtk_window_get_deletable (window)) {
+          button = gtk_button_new ();
+          gtk_widget_set_valign (button, GTK_ALIGN_CENTER);
+          image = gtk_image_new_from_icon_name ("go-previous-symbolic", GTK_ICON_SIZE_BUTTON);
+          g_object_set (image, "use-fallback", TRUE, NULL);
+          gtk_container_add (GTK_CONTAINER (button), image);
+          gtk_widget_set_can_focus (button, TRUE);
+          gtk_widget_show_all (button);
+          g_signal_connect_swapped (button, "clicked",
+                                    G_CALLBACK (gtk_window_close), window);
+
+          accessible = gtk_widget_get_accessible (button);
+          if (GTK_IS_ACCESSIBLE (accessible))
+            atk_object_set_name (accessible, _("Back"));
         }
 
         if (button) {
@@ -1943,6 +1972,7 @@ hdy_header_bar_hierarchy_changed (GtkWidget *widget,
 {
   GtkWidget *toplevel;
   HdyHeaderBar *self = HDY_HEADER_BAR (widget);
+  HdyHeaderBarPrivate *priv = hdy_header_bar_get_instance_private (self);
 
   toplevel = gtk_widget_get_toplevel (widget);
 
@@ -1953,6 +1983,16 @@ hdy_header_bar_hierarchy_changed (GtkWidget *widget,
   if (toplevel)
     g_signal_connect_after (toplevel, "window-state-event",
                             G_CALLBACK (window_state_changed), widget);
+
+  if (priv->toplevel_dialog_notify_narrow_id > 0) {
+    g_signal_handler_disconnect (previous_toplevel, priv->toplevel_dialog_notify_narrow_id);
+    priv->toplevel_dialog_notify_narrow_id = 0;
+  }
+
+  if (HDY_IS_DIALOG (toplevel))
+    priv->toplevel_dialog_notify_narrow_id =
+      g_signal_connect_swapped (toplevel, "notify::narrow",
+                                G_CALLBACK (hdy_header_bar_update_window_buttons), self);
 
   hdy_header_bar_update_window_buttons (self);
 }

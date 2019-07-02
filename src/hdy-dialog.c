@@ -13,6 +13,7 @@
  * SECTION:hdy-dialog
  * @short_description: An adaptive dialog
  * @title: HdyDialog
+ * @See_also: #HdyHeaderBar
  * 
  * A #GtkDialog that adapts to smaller displays
  * 
@@ -39,6 +40,11 @@
  * #GtkWindow:modal is %TRUE by default as is #GtkWindow:destroy-with-parent as
  * the behaviour demonstrated by #HdyDialog would be a bad user experience
  * when not modal
+ *
+ * If you want to replace the titlebar by your own, we recommend using
+ * #HdyHeaderBar as it will retain the abiity to present a back button when the
+ * dialog is small. #HdyHeaderBar doesn't have to be its direct child and you
+ * can use any complex contraption you like as the dialog's titlebar.
  *
  * Since: 0.0.7
  */
