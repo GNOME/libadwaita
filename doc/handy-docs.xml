@@ -104,6 +104,11 @@
     <xi:include href="xml/api-index-0.0.10.xml"><xi:fallback /></xi:include>
   </index>
 
+  <index id="api-index-0-0-11" role="0.0.11">
+    <title>Index of new symbols in 0.0.11</title>
+    <xi:include href="xml/api-index-0.0.11.xml"><xi:fallback /></xi:include>
+  </index>
+
   <index id="annotations-glossary">
   <title>Annotations glossary</title>
   <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
