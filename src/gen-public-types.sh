@@ -16,7 +16,7 @@ void
 hdy_init_public_types (void)
 {'
 
-sed -ne 's/^#define \+\(HDY_TYPE_[A-Z0-9_]\+\) \+.*/  g_type_ensure (\1);/p' "$@" | sort
+sed -ne 's/^#define \{1,\}\(HDY_TYPE_[A-Z0-9_]\{1,\}\) \{1,\}.*/  g_type_ensure (\1);/p' "$@" | sort
 
 echo '}
 '
