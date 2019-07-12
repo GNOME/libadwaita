@@ -159,7 +159,9 @@ libhandy_deps = [
   cc.find_library('rt', required: false),
 ]
 
-libhandy_c_args = []
+libhandy_c_args = [
+  '-DG_LOG_DOMAIN="Handy"',
+]
 libhandy_link_args = []
 libhandy_symbols_file = 'libhandy.syms'
 

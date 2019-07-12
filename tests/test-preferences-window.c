@@ -24,7 +24,7 @@ test_hdy_preferences_window_add (void)
 
   widget = gtk_switch_new ();
   g_assert_nonnull (widget);
-  g_test_expect_message (G_LOG_DOMAIN, G_LOG_LEVEL_WARNING, "Can't add children of type GtkSwitch to HdyPreferencesWindow");
+  g_test_expect_message (HDY_LOG_DOMAIN, G_LOG_LEVEL_WARNING, "Can't add children of type GtkSwitch to HdyPreferencesWindow");
   gtk_container_add (GTK_CONTAINER (window), widget);
   g_test_assert_expected_messages ();
 }
