@@ -56,6 +56,9 @@
 #define DEFAULT_SPACING 6
 #define MIN_TITLE_CHARS 5
 
+#define MOBILE_WINDOW_WIDTH  400
+#define MOBILE_WINDOW_HEIGHT 800
+
 typedef struct {
   gchar *title;
   gchar *subtitle;
@@ -90,7 +93,9 @@ typedef struct {
   guint transition_duration;
   gboolean interpolate_size;
 
-  gulong toplevel_dialog_notify_narrow_id;
+  gboolean is_mobile_window;
+
+  gulong window_size_allocated_id;
 } HdyHeaderBarPrivate;
 
 typedef struct _Child Child;
@@ -364,7 +369,7 @@ hdy_header_bar_update_window_buttons (HdyHeaderBar *self)
   GMenuModel *menu;
   gboolean shown_by_shell;
   gboolean is_sovereign_window;
-  gboolean is_mobile;
+  gboolean is_mobile_dialog;
 
   toplevel = gtk_widget_get_toplevel (widget);
   if (!gtk_widget_is_toplevel (toplevel))
@@ -393,13 +398,7 @@ hdy_header_bar_update_window_buttons (HdyHeaderBar *self)
                 "gtk-decoration-layout", &layout_desc,
                 NULL);
 
-  is_mobile = HDY_IS_DIALOG (toplevel) &&
-              hdy_dialog_get_narrow (HDY_DIALOG (toplevel));
-
-  if (is_mobile) {
-    g_free (layout_desc);
-    layout_desc = g_strdup ("back:");
-  } else if (priv->decoration_layout_set) {
+  if (priv->decoration_layout_set) {
     g_free (layout_desc);
     layout_desc = g_strdup (priv->decoration_layout);
   }
@@ -414,6 +413,8 @@ hdy_header_bar_update_window_buttons (HdyHeaderBar *self)
   is_sovereign_window = (!gtk_window_get_modal (window) &&
                           gtk_window_get_transient_for (window) == NULL &&
                           gtk_window_get_type_hint (window) == GDK_WINDOW_TYPE_HINT_NORMAL);
+
+  is_mobile_dialog= (priv->is_mobile_window && !is_sovereign_window);
 
   tokens = g_strsplit (layout_desc, ":", 2);
   if (tokens)   {
@@ -516,7 +517,8 @@ hdy_header_bar_update_window_buttons (HdyHeaderBar *self)
             if (GTK_IS_ACCESSIBLE (accessible))
               atk_object_set_name (accessible, maximized ? _("Restore") : _("Maximize"));
         } else if (strcmp (t[j], "close") == 0 &&
-                 gtk_window_get_deletable (window)) {
+                   gtk_window_get_deletable (window) &&
+                   !is_mobile_dialog) {
           button = gtk_button_new ();
           gtk_widget_set_valign (button, GTK_ALIGN_CENTER);
           image = gtk_image_new_from_icon_name ("window-close-symbolic", GTK_ICON_SIZE_MENU);
@@ -532,8 +534,9 @@ hdy_header_bar_update_window_buttons (HdyHeaderBar *self)
           accessible = gtk_widget_get_accessible (button);
           if (GTK_IS_ACCESSIBLE (accessible))
             atk_object_set_name (accessible, _("Close"));
-        } else if (strcmp (t[j], "back") == 0 &&
-                 gtk_window_get_deletable (window)) {
+        } else if (i == 0 && /* Only at the start. */
+                   gtk_window_get_deletable (window) &&
+                   is_mobile_dialog) {
           button = gtk_button_new ();
           gtk_widget_set_valign (button, GTK_ALIGN_CENTER);
           image = gtk_image_new_from_icon_name ("go-previous-symbolic", GTK_ICON_SIZE_BUTTON);
@@ -590,6 +593,42 @@ hdy_header_bar_update_window_buttons (HdyHeaderBar *self)
   g_free (layout_desc);
 
   _hdy_header_bar_update_separator_visibility (self);
+}
+
+static gboolean
+compute_is_mobile_window (GtkWindow *window)
+{
+  gint window_width, window_height;
+
+  gtk_window_get_size (window, &window_width, &window_height);
+
+  if (window_width <= MOBILE_WINDOW_WIDTH &&
+      window_height <= MOBILE_WINDOW_HEIGHT)
+    return TRUE;
+
+  /* Mobile landscape mode. */
+  if (window_width <= MOBILE_WINDOW_HEIGHT &&
+      window_height <= MOBILE_WINDOW_WIDTH &&
+      gtk_window_is_maximized (window))
+    return TRUE;
+
+  return FALSE;
+}
+
+static void
+update_is_mobile_window (HdyHeaderBar *self)
+{
+  HdyHeaderBarPrivate *priv = hdy_header_bar_get_instance_private (self);
+  GtkWidget *toplevel = gtk_widget_get_toplevel (GTK_WIDGET (self));
+  gboolean was_mobile_window = priv->is_mobile_window;
+
+  if (!gtk_widget_is_toplevel (toplevel))
+    return;
+
+  priv->is_mobile_window = compute_is_mobile_window (GTK_WINDOW (toplevel));
+
+  if (priv->is_mobile_window != was_mobile_window)
+    hdy_header_bar_update_window_buttons (self);
 }
 
 static void
@@ -1932,6 +1971,7 @@ hdy_header_bar_realize (GtkWidget *widget)
                             G_CALLBACK (hdy_header_bar_update_window_buttons), widget);
   g_signal_connect_swapped (settings, "notify::gtk-decoration-layout",
                             G_CALLBACK (hdy_header_bar_update_window_buttons), widget);
+  update_is_mobile_window (HDY_HEADER_BAR (widget));
   hdy_header_bar_update_window_buttons (HDY_HEADER_BAR (widget));
 }
 
@@ -1984,16 +2024,17 @@ hdy_header_bar_hierarchy_changed (GtkWidget *widget,
     g_signal_connect_after (toplevel, "window-state-event",
                             G_CALLBACK (window_state_changed), widget);
 
-  if (priv->toplevel_dialog_notify_narrow_id > 0) {
-    g_signal_handler_disconnect (previous_toplevel, priv->toplevel_dialog_notify_narrow_id);
-    priv->toplevel_dialog_notify_narrow_id = 0;
+  if (priv->window_size_allocated_id > 0) {
+    g_signal_handler_disconnect (previous_toplevel, priv->window_size_allocated_id);
+    priv->window_size_allocated_id = 0;
   }
 
-  if (HDY_IS_DIALOG (toplevel))
-    priv->toplevel_dialog_notify_narrow_id =
-      g_signal_connect_swapped (toplevel, "notify::narrow",
-                                G_CALLBACK (hdy_header_bar_update_window_buttons), self);
+  if (GTK_IS_WINDOW (toplevel))
+    priv->window_size_allocated_id =
+      g_signal_connect_swapped (toplevel, "size-allocate",
+                                G_CALLBACK (update_is_mobile_window), self);
 
+  update_is_mobile_window (self);
   hdy_header_bar_update_window_buttons (self);
 }
 
