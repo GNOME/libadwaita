@@ -76,6 +76,7 @@ to use the widgets in your favorite programming language can be found here:
 
 ### Python 3
 - [Daty](https://gitlab.gnome.org/World/Daty) (HdyColumn, HdyLeaflet, HdySearchBar, HdyTitleBar)
+- [HydraPaper](https://gabmus.gitlab.io/HydraPaper/) (HdyActionRow, HdyHeaderBar, HdyPreferencesGroup, HdyPreferencesPage, HdyPreferencesRow, HdyPreferencesWindow, HdyViewSwitcher)
 - [PasswordSafe](https://gitlab.gnome.org/World/PasswordSafe) (HdyColumn)
 - [Unifydmin](https://gitlab.com/gabmus/unifydmin) (HdyColumn, HdyLeaflet, HdyTitleBar)
 
