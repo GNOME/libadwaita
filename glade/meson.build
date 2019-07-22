@@ -1,9 +1,21 @@
 if glade_catalog
 
+# This is needed to work around this issue in Glade:
+# https://gitlab.gnome.org/GNOME/glade/issues/379
+is_flatpak_app = get_option('prefix') == '/app'
+
 glade_xml = 'libhandy.xml'
-module_dir = gladeui_dep.get_pkgconfig_variable('moduledir')
+if (is_flatpak_app)
+  module_dir = join_paths(libdir, 'glade', 'modules')
+else
+  module_dir = gladeui_dep.get_pkgconfig_variable('moduledir')
+endif
 dtd = join_paths(meson.current_source_dir(), 'glade-catalog.dtd')
-glade_catalogdir = gladeui_dep.get_pkgconfig_variable('catalogdir')
+if (is_flatpak_app)
+  glade_catalogdir = join_paths(datadir, 'glade', 'catalogs')
+else
+  glade_catalogdir = gladeui_dep.get_pkgconfig_variable('catalogdir')
+endif
 
 libglade_hdy_sources = [
   'glade-hdy-header-group.c',
