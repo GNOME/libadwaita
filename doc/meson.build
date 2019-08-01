@@ -10,6 +10,7 @@ private_headers = [
     'hdy-preferences-group-private.h',
     'hdy-preferences-page-private.h',
     'hdy-style-private.h',
+    'hdy-swipe-tracker-private.h',
     'hdy-view-switcher-button-private.h',
 ]
 

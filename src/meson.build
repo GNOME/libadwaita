@@ -125,6 +125,7 @@ src_sources = [
   'hdy-search-bar.c',
   'hdy-squeezer.c',
   'hdy-string-utf8.c',
+  'hdy-swipe-tracker.c',
   'hdy-title-bar.c',
   'hdy-value-object.c',
   'hdy-view-switcher.c',
