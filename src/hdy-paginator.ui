@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <template class="HdyPaginator" parent="GtkEventBox">
+    <property name="visible">True</property>
+    <property name="orientation">horizontal</property>
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkBox" id="empty_box">
+            <property name="visible">False</property>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPaginatorBox" id="scrolling_box">
+            <property name="visible">True</property>
+            <property name="expand">True</property>
+            <signal name="notify::n-pages" handler="notify_n_pages_cb" swapped="true"/>
+            <signal name="notify::position" handler="notify_position_cb" swapped="true"/>
+            <signal name="notify::spacing" handler="notify_spacing_cb" swapped="true"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkDrawingArea" id="indicators">
+            <property name="visible">False</property>
+            <signal name="draw" handler="draw_indicators_cb" swapped="true"/>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+  <object class="GtkSizeGroup" id="sizegroup">
+    <property name="mode">both</property>
+    <widgets>
+      <widget name="empty_box"/>
+      <widget name="indicators"/>
+    </widgets>
+  </object>
+</interface>

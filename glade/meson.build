@@ -19,6 +19,7 @@ endif
 
 libglade_hdy_sources = [
   'glade-hdy-header-group.c',
+  'glade-hdy-paginator.c',
 ]
 
 libglade_hdy_deps = [

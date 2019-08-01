@@ -30,6 +30,49 @@
       </properties>
     </glade-widget-class>
     <glade-widget-class name="HdyLeaflet" generic-name="leaflet" title="Leaflet"/>
+    <glade-widget-class name="HdyPaginator" generic-name="paginator" title="Paginator" since="0.0.11">
+      <post-create-function>glade_hdy_paginator_post_create</post-create-function>
+      <add-child-function>glade_hdy_paginator_add_child</add-child-function>
+      <remove-child-function>glade_hdy_paginator_remove_child</remove-child-function>
+      <replace-child-function>glade_hdy_paginator_replace_child</replace-child-function>
+      <child-action-activate-function>glade_hdy_paginator_child_action_activate</child-action-activate-function>
+      <get-property-function>glade_hdy_paginator_get_property</get-property-function>
+      <set-property-function>glade_hdy_paginator_set_property</set-property-function>
+      <verify-function>glade_hdy_paginator_verify_property</verify-function>
+      <packing-actions>
+        <action id="insert_page_before" name="Insert Page Before" stock="list-add"/>
+        <action id="insert_page_after" name="Insert Page After" stock="list-add"/>
+        <action id="remove_page" name="Remove Page"  stock="list-remove"/>
+      </packing-actions>
+      <properties>
+        <property id="pages" name="Number of pages" save="False" default="1">
+          <parameter-spec>
+            <type>GParamInt</type>
+            <min>1</min>
+          </parameter-spec>
+          <tooltip>The number of pages in the stack</tooltip>
+        </property>
+        <property id="page" name="Edit page" save="False" default="0">
+          <parameter-spec>
+            <type>GParamInt</type>
+            <min>0</min>
+          </parameter-spec>
+          <tooltip>Set the currently active page to edit, this property will not be saved</tooltip>
+        </property>
+        <property id="indicator-style">
+          <displayable-values>
+            <!-- HdyPaginatorIndicatorStyle enumeration value -->
+            <value id="HDY_PAGINATOR_INDICATOR_STYLE_NONE" name="None"/>
+            <!-- HdyPaginatorIndicatorStyle enumeration value -->
+            <value id="HDY_PAGINATOR_INDICATOR_STYLE_DOTS" name="Dots"/>
+            <!-- HdyPaginatorIndicatorStyle enumeration value -->
+            <value id="HDY_PAGINATOR_INDICATOR_STYLE_LINES" name="Lines"/>
+          </displayable-values>
+        </property>
+        <property id="above-child" disabled="True" />
+        <property id="visible-window" disabled="True" />
+      </properties>
+    </glade-widget-class>
     <glade-widget-class name="HdyPreferencesGroup" generic-name="preferencesgroup" title="Preferences Group" since="0.0.10"/>
     <glade-widget-class name="HdyPreferencesPage" generic-name="preferencespage" title="Preferences Page" since="0.0.10">
       <properties>
@@ -57,6 +100,7 @@
     <glade-widget-class-ref name="HdyHeaderBar"/>
     <glade-widget-class-ref name="HdyHeaderGroup"/>
     <glade-widget-class-ref name="HdyLeaflet"/>
+    <glade-widget-class-ref name="HdyPaginator"/>
     <glade-widget-class-ref name="HdyPreferencesGroup"/>
     <glade-widget-class-ref name="HdyPreferencesPage"/>
     <glade-widget-class-ref name="HdyPreferencesRow"/>
