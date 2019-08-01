@@ -118,6 +118,7 @@ src_sources = [
   'hdy-leaflet.c',
   'hdy-list-box.c',
   'hdy-main.c',
+  'hdy-paginator-box.c',
   'hdy-preferences-group.c',
   'hdy-preferences-page.c',
   'hdy-preferences-row.c',
