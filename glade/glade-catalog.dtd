@@ -15,11 +15,20 @@
 <!ELEMENT glade-widget-classes (glade-widget-class+)>
 
 <!ELEMENT glade-widget-class (post-create-function?,
+			      add-child-verify-function?,
+			      add-child-function?,
+			      remove-child-function?,
+			      replace-child-function?,
 			      get-internal-child-function?,
 			      child-property-applies-function?,
+			      child-action-activate-function?,
 			      read-widget-function?,
 			      write-widget-function?,
+			      get-property-function?,
 			      set-property-function?,
+			      verify-function?,
+			      special-child-type?,
+			      packing-actions?,
 			      properties?,
 			      children?,
 			      packing-defaults?)>
@@ -47,7 +56,8 @@
 		    parameters?,
 		    set-function?,
 		    get-function?,
-		    verify-function?)>
+		    verify-function?,
+		    displayable-values?)>
 
 <!ATTLIST property id               CDATA #REQUIRED
                    since            CDATA #IMPLIED
@@ -79,12 +89,22 @@
 		   translatable     CDATA #IMPLIED>
 
 <!ELEMENT parameter-spec (type?, 
-		          value-type?)>
+		          value-type?,
+		          min?)>
+<!ELEMENT value-type (#PCDATA)>
+<!ELEMENT min (#PCDATA)>
 <!ELEMENT set-function (#PCDATA)>
 <!ELEMENT get-function (#PCDATA)>
 <!ELEMENT spec (#PCDATA)>
 <!ELEMENT tooltip (#PCDATA)>
 <!ELEMENT verify-function (#PCDATA)>
+
+<!ELEMENT displayable-values (value+)>
+
+<!ELEMENT value EMPTY>
+
+<!ATTLIST value id CDATA #REQUIRED
+                name CDATA #REQUIRED>
 
 <!ELEMENT parameters (parameter+)>
 
@@ -92,10 +112,6 @@
 
 <!ATTLIST parameter key   CDATA #REQUIRED
                     value CDATA #REQUIRED>
-
-<!ELEMENT paremter-spec (type,
-			 value-type)>
-<!ELEMENT value-type (#PCDATA)>
 
 <!ELEMENT children (child+)>
 
@@ -111,6 +127,7 @@
 		 properties?)>
 
 <!ELEMENT type (#PCDATA)>
+<!ELEMENT add-child-verify-function (#PCDATA)>
 <!ELEMENT add-child-function (#PCDATA)>
 <!ELEMENT remove-child-function (#PCDATA)>
 <!ELEMENT get-children-function (#PCDATA)>
@@ -124,8 +141,11 @@
 <!ELEMENT get-internal-child-function (#PCDATA)>
 <!ELEMENT child-property-applies-function (#PCDATA)>
 
+<!ELEMENT child-action-activate-function (#PCDATA)>
+
 <!ELEMENT read-widget-function (#PCDATA)>
 <!ELEMENT write-widget-function (#PCDATA)>
+<!ELEMENT get-property-function (#PCDATA)>
 <!ELEMENT set-property-function (#PCDATA)>
 
 <!ELEMENT glade-widget-group (default-palette-state?, 
@@ -149,3 +169,12 @@
 <!ATTLIST child-property id      CDATA #REQUIRED
                          default CDATA #REQUIRED>
 
+<!ELEMENT special-child-type (#PCDATA)>
+
+<!ELEMENT packing-actions (action+)>
+
+<!ELEMENT action EMPTY>
+
+<!ATTLIST action id    CDATA #REQUIRED
+                 name  CDATA #REQUIRED
+                 stock CDATA #IMPLIED>
