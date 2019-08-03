@@ -2,3 +2,7 @@ stacksidebar list {
   border-left-width: 0px;
   border-right-width: 0px;
 }
+
+hdypaginator.horizontal .paginator-icon {
+  -gtk-icon-transform: rotate(90deg);
+}

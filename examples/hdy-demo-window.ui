@@ -1346,6 +1346,152 @@
                     <property name="title">View Switcher</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="HdyPaginator" id="paginator">
+                    <property name="visible">True</property>
+                    <property name="center_content">True</property>
+                    <property name="indicator_spacing">6</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="vexpand">True</property>
+                        <property name="hexpand">True</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="pixel_size">128</property>
+                            <property name="icon_name">view-continuous-symbolic</property>
+                            <property name="icon-size">0</property>
+                            <property name="margin-bottom">18</property>
+                            <style>
+                              <class name="dim-label"/>
+                              <class name="paginator-icon"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="opacity">0.5</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Paginator</property>
+                                <property name="halign">center</property>
+                                <property name="xalign">0</property>
+                                <property name="margin-bottom">12</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                  <attribute name="scale" value="2"/>
+                                </attributes>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="opacity">0.5</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">A widget for paginated scrolling.</property>
+                                <property name="justify">center</property>
+                                <property name="use_markup">true</property>
+                                <property name="wrap">True</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="HdyColumn">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">fill</property>
+                        <property name="valign">fill</property>
+                        <property name="margin-bottom">32</property>
+                        <property name="margin-start">12</property>
+                        <property name="margin-end">12</property>
+                        <property name="expand">True</property>
+                        <property name="maximum-width">400</property>
+                        <property name="linear-growth-width">300</property>
+                        <child>
+                          <object class="GtkListBox" id="paginator_listbox">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="selection-mode">none</property>
+                            <style>
+                              <class name="frame"/>
+                            </style>
+                            <child>
+                              <object class="HdyComboRow" id="paginator_orientation_row">
+                                <property name="title" translatable="yes">Orientation</property>
+                                <property name="visible">True</property>
+                                <signal name="notify::selected-index" handler="notify_paginator_orientation_cb" swapped="no"/>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyComboRow" id="paginator_indicator_style_row">
+                                <property name="title" translatable="yes">Page Indicators</property>
+                                <property name="visible">True</property>
+                                <signal name="notify::selected-index" handler="notify_paginator_indicator_style_cb" swapped="no"/>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="vexpand">True</property>
+                        <property name="hexpand">True</property>
+                        <property name="spacing">24</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">Another page</property>
+                            <property name="justify">center</property>
+                            <property name="wrap">True</property>
+                            <property name="opacity">0.5</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                              <attribute name="scale" value="2"/>
+                            </attributes>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">_Return to the first page</property>
+                            <property name="use-underline">True</property>
+                            <signal name="clicked" handler="paginator_return_clicked_cb" swapped="no"/>
+                            <style>
+                              <class name="suggested-action"/>
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">paginator</property>
+                    <property name="title">Paginator</property>
+                  </packing>
+                </child>
               </object>
             </child>
           </object>
