@@ -3,6 +3,7 @@ stages:
   - docs
   - test
   - package
+  - deploy
 
 before_script:
   - apt-get -y update
@@ -113,3 +114,29 @@ package-debian:
   artifacts:
     paths:
       - "*.deb"
+
+publish-docs:
+  stage: deploy
+  dependencies:
+    - build-gtkdoc
+  environment:
+    name: production
+    url: https://developer.puri.sm/projects/libhandy/
+  before_script:
+    - export DEBIAN_FRONTEND=noninteractive
+    - apt-get -y update
+    - apt-get -y install ssh rsync
+  tags:
+    - librem5
+  script:
+    # Don't publish in forks
+    - '[ "$CI_PROJECT_NAMESPACE" == "Librem5" ] || exit 0'
+    - mkdir -p ~/.ssh/
+    - chmod 0700 ~/.ssh/
+    - echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
+    - touch ~/.ssh/id_rsa
+    - chmod 0600 ~/.ssh/id_rsa
+    - echo "$SSH_KEY" >> ~/.ssh/id_rsa
+    - rsync -av -i --stats -e "ssh -l $SSH_USER -i ~/.ssh/id_rsa -p $SSH_PORT" _build/doc/html/ "$RSYNC_TARGET"
+  only:
+    - master
