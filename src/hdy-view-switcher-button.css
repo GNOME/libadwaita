@@ -8,14 +8,39 @@ hdyviewswitcher > button {
   font-size: 1rem;
 }
 
-hdyviewswitcher > button:not(:checked) {
+hdyviewswitcher > button:not(:checked):not(:hover) {
   background: transparent;
+}
+
+hdyviewswitcher > button:not(:only-child):not(:last-child) {
+  border-right-width: 0px;
+}
+
+hdyviewswitcher > button:not(only-child):first-child:not(:checked):not(:hover) {
   border-left-color: transparent;
+}
+
+hdyviewswitcher > button:not(:checked):not(:hover) + button:not(:checked):not(:hover) {
+  border-left-color: transparent;
+}
+
+hdyviewswitcher > button:not(only-child):last-child:not(:checked):not(:hover) {
   border-right-color: transparent;
 }
 
-hdyviewswitcher > button:hover:not(:checked) {
-  background: lighter(@theme_base_color);
+headerbar hdyviewswitcher > button:not(:checked):hover {
+  /* Reimplementation of $button_fill from Adwaita. The shade should be 4% and
+   * 1% in light and dark mode respectively, so please note the shade is a bit
+   * too strong in dark mode.
+   *
+   * The colors are made only 70% visible to avoid the highlight to be too
+   * strong.
+   */
+  background-image: linear-gradient(to top, shade(alpha(@theme_bg_color, 0.7), 0.96) 2px, alpha(@theme_bg_color, 0.7));
+}
+
+headerbar hdyviewswitcher > button:not(:checked):hover:backdrop {
+  background-image: image(@theme_bg_color);
 }
 
 hdyviewswitcher > button > stack > box.narrow {
