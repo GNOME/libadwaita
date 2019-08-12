@@ -24,6 +24,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "hdy-animation-private.h"
+
 /*
  * Progress tracker is small helper for tracking progress through gtk
  * animations. It's a simple zero-initable struct, meant to be thrown in a
@@ -227,16 +229,6 @@ gtk_progress_tracker_get_progress (GtkProgressTracker *tracker,
   return reversed ? 1.0 - progress : progress;
 }
 
-/* From clutter-easing.c, based on Robert Penner's
- * infamous easing equations, MIT license.
- */
-static gdouble
-ease_out_cubic (gdouble t)
-{
-  gdouble p = t - 1;
-  return p * p * p + 1;
-}
-
 /**
  * gtk_progress_tracker_get_ease_out_cubic:
  * @tracker: The progress tracker
@@ -252,5 +244,5 @@ gtk_progress_tracker_get_ease_out_cubic (GtkProgressTracker *tracker,
                                          gboolean reversed)
 {
   gdouble progress = gtk_progress_tracker_get_progress (tracker, reversed);
-  return ease_out_cubic (progress);
+  return hdy_ease_out_cubic (progress);
 }

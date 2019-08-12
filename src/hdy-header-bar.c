@@ -24,6 +24,7 @@
 
 #include "hdy-header-bar.h"
 
+#include "hdy-animation-private.h"
 #include "hdy-dialog.h"
 #include "hdy-enums.h"
 #include "gtkprogresstrackerprivate.h"
@@ -136,8 +137,6 @@ G_DEFINE_TYPE_WITH_CODE (HdyHeaderBar, hdy_header_bar, GTK_TYPE_CONTAINER,
                          G_ADD_PRIVATE (HdyHeaderBar)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
                                                 hdy_header_bar_buildable_init));
-
-#define LERP(a, b, t) ((a) + (((b) - (a)) * (1.0 - (t))))
 
 static gboolean
 hdy_header_bar_transition_cb (GtkWidget     *widget,
@@ -774,13 +773,13 @@ hdy_header_bar_get_size (GtkWidget      *widget,
       strict_centering_t = priv->centering_policy == HDY_CENTERING_POLICY_STRICT ? 1.0 : 0.0;
 
     *minimum = center_min + n_start_children * priv->spacing +
-               LERP (2 * MAX (start_min_spaced, end_min_spaced),
-                     start_min_spaced + end_min_spaced,
-                     strict_centering_t);
+               hdy_lerp (2 * MAX (start_min_spaced, end_min_spaced),
+                         start_min_spaced + end_min_spaced,
+                         strict_centering_t);
     *natural = center_nat + n_start_children * priv->spacing +
-               LERP (2 * MAX (start_nat_spaced, end_nat_spaced),
-                     start_nat_spaced + end_nat_spaced,
-                     strict_centering_t);
+               hdy_lerp (2 * MAX (start_nat_spaced, end_nat_spaced),
+                         start_nat_spaced + end_nat_spaced,
+                         strict_centering_t);
   } else {
     *minimum = MAX (MAX (start_min, end_min), center_min);
     *natural = MAX (MAX (start_nat, end_nat), center_nat);
@@ -1521,15 +1520,15 @@ hdy_header_bar_size_allocate (GtkWidget     *widget,
     get_strict_centering_allocations (self, allocation, &strict_allocations, &strict_title_allocation, decoration_width);
 
     for (i = 0; i < nvis_children; i++) {
-      allocations[i].x = LERP (strict_allocations[i].x, allocations[i].x, strict_centering_t);
-      allocations[i].y = LERP (strict_allocations[i].y, allocations[i].y, strict_centering_t);
-      allocations[i].width = LERP (strict_allocations[i].width, allocations[i].width, strict_centering_t);
-      allocations[i].height = LERP (strict_allocations[i].height, allocations[i].height, strict_centering_t);
+      allocations[i].x = hdy_lerp (strict_allocations[i].x, allocations[i].x, strict_centering_t);
+      allocations[i].y = hdy_lerp (strict_allocations[i].y, allocations[i].y, strict_centering_t);
+      allocations[i].width = hdy_lerp (strict_allocations[i].width, allocations[i].width, strict_centering_t);
+      allocations[i].height = hdy_lerp (strict_allocations[i].height, allocations[i].height, strict_centering_t);
     }
-    title_allocation.x = LERP (strict_title_allocation.x, title_allocation.x, strict_centering_t);
-    title_allocation.y = LERP (strict_title_allocation.y, title_allocation.y, strict_centering_t);
-    title_allocation.width = LERP (strict_title_allocation.width, title_allocation.width, strict_centering_t);
-    title_allocation.height = LERP (strict_title_allocation.height, title_allocation.height, strict_centering_t);
+    title_allocation.x = hdy_lerp (strict_title_allocation.x, title_allocation.x, strict_centering_t);
+    title_allocation.y = hdy_lerp (strict_title_allocation.y, title_allocation.y, strict_centering_t);
+    title_allocation.width = hdy_lerp (strict_title_allocation.width, title_allocation.width, strict_centering_t);
+    title_allocation.height = hdy_lerp (strict_title_allocation.height, title_allocation.height, strict_centering_t);
   }
 
   /* Allocate the children on both sides of the title. */

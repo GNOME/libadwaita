@@ -8,6 +8,7 @@
 #include <glib/gi18n-lib.h>
 
 #include "gtkprogresstrackerprivate.h"
+#include "hdy-animation-private.h"
 #include "hdy-leaflet.h"
 
 /* TODO:
@@ -226,18 +227,6 @@ get_directed_children (HdyLeaflet *self)
   return priv->orientation == GTK_ORIENTATION_HORIZONTAL &&
          gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL ?
          priv->children_reversed : priv->children;
-}
-
-static gboolean
-get_enable_animations (void)
-{
-  gboolean enable_animations;
-
-  g_object_get (gtk_settings_get_default (),
-                "gtk-enable-animations", &enable_animations,
-                NULL);
-
-  return enable_animations;
 }
 
 /* Transitions that cause the bin window to move */
@@ -474,7 +463,7 @@ hdy_leaflet_start_child_transition (HdyLeaflet                    *self,
   GtkWidget *widget = GTK_WIDGET (self);
 
   if (gtk_widget_get_mapped (widget) &&
-      get_enable_animations () &&
+      hdy_get_enable_animations (widget) &&
       transition_type != HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE &&
       transition_duration != 0 &&
       priv->last_visible_child != NULL &&
@@ -739,7 +728,7 @@ hdy_leaflet_start_mode_transition (HdyLeaflet *self,
   if (gtk_widget_get_mapped (widget) &&
       priv->mode_transition.duration != 0 &&
       transition != HDY_LEAFLET_MODE_TRANSITION_TYPE_NONE &&
-      get_enable_animations ()) {
+      hdy_get_enable_animations (widget)) {
     priv->mode_transition.source_pos = priv->mode_transition.current_pos;
     if (priv->mode_transition.tick_id == 0)
       priv->mode_transition.tick_id = gtk_widget_add_tick_callback (widget, hdy_leaflet_mode_transition_cb, self, NULL);
@@ -1229,8 +1218,6 @@ hdy_leaflet_get_interpolate_size (HdyLeaflet *self)
   return priv->child_transition.interpolate_size;
 }
 
-#define LERP(a, b, t) ((a) + (((b) - (a)) * (1.0 - (t))))
-
 static void
 get_preferred_size (gint     *min,
                     gint     *nat,
@@ -1248,7 +1235,7 @@ get_preferred_size (gint     *min,
   if (same_orientation) {
     *min = homogeneous_folded ?
              max_min :
-             LERP (visible_min, last_visible_min, visible_child_progress);
+             hdy_lerp (visible_min, last_visible_min, visible_child_progress);
     *nat = homogeneous_unfolded ?
              max_nat * visible_children :
              sum_nat;
@@ -1256,7 +1243,7 @@ get_preferred_size (gint     *min,
   else {
     *min = homogeneous_folded ?
              max_min :
-             LERP (visible_min, last_visible_min, visible_child_progress);
+             hdy_lerp (visible_min, last_visible_min, visible_child_progress);
     *nat = max_nat;
   }
 }

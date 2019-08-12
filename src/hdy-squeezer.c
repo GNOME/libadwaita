@@ -20,6 +20,7 @@
 #include "hdy-squeezer.h"
 
 #include "gtkprogresstrackerprivate.h"
+#include "hdy-animation-private.h"
 
 /**
  * SECTION:hdy-squeezer
@@ -860,8 +861,6 @@ hdy_squeezer_size_allocate (GtkWidget     *widget,
   }
 }
 
-#define LERP(a, b, t) ((a) + (((b) - (a)) * (1.0 - (t))))
-
 /* This private method is prefixed by the class name because it will be a
  * virtual method in GTK 4.
  */
@@ -925,11 +924,11 @@ hdy_squeezer_measure (GtkWidget      *widget,
       priv->last_visible_child != NULL) {
     gdouble t = gtk_progress_tracker_get_ease_out_cubic (&priv->tracker, FALSE);
     if (orientation == GTK_ORIENTATION_VERTICAL) {
-      *minimum = LERP (*minimum, priv->last_visible_widget_height, t);
-      *natural = LERP (*natural, priv->last_visible_widget_height, t);
+      *minimum = hdy_lerp (*minimum, priv->last_visible_widget_height, t);
+      *natural = hdy_lerp (*natural, priv->last_visible_widget_height, t);
     } else {
-      *minimum = LERP (*minimum, priv->last_visible_widget_width, t);
-      *natural = LERP (*natural, priv->last_visible_widget_width, t);
+      *minimum = hdy_lerp (*minimum, priv->last_visible_widget_width, t);
+      *natural = hdy_lerp (*natural, priv->last_visible_widget_width, t);
     }
   }
 }

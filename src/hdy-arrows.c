@@ -7,6 +7,7 @@
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
+#include "hdy-animation-private.h"
 #include "hdy-arrows.h"
 #include "hdy-enums.h"
 #include "gtkprogresstrackerprivate.h"
@@ -61,17 +62,6 @@ enum {
   N_STYLE_PROPS
 };
 static GParamSpec *style_properties [N_STYLE_PROPS];
-
-static gboolean
-get_enable_animations (void)
-{
-  gboolean enable_animations;
-  g_object_get (gtk_settings_get_default (),
-                "gtk-enable-animations", &enable_animations,
-                NULL);
-  return enable_animations;
-}
-
 
 static void
 schedule_draw (HdyArrows *self)
@@ -134,7 +124,7 @@ start_animation (HdyArrows                     *self)
   GtkWidget *widget = GTK_WIDGET (self);
 
   if (gtk_widget_get_mapped (widget) &&
-      get_enable_animations () &&
+      hdy_get_enable_animations (widget) &&
       priv->animation.duration > 0.0 &&
       /* Don't schedule an animation when already ongoing. */
       priv->animation.tick_id == 0) {

@@ -10,6 +10,8 @@
 #include <glib/gi18n-lib.h>
 #include <math.h>
 
+#include "hdy-animation-private.h"
+
 /**
  * SECTION:hdy-column
  * @short_description: A container letting its child grow up to a given width.
@@ -43,14 +45,6 @@ struct _HdyColumn
 static GParamSpec *props[LAST_PROP];
 
 G_DEFINE_TYPE (HdyColumn, hdy_column, GTK_TYPE_BIN)
-
-static gdouble
-ease_out_cubic (gdouble progress)
-{
-  gdouble tmp = progress - 1;
-
-  return tmp * tmp * tmp + 1;
-}
 
 static void
 hdy_column_get_property (GObject    *object,
@@ -124,7 +118,7 @@ get_child_width (HdyColumn *self,
 
   progress = (width - minimum_width) / (threshold - minimum_width);
 
-  return ease_out_cubic (progress) * amplitude + minimum_width;
+  return hdy_ease_out_cubic (progress) * amplitude + minimum_width;
 }
 
 /* This private method is prefixed by the call name because it will be a virtual
