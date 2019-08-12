@@ -6,6 +6,7 @@ private_headers = [
     'config.h',
     'gtkprogresstrackerprivate.h',
     'gtk-window-private.h',
+    'hdy-animation-private.h',
     'hdy-main-private.h',
     'hdy-paginator-box-private.h',
     'hdy-preferences-group-private.h',

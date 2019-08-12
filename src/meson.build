@@ -105,6 +105,7 @@ src_sources = [
   'gtkprogresstracker.c',
   'gtk-window.c',
   'hdy-action-row.c',
+  'hdy-animation.c',
   'hdy-arrows.c',
   'hdy-column.c',
   'hdy-combo-row.c',
