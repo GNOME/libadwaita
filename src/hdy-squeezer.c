@@ -236,6 +236,7 @@ hdy_squeezer_start_transition (HdySqueezer               *self,
   GtkWidget *widget = GTK_WIDGET (self);
 
   if (gtk_widget_get_mapped (widget) &&
+      hdy_get_enable_animations (widget) &&
       transition_type != HDY_SQUEEZER_TRANSITION_TYPE_NONE &&
       transition_duration != 0 &&
       priv->last_visible_child != NULL) {
