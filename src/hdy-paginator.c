@@ -970,6 +970,11 @@ hdy_paginator_set_interactive (HdyPaginator *self,
 {
   g_return_if_fail (HDY_IS_PAGINATOR (self));
 
+  interactive = !!interactive;
+
+  if (hdy_swipe_tracker_get_enabled (self->tracker) == interactive)
+    return;
+
   hdy_swipe_tracker_set_enabled (self->tracker, interactive);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INTERACTIVE]);
@@ -1052,6 +1057,9 @@ hdy_paginator_set_indicator_spacing (HdyPaginator *self,
                                      guint         spacing)
 {
   g_return_if_fail (HDY_IS_PAGINATOR (self));
+
+  if (self->indicator_spacing == spacing)
+    return;
 
   self->indicator_spacing = spacing;
   gtk_box_set_spacing (self->box, spacing);
