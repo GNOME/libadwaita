@@ -8,6 +8,7 @@
 #include <glib/gi18n-lib.h>
 
 #include "hdy-paginator-box-private.h"
+#include "hdy-animation-private.h"
 
 #include <math.h>
 
@@ -59,15 +60,6 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
-#define LERP(a, b, t) ((a) + (((b) - (a)) * (1.0 - (t))))
-
-static gdouble
-ease_out_cubic (gdouble t)
-{
-  gdouble p = t - 1;
-  return p * p * p + 1;
-}
-
 static gboolean
 animation_cb (GtkWidget     *widget,
               GdkFrameClock *frame_clock,
@@ -86,10 +78,10 @@ animation_cb (GtkWidget     *widget,
   duration = self->animation_data.end_time - self->animation_data.start_time;
   position = (gdouble) (frame_time - self->animation_data.start_time) / duration;
 
-  t = ease_out_cubic (position);
+  t = hdy_ease_out_cubic (position);
   hdy_paginator_box_set_position (self,
-                                  LERP (self->animation_data.start_position,
-                                        self->animation_data.end_position, 1 - t));
+                                  hdy_lerp (self->animation_data.start_position,
+                                            self->animation_data.end_position, 1 - t));
 
   if (frame_time == self->animation_data.end_time) {
     self->animation_data.tick_cb_id = 0;
