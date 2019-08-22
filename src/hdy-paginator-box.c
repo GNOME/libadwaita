@@ -584,7 +584,7 @@ hdy_paginator_box_animate (HdyPaginatorBox *self,
 
   hdy_paginator_box_stop_animation (self);
 
-  if (duration <= 0) {
+  if (duration <= 0 || !hdy_get_enable_animations (GTK_WIDGET (self))) {
     hdy_paginator_box_set_position (self, position);
     return;
   }
