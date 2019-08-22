@@ -688,7 +688,7 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
                        0,
                        G_MAXUINT,
                        0,
-                       G_PARAM_READWRITE);
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * HdyPaginator:center-content:
@@ -721,7 +721,7 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
                        0,
                        G_MAXUINT,
                        0,
-                       G_PARAM_READWRITE);
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * HdyPaginator:animation-duration:
