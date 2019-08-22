@@ -483,7 +483,6 @@ hdy_paginator_dispose (GObject *object)
   HdyPaginator *self = (HdyPaginator *)object;
 
   if (self->tracker) {
-    g_signal_handlers_disconnect_by_data (self->scrolling_box, self);
     g_signal_handlers_disconnect_by_data (self->tracker, self);
     g_clear_object (&self->tracker);
 
