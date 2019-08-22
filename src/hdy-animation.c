@@ -9,7 +9,7 @@
 #include "hdy-animation-private.h"
 
 /**
- * PRIVATE:hdy-swipe-tracker
+ * PRIVATE:hdy-animation
  * @short_description: Animation helpers
  * @title: Animation Helpers
  * @stability: Private
