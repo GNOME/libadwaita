@@ -9,14 +9,26 @@
 #include "hdy-animation-private.h"
 
 /**
- * PRIVATE:hdy-animation
+ * SECTION:hdy-animation
  * @short_description: Animation helpers
  * @title: Animation Helpers
- * @stability: Private
+ *
+ * Animation helpers.
  *
  * Since: 0.0.11
  */
 
+/**
+ * hdy_get_enable_animations:
+ * @widget: a #GtkWidget
+ *
+ * Returns whether animations are enabled for that widget. This should be used
+ * when implementing an animated widget to know whether to animate it or not.
+ *
+ * Returns: %TRUE if animations are enabled for @widget.
+ *
+ * Since: 0.0.11
+ */
 gboolean
 hdy_get_enable_animations (GtkWidget *widget)
 {
@@ -31,6 +43,21 @@ hdy_get_enable_animations (GtkWidget *widget)
   return enable_animations;
 }
 
+/**
+ * hdy_lerp: (skip)
+ * @a: the start
+ * @b: the end
+ * @t: the interpolation rate
+ *
+ * Computes the linear interpolation between @a and @b for @t.
+ *
+ * It is currently private because we cargo-culted it and don't understand the
+ * reason for (1.0 - t) instead of t.
+ *
+ * Returns: the linear interpolation between @a and @b for @t.
+ *
+ * Since: 0.0.11
+ */
 gdouble
 hdy_lerp (gdouble a, gdouble b, gdouble t)
 {
@@ -39,6 +66,17 @@ hdy_lerp (gdouble a, gdouble b, gdouble t)
 
 /* From clutter-easing.c, based on Robert Penner's
  * infamous easing equations, MIT license.
+ */
+
+/**
+ * hdy_ease_out_cubic:
+ * @t: the term
+ *
+ * Computes the ease out for @t.
+ *
+ * Returns: the ease out for @t.
+ *
+ * Since: 0.0.11
  */
 gdouble
 hdy_ease_out_cubic (gdouble t)
