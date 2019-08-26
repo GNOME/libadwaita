@@ -22,9 +22,9 @@
 
 /**
  * PRIVATE:hdy-swipe-tracker
- * @short_description: Swipe tracker used in #HdyPaginator and #HdyDrawer
+ * @short_description: Swipe tracker used in #HdyPaginator
  * @title: HdySwipeTracker
- * @See_also: #HdyPaginator, #HdyDrawer
+ * @See_also: #HdyPaginator, #HdySwipeable
  * @stability: Private
  *
  * The HdySwipeTracker object can be used for implementing widgets with swipe
@@ -52,10 +52,6 @@
  * NOTE: In GTK4 this can be replaced by a GtkEventControllerLegacy with capture
  * propagation phase.
  *
- * Aside from that, implementing widgets must connect to #HdySwipeTracker::begin,
- * #HdySwipeTracker::update and #HdySwipeTracker::end signals. See these
- * signals for details.
- *
  * The widgets will probably want to expose #HdySwipeTracker:enabled property.
  * If they expect to use horizontal orientation, #HdySwipeTracker:reversed
  * property can be used for supporting RTL text direction.
@@ -75,7 +71,7 @@ struct _HdySwipeTracker
 {
   GObject parent_instance;
 
-  GtkWidget *widget;
+  HdySwipeable *swipeable;
   gboolean enabled;
   gboolean reversed;
   GtkOrientation orientation;
@@ -103,7 +99,7 @@ G_DEFINE_TYPE_WITH_CODE (HdySwipeTracker, hdy_swipe_tracker, G_TYPE_OBJECT,
 
 enum {
   PROP_0,
-  PROP_WIDGET,
+  PROP_SWIPEABLE,
   PROP_ENABLED,
   PROP_REVERSED,
 
@@ -113,15 +109,6 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
-
-enum {
-  SIGNAL_BEGIN,
-  SIGNAL_UPDATE,
-  SIGNAL_END,
-  SIGNAL_LAST_SIGNAL,
-};
-
-static guint signals[SIGNAL_LAST_SIGNAL];
 
 static void
 reset (HdySwipeTracker *self)
@@ -146,8 +133,8 @@ reset (HdySwipeTracker *self)
 
   self->cancelled = FALSE;
 
-  if (self->widget)
-    gtk_grab_remove (self->widget);
+  if (self->swipeable)
+    gtk_grab_remove (GTK_WIDGET (self->swipeable));
 }
 
 static void
@@ -159,7 +146,7 @@ gesture_prepare (HdySwipeTracker *self,
     return;
 
   self->state = HDY_SWIPE_TRACKER_STATE_PREPARING;
-  g_signal_emit (self, signals[SIGNAL_BEGIN], 0, x, y);
+  hdy_swipeable_begin_swipe (self->swipeable);
 }
 
 static void
@@ -174,7 +161,7 @@ gesture_begin (HdySwipeTracker *self)
   self->prev_time = gdk_event_get_time (event);
   self->state = HDY_SWIPE_TRACKER_STATE_SCROLLING;
 
-  gtk_grab_add (self->widget);
+  gtk_grab_add (GTK_WIDGET (self->swipeable));
 }
 
 static void
@@ -205,7 +192,7 @@ gesture_update (HdySwipeTracker *self,
 
   self->progress = progress;
 
-  g_signal_emit (self, signals[SIGNAL_UPDATE], 0, progress);
+  hdy_swipeable_update_swipe (self->swipeable, progress);
 
   self->prev_time = time;
 }
@@ -272,7 +259,7 @@ gesture_end (HdySwipeTracker *self)
   duration = ABS ((self->progress - end_progress) / velocity * DURATION_MULTIPLIER);
   duration = CLAMP (duration, MIN_ANIMATION_DURATION, MAX_ANIMATION_DURATION);
 
-  g_signal_emit (self, signals[SIGNAL_END], 0, duration, end_progress);
+  hdy_swipeable_end_swipe (self->swipeable, duration, end_progress);
 
   if (self->cancelled)
     reset (self);
@@ -385,6 +372,7 @@ static gboolean
 captured_scroll_event (HdySwipeTracker *self,
                        GdkEvent        *event)
 {
+  GtkWidget *widget;
   GdkDevice *source_device;
   GdkInputSource input_source;
   gdouble dx, dy, delta;
@@ -406,8 +394,9 @@ captured_scroll_event (HdySwipeTracker *self,
 
     gdk_event_get_root_coords (event, &root_x, &root_y);
 
-    toplevel = gtk_widget_get_toplevel (self->widget);
-    gtk_widget_translate_coordinates (toplevel, self->widget, root_x, root_y, &x, &y);
+    widget = GTK_WIDGET (self->swipeable);
+    toplevel = gtk_widget_get_toplevel (widget);
+    gtk_widget_translate_coordinates (toplevel, widget, root_x, root_y, &x, &y);
 
     gesture_prepare (self, x, y);
   }
@@ -464,9 +453,9 @@ hdy_swipe_tracker_constructed (GObject *object)
 {
   HdySwipeTracker *self = HDY_SWIPE_TRACKER (object);
 
-  g_assert (self->widget);
+  g_assert (self->swipeable);
 
-  gtk_widget_add_events (self->widget,
+  gtk_widget_add_events (GTK_WIDGET (self->swipeable),
                          GDK_SMOOTH_SCROLL_MASK |
                          GDK_BUTTON_PRESS_MASK |
                          GDK_BUTTON_RELEASE_MASK |
@@ -474,7 +463,7 @@ hdy_swipe_tracker_constructed (GObject *object)
                          GDK_TOUCH_MASK);
 
   self->touch_gesture = g_object_new (GTK_TYPE_GESTURE_DRAG,
-                                      "widget", self->widget,
+                                      "widget", self->swipeable,
                                       "propagation-phase", GTK_PHASE_NONE,
                                       NULL);
 
@@ -491,15 +480,15 @@ hdy_swipe_tracker_dispose (GObject *object)
 {
   HdySwipeTracker *self = HDY_SWIPE_TRACKER (object);
 
-  if (self->widget)
-    gtk_grab_remove (self->widget);
+  if (self->swipeable)
+    gtk_grab_remove (GTK_WIDGET (self->swipeable));
 
   if (self->touch_gesture)
     g_signal_handlers_disconnect_by_data (self->touch_gesture, self);
 
   g_clear_pointer (&self->snap_points, g_free);
   g_clear_object (&self->touch_gesture);
-  g_clear_object (&self->widget);
+  g_clear_object (&self->swipeable);
 
   G_OBJECT_CLASS (hdy_swipe_tracker_parent_class)->dispose (object);
 }
@@ -513,8 +502,8 @@ hdy_swipe_tracker_get_property (GObject    *object,
   HdySwipeTracker *self = HDY_SWIPE_TRACKER (object);
 
   switch (prop_id) {
-  case PROP_WIDGET:
-    g_value_set_object (value, self->widget);
+  case PROP_SWIPEABLE:
+    g_value_set_object (value, self->swipeable);
     break;
 
   case PROP_ENABLED:
@@ -543,8 +532,8 @@ hdy_swipe_tracker_set_property (GObject      *object,
   HdySwipeTracker *self = HDY_SWIPE_TRACKER (object);
 
   switch (prop_id) {
-  case PROP_WIDGET:
-    self->widget = GTK_WIDGET (g_object_ref (g_value_get_object (value)));
+  case PROP_SWIPEABLE:
+    self->swipeable = HDY_SWIPEABLE (g_object_ref (g_value_get_object (value)));
     break;
 
   case PROP_ENABLED:
@@ -587,10 +576,10 @@ hdy_swipe_tracker_class_init (HdySwipeTrackerClass *klass)
    *
    * Since: 0.0.11
    */
-  props[PROP_WIDGET] =
-    g_param_spec_object ("widget",
-                         _("Widget"),
-                         _("The widget the swipe tracker is attached to"),
+  props[PROP_SWIPEABLE] =
+    g_param_spec_object ("swipeable",
+                         _("Swipeable"),
+                         _("The swipeable the swipe tracker is attached to"),
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
@@ -629,81 +618,6 @@ hdy_swipe_tracker_class_init (HdySwipeTrackerClass *klass)
                                     "orientation");
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
-
-  /**
-   * HdySwipeTracker::begin:
-   * @self: The #HdySwipeTracker instance
-   * @x: The X coordinate relative to the widget
-   * @y: The Y coordinate relative to the widget
-   *
-   * This signal is emitted when a possible swipe is detected. The widget should
-   * check whether a swipe is possible. The provided coordinates can be used to
-   * only allow starting the swipe in certain parts of the widget, for example
-   * a drag handle.
-   *
-   * If a swipe is possible, the widget must call hdy_swipe_tracker_confirm_swipe()
-   * to provide details about the swipe, see that function for details.
-   *
-   * Since: 0.0.11
-   */
-  signals[SIGNAL_BEGIN] =
-    g_signal_new ("begin",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST,
-                  0,
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE,
-                  2,
-                  G_TYPE_DOUBLE, G_TYPE_DOUBLE);
-
-  /**
-   * HdySwipeTracker::update:
-   * @self: The #HdySwipeTracker instance
-   * @progress: The current animation progress
-   *
-   * This signal is emitted every time the progress value changes. The widget
-   * must redraw the widget to reflect the change.
-   *
-   * Since: 0.0.11
-   */
-  signals[SIGNAL_UPDATE] =
-    g_signal_new ("update",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST,
-                  0,
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE,
-                  1,
-                  G_TYPE_DOUBLE);
-
-  /**
-   * HdySwipeTracker::end:
-   * @self: The #HdySwipeTracker instance
-   * @duration: Snap-back animation duration in milliseconds
-   * @end_progress: The progress value to animate to
-   *
-   * This signal is emitted as soon as the gesture has stopped. The widget must
-   * animate the progress from the current value to @end_progress with
-   * easeOutCubic interpolation over the next @duration milliseconds.
-   *
-   * @end_progress will always match either one of the provided snap points if
-   * the swipe was completed successfully, or @cancel_progress value passed in
-   * hdy_swipe_tracker_confirm_swipe() call if the swipe was cancelled.
-   *
-   * @duration can be 0, in that case the widget must immediately set the
-   * progress value to @end_progress.
-   *
-   * Since: 0.0.11
-   */
-  signals[SIGNAL_END] =
-    g_signal_new ("end",
-                  G_TYPE_FROM_CLASS (klass),
-                  G_SIGNAL_RUN_LAST,
-                  0,
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE,
-                  2,
-                  G_TYPE_INT64, G_TYPE_DOUBLE);
 }
 
 static void
@@ -725,12 +639,12 @@ hdy_swipe_tracker_init (HdySwipeTracker *self)
  * Since: 0.0.11
  */
 HdySwipeTracker *
-hdy_swipe_tracker_new (GtkWidget *widget)
+hdy_swipe_tracker_new (HdySwipeable *swipeable)
 {
-  g_return_val_if_fail (widget != NULL, NULL);
+  g_return_val_if_fail (swipeable != NULL, NULL);
 
   return g_object_new (HDY_TYPE_SWIPE_TRACKER,
-                       "widget", widget,
+                       "swipeable", swipeable,
                        NULL);
 }
 
