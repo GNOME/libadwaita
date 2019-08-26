@@ -84,6 +84,20 @@
     <glade-widget-class name="HdyPreferencesWindow" generic-name="preferenceswindow" title="Preferences Window" since="0.0.10"/>
     <glade-widget-class name="HdySearchBar" generic-name="searchbar" title="Search Bar" since="0.0.6"/>
     <glade-widget-class name="HdySqueezer" generic-name="squeezer" title="Squeezer" since="0.0.10"/>
+    <glade-widget-class name="HdySwipeGroup" generic-name="swipegroup" title="Swipe Group" toplevel="True">
+      <read-widget-function>glade_hdy_swipe_group_read_widget</read-widget-function>
+      <write-widget-function>glade_hdy_swipe_group_write_widget</write-widget-function>
+      <set-property-function>glade_hdy_swipe_group_set_property</set-property-function>
+      <properties>
+        <property id="swipeables" name="Widgets" save="False">
+          <parameter-spec>
+            <type>GladeParamObjects</type>
+            <value-type>HdySwipeable</value-type>
+          </parameter-spec>
+          <tooltip>List of widgets in this group</tooltip>
+        </property>
+      </properties>
+    </glade-widget-class>
     <glade-widget-class name="HdyTitleBar" generic-name="titlebar" title="Title Bar"/>
     <glade-widget-class name="HdyViewSwitcher" generic-name="viewswitcher" title="View Switcher" since="0.0.10"/>
     <glade-widget-class name="HdyViewSwitcherBar" generic-name="viewswitcherbar" title="View Switcher Bar" since="0.0.10"/>
@@ -107,6 +121,7 @@
     <glade-widget-class-ref name="HdyPreferencesWindow"/>
     <glade-widget-class-ref name="HdySearchBar"/>
     <glade-widget-class-ref name="HdySqueezer"/>
+    <glade-widget-class-ref name="HdySwipeGroup"/>
     <glade-widget-class-ref name="HdyTitleBar"/>
     <glade-widget-class-ref name="HdyViewSwitcher"/>
     <glade-widget-class-ref name="HdyViewSwitcherBar"/>
