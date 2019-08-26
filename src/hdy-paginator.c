@@ -875,8 +875,7 @@ hdy_paginator_scroll_to (HdyPaginator *self,
 {
   g_return_if_fail (HDY_IS_PAGINATOR (self));
 
-  hdy_paginator_box_scroll_to (self->scrolling_box, widget,
-                               self->animation_duration);
+  hdy_paginator_scroll_to_full (self, widget, self->animation_duration);
 }
 
 /**
