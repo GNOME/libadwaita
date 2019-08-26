@@ -11,6 +11,7 @@
 
 #include "hdy-paginator-box-private.h"
 #include "hdy-swipe-tracker-private.h"
+#include "hdy-swipeable-private.h"
 
 #include <math.h>
 
@@ -70,8 +71,11 @@ struct _HdyPaginator
   guint animation_duration;
 };
 
+static void hdy_paginator_swipeable_init (HdySwipeableInterface *iface);
+
 G_DEFINE_TYPE_WITH_CODE (HdyPaginator, hdy_paginator, GTK_TYPE_EVENT_BOX,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL));
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
+                         G_IMPLEMENT_INTERFACE (HDY_TYPE_SWIPEABLE, hdy_paginator_swipeable_init))
 
 enum {
   PROP_0,
@@ -92,6 +96,51 @@ enum {
 static GParamSpec *props[LAST_PROP];
 
 static void
+hdy_paginator_switch_child (HdySwipeable *swipeable,
+                            guint         index,
+                            gint64        duration)
+{
+  HdyPaginator *self = HDY_PAGINATOR (swipeable);
+  GtkWidget *child;
+
+  child = hdy_paginator_box_get_nth_child (self->scrolling_box, index);
+
+  hdy_paginator_box_scroll_to (self->scrolling_box, child, duration);
+}
+
+static void
+hdy_paginator_begin_swipe (HdySwipeable *swipeable)
+{
+  HdyPaginator *self = HDY_PAGINATOR (swipeable);
+
+  hdy_paginator_box_stop_animation (self->scrolling_box);
+}
+
+static void
+hdy_paginator_update_swipe (HdySwipeable *swipeable,
+                            gdouble       value)
+{
+  HdyPaginator *self = HDY_PAGINATOR (swipeable);
+
+  hdy_paginator_box_set_position (self->scrolling_box, value);
+}
+
+static void
+hdy_paginator_end_swipe (HdySwipeable *swipeable,
+                         gint64       duration,
+                         gdouble      to)
+{
+  HdyPaginator *self = HDY_PAGINATOR (swipeable);
+
+  if (duration == 0) {
+    hdy_paginator_box_set_position (self->scrolling_box, to);
+    return;
+  }
+
+  hdy_paginator_box_animate (self->scrolling_box, to, duration);
+}
+
+static void
 swipe_begin_cb (HdyPaginator    *self,
                 gdouble          x,
                 gdouble          y,
@@ -101,7 +150,7 @@ swipe_begin_cb (HdyPaginator    *self,
   guint i, n_pages;
   gdouble *points;
 
-  hdy_paginator_box_stop_animation (self->scrolling_box);
+  hdy_paginator_begin_swipe (HDY_SWIPEABLE (self));
 
   distance = hdy_paginator_box_get_distance (self->scrolling_box);
   g_object_get (self->scrolling_box,
@@ -123,7 +172,7 @@ swipe_update_cb (HdyPaginator    *self,
                  gdouble          value,
                  HdySwipeTracker *tracker)
 {
-  hdy_paginator_box_set_position (self->scrolling_box, value);
+  hdy_paginator_update_swipe (HDY_SWIPEABLE (self), value);
 }
 
 static void
@@ -132,12 +181,7 @@ swipe_end_cb (HdyPaginator    *self,
               gdouble          to,
               HdySwipeTracker *tracker)
 {
-  if (duration == 0) {
-    hdy_paginator_box_set_position (self->scrolling_box, to);
-    return;
-  }
-
-  hdy_paginator_box_animate (self->scrolling_box, to, duration);
+  hdy_paginator_end_swipe (HDY_SWIPEABLE (self), duration, to);
 }
 
 static void
@@ -592,6 +636,15 @@ hdy_paginator_set_property (GObject      *object,
 }
 
 static void
+hdy_paginator_swipeable_init (HdySwipeableInterface *iface)
+{
+  iface->switch_child = hdy_paginator_switch_child;
+  iface->begin_swipe = hdy_paginator_begin_swipe;
+  iface->update_swipe = hdy_paginator_update_swipe;
+  iface->end_swipe = hdy_paginator_end_swipe;
+}
+
+static void
 hdy_paginator_class_init (HdyPaginatorClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -893,10 +946,18 @@ hdy_paginator_scroll_to_full (HdyPaginator *self,
                               GtkWidget    *widget,
                               gint64        duration)
 {
+  GList *children;
+  gint n;
+
   g_return_if_fail (HDY_IS_PAGINATOR (self));
+
+  children = gtk_container_get_children (GTK_CONTAINER (self->scrolling_box));
+  n = g_list_index (children, widget);
+  g_list_free (children);
 
   hdy_paginator_box_scroll_to (self->scrolling_box, widget,
                                duration);
+  hdy_swipeable_emit_switch_child (HDY_SWIPEABLE (self), n, duration);
 }
 
 /**
