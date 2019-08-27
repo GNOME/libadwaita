@@ -1,7 +1,7 @@
 %global _vpath_srcdir %{name}
 
 Name:    libhandy
-Version: 0.0.10
+Version: 0.0.11
 Release: 1%{?dist}
 Summary: A library full of GTK widgets for mobile phones
 

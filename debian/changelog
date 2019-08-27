@@ -1,3 +1,74 @@
+libhandy (0.0.11) experimental; urgency=medium
+
+  [ Adrien Plazas ]
+  * dialer: Work around GtkGrid row homogeneity.
+    Puts the buttons into a vertical size group rather than making the rows
+    homogeneous. This prevents a bug from GtkGrid to make the buttons too
+    tall when the action buttons are hidden.
+  * dialog: Don't warn if the titlebar isn't a GtkHeaderBar.
+    Using another widget is perfectly valid, so we should just return
+    instead.
+  * dialog: Refactor the transient-for workaround.
+    This will make introducing new properties simpler.
+  * dialog: Add the narrow property.
+  * header-bar: Show a back button in a narrow HdyDialog.
+    If a header bar is in a narrow HdyDialog, it will display a back button
+    at its start in place of its usual window decorations.
+  * examples: Add a complex HdyDialog example.
+    This shows how to use HdyHeaderBar and HdyDialog to create a more
+    complex adaptive dialog.
+  * header-bar: Show a back button on small non-sovereign windows.
+    This will show the back button not only in small HdyDialog but in all
+    small windows that are not sovereign.
+  * meson: Set the log domain.
+    This makes the log messages from libhandy look like `Handy-Debug: …`
+    rather than `** Debug: …`, making them easier to distinguish.
+  * README.md: Update the documentation URL.
+    It's on the developer.puri.sm now.
+  * Add animation helpers.
+    Add various animation helpers to avoid coyping them around.
+  * squeezer: Support animation disablement.
+    This will animate the child transitions only if animations are enabled.
+  * preferences-group: Use the h4 style class.
+    Use the h4 style class instead of hardcoding the bold style for the
+    preferences group title, and implement a fallback making the font bold.
+    This is needed by elementary to use their own style.
+  * animation: Make some functions public.
+    This makes hdy_get_enable_animations() and hdy_ease_out_cubic() public.
+  * view-switcher-button: Don't make transparent on hover.
+    This doesn't make the background transparent when hovering and apply the
+    same style as non-hovered buttons on hovered buttons in a headerbar.
+
+  [ Gabriele Musco ]
+  * Added Unifydmin to Python 3 examples
+  * Add HydraPaper to Python 3 examples
+
+  [ Ting-Wei Lan ]
+  * Don't require GNU sed
+
+  [ Jeremy Bicha ]
+  * Debian packaging improvements
+
+  [ Guido Günther ]
+  * debian: Ship example program and files
+  * Release libhandy 0.0.11
+
+  [ Alexander Mikhaylenko ]
+  * search-bar: Hide start and end boxes instead of close button.
+  * glade: Update catalog dtd.
+  * Add new HdySwipeTracker widget.
+    This will be used to implement swipes in new widgets.
+  * Add new HdyPaginator widget.
+    Display set of pages with swipe based navigation.
+
+  [ David Boddie ]
+  * Deploy documentation for the master branch
+
+  [ Michael Catanzaro ]
+  * glade: Don't install glade files outside build prefix.
+
+ -- Guido Günther <agx@sigxcpu.org>  Tue, 27 Aug 2019 12:50:01 +0200
+
 libhandy (0.0.10) experimental; urgency=medium
 
   [ Adrien Plazas ]

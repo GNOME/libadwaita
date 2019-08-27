@@ -64,8 +64,10 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_dialer_set_number@LIBHANDY_0_0_0 0.0~git20180429
  hdy_dialer_set_relief@LIBHANDY_0_0_0 0.0.3
  hdy_dialer_set_show_action_buttons@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_dialog_get_narrow@LIBHANDY_0_0_0 0.0.11
  hdy_dialog_get_type@LIBHANDY_0_0_0 0.0.7
  hdy_dialog_new@LIBHANDY_0_0_0 0.0.7
+ hdy_ease_out_cubic@LIBHANDY_0_0_0 0.0.11
  hdy_enum_value_object_get_name@LIBHANDY_0_0_0 0.0.6
  hdy_enum_value_object_get_nick@LIBHANDY_0_0_0 0.0.6
  hdy_enum_value_object_get_type@LIBHANDY_0_0_0 0.0.6
@@ -81,6 +83,7 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_expander_row_set_expanded@LIBHANDY_0_0_0 0.0.9
  hdy_expander_row_set_show_enable_switch@LIBHANDY_0_0_0 0.0.6
  hdy_fold_get_type@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_get_enable_animations@LIBHANDY_0_0_0 0.0.11
  hdy_gtk_window_get_icon_for_size@LIBHANDY_0_0_0 0.0.10
  hdy_gtk_window_toggle_maximized@LIBHANDY_0_0_0 0.0.10
  hdy_header_bar_get_centering_policy@LIBHANDY_0_0_0 0.0.10
@@ -137,7 +140,44 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_leaflet_set_mode_transition_type@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_set_visible_child@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_set_visible_child_name@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_lerp@LIBHANDY_0_0_0 0.0.11
  hdy_list_box_separator_header@LIBHANDY_0_0_0 0.0.6
+ hdy_paginator_box_animate@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_get_distance@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_get_n_pages@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_get_position@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_get_spacing@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_get_type@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_insert@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_is_animating@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_new@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_reorder@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_scroll_to@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_set_position@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_set_spacing@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_stop_animation@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_get_animation_duration@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_get_center_content@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_get_indicator_spacing@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_get_indicator_style@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_get_interactive@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_get_n_pages@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_get_position@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_get_spacing@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_get_type@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_indicator_style_get_type@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_insert@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_new@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_prepend@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_reorder@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_scroll_to@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_scroll_to_full@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_set_animation_duration@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_set_center_content@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_set_indicator_spacing@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_set_indicator_style@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_set_interactive@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_set_spacing@LIBHANDY_0_0_0 0.0.11
  hdy_preferences_group_add_preferences_to_model@LIBHANDY_0_0_0 0.0.10
  hdy_preferences_group_get_description@LIBHANDY_0_0_0 0.0.10
  hdy_preferences_group_get_title@LIBHANDY_0_0_0 0.0.10
@@ -185,6 +225,14 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_squeezer_transition_type_get_type@LIBHANDY_0_0_0 0.0.10
  hdy_string_utf8_len@LIBHANDY_0_0_0 0.0~git20180429
  hdy_string_utf8_truncate@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_swipe_tracker_captured_event@LIBHANDY_0_0_0 0.0.11
+ hdy_swipe_tracker_confirm_swipe@LIBHANDY_0_0_0 0.0.11
+ hdy_swipe_tracker_get_enabled@LIBHANDY_0_0_0 0.0.11
+ hdy_swipe_tracker_get_reversed@LIBHANDY_0_0_0 0.0.11
+ hdy_swipe_tracker_get_type@LIBHANDY_0_0_0 0.0.11
+ hdy_swipe_tracker_new@LIBHANDY_0_0_0 0.0.11
+ hdy_swipe_tracker_set_enabled@LIBHANDY_0_0_0 0.0.11
+ hdy_swipe_tracker_set_reversed@LIBHANDY_0_0_0 0.0.11
  hdy_title_bar_get_selection_mode@LIBHANDY_0_0_0 0.0.3
  hdy_title_bar_get_type@LIBHANDY_0_0_0 0.0.3
  hdy_title_bar_new@LIBHANDY_0_0_0 0.0.3
