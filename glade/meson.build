@@ -35,7 +35,7 @@ libglade_hdy = shared_library(
                c_args: libglade_hdy_args,
          dependencies: libglade_hdy_deps,
   include_directories: [ root_inc, src_inc ],
-              install: true,
+              install: installable,
           install_dir: module_dir,
 )
 
@@ -51,7 +51,9 @@ if xmllint.found()
   )
 endif
 
-# Install glade catalog
-install_data(glade_xml, install_dir: glade_catalogdir)
+if installable
+  # Install glade catalog
+  install_data(glade_xml, install_dir: glade_catalogdir)
+endif
 
 endif
