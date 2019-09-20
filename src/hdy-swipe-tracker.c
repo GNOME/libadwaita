@@ -471,8 +471,7 @@ hdy_swipe_tracker_constructed (GObject *object)
                          GDK_BUTTON_PRESS_MASK |
                          GDK_BUTTON_RELEASE_MASK |
                          GDK_BUTTON_MOTION_MASK |
-                         GDK_TOUCH_MASK |
-                         GDK_ALL_EVENTS_MASK);
+                         GDK_TOUCH_MASK);
 
   self->touch_gesture = g_object_new (GTK_TYPE_GESTURE_DRAG,
                                       "widget", self->widget,
