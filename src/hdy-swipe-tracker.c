@@ -272,9 +272,6 @@ gesture_end (HdySwipeTracker *self)
   duration = ABS ((self->progress - end_progress) / velocity * DURATION_MULTIPLIER);
   duration = CLAMP (duration, MIN_ANIMATION_DURATION, MAX_ANIMATION_DURATION);
 
-  if (self->cancelled)
-    duration = 0;
-
   g_signal_emit (self, signals[SIGNAL_END], 0, duration, end_progress);
 
   if (self->cancelled)
