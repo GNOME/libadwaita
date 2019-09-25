@@ -42,6 +42,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 #include "hdy-fold.h"
 #include "hdy-header-bar.h"
 #include "hdy-header-group.h"
+#include "hdy-keypad.h"
 #include "hdy-leaflet.h"
 #include "hdy-list-box.h"
 #include "hdy-main.h"

@@ -6,6 +6,8 @@
     <file preprocess="xml-stripblanks">hdy-dialer.ui</file>
     <file preprocess="xml-stripblanks">hdy-dialer-button.ui</file>
     <file preprocess="xml-stripblanks">hdy-expander-row.ui</file>
+    <file preprocess="xml-stripblanks">hdy-keypad.ui</file>
+    <file preprocess="xml-stripblanks">hdy-keypad-button.ui</file>
     <file preprocess="xml-stripblanks">hdy-paginator.ui</file>
     <file preprocess="xml-stripblanks">hdy-preferences-group.ui</file>
     <file preprocess="xml-stripblanks">hdy-preferences-page.ui</file>
@@ -18,6 +20,9 @@
     <file>hdy-combo-row-list.css</file>
     <file>hdy-leaflet.css</file>
     <file>hdy-expander-row-arrow.css</file>
+    <file>hdy-keypad-digit.css</file>
+    <file>hdy-keypad-letters.css</file>
+    <file>hdy-keypad-symbol.css</file>
     <file>hdy-text.css</file>
     <file>hdy-view-switcher.css</file>
     <file>hdy-view-switcher-bar-box.css</file>

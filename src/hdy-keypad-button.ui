@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.20.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <template class="HdyKeypadButton" parent="GtkButton">
+    <property name="can_focus">True</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="valign">center</property>
+        <property name="margin">6</property>
+        <child>
+          <object class="GtkLabel" id="label">
+            <property name="visible">True</property>
+            <property name="label"></property>
+            <style>
+              <class name="digit"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="secondary_label">
+            <property name="visible">True</property>
+            <property name="no_show_all">True</property>
+            <property name="label"></property>
+            <style>
+              <class name="dim-label"/>
+              <class name="letters"/>
+            </style>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

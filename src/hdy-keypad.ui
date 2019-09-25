@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <template class="HdyKeypad" parent="GtkGrid">
+    <property name="visible">True</property>
+    <property name="can_focus">True</property>
+    <property name="hexpand">False</property>
+    <property name="vexpand">False</property>
+    <property name="column_homogeneous">True</property>
+    <property name="column_homogeneous">True</property>
+    <property name="show_symbols">True</property>
+    <property name="only_digits">False</property>
+    <child>
+      <object class="HdyKeypadButton" id="btn_1">
+        <property name="symbols">1</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="focus_on_click">False</property>
+        <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+        <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="HdyKeypadButton" id="btn_2">
+        <property name="symbols">2ABC</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="focus_on_click">False</property>
+        <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+        <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="HdyKeypadButton" id="btn_3">
+        <property name="symbols">3DEF</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="focus_on_click">False</property>
+        <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+        <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">0</property>
+      </packing>
+    </child>
+    <child>
+      <object class="HdyKeypadButton" id="btn_4">
+        <property name="symbols">4GHI</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="focus_on_click">False</property>
+        <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+        <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="HdyKeypadButton" id="btn_5">
+        <property name="symbols">5JKL</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="focus_on_click">False</property>
+        <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+        <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="HdyKeypadButton" id="btn_6">
+        <property name="symbols">6MNO</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="focus_on_click">False</property>
+        <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+        <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="HdyKeypadButton" id="btn_7">
+        <property name="symbols">7PQRS</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="focus_on_click">False</property>
+        <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+        <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="HdyKeypadButton" id="btn_8">
+        <property name="symbols">8TUV</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="focus_on_click">False</property>
+        <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+        <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="HdyKeypadButton" id="btn_9">
+        <property name="symbols">9WXYZ</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="focus_on_click">False</property>
+        <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+        <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="btn_asterisk">
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="focus_on_click">False</property>
+        <property name="visible" bind-source="HdyKeypad" bind-property="only-digits" bind-flags="sync-create | invert-boolean"/>
+        <signal name="clicked" handler="asterisk_button_clicked_cb" swapped="true"/>
+        <child>
+          <object class="GtkLabel" id="label_asterisk">
+            <property name="visible">True</property>
+            <property name="label">∗</property>
+            <style>
+              <class name="symbol"/>
+            </style>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="HdyKeypadButton" id="btn_0">
+        <property name="symbols">0+</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="focus_on_click">False</property>
+        <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+        <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkButton" id="btn_hash">
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="focus_on_click">False</property>
+        <property name="visible" bind-source="HdyKeypad" bind-property="only-digits" bind-flags="sync-create | invert-boolean"/>
+        <signal name="clicked" handler="hash_button_clicked_cb" swapped="true"/>
+        <child>
+          <object class="GtkLabel" id="label_hash">
+            <property name="visible">True</property>
+            <property name="label">#</property>
+            <style>
+              <class name="symbol"/>
+            </style>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="left_attach">2</property>
+        <property name="top_attach">3</property>
+      </packing>
+    </child>
+  </template>
+  <object class="GtkGestureLongPress" id="long_press_zero_gesture">
+    <property name="widget">btn_0</property>
+    <signal name="pressed" handler="long_press_zero_cb" object="HdyKeypad" swapped="true"/>
+  </object>
+</interface>
