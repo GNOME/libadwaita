@@ -29,6 +29,7 @@ test_names = [
   'test-expander-row',
   'test-header-bar',
   'test-header-group',
+  'test-keypad',
   'test-paginator',
   'test-preferences-group',
   'test-preferences-page',
