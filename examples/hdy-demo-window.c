@@ -18,6 +18,9 @@ struct _HdyDemoWindow
   HdyComboRow *leaflet_transition_row;
   GtkWidget *box_dialer;
   HdyDialer *dialer;
+  GtkWidget *box_keypad;
+  GtkListBox *keypad_listbox;
+  HdyKeypad *keypad;
   GtkLabel *display;
   HdySearchBar *search_bar;
   GtkEntry *search_entry;
@@ -408,6 +411,9 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, leaflet_transition_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, box_dialer);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, dialer);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, box_keypad);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, keypad_listbox);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, keypad);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, display);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_bar);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_entry);
@@ -474,6 +480,7 @@ hdy_demo_window_init (HdyDemoWindow *self)
   hdy_combo_row_set_selected_index (self->leaflet_transition_row, HDY_LEAFLET_TRANSITION_TYPE_OVER);
 
   gtk_list_box_set_header_func (self->column_listbox, hdy_list_box_separator_header, NULL, NULL);
+  gtk_list_box_set_header_func (self->keypad_listbox, hdy_list_box_separator_header, NULL, NULL);
 
   lists_page_init (self);
 

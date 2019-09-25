@@ -468,6 +468,190 @@
                                     <property name="visible">True</property>
                                     <property name="opacity">0.5</property>
                                     <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Keypad</property>
+                                    <property name="halign">center</property>
+                                    <property name="xalign">0</property>
+                                    <property name="margin-bottom">12</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                      <attribute name="scale" value="2"/>
+                                    </attributes>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="opacity">0.5</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">A number keypad.</property>
+                                    <property name="justify">center</property>
+                                    <property name="use_markup">true</property>
+                                    <property name="wrap">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="HdyColumn">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="maximum-width">300</property>
+                            <property name="linear-growth-width">300</property>
+                            <child>
+                              <object class="GtkBox" id="box_keypad">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="valign">center</property>
+                                <property name="hexpand">True</property>
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">12</property>
+                                <child>
+                                  <object class="GtkListBox" id="keypad_listbox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="expand">True</property>
+                                    <property name="selection-mode">none</property>
+                                    <style>
+                                      <class name="frame"/>
+                                    </style>
+                                    <child>
+                                      <object class="HdyActionRow">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="title" translatable="yes">Show extra symbols</property>
+                                        <child type="action">
+                                          <object class="GtkSwitch" id="keypad_show_symbols">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="state">True</property>
+                                            <property name="valign">center</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="HdyActionRow">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="title" translatable="yes">Show only digits</property>
+                                        <child type="action">
+                                          <object class="GtkSwitch" id="keypad_only_digits">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="valign">center</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkEntry" id="entry_keypad">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyKeypad" id="keypad">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="column_spacing">10</property>
+                                    <property name="row_spacing">8</property>
+                                    <property name="only_digits">FALSE</property>
+                                    <property name="halign">center</property>
+                                    <property name="entry">entry_keypad</property>
+                                    <property name="only-digits" bind-source="keypad_only_digits" bind-property="state" bind-flags="sync-create | bidirectional"/>
+                                    <property name="show-symbols" bind-source="keypad_show_symbols" bind-property="state" bind-flags="sync-create | bidirectional"/>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="pack_type">end</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">keypad</property>
+                    <property name="title">Keypad</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="HdyColumn">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">fill</property>
+                    <property name="valign">fill</property>
+                    <property name="margin-bottom">32</property>
+                    <property name="margin-start">12</property>
+                    <property name="margin-end">12</property>
+                    <property name="margin-top">32</property>
+                    <property name="expand">True</property>
+                    <property name="maximum-width">400</property>
+                    <property name="linear-growth-width">300</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="can_focus">False</property>
+                        <property name="valign">start</property>
+                        <property name="expand">True</property>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
+                            <property name="margin-bottom">32</property>
+                            <property name="expand">True</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="valign">center</property>
+                                <property name="pixel_size">128</property>
+                                <property name="icon_name">input-dialpad-symbolic</property>
+                                <property name="icon-size">0</property>
+                                <property name="margin-bottom">18</property>
+                                <style>
+                                  <class name="dim-label"/>
+                                </style>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="visible">True</property>
+                                    <property name="opacity">0.5</property>
+                                    <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Dialer</property>
                                     <property name="halign">center</property>
                                     <property name="xalign">0</property>

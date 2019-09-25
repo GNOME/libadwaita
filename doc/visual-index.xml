@@ -24,6 +24,9 @@
       <link linkend="HdyDialer">
         <inlinegraphic fileref="dialer.png" format="PNG"></inlinegraphic>
       </link>
+      <link linkend="HdyKeypad">
+        <inlinegraphic fileref="keypad.png" format="PNG"></inlinegraphic>
+      </link>
     </para>
     <para role="gallery">
       <link>

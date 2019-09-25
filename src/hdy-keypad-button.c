@@ -11,7 +11,7 @@
 #include "hdy-keypad-button-private.h"
 
 /**
- * SECTION:hdy-keypad-button
+ * PRIVATE:hdy-keypad-button
  * @short_description: A button on a #HdyKeypad keypad
  * @Title: HdyKeypadButton
  *
