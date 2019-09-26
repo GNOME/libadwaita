@@ -529,7 +529,6 @@ hdy_dialer_class_init (HdyDialerClass *klass)
  * Create a new #HdyDialer widget.
  *
  * Returns: the newly created #HdyDialer widget
- *
  */
 GtkWidget *hdy_dialer_new (void)
 {
@@ -576,7 +575,6 @@ hdy_dialer_get_number (HdyDialer *self)
  * @number: (transfer none): the number to set
  *
  * Set the currently displayed number.
- *
  */
 void
 hdy_dialer_set_number (HdyDialer   *self,
@@ -599,7 +597,6 @@ hdy_dialer_set_number (HdyDialer   *self,
  *
  * Set the current number to the empty string. When the number is already
  * cleared no action is performed.
- *
  */
 void
 hdy_dialer_clear_number (HdyDialer   *self)
@@ -640,7 +637,6 @@ hdy_dialer_get_show_action_buttons (HdyDialer *self)
  * @show: whether to show the buttons
  *
  * Set whether to show the submit and delete buttons.
- *
  */
 void
 hdy_dialer_set_show_action_buttons (HdyDialer *self,
