@@ -22,6 +22,8 @@
  * further button presses are received cycling mode ends after a
  * timeout. This is configurable via the
  * #HdyDialerCycleButton:cycle-timeout property.
+ *
+ * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal
  */
 
 typedef struct
@@ -173,6 +175,9 @@ hdy_dialer_cycle_button_class_init (HdyDialerCycleButtonClass *klass)
    *
    * This signal is emitted when the button starts cycling (that is on
    * the first button press).
+   *
+   * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal
+   * api
    */
   signals[SIGNAL_CYCLE_START] =
     g_signal_new ("cycle-start",
@@ -190,6 +195,9 @@ hdy_dialer_cycle_button_class_init (HdyDialerCycleButtonClass *klass)
    * This signal is emitted when the cycle ends. This can either be
    * because of timeout or because #hdy_dialer_cycle_stop_cycle got
    * called.
+   *
+   * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal
+   * api
    */
   signals[SIGNAL_CYCLE_END] =
     g_signal_new ("cycle-end",
@@ -210,6 +218,9 @@ hdy_dialer_cycle_button_class_init (HdyDialerCycleButtonClass *klass)
  * times.
  *
  * Returns: the newly created #HdyDialerCycleButton widget
+ *
+ * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal
+ * api
  */
 GtkWidget *hdy_dialer_cycle_button_new (const gchar* symbols)
 {
@@ -240,6 +251,8 @@ hdy_dialer_cycle_button_init (HdyDialerCycleButton *self)
  *
  * Returns: a pointer to the symbol
  *
+ * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal
+ * api
  */
 gunichar
 hdy_dialer_cycle_button_get_current_symbol (HdyDialerCycleButton *self)
@@ -259,6 +272,8 @@ hdy_dialer_cycle_button_get_current_symbol (HdyDialerCycleButton *self)
  *
  * Returns: #TRUE if the in cycling mode otherwise #FALSE
  *
+ * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal
+ * api
  */
 gboolean
 hdy_dialer_cycle_button_is_cycling (HdyDialerCycleButton *self)
@@ -274,6 +289,8 @@ hdy_dialer_cycle_button_is_cycling (HdyDialerCycleButton *self)
  *
  * Stop the cycling mode.
  *
+ * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal
+ * api
  */
 void
 hdy_dialer_cycle_button_stop_cycle (HdyDialerCycleButton *self)
@@ -295,6 +312,9 @@ hdy_dialer_cycle_button_stop_cycle (HdyDialerCycleButton *self)
  * @self: a #HdyDialerCycleButton
  *
  * Get the cycle timeout in milliseconds.
+ *
+ * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal
+ * api
  */
 gint
 hdy_dialer_cycle_button_get_cycle_timeout (HdyDialerCycleButton *self)
@@ -312,6 +332,9 @@ hdy_dialer_cycle_button_get_cycle_timeout (HdyDialerCycleButton *self)
  * @timeout: the timeout in milliseconds
  *
  * Set the cycle timeout in milliseconds.
+
+ * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal
+ * api
  */
 void
 hdy_dialer_cycle_button_set_cycle_timeout (HdyDialerCycleButton *self,

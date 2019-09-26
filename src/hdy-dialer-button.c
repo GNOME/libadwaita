@@ -17,6 +17,8 @@
  * The #HdyDialerButton widget is a single button on an #HdyDialer. It
  * can represent a single symbol (typically a digit) plus an arbitrary
  * number of symbols that are displayed below it.
+ *
+ * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal api
  */
 
 enum {
@@ -234,6 +236,9 @@ hdy_dialer_button_class_init (HdyDialerButtonClass *klass)
  * @symbols is %NULL no symbols will be displayed.
  *
  * Returns: the newly created #HdyDialerButton widget
+ *
+ * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal
+ * api
  */
 GtkWidget *hdy_dialer_button_new (const gchar *symbols)
 {
@@ -257,6 +262,9 @@ hdy_dialer_button_init (HdyDialerButton *self)
  * Get the #HdyDialerButton's digit.
  *
  * Returns: the button's digit
+ *
+ * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal
+ * api
  */
 gint
 hdy_dialer_button_get_digit (HdyDialerButton *self)
@@ -282,6 +290,9 @@ hdy_dialer_button_get_digit (HdyDialerButton *self)
  * Get the #HdyDialerButton's symbols.
  *
  * Returns: the button's symbols.
+ *
+ * Deprecated: 0.0.12: This widget is considered a #HdyDialer internal
+ * api
  */
 const char*
 hdy_dialer_button_get_symbols (HdyDialerButton *self)
