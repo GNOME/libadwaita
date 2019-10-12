@@ -25,6 +25,13 @@
  * Since: 0.0.11
  */
 
+typedef struct _HdyPaginatorBoxChildInfo HdyPaginatorBoxChildInfo;
+
+struct _HdyPaginatorBoxChildInfo
+{
+  GtkWidget *widget;
+};
+
 struct _HdyPaginatorBox
 {
   GtkContainer parent_instance;
@@ -59,6 +66,48 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
+
+static HdyPaginatorBoxChildInfo *
+find_child_info (HdyPaginatorBox *self,
+                 GtkWidget       *widget)
+{
+  GList *l;
+
+  for (l = self->children; l; l = l->next) {
+    HdyPaginatorBoxChildInfo *info = l->data;
+
+    if (widget == info->widget)
+      return info;
+  }
+
+  return NULL;
+}
+
+static gint
+find_child_index (HdyPaginatorBox *self,
+                  GtkWidget       *widget)
+{
+  GList *l;
+  gint i;
+
+  i = 0;
+  for (l = self->children; l; l = l->next) {
+    HdyPaginatorBoxChildInfo *info = l->data;
+
+    if (widget == info->widget)
+      return i;
+
+    i++;
+  }
+
+  return -1;
+}
+
+static void
+free_child_info (HdyPaginatorBoxChildInfo *info)
+{
+  g_free (info);
+}
 
 static gboolean
 animation_cb (GtkWidget     *widget,
@@ -114,7 +163,8 @@ measure (GtkWidget      *widget,
     *natural_baseline = -1;
 
   for (children = self->children; children; children = children->next) {
-    GtkWidget *child = children->data;
+    HdyPaginatorBoxChildInfo *child_info = children->data;
+    GtkWidget *child = child_info->widget;
     gint child_min, child_nat;
 
     if (!gtk_widget_get_visible (child))
@@ -193,7 +243,8 @@ hdy_paginator_box_size_allocate (GtkWidget     *widget,
 
   size = 0;
   for (children = self->children; children; children = children->next) {
-    GtkWidget *child = children->data;
+    HdyPaginatorBoxChildInfo *child_info = children->data;
+    GtkWidget *child = child_info->widget;
     gint min, nat;
     gint child_size;
 
@@ -228,7 +279,8 @@ hdy_paginator_box_size_allocate (GtkWidget     *widget,
     x -= (self->distance * self->position) - (allocation->width - size) / 2.0;
 
   for (children = self->children; children; children = children->next) {
-    GtkWidget *child = children->data;
+    HdyPaginatorBoxChildInfo *child_info = children->data;
+    GtkWidget *child = child_info->widget;
     gint width, height;
     GtkAllocation alloc;
 
@@ -271,9 +323,14 @@ hdy_paginator_box_add (GtkContainer *container,
                        GtkWidget    *widget)
 {
   HdyPaginatorBox *self = HDY_PAGINATOR_BOX (container);
+  HdyPaginatorBoxChildInfo *info;
 
   gtk_widget_set_parent (widget, GTK_WIDGET (container));
-  self->children = g_list_append (self->children, widget);
+
+  info = g_new0 (HdyPaginatorBoxChildInfo, 1);
+  info->widget = widget;
+
+  self->children = g_list_append (self->children, info);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
 }
 
@@ -283,10 +340,16 @@ hdy_paginator_box_remove (GtkContainer *container,
 {
   HdyPaginatorBox *self = HDY_PAGINATOR_BOX (container);
   gint index;
+  HdyPaginatorBoxChildInfo *info;
+
+  info = find_child_info (self, widget);
+  if (!info)
+    return;
 
   gtk_widget_unparent (widget);
-  index = g_list_index (self->children, widget);
-  self->children = g_list_remove (self->children, widget);
+  index = g_list_index (self->children, info);
+  self->children = g_list_remove (self->children, info);
+  free_child_info (info);
 
   if (self->position >= index)
     hdy_paginator_box_set_position (self, self->position - 1);
@@ -308,7 +371,8 @@ hdy_paginator_box_forall (GtkContainer *container,
 
   list = self->children;
   while (list) {
-    child = list->data;
+    HdyPaginatorBoxChildInfo *child_info = list->data;
+    child = child_info->widget;
     list = list->next;
 
     (* callback) (child, callback_data);
@@ -322,7 +386,7 @@ hdy_paginator_box_finalize (GObject *object)
 
   hdy_paginator_box_stop_animation (self);
 
-  g_list_free (self->children);
+  g_list_free_full (self->children, (GDestroyNotify) free_child_info);
 
   G_OBJECT_CLASS (hdy_paginator_box_parent_class)->finalize (object);
 }
@@ -533,13 +597,15 @@ hdy_paginator_box_reorder (HdyPaginatorBox *self,
                            GtkWidget       *child,
                            gint             position)
 {
+  HdyPaginatorBoxChildInfo *info;
   GList *link;
   gint old_position, current_page;
 
   g_return_if_fail (HDY_IS_PAGINATOR_BOX (self));
   g_return_if_fail (GTK_IS_WIDGET (child));
 
-  link = g_list_find (self->children, child);
+  info = find_child_info (self, child);
+  link = g_list_find (self->children, info);
   old_position = g_list_position (self->children, link);
   self->children = g_list_delete_link (self->children, link);
   if (position < 0 || position >= hdy_paginator_box_get_n_pages (self))
@@ -547,7 +613,7 @@ hdy_paginator_box_reorder (HdyPaginatorBox *self,
   else
     link = g_list_nth (self->children, position);
 
-  self->children = g_list_insert_before (self->children, link, child);
+  self->children = g_list_insert_before (self->children, link, info);
 
   current_page = round (self->position);
   if (current_page == old_position)
@@ -671,7 +737,7 @@ hdy_paginator_box_scroll_to (HdyPaginatorBox *self,
   g_return_if_fail (GTK_IS_WIDGET (widget));
   g_return_if_fail (duration >= 0);
 
-  index = g_list_index (self->children, widget);
+  index = find_child_index (self, widget);
 
   hdy_paginator_box_animate (self, index, duration);
 }
