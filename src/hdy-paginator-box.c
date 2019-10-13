@@ -30,6 +30,8 @@ typedef struct _HdyPaginatorBoxChildInfo HdyPaginatorBoxChildInfo;
 struct _HdyPaginatorBoxChildInfo
 {
   GtkWidget *widget;
+  GdkWindow *window;
+  gint position;
 };
 
 struct _HdyPaginatorBox
@@ -44,6 +46,9 @@ struct _HdyPaginatorBox
     gdouble end_position;
   } animation_data;
   GList *children;
+
+  gint child_width;
+  gint child_height;
 
   gdouble distance;
   gdouble position;
@@ -107,6 +112,49 @@ static void
 free_child_info (HdyPaginatorBoxChildInfo *info)
 {
   g_free (info);
+}
+
+static void
+register_window (HdyPaginatorBoxChildInfo *info,
+                 HdyPaginatorBox          *self)
+{
+  GtkWidget *widget;
+  GdkWindow *window;
+  GdkWindowAttr attributes;
+  GtkAllocation allocation;
+  gint attributes_mask;
+
+  widget = GTK_WIDGET (self);
+  gtk_widget_get_allocation (widget, &allocation);
+
+  attributes.x = allocation.x;
+  attributes.y = allocation.y;
+  attributes.width = allocation.width;
+  attributes.height = allocation.height;
+  attributes.window_type = GDK_WINDOW_CHILD;
+  attributes.wclass = GDK_INPUT_OUTPUT;
+  attributes.visual = gtk_widget_get_visual (widget);
+  attributes.event_mask = gtk_widget_get_events (widget);
+  attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL;
+
+  window = gdk_window_new (gtk_widget_get_parent_window (widget),
+                           &attributes, attributes_mask);
+  gtk_widget_register_window (widget, window);
+  gtk_widget_set_parent_window (info->widget, window);
+
+  gdk_window_show (window);
+
+  info->window = window;
+}
+
+static void
+unregister_window (HdyPaginatorBoxChildInfo *info,
+                   HdyPaginatorBox          *self)
+{
+  gtk_widget_set_parent_window (info->widget, NULL);
+  gtk_widget_unregister_window (GTK_WIDGET (self), info->window);
+  gdk_window_destroy (info->window);
+  info->window = NULL;
 }
 
 static gboolean
@@ -228,18 +276,100 @@ hdy_paginator_box_get_preferred_height_for_width (GtkWidget *widget,
 }
 
 static void
+update_windows (HdyPaginatorBox *self)
+{
+  GList *children;
+  GtkAllocation alloc;
+  gint x, y, offset;
+  gboolean is_rtl;
+
+  if (!gtk_widget_get_realized (GTK_WIDGET (self)))
+    return;
+
+  gtk_widget_get_allocation (GTK_WIDGET (self), &alloc);
+
+  x = alloc.x;
+  y = alloc.y;
+
+  is_rtl = (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL);
+
+  if (self->orientation == GTK_ORIENTATION_VERTICAL)
+    offset = (self->distance * self->position) - (alloc.height - self->child_height) / 2.0;
+  else if (is_rtl)
+    offset = -(self->distance * self->position) + (alloc.width - self->child_width) / 2.0;
+  else
+    offset = (self->distance * self->position) - (alloc.width - self->child_width) / 2.0;
+
+  if (self->orientation == GTK_ORIENTATION_VERTICAL)
+    y -= offset;
+  else
+    x -= offset;
+
+  for (children = self->children; children; children = children->next) {
+    HdyPaginatorBoxChildInfo *child_info = children->data;
+    gint pos;
+
+    if (!gtk_widget_get_visible (child_info->widget))
+      continue;
+
+    if (self->orientation == GTK_ORIENTATION_VERTICAL)
+      child_info->position = y;
+    else
+      child_info->position = x;
+
+    pos = child_info->position;
+
+    if (self->orientation == GTK_ORIENTATION_VERTICAL)
+      gdk_window_move (child_info->window, alloc.x, alloc.y + pos);
+    else
+      gdk_window_move (child_info->window, alloc.x + pos, alloc.y);
+
+    gtk_widget_set_child_visible (child_info->widget,
+                                  (self->orientation == GTK_ORIENTATION_HORIZONTAL &&
+                                   pos < alloc.width && pos + self->child_width > 0) ||
+                                  (self->orientation == GTK_ORIENTATION_VERTICAL &&
+                                   pos < alloc.height && pos + self->child_height > 0));
+
+    if (self->orientation == GTK_ORIENTATION_VERTICAL)
+      y += self->distance;
+    else if (is_rtl)
+      x -= self->distance;
+    else
+      x += self->distance;
+  }
+}
+
+static void
+hdy_paginator_box_realize (GtkWidget *widget)
+{
+  HdyPaginatorBox *self = HDY_PAGINATOR_BOX (widget);
+
+  GTK_WIDGET_CLASS (hdy_paginator_box_parent_class)->realize (widget);
+
+  g_list_foreach (self->children, (GFunc) register_window, self);
+
+  update_windows (self);
+}
+
+static void
+hdy_paginator_box_unrealize (GtkWidget *widget)
+{
+  HdyPaginatorBox *self = HDY_PAGINATOR_BOX (widget);
+
+  g_list_foreach (self->children, (GFunc) unregister_window, self);
+
+  GTK_WIDGET_CLASS (hdy_paginator_box_parent_class)->unrealize (widget);
+}
+
+static void
 hdy_paginator_box_size_allocate (GtkWidget     *widget,
                                  GtkAllocation *allocation)
 {
   HdyPaginatorBox *self = HDY_PAGINATOR_BOX (widget);
-  gint x, y, size;
+  gint size, width, height;
   GList *children;
-  gboolean is_rtl;
 
   gtk_widget_set_allocation (widget, allocation);
-
-  x = allocation->x;
-  y = allocation->y;
 
   size = 0;
   for (children = self->children; children; children = children->next) {
@@ -269,50 +399,42 @@ hdy_paginator_box_size_allocate (GtkWidget     *widget,
 
   self->distance = size + self->spacing;
 
-  is_rtl = (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL);
+  if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
+    width = size;
+    height = allocation->height;
+  } else {
+    width = allocation->width;
+    height = size;
+  }
 
-  if (self->orientation == GTK_ORIENTATION_VERTICAL)
-    y -= (self->distance * self->position) - (allocation->height - size) / 2.0;
-  else if (is_rtl)
-    x += (self->distance * self->position) + (allocation->width - size) / 2.0;
-  else
-    x -= (self->distance * self->position) - (allocation->width - size) / 2.0;
+  self->child_width = width;
+  self->child_height = height;
+
+  for (children = self->children; children; children = children->next) {
+    HdyPaginatorBoxChildInfo *child_info = children->data;
+
+    if (!gtk_widget_get_visible (child_info->widget))
+      continue;
+
+    gdk_window_resize (child_info->window, width, height);
+  }
+
+  update_windows (self);
 
   for (children = self->children; children; children = children->next) {
     HdyPaginatorBoxChildInfo *child_info = children->data;
     GtkWidget *child = child_info->widget;
-    gint width, height;
     GtkAllocation alloc;
 
     if (!gtk_widget_get_visible (child))
       continue;
 
-    if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
-      width = size;
-      height = allocation->height;
-    } else {
-      width = allocation->width;
-      height = size;
-    }
-
-    alloc.x = x;
-    alloc.y = y;
+    alloc.x = 0;
+    alloc.y = 0;
     alloc.width = width;
     alloc.height = height;
     gtk_widget_size_allocate (child, &alloc);
-
-    gtk_widget_set_child_visible (child,
-                                  (self->orientation == GTK_ORIENTATION_HORIZONTAL &&
-                                   x < allocation->width && x + width > 0) ||
-                                  (self->orientation == GTK_ORIENTATION_VERTICAL &&
-                                   y < allocation->height && y + height > 0));
-
-    if (self->orientation == GTK_ORIENTATION_VERTICAL)
-      y += self->distance;
-    else if (is_rtl)
-      x -= self->distance;
-    else
-      x += self->distance;
+    gtk_widget_queue_draw (child);
   }
 
   gtk_widget_set_clip (widget, allocation);
@@ -329,6 +451,9 @@ hdy_paginator_box_add (GtkContainer *container,
 
   info = g_new0 (HdyPaginatorBoxChildInfo, 1);
   info->widget = widget;
+
+  if (gtk_widget_get_realized (GTK_WIDGET (container)))
+    register_window (info, self);
 
   self->children = g_list_append (self->children, info);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
@@ -349,6 +474,10 @@ hdy_paginator_box_remove (GtkContainer *container,
   gtk_widget_unparent (widget);
   index = g_list_index (self->children, info);
   self->children = g_list_remove (self->children, info);
+
+  if (gtk_widget_get_realized (GTK_WIDGET (container)))
+    unregister_window (info, self);
+
   free_child_info (info);
 
   if (self->position >= index)
@@ -468,6 +597,8 @@ hdy_paginator_box_class_init (HdyPaginatorBoxClass *klass)
   widget_class->get_preferred_height = hdy_paginator_box_get_preferred_height;
   widget_class->get_preferred_width_for_height = hdy_paginator_box_get_preferred_width_for_height;
   widget_class->get_preferred_height_for_width = hdy_paginator_box_get_preferred_height_for_width;
+  widget_class->realize = hdy_paginator_box_realize;
+  widget_class->unrealize = hdy_paginator_box_unrealize;
   widget_class->size_allocate = hdy_paginator_box_size_allocate;
   container_class->add = hdy_paginator_box_add;
   container_class->remove = hdy_paginator_box_remove;
@@ -814,7 +945,7 @@ hdy_paginator_box_set_position (HdyPaginatorBox *self,
   position = CLAMP (position, 0, hdy_paginator_box_get_n_pages (self) - 1);
 
   self->position = position;
-  gtk_widget_queue_resize (GTK_WIDGET (self));
+  update_windows (self);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POSITION]);
 }
 
