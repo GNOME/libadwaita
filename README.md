@@ -46,7 +46,7 @@ _build/examples/example
 ```
 
 and one in Python. When running from the built source tree it
-needs several environment varibles so use \_build/run to set them:
+needs several environment variables so use \_build/run to set them:
 
 ```sh
 _build/run examples/example.py
