@@ -10,6 +10,7 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
+#include "hdy-deprecation-macros.h"
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
@@ -33,17 +34,25 @@ struct _HdyDialerClass
                        const gchar  *number);
 };
 
+_HDY_DEPRECATED
 GtkWidget       *hdy_dialer_new                     (void);
+_HDY_DEPRECATED
 const gchar     *hdy_dialer_get_number              (HdyDialer  *self);
+_HDY_DEPRECATED
 void             hdy_dialer_set_number              (HdyDialer  *self,
                                                      const char *number);
+_HDY_DEPRECATED
 void             hdy_dialer_clear_number            (HdyDialer  *self);
 
+_HDY_DEPRECATED
 gboolean         hdy_dialer_get_show_action_buttons (HdyDialer  *self);
+_HDY_DEPRECATED
 void             hdy_dialer_set_show_action_buttons (HdyDialer  *self,
                                                      gboolean    show);
 
+_HDY_DEPRECATED
 GtkReliefStyle   hdy_dialer_get_relief              (HdyDialer *self);
+_HDY_DEPRECATED
 void             hdy_dialer_set_relief              (HdyDialer      *self,
                                                      GtkReliefStyle  relief);
 
