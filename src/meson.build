@@ -66,6 +66,7 @@ src_headers = [
   'hdy-arrows.h',
   'hdy-column.h',
   'hdy-combo-row.h',
+  'hdy-deprecation-macros.h',
   'hdy-dialer-button.h',
   'hdy-dialer-cycle-button.h',
   'hdy-dialer.h',
