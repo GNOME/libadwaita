@@ -790,3 +790,25 @@ hdy_paginator_box_set_spacing (HdyPaginatorBox *self,
   gtk_widget_queue_resize (GTK_WIDGET (self));
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SPACING]);
 }
+
+/**
+ * hdy_paginator_box_get_nth_child:
+ * @self: a #HdyPaginatorBox
+ * @n: the child index
+ *
+ * Retrieves @n-th child widget of @self.
+ *
+ * Returns: The @n-th child widget
+ *
+ * Since: 0.0.12
+ */
+GtkWidget *
+hdy_paginator_box_get_nth_child (HdyPaginatorBox *self,
+                                 guint            n)
+{
+  g_return_val_if_fail (HDY_IS_PAGINATOR_BOX (self), NULL);
+  g_return_val_if_fail (n < g_list_length (self->children), NULL);
+
+  return g_list_nth_data (self->children, n);
+}
+
