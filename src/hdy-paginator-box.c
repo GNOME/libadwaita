@@ -316,7 +316,7 @@ hdy_paginator_box_forall (GtkContainer *container,
 static void
 hdy_paginator_box_finalize (GObject *object)
 {
-  HdyPaginatorBox *self = (HdyPaginatorBox *)object;
+  HdyPaginatorBox *self = HDY_PAGINATOR_BOX (object);
 
   hdy_paginator_box_stop_animation (self);
 

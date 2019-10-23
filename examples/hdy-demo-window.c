@@ -40,15 +40,15 @@ G_DEFINE_TYPE (HdyDemoWindow, hdy_demo_window, GTK_TYPE_APPLICATION_WINDOW)
 
 static gboolean
 hdy_demo_window_key_pressed_cb (GtkWidget     *sender,
-                                GdkEventKey   *event,
+                                GdkEvent      *event,
                                 HdyDemoWindow *self)
 {
   GdkModifierType default_modifiers = gtk_accelerator_get_default_mod_mask ();
   guint keyval;
   GdkModifierType state;
 
-  gdk_event_get_keyval ((GdkEvent *) event, &keyval);
-  gdk_event_get_state ((GdkEvent *) event, &state);
+  gdk_event_get_keyval (event, &keyval);
+  gdk_event_get_state (event, &state);
 
   if ((keyval == GDK_KEY_q || keyval == GDK_KEY_Q) &&
       (state & default_modifiers) == GDK_CONTROL_MASK) {

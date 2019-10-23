@@ -185,7 +185,7 @@ search_result_activated (HdyPreferencesWindow *self,
 
 static gboolean
 key_pressed (GtkWidget            *sender,
-             GdkEventKey          *event,
+             GdkEvent             *event,
              HdyPreferencesWindow *self)
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
@@ -194,8 +194,8 @@ key_pressed (GtkWidget            *sender,
   GdkModifierType state;
   gunichar c;
 
-  gdk_event_get_keyval ((GdkEvent *) event, &keyval);
-  gdk_event_get_state ((GdkEvent *) event, &state);
+  gdk_event_get_keyval (event, &keyval);
+  gdk_event_get_state (event, &state);
 
   if ((keyval == GDK_KEY_f || keyval == GDK_KEY_F) &&
       (state & default_modifiers) == GDK_CONTROL_MASK) {

@@ -462,7 +462,7 @@ captured_scroll_event (HdySwipeTracker *self,
 static void
 hdy_swipe_tracker_constructed (GObject *object)
 {
-  HdySwipeTracker *self = (HdySwipeTracker *)object;
+  HdySwipeTracker *self = HDY_SWIPE_TRACKER (object);
 
   g_assert (self->widget);
 
@@ -489,7 +489,7 @@ hdy_swipe_tracker_constructed (GObject *object)
 static void
 hdy_swipe_tracker_dispose (GObject *object)
 {
-  HdySwipeTracker *self = (HdySwipeTracker *)object;
+  HdySwipeTracker *self = HDY_SWIPE_TRACKER (object);
 
   if (self->widget)
     gtk_grab_remove (self->widget);

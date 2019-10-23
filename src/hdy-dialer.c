@@ -182,14 +182,14 @@ press_btn (GtkButton *btn,
 
 static gboolean
 key_press_event_cb (GtkWidget   *widget,
-                    GdkEventKey *event,
+                    GdkEvent    *event,
                     gpointer     data)
 {
   HdyDialerPrivate *priv = hdy_dialer_get_instance_private (HDY_DIALER (widget));
   gboolean pressed = !!GPOINTER_TO_INT (data);
   guint keyval;
 
-  gdk_event_get_keyval ((GdkEvent *) event, &keyval);
+  gdk_event_get_keyval (event, &keyval);
 
   switch (keyval) {
   case GDK_KEY_0 ... GDK_KEY_9:
