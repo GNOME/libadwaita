@@ -37,6 +37,7 @@ test_names = [
   'test-search-bar',
   'test-squeezer',
   'test-string-utf8',
+  'test-swipe-group',
   'test-value-object',
   'test-view-switcher',
   'test-view-switcher-bar',
