@@ -497,7 +497,7 @@ header_group_start_element (GMarkupParseContext  *context,
   else
     {
       _gtk_builder_error_unhandled_tag (data->builder, context,
-                                        "GtkSizeGroup", element_name,
+                                        "HdyHeaderGroup", element_name,
                                         error);
     }
 }
