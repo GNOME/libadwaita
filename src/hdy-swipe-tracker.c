@@ -11,7 +11,8 @@
 
 #include <math.h>
 
-#define TOUCHPAD_BASE_DISTANCE 400
+#define TOUCHPAD_BASE_DISTANCE_H 400
+#define TOUCHPAD_BASE_DISTANCE_V 300
 #define SCROLL_MULTIPLIER 10
 #define MIN_ANIMATION_DURATION 100
 #define MAX_ANIMATION_DURATION 400
@@ -436,8 +437,9 @@ captured_scroll_event (HdySwipeTracker *self,
     if (gdk_event_is_scroll_stop_event (event)) {
       gesture_end (self);
     } else {
-      self->distance = TOUCHPAD_BASE_DISTANCE;
-      gesture_update (self, delta / TOUCHPAD_BASE_DISTANCE * SCROLL_MULTIPLIER);
+      self->distance = is_vertical ? TOUCHPAD_BASE_DISTANCE_V :
+                       TOUCHPAD_BASE_DISTANCE_H;
+      gesture_update (self, delta / self->distance * SCROLL_MULTIPLIER);
       return GDK_EVENT_STOP;
     }
   }
