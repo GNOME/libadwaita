@@ -11,6 +11,7 @@
 #endif
 
 #include <gtk/gtk.h>
+#include "hdy-deprecation-macros.h"
 #include "hdy-fold.h"
 #include "hdy-enums.h"
 
@@ -21,12 +22,21 @@ G_BEGIN_DECLS
 G_DECLARE_DERIVABLE_TYPE (HdyLeaflet, hdy_leaflet, HDY, LEAFLET, GtkContainer)
 
 typedef enum {
+  HDY_LEAFLET_TRANSITION_TYPE_NONE,
+  HDY_LEAFLET_TRANSITION_TYPE_SLIDE,
+  HDY_LEAFLET_TRANSITION_TYPE_OVER,
+  HDY_LEAFLET_TRANSITION_TYPE_UNDER,
+} HdyLeafletTransitionType;
+
+_HDY_DEPRECATED
+typedef enum {
   HDY_LEAFLET_MODE_TRANSITION_TYPE_NONE,
   HDY_LEAFLET_MODE_TRANSITION_TYPE_SLIDE,
   HDY_LEAFLET_MODE_TRANSITION_TYPE_OVER,
   HDY_LEAFLET_MODE_TRANSITION_TYPE_UNDER,
 } HdyLeafletModeTransitionType;
 
+_HDY_DEPRECATED
 typedef enum {
   HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE,
   HDY_LEAFLET_CHILD_TRANSITION_TYPE_CROSSFADE,
@@ -65,13 +75,20 @@ void             hdy_leaflet_set_homogeneous (HdyLeaflet     *self,
                                               HdyFold         fold,
                                               GtkOrientation  orientation,
                                               gboolean        homogeneous);
+HdyLeafletTransitionType hdy_leaflet_get_transition_type (HdyLeaflet *self);
+void             hdy_leaflet_set_transition_type (HdyLeaflet               *self,
+                                                  HdyLeafletTransitionType  transition);
+_HDY_DEPRECATED
 HdyLeafletModeTransitionType hdy_leaflet_get_mode_transition_type (HdyLeaflet *self);
+_HDY_DEPRECATED
 void             hdy_leaflet_set_mode_transition_type (HdyLeaflet                   *self,
                                                        HdyLeafletModeTransitionType  transition);
 guint            hdy_leaflet_get_mode_transition_duration (HdyLeaflet *self);
 void             hdy_leaflet_set_mode_transition_duration (HdyLeaflet *self,
                                                            guint       duration);
+_HDY_DEPRECATED
 HdyLeafletChildTransitionType hdy_leaflet_get_child_transition_type (HdyLeaflet *self);
+_HDY_DEPRECATED
 void             hdy_leaflet_set_child_transition_type (HdyLeaflet                    *self,
                                                         HdyLeafletChildTransitionType  transition);
 guint            hdy_leaflet_get_child_transition_duration (HdyLeaflet *self);
