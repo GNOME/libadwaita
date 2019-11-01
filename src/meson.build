@@ -132,6 +132,7 @@ src_sources = [
   'hdy-preferences-row.c',
   'hdy-preferences-window.c',
   'hdy-search-bar.c',
+  'hdy-shadow-helper.c',
   'hdy-squeezer.c',
   'hdy-string-utf8.c',
   'hdy-swipe-group.c',

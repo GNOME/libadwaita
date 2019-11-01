@@ -11,6 +11,7 @@ private_headers = [
     'hdy-paginator-box-private.h',
     'hdy-preferences-group-private.h',
     'hdy-preferences-page-private.h',
+    'hdy-shadow-helper-private.h',
     'hdy-style-private.h',
     'hdy-swipe-tracker-private.h',
     'hdy-swipeable-private.h',
