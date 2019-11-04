@@ -15,6 +15,7 @@ struct _HdyDemoWindow
   GtkToggleButton *search_button;
   GtkStackSidebar *sidebar;
   GtkStack *stack;
+  HdyComboRow *leaflet_transition_row;
   GtkWidget *box_dialer;
   HdyDialer *dialer;
   GtkLabel *display;
@@ -111,6 +112,39 @@ hdy_demo_window_back_clicked_cb (GtkWidget     *sender,
                                  HdyDemoWindow *self)
 {
   hdy_leaflet_set_visible_child_name (self->content_box, "sidebar");
+}
+
+static gchar *
+leaflet_transition_name (HdyEnumValueObject *value,
+                         gpointer            user_data)
+{
+  g_return_val_if_fail (HDY_IS_ENUM_VALUE_OBJECT (value), NULL);
+
+  switch (hdy_enum_value_object_get_value (value)) {
+  case HDY_LEAFLET_TRANSITION_TYPE_NONE:
+    return g_strdup (_("None"));
+  case HDY_LEAFLET_TRANSITION_TYPE_SLIDE:
+    return g_strdup (_("Slide"));
+  case HDY_LEAFLET_TRANSITION_TYPE_OVER:
+    return g_strdup (_("Over"));
+  case HDY_LEAFLET_TRANSITION_TYPE_UNDER:
+    return g_strdup (_("Under"));
+  default:
+    return NULL;
+  }
+}
+
+static void
+notify_leaflet_transition_cb (GObject       *sender,
+                              GParamSpec    *pspec,
+                              HdyDemoWindow *self)
+{
+  HdyComboRow *row = HDY_COMBO_ROW (sender);
+
+  g_assert (HDY_IS_COMBO_ROW (row));
+  g_assert (HDY_IS_DEMO_WINDOW (self));
+
+  hdy_leaflet_set_transition_type (HDY_LEAFLET (self->content_box), hdy_combo_row_get_selected_index (row));
 }
 
 static void
@@ -442,6 +476,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_button);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, stack);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, leaflet_transition_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, box_dialer);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, dialer);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, display);
@@ -466,6 +501,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_fold_cb", G_CALLBACK(hdy_demo_window_notify_fold_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(hdy_demo_window_notify_visible_child_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "back_clicked_cb", G_CALLBACK(hdy_demo_window_back_clicked_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "notify_leaflet_transition_cb", G_CALLBACK(notify_leaflet_transition_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "submitted_cb", G_CALLBACK(hdy_demo_window_submitted_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "symbol_clicked_cb", G_CALLBACK(symbol_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "deleted_cb", G_CALLBACK(deleted_cb));
@@ -512,6 +548,10 @@ static void
 hdy_demo_window_init (HdyDemoWindow *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  hdy_combo_row_set_for_enum (self->leaflet_transition_row, HDY_TYPE_LEAFLET_TRANSITION_TYPE, leaflet_transition_name, NULL, NULL);
+  hdy_combo_row_set_selected_index (self->leaflet_transition_row, HDY_LEAFLET_TRANSITION_TYPE_OVER);
+
   gtk_list_box_set_header_func (self->column_listbox, hdy_list_box_separator_header, NULL, NULL);
 
   gtk_list_box_set_header_func (self->arrows_listbox, hdy_list_box_separator_header, NULL, NULL);
