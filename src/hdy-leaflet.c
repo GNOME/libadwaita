@@ -51,8 +51,6 @@
  * HdyLeafletModeTransitionType:
  * @HDY_LEAFLET_MODE_TRANSITION_TYPE_NONE: No transition
  * @HDY_LEAFLET_MODE_TRANSITION_TYPE_SLIDE: Slide from left, right, up or down according to the orientation, text direction and the children order
- * @HDY_LEAFLET_MODE_TRANSITION_TYPE_OVER: Cover the old page or uncover the new page, sliding from or towards the end according to orientation, text direction and children order
- * @HDY_LEAFLET_MODE_TRANSITION_TYPE_UNDER: Uncover the new page or cover the old page, sliding from or towards the start according to orientation, text direction and children order
  *
  * These enumeration values describe the possible transitions between pages in a
  * #HdyLeaflet widget.
