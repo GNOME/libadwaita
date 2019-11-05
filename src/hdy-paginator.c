@@ -69,6 +69,9 @@ struct _HdyPaginator
   gboolean center_content;
   GtkOrientation orientation;
   guint animation_duration;
+
+  gulong scroll_timeout_id;
+  gboolean can_scroll;
 };
 
 static void hdy_paginator_swipeable_init (HdySwipeableInterface *iface);
@@ -417,10 +420,112 @@ update_orientation (HdyPaginator *self)
 }
 
 static gboolean
+scroll_timeout_cb (HdyPaginator *self)
+{
+  self->can_scroll = TRUE;
+  return G_SOURCE_REMOVE;
+}
+
+static gboolean
+handle_discrete_scroll_event (HdyPaginator *self,
+                              GdkEvent     *event)
+{
+  GdkDevice *source_device;
+  GdkInputSource input_source;
+  GdkScrollDirection direction;
+  gdouble dx, dy;
+  gint index;
+  gboolean allow_vertical;
+  GtkOrientation orientation;
+  guint duration;
+
+  if (!self->can_scroll)
+    return GDK_EVENT_PROPAGATE;
+
+  if (!hdy_paginator_get_interactive (self))
+    return GDK_EVENT_PROPAGATE;
+
+  if (event->type != GDK_SCROLL)
+    return GDK_EVENT_PROPAGATE;
+
+  source_device = gdk_event_get_source_device (event);
+  input_source = gdk_device_get_source (source_device);
+  if (input_source == GDK_SOURCE_TOUCHPAD ||
+      input_source == GDK_SOURCE_TRACKPOINT)
+    return GDK_EVENT_PROPAGATE;
+
+  /* Mice often don't have easily accessible horizontal scrolling,
+   * hence allow vertical mouse scrolling regardless of orientation */
+  allow_vertical = (input_source == GDK_SOURCE_MOUSE);
+
+  if (gdk_event_get_scroll_direction (event, &direction)) {
+    dx = 0;
+    dy = 0;
+
+    switch (direction) {
+    case GDK_SCROLL_UP:
+      dy = -1;
+      break;
+    case GDK_SCROLL_DOWN:
+      dy = 1;
+      break;
+    case GDK_SCROLL_LEFT:
+      dy = -1;
+      break;
+    case GDK_SCROLL_RIGHT:
+      dy = 1;
+      break;
+    case GDK_SCROLL_SMOOTH:
+      g_assert_not_reached ();
+    default:
+      return GDK_EVENT_PROPAGATE;
+    }
+  } else {
+    gdk_event_get_scroll_deltas (event, &dx, &dy);
+  }
+
+  orientation = gtk_orientable_get_orientation (GTK_ORIENTABLE (self));
+  index = 0;
+
+  if (orientation == GTK_ORIENTATION_VERTICAL || allow_vertical) {
+    if (dy > 0)
+      index++;
+    else if (dy < 0)
+      index--;
+  }
+
+  if (orientation == GTK_ORIENTATION_HORIZONTAL && index == 0) {
+    if (dx > 0)
+      index++;
+    else if (dx < 0)
+      index--;
+  }
+
+  if (index == 0)
+    return GDK_EVENT_PROPAGATE;
+
+  index += (gint) round (hdy_paginator_get_position (self));
+  index = CLAMP (index, 0, (gint) hdy_paginator_get_n_pages (self) - 1);
+
+  hdy_paginator_scroll_to (self, hdy_paginator_box_get_nth_child (self->scrolling_box, index));
+
+  /* Don't allow the delay to go lower than 250ms */
+  duration = MIN (self->animation_duration, DEFAULT_DURATION);
+
+  self->can_scroll = FALSE;
+  g_timeout_add (duration, (GSourceFunc) scroll_timeout_cb, self);
+
+  return GDK_EVENT_STOP;
+}
+
+static gboolean
 captured_event_cb (HdyPaginator *self,
                    GdkEvent     *event)
 {
-  return hdy_swipe_tracker_captured_event (self->tracker, event);
+  if (hdy_swipe_tracker_captured_event (self->tracker, event))
+    return GDK_EVENT_STOP;
+
+  return handle_discrete_scroll_event (self, event);
 }
 
 static void
@@ -503,6 +608,11 @@ hdy_paginator_dispose (GObject *object)
     g_clear_object (&self->tracker);
 
     g_object_set_data (object, "captured-event-handler", NULL);
+  }
+
+  if (self->scroll_timeout_id != 0) {
+    g_source_remove (self->scroll_timeout_id);
+    self->scroll_timeout_id = 0;
   }
 
   G_OBJECT_CLASS (hdy_paginator_parent_class)->dispose (object);
@@ -791,6 +901,7 @@ hdy_paginator_init (HdyPaginator *self)
   self->animation_duration = DEFAULT_DURATION;
 
   self->tracker = hdy_swipe_tracker_new (HDY_SWIPEABLE (self));
+  self->can_scroll = TRUE;
 
   /*
    * HACK: GTK3 has no other way to get events on capture phase.
