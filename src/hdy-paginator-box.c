@@ -282,11 +282,13 @@ hdy_paginator_box_remove (GtkContainer *container,
                           GtkWidget    *widget)
 {
   HdyPaginatorBox *self = HDY_PAGINATOR_BOX (container);
+  gint index;
 
   gtk_widget_unparent (widget);
+  index = g_list_index (self->children, widget);
   self->children = g_list_remove (self->children, widget);
 
-  if (self->position >= g_list_length (self->children))
+  if (self->position >= index)
     hdy_paginator_box_set_position (self, self->position - 1);
   else
     gtk_widget_queue_allocate (GTK_WIDGET (self));
