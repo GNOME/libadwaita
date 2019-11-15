@@ -98,6 +98,12 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
+enum {
+  SIGNAL_PAGE_CHANGED,
+  SIGNAL_LAST_SIGNAL,
+};
+static guint signals[SIGNAL_LAST_SIGNAL];
+
 static void
 hdy_paginator_switch_child (HdySwipeable *swipeable,
                             guint         index,
@@ -184,6 +190,19 @@ notify_spacing_cb (HdyPaginator *self,
                    GObject      *object)
 {
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SPACING]);
+}
+
+static void
+animation_stopped_cb (HdyPaginator    *self,
+                      HdyPaginatorBox *box)
+{
+  gdouble position;
+  gint index;
+
+  position = hdy_paginator_box_get_position (self->scrolling_box);
+  index = round (position);
+
+  g_signal_emit (self, signals[SIGNAL_PAGE_CHANGED], 0, index);
 }
 
 static GdkRGBA
@@ -877,6 +896,27 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
+  /**
+   * HdyPaginator::page-changed:
+   * @self: The #HdyPaginator instance
+   * @index: Current page
+   *
+   * This signal is emitted after a page has been changed. This can be used to
+   * implement "infinite scrolling" by connecting to this signal and amending
+   * the pages.
+   *
+   * Since: 0.0.12
+   */
+  signals[SIGNAL_PAGE_CHANGED] =
+    g_signal_new ("page-changed",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_UINT);
+
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-paginator.ui");
   gtk_widget_class_bind_template_child (widget_class, HdyPaginator, box);
@@ -887,6 +927,7 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, notify_n_pages_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_position_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_spacing_cb);
+  gtk_widget_class_bind_template_callback (widget_class, animation_stopped_cb);
 
   gtk_widget_class_set_css_name (widget_class, "hdypaginator");
 }
