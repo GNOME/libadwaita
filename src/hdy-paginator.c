@@ -450,8 +450,7 @@ handle_discrete_scroll_event (HdyPaginator *self,
 
   source_device = gdk_event_get_source_device (event);
   input_source = gdk_device_get_source (source_device);
-  if (input_source == GDK_SOURCE_TOUCHPAD ||
-      input_source == GDK_SOURCE_TRACKPOINT)
+  if (input_source == GDK_SOURCE_TOUCHPAD)
     return GDK_EVENT_PROPAGATE;
 
   /* Mice often don't have easily accessible horizontal scrolling,
