@@ -97,12 +97,24 @@ hdy_demo_window_notify_fold_cb (GObject       *sender,
 }
 
 static void
+update_leaflet_swipe (HdyDemoWindow *self)
+{
+  gboolean first_page = (hdy_paginator_get_position (self->paginator) <= 0);
+  gboolean paginator_visible =
+    (gtk_stack_get_visible_child (self->stack) == GTK_WIDGET (self->paginator));
+
+  hdy_leaflet_set_can_swipe_back (self->content_box,
+                                  !paginator_visible || first_page);
+}
+
+static void
 hdy_demo_window_notify_visible_child_cb (GObject       *sender,
                                          GParamSpec    *pspec,
                                          HdyDemoWindow *self)
 {
   hdy_leaflet_set_visible_child_name (self->content_box, "content");
   update_header_bar (self);
+  update_leaflet_swipe (self);
 }
 
 static void
@@ -304,6 +316,14 @@ paginator_orientation_name (HdyEnumValueObject *value,
 }
 
 static void
+notify_paginator_position_cb (GObject       *sender,
+                              GParamSpec    *pspec,
+                              HdyDemoWindow *self)
+{
+  update_leaflet_swipe (self);
+}
+
+static void
 notify_paginator_orientation_cb (GObject       *sender,
                                  GParamSpec    *pspec,
                                  HdyDemoWindow *self)
@@ -439,6 +459,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "dialog_action_clicked_cb", G_CALLBACK(dialog_action_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "dialog_complex_clicked_cb", G_CALLBACK(dialog_complex_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "view_switcher_demo_clicked_cb", G_CALLBACK(view_switcher_demo_clicked_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "notify_paginator_position_cb", G_CALLBACK(notify_paginator_position_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_paginator_orientation_cb", G_CALLBACK(notify_paginator_orientation_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_paginator_indicator_style_cb", G_CALLBACK(notify_paginator_indicator_style_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "paginator_return_clicked_cb", G_CALLBACK(paginator_return_clicked_cb));
