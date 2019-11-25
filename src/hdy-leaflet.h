@@ -28,13 +28,13 @@ typedef enum {
   HDY_LEAFLET_TRANSITION_TYPE_UNDER,
 } HdyLeafletTransitionType;
 
-_HDY_DEPRECATED
+_HDY_DEPRECATED_FOR (HdyLeafletTransitionType)
 typedef enum {
   HDY_LEAFLET_MODE_TRANSITION_TYPE_NONE,
   HDY_LEAFLET_MODE_TRANSITION_TYPE_SLIDE,
 } HdyLeafletModeTransitionType;
 
-_HDY_DEPRECATED
+_HDY_DEPRECATED_FOR (HdyLeafletTransitionType)
 typedef enum {
   HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE,
   HDY_LEAFLET_CHILD_TRANSITION_TYPE_CROSSFADE,
@@ -76,17 +76,17 @@ void             hdy_leaflet_set_homogeneous (HdyLeaflet     *self,
 HdyLeafletTransitionType hdy_leaflet_get_transition_type (HdyLeaflet *self);
 void             hdy_leaflet_set_transition_type (HdyLeaflet               *self,
                                                   HdyLeafletTransitionType  transition);
-_HDY_DEPRECATED
+_HDY_DEPRECATED_FOR (hdy_leaflet_get_transition_type)
 HdyLeafletModeTransitionType hdy_leaflet_get_mode_transition_type (HdyLeaflet *self);
-_HDY_DEPRECATED
+_HDY_DEPRECATED_FOR (hdy_leaflet_set_transition_type)
 void             hdy_leaflet_set_mode_transition_type (HdyLeaflet                   *self,
                                                        HdyLeafletModeTransitionType  transition);
 guint            hdy_leaflet_get_mode_transition_duration (HdyLeaflet *self);
 void             hdy_leaflet_set_mode_transition_duration (HdyLeaflet *self,
                                                            guint       duration);
-_HDY_DEPRECATED
+_HDY_DEPRECATED_FOR (hdy_leaflet_get_transition_type)
 HdyLeafletChildTransitionType hdy_leaflet_get_child_transition_type (HdyLeaflet *self);
-_HDY_DEPRECATED
+_HDY_DEPRECATED_FOR (hdy_leaflet_set_transition_type)
 void             hdy_leaflet_set_child_transition_type (HdyLeaflet                    *self,
                                                         HdyLeafletChildTransitionType  transition);
 guint            hdy_leaflet_get_child_transition_duration (HdyLeaflet *self);
