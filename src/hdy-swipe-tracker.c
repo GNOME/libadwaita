@@ -466,6 +466,7 @@ hdy_swipe_tracker_constructed (GObject *object)
   self->touch_gesture = g_object_new (GTK_TYPE_GESTURE_DRAG,
                                       "widget", self->swipeable,
                                       "propagation-phase", GTK_PHASE_NONE,
+                                      "touch-only", TRUE,
                                       NULL);
 
   g_signal_connect_swapped (self->touch_gesture, "drag-begin", G_CALLBACK (drag_begin_cb), self);
