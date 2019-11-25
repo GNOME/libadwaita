@@ -3332,7 +3332,7 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                        _("Mode transition type"),
                        _("The type of animation used to transition between modes"),
                        HDY_TYPE_LEAFLET_MODE_TRANSITION_TYPE, HDY_LEAFLET_MODE_TRANSITION_TYPE_NONE,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   props[PROP_MODE_TRANSITION_DURATION] =
     g_param_spec_uint ("mode-transition-duration",
@@ -3346,7 +3346,7 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                        _("Child transition type"),
                        _("The type of animation used to transition between children"),
                        HDY_TYPE_LEAFLET_CHILD_TRANSITION_TYPE, HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   props[PROP_CHILD_TRANSITION_DURATION] =
     g_param_spec_uint ("child-transition-duration",
