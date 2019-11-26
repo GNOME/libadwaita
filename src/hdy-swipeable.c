@@ -61,9 +61,12 @@ hdy_swipeable_default_init (HdySwipeableInterface *iface)
   /**
    * HdySwipeable::begin:
    * @self: The #HdySwipeable instance
+   * @direction: The direction of the swipe, can be 1 or -1
    *
    * This signal is emitted when a possible swipe is detected. This is used by
    * #HdySwipeGroup, applications should not connect to it.
+   * The @direction value can be used to restrict the swipe to a certain
+   * direction.
    *
    * Since: 0.0.12
    */
@@ -74,7 +77,8 @@ hdy_swipeable_default_init (HdySwipeableInterface *iface)
                   0,
                   NULL, NULL, NULL,
                   G_TYPE_NONE,
-                  0);
+                  1,
+                  G_TYPE_INT);
 
   /**
    * HdySwipeable::update:
@@ -146,16 +150,19 @@ hdy_swipeable_switch_child (HdySwipeable *self,
 /**
  * hdy_swipeable_begin_swipe:
  * @self: a #HdySwipeable
+ * @direction: The direction of the swipe, can be 1 or -1
  *
  * This function is called by #HdySwipeTracker when a possible swipe is detected.
  * The implementation should check whether a swipe is possible, and if it is,
  * it must call hdy_swipe_tracker_confirm_swipe() to provide details about the
  * swipe, see that function for details.
+ * The @direction value can be used to restrict the swipe to a certain direction.
  *
  * Since: 0.0.12
  */
 void
-hdy_swipeable_begin_swipe (HdySwipeable *self)
+hdy_swipeable_begin_swipe (HdySwipeable *self,
+                           gint          direction)
 {
   HdySwipeableInterface *iface;
 
@@ -164,9 +171,9 @@ hdy_swipeable_begin_swipe (HdySwipeable *self)
   iface = HDY_SWIPEABLE_GET_IFACE (self);
   g_return_if_fail (iface->begin_swipe != NULL);
 
-  (* iface->begin_swipe) (self);
+  (* iface->begin_swipe) (self, direction);
 
-  g_signal_emit (self, signals[SIGNAL_BEGIN_SWIPE], 0);
+  g_signal_emit (self, signals[SIGNAL_BEGIN_SWIPE], 0, direction);
 }
 
 /**

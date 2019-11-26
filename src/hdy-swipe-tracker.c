@@ -140,14 +140,13 @@ reset (HdySwipeTracker *self)
 
 static void
 gesture_prepare (HdySwipeTracker *self,
-                 gdouble          x,
-                 gdouble          y)
+                 gint             direction)
 {
   if (self->state != HDY_SWIPE_TRACKER_STATE_NONE)
     return;
 
   self->state = HDY_SWIPE_TRACKER_STATE_PREPARING;
-  hdy_swipeable_begin_swipe (self->swipeable);
+  hdy_swipeable_begin_swipe (self->swipeable, direction);
 }
 
 static void
@@ -290,12 +289,8 @@ drag_begin_cb (HdySwipeTracker *self,
                gdouble          start_y,
                GtkGestureDrag  *gesture)
 {
-  if (self->state != HDY_SWIPE_TRACKER_STATE_NONE) {
+  if (self->state != HDY_SWIPE_TRACKER_STATE_NONE)
     gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
-    return;
-  }
-
-  gesture_prepare (self, start_x, start_y);
 }
 
 static void
@@ -305,7 +300,7 @@ drag_update_cb (HdySwipeTracker *self,
                 GtkGestureDrag  *gesture)
 {
   gdouble offset;
-  gboolean is_vertical;
+  gboolean is_vertical, is_offset_vertical;
 
   is_vertical = (self->orientation == GTK_ORIENTATION_VERTICAL);
   if (is_vertical)
@@ -316,16 +311,25 @@ drag_update_cb (HdySwipeTracker *self,
   if (self->reversed)
     offset = -offset;
 
+  is_offset_vertical = (ABS (offset_y) > ABS (offset_x));
+
+  if (self->state == HDY_SWIPE_TRACKER_STATE_NONE) {
+    if (is_vertical == is_offset_vertical)
+      gesture_prepare (self, offset > 0 ? 1 : -1);
+    else
+      gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
   if (self->state == HDY_SWIPE_TRACKER_STATE_PENDING) {
     gdouble distance;
     gdouble first_point, last_point;
-    gboolean is_offset_vertical, is_overshooting;
+    gboolean is_overshooting;
 
     first_point = self->snap_points[0];
     last_point = self->snap_points[self->n_snap_points - 1];
 
     distance = sqrt (offset_x * offset_x + offset_y * offset_y);
-    is_offset_vertical = (ABS (offset_y) > ABS (offset_x));
     is_overshooting = (offset < 0 && self->progress <= first_point) ||
                       (offset > 0 && self->progress >= last_point);
 
@@ -373,11 +377,11 @@ static gboolean
 captured_scroll_event (HdySwipeTracker *self,
                        GdkEvent        *event)
 {
-  GtkWidget *widget;
   GdkDevice *source_device;
   GdkInputSource input_source;
   gdouble dx, dy, delta;
   gboolean is_vertical;
+  gboolean is_delta_vertical;
 
   if (gdk_event_get_scroll_direction (event, NULL))
     return GDK_EVENT_PROPAGATE;
@@ -387,18 +391,23 @@ captured_scroll_event (HdySwipeTracker *self,
   if (input_source != GDK_SOURCE_TOUCHPAD)
     return GDK_EVENT_PROPAGATE;
 
+  is_vertical = (self->orientation == GTK_ORIENTATION_VERTICAL);
+
+  gdk_event_get_scroll_deltas (event, &dx, &dy);
+  delta = is_vertical ? dy : dx;
+  if (self->reversed)
+    delta = -delta;
+
+  is_delta_vertical = (ABS (dy) > ABS (dx));
+
   if (self->state == HDY_SWIPE_TRACKER_STATE_NONE) {
-    gdouble root_x, root_y;
-    gint x, y;
-    GtkWidget *toplevel;
+    if (gdk_event_is_scroll_stop_event (event))
+      return GDK_EVENT_PROPAGATE;
 
-    gdk_event_get_root_coords (event, &root_x, &root_y);
-
-    widget = GTK_WIDGET (self->swipeable);
-    toplevel = gtk_widget_get_toplevel (widget);
-    gtk_widget_translate_coordinates (toplevel, widget, root_x, root_y, &x, &y);
-
-    gesture_prepare (self, x, y);
+    if (is_vertical == is_delta_vertical)
+      gesture_prepare (self, delta > 0 ? 1 : -1);
+    else
+      return GDK_EVENT_PROPAGATE;
   }
 
   if (self->state == HDY_SWIPE_TRACKER_STATE_PREPARING) {
@@ -408,21 +417,13 @@ captured_scroll_event (HdySwipeTracker *self,
     return GDK_EVENT_PROPAGATE;
   }
 
-  is_vertical = (self->orientation == GTK_ORIENTATION_VERTICAL);
-
-  gdk_event_get_scroll_deltas (event, &dx, &dy);
-  delta = is_vertical ? dy : dx;
-  if (self->reversed)
-    delta = -delta;
-
   if (self->state == HDY_SWIPE_TRACKER_STATE_PENDING) {
-    gboolean is_delta_vertical, is_overshooting;
+    gboolean is_overshooting;
     gdouble first_point, last_point;
 
     first_point = self->snap_points[0];
     last_point = self->snap_points[self->n_snap_points - 1];
 
-    is_delta_vertical = (ABS (dy) > ABS (dx));
     is_overshooting = (delta < 0 && self->progress <= first_point) ||
                       (delta > 0 && self->progress >= last_point);
 

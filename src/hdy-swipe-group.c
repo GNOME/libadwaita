@@ -118,6 +118,7 @@ switch_child_cb (HdySwipeGroup *self,
 
 static void
 begin_swipe_cb (HdySwipeGroup *self,
+                gint           direction,
                 HdySwipeable  *swipeable)
 {
   GSList *swipeables;
@@ -129,7 +130,7 @@ begin_swipe_cb (HdySwipeGroup *self,
 
   for (swipeables = self->swipeables; swipeables != NULL; swipeables = swipeables->next)
     if (swipeables->data != swipeable)
-      hdy_swipeable_begin_swipe (swipeables->data);
+      hdy_swipeable_begin_swipe (swipeables->data, direction);
 }
 
 static void
