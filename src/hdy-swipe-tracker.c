@@ -146,7 +146,7 @@ gesture_prepare (HdySwipeTracker *self,
     return;
 
   self->state = HDY_SWIPE_TRACKER_STATE_PREPARING;
-  hdy_swipeable_begin_swipe (self->swipeable, direction);
+  hdy_swipeable_begin_swipe (self->swipeable, direction, TRUE);
 }
 
 static void

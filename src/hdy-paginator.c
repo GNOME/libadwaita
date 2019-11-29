@@ -119,7 +119,8 @@ hdy_paginator_switch_child (HdySwipeable *swipeable,
 
 static void
 hdy_paginator_begin_swipe (HdySwipeable *swipeable,
-                           gint          direction)
+                           gint          direction,
+                           gboolean      direct)
 {
   HdyPaginator *self = HDY_PAGINATOR (swipeable);
   gdouble distance, position, closest_point;

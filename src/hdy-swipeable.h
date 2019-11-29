@@ -34,7 +34,8 @@ struct _HdySwipeableInterface
                         guint         index,
                         gint64        duration);
   void (*begin_swipe)  (HdySwipeable *self,
-                        gint          direction);
+                        gint          direction,
+                        gboolean      direct);
   void (*update_swipe) (HdySwipeable *self,
                         gdouble       value);
   void (*end_swipe)    (HdySwipeable *self,

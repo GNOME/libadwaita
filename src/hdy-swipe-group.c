@@ -130,7 +130,7 @@ begin_swipe_cb (HdySwipeGroup *self,
 
   for (swipeables = self->swipeables; swipeables != NULL; swipeables = swipeables->next)
     if (swipeables->data != swipeable)
-      hdy_swipeable_begin_swipe (swipeables->data, direction);
+      hdy_swipeable_begin_swipe (swipeables->data, direction, FALSE);
 }
 
 static void
