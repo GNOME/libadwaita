@@ -503,7 +503,7 @@ hdy_leaflet_start_child_transition (HdyLeaflet                    *self,
     priv->child_transition.first_frame_skipped = FALSE;
     hdy_leaflet_schedule_child_ticks (self);
     gtk_progress_tracker_start (&priv->child_transition.tracker,
-                                priv->child_transition.duration * 1000,
+                                transition_duration * 1000,
                                 0,
                                 1.0);
   }
