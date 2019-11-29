@@ -90,6 +90,7 @@ struct _HdySwipeTracker
 
   gdouble *snap_points;
   gint n_snap_points;
+  gboolean is_scrolling;
 
   HdySwipeTrackerState state;
   GtkGesture *touch_gesture;
@@ -400,14 +401,25 @@ captured_scroll_event (HdySwipeTracker *self,
 
   is_delta_vertical = (ABS (dy) > ABS (dx));
 
+  if (self->is_scrolling) {
+    gesture_cancel (self);
+
+    if (gdk_event_is_scroll_stop_event (event))
+      self->is_scrolling = FALSE;
+
+    return GDK_EVENT_PROPAGATE;
+  }
+
   if (self->state == HDY_SWIPE_TRACKER_STATE_NONE) {
     if (gdk_event_is_scroll_stop_event (event))
       return GDK_EVENT_PROPAGATE;
 
     if (is_vertical == is_delta_vertical)
       gesture_prepare (self, delta > 0 ? 1 : -1);
-    else
+    else {
+      self->is_scrolling = TRUE;
       return GDK_EVENT_PROPAGATE;
+    }
   }
 
   if (self->state == HDY_SWIPE_TRACKER_STATE_PREPARING) {
