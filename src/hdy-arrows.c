@@ -469,6 +469,8 @@ hdy_arrows_class_init (HdyArrowsClass *klass)
  * Create a new #HdyArrows widget.
  *
  * Returns: the newly created #HdyArrows widget
+ *
+ * Deprecated: 0.0.12: Use e.g. #GtkImage and CSS animation instead
  */
 GtkWidget *hdy_arrows_new (void)
 {
@@ -492,6 +494,8 @@ hdy_arrows_init (HdyArrows *self)
  * Get the number of arrows displayed in the widget.
  *
  * Returns: the current number of arrows
+ *
+ * Deprecated: 0.0.12: Use e.g. #GtkImage and CSS animation instead
  */
 guint
 hdy_arrows_get_count (HdyArrows *self)
@@ -511,6 +515,7 @@ hdy_arrows_get_count (HdyArrows *self)
  *
  * Set the number of arrows to display.
  *
+ * Deprecated: 0.0.12: Use e.g. #GtkImage and CSS animation instead
  */
 void
 hdy_arrows_set_count (HdyArrows   *self, guint count)
@@ -537,6 +542,8 @@ hdy_arrows_set_count (HdyArrows   *self, guint count)
  * Get the direction the arrows point to
  *
  * Returns: the arrows direction
+ *
+ * Deprecated: 0.0.12: Use e.g. #GtkImage and CSS animation instead
  */
 HdyArrowsDirection
 hdy_arrows_get_direction (HdyArrows *self)
@@ -557,6 +564,7 @@ hdy_arrows_get_direction (HdyArrows *self)
  *
  * Set the direction the arrows should point to.
  *
+ * Deprecated: 0.0.12: Use e.g. #GtkImage and CSS animation instead
  */
 void
 hdy_arrows_set_direction (HdyArrows *self,
@@ -596,6 +604,8 @@ hdy_arrows_set_direction (HdyArrows *self,
  * Get the duration of the arrows animation.
  *
  * Returns: the duration of the animation in ms
+ *
+ * Deprecated: 0.0.12: Use e.g. #GtkImage and CSS animation instead
  */
 HdyArrowsDirection
 hdy_arrows_get_duration (HdyArrows *self)
@@ -616,6 +626,7 @@ hdy_arrows_get_duration (HdyArrows *self)
  *
  * Set the duration of the arrow animation.
  *
+ * Deprecated: 0.0.12: Use e.g. #GtkImage and CSS animation instead
  */
 void
 hdy_arrows_set_duration (HdyArrows *self,
@@ -640,6 +651,8 @@ hdy_arrows_set_duration (HdyArrows *self,
  * @self: a #HdyArrows
  *
  * Render the arrows animation.
+ *
+ * Deprecated: 0.0.12: Use e.g. #GtkImage and CSS animation instead
  */
 void
 hdy_arrows_animate (HdyArrows *self)

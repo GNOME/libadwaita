@@ -10,10 +10,12 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
+#include "hdy-deprecation-macros.h"
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
+_HDY_DEPRECATED
 typedef enum
 {
   HDY_ARROWS_DIRECTION_UP,
@@ -36,16 +38,24 @@ struct _HdyArrowsClass
 };
 
 
+_HDY_DEPRECATED
 GtkWidget         *hdy_arrows_new                  (void);
+_HDY_DEPRECATED
 guint              hdy_arrows_get_count            (HdyArrows  *self);
+_HDY_DEPRECATED
 void               hdy_arrows_set_count            (HdyArrows  *self,
                                                     guint       count);
+_HDY_DEPRECATED
 void               hdy_arrows_set_direction        (HdyArrows  *self,
                                                     HdyArrowsDirection direction);
+_HDY_DEPRECATED
 HdyArrowsDirection hdy_arrows_get_direction        (HdyArrows  *self);
+_HDY_DEPRECATED
 void               hdy_arrows_set_duration         (HdyArrows  *self,
                                                     guint duration);
+_HDY_DEPRECATED
 guint              hdy_arrows_get_duration         (HdyArrows  *self);
+_HDY_DEPRECATED
 void               hdy_arrows_animate              (HdyArrows  *self);
 
 G_END_DECLS
