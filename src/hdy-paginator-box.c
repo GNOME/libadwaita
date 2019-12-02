@@ -173,7 +173,7 @@ register_window (HdyPaginatorBoxChildInfo *info,
   gint attributes_mask;
 
   widget = GTK_WIDGET (self);
-  gtk_widget_get_allocation (widget, &allocation);
+  gtk_widget_get_allocation (info->widget, &allocation);
 
   attributes.x = allocation.x;
   attributes.y = allocation.y;
