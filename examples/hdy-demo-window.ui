@@ -22,21 +22,6 @@
       </object>
     </child>
   </object>
-  <object class="GtkAdjustment" id="adj_arrows_count">
-    <property name="lower">1</property>
-    <property name="upper">10</property>
-    <property name="value">1</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-    <signal name="value-changed" handler="adj_arrows_count_value_changed_cb" swapped="no"/>
-  </object>
-  <object class="GtkAdjustment" id="adj_arrows_duration">
-    <property name="upper">10000</property>
-    <property name="value">1000</property>
-    <property name="step_increment">250</property>
-    <property name="page_increment">1000</property>
-    <signal name="value-changed" handler="adj_arrows_duration_value_changed_cb" swapped="no"/>
-  </object>
   <template class="HdyDemoWindow" parent="GtkApplicationWindow">
     <property name="can_focus">False</property>
     <property name="title">Handy Demo</property>
