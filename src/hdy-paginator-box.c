@@ -1192,9 +1192,13 @@ GtkWidget *
 hdy_paginator_box_get_nth_child (HdyPaginatorBox *self,
                                  guint            n)
 {
+  HdyPaginatorBoxChildInfo *info;
+
   g_return_val_if_fail (HDY_IS_PAGINATOR_BOX (self), NULL);
   g_return_val_if_fail (n < g_list_length (self->children), NULL);
 
-  return g_list_nth_data (self->children, n);
+  info = g_list_nth_data (self->children, n);
+
+  return info->widget;
 }
 
