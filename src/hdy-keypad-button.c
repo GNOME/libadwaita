@@ -256,8 +256,8 @@ static void
 hdy_keypad_button_init (HdyKeypadButton *self)
 {
   HdyKeypadButtonPrivate *priv = hdy_keypad_button_get_instance_private(self);
-  g_autoptr (GtkCssProvider) provider_digit;
-  g_autoptr (GtkCssProvider) provider_letters;
+  g_autoptr (GtkCssProvider) provider_digit = NULL;
+  g_autoptr (GtkCssProvider) provider_letters = NULL;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 

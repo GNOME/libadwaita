@@ -219,7 +219,7 @@ static void
 hdy_keypad_constructed (GObject *object)
 {
   HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (HDY_KEYPAD (object));
-  g_autoptr (GtkCssProvider) provider;
+  g_autoptr (GtkCssProvider) provider = NULL;
 
   G_OBJECT_CLASS (hdy_keypad_parent_class)->constructed (object);
 
