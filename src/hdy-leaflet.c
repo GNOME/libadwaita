@@ -1532,8 +1532,14 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
     if (!child_info->widget)
       continue;
 
-    if (child_info->widget != visible_child->widget)
-      gtk_widget_set_child_visible (child_info->widget, FALSE);
+    if (child_info->widget == visible_child->widget)
+      continue;
+
+    if (priv->last_visible_child &&
+        child_info->widget == priv->last_visible_child->widget)
+      continue;
+
+    gtk_widget_set_child_visible (child_info->widget, FALSE);
   }
 
   if (visible_child->widget == NULL)
@@ -1562,7 +1568,8 @@ hdy_leaflet_size_allocate_folded (GtkWidget     *widget,
     for (children = directed_children; children; children = children->next) {
       child_info = children->data;
 
-      if (child_info != visible_child) {
+      if (child_info != visible_child &&
+          child_info != priv->last_visible_child) {
         child_info->visible = FALSE;
 
         continue;
