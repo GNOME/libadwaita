@@ -19,6 +19,7 @@ G_BEGIN_DECLS
 
 G_DECLARE_DERIVABLE_TYPE (HdyDialerButton, hdy_dialer_button, HDY, DIALER_BUTTON, GtkButton)
 
+_HDY_DEPRECATED
 struct _HdyDialerButtonClass
 {
   GtkButtonClass parent_class;

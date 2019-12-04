@@ -24,6 +24,7 @@ G_DECLARE_DERIVABLE_TYPE (HdyDialer, hdy_dialer, HDY, DIALER, GtkBin)
  * @parent_class: The parent class
  * @submitted: Class handler for the #HdyDialer::submitted signal
  */
+_HDY_DEPRECATED
 struct _HdyDialerClass
 {
   GtkBinClass parent_class;

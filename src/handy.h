@@ -33,9 +33,11 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 #include "hdy-column.h"
 #include "hdy-combo-row.h"
 #include "hdy-deprecation-macros.h"
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 #include "hdy-dialer-button.h"
 #include "hdy-dialer-cycle-button.h"
 #include "hdy-dialer.h"
+G_GNUC_END_IGNORE_DEPRECATIONS
 #include "hdy-dialog.h"
 #include "hdy-enum-value-object.h"
 #include "hdy-expander-row.h"

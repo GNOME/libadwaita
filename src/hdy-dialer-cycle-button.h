@@ -25,6 +25,7 @@ G_DECLARE_DERIVABLE_TYPE (HdyDialerCycleButton, hdy_dialer_cycle_button, HDY, DI
  * @cycle_start: Class handler for the #HdyDialerCycleButton::cycle-start signal
  * @cycle_end: Class handler for the #HdyDialerCycleButton::cycle-end signal
  */
+_HDY_DEPRECATED
 struct _HdyDialerCycleButtonClass
 {
   HdyDialerButtonClass parent_class;
