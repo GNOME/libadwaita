@@ -16,12 +16,9 @@ struct _HdyDemoWindow
   GtkStackSidebar *sidebar;
   GtkStack *stack;
   HdyComboRow *leaflet_transition_row;
-  GtkWidget *box_dialer;
-  HdyDialer *dialer;
   GtkWidget *box_keypad;
   GtkListBox *keypad_listbox;
   HdyKeypad *keypad;
-  GtkLabel *display;
   HdySearchBar *search_bar;
   GtkEntry *search_entry;
   GtkListBox *column_listbox;
@@ -156,54 +153,6 @@ notify_leaflet_transition_cb (GObject       *sender,
 
   hdy_leaflet_set_transition_type (HDY_LEAFLET (self->content_box), hdy_combo_row_get_selected_index (row));
 }
-
-static void
-hdy_demo_window_submitted_cb (GtkWidget *widget,
-                              gchar     *number)
-{
-  g_print ("Submit %s\n", number);
-}
-
-
-static void
-deleted_cb (HdyDialer     *dialer,
-            HdyDemoWindow *self)
-{
-  g_assert (HDY_IS_DIALER (dialer));
-  g_assert (HDY_IS_DEMO_WINDOW (self));
-  g_print ("Delete btn\n");
-}
-
-
-static void
-number_notify_cb (HdyDemoWindow *self,
-                  gpointer       unused)
-{
-  gtk_label_set_label (self->display, hdy_dialer_get_number (self->dialer));
-  g_print ("wuff: %s\n", hdy_dialer_get_number (self->dialer));
-}
-
-
-static void
-symbol_clicked_cb (HdyDialer     *dialer,
-                   gchar          symbol,
-                   HdyDemoWindow *self)
-{
-  g_assert (HDY_IS_DIALER (dialer));
-  g_assert (HDY_IS_DEMO_WINDOW (self));
-  g_print ("clicked: %c\n", symbol);
-}
-
-
-static void
-stack_visible_child_notify_cb (HdyDemoWindow *self,
-                               gpointer       unused)
-{
-  if (gtk_stack_get_visible_child (GTK_STACK (self->stack)) == GTK_WIDGET (self->box_dialer)) {
-    gtk_widget_grab_focus (GTK_WIDGET (self->dialer));
-  }
-}
-
 
 static void
 dialog_close_cb (GtkDialog *self)
@@ -399,16 +348,6 @@ hdy_demo_window_constructed (GObject *object)
 
   G_OBJECT_CLASS (hdy_demo_window_parent_class)->constructed (object);
 
-  g_signal_connect_swapped (self->dialer,
-                            "notify::number",
-                            G_CALLBACK (number_notify_cb),
-                            self);
-
-  g_signal_connect_swapped (self->stack,
-                            "notify::visible-child",
-                            G_CALLBACK (stack_visible_child_notify_cb),
-                            self);
-
   hdy_search_bar_connect_entry (self->search_bar, self->search_entry);
 }
 
@@ -429,12 +368,9 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, leaflet_transition_row);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, box_dialer);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, dialer);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, box_keypad);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, keypad_listbox);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, keypad);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, display);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_bar);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_entry);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, column_listbox);
@@ -452,9 +388,6 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(hdy_demo_window_notify_visible_child_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "back_clicked_cb", G_CALLBACK(hdy_demo_window_back_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_leaflet_transition_cb", G_CALLBACK(notify_leaflet_transition_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "submitted_cb", G_CALLBACK(hdy_demo_window_submitted_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "symbol_clicked_cb", G_CALLBACK(symbol_clicked_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "deleted_cb", G_CALLBACK(deleted_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "dialog_clicked_cb", G_CALLBACK(dialog_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "dialog_action_clicked_cb", G_CALLBACK(dialog_action_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "dialog_complex_clicked_cb", G_CALLBACK(dialog_complex_clicked_cb));
