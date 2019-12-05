@@ -75,6 +75,7 @@ struct _HdySwipeTracker
   HdySwipeable *swipeable;
   gboolean enabled;
   gboolean reversed;
+  gboolean allow_mouse_drag;
   GtkOrientation orientation;
 
   guint32 prev_time;
@@ -104,10 +105,11 @@ enum {
   PROP_SWIPEABLE,
   PROP_ENABLED,
   PROP_REVERSED,
+  PROP_ALLOW_MOUSE_DRAG,
 
   /* GtkOrientable */
   PROP_ORIENTATION,
-  LAST_PROP = PROP_REVERSED + 1,
+  LAST_PROP = PROP_ALLOW_MOUSE_DRAG + 1,
 };
 
 static GParamSpec *props[LAST_PROP];
@@ -479,7 +481,7 @@ hdy_swipe_tracker_constructed (GObject *object)
   self->touch_gesture = g_object_new (GTK_TYPE_GESTURE_DRAG,
                                       "widget", self->swipeable,
                                       "propagation-phase", GTK_PHASE_NONE,
-                                      "touch-only", TRUE,
+                                      "touch-only", !self->allow_mouse_drag,
                                       NULL);
 
   g_signal_connect_swapped (self->touch_gesture, "drag-begin", G_CALLBACK (drag_begin_cb), self);
@@ -529,6 +531,10 @@ hdy_swipe_tracker_get_property (GObject    *object,
     g_value_set_boolean (value, hdy_swipe_tracker_get_reversed (self));
     break;
 
+  case PROP_ALLOW_MOUSE_DRAG:
+    g_value_set_boolean (value, hdy_swipe_tracker_get_allow_mouse_drag (self));
+    break;
+
   case PROP_ORIENTATION:
     g_value_set_enum (value, self->orientation);
     break;
@@ -557,6 +563,10 @@ hdy_swipe_tracker_set_property (GObject      *object,
 
   case PROP_REVERSED:
     hdy_swipe_tracker_set_reversed (self, g_value_get_boolean (value));
+    break;
+
+  case PROP_ALLOW_MOUSE_DRAG:
+    hdy_swipe_tracker_set_allow_mouse_drag (self, g_value_get_boolean (value));
     break;
 
   case PROP_ORIENTATION:
@@ -625,6 +635,21 @@ hdy_swipe_tracker_class_init (HdySwipeTrackerClass *klass)
     g_param_spec_boolean ("reversed",
                           _("Reversed"),
                           _("Whether swipe direction is reversed"),
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdySwipeTracker:allow-mouse-drag:
+   *
+   * Whether to allow dragging with mouse pointer. This should usually be
+   * %FALSE.
+   *
+   * Since: 0.0.11
+   */
+  props[PROP_ALLOW_MOUSE_DRAG] =
+    g_param_spec_boolean ("allow-mouse-drag",
+                          _("Allow mouse drag"),
+                          _("Whether to allow dragging with mouse pointer"),
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -752,6 +777,53 @@ hdy_swipe_tracker_set_reversed (HdySwipeTracker *self,
 
   self->reversed = reversed;
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVERSED]);
+}
+
+/**
+ * hdy_swipe_tracker_get_allow_mouse_drag:
+ * @self: a #HdySwipeTracker
+ *
+ * Get whether @self can be dragged with mouse pointer.
+ *
+ * Returns: %TRUE is mouse dragging is allowed
+ *
+ * Since: 0.0.12
+ */
+gboolean
+hdy_swipe_tracker_get_allow_mouse_drag (HdySwipeTracker *self)
+{
+  g_return_val_if_fail (HDY_IS_SWIPE_TRACKER (self), FALSE);
+
+  return self->allow_mouse_drag;
+}
+
+/**
+ * hdy_swipe_tracker_set_allow_mouse_drag:
+ * @self: a #HdySwipeTracker
+ * @allow_mouse_drag: whether to allow mouse dragging
+ *
+ * Set whether @self can be dragged with mouse pointer. This should usually be
+ * %FALSE.
+ *
+ * Since: 0.0.12
+ */
+void
+hdy_swipe_tracker_set_allow_mouse_drag (HdySwipeTracker *self,
+                                        gboolean         allow_mouse_drag)
+{
+  g_return_if_fail (HDY_IS_SWIPE_TRACKER (self));
+
+  allow_mouse_drag = !!allow_mouse_drag;
+
+  if (self->allow_mouse_drag == allow_mouse_drag)
+    return;
+
+  self->allow_mouse_drag = allow_mouse_drag;
+
+  if (self->touch_gesture)
+    g_object_set (self->touch_gesture, "touch-only", !allow_mouse_drag, NULL);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALLOW_MOUSE_DRAG]);
 }
 
 /**
