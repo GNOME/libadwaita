@@ -90,10 +90,11 @@ enum {
   PROP_CENTER_CONTENT,
   PROP_SPACING,
   PROP_ANIMATION_DURATION,
+  PROP_ALLOW_MOUSE_DRAG,
 
   /* GtkOrientable */
   PROP_ORIENTATION,
-  LAST_PROP = PROP_ANIMATION_DURATION + 1,
+  LAST_PROP = PROP_ALLOW_MOUSE_DRAG + 1,
 };
 
 static GParamSpec *props[LAST_PROP];
@@ -675,6 +676,10 @@ hdy_paginator_get_property (GObject    *object,
     g_value_set_uint (value, hdy_paginator_get_spacing (self));
     break;
 
+  case PROP_ALLOW_MOUSE_DRAG:
+    g_value_set_boolean (value, hdy_paginator_get_allow_mouse_drag (self));
+    break;
+
   case PROP_ORIENTATION:
     g_value_set_enum (value, self->orientation);
     break;
@@ -719,6 +724,10 @@ hdy_paginator_set_property (GObject      *object,
 
   case PROP_ANIMATION_DURATION:
     hdy_paginator_set_animation_duration (self, g_value_get_uint (value));
+    break;
+
+  case PROP_ALLOW_MOUSE_DRAG:
+    hdy_paginator_set_allow_mouse_drag (self, g_value_get_boolean (value));
     break;
 
   case PROP_ORIENTATION:
@@ -891,6 +900,23 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
                        _("Default animation duration"),
                        0, G_MAXUINT, DEFAULT_DURATION,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyPaginator:allow-mouse-drag:
+   *
+   * Sets whether the #HdyPaginator can be dragged with mouse pointer. If the
+   * value is %FALSE, dragging is only available on touch.
+   *
+   * This should usually be %FALSE.
+   *
+   * Since: 0.0.12
+   */
+  props[PROP_ALLOW_MOUSE_DRAG] =
+    g_param_spec_boolean ("allow-mouse-drag",
+                          _("Allow mouse drag"),
+                          _("Whether to allow dragging with mouse pointer"),
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,
@@ -1371,4 +1397,47 @@ hdy_paginator_set_animation_duration (HdyPaginator *self,
   self->animation_duration = duration;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ANIMATION_DURATION]);
+}
+
+/**
+ * hdy_paginator_get_allow_mouse_drag:
+ * @self: a #HdyPaginator
+ *
+ * Sets whether @self can be dragged with mouse pointer
+ *
+ * Returns: %TRUE if @self can be dragged with mouse
+ *
+ * Since: 0.0.12
+ */
+gboolean
+hdy_paginator_get_allow_mouse_drag (HdyPaginator *self)
+{
+  g_return_val_if_fail (HDY_IS_PAGINATOR (self), FALSE);
+
+  return hdy_swipe_tracker_get_allow_mouse_drag (self->tracker);
+}
+
+/**
+ * hdy_paginator_set_allow_mouse_drag:
+ * @self: a #HdyPaginator
+ * @allow_mouse_drag: whether @self can be dragged with mouse pointer
+ *
+ * Sets whether @self can be dragged with mouse pointer. If @allow_mouse_drag
+ * is %FALSE, dragging is only available on touch.
+ *
+ * This should usually be %FALSE.
+ *
+ * Since: 0.0.12
+ */
+void
+hdy_paginator_set_allow_mouse_drag (HdyPaginator *self,
+                                    gboolean      allow_mouse_drag)
+{
+  g_return_if_fail (HDY_IS_PAGINATOR (self));
+
+  allow_mouse_drag = !!allow_mouse_drag;
+
+  hdy_swipe_tracker_set_allow_mouse_drag (self->tracker, allow_mouse_drag);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALLOW_MOUSE_DRAG]);
 }
