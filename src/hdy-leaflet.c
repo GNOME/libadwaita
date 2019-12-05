@@ -439,6 +439,7 @@ hdy_leaflet_child_progress_updated (HdyLeaflet *self)
       }
     }
 
+    gtk_widget_queue_allocate (GTK_WIDGET (self));
     hdy_shadow_helper_clear_cache (priv->shadow_helper);
   }
 }
