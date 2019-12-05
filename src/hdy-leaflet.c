@@ -14,12 +14,6 @@
 #include "hdy-swipeable-private.h"
 #include "hdy-swipe-tracker-private.h"
 
-/* TODO:
- * - Ensure folding and unfolding animations behave similarly.
- * - Unify mode and child transition types?
- * - Support RTL languages.
- */
-
 /**
  * SECTION:hdy-leaflet
  * @short_description: An adaptive container acting like a box or a stack.
