@@ -31,9 +31,9 @@
  * # #HdySwipeGroup as #GtkBuildable
  *
  * #HdySwipeGroup can be created in an UI definition. The list of swipeable
- * widgets is specified with a \<swipeables\> element containing multiple
- * \<swipeable\> elements with their ”name” attribute specifying the id of the
- * widgets.
+ * widgets is specified with a &lt;swipeables&gt; element containing multiple
+ * &lt;swipeable&gt; elements with their ”name” attribute specifying the id of
+ * the widgets.
  *
  * |[
  * <object class="HdySwipeGroup">
