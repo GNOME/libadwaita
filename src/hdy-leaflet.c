@@ -3749,6 +3749,13 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                        HDY_TYPE_LEAFLET_TRANSITION_TYPE, HDY_LEAFLET_TRANSITION_TYPE_NONE,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * HdyLeaflet:mode-transition-type:
+   *
+   * The type of animation used to transition between mode
+   *
+   * Deprecated: 0.0.12: Use #HdyLeaflet:transition-type instead
+   */
   props[PROP_MODE_TRANSITION_TYPE] =
     g_param_spec_enum ("mode-transition-type",
                        _("Mode transition type"),
@@ -3763,6 +3770,13 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                        0, G_MAXUINT, 250,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * HdyLeaflet:child-transition-type:
+   *
+   * The type of animation used to transition between children
+   *
+   * Deprecated: 0.0.12: Use #HdyLeaflet:transition-type instead
+   */
   props[PROP_CHILD_TRANSITION_TYPE] =
     g_param_spec_enum ("child-transition-type",
                        _("Child transition type"),
