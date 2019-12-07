@@ -59,7 +59,7 @@ hdy_swipeable_default_init (HdySwipeableInterface *iface)
                   G_TYPE_UINT, G_TYPE_INT64);
 
   /**
-   * HdySwipeable::begin:
+   * HdySwipeable::begin-swipe:
    * @self: The #HdySwipeable instance
    * @direction: The direction of the swipe, can be 1 or -1
    *
@@ -81,7 +81,7 @@ hdy_swipeable_default_init (HdySwipeableInterface *iface)
                   G_TYPE_INT);
 
   /**
-   * HdySwipeable::update:
+   * HdySwipeable::update-swipe:
    * @self: The #HdySwipeable instance
    * @value: The current animation progress value
    *
