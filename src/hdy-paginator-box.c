@@ -610,8 +610,6 @@ hdy_paginator_box_add (GtkContainer *container,
   HdyPaginatorBox *self = HDY_PAGINATOR_BOX (container);
   HdyPaginatorBoxChildInfo *info;
 
-  gtk_widget_set_parent (widget, GTK_WIDGET (container));
-
   info = g_new0 (HdyPaginatorBoxChildInfo, 1);
   info->widget = widget;
 
@@ -619,6 +617,8 @@ hdy_paginator_box_add (GtkContainer *container,
     register_window (info, self);
 
   self->children = g_list_append (self->children, info);
+
+  gtk_widget_set_parent (widget, GTK_WIDGET (container));
 
   invalidate_drawing_cache (self);
 
