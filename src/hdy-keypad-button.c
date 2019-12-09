@@ -299,7 +299,7 @@ hdy_keypad_button_new (const gchar *symbols)
  *
  * Returns: the button's digit
  */
-const char
+char
 hdy_keypad_button_get_digit (HdyKeypadButton *self)
 {
   HdyKeypadButtonPrivate *priv;
