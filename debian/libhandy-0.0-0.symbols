@@ -118,7 +118,21 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_header_group_set_focus@LIBHANDY_0_0_0 0.0.3
  hdy_init@LIBHANDY_0_0_0 0.0.5
  hdy_init_public_types@LIBHANDY_0_0_0 0.0.5
+ hdy_keypad_button_get_digit@LIBHANDY_0_0_0 0.0.12
+ hdy_keypad_button_get_symbols@LIBHANDY_0_0_0 0.0.12
+ hdy_keypad_button_get_type@LIBHANDY_0_0_0 0.0.12
+ hdy_keypad_button_new@LIBHANDY_0_0_0 0.0.12
+ hdy_keypad_button_show_symbols@LIBHANDY_0_0_0 0.0.12
+ hdy_keypad_get_entry@LIBHANDY_0_0_0 0.0.12
+ hdy_keypad_get_type@LIBHANDY_0_0_0 0.0.12
+ hdy_keypad_new@LIBHANDY_0_0_0 0.0.12
+ hdy_keypad_set_entry@LIBHANDY_0_0_0 0.0.12
+ hdy_keypad_set_left_action@LIBHANDY_0_0_0 0.0.12
+ hdy_keypad_set_right_action@LIBHANDY_0_0_0 0.0.12
+ hdy_keypad_show_symbols@LIBHANDY_0_0_0 0.0.12
  hdy_leaflet_child_transition_type_get_type@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_leaflet_get_can_swipe_back@LIBHANDY_0_0_0 0.0.12
+ hdy_leaflet_get_can_swipe_forward@LIBHANDY_0_0_0 0.0.12
  hdy_leaflet_get_child_transition_duration@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_get_child_transition_running@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_get_child_transition_type@LIBHANDY_0_0_0 0.0~git20180429
@@ -127,24 +141,30 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_leaflet_get_interpolate_size@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_get_mode_transition_duration@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_get_mode_transition_type@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_leaflet_get_transition_type@LIBHANDY_0_0_0 0.0.12
  hdy_leaflet_get_type@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_get_visible_child@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_get_visible_child_name@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_mode_transition_type_get_type@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_new@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_leaflet_set_can_swipe_back@LIBHANDY_0_0_0 0.0.12
+ hdy_leaflet_set_can_swipe_forward@LIBHANDY_0_0_0 0.0.12
  hdy_leaflet_set_child_transition_duration@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_set_child_transition_type@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_set_homogeneous@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_set_interpolate_size@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_set_mode_transition_duration@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_set_mode_transition_type@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_leaflet_set_transition_type@LIBHANDY_0_0_0 0.0.12
  hdy_leaflet_set_visible_child@LIBHANDY_0_0_0 0.0~git20180429
  hdy_leaflet_set_visible_child_name@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_leaflet_transition_type_get_type@LIBHANDY_0_0_0 0.0.12
  hdy_lerp@LIBHANDY_0_0_0 0.0.11
  hdy_list_box_separator_header@LIBHANDY_0_0_0 0.0.6
  hdy_paginator_box_animate@LIBHANDY_0_0_0 0.0.11
  hdy_paginator_box_get_distance@LIBHANDY_0_0_0 0.0.11
  hdy_paginator_box_get_n_pages@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_box_get_nth_child@LIBHANDY_0_0_0 0.0.12
  hdy_paginator_box_get_position@LIBHANDY_0_0_0 0.0.11
  hdy_paginator_box_get_spacing@LIBHANDY_0_0_0 0.0.11
  hdy_paginator_box_get_type@LIBHANDY_0_0_0 0.0.11
@@ -156,6 +176,7 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_paginator_box_set_position@LIBHANDY_0_0_0 0.0.11
  hdy_paginator_box_set_spacing@LIBHANDY_0_0_0 0.0.11
  hdy_paginator_box_stop_animation@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_get_allow_mouse_drag@LIBHANDY_0_0_0 0.0.12
  hdy_paginator_get_animation_duration@LIBHANDY_0_0_0 0.0.11
  hdy_paginator_get_center_content@LIBHANDY_0_0_0 0.0.11
  hdy_paginator_get_indicator_spacing@LIBHANDY_0_0_0 0.0.11
@@ -172,6 +193,7 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_paginator_reorder@LIBHANDY_0_0_0 0.0.11
  hdy_paginator_scroll_to@LIBHANDY_0_0_0 0.0.11
  hdy_paginator_scroll_to_full@LIBHANDY_0_0_0 0.0.11
+ hdy_paginator_set_allow_mouse_drag@LIBHANDY_0_0_0 0.0.12
  hdy_paginator_set_animation_duration@LIBHANDY_0_0_0 0.0.11
  hdy_paginator_set_center_content@LIBHANDY_0_0_0 0.0.11
  hdy_paginator_set_indicator_spacing@LIBHANDY_0_0_0 0.0.11
@@ -208,6 +230,10 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_search_bar_new@LIBHANDY_0_0_0 0.0.6
  hdy_search_bar_set_search_mode@LIBHANDY_0_0_0 0.0.6
  hdy_search_bar_set_show_close_button@LIBHANDY_0_0_0 0.0.6
+ hdy_shadow_helper_clear_cache@LIBHANDY_0_0_0 0.0.12
+ hdy_shadow_helper_draw_shadow@LIBHANDY_0_0_0 0.0.12
+ hdy_shadow_helper_get_type@LIBHANDY_0_0_0 0.0.12
+ hdy_shadow_helper_new@LIBHANDY_0_0_0 0.0.12
  hdy_squeezer_get_child_enabled@LIBHANDY_0_0_0 0.0.10
  hdy_squeezer_get_homogeneous@LIBHANDY_0_0_0 0.0.10
  hdy_squeezer_get_interpolate_size@LIBHANDY_0_0_0 0.0.10
@@ -225,14 +251,27 @@ libhandy-0.0.so.0 libhandy-0.0-0 #MINVER#
  hdy_squeezer_transition_type_get_type@LIBHANDY_0_0_0 0.0.10
  hdy_string_utf8_len@LIBHANDY_0_0_0 0.0~git20180429
  hdy_string_utf8_truncate@LIBHANDY_0_0_0 0.0~git20180429
+ hdy_swipe_group_add_swipeable@LIBHANDY_0_0_0 0.0.12
+ hdy_swipe_group_get_swipeables@LIBHANDY_0_0_0 0.0.12
+ hdy_swipe_group_get_type@LIBHANDY_0_0_0 0.0.12
+ hdy_swipe_group_new@LIBHANDY_0_0_0 0.0.12
+ hdy_swipe_group_remove_swipeable@LIBHANDY_0_0_0 0.0.12
  hdy_swipe_tracker_captured_event@LIBHANDY_0_0_0 0.0.11
  hdy_swipe_tracker_confirm_swipe@LIBHANDY_0_0_0 0.0.11
+ hdy_swipe_tracker_get_allow_mouse_drag@LIBHANDY_0_0_0 0.0.12
  hdy_swipe_tracker_get_enabled@LIBHANDY_0_0_0 0.0.11
  hdy_swipe_tracker_get_reversed@LIBHANDY_0_0_0 0.0.11
  hdy_swipe_tracker_get_type@LIBHANDY_0_0_0 0.0.11
  hdy_swipe_tracker_new@LIBHANDY_0_0_0 0.0.11
+ hdy_swipe_tracker_set_allow_mouse_drag@LIBHANDY_0_0_0 0.0.12
  hdy_swipe_tracker_set_enabled@LIBHANDY_0_0_0 0.0.11
  hdy_swipe_tracker_set_reversed@LIBHANDY_0_0_0 0.0.11
+ hdy_swipeable_begin_swipe@LIBHANDY_0_0_0 0.0.12
+ hdy_swipeable_emit_switch_child@LIBHANDY_0_0_0 0.0.12
+ hdy_swipeable_end_swipe@LIBHANDY_0_0_0 0.0.12
+ hdy_swipeable_get_type@LIBHANDY_0_0_0 0.0.12
+ hdy_swipeable_switch_child@LIBHANDY_0_0_0 0.0.12
+ hdy_swipeable_update_swipe@LIBHANDY_0_0_0 0.0.12
  hdy_title_bar_get_selection_mode@LIBHANDY_0_0_0 0.0.3
  hdy_title_bar_get_type@LIBHANDY_0_0_0 0.0.3
  hdy_title_bar_new@LIBHANDY_0_0_0 0.0.3
