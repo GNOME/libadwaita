@@ -2871,14 +2871,6 @@ hdy_leaflet_draw (GtkWidget *widget,
         /* We don't use propagate_draw here, because we don't want to apply
          * the bin_window offset
          */
-        {
-          /* FIXME Dirty workaround to get the last visible child to be drawn.
-           * Please fix it properly.
-           *  */
-          gtk_widget_size_allocate (priv->last_visible_child->widget,
-                                    &priv->child_transition.last_visible_surface_allocation);
-          gtk_widget_set_child_visible (priv->last_visible_child->widget, TRUE);
-        }
         gtk_widget_draw (priv->last_visible_child->widget, pattern_cr);
         cairo_destroy (pattern_cr);
       }
