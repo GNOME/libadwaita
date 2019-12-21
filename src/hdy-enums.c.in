@@ -2,6 +2,7 @@
 
 #include "config.h"
 #include "hdy-carousel.h"
+#include "hdy-deck.h"
 #include "hdy-enums.h"
 #include "hdy-header-bar.h"
 #include "hdy-leaflet.h"
