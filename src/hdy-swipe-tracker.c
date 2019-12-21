@@ -260,7 +260,8 @@ gesture_end (HdySwipeTracker *self)
     velocity = self->velocity;
 
   duration = ABS ((self->progress - end_progress) / velocity * DURATION_MULTIPLIER);
-  duration = CLAMP (duration, MIN_ANIMATION_DURATION, MAX_ANIMATION_DURATION);
+  if (self->progress != end_progress)
+    duration = CLAMP (duration, MIN_ANIMATION_DURATION, MAX_ANIMATION_DURATION);
 
   hdy_swipeable_end_swipe (self->swipeable, duration, end_progress);
 
