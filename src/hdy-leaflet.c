@@ -3575,6 +3575,7 @@ hdy_leaflet_end_swipe (HdySwipeable    *swipeable,
 
   hdy_leaflet_schedule_child_ticks (self);
   if (hdy_get_enable_animations (GTK_WIDGET (self)) &&
+      duration != 0 &&
       get_old_child_transition_type (self) != HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE) {
     gtk_progress_tracker_start (&priv->child_transition.tracker,
                                 duration * 1000,
