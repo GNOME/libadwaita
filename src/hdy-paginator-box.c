@@ -32,6 +32,7 @@ struct _HdyPaginatorBoxChildInfo
   GtkWidget *widget;
   GdkWindow *window;
   gint position;
+  gboolean visible;
   cairo_surface_t *surface;
   cairo_region_t *dirty_region;
 };
@@ -251,7 +252,7 @@ hdy_paginator_box_draw (GtkWidget *widget,
   for (l = self->children; l; l = l->next) {
     HdyPaginatorBoxChildInfo *info = l->data;
 
-    if (!gtk_widget_get_child_visible (info->widget))
+    if (!info->visible)
       continue;
 
     if (info->dirty_region) {
@@ -395,9 +396,9 @@ hdy_paginator_box_get_preferred_height_for_width (GtkWidget *widget,
 }
 
 static void
-invalidate_drawing_cache (HdyPaginatorBox *self)
+invalidate_cache_for_child (HdyPaginatorBox          *self,
+                            HdyPaginatorBoxChildInfo *child)
 {
-  GList *l;
   cairo_rectangle_int_t rect;
 
   rect.x = 0;
@@ -405,17 +406,23 @@ invalidate_drawing_cache (HdyPaginatorBox *self)
   rect.width = self->child_width;
   rect.height = self->child_height;
 
+  if (child->surface)
+    g_clear_pointer (&child->surface, cairo_surface_destroy);
+
+  if (child->dirty_region)
+    cairo_region_destroy (child->dirty_region);
+  child->dirty_region = cairo_region_create_rectangle (&rect);
+}
+
+static void
+invalidate_drawing_cache (HdyPaginatorBox *self)
+{
+  GList *l;
+
   for (l = self->children; l; l = l->next) {
     HdyPaginatorBoxChildInfo *child_info = l->data;
 
-    if (child_info->surface) {
-      cairo_surface_destroy (child_info->surface);
-      child_info->surface = NULL;
-    }
-
-    if (child_info->dirty_region)
-      cairo_region_destroy (child_info->dirty_region);
-    child_info->dirty_region = cairo_region_create_rectangle (&rect);
+    invalidate_cache_for_child (self, child_info);
   }
 }
 
@@ -451,33 +458,24 @@ update_windows (HdyPaginatorBox *self)
 
   for (children = self->children; children; children = children->next) {
     HdyPaginatorBoxChildInfo *child_info = children->data;
-    gint pos;
 
     if (!gtk_widget_get_visible (child_info->widget))
       continue;
 
-    if (self->orientation == GTK_ORIENTATION_VERTICAL)
+    if (self->orientation == GTK_ORIENTATION_VERTICAL) {
       child_info->position = y;
-    else
+      child_info->visible = child_info->position < alloc.height &&
+                            child_info->position + self->child_height > 0;
+      gdk_window_move (child_info->window, alloc.x, alloc.y + child_info->position);
+    } else {
       child_info->position = x;
-
-    pos = child_info->position;
-
-    if (self->orientation == GTK_ORIENTATION_VERTICAL)
-      gdk_window_move (child_info->window, alloc.x, alloc.y + pos);
-    else
-      gdk_window_move (child_info->window, alloc.x + pos, alloc.y);
-
-    gtk_widget_set_child_visible (child_info->widget,
-                                  (self->orientation == GTK_ORIENTATION_HORIZONTAL &&
-                                   pos < alloc.width && pos + self->child_width > 0) ||
-                                  (self->orientation == GTK_ORIENTATION_VERTICAL &&
-                                   pos < alloc.height && pos + self->child_height > 0));
-
-    if (!gtk_widget_get_child_visible (child_info->widget)) {
-      cairo_surface_destroy (child_info->surface);
-      child_info->surface = NULL;
+      child_info->visible = child_info->position < alloc.width &&
+                            child_info->position + self->child_width > 0;
+      gdk_window_move (child_info->window, alloc.x + child_info->position, alloc.y);
     }
+
+    if (!child_info->visible)
+      invalidate_cache_for_child (self, child_info);
 
     if (self->orientation == GTK_ORIENTATION_VERTICAL)
       y += self->distance;
