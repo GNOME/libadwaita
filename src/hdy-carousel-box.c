@@ -96,6 +96,8 @@ static GParamSpec *props[LAST_PROP];
 enum {
   SIGNAL_ANIMATION_STOPPED,
   SIGNAL_POSITION_SHIFTED,
+  SIGNAL_PAGE_ADDED,
+  SIGNAL_PAGE_REMOVED,
   SIGNAL_LAST_SIGNAL,
 };
 static guint signals[SIGNAL_LAST_SIGNAL];
@@ -930,10 +932,13 @@ hdy_carousel_box_remove (GtkContainer *container,
 {
   HdyCarouselBox *self = HDY_CAROUSEL_BOX (container);
   HdyCarouselBoxChildInfo *info;
+  gint index;
 
   info = find_child_info (self, widget);
   if (!info)
     return;
+
+  index = g_list_index (self->children, info);
 
   info->removing = TRUE;
 
@@ -945,6 +950,8 @@ hdy_carousel_box_remove (GtkContainer *container,
   info->widget = NULL;
 
   animate_child (self, info, 0, self->reveal_duration);
+
+  g_signal_emit (self, signals[SIGNAL_PAGE_REMOVED], 0, index);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
 }
@@ -1182,6 +1189,44 @@ hdy_carousel_box_class_init (HdyCarouselBoxClass *klass)
                   G_TYPE_NONE,
                   1,
                   G_TYPE_DOUBLE);
+
+  /**
+   * HdyCarouselBox::page-added:
+   * @self: The #HdyCarouselBox instance
+   * @index: The index of the new page
+   *
+   * This signal is emitted when a page has been added at @index.
+   *
+   * Since: 1.0
+   */
+  signals[SIGNAL_PAGE_ADDED] =
+    g_signal_new ("page-added",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_UINT);
+
+  /**
+   * HdyCarouselBox::page-removed:
+   * @self: The #HdyCarouselBox instance
+   * @index: The index of the new page
+   *
+   * This signal is emitted when a page has been removed at @index.
+   *
+   * Since: 1.0
+   */
+  signals[SIGNAL_PAGE_REMOVED] =
+    g_signal_new ("page-removed",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_UINT);
 }
 
 static void
@@ -1230,6 +1275,7 @@ hdy_carousel_box_insert (HdyCarouselBox *self,
 {
   HdyCarouselBoxChildInfo *info;
   GList *prev_link;
+  gint index;
 
   g_return_if_fail (HDY_IS_CAROUSEL_BOX (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
@@ -1256,6 +1302,9 @@ hdy_carousel_box_insert (HdyCarouselBox *self,
   animate_child (self, info, 1, self->reveal_duration);
 
   invalidate_drawing_cache (self);
+
+  index = g_list_index (self->children, info);
+  g_signal_emit (self, signals[SIGNAL_PAGE_ADDED], 0, index);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
 }
