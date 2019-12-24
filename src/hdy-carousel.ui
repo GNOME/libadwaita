@@ -23,6 +23,8 @@
             <signal name="notify::reveal-duration" handler="notify_reveal_duration_cb" swapped="true"/>
             <signal name="animation-stopped" handler="animation_stopped_cb" swapped="true"/>
             <signal name="position-shifted" handler="position_shifted_cb" swapped="true"/>
+            <signal name="page-added" handler="page_added_cb" swapped="true"/>
+            <signal name="page-removed" handler="page_removed_cb" swapped="true"/>
           </object>
         </child>
         <child>

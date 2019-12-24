@@ -9,6 +9,7 @@
 
 #include "hdy-carousel.h"
 
+#include "hdy-animation-private.h"
 #include "hdy-carousel-box-private.h"
 #include "hdy-navigation-direction.h"
 #include "hdy-swipe-tracker-private.h"
@@ -77,6 +78,9 @@ struct _HdyCarousel
 
   gulong scroll_timeout_id;
   gboolean can_scroll;
+
+  guint tick_cb_id;
+  guint64 end_time;
 };
 
 static void hdy_carousel_swipeable_init (HdySwipeableInterface *iface);
@@ -110,6 +114,57 @@ enum {
   SIGNAL_LAST_SIGNAL,
 };
 static guint signals[SIGNAL_LAST_SIGNAL];
+
+
+static gboolean
+indicators_animation_cb (GtkWidget     *widget,
+                         GdkFrameClock *frame_clock,
+                         gpointer       user_data)
+{
+  HdyCarousel *self = HDY_CAROUSEL (widget);
+  gint64 frame_time;
+
+  g_assert (self->tick_cb_id > 0);
+
+  gtk_widget_queue_draw (GTK_WIDGET (self->indicators));
+
+  frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000;
+
+  if (frame_time >= self->end_time ||
+      !hdy_get_enable_animations (GTK_WIDGET (self))) {
+    self->tick_cb_id = 0;
+    return G_SOURCE_REMOVE;
+  }
+
+  return G_SOURCE_CONTINUE;
+}
+
+static void
+animate_indicators (HdyCarousel *self,
+                    gint64       duration)
+{
+  GdkFrameClock *frame_clock;
+  gint64 frame_time;
+
+  if (duration <= 0 || !hdy_get_enable_animations (GTK_WIDGET (self))) {
+    gtk_widget_queue_draw (GTK_WIDGET (self->indicators));
+    return;
+  }
+
+  frame_clock = gtk_widget_get_frame_clock (GTK_WIDGET (self));
+  if (!frame_clock) {
+    gtk_widget_queue_draw (GTK_WIDGET (self->indicators));
+    return;
+  }
+
+  frame_time = gdk_frame_clock_get_frame_time (frame_clock);
+
+  self->end_time = MAX (self->end_time, frame_time / 1000 + duration);
+  if (self->tick_cb_id == 0)
+    self->tick_cb_id = gtk_widget_add_tick_callback (GTK_WIDGET (self),
+                                                     indicators_animation_cb,
+                                                     NULL, NULL);
+}
 
 static void
 hdy_carousel_switch_child (HdySwipeable *swipeable,
@@ -271,43 +326,66 @@ draw_indicators_lines (GtkWidget      *widget,
                        cairo_t        *cr,
                        GtkOrientation  orientation,
                        gdouble         position,
+                       gdouble        *sizes,
                        guint           n_pages)
 {
   GdkRGBA color;
-  gint i, widget_length, indicator_length;
-  gdouble length;
+  gint i, widget_length;
+  gdouble indicator_length, full_size, line_size, pos;
 
   color = get_color (widget);
 
-  length = (gdouble) LINE_LENGTH / (LINE_LENGTH + LINE_SPACING);
-  indicator_length = (LINE_LENGTH + LINE_SPACING) * n_pages - LINE_SPACING;
+  line_size = LINE_LENGTH + LINE_SPACING;
+  indicator_length = 0;
+  for (i = 0; i < n_pages; i++)
+    indicator_length += line_size * sizes[i];
+
+  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+    widget_length = gtk_widget_get_allocated_width (widget);
+  else
+    widget_length = gtk_widget_get_allocated_height (widget);
+
+  /* Ensure the indicators are aligned to pixel grid when not animating */
+  full_size = round (indicator_length / line_size) * line_size;
+  if ((widget_length - (gint) full_size) % 2 == 0)
+    widget_length--;
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-    widget_length = gtk_widget_get_allocated_width (widget);
-    cairo_translate (cr, (widget_length - indicator_length) / 2, 0);
-    cairo_scale (cr, LINE_LENGTH + LINE_SPACING, LINE_WIDTH);
+    cairo_translate (cr, (widget_length - indicator_length) / 2.0, 0);
+    cairo_scale (cr, 1, LINE_WIDTH);
   } else {
-    widget_length = gtk_widget_get_allocated_height (widget);
-    cairo_translate (cr, 0, (widget_length - indicator_length) / 2);
-    cairo_scale (cr, LINE_WIDTH, LINE_LENGTH + LINE_SPACING);
+    cairo_translate (cr, 0, (widget_length - indicator_length) / 2.0);
+    cairo_scale (cr, LINE_WIDTH, 1);
   }
 
+  pos = 0;
   cairo_set_source_rgba (cr, color.red, color.green, color.blue,
                          color.alpha * LINE_OPACITY);
   for (i = 0; i < n_pages; i++) {
-    if (orientation == GTK_ORIENTATION_HORIZONTAL)
-      cairo_rectangle (cr, i, 0, length, 1);
-    else
-      cairo_rectangle (cr, 0, i, 1, length);
+    gdouble length;
+
+    length = (LINE_LENGTH + LINE_SPACING) * sizes[i] - LINE_SPACING;
+
+    if (length > 0) {
+      if (orientation == GTK_ORIENTATION_HORIZONTAL)
+        cairo_rectangle (cr, LINE_SPACING / 2.0 + pos, 0, length, 1);
+      else
+        cairo_rectangle (cr, 0, LINE_SPACING / 2.0 + pos, 1, length);
+    }
+
     cairo_fill (cr);
+
+    pos += (LINE_LENGTH + LINE_SPACING) * sizes[i];
   }
 
   cairo_set_source_rgba (cr, color.red, color.green, color.blue,
                          color.alpha * LINE_OPACITY_ACTIVE);
+
+  pos = LINE_SPACING / 2.0 + position * (LINE_LENGTH + LINE_SPACING);
   if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    cairo_rectangle (cr, position, 0, length, 1);
+    cairo_rectangle (cr, pos, 0, LINE_LENGTH, 1);
   else
-    cairo_rectangle (cr, 0, position, 1, length);
+    cairo_rectangle (cr, 0, pos, 1, LINE_LENGTH);
   cairo_fill (cr);
 }
 
@@ -318,32 +396,57 @@ draw_indicators_dots (GtkWidget      *widget,
                       cairo_t        *cr,
                       GtkOrientation  orientation,
                       gdouble         position,
+                      gdouble        *sizes,
                       guint           n_pages)
 {
   GdkRGBA color;
-  gint i, x, y, widget_length, indicator_length;
+  gint i, widget_length;
+  gdouble x, y, indicator_length, dot_size, full_size;
+  gdouble current_position, remaining_progress;
 
   color = get_color (widget);
+  dot_size = 2 * DOTS_RADIUS_SELECTED + DOTS_SPACING;
 
-  indicator_length = (DOTS_RADIUS_SELECTED * 2 + DOTS_SPACING) * n_pages - DOTS_SPACING;
+  indicator_length = 0;
+  for (i = 0; i < n_pages; i++)
+    indicator_length += dot_size * sizes[i];
 
-  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+  if (orientation == GTK_ORIENTATION_HORIZONTAL)
     widget_length = gtk_widget_get_allocated_width (widget);
-    cairo_translate (cr, (widget_length - indicator_length) / 2, 0);
-  } else {
+  else
     widget_length = gtk_widget_get_allocated_height (widget);
-    cairo_translate (cr, 0, (widget_length - indicator_length) / 2);
-  }
 
-  x = DOTS_RADIUS_SELECTED;
-  y = DOTS_RADIUS_SELECTED;
+  /* Ensure the indicators are aligned to pixel grid when not animating */
+  full_size = round (indicator_length / dot_size) * dot_size;
+  if ((widget_length - (gint) full_size) % 2 == 0)
+    widget_length--;
+
+  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+    cairo_translate (cr, (widget_length - indicator_length) / 2.0, DOTS_RADIUS_SELECTED);
+  else
+    cairo_translate (cr, DOTS_RADIUS_SELECTED, (widget_length - indicator_length) / 2.0);
+
+  x = 0;
+  y = 0;
+
+  current_position = 0;
+  remaining_progress = 1;
 
   for (i = 0; i < n_pages; i++) {
     gdouble progress, radius, opacity;
 
-    progress = MAX (1 - ABS (position - i), 0);
-    radius = LERP (DOTS_RADIUS, DOTS_RADIUS_SELECTED, progress);
-    opacity = LERP (DOTS_OPACITY, DOTS_OPACITY_SELECTED, progress);
+    if (orientation == GTK_ORIENTATION_HORIZONTAL)
+      x += dot_size * sizes[i] / 2.0;
+    else
+      y += dot_size * sizes[i] / 2.0;
+
+    current_position += sizes[i];
+
+    progress = CLAMP (current_position - position, 0, remaining_progress);
+    remaining_progress -= progress;
+
+    radius = LERP (DOTS_RADIUS, DOTS_RADIUS_SELECTED, progress) * sizes[i];
+    opacity = LERP (DOTS_OPACITY, DOTS_OPACITY_SELECTED, progress) * sizes[i];
 
     cairo_set_source_rgba (cr, color.red, color.green, color.blue,
                            color.alpha * opacity);
@@ -351,10 +454,26 @@ draw_indicators_dots (GtkWidget      *widget,
     cairo_fill (cr);
 
     if (orientation == GTK_ORIENTATION_HORIZONTAL)
-      x += 2 * DOTS_RADIUS_SELECTED + DOTS_SPACING;
+      x += dot_size * sizes[i] / 2.0;
     else
-      y += 2 * DOTS_RADIUS_SELECTED + DOTS_SPACING;
+      y += dot_size * sizes[i] / 2.0;
   }
+}
+
+static void
+page_added_cb (HdyCarousel    *self,
+               guint           index,
+               HdyCarouselBox *box)
+{
+  animate_indicators (self, hdy_carousel_get_reveal_duration (self));
+}
+
+static void
+page_removed_cb (HdyCarousel    *self,
+                 guint           index,
+                 HdyCarouselBox *box)
+{
+  animate_indicators (self, hdy_carousel_get_reveal_duration (self));
 }
 
 static gboolean
@@ -362,36 +481,46 @@ draw_indicators_cb (HdyCarousel *self,
                     cairo_t     *cr,
                     GtkWidget   *widget)
 {
-  guint n_pages;
-  gdouble position;
+  gint i, n_points;
+  gdouble position, lower;
+  gdouble *points, *sizes;
 
-  g_object_get (self->scrolling_box,
-                "position", &position,
-                "n-pages", &n_pages,
-                NULL);
+  points = hdy_carousel_box_get_snap_points (self->scrolling_box, &n_points);
+  position = hdy_carousel_box_get_position (self->scrolling_box);
+  hdy_carousel_box_get_range (self->scrolling_box, &lower, NULL);
 
-  if (n_pages < 2)
+  if (n_points < 2)
     return GDK_EVENT_PROPAGATE;
 
   if (self->orientation == GTK_ORIENTATION_HORIZONTAL &&
       gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
-    position = n_pages - position - 1;
+    position = points[n_points - 1] - position;
+
+  sizes = g_new0 (gdouble, n_points);
+
+  sizes[0] = points[0] + 1;
+  for (i = 1; i < n_points; i++)
+    sizes[i] = points[i] - points[i - 1];
+
+  g_free (points);
 
   switch (self->indicator_style){
   case HDY_CAROUSEL_INDICATOR_STYLE_NONE:
     break;
 
   case HDY_CAROUSEL_INDICATOR_STYLE_DOTS:
-    draw_indicators_dots (widget, cr, self->orientation, position, n_pages);
+    draw_indicators_dots (widget, cr, self->orientation, position, sizes, n_points);
     break;
 
   case HDY_CAROUSEL_INDICATOR_STYLE_LINES:
-    draw_indicators_lines (widget, cr, self->orientation, position, n_pages);
+    draw_indicators_lines (widget, cr, self->orientation, position, sizes, n_points);
     break;
 
   default:
     g_assert_not_reached ();
   }
+
+  g_free (sizes);
 
   return GDK_EVENT_PROPAGATE;
 }
@@ -1029,6 +1158,8 @@ hdy_carousel_class_init (HdyCarouselClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, notify_reveal_duration_cb);
   gtk_widget_class_bind_template_callback (widget_class, animation_stopped_cb);
   gtk_widget_class_bind_template_callback (widget_class, position_shifted_cb);
+  gtk_widget_class_bind_template_callback (widget_class, page_added_cb);
+  gtk_widget_class_bind_template_callback (widget_class, page_removed_cb);
 
   gtk_widget_class_set_css_name (widget_class, "carousel");
 }
