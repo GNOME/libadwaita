@@ -904,6 +904,17 @@ hdy_swipe_tracker_captured_event (HdySwipeTracker *self,
     reset (self);
     return GDK_EVENT_STOP;
   }
-
   return retval;
+}
+
+void
+hdy_swipe_tracker_shift_position (HdySwipeTracker *self,
+                                  gdouble          delta)
+{
+  if (self->state != HDY_SWIPE_TRACKER_STATE_PENDING &&
+      self->state != HDY_SWIPE_TRACKER_STATE_SCROLLING)
+    return;
+
+  self->progress += delta;
+  self->initial_progress += delta;
 }
