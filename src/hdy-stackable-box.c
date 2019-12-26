@@ -178,6 +178,8 @@ struct _HdyStackableBox
 
     HdyStackableBoxTransitionType active_type;
     GtkPanDirection active_direction;
+    gboolean is_direct_swipe;
+    gint swipe_direction;
   } child_transition;
 
   HdyShadowHelper *shadow_helper;
@@ -402,6 +404,7 @@ hdy_stackable_box_child_progress_updated (HdyStackableBox *self)
     }
 
     gtk_widget_queue_allocate (GTK_WIDGET (self->container));
+    self->child_transition.swipe_direction = 0;
     hdy_shadow_helper_clear_cache (self->shadow_helper);
   }
 }
@@ -478,6 +481,7 @@ hdy_stackable_box_stop_child_transition (HdyStackableBox *self)
     self->last_visible_child = NULL;
   }
 
+  self->child_transition.swipe_direction = 0;
   hdy_shadow_helper_clear_cache (self->shadow_helper);
 
   /* Move the bin window back in place as a child transition might have moved it. */
@@ -3013,6 +3017,109 @@ hdy_stackable_box_unmap (HdyStackableBox *self)
   GTK_WIDGET_CLASS (self->klass)->unmap (GTK_WIDGET (self->container));
 }
 
+gdouble
+hdy_stackable_box_get_distance (HdyStackableBox *self)
+{
+  if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
+    return gtk_widget_get_allocated_width (GTK_WIDGET (self->container));
+  else
+    return gtk_widget_get_allocated_height (GTK_WIDGET (self->container));
+}
+
+static gboolean
+can_swipe_in_direction (HdyStackableBox        *self,
+                        HdyNavigationDirection  direction)
+{
+  switch (direction) {
+  case HDY_NAVIGATION_DIRECTION_BACK:
+    return self->child_transition.can_swipe_back;
+  case HDY_NAVIGATION_DIRECTION_FORWARD:
+    return self->child_transition.can_swipe_forward;
+  default:
+    g_assert_not_reached ();
+  }
+}
+
+void
+hdy_stackable_box_get_range (HdyStackableBox *self,
+                             gdouble         *lower,
+                             gdouble         *upper)
+{
+  if (self->child_transition.tick_id > 0 ||
+      self->child_transition.is_gesture_active) {
+    gint current_direction;
+    gboolean is_rtl;
+
+    is_rtl = (gtk_widget_get_direction (GTK_WIDGET (self->container)) == GTK_TEXT_DIR_RTL);
+
+    switch (self->child_transition.active_direction) {
+    case GTK_PAN_DIRECTION_UP:
+      current_direction = 1;
+      break;
+    case GTK_PAN_DIRECTION_DOWN:
+      current_direction = -1;
+      break;
+    case GTK_PAN_DIRECTION_LEFT:
+      current_direction = is_rtl ? -1 : 1;
+      break;
+    case GTK_PAN_DIRECTION_RIGHT:
+      current_direction = is_rtl ? 1 : -1;
+      break;
+    default:
+      g_assert_not_reached ();
+    }
+
+    if (lower)
+      *lower = MIN (0, current_direction);
+
+    if (upper)
+      *upper = MAX (0, current_direction);
+  } else {
+    HdyStackableBoxChildInfo *child;
+
+    if ((can_swipe_in_direction (self, self->child_transition.swipe_direction) ||
+         !self->child_transition.is_direct_swipe) && self->folded)
+      child = find_swipeable_child (self, self->child_transition.swipe_direction);
+    else
+      child = NULL;
+
+    if (lower)
+      *lower = MIN (0, child ? self->child_transition.swipe_direction : 0);
+
+    if (upper)
+      *upper = MAX (0, child ? self->child_transition.swipe_direction : 0);
+  }
+}
+
+gdouble
+hdy_stackable_box_get_progress (HdyStackableBox *self)
+{
+  gboolean new_first = FALSE;
+  GList *children;
+
+  if (!self->child_transition.is_gesture_active &&
+      gtk_progress_tracker_get_state (&self->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER)
+    return 0;
+
+  for (children = self->children; children; children = children->next) {
+    if (self->last_visible_child == children->data) {
+      new_first = TRUE;
+
+      break;
+    }
+    if (self->visible_child == children->data)
+      break;
+  }
+
+  return self->child_transition.progress * (new_first ? 1 : -1);
+}
+
+gdouble
+hdy_stackable_box_get_cancel_progress (HdyStackableBox *self)
+{
+  return 0;
+}
+
 gboolean
 hdy_stackable_box_captured_event (HdyStackableBox *self,
                                   GdkEvent        *event)
@@ -3050,41 +3157,26 @@ hdy_stackable_box_switch_child (HdyStackableBox *self,
                           duration, FALSE);
 }
 
-static double
-get_current_progress (HdyStackableBox *self)
+/* FIXME: This will go away in the next commits */
+static gdouble *
+get_snap_points_from_range (HdyStackableBox *self,
+                            gint            *n_snap_points)
 {
-  gboolean new_first = FALSE;
-  GList *children;
+  gint n;
+  gdouble *points, lower, upper;
 
-  if (!self->child_transition.is_gesture_active &&
-      gtk_progress_tracker_get_state (&self->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER)
-    return 0;
+  hdy_stackable_box_get_range (self, &lower, &upper);
 
-  for (children = self->children; children; children = children->next) {
-    if (self->last_visible_child == children->data) {
-      new_first = TRUE;
+  n = (lower != upper) ? 2 : 1;
 
-      break;
-    }
-    if (self->visible_child == children->data)
-      break;
-  }
+  points = g_new0 (gdouble, n);
+  points[0] = lower;
+  points[n - 1] = upper;
 
-  return self->child_transition.progress * (new_first ? 1 : -1);
-}
+  if (n_snap_points)
+    *n_snap_points = n;
 
-static gboolean
-can_swipe_in_direction (HdyStackableBox        *self,
-                        HdyNavigationDirection  direction)
-{
-  switch (direction) {
-  case HDY_NAVIGATION_DIRECTION_BACK:
-    return self->child_transition.can_swipe_back;
-  case HDY_NAVIGATION_DIRECTION_FORWARD:
-    return self->child_transition.can_swipe_forward;
-  default:
-    g_assert_not_reached ();
-  }
+  return points;
 }
 
 void
@@ -3092,47 +3184,13 @@ hdy_stackable_box_begin_swipe (HdyStackableBox        *self,
                                HdyNavigationDirection  direction,
                                gboolean                direct)
 {
-  gint n;
-  gdouble *points, distance, progress;
+  gint n_snap_points;
+  gdouble *snap_points, distance, progress, cancel_progress;
 
-  if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
-    distance = gtk_widget_get_allocated_width (GTK_WIDGET (self->container));
-  else
-    distance = gtk_widget_get_allocated_height (GTK_WIDGET (self->container));
+  self->child_transition.is_direct_swipe = direct;
+  self->child_transition.swipe_direction = direction;
 
   if (self->child_transition.tick_id > 0) {
-    gboolean is_rtl =
-      (gtk_widget_get_direction (GTK_WIDGET (self->container)) == GTK_TEXT_DIR_RTL);
-
-    n = 2;
-    points = g_new0 (gdouble, n);
-
-    switch (self->child_transition.active_direction) {
-    case GTK_PAN_DIRECTION_UP:
-      points[1] = 1;
-      break;
-    case GTK_PAN_DIRECTION_DOWN:
-      points[0] = -1;
-      break;
-    case GTK_PAN_DIRECTION_LEFT:
-      if (is_rtl)
-        points[0] = -1;
-      else
-        points[1] = 1;
-      break;
-    case GTK_PAN_DIRECTION_RIGHT:
-      if (is_rtl)
-        points[1] = 1;
-      else
-        points[0] = -1;
-      break;
-    default:
-      g_assert_not_reached ();
-    }
-
-    progress = get_current_progress (self);
-
-    gtk_widget_remove_tick_callback (GTK_WIDGET (self->container), self->child_transition.tick_id);
     self->child_transition.tick_id = 0;
     self->child_transition.is_gesture_active = TRUE;
     self->child_transition.is_cancelled = FALSE;
@@ -3151,25 +3209,15 @@ hdy_stackable_box_begin_swipe (HdyStackableBox        *self,
 
       g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_TRANSITION_RUNNING]);
     }
-
-    progress = 0;
-
-    n = child ? 2 : 1;
-    points = g_new0 (gdouble, n);
-    if (child)
-      switch (direction) {
-      case HDY_NAVIGATION_DIRECTION_BACK:
-        points[0] = -1;
-        break;
-      case HDY_NAVIGATION_DIRECTION_FORWARD:
-        points[1] = 1;
-        break;
-      default:
-        g_assert_not_reached ();
-      }
   }
 
-  hdy_swipe_tracker_confirm_swipe (self->tracker, distance, points, n, progress, 0);
+  distance = hdy_stackable_box_get_distance (self);
+  snap_points = get_snap_points_from_range (self, &n_snap_points);
+  progress = hdy_stackable_box_get_progress (self);
+  cancel_progress = hdy_stackable_box_get_cancel_progress (self);
+
+  hdy_swipe_tracker_confirm_swipe (self->tracker, distance, snap_points,
+                                   n_snap_points, progress, cancel_progress);
 }
 
 void

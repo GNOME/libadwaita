@@ -852,6 +852,32 @@ hdy_leaflet_end_swipe (HdySwipeable    *swipeable,
   hdy_stackable_box_end_swipe (HDY_GET_HELPER (swipeable), duration, to);
 }
 
+static gdouble
+hdy_leaflet_get_distance (HdySwipeable *swipeable)
+{
+  return hdy_stackable_box_get_distance (HDY_GET_HELPER (swipeable));
+}
+
+static void
+hdy_leaflet_get_range (HdySwipeable *swipeable,
+                       gdouble      *lower,
+                       gdouble      *upper)
+{
+  hdy_stackable_box_get_range (HDY_GET_HELPER (swipeable), lower, upper);
+}
+
+static gdouble
+hdy_leaflet_get_progress (HdySwipeable *swipeable)
+{
+  return hdy_stackable_box_get_progress (HDY_GET_HELPER (swipeable));
+}
+
+static gdouble
+hdy_leaflet_get_cancel_progress (HdySwipeable *swipeable)
+{
+  return hdy_stackable_box_get_cancel_progress (HDY_GET_HELPER (swipeable));
+}
+
 static gboolean
 captured_event_cb (HdyLeaflet *self,
                    GdkEvent   *event)
@@ -1153,4 +1179,8 @@ hdy_leaflet_swipeable_init (HdySwipeableInterface *iface)
   iface->begin_swipe = hdy_leaflet_begin_swipe;
   iface->update_swipe = hdy_leaflet_update_swipe;
   iface->end_swipe = hdy_leaflet_end_swipe;
+  iface->get_distance = hdy_leaflet_get_distance;
+  iface->get_range = hdy_leaflet_get_range;
+  iface->get_progress = hdy_leaflet_get_progress;
+  iface->get_cancel_progress = hdy_leaflet_get_cancel_progress;
 }
