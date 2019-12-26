@@ -21,10 +21,10 @@ G_DECLARE_FINAL_TYPE (HdyCarouselBox, hdy_carousel_box, HDY, CAROUSEL_BOX, GtkCo
 GtkWidget      *hdy_carousel_box_new (void);
 
 void            hdy_carousel_box_insert (HdyCarouselBox *self,
-                                         GtkWidget      *child,
+                                         GtkWidget      *widget,
                                          gint            position);
 void            hdy_carousel_box_reorder (HdyCarouselBox *self,
-                                          GtkWidget      *child,
+                                          GtkWidget      *widget,
                                           gint            position);
 
 void            hdy_carousel_box_animate (HdyCarouselBox *self,

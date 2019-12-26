@@ -871,44 +871,44 @@ hdy_carousel_box_new (void)
 /**
  * hdy_carousel_box_insert:
  * @self: a #HdyCarouselBox
- * @child: a widget to add
- * @position: the position to insert @child in.
+ * @widget: a widget to add
+ * @position: the position to insert @widget in.
  *
- * Inserts @child into @self at position @position.
+ * Inserts @widget into @self at position @position.
  *
- * If position is -1, or larger than the number of pages, @child will be
+ * If position is -1, or larger than the number of pages, @widget will be
  * appended to the end.
  *
  * Since: 1.0
  */
 void
 hdy_carousel_box_insert (HdyCarouselBox *self,
-                         GtkWidget      *child,
+                         GtkWidget      *widget,
                          gint            position)
 {
   g_return_if_fail (HDY_IS_CAROUSEL_BOX (self));
-  g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
 
-  gtk_container_add (GTK_CONTAINER (self), child);
-  hdy_carousel_box_reorder (self, child, position);
+  gtk_container_add (GTK_CONTAINER (self), widget);
+  hdy_carousel_box_reorder (self, widget, position);
 }
 
 /**
  * hdy_carousel_box_reorder:
  * @self: a #HdyCarouselBox
- * @child: a widget to add
- * @position: the position to move @child to.
+ * @widget: a widget to add
+ * @position: the position to move @widget to.
  *
- * Moves @child into position @position.
+ * Moves @widget into position @position.
  *
- * If position is -1, or larger than the number of pages, @child will be moved
+ * If position is -1, or larger than the number of pages, @widget will be moved
  * to the end.
  *
  * Since: 1.0
  */
 void
 hdy_carousel_box_reorder (HdyCarouselBox *self,
-                          GtkWidget      *child,
+                          GtkWidget      *widget,
                           gint            position)
 {
   HdyCarouselBoxChildInfo *info;
@@ -916,9 +916,9 @@ hdy_carousel_box_reorder (HdyCarouselBox *self,
   gint old_position, current_page;
 
   g_return_if_fail (HDY_IS_CAROUSEL_BOX (self));
-  g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
 
-  info = find_child_info (self, child);
+  info = find_child_info (self, widget);
   link = g_list_find (self->children, info);
   old_position = g_list_position (self->children, link);
   self->children = g_list_delete_link (self->children, link);
