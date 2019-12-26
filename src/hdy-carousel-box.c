@@ -78,6 +78,7 @@ static GParamSpec *props[LAST_PROP];
 
 enum {
   SIGNAL_ANIMATION_STOPPED,
+  SIGNAL_POSITION_SHIFTED,
   SIGNAL_LAST_SIGNAL,
 };
 static guint signals[SIGNAL_LAST_SIGNAL];
@@ -611,16 +612,27 @@ hdy_carousel_box_add (GtkContainer *container,
 }
 
 static void
+shift_position (HdyCarouselBox *self,
+                gdouble         delta)
+{
+  hdy_carousel_box_set_position (self, self->position + delta);
+  g_signal_emit (self, signals[SIGNAL_POSITION_SHIFTED], 0, delta);
+}
+
+static void
 hdy_carousel_box_remove (GtkContainer *container,
                          GtkWidget    *widget)
 {
   HdyCarouselBox *self = HDY_CAROUSEL_BOX (container);
   gint index;
+  gdouble closest_point;
   HdyCarouselBoxChildInfo *info;
 
   info = find_child_info (self, widget);
   if (!info)
     return;
+
+  closest_point = hdy_carousel_box_get_closest_snap_point (self);
 
   gtk_widget_unparent (widget);
   index = g_list_index (self->children, info);
@@ -629,12 +641,12 @@ hdy_carousel_box_remove (GtkContainer *container,
   if (gtk_widget_get_realized (GTK_WIDGET (container)))
     unregister_window (info, self);
 
-  free_child_info (info);
-
-  if (self->position >= index)
-    hdy_carousel_box_set_position (self, self->position - 1);
+  if (closest_point >= index)
+    shift_position (self, -1);
   else
     gtk_widget_queue_allocate (GTK_WIDGET (self));
+
+  free_child_info (info);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
 }
@@ -828,6 +840,25 @@ hdy_carousel_box_class_init (HdyCarouselBoxClass *klass)
                   NULL, NULL, NULL,
                   G_TYPE_NONE,
                   0);
+
+  /**
+   * HdyCarouselBox::position-shifted:
+   * @self: The #HdyCarouselBox instance
+   * @delta: The amount to shift the position by
+   *
+   * This signal is emitted when position has been programmatically shifted.
+   *
+   * Since: 1.0
+   */
+  signals[SIGNAL_POSITION_SHIFTED] =
+    g_signal_new ("position-shifted",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_DOUBLE);
 }
 
 static void
@@ -874,6 +905,7 @@ hdy_carousel_box_insert (HdyCarouselBox *self,
                          gint            position)
 {
   HdyCarouselBoxChildInfo *info;
+  gdouble closest_point;
 
   g_return_if_fail (HDY_IS_CAROUSEL_BOX (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
@@ -884,7 +916,11 @@ hdy_carousel_box_insert (HdyCarouselBox *self,
   if (gtk_widget_get_realized (GTK_WIDGET (self)))
     register_window (info, self);
 
+  closest_point = hdy_carousel_box_get_closest_snap_point (self);
+
   self->children = g_list_insert (self->children, info, position);
+  if (closest_point >= position && position >= 0)
+    shift_position (self, 1);
 
   gtk_widget_set_parent (widget, GTK_WIDGET (self));
 
@@ -913,10 +949,13 @@ hdy_carousel_box_reorder (HdyCarouselBox *self,
 {
   HdyCarouselBoxChildInfo *info;
   GList *link;
-  gint old_position, current_page;
+  gint old_position;
+  gdouble closest_point;
 
   g_return_if_fail (HDY_IS_CAROUSEL_BOX (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
+
+  closest_point = hdy_carousel_box_get_closest_snap_point (self);
 
   info = find_child_info (self, widget);
   link = g_list_find (self->children, info);
@@ -924,18 +963,20 @@ hdy_carousel_box_reorder (HdyCarouselBox *self,
   self->children = g_list_delete_link (self->children, link);
   if (position < 0 || position >= hdy_carousel_box_get_n_pages (self))
     link = NULL;
-  else
+  else {
+    if (position > old_position)
+      position--;
     link = g_list_nth (self->children, position);
+  }
 
   self->children = g_list_insert_before (self->children, link, info);
 
-  current_page = round (self->position);
-  if (current_page == old_position)
-    hdy_carousel_box_set_position (self, position);
-  else if (old_position > current_page && position <= current_page)
-    hdy_carousel_box_set_position (self, self->position + 1);
-  else if (old_position <= current_page && position > current_page)
-    hdy_carousel_box_set_position (self, self->position - 1);
+  if (closest_point == old_position)
+    shift_position (self, position - old_position);
+  else if (old_position > closest_point && closest_point >= position)
+    shift_position (self, 1);
+  else if (position >= closest_point && closest_point > old_position)
+    shift_position (self, -1);
 }
 
 /**

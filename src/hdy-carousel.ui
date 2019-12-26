@@ -21,6 +21,7 @@
             <signal name="notify::position" handler="notify_position_cb" swapped="true"/>
             <signal name="notify::spacing" handler="notify_spacing_cb" swapped="true"/>
             <signal name="animation-stopped" handler="animation_stopped_cb" swapped="true"/>
+            <signal name="position-shifted" handler="position_shifted_cb" swapped="true"/>
           </object>
         </child>
         <child>
