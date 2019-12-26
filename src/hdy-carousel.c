@@ -129,19 +129,8 @@ hdy_carousel_begin_swipe (HdySwipeable           *swipeable,
                           gboolean                direct)
 {
   HdyCarousel *self = HDY_CAROUSEL (swipeable);
-  gdouble distance, progress, cancel_progress;
-  gint n_snap_points;
-  gdouble *snap_points;
 
   hdy_carousel_box_stop_animation (self->scrolling_box);
-
-  distance = hdy_swipeable_get_distance (swipeable);
-  snap_points = hdy_swipeable_get_snap_points (swipeable, &n_snap_points);
-  progress = hdy_swipeable_get_progress (swipeable);
-  cancel_progress = hdy_swipeable_get_cancel_progress (swipeable);
-
-  hdy_swipe_tracker_confirm_swipe (self->tracker, distance, snap_points,
-                                   n_snap_points, progress, cancel_progress);
 }
 
 static void

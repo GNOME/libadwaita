@@ -3157,36 +3157,11 @@ hdy_stackable_box_switch_child (HdyStackableBox *self,
                           duration, FALSE);
 }
 
-/* FIXME: This will go away in the next commits */
-static gdouble *
-get_snap_points_from_range (HdyStackableBox *self,
-                            gint            *n_snap_points)
-{
-  gint n;
-  gdouble *points, lower, upper;
-
-  hdy_stackable_box_get_range (self, &lower, &upper);
-
-  n = (lower != upper) ? 2 : 1;
-
-  points = g_new0 (gdouble, n);
-  points[0] = lower;
-  points[n - 1] = upper;
-
-  if (n_snap_points)
-    *n_snap_points = n;
-
-  return points;
-}
-
 void
 hdy_stackable_box_begin_swipe (HdyStackableBox        *self,
                                HdyNavigationDirection  direction,
                                gboolean                direct)
 {
-  gint n_snap_points;
-  gdouble *snap_points, distance, progress, cancel_progress;
-
   self->child_transition.is_direct_swipe = direct;
   self->child_transition.swipe_direction = direction;
 
@@ -3210,14 +3185,6 @@ hdy_stackable_box_begin_swipe (HdyStackableBox        *self,
       g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_TRANSITION_RUNNING]);
     }
   }
-
-  distance = hdy_stackable_box_get_distance (self);
-  snap_points = get_snap_points_from_range (self, &n_snap_points);
-  progress = hdy_stackable_box_get_progress (self);
-  cancel_progress = hdy_stackable_box_get_cancel_progress (self);
-
-  hdy_swipe_tracker_confirm_swipe (self->tracker, distance, snap_points,
-                                   n_snap_points, progress, cancel_progress);
 }
 
 void

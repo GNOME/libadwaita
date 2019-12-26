@@ -63,7 +63,6 @@
 
 typedef enum {
   HDY_SWIPE_TRACKER_STATE_NONE,
-  HDY_SWIPE_TRACKER_STATE_PREPARING,
   HDY_SWIPE_TRACKER_STATE_PENDING,
   HDY_SWIPE_TRACKER_STATE_SCROLLING,
   HDY_SWIPE_TRACKER_STATE_FINISHING,
@@ -85,13 +84,9 @@ struct _HdySwipeTracker
   gdouble initial_progress;
   gdouble progress;
   gboolean cancelled;
-  gdouble cancel_progress;
 
   gdouble prev_offset;
-  gdouble distance;
 
-  gdouble *snap_points;
-  gint n_snap_points;
   gboolean is_scrolling;
 
   HdySwipeTrackerState state;
@@ -118,20 +113,15 @@ static GParamSpec *props[LAST_PROP];
 static void
 reset (HdySwipeTracker *self)
 {
-  g_clear_pointer (&self->snap_points, g_free);
-
   self->state = HDY_SWIPE_TRACKER_STATE_NONE;
 
   self->prev_offset = 0;
-  self->distance = 0;
 
   self->initial_progress = 0;
   self->progress = 0;
 
   self->prev_time = 0;
   self->velocity = 0;
-
-  self->cancel_progress = 0;
 
   self->cancelled = FALSE;
 
@@ -146,8 +136,12 @@ gesture_prepare (HdySwipeTracker        *self,
   if (self->state != HDY_SWIPE_TRACKER_STATE_NONE)
     return;
 
-  self->state = HDY_SWIPE_TRACKER_STATE_PREPARING;
   hdy_swipeable_begin_swipe (self->swipeable, direction, TRUE);
+
+  self->initial_progress = hdy_swipeable_get_progress (self->swipeable);
+  self->progress = self->initial_progress;
+  self->velocity = 0;
+  self->state = HDY_SWIPE_TRACKER_STATE_PENDING;
 }
 
 static void
@@ -279,11 +273,6 @@ static void
 gesture_cancel (HdySwipeTracker *self,
                 gdouble          distance)
 {
-  if (self->state == HDY_SWIPE_TRACKER_STATE_PREPARING) {
-    reset (self);
-    return;
-  }
-
   if (self->state != HDY_SWIPE_TRACKER_STATE_PENDING &&
       self->state != HDY_SWIPE_TRACKER_STATE_SCROLLING)
     return;
@@ -440,13 +429,6 @@ captured_scroll_event (HdySwipeTracker *self,
     }
   }
 
-  if (self->state == HDY_SWIPE_TRACKER_STATE_PREPARING) {
-    if (gdk_event_is_scroll_stop_event (event))
-      gesture_cancel (self, distance);
-
-    return GDK_EVENT_PROPAGATE;
-  }
-
   if (self->state == HDY_SWIPE_TRACKER_STATE_PENDING) {
     gboolean is_overshooting;
     gdouble first_point, last_point;
@@ -516,7 +498,6 @@ hdy_swipe_tracker_dispose (GObject *object)
   if (self->touch_gesture)
     g_signal_handlers_disconnect_by_data (self->touch_gesture, self);
 
-  g_clear_pointer (&self->snap_points, g_free);
   g_clear_object (&self->touch_gesture);
   g_clear_object (&self->swipeable);
 
@@ -925,84 +906,4 @@ hdy_swipe_tracker_captured_event (HdySwipeTracker *self,
   }
 
   return retval;
-}
-
-static gboolean
-is_sorted (gdouble *array,
-           gint     n)
-{
-  gint i;
-
-  if (n < 2)
-    return TRUE;
-
-  for (i = 0; i < n - 1; i++)
-    if (array[i] > array[i + 1])
-      return FALSE;
-
-  return TRUE;
-}
-
-/**
- * hdy_swipe_tracker_confirm_swipe:
- * @self: a #HdySwipeTracker
- * @distance: swipe distance in pixels
- * @snap_points: (array length=n_snap_points) (transfer full): array of snap
- *   points, must be sorted in ascending order
- * @n_snap_points: length of @snap_points
- * @current_progress: initial progress value
- * @cancel_progress: the value that will be used if the swipe is cancelled
- *
- * Confirms a swipe. User has to call this in #HdySwipeTracker::begin signal
- * handler, otherwise the swipe wouldn't start. If there's an animation running,
- * the user should stop it and pass its calue as @current_progress.
- *
- * The call is not a guarantee that the swipe will be started; child widgets
- * may intercept it, in which case #HdySwipeTracker::end will be emitted with
- * @cancel_progress value and 0 duration.
- *
- * @cancel_progress must always be a snap point, or an otherwise a value
- * matching a non-transient state, otherwise the widget will get stuck
- * mid-animation.
- *
- * If there's no animation running, @current_progress and @cancel_progress
- * must be same.
- *
- * Since: 0.0.11
- */
-void
-hdy_swipe_tracker_confirm_swipe (HdySwipeTracker *self,
-                                 gdouble          distance,
-                                 gdouble         *snap_points,
-                                 gint             n_snap_points,
-                                 gdouble          current_progress,
-                                 gdouble          cancel_progress)
-{
-  g_autofree gdouble *points = g_steal_pointer (&snap_points);
-
-  g_return_if_fail (HDY_IS_SWIPE_TRACKER (self));
-  g_return_if_fail (distance > 0.0);
-  g_return_if_fail (points);
-  g_return_if_fail (n_snap_points > 0);
-  g_return_if_fail (is_sorted (points, n_snap_points));
-  g_return_if_fail (current_progress >= points[0]);
-  g_return_if_fail (current_progress <= points[n_snap_points - 1]);
-  g_return_if_fail (cancel_progress >= points[0]);
-  g_return_if_fail (cancel_progress <= points[n_snap_points - 1]);
-
-  if (self->state != HDY_SWIPE_TRACKER_STATE_PREPARING) {
-    gesture_cancel (self, distance);
-    return;
-  }
-
-  g_clear_pointer (&self->snap_points, g_free);
-
-  self->distance = distance;
-  self->initial_progress = current_progress;
-  self->progress = current_progress;
-  self->velocity = 0;
-  self->snap_points = g_steal_pointer (&points);
-  self->n_snap_points = n_snap_points;
-  self->cancel_progress = cancel_progress;
-  self->state = HDY_SWIPE_TRACKER_STATE_PENDING;
 }
