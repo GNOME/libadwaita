@@ -182,8 +182,7 @@ gesture_update (HdySwipeTracker *self,
   if (time != self->prev_time)
     self->velocity = delta / (time - self->prev_time);
 
-  first_point = self->snap_points[0];
-  last_point = self->snap_points[self->n_snap_points - 1];
+  hdy_swipeable_get_range (self->swipeable, &first_point, &last_point);
 
   progress = self->progress + delta;
   progress = CLAMP (progress, first_point, last_point);
@@ -203,47 +202,54 @@ get_closest_snap_points (HdySwipeTracker *self,
                          gdouble         *upper,
                          gdouble         *lower)
 {
-  gint i;
+  gint i, n;
+  gdouble *points;
 
   *upper = 0;
   *lower = 0;
 
-  for (i = 0; i < self->n_snap_points; i++) {
-    if (self->snap_points[i] >= self->progress) {
-      *upper = self->snap_points[i];
+  points = hdy_swipeable_get_snap_points (self->swipeable, &n);
+
+  for (i = 0; i < n; i++) {
+    if (points[i] >= self->progress) {
+      *upper = points[i];
       break;
     }
   }
 
-  for (i = self->n_snap_points - 1; i >= 0; i--) {
-    if (self->snap_points[i] <= self->progress) {
-      *lower = self->snap_points[i];
+  for (i = n - 1; i >= 0; i--) {
+    if (points[i] <= self->progress) {
+      *lower = points[i];
       break;
     }
   }
+
+  g_free (points);
 }
 
 static gdouble
-get_end_progress (HdySwipeTracker *self)
+get_end_progress (HdySwipeTracker *self,
+                  gdouble          distance)
 {
   gdouble upper, lower, middle;
 
   if (self->cancelled)
-    return self->cancel_progress;
+    return hdy_swipeable_get_cancel_progress (self->swipeable);
 
   get_closest_snap_points (self, &upper, &lower);
   middle = (upper + lower) / 2;
 
   if (self->progress > middle)
-    return (self->velocity * self->distance > -VELOCITY_THRESHOLD ||
+    return (self->velocity * distance > -VELOCITY_THRESHOLD ||
             self->initial_progress > upper) ? upper : lower;
 
-  return (self->velocity * self->distance < VELOCITY_THRESHOLD ||
+  return (self->velocity * distance < VELOCITY_THRESHOLD ||
           self->initial_progress < lower) ? lower : upper;
 }
 
 static void
-gesture_end (HdySwipeTracker *self)
+gesture_end (HdySwipeTracker *self,
+             gdouble          distance)
 {
   gdouble end_progress, velocity;
   gint64 duration;
@@ -251,7 +257,7 @@ gesture_end (HdySwipeTracker *self)
   if (self->state == HDY_SWIPE_TRACKER_STATE_NONE)
     return;
 
-  end_progress = get_end_progress (self);
+  end_progress = get_end_progress (self, distance);
 
   velocity = ANIMATION_BASE_VELOCITY;
   if ((end_progress - self->progress) * self->velocity > 0)
@@ -270,7 +276,8 @@ gesture_end (HdySwipeTracker *self)
 }
 
 static void
-gesture_cancel (HdySwipeTracker *self)
+gesture_cancel (HdySwipeTracker *self,
+                gdouble          distance)
 {
   if (self->state == HDY_SWIPE_TRACKER_STATE_PREPARING) {
     reset (self);
@@ -282,7 +289,7 @@ gesture_cancel (HdySwipeTracker *self)
     return;
 
   self->cancelled = TRUE;
-  gesture_end (self);
+  gesture_end (self, distance);
 }
 
 static void
@@ -301,14 +308,16 @@ drag_update_cb (HdySwipeTracker *self,
                 gdouble          offset_y,
                 GtkGestureDrag  *gesture)
 {
-  gdouble offset;
+  gdouble offset, distance;
   gboolean is_vertical, is_offset_vertical;
+
+  distance = hdy_swipeable_get_distance (self->swipeable);
 
   is_vertical = (self->orientation == GTK_ORIENTATION_VERTICAL);
   if (is_vertical)
-    offset = -offset_y / self->distance;
+    offset = -offset_y / distance;
   else
-    offset = -offset_x / self->distance;
+    offset = -offset_x / distance;
 
   if (self->reversed)
     offset = -offset;
@@ -324,18 +333,17 @@ drag_update_cb (HdySwipeTracker *self,
   }
 
   if (self->state == HDY_SWIPE_TRACKER_STATE_PENDING) {
-    gdouble distance;
+    gdouble drag_distance;
     gdouble first_point, last_point;
     gboolean is_overshooting;
 
-    first_point = self->snap_points[0];
-    last_point = self->snap_points[self->n_snap_points - 1];
+    hdy_swipeable_get_range (self->swipeable, &first_point, &last_point);
 
-    distance = sqrt (offset_x * offset_x + offset_y * offset_y);
+    drag_distance = sqrt (offset_x * offset_x + offset_y * offset_y);
     is_overshooting = (offset < 0 && self->progress <= first_point) ||
                       (offset > 0 && self->progress >= last_point);
 
-    if (distance >= DRAG_THRESHOLD_DISTANCE) {
+    if (drag_distance >= DRAG_THRESHOLD_DISTANCE) {
       if ((is_vertical == is_offset_vertical) && !is_overshooting) {
         gesture_begin (self);
         gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_CLAIMED);
@@ -357,13 +365,17 @@ drag_end_cb (HdySwipeTracker *self,
              gdouble          offset_y,
              GtkGestureDrag  *gesture)
 {
+  gdouble distance;
+
+  distance = hdy_swipeable_get_distance (self->swipeable);
+
   if (self->state != HDY_SWIPE_TRACKER_STATE_SCROLLING) {
-    gesture_cancel (self);
+    gesture_cancel (self, distance);
     gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
     return;
   }
 
-  gesture_end (self);
+  gesture_end (self, distance);
 }
 
 static void
@@ -371,7 +383,11 @@ drag_cancel_cb (HdySwipeTracker  *self,
                 GdkEventSequence *sequence,
                 GtkGesture       *gesture)
 {
-  gesture_cancel (self);
+  gdouble distance;
+
+  distance = hdy_swipeable_get_distance (self->swipeable);
+
+  gesture_cancel (self, distance);
   gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
 }
 
@@ -381,9 +397,12 @@ captured_scroll_event (HdySwipeTracker *self,
 {
   GdkDevice *source_device;
   GdkInputSource input_source;
-  gdouble dx, dy, delta;
+  gdouble dx, dy, delta, distance;
   gboolean is_vertical;
   gboolean is_delta_vertical;
+
+  is_vertical = (self->orientation == GTK_ORIENTATION_VERTICAL);
+  distance = is_vertical ? TOUCHPAD_BASE_DISTANCE_V : TOUCHPAD_BASE_DISTANCE_H;
 
   if (gdk_event_get_scroll_direction (event, NULL))
     return GDK_EVENT_PROPAGATE;
@@ -393,8 +412,6 @@ captured_scroll_event (HdySwipeTracker *self,
   if (input_source != GDK_SOURCE_TOUCHPAD)
     return GDK_EVENT_PROPAGATE;
 
-  is_vertical = (self->orientation == GTK_ORIENTATION_VERTICAL);
-
   gdk_event_get_scroll_deltas (event, &dx, &dy);
   delta = is_vertical ? dy : dx;
   if (self->reversed)
@@ -403,7 +420,7 @@ captured_scroll_event (HdySwipeTracker *self,
   is_delta_vertical = (ABS (dy) > ABS (dx));
 
   if (self->is_scrolling) {
-    gesture_cancel (self);
+    gesture_cancel (self, distance);
 
     if (gdk_event_is_scroll_stop_event (event))
       self->is_scrolling = FALSE;
@@ -425,7 +442,7 @@ captured_scroll_event (HdySwipeTracker *self,
 
   if (self->state == HDY_SWIPE_TRACKER_STATE_PREPARING) {
     if (gdk_event_is_scroll_stop_event (event))
-      gesture_cancel (self);
+      gesture_cancel (self, distance);
 
     return GDK_EVENT_PROPAGATE;
   }
@@ -434,8 +451,7 @@ captured_scroll_event (HdySwipeTracker *self,
     gboolean is_overshooting;
     gdouble first_point, last_point;
 
-    first_point = self->snap_points[0];
-    last_point = self->snap_points[self->n_snap_points - 1];
+    hdy_swipeable_get_range (self->swipeable, &first_point, &last_point);
 
     is_overshooting = (delta < 0 && self->progress <= first_point) ||
                       (delta > 0 && self->progress >= last_point);
@@ -443,16 +459,14 @@ captured_scroll_event (HdySwipeTracker *self,
     if ((is_vertical == is_delta_vertical) && !is_overshooting)
       gesture_begin (self);
     else
-      gesture_cancel (self);
+      gesture_cancel (self, distance);
   }
 
   if (self->state == HDY_SWIPE_TRACKER_STATE_SCROLLING) {
     if (gdk_event_is_scroll_stop_event (event)) {
-      gesture_end (self);
+      gesture_end (self, distance);
     } else {
-      self->distance = is_vertical ? TOUCHPAD_BASE_DISTANCE_V :
-                       TOUCHPAD_BASE_DISTANCE_H;
-      gesture_update (self, delta / self->distance * SCROLL_MULTIPLIER);
+      gesture_update (self, delta / distance * SCROLL_MULTIPLIER);
       return GDK_EVENT_STOP;
     }
   }
@@ -977,7 +991,7 @@ hdy_swipe_tracker_confirm_swipe (HdySwipeTracker *self,
   g_return_if_fail (cancel_progress <= points[n_snap_points - 1]);
 
   if (self->state != HDY_SWIPE_TRACKER_STATE_PREPARING) {
-    gesture_cancel (self);
+    gesture_cancel (self, distance);
     return;
   }
 
