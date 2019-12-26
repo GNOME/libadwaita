@@ -606,21 +606,8 @@ hdy_carousel_box_add (GtkContainer *container,
                       GtkWidget    *widget)
 {
   HdyCarouselBox *self = HDY_CAROUSEL_BOX (container);
-  HdyCarouselBoxChildInfo *info;
 
-  info = g_new0 (HdyCarouselBoxChildInfo, 1);
-  info->widget = widget;
-
-  if (gtk_widget_get_realized (GTK_WIDGET (container)))
-    register_window (info, self);
-
-  self->children = g_list_append (self->children, info);
-
-  gtk_widget_set_parent (widget, GTK_WIDGET (container));
-
-  invalidate_drawing_cache (self);
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
+  hdy_carousel_box_insert (self, widget, -1);
 }
 
 static void
@@ -886,11 +873,24 @@ hdy_carousel_box_insert (HdyCarouselBox *self,
                          GtkWidget      *widget,
                          gint            position)
 {
+  HdyCarouselBoxChildInfo *info;
+
   g_return_if_fail (HDY_IS_CAROUSEL_BOX (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
 
-  gtk_container_add (GTK_CONTAINER (self), widget);
-  hdy_carousel_box_reorder (self, widget, position);
+  info = g_new0 (HdyCarouselBoxChildInfo, 1);
+  info->widget = widget;
+
+  if (gtk_widget_get_realized (GTK_WIDGET (self)))
+    register_window (info, self);
+
+  self->children = g_list_insert (self->children, info, position);
+
+  gtk_widget_set_parent (widget, GTK_WIDGET (self));
+
+  invalidate_drawing_cache (self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
 }
 
 /**
