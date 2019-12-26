@@ -51,4 +51,11 @@ void            hdy_carousel_box_set_spacing (HdyCarouselBox *self,
 GtkWidget      *hdy_carousel_box_get_nth_child (HdyCarouselBox *self,
                                                 guint           n);
 
+gdouble        *hdy_carousel_box_get_snap_points        (HdyCarouselBox *self,
+                                                         gint           *n_snap_points);
+void            hdy_carousel_box_get_range              (HdyCarouselBox *self,
+                                                         gdouble        *lower,
+                                                         gdouble        *upper);
+gdouble         hdy_carousel_box_get_closest_snap_point (HdyCarouselBox *self);
+
 G_END_DECLS
