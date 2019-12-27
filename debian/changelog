@@ -1,3 +1,27 @@
+libhandy (0.0.13) amber-phone; urgency=medium
+
+  [ Alexander Mikhaylenko ]
+  * paginator-box: Stop using gtk_widget_set_child_visible()
+    This function is meant for widgets that don't need to be mapped along with
+    parent widget, not for scrolled out widgets. Additionally, using it causes
+    strange side effects with GtkOverlay window z-ordering. Stop using it and
+    instead track visiblity manually. Also, clarify the code a bit.
+  * leaflet: Correctly handle 0 duration for swipe snap-back
+  * swipe-tracker: Don't animate when the distance is 0.
+    Usually it makes sense to restrict the minimum animation duration. However,
+    if the progress already matches the end progress, it just causes a delay,
+    so skip it completely.
+
+  [ Julian Sparber ]
+  * Keypad: Do not show allow typing + when only_digits is true.
+    The keypad shouldn't allow typing or show + when only_digits
+    is set to true. Therefore this adds the correct behavior.
+
+  [ Guido Günther ]
+  * Release libhandy 0.0.13
+
+ -- Guido Günther <agx@sigxcpu.org>  Fri, 27 Dec 2019 12:22:18 +0100
+
 libhandy (0.0.12) experimental; urgency=medium
 
   [ Zander Brown ]
