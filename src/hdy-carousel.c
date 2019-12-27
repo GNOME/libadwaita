@@ -228,11 +228,9 @@ static void
 animation_stopped_cb (HdyCarousel    *self,
                       HdyCarouselBox *box)
 {
-  gdouble position;
   gint index;
 
-  position = hdy_carousel_box_get_position (self->scrolling_box);
-  index = round (position);
+  index = hdy_carousel_box_get_current_page_index (self->scrolling_box);
 
   g_signal_emit (self, signals[SIGNAL_PAGE_CHANGED], 0, index);
 }
@@ -562,7 +560,7 @@ handle_discrete_scroll_event (HdyCarousel *self,
   if (index == 0)
     return GDK_EVENT_PROPAGATE;
 
-  index += (gint) round (hdy_carousel_get_position (self));
+  index += hdy_carousel_box_get_current_page_index (self->scrolling_box);
   index = CLAMP (index, 0, (gint) hdy_carousel_get_n_pages (self) - 1);
 
   hdy_carousel_scroll_to (self, hdy_carousel_box_get_nth_child (self->scrolling_box, index));
