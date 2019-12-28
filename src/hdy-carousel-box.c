@@ -46,7 +46,6 @@ struct _HdyCarouselBox
   GtkContainer parent_instance;
 
   struct {
-    guint tick_cb_id;
     gint64 start_time;
     gint64 end_time;
     gdouble start_position;
@@ -61,6 +60,8 @@ struct _HdyCarouselBox
   gdouble position;
   guint spacing;
   GtkOrientation orientation;
+
+  guint tick_cb_id;
 };
 
 G_DEFINE_TYPE_WITH_CODE (HdyCarouselBox, hdy_carousel_box, GTK_TYPE_CONTAINER,
@@ -244,7 +245,10 @@ animation_cb (GtkWidget     *widget,
   gdouble position;
   gdouble t;
 
-  g_assert (hdy_carousel_box_is_animating (self));
+  if (!hdy_carousel_box_is_animating (self)) {
+    self->tick_cb_id = 0;
+    return G_SOURCE_REMOVE;
+  }
 
   frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000;
   frame_time = MIN (frame_time, self->animation_data.end_time);
@@ -258,9 +262,9 @@ animation_cb (GtkWidget     *widget,
                                            self->animation_data.end_position, 1 - t));
 
   if (frame_time == self->animation_data.end_time) {
-    self->animation_data.tick_cb_id = 0;
+    self->animation_data.start_time = 0;
+    self->animation_data.end_time = 0;
     g_signal_emit (self, signals[SIGNAL_ANIMATION_STOPPED], 0);
-    return G_SOURCE_REMOVE;
   }
 
   return G_SOURCE_CONTINUE;
@@ -707,7 +711,8 @@ hdy_carousel_box_finalize (GObject *object)
 {
   HdyCarouselBox *self = HDY_CAROUSEL_BOX (object);
 
-  hdy_carousel_box_stop_animation (self);
+  if (self->tick_cb_id > 0)
+    gtk_widget_remove_tick_callback (GTK_WIDGET (self), self->tick_cb_id);
 
   g_list_free_full (self->children, (GDestroyNotify) free_child_info);
 
@@ -1046,7 +1051,7 @@ hdy_carousel_box_is_animating (HdyCarouselBox *self)
 {
   g_return_val_if_fail (HDY_IS_CAROUSEL_BOX (self), FALSE);
 
-  return (self->animation_data.tick_cb_id != 0);
+  return (self->animation_data.start_time != 0);
 }
 
 /**
@@ -1064,12 +1069,11 @@ hdy_carousel_box_stop_animation (HdyCarouselBox *self)
 {
   g_return_if_fail (HDY_IS_CAROUSEL_BOX (self));
 
-  if (self->animation_data.tick_cb_id == 0)
+  if (self->animation_data.start_time == 0)
     return;
 
-  gtk_widget_remove_tick_callback (GTK_WIDGET (self),
-                                   self->animation_data.tick_cb_id);
-  self->animation_data.tick_cb_id = 0;
+  self->animation_data.start_time = 0;
+  self->animation_data.end_time = 0;
 }
 
 /**
@@ -1127,8 +1131,9 @@ hdy_carousel_box_scroll_to (HdyCarouselBox *self,
 
   self->animation_data.start_time = frame_time / 1000;
   self->animation_data.end_time = self->animation_data.start_time + duration;
-  self->animation_data.tick_cb_id =
-    gtk_widget_add_tick_callback (GTK_WIDGET (self), animation_cb, self, NULL);
+  if (self->tick_cb_id == 0)
+    self->tick_cb_id =
+      gtk_widget_add_tick_callback (GTK_WIDGET (self), animation_cb, self, NULL);
 }
 
 /**
