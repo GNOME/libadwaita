@@ -698,16 +698,14 @@ hdy_carousel_box_forall (GtkContainer *container,
                          gpointer      callback_data)
 {
   HdyCarouselBox *self = HDY_CAROUSEL_BOX (container);
-  GList *list;
-  GtkWidget *child;
+  g_autoptr (GList) children = NULL;
+  GList *l;
 
-  list = self->children;
-  while (list) {
-    HdyCarouselBoxChildInfo *child_info = list->data;
-    child = child_info->widget;
-    list = list->next;
+  children = g_list_copy (self->children);
+  for (l = children; l; l = l->next) {
+    HdyCarouselBoxChildInfo *child = l->data;
 
-    (* callback) (child, callback_data);
+    (* callback) (child->widget, callback_data);
   }
 }
 
