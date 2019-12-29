@@ -148,13 +148,10 @@ hdy_carousel_end_swipe (HdySwipeable *swipeable,
                         gdouble       to)
 {
   HdyCarousel *self = HDY_CAROUSEL (swipeable);
+  GtkWidget *child;
 
-  if (duration == 0) {
-    hdy_carousel_box_set_position (self->scrolling_box, to);
-    return;
-  }
-
-  hdy_carousel_box_animate (self->scrolling_box, to, duration);
+  child = hdy_carousel_box_get_page_at_position (self->scrolling_box, to);
+  hdy_carousel_box_scroll_to (self->scrolling_box, child, duration);
 }
 
 static gdouble

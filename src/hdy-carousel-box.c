@@ -980,58 +980,6 @@ hdy_carousel_box_reorder (HdyCarouselBox *self,
 }
 
 /**
- * hdy_carousel_box_animate:
- * @self: a #HdyCarouselBox
- * @position: A value to animate to
- * @duration: Animation duration in milliseconds
- *
- * Animates the widget's position to @position over the next @duration
- * milliseconds using easeOutCubic interpolator.
- *
- * If an animation was already running, it will be cancelled automatically.
- *
- * @duration can be 0, in that case the position will be
- * changed immediately.
- *
- * Since: 1.0
- */
-void
-hdy_carousel_box_animate (HdyCarouselBox *self,
-                          gdouble         position,
-                          gint64          duration)
-{
-  GdkFrameClock *frame_clock;
-  gint64 frame_time;
-
-  g_return_if_fail (HDY_IS_CAROUSEL_BOX (self));
-
-  hdy_carousel_box_stop_animation (self);
-
-  if (duration <= 0 || !hdy_get_enable_animations (GTK_WIDGET (self))) {
-    hdy_carousel_box_set_position (self, position);
-    g_signal_emit (self, signals[SIGNAL_ANIMATION_STOPPED], 0);
-    return;
-  }
-
-  frame_clock = gtk_widget_get_frame_clock (GTK_WIDGET (self));
-  if (!frame_clock) {
-    hdy_carousel_box_set_position (self, position);
-    g_signal_emit (self, signals[SIGNAL_ANIMATION_STOPPED], 0);
-    return;
-  }
-
-  frame_time = gdk_frame_clock_get_frame_time (frame_clock);
-
-  self->animation_data.start_position = self->position;
-  self->animation_data.end_position = position;
-
-  self->animation_data.start_time = frame_time / 1000;
-  self->animation_data.end_time = self->animation_data.start_time + duration;
-  self->animation_data.tick_cb_id =
-    gtk_widget_add_tick_callback (GTK_WIDGET (self), animation_cb, self, NULL);
-}
-
-/**
  * hdy_carousel_box_is_animating:
  * @self: a #HdyCarouselBox
  *
@@ -1078,8 +1026,13 @@ hdy_carousel_box_stop_animation (HdyCarouselBox *self)
  * @widget: a child of @self
  * @duration: animation duration in milliseconds
  *
- * Scrolls to @widget position with an animation. If @duration is 0, changes
- * the position immediately.
+ * Scrolls to @widget position over the next @duration milliseconds using
+ * easeOutCubic interpolator.
+ *
+ * If an animation was already running, it will be cancelled automatically.
+ *
+ * @duration can be 0, in that case the position will be
+ * changed immediately.
  *
  * Since: 1.0
  */
@@ -1088,15 +1041,40 @@ hdy_carousel_box_scroll_to (HdyCarouselBox *self,
                             GtkWidget      *widget,
                             gint64          duration)
 {
-  gint index;
+  GdkFrameClock *frame_clock;
+  gint64 frame_time;
+  gdouble position;
 
   g_return_if_fail (HDY_IS_CAROUSEL_BOX (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
   g_return_if_fail (duration >= 0);
 
-  index = find_child_index (self, widget);
+  position = find_child_index (self, widget);
 
-  hdy_carousel_box_animate (self, index, duration);
+  hdy_carousel_box_stop_animation (self);
+
+  if (duration <= 0 || !hdy_get_enable_animations (GTK_WIDGET (self))) {
+    hdy_carousel_box_set_position (self, position);
+    g_signal_emit (self, signals[SIGNAL_ANIMATION_STOPPED], 0);
+    return;
+  }
+
+  frame_clock = gtk_widget_get_frame_clock (GTK_WIDGET (self));
+  if (!frame_clock) {
+    hdy_carousel_box_set_position (self, position);
+    g_signal_emit (self, signals[SIGNAL_ANIMATION_STOPPED], 0);
+    return;
+  }
+
+  frame_time = gdk_frame_clock_get_frame_time (frame_clock);
+
+  self->animation_data.start_position = self->position;
+  self->animation_data.end_position = position;
+
+  self->animation_data.start_time = frame_time / 1000;
+  self->animation_data.end_time = self->animation_data.start_time + duration;
+  self->animation_data.tick_cb_id =
+    gtk_widget_add_tick_callback (GTK_WIDGET (self), animation_cb, self, NULL);
 }
 
 /**

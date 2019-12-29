@@ -27,9 +27,6 @@ void            hdy_carousel_box_reorder (HdyCarouselBox *self,
                                           GtkWidget      *widget,
                                           gint            position);
 
-void            hdy_carousel_box_animate (HdyCarouselBox *self,
-                                          gdouble         position,
-                                          gint64          duration);
 gboolean        hdy_carousel_box_is_animating (HdyCarouselBox *self);
 void            hdy_carousel_box_stop_animation (HdyCarouselBox *self);
 

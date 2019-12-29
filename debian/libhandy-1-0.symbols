@@ -25,7 +25,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_avatar_set_show_initials@LIBHANDY_1_0 0.80.0
  hdy_avatar_set_size@LIBHANDY_1_0 0.80.0
  hdy_avatar_set_text@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_animate@LIBHANDY_1_0 0.80.0
  hdy_carousel_box_get_distance@LIBHANDY_1_0 0.80.0
  hdy_carousel_box_get_n_pages@LIBHANDY_1_0 0.80.0
  hdy_carousel_box_get_nth_child@LIBHANDY_1_0 0.80.0
