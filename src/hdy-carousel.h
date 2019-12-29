@@ -73,4 +73,7 @@ gboolean        hdy_carousel_get_allow_mouse_drag (HdyCarousel *self);
 void            hdy_carousel_set_allow_mouse_drag (HdyCarousel *self,
                                                    gboolean     allow_mouse_drag);
 
+guint           hdy_carousel_get_reveal_duration (HdyCarousel *self);
+void            hdy_carousel_set_reveal_duration (HdyCarousel *self,
+                                                  guint        reveal_duration);
 G_END_DECLS

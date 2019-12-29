@@ -284,6 +284,32 @@ test_hdy_carousel_allow_mouse_drag (void)
   g_assert_cmpint (notified, ==, 2);
 }
 
+static void
+test_hdy_carousel_reveal_duration (void)
+{
+  HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
+  guint duration;
+
+  notified = 0;
+  g_signal_connect (carousel, "notify::reveal-duration", G_CALLBACK (notify_cb), NULL);
+
+  /* Accessors */
+  g_assert_cmpuint (hdy_carousel_get_reveal_duration (carousel), ==, 0);
+  hdy_carousel_set_reveal_duration (carousel, 200);
+  g_assert_cmpuint (hdy_carousel_get_reveal_duration (carousel), ==, 200);
+  g_assert_cmpint (notified, ==, 1);
+
+  /* Property */
+  g_object_set (carousel, "reveal-duration", 500, NULL);
+  g_object_get (carousel, "reveal-duration", &duration, NULL);
+  g_assert_cmpuint (duration, ==, 500);
+  g_assert_cmpint (notified, ==, 2);
+
+  /* Setting the same value should not notify */
+  hdy_carousel_set_reveal_duration (carousel, 500);
+  g_assert_cmpint (notified, ==, 2);
+}
+
 gint
 main (gint argc,
       gchar *argv[])
@@ -299,5 +325,6 @@ main (gint argc,
   g_test_add_func("/Handy/Carousel/spacing", test_hdy_carousel_spacing);
   g_test_add_func("/Handy/Carousel/animation_duration", test_hdy_carousel_animation_duration);
   g_test_add_func("/Handy/Carousel/allow_mouse_drag", test_hdy_carousel_allow_mouse_drag);
+  g_test_add_func("/Handy/Carousel/reveal_duration", test_hdy_carousel_reveal_duration);
   return g_test_run();
 }

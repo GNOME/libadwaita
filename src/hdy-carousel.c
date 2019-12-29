@@ -96,10 +96,11 @@ enum {
   PROP_SPACING,
   PROP_ANIMATION_DURATION,
   PROP_ALLOW_MOUSE_DRAG,
+  PROP_REVEAL_DURATION,
 
   /* GtkOrientable */
   PROP_ORIENTATION,
-  LAST_PROP = PROP_ALLOW_MOUSE_DRAG + 1,
+  LAST_PROP = PROP_REVEAL_DURATION + 1,
 };
 
 static GParamSpec *props[LAST_PROP];
@@ -222,6 +223,14 @@ notify_spacing_cb (HdyCarousel *self,
                    GObject     *object)
 {
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SPACING]);
+}
+
+static void
+notify_reveal_duration_cb (HdyCarousel *self,
+                           GParamSpec  *spec,
+                           GObject     *object)
+{
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVEAL_DURATION]);
 }
 
 static void
@@ -715,6 +724,10 @@ hdy_carousel_get_property (GObject    *object,
     g_value_set_boolean (value, hdy_carousel_get_allow_mouse_drag (self));
     break;
 
+  case PROP_REVEAL_DURATION:
+    g_value_set_uint (value, hdy_carousel_get_reveal_duration (self));
+    break;
+
   case PROP_ORIENTATION:
     g_value_set_enum (value, self->orientation);
     break;
@@ -759,6 +772,10 @@ hdy_carousel_set_property (GObject      *object,
 
   case PROP_ANIMATION_DURATION:
     hdy_carousel_set_animation_duration (self, g_value_get_uint (value));
+    break;
+
+  case PROP_REVEAL_DURATION:
+    hdy_carousel_set_reveal_duration (self, g_value_get_uint (value));
     break;
 
   case PROP_ALLOW_MOUSE_DRAG:
@@ -956,6 +973,22 @@ hdy_carousel_class_init (HdyCarouselClass *klass)
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * HdyCarousel:reveal-duration:
+   *
+   * Page reveal duration in milliseconds.
+   *
+   * Since: 1.0
+   */
+  props[PROP_REVEAL_DURATION] =
+    g_param_spec_uint ("reveal-duration",
+                       _("Reveal duration"),
+                       _("Page reveal duration"),
+                       0,
+                       G_MAXUINT,
+                       0,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,
                                     "orientation");
@@ -993,6 +1026,7 @@ hdy_carousel_class_init (HdyCarouselClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, notify_n_pages_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_position_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_spacing_cb);
+  gtk_widget_class_bind_template_callback (widget_class, notify_reveal_duration_cb);
   gtk_widget_class_bind_template_callback (widget_class, animation_stopped_cb);
   gtk_widget_class_bind_template_callback (widget_class, position_shifted_cb);
 
@@ -1481,4 +1515,42 @@ hdy_carousel_set_allow_mouse_drag (HdyCarousel *self,
   hdy_swipe_tracker_set_allow_mouse_drag (self->tracker, allow_mouse_drag);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALLOW_MOUSE_DRAG]);
+}
+
+/**
+ * hdy_carousel_get_reveal_duration:
+ * @self: a #HdyCarousel
+ *
+ * Gets duration of the animation used when adding or removing pages in
+ * milliseconds.
+ *
+ * Returns: Page reveal duration
+ *
+ * Since: 1.0
+ */
+guint
+hdy_carousel_get_reveal_duration (HdyCarousel *self)
+{
+  g_return_val_if_fail (HDY_IS_CAROUSEL (self), 0);
+
+  return hdy_carousel_box_get_reveal_duration (self->scrolling_box);
+}
+
+/**
+ * hdy_carousel_set_reveal_duration:
+ * @self: a #HdyCarousel
+ * @reveal_duration: the new reveal duration value
+ *
+ * Sets duration of the animation used when adding or removing pages in
+ * milliseconds.
+ *
+ * Since: 1.0
+ */
+void
+hdy_carousel_set_reveal_duration (HdyCarousel *self,
+                                  guint        reveal_duration)
+{
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
+
+  hdy_carousel_box_set_reveal_duration (self->scrolling_box, reveal_duration);
 }
