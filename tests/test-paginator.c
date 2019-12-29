@@ -258,6 +258,32 @@ test_hdy_paginator_animation_duration (void)
   g_assert_cmpint (notified, ==, 2);
 }
 
+static void
+test_hdy_paginator_allow_mouse_drag (void)
+{
+  HdyPaginator *paginator = HDY_PAGINATOR (hdy_paginator_new ());
+  gboolean allow_mouse_drag;
+
+  notified = 0;
+  g_signal_connect (paginator, "notify::allow-mouse-drag", G_CALLBACK (notify_cb), NULL);
+
+  /* Accessors */
+  g_assert_false (hdy_paginator_get_allow_mouse_drag (paginator));
+  hdy_paginator_set_allow_mouse_drag (paginator, TRUE);
+  g_assert_true (hdy_paginator_get_allow_mouse_drag (paginator));
+  g_assert_cmpint (notified, ==, 1);
+
+  /* Property */
+  g_object_set (paginator, "allow-mouse-drag", FALSE, NULL);
+  g_object_get (paginator, "allow-mouse-drag", &allow_mouse_drag, NULL);
+  g_assert_false (allow_mouse_drag);
+  g_assert_cmpint (notified, ==, 2);
+
+  /* Setting the same value should not notify */
+  hdy_paginator_set_allow_mouse_drag (paginator, FALSE);
+  g_assert_cmpint (notified, ==, 2);
+}
+
 gint
 main (gint argc,
       gchar *argv[])
@@ -273,5 +299,6 @@ main (gint argc,
   g_test_add_func("/Handy/Paginator/center_content", test_hdy_paginator_center_content);
   g_test_add_func("/Handy/Paginator/spacing", test_hdy_paginator_spacing);
   g_test_add_func("/Handy/Paginator/animation_duration", test_hdy_paginator_animation_duration);
+  g_test_add_func("/Handy/Paginator/allow_mouse_drag", test_hdy_paginator_allow_mouse_drag);
   return g_test_run();
 }
