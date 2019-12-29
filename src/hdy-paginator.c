@@ -1437,6 +1437,9 @@ hdy_paginator_set_allow_mouse_drag (HdyPaginator *self,
 
   allow_mouse_drag = !!allow_mouse_drag;
 
+  if (hdy_paginator_get_allow_mouse_drag (self) == allow_mouse_drag)
+    return;
+
   hdy_swipe_tracker_set_allow_mouse_drag (self->tracker, allow_mouse_drag);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALLOW_MOUSE_DRAG]);
