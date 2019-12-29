@@ -46,6 +46,11 @@ struct _HdyCarouselBoxChildInfo
   gboolean visible;
   gdouble size;
   gdouble snap_point;
+  gboolean adding;
+  gboolean removing;
+
+  gboolean shift_position;
+  HdyCarouselBoxAnimation resize_animation;
 
   cairo_surface_t *surface;
   cairo_region_t *dirty_region;
@@ -56,6 +61,7 @@ struct _HdyCarouselBox
   GtkContainer parent_instance;
 
   HdyCarouselBoxAnimation animation;
+  HdyCarouselBoxChildInfo *destination_child;
   GList *children;
 
   gint child_width;
@@ -112,7 +118,8 @@ find_child_info (HdyCarouselBox *self,
 
 static gint
 find_child_index (HdyCarouselBox *self,
-                  GtkWidget      *widget)
+                  GtkWidget      *widget,
+                  gboolean        count_removing)
 {
   GList *l;
   gint i;
@@ -121,6 +128,9 @@ find_child_index (HdyCarouselBox *self,
   for (l = self->children; l; l = l->next) {
     HdyCarouselBoxChildInfo *info = l->data;
 
+    if (info->removing && !count_removing)
+      continue;
+
     if (widget == info->widget)
       return i;
 
@@ -128,6 +138,28 @@ find_child_index (HdyCarouselBox *self,
   }
 
   return -1;
+}
+
+static GList *
+get_nth_link (HdyCarouselBox *self,
+              gint            n)
+{
+
+  GList *l;
+  gint i;
+
+  i = n;
+  for (l = self->children; l; l = l->next) {
+    HdyCarouselBoxChildInfo *info = l->data;
+
+    if (info->removing)
+      continue;
+
+    if (i-- == 0)
+      return l;
+  }
+
+  return NULL;
 }
 
 static HdyCarouselBoxChildInfo *
@@ -148,13 +180,21 @@ find_child_info_by_window (HdyCarouselBox *self,
 
 static HdyCarouselBoxChildInfo *
 get_closest_child_at (HdyCarouselBox *self,
-                      gdouble         position)
+                      gdouble         position,
+                      gboolean        count_adding,
+                      gboolean        count_removing)
 {
   GList *l;
   HdyCarouselBoxChildInfo *closest_child = NULL;
 
   for (l = self->children; l; l = l->next) {
     HdyCarouselBoxChildInfo *child = l->data;
+
+    if (child->adding && !count_adding)
+      continue;
+
+    if (child->removing && !count_removing)
+      continue;
 
     if (!closest_child ||
         ABS (closest_child->snap_point - position) >
@@ -205,6 +245,9 @@ register_window (HdyCarouselBoxChildInfo *info,
   GtkAllocation allocation;
   gint attributes_mask;
 
+  if (info->removing)
+    return;
+
   widget = GTK_WIDGET (self);
   gtk_widget_get_allocation (info->widget, &allocation);
 
@@ -236,10 +279,121 @@ static void
 unregister_window (HdyCarouselBoxChildInfo *info,
                    HdyCarouselBox          *self)
 {
+  if (!info->widget)
+    return;
+
   gtk_widget_set_parent_window (info->widget, NULL);
   gtk_widget_unregister_window (GTK_WIDGET (self), info->window);
   gdk_window_destroy (info->window);
   info->window = NULL;
+}
+
+static gdouble
+get_animation_value (HdyCarouselBoxAnimation *animation,
+                     GdkFrameClock           *frame_clock)
+{
+  gint64 frame_time, duration;
+  gdouble t;
+
+  frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000;
+  frame_time = MIN (frame_time, animation->end_time);
+
+  duration = animation->end_time - animation->start_time;
+  t = (gdouble) (frame_time - animation->start_time) / duration;
+  t = hdy_ease_out_cubic (t);
+
+  return hdy_lerp (animation->start_value, animation->end_value, 1 - t);
+}
+
+static gboolean
+animate_position (HdyCarouselBox *self,
+                  GdkFrameClock  *frame_clock)
+{
+  gint64 frame_time;
+  gdouble value;
+
+  if (!hdy_carousel_box_is_animating (self))
+    return G_SOURCE_REMOVE;
+
+  frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000;
+
+  self->animation.end_value = self->destination_child->snap_point;
+  value = get_animation_value (&self->animation, frame_clock);
+  hdy_carousel_box_set_position (self, value);
+
+  if (frame_time >= self->animation.end_time) {
+    self->animation.start_time = 0;
+    self->animation.end_time = 0;
+    g_signal_emit (self, signals[SIGNAL_ANIMATION_STOPPED], 0);
+    return G_SOURCE_REMOVE;
+  }
+
+  return G_SOURCE_CONTINUE;
+}
+
+static void update_windows (HdyCarouselBox *self);
+
+static void
+complete_child_animation (HdyCarouselBox          *self,
+                          HdyCarouselBoxChildInfo *child)
+{
+  update_windows (self);
+
+  if (child->adding)
+    child->adding = FALSE;
+
+  if (child->removing) {
+    self->children = g_list_remove (self->children, child);
+
+    free_child_info (child);
+  }
+}
+
+static gboolean
+animate_child_size (HdyCarouselBox          *self,
+                    HdyCarouselBoxChildInfo *child,
+                    GdkFrameClock           *frame_clock,
+                    gdouble                 *delta)
+{
+  gint64 frame_time;
+  gdouble d, new_value;
+
+  if (child->resize_animation.start_time == 0)
+    return G_SOURCE_REMOVE;
+
+  new_value = get_animation_value (&child->resize_animation, frame_clock);
+  d = new_value - child->size;
+
+  child->size += d;
+
+  frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000;
+
+  if (delta)
+    *delta = d;
+
+  if (frame_time >= child->resize_animation.end_time) {
+    child->resize_animation.start_time = 0;
+    child->resize_animation.end_time = 0;
+    complete_child_animation (self, child);
+    return G_SOURCE_REMOVE;
+  }
+
+  return G_SOURCE_CONTINUE;
+}
+
+static void
+set_position (HdyCarouselBox *self,
+              gdouble         position)
+{
+  gdouble lower, upper;
+
+  hdy_carousel_box_get_range (self, &lower, &upper);
+
+  position = CLAMP (position, lower, upper);
+
+  self->position = position;
+  update_windows (self);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POSITION]);
 }
 
 static gboolean
@@ -248,33 +402,123 @@ animation_cb (GtkWidget     *widget,
               gpointer       user_data)
 {
   HdyCarouselBox *self = HDY_CAROUSEL_BOX (widget);
-  gint64 frame_time, duration;
-  gdouble position;
-  gdouble t;
+  g_autoptr (GList) children = NULL;
+  GList *l;
+  gboolean should_continue;
+  gdouble position_shift;
 
-  if (!hdy_carousel_box_is_animating (self)) {
+  should_continue = G_SOURCE_REMOVE;
+
+  position_shift = 0;
+
+  children = g_list_copy (self->children);
+  for (l = children; l; l = l->next) {
+    HdyCarouselBoxChildInfo *child = l->data;
+    gdouble delta;
+    gboolean shift;
+
+    delta = 0;
+    shift = child->shift_position;
+
+    should_continue |= animate_child_size (self, child, frame_clock, &delta);
+
+    if (shift)
+      position_shift += delta;
+  }
+
+  update_windows (self);
+
+  if (position_shift != 0) {
+    set_position (self, self->position + position_shift);
+    g_signal_emit (self, signals[SIGNAL_POSITION_SHIFTED], 0, position_shift);
+  }
+
+  should_continue |= animate_position (self, frame_clock);
+
+  update_windows (self);
+
+  if (!should_continue)
     self->tick_cb_id = 0;
-    return G_SOURCE_REMOVE;
+
+  return should_continue;
+}
+
+static void
+update_shift_position_flag (HdyCarouselBox          *self,
+                            HdyCarouselBoxChildInfo *child)
+{
+  HdyCarouselBoxChildInfo *closest_child;
+  gint animating_index, closest_index;
+
+  /* We want to still shift position when the active child is being removed */
+  closest_child = get_closest_child_at (self, self->position, FALSE, TRUE);
+
+  if (!closest_child)
+    return;
+
+  animating_index = g_list_index (self->children, child);
+  closest_index = g_list_index (self->children, closest_child);
+
+  child->shift_position = (closest_index >= animating_index);
+}
+
+static void
+animate_child (HdyCarouselBox          *self,
+               HdyCarouselBoxChildInfo *child,
+               gdouble                  value,
+               gint64                   duration)
+{
+  GdkFrameClock *frame_clock;
+  gint64 frame_time;
+
+  if (child->resize_animation.start_time > 0) {
+    child->resize_animation.start_time = 0;
+    child->resize_animation.end_time = 0;
   }
 
-  frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000;
-  frame_time = MIN (frame_time, self->animation.end_time);
+  update_shift_position_flag (self, child);
 
-  duration = self->animation.end_time - self->animation.start_time;
-  position = (gdouble) (frame_time - self->animation.start_time) / duration;
+  if (!gtk_widget_get_realized (GTK_WIDGET (self)) ||
+      duration <= 0 ||
+      !hdy_get_enable_animations (GTK_WIDGET (self))) {
+    gdouble delta = value - child->size;
 
-  t = hdy_ease_out_cubic (position);
-  hdy_carousel_box_set_position (self,
-                                 hdy_lerp (self->animation.start_value,
-                                           self->animation.end_value, 1 - t));
+    child->size = value;
 
-  if (frame_time == self->animation.end_time) {
-    self->animation.start_time = 0;
-    self->animation.end_time = 0;
-    g_signal_emit (self, signals[SIGNAL_ANIMATION_STOPPED], 0);
+    if (child->shift_position) {
+      set_position (self, self->position + delta);
+      g_signal_emit (self, signals[SIGNAL_POSITION_SHIFTED], 0, delta);
+    }
+
+    complete_child_animation (self, child);
+    return;
   }
 
-  return G_SOURCE_CONTINUE;
+  frame_clock = gtk_widget_get_frame_clock (GTK_WIDGET (self));
+  if (!frame_clock) {
+    gdouble delta = value - child->size;
+
+    child->size = value;
+
+    if (child->shift_position) {
+      set_position (self, self->position + delta);
+      g_signal_emit (self, signals[SIGNAL_POSITION_SHIFTED], 0, delta);
+    }
+
+    complete_child_animation (self, child);
+    return;
+  }
+
+  frame_time = gdk_frame_clock_get_frame_time (frame_clock);
+
+  child->resize_animation.start_value = child->size;
+  child->resize_animation.end_value = value;
+
+  child->resize_animation.start_time = frame_time / 1000;
+  child->resize_animation.end_time = child->resize_animation.start_time + duration;
+  if (self->tick_cb_id == 0)
+    self->tick_cb_id =
+      gtk_widget_add_tick_callback (GTK_WIDGET (self), animation_cb, self, NULL);
 }
 
 static gboolean
@@ -287,10 +531,13 @@ hdy_carousel_box_draw (GtkWidget *widget,
   for (l = self->children; l; l = l->next) {
     HdyCarouselBoxChildInfo *info = l->data;
 
+    if (info->adding || info->removing)
+      continue;
+
     if (!info->visible)
       continue;
 
-    if (info->dirty_region) {
+    if (info->dirty_region && !info->removing) {
       g_autoptr (cairo_t) surface_cr = NULL;
       GtkAllocation child_alloc;
 
@@ -368,6 +615,9 @@ measure (GtkWidget      *widget,
     HdyCarouselBoxChildInfo *child_info = children->data;
     GtkWidget *child = child_info->widget;
     gint child_min, child_nat;
+
+    if (child_info->removing)
+      continue;
 
     if (!gtk_widget_get_visible (child))
       continue;
@@ -465,7 +715,7 @@ update_windows (HdyCarouselBox *self)
 {
   GList *children;
   GtkAllocation alloc;
-  gint x, y, offset;
+  gdouble x, y, offset;
   gboolean is_rtl;
   gdouble snap_point;
 
@@ -504,23 +754,25 @@ update_windows (HdyCarouselBox *self)
   for (children = self->children; children; children = children->next) {
     HdyCarouselBoxChildInfo *child_info = children->data;
 
-    if (!gtk_widget_get_visible (child_info->widget))
-      continue;
+    if (!child_info->removing) {
+      if (!gtk_widget_get_visible (child_info->widget))
+        continue;
 
-    if (self->orientation == GTK_ORIENTATION_VERTICAL) {
-      child_info->position = y;
-      child_info->visible = child_info->position < alloc.height &&
-                            child_info->position + self->child_height > 0;
-      gdk_window_move (child_info->window, alloc.x, alloc.y + child_info->position);
-    } else {
-      child_info->position = x;
-      child_info->visible = child_info->position < alloc.width &&
-                            child_info->position + self->child_width > 0;
-      gdk_window_move (child_info->window, alloc.x + child_info->position, alloc.y);
+      if (self->orientation == GTK_ORIENTATION_VERTICAL) {
+        child_info->position = y;
+        child_info->visible = child_info->position < alloc.height &&
+                              child_info->position + self->child_height > 0;
+        gdk_window_move (child_info->window, alloc.x, alloc.y + child_info->position);
+      } else {
+        child_info->position = x;
+        child_info->visible = child_info->position < alloc.width &&
+                              child_info->position + self->child_width > 0;
+        gdk_window_move (child_info->window, alloc.x + child_info->position, alloc.y);
+      }
+
+      if (!child_info->visible)
+        invalidate_cache_for_child (self, child_info);
     }
-
-    if (!child_info->visible)
-      invalidate_cache_for_child (self, child_info);
 
     if (self->orientation == GTK_ORIENTATION_VERTICAL)
       y += self->distance * child_info->size;
@@ -578,6 +830,9 @@ hdy_carousel_box_size_allocate (GtkWidget     *widget,
     gint min, nat;
     gint child_size;
 
+    if (child_info->removing)
+      continue;
+
     if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
       gtk_widget_get_preferred_width_for_height (child, allocation->height,
                                                  &min, &nat);
@@ -616,6 +871,9 @@ hdy_carousel_box_size_allocate (GtkWidget     *widget,
   for (children = self->children; children; children = children->next) {
     HdyCarouselBoxChildInfo *child_info = children->data;
 
+    if (child_info->removing)
+      continue;
+
     if (!gtk_widget_get_visible (child_info->widget))
       continue;
 
@@ -631,6 +889,9 @@ hdy_carousel_box_size_allocate (GtkWidget     *widget,
     HdyCarouselBoxChildInfo *child_info = children->data;
     GtkWidget *child = child_info->widget;
     GtkAllocation alloc;
+
+    if (child_info->removing)
+      continue;
 
     if (!gtk_widget_get_visible (child))
       continue;
@@ -668,27 +929,22 @@ hdy_carousel_box_remove (GtkContainer *container,
                          GtkWidget    *widget)
 {
   HdyCarouselBox *self = HDY_CAROUSEL_BOX (container);
-  gdouble closest_point;
   HdyCarouselBoxChildInfo *info;
 
   info = find_child_info (self, widget);
   if (!info)
     return;
 
-  closest_point = hdy_carousel_box_get_closest_snap_point (self);
+  info->removing = TRUE;
 
   gtk_widget_unparent (widget);
-  self->children = g_list_remove (self->children, info);
 
   if (gtk_widget_get_realized (GTK_WIDGET (container)))
     unregister_window (info, self);
 
-  if (closest_point >= info->snap_point)
-    shift_position (self, -info->size);
-  else
-    gtk_widget_queue_allocate (GTK_WIDGET (self));
+  info->widget = NULL;
 
-  free_child_info (info);
+  animate_child (self, info, 0, self->reveal_duration);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
 }
@@ -707,7 +963,8 @@ hdy_carousel_box_forall (GtkContainer *container,
   for (l = children; l; l = l->next) {
     HdyCarouselBoxChildInfo *child = l->data;
 
-    (* callback) (child->widget, callback_data);
+    if (!child->removing)
+       (* callback) (child->widget, callback_data);
   }
 }
 
@@ -972,7 +1229,6 @@ hdy_carousel_box_insert (HdyCarouselBox *self,
                          gint            position)
 {
   HdyCarouselBoxChildInfo *info;
-  gdouble orig_point, closest_point;
   GList *prev_link;
 
   g_return_if_fail (HDY_IS_CAROUSEL_BOX (self));
@@ -980,29 +1236,24 @@ hdy_carousel_box_insert (HdyCarouselBox *self,
 
   info = g_new0 (HdyCarouselBoxChildInfo, 1);
   info->widget = widget;
-  info->size = 1;
+  info->size = 0;
+  info->adding = TRUE;
 
   if (gtk_widget_get_realized (GTK_WIDGET (self)))
     register_window (info, self);
 
-  closest_point = hdy_carousel_box_get_closest_snap_point (self);
-
   if (position >= 0)
-    prev_link = g_list_nth (self->children, position);
+    prev_link = get_nth_link (self, position);
   else
     prev_link = NULL;
 
-  if (prev_link)
-    orig_point = ((HdyCarouselBoxChildInfo *) prev_link->data)->snap_point;
-  else
-    orig_point = -1;
-
   self->children = g_list_insert_before (self->children, prev_link, info);
 
-  if (closest_point >= orig_point && orig_point >= 0)
-    shift_position (self, info->size);
-
   gtk_widget_set_parent (widget, GTK_WIDGET (self));
+
+  update_windows (self);
+
+  animate_child (self, info, 1, self->reveal_duration);
 
   invalidate_drawing_cache (self);
 
@@ -1049,7 +1300,7 @@ hdy_carousel_box_reorder (HdyCarouselBox *self,
   if (position < 0 || position >= hdy_carousel_box_get_n_pages (self))
     prev_link = g_list_last (self->children);
   else
-    prev_link = g_list_nth (self->children, position);
+    prev_link = get_nth_link (self, position);
 
   prev_info = prev_link->data;
   new_point = prev_info->snap_point;
@@ -1157,6 +1408,8 @@ hdy_carousel_box_scroll_to (HdyCarouselBox *self,
 
   frame_time = gdk_frame_clock_get_frame_time (frame_clock);
 
+  self->destination_child = child;
+
   self->animation.start_value = self->position;
   self->animation.end_value = position;
 
@@ -1180,9 +1433,20 @@ hdy_carousel_box_scroll_to (HdyCarouselBox *self,
 guint
 hdy_carousel_box_get_n_pages (HdyCarouselBox *self)
 {
+  GList *l;
+  guint n_pages;
+
   g_return_val_if_fail (HDY_IS_CAROUSEL_BOX (self), 0);
 
-  return g_list_length (self->children);
+  n_pages = 0;
+  for (l = self->children; l; l = l->next) {
+    HdyCarouselBoxChildInfo *child = l->data;
+
+    if (!child->removing)
+      n_pages++;
+  }
+
+  return n_pages;
 }
 
 /**
@@ -1234,13 +1498,18 @@ void
 hdy_carousel_box_set_position (HdyCarouselBox *self,
                                gdouble         position)
 {
+  GList *l;
+
   g_return_if_fail (HDY_IS_CAROUSEL_BOX (self));
 
-  position = CLAMP (position, 0, hdy_carousel_box_get_n_pages (self) - 1);
+  set_position (self, position);
 
-  self->position = position;
-  update_windows (self);
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POSITION]);
+  for (l = self->children; l; l = l->next) {
+    HdyCarouselBoxChildInfo *child = l->data;
+
+    if (child->adding || child->removing)
+      update_shift_position_flag (self, child);
+  }
 }
 
 /**
@@ -1345,9 +1614,9 @@ hdy_carousel_box_get_nth_child (HdyCarouselBox *self,
   HdyCarouselBoxChildInfo *info;
 
   g_return_val_if_fail (HDY_IS_CAROUSEL_BOX (self), NULL);
-  g_return_val_if_fail (n < g_list_length (self->children), NULL);
+  g_return_val_if_fail (n < hdy_carousel_box_get_n_pages (self), NULL);
 
-  info = g_list_nth_data (self->children, n);
+  info = get_nth_link (self, n)->data;
 
   return info->widget;
 }
@@ -1374,7 +1643,7 @@ hdy_carousel_box_get_snap_points (HdyCarouselBox *self,
 
   g_return_val_if_fail (HDY_IS_CAROUSEL_BOX (self), NULL);
 
-  n_pages = MAX (hdy_carousel_box_get_n_pages (self), 1);
+  n_pages = MAX (g_list_length (self->children), 1);
 
   points = g_new0 (gdouble, n_pages);
 
@@ -1436,7 +1705,7 @@ hdy_carousel_box_get_closest_snap_point (HdyCarouselBox *self)
 {
   HdyCarouselBoxChildInfo *closest_child;
 
-  closest_child = get_closest_child_at (self, self->position);
+  closest_child = get_closest_child_at (self, self->position, TRUE, TRUE);
 
   if (!closest_child)
     return 0;
@@ -1470,7 +1739,7 @@ hdy_carousel_box_get_page_at_position (HdyCarouselBox *self,
 
   position = CLAMP (position, lower, upper);
 
-  child = get_closest_child_at (self, position);
+  child = get_closest_child_at (self, position, TRUE, FALSE);
 
   return child->widget;
 }
@@ -1494,5 +1763,5 @@ hdy_carousel_box_get_current_page_index (HdyCarouselBox *self)
 
   child = hdy_carousel_box_get_page_at_position (self, self->position);
 
-  return find_child_index (self, child);
+  return find_child_index (self, child, FALSE);
 }
