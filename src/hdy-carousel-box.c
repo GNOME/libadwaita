@@ -1275,3 +1275,34 @@ hdy_carousel_box_get_closest_snap_point (HdyCarouselBox *self)
   return CLAMP (round (self->position), 0,
                 hdy_carousel_box_get_n_pages (self) - 1);
 }
+
+/**
+ * hdy_carousel_box_get_page_at_position:
+ * @self: a #HdyCarouselBox
+ * @position: a scroll position
+ *
+ * Gets the page closest to @position. For example, if @position matches
+ * the current position, the returned widget will match the currently
+ * displayed page.
+ *
+ * Returns: the closest page.
+ *
+ * Since: 1.0
+ */
+GtkWidget *
+hdy_carousel_box_get_page_at_position (HdyCarouselBox *self,
+                                       gdouble         position)
+{
+  gdouble lower, upper;
+  gint n;
+
+  g_return_val_if_fail (HDY_IS_CAROUSEL_BOX (self), NULL);
+
+  hdy_carousel_box_get_range (self, &lower, &upper);
+
+  position = CLAMP (position, lower, upper);
+
+  n = round (position);
+
+  return hdy_carousel_box_get_nth_child (self, n);
+}
