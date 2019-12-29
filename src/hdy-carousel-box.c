@@ -1306,3 +1306,25 @@ hdy_carousel_box_get_page_at_position (HdyCarouselBox *self,
 
   return hdy_carousel_box_get_nth_child (self, n);
 }
+
+/**
+ * hdy_carousel_box_get_current_page_index:
+ * @self: a #HdyCarouselBox
+ *
+ * Gets the index of the currently displayed page.
+ *
+ * Returns: the index of the current page.
+ *
+ * Since: 1.0
+ */
+gint
+hdy_carousel_box_get_current_page_index (HdyCarouselBox *self)
+{
+  GtkWidget *child;
+
+  g_return_val_if_fail (HDY_IS_CAROUSEL_BOX (self), 0);
+
+  child = hdy_carousel_box_get_page_at_position (self, self->position);
+
+  return find_child_index (self, child);
+}

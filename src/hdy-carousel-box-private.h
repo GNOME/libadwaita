@@ -59,5 +59,6 @@ void            hdy_carousel_box_get_range              (HdyCarouselBox *self,
 gdouble         hdy_carousel_box_get_closest_snap_point (HdyCarouselBox *self);
 GtkWidget      *hdy_carousel_box_get_page_at_position   (HdyCarouselBox *self,
                                                          gdouble         position);
+gint            hdy_carousel_box_get_current_page_index (HdyCarouselBox *self);
 
 G_END_DECLS
