@@ -45,6 +45,10 @@ guint           hdy_carousel_box_get_spacing (HdyCarouselBox *self);
 void            hdy_carousel_box_set_spacing (HdyCarouselBox *self,
                                               guint           spacing);
 
+guint           hdy_carousel_box_get_reveal_duration (HdyCarouselBox *self);
+void            hdy_carousel_box_set_reveal_duration (HdyCarouselBox *self,
+                                                      guint           reveal_duration);
+
 GtkWidget      *hdy_carousel_box_get_nth_child (HdyCarouselBox *self,
                                                 guint           n);
 

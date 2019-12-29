@@ -65,6 +65,7 @@ struct _HdyCarouselBox
   gdouble position;
   guint spacing;
   GtkOrientation orientation;
+  guint reveal_duration;
 
   guint tick_cb_id;
 };
@@ -77,10 +78,11 @@ enum {
   PROP_N_PAGES,
   PROP_POSITION,
   PROP_SPACING,
+  PROP_REVEAL_DURATION,
 
   /* GtkOrientable */
   PROP_ORIENTATION,
-  LAST_PROP = PROP_SPACING + 1,
+  LAST_PROP = PROP_REVEAL_DURATION + 1,
 };
 
 static GParamSpec *props[LAST_PROP];
@@ -743,6 +745,10 @@ hdy_carousel_box_get_property (GObject    *object,
     g_value_set_uint (value, hdy_carousel_box_get_spacing (self));
     break;
 
+  case PROP_REVEAL_DURATION:
+    g_value_set_uint (value, hdy_carousel_box_get_reveal_duration (self));
+    break;
+
   case PROP_ORIENTATION:
     g_value_set_enum (value, self->orientation);
     break;
@@ -767,6 +773,10 @@ hdy_carousel_box_set_property (GObject      *object,
 
   case PROP_SPACING:
     hdy_carousel_box_set_spacing (self, g_value_get_uint (value));
+    break;
+
+  case PROP_REVEAL_DURATION:
+    hdy_carousel_box_set_reveal_duration (self, g_value_get_uint (value));
     break;
 
   case PROP_ORIENTATION:
@@ -856,6 +866,23 @@ hdy_carousel_box_class_init (HdyCarouselBoxClass *klass)
                        0,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * HdyCarouselBox:reveal-duration:
+   *
+   * Duration of the animation used when adding or removing pages, in
+   * milliseconds.
+   *
+   * Since: 1.0
+   */
+  props[PROP_REVEAL_DURATION] =
+    g_param_spec_uint ("reveal-duration",
+                       _("Reveal duration"),
+                       _("Page reveal duration"),
+                       0,
+                       G_MAXUINT,
+                       0,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,
                                     "orientation");
@@ -906,6 +933,7 @@ hdy_carousel_box_init (HdyCarouselBox *self)
   GtkWidget *widget = GTK_WIDGET (self);
 
   self->orientation = GTK_ORIENTATION_HORIZONTAL;
+  self->reveal_duration = 0;
 
   gtk_widget_set_has_window (widget, FALSE);
 }
@@ -1254,6 +1282,49 @@ hdy_carousel_box_set_spacing (HdyCarouselBox *self,
   self->spacing = spacing;
   gtk_widget_queue_resize (GTK_WIDGET (self));
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SPACING]);
+}
+
+/**
+ * hdy_carousel_box_get_reveal_duration:
+ * @self: a #HdyCarouselBox
+ *
+ * Gets duration of the animation used when adding or removing pages in
+ * milliseconds.
+ *
+ * Returns: Page reveal duration
+ *
+ * Since: 1.0
+ */
+guint
+hdy_carousel_box_get_reveal_duration (HdyCarouselBox *self)
+{
+  g_return_val_if_fail (HDY_IS_CAROUSEL_BOX (self), 0);
+
+  return self->reveal_duration;
+}
+
+/**
+ * hdy_carousel_box_set_reveal_duration:
+ * @self: a #HdyCarouselBox
+ * @reveal_duration: the new reveal duration value
+ *
+ * Sets duration of the animation used when adding or removing pages in
+ * milliseconds.
+ *
+ * Since: 1.0
+ */
+void
+hdy_carousel_box_set_reveal_duration (HdyCarouselBox *self,
+                                      guint           reveal_duration)
+{
+  g_return_if_fail (HDY_IS_CAROUSEL_BOX (self));
+
+  if (self->reveal_duration == reveal_duration)
+    return;
+
+  self->reveal_duration = reveal_duration;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVEAL_DURATION]);
 }
 
 /**
