@@ -36,15 +36,16 @@ what GNOME upstream projects do.
 
 ```c
 static gboolean
-button_clicked_cb (HdyDialerCycleButton *self,
-                   GdkEventButton       *event)
+key_press_event_cb (GtkWidget *widget,
+                    GdkEvent  *event,
+                    gpointer   data)
 ```
 
 *Bad*:
 
 ```c
 static gboolean
-button_clicked_cb (HdyDialerCycleButton *self, GdkEventButton *event)
+key_press_event_cb (GtkWidget *widget, GdkEvent *event, gpointer data)
 ```
 
 
@@ -166,8 +167,9 @@ Prefix signal enum names with *SIGNAL_*.
 
 ```c
 enum {
-  SIGNAL_CYCLE_START = 0,
-  SIGNAL_CYCLE_END,
+  SIGNAL_SUBMITTED = 0,
+  SIGNAL_DELETED,
+  SIGNAL_SYMBOL_CLICKED,
   SIGNAL_LAST_SIGNAL,
 };
 ```
@@ -185,7 +187,11 @@ Prefix property enum names with *PROP_*.
 ```c
 enum {
   PROP_0 = 0,
-  PROP_CYCLE_TIMEOUT,
+  PROP_NUMBER,
+  PROP_SHOW_ACTION_BUTTONS,
+  PROP_COLUMN_SPACING,
+  PROP_ROW_SPACING,
+  PROP_RELIEF,
   PROP_LAST_PROP,
 };
 ```
@@ -234,17 +240,17 @@ Static functions don't need the class prefix.  E.g. with a type foo_bar:
 *Good*:
 
 ```c
-static gboolean
-button_clicked_cb (HdyDialerCycleButton *self,
-                   GdkEventButton       *event)
+static void
+grab_focus_cb (HdyDialer *dialer,
+               gpointer   unused)
 ```
 
 *Bad*:
 
 ```c
-static gboolean
-foo_bar_button_clicked_cb (HdyDialerCycleButton *self,
-                           GdkEventButton       *event)
+static void
+hdy_dialer_grab_focus_cb (HdyDialer *dialer,
+                          gpointer   unused)
 ```
 
 Note however that virtual methods like

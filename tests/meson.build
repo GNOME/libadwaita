@@ -21,7 +21,6 @@ test_link_args = [
 test_names = [
   'test-action-row',
   'test-combo-row',
-  'test-dialer-cycle-button',
   'test-dialog',
   'test-expander-row',
   'test-header-bar',
