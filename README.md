@@ -72,7 +72,7 @@ to use the widgets in your favorite programming language can be found here:
 - [gnome-bluetooth](https://gitlab.gnome.org/GNOME/gnome-bluetooth) (HdyColumn)
 - [GNOME Settings](https://gitlab.gnome.org/GNOME/gnome-control-center) (HdyActionRow, HdyColumn, HdyLeaflet, HdyTitleBar)
 - [GNOME Web](https://gitlab.gnome.org/GNOME/epiphany) (HdyActionRow, HdyColumn, HdyComboRow, HdySearchBar)
-- [phosh](https://source.puri.sm/Librem5/phosh) (HdyDialer)
+- [phosh](https://source.puri.sm/Librem5/phosh) (HdyKeypad)
 
 ### Python 3
 - [Daty](https://gitlab.gnome.org/World/Daty) (HdyColumn, HdyLeaflet, HdySearchBar, HdyTitleBar)
