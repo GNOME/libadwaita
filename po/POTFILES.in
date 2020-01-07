@@ -1,5 +1,4 @@
 src/gtkprogresstracker.c
-src/hdy-arrows.c
 src/hdy-column.c
 src/hdy-dialer-button.c
 src/hdy-dialer.c

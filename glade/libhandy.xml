@@ -8,7 +8,6 @@
         <property id="subtitle" translatable="True" />
       </properties>
     </glade-widget-class>
-    <glade-widget-class name="HdyArrows" generic-name="arrows" title="Arrows"/>
     <glade-widget-class name="HdyColumn" generic-name="column" title="Column"/>
     <glade-widget-class name="HdyComboRow" generic-name="comborow" title="Combo Row" since="0.0.6"/>
     <glade-widget-class name="HdyDialer" generic-name="dialer" title="Dialer"/>
@@ -105,7 +104,6 @@
 
   <glade-widget-group name="handy" title="Libhandy Widgets">
     <glade-widget-class-ref name="HdyActionRow"/>
-    <glade-widget-class-ref name="HdyArrows"/>
     <glade-widget-class-ref name="HdyColumn"/>
     <glade-widget-class-ref name="HdyComboRow"/>
     <glade-widget-class-ref name="HdyDialer"/>

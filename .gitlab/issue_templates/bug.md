@@ -5,7 +5,6 @@
  - [ ] build system
  - [ ] documentation
  - [ ] example application
- - [ ] HdyArrows
  - [ ] HdyColumn
  - [ ] HdyDialer
  - [ ] HdyLeaflet

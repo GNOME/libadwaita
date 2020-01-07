@@ -15,16 +15,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_action_row_set_subtitle@LIBHANDY_1_0 0.0.6
  hdy_action_row_set_title@LIBHANDY_1_0 0.0.6
  hdy_action_row_set_use_underline@LIBHANDY_1_0 0.0.6
- hdy_arrows_animate@LIBHANDY_1_0 0.0~git20180517
- hdy_arrows_direction_get_type@LIBHANDY_1_0 0.0~git20180517
- hdy_arrows_get_count@LIBHANDY_1_0 0.0~git20180517
- hdy_arrows_get_direction@LIBHANDY_1_0 0.0~git20180517
- hdy_arrows_get_duration@LIBHANDY_1_0 0.0~git20180517
- hdy_arrows_get_type@LIBHANDY_1_0 0.0~git20180517
- hdy_arrows_new@LIBHANDY_1_0 0.0~git20180517
- hdy_arrows_set_count@LIBHANDY_1_0 0.0~git20180517
- hdy_arrows_set_direction@LIBHANDY_1_0 0.0~git20180517
- hdy_arrows_set_duration@LIBHANDY_1_0 0.0~git20180517
  hdy_centering_policy_get_type@LIBHANDY_1_0 0.0.10
  hdy_column_get_linear_growth_width@LIBHANDY_1_0 0.0.3
  hdy_column_get_maximum_width@LIBHANDY_1_0 0.0.1
