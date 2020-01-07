@@ -33,11 +33,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_combo_row_set_get_name_func@LIBHANDY_1_0 0.0.10
  hdy_combo_row_set_selected_index@LIBHANDY_1_0 0.0.7
  hdy_combo_row_set_use_subtitle@LIBHANDY_1_0 0.0.10
- hdy_dialer_button_get_digit@LIBHANDY_1_0 0.0~git20180429
-#MISSING: 0.0.3# hdy_dialer_button_get_letters@LIBHANDY_1_0 0.0.4~
- hdy_dialer_button_get_symbols@LIBHANDY_1_0 0.0.3
- hdy_dialer_button_get_type@LIBHANDY_1_0 0.0~git20180429
- hdy_dialer_button_new@LIBHANDY_1_0 0.0~git20180429
  hdy_dialog_get_narrow@LIBHANDY_1_0 0.0.11
  hdy_dialog_get_type@LIBHANDY_1_0 0.0.7
  hdy_dialog_new@LIBHANDY_1_0 0.0.7
