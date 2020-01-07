@@ -18,9 +18,6 @@
   <refsect2>
     <title>Widgets</title>
     <para role="gallery">
-      <link linkend="HdyDialer">
-        <inlinegraphic fileref="dialer.png" format="PNG"></inlinegraphic>
-      </link>
       <link linkend="HdyKeypad">
         <inlinegraphic fileref="keypad.png" format="PNG"></inlinegraphic>
       </link>

@@ -6,7 +6,6 @@
  - [ ] documentation
  - [ ] example application
  - [ ] HdyColumn
- - [ ] HdyDialer
  - [ ] HdyLeaflet
  - [ ] somewhere else (please elaborate)
 

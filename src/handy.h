@@ -33,7 +33,6 @@ G_BEGIN_DECLS
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 #include "hdy-dialer-button.h"
 #include "hdy-dialer-cycle-button.h"
-#include "hdy-dialer.h"
 G_GNUC_END_IGNORE_DEPRECATIONS
 #include "hdy-dialog.h"
 #include "hdy-enum-value-object.h"

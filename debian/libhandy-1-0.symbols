@@ -38,7 +38,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_dialer_button_get_symbols@LIBHANDY_1_0 0.0.3
  hdy_dialer_button_get_type@LIBHANDY_1_0 0.0~git20180429
  hdy_dialer_button_new@LIBHANDY_1_0 0.0~git20180429
- hdy_dialer_clear_number@LIBHANDY_1_0 0.0~git20180429
  hdy_dialer_cycle_button_get_current_symbol@LIBHANDY_1_0 0.0~git20180429
  hdy_dialer_cycle_button_get_cycle_timeout@LIBHANDY_1_0 0.0~git20180429
  hdy_dialer_cycle_button_get_type@LIBHANDY_1_0 0.0~git20180429
@@ -46,14 +45,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_dialer_cycle_button_new@LIBHANDY_1_0 0.0~git20180429
  hdy_dialer_cycle_button_set_cycle_timeout@LIBHANDY_1_0 0.0~git20180429
  hdy_dialer_cycle_button_stop_cycle@LIBHANDY_1_0 0.0~git20180429
- hdy_dialer_get_number@LIBHANDY_1_0 0.0~git20180429
- hdy_dialer_get_relief@LIBHANDY_1_0 0.0.3
- hdy_dialer_get_show_action_buttons@LIBHANDY_1_0 0.0~git20180429
- hdy_dialer_get_type@LIBHANDY_1_0 0.0~git20180429
- hdy_dialer_new@LIBHANDY_1_0 0.0~git20180429
- hdy_dialer_set_number@LIBHANDY_1_0 0.0~git20180429
- hdy_dialer_set_relief@LIBHANDY_1_0 0.0.3
- hdy_dialer_set_show_action_buttons@LIBHANDY_1_0 0.0~git20180429
  hdy_dialog_get_narrow@LIBHANDY_1_0 0.0.11
  hdy_dialog_get_type@LIBHANDY_1_0 0.0.7
  hdy_dialog_new@LIBHANDY_1_0 0.0.7

@@ -20,7 +20,6 @@ private_headers = [
 ]
 
 images = [
-  'images/dialer.png',
   'images/dialog-desktop.png',
   'images/dialog-mobile.png',
   'images/header-bar.png',
