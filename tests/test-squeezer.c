@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#define HANDY_USE_UNSTABLE_API
 #include <handy.h>
 
 

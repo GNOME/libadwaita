@@ -1,6 +1,5 @@
 #pragma once
 
-#define HANDY_USE_UNSTABLE_API
 #include <handy.h>
 
 G_BEGIN_DECLS

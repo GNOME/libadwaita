@@ -20,10 +20,6 @@ G_BEGIN_DECLS
 
 #define _HANDY_INSIDE
 
-#ifndef HANDY_USE_UNSTABLE_API
-#error    libhandy is unstable API. You must define HANDY_USE_UNSTABLE_API before including handy.h
-#endif
-
 #include "hdy-version.h"
 #include "hdy-action-row.h"
 #include "hdy-animation.h"

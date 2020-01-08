@@ -8,7 +8,6 @@
 
 #include <gladeui/glade.h>
 
-#define HANDY_USE_UNSTABLE_API
 #include <handy.h>
 
 #define ONLY_THIS_GOES_IN_THAT_MSG _("Only objects of type %s can be added to objects of type %s.")

@@ -8,7 +8,6 @@
 
 #include <gladeui/glade.h>
 
-#define HANDY_USE_UNSTABLE_API
 #include <handy.h>
 
 
