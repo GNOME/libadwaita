@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+  <!ENTITY % gtkdocentities SYSTEM "xml/gtkdocentities.ent">
+  %gtkdocentities;
+]>
+
+<refentry id="hdy-migrating-0-0-to-1">
+  <refmeta>
+    <refentrytitle>Migrating from Handy 0.0.x to Handy 1</refentrytitle>
+    <manvolnum>3</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>Migrating from Handy 0.0.x to Handy 1</refname><refpurpose>Notes on migration to Handy 1.</refpurpose>
+  </refnamediv>
+
+  <para>
+    Handy 1 is a major new version of Handy that breaks both API and ABI
+    compared to Handy 0.0.x. Thankfully, most of the changes are not hard to
+    adapt to and there are a number of steps that you can take to prepare your
+    Handy 0.0.x application for the switch to Handy 1. After that, there's a
+    number of adjustments that you may have to do when you actually switch your
+    application to build against Handy 1.
+  </para>
+
+  <refsect2>
+    <title>Preparation in Handy 0.0.x</title>
+
+    <para>
+      The steps outlined in the following sections assume that your application
+      is working with Handy 0.0.13, which is the final stable release of Handy
+      0.0.x. It includes all the necessary APIs and tools to help you port your
+      application to Handy 1. If you are using an older version of Handy 0.0.x,
+      you should first get your application to build and work with Handy 0.0.13.
+    </para>
+
+  </refsect2>
+
+  <refsect2>
+    <title>Changes that need to be done at the time of the switch</title>
+
+    <para>
+      This section outlines porting tasks that you need to tackle when you get
+      to the point that you actually build your application against Handy 1.
+      Making it possible to prepare for these in Handy 0.0 would have been
+      either impossible or impractical.
+    </para>
+
+  </refsect2>
+
+</refentry>
+

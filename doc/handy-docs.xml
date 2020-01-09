@@ -74,6 +74,12 @@
     <xi:include href="xml/hdy-list-box.xml"/>
   </chapter>
 
+  <chapter id="migrating">
+    <title>Migrating from Previous Versions of Handy</title>
+
+    <xi:include href="hdy-migrating-0-0-to-1.xml"/>
+  </chapter>
+
   <chapter id="object-tree">
     <title>Object Hierarchy</title>
     <xi:include href="xml/tree_index.sgml"/>

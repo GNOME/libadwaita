@@ -35,6 +35,7 @@ images = [
 
 content_files = [
   'build-howto.xml',
+  'hdy-migrating-0-0-to-1.xml',
   'visual-index.xml',
 ]
 
