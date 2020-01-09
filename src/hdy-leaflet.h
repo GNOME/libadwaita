@@ -28,21 +28,6 @@ typedef enum {
   HDY_LEAFLET_TRANSITION_TYPE_UNDER,
 } HdyLeafletTransitionType;
 
-_HDY_DEPRECATED_FOR (HdyLeafletTransitionType)
-typedef enum {
-  HDY_LEAFLET_MODE_TRANSITION_TYPE_NONE,
-  HDY_LEAFLET_MODE_TRANSITION_TYPE_SLIDE,
-} HdyLeafletModeTransitionType;
-
-_HDY_DEPRECATED_FOR (HdyLeafletTransitionType)
-typedef enum {
-  HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE,
-  HDY_LEAFLET_CHILD_TRANSITION_TYPE_CROSSFADE,
-  HDY_LEAFLET_CHILD_TRANSITION_TYPE_SLIDE,
-  HDY_LEAFLET_CHILD_TRANSITION_TYPE_OVER,
-  HDY_LEAFLET_CHILD_TRANSITION_TYPE_UNDER,
-} HdyLeafletChildTransitionType;
-
 /**
  * HdyLeafletClass
  * @parent_class: The parent class
