@@ -130,6 +130,21 @@
       </para>
     </refsect3>
 
+    <refsect3>
+      <title>Adapt to HdyActionRow API changes</title>
+      <para>
+        Action items were packed from the end toward the start of the row. It is
+        now reversed, and widgets have to be packed from the start to the end.
+      </para>
+      <para>
+        It isn't possible to add children at the bottom of a #HdyActionRow
+        anymore, instead use other widgets like #HdyExpanderRow.
+        Widgets added to a #HdyActionRow will now be added at the end of the
+        row, and the hdy_action_row_add_action() method and the action child
+        type have been removed.
+      </para>
+    </refsect3>
+
   </refsect2>
 
 </refentry>
