@@ -120,47 +120,6 @@
   </refsect2>
 
   <refsect2>
-    <title>Acknowledge the Instability</title>
-
-    <para>
-      Since the library is young and is still changing a lot, in order to use
-      it you are required to acknowledge that your are using an unstable API.
-      To do so, <literal>HANDY_USE_UNSTABLE_API</literal> must be defined for
-      compilation to succeed.
-    </para>
-
-    <para>
-      From C code or any compatible language, you can prefix your inclusion of
-      the &package_string; header like so:
-    </para>
-
-    <informalexample><programlisting>
-      #define HANDY_USE_UNSTABLE_API
-      #include &lt;handy.h&gt;
-    </programlisting></informalexample>
-
-    <para>
-      Including individual headers rather than <literal>handy.h</literal> is
-      not recommended.
-    </para>
-
-    <para>
-      You can also acknowledge this with the definition option of your C
-      compiler, like <literal>-DHANDY_USE_UNSTABLE_API</literal>. This is
-      required from Vala.
-    </para>
-
-    <para>
-      To use libhandy from Vala, you must define the acknowledgment in C via
-      <literal>-X -DHANDY_USE_UNSTABLE_API</literal>. If your build system uses
-      a two pass compilation and hence your Vala compiler outputs C (Meson,
-      Automake, or using the <literal>--ccode</literal> Vala compiler option to
-      trigger that) then you must add <literal>-DHANDY_USE_UNSTABLE_API
-      </literal> to your C compiler arguments instead.
-    </para>
-  </refsect2>
-
-  <refsect2>
     <title>Building on macOS</title>
 
     <para>
