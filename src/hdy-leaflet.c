@@ -3578,7 +3578,7 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
     g_param_spec_enum ("transition-type",
                        _("Transition type"),
                        _("The type of animation used to transition between modes and children"),
-                       HDY_TYPE_LEAFLET_TRANSITION_TYPE, HDY_LEAFLET_TRANSITION_TYPE_NONE,
+                       HDY_TYPE_LEAFLET_TRANSITION_TYPE, HDY_LEAFLET_TRANSITION_TYPE_OVER,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_MODE_TRANSITION_DURATION] =
@@ -3691,7 +3691,7 @@ hdy_leaflet_init (HdyLeaflet *self)
   priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL] = FALSE;
   priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] = TRUE;
   priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL] = TRUE;
-  priv->transition_type = HDY_LEAFLET_TRANSITION_TYPE_NONE;
+  priv->transition_type = HDY_LEAFLET_TRANSITION_TYPE_OVER;
   priv->mode_transition.duration = 250;
   priv->child_transition.duration = 200;
   priv->mode_transition.current_pos = 1.0;
