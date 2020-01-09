@@ -110,6 +110,16 @@
       </para>
     </refsect3>
 
+    <refsect3>
+      <title>Adapt to HdyLeaflet API changes</title>
+      <para>
+        The default value for the #HdyLeaflet:transition-type property is
+        changed from “none” to “over”.
+        “over” is the recommanded transtion for typical #HdyLeaflet use-cases,
+        if this isn't what you want to use, be sure to adapt your code.
+      </para>
+    </refsect3>
+
   </refsect2>
 
 </refentry>
