@@ -77,25 +77,9 @@ HdyLeafletTransitionType hdy_leaflet_get_transition_type (HdyLeaflet *self);
 void             hdy_leaflet_set_transition_type (HdyLeaflet               *self,
                                                   HdyLeafletTransitionType  transition);
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-_HDY_DEPRECATED_FOR (hdy_leaflet_get_transition_type)
-HdyLeafletModeTransitionType hdy_leaflet_get_mode_transition_type (HdyLeaflet *self);
-_HDY_DEPRECATED_FOR (hdy_leaflet_set_transition_type)
-void             hdy_leaflet_set_mode_transition_type (HdyLeaflet                   *self,
-                                                       HdyLeafletModeTransitionType  transition);
-G_GNUC_END_IGNORE_DEPRECATIONS
-
 guint            hdy_leaflet_get_mode_transition_duration (HdyLeaflet *self);
 void             hdy_leaflet_set_mode_transition_duration (HdyLeaflet *self,
                                                            guint       duration);
-
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-_HDY_DEPRECATED_FOR (hdy_leaflet_get_transition_type)
-HdyLeafletChildTransitionType hdy_leaflet_get_child_transition_type (HdyLeaflet *self);
-_HDY_DEPRECATED_FOR (hdy_leaflet_set_transition_type)
-void             hdy_leaflet_set_child_transition_type (HdyLeaflet                    *self,
-                                                        HdyLeafletChildTransitionType  transition);
-G_GNUC_END_IGNORE_DEPRECATIONS
 
 guint            hdy_leaflet_get_child_transition_duration (HdyLeaflet *self);
 void             hdy_leaflet_set_child_transition_duration (HdyLeaflet *self,

@@ -80,9 +80,7 @@ enum {
   PROP_VISIBLE_CHILD,
   PROP_VISIBLE_CHILD_NAME,
   PROP_TRANSITION_TYPE,
-  PROP_MODE_TRANSITION_TYPE,
   PROP_MODE_TRANSITION_DURATION,
-  PROP_CHILD_TRANSITION_TYPE,
   PROP_CHILD_TRANSITION_DURATION,
   PROP_CHILD_TRANSITION_RUNNING,
   PROP_INTERPOLATE_SIZE,
@@ -1063,60 +1061,6 @@ hdy_leaflet_set_transition_type (HdyLeaflet               *self,
 
 /**
  * hdy_leaflet_get_mode_transition_type:
- * @self: a #HdyLeaflet
- *
- * Gets the type of animation that will be used
- * for transitions between modes in @self.
- *
- * Returns: the current mode transition type of @self
- *
- * Deprecated: 0.0.12: Use hdy_leaflet_get_transition_type()
- */
-HdyLeafletModeTransitionType
-hdy_leaflet_get_mode_transition_type (HdyLeaflet *self)
-{
-  HdyLeafletPrivate *priv;
-
-  g_return_val_if_fail (HDY_IS_LEAFLET (self), HDY_LEAFLET_MODE_TRANSITION_TYPE_NONE);
-
-  priv = hdy_leaflet_get_instance_private (self);
-
-  return priv->mode_transition.type;
-}
-
-/**
- * hdy_leaflet_set_mode_transition_type:
- * @self: a #HdyLeaflet
- * @transition: the new transition type
- *
- * Sets the type of animation that will be used for
- * transitions between modes in @self.
- *
- * The transition type can be changed without problems
- * at runtime, so it is possible to change the animation
- * based on the mode that is about to become current.
- *
- * Deprecated: 0.0.12: Use hdy_leaflet_set_transition_type()
- */
-void
-hdy_leaflet_set_mode_transition_type (HdyLeaflet                   *self,
-                                      HdyLeafletModeTransitionType  transition)
-{
-  HdyLeafletPrivate *priv;
-
-  g_return_if_fail (HDY_IS_LEAFLET (self));
-
-  priv = hdy_leaflet_get_instance_private (self);
-
-  if (priv->mode_transition.type == transition)
-    return;
-
-  priv->mode_transition.type = transition;
-  g_object_notify_by_pspec (G_OBJECT (self),
-                            props[PROP_MODE_TRANSITION_TYPE]);
-}
-
-/**
  * hdy_leaflet_get_mode_transition_duration:
  * @self: a #HdyLeaflet
  *
@@ -1161,61 +1105,6 @@ hdy_leaflet_set_mode_transition_duration (HdyLeaflet *self,
   priv->mode_transition.duration = duration;
   g_object_notify_by_pspec (G_OBJECT (self),
                             props[PROP_MODE_TRANSITION_DURATION]);
-}
-
-/**
- * hdy_leaflet_get_child_transition_type:
- * @self: a #HdyLeaflet
- *
- * Gets the type of animation that will be used
- * for transitions between children in @self.
- *
- * Returns: the current mode transition type of @self
- *
- * Deprecated: 0.0.12: Use hdy_leaflet_get_transition_type()
- */
-HdyLeafletChildTransitionType
-hdy_leaflet_get_child_transition_type (HdyLeaflet *self)
-{
-  HdyLeafletPrivate *priv;
-
-  g_return_val_if_fail (HDY_IS_LEAFLET (self), HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE);
-
-  priv = hdy_leaflet_get_instance_private (self);
-
-  return priv->child_transition.type;
-}
-
-/**
- * hdy_leaflet_set_child_transition_type:
- * @self: a #HdyLeaflet
- * @transition: the new transition type
- *
- * Sets the type of animation that will be used for
- * transitions between children in @self.
- *
- * The transition type can be changed without problems
- * at runtime, so it is possible to change the animation
- * based on the child that is about to become current.
- *
- * Deprecated: 0.0.12: Use hdy_leaflet_set_transition_type()
- */
-void
-hdy_leaflet_set_child_transition_type (HdyLeaflet                    *self,
-                                       HdyLeafletChildTransitionType  transition)
-{
-  HdyLeafletPrivate *priv;
-
-  g_return_if_fail (HDY_IS_LEAFLET (self));
-
-  priv = hdy_leaflet_get_instance_private (self);
-
-  if (priv->child_transition.type == transition)
-    return;
-
-  priv->child_transition.type = transition;
-  g_object_notify_by_pspec (G_OBJECT (self),
-                            props[PROP_CHILD_TRANSITION_TYPE]);
 }
 
 /**
@@ -3091,14 +2980,8 @@ hdy_leaflet_get_property (GObject    *object,
   case PROP_TRANSITION_TYPE:
     g_value_set_enum (value, hdy_leaflet_get_transition_type (self));
     break;
-  case PROP_MODE_TRANSITION_TYPE:
-    g_value_set_enum (value, hdy_leaflet_get_mode_transition_type (self));
-    break;
   case PROP_MODE_TRANSITION_DURATION:
     g_value_set_uint (value, hdy_leaflet_get_mode_transition_duration (self));
-    break;
-  case PROP_CHILD_TRANSITION_TYPE:
-    g_value_set_enum (value, hdy_leaflet_get_child_transition_type (self));
     break;
   case PROP_CHILD_TRANSITION_DURATION:
     g_value_set_uint (value, hdy_leaflet_get_child_transition_duration (self));
@@ -3154,14 +3037,8 @@ hdy_leaflet_set_property (GObject      *object,
   case PROP_TRANSITION_TYPE:
     hdy_leaflet_set_transition_type (self, g_value_get_enum (value));
     break;
-  case PROP_MODE_TRANSITION_TYPE:
-    hdy_leaflet_set_mode_transition_type (self, g_value_get_enum (value));
-    break;
   case PROP_MODE_TRANSITION_DURATION:
     hdy_leaflet_set_mode_transition_duration (self, g_value_get_uint (value));
-    break;
-  case PROP_CHILD_TRANSITION_TYPE:
-    hdy_leaflet_set_child_transition_type (self, g_value_get_enum (value));
     break;
   case PROP_CHILD_TRANSITION_DURATION:
     hdy_leaflet_set_child_transition_duration (self, g_value_get_uint (value));
@@ -3750,40 +3627,12 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                        HDY_TYPE_LEAFLET_TRANSITION_TYPE, HDY_LEAFLET_TRANSITION_TYPE_NONE,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
-  /**
-   * HdyLeaflet:mode-transition-type:
-   *
-   * The type of animation used to transition between mode
-   *
-   * Deprecated: 0.0.12: Use #HdyLeaflet:transition-type instead
-   */
-  props[PROP_MODE_TRANSITION_TYPE] =
-    g_param_spec_enum ("mode-transition-type",
-                       _("Mode transition type"),
-                       _("The type of animation used to transition between modes"),
-                       HDY_TYPE_LEAFLET_MODE_TRANSITION_TYPE, HDY_LEAFLET_MODE_TRANSITION_TYPE_NONE,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
-
   props[PROP_MODE_TRANSITION_DURATION] =
     g_param_spec_uint ("mode-transition-duration",
                        _("Mode transition duration"),
                        _("The mode transition animation duration, in milliseconds"),
                        0, G_MAXUINT, 250,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * HdyLeaflet:child-transition-type:
-   *
-   * The type of animation used to transition between children
-   *
-   * Deprecated: 0.0.12: Use #HdyLeaflet:transition-type instead
-   */
-  props[PROP_CHILD_TRANSITION_TYPE] =
-    g_param_spec_enum ("child-transition-type",
-                       _("Child transition type"),
-                       _("The type of animation used to transition between children"),
-                       HDY_TYPE_LEAFLET_CHILD_TRANSITION_TYPE, HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_DEPRECATED);
 
   props[PROP_CHILD_TRANSITION_DURATION] =
     g_param_spec_uint ("child-transition-duration",
