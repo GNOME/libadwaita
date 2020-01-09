@@ -37,6 +37,16 @@
     </para>
 
     <refsect3>
+      <title>Do not use the static build option</title>
+      <para>
+        Static linking support has been removed, and so did the static build
+        option.
+        You must adapt you program to link to the library dynamically, using
+        the package_subdir build option if needed.
+      </para>
+    </refsect3>
+
+    <refsect3>
       <title>Do not use deprecated symbols</title>
       <para>
         Over the years, a number of functions, and in some cases, entire widgets
