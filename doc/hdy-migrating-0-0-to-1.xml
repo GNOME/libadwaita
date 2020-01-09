@@ -36,6 +36,18 @@
       you should first get your application to build and work with Handy 0.0.13.
     </para>
 
+    <refsect3>
+      <title>Do not use deprecated symbols</title>
+      <para>
+        Over the years, a number of functions, and in some cases, entire widgets
+        have been deprecated. These deprecations are clearly spelled out in the
+        API reference, with hints about the recommended replacements.
+        The API reference for GTK 3 also includes an
+        <ulink url="https://developer.puri.sm/projects/libhandy/unstable/deprecated-api-index.html">index</ulink>
+        of all deprecated symbols.
+      </para>
+    </refsect3>
+
   </refsect2>
 
   <refsect2>
