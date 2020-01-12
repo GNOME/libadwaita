@@ -20,6 +20,12 @@ before_script:
     meson ${BUILD_OPTS} . _build  &&
     ninja -C _build
 
+api-visibility:
+  <<: *tags
+  stage: build
+  script:
+    - lint/api-visibility.sh
+
 build-debian-gcc:
   image: debian:buster
   <<: *tags
