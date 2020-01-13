@@ -303,7 +303,7 @@ draw_indicators_dots (GtkWidget      *widget,
 
     cairo_set_source_rgba (cr, color.red, color.green, color.blue,
                            color.alpha * opacity);
-    cairo_arc (cr, x, y, radius, 0, 2 * M_PI);
+    cairo_arc (cr, x, y, radius, 0, 2 * G_PI);
     cairo_fill (cr);
 
     if (orientation == GTK_ORIENTATION_HORIZONTAL)
