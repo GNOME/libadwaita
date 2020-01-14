@@ -86,39 +86,64 @@ hdy_column_set_property (GObject      *object,
   }
 }
 
+/**
+ * get_child_width:
+ * @self: a #HdyColumn
+ * @for_width: the width of the column
+ * @child_minimum: the minimum width reachable by the child, and hence by @self
+ * @child_maximum: the maximum width @self will ever allocate its child
+ * @lower_threshold: the threshold below which @self will allocate its full width to its child
+ * @upper_threshold: the threshold up from which @self will allocate its maximum size to its child
+ *
+ * Measures the child's extremes, the column's thresholds, and returns size to
+ * allocate to the child.
+ */
 static gint
 get_child_width (HdyColumn *self,
-                 gint       width)
+                 gint       for_width,
+                 gint      *child_minimum,
+                 gint      *child_maximum,
+                 gint      *lower_threshold,
+                 gint      *upper_threshold)
 {
   GtkBin *bin = GTK_BIN (self);
   GtkWidget *child;
-  gint minimum_width = 0, maximum_width;
-  gdouble amplitude, threshold, progress;
+  gint min = 0, max = 0, lower = 0, upper = 0;
+  gdouble amplitude, progress;
 
   child = gtk_bin_get_child (bin);
   if (child == NULL)
     return 0;
 
-  if (gtk_widget_get_visible (child))
-    gtk_widget_get_preferred_width (child, &minimum_width, NULL);
+  if (!gtk_widget_get_visible (child))
+    gtk_widget_get_preferred_width (child, &min, NULL);
 
-  /* Sanitize the minimum width to use for computations. */
-  minimum_width = MIN (MAX (minimum_width, self->linear_growth_width), self->maximum_width);
+  lower = MIN (MAX (min, self->linear_growth_width), self->maximum_width);
+  max = MAX (lower, self->maximum_width);
+  amplitude = max - lower;
+  upper = HDY_EASE_OUT_TAN_CUBIC * amplitude + lower;
 
-  if (width <= minimum_width)
-    return width;
+  if (child_minimum)
+    *child_minimum = min;
+  if (child_maximum)
+    *child_maximum = max;
+  if (lower_threshold)
+    *lower_threshold = lower;
+  if (upper_threshold)
+    *upper_threshold = upper;
 
-  /* Sanitize the maximum width to use for computations. */
-  maximum_width = MAX (minimum_width, self->maximum_width);
-  amplitude = maximum_width - minimum_width;
-  threshold = (HDY_EASE_OUT_TAN_CUBIC * amplitude + (gdouble) minimum_width);
+  if (for_width < 0)
+    return 0;
 
-  if (width >= threshold)
-    return maximum_width;
+  if (for_width <= lower)
+    return for_width;
 
-  progress = (width - minimum_width) / (threshold - minimum_width);
+  if (for_width >= upper)
+    return max;
 
-  return hdy_ease_out_cubic (progress) * amplitude + minimum_width;
+  progress = (double) (for_width - lower) / (double) (upper - lower);
+
+  return hdy_ease_out_cubic (progress) * amplitude + lower;
 }
 
 /* This private method is prefixed by the call name because it will be a virtual
@@ -152,7 +177,7 @@ hdy_column_measure (GtkWidget      *widget,
   if (orientation == GTK_ORIENTATION_HORIZONTAL)
     gtk_widget_get_preferred_width (child, minimum, natural);
   else {
-    gint child_width = get_child_width (HDY_COLUMN (widget), for_size);
+    gint child_width = get_child_width (HDY_COLUMN (widget), for_size, NULL, NULL, NULL, NULL);
 
     gtk_widget_get_preferred_height_and_baseline_for_width (child,
                                                             child_width,
@@ -202,15 +227,36 @@ hdy_column_size_allocate (GtkWidget     *widget,
   GtkAllocation child_allocation;
   gint baseline;
   GtkWidget *child;
+  GtkStyleContext *context = gtk_widget_get_style_context (widget);
+  gint child_maximum = 0, lower_threshold = 0;
 
   gtk_widget_set_allocation (widget, allocation);
 
   child = gtk_bin_get_child (bin);
-  if (child == NULL)
-    return;
+  if (!(child && gtk_widget_get_visible (child))) {
+    gtk_style_context_remove_class (context, "narrow");
+    gtk_style_context_remove_class (context, "medium");
+    gtk_style_context_remove_class (context, "wide");
 
-  child_allocation.width = get_child_width (self, allocation->width);
+    return;
+  }
+
+  child_allocation.width = get_child_width (self, allocation->width, NULL, &child_maximum, &lower_threshold, NULL);
   child_allocation.height = allocation->height;
+
+  if (child_allocation.width >= child_maximum) {
+    gtk_style_context_remove_class (context, "narrow");
+    gtk_style_context_remove_class (context, "medium");
+    gtk_style_context_add_class (context, "wide");
+  } else if (child_allocation.width <= lower_threshold) {
+    gtk_style_context_add_class (context, "narrow");
+    gtk_style_context_remove_class (context, "medium");
+    gtk_style_context_remove_class (context, "wide");
+  } else {
+    gtk_style_context_remove_class (context, "narrow");
+    gtk_style_context_add_class (context, "medium");
+    gtk_style_context_remove_class (context, "wide");
+  }
 
   if (!gtk_widget_get_has_window (widget)) {
     /* This allways center the child vertically. */
