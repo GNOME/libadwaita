@@ -913,6 +913,7 @@ hdy_leaflet_set_fold (HdyLeaflet *self,
                       HdyFold     fold)
 {
   HdyLeafletPrivate *priv;
+  GtkStyleContext *context;
 
   g_return_if_fail (HDY_IS_LEAFLET (self));
 
@@ -923,10 +924,16 @@ hdy_leaflet_set_fold (HdyLeaflet *self,
 
   priv->fold = fold;
 
-  if (fold)
+  context = gtk_widget_get_style_context (GTK_WIDGET (self));
+  if (fold) {
     hdy_leaflet_start_mode_transition (self, 0.0);
-  else
+    gtk_style_context_add_class (context, "folded");
+    gtk_style_context_remove_class (context, "unfolded");
+  } else {
     hdy_leaflet_start_mode_transition (self, 1.0);
+    gtk_style_context_remove_class (context, "folded");
+    gtk_style_context_add_class (context, "unfolded");
+  }
 
   g_object_freeze_notify (G_OBJECT (self));
   g_object_notify_by_pspec (G_OBJECT (self),
