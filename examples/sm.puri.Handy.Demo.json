@@ -19,7 +19,7 @@
   },
   "modules": [
     {
-      "name": "handy-demo",
+      "name": "libhandy",
       "buildsystem": "meson",
       "builddir": true,
       "build-options": "examples",
