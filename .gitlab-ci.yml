@@ -1,7 +1,6 @@
 stages:
   - build
-  - docs
-  - test
+  - test+docs
   - package
   - deploy
 
@@ -84,7 +83,7 @@ build-fedora-gcc:
 build-gtkdoc:
   image: debian:buster
   <<: *tags
-  stage: docs
+  stage: test+docs
   dependencies:
     - build-debian-gcc
   script:
@@ -98,7 +97,7 @@ build-gtkdoc:
 unit-test:
   image: debian:buster
   <<: *tags
-  stage: test
+  stage: test+docs
   dependencies:
     - build-debian-gcc
   script:
