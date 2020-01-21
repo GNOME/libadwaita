@@ -1,3 +1,9 @@
+libhandy (0.9.90) UNRELEASED; urgency=medium
+
+  * Bump API version to 1.0.0
+
+ -- Guido Günther <agx@sigxcpu.org>  Tue, 21 Jan 2020 10:49:54 +0100
+
 libhandy (0.0.13) amber-phone; urgency=medium
 
   [ Alexander Mikhaylenko ]

@@ -24,7 +24,7 @@ Homepage: https://source.puri.sm/Librem5/libhandy
 Vcs-Browser: https://salsa.debian.org/DebianOnMobile-team/libhandy
 Vcs-Git: https://salsa.debian.org/DebianOnMobile-team/libhandy.git
 
-Package: libhandy-0.0-0
+Package: libhandy-1-0
 Architecture: any
 Multi-Arch: same
 Depends:
@@ -36,15 +36,15 @@ Description: Library with GTK widgets for mobile phones
  .
  This package contains the shared library.
 
-Package: libhandy-0.0-dev
+Package: libhandy-1-dev
 Architecture: any
 Multi-Arch: same
 Section: libdevel
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
- gir1.2-handy-0.0 (= ${binary:Version}),
- libhandy-0.0-0 (= ${binary:Version}),
+ gir1.2-handy-1 (= ${binary:Version}),
+ libhandy-1-0 (= ${binary:Version}),
  libgtk-3-dev,
 Recommends: pkg-config
 Description: Development files for libhandy
@@ -53,7 +53,7 @@ Description: Development files for libhandy
  .
  This package contains the development files and documentation.
 
-Package: gir1.2-handy-0.0
+Package: gir1.2-handy-1
 Architecture: any
 Multi-Arch: same
 Section: introspection
@@ -66,7 +66,7 @@ Description: GObject introspection files for libhandy
  .
  This package contains the GObject-introspection data in binary typelib format.
 
-Package: handy-0.0-examples
+Package: handy-1-examples
 Section: x11
 Architecture: any
 Depends: ${misc:Depends},
@@ -78,4 +78,3 @@ Description: Example programs for libhandy
  .
  This package contains example files and the demonstration program for
  libhandy.
-

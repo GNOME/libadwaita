@@ -22,7 +22,7 @@ main (int    argc,
 }
 EOF
 
-${CROSS_COMPILE}gcc -o handytest handytest.c $(${CROSS_COMPILE}pkg-config --cflags --libs libhandy-0.0)
+${CROSS_COMPILE}gcc -o handytest handytest.c $(${CROSS_COMPILE}pkg-config --cflags --libs libhandy-1)
 echo "build ok"
 [ -x handytest ]
 xvfb-run -a -s "-screen 0 1024x768x24" ./handytest
