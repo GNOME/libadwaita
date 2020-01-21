@@ -1,9 +1,29 @@
-#!/usr/bin/make -f
+#!/bin/sh
+set -eu
 
-CFLAGS=$(shell pkg-config --cflags libhandy-0.0)
-LIBS=$(shell pkg-config --libs libhandy-0.0)
+if [ -n "${DEB_HOST_GNU_TYPE:-}" ]; then
+    CROSS_COMPILE="$DEB_HOST_GNU_TYPE-"
+else
+    CROSS_COMPILE=
+fi
 
-a.out: debian/tests/build-test.c
-	gcc $(CFLAGS) $< $(LIBS)
-	@echo "Build test of $< succeeded"
-	@rm -f a.out
+cd "$AUTOPKGTEST_TMP"
+
+cat <<EOF > handytest.c
+#include <gtk/gtk.h>
+#define HANDY_USE_UNSTABLE_API
+#include <handy.h>
+
+int
+main (int    argc,
+      char **argv)
+{
+	hdy_init(&argc, &argv);
+}
+EOF
+
+${CROSS_COMPILE}gcc -o handytest handytest.c $(${CROSS_COMPILE}pkg-config --cflags --libs libhandy-0.0)
+echo "build ok"
+[ -x handytest ]
+xvfb-run -a -s "-screen 0 1024x768x24" ./handytest
+echo "starts ok"

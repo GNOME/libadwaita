@@ -1,5 +1,5 @@
 Tests: build-test
-Depends: libhandy-0.0-dev, build-essential, pkg-config
+Depends: libhandy-0.0-dev, build-essential, pkg-config, xauth, xvfb
 Restrictions: allow-stderr
 
 Tests: python-gi-test
