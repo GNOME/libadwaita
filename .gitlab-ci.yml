@@ -1,7 +1,11 @@
+include:
+ - 'https://source.puri.sm/Librem5/librem5-ci/raw/master/librem5-pipeline-definitions.yml'
+
 stages:
   - build
   - test+docs
   - package
+  - test-package
   - deploy
 
 before_script:
@@ -109,16 +113,23 @@ unit-test:
     paths:
       - _build
 
-package-debian:
-  image: debian:buster
-  <<: *tags
-  stage: package
-  script:
-    - dpkg-buildpackage -uc -us
-    - cp ../*.deb .
-  artifacts:
-    paths:
-      - "*.deb"
+package-debian-buster:
+  extends: .l5-build-debian-package
+
+package-debian-buster:arm64:
+  tags:
+    - librem5:arm64
+  extends: .l5-build-debian-package
+
+autopkgtest-debian-buster-package:
+  dependencies:
+    - package-debian-buster
+  extends: .l5-autopkgtest-debian-package
+
+lintian-debian-buster-package:
+  dependencies:
+    - package-debian-buster
+  extends: .l5-lintian-debian-package
 
 publish-docs:
   stage: deploy
