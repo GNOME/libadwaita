@@ -20,13 +20,13 @@ test_link_args = [
 
 test_names = [
   'test-action-row',
+  'test-carousel',
   'test-combo-row',
   'test-dialog',
   'test-expander-row',
   'test-header-bar',
   'test-header-group',
   'test-keypad',
-  'test-paginator',
   'test-preferences-group',
   'test-preferences-page',
   'test-preferences-row',

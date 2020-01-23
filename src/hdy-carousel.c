@@ -7,9 +7,9 @@
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
-#include "hdy-paginator.h"
+#include "hdy-carousel.h"
 
-#include "hdy-paginator-box-private.h"
+#include "hdy-carousel-box-private.h"
 #include "hdy-swipe-tracker-private.h"
 #include "hdy-swipeable-private.h"
 
@@ -946,7 +946,7 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
                   G_TYPE_UINT);
 
   gtk_widget_class_set_template_from_resource (widget_class,
-                                               "/sm/puri/handy/ui/hdy-paginator.ui");
+                                               "/sm/puri/handy/ui/hdy-carousel.ui");
   gtk_widget_class_bind_template_child (widget_class, HdyPaginator, box);
   gtk_widget_class_bind_template_child (widget_class, HdyPaginator, empty_box);
   gtk_widget_class_bind_template_child (widget_class, HdyPaginator, scrolling_box);

@@ -18,8 +18,8 @@ else
 endif
 
 libglade_hdy_sources = [
+  'glade-hdy-carousel.c',
   'glade-hdy-header-group.c',
-  'glade-hdy-paginator.c',
   'glade-hdy-swipe-group.c',
 ]
 

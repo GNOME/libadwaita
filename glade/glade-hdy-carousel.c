@@ -8,7 +8,7 @@
  * Copyright (C) 2014 Red Hat, Inc.
  */
 
-#include "glade-hdy-paginator.h"
+#include "glade-hdy-carousel.h"
 
 #include <config.h>
 #include <glib/gi18n-lib.h>

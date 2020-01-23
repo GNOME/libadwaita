@@ -7,8 +7,8 @@
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
-#include "hdy-paginator-box-private.h"
 #include "hdy-animation-private.h"
+#include "hdy-carousel-box-private.h"
 
 #include <math.h>
 
