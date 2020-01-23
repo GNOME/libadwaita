@@ -81,8 +81,6 @@ create_context (HdyShadowHelper *self,
 
   context = gtk_style_context_new ();
   gtk_style_context_set_path (context, path);
-  gtk_style_context_set_parent (context,
-                                gtk_widget_get_style_context (self->widget));
 
   gtk_style_context_add_provider (context,
                                   GTK_STYLE_PROVIDER (self->provider),
