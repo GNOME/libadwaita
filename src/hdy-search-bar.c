@@ -73,7 +73,7 @@
  *
  * # CSS nodes
  *
- * HdySearchBar has a single CSS node with name searchbar.
+ * #HdySearchBar has a single CSS node with name searchbar.
  *
  * Since: 0.0.6
  */

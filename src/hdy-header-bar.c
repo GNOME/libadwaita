@@ -46,6 +46,10 @@
  * When used in a #HdyDialog, HdyHeaderBar will replace its window decorations
  * by a back button allowing to close it. It doesn't have to be its direct child
  * and you can use any complex contraption you like as the dialog's titlebar.
+ *
+ * # CSS nodes
+ *
+ * #HdyHeaderBar has a single CSS node with name headerbar.
  */
 
 /**

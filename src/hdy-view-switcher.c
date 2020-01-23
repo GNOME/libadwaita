@@ -32,6 +32,10 @@
  * height. Contrary to #GtkHeaderBar, #HdyHeaderBar doesn't force a vertical
  * alignment on its title widget, so we recommend it over #GtkHeaderBar.
  *
+ * # CSS nodes
+ *
+ * #HdyViewSwitcher has a single CSS node with name viewswitcher.
+ *
  * Since: 0.0.10
  */
 

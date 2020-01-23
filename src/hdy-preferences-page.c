@@ -19,6 +19,10 @@
  * The #HdyPreferencesPage widget gathers preferences groups into a single page
  * of a preferences window.
  *
+ * # CSS nodes
+ *
+ * #HdyPreferencesPage has a single CSS node with name preferencespage.
+ *
  * Since: 0.0.10
  */
 

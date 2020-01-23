@@ -24,6 +24,10 @@
  * title and a description. The title will be used by #HdyPreferencesWindow to
  * let the user look for a preference.
  *
+ * # CSS nodes
+ *
+ * #HdyPreferencesGroup has a single CSS node with name preferencesgroup.
+ *
  * Since: 0.0.10
  */
 

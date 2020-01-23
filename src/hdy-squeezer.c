@@ -34,6 +34,10 @@
  *
  * Transitions between children can be animated as fades. This can be controlled
  * with hdy_squeezer_set_transition_type().
+ *
+ * # CSS nodes
+ *
+ * #HdySqueezer has a single CSS node with name squeezer.
  */
 
 /**

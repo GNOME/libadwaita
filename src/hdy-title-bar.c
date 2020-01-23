@@ -21,6 +21,10 @@
  *
  * HdyTitleBar becomes really useful when you want to animate header bars, like
  * an adaptive application using #HdyLeaflet would do.
+ *
+ * # CSS nodes
+ *
+ * #HdyTitleBar has a single CSS node with name headerbar.
  */
 
 enum {

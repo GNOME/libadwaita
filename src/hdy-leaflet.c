@@ -27,6 +27,12 @@
  * When there is enough space the children are displayed side by side, otherwise
  * only one is displayed. The threshold is dictated by the preferred minimum
  * sizes of the children.
+ *
+ * # CSS nodes
+ *
+ * #HdyLeaflet has a single CSS node with name leaflet. The node will get the
+ * style classes .folded when it is folded, .unfolded when it's not, or none if
+ * it didn't compute its fold yet.
  */
 
 /**
