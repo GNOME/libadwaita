@@ -59,7 +59,7 @@ struct _HdyPaginator
 
   GtkBox *box;
   GtkBox *empty_box;
-  HdyPaginatorBox *scrolling_box;
+  HdyCarouselBox *scrolling_box;
   GtkDrawingArea *indicators;
 
   HdySwipeTracker *tracker;
@@ -113,9 +113,9 @@ hdy_paginator_switch_child (HdySwipeable *swipeable,
   HdyPaginator *self = HDY_PAGINATOR (swipeable);
   GtkWidget *child;
 
-  child = hdy_paginator_box_get_nth_child (self->scrolling_box, index);
+  child = hdy_carousel_box_get_nth_child (self->scrolling_box, index);
 
-  hdy_paginator_box_scroll_to (self->scrolling_box, child, duration);
+  hdy_carousel_box_scroll_to (self->scrolling_box, child, duration);
 }
 
 static void
@@ -128,9 +128,9 @@ hdy_paginator_begin_swipe (HdySwipeable *swipeable,
   guint i, n_pages;
   gdouble *points;
 
-  hdy_paginator_box_stop_animation (self->scrolling_box);
+  hdy_carousel_box_stop_animation (self->scrolling_box);
 
-  distance = hdy_paginator_box_get_distance (self->scrolling_box);
+  distance = hdy_carousel_box_get_distance (self->scrolling_box);
   g_object_get (self->scrolling_box,
                 "position", &position,
                 "n-pages", &n_pages,
@@ -151,7 +151,7 @@ hdy_paginator_update_swipe (HdySwipeable *swipeable,
 {
   HdyPaginator *self = HDY_PAGINATOR (swipeable);
 
-  hdy_paginator_box_set_position (self->scrolling_box, value);
+  hdy_carousel_box_set_position (self->scrolling_box, value);
 }
 
 static void
@@ -162,11 +162,11 @@ hdy_paginator_end_swipe (HdySwipeable *swipeable,
   HdyPaginator *self = HDY_PAGINATOR (swipeable);
 
   if (duration == 0) {
-    hdy_paginator_box_set_position (self->scrolling_box, to);
+    hdy_carousel_box_set_position (self->scrolling_box, to);
     return;
   }
 
-  hdy_paginator_box_animate (self->scrolling_box, to, duration);
+  hdy_carousel_box_animate (self->scrolling_box, to, duration);
 }
 
 static void
@@ -197,12 +197,12 @@ notify_spacing_cb (HdyPaginator *self,
 
 static void
 animation_stopped_cb (HdyPaginator    *self,
-                      HdyPaginatorBox *box)
+                      HdyCarouselBox  *box)
 {
   gdouble position;
   gint index;
 
-  position = hdy_paginator_box_get_position (self->scrolling_box);
+  position = hdy_carousel_box_get_position (self->scrolling_box);
   index = round (position);
 
   g_signal_emit (self, signals[SIGNAL_PAGE_CHANGED], 0, index);
@@ -528,7 +528,7 @@ handle_discrete_scroll_event (HdyPaginator *self,
   index += (gint) round (hdy_paginator_get_position (self));
   index = CLAMP (index, 0, (gint) hdy_paginator_get_n_pages (self) - 1);
 
-  hdy_paginator_scroll_to (self, hdy_paginator_box_get_nth_child (self->scrolling_box, index));
+  hdy_paginator_scroll_to (self, hdy_carousel_box_get_nth_child (self->scrolling_box, index));
 
   /* Don't allow the delay to go lower than 250ms */
   duration = MIN (self->animation_duration, DEFAULT_DURATION);
@@ -963,7 +963,7 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
 static void
 hdy_paginator_init (HdyPaginator *self)
 {
-  g_type_ensure (HDY_TYPE_PAGINATOR_BOX);
+  g_type_ensure (HDY_TYPE_CAROUSEL_BOX);
   gtk_widget_init_template (GTK_WIDGET (self));
 
   self->animation_duration = DEFAULT_DURATION;
@@ -1010,7 +1010,7 @@ hdy_paginator_prepend (HdyPaginator *self,
 {
   g_return_if_fail (HDY_IS_PAGINATOR (self));
 
-  hdy_paginator_box_insert (self->scrolling_box, widget, 0);
+  hdy_carousel_box_insert (self->scrolling_box, widget, 0);
 }
 
 /**
@@ -1033,7 +1033,7 @@ hdy_paginator_insert (HdyPaginator *self,
 {
   g_return_if_fail (HDY_IS_PAGINATOR (self));
 
-  hdy_paginator_box_insert (self->scrolling_box, widget, position);
+  hdy_carousel_box_insert (self->scrolling_box, widget, position);
 }
 /**
  * hdy_paginator_reorder:
@@ -1056,7 +1056,7 @@ hdy_paginator_reorder (HdyPaginator *self,
   g_return_if_fail (HDY_IS_PAGINATOR (self));
   g_return_if_fail (GTK_IS_WIDGET (child));
 
-  hdy_paginator_box_reorder (self->scrolling_box, child, position);
+  hdy_carousel_box_reorder (self->scrolling_box, child, position);
 }
 
 /**
@@ -1103,7 +1103,7 @@ hdy_paginator_scroll_to_full (HdyPaginator *self,
   n = g_list_index (children, widget);
   g_list_free (children);
 
-  hdy_paginator_box_scroll_to (self->scrolling_box, widget,
+  hdy_carousel_box_scroll_to (self->scrolling_box, widget,
                                duration);
   hdy_swipeable_emit_switch_child (HDY_SWIPEABLE (self), n, duration);
 }
@@ -1123,7 +1123,7 @@ hdy_paginator_get_n_pages (HdyPaginator *self)
 {
   g_return_val_if_fail (HDY_IS_PAGINATOR (self), 0);
 
-  return hdy_paginator_box_get_n_pages (self->scrolling_box);
+  return hdy_carousel_box_get_n_pages (self->scrolling_box);
 }
 
 /**
@@ -1141,7 +1141,7 @@ hdy_paginator_get_position (HdyPaginator *self)
 {
   g_return_val_if_fail (HDY_IS_PAGINATOR (self), 0);
 
-  return hdy_paginator_box_get_position (self->scrolling_box);
+  return hdy_carousel_box_get_position (self->scrolling_box);
 }
 
 /**
@@ -1337,7 +1337,7 @@ hdy_paginator_get_spacing (HdyPaginator *self)
 {
   g_return_val_if_fail (HDY_IS_PAGINATOR (self), 0);
 
-  return hdy_paginator_box_get_spacing (self->scrolling_box);
+  return hdy_carousel_box_get_spacing (self->scrolling_box);
 }
 
 /**
@@ -1355,7 +1355,7 @@ hdy_paginator_set_spacing (HdyPaginator *self,
 {
   g_return_if_fail (HDY_IS_PAGINATOR (self));
 
-  hdy_paginator_box_set_spacing (self->scrolling_box, spacing);
+  hdy_carousel_box_set_spacing (self->scrolling_box, spacing);
 }
 
 /**

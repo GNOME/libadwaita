@@ -15,6 +15,21 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_action_row_set_subtitle@LIBHANDY_1_0 0.0.6
  hdy_action_row_set_title@LIBHANDY_1_0 0.0.6
  hdy_action_row_set_use_underline@LIBHANDY_1_0 0.0.6
+ hdy_carousel_box_animate@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_get_distance@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_get_n_pages@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_get_nth_child@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_get_position@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_get_spacing@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_get_type@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_insert@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_is_animating@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_new@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_reorder@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_scroll_to@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_set_position@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_set_spacing@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_stop_animation@LIBHANDY_1_0 0.9.90
  hdy_centering_policy_get_type@LIBHANDY_1_0 0.0.10
  hdy_column_get_linear_growth_width@LIBHANDY_1_0 0.0.3
  hdy_column_get_maximum_width@LIBHANDY_1_0 0.0.1
@@ -123,21 +138,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_leaflet_transition_type_get_type@LIBHANDY_1_0 0.0.12
  hdy_lerp@LIBHANDY_1_0 0.0.11
  hdy_list_box_separator_header@LIBHANDY_1_0 0.0.6
- hdy_paginator_box_animate@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_get_distance@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_get_n_pages@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_get_nth_child@LIBHANDY_1_0 0.0.12
- hdy_paginator_box_get_position@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_get_spacing@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_get_type@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_insert@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_is_animating@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_new@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_reorder@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_scroll_to@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_set_position@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_set_spacing@LIBHANDY_1_0 0.0.11
- hdy_paginator_box_stop_animation@LIBHANDY_1_0 0.0.11
  hdy_paginator_get_allow_mouse_drag@LIBHANDY_1_0 0.0.12
  hdy_paginator_get_animation_duration@LIBHANDY_1_0 0.0.11
  hdy_paginator_get_center_content@LIBHANDY_1_0 0.0.11

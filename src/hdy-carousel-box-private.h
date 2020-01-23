@@ -14,41 +14,41 @@
 
 G_BEGIN_DECLS
 
-#define HDY_TYPE_PAGINATOR_BOX (hdy_paginator_box_get_type())
+#define HDY_TYPE_CAROUSEL_BOX (hdy_carousel_box_get_type())
 
-G_DECLARE_FINAL_TYPE (HdyPaginatorBox, hdy_paginator_box, HDY, PAGINATOR_BOX, GtkContainer)
+G_DECLARE_FINAL_TYPE (HdyCarouselBox, hdy_carousel_box, HDY, CAROUSEL_BOX, GtkContainer)
 
-HdyPaginatorBox *hdy_paginator_box_new (void);
+HdyCarouselBox *hdy_carousel_box_new (void);
 
-void             hdy_paginator_box_insert (HdyPaginatorBox *self,
-                                           GtkWidget       *child,
-                                           gint             position);
-void             hdy_paginator_box_reorder (HdyPaginatorBox *self,
-                                            GtkWidget       *child,
-                                            gint             position);
+void            hdy_carousel_box_insert (HdyCarouselBox *self,
+                                         GtkWidget      *child,
+                                         gint            position);
+void            hdy_carousel_box_reorder (HdyCarouselBox *self,
+                                          GtkWidget      *child,
+                                          gint            position);
 
-void             hdy_paginator_box_animate (HdyPaginatorBox *self,
-                                            gdouble          position,
-                                            gint64           duration);
-gboolean         hdy_paginator_box_is_animating (HdyPaginatorBox *self);
-void             hdy_paginator_box_stop_animation (HdyPaginatorBox *self);
+void            hdy_carousel_box_animate (HdyCarouselBox *self,
+                                          gdouble         position,
+                                          gint64          duration);
+gboolean        hdy_carousel_box_is_animating (HdyCarouselBox *self);
+void            hdy_carousel_box_stop_animation (HdyCarouselBox *self);
 
-void             hdy_paginator_box_scroll_to (HdyPaginatorBox *self,
-                                              GtkWidget       *widget,
-                                              gint64           duration);
+void            hdy_carousel_box_scroll_to (HdyCarouselBox *self,
+                                            GtkWidget      *widget,
+                                            gint64          duration);
 
-guint            hdy_paginator_box_get_n_pages (HdyPaginatorBox *self);
-gdouble          hdy_paginator_box_get_distance (HdyPaginatorBox *self);
+guint           hdy_carousel_box_get_n_pages (HdyCarouselBox *self);
+gdouble         hdy_carousel_box_get_distance (HdyCarouselBox *self);
 
-gdouble          hdy_paginator_box_get_position (HdyPaginatorBox *self);
-void             hdy_paginator_box_set_position (HdyPaginatorBox *self,
-                                                 gdouble          position);
+gdouble         hdy_carousel_box_get_position (HdyCarouselBox *self);
+void            hdy_carousel_box_set_position (HdyCarouselBox *self,
+                                               gdouble         position);
 
-guint            hdy_paginator_box_get_spacing (HdyPaginatorBox *self);
-void             hdy_paginator_box_set_spacing (HdyPaginatorBox *self,
-                                                guint            spacing);
+guint           hdy_carousel_box_get_spacing (HdyCarouselBox *self);
+void            hdy_carousel_box_set_spacing (HdyCarouselBox *self,
+                                              guint           spacing);
 
-GtkWidget       *hdy_paginator_box_get_nth_child (HdyPaginatorBox *self,
-                                                  guint            n);
+GtkWidget      *hdy_carousel_box_get_nth_child (HdyCarouselBox *self,
+                                                guint           n);
 
 G_END_DECLS

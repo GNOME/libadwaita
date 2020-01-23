@@ -14,7 +14,7 @@
           </object>
         </child>
         <child>
-          <object class="HdyPaginatorBox" id="scrolling_box">
+          <object class="HdyCarouselBox" id="scrolling_box">
             <property name="visible">True</property>
             <property name="expand">True</property>
             <signal name="notify::n-pages" handler="notify_n_pages_cb" swapped="true"/>
