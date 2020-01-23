@@ -576,7 +576,7 @@ hdy_view_switcher_class_init (HdyViewSwitcherClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
-  gtk_widget_class_set_css_name (widget_class, "hdyviewswitcher");
+  gtk_widget_class_set_css_name (widget_class, "viewswitcher");
 }
 
 static void

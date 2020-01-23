@@ -171,7 +171,7 @@ hdy_view_switcher_bar_class_init (HdyViewSwitcherBarClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
-  gtk_widget_class_set_css_name (widget_class, "hdyviewswitcherbar");
+  gtk_widget_class_set_css_name (widget_class, "viewswitcherbar");
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-view-switcher-bar.ui");

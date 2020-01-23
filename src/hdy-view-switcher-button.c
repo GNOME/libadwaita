@@ -249,10 +249,10 @@ hdy_view_switcher_button_class_init (HdyViewSwitcherButtonClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
-  /* We probably should set the class's CSS name to "hdyviewswitcherbutton"
+  /* We probably should set the class's CSS name to "viewswitcherbutton"
    * here, but it doesn't work because GtkCheckButton hardcodes it to "button"
    * on instanciation, and the functions required to override it are private.
-   * In the meantime, we can use the "hdyviewswitcher > button" CSS selector as
+   * In the meantime, we can use the "viewswitcher > button" CSS selector as
    * a fairly safe fallback.
    */
 

@@ -958,7 +958,7 @@ hdy_carousel_class_init (HdyCarouselClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, notify_spacing_cb);
   gtk_widget_class_bind_template_callback (widget_class, animation_stopped_cb);
 
-  gtk_widget_class_set_css_name (widget_class, "hdycarousel");
+  gtk_widget_class_set_css_name (widget_class, "carousel");
 }
 
 static void

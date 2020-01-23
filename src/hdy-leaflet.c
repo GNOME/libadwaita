@@ -3666,7 +3666,7 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
   gtk_container_class_install_child_properties (container_class, LAST_CHILD_PROP, child_props);
 
   gtk_widget_class_set_accessible_role (widget_class, ATK_ROLE_PANEL);
-  gtk_widget_class_set_css_name (widget_class, "hdyleaflet");
+  gtk_widget_class_set_css_name (widget_class, "leaflet");
 }
 
 GtkWidget *

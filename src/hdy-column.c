@@ -315,7 +315,7 @@ hdy_column_class_init (HdyColumnClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
-  gtk_widget_class_set_css_name (widget_class, "hdycolumn");
+  gtk_widget_class_set_css_name (widget_class, "column");
 }
 
 static void

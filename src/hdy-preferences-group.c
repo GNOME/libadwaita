@@ -249,7 +249,7 @@ hdy_preferences_group_class_init (HdyPreferencesGroupClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
-  gtk_widget_class_set_css_name (widget_class, "hdypreferencesgroup");
+  gtk_widget_class_set_css_name (widget_class, "preferencesgroup");
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-preferences-group.ui");
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesGroup, description);

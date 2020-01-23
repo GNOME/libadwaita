@@ -1137,7 +1137,7 @@ hdy_squeezer_class_init (HdySqueezerClass *klass)
 
   gtk_container_class_install_child_properties (container_class, LAST_CHILD_PROP, child_props);
 
-  gtk_widget_class_set_css_name (widget_class, "hdysqueezer");
+  gtk_widget_class_set_css_name (widget_class, "squeezer");
 }
 
 static void

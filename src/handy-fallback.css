@@ -10,28 +10,28 @@
 
 /* Preferences */
 
-HdyPreferencesPage label.h4 {
+preferencespage label.h4 {
   font-weight: bold;
 }
 
 /* Shadows */
 
-hdyleaflet > dimming {
+leaflet > dimming {
   background: rgba(0, 0, 0, 0.12);
 }
 
-hdyleaflet > shadow {
+leaflet > shadow {
   min-width: 56px;
   min-height: 56px;
 }
 
-hdyleaflet > border {
+leaflet > border {
   min-width: 1px;
   min-height: 1px;
   background: rgba(0, 0, 0, 0.05);
 }
 
-hdyleaflet > shadow.left {
+leaflet > shadow.left {
   background-image:
     linear-gradient(to right,
                     alpha(#000, 0.05),
@@ -43,7 +43,7 @@ hdyleaflet > shadow.left {
                     alpha(#000, 0) 24px);
 }
 
-hdyleaflet > shadow.right {
+leaflet > shadow.right {
   background-image:
     linear-gradient(to left,
                     alpha(#000, 0.05),
@@ -56,7 +56,7 @@ hdyleaflet > shadow.right {
 
 }
 
-hdyleaflet > shadow.up {
+leaflet > shadow.up {
   background-image:
     linear-gradient(to bottom,
                     alpha(#000, 0.05),
@@ -68,7 +68,7 @@ hdyleaflet > shadow.up {
                     alpha(#000, 0) 24px);
 }
 
-hdyleaflet > shadow.down {
+leaflet > shadow.down {
   background-image:
     linear-gradient(to top,
                     alpha(#000, 0.05),

@@ -285,7 +285,7 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
   gtk_widget_class_bind_template_callback(widget_class, long_press_zero_cb);
 
   gtk_widget_class_set_accessible_role (widget_class, ATK_ROLE_DIAL);
-  gtk_widget_class_set_css_name (widget_class, "hdykeypad");
+  gtk_widget_class_set_css_name (widget_class, "keypad");
 }
 
 
