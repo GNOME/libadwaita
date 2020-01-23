@@ -90,7 +90,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_expander_row_set_enable_expansion@LIBHANDY_1_0 0.0.6
  hdy_expander_row_set_expanded@LIBHANDY_1_0 0.0.9
  hdy_expander_row_set_show_enable_switch@LIBHANDY_1_0 0.0.6
- hdy_fold_get_type@LIBHANDY_1_0 0.0~git20180429
  hdy_get_enable_animations@LIBHANDY_1_0 0.0.11
  hdy_gtk_window_get_icon_for_size@LIBHANDY_1_0 0.0.10
  hdy_gtk_window_toggle_maximized@LIBHANDY_1_0 0.0.10

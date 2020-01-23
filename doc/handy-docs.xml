@@ -65,7 +65,6 @@
     <title>Helpers</title>
     <xi:include href="xml/hdy-version.xml"/>
     <xi:include href="xml/hdy-string-utf8.xml"/>
-    <xi:include href="xml/hdy-fold.xml"/>
     <xi:include href="xml/hdy-list-box.xml"/>
   </chapter>
 

@@ -3,7 +3,6 @@
 #include "config.h"
 #include "hdy-carousel.h"
 #include "hdy-enums.h"
-#include "hdy-fold.h"
 #include "hdy-header-bar.h"
 #include "hdy-leaflet.h"
 #include "hdy-squeezer.h"
