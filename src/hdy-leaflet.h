@@ -13,6 +13,7 @@
 #include <gtk/gtk.h>
 #include "hdy-deprecation-macros.h"
 #include "hdy-enums.h"
+#include "hdy-navigation-direction.h"
 
 G_BEGIN_DECLS
 
@@ -72,5 +73,8 @@ void             hdy_leaflet_set_can_swipe_back (HdyLeaflet *self,
 gboolean         hdy_leaflet_get_can_swipe_forward (HdyLeaflet *self);
 void             hdy_leaflet_set_can_swipe_forward (HdyLeaflet *self,
                                                     gboolean    can_swipe_forward);
+
+gboolean         hdy_leaflet_navigate (HdyLeaflet             *self,
+                                       HdyNavigationDirection  direction);
 
 G_END_DECLS
