@@ -1321,11 +1321,11 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="HdyPaginator" id="paginator">
+                  <object class="HdyCarousel" id="carousel">
                     <property name="visible">True</property>
                     <property name="center_content">True</property>
                     <property name="indicator_spacing">6</property>
-                    <signal name="notify::position" handler="notify_paginator_position_cb"/>
+                    <signal name="notify::position" handler="notify_carousel_position_cb"/>
                     <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
@@ -1346,7 +1346,7 @@
                             <property name="margin-bottom">18</property>
                             <style>
                               <class name="dim-label"/>
-                              <class name="paginator-icon"/>
+                              <class name="carousel-icon"/>
                             </style>
                           </object>
                         </child>
@@ -1359,7 +1359,7 @@
                                 <property name="visible">True</property>
                                 <property name="opacity">0.5</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Paginator</property>
+                                <property name="label" translatable="yes">Carousel</property>
                                 <property name="halign">center</property>
                                 <property name="xalign">0</property>
                                 <property name="margin-bottom">12</property>
@@ -1397,7 +1397,7 @@
                         <property name="maximum-width">400</property>
                         <property name="linear-growth-width">300</property>
                         <child>
-                          <object class="GtkListBox" id="paginator_listbox">
+                          <object class="GtkListBox" id="carousel_listbox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="valign">center</property>
@@ -1406,17 +1406,17 @@
                               <class name="frame"/>
                             </style>
                             <child>
-                              <object class="HdyComboRow" id="paginator_orientation_row">
+                              <object class="HdyComboRow" id="carousel_orientation_row">
                                 <property name="title" translatable="yes">Orientation</property>
                                 <property name="visible">True</property>
-                                <signal name="notify::selected-index" handler="notify_paginator_orientation_cb" swapped="no"/>
+                                <signal name="notify::selected-index" handler="notify_carousel_orientation_cb" swapped="no"/>
                               </object>
                             </child>
                             <child>
-                              <object class="HdyComboRow" id="paginator_indicator_style_row">
+                              <object class="HdyComboRow" id="carousel_indicator_style_row">
                                 <property name="title" translatable="yes">Page Indicators</property>
                                 <property name="visible">True</property>
-                                <signal name="notify::selected-index" handler="notify_paginator_indicator_style_cb" swapped="no"/>
+                                <signal name="notify::selected-index" handler="notify_carousel_indicator_style_cb" swapped="no"/>
                               </object>
                             </child>
                           </object>
@@ -1453,7 +1453,7 @@
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">_Return to the first page</property>
                             <property name="use-underline">True</property>
-                            <signal name="clicked" handler="paginator_return_clicked_cb" swapped="no"/>
+                            <signal name="clicked" handler="carousel_return_clicked_cb" swapped="no"/>
                             <style>
                               <class name="suggested-action"/>
                             </style>
@@ -1463,8 +1463,8 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="name">paginator</property>
-                    <property name="title">Paginator</property>
+                    <property name="name">carousel</property>
+                    <property name="title">Carousel</property>
                   </packing>
                 </child>
               </object>

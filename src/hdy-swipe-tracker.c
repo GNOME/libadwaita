@@ -23,9 +23,9 @@
 
 /**
  * PRIVATE:hdy-swipe-tracker
- * @short_description: Swipe tracker used in #HdyLeaflet and #HdyPaginator
+ * @short_description: Swipe tracker used in #HdyCarousel and #HdyLeaflet
  * @title: HdySwipeTracker
- * @See_also: #HdyLeaflet, #HdyPaginator, #HdySwipeable
+ * @See_also: #HdyCarousel, #HdyLeaflet, #HdySwipeable
  * @stability: Private
  *
  * The HdySwipeTracker object can be used for implementing widgets with swipe

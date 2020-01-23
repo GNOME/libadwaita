@@ -31,29 +31,29 @@
 #define DEFAULT_DURATION 250
 
 /**
- * SECTION:hdy-paginator
+ * SECTION:hdy-carousel
  * @short_description: A paginated scrolling widget.
- * @title: HdyPaginator
+ * @title: HdyCarousel
  *
- * The #HdyPaginator widget can be used to display a set of pages with
+ * The #HdyCarousel widget can be used to display a set of pages with
  * swipe-based navigation between them and optional indicators.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 
 /**
- * HdyPaginatorIndicatorStyle
- * @HDY_PAGINATOR_INDICATOR_STYLE_NONE: No indicators
- * @HDY_PAGINATOR_INDICATOR_STYLE_DOTS: Each page is represented by a dot. Active dot gradually becomes larger and more opaque.
- * @HDY_PAGINATOR_INDICATOR_STYLE_LINES: Each page is represented by a thin and long line, and active view is shown with another line that moves between them
+ * HdyCarouselIndicatorStyle
+ * @HDY_CAROUSEL_INDICATOR_STYLE_NONE: No indicators
+ * @HDY_CAROUSEL_INDICATOR_STYLE_DOTS: Each page is represented by a dot. Active dot gradually becomes larger and more opaque.
+ * @HDY_CAROUSEL_INDICATOR_STYLE_LINES: Each page is represented by a thin and long line, and active view is shown with another line that moves between them
  *
  * These enumeration values describe the possible page indicator styles in a
- * #HdyPaginator widget.
+ * #HdyCarousel widget.
  *
  * New values may be added to this enumeration over time.
  */
 
-struct _HdyPaginator
+struct _HdyCarousel
 {
   GtkEventBox parent_instance;
 
@@ -64,7 +64,7 @@ struct _HdyPaginator
 
   HdySwipeTracker *tracker;
 
-  HdyPaginatorIndicatorStyle indicator_style;
+  HdyCarouselIndicatorStyle indicator_style;
   guint indicator_spacing;
   gboolean center_content;
   GtkOrientation orientation;
@@ -74,11 +74,11 @@ struct _HdyPaginator
   gboolean can_scroll;
 };
 
-static void hdy_paginator_swipeable_init (HdySwipeableInterface *iface);
+static void hdy_carousel_swipeable_init (HdySwipeableInterface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (HdyPaginator, hdy_paginator, GTK_TYPE_EVENT_BOX,
+G_DEFINE_TYPE_WITH_CODE (HdyCarousel, hdy_carousel, GTK_TYPE_EVENT_BOX,
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
-                         G_IMPLEMENT_INTERFACE (HDY_TYPE_SWIPEABLE, hdy_paginator_swipeable_init))
+                         G_IMPLEMENT_INTERFACE (HDY_TYPE_SWIPEABLE, hdy_carousel_swipeable_init))
 
 enum {
   PROP_0,
@@ -106,11 +106,11 @@ enum {
 static guint signals[SIGNAL_LAST_SIGNAL];
 
 static void
-hdy_paginator_switch_child (HdySwipeable *swipeable,
-                            guint         index,
-                            gint64        duration)
+hdy_carousel_switch_child (HdySwipeable *swipeable,
+                           guint         index,
+                           gint64        duration)
 {
-  HdyPaginator *self = HDY_PAGINATOR (swipeable);
+  HdyCarousel *self = HDY_CAROUSEL (swipeable);
   GtkWidget *child;
 
   child = hdy_carousel_box_get_nth_child (self->scrolling_box, index);
@@ -119,11 +119,11 @@ hdy_paginator_switch_child (HdySwipeable *swipeable,
 }
 
 static void
-hdy_paginator_begin_swipe (HdySwipeable *swipeable,
-                           gint          direction,
-                           gboolean      direct)
+hdy_carousel_begin_swipe (HdySwipeable *swipeable,
+                          gint          direction,
+                          gboolean      direct)
 {
-  HdyPaginator *self = HDY_PAGINATOR (swipeable);
+  HdyCarousel *self = HDY_CAROUSEL (swipeable);
   gdouble distance, position, closest_point;
   guint i, n_pages;
   gdouble *points;
@@ -146,20 +146,20 @@ hdy_paginator_begin_swipe (HdySwipeable *swipeable,
 }
 
 static void
-hdy_paginator_update_swipe (HdySwipeable *swipeable,
-                            gdouble       value)
+hdy_carousel_update_swipe (HdySwipeable *swipeable,
+                           gdouble       value)
 {
-  HdyPaginator *self = HDY_PAGINATOR (swipeable);
+  HdyCarousel *self = HDY_CAROUSEL (swipeable);
 
   hdy_carousel_box_set_position (self->scrolling_box, value);
 }
 
 static void
-hdy_paginator_end_swipe (HdySwipeable *swipeable,
-                         gint64       duration,
-                         gdouble      to)
+hdy_carousel_end_swipe (HdySwipeable *swipeable,
+                        gint64        duration,
+                        gdouble       to)
 {
-  HdyPaginator *self = HDY_PAGINATOR (swipeable);
+  HdyCarousel *self = HDY_CAROUSEL (swipeable);
 
   if (duration == 0) {
     hdy_carousel_box_set_position (self->scrolling_box, to);
@@ -170,34 +170,34 @@ hdy_paginator_end_swipe (HdySwipeable *swipeable,
 }
 
 static void
-notify_n_pages_cb (HdyPaginator *self,
-                   GParamSpec   *spec,
-                   GObject      *object)
+notify_n_pages_cb (HdyCarousel *self,
+                   GParamSpec  *spec,
+                   GObject     *object)
 {
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
   gtk_widget_queue_draw (GTK_WIDGET (self->indicators));
 }
 
 static void
-notify_position_cb (HdyPaginator *self,
-                    GParamSpec   *spec,
-                    GObject      *object)
+notify_position_cb (HdyCarousel *self,
+                    GParamSpec  *spec,
+                    GObject     *object)
 {
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POSITION]);
   gtk_widget_queue_draw (GTK_WIDGET (self->indicators));
 }
 
 static void
-notify_spacing_cb (HdyPaginator *self,
-                   GParamSpec   *spec,
-                   GObject      *object)
+notify_spacing_cb (HdyCarousel *self,
+                   GParamSpec  *spec,
+                   GObject     *object)
 {
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SPACING]);
 }
 
 static void
-animation_stopped_cb (HdyPaginator    *self,
-                      HdyCarouselBox  *box)
+animation_stopped_cb (HdyCarousel    *self,
+                      HdyCarouselBox *box)
 {
   gdouble position;
   gint index;
@@ -314,9 +314,9 @@ draw_indicators_dots (GtkWidget      *widget,
 }
 
 static gboolean
-draw_indicators_cb (HdyPaginator *self,
-                    cairo_t      *cr,
-                    GtkWidget    *widget)
+draw_indicators_cb (HdyCarousel *self,
+                    cairo_t     *cr,
+                    GtkWidget   *widget)
 {
   guint n_pages;
   gdouble position;
@@ -334,14 +334,14 @@ draw_indicators_cb (HdyPaginator *self,
     position = n_pages - position - 1;
 
   switch (self->indicator_style){
-  case HDY_PAGINATOR_INDICATOR_STYLE_NONE:
+  case HDY_CAROUSEL_INDICATOR_STYLE_NONE:
     break;
 
-  case HDY_PAGINATOR_INDICATOR_STYLE_DOTS:
+  case HDY_CAROUSEL_INDICATOR_STYLE_DOTS:
     draw_indicators_dots (widget, cr, self->orientation, position, n_pages);
     break;
 
-  case HDY_PAGINATOR_INDICATOR_STYLE_LINES:
+  case HDY_CAROUSEL_INDICATOR_STYLE_LINES:
     draw_indicators_lines (widget, cr, self->orientation, position, n_pages);
     break;
 
@@ -353,12 +353,12 @@ draw_indicators_cb (HdyPaginator *self,
 }
 
 static void
-update_indicators (HdyPaginator *self)
+update_indicators (HdyCarousel *self)
 {
   gboolean show_indicators;
   gint size, margin;
 
-  show_indicators = (self->indicator_style != HDY_PAGINATOR_INDICATOR_STYLE_NONE);
+  show_indicators = (self->indicator_style != HDY_CAROUSEL_INDICATOR_STYLE_NONE);
   gtk_widget_set_visible (GTK_WIDGET (self->indicators), show_indicators);
   gtk_widget_set_visible (GTK_WIDGET (self->empty_box),
                           show_indicators && self->center_content);
@@ -367,17 +367,17 @@ update_indicators (HdyPaginator *self)
     return;
 
   switch (self->indicator_style) {
-  case HDY_PAGINATOR_INDICATOR_STYLE_DOTS:
+  case HDY_CAROUSEL_INDICATOR_STYLE_DOTS:
     size = 2 * DOTS_RADIUS_SELECTED;
     margin = DOTS_MARGIN;
     break;
 
-  case HDY_PAGINATOR_INDICATOR_STYLE_LINES:
+  case HDY_CAROUSEL_INDICATOR_STYLE_LINES:
     size = LINE_WIDTH;
     margin = LINE_MARGIN;
     break;
 
-  case HDY_PAGINATOR_INDICATOR_STYLE_NONE:
+  case HDY_CAROUSEL_INDICATOR_STYLE_NONE:
   default:
     g_assert_not_reached ();
   }
@@ -416,7 +416,7 @@ set_orientable_style_classes (GtkOrientable *orientable)
 }
 
 static void
-update_orientation (HdyPaginator *self)
+update_orientation (HdyCarousel *self)
 {
   GtkOrientation opposite;
   gboolean reversed;
@@ -442,15 +442,15 @@ update_orientation (HdyPaginator *self)
 }
 
 static gboolean
-scroll_timeout_cb (HdyPaginator *self)
+scroll_timeout_cb (HdyCarousel *self)
 {
   self->can_scroll = TRUE;
   return G_SOURCE_REMOVE;
 }
 
 static gboolean
-handle_discrete_scroll_event (HdyPaginator *self,
-                              GdkEvent     *event)
+handle_discrete_scroll_event (HdyCarousel *self,
+                              GdkEvent    *event)
 {
   GdkDevice *source_device;
   GdkInputSource input_source;
@@ -464,7 +464,7 @@ handle_discrete_scroll_event (HdyPaginator *self,
   if (!self->can_scroll)
     return GDK_EVENT_PROPAGATE;
 
-  if (!hdy_paginator_get_interactive (self))
+  if (!hdy_carousel_get_interactive (self))
     return GDK_EVENT_PROPAGATE;
 
   if (event->type != GDK_SCROLL)
@@ -525,10 +525,10 @@ handle_discrete_scroll_event (HdyPaginator *self,
   if (index == 0)
     return GDK_EVENT_PROPAGATE;
 
-  index += (gint) round (hdy_paginator_get_position (self));
-  index = CLAMP (index, 0, (gint) hdy_paginator_get_n_pages (self) - 1);
+  index += (gint) round (hdy_carousel_get_position (self));
+  index = CLAMP (index, 0, (gint) hdy_carousel_get_n_pages (self) - 1);
 
-  hdy_paginator_scroll_to (self, hdy_carousel_box_get_nth_child (self->scrolling_box, index));
+  hdy_carousel_scroll_to (self, hdy_carousel_box_get_nth_child (self->scrolling_box, index));
 
   /* Don't allow the delay to go lower than 250ms */
   duration = MIN (self->animation_duration, DEFAULT_DURATION);
@@ -540,8 +540,8 @@ handle_discrete_scroll_event (HdyPaginator *self,
 }
 
 static gboolean
-captured_event_cb (HdyPaginator *self,
-                   GdkEvent     *event)
+captured_event_cb (HdyCarousel *self,
+                   GdkEvent    *event)
 {
   if (hdy_swipe_tracker_captured_event (self->tracker, event))
     return GDK_EVENT_STOP;
@@ -550,58 +550,58 @@ captured_event_cb (HdyPaginator *self,
 }
 
 static void
-hdy_paginator_destroy (GtkWidget *widget)
+hdy_carousel_destroy (GtkWidget *widget)
 {
-  HdyPaginator *self = HDY_PAGINATOR (widget);
+  HdyCarousel *self = HDY_CAROUSEL (widget);
 
   if (self->box) {
     gtk_widget_destroy (GTK_WIDGET (self->box));
     self->box = NULL;
   }
 
-  GTK_WIDGET_CLASS (hdy_paginator_parent_class)->destroy (widget);
+  GTK_WIDGET_CLASS (hdy_carousel_parent_class)->destroy (widget);
 }
 
 static void
-hdy_paginator_direction_changed (GtkWidget        *widget,
-                                 GtkTextDirection  previous_direction)
+hdy_carousel_direction_changed (GtkWidget        *widget,
+                                GtkTextDirection  previous_direction)
 {
-  HdyPaginator *self = HDY_PAGINATOR (widget);
+  HdyCarousel *self = HDY_CAROUSEL (widget);
 
   update_orientation (self);
 }
 
 static void
-hdy_paginator_add (GtkContainer *container,
-                   GtkWidget    *widget)
+hdy_carousel_add (GtkContainer *container,
+                  GtkWidget    *widget)
 {
-  HdyPaginator *self = HDY_PAGINATOR (container);
+  HdyCarousel *self = HDY_CAROUSEL (container);
 
   if (self->scrolling_box)
     gtk_container_add (GTK_CONTAINER (self->scrolling_box), widget);
   else
-    GTK_CONTAINER_CLASS (hdy_paginator_parent_class)->add (container, widget);
+    GTK_CONTAINER_CLASS (hdy_carousel_parent_class)->add (container, widget);
 }
 
 static void
-hdy_paginator_remove (GtkContainer *container,
-                      GtkWidget    *widget)
+hdy_carousel_remove (GtkContainer *container,
+                     GtkWidget    *widget)
 {
-  HdyPaginator *self = HDY_PAGINATOR (container);
+  HdyCarousel *self = HDY_CAROUSEL (container);
 
   if (self->scrolling_box)
     gtk_container_remove (GTK_CONTAINER (self->scrolling_box), widget);
   else
-    GTK_CONTAINER_CLASS (hdy_paginator_parent_class)->remove (container, widget);
+    GTK_CONTAINER_CLASS (hdy_carousel_parent_class)->remove (container, widget);
 }
 
 static void
-hdy_paginator_forall (GtkContainer *container,
-                      gboolean      include_internals,
-                      GtkCallback   callback,
-                      gpointer      callback_data)
+hdy_carousel_forall (GtkContainer *container,
+                     gboolean      include_internals,
+                     GtkCallback   callback,
+                     gpointer      callback_data)
 {
-  HdyPaginator *self = HDY_PAGINATOR (container);
+  HdyCarousel *self = HDY_CAROUSEL (container);
 
   if (include_internals)
     (* callback) (GTK_WIDGET (self->box), callback_data);
@@ -611,19 +611,19 @@ hdy_paginator_forall (GtkContainer *container,
 }
 
 static void
-hdy_paginator_constructed (GObject *object)
+hdy_carousel_constructed (GObject *object)
 {
-  HdyPaginator *self = (HdyPaginator *)object;
+  HdyCarousel *self = (HdyCarousel *)object;
 
   update_orientation (self);
 
-  G_OBJECT_CLASS (hdy_paginator_parent_class)->constructed (object);
+  G_OBJECT_CLASS (hdy_carousel_parent_class)->constructed (object);
 }
 
 static void
-hdy_paginator_dispose (GObject *object)
+hdy_carousel_dispose (GObject *object)
 {
-  HdyPaginator *self = (HdyPaginator *)object;
+  HdyCarousel *self = (HdyCarousel *)object;
 
   if (self->tracker) {
     g_clear_object (&self->tracker);
@@ -636,48 +636,48 @@ hdy_paginator_dispose (GObject *object)
     self->scroll_timeout_id = 0;
   }
 
-  G_OBJECT_CLASS (hdy_paginator_parent_class)->dispose (object);
+  G_OBJECT_CLASS (hdy_carousel_parent_class)->dispose (object);
 }
 
 static void
-hdy_paginator_get_property (GObject    *object,
-                            guint       prop_id,
-                            GValue     *value,
-                            GParamSpec *pspec)
+hdy_carousel_get_property (GObject    *object,
+                           guint       prop_id,
+                           GValue     *value,
+                           GParamSpec *pspec)
 {
-  HdyPaginator *self = HDY_PAGINATOR (object);
+  HdyCarousel *self = HDY_CAROUSEL (object);
 
   switch (prop_id) {
   case PROP_N_PAGES:
-    g_value_set_uint (value, hdy_paginator_get_n_pages (self));
+    g_value_set_uint (value, hdy_carousel_get_n_pages (self));
     break;
 
   case PROP_POSITION:
-    g_value_set_double (value, hdy_paginator_get_position (self));
+    g_value_set_double (value, hdy_carousel_get_position (self));
     break;
 
   case PROP_INTERACTIVE:
-    g_value_set_boolean (value, hdy_paginator_get_interactive (self));
+    g_value_set_boolean (value, hdy_carousel_get_interactive (self));
     break;
 
   case PROP_INDICATOR_STYLE:
-    g_value_set_enum (value, hdy_paginator_get_indicator_style (self));
+    g_value_set_enum (value, hdy_carousel_get_indicator_style (self));
     break;
 
   case PROP_INDICATOR_SPACING:
-    g_value_set_uint (value, hdy_paginator_get_indicator_spacing (self));
+    g_value_set_uint (value, hdy_carousel_get_indicator_spacing (self));
     break;
 
   case PROP_CENTER_CONTENT:
-    g_value_set_boolean (value, hdy_paginator_get_center_content (self));
+    g_value_set_boolean (value, hdy_carousel_get_center_content (self));
     break;
 
   case PROP_SPACING:
-    g_value_set_uint (value, hdy_paginator_get_spacing (self));
+    g_value_set_uint (value, hdy_carousel_get_spacing (self));
     break;
 
   case PROP_ALLOW_MOUSE_DRAG:
-    g_value_set_boolean (value, hdy_paginator_get_allow_mouse_drag (self));
+    g_value_set_boolean (value, hdy_carousel_get_allow_mouse_drag (self));
     break;
 
   case PROP_ORIENTATION:
@@ -685,7 +685,7 @@ hdy_paginator_get_property (GObject    *object,
     break;
 
   case PROP_ANIMATION_DURATION:
-    g_value_set_uint (value, hdy_paginator_get_animation_duration (self));
+    g_value_set_uint (value, hdy_carousel_get_animation_duration (self));
     break;
 
   default:
@@ -694,40 +694,40 @@ hdy_paginator_get_property (GObject    *object,
 }
 
 static void
-hdy_paginator_set_property (GObject      *object,
-                            guint         prop_id,
-                            const GValue *value,
-                            GParamSpec   *pspec)
+hdy_carousel_set_property (GObject      *object,
+                           guint         prop_id,
+                           const GValue *value,
+                           GParamSpec   *pspec)
 {
-  HdyPaginator *self = HDY_PAGINATOR (object);
+  HdyCarousel *self = HDY_CAROUSEL (object);
 
   switch (prop_id) {
   case PROP_INTERACTIVE:
-    hdy_paginator_set_interactive (self, g_value_get_boolean (value));
+    hdy_carousel_set_interactive (self, g_value_get_boolean (value));
     break;
 
   case PROP_INDICATOR_STYLE:
-    hdy_paginator_set_indicator_style (self, g_value_get_enum (value));
+    hdy_carousel_set_indicator_style (self, g_value_get_enum (value));
     break;
 
   case PROP_INDICATOR_SPACING:
-    hdy_paginator_set_indicator_spacing (self, g_value_get_uint (value));
+    hdy_carousel_set_indicator_spacing (self, g_value_get_uint (value));
     break;
 
   case PROP_CENTER_CONTENT:
-    hdy_paginator_set_center_content (self, g_value_get_boolean (value));
+    hdy_carousel_set_center_content (self, g_value_get_boolean (value));
     break;
 
   case PROP_SPACING:
-    hdy_paginator_set_spacing (self, g_value_get_uint (value));
+    hdy_carousel_set_spacing (self, g_value_get_uint (value));
     break;
 
   case PROP_ANIMATION_DURATION:
-    hdy_paginator_set_animation_duration (self, g_value_get_uint (value));
+    hdy_carousel_set_animation_duration (self, g_value_get_uint (value));
     break;
 
   case PROP_ALLOW_MOUSE_DRAG:
-    hdy_paginator_set_allow_mouse_drag (self, g_value_get_boolean (value));
+    hdy_carousel_set_allow_mouse_drag (self, g_value_get_boolean (value));
     break;
 
   case PROP_ORIENTATION:
@@ -747,37 +747,37 @@ hdy_paginator_set_property (GObject      *object,
 }
 
 static void
-hdy_paginator_swipeable_init (HdySwipeableInterface *iface)
+hdy_carousel_swipeable_init (HdySwipeableInterface *iface)
 {
-  iface->switch_child = hdy_paginator_switch_child;
-  iface->begin_swipe = hdy_paginator_begin_swipe;
-  iface->update_swipe = hdy_paginator_update_swipe;
-  iface->end_swipe = hdy_paginator_end_swipe;
+  iface->switch_child = hdy_carousel_switch_child;
+  iface->begin_swipe = hdy_carousel_begin_swipe;
+  iface->update_swipe = hdy_carousel_update_swipe;
+  iface->end_swipe = hdy_carousel_end_swipe;
 }
 
 static void
-hdy_paginator_class_init (HdyPaginatorClass *klass)
+hdy_carousel_class_init (HdyCarouselClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
   GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
 
-  object_class->constructed = hdy_paginator_constructed;
-  object_class->dispose = hdy_paginator_dispose;
-  object_class->get_property = hdy_paginator_get_property;
-  object_class->set_property = hdy_paginator_set_property;
-  widget_class->destroy = hdy_paginator_destroy;
-  widget_class->direction_changed = hdy_paginator_direction_changed;
-  container_class->add = hdy_paginator_add;
-  container_class->remove = hdy_paginator_remove;
-  container_class->forall = hdy_paginator_forall;
+  object_class->constructed = hdy_carousel_constructed;
+  object_class->dispose = hdy_carousel_dispose;
+  object_class->get_property = hdy_carousel_get_property;
+  object_class->set_property = hdy_carousel_set_property;
+  widget_class->destroy = hdy_carousel_destroy;
+  widget_class->direction_changed = hdy_carousel_direction_changed;
+  container_class->add = hdy_carousel_add;
+  container_class->remove = hdy_carousel_remove;
+  container_class->forall = hdy_carousel_forall;
 
   /**
-   * HdyPaginator:n-pages:
+   * HdyCarousel:n-pages:
    *
-   * The number of pages in a #HdyPaginator
+   * The number of pages in a #HdyCarousel
    *
-   * Since: 0.0.11
+   * Since: 1.0
    */
   props[PROP_N_PAGES] =
     g_param_spec_uint ("n-pages",
@@ -789,12 +789,12 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
                        G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * HdyPaginator:position:
+   * HdyCarousel:position:
    *
    * Current scrolling position, unitless. 1 matches 1 page. Use
-   * hdy_paginator_scroll_to() for changing it.
+   * hdy_carousel_scroll_to() for changing it.
    *
-   * Since: 0.0.11
+   * Since: 1.0
    */
   props[PROP_POSITION] =
     g_param_spec_double ("position",
@@ -806,12 +806,12 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
                          G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * HdyPaginator:interactive:
+   * HdyCarousel:interactive:
    *
    * Whether @self can be navigated. This can be used to temporarily disable
-   * a #HdyPaginator to only allow navigating it in a certain state.
+   * a #HdyCarousel to only allow navigating it in a certain state.
    *
-   * Since: 0.0.11
+   * Since: 1.0
    */
   props[PROP_INTERACTIVE] =
     g_param_spec_boolean ("interactive",
@@ -821,29 +821,29 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * HdyPaginator:indicator-style:
+   * HdyCarousel:indicator-style:
    *
    * The style of page indicators. Depending on orientation, they are displayed
    * below or besides the pages. If the pages are meant to be centered,
-   * #HdyPaginator:center-content can be used to compensate for that.
+   * #HdyCarousel:center-content can be used to compensate for that.
    *
-   * Since: 0.0.11
+   * Since: 1.0
    */
   props[PROP_INDICATOR_STYLE] =
     g_param_spec_enum ("indicator-style",
                        _("Indicator style"),
                        _("Page indicator style"),
-                       HDY_TYPE_PAGINATOR_INDICATOR_STYLE,
-                       HDY_PAGINATOR_INDICATOR_STYLE_NONE,
+                       HDY_TYPE_CAROUSEL_INDICATOR_STYLE,
+                       HDY_CAROUSEL_INDICATOR_STYLE_NONE,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * HdyPaginator:indicator-spacing:
+   * HdyCarousel:indicator-spacing:
    *
    * Spacing between content and page indicators. Does nothing if
-   * #HdyPaginator:indicator-style is @HDY_PAGINATOR_INDICATOR_STYLE_NONE.
+   * #HdyCarousel:indicator-style is @HDY_CAROUSEL_INDICATOR_STYLE_NONE.
    *
-   * Since: 0.0.11
+   * Since: 1.0
    */
   props[PROP_INDICATOR_SPACING] =
     g_param_spec_uint ("indicator-spacing",
@@ -855,14 +855,14 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * HdyPaginator:center-content:
+   * HdyCarousel:center-content:
    *
-   * Whether the #HdyPaginator is centering pages. If
-   * #HdyPaginator:indicator-style is @HDY_PAGINATOR_INDICATOR_STYLE_NONE,
+   * Whether the #HdyCarousel is centering pages. If
+   * #HdyCarousel:indicator-style is @HDY_CAROUSEL_INDICATOR_STYLE_NONE,
    * centering does nothing, otherwise it adds whitespace to the left or above
    * the pages to compensate for the indicators.
    *
-   * Since: 0.0.11
+   * Since: 1.0
    */
   props[PROP_CENTER_CONTENT] =
     g_param_spec_boolean ("center-content",
@@ -872,11 +872,11 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * HdyPaginator:spacing:
+   * HdyCarousel:spacing:
    *
    * Spacing between pages in pixels.
    *
-   * Since: 0.0.11
+   * Since: 1.0
    */
   props[PROP_SPACING] =
     g_param_spec_uint ("spacing",
@@ -888,11 +888,11 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * HdyPaginator:animation-duration:
+   * HdyCarousel:animation-duration:
    *
-   * Animation duration in milliseconds, used by hdy_paginator_scroll_to().
+   * Animation duration in milliseconds, used by hdy_carousel_scroll_to().
    *
-   * Since: 0.0.11
+   * Since: 1.0
    */
   props[PROP_ANIMATION_DURATION] =
     g_param_spec_uint ("animation-duration",
@@ -902,14 +902,14 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * HdyPaginator:allow-mouse-drag:
+   * HdyCarousel:allow-mouse-drag:
    *
-   * Sets whether the #HdyPaginator can be dragged with mouse pointer. If the
+   * Sets whether the #HdyCarousel can be dragged with mouse pointer. If the
    * value is %FALSE, dragging is only available on touch.
    *
    * This should usually be %FALSE.
    *
-   * Since: 0.0.12
+   * Since: 1.0
    */
   props[PROP_ALLOW_MOUSE_DRAG] =
     g_param_spec_boolean ("allow-mouse-drag",
@@ -925,15 +925,15 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   /**
-   * HdyPaginator::page-changed:
-   * @self: The #HdyPaginator instance
+   * HdyCarousel::page-changed:
+   * @self: The #HdyCarousel instance
    * @index: Current page
    *
    * This signal is emitted after a page has been changed. This can be used to
    * implement "infinite scrolling" by connecting to this signal and amending
    * the pages.
    *
-   * Since: 0.0.12
+   * Since: 1.0
    */
   signals[SIGNAL_PAGE_CHANGED] =
     g_signal_new ("page-changed",
@@ -947,21 +947,21 @@ hdy_paginator_class_init (HdyPaginatorClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-carousel.ui");
-  gtk_widget_class_bind_template_child (widget_class, HdyPaginator, box);
-  gtk_widget_class_bind_template_child (widget_class, HdyPaginator, empty_box);
-  gtk_widget_class_bind_template_child (widget_class, HdyPaginator, scrolling_box);
-  gtk_widget_class_bind_template_child (widget_class, HdyPaginator, indicators);
+  gtk_widget_class_bind_template_child (widget_class, HdyCarousel, box);
+  gtk_widget_class_bind_template_child (widget_class, HdyCarousel, empty_box);
+  gtk_widget_class_bind_template_child (widget_class, HdyCarousel, scrolling_box);
+  gtk_widget_class_bind_template_child (widget_class, HdyCarousel, indicators);
   gtk_widget_class_bind_template_callback (widget_class, draw_indicators_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_n_pages_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_position_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_spacing_cb);
   gtk_widget_class_bind_template_callback (widget_class, animation_stopped_cb);
 
-  gtk_widget_class_set_css_name (widget_class, "hdypaginator");
+  gtk_widget_class_set_css_name (widget_class, "hdycarousel");
 }
 
 static void
-hdy_paginator_init (HdyPaginator *self)
+hdy_carousel_init (HdyCarousel *self)
 {
   g_type_ensure (HDY_TYPE_CAROUSEL_BOX);
   gtk_widget_init_template (GTK_WIDGET (self));
@@ -981,41 +981,41 @@ hdy_paginator_init (HdyPaginator *self)
 }
 
 /**
- * hdy_paginator_new:
+ * hdy_carousel_new:
  *
- * Create a new #HdyPaginator widget.
+ * Create a new #HdyCarousel widget.
  *
- * Returns: The newly created #HdyPaginator widget
+ * Returns: The newly created #HdyCarousel widget
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
-HdyPaginator *
-hdy_paginator_new (void)
+HdyCarousel *
+hdy_carousel_new (void)
 {
-  return g_object_new (HDY_TYPE_PAGINATOR, NULL);
+  return g_object_new (HDY_TYPE_CAROUSEL, NULL);
 }
 
 /**
- * hdy_paginator_prepend:
- * @self: a #HdyPaginator
+ * hdy_carousel_prepend:
+ * @self: a #HdyCarousel
  * @child: a widget to add
  *
  * Prepends @child to @self
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 void
-hdy_paginator_prepend (HdyPaginator *self,
-                       GtkWidget    *widget)
+hdy_carousel_prepend (HdyCarousel *self,
+                      GtkWidget   *widget)
 {
-  g_return_if_fail (HDY_IS_PAGINATOR (self));
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
 
   hdy_carousel_box_insert (self->scrolling_box, widget, 0);
 }
 
 /**
- * hdy_paginator_insert:
- * @self: a #HdyPaginator
+ * hdy_carousel_insert:
+ * @self: a #HdyCarousel
  * @child: a widget to add
  * @position: the position to insert @child in.
  *
@@ -1024,20 +1024,20 @@ hdy_paginator_prepend (HdyPaginator *self,
  * If position is -1, or larger than the number of pages,
  * @child will be appended to the end.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 void
-hdy_paginator_insert (HdyPaginator *self,
-                      GtkWidget    *widget,
-                      gint          position)
+hdy_carousel_insert (HdyCarousel *self,
+                     GtkWidget   *widget,
+                     gint         position)
 {
-  g_return_if_fail (HDY_IS_PAGINATOR (self));
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
 
   hdy_carousel_box_insert (self->scrolling_box, widget, position);
 }
 /**
- * hdy_paginator_reorder:
- * @self: a #HdyPaginator
+ * hdy_carousel_reorder:
+ * @self: a #HdyCarousel
  * @child: a widget to add
  * @position: the position to move @child to.
  *
@@ -1046,58 +1046,58 @@ hdy_paginator_insert (HdyPaginator *self,
  * If position is -1, or larger than the number of pages, @child will be moved
  * to the end.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 void
-hdy_paginator_reorder (HdyPaginator *self,
-                       GtkWidget    *child,
-                       gint          position)
+hdy_carousel_reorder (HdyCarousel *self,
+                      GtkWidget   *child,
+                      gint         position)
 {
-  g_return_if_fail (HDY_IS_PAGINATOR (self));
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (child));
 
   hdy_carousel_box_reorder (self->scrolling_box, child, position);
 }
 
 /**
- * hdy_paginator_scroll_to:
- * @self: a #HdyPaginator
+ * hdy_carousel_scroll_to:
+ * @self: a #HdyCarousel
  * @widget: a child of @self
  *
  * Scrolls to @widget position with an animation.
- * #HdyPaginator:animation-duration property can be used for controlling the
+ * #HdyCarousel:animation-duration property can be used for controlling the
  * duration.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 void
-hdy_paginator_scroll_to (HdyPaginator *self,
-                         GtkWidget    *widget)
+hdy_carousel_scroll_to (HdyCarousel *self,
+                        GtkWidget   *widget)
 {
-  g_return_if_fail (HDY_IS_PAGINATOR (self));
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
 
-  hdy_paginator_scroll_to_full (self, widget, self->animation_duration);
+  hdy_carousel_scroll_to_full (self, widget, self->animation_duration);
 }
 
 /**
- * hdy_paginator_scroll_to_full:
- * @self: a #HdyPaginator
+ * hdy_carousel_scroll_to_full:
+ * @self: a #HdyCarousel
  * @widget: a child of @self
  * @duration: animation duration in milliseconds
  *
  * Scrolls to @widget position with an animation.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 void
-hdy_paginator_scroll_to_full (HdyPaginator *self,
-                              GtkWidget    *widget,
-                              gint64        duration)
+hdy_carousel_scroll_to_full (HdyCarousel *self,
+                             GtkWidget   *widget,
+                             gint64       duration)
 {
   GList *children;
   gint n;
 
-  g_return_if_fail (HDY_IS_PAGINATOR (self));
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
 
   children = gtk_container_get_children (GTK_CONTAINER (self->scrolling_box));
   n = g_list_index (children, widget);
@@ -1109,74 +1109,74 @@ hdy_paginator_scroll_to_full (HdyPaginator *self,
 }
 
 /**
- * hdy_paginator_get_n_pages:
- * @self: a #HdyPaginator
+ * hdy_carousel_get_n_pages:
+ * @self: a #HdyCarousel
  *
  * Gets the number of pages in @self.
  *
  * Returns: The number of pages in @self
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 guint
-hdy_paginator_get_n_pages (HdyPaginator *self)
+hdy_carousel_get_n_pages (HdyCarousel *self)
 {
-  g_return_val_if_fail (HDY_IS_PAGINATOR (self), 0);
+  g_return_val_if_fail (HDY_IS_CAROUSEL (self), 0);
 
   return hdy_carousel_box_get_n_pages (self->scrolling_box);
 }
 
 /**
- * hdy_paginator_get_position:
- * @self: a #HdyPaginator
+ * hdy_carousel_get_position:
+ * @self: a #HdyCarousel
  *
  * Gets current scroll position in @self. It's unitless, 1 matches 1 page.
  *
  * Returns: The scroll position
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 gdouble
-hdy_paginator_get_position (HdyPaginator *self)
+hdy_carousel_get_position (HdyCarousel *self)
 {
-  g_return_val_if_fail (HDY_IS_PAGINATOR (self), 0);
+  g_return_val_if_fail (HDY_IS_CAROUSEL (self), 0);
 
   return hdy_carousel_box_get_position (self->scrolling_box);
 }
 
 /**
- * hdy_paginator_get_interactive
- * @self: a #HdyPaginator
+ * hdy_carousel_get_interactive
+ * @self: a #HdyCarousel
  *
  * Gets whether @self can be navigated.
  *
  * Returns: %TRUE if @self can be swiped
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 gboolean
-hdy_paginator_get_interactive (HdyPaginator *self)
+hdy_carousel_get_interactive (HdyCarousel *self)
 {
-  g_return_val_if_fail (HDY_IS_PAGINATOR (self), FALSE);
+  g_return_val_if_fail (HDY_IS_CAROUSEL (self), FALSE);
 
   return hdy_swipe_tracker_get_enabled (self->tracker);
 }
 
 /**
- * hdy_paginator_set_interactive
- * @self: a #HdyPaginator
+ * hdy_carousel_set_interactive
+ * @self: a #HdyCarousel
  * @interactive: whether @self can be swiped.
  *
  * Sets whether @self can be navigated. This can be used to temporarily disable
- * a #HdyPaginator to only allow swiping in a certain state.
+ * a #HdyCarousel to only allow swiping in a certain state.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 void
-hdy_paginator_set_interactive (HdyPaginator *self,
-                               gboolean      interactive)
+hdy_carousel_set_interactive (HdyCarousel *self,
+                              gboolean     interactive)
 {
-  g_return_if_fail (HDY_IS_PAGINATOR (self));
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
 
   interactive = !!interactive;
 
@@ -1189,39 +1189,39 @@ hdy_paginator_set_interactive (HdyPaginator *self,
 }
 
 /**
- * hdy_paginator_get_indicator_style
- * @self: a #HdyPaginator
+ * hdy_carousel_get_indicator_style
+ * @self: a #HdyCarousel
  *
  * Gets the current page indicator style.
  *
  * Returns: the current indicator style
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
-HdyPaginatorIndicatorStyle
-hdy_paginator_get_indicator_style (HdyPaginator *self)
+HdyCarouselIndicatorStyle
+hdy_carousel_get_indicator_style (HdyCarousel *self)
 {
-  g_return_val_if_fail (HDY_IS_PAGINATOR (self), FALSE);
+  g_return_val_if_fail (HDY_IS_CAROUSEL (self), FALSE);
 
   return self->indicator_style;
 }
 
 /**
- * hdy_paginator_set_indicator_style
- * @self: a #HdyPaginator
+ * hdy_carousel_set_indicator_style
+ * @self: a #HdyCarousel
  * @style: indicator style to use
  *
  * Sets style of page indicators. Depending on orientation, they are displayed
  * below or besides the pages. If the pages are meant to be centered,
- * #HdyPaginator:center-content can be used to compensate for that.
+ * #HdyCarousel:center-content can be used to compensate for that.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 void
-hdy_paginator_set_indicator_style (HdyPaginator               *self,
-                                   HdyPaginatorIndicatorStyle  style)
+hdy_carousel_set_indicator_style (HdyCarousel               *self,
+                                  HdyCarouselIndicatorStyle  style)
 {
-  g_return_if_fail (HDY_IS_PAGINATOR (self));
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
 
   if (self->indicator_style == style)
     return;
@@ -1233,38 +1233,38 @@ hdy_paginator_set_indicator_style (HdyPaginator               *self,
 }
 
 /**
- * hdy_paginator_get_indicator_spacing:
- * @self: a #HdyPaginator
+ * hdy_carousel_get_indicator_spacing:
+ * @self: a #HdyCarousel
  *
  * Gets spacing between content and page indicators.
  *
  * Returns: Spacing between content and indicators
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 guint
-hdy_paginator_get_indicator_spacing (HdyPaginator *self)
+hdy_carousel_get_indicator_spacing (HdyCarousel *self)
 {
-  g_return_val_if_fail (HDY_IS_PAGINATOR (self), 0);
+  g_return_val_if_fail (HDY_IS_CAROUSEL (self), 0);
 
   return self->indicator_spacing;
 }
 
 /**
- * hdy_paginator_set_indicator_spacing:
- * @self: a #HdyPaginator
+ * hdy_carousel_set_indicator_spacing:
+ * @self: a #HdyCarousel
  * @spacing: the new spacing value
  *
  * Sets spacing between content and page indicators. Does nothing if
- * #HdyPaginator:indicator-style is @HDY_PAGINATOR_INDICATOR_STYLE_NONE.
+ * #HdyCarousel:indicator-style is @HDY_CAROUSEL_INDICATOR_STYLE_NONE.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 void
-hdy_paginator_set_indicator_spacing (HdyPaginator *self,
-                                     guint         spacing)
+hdy_carousel_set_indicator_spacing (HdyCarousel *self,
+                                    guint        spacing)
 {
-  g_return_if_fail (HDY_IS_PAGINATOR (self));
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
 
   if (self->indicator_spacing == spacing)
     return;
@@ -1276,40 +1276,40 @@ hdy_paginator_set_indicator_spacing (HdyPaginator *self,
 }
 
 /**
- * hdy_paginator_get_center_content
- * @self: a #HdyPaginator
+ * hdy_carousel_get_center_content
+ * @self: a #HdyCarousel
  *
  * Sets whether @self is centering pages.
  *
  * Returns: %TRUE if @self is centering pages
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 gboolean
-hdy_paginator_get_center_content (HdyPaginator *self)
+hdy_carousel_get_center_content (HdyCarousel *self)
 {
-  g_return_val_if_fail (HDY_IS_PAGINATOR (self), FALSE);
+  g_return_val_if_fail (HDY_IS_CAROUSEL (self), FALSE);
 
   return self->center_content;
 }
 
 /**
- * hdy_paginator_set_center_content
- * @self: a #HdyPaginator
+ * hdy_carousel_set_center_content
+ * @self: a #HdyCarousel
  * @center_content: whether @self should center contents
  *
- * Sets whether @self is centering content. If #HdyPaginator:indicator-style is
- * @HDY_PAGINATOR_INDICATOR_STYLE_NONE, centering does nothing, otherwise it
+ * Sets whether @self is centering content. If #HdyCarousel:indicator-style is
+ * @HDY_CAROUSEL_INDICATOR_STYLE_NONE, centering does nothing, otherwise it
  * adds whitespace to the left or above the pages to compensate for the
  * indicators.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 void
-hdy_paginator_set_center_content (HdyPaginator *self,
-                                  gboolean      center_content)
+hdy_carousel_set_center_content (HdyCarousel *self,
+                                 gboolean     center_content)
 {
-  g_return_if_fail (HDY_IS_PAGINATOR (self));
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
 
   center_content = !!center_content;
 
@@ -1323,73 +1323,73 @@ hdy_paginator_set_center_content (HdyPaginator *self,
 }
 
 /**
- * hdy_paginator_get_spacing:
- * @self: a #HdyPaginator
+ * hdy_carousel_get_spacing:
+ * @self: a #HdyCarousel
  *
  * Gets spacing between pages in pixels.
  *
  * Returns: Spacing between pages
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 guint
-hdy_paginator_get_spacing (HdyPaginator *self)
+hdy_carousel_get_spacing (HdyCarousel *self)
 {
-  g_return_val_if_fail (HDY_IS_PAGINATOR (self), 0);
+  g_return_val_if_fail (HDY_IS_CAROUSEL (self), 0);
 
   return hdy_carousel_box_get_spacing (self->scrolling_box);
 }
 
 /**
- * hdy_paginator_set_spacing:
- * @self: a #HdyPaginator
+ * hdy_carousel_set_spacing:
+ * @self: a #HdyCarousel
  * @spacing: the new spacing value
  *
  * Sets spacing between pages in pixels.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 void
-hdy_paginator_set_spacing (HdyPaginator *self,
-                           guint         spacing)
+hdy_carousel_set_spacing (HdyCarousel *self,
+                          guint        spacing)
 {
-  g_return_if_fail (HDY_IS_PAGINATOR (self));
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
 
   hdy_carousel_box_set_spacing (self->scrolling_box, spacing);
 }
 
 /**
- * hdy_paginator_get_animation_duration:
- * @self: a #HdyPaginator
+ * hdy_carousel_get_animation_duration:
+ * @self: a #HdyCarousel
  *
- * Gets animation duration used by hdy_paginator_scroll_to().
+ * Gets animation duration used by hdy_carousel_scroll_to().
  *
  * Returns: Animation duration in milliseconds
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 guint
-hdy_paginator_get_animation_duration (HdyPaginator *self)
+hdy_carousel_get_animation_duration (HdyCarousel *self)
 {
-  g_return_val_if_fail (HDY_IS_PAGINATOR (self), 0);
+  g_return_val_if_fail (HDY_IS_CAROUSEL (self), 0);
 
   return self->animation_duration;
 }
 
 /**
- * hdy_paginator_set_animation_duration:
- * @self: a #HdyPaginator
+ * hdy_carousel_set_animation_duration:
+ * @self: a #HdyCarousel
  * @duration: animation duration in milliseconds
  *
- * Sets animation duration used by hdy_paginator_scroll_to().
+ * Sets animation duration used by hdy_carousel_scroll_to().
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 void
-hdy_paginator_set_animation_duration (HdyPaginator *self,
-                                      guint         duration)
+hdy_carousel_set_animation_duration (HdyCarousel *self,
+                                     guint        duration)
 {
-  g_return_if_fail (HDY_IS_PAGINATOR (self));
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
 
   if (self->animation_duration == duration)
     return;
@@ -1400,26 +1400,26 @@ hdy_paginator_set_animation_duration (HdyPaginator *self,
 }
 
 /**
- * hdy_paginator_get_allow_mouse_drag:
- * @self: a #HdyPaginator
+ * hdy_carousel_get_allow_mouse_drag:
+ * @self: a #HdyCarousel
  *
  * Sets whether @self can be dragged with mouse pointer
  *
  * Returns: %TRUE if @self can be dragged with mouse
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 gboolean
-hdy_paginator_get_allow_mouse_drag (HdyPaginator *self)
+hdy_carousel_get_allow_mouse_drag (HdyCarousel *self)
 {
-  g_return_val_if_fail (HDY_IS_PAGINATOR (self), FALSE);
+  g_return_val_if_fail (HDY_IS_CAROUSEL (self), FALSE);
 
   return hdy_swipe_tracker_get_allow_mouse_drag (self->tracker);
 }
 
 /**
- * hdy_paginator_set_allow_mouse_drag:
- * @self: a #HdyPaginator
+ * hdy_carousel_set_allow_mouse_drag:
+ * @self: a #HdyCarousel
  * @allow_mouse_drag: whether @self can be dragged with mouse pointer
  *
  * Sets whether @self can be dragged with mouse pointer. If @allow_mouse_drag
@@ -1427,17 +1427,17 @@ hdy_paginator_get_allow_mouse_drag (HdyPaginator *self)
  *
  * This should usually be %FALSE.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 void
-hdy_paginator_set_allow_mouse_drag (HdyPaginator *self,
-                                    gboolean      allow_mouse_drag)
+hdy_carousel_set_allow_mouse_drag (HdyCarousel *self,
+                                   gboolean     allow_mouse_drag)
 {
-  g_return_if_fail (HDY_IS_PAGINATOR (self));
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
 
   allow_mouse_drag = !!allow_mouse_drag;
 
-  if (hdy_paginator_get_allow_mouse_drag (self) == allow_mouse_drag)
+  if (hdy_carousel_get_allow_mouse_drag (self) == allow_mouse_drag)
     return;
 
   hdy_swipe_tracker_set_allow_mouse_drag (self->tracker, allow_mouse_drag);

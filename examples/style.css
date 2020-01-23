@@ -3,6 +3,6 @@ stacksidebar list {
   border-right-width: 0px;
 }
 
-hdypaginator.horizontal .paginator-icon {
+hdycarousel.horizontal .carousel-icon {
   -gtk-icon-transform: rotate(90deg);
 }

@@ -16,271 +16,271 @@ notify_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-test_hdy_paginator_add_remove (void)
+test_hdy_carousel_add_remove (void)
 {
-  HdyPaginator *paginator;
+  HdyCarousel *carousel;
   GtkWidget *child1, *child2, *child3;
 
-  paginator = HDY_PAGINATOR (hdy_paginator_new ());
+  carousel = HDY_CAROUSEL (hdy_carousel_new ());
 
   child1 = gtk_label_new ("");
   child2 = gtk_label_new ("");
   child3 = gtk_label_new ("");
 
   notified = 0;
-  g_signal_connect (paginator, "notify::n-pages", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect (carousel, "notify::n-pages", G_CALLBACK (notify_cb), NULL);
 
-  g_assert_cmpuint (hdy_paginator_get_n_pages (paginator), ==, 0);
+  g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 0);
 
-  gtk_container_add (GTK_CONTAINER (paginator), child1);
-  g_assert_cmpuint (hdy_paginator_get_n_pages (paginator), ==, 1);
+  gtk_container_add (GTK_CONTAINER (carousel), child1);
+  g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 1);
   g_assert_cmpint (notified, ==, 1);
 
-  hdy_paginator_prepend (paginator, child2);
-  g_assert_cmpuint (hdy_paginator_get_n_pages (paginator), ==, 2);
+  hdy_carousel_prepend (carousel, child2);
+  g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 2);
   g_assert_cmpint (notified, ==, 2);
 
-  hdy_paginator_insert (paginator, child3, 1);
-  g_assert_cmpuint (hdy_paginator_get_n_pages (paginator), ==, 3);
+  hdy_carousel_insert (carousel, child3, 1);
+  g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 3);
   g_assert_cmpint (notified, ==, 3);
 
-  hdy_paginator_reorder (paginator, child3, 0);
-  g_assert_cmpuint (hdy_paginator_get_n_pages (paginator), ==, 3);
+  hdy_carousel_reorder (carousel, child3, 0);
+  g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 3);
   g_assert_cmpint (notified, ==, 3);
 
-  gtk_container_remove (GTK_CONTAINER (paginator), child2);
-  g_assert_cmpuint (hdy_paginator_get_n_pages (paginator), ==, 2);
+  gtk_container_remove (GTK_CONTAINER (carousel), child2);
+  g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 2);
   g_assert_cmpint (notified, ==, 4);
 
-  gtk_container_remove (GTK_CONTAINER (paginator), child1);
-  g_assert_cmpuint (hdy_paginator_get_n_pages (paginator), ==, 1);
+  gtk_container_remove (GTK_CONTAINER (carousel), child1);
+  g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 1);
   g_assert_cmpint (notified, ==, 5);
 
-  gtk_container_remove (GTK_CONTAINER (paginator), child3);
-  g_assert_cmpuint (hdy_paginator_get_n_pages (paginator), ==, 0);
+  gtk_container_remove (GTK_CONTAINER (carousel), child3);
+  g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 0);
   g_assert_cmpint (notified, ==, 6);
 
-  g_object_unref (paginator);
+  g_object_unref (carousel);
 }
 
 static void
-test_hdy_paginator_scroll_to (void)
+test_hdy_carousel_scroll_to (void)
 {
-  HdyPaginator *paginator;
+  HdyCarousel *carousel;
   GtkWidget *child1, *child2, *child3;
 
-  paginator = HDY_PAGINATOR (hdy_paginator_new ());
+  carousel = HDY_CAROUSEL (hdy_carousel_new ());
 
   child1 = gtk_label_new ("");
   child2 = gtk_label_new ("");
   child3 = gtk_label_new ("");
 
   notified = 0;
-  g_signal_connect (paginator, "notify::position", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect (carousel, "notify::position", G_CALLBACK (notify_cb), NULL);
 
-  gtk_container_add (GTK_CONTAINER (paginator), child1);
-  gtk_container_add (GTK_CONTAINER (paginator), child2);
-  gtk_container_add (GTK_CONTAINER (paginator), child3);
+  gtk_container_add (GTK_CONTAINER (carousel), child1);
+  gtk_container_add (GTK_CONTAINER (carousel), child2);
+  gtk_container_add (GTK_CONTAINER (carousel), child3);
 
   /* Since tests are done synchronously, avoid animations */
-  hdy_paginator_set_animation_duration (paginator, 0);
+  hdy_carousel_set_animation_duration (carousel, 0);
 
-  g_assert_cmpfloat(hdy_paginator_get_position (paginator), ==, 0);
+  g_assert_cmpfloat(hdy_carousel_get_position (carousel), ==, 0);
   g_assert_cmpint (notified, ==, 0);
 
-  hdy_paginator_scroll_to (paginator, child3);
-  g_assert_cmpfloat(hdy_paginator_get_position (paginator), ==, 2);
+  hdy_carousel_scroll_to (carousel, child3);
+  g_assert_cmpfloat(hdy_carousel_get_position (carousel), ==, 2);
   g_assert_cmpint (notified, ==, 1);
 
-  hdy_paginator_scroll_to (paginator, child2);
-  g_assert_cmpfloat(hdy_paginator_get_position (paginator), ==, 1);
+  hdy_carousel_scroll_to (carousel, child2);
+  g_assert_cmpfloat(hdy_carousel_get_position (carousel), ==, 1);
   g_assert_cmpint (notified, ==, 2);
 
-  g_object_unref (paginator);
+  g_object_unref (carousel);
 }
 
 static void
-test_hdy_paginator_interactive (void)
+test_hdy_carousel_interactive (void)
 {
-  HdyPaginator *paginator = HDY_PAGINATOR (hdy_paginator_new ());
+  HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
   gboolean interactive;
 
   notified = 0;
-  g_signal_connect (paginator, "notify::interactive", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect (carousel, "notify::interactive", G_CALLBACK (notify_cb), NULL);
 
   /* Accessors */
-  g_assert_true (hdy_paginator_get_interactive (paginator));
-  hdy_paginator_set_interactive (paginator, FALSE);
-  g_assert_false (hdy_paginator_get_interactive (paginator));
+  g_assert_true (hdy_carousel_get_interactive (carousel));
+  hdy_carousel_set_interactive (carousel, FALSE);
+  g_assert_false (hdy_carousel_get_interactive (carousel));
   g_assert_cmpint (notified, ==, 1);
 
   /* Property */
-  g_object_set (paginator, "interactive", TRUE, NULL);
-  g_object_get (paginator, "interactive", &interactive, NULL);
+  g_object_set (carousel, "interactive", TRUE, NULL);
+  g_object_get (carousel, "interactive", &interactive, NULL);
   g_assert_true (interactive);
   g_assert_cmpint (notified, ==, 2);
 
   /* Setting the same value should not notify */
-  hdy_paginator_set_interactive (paginator, TRUE);
+  hdy_carousel_set_interactive (carousel, TRUE);
   g_assert_cmpint (notified, ==, 2);
 }
 
 static void
-test_hdy_paginator_indicator_style (void)
+test_hdy_carousel_indicator_style (void)
 {
-  HdyPaginator *paginator = HDY_PAGINATOR (hdy_paginator_new ());
-  HdyPaginatorIndicatorStyle indicator_style;
+  HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
+  HdyCarouselIndicatorStyle indicator_style;
 
   notified = 0;
-  g_signal_connect (paginator, "notify::indicator-style", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect (carousel, "notify::indicator-style", G_CALLBACK (notify_cb), NULL);
 
   /* Accessors */
-  g_assert_cmpint (hdy_paginator_get_indicator_style (paginator), ==, HDY_PAGINATOR_INDICATOR_STYLE_NONE);
-  hdy_paginator_set_indicator_style (paginator, HDY_PAGINATOR_INDICATOR_STYLE_DOTS);
-  g_assert_cmpint (hdy_paginator_get_indicator_style (paginator), ==, HDY_PAGINATOR_INDICATOR_STYLE_DOTS);
+  g_assert_cmpint (hdy_carousel_get_indicator_style (carousel), ==, HDY_CAROUSEL_INDICATOR_STYLE_NONE);
+  hdy_carousel_set_indicator_style (carousel, HDY_CAROUSEL_INDICATOR_STYLE_DOTS);
+  g_assert_cmpint (hdy_carousel_get_indicator_style (carousel), ==, HDY_CAROUSEL_INDICATOR_STYLE_DOTS);
   g_assert_cmpint (notified, ==, 1);
-  hdy_paginator_set_indicator_style (paginator, HDY_PAGINATOR_INDICATOR_STYLE_LINES);
-  g_assert_cmpint (hdy_paginator_get_indicator_style (paginator), ==, HDY_PAGINATOR_INDICATOR_STYLE_LINES);
+  hdy_carousel_set_indicator_style (carousel, HDY_CAROUSEL_INDICATOR_STYLE_LINES);
+  g_assert_cmpint (hdy_carousel_get_indicator_style (carousel), ==, HDY_CAROUSEL_INDICATOR_STYLE_LINES);
   g_assert_cmpint (notified, ==, 2);
 
   /* Property */
-  g_object_set (paginator, "indicator-style", HDY_PAGINATOR_INDICATOR_STYLE_DOTS, NULL);
-  g_object_get (paginator, "indicator-style", &indicator_style, NULL);
-  g_assert_cmpint (indicator_style, ==, HDY_PAGINATOR_INDICATOR_STYLE_DOTS);
+  g_object_set (carousel, "indicator-style", HDY_CAROUSEL_INDICATOR_STYLE_DOTS, NULL);
+  g_object_get (carousel, "indicator-style", &indicator_style, NULL);
+  g_assert_cmpint (indicator_style, ==, HDY_CAROUSEL_INDICATOR_STYLE_DOTS);
   g_assert_cmpint (notified, ==, 3);
 
   /* Setting the same value should not notify */
-  hdy_paginator_set_indicator_style (paginator, HDY_PAGINATOR_INDICATOR_STYLE_DOTS);
+  hdy_carousel_set_indicator_style (carousel, HDY_CAROUSEL_INDICATOR_STYLE_DOTS);
   g_assert_cmpint (notified, ==, 3);
 }
 
 static void
-test_hdy_paginator_indicator_spacing (void)
+test_hdy_carousel_indicator_spacing (void)
 {
-  HdyPaginator *paginator = HDY_PAGINATOR (hdy_paginator_new ());
+  HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
   uint spacing;
 
   notified = 0;
-  g_signal_connect (paginator, "notify::indicator-spacing", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect (carousel, "notify::indicator-spacing", G_CALLBACK (notify_cb), NULL);
 
   /* Accessors */
-  g_assert_cmpuint (hdy_paginator_get_indicator_spacing (paginator), ==, 0);
-  hdy_paginator_set_indicator_spacing (paginator, 12);
-  g_assert_cmpuint (hdy_paginator_get_indicator_spacing (paginator), ==, 12);
+  g_assert_cmpuint (hdy_carousel_get_indicator_spacing (carousel), ==, 0);
+  hdy_carousel_set_indicator_spacing (carousel, 12);
+  g_assert_cmpuint (hdy_carousel_get_indicator_spacing (carousel), ==, 12);
   g_assert_cmpint (notified, ==, 1);
 
   /* Property */
-  g_object_set (paginator, "indicator-spacing", 6, NULL);
-  g_object_get (paginator, "indicator-spacing", &spacing, NULL);
+  g_object_set (carousel, "indicator-spacing", 6, NULL);
+  g_object_get (carousel, "indicator-spacing", &spacing, NULL);
   g_assert_cmpuint (spacing, ==, 6);
   g_assert_cmpint (notified, ==, 2);
 
   /* Setting the same value should not notify */
-  hdy_paginator_set_indicator_spacing (paginator, 6);
+  hdy_carousel_set_indicator_spacing (carousel, 6);
   g_assert_cmpint (notified, ==, 2);
 }
 
 static void
-test_hdy_paginator_center_content (void)
+test_hdy_carousel_center_content (void)
 {
-  HdyPaginator *paginator = HDY_PAGINATOR (hdy_paginator_new ());
+  HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
   gboolean center_content;
 
   notified = 0;
-  g_signal_connect (paginator, "notify::center-content", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect (carousel, "notify::center-content", G_CALLBACK (notify_cb), NULL);
 
   /* Accessors */
-  g_assert_false (hdy_paginator_get_center_content (paginator));
-  hdy_paginator_set_center_content (paginator, TRUE);
-  g_assert_true (hdy_paginator_get_center_content (paginator));
+  g_assert_false (hdy_carousel_get_center_content (carousel));
+  hdy_carousel_set_center_content (carousel, TRUE);
+  g_assert_true (hdy_carousel_get_center_content (carousel));
   g_assert_cmpint (notified, ==, 1);
 
   /* Property */
-  g_object_set (paginator, "center-content", FALSE, NULL);
-  g_object_get (paginator, "center-content", &center_content, NULL);
+  g_object_set (carousel, "center-content", FALSE, NULL);
+  g_object_get (carousel, "center-content", &center_content, NULL);
   g_assert_false (center_content);
   g_assert_cmpint (notified, ==, 2);
 
   /* Setting the same value should not notify */
-  hdy_paginator_set_center_content (paginator, FALSE);
+  hdy_carousel_set_center_content (carousel, FALSE);
   g_assert_cmpint (notified, ==, 2);
 }
 
 static void
-test_hdy_paginator_spacing (void)
+test_hdy_carousel_spacing (void)
 {
-  HdyPaginator *paginator = HDY_PAGINATOR (hdy_paginator_new ());
+  HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
   uint spacing;
 
   notified = 0;
-  g_signal_connect (paginator, "notify::spacing", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect (carousel, "notify::spacing", G_CALLBACK (notify_cb), NULL);
 
   /* Accessors */
-  g_assert_cmpuint (hdy_paginator_get_spacing (paginator), ==, 0);
-  hdy_paginator_set_spacing (paginator, 12);
-  g_assert_cmpuint (hdy_paginator_get_spacing (paginator), ==, 12);
+  g_assert_cmpuint (hdy_carousel_get_spacing (carousel), ==, 0);
+  hdy_carousel_set_spacing (carousel, 12);
+  g_assert_cmpuint (hdy_carousel_get_spacing (carousel), ==, 12);
   g_assert_cmpint (notified, ==, 1);
 
   /* Property */
-  g_object_set (paginator, "spacing", 6, NULL);
-  g_object_get (paginator, "spacing", &spacing, NULL);
+  g_object_set (carousel, "spacing", 6, NULL);
+  g_object_get (carousel, "spacing", &spacing, NULL);
   g_assert_cmpuint (spacing, ==, 6);
   g_assert_cmpint (notified, ==, 2);
 
   /* Setting the same value should not notify */
-  hdy_paginator_set_spacing (paginator, 6);
+  hdy_carousel_set_spacing (carousel, 6);
   g_assert_cmpint (notified, ==, 2);
 }
 
 static void
-test_hdy_paginator_animation_duration (void)
+test_hdy_carousel_animation_duration (void)
 {
-  HdyPaginator *paginator = HDY_PAGINATOR (hdy_paginator_new ());
+  HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
   uint duration;
 
   notified = 0;
-  g_signal_connect (paginator, "notify::animation-duration", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect (carousel, "notify::animation-duration", G_CALLBACK (notify_cb), NULL);
 
   /* Accessors */
-  g_assert_cmpuint (hdy_paginator_get_animation_duration (paginator), ==, 250);
-  hdy_paginator_set_animation_duration (paginator, 200);
-  g_assert_cmpuint (hdy_paginator_get_animation_duration (paginator), ==, 200);
+  g_assert_cmpuint (hdy_carousel_get_animation_duration (carousel), ==, 250);
+  hdy_carousel_set_animation_duration (carousel, 200);
+  g_assert_cmpuint (hdy_carousel_get_animation_duration (carousel), ==, 200);
   g_assert_cmpint (notified, ==, 1);
 
   /* Property */
-  g_object_set (paginator, "animation-duration", 500, NULL);
-  g_object_get (paginator, "animation-duration", &duration, NULL);
+  g_object_set (carousel, "animation-duration", 500, NULL);
+  g_object_get (carousel, "animation-duration", &duration, NULL);
   g_assert_cmpuint (duration, ==, 500);
   g_assert_cmpint (notified, ==, 2);
 
   /* Setting the same value should not notify */
-  hdy_paginator_set_animation_duration (paginator, 500);
+  hdy_carousel_set_animation_duration (carousel, 500);
   g_assert_cmpint (notified, ==, 2);
 }
 
 static void
-test_hdy_paginator_allow_mouse_drag (void)
+test_hdy_carousel_allow_mouse_drag (void)
 {
-  HdyPaginator *paginator = HDY_PAGINATOR (hdy_paginator_new ());
+  HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
   gboolean allow_mouse_drag;
 
   notified = 0;
-  g_signal_connect (paginator, "notify::allow-mouse-drag", G_CALLBACK (notify_cb), NULL);
+  g_signal_connect (carousel, "notify::allow-mouse-drag", G_CALLBACK (notify_cb), NULL);
 
   /* Accessors */
-  g_assert_false (hdy_paginator_get_allow_mouse_drag (paginator));
-  hdy_paginator_set_allow_mouse_drag (paginator, TRUE);
-  g_assert_true (hdy_paginator_get_allow_mouse_drag (paginator));
+  g_assert_false (hdy_carousel_get_allow_mouse_drag (carousel));
+  hdy_carousel_set_allow_mouse_drag (carousel, TRUE);
+  g_assert_true (hdy_carousel_get_allow_mouse_drag (carousel));
   g_assert_cmpint (notified, ==, 1);
 
   /* Property */
-  g_object_set (paginator, "allow-mouse-drag", FALSE, NULL);
-  g_object_get (paginator, "allow-mouse-drag", &allow_mouse_drag, NULL);
+  g_object_set (carousel, "allow-mouse-drag", FALSE, NULL);
+  g_object_get (carousel, "allow-mouse-drag", &allow_mouse_drag, NULL);
   g_assert_false (allow_mouse_drag);
   g_assert_cmpint (notified, ==, 2);
 
   /* Setting the same value should not notify */
-  hdy_paginator_set_allow_mouse_drag (paginator, FALSE);
+  hdy_carousel_set_allow_mouse_drag (carousel, FALSE);
   g_assert_cmpint (notified, ==, 2);
 }
 
@@ -290,14 +290,14 @@ main (gint argc,
 {
   gtk_test_init (&argc, &argv, NULL);
 
-  g_test_add_func("/Handy/Paginator/add_remove", test_hdy_paginator_add_remove);
-  g_test_add_func("/Handy/Paginator/scroll_to", test_hdy_paginator_scroll_to);
-  g_test_add_func("/Handy/Paginator/interactive", test_hdy_paginator_interactive);
-  g_test_add_func("/Handy/Paginator/indicator_style", test_hdy_paginator_indicator_style);
-  g_test_add_func("/Handy/Paginator/indicator_spacing", test_hdy_paginator_indicator_spacing);
-  g_test_add_func("/Handy/Paginator/center_content", test_hdy_paginator_center_content);
-  g_test_add_func("/Handy/Paginator/spacing", test_hdy_paginator_spacing);
-  g_test_add_func("/Handy/Paginator/animation_duration", test_hdy_paginator_animation_duration);
-  g_test_add_func("/Handy/Paginator/allow_mouse_drag", test_hdy_paginator_allow_mouse_drag);
+  g_test_add_func("/Handy/Carousel/add_remove", test_hdy_carousel_add_remove);
+  g_test_add_func("/Handy/Carousel/scroll_to", test_hdy_carousel_scroll_to);
+  g_test_add_func("/Handy/Carousel/interactive", test_hdy_carousel_interactive);
+  g_test_add_func("/Handy/Carousel/indicator_style", test_hdy_carousel_indicator_style);
+  g_test_add_func("/Handy/Carousel/indicator_spacing", test_hdy_carousel_indicator_spacing);
+  g_test_add_func("/Handy/Carousel/center_content", test_hdy_carousel_center_content);
+  g_test_add_func("/Handy/Carousel/spacing", test_hdy_carousel_spacing);
+  g_test_add_func("/Handy/Carousel/animation_duration", test_hdy_carousel_animation_duration);
+  g_test_add_func("/Handy/Carousel/allow_mouse_drag", test_hdy_carousel_allow_mouse_drag);
   return g_test_run();
 }

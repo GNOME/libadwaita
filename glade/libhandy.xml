@@ -28,15 +28,15 @@
       </properties>
     </glade-widget-class>
     <glade-widget-class name="HdyLeaflet" generic-name="leaflet" title="Leaflet"/>
-    <glade-widget-class name="HdyPaginator" generic-name="paginator" title="Paginator" since="0.0.11">
-      <post-create-function>glade_hdy_paginator_post_create</post-create-function>
-      <add-child-function>glade_hdy_paginator_add_child</add-child-function>
-      <remove-child-function>glade_hdy_paginator_remove_child</remove-child-function>
-      <replace-child-function>glade_hdy_paginator_replace_child</replace-child-function>
-      <child-action-activate-function>glade_hdy_paginator_child_action_activate</child-action-activate-function>
-      <get-property-function>glade_hdy_paginator_get_property</get-property-function>
-      <set-property-function>glade_hdy_paginator_set_property</set-property-function>
-      <verify-function>glade_hdy_paginator_verify_property</verify-function>
+    <glade-widget-class name="HdyCarousel" generic-name="carousel" title="Carousel" since="1.0">
+      <post-create-function>glade_hdy_carousel_post_create</post-create-function>
+      <add-child-function>glade_hdy_carousel_add_child</add-child-function>
+      <remove-child-function>glade_hdy_carousel_remove_child</remove-child-function>
+      <replace-child-function>glade_hdy_carousel_replace_child</replace-child-function>
+      <child-action-activate-function>glade_hdy_carousel_child_action_activate</child-action-activate-function>
+      <get-property-function>glade_hdy_carousel_get_property</get-property-function>
+      <set-property-function>glade_hdy_carousel_set_property</set-property-function>
+      <verify-function>glade_hdy_carousel_verify_property</verify-function>
       <packing-actions>
         <action id="insert_page_before" name="Insert Page Before" stock="list-add"/>
         <action id="insert_page_after" name="Insert Page After" stock="list-add"/>
@@ -59,12 +59,12 @@
         </property>
         <property id="indicator-style">
           <displayable-values>
-            <!-- HdyPaginatorIndicatorStyle enumeration value -->
-            <value id="HDY_PAGINATOR_INDICATOR_STYLE_NONE" name="None"/>
-            <!-- HdyPaginatorIndicatorStyle enumeration value -->
-            <value id="HDY_PAGINATOR_INDICATOR_STYLE_DOTS" name="Dots"/>
-            <!-- HdyPaginatorIndicatorStyle enumeration value -->
-            <value id="HDY_PAGINATOR_INDICATOR_STYLE_LINES" name="Lines"/>
+            <!-- HdyCarouselIndicatorStyle enumeration value -->
+            <value id="HDY_CAROUSEL_INDICATOR_STYLE_NONE" name="None"/>
+            <!-- HdyCarouselIndicatorStyle enumeration value -->
+            <value id="HDY_CAROUSEL_INDICATOR_STYLE_DOTS" name="Dots"/>
+            <!-- HdyCarouselIndicatorStyle enumeration value -->
+            <value id="HDY_CAROUSEL_INDICATOR_STYLE_LINES" name="Lines"/>
           </displayable-values>
         </property>
         <property id="above-child" disabled="True" />
@@ -110,7 +110,7 @@
     <glade-widget-class-ref name="HdyHeaderBar"/>
     <glade-widget-class-ref name="HdyHeaderGroup"/>
     <glade-widget-class-ref name="HdyLeaflet"/>
-    <glade-widget-class-ref name="HdyPaginator"/>
+    <glade-widget-class-ref name="HdyCarousel"/>
     <glade-widget-class-ref name="HdyPreferencesGroup"/>
     <glade-widget-class-ref name="HdyPreferencesPage"/>
     <glade-widget-class-ref name="HdyPreferencesRow"/>

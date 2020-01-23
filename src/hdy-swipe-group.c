@@ -19,10 +19,10 @@
  * SECTION:hdy-swipe-group
  * @short_description: An object for syncing swipeable widgets.
  * @title: HdySwipeGroup
- * @See_also: #HdyLeaflet, #HdyPaginator, #HdySwipeable
+ * @See_also: #HdyCarousel, #HdyLeaflet, #HdySwipeable
  *
  * The #HdySwipeGroup object can be used to sync multiple swipeable widgets
- * that implement the #HdySwipeable interface, such as #HdyPaginator, so that
+ * that implement the #HdySwipeable interface, such as #HdyCarousel, so that
  * animating one of them also animates all the other widgets in the group.
  *
  * This can be useful for syncing widgets between a window's titlebar and
@@ -38,8 +38,8 @@
  * |[
  * <object class="HdySwipeGroup">
  *   <swipeables>
- *     <swipeable name="paginator1"/>
- *     <swipeable name="paginator2"/>
+ *     <swipeable name="carousel1"/>
+ *     <swipeable name="carousel2"/>
  *   </swipeables>
  * </object>
  * ]|

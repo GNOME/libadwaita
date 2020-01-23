@@ -19,15 +19,15 @@
 #define CENTER_CONTENT_INSENSITIVE_MSG _("This property does not apply unless Show Indicators is set.")
 
 static gint
-hdy_paginator_get_page (HdyPaginator *paginator)
+hdy_carousel_get_page (HdyCarousel *carousel)
 {
-  return round (hdy_paginator_get_position (paginator));
+  return round (hdy_carousel_get_position (carousel));
 }
 
 static gboolean
-hdy_paginator_is_transient (HdyPaginator *paginator)
+hdy_carousel_is_transient (HdyCarousel *carousel)
 {
-  return fmod (hdy_paginator_get_position (paginator), 1.0) > 0.00001;
+  return fmod (hdy_carousel_get_position (carousel), 1.0) > 0.00001;
 }
 
 static gint
@@ -103,7 +103,7 @@ selection_changed_cb (GladeProject *project,
   for (l = children; l; l = l->next) {
     page = l->data;
     if (sel_widget == page || gtk_widget_is_ancestor (sel_widget, page)) {
-      hdy_paginator_scroll_to (HDY_PAGINATOR (container), page);
+      hdy_carousel_scroll_to (HDY_CAROUSEL (container), page);
       index = get_page_index (container, page);
       glade_widget_property_set (gwidget, "page", index);
       break;
@@ -120,7 +120,7 @@ project_changed_cb (GladeWidget *gwidget,
   GladeProject *project, *old_project;
 
   project = glade_widget_get_project (gwidget);
-  old_project = g_object_get_data (G_OBJECT (gwidget), "paginator-project-ptr");
+  old_project = g_object_get_data (G_OBJECT (gwidget), "carousel-project-ptr");
 
   if (old_project)
     g_signal_handlers_disconnect_by_func (G_OBJECT (old_project),
@@ -131,29 +131,29 @@ project_changed_cb (GladeWidget *gwidget,
     g_signal_connect (G_OBJECT (project), "selection-changed",
                       G_CALLBACK (selection_changed_cb), gwidget);
 
-  g_object_set_data (G_OBJECT (gwidget), "paginator-project-ptr", project);
+  g_object_set_data (G_OBJECT (gwidget), "carousel-project-ptr", project);
 }
 
 static void
-position_changed_cb (HdyPaginator *paginator,
-                     GParamSpec   *pspec,
-                     GladeWidget  *gwidget)
+position_changed_cb (HdyCarousel *carousel,
+                     GParamSpec  *pspec,
+                     GladeWidget *gwidget)
 {
   gint old_page, new_page;
 
   glade_widget_property_get (gwidget, "page", &old_page);
-  new_page = hdy_paginator_get_page (paginator);
+  new_page = hdy_carousel_get_page (carousel);
 
-  if (old_page == new_page || hdy_paginator_is_transient (paginator))
+  if (old_page == new_page || hdy_carousel_is_transient (carousel))
     return;
 
   glade_widget_property_set (gwidget, "page", new_page);
 }
 
 void
-glade_hdy_paginator_post_create (GladeWidgetAdaptor *adaptor,
-                                 GObject            *container,
-                                 GladeCreateReason   reason)
+glade_hdy_carousel_post_create (GladeWidgetAdaptor *adaptor,
+                                GObject            *container,
+                                GladeCreateReason   reason)
 {
   GladeWidget *gwidget = glade_widget_get_from_gobject (container);
 
@@ -175,10 +175,10 @@ glade_hdy_paginator_post_create (GladeWidgetAdaptor *adaptor,
 }
 
 void
-glade_hdy_paginator_child_action_activate (GladeWidgetAdaptor *adaptor,
-                                           GObject            *container,
-                                           GObject            *object,
-                                           const gchar        *action_path)
+glade_hdy_carousel_child_action_activate (GladeWidgetAdaptor *adaptor,
+                                          GObject            *container,
+                                          GObject            *object,
+                                          const gchar        *action_path)
 {
   if (!strcmp (action_path, "insert_page_after") ||
       !strcmp (action_path, "insert_page_before")) {
@@ -199,8 +199,8 @@ glade_hdy_paginator_child_action_activate (GladeWidgetAdaptor *adaptor,
 
     placeholder = glade_placeholder_new ();
 
-    hdy_paginator_insert (HDY_PAGINATOR (container), placeholder, index);
-    hdy_paginator_scroll_to (HDY_PAGINATOR (container), placeholder);
+    hdy_carousel_insert (HDY_CAROUSEL (container), placeholder, index);
+    hdy_carousel_scroll_to (HDY_CAROUSEL (container), placeholder);
 
     property = glade_widget_get_property (parent, "pages");
     glade_command_set_property (property, pages + 1);
@@ -246,7 +246,7 @@ set_n_pages (GObject      *container,
   gint old_size, new_size, i, page;
 
   new_size = g_value_get_int (value);
-  old_size = hdy_paginator_get_n_pages (HDY_PAGINATOR (container));
+  old_size = hdy_carousel_get_n_pages (HDY_CAROUSEL (container));
 
   if (old_size == new_size)
     return;
@@ -280,7 +280,7 @@ set_page (GObject      *object,
   child = get_nth_page (GTK_CONTAINER (object), new_page);
 
   if (child)
-    hdy_paginator_scroll_to (HDY_PAGINATOR (object), child);
+    hdy_carousel_scroll_to (HDY_CAROUSEL (object), child);
 }
 
 static void
@@ -288,24 +288,24 @@ set_indicator_style (GObject      *container,
                      const GValue *value)
 {
   GladeWidget *gwidget;
-  HdyPaginatorIndicatorStyle style;
+  HdyCarouselIndicatorStyle style;
 
   gwidget = glade_widget_get_from_gobject (container);
   style = g_value_get_enum (value);
 
   glade_widget_property_set_sensitive (gwidget, "indicator-spacing",
-                                       style != HDY_PAGINATOR_INDICATOR_STYLE_NONE,
+                                       style != HDY_CAROUSEL_INDICATOR_STYLE_NONE,
                                        CENTER_CONTENT_INSENSITIVE_MSG);
   glade_widget_property_set_sensitive (gwidget, "center-content",
-                                       style != HDY_PAGINATOR_INDICATOR_STYLE_NONE,
+                                       style != HDY_CAROUSEL_INDICATOR_STYLE_NONE,
                                        CENTER_CONTENT_INSENSITIVE_MSG);
 }
 
 void
-glade_hdy_paginator_set_property (GladeWidgetAdaptor *adaptor,
-                                  GObject            *object,
-                                  const gchar        *id,
-                                  const GValue       *value)
+glade_hdy_carousel_set_property (GladeWidgetAdaptor *adaptor,
+                                 GObject            *object,
+                                 const gchar        *id,
+                                 const GValue       *value)
 {
   if (!strcmp (id, "pages"))
     set_n_pages (object, value);
@@ -320,25 +320,25 @@ glade_hdy_paginator_set_property (GladeWidgetAdaptor *adaptor,
 }
 
 void
-glade_hdy_paginator_get_property (GladeWidgetAdaptor *adaptor,
-                                  GObject            *object,
-                                  const gchar        *id,
-                                  GValue             *value)
+glade_hdy_carousel_get_property (GladeWidgetAdaptor *adaptor,
+                                 GObject            *object,
+                                 const gchar        *id,
+                                 GValue             *value)
 {
   if (!strcmp (id, "pages")) {
     g_value_reset (value);
-    g_value_set_int (value, hdy_paginator_get_n_pages (HDY_PAGINATOR (object)));
+    g_value_set_int (value, hdy_carousel_get_n_pages (HDY_CAROUSEL (object)));
   } else if (!strcmp (id, "page")) {
     g_value_reset (value);
-    g_value_set_int (value, hdy_paginator_get_page (HDY_PAGINATOR (object)));
+    g_value_set_int (value, hdy_carousel_get_page (HDY_CAROUSEL (object)));
   } else {
     GWA_GET_CLASS (GTK_TYPE_CONTAINER)->get_property (adaptor, object, id, value);
   }
 }
 
 static gboolean
-glade_hdy_paginator_verify_n_pages (GObject      *object,
-                                    const GValue *value)
+glade_hdy_carousel_verify_n_pages (GObject      *object,
+                                   const GValue *value)
 {
   gint new_size, old_size;
 
@@ -349,27 +349,27 @@ glade_hdy_paginator_verify_n_pages (GObject      *object,
 }
 
 static gboolean
-glade_hdy_paginator_verify_page (GObject      *object,
-                                 const GValue *value)
+glade_hdy_carousel_verify_page (GObject      *object,
+                                const GValue *value)
 {
   gint page, pages;
 
   page = g_value_get_int (value);
-  pages = hdy_paginator_get_n_pages (HDY_PAGINATOR (object));
+  pages = hdy_carousel_get_n_pages (HDY_CAROUSEL (object));
 
   return 0 <= page && page < pages;
 }
 
 gboolean
-glade_hdy_paginator_verify_property (GladeWidgetAdaptor *adaptor,
-                                     GObject            *object,
-                                     const gchar        *id,
-                                     const GValue       *value)
+glade_hdy_carousel_verify_property (GladeWidgetAdaptor *adaptor,
+                                    GObject            *object,
+                                    const gchar        *id,
+                                    const GValue       *value)
 {
   if (!strcmp (id, "pages"))
-    return glade_hdy_paginator_verify_n_pages (object, value);
+    return glade_hdy_carousel_verify_n_pages (object, value);
   else if (!strcmp (id, "page"))
-    return glade_hdy_paginator_verify_page (object, value);
+    return glade_hdy_carousel_verify_page (object, value);
   else if (GWA_GET_CLASS (GTK_TYPE_CONTAINER)->verify_property)
     return GWA_GET_CLASS (GTK_TYPE_CONTAINER)->verify_property (adaptor, object,
                                                                 id, value);
@@ -378,9 +378,9 @@ glade_hdy_paginator_verify_property (GladeWidgetAdaptor *adaptor,
 }
 
 void
-glade_hdy_paginator_add_child (GladeWidgetAdaptor *adaptor,
-                               GObject            *container,
-                               GObject            *child)
+glade_hdy_carousel_add_child (GladeWidgetAdaptor *adaptor,
+                              GObject            *container,
+                              GObject            *child)
 {
   GladeWidget *gbox, *gchild;
   gint pages, page;
@@ -416,9 +416,9 @@ glade_hdy_paginator_add_child (GladeWidgetAdaptor *adaptor,
 }
 
 void
-glade_hdy_paginator_remove_child (GladeWidgetAdaptor *adaptor,
-                                  GObject            *container,
-                                  GObject            *child)
+glade_hdy_carousel_remove_child (GladeWidgetAdaptor *adaptor,
+                                 GObject            *container,
+                                 GObject            *child)
 {
   GladeWidget *gbox;
   gint pages, page;
@@ -433,20 +433,20 @@ glade_hdy_paginator_remove_child (GladeWidgetAdaptor *adaptor,
 }
 
 void
-glade_hdy_paginator_replace_child (GladeWidgetAdaptor *adaptor,
-                                   GObject            *container,
-                                   GObject            *current,
-                                   GObject            *new_widget)
+glade_hdy_carousel_replace_child (GladeWidgetAdaptor *adaptor,
+                                  GObject            *container,
+                                  GObject            *current,
+                                  GObject            *new_widget)
 {
   GladeWidget *gbox, *gchild;
   gint pages, page, index;
 
   index = get_page_index (GTK_CONTAINER (container), GTK_WIDGET (current));
   gtk_container_remove (GTK_CONTAINER (container), GTK_WIDGET (current));
-  hdy_paginator_insert (HDY_PAGINATOR (container), GTK_WIDGET (new_widget),
-                        index);
-  hdy_paginator_scroll_to_full (HDY_PAGINATOR (container),
-                                GTK_WIDGET (new_widget), 0);
+  hdy_carousel_insert (HDY_CAROUSEL (container), GTK_WIDGET (new_widget),
+                       index);
+  hdy_carousel_scroll_to_full (HDY_CAROUSEL (container),
+                               GTK_WIDGET (new_widget), 0);
 
   gchild = glade_widget_get_from_gobject (new_widget);
   if (gchild)

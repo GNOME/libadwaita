@@ -30,6 +30,30 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_carousel_box_set_position@LIBHANDY_1_0 0.9.90
  hdy_carousel_box_set_spacing@LIBHANDY_1_0 0.9.90
  hdy_carousel_box_stop_animation@LIBHANDY_1_0 0.9.90
+ hdy_carousel_get_allow_mouse_drag@LIBHANDY_1_0 0.9.90
+ hdy_carousel_get_animation_duration@LIBHANDY_1_0 0.9.90
+ hdy_carousel_get_center_content@LIBHANDY_1_0 0.9.90
+ hdy_carousel_get_indicator_spacing@LIBHANDY_1_0 0.9.90
+ hdy_carousel_get_indicator_style@LIBHANDY_1_0 0.9.90
+ hdy_carousel_get_interactive@LIBHANDY_1_0 0.9.90
+ hdy_carousel_get_n_pages@LIBHANDY_1_0 0.9.90
+ hdy_carousel_get_position@LIBHANDY_1_0 0.9.90
+ hdy_carousel_get_spacing@LIBHANDY_1_0 0.9.90
+ hdy_carousel_get_type@LIBHANDY_1_0 0.9.90
+ hdy_carousel_indicator_style_get_type@LIBHANDY_1_0 0.9.90
+ hdy_carousel_insert@LIBHANDY_1_0 0.9.90
+ hdy_carousel_new@LIBHANDY_1_0 0.9.90
+ hdy_carousel_prepend@LIBHANDY_1_0 0.9.90
+ hdy_carousel_reorder@LIBHANDY_1_0 0.9.90
+ hdy_carousel_scroll_to@LIBHANDY_1_0 0.9.90
+ hdy_carousel_scroll_to_full@LIBHANDY_1_0 0.9.90
+ hdy_carousel_set_allow_mouse_drag@LIBHANDY_1_0 0.9.90
+ hdy_carousel_set_animation_duration@LIBHANDY_1_0 0.9.90
+ hdy_carousel_set_center_content@LIBHANDY_1_0 0.9.90
+ hdy_carousel_set_indicator_spacing@LIBHANDY_1_0 0.9.90
+ hdy_carousel_set_indicator_style@LIBHANDY_1_0 0.9.90
+ hdy_carousel_set_interactive@LIBHANDY_1_0 0.9.90
+ hdy_carousel_set_spacing@LIBHANDY_1_0 0.9.90
  hdy_centering_policy_get_type@LIBHANDY_1_0 0.0.10
  hdy_column_get_linear_growth_width@LIBHANDY_1_0 0.0.3
  hdy_column_get_maximum_width@LIBHANDY_1_0 0.0.1
@@ -138,30 +162,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_leaflet_transition_type_get_type@LIBHANDY_1_0 0.0.12
  hdy_lerp@LIBHANDY_1_0 0.0.11
  hdy_list_box_separator_header@LIBHANDY_1_0 0.0.6
- hdy_paginator_get_allow_mouse_drag@LIBHANDY_1_0 0.0.12
- hdy_paginator_get_animation_duration@LIBHANDY_1_0 0.0.11
- hdy_paginator_get_center_content@LIBHANDY_1_0 0.0.11
- hdy_paginator_get_indicator_spacing@LIBHANDY_1_0 0.0.11
- hdy_paginator_get_indicator_style@LIBHANDY_1_0 0.0.11
- hdy_paginator_get_interactive@LIBHANDY_1_0 0.0.11
- hdy_paginator_get_n_pages@LIBHANDY_1_0 0.0.11
- hdy_paginator_get_position@LIBHANDY_1_0 0.0.11
- hdy_paginator_get_spacing@LIBHANDY_1_0 0.0.11
- hdy_paginator_get_type@LIBHANDY_1_0 0.0.11
- hdy_paginator_indicator_style_get_type@LIBHANDY_1_0 0.0.11
- hdy_paginator_insert@LIBHANDY_1_0 0.0.11
- hdy_paginator_new@LIBHANDY_1_0 0.0.11
- hdy_paginator_prepend@LIBHANDY_1_0 0.0.11
- hdy_paginator_reorder@LIBHANDY_1_0 0.0.11
- hdy_paginator_scroll_to@LIBHANDY_1_0 0.0.11
- hdy_paginator_scroll_to_full@LIBHANDY_1_0 0.0.11
- hdy_paginator_set_allow_mouse_drag@LIBHANDY_1_0 0.0.12
- hdy_paginator_set_animation_duration@LIBHANDY_1_0 0.0.11
- hdy_paginator_set_center_content@LIBHANDY_1_0 0.0.11
- hdy_paginator_set_indicator_spacing@LIBHANDY_1_0 0.0.11
- hdy_paginator_set_indicator_style@LIBHANDY_1_0 0.0.11
- hdy_paginator_set_interactive@LIBHANDY_1_0 0.0.11
- hdy_paginator_set_spacing@LIBHANDY_1_0 0.0.11
  hdy_preferences_group_add_preferences_to_model@LIBHANDY_1_0 0.0.10
  hdy_preferences_group_get_description@LIBHANDY_1_0 0.0.10
  hdy_preferences_group_get_title@LIBHANDY_1_0 0.0.10
