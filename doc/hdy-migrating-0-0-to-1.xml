@@ -120,6 +120,16 @@
       </para>
     </refsect3>
 
+    <refsect3>
+      <title>Adapt to CSS node name changes</title>
+      <para>
+        Widgets with a customn CSS node name got their name changed to be the
+        class' name in lowercase, with no separation between words, and with no
+        namespace prefix. E.g. the CSS node name of HdyViewSwitcher is
+        viewswitcher.
+      </para>
+    </refsect3>
+
   </refsect2>
 
 </refentry>
