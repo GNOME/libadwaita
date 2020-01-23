@@ -141,7 +141,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_leaflet_get_can_swipe_forward@LIBHANDY_1_0 0.0.12
  hdy_leaflet_get_child_transition_duration@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_get_child_transition_running@LIBHANDY_1_0 0.0~git20180429
- hdy_leaflet_get_fold@LIBHANDY_1_0 0.0~git20180429
+ hdy_leaflet_get_folded@LIBHANDY_1_0 0.9.90
  hdy_leaflet_get_homogeneous@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_get_interpolate_size@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_get_mode_transition_duration@LIBHANDY_1_0 0.0~git20180429

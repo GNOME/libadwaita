@@ -46,7 +46,6 @@
 
 enum {
   PROP_0,
-  PROP_FOLD,
   PROP_FOLDED,
   PROP_HHOMOGENEOUS_FOLDED,
   PROP_VHOMOGENEOUS_FOLDED,
@@ -74,6 +73,8 @@ enum {
   LAST_CHILD_PROP,
 };
 
+#define HDY_FOLD_UNFOLDED FALSE
+#define HDY_FOLD_FOLDED TRUE
 #define HDY_FOLD_MAX 2
 #define GTK_ORIENTATION_MAX 2
 
@@ -106,7 +107,7 @@ typedef struct
   GdkWindow* bin_window;
   GdkWindow* view_window;
 
-  HdyFold fold;
+  gboolean folded;
 
   gboolean homogeneous[HDY_FOLD_MAX][GTK_ORIENTATION_MAX];
 
@@ -384,7 +385,7 @@ hdy_leaflet_child_progress_updated (HdyLeaflet *self)
 
     if (priv->child_transition.is_cancelled) {
       if (priv->last_visible_child != NULL) {
-        if (hdy_leaflet_get_fold (self) == HDY_FOLD_FOLDED) {
+        if (priv->folded) {
           gtk_widget_set_child_visible (priv->last_visible_child->widget, TRUE);
           gtk_widget_set_child_visible (priv->visible_child->widget, FALSE);
         }
@@ -398,7 +399,7 @@ hdy_leaflet_child_progress_updated (HdyLeaflet *self)
       g_object_thaw_notify (G_OBJECT (self));
     } else {
       if (priv->last_visible_child != NULL) {
-        if (hdy_leaflet_get_fold (self) == HDY_FOLD_FOLDED)
+        if (priv->folded)
           gtk_widget_set_child_visible (priv->last_visible_child->widget, FALSE);
         priv->last_visible_child = NULL;
       }
@@ -647,7 +648,7 @@ set_visible_child_info (HdyLeaflet               *self,
     transition_direction = get_pan_direction (self, new_first);
   }
 
-  if (priv->fold == HDY_FOLD_FOLDED) {
+  if (priv->folded) {
     if (priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] &&
         priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL])
       gtk_widget_queue_allocate (widget);
@@ -818,15 +819,15 @@ hdy_leaflet_start_mode_transition (HdyLeaflet *self,
 /* } */
 
 /**
- * hdy_leaflet_get_fold:
+ * hdy_leaflet_get_folded:
  * @self: a #HdyLeaflet
  *
- * Gets the fold of @self.
+ * Gets whether @self is folded.
  *
- * Returns: the fold of @self.
+ * Returns: whether @self is folded.
  */
-HdyFold
-hdy_leaflet_get_fold (HdyLeaflet *self)
+gboolean
+hdy_leaflet_get_folded (HdyLeaflet *self)
 {
   HdyLeafletPrivate *priv;
 
@@ -834,27 +835,25 @@ hdy_leaflet_get_fold (HdyLeaflet *self)
 
   priv = hdy_leaflet_get_instance_private (self);
 
-  return priv->fold;
+  return priv->folded;
 }
 
 static void
-hdy_leaflet_set_fold (HdyLeaflet *self,
-                      HdyFold     fold)
+hdy_leaflet_set_folded (HdyLeaflet *self,
+                        gboolean    folded)
 {
   HdyLeafletPrivate *priv;
   GtkStyleContext *context;
 
-  g_return_if_fail (HDY_IS_LEAFLET (self));
-
   priv = hdy_leaflet_get_instance_private (self);
 
-  if (priv->fold == fold)
+  if (priv->folded == folded)
     return;
 
-  priv->fold = fold;
+  priv->folded = folded;
 
   context = gtk_widget_get_style_context (GTK_WIDGET (self));
-  if (fold) {
+  if (folded) {
     hdy_leaflet_start_mode_transition (self, 0.0);
     gtk_style_context_add_class (context, "folded");
     gtk_style_context_remove_class (context, "unfolded");
@@ -864,18 +863,14 @@ hdy_leaflet_set_fold (HdyLeaflet *self,
     gtk_style_context_add_class (context, "unfolded");
   }
 
-  g_object_freeze_notify (G_OBJECT (self));
-  g_object_notify_by_pspec (G_OBJECT (self),
-                            props[PROP_FOLD]);
   g_object_notify_by_pspec (G_OBJECT (self),
                             props[PROP_FOLDED]);
-  g_object_thaw_notify (G_OBJECT (self));
 }
 
 /**
  * hdy_leaflet_set_homogeneous:
  * @self: a #HdyLeaflet
- * @fold: the fold
+ * @folded: the fold
  * @orientation: the orientation
  * @homogeneous: %TRUE to make @self homogeneous
  *
@@ -887,7 +882,7 @@ hdy_leaflet_set_fold (HdyLeaflet *self,
  */
 void
 hdy_leaflet_set_homogeneous (HdyLeaflet     *self,
-                             HdyFold         fold,
+                             gboolean        folded,
                              GtkOrientation  orientation,
                              gboolean        homogeneous)
 {
@@ -897,23 +892,24 @@ hdy_leaflet_set_homogeneous (HdyLeaflet     *self,
 
   priv = hdy_leaflet_get_instance_private (self);
 
+  folded = !!folded;
   homogeneous = !!homogeneous;
 
-  if (priv->homogeneous[fold][orientation] == homogeneous)
+  if (priv->homogeneous[folded][orientation] == homogeneous)
     return;
 
-  priv->homogeneous[fold][orientation] = homogeneous;
+  priv->homogeneous[folded][orientation] = homogeneous;
 
   if (gtk_widget_get_visible (GTK_WIDGET (self)))
     gtk_widget_queue_resize (GTK_WIDGET (self));
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[HOMOGENEOUS_PROP[fold][orientation]]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[HOMOGENEOUS_PROP[folded][orientation]]);
 }
 
 /**
  * hdy_leaflet_get_homogeneous:
  * @self: a #HdyLeaflet
- * @fold: the fold
+ * @folded: the fold
  * @orientation: the orientation
  *
  * Gets whether @self is homogeneous for the given fold and orientation.
@@ -923,7 +919,7 @@ hdy_leaflet_set_homogeneous (HdyLeaflet     *self,
  */
 gboolean
 hdy_leaflet_get_homogeneous (HdyLeaflet     *self,
-                             HdyFold         fold,
+                             gboolean        folded,
                              GtkOrientation  orientation)
 {
   HdyLeafletPrivate *priv;
@@ -932,7 +928,9 @@ hdy_leaflet_get_homogeneous (HdyLeaflet     *self,
 
   priv = hdy_leaflet_get_instance_private (self);
 
-  return priv->homogeneous[fold][orientation];
+  folded = !!folded;
+
+  return priv->homogeneous[folded][orientation];
 }
 
 /**
@@ -2067,7 +2065,7 @@ hdy_leaflet_size_allocate (GtkWidget     *widget,
     folded = allocation->height < nat_box_size;
   }
 
-  hdy_leaflet_set_fold (self, folded ? HDY_FOLD_FOLDED : HDY_FOLD_UNFOLDED);
+  hdy_leaflet_set_folded (self, folded);
 
   /* Allocate size to the children. */
   if (folded)
@@ -2489,7 +2487,7 @@ hdy_leaflet_draw (GtkWidget *widget,
   cairo_surface_t *subsurface;
   cairo_t *pattern_cr;
 
-  if (priv->fold == HDY_FOLD_UNFOLDED)
+  if (!priv->folded)
     return hdy_leaflet_draw_unfolded (widget, cr);
 
   directed_children = get_directed_children (self);
@@ -2507,7 +2505,7 @@ hdy_leaflet_draw (GtkWidget *widget,
 
   if (priv->visible_child) {
     if (gtk_progress_tracker_get_state (&priv->mode_transition.tracker) != GTK_PROGRESS_STATE_AFTER &&
-        priv->fold == HDY_FOLD_FOLDED) {
+        priv->folded) {
       gboolean is_horizontal = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget)) == GTK_ORIENTATION_HORIZONTAL;
 
       if (priv->mode_transition.start_surface == NULL &&
@@ -2773,10 +2771,10 @@ hdy_leaflet_add (GtkContainer *container,
     set_visible_child_info (self, child_info, priv->transition_type, priv->child_transition.duration, FALSE);
   }
 
-  if (priv->fold == HDY_FOLD_UNFOLDED ||
-      (priv->fold == HDY_FOLD_FOLDED && (priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] ||
-                                         priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL] ||
-                                         priv->visible_child == child_info)))
+  if (!priv->folded ||
+      (priv->folded && (priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] ||
+                        priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL] ||
+                        priv->visible_child == child_info)))
     gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
@@ -2844,11 +2842,8 @@ hdy_leaflet_get_property (GObject    *object,
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
 
   switch (prop_id) {
-  case PROP_FOLD:
-    g_value_set_enum (value, hdy_leaflet_get_fold (self));
-    break;
   case PROP_FOLDED:
-    g_value_set_boolean (value, hdy_leaflet_get_fold (self) == HDY_FOLD_FOLDED);
+    g_value_set_boolean (value, hdy_leaflet_get_folded (self));
     break;
   case PROP_HHOMOGENEOUS_FOLDED:
     g_value_set_boolean (value, hdy_leaflet_get_homogeneous (self, TRUE, GTK_ORIENTATION_HORIZONTAL));
@@ -3289,7 +3284,7 @@ hdy_leaflet_begin_swipe (HdySwipeable *swipeable,
 
     if (((direction < 0 && priv->child_transition.can_swipe_back) ||
         (direction > 0 && priv->child_transition.can_swipe_forward) ||
-         !direct) && priv->fold == HDY_FOLD_FOLDED)
+         !direct) && priv->folded)
       child = find_swipeable_child (self, direction);
     else
       child = NULL;
@@ -3404,31 +3399,12 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                                     "orientation");
 
   /**
-   * HdyLeaflet:fold:
-   *
-   * The fold of the leaflet.
-   *
-   * The leaflet will be folded if the size allocated to it is smaller than the
-   * sum of the natural size of its children, it will be unfolded otherwise.
-   *
-   * See also: #HdyLeaflet:folded.
-   */
-  props[PROP_FOLD] =
-    g_param_spec_enum ("fold",
-                       _("Fold"),
-                       _("Whether the widget is folded"),
-                       HDY_TYPE_FOLD, HDY_FOLD_UNFOLDED,
-                       G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
    * HdyLeaflet:folded:
    *
    * %TRUE if the leaflet is folded.
    *
-   * This is similar to the #HdyLeaflet:fold property but expressed as a
-   * #gboolean rather than a #GEnum. This makes it convenient to bind the
-   * #HdyLeaflet:fold of a leaflet to any other #gboolean property of other
-   * #GObject's using #g_object_bind_property().
+   * The leaflet will be folded if the size allocated to it is smaller than the
+   * sum of the natural size of its children, it will be unfolded otherwise.
    */
   props[PROP_FOLDED] =
     g_param_spec_boolean ("folded",
@@ -3623,7 +3599,7 @@ hdy_leaflet_init (HdyLeaflet *self)
   priv->children = NULL;
   priv->children_reversed = NULL;
   priv->visible_child = NULL;
-  priv->fold = HDY_FOLD_UNFOLDED;
+  priv->folded = FALSE;
   priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] = FALSE;
   priv->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL] = FALSE;
   priv->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] = TRUE;

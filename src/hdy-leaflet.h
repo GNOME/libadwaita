@@ -12,7 +12,6 @@
 
 #include <gtk/gtk.h>
 #include "hdy-deprecation-macros.h"
-#include "hdy-fold.h"
 #include "hdy-enums.h"
 
 G_BEGIN_DECLS
@@ -44,7 +43,7 @@ struct _HdyLeafletClass
 };
 
 GtkWidget       *hdy_leaflet_new (void);
-HdyFold          hdy_leaflet_get_fold (HdyLeaflet *self);
+gboolean         hdy_leaflet_get_folded (HdyLeaflet *self);
 GtkWidget       *hdy_leaflet_get_visible_child (HdyLeaflet *self);
 void             hdy_leaflet_set_visible_child (HdyLeaflet *self,
                                                 GtkWidget  *visible_child);
@@ -52,10 +51,10 @@ const gchar     *hdy_leaflet_get_visible_child_name (HdyLeaflet *self);
 void             hdy_leaflet_set_visible_child_name (HdyLeaflet  *self,
                                                      const gchar *name);
 gboolean         hdy_leaflet_get_homogeneous (HdyLeaflet     *self,
-                                              HdyFold         fold,
+                                              gboolean        folded,
                                               GtkOrientation  orientation);
 void             hdy_leaflet_set_homogeneous (HdyLeaflet     *self,
-                                              HdyFold         fold,
+                                              gboolean        folded,
                                               GtkOrientation  orientation,
                                               gboolean        homogeneous);
 HdyLeafletTransitionType hdy_leaflet_get_transition_type (HdyLeaflet *self);

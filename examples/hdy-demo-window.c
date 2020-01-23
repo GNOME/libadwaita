@@ -60,11 +60,11 @@ static void
 update (HdyDemoWindow *self)
 {
   GtkWidget *header_child = hdy_leaflet_get_visible_child (self->header_box);
-  HdyFold fold = hdy_leaflet_get_fold (self->header_box);
+  gboolean folded = hdy_leaflet_get_folded (self->header_box);
 
   g_assert (header_child == NULL || GTK_IS_HEADER_BAR (header_child));
 
-  hdy_header_group_set_focus (self->header_group, fold == HDY_FOLD_FOLDED ? GTK_HEADER_BAR (header_child) : NULL);
+  hdy_header_group_set_focus (self->header_group, folded ? GTK_HEADER_BAR (header_child) : NULL);
 }
 
 static void
