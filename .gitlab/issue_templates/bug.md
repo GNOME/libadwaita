@@ -6,6 +6,7 @@
  - [ ] documentation
  - [ ] example application
  - [ ] HdyActionRow
+ - [ ] HdyCarousel
  - [ ] HdyColumn
  - [ ] HdyComboRow
  - [ ] HdyDialog
@@ -14,7 +15,6 @@
  - [ ] HdyHeaderBar
  - [ ] HdyKeypad
  - [ ] HdyLeaflet
- - [ ] HdyPaginator
  - [ ] HdyPreferencesGroup
  - [ ] HdyPreferencesPage
  - [ ] HdyPreferencesRow
