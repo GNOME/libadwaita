@@ -9,7 +9,6 @@
 #include <glib/gi18n-lib.h>
 
 #include "hdy-enums.h"
-#include "hdy-style-private.h"
 #include "hdy-view-switcher-bar.h"
 
 /**
@@ -184,8 +183,6 @@ static void
 hdy_view_switcher_bar_init (HdyViewSwitcherBar *self)
 {
   HdyViewSwitcherBarPrivate *priv;
-  g_autoptr (GtkCssProvider) provider = gtk_css_provider_new ();
-  GtkWidget *box;
 
   priv = hdy_view_switcher_bar_get_instance_private (self);
 
@@ -200,13 +197,6 @@ hdy_view_switcher_bar_init (HdyViewSwitcherBar *self)
   priv->revealer = GTK_REVEALER (gtk_bin_get_child (GTK_BIN (priv->action_bar)));
   g_object_bind_property (self, "reveal", priv->revealer, "reveal-child", G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
   gtk_revealer_set_transition_type (priv->revealer, GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP);
-
-  box = gtk_bin_get_child (GTK_BIN (priv->revealer));
-
-  gtk_css_provider_load_from_resource (provider, "/sm/puri/handy/style/hdy-view-switcher-bar-box.css");
-  gtk_style_context_add_provider (gtk_widget_get_style_context (box),
-                                  GTK_STYLE_PROVIDER (provider),
-                                  HDY_STYLE_PROVIDER_PRIORITY);
 }
 
 /**

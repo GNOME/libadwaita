@@ -7,6 +7,7 @@
 #include "hdy-main-private.h"
 #include <gio/gio.h>
 #include <glib/gi18n-lib.h>
+#include <gtk/gtk.h>
 #include "gconstructorprivate.h"
 #include "hdy-style-private.h"
 

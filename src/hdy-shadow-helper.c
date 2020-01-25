@@ -29,8 +29,6 @@ struct _HdyShadowHelper
   GObject parent_instance;
 
   GtkWidget *widget;
-  gchar *css_path;
-  GtkCssProvider *provider;
 
   gboolean is_cache_valid;
 
@@ -51,7 +49,6 @@ G_DEFINE_TYPE (HdyShadowHelper, hdy_shadow_helper, G_TYPE_OBJECT);
 enum {
   PROP_0,
   PROP_WIDGET,
-  PROP_CSS_PATH,
   LAST_PROP,
 };
 
@@ -81,10 +78,6 @@ create_context (HdyShadowHelper *self,
 
   context = gtk_style_context_new ();
   gtk_style_context_set_path (context, path);
-
-  gtk_style_context_add_provider (context,
-                                  GTK_STYLE_PROVIDER (self->provider),
-                                  HDY_STYLE_PROVIDER_PRIORITY);
 
   g_type_class_unref (enum_class);
 
@@ -188,18 +181,6 @@ cache_shadow (HdyShadowHelper *self,
 }
 
 static void
-hdy_shadow_helper_constructed (GObject *object)
-{
-  HdyShadowHelper *self = HDY_SHADOW_HELPER (object);
-
-  self->provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_resource (self->provider,
-                                       "/sm/puri/handy/style/hdy-leaflet.css");
-
-  G_OBJECT_CLASS (hdy_shadow_helper_parent_class)->constructed (object);
-}
-
-static void
 hdy_shadow_helper_dispose (GObject *object)
 {
   HdyShadowHelper *self = HDY_SHADOW_HELPER (object);
@@ -210,17 +191,6 @@ hdy_shadow_helper_dispose (GObject *object)
     g_clear_object (&self->widget);
 
   G_OBJECT_CLASS (hdy_shadow_helper_parent_class)->dispose (object);
-}
-static void
-hdy_shadow_helper_finalize (GObject *object)
-{
-  HdyShadowHelper *self = HDY_SHADOW_HELPER (object);
-
-  if (self->css_path)
-    g_free (self->css_path);
-  g_object_unref (self->provider);
-
-  G_OBJECT_CLASS (hdy_shadow_helper_parent_class)->finalize (object);
 }
 
 static void
@@ -234,10 +204,6 @@ hdy_shadow_helper_get_property (GObject    *object,
   switch (prop_id) {
   case PROP_WIDGET:
     g_value_set_object (value, self->widget);
-    break;
-
-  case PROP_CSS_PATH:
-    g_value_set_string (value, self->css_path);
     break;
 
   default:
@@ -258,12 +224,6 @@ hdy_shadow_helper_set_property (GObject      *object,
     self->widget = GTK_WIDGET (g_object_ref (g_value_get_object (value)));
     break;
 
-  case PROP_CSS_PATH:
-    if (self->css_path)
-      g_clear_pointer (&self->css_path, g_free);
-    self->css_path = g_strdup (g_value_get_string (value));
-    break;
-
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -274,9 +234,7 @@ hdy_shadow_helper_class_init (HdyShadowHelperClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  object_class->constructed = hdy_shadow_helper_constructed;
   object_class->dispose = hdy_shadow_helper_dispose;
-  object_class->finalize = hdy_shadow_helper_finalize;
   object_class->get_property = hdy_shadow_helper_get_property;
   object_class->set_property = hdy_shadow_helper_set_property;
 
@@ -292,20 +250,6 @@ hdy_shadow_helper_class_init (HdyShadowHelperClass *klass)
                          _("Widget"),
                          _("The widget the shadow will be drawn for"),
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
-
-  /**
-   * HdyShadowHelper:css-path:
-   *
-   * The CSS resource path to be used for the shadow. Must not be %NULL.
-   *
-   * Since: 0.0.11
-   */
-  props[PROP_CSS_PATH] =
-    g_param_spec_string ("css-path",
-                         _("CSS Path"),
-                         _("The CSS resource path to be used for the shadow"),
-                         NULL,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -326,12 +270,10 @@ hdy_shadow_helper_init (HdyShadowHelper *self)
  * Since: 0.0.12
  */
 HdyShadowHelper *
-hdy_shadow_helper_new (GtkWidget   *widget,
-                       const gchar *css_path)
+hdy_shadow_helper_new (GtkWidget *widget)
 {
   return g_object_new (HDY_TYPE_SHADOW_HELPER,
                        "widget", widget,
-                       "css-path", css_path,
                        NULL);
 }
 

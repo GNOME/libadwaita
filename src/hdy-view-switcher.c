@@ -12,7 +12,6 @@
 #include <glib/gi18n-lib.h>
 
 #include "hdy-enums.h"
-#include "hdy-style-private.h"
 #include "hdy-view-switcher.h"
 #include "hdy-view-switcher-button-private.h"
 
@@ -584,12 +583,6 @@ static void
 hdy_view_switcher_init (HdyViewSwitcher *self)
 {
   HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-  g_autoptr (GtkCssProvider) provider = gtk_css_provider_new ();
-
-  gtk_css_provider_load_from_resource (provider, "/sm/puri/handy/style/hdy-view-switcher.css");
-  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (self)),
-                                  GTK_STYLE_PROVIDER (provider),
-                                  HDY_STYLE_PROVIDER_PRIORITY);
 
   gtk_widget_set_has_window (GTK_WIDGET (self), FALSE);
 

@@ -34,6 +34,9 @@
             <property name="margin_top">12</property>
             <property name="selection_mode">none</property>
             <property name="visible">True</property>
+            <style>
+              <class name="transparent-background"/>
+            </style>
           </object>
         </child>
       </object>

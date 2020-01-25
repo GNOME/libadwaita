@@ -8,7 +8,6 @@
 #include "hdy-expander-row.h"
 
 #include <glib/gi18n-lib.h>
-#include "hdy-style-private.h"
 
 /**
  * SECTION:hdy-expander-row
@@ -51,13 +50,6 @@ static GParamSpec *props[LAST_PROP];
 static void
 arrow_init (HdyExpanderRow *self)
 {
-  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
-  g_autoptr (GtkCssProvider) provider = gtk_css_provider_new ();
-
-  gtk_css_provider_load_from_resource (provider, "/sm/puri/handy/style/hdy-expander-row-arrow.css");
-  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->image)),
-                                  GTK_STYLE_PROVIDER (provider),
-                                  HDY_STYLE_PROVIDER_PRIORITY);
 }
 
 static void

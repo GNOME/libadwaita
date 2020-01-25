@@ -15,16 +15,6 @@
     <file preprocess="xml-stripblanks">hdy-view-switcher-button.ui</file>
   </gresource>
   <gresource prefix="/sm/puri/handy/style">
-    <file>hdy-combo-row-list.css</file>
-    <file>hdy-leaflet.css</file>
-    <file>hdy-expander-row-arrow.css</file>
-    <file>hdy-keypad-digit.css</file>
-    <file>hdy-keypad-letters.css</file>
-    <file>hdy-keypad-symbol.css</file>
-    <file>hdy-text.css</file>
-    <file>hdy-view-switcher.css</file>
-    <file>hdy-view-switcher-bar-box.css</file>
-    <file>hdy-view-switcher-button.css</file>
     <file compressed="true">handy-fallback.css</file>
     <file compressed="true">handy-override.css</file>
   </gresource>

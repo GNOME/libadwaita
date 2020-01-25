@@ -18,8 +18,7 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (HdyShadowHelper, hdy_shadow_helper, HDY, SHADOW_HELPER, GObject)
 
-HdyShadowHelper *hdy_shadow_helper_new (GtkWidget   *widget,
-                                        const gchar *css_path);
+HdyShadowHelper *hdy_shadow_helper_new (GtkWidget *widget);
 
 void             hdy_shadow_helper_clear_cache (HdyShadowHelper *self);
 

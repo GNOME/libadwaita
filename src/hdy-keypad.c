@@ -7,7 +7,6 @@
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
-#include "hdy-style-private.h"
 #include "hdy-keypad.h"
 #include "hdy-keypad-button-private.h"
 
@@ -215,25 +214,6 @@ hdy_keypad_get_property (GObject    *object,
 
 
 static void
-hdy_keypad_constructed (GObject *object)
-{
-  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (HDY_KEYPAD (object));
-  g_autoptr (GtkCssProvider) provider = NULL;
-
-  G_OBJECT_CLASS (hdy_keypad_parent_class)->constructed (object);
-
-  provider = gtk_css_provider_new ();
-  gtk_css_provider_load_from_resource (provider, "/sm/puri/handy/style/hdy-keypad-symbol.css");
-  gtk_style_context_add_provider (gtk_widget_get_style_context (priv->label_asterisk),
-                                GTK_STYLE_PROVIDER (provider),
-                                HDY_STYLE_PROVIDER_PRIORITY);
-  gtk_style_context_add_provider (gtk_widget_get_style_context (priv->label_hash),
-                                GTK_STYLE_PROVIDER (provider),
-                                HDY_STYLE_PROVIDER_PRIORITY);
-}
-
-
-static void
 hdy_keypad_finalize (GObject *object)
 {
   HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (HDY_KEYPAD (object));
@@ -252,7 +232,6 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->finalize = hdy_keypad_finalize;
-  object_class->constructed = hdy_keypad_constructed;
 
   object_class->set_property = hdy_keypad_set_property;
   object_class->get_property = hdy_keypad_get_property;

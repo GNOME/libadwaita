@@ -1,7 +1,0 @@
-/* Implement text styles. Add them with the fallback priority instead of
- * hardcoding the style so themes can use their own style instead.
- */
-
-.h4 {
-  font-weight: bold;
-}

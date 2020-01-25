@@ -7,7 +7,6 @@
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
-#include "hdy-style-private.h"
 #include "hdy-keypad-button-private.h"
 
 /**
@@ -256,22 +255,8 @@ static void
 hdy_keypad_button_init (HdyKeypadButton *self)
 {
   HdyKeypadButtonPrivate *priv = hdy_keypad_button_get_instance_private(self);
-  g_autoptr (GtkCssProvider) provider_digit = NULL;
-  g_autoptr (GtkCssProvider) provider_letters = NULL;
 
   gtk_widget_init_template (GTK_WIDGET (self));
-
-  provider_digit = gtk_css_provider_new ();
-  gtk_css_provider_load_from_resource (provider_digit, "/sm/puri/handy/style/hdy-keypad-digit.css");
-  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->label)),
-                                  GTK_STYLE_PROVIDER (provider_digit),
-                                  HDY_STYLE_PROVIDER_PRIORITY);
-
-  provider_letters = gtk_css_provider_new ();
-  gtk_css_provider_load_from_resource (provider_letters, "/sm/puri/handy/style/hdy-keypad-letters.css");
-  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->secondary_label)),
-                                  GTK_STYLE_PROVIDER (provider_letters),
-                                  HDY_STYLE_PROVIDER_PRIORITY);
 
   priv->symbols = NULL;
 }

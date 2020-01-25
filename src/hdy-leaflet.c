@@ -3698,8 +3698,7 @@ hdy_leaflet_init (HdyLeaflet *self)
   priv->tracker = hdy_swipe_tracker_new (HDY_SWIPEABLE (self));
   g_object_set (priv->tracker, "orientation", priv->orientation, "enabled", FALSE, NULL);
 
-  priv->shadow_helper = hdy_shadow_helper_new (widget,
-                                               "/sm/puri/handy/style/hdy-leaflet.css");
+  priv->shadow_helper = hdy_shadow_helper_new (widget);
 
   gtk_widget_set_has_window (widget, FALSE);
   gtk_widget_set_can_focus (widget, FALSE);

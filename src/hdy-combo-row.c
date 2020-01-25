@@ -9,7 +9,6 @@
 
 #include <glib/gi18n-lib.h>
 #include "hdy-list-box.h"
-#include "hdy-style-private.h"
 
 /**
  * SECTION:hdy-combo-row
@@ -376,25 +375,11 @@ hdy_combo_row_class_init (HdyComboRowClass *klass)
 }
 
 static void
-list_init (HdyComboRow *self)
-{
-  HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
-  g_autoptr (GtkCssProvider) provider = gtk_css_provider_new ();
-
-  gtk_css_provider_load_from_resource (provider, "/sm/puri/handy/style/hdy-combo-row-list.css");
-  gtk_style_context_add_provider (gtk_widget_get_style_context (GTK_WIDGET (priv->list)),
-                                  GTK_STYLE_PROVIDER (provider),
-                                  HDY_STYLE_PROVIDER_PRIORITY);
-}
-
-static void
 hdy_combo_row_init (HdyComboRow *self)
 {
   HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
 
   gtk_widget_init_template (GTK_WIDGET (self));
-
-  list_init (self);
 
   priv->selected_index = -1;
 
