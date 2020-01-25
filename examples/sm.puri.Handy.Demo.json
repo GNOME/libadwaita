@@ -5,24 +5,16 @@
   "sdk": "org.gnome.Sdk",
   "command": "handy-1-demo",
   "finish-args": [
-    "--env=DCONF_USER_CONFIG_DIR=.config/dconf",
-    "--share=ipc", "--socket=x11",
+    "--device=all",
+    "--share=ipc",
     "--socket=wayland",
-    "--device=all"
+    "--socket=x11"
   ],
-  "build-options": {
-    "cflags": "-O2 -g",
-    "cxxflags": "-O2 -g",
-    "env": {
-      "V": "1"
-    }
-  },
   "modules": [
     {
       "name": "libhandy",
       "buildsystem": "meson",
       "builddir": true,
-      "build-options": "examples",
       "config-opts": [
         "-Dglade_catalog=disabled",
         "-Dintrospection=disabled",
