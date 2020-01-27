@@ -20,7 +20,7 @@ test_hdy_combo_row_set_for_enum (void)
 
   g_assert_null (hdy_combo_row_get_model (row));
 
-  hdy_combo_row_set_for_enum (row, HDY_TYPE_FOLD, hdy_enum_value_row_name, NULL, NULL);
+  hdy_combo_row_set_for_enum (row, GTK_TYPE_ORIENTATION, hdy_enum_value_row_name, NULL, NULL);
   model = hdy_combo_row_get_model (row);
   g_assert_true (G_IS_LIST_MODEL (model));
 
@@ -28,11 +28,11 @@ test_hdy_combo_row_set_for_enum (void)
 
   value = g_list_model_get_item (model, 0);
   g_assert_true (HDY_IS_ENUM_VALUE_OBJECT (value));
-  g_assert_cmpstr (hdy_enum_value_object_get_nick (value), ==, "unfolded");
+  g_assert_cmpstr (hdy_enum_value_object_get_nick (value), ==, "horizontal");
 
   value = g_list_model_get_item (model, 1);
   g_assert_true (HDY_IS_ENUM_VALUE_OBJECT (value));
-  g_assert_cmpstr (hdy_enum_value_object_get_nick (value), ==, "folded");
+  g_assert_cmpstr (hdy_enum_value_object_get_nick (value), ==, "vertical");
 }
 
 
