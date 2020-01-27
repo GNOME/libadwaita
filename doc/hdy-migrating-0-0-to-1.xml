@@ -81,12 +81,32 @@
     </refsect3>
 
     <refsect3>
+      <title>HdyFold has been removed</title>
+      <para>
+        #HdyFold has been removed. This affects the API of #HdyLeaflet, see the
+        “Adapt to HdyLeaflet API changes” section to know how.
+      </para>
+    </refsect3>
+
+    <refsect3>
       <title>Replace HdyPaginator by HdyCarousel</title>
       <para>
         HdyPaginator has been renamed HdyCarousel, so you should replace the
         former by the later.
         Similarly, HdyPaginatorIndicatorStyle has been renamed
         HdyCarouselIndicatorStyle.
+      </para>
+    </refsect3>
+
+    <refsect3>
+      <title>Adapt to HdyLeaflet API changes</title>
+      <para>
+        The #HdyFold type has been removed in favor of using a boolean, and
+        #HdyLeaflet adjusted to that as the #HdyLeaflet:fold property has been
+        removed in favor of #HdyLeaflet:folded.
+        Also, the hdy_leaflet_get_homogeneous() and
+        hdy_leaflet_set_homogeneous() accessors take a boolean parameter instead
+        of a #HdyFold.
       </para>
     </refsect3>
 
