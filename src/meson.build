@@ -10,6 +10,7 @@ libhandy_resources = gnome.compile_resources(
 hdy_enum_headers = ['hdy-carousel.h',
                     'hdy-header-bar.h',
                     'hdy-leaflet.h',
+                    'hdy-navigation-direction.h',
                     'hdy-squeezer.h',
                     'hdy-view-switcher.h',
                    ]
@@ -64,6 +65,7 @@ src_headers = [
   'hdy-keypad.h',
   'hdy-leaflet.h',
   'hdy-list-box.h',
+  'hdy-navigation-direction.h',
   'hdy-preferences-group.h',
   'hdy-preferences-page.h',
   'hdy-preferences-row.h',
@@ -108,6 +110,7 @@ src_sources = [
   'hdy-leaflet.c',
   'hdy-list-box.c',
   'hdy-main.c',
+  'hdy-navigation-direction.c',
   'hdy-preferences-group.c',
   'hdy-preferences-page.c',
   'hdy-preferences-row.c',
