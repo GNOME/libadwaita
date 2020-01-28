@@ -3686,6 +3686,7 @@ hdy_leaflet_init (HdyLeaflet *self)
 {
   GtkWidget *widget = GTK_WIDGET (self);
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+  GtkStyleContext *context;
 
   priv->children = NULL;
   priv->children_reversed = NULL;
@@ -3709,6 +3710,9 @@ hdy_leaflet_init (HdyLeaflet *self)
   gtk_widget_set_has_window (widget, FALSE);
   gtk_widget_set_can_focus (widget, FALSE);
   gtk_widget_set_redraw_on_allocate (widget, FALSE);
+
+  context = gtk_widget_get_style_context (GTK_WIDGET (self));
+  gtk_style_context_add_class (context, "unfolded");
 
   /*
    * HACK: GTK3 has no other way to get events on capture phase.
