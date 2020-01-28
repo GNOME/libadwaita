@@ -118,7 +118,7 @@ static void
 hdy_demo_window_back_clicked_cb (GtkWidget     *sender,
                                  HdyDemoWindow *self)
 {
-  hdy_leaflet_set_visible_child_name (self->content_box, "sidebar");
+  hdy_leaflet_navigate (self->content_box, HDY_NAVIGATION_DIRECTION_BACK);
 }
 
 static gchar *
