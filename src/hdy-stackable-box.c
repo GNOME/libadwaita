@@ -20,6 +20,7 @@
  * @short_description: An adaptive container acting like a box or a stack.
  * @Title: HdyStackableBox
  * @stability: Private
+ * @See_also: #HdyLeaflet
  *
  * The #HdyStackableBox object can arrange the widgets it manages like #GtkBox
  * does or like a #GtkStack does, adapting to size changes by switching between
@@ -28,6 +29,8 @@
  * When there is enough space the children are displayed side by side, otherwise
  * only one is displayed. The threshold is dictated by the preferred minimum
  * sizes of the children.
+ *
+ * #HdyStackableBox is used as an internal implementation of #HdyLeaflet.
  *
  * Since: 1.0
  */
