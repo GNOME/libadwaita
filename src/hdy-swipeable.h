@@ -7,6 +7,7 @@
 #pragma once
 
 #include <gtk/gtk.h>
+#include "hdy-navigation-direction.h"
 
 G_BEGIN_DECLS
 
@@ -33,9 +34,9 @@ struct _HdySwipeableInterface
   void (*switch_child) (HdySwipeable *self,
                         guint         index,
                         gint64        duration);
-  void (*begin_swipe)  (HdySwipeable *self,
-                        gint          direction,
-                        gboolean      direct);
+  void (*begin_swipe)  (HdySwipeable           *self,
+                        HdyNavigationDirection  direction,
+                        gboolean                direct);
   void (*update_swipe) (HdySwipeable *self,
                         gdouble       value);
   void (*end_swipe)    (HdySwipeable *self,

@@ -8,6 +8,7 @@
 #include <glib/gi18n-lib.h>
 
 #include "hdy-swipe-tracker-private.h"
+#include "hdy-navigation-direction.h"
 
 #include <math.h>
 
@@ -142,8 +143,8 @@ reset (HdySwipeTracker *self)
 }
 
 static void
-gesture_prepare (HdySwipeTracker *self,
-                 gint             direction)
+gesture_prepare (HdySwipeTracker        *self,
+                 HdyNavigationDirection  direction)
 {
   if (self->state != HDY_SWIPE_TRACKER_STATE_NONE)
     return;
@@ -319,7 +320,7 @@ drag_update_cb (HdySwipeTracker *self,
 
   if (self->state == HDY_SWIPE_TRACKER_STATE_NONE) {
     if (is_vertical == is_offset_vertical)
-      gesture_prepare (self, offset > 0 ? 1 : -1);
+      gesture_prepare (self, offset > 0 ? HDY_NAVIGATION_DIRECTION_FORWARD : HDY_NAVIGATION_DIRECTION_BACK);
     else
       gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
     return;
@@ -418,7 +419,7 @@ captured_scroll_event (HdySwipeTracker *self,
       return GDK_EVENT_PROPAGATE;
 
     if (is_vertical == is_delta_vertical)
-      gesture_prepare (self, delta > 0 ? 1 : -1);
+      gesture_prepare (self, delta > 0 ? HDY_NAVIGATION_DIRECTION_FORWARD : HDY_NAVIGATION_DIRECTION_BACK);
     else {
       self->is_scrolling = TRUE;
       return GDK_EVENT_PROPAGATE;

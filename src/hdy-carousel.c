@@ -10,6 +10,7 @@
 #include "hdy-carousel.h"
 
 #include "hdy-carousel-box-private.h"
+#include "hdy-navigation-direction.h"
 #include "hdy-swipe-tracker-private.h"
 #include "hdy-swipeable-private.h"
 
@@ -119,9 +120,9 @@ hdy_carousel_switch_child (HdySwipeable *swipeable,
 }
 
 static void
-hdy_carousel_begin_swipe (HdySwipeable *swipeable,
-                          gint          direction,
-                          gboolean      direct)
+hdy_carousel_begin_swipe (HdySwipeable           *swipeable,
+                          HdyNavigationDirection  direction,
+                          gboolean                direct)
 {
   HdyCarousel *self = HDY_CAROUSEL (swipeable);
   gdouble distance, position, closest_point;

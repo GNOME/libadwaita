@@ -79,7 +79,7 @@ hdy_swipeable_default_init (HdySwipeableInterface *iface)
                   NULL, NULL, NULL,
                   G_TYPE_NONE,
                   1,
-                  G_TYPE_INT);
+                  HDY_TYPE_NAVIGATION_DIRECTION);
 
   /**
    * HdySwipeable::update-swipe:
@@ -151,7 +151,7 @@ hdy_swipeable_switch_child (HdySwipeable *self,
 /**
  * hdy_swipeable_begin_swipe:
  * @self: a #HdySwipeable
- * @direction: The direction of the swipe, can be 1 or -1
+ * @direction: The direction of the swipe
  * @direct: %TRUE if the swipe is directly triggered by a gesture,
  *   %FALSE if it's triggered via a #HdySwipeGroup
  *
@@ -168,9 +168,9 @@ hdy_swipeable_switch_child (HdySwipeable *self,
  * Since: 0.0.12
  */
 void
-hdy_swipeable_begin_swipe (HdySwipeable *self,
-                           gint          direction,
-                           gboolean      direct)
+hdy_swipeable_begin_swipe (HdySwipeable           *self,
+                           HdyNavigationDirection  direction,
+                           gboolean                direct)
 {
   HdySwipeableInterface *iface;
 

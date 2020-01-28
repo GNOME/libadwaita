@@ -8,6 +8,7 @@
 
 #include "hdy-swipe-group.h"
 #include <gtk/gtk.h>
+#include "hdy-navigation-direction.h"
 #include "hdy-swipeable-private.h"
 
 #define BUILDABLE_TAG_OBJECT "object"
@@ -117,9 +118,9 @@ switch_child_cb (HdySwipeGroup *self,
 }
 
 static void
-begin_swipe_cb (HdySwipeGroup *self,
-                gint           direction,
-                HdySwipeable  *swipeable)
+begin_swipe_cb (HdySwipeGroup          *self,
+                HdyNavigationDirection  direction,
+                HdySwipeable           *swipeable)
 {
   GSList *swipeables;
 

@@ -3212,8 +3212,8 @@ hdy_leaflet_switch_child (HdySwipeable *swipeable,
 }
 
 static HdyLeafletChildInfo *
-find_swipeable_child (HdyLeaflet *self,
-                      gint        direction)
+find_swipeable_child (HdyLeaflet             *self,
+                      HdyNavigationDirection  direction)
 {
   HdyLeafletPrivate *priv;
   GList *children;
@@ -3223,7 +3223,7 @@ find_swipeable_child (HdyLeaflet *self,
 
   children = g_list_find (priv->children, priv->visible_child);
   do {
-    children = (direction < 0) ? children->prev : children->next;
+    children = (direction == HDY_NAVIGATION_DIRECTION_BACK) ? children->prev : children->next;
 
     if (children == NULL)
       break;
@@ -3232,6 +3232,22 @@ find_swipeable_child (HdyLeaflet *self,
   } while (child && !child->allow_visible);
 
   return child;
+}
+
+static gboolean
+can_swipe_in_direction (HdyLeaflet             *self,
+                        HdyNavigationDirection  direction)
+{
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+
+  switch (direction) {
+  case HDY_NAVIGATION_DIRECTION_BACK:
+    return priv->child_transition.can_swipe_back;
+  case HDY_NAVIGATION_DIRECTION_FORWARD:
+    return priv->child_transition.can_swipe_forward;
+  default:
+    g_assert_not_reached ();
+  }
 }
 
 static double
@@ -3259,9 +3275,9 @@ get_current_progress (HdyLeaflet *self)
 }
 
 static void
-hdy_leaflet_begin_swipe (HdySwipeable *swipeable,
-                         gint          direction,
-                         gboolean      direct)
+hdy_leaflet_begin_swipe (HdySwipeable           *swipeable,
+                         HdyNavigationDirection  direction,
+                         gboolean                direct)
 {
   HdyLeaflet *self = HDY_LEAFLET (swipeable);
   HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
@@ -3274,31 +3290,34 @@ hdy_leaflet_begin_swipe (HdySwipeable *swipeable,
     distance = gtk_widget_get_allocated_height (GTK_WIDGET (self));
 
   if (priv->child_transition.tick_id > 0) {
-    gint current_direction;
-    gboolean is_rtl;
+    gboolean is_rtl =
+      (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL);
 
-    is_rtl = (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL);
+    n = 2;
+    points = g_new0 (gdouble, n);
 
     switch (priv->child_transition.active_direction) {
     case GTK_PAN_DIRECTION_UP:
-      current_direction = 1;
+      points[1] = 1;
       break;
     case GTK_PAN_DIRECTION_DOWN:
-      current_direction = -1;
+      points[0] = -1;
       break;
     case GTK_PAN_DIRECTION_LEFT:
-      current_direction = is_rtl ? -1 : 1;
+      if (is_rtl)
+        points[0] = -1;
+      else
+        points[1] = 1;
       break;
     case GTK_PAN_DIRECTION_RIGHT:
-      current_direction = is_rtl ? 1 : -1;
+      if (is_rtl)
+        points[1] = 1;
+      else
+        points[0] = -1;
       break;
     default:
       g_assert_not_reached ();
     }
-
-    n = 2;
-    points = g_new0 (gdouble, n);
-    points[current_direction > 0 ? 1 : 0] = current_direction;
 
     progress = get_current_progress (self);
 
@@ -3309,9 +3328,7 @@ hdy_leaflet_begin_swipe (HdySwipeable *swipeable,
   } else {
     HdyLeafletChildInfo *child;
 
-    if (((direction < 0 && priv->child_transition.can_swipe_back) ||
-        (direction > 0 && priv->child_transition.can_swipe_forward) ||
-         !direct) && priv->folded)
+    if ((can_swipe_in_direction (self, direction) || !direct) && priv->folded)
       child = find_swipeable_child (self, direction);
     else
       child = NULL;
@@ -3329,7 +3346,16 @@ hdy_leaflet_begin_swipe (HdySwipeable *swipeable,
     n = child ? 2 : 1;
     points = g_new0 (gdouble, n);
     if (child)
-      points[direction > 0 ? 1 : 0] = direction;
+      switch (direction) {
+      case HDY_NAVIGATION_DIRECTION_BACK:
+        points[0] = -1;
+        break;
+      case HDY_NAVIGATION_DIRECTION_FORWARD:
+        points[1] = 1;
+        break;
+      default:
+        g_assert_not_reached ();
+      }
   }
 
   hdy_swipe_tracker_confirm_swipe (priv->tracker, distance, points, n, progress, 0);
