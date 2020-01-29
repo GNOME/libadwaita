@@ -109,7 +109,7 @@ hdy_demo_window_notify_visible_child_cb (GObject       *sender,
                                          GParamSpec    *pspec,
                                          HdyDemoWindow *self)
 {
-  hdy_leaflet_set_visible_child_name (self->content_box, "content");
+  hdy_leaflet_navigate (self->content_box, HDY_NAVIGATION_DIRECTION_FORWARD);
   update_header_bar (self);
   update_leaflet_swipe (self);
 }
