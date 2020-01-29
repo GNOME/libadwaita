@@ -124,6 +124,7 @@ lintian-debian-buster-package:
 
 package-flatpak:
   image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
+  allow_failure: true
   tags:
     - flatpak
   stage: package
