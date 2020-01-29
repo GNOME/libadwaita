@@ -25,5 +25,7 @@
     <file>hdy-view-switcher.css</file>
     <file>hdy-view-switcher-bar-box.css</file>
     <file>hdy-view-switcher-button.css</file>
+    <file compressed="true">handy-fallback.css</file>
+    <file compressed="true">handy-override.css</file>
   </gresource>
 </gresources>
