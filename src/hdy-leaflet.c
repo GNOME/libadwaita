@@ -1391,22 +1391,6 @@ find_swipeable_child (HdyLeaflet             *self,
   return child;
 }
 
-static gboolean
-can_swipe_in_direction (HdyLeaflet             *self,
-                        HdyNavigationDirection  direction)
-{
-  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
-
-  switch (direction) {
-  case HDY_NAVIGATION_DIRECTION_BACK:
-    return priv->child_transition.can_swipe_back;
-  case HDY_NAVIGATION_DIRECTION_FORWARD:
-    return priv->child_transition.can_swipe_forward;
-  default:
-    g_assert_not_reached ();
-  }
-}
-
 /**
  * hdy_leaflet_navigate
  * @self: a #HdyLeaflet
@@ -1415,9 +1399,6 @@ can_swipe_in_direction (HdyLeaflet             *self,
  * Switches to the previous or next child that doesn't have 'allow-visible'
  * child property set to %FALSE, similar to performing a swipe gesture to go
  * in @direction.
- *
- * Does nothing if #HdyLeaflet:can-swipe-back or #HdyLeaflet:can-swipe-forward
- * is %FALSE.
  *
  * Returns: %TRUE if visible child was changed, %FALSE otherwise.
  *
@@ -1433,9 +1414,6 @@ hdy_leaflet_navigate (HdyLeaflet             *self,
   g_return_val_if_fail (HDY_IS_LEAFLET (self), FALSE);
 
   priv = hdy_leaflet_get_instance_private (self);
-
-  if (!can_swipe_in_direction (self, direction))
-    return FALSE;
 
   child = find_swipeable_child (self, direction);
 
@@ -3312,6 +3290,22 @@ get_current_progress (HdyLeaflet *self)
   }
 
   return priv->child_transition.progress * (new_first ? 1 : -1);
+}
+
+static gboolean
+can_swipe_in_direction (HdyLeaflet             *self,
+                        HdyNavigationDirection  direction)
+{
+  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
+
+  switch (direction) {
+  case HDY_NAVIGATION_DIRECTION_BACK:
+    return priv->child_transition.can_swipe_back;
+  case HDY_NAVIGATION_DIRECTION_FORWARD:
+    return priv->child_transition.can_swipe_forward;
+  default:
+    g_assert_not_reached ();
+  }
 }
 
 static void
