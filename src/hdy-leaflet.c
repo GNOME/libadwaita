@@ -1105,6 +1105,16 @@ hdy_leaflet_get_visible_child (HdyLeaflet *self)
   return priv->visible_child->widget;
 }
 
+/**
+ * hdy_leaflet_set_visible_child:
+ * @self: a #HdyLeaflet
+ * @visible_child: the new child
+ *
+ * Makes @visible_child visible using a transition determined by
+ * HdyLeaflet:transition-type and HdyLeaflet:child-transition-duration. The
+ * transition can be cancelled by the user, in which case visible child will
+ * change back to the previously visible child.
+ */
 void
 hdy_leaflet_set_visible_child (HdyLeaflet *self,
                                GtkWidget  *visible_child)
@@ -1126,6 +1136,14 @@ hdy_leaflet_set_visible_child (HdyLeaflet *self,
   set_visible_child_info (self, child_info, priv->transition_type, priv->child_transition.duration, TRUE);
 }
 
+/**
+ * hdy_leaflet_get_visible_child_name:
+ * @self: a #HdyLeaflet
+ *
+ * Gets the name of the currently visible child widget.
+ *
+ * Returns: (transfer none): the name of the visible child
+ */
 const gchar *
 hdy_leaflet_get_visible_child_name (HdyLeaflet *self)
 {
@@ -1141,6 +1159,15 @@ hdy_leaflet_get_visible_child_name (HdyLeaflet *self)
   return priv->visible_child->name;
 }
 
+/**
+ * hdy_leaflet_set_visible_child_name:
+ * @self: a #HdyLeaflet
+ * @name: the name of a child
+ *
+ * Makes the child with the name @name visible.
+ *
+ * See hdy_leaflet_set_visible_child() for more details.
+ */
 void
 hdy_leaflet_set_visible_child_name (HdyLeaflet  *self,
                                     const gchar *name)
