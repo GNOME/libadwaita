@@ -932,11 +932,13 @@ hdy_swipe_tracker_confirm_swipe (HdySwipeTracker *self,
                                  gdouble          current_progress,
                                  gdouble          cancel_progress)
 {
+  g_autofree gdouble *points = g_steal_pointer (&snap_points);
+
   g_return_if_fail (HDY_IS_SWIPE_TRACKER (self));
   g_return_if_fail (distance > 0.0);
-  g_return_if_fail (snap_points);
+  g_return_if_fail (points);
   g_return_if_fail (n_snap_points > 0);
-  g_return_if_fail (is_sorted (snap_points, n_snap_points));
+  g_return_if_fail (is_sorted (points, n_snap_points));
   g_return_if_fail (current_progress >= snap_points[0]);
   g_return_if_fail (current_progress <= snap_points[n_snap_points - 1]);
   g_return_if_fail (cancel_progress >= snap_points[0]);
@@ -953,7 +955,7 @@ hdy_swipe_tracker_confirm_swipe (HdySwipeTracker *self,
   self->initial_progress = current_progress;
   self->progress = current_progress;
   self->velocity = 0;
-  self->snap_points = snap_points;
+  self->snap_points = g_steal_pointer (&points);
   self->n_snap_points = n_snap_points;
   self->cancel_progress = cancel_progress;
   self->state = HDY_SWIPE_TRACKER_STATE_PENDING;
