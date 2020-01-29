@@ -8,6 +8,7 @@
 #include <gio/gio.h>
 #include <glib/gi18n-lib.h>
 #include "gconstructorprivate.h"
+#include "hdy-style-private.h"
 
 /**
  * PRIVATE:hdy-main
@@ -26,6 +27,14 @@
 #endif
 G_DEFINE_CONSTRUCTOR(hdy_constructor)
 
+static gboolean
+init_style_cb (void)
+{
+  hdy_style_init ();
+
+  return G_SOURCE_REMOVE;
+}
+
 /**
  * hdy_constructor:
  *
@@ -37,6 +46,11 @@ hdy_constructor (void)
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
   hdy_init_public_types ();
+
+ /* Initializes the style when the main loop starts, which should be before any
+  * window shows up but after GTK is initialized.
+  */
+  g_idle_add (G_SOURCE_FUNC (init_style_cb), NULL);
 }
 
 #else
