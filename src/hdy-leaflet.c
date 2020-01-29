@@ -21,7 +21,7 @@
  * @Title: HdyLeaflet
  *
  * The #HdyLeaflet widget can display its children like a #GtkBox does or
- * like a #HdyLeaflet does, adapting to size changes by switching between
+ * like a #GtkStack does, adapting to size changes by switching between
  * the two modes.
  *
  * When there is enough space the children are displayed side by side, otherwise
@@ -1042,7 +1042,7 @@ hdy_leaflet_set_mode_transition_duration (HdyLeaflet *self,
  * Returns the amount of time (in milliseconds) that
  * transitions between children in @self will take.
  *
- * Returns: the mode transition duration
+ * Returns: the child transition duration
  */
 guint
 hdy_leaflet_get_child_transition_duration (HdyLeaflet *self)
@@ -1086,7 +1086,7 @@ hdy_leaflet_set_child_transition_duration (HdyLeaflet *self,
  * hdy_leaflet_get_visible_child:
  * @self: a #HdyLeaflet
  *
- * Get the visible child widget.
+ * Gets the visible child widget.
  *
  * Returns: (transfer none): the visible child widget
  */
@@ -1191,7 +1191,7 @@ hdy_leaflet_get_child_transition_running (HdyLeaflet *self)
  *
  * Sets whether or not @self will interpolate its size when
  * changing the visible child. If the #HdyLeaflet:interpolate-size
- * property is set to %TRUE, @stack will interpolate its size between
+ * property is set to %TRUE, @self will interpolate its size between
  * the current one and the one it'll take after changing the
  * visible child, according to the set transition duration.
  */
