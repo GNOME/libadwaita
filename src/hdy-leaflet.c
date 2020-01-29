@@ -178,13 +178,11 @@ static gint HOMOGENEOUS_PROP[HDY_FOLD_MAX][GTK_ORIENTATION_MAX] = {
   { PROP_HHOMOGENEOUS_FOLDED, PROP_VHOMOGENEOUS_FOLDED},
 };
 
-static void hdy_leaflet_buildable_init (GtkBuildableIface  *iface);
 static void hdy_leaflet_swipeable_init (HdySwipeableInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (HdyLeaflet, hdy_leaflet, GTK_TYPE_CONTAINER,
                          G_ADD_PRIVATE (HdyLeaflet)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, hdy_leaflet_buildable_init)
                          G_IMPLEMENT_INTERFACE (HDY_TYPE_SWIPEABLE, hdy_leaflet_swipeable_init))
 
 static void
@@ -3714,11 +3712,6 @@ hdy_leaflet_init (HdyLeaflet *self)
    * with capture propagation phase
    */
   g_object_set_data (G_OBJECT (self), "captured-event-handler", captured_event_cb);
-}
-
-static void
-hdy_leaflet_buildable_init (GtkBuildableIface *iface)
-{
 }
 
 static void
