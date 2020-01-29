@@ -119,6 +119,7 @@ src_sources = [
   'hdy-shadow-helper.c',
   'hdy-squeezer.c',
   'hdy-string-utf8.c',
+  'hdy-style.c',
   'hdy-swipe-group.c',
   'hdy-swipe-tracker.c',
   'hdy-swipeable.c',
