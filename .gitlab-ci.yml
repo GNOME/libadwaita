@@ -130,6 +130,7 @@ package-flatpak:
   stage: package
   variables:
     app_id: "sm.puri.Handy.Demo"
+    manifest_path: "examples/${app_id}.json"
   artifacts:
     paths:
       - "${app_id}-dev.flatpak"
@@ -138,12 +139,36 @@ package-flatpak:
     - flatpak install -y --noninteractive gnome-nightly org.gnome.Sdk org.gnome.Platform
     - rm -rf _build/
   script:
-    - bash -x .gitlab-ci/flatpak-build.sh "${app_id}"
+    - bash -x .gitlab-ci/flatpak-build.sh "${app_id}" "${manifest_path}"
   artifacts:
     when: always
     paths:
       - _build/meson-logs/meson-log.txt
       - sm.puri.Handy.Demo-dev.flatpak
+
+package-flatpak-glade:
+  image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
+  allow_failure: true
+  tags:
+    - flatpak
+  stage: package
+  variables:
+    app_id: "sm.puri.Handy.Glade"
+    manifest_path: "glade/${app_id}.json"
+  artifacts:
+    paths:
+      - "${app_id}-dev.flatpak"
+    expire_in: 1 day
+  before_script:
+    - flatpak install -y --noninteractive gnome-nightly org.gnome.Sdk org.gnome.Platform
+    - rm -rf _build/
+  script:
+    - bash -x .gitlab-ci/flatpak-build.sh "${app_id}" "${manifest_path}"
+  artifacts:
+    when: always
+    paths:
+      - _build/meson-logs/meson-log.txt
+      - sm.puri.Handy.Glade-dev.flatpak
 
 publish-docs:
   stage: deploy

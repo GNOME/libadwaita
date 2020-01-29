@@ -5,7 +5,7 @@ set -e
 builddir=app
 repodir=repo
 appid="$1"
-manifest=examples/${appid}.json
+manifest="$2"
 
 flatpak-builder \
        --stop-at=libhandy \
