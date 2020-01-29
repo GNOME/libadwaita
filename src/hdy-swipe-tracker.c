@@ -118,10 +118,7 @@ static GParamSpec *props[LAST_PROP];
 static void
 reset (HdySwipeTracker *self)
 {
-  if (self->snap_points) {
-    g_free (self->snap_points);
-    self->snap_points = NULL;
-  }
+  g_clear_pointer (&self->snap_points, g_free);
 
   self->state = HDY_SWIPE_TRACKER_STATE_NONE;
 
@@ -950,8 +947,7 @@ hdy_swipe_tracker_confirm_swipe (HdySwipeTracker *self,
     return;
   }
 
-  if (self->snap_points)
-    g_free (self->snap_points);
+  g_clear_pointer (&self->snap_points, g_free);
 
   self->distance = distance;
   self->initial_progress = current_progress;
