@@ -10,14 +10,14 @@
  * SECTION:hdy-swipeable
  * @short_description: An interface for swipeable widgets.
  * @title: HdySwipeable
- * @See_also: #HdyCarousel, #HdyLeaflet, #HdySwipeGroup
+ * @See_also: #HdyCarousel, #HdyDeck, #HdyLeaflet, #HdySwipeGroup
  *
  * The #HdySwipeable interface is implemented by all swipeable widgets. They
  * can be synced using #HdySwipeGroup.
  *
  * #HdySwipeable is only meant to be used by libhandy widgets and is currently
- * implemented by #HdyCarousel and #HdyLeaflet. It should not be implemented
- * by applications.
+ * implemented by #HdyCarousel, #HdyDeck and #HdyLeaflet. It should not be
+ * implemented by applications.
  *
  * Since: 0.0.12
  */

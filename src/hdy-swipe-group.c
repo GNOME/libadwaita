@@ -20,7 +20,7 @@
  * SECTION:hdy-swipe-group
  * @short_description: An object for syncing swipeable widgets.
  * @title: HdySwipeGroup
- * @See_also: #HdyCarousel, #HdyLeaflet, #HdySwipeable
+ * @See_also: #HdyCarousel, #HdyDeck, #HdyLeaflet, #HdySwipeable
  *
  * The #HdySwipeGroup object can be used to sync multiple swipeable widgets
  * that implement the #HdySwipeable interface, such as #HdyCarousel, so that
