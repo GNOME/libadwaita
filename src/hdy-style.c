@@ -52,7 +52,7 @@ hdy_style_init (void)
   gtk_css_provider_load_from_resource (css_override_provider, "/sm/puri/handy/style/handy-override.css");
   gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
                                              GTK_STYLE_PROVIDER (css_override_provider),
-                                             HDY_STYLE_PROVIDER_PRIORITY);
+                                             HDY_STYLE_PROVIDER_PRIORITY_OVERRIDE);
 
   g_once_init_leave (&guard, 1);
 }

@@ -3,7 +3,7 @@
  * very specific style which collides with common themes, and we need to
  * override what they do.
  *
- * It will be loaded with the HDY_STYLE_PROVIDER_PRIORITY priority,
+ * It will be loaded with the HDY_STYLE_PROVIDER_PRIORITY_OVERRIDE priority,
  * which corresponds to GTK_STYLE_PROVIDER_PRIORITY_SETTINGS + 1, meaning its
  * priority is higher than themes and settings, but lower than applications and
  * user provided styles.

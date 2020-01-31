@@ -15,9 +15,10 @@
 G_BEGIN_DECLS
 
 /* The style provider priority to use for libhandy widgets custom styling. It is
- * higher than settings but lower than applications, so application developers
+ * higher than themes and settings, allowing to override theme defaults, but
+ * lower than applications and user provided styles, so application developers
  * can nonetheless apply custom styling on top of it. */
-#define HDY_STYLE_PROVIDER_PRIORITY (GTK_STYLE_PROVIDER_PRIORITY_SETTINGS + 1)
+#define HDY_STYLE_PROVIDER_PRIORITY_OVERRIDE (GTK_STYLE_PROVIDER_PRIORITY_SETTINGS + 1)
 
 void hdy_style_init (void);
 
