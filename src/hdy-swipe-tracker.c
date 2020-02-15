@@ -939,10 +939,10 @@ hdy_swipe_tracker_confirm_swipe (HdySwipeTracker *self,
   g_return_if_fail (points);
   g_return_if_fail (n_snap_points > 0);
   g_return_if_fail (is_sorted (points, n_snap_points));
-  g_return_if_fail (current_progress >= snap_points[0]);
-  g_return_if_fail (current_progress <= snap_points[n_snap_points - 1]);
-  g_return_if_fail (cancel_progress >= snap_points[0]);
-  g_return_if_fail (cancel_progress <= snap_points[n_snap_points - 1]);
+  g_return_if_fail (current_progress >= points[0]);
+  g_return_if_fail (current_progress <= points[n_snap_points - 1]);
+  g_return_if_fail (cancel_progress >= points[0]);
+  g_return_if_fail (cancel_progress <= points[n_snap_points - 1]);
 
   if (self->state != HDY_SWIPE_TRACKER_STATE_PREPARING) {
     gesture_cancel (self);
