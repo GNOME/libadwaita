@@ -880,6 +880,7 @@
                                 <child type="prefix">
                                   <object class="GtkRadioButton" id="radio_button_1">
                                     <property name="can_focus">True</property>
+                                    <property name="valign">center</property>
                                     <property name="visible">True</property>
                                   </object>
                                 </child>
@@ -894,6 +895,7 @@
                                   <object class="GtkRadioButton" id="radio_button_2">
                                     <property name="can_focus">True</property>
                                     <property name="group">radio_button_1</property>
+                                    <property name="valign">center</property>
                                     <property name="visible">True</property>
                                   </object>
                                 </child>
