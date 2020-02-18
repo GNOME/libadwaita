@@ -16,6 +16,17 @@ row label.subtitle {
   text-shadow: none;
 }
 
+row > box.header {
+  margin-left: 12px;
+  margin-right: 12px;
+  min-height: 50px;
+}
+
+row > box.header > box.title {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
 /* Preferences */
 
 preferencespage label.h4 {
