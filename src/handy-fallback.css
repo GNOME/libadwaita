@@ -8,6 +8,14 @@
  * provided styles.
  */
 
+/* HdyActionRow */
+
+row label.subtitle {
+  font-size: smaller;
+  opacity: 0.55;
+  text-shadow: none;
+}
+
 /* Preferences */
 
 preferencespage label.h4 {
