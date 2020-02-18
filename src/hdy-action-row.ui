@@ -11,7 +11,7 @@
         <property name="valign">center</property>
         <property name="visible">True</property>
         <style>
-          <class name="row-header"/>
+          <class name="header"/>
         </style>
         <child>
           <object class="GtkBox" id="prefixes">
