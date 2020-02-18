@@ -918,11 +918,24 @@
                               <object class="HdyExpanderRow" id="expander_row">
                                 <property name="title" translatable="yes">Expander row</property>
                                 <property name="visible">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkListBoxRow">
+                                <property name="activatable">False</property>
+                                <property name="visible">True</property>
                                 <child>
-                                  <object class="GtkLabel">
-                                    <property name="label" translatable="yes">Hello, world!</property>
-                                    <property name="margin">12</property>
+                                  <object class="GtkRevealer">
+                                    <property name="reveal-child" bind-source="expander_row" bind-property="expanded" bind-flags="sync-create"/>
+                                    <property name="transition-type">slide-up</property>
                                     <property name="visible">True</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="label" translatable="yes">Hello, world!</property>
+                                        <property name="margin">12</property>
+                                        <property name="visible">True</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                               </object>
@@ -932,11 +945,24 @@
                                 <property name="show_enable_switch">True</property>
                                 <property name="title" translatable="yes">Toggleable expander row</property>
                                 <property name="visible">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkListBoxRow">
+                                <property name="activatable">False</property>
+                                <property name="visible">True</property>
                                 <child>
-                                  <object class="GtkLabel">
-                                    <property name="label" translatable="yes">Hello, world!</property>
-                                    <property name="margin">12</property>
+                                  <object class="GtkRevealer">
+                                    <property name="reveal-child" bind-source="enable_expander_row" bind-property="expanded" bind-flags="sync-create"/>
+                                    <property name="transition-type">slide-up</property>
                                     <property name="visible">True</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="label" translatable="yes">Hello, world!</property>
+                                        <property name="margin">12</property>
+                                        <property name="visible">True</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                               </object>
