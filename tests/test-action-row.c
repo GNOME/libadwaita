@@ -33,22 +33,6 @@ test_hdy_action_row_add (void)
 
 
 static void
-test_hdy_action_row_add_action (void)
-{
-  g_autoptr (HdyActionRow) row = NULL;
-  GtkWidget *sw;
-
-  row = g_object_ref_sink (HDY_ACTION_ROW (hdy_action_row_new ()));
-  g_assert_nonnull (row);
-
-  sw = gtk_switch_new ();
-  g_assert_nonnull (sw);
-
-  hdy_action_row_add_action (row, sw);
-}
-
-
-static void
 test_hdy_action_row_add_prefix (void)
 {
   g_autoptr (HdyActionRow) row = NULL;
@@ -150,7 +134,6 @@ main (gint argc,
   gtk_test_init (&argc, &argv, NULL);
 
   g_test_add_func("/Handy/ActionRow/add", test_hdy_action_row_add);
-  g_test_add_func("/Handy/ActionRow/add_action", test_hdy_action_row_add_action);
   g_test_add_func("/Handy/ActionRow/add_prefix", test_hdy_action_row_add_prefix);
   g_test_add_func("/Handy/ActionRow/title", test_hdy_action_row_title);
   g_test_add_func("/Handy/ActionRow/subtitle", test_hdy_action_row_subtitle);

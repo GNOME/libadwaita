@@ -1,7 +1,6 @@
 libhandy-1.so.0 libhandy-1-0 #MINVER#
  LIBHANDY_1_0@LIBHANDY_1_0 0.0~git20180429
  hdy_action_row_activate@LIBHANDY_1_0 0.0.6
- hdy_action_row_add_action@LIBHANDY_1_0 0.0.6
  hdy_action_row_add_prefix@LIBHANDY_1_0 0.0.6
  hdy_action_row_get_activatable_widget@LIBHANDY_1_0 0.0.7
  hdy_action_row_get_icon_name@LIBHANDY_1_0 0.0.6

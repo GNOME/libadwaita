@@ -52,9 +52,6 @@ gboolean hdy_action_row_get_use_underline (HdyActionRow *self);
 void     hdy_action_row_set_use_underline (HdyActionRow *self,
                                            gboolean      use_underline);
 
-void hdy_action_row_add_action (HdyActionRow *self,
-                                GtkWidget    *widget);
-
 void hdy_action_row_add_prefix (HdyActionRow *self,
                                 GtkWidget    *widget);
 

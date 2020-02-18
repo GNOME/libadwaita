@@ -235,8 +235,10 @@ hdy_action_row_add (GtkContainer *container,
    */
   if (priv->header == NULL)
     GTK_CONTAINER_CLASS (hdy_action_row_parent_class)->add (container, child);
-  else
+  else {
     gtk_container_add (GTK_CONTAINER (priv->suffixes), child);
+    gtk_widget_show (GTK_WIDGET (priv->suffixes));
+  }
 }
 
 typedef struct {
@@ -438,10 +440,8 @@ hdy_action_row_buildable_add_child (GtkBuildable *buildable,
   HdyActionRow *self = HDY_ACTION_ROW (buildable);
   HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
 
-  if (priv->header == NULL)
+  if (priv->header == NULL || !type)
     gtk_container_add (GTK_CONTAINER (self), GTK_WIDGET (child));
-  else if (!type)
-    hdy_action_row_add_action (self, GTK_WIDGET (child));
   else if (type && strcmp (type, "prefix") == 0)
     hdy_action_row_add_prefix (self, GTK_WIDGET (child));
   else
@@ -764,29 +764,6 @@ hdy_action_row_set_use_underline (HdyActionRow *self,
   gtk_label_set_mnemonic_widget (priv->subtitle, GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_UNDERLINE]);
-}
-
-/**
- * hdy_action_row_add_action:
- * @self: a #HdyActionRow
- * @widget: (allow-none): the action widget
- *
- * Adds an action widget to @self.
- *
- * Since: 0.0.6
- */
-void
-hdy_action_row_add_action (HdyActionRow *self,
-                           GtkWidget    *widget)
-{
-  HdyActionRowPrivate *priv;
-
-  g_return_if_fail (HDY_IS_ACTION_ROW (self));
-
-  priv = hdy_action_row_get_instance_private (self);
-
-  gtk_container_add (GTK_CONTAINER (priv->suffixes), widget);
-  gtk_widget_show (GTK_WIDGET (priv->suffixes));
 }
 
 /**
