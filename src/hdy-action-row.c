@@ -15,18 +15,14 @@
  * @Title: HdyActionRow
  *
  * The #HdyActionRow widget can have a title, a subtitle and an icon. The row
- * can receive action widgets at its end, prefix widgets at its start or widgets
- * below it.
+ * can receive additional widgets at its end, or prefix widgets at its start.
  *
- * Note that action widgets are packed starting from the end.
- *
- * It is convenient to present a list of preferences and their related actions.
+ * It is convenient to present a preference and its related actions.
  *
  * # HdyActionRow as GtkBuildable
  *
  * The GtkWindow implementation of the GtkBuildable interface supports setting a
- * child as an action widget by specifying “action” as the “type” attribute of a
- * &lt;child&gt; element.
+ * child at its end by omitting the “type” attribute of a &lt;child&gt; element.
  *
  * It also supports setting a child as a prefix widget by specifying “prefix” as
  * the “type” attribute of a &lt;child&gt; element.
@@ -433,7 +429,7 @@ hdy_action_row_buildable_add_child (GtkBuildable *buildable,
 
   if (priv->header == NULL)
     gtk_container_add (GTK_CONTAINER (self), GTK_WIDGET (child));
-  else if (type && strcmp (type, "action") == 0)
+  else if (!type)
     hdy_action_row_add_action (self, GTK_WIDGET (child));
   else if (type && strcmp (type, "prefix") == 0)
     hdy_action_row_add_prefix (self, GTK_WIDGET (child));

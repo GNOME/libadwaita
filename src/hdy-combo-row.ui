@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="HdyComboRow" parent="HdyActionRow">
-    <child type="action">
+    <child>
       <object class="GtkImage" id="image">
         <property name="icon_name">pan-down-symbolic</property>
         <property name="icon_size">1</property>
@@ -9,7 +9,7 @@
         <property name="visible">True</property>
       </object>
     </child>
-    <child type="action">
+    <child>
       <object class="GtkBox" id="current">
         <property name="halign">end</property>
         <property name="valign">center</property>

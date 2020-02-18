@@ -4,14 +4,14 @@
     <style>
       <class name="expander"/>
     </style>
-    <child type="action">
+    <child>
       <object class="GtkSwitch" id="enable_switch">
         <property name="can_focus">True</property>
         <property name="halign">end</property>
         <property name="valign">center</property>
       </object>
     </child>
-    <child type="action">
+    <child>
       <object class="GtkSeparator" id="separator">
         <property name="height_request">32</property>
         <property name="margin_bottom">8</property>
@@ -19,7 +19,7 @@
         <property name="orientation">vertical</property>
       </object>
     </child>
-    <child type="action">
+    <child>
       <object class="GtkToggleButton" id="button">
         <property name="active" bind-source="HdyExpanderRow" bind-property="expanded" bind-flags="bidirectional|sync-create"/>
         <property name="can_focus">True</property>
