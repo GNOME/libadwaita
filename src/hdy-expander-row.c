@@ -23,11 +23,9 @@
 
 typedef struct
 {
-  GtkBox *box;
   GtkToggleButton *button;
   GtkSwitch *enable_switch;
   GtkImage *image;
-  GtkRevealer *revealer;
   GtkSeparator *separator;
 
   gboolean expanded;
@@ -98,33 +96,6 @@ hdy_expander_row_set_property (GObject      *object,
   }
 }
 
-static void
-hdy_expander_row_destroy (GtkWidget *widget)
-{
-  HdyExpanderRow *self = HDY_EXPANDER_ROW (widget);
-  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
-
-  priv->box = NULL;
-
-  GTK_WIDGET_CLASS (hdy_expander_row_parent_class)->destroy (widget);
-}
-
-static void
-hdy_expander_row_add (GtkContainer *container,
-                      GtkWidget    *child)
-{
-  HdyExpanderRow *self = HDY_EXPANDER_ROW (container);
-  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
-
-  /* When constructing the widget, we want the revealer to be added as the child
-   * of the HdyExpanderRow, as an implementation detail.
-   */
-  if (priv->revealer == NULL)
-    GTK_CONTAINER_CLASS (hdy_expander_row_parent_class)->add (container, child);
-  else
-    gtk_container_add (GTK_CONTAINER (priv->box), child);
-}
-
 typedef struct {
   HdyExpanderRow *row;
   GtkCallback callback;
@@ -140,7 +111,6 @@ for_non_internal_child (GtkWidget *widget,
 
   if (widget != (GtkWidget *) priv->button &&
       widget != (GtkWidget *) priv->enable_switch &&
-      widget != (GtkWidget *) priv->revealer &&
       widget != (GtkWidget *) priv->separator)
     data->callback (widget, data->callback_data);
 }
@@ -152,7 +122,6 @@ hdy_expander_row_forall (GtkContainer *container,
                          gpointer      callback_data)
 {
   HdyExpanderRow *self = HDY_EXPANDER_ROW (container);
-  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
   ForallData data;
 
   if (include_internals) {
@@ -166,8 +135,6 @@ hdy_expander_row_forall (GtkContainer *container,
   data.callback_data = callback_data;
 
   GTK_CONTAINER_CLASS (hdy_expander_row_parent_class)->forall (GTK_CONTAINER (self), include_internals, for_non_internal_child, &data);
-  if (priv->box)
-    GTK_CONTAINER_GET_CLASS (priv->box)->forall (GTK_CONTAINER (priv->box), include_internals, callback, callback_data);
 }
 
 static void
@@ -191,10 +158,7 @@ hdy_expander_row_class_init (HdyExpanderRowClass *klass)
 
   object_class->get_property = hdy_expander_row_get_property;
   object_class->set_property = hdy_expander_row_set_property;
-
-  widget_class->destroy = hdy_expander_row_destroy;
   
-  container_class->add = hdy_expander_row_add;
   container_class->forall = hdy_expander_row_forall;
 
   row_class->activate = hdy_expander_row_activate;
@@ -239,10 +203,8 @@ hdy_expander_row_class_init (HdyExpanderRowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-expander-row.ui");
-  gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, box);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, button);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, image);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, revealer);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, separator);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, enable_switch);
 }
@@ -262,7 +224,6 @@ hdy_expander_row_init (HdyExpanderRow *self)
   g_object_bind_property (self, "show-enable-switch", priv->enable_switch, "visible", G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
   g_object_bind_property (self, "enable-expansion", priv->enable_switch, "active", G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
   g_object_bind_property (self, "enable-expansion", priv->button, "sensitive", G_BINDING_SYNC_CREATE);
-  g_object_bind_property (self, "enable-expansion", priv->box, "sensitive", G_BINDING_SYNC_CREATE);
 }
 
 /**
@@ -308,8 +269,6 @@ hdy_expander_row_set_expanded (HdyExpanderRow *self,
     return;
 
   priv->expanded = expanded;
-
-  gtk_revealer_set_reveal_child (priv->revealer, expanded);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXPANDED]);
 }

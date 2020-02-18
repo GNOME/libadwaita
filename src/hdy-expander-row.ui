@@ -21,7 +21,7 @@
     </child>
     <child type="action">
       <object class="GtkToggleButton" id="button">
-        <property name="active" bind-source="revealer" bind-property="reveal-child" bind-flags="bidirectional|sync-create"/>
+        <property name="active" bind-source="HdyExpanderRow" bind-property="expanded" bind-flags="bidirectional|sync-create"/>
         <property name="can_focus">True</property>
         <property name="halign">end</property>
         <property name="relief">none</property>
@@ -37,18 +37,6 @@
             <property name="can_focus">False</property>
             <property name="icon_name">pan-down-symbolic</property>
             <property name="icon_size">1</property>
-          </object>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkRevealer" id="revealer">
-        <property name="transition_type">slide-up</property>
-        <property name="visible">True</property>
-        <child>
-          <object class="GtkBox" id="box">
-            <property name="orientation">vertical</property>
-            <property name="visible">True</property>
           </object>
         </child>
       </object>
