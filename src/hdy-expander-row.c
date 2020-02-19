@@ -8,6 +8,7 @@
 #include "hdy-expander-row.h"
 
 #include <glib/gi18n-lib.h>
+#include "hdy-action-row.h"
 
 /**
  * SECTION:hdy-expander-row
@@ -18,12 +19,26 @@
  * also allows the user to enable the expansion of the row, allowing to disable
  * all that the row contains.
  *
+ * # CSS nodes
+ *
+ * #HdyExpanderRow has a main CSS node with name row, and the .expander style
+ * class. It has the .empty style class when it contains no children.
+ *
+ * It contains the subnodes row.header for its main embedded row, list.nested
+ * for the list it can expand, and image.expander-row-arrow for its arrow.
+ *
+ * When expanded, #HdyExpanderRow will add the
+ * .checked-expander-row-previous-sibling style class to its previous sibling,
+ * and remove it when retracted.
+ *
  * Since: 0.0.6
  */
 
 typedef struct
 {
-  GtkToggleButton *button;
+  GtkBox *box;
+  GtkListBox *list;
+  HdyActionRow *action_row;
   GtkSwitch *enable_switch;
   GtkImage *image;
   GtkSeparator *separator;
@@ -33,10 +48,14 @@ typedef struct
   gboolean show_enable_switch;
 } HdyExpanderRowPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyExpanderRow, hdy_expander_row, HDY_TYPE_ACTION_ROW)
+G_DEFINE_TYPE_WITH_PRIVATE (HdyExpanderRow, hdy_expander_row, HDY_TYPE_PREFERENCES_ROW)
 
 enum {
   PROP_0,
+  PROP_TITLE,
+  PROP_SUBTITLE,
+  PROP_USE_UNDERLINE,
+  PROP_ICON_NAME,
   PROP_EXPANDED,
   PROP_ENABLE_EXPANSION,
   PROP_SHOW_ENABLE_SWITCH,
@@ -46,8 +65,35 @@ enum {
 static GParamSpec *props[LAST_PROP];
 
 static void
-arrow_init (HdyExpanderRow *self)
+update_arrow (HdyExpanderRow *self)
 {
+  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
+  GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (self));
+  GtkWidget *previous_sibling = NULL;
+
+  if (parent) {
+    g_autoptr (GList) siblings = gtk_container_get_children (GTK_CONTAINER (parent));
+    GList *l;
+
+    for (l = siblings; l != NULL && l->next != NULL && l->next->data != self; l = l->next);
+
+    if (l && l->next && l->next->data == self)
+      previous_sibling = l->data;
+  }
+
+  if (priv->expanded)
+    gtk_widget_set_state_flags (GTK_WIDGET (self), GTK_STATE_FLAG_CHECKED, FALSE);
+  else
+    gtk_widget_unset_state_flags (GTK_WIDGET (self), GTK_STATE_FLAG_CHECKED);
+
+  if (previous_sibling) {
+    GtkStyleContext *previous_sibling_context = gtk_widget_get_style_context (previous_sibling);
+
+    if (priv->expanded)
+      gtk_style_context_add_class (previous_sibling_context, "checked-expander-row-previous-sibling");
+    else
+      gtk_style_context_remove_class (previous_sibling_context, "checked-expander-row-previous-sibling");
+  }
 }
 
 static void
@@ -59,6 +105,18 @@ hdy_expander_row_get_property (GObject    *object,
   HdyExpanderRow *self = HDY_EXPANDER_ROW (object);
 
   switch (prop_id) {
+  case PROP_TITLE:
+    g_value_set_string (value, hdy_expander_row_get_title (self));
+    break;
+  case PROP_SUBTITLE:
+    g_value_set_string (value, hdy_expander_row_get_subtitle (self));
+    break;
+  case PROP_USE_UNDERLINE:
+    g_value_set_boolean (value, hdy_expander_row_get_use_underline (self));
+    break;
+  case PROP_ICON_NAME:
+    g_value_set_string (value, hdy_expander_row_get_icon_name (self));
+    break;
   case PROP_EXPANDED:
     g_value_set_boolean (value, hdy_expander_row_get_expanded (self));
     break;
@@ -82,6 +140,18 @@ hdy_expander_row_set_property (GObject      *object,
   HdyExpanderRow *self = HDY_EXPANDER_ROW (object);
 
   switch (prop_id) {
+  case PROP_TITLE:
+    hdy_expander_row_set_title (self, g_value_get_string (value));
+    break;
+  case PROP_SUBTITLE:
+    hdy_expander_row_set_subtitle (self, g_value_get_string (value));
+    break;
+  case PROP_USE_UNDERLINE:
+    hdy_expander_row_set_use_underline (self, g_value_get_boolean (value));
+    break;
+  case PROP_ICON_NAME:
+    hdy_expander_row_set_icon_name (self, g_value_get_string (value));
+    break;
   case PROP_EXPANDED:
     hdy_expander_row_set_expanded (self, g_value_get_boolean (value));
     break;
@@ -109,7 +179,7 @@ for_non_internal_child (GtkWidget *widget,
   ForallData *data = callback_data;
   HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (data->row);
 
-  if (widget != (GtkWidget *) priv->button &&
+  if (widget != (GtkWidget *) priv->image &&
       widget != (GtkWidget *) priv->enable_switch &&
       widget != (GtkWidget *) priv->separator)
     data->callback (widget, data->callback_data);
@@ -138,14 +208,49 @@ hdy_expander_row_forall (GtkContainer *container,
 }
 
 static void
-hdy_expander_row_activate (HdyActionRow *row)
+activate_cb (HdyExpanderRow *self)
 {
-  HdyExpanderRow *self = HDY_EXPANDER_ROW (row);
   HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
 
-  hdy_expander_row_set_expanded (self, priv->enable_expansion);
+  hdy_expander_row_set_expanded (self, !priv->expanded);
+}
 
-  HDY_ACTION_ROW_CLASS (hdy_expander_row_parent_class)->activate (row);
+static void
+count_children_cb (GtkWidget *widget,
+                   gint      *count)
+{
+  (*count)++;
+}
+
+static void
+list_children_changed_cb (HdyExpanderRow *self)
+{
+  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
+  GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
+  gint count = 0;
+
+  gtk_container_foreach (GTK_CONTAINER (priv->list), (GtkCallback) count_children_cb, &count);
+
+  if (count == 0)
+    gtk_style_context_add_class (context, "empty");
+  else
+    gtk_style_context_remove_class (context, "empty");
+}
+
+static void
+hdy_expander_row_add (GtkContainer *container,
+                      GtkWidget    *child)
+{
+  HdyExpanderRow *self = HDY_EXPANDER_ROW (container);
+  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
+
+  /* When constructing the widget, we want the box to be added as the child of
+   * the GtkListBoxRow, as an implementation detail.
+   */
+  if (priv->box == NULL)
+    GTK_CONTAINER_CLASS (hdy_expander_row_parent_class)->add (container, child);
+  else
+    gtk_container_add (GTK_CONTAINER (priv->list), child);
 }
 
 static void
@@ -154,14 +259,69 @@ hdy_expander_row_class_init (HdyExpanderRowClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
   GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
-  HdyActionRowClass *row_class = HDY_ACTION_ROW_CLASS (klass);
 
   object_class->get_property = hdy_expander_row_get_property;
   object_class->set_property = hdy_expander_row_set_property;
   
+  container_class->add = hdy_expander_row_add;
   container_class->forall = hdy_expander_row_forall;
 
-  row_class->activate = hdy_expander_row_activate;
+  /**
+   * HdyExpanderRow:title:
+   *
+   * The title for this row.
+   *
+   * Since: 1.0
+   */
+  props[PROP_TITLE] =
+    g_param_spec_string ("title",
+                         _("Title"),
+                         _("The title for this row"),
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyExpanderRow:subtitle:
+   *
+   * The subtitle for this row.
+   *
+   * Since: 1.0
+   */
+  props[PROP_SUBTITLE] =
+    g_param_spec_string ("subtitle",
+                         _("Subtitle"),
+                         _("The subtitle for this row"),
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyExpanderRow:use-underline:
+   *
+   * Whether an embedded underline in the text of the title and subtitle labels
+   * indicates a mnemonic.
+   *
+   * Since: 1.0
+   */
+  props[PROP_USE_UNDERLINE] =
+    g_param_spec_boolean ("use-underline",
+                          _("Use underline"),
+                          _("If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key"),
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyExpanderRow:icon-name:
+   *
+   * The icon name for this row.
+   *
+   * Since: 1.0
+   */
+  props[PROP_ICON_NAME] =
+    g_param_spec_string ("icon-name",
+                         _("Icon name"),
+                         _("Icon name"),
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * HdyExpanderRow:expanded:
@@ -203,11 +363,26 @@ hdy_expander_row_class_init (HdyExpanderRowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-expander-row.ui");
-  gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, button);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, action_row);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, box);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, list);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, image);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, separator);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, enable_switch);
+  gtk_widget_class_bind_template_callback (widget_class, activate_cb);
+  gtk_widget_class_bind_template_callback (widget_class, list_children_changed_cb);
 }
+
+#define NOTIFY(func, prop) \
+static void \
+func (gpointer this) { \
+  g_object_notify_by_pspec (G_OBJECT (this), props[prop]); \
+} \
+
+NOTIFY (notify_title_cb, PROP_TITLE);
+NOTIFY (notify_subtitle_cb, PROP_SUBTITLE);
+NOTIFY (notify_use_underline_cb, PROP_USE_UNDERLINE);
+NOTIFY (notify_icon_name_cb, PROP_ICON_NAME);
 
 static void
 hdy_expander_row_init (HdyExpanderRow *self)
@@ -216,14 +391,13 @@ hdy_expander_row_init (HdyExpanderRow *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  arrow_init (self);
   hdy_expander_row_set_enable_expansion (self, TRUE);
   hdy_expander_row_set_expanded (self, FALSE);
 
-  g_object_bind_property (self, "show-enable-switch", priv->separator, "visible", G_BINDING_SYNC_CREATE);
-  g_object_bind_property (self, "show-enable-switch", priv->enable_switch, "visible", G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
-  g_object_bind_property (self, "enable-expansion", priv->enable_switch, "active", G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
-  g_object_bind_property (self, "enable-expansion", priv->button, "sensitive", G_BINDING_SYNC_CREATE);
+  g_signal_connect_object (priv->action_row, "notify::title", G_CALLBACK (notify_title_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (priv->action_row, "notify::subtitle", G_CALLBACK (notify_subtitle_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (priv->action_row, "notify::use-underline", G_CALLBACK (notify_use_underline_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (priv->action_row, "notify::icon-name", G_CALLBACK (notify_icon_name_cb), self, G_CONNECT_SWAPPED);
 }
 
 /**
@@ -239,6 +413,185 @@ HdyExpanderRow *
 hdy_expander_row_new (void)
 {
   return g_object_new (HDY_TYPE_EXPANDER_ROW, NULL);
+}
+
+/**
+ * hdy_expander_row_get_title:
+ * @self: a #HdyExpanderRow
+ *
+ * Gets the title for @self.
+ *
+ * Returns: the title for @self.
+ *
+ * Since: 1.0
+ */
+const gchar *
+hdy_expander_row_get_title (HdyExpanderRow *self)
+{
+  HdyExpanderRowPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_EXPANDER_ROW (self), NULL);
+
+  priv = hdy_expander_row_get_instance_private (self);
+
+  return hdy_action_row_get_title (priv->action_row);
+}
+
+/**
+ * hdy_expander_row_set_title:
+ * @self: a #HdyExpanderRow
+ * @title: the title
+ *
+ * Sets the title for @self.
+ *
+ * Since: 1.0
+ */
+void
+hdy_expander_row_set_title (HdyExpanderRow *self,
+                            const gchar    *title)
+{
+  HdyExpanderRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_EXPANDER_ROW (self));
+
+  priv = hdy_expander_row_get_instance_private (self);
+
+  hdy_action_row_set_title (priv->action_row, title);
+}
+
+/**
+ * hdy_expander_row_get_subtitle:
+ * @self: a #HdyExpanderRow
+ *
+ * Gets the subtitle for @self.
+ *
+ * Returns: the subtitle for @self.
+ *
+ * Since: 1.0
+ */
+const gchar *
+hdy_expander_row_get_subtitle (HdyExpanderRow *self)
+{
+  HdyExpanderRowPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_EXPANDER_ROW (self), NULL);
+
+  priv = hdy_expander_row_get_instance_private (self);
+
+  return hdy_action_row_get_subtitle (priv->action_row);
+}
+
+/**
+ * hdy_expander_row_set_subtitle:
+ * @self: a #HdyExpanderRow
+ * @subtitle: the subtitle
+ *
+ * Sets the subtitle for @self.
+ *
+ * Since: 1.0
+ */
+void
+hdy_expander_row_set_subtitle (HdyExpanderRow *self,
+                               const gchar    *subtitle)
+{
+  HdyExpanderRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_EXPANDER_ROW (self));
+
+  priv = hdy_expander_row_get_instance_private (self);
+
+  hdy_action_row_set_subtitle (priv->action_row, subtitle);
+}
+
+/**
+ * hdy_expander_row_get_use_underline:
+ * @self: a #HdyExpanderRow
+ *
+ * Gets whether an embedded underline in the text of the title and subtitle
+ * labels indicates a mnemonic. See hdy_expander_row_set_use_underline().
+ *
+ * Returns: %TRUE if an embedded underline in the title and subtitle labels
+ *          indicates the mnemonic accelerator keys.
+ *
+ * Since: 1.0
+ */
+gboolean
+hdy_expander_row_get_use_underline (HdyExpanderRow *self)
+{
+  HdyExpanderRowPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_EXPANDER_ROW (self), FALSE);
+
+  priv = hdy_expander_row_get_instance_private (self);
+
+  return hdy_action_row_get_use_underline (priv->action_row);
+}
+
+/**
+ * hdy_expander_row_set_use_underline:
+ * @self: a #HdyExpanderRow
+ * @use_underline: %TRUE if underlines in the text indicate mnemonics
+ *
+ * If true, an underline in the text of the title and subtitle labels indicates
+ * the next character should be used for the mnemonic accelerator key.
+ *
+ * Since: 1.0
+ */
+void
+hdy_expander_row_set_use_underline (HdyExpanderRow *self,
+                                    gboolean        use_underline)
+{
+  HdyExpanderRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_EXPANDER_ROW (self));
+
+  priv = hdy_expander_row_get_instance_private (self);
+
+  hdy_action_row_set_use_underline (priv->action_row, use_underline);
+}
+
+/**
+ * hdy_expander_row_get_icon_name:
+ * @self: a #HdyExpanderRow
+ *
+ * Gets the icon name for @self.
+ *
+ * Returns: the icon name for @self.
+ *
+ * Since: 1.0
+ */
+const gchar *
+hdy_expander_row_get_icon_name (HdyExpanderRow *self)
+{
+  HdyExpanderRowPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_EXPANDER_ROW (self), NULL);
+
+  priv = hdy_expander_row_get_instance_private (self);
+
+  return hdy_action_row_get_icon_name (priv->action_row);
+}
+
+/**
+ * hdy_expander_row_set_icon_name:
+ * @self: a #HdyExpanderRow
+ * @icon_name: the icon name
+ *
+ * Sets the icon name for @self.
+ *
+ * Since: 1.0
+ */
+void
+hdy_expander_row_set_icon_name (HdyExpanderRow *self,
+                                const gchar    *icon_name)
+{
+  HdyExpanderRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_EXPANDER_ROW (self));
+
+  priv = hdy_expander_row_get_instance_private (self);
+
+  hdy_action_row_set_icon_name (priv->action_row, icon_name);
 }
 
 gboolean
@@ -269,6 +622,8 @@ hdy_expander_row_set_expanded (HdyExpanderRow *self,
     return;
 
   priv->expanded = expanded;
+
+  update_arrow (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXPANDED]);
 }

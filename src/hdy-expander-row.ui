@@ -1,44 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="HdyExpanderRow" parent="HdyActionRow">
+  <template class="HdyExpanderRow" parent="HdyPreferencesRow">
+    <!-- The row must not be activatable, to be sure it doesn't conflict with
+         clicking nested rows. -->
+    <property name="activatable">False</property>
+    <!-- The row must be focusable for keyboard navigation to work as
+         expected. -->
+    <property name="can-focus">True</property>
+    <!-- The row is focusable and can still be activated via keyboard, despite
+         being marked as inactivatable. Activating the row should toggle its
+         expansion. -->
+    <signal name="activate" handler="activate_cb" after="yes"/>
     <style>
+      <class name="empty"/>
       <class name="expander"/>
     </style>
     <child>
-      <object class="GtkToggleButton" id="button">
-        <property name="active" bind-source="HdyExpanderRow" bind-property="expanded" bind-flags="bidirectional|sync-create"/>
-        <property name="can_focus">True</property>
-        <property name="halign">end</property>
-        <property name="relief">none</property>
-        <property name="valign">center</property>
+      <object class="GtkBox" id="box">
+        <property name="orientation">vertical</property>
         <property name="visible">True</property>
-        <style>
-          <class name="image-button"/>
-          <class name="rotated-checked"/>
-        </style>
         <child>
-          <object class="GtkImage" id="image">
+          <object class="GtkListBox">
+            <property name="selection-mode">none</property>
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="icon_name">pan-down-symbolic</property>
-            <property name="icon_size">1</property>
+            <!-- The header row is focusable, activatable, and can be activated
+                 by clicking it or via keyboard. Activating the row should
+                 toggle its expansion. -->
+            <signal name="row-activated" handler="activate_cb" after="yes" swapped="yes"/>
+            <child>
+              <object class="HdyActionRow" id="action_row">
+                <!-- The header row must be activatable to toggle expansion by
+                     clicking it or via keyboard activation. -->
+                <property name="activatable">True</property>
+                <!-- The header row must be focusable for keyboard navigation to
+                     work as expected. -->
+                <property name="can-focus">True</property>
+                <property name="visible">True</property>
+                <style>
+                  <class name="header"/>
+                </style>
+                <child>
+                  <object class="GtkImage" id="image">
+                    <property name="can-focus">False</property>
+                    <property name="icon-name">hdy-expander-arrow-symbolic</property>
+                    <property name="icon-size">1</property>
+                    <property name="sensitive" bind-source="HdyExpanderRow" bind-property="enable-expansion" bind-flags="sync-create"/>
+                    <property name="visible">True</property>
+                    <style>
+                      <class name="expander-row-arrow"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSeparator" id="separator">
+                    <property name="margin-bottom">8</property>
+                    <property name="margin-top">8</property>
+                    <property name="orientation">vertical</property>
+                    <property name="visible" bind-source="HdyExpanderRow" bind-property="show-enable-switch" bind-flags="sync-create"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSwitch" id="enable_switch">
+                    <property name="active" bind-source="HdyExpanderRow" bind-property="enable-expansion" bind-flags="bidirectional|sync-create"/>
+                    <property name="can-focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="visible" bind-source="HdyExpanderRow" bind-property="show-enable-switch" bind-flags="bidirectional|sync-create"/>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkSeparator" id="separator">
-        <property name="height_request">32</property>
-        <property name="margin_bottom">8</property>
-        <property name="margin_top">8</property>
-        <property name="orientation">vertical</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkSwitch" id="enable_switch">
-        <property name="can_focus">True</property>
-        <property name="halign">end</property>
-        <property name="valign">center</property>
+        <child>
+          <object class="GtkRevealer">
+            <property name="reveal-child" bind-source="HdyExpanderRow" bind-property="expanded" bind-flags="sync-create"/>
+            <property name="transition-type">slide-up</property>
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkListBox" id="list">
+                <property name="selection-mode">none</property>
+                <property name="visible">True</property>
+                <signal name="add" handler="list_children_changed_cb" swapped="yes"/>
+                <signal name="remove" handler="list_children_changed_cb" swapped="yes"/>
+                <style>
+                  <class name="nested"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </template>

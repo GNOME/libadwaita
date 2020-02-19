@@ -11,13 +11,13 @@
 #endif
 
 #include <gtk/gtk.h>
-#include "hdy-action-row.h"
+#include "hdy-preferences-row.h"
 
 G_BEGIN_DECLS
 
 #define HDY_TYPE_EXPANDER_ROW (hdy_expander_row_get_type())
 
-G_DECLARE_DERIVABLE_TYPE (HdyExpanderRow, hdy_expander_row, HDY, EXPANDER_ROW, HdyActionRow)
+G_DECLARE_DERIVABLE_TYPE (HdyExpanderRow, hdy_expander_row, HDY, EXPANDER_ROW, HdyPreferencesRow)
 
 /**
  * HdyExpanderRowClass
@@ -25,10 +25,26 @@ G_DECLARE_DERIVABLE_TYPE (HdyExpanderRow, hdy_expander_row, HDY, EXPANDER_ROW, H
  */
 struct _HdyExpanderRowClass
 {
-  HdyActionRowClass parent_class;
+  HdyPreferencesRowClass parent_class;
 };
 
 HdyExpanderRow *hdy_expander_row_new (void);
+
+const gchar *hdy_expander_row_get_title (HdyExpanderRow *self);
+void         hdy_expander_row_set_title (HdyExpanderRow *self,
+                                         const gchar    *title);
+
+const gchar *hdy_expander_row_get_subtitle (HdyExpanderRow *self);
+void         hdy_expander_row_set_subtitle (HdyExpanderRow *self,
+                                            const gchar    *subtitle);
+
+gboolean hdy_expander_row_get_use_underline (HdyExpanderRow *self);
+void     hdy_expander_row_set_use_underline (HdyExpanderRow *self,
+                                             gboolean        use_underline);
+
+const gchar *hdy_expander_row_get_icon_name (HdyExpanderRow *self);
+void         hdy_expander_row_set_icon_name (HdyExpanderRow *self,
+                                             const gchar    *icon_name);
 
 gboolean hdy_expander_row_get_expanded (HdyExpanderRow *self);
 void     hdy_expander_row_set_expanded (HdyExpanderRow *self,
