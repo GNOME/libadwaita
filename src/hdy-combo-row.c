@@ -22,6 +22,17 @@
  * is specified in the form of a #GListModel, and the display of the choices can
  * be adapted to the data in the model via widget creation functions.
  *
+ * # CSS nodes
+ *
+ * #HdyComboRow has a main CSS node with name row.
+ *
+ * Its popover has the node name popover with the .combo style class, it
+ * contains a #GtkScrolledWindow, which in turn contains a #GtkListBox, both are
+ * accessible via their regular nodes.
+ *
+ * A checkmark of node and style class image.checkmark in the popover denotes
+ * the current item.
+ *
  * Since: 0.0.6
  */
 
