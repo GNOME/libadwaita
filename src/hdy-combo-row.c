@@ -50,6 +50,7 @@ typedef struct
   GtkListBoxCreateWidgetFunc create_list_widget_func;
   GtkListBoxCreateWidgetFunc create_current_widget_func;
   gpointer create_widget_func_data;
+  GDestroyNotify create_widget_func_data_free_func;
   /* This is owned by create_widget_func_data, which is ultimately owned by the
    * list box, and hence should not be destroyed manually.
    */
@@ -105,6 +106,44 @@ create_current_label (gpointer item,
 }
 
 static void
+create_list_widget_data_free (gpointer user_data)
+{
+  HdyComboRow *self = HDY_COMBO_ROW (user_data);
+  HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
+
+  if (priv->create_widget_func_data_free_func)
+    priv->create_widget_func_data_free_func (priv->create_widget_func_data);
+}
+
+static GtkWidget *
+create_list_widget (gpointer item,
+                    gpointer user_data)
+{
+  HdyComboRow *self = HDY_COMBO_ROW (user_data);
+  HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
+  GtkWidget *checkmark = g_object_new (GTK_TYPE_IMAGE,
+                                       "halign", GTK_ALIGN_START,
+                                       "icon-name", "emblem-ok-symbolic",
+                                       "valign", GTK_ALIGN_CENTER,
+                                       NULL);
+  GtkWidget *box = g_object_new (GTK_TYPE_BOX,
+                                 "child", priv->create_list_widget_func (item, priv->create_widget_func_data),
+                                 "child", checkmark,
+                                 "halign", GTK_ALIGN_START,
+                                 "spacing", 6,
+                                 "valign", GTK_ALIGN_CENTER,
+                                 "visible", TRUE,
+                                 NULL);
+  GtkStyleContext *checkmark_context = gtk_widget_get_style_context (checkmark);
+
+  gtk_style_context_add_class (checkmark_context, "checkmark");
+
+  g_object_set_data (G_OBJECT (box), "checkmark", checkmark);
+
+  return box;
+}
+
+static void
 get_name_free (HdyComboRowGetName *get_name)
 {
   if (get_name == NULL)
@@ -140,6 +179,20 @@ update (HdyComboRow *self)
   g_assert (priv->selected_index >= 0 && priv->selected_index <= g_list_model_get_n_items (priv->bound_model));
 
   gtk_widget_set_sensitive (GTK_WIDGET (self), TRUE);
+
+  {
+    g_autoptr (GList) rows = gtk_container_get_children (GTK_CONTAINER (priv->list));
+    GList *l;
+    int i = 0;
+
+    for (l = rows; l; l = l->next) {
+      GtkWidget *row = GTK_WIDGET (l->data);
+      GtkWidget *box = gtk_bin_get_child (GTK_BIN (row));
+
+      gtk_widget_set_visible (GTK_WIDGET (g_object_get_data (G_OBJECT (box), "checkmark")),
+                              priv->selected_index == i++);
+    }
+  }
 
   item = g_list_model_get_item (priv->bound_model, priv->selected_index);
   if (priv->use_subtitle) {
@@ -218,6 +271,7 @@ destroy_model (HdyComboRow *self)
     priv->create_list_widget_func = NULL;
     priv->create_current_widget_func = NULL;
     priv->create_widget_func_data = NULL;
+    priv->create_widget_func_data_free_func = NULL;
   }
 }
 
@@ -479,18 +533,19 @@ hdy_combo_row_bind_model (HdyComboRow                *self,
     return;
   }
 
-  gtk_list_box_bind_model (priv->list, model, create_list_widget_func, user_data, user_data_free_func);
-
   /* We don't need take a reference as the list box holds one for us. */
   priv->bound_model = model;
   priv->create_list_widget_func = create_list_widget_func;
   priv->create_current_widget_func = create_current_widget_func;
   priv->create_widget_func_data = user_data;
+  priv->create_widget_func_data_free_func = user_data_free_func;
 
   g_signal_connect (priv->bound_model, "items-changed", G_CALLBACK (bound_model_changed), self);
 
   if (g_list_model_get_n_items (priv->bound_model) > 0)
     priv->selected_index = 0;
+
+  gtk_list_box_bind_model (priv->list, model, create_list_widget, self, create_list_widget_data_free);
 
   update (self);
 
