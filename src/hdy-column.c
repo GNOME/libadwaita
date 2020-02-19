@@ -26,7 +26,7 @@
  *
  * # CSS nodes
  *
- * #HdyColumn has a single CSS node with name hdycolumn. The node will get the
+ * #HdyColumn has a single CSS node with name column. The node will get the
  * style classes .wide when its child reached its maximum width, .narrow when
  * the column allocates its full width to its child, .medium in-between, or none
  * if it didn't compute its size yet.
