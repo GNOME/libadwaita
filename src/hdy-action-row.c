@@ -27,6 +27,16 @@
  * It also supports setting a child as a prefix widget by specifying “prefix” as
  * the “type” attribute of a &lt;child&gt; element.
  *
+ * # CSS nodes
+ *
+ * #HdyActionRow has a main CSS node with name row.
+ *
+ * It contains the subnode box.header for its main horizontal box, and box.title
+ * for the vertical box containing the title and subtitle labels.
+ *
+ * It contains subnodes label.title and label.subtitle representing respectively
+ * the title label and subtitle label.
+ *
  * Since: 0.0.6
  */
 
