@@ -8,7 +8,6 @@
 #include "hdy-combo-row.h"
 
 #include <glib/gi18n-lib.h>
-#include "hdy-list-box.h"
 
 /**
  * SECTION:hdy-combo-row
@@ -78,10 +77,9 @@ create_list_label (gpointer item,
   return g_object_new (GTK_TYPE_LABEL,
                        "ellipsize", PANGO_ELLIPSIZE_END,
                        "label", name,
-                       "margin", 12,
                        "max-width-chars", 20,
+                       "valign", GTK_ALIGN_CENTER,
                        "visible", TRUE,
-                       "width-chars", 20,
                        "xalign", 0.0,
                         NULL);
 }
@@ -383,7 +381,6 @@ hdy_combo_row_init (HdyComboRow *self)
 
   priv->selected_index = -1;
 
-  gtk_list_box_set_header_func (priv->list, hdy_list_box_separator_header, NULL, NULL);
   g_signal_connect_object (priv->list, "row-activated", G_CALLBACK (gtk_widget_hide),
                            priv->popover, G_CONNECT_SWAPPED);
   g_signal_connect_object (priv->list, "row-activated", G_CALLBACK (row_activated_cb),

@@ -20,6 +20,9 @@
   <object class="GtkPopover" id="popover">
     <property name="position">bottom</property>
     <property name="relative_to">image</property>
+    <style>
+      <class name="combo"/>
+    </style>
     <child>
       <object class="GtkScrolledWindow">
         <property name="hscrollbar_policy">never</property>
@@ -28,15 +31,8 @@
         <property name="visible">True</property>
         <child>
           <object class="GtkListBox" id="list">
-            <property name="margin_bottom">12</property>
-            <property name="margin_end">12</property>
-            <property name="margin_start">12</property>
-            <property name="margin_top">12</property>
             <property name="selection_mode">none</property>
             <property name="visible">True</property>
-            <style>
-              <class name="transparent-background"/>
-            </style>
           </object>
         </child>
       </object>
