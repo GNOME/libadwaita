@@ -150,6 +150,22 @@
       </para>
     </refsect3>
 
+    <refsect3>
+      <title>Adapt to HdyExpanderRow API changes</title>
+      <para>
+        #HdyExpanderRow doesn't descend from #HdyActionRow anymore but from
+        #HdyPreferencesRow.
+        It reimplement some features from #HdyActionRow, like the
+        #HdyExpanderRow:title, #HdyExpanderRow:subtitle,
+        #HdyExpanderRow:use-underline and #HdyExpanderRow:icon-name, but it
+        doesn't offer the “activate” signal nor the ability to add widgets in
+        its header row.
+      </para>
+      <para>
+        Widgets you add to it will be added to its inner #GtkListBox.
+      </para>
+    </refsect3>
+
   </refsect2>
 
 </refentry>
