@@ -868,6 +868,9 @@
                                     <property name="label" translatable="yes">Frobnicate</property>
                                     <property name="valign">center</property>
                                     <property name="visible">True</property>
+                                    <style>
+                                      <class name="list-button"/>
+                                    </style>
                                   </object>
                                 </child>
                               </object>
