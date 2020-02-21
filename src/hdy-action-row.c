@@ -71,6 +71,13 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
+enum {
+  SIGNAL_ACTIVATED,
+  SIGNAL_LAST_SIGNAL,
+};
+
+static guint signals[SIGNAL_LAST_SIGNAL];
+
 static void
 row_activated_cb (HdyActionRow  *self,
                   GtkListBoxRow *row)
@@ -286,6 +293,8 @@ hdy_action_row_activate_real (HdyActionRow *self)
 
   if (priv->activatable_widget)
     gtk_widget_mnemonic_activate (priv->activatable_widget, FALSE);
+
+  g_signal_emit (self, signals[SIGNAL_ACTIVATED], 0);
 }
 
 static void
@@ -379,6 +388,23 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
+
+  /**
+   * HdyActionRow::activated:
+   * @self: The #HdyActionRow instance
+   *
+   * This signal is emitted after the row has been activated.
+   *
+   * Since: 1.0
+   */
+  signals[SIGNAL_ACTIVATED] =
+    g_signal_new ("activated",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  0);
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-action-row.ui");

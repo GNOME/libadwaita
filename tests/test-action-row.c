@@ -7,6 +7,14 @@
 #define HANDY_USE_UNSTABLE_API
 #include <handy.h>
 
+gint activated;
+
+static void
+activated_cb (GtkWidget *widget, gpointer data)
+{
+  activated++;
+}
+
 
 static void
 test_hdy_action_row_add (void)
@@ -119,6 +127,22 @@ test_hdy_action_row_use_undeline (void)
 }
 
 
+static void
+test_hdy_action_row_activate (void)
+{
+  g_autoptr (HdyActionRow) row = NULL;
+
+  row = g_object_ref_sink (HDY_ACTION_ROW (hdy_action_row_new ()));
+  g_assert_nonnull (row);
+
+  activated = 0;
+  g_signal_connect (row, "activated", G_CALLBACK (activated_cb), NULL);
+
+  hdy_action_row_activate (row);
+  g_assert_cmpint (activated, ==, 1);
+}
+
+
 gint
 main (gint argc,
       gchar *argv[])
@@ -132,6 +156,7 @@ main (gint argc,
   g_test_add_func("/Handy/ActionRow/subtitle", test_hdy_action_row_subtitle);
   g_test_add_func("/Handy/ActionRow/icon_name", test_hdy_action_row_icon_name);
   g_test_add_func("/Handy/ActionRow/use_underline", test_hdy_action_row_use_undeline);
+  g_test_add_func("/Handy/ActionRow/activate", test_hdy_action_row_activate);
 
   return g_test_run();
 }
