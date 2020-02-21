@@ -9,7 +9,6 @@
 #include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
 #include "gconstructorprivate.h"
-#include "hdy-style-private.h"
 
 /**
  * PRIVATE:hdy-main
@@ -27,6 +26,12 @@
 #pragma G_DEFINE_CONSTRUCTOR_PRAGMA_ARGS(hdy_constructor)
 #endif
 G_DEFINE_CONSTRUCTOR(hdy_constructor)
+
+/* The style provider priority to use for libhandy widgets custom styling. It is
+ * higher than themes and settings, allowing to override theme defaults, but
+ * lower than applications and user provided styles, so application developers
+ * can nonetheless apply custom styling on top of it. */
+#define HDY_STYLE_PROVIDER_PRIORITY_OVERRIDE (GTK_STYLE_PROVIDER_PRIORITY_SETTINGS + 1)
 
 /**
  * hdy_style_init:

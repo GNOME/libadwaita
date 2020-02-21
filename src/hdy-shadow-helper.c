@@ -8,7 +8,6 @@
 #include <glib/gi18n-lib.h>
 
 #include "hdy-shadow-helper-private.h"
-#include "hdy-style-private.h"
 
 #include <math.h>
 
