@@ -20,6 +20,4 @@ G_BEGIN_DECLS
  * can nonetheless apply custom styling on top of it. */
 #define HDY_STYLE_PROVIDER_PRIORITY_OVERRIDE (GTK_STYLE_PROVIDER_PRIORITY_SETTINGS + 1)
 
-void hdy_style_init (void);
-
 G_END_DECLS
