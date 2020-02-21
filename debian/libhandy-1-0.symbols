@@ -148,6 +148,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_leaflet_get_type@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_get_visible_child@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_get_visible_child_name@LIBHANDY_1_0 0.0~git20180429
+ hdy_leaflet_navigate@LIBHANDY_1_0 0.9.90
  hdy_leaflet_new@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_set_can_swipe_back@LIBHANDY_1_0 0.0.12
  hdy_leaflet_set_can_swipe_forward@LIBHANDY_1_0 0.0.12
@@ -161,6 +162,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_leaflet_transition_type_get_type@LIBHANDY_1_0 0.0.12
  hdy_lerp@LIBHANDY_1_0 0.0.11
  hdy_list_box_separator_header@LIBHANDY_1_0 0.0.6
+ hdy_navigation_direction_get_type@LIBHANDY_1_0 0.9.9
  hdy_preferences_group_add_preferences_to_model@LIBHANDY_1_0 0.0.10
  hdy_preferences_group_get_description@LIBHANDY_1_0 0.0.10
  hdy_preferences_group_get_title@LIBHANDY_1_0 0.0.10
