@@ -47,7 +47,6 @@ G_BEGIN_DECLS
 #include "hdy-preferences-window.h"
 #include "hdy-search-bar.h"
 #include "hdy-squeezer.h"
-#include "hdy-string-utf8.h"
 #include "hdy-swipe-group.h"
 #include "hdy-swipeable.h"
 #include "hdy-title-bar.h"

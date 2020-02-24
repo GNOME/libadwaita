@@ -2,5 +2,4 @@ src/gtkprogresstracker.c
 src/hdy-column.c
 src/hdy-header-group.c
 src/hdy-leaflet.c
-src/hdy-string-utf8.c
 src/hdy-title-bar.c
