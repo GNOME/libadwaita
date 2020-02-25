@@ -86,9 +86,9 @@ hdy_demo_window_notify_header_visible_child_cb (GObject       *sender,
 }
 
 static void
-hdy_demo_window_notify_fold_cb (GObject       *sender,
-                                GParamSpec    *pspec,
-                                HdyDemoWindow *self)
+hdy_demo_window_notify_folded_cb (GObject       *sender,
+                                  GParamSpec    *pspec,
+                                  HdyDemoWindow *self)
 {
   update (self);
 }
@@ -384,7 +384,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel_indicator_style_row);
   gtk_widget_class_bind_template_callback_full (widget_class, "key_pressed_cb", G_CALLBACK(hdy_demo_window_key_pressed_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_header_visible_child_cb", G_CALLBACK(hdy_demo_window_notify_header_visible_child_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_fold_cb", G_CALLBACK(hdy_demo_window_notify_fold_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "notify_folded_cb", G_CALLBACK(hdy_demo_window_notify_folded_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(hdy_demo_window_notify_visible_child_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "back_clicked_cb", G_CALLBACK(hdy_demo_window_back_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_leaflet_transition_cb", G_CALLBACK(notify_leaflet_transition_cb));

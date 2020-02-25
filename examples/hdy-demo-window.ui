@@ -25,7 +25,7 @@
             <property name="transition-type" bind-source="content_box" bind-property="transition-type" bind-flags="sync-create"/>
             <property name="visible">True</property>
             <signal name="notify::visible-child" handler="notify_header_visible_child_cb" swapped="no"/>
-            <signal name="notify::fold" handler="notify_fold_cb" after="yes" swapped="no"/>
+            <signal name="notify::folded" handler="notify_folded_cb" after="yes" swapped="no"/>
             <child>
               <object class="GtkHeaderBar" id="header_bar">
                 <property name="visible">True</property>
