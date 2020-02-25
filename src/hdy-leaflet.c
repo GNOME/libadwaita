@@ -1356,7 +1356,7 @@ hdy_leaflet_set_can_swipe_forward (HdyLeaflet *self,
  *
  * Returns whether the #HdyLeaflet allows swiping to the next child.
  *
- * Returns: %TRUE if back swipe is enabled.
+ * Returns: %TRUE if forward swipe is enabled.
  *
  * Since: 0.0.12
  */
