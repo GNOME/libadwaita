@@ -644,13 +644,22 @@ set_visible_child_info (HdyStackableBox               *self,
   }
 
   if (emit_switch_child) {
-    gint n;
+    gint index = 0;
 
-    children = gtk_container_get_children (self->container);
-    n = g_list_index (children, new_visible_child->widget);
-    g_list_free (children);
+    for (children = self->children; children; children = children->next) {
+      child_info = children->data;
 
-    hdy_swipeable_emit_switch_child (HDY_SWIPEABLE (self->container), n, transition_duration);
+      if (!child_info->allow_visible)
+        continue;
+
+      if (child_info == new_visible_child)
+        break;
+
+      index++;
+    }
+
+    hdy_swipeable_emit_switch_child (HDY_SWIPEABLE (self->container), index,
+                                     transition_duration);
   }
 
   g_object_freeze_notify (G_OBJECT (self));
@@ -3000,9 +3009,26 @@ hdy_stackable_box_switch_child (HdyStackableBox *self,
                                 guint            index,
                                 gint64           duration)
 {
-  HdyStackableBoxChildInfo *child_info;
+  HdyStackableBoxChildInfo *child_info = NULL;
+  GList *children;
+  guint i = 0;
 
-  child_info = g_list_nth_data (self->children, index);
+  for (children = self->children; children; children = children->next) {
+    child_info = children->data;
+
+    if (!child_info->allow_visible)
+      continue;
+
+    if (i == index)
+      break;
+
+    i++;
+  }
+
+  if (child_info == NULL) {
+    g_critical ("Couldn't find eligible child with index %u", index);
+    return;
+  }
 
   set_visible_child_info (self, child_info, self->transition_type,
                           duration, FALSE);
