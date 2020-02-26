@@ -2369,7 +2369,7 @@ hdy_header_bar_get_title (HdyHeaderBar *self)
  * @subtitle: (allow-none): a subtitle, or %NULL
  *
  * Sets the subtitle of the #HdyHeaderBar. The title should give a user
- * an additional detail to help him identify the current view.
+ * an additional detail to help them identify the current view.
  *
  * Note that HdyHeaderBar by default reserves room for the subtitle,
  * even if none is currently set. If this is not desired, set the
