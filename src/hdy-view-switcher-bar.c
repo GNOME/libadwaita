@@ -13,7 +13,7 @@
 
 /**
  * SECTION:hdy-view-switcher-bar
- * @short_description: An view switcher action bar.
+ * @short_description: A view switcher action bar.
  * @title: HdyViewSwitcherBar
  *
  * An action bar letting you switch between multiple views offered by a
