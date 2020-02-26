@@ -72,6 +72,27 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_combo_row_set_get_name_func@LIBHANDY_1_0 0.0.10
  hdy_combo_row_set_selected_index@LIBHANDY_1_0 0.0.7
  hdy_combo_row_set_use_subtitle@LIBHANDY_1_0 0.0.10
+ hdy_deck_get_can_swipe_back@LIBHANDY_1_0 0.9.90
+ hdy_deck_get_can_swipe_forward@LIBHANDY_1_0 0.9.90
+ hdy_deck_get_homogeneous@LIBHANDY_1_0 0.9.90
+ hdy_deck_get_interpolate_size@LIBHANDY_1_0 0.9.90
+ hdy_deck_get_transition_duration@LIBHANDY_1_0 0.9.90
+ hdy_deck_get_transition_running@LIBHANDY_1_0 0.9.90
+ hdy_deck_get_transition_type@LIBHANDY_1_0 0.9.90
+ hdy_deck_get_type@LIBHANDY_1_0 0.9.90
+ hdy_deck_get_visible_child@LIBHANDY_1_0 0.9.90
+ hdy_deck_get_visible_child_name@LIBHANDY_1_0 0.9.90
+ hdy_deck_navigate@LIBHANDY_1_0 0.9.90
+ hdy_deck_new@LIBHANDY_1_0 0.9.90
+ hdy_deck_set_can_swipe_back@LIBHANDY_1_0 0.9.90
+ hdy_deck_set_can_swipe_forward@LIBHANDY_1_0 0.9.90
+ hdy_deck_set_homogeneous@LIBHANDY_1_0 0.9.90
+ hdy_deck_set_interpolate_size@LIBHANDY_1_0 0.9.90
+ hdy_deck_set_transition_duration@LIBHANDY_1_0 0.9.90
+ hdy_deck_set_transition_type@LIBHANDY_1_0 0.9.90
+ hdy_deck_set_visible_child@LIBHANDY_1_0 0.9.90
+ hdy_deck_set_visible_child_name@LIBHANDY_1_0 0.9.90
+ hdy_deck_transition_type_get_type@LIBHANDY_1_0 0.9.90
  hdy_dialog_get_narrow@LIBHANDY_1_0 0.0.11
  hdy_dialog_get_type@LIBHANDY_1_0 0.0.7
  hdy_dialog_new@LIBHANDY_1_0 0.0.7
@@ -212,6 +233,52 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_squeezer_set_transition_duration@LIBHANDY_1_0 0.0.10
  hdy_squeezer_set_transition_type@LIBHANDY_1_0 0.0.10
  hdy_squeezer_transition_type_get_type@LIBHANDY_1_0 0.0.10
+ hdy_stackable_box_add@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_begin_swipe@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_captured_event@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_direction_changed@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_draw@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_end_swipe@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_forall@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_can_swipe_back@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_can_swipe_forward@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_child_allow_visible@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_child_name@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_child_transition_duration@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_child_transition_running@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_folded@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_homogeneous@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_interpolate_size@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_mode_transition_duration@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_orientation@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_transition_type@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_type@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_visible_child@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_get_visible_child_name@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_map@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_measure@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_navigate@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_new@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_realize@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_remove@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_set_can_swipe_back@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_set_can_swipe_forward@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_set_child_allow_visible@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_set_child_name@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_set_child_transition_duration@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_set_homogeneous@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_set_interpolate_size@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_set_mode_transition_duration@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_set_orientation@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_set_transition_type@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_set_visible_child@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_set_visible_child_name@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_size_allocate@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_switch_child@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_transition_type_get_type@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_unmap@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_unrealize@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_update_swipe@LIBHANDY_1_0 0.9.90
  hdy_string_utf8_len@LIBHANDY_1_0 0.0~git20180429
  hdy_string_utf8_truncate@LIBHANDY_1_0 0.0~git20180429
  hdy_swipe_group_add_swipeable@LIBHANDY_1_0 0.0.12
