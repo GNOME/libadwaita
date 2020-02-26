@@ -13,9 +13,9 @@
 #include "hdy-action-row.h"
 #include "hdy-preferences-group-private.h"
 #include "hdy-preferences-page-private.h"
-#include "hdy-squeezer.h"
 #include "hdy-view-switcher.h"
 #include "hdy-view-switcher-bar.h"
+#include "hdy-view-switcher-title.h"
 
 /**
  * SECTION:hdy-preferences-window
@@ -36,12 +36,9 @@ typedef struct
   GtkSearchEntry *search_entry;
   GtkListBox *search_results;
   GtkStack *search_stack;
-  HdySqueezer *squeezer;
-  GtkLabel *title_label;
   GtkStack *title_stack;
   HdyViewSwitcherBar *view_switcher_bar;
-  HdyViewSwitcher *view_switcher_narrow;
-  HdyViewSwitcher *view_switcher_wide;
+  HdyViewSwitcherTitle *view_switcher_title;
 
   gboolean search_enabled;
   gint n_last_search_results;
@@ -56,17 +53,6 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
-
-static gboolean
-is_title_label_visible (GBinding     *binding,
-                        const GValue *from_value,
-                        GValue       *to_value,
-                        gpointer      user_data)
-{
-  g_value_set_boolean (to_value, g_value_get_object (from_value) == user_data);
-
-  return TRUE;
-}
 
 static gboolean
 filter_search_results (HdyActionRow         *row,
@@ -127,7 +113,7 @@ new_search_row_for_preference (HdyPreferencesRow    *row,
   if (g_strcmp0 (page_title, "") == 0)
     page_title = NULL;
 
-  if (group_title && !gtk_widget_get_visible (GTK_WIDGET (priv->view_switcher_wide)))
+  if (group_title && !hdy_view_switcher_title_get_title_visible (priv->view_switcher_title))
     hdy_action_row_set_subtitle (widget, group_title);
   if (group_title) {
     g_autofree gchar *subtitle = g_strdup_printf ("%s → %s", page_title != NULL ? page_title : _("Untitled page"), group_title);
@@ -229,8 +215,7 @@ header_bar_size_allocate_cb (HdyPreferencesWindow *self,
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
 
-  hdy_squeezer_set_child_enabled (priv->squeezer, GTK_WIDGET (priv->view_switcher_wide), allocation->width > 540);
-  hdy_squeezer_set_child_enabled (priv->squeezer, GTK_WIDGET (priv->view_switcher_narrow), allocation->width > 360);
+  hdy_view_switcher_title_set_view_switcher_enabled (priv->view_switcher_title, allocation->width > 360);
 }
 
 static void
@@ -239,7 +224,7 @@ title_stack_notify_transition_running_cb (HdyPreferencesWindow *self)
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
 
   if (gtk_stack_get_transition_running (priv->title_stack) ||
-      gtk_stack_get_visible_child (priv->title_stack) != GTK_WIDGET (priv->squeezer))
+      gtk_stack_get_visible_child (priv->title_stack) != GTK_WIDGET (priv->view_switcher_title))
     return;
 
   gtk_entry_set_text (GTK_ENTRY (priv->search_entry), "");
@@ -251,7 +236,7 @@ title_stack_notify_visible_child_cb (HdyPreferencesWindow *self)
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
 
   if (hdy_get_enable_animations (GTK_WIDGET (priv->title_stack)) ||
-      gtk_stack_get_visible_child (priv->title_stack) != GTK_WIDGET (priv->squeezer))
+      gtk_stack_get_visible_child (priv->title_stack) != GTK_WIDGET (priv->view_switcher_title))
     return;
 
   gtk_entry_set_text (GTK_ENTRY (priv->search_entry), "");
@@ -289,26 +274,6 @@ search_changed_cb (HdyPreferencesWindow *self)
   gtk_list_box_invalidate_filter (priv->search_results);
   gtk_stack_set_visible_child_name (priv->search_stack,
                                     priv->n_last_search_results > 0 ? "results" : "no-results");
-}
-
-static void
-count_children_cb (GtkWidget *widget,
-                   gint      *count)
-{
-  (*count)++;
-}
-
-static void
-update_pages_switcher_visibility (HdyPreferencesWindow *self)
-{
-  HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
-  gint count = 0;
-
-  gtk_container_foreach (GTK_CONTAINER (priv->pages_stack), (GtkCallback) count_children_cb, &count);
-
-  gtk_widget_set_visible (GTK_WIDGET (priv->view_switcher_wide), count > 1);
-  gtk_widget_set_visible (GTK_WIDGET (priv->view_switcher_narrow), count > 1);
-  gtk_widget_set_visible (GTK_WIDGET (priv->view_switcher_bar), count > 1);
 }
 
 static void
@@ -394,8 +359,6 @@ hdy_preferences_window_add (GtkContainer *container,
                       G_CALLBACK (on_page_icon_name_changed), self);
     g_signal_connect (child, "notify::title",
                       G_CALLBACK (on_page_title_changed), self);
-
-    update_pages_switcher_visibility (self);
   } else
     g_warning ("Can't add children of type %s to %s",
                G_OBJECT_TYPE_NAME (child),
@@ -438,12 +401,9 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, search_entry);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, search_results);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, search_stack);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, squeezer);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, title_label);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, title_stack);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_bar);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_narrow);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_wide);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_title);
   gtk_widget_class_bind_template_callback (widget_class, header_bar_size_allocate_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_transition_running_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_visible_child_cb);
@@ -463,19 +423,7 @@ hdy_preferences_window_init (HdyPreferencesWindow *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  g_object_bind_property_full (priv->squeezer,
-                               "visible-child",
-                               priv->view_switcher_bar,
-                               "reveal",
-                               G_BINDING_SYNC_CREATE,
-                               is_title_label_visible,
-                               NULL,
-                               priv->title_label,
-                               NULL);
-
   gtk_list_box_set_filter_func (priv->search_results, (GtkListBoxFilterFunc) filter_search_results, self, NULL);
-
-  update_pages_switcher_visibility (self);
 }
 
 /**
