@@ -136,6 +136,15 @@
     </refsect3>
 
     <refsect3>
+      <title>Adapt to HdyViewSwitcherBar API changes</title>
+      <para>
+        #HdyViewSwitcherBar won't be revealed if the #HdyViewSwitcherBar:stack
+        property is %NULL or if it has less than two pages, even if you set
+        #HdyViewSwitcherBar:reveal to %TRUE.
+      </para>
+    </refsect3>
+
+    <refsect3>
       <title>Adapt to CSS node name changes</title>
       <para>
         Widgets with a customn CSS node name got their name changed to be the

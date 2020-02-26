@@ -19,7 +19,7 @@
  * An action bar letting you switch between multiple views offered by a
  * #GtkStack, via an #HdyViewSwitcher. It is designed to be put at the bottom of
  * a window and to be revealed only on really narrow windows e.g. on mobile
- * phones.
+ * phones. It can't be revealed if there are less than two pages.
  *
  * # CSS nodes
  *
@@ -51,6 +51,25 @@ static GParamSpec *props[LAST_PROP];
 
 G_DEFINE_TYPE_WITH_CODE (HdyViewSwitcherBar, hdy_view_switcher_bar, GTK_TYPE_BIN,
                          G_ADD_PRIVATE (HdyViewSwitcherBar))
+
+static void
+count_children_cb (GtkWidget *widget,
+                   gint      *count)
+{
+  (*count)++;
+}
+
+static void
+update_bar_revealed (HdyViewSwitcherBar *self) {
+  HdyViewSwitcherBarPrivate *priv = hdy_view_switcher_bar_get_instance_private (self);
+  GtkStack *stack = hdy_view_switcher_get_stack (priv->view_switcher);
+  gint count = 0;
+
+  if (priv->reveal && stack)
+    gtk_container_foreach (GTK_CONTAINER (stack), (GtkCallback) count_children_cb, &count);
+
+  gtk_revealer_set_reveal_child (priv->revealer, count > 1);
+}
 
 static void
 hdy_view_switcher_bar_get_property (GObject    *object,
@@ -199,7 +218,7 @@ hdy_view_switcher_bar_init (HdyViewSwitcherBar *self)
   gtk_widget_init_template (GTK_WIDGET (self));
 
   priv->revealer = GTK_REVEALER (gtk_bin_get_child (GTK_BIN (priv->action_bar)));
-  g_object_bind_property (self, "reveal", priv->revealer, "reveal-child", G_BINDING_BIDIRECTIONAL | G_BINDING_SYNC_CREATE);
+  update_bar_revealed (self);
   gtk_revealer_set_transition_type (priv->revealer, GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP);
 }
 
@@ -354,16 +373,28 @@ hdy_view_switcher_bar_set_stack (HdyViewSwitcherBar *self,
                                  GtkStack           *stack)
 {
   HdyViewSwitcherBarPrivate *priv;
+  GtkStack *previous_stack;
 
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_BAR (self));
   g_return_if_fail (stack == NULL || GTK_IS_STACK (stack));
 
   priv = hdy_view_switcher_bar_get_instance_private (self);
+  previous_stack = hdy_view_switcher_get_stack (priv->view_switcher);
 
-  if (hdy_view_switcher_get_stack (priv->view_switcher) == stack)
+  if (previous_stack == stack)
     return;
 
+  if (previous_stack)
+    g_signal_handlers_disconnect_by_func (previous_stack, G_CALLBACK (update_bar_revealed), self);
+
   hdy_view_switcher_set_stack (priv->view_switcher, stack);
+
+  if (stack) {
+    g_signal_connect_swapped (stack, "add", G_CALLBACK (update_bar_revealed), self);
+    g_signal_connect_swapped (stack, "remove", G_CALLBACK (update_bar_revealed), self);
+  }
+
+  update_bar_revealed (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STACK]);
 }
@@ -415,6 +446,7 @@ hdy_view_switcher_bar_set_reveal (HdyViewSwitcherBar *self,
     return;
 
   priv->reveal = reveal;
+  update_bar_revealed (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVEAL]);
 }
