@@ -15,11 +15,49 @@
  * SECTION:hdy-view-switcher-bar
  * @short_description: A view switcher action bar.
  * @title: HdyViewSwitcherBar
+ * @See_also: #HdyViewSwitcher, #HdyViewSwitcherTitle
  *
  * An action bar letting you switch between multiple views offered by a
  * #GtkStack, via an #HdyViewSwitcher. It is designed to be put at the bottom of
  * a window and to be revealed only on really narrow windows e.g. on mobile
  * phones. It can't be revealed if there are less than two pages.
+ *
+ * You can conveniently bind the #HdyViewSwitcherBar:reveal property to
+ * #HdyViewSwitcherTitle:title-visible to automatically reveal the view switcher
+ * bar when the title label is displayed in place of the view switcher.
+ *
+ * An example of the UI definition for a common use case:
+ * |[
+ * <object class="GtkWindow"/>
+ *   <child type="titlebar">
+ *     <object class="HdyHeaderBar">
+ *       <property name="centering-policy">strict</property>
+ *       <child type="title">
+ *         <object class="HdyViewSwitcherTitle"
+ *                 id="view_switcher_title">
+ *           <property name="stack">stack</property>
+ *         </object>
+ *       </child>
+ *     </object>
+ *   </child>
+ *   <child>
+ *     <object class="GtkBox">
+ *       <child>
+ *         <object class="GtkStack" id="stack"/>
+ *       </child>
+ *       <child>
+ *         <object class="HdyViewSwitcherBar">
+ *           <property name="stack">stack</property>
+ *           <property name="reveal"
+ *                     bind-source="view_switcher_title"
+ *                     bind-property="title-visible"
+ *                     bind-flags="sync-create"/>
+ *         </object>
+ *       </child>
+ *     </object>
+ *   </child>
+ * </object>
+ * ]|
  *
  * # CSS nodes
  *
