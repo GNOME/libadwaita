@@ -84,7 +84,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="stack">stack</property>
-            <property name="reveal">True</property>
+            <property name="reveal" bind-source="switcher_title" bind-property="title-visible" bind-flags="sync-create"/>
           </object>
         </child>
       </object>
@@ -97,37 +97,11 @@
         <property name="show_close_button">True</property>
         <property name="title">HdyViewSwitcher Demo</property>
         <child type="title">
-          <object class="HdySqueezer" id="squeezer">
+          <object class="HdyViewSwitcherTitle" id="switcher_title">
             <property name="visible">True</property>
-            <property name="transition-type">crossfade</property>
-            <child>
-              <object class="HdyViewSwitcher" id="title_wide_switcher">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">center</property>
-                <property name="policy">wide</property>
-                <property name="stack">stack</property>
-              </object>
-            </child>
-            <child>
-              <object class="HdyViewSwitcher" id="title_narrow_switcher">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">center</property>
-                <property name="policy">narrow</property>
-                <property name="stack">stack</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="title_label">
-                <property name="visible">True</property>
-                <property name="halign">center</property>
-                <property name="label">Clocks</property>
-                <style>
-                  <class name="title"/>
-                </style>
-              </object>
-            </child>
+            <property name="can_focus">False</property>
+            <property name="stack">stack</property>
+            <property name="title" translatable="yes">View Switcher Example</property>
           </object>
         </child>
       </object>
