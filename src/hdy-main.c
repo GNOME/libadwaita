@@ -40,6 +40,101 @@ G_DEFINE_CONSTRUCTOR(hdy_constructor)
  * can nonetheless apply custom styling on top of it. */
 #define HDY_STYLE_PROVIDER_PRIORITY_OVERRIDE (GTK_STYLE_PROVIDER_PRIORITY_SETTINGS + 1)
 
+#define HDY_THEMES_PATH "/sm/puri/handy/themes/"
+
+static guint queued_update;
+
+static inline gboolean
+hdy_resource_exists (const gchar *resource_path)
+{
+  return g_resources_get_info (resource_path, G_RESOURCE_LOOKUP_FLAGS_NONE, NULL, NULL, NULL);
+}
+
+static gchar *
+hdy_themes_get_theme_name (gboolean *prefer_dark_theme)
+{
+  gchar *theme_name = NULL;
+  gchar *p;
+
+  g_assert (prefer_dark_theme);
+
+  theme_name = g_strdup (g_getenv ("GTK_THEME"));
+
+  if (theme_name == NULL) {
+    g_object_get (gtk_settings_get_default (),
+                  "gtk-theme-name", &theme_name,
+                  "gtk-application-prefer-dark-theme", prefer_dark_theme,
+                  NULL);
+
+    return theme_name;
+  }
+
+  /* Theme variants are specified with the syntax
+   * "<theme>:<variant>" e.g. "Adwaita:dark" */
+  if (NULL != (p = strrchr (theme_name, ':'))) {
+    *p = '\0';
+    p++;
+    *prefer_dark_theme = g_strcmp0 (p, "dark") == 0;
+  }
+
+  return theme_name;
+}
+
+static void
+hdy_themes_update (GtkCssProvider *css_provider)
+{
+  g_autofree gchar *theme_name = NULL;
+  g_autofree gchar *resource_path = NULL;
+  gboolean prefer_dark_theme = FALSE;
+
+  g_assert (GTK_IS_CSS_PROVIDER (css_provider));
+
+  theme_name = hdy_themes_get_theme_name (&prefer_dark_theme);
+
+  /* First check with full path to theme+variant */
+  resource_path = g_strdup_printf (HDY_THEMES_PATH"%s%s.css",
+                                   theme_name, prefer_dark_theme ? "-dark" : "");
+
+  if (!hdy_resource_exists (resource_path)) {
+    /* Now try without the theme variant */
+    g_free (resource_path);
+    resource_path = g_strdup_printf (HDY_THEMES_PATH"%s.css", theme_name);
+
+    if (!hdy_resource_exists (resource_path)) {
+      /* Now fallback to shared styling */
+      g_free (resource_path);
+      resource_path = g_strdup (HDY_THEMES_PATH"shared.css");
+
+      g_assert (hdy_resource_exists (resource_path));
+    }
+  }
+
+  gtk_css_provider_load_from_resource (css_provider, resource_path);
+}
+
+static gboolean
+hdy_themes_do_update (GtkCssProvider *css_provider)
+{
+  g_assert (GTK_IS_CSS_PROVIDER (css_provider));
+
+  queued_update = 0;
+  hdy_themes_update (css_provider);
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+hdy_themes_queue_update (GtkCssProvider *css_provider)
+{
+  g_assert (GTK_IS_CSS_PROVIDER (css_provider));
+
+  if (queued_update == 0)
+    queued_update = g_idle_add_full (G_PRIORITY_LOW,
+                                     (GSourceFunc) hdy_themes_do_update,
+                                     css_provider,
+                                     NULL);
+}
+
 /**
  * hdy_style_init:
  *
@@ -52,25 +147,28 @@ static void
 hdy_style_init (void)
 {
   static volatile gsize guard = 0;
-  g_autoptr (GtkCssProvider) css_override_provider = NULL;
-  g_autoptr (GtkCssProvider) css_fallback_provider = NULL;
+  g_autoptr (GtkCssProvider) css_provider = NULL;
+  GtkSettings *settings;
 
   if (!g_once_init_enter (&guard))
     return;
 
-  css_fallback_provider = gtk_css_provider_new ();
-
-  gtk_css_provider_load_from_resource (css_fallback_provider, "/sm/puri/handy/themes/shared.css");
+  css_provider = gtk_css_provider_new ();
   gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
-                                             GTK_STYLE_PROVIDER (css_fallback_provider),
-                                             GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
-
-  css_override_provider = gtk_css_provider_new ();
-
-  gtk_css_provider_load_from_resource (css_override_provider, "/sm/puri/handy/themes/Adwaita.css");
-  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
-                                             GTK_STYLE_PROVIDER (css_override_provider),
+                                             GTK_STYLE_PROVIDER (css_provider),
                                              HDY_STYLE_PROVIDER_PRIORITY_OVERRIDE);
+
+  settings = gtk_settings_get_default ();
+  g_signal_connect_swapped (settings,
+                           "notify::gtk-theme-name",
+                           G_CALLBACK (hdy_themes_queue_update),
+                           css_provider);
+  g_signal_connect_swapped (settings,
+                           "notify::gtk-application-prefer-dark-theme",
+                           G_CALLBACK (hdy_themes_queue_update),
+                           css_provider);
+
+  hdy_themes_update (css_provider);
 
   g_once_init_leave (&guard, 1);
 }
