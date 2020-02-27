@@ -1,0 +1,10 @@
+@import 'colors';
+@import 'drawing';
+
+@function hdyalpha($c, $a) {
+  @return unquote("alpha(#{$c}, #{$a})");
+}
+
+@function hdymix($c1, $c2, $r) {
+  @return unquote("mix(#{$c1}, #{$c2}, #{$r})");
+}

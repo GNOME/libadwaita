@@ -1,0 +1,151 @@
+@import 'definitions';
+
+// HdyActionRow
+
+row label.subtitle {
+  font-size: smaller;
+  opacity: 0.55;
+  text-shadow: none;
+}
+
+row > box.header {
+  margin-left: 12px;
+  margin-right: 12px;
+  min-height: 50px;
+}
+
+row > box.header > box.title {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+// HdyComboRow
+
+popover.combo list {
+  min-width: 200px;
+}
+
+// HdyExpanderRow
+
+// Drop transparent background on expander rows to let nested rows handle it,
+// avoiding double highlights.
+row.expander {
+  background-color: transparent;
+}
+
+row.expander list.nested > row {
+  background-color: hdyalpha($bg_color, 0.5);
+  border-color: hdyalpha($borders_color, 0.7);
+  border-style: solid;
+  border-width: 1px 0px 0px 0px;
+}
+
+// HdyExpanderRow arrow rotation
+
+row.expander image.expander-row-arrow {
+  transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+row.expander:checked image.expander-row-arrow:dir(ltr),
+row.expander:checked image.expander-row-arrow:dir(rtl) {
+  -gtk-icon-transform: rotate(0turn);
+}
+
+row.expander:not(:checked) image.expander-row-arrow:dir(ltr) {
+  -gtk-icon-transform: rotate(-0.25turn);
+}
+
+row.expander:not(:checked) image.expander-row-arrow:dir(rtl) {
+  -gtk-icon-transform: rotate(0.25turn);
+}
+
+row.expander:not(:checked) image.expander-row-arrow {
+  opacity: 0.55;
+  text-shadow: none;
+}
+
+row.expander:checked image.expander-row-arrow:not(:disabled) {
+  color: $selected_bg_color;
+}
+
+row.expander image.expander-row-arrow:disabled {
+  color: $insensitive_fg_color;
+}
+
+// Preferences
+
+preferencespage label.h4 {
+  font-weight: bold;
+}
+
+// Shadows
+
+deck > dimming,
+leaflet > dimming {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+deck > shadow,
+leaflet > shadow {
+  min-width: 56px;
+  min-height: 56px;
+}
+
+deck > border,
+leaflet > border {
+  min-width: 1px;
+  min-height: 1px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+deck > shadow.left,
+leaflet > shadow.left {
+  background-image:
+    linear-gradient(to right,
+                    hdyalpha(#000, 0.05),
+                    hdyalpha(#000, 0.01) 40px,
+                    hdyalpha(#000, 0) 56px),
+    linear-gradient(to right,
+                    hdyalpha(#000, 0.03),
+                    hdyalpha(#000, 0.01) 7px,
+                    hdyalpha(#000, 0) 24px);
+}
+
+deck > shadow.right,
+leaflet > shadow.right {
+  background-image:
+    linear-gradient(to left,
+                    hdyalpha(#000, 0.05),
+                    hdyalpha(#000, 0.01) 40px,
+                    hdyalpha(#000, 0) 56px),
+    linear-gradient(to left,
+                    hdyalpha(#000, 0.03),
+                    hdyalpha(#000, 0.01) 7px,
+                    hdyalpha(#000, 0) 24px);
+}
+
+deck > shadow.down
+leaflet > shadow.up {
+  background-image:
+    linear-gradient(to bottom,
+                    hdyalpha(#000, 0.05),
+                    hdyalpha(#000, 0.01) 40px,
+                    hdyalpha(#000, 0) 56px),
+    linear-gradient(to bottom,
+                    hdyalpha(#000, 0.03),
+                    hdyalpha(#000, 0.01) 7px,
+                    hdyalpha(#000, 0) 24px);
+}
+
+deck > shadow.down,
+leaflet > shadow.down {
+  background-image:
+    linear-gradient(to top,
+                    hdyalpha(#000, 0.05),
+                    hdyalpha(#000, 0.01) 40px,
+                    hdyalpha(#000, 0) 56px),
+    linear-gradient(to top,
+                    hdyalpha(#000, 0.03),
+                    hdyalpha(#000, 0.01) 7px,
+                    hdyalpha(#000, 0) 24px);
+}
