@@ -1070,7 +1070,6 @@ hdy_stackable_box_get_visible_child (HdyStackableBox *self)
 /**
  * hdy_stackable_box_set_visible_child:
  * @self: a #HdyStackableBox
- *
  * @visible_child: the new child
  *
  * Makes @visible_child visible using a transition determined by
