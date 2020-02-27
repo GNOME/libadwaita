@@ -2,6 +2,8 @@
 <gresources>
   <gresource prefix="/sm/puri/handy">
     <file preprocess="xml-stripblanks">icons/hdy-expander-arrow-symbolic.svg</file>
+    <file compressed="true">themes/Adwaita.css</file>
+    <file compressed="true">themes/shared.css</file>
   </gresource>
   <gresource prefix="/sm/puri/handy/ui">
     <file preprocess="xml-stripblanks">hdy-action-row.ui</file>
@@ -16,9 +18,5 @@
     <file preprocess="xml-stripblanks">hdy-search-bar.ui</file>
     <file preprocess="xml-stripblanks">hdy-view-switcher-bar.ui</file>
     <file preprocess="xml-stripblanks">hdy-view-switcher-button.ui</file>
-  </gresource>
-  <gresource prefix="/sm/puri/handy/style">
-    <file compressed="true">handy-fallback.css</file>
-    <file compressed="true">handy-override.css</file>
   </gresource>
 </gresources>

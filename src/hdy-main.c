@@ -60,14 +60,14 @@ hdy_style_init (void)
 
   css_fallback_provider = gtk_css_provider_new ();
 
-  gtk_css_provider_load_from_resource (css_fallback_provider, "/sm/puri/handy/style/handy-fallback.css");
+  gtk_css_provider_load_from_resource (css_fallback_provider, "/sm/puri/handy/themes/shared.css");
   gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
                                              GTK_STYLE_PROVIDER (css_fallback_provider),
                                              GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
 
   css_override_provider = gtk_css_provider_new ();
 
-  gtk_css_provider_load_from_resource (css_override_provider, "/sm/puri/handy/style/handy-override.css");
+  gtk_css_provider_load_from_resource (css_override_provider, "/sm/puri/handy/themes/Adwaita.css");
   gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
                                              GTK_STYLE_PROVIDER (css_override_provider),
                                              HDY_STYLE_PROVIDER_PRIORITY_OVERRIDE);
