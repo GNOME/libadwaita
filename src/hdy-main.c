@@ -27,6 +27,13 @@
 #endif
 G_DEFINE_CONSTRUCTOR(hdy_constructor)
 
+/* A stupidly high priority used to load the styles before anything else
+ * happens.
+ *
+ * See https://source.puri.sm/Librem5/libhandy/issues/214.
+ */
+#define HDY_PRIORITY_STYLE -1000
+
 /* The style provider priority to use for libhandy widgets custom styling. It is
  * higher than themes and settings, allowing to override theme defaults, but
  * lower than applications and user provided styles, so application developers
@@ -91,7 +98,7 @@ hdy_constructor (void)
  /* Initializes the style when the main loop starts, which should be before any
   * window shows up but after GTK is initialized.
   */
-  g_idle_add (G_SOURCE_FUNC (init_style_cb), NULL);
+  g_idle_add_full (HDY_PRIORITY_STYLE, G_SOURCE_FUNC (init_style_cb), NULL, NULL);
 }
 
 #else
