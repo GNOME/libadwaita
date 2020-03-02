@@ -143,6 +143,11 @@
         row, and the hdy_action_row_add_action() method and the action child
         type have been removed.
       </para>
+      <para>
+        The main horizontal box of #HdyActionRow had the row-header CSS style
+        class, it now has the header CSS style class and can hence be accessed
+        as box.header subnode.
+      </para>
     </refsect3>
 
   </refsect2>
