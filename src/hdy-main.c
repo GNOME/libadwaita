@@ -75,10 +75,36 @@ hdy_style_init (void)
   g_once_init_leave (&guard, 1);
 }
 
+/**
+ * hdy_icons_init:
+ *
+ * Initializes the embedded icons. This must be called once GTK has been
+ * initialized.
+ *
+ * Since: 1.0
+ */
+static void
+hdy_icons_init (void)
+{
+  static volatile gsize guard = 0;
+
+  if (!g_once_init_enter (&guard))
+    return;
+
+  gtk_icon_theme_add_resource_path (gtk_icon_theme_get_default (),
+                                    "/sm/puri/handy/icons");
+
+  g_once_init_leave (&guard, 1);
+}
+
+        /* var theme = Gtk.IconTheme.get_default (); */
+        /* theme.add_resource_path ("/org/gnome/clocks/icons"); */
+
 static gboolean
-init_style_cb (void)
+init_theme_cb (void)
 {
   hdy_style_init ();
+  hdy_icons_init ();
 
   return G_SOURCE_REMOVE;
 }
@@ -95,10 +121,10 @@ hdy_constructor (void)
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
   hdy_init_public_types ();
 
- /* Initializes the style when the main loop starts, which should be before any
-  * window shows up but after GTK is initialized.
+ /* Initializes the style and icons when the main loop starts, which should be
+  * before any window shows up but after GTK is initialized.
   */
-  g_idle_add_full (HDY_PRIORITY_STYLE, G_SOURCE_FUNC (init_style_cb), NULL, NULL);
+  g_idle_add_full (HDY_PRIORITY_STYLE, G_SOURCE_FUNC (init_theme_cb), NULL, NULL);
 }
 
 #else
