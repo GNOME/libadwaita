@@ -299,6 +299,14 @@ on_page_icon_name_changed (HdyPreferencesPage   *page,
 }
 
 static void
+stop_search_cb (HdyPreferencesWindow *self)
+{
+  HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
+
+  gtk_toggle_button_set_active (priv->search_button, FALSE);
+}
+
+static void
 on_page_title_changed (HdyPreferencesPage   *page,
                        GParamSpec           *pspec,
                        HdyPreferencesWindow *self)
@@ -362,6 +370,7 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, search_button_activated);
   gtk_widget_class_bind_template_callback (widget_class, search_changed);
   gtk_widget_class_bind_template_callback (widget_class, search_result_activated);
+  gtk_widget_class_bind_template_callback (widget_class, stop_search_cb);
 }
 
 static void

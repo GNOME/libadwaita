@@ -65,6 +65,7 @@
                     <property name="hexpand">True</property>
                     <property name="visible">True</property>
                     <signal name="search-changed" handler="search_changed" swapped="yes"/>
+                    <signal name="stop-search" handler="stop_search_cb" swapped="yes"/>
                   </object>
                 </child>
               </object>
