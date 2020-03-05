@@ -5,7 +5,7 @@
  */
 
 #include "config.h"
-#include "hdy-column.h"
+#include "hdy-clamp.h"
 
 #include <glib/gi18n-lib.h>
 #include <math.h>

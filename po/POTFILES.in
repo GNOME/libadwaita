@@ -10,7 +10,7 @@ glade/glade-hdy-utils.h
 src/hdy-action-row.c
 src/hdy-carousel-box.c
 src/hdy-carousel.c
-src/hdy-column.c
+src/hdy-clamp.c
 src/hdy-combo-row.c
 src/hdy-deck.c
 src/hdy-expander-row.c

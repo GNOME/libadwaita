@@ -40,7 +40,7 @@
     <xi:include href="xml/hdy-application-window.xml"/>
     <xi:include href="xml/hdy-avatar.xml"/>
     <xi:include href="xml/hdy-carousel.xml"/>
-    <xi:include href="xml/hdy-column.xml"/>
+    <xi:include href="xml/hdy-clamp.xml"/>
     <xi:include href="xml/hdy-combo-row.xml"/>
     <xi:include href="xml/hdy-deck.xml"/>
     <xi:include href="xml/hdy-enum-value-object.xml"/>

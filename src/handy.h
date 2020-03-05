@@ -30,7 +30,7 @@ G_BEGIN_DECLS
 #include "hdy-application-window.h"
 #include "hdy-avatar.h"
 #include "hdy-carousel.h"
-#include "hdy-column.h"
+#include "hdy-clamp.h"
 #include "hdy-combo-row.h"
 #include "hdy-deck.h"
 #include "hdy-deprecation-macros.h"
