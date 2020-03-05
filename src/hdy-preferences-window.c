@@ -210,17 +210,17 @@ key_press_event_cb (GtkWidget            *sender,
       (state & default_modifiers) == GDK_CONTROL_MASK) {
     gtk_toggle_button_set_active (priv->search_button, TRUE);
 
-    return TRUE;
+    return GDK_EVENT_STOP;
   }
 
   if (priv->search_enabled &&
       gtk_search_entry_handle_event (priv->search_entry, event)) {
     gtk_toggle_button_set_active (priv->search_button, TRUE);
 
-    return TRUE;
+    return GDK_EVENT_STOP;
   }
 
-  return FALSE;
+  return GDK_EVENT_PROPAGATE;
 }
 
 static void
