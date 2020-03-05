@@ -1,160 +1,42 @@
-/*
- * This contains fallback styles. Style goes here when we are happy to let
- * themes use their own style, but we still need a good default in case they
- * don't.
- *
- * It will be loaded with the GTK_STYLE_PROVIDER_PRIORITY_FALLBACK priority,
- * meaning its priority is lower than themes, settings, applications, and user
- * provided styles.
- */
+/*************************** Check and Radio buttons * */
+row label.subtitle { font-size: smaller; opacity: 0.55; text-shadow: none; }
 
-/* HdyActionRow */
+row > box.header { margin-left: 12px; margin-right: 12px; min-height: 50px; }
 
-row label.subtitle {
-  font-size: smaller;
-  opacity: 0.55;
-  text-shadow: none;
-}
+row > box.header > box.title { margin-top: 8px; margin-bottom: 8px; }
 
-row > box.header {
-  margin-left: 12px;
-  margin-right: 12px;
-  min-height: 50px;
-}
+popover.combo list { min-width: 200px; }
 
-row > box.header > box.title {
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
+row.expander { background-color: transparent; }
 
-/* HdyComboRow */
+row.expander list.nested > row { background-color: alpha(#f6f5f4, 0.5); border-color: alpha(#cdc7c2, 0.7); border-style: solid; border-width: 1px 0px 0px 0px; }
 
-popover.combo list {
-  min-width: 200px;
-}
+row.expander image.expander-row-arrow { transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 
-/* HdyExpanderRow */
+row.expander:checked image.expander-row-arrow:dir(ltr), row.expander:checked image.expander-row-arrow:dir(rtl) { -gtk-icon-transform: rotate(0turn); }
 
-/* Drop transparent background on expander rows to let nested rows handle it,
- * avoiding double highlights.
- */
-row.expander {
-  background-color: transparent;
-}
+row.expander:not(:checked) image.expander-row-arrow:dir(ltr) { -gtk-icon-transform: rotate(-0.25turn); }
 
-row.expander list.nested > row {
-  background-color: alpha(@theme_bg_color, 0.5);
-  border-color: alpha(@borders, 0.7);
-  border-style: solid;
-  border-width: 1px 0px 0px 0px;
-}
+row.expander:not(:checked) image.expander-row-arrow:dir(rtl) { -gtk-icon-transform: rotate(0.25turn); }
 
-/* HdyExpanderRow arrow rotation */
+row.expander:not(:checked) image.expander-row-arrow { opacity: 0.55; text-shadow: none; }
 
-row.expander image.expander-row-arrow {
-  transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
+row.expander:checked image.expander-row-arrow:not(:disabled) { color: #3584e4; }
 
-row.expander:checked image.expander-row-arrow:dir(ltr),
-row.expander:checked image.expander-row-arrow:dir(rtl) {
-  -gtk-icon-transform: rotate(0turn);
-}
+row.expander image.expander-row-arrow:disabled { color: #929595; }
 
-row.expander:not(:checked) image.expander-row-arrow:dir(ltr) {
-  -gtk-icon-transform: rotate(-0.25turn);
-}
+preferencespage label.h4 { font-weight: bold; }
 
-row.expander:not(:checked) image.expander-row-arrow:dir(rtl) {
-  -gtk-icon-transform: rotate(0.25turn);
-}
+deck > dimming, leaflet > dimming { background: rgba(0, 0, 0, 0.12); }
 
-row.expander:not(:checked) image.expander-row-arrow {
-  opacity: 0.55;
-  text-shadow: none;
-}
+deck > shadow, leaflet > shadow { min-width: 56px; min-height: 56px; }
 
-row.expander:checked image.expander-row-arrow:not(:disabled) {
-  color: @theme_selected_bg_color;
-}
+deck > border, leaflet > border { min-width: 1px; min-height: 1px; background: rgba(0, 0, 0, 0.05); }
 
-row.expander image.expander-row-arrow:disabled {
-  color: @insensitive_fg_color;
-}
+deck > shadow.left, leaflet > shadow.left { background-image: linear-gradient(to right, alpha(#000, 0.05), alpha(#000, 0.01) 40px, alpha(#000, 0) 56px), linear-gradient(to right, alpha(#000, 0.03), alpha(#000, 0.01) 7px, alpha(#000, 0) 24px); }
 
-/* Preferences */
+deck > shadow.right, leaflet > shadow.right { background-image: linear-gradient(to left, alpha(#000, 0.05), alpha(#000, 0.01) 40px, alpha(#000, 0) 56px), linear-gradient(to left, alpha(#000, 0.03), alpha(#000, 0.01) 7px, alpha(#000, 0) 24px); }
 
-preferencespage label.h4 {
-  font-weight: bold;
-}
+deck > shadow.down leaflet > shadow.up { background-image: linear-gradient(to bottom, alpha(#000, 0.05), alpha(#000, 0.01) 40px, alpha(#000, 0) 56px), linear-gradient(to bottom, alpha(#000, 0.03), alpha(#000, 0.01) 7px, alpha(#000, 0) 24px); }
 
-/* Shadows */
-
-deck > dimming,
-leaflet > dimming {
-  background: rgba(0, 0, 0, 0.12);
-}
-
-deck > shadow,
-leaflet > shadow {
-  min-width: 56px;
-  min-height: 56px;
-}
-
-deck > border,
-leaflet > border {
-  min-width: 1px;
-  min-height: 1px;
-  background: rgba(0, 0, 0, 0.05);
-}
-
-deck > shadow.left,
-leaflet > shadow.left {
-  background-image:
-    linear-gradient(to right,
-                    alpha(#000, 0.05),
-                    alpha(#000, 0.01) 40px,
-                    alpha(#000, 0) 56px),
-    linear-gradient(to right,
-                    alpha(#000, 0.03),
-                    alpha(#000, 0.01) 7px,
-                    alpha(#000, 0) 24px);
-}
-
-deck > shadow.right,
-leaflet > shadow.right {
-  background-image:
-    linear-gradient(to left,
-                    alpha(#000, 0.05),
-                    alpha(#000, 0.01) 40px,
-                    alpha(#000, 0) 56px),
-    linear-gradient(to left,
-                    alpha(#000, 0.03),
-                    alpha(#000, 0.01) 7px,
-                    alpha(#000, 0) 24px);
-}
-
-deck > shadow.down
-leaflet > shadow.up {
-  background-image:
-    linear-gradient(to bottom,
-                    alpha(#000, 0.05),
-                    alpha(#000, 0.01) 40px,
-                    alpha(#000, 0) 56px),
-    linear-gradient(to bottom,
-                    alpha(#000, 0.03),
-                    alpha(#000, 0.01) 7px,
-                    alpha(#000, 0) 24px);
-}
-
-deck > shadow.down,
-leaflet > shadow.down {
-  background-image:
-    linear-gradient(to top,
-                    alpha(#000, 0.05),
-                    alpha(#000, 0.01) 40px,
-                    alpha(#000, 0) 56px),
-    linear-gradient(to top,
-                    alpha(#000, 0.03),
-                    alpha(#000, 0.01) 7px,
-                    alpha(#000, 0) 24px);
-}
+deck > shadow.down, leaflet > shadow.down { background-image: linear-gradient(to top, alpha(#000, 0.05), alpha(#000, 0.01) 40px, alpha(#000, 0) 56px), linear-gradient(to top, alpha(#000, 0.03), alpha(#000, 0.01) 7px, alpha(#000, 0) 24px); }
