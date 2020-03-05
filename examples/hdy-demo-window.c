@@ -30,6 +30,8 @@ struct _HdyDemoWindow
   GtkListBox *carousel_listbox;
   HdyComboRow *carousel_orientation_row;
   HdyComboRow *carousel_indicator_style_row;
+  HdyAvatar *avatar;
+  GtkFileChooserButton *avatar_filechooser;
 };
 
 G_DEFINE_TYPE (HdyDemoWindow, hdy_demo_window, GTK_TYPE_APPLICATION_WINDOW)
@@ -340,6 +342,55 @@ hdy_demo_window_new (GtkApplication *application)
   return g_object_new (HDY_TYPE_DEMO_WINDOW, "application", application, NULL);
 }
 
+static void
+avatar_file_remove_cb (HdyDemoWindow *self)
+{
+  g_autofree gchar *file = NULL;
+
+  g_assert (HDY_IS_DEMO_WINDOW (self));
+
+  g_signal_handlers_disconnect_by_data (self->avatar, self);
+  file = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (self->avatar_filechooser));
+  if (file)
+    gtk_file_chooser_unselect_filename (GTK_FILE_CHOOSER (self->avatar_filechooser), file);
+  hdy_avatar_set_image_load_func (self->avatar, NULL, NULL, NULL);
+}
+
+static GdkPixbuf *
+avatar_load_file (gint size, HdyDemoWindow *self)
+{
+  g_autoptr (GError) error = NULL;
+  g_autoptr (GdkPixbuf) pixbuf = NULL;
+  g_autofree gchar *file = NULL;
+  gint width, height;
+
+  g_assert (HDY_IS_DEMO_WINDOW (self));
+
+  file = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (self->avatar_filechooser));
+
+  gdk_pixbuf_get_file_info (file, &width, &height);
+
+  pixbuf = gdk_pixbuf_new_from_file_at_scale (file,
+                                            (width <= height) ? size : -1,
+                                            (width >= height) ? size : -1,
+                                            TRUE,
+                                            &error);
+  if (error != NULL) {
+    g_critical ("Failed to create pixbuf from file: %s", error->message);
+
+    return NULL;
+  }
+
+  return g_steal_pointer (&pixbuf);
+}
+
+static void
+avatar_file_set_cb (HdyDemoWindow *self)
+{
+  g_assert (HDY_IS_DEMO_WINDOW (self));
+
+  hdy_avatar_set_image_load_func (self->avatar, (HdyAvatarImageLoadFunc) avatar_load_file, self, NULL);
+}
 
 static void
 hdy_demo_window_constructed (GObject *object)
@@ -382,6 +433,8 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel_listbox);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel_orientation_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel_indicator_style_row);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_filechooser);
   gtk_widget_class_bind_template_callback_full (widget_class, "key_pressed_cb", G_CALLBACK(hdy_demo_window_key_pressed_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_header_visible_child_cb", G_CALLBACK(hdy_demo_window_notify_header_visible_child_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_folded_cb", G_CALLBACK(hdy_demo_window_notify_folded_cb));
@@ -396,6 +449,8 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_carousel_orientation_cb", G_CALLBACK(notify_carousel_orientation_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_carousel_indicator_style_cb", G_CALLBACK(notify_carousel_indicator_style_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "carousel_return_clicked_cb", G_CALLBACK(carousel_return_clicked_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "avatar_file_remove_cb", G_CALLBACK(avatar_file_remove_cb));
+  gtk_widget_class_bind_template_callback_full (widget_class, "avatar_file_set_cb", G_CALLBACK(avatar_file_set_cb));
 }
 
 static void
