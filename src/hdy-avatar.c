@@ -1,0 +1,730 @@
+/*
+ * Copyright (C) 2020 Purism SPC
+ * Copyright (C) 2020 Felipe Borges
+ *
+ * Authors:
+ * Felipe Borges <felipeborges@gnome.org>
+ * Julian Sparber <julian@sparber.net>
+ *
+ * SPDX-License-Identifier: LGPL-2.1+
+ *
+ */
+
+#include "config.h"
+#include <math.h>
+
+#include "hdy-avatar.h"
+
+#define NUMBER_OF_COLORS 8
+/**
+ * SECTION:hdy-avatar
+ * @short_description: A widget displaying an image, with a generated fallback.
+ * @Title: HdyAvatar
+ *
+ * #HdyAvatar is a widget to display a round avatar.
+ * A provided image is made round before displaying, if no image is given this
+ * widget generates a round fallback with the initials of the #HdyAvatar:text
+ * on top of a colord background.
+ * The color is picked based on the hash of the #HdyAvatar:text.
+ * If #HdyAvatar:show-initials is set to %FALSE, `avatar-default-symbolic` is
+ * shown in place of the initials.
+ * Use hdy_avatar_set_image_load_func () to set a custom image.
+ * Create a #HdyAvatarImageLoadFunc similar to this example:
+ *
+ * |[<!-- language="C" -->
+ * static GdkPixbuf *
+ * image_load_func (gint size, gpointer user_data)
+ * {
+ *   g_autoptr (GError) error = NULL;
+ *   g_autoptr (GdkPixbuf) pixbuf = NULL;
+ *   g_autofree gchar *file = gtk_file_chooser_get_filename ("avatar.png");
+ *   gint width, height;
+ *
+ *   gdk_pixbuf_get_file_info (file, &width, &height);
+ *
+ *   pixbuf = gdk_pixbuf_new_from_file_at_scale (file,
+ *                                              (width <= height) ? size : -1;
+ *                                              (width >= height) ? size : -1;
+ *                                              TRUE,
+ *                                              error);
+ *   if (error != NULL) {
+ *    g_critical ("Failed to create pixbuf from file: %s", error->message);
+ *
+ *    return NULL;
+ *   }
+ *
+ *   return pixbuf;
+ * }
+ * ]|
+ *
+ * # CSS nodes
+ *
+ * #HdyAvatar has a single CSS node with name avatar.
+ *
+ */
+
+typedef struct
+{
+  gchar *text;
+  PangoLayout *layout;
+  gboolean show_initials;
+  guint color_class;
+  gint size;
+  cairo_surface_t *round_image;
+
+  HdyAvatarImageLoadFunc load_image_func;
+  gpointer load_image_func_target;
+  GDestroyNotify load_image_func_target_destroy_notify;
+} HdyAvatarPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (HdyAvatar, hdy_avatar, GTK_TYPE_DRAWING_AREA);
+
+enum {
+  PROP_0,
+  PROP_NAME,
+  PROP_SHOW_INITIALS,
+  PROP_SIZE,
+  PROP_LAST_PROP,
+};
+static GParamSpec *props[PROP_LAST_PROP];
+
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (cairo_t, cairo_destroy)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (cairo_surface_t, cairo_surface_destroy)
+
+static cairo_surface_t *
+round_image (GdkPixbuf *pixbuf,
+             gdouble size)
+{
+  g_autoptr (cairo_surface_t) surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, size, size);
+  g_autoptr (cairo_t) cr = cairo_create (surface);
+
+  /* Clip a circle */
+  cairo_arc (cr, size / 2.0, size / 2.0, size / 2.0, 0, 2 * G_PI);
+  cairo_clip (cr);
+  cairo_new_path (cr);
+
+  gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
+  cairo_paint (cr);
+
+  return g_steal_pointer (&surface);
+}
+
+static gchar *
+extract_initials_from_text (const gchar *text)
+{
+  GString *initials;
+  g_autofree gchar *p = g_utf8_strup (text, -1);
+  g_autofree gchar *normalized = g_utf8_normalize (g_strstrip (p), -1, G_NORMALIZE_DEFAULT_COMPOSE);
+  gunichar unichar;
+  gchar *q = NULL;
+
+  if (normalized == NULL)
+    return NULL;
+
+  initials = g_string_new ("");
+
+  unichar = g_utf8_get_char (normalized);
+  g_string_append_unichar (initials, unichar);
+
+  q = g_utf8_strrchr (normalized, -1, ' ');
+  if (q != NULL && g_utf8_next_char (q) != NULL) {
+    q = g_utf8_next_char (q);
+
+    unichar = g_utf8_get_char (q);
+    g_string_append_unichar (initials, unichar);
+  }
+
+  return g_string_free (initials, FALSE);
+}
+
+static void
+update_custom_image (HdyAvatar *self)
+{
+  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (self);
+  g_autoptr (GdkPixbuf) pixbuf = NULL;
+  gint scale_factor;
+  gint size;
+  gboolean was_custom = FALSE;
+
+  if (priv->round_image != NULL) {
+    g_clear_pointer (&priv->round_image, cairo_surface_destroy);
+    was_custom = TRUE;
+  }
+
+  if (priv->load_image_func != NULL) {
+    scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (self));
+    size = MIN (gtk_widget_get_allocated_width (GTK_WIDGET (self)),
+                gtk_widget_get_allocated_height (GTK_WIDGET (self)));
+    pixbuf = priv->load_image_func (size * scale_factor, priv->load_image_func_target);
+    priv->round_image = round_image (pixbuf, (gdouble) size * scale_factor);
+    cairo_surface_set_device_scale (priv->round_image, scale_factor, scale_factor);
+  }
+
+  if (was_custom || priv->round_image != NULL)
+    gtk_widget_queue_draw (GTK_WIDGET (self));
+}
+
+static void
+set_class_color (HdyAvatar *self)
+{
+  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (self);
+  GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
+  g_autofree GRand *rand = NULL;
+  g_autofree gchar *new_class = NULL;
+  g_autofree gchar *old_class = g_strdup_printf ("color%d", priv->color_class);
+
+  gtk_style_context_remove_class (context, old_class);
+
+  if (priv->text == NULL || strlen (priv->text) == 0) {
+    /* Use a random color if we don't have a text */
+    rand = g_rand_new ();
+    priv->color_class = g_rand_int_range (rand, 1, NUMBER_OF_COLORS);
+  } else {
+    priv->color_class = (g_str_hash (priv->text) % NUMBER_OF_COLORS) + 1;
+  }
+
+  new_class = g_strdup_printf ("color%d", priv->color_class);
+  gtk_style_context_add_class (context, new_class);
+}
+
+static void
+set_class_contrasted (HdyAvatar *self, gint size)
+{
+  GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
+
+  if (size < 25)
+    gtk_style_context_add_class (context, "contrasted");
+  else
+    gtk_style_context_remove_class (context, "contrasted");
+}
+
+static void
+clear_pango_layout (HdyAvatar *self)
+{
+  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (self);
+
+  g_clear_object (&priv->layout);
+}
+
+static void
+ensure_pango_layout (HdyAvatar *self)
+{
+  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (self);
+  g_autofree gchar *initials = NULL;
+
+  if (priv->layout != NULL || priv->text == NULL || strlen (priv->text) == 0)
+    return;
+
+  initials = extract_initials_from_text (priv->text);
+  priv->layout = gtk_widget_create_pango_layout (GTK_WIDGET (self), initials);
+}
+
+static void
+set_font_size (HdyAvatar *self,
+               gint size)
+{
+  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (self);
+  GtkStyleContext *context;
+  PangoFontDescription *font_desc;
+  gint width, height;
+  gdouble padding;
+  gdouble sqr_size;
+  gdouble max_size;
+  gdouble new_font_size;
+
+  if (priv->round_image != NULL || priv->layout == NULL)
+    return;
+
+  context = gtk_widget_get_style_context (GTK_WIDGET (self));
+  gtk_style_context_get (context, gtk_style_context_get_state (context),
+                         "font", &font_desc, NULL);
+
+  pango_layout_get_pixel_size (priv->layout, &width, &height);
+
+  /* This is the size of the biggest square fitting inside the circle */
+  sqr_size = (gdouble)size / 1.4142;
+  /* The padding has to be a function of the overall size.
+   * This one looks pritty good. */
+  padding = ((gdouble)size - sqr_size) / 2.0;
+  max_size = sqr_size - padding;
+  new_font_size = (gdouble)height * (max_size / (gdouble)width);
+
+  font_desc = pango_font_description_copy (font_desc);
+  pango_font_description_set_absolute_size (font_desc,
+                                            CLAMP (new_font_size, 0, max_size) * PANGO_SCALE);
+  pango_layout_set_font_description (priv->layout, font_desc);
+  pango_font_description_free (font_desc);
+}
+
+static void
+hdy_avatar_get_property (GObject    *object,
+                         guint       property_id,
+                         GValue     *value,
+                         GParamSpec *pspec)
+{
+  HdyAvatar *self = HDY_AVATAR (object);
+
+  switch (property_id) {
+  case PROP_NAME:
+    g_value_set_string (value, hdy_avatar_get_text (self));
+    break;
+
+  case PROP_SHOW_INITIALS:
+    g_value_set_boolean (value, hdy_avatar_get_show_initials (self));
+    break;
+
+  case PROP_SIZE:
+    g_value_set_int (value, hdy_avatar_get_size (self));
+    break;
+
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+    break;
+  }
+}
+
+static void
+hdy_avatar_set_property (GObject      *object,
+                         guint         property_id,
+                         const GValue *value,
+                         GParamSpec   *pspec)
+{
+  HdyAvatar *self = HDY_AVATAR (object);
+
+  switch (property_id) {
+  case PROP_NAME:
+    hdy_avatar_set_text (self, g_value_get_string (value));
+    break;
+
+  case PROP_SHOW_INITIALS:
+    hdy_avatar_set_show_initials (self, g_value_get_boolean (value));
+    break;
+
+  case PROP_SIZE:
+    hdy_avatar_set_size (self, g_value_get_int (value));
+    break;
+
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+    break;
+  }
+}
+
+static void
+hdy_avatar_finalize (GObject *object)
+{
+  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (HDY_AVATAR (object));
+
+  g_clear_pointer (&priv->text, g_free);
+  g_clear_pointer (&priv->round_image, cairo_surface_destroy);
+  g_clear_object (&priv->layout);
+
+  if (priv->load_image_func_target_destroy_notify != NULL)
+    priv->load_image_func_target_destroy_notify (priv->load_image_func_target);
+
+  G_OBJECT_CLASS (hdy_avatar_parent_class)->finalize (object);
+}
+
+static gboolean
+hdy_avatar_draw (GtkWidget *widget,
+                 cairo_t   *cr)
+{
+  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (HDY_AVATAR (widget));
+  GtkStyleContext *context = gtk_widget_get_style_context (widget);
+  gint width = gtk_widget_get_allocated_width (widget);
+  gint height = gtk_widget_get_allocated_height (widget);
+  gint size = MIN (width, height);
+  gdouble x = (gdouble)(width - size) / 2.0;
+  gdouble y = (gdouble)(height - size) / 2.0;
+  gint scale;
+  GdkRGBA color;
+  g_autoptr (GtkIconInfo) icon = NULL;
+  g_autoptr (GdkPixbuf) pixbuf = NULL;
+  g_autoptr (GError) error = NULL;
+  g_autoptr (cairo_surface_t) surface = NULL;
+
+  set_class_contrasted (HDY_AVATAR (widget), size);
+
+  gtk_render_frame (context, cr, x, y, size, size);
+
+  if (priv->round_image) {
+    cairo_set_source_surface (cr, priv->round_image, x, y);
+    cairo_paint (cr);
+
+    return FALSE;
+  }
+
+  gtk_render_background (context, cr, x, y, size, size);
+  ensure_pango_layout (HDY_AVATAR (widget));
+
+  if (priv->show_initials && priv->layout != NULL) {
+    set_font_size (HDY_AVATAR (widget), size);
+    pango_layout_get_pixel_size (priv->layout, &width, &height);
+
+    gtk_render_layout (context, cr,
+                       ((gdouble)(size - width) / 2.0) + x,
+                       ((gdouble)(size - height) / 2.0) + y,
+                       priv->layout);
+
+    return FALSE;
+  }
+
+  scale = gtk_widget_get_scale_factor (widget);
+  icon = gtk_icon_theme_lookup_icon_for_scale (gtk_icon_theme_get_default (),
+                                     "avatar-default-symbolic",
+                                     size / 2, scale,
+                                     GTK_ICON_LOOKUP_FORCE_SYMBOLIC);
+  gtk_style_context_get_color (context, gtk_style_context_get_state (context), &color);
+  pixbuf = gtk_icon_info_load_symbolic (icon, &color, NULL, NULL, NULL, NULL, &error);
+  if (error != NULL) {
+    g_critical ("Failed to load avatar-default-symbolic: %s", error->message);
+
+    return FALSE;
+  }
+
+  surface = gdk_cairo_surface_create_from_pixbuf (pixbuf, scale,
+                                                  gtk_widget_get_window (widget));
+
+  width = cairo_image_surface_get_width (surface);
+  height = cairo_image_surface_get_height (surface);
+  gtk_render_icon_surface (context, cr, surface,
+                           (((gdouble)size - ((gdouble)width / (gdouble)scale)) / 2.0) + x,
+                           (((gdouble)size - ((gdouble)height / (gdouble)scale)) / 2.0) + y);
+
+  return FALSE;
+}
+
+/* This private method is prefixed by the class name because it will be a
+ * virtual method in GTK 4.
+ */
+static void
+hdy_avatar_measure (GtkWidget      *widget,
+                    GtkOrientation  orientation,
+                    int             for_size,
+                    int            *minimum,
+                    int            *natural,
+                    int            *minimum_baseline,
+                    int            *natural_baseline)
+{
+  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (HDY_AVATAR (widget));
+
+  if (minimum)
+    *minimum = priv->size;
+  if (natural)
+    *natural = priv->size;
+}
+
+static void
+hdy_avatar_get_preferred_width (GtkWidget *widget,
+                                gint      *minimum,
+                                gint      *natural)
+{
+  hdy_avatar_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
+                      minimum, natural, NULL, NULL);
+}
+
+static void
+hdy_avatar_get_preferred_width_for_height (GtkWidget *widget,
+                                           gint       height,
+                                           gint      *minimum,
+                                           gint      *natural)
+{
+  hdy_avatar_measure (widget, GTK_ORIENTATION_HORIZONTAL, height,
+                      minimum, natural, NULL, NULL);
+}
+
+static void
+hdy_avatar_get_preferred_height (GtkWidget *widget,
+                                 gint      *minimum,
+                                 gint      *natural)
+{
+  hdy_avatar_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
+                      minimum, natural, NULL, NULL);
+}
+
+static void
+hdy_avatar_get_preferred_height_for_width (GtkWidget *widget,
+                                           gint       width,
+                                           gint      *minimum,
+                                           gint      *natural)
+{
+  hdy_avatar_measure (widget, GTK_ORIENTATION_VERTICAL, width,
+                      minimum, natural, NULL, NULL);
+}
+
+static GtkSizeRequestMode
+hdy_avatar_get_request_mode (GtkWidget *widget)
+{
+  return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
+}
+
+static void
+hdy_avatar_class_init (HdyAvatarClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+  object_class->finalize = hdy_avatar_finalize;
+
+  object_class->set_property = hdy_avatar_set_property;
+  object_class->get_property = hdy_avatar_get_property;
+
+  widget_class->draw = hdy_avatar_draw;
+  widget_class->get_request_mode = hdy_avatar_get_request_mode;
+  widget_class->get_preferred_width = hdy_avatar_get_preferred_width;
+  widget_class->get_preferred_height = hdy_avatar_get_preferred_height;
+  widget_class->get_preferred_width_for_height = hdy_avatar_get_preferred_width_for_height;
+  widget_class->get_preferred_height_for_width = hdy_avatar_get_preferred_height_for_width;
+
+  /**
+   * HdyAvatar:size:
+   *
+   * The avatar size of the avatar.
+   */
+  props[PROP_SIZE] =
+    g_param_spec_int ("size",
+                      "Size",
+                      "The size of the avatar",
+                      -1, INT_MAX, -1,
+                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+  /**
+   * HdyAvatar:text:
+   *
+   * The text used for the initials and for generating the color.
+   * If #HdyAvatar:show-initials is %FALSE it's only used to generate the color.
+   */
+  props[PROP_NAME] =
+    g_param_spec_string ("text",
+                         "Text",
+                         "The text used to generate the color and the initials",
+                         NULL,
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyAvatar:show_initials:
+   *
+   * Whether to show the initials or the fallback icon on the generated avatar.
+   */
+  props[PROP_SHOW_INITIALS] =
+    g_param_spec_boolean ("show-initials",
+                          "Show initials",
+                          "Whether to show the initials",
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
+
+  gtk_widget_class_set_css_name (widget_class, "avatar");
+}
+
+static void
+hdy_avatar_init (HdyAvatar *self)
+{
+  set_class_color (self);
+  g_signal_connect (self, "notify::scale-factor", G_CALLBACK (update_custom_image), NULL);
+  g_signal_connect (self, "size-allocate", G_CALLBACK (update_custom_image), NULL);
+  g_signal_connect (self, "screen-changed", G_CALLBACK (clear_pango_layout), NULL);
+}
+
+/**
+ * hdy_avatar_new:
+ * @size: The size of the avatar
+ * @text: (allow-none): The text used to generate the color and initials if
+ * @show_initials is %TRUE. The color is selected at random if @text is empty.
+ * @show_initials: whether to show the initials or the fallback icon on
+ * top of the color generated based on @text.
+ *
+ * Creates a new #HdyAvatar.
+ *
+ * Returns: the newly created #HdyAvatar
+ */
+GtkWidget *
+hdy_avatar_new (gint         size,
+                const gchar *text,
+                gboolean     show_initials)
+{
+  return g_object_new (HDY_TYPE_AVATAR,
+                       "size", size,
+                       "text", text,
+                       "show-initials", show_initials,
+                       NULL);
+}
+
+/**
+ * hdy_avatar_get_text:
+ * @self: a #HdyAvatar
+ *
+ * Get the text used to generate the fallback initials and color
+ *
+ * Returns: (nullable) (transfer none): returns the text used to generate
+ * the fallback initials. This is the internal string used by
+ * the #HdyAvatar, and must not be modified.
+ */
+const gchar *
+hdy_avatar_get_text (HdyAvatar *self)
+{
+  HdyAvatarPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_AVATAR (self), NULL);
+
+  priv = hdy_avatar_get_instance_private (self);
+
+  return priv->text;
+}
+
+/**
+ * hdy_avatar_set_text:
+ * @self: a #HdyAvatar
+ * @text: (allow-none): the text used to get the initials and color
+ *
+ * Set the text used to generate the fallback initials color
+ */
+void
+hdy_avatar_set_text (HdyAvatar   *self,
+                     const gchar *text)
+{
+  HdyAvatarPrivate *priv;
+
+  g_return_if_fail (HDY_IS_AVATAR (self));
+
+  priv = hdy_avatar_get_instance_private (self);
+
+  if (g_strcmp0 (priv->text, text) == 0)
+    return;
+
+  g_clear_pointer (&priv->text, g_free);
+  priv->text = g_strdup (text);
+
+  clear_pango_layout (self);
+  set_class_color (self);
+  gtk_widget_queue_draw (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NAME]);
+}
+
+/**
+ * hdy_avatar_get_show_initials:
+ * @self: a #HdyAvatar
+ *
+ * Returns whether initials are used for the fallback or the icon.
+ *
+ * Returns: %TRUE if the initials are used for the fallback.
+ */
+gboolean
+hdy_avatar_get_show_initials (HdyAvatar *self)
+{
+  HdyAvatarPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_AVATAR (self), FALSE);
+
+  priv = hdy_avatar_get_instance_private (self);
+
+  return priv->show_initials;
+}
+
+/**
+ * hdy_avatar_set_show_initials:
+ * @self: a #HdyAvatar
+ * @show_initials: whether the initials should be shown on the fallback avatar
+ * or the icon.
+ *
+ * Sets whether the initials should be shown on the fallback avatar or the icon.
+ */
+void
+hdy_avatar_set_show_initials (HdyAvatar *self,
+                              gboolean   show_initials)
+{
+  HdyAvatarPrivate *priv;
+
+  g_return_if_fail (HDY_IS_AVATAR (self));
+
+  priv = hdy_avatar_get_instance_private (self);
+
+  if (priv->show_initials == show_initials)
+    return;
+
+  priv->show_initials = show_initials;
+
+  gtk_widget_queue_draw (GTK_WIDGET (self));
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_INITIALS]);
+}
+
+/**
+ * hdy_avatar_set_image_load_func:
+ * @self: a #HdyAvatar
+ * @load_image: (closure user_data) (allow-none): callback to set a custom image
+ * @user_data: (allow-none): user data passed to @load_image
+ * @destroy: (allow-none): destroy notifier for @user_data
+ *
+ * A callback which is called when the custom image need to be reloaded for some
+ * reason (e.g. scale-factor changes).
+ */
+void
+hdy_avatar_set_image_load_func (HdyAvatar *self,
+                                HdyAvatarImageLoadFunc load_image,
+                                gpointer user_data,
+                                GDestroyNotify destroy)
+{
+  HdyAvatarPrivate *priv;
+
+  g_return_if_fail (HDY_IS_AVATAR (self));
+  g_return_if_fail (user_data != NULL || (user_data == NULL && destroy == NULL));
+
+  priv = hdy_avatar_get_instance_private (self);
+
+  if (priv->load_image_func_target_destroy_notify != NULL)
+    priv->load_image_func_target_destroy_notify (priv->load_image_func_target);
+
+  priv->load_image_func = load_image;
+  priv->load_image_func_target = user_data;
+  priv->load_image_func_target_destroy_notify = destroy;
+
+  update_custom_image (self);
+}
+
+/**
+ * hdy_avatar_get_size:
+ * @self: a #HdyAvatar
+ *
+ * Returns the size of the avatar.
+ *
+ * Returns: the size of the avatar.
+ */
+gint
+hdy_avatar_get_size (HdyAvatar *self)
+{
+  HdyAvatarPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_AVATAR (self), 0);
+
+  priv = hdy_avatar_get_instance_private (self);
+
+  return priv->size;
+}
+
+/**
+ * hdy_avatar_set_size:
+ * @self: a #HdyAvatar
+ * @size: The size to be used for the avatar
+ *
+ * Sets the size of the avatar.
+ */
+void
+hdy_avatar_set_size (HdyAvatar *self,
+                     gint       size)
+{
+  HdyAvatarPrivate *priv;
+
+  g_return_if_fail (HDY_IS_AVATAR (self));
+  g_return_if_fail (size >= -1);
+
+  priv = hdy_avatar_get_instance_private (self);
+
+  if (priv->size == size)
+    return;
+
+  priv->size = size;
+
+  gtk_widget_queue_resize (GTK_WIDGET (self));
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SIZE]);
+}

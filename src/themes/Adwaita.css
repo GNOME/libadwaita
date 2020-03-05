@@ -41,6 +41,26 @@ deck > shadow.up, leaflet > shadow.up { background-image: linear-gradient(to bot
 
 deck > shadow.down, leaflet > shadow.down { background-image: linear-gradient(to top, alpha(#000, 0.05), alpha(#000, 0.01) 40px, alpha(#000, 0) 56px), linear-gradient(to top, alpha(#000, 0.03), alpha(#000, 0.01) 7px, alpha(#000, 0) 24px); }
 
+avatar { border-radius: 9999px; -gtk-outline-radius: 9999px; font-weight: bold; }
+
+avatar.color1 { background-image: linear-gradient(#ffbe6f, #ed6f00); color: #ffe5c5; }
+
+avatar.color2 { background-image: linear-gradient(#f8e45c, #e5a50a); color: #f9f4e1; }
+
+avatar.color3 { background-image: linear-gradient(#dc8add, #8a3ea3); color: #e7c2e8; }
+
+avatar.color4 { background-image: linear-gradient(#99c1f1, #337fdc); color: #cfe1f5; }
+
+avatar.color5 { background-image: linear-gradient(#c0bfbc, #6e6d71); color: #d8d7d3; }
+
+avatar.color6 { background-image: linear-gradient(#8de6ae, #29ae71); color: #cbf7d5; }
+
+avatar.color7 { background-image: linear-gradient(#f67365, #d91a23); color: #f6c8c4; }
+
+avatar.color8 { background-image: linear-gradient(#cdab8f, #865d3c); color: #e5d6ca; }
+
+avatar.contrasted { color: #fff; }
+
 popover.combo { padding: 0px; }
 
 popover.combo list { border-style: none; background-color: transparent; }
