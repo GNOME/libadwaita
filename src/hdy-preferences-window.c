@@ -42,10 +42,19 @@ typedef struct
   HdyViewSwitcher *view_switcher_narrow;
   HdyViewSwitcher *view_switcher_wide;
 
+  gboolean search_enabled;
   gint n_last_search_results;
 } HdyPreferencesWindowPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (HdyPreferencesWindow, hdy_preferences_window, GTK_TYPE_WINDOW)
+
+enum {
+  PROP_0,
+  PROP_SEARCH_ENABLED,
+  LAST_PROP,
+};
+
+static GParamSpec *props[LAST_PROP];
 
 static gboolean
 is_title_label_visible (GBinding     *binding,
@@ -196,7 +205,8 @@ key_pressed (GtkWidget            *sender,
   gdk_event_get_keyval (event, &keyval);
   gdk_event_get_state (event, &state);
 
-  if ((keyval == GDK_KEY_f || keyval == GDK_KEY_F) &&
+  if (priv->search_enabled &&
+      (keyval == GDK_KEY_f || keyval == GDK_KEY_F) &&
       (state & default_modifiers) == GDK_CONTROL_MASK) {
     gtk_toggle_button_set_active (priv->search_button, TRUE);
 
@@ -211,7 +221,8 @@ key_pressed (GtkWidget            *sender,
   }
 
   c = gdk_keyval_to_unicode (keyval);
-  if (g_unichar_isgraph (c)) {
+  if (priv->search_enabled &&
+      g_unichar_isgraph (c)) {
     gchar text[6] = { 0 };
     g_unichar_to_utf8 (c, text);
     gtk_entry_set_text (GTK_ENTRY (priv->search_entry), text);
@@ -319,6 +330,40 @@ on_page_title_changed (HdyPreferencesPage   *page,
 }
 
 static void
+hdy_preferences_window_get_property (GObject    *object,
+                                     guint       prop_id,
+                                     GValue     *value,
+                                     GParamSpec *pspec)
+{
+  HdyPreferencesWindow *self = HDY_PREFERENCES_WINDOW (object);
+
+  switch (prop_id) {
+  case PROP_SEARCH_ENABLED:
+    g_value_set_boolean (value, hdy_preferences_window_get_search_enabled (self));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
+hdy_preferences_window_set_property (GObject      *object,
+                                     guint         prop_id,
+                                     const GValue *value,
+                                     GParamSpec   *pspec)
+{
+  HdyPreferencesWindow *self = HDY_PREFERENCES_WINDOW (object);
+
+  switch (prop_id) {
+  case PROP_SEARCH_ENABLED:
+    hdy_preferences_window_set_search_enabled (self, g_value_get_boolean (value));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
 hdy_preferences_window_add (GtkContainer *container,
                             GtkWidget    *child)
 {
@@ -346,10 +391,30 @@ hdy_preferences_window_add (GtkContainer *container,
 static void
 hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
 {
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
   GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
 
+  object_class->get_property = hdy_preferences_window_get_property;
+  object_class->set_property = hdy_preferences_window_set_property;
+
   container_class->add = hdy_preferences_window_add;
+
+  /**
+   * HdyPreferencesWindow:search-enabled:
+   *
+   * Whether search is enabled.
+   *
+   * Since: 1.0
+   */
+  props[PROP_SEARCH_ENABLED] =
+    g_param_spec_boolean ("search-enabled",
+                          _("Search enabled"),
+                          _("Whether search is enabled"),
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-preferences-window.ui");
@@ -377,6 +442,8 @@ static void
 hdy_preferences_window_init (HdyPreferencesWindow *self)
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
+
+  priv->search_enabled = TRUE;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -408,4 +475,58 @@ HdyPreferencesWindow *
 hdy_preferences_window_new (void)
 {
   return g_object_new (HDY_TYPE_PREFERENCES_WINDOW, NULL);
+}
+
+/**
+ * hdy_preferences_window_get_search_enabled:
+ * @self: a #HdyPreferencesWindow
+ *
+ * Gets whether search is enabled for @self.
+ *
+ * Returns: whether search is enabled for @self.
+ *
+ * Since: 1.0
+ */
+gboolean
+hdy_preferences_window_get_search_enabled (HdyPreferencesWindow *self)
+{
+  HdyPreferencesWindowPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_PREFERENCES_WINDOW (self), FALSE);
+
+  priv = hdy_preferences_window_get_instance_private (self);
+
+  return priv->search_enabled;
+}
+
+/**
+ * hdy_preferences_window_set_search_enabled:
+ * @self: a #HdyPreferencesWindow
+ * @search_enabled: %TRUE to enable search, %FALSE to disable it
+ *
+ * Sets whether search is enabled for @self.
+ *
+ * Since: 1.0
+ */
+void
+hdy_preferences_window_set_search_enabled (HdyPreferencesWindow *self,
+                                           gboolean              search_enabled)
+{
+  HdyPreferencesWindowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_PREFERENCES_WINDOW (self));
+
+  priv = hdy_preferences_window_get_instance_private (self);
+
+  search_enabled = !!search_enabled;
+
+  if (priv->search_enabled == search_enabled)
+    return;
+
+  priv->search_enabled = search_enabled;
+  gtk_widget_set_visible (GTK_WIDGET (priv->search_button), search_enabled);
+  if (!search_enabled)
+    gtk_toggle_button_set_active (priv->search_button, FALSE);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SEARCH_ENABLED]);
 }

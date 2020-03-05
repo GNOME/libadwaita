@@ -29,4 +29,8 @@ struct _HdyPreferencesWindowClass
 
 HdyPreferencesWindow *hdy_preferences_window_new (void);
 
+gboolean hdy_preferences_window_get_search_enabled (HdyPreferencesWindow *self);
+void     hdy_preferences_window_set_search_enabled (HdyPreferencesWindow *self,
+                                                    gboolean              search_enabled);
+
 G_END_DECLS
