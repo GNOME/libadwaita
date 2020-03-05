@@ -9,6 +9,7 @@
 
 #include "hdy-preferences-window.h"
 
+#include "hdy-animation.h"
 #include "hdy-action-row.h"
 #include "hdy-preferences-group-private.h"
 #include "hdy-preferences-page-private.h"
@@ -233,6 +234,31 @@ header_bar_size_allocate_cb (HdyPreferencesWindow *self,
 }
 
 static void
+title_stack_notify_transition_running_cb (HdyPreferencesWindow *self)
+{
+  HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
+
+  if (gtk_stack_get_transition_running (priv->title_stack) ||
+      gtk_stack_get_visible_child (priv->title_stack) != GTK_WIDGET (priv->squeezer))
+    return;
+
+  gtk_entry_set_text (GTK_ENTRY (priv->search_entry), "");
+}
+
+static void
+title_stack_notify_visible_child_cb (HdyPreferencesWindow *self)
+{
+  HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
+
+  if (hdy_get_enable_animations (GTK_WIDGET (priv->title_stack)) ||
+      gtk_stack_get_visible_child (priv->title_stack) != GTK_WIDGET (priv->squeezer))
+    return;
+
+  gtk_entry_set_text (GTK_ENTRY (priv->search_entry), "");
+}
+
+
+static void
 search_button_notify_active_cb (HdyPreferencesWindow *self)
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
@@ -419,6 +445,8 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_narrow);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_wide);
   gtk_widget_class_bind_template_callback (widget_class, header_bar_size_allocate_cb);
+  gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_transition_running_cb);
+  gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, key_press_event_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_button_notify_active_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_changed_cb);
