@@ -8,3 +8,15 @@
 @function hdymix($c1, $c2, $r) {
   @return unquote("mix(#{$c1}, #{$c2}, #{$r})");
 }
+
+@mixin background-shadow($direction) {
+      background-image:
+        linear-gradient($direction,
+                        hdyalpha(#000, 0.05),
+                        hdyalpha(#000, 0.01) 40px,
+                        hdyalpha(#000, 0) 56px),
+        linear-gradient($direction,
+                        hdyalpha(#000, 0.03),
+                        hdyalpha(#000, 0.01) 7px,
+                        hdyalpha(#000, 0) 24px);
+}

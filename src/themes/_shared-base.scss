@@ -80,72 +80,25 @@ preferencespage label.h4 {
 
 // Shadows
 
-deck > dimming,
-leaflet > dimming {
-  background: rgba(0, 0, 0, 0.12);
-}
+deck,
+leaflet {
+  > dimming {
+    background: rgba(0, 0, 0, 0.12);
+  }
 
-deck > shadow,
-leaflet > shadow {
-  min-width: 56px;
-  min-height: 56px;
-}
+  > border {
+    min-width: 1px;
+    min-height: 1px;
+    background: rgba(0, 0, 0, 0.05);
+  }
 
-deck > border,
-leaflet > border {
-  min-width: 1px;
-  min-height: 1px;
-  background: rgba(0, 0, 0, 0.05);
-}
+  > shadow {
+    min-width: 56px;
+    min-height: 56px;
 
-deck > shadow.left,
-leaflet > shadow.left {
-  background-image:
-    linear-gradient(to right,
-                    hdyalpha(#000, 0.05),
-                    hdyalpha(#000, 0.01) 40px,
-                    hdyalpha(#000, 0) 56px),
-    linear-gradient(to right,
-                    hdyalpha(#000, 0.03),
-                    hdyalpha(#000, 0.01) 7px,
-                    hdyalpha(#000, 0) 24px);
-}
-
-deck > shadow.right,
-leaflet > shadow.right {
-  background-image:
-    linear-gradient(to left,
-                    hdyalpha(#000, 0.05),
-                    hdyalpha(#000, 0.01) 40px,
-                    hdyalpha(#000, 0) 56px),
-    linear-gradient(to left,
-                    hdyalpha(#000, 0.03),
-                    hdyalpha(#000, 0.01) 7px,
-                    hdyalpha(#000, 0) 24px);
-}
-
-deck > shadow.down
-leaflet > shadow.up {
-  background-image:
-    linear-gradient(to bottom,
-                    hdyalpha(#000, 0.05),
-                    hdyalpha(#000, 0.01) 40px,
-                    hdyalpha(#000, 0) 56px),
-    linear-gradient(to bottom,
-                    hdyalpha(#000, 0.03),
-                    hdyalpha(#000, 0.01) 7px,
-                    hdyalpha(#000, 0) 24px);
-}
-
-deck > shadow.down,
-leaflet > shadow.down {
-  background-image:
-    linear-gradient(to top,
-                    hdyalpha(#000, 0.05),
-                    hdyalpha(#000, 0.01) 40px,
-                    hdyalpha(#000, 0) 56px),
-    linear-gradient(to top,
-                    hdyalpha(#000, 0.03),
-                    hdyalpha(#000, 0.01) 7px,
-                    hdyalpha(#000, 0) 24px);
+    &.left  { @include background-shadow(to right); }
+    &.right { @include background-shadow(to left); }
+    &.up    { @include background-shadow(to bottom); }
+    &.down  { @include background-shadow(to top); }
+  }
 }

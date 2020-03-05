@@ -29,14 +29,14 @@ preferencespage label.h4 { font-weight: bold; }
 
 deck > dimming, leaflet > dimming { background: rgba(0, 0, 0, 0.12); }
 
-deck > shadow, leaflet > shadow { min-width: 56px; min-height: 56px; }
-
 deck > border, leaflet > border { min-width: 1px; min-height: 1px; background: rgba(0, 0, 0, 0.05); }
+
+deck > shadow, leaflet > shadow { min-width: 56px; min-height: 56px; }
 
 deck > shadow.left, leaflet > shadow.left { background-image: linear-gradient(to right, alpha(#000, 0.05), alpha(#000, 0.01) 40px, alpha(#000, 0) 56px), linear-gradient(to right, alpha(#000, 0.03), alpha(#000, 0.01) 7px, alpha(#000, 0) 24px); }
 
 deck > shadow.right, leaflet > shadow.right { background-image: linear-gradient(to left, alpha(#000, 0.05), alpha(#000, 0.01) 40px, alpha(#000, 0) 56px), linear-gradient(to left, alpha(#000, 0.03), alpha(#000, 0.01) 7px, alpha(#000, 0) 24px); }
 
-deck > shadow.down leaflet > shadow.up { background-image: linear-gradient(to bottom, alpha(#000, 0.05), alpha(#000, 0.01) 40px, alpha(#000, 0) 56px), linear-gradient(to bottom, alpha(#000, 0.03), alpha(#000, 0.01) 7px, alpha(#000, 0) 24px); }
+deck > shadow.up, leaflet > shadow.up { background-image: linear-gradient(to bottom, alpha(#000, 0.05), alpha(#000, 0.01) 40px, alpha(#000, 0) 56px), linear-gradient(to bottom, alpha(#000, 0.03), alpha(#000, 0.01) 7px, alpha(#000, 0) 24px); }
 
 deck > shadow.down, leaflet > shadow.down { background-image: linear-gradient(to top, alpha(#000, 0.05), alpha(#000, 0.01) 40px, alpha(#000, 0) 56px), linear-gradient(to top, alpha(#000, 0.03), alpha(#000, 0.01) 7px, alpha(#000, 0) 24px); }
