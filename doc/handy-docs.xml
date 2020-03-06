@@ -37,6 +37,7 @@
     <title>Widgets and Objects</title>
     <xi:include href="xml/hdy-action-row.xml"/>
     <xi:include href="xml/hdy-animation.xml"/>
+    <xi:include href="xml/hdy-avatar.xml"/>
     <xi:include href="xml/hdy-carousel.xml"/>
     <xi:include href="xml/hdy-column.xml"/>
     <xi:include href="xml/hdy-combo-row.xml"/>

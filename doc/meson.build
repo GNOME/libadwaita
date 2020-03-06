@@ -21,6 +21,7 @@ private_headers = [
 ]
 
 images = [
+  'images/avatar.png',
   'images/dialog-desktop.png',
   'images/dialog-mobile.png',
   'images/header-bar.png',
@@ -61,6 +62,7 @@ gnome.gtkdoc('libhandy',
                        '--extra-dir=@0@'.format(glib_docpath / 'gio'),
                        '--extra-dir=@0@'.format(glib_docpath / 'gi'),
                        '--extra-dir=@0@'.format(glib_docpath / 'gtk3'),
+                       '--extra-dir=@0@'.format(glib_docpath / 'gdk-pixbuf'),
                      ],
         install_dir: 'libhandy',
       content_files: content_files,
