@@ -281,7 +281,7 @@ hdy_preferences_group_init (HdyPreferencesGroup *self)
  *
  * Since: 0.0.10
  */
-HdyPreferencesGroup *
+GtkWidget *
 hdy_preferences_group_new (void)
 {
   return g_object_new (HDY_TYPE_PREFERENCES_GROUP, NULL);

@@ -474,7 +474,7 @@ hdy_action_row_buildable_init (GtkBuildableIface *iface)
  *
  * Since: 0.0.6
  */
-HdyActionRow *
+GtkWidget *
 hdy_action_row_new (void)
 {
   return g_object_new (HDY_TYPE_ACTION_ROW, NULL);

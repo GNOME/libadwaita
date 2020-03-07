@@ -18,7 +18,7 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (HdyTitleBar, hdy_title_bar, HDY, TITLE_BAR, GtkBin)
 
-HdyTitleBar *hdy_title_bar_new (void);
+GtkWidget *hdy_title_bar_new (void);
 
 gboolean hdy_title_bar_get_selection_mode (HdyTitleBar *self);
 void hdy_title_bar_set_selection_mode (HdyTitleBar *self,

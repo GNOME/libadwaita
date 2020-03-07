@@ -18,7 +18,7 @@ test_hdy_preferences_group_add (void)
   group = g_object_ref_sink (HDY_PREFERENCES_GROUP (hdy_preferences_group_new ()));
   g_assert_nonnull (group);
 
-  row = hdy_preferences_row_new ();
+  row = HDY_PREFERENCES_ROW (hdy_preferences_row_new ());
   g_assert_nonnull (row);
   gtk_container_add (GTK_CONTAINER (group), GTK_WIDGET (row));
 

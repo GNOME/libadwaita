@@ -29,7 +29,7 @@ typedef enum {
   HDY_VIEW_SWITCHER_POLICY_WIDE,
 } HdyViewSwitcherPolicy;
 
-HdyViewSwitcher *hdy_view_switcher_new (void);
+GtkWidget *hdy_view_switcher_new (void);
 
 HdyViewSwitcherPolicy hdy_view_switcher_get_policy (HdyViewSwitcher *self);
 void                  hdy_view_switcher_set_policy (HdyViewSwitcher       *self,

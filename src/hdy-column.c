@@ -337,7 +337,7 @@ hdy_column_init (HdyColumn *self)
  *
  * Returns: a new #HdyColumn
  */
-HdyColumn *
+GtkWidget *
 hdy_column_new (void)
 {
   return g_object_new (HDY_TYPE_COLUMN, NULL);

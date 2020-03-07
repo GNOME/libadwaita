@@ -18,7 +18,7 @@ test_hdy_preferences_page_add (void)
   page = g_object_ref_sink (HDY_PREFERENCES_PAGE (hdy_preferences_page_new ()));
   g_assert_nonnull (page);
 
-  group = hdy_preferences_group_new ();
+  group = HDY_PREFERENCES_GROUP (hdy_preferences_group_new ());
   g_assert_nonnull (group);
   gtk_container_add (GTK_CONTAINER (page), GTK_WIDGET (group));
 

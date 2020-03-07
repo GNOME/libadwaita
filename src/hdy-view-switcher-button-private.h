@@ -23,7 +23,7 @@ struct _HdyViewSwitcherButtonClass {
 
 G_DECLARE_DERIVABLE_TYPE (HdyViewSwitcherButton, hdy_view_switcher_button, HDY, VIEW_SWITCHER_BUTTON, GtkRadioButton)
 
-HdyViewSwitcherButton *hdy_view_switcher_button_new (void);
+GtkWidget   *hdy_view_switcher_button_new (void);
 
 const gchar *hdy_view_switcher_button_get_icon_name (HdyViewSwitcherButton *self);
 void         hdy_view_switcher_button_set_icon_name (HdyViewSwitcherButton *self,

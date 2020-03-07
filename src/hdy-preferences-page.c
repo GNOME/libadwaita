@@ -187,7 +187,7 @@ hdy_preferences_page_init (HdyPreferencesPage *self)
  *
  * Since: 0.0.10
  */
-HdyPreferencesPage *
+GtkWidget *
 hdy_preferences_page_new (void)
 {
   return g_object_new (HDY_TYPE_PREFERENCES_PAGE, NULL);

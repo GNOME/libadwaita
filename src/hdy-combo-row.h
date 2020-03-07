@@ -55,7 +55,7 @@ struct _HdyComboRowClass
   HdyActionRowClass parent_class;
 };
 
-HdyComboRow *hdy_combo_row_new (void);
+GtkWidget *hdy_combo_row_new (void);
 
 GListModel *hdy_combo_row_get_model (HdyComboRow *self);
 

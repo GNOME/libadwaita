@@ -18,7 +18,7 @@ test_hdy_preferences_window_add (void)
   window = g_object_ref_sink (HDY_PREFERENCES_WINDOW (hdy_preferences_window_new ()));
   g_assert_nonnull (window);
 
-  page = hdy_preferences_page_new ();
+  page = HDY_PREFERENCES_PAGE (hdy_preferences_page_new ());
   g_assert_nonnull (page);
   gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (page));
 

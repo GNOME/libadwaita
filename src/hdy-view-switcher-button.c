@@ -300,7 +300,7 @@ hdy_view_switcher_button_init (HdyViewSwitcherButton *self)
  *
  * Since: 0.0.10
  */
-HdyViewSwitcherButton *
+GtkWidget *
 hdy_view_switcher_button_new (void)
 {
   return g_object_new (HDY_TYPE_VIEW_SWITCHER_BUTTON, NULL);

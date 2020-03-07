@@ -409,7 +409,7 @@ hdy_expander_row_init (HdyExpanderRow *self)
  *
  * Since: 0.0.6
  */
-HdyExpanderRow *
+GtkWidget *
 hdy_expander_row_new (void)
 {
   return g_object_new (HDY_TYPE_EXPANDER_ROW, NULL);

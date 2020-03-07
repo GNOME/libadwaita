@@ -463,7 +463,7 @@ hdy_combo_row_init (HdyComboRow *self)
  *
  * Since: 0.0.6
  */
-HdyComboRow *
+GtkWidget *
 hdy_combo_row_new (void)
 {
   return g_object_new (HDY_TYPE_COMBO_ROW, NULL);

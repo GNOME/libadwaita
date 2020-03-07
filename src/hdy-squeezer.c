@@ -1163,7 +1163,7 @@ hdy_squeezer_init (HdySqueezer *self)
  *
  * Returns: a new #HdySqueezer
  */
-HdySqueezer *
+GtkWidget *
 hdy_squeezer_new (void)
 {
   return g_object_new (HDY_TYPE_SQUEEZER, NULL);

@@ -13,7 +13,7 @@ test_hdy_view_switcher_policy (void)
 {
   g_autoptr (HdyViewSwitcher) view_switcher = NULL;
 
-  view_switcher = g_object_ref_sink (hdy_view_switcher_new ());
+  view_switcher = g_object_ref_sink (HDY_VIEW_SWITCHER (hdy_view_switcher_new ()));
   g_assert_nonnull (view_switcher);
 
   g_assert_cmpint (hdy_view_switcher_get_policy (view_switcher), ==, HDY_VIEW_SWITCHER_POLICY_AUTO);
@@ -34,7 +34,7 @@ test_hdy_view_switcher_icon_size (void)
 {
   g_autoptr (HdyViewSwitcher) view_switcher = NULL;
 
-  view_switcher = g_object_ref_sink (hdy_view_switcher_new ());
+  view_switcher = g_object_ref_sink (HDY_VIEW_SWITCHER (hdy_view_switcher_new ()));
   g_assert_nonnull (view_switcher);
 
   g_assert_cmpint (hdy_view_switcher_get_icon_size (view_switcher), ==, GTK_ICON_SIZE_BUTTON);
@@ -52,7 +52,7 @@ test_hdy_view_switcher_narrow_ellipsize (void)
 {
   g_autoptr (HdyViewSwitcher) view_switcher = NULL;
 
-  view_switcher = g_object_ref_sink (hdy_view_switcher_new ());
+  view_switcher = g_object_ref_sink (HDY_VIEW_SWITCHER (hdy_view_switcher_new ()));
   g_assert_nonnull (view_switcher);
 
   g_assert_cmpint (hdy_view_switcher_get_narrow_ellipsize (view_switcher), ==, PANGO_ELLIPSIZE_NONE);
@@ -71,7 +71,7 @@ test_hdy_view_switcher_stack (void)
   g_autoptr (HdyViewSwitcher) view_switcher = NULL;
   GtkStack *stack;
 
-  view_switcher = g_object_ref_sink (hdy_view_switcher_new ());
+  view_switcher = g_object_ref_sink (HDY_VIEW_SWITCHER (hdy_view_switcher_new ()));
   g_assert_nonnull (view_switcher);
 
   stack = GTK_STACK (gtk_stack_new ());

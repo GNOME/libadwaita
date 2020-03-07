@@ -230,7 +230,7 @@ add_button_for_stack_child (HdyViewSwitcher *self,
 {
   HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
   g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (self));
-  HdyViewSwitcherButton *button = hdy_view_switcher_button_new ();
+  HdyViewSwitcherButton *button = HDY_VIEW_SWITCHER_BUTTON (hdy_view_switcher_button_new ());
 
   g_object_set_data (G_OBJECT (button), "stack-child", stack_child);
   g_object_bind_property (self, "icon-size", button, "icon-size", G_BINDING_SYNC_CREATE);
@@ -609,7 +609,7 @@ hdy_view_switcher_init (HdyViewSwitcher *self)
  *
  * Since: 0.0.10
  */
-HdyViewSwitcher *
+GtkWidget *
 hdy_view_switcher_new (void)
 {
   return g_object_new (HDY_TYPE_VIEW_SWITCHER, NULL);

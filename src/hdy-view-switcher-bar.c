@@ -212,7 +212,7 @@ hdy_view_switcher_bar_init (HdyViewSwitcherBar *self)
  *
  * Since: 0.0.10
  */
-HdyViewSwitcherBar *
+GtkWidget *
 hdy_view_switcher_bar_new (void)
 {
   return g_object_new (HDY_TYPE_VIEW_SWITCHER_BAR, NULL);

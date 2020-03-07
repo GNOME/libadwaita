@@ -27,7 +27,7 @@ struct _HdyPreferencesRowClass
   GtkListBoxRowClass parent_class;
 };
 
-HdyPreferencesRow *hdy_preferences_row_new (void);
+GtkWidget *hdy_preferences_row_new (void);
 
 const gchar *hdy_preferences_row_get_title (HdyPreferencesRow *self);
 void         hdy_preferences_row_set_title (HdyPreferencesRow *self,

@@ -30,7 +30,7 @@ struct _HdyActionRowClass
   void (*activate) (HdyActionRow *self);
 };
 
-HdyActionRow *hdy_action_row_new (void);
+GtkWidget *hdy_action_row_new (void);
 
 const gchar *hdy_action_row_get_title (HdyActionRow *self);
 void         hdy_action_row_set_title (HdyActionRow *self,

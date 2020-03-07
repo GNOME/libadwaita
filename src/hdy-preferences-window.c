@@ -107,7 +107,7 @@ new_search_row_for_preference (HdyPreferencesRow    *row,
 
   g_assert (HDY_IS_PREFERENCES_ROW (row));
 
-  widget = hdy_action_row_new ();
+  widget = HDY_ACTION_ROW (hdy_action_row_new ());
   g_object_bind_property (row, "title", widget, "title", G_BINDING_SYNC_CREATE);
   g_object_bind_property (row, "use-underline", widget, "use-underline", G_BINDING_SYNC_CREATE);
 
@@ -487,7 +487,7 @@ hdy_preferences_window_init (HdyPreferencesWindow *self)
  *
  * Since: 0.0.10
  */
-HdyPreferencesWindow *
+GtkWidget *
 hdy_preferences_window_new (void)
 {
   return g_object_new (HDY_TYPE_PREFERENCES_WINDOW, NULL);

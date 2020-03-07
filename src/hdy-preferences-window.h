@@ -27,7 +27,7 @@ struct _HdyPreferencesWindowClass
   GtkWindowClass parent_class;
 };
 
-HdyPreferencesWindow *hdy_preferences_window_new (void);
+GtkWidget *hdy_preferences_window_new (void);
 
 gboolean hdy_preferences_window_get_search_enabled (HdyPreferencesWindow *self);
 void     hdy_preferences_window_set_search_enabled (HdyPreferencesWindow *self,

@@ -18,7 +18,7 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (HdyColumn, hdy_column, HDY, COLUMN, GtkBin)
 
-HdyColumn *hdy_column_new (void);
+GtkWidget *hdy_column_new (void);
 gint hdy_column_get_maximum_width (HdyColumn *self);
 void hdy_column_set_maximum_width (HdyColumn *self,
                                    gint       maximum_width);

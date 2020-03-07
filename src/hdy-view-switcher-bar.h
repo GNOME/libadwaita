@@ -25,7 +25,7 @@ struct _HdyViewSwitcherBarClass {
 
 G_DECLARE_DERIVABLE_TYPE (HdyViewSwitcherBar, hdy_view_switcher_bar, HDY, VIEW_SWITCHER_BAR, GtkBin)
 
-HdyViewSwitcherBar *hdy_view_switcher_bar_new (void);
+GtkWidget *hdy_view_switcher_bar_new (void);
 
 HdyViewSwitcherPolicy hdy_view_switcher_bar_get_policy (HdyViewSwitcherBar *self);
 void                  hdy_view_switcher_bar_set_policy (HdyViewSwitcherBar    *self,

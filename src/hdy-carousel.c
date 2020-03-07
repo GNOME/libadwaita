@@ -994,7 +994,7 @@ hdy_carousel_init (HdyCarousel *self)
  *
  * Since: 1.0
  */
-HdyCarousel *
+GtkWidget *
 hdy_carousel_new (void)
 {
   return g_object_new (HDY_TYPE_CAROUSEL, NULL);

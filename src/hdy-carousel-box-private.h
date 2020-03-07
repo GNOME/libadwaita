@@ -18,7 +18,7 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (HdyCarouselBox, hdy_carousel_box, HDY, CAROUSEL_BOX, GtkContainer)
 
-HdyCarouselBox *hdy_carousel_box_new (void);
+GtkWidget *hdy_carousel_box_new (void);
 
 void            hdy_carousel_box_insert (HdyCarouselBox *self,
                                          GtkWidget      *child,

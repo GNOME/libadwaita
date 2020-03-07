@@ -218,7 +218,7 @@ hdy_title_bar_init (HdyTitleBar *self)
  *
  * Returns: a new #HdyTitleBar
  */
-HdyTitleBar *
+GtkWidget *
 hdy_title_bar_new (void)
 {
   return g_object_new (HDY_TYPE_TITLE_BAR, NULL);
