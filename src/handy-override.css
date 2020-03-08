@@ -259,7 +259,7 @@ list.preferences list.nested > row:not(:active):hover:not(.activatable):not(:sel
 
 list.preferences > row:not(.expander):not(:active):hover.activatable:not(:selected),
 list.preferences > row.expander row.header:not(:active):hover.activatable:not(:selected),
-list.preferences list.nested > row:not(:active):hover.activatable:not(:selected), {
+list.preferences list.nested > row:not(:active):hover.activatable:not(:selected) {
   background-color: mix(@theme_fg_color, @theme_base_color, 0.95);
 }
 
