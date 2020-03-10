@@ -63,8 +63,20 @@ filter_search_results (HdyActionRow         *row,
   g_autofree gchar *title = g_utf8_casefold (hdy_action_row_get_title (row), -1);
   g_autofree gchar *subtitle = NULL;
 
+  /* The CSS engine works in such a way that invisible children are treated as
+   * visible widgets, which breaks the expectations of the .preferences  style
+   * class when filtering a row, leading to straight corners when the first row
+   * or last row are filtered out.
+   *
+   * This works around it by explicitely toggling the row's visibility, while
+   * keeping GtkListBox's filtering logic.
+   *
+   * See https://source.puri.sm/Librem5/libhandy/merge_requests/424.
+   */
+
   if (strstr (title, text)) {
     priv->n_last_search_results++;
+    gtk_widget_show (GTK_WIDGET (row));
 
     return TRUE;
   }
@@ -73,9 +85,12 @@ filter_search_results (HdyActionRow         *row,
 
   if (!!strstr (subtitle, text)) {
     priv->n_last_search_results++;
+    gtk_widget_show (GTK_WIDGET (row));
 
     return TRUE;
   }
+
+  gtk_widget_hide (GTK_WIDGET (row));
 
   return FALSE;
 }
