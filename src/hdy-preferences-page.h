@@ -27,7 +27,7 @@ struct _HdyPreferencesPageClass
   GtkScrolledWindowClass parent_class;
 };
 
-GtkWidget *hdy_preferences_page_new (void);
+GtkWidget   *hdy_preferences_page_new (void);
 
 const gchar *hdy_preferences_page_get_icon_name (HdyPreferencesPage *self);
 void         hdy_preferences_page_set_icon_name (HdyPreferencesPage *self,

@@ -28,7 +28,7 @@ struct _HdyExpanderRowClass
   HdyPreferencesRowClass parent_class;
 };
 
-GtkWidget *hdy_expander_row_new (void);
+GtkWidget   *hdy_expander_row_new (void);
 
 const gchar *hdy_expander_row_get_title (HdyExpanderRow *self);
 void         hdy_expander_row_set_title (HdyExpanderRow *self,

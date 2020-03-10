@@ -27,7 +27,7 @@ struct _HdyPreferencesGroupClass
   GtkBoxClass parent_class;
 };
 
-GtkWidget *hdy_preferences_group_new (void);
+GtkWidget   *hdy_preferences_group_new (void);
 
 const gchar *hdy_preferences_group_get_title (HdyPreferencesGroup *self);
 void         hdy_preferences_group_set_title (HdyPreferencesGroup *self,

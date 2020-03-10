@@ -310,7 +310,9 @@ hdy_keypad_init (HdyKeypad *self)
  * Returns: the newly created #HdyKeypad widget
  *
  */
-GtkWidget *hdy_keypad_new (gboolean only_digits, gboolean show_symbols)
+GtkWidget *
+hdy_keypad_new (gboolean only_digits,
+                gboolean show_symbols)
 {
   return g_object_new (HDY_TYPE_KEYPAD,
                        "only-digits", only_digits,

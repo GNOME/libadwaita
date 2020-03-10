@@ -25,7 +25,7 @@ typedef enum {
   HDY_CAROUSEL_INDICATOR_STYLE_LINES,
 } HdyCarouselIndicatorStyle;
 
-GtkWidget    *hdy_carousel_new (void);
+GtkWidget      *hdy_carousel_new (void);
 
 void            hdy_carousel_prepend (HdyCarousel *self,
                                       GtkWidget   *child);
