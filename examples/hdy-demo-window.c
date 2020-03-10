@@ -217,90 +217,6 @@ deck_go_next_row_activated_cb (HdyDemoWindow *self)
 }
 
 static void
-dialog_close_cb (GtkDialog *self)
-{
-  gtk_widget_destroy (GTK_WIDGET (self));
-}
-
-static void
-dialog_clicked_cb (GtkButton     *btn,
-                   HdyDemoWindow *self)
-{
-  GtkWidget *dlg;
-  GtkWidget *lbl;
-
-  dlg = hdy_dialog_new (GTK_WINDOW (self));
-  gtk_window_set_title (GTK_WINDOW (dlg), "HdyDialog");
-  lbl = gtk_label_new ("Hello, World!");
-  g_object_set (lbl, "margin", 12, NULL);
-  gtk_widget_set_vexpand (lbl, TRUE);
-  gtk_widget_set_valign (lbl, GTK_ALIGN_CENTER);
-  gtk_widget_set_halign (lbl, GTK_ALIGN_CENTER);
-  gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dlg))),
-                     lbl);
-
-  gtk_widget_show (lbl);
-  gtk_widget_show (dlg);
-}
-
-static void
-dialog_action_clicked_cb (GtkButton     *btn,
-                          HdyDemoWindow *self)
-{
-  GtkWidget *dlg;
-  GtkWidget *lbl;
-
-  dlg = hdy_dialog_new (GTK_WINDOW (self));
-  gtk_window_set_title (GTK_WINDOW (dlg), "HdyDialog");
-  gtk_dialog_add_buttons (GTK_DIALOG (dlg),
-                          "Done", GTK_RESPONSE_ACCEPT,
-                          "Cancel", GTK_RESPONSE_CANCEL,
-                          NULL);
-  gtk_dialog_set_default_response (GTK_DIALOG (dlg), GTK_RESPONSE_ACCEPT);
-  g_signal_connect (G_OBJECT (dlg), "response", G_CALLBACK (dialog_close_cb), NULL);
-  lbl = gtk_label_new ("Hello, World!");
-  g_object_set (lbl, "margin", 12, NULL);
-  gtk_widget_set_vexpand (lbl, TRUE);
-  gtk_widget_set_valign (lbl, GTK_ALIGN_CENTER);
-  gtk_widget_set_halign (lbl, GTK_ALIGN_CENTER);
-  gtk_container_add (GTK_CONTAINER (gtk_dialog_get_content_area (GTK_DIALOG (dlg))),
-                     lbl);
-
-  gtk_widget_show (lbl);
-  gtk_widget_show (dlg);
-}
-
-static void
-dialog_complex_deeper_clicked_cb (HdyDeck *deck)
-{
-  hdy_deck_set_visible_child_name (deck, "sub");
-}
-
-static void
-dialog_complex_back_clicked_cb (HdyDeck *deck)
-{
-  hdy_deck_navigate (deck, HDY_NAVIGATION_DIRECTION_BACK);
-}
-
-static void
-dialog_complex_clicked_cb (GtkButton     *btn,
-                           HdyDemoWindow *self)
-{
-  g_autoptr (GtkBuilder) builder = gtk_builder_new_from_resource ("/sm/puri/Handy/Demo/ui/hdy-dialog-complex-example.ui");
-  GtkWidget *dlg, *back, *deeper, *deck;
-
-  dlg = GTK_WIDGET (gtk_builder_get_object (builder, "dialog"));
-  back = GTK_WIDGET (gtk_builder_get_object (builder, "back"));
-  deeper = GTK_WIDGET (gtk_builder_get_object (builder, "deeper"));
-  deck = GTK_WIDGET (gtk_builder_get_object (builder, "content_deck"));
-  g_signal_connect_swapped (deeper, "clicked", G_CALLBACK (dialog_complex_deeper_clicked_cb), deck);
-  g_signal_connect_swapped (back, "clicked", G_CALLBACK (dialog_complex_back_clicked_cb), deck);
-  gtk_window_set_transient_for (GTK_WINDOW (dlg), GTK_WINDOW (self));
-
-  gtk_widget_show (dlg);
-}
-
-static void
 view_switcher_demo_clicked_cb (GtkButton     *btn,
                                HdyDemoWindow *self)
 {
@@ -506,9 +422,6 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_deck_transition_cb", G_CALLBACK(notify_deck_transition_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "deck_go_next_row_activated_cb", G_CALLBACK(deck_go_next_row_activated_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "theme_variant_button_clicked_cb", G_CALLBACK(theme_variant_button_clicked_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "dialog_clicked_cb", G_CALLBACK(dialog_clicked_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "dialog_action_clicked_cb", G_CALLBACK(dialog_action_clicked_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "dialog_complex_clicked_cb", G_CALLBACK(dialog_complex_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "view_switcher_demo_clicked_cb", G_CALLBACK(view_switcher_demo_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_carousel_position_cb", G_CALLBACK(notify_carousel_position_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_carousel_orientation_cb", G_CALLBACK(notify_carousel_orientation_cb));

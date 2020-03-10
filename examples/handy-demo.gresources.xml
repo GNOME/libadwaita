@@ -11,7 +11,6 @@
   <gresource prefix="/sm/puri/Handy/Demo/ui">
     <file preprocess="xml-stripblanks">hdy-demo-preferences-window.ui</file>
     <file preprocess="xml-stripblanks">hdy-demo-window.ui</file>
-    <file preprocess="xml-stripblanks">hdy-dialog-complex-example.ui</file>
     <file preprocess="xml-stripblanks">hdy-view-switcher-demo-window.ui</file>
     <file compressed="true">style.css</file>
   </gresource>

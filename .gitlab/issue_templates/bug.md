@@ -9,7 +9,6 @@
  - [ ] HdyCarousel
  - [ ] HdyColumn
  - [ ] HdyComboRow
- - [ ] HdyDialog
  - [ ] HdyEnumValueObject
  - [ ] HdyExpanderRow
  - [ ] HdyHeaderBar

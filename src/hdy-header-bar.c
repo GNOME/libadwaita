@@ -25,7 +25,6 @@
 #include "hdy-header-bar.h"
 
 #include "hdy-animation-private.h"
-#include "hdy-dialog.h"
 #include "hdy-enums.h"
 #include "gtkprogresstrackerprivate.h"
 #include "gtk-window-private.h"
@@ -34,7 +33,7 @@
  * SECTION:hdy-header-bar
  * @short_description: A box with a centered child.
  * @Title: HdyHeaderBar
- * @See_also: #GtkHeaderBar, #HdyTitleBar, #HdyViewSwitcher, #HdyDialog
+ * @See_also: #GtkHeaderBar, #HdyTitleBar, #HdyViewSwitcher
  *
  * HdyHeaderBar is similar to #GtkHeaderBar but is designed to fix some of its
  * shortcomings for adaptive applications.
@@ -43,9 +42,10 @@
  * hence allowing it to fill up the whole height, which is e.g. needed for
  * #HdyViewSwitcher.
  *
- * When used in a #HdyDialog, HdyHeaderBar will replace its window decorations
- * by a back button allowing to close it. It doesn't have to be its direct child
- * and you can use any complex contraption you like as the dialog's titlebar.
+ * When used in a mobile dialog, HdyHeaderBar will replace its window
+ * decorations by a back button allowing to close it. It doesn't have to be its
+ * direct child and you can use any complex contraption you like as the dialog's
+ * titlebar.
  *
  * # CSS nodes
  *

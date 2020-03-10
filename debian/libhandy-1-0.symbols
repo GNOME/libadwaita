@@ -92,9 +92,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_deck_set_visible_child@LIBHANDY_1_0 0.9.90
  hdy_deck_set_visible_child_name@LIBHANDY_1_0 0.9.90
  hdy_deck_transition_type_get_type@LIBHANDY_1_0 0.9.90
- hdy_dialog_get_narrow@LIBHANDY_1_0 0.0.11
- hdy_dialog_get_type@LIBHANDY_1_0 0.0.7
- hdy_dialog_new@LIBHANDY_1_0 0.0.7
  hdy_ease_out_cubic@LIBHANDY_1_0 0.0.11
  hdy_enum_value_object_get_name@LIBHANDY_1_0 0.0.6
  hdy_enum_value_object_get_nick@LIBHANDY_1_0 0.0.6

@@ -23,7 +23,6 @@ test_names = [
   'test-avatar',
   'test-carousel',
   'test-combo-row',
-  'test-dialog',
   'test-expander-row',
   'test-header-bar',
   'test-header-group',
