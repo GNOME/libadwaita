@@ -56,17 +56,19 @@ row.expander {
 
 // HdyKeypad
 
-keypad .digit {
-  font-size: 200%;
-  font-weight: bold;
-}
+keypad {
+  .digit {
+    font-size: 200%;
+    font-weight: bold;
+  }
 
-keypad .letters {
-  font-size: 70%;
-}
+  .letters {
+    font-size: 70%;
+  }
 
-keypad .symbol {
-  font-size: 160%;
+  .symbol {
+    font-size: 160%;
+  }
 }
 
 // HdyViewSwitcher
