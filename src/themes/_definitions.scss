@@ -38,7 +38,7 @@
     @error "Unknown border type: #{$border}";
   }
 
-  // Loop through the floors and walls of $border.
+  // Loop through the floors and walls of the corners of $border.
   @each $floor in nth(map-get($corners, $border), 1) {
     @each $wall in nth(map-get($corners, $border), 2) {
       border-#{$floor}-#{$wall}-radius: 8px;
