@@ -69,19 +69,19 @@ popover.combo list > row { padding: 0px 12px 0px 12px; min-height: 50px; }
 
 popover.combo list > row:not(:last-child) { border-bottom: 1px solid alpha(#cdc7c2, 0.5); }
 
-popover.combo list > row:first-child { border-top-left-radius: 8px; border-top-right-radius: 8px; -gtk-outline-top-left-radius: 7px; -gtk-outline-top-right-radius: 7px; }
+popover.combo list > row:first-child { border-top-left-radius: 8px; -gtk-outline-top-left-radius: 7px; border-top-right-radius: 8px; -gtk-outline-top-right-radius: 7px; }
 
-popover.combo list > row:last-child { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; -gtk-outline-bottom-left-radius: 7px; -gtk-outline-bottom-right-radius: 7px; }
+popover.combo list > row:last-child { border-bottom-left-radius: 8px; -gtk-outline-bottom-left-radius: 7px; border-bottom-right-radius: 8px; -gtk-outline-bottom-right-radius: 7px; }
 
-popover.combo overshoot.top { border-top-left-radius: 8px; border-top-right-radius: 8px; }
+popover.combo overshoot.top { border-top-left-radius: 8px; -gtk-outline-top-left-radius: 7px; border-top-right-radius: 8px; -gtk-outline-top-right-radius: 7px; }
 
-popover.combo overshoot.bottom { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
+popover.combo overshoot.bottom { border-bottom-left-radius: 8px; -gtk-outline-bottom-left-radius: 7px; border-bottom-right-radius: 8px; -gtk-outline-bottom-right-radius: 7px; }
 
 popover.combo scrollbar.vertical { padding-top: 2px; padding-bottom: 2px; }
 
-popover.combo scrollbar.vertical:dir(ltr) { border-bottom-right-radius: 8px; border-top-right-radius: 8px; -gtk-outline-bottom-right-radius: 7px; -gtk-outline-top-right-radius: 7px; }
+popover.combo scrollbar.vertical:dir(ltr) { border-top-right-radius: 8px; -gtk-outline-top-right-radius: 7px; border-bottom-right-radius: 8px; -gtk-outline-bottom-right-radius: 7px; }
 
-popover.combo scrollbar.vertical:dir(rtl) { border-bottom-left-radius: 8px; border-top-left-radius: 8px; -gtk-outline-bottom-left-radius: 7px; -gtk-outline-top-left-radius: 7px; }
+popover.combo scrollbar.vertical:dir(rtl) { border-top-left-radius: 8px; -gtk-outline-top-left-radius: 7px; border-bottom-left-radius: 8px; -gtk-outline-bottom-left-radius: 7px; }
 
 row.expander { padding: 0px; }
 
