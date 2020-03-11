@@ -81,6 +81,21 @@
     </refsect3>
 
     <refsect3>
+      <title>Adapt to widget constructor changes</title>
+      <para>
+        All widget constructors now return the #GtkWidget type rather than the
+        constructed widget's type, following the same convention as GTK 3.
+      </para>
+      <para>
+        Affected widgets:
+        #HdyActionRow, #HdyColumn, #HdyComboRow, #HdyExpanderRow,
+        #HdyPreferencesGroup, #HdyPreferencesPage, #HdyPreferencesRow,
+        #HdyPreferencesWindow, #HdySqueezer, #HdyTitleBar, #HdyViewSwitcherBar,
+        #HdyViewSwitcher
+      </para>
+    </refsect3>
+
+    <refsect3>
       <title>HdyFold has been removed</title>
       <para>
         #HdyFold has been removed. This affects the API of #HdyLeaflet, see the
