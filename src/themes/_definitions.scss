@@ -20,3 +20,29 @@
                         hdyalpha(#000, 0.01) 7px,
                         hdyalpha(#000, 0) 24px);
 }
+
+// Makes the corners of the given border rounded.
+// $border must be top, bottom, left, or right.
+@mixin rounded-border($border) {
+  // The floors (top, bottom) and walls (left, right) of the corners matching
+  // $border. This is needed to easily form floor-wall pairs regardless of
+  // whether $border is a floor or a wall.
+  $corners: (
+    'top': (('top'), ('left', 'right')),
+    'bottom': (('bottom'), ('left', 'right')),
+    'left': (('top', 'bottom'), ('left')),
+    'right': (('top', 'bottom'), ('right')),
+  );
+
+  @if not map-get($corners, $border) {
+    @error "Unknown border type: #{$border}";
+  }
+
+  // Loop through the floors and walls of $border.
+  @each $floor in nth(map-get($corners, $border), 1) {
+    @each $wall in nth(map-get($corners, $border), 2) {
+      border-#{$floor}-#{$wall}-radius: 8px;
+      -gtk-outline-#{$floor}-#{$wall}-radius: 7px;
+    }
+  }
+}
