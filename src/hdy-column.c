@@ -125,7 +125,7 @@ get_child_width (HdyColumn *self,
   if (gtk_widget_get_visible (child))
     gtk_widget_get_preferred_width (child, &min, NULL);
 
-  lower = MIN (MAX (min, self->linear_growth_width), self->maximum_width);
+  lower = MAX (MIN (self->linear_growth_width, self->maximum_width), min);
   max = MAX (lower, self->maximum_width);
   amplitude = max - lower;
   upper = HDY_EASE_OUT_TAN_CUBIC * amplitude + lower;
