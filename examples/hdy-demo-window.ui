@@ -122,6 +122,84 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="HdyDeck" id="header_deck">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="vexpand">True</property>
+                    <property name="can-swipe-back">True</property>
+                    <property name="transition-type" bind-source="content_deck" bind-property="transition-type" bind-flags="sync-create"/>
+                    <child>
+                      <object class="GtkHeaderBar" id="deck_header_bar">
+                        <property name="visible">True</property>
+                        <property name="expand">True</property>
+                        <property name="show_close_button">True</property>
+                        <child>
+                          <object class="GtkButton" id="deck-back">
+                            <property name="can_focus">False</property>
+                            <property name="receives_default">False</property>
+                            <property name="valign">center</property>
+                            <property name="use-underline">True</property>
+                            <property name="visible" bind-source="header_box" bind-property="folded" bind-flags="sync-create"/>
+                            <signal name="clicked" handler="back_clicked_cb"/>
+                            <style>
+                              <class name="image-button"/>
+                            </style>
+                            <child internal-child="accessible">
+                              <object class="AtkObject" id="a11y-deck-back">
+                                <property name="accessible-name" translatable="yes">Back</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_name">go-previous-symbolic</property>
+                                <property name="icon_size">1</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkHeaderBar" id="deck_sub_header_bar">
+                        <property name="visible">True</property>
+                        <property name="expand">True</property>
+                        <property name="show_close_button">True</property>
+                        <child>
+                          <object class="GtkButton" id="deck-sub-back">
+                            <property name="can_focus">False</property>
+                            <property name="receives_default">False</property>
+                            <property name="valign">center</property>
+                            <property name="use-underline">True</property>
+                            <property name="visible">True</property>
+                            <signal name="clicked" handler="deck_back_clicked_cb"/>
+                            <style>
+                              <class name="image-button"/>
+                            </style>
+                            <child internal-child="accessible">
+                              <object class="AtkObject" id="a11y-deck-sub-back">
+                                <property name="accessible-name" translatable="yes">Back</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_name">go-previous-symbolic</property>
+                                <property name="icon_size">1</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">deck</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkHeaderBar" id="search_bar_header_bar">
                     <property name="visible">True</property>
                     <property name="expand">True</property>
@@ -449,6 +527,211 @@
                   <packing>
                     <property name="name">leaflet</property>
                     <property name="title">Leaflet</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="HdyDeck" id="content_deck">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="vexpand">True</property>
+                    <property name="transition-type">over</property>
+                    <property name="can-swipe-back">True</property>
+                    <signal name="notify::visible-child" handler="notify_deck_visible_child_cb" after="yes" swapped="yes"/>
+                    <child>
+                      <object class="HdyColumn">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">fill</property>
+                        <property name="valign">fill</property>
+                        <property name="margin-bottom">32</property>
+                        <property name="margin-start">12</property>
+                        <property name="margin-end">12</property>
+                        <property name="margin-top">32</property>
+                        <property name="expand">True</property>
+                        <property name="maximum-width">400</property>
+                        <property name="linear-growth-width">300</property>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">start</property>
+                            <property name="expand">True</property>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="orientation">vertical</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="valign">center</property>
+                                <property name="margin-bottom">32</property>
+                                <property name="expand">True</property>
+                                <child>
+                                  <object class="GtkImage">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="valign">center</property>
+                                    <property name="pixel_size">128</property>
+                                    <property name="icon_name">view-paged-symbolic</property>
+                                    <property name="icon-size">0</property>
+                                    <property name="margin-bottom">18</property>
+                                    <style>
+                                      <class name="dim-label"/>
+                                    </style>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="orientation">vertical</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="opacity">0.5</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Deck</property>
+                                        <property name="halign">center</property>
+                                        <property name="xalign">0</property>
+                                        <property name="margin-bottom">12</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                          <attribute name="scale" value="2"/>
+                                        </attributes>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="opacity">0.5</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">A widget showing only one of its children at a time. This page is using decks, you can control them with the settings below.</property>
+                                        <property name="justify">center</property>
+                                        <property name="use_markup">true</property>
+                                        <property name="wrap">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                  </packing>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="expand">True</property>
+                                <property name="label" translatable="yes">Deck</property>
+                                <property name="justify">left</property>
+                                <property name="halign">start</property>
+                                <property name="margin-bottom">12</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkListBox">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="expand">True</property>
+                                <property name="selection-mode">none</property>
+                                <style>
+                                  <class name="preferences"/>
+                                </style>
+                                <child>
+                                  <object class="HdyComboRow" id="deck_transition_row">
+                                    <property name="subtitle" translatable="yes">The type of transition to use when the leaflets adapt its size or when changing the visible child</property>
+                                    <property name="title" translatable="yes">Transition type</property>
+                                    <property name="visible">True</property>
+                                    <signal name="notify::selected-index" handler="notify_deck_transition_cb" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="title" translatable="yes">Go to the next page of the deck</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="visible">True</property>
+                                    <signal name="activated" handler="deck_go_next_row_activated_cb" swapped="yes"/>
+                                    <child>
+                                      <object class="GtkImage">
+                                        <property name="icon_name">go-next-symbolic</property>
+                                        <property name="visible">True</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="valign">center</property>
+                        <property name="visible">True</property>
+                        <property name="margin">12</property>
+                        <property name="spacing">12</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="opacity">0.5</property>
+                            <property name="halign">center</property>
+                            <property name="label" translatable="yes">Go back</property>
+                            <property name="justify">center</property>
+                            <property name="wrap">True</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                              <attribute name="scale" value="2"/>
+                            </attributes>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="icon-name">gesture-touchscreen-swipe-back-symbolic</property>
+                            <property name="pixel-size">128</property>
+                            <property name="visible">True</property>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="icon-name">gesture-touchpad-swipe-back-symbolic</property>
+                            <property name="pixel-size">128</property>
+                            <property name="visible">True</property>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="name">sub</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">deck</property>
+                    <property name="title">Deck</property>
                   </packing>
                 </child>
                 <child>
@@ -1760,12 +2043,20 @@
       <headerbar name="header_bar"/>
       <headerbar name="default_header_bar"/>
       <headerbar name="search_bar_header_bar"/>
+      <headerbar name="deck_header_bar"/>
+      <headerbar name="deck_sub_header_bar"/>
     </headerbars>
   </object>
   <object class="HdySwipeGroup" id="swipe_group">
     <swipeables>
       <swipeable name="header_box"/>
       <swipeable name="content_box"/>
+    </swipeables>
+  </object>
+  <object class="HdySwipeGroup" id="deck_swipe_group">
+    <swipeables>
+      <swipeable name="header_deck"/>
+      <swipeable name="content_deck"/>
     </swipeables>
   </object>
   <object class="GtkAdjustment" id="column_width_adjustment">

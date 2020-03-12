@@ -2,6 +2,10 @@
 <gresources>
   <gresource prefix="/sm/puri/Handy/Demo">
     <file preprocess="xml-stripblanks">icons/dark-mode-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/gesture-touchscreen-swipe-back-symbolic-rtl.svg</file>
+    <file preprocess="xml-stripblanks">icons/gesture-touchscreen-swipe-back-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/gesture-touchpad-swipe-back-symbolic-rtl.svg</file>
+    <file preprocess="xml-stripblanks">icons/gesture-touchpad-swipe-back-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/light-mode-symbolic.svg</file>
   </gresource>
   <gresource prefix="/sm/puri/Handy/Demo/ui">
