@@ -175,6 +175,14 @@
     </refsect3>
 
     <refsect3>
+      <title>Adapt to HdyComboRow API changes</title>
+      <para>
+        #HdyComboRow is now unactivatable by default, binding and unbinding a
+        model will toggle its activatability.
+      </para>
+    </refsect3>
+
+    <refsect3>
       <title>Adapt to HdyExpanderRow API changes</title>
       <para>
         #HdyExpanderRow doesn't descend from #HdyActionRow anymore but from

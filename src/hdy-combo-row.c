@@ -22,6 +22,8 @@
  * is specified in the form of a #GListModel, and the display of the choices can
  * be adapted to the data in the model via widget creation functions.
  *
+ * #HdyComboRow is #GtkListBoxRow:activatable if a model is set.
+ *
  * # CSS nodes
  *
  * #HdyComboRow has a main CSS node with name row.
@@ -285,6 +287,8 @@ destroy_model (HdyComboRow *self)
   priv->create_current_widget_func = NULL;
   priv->create_widget_func_data = NULL;
   priv->create_widget_func_data_free_func = NULL;
+
+  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (self), FALSE);
 }
 
 static void
@@ -558,6 +562,8 @@ hdy_combo_row_bind_model (HdyComboRow                *self,
     priv->selected_index = 0;
 
   gtk_list_box_bind_model (priv->list, model, create_list_widget, self, create_list_widget_data_free);
+
+  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (self), TRUE);
 
   update (self);
 

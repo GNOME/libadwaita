@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="HdyComboRow" parent="HdyActionRow">
+    <property name="activatable">False</property>
     <child>
       <object class="GtkBox" id="current">
         <property name="halign">end</property>
