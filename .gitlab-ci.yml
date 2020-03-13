@@ -10,7 +10,7 @@ stages:
 
 before_script:
   - apt-get -y update
-  - apt-get -y install build-essential libgtk-3-doc lcov
+  - apt-get -y install build-essential libgtk-3-doc libgdk-pixbuf2.0-doc lcov
   - apt-get -y build-dep .
 
 .tags: &tags
