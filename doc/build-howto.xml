@@ -159,4 +159,42 @@
       </literal> to your C compiler argments instead.
     </para>
   </refsect2>
+
+  <refsect2>
+    <title>Building on macOS</title>
+
+    <para>
+      To build on macOS you need to install the build-dependencies first. This can e.g. be done via <ulink url="https://brew.sh"><literal>brew</literal></ulink>:
+    </para>
+
+    <informalexample>
+      <programlisting>
+        brew install pkg-config gtk+3 adwaita-icon-theme meson glade gobject-introspection vala
+      </programlisting>
+    </informalexample>
+
+    <para>
+      After running the command above, one may now build the library:
+    </para>
+
+    <informalexample>
+      <programlisting>
+        git clone https://source.puri.sm/Librem5/libhandy.git
+        cd libhandy
+        meson . _build
+        ninja -C _build test
+        ninja -C _build install
+      </programlisting>
+    </informalexample>
+
+    <para>
+      Working with the library on macOS is pretty much the same as on Linux. To link it, use <literal>pkg-config</literal>:
+    </para>
+
+    <informalexample>
+      <programlisting>
+        gcc $(pkg-config --cflags --libs gtk+-3.0) $(pkg-config --cflags --libs libhandy-1) main.c -o main
+      </programlisting>
+    </informalexample>
+  </refsect2>
 </refentry>
