@@ -20,6 +20,7 @@ test_link_args = [
 
 test_names = [
   'test-action-row',
+  'test-avatar',
   'test-carousel',
   'test-combo-row',
   'test-dialog',
