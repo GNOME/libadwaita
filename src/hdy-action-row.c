@@ -695,14 +695,12 @@ hdy_action_row_set_activatable_widget (HdyActionRow *self,
   HdyActionRowPrivate *priv;
 
   g_return_if_fail (HDY_IS_ACTION_ROW (self));
+  g_return_if_fail (widget == NULL || GTK_IS_WIDGET (widget));
 
   priv = hdy_action_row_get_instance_private (self);
 
   if (priv->activatable_widget == widget)
     return;
-
-  if (widget != NULL)
-    g_return_if_fail (GTK_IS_WIDGET (widget));
 
   if (priv->activatable_widget)
     g_object_weak_unref (G_OBJECT (priv->activatable_widget),
