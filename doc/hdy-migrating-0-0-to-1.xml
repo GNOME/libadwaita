@@ -172,6 +172,10 @@
         class, it now has the header CSS style class and can hence be accessed
         as box.header subnode.
       </para>
+      <para>
+        #HdyActionRow is now unactivatable by default, giving it an activatable
+        widget will automatically make it activatable.
+      </para>
     </refsect3>
 
     <refsect3>

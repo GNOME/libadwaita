@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="HdyActionRow" parent="HdyPreferencesRow">
+    <property name="activatable">False</property>
     <child>
       <object class="GtkBox" id="header">
         <property name="can_focus">False</property>
