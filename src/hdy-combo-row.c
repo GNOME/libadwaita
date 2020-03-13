@@ -270,20 +270,21 @@ destroy_model (HdyComboRow *self)
 {
   HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
 
-  if (priv->bound_model) {
-    /* Disconnect the bound model *before* releasing it. */
-    g_signal_handlers_disconnect_by_func (priv->bound_model, bound_model_changed, self);
+  if (!priv->bound_model)
+    return;
 
-    /* Destroy the model and the user data. */
-    if (priv->list)
-      gtk_list_box_bind_model (priv->list, NULL, NULL, NULL, NULL);
+  /* Disconnect the bound model *before* releasing it. */
+  g_signal_handlers_disconnect_by_func (priv->bound_model, bound_model_changed, self);
 
-    priv->bound_model = NULL;
-    priv->create_list_widget_func = NULL;
-    priv->create_current_widget_func = NULL;
-    priv->create_widget_func_data = NULL;
-    priv->create_widget_func_data_free_func = NULL;
-  }
+  /* Destroy the model and the user data. */
+  if (priv->list)
+    gtk_list_box_bind_model (priv->list, NULL, NULL, NULL, NULL);
+
+  priv->bound_model = NULL;
+  priv->create_list_widget_func = NULL;
+  priv->create_current_widget_func = NULL;
+  priv->create_widget_func_data = NULL;
+  priv->create_widget_func_data_free_func = NULL;
 }
 
 static void
