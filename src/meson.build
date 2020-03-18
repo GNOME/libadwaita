@@ -55,6 +55,7 @@ libhandy_generated_headers += [hdy_enums[1]]
 src_headers = [
   'hdy-action-row.h',
   'hdy-animation.h',
+  'hdy-application-window.h',
   'hdy-avatar.h',
   'hdy-carousel.h',
   'hdy-column.h',
@@ -100,6 +101,7 @@ src_sources = [
   'gtk-window.c',
   'hdy-action-row.c',
   'hdy-animation.c',
+  'hdy-application-window.c',
   'hdy-avatar.c',
   'hdy-carousel.c',
   'hdy-carousel-box.c',
