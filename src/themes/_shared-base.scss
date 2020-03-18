@@ -137,3 +137,17 @@ avatar {
 
   &.contrasted { color: #fff; }
 }
+
+window.csd.unified:not(.solid-csd) {
+  // Since corners are masked, there's no need for round corners anymore
+  &, headerbar {
+    border-radius: 0;
+  }
+
+  &:not(.tiled):not(.tiled-top):not(.tiled-bottom):not(.tiled-left):not(.tiled-right):not(.maximized):not(.fullscreen):not(.solid-csd) {
+    > decoration,
+    > decoration-overlay {
+      border-radius: 8px;
+    }
+  }
+}

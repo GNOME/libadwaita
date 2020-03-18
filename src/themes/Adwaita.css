@@ -61,6 +61,10 @@ avatar.color8 { background-image: linear-gradient(#cdab8f, #865d3c); color: #e5d
 
 avatar.contrasted { color: #fff; }
 
+window.csd.unified:not(.solid-csd), window.csd.unified:not(.solid-csd) headerbar { border-radius: 0; }
+
+window.csd.unified:not(.solid-csd):not(.tiled):not(.tiled-top):not(.tiled-bottom):not(.tiled-left):not(.tiled-right):not(.maximized):not(.fullscreen):not(.solid-csd) > decoration, window.csd.unified:not(.solid-csd):not(.tiled):not(.tiled-top):not(.tiled-bottom):not(.tiled-left):not(.tiled-right):not(.maximized):not(.fullscreen):not(.solid-csd) > decoration-overlay { border-radius: 8px; }
+
 popover.combo { padding: 0px; }
 
 popover.combo list { border-style: none; background-color: transparent; }
@@ -164,3 +168,7 @@ list.preferences > row:last-child, list.preferences > row.checked-expander-row-p
 list.preferences > row.expander:checked:not(:first-child), list.preferences > row.expander:checked + row { margin-top: 6px; }
 
 button.list-button:not(:active):not(:checked):not(:hover) { background: none; border: 1px solid alpha(#cdc7c2, 0.5); box-shadow: none; }
+
+window.csd.unified:not(.solid-csd):not(.fullscreen) headerbar { box-shadow: none; }
+
+window.csd.unified:not(.solid-csd):not(.fullscreen) > decoration-overlay { box-shadow: inset 0 1px rgba(255, 255, 255, 0.8); }

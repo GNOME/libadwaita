@@ -133,6 +133,7 @@ src_sources = [
   'hdy-view-switcher-bar.c',
   'hdy-view-switcher-button.c',
   'hdy-view-switcher-title.c',
+  'hdy-window-mixin.c',
 ]
 
 libhandy_public_headers += files(src_headers)

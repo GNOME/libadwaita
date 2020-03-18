@@ -19,6 +19,7 @@ private_headers = [
     'hdy-swipe-tracker-private.h',
     'hdy-swipeable-private.h',
     'hdy-view-switcher-button-private.h',
+    'hdy-window-mixin-private.h',
 ]
 
 images = [
