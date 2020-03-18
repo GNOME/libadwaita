@@ -1,19 +1,15 @@
 #include "hdy-demo-window.h"
 
 #include <glib/gi18n.h>
-#define HANDY_USE_UNSTABLE_API
-#include <handy.h>
 #include "hdy-view-switcher-demo-window.h"
 
 struct _HdyDemoWindow
 {
-  GtkApplicationWindow parent_instance;
+  HdyApplicationWindow parent_instance;
 
-  HdyLeaflet *header_box;
   HdyLeaflet *content_box;
   GtkStack *header_stack;
   GtkImage *theme_variant_image;
-  GtkButton *back;
   GtkStackSidebar *sidebar;
   GtkStack *stack;
   HdyComboRow *leaflet_transition_row;
@@ -36,7 +32,7 @@ struct _HdyDemoWindow
   GtkFileChooserButton *avatar_filechooser;
 };
 
-G_DEFINE_TYPE (HdyDemoWindow, hdy_demo_window, GTK_TYPE_APPLICATION_WINDOW)
+G_DEFINE_TYPE (HdyDemoWindow, hdy_demo_window, HDY_TYPE_APPLICATION_WINDOW)
 
 static void
 theme_variant_button_clicked_cb (HdyDemoWindow *self)
@@ -388,11 +384,9 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   object_class->constructed = hdy_demo_window_constructed;
 
   gtk_widget_class_set_template_from_resource (widget_class, "/sm/puri/Handy/Demo/ui/hdy-demo-window.ui");
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, header_box);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, content_box);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, header_stack);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, theme_variant_image);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, back);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, leaflet_transition_row);
