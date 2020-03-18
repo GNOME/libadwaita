@@ -82,6 +82,7 @@ src_headers = [
   'hdy-view-switcher.h',
   'hdy-view-switcher-bar.h',
   'hdy-view-switcher-title.h',
+  'hdy-window.h',
 ]
 
 sed = find_program('sed', required: true)
@@ -133,6 +134,7 @@ src_sources = [
   'hdy-view-switcher-bar.c',
   'hdy-view-switcher-button.c',
   'hdy-view-switcher-title.c',
+  'hdy-window.c',
   'hdy-window-mixin.c',
 ]
 
