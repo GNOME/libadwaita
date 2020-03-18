@@ -2,20 +2,22 @@
 
 // HdyActionRow
 
-row label.subtitle {
-  font-size: smaller;
-  opacity: 0.55;
-  text-shadow: none;
-}
+row {
+  label.subtitle {
+    font-size: smaller;
+    opacity: 0.55;
+    text-shadow: none;
+  }
 
-row > box.header {
-  margin-left: 12px;
-  margin-right: 12px;
-  min-height: 50px;
+  > box.header {
+    margin-left: 12px;
+    margin-right: 12px;
+    min-height: 50px;
 
-  > box.title {
-    margin-top: 8px;
-    margin-bottom: 8px;
+    > box.title {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
   }
 }
 
