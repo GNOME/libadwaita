@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="3.0"/>
-  <template class="HdyPreferencesWindow" parent="GtkWindow">
+  <template class="HdyPreferencesWindow" parent="HdyWindow">
     <property name="modal">True</property>
     <property name="window_position">center</property>
     <property name="destroy_with_parent">True</property>
@@ -9,42 +9,222 @@
     <property name="title" translatable="yes">Preferences</property>
     <property name="type_hint">dialog</property>
     <signal name="key-press-event" handler="key_press_event_cb" after="yes" swapped="no"/>
-    <child type="titlebar">
-      <object class="HdyHeaderBar">
-        <property name="centering_policy">strict</property>
-        <property name="show_close_button">True</property>
+    <child>
+      <object class="GtkBox">
         <property name="visible">True</property>
-        <signal name="size-allocate" handler="header_bar_size_allocate_cb" swapped="yes"/>
-        <child type="title">
-          <object class="GtkStack" id="title_stack">
-            <property name="transition-type">crossfade</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="HdyHeaderBar">
+            <property name="centering_policy">strict</property>
+            <property name="show_close_button">True</property>
             <property name="visible">True</property>
-            <signal name="notify::visible-child" handler="title_stack_notify_visible_child_cb" swapped="true"/>
-            <signal name="notify::transition-running" handler="title_stack_notify_transition_running_cb" swapped="true"/>
-            <child>
-              <object class="HdyViewSwitcherTitle" id="view_switcher_title">
-                <property name="can_focus">False</property>
-                <property name="halign">center</property>
-                <property name="stack">pages_stack</property>
-                <property name="title" bind-source="HdyPreferencesWindow" bind-property="title" bind-flags="sync-create"/>
+            <signal name="size-allocate" handler="header_bar_size_allocate_cb" swapped="yes"/>
+            <child type="title">
+              <object class="GtkStack" id="title_stack">
+                <property name="transition-type">crossfade</property>
                 <property name="visible">True</property>
+                <signal name="notify::visible-child" handler="title_stack_notify_visible_child_cb" swapped="true"/>
+                <signal name="notify::transition-running" handler="title_stack_notify_transition_running_cb" swapped="true"/>
+                <child>
+                  <object class="HdyViewSwitcherTitle" id="view_switcher_title">
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                    <property name="stack">pages_stack</property>
+                    <property name="title" bind-source="HdyPreferencesWindow" bind-property="title" bind-flags="sync-create"/>
+                    <property name="visible">True</property>
+                  </object>
+                  <packing>
+                    <property name="name">pages</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="HdyColumn">
+                    <property name="linear-growth-width">300</property>
+                    <property name="maximum-width">400</property>
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkSearchEntry" id="search_entry">
+                        <property name="hexpand">True</property>
+                        <property name="visible">True</property>
+                        <signal name="search-changed" handler="search_changed_cb" swapped="yes"/>
+                        <signal name="stop-search" handler="stop_search_cb" swapped="yes"/>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">search</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkToggleButton" id="search_button">
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="valign">center</property>
+                <property name="visible">True</property>
+                <signal name="notify::active" handler="search_button_notify_active_cb" swapped="yes"/>
+                <style>
+                  <class name="image-button"/>
+                </style>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="a11y-search">
+                    <property name="accessible-name" translatable="yes">Search</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImage">
+                    <property name="can_focus">False</property>
+                    <property name="icon_name">edit-find-symbolic</property>
+                    <property name="icon_size">1</property>
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStack" id="content_stack">
+            <property name="transition-type">crossfade</property>
+            <property name="vhomogeneous">False</property>
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkStack" id="pages_stack">
+                    <property name="transition-type">slide-left-right</property>
+                    <property name="vexpand">True</property>
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="HdyViewSwitcherBar" id="view_switcher_bar">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="stack">pages_stack</property>
+                    <property name="reveal" bind-source="view_switcher_title" bind-property="title-visible" bind-flags="sync-create"/>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="name">pages</property>
               </packing>
             </child>
             <child>
-              <object class="HdyColumn">
-                <property name="linear-growth-width">300</property>
-                <property name="maximum-width">400</property>
+              <object class="GtkStack" id="search_stack">
+                <property name="can_focus">False</property>
+                <property name="expand">True</property>
                 <property name="visible">True</property>
                 <child>
-                  <object class="GtkSearchEntry" id="search_entry">
-                    <property name="hexpand">True</property>
+                  <object class="GtkScrolledWindow" id="scrolled_window">
+                    <property name="can_focus">False</property>
+                    <property name="expand">True</property>
+                    <property name="hscrollbar_policy">never</property>
                     <property name="visible">True</property>
-                    <signal name="search-changed" handler="search_changed_cb" swapped="yes"/>
-                    <signal name="stop-search" handler="stop_search_cb" swapped="yes"/>
+                    <child>
+                      <object class="HdyColumn">
+                        <property name="linear_growth_width">400</property>
+                        <property name="margin_bottom">18</property>
+                        <property name="margin_end">12</property>
+                        <property name="margin_start">12</property>
+                        <property name="margin_top">18</property>
+                        <property name="maximum_width">600</property>
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkListBox" id="search_results">
+                            <property name="selection-mode">none</property>
+                            <property name="valign">start</property>
+                            <property name="visible">True</property>
+                            <signal name="row-activated" handler="search_result_activated_cb" swapped="yes"/>
+                            <style>
+                              <class name="preferences"/>
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
+                  <packing>
+                    <property name="name">results</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow">
+                    <property name="can_focus">False</property>
+                    <property name="expand">True</property>
+                    <property name="hscrollbar_policy">never</property>
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="can_focus">False</property>
+                        <property name="halign">center</property>
+                        <property name="orientation">vertical</property>
+                        <property name="valign">center</property>
+                        <property name="vexpand">True</property>
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="can_focus">False</property>
+                            <property name="icon_name">edit-find-symbolic</property>
+                            <property name="icon_size">0</property>
+                            <property name="margin_bottom">18</property>
+                            <property name="pixel_size">128</property>
+                            <property name="valign">center</property>
+                            <property name="visible">True</property>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="can_focus">False</property>
+                            <property name="margin_end">12</property>
+                            <property name="margin_start">12</property>
+                            <property name="orientation">vertical</property>
+                            <property name="visible">True</property>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="justify">center</property>
+                                <property name="label" translatable="yes">No Results Found</property>
+                                <property name="margin_bottom">12</property>
+                                <property name="opacity">0.5</property>
+                                <property name="visible">True</property>
+                                <property name="wrap">True</property>
+                                <attributes>
+                                  <attribute name="scale" value="2"/>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="can_focus">False</property>
+                                <property name="justify">center</property>
+                                <property name="label" translatable="yes">Try a different search</property>
+                                <property name="margin_bottom">6</property>
+                                <property name="opacity">0.5</property>
+                                <property name="use_markup">True</property>
+                                <property name="visible">True</property>
+                                <property name="wrap">True</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">no-results</property>
+                  </packing>
                 </child>
               </object>
               <packing>
@@ -52,180 +232,6 @@
               </packing>
             </child>
           </object>
-        </child>
-        <child>
-          <object class="GtkToggleButton" id="search_button">
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="valign">center</property>
-            <property name="visible">True</property>
-            <signal name="notify::active" handler="search_button_notify_active_cb" swapped="yes"/>
-            <style>
-              <class name="image-button"/>
-            </style>
-            <child internal-child="accessible">
-              <object class="AtkObject" id="a11y-search">
-                <property name="accessible-name" translatable="yes">Search</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkImage">
-                <property name="can_focus">False</property>
-                <property name="icon_name">edit-find-symbolic</property>
-                <property name="icon_size">1</property>
-                <property name="visible">True</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkStack" id="content_stack">
-        <property name="transition-type">crossfade</property>
-        <property name="vhomogeneous">False</property>
-        <property name="visible">True</property>
-        <child>
-          <object class="GtkBox">
-            <property name="orientation">vertical</property>
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkStack" id="pages_stack">
-                <property name="transition-type">slide-left-right</property>
-                <property name="vexpand">True</property>
-                <property name="visible">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="HdyViewSwitcherBar" id="view_switcher_bar">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="stack">pages_stack</property>
-                <property name="reveal" bind-source="view_switcher_title" bind-property="title-visible" bind-flags="sync-create"/>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="name">pages</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkStack" id="search_stack">
-            <property name="can_focus">False</property>
-            <property name="expand">True</property>
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkScrolledWindow" id="scrolled_window">
-                <property name="can_focus">False</property>
-                <property name="expand">True</property>
-                <property name="hscrollbar_policy">never</property>
-                <property name="visible">True</property>
-                <child>
-                  <object class="HdyColumn">
-                    <property name="linear_growth_width">400</property>
-                    <property name="margin_bottom">18</property>
-                    <property name="margin_end">12</property>
-                    <property name="margin_start">12</property>
-                    <property name="margin_top">18</property>
-                    <property name="maximum_width">600</property>
-                    <property name="visible">True</property>
-                    <child>
-                      <object class="GtkListBox" id="search_results">
-                        <property name="selection-mode">none</property>
-                        <property name="valign">start</property>
-                        <property name="visible">True</property>
-                        <signal name="row-activated" handler="search_result_activated_cb" swapped="yes"/>
-                        <style>
-                          <class name="preferences"/>
-                        </style>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="name">results</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkScrolledWindow">
-                <property name="can_focus">False</property>
-                <property name="expand">True</property>
-                <property name="hscrollbar_policy">never</property>
-                <property name="visible">True</property>
-                <child>
-                  <object class="GtkBox">
-                    <property name="can_focus">False</property>
-                    <property name="halign">center</property>
-                    <property name="orientation">vertical</property>
-                    <property name="valign">center</property>
-                    <property name="vexpand">True</property>
-                    <property name="visible">True</property>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">edit-find-symbolic</property>
-                        <property name="icon_size">0</property>
-                        <property name="margin_bottom">18</property>
-                        <property name="pixel_size">128</property>
-                        <property name="valign">center</property>
-                        <property name="visible">True</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="can_focus">False</property>
-                        <property name="margin_end">12</property>
-                        <property name="margin_start">12</property>
-                        <property name="orientation">vertical</property>
-                        <property name="visible">True</property>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="can_focus">False</property>
-                            <property name="halign">center</property>
-                            <property name="justify">center</property>
-                            <property name="label" translatable="yes">No Results Found</property>
-                            <property name="margin_bottom">12</property>
-                            <property name="opacity">0.5</property>
-                            <property name="visible">True</property>
-                            <property name="wrap">True</property>
-                            <attributes>
-                              <attribute name="scale" value="2"/>
-                              <attribute name="weight" value="bold"/>
-                            </attributes>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="can_focus">False</property>
-                            <property name="justify">center</property>
-                            <property name="label" translatable="yes">Try a different search</property>
-                            <property name="margin_bottom">6</property>
-                            <property name="opacity">0.5</property>
-                            <property name="use_markup">True</property>
-                            <property name="visible">True</property>
-                            <property name="wrap">True</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="name">no-results</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="name">search</property>
-          </packing>
         </child>
       </object>
     </child>

@@ -44,7 +44,7 @@ typedef struct
   gint n_last_search_results;
 } HdyPreferencesWindowPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyPreferencesWindow, hdy_preferences_window, GTK_TYPE_WINDOW)
+G_DEFINE_TYPE_WITH_PRIVATE (HdyPreferencesWindow, hdy_preferences_window, HDY_TYPE_WINDOW)
 
 enum {
   PROP_0,
