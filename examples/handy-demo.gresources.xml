@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/sm/puri/handy/demo/ui">
+  <gresource prefix="/sm/puri/Handy/Demo/ui">
     <file preprocess="xml-stripblanks">hdy-demo-preferences-window.ui</file>
     <file preprocess="xml-stripblanks">hdy-demo-window.ui</file>
     <file preprocess="xml-stripblanks">hdy-dialog-complex-example.ui</file>

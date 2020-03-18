@@ -226,7 +226,7 @@ static void
 dialog_complex_clicked_cb (GtkButton     *btn,
                            HdyDemoWindow *self)
 {
-  g_autoptr (GtkBuilder) builder = gtk_builder_new_from_resource ("/sm/puri/handy/demo/ui/hdy-dialog-complex-example.ui");
+  g_autoptr (GtkBuilder) builder = gtk_builder_new_from_resource ("/sm/puri/Handy/Demo/ui/hdy-dialog-complex-example.ui");
   GtkWidget *dlg, *back, *deeper, *deck;
 
   dlg = GTK_WIDGET (gtk_builder_get_object (builder, "dialog"));
@@ -411,7 +411,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
 
   object_class->constructed = hdy_demo_window_constructed;
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/sm/puri/handy/demo/ui/hdy-demo-window.ui");
+  gtk_widget_class_set_template_from_resource (widget_class, "/sm/puri/Handy/Demo/ui/hdy-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, header_box);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, content_box);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, back);
