@@ -1,15 +1,13 @@
 #include "hdy-view-switcher-demo-window.h"
 
 #include <glib/gi18n.h>
-#define HANDY_USE_UNSTABLE_API
-#include <handy.h>
 
 struct _HdyViewSwitcherDemoWindow
 {
-  GtkWindow parent_instance;
+  HdyWindow parent_instance;
 };
 
-G_DEFINE_TYPE (HdyViewSwitcherDemoWindow, hdy_view_switcher_demo_window, GTK_TYPE_WINDOW)
+G_DEFINE_TYPE (HdyViewSwitcherDemoWindow, hdy_view_switcher_demo_window, HDY_TYPE_WINDOW)
 
 static void
 hdy_view_switcher_demo_window_class_init (HdyViewSwitcherDemoWindowClass *klass)
