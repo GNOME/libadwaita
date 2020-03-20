@@ -86,7 +86,7 @@
                 <property name="can_focus">False</property>
                 <property name="transition-type" bind-source="stack" bind-property="transition-type" bind-flags="sync-create"/>
                 <child>
-                  <object class="GtkHeaderBar" id="sub_header_bar">
+                  <object class="GtkHeaderBar" id="default_header_bar">
                     <property name="visible">True</property>
                     <property name="expand">True</property>
                     <property name="show_close_button">True</property>
@@ -116,8 +116,45 @@
                         </child>
                       </object>
                     </child>
+                  </object>
+                  <packing>
+                    <property name="name">default</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkHeaderBar" id="search_bar_header_bar">
+                    <property name="visible">True</property>
+                    <property name="expand">True</property>
+                    <property name="show_close_button">True</property>
                     <child>
-                      <object class="GtkToggleButton" id="search_button">
+                      <object class="GtkButton">
+                        <property name="can_focus">False</property>
+                        <property name="receives_default">False</property>
+                        <property name="valign">center</property>
+                        <property name="use-underline">True</property>
+                        <property name="visible" bind-source="header_box" bind-property="folded" bind-flags="sync-create"/>
+                        <signal name="clicked" handler="back_clicked_cb"/>
+                        <style>
+                          <class name="image-button"/>
+                        </style>
+                        <child internal-child="accessible">
+                          <object class="AtkObject">
+                            <property name="accessible-name" translatable="yes">Back</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="icon_name">go-previous-symbolic</property>
+                            <property name="icon_size">1</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton">
+                        <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="receives_default">False</property>
                         <property name="valign">center</property>
@@ -145,6 +182,9 @@
                       </packing>
                     </child>
                   </object>
+                  <packing>
+                    <property name="name">search-bar</property>
+                  </packing>
                 </child>
               </object>
               <packing>
@@ -1718,7 +1758,8 @@
   <object class="HdyHeaderGroup" id="header_group">
     <headerbars>
       <headerbar name="header_bar"/>
-      <headerbar name="sub_header_bar"/>
+      <headerbar name="default_header_bar"/>
+      <headerbar name="search_bar_header_bar"/>
     </headerbars>
   </object>
   <object class="HdySwipeGroup" id="swipe_group">

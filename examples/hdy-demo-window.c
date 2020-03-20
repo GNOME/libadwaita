@@ -14,7 +14,6 @@ struct _HdyDemoWindow
   GtkStack *header_stack;
   GtkImage *theme_variant_image;
   GtkButton *back;
-  GtkToggleButton *search_button;
   GtkStackSidebar *sidebar;
   GtkStack *stack;
   HdyComboRow *leaflet_transition_row;
@@ -83,16 +82,6 @@ hdy_demo_window_key_pressed_cb (GtkWidget     *sender,
 }
 
 static void
-update_header_bar (HdyDemoWindow *self)
-{
-  const gchar *visible_child_name;
-
-  visible_child_name = gtk_stack_get_visible_child_name (GTK_STACK (self->stack));
-  gtk_widget_set_visible (GTK_WIDGET (self->search_button),
-                          g_str_equal (visible_child_name, "search-bar"));
-}
-
-static void
 update_leaflet_swipe (HdyDemoWindow *self)
 {
   gboolean first_page = (hdy_carousel_get_position (self->carousel) <= 0);
@@ -104,12 +93,25 @@ update_leaflet_swipe (HdyDemoWindow *self)
 }
 
 static void
+update (HdyDemoWindow *self)
+{
+  const gchar *header_bar_name = "default";
+
+  if (g_strcmp0 (gtk_stack_get_visible_child_name (self->stack), "search-bar") == 0) {
+    header_bar_name = "search-bar";
+  }
+
+  gtk_stack_set_visible_child_name (self->header_stack, header_bar_name);
+}
+
+static void
 hdy_demo_window_notify_visible_child_cb (GObject       *sender,
                                          GParamSpec    *pspec,
                                          HdyDemoWindow *self)
 {
+  update (self);
+
   hdy_leaflet_navigate (self->content_box, HDY_NAVIGATION_DIRECTION_FORWARD);
-  update_header_bar (self);
   update_leaflet_swipe (self);
 }
 
@@ -414,7 +416,6 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, header_stack);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, theme_variant_image);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, back);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_button);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, leaflet_transition_row);
@@ -473,6 +474,7 @@ lists_page_init (HdyDemoWindow *self)
   hdy_combo_row_bind_name_model (self->combo_row, G_LIST_MODEL (list_store), (HdyComboRowGetNameFunc) hdy_value_object_dup_string, NULL, NULL);
 
   hdy_combo_row_set_for_enum (self->enum_combo_row, GTK_TYPE_LICENSE, hdy_enum_value_row_name, NULL, NULL);
+  update (self);
 }
 
 static void
@@ -500,5 +502,4 @@ hdy_demo_window_init (HdyDemoWindow *self)
   hdy_combo_row_set_selected_index (self->carousel_indicator_style_row, HDY_CAROUSEL_INDICATOR_STYLE_DOTS);
 
   hdy_leaflet_set_visible_child_name (self->content_box, "content");
-  update_header_bar (self);
 }
