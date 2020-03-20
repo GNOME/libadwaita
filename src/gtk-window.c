@@ -160,3 +160,10 @@ hdy_gtk_window_get_icon_for_size (GtkWindow *window,
   return NULL;
 }
 
+GdkWindowState
+hdy_gtk_window_get_state (GtkWindow *window)
+{
+  GdkWindow *gdk_window = gtk_widget_get_window (GTK_WIDGET (window));
+
+  return gdk_window ? gdk_window_get_state (gdk_window) : 0;
+}
