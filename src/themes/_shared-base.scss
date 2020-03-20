@@ -151,3 +151,10 @@ window.csd.unified:not(.solid-csd) {
     }
   }
 }
+
+.windowhandle {
+  &, & * {
+    // This is the most reliable way to enable window dragging
+    -GtkWidget-window-dragging: true;
+  }
+}

@@ -137,6 +137,7 @@ src_sources = [
   'hdy-view-switcher-button.c',
   'hdy-view-switcher-title.c',
   'hdy-window.c',
+  'hdy-window-handle-controller.c',
   'hdy-window-mixin.c',
 ]
 
