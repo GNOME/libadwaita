@@ -720,7 +720,7 @@ hdy_header_bar_get_size (GtkWidget      *widget,
   HdyHeaderBar *self = HDY_HEADER_BAR (widget);
   HdyHeaderBarPrivate *priv = hdy_header_bar_get_instance_private (self);
   GList *l;
-  gint n_start_children = 0, n_end_children = 0, n_center_children = 0;
+  gint n_start_children = 0, n_end_children = 0;
   gint start_min = 0, start_nat = 0;
   gint end_min = 0, end_nat = 0;
   gint center_min = 0, center_nat = 0;
@@ -742,15 +742,10 @@ hdy_header_bar_get_size (GtkWidget      *widget,
       add_child_size (priv->label_box, orientation, &center_min, &center_nat);
     else
       add_child_size (priv->label_sizing_box, orientation, &center_min, &center_nat);
-
-    if (gtk_widget_get_visible (priv->label_sizing_box))
-      n_center_children += 1;
   }
 
-  if (priv->custom_title != NULL) {
-    if (add_child_size (priv->custom_title, orientation, &center_min, &center_nat))
-      n_center_children += 1;
-  }
+  if (priv->custom_title != NULL)
+    add_child_size (priv->custom_title, orientation, &center_min, &center_nat);
 
   if (priv->titlebar_start_box != NULL) {
     if (add_child_size (priv->titlebar_start_box, orientation, &start_min, &start_nat))
@@ -872,7 +867,6 @@ hdy_header_bar_compute_size_for_opposing_orientation (GtkWidget *widget,
   gint computed_natural = 0;
   GtkRequestedSize *sizes;
   GtkPackType packing;
-  gint size = 0;
   gint i;
   gint child_size;
   gint child_minimum;
@@ -895,14 +889,13 @@ hdy_header_bar_compute_size_for_opposing_orientation (GtkWidget *widget,
                                       &sizes[i].minimum_size,
                                       &sizes[i].natural_size);
 
-      size -= sizes[i].minimum_size;
       sizes[i].data = child;
       i += 1;
     }
   }
 
   /* Bring children up to size first */
-  size = gtk_distribute_natural_allocation (MAX (0, avail_size), nvis_children, sizes);
+  gtk_distribute_natural_allocation (MAX (0, avail_size), nvis_children, sizes);
 
   /* Allocate child positions. */
   for (packing = GTK_PACK_START; packing <= GTK_PACK_END; ++packing) {
@@ -930,7 +923,6 @@ hdy_header_bar_compute_size_for_opposing_orientation (GtkWidget *widget,
       computed_minimum = MAX (computed_minimum, child_minimum);
       computed_natural = MAX (computed_natural, child_natural);
     }
-    i += 1;
   }
 
   center_min = center_nat = 0;
