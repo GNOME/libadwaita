@@ -290,11 +290,24 @@ hdy_view_switcher_title_get_preferred_height_for_width (GtkWidget *widget,
 }
 
 static void
+hdy_view_switcher_title_dispose (GObject *object) {
+  HdyViewSwitcherTitle *self = (HdyViewSwitcherTitle *)object;
+  HdyViewSwitcherTitlePrivate *priv = hdy_view_switcher_title_get_instance_private (self);
+  GtkStack *stack = hdy_view_switcher_get_stack (priv->view_switcher);
+
+  if (stack)
+    g_signal_handlers_disconnect_by_func (stack, G_CALLBACK (update_view_switcher_visible), self);
+
+  G_OBJECT_CLASS (hdy_view_switcher_title_parent_class)->dispose (object);
+}
+
+static void
 hdy_view_switcher_title_class_init (HdyViewSwitcherTitleClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+  object_class->dispose = hdy_view_switcher_title_dispose;
   object_class->get_property = hdy_view_switcher_title_get_property;
   object_class->set_property = hdy_view_switcher_title_set_property;
 
