@@ -198,6 +198,8 @@ free_child_info (HdyStackableBoxChildInfo *child_info)
   g_free (child_info);
 }
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (HdyStackableBoxChildInfo, free_child_info)
+
 static HdyStackableBoxChildInfo *
 find_child_info_for_widget (HdyStackableBox *self,
                             GtkWidget       *widget)
@@ -2736,17 +2738,13 @@ void
 hdy_stackable_box_remove (HdyStackableBox *self,
                           GtkWidget       *widget)
 {
-  HdyStackableBoxChildInfo *child_info;
-  gboolean contains_child;
-
-  child_info = find_child_info_for_widget (self, widget);
-  contains_child = child_info != NULL;
+  g_autoptr (HdyStackableBoxChildInfo) child_info = find_child_info_for_widget (self, widget);
+  gboolean contains_child = child_info != NULL;
 
   g_return_if_fail (contains_child);
 
   self->children = g_list_remove (self->children, child_info);
   self->children_reversed = g_list_remove (self->children_reversed, child_info);
-  free_child_info (child_info);
 
   if (hdy_stackable_box_get_visible_child (self) == widget)
     set_visible_child_info (self, NULL, self->transition_type, self->child_transition.duration, TRUE);
