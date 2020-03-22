@@ -206,6 +206,7 @@ glade_hdy_carousel_child_action_activate (GladeWidgetAdaptor *adaptor,
     glade_command_set_property (property, pages + 1);
 
     property = glade_widget_get_property (parent, "page");
+    glade_command_set_property (property, index);
 
     glade_command_pop_group ();
   } else if (strcmp (action_path, "remove_page") == 0) {
