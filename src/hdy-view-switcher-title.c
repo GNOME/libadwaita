@@ -293,10 +293,13 @@ static void
 hdy_view_switcher_title_dispose (GObject *object) {
   HdyViewSwitcherTitle *self = (HdyViewSwitcherTitle *)object;
   HdyViewSwitcherTitlePrivate *priv = hdy_view_switcher_title_get_instance_private (self);
-  GtkStack *stack = hdy_view_switcher_get_stack (priv->view_switcher);
 
-  if (stack)
-    g_signal_handlers_disconnect_by_func (stack, G_CALLBACK (update_view_switcher_visible), self);
+  if (priv->view_switcher) {
+    GtkStack *stack = hdy_view_switcher_get_stack (priv->view_switcher);
+
+    if (stack)
+      g_signal_handlers_disconnect_by_func (stack, G_CALLBACK (update_view_switcher_visible), self);
+  }
 
   G_OBJECT_CLASS (hdy_view_switcher_title_parent_class)->dispose (object);
 }
