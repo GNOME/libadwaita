@@ -36,7 +36,7 @@ struct _HdyAvatarClass
  * The returned #GdkPixbuf is expected to be square with width and height set
  * to @size. The image is cropped to a circle without any scaling or transformation.
  *
- * Returns: the #GdkPixbuf to use as a custom avatar
+ * Returns: (transfer full): the #GdkPixbuf to use as a custom avatar
  */
 typedef GdkPixbuf *(*HdyAvatarImageLoadFunc) (gint     size,
                                               gpointer user_data);
