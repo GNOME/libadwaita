@@ -29,6 +29,13 @@ is_surface_empty (cairo_surface_t *surface)
 }
 
 static GdkPixbuf *
+load_null_image_func (gint size,
+                      gpointer data)
+{
+  return NULL;
+}
+
+static GdkPixbuf *
 load_image_func (gint size,
                  GdkRGBA *color)
 {
@@ -162,7 +169,14 @@ test_hdy_avatar_custom_image (void)
                                   NULL);
 
   g_assert_true (did_draw_something (avatar));
- 
+
+  hdy_avatar_set_image_load_func (HDY_AVATAR (avatar),
+                                  (HdyAvatarImageLoadFunc) load_null_image_func,
+                                  NULL,
+                                  NULL);
+
+  g_assert_true (did_draw_something (avatar));
+
   g_object_unref (avatar);
 }
 
