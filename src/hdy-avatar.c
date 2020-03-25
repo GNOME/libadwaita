@@ -241,6 +241,7 @@ set_font_size (HdyAvatar *self,
   gtk_style_context_get (context, gtk_style_context_get_state (context),
                          "font", &font_desc, NULL);
 
+  pango_layout_set_font_description (priv->layout, font_desc);
   pango_layout_get_pixel_size (priv->layout, &width, &height);
 
   /* This is the size of the biggest square fitting inside the circle */
