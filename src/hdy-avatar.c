@@ -156,8 +156,10 @@ update_custom_image (HdyAvatar *self)
     size = MIN (gtk_widget_get_allocated_width (GTK_WIDGET (self)),
                 gtk_widget_get_allocated_height (GTK_WIDGET (self)));
     pixbuf = priv->load_image_func (size * scale_factor, priv->load_image_func_target);
-    priv->round_image = round_image (pixbuf, (gdouble) size * scale_factor);
-    cairo_surface_set_device_scale (priv->round_image, scale_factor, scale_factor);
+    if (pixbuf != NULL) {
+      priv->round_image = round_image (pixbuf, (gdouble) size * scale_factor);
+      cairo_surface_set_device_scale (priv->round_image, scale_factor, scale_factor);
+    }
   }
 
   if (was_custom || priv->round_image != NULL)
