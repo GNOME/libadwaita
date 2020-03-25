@@ -247,8 +247,10 @@ set_font_size (HdyAvatar *self,
   /* This is the size of the biggest square fitting inside the circle */
   sqr_size = (gdouble)size / 1.4142;
   /* The padding has to be a function of the overall size.
-   * This one looks pritty good. */
-  padding = ((gdouble)size - sqr_size) / 2.0;
+   * The 0.4 is how steep the linear function grows and the -5 is just
+   * an adjustment for smaller sizes which doesn't have a big impact on bigger sizes.
+   * Make also sure we don't have a negative padding */
+  padding = MAX (size * 0.4 - 5, 0);
   max_size = sqr_size - padding;
   new_font_size = (gdouble)height * (max_size / (gdouble)width);
 
