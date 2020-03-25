@@ -43,8 +43,8 @@
  *   gdk_pixbuf_get_file_info (file, &width, &height);
  *
  *   pixbuf = gdk_pixbuf_new_from_file_at_scale (file,
- *                                              (width <= height) ? size : -1;
- *                                              (width >= height) ? size : -1;
+ *                                              (width <= height) ? size : -1,
+ *                                              (width >= height) ? size : -1,
  *                                              TRUE,
  *                                              error);
  *   if (error != NULL) {
