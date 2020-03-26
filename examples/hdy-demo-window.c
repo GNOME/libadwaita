@@ -8,6 +8,7 @@ struct _HdyDemoWindow
   HdyApplicationWindow parent_instance;
 
   HdyLeaflet *content_box;
+  GtkStack *header_revealer;
   GtkStack *header_stack;
   GtkImage *theme_variant_image;
   GtkStackSidebar *sidebar;
@@ -385,6 +386,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/sm/puri/Handy/Demo/ui/hdy-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, content_box);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, header_revealer);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, header_stack);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, theme_variant_image);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, sidebar);

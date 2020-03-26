@@ -7,6 +7,7 @@
     <file preprocess="xml-stripblanks">icons/gesture-touchpad-swipe-back-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">icons/gesture-touchpad-swipe-back-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/light-mode-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/window-symbolic.svg</file>
   </gresource>
   <gresource prefix="/sm/puri/Handy/Demo/ui">
     <file preprocess="xml-stripblanks">hdy-demo-preferences-window.ui</file>
