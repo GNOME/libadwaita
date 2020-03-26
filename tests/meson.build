@@ -37,6 +37,7 @@ test_names = [
   'test-value-object',
   'test-view-switcher',
   'test-view-switcher-bar',
+  'test-window',
 ]
 
 foreach test_name : test_names
