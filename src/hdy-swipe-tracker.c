@@ -825,6 +825,33 @@ hdy_swipe_tracker_set_allow_mouse_drag (HdySwipeTracker *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALLOW_MOUSE_DRAG]);
 }
 
+static gboolean
+is_window_handle (GtkWidget *widget)
+{
+  gboolean window_dragging;
+  GtkWidget *parent, *window, *titlebar;
+
+  gtk_widget_style_get (widget, "window-dragging", &window_dragging, NULL);
+
+  if (window_dragging)
+    return TRUE;
+
+  /* Window titlebar area is always draggable, so check if we're inside. */
+  window = gtk_widget_get_toplevel (widget);
+  if (!GTK_IS_WINDOW (window))
+    return FALSE;
+
+  titlebar = gtk_window_get_titlebar (GTK_WINDOW (window));
+  if (!titlebar)
+    return FALSE;
+
+  parent = widget;
+  while (parent && parent != titlebar)
+    parent = gtk_widget_get_parent (parent);
+
+  return parent == titlebar;
+}
+
 /**
  * hdy_swipe_tracker_captured_event:
  * @self: a #HdySwipeTracker
@@ -844,6 +871,7 @@ hdy_swipe_tracker_captured_event (HdySwipeTracker *self,
   GdkEventSequence *sequence;
   gboolean retval;
   GtkEventSequenceState state;
+  GtkWidget *widget;
 
   g_return_val_if_fail (HDY_IS_SWIPE_TRACKER (self), GDK_EVENT_PROPAGATE);
 
@@ -860,6 +888,10 @@ hdy_swipe_tracker_captured_event (HdySwipeTracker *self,
       event->type != GDK_TOUCH_END &&
       event->type != GDK_TOUCH_UPDATE &&
       event->type != GDK_TOUCH_CANCEL)
+    return GDK_EVENT_PROPAGATE;
+
+  widget = gtk_get_event_widget (event);
+  if (is_window_handle (widget))
     return GDK_EVENT_PROPAGATE;
 
   sequence = gdk_event_get_event_sequence (event);
