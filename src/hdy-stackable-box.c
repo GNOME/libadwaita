@@ -1487,6 +1487,9 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
   directed_children = get_directed_children (self);
   visible_child = self->visible_child;
 
+  if (!visible_child)
+    return;
+
   for (children = directed_children; children; children = children->next) {
     child_info = children->data;
 
