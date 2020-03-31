@@ -19,6 +19,11 @@ vbox.add(keypad)
 vbox.set_halign(Gtk.Align.CENTER)
 vbox.set_valign(Gtk.Align.CENTER)
 
+vbox.props.margin = 18
+vbox.props.spacing = 18
+keypad.set_row_spacing(6)
+keypad.set_column_spacing(6)
+
 keypad.set_entry(entry)     # attach the entry widget
 
 window.connect("destroy", Gtk.main_quit)
