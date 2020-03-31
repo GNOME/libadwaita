@@ -9,21 +9,19 @@ from gi.repository import Handy
 import sys
 
 
-def print_number(dialer, number):
-    print("Dial {}".format(number))
+window = Gtk.Window(title = "Keypad Example with Python")
+vbox = Gtk.Box(orientation = Gtk.Orientation.VERTICAL)
+entry = Gtk.Entry()
+keypad = Handy.Keypad()
 
+vbox.add(entry)     # widget to show dialed number
+vbox.add(keypad)
+vbox.set_halign(Gtk.Align.CENTER)
+vbox.set_valign(Gtk.Align.CENTER)
 
-def quit(dialer, number=None):
-    Gtk.main_quit()
+keypad.set_entry(entry)     # attach the entry widget
 
-
-window = Gtk.Window(title="Dialer Example with Python")
-dialer = Handy.Dialer()
-
-dialer.connect("submitted", print_number)
-dialer.connect("submitted", quit)
-window.connect("destroy", quit)
-
-window.add(dialer)
+window.connect("destroy", Gtk.main_quit)
+window.add(vbox)
 window.show_all()
 Gtk.main()
