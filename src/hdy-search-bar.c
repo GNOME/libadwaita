@@ -69,7 +69,7 @@
  *
  * HdySearchBar is very similar to #GtkSearchBar, the main difference being that
  * it allows the search entry to fill all the available space. This allows you
- * to control your search entry's width with a #HdyColumn.
+ * to control your search entry's width with a #HdyClamp.
  *
  * # CSS nodes
  *

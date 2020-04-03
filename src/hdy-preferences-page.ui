@@ -11,7 +11,7 @@
             <property name="shadow-type">none</property>
             <property name="visible">True</property>
             <child>
-              <object class="HdyColumn">
+              <object class="HdyClamp">
                 <property name="linear-growth-width">400</property>
                 <property name="margin-bottom">18</property>
                 <property name="margin-end">12</property>

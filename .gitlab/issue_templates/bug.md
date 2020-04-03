@@ -7,7 +7,7 @@
  - [ ] example application
  - [ ] HdyActionRow
  - [ ] HdyCarousel
- - [ ] HdyColumn
+ - [ ] HdyClamp
  - [ ] HdyComboRow
  - [ ] HdyEnumValueObject
  - [ ] HdyExpanderRow

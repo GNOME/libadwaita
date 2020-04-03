@@ -14,16 +14,16 @@
 
 G_BEGIN_DECLS
 
-#define HDY_TYPE_COLUMN (hdy_column_get_type())
+#define HDY_TYPE_CLAMP (hdy_clamp_get_type())
 
-G_DECLARE_FINAL_TYPE (HdyColumn, hdy_column, HDY, COLUMN, GtkBin)
+G_DECLARE_FINAL_TYPE (HdyClamp, hdy_clamp, HDY, CLAMP, GtkBin)
 
-GtkWidget *hdy_column_new (void);
-gint hdy_column_get_maximum_width (HdyColumn *self);
-void hdy_column_set_maximum_width (HdyColumn *self,
-                                   gint       maximum_width);
-gint hdy_column_get_linear_growth_width (HdyColumn *self);
-void hdy_column_set_linear_growth_width (HdyColumn *self,
-                                         gint       linear_growth_width);
+GtkWidget *hdy_clamp_new (void);
+gint hdy_clamp_get_maximum_width (HdyClamp *self);
+void hdy_clamp_set_maximum_width (HdyClamp *self,
+                                  gint      maximum_width);
+gint hdy_clamp_get_linear_growth_width (HdyClamp *self);
+void hdy_clamp_set_linear_growth_width (HdyClamp *self,
+                                        gint      linear_growth_width);
 
 G_END_DECLS

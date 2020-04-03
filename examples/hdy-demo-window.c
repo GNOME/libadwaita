@@ -21,7 +21,6 @@ struct _HdyDemoWindow
   HdyKeypad *keypad;
   HdySearchBar *search_bar;
   GtkEntry *search_entry;
-  GtkListBox *column_listbox;
   GtkListBox *lists_listbox;
   HdyComboRow *combo_row;
   HdyComboRow *enum_combo_row;
@@ -399,7 +398,6 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, keypad);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_bar);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_entry);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, column_listbox);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, lists_listbox);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, combo_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, enum_combo_row);
