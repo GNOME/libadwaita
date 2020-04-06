@@ -21,6 +21,7 @@
 
 #include "gtkprogresstrackerprivate.h"
 #include "hdy-animation-private.h"
+#include "hdy-cairo-private.h"
 
 /**
  * SECTION:hdy-squeezer
@@ -713,7 +714,6 @@ hdy_squeezer_draw (GtkWidget *widget,
 {
   HdySqueezer *self = HDY_SQUEEZER (widget);
   HdySqueezerPrivate *priv = hdy_squeezer_get_instance_private (self);
-  cairo_t *pattern_cr;
 
   if (gtk_cairo_should_draw_window (cr, priv->view_window)) {
     GtkStyleContext *context;
@@ -730,6 +730,8 @@ hdy_squeezer_draw (GtkWidget *widget,
     if (gtk_progress_tracker_get_state (&priv->tracker) != GTK_PROGRESS_STATE_AFTER) {
       if (priv->last_visible_surface == NULL &&
           priv->last_visible_child != NULL) {
+        g_autoptr (cairo_t) pattern_cr = NULL;
+
         gtk_widget_get_allocation (priv->last_visible_child->widget,
                                    &priv->last_visible_surface_allocation);
         priv->last_visible_surface =
@@ -742,7 +744,6 @@ hdy_squeezer_draw (GtkWidget *widget,
          * bin_window offset.
          */
         gtk_widget_draw (priv->last_visible_child->widget, pattern_cr);
-        cairo_destroy (pattern_cr);
       }
 
       cairo_rectangle (cr,

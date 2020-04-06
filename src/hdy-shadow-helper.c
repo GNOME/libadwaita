@@ -7,6 +7,7 @@
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
+#include "hdy-cairo-private.h"
 #include "hdy-shadow-helper-private.h"
 
 #include <math.h>
@@ -114,19 +115,15 @@ create_element_pattern (GtkStyleContext *context,
                         gint             width,
                         gint             height)
 {
-  cairo_surface_t *surface;
-  cairo_t *cr;
+  g_autoptr (cairo_surface_t) surface =
+    cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
+  g_autoptr (cairo_t) cr = cairo_create (surface);
   cairo_pattern_t *pattern;
-
-  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
-  cr = cairo_create (surface);
 
   gtk_render_background (context, cr, 0, 0, width, height);
   gtk_render_frame (context, cr, 0, 0, width, height);
 
   pattern = cairo_pattern_create_for_surface (surface);
-  cairo_destroy (cr);
-  cairo_surface_destroy (surface);
 
   return pattern;
 }

@@ -8,6 +8,7 @@
 #include <glib/gi18n-lib.h>
 
 #include "hdy-animation-private.h"
+#include "hdy-cairo-private.h"
 #include "hdy-carousel-box-private.h"
 
 #include <math.h>
@@ -256,7 +257,7 @@ hdy_carousel_box_draw (GtkWidget *widget,
       continue;
 
     if (info->dirty_region) {
-      cairo_t *surface_cr;
+      g_autoptr (cairo_t) surface_cr = NULL;
       GtkAllocation child_alloc;
 
       if (!info->surface) {
@@ -289,7 +290,6 @@ hdy_carousel_box_draw (GtkWidget *widget,
       cairo_restore (surface_cr);
 
       gtk_container_propagate_draw (GTK_CONTAINER (self), info->widget, surface_cr);
-      cairo_destroy (surface_cr);
 
       cairo_region_destroy (info->dirty_region);
       info->dirty_region = NULL;

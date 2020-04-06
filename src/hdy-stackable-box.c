@@ -10,6 +10,7 @@
 
 #include "gtkprogresstrackerprivate.h"
 #include "hdy-animation-private.h"
+#include "hdy-cairo-private.h"
 #include "hdy-stackable-box-private.h"
 #include "hdy-shadow-helper-private.h"
 #include "hdy-swipeable-private.h"
@@ -2452,8 +2453,6 @@ hdy_stackable_box_draw (HdyStackableBox *self,
   GList *directed_children, *children;
   HdyStackableBoxChildInfo *child_info;
   GtkAllocation allocation;
-  cairo_surface_t *subsurface;
-  cairo_t *pattern_cr;
 
   if (!self->folded)
     return hdy_stackable_box_draw_unfolded (self, cr);
@@ -2486,6 +2485,9 @@ hdy_stackable_box_draw (HdyStackableBox *self,
                                              self->mode_transition.start_surface_allocation.height);
 
         for (children = directed_children; children; children = children->next) {
+          g_autoptr (cairo_t) pattern_cr = NULL;
+          g_autoptr (cairo_surface_t) subsurface = NULL;
+
           child_info = children->data;
 
           if (child_info == self->visible_child)
@@ -2502,8 +2504,6 @@ hdy_stackable_box_draw (HdyStackableBox *self,
                                                            allocation.height);
           pattern_cr = cairo_create (subsurface);
           gtk_widget_draw (child_info->widget, pattern_cr);
-          cairo_destroy (pattern_cr);
-          cairo_surface_destroy (subsurface);
         }
       }
 
@@ -2517,6 +2517,9 @@ hdy_stackable_box_draw (HdyStackableBox *self,
                                              self->mode_transition.end_surface_allocation.height);
 
         for (children = g_list_last (directed_children); children; children = children->prev) {
+          g_autoptr (cairo_t) pattern_cr = NULL;
+          g_autoptr (cairo_surface_t) subsurface = NULL;
+
           child_info = children->data;
 
           if (child_info == self->visible_child)
@@ -2533,8 +2536,6 @@ hdy_stackable_box_draw (HdyStackableBox *self,
                                                            allocation.height);
           pattern_cr = cairo_create (subsurface);
           gtk_widget_draw (child_info->widget, pattern_cr);
-          cairo_destroy (pattern_cr);
-          cairo_surface_destroy (subsurface);
         }
       }
 
@@ -2617,6 +2618,8 @@ hdy_stackable_box_draw (HdyStackableBox *self,
              gtk_progress_tracker_get_state (&self->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
       if (self->child_transition.last_visible_surface == NULL &&
           self->last_visible_child != NULL) {
+        g_autoptr (cairo_t) pattern_cr = NULL;
+
         gtk_widget_get_allocation (self->last_visible_child->widget,
                                    &self->child_transition.last_visible_surface_allocation);
         self->child_transition.last_visible_surface =
@@ -2629,7 +2632,6 @@ hdy_stackable_box_draw (HdyStackableBox *self,
          * the bin_window offset
          */
         gtk_widget_draw (self->last_visible_child->widget, pattern_cr);
-        cairo_destroy (pattern_cr);
       }
 
       cairo_rectangle (cr,

@@ -25,6 +25,7 @@
 #include "hdy-header-bar.h"
 
 #include "hdy-animation-private.h"
+#include "hdy-cairo-private.h"
 #include "hdy-enums.h"
 #include "gtkprogresstrackerprivate.h"
 #include "gtk-window-private.h"
@@ -318,12 +319,10 @@ hdy_header_bar_update_window_icon (HdyHeaderBar *self,
     pixbuf = hdy_gtk_window_get_icon_for_size (window, scale * 20);
 
   if (pixbuf) {
-    cairo_surface_t *surface;
-
-    surface = gdk_cairo_surface_create_from_pixbuf (pixbuf, scale, gtk_widget_get_window (priv->titlebar_icon));
+    g_autoptr (cairo_surface_t) surface =
+      gdk_cairo_surface_create_from_pixbuf (pixbuf, scale, gtk_widget_get_window (priv->titlebar_icon));
 
     gtk_image_set_from_surface (GTK_IMAGE (priv->titlebar_icon), surface);
-    cairo_surface_destroy (surface);
     g_object_unref (pixbuf);
     gtk_widget_show (priv->titlebar_icon);
 

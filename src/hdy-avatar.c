@@ -14,6 +14,7 @@
 #include <math.h>
 
 #include "hdy-avatar.h"
+#include "hdy-cairo-private.h"
 
 #define NUMBER_OF_COLORS 8
 /**
@@ -87,9 +88,6 @@ enum {
   PROP_LAST_PROP,
 };
 static GParamSpec *props[PROP_LAST_PROP];
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (cairo_t, cairo_destroy)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (cairo_surface_t, cairo_surface_destroy)
 
 static cairo_surface_t *
 round_image (GdkPixbuf *pixbuf,
