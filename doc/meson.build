@@ -10,6 +10,7 @@ private_headers = [
     'hdy-animation-private.h',
     'hdy-carousel-box-private.h',
     'hdy-main-private.h',
+    'hdy-nothing-private.h',
     'hdy-keypad-button-private.h',
     'hdy-preferences-group-private.h',
     'hdy-preferences-page-private.h',

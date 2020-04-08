@@ -115,6 +115,7 @@ src_sources = [
   'hdy-list-box.c',
   'hdy-main.c',
   'hdy-navigation-direction.c',
+  'hdy-nothing.c',
   'hdy-preferences-group.c',
   'hdy-preferences-page.c',
   'hdy-preferences-row.c',
