@@ -39,6 +39,7 @@ test_names = [
   'test-view-switcher',
   'test-view-switcher-bar',
   'test-window',
+  'test-window-handle',
 ]
 
 foreach test_name : test_names
