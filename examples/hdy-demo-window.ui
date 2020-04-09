@@ -2012,7 +2012,7 @@
                                         <property name="visible">True</property>
                                         <property name="opacity">0.5</property>
                                         <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">It allows to have headerbar content area, incl. above content, and round corners on the bottom. This window is an example, try hiding the titlebar.</property>
+                                        <property name="label" translatable="yes">It allows to have headerbar in content area, incl. above content, and round corners on the bottom. This window is an example, try hiding the titlebar.</property>
                                         <property name="justify">center</property>
                                         <property name="use_markup">true</property>
                                         <property name="wrap">True</property>
