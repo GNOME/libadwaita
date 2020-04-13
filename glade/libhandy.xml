@@ -8,6 +8,7 @@
         <property id="subtitle" translatable="True" />
       </properties>
     </glade-widget-class>
+    <glade-widget-class name="HdyAvatar" generic-name="avatar" title="Avatar" since="1.0"/>
     <glade-widget-class name="HdyCarousel" generic-name="carousel" title="Carousel" since="1.0">
       <post-create-function>glade_hdy_carousel_post_create</post-create-function>
       <add-child-function>glade_hdy_carousel_add_child</add-child-function>
@@ -102,6 +103,7 @@
 
   <glade-widget-group name="handy" title="Libhandy Widgets">
     <glade-widget-class-ref name="HdyActionRow"/>
+    <glade-widget-class-ref name="HdyAvatar"/>
     <glade-widget-class-ref name="HdyCarousel"/>
     <glade-widget-class-ref name="HdyColumn"/>
     <glade-widget-class-ref name="HdyComboRow"/>
