@@ -70,6 +70,7 @@
         </property>
       </properties>
     </glade-widget-class>
+    <glade-widget-class name="HdyKeypad" generic-name="keypad" title="Keypad"/>
     <glade-widget-class name="HdyLeaflet" generic-name="leaflet" title="Leaflet"/>
     <glade-widget-class name="HdyPreferencesGroup" generic-name="preferencesgroup" title="Preferences Group" since="0.0.10"/>
     <glade-widget-class name="HdyPreferencesPage" generic-name="preferencespage" title="Preferences Page" since="0.0.10">
@@ -110,6 +111,7 @@
     <glade-widget-class-ref name="HdyExpanderRow"/>
     <glade-widget-class-ref name="HdyHeaderBar"/>
     <glade-widget-class-ref name="HdyHeaderGroup"/>
+    <glade-widget-class-ref name="HdyKeypad"/>
     <glade-widget-class-ref name="HdyLeaflet"/>
     <glade-widget-class-ref name="HdyPreferencesGroup"/>
     <glade-widget-class-ref name="HdyPreferencesPage"/>
