@@ -557,6 +557,7 @@ hdy_window_mixin_new (GtkWindow      *window,
                                           self->content);
 
   self->titlebar = hdy_nothing_new ();
+  gtk_widget_set_no_show_all (self->titlebar, TRUE);
   gtk_window_set_titlebar (self->window, self->titlebar);
 
   context = gtk_widget_get_style_context (GTK_WIDGET (self->window));
