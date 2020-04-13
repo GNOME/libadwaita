@@ -48,6 +48,8 @@ struct _HdyWindowMixin
 
   GtkStyleContext *decoration_context;
   GtkStyleContext *overlay_context;
+
+  GtkWidget *child;
 };
 
 G_DEFINE_TYPE (HdyWindowMixin, hdy_window_mixin, G_TYPE_OBJECT)
@@ -241,8 +243,12 @@ hdy_window_mixin_add (HdyWindowMixin *self,
   if (GTK_IS_POPOVER (widget))
     GTK_CONTAINER_CLASS (self->klass)->add (GTK_CONTAINER (self->window),
                                             widget);
-  else
+  else {
+    g_return_if_fail (self->child == NULL);
+
+    self->child = widget;
     gtk_container_add (GTK_CONTAINER (self->content), widget);
+  }
 }
 
 void
@@ -256,8 +262,10 @@ hdy_window_mixin_remove (HdyWindowMixin *self,
       GTK_IS_POPOVER (widget))
     GTK_CONTAINER_CLASS (self->klass)->remove (GTK_CONTAINER (self->window),
                                                widget);
-  else
+  else if (widget == self->child) {
+    self->child = NULL;
     gtk_container_remove (GTK_CONTAINER (self->content), widget);
+  }
 }
 
 void
@@ -277,10 +285,8 @@ hdy_window_mixin_forall (HdyWindowMixin *self,
     return;
   }
 
-  if (self->content)
-    gtk_container_forall (GTK_CONTAINER (self->content),
-                          callback,
-                          callback_data);
+  if (self->child)
+    (*callback) (self->child, callback_data);
 
   titlebar = gtk_window_get_titlebar (self->window);
 
