@@ -21,6 +21,7 @@ libglade_hdy_sources = [
   'glade-hdy-carousel.c',
   'glade-hdy-header-group.c',
   'glade-hdy-swipe-group.c',
+  'glade-hdy-window.c',
 ]
 
 libglade_hdy_deps = [

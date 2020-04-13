@@ -102,6 +102,17 @@
     <glade-widget-class name="HdyViewSwitcher" generic-name="viewswitcher" title="View Switcher" since="0.0.10"/>
     <glade-widget-class name="HdyViewSwitcherBar" generic-name="viewswitcherbar" title="View Switcher Bar" since="0.0.10"/>
     <glade-widget-class name="HdyViewSwitcherTitle" generic-name="viewswitchertitle" title="View Switcher Title" since="1.0"/>
+    <glade-widget-class name="HdyWindow" generic-name="window" title="Window" since="1.0" use-placeholders="False">
+      <post-create-function>glade_hdy_window_post_create</post-create-function>
+      <add-child-verify-function>glade_hdy_window_add_verify</add-child-verify-function>
+      <add-child-function>glade_hdy_window_add_child</add-child-function>
+      <remove-child-function>glade_hdy_window_remove_child</remove-child-function>
+      <replace-child-function>glade_hdy_window_replace_child</replace-child-function>
+      <get-children-function>glade_hdy_window_get_children</get-children-function>
+      <properties>
+        <property id="use-csd" disabled="True" />
+      </properties>
+    </glade-widget-class>
   </glade-widget-classes>
 
   <glade-widget-group name="handy" title="Libhandy Widgets">
@@ -127,5 +138,6 @@
     <glade-widget-class-ref name="HdyViewSwitcher"/>
     <glade-widget-class-ref name="HdyViewSwitcherBar"/>
     <glade-widget-class-ref name="HdyViewSwitcherTitle"/>
+    <glade-widget-class-ref name="HdyWindow"/>
   </glade-widget-group>
 </glade-catalog>
