@@ -101,7 +101,7 @@
                 <property name="visible">True</property>
                 <child>
                   <object class="GtkStack" id="pages_stack">
-                    <property name="transition-type">slide-left-right</property>
+                    <property name="transition-type">crossfade</property>
                     <property name="vexpand">True</property>
                     <property name="visible">True</property>
                   </object>
