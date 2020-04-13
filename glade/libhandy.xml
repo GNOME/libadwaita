@@ -125,6 +125,12 @@
         <property id="use-csd" disabled="True" />
       </properties>
     </glade-widget-class>
+    <glade-widget-class name="HdyWindowHandle" generic-name="windowhandle" title="Window Handle" since="1.0">
+      <properties>
+        <property id="above-child" disabled="True" />
+        <property id="visible-window" disabled="True" />
+      </properties>
+    </glade-widget-class>
   </glade-widget-classes>
 
   <glade-widget-group name="handy" title="Libhandy Widgets">
@@ -152,5 +158,6 @@
     <glade-widget-class-ref name="HdyViewSwitcherBar"/>
     <glade-widget-class-ref name="HdyViewSwitcherTitle"/>
     <glade-widget-class-ref name="HdyWindow"/>
+    <glade-widget-class-ref name="HdyWindowHandle"/>
   </glade-widget-group>
 </glade-catalog>
