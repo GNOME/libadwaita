@@ -521,7 +521,7 @@
                                         <property name="visible">True</property>
                                         <property name="opacity">0.5</property>
                                         <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">A widget showing either all its children or only one, depending on the available space. This window is using leaflets, you can control them with the settings below.</property>
+                                        <property name="label" translatable="yes">A widget showing either all its children or only one, depending on the available space. This window is using a leaflet, you can control it with the settings below.</property>
                                         <property name="justify">center</property>
                                         <property name="use_markup">true</property>
                                         <property name="wrap">True</property>
@@ -564,7 +564,7 @@
                                 </style>
                                 <child>
                                   <object class="HdyComboRow" id="leaflet_transition_row">
-                                    <property name="subtitle" translatable="yes">The type of transition to use when the leaflets adapt its size or when changing the visible child</property>
+                                    <property name="subtitle" translatable="yes">The type of transition to use when the leaflet adapts its size or when changing the visible child</property>
                                     <property name="title" translatable="yes">Transition type</property>
                                     <property name="visible">True</property>
                                     <signal name="notify::selected-index" handler="notify_leaflet_transition_cb" swapped="no"/>
@@ -706,7 +706,7 @@
                                     </style>
                                     <child>
                                       <object class="HdyComboRow" id="deck_transition_row">
-                                        <property name="subtitle" translatable="yes">The type of transition to use when the leaflets adapt its size or when changing the visible child</property>
+                                        <property name="subtitle" translatable="yes">The type of transition to use when the decks adapt their size or when changing the visible child</property>
                                         <property name="title" translatable="yes">Transition type</property>
                                         <property name="visible">True</property>
                                         <signal name="notify::selected-index" handler="notify_deck_transition_cb" swapped="no"/>
