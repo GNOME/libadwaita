@@ -702,6 +702,7 @@
                                         <property name="title" translatable="yes">Go to the next page of the deck</property>
                                         <property name="use_underline">True</property>
                                         <property name="visible">True</property>
+                                        <property name="activatable">True</property>
                                         <signal name="activated" handler="deck_go_next_row_activated_cb" swapped="yes"/>
                                         <child>
                                           <object class="GtkImage">
