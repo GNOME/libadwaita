@@ -19,6 +19,9 @@
             <property name="show_close_button">True</property>
             <property name="visible">True</property>
             <signal name="size-allocate" handler="header_bar_size_allocate_cb" swapped="yes"/>
+            <style>
+              <class name="titlebar"/>
+            </style>
             <child type="title">
               <object class="GtkStack" id="title_stack">
                 <property name="transition-type">crossfade</property>
