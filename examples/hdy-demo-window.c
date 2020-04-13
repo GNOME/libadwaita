@@ -303,9 +303,9 @@ static void
 carousel_return_clicked_cb (GtkButton     *btn,
                             HdyDemoWindow *self)
 {
-  g_autoptr (GList) children;
+  g_autoptr (GList) children =
+    gtk_container_get_children (GTK_CONTAINER (self->carousel));
 
-  children = gtk_container_get_children (GTK_CONTAINER (self->carousel));
   hdy_carousel_scroll_to (self->carousel, GTK_WIDGET (children->data));
 }
 
