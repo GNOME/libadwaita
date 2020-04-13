@@ -9,6 +9,18 @@
       </properties>
     </glade-widget-class>
     <glade-widget-class name="HdyAvatar" generic-name="avatar" title="Avatar" since="1.0"/>
+    <glade-widget-class name="HdyApplicationWindow" generic-name="applicationwindow" title="Application Window" since="1.0" use-placeholders="False">
+      <post-create-function>glade_hdy_window_post_create</post-create-function>
+      <add-child-verify-function>glade_hdy_window_add_verify</add-child-verify-function>
+      <add-child-function>glade_hdy_window_add_child</add-child-function>
+      <remove-child-function>glade_hdy_window_remove_child</remove-child-function>
+      <replace-child-function>glade_hdy_window_replace_child</replace-child-function>
+      <get-children-function>glade_hdy_window_get_children</get-children-function>
+      <properties>
+        <property id="show-menubar" disabled="True" />
+        <property id="use-csd" disabled="True" />
+      </properties>
+    </glade-widget-class>
     <glade-widget-class name="HdyCarousel" generic-name="carousel" title="Carousel" since="1.0">
       <post-create-function>glade_hdy_carousel_post_create</post-create-function>
       <add-child-function>glade_hdy_carousel_add_child</add-child-function>
@@ -117,6 +129,7 @@
 
   <glade-widget-group name="handy" title="Libhandy Widgets">
     <glade-widget-class-ref name="HdyActionRow"/>
+    <glade-widget-class-ref name="HdyApplicationWindow"/>
     <glade-widget-class-ref name="HdyAvatar"/>
     <glade-widget-class-ref name="HdyCarousel"/>
     <glade-widget-class-ref name="HdyColumn"/>
