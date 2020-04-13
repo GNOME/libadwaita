@@ -222,7 +222,7 @@ hdy_constructor (void)
  /* Initializes the style and icons when the main loop starts, which should be
   * before any window shows up but after GTK is initialized.
   */
-  g_idle_add_full (HDY_PRIORITY_STYLE, G_SOURCE_FUNC (init_theme_cb), NULL, NULL);
+  g_idle_add_full (HDY_PRIORITY_STYLE, (GSourceFunc) init_theme_cb, NULL, NULL);
 }
 
 #else
