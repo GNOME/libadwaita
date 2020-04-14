@@ -27,12 +27,17 @@
                               write-widget-function?,
                               get-property-function?,
                               set-property-function?,
+                              child-set-property-function?,
+                              child-get-property-function?,
+                              action-activate-function?,
                               verify-function?,
                               special-child-type?,
+                              packing-properties?,
                               packing-actions?,
                               properties?,
                               children?,
-                              packing-defaults?)>
+                              packing-defaults?,
+                              actions?)>
 
 <!ATTLIST glade-widget-class toplevel     CDATA #IMPLIED
                              since        CDATA #IMPLIED
@@ -137,6 +142,9 @@
 <!ELEMENT get-prop-function (#PCDATA)>
 <!ELEMENT fill-empty-function (#PCDATA)>
 <!ELEMENT replace-child-function (#PCDATA)>
+<!ELEMENT child-set-property-function (#PCDATA)>
+<!ELEMENT child-get-property-function (#PCDATA)>
+<!ELEMENT action-activate-function (#PCDATA)>
 
 <!ELEMENT post-create-function (#PCDATA)>
 <!ELEMENT get-internal-child-function (#PCDATA)>
@@ -172,10 +180,15 @@
 
 <!ELEMENT special-child-type (#PCDATA)>
 
+<!ELEMENT packing-properties (property+)>
+
 <!ELEMENT packing-actions (action+)>
+
+<!ELEMENT actions (action+)>
 
 <!ELEMENT action EMPTY>
 
-<!ATTLIST action id    CDATA #REQUIRED
-                 name  CDATA #REQUIRED
-                 stock CDATA #IMPLIED>
+<!ATTLIST action id        CDATA #REQUIRED
+                 name      CDATA #REQUIRED
+                 stock     CDATA #IMPLIED
+                 important CDATA #IMPLIED>
