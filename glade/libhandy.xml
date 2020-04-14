@@ -178,7 +178,20 @@
     <glade-widget-class name="HdyTitleBar" generic-name="titlebar" title="Title Bar"/>
     <glade-widget-class name="HdyViewSwitcher" generic-name="viewswitcher" title="View Switcher" since="0.0.10"/>
     <glade-widget-class name="HdyViewSwitcherBar" generic-name="viewswitcherbar" title="View Switcher Bar" since="0.0.10"/>
-    <glade-widget-class name="HdyViewSwitcherTitle" generic-name="viewswitchertitle" title="View Switcher Title" since="1.0"/>
+    <glade-widget-class name="HdyViewSwitcherTitle" generic-name="viewswitchertitle" title="View Switcher Title" since="1.0">
+      <properties>
+        <property id="policy">
+          <displayable-values>
+            <!-- HdyViewSwitcherPolicy enumeration value -->
+            <value id="HDY_VIEW_SWITCHER_POLICY_AUTO" name="Auto"/>
+            <!-- HdyViewSwitcherPolicy enumeration value -->
+            <value id="HDY_VIEW_SWITCHER_POLICY_NARROW" name="Narrow"/>
+            <!-- HdyViewSwitcherPolicy enumeration value -->
+            <value id="HDY_VIEW_SWITCHER_POLICY_WIDE" name="Wide"/>
+          </displayable-values>
+        </property>
+      </properties>
+    </glade-widget-class>
     <glade-widget-class name="HdyWindow" generic-name="window" title="Window" since="1.0" use-placeholders="False">
       <post-create-function>glade_hdy_window_post_create</post-create-function>
       <add-child-verify-function>glade_hdy_window_add_verify</add-child-verify-function>
