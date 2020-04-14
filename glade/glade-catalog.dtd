@@ -19,6 +19,7 @@
                               add-child-function?,
                               remove-child-function?,
                               replace-child-function?,
+                              get-children-function?,
                               get-internal-child-function?,
                               child-property-applies-function?,
                               child-action-activate-function?,
