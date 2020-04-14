@@ -274,8 +274,6 @@ hdy_window_mixin_forall (HdyWindowMixin *self,
                          GtkCallback     callback,
                          gpointer        callback_data)
 {
-  GtkWidget *titlebar;
-
   if (include_internals) {
     GTK_CONTAINER_CLASS (self->klass)->forall (GTK_CONTAINER (self->window),
                                                include_internals,
@@ -287,11 +285,6 @@ hdy_window_mixin_forall (HdyWindowMixin *self,
 
   if (self->child)
     (*callback) (self->child, callback_data);
-
-  titlebar = gtk_window_get_titlebar (self->window);
-
-  if (titlebar)
-    (*callback) (titlebar, callback_data);
 }
 
 typedef struct {
