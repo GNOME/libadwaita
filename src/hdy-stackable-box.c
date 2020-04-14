@@ -779,7 +779,8 @@ hdy_stackable_box_start_mode_transition (HdyStackableBox *self,
   if (gtk_widget_get_mapped (widget) &&
       self->mode_transition.duration != 0 &&
       self->transition_type != HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE &&
-      hdy_get_enable_animations (widget)) {
+      hdy_get_enable_animations (widget) &&
+      self->can_unfold) {
     self->mode_transition.source_pos = self->mode_transition.current_pos;
     if (self->mode_transition.tick_id == 0)
       self->mode_transition.tick_id = gtk_widget_add_tick_callback (widget, hdy_stackable_box_mode_transition_cb, self, NULL);
