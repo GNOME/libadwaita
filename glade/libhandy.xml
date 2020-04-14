@@ -79,7 +79,61 @@
     <glade-widget-class name="HdyComboRow" generic-name="comborow" title="Combo Row" since="0.0.6"/>
     <glade-widget-class name="HdyDeck" generic-name="deck" title="Deck" since="1.0"/>
     <glade-widget-class name="HdyExpanderRow" generic-name="expanderrow" title="Expander Row" since="0.0.6"/>
-    <glade-widget-class name="HdyHeaderBar" generic-name="headerbar" title="Header Bar" since="0.0.10"/>
+    <glade-widget-class name="HdyHeaderBar" generic-name="headerbar" title="Header Bar" since="0.0.10">
+      <post-create-function>glade_hdy_header_bar_post_create</post-create-function>
+      <add-child-function>glade_hdy_header_bar_add_child</add-child-function>
+      <remove-child-function>glade_hdy_header_bar_remove_child</remove-child-function>
+      <replace-child-function>glade_hdy_header_bar_replace_child</replace-child-function>
+      <get-children-function>glade_hdy_header_bar_get_children</get-children-function>
+      <child-action-activate-function>glade_hdy_header_bar_child_action_activate</child-action-activate-function>
+      <get-property-function>glade_hdy_header_bar_get_property</get-property-function>
+      <set-property-function>glade_hdy_header_bar_set_property</set-property-function>
+      <child-set-property-function>glade_hdy_header_bar_child_set_property</child-set-property-function>
+      <action-activate-function>glade_hdy_header_bar_action_activate</action-activate-function>
+      <verify-function>glade_hdy_header_bar_verify_property</verify-function>
+      <special-child-type>type</special-child-type>
+      <packing-properties>
+        <property id="pack-type" transfer-on-paste="True" />
+      </packing-properties>
+      <packing-actions>
+        <action id="remove_slot" name="Remove Slot" stock="gtk-remove"/>
+      </packing-actions>
+      <properties>
+        <property id="title" translatable="True"/>
+        <property id="subtitle" translatable="True"/>
+        <property id="has-subtitle" name="Reserve space for subtitle">
+          <tooltip>Keep the headerbar height the same as the subtitle changes dynamically.</tooltip>
+        </property>
+        <property id="show-close-button" name="Show window controls" needs-sync="True"/>
+        <property id="spacing"/>
+        <property id="decoration-layout"/>
+        <property id="decoration-layout-set" disabled="True"/>
+        <property id="custom-title" disabled="True"/>
+        <property id="use-custom-title" name="Custom Title" default="FALSE" visible="True" save="False">
+          <parameter-spec>
+            <type>GParamBoolean</type>
+          </parameter-spec>
+        </property>
+        <property visible="True" save="False" id="size" default="1" name="Number of items">
+          <parameter-spec>
+            <type>GParamInt</type>
+            <min>0</min>
+          </parameter-spec>
+          <tooltip>The number of items in the header bar</tooltip>
+        </property>
+        <property id="centering-policy">
+          <displayable-values>
+            <!-- HdyCenteringPolicy enumeration value -->
+            <value id="HDY_CENTERING_POLICY_LOOSE" name="Loose"/>
+            <!-- HdyCenteringPolicy enumeration value -->
+            <value id="HDY_CENTERING_POLICY_STRICT" name="Strict"/>
+          </displayable-values>
+        </property>
+      </properties>
+      <actions>
+        <action id="add_slot" name="Add Slot" stock="list-add"/>
+      </actions>
+    </glade-widget-class>
     <glade-widget-class name="HdyHeaderGroup" generic-name="headergroup" title="Header Group" toplevel="True">
       <read-widget-function>glade_hdy_header_group_read_widget</read-widget-function>
       <write-widget-function>glade_hdy_header_group_write_widget</write-widget-function>
