@@ -75,7 +75,12 @@
         <property id="visible-window" disabled="True" />
       </properties>
     </glade-widget-class>
-    <glade-widget-class name="HdyColumn" generic-name="column" title="Column"/>
+    <glade-widget-class name="HdyColumn" generic-name="column" title="Column">
+      <properties>
+        <property id="maximum-width" default="650"/>
+        <property id="linear-growth-width" default="400"/>
+      </properties>
+    </glade-widget-class>
     <glade-widget-class name="HdyComboRow" generic-name="comborow" title="Combo Row" since="0.0.6"/>
     <glade-widget-class name="HdyDeck" generic-name="deck" title="Deck" since="1.0"/>
     <glade-widget-class name="HdyExpanderRow" generic-name="expanderrow" title="Expander Row" since="0.0.6"/>
