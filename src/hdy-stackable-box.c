@@ -535,7 +535,7 @@ set_visible_child_info (HdyStackableBox               *self,
   HdyStackableBoxChildInfo *child_info;
   GtkPanDirection transition_direction = GTK_PAN_DIRECTION_LEFT;
 
-  /* If we are being destroyed, do not bother with transitions and   *
+  /* If we are being destroyed, do not bother with transitions and
    * notifications.
    */
   if (gtk_widget_in_destruction (widget))
