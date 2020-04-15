@@ -2752,6 +2752,10 @@ hdy_stackable_box_remove (HdyStackableBox *self,
   self->children = g_list_remove (self->children, child_info);
   self->children_reversed = g_list_remove (self->children_reversed, child_info);
 
+  g_signal_handlers_disconnect_by_func (widget,
+                                        hdy_stackable_box_child_visibility_notify_cb,
+                                        self);
+
   if (hdy_stackable_box_get_visible_child (self) == widget)
     set_visible_child_info (self, NULL, self->transition_type, self->child_transition.duration, TRUE);
 
