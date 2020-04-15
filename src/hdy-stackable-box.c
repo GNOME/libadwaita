@@ -577,7 +577,7 @@ set_visible_child_info (HdyStackableBox               *self,
   /* } */
 
   if (self->last_visible_child)
-    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
+    gtk_widget_set_child_visible (self->last_visible_child->widget, !self->folded);
   self->last_visible_child = NULL;
 
   if (self->child_transition.last_visible_surface != NULL)
@@ -596,7 +596,7 @@ set_visible_child_info (HdyStackableBox               *self,
       self->child_transition.last_visible_widget_height = allocation.height;
     }
     else
-      gtk_widget_set_child_visible (self->visible_child->widget, FALSE);
+      gtk_widget_set_child_visible (self->visible_child->widget, !self->folded);
   }
 
   /* FIXME This comes from GtkStack and should be adapted. */
@@ -2701,7 +2701,7 @@ hdy_stackable_box_child_visibility_notify_cb (GObject    *obj,
     set_visible_child_info (self, NULL, self->transition_type, self->child_transition.duration, TRUE);
 
   if (child_info == self->last_visible_child) {
-    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
+    gtk_widget_set_child_visible (self->last_visible_child->widget, !self->folded);
     self->last_visible_child = NULL;
   }
 }
