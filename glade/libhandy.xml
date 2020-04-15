@@ -82,7 +82,60 @@
       </properties>
     </glade-widget-class>
     <glade-widget-class name="HdyComboRow" generic-name="comborow" title="Combo Row" since="0.0.6"/>
-    <glade-widget-class name="HdyDeck" generic-name="deck" title="Deck" since="1.0"/>
+    <glade-widget-class name="HdyDeck" generic-name="deck" title="Deck" since="1.0">
+      <post-create-function>glade_hdy_leaflet_post_create</post-create-function>
+      <add-child-function>glade_hdy_leaflet_add_child</add-child-function>
+      <remove-child-function>glade_hdy_leaflet_remove_child</remove-child-function>
+      <replace-child-function>glade_hdy_leaflet_replace_child</replace-child-function>
+      <child-action-activate-function>glade_hdy_leaflet_child_action_activate</child-action-activate-function>
+      <get-property-function>glade_hdy_leaflet_get_property</get-property-function>
+      <set-property-function>glade_hdy_leaflet_set_property</set-property-function>
+      <child-set-property-function>glade_hdy_leaflet_set_child_property</child-set-property-function>
+      <child-get-property-function>glade_hdy_leaflet_get_child_property</child-get-property-function>
+      <verify-function>glade_hdy_leaflet_verify_property</verify-function>
+      <packing-properties>
+        <property id="position" name="Position" default="0" save="False">
+          <parameter-spec>
+            <type>GParamInt</type>
+            <min>0</min>
+          </parameter-spec>
+          <tooltip>The position of the page in the deck</tooltip>
+        </property>
+      </packing-properties>
+      <packing-actions>
+        <action id="insert_page_before" name="Insert Page Before" stock="list-add"/>
+        <action id="insert_page_after" name="Insert Page After" stock="list-add"/>
+        <action id="remove_page" name="Remove Page"  stock="list-remove"/>
+      </packing-actions>
+      <properties>
+        <property id="pages" name="Number of pages" save="False" default="1">
+          <parameter-spec>
+            <type>GParamInt</type>
+            <min>1</min>
+          </parameter-spec>
+          <tooltip>The number of pages in the deck</tooltip>
+        </property>
+        <property id="page" name="Edit page" save="False" default="0">
+          <parameter-spec>
+            <type>GParamInt</type>
+            <min>0</min>
+          </parameter-spec>
+          <tooltip>Set the currently active page to edit, this property will not be saved</tooltip>
+        </property>
+        <property id="transition-type">
+          <displayable-values>
+            <!-- HdyDeckTransitionType enumeration value -->
+            <value id="HDY_DECK_TRANSITION_TYPE_NONE" name="None"/>
+            <!-- HdyDeckTransitionType enumeration value -->
+            <value id="HDY_DECK_TRANSITION_TYPE_SLIDE" name="Slide"/>
+            <!-- HdyDeckTransitionType enumeration value -->
+            <value id="HDY_DECK_TRANSITION_TYPE_OVER" name="Over"/>
+            <!-- HdyDeckTransitionType enumeration value -->
+            <value id="HDY_DECK_TRANSITION_TYPE_UNDER" name="Under"/>
+          </displayable-values>
+        </property>
+      </properties>
+    </glade-widget-class>
     <glade-widget-class name="HdyExpanderRow" generic-name="expanderrow" title="Expander Row" since="0.0.6"/>
     <glade-widget-class name="HdyHeaderBar" generic-name="headerbar" title="Header Bar" since="0.0.10">
       <post-create-function>glade_hdy_header_bar_post_create</post-create-function>
@@ -154,7 +207,60 @@
       </properties>
     </glade-widget-class>
     <glade-widget-class name="HdyKeypad" generic-name="keypad" title="Keypad"/>
-    <glade-widget-class name="HdyLeaflet" generic-name="leaflet" title="Leaflet"/>
+    <glade-widget-class name="HdyLeaflet" generic-name="leaflet" title="Leaflet">
+      <post-create-function>glade_hdy_leaflet_post_create</post-create-function>
+      <add-child-function>glade_hdy_leaflet_add_child</add-child-function>
+      <remove-child-function>glade_hdy_leaflet_remove_child</remove-child-function>
+      <replace-child-function>glade_hdy_leaflet_replace_child</replace-child-function>
+      <child-action-activate-function>glade_hdy_leaflet_child_action_activate</child-action-activate-function>
+      <get-property-function>glade_hdy_leaflet_get_property</get-property-function>
+      <set-property-function>glade_hdy_leaflet_set_property</set-property-function>
+      <child-set-property-function>glade_hdy_leaflet_set_child_property</child-set-property-function>
+      <child-get-property-function>glade_hdy_leaflet_get_child_property</child-get-property-function>
+      <verify-function>glade_hdy_leaflet_verify_property</verify-function>
+      <packing-properties>
+        <property id="position" name="Position" default="0" save="False">
+          <parameter-spec>
+            <type>GParamInt</type>
+            <min>0</min>
+          </parameter-spec>
+          <tooltip>The position of the page in the leaflet</tooltip>
+        </property>
+      </packing-properties>
+      <packing-actions>
+        <action id="insert_page_before" name="Insert Page Before" stock="list-add"/>
+        <action id="insert_page_after" name="Insert Page After" stock="list-add"/>
+        <action id="remove_page" name="Remove Page"  stock="list-remove"/>
+      </packing-actions>
+      <properties>
+        <property id="pages" name="Number of pages" save="False" default="1">
+          <parameter-spec>
+            <type>GParamInt</type>
+            <min>1</min>
+          </parameter-spec>
+          <tooltip>The number of pages in the leaflet</tooltip>
+        </property>
+        <property id="page" name="Edit page" save="False" default="0">
+          <parameter-spec>
+            <type>GParamInt</type>
+            <min>0</min>
+          </parameter-spec>
+          <tooltip>Set the currently active page to edit, this property will not be saved</tooltip>
+        </property>
+        <property id="transition-type">
+          <displayable-values>
+            <!-- HdyLeafletTransitionType enumeration value -->
+            <value id="HDY_LEAFLET_TRANSITION_TYPE_NONE" name="None"/>
+            <!-- HdyLeafletTransitionType enumeration value -->
+            <value id="HDY_LEAFLET_TRANSITION_TYPE_SLIDE" name="Slide"/>
+            <!-- HdyLeafletTransitionType enumeration value -->
+            <value id="HDY_LEAFLET_TRANSITION_TYPE_OVER" name="Over"/>
+            <!-- HdyLeafletTransitionType enumeration value -->
+            <value id="HDY_LEAFLET_TRANSITION_TYPE_UNDER" name="Under"/>
+          </displayable-values>
+        </property>
+      </properties>
+    </glade-widget-class>
     <glade-widget-class name="HdyPreferencesGroup" generic-name="preferencesgroup" title="Preferences Group" since="0.0.10"/>
     <glade-widget-class name="HdyPreferencesPage" generic-name="preferencespage" title="Preferences Page" since="0.0.10">
       <properties>
