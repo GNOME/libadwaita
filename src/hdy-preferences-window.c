@@ -381,6 +381,37 @@ hdy_preferences_window_add (GtkContainer *container,
 }
 
 static void
+hdy_preferences_window_remove (GtkContainer *container,
+                               GtkWidget    *child)
+{
+  HdyPreferencesWindow *self = HDY_PREFERENCES_WINDOW (container);
+  HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
+
+  if (child == GTK_WIDGET (priv->content_stack))
+    GTK_CONTAINER_CLASS (hdy_preferences_window_parent_class)->remove (container, child);
+  else
+    gtk_container_remove (GTK_CONTAINER (priv->pages_stack), child);
+}
+
+static void
+hdy_preferences_window_forall (GtkContainer *container,
+                               gboolean      include_internals,
+                               GtkCallback   callback,
+                               gpointer      callback_data)
+{
+  HdyPreferencesWindow *self = HDY_PREFERENCES_WINDOW (container);
+  HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
+
+  if (include_internals)
+    GTK_CONTAINER_CLASS (hdy_preferences_window_parent_class)->forall (container,
+                                                                       include_internals,
+                                                                       callback,
+                                                                       callback_data);
+  else if (priv->pages_stack)
+    gtk_container_foreach (GTK_CONTAINER (priv->pages_stack), callback, callback_data);
+}
+
+static void
 hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -391,6 +422,8 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
   object_class->set_property = hdy_preferences_window_set_property;
 
   container_class->add = hdy_preferences_window_add;
+  container_class->remove = hdy_preferences_window_remove;
+  container_class->forall = hdy_preferences_window_forall;
 
   /**
    * HdyPreferencesWindow:search-enabled:
