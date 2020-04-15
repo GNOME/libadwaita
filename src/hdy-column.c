@@ -373,6 +373,8 @@ hdy_column_set_maximum_width (HdyColumn *self,
   g_return_if_fail (HDY_IS_COLUMN (self));
 
   self->maximum_width = maximum_width;
+
+  gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
 /**
