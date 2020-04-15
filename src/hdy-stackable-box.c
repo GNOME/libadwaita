@@ -2699,6 +2699,11 @@ hdy_stackable_box_child_visibility_notify_cb (GObject    *obj,
     set_visible_child_info (self, child_info, self->transition_type, self->child_transition.duration, TRUE);
   else if (self->visible_child == child_info && !gtk_widget_get_visible (widget))
     set_visible_child_info (self, NULL, self->transition_type, self->child_transition.duration, TRUE);
+
+  if (child_info == self->last_visible_child) {
+    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
+    self->last_visible_child = NULL;
+  }
 }
 
 void
@@ -2758,6 +2763,9 @@ hdy_stackable_box_remove (HdyStackableBox *self,
 
   if (hdy_stackable_box_get_visible_child (self) == widget)
     set_visible_child_info (self, NULL, self->transition_type, self->child_transition.duration, TRUE);
+
+  if (child_info == self->last_visible_child)
+    self->last_visible_child = NULL;
 
   if (gtk_widget_get_visible (widget))
     gtk_widget_queue_resize (GTK_WIDGET (self->container));
