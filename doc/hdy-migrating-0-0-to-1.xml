@@ -136,6 +136,14 @@
     </refsect3>
 
     <refsect3>
+      <title>Adapt to HdyViewSwitcher API changes</title>
+      <para>
+        #HdyViewSwitcher doesn't subclass #GtkBox anymore. Instead, it
+        subclasses #GtkBin and contains a box.
+      </para>
+    </refsect3>
+
+    <refsect3>
       <title>Adapt to HdyViewSwitcherBar API changes</title>
       <para>
         #HdyViewSwitcherBar won't be revealed if the #HdyViewSwitcherBar:stack

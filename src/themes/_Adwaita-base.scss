@@ -74,12 +74,12 @@ keypad {
 // HdyViewSwitcher
 
 viewswitcher {
-  &, & > button {
+  &, & button {
     margin: 0;
     padding: 0;
   }
 
-  > button {
+  button {
     border-radius: 0;
     border-top: 0;
     border-bottom: 0;

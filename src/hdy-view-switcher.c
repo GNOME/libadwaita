@@ -59,6 +59,7 @@ enum {
 };
 
 typedef struct {
+  GtkWidget *box;
   GHashTable *buttons;
   gboolean in_child_changed;
   GtkWidget *switch_button;
@@ -72,7 +73,7 @@ typedef struct {
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyViewSwitcher, hdy_view_switcher, GTK_TYPE_BOX)
+G_DEFINE_TYPE_WITH_PRIVATE (HdyViewSwitcher, hdy_view_switcher, GTK_TYPE_BIN)
 
 static void
 set_visible_stack_child_for_button (HdyViewSwitcher       *self,
@@ -135,7 +136,7 @@ on_position_updated (GtkWidget       *widget,
   gtk_container_child_get (GTK_CONTAINER (priv->stack), widget,
                            "position", &position,
                            NULL);
-  gtk_box_reorder_child (GTK_BOX (self), button, position);
+  gtk_box_reorder_child (GTK_BOX (priv->box), button, position);
 }
 
 static void
@@ -229,7 +230,7 @@ add_button_for_stack_child (HdyViewSwitcher *self,
                             GtkWidget       *stack_child)
 {
   HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (self));
+  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (priv->box));
   HdyViewSwitcherButton *button = HDY_VIEW_SWITCHER_BUTTON (hdy_view_switcher_button_new ());
 
   g_object_set_data (G_OBJECT (button), "stack-child", stack_child);
@@ -241,7 +242,7 @@ add_button_for_stack_child (HdyViewSwitcher *self,
   if (children != NULL)
     gtk_radio_button_join_group (GTK_RADIO_BUTTON (button), GTK_RADIO_BUTTON (children->data));
 
-  gtk_container_add (GTK_CONTAINER (self), GTK_WIDGET (button));
+  gtk_container_add (GTK_CONTAINER (priv->box), GTK_WIDGET (button));
 
   g_signal_connect_swapped (button, "clicked", G_CALLBACK (set_visible_stack_child_for_button), self);
   g_signal_connect (stack_child, "notify::visible", G_CALLBACK (on_stack_child_updated), self);
@@ -271,7 +272,7 @@ remove_button_for_stack_child (HdyViewSwitcher *self,
 
   g_signal_handlers_disconnect_by_func (stack_child, on_stack_child_updated, self);
   g_signal_handlers_disconnect_by_func (stack_child, on_position_updated, self);
-  gtk_container_remove (GTK_CONTAINER (self), g_hash_table_lookup (priv->buttons, stack_child));
+  gtk_container_remove (GTK_CONTAINER (priv->box), g_hash_table_lookup (priv->buttons, stack_child));
   g_hash_table_remove (priv->buttons, stack_child);
 }
 
@@ -413,7 +414,7 @@ hdy_view_switcher_get_preferred_width (GtkWidget *widget,
 {
   HdyViewSwitcher *self = HDY_VIEW_SWITCHER (widget);
   HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (self));
+  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (priv->box));
   gint max_h_min = 0, max_h_nat = 0, max_v_min = 0, max_v_nat = 0;
   gint n_children = 0;
 
@@ -460,7 +461,7 @@ is_narrow (HdyViewSwitcher *self,
            gint             width)
 {
   HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (self));
+  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (priv->box));
   gint max_h_min = 0;
   gint n_children = 0;
 
@@ -486,7 +487,10 @@ static void
 hdy_view_switcher_size_allocate (GtkWidget     *widget,
                                  GtkAllocation *allocation)
 {
-  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (widget));
+  HdyViewSwitcher *self = HDY_VIEW_SWITCHER (widget);
+  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
+
+  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (priv->box));
   GtkOrientation orientation = is_narrow (HDY_VIEW_SWITCHER (widget), allocation->width) ?
     GTK_ORIENTATION_VERTICAL :
     GTK_ORIENTATION_HORIZONTAL;
@@ -588,13 +592,15 @@ hdy_view_switcher_init (HdyViewSwitcher *self)
 {
   HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
 
-  gtk_widget_set_has_window (GTK_WIDGET (self), FALSE);
+  priv->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_widget_show (priv->box);
+  gtk_box_set_homogeneous (GTK_BOX (priv->box), TRUE);
+  gtk_container_add (GTK_CONTAINER (self), priv->box);
 
   priv->icon_size = GTK_ICON_SIZE_BUTTON;
   priv->buttons = g_hash_table_new (g_direct_hash, g_direct_equal);
 
   gtk_widget_set_valign (GTK_WIDGET (self), GTK_ALIGN_FILL);
-  gtk_box_set_homogeneous (GTK_BOX (self), TRUE);
 
   gtk_drag_dest_set (GTK_WIDGET (self), 0, NULL, 0, 0);
   gtk_drag_dest_set_track_motion (GTK_WIDGET (self), TRUE);
