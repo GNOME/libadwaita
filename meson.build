@@ -124,7 +124,7 @@ endif
 
 glade_catalog_feature = get_option('glade_catalog')
 gladeui_dep = dependency('gladeui-2.0', required : glade_catalog_feature)
-glade_catalog = gladeui_dep.found()
+glade_catalog = not glade_catalog_feature.disabled() and gladeui_dep.found()
 
 introspection_feature = get_option('introspection')
 introspection = introspection_feature.enabled() or introspection_feature.auto()
