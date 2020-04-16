@@ -13,6 +13,7 @@
 #include <config.h>
 #include <glib/gi18n-lib.h>
 #include <gladeui/glade.h>
+#include "glade-hdy-utils.h"
 
 #include <math.h>
 
@@ -49,34 +50,6 @@ get_n_pages_excluding_placeholders (GtkContainer *container)
   return n_pages;
 }
 
-static gint
-get_page_index (GtkContainer *container,
-                GtkWidget    *child)
-{
-  GList *children;
-  gint index;
-
-  children = gtk_container_get_children (container);
-  index = g_list_index (children, child);
-  g_list_free (children);
-
-  return index;
-}
-
-static GtkWidget *
-get_nth_page (GtkContainer *container,
-              gint          n)
-{
-  GList *children;
-  GtkWidget *child;
-
-  children = gtk_container_get_children (container);
-  child = g_list_nth_data (children, n);
-  g_list_free (children);
-
-  return child;
-}
-
 static void
 selection_changed_cb (GladeProject *project,
                       GladeWidget  *gwidget)
@@ -104,7 +77,7 @@ selection_changed_cb (GladeProject *project,
     page = l->data;
     if (sel_widget == page || gtk_widget_is_ancestor (sel_widget, page)) {
       hdy_carousel_scroll_to (HDY_CAROUSEL (container), page);
-      index = get_page_index (container, page);
+      index = glade_hdy_get_child_index (container, page);
       glade_widget_property_set (gwidget, "page", index);
       break;
     }
@@ -193,7 +166,7 @@ glade_hdy_carousel_child_action_activate (GladeWidgetAdaptor *adaptor,
     glade_command_push_group (_("Insert placeholder to %s"),
                               glade_widget_get_name (parent));
 
-    index = get_page_index (GTK_CONTAINER (container), GTK_WIDGET (object));
+    index = glade_hdy_get_child_index (GTK_CONTAINER (container), GTK_WIDGET (object));
     if (!strcmp (action_path, "insert_page_after"))
       index++;
 
@@ -258,7 +231,7 @@ set_n_pages (GObject      *container,
   for (i = old_size; i > 0; i--) {
     if (old_size <= new_size)
       break;
-    child = get_nth_page (GTK_CONTAINER (container), i - 1);
+    child = glade_hdy_get_nth_child (GTK_CONTAINER (container), i - 1);
     if (GLADE_IS_PLACEHOLDER (child)) {
       gtk_container_remove (GTK_CONTAINER (container), child);
       old_size--;
@@ -278,7 +251,7 @@ set_page (GObject      *object,
   GtkWidget *child;
 
   new_page = g_value_get_int (value);
-  child = get_nth_page (GTK_CONTAINER (object), new_page);
+  child = glade_hdy_get_nth_child (GTK_CONTAINER (object), new_page);
 
   if (child)
     hdy_carousel_scroll_to (HDY_CAROUSEL (object), child);
@@ -442,7 +415,7 @@ glade_hdy_carousel_replace_child (GladeWidgetAdaptor *adaptor,
   GladeWidget *gbox, *gchild;
   gint pages, page, index;
 
-  index = get_page_index (GTK_CONTAINER (container), GTK_WIDGET (current));
+  index = glade_hdy_get_child_index (GTK_CONTAINER (container), GTK_WIDGET (current));
   gtk_container_remove (GTK_CONTAINER (container), GTK_WIDGET (current));
   hdy_carousel_insert (HDY_CAROUSEL (container), GTK_WIDGET (new_widget),
                        index);
