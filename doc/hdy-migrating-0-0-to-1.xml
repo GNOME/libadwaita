@@ -218,6 +218,14 @@
       </para>
     </refsect3>
 
+    <refsect3>
+      <title>Adapt to HdyPreferencesGroup API changes</title>
+      <para>
+        #HdyPreferencesGroup doesn't subclass #GtkBox anymore.
+        Instead, it subclasses #GtkBin and contains a box.
+      </para>
+    </refsect3>
+
   </refsect2>
 
 </refentry>

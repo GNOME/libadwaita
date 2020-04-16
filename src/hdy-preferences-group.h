@@ -16,7 +16,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_PREFERENCES_GROUP (hdy_preferences_group_get_type())
 
-G_DECLARE_DERIVABLE_TYPE (HdyPreferencesGroup, hdy_preferences_group, HDY, PREFERENCES_GROUP, GtkBox)
+G_DECLARE_DERIVABLE_TYPE (HdyPreferencesGroup, hdy_preferences_group, HDY, PREFERENCES_GROUP, GtkBin)
 
 /**
  * HdyPreferencesGroupClass
@@ -24,7 +24,7 @@ G_DECLARE_DERIVABLE_TYPE (HdyPreferencesGroup, hdy_preferences_group, HDY, PREFE
  */
 struct _HdyPreferencesGroupClass
 {
-  GtkBoxClass parent_class;
+  GtkBinClass parent_class;
 };
 
 GtkWidget   *hdy_preferences_group_new (void);

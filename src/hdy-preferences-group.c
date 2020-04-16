@@ -38,7 +38,7 @@ typedef struct
   GtkLabel *title;
 } HdyPreferencesGroupPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyPreferencesGroup, hdy_preferences_group, GTK_TYPE_BOX)
+G_DEFINE_TYPE_WITH_PRIVATE (HdyPreferencesGroup, hdy_preferences_group, GTK_TYPE_BIN)
 
 enum {
   PROP_0,
