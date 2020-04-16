@@ -32,6 +32,7 @@
 
 typedef struct
 {
+  GtkBox *box;
   GtkLabel *description;
   GtkListBox *listbox;
   GtkBox *listbox_box;
@@ -209,6 +210,21 @@ hdy_preferences_group_add (GtkContainer *container,
 }
 
 static void
+hdy_preferences_group_remove (GtkContainer *container,
+                              GtkWidget    *child)
+{
+  HdyPreferencesGroup *self = HDY_PREFERENCES_GROUP (container);
+  HdyPreferencesGroupPrivate *priv = hdy_preferences_group_get_instance_private (self);
+
+  if (child == GTK_WIDGET (priv->box))
+    GTK_CONTAINER_CLASS (hdy_preferences_group_parent_class)->remove (container, child);
+  else if (HDY_IS_PREFERENCES_ROW (child))
+    gtk_container_remove (GTK_CONTAINER (priv->listbox), child);
+  else if (child != GTK_WIDGET (priv->listbox))
+    gtk_container_remove (GTK_CONTAINER (priv->listbox_box), child);
+}
+
+static void
 hdy_preferences_group_class_init (HdyPreferencesGroupClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -220,6 +236,7 @@ hdy_preferences_group_class_init (HdyPreferencesGroupClass *klass)
   object_class->dispose = hdy_preferences_group_dispose;
 
   container_class->add = hdy_preferences_group_add;
+  container_class->remove = hdy_preferences_group_remove;
   container_class->forall = hdy_preferences_group_forall;
 
   /**
@@ -255,6 +272,7 @@ hdy_preferences_group_class_init (HdyPreferencesGroupClass *klass)
   gtk_widget_class_set_css_name (widget_class, "preferencesgroup");
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-preferences-group.ui");
+  gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesGroup, box);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesGroup, description);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesGroup, listbox);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesGroup, listbox_box);
