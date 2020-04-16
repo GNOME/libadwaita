@@ -136,7 +136,27 @@
         </property>
       </properties>
     </glade-widget-class>
-    <glade-widget-class name="HdyExpanderRow" generic-name="expanderrow" title="Expander Row" since="0.0.6"/>
+    <glade-widget-class name="HdyExpanderRow" generic-name="expanderrow" title="Expander Row" since="0.0.6" use-placeholders="False">
+      <post-create-function>glade_hdy_expander_row_post_create</post-create-function>
+      <add-child-verify-function>glade_hdy_expander_row_add_verify</add-child-verify-function>
+      <add-child-function>glade_hdy_expander_row_add_child</add-child-function>
+      <remove-child-function>glade_hdy_expander_row_remove_child</remove-child-function>
+      <child-set-property-function>glade_hdy_expander_row_set_child_property</child-set-property-function>
+      <child-get-property-function>glade_hdy_expander_row_get_child_property</child-get-property-function>
+      <packing-properties>
+        <property id="position" name="Position" default="0" save="False">
+          <parameter-spec>
+            <type>GParamInt</type>
+            <min>0</min>
+          </parameter-spec>
+          <tooltip>The position of the list row in the expander row</tooltip>
+        </property>
+      </packing-properties>
+      <properties>
+        <property id="expanded" save="True" ignore="True"/>
+        <property id="enable-expansion" save="True" ignore="True"/>
+      </properties>
+    </glade-widget-class>
     <glade-widget-class name="HdyHeaderBar" generic-name="headerbar" title="Header Bar" since="0.0.10">
       <post-create-function>glade_hdy_header_bar_post_create</post-create-function>
       <add-child-function>glade_hdy_header_bar_add_child</add-child-function>

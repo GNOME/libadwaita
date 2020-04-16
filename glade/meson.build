@@ -19,6 +19,7 @@ endif
 
 libglade_hdy_sources = [
   'glade-hdy-carousel.c',
+  'glade-hdy-expander-row.c',
   'glade-hdy-header-bar.c',
   'glade-hdy-header-group.c',
   'glade-hdy-leaflet.c',
