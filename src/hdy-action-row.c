@@ -255,6 +255,21 @@ hdy_action_row_add (GtkContainer *container,
   }
 }
 
+static void
+hdy_action_row_remove (GtkContainer *container,
+                       GtkWidget    *child)
+{
+  HdyActionRow *self = HDY_ACTION_ROW (container);
+  HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
+
+  if (child == GTK_WIDGET (priv->header))
+    GTK_CONTAINER_CLASS (hdy_action_row_parent_class)->remove (container, child);
+  else if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->prefixes))
+    gtk_container_remove (GTK_CONTAINER (priv->prefixes), child);
+  else
+    gtk_container_remove (GTK_CONTAINER (priv->suffixes), child);
+}
+
 typedef struct {
   HdyActionRow *row;
   GtkCallback callback;
@@ -329,6 +344,7 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
   widget_class->show_all = hdy_action_row_show_all;
 
   container_class->add = hdy_action_row_add;
+  container_class->remove = hdy_action_row_remove;
   container_class->forall = hdy_action_row_forall;
 
   klass->activate = hdy_action_row_activate_real;
