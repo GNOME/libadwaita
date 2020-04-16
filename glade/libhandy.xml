@@ -262,11 +262,32 @@
       </properties>
     </glade-widget-class>
     <glade-widget-class name="HdyPreferencesGroup" generic-name="preferencesgroup" title="Preferences Group" since="0.0.10"/>
-    <glade-widget-class name="HdyPreferencesPage" generic-name="preferencespage" title="Preferences Page" since="0.0.10">
+    <glade-widget-class name="HdyPreferencesPage" generic-name="preferencespage" title="Preferences Page" since="0.0.10" use-placeholders="False">
+      <post-create-function>glade_hdy_preferences_page_post_create</post-create-function>
+      <add-child-verify-function>glade_hdy_preferences_page_add_verify</add-child-verify-function>
+      <add-child-function>glade_hdy_preferences_page_add_child</add-child-function>
+      <remove-child-function>glade_hdy_preferences_page_remove_child</remove-child-function>
+      <replace-child-function>glade_hdy_preferences_page_replace_child</replace-child-function>
+      <get-children-function>glade_hdy_preferences_page_get_children</get-children-function>
+      <child-set-property-function>glade_hdy_preferences_page_child_set_property</child-set-property-function>
+      <child-get-property-function>glade_hdy_preferences_page_child_get_property</child-get-property-function>
+      <action-activate-function>glade_hdy_preferences_page_action_activate</action-activate-function>
+      <packing-properties>
+        <property id="position" name="Position" default="-1" save="False">
+          <parameter-spec>
+            <type>GParamInt</type>
+            <min>-1</min>
+          </parameter-spec>
+          <tooltip>The position of the group in the preferences page</tooltip>
+        </property>
+      </packing-properties>
       <properties>
         <property id="icon-name" themed-icon="True" />
         <property id="title" translatable="True" />
       </properties>
+      <actions>
+        <action id="add_group" name="Add Group" stock="list-add" important="True"/>
+      </actions>
     </glade-widget-class>
     <glade-widget-class name="HdyPreferencesRow" generic-name="preferencesrow" title="Preferences Row" since="0.0.10"/>
     <glade-widget-class name="HdyPreferencesWindow" generic-name="preferenceswindow" title="Preferences Window" since="0.0.10" use-placeholders="False">
