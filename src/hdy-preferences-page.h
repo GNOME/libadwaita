@@ -16,7 +16,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_PREFERENCES_PAGE (hdy_preferences_page_get_type())
 
-G_DECLARE_DERIVABLE_TYPE (HdyPreferencesPage, hdy_preferences_page, HDY, PREFERENCES_PAGE, GtkScrolledWindow)
+G_DECLARE_DERIVABLE_TYPE (HdyPreferencesPage, hdy_preferences_page, HDY, PREFERENCES_PAGE, GtkBin)
 
 /**
  * HdyPreferencesPageClass
@@ -24,7 +24,7 @@ G_DECLARE_DERIVABLE_TYPE (HdyPreferencesPage, hdy_preferences_page, HDY, PREFERE
  */
 struct _HdyPreferencesPageClass
 {
-  GtkScrolledWindowClass parent_class;
+  GtkBinClass parent_class;
 };
 
 GtkWidget   *hdy_preferences_page_new (void);

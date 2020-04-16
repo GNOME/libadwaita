@@ -35,7 +35,7 @@ typedef struct
   gchar *title;
 } HdyPreferencesPagePrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyPreferencesPage, hdy_preferences_page, GTK_TYPE_SCROLLED_WINDOW)
+G_DEFINE_TYPE_WITH_PRIVATE (HdyPreferencesPage, hdy_preferences_page, GTK_TYPE_BIN)
 
 enum {
   PROP_0,

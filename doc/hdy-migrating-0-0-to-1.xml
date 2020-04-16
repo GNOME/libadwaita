@@ -210,6 +210,14 @@
       </para>
     </refsect3>
 
+    <refsect3>
+      <title>Adapt to HdyPreferencesPage API changes</title>
+      <para>
+        #HdyPreferencesPage doesn't subclass #GtkScrolledWindow anymore.
+        Instead, it subclasses #GtkBin and contains a scrolled window.
+      </para>
+    </refsect3>
+
   </refsect2>
 
 </refentry>
