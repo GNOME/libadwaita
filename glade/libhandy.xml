@@ -261,7 +261,12 @@
         </property>
       </properties>
     </glade-widget-class>
-    <glade-widget-class name="HdyPreferencesGroup" generic-name="preferencesgroup" title="Preferences Group" since="0.0.10"/>
+    <glade-widget-class name="HdyPreferencesGroup" generic-name="preferencesgroup" title="Preferences Group" since="0.0.10" use-placeholders="False">
+      <properties>
+        <property id="title" translatable="True" />
+        <property id="description" translatable="True" />
+      </properties>
+    </glade-widget-class>
     <glade-widget-class name="HdyPreferencesPage" generic-name="preferencespage" title="Preferences Page" since="0.0.10" use-placeholders="False">
       <post-create-function>glade_hdy_preferences_page_post_create</post-create-function>
       <add-child-verify-function>glade_hdy_preferences_page_add_verify</add-child-verify-function>
