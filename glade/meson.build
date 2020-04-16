@@ -22,6 +22,7 @@ libglade_hdy_sources = [
   'glade-hdy-header-group.c',
   'glade-hdy-swipe-group.c',
   'glade-hdy-window.c',
+  'glade-hdy-utils.c',
 ]
 
 libglade_hdy_deps = [
