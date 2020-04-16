@@ -22,6 +22,7 @@ libglade_hdy_sources = [
   'glade-hdy-header-bar.c',
   'glade-hdy-header-group.c',
   'glade-hdy-leaflet.c',
+  'glade-hdy-preferences-window.c',
   'glade-hdy-search-bar.c',
   'glade-hdy-swipe-group.c',
   'glade-hdy-window.c',
