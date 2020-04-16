@@ -3,11 +3,11 @@
   <requires lib="gtk+" version="3.0"/>
   <template class="HdyPreferencesPage" parent="GtkBin">
     <child>
-      <object class="GtkScrolledWindow">
+      <object class="GtkScrolledWindow" id="scrolled_window">
         <property name="visible">True</property>
         <property name="hscrollbar-policy">never</property>
         <child>
-          <object class="GtkViewport" id="viewport">
+          <object class="GtkViewport">
             <property name="shadow-type">none</property>
             <property name="visible">True</property>
             <child>

@@ -29,7 +29,7 @@
 typedef struct
 {
   GtkBox *box;
-  GtkViewport *viewport;
+  GtkScrolledWindow *scrolled_window;
 
   gchar *icon_name;
   gchar *title;
@@ -111,7 +111,7 @@ hdy_preferences_page_add (GtkContainer *container,
   HdyPreferencesPage *self = HDY_PREFERENCES_PAGE (container);
   HdyPreferencesPagePrivate *priv = hdy_preferences_page_get_instance_private (self);
 
-  if (priv->viewport == NULL)
+  if (priv->scrolled_window == NULL)
     GTK_CONTAINER_CLASS (hdy_preferences_page_parent_class)->add (container, child);
   else if (HDY_IS_PREFERENCES_GROUP (child))
     gtk_container_add (GTK_CONTAINER (priv->box), child);
@@ -119,6 +119,37 @@ hdy_preferences_page_add (GtkContainer *container,
     g_warning ("Can't add children of type %s to %s",
                G_OBJECT_TYPE_NAME (child),
                G_OBJECT_TYPE_NAME (container));
+}
+
+static void
+hdy_preferences_page_remove (GtkContainer *container,
+                             GtkWidget    *child)
+{
+  HdyPreferencesPage *self = HDY_PREFERENCES_PAGE (container);
+  HdyPreferencesPagePrivate *priv = hdy_preferences_page_get_instance_private (self);
+
+  if (child == GTK_WIDGET (priv->scrolled_window))
+    GTK_CONTAINER_CLASS (hdy_preferences_page_parent_class)->remove (container, child);
+  else
+    gtk_container_remove (GTK_CONTAINER (priv->box), child);
+}
+
+static void
+hdy_preferences_page_forall (GtkContainer *container,
+                             gboolean      include_internals,
+                             GtkCallback   callback,
+                             gpointer      callback_data)
+{
+  HdyPreferencesPage *self = HDY_PREFERENCES_PAGE (container);
+  HdyPreferencesPagePrivate *priv = hdy_preferences_page_get_instance_private (self);
+
+  if (include_internals)
+    GTK_CONTAINER_CLASS (hdy_preferences_page_parent_class)->forall (container,
+                                                                     include_internals,
+                                                                     callback,
+                                                                     callback_data);
+  else if (priv->box)
+    gtk_container_foreach (GTK_CONTAINER (priv->box), callback, callback_data);
 }
 
 static void
@@ -133,6 +164,8 @@ hdy_preferences_page_class_init (HdyPreferencesPageClass *klass)
   object_class->finalize = hdy_preferences_page_finalize;
 
   container_class->add = hdy_preferences_page_add;
+  container_class->remove = hdy_preferences_page_remove;
+  container_class->forall = hdy_preferences_page_forall;
 
   /**
    * HdyPreferencesPage:icon-name:
@@ -167,7 +200,7 @@ hdy_preferences_page_class_init (HdyPreferencesPageClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-preferences-page.ui");
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesPage, box);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesPage, viewport);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesPage, scrolled_window);
 
   gtk_widget_class_set_css_name (widget_class, "preferencespage");
 }
