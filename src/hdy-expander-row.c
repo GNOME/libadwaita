@@ -166,25 +166,6 @@ hdy_expander_row_set_property (GObject      *object,
   }
 }
 
-typedef struct {
-  HdyExpanderRow *row;
-  GtkCallback callback;
-  gpointer callback_data;
-} ForallData;
-
-static void
-for_non_internal_child (GtkWidget *widget,
-                        gpointer   callback_data)
-{
-  ForallData *data = callback_data;
-  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (data->row);
-
-  if (widget != (GtkWidget *) priv->image &&
-      widget != (GtkWidget *) priv->enable_switch &&
-      widget != (GtkWidget *) priv->separator)
-    data->callback (widget, data->callback_data);
-}
-
 static void
 hdy_expander_row_forall (GtkContainer *container,
                          gboolean      include_internals,
@@ -192,19 +173,15 @@ hdy_expander_row_forall (GtkContainer *container,
                          gpointer      callback_data)
 {
   HdyExpanderRow *self = HDY_EXPANDER_ROW (container);
-  ForallData data;
+  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
 
-  if (include_internals) {
-    GTK_CONTAINER_CLASS (hdy_expander_row_parent_class)->forall (GTK_CONTAINER (self), include_internals, callback, callback_data);
-
-    return;
-  }
-
-  data.row = self;
-  data.callback = callback;
-  data.callback_data = callback_data;
-
-  GTK_CONTAINER_CLASS (hdy_expander_row_parent_class)->forall (GTK_CONTAINER (self), include_internals, for_non_internal_child, &data);
+  if (include_internals)
+    GTK_CONTAINER_CLASS (hdy_expander_row_parent_class)->forall (container,
+                                                                 include_internals,
+                                                                 callback,
+                                                                 callback_data);
+  else if (priv->list)
+    gtk_container_foreach (GTK_CONTAINER (priv->list), callback, callback_data);
 }
 
 static void
