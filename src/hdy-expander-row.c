@@ -254,6 +254,19 @@ hdy_expander_row_add (GtkContainer *container,
 }
 
 static void
+hdy_expander_row_remove (GtkContainer *container,
+                         GtkWidget    *child)
+{
+  HdyExpanderRow *self = HDY_EXPANDER_ROW (container);
+  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
+
+  if (child == GTK_WIDGET (priv->box))
+    GTK_CONTAINER_CLASS (hdy_expander_row_parent_class)->remove (container, child);
+  else
+    gtk_container_remove (GTK_CONTAINER (priv->list), child);
+}
+
+static void
 hdy_expander_row_class_init (HdyExpanderRowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -262,8 +275,9 @@ hdy_expander_row_class_init (HdyExpanderRowClass *klass)
 
   object_class->get_property = hdy_expander_row_get_property;
   object_class->set_property = hdy_expander_row_set_property;
-  
+
   container_class->add = hdy_expander_row_add;
+  container_class->remove = hdy_expander_row_remove;
   container_class->forall = hdy_expander_row_forall;
 
   /**
