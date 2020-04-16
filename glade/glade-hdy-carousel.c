@@ -175,6 +175,8 @@ glade_hdy_carousel_child_action_activate (GladeWidgetAdaptor *adaptor,
     hdy_carousel_insert (HDY_CAROUSEL (container), placeholder, index);
     hdy_carousel_scroll_to (HDY_CAROUSEL (container), placeholder);
 
+    glade_hdy_sync_child_positions (GTK_CONTAINER (container));
+
     property = glade_widget_get_property (parent, "pages");
     glade_command_set_property (property, pages + 1);
 
@@ -195,6 +197,8 @@ glade_hdy_carousel_child_action_activate (GladeWidgetAdaptor *adaptor,
 
     g_assert (GLADE_IS_PLACEHOLDER (object));
     gtk_container_remove (GTK_CONTAINER (container), GTK_WIDGET (object));
+
+    glade_hdy_sync_child_positions (GTK_CONTAINER (container));
 
     property = glade_widget_get_property (parent, "pages");
     glade_command_set_property (property, pages - 1);
@@ -382,6 +386,8 @@ glade_hdy_carousel_add_child (GladeWidgetAdaptor *adaptor,
   if (gchild)
     glade_widget_set_pack_action_visible (gchild, "remove_page", FALSE);
 
+  glade_hdy_sync_child_positions (GTK_CONTAINER (container));
+
   gbox = glade_widget_get_from_gobject (container);
   glade_widget_property_get (gbox, "pages", &pages);
   glade_widget_property_set (gbox, "pages", pages);
@@ -398,6 +404,8 @@ glade_hdy_carousel_remove_child (GladeWidgetAdaptor *adaptor,
   gint pages, page;
 
   gtk_container_remove (GTK_CONTAINER (container), GTK_WIDGET (child));
+
+  glade_hdy_sync_child_positions (GTK_CONTAINER (container));
 
   gbox = glade_widget_get_from_gobject (container);
   glade_widget_property_get (gbox, "pages", &pages);
@@ -422,6 +430,8 @@ glade_hdy_carousel_replace_child (GladeWidgetAdaptor *adaptor,
   hdy_carousel_scroll_to_full (HDY_CAROUSEL (container),
                                GTK_WIDGET (new_widget), 0);
 
+  glade_hdy_sync_child_positions (GTK_CONTAINER (container));
+
   gchild = glade_widget_get_from_gobject (new_widget);
   if (gchild)
     glade_widget_set_pack_action_visible (gchild, "remove_page", FALSE);
@@ -434,4 +444,44 @@ glade_hdy_carousel_replace_child (GladeWidgetAdaptor *adaptor,
   glade_widget_property_set (gbox, "pages", pages);
   glade_widget_property_get (gbox, "page", &page);
   glade_widget_property_set (gbox, "page", page);
+}
+
+void
+glade_hdy_carousel_get_child_property (GladeWidgetAdaptor *adaptor,
+                                       GObject            *container,
+                                       GObject            *child,
+                                       const gchar        *property_name,
+                                       GValue             *value)
+{
+  if (strcmp (property_name, "position") == 0)
+    g_value_set_int (value, glade_hdy_get_child_index (GTK_CONTAINER (container),
+                                                       GTK_WIDGET (child)));
+  else
+    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->child_get_property (adaptor,
+                                                            container,
+                                                            child,
+                                                            property_name,
+                                                            value);
+}
+
+void
+glade_hdy_carousel_set_child_property (GladeWidgetAdaptor *adaptor,
+                                       GObject            *container,
+                                       GObject            *child,
+                                       const gchar        *property_name,
+                                       GValue             *value)
+{
+  if (strcmp (property_name, "position") == 0) {
+    glade_hdy_reorder_child (GTK_CONTAINER (container),
+                             GTK_WIDGET (child),
+                             g_value_get_int (value));
+
+    glade_hdy_sync_child_positions (GTK_CONTAINER (container));
+  } else {
+    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->child_set_property (adaptor,
+                                                            container,
+                                                            child,
+                                                            property_name,
+                                                            value);
+  }
 }

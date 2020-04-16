@@ -44,3 +44,14 @@ void glade_hdy_carousel_replace_child (GladeWidgetAdaptor *adaptor,
                                        GObject            *container,
                                        GObject            *current,
                                        GObject            *new_widget);
+
+void glade_hdy_carousel_get_child_property (GladeWidgetAdaptor *adaptor,
+                                            GObject            *container,
+                                            GObject            *child,
+                                            const gchar        *property_name,
+                                            GValue             *value);
+void glade_hdy_carousel_set_child_property (GladeWidgetAdaptor *adaptor,
+                                            GObject            *container,
+                                            GObject            *child,
+                                            const gchar        *property_name,
+                                            GValue             *value);
