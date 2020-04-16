@@ -799,7 +799,7 @@ hdy_action_row_set_use_underline (HdyActionRow *self,
 /**
  * hdy_action_row_add_prefix:
  * @self: a #HdyActionRow
- * @widget: (allow-none): the prefix widget
+ * @widget: the prefix widget
  *
  * Adds a prefix widget to @self.
  *
@@ -812,6 +812,7 @@ hdy_action_row_add_prefix (HdyActionRow *self,
   HdyActionRowPrivate *priv;
 
   g_return_if_fail (HDY_IS_ACTION_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (self));
 
   priv = hdy_action_row_get_instance_private (self);
 
