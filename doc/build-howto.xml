@@ -145,7 +145,7 @@
     </para>
 
     <para>
-      You can also acknoledge this with the definition option of your C
+      You can also acknowledge this with the definition option of your C
       compiler, like <literal>-DHANDY_USE_UNSTABLE_API</literal>. This is
       required from Vala.
     </para>
