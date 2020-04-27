@@ -669,10 +669,12 @@ hdy_expander_row_set_enable_expansion (HdyExpanderRow *self,
 
   priv = hdy_expander_row_get_instance_private (self);
 
-  if (priv->enable_expansion == !!enable_expansion)
+  enable_expansion = !!enable_expansion;
+
+  if (priv->enable_expansion == enable_expansion)
     return;
 
-  priv->enable_expansion = !!enable_expansion;
+  priv->enable_expansion = enable_expansion;
 
   hdy_expander_row_set_expanded (self, priv->enable_expansion);
 
@@ -720,10 +722,12 @@ hdy_expander_row_set_show_enable_switch (HdyExpanderRow *self,
 
   priv = hdy_expander_row_get_instance_private (self);
 
-  if (priv->show_enable_switch == !!show_enable_switch)
+  show_enable_switch = !!show_enable_switch;
+
+  if (priv->show_enable_switch == show_enable_switch)
     return;
 
-  priv->show_enable_switch = !!show_enable_switch;
+  priv->show_enable_switch = show_enable_switch;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_ENABLE_SWITCH]);
 }
