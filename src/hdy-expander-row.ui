@@ -17,6 +17,7 @@
     </style>
     <child>
       <object class="GtkBox" id="box">
+        <property name="no-show-all">True</property>
         <property name="orientation">vertical</property>
         <property name="visible">True</property>
         <child>
