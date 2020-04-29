@@ -71,7 +71,6 @@ Section: x11
 Architecture: any
 Depends: ${misc:Depends},
          ${shlibs:Depends},
-         libhandy-0.0-0 (= ${binary:Version})
 Description: Example programs for libhandy
  libhandy provides GTK widgets and GObjects to ease developing
  applications for mobile phones.
