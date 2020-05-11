@@ -4,14 +4,14 @@
     "runtime-version" : "master",
     "sdk" : "org.gnome.Sdk",
     "command" : "glade",
-    "rename-desktop-file" : "glade.desktop",
-    "rename-appdata-file" : "glade.appdata.xml",
-    "rename-icon" : "glade",
+    "rename-desktop-file" : "org.gnome.Glade.desktop",
+    "rename-appdata-file" : "org.gnome.Glade.appdata.xml",
+    "rename-icon" : "org.gnome.Glade",
     "copy-icon" : true,
     "desktop-file-name-suffix" : " (Handy Nightly)",
     "finish-args" : [
         /* X11 + XShm access */
-        "--share=ipc", "--socket=x11",
+        "--share=ipc", "--socket=fallback-x11",
         /* Wayland access */
         "--socket=wayland",
         /* We want full fs access so we can read the files */
@@ -53,7 +53,11 @@
                 {
                     "type" : "git",
                     "url" : "https://gitlab.gnome.org/GNOME/glade.git",
-                    "branch" : "glade-3-22"
+                    "branch" : "glade-3-36"
+                },
+                {
+                    "type" : "patch",
+                    "path" : "rename-id.patch"
                 }
             ]
         },

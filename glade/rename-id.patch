@@ -1,0 +1,28 @@
+From f4711b392e26d36266a88df4371230418e24cfc9 Mon Sep 17 00:00:00 2001
+From: Adrien Plazas <kekun.plazas@laposte.net>
+Date: Mon, 11 May 2020 10:45:17 +0200
+Subject: [PATCH] Rename the ID to sm.puri.Handy.Glade
+
+Make the GtkApplication ID match the Flatpak ID, which is required for
+the app to start.
+
+---
+ src/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/main.c b/src/main.c
+index 8a81771f..7a505255 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -161,7 +161,7 @@ main (int argc, char *argv[])
+       return -1;
+     }
+ 
+-  app = gtk_application_new ("org.gnome.Glade", G_APPLICATION_HANDLES_OPEN);
++  app = gtk_application_new ("sm.puri.Handy.Glade", G_APPLICATION_HANDLES_OPEN);
+ 
+   g_application_set_option_context_summary (G_APPLICATION (app),
+                                             N_("Create or edit user interface designs for GTK+ or GNOME applications."));
+-- 
+2.26.0
+
