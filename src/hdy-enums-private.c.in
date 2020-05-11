@@ -1,14 +1,8 @@
 /*** BEGIN file-header ***/
 
 #include "config.h"
-#include "hdy-carousel.h"
-#include "hdy-deck.h"
-#include "hdy-enums.h"
-#include "hdy-header-bar.h"
-#include "hdy-leaflet.h"
-#include "hdy-navigation-direction.h"
-#include "hdy-squeezer.h"
-#include "hdy-view-switcher.h"
+#include "hdy-enums-private.h"
+#include "hdy-stackable-box-private.h"
 
 /*** END file-header ***/
 

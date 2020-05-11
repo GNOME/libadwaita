@@ -7,15 +7,19 @@ libhandy_resources = gnome.compile_resources(
    c_name: 'hdy',
 )
 
-hdy_enum_headers = ['hdy-carousel.h',
-                    'hdy-deck.h',
-                    'hdy-header-bar.h',
-                    'hdy-leaflet.h',
-                    'hdy-navigation-direction.h',
-                    'hdy-stackable-box-private.h',
-                    'hdy-squeezer.h',
-                    'hdy-view-switcher.h',
-                   ]
+hdy_public_enum_headers = [
+  'hdy-carousel.h',
+  'hdy-deck.h',
+  'hdy-header-bar.h',
+  'hdy-leaflet.h',
+  'hdy-navigation-direction.h',
+  'hdy-squeezer.h',
+  'hdy-view-switcher.h',
+]
+
+hdy_private_enum_headers = [
+  'hdy-stackable-box-private.h',
+]
 
 version_data = configuration_data()
 version_data.set('HDY_MAJOR_VERSION', handy_version_major)
@@ -41,16 +45,24 @@ libhandy_public_headers = []
 libhandy_public_sources = []
 libhandy_private_sources = []
 
-hdy_enums = gnome.mkenums('hdy-enums',
+hdy_public_enums = gnome.mkenums('hdy-enums',
       h_template: 'hdy-enums.h.in',
       c_template: 'hdy-enums.c.in',
-         sources: hdy_enum_headers,
+         sources: hdy_public_enum_headers,
   install_header: true,
      install_dir: libhandy_header_dir,
 )
 
-libhandy_public_sources += [hdy_enums[0]]
-libhandy_generated_headers += [hdy_enums[1]]
+hdy_private_enums = gnome.mkenums('hdy-enums-private',
+      h_template: 'hdy-enums-private.h.in',
+      c_template: 'hdy-enums-private.c.in',
+         sources: hdy_private_enum_headers,
+  install_header: false,
+)
+
+libhandy_public_sources += [hdy_public_enums[0]]
+libhandy_private_sources += [hdy_private_enums[0]]
+libhandy_generated_headers += [hdy_public_enums[1]]
 
 src_headers = [
   'hdy-action-row.h',

@@ -11,6 +11,7 @@
 #include "gtkprogresstrackerprivate.h"
 #include "hdy-animation-private.h"
 #include "hdy-cairo-private.h"
+#include "hdy-enums-private.h"
 #include "hdy-stackable-box-private.h"
 #include "hdy-shadow-helper-private.h"
 #include "hdy-swipeable-private.h"
