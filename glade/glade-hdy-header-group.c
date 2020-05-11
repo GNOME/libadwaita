@@ -13,6 +13,7 @@
 #include <config.h>
 #include <glib/gi18n-lib.h>
 #include <gladeui/glade.h>
+#include "glade-hdy-utils.h"
 
 #define GLADE_TAG_HEADERGROUP_WIDGETS "headerbars"
 #define GLADE_TAG_HEADERGROUP_WIDGET  "headerbar"

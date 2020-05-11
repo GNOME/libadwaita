@@ -12,6 +12,7 @@
 #include <config.h>
 #include <glib/gi18n-lib.h>
 #include <gladeui/glade.h>
+#include "glade-hdy-utils.h"
 
 #define TITLE_DISABLED_MESSAGE _("This property does not apply when a custom title is set")
 

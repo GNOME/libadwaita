@@ -14,6 +14,7 @@
 #include <config.h>
 #include <glib/gi18n-lib.h>
 #include <gladeui/glade.h>
+#include "glade-hdy-utils.h"
 
 #define PROP_SWIPEABLES "swipeables"
 #define GLADE_TAG_SWIPEGROUP_SWIPEABLES "swipeables"

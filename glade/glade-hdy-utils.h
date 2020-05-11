@@ -13,6 +13,14 @@
 
 #define ONLY_THIS_GOES_IN_THAT_MSG _("Only objects of type %s can be added to objects of type %s.")
 
+/* Guess wether we are using a Glade version older than 3.36.
+ *
+ * If yes, redefine some symbols which got renamed.
+ */
+#ifndef GLADE_PROPERTY_DEF_OBJECT_DELIMITER
+#define GLADE_PROPERTY_DEF_OBJECT_DELIMITER GPC_OBJECT_DELIMITER
+#define glade_widget_action_get_def glade_widget_action_get_class
+#endif
 
 void glade_hdy_sync_child_positions (GtkContainer *container);
 
