@@ -78,13 +78,13 @@ preferencespage label.h4 {
 deck,
 leaflet {
   > dimming {
-    background: rgba(0, 0, 0, 0.12);
+    background: $leaflet_dimming;
   }
 
   > border {
     min-width: 1px;
     min-height: 1px;
-    background: rgba(0, 0, 0, 0.05);
+    background: $leaflet_border;
   }
 
   > shadow {
