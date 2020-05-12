@@ -5,6 +5,8 @@
     <file compressed="true">themes/Adwaita.css</file>
     <file compressed="true">themes/Adwaita-dark.css</file>
     <file compressed="true">themes/fallback.css</file>
+    <file compressed="true">themes/HighContrast.css</file>
+    <file compressed="true">themes/HighContrastInverse.css</file>
     <file compressed="true">themes/shared.css</file>
   </gresource>
   <gresource prefix="/sm/puri/handy/ui">
