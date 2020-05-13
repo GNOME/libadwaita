@@ -82,7 +82,9 @@ to use the widgets in your favorite programming language can be found here:
 ### Rust
 - [Fractal](https://gitlab.gnome.org/GNOME/fractal) (HdyColumn, HdyLeaflet)
 - [Podcasts](https://gitlab.gnome.org/World/podcasts) (HdyColumn)
+- [Shortwave](https://gitlab.gnome.org/World/Shortwave) (HdyActionRow, HdyColumn, HdyDialog, HdyHeaderBar, HdyLeaflet, HdyPaginator, HdyPreferencesGroup, HdyPreferencesPage, HdyPreferencesWindow, HdySearchBar, HdySqueezer, HdyViewSwitcher, HdyViewSwitcherBar)
 
 ### Vala
 - [GNOME Contacts](https://gitlab.gnome.org/GNOME/gnome-contacts) (HdyLeaflet, HdyHeaderGroup, HdyTitleBar)
 - [GNOME Games](https://gitlab.gnome.org/GNOME/gnome-games) (HdyColumn, HdyTitleBar)
+- [GNOME Clocks](https://gitlab.gnome.org/GNOME/gnome-clocks) (HdyActionRow, HdyColumn, HdyDialog, HdyHeaderBar, HdySqueezer, HdyViewSwitcher)
