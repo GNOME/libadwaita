@@ -161,7 +161,7 @@ package-flatpak-glade:
     expire_in: 1 day
   before_script:
     - flatpak install -y --noninteractive gnome-nightly org.gnome.Sdk org.gnome.Platform
-    - rm -rf _build/
+    - sudo rm -rf _build/
   script:
     - bash -x .gitlab-ci/flatpak-build.sh "${app_id}" "${manifest_path}"
   artifacts:
