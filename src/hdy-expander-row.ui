@@ -41,6 +41,14 @@
                   <class name="header"/>
                 </style>
                 <child>
+                  <object class="GtkBox" id="actions">
+                    <property name="can_focus">False</property>
+                    <property name="no_show_all">True</property>
+                    <property name="spacing">12</property>
+                    <property name="visible">False</property>
+                  </object>
+                </child>
+                <child>
                   <object class="GtkSwitch" id="enable_switch">
                     <property name="active" bind-source="HdyExpanderRow" bind-property="enable-expansion" bind-flags="bidirectional|sync-create"/>
                     <property name="can-focus">True</property>

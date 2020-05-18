@@ -19,6 +19,9 @@
  * also allows the user to enable the expansion of the row, allowing to disable
  * all that the row contains.
  *
+ * It also supports adding a child as an action widget by specifying “action” as
+ * the “type” attribute of a &lt;child&gt; element.
+ *
  * # CSS nodes
  *
  * #HdyExpanderRow has a main CSS node with name row, and the .expander style
@@ -37,6 +40,7 @@
 typedef struct
 {
   GtkBox *box;
+  GtkBox *actions;
   GtkListBox *list;
   HdyActionRow *action_row;
   GtkSwitch *enable_switch;
@@ -47,7 +51,14 @@ typedef struct
   gboolean show_enable_switch;
 } HdyExpanderRowPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyExpanderRow, hdy_expander_row, HDY_TYPE_PREFERENCES_ROW)
+static void hdy_expander_row_buildable_init (GtkBuildableIface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (HdyExpanderRow, hdy_expander_row, HDY_TYPE_PREFERENCES_ROW,
+                         G_ADD_PRIVATE (HdyExpanderRow)
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
+                         hdy_expander_row_buildable_init))
+
+static GtkBuildableIface *parent_buildable_iface;
 
 enum {
   PROP_0,
@@ -179,8 +190,12 @@ hdy_expander_row_forall (GtkContainer *container,
                                                                  include_internals,
                                                                  callback,
                                                                  callback_data);
-  else if (priv->list)
-    gtk_container_foreach (GTK_CONTAINER (priv->list), callback, callback_data);
+  else {
+    if (priv->actions)
+      gtk_container_foreach (GTK_CONTAINER (priv->actions), callback, callback_data);
+    if (priv->list)
+      gtk_container_foreach (GTK_CONTAINER (priv->list), callback, callback_data);
+  }
 }
 
 static void
@@ -238,6 +253,8 @@ hdy_expander_row_remove (GtkContainer *container,
 
   if (child == GTK_WIDGET (priv->box))
     GTK_CONTAINER_CLASS (hdy_expander_row_parent_class)->remove (container, child);
+  else if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->actions))
+    gtk_container_remove (GTK_CONTAINER (priv->actions), child);
   else
     gtk_container_remove (GTK_CONTAINER (priv->list), child);
 }
@@ -355,6 +372,7 @@ hdy_expander_row_class_init (HdyExpanderRowClass *klass)
                                                "/sm/puri/handy/ui/hdy-expander-row.ui");
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, action_row);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, box);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, actions);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, list);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, image);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, enable_switch);
@@ -387,6 +405,30 @@ hdy_expander_row_init (HdyExpanderRow *self)
   g_signal_connect_object (priv->action_row, "notify::subtitle", G_CALLBACK (notify_subtitle_cb), self, G_CONNECT_SWAPPED);
   g_signal_connect_object (priv->action_row, "notify::use-underline", G_CALLBACK (notify_use_underline_cb), self, G_CONNECT_SWAPPED);
   g_signal_connect_object (priv->action_row, "notify::icon-name", G_CALLBACK (notify_icon_name_cb), self, G_CONNECT_SWAPPED);
+}
+
+static void
+hdy_expander_row_buildable_add_child (GtkBuildable *buildable,
+                                      GtkBuilder   *builder,
+                                      GObject      *child,
+                                      const gchar  *type)
+{
+  HdyExpanderRow *self = HDY_EXPANDER_ROW (buildable);
+  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
+
+  if (priv->box == NULL || !type)
+    gtk_container_add (GTK_CONTAINER (self), GTK_WIDGET (child));
+  else if (type && strcmp (type, "action") == 0)
+    hdy_expander_row_add_action (self, GTK_WIDGET (child));
+  else
+    GTK_BUILDER_WARN_INVALID_CHILD_TYPE (self, type);
+}
+
+static void
+hdy_expander_row_buildable_init (GtkBuildableIface *iface)
+{
+  parent_buildable_iface = g_type_interface_peek_parent (iface);
+  iface->add_child = hdy_expander_row_buildable_add_child;
 }
 
 /**
@@ -719,4 +761,28 @@ hdy_expander_row_set_show_enable_switch (HdyExpanderRow *self,
   priv->show_enable_switch = show_enable_switch;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_ENABLE_SWITCH]);
+}
+
+/**
+ * hdy_expander_row_add_action:
+ * @self: a #HdyExpanderRow
+ * @widget: the action widget
+ *
+ * Adds an action widget to @self.
+ *
+ * Since: 1.0
+ */
+void
+hdy_expander_row_add_action (HdyExpanderRow *self,
+                             GtkWidget      *widget)
+{
+  HdyExpanderRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_EXPANDER_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (self));
+
+  priv = hdy_expander_row_get_instance_private (self);
+
+  gtk_box_pack_start (priv->actions, widget, FALSE, TRUE, 0);
+  gtk_widget_show (GTK_WIDGET (priv->actions));
 }

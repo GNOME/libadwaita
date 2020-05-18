@@ -58,4 +58,7 @@ gboolean hdy_expander_row_get_show_enable_switch (HdyExpanderRow *self);
 void     hdy_expander_row_set_show_enable_switch (HdyExpanderRow *self,
                                                   gboolean        show_enable_switch);
 
+void     hdy_expander_row_add_action (HdyExpanderRow *self,
+                                      GtkWidget      *widget);
+
 G_END_DECLS
