@@ -53,6 +53,10 @@ popover.combo {
 
 row.expander {
   padding: 0px;
+
+  image.expander-row-arrow {
+    @include margin-start(6px);
+  }
 }
 
 // HdyKeypad

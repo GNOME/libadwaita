@@ -90,6 +90,10 @@ popover.combo scrollbar.vertical:dir(rtl) { border-top-left-radius: 8px; -gtk-ou
 
 row.expander { padding: 0px; }
 
+row.expander image.expander-row-arrow:dir(ltr) { margin-left: 6px; }
+
+row.expander image.expander-row-arrow:dir(rtl) { margin-right: 6px; }
+
 keypad .digit { font-size: 200%; font-weight: bold; }
 
 keypad .letters { font-size: 70%; }

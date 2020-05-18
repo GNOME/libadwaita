@@ -41,7 +41,6 @@ typedef struct
   HdyActionRow *action_row;
   GtkSwitch *enable_switch;
   GtkImage *image;
-  GtkSeparator *separator;
 
   gboolean expanded;
   gboolean enable_expansion;
@@ -358,7 +357,6 @@ hdy_expander_row_class_init (HdyExpanderRowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, box);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, list);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, image);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, separator);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, enable_switch);
   gtk_widget_class_bind_template_callback (widget_class, activate_cb);
   gtk_widget_class_bind_template_callback (widget_class, list_children_changed_cb);

@@ -41,6 +41,14 @@
                   <class name="header"/>
                 </style>
                 <child>
+                  <object class="GtkSwitch" id="enable_switch">
+                    <property name="active" bind-source="HdyExpanderRow" bind-property="enable-expansion" bind-flags="bidirectional|sync-create"/>
+                    <property name="can-focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="visible" bind-source="HdyExpanderRow" bind-property="show-enable-switch" bind-flags="bidirectional|sync-create"/>
+                  </object>
+                </child>
+                <child>
                   <object class="GtkImage" id="image">
                     <property name="can-focus">False</property>
                     <property name="icon-name">hdy-expander-arrow-symbolic</property>
@@ -50,22 +58,6 @@
                     <style>
                       <class name="expander-row-arrow"/>
                     </style>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkSeparator" id="separator">
-                    <property name="margin-bottom">8</property>
-                    <property name="margin-top">8</property>
-                    <property name="orientation">vertical</property>
-                    <property name="visible" bind-source="HdyExpanderRow" bind-property="show-enable-switch" bind-flags="sync-create"/>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkSwitch" id="enable_switch">
-                    <property name="active" bind-source="HdyExpanderRow" bind-property="enable-expansion" bind-flags="bidirectional|sync-create"/>
-                    <property name="can-focus">True</property>
-                    <property name="valign">center</property>
-                    <property name="visible" bind-source="HdyExpanderRow" bind-property="show-enable-switch" bind-flags="bidirectional|sync-create"/>
                   </object>
                 </child>
               </object>
