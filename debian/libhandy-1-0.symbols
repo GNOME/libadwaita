@@ -14,45 +14,45 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_action_row_set_subtitle@LIBHANDY_1_0 0.0.6
  hdy_action_row_set_title@LIBHANDY_1_0 0.0.6
  hdy_action_row_set_use_underline@LIBHANDY_1_0 0.0.6
- hdy_carousel_box_animate@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_get_distance@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_get_n_pages@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_get_nth_child@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_get_position@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_get_spacing@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_get_type@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_insert@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_is_animating@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_new@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_reorder@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_scroll_to@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_set_position@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_set_spacing@LIBHANDY_1_0 0.9.90
- hdy_carousel_box_stop_animation@LIBHANDY_1_0 0.9.90
- hdy_carousel_get_allow_mouse_drag@LIBHANDY_1_0 0.9.90
- hdy_carousel_get_animation_duration@LIBHANDY_1_0 0.9.90
- hdy_carousel_get_center_content@LIBHANDY_1_0 0.9.90
- hdy_carousel_get_indicator_spacing@LIBHANDY_1_0 0.9.90
- hdy_carousel_get_indicator_style@LIBHANDY_1_0 0.9.90
- hdy_carousel_get_interactive@LIBHANDY_1_0 0.9.90
- hdy_carousel_get_n_pages@LIBHANDY_1_0 0.9.90
- hdy_carousel_get_position@LIBHANDY_1_0 0.9.90
- hdy_carousel_get_spacing@LIBHANDY_1_0 0.9.90
- hdy_carousel_get_type@LIBHANDY_1_0 0.9.90
- hdy_carousel_indicator_style_get_type@LIBHANDY_1_0 0.9.90
- hdy_carousel_insert@LIBHANDY_1_0 0.9.90
- hdy_carousel_new@LIBHANDY_1_0 0.9.90
- hdy_carousel_prepend@LIBHANDY_1_0 0.9.90
- hdy_carousel_reorder@LIBHANDY_1_0 0.9.90
- hdy_carousel_scroll_to@LIBHANDY_1_0 0.9.90
- hdy_carousel_scroll_to_full@LIBHANDY_1_0 0.9.90
- hdy_carousel_set_allow_mouse_drag@LIBHANDY_1_0 0.9.90
- hdy_carousel_set_animation_duration@LIBHANDY_1_0 0.9.90
- hdy_carousel_set_center_content@LIBHANDY_1_0 0.9.90
- hdy_carousel_set_indicator_spacing@LIBHANDY_1_0 0.9.90
- hdy_carousel_set_indicator_style@LIBHANDY_1_0 0.9.90
- hdy_carousel_set_interactive@LIBHANDY_1_0 0.9.90
- hdy_carousel_set_spacing@LIBHANDY_1_0 0.9.90
+ hdy_carousel_box_animate@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_get_distance@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_get_n_pages@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_get_nth_child@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_get_position@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_get_spacing@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_get_type@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_insert@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_is_animating@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_new@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_reorder@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_scroll_to@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_set_position@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_set_spacing@LIBHANDY_1_0 0.80.0
+ hdy_carousel_box_stop_animation@LIBHANDY_1_0 0.80.0
+ hdy_carousel_get_allow_mouse_drag@LIBHANDY_1_0 0.80.0
+ hdy_carousel_get_animation_duration@LIBHANDY_1_0 0.80.0
+ hdy_carousel_get_center_content@LIBHANDY_1_0 0.80.0
+ hdy_carousel_get_indicator_spacing@LIBHANDY_1_0 0.80.0
+ hdy_carousel_get_indicator_style@LIBHANDY_1_0 0.80.0
+ hdy_carousel_get_interactive@LIBHANDY_1_0 0.80.0
+ hdy_carousel_get_n_pages@LIBHANDY_1_0 0.80.0
+ hdy_carousel_get_position@LIBHANDY_1_0 0.80.0
+ hdy_carousel_get_spacing@LIBHANDY_1_0 0.80.0
+ hdy_carousel_get_type@LIBHANDY_1_0 0.80.0
+ hdy_carousel_indicator_style_get_type@LIBHANDY_1_0 0.80.0
+ hdy_carousel_insert@LIBHANDY_1_0 0.80.0
+ hdy_carousel_new@LIBHANDY_1_0 0.80.0
+ hdy_carousel_prepend@LIBHANDY_1_0 0.80.0
+ hdy_carousel_reorder@LIBHANDY_1_0 0.80.0
+ hdy_carousel_scroll_to@LIBHANDY_1_0 0.80.0
+ hdy_carousel_scroll_to_full@LIBHANDY_1_0 0.80.0
+ hdy_carousel_set_allow_mouse_drag@LIBHANDY_1_0 0.80.0
+ hdy_carousel_set_animation_duration@LIBHANDY_1_0 0.80.0
+ hdy_carousel_set_center_content@LIBHANDY_1_0 0.80.0
+ hdy_carousel_set_indicator_spacing@LIBHANDY_1_0 0.80.0
+ hdy_carousel_set_indicator_style@LIBHANDY_1_0 0.80.0
+ hdy_carousel_set_interactive@LIBHANDY_1_0 0.80.0
+ hdy_carousel_set_spacing@LIBHANDY_1_0 0.80.0
  hdy_centering_policy_get_type@LIBHANDY_1_0 0.0.10
  hdy_column_get_linear_growth_width@LIBHANDY_1_0 0.0.3
  hdy_column_get_maximum_width@LIBHANDY_1_0 0.0.1
@@ -71,27 +71,27 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_combo_row_set_get_name_func@LIBHANDY_1_0 0.0.10
  hdy_combo_row_set_selected_index@LIBHANDY_1_0 0.0.7
  hdy_combo_row_set_use_subtitle@LIBHANDY_1_0 0.0.10
- hdy_deck_get_can_swipe_back@LIBHANDY_1_0 0.9.90
- hdy_deck_get_can_swipe_forward@LIBHANDY_1_0 0.9.90
- hdy_deck_get_homogeneous@LIBHANDY_1_0 0.9.90
- hdy_deck_get_interpolate_size@LIBHANDY_1_0 0.9.90
- hdy_deck_get_transition_duration@LIBHANDY_1_0 0.9.90
- hdy_deck_get_transition_running@LIBHANDY_1_0 0.9.90
- hdy_deck_get_transition_type@LIBHANDY_1_0 0.9.90
- hdy_deck_get_type@LIBHANDY_1_0 0.9.90
- hdy_deck_get_visible_child@LIBHANDY_1_0 0.9.90
- hdy_deck_get_visible_child_name@LIBHANDY_1_0 0.9.90
- hdy_deck_navigate@LIBHANDY_1_0 0.9.90
- hdy_deck_new@LIBHANDY_1_0 0.9.90
- hdy_deck_set_can_swipe_back@LIBHANDY_1_0 0.9.90
- hdy_deck_set_can_swipe_forward@LIBHANDY_1_0 0.9.90
- hdy_deck_set_homogeneous@LIBHANDY_1_0 0.9.90
- hdy_deck_set_interpolate_size@LIBHANDY_1_0 0.9.90
- hdy_deck_set_transition_duration@LIBHANDY_1_0 0.9.90
- hdy_deck_set_transition_type@LIBHANDY_1_0 0.9.90
- hdy_deck_set_visible_child@LIBHANDY_1_0 0.9.90
- hdy_deck_set_visible_child_name@LIBHANDY_1_0 0.9.90
- hdy_deck_transition_type_get_type@LIBHANDY_1_0 0.9.90
+ hdy_deck_get_can_swipe_back@LIBHANDY_1_0 0.80.0
+ hdy_deck_get_can_swipe_forward@LIBHANDY_1_0 0.80.0
+ hdy_deck_get_homogeneous@LIBHANDY_1_0 0.80.0
+ hdy_deck_get_interpolate_size@LIBHANDY_1_0 0.80.0
+ hdy_deck_get_transition_duration@LIBHANDY_1_0 0.80.0
+ hdy_deck_get_transition_running@LIBHANDY_1_0 0.80.0
+ hdy_deck_get_transition_type@LIBHANDY_1_0 0.80.0
+ hdy_deck_get_type@LIBHANDY_1_0 0.80.0
+ hdy_deck_get_visible_child@LIBHANDY_1_0 0.80.0
+ hdy_deck_get_visible_child_name@LIBHANDY_1_0 0.80.0
+ hdy_deck_navigate@LIBHANDY_1_0 0.80.0
+ hdy_deck_new@LIBHANDY_1_0 0.80.0
+ hdy_deck_set_can_swipe_back@LIBHANDY_1_0 0.80.0
+ hdy_deck_set_can_swipe_forward@LIBHANDY_1_0 0.80.0
+ hdy_deck_set_homogeneous@LIBHANDY_1_0 0.80.0
+ hdy_deck_set_interpolate_size@LIBHANDY_1_0 0.80.0
+ hdy_deck_set_transition_duration@LIBHANDY_1_0 0.80.0
+ hdy_deck_set_transition_type@LIBHANDY_1_0 0.80.0
+ hdy_deck_set_visible_child@LIBHANDY_1_0 0.80.0
+ hdy_deck_set_visible_child_name@LIBHANDY_1_0 0.80.0
+ hdy_deck_transition_type_get_type@LIBHANDY_1_0 0.80.0
  hdy_ease_out_cubic@LIBHANDY_1_0 0.0.11
  hdy_enum_value_object_get_name@LIBHANDY_1_0 0.0.6
  hdy_enum_value_object_get_nick@LIBHANDY_1_0 0.0.6
@@ -101,20 +101,20 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_enum_value_row_name@LIBHANDY_1_0 0.0.6
  hdy_expander_row_get_enable_expansion@LIBHANDY_1_0 0.0.6
  hdy_expander_row_get_expanded@LIBHANDY_1_0 0.0.9
- hdy_expander_row_get_icon_name@LIBHANDY_1_0 0.9.90
+ hdy_expander_row_get_icon_name@LIBHANDY_1_0 0.80.0
  hdy_expander_row_get_show_enable_switch@LIBHANDY_1_0 0.0.6
- hdy_expander_row_get_subtitle@LIBHANDY_1_0 0.9.90
- hdy_expander_row_get_title@LIBHANDY_1_0 0.9.90
+ hdy_expander_row_get_subtitle@LIBHANDY_1_0 0.80.0
+ hdy_expander_row_get_title@LIBHANDY_1_0 0.80.0
  hdy_expander_row_get_type@LIBHANDY_1_0 0.0.6
- hdy_expander_row_get_use_underline@LIBHANDY_1_0 0.9.90
+ hdy_expander_row_get_use_underline@LIBHANDY_1_0 0.80.0
  hdy_expander_row_new@LIBHANDY_1_0 0.0.6
  hdy_expander_row_set_enable_expansion@LIBHANDY_1_0 0.0.6
  hdy_expander_row_set_expanded@LIBHANDY_1_0 0.0.9
- hdy_expander_row_set_icon_name@LIBHANDY_1_0 0.9.90
+ hdy_expander_row_set_icon_name@LIBHANDY_1_0 0.80.0
  hdy_expander_row_set_show_enable_switch@LIBHANDY_1_0 0.0.6
- hdy_expander_row_set_subtitle@LIBHANDY_1_0 0.9.90
- hdy_expander_row_set_title@LIBHANDY_1_0 0.9.90
- hdy_expander_row_set_use_underline@LIBHANDY_1_0 0.9.90
+ hdy_expander_row_set_subtitle@LIBHANDY_1_0 0.80.0
+ hdy_expander_row_set_title@LIBHANDY_1_0 0.80.0
+ hdy_expander_row_set_use_underline@LIBHANDY_1_0 0.80.0
  hdy_get_enable_animations@LIBHANDY_1_0 0.0.11
  hdy_gtk_window_get_icon_for_size@LIBHANDY_1_0 0.0.10
  hdy_gtk_window_toggle_maximized@LIBHANDY_1_0 0.0.10
@@ -165,7 +165,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_leaflet_get_can_swipe_forward@LIBHANDY_1_0 0.0.12
  hdy_leaflet_get_child_transition_duration@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_get_child_transition_running@LIBHANDY_1_0 0.0~git20180429
- hdy_leaflet_get_folded@LIBHANDY_1_0 0.9.90
+ hdy_leaflet_get_folded@LIBHANDY_1_0 0.80.0
  hdy_leaflet_get_homogeneous@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_get_interpolate_size@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_get_mode_transition_duration@LIBHANDY_1_0 0.0~git20180429
@@ -173,7 +173,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_leaflet_get_type@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_get_visible_child@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_get_visible_child_name@LIBHANDY_1_0 0.0~git20180429
- hdy_leaflet_navigate@LIBHANDY_1_0 0.9.90
+ hdy_leaflet_navigate@LIBHANDY_1_0 0.80.0
  hdy_leaflet_new@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_set_can_swipe_back@LIBHANDY_1_0 0.0.12
  hdy_leaflet_set_can_swipe_forward@LIBHANDY_1_0 0.0.12
@@ -237,52 +237,52 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_squeezer_set_transition_duration@LIBHANDY_1_0 0.0.10
  hdy_squeezer_set_transition_type@LIBHANDY_1_0 0.0.10
  hdy_squeezer_transition_type_get_type@LIBHANDY_1_0 0.0.10
- hdy_stackable_box_add@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_begin_swipe@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_captured_event@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_direction_changed@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_draw@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_end_swipe@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_forall@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_can_swipe_back@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_can_swipe_forward@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_child_allow_visible@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_child_name@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_child_transition_duration@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_child_transition_running@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_folded@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_homogeneous@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_interpolate_size@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_mode_transition_duration@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_orientation@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_transition_type@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_type@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_visible_child@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_get_visible_child_name@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_map@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_measure@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_navigate@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_new@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_realize@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_remove@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_set_can_swipe_back@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_set_can_swipe_forward@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_set_child_allow_visible@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_set_child_name@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_set_child_transition_duration@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_set_homogeneous@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_set_interpolate_size@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_set_mode_transition_duration@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_set_orientation@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_set_transition_type@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_set_visible_child@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_set_visible_child_name@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_size_allocate@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_switch_child@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_transition_type_get_type@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_unmap@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_unrealize@LIBHANDY_1_0 0.9.90
- hdy_stackable_box_update_swipe@LIBHANDY_1_0 0.9.90
+ hdy_stackable_box_add@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_begin_swipe@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_captured_event@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_direction_changed@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_draw@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_end_swipe@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_forall@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_can_swipe_back@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_can_swipe_forward@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_child_allow_visible@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_child_name@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_child_transition_duration@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_child_transition_running@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_folded@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_homogeneous@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_interpolate_size@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_mode_transition_duration@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_orientation@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_transition_type@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_type@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_visible_child@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_get_visible_child_name@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_map@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_measure@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_navigate@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_new@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_realize@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_remove@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_set_can_swipe_back@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_set_can_swipe_forward@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_set_child_allow_visible@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_set_child_name@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_set_child_transition_duration@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_set_homogeneous@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_set_interpolate_size@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_set_mode_transition_duration@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_set_orientation@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_set_transition_type@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_set_visible_child@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_set_visible_child_name@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_size_allocate@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_switch_child@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_transition_type_get_type@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_unmap@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_unrealize@LIBHANDY_1_0 0.80.0
+ hdy_stackable_box_update_swipe@LIBHANDY_1_0 0.80.0
  hdy_swipe_group_add_swipeable@LIBHANDY_1_0 0.0.12
  hdy_swipe_group_get_swipeables@LIBHANDY_1_0 0.0.12
  hdy_swipe_group_get_type@LIBHANDY_1_0 0.0.12
@@ -350,20 +350,20 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_view_switcher_set_narrow_ellipsize@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_set_policy@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_set_stack@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_title_get_has_subtitle@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_get_icon_size@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_get_policy@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_get_stack@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_get_subtitle@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_get_title@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_get_title_visible@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_get_type@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_get_view_switcher_enabled@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_new@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_set_has_subtitle@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_set_icon_size@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_set_policy@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_set_stack@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_set_subtitle@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_set_title@LIBHANDY_1_0 0.9.90
- hdy_view_switcher_title_set_view_switcher_enabled@LIBHANDY_1_0 0.9.90
+ hdy_view_switcher_title_get_has_subtitle@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_get_icon_size@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_get_policy@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_get_stack@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_get_subtitle@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_get_title@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_get_title_visible@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_get_type@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_get_view_switcher_enabled@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_new@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_set_has_subtitle@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_set_icon_size@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_set_policy@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_set_stack@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_set_subtitle@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_set_title@LIBHANDY_1_0 0.80.0
+ hdy_view_switcher_title_set_view_switcher_enabled@LIBHANDY_1_0 0.80.0
