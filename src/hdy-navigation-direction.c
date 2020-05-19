@@ -11,6 +11,7 @@
  * SECTION:hdy-navigation-direction
  * @short_description: Swipe navigation directions.
  * @title: HdyNavigationDirection
+ * @See_also: #HdyDeck, #HdyLeaflet
  */
 
 /**
@@ -18,7 +19,8 @@
  * @HDY_NAVIGATION_DIRECTION_BACK: Corresponds to start or top, depending on orientation and text direction
  * @HDY_NAVIGATION_DIRECTION_FORWARD: Corresponds to end or bottom, depending on orientation and text direction
  *
- * Represents direction of a swipe navigation gesture in #HdyLeaflet.
+ * Represents direction of a swipe navigation gesture in #HdyDeck and
+ * #HdyLeaflet.
  *
  * Since: 1.0
  */
