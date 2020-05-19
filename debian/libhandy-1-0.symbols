@@ -14,6 +14,17 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_action_row_set_subtitle@LIBHANDY_1_0 0.0.6
  hdy_action_row_set_title@LIBHANDY_1_0 0.0.6
  hdy_action_row_set_use_underline@LIBHANDY_1_0 0.0.6
+ hdy_application_window_get_type@LIBHANDY_1_0 0.80.0
+ hdy_application_window_new@LIBHANDY_1_0 0.80.0
+ hdy_avatar_get_show_initials@LIBHANDY_1_0 0.80.0
+ hdy_avatar_get_size@LIBHANDY_1_0 0.80.0
+ hdy_avatar_get_text@LIBHANDY_1_0 0.80.0
+ hdy_avatar_get_type@LIBHANDY_1_0 0.80.0
+ hdy_avatar_new@LIBHANDY_1_0 0.80.0
+ hdy_avatar_set_image_load_func@LIBHANDY_1_0 0.80.0
+ hdy_avatar_set_show_initials@LIBHANDY_1_0 0.80.0
+ hdy_avatar_set_size@LIBHANDY_1_0 0.80.0
+ hdy_avatar_set_text@LIBHANDY_1_0 0.80.0
  hdy_carousel_box_animate@LIBHANDY_1_0 0.80.0
  hdy_carousel_box_get_distance@LIBHANDY_1_0 0.80.0
  hdy_carousel_box_get_n_pages@LIBHANDY_1_0 0.80.0
@@ -117,6 +128,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_expander_row_set_use_underline@LIBHANDY_1_0 0.80.0
  hdy_get_enable_animations@LIBHANDY_1_0 0.0.11
  hdy_gtk_window_get_icon_for_size@LIBHANDY_1_0 0.0.10
+ hdy_gtk_window_get_state@LIBHANDY_1_0 0.80.0
  hdy_gtk_window_toggle_maximized@LIBHANDY_1_0 0.0.10
  hdy_header_bar_get_centering_policy@LIBHANDY_1_0 0.0.10
  hdy_header_bar_get_custom_title@LIBHANDY_1_0 0.0.10
@@ -188,6 +200,8 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_lerp@LIBHANDY_1_0 0.0.11
  hdy_list_box_separator_header@LIBHANDY_1_0 0.0.6
  hdy_navigation_direction_get_type@LIBHANDY_1_0 0.9.9
+ hdy_nothing_get_type@LIBHANDY_1_0 0.80.0
+ hdy_nothing_new@LIBHANDY_1_0 0.80.0
  hdy_preferences_group_add_preferences_to_model@LIBHANDY_1_0 0.0.10
  hdy_preferences_group_get_description@LIBHANDY_1_0 0.0.10
  hdy_preferences_group_get_title@LIBHANDY_1_0 0.0.10
@@ -208,8 +222,10 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_preferences_row_new@LIBHANDY_1_0 0.0.10
  hdy_preferences_row_set_title@LIBHANDY_1_0 0.0.10
  hdy_preferences_row_set_use_underline@LIBHANDY_1_0 0.0.10
+ hdy_preferences_window_get_search_enabled@LIBHANDY_1_0 0.80.0
  hdy_preferences_window_get_type@LIBHANDY_1_0 0.0.10
  hdy_preferences_window_new@LIBHANDY_1_0 0.0.10
+ hdy_preferences_window_set_search_enabled@LIBHANDY_1_0 0.80.0
  hdy_search_bar_connect_entry@LIBHANDY_1_0 0.0.6
  hdy_search_bar_get_search_mode@LIBHANDY_1_0 0.0.6
  hdy_search_bar_get_show_close_button@LIBHANDY_1_0 0.0.6
@@ -367,3 +383,16 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_view_switcher_title_set_subtitle@LIBHANDY_1_0 0.80.0
  hdy_view_switcher_title_set_title@LIBHANDY_1_0 0.80.0
  hdy_view_switcher_title_set_view_switcher_enabled@LIBHANDY_1_0 0.80.0
+ hdy_window_get_type@LIBHANDY_1_0 0.80.0
+ hdy_window_handle_controller_get_type@LIBHANDY_1_0 0.80.0
+ hdy_window_handle_controller_new@LIBHANDY_1_0 0.80.0
+ hdy_window_handle_get_type@LIBHANDY_1_0 0.80.0
+ hdy_window_handle_new@LIBHANDY_1_0 0.80.0
+ hdy_window_mixin_add@LIBHANDY_1_0 0.80.0
+ hdy_window_mixin_buildable_add_child@LIBHANDY_1_0 0.80.0
+ hdy_window_mixin_draw@LIBHANDY_1_0 0.80.0
+ hdy_window_mixin_forall@LIBHANDY_1_0 0.80.0
+ hdy_window_mixin_get_type@LIBHANDY_1_0 0.80.0
+ hdy_window_mixin_new@LIBHANDY_1_0 0.80.0
+ hdy_window_mixin_remove@LIBHANDY_1_0 0.80.0
+ hdy_window_new@LIBHANDY_1_0 0.80.0
