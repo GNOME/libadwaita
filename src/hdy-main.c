@@ -135,6 +135,19 @@ hdy_themes_queue_update (GtkCssProvider *css_provider)
                                      NULL);
 }
 
+static void
+load_fallback_style (void)
+{
+  g_autoptr (GtkCssProvider) css_provider = NULL;
+
+  css_provider = gtk_css_provider_new ();
+  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
+                                             GTK_STYLE_PROVIDER (css_provider),
+                                             GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
+
+  gtk_css_provider_load_from_resource (css_provider, HDY_THEMES_PATH"fallback.css");
+}
+
 /**
  * hdy_style_init:
  *
@@ -169,6 +182,8 @@ hdy_style_init (void)
                            css_provider);
 
   hdy_themes_update (css_provider);
+
+  load_fallback_style ();
 
   g_once_init_leave (&guard, 1);
 }

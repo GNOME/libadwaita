@@ -5,8 +5,6 @@ row > box.header { margin-left: 12px; margin-right: 12px; min-height: 50px; }
 
 row > box.header > box.title { margin-top: 8px; margin-bottom: 8px; }
 
-popover.combo list { min-width: 200px; }
-
 row.expander { background-color: transparent; }
 
 row.expander list.nested > row { background-color: alpha(#353535, 0.5); border-color: alpha(#1b1b1b, 0.7); border-style: solid; border-width: 1px 0px 0px 0px; }
@@ -60,6 +58,9 @@ avatar.color7 { background-image: linear-gradient(#f67365, #d91a23); color: #f6c
 avatar.color8 { background-image: linear-gradient(#cdab8f, #865d3c); color: #e5d6ca; }
 
 avatar.contrasted { color: #fff; }
+
+/*************************** Check and Radio buttons * */
+popover.combo list { min-width: 200px; }
 
 window.csd.unified:not(.solid-csd), window.csd.unified:not(.solid-csd) headerbar { border-radius: 0; }
 
