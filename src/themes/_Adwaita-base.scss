@@ -282,7 +282,7 @@ list.preferences {
     &.expander:not(:checked):last-child row.header,
     &.expander:not(:checked).checked-expander-row-previous-sibling row.header,
     &.expander.empty:checked row.header,
-    row.expander list.nested > row:last-child {
+    &.expander list.nested > row:last-child {
       @include rounded-border(bottom);
     }
 

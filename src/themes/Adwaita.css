@@ -165,7 +165,7 @@ list.preferences > row:first-child, list.preferences > row.expander:first-child 
 
 list.preferences > row:last-child, list.preferences > row.checked-expander-row-previous-sibling, list.preferences > row.expander:checked { border-width: 1px; }
 
-list.preferences > row:last-child, list.preferences > row.checked-expander-row-previous-sibling, list.preferences > row.expander:checked, list.preferences > row.expander:not(:checked):last-child row.header, list.preferences > row.expander:not(:checked).checked-expander-row-previous-sibling row.header, list.preferences > row.expander.empty:checked row.header, list.preferences > row row.expander list.nested > row:last-child { border-bottom-left-radius: 8px; -gtk-outline-bottom-left-radius: 7px; border-bottom-right-radius: 8px; -gtk-outline-bottom-right-radius: 7px; }
+list.preferences > row:last-child, list.preferences > row.checked-expander-row-previous-sibling, list.preferences > row.expander:checked, list.preferences > row.expander:not(:checked):last-child row.header, list.preferences > row.expander:not(:checked).checked-expander-row-previous-sibling row.header, list.preferences > row.expander.empty:checked row.header, list.preferences > row.expander list.nested > row:last-child { border-bottom-left-radius: 8px; -gtk-outline-bottom-left-radius: 7px; border-bottom-right-radius: 8px; -gtk-outline-bottom-right-radius: 7px; }
 
 list.preferences > row.expander:checked:not(:first-child), list.preferences > row.expander:checked + row { margin-top: 6px; }
 
