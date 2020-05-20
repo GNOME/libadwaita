@@ -165,6 +165,23 @@ hdy_title_bar_draw (GtkWidget *widget,
 }
 
 static void
+hdy_title_bar_size_allocate (GtkWidget     *widget,
+                             GtkAllocation *allocation)
+{
+  GtkAllocation clip;
+
+  gtk_render_background_get_clip (gtk_widget_get_style_context (widget),
+                                  allocation->x,
+                                  allocation->y,
+                                  allocation->width,
+                                  allocation->height,
+                                  &clip);
+
+  GTK_WIDGET_CLASS (hdy_title_bar_parent_class)->size_allocate (widget, allocation);
+  gtk_widget_set_clip (widget, &clip);
+}
+
+static void
 hdy_title_bar_class_init (HdyTitleBarClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -175,6 +192,7 @@ hdy_title_bar_class_init (HdyTitleBarClass *klass)
   object_class->set_property = hdy_title_bar_set_property;
 
   widget_class->draw = hdy_title_bar_draw;
+  widget_class->size_allocate = hdy_title_bar_size_allocate;
 
   /**
    * HdyTitleBar:selection_mode:
