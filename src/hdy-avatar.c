@@ -462,6 +462,23 @@ hdy_avatar_get_request_mode (GtkWidget *widget)
 }
 
 static void
+hdy_avatar_size_allocate (GtkWidget     *widget,
+                          GtkAllocation *allocation)
+{
+  GtkAllocation clip;
+
+  gtk_render_background_get_clip (gtk_widget_get_style_context (widget),
+                                  allocation->x,
+                                  allocation->y,
+                                  allocation->width,
+                                  allocation->height,
+                                  &clip);
+
+  GTK_WIDGET_CLASS (hdy_avatar_parent_class)->size_allocate (widget, allocation);
+  gtk_widget_set_clip (widget, &clip);
+}
+
+static void
 hdy_avatar_class_init (HdyAvatarClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -478,6 +495,7 @@ hdy_avatar_class_init (HdyAvatarClass *klass)
   widget_class->get_preferred_height = hdy_avatar_get_preferred_height;
   widget_class->get_preferred_width_for_height = hdy_avatar_get_preferred_width_for_height;
   widget_class->get_preferred_height_for_width = hdy_avatar_get_preferred_height_for_width;
+  widget_class->size_allocate = hdy_avatar_size_allocate;
 
   /**
    * HdyAvatar:size:
