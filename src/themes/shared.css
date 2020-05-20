@@ -63,6 +63,4 @@ avatar.contrasted { color: #fff; }
 
 window.csd.unified:not(.solid-csd), window.csd.unified:not(.solid-csd) headerbar { border-radius: 0; }
 
-window.csd.unified:not(.solid-csd):not(.tiled):not(.tiled-top):not(.tiled-bottom):not(.tiled-left):not(.tiled-right):not(.maximized):not(.fullscreen):not(.solid-csd) > decoration, window.csd.unified:not(.solid-csd):not(.tiled):not(.tiled-top):not(.tiled-bottom):not(.tiled-left):not(.tiled-right):not(.maximized):not(.fullscreen):not(.solid-csd) > decoration-overlay { border-radius: 8px; }
-
 .windowhandle, .windowhandle * { -GtkWidget-window-dragging: true; }
