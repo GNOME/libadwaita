@@ -1431,6 +1431,7 @@ hdy_header_bar_size_allocate (GtkWidget     *widget,
   HdyHeaderBarPrivate *priv = hdy_header_bar_get_instance_private (self);
   GtkAllocation *allocations;
   GtkAllocation title_allocation;
+  GtkAllocation clip;
   gint nvis_children;
   GList *l;
   gint i;
@@ -1442,6 +1443,13 @@ hdy_header_bar_size_allocate (GtkWidget     *widget,
   GtkBorder border, margin, padding;
   GtkWidget *decoration_box[2] = { priv->titlebar_start_box, priv->titlebar_end_box };
   gint decoration_width[2] = { 0 };
+
+  gtk_render_background_get_clip (gtk_widget_get_style_context (widget),
+                                  allocation->x,
+                                  allocation->y,
+                                  allocation->width,
+                                  allocation->height,
+                                  &clip);
 
   gtk_widget_set_allocation (widget, allocation);
 
@@ -1557,6 +1565,8 @@ hdy_header_bar_size_allocate (GtkWidget     *widget,
     gtk_widget_size_allocate (priv->custom_title, &title_allocation);
   else if (priv->label_box != NULL)
     gtk_widget_size_allocate (priv->label_box, &title_allocation);
+
+  gtk_widget_set_clip (widget, &clip);
 }
 
 static void
