@@ -22,8 +22,8 @@ before_script:
     ninja -C _build
 
 api-visibility:
-  image: debian:buster
   stage: build
+  before_script: []
   script:
     - lint/api-visibility.sh
 
