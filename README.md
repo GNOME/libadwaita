@@ -1,6 +1,6 @@
 # Handy
-[![Pipeline status](https://source.puri.sm/Librem5/libhandy/badges/master/build.svg)](https://source.puri.sm/Librem5/libhandy/commits/master)
-[![Code coverage](https://source.puri.sm/Librem5/libhandy/badges/master/coverage.svg)](https://source.puri.sm/Librem5/libhandy/commits/master)
+[![Pipeline status](https://gitlab.gnome.org/GNOME/libhandy/badges/master/build.svg)](https://gitlab.gnome.org/GNOME/libhandy/commits/master)
+[![Code coverage](https://gitlab.gnome.org/GNOME/libhandy/badges/master/coverage.svg)](https://gitlab.gnome.org/GNOME/libhandy/commits/master)
 
 The aim of the Handy library is to help with developing UI for mobile devices
 using GTK/GNOME.
@@ -11,7 +11,7 @@ libhandy is licensed under the LGPL-2.1+.
 
 ## Build dependencies
 
-To build libhandy you need to first install the build-deps defined by [the debian/control file](https://source.puri.sm/Librem5/libhandy/blob/master/debian/control#L6).
+To build libhandy you need to first install the build-deps defined by [the debian/control file](https://gitlab.gnome.org/GNOME/libhandy/blob/master/debian/control#L6).
 
 If you are running a Debian based distribution, you can easily install all those the dependencies making use of the following command
 

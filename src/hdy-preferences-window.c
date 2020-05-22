@@ -71,7 +71,7 @@ filter_search_results (HdyActionRow         *row,
    * This works around it by explicitely toggling the row's visibility, while
    * keeping GtkListBox's filtering logic.
    *
-   * See https://source.puri.sm/Librem5/libhandy/merge_requests/424.
+   * See https://gitlab.gnome.org/GNOME/libhandy/-/merge_requests/424
    */
 
   if (strstr (title, text)) {

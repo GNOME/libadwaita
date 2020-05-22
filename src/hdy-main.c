@@ -30,7 +30,7 @@ G_DEFINE_CONSTRUCTOR(hdy_constructor)
 /* A stupidly high priority used to load the styles before anything else
  * happens.
  *
- * See https://source.puri.sm/Librem5/libhandy/issues/214.
+ * See https://gitlab.gnome.org/GNOME/libhandy/issues/214.
  */
 #define HDY_PRIORITY_STYLE -1000
 

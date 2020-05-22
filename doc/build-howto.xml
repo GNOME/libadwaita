@@ -179,7 +179,7 @@
 
     <informalexample>
       <programlisting>
-        git clone https://source.puri.sm/Librem5/libhandy.git
+        git clone https://gitlab.gnome.org/GNOME/libhandy.git
         cd libhandy
         meson . _build
         ninja -C _build test
