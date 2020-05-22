@@ -53,7 +53,7 @@
                 {
                     "type" : "git",
                     "url" : "https://gitlab.gnome.org/GNOME/glade.git",
-                    "branch" : "glade-3-36"
+                    "tag" : "GLADE_3_36_0"
                 },
                 {
                     "type" : "patch",
