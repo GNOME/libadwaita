@@ -8,6 +8,8 @@ stages:
   - test-package
 
 before_script:
+  - echo "man-db man-db/auto-update boolean false" | debconf-set-selections
+  - export DEBIAN_FRONTEND=noninteractive
   - apt-get -y update
   - apt-get -y install eatmydata
   - eatmydata apt-get -y install build-essential libgtk-3-doc libgdk-pixbuf2.0-doc lcov
@@ -40,6 +42,8 @@ build-debian-gcc:
 build-debian-clang:
   image: debian:buster
   before_script:
+    - echo "man-db man-db/auto-update boolean false" | debconf-set-selections
+    - export DEBIAN_FRONTEND=noninteractive
     - apt-get -y update
     - apt-get -y install eatmydata
     - eatmydata apt-get -y install build-essential clang-tools
