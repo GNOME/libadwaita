@@ -7,6 +7,7 @@ stages:
   - test+docs
   - package
   - test-package
+  - publish
 
 before_script:
   - echo "man-db man-db/auto-update boolean false" | debconf-set-selections
@@ -82,10 +83,11 @@ build-gtkdoc:
   script:
     - ninja -C _build meson-libhandy-doc 2>&1 | tee _build/doc/buildlog
     - if grep -qs 'warning' _build/doc/buildlog; then exit 1; fi
+    - mv _build/doc/html/ _reference/
   artifacts:
     when: always
     paths:
-      - _build/doc/html
+      - _reference
 
 unit-test:
   image: debian:buster
@@ -138,3 +140,16 @@ build-flatpak-glade:
     FLATPAK_MODULE: 'libhandy'
     APP_ID: 'sm.puri.Handy.Glade'
     BUNDLE: 'sm.puri.Handy.Glade.flatpak'
+
+pages:
+  stage: publish
+  dependencies:
+    - build-gtkdoc
+  before_script: []
+  script:
+    - mv _reference/ public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
