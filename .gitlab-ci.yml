@@ -64,7 +64,7 @@ build-debian-clang:
       - _build/meson-logs/scanbuild
 
 build-fedora-gcc:
-  image: fedora:29
+  image: fedora:32
   stage: build
   variables:
     BUILD_OPTS: -Dgtk_doc=true --werror
