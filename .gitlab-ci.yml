@@ -9,8 +9,9 @@ stages:
 
 before_script:
   - apt-get -y update
-  - apt-get -y install build-essential libgtk-3-doc libgdk-pixbuf2.0-doc lcov
-  - apt-get -y build-dep .
+  - apt-get -y install eatmydata
+  - eatmydata apt-get -y install build-essential libgtk-3-doc libgdk-pixbuf2.0-doc lcov
+  - eatmydata apt-get -y build-dep .
 
 .build: &build_steps
     echo "BUILD_OPTS=${BUILD_OPTS}" &&
@@ -40,8 +41,9 @@ build-debian-clang:
   image: debian:buster
   before_script:
     - apt-get -y update
-    - apt-get -y install build-essential clang-tools
-    - apt-get -y build-dep .
+    - apt-get -y install eatmydata
+    - eatmydata apt-get -y install build-essential clang-tools
+    - eatmydata apt-get -y build-dep .
   stage: build
   script:
     - export LC_ALL=C.UTF-8
