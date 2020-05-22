@@ -16,10 +16,7 @@
       "buildsystem": "meson",
       "builddir": true,
       "config-opts": [
-        "-Dglade_catalog=disabled",
-        "-Dintrospection=disabled",
-        "-Dtests=false",
-        "-Dvapi=false"
+        "-Dglade_catalog=disabled"
       ],
       "sources": [
         {
