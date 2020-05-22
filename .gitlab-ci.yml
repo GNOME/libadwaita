@@ -6,16 +6,11 @@ stages:
   - test+docs
   - package
   - test-package
-  - deploy
 
 before_script:
   - apt-get -y update
   - apt-get -y install build-essential libgtk-3-doc libgdk-pixbuf2.0-doc lcov
   - apt-get -y build-dep .
-
-.tags: &tags
-  tags:
-    - librem5
 
 .build: &build_steps
     echo "BUILD_OPTS=${BUILD_OPTS}" &&
@@ -24,14 +19,13 @@ before_script:
     ninja -C _build
 
 api-visibility:
-  <<: *tags
+  image: debian:buster
   stage: build
   script:
     - lint/api-visibility.sh
 
 build-debian-gcc:
   image: debian:buster
-  <<: *tags
   stage: build
   variables:
     BUILD_OPTS: -Dgtk_doc=true -Db_coverage=true --werror
@@ -48,7 +42,6 @@ build-debian-clang:
     - apt-get -y update
     - apt-get -y install build-essential clang-tools
     - apt-get -y build-dep .
-  <<: *tags
   stage: build
   script:
     - export LC_ALL=C.UTF-8
@@ -64,7 +57,6 @@ build-debian-clang:
 
 build-fedora-gcc:
   image: fedora:29
-  <<: *tags
   stage: build
   variables:
     BUILD_OPTS: -Dgtk_doc=true --werror
@@ -77,7 +69,6 @@ build-fedora-gcc:
 
 build-gtkdoc:
   image: debian:buster
-  <<: *tags
   stage: test+docs
   dependencies:
     - build-debian-gcc
@@ -91,7 +82,6 @@ build-gtkdoc:
 
 unit-test:
   image: debian:buster
-  <<: *tags
   stage: test+docs
   dependencies:
     - build-debian-gcc
@@ -105,19 +95,17 @@ unit-test:
       - _build
 
 package-debian-buster:
-  extends: .l5-build-debian-package
-
-package-debian-buster:arm64:
-  tags:
-    - librem5:arm64
+  tags: []
   extends: .l5-build-debian-package
 
 autopkgtest-debian-buster-package:
+  tags: []
   dependencies:
     - package-debian-buster
   extends: .l5-autopkgtest-debian-package
 
 lintian-debian-buster-package:
+  tags: []
   dependencies:
     - package-debian-buster
   extends: .l5-lintian-debian-package
@@ -170,28 +158,3 @@ package-flatpak-glade:
       - _build/meson-logs/meson-log.txt
       - sm.puri.Handy.Glade-dev.flatpak
 
-publish-docs:
-  stage: deploy
-  dependencies:
-    - build-gtkdoc
-  environment:
-    name: production
-    url: https://developer.puri.sm/projects/libhandy/
-  before_script:
-    - export DEBIAN_FRONTEND=noninteractive
-    - apt-get -y update
-    - apt-get -y install ssh rsync
-  tags:
-    - librem5
-  script:
-    # Don't publish in forks
-    - '[ "$CI_PROJECT_NAMESPACE" == "Librem5" ] || exit 0'
-    - mkdir -p ~/.ssh/
-    - chmod 0700 ~/.ssh/
-    - echo "$SSH_HOST_KEY" > ~/.ssh/known_hosts
-    - touch ~/.ssh/id_rsa
-    - chmod 0600 ~/.ssh/id_rsa
-    - echo "$SSH_KEY" >> ~/.ssh/id_rsa
-    - rsync -av -i --stats -e "ssh -l $SSH_USER -i ~/.ssh/id_rsa -p $SSH_PORT" _build/doc/html/ "$RSYNC_TARGET"
-  only:
-    - master
