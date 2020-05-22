@@ -1,5 +1,6 @@
 include:
  - 'https://source.puri.sm/Librem5/librem5-ci/raw/master/librem5-pipeline-definitions.yml'
+ - 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
 
 stages:
   - build
@@ -116,51 +117,24 @@ lintian-debian-buster-package:
     - package-debian-buster
   extends: .l5-lintian-debian-package
 
-package-flatpak:
-  image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
-  allow_failure: true
-  tags:
-    - flatpak
-  stage: package
+build-flatpak:
+  extends: '.flatpak'
+  stage: build
+  before_script: []
   variables:
-    app_id: "sm.puri.Handy.Demo"
-    manifest_path: "examples/${app_id}.json"
-  artifacts:
-    paths:
-      - "${app_id}-dev.flatpak"
-    expire_in: 1 day
-  before_script:
-    - flatpak install -y --noninteractive gnome-nightly org.gnome.Sdk org.gnome.Platform
-    - rm -rf _build/
-  script:
-    - bash -x .gitlab-ci/flatpak-build.sh "${app_id}" "${manifest_path}"
-  artifacts:
-    when: always
-    paths:
-      - _build/meson-logs/meson-log.txt
-      - sm.puri.Handy.Demo-dev.flatpak
+    MANIFEST_PATH: 'examples/sm.puri.Handy.Demo.json'
+    RUNTIME_REPO: 'https://nightly.gnome.org/gnome-nightly.flatpakrepo'
+    FLATPAK_MODULE: 'libhandy'
+    APP_ID: 'sm.puri.Handy.Demo'
+    BUNDLE: 'sm.puri.Handy.Demo.flatpak'
 
-package-flatpak-glade:
-  image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
-  allow_failure: true
-  tags:
-    - flatpak
-  stage: package
+build-flatpak-glade:
+  extends: '.flatpak'
+  stage: build
+  before_script: []
   variables:
-    app_id: "sm.puri.Handy.Glade"
-    manifest_path: "glade/${app_id}.json"
-  artifacts:
-    paths:
-      - "${app_id}-dev.flatpak"
-    expire_in: 1 day
-  before_script:
-    - flatpak install -y --noninteractive gnome-nightly org.gnome.Sdk org.gnome.Platform
-    - rm -rf _build/
-  script:
-    - bash -x .gitlab-ci/flatpak-build.sh "${app_id}" "${manifest_path}"
-  artifacts:
-    when: always
-    paths:
-      - _build/meson-logs/meson-log.txt
-      - sm.puri.Handy.Glade-dev.flatpak
-
+    MANIFEST_PATH: 'glade/sm.puri.Handy.Glade.json'
+    RUNTIME_REPO: 'https://nightly.gnome.org/gnome-nightly.flatpakrepo'
+    FLATPAK_MODULE: 'libhandy'
+    APP_ID: 'sm.puri.Handy.Glade'
+    BUNDLE: 'sm.puri.Handy.Glade.flatpak'
