@@ -67,7 +67,7 @@ build-fedora-gcc:
   image: fedora:32
   stage: build
   variables:
-    BUILD_OPTS: -Dgtk_doc=true --werror
+    BUILD_OPTS: -Dgtk_doc=true
   before_script:
     - dnf -y update
     - dnf -y install @development-tools redhat-rpm-config dnf-plugins-core
