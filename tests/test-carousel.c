@@ -268,19 +268,19 @@ test_hdy_carousel_allow_mouse_drag (void)
   g_signal_connect (carousel, "notify::allow-mouse-drag", G_CALLBACK (notify_cb), NULL);
 
   /* Accessors */
-  g_assert_false (hdy_carousel_get_allow_mouse_drag (carousel));
-  hdy_carousel_set_allow_mouse_drag (carousel, TRUE);
   g_assert_true (hdy_carousel_get_allow_mouse_drag (carousel));
+  hdy_carousel_set_allow_mouse_drag (carousel, FALSE);
+  g_assert_false (hdy_carousel_get_allow_mouse_drag (carousel));
   g_assert_cmpint (notified, ==, 1);
 
   /* Property */
-  g_object_set (carousel, "allow-mouse-drag", FALSE, NULL);
+  g_object_set (carousel, "allow-mouse-drag", TRUE, NULL);
   g_object_get (carousel, "allow-mouse-drag", &allow_mouse_drag, NULL);
-  g_assert_false (allow_mouse_drag);
+  g_assert_true (allow_mouse_drag);
   g_assert_cmpint (notified, ==, 2);
 
   /* Setting the same value should not notify */
-  hdy_carousel_set_allow_mouse_drag (carousel, FALSE);
+  hdy_carousel_set_allow_mouse_drag (carousel, TRUE);
   g_assert_cmpint (notified, ==, 2);
 }
 

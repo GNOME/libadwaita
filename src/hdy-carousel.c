@@ -912,15 +912,13 @@ hdy_carousel_class_init (HdyCarouselClass *klass)
    * Sets whether the #HdyCarousel can be dragged with mouse pointer. If the
    * value is %FALSE, dragging is only available on touch.
    *
-   * This should usually be %FALSE.
-   *
    * Since: 1.0
    */
   props[PROP_ALLOW_MOUSE_DRAG] =
     g_param_spec_boolean ("allow-mouse-drag",
                           _("Allow mouse drag"),
                           _("Whether to allow dragging with mouse pointer"),
-                          FALSE,
+                          TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_override_property (object_class,
@@ -974,6 +972,7 @@ hdy_carousel_init (HdyCarousel *self)
   self->animation_duration = DEFAULT_DURATION;
 
   self->tracker = hdy_swipe_tracker_new (HDY_SWIPEABLE (self));
+  hdy_swipe_tracker_set_allow_mouse_drag (self->tracker, TRUE);
   self->can_scroll = TRUE;
 
   /*
@@ -1429,8 +1428,6 @@ hdy_carousel_get_allow_mouse_drag (HdyCarousel *self)
  *
  * Sets whether @self can be dragged with mouse pointer. If @allow_mouse_drag
  * is %FALSE, dragging is only available on touch.
- *
- * This should usually be %FALSE.
  *
  * Since: 1.0
  */
