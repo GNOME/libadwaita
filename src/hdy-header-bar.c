@@ -2248,6 +2248,7 @@ static void
 hdy_header_bar_init (HdyHeaderBar *self)
 {
   HdyHeaderBarPrivate *priv;
+  GtkStyleContext *context;
 
   priv = hdy_header_bar_get_instance_private (self);
 
@@ -2265,6 +2266,10 @@ hdy_header_bar_init (HdyHeaderBar *self)
   construct_label_box (self);
 
   priv->controller = hdy_window_handle_controller_new (GTK_WIDGET (self));
+
+  context = gtk_widget_get_style_context (GTK_WIDGET (self));
+  /* Ensure the widget has the titlebar style class. */
+  gtk_style_context_add_class (context, "titlebar");
 }
 
 static void
