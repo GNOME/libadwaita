@@ -254,6 +254,13 @@ if introspection
      )
 
    endif
+
+   python = import('python')
+   python3 = python.find_installation('python3')
+
+   python3.install_sources('Handy.py',
+                   subdir: 'gi/overrides',
+   )
 endif
 
 pkgg = import('pkgconfig')
