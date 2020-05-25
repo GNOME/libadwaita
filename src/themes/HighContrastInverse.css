@@ -23,8 +23,6 @@ row.expander:checked image.expander-row-arrow:not(:disabled) { color: #0f3b71; }
 
 row.expander image.expander-row-arrow:disabled { color: #919191; }
 
-preferencespage label.h4 { font-weight: bold; }
-
 deck > dimming, leaflet > dimming { background: rgba(0, 0, 0, 0.24); }
 
 deck > border, leaflet > border { min-width: 1px; min-height: 1px; background: #686868; }
