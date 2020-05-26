@@ -16,7 +16,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_KEYPAD (hdy_keypad_get_type())
 
-G_DECLARE_DERIVABLE_TYPE (HdyKeypad, hdy_keypad, HDY, KEYPAD, GtkGrid)
+G_DECLARE_DERIVABLE_TYPE (HdyKeypad, hdy_keypad, HDY, KEYPAD, GtkBin)
 
 /**
  * HdyKeypadClass:
@@ -24,7 +24,7 @@ G_DECLARE_DERIVABLE_TYPE (HdyKeypad, hdy_keypad, HDY, KEYPAD, GtkGrid)
  */
 struct _HdyKeypadClass
 {
-  GtkGridClass parent_class;
+  GtkBinClass parent_class;
 };
 
 GtkWidget       *hdy_keypad_new                     (gboolean only_digits,

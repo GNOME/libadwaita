@@ -226,6 +226,14 @@
       </para>
     </refsect3>
 
+    <refsect3>
+      <title>Adapt to HdyKeypad API changes</title>
+      <para>
+        #HdyKeypad doesn't subclass #Gtkgrid anymore. Instead, it subclasses
+        #GtkBin and contains a grid.
+      </para>
+    </refsect3>
+
   </refsect2>
 
 </refentry>

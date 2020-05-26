@@ -29,6 +29,7 @@
 typedef struct
 {
   GtkWidget *entry;
+  GtkWidget *grid;
   GtkWidget *label_asterisk;
   GtkWidget *label_hash;
   GtkGesture *long_press_zero_gesture;
@@ -36,7 +37,7 @@ typedef struct
   gboolean show_symbols;
 } HdyKeypadPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyKeypad, hdy_keypad, GTK_TYPE_GRID)
+G_DEFINE_TYPE_WITH_PRIVATE (HdyKeypad, hdy_keypad, GTK_TYPE_BIN)
 
 enum {
   PROP_0,
@@ -277,6 +278,7 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-keypad.ui");
+  gtk_widget_class_bind_template_child_private (widget_class, HdyKeypad, grid);
   gtk_widget_class_bind_template_child_private (widget_class, HdyKeypad, label_asterisk);
   gtk_widget_class_bind_template_child_private (widget_class, HdyKeypad, label_hash);
   gtk_widget_class_bind_template_child_private (widget_class, HdyKeypad, long_press_zero_gesture);
@@ -423,20 +425,23 @@ void
 hdy_keypad_set_left_action (HdyKeypad *self,
                             GtkWidget *widget)
 {
+  HdyKeypadPrivate *priv;
   GtkWidget *old_widget;
 
   g_return_if_fail (HDY_IS_KEYPAD (self));
 
-  old_widget = gtk_grid_get_child_at (GTK_GRID (self), 0, 3);
+  priv = hdy_keypad_get_instance_private (self);
+
+  old_widget = gtk_grid_get_child_at (GTK_GRID (priv->grid), 0, 3);
 
   if (old_widget == widget)
     return;
 
   if (old_widget != NULL)
-    gtk_container_remove (GTK_CONTAINER (self), old_widget);
+    gtk_container_remove (GTK_CONTAINER (priv->grid), old_widget);
 
   if (widget != NULL)
-    gtk_grid_attach (GTK_GRID (self), widget, 0, 3, 1, 1);
+    gtk_grid_attach (GTK_GRID (priv->grid), widget, 0, 3, 1, 1);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_LEFT_ACTION]);
 }
@@ -454,20 +459,23 @@ void
 hdy_keypad_set_right_action (HdyKeypad *self,
                              GtkWidget *widget)
 {
+  HdyKeypadPrivate *priv;
   GtkWidget *old_widget;
 
   g_return_if_fail (HDY_IS_KEYPAD (self));
 
-  old_widget = gtk_grid_get_child_at (GTK_GRID (self), 2, 3);
+  priv = hdy_keypad_get_instance_private (self);
+
+  old_widget = gtk_grid_get_child_at (GTK_GRID (priv->grid), 2, 3);
 
   if (old_widget == widget)
     return;
 
   if (old_widget != NULL)
-    gtk_container_remove (GTK_CONTAINER (self), old_widget);
+    gtk_container_remove (GTK_CONTAINER (priv->grid), old_widget);
 
   if (widget != NULL)
-    gtk_grid_attach (GTK_GRID (self), widget, 2, 3, 1, 1);
+    gtk_grid_attach (GTK_GRID (priv->grid), widget, 2, 3, 1, 1);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_RIGHT_ACTION]);
 }
