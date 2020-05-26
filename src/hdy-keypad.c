@@ -50,15 +50,19 @@ enum {
 static GParamSpec *props[PROP_LAST_PROP];
 
 static void
-symbol_clicked (HdyKeypad     *self,
-                gchar          symbol)
+symbol_clicked (HdyKeypad *self,
+                gchar      symbol)
 {
   HdyKeypadPrivate *priv;
   g_autofree gchar *string = g_strdup_printf ("%c", symbol);
+
   g_return_if_fail (HDY_IS_KEYPAD (self));
+
   priv = hdy_keypad_get_instance_private (self);
+
   g_return_if_fail (priv->entry != NULL);
-  g_signal_emit_by_name(GTK_ENTRY (priv->entry), "insert-at-cursor", string, NULL);
+
+  g_signal_emit_by_name (GTK_ENTRY (priv->entry), "insert-at-cursor", string, NULL);
   /* Set focus to the entry only when it can get focus
    * https://gitlab.gnome.org/GNOME/gtk/issues/2204
    */
@@ -70,7 +74,7 @@ symbol_clicked (HdyKeypad     *self,
 
 static void
 button_clicked_cb (HdyKeypad       *self,
-                      HdyKeypadButton *btn)
+                   HdyKeypadButton *btn)
 {
   gchar digit;
 
@@ -106,23 +110,23 @@ hash_button_clicked_cb (HdyKeypad *self,
 
 
 static void
-insert_text_cb (HdyKeypad *self,
-               gchar       *text,
-               gint         length,
-               gpointer     position,
-               GtkEditable  *editable)
+insert_text_cb (HdyKeypad   *self,
+                gchar       *text,
+                gint         length,
+                gpointer     position,
+                GtkEditable *editable)
 {
   HdyKeypadPrivate *priv;
 
   g_return_if_fail (HDY_IS_KEYPAD (self));
-  priv = hdy_keypad_get_instance_private (self);
-
   g_return_if_fail (length == 1);
+
+  priv = hdy_keypad_get_instance_private (self);
 
   if (g_ascii_isdigit (*text))
      return;
 
-  if (!priv->only_digits && strchr("#*+", *text))
+  if (!priv->only_digits && strchr ("#*+", *text))
      return;
 
   g_signal_stop_emission_by_name (editable, "insert-text");
@@ -138,6 +142,7 @@ long_press_zero_cb (HdyKeypad  *self,
   HdyKeypadPrivate *priv;
 
   g_return_if_fail (HDY_IS_KEYPAD (self));
+
   priv = hdy_keypad_get_instance_private (self);
 
   if (priv->only_digits)
@@ -162,7 +167,6 @@ hdy_keypad_set_property (GObject      *object,
   case PROP_SHOW_SYMBOLS:
     hdy_keypad_show_symbols (self, g_value_get_boolean (value));
     break;
-
   case PROP_ONLY_DIGITS:
     if (g_value_get_boolean (value) != priv->only_digits) {
       priv->only_digits = g_value_get_boolean (value);
@@ -172,15 +176,12 @@ hdy_keypad_set_property (GObject      *object,
   case PROP_ENTRY:
     hdy_keypad_set_entry (self, g_value_get_object (value));
     break;
-
   case PROP_RIGHT_ACTION:
     hdy_keypad_set_right_action (self, g_value_get_object (value));
     break;
-
   case PROP_LEFT_ACTION:
     hdy_keypad_set_left_action (self, g_value_get_object (value));
     break;
-
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
     break;
@@ -201,15 +202,12 @@ hdy_keypad_get_property (GObject    *object,
   case PROP_SHOW_SYMBOLS:
     g_value_set_boolean (value, priv->show_symbols);
     break;
-
   case PROP_ONLY_DIGITS:
     g_value_set_boolean (value, priv->only_digits);
     break;
-
   case PROP_ENTRY:
     g_value_set_object (value, priv->entry);
     break;
-
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
     break;
@@ -283,10 +281,10 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyKeypad, label_hash);
   gtk_widget_class_bind_template_child_private (widget_class, HdyKeypad, long_press_zero_gesture);
 
-  gtk_widget_class_bind_template_callback(widget_class, button_clicked_cb);
-  gtk_widget_class_bind_template_callback(widget_class, asterisk_button_clicked_cb);
-  gtk_widget_class_bind_template_callback(widget_class, hash_button_clicked_cb);
-  gtk_widget_class_bind_template_callback(widget_class, long_press_zero_cb);
+  gtk_widget_class_bind_template_callback (widget_class, button_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, asterisk_button_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, hash_button_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, long_press_zero_cb);
 
   gtk_widget_class_set_accessible_role (widget_class, ATK_ROLE_DIAL);
   gtk_widget_class_set_css_name (widget_class, "keypad");
@@ -330,9 +328,10 @@ hdy_keypad_new (gboolean only_digits,
  *
  */
 void
-hdy_keypad_show_symbols (HdyKeypad *self, gboolean visible)
+hdy_keypad_show_symbols (HdyKeypad *self,
+                         gboolean   visible)
 {
-  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private(self);
+  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
 
   g_return_if_fail (HDY_IS_KEYPAD (self));
 
@@ -355,14 +354,16 @@ hdy_keypad_show_symbols (HdyKeypad *self, gboolean visible)
  *
  */
 void
-hdy_keypad_set_entry (HdyKeypad *self, GtkEntry *entry)
+hdy_keypad_set_entry (HdyKeypad *self,
+                      GtkEntry  *entry)
 {
   HdyKeypadPrivate *priv;
 
   g_return_if_fail (HDY_IS_KEYPAD (self));
   g_return_if_fail (GTK_IS_ENTRY (entry));
 
-  priv = hdy_keypad_get_instance_private(self);
+  priv = hdy_keypad_get_instance_private (self);
+
   if (priv->entry != NULL) {
     g_object_unref (priv->entry);
   }
@@ -404,7 +405,7 @@ hdy_keypad_get_entry (HdyKeypad *self)
 
   g_return_val_if_fail (HDY_IS_KEYPAD (self), NULL);
 
-  priv = hdy_keypad_get_instance_private(self);
+  priv = hdy_keypad_get_instance_private (self);
 
   return priv->entry;
 }
@@ -419,9 +420,11 @@ hdy_keypad_get_entry (HdyKeypad *self)
  *
  */
 void
-hdy_keypad_set_left_action (HdyKeypad *self, GtkWidget *widget)
+hdy_keypad_set_left_action (HdyKeypad *self,
+                            GtkWidget *widget)
 {
   GtkWidget *old_widget;
+
   g_return_if_fail (HDY_IS_KEYPAD (self));
 
   old_widget = gtk_grid_get_child_at (GTK_GRID (self), 0, 3);
@@ -448,9 +451,11 @@ hdy_keypad_set_left_action (HdyKeypad *self, GtkWidget *widget)
  *
  */
 void
-hdy_keypad_set_right_action (HdyKeypad *self, GtkWidget *widget)
+hdy_keypad_set_right_action (HdyKeypad *self,
+                             GtkWidget *widget)
 {
   GtkWidget *old_widget;
+
   g_return_if_fail (HDY_IS_KEYPAD (self));
 
   old_widget = gtk_grid_get_child_at (GTK_GRID (self), 2, 3);
