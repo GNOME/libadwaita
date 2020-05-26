@@ -7,8 +7,6 @@
     <property name="vexpand">False</property>
     <property name="column_homogeneous">True</property>
     <property name="column_homogeneous">True</property>
-    <property name="show_symbols">True</property>
-    <property name="only_digits">False</property>
     <child>
       <object class="HdyKeypadButton" id="btn_1">
         <property name="symbols">1</property>
