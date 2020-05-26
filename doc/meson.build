@@ -65,7 +65,7 @@ gnome.gtkdoc('libhandy',
                        '--extra-dir=@0@'.format(glib_docpath / 'gtk3'),
                        '--extra-dir=@0@'.format(glib_docpath / 'gdk-pixbuf'),
                      ],
-        install_dir: 'libhandy',
+        install_dir: 'libhandy-' + apiversion,
       content_files: content_files,
         html_assets: images,
             install: true)
