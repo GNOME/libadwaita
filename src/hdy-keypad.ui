@@ -8,6 +8,8 @@
         <property name="can_focus">True</property>
         <property name="hexpand">False</property>
         <property name="vexpand">False</property>
+        <property name="row-spacing" bind-source="HdyKeypad" bind-property="row-spacing" bind-flags="sync-create"/>
+        <property name="column-spacing" bind-source="HdyKeypad" bind-property="column-spacing" bind-flags="sync-create"/>
         <property name="column_homogeneous">True</property>
         <property name="column_homogeneous">True</property>
         <child>

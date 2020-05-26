@@ -33,6 +33,8 @@ typedef struct
   GtkWidget *label_asterisk;
   GtkWidget *label_hash;
   GtkGesture *long_press_zero_gesture;
+  guint16 row_spacing;
+  guint16 column_spacing;
   gboolean only_digits;
   gboolean show_symbols;
 } HdyKeypadPrivate;
@@ -41,6 +43,8 @@ G_DEFINE_TYPE_WITH_PRIVATE (HdyKeypad, hdy_keypad, GTK_TYPE_BIN)
 
 enum {
   PROP_0,
+  PROP_ROW_SPACING,
+  PROP_COLUMN_SPACING,
   PROP_SHOW_SYMBOLS,
   PROP_ONLY_DIGITS,
   PROP_ENTRY,
@@ -165,6 +169,14 @@ hdy_keypad_set_property (GObject      *object,
   HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
 
   switch (property_id) {
+  case PROP_ROW_SPACING:
+    hdy_keypad_set_row_spacing (self, g_value_get_uint (value));
+    break;
+
+  case PROP_COLUMN_SPACING:
+    hdy_keypad_set_column_spacing (self, g_value_get_uint (value));
+    break;
+
   case PROP_SHOW_SYMBOLS:
     hdy_keypad_show_symbols (self, g_value_get_boolean (value));
     break;
@@ -200,6 +212,14 @@ hdy_keypad_get_property (GObject    *object,
   HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
 
   switch (property_id) {
+  case PROP_ROW_SPACING:
+    g_value_set_uint (value, priv->row_spacing);
+    break;
+
+  case PROP_COLUMN_SPACING:
+    g_value_set_uint (value, priv->column_spacing);
+    break;
+
   case PROP_SHOW_SYMBOLS:
     g_value_set_boolean (value, priv->show_symbols);
     break;
@@ -238,6 +258,20 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
 
   object_class->set_property = hdy_keypad_set_property;
   object_class->get_property = hdy_keypad_get_property;
+
+  props[PROP_ROW_SPACING] =
+    g_param_spec_uint ("row-spacing",
+                       _("Row spacing"),
+                       _("The amount of space between two consecutive rows"),
+                       0, G_MAXINT16, 0,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_COLUMN_SPACING] =
+    g_param_spec_uint ("column-spacing",
+                       _("Column spacing"),
+                       _("The amount of space between two consecutive columns"),
+                       0, G_MAXINT16, 0,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_SHOW_SYMBOLS] =
     g_param_spec_boolean ("show-symbols",
@@ -318,6 +352,101 @@ hdy_keypad_new (gboolean only_digits,
                        "only-digits", only_digits,
                        "show-symbols", show_symbols,
                        NULL);
+}
+
+/**
+ * hdy_keypad_set_row_spacing:
+ * @self: a #HdyKeypad
+ * @spacing: the amount of space to insert between rows
+ *
+ * Sets the amount of space between rows of @self.
+ */
+void
+hdy_keypad_set_row_spacing (HdyKeypad *self,
+                            guint      spacing)
+{
+  HdyKeypadPrivate *priv;
+
+  g_return_if_fail (HDY_IS_KEYPAD (self));
+  g_return_if_fail (spacing <= G_MAXINT16);
+
+  priv = hdy_keypad_get_instance_private (self);
+
+  if (priv->row_spacing == spacing)
+    return;
+
+  priv->row_spacing = spacing;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ROW_SPACING]);
+}
+
+
+/**
+ * hdy_keypad_get_row_spacing:
+ * @self: a #HdyKeypad
+ *
+ * Returns the amount of space between the rows of @self.
+ *
+ * Returns: the row spacing of @self
+ */
+guint
+hdy_keypad_get_row_spacing (HdyKeypad *self)
+{
+  HdyKeypadPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_KEYPAD (self), 0);
+
+  priv = hdy_keypad_get_instance_private (self);
+
+  return priv->row_spacing;
+}
+
+
+/**
+ * hdy_keypad_set_column_spacing:
+ * @self: a #HdyKeypad
+ * @spacing: the amount of space to insert between columns
+ *
+ * Sets the amount of space between columns of @self.
+ */
+void
+hdy_keypad_set_column_spacing (HdyKeypad *self,
+                               guint      spacing)
+{
+  HdyKeypadPrivate *priv;
+
+  g_return_if_fail (HDY_IS_KEYPAD (self));
+  g_return_if_fail (spacing <= G_MAXINT16);
+
+  priv = hdy_keypad_get_instance_private (self);
+
+  if (priv->column_spacing == spacing)
+    return;
+
+  priv->column_spacing = spacing;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_COLUMN_SPACING]);
+}
+
+
+/**
+ * hdy_keypad_get_column_spacing:
+ * @self: a #HdyKeypad
+ *
+ * Returns the amount of space between the columns of @self.
+ *
+ * Returns: the column spacing of @self
+ */
+guint
+hdy_keypad_get_column_spacing (HdyKeypad *self)
+{
+  HdyKeypadPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_KEYPAD (self), 0);
+
+  priv = hdy_keypad_get_instance_private (self);
+
+  return priv->column_spacing;
 }
 
 
