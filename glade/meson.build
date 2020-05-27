@@ -39,7 +39,7 @@ libglade_hdy_deps = [
 libglade_hdy_args = []
 # Our custom glade module
 libglade_hdy = shared_library(
-  'glade-handy',
+  'glade-handy-' + apiversion,
   libglade_hdy_sources,
                c_args: libglade_hdy_args,
          dependencies: libglade_hdy_deps,
@@ -61,6 +61,9 @@ if xmllint.found()
 endif
 
 # Install glade catalog
-install_data(glade_xml, install_dir: glade_catalogdir)
+install_data(
+  glade_xml,
+       rename: 'libhandy-@0@.xml'.format(apiversion),
+  install_dir: glade_catalogdir)
 
 endif

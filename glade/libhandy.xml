@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<glade-catalog name="libhandy" library="glade-handy" depends="gtk+" book="libhandy">
+<glade-catalog name="libhandy" library="glade-handy-1" depends="gtk+" book="libhandy">
   <glade-widget-classes>
     <glade-widget-class name="HdyActionRow" generic-name="actionrow" title="Action Row" since="0.0.6">
       <properties>
