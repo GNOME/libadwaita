@@ -10,7 +10,6 @@
 
 #include "gtkprogresstrackerprivate.h"
 #include "hdy-animation-private.h"
-#include "hdy-cairo-private.h"
 #include "hdy-enums-private.h"
 #include "hdy-stackable-box-private.h"
 #include "hdy-shadow-helper-private.h"
@@ -89,6 +88,7 @@ typedef struct _HdyStackableBoxChildInfo HdyStackableBoxChildInfo;
 struct _HdyStackableBoxChildInfo
 {
   GtkWidget *widget;
+  GdkWindow *window;
   gchar *name;
   gboolean allow_visible;
 
@@ -116,7 +116,6 @@ struct _HdyStackableBox
   HdyStackableBoxChildInfo *visible_child;
   HdyStackableBoxChildInfo *last_visible_child;
 
-  GdkWindow* bin_window;
   GdkWindow* view_window;
 
   gboolean folded;
@@ -124,8 +123,6 @@ struct _HdyStackableBox
   gboolean homogeneous[HDY_FOLD_MAX][GTK_ORIENTATION_MAX];
 
   GtkOrientation orientation;
-
-  gboolean move_bin_window_request;
 
   HdyStackableBoxTransitionType transition_type;
 
@@ -138,14 +135,7 @@ struct _HdyStackableBox
     gdouble source_pos;
     gdouble target_pos;
 
-    cairo_surface_t *start_surface;
-    GtkAllocation start_surface_allocation;
-    gdouble start_distance;
     gdouble start_progress;
-    cairo_surface_t *end_surface;
-    GtkAllocation end_surface_allocation;
-    GtkAllocation end_surface_clip;
-    gdouble end_distance;
     gdouble end_progress;
     guint tick_id;
     GtkProgressTracker tracker;
@@ -162,20 +152,14 @@ struct _HdyStackableBox
     gboolean is_gesture_active;
     gboolean is_cancelled;
 
-    cairo_surface_t *last_visible_surface;
-    GtkAllocation last_visible_surface_allocation;
     guint tick_id;
     GtkProgressTracker tracker;
     gboolean first_frame_skipped;
-
-    gint last_visible_widget_width;
-    gint last_visible_widget_height;
 
     gboolean interpolate_size;
     gboolean can_swipe_back;
     gboolean can_swipe_forward;
 
-    gboolean is_active;
     GtkPanDirection active_direction;
     gboolean is_direct_swipe;
     gint swipe_direction;
@@ -245,34 +229,6 @@ get_directed_children (HdyStackableBox *self)
          self->children_reversed : self->children;
 }
 
-/* Transitions that cause the bin window to move */
-static inline gboolean
-is_window_moving_child_transition (HdyStackableBox *self)
-{
-  GtkPanDirection direction;
-  gboolean is_rtl;
-  GtkPanDirection left_or_right, right_or_left;
-
-  if (!self->child_transition.is_active)
-    return FALSE;
-
-  direction = self->child_transition.active_direction;
-  is_rtl = gtk_widget_get_direction (GTK_WIDGET (self->container)) == GTK_TEXT_DIR_RTL;
-  left_or_right = is_rtl ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_LEFT;
-  right_or_left = is_rtl ? GTK_PAN_DIRECTION_LEFT : GTK_PAN_DIRECTION_RIGHT;
-
-  switch (self->transition_type) {
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
-    return direction == GTK_PAN_DIRECTION_UP || direction == left_or_right;
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER:
-    return direction == GTK_PAN_DIRECTION_DOWN || direction == right_or_left;
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
-    return TRUE;
-  default:
-    g_assert_not_reached ();
-  }
-}
-
 static GtkPanDirection
 get_pan_direction (HdyStackableBox *self,
                    gboolean         new_child_first)
@@ -288,69 +244,85 @@ get_pan_direction (HdyStackableBox *self,
 }
 
 static gint
-get_bin_window_x (HdyStackableBox     *self,
-                  const GtkAllocation *allocation)
+get_child_window_x (HdyStackableBox          *self,
+                    HdyStackableBoxChildInfo *child_info,
+                    gint                      width)
 {
-  int x = 0;
+  gboolean is_rtl;
+  gint rtl_multiplier;
 
-  if (self->child_transition.is_gesture_active ||
-      gtk_progress_tracker_get_state (&self->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
-    if (self->child_transition.active_direction == GTK_PAN_DIRECTION_LEFT)
-      x = allocation->width * (1 - self->child_transition.progress);
-    if (self->child_transition.active_direction == GTK_PAN_DIRECTION_RIGHT)
-      x = -allocation->width * (1 - self->child_transition.progress);
+  if (!self->child_transition.is_gesture_active &&
+      gtk_progress_tracker_get_state (&self->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER)
+    return 0;
+
+  if (self->child_transition.active_direction != GTK_PAN_DIRECTION_LEFT &&
+      self->child_transition.active_direction != GTK_PAN_DIRECTION_RIGHT)
+    return 0;
+
+  is_rtl = gtk_widget_get_direction (GTK_WIDGET (self->container)) == GTK_TEXT_DIR_RTL;
+  rtl_multiplier = is_rtl ? -1 : 1;
+
+  if ((self->child_transition.active_direction == GTK_PAN_DIRECTION_RIGHT) == is_rtl) {
+    if ((self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER ||
+         self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE) &&
+        child_info == self->visible_child)
+      return width * (1 - self->child_transition.progress) * rtl_multiplier;
+
+    if ((self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER ||
+         self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE) &&
+        child_info == self->last_visible_child)
+      return -width * self->child_transition.progress * rtl_multiplier;
+  } else {
+    if ((self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER ||
+         self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE) &&
+        child_info == self->visible_child)
+      return -width * (1 - self->child_transition.progress) * rtl_multiplier;
+
+    if ((self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER ||
+         self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE) &&
+        child_info == self->last_visible_child)
+      return width * self->child_transition.progress * rtl_multiplier;
   }
 
-  return x;
+  return 0;
 }
 
 static gint
-get_bin_window_y (HdyStackableBox     *self,
-                  const GtkAllocation *allocation)
+get_child_window_y (HdyStackableBox          *self,
+                    HdyStackableBoxChildInfo *child_info,
+                    gint                      height)
 {
-  int y = 0;
+  if (!self->child_transition.is_gesture_active &&
+      gtk_progress_tracker_get_state (&self->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER)
+    return 0;
 
-  if (self->child_transition.is_gesture_active ||
-      gtk_progress_tracker_get_state (&self->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
-    if (self->child_transition.active_direction == GTK_PAN_DIRECTION_UP)
-      y = allocation->height * (1 - self->child_transition.progress);
-    if (self->child_transition.active_direction == GTK_PAN_DIRECTION_DOWN)
-      y = -allocation->height * (1 - self->child_transition.progress);
+  if (self->child_transition.active_direction != GTK_PAN_DIRECTION_UP &&
+      self->child_transition.active_direction != GTK_PAN_DIRECTION_DOWN)
+    return 0;
+
+  if (self->child_transition.active_direction == GTK_PAN_DIRECTION_UP) {
+    if ((self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER ||
+         self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE) &&
+        child_info == self->visible_child)
+      return height * (1 - self->child_transition.progress);
+
+    if ((self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER ||
+         self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE) &&
+        child_info == self->last_visible_child)
+      return -height * self->child_transition.progress;
+  } else {
+    if ((self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER ||
+         self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE) &&
+        child_info == self->visible_child)
+      return -height * (1 - self->child_transition.progress);
+
+    if ((self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER ||
+         self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE) &&
+        child_info == self->last_visible_child)
+      return height * self->child_transition.progress;
   }
 
-  return y;
-}
-
-static void
-move_resize_bin_window (HdyStackableBox *self,
-                        GtkAllocation   *allocation,
-                        gboolean         resize)
-{
-  GtkAllocation alloc;
-  gboolean move;
-
-  if (self->bin_window == NULL)
-    return;
-
-  if (allocation == NULL) {
-    gtk_widget_get_allocation (GTK_WIDGET (self->container), &alloc);
-    allocation = &alloc;
-  }
-
-  move = self->move_bin_window_request || is_window_moving_child_transition (self);
-
-  if (move && resize)
-    gdk_window_move_resize (self->bin_window,
-                            get_bin_window_x (self, allocation), get_bin_window_y (self, allocation),
-                            allocation->width, allocation->height);
-  else if (move)
-    gdk_window_move (self->bin_window,
-                     get_bin_window_x (self, allocation), get_bin_window_y (self, allocation));
-  else if (resize)
-    gdk_window_resize (self->bin_window,
-                       allocation->width, allocation->height);
-
-  self->move_bin_window_request = FALSE;
+  return 0;
 }
 
 static void
@@ -361,16 +333,11 @@ hdy_stackable_box_child_progress_updated (HdyStackableBox *self)
   if (!self->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL] ||
       !self->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL])
     gtk_widget_queue_resize (GTK_WIDGET (self->container));
-
-  move_resize_bin_window (self, NULL, FALSE);
+  else
+    gtk_widget_queue_allocate (GTK_WIDGET (self->container));
 
   if (!self->child_transition.is_gesture_active &&
       gtk_progress_tracker_get_state (&self->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER) {
-    if (self->child_transition.last_visible_surface != NULL) {
-      cairo_surface_destroy (self->child_transition.last_visible_surface);
-      self->child_transition.last_visible_surface = NULL;
-    }
-
     if (self->child_transition.is_cancelled) {
       if (self->last_visible_child != NULL) {
         if (self->folded) {
@@ -462,12 +429,7 @@ static void
 hdy_stackable_box_stop_child_transition (HdyStackableBox *self)
 {
   hdy_stackable_box_unschedule_child_ticks (self);
-  self->child_transition.is_active = FALSE;
   gtk_progress_tracker_finish (&self->child_transition.tracker);
-  if (self->child_transition.last_visible_surface != NULL) {
-    cairo_surface_destroy (self->child_transition.last_visible_surface);
-    self->child_transition.last_visible_surface = NULL;
-  }
   if (self->last_visible_child != NULL) {
     gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
     self->last_visible_child = NULL;
@@ -475,9 +437,6 @@ hdy_stackable_box_stop_child_transition (HdyStackableBox *self)
 
   self->child_transition.swipe_direction = 0;
   hdy_shadow_helper_clear_cache (self->shadow_helper);
-
-  /* Move the bin window back in place as a child transition might have moved it. */
-  self->move_bin_window_request = TRUE;
 }
 
 static void
@@ -494,7 +453,6 @@ hdy_stackable_box_start_child_transition (HdyStackableBox *self,
       self->last_visible_child != NULL &&
       /* Don't animate child transition when a mode transition is ongoing. */
       self->mode_transition.tick_id == 0) {
-    self->child_transition.is_active = TRUE;
     self->child_transition.active_direction = transition_direction;
     self->child_transition.first_frame_skipped = FALSE;
     self->child_transition.start_progress = 0;
@@ -512,7 +470,6 @@ hdy_stackable_box_start_child_transition (HdyStackableBox *self,
   }
   else {
     hdy_stackable_box_unschedule_child_ticks (self);
-    self->child_transition.is_active = FALSE;
     gtk_progress_tracker_finish (&self->child_transition.tracker);
   }
 
@@ -576,21 +533,11 @@ set_visible_child_info (HdyStackableBox               *self,
     gtk_widget_set_child_visible (self->last_visible_child->widget, !self->folded);
   self->last_visible_child = NULL;
 
-  if (self->child_transition.last_visible_surface != NULL)
-    cairo_surface_destroy (self->child_transition.last_visible_surface);
-  self->child_transition.last_visible_surface = NULL;
-
   hdy_shadow_helper_clear_cache (self->shadow_helper);
 
   if (self->visible_child && self->visible_child->widget) {
-    if (gtk_widget_is_visible (widget)) {
-      GtkAllocation allocation;
-
+    if (gtk_widget_is_visible (widget))
       self->last_visible_child = self->visible_child;
-      gtk_widget_get_allocated_size (self->last_visible_child->widget, &allocation, NULL);
-      self->child_transition.last_visible_widget_width = allocation.width;
-      self->child_transition.last_visible_widget_height = allocation.height;
-    }
     else
       gtk_widget_set_child_visible (self->visible_child->widget, !self->folded);
   }
@@ -667,19 +614,6 @@ set_visible_child_info (HdyStackableBox               *self,
 }
 
 static void
-get_padding (GtkWidget *widget,
-             GtkBorder *padding)
-{
-  GtkStyleContext *context;
-  GtkStateFlags state;
-
-  context = gtk_widget_get_style_context (widget);
-  state = gtk_style_context_get_state (context);
-
-  gtk_style_context_get_padding (context, state, padding);
-}
-
-static void
 hdy_stackable_box_set_position (HdyStackableBox *self,
                                 gdouble          pos)
 {
@@ -706,19 +640,8 @@ hdy_stackable_box_set_position (HdyStackableBox *self,
 static void
 hdy_stackable_box_mode_progress_updated (HdyStackableBox *self)
 {
-  if (gtk_progress_tracker_get_state (&self->mode_transition.tracker) == GTK_PROGRESS_STATE_AFTER) {
-    if (self->mode_transition.start_surface != NULL) {
-      cairo_surface_destroy (self->mode_transition.start_surface);
-      self->mode_transition.start_surface = NULL;
-    }
-
-    if (self->mode_transition.end_surface != NULL) {
-      cairo_surface_destroy (self->mode_transition.end_surface);
-      self->mode_transition.end_surface = NULL;
-    }
-
+  if (gtk_progress_tracker_get_state (&self->mode_transition.tracker) == GTK_PROGRESS_STATE_AFTER)
     hdy_shadow_helper_clear_cache (self->shadow_helper);
-  }
 }
 
 static gboolean
@@ -1494,6 +1417,7 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
   gint remaining_start_size, remaining_end_size, remaining_size;
   gint current_pad;
   gint max_child_size = 0;
+  gint start_position, end_position;
   gboolean box_homogeneous;
   HdyStackableBoxTransitionType mode_transition_type;
   GtkTextDirection direction;
@@ -1550,8 +1474,8 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
         continue;
       }
 
-      child_info->alloc.x = 0;
-      child_info->alloc.y = 0;
+      child_info->alloc.x = get_child_window_x (self, child_info, allocation->width);
+      child_info->alloc.y = get_child_window_y (self, child_info, allocation->height);
       child_info->alloc.width = allocation->width;
       child_info->alloc.height = allocation->height;
       child_info->visible = TRUE;
@@ -1617,47 +1541,24 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
     direction = gtk_widget_get_direction (GTK_WIDGET (self->container));
     under = (mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER && direction == GTK_TEXT_DIR_LTR) ||
             (mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER && direction == GTK_TEXT_DIR_RTL);
-    self->mode_transition.start_surface_allocation.width = under ? remaining_size : start_size;
-    self->mode_transition.start_surface_allocation.height = allocation->height;
-    self->mode_transition.start_surface_allocation.x = under ? 0 : remaining_start_size - start_size;
-    self->mode_transition.start_surface_allocation.y = 0;
+    start_position = under ? 0 : remaining_start_size - start_size;
     self->mode_transition.start_progress = under ? (gdouble) remaining_size / start_size : 1;
     under = (mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER && direction == GTK_TEXT_DIR_LTR) ||
             (mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER && direction == GTK_TEXT_DIR_RTL);
-    self->mode_transition.end_surface_allocation.width = end_size;
-    self->mode_transition.end_surface_allocation.height = allocation->height;
-    self->mode_transition.end_surface_allocation.x = under ? allocation->width - end_size : remaining_start_size + visible_size;
-    self->mode_transition.end_surface_allocation.y = 0;
-    self->mode_transition.end_surface_clip.width = end_size;
-    self->mode_transition.end_surface_clip.height = self->mode_transition.end_surface_allocation.height;
-    self->mode_transition.end_surface_clip.x = remaining_start_size + visible_size;
-    self->mode_transition.end_surface_clip.y = self->mode_transition.end_surface_allocation.y;
+    end_position = under ? allocation->width - end_size : remaining_start_size + visible_size;
     self->mode_transition.end_progress = under ? (gdouble) remaining_end_size / end_size : 1;
     break;
   case GTK_ORIENTATION_VERTICAL:
     under = mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER;
-    self->mode_transition.start_surface_allocation.width = allocation->width;
-    self->mode_transition.start_surface_allocation.height = under ? remaining_size : start_size;
-    self->mode_transition.start_surface_allocation.x = 0;
-    self->mode_transition.start_surface_allocation.y = under ? 0 : remaining_start_size - start_size;
+    start_position = under ? 0 : remaining_start_size - start_size;
     self->mode_transition.start_progress = under ? (gdouble) remaining_size / start_size : 1;
     under = mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER;
-    self->mode_transition.end_surface_allocation.width = allocation->width;
-    self->mode_transition.end_surface_allocation.height = end_size;
-    self->mode_transition.end_surface_allocation.x = 0;
-    self->mode_transition.end_surface_allocation.y = remaining_start_size + visible_size;
-    self->mode_transition.end_surface_clip.width = self->mode_transition.end_surface_allocation.width;
-    self->mode_transition.end_surface_clip.height = end_size;
-    self->mode_transition.end_surface_clip.x = self->mode_transition.end_surface_allocation.x;
-    self->mode_transition.end_surface_clip.y = remaining_start_size + visible_size;
+    end_position = remaining_start_size + visible_size;
     self->mode_transition.end_progress = under ? (gdouble) remaining_end_size / end_size : 1;
     break;
   default:
     g_assert_not_reached ();
   }
-
-  self->mode_transition.start_distance = start_size;
-  self->mode_transition.end_distance = end_size;
 
   /* Allocate visible child. */
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
@@ -1676,10 +1577,7 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
   }
 
   /* Allocate starting children. */
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    current_pad = -self->mode_transition.start_surface_allocation.x;
-  else
-    current_pad = -self->mode_transition.start_surface_allocation.y;
+  current_pad = -start_position;
 
   for (children = directed_children; children; children = children->next) {
     child_info = children->data;
@@ -1712,10 +1610,7 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
   }
 
   /* Allocate ending children. */
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    current_pad = self->mode_transition.end_surface_allocation.x;
-  else
-    current_pad = self->mode_transition.end_surface_allocation.y;
+  current_pad = end_position;
 
   for (children = g_list_last (directed_children); children; children = children->prev) {
     child_info = children->data;
@@ -1899,16 +1794,10 @@ hdy_stackable_box_size_allocate_unfolded (HdyStackableBox *self,
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
     start_pad = (gint) ((visible_child->alloc.x) * (1.0 - self->mode_transition.current_pos));
     end_pad = (gint) ((allocation->width - (visible_child->alloc.x + visible_child->alloc.width)) * (1.0 - self->mode_transition.current_pos));
-
-    self->mode_transition.start_distance = visible_child->alloc.x;
-    self->mode_transition.end_distance = allocation->width - (visible_child->alloc.x + visible_child->alloc.width);
   }
   else {
     start_pad = (gint) ((visible_child->alloc.y) * (1.0 - self->mode_transition.current_pos));
     end_pad = (gint) ((allocation->height - (visible_child->alloc.y + visible_child->alloc.height)) * (1.0 - self->mode_transition.current_pos));
-
-    self->mode_transition.start_distance = visible_child->alloc.y;
-    self->mode_transition.end_distance = allocation->height - (visible_child->alloc.y + visible_child->alloc.height);
   }
 
   mode_transition_type = self->transition_type;
@@ -1974,6 +1863,74 @@ hdy_stackable_box_size_allocate_unfolded (HdyStackableBox *self,
   }
 }
 
+static HdyStackableBoxChildInfo *
+get_top_overlap_child (HdyStackableBox *self)
+{
+  gboolean is_rtl, start;
+
+  if (!self->last_visible_child)
+    return self->visible_child;
+
+  is_rtl = gtk_widget_get_direction (GTK_WIDGET (self->container)) == GTK_TEXT_DIR_RTL;
+
+  start = (self->child_transition.active_direction == GTK_PAN_DIRECTION_LEFT && !is_rtl) ||
+          (self->child_transition.active_direction == GTK_PAN_DIRECTION_RIGHT && is_rtl) ||
+           self->child_transition.active_direction == GTK_PAN_DIRECTION_UP;
+
+  switch (self->transition_type) {
+  case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
+    // Nothing overlaps in this case
+    return NULL;
+  case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
+    return start ? self->visible_child : self->last_visible_child;
+  case HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER:
+    return start ? self->last_visible_child : self->visible_child;
+  default:
+    g_assert_not_reached ();
+  }
+}
+
+static void
+restack_windows (HdyStackableBox *self)
+{
+  HdyStackableBoxChildInfo *child_info, *overlap_child;
+  GList *l;
+
+  overlap_child = get_top_overlap_child (self);
+
+  switch (self->transition_type) {
+  case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
+    // Nothing overlaps in this case
+    return;
+  case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
+    for (l = g_list_last (self->children); l; l = l->prev) {
+      child_info = l->data;
+
+      if (child_info->window)
+        gdk_window_raise (child_info->window);
+
+      if (child_info == overlap_child)
+        break;
+    }
+
+    break;
+  case HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER:
+    for (l = self->children; l; l = l->next) {
+      child_info = l->data;
+
+      if (child_info->window)
+        gdk_window_raise (child_info->window);
+
+      if (child_info == overlap_child)
+        break;
+    }
+
+    break;
+  default:
+    g_assert_not_reached ();
+  }
+}
+
 void
 hdy_stackable_box_size_allocate (HdyStackableBox *self,
                                  GtkAllocation   *allocation)
@@ -1992,7 +1949,6 @@ hdy_stackable_box_size_allocate (HdyStackableBox *self,
     gdk_window_move_resize (self->view_window,
                             allocation->x, allocation->y,
                             allocation->width, allocation->height);
-    move_resize_bin_window (self, allocation, TRUE);
   }
 
   /* Prepare children information. */
@@ -2061,397 +2017,41 @@ hdy_stackable_box_size_allocate (HdyStackableBox *self,
 
   /* Apply visibility and allocation. */
   for (children = directed_children; children; children = children->next) {
+    GtkAllocation alloc;
+
     child_info = children->data;
 
     gtk_widget_set_child_visible (child_info->widget, child_info->visible);
+
+    if (child_info->window &&
+        child_info->visible != gdk_window_is_visible (child_info->window)) {
+      if (child_info->visible)
+        gdk_window_show (child_info->window);
+      else
+        gdk_window_hide (child_info->window);
+    }
+
     if (!child_info->visible)
       continue;
 
-    gtk_widget_size_allocate (child_info->widget, &child_info->alloc);
+    if (child_info->window)
+      gdk_window_move_resize (child_info->window,
+                              child_info->alloc.x,
+                              child_info->alloc.y,
+                              child_info->alloc.width,
+                              child_info->alloc.height);
+
+    alloc.x = 0;
+    alloc.y = 0;
+    alloc.width = child_info->alloc.width;
+    alloc.height = child_info->alloc.height;
+    gtk_widget_size_allocate (child_info->widget, &alloc);
+
     if (gtk_widget_get_realized (widget))
       gtk_widget_show (child_info->widget);
   }
-}
 
-static void
-hdy_stackable_box_draw_under (HdyStackableBox *self,
-                              cairo_t         *cr)
-{
-  GtkWidget *widget = GTK_WIDGET (self->container);
-  GtkAllocation allocation;
-  int x, y;
-
-  gtk_widget_get_allocation (widget, &allocation);
-
-  x = get_bin_window_x (self, &allocation);
-  y = get_bin_window_y (self, &allocation);
-
-  if (gtk_cairo_should_draw_window (cr, self->bin_window)) {
-    gint clip_x, clip_y, clip_w, clip_h;
-    gdouble progress;
-
-    clip_x = 0;
-    clip_y = 0;
-    clip_w = allocation.width;
-    clip_h = allocation.height;
-
-    switch (self->child_transition.active_direction) {
-    case GTK_PAN_DIRECTION_LEFT:
-      clip_x = x;
-      clip_w -= x;
-      break;
-    case GTK_PAN_DIRECTION_RIGHT:
-      clip_w += x;
-      break;
-    case GTK_PAN_DIRECTION_UP:
-      clip_y = y;
-      clip_h -= y;
-      break;
-    case GTK_PAN_DIRECTION_DOWN:
-      clip_h += y;
-      break;
-    default:
-      g_assert_not_reached ();
-      break;
-    }
-
-    progress = self->child_transition.progress;
-
-    cairo_save (cr);
-    cairo_rectangle (cr, clip_x, clip_y, clip_w, clip_h);
-    cairo_clip (cr);
-    gtk_container_propagate_draw (self->container,
-                                  self->visible_child->widget,
-                                  cr);
-    cairo_translate (cr, x, y);
-    hdy_shadow_helper_draw_shadow (self->shadow_helper, cr, allocation.width,
-                                   allocation.height, progress,
-                                   self->child_transition.active_direction);
-    cairo_restore (cr);
-  }
-
-  if (self->child_transition.last_visible_surface &&
-      gtk_cairo_should_draw_window (cr, self->view_window)) {
-    switch (self->child_transition.active_direction) {
-    case GTK_PAN_DIRECTION_LEFT:
-      x -= allocation.width;
-      break;
-    case GTK_PAN_DIRECTION_RIGHT:
-      x += allocation.width;
-      break;
-    case GTK_PAN_DIRECTION_UP:
-      y -= allocation.height;
-      break;
-    case GTK_PAN_DIRECTION_DOWN:
-      y += allocation.height;
-      break;
-    default:
-      g_assert_not_reached ();
-      break;
-    }
-
-    x += self->child_transition.last_visible_surface_allocation.x;
-    y += self->child_transition.last_visible_surface_allocation.y;
-
-    if (gtk_widget_get_valign (self->last_visible_child->widget) == GTK_ALIGN_END &&
-        self->child_transition.last_visible_widget_height > allocation.height)
-      y -= self->child_transition.last_visible_widget_height - allocation.height;
-    else if (gtk_widget_get_valign (self->last_visible_child->widget) == GTK_ALIGN_CENTER)
-      y -= (self->child_transition.last_visible_widget_height - allocation.height) / 2;
-
-    cairo_save (cr);
-    cairo_set_source_surface (cr, self->child_transition.last_visible_surface, x, y);
-    cairo_paint (cr);
-    cairo_restore (cr);
-  }
-}
-
-static void
-hdy_stackable_box_draw_over (HdyStackableBox *self,
-                             cairo_t         *cr)
-{
-  GtkWidget *widget = GTK_WIDGET (self->container);
-
-  if (self->child_transition.last_visible_surface &&
-      gtk_cairo_should_draw_window (cr, self->view_window)) {
-    GtkAllocation allocation;
-    gint x, y, clip_x, clip_y, clip_w, clip_h, shadow_x, shadow_y;
-    gdouble progress;
-    GtkPanDirection direction;
-
-    gtk_widget_get_allocation (widget, &allocation);
-
-    x = get_bin_window_x (self, &allocation);
-    y = get_bin_window_y (self, &allocation);
-
-    clip_x = 0;
-    clip_y = 0;
-    clip_w = allocation.width;
-    clip_h = allocation.height;
-    shadow_x = 0;
-    shadow_y = 0;
-
-    switch (self->child_transition.active_direction) {
-    case GTK_PAN_DIRECTION_LEFT:
-      shadow_x = x - allocation.width;
-      clip_w = x;
-      x = 0;
-      direction = GTK_PAN_DIRECTION_RIGHT;
-      break;
-    case GTK_PAN_DIRECTION_RIGHT:
-      clip_x = shadow_x = x + allocation.width;
-      clip_w = -x;
-      x = 0;
-      direction = GTK_PAN_DIRECTION_LEFT;
-      break;
-    case GTK_PAN_DIRECTION_UP:
-      shadow_y = y - allocation.height;
-      clip_h = y;
-      y = 0;
-      direction = GTK_PAN_DIRECTION_DOWN;
-      break;
-    case GTK_PAN_DIRECTION_DOWN:
-      clip_y = shadow_y = y + allocation.height;
-      clip_h = -y;
-      y = 0;
-      direction = GTK_PAN_DIRECTION_UP;
-      break;
-    default:
-      g_assert_not_reached ();
-      break;
-    }
-
-    x += self->child_transition.last_visible_surface_allocation.x;
-    y += self->child_transition.last_visible_surface_allocation.y;
-
-    if (gtk_widget_get_valign (self->last_visible_child->widget) == GTK_ALIGN_END &&
-        self->child_transition.last_visible_widget_height > allocation.height)
-      y -= self->child_transition.last_visible_widget_height - allocation.height;
-    else if (gtk_widget_get_valign (self->last_visible_child->widget) == GTK_ALIGN_CENTER)
-      y -= (self->child_transition.last_visible_widget_height - allocation.height) / 2;
-
-    progress = 1 - self->child_transition.progress;
-
-    cairo_save (cr);
-    cairo_rectangle (cr, clip_x, clip_y, clip_w, clip_h);
-    cairo_clip (cr);
-    cairo_set_source_surface (cr, self->child_transition.last_visible_surface, x, y);
-    cairo_paint (cr);
-    cairo_translate (cr, shadow_x, shadow_y);
-    hdy_shadow_helper_draw_shadow (self->shadow_helper, cr, allocation.width,
-                                   allocation.height, progress, direction);
-    cairo_restore (cr);
-  }
-
-  if (gtk_cairo_should_draw_window (cr, self->bin_window))
-    gtk_container_propagate_draw (self->container,
-                                  self->visible_child->widget,
-                                  cr);
-}
-
-static void
-hdy_stackable_box_draw_slide (HdyStackableBox *self,
-                              cairo_t         *cr)
-{
-  GtkWidget *widget = GTK_WIDGET (self->container);
-
-  if (self->child_transition.last_visible_surface &&
-      gtk_cairo_should_draw_window (cr, self->view_window)) {
-    GtkAllocation allocation;
-    int x, y;
-
-    gtk_widget_get_allocation (widget, &allocation);
-
-    x = get_bin_window_x (self, &allocation);
-    y = get_bin_window_y (self, &allocation);
-
-    switch (self->child_transition.active_direction) {
-    case GTK_PAN_DIRECTION_LEFT:
-      x -= allocation.width;
-      break;
-    case GTK_PAN_DIRECTION_RIGHT:
-      x += allocation.width;
-      break;
-    case GTK_PAN_DIRECTION_UP:
-      y -= allocation.height;
-      break;
-    case GTK_PAN_DIRECTION_DOWN:
-      y += allocation.height;
-      break;
-    default:
-      g_assert_not_reached ();
-      break;
-    }
-
-    x += self->child_transition.last_visible_surface_allocation.x;
-    y += self->child_transition.last_visible_surface_allocation.y;
-
-    if (gtk_widget_get_valign (self->last_visible_child->widget) == GTK_ALIGN_END &&
-        self->child_transition.last_visible_widget_height > allocation.height)
-      y -= self->child_transition.last_visible_widget_height - allocation.height;
-    else if (gtk_widget_get_valign (self->last_visible_child->widget) == GTK_ALIGN_CENTER)
-      y -= (self->child_transition.last_visible_widget_height - allocation.height) / 2;
-
-    cairo_save (cr);
-    cairo_set_source_surface (cr, self->child_transition.last_visible_surface, x, y);
-    cairo_paint (cr);
-    cairo_restore (cr);
-  }
-
-  if (gtk_cairo_should_draw_window (cr, self->bin_window))
-    gtk_container_propagate_draw (self->container,
-                                  self->visible_child->widget,
-                                  cr);
-}
-
-static void
-hdy_stackable_box_draw_over_or_under (HdyStackableBox *self,
-                                      cairo_t         *cr)
-{
-  gboolean is_rtl;
-  GtkPanDirection direction, left_or_right, right_or_left;
-
-  direction = self->child_transition.active_direction;
-
-  is_rtl = gtk_widget_get_direction (GTK_WIDGET (self->container)) == GTK_TEXT_DIR_RTL;
-  left_or_right = is_rtl ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_LEFT;
-  right_or_left = is_rtl ? GTK_PAN_DIRECTION_LEFT : GTK_PAN_DIRECTION_RIGHT;
-
-  switch (self->transition_type) {
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
-    if (direction == GTK_PAN_DIRECTION_UP || direction == left_or_right)
-      hdy_stackable_box_draw_over (self, cr);
-    else if (direction == GTK_PAN_DIRECTION_DOWN || direction == right_or_left)
-      hdy_stackable_box_draw_under (self, cr);
-    else
-      g_assert_not_reached ();
-    break;
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER:
-    if (direction == GTK_PAN_DIRECTION_UP || direction == left_or_right)
-      hdy_stackable_box_draw_under (self, cr);
-    else if (direction == GTK_PAN_DIRECTION_DOWN || direction == right_or_left)
-      hdy_stackable_box_draw_over (self, cr);
-    else
-      g_assert_not_reached ();
-    break;
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
-  default:
-    g_assert_not_reached ();
-  }
-}
-
-static gboolean
-hdy_stackable_box_draw_unfolded (HdyStackableBox *self,
-                                 cairo_t         *cr)
-{
-  GtkWidget *widget = GTK_WIDGET (self->container);
-  gboolean is_horizontal = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget)) == GTK_ORIENTATION_HORIZONTAL;
-  GList *directed_children, *children;
-  HdyStackableBoxChildInfo *child_info;
-  GtkAllocation allocation, child_allocation;
-
-  directed_children = get_directed_children (self);
-
-  gtk_widget_get_allocation (widget, &allocation);
-
-  gtk_widget_get_allocation (self->visible_child->widget, &child_allocation);
-  cairo_save (cr);
-  cairo_rectangle (cr,
-                   0,
-                   0,
-                   is_horizontal ? child_allocation.x : allocation.width,
-                   is_horizontal ? allocation.height : child_allocation.y);
-  cairo_clip (cr);
-  for (children = directed_children; children; children = children->next) {
-    child_info = children->data;
-
-    if (child_info == self->visible_child)
-      break;
-
-    gtk_container_propagate_draw (self->container,
-                                  child_info->widget,
-                                  cr);
-  }
-
-  if (self->mode_transition.start_progress < 1) {
-    gint w, h;
-    w = is_horizontal ? child_allocation.x : allocation.width;
-    h = is_horizontal ? allocation.height : child_allocation.y;
-    if (is_horizontal)
-      w = self->mode_transition.start_distance;
-    else
-      h = self->mode_transition.start_distance;
-
-    cairo_translate (cr,
-                     is_horizontal ? child_allocation.x - w : 0,
-                     is_horizontal ? 0 : child_allocation.y - h);
-    hdy_shadow_helper_draw_shadow (self->shadow_helper, cr, w, h,
-                                   self->mode_transition.start_progress,
-                                   is_horizontal ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_DOWN);
-  }
-
-  cairo_restore (cr);
-
-  gtk_container_propagate_draw (self->container,
-                                self->visible_child->widget,
-                                cr);
-
-  gtk_widget_get_allocation (self->visible_child->widget, &child_allocation);
-  cairo_save (cr);
-  cairo_rectangle (cr,
-                   is_horizontal ? child_allocation.x + child_allocation.width : 0,
-                   is_horizontal ? 0 : child_allocation.y + child_allocation.height,
-                   is_horizontal ? allocation.width - child_allocation.x - child_allocation.width : allocation.width,
-                   is_horizontal ? allocation.height : allocation.height - child_allocation.y - child_allocation.height);
-  cairo_clip (cr);
-  for (children = g_list_last (directed_children); children; children = children->prev) {
-    child_info = children->data;
-
-    if (child_info == self->visible_child)
-      break;
-
-    gtk_container_propagate_draw (self->container,
-                                  child_info->widget,
-                                  cr);
-  }
-
-  if (self->mode_transition.start_progress < 1) {
-    gint w, h;
-    w = is_horizontal ? child_allocation.x : allocation.width;
-    h = is_horizontal ? allocation.height : child_allocation.y;
-    if (is_horizontal)
-      w = self->mode_transition.start_distance;
-    else
-      h = self->mode_transition.start_distance;
-
-    cairo_translate (cr,
-                     is_horizontal ? child_allocation.x - w : 0,
-                     is_horizontal ? 0 : child_allocation.y - h);
-    hdy_shadow_helper_draw_shadow (self->shadow_helper, cr, w, h,
-                                   self->mode_transition.start_progress,
-                                   is_horizontal ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_DOWN);
-  }
-
-  if (self->mode_transition.end_progress < 1) {
-    gint w, h;
-    w = allocation.width - (is_horizontal ? (child_allocation.x + child_allocation.width) : 0);
-    h = allocation.height - (is_horizontal ? 0 : (child_allocation.y + child_allocation.height));
-    if (is_horizontal)
-      w = self->mode_transition.end_distance;
-    else
-      h = self->mode_transition.end_distance;
-
-    cairo_translate (cr,
-                     is_horizontal ? child_allocation.x + child_allocation.width : 0,
-                     is_horizontal ? 0 : child_allocation.y + child_allocation.height);
-    hdy_shadow_helper_draw_shadow (self->shadow_helper, cr, w, h,
-                                   self->mode_transition.end_progress,
-                                   is_horizontal ? GTK_PAN_DIRECTION_LEFT : GTK_PAN_DIRECTION_UP);
-  }
-
-  cairo_restore (cr);
-
-  return FALSE;
+  restack_windows (self);
 }
 
 gboolean
@@ -2459,214 +2059,117 @@ hdy_stackable_box_draw (HdyStackableBox *self,
                         cairo_t         *cr)
 {
   GtkWidget *widget = GTK_WIDGET (self->container);
-  GList *directed_children, *children;
-  HdyStackableBoxChildInfo *child_info;
-  GtkAllocation allocation;
+  GList *stacked_children, *l;
+  HdyStackableBoxChildInfo *child_info, *overlap_child;
+  gboolean is_transition;
+  gboolean is_vertical;
+  gboolean is_rtl;
+  gboolean is_over;
+  GtkAllocation shadow_rect;
+  gdouble shadow_progress, mode_progress;
+  GtkPanDirection shadow_direction;
 
-  if (!self->folded)
-    return hdy_stackable_box_draw_unfolded (self, cr);
+  overlap_child = get_top_overlap_child (self);
 
-  directed_children = get_directed_children (self);
+  is_transition = self->child_transition.is_gesture_active ||
+                  gtk_progress_tracker_get_state (&self->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER ||
+                  gtk_progress_tracker_get_state (&self->mode_transition.tracker) != GTK_PROGRESS_STATE_AFTER;
 
-  if (gtk_cairo_should_draw_window (cr, self->view_window)) {
-    GtkStyleContext *context;
+  if (!is_transition ||
+      self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE ||
+      !overlap_child) {
+    for (l = self->children; l; l = l->next) {
+      child_info = l->data;
 
-    context = gtk_widget_get_style_context (widget);
-    gtk_render_background (context,
-                           cr,
-                           0, 0,
-                           gtk_widget_get_allocated_width (widget),
-                           gtk_widget_get_allocated_height (widget));
-  }
+      if (!gtk_cairo_should_draw_window (cr, child_info->window))
+        continue;
 
-  if (self->visible_child) {
-    if (gtk_progress_tracker_get_state (&self->mode_transition.tracker) != GTK_PROGRESS_STATE_AFTER &&
-        self->folded) {
-      gboolean is_horizontal = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget)) == GTK_ORIENTATION_HORIZONTAL;
-
-      if (self->mode_transition.start_surface == NULL &&
-          self->mode_transition.start_surface_allocation.width != 0 &&
-          self->mode_transition.start_surface_allocation.height != 0) {
-        self->mode_transition.start_surface =
-          gdk_window_create_similar_surface (gtk_widget_get_window (widget),
-                                             CAIRO_CONTENT_COLOR_ALPHA,
-                                             self->mode_transition.start_surface_allocation.width,
-                                             self->mode_transition.start_surface_allocation.height);
-
-        for (children = directed_children; children; children = children->next) {
-          g_autoptr (cairo_t) pattern_cr = NULL;
-          g_autoptr (cairo_surface_t) subsurface = NULL;
-
-          child_info = children->data;
-
-          if (child_info == self->visible_child)
-            break;
-
-          if (!gtk_widget_get_child_visible (child_info->widget))
-            continue;
-
-          gtk_widget_get_allocation (child_info->widget, &allocation);
-          subsurface = cairo_surface_create_for_rectangle (self->mode_transition.start_surface,
-                                                           allocation.x - self->mode_transition.start_surface_allocation.x,
-                                                           allocation.y - self->mode_transition.start_surface_allocation.y,
-                                                           allocation.width,
-                                                           allocation.height);
-          pattern_cr = cairo_create (subsurface);
-          gtk_widget_draw (child_info->widget, pattern_cr);
-        }
-      }
-
-      if (self->mode_transition.end_surface == NULL &&
-          self->mode_transition.end_surface_allocation.width != 0 &&
-          self->mode_transition.end_surface_allocation.height != 0) {
-        self->mode_transition.end_surface =
-          gdk_window_create_similar_surface (gtk_widget_get_window (widget),
-                                             CAIRO_CONTENT_COLOR_ALPHA,
-                                             self->mode_transition.end_surface_allocation.width,
-                                             self->mode_transition.end_surface_allocation.height);
-
-        for (children = g_list_last (directed_children); children; children = children->prev) {
-          g_autoptr (cairo_t) pattern_cr = NULL;
-          g_autoptr (cairo_surface_t) subsurface = NULL;
-
-          child_info = children->data;
-
-          if (child_info == self->visible_child)
-            break;
-
-          if (!gtk_widget_get_child_visible (child_info->widget))
-            continue;
-
-          gtk_widget_get_allocation (child_info->widget, &allocation);
-          subsurface = cairo_surface_create_for_rectangle (self->mode_transition.end_surface,
-                                                           allocation.x - self->mode_transition.end_surface_allocation.x,
-                                                           allocation.y - self->mode_transition.end_surface_allocation.y,
-                                                           allocation.width,
-                                                           allocation.height);
-          pattern_cr = cairo_create (subsurface);
-          gtk_widget_draw (child_info->widget, pattern_cr);
-        }
-      }
-
-      cairo_rectangle (cr,
-                       0, 0,
-                       gtk_widget_get_allocated_width (widget),
-                       gtk_widget_get_allocated_height (widget));
-      cairo_clip (cr);
-
-      cairo_save (cr);
-      if (self->mode_transition.start_surface != NULL) {
-        cairo_rectangle (cr,
-                         self->mode_transition.start_surface_allocation.x,
-                         self->mode_transition.start_surface_allocation.y,
-                         self->mode_transition.start_surface_allocation.width,
-                         self->mode_transition.start_surface_allocation.height);
-        cairo_clip (cr);
-        cairo_set_source_surface (cr, self->mode_transition.start_surface,
-                                  self->mode_transition.start_surface_allocation.x,
-                                  self->mode_transition.start_surface_allocation.y);
-        cairo_paint (cr);
-
-        if (self->mode_transition.start_progress < 1) {
-          gint w, h;
-          w = self->mode_transition.start_surface_allocation.width;
-          h = self->mode_transition.start_surface_allocation.height;
-          if (is_horizontal)
-            w = self->mode_transition.start_distance;
-          else
-            h = self->mode_transition.start_distance;
-
-          cairo_translate (cr,
-                           self->mode_transition.start_surface_allocation.width - w,
-                           self->mode_transition.start_surface_allocation.height - h);
-          hdy_shadow_helper_draw_shadow (self->shadow_helper, cr, w, h,
-                                         self->mode_transition.start_progress,
-                                         is_horizontal ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_DOWN);
-        }
-      }
-      cairo_restore (cr);
-
-      cairo_save (cr);
-      if (self->mode_transition.end_surface != NULL) {
-        cairo_rectangle (cr,
-                         self->mode_transition.end_surface_clip.x,
-                         self->mode_transition.end_surface_clip.y,
-                         self->mode_transition.end_surface_clip.width,
-                         self->mode_transition.end_surface_clip.height);
-        cairo_clip (cr);
-        cairo_set_source_surface (cr, self->mode_transition.end_surface,
-                                  self->mode_transition.end_surface_allocation.x,
-                                  self->mode_transition.end_surface_allocation.y);
-        cairo_paint (cr);
-
-        if (self->mode_transition.end_progress < 1) {
-          gint w, h;
-          w = self->mode_transition.end_surface_allocation.width;
-          h = self->mode_transition.end_surface_allocation.height;
-          if (is_horizontal)
-            w = self->mode_transition.end_distance;
-          else
-            h = self->mode_transition.end_distance;
-
-          cairo_translate (cr, self->mode_transition.end_surface_clip.x,
-                           self->mode_transition.end_surface_clip.y);
-          hdy_shadow_helper_draw_shadow (self->shadow_helper, cr, w, h,
-                                         self->mode_transition.end_progress,
-                                         is_horizontal ? GTK_PAN_DIRECTION_LEFT : GTK_PAN_DIRECTION_UP);
-        }
-      }
-      cairo_restore (cr);
-
-      if (gtk_cairo_should_draw_window (cr, self->bin_window))
-        gtk_container_propagate_draw (self->container,
-                                      self->visible_child->widget,
-                                      cr);
-    }
-    else if (self->child_transition.is_gesture_active ||
-             gtk_progress_tracker_get_state (&self->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
-      if (self->child_transition.last_visible_surface == NULL &&
-          self->last_visible_child != NULL) {
-        g_autoptr (cairo_t) pattern_cr = NULL;
-
-        gtk_widget_get_allocation (self->last_visible_child->widget,
-                                   &self->child_transition.last_visible_surface_allocation);
-        self->child_transition.last_visible_surface =
-          gdk_window_create_similar_surface (gtk_widget_get_window (widget),
-                                             CAIRO_CONTENT_COLOR_ALPHA,
-                                             self->child_transition.last_visible_surface_allocation.width,
-                                             self->child_transition.last_visible_surface_allocation.height);
-        pattern_cr = cairo_create (self->child_transition.last_visible_surface);
-        /* We don't use propagate_draw here, because we don't want to apply
-         * the bin_window offset
-         */
-        gtk_widget_draw (self->last_visible_child->widget, pattern_cr);
-      }
-
-      cairo_rectangle (cr,
-                       0, 0,
-                       gtk_widget_get_allocated_width (widget),
-                       gtk_widget_get_allocated_height (widget));
-      cairo_clip (cr);
-
-      switch (self->transition_type) {
-      case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
-      case HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER:
-        hdy_stackable_box_draw_over_or_under (self, cr);
-        break;
-      case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
-        hdy_stackable_box_draw_slide (self, cr);
-        break;
-      default:
-        g_assert_not_reached ();
-      }
-    }
-    else if (gtk_cairo_should_draw_window (cr, self->bin_window))
       gtk_container_propagate_draw (self->container,
-                                    self->visible_child->widget,
+                                    child_info->widget,
                                     cr);
+    }
+
+    return GDK_EVENT_PROPAGATE;
   }
 
-  return FALSE;
+  stacked_children = self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER ?
+                     self->children_reversed : self->children;
+
+  is_vertical = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget)) == GTK_ORIENTATION_VERTICAL;
+  is_rtl = gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL;
+  is_over = self->transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER;
+
+  cairo_save (cr);
+
+  shadow_rect.x = 0;
+  shadow_rect.y = 0;
+  shadow_rect.width = gtk_widget_get_allocated_width (widget);
+  shadow_rect.height = gtk_widget_get_allocated_height (widget);
+
+  if (is_vertical) {
+    if (!is_over) {
+      shadow_rect.y = overlap_child->alloc.y + overlap_child->alloc.height;
+      shadow_rect.height -= shadow_rect.y;
+      shadow_direction = GTK_PAN_DIRECTION_UP;
+      mode_progress = self->mode_transition.end_progress;
+    } else {
+      shadow_rect.height = overlap_child->alloc.y;
+      shadow_direction = GTK_PAN_DIRECTION_DOWN;
+      mode_progress = self->mode_transition.start_progress;
+    }
+  } else {
+    if (is_over == is_rtl) {
+      shadow_rect.x = overlap_child->alloc.x + overlap_child->alloc.width;
+      shadow_rect.width -= shadow_rect.x;
+      shadow_direction = GTK_PAN_DIRECTION_LEFT;
+      mode_progress = self->mode_transition.end_progress;
+    } else {
+      shadow_rect.width = overlap_child->alloc.x;
+      shadow_direction = GTK_PAN_DIRECTION_RIGHT;
+      mode_progress = self->mode_transition.start_progress;
+    }
+  }
+
+  if (gtk_progress_tracker_get_state (&self->mode_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
+    shadow_progress = mode_progress;
+  } else {
+    GtkPanDirection direction = self->child_transition.active_direction;
+    GtkPanDirection left_or_right = is_rtl ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_LEFT;
+
+    if (direction == GTK_PAN_DIRECTION_UP || direction == left_or_right)
+      shadow_progress = self->child_transition.progress;
+    else
+      shadow_progress = 1 - self->child_transition.progress;
+
+    if (is_over)
+      shadow_progress = 1 - shadow_progress;
+  }
+
+  cairo_rectangle (cr, shadow_rect.x, shadow_rect.y, shadow_rect.width, shadow_rect.height);
+  cairo_clip (cr);
+
+  for (l = stacked_children; l; l = l->next) {
+    child_info = l->data;
+
+    if (!gtk_cairo_should_draw_window (cr, child_info->window))
+      continue;
+
+    if (child_info == overlap_child)
+      cairo_restore (cr);
+
+    gtk_container_propagate_draw (self->container,
+                                  child_info->widget,
+                                  cr);
+  }
+
+  cairo_save (cr);
+  cairo_translate (cr, shadow_rect.x, shadow_rect.y);
+  hdy_shadow_helper_draw_shadow (self->shadow_helper, cr,
+                                 shadow_rect.width, shadow_rect.height,
+                                 shadow_progress, shadow_direction);
+  cairo_restore (cr);
+
+  return GDK_EVENT_PROPAGATE;
 }
 
 static void
@@ -2712,6 +2215,49 @@ hdy_stackable_box_child_visibility_notify_cb (GObject    *obj,
   }
 }
 
+static void
+register_window (HdyStackableBox          *self,
+                 HdyStackableBoxChildInfo *child)
+{
+  GtkWidget *widget = GTK_WIDGET (self->container);
+  GdkWindowAttr attributes = { 0 };
+  GdkWindowAttributesType attributes_mask;
+
+  attributes.x = child->alloc.x;
+  attributes.y = child->alloc.y;
+  attributes.width = child->alloc.width;
+  attributes.height = child->alloc.height;
+  attributes.window_type = GDK_WINDOW_CHILD;
+  attributes.wclass = GDK_INPUT_OUTPUT;
+  attributes.visual = gtk_widget_get_visual (widget);
+  attributes.event_mask = gtk_widget_get_events (widget);
+  attributes_mask = (GDK_WA_X | GDK_WA_Y) | GDK_WA_VISUAL;
+
+  attributes.event_mask = gtk_widget_get_events (widget) |
+                          gtk_widget_get_events (child->widget);
+
+  child->window = gdk_window_new (self->view_window, &attributes, attributes_mask);
+  gtk_widget_register_window (widget, child->window);
+
+  gtk_widget_set_parent_window (child->widget, child->window);
+
+  gdk_window_show (child->window);
+}
+
+static void
+unregister_window (HdyStackableBox          *self,
+                   HdyStackableBoxChildInfo *child)
+{
+  GtkWidget *widget = GTK_WIDGET (self->container);
+
+  if (!child->window)
+    return;
+
+  gtk_widget_unregister_window (widget, child->window);
+  gdk_window_destroy (child->window);
+  child->window = NULL;
+}
+
 void
 hdy_stackable_box_add (HdyStackableBox *self,
                        GtkWidget       *widget)
@@ -2720,10 +2266,6 @@ hdy_stackable_box_add (HdyStackableBox *self,
 
   g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
 
-  gtk_widget_set_child_visible (widget, FALSE);
-  gtk_widget_set_parent_window (widget, self->bin_window);
-  gtk_widget_set_parent (widget, GTK_WIDGET (self->container));
-
   child_info = g_new0 (HdyStackableBoxChildInfo, 1);
   child_info->widget = widget;
   child_info->allow_visible = TRUE;
@@ -2731,10 +2273,11 @@ hdy_stackable_box_add (HdyStackableBox *self,
   self->children = g_list_append (self->children, child_info);
   self->children_reversed = g_list_prepend (self->children_reversed, child_info);
 
-  if (self->bin_window)
-    gdk_window_set_events (self->bin_window,
-                           gdk_window_get_events (self->bin_window) |
-                           gtk_widget_get_events (widget));
+  if (gtk_widget_get_realized (GTK_WIDGET (self->container)))
+    register_window (self, child_info);
+
+  gtk_widget_set_child_visible (widget, FALSE);
+  gtk_widget_set_parent (widget, GTK_WIDGET (self->container));
 
   g_signal_connect (widget, "notify::visible",
                     G_CALLBACK (hdy_stackable_box_child_visibility_notify_cb), self);
@@ -2775,6 +2318,8 @@ hdy_stackable_box_remove (HdyStackableBox *self,
 
   if (gtk_widget_get_visible (widget))
     gtk_widget_queue_resize (GTK_WIDGET (self->container));
+
+  unregister_window (self, child_info);
 
   gtk_widget_unparent (widget);
 }
@@ -2928,9 +2473,6 @@ hdy_stackable_box_finalize (GObject *object)
 
   hdy_stackable_box_unschedule_child_ticks (self);
 
-  if (self->child_transition.last_visible_surface != NULL)
-    cairo_surface_destroy (self->child_transition.last_visible_surface);
-
   G_OBJECT_CLASS (hdy_stackable_box_parent_class)->finalize (object);
 }
 
@@ -2942,8 +2484,6 @@ hdy_stackable_box_realize (HdyStackableBox *self)
   GdkWindowAttr attributes = { 0 };
   GdkWindowAttributesType attributes_mask;
   GList *children;
-  HdyStackableBoxChildInfo *child_info;
-  GtkBorder padding;
 
   gtk_widget_set_realized (widget, TRUE);
   gtk_widget_set_window (widget, g_object_ref (gtk_widget_get_parent_window (widget)));
@@ -2964,37 +2504,19 @@ hdy_stackable_box_realize (HdyStackableBox *self)
                                       &attributes, attributes_mask);
   gtk_widget_register_window (widget, self->view_window);
 
-  get_padding (widget, &padding);
-  attributes.x = padding.left;
-  attributes.y = padding.top;
-  attributes.width = allocation.width;
-  attributes.height = allocation.height;
-
-  for (children = self->children; children != NULL; children = children->next) {
-    child_info = children->data;
-    attributes.event_mask |= gtk_widget_get_events (child_info->widget);
-  }
-
-  self->bin_window = gdk_window_new (self->view_window, &attributes, attributes_mask);
-  gtk_widget_register_window (widget, self->bin_window);
-
-  for (children = self->children; children != NULL; children = children->next) {
-    child_info = children->data;
-
-    gtk_widget_set_parent_window (child_info->widget, self->bin_window);
-  }
-
-  gdk_window_show (self->bin_window);
+  for (children = self->children; children != NULL; children = children->next)
+    register_window (self, children->data);
 }
 
 void
 hdy_stackable_box_unrealize (HdyStackableBox *self)
 {
   GtkWidget *widget = GTK_WIDGET (self->container);
+  GList *children;
 
-  gtk_widget_unregister_window (widget, self->bin_window);
-  gdk_window_destroy (self->bin_window);
-  self->bin_window = NULL;
+  for (children = self->children; children != NULL; children = children->next)
+    unregister_window (self, children->data);
+
   gtk_widget_unregister_window (widget, self->view_window);
   gdk_window_destroy (self->view_window);
   self->view_window = NULL;
