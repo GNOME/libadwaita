@@ -617,22 +617,7 @@ static void
 hdy_stackable_box_set_position (HdyStackableBox *self,
                                 gdouble          pos)
 {
-  gboolean new_visible;
-  GtkWidget *child;
-
   self->mode_transition.current_pos = pos;
-
-  /* We check mode_transition.target_pos here too, because we want to ensure we set
-   * child_visible immediately when starting a reveal operation
-   * otherwise the child widgets will not be properly realized
-   * after the reveal returns.
-   */
-  new_visible = self->mode_transition.current_pos != 0.0 || self->mode_transition.target_pos != 0.0;
-
-  child = hdy_stackable_box_get_visible_child (self);
-  if (child != NULL &&
-      new_visible != gtk_widget_get_child_visible (child))
-    gtk_widget_set_child_visible (child, new_visible);
 
   gtk_widget_queue_allocate (GTK_WIDGET (self->container));
 }
