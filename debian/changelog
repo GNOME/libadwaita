@@ -1,4 +1,4 @@
-libhandy (0.80.0) amber-phone; urgency=medium
+libhandy-1 (0.80.0) amber-phone; urgency=medium
 
   [ Guido Günther ]
   * Bump API version to 1.0.0.
