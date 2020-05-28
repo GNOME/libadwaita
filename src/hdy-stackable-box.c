@@ -1442,7 +1442,7 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
         child_info->widget == self->last_visible_child->widget)
       continue;
 
-    gtk_widget_set_child_visible (child_info->widget, FALSE);
+    child_info->visible = FALSE;
   }
 
   if (visible_child->widget == NULL)
@@ -1450,12 +1450,12 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
 
   /* FIXME is this needed? */
   if (!gtk_widget_get_visible (visible_child->widget)) {
-    gtk_widget_set_child_visible (visible_child->widget, FALSE);
+    visible_child->visible = FALSE;
 
     return;
   }
 
-  gtk_widget_set_child_visible (visible_child->widget, TRUE);
+  visible_child->visible = TRUE;
 
   mode_transition_type = self->transition_type;
 
