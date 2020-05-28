@@ -911,6 +911,8 @@ void
 hdy_swipe_tracker_shift_position (HdySwipeTracker *self,
                                   gdouble          delta)
 {
+  g_return_if_fail (HDY_IS_SWIPE_TRACKER (self));
+
   if (self->state != HDY_SWIPE_TRACKER_STATE_PENDING &&
       self->state != HDY_SWIPE_TRACKER_STATE_SCROLLING)
     return;
