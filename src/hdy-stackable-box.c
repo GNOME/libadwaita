@@ -641,7 +641,7 @@ hdy_stackable_box_mode_transition_cb (GtkWidget     *widget,
                                       gdk_frame_clock_get_frame_time (frame_clock));
   ease = gtk_progress_tracker_get_ease_out_cubic (&self->mode_transition.tracker, FALSE);
   hdy_stackable_box_set_position (self,
-                            self->mode_transition.source_pos + (ease * (self->mode_transition.target_pos - self->mode_transition.source_pos)));
+                                  self->mode_transition.source_pos + (ease * (self->mode_transition.target_pos - self->mode_transition.source_pos)));
 
   hdy_stackable_box_mode_progress_updated (self);
 
