@@ -499,9 +499,10 @@ hdy_stackable_box_start_child_transition (HdyStackableBox               *self,
   GtkWidget *widget = GTK_WIDGET (self->container);
 
   if (gtk_widget_get_mapped (widget) &&
-      (hdy_get_enable_animations (widget) || self->child_transition.is_gesture_active) &&
+      ((hdy_get_enable_animations (widget) &&
+        transition_duration != 0) ||
+       self->child_transition.is_gesture_active) &&
       transition_type != HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE &&
-      transition_duration != 0 &&
       self->last_visible_child != NULL &&
       /* Don't animate child transition when a mode transition is ongoing. */
       self->mode_transition.tick_id == 0) {
