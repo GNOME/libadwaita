@@ -37,6 +37,8 @@ deck > shadow.up, leaflet > shadow.up { background-image: linear-gradient(to bot
 
 deck > shadow.down, leaflet > shadow.down { background-image: linear-gradient(to top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.02) 40px, rgba(0, 0, 0, 0) 56px), linear-gradient(to top, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.02) 7px, rgba(0, 0, 0, 0) 24px); }
 
+deck > outline, leaflet > outline { min-width: 1px; min-height: 1px; background: rgba(255, 255, 255, 0.05); }
+
 avatar { border-radius: 9999px; -gtk-outline-radius: 9999px; font-weight: bold; }
 
 avatar.color1 { background-image: linear-gradient(#ffbe6f, #ed6f00); color: #ffe5c5; }

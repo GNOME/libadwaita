@@ -35,8 +35,10 @@ struct _HdyShadowHelper
   cairo_pattern_t *dimming_pattern;
   cairo_pattern_t *shadow_pattern;
   cairo_pattern_t *border_pattern;
+  cairo_pattern_t *outline_pattern;
   gint shadow_size;
   gint border_size;
+  gint outline_size;
 
   GtkPanDirection last_direction;
   gint last_width;
@@ -137,7 +139,8 @@ cache_shadow (HdyShadowHelper *self,
   g_autoptr(GtkStyleContext) dim_context = NULL;
   g_autoptr(GtkStyleContext) shadow_context = NULL;
   g_autoptr(GtkStyleContext) border_context = NULL;
-  gint shadow_size, border_size, scale;
+  g_autoptr(GtkStyleContext) outline_context = NULL;
+  gint shadow_size, border_size, outline_size, scale;
 
   scale = gtk_widget_get_scale_factor (self->widget);
 
@@ -153,21 +156,26 @@ cache_shadow (HdyShadowHelper *self,
   dim_context = create_context (self, "dimming", direction);
   shadow_context = create_context (self, "shadow", direction);
   border_context = create_context (self, "border", direction);
+  outline_context = create_context (self, "outline", direction);
 
   shadow_size = get_element_size (shadow_context, direction);
   border_size = get_element_size (border_context, direction);
+  outline_size = get_element_size (outline_context, direction);
 
   self->dimming_pattern = create_element_pattern (dim_context, width, height);
   if (direction == GTK_PAN_DIRECTION_LEFT || direction == GTK_PAN_DIRECTION_RIGHT) {
     self->shadow_pattern = create_element_pattern (shadow_context, shadow_size, height);
     self->border_pattern = create_element_pattern (border_context, border_size, height);
+    self->outline_pattern = create_element_pattern (outline_context, outline_size, height);
   } else {
     self->shadow_pattern = create_element_pattern (shadow_context, width, shadow_size);
     self->border_pattern = create_element_pattern (border_context, width, border_size);
+    self->outline_pattern = create_element_pattern (outline_context, width, outline_size);
   }
 
   self->border_size = border_size;
   self->shadow_size = shadow_size;
+  self->outline_size = outline_size;
 
   self->is_cache_valid = TRUE;
   self->last_direction = direction;
@@ -290,8 +298,10 @@ hdy_shadow_helper_clear_cache (HdyShadowHelper *self)
   cairo_pattern_destroy (self->dimming_pattern);
   cairo_pattern_destroy (self->shadow_pattern);
   cairo_pattern_destroy (self->border_pattern);
+  cairo_pattern_destroy (self->outline_pattern);
   self->border_size = 0;
   self->shadow_size = 0;
+  self->outline_size = 0;
 
   self->last_direction = 0;
   self->last_width = 0;
@@ -397,6 +407,29 @@ hdy_shadow_helper_draw_shadow (HdyShadowHelper *self,
   cairo_save (cr);
   cairo_set_operator (cr, CAIRO_OPERATOR_ATOP);
   cairo_set_source (cr, self->border_pattern);
+  cairo_paint (cr);
+  cairo_restore (cr);
+
+  switch (direction) {
+  case GTK_PAN_DIRECTION_RIGHT:
+    cairo_translate (cr, border_size, 0);
+    break;
+  case GTK_PAN_DIRECTION_DOWN:
+    cairo_translate (cr, 0, border_size);
+    break;
+  case GTK_PAN_DIRECTION_LEFT:
+    cairo_translate (cr, -border_size, 0);
+    break;
+  case GTK_PAN_DIRECTION_UP:
+    cairo_translate (cr, 0, -border_size);
+    break;
+  default:
+    g_assert_not_reached ();
+  }
+
+  cairo_save (cr);
+  cairo_set_operator (cr, CAIRO_OPERATOR_ATOP);
+  cairo_set_source (cr, self->outline_pattern);
   cairo_paint (cr);
   cairo_restore (cr);
 
