@@ -391,6 +391,8 @@ hdy_stackable_box_child_progress_updated (HdyStackableBox *self)
         self->last_visible_child = NULL;
       }
 
+      self->child_transition.is_cancelled = FALSE;
+
       g_object_freeze_notify (G_OBJECT (self));
       g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD]);
       g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD_NAME]);
