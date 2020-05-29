@@ -3199,6 +3199,8 @@ hdy_stackable_box_begin_swipe (HdyStackableBox        *self,
   self->child_transition.swipe_direction = direction;
 
   if (self->child_transition.tick_id > 0) {
+    gtk_widget_remove_tick_callback (GTK_WIDGET (self->container),
+                                     self->child_transition.tick_id);
     self->child_transition.tick_id = 0;
     self->child_transition.is_gesture_active = TRUE;
     self->child_transition.is_cancelled = FALSE;
