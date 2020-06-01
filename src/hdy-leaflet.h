@@ -73,6 +73,8 @@ gboolean         hdy_leaflet_get_can_swipe_forward (HdyLeaflet *self);
 void             hdy_leaflet_set_can_swipe_forward (HdyLeaflet *self,
                                                     gboolean    can_swipe_forward);
 
+GtkWidget       *hdy_leaflet_get_adjacent_child (HdyLeaflet             *self,
+                                                 HdyNavigationDirection  direction);
 gboolean         hdy_leaflet_navigate (HdyLeaflet             *self,
                                        HdyNavigationDirection  direction);
 

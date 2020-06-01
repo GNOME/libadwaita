@@ -505,6 +505,29 @@ hdy_leaflet_get_can_swipe_forward (HdyLeaflet *self)
 }
 
 /**
+ * hdy_leaflet_get_adjacent_child
+ * @self: a #HdyLeaflet
+ * @direction: the direction
+ *
+ * Gets the previous or next child that doesn't have 'allow-visible' child
+ * property set to %FALSE, or %NULL if it doesn't exist. This will be the same
+ * widget hdy_leaflet_navigate() will navigate to.
+ *
+ * Returns: (nullable) (transfer none): the previous or next child, or
+ *   %NULL if it doesn't exist.
+ *
+ * Since: 1.0
+ */
+GtkWidget *
+hdy_leaflet_get_adjacent_child (HdyLeaflet             *self,
+                                HdyNavigationDirection  direction)
+{
+  g_return_val_if_fail (HDY_IS_LEAFLET (self), NULL);
+
+  return hdy_stackable_box_get_adjacent_child (HDY_GET_HELPER (self), direction);
+}
+
+/**
  * hdy_leaflet_navigate
  * @self: a #HdyLeaflet
  * @direction: the direction
