@@ -24,6 +24,7 @@ test_names = [
   'test-avatar',
   'test-carousel',
   'test-combo-row',
+  'test-deck',
   'test-expander-row',
   'test-header-bar',
   'test-header-group',
