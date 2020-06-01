@@ -47,10 +47,6 @@ const gchar *hdy_view_switcher_title_get_subtitle (HdyViewSwitcherTitle *self);
 void         hdy_view_switcher_title_set_subtitle (HdyViewSwitcherTitle *self,
                                                    const gchar          *subtitle);
 
-gboolean hdy_view_switcher_title_get_has_subtitle (HdyViewSwitcherTitle *self);
-void     hdy_view_switcher_title_set_has_subtitle (HdyViewSwitcherTitle *self,
-                                                   gboolean              has_subtitle);
-
 gboolean hdy_view_switcher_title_get_view_switcher_enabled (HdyViewSwitcherTitle *self);
 void     hdy_view_switcher_title_set_view_switcher_enabled (HdyViewSwitcherTitle *self,
                                                             gboolean              enabled);

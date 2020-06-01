@@ -74,7 +74,6 @@ enum {
   PROP_STACK,
   PROP_TITLE,
   PROP_SUBTITLE,
-  PROP_HAS_SUBTITLE,
   PROP_VIEW_SWITCHER_ENABLED,
   PROP_TITLE_VISIBLE,
   LAST_PROP,
@@ -83,13 +82,10 @@ enum {
 typedef struct {
   HdySqueezer *squeezer;
   GtkLabel *subtitle_label;
-  GtkLabel *subtitle_sizing_label;
   GtkBox *title_box;
   GtkLabel *title_label;
-  GtkBox *title_sizing_box;
   HdyViewSwitcher *view_switcher;
 
-  gboolean has_subtitle;
   gboolean view_switcher_enabled;
 } HdyViewSwitcherTitlePrivate;
 
@@ -105,7 +101,6 @@ update_subtitle_label (HdyViewSwitcherTitle *self)
   const gchar *subtitle = gtk_label_get_label (priv->subtitle_label);
 
   gtk_widget_set_visible (GTK_WIDGET (priv->subtitle_label), subtitle && subtitle[0]);
-  gtk_widget_set_visible (GTK_WIDGET (priv->subtitle_sizing_label), priv->has_subtitle || (subtitle && subtitle[0]));
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
 }
@@ -160,9 +155,6 @@ hdy_view_switcher_title_get_property (GObject    *object,
   case PROP_SUBTITLE:
     g_value_set_string (value, hdy_view_switcher_title_get_subtitle (self));
     break;
-  case PROP_HAS_SUBTITLE:
-    g_value_set_boolean (value, hdy_view_switcher_title_get_has_subtitle (self));
-    break;
   case PROP_VIEW_SWITCHER_ENABLED:
     g_value_set_boolean (value, hdy_view_switcher_title_get_view_switcher_enabled (self));
     break;
@@ -199,9 +191,6 @@ hdy_view_switcher_title_set_property (GObject      *object,
   case PROP_SUBTITLE:
     hdy_view_switcher_title_set_subtitle (self, g_value_get_string (value));
     break;
-  case PROP_HAS_SUBTITLE:
-    hdy_view_switcher_title_set_has_subtitle (self, g_value_get_boolean (value));
-    break;
   case PROP_VIEW_SWITCHER_ENABLED:
     hdy_view_switcher_title_set_view_switcher_enabled (self, g_value_get_boolean (value));
     break;
@@ -209,84 +198,6 @@ hdy_view_switcher_title_set_property (GObject      *object,
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
     break;
   }
-}
-
-static void
-hdy_view_switcher_title_get_preferred_width (GtkWidget *widget,
-                                             gint      *minimum,
-                                             gint      *natural)
-{
-  HdyViewSwitcherTitle *self = HDY_VIEW_SWITCHER_TITLE (widget);
-  HdyViewSwitcherTitlePrivate *priv = hdy_view_switcher_title_get_instance_private (self);
-  gint title_minimum, title_natural;
-
-  GTK_WIDGET_CLASS (hdy_view_switcher_title_parent_class)->get_preferred_width (widget, minimum, natural);
-  gtk_widget_get_preferred_width (GTK_WIDGET (priv->title_sizing_box),
-                                  &title_minimum, &title_natural);
-
-  if (minimum)
-    *minimum = MAX (*minimum, title_minimum);
-  if (natural)
-    *natural = MAX (*natural, title_natural);
-}
-
-static void
-hdy_view_switcher_title_get_preferred_height (GtkWidget *widget,
-                                              gint      *minimum,
-                                              gint      *natural)
-{
-  HdyViewSwitcherTitle *self = HDY_VIEW_SWITCHER_TITLE (widget);
-  HdyViewSwitcherTitlePrivate *priv = hdy_view_switcher_title_get_instance_private (self);
-  gint title_minimum, title_natural;
-
-  GTK_WIDGET_CLASS (hdy_view_switcher_title_parent_class)->get_preferred_height (widget, minimum, natural);
-  gtk_widget_get_preferred_height (GTK_WIDGET (priv->title_sizing_box),
-                                   &title_minimum, &title_natural);
-
-  if (minimum)
-    *minimum = MAX (*minimum, title_minimum);
-  if (natural)
-    *natural = MAX (*natural, title_natural);
-}
-
-static void
-hdy_view_switcher_title_get_preferred_width_for_height (GtkWidget *widget,
-                                                        gint       height,
-                                                        gint      *minimum,
-                                                        gint      *natural)
-{
-  HdyViewSwitcherTitle *self = HDY_VIEW_SWITCHER_TITLE (widget);
-  HdyViewSwitcherTitlePrivate *priv = hdy_view_switcher_title_get_instance_private (self);
-  gint title_minimum, title_natural;
-
-  GTK_WIDGET_CLASS (hdy_view_switcher_title_parent_class)->get_preferred_width_for_height (widget, height, minimum, natural);
-  gtk_widget_get_preferred_width_for_height (GTK_WIDGET (priv->title_sizing_box),
-                                             height, &title_minimum, &title_natural);
-
-  if (minimum)
-    *minimum = MAX (*minimum, title_minimum);
-  if (natural)
-    *natural = MAX (*natural, title_natural);
-}
-
-static void
-hdy_view_switcher_title_get_preferred_height_for_width (GtkWidget *widget,
-                                                        gint       width,
-                                                        gint      *minimum,
-                                                        gint      *natural)
-{
-  HdyViewSwitcherTitle *self = HDY_VIEW_SWITCHER_TITLE (widget);
-  HdyViewSwitcherTitlePrivate *priv = hdy_view_switcher_title_get_instance_private (self);
-  gint title_minimum, title_natural;
-
-  GTK_WIDGET_CLASS (hdy_view_switcher_title_parent_class)->get_preferred_height_for_width (widget, width, minimum, natural);
-  gtk_widget_get_preferred_height_for_width (GTK_WIDGET (priv->title_sizing_box),
-                                             width, &title_minimum, &title_natural);
-
-  if (minimum)
-    *minimum = MAX (*minimum, title_minimum);
-  if (natural)
-    *natural = MAX (*natural, title_natural);
 }
 
 static void
@@ -313,11 +224,6 @@ hdy_view_switcher_title_class_init (HdyViewSwitcherTitleClass *klass)
   object_class->dispose = hdy_view_switcher_title_dispose;
   object_class->get_property = hdy_view_switcher_title_get_property;
   object_class->set_property = hdy_view_switcher_title_set_property;
-
-  widget_class->get_preferred_width = hdy_view_switcher_title_get_preferred_width;
-  widget_class->get_preferred_height = hdy_view_switcher_title_get_preferred_height;
-  widget_class->get_preferred_width_for_height = hdy_view_switcher_title_get_preferred_width_for_height;
-  widget_class->get_preferred_height_for_width = hdy_view_switcher_title_get_preferred_height_for_width;
 
   /**
    * HdyViewSwitcherTitle:policy:
@@ -392,20 +298,6 @@ hdy_view_switcher_title_class_init (HdyViewSwitcherTitleClass *klass)
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * HdyViewSwitcherTitle:has-subtitle:
-   *
-   * If %TRUE, reserve space for a subtitle, even if none is currently set.
-   *
-   * Since: 1.0
-   */
-  props[PROP_HAS_SUBTITLE] =
-    g_param_spec_boolean ("has-subtitle",
-                          _("Has Subtitle"),
-                          _("Whether to reserve space for a subtitle"),
-                          TRUE,
-                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
-
-  /**
    * HdyViewSwitcherTitle:view-switcher-enabled:
    *
    * Whether the bar should be revealed or hidden.
@@ -441,10 +333,8 @@ hdy_view_switcher_title_class_init (HdyViewSwitcherTitleClass *klass)
                                                "/sm/puri/handy/ui/hdy-view-switcher-title.ui");
   gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherTitle, squeezer);
   gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherTitle, subtitle_label);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherTitle, subtitle_sizing_label);
   gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherTitle, title_box);
   gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherTitle, title_label);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherTitle, title_sizing_box);
   gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherTitle, view_switcher);
   gtk_widget_class_bind_template_callback (widget_class, notify_squeezer_visible_child_cb);
 }
@@ -459,7 +349,6 @@ hdy_view_switcher_title_init (HdyViewSwitcherTitle *self)
   /* This must be initialized before the template so the embedded view switcher
    * can pick up the correct default value.
    */
-  priv->has_subtitle = TRUE;
   priv->view_switcher_enabled = TRUE;
 
   gtk_widget_init_template (GTK_WIDGET (self));
@@ -726,10 +615,6 @@ hdy_view_switcher_title_get_subtitle (HdyViewSwitcherTitle *self)
  * Sets the subtitle of @self. The subtitle should give a user additional
  * details.
  *
- * Note that #HdyViewSwitcherTitle by default reserves room for the subtitle,
- * even if none is currently set. If this is not desired, set the
- * #HdyViewSwitcherTitle:has-subtitle property to %FALSE.
- *
  * Since: 1.0
  */
 void
@@ -749,60 +634,6 @@ hdy_view_switcher_title_set_subtitle (HdyViewSwitcherTitle *self,
   update_subtitle_label (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUBTITLE]);
-}
-
-/**
- * hdy_view_switcher_title_get_has_subtitle:
- * @self: a #HdyViewSwitcherTitle
- *
- * gets whether the view switcher reserves space for a subtitle, regardless if
- * one is currently set or not.
- *
- * Returns: %TRUE if the view switcher reserves space for a subtitle
- *
- * Since: 1.0
- */
-gboolean
-hdy_view_switcher_title_get_has_subtitle (HdyViewSwitcherTitle *self)
-{
-  HdyViewSwitcherTitlePrivate *priv;
-
-  g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self), FALSE);
-
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  return priv->has_subtitle;
-}
-
-/**
- * hdy_view_switcher_title_set_has_subtitle:
- * @self: a #HdyViewSwitcherTitle
- * @has_subtitle: %TRUE to reserve space for a subtitle
- *
- * Sets whether the view switcher should reserve space for a subtitle, even if
- * none is currently set.
- *
- * Since: 1.0
- */
-void
-hdy_view_switcher_title_set_has_subtitle (HdyViewSwitcherTitle *self,
-                                          gboolean              has_subtitle)
-{
-  HdyViewSwitcherTitlePrivate *priv;
-
-  g_return_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self));
-
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  has_subtitle = !!has_subtitle;
-
-  if (priv->has_subtitle == has_subtitle)
-    return;
-
-  priv->has_subtitle = has_subtitle;
-  update_subtitle_label (self);
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HAS_SUBTITLE]);
 }
 
 /**
