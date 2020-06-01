@@ -1334,6 +1334,36 @@ find_swipeable_child (HdyStackableBox        *self,
 }
 
 /**
+ * hdy_stackable_box_get_adjacent_child
+ * @self: a #HdyStackableBox
+ * @direction: the direction
+ *
+ * Gets the previous or next child that doesn't have 'allow-visible' child
+ * property set to %FALSE, or %NULL if it doesn't exist. This will be the same
+ * widget hdy_stackable_box_navigate() will navigate to.
+ *
+ * Returns: (nullable) (transfer none): the previous or next child, or
+ *   %NULL if it doesn't exist.
+ *
+ * Since: 1.0
+ */
+GtkWidget *
+hdy_stackable_box_get_adjacent_child (HdyStackableBox        *self,
+                                      HdyNavigationDirection  direction)
+{
+  HdyStackableBoxChildInfo *child;
+
+  g_return_val_if_fail (HDY_IS_STACKABLE_BOX (self), NULL);
+
+  child = find_swipeable_child (self, direction);
+
+  if (!child)
+    return NULL;
+
+  return child->widget;
+}
+
+/**
  * hdy_stackable_box_navigate
  * @self: a #HdyStackableBox
  * @direction: the direction

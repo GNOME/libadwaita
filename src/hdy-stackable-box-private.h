@@ -65,6 +65,8 @@ gboolean         hdy_stackable_box_get_can_swipe_forward (HdyStackableBox *self)
 void             hdy_stackable_box_set_can_swipe_forward (HdyStackableBox *self,
                                                           gboolean         can_swipe_forward);
 
+GtkWidget       *hdy_stackable_box_get_adjacent_child (HdyStackableBox        *self,
+                                                       HdyNavigationDirection  direction);
 gboolean         hdy_stackable_box_navigate (HdyStackableBox        *self,
                                              HdyNavigationDirection  direction);
 
