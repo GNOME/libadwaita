@@ -65,6 +65,8 @@ gboolean         hdy_deck_get_can_swipe_forward (HdyDeck *self);
 void             hdy_deck_set_can_swipe_forward (HdyDeck  *self,
                                                  gboolean  can_swipe_forward);
 
+GtkWidget       *hdy_deck_get_adjacent_child (HdyDeck                *self,
+                                              HdyNavigationDirection  direction);
 gboolean         hdy_deck_navigate (HdyDeck                *self,
                                     HdyNavigationDirection  direction);
 

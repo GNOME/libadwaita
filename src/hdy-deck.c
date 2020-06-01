@@ -464,6 +464,28 @@ hdy_deck_get_can_swipe_forward (HdyDeck *self)
 }
 
 /**
+ * hdy_deck_get_adjacent_child
+ * @self: a #HdyDeck
+ * @direction: the direction
+ *
+ * Gets the previous or next child, or %NULL if it doesn't exist. This will be
+ * the same widget hdy_deck_navigate() will navigate to.
+ *
+ * Returns: (nullable) (transfer none): the previous or next child, or
+ *   %NULL if it doesn't exist.
+ *
+ * Since: 1.0
+ */
+GtkWidget *
+hdy_deck_get_adjacent_child (HdyDeck                *self,
+                             HdyNavigationDirection  direction)
+{
+  g_return_val_if_fail (HDY_IS_DECK (self), NULL);
+
+  return hdy_stackable_box_get_adjacent_child (HDY_GET_HELPER (self), direction);
+}
+
+/**
  * hdy_deck_navigate
  * @self: a #HdyDeck
  * @direction: the direction
