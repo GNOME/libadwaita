@@ -949,7 +949,8 @@ hdy_carousel_box_remove (GtkContainer *container,
 
   info->widget = NULL;
 
-  animate_child (self, info, 0, self->reveal_duration);
+  if (!gtk_widget_in_destruction (GTK_WIDGET (container)))
+    animate_child (self, info, 0, self->reveal_duration);
 
   g_signal_emit (self, signals[SIGNAL_PAGE_REMOVED], 0, index);
 
