@@ -109,6 +109,7 @@ new_search_row_for_preference (HdyPreferencesRow    *row,
   g_assert (HDY_IS_PREFERENCES_ROW (row));
 
   widget = HDY_ACTION_ROW (hdy_action_row_new ());
+  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (widget), TRUE);
   g_object_bind_property (row, "title", widget, "title", G_BINDING_SYNC_CREATE);
   g_object_bind_property (row, "use-underline", widget, "use-underline", G_BINDING_SYNC_CREATE);
 
