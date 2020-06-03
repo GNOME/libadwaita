@@ -176,7 +176,7 @@ search_result_activated_cb (HdyPreferencesWindow *self,
   g_assert (page != NULL);
   g_assert (row != NULL);
 
-  adjustment = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (page));
+  adjustment = hdy_preferences_page_get_vadjustment (page);
 
   g_assert (adjustment != NULL);
 
