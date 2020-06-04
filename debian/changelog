@@ -1,3 +1,9 @@
+libhandy-1 (0.81.0) amber-phone; urgency=medium
+
+  * New upstream release
+
+ -- Adrien Plazas <adrien.plazas@puri.sm>  Fri, 05 Jun 2020 13:08:25 +0200
+
 libhandy-1 (0.80.0) amber-phone; urgency=medium
 
   [ Guido Günther ]

@@ -1,0 +1,62 @@
+==============
+Version 0.81.0
+==============
+
+- Migrated the project to https://gitlab.gnome.org/GNOME/libhandy/.
+  - Archived the project at https://source.puri.sm/Librem5/libhandy/.
+  - Updated URLs and email addresses across the project.
+  - Switch the CI to use GNOME's.
+  - Build and publish the nightly reference manual via GitLab Pages at
+    https://gnome.pages.gitlab.gnome.org/libhandy/.
+- Make the reference manual and the Glade catalog parallel-installable
+  with libhandy 0.0.
+- Add a Python override to ensure the library is initialized on import.
+- Themes:
+  - Add the HighContrast theme.
+  - Split the shared theme into the fallback theme whose style can be
+    overridden by other themes, and the shared theme whose style
+    overrides the themes.
+  - Move window corners from the shared theme to Adwaita, so elementary
+    can do what they want.
+  - Make the leaflet and deck drop shadows darker for dark variants and
+    HighContrast, to ensure it's visible.
+  - Drop the .h4 fallback to avoid conflicts with .heading. Themes are
+    now expected to implement .heading, or optionally .h4.
+  - Fix list.preferences nested list bottom corner rounding issues.
+- CSS support:
+  - Account for the CSS box-shadow property when clipping in HdyAvatar,
+    HdyHeaderBar, and HdyTitleBar.
+  - Support the CSS min-width and min-height properties in HdyHeaderBar,
+    and HdyTitleBar.
+- HdyDeck and HdyLeaflet:
+  - Add *_get_adjacent_child() to get the child a swipe or a call to
+    *_navigate() would present.
+  - Don't skip the swipes with a 0 (child for leaflet) transition
+    duration.
+  - Correctly cancel transitions when the duration is 0 or the
+    transition is NONE.
+- HdyCarousel:
+  - Allow mouse drag by default.
+  - Add the 'reveal-duration' property.
+  - Animate child addition and deletion.
+- HdyExpanderRow:
+  - Move switch to the left of the arrow.
+  - Add hdy_expander_row_add_action_widget() and the 'action' child type
+    to allow adding widgets before the arrow and the switch.
+- HdyHeaderBar:
+  - Add the .titlebar style class by default.
+- HdyKeypad:
+  - Make it inherit from GtkBin instead of GtkGrid, contain one instead.
+  - Add spacing properties to set the grid's spacing.
+  - Don't make it visible by default.
+- HdyPreferencesGroup:
+  - Use the .heading style class for the title in addition to .h4.
+- HdyPreferencesWindow:
+  - Make clicking search rows work again.
+- HdySwipeable:
+  - Add the get_distance(), get_range(), get_snap_points(),
+    get_progress(), and get_cancel_progress() virtual methods.
+- HdyViewSwitcherTitle:
+  - Remove the useless has-subtitle property.
+  - Prevent gtk_widget_show_all() from modifying its internal state.
+  - Make dispose() reentrant.
