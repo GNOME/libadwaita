@@ -120,8 +120,6 @@
         <property id="transition-type">
           <displayable-values>
             <!-- HdyDeckTransitionType enumeration value -->
-            <value id="HDY_DECK_TRANSITION_TYPE_NONE" name="None"/>
-            <!-- HdyDeckTransitionType enumeration value -->
             <value id="HDY_DECK_TRANSITION_TYPE_OVER" name="Over"/>
             <!-- HdyDeckTransitionType enumeration value -->
             <value id="HDY_DECK_TRANSITION_TYPE_UNDER" name="Under"/>
