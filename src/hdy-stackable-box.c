@@ -176,7 +176,7 @@ struct _HdyStackableBox
     gboolean can_swipe_back;
     gboolean can_swipe_forward;
 
-    HdyStackableBoxTransitionType active_type;
+    gboolean is_active;
     GtkPanDirection active_direction;
     gboolean is_direct_swipe;
     gint swipe_direction;
@@ -254,12 +254,15 @@ is_window_moving_child_transition (HdyStackableBox *self)
   gboolean is_rtl;
   GtkPanDirection left_or_right, right_or_left;
 
+  if (!self->child_transition.is_active)
+    return FALSE;
+
   direction = self->child_transition.active_direction;
   is_rtl = gtk_widget_get_direction (GTK_WIDGET (self->container)) == GTK_TEXT_DIR_RTL;
   left_or_right = is_rtl ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_LEFT;
   right_or_left = is_rtl ? GTK_PAN_DIRECTION_LEFT : GTK_PAN_DIRECTION_RIGHT;
 
-  switch (self->child_transition.active_type) {
+  switch (self->transition_type) {
   case HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE:
     return FALSE;
   case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
@@ -472,7 +475,7 @@ static void
 hdy_stackable_box_stop_child_transition (HdyStackableBox *self)
 {
   hdy_stackable_box_unschedule_child_ticks (self);
-  self->child_transition.active_type = HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE;
+  self->child_transition.is_active = FALSE;
   gtk_progress_tracker_finish (&self->child_transition.tracker);
   if (self->child_transition.last_visible_surface != NULL) {
     cairo_surface_destroy (self->child_transition.last_visible_surface);
@@ -491,10 +494,9 @@ hdy_stackable_box_stop_child_transition (HdyStackableBox *self)
 }
 
 static void
-hdy_stackable_box_start_child_transition (HdyStackableBox               *self,
-                                          HdyStackableBoxTransitionType  transition_type,
-                                          guint                          transition_duration,
-                                          GtkPanDirection                transition_direction)
+hdy_stackable_box_start_child_transition (HdyStackableBox *self,
+                                          guint            transition_duration,
+                                          GtkPanDirection  transition_direction)
 {
   GtkWidget *widget = GTK_WIDGET (self->container);
 
@@ -502,11 +504,11 @@ hdy_stackable_box_start_child_transition (HdyStackableBox               *self,
       ((hdy_get_enable_animations (widget) &&
         transition_duration != 0) ||
        self->child_transition.is_gesture_active) &&
-      transition_type != HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE &&
+      self->transition_type != HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE &&
       self->last_visible_child != NULL &&
       /* Don't animate child transition when a mode transition is ongoing. */
       self->mode_transition.tick_id == 0) {
-    self->child_transition.active_type = transition_type;
+    self->child_transition.is_active = TRUE;
     self->child_transition.active_direction = transition_direction;
     self->child_transition.first_frame_skipped = FALSE;
     self->child_transition.start_progress = 0;
@@ -524,7 +526,7 @@ hdy_stackable_box_start_child_transition (HdyStackableBox               *self,
   }
   else {
     hdy_stackable_box_unschedule_child_ticks (self);
-    self->child_transition.active_type = HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE;
+    self->child_transition.is_active = FALSE;
     gtk_progress_tracker_finish (&self->child_transition.tracker);
   }
 
@@ -628,7 +630,7 @@ set_visible_child_info (HdyStackableBox               *self,
 
   if ((new_visible_child == NULL || self->last_visible_child == NULL) &&
       is_direction_dependent_child_transition (transition_type))
-    transition_type = HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE;
+    transition_duration = 0;
   else if (is_direction_dependent_child_transition (transition_type)) {
     gboolean new_first = FALSE;
     for (children = self->children; children; children = children->next) {
@@ -651,7 +653,7 @@ set_visible_child_info (HdyStackableBox               *self,
     else
       gtk_widget_queue_resize (widget);
 
-    hdy_stackable_box_start_child_transition (self, transition_type, transition_duration, transition_direction);
+    hdy_stackable_box_start_child_transition (self, transition_duration, transition_direction);
   }
 
   if (emit_switch_child) {
@@ -1561,11 +1563,8 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
   mode_transition_type = self->transition_type;
 
   /* Avoid useless computations and allow visible child transitions. */
-  if (self->mode_transition.current_pos <= 0.0)
-    mode_transition_type = HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE;
-
-  switch (mode_transition_type) {
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE:
+  if (self->mode_transition.current_pos <= 0.0 ||
+      mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE) {
     /* Child transitions should be applied only when folded and when no mode
      * transition is ongoing.
      */
@@ -1586,201 +1585,194 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
       child_info->visible = TRUE;
     }
 
+    return;
+  }
+
+  /* Compute visible child size. */
+  visible_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
+    MIN (allocation->width, MAX (visible_child->nat.width, (gint) (allocation->width * (1.0 - self->mode_transition.current_pos)))) :
+    MIN (allocation->height, MAX (visible_child->nat.height, (gint) (allocation->height * (1.0 - self->mode_transition.current_pos))));
+
+  /* Compute homogeneous box child size. */
+  box_homogeneous = (self->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] && orientation == GTK_ORIENTATION_HORIZONTAL) ||
+                    (self->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL] && orientation == GTK_ORIENTATION_VERTICAL);
+  if (box_homogeneous) {
+    for (children = directed_children; children; children = children->next) {
+      child_info = children->data;
+
+      max_child_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
+        MAX (max_child_size, child_info->nat.width) :
+        MAX (max_child_size, child_info->nat.height);
+    }
+  }
+
+  /* Compute the start size. */
+  start_size = 0;
+  for (children = directed_children; children; children = children->next) {
+    child_info = children->data;
+
+    if (child_info == visible_child)
+      break;
+
+    start_size += orientation == GTK_ORIENTATION_HORIZONTAL ?
+      (box_homogeneous ? max_child_size : child_info->nat.width) :
+      (box_homogeneous ? max_child_size : child_info->nat.height);
+  }
+
+  /* Compute the end size. */
+  end_size = 0;
+  for (children = g_list_last (directed_children); children; children = children->prev) {
+    child_info = children->data;
+
+    if (child_info == visible_child)
+      break;
+
+    end_size += orientation == GTK_ORIENTATION_HORIZONTAL ?
+      (box_homogeneous ? max_child_size : child_info->nat.width) :
+      (box_homogeneous ? max_child_size : child_info->nat.height);
+  }
+
+  /* Compute pads. */
+  remaining_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
+    allocation->width - visible_size :
+    allocation->height - visible_size;
+  remaining_start_size = (gint) (remaining_size * ((gdouble) start_size / (gdouble) (start_size + end_size)));
+  remaining_end_size = remaining_size - remaining_start_size;
+
+  /* Store start and end allocations. */
+  switch (orientation) {
+  case GTK_ORIENTATION_HORIZONTAL:
+    direction = gtk_widget_get_direction (GTK_WIDGET (self->container));
+    under = (mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER && direction == GTK_TEXT_DIR_LTR) ||
+            (mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER && direction == GTK_TEXT_DIR_RTL);
+    self->mode_transition.start_surface_allocation.width = under ? remaining_size : start_size;
+    self->mode_transition.start_surface_allocation.height = allocation->height;
+    self->mode_transition.start_surface_allocation.x = under ? 0 : remaining_start_size - start_size;
+    self->mode_transition.start_surface_allocation.y = 0;
+    self->mode_transition.start_progress = under ? (gdouble) remaining_size / start_size : 1;
+    under = (mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER && direction == GTK_TEXT_DIR_LTR) ||
+            (mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER && direction == GTK_TEXT_DIR_RTL);
+    self->mode_transition.end_surface_allocation.width = end_size;
+    self->mode_transition.end_surface_allocation.height = allocation->height;
+    self->mode_transition.end_surface_allocation.x = under ? allocation->width - end_size : remaining_start_size + visible_size;
+    self->mode_transition.end_surface_allocation.y = 0;
+    self->mode_transition.end_surface_clip.width = end_size;
+    self->mode_transition.end_surface_clip.height = self->mode_transition.end_surface_allocation.height;
+    self->mode_transition.end_surface_clip.x = remaining_start_size + visible_size;
+    self->mode_transition.end_surface_clip.y = self->mode_transition.end_surface_allocation.y;
+    self->mode_transition.end_progress = under ? (gdouble) remaining_end_size / end_size : 1;
     break;
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER:
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
-    /* Compute visible child size. */
-
-    visible_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
-      MIN (allocation->width, MAX (visible_child->nat.width, (gint) (allocation->width * (1.0 - self->mode_transition.current_pos)))) :
-      MIN (allocation->height, MAX (visible_child->nat.height, (gint) (allocation->height * (1.0 - self->mode_transition.current_pos))));
-
-    /* Compute homogeneous box child size. */
-    box_homogeneous = (self->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] && orientation == GTK_ORIENTATION_HORIZONTAL) ||
-                      (self->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL] && orientation == GTK_ORIENTATION_VERTICAL);
-    if (box_homogeneous) {
-      for (children = directed_children; children; children = children->next) {
-        child_info = children->data;
-
-        max_child_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
-          MAX (max_child_size, child_info->nat.width) :
-          MAX (max_child_size, child_info->nat.height);
-      }
-    }
-
-    /* Compute the start size. */
-    start_size = 0;
-    for (children = directed_children; children; children = children->next) {
-      child_info = children->data;
-
-      if (child_info == visible_child)
-        break;
-
-      start_size += orientation == GTK_ORIENTATION_HORIZONTAL ?
-        (box_homogeneous ? max_child_size : child_info->nat.width) :
-        (box_homogeneous ? max_child_size : child_info->nat.height);
-    }
-
-    /* Compute the end size. */
-    end_size = 0;
-    for (children = g_list_last (directed_children); children; children = children->prev) {
-      child_info = children->data;
-
-      if (child_info == visible_child)
-        break;
-
-      end_size += orientation == GTK_ORIENTATION_HORIZONTAL ?
-        (box_homogeneous ? max_child_size : child_info->nat.width) :
-        (box_homogeneous ? max_child_size : child_info->nat.height);
-    }
-
-    /* Compute pads. */
-    remaining_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
-      allocation->width - visible_size :
-      allocation->height - visible_size;
-    remaining_start_size = (gint) (remaining_size * ((gdouble) start_size / (gdouble) (start_size + end_size)));
-    remaining_end_size = remaining_size - remaining_start_size;
-
-    /* Store start and end allocations. */
-    switch (orientation) {
-    case GTK_ORIENTATION_HORIZONTAL:
-      direction = gtk_widget_get_direction (GTK_WIDGET (self->container));
-      under = (mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER && direction == GTK_TEXT_DIR_LTR) ||
-              (mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER && direction == GTK_TEXT_DIR_RTL);
-      self->mode_transition.start_surface_allocation.width = under ? remaining_size : start_size;
-      self->mode_transition.start_surface_allocation.height = allocation->height;
-      self->mode_transition.start_surface_allocation.x = under ? 0 : remaining_start_size - start_size;
-      self->mode_transition.start_surface_allocation.y = 0;
-      self->mode_transition.start_progress = under ? (gdouble) remaining_size / start_size : 1;
-      under = (mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER && direction == GTK_TEXT_DIR_LTR) ||
-              (mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER && direction == GTK_TEXT_DIR_RTL);
-      self->mode_transition.end_surface_allocation.width = end_size;
-      self->mode_transition.end_surface_allocation.height = allocation->height;
-      self->mode_transition.end_surface_allocation.x = under ? allocation->width - end_size : remaining_start_size + visible_size;
-      self->mode_transition.end_surface_allocation.y = 0;
-      self->mode_transition.end_surface_clip.width = end_size;
-      self->mode_transition.end_surface_clip.height = self->mode_transition.end_surface_allocation.height;
-      self->mode_transition.end_surface_clip.x = remaining_start_size + visible_size;
-      self->mode_transition.end_surface_clip.y = self->mode_transition.end_surface_allocation.y;
-      self->mode_transition.end_progress = under ? (gdouble) remaining_end_size / end_size : 1;
-      break;
-    case GTK_ORIENTATION_VERTICAL:
-      under = mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER;
-      self->mode_transition.start_surface_allocation.width = allocation->width;
-      self->mode_transition.start_surface_allocation.height = under ? remaining_size : start_size;
-      self->mode_transition.start_surface_allocation.x = 0;
-      self->mode_transition.start_surface_allocation.y = under ? 0 : remaining_start_size - start_size;
-      self->mode_transition.start_progress = under ? (gdouble) remaining_size / start_size : 1;
-      under = mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER;
-      self->mode_transition.end_surface_allocation.width = allocation->width;
-      self->mode_transition.end_surface_allocation.height = end_size;
-      self->mode_transition.end_surface_allocation.x = 0;
-      self->mode_transition.end_surface_allocation.y = remaining_start_size + visible_size;
-      self->mode_transition.end_surface_clip.width = self->mode_transition.end_surface_allocation.width;
-      self->mode_transition.end_surface_clip.height = end_size;
-      self->mode_transition.end_surface_clip.x = self->mode_transition.end_surface_allocation.x;
-      self->mode_transition.end_surface_clip.y = remaining_start_size + visible_size;
-      self->mode_transition.end_progress = under ? (gdouble) remaining_end_size / end_size : 1;
-      break;
-    default:
-      g_assert_not_reached ();
-    }
-
-    self->mode_transition.start_distance = start_size;
-    self->mode_transition.end_distance = end_size;
-
-    /* Allocate visible child. */
-    if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-      visible_child->alloc.width = visible_size;
-      visible_child->alloc.height = allocation->height;
-      visible_child->alloc.x = remaining_start_size;
-      visible_child->alloc.y = 0;
-      visible_child->visible = TRUE;
-    }
-    else {
-      visible_child->alloc.width = allocation->width;
-      visible_child->alloc.height = visible_size;
-      visible_child->alloc.x = 0;
-      visible_child->alloc.y = remaining_start_size;
-      visible_child->visible = TRUE;
-    }
-
-    /* Allocate starting children. */
-    if (orientation == GTK_ORIENTATION_HORIZONTAL)
-      current_pad = -self->mode_transition.start_surface_allocation.x;
-    else
-      current_pad = -self->mode_transition.start_surface_allocation.y;
-
-    for (children = directed_children; children; children = children->next) {
-      child_info = children->data;
-
-      if (child_info == visible_child)
-        break;
-
-      if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-        child_info->alloc.width = box_homogeneous ?
-          max_child_size :
-          child_info->nat.width;
-        child_info->alloc.height = allocation->height;
-        child_info->alloc.x = -current_pad;
-        child_info->alloc.y = 0;
-        child_info->visible = child_info->alloc.x + child_info->alloc.width > 0;
-
-        current_pad -= child_info->alloc.width;
-      }
-      else {
-        child_info->alloc.width = allocation->width;
-        child_info->alloc.height = box_homogeneous ?
-          max_child_size :
-          child_info->nat.height;
-        child_info->alloc.x = 0;
-        child_info->alloc.y = -current_pad;
-        child_info->visible = child_info->alloc.y + child_info->alloc.height > 0;
-
-        current_pad -= child_info->alloc.height;
-      }
-    }
-
-    /* Allocate ending children. */
-    if (orientation == GTK_ORIENTATION_HORIZONTAL)
-      current_pad = self->mode_transition.end_surface_allocation.x;
-    else
-      current_pad = self->mode_transition.end_surface_allocation.y;
-
-    for (children = g_list_last (directed_children); children; children = children->prev) {
-      child_info = children->data;
-
-      if (child_info == visible_child)
-        break;
-
-      if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-        current_pad -= child_info->alloc.width;
-
-        child_info->alloc.width = box_homogeneous ?
-          max_child_size :
-          child_info->nat.width;
-        child_info->alloc.height = allocation->height;
-        child_info->alloc.x = current_pad;
-        child_info->alloc.y = 0;
-        child_info->visible = child_info->alloc.x < allocation->width;
-      }
-      else {
-        current_pad -= child_info->alloc.height;
-
-        child_info->alloc.width = allocation->width;
-        child_info->alloc.height = box_homogeneous ?
-          max_child_size :
-          child_info->nat.height;
-        child_info->alloc.x = 0;
-        child_info->alloc.y = current_pad;
-        child_info->visible = child_info->alloc.y < allocation->height;
-      }
-    }
-
+  case GTK_ORIENTATION_VERTICAL:
+    under = mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER;
+    self->mode_transition.start_surface_allocation.width = allocation->width;
+    self->mode_transition.start_surface_allocation.height = under ? remaining_size : start_size;
+    self->mode_transition.start_surface_allocation.x = 0;
+    self->mode_transition.start_surface_allocation.y = under ? 0 : remaining_start_size - start_size;
+    self->mode_transition.start_progress = under ? (gdouble) remaining_size / start_size : 1;
+    under = mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER;
+    self->mode_transition.end_surface_allocation.width = allocation->width;
+    self->mode_transition.end_surface_allocation.height = end_size;
+    self->mode_transition.end_surface_allocation.x = 0;
+    self->mode_transition.end_surface_allocation.y = remaining_start_size + visible_size;
+    self->mode_transition.end_surface_clip.width = self->mode_transition.end_surface_allocation.width;
+    self->mode_transition.end_surface_clip.height = end_size;
+    self->mode_transition.end_surface_clip.x = self->mode_transition.end_surface_allocation.x;
+    self->mode_transition.end_surface_clip.y = remaining_start_size + visible_size;
+    self->mode_transition.end_progress = under ? (gdouble) remaining_end_size / end_size : 1;
     break;
   default:
     g_assert_not_reached ();
+  }
+
+  self->mode_transition.start_distance = start_size;
+  self->mode_transition.end_distance = end_size;
+
+  /* Allocate visible child. */
+  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+    visible_child->alloc.width = visible_size;
+    visible_child->alloc.height = allocation->height;
+    visible_child->alloc.x = remaining_start_size;
+    visible_child->alloc.y = 0;
+    visible_child->visible = TRUE;
+  }
+  else {
+    visible_child->alloc.width = allocation->width;
+    visible_child->alloc.height = visible_size;
+    visible_child->alloc.x = 0;
+    visible_child->alloc.y = remaining_start_size;
+    visible_child->visible = TRUE;
+  }
+
+  /* Allocate starting children. */
+  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+    current_pad = -self->mode_transition.start_surface_allocation.x;
+  else
+    current_pad = -self->mode_transition.start_surface_allocation.y;
+
+  for (children = directed_children; children; children = children->next) {
+    child_info = children->data;
+
+    if (child_info == visible_child)
+      break;
+
+    if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+      child_info->alloc.width = box_homogeneous ?
+        max_child_size :
+        child_info->nat.width;
+      child_info->alloc.height = allocation->height;
+      child_info->alloc.x = -current_pad;
+      child_info->alloc.y = 0;
+      child_info->visible = child_info->alloc.x + child_info->alloc.width > 0;
+
+      current_pad -= child_info->alloc.width;
+    }
+    else {
+      child_info->alloc.width = allocation->width;
+      child_info->alloc.height = box_homogeneous ?
+        max_child_size :
+        child_info->nat.height;
+      child_info->alloc.x = 0;
+      child_info->alloc.y = -current_pad;
+      child_info->visible = child_info->alloc.y + child_info->alloc.height > 0;
+
+      current_pad -= child_info->alloc.height;
+    }
+  }
+
+  /* Allocate ending children. */
+  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+    current_pad = self->mode_transition.end_surface_allocation.x;
+  else
+    current_pad = self->mode_transition.end_surface_allocation.y;
+
+  for (children = g_list_last (directed_children); children; children = children->prev) {
+    child_info = children->data;
+
+    if (child_info == visible_child)
+      break;
+
+    if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+      current_pad -= child_info->alloc.width;
+
+      child_info->alloc.width = box_homogeneous ?
+        max_child_size :
+        child_info->nat.width;
+      child_info->alloc.height = allocation->height;
+      child_info->alloc.x = current_pad;
+      child_info->alloc.y = 0;
+      child_info->visible = child_info->alloc.x < allocation->width;
+    }
+    else {
+      current_pad -= child_info->alloc.height;
+
+      child_info->alloc.width = allocation->width;
+      child_info->alloc.height = box_homogeneous ?
+        max_child_size :
+        child_info->nat.height;
+      child_info->alloc.x = 0;
+      child_info->alloc.y = current_pad;
+      child_info->visible = child_info->alloc.y < allocation->height;
+    }
   }
 }
 
@@ -2353,7 +2345,7 @@ hdy_stackable_box_draw_over_or_under (HdyStackableBox *self,
   left_or_right = is_rtl ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_LEFT;
   right_or_left = is_rtl ? GTK_PAN_DIRECTION_LEFT : GTK_PAN_DIRECTION_RIGHT;
 
-  switch (self->child_transition.active_type) {
+  switch (self->transition_type) {
   case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
     if (direction == GTK_PAN_DIRECTION_UP || direction == left_or_right)
       hdy_stackable_box_draw_over (self, cr);
@@ -2686,7 +2678,7 @@ hdy_stackable_box_draw (HdyStackableBox *self,
                        gtk_widget_get_allocated_height (widget));
       cairo_clip (cr);
 
-      switch (self->child_transition.active_type) {
+      switch (self->transition_type) {
       case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
       case HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER:
         hdy_stackable_box_draw_over_or_under (self, cr);
