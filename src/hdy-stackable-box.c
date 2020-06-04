@@ -40,7 +40,6 @@
 
 /**
  * HdyStackableBoxTransitionType:
- * @HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE: No transition
  * @HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER: Cover the old page or uncover the new page, sliding from or towards the end according to orientation, text direction and children order
  * @HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER: Uncover the new page or cover the old page, sliding from or towards the start according to orientation, text direction and children order
  * @HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE: Slide from left, right, up or down according to the orientation, text direction and the children order
@@ -263,8 +262,6 @@ is_window_moving_child_transition (HdyStackableBox *self)
   right_or_left = is_rtl ? GTK_PAN_DIRECTION_LEFT : GTK_PAN_DIRECTION_RIGHT;
 
   switch (self->transition_type) {
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE:
-    return FALSE;
   case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
     return direction == GTK_PAN_DIRECTION_UP || direction == left_or_right;
   case HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER:
@@ -504,7 +501,6 @@ hdy_stackable_box_start_child_transition (HdyStackableBox *self,
       ((hdy_get_enable_animations (widget) &&
         transition_duration != 0) ||
        self->child_transition.is_gesture_active) &&
-      self->transition_type != HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE &&
       self->last_visible_child != NULL &&
       /* Don't animate child transition when a mode transition is ongoing. */
       self->mode_transition.tick_id == 0) {
@@ -788,7 +784,6 @@ hdy_stackable_box_start_mode_transition (HdyStackableBox *self,
 
   if (gtk_widget_get_mapped (widget) &&
       self->mode_transition.duration != 0 &&
-      self->transition_type != HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE &&
       hdy_get_enable_animations (widget) &&
       self->can_unfold) {
     self->mode_transition.source_pos = self->mode_transition.current_pos;
@@ -941,7 +936,7 @@ hdy_stackable_box_get_homogeneous (HdyStackableBox *self,
 HdyStackableBoxTransitionType
 hdy_stackable_box_get_transition_type (HdyStackableBox *self)
 {
-  g_return_val_if_fail (HDY_IS_STACKABLE_BOX (self), HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE);
+  g_return_val_if_fail (HDY_IS_STACKABLE_BOX (self), HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER);
 
   return self->transition_type;
 }
@@ -1563,8 +1558,7 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
   mode_transition_type = self->transition_type;
 
   /* Avoid useless computations and allow visible child transitions. */
-  if (self->mode_transition.current_pos <= 0.0 ||
-      mode_transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE) {
+  if (self->mode_transition.current_pos <= 0.0) {
     /* Child transitions should be applied only when folded and when no mode
      * transition is ongoing.
      */
@@ -2362,7 +2356,6 @@ hdy_stackable_box_draw_over_or_under (HdyStackableBox *self,
     else
       g_assert_not_reached ();
     break;
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE:
   case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
   default:
     g_assert_not_reached ();
@@ -2651,8 +2644,7 @@ hdy_stackable_box_draw (HdyStackableBox *self,
                                       self->visible_child->widget,
                                       cr);
     }
-    else if ((self->child_transition.is_gesture_active &&
-              self->transition_type != HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE) ||
+    else if (self->child_transition.is_gesture_active ||
              gtk_progress_tracker_get_state (&self->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
       if (self->child_transition.last_visible_surface == NULL &&
           self->last_visible_child != NULL) {
@@ -2686,7 +2678,6 @@ hdy_stackable_box_draw (HdyStackableBox *self,
       case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
         hdy_stackable_box_draw_slide (self, cr);
         break;
-      case HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE:
       default:
         g_assert_not_reached ();
       }
@@ -3243,9 +3234,7 @@ hdy_stackable_box_end_swipe (HdyStackableBox *self,
   self->child_transition.first_frame_skipped = TRUE;
 
   hdy_stackable_box_schedule_child_ticks (self);
-  if (hdy_get_enable_animations (GTK_WIDGET (self->container)) &&
-      duration != 0 &&
-      self->transition_type != HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE) {
+  if (hdy_get_enable_animations (GTK_WIDGET (self->container)) && duration != 0) {
     gtk_progress_tracker_start (&self->child_transition.tracker,
                                 duration * 1000,
                                 0,
