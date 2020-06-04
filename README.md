@@ -64,7 +64,7 @@ _build/run glade
 ## Documentation
 
 The documentation can be found online
-[here](https://developer.puri.sm/projects/libhandy/unstable). Further examples on how
+[here](https://gnome.pages.gitlab.gnome.org/libhandy). Further examples on how
 to use the widgets in your favorite programming language can be found here:
 
 ### C
