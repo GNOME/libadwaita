@@ -34,7 +34,6 @@
 
 /**
  * HdyLeafletTransitionType:
- * @HDY_LEAFLET_TRANSITION_TYPE_NONE: No transition
  * @HDY_LEAFLET_TRANSITION_TYPE_OVER: Cover the old page or uncover the new page, sliding from or towards the end according to orientation, text direction and children order
  * @HDY_LEAFLET_TRANSITION_TYPE_UNDER: Uncover the new page or cover the old page, sliding from or towards the start according to orientation, text direction and children order
  * @HDY_LEAFLET_TRANSITION_TYPE_SLIDE: Slide from left, right, up or down according to the orientation, text direction and the children order
@@ -170,14 +169,11 @@ hdy_leaflet_get_transition_type (HdyLeaflet *self)
 {
   HdyStackableBoxTransitionType type;
 
-  g_return_val_if_fail (HDY_IS_LEAFLET (self), HDY_LEAFLET_TRANSITION_TYPE_NONE);
+  g_return_val_if_fail (HDY_IS_LEAFLET (self), HDY_LEAFLET_TRANSITION_TYPE_OVER);
 
   type = hdy_stackable_box_get_transition_type (HDY_GET_HELPER (self));
 
   switch (type) {
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE:
-    return HDY_LEAFLET_TRANSITION_TYPE_NONE;
-
   case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
     return HDY_LEAFLET_TRANSITION_TYPE_OVER;
 
@@ -216,10 +212,6 @@ hdy_leaflet_set_transition_type (HdyLeaflet               *self,
   g_return_if_fail (transition <= HDY_LEAFLET_TRANSITION_TYPE_SLIDE);
 
   switch (transition) {
-  case HDY_LEAFLET_TRANSITION_TYPE_NONE:
-    type = HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE;
-    break;
-
   case HDY_LEAFLET_TRANSITION_TYPE_OVER:
     type = HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER;
     break;

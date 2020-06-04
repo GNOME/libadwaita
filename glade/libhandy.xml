@@ -263,8 +263,6 @@
         <property id="transition-type">
           <displayable-values>
             <!-- HdyLeafletTransitionType enumeration value -->
-            <value id="HDY_LEAFLET_TRANSITION_TYPE_NONE" name="None"/>
-            <!-- HdyLeafletTransitionType enumeration value -->
             <value id="HDY_LEAFLET_TRANSITION_TYPE_OVER" name="Over"/>
             <!-- HdyLeafletTransitionType enumeration value -->
             <value id="HDY_LEAFLET_TRANSITION_TYPE_UNDER" name="Under"/>
