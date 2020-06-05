@@ -32,4 +32,7 @@ tab_size = 2
 indent_style = space
 
 [NEWS]
+indent_size = 2
+tab_size = 2
+indent_style = space
 max_line_length = 72
