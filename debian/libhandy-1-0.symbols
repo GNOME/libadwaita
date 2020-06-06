@@ -214,7 +214,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_leaflet_set_visible_child_name@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_transition_type_get_type@LIBHANDY_1_0 0.0.12
  hdy_lerp@LIBHANDY_1_0 0.0.11
- hdy_list_box_separator_header@LIBHANDY_1_0 0.0.6
  hdy_navigation_direction_get_type@LIBHANDY_1_0 0.9.9
  hdy_nothing_get_type@LIBHANDY_1_0 0.80.0
  hdy_nothing_new@LIBHANDY_1_0 0.80.0
