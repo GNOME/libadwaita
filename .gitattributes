@@ -5,7 +5,6 @@ glade/rename-id.patch export-ignore
 glade/sm.puri.Handy.Glade.json export-ignore
 libhandy.syms export-ignore
 lint export-ignore
-run.in export-ignore
 .dir-locals.el export-ignore
 .editorconfig export-ignore
 .gitattributes export-ignore
