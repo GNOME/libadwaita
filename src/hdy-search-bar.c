@@ -335,12 +335,7 @@ hdy_search_bar_add (GtkContainer *container,
   HdySearchBar *self = HDY_SEARCH_BAR (container);
   HdySearchBarPrivate *priv = hdy_search_bar_get_instance_private (self);
 
-  /* When constructing the widget, we want the revealer to be added
-   * as the first child of the search bar, as an implementation detail.
-   * After that, the child added by the application should be added
-   * to column.
-   */
-  if (priv->tool_box == NULL) {
+  if (priv->revealer == NULL) {
     GTK_CONTAINER_CLASS (hdy_search_bar_parent_class)->add (container, child);
   } else {
     gtk_box_set_center_widget (GTK_BOX (priv->tool_box), child);
