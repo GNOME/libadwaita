@@ -64,27 +64,4 @@ _build/run glade
 ## Documentation
 
 The documentation can be found online
-[here](https://gnome.pages.gitlab.gnome.org/libhandy). Further examples on how
-to use the widgets in your favorite programming language can be found here:
-
-### C
-- [gnome-bluetooth](https://gitlab.gnome.org/GNOME/gnome-bluetooth) (HdyColumn)
-- [GNOME Settings](https://gitlab.gnome.org/GNOME/gnome-control-center) (HdyActionRow, HdyColumn, HdyLeaflet, HdyTitleBar)
-- [GNOME Web](https://gitlab.gnome.org/GNOME/epiphany) (HdyActionRow, HdyColumn, HdyComboRow, HdySearchBar)
-- [phosh](https://source.puri.sm/Librem5/phosh) (HdyKeypad)
-
-### Python 3
-- [Daty](https://gitlab.gnome.org/World/Daty) (HdyColumn, HdyLeaflet, HdySearchBar, HdyTitleBar)
-- [HydraPaper](https://gabmus.gitlab.io/HydraPaper/) (HdyActionRow, HdyHeaderBar, HdyPreferencesGroup, HdyPreferencesPage, HdyPreferencesRow, HdyPreferencesWindow, HdyViewSwitcher)
-- [PasswordSafe](https://gitlab.gnome.org/World/PasswordSafe) (HdyColumn)
-- [Unifydmin](https://gitlab.com/gabmus/unifydmin) (HdyColumn, HdyLeaflet, HdyTitleBar)
-
-### Rust
-- [Fractal](https://gitlab.gnome.org/GNOME/fractal) (HdyColumn, HdyLeaflet)
-- [Podcasts](https://gitlab.gnome.org/World/podcasts) (HdyColumn)
-- [Shortwave](https://gitlab.gnome.org/World/Shortwave) (HdyActionRow, HdyColumn, HdyDialog, HdyHeaderBar, HdyLeaflet, HdyPaginator, HdyPreferencesGroup, HdyPreferencesPage, HdyPreferencesWindow, HdySearchBar, HdySqueezer, HdyViewSwitcher, HdyViewSwitcherBar)
-
-### Vala
-- [GNOME Contacts](https://gitlab.gnome.org/GNOME/gnome-contacts) (HdyLeaflet, HdyHeaderGroup, HdyTitleBar)
-- [GNOME Games](https://gitlab.gnome.org/GNOME/gnome-games) (HdyColumn, HdyTitleBar)
-- [GNOME Clocks](https://gitlab.gnome.org/GNOME/gnome-clocks) (HdyActionRow, HdyColumn, HdyDialog, HdyHeaderBar, HdySqueezer, HdyViewSwitcher)
+[here](https://gnome.pages.gitlab.gnome.org/libhandy).
