@@ -6,6 +6,10 @@
 
 #pragma once
 
+#if !defined(_HANDY_INSIDE) && !defined(HANDY_COMPILATION)
+#error "Only <handy.h> can be included directly."
+#endif
+
 #include <gtk/gtk.h>
 #include "hdy-navigation-direction.h"
 
