@@ -75,11 +75,11 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_carousel_set_spacing@LIBHANDY_1_0 0.80.0
  hdy_centering_policy_get_type@LIBHANDY_1_0 0.0.10
  hdy_clamp_get_linear_growth_width@LIBHANDY_1_0 0.82.0
- hdy_clamp_get_maximum_width@LIBHANDY_1_0 0.82.0
+ hdy_clamp_get_maximum_size@LIBHANDY_1_0 0.82.0
  hdy_clamp_get_type@LIBHANDY_1_0 0.82.0
  hdy_clamp_new@LIBHANDY_1_0 0.82.0
  hdy_clamp_set_linear_growth_width@LIBHANDY_1_0 0.82.0
- hdy_clamp_set_maximum_width@LIBHANDY_1_0 0.82.0
+ hdy_clamp_set_maximum_size@LIBHANDY_1_0 0.82.0
  hdy_combo_row_bind_model@LIBHANDY_1_0 0.0.6
  hdy_combo_row_bind_name_model@LIBHANDY_1_0 0.0.6
  hdy_combo_row_get_model@LIBHANDY_1_0 0.0.6

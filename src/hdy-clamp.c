@@ -39,7 +39,7 @@
 
 enum {
   PROP_0,
-  PROP_MAXIMUM_WIDTH,
+  PROP_MAXIMUM_SIZE,
   PROP_LINEAR_GROWTH_WIDTH,
 
   /* Overridden properties */
@@ -52,7 +52,7 @@ struct _HdyClamp
 {
   GtkBin parent_instance;
 
-  gint maximum_width;
+  gint maximum_size;
   gint linear_growth_width;
 
   GtkOrientation orientation;
@@ -84,8 +84,8 @@ hdy_clamp_get_property (GObject    *object,
   HdyClamp *self = HDY_CLAMP (object);
 
   switch (prop_id) {
-  case PROP_MAXIMUM_WIDTH:
-    g_value_set_int (value, hdy_clamp_get_maximum_width (self));
+  case PROP_MAXIMUM_SIZE:
+    g_value_set_int (value, hdy_clamp_get_maximum_size (self));
     break;
   case PROP_LINEAR_GROWTH_WIDTH:
     g_value_set_int (value, hdy_clamp_get_linear_growth_width (self));
@@ -107,8 +107,8 @@ hdy_clamp_set_property (GObject      *object,
   HdyClamp *self = HDY_CLAMP (object);
 
   switch (prop_id) {
-  case PROP_MAXIMUM_WIDTH:
-    hdy_clamp_set_maximum_width (self, g_value_get_int (value));
+  case PROP_MAXIMUM_SIZE:
+    hdy_clamp_set_maximum_size (self, g_value_get_int (value));
     break;
   case PROP_LINEAR_GROWTH_WIDTH:
     hdy_clamp_set_linear_growth_width (self, g_value_get_int (value));
@@ -160,8 +160,8 @@ get_child_size (HdyClamp *self,
       gtk_widget_get_preferred_height (child, &min, NULL);
   }
 
-  lower = MAX (MIN (self->linear_growth_width, self->maximum_width), min);
-  max = MAX (lower, self->maximum_width);
+  lower = MAX (MIN (self->linear_growth_width, self->maximum_size), min);
+  max = MAX (lower, self->maximum_size);
   amplitude = max - lower;
   upper = HDY_EASE_OUT_TAN_CUBIC * amplitude + lower;
 
@@ -405,16 +405,17 @@ hdy_clamp_class_init (HdyClampClass *klass)
                                     "orientation");
 
   /**
-   * HdyClamp:maximum_width:
+   * HdyClamp:maximum-size:
    *
-   * The maximum width to allocate to the child.
+   * The maximum size to allocate to the child. It is the width if the clamp is
+   * horizontal, or the height if it is vertical.
    *
    * Since: 1.0
    */
-  props[PROP_MAXIMUM_WIDTH] =
-      g_param_spec_int ("maximum-width",
-                        _("Maximum width"),
-                        _("The maximum width allocated to the child"),
+  props[PROP_MAXIMUM_SIZE] =
+      g_param_spec_int ("maximum-size",
+                        _("Maximum size"),
+                        _("The maximum size allocated to the child"),
                         0, G_MAXINT, 0,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -458,46 +459,48 @@ hdy_clamp_new (void)
 }
 
 /**
- * hdy_clamp_get_maximum_width:
+ * hdy_clamp_get_maximum_size:
  * @self: a #HdyClamp
  *
- * Gets the maximum width to allocate to the contained child.
+ * Gets the maximum size to allocate to the contained child. It is the width if
+ * @self is horizontal, or the height if it is vertical.
  *
  * Returns: the maximum width to allocate to the contained child.
  *
  * Since: 1.0
  */
 gint
-hdy_clamp_get_maximum_width (HdyClamp *self)
+hdy_clamp_get_maximum_size (HdyClamp *self)
 {
   g_return_val_if_fail (HDY_IS_CLAMP (self), 0);
 
-  return self->maximum_width;
+  return self->maximum_size;
 }
 
 /**
- * hdy_clamp_set_maximum_width:
+ * hdy_clamp_set_maximum_size:
  * @self: a #HdyClamp
- * @maximum_width: the maximum width
+ * @maximum_size: the maximum size
  *
- * Sets the maximum width to allocate to the contained child.
+ * Sets the maximum size to allocate to the contained child. It is the width if
+ * @self is horizontal, or the height if it is vertical.
  *
  * Since: 1.0
  */
 void
-hdy_clamp_set_maximum_width (HdyClamp *self,
-                             gint      maximum_width)
+hdy_clamp_set_maximum_size (HdyClamp *self,
+                            gint      maximum_size)
 {
   g_return_if_fail (HDY_IS_CLAMP (self));
 
-  if (self->maximum_width == maximum_width)
+  if (self->maximum_size == maximum_size)
     return;
 
-  self->maximum_width = maximum_width;
+  self->maximum_size = maximum_size;
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_MAXIMUM_WIDTH]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_MAXIMUM_SIZE]);
 }
 
 /**
