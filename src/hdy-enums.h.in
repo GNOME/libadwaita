@@ -5,6 +5,8 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
+#include "hdy-version.h"
+
 #include <glib-object.h>
 
 G_BEGIN_DECLS
@@ -16,7 +18,8 @@ G_BEGIN_DECLS
 /*** END file-production ***/
 
 /*** BEGIN value-header ***/
-GType @enum_name@_get_type (void);
+
+HDY_AVAILABLE_IN_ALL GType @enum_name@_get_type (void);
 #define @ENUMPREFIX@_TYPE_@ENUMSHORT@ (@enum_name@_get_type ())
 /*** END value-header ***/
 

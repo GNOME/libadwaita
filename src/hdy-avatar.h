@@ -10,6 +10,8 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
+#include "hdy-version.h"
+
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
 
@@ -17,6 +19,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_AVATAR (hdy_avatar_get_type())
 
+HDY_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (HdyAvatar, hdy_avatar, HDY, AVATAR, GtkDrawingArea)
 
 /**
@@ -34,23 +37,33 @@ typedef GdkPixbuf *(*HdyAvatarImageLoadFunc) (gint     size,
                                               gpointer user_data);
 
 
+HDY_AVAILABLE_IN_ALL
 GtkWidget   *hdy_avatar_new                 (gint                    size,
                                              const gchar            *text,
                                              gboolean                show_initials);
+HDY_AVAILABLE_IN_ALL
 const gchar *hdy_avatar_get_icon_name       (HdyAvatar              *self);
+HDY_AVAILABLE_IN_ALL
 void         hdy_avatar_set_icon_name       (HdyAvatar              *self,
                                              const gchar            *icon_name);
+HDY_AVAILABLE_IN_ALL
 const gchar *hdy_avatar_get_text            (HdyAvatar              *self);
+HDY_AVAILABLE_IN_ALL
 void         hdy_avatar_set_text            (HdyAvatar              *self,
                                              const gchar            *text);
+HDY_AVAILABLE_IN_ALL
 gboolean     hdy_avatar_get_show_initials   (HdyAvatar              *self);
+HDY_AVAILABLE_IN_ALL
 void         hdy_avatar_set_show_initials   (HdyAvatar              *self,
                                              gboolean                show_initials);
+HDY_AVAILABLE_IN_ALL
 void         hdy_avatar_set_image_load_func (HdyAvatar              *self,
                                              HdyAvatarImageLoadFunc  load_image,
                                              gpointer                user_data,
                                              GDestroyNotify          destroy);
+HDY_AVAILABLE_IN_ALL
 gint         hdy_avatar_get_size            (HdyAvatar              *self);
+HDY_AVAILABLE_IN_ALL
 void         hdy_avatar_set_size            (HdyAvatar              *self,
                                              gint                    size);
 

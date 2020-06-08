@@ -9,10 +9,13 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
+#include "hdy-version.h"
+
 #include <glib.h>
 
 G_BEGIN_DECLS
 
+HDY_AVAILABLE_IN_ALL
 void hdy_init (void);
 
 G_END_DECLS

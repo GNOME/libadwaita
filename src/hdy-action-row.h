@@ -10,12 +10,15 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
+#include "hdy-version.h"
+
 #include "hdy-preferences-row.h"
 
 G_BEGIN_DECLS
 
 #define HDY_TYPE_ACTION_ROW (hdy_action_row_get_type())
 
+HDY_AVAILABLE_IN_ALL
 G_DECLARE_DERIVABLE_TYPE (HdyActionRow, hdy_action_row, HDY, ACTION_ROW, HdyPreferencesRow)
 
 /**
@@ -30,31 +33,44 @@ struct _HdyActionRowClass
   void (*activate) (HdyActionRow *self);
 };
 
+HDY_AVAILABLE_IN_ALL
 GtkWidget *hdy_action_row_new (void);
 
+HDY_AVAILABLE_IN_ALL
 const gchar *hdy_action_row_get_title (HdyActionRow *self);
+HDY_AVAILABLE_IN_ALL
 void         hdy_action_row_set_title (HdyActionRow *self,
                                        const gchar  *title);
 
+HDY_AVAILABLE_IN_ALL
 const gchar *hdy_action_row_get_subtitle (HdyActionRow *self);
+HDY_AVAILABLE_IN_ALL
 void         hdy_action_row_set_subtitle (HdyActionRow *self,
                                           const gchar  *subtitle);
 
+HDY_AVAILABLE_IN_ALL
 const gchar *hdy_action_row_get_icon_name (HdyActionRow *self);
+HDY_AVAILABLE_IN_ALL
 void         hdy_action_row_set_icon_name (HdyActionRow *self,
                                            const gchar  *icon_name);
 
+HDY_AVAILABLE_IN_ALL
 GtkWidget *hdy_action_row_get_activatable_widget (HdyActionRow *self);
+HDY_AVAILABLE_IN_ALL
 void       hdy_action_row_set_activatable_widget (HdyActionRow *self,
                                                   GtkWidget    *widget);
 
+HDY_AVAILABLE_IN_ALL
 gboolean hdy_action_row_get_use_underline (HdyActionRow *self);
+HDY_AVAILABLE_IN_ALL
 void     hdy_action_row_set_use_underline (HdyActionRow *self,
                                            gboolean      use_underline);
 
+HDY_AVAILABLE_IN_ALL
 void hdy_action_row_add_prefix (HdyActionRow *self,
                                 GtkWidget    *widget);
 
+HDY_AVAILABLE_IN_ALL
 void hdy_action_row_activate (HdyActionRow *self);
 
 G_END_DECLS

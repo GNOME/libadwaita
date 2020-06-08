@@ -79,3 +79,9 @@
          (HDY_MAJOR_VERSION == (major) && HDY_MINOR_VERSION > (minor)) || \
          (HDY_MAJOR_VERSION == (major) && HDY_MINOR_VERSION == (minor) && \
           HDY_MICRO_VERSION >= (micro)))
+
+#ifndef _HDY_EXTERN
+#define _HDY_EXTERN extern
+#endif
+
+#define HDY_AVAILABLE_IN_ALL _HDY_EXTERN

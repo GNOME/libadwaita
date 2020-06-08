@@ -10,12 +10,16 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
+#include "hdy-version.h"
+
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
+HDY_AVAILABLE_IN_ALL
 gboolean hdy_get_enable_animations (GtkWidget *widget);
 
+HDY_AVAILABLE_IN_ALL
 gdouble hdy_ease_out_cubic (gdouble t);
 
 G_END_DECLS

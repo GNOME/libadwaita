@@ -10,12 +10,15 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
+#include "hdy-version.h"
+
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
 #define HDY_TYPE_WINDOW (hdy_window_get_type())
 
+HDY_AVAILABLE_IN_ALL
 G_DECLARE_DERIVABLE_TYPE (HdyWindow, hdy_window, HDY, WINDOW, GtkWindow)
 
 struct _HdyWindowClass
@@ -23,6 +26,7 @@ struct _HdyWindowClass
   GtkWindowClass parent_class;
 };
 
+HDY_AVAILABLE_IN_ALL
 GtkWidget *hdy_window_new (void);
 
 G_END_DECLS

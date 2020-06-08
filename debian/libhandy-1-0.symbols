@@ -27,27 +27,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_avatar_set_show_initials@LIBHANDY_1_0 0.80.0
  hdy_avatar_set_size@LIBHANDY_1_0 0.80.0
  hdy_avatar_set_text@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_get_closest_snap_point@LIBHANDY_1_0 0.81.0
- hdy_carousel_box_get_current_page_index@LIBHANDY_1_0 0.81.0
- hdy_carousel_box_get_distance@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_get_n_pages@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_get_nth_child@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_get_page_at_position@LIBHANDY_1_0 0.81.0
- hdy_carousel_box_get_position@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_get_range@LIBHANDY_1_0 0.81.0
- hdy_carousel_box_get_reveal_duration@LIBHANDY_1_0 0.81.0
- hdy_carousel_box_get_snap_points@LIBHANDY_1_0 0.81.0
- hdy_carousel_box_get_spacing@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_get_type@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_insert@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_is_animating@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_new@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_reorder@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_scroll_to@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_set_position@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_set_reveal_duration@LIBHANDY_1_0 0.81.0
- hdy_carousel_box_set_spacing@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_stop_animation@LIBHANDY_1_0 0.80.0
  hdy_carousel_get_allow_mouse_drag@LIBHANDY_1_0 0.80.0
  hdy_carousel_get_animation_duration@LIBHANDY_1_0 0.80.0
  hdy_carousel_get_center_content@LIBHANDY_1_0 0.80.0
@@ -141,9 +120,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_expander_row_set_title@LIBHANDY_1_0 0.80.0
  hdy_expander_row_set_use_underline@LIBHANDY_1_0 0.80.0
  hdy_get_enable_animations@LIBHANDY_1_0 0.0.11
- hdy_gtk_window_get_icon_for_size@LIBHANDY_1_0 0.0.10
- hdy_gtk_window_get_state@LIBHANDY_1_0 0.80.0
- hdy_gtk_window_toggle_maximized@LIBHANDY_1_0 0.0.10
  hdy_header_bar_get_centering_policy@LIBHANDY_1_0 0.0.10
  hdy_header_bar_get_custom_title@LIBHANDY_1_0 0.0.10
  hdy_header_bar_get_decoration_layout@LIBHANDY_1_0 0.0.10
@@ -186,12 +162,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_header_group_remove_header_group@LIBHANDY_1_0 0.83.0
  hdy_header_group_set_decorate_all@LIBHANDY_1_0 0.83.0
  hdy_init@LIBHANDY_1_0 0.82.0
- hdy_init_public_types@LIBHANDY_1_0 0.0.5
- hdy_keypad_button_get_digit@LIBHANDY_1_0 0.0.12
- hdy_keypad_button_get_symbols@LIBHANDY_1_0 0.0.12
- hdy_keypad_button_get_type@LIBHANDY_1_0 0.0.12
- hdy_keypad_button_new@LIBHANDY_1_0 0.0.12
- hdy_keypad_button_show_symbols@LIBHANDY_1_0 0.0.12
  hdy_keypad_get_column_spacing@LIBHANDY_1_0 0.81.0
  hdy_keypad_get_end_action@LIBHANDY_1_0 0.85.0
  hdy_keypad_get_entry@LIBHANDY_1_0 0.0.12
@@ -234,22 +204,16 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_leaflet_set_visible_child@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_set_visible_child_name@LIBHANDY_1_0 0.0~git20180429
  hdy_leaflet_transition_type_get_type@LIBHANDY_1_0 0.0.12
- hdy_lerp@LIBHANDY_1_0 0.0.11
  hdy_navigation_direction_get_type@LIBHANDY_1_0 0.9.9
- hdy_nothing_get_type@LIBHANDY_1_0 0.80.0
- hdy_nothing_new@LIBHANDY_1_0 0.80.0
- hdy_preferences_group_add_preferences_to_model@LIBHANDY_1_0 0.0.10
  hdy_preferences_group_get_description@LIBHANDY_1_0 0.0.10
  hdy_preferences_group_get_title@LIBHANDY_1_0 0.0.10
  hdy_preferences_group_get_type@LIBHANDY_1_0 0.0.10
  hdy_preferences_group_new@LIBHANDY_1_0 0.0.10
  hdy_preferences_group_set_description@LIBHANDY_1_0 0.0.10
  hdy_preferences_group_set_title@LIBHANDY_1_0 0.0.10
- hdy_preferences_page_add_preferences_to_model@LIBHANDY_1_0 0.0.10
  hdy_preferences_page_get_icon_name@LIBHANDY_1_0 0.0.10
  hdy_preferences_page_get_title@LIBHANDY_1_0 0.0.10
  hdy_preferences_page_get_type@LIBHANDY_1_0 0.0.10
- hdy_preferences_page_get_vadjustment@LIBHANDY_1_0 0.81.0
  hdy_preferences_page_new@LIBHANDY_1_0 0.0.10
  hdy_preferences_page_set_icon_name@LIBHANDY_1_0 0.0.10
  hdy_preferences_page_set_title@LIBHANDY_1_0 0.0.10
@@ -275,10 +239,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_search_bar_new@LIBHANDY_1_0 0.0.6
  hdy_search_bar_set_search_mode@LIBHANDY_1_0 0.0.6
  hdy_search_bar_set_show_close_button@LIBHANDY_1_0 0.0.6
- hdy_shadow_helper_clear_cache@LIBHANDY_1_0 0.0.12
- hdy_shadow_helper_draw_shadow@LIBHANDY_1_0 0.0.12
- hdy_shadow_helper_get_type@LIBHANDY_1_0 0.0.12
- hdy_shadow_helper_new@LIBHANDY_1_0 0.0.12
  hdy_squeezer_get_child_enabled@LIBHANDY_1_0 0.0.10
  hdy_squeezer_get_homogeneous@LIBHANDY_1_0 0.0.10
  hdy_squeezer_get_interpolate_size@LIBHANDY_1_0 0.0.10
@@ -294,64 +254,11 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_squeezer_set_transition_duration@LIBHANDY_1_0 0.0.10
  hdy_squeezer_set_transition_type@LIBHANDY_1_0 0.0.10
  hdy_squeezer_transition_type_get_type@LIBHANDY_1_0 0.0.10
- hdy_stackable_box_add@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_direction_changed@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_draw@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_forall@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_adjacent_child@LIBHANDY_1_0 0.81.0
- hdy_stackable_box_get_can_swipe_back@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_can_swipe_forward@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_cancel_progress@LIBHANDY_1_0 0.81.0
- hdy_stackable_box_get_child_by_name@LIBHANDY_1_0 0.85.0
- hdy_stackable_box_get_child_name@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_child_navigatable@LIBHANDY_1_0 0.85.0
- hdy_stackable_box_get_child_transition_duration@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_child_transition_running@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_distance@LIBHANDY_1_0 0.81.0
- hdy_stackable_box_get_folded@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_homogeneous@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_interpolate_size@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_mode_transition_duration@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_orientation@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_progress@LIBHANDY_1_0 0.81.0
- hdy_stackable_box_get_snap_points@LIBHANDY_1_0 0.82.0
- hdy_stackable_box_get_swipe_area@LIBHANDY_1_0 0.85.0
- hdy_stackable_box_get_swipe_tracker@LIBHANDY_1_0 0.82.0
- hdy_stackable_box_get_transition_type@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_type@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_visible_child@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_get_visible_child_name@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_map@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_measure@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_navigate@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_new@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_realize@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_remove@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_set_can_swipe_back@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_set_can_swipe_forward@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_set_child_name@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_set_child_navigatable@LIBHANDY_1_0 0.85.0
- hdy_stackable_box_set_child_transition_duration@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_set_homogeneous@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_set_interpolate_size@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_set_mode_transition_duration@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_set_orientation@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_set_transition_type@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_set_visible_child@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_set_visible_child_name@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_size_allocate@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_switch_child@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_transition_type_get_type@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_unmap@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_unrealize@LIBHANDY_1_0 0.80.0
  hdy_swipe_group_add_swipeable@LIBHANDY_1_0 0.0.12
  hdy_swipe_group_get_swipeables@LIBHANDY_1_0 0.0.12
  hdy_swipe_group_get_type@LIBHANDY_1_0 0.0.12
  hdy_swipe_group_new@LIBHANDY_1_0 0.0.12
  hdy_swipe_group_remove_swipeable@LIBHANDY_1_0 0.0.12
- hdy_swipe_tracker_emit_begin_swipe@LIBHANDY_1_0 0.82.0
- hdy_swipe_tracker_emit_end_swipe@LIBHANDY_1_0 0.82.0
- hdy_swipe_tracker_emit_update_swipe@LIBHANDY_1_0 0.82.0
  hdy_swipe_tracker_get_allow_mouse_drag@LIBHANDY_1_0 0.0.12
  hdy_swipe_tracker_get_enabled@LIBHANDY_1_0 0.0.11
  hdy_swipe_tracker_get_reversed@LIBHANDY_1_0 0.0.11
@@ -394,18 +301,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_view_switcher_bar_set_policy@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_bar_set_reveal@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_bar_set_stack@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_button_get_icon_name@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_button_get_icon_size@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_button_get_label@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_button_get_needs_attention@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_button_get_size@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_button_get_type@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_button_new@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_button_set_icon_name@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_button_set_icon_size@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_button_set_label@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_button_set_narrow_ellipsize@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_button_set_needs_attention@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_get_icon_size@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_get_narrow_ellipsize@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_get_policy@LIBHANDY_1_0 0.0.10
@@ -433,16 +328,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_view_switcher_title_set_title@LIBHANDY_1_0 0.80.0
  hdy_view_switcher_title_set_view_switcher_enabled@LIBHANDY_1_0 0.80.0
  hdy_window_get_type@LIBHANDY_1_0 0.80.0
- hdy_window_handle_controller_get_type@LIBHANDY_1_0 0.80.0
- hdy_window_handle_controller_new@LIBHANDY_1_0 0.80.0
  hdy_window_handle_get_type@LIBHANDY_1_0 0.80.0
  hdy_window_handle_new@LIBHANDY_1_0 0.80.0
- hdy_window_mixin_add@LIBHANDY_1_0 0.80.0
- hdy_window_mixin_buildable_add_child@LIBHANDY_1_0 0.80.0
- hdy_window_mixin_destroy@LIBHANDY_1_0 0.82.0
- hdy_window_mixin_draw@LIBHANDY_1_0 0.80.0
- hdy_window_mixin_forall@LIBHANDY_1_0 0.80.0
- hdy_window_mixin_get_type@LIBHANDY_1_0 0.80.0
- hdy_window_mixin_new@LIBHANDY_1_0 0.80.0
- hdy_window_mixin_remove@LIBHANDY_1_0 0.80.0
  hdy_window_new@LIBHANDY_1_0 0.80.0

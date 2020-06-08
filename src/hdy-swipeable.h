@@ -10,6 +10,8 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
+#include "hdy-version.h"
+
 #include <gtk/gtk.h>
 #include "hdy-navigation-direction.h"
 #include "hdy-types.h"
@@ -18,6 +20,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_SWIPEABLE (hdy_swipeable_get_type ())
 
+HDY_AVAILABLE_IN_ALL
 G_DECLARE_INTERFACE (HdySwipeable, hdy_swipeable, HDY, SWIPEABLE, GtkWidget)
 
 /**
@@ -55,20 +58,28 @@ struct _HdySwipeableInterface
                                             GdkRectangle           *rect);
 };
 
+HDY_AVAILABLE_IN_ALL
 void hdy_swipeable_switch_child (HdySwipeable *self,
                                  guint         index,
                                  gint64        duration);
 
+HDY_AVAILABLE_IN_ALL
 void hdy_swipeable_emit_child_switched (HdySwipeable *self,
                                         guint         index,
                                         gint64        duration);
 
+HDY_AVAILABLE_IN_ALL
 HdySwipeTracker *hdy_swipeable_get_swipe_tracker   (HdySwipeable *self);
+HDY_AVAILABLE_IN_ALL
 gdouble          hdy_swipeable_get_distance        (HdySwipeable *self);
+HDY_AVAILABLE_IN_ALL
 gdouble         *hdy_swipeable_get_snap_points     (HdySwipeable *self,
                                                     gint         *n_snap_points);
+HDY_AVAILABLE_IN_ALL
 gdouble          hdy_swipeable_get_progress        (HdySwipeable *self);
+HDY_AVAILABLE_IN_ALL
 gdouble          hdy_swipeable_get_cancel_progress (HdySwipeable *self);
+HDY_AVAILABLE_IN_ALL
 void             hdy_swipeable_get_swipe_area      (HdySwipeable           *self,
                                                     HdyNavigationDirection  navigation_direction,
                                                     gboolean                is_drag,
