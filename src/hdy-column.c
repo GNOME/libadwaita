@@ -372,9 +372,14 @@ hdy_column_set_maximum_width (HdyColumn *self,
 {
   g_return_if_fail (HDY_IS_COLUMN (self));
 
+  if (self->maximum_width == maximum_width)
+    return;
+
   self->maximum_width = maximum_width;
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_MAXIMUM_WIDTH]);
 }
 
 /**
@@ -412,7 +417,12 @@ hdy_column_set_linear_growth_width (HdyColumn *self,
 {
   g_return_if_fail (HDY_IS_COLUMN (self));
 
+  if (self->linear_growth_width == linear_growth_width)
+    return;
+
   self->linear_growth_width = linear_growth_width;
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_LINEAR_GROWTH_WIDTH]);
 }
