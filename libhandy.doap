@@ -7,8 +7,12 @@
 
   <name>libhandy</name>
   <shortname>libhandy</shortname>
-  <shortdesc>A library full of GTK widgets for mobile phones</shortdesc>
-  <description>libhandy is a collection of GTK widgets for applications targeting mobile phones. The Librem 5 phone drives the development of this project.</description>
+  <shortdesc>Building blocks for modern adaptive GNOME apps</shortdesc>
+  <description>
+    libhandy is a collection of GTK widgets for adaptive applications targeting
+    form-factors from mobile to desktop.
+    It also offers innovative widgets following the GNOME design guidelines.
+  </description>
   <homepage rdf:resource="https://gitlab.gnome.org/GNOME/libhandy" />
   <license rdf:resource="http://usefulinc.com/doap/licenses/lgpl" />
 
