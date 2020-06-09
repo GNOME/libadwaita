@@ -458,7 +458,7 @@
                         <property name="margin-top">32</property>
                         <property name="expand">True</property>
                         <property name="maximum-size">400</property>
-                        <property name="linear-growth-width">300</property>
+                        <property name="tightening-threshold">300</property>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
@@ -600,7 +600,7 @@
                             <property name="margin-top">32</property>
                             <property name="expand">True</property>
                             <property name="maximum-size">400</property>
-                            <property name="linear-growth-width">300</property>
+                            <property name="tightening-threshold">300</property>
                             <child>
                               <object class="GtkBox">
                                 <property name="visible">True</property>
@@ -798,7 +798,7 @@
                         <property name="margin-top">32</property>
                         <property name="expand">True</property>
                         <property name="maximum-size">400</property>
-                        <property name="linear-growth-width">300</property>
+                        <property name="tightening-threshold">300</property>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
@@ -884,7 +884,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="maximum-size">300</property>
-                                <property name="linear-growth-width">300</property>
+                                <property name="tightening-threshold">300</property>
                                 <child>
                                   <object class="GtkBox" id="box_keypad">
                                     <property name="visible">True</property>
@@ -984,7 +984,7 @@
                         <property name="margin-top">32</property>
                         <property name="expand">True</property>
                         <property name="maximum-size" bind-source="clamp_maximum_size_adjustment" bind-property="value" bind-flags="sync-create"/>
-                        <property name="linear-growth-width" bind-source="clamp_linear_width_adjustment" bind-property="value" bind-flags="sync-create"/>
+                        <property name="tightening-threshold" bind-source="clamp_tightening_threshold_adjustment" bind-property="value" bind-flags="sync-create"/>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
@@ -1105,11 +1105,11 @@
                                 <child>
                                   <object class="HdyActionRow">
                                     <property name="can_focus">False</property>
-                                    <property name="title" translatable="yes">Linear growth width</property>
+                                    <property name="title" translatable="yes">Tightening threshold</property>
                                     <property name="visible">True</property>
                                     <child>
                                       <object class="GtkSpinButton">
-                                        <property name="adjustment">clamp_linear_width_adjustment</property>
+                                        <property name="adjustment">clamp_tightening_threshold_adjustment</property>
                                         <property name="valign">center</property>
                                         <property name="visible">True</property>
                                       </object>
@@ -1138,7 +1138,7 @@
                         <property name="margin-top">32</property>
                         <property name="expand">True</property>
                         <property name="maximum-size">400</property>
-                        <property name="linear-growth-width">300</property>
+                        <property name="tightening-threshold">300</property>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
@@ -1737,7 +1737,7 @@
                             <property name="margin-end">12</property>
                             <property name="expand">True</property>
                             <property name="maximum-size">400</property>
-                            <property name="linear-growth-width">300</property>
+                            <property name="tightening-threshold">300</property>
                             <child>
                               <object class="GtkListBox" id="carousel_listbox">
                                 <property name="visible">True</property>
@@ -1894,7 +1894,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="maximum-size">400</property>
-                            <property name="linear-growth-width">300</property>
+                            <property name="tightening-threshold">300</property>
                             <child>
                               <object class="GtkBox">
                                 <property name="visible">True</property>
@@ -2016,7 +2016,7 @@
                         <property name="margin-top">32</property>
                         <property name="expand">True</property>
                         <property name="maximum-size">400</property>
-                        <property name="linear-growth-width">300</property>
+                        <property name="tightening-threshold">300</property>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
@@ -2229,7 +2229,7 @@
     <property name="page-increment">100</property>
     <property name="step-increment">10</property>
   </object>
-  <object class="GtkAdjustment" id="clamp_linear_width_adjustment">
+  <object class="GtkAdjustment" id="clamp_tightening_threshold_adjustment">
     <property name="lower">0</property>
     <property name="upper">10000</property>
     <property name="value">500</property>

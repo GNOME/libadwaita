@@ -40,12 +40,12 @@
 enum {
   PROP_0,
   PROP_MAXIMUM_SIZE,
-  PROP_LINEAR_GROWTH_WIDTH,
+  PROP_TIGHTENING_THRESHOLD,
 
   /* Overridden properties */
   PROP_ORIENTATION,
 
-  LAST_PROP = PROP_LINEAR_GROWTH_WIDTH + 1,
+  LAST_PROP = PROP_TIGHTENING_THRESHOLD + 1,
 };
 
 struct _HdyClamp
@@ -53,7 +53,7 @@ struct _HdyClamp
   GtkBin parent_instance;
 
   gint maximum_size;
-  gint linear_growth_width;
+  gint tightening_threshold;
 
   GtkOrientation orientation;
 };
@@ -87,8 +87,8 @@ hdy_clamp_get_property (GObject    *object,
   case PROP_MAXIMUM_SIZE:
     g_value_set_int (value, hdy_clamp_get_maximum_size (self));
     break;
-  case PROP_LINEAR_GROWTH_WIDTH:
-    g_value_set_int (value, hdy_clamp_get_linear_growth_width (self));
+  case PROP_TIGHTENING_THRESHOLD:
+    g_value_set_int (value, hdy_clamp_get_tightening_threshold (self));
     break;
   case PROP_ORIENTATION:
     g_value_set_enum (value, self->orientation);
@@ -110,8 +110,8 @@ hdy_clamp_set_property (GObject      *object,
   case PROP_MAXIMUM_SIZE:
     hdy_clamp_set_maximum_size (self, g_value_get_int (value));
     break;
-  case PROP_LINEAR_GROWTH_WIDTH:
-    hdy_clamp_set_linear_growth_width (self, g_value_get_int (value));
+  case PROP_TIGHTENING_THRESHOLD:
+    hdy_clamp_set_tightening_threshold (self, g_value_get_int (value));
     break;
   case PROP_ORIENTATION:
     set_orientation (self, g_value_get_enum (value));
@@ -160,7 +160,7 @@ get_child_size (HdyClamp *self,
       gtk_widget_get_preferred_height (child, &min, NULL);
   }
 
-  lower = MAX (MIN (self->linear_growth_width, self->maximum_size), min);
+  lower = MAX (MIN (self->tightening_threshold, self->maximum_size), min);
   max = MAX (lower, self->maximum_size);
   amplitude = max - lower;
   upper = HDY_EASE_OUT_TAN_CUBIC * amplitude + lower;
@@ -420,16 +420,27 @@ hdy_clamp_class_init (HdyClampClass *klass)
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * HdyClamp:linear_growth_width:
+   * HdyClamp:tightening-threshold:
    *
-   * The width up to which the child will be allocated all the width.
+   * The size starting from which the clamp will tighten its grip on the child,
+   * slowly allocating less and less of the available size up to the maximum
+   * allocated size. Below that threshold and below the maximum width, the child
+   * will be allocated all the available size.
+   *
+   * If the threshold is greater than the maximum size to allocate to the child,
+   * the child will be allocated all the width up to the maximum.
+   * If the threshold is lower than the minimum size to allocate to the child,
+   * that size will be used as the tightening threshold.
+   *
+   * Effectively, tightening the grip on the child before it reaches its maximum
+   * size makes transitions to and from the maximum size smoother when resizing.
    *
    * Since: 1.0
    */
-  props[PROP_LINEAR_GROWTH_WIDTH] =
-      g_param_spec_int ("linear-growth-width",
-                        _("Linear growth width"),
-                        _("The width up to which the child will be allocated all the width"),
+  props[PROP_TIGHTENING_THRESHOLD] =
+      g_param_spec_int ("tightening-threshold",
+                        _("Tightening threshold"),
+                        _("The size from which the clamp will tighten its grip on the child"),
                         0, G_MAXINT, 0,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -504,49 +515,47 @@ hdy_clamp_set_maximum_size (HdyClamp *self,
 }
 
 /**
- * hdy_clamp_get_linear_growth_width:
+ * hdy_clamp_get_tightening_threshold:
  * @self: a #HdyClamp
  *
- * Gets the width up to which the child will be allocated all the available
- * width and starting from which it will be allocated a portion of the available
- * width. In bith cases the allocated width won't exceed the declared maximum.
+ * Gets the size starting from which the clamp will tighten its grip on the
+ * child.
  *
- * Returns: the width up to which the child will be allocated all the available
- * width.
+ * Returns: the size starting from which the clamp will tighten its grip on the
+ * child.
  *
  * Since: 1.0
  */
 gint
-hdy_clamp_get_linear_growth_width (HdyClamp *self)
+hdy_clamp_get_tightening_threshold (HdyClamp *self)
 {
   g_return_val_if_fail (HDY_IS_CLAMP (self), 0);
 
-  return self->linear_growth_width;
+  return self->tightening_threshold;
 }
 
 /**
- * hdy_clamp_set_linear_growth_width:
+ * hdy_clamp_set_tightening_threshold:
  * @self: a #HdyClamp
- * @linear_growth_width: the linear growth width
+ * @tightening_threshold: the tightening threshold
  *
- * Sets the width up to which the child will be allocated all the available
- * width and starting from which it will be allocated a portion of the available
- * width. In bith cases the allocated width won't exceed the declared maximum.
+ * Sets the size starting from which the clamp will tighten its grip on the
+ * child.
  *
  * Since: 1.0
  */
 void
-hdy_clamp_set_linear_growth_width (HdyClamp *self,
-                                   gint      linear_growth_width)
+hdy_clamp_set_tightening_threshold (HdyClamp *self,
+                                    gint      tightening_threshold)
 {
   g_return_if_fail (HDY_IS_CLAMP (self));
 
-  if (self->linear_growth_width == linear_growth_width)
+  if (self->tightening_threshold == tightening_threshold)
     return;
 
-  self->linear_growth_width = linear_growth_width;
+  self->tightening_threshold = tightening_threshold;
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_LINEAR_GROWTH_WIDTH]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TIGHTENING_THRESHOLD]);
 }

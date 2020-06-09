@@ -78,7 +78,7 @@
     <glade-widget-class name="HdyClamp" generic-name="clamp" title="Clamp" since="1.0">
       <properties>
         <property id="maximum-size" default="650"/>
-        <property id="linear-growth-width" default="400"/>
+        <property id="tightening-threshold" default="400"/>
       </properties>
     </glade-widget-class>
     <glade-widget-class name="HdyComboRow" generic-name="comborow" title="Combo Row" since="0.0.6"/>
