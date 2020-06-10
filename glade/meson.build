@@ -1,21 +1,11 @@
 if glade_catalog
 
-# This is needed to work around this issue in Glade:
-# https://gitlab.gnome.org/GNOME/glade/issues/379
-is_flatpak_app = get_option('prefix') == '/app'
-
 glade_xml          = 'libhandy.xml'
-if (is_flatpak_app)
-  module_dir       = libdir / 'glade' / 'modules'
-else
-  module_dir       = gladeui_dep.get_pkgconfig_variable('moduledir')
-endif
+module_dir         = gladeui_dep.get_pkgconfig_variable('moduledir',
+                                                        define_variable: ['libdir', get_option('libdir')])
 dtd                = meson.current_source_dir() / 'glade-catalog.dtd'
-if (is_flatpak_app)
-  glade_catalogdir = datadir / 'glade' / 'catalogs'
-else
-  glade_catalogdir = gladeui_dep.get_pkgconfig_variable('catalogdir')
-endif
+glade_catalogdir   = gladeui_dep.get_pkgconfig_variable('catalogdir',
+                                                        define_variable: ['datadir', get_option('datadir')])
 
 libglade_hdy_sources = [
   'glade-hdy-carousel.c',
