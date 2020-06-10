@@ -119,6 +119,12 @@ hdy_window_draw (GtkWidget *widget,
 }
 
 static void
+hdy_window_destroy (GtkWidget *widget)
+{
+  hdy_window_mixin_destroy (HDY_GET_WINDOW_MIXIN (widget));
+}
+
+static void
 hdy_window_finalize (GObject *object)
 {
   HdyWindow *self = (HdyWindow *)object;
@@ -138,6 +144,7 @@ hdy_window_class_init (HdyWindowClass *klass)
 
   object_class->finalize = hdy_window_finalize;
   widget_class->draw = hdy_window_draw;
+  widget_class->destroy = hdy_window_destroy;
   container_class->add = hdy_window_add;
   container_class->remove = hdy_window_remove;
   container_class->forall = hdy_window_forall;

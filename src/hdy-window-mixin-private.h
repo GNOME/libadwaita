@@ -32,6 +32,7 @@ void            hdy_window_mixin_forall (HdyWindowMixin *self,
 
 gboolean        hdy_window_mixin_draw (HdyWindowMixin *self,
                                        cairo_t        *cr);
+void            hdy_window_mixin_destroy (HdyWindowMixin *self);
 
 void            hdy_window_mixin_buildable_add_child (HdyWindowMixin *self,
                                                       GtkBuilder     *builder,

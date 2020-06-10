@@ -468,6 +468,23 @@ hdy_window_mixin_draw (HdyWindowMixin *self,
 }
 
 void
+hdy_window_mixin_destroy (HdyWindowMixin *self)
+{
+  if (self->titlebar) {
+    hdy_window_mixin_remove (self, self->titlebar);
+    self->titlebar = NULL;
+  }
+
+  if (self->content) {
+    hdy_window_mixin_remove (self, self->content);
+    self->content = NULL;
+    self->child = NULL;
+  }
+
+  GTK_WIDGET_CLASS (self->klass)->destroy (GTK_WIDGET (self->window));
+}
+
+void
 hdy_window_mixin_buildable_add_child (HdyWindowMixin *self,
                                       GtkBuilder     *builder,
                                       GObject        *child,
