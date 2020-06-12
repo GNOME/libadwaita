@@ -2053,6 +2053,9 @@ hdy_stackable_box_size_allocate (HdyStackableBox *self,
       if (!child_info->widget)
         continue;
 
+      if (child_info->nat.width <= 0)
+        continue;
+
       nat_box_size += child_info->nat.width;
       nat_max_size = MAX (nat_max_size, child_info->nat.width);
       visible_children++;
@@ -2067,6 +2070,9 @@ hdy_stackable_box_size_allocate (HdyStackableBox *self,
 
       /* FIXME Check the child is visible. */
       if (!child_info->widget)
+        continue;
+
+      if (child_info->nat.height <= 0)
         continue;
 
       nat_box_size += child_info->nat.height;
