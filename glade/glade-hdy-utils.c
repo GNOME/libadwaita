@@ -4,10 +4,11 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#include "glade-hdy-utils.h"
-
 #include <config.h>
 #include <glib/gi18n-lib.h>
+
+#include "glade-hdy-utils.h"
+
 #include <gladeui/glade.h>
 
 /* This function has been copied and modified from:

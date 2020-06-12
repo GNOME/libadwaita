@@ -9,10 +9,11 @@
  * Copyright (C) 2013 Tristan Van Berkom
  */
 
-#include "glade-hdy-swipe-group.h"
-
 #include <config.h>
 #include <glib/gi18n-lib.h>
+
+#include "glade-hdy-swipe-group.h"
+
 #include <gladeui/glade.h>
 #include "glade-hdy-utils.h"
 

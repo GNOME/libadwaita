@@ -7,10 +7,11 @@
  * glade-gtk-header-bar.c - GladeWidgetAdaptor for GtkHeaderBar
  */
 
-#include "glade-hdy-header-bar.h"
-
 #include <config.h>
 #include <glib/gi18n-lib.h>
+
+#include "glade-hdy-header-bar.h"
+
 #include <gladeui/glade.h>
 #include "glade-hdy-utils.h"
 

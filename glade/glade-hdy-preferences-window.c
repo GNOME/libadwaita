@@ -8,10 +8,11 @@
  * Copyright (C) 2014 Red Hat, Inc.
  */
 
-#include "glade-hdy-preferences-window.h"
-
 #include <config.h>
 #include <glib/gi18n-lib.h>
+
+#include "glade-hdy-preferences-window.h"
+
 #include <gladeui/glade.h>
 #include "glade-hdy-utils.h"
 

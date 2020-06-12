@@ -8,10 +8,11 @@
  * Copyright (C) 2013 Kalev Lember
  */
 
-#include "glade-hdy-expander-row.h"
-
 #include <config.h>
 #include <glib/gi18n-lib.h>
+
+#include "glade-hdy-expander-row.h"
+
 #include <gladeui/glade.h>
 #include "glade-hdy-utils.h"
 
