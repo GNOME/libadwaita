@@ -416,7 +416,7 @@ hdy_clamp_class_init (HdyClampClass *klass)
       g_param_spec_int ("maximum-size",
                         _("Maximum size"),
                         _("The maximum size allocated to the child"),
-                        0, G_MAXINT, 0,
+                        0, G_MAXINT, 600,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -441,7 +441,7 @@ hdy_clamp_class_init (HdyClampClass *klass)
       g_param_spec_int ("tightening-threshold",
                         _("Tightening threshold"),
                         _("The size from which the clamp will tighten its grip on the child"),
-                        0, G_MAXINT, 0,
+                        0, G_MAXINT, 400,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -452,6 +452,8 @@ hdy_clamp_class_init (HdyClampClass *klass)
 static void
 hdy_clamp_init (HdyClamp *self)
 {
+  self->maximum_size = 600;
+  self->tightening_threshold = 400;
 }
 
 /**
