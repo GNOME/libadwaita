@@ -75,12 +75,7 @@
         <property id="visible-window" disabled="True" />
       </properties>
     </glade-widget-class>
-    <glade-widget-class name="HdyClamp" generic-name="clamp" title="Clamp" since="1.0">
-      <properties>
-        <property id="maximum-size" default="650"/>
-        <property id="tightening-threshold" default="400"/>
-      </properties>
-    </glade-widget-class>
+    <glade-widget-class name="HdyClamp" generic-name="clamp" title="Clamp" since="1.0"/>
     <glade-widget-class name="HdyComboRow" generic-name="comborow" title="Combo Row" since="0.0.6"/>
     <glade-widget-class name="HdyDeck" generic-name="deck" title="Deck" since="1.0">
       <post-create-function>glade_hdy_leaflet_post_create</post-create-function>
