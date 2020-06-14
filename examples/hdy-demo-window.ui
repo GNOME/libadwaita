@@ -1666,7 +1666,6 @@
                         <property name="visible">True</property>
                         <property name="center_content">True</property>
                         <property name="indicator_spacing">6</property>
-                        <signal name="notify::position" handler="notify_carousel_position_cb"/>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>

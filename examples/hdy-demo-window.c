@@ -80,31 +80,16 @@ hdy_demo_window_key_pressed_cb (GtkWidget     *sender,
 }
 
 static void
-update_leaflet_swipe (HdyDemoWindow *self)
-{
-  gboolean first_page = (hdy_carousel_get_position (self->carousel) <= 0);
-  gboolean carousel_visible =
-    (gtk_stack_get_visible_child (self->stack) == GTK_WIDGET (self->carousel));
-
-  hdy_leaflet_set_can_swipe_back (self->content_box,
-                                  !carousel_visible || first_page);
-}
-
-static void
 update (HdyDemoWindow *self)
 {
   const gchar *header_bar_name = "default";
-  gboolean leaflet_can_swipe_back = TRUE;
 
-  if (g_strcmp0 (gtk_stack_get_visible_child_name (self->stack), "deck") == 0) {
+  if (g_strcmp0 (gtk_stack_get_visible_child_name (self->stack), "deck") == 0)
     header_bar_name = "deck";
-    leaflet_can_swipe_back = g_strcmp0 (hdy_deck_get_visible_child_name (self->content_deck), "sub") != 0;
-  } else if (g_strcmp0 (gtk_stack_get_visible_child_name (self->stack), "search-bar") == 0) {
+  else if (g_strcmp0 (gtk_stack_get_visible_child_name (self->stack), "search-bar") == 0)
     header_bar_name = "search-bar";
-  }
 
   gtk_stack_set_visible_child_name (self->header_stack, header_bar_name);
-  hdy_leaflet_set_can_swipe_back (self->content_box, leaflet_can_swipe_back);
 }
 
 static void
@@ -121,7 +106,6 @@ hdy_demo_window_notify_visible_child_cb (GObject       *sender,
   update (self);
 
   hdy_leaflet_navigate (self->content_box, HDY_NAVIGATION_DIRECTION_FORWARD);
-  update_leaflet_swipe (self);
 }
 
 static void
@@ -236,14 +220,6 @@ carousel_orientation_name (HdyEnumValueObject *value,
   default:
     return NULL;
   }
-}
-
-static void
-notify_carousel_position_cb (GObject       *sender,
-                             GParamSpec    *pspec,
-                             HdyDemoWindow *self)
-{
-  update_leaflet_swipe (self);
 }
 
 static void
@@ -417,7 +393,6 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback_full (widget_class, "deck_go_next_row_activated_cb", G_CALLBACK(deck_go_next_row_activated_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "theme_variant_button_clicked_cb", G_CALLBACK(theme_variant_button_clicked_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "view_switcher_demo_clicked_cb", G_CALLBACK(view_switcher_demo_clicked_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_carousel_position_cb", G_CALLBACK(notify_carousel_position_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_carousel_orientation_cb", G_CALLBACK(notify_carousel_orientation_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_carousel_indicator_style_cb", G_CALLBACK(notify_carousel_indicator_style_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "carousel_return_clicked_cb", G_CALLBACK(carousel_return_clicked_cb));
