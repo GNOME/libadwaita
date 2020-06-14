@@ -836,7 +836,7 @@ hdy_swipe_tracker_new (HdySwipeable *swipeable)
 {
   gpointer swipe_tracker;
 
-  g_return_val_if_fail (swipeable != NULL, NULL);
+  g_return_val_if_fail (HDY_IS_SWIPEABLE (swipeable), NULL);
 
   swipe_tracker = g_object_get_data (G_OBJECT (swipeable), "swipe-tracker");
 
