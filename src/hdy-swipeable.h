@@ -31,7 +31,7 @@ G_DECLARE_INTERFACE (HdySwipeable, hdy_swipeable, HDY, SWIPEABLE, GtkWidget)
  *
  * An interface for swipeable widgets.
  *
- * Since: 0.0.12
+ * Since: 1.0
  **/
 struct _HdySwipeableInterface
 {

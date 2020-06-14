@@ -67,7 +67,7 @@ hdy_swipeable_default_init (HdySwipeableInterface *iface)
  *
  * See HdySwipeable::child-switched.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 void
 hdy_swipeable_switch_child (HdySwipeable *self,
