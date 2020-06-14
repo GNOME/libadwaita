@@ -28,7 +28,7 @@ enum {
   SIGNAL_CHILD_SWITCHED,
   SIGNAL_SWIPE_BEGAN,
   SIGNAL_SWIPE_UPDATED,
-  SIGNAL_END_SWIPE,
+  SIGNAL_SWIPE_ENDED,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -102,7 +102,7 @@ hdy_swipeable_default_init (HdySwipeableInterface *iface)
                   G_TYPE_DOUBLE);
 
   /**
-   * HdySwipeable::end-swipe:
+   * HdySwipeable::swipe-ended:
    * @self: The #HdySwipeable instance
    * @duration: Snap-back animation duration in milliseconds
    * @to: The progress value to animate to
@@ -110,10 +110,10 @@ hdy_swipeable_default_init (HdySwipeableInterface *iface)
    * This signal is emitted as soon as the gesture has stopped. This is used by
    * #HdySwipeGroup, applications should not connect to it.
    *
-   * Since: 0.0.12
+   * Since: 1.0
    */
-  signals[SIGNAL_END_SWIPE] =
-    g_signal_new ("end-swipe",
+  signals[SIGNAL_SWIPE_ENDED] =
+    g_signal_new ("swipe-ended",
                   G_TYPE_FROM_INTERFACE (iface),
                   G_SIGNAL_RUN_FIRST,
                   0,
@@ -244,7 +244,7 @@ hdy_swipeable_end_swipe (HdySwipeable *self,
 
   (* iface->end_swipe) (self, duration, to);
 
-  g_signal_emit (self, signals[SIGNAL_END_SWIPE], 0, duration, to);
+  g_signal_emit (self, signals[SIGNAL_SWIPE_ENDED], 0, duration, to);
 }
 
 /**
