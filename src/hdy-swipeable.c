@@ -27,7 +27,7 @@ G_DEFINE_INTERFACE (HdySwipeable, hdy_swipeable, GTK_TYPE_WIDGET)
 enum {
   SIGNAL_CHILD_SWITCHED,
   SIGNAL_SWIPE_BEGAN,
-  SIGNAL_UPDATE_SWIPE,
+  SIGNAL_SWIPE_UPDATED,
   SIGNAL_END_SWIPE,
   SIGNAL_LAST_SIGNAL,
 };
@@ -82,17 +82,17 @@ hdy_swipeable_default_init (HdySwipeableInterface *iface)
                   HDY_TYPE_NAVIGATION_DIRECTION);
 
   /**
-   * HdySwipeable::update-swipe:
+   * HdySwipeable::swipe-updated:
    * @self: The #HdySwipeable instance
    * @value: The current animation progress value
    *
    * This signal is emitted every time the progress value changes. This is used
    * by #HdySwipeGroup, applications should not connect to it.
    *
-   * Since: 0.0.12
+   * Since: 1.0
    */
-  signals[SIGNAL_UPDATE_SWIPE] =
-    g_signal_new ("update-swipe",
+  signals[SIGNAL_SWIPE_UPDATED] =
+    g_signal_new ("swipe-updated",
                   G_TYPE_FROM_INTERFACE (iface),
                   G_SIGNAL_RUN_FIRST,
                   0,
@@ -207,7 +207,7 @@ hdy_swipeable_update_swipe (HdySwipeable *self,
 
   (* iface->update_swipe) (self, value);
 
-  g_signal_emit (self, signals[SIGNAL_UPDATE_SWIPE], 0, value);
+  g_signal_emit (self, signals[SIGNAL_SWIPE_UPDATED], 0, value);
 }
 
 /**

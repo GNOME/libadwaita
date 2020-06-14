@@ -135,9 +135,9 @@ swipe_began_cb (HdySwipeGroup          *self,
 }
 
 static void
-update_swipe_cb (HdySwipeGroup *self,
-                 gdouble        value,
-                 HdySwipeable  *swipeable)
+swipe_updated_cb (HdySwipeGroup *self,
+                  gdouble        value,
+                  HdySwipeable  *swipeable)
 {
   GSList *swipeables;
 
@@ -186,7 +186,7 @@ hdy_swipe_group_add_swipeable (HdySwipeGroup *self,
 
   g_signal_connect_swapped (swipeable, "child-switched", G_CALLBACK (child_switched_cb), self);
   g_signal_connect_swapped (swipeable, "swipe-began", G_CALLBACK (swipe_began_cb), self);
-  g_signal_connect_swapped (swipeable, "update-swipe", G_CALLBACK (update_swipe_cb), self);
+  g_signal_connect_swapped (swipeable, "swipe-updated", G_CALLBACK (swipe_updated_cb), self);
   g_signal_connect_swapped (swipeable, "end-swipe", G_CALLBACK (end_swipe_cb), self);
 
   self->swipeables = g_slist_prepend (self->swipeables, swipeable);
