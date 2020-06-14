@@ -23,9 +23,9 @@ void hdy_swipeable_end_swipe    (HdySwipeable *self,
                                  gint64        duration,
                                  gdouble       to);
 
-void hdy_swipeable_emit_switch_child (HdySwipeable *self,
-                                      guint         index,
-                                      gint64        duration);
+void hdy_swipeable_emit_child_switched (HdySwipeable *self,
+                                        guint         index,
+                                        gint64        duration);
 
 gdouble  hdy_swipeable_get_distance        (HdySwipeable *self);
 void     hdy_swipeable_get_range           (HdySwipeable *self,

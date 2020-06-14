@@ -25,7 +25,7 @@
 G_DEFINE_INTERFACE (HdySwipeable, hdy_swipeable, GTK_TYPE_WIDGET)
 
 enum {
-  SIGNAL_SWITCH_CHILD,
+  SIGNAL_CHILD_SWITCHED,
   SIGNAL_BEGIN_SWIPE,
   SIGNAL_UPDATE_SWIPE,
   SIGNAL_END_SWIPE,
@@ -38,7 +38,7 @@ static void
 hdy_swipeable_default_init (HdySwipeableInterface *iface)
 {
   /**
-   * HdySwipeable::switch-child:
+   * HdySwipeable::child-switched:
    * @self: The #HdySwipeable instance
    * @index: the index of the child to switch to
    * @duration: Animation duration in milliseconds
@@ -47,10 +47,10 @@ hdy_swipeable_default_init (HdySwipeableInterface *iface)
    *
    * @duration can be 0 if the child is switched without animation.
    *
-   * Since: 0.0.12
+   * Since: 1.0
    */
-  signals[SIGNAL_SWITCH_CHILD] =
-    g_signal_new ("switch-child",
+  signals[SIGNAL_CHILD_SWITCHED] =
+    g_signal_new ("child-switched",
                   G_TYPE_FROM_INTERFACE (iface),
                   G_SIGNAL_RUN_FIRST,
                   0,
@@ -129,7 +129,7 @@ hdy_swipeable_default_init (HdySwipeableInterface *iface)
  * @index: the index of the child to switch to
  * @duration: Animation duration in milliseconds
  *
- * See HdySwipeable::switch-child.
+ * See HdySwipeable::child-switched.
  *
  * Since: 0.0.12
  */
@@ -248,26 +248,26 @@ hdy_swipeable_end_swipe (HdySwipeable *self,
 }
 
 /**
- * hdy_swipeable_emit_switch_child:
+ * hdy_swipeable_emit_child_switched:
  * @self: a #HdySwipeable
  * @index: the index of the child to switch to
  * @duration: Animation duration in milliseconds
  *
- * Emits HdySwipeable::switch-child signal. This should be called when the
+ * Emits HdySwipeable::child-switched signal. This should be called when the
  * widget switches visible child widget.
  *
  * @duration can be 0 if the child is switched without animation.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 void
-hdy_swipeable_emit_switch_child (HdySwipeable *self,
-                                 guint         index,
-                                 gint64        duration)
+hdy_swipeable_emit_child_switched (HdySwipeable *self,
+                                   guint         index,
+                                   gint64        duration)
 {
   g_return_if_fail (HDY_IS_SWIPEABLE (self));
 
-  g_signal_emit (self, signals[SIGNAL_SWITCH_CHILD], 0, index, duration);
+  g_signal_emit (self, signals[SIGNAL_CHILD_SWITCHED], 0, index, duration);
 }
 
 /**

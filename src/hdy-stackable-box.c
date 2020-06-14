@@ -524,7 +524,7 @@ set_visible_child_info (HdyStackableBox               *self,
                         HdyStackableBoxChildInfo      *new_visible_child,
                         HdyStackableBoxTransitionType  transition_type,
                         guint                          transition_duration,
-                        gboolean                       emit_switch_child)
+                        gboolean                       emit_child_switched)
 {
   GtkWidget *widget = GTK_WIDGET (self->container);
   GList *children;
@@ -641,7 +641,7 @@ set_visible_child_info (HdyStackableBox               *self,
     hdy_stackable_box_start_child_transition (self, transition_duration, transition_direction);
   }
 
-  if (emit_switch_child) {
+  if (emit_child_switched) {
     gint index = 0;
 
     for (children = self->children; children; children = children->next) {
@@ -656,8 +656,8 @@ set_visible_child_info (HdyStackableBox               *self,
       index++;
     }
 
-    hdy_swipeable_emit_switch_child (HDY_SWIPEABLE (self->container), index,
-                                     transition_duration);
+    hdy_swipeable_emit_child_switched (HDY_SWIPEABLE (self->container), index,
+                                       transition_duration);
   }
 
   g_object_freeze_notify (G_OBJECT (self));

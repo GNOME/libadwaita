@@ -333,7 +333,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_swipe_tracker_set_reversed@LIBHANDY_1_0 0.0.11
  hdy_swipe_tracker_shift_position@LIBHANDY_1_0 0.81.0
  hdy_swipeable_begin_swipe@LIBHANDY_1_0 0.0.12
- hdy_swipeable_emit_switch_child@LIBHANDY_1_0 0.0.12
+ hdy_swipeable_emit_child_switched@LIBHANDY_1_0 0.82.0
  hdy_swipeable_end_swipe@LIBHANDY_1_0 0.0.12
  hdy_swipeable_get_cancel_progress@LIBHANDY_1_0 0.81.0
  hdy_swipeable_get_distance@LIBHANDY_1_0 0.81.0

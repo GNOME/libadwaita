@@ -1289,7 +1289,7 @@ hdy_carousel_scroll_to_full (HdyCarousel *self,
 
   hdy_carousel_box_scroll_to (self->scrolling_box, widget,
                                duration);
-  hdy_swipeable_emit_switch_child (HDY_SWIPEABLE (self), n, duration);
+  hdy_swipeable_emit_child_switched (HDY_SWIPEABLE (self), n, duration);
 }
 
 /**

@@ -102,10 +102,10 @@ hdy_swipe_group_new (void)
 }
 
 static void
-switch_child_cb (HdySwipeGroup *self,
-                 uint           index,
-                 gint64         duration,
-                 HdySwipeable  *swipeable)
+child_switched_cb (HdySwipeGroup *self,
+                   uint           index,
+                   gint64         duration,
+                   HdySwipeable  *swipeable)
 {
   GSList *swipeables;
 
@@ -184,7 +184,7 @@ hdy_swipe_group_add_swipeable (HdySwipeGroup *self,
   g_return_if_fail (HDY_IS_SWIPE_GROUP (self));
   g_return_if_fail (HDY_IS_SWIPEABLE (swipeable));
 
-  g_signal_connect_swapped (swipeable, "switch-child", G_CALLBACK (switch_child_cb), self);
+  g_signal_connect_swapped (swipeable, "child-switched", G_CALLBACK (child_switched_cb), self);
   g_signal_connect_swapped (swipeable, "begin-swipe", G_CALLBACK (begin_swipe_cb), self);
   g_signal_connect_swapped (swipeable, "update-swipe", G_CALLBACK (update_swipe_cb), self);
   g_signal_connect_swapped (swipeable, "end-swipe", G_CALLBACK (end_swipe_cb), self);
