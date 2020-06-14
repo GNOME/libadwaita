@@ -622,8 +622,8 @@ scroll_timeout_cb (HdyCarousel *self)
 }
 
 static gboolean
-handle_discrete_scroll_event (HdyCarousel *self,
-                              GdkEvent    *event)
+scroll_event_cb (HdyCarousel *self,
+                 GdkEvent    *event)
 {
   GdkDevice *source_device;
   GdkInputSource input_source;
@@ -712,16 +712,6 @@ handle_discrete_scroll_event (HdyCarousel *self,
   return GDK_EVENT_STOP;
 }
 
-static gboolean
-captured_event_cb (HdyCarousel *self,
-                   GdkEvent    *event)
-{
-  if (hdy_swipe_tracker_captured_event (self->tracker, event))
-    return GDK_EVENT_STOP;
-
-  return handle_discrete_scroll_event (self, event);
-}
-
 static void
 hdy_carousel_destroy (GtkWidget *widget)
 {
@@ -798,11 +788,7 @@ hdy_carousel_dispose (GObject *object)
 {
   HdyCarousel *self = (HdyCarousel *)object;
 
-  if (self->tracker) {
-    g_clear_object (&self->tracker);
-
-    g_object_set_data (object, "captured-event-handler", NULL);
-  }
+  g_clear_object (&self->tracker);
 
   if (self->scroll_timeout_id != 0) {
     g_source_remove (self->scroll_timeout_id);
@@ -1151,6 +1137,7 @@ hdy_carousel_class_init (HdyCarouselClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyCarousel, empty_box);
   gtk_widget_class_bind_template_child (widget_class, HdyCarousel, scrolling_box);
   gtk_widget_class_bind_template_child (widget_class, HdyCarousel, indicators);
+  gtk_widget_class_bind_template_callback (widget_class, scroll_event_cb);
   gtk_widget_class_bind_template_callback (widget_class, draw_indicators_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_n_pages_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_position_cb);
@@ -1175,14 +1162,6 @@ hdy_carousel_init (HdyCarousel *self)
   self->tracker = hdy_swipe_tracker_new (HDY_SWIPEABLE (self));
   hdy_swipe_tracker_set_allow_mouse_drag (self->tracker, TRUE);
   self->can_scroll = TRUE;
-
-  /*
-   * HACK: GTK3 has no other way to get events on capture phase.
-   * This is a reimplementation of _gtk_widget_set_captured_event_handler(),
-   * which is private. In GTK4 it can be replaced with GtkEventControllerLegacy
-   * with capture propagation phase
-   */
-  g_object_set_data (G_OBJECT (self), "captured-event-handler", captured_event_cb);
 }
 
 /**

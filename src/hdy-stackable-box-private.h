@@ -84,8 +84,6 @@ void             hdy_stackable_box_set_child_allow_visible (HdyStackableBox *sel
                                                             GtkWidget       *widget,
                                                             gboolean         allow_visible);
 
-gboolean         hdy_stackable_box_captured_event (HdyStackableBox *self,
-                                                   GdkEvent        *event);
 void             hdy_stackable_box_switch_child (HdyStackableBox *self,
                                                  guint            index,
                                                  gint64           duration);

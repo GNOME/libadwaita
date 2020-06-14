@@ -4,6 +4,7 @@
   <template class="HdyCarousel" parent="GtkEventBox">
     <property name="visible">True</property>
     <property name="orientation">horizontal</property>
+    <signal name="scroll-event" handler="scroll_event_cb"/>
     <child>
       <object class="GtkBox" id="box">
         <property name="visible">True</property>

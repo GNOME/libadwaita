@@ -3132,13 +3132,6 @@ hdy_stackable_box_get_cancel_progress (HdyStackableBox *self)
   return 0;
 }
 
-gboolean
-hdy_stackable_box_captured_event (HdyStackableBox *self,
-                                  GdkEvent        *event)
-{
-  return hdy_swipe_tracker_captured_event (self->tracker, event);
-}
-
 void
 hdy_stackable_box_switch_child (HdyStackableBox *self,
                                 guint            index,

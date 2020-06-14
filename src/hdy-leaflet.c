@@ -761,8 +761,6 @@ hdy_leaflet_finalize (GObject *object)
 
   g_clear_object (&priv->box);
 
-  g_object_set_data (object, "captured-event-handler", NULL);
-
   G_OBJECT_CLASS (hdy_leaflet_parent_class)->finalize (object);
 }
 
@@ -891,13 +889,6 @@ static gdouble
 hdy_leaflet_get_cancel_progress (HdySwipeable *swipeable)
 {
   return hdy_stackable_box_get_cancel_progress (HDY_GET_HELPER (swipeable));
-}
-
-static gboolean
-captured_event_cb (HdyLeaflet *self,
-                   GdkEvent   *event)
-{
-  return hdy_stackable_box_captured_event (HDY_GET_HELPER (self), event);
 }
 
 static void
@@ -1177,14 +1168,6 @@ hdy_leaflet_init (HdyLeaflet *self)
   g_signal_connect_object (priv->box, "notify::can-swipe-back", G_CALLBACK (notify_can_swipe_back_cb), self, G_CONNECT_SWAPPED);
   g_signal_connect_object (priv->box, "notify::can-swipe-forward", G_CALLBACK (notify_can_swipe_forward_cb), self, G_CONNECT_SWAPPED);
   g_signal_connect_object (priv->box, "notify::orientation", G_CALLBACK (notify_orientation_cb), self, G_CONNECT_SWAPPED);
-
-  /*
-   * HACK: GTK3 has no other way to get events on capture phase.
-   * This is a reimplementation of _gtk_widget_set_captured_event_handler(),
-   * which is private. In GTK4 it can be replaced with GtkEventControllerLegacy
-   * with capture propagation phase
-   */
-  g_object_set_data (G_OBJECT (self), "captured-event-handler", captured_event_cb);
 }
 
 static void
