@@ -562,6 +562,8 @@ hdy_swipe_tracker_constructed (GObject *object)
 
   g_signal_connect_object (self->swipeable, "event", G_CALLBACK (handle_event_cb), self, G_CONNECT_SWAPPED);
 
+  g_object_set_data (G_OBJECT (self->swipeable), "swipe-tracker", self);
+
   G_OBJECT_CLASS (hdy_swipe_tracker_parent_class)->constructed (object);
 }
 
@@ -575,6 +577,8 @@ hdy_swipe_tracker_dispose (GObject *object)
 
   if (self->touch_gesture)
     g_signal_handlers_disconnect_by_data (self->touch_gesture, self);
+
+  g_object_set_data (G_OBJECT (self->swipeable), "swipe-tracker", NULL);
 
   g_clear_object (&self->touch_gesture);
   g_clear_object (&self->swipeable);
@@ -753,7 +757,13 @@ hdy_swipe_tracker_init (HdySwipeTracker *self)
 HdySwipeTracker *
 hdy_swipe_tracker_new (HdySwipeable *swipeable)
 {
+  gpointer swipe_tracker;
+
   g_return_val_if_fail (swipeable != NULL, NULL);
+
+  swipe_tracker = g_object_get_data (G_OBJECT (swipeable), "swipe-tracker");
+
+  g_return_val_if_fail (swipe_tracker == NULL, NULL);
 
   return g_object_new (HDY_TYPE_SWIPE_TRACKER,
                        "swipeable", swipeable,
