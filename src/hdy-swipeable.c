@@ -341,9 +341,9 @@ get_snap_points_from_range (HdySwipeable *self,
 }
 
 /**
- * hdy_swipeable_get_snap_points:
+ * hdy_swipeable_get_snap_points: (virtual get_snap_points)
  * @self: a #HdySwipeable
- * @n_snap_points: (out)
+ * @n_snap_points: (out): location to return the number of the snap points
  *
  * Gets the snap points of @self. Each snap point represents a progress value
  * that is considered acceptable to end the swipe on.
@@ -351,7 +351,8 @@ get_snap_points_from_range (HdySwipeable *self,
  * If not implemented, the default implementation returns one snap point for
  * each end of the range, or just one snap point if they are equal.
  *
- * Returns: (array length=n_snap_points) (transfer full): the snap points of @self
+ * Returns: (array length=n_snap_points) (transfer full): the snap points of
+ *     @self. The array must be freed with g_free().
  *
  * Since: 1.0
  */
