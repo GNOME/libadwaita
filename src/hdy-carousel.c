@@ -13,7 +13,7 @@
 #include "hdy-carousel-box-private.h"
 #include "hdy-navigation-direction.h"
 #include "hdy-swipe-tracker-private.h"
-#include "hdy-swipeable-private.h"
+#include "hdy-swipeable.h"
 
 #include <math.h>
 

@@ -10,7 +10,7 @@
 
 #include "hdy-leaflet.h"
 #include "hdy-stackable-box-private.h"
-#include "hdy-swipeable-private.h"
+#include "hdy-swipeable.h"
 
 /**
  * SECTION:hdy-leaflet

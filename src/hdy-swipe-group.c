@@ -9,7 +9,7 @@
 #include "hdy-swipe-group.h"
 #include <gtk/gtk.h>
 #include "hdy-navigation-direction.h"
-#include "hdy-swipeable-private.h"
+#include "hdy-swipeable.h"
 #include "hdy-swipe-tracker-private.h"
 
 #define BUILDABLE_TAG_OBJECT "object"

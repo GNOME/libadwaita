@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#include "hdy-swipeable-private.h"
+#include "hdy-swipeable.h"
 
 /**
  * SECTION:hdy-swipeable
@@ -15,9 +15,7 @@
  * The #HdySwipeable interface is implemented by all swipeable widgets. They
  * can be synced using #HdySwipeGroup.
  *
- * #HdySwipeable is only meant to be used by libhandy widgets and is currently
- * implemented by #HdyCarousel, #HdyDeck and #HdyLeaflet. It should not be
- * implemented by applications.
+ * See #HdySwipeTracker for details about implementing it.
  *
  * Since: 0.0.12
  */

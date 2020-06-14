@@ -13,7 +13,7 @@
 #include "hdy-enums-private.h"
 #include "hdy-stackable-box-private.h"
 #include "hdy-shadow-helper-private.h"
-#include "hdy-swipeable-private.h"
+#include "hdy-swipeable.h"
 #include "hdy-swipe-tracker-private.h"
 
 /**

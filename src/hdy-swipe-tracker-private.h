@@ -11,7 +11,7 @@
 #endif
 
 #include <gtk/gtk.h>
-#include "hdy-swipeable-private.h"
+#include "hdy-swipeable.h"
 
 G_BEGIN_DECLS
 
