@@ -89,6 +89,7 @@ src_headers = [
   'hdy-search-bar.h',
   'hdy-squeezer.h',
   'hdy-swipe-group.h',
+  'hdy-swipe-tracker.h',
   'hdy-swipeable.h',
   'hdy-title-bar.h',
   'hdy-value-object.h',

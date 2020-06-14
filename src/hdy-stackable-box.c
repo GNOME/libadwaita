@@ -14,7 +14,7 @@
 #include "hdy-stackable-box-private.h"
 #include "hdy-shadow-helper-private.h"
 #include "hdy-swipeable.h"
-#include "hdy-swipe-tracker-private.h"
+#include "hdy-swipe-tracker.h"
 
 /**
  * PRIVATE:hdy-stackable-box

@@ -10,41 +10,17 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
-#include <gtk/gtk.h>
-#include "hdy-swipeable.h"
+#include "hdy-swipe-tracker.h"
 
 G_BEGIN_DECLS
 
-#define HDY_TYPE_SWIPE_TRACKER (hdy_swipe_tracker_get_type())
-
-G_DECLARE_FINAL_TYPE (HdySwipeTracker, hdy_swipe_tracker, HDY, SWIPE_TRACKER, GObject)
-
-HdySwipeTracker *hdy_swipe_tracker_new (HdySwipeable *swipeable);
-
-HdySwipeable    *hdy_swipe_tracker_get_swipeable (HdySwipeTracker *self);
-
-gboolean         hdy_swipe_tracker_get_enabled (HdySwipeTracker *self);
-void             hdy_swipe_tracker_set_enabled (HdySwipeTracker *self,
-                                                gboolean         enabled);
-
-gboolean         hdy_swipe_tracker_get_reversed (HdySwipeTracker *self);
-void             hdy_swipe_tracker_set_reversed (HdySwipeTracker *self,
-                                                 gboolean         reversed);
-
-gboolean         hdy_swipe_tracker_get_allow_mouse_drag (HdySwipeTracker *self);
-void             hdy_swipe_tracker_set_allow_mouse_drag (HdySwipeTracker *self,
-                                                         gboolean         allow_mouse_drag);
-
-void             hdy_swipe_tracker_shift_position (HdySwipeTracker *self,
-                                                   gdouble          delta);
-
-void             hdy_swipe_tracker_emit_begin_swipe (HdySwipeTracker        *self,
-                                                     HdyNavigationDirection  direction,
-                                                     gboolean                direct);
-void             hdy_swipe_tracker_emit_update_swipe (HdySwipeTracker *self,
-                                                      gdouble          progress);
-void             hdy_swipe_tracker_emit_end_swipe (HdySwipeTracker *self,
-                                                   gint64           duration,
-                                                   gdouble          to);
+void hdy_swipe_tracker_emit_begin_swipe (HdySwipeTracker        *self,
+                                         HdyNavigationDirection  direction,
+                                         gboolean                direct);
+void hdy_swipe_tracker_emit_update_swipe (HdySwipeTracker *self,
+                                          gdouble          progress);
+void hdy_swipe_tracker_emit_end_swipe (HdySwipeTracker *self,
+                                       gint64           duration,
+                                       gdouble          to);
 
 G_END_DECLS
