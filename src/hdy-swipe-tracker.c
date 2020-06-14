@@ -823,7 +823,7 @@ hdy_swipe_tracker_init (HdySwipeTracker *self)
 
 /**
  * hdy_swipe_tracker_new:
- * @widget: a #GtkWidget to add the tracker on
+ * @swipeable: a #GtkWidget to add the tracker on
  *
  * Create a new #HdySwipeTracker object on @widget.
  *
