@@ -88,7 +88,7 @@
       </para>
       <para>
         Affected widgets:
-        #HdyActionRow, #HdyColumn, #HdyComboRow, #HdyExpanderRow,
+        #HdyActionRow, #HdyComboRow, #HdyExpanderRow,
         #HdyPreferencesGroup, #HdyPreferencesPage, #HdyPreferencesRow,
         #HdyPreferencesWindow, #HdySqueezer, #HdyTitleBar, #HdyViewSwitcherBar,
         #HdyViewSwitcher
@@ -100,6 +100,17 @@
       <para>
         #HdyFold has been removed. This affects the API of #HdyLeaflet, see the
         “Adapt to HdyLeaflet API changes” section to know how.
+      </para>
+    </refsect3>
+
+    <refsect3>
+      <title>Replace HdyColumn by HdyClamp</title>
+      <para>
+        HdyColumn has been renamed #HdyClamp as it now implements
+        #GtkOrientable, so you should replace the former by the later.
+        Its “maximum-width” and “linear-growth-width” properties have been
+        renamed #HdyClamp:maximum-size and #HdyClamp:tightening-threshold
+        respectively to better reflect their role.
       </para>
     </refsect3>
 
