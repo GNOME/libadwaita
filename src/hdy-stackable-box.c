@@ -2018,7 +2018,6 @@ hdy_stackable_box_size_allocate (HdyStackableBox *self,
   GtkOrientation orientation = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget));
   GList *directed_children, *children;
   HdyStackableBoxChildInfo *child_info;
-  gint nat_box_size, nat_max_size, visible_children;
   gboolean folded;
 
   directed_children = get_directed_children (self);
@@ -2042,49 +2041,51 @@ hdy_stackable_box_size_allocate (HdyStackableBox *self,
   }
 
   /* Check whether the children should be stacked or not. */
-  nat_box_size = 0;
-  nat_max_size = 0;
-  visible_children = 0;
-  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-    for (children = directed_children; children; children = children->next) {
-      child_info = children->data;
+  if (self->can_unfold) {
+    gint nat_box_size = 0, nat_max_size = 0, visible_children = 0;
 
-      /* FIXME Check the child is visible. */
-      if (!child_info->widget)
-        continue;
+    if (orientation == GTK_ORIENTATION_HORIZONTAL) {
 
-      if (child_info->nat.width <= 0)
-        continue;
+      for (children = directed_children; children; children = children->next) {
+        child_info = children->data;
 
-      nat_box_size += child_info->nat.width;
-      nat_max_size = MAX (nat_max_size, child_info->nat.width);
-      visible_children++;
+        /* FIXME Check the child is visible. */
+        if (!child_info->widget)
+          continue;
+
+        if (child_info->nat.width <= 0)
+          continue;
+
+        nat_box_size += child_info->nat.width;
+        nat_max_size = MAX (nat_max_size, child_info->nat.width);
+        visible_children++;
+      }
+      if (self->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL])
+        nat_box_size = nat_max_size * visible_children;
+      folded = visible_children > 1 && allocation->width < nat_box_size;
     }
-    if (self->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL])
-      nat_box_size = nat_max_size * visible_children;
-    folded = visible_children > 1 && allocation->width < nat_box_size;
-  }
-  else {
-    for (children = directed_children; children; children = children->next) {
-      child_info = children->data;
+    else {
+      for (children = directed_children; children; children = children->next) {
+        child_info = children->data;
 
-      /* FIXME Check the child is visible. */
-      if (!child_info->widget)
-        continue;
+        /* FIXME Check the child is visible. */
+        if (!child_info->widget)
+          continue;
 
-      if (child_info->nat.height <= 0)
-        continue;
+        if (child_info->nat.height <= 0)
+          continue;
 
-      nat_box_size += child_info->nat.height;
-      nat_max_size = MAX (nat_max_size, child_info->nat.height);
-      visible_children++;
+        nat_box_size += child_info->nat.height;
+        nat_max_size = MAX (nat_max_size, child_info->nat.height);
+        visible_children++;
+      }
+      if (self->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL])
+        nat_box_size = nat_max_size * visible_children;
+      folded = visible_children > 1 && allocation->height < nat_box_size;
     }
-    if (self->homogeneous[HDY_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL])
-      nat_box_size = nat_max_size * visible_children;
-    folded = visible_children > 1 && allocation->height < nat_box_size;
+  } else {
+    folded = TRUE;
   }
-
-  folded |= !self->can_unfold;
 
   hdy_stackable_box_set_folded (self, folded);
 
