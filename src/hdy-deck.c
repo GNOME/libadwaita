@@ -941,7 +941,7 @@ hdy_deck_class_init (HdyDeckClass *klass)
     g_param_spec_enum ("transition-type",
                        _("Transition type"),
                        _("The type of animation used to transition between children"),
-                       HDY_TYPE_DECK_TRANSITION_TYPE, HDY_DECK_TRANSITION_TYPE_NONE,
+                       HDY_TYPE_DECK_TRANSITION_TYPE, HDY_DECK_TRANSITION_TYPE_OVER,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
