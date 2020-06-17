@@ -129,12 +129,10 @@
                     <property name="visible">True</property>
                     <child>
                       <object class="HdyClamp">
-                        <property name="tightening_threshold">400</property>
                         <property name="margin_bottom">18</property>
                         <property name="margin_end">12</property>
                         <property name="margin_start">12</property>
                         <property name="margin_top">18</property>
-                        <property name="maximum_size">600</property>
                         <property name="visible">True</property>
                         <child>
                           <object class="GtkListBox" id="search_results">
