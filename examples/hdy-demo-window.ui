@@ -1442,7 +1442,6 @@
                               <object class="HdyClamp">
                                 <property name="visible">True</property>
                                 <property name="hexpand">True</property>
-                                <property name="maximum-size">600</property>
                                 <child>
                                   <object class="GtkSearchEntry" id="search_entry">
                                     <property name="visible">True</property>
