@@ -111,6 +111,8 @@
         Its “maximum-width” and “linear-growth-width” properties have been
         renamed #HdyClamp:maximum-size and #HdyClamp:tightening-threshold
         respectively to better reflect their role.
+        It won't set the .narrow, .medium and .wide style classes depending on
+        its size, but the .small, .medium and .large ones instead.
       </para>
     </refsect3>
 
