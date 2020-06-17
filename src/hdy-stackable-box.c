@@ -41,9 +41,9 @@
 /**
  * HdyStackableBoxTransitionType:
  * @HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE: No transition
- * @HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE: Slide from left, right, up or down according to the orientation, text direction and the children order
  * @HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER: Cover the old page or uncover the new page, sliding from or towards the end according to orientation, text direction and children order
  * @HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER: Uncover the new page or cover the old page, sliding from or towards the start according to orientation, text direction and children order
+ * @HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE: Slide from left, right, up or down according to the orientation, text direction and the children order
  *
  * This enumeration value describes the possible transitions between modes and
  * children in a #HdyStackableBox widget.
@@ -262,12 +262,12 @@ is_window_moving_child_transition (HdyStackableBox *self)
   switch (self->child_transition.active_type) {
   case HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE:
     return FALSE;
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
-    return TRUE;
   case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
     return direction == GTK_PAN_DIRECTION_UP || direction == left_or_right;
   case HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER:
     return direction == GTK_PAN_DIRECTION_DOWN || direction == right_or_left;
+  case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
+    return TRUE;
   default:
     g_assert_not_reached ();
   }
@@ -278,9 +278,9 @@ old and new child */
 static inline gboolean
 is_direction_dependent_child_transition (HdyStackableBoxTransitionType transition_type)
 {
-  return (transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE ||
-          transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER ||
-          transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER);
+  return (transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER ||
+          transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER ||
+          transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE);
 }
 
 static GtkPanDirection
@@ -1587,9 +1587,9 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
     }
 
     break;
-  case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
   case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
   case HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER:
+  case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
     /* Compute visible child size. */
 
     visible_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
@@ -2687,12 +2687,12 @@ hdy_stackable_box_draw (HdyStackableBox *self,
       cairo_clip (cr);
 
       switch (self->child_transition.active_type) {
-      case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
-        hdy_stackable_box_draw_slide (self, cr);
-        break;
       case HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER:
       case HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER:
         hdy_stackable_box_draw_over_or_under (self, cr);
+        break;
+      case HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE:
+        hdy_stackable_box_draw_slide (self, cr);
         break;
       case HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE:
       default:

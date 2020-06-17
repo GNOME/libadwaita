@@ -21,9 +21,9 @@ G_DECLARE_FINAL_TYPE (HdyStackableBox, hdy_stackable_box, HDY, STACKABLE_BOX, GO
 
 typedef enum {
   HDY_STACKABLE_BOX_TRANSITION_TYPE_NONE,
-  HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE,
   HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER,
   HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER,
+  HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE,
 } HdyStackableBoxTransitionType;
 
 HdyStackableBox *hdy_stackable_box_new (GtkContainer      *container,
