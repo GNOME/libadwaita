@@ -1,4 +1,38 @@
 ==============
+Version 0.82.0
+==============
+
+- Unblacklist run.in for inclusion into the tarball, fixing the build.
+- HdyClamp:
+  - Rename HdyColumn as HdyClamp.
+  - Make it implement GtkOrientable.
+  - Rename its properties from maximum-width to maximum-size, and
+    linear-growth-width to tightening-threshold.
+  - Rename the style classes it sets on itself from .narrow, .medium and
+    .wide style to .small, .medium and .large.
+  - Set the default value of maximum-size to 600, and of
+    tightening-threshold to 400.
+  - Notify when changing size properties, and guard non-changes.
+- HdyCarousel, HdyDeck and HdyLeaflet:
+  - Move the swipe tracker event handling to the bubble phase, giving
+    the priority to the inner widget.
+- HdyDeck:
+  - Avoid some useless allocation computations.
+- HdyLeaflet:
+  - Don't count children of size 0 to compute the fold state.
+  - Don't fold when there is only 1 visible size.
+- HdySwipeable:
+  - Add the missing direct header inclusion guard.
+- HdyWindow and HdyApplicationWindow:
+  - Implement destroy() to correctly destroy the internal widgets.
+- Drop hdy_list_box_separator_header().
+- Don't install Glade files outside prefix.
+- Update the project description.
+- Translation updates:
+  - Spanish
+  - Ukrainian
+
+==============
 Version 0.81.0
 ==============
 
