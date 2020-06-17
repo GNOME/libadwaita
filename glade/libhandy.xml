@@ -122,11 +122,11 @@
             <!-- HdyDeckTransitionType enumeration value -->
             <value id="HDY_DECK_TRANSITION_TYPE_NONE" name="None"/>
             <!-- HdyDeckTransitionType enumeration value -->
-            <value id="HDY_DECK_TRANSITION_TYPE_SLIDE" name="Slide"/>
-            <!-- HdyDeckTransitionType enumeration value -->
             <value id="HDY_DECK_TRANSITION_TYPE_OVER" name="Over"/>
             <!-- HdyDeckTransitionType enumeration value -->
             <value id="HDY_DECK_TRANSITION_TYPE_UNDER" name="Under"/>
+            <!-- HdyDeckTransitionType enumeration value -->
+            <value id="HDY_DECK_TRANSITION_TYPE_SLIDE" name="Slide"/>
           </displayable-values>
         </property>
       </properties>

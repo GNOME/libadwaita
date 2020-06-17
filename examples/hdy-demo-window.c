@@ -164,12 +164,12 @@ deck_transition_name (HdyEnumValueObject *value,
   switch (hdy_enum_value_object_get_value (value)) {
   case HDY_DECK_TRANSITION_TYPE_NONE:
     return g_strdup (_("None"));
-  case HDY_DECK_TRANSITION_TYPE_SLIDE:
-    return g_strdup (_("Slide"));
   case HDY_DECK_TRANSITION_TYPE_OVER:
     return g_strdup (_("Over"));
   case HDY_DECK_TRANSITION_TYPE_UNDER:
     return g_strdup (_("Under"));
+  case HDY_DECK_TRANSITION_TYPE_SLIDE:
+    return g_strdup (_("Slide"));
   default:
     return NULL;
   }
