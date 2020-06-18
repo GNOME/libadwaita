@@ -273,16 +273,6 @@ is_window_moving_child_transition (HdyStackableBox *self)
   }
 }
 
-/* Transitions that change direction depending on the relative order of the
-old and new child */
-static inline gboolean
-is_direction_dependent_child_transition (HdyStackableBoxTransitionType transition_type)
-{
-  return (transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_OVER ||
-          transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_UNDER ||
-          transition_type == HDY_STACKABLE_BOX_TRANSITION_TYPE_SLIDE);
-}
-
 static GtkPanDirection
 get_pan_direction (HdyStackableBox *self,
                    gboolean         new_child_first)
@@ -624,10 +614,9 @@ set_visible_child_info (HdyStackableBox               *self,
     /* } */
   }
 
-  if ((new_visible_child == NULL || self->last_visible_child == NULL) &&
-      is_direction_dependent_child_transition (transition_type))
+  if (new_visible_child == NULL || self->last_visible_child == NULL)
     transition_duration = 0;
-  else if (is_direction_dependent_child_transition (transition_type)) {
+  else {
     gboolean new_first = FALSE;
     for (children = self->children; children; children = children->next) {
       if (new_visible_child == children->data) {
