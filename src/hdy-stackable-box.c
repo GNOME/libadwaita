@@ -700,18 +700,7 @@ hdy_stackable_box_set_position (HdyStackableBox *self,
       new_visible != gtk_widget_get_child_visible (child))
     gtk_widget_set_child_visible (child, new_visible);
 
-  /* FIXME Copied from GtkRevealer IIRC, check whether it's useful. */
-  /* transition = effective_transition (self); */
-  /* if (transition == GTK_REVEALER_TRANSITION_TYPE_CROSSFADE) { */
-  /*   gtk_widget_set_opacity (GTK_WIDGET (self->container), self->mode_transition.current_pos); */
-  /*   gtk_widget_queue_draw (GTK_WIDGET (self->container)); */
-  /* } */
-  /* else */
-    gtk_widget_queue_resize (GTK_WIDGET (self->container));
-  /* } */
-
-  /* if (self->mode_transition.current_pos == self->mode_transition.target_pos) */
-  /*   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_REVEALED]); */
+  gtk_widget_queue_allocate (GTK_WIDGET (self->container));
 }
 
 static void
