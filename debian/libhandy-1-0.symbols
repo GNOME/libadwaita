@@ -25,7 +25,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_avatar_set_show_initials@LIBHANDY_1_0 0.80.0
  hdy_avatar_set_size@LIBHANDY_1_0 0.80.0
  hdy_avatar_set_text@LIBHANDY_1_0 0.80.0
- hdy_carousel_box_animate@LIBHANDY_1_0 0.81.0
  hdy_carousel_box_get_closest_snap_point@LIBHANDY_1_0 0.81.0
  hdy_carousel_box_get_current_page_index@LIBHANDY_1_0 0.81.0
  hdy_carousel_box_get_distance@LIBHANDY_1_0 0.80.0
@@ -324,7 +323,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_swipe_group_get_type@LIBHANDY_1_0 0.0.12
  hdy_swipe_group_new@LIBHANDY_1_0 0.0.12
  hdy_swipe_group_remove_swipeable@LIBHANDY_1_0 0.0.12
- hdy_swipe_tracker_confirm_swipe@LIBHANDY_1_0 0.81.0
  hdy_swipe_tracker_get_allow_mouse_drag@LIBHANDY_1_0 0.0.12
  hdy_swipe_tracker_get_enabled@LIBHANDY_1_0 0.0.11
  hdy_swipe_tracker_get_reversed@LIBHANDY_1_0 0.0.11
@@ -413,6 +411,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_window_handle_new@LIBHANDY_1_0 0.80.0
  hdy_window_mixin_add@LIBHANDY_1_0 0.80.0
  hdy_window_mixin_buildable_add_child@LIBHANDY_1_0 0.80.0
+ hdy_window_mixin_destroy@LIBHANDY_1_0 0.82.0
  hdy_window_mixin_draw@LIBHANDY_1_0 0.80.0
  hdy_window_mixin_forall@LIBHANDY_1_0 0.80.0
  hdy_window_mixin_get_type@LIBHANDY_1_0 0.80.0
