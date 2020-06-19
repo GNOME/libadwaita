@@ -1197,7 +1197,7 @@ hdy_stackable_box_set_interpolate_size (HdyStackableBox *self,
  * hdy_stackable_box_get_interpolate_size:
  * @self: a #HdyStackableBox
  *
- * Returns wether the #HdyStackableBox is set up to interpolate between
+ * Returns whether the #HdyStackableBox is set up to interpolate between
  * the sizes of children on page switch.
  *
  * Returns: %TRUE if child sizes are interpolated

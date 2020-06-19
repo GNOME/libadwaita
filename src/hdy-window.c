@@ -48,7 +48,7 @@
  * headerbar inside a #GtkRevealer, and to show titlebar above content by
  * putting it into a #GtkOverlay instead of #GtkBox.
  *
- * if the window has a #GtkGLArea, it may bring a slight performance regresssion
+ * if the window has a #GtkGLArea, it may bring a slight performance regression
  * when the window is not fullscreen, tiled or maximized.
  *
  * Using gtk_window_get_titlebar() and gtk_window_set_titlebar() is not

@@ -68,7 +68,7 @@ filter_search_results (HdyActionRow         *row,
    * class when filtering a row, leading to straight corners when the first row
    * or last row are filtered out.
    *
-   * This works around it by explicitely toggling the row's visibility, while
+   * This works around it by explicitly toggling the row's visibility, while
    * keeping GtkListBox's filtering logic.
    *
    * See https://gitlab.gnome.org/GNOME/libhandy/-/merge_requests/424

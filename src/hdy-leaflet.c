@@ -409,7 +409,7 @@ hdy_leaflet_set_interpolate_size (HdyLeaflet *self,
  * hdy_leaflet_get_interpolate_size:
  * @self: a #HdyLeaflet
  *
- * Returns wether the #HdyLeaflet is set up to interpolate between
+ * Returns whether the #HdyLeaflet is set up to interpolate between
  * the sizes of children on page switch.
  *
  * Returns: %TRUE if child sizes are interpolated

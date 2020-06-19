@@ -143,7 +143,7 @@
       <para>
         The “none” transition type has been removed. The default value for the
         #HdyLeaflet:transition-type property has been changed to “over”.
-        “over” is the recommanded transtion for typical #HdyLeaflet use-cases,
+        “over” is the recommended transition for typical #HdyLeaflet use-cases,
         if this isn't what you want to use, be sure to adapt your code. If
         transitions are undesired, set #HdyLeaflet:mode-transition-duration and
         #HdyLeaflet:child-transition-duration properties to 0.

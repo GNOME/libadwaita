@@ -61,7 +61,7 @@ $ dpkg -s libhandy-1-0
  - [ ] Librem5 devkit
  - [ ] other (please elaborate)
 
-# Releveant logfiles
+# Relevant logfiles
 
   Please provide relevant logs with ``G_MESSAGES_DEBUG=all <yourappliation>``
 

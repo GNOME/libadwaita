@@ -16,7 +16,7 @@
  * @Title: hdy-main
  * @stability: Private
  *
- * Before using the Handy libarary you should initialize it. This makes
+ * Before using the Handy library you should initialize it. This makes
  * sure translations for the Handy library are set up properly.
  */
 

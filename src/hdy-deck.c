@@ -366,7 +366,7 @@ hdy_deck_set_interpolate_size (HdyDeck  *self,
  * hdy_deck_get_interpolate_size:
  * @self: a #HdyDeck
  *
- * Returns wether the #HdyDeck is set up to interpolate between
+ * Returns whether the #HdyDeck is set up to interpolate between
  * the sizes of children on page switch.
  *
  * Returns: %TRUE if child sizes are interpolated

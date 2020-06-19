@@ -504,8 +504,8 @@ hdy_combo_row_get_model (HdyComboRow *self)
  *   widgets for items to display in the list, or %NULL in case you also passed
  *   %NULL as @model
  * @create_current_widget_func: (nullable) (scope call): a function that creates
- *   widgets for items to display as the seleted item, or %NULL in case you also
- *   passed %NULL as @model
+ *   widgets for items to display as the selected item, or %NULL in case you
+ *   also passed %NULL as @model
  * @user_data: user data passed to @create_list_widget_func and
  *   @create_current_widget_func
  * @user_data_free_func: function for freeing @user_data
@@ -587,8 +587,8 @@ hdy_combo_row_bind_model (HdyComboRow                *self,
  * items from @model. @self is updated whenever @model changes. If @model is
  * %NULL, @self is left empty.
  *
- * This is more conventient to use than hdy_combo_row_bind_model() if you want
- * to represent items of the model with names.
+ * This is more convenient to use than hdy_combo_row_bind_model() if you want to
+ * represent items of the model with names.
  *
  * Since: 0.0.6
  */
@@ -631,7 +631,7 @@ hdy_combo_row_bind_name_model (HdyComboRow            *self,
  * items from @model. @self is updated whenever @model changes. If @model is
  * %NULL, @self is left empty.
  *
- * This is more conventient to use than hdy_combo_row_bind_name_model() if you
+ * This is more convenient to use than hdy_combo_row_bind_name_model() if you
  * want to represent values of an enumeration with names.
  *
  * See hdy_enum_value_row_name().

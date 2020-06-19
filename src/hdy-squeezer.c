@@ -1339,7 +1339,7 @@ hdy_squeezer_get_transition_running (HdySqueezer *self)
  * hdy_squeezer_get_interpolate_size:
  * @self: A #HdySqueezer
  *
- * Gets wether @self should interpolate its size on visible child change.
+ * Gets whether @self should interpolate its size on visible child change.
  *
  * See hdy_squeezer_set_interpolate_size().
  *

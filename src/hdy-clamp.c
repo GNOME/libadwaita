@@ -361,7 +361,7 @@ hdy_clamp_size_allocate (GtkWidget     *widget,
   }
 
   if (!gtk_widget_get_has_window (widget)) {
-    /* This allways center the child on the side of the orientation. */
+    /* This always center the child on the side of the orientation. */
 
     if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
       child_allocation.x = allocation->x + (allocation->width - child_allocation.width) / 2;

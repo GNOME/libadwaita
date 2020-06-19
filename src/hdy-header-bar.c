@@ -1975,7 +1975,7 @@ hdy_header_bar_draw (GtkWidget *widget,
 
   context = gtk_widget_get_style_context (widget);
   /* GtkWidget draws nothing by default so we have to render the background
-   * explicitely for HdyHederBar to render the typical titlebar background.
+   * explicitly for HdyHederBar to render the typical titlebar background.
    */
   gtk_render_background (context,
                          cr,
@@ -2860,7 +2860,7 @@ hdy_header_bar_get_transition_running (HdyHeaderBar *self)
  * hdy_header_bar_get_interpolate_size:
  * @self: A #HdyHeaderBar
  *
- * Gets wether @self should interpolate its size on visible child change.
+ * Gets whether @self should interpolate its size on visible child change.
  *
  * See hdy_header_bar_set_interpolate_size().
  *

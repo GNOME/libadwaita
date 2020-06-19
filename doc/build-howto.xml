@@ -156,7 +156,7 @@
       a two pass compilation and hence your Vala compiler outputs C (Meson,
       Automake, or using the <literal>--ccode</literal> Vala compiler option to
       trigger that) then you must add <literal>-DHANDY_USE_UNSTABLE_API
-      </literal> to your C compiler argments instead.
+      </literal> to your C compiler arguments instead.
     </para>
   </refsect2>
 

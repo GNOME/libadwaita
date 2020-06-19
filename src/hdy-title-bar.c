@@ -80,7 +80,7 @@ hdy_title_bar_set_selection_mode (HdyTitleBar *self,
  * hdy_title_bar_get_selection_mode:
  * @self: a #HdyTitleBar
  *
- * Returns wether whether @self is in selection mode.
+ * Returns whether whether @self is in selection mode.
  *
  * Returns: %TRUE if the title bar is in selection mode
  */
@@ -153,7 +153,7 @@ hdy_title_bar_draw (GtkWidget *widget,
 
   context = gtk_widget_get_style_context (widget);
   /* GtkWidget draws nothing by default so we have to render the background
-   * explicitely for HdyTitleBar to render the typical titlebar background.
+   * explicitly for HdyTitleBar to render the typical titlebar background.
    */
   gtk_render_background (context,
                          cr,
