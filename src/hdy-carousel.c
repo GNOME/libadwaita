@@ -180,30 +180,28 @@ hdy_carousel_switch_child (HdySwipeable *swipeable,
 }
 
 static void
-hdy_carousel_begin_swipe (HdySwipeable           *swipeable,
-                          HdyNavigationDirection  direction,
-                          gboolean                direct)
+begin_swipe_cb (HdySwipeTracker        *tracker,
+                HdyNavigationDirection  direction,
+                gboolean                direct,
+                HdyCarousel            *self)
 {
-  HdyCarousel *self = HDY_CAROUSEL (swipeable);
-
   hdy_carousel_box_stop_animation (self->scrolling_box);
 }
 
 static void
-hdy_carousel_update_swipe (HdySwipeable *swipeable,
-                           gdouble       value)
+update_swipe_cb (HdySwipeTracker *tracker,
+                 gdouble          progress,
+                 HdyCarousel     *self)
 {
-  HdyCarousel *self = HDY_CAROUSEL (swipeable);
-
-  hdy_carousel_box_set_position (self->scrolling_box, value);
+  hdy_carousel_box_set_position (self->scrolling_box, progress);
 }
 
 static void
-hdy_carousel_end_swipe (HdySwipeable *swipeable,
-                        gint64        duration,
-                        gdouble       to)
+end_swipe_cb (HdySwipeTracker *tracker,
+              gint64           duration,
+              gdouble          to,
+              HdyCarousel     *self)
 {
-  HdyCarousel *self = HDY_CAROUSEL (swipeable);
   GtkWidget *child;
 
   child = hdy_carousel_box_get_page_at_position (self->scrolling_box, to);
@@ -917,9 +915,6 @@ static void
 hdy_carousel_swipeable_init (HdySwipeableInterface *iface)
 {
   iface->switch_child = hdy_carousel_switch_child;
-  iface->begin_swipe = hdy_carousel_begin_swipe;
-  iface->update_swipe = hdy_carousel_update_swipe;
-  iface->end_swipe = hdy_carousel_end_swipe;
   iface->get_distance = hdy_carousel_get_distance;
   iface->get_range = hdy_carousel_get_range;
   iface->get_snap_points = hdy_carousel_get_snap_points;
@@ -1161,6 +1156,11 @@ hdy_carousel_init (HdyCarousel *self)
 
   self->tracker = hdy_swipe_tracker_new (HDY_SWIPEABLE (self));
   hdy_swipe_tracker_set_allow_mouse_drag (self->tracker, TRUE);
+
+  g_signal_connect_object (self->tracker, "begin-swipe", G_CALLBACK (begin_swipe_cb), self, 0);
+  g_signal_connect_object (self->tracker, "update-swipe", G_CALLBACK (update_swipe_cb), self, 0);
+  g_signal_connect_object (self->tracker, "end-swipe", G_CALLBACK (end_swipe_cb), self, 0);
+
   self->can_scroll = TRUE;
 }
 
