@@ -26,9 +26,6 @@ G_DEFINE_INTERFACE (HdySwipeable, hdy_swipeable, GTK_TYPE_WIDGET)
 
 enum {
   SIGNAL_CHILD_SWITCHED,
-  SIGNAL_SWIPE_BEGAN,
-  SIGNAL_SWIPE_UPDATED,
-  SIGNAL_SWIPE_ENDED,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -60,71 +57,6 @@ hdy_swipeable_default_init (HdySwipeableInterface *iface)
                   G_TYPE_NONE,
                   2,
                   G_TYPE_UINT, G_TYPE_INT64);
-
-  /**
-   * HdySwipeable::swipe-began:
-   * @self: The #HdySwipeable instance
-   * @direction: The direction of the swipe, can be 1 or -1
-   *
-   * This signal is emitted when a possible swipe is detected. This is used by
-   * #HdySwipeGroup, applications should not connect to it.
-   * The @direction value can be used to restrict the swipe to a certain
-   * direction.
-   *
-   * This is used by #HdySwipeGroup, applications should not connect to it.
-   *
-   * Since: 1.0
-   */
-  signals[SIGNAL_SWIPE_BEGAN] =
-    g_signal_new ("swipe-began",
-                  G_TYPE_FROM_INTERFACE (iface),
-                  G_SIGNAL_RUN_FIRST,
-                  0,
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE,
-                  1,
-                  HDY_TYPE_NAVIGATION_DIRECTION);
-
-  /**
-   * HdySwipeable::swipe-updated:
-   * @self: The #HdySwipeable instance
-   * @value: The current animation progress value
-   *
-   * This signal is emitted every time the progress value changes. This is used
-   * by #HdySwipeGroup, applications should not connect to it.
-   *
-   * Since: 1.0
-   */
-  signals[SIGNAL_SWIPE_UPDATED] =
-    g_signal_new ("swipe-updated",
-                  G_TYPE_FROM_INTERFACE (iface),
-                  G_SIGNAL_RUN_FIRST,
-                  0,
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE,
-                  1,
-                  G_TYPE_DOUBLE);
-
-  /**
-   * HdySwipeable::swipe-ended:
-   * @self: The #HdySwipeable instance
-   * @duration: Snap-back animation duration in milliseconds
-   * @to: The progress value to animate to
-   *
-   * This signal is emitted as soon as the gesture has stopped. This is used by
-   * #HdySwipeGroup, applications should not connect to it.
-   *
-   * Since: 1.0
-   */
-  signals[SIGNAL_SWIPE_ENDED] =
-    g_signal_new ("swipe-ended",
-                  G_TYPE_FROM_INTERFACE (iface),
-                  G_SIGNAL_RUN_FIRST,
-                  0,
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE,
-                  2,
-                  G_TYPE_INT64, G_TYPE_DOUBLE);
 }
 
 /**
@@ -150,100 +82,6 @@ hdy_swipeable_switch_child (HdySwipeable *self,
   g_return_if_fail (iface->switch_child != NULL);
 
   (* iface->switch_child) (self, index, duration);
-}
-
-/**
- * hdy_swipeable_begin_swipe:
- * @self: a #HdySwipeable
- * @direction: The direction of the swipe
- * @direct: %TRUE if the swipe is directly triggered by a gesture,
- *   %FALSE if it's triggered via a #HdySwipeGroup
- *
- * The @direction value can be used to restrict the swipe to a certain direction.
- *
- * The @direct parameter can be used to have widgets that aren't swipeable, but
- * can still animate in sync with other widgets in a #HdySwipeGroup by only
- * applying restrictions if @direct is %TRUE.
- *
- * Since: 0.0.12
- */
-void
-hdy_swipeable_begin_swipe (HdySwipeable           *self,
-                           HdyNavigationDirection  direction,
-                           gboolean                direct)
-{
-  HdySwipeableInterface *iface;
-
-  g_return_if_fail (HDY_IS_SWIPEABLE (self));
-
-  iface = HDY_SWIPEABLE_GET_IFACE (self);
-  g_return_if_fail (iface->begin_swipe != NULL);
-
-  (* iface->begin_swipe) (self, direction, direct);
-
-  g_signal_emit (self, signals[SIGNAL_SWIPE_BEGAN], 0, direction);
-}
-
-/**
- * hdy_swipeable_update_swipe:
- * @self: a #HdySwipeable
- * @value: The current animation progress value
- *
- * This function is called by #HdySwipeTracker every time the progress value
- * changes. The widget must redraw the widget to reflect the change.
- *
- * Since: 0.0.12
- */
-void
-hdy_swipeable_update_swipe (HdySwipeable *self,
-                            gdouble       value)
-{
-  HdySwipeableInterface *iface;
-
-  g_return_if_fail (HDY_IS_SWIPEABLE (self));
-
-  iface = HDY_SWIPEABLE_GET_IFACE (self);
-  g_return_if_fail (iface->update_swipe != NULL);
-
-  (* iface->update_swipe) (self, value);
-
-  g_signal_emit (self, signals[SIGNAL_SWIPE_UPDATED], 0, value);
-}
-
-/**
- * hdy_swipeable_end_swipe:
- * @self: a #HdySwipeable
- * @duration: Snap-back animation duration in milliseconds
- * @to: The progress value to animate to
- *
- * This function is called by #HdySwipeTracker as soon as the gesture has
- * stopped. The widget must animate the progress from the current value to the
- * @to value with easeOutCubic interpolation over the next @duration
- * milliseconds.
- *
- * @to will always match either one of the provided snap points if the swipe was
- * completed successfully, or the cancel progress otherwise.
- *
- * @duration can be 0, in that case the widget must immediately set the
- * progress value to @to.
- *
- * Since: 0.0.12
- */
-void
-hdy_swipeable_end_swipe (HdySwipeable *self,
-                         gint64        duration,
-                         gdouble       to)
-{
-  HdySwipeableInterface *iface;
-
-  g_return_if_fail (HDY_IS_SWIPEABLE (self));
-
-  iface = HDY_SWIPEABLE_GET_IFACE (self);
-  g_return_if_fail (iface->end_swipe != NULL);
-
-  (* iface->end_swipe) (self, duration, to);
-
-  g_signal_emit (self, signals[SIGNAL_SWIPE_ENDED], 0, duration, to);
 }
 
 /**
