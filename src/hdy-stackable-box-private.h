@@ -87,14 +87,7 @@ void             hdy_stackable_box_set_child_allow_visible (HdyStackableBox *sel
 void             hdy_stackable_box_switch_child (HdyStackableBox *self,
                                                  guint            index,
                                                  gint64           duration);
-void             hdy_stackable_box_begin_swipe (HdyStackableBox        *self,
-                                                HdyNavigationDirection  direction,
-                                                gboolean                direct);
-void             hdy_stackable_box_update_swipe (HdyStackableBox *self,
-                                                 gdouble          value);
-void             hdy_stackable_box_end_swipe (HdyStackableBox *self,
-                                              gint64           duration,
-                                              gdouble          to);
+
 gdouble          hdy_stackable_box_get_distance (HdyStackableBox *self);
 void             hdy_stackable_box_get_range (HdyStackableBox *self,
                                               gdouble         *lower,

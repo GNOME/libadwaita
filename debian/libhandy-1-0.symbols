@@ -270,10 +270,8 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_squeezer_set_transition_type@LIBHANDY_1_0 0.0.10
  hdy_squeezer_transition_type_get_type@LIBHANDY_1_0 0.0.10
  hdy_stackable_box_add@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_begin_swipe@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_direction_changed@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_draw@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_end_swipe@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_forall@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_get_adjacent_child@LIBHANDY_1_0 0.81.0
  hdy_stackable_box_get_can_swipe_back@LIBHANDY_1_0 0.80.0
@@ -318,7 +316,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_stackable_box_transition_type_get_type@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_unmap@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_unrealize@LIBHANDY_1_0 0.80.0
- hdy_stackable_box_update_swipe@LIBHANDY_1_0 0.80.0
  hdy_swipe_group_add_swipeable@LIBHANDY_1_0 0.0.12
  hdy_swipe_group_get_swipeables@LIBHANDY_1_0 0.0.12
  hdy_swipe_group_get_type@LIBHANDY_1_0 0.0.12

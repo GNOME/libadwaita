@@ -2669,10 +2669,11 @@ hdy_stackable_box_switch_child (HdyStackableBox *self,
                           duration, FALSE);
 }
 
-void
-hdy_stackable_box_begin_swipe (HdyStackableBox        *self,
-                               HdyNavigationDirection  direction,
-                               gboolean                direct)
+static void
+begin_swipe_cb (HdySwipeTracker        *tracker,
+                HdyNavigationDirection  direction,
+                gboolean                direct,
+                HdyStackableBox        *self)
 {
   self->child_transition.is_direct_swipe = direct;
   self->child_transition.swipe_direction = direction;
@@ -2701,18 +2702,20 @@ hdy_stackable_box_begin_swipe (HdyStackableBox        *self,
   }
 }
 
-void
-hdy_stackable_box_update_swipe (HdyStackableBox *self,
-                                gdouble          value)
+static void
+update_swipe_cb (HdySwipeTracker *tracker,
+                 gdouble          progress,
+                 HdyStackableBox *self)
 {
-  self->child_transition.progress = ABS (value);
+  self->child_transition.progress = ABS (progress);
   hdy_stackable_box_child_progress_updated (self);
 }
 
-void
-hdy_stackable_box_end_swipe (HdyStackableBox *self,
-                             gint64           duration,
-                             gdouble          to)
+static void
+end_swipe_cb (HdySwipeTracker *tracker,
+              gint64           duration,
+              gdouble          to,
+              HdyStackableBox *self)
 {
  if (!self->child_transition.is_gesture_active)
     return;
@@ -3053,6 +3056,10 @@ hdy_stackable_box_new (GtkContainer      *container,
   self->tracker = hdy_swipe_tracker_new (HDY_SWIPEABLE (self->container));
 
   g_object_set (self->tracker, "orientation", self->orientation, "enabled", FALSE, NULL);
+
+  g_signal_connect_object (self->tracker, "begin-swipe", G_CALLBACK (begin_swipe_cb), self, 0);
+  g_signal_connect_object (self->tracker, "update-swipe", G_CALLBACK (update_swipe_cb), self, 0);
+  g_signal_connect_object (self->tracker, "end-swipe", G_CALLBACK (end_swipe_cb), self, 0);
 
   self->shadow_helper = hdy_shadow_helper_new (widget);
 

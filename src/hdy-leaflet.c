@@ -842,29 +842,6 @@ hdy_leaflet_switch_child (HdySwipeable *swipeable,
   hdy_stackable_box_switch_child (HDY_GET_HELPER (swipeable), index, duration);
 }
 
-static void
-hdy_leaflet_begin_swipe (HdySwipeable           *swipeable,
-                         HdyNavigationDirection  direction,
-                         gboolean                direct)
-{
-  hdy_stackable_box_begin_swipe (HDY_GET_HELPER (swipeable), direction, direct);
-}
-
-static void
-hdy_leaflet_update_swipe (HdySwipeable *swipeable,
-                          gdouble       value)
-{
-  hdy_stackable_box_update_swipe (HDY_GET_HELPER (swipeable), value);
-}
-
-static void
-hdy_leaflet_end_swipe (HdySwipeable    *swipeable,
-                       gint64           duration,
-                       gdouble          to)
-{
-  hdy_stackable_box_end_swipe (HDY_GET_HELPER (swipeable), duration, to);
-}
-
 static gdouble
 hdy_leaflet_get_distance (HdySwipeable *swipeable)
 {
@@ -1174,9 +1151,6 @@ static void
 hdy_leaflet_swipeable_init (HdySwipeableInterface *iface)
 {
   iface->switch_child = hdy_leaflet_switch_child;
-  iface->begin_swipe = hdy_leaflet_begin_swipe;
-  iface->update_swipe = hdy_leaflet_update_swipe;
-  iface->end_swipe = hdy_leaflet_end_swipe;
   iface->get_distance = hdy_leaflet_get_distance;
   iface->get_range = hdy_leaflet_get_range;
   iface->get_progress = hdy_leaflet_get_progress;

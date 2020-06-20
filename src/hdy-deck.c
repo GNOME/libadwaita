@@ -769,29 +769,6 @@ hdy_deck_switch_child (HdySwipeable *swipeable,
   hdy_stackable_box_switch_child (HDY_GET_HELPER (swipeable), index, duration);
 }
 
-static void
-hdy_deck_begin_swipe (HdySwipeable           *swipeable,
-                      HdyNavigationDirection  direction,
-                      gboolean                direct)
-{
-  hdy_stackable_box_begin_swipe (HDY_GET_HELPER (swipeable), direction, direct);
-}
-
-static void
-hdy_deck_update_swipe (HdySwipeable *swipeable,
-                       gdouble       value)
-{
-  hdy_stackable_box_update_swipe (HDY_GET_HELPER (swipeable), value);
-}
-
-static void
-hdy_deck_end_swipe (HdySwipeable *swipeable,
-                    gint64        duration,
-                    gdouble       to)
-{
-  hdy_stackable_box_end_swipe (HDY_GET_HELPER (swipeable), duration, to);
-}
-
 static gdouble
 hdy_deck_get_distance (HdySwipeable *swipeable)
 {
@@ -1069,9 +1046,6 @@ static void
 hdy_deck_swipeable_init (HdySwipeableInterface *iface)
 {
   iface->switch_child = hdy_deck_switch_child;
-  iface->begin_swipe = hdy_deck_begin_swipe;
-  iface->update_swipe = hdy_deck_update_swipe;
-  iface->end_swipe = hdy_deck_end_swipe;
   iface->get_distance = hdy_deck_get_distance;
   iface->get_range = hdy_deck_get_range;
   iface->get_progress = hdy_deck_get_progress;
