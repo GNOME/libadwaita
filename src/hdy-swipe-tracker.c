@@ -601,7 +601,7 @@ hdy_swipe_tracker_get_property (GObject    *object,
 
   switch (prop_id) {
   case PROP_SWIPEABLE:
-    g_value_set_object (value, self->swipeable);
+    g_value_set_object (value, hdy_swipe_tracker_get_swipeable (self));
     break;
 
   case PROP_ENABLED:
@@ -773,6 +773,24 @@ hdy_swipe_tracker_new (HdySwipeable *swipeable)
   return g_object_new (HDY_TYPE_SWIPE_TRACKER,
                        "swipeable", swipeable,
                        NULL);
+}
+
+/**
+ * hdy_swipe_tracker_get_swipeable:
+ * @self: a #HdySwipeTracker
+ *
+ * Get @self's swipeable widget.
+ *
+ * Returns: the swipeable widget
+ *
+ * Since: 1.0
+ */
+HdySwipeable *
+hdy_swipe_tracker_get_swipeable (HdySwipeTracker *self)
+{
+  g_return_val_if_fail (HDY_IS_SWIPE_TRACKER (self), NULL);
+
+  return self->swipeable;
 }
 
 /**
