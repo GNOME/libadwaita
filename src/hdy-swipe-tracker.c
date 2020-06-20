@@ -92,6 +92,7 @@ static GParamSpec *props[LAST_PROP];
 
 enum {
   SIGNAL_BEGIN_SWIPE,
+  SIGNAL_UPDATE_SWIPE,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -175,6 +176,7 @@ gesture_update (HdySwipeTracker *self,
   self->progress = progress;
 
   hdy_swipeable_update_swipe (self->swipeable, progress);
+  hdy_swipe_tracker_emit_update_swipe (self, progress);
 
   self->prev_time = time;
 }
@@ -771,6 +773,25 @@ hdy_swipe_tracker_class_init (HdySwipeTrackerClass *klass)
                   G_TYPE_NONE,
                   2,
                   HDY_TYPE_NAVIGATION_DIRECTION, G_TYPE_BOOLEAN);
+
+  /**
+   * HdySwipeTracker::update-swipe:
+   * @self: The #HdySwipeTracker instance
+   * @progress: The current animation progress value
+   *
+   * This signal is emitted every time the progress value changes.
+   *
+   * Since: 1.0
+   */
+  signals[SIGNAL_UPDATE_SWIPE] =
+    g_signal_new ("update-swipe",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_DOUBLE);
 }
 
 static void
@@ -985,4 +1006,13 @@ hdy_swipe_tracker_emit_begin_swipe (HdySwipeTracker        *self,
   g_return_if_fail (HDY_IS_SWIPE_TRACKER (self));
 
   g_signal_emit (self, signals[SIGNAL_BEGIN_SWIPE], 0, direction, direct);
+}
+
+void
+hdy_swipe_tracker_emit_update_swipe (HdySwipeTracker *self,
+                                     gdouble          progress)
+{
+  g_return_if_fail (HDY_IS_SWIPE_TRACKER (self));
+
+  g_signal_emit (self, signals[SIGNAL_UPDATE_SWIPE], 0, progress);
 }
