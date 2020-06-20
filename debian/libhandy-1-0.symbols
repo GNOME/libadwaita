@@ -170,6 +170,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_header_group_new@LIBHANDY_1_0 0.0.3
  hdy_header_group_remove_header_bar@LIBHANDY_1_0 0.0.4~
  hdy_header_group_set_focus@LIBHANDY_1_0 0.0.3
+ hdy_init@LIBHANDY_1_0 0.82.0
  hdy_init_public_types@LIBHANDY_1_0 0.0.5
  hdy_keypad_button_get_digit@LIBHANDY_1_0 0.0.12
  hdy_keypad_button_get_symbols@LIBHANDY_1_0 0.0.12

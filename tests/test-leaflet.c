@@ -101,6 +101,7 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
+  hdy_init ();
 
   g_test_add_func ("/Handy/Leaflet/adjacent_child", test_hdy_leaflet_adjacent_child);
   g_test_add_func ("/Handy/Leaflet/navigate", test_hdy_leaflet_navigate);

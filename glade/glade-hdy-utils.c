@@ -11,6 +11,15 @@
 
 #include <gladeui/glade.h>
 
+void
+glade_hdy_init (const gchar *name)
+{
+  g_assert (strcmp (name, "libhandy") == 0);
+
+  gtk_init (NULL, NULL);
+  hdy_init ();
+}
+
 /* This function has been copied and modified from:
  * glade-gtk-list-box.c - GladeWidgetAdaptor for GtkListBox widget
  *

@@ -19,6 +19,7 @@ main (int    argc,
       char **argv)
 {
 	gtk_init(&argc, &argv);
+	hdy_init();
 	hdy_keypad_new(FALSE, TRUE);
 }
 EOF

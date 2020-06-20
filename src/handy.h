@@ -40,6 +40,7 @@ G_BEGIN_DECLS
 #include "hdy-header-group.h"
 #include "hdy-keypad.h"
 #include "hdy-leaflet.h"
+#include "hdy-main.h"
 #include "hdy-navigation-direction.h"
 #include "hdy-preferences-group.h"
 #include "hdy-preferences-page.h"

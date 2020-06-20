@@ -315,6 +315,7 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
+  hdy_init ();
 
   g_test_add_func("/Handy/Carousel/add_remove", test_hdy_carousel_add_remove);
   g_test_add_func("/Handy/Carousel/scroll_to", test_hdy_carousel_scroll_to);

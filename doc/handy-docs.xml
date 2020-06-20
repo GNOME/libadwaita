@@ -70,6 +70,7 @@
   <chapter id="helpers">
     <title>Helpers</title>
     <xi:include href="xml/hdy-version.xml"/>
+    <xi:include href="xml/hdy-main.xml"/>
   </chapter>
 
   <chapter id="migrating">

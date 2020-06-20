@@ -39,6 +39,7 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
+  hdy_init ();
 
   g_test_add_func("/Handy/SwipeGroup/add_remove", test_hdy_swipe_group_add_remove);
   return g_test_run();

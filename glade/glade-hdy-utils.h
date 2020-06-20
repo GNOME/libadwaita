@@ -22,6 +22,8 @@
 #define glade_widget_action_get_def glade_widget_action_get_class
 #endif
 
+void glade_hdy_init (const gchar *name);
+
 void glade_hdy_sync_child_positions (GtkContainer *container);
 
 gint glade_hdy_get_child_index (GtkContainer *container,

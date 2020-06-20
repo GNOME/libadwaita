@@ -23,6 +23,7 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
+  hdy_init ();
 
   g_test_add_func("/Handy/ApplicationWindow/new", test_hdy_application_window_new);
 

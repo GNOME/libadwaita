@@ -186,6 +186,7 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
+  hdy_init ();
 
   g_test_add_func ("/Handy/Avatar/generate", test_hdy_avatar_generate);
   g_test_add_func ("/Handy/Avatar/custom_image", test_hdy_avatar_custom_image);

@@ -71,12 +71,15 @@
     </para>
 
     <refsect3>
-      <title>hdy_init has been removed</title>
+      <title>hdy_init takes no parameters</title>
       <para>
-        hdy_init() has been removed.
-        Instead, Handy 1 comes with a library constructor which will
-        automatically initialize it when linked.
-        You should just remove calls to hdy_init().
+        hdy_init() has been modified to take no parameters.
+        It must be called just after initializing GTK, if you are using
+        #GtkApplication it means it must be called when the
+        #GApplication::startup signal is emitted.
+      </para>
+      <para>
+        It initializes the localization, the types, the themes, and the icons.
       </para>
     </refsect3>
 

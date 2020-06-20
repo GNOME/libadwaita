@@ -9,7 +9,7 @@
 #error "Only <handy.h> can be included directly."
 #endif
 
-#include <glib.h>
+#include "hdy-main.h"
 
 G_BEGIN_DECLS
 

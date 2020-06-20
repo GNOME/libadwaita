@@ -100,6 +100,7 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
+  hdy_init ();
 
   g_test_add_func ("/Handy/Keypad/show_symbols", test_hdy_keypad_show_symbols);
   g_test_add_func ("/Handy/Keypad/set_actions", test_hdy_keypad_set_actions);

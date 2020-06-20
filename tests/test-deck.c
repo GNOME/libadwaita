@@ -85,6 +85,7 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
+  hdy_init ();
 
   g_test_add_func ("/Handy/Deck/adjacent_child", test_hdy_deck_adjacent_child);
   g_test_add_func ("/Handy/Deck/navigate", test_hdy_deck_navigate);

@@ -80,6 +80,7 @@ src_headers = [
   'hdy-header-group.h',
   'hdy-keypad.h',
   'hdy-leaflet.h',
+  'hdy-main.h',
   'hdy-navigation-direction.h',
   'hdy-preferences-group.h',
   'hdy-preferences-page.h',

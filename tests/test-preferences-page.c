@@ -71,6 +71,7 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
+  hdy_init ();
 
   g_test_add_func("/Handy/PreferencesPage/add", test_hdy_preferences_page_add);
   g_test_add_func("/Handy/PreferencesPage/title", test_hdy_preferences_page_title);
