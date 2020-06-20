@@ -38,4 +38,8 @@ void             hdy_swipe_tracker_set_allow_mouse_drag (HdySwipeTracker *self,
 void             hdy_swipe_tracker_shift_position (HdySwipeTracker *self,
                                                    gdouble          delta);
 
+void             hdy_swipe_tracker_emit_begin_swipe (HdySwipeTracker        *self,
+                                                     HdyNavigationDirection  direction,
+                                                     gboolean                direct);
+
 G_END_DECLS
