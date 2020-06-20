@@ -54,6 +54,7 @@ struct _HdySwipeGroup
 
   GSList *swipeables;
   HdySwipeable *current;
+  gboolean block;
 };
 
 static void hdy_swipe_group_buildable_init (GtkBuildableIface *iface);
@@ -109,12 +110,19 @@ child_switched_cb (HdySwipeGroup *self,
 {
   GSList *swipeables;
 
+  if (self->block)
+    return;
+
   if (self->current != NULL && self->current != swipeable)
     return;
+
+  self->block = TRUE;
 
   for (swipeables = self->swipeables; swipeables != NULL; swipeables = swipeables->next)
     if (swipeables->data != swipeable)
       hdy_swipeable_switch_child (swipeables->data, index, duration);
+
+  self->block = FALSE;
 }
 
 static void
@@ -124,14 +132,21 @@ swipe_began_cb (HdySwipeGroup          *self,
 {
   GSList *swipeables;
 
+  if (self->block)
+    return;
+
   if (self->current != NULL && self->current != swipeable)
     return;
 
   self->current = swipeable;
 
+  self->block = TRUE;
+
   for (swipeables = self->swipeables; swipeables != NULL; swipeables = swipeables->next)
     if (swipeables->data != swipeable)
       hdy_swipeable_begin_swipe (swipeables->data, direction, FALSE);
+
+  self->block = FALSE;
 }
 
 static void
@@ -141,12 +156,19 @@ swipe_updated_cb (HdySwipeGroup *self,
 {
   GSList *swipeables;
 
+  if (self->block)
+    return;
+
   if (swipeable != self->current)
     return;
+
+  self->block = TRUE;
 
   for (swipeables = self->swipeables; swipeables != NULL; swipeables = swipeables->next)
     if (swipeables->data != swipeable)
       hdy_swipeable_update_swipe (swipeables->data, value);
+
+  self->block = FALSE;
 }
 
 static void
@@ -157,14 +179,21 @@ swipe_ended_cb (HdySwipeGroup *self,
 {
   GSList *swipeables;
 
+  if (self->block)
+    return;
+
   if (swipeable != self->current)
     return;
+
+  self->block = TRUE;
 
   for (swipeables = self->swipeables; swipeables != NULL; swipeables = swipeables->next)
     if (swipeables->data != swipeable)
       hdy_swipeable_end_swipe (swipeables->data, duration, to);
 
   self->current = NULL;
+
+  self->block = FALSE;
 }
 
 /**
