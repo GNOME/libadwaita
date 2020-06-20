@@ -43,5 +43,8 @@ void             hdy_swipe_tracker_emit_begin_swipe (HdySwipeTracker        *sel
                                                      gboolean                direct);
 void             hdy_swipe_tracker_emit_update_swipe (HdySwipeTracker *self,
                                                       gdouble          progress);
+void             hdy_swipe_tracker_emit_end_swipe (HdySwipeTracker *self,
+                                                   gint64           duration,
+                                                   gdouble          to);
 
 G_END_DECLS
