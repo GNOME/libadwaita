@@ -1,0 +1,76 @@
+# Polish translation for libhandy.
+# Copyright © 2020 the libhandy authors.
+# This file is distributed under the same license as the libhandy package.
+# Piotr Drąg <piotrdrag@gmail.com>, 2020.
+# Aviary.pl <community-poland@mozilla.org>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libhandy\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
+"POT-Creation-Date: 2020-06-20 07:06+0000\n"
+"PO-Revision-Date: 2020-06-21 11:20+0200\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Polish <community-poland@mozilla.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#: src/hdy-header-bar.c:484
+msgid "Application menu"
+msgstr "Menu programu"
+
+#: src/hdy-header-bar.c:506 src/hdy-window-handle-controller.c:275
+msgid "Minimize"
+msgstr "Zminimalizuj"
+
+#: src/hdy-header-bar.c:528 src/hdy-window-handle-controller.c:241
+msgid "Restore"
+msgstr "Przywróć"
+
+#: src/hdy-header-bar.c:528 src/hdy-window-handle-controller.c:284
+msgid "Maximize"
+msgstr "Zmaksymalizuj"
+
+#: src/hdy-header-bar.c:546 src/hdy-window-handle-controller.c:311
+msgid "Close"
+msgstr "Zamknij"
+
+#: src/hdy-header-bar.c:562
+msgid "Back"
+msgstr "Wstecz"
+
+#: src/hdy-preferences-window.c:135
+msgid "Untitled page"
+msgstr "Strona bez tytułu"
+
+#: src/hdy-preferences-window.ui:9
+msgid "Preferences"
+msgstr "Preferencje"
+
+#: src/hdy-preferences-window.ui:72
+msgid "Search"
+msgstr "Wyszukiwanie"
+
+#: src/hdy-preferences-window.ui:195
+msgid "No Results Found"
+msgstr "Brak wyników"
+
+#: src/hdy-preferences-window.ui:210
+msgid "Try a different search"
+msgstr "Proszę spróbować innych słów"
+
+#: src/hdy-window-handle-controller.c:259
+msgid "Move"
+msgstr "Przenieś"
+
+#: src/hdy-window-handle-controller.c:267
+msgid "Resize"
+msgstr "Zmień rozmiar"
+
+#: src/hdy-window-handle-controller.c:298
+msgid "Always on Top"
+msgstr "Zawsze na wierzchu"
