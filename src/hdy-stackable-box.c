@@ -1597,15 +1597,13 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
   /* Allocate ending children. */
   current_pad = end_position;
 
-  for (children = g_list_last (directed_children); children; children = children->prev) {
+  if (!children || !children->next)
+    return;
+
+  for (children = children->next; children; children = children->next) {
     child_info = children->data;
 
-    if (child_info == visible_child)
-      break;
-
     if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-      current_pad -= child_info->alloc.width;
-
       child_info->alloc.width = box_homogeneous ?
         max_child_size :
         child_info->nat.width;
@@ -1613,10 +1611,10 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
       child_info->alloc.x = current_pad;
       child_info->alloc.y = 0;
       child_info->visible = child_info->alloc.x < allocation->width;
+
+      current_pad += child_info->alloc.width;
     }
     else {
-      current_pad -= child_info->alloc.height;
-
       child_info->alloc.width = allocation->width;
       child_info->alloc.height = box_homogeneous ?
         max_child_size :
@@ -1624,6 +1622,8 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
       child_info->alloc.x = 0;
       child_info->alloc.y = current_pad;
       child_info->visible = child_info->alloc.y < allocation->height;
+
+      current_pad += child_info->alloc.height;
     }
   }
 }
