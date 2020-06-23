@@ -1562,7 +1562,7 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
   }
 
   /* Allocate starting children. */
-  current_pad = -start_position;
+  current_pad = start_position;
 
   for (children = directed_children; children; children = children->next) {
     child_info = children->data;
@@ -1575,11 +1575,11 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
         max_child_size :
         child_info->nat.width;
       child_info->alloc.height = allocation->height;
-      child_info->alloc.x = -current_pad;
+      child_info->alloc.x = current_pad;
       child_info->alloc.y = 0;
       child_info->visible = child_info->alloc.x + child_info->alloc.width > 0;
 
-      current_pad -= child_info->alloc.width;
+      current_pad += child_info->alloc.width;
     }
     else {
       child_info->alloc.width = allocation->width;
@@ -1587,10 +1587,10 @@ hdy_stackable_box_size_allocate_folded (HdyStackableBox *self,
         max_child_size :
         child_info->nat.height;
       child_info->alloc.x = 0;
-      child_info->alloc.y = -current_pad;
+      child_info->alloc.y = current_pad;
       child_info->visible = child_info->alloc.y + child_info->alloc.height > 0;
 
-      current_pad -= child_info->alloc.height;
+      current_pad += child_info->alloc.height;
     }
   }
 
