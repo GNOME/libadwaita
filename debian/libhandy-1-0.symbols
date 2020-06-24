@@ -165,12 +165,12 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_header_bar_set_title@LIBHANDY_1_0 0.0.10
  hdy_header_bar_set_transition_duration@LIBHANDY_1_0 0.0.10
  hdy_header_group_add_header_bar@LIBHANDY_1_0 0.0.3
- hdy_header_group_get_focus@LIBHANDY_1_0 0.0.3
+ hdy_header_group_get_decorate_all@LIBHANDY_1_0 0.83.0
  hdy_header_group_get_header_bars@LIBHANDY_1_0 0.0.4~
  hdy_header_group_get_type@LIBHANDY_1_0 0.0.3
  hdy_header_group_new@LIBHANDY_1_0 0.0.3
  hdy_header_group_remove_header_bar@LIBHANDY_1_0 0.0.4~
- hdy_header_group_set_focus@LIBHANDY_1_0 0.0.3
+ hdy_header_group_set_decorate_all@LIBHANDY_1_0 0.83.0
  hdy_init@LIBHANDY_1_0 0.82.0
  hdy_init_public_types@LIBHANDY_1_0 0.0.5
  hdy_keypad_button_get_digit@LIBHANDY_1_0 0.0.12

@@ -9,27 +9,26 @@
 
 
 static void
-test_hdy_header_group_focus (void)
+test_hdy_header_group_decorate_all (void)
 {
-  HdyHeaderGroup *hg;
-  GtkHeaderBar *bar1, *bar2 = NULL;
+  g_autoptr (HdyHeaderGroup) hg = HDY_HEADER_GROUP (hdy_header_group_new ());
+  gboolean decorate_all = FALSE;
 
-  hg = HDY_HEADER_GROUP (hdy_header_group_new ());
+  g_assert_false (hdy_header_group_get_decorate_all (hg));
+  g_object_get (hg, "decorate-all", &decorate_all, NULL);
+  g_assert_false (decorate_all);
 
-  bar1 = hdy_header_group_get_focus (hg);
-  g_assert_null (bar1);
-  g_object_get (hg, "focus", &bar2, NULL);
-  g_assert (bar1 == bar2);
+  hdy_header_group_set_decorate_all (hg, TRUE);
 
-  bar1 = GTK_HEADER_BAR (gtk_header_bar_new ());
-  hdy_header_group_add_header_bar (hg, GTK_HEADER_BAR (bar1));
-  hdy_header_group_set_focus (hg, GTK_HEADER_BAR (bar1));
-  bar2 = hdy_header_group_get_focus (hg);
-  g_assert (bar1 == bar2);
-  g_object_get (hg, "focus", &bar2, NULL);
-  g_assert (bar1 == bar2);
+  g_assert_true (hdy_header_group_get_decorate_all (hg));
+  g_object_get (hg, "decorate-all", &decorate_all, NULL);
+  g_assert_true (decorate_all);
 
-  g_object_unref (hg);
+  g_object_set (hg, "decorate-all", FALSE, NULL);
+
+  g_assert_false (hdy_header_group_get_decorate_all (hg));
+  g_object_get (hg, "decorate-all", &decorate_all, NULL);
+  g_assert_false (decorate_all);
 }
 
 
@@ -51,11 +50,9 @@ test_hdy_header_group_add_remove (void)
 
   hdy_header_group_add_header_bar (hg, GTK_HEADER_BAR (bar2));
   g_assert_cmpint (g_slist_length (hdy_header_group_get_header_bars (hg)), ==, 2);
-  hdy_header_group_set_focus (hg, GTK_HEADER_BAR (bar2));
 
   hdy_header_group_remove_header_bar (hg, GTK_HEADER_BAR (bar2));
   g_assert_cmpint (g_slist_length (hdy_header_group_get_header_bars (hg)), ==, 1);
-  g_assert_null (hdy_header_group_get_focus (hg));
 
   hdy_header_group_remove_header_bar (hg, GTK_HEADER_BAR (bar1));
   g_assert_cmpint (g_slist_length (hdy_header_group_get_header_bars (hg)), ==, 0);
@@ -71,7 +68,7 @@ main (gint argc,
   gtk_test_init (&argc, &argv, NULL);
   hdy_init ();
 
-  g_test_add_func("/Handy/HeaderGroup/focus", test_hdy_header_group_focus);
+  g_test_add_func("/Handy/HeaderGroup/decorate_all", test_hdy_header_group_decorate_all);
   g_test_add_func("/Handy/HeaderGroup/add_remove", test_hdy_header_group_add_remove);
   return g_test_run();
 }
