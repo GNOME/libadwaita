@@ -3,7 +3,6 @@ debian export-ignore
 examples/sm.puri.Handy.Demo.json export-ignore
 glade/rename-id.patch export-ignore
 glade/sm.puri.Handy.Glade.json export-ignore
-libhandy.syms export-ignore
 lint export-ignore
 .dir-locals.el export-ignore
 .editorconfig export-ignore
