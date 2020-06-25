@@ -2120,6 +2120,8 @@ hdy_stackable_box_draw (HdyStackableBox *self,
   } else {
     GtkPanDirection direction = self->child_transition.active_direction;
     GtkPanDirection left_or_right = is_rtl ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_LEFT;
+    gint width = gtk_widget_get_allocated_width (widget);
+    gint height = gtk_widget_get_allocated_height (widget);
 
     if (direction == GTK_PAN_DIRECTION_UP || direction == left_or_right)
       shadow_progress = self->child_transition.progress;
@@ -2128,6 +2130,15 @@ hdy_stackable_box_draw (HdyStackableBox *self,
 
     if (is_over)
       shadow_progress = 1 - shadow_progress;
+
+    /* Normalize the shadow rect size so that we can cache the shadow */
+    if (shadow_direction == GTK_PAN_DIRECTION_RIGHT)
+      shadow_rect.x -= (width - shadow_rect.width);
+    else if (shadow_direction == GTK_PAN_DIRECTION_DOWN)
+      shadow_rect.y -= (height - shadow_rect.height);
+
+    shadow_rect.width = width;
+    shadow_rect.height = height;
   }
 
   cairo_rectangle (cr, shadow_rect.x, shadow_rect.y, shadow_rect.width, shadow_rect.height);
