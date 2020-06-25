@@ -326,6 +326,9 @@ hdy_shadow_helper_draw_shadow (HdyShadowHelper *self,
   gdouble remaining_distance, shadow_opacity;
   gint shadow_size, border_size, distance;
 
+  if (progress <= 0 || progress >= 1)
+    return;
+
   cache_shadow (self, width, height, direction);
 
   shadow_size = self->shadow_size;
