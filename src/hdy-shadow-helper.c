@@ -334,7 +334,7 @@ hdy_shadow_helper_draw_shadow (HdyShadowHelper *self,
                                GtkPanDirection  direction)
 {
   gdouble remaining_distance, shadow_opacity;
-  gint shadow_size, border_size, distance;
+  gint shadow_size, border_size, outline_size, distance;
 
   if (progress <= 0 || progress >= 1)
     return;
@@ -343,6 +343,7 @@ hdy_shadow_helper_draw_shadow (HdyShadowHelper *self,
 
   shadow_size = self->shadow_size;
   border_size = self->border_size;
+  outline_size = self->outline_size;
 
   switch (direction) {
   case GTK_PAN_DIRECTION_LEFT:
@@ -418,10 +419,10 @@ hdy_shadow_helper_draw_shadow (HdyShadowHelper *self,
     cairo_translate (cr, 0, border_size);
     break;
   case GTK_PAN_DIRECTION_LEFT:
-    cairo_translate (cr, -border_size, 0);
+    cairo_translate (cr, -outline_size, 0);
     break;
   case GTK_PAN_DIRECTION_UP:
-    cairo_translate (cr, 0, -border_size);
+    cairo_translate (cr, 0, -outline_size);
     break;
   default:
     g_assert_not_reached ();
