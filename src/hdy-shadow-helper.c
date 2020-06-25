@@ -365,6 +365,25 @@ hdy_shadow_helper_draw_shadow (HdyShadowHelper *self,
 
   cairo_save (cr);
 
+  switch (direction) {
+  case GTK_PAN_DIRECTION_LEFT:
+    cairo_rectangle (cr, -outline_size, 0, width + outline_size, height);
+    break;
+  case GTK_PAN_DIRECTION_RIGHT:
+    cairo_rectangle (cr, 0, 0, width + outline_size, height);
+    break;
+  case GTK_PAN_DIRECTION_UP:
+    cairo_rectangle (cr, 0, -outline_size, width, height + outline_size);
+    break;
+  case GTK_PAN_DIRECTION_DOWN:
+    cairo_rectangle (cr, 0, 0, width, height + outline_size);
+    break;
+  default:
+    g_assert_not_reached ();
+  }
+  cairo_clip (cr);
+  gdk_window_mark_paint_from_clip (gtk_widget_get_window (self->widget), cr);
+
   cairo_save (cr);
   cairo_set_operator (cr, CAIRO_OPERATOR_ATOP);
   cairo_set_source (cr, self->dimming_pattern);
