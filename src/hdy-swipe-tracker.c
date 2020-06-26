@@ -853,7 +853,7 @@ hdy_swipe_tracker_new (HdySwipeable *swipeable)
  *
  * Get @self's swipeable widget.
  *
- * Returns: the swipeable widget
+ * Returns: (transfer none): the swipeable widget
  *
  * Since: 1.0
  */
