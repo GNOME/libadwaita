@@ -27,5 +27,7 @@ gdouble *hdy_swipeable_get_snap_points     (HdySwipeable *self,
                                             gint         *n_snap_points);
 gdouble  hdy_swipeable_get_progress        (HdySwipeable *self);
 gdouble  hdy_swipeable_get_cancel_progress (HdySwipeable *self);
+void     hdy_swipeable_get_swipe_area      (HdySwipeable *self,
+                                            GdkRectangle *rect);
 
 G_END_DECLS

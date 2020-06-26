@@ -28,6 +28,7 @@ G_DECLARE_INTERFACE (HdySwipeable, hdy_swipeable, HDY, SWIPEABLE, GtkWidget)
  * @get_snap_points: Gets the snap points
  * @get_progress: Gets the current progress.
  * @get_cancel_progress: Gets the cancel progress.
+ * @get_swipe_area: Gets the swipeable rectangle.
  *
  * An interface for swipeable widgets.
  *
@@ -49,6 +50,8 @@ struct _HdySwipeableInterface
                                     gint         *n_snap_points);
   gdouble   (*get_progress)        (HdySwipeable *self);
   gdouble   (*get_cancel_progress) (HdySwipeable *self);
+  void      (*get_swipe_area)      (HdySwipeable *self,
+                                    GdkRectangle *rect);
 };
 
 G_END_DECLS

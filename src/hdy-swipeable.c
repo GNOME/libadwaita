@@ -254,3 +254,42 @@ hdy_swipeable_get_cancel_progress (HdySwipeable *self)
 
   return (* iface->get_cancel_progress) (self);
 }
+
+/**
+ * hdy_swipeable_get_swipe_area:
+ * @self: a #HdySwipeable
+ * @rect: (out): a pointer to a #GdkRectangle to store the swipe area
+ *
+ * Gets the area @self can start a swipe from. This can be used to restrict
+ * swipes to only be possible from a certain area, for example, to only allow
+ * edge swipes, or to have a draggable element and ignore swipes elsewhere.
+ *
+ * Swipe area is only considered for direct swipes (as in, not initiated by
+ * #HdySwipeGroup).
+ *
+ * If not implemented, the default implementation returns the allocation of
+ * @self, allowing swipes from anywhere.
+ *
+ * Since: 1.0
+ */
+void
+hdy_swipeable_get_swipe_area (HdySwipeable *self,
+                              GdkRectangle *rect)
+{
+  HdySwipeableInterface *iface;
+
+  g_return_if_fail (HDY_IS_SWIPEABLE (self));
+  g_return_if_fail (rect != NULL);
+
+  iface = HDY_SWIPEABLE_GET_IFACE (self);
+
+  if (iface->get_swipe_area) {
+    (* iface->get_swipe_area) (self, rect);
+    return;
+  }
+
+  rect->x = 0;
+  rect->y = 0;
+  rect->width = gtk_widget_get_allocated_width (GTK_WIDGET (self));
+  rect->height = gtk_widget_get_allocated_height (GTK_WIDGET (self));
+}
