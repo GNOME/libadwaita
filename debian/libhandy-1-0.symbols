@@ -120,6 +120,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_enum_value_object_new@LIBHANDY_1_0 0.0.6
  hdy_enum_value_row_name@LIBHANDY_1_0 0.0.6
  hdy_expander_row_add_action@LIBHANDY_1_0 0.81.0
+ hdy_expander_row_add_prefix@LIBHANDY_1_0 0.82.0
  hdy_expander_row_get_enable_expansion@LIBHANDY_1_0 0.0.6
  hdy_expander_row_get_expanded@LIBHANDY_1_0 0.0.9
  hdy_expander_row_get_icon_name@LIBHANDY_1_0 0.80.0

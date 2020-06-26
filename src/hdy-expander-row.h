@@ -60,5 +60,7 @@ void     hdy_expander_row_set_show_enable_switch (HdyExpanderRow *self,
 
 void     hdy_expander_row_add_action (HdyExpanderRow *self,
                                       GtkWidget      *widget);
+void     hdy_expander_row_add_prefix (HdyExpanderRow *self,
+                                      GtkWidget      *widget);
 
 G_END_DECLS

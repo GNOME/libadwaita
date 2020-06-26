@@ -20,7 +20,9 @@
  * all that the row contains.
  *
  * It also supports adding a child as an action widget by specifying “action” as
- * the “type” attribute of a &lt;child&gt; element.
+ * the “type” attribute of a &lt;child&gt; element. It also supports setting a
+ * child as a prefix widget by specifying “prefix” as the “type” attribute of a
+ * &lt;child&gt; element.
  *
  * # CSS nodes
  *
@@ -41,6 +43,7 @@ typedef struct
 {
   GtkBox *box;
   GtkBox *actions;
+  GtkBox *prefixes;
   GtkListBox *list;
   HdyActionRow *action_row;
   GtkSwitch *enable_switch;
@@ -191,6 +194,8 @@ hdy_expander_row_forall (GtkContainer *container,
                                                                  callback,
                                                                  callback_data);
   else {
+    if (priv->prefixes)
+      gtk_container_foreach (GTK_CONTAINER (priv->prefixes), callback, callback_data);
     if (priv->actions)
       gtk_container_foreach (GTK_CONTAINER (priv->actions), callback, callback_data);
     if (priv->list)
@@ -255,6 +260,8 @@ hdy_expander_row_remove (GtkContainer *container,
     GTK_CONTAINER_CLASS (hdy_expander_row_parent_class)->remove (container, child);
   else if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->actions))
     gtk_container_remove (GTK_CONTAINER (priv->actions), child);
+  else if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->prefixes))
+    gtk_container_remove (GTK_CONTAINER (priv->prefixes), child);
   else
     gtk_container_remove (GTK_CONTAINER (priv->list), child);
 }
@@ -396,6 +403,8 @@ hdy_expander_row_init (HdyExpanderRow *self)
 {
   HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
 
+  priv->prefixes = NULL;
+
   gtk_widget_init_template (GTK_WIDGET (self));
 
   hdy_expander_row_set_enable_expansion (self, TRUE);
@@ -420,6 +429,8 @@ hdy_expander_row_buildable_add_child (GtkBuildable *buildable,
     gtk_container_add (GTK_CONTAINER (self), GTK_WIDGET (child));
   else if (type && strcmp (type, "action") == 0)
     hdy_expander_row_add_action (self, GTK_WIDGET (child));
+  else if (type && strcmp (type, "prefix") == 0)
+    hdy_expander_row_add_prefix (self, GTK_WIDGET (child));
   else
     GTK_BUILDER_WARN_INVALID_CHILD_TYPE (self, type);
 }
@@ -785,4 +796,34 @@ hdy_expander_row_add_action (HdyExpanderRow *self,
 
   gtk_box_pack_start (priv->actions, widget, FALSE, TRUE, 0);
   gtk_widget_show (GTK_WIDGET (priv->actions));
+}
+
+/**
+ * hdy_expander_row_add_prefix:
+ * @self: a #HdyExpanderRow
+ * @widget: the prefix widget
+ *
+ * Adds a prefix widget to @self.
+ *
+ * Since: 1.0
+ */
+void
+hdy_expander_row_add_prefix (HdyExpanderRow *self,
+                             GtkWidget      *widget)
+{
+  HdyExpanderRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_EXPANDER_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
+
+  priv = hdy_expander_row_get_instance_private (self);
+
+  if (priv->prefixes == NULL) {
+    priv->prefixes = GTK_BOX (gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12));
+    gtk_widget_set_no_show_all (GTK_WIDGET (priv->prefixes), TRUE);
+    gtk_widget_set_can_focus (GTK_WIDGET (priv->prefixes), FALSE);
+    hdy_action_row_add_prefix (HDY_ACTION_ROW (priv->action_row), GTK_WIDGET (priv->prefixes));
+  }
+  gtk_box_pack_start (priv->prefixes, widget, FALSE, TRUE, 0);
+  gtk_widget_show (GTK_WIDGET (priv->prefixes));
 }
