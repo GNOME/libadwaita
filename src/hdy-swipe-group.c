@@ -103,12 +103,6 @@ hdy_swipe_group_new (void)
   return g_object_new (HDY_TYPE_SWIPE_GROUP, NULL);
 }
 
-static HdySwipeTracker *
-get_swipe_tracker (HdySwipeable *swipeable)
-{
-  return g_object_get_data (G_OBJECT (swipeable), "swipe-tracker");
-}
-
 static void
 child_switched_cb (HdySwipeGroup *self,
                    uint           index,
@@ -155,7 +149,7 @@ begin_swipe_cb (HdySwipeGroup          *self,
 
   for (swipeables = self->swipeables; swipeables != NULL; swipeables = swipeables->next)
     if (swipeables->data != swipeable)
-      hdy_swipe_tracker_emit_begin_swipe (get_swipe_tracker (swipeables->data),
+      hdy_swipe_tracker_emit_begin_swipe (hdy_swipeable_get_swipe_tracker (swipeables->data),
                                           direction, FALSE);
 
   self->block = FALSE;
@@ -181,7 +175,7 @@ update_swipe_cb (HdySwipeGroup   *self,
 
   for (swipeables = self->swipeables; swipeables != NULL; swipeables = swipeables->next)
     if (swipeables->data != swipeable)
-      hdy_swipe_tracker_emit_update_swipe (get_swipe_tracker (swipeables->data),
+      hdy_swipe_tracker_emit_update_swipe (hdy_swipeable_get_swipe_tracker (swipeables->data),
                                            progress);
 
   self->block = FALSE;
@@ -208,7 +202,7 @@ end_swipe_cb (HdySwipeGroup   *self,
 
   for (swipeables = self->swipeables; swipeables != NULL; swipeables = swipeables->next)
     if (swipeables->data != swipeable)
-      hdy_swipe_tracker_emit_end_swipe (get_swipe_tracker (swipeables->data),
+      hdy_swipe_tracker_emit_end_swipe (hdy_swipeable_get_swipe_tracker (swipeables->data),
                                         duration, to);
 
   self->current = NULL;
@@ -235,7 +229,7 @@ hdy_swipe_group_add_swipeable (HdySwipeGroup *self,
   g_return_if_fail (HDY_IS_SWIPE_GROUP (self));
   g_return_if_fail (HDY_IS_SWIPEABLE (swipeable));
 
-  tracker = get_swipe_tracker (swipeable);
+  tracker = hdy_swipeable_get_swipe_tracker (swipeable);
 
   g_return_if_fail (HDY_IS_SWIPE_TRACKER (tracker));
 
@@ -271,7 +265,7 @@ hdy_swipe_group_remove_swipeable (HdySwipeGroup *self,
   g_return_if_fail (HDY_IS_SWIPEABLE (swipeable));
   g_return_if_fail (contains (self, swipeable));
 
-  tracker = get_swipe_tracker (swipeable);
+  tracker = hdy_swipeable_get_swipe_tracker (swipeable);
 
   self->swipeables = g_slist_remove (self->swipeables, swipeable);
 

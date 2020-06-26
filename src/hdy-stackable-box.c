@@ -14,7 +14,6 @@
 #include "hdy-stackable-box-private.h"
 #include "hdy-shadow-helper-private.h"
 #include "hdy-swipeable.h"
-#include "hdy-swipe-tracker.h"
 
 /**
  * PRIVATE:hdy-stackable-box
@@ -2534,6 +2533,12 @@ hdy_stackable_box_unmap (HdyStackableBox *self)
   gdk_window_hide (self->view_window);
 
   GTK_WIDGET_CLASS (self->klass)->unmap (GTK_WIDGET (self->container));
+}
+
+HdySwipeTracker *
+hdy_stackable_box_get_swipe_tracker (HdyStackableBox *self)
+{
+  return self->tracker;
 }
 
 gdouble

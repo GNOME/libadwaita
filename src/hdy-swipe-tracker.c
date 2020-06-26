@@ -591,7 +591,7 @@ static gboolean
 captured_event_cb (HdySwipeable *swipeable,
                    GdkEvent     *event)
 {
-  HdySwipeTracker *self = g_object_get_data (G_OBJECT (swipeable), "swipe-tracker");
+  HdySwipeTracker *self = hdy_swipeable_get_swipe_tracker (swipeable);
 
   g_assert (HDY_IS_SWIPE_TRACKER (self));
 
@@ -631,8 +631,6 @@ hdy_swipe_tracker_constructed (GObject *object)
 
   g_signal_connect_object (self->swipeable, "event", G_CALLBACK (handle_event_cb), self, G_CONNECT_SWAPPED);
 
-  g_object_set_data (G_OBJECT (self->swipeable), "swipe-tracker", self);
-
   /*
    * HACK: GTK3 has no other way to get events on capture phase.
    * This is a reimplementation of _gtk_widget_set_captured_event_handler(),
@@ -655,7 +653,6 @@ hdy_swipe_tracker_dispose (GObject *object)
   if (self->touch_gesture)
     g_signal_handlers_disconnect_by_data (self->touch_gesture, self);
 
-  g_object_set_data (G_OBJECT (self->swipeable), "swipe-tracker", NULL);
   g_object_set_data (G_OBJECT (self->swipeable), "captured-event-handler", NULL);
 
   g_clear_object (&self->touch_gesture);

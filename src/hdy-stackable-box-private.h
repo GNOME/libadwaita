@@ -12,6 +12,7 @@
 
 #include <gtk/gtk.h>
 #include "hdy-navigation-direction.h"
+#include "hdy-swipe-tracker.h"
 
 G_BEGIN_DECLS
 
@@ -88,6 +89,7 @@ void             hdy_stackable_box_switch_child (HdyStackableBox *self,
                                                  guint            index,
                                                  gint64           duration);
 
+HdySwipeTracker *hdy_stackable_box_get_swipe_tracker (HdyStackableBox *self);
 gdouble          hdy_stackable_box_get_distance (HdyStackableBox *self);
 gdouble         *hdy_stackable_box_get_snap_points (HdyStackableBox *self,
                                                     gint            *n_snap_points);

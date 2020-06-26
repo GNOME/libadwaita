@@ -106,6 +106,29 @@ hdy_swipeable_emit_child_switched (HdySwipeable *self,
 }
 
 /**
+ * hdy_swipeable_get_swipe_tracker:
+ * @self: a #HdySwipeable
+ *
+ * Gets the #HdySwipeTracker used by this swipeable widget.
+ *
+ * Returns: (transfer none): the swipe tracker
+ *
+ * Since: 1.0
+ */
+HdySwipeTracker *
+hdy_swipeable_get_swipe_tracker (HdySwipeable *self)
+{
+  HdySwipeableInterface *iface;
+
+  g_return_val_if_fail (HDY_IS_SWIPEABLE (self), NULL);
+
+  iface = HDY_SWIPEABLE_GET_IFACE (self);
+  g_return_val_if_fail (iface->get_swipe_tracker != NULL, NULL);
+
+  return (* iface->get_swipe_tracker) (self);
+}
+
+/**
  * hdy_swipeable_get_distance:
  * @self: a #HdySwipeable
  *

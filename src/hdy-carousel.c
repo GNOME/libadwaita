@@ -208,6 +208,14 @@ end_swipe_cb (HdySwipeTracker *tracker,
   hdy_carousel_box_scroll_to (self->scrolling_box, child, duration);
 }
 
+static HdySwipeTracker *
+hdy_carousel_get_swipe_tracker (HdySwipeable *swipeable)
+{
+  HdyCarousel *self = HDY_CAROUSEL (swipeable);
+
+  return self->tracker;
+}
+
 static gdouble
 hdy_carousel_get_distance (HdySwipeable *swipeable)
 {
@@ -905,6 +913,7 @@ static void
 hdy_carousel_swipeable_init (HdySwipeableInterface *iface)
 {
   iface->switch_child = hdy_carousel_switch_child;
+  iface->get_swipe_tracker = hdy_carousel_get_swipe_tracker;
   iface->get_distance = hdy_carousel_get_distance;
   iface->get_snap_points = hdy_carousel_get_snap_points;
   iface->get_progress = hdy_carousel_get_progress;
