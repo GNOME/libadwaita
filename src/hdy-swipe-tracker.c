@@ -1003,6 +1003,16 @@ hdy_swipe_tracker_set_allow_mouse_drag (HdySwipeTracker *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALLOW_MOUSE_DRAG]);
 }
 
+/**
+ * hdy_swipe_tracker_shift_position:
+ * @self: a #HdySwipeTracker
+ * @delta: the position delta
+ *
+ * Move the current progress value by @delta. This can be used to adjust the
+ * current position if snap points move during the gesture.
+ *
+ * Since: 1.0
+ */
 void
 hdy_swipe_tracker_shift_position (HdySwipeTracker *self,
                                   gdouble          delta)
