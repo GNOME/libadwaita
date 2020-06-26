@@ -695,7 +695,7 @@ hdy_swipe_tracker_class_init (HdySwipeTrackerClass *klass)
     g_param_spec_object ("swipeable",
                          _("Swipeable"),
                          _("The swipeable the swipe tracker is attached to"),
-                         GTK_TYPE_WIDGET,
+                         HDY_TYPE_SWIPEABLE,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
   /**
