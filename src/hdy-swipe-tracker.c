@@ -46,6 +46,7 @@ typedef enum {
   HDY_SWIPE_TRACKER_STATE_PENDING,
   HDY_SWIPE_TRACKER_STATE_SCROLLING,
   HDY_SWIPE_TRACKER_STATE_FINISHING,
+  HDY_SWIPE_TRACKER_STATE_REJECTED,
 } HdySwipeTrackerState;
 
 struct _HdySwipeTracker
@@ -128,8 +129,21 @@ static void
 gesture_prepare (HdySwipeTracker        *self,
                  HdyNavigationDirection  direction)
 {
+  GdkRectangle rect;
+
   if (self->state != HDY_SWIPE_TRACKER_STATE_NONE)
     return;
+
+  hdy_swipeable_get_swipe_area (self->swipeable, &rect);
+
+  if (self->start_x < rect.x ||
+      self->start_x >= rect.x + rect.width ||
+      self->start_y < rect.y ||
+      self->start_y >= rect.y + rect.height) {
+    self->state = HDY_SWIPE_TRACKER_STATE_REJECTED;
+
+    return;
+  }
 
   hdy_swipe_tracker_emit_begin_swipe (self, direction, TRUE);
 
@@ -311,6 +325,11 @@ drag_update_cb (HdySwipeTracker *self,
 
   is_offset_vertical = (ABS (offset_y) > ABS (offset_x));
 
+  if (self->state == HDY_SWIPE_TRACKER_STATE_REJECTED) {
+    gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
   if (self->state == HDY_SWIPE_TRACKER_STATE_NONE) {
     if (is_vertical == is_offset_vertical)
       gesture_prepare (self, offset > 0 ? HDY_NAVIGATION_DIRECTION_FORWARD : HDY_NAVIGATION_DIRECTION_BACK);
@@ -355,6 +374,13 @@ drag_end_cb (HdySwipeTracker *self,
   gdouble distance;
 
   distance = hdy_swipeable_get_distance (self->swipeable);
+
+  if (self->state == HDY_SWIPE_TRACKER_STATE_REJECTED) {
+    gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
+
+    reset (self);
+    return;
+  }
 
   if (self->state != HDY_SWIPE_TRACKER_STATE_SCROLLING) {
     gesture_cancel (self, distance);
@@ -412,6 +438,13 @@ handle_scroll_event (HdySwipeTracker *self,
 
     if (gdk_event_is_scroll_stop_event (event))
       self->is_scrolling = FALSE;
+
+    return GDK_EVENT_PROPAGATE;
+  }
+
+  if (self->state == HDY_SWIPE_TRACKER_STATE_REJECTED) {
+    if (gdk_event_is_scroll_stop_event (event))
+      reset (self);
 
     return GDK_EVENT_PROPAGATE;
   }
@@ -1051,18 +1084,6 @@ hdy_swipe_tracker_emit_begin_swipe (HdySwipeTracker        *self,
                                     gboolean                direct)
 {
   g_return_if_fail (HDY_IS_SWIPE_TRACKER (self));
-
-  if (direct) {
-    GdkRectangle rect;
-
-    hdy_swipeable_get_swipe_area (self->swipeable, &rect);
-
-    if (self->start_x < rect.x ||
-        self->start_x >= rect.x + rect.width ||
-        self->start_y < rect.y ||
-        self->start_y >= rect.y + rect.height)
-      return;
-  }
 
   g_signal_emit (self, signals[SIGNAL_BEGIN_SWIPE], 0, direction, direct);
 }
