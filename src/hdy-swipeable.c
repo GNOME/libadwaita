@@ -132,31 +132,6 @@ hdy_swipeable_get_distance (HdySwipeable *self)
 }
 
 /**
- * hdy_swipeable_get_range:
- * @self: a #HdySwipeable
- * @lower: (out) (allow-none): location to store the minimum possible value, or %NULL
- * @upper: (out) (allow-none): location to store the maximum possible value, or %NULL
- *
- * Gets the range of possible progress values.
- *
- * Since: 1.0
- */
-void
-hdy_swipeable_get_range (HdySwipeable *self,
-                         gdouble      *lower,
-                         gdouble      *upper)
-{
-  HdySwipeableInterface *iface;
-
-  g_return_if_fail (HDY_IS_SWIPEABLE (self));
-
-  iface = HDY_SWIPEABLE_GET_IFACE (self);
-  g_return_if_fail (iface->get_range != NULL);
-
-  (* iface->get_range) (self, lower, upper);
-}
-
-/**
  * hdy_swipeable_get_snap_points: (virtual get_snap_points)
  * @self: a #HdySwipeable
  * @n_snap_points: (out): location to return the number of the snap points

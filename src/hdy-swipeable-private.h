@@ -20,9 +20,6 @@ void hdy_swipeable_emit_child_switched (HdySwipeable *self,
                                         gint64        duration);
 
 gdouble  hdy_swipeable_get_distance        (HdySwipeable *self);
-void     hdy_swipeable_get_range           (HdySwipeable *self,
-                                            gdouble      *lower,
-                                            gdouble      *upper);
 gdouble *hdy_swipeable_get_snap_points     (HdySwipeable *self,
                                             gint         *n_snap_points);
 gdouble  hdy_swipeable_get_progress        (HdySwipeable *self);

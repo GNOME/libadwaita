@@ -24,7 +24,6 @@ G_DECLARE_INTERFACE (HdySwipeable, hdy_swipeable, HDY, SWIPEABLE, GtkWidget)
  * @parent: The parent interface.
  * @switch_child: Switches visible child.
  * @get_distance: Gets the swipe distance.
- * @get_range: Gets the range of progress values.
  * @get_snap_points: Gets the snap points
  * @get_progress: Gets the current progress.
  * @get_cancel_progress: Gets the cancel progress.
@@ -43,9 +42,6 @@ struct _HdySwipeableInterface
                         gint64        duration);
 
   gdouble   (*get_distance)        (HdySwipeable *self);
-  void      (*get_range)           (HdySwipeable *self,
-                                    gdouble      *lower,
-                                    gdouble      *upper);
   gdouble * (*get_snap_points)     (HdySwipeable *self,
                                     gint         *n_snap_points);
   gdouble   (*get_progress)        (HdySwipeable *self);

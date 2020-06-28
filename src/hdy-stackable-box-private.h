@@ -91,9 +91,6 @@ void             hdy_stackable_box_switch_child (HdyStackableBox *self,
 gdouble          hdy_stackable_box_get_distance (HdyStackableBox *self);
 gdouble         *hdy_stackable_box_get_snap_points (HdyStackableBox *self,
                                                     gint            *n_snap_points);
-void             hdy_stackable_box_get_range (HdyStackableBox *self,
-                                              gdouble         *lower,
-                                              gdouble         *upper);
 gdouble          hdy_stackable_box_get_progress (HdyStackableBox *self);
 gdouble          hdy_stackable_box_get_cancel_progress (HdyStackableBox *self);
 

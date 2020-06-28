@@ -216,16 +216,6 @@ hdy_carousel_get_distance (HdySwipeable *swipeable)
   return hdy_carousel_box_get_distance (self->scrolling_box);
 }
 
-static void
-hdy_carousel_get_range (HdySwipeable *swipeable,
-                        gdouble      *lower,
-                        gdouble      *upper)
-{
-  HdyCarousel *self = HDY_CAROUSEL (swipeable);
-
-  hdy_carousel_box_get_range (self->scrolling_box, lower, upper);
-}
-
 static gdouble *
 hdy_carousel_get_snap_points (HdySwipeable *swipeable,
                               gint         *n_snap_points)
@@ -916,7 +906,6 @@ hdy_carousel_swipeable_init (HdySwipeableInterface *iface)
 {
   iface->switch_child = hdy_carousel_switch_child;
   iface->get_distance = hdy_carousel_get_distance;
-  iface->get_range = hdy_carousel_get_range;
   iface->get_snap_points = hdy_carousel_get_snap_points;
   iface->get_progress = hdy_carousel_get_progress;
   iface->get_cancel_progress = hdy_carousel_get_cancel_progress;

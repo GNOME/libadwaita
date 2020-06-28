@@ -288,7 +288,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_stackable_box_get_mode_transition_duration@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_get_orientation@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_get_progress@LIBHANDY_1_0 0.81.0
- hdy_stackable_box_get_range@LIBHANDY_1_0 0.81.0
  hdy_stackable_box_get_transition_type@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_get_type@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_get_visible_child@LIBHANDY_1_0 0.80.0
@@ -334,7 +333,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_swipeable_get_cancel_progress@LIBHANDY_1_0 0.81.0
  hdy_swipeable_get_distance@LIBHANDY_1_0 0.81.0
  hdy_swipeable_get_progress@LIBHANDY_1_0 0.81.0
- hdy_swipeable_get_range@LIBHANDY_1_0 0.81.0
  hdy_swipeable_get_snap_points@LIBHANDY_1_0 0.81.0
  hdy_swipeable_get_type@LIBHANDY_1_0 0.0.12
  hdy_swipeable_switch_child@LIBHANDY_1_0 0.0.12
