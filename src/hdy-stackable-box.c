@@ -2559,6 +2559,60 @@ can_swipe_in_direction (HdyStackableBox        *self,
   }
 }
 
+gdouble *
+hdy_stackable_box_get_snap_points (HdyStackableBox *self,
+                                   gint            *n_snap_points)
+{
+  gint n;
+  gdouble *points, lower, upper;
+
+  if (self->child_transition.tick_id > 0 ||
+      self->child_transition.is_gesture_active) {
+    gint current_direction;
+    gboolean is_rtl = gtk_widget_get_direction (GTK_WIDGET (self->container)) == GTK_TEXT_DIR_RTL;
+
+    switch (self->child_transition.active_direction) {
+    case GTK_PAN_DIRECTION_UP:
+      current_direction = 1;
+      break;
+    case GTK_PAN_DIRECTION_DOWN:
+      current_direction = -1;
+      break;
+    case GTK_PAN_DIRECTION_LEFT:
+      current_direction = is_rtl ? -1 : 1;
+      break;
+    case GTK_PAN_DIRECTION_RIGHT:
+      current_direction = is_rtl ? 1 : -1;
+      break;
+    default:
+      g_assert_not_reached ();
+    }
+
+    lower = MIN (0, current_direction);
+    upper = MAX (0, current_direction);
+  } else {
+    HdyStackableBoxChildInfo *child = NULL;
+
+    if ((can_swipe_in_direction (self, self->child_transition.swipe_direction) ||
+         !self->child_transition.is_direct_swipe) && self->folded)
+      child = find_swipeable_child (self, self->child_transition.swipe_direction);
+
+    lower = MIN (0, child ? self->child_transition.swipe_direction : 0);
+    upper = MAX (0, child ? self->child_transition.swipe_direction : 0);
+  }
+
+  n = (lower != upper) ? 2 : 1;
+
+  points = g_new0 (gdouble, n);
+  points[0] = lower;
+  points[n - 1] = upper;
+
+  if (n_snap_points)
+    *n_snap_points = n;
+
+  return points;
+}
+
 void
 hdy_stackable_box_get_range (HdyStackableBox *self,
                              gdouble         *lower,

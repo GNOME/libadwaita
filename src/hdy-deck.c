@@ -783,6 +783,13 @@ hdy_deck_get_range (HdySwipeable *swipeable,
   hdy_stackable_box_get_range (HDY_GET_HELPER (swipeable), lower, upper);
 }
 
+static gdouble *
+hdy_deck_get_snap_points (HdySwipeable *swipeable,
+                          gint         *n_snap_points)
+{
+  return hdy_stackable_box_get_snap_points (HDY_GET_HELPER (swipeable), n_snap_points);
+}
+
 static gdouble
 hdy_deck_get_progress (HdySwipeable *swipeable)
 {
@@ -1048,6 +1055,7 @@ hdy_deck_swipeable_init (HdySwipeableInterface *iface)
   iface->switch_child = hdy_deck_switch_child;
   iface->get_distance = hdy_deck_get_distance;
   iface->get_range = hdy_deck_get_range;
+  iface->get_snap_points = hdy_deck_get_snap_points;
   iface->get_progress = hdy_deck_get_progress;
   iface->get_cancel_progress = hdy_deck_get_cancel_progress;
 }
