@@ -156,27 +156,6 @@ hdy_swipeable_get_range (HdySwipeable *self,
   (* iface->get_range) (self, lower, upper);
 }
 
-static gdouble *
-get_snap_points_from_range (HdySwipeable *self,
-                            gint         *n_snap_points)
-{
-  gint n;
-  gdouble *points, lower, upper;
-
-  hdy_swipeable_get_range (self, &lower, &upper);
-
-  n = (lower != upper) ? 2 : 1;
-
-  points = g_new0 (gdouble, n);
-  points[0] = lower;
-  points[n - 1] = upper;
-
-  if (n_snap_points)
-    *n_snap_points = n;
-
-  return points;
-}
-
 /**
  * hdy_swipeable_get_snap_points: (virtual get_snap_points)
  * @self: a #HdySwipeable
@@ -184,9 +163,6 @@ get_snap_points_from_range (HdySwipeable *self,
  *
  * Gets the snap points of @self. Each snap point represents a progress value
  * that is considered acceptable to end the swipe on.
- *
- * If not implemented, the default implementation returns one snap point for
- * each end of the range, or just one snap point if they are equal.
  *
  * Returns: (array length=n_snap_points) (transfer full): the snap points of
  *     @self. The array must be freed with g_free().
@@ -202,11 +178,9 @@ hdy_swipeable_get_snap_points (HdySwipeable *self,
   g_return_val_if_fail (HDY_IS_SWIPEABLE (self), NULL);
 
   iface = HDY_SWIPEABLE_GET_IFACE (self);
+  g_return_val_if_fail (iface->get_snap_points != NULL, NULL);
 
-  if (iface->get_snap_points)
-    return (* iface->get_snap_points) (self, n_snap_points);
-
-  return get_snap_points_from_range (self, n_snap_points);
+  return (* iface->get_snap_points) (self, n_snap_points);
 }
 
 /**
