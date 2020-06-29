@@ -16,16 +16,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_HEADER_GROUP (hdy_header_group_get_type())
 
-G_DECLARE_DERIVABLE_TYPE (HdyHeaderGroup, hdy_header_group, HDY, HEADER_GROUP, GObject)
-
-/**
- * HdyHeaderGroupClass
- * @parent_class: The parent class
- */
-struct _HdyHeaderGroupClass
-{
-  GObjectClass parent_class;
-};
+G_DECLARE_FINAL_TYPE (HdyHeaderGroup, hdy_header_group, HDY, HEADER_GROUP, GObject)
 
 HdyHeaderGroup *hdy_header_group_new (void);
 

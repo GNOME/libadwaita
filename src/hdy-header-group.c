@@ -9,12 +9,13 @@
 
 #include "hdy-header-group.h"
 
-typedef struct
+struct _HdyHeaderGroup
 {
+  GObject parent_instance;
+
   GSList *header_bars;
   gboolean decorate_all;
-
-} HdyHeaderGroupPrivate;
+};
 
 static void hdy_header_group_buildable_init (GtkBuildableIface *iface);
 static gboolean hdy_header_group_buildable_custom_tag_start (GtkBuildable  *buildable,
@@ -30,7 +31,6 @@ static void hdy_header_group_buildable_custom_finished (GtkBuildable *buildable,
                                                         gpointer      user_data);
 
 G_DEFINE_TYPE_WITH_CODE (HdyHeaderGroup, hdy_header_group, G_TYPE_OBJECT,
-                         G_ADD_PRIVATE (HdyHeaderGroup)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
                          hdy_header_group_buildable_init))
 
@@ -46,12 +46,9 @@ static gboolean
 contains (HdyHeaderGroup *self,
           GtkHeaderBar   *header_bar)
 {
-  HdyHeaderGroupPrivate *priv;
   GSList *header_bars;
 
-  priv = hdy_header_group_get_instance_private (self);
-
-  for (header_bars = priv->header_bars; header_bars != NULL; header_bars = header_bars->next)
+  for (header_bars = self->header_bars; header_bars != NULL; header_bars = header_bars->next)
     if (header_bars->data == header_bar)
       return TRUE;
 
@@ -62,7 +59,6 @@ contains (HdyHeaderGroup *self,
 static void
 update_decoration_layouts (HdyHeaderGroup *self)
 {
-  HdyHeaderGroupPrivate *priv;
   GSList *header_bars;
   GtkSettings *settings;
   GtkHeaderBar *start_headerbar = NULL, *end_headerbar = NULL;
@@ -73,8 +69,7 @@ update_decoration_layouts (HdyHeaderGroup *self)
 
   g_return_if_fail (HDY_IS_HEADER_GROUP (self));
 
-  priv = hdy_header_group_get_instance_private (self);
-  header_bars = priv->header_bars;
+  header_bars = self->header_bars;
 
   if (header_bars == NULL)
     return;
@@ -84,7 +79,7 @@ update_decoration_layouts (HdyHeaderGroup *self)
   if (layout == NULL)
     layout = g_strdup (":");
 
-  if (priv->decorate_all) {
+  if (self->decorate_all) {
     for (; header_bars != NULL; header_bars = header_bars->next)
       gtk_header_bar_set_decoration_layout (header_bars->data, layout);
 
@@ -127,12 +122,9 @@ update_decoration_layouts (HdyHeaderGroup *self)
 static void
 header_bar_destroyed (HdyHeaderGroup *self, GtkHeaderBar *header_bar)
 {
-  HdyHeaderGroupPrivate *priv;
-
   g_return_if_fail (HDY_IS_HEADER_GROUP (self));
 
-  priv = hdy_header_group_get_instance_private (self);
-  priv->header_bars = g_slist_remove (priv->header_bars, header_bar);
+  self->header_bars = g_slist_remove (self->header_bars, header_bar);
 
   g_object_unref (self);
 }
@@ -162,16 +154,12 @@ void
 hdy_header_group_add_header_bar (HdyHeaderGroup *self,
                                  GtkHeaderBar   *header_bar)
 {
-  HdyHeaderGroupPrivate *priv;
-
   g_return_if_fail (HDY_IS_HEADER_GROUP (self));
   g_return_if_fail (GTK_IS_HEADER_BAR (header_bar));
 
-  priv = hdy_header_group_get_instance_private (self);
-
   g_signal_connect_swapped (header_bar, "map", G_CALLBACK (update_decoration_layouts), self);
   g_signal_connect_swapped (header_bar, "unmap", G_CALLBACK (update_decoration_layouts), self);
-  priv->header_bars = g_slist_prepend (priv->header_bars, header_bar);
+  self->header_bars = g_slist_prepend (self->header_bars, header_bar);
 
   g_object_ref (self);
 
@@ -192,14 +180,11 @@ void
 hdy_header_group_remove_header_bar (HdyHeaderGroup *self,
                                     GtkHeaderBar *header_bar)
 {
-  HdyHeaderGroupPrivate *priv;
-
   g_return_if_fail (HDY_IS_HEADER_GROUP (self));
   g_return_if_fail (GTK_IS_HEADER_BAR (header_bar));
   g_return_if_fail (contains (self, header_bar));
 
-  priv = hdy_header_group_get_instance_private (self);
-  priv->header_bars = g_slist_remove (priv->header_bars, header_bar);
+  self->header_bars = g_slist_remove (self->header_bars, header_bar);
 
   g_signal_handlers_disconnect_by_data (header_bar, self);
 
@@ -219,11 +204,9 @@ hdy_header_group_remove_header_bar (HdyHeaderGroup *self,
 GSList *
 hdy_header_group_get_header_bars (HdyHeaderGroup *self)
 {
-  HdyHeaderGroupPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_HEADER_GROUP (self), NULL);
-  priv = hdy_header_group_get_instance_private (self);
-  return priv->header_bars;
+
+  return self->header_bars;
 }
 
 typedef struct {
@@ -251,10 +234,9 @@ static void
 hdy_header_group_dispose (GObject *object)
 {
   HdyHeaderGroup *self = (HdyHeaderGroup *)object;
-  HdyHeaderGroupPrivate *priv = hdy_header_group_get_instance_private (self);
 
-  g_slist_free_full (priv->header_bars, (GDestroyNotify) g_object_unref);
-  priv->header_bars = NULL;
+  g_slist_free_full (self->header_bars, (GDestroyNotify) g_object_unref);
+  self->header_bars = NULL;
 
   G_OBJECT_CLASS (hdy_header_group_parent_class)->dispose (object);
 }
@@ -570,18 +552,14 @@ void
 hdy_header_group_set_decorate_all (HdyHeaderGroup *self,
                                    gboolean        decorate_all)
 {
-  HdyHeaderGroupPrivate *priv;
-
   g_return_if_fail (HDY_IS_HEADER_GROUP (self));
-
-  priv = hdy_header_group_get_instance_private (self);
 
   decorate_all = !!decorate_all;
 
-  if (priv->decorate_all == decorate_all)
+  if (self->decorate_all == decorate_all)
     return;
 
-  priv->decorate_all = decorate_all;
+  self->decorate_all = decorate_all;
 
   update_decoration_layouts (self);
 
@@ -602,11 +580,7 @@ hdy_header_group_set_decorate_all (HdyHeaderGroup *self,
 gboolean
 hdy_header_group_get_decorate_all (HdyHeaderGroup *self)
 {
-  HdyHeaderGroupPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_HEADER_GROUP (self), FALSE);
 
-  priv = hdy_header_group_get_instance_private (self);
-
-  return priv->decorate_all;
+  return self->decorate_all;
 }
