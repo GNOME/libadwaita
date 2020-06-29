@@ -10,6 +10,44 @@
 #include "hdy-header-group.h"
 
 /**
+ * SECTION:hdy-header-group
+ * @short_description: An object handling composite title bars.
+ * @Title: HdyHeaderGroup
+ * @See_also: #GtkHeaderBar, #HdyHeaderBar, #HdyLeaflet
+ *
+ * The #HdyHeaderGroup object handles the header bars of a composite title bar.
+ * It splits the window decoration across the header bars, giving the left side
+ * of the decorations to the leftmost header bar, and the right side of the
+ * decorations to the rightmost header bar.
+ * See hdy_header_bar_set_decoration_layout().
+ *
+ * The #HdyHeaderGroup:decorate-all property can be used in conjunction with
+ * #HdyLeaflet:folded when the title bar is split across the pages of a
+ * #HdyLeaflet to automatically display the decorations on all the pages when
+ * the leaflet is folded.
+ *
+ * You can nest header groups, which is convenient when you nest leaflets too:
+ * |[
+ * <object class="HdyHeaderGroup" id="inner_header_group">
+ *   <property name="decorate-all" bind-source="inner_leaflet" bind-property="folded" bind-flags="sync-create"/>
+ *   <headerbars>
+ *     <headerbar name="inner_header_bar_1"/>
+ *     <headerbar name="inner_header_bar_2"/>
+ *   </headerbars>
+ * </object>
+ * <object class="HdyHeaderGroup" id="outer_header_group">
+ *   <property name="decorate-all" bind-source="outer_leaflet" bind-property="folded" bind-flags="sync-create"/>
+ *   <headerbars>
+ *     <headerbar name="inner_header_group"/>
+ *     <headerbar name="outer_header_bar"/>
+ *   </headerbars>
+ * </object>
+ * ]|
+ *
+ * Since: 0.0.4
+ */
+
+/**
  * HdyHeaderGroupChildType:
  * @HDY_HEADER_GROUP_CHILD_TYPE_HEADER_BAR: The child is a #HdyHeaderBar
  * @HDY_HEADER_GROUP_CHILD_TYPE_GTK_HEADER_BAR: The child is a #GtkHeaderBar
