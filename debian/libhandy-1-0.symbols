@@ -166,9 +166,11 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_header_bar_set_transition_duration@LIBHANDY_1_0 0.0.10
  hdy_header_group_add_gtk_header_bar@LIBHANDY_1_0 0.83.0
  hdy_header_group_add_header_bar@LIBHANDY_1_0 0.83.0
+ hdy_header_group_add_header_group@LIBHANDY_1_0 0.83.0
  hdy_header_group_child_get_child_type@LIBHANDY_1_0 0.83.0
  hdy_header_group_child_get_gtk_header_bar@LIBHANDY_1_0 0.83.0
  hdy_header_group_child_get_header_bar@LIBHANDY_1_0 0.83.0
+ hdy_header_group_child_get_header_group@LIBHANDY_1_0 0.83.0
  hdy_header_group_child_get_type@LIBHANDY_1_0 0.83.0
  hdy_header_group_child_type_get_type@LIBHANDY_1_0 0.83.0
  hdy_header_group_get_children@LIBHANDY_1_0 0.83.0
@@ -178,6 +180,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_header_group_remove_child@LIBHANDY_1_0 0.83.0
  hdy_header_group_remove_gtk_header_bar@LIBHANDY_1_0 0.83.0
  hdy_header_group_remove_header_bar@LIBHANDY_1_0 0.83.0
+ hdy_header_group_remove_header_group@LIBHANDY_1_0 0.83.0
  hdy_header_group_set_decorate_all@LIBHANDY_1_0 0.83.0
  hdy_init@LIBHANDY_1_0 0.82.0
  hdy_init_public_types@LIBHANDY_1_0 0.0.5

@@ -13,6 +13,7 @@
  * HdyHeaderGroupChildType:
  * @HDY_HEADER_GROUP_CHILD_TYPE_HEADER_BAR: The child is a #HdyHeaderBar
  * @HDY_HEADER_GROUP_CHILD_TYPE_GTK_HEADER_BAR: The child is a #GtkHeaderBar
+ * @HDY_HEADER_GROUP_CHILD_TYPE_HEADER_GROUP: The child is a #HdyHeaderGroup
  *
  * This enumeration value describes the child types handled by #HdyHeaderGroup.
  *
@@ -114,6 +115,9 @@ hdy_header_group_child_dispose (GObject *object)
       g_signal_handlers_disconnect_by_func (self->object, G_CALLBACK (object_destroyed_cb), self);
       g_signal_handlers_disconnect_by_func (self->object, G_CALLBACK (forward_update_decoration_layouts), self);
       break;
+    case HDY_HEADER_GROUP_CHILD_TYPE_HEADER_GROUP:
+      g_object_weak_unref (self->object, (GWeakNotify) object_destroyed_cb, self);
+      break;
     default:
       g_assert_not_reached ();
     }
@@ -172,6 +176,29 @@ hdy_header_group_child_new_for_gtk_header_bar (GtkHeaderBar *header_bar)
   return self;
 }
 
+static HdyHeaderGroupChild *
+hdy_header_group_child_new_for_header_group (HdyHeaderGroup *header_group)
+{
+  HdyHeaderGroupChild *self;
+  gpointer parent_header_group;
+
+  g_return_val_if_fail (HDY_IS_HEADER_GROUP (header_group), NULL);
+
+  parent_header_group = g_object_get_data (G_OBJECT (header_group), "header-group");
+
+  g_return_val_if_fail (parent_header_group == NULL, NULL);
+
+  self = g_object_new (HDY_TYPE_HEADER_GROUP_CHILD, NULL);
+  self->type = HDY_HEADER_GROUP_CHILD_TYPE_HEADER_GROUP;
+  self->object = G_OBJECT (header_group);
+
+  g_object_weak_unref (G_OBJECT (header_group), (GWeakNotify) object_destroyed_cb, self);
+
+  g_signal_connect_swapped (header_group, "update-decoration-layouts", G_CALLBACK (forward_update_decoration_layouts), self);
+
+  return self;
+}
+
 static void
 hdy_header_group_child_class_init (HdyHeaderGroupChildClass *klass)
 {
@@ -198,6 +225,16 @@ hdy_header_group_child_set_decoration_layout (HdyHeaderGroupChild *self,
   case HDY_HEADER_GROUP_CHILD_TYPE_GTK_HEADER_BAR:
     gtk_header_bar_set_decoration_layout (GTK_HEADER_BAR (self->object), layout);
     break;
+  case HDY_HEADER_GROUP_CHILD_TYPE_HEADER_GROUP:
+    {
+      HdyHeaderGroup *group = HDY_HEADER_GROUP (self->object);
+
+      g_free (group->layout);
+      group->layout = g_strdup (layout);
+
+      update_decoration_layouts (group);
+    }
+    break;
   default:
     g_assert_not_reached ();
   }
@@ -212,6 +249,14 @@ hdy_header_group_child_get_mapped (HdyHeaderGroupChild *self)
   case HDY_HEADER_GROUP_CHILD_TYPE_HEADER_BAR:
   case HDY_HEADER_GROUP_CHILD_TYPE_GTK_HEADER_BAR:
     return gtk_widget_get_mapped (GTK_WIDGET (self->object));
+  case HDY_HEADER_GROUP_CHILD_TYPE_HEADER_GROUP:
+    for (GSList *children = HDY_HEADER_GROUP (self->object)->children;
+         children != NULL;
+         children = children->next)
+      if (hdy_header_group_child_get_mapped (HDY_HEADER_GROUP_CHILD (children->data)))
+          return TRUE;
+
+    return FALSE;
   default:
     g_assert_not_reached ();
   }
@@ -386,6 +431,31 @@ hdy_header_group_add_gtk_header_bar (HdyHeaderGroup *self,
   g_return_if_fail (get_child_for_object (self, header_bar) == NULL);
 
   child = hdy_header_group_child_new_for_gtk_header_bar (header_bar);
+  hdy_header_group_add_child (self, child);
+}
+
+/**
+ * hdy_header_group_add_header_group:
+ * @self: a #HdyHeaderGroup
+ * @header_group: the #HdyHeaderGroup to add
+ *
+ * Adds @header_group to @self.
+ * When the nested group is no longer referenced elsewhere, it will be removed
+ * from the header group.
+ *
+ * Since: 1.0
+ */
+void
+hdy_header_group_add_header_group (HdyHeaderGroup *self,
+                                   HdyHeaderGroup *header_group)
+{
+  HdyHeaderGroupChild *child;
+
+  g_return_if_fail (HDY_IS_HEADER_GROUP (self));
+  g_return_if_fail (HDY_IS_HEADER_GROUP (header_group));
+  g_return_if_fail (get_child_for_object (self, header_group) == NULL);
+
+  child = hdy_header_group_child_new_for_header_group (header_group);
   hdy_header_group_add_child (self, child);
 }
 
@@ -685,6 +755,9 @@ hdy_header_group_buildable_custom_finished (GtkBuildable *buildable,
     else if (HDY_IS_HEADER_BAR (object))
       hdy_header_group_add_header_bar (HDY_HEADER_GROUP (data->object),
                                        HDY_HEADER_BAR (object));
+    else if (HDY_IS_HEADER_GROUP (object))
+      hdy_header_group_add_header_group (HDY_HEADER_GROUP (data->object),
+                                         HDY_HEADER_GROUP (object));
   }
 
   g_slist_free_full (data->items, item_data_free);
@@ -794,6 +867,26 @@ hdy_header_group_child_get_gtk_header_bar (HdyHeaderGroupChild *self)
 }
 
 /**
+ * hdy_header_group_child_get_header_group:
+ * @self: a #HdyHeaderGroupChild
+ *
+ * Gets the child #HdyHeaderGroup.
+ * Use hdy_header_group_child_get_child_type() to check the child type.
+ *
+ * Returns: (transfer none): the child #HdyHeaderGroup, or %NULL in case of error.
+ *
+ * Since: 1.0
+ */
+HdyHeaderGroup *
+hdy_header_group_child_get_header_group (HdyHeaderGroupChild *self)
+{
+  g_return_val_if_fail (HDY_IS_HEADER_GROUP_CHILD (self), NULL);
+  g_return_val_if_fail (self->type == HDY_HEADER_GROUP_CHILD_TYPE_HEADER_GROUP, NULL);
+
+  return HDY_HEADER_GROUP (self->object);
+}
+
+/**
  * hdy_header_group_child_get_child_type:
  * @self: a #HdyHeaderGroupChild
  *
@@ -886,6 +979,31 @@ hdy_header_group_remove_gtk_header_bar (HdyHeaderGroup *self,
   g_return_if_fail (GTK_IS_HEADER_BAR (header_bar));
 
   child = get_child_for_object (self, header_bar);
+
+  g_return_if_fail (child != NULL);
+
+  remove_child (self, child);
+}
+
+/**
+ * hdy_header_group_remove_header_group:
+ * @self: a #HdyHeaderGroup
+ * @header_group: the #HdyHeaderGroup to remove
+ *
+ * Removes a nested #HdyHeaderGroup from a #HdyHeaderGroup
+ *
+ * Since: 1.0
+ */
+void
+hdy_header_group_remove_header_group (HdyHeaderGroup *self,
+                                      HdyHeaderGroup *header_group)
+{
+  HdyHeaderGroupChild *child;
+
+  g_return_if_fail (HDY_IS_HEADER_GROUP (self));
+  g_return_if_fail (HDY_IS_HEADER_GROUP (header_group));
+
+  child = get_child_for_object (self, header_group);
 
   g_return_if_fail (child != NULL);
 
