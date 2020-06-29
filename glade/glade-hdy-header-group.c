@@ -144,8 +144,8 @@ glade_hdy_header_group_set_property (GladeWidgetAdaptor *adaptor,
       /* copy since we are modifying an internal list */
       sg_widgets = g_slist_copy (sg_widgets);
       for (slist = sg_widgets; slist; slist = slist->next)
-        hdy_header_group_remove_gtk_header_bar (HDY_HEADER_GROUP (object),
-                                                GTK_HEADER_BAR (slist->data));
+        hdy_header_group_remove_child (HDY_HEADER_GROUP (object),
+                                       HDY_HEADER_GROUP_CHILD (slist->data));
       g_slist_free (sg_widgets);
     }
 

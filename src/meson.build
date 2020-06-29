@@ -11,6 +11,7 @@ hdy_public_enum_headers = [
   'hdy-carousel.h',
   'hdy-deck.h',
   'hdy-header-bar.h',
+  'hdy-header-group.h',
   'hdy-leaflet.h',
   'hdy-navigation-direction.h',
   'hdy-squeezer.h',
