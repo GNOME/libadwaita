@@ -30,8 +30,6 @@ static gint hdy_initialized = FALSE;
 
 #define HDY_THEMES_PATH "/sm/puri/handy/themes/"
 
-static guint queued_update;
-
 static inline gboolean
 hdy_resource_exists (const gchar *resource_path)
 {
@@ -100,29 +98,6 @@ hdy_themes_update (GtkCssProvider *css_provider)
   gtk_css_provider_load_from_resource (css_provider, resource_path);
 }
 
-static gboolean
-hdy_themes_do_update (GtkCssProvider *css_provider)
-{
-  g_assert (GTK_IS_CSS_PROVIDER (css_provider));
-
-  queued_update = 0;
-  hdy_themes_update (css_provider);
-
-  return G_SOURCE_REMOVE;
-}
-
-static void
-hdy_themes_queue_update (GtkCssProvider *css_provider)
-{
-  g_assert (GTK_IS_CSS_PROVIDER (css_provider));
-
-  if (queued_update == 0)
-    queued_update = g_idle_add_full (G_PRIORITY_LOW,
-                                     (GSourceFunc) hdy_themes_do_update,
-                                     css_provider,
-                                     NULL);
-}
-
 static void
 load_fallback_style (void)
 {
@@ -162,11 +137,11 @@ hdy_style_init (void)
   settings = gtk_settings_get_default ();
   g_signal_connect_swapped (settings,
                            "notify::gtk-theme-name",
-                           G_CALLBACK (hdy_themes_queue_update),
+                           G_CALLBACK (hdy_themes_update),
                            css_provider);
   g_signal_connect_swapped (settings,
                            "notify::gtk-application-prefer-dark-theme",
-                           G_CALLBACK (hdy_themes_queue_update),
+                           G_CALLBACK (hdy_themes_update),
                            css_provider);
 
   hdy_themes_update (css_provider);
