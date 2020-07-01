@@ -21,6 +21,12 @@
  * #GtkStack. The children are strictly ordered and can be navigated using
  * swipe gestures.
  *
+ * The “over” and “under” transitions can draw their shadow on top of the
+ * window's transparent areas, like the rounded corners. This is a side-effect
+ * of allowing shadows to be drawn on top of OpenGL areas. It can be mitigated
+ * by using #HdyWindow or #HdyApplicationWindow as they will crop anything drawn
+ * beyond the rounded corners.
+ *
  * # CSS nodes
  *
  * #HdyDeck has a single CSS node with name deck.
