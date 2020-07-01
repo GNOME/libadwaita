@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
 "POT-Creation-Date: 2020-06-12 07:20+0000\n"
-"PO-Revision-Date: 2020-06-16 09:23+0200\n"
+"PO-Revision-Date: 2020-07-01 09:37+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -53,16 +53,16 @@ msgstr ""
 #: glade/glade-hdy-preferences-page.c:159
 #, c-format
 msgid "Add group to %s"
-msgstr ""
+msgstr "Añadir grupo a %s"
 
 #: glade/glade-hdy-preferences-window.c:227
 #, c-format
 msgid "Add page to %s"
-msgstr ""
+msgstr "Añadir página a %s"
 
 #: glade/glade-hdy-search-bar.c:100
 msgid "Search bar is already full"
-msgstr ""
+msgstr "La barra de búsqueda ya está llena"
 
 #: glade/glade-hdy-utils.h:14
 #, c-format
@@ -136,7 +136,7 @@ msgstr "Mostrar duración"
 
 #: src/hdy-carousel-box.c:1145 src/hdy-carousel.c:1115
 msgid "Page reveal duration"
-msgstr ""
+msgstr "Tiempo que se muestra la página"
 
 #: src/hdy-carousel.c:1004
 msgid "Interactive"
@@ -152,7 +152,7 @@ msgstr "Indicador de estilo"
 
 #: src/hdy-carousel.c:1021
 msgid "Page indicator style"
-msgstr ""
+msgstr "Indicador de estilo de la página"
 
 #: src/hdy-carousel.c:1036
 msgid "Indicator spacing"
@@ -160,7 +160,7 @@ msgstr "Indicador de espaciado"
 
 #: src/hdy-carousel.c:1037
 msgid "Spacing between content and indicators"
-msgstr ""
+msgstr "Espaciado entre contenido e indicadores"
 
 #: src/hdy-carousel.c:1055
 msgid "Center content"
@@ -168,7 +168,7 @@ msgstr "Centrar contenido"
 
 #: src/hdy-carousel.c:1056
 msgid "Whether to center pages to compensate for indicators"
-msgstr ""
+msgstr "Indica si se deben centrar las páginas para compensar los indicadores"
 
 #: src/hdy-carousel.c:1085
 msgid "Animation duration"
@@ -220,7 +220,7 @@ msgstr ""
 
 #: src/hdy-deck.c:881
 msgid "Horizontally homogeneous"
-msgstr ""
+msgstr "Homogéneo horizontalmente"
 
 #: src/hdy-deck.c:882
 msgid "Horizontally homogeneous sizing"
@@ -228,7 +228,7 @@ msgstr ""
 
 #: src/hdy-deck.c:895
 msgid "Vertically homogeneous"
-msgstr ""
+msgstr "Homogéneo verticalmente"
 
 #: src/hdy-deck.c:896
 msgid "Vertically homogeneous sizing"
@@ -270,7 +270,7 @@ msgstr ""
 
 #: src/hdy-deck.c:970 src/hdy-header-bar.c:2252 src/hdy-squeezer.c:1122
 msgid "Transition running"
-msgstr ""
+msgstr "Transición en ejecución"
 
 #: src/hdy-deck.c:971 src/hdy-header-bar.c:2253 src/hdy-squeezer.c:1123
 msgid "Whether or not the transition is currently running"
@@ -311,7 +311,7 @@ msgstr "Nombre"
 
 #: src/hdy-deck.c:1024 src/hdy-leaflet.c:1104 src/hdy-stackable-box.c:3538
 msgid "The name of the child page"
-msgstr ""
+msgstr "El nombre de la página hija"
 
 #: src/hdy-expander-row.c:286
 msgid "The title for this row"
@@ -327,15 +327,15 @@ msgstr "Expandido"
 
 #: src/hdy-expander-row.c:341
 msgid "Whether the row is expanded"
-msgstr ""
+msgstr "Indica si la fila está expandida"
 
 #: src/hdy-expander-row.c:352
 msgid "Enable expansion"
-msgstr ""
+msgstr "Activar expansión"
 
 #: src/hdy-expander-row.c:353
 msgid "Whether the expansion is enabled"
-msgstr ""
+msgstr "Indica si la expansión está activada"
 
 #: src/hdy-expander-row.c:364
 msgid "Show enable switch"
@@ -371,7 +371,7 @@ msgstr "Atrás"
 
 #: src/hdy-header-bar.c:2128
 msgid "Pack type"
-msgstr ""
+msgstr "Tipo de paquete"
 
 #: src/hdy-header-bar.c:2129
 msgid ""
@@ -381,7 +381,7 @@ msgstr ""
 
 #: src/hdy-header-bar.c:2136
 msgid "The index of the child in the parent"
-msgstr ""
+msgstr "El índice del hijo en el padre"
 
 #: src/hdy-header-bar.c:2143 src/hdy-view-switcher-title.c:282
 msgid "The title to display"
@@ -397,7 +397,7 @@ msgstr "Título personalizado"
 
 #: src/hdy-header-bar.c:2157
 msgid "Custom title widget to display"
-msgstr ""
+msgstr "Wigdet de título personalizado que mostrar"
 
 #: src/hdy-header-bar.c:2164
 msgid "The amount of space between children"
@@ -409,7 +409,7 @@ msgstr "Mostrar decoración"
 
 #: src/hdy-header-bar.c:2184
 msgid "Whether to show window decorations"
-msgstr ""
+msgstr "Indica si se debe mostrar la decoración de la ventana"
 
 #: src/hdy-header-bar.c:2202
 msgid "Decoration Layout"
@@ -417,7 +417,7 @@ msgstr "Distribución de la decoración"
 
 #: src/hdy-header-bar.c:2203
 msgid "The layout for window decorations"
-msgstr ""
+msgstr "La distribución de la decoración de la ventana"
 
 #: src/hdy-header-bar.c:2216
 msgid "Decoration Layout Set"
@@ -429,11 +429,11 @@ msgstr ""
 
 #: src/hdy-header-bar.c:2231
 msgid "Has Subtitle"
-msgstr ""
+msgstr "Tiene subtítulo"
 
 #: src/hdy-header-bar.c:2232
 msgid "Whether to reserve space for a subtitle"
-msgstr ""
+msgstr "Indica si se debe reservar espacio para un subtítulo"
 
 #: src/hdy-header-bar.c:2238
 msgid "Centering policy"
@@ -441,7 +441,7 @@ msgstr "Política de centrado"
 
 #: src/hdy-header-bar.c:2239
 msgid "The policy to horizontally align the center widget"
-msgstr ""
+msgstr "La política para alinear horizontalmente el widget centrad"
 
 #: src/hdy-header-bar.c:2246 src/hdy-squeezer.c:1108
 msgid "The animation duration, in milliseconds"
@@ -453,7 +453,7 @@ msgstr "Foco"
 
 #: src/hdy-header-group.c:591
 msgid "The header bar that should have the focus"
-msgstr ""
+msgstr "La barra de cabecera que debe tener el foco"
 
 #: src/hdy-keypad-button.c:227
 msgid "Digit"
@@ -481,7 +481,7 @@ msgstr ""
 
 #: src/hdy-keypad.c:264
 msgid "Row spacing"
-msgstr ""
+msgstr "Espaciado de filas"
 
 #: src/hdy-keypad.c:265
 msgid "The amount of space between two consecutive rows"
@@ -489,7 +489,7 @@ msgstr ""
 
 #: src/hdy-keypad.c:271
 msgid "Column spacing"
-msgstr ""
+msgstr "Espaciado de columnas"
 
 #: src/hdy-keypad.c:272
 msgid "The amount of space between two consecutive columns"
@@ -506,7 +506,7 @@ msgstr ""
 
 #: src/hdy-keypad.c:292
 msgid "Entry widget"
-msgstr ""
+msgstr "Widget de entrada"
 
 #: src/hdy-keypad.c:293
 msgid "The entry widget connected to the keypad"
@@ -650,7 +650,7 @@ msgstr "Pruebe a hacer una búsqueda diferente"
 
 #: src/hdy-search-bar.c:451
 msgid "Search Mode Enabled"
-msgstr ""
+msgstr "Modo de búsqueda activado"
 
 #: src/hdy-search-bar.c:452
 msgid "Whether the search mode is on and the search bar shown"
@@ -658,11 +658,12 @@ msgstr ""
 
 #: src/hdy-search-bar.c:463
 msgid "Show Close Button"
-msgstr ""
+msgstr "Mostrar botón de cerrar"
 
 #: src/hdy-search-bar.c:464
 msgid "Whether to show the close button in the toolbar"
 msgstr ""
+"Indica si se debe mostrar el botón de cerrar en la barra de herramientas"
 
 #: src/hdy-shadow-helper.c:246
 msgid "Widget"
@@ -674,11 +675,11 @@ msgstr ""
 
 #: src/hdy-squeezer.c:1093
 msgid "Homogeneous"
-msgstr ""
+msgstr "Homogéneo"
 
 #: src/hdy-squeezer.c:1094
 msgid "Homogeneous sizing"
-msgstr ""
+msgstr "Tamaño homogéneo"
 
 #: src/hdy-squeezer.c:1101
 msgid "The widget currently visible in the squeezer"
@@ -686,7 +687,7 @@ msgstr ""
 
 #: src/hdy-squeezer.c:1115
 msgid "The type of animation used to transition"
-msgstr ""
+msgstr "El tipo de animación usado para la transición"
 
 #: src/hdy-squeezer.c:1138 src/hdy-swipe-tracker.c:615
 msgid "Enabled"
@@ -744,7 +745,7 @@ msgstr ""
 
 #: src/hdy-title-bar.c:308
 msgid "Selection mode"
-msgstr ""
+msgstr "Modo de selección"
 
 #: src/hdy-title-bar.c:309
 msgid "Whether or not the title bar is in selection mode"
@@ -768,7 +769,7 @@ msgstr "Política"
 #: src/hdy-view-switcher-bar.c:186 src/hdy-view-switcher.c:531
 #: src/hdy-view-switcher-title.c:239
 msgid "The policy to determine the mode to use"
-msgstr ""
+msgstr "La política para determinar el modo que usar"
 
 #: src/hdy-view-switcher-bar.c:200 src/hdy-view-switcher-button.c:228
 #: src/hdy-view-switcher.c:545 src/hdy-view-switcher-title.c:253
@@ -778,7 +779,7 @@ msgstr "Tamaño del icono"
 #: src/hdy-view-switcher-bar.c:201 src/hdy-view-switcher-button.c:229
 #: src/hdy-view-switcher.c:546 src/hdy-view-switcher-title.c:254
 msgid "Symbolic size to use for named icon"
-msgstr ""
+msgstr "Tamaño simbólico que usar para el icono con nombre"
 
 #: src/hdy-view-switcher-bar.c:214 src/hdy-view-switcher-bar.c:215
 #: src/hdy-view-switcher.c:580 src/hdy-view-switcher.c:581
@@ -800,7 +801,7 @@ msgstr "Nombre del icono"
 
 #: src/hdy-view-switcher-button.c:215
 msgid "Icon name for image"
-msgstr ""
+msgstr "Nombre de icono para la imagen"
 
 #: src/hdy-view-switcher-button.c:245
 msgid "Needs attention"
@@ -812,7 +813,7 @@ msgstr ""
 
 #: src/hdy-view-switcher.c:565
 msgid "Narrow ellipsize"
-msgstr ""
+msgstr "Estrechar elipse"
 
 #: src/hdy-view-switcher.c:566
 msgid ""
@@ -834,7 +835,7 @@ msgstr "Título visible"
 
 #: src/hdy-view-switcher-title.c:324
 msgid "Whether the title label is visible"
-msgstr ""
+msgstr "Indica si la etiqueta de título es visible"
 
 #: src/hdy-window-handle-controller.c:259
 msgid "Move"
