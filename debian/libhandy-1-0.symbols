@@ -288,7 +288,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_stackable_box_get_mode_transition_duration@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_get_orientation@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_get_progress@LIBHANDY_1_0 0.81.0
- hdy_stackable_box_get_snap_points@LIBHANDY_1_0 0.83.0
+ hdy_stackable_box_get_snap_points@LIBHANDY_1_0 0.82.0
  hdy_stackable_box_get_transition_type@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_get_type@LIBHANDY_1_0 0.80.0
  hdy_stackable_box_get_visible_child@LIBHANDY_1_0 0.80.0
@@ -321,13 +321,13 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_swipe_group_get_type@LIBHANDY_1_0 0.0.12
  hdy_swipe_group_new@LIBHANDY_1_0 0.0.12
  hdy_swipe_group_remove_swipeable@LIBHANDY_1_0 0.0.12
- hdy_swipe_tracker_emit_begin_swipe@LIBHANDY_1_0 0.83.0
- hdy_swipe_tracker_emit_end_swipe@LIBHANDY_1_0 0.83.0
- hdy_swipe_tracker_emit_update_swipe@LIBHANDY_1_0 0.83.0
+ hdy_swipe_tracker_emit_begin_swipe@LIBHANDY_1_0 0.82.0
+ hdy_swipe_tracker_emit_end_swipe@LIBHANDY_1_0 0.82.0
+ hdy_swipe_tracker_emit_update_swipe@LIBHANDY_1_0 0.82.0
  hdy_swipe_tracker_get_allow_mouse_drag@LIBHANDY_1_0 0.0.12
  hdy_swipe_tracker_get_enabled@LIBHANDY_1_0 0.0.11
  hdy_swipe_tracker_get_reversed@LIBHANDY_1_0 0.0.11
- hdy_swipe_tracker_get_swipeable@LIBHANDY_1_0 0.83.0
+ hdy_swipe_tracker_get_swipeable@LIBHANDY_1_0 0.82.0
  hdy_swipe_tracker_get_type@LIBHANDY_1_0 0.0.11
  hdy_swipe_tracker_new@LIBHANDY_1_0 0.0.11
  hdy_swipe_tracker_set_allow_mouse_drag@LIBHANDY_1_0 0.0.12
@@ -339,7 +339,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_swipeable_get_distance@LIBHANDY_1_0 0.81.0
  hdy_swipeable_get_progress@LIBHANDY_1_0 0.81.0
  hdy_swipeable_get_snap_points@LIBHANDY_1_0 0.81.0
- hdy_swipeable_get_swipe_area@LIBHANDY_1_0 0.83.0
+ hdy_swipeable_get_swipe_area@LIBHANDY_1_0 0.82.0
  hdy_swipeable_get_type@LIBHANDY_1_0 0.0.12
  hdy_swipeable_switch_child@LIBHANDY_1_0 0.0.12
  hdy_title_bar_get_selection_mode@LIBHANDY_1_0 0.0.3
