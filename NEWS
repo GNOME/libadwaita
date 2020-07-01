@@ -1,4 +1,43 @@
 ==============
+Version 0.83.0
+==============
+
+- Initialization:
+  - Add hdy_init() back, with a different prototype. See its
+    documentation to know how to use it.
+  - Drop initializing the library via a constructor as it was causing
+    many issues.
+  - Drop the now useless Python override.
+  - Directly update themes on changes.
+- Add HdySwipeTracker.
+- HdySwipeable:
+  - Drop the begin_swipe(), update_swipe(), end_swipe() and get_range()
+    virtual methods
+  - Add the get_swipe_tracker() and get_swipe_area() virtual methods.
+  - Add the …_switch_child(), …_emit_child_switched(),
+    …_get_swipe_tracker(), …_get_distance(), …_get_snap_points(),
+    …_get_progress(), …_get_cancel_progress(), and …_get_swipe_area()
+    functions.
+  - Make implementing get_snap_points() mandatory by dropping its
+    default implementation, compensating the disparition of get_range().
+  - Rename the switch-child signal to child-switched to avoid a naming
+    collision with the switch_child() method.
+- HdyDeck and HdyLeaflet:
+  - Add an outline to shadows to make them slightly more contrasted yet
+    subtle.
+  - Make shadows work over OpenGL content.
+  - Cache shadows for child transitions.
+  - Stop drawing invisible shadows when no transition is running.
+  - Rewrite the transition code to give a window to all children, fixing
+    numerous issues.
+- HdyExpanderRow:
+  - Add hdy_expander_row_add_prefix().
+- Add libhandy.syms back to tarballs as it was mistakenly removed.
+- Translation updates:
+  - Polish
+  - Spanish
+
+==============
 Version 0.82.0
 ==============
 
