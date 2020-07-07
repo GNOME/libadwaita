@@ -29,6 +29,13 @@ struct _HdyHeaderGroupChild
   GObject *object;
 };
 
+enum {
+  SIGNAL_UPDATE_DECORATION_LAYOUTS,
+  SIGNAL_LAST_SIGNAL,
+};
+
+static guint signals[SIGNAL_LAST_SIGNAL];
+
 G_DEFINE_TYPE (HdyHeaderGroupChild, hdy_header_group_child, G_TYPE_OBJECT)
 
 struct _HdyHeaderGroup
@@ -88,6 +95,8 @@ forward_update_decoration_layouts (HdyHeaderGroupChild *self)
   header_group = HDY_HEADER_GROUP (g_object_get_data (G_OBJECT (self), "header-group"));
 
   g_assert (HDY_IS_HEADER_GROUP (header_group));
+
+  g_signal_emit (header_group, signals[SIGNAL_UPDATE_DECORATION_LAYOUTS], 0);
 
   update_decoration_layouts (header_group);
 }
@@ -710,6 +719,23 @@ hdy_header_group_class_init (HdyHeaderGroupClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, N_PROPS, props);
+
+  /**
+   * HdyHeaderGroup::update-decoration-layouts:
+   * @self: The #HdyHeaderGroup instance
+   *
+   * This signal is emitted before updating the decoration layouts.
+   *
+   * Since: 1.0
+   */
+  signals[SIGNAL_UPDATE_DECORATION_LAYOUTS] =
+    g_signal_new ("update-decoration-layouts",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  0);
 }
 
 static void
