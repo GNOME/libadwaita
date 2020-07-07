@@ -214,7 +214,7 @@
         <property id="headerbars" name="Headerbars" save="False">
           <parameter-spec>
             <type>GladeParamObjects</type>
-            <value-type>GtkHeaderBar</value-type>
+            <value-type>HdyHeaderBar</value-type>
           </parameter-spec>
           <tooltip>List of headerbars in this group</tooltip>
         </property>
