@@ -37,6 +37,7 @@ struct _HdyHeaderGroup
 
   GSList *children;
   gboolean decorate_all;
+  gchar *layout;
 };
 
 static void hdy_header_group_buildable_init (GtkBuildableIface *iface);
@@ -244,7 +245,10 @@ update_decoration_layouts (HdyHeaderGroup *self)
     return;
 
   settings = gtk_settings_get_default ();
-  g_object_get (G_OBJECT (settings), "gtk-decoration-layout", &layout, NULL);
+  if (self->layout)
+    layout = g_strdup (self->layout);
+  else
+    g_object_get (G_OBJECT (settings), "gtk-decoration-layout", &layout, NULL);
   if (layout == NULL)
     layout = g_strdup (":");
 
@@ -406,6 +410,16 @@ hdy_header_group_dispose (GObject *object)
   self->children = NULL;
 
   G_OBJECT_CLASS (hdy_header_group_parent_class)->dispose (object);
+}
+
+static void
+hdy_header_group_finalize (GObject *object)
+{
+  HdyHeaderGroup *self = (HdyHeaderGroup *) object;
+
+  g_free (self->layout);
+
+  G_OBJECT_CLASS (hdy_header_group_parent_class)->finalize (object);
 }
 
 static void
@@ -674,6 +688,7 @@ hdy_header_group_class_init (HdyHeaderGroupClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   object_class->dispose = hdy_header_group_dispose;
+  object_class->finalize = hdy_header_group_finalize;
   object_class->get_property = hdy_header_group_get_property;
   object_class->set_property = hdy_header_group_set_property;
 
