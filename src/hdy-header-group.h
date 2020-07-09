@@ -25,7 +25,7 @@ void hdy_header_group_add_gtk_header_bar (HdyHeaderGroup *self,
 
 GSList *hdy_header_group_get_children (HdyHeaderGroup *self);
 
-void     hdy_header_group_remove_header_bar (HdyHeaderGroup *self,
+void hdy_header_group_remove_gtk_header_bar (HdyHeaderGroup *self,
                                              GtkHeaderBar   *header_bar);
 
 gboolean hdy_header_group_get_decorate_all (HdyHeaderGroup *self);

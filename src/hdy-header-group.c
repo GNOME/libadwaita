@@ -170,15 +170,15 @@ hdy_header_group_add_gtk_header_bar (HdyHeaderGroup *self,
 
 
 /**
- * hdy_header_group_remove_header_bar:
+ * hdy_header_group_remove_gtk_header_bar:
  * @self: a #HdyHeaderGroup
  * @header_bar: the #GtkHeaderBar to remove
  *
  * Removes a widget from a #HdyHeaderGroup
  **/
 void
-hdy_header_group_remove_header_bar (HdyHeaderGroup *self,
-                                    GtkHeaderBar *header_bar)
+hdy_header_group_remove_gtk_header_bar (HdyHeaderGroup *self,
+                                        GtkHeaderBar   *header_bar)
 {
   g_return_if_fail (HDY_IS_HEADER_GROUP (self));
   g_return_if_fail (GTK_IS_HEADER_BAR (header_bar));
