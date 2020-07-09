@@ -130,6 +130,22 @@
     </refsect3>
 
     <refsect3>
+      <title>Adapt to HdyHeaderGroup API changes</title>
+      <para>
+        The #HdyHeaderGroup object has been largely redesigned, most of its
+        methods changed, see its documentation to know more.
+      </para>
+      <para>
+        The child type is now #HdyHeaderGroupChild, which can represent either
+        a #GtkHeaderBar, a #HdyHeaderBar, or a #HdyHeaderGroup.
+      </para>
+      <para>
+        The “focus” property has been replaced by #HdyHeaderGroup:decorate-all,
+        which works quite differently.
+      </para>
+    </refsect3>
+
+    <refsect3>
       <title>Adapt to HdyLeaflet API changes</title>
       <para>
         The #HdyFold type has been removed in favor of using a boolean, and
