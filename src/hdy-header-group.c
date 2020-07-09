@@ -193,7 +193,7 @@ hdy_header_group_remove_header_bar (HdyHeaderGroup *self,
 
 
 /**
- * hdy_header_group_get_header_bars:
+ * hdy_header_group_get_children:
  * @self: a #HdyHeaderGroup
  *
  * Returns the list of headerbars associated with @self.
@@ -202,7 +202,7 @@ hdy_header_group_remove_header_bar (HdyHeaderGroup *self,
  *   headerbars. The list is owned by libhandy and should not be modified.
  **/
 GSList *
-hdy_header_group_get_header_bars (HdyHeaderGroup *self)
+hdy_header_group_get_children (HdyHeaderGroup *self)
 {
   g_return_val_if_fail (HDY_IS_HEADER_GROUP (self), NULL);
 

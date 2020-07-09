@@ -140,7 +140,7 @@ glade_hdy_header_group_set_property (GladeWidgetAdaptor *adaptor,
 
     /* remove old widgets */
     if ((sg_widgets =
-         hdy_header_group_get_header_bars (HDY_HEADER_GROUP (object))) != NULL) {
+         hdy_header_group_get_children (HDY_HEADER_GROUP (object))) != NULL) {
       /* copy since we are modifying an internal list */
       sg_widgets = g_slist_copy (sg_widgets);
       for (slist = sg_widgets; slist; slist = slist->next)

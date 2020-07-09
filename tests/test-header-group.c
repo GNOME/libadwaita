@@ -43,19 +43,19 @@ test_hdy_header_group_add_remove (void)
   bar1 = GTK_HEADER_BAR (gtk_header_bar_new ());
   bar2 = GTK_HEADER_BAR (gtk_header_bar_new ());
 
-  g_assert_cmpint (g_slist_length (hdy_header_group_get_header_bars (hg)), ==, 0);
+  g_assert_cmpint (g_slist_length (hdy_header_group_get_children (hg)), ==, 0);
 
   hdy_header_group_add_header_bar (hg, GTK_HEADER_BAR (bar1));
-  g_assert_cmpint (g_slist_length (hdy_header_group_get_header_bars (hg)), ==, 1);
+  g_assert_cmpint (g_slist_length (hdy_header_group_get_children (hg)), ==, 1);
 
   hdy_header_group_add_header_bar (hg, GTK_HEADER_BAR (bar2));
-  g_assert_cmpint (g_slist_length (hdy_header_group_get_header_bars (hg)), ==, 2);
+  g_assert_cmpint (g_slist_length (hdy_header_group_get_children (hg)), ==, 2);
 
   hdy_header_group_remove_header_bar (hg, GTK_HEADER_BAR (bar2));
-  g_assert_cmpint (g_slist_length (hdy_header_group_get_header_bars (hg)), ==, 1);
+  g_assert_cmpint (g_slist_length (hdy_header_group_get_children (hg)), ==, 1);
 
   hdy_header_group_remove_header_bar (hg, GTK_HEADER_BAR (bar1));
-  g_assert_cmpint (g_slist_length (hdy_header_group_get_header_bars (hg)), ==, 0);
+  g_assert_cmpint (g_slist_length (hdy_header_group_get_children (hg)), ==, 0);
 
   g_object_unref (hg);
 }
