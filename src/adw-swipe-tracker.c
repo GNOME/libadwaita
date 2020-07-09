@@ -69,6 +69,7 @@ struct _AdwSwipeTracker
   gboolean enabled;
   gboolean reversed;
   gboolean allow_mouse_drag;
+  gboolean allow_long_swipes;
   GtkOrientation orientation;
 
   gdouble pointer_x;
@@ -103,10 +104,11 @@ enum {
   PROP_ENABLED,
   PROP_REVERSED,
   PROP_ALLOW_MOUSE_DRAG,
+  PROP_ALLOW_LONG_SWIPES,
 
   /* GtkOrientable */
   PROP_ORIENTATION,
-  LAST_PROP = PROP_ALLOW_MOUSE_DRAG + 1,
+  LAST_PROP = PROP_ALLOW_LONG_SWIPES + 1,
 };
 
 static GParamSpec *props[LAST_PROP];
@@ -337,14 +339,19 @@ gesture_update (AdwSwipeTracker *self,
 {
   gdouble lower, upper;
   gdouble progress;
-  g_autofree gdouble *points = NULL;
-  gint n;
 
   if (self->state != ADW_SWIPE_TRACKER_STATE_SCROLLING)
     return;
 
-  points = adw_swipeable_get_snap_points (self->swipeable, &n);
-  get_bounds (self, points, n, self->initial_progress, &lower, &upper);
+  if (!self->allow_long_swipes) {
+    g_autofree gdouble *points = NULL;
+    gint n;
+
+    points = adw_swipeable_get_snap_points (self->swipeable, &n);
+    get_bounds (self, points, n, self->initial_progress, &lower, &upper);
+  } else {
+    get_range (self, &lower, &upper);
+  }
 
   progress = self->progress + delta;
   progress = CLAMP (progress, lower, upper);
@@ -359,7 +366,7 @@ get_end_progress (AdwSwipeTracker *self,
                   gdouble          velocity,
                   gboolean         is_touchpad)
 {
-  gdouble pos, decel, slope, lower, upper;
+  gdouble pos, decel, slope;
   g_autofree gdouble *points = NULL;
   gint n;
 
@@ -387,9 +394,13 @@ get_end_progress (AdwSwipeTracker *self,
 
   pos = (pos * SIGN (velocity)) + self->progress;
 
-  get_bounds (self, points, n, self->initial_progress, &lower, &upper);
+  if (!self->allow_long_swipes) {
+    gdouble lower, upper;
 
-  pos = CLAMP (pos, lower, upper);
+    get_bounds (self, points, n, self->initial_progress, &lower, &upper);
+
+    pos = CLAMP (pos, lower, upper);
+  }
 
   pos = points[find_point_for_projection (self, points, n, pos, velocity)];
 
@@ -954,6 +965,10 @@ adw_swipe_tracker_get_property (GObject    *object,
     g_value_set_boolean (value, adw_swipe_tracker_get_allow_mouse_drag (self));
     break;
 
+  case PROP_ALLOW_LONG_SWIPES:
+    g_value_set_boolean (value, adw_swipe_tracker_get_allow_long_swipes (self));
+    break;
+
   case PROP_ORIENTATION:
     g_value_set_enum (value, self->orientation);
     break;
@@ -986,6 +1001,10 @@ adw_swipe_tracker_set_property (GObject      *object,
 
   case PROP_ALLOW_MOUSE_DRAG:
     adw_swipe_tracker_set_allow_mouse_drag (self, g_value_get_boolean (value));
+    break;
+
+  case PROP_ALLOW_LONG_SWIPES:
+    adw_swipe_tracker_set_allow_long_swipes (self, g_value_get_boolean (value));
     break;
 
   case PROP_ORIENTATION:
@@ -1063,6 +1082,21 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
     g_param_spec_boolean ("allow-mouse-drag",
                           _("Allow mouse drag"),
                           _("Whether to allow dragging with mouse pointer"),
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwSwipeTracker:allow-long-swipes:
+   *
+   * Whether to allow swiping for more than one snap point at a time. If the
+   * value is %FALSE, each swipe can only move to the adjacent snap points.
+   *
+   * Since: 1.0
+   */
+  props[PROP_ALLOW_LONG_SWIPES] =
+    g_param_spec_boolean ("allow-long-swipes",
+                          _("Allow long swipes"),
+                          _("Whether to allow swiping for more than one snap point at a time"),
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1321,6 +1355,51 @@ adw_swipe_tracker_set_allow_mouse_drag (AdwSwipeTracker *self,
   update_controllers (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALLOW_MOUSE_DRAG]);
+}
+
+/**
+ * adw_swipe_tracker_get_allow_long_swipes:
+ * @self: a #AdwSwipeTracker
+ *
+ * Whether to allow swiping for more than one snap point at a time. If the
+ * value is %FALSE, each swipe can only move to the adjacent snap points.
+ *
+ * Returns: %TRUE if long swipes are allowed, %FALSE otherwise
+ *
+ * Since: 1.0
+ */
+gboolean
+adw_swipe_tracker_get_allow_long_swipes (AdwSwipeTracker *self)
+{
+  g_return_val_if_fail (ADW_IS_SWIPE_TRACKER (self), FALSE);
+
+  return self->allow_long_swipes;
+}
+
+/**
+ * adw_swipe_tracker_set_allow_long_swipes:
+ * @self: a #AdwSwipeTracker
+ * @allow_long_swipes: whether to allow long swipes
+ *
+ * Sets whether to allow swiping for more than one snap point at a time. If the
+ * value is %FALSE, each swipe can only move to the adjacent snap points.
+ *
+ * Since: 1.0
+ */
+void
+adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
+                                         gboolean         allow_long_swipes)
+{
+  g_return_if_fail (ADW_IS_SWIPE_TRACKER (self));
+
+  allow_long_swipes = !!allow_long_swipes;
+
+  if (self->allow_long_swipes == allow_long_swipes)
+    return;
+
+  self->allow_long_swipes = allow_long_swipes;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALLOW_LONG_SWIPES]);
 }
 
 /**

@@ -47,6 +47,12 @@ void             adw_swipe_tracker_set_allow_mouse_drag (AdwSwipeTracker *self,
                                                          gboolean         allow_mouse_drag);
 
 ADW_AVAILABLE_IN_ALL
+gboolean         adw_swipe_tracker_get_allow_long_swipes (AdwSwipeTracker *self);
+ADW_AVAILABLE_IN_ALL
+void             adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
+                                                          gboolean         allow_long_swipes);
+
+ADW_AVAILABLE_IN_ALL
 void             adw_swipe_tracker_shift_position (AdwSwipeTracker *self,
                                                    gdouble          delta);
 
