@@ -152,8 +152,8 @@ glade_hdy_header_group_set_property (GladeWidgetAdaptor *adaptor,
     /* add new widgets */
     if ((widgets = g_value_get_boxed (value)) != NULL) {
       for (list = widgets; list; list = list->next)
-        hdy_header_group_add_header_bar (HDY_HEADER_GROUP (object),
-                                         GTK_HEADER_BAR (list->data));
+        hdy_header_group_add_gtk_header_bar (HDY_HEADER_GROUP (object),
+                                             GTK_HEADER_BAR (list->data));
     }
   } else {
     GWA_GET_CLASS (G_TYPE_OBJECT)->set_property (adaptor, object,

@@ -20,8 +20,8 @@ G_DECLARE_FINAL_TYPE (HdyHeaderGroup, hdy_header_group, HDY, HEADER_GROUP, GObje
 
 HdyHeaderGroup *hdy_header_group_new (void);
 
-void hdy_header_group_add_header_bar (HdyHeaderGroup *self,
-                                      GtkHeaderBar   *header_bar);
+void hdy_header_group_add_gtk_header_bar (HdyHeaderGroup *self,
+                                          GtkHeaderBar   *header_bar);
 
 GSList *hdy_header_group_get_children (HdyHeaderGroup *self);
 

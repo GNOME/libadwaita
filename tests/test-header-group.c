@@ -45,10 +45,10 @@ test_hdy_header_group_add_remove (void)
 
   g_assert_cmpint (g_slist_length (hdy_header_group_get_children (hg)), ==, 0);
 
-  hdy_header_group_add_header_bar (hg, GTK_HEADER_BAR (bar1));
+  hdy_header_group_add_gtk_header_bar (hg, GTK_HEADER_BAR (bar1));
   g_assert_cmpint (g_slist_length (hdy_header_group_get_children (hg)), ==, 1);
 
-  hdy_header_group_add_header_bar (hg, GTK_HEADER_BAR (bar2));
+  hdy_header_group_add_gtk_header_bar (hg, GTK_HEADER_BAR (bar2));
   g_assert_cmpint (g_slist_length (hdy_header_group_get_children (hg)), ==, 2);
 
   hdy_header_group_remove_header_bar (hg, GTK_HEADER_BAR (bar2));

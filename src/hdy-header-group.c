@@ -136,7 +136,7 @@ hdy_header_group_new (void)
 }
 
 /**
- * hdy_header_group_add_header_bar:
+ * hdy_header_group_add_gtk_header_bar:
  * @self: a #HdyHeaderGroup
  * @header_bar: the #GtkHeaderBar to add
  *
@@ -151,8 +151,8 @@ hdy_header_group_new (void)
  * be removed from the header group.
  */
 void
-hdy_header_group_add_header_bar (HdyHeaderGroup *self,
-                                 GtkHeaderBar   *header_bar)
+hdy_header_group_add_gtk_header_bar (HdyHeaderGroup *self,
+                                     GtkHeaderBar   *header_bar)
 {
   g_return_if_fail (HDY_IS_HEADER_GROUP (self));
   g_return_if_fail (GTK_IS_HEADER_BAR (header_bar));
@@ -489,7 +489,8 @@ hdy_header_group_buildable_custom_finished (GtkBuildable *buildable,
       object = gtk_builder_get_object (builder, item_data->name);
       if (!object)
         continue;
-      hdy_header_group_add_header_bar (HDY_HEADER_GROUP (data->object), GTK_HEADER_BAR (object));
+      hdy_header_group_add_gtk_header_bar (HDY_HEADER_GROUP (data->object),
+                                           GTK_HEADER_BAR (object));
     }
   g_slist_free_full (data->items, item_data_free);
   g_slice_free (GSListSubParserData, data);

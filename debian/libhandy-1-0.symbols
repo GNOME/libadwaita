@@ -164,7 +164,7 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_header_bar_set_subtitle@LIBHANDY_1_0 0.0.10
  hdy_header_bar_set_title@LIBHANDY_1_0 0.0.10
  hdy_header_bar_set_transition_duration@LIBHANDY_1_0 0.0.10
- hdy_header_group_add_header_bar@LIBHANDY_1_0 0.0.3
+ hdy_header_group_add_gtk_header_bar@LIBHANDY_1_0 0.83.0
  hdy_header_group_get_children@LIBHANDY_1_0 0.83.0
  hdy_header_group_get_decorate_all@LIBHANDY_1_0 0.83.0
  hdy_header_group_get_type@LIBHANDY_1_0 0.0.3
