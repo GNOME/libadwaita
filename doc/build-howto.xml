@@ -72,7 +72,7 @@
     </para>
 
     <informalexample><programlisting>
-      &package_string;_dep = dependency('&package_ver_str;', version: '>= &package_version;')
+      &package_string;_dep = dependency('&package_ver_str;', version: '>= &package_version;', required: false)
       if not &package_string;_dep.found()
         &package_string; = subproject(
           '&package_string;',
