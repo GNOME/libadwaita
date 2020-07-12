@@ -85,6 +85,12 @@ void            adw_carousel_set_allow_mouse_drag (AdwCarousel *self,
                                                    gboolean     allow_mouse_drag);
 
 ADW_AVAILABLE_IN_ALL
+gboolean        adw_carousel_get_allow_long_swipes (AdwCarousel *self);
+ADW_AVAILABLE_IN_ALL
+void            adw_carousel_set_allow_long_swipes (AdwCarousel *self,
+                                                    gboolean     allow_long_swipes);
+
+ADW_AVAILABLE_IN_ALL
 guint           adw_carousel_get_reveal_duration (AdwCarousel *self);
 ADW_AVAILABLE_IN_ALL
 void            adw_carousel_set_reveal_duration (AdwCarousel *self,

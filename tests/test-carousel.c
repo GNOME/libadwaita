@@ -167,6 +167,32 @@ test_adw_carousel_allow_mouse_drag (void)
 }
 
 static void
+test_adw_carousel_allow_long_swipes (void)
+{
+  AdwCarousel *carousel = ADW_CAROUSEL (adw_carousel_new ());
+  gboolean allow_long_swipes;
+
+  notified = 0;
+  g_signal_connect (carousel, "notify::allow-long-swipes", G_CALLBACK (notify_cb), NULL);
+
+  /* Accessors */
+  g_assert_false (adw_carousel_get_allow_long_swipes (carousel));
+  adw_carousel_set_allow_long_swipes (carousel, TRUE);
+  g_assert_true (adw_carousel_get_allow_long_swipes (carousel));
+  g_assert_cmpint (notified, ==, 1);
+
+  /* Property */
+  g_object_set (carousel, "allow-long-swipes", FALSE, NULL);
+  g_object_get (carousel, "allow-long-swipes", &allow_long_swipes, NULL);
+  g_assert_false (allow_long_swipes);
+  g_assert_cmpint (notified, ==, 2);
+
+  /* Setting the same value should not notify */
+  adw_carousel_set_allow_long_swipes (carousel, FALSE);
+  g_assert_cmpint (notified, ==, 2);
+}
+
+static void
 test_adw_carousel_reveal_duration (void)
 {
   AdwCarousel *carousel = ADW_CAROUSEL (adw_carousel_new ());
@@ -204,6 +230,7 @@ main (gint argc,
   g_test_add_func("/Adwaita/Carousel/spacing", test_adw_carousel_spacing);
   g_test_add_func("/Adwaita/Carousel/animation_duration", test_adw_carousel_animation_duration);
   g_test_add_func("/Adwaita/Carousel/allow_mouse_drag", test_adw_carousel_allow_mouse_drag);
+  g_test_add_func("/Adwaita/Carousel/allow_long_swipes", test_adw_carousel_allow_long_swipes);
   g_test_add_func("/Adwaita/Carousel/reveal_duration", test_adw_carousel_reveal_duration);
   return g_test_run();
 }
