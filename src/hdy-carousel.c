@@ -36,6 +36,7 @@
  * SECTION:hdy-carousel
  * @short_description: A paginated scrolling widget.
  * @title: HdyCarousel
+ * @See_also: #HdyCarouselIndicatorDots, #HdyCarouselIndicatorLines
  *
  * The #HdyCarousel widget can be used to display a set of pages with
  * swipe-based navigation between them and optional indicators.

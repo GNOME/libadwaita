@@ -25,7 +25,7 @@
  * SECTION:hdy-carousel-indicator-lines
  * @short_description: A lines indicator for #HdyCarousel
  * @title: HdyCarouselIndicatorLines
- * @See_also: #HdyCarousel
+ * @See_also: #HdyCarousel, #HdyCarouselIndicatorDots
  *
  * The #HdyCarouselIndicatorLines widget can be used to show a set of thin and long
  * rectangles for each page of a given #HdyCarousel. The carousel's active page
