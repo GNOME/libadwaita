@@ -32,50 +32,42 @@
                 <property name="transition-type">slide-down</property>
                 <property name="reveal-child" bind-source="window_header_revealer_switch" bind-property="state" bind-flags="sync-create | bidirectional"/>
                 <child>
-                  <object class="HdyWindowHandle">
+                  <object class="HdyHeaderBar" id="header_bar">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="title">Handy Demo</property>
+                    <property name="show_close_button">True</property>
                     <child>
-                      <object class="GtkHeaderBar" id="header_bar">
+                      <object class="GtkButton">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="title">Handy Demo</property>
-                        <property name="show_close_button">True</property>
-                        <style>
-                          <class name="titlebar"/>
-                        </style>
+                        <property name="can_focus">True</property>
+                        <signal name="clicked" handler="theme_variant_button_clicked_cb" swapped="yes"/>
                         <child>
-                          <object class="GtkButton">
+                          <object class="GtkImage" id="theme_variant_image">
                             <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <signal name="clicked" handler="theme_variant_button_clicked_cb" swapped="yes"/>
-                            <child>
-                              <object class="GtkImage" id="theme_variant_image">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                              </object>
-                            </child>
+                            <property name="can_focus">False</property>
                           </object>
-                        </child>
-                        <child>
-                          <object class="GtkMenuButton" id="menu_button">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="focus_on_click">False</property>
-                            <property name="menu_model">primary_menu</property>
-                            <property name="use_popover">True</property>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="icon_name">open-menu-symbolic</property>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="pack_type">end</property>
-                          </packing>
                         </child>
                       </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuButton" id="menu_button">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="focus_on_click">False</property>
+                        <property name="menu_model">primary_menu</property>
+                        <property name="use_popover">True</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="icon_name">open-menu-symbolic</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="pack_type">end</property>
+                      </packing>
                     </child>
                   </object>
                 </child>
@@ -147,24 +139,61 @@
                 <property name="transition-type" bind-source="header_revealer" bind-property="transition-type" bind-flags="bidirectional|sync-create"/>
                 <property name="reveal-child" bind-source="header_revealer" bind-property="reveal-child" bind-flags="bidirectional|sync-create"/>
                 <child>
-                  <object class="HdyWindowHandle">
+                  <object class="GtkStack" id="header_stack">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="vexpand">False</property>
+                    <property name="transition-type" bind-source="stack" bind-property="transition-type" bind-flags="sync-create"/>
                     <child>
-                      <object class="GtkStack" id="header_stack">
+                      <object class="HdyHeaderBar" id="default_header_bar">
+                        <property name="visible">True</property>
+                        <property name="expand">True</property>
+                        <property name="show_close_button">True</property>
+                        <child>
+                          <object class="GtkButton" id="back">
+                            <property name="can_focus">False</property>
+                            <property name="receives_default">False</property>
+                            <property name="valign">center</property>
+                            <property name="use-underline">True</property>
+                            <property name="visible" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
+                            <signal name="clicked" handler="back_clicked_cb"/>
+                            <style>
+                              <class name="image-button"/>
+                            </style>
+                            <child internal-child="accessible">
+                              <object class="AtkObject" id="a11y-back">
+                                <property name="accessible-name" translatable="yes">Back</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkImage" id="back_image">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_name">go-previous-symbolic</property>
+                                <property name="icon_size">1</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="name">default</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="HdyDeck" id="header_deck">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="vexpand">False</property>
-                        <property name="transition-type" bind-source="stack" bind-property="transition-type" bind-flags="sync-create"/>
+                        <property name="vexpand">True</property>
+                        <property name="can-swipe-back">True</property>
+                        <property name="transition-type" bind-source="content_deck" bind-property="transition-type" bind-flags="sync-create"/>
                         <child>
-                          <object class="GtkHeaderBar" id="default_header_bar">
+                          <object class="HdyHeaderBar" id="deck_header_bar">
                             <property name="visible">True</property>
                             <property name="expand">True</property>
                             <property name="show_close_button">True</property>
-                            <style>
-                              <class name="titlebar"/>
-                            </style>
                             <child>
-                              <object class="GtkButton" id="back">
+                              <object class="GtkButton" id="deck-back">
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">False</property>
                                 <property name="valign">center</property>
@@ -175,130 +204,7 @@
                                   <class name="image-button"/>
                                 </style>
                                 <child internal-child="accessible">
-                                  <object class="AtkObject" id="a11y-back">
-                                    <property name="accessible-name" translatable="yes">Back</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkImage" id="back_image">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="icon_name">go-previous-symbolic</property>
-                                    <property name="icon_size">1</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="name">default</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="HdyDeck" id="header_deck">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="vexpand">True</property>
-                            <property name="can-swipe-back">True</property>
-                            <property name="transition-type" bind-source="content_deck" bind-property="transition-type" bind-flags="sync-create"/>
-                            <child>
-                              <object class="GtkHeaderBar" id="deck_header_bar">
-                                <property name="visible">True</property>
-                                <property name="expand">True</property>
-                                <property name="show_close_button">True</property>
-                                <style>
-                                  <class name="titlebar"/>
-                                </style>
-                                <child>
-                                  <object class="GtkButton" id="deck-back">
-                                    <property name="can_focus">False</property>
-                                    <property name="receives_default">False</property>
-                                    <property name="valign">center</property>
-                                    <property name="use-underline">True</property>
-                                    <property name="visible" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
-                                    <signal name="clicked" handler="back_clicked_cb"/>
-                                    <style>
-                                      <class name="image-button"/>
-                                    </style>
-                                    <child internal-child="accessible">
-                                      <object class="AtkObject" id="a11y-deck-back">
-                                        <property name="accessible-name" translatable="yes">Back</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkImage">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="icon_name">go-previous-symbolic</property>
-                                        <property name="icon_size">1</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkHeaderBar" id="deck_sub_header_bar">
-                                <property name="visible">True</property>
-                                <property name="expand">True</property>
-                                <property name="show_close_button">True</property>
-                                <style>
-                                  <class name="titlebar"/>
-                                </style>
-                                <child>
-                                  <object class="GtkButton" id="deck-sub-back">
-                                    <property name="can_focus">False</property>
-                                    <property name="receives_default">False</property>
-                                    <property name="valign">center</property>
-                                    <property name="use-underline">True</property>
-                                    <property name="visible">True</property>
-                                    <signal name="clicked" handler="deck_back_clicked_cb"/>
-                                    <style>
-                                      <class name="image-button"/>
-                                    </style>
-                                    <child internal-child="accessible">
-                                      <object class="AtkObject" id="a11y-deck-sub-back">
-                                        <property name="accessible-name" translatable="yes">Back</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkImage">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="icon_name">go-previous-symbolic</property>
-                                        <property name="icon_size">1</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="name">deck</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkHeaderBar" id="search_bar_header_bar">
-                            <property name="visible">True</property>
-                            <property name="expand">True</property>
-                            <property name="show_close_button">True</property>
-                            <style>
-                              <class name="titlebar"/>
-                            </style>
-                            <child>
-                              <object class="GtkButton">
-                                <property name="can_focus">False</property>
-                                <property name="receives_default">False</property>
-                                <property name="valign">center</property>
-                                <property name="use-underline">True</property>
-                                <property name="visible" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
-                                <signal name="clicked" handler="back_clicked_cb"/>
-                                <style>
-                                  <class name="image-button"/>
-                                </style>
-                                <child internal-child="accessible">
-                                  <object class="AtkObject">
+                                  <object class="AtkObject" id="a11y-deck-back">
                                     <property name="accessible-name" translatable="yes">Back</property>
                                   </object>
                                 </child>
@@ -312,41 +218,110 @@
                                 </child>
                               </object>
                             </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="HdyHeaderBar" id="deck_sub_header_bar">
+                            <property name="visible">True</property>
+                            <property name="expand">True</property>
+                            <property name="show_close_button">True</property>
                             <child>
-                              <object class="GtkToggleButton">
-                                <property name="visible">True</property>
+                              <object class="GtkButton" id="deck-sub-back">
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">False</property>
                                 <property name="valign">center</property>
                                 <property name="use-underline">True</property>
-                                <property name="active" bind-source="search_bar" bind-property="search-mode-enabled" bind-flags="sync-create|bidirectional"/>
+                                <property name="visible">True</property>
+                                <signal name="clicked" handler="deck_back_clicked_cb"/>
                                 <style>
                                   <class name="image-button"/>
                                 </style>
                                 <child internal-child="accessible">
-                                  <object class="AtkObject" id="a11y-search">
-                                    <property name="accessible-name" translatable="yes">Search</property>
+                                  <object class="AtkObject" id="a11y-deck-sub-back">
+                                    <property name="accessible-name" translatable="yes">Back</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkImage" id="search_image">
+                                  <object class="GtkImage">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="icon_name">edit-find-symbolic</property>
+                                    <property name="icon_name">go-previous-symbolic</property>
                                     <property name="icon_size">1</property>
                                   </object>
                                 </child>
                               </object>
-                              <packing>
-                                <property name="pack_type">end</property>
-                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="name">deck</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="HdyHeaderBar" id="search_bar_header_bar">
+                        <property name="visible">True</property>
+                        <property name="expand">True</property>
+                        <property name="show_close_button">True</property>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="can_focus">False</property>
+                            <property name="receives_default">False</property>
+                            <property name="valign">center</property>
+                            <property name="use-underline">True</property>
+                            <property name="visible" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
+                            <signal name="clicked" handler="back_clicked_cb"/>
+                            <style>
+                              <class name="image-button"/>
+                            </style>
+                            <child internal-child="accessible">
+                              <object class="AtkObject">
+                                <property name="accessible-name" translatable="yes">Back</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_name">go-previous-symbolic</property>
+                                <property name="icon_size">1</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkToggleButton">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="receives_default">False</property>
+                            <property name="valign">center</property>
+                            <property name="use-underline">True</property>
+                            <property name="active" bind-source="search_bar" bind-property="search-mode-enabled" bind-flags="sync-create|bidirectional"/>
+                            <style>
+                              <class name="image-button"/>
+                            </style>
+                            <child internal-child="accessible">
+                              <object class="AtkObject" id="a11y-search">
+                                <property name="accessible-name" translatable="yes">Search</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkImage" id="search_image">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_name">edit-find-symbolic</property>
+                                <property name="icon_size">1</property>
+                              </object>
                             </child>
                           </object>
                           <packing>
-                            <property name="name">search-bar</property>
+                            <property name="pack_type">end</property>
                           </packing>
                         </child>
                       </object>
+                      <packing>
+                        <property name="name">search-bar</property>
+                      </packing>
                     </child>
                   </object>
                 </child>
