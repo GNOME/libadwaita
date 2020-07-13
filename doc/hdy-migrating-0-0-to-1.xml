@@ -132,12 +132,15 @@
     </refsect3>
 
     <refsect3>
-      <title>Replace HdyPaginator by HdyCarousel</title>
+      <title>Adapt to HdyPaginator API changes</title>
       <para>
         HdyPaginator has been renamed HdyCarousel, so you should replace the
         former by the later.
-        Similarly, HdyPaginatorIndicatorStyle has been renamed
-        HdyCarouselIndicatorStyle.
+      </para>
+      <para>
+        The “indicator-style”, “indicator-spacing” and “center-content”
+        properties have been removed, instead use #HdyCarouselIndicatorDots
+        or #HdyCarouselIndicatorLines widgets.
       </para>
     </refsect3>
 
