@@ -36,6 +36,10 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_carousel_get_reveal_duration@LIBHANDY_1_0 0.81.0
  hdy_carousel_get_spacing@LIBHANDY_1_0 0.80.0
  hdy_carousel_get_type@LIBHANDY_1_0 0.80.0
+ hdy_carousel_indicator_dots_get_type@LIBHANDY_1_0 0.90.0
+ hdy_carousel_indicator_dots_get_carousel@LIBHANDY_1_0 0.90.0
+ hdy_carousel_indicator_dots_new@LIBHANDY_1_0 0.90.0
+ hdy_carousel_indicator_dots_set_carousel@LIBHANDY_1_0 0.90.0
  hdy_carousel_indicator_style_get_type@LIBHANDY_1_0 0.80.0
  hdy_carousel_insert@LIBHANDY_1_0 0.80.0
  hdy_carousel_new@LIBHANDY_1_0 0.80.0

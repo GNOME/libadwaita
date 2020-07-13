@@ -76,6 +76,7 @@
         <property id="visible-window" disabled="True" />
       </properties>
     </glade-widget-class>
+    <glade-widget-class name="HdyCarouselIndicatorDots" generic-name="carouselindicatordots" title="Carousel Indicator Dots" since="1.0"/>
     <glade-widget-class name="HdyClamp" generic-name="clamp" title="Clamp" since="1.0"/>
     <glade-widget-class name="HdyComboRow" generic-name="comborow" title="Combo Row" since="0.0.6"/>
     <glade-widget-class name="HdyDeck" generic-name="deck" title="Deck" since="1.0">
@@ -401,6 +402,7 @@
     <glade-widget-class-ref name="HdyApplicationWindow"/>
     <glade-widget-class-ref name="HdyAvatar"/>
     <glade-widget-class-ref name="HdyCarousel"/>
+    <glade-widget-class-ref name="HdyCarouselIndicatorDots"/>
     <glade-widget-class-ref name="HdyClamp"/>
     <glade-widget-class-ref name="HdyComboRow"/>
     <glade-widget-class-ref name="HdyDeck"/>
