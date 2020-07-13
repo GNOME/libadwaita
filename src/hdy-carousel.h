@@ -13,7 +13,6 @@
 #include "hdy-version.h"
 
 #include <gtk/gtk.h>
-#include "hdy-enums.h"
 
 G_BEGIN_DECLS
 
@@ -21,12 +20,6 @@ G_BEGIN_DECLS
 
 HDY_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (HdyCarousel, hdy_carousel, HDY, CAROUSEL, GtkEventBox)
-
-typedef enum {
-  HDY_CAROUSEL_INDICATOR_STYLE_NONE,
-  HDY_CAROUSEL_INDICATOR_STYLE_DOTS,
-  HDY_CAROUSEL_INDICATOR_STYLE_LINES,
-} HdyCarouselIndicatorStyle;
 
 HDY_AVAILABLE_IN_ALL
 GtkWidget      *hdy_carousel_new (void);
@@ -61,24 +54,6 @@ gboolean        hdy_carousel_get_interactive (HdyCarousel *self);
 HDY_AVAILABLE_IN_ALL
 void            hdy_carousel_set_interactive (HdyCarousel *self,
                                               gboolean     interactive);
-
-HDY_AVAILABLE_IN_ALL
-HdyCarouselIndicatorStyle hdy_carousel_get_indicator_style (HdyCarousel *self);
-HDY_AVAILABLE_IN_ALL
-void            hdy_carousel_set_indicator_style (HdyCarousel               *self,
-                                                  HdyCarouselIndicatorStyle  style);
-
-HDY_AVAILABLE_IN_ALL
-guint           hdy_carousel_get_indicator_spacing (HdyCarousel *self);
-HDY_AVAILABLE_IN_ALL
-void            hdy_carousel_set_indicator_spacing (HdyCarousel *self,
-                                                    guint        spacing);
-
-HDY_AVAILABLE_IN_ALL
-gboolean        hdy_carousel_get_center_content (HdyCarousel *self);
-HDY_AVAILABLE_IN_ALL
-void            hdy_carousel_set_center_content (HdyCarousel *self,
-                                                 gboolean     center_content);
 
 HDY_AVAILABLE_IN_ALL
 guint           hdy_carousel_get_spacing (HdyCarousel *self);

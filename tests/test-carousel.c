@@ -126,87 +126,6 @@ test_hdy_carousel_interactive (void)
 }
 
 static void
-test_hdy_carousel_indicator_style (void)
-{
-  HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
-  HdyCarouselIndicatorStyle indicator_style;
-
-  notified = 0;
-  g_signal_connect (carousel, "notify::indicator-style", G_CALLBACK (notify_cb), NULL);
-
-  /* Accessors */
-  g_assert_cmpint (hdy_carousel_get_indicator_style (carousel), ==, HDY_CAROUSEL_INDICATOR_STYLE_NONE);
-  hdy_carousel_set_indicator_style (carousel, HDY_CAROUSEL_INDICATOR_STYLE_DOTS);
-  g_assert_cmpint (hdy_carousel_get_indicator_style (carousel), ==, HDY_CAROUSEL_INDICATOR_STYLE_DOTS);
-  g_assert_cmpint (notified, ==, 1);
-  hdy_carousel_set_indicator_style (carousel, HDY_CAROUSEL_INDICATOR_STYLE_LINES);
-  g_assert_cmpint (hdy_carousel_get_indicator_style (carousel), ==, HDY_CAROUSEL_INDICATOR_STYLE_LINES);
-  g_assert_cmpint (notified, ==, 2);
-
-  /* Property */
-  g_object_set (carousel, "indicator-style", HDY_CAROUSEL_INDICATOR_STYLE_DOTS, NULL);
-  g_object_get (carousel, "indicator-style", &indicator_style, NULL);
-  g_assert_cmpint (indicator_style, ==, HDY_CAROUSEL_INDICATOR_STYLE_DOTS);
-  g_assert_cmpint (notified, ==, 3);
-
-  /* Setting the same value should not notify */
-  hdy_carousel_set_indicator_style (carousel, HDY_CAROUSEL_INDICATOR_STYLE_DOTS);
-  g_assert_cmpint (notified, ==, 3);
-}
-
-static void
-test_hdy_carousel_indicator_spacing (void)
-{
-  HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
-  guint spacing;
-
-  notified = 0;
-  g_signal_connect (carousel, "notify::indicator-spacing", G_CALLBACK (notify_cb), NULL);
-
-  /* Accessors */
-  g_assert_cmpuint (hdy_carousel_get_indicator_spacing (carousel), ==, 0);
-  hdy_carousel_set_indicator_spacing (carousel, 12);
-  g_assert_cmpuint (hdy_carousel_get_indicator_spacing (carousel), ==, 12);
-  g_assert_cmpint (notified, ==, 1);
-
-  /* Property */
-  g_object_set (carousel, "indicator-spacing", 6, NULL);
-  g_object_get (carousel, "indicator-spacing", &spacing, NULL);
-  g_assert_cmpuint (spacing, ==, 6);
-  g_assert_cmpint (notified, ==, 2);
-
-  /* Setting the same value should not notify */
-  hdy_carousel_set_indicator_spacing (carousel, 6);
-  g_assert_cmpint (notified, ==, 2);
-}
-
-static void
-test_hdy_carousel_center_content (void)
-{
-  HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
-  gboolean center_content;
-
-  notified = 0;
-  g_signal_connect (carousel, "notify::center-content", G_CALLBACK (notify_cb), NULL);
-
-  /* Accessors */
-  g_assert_false (hdy_carousel_get_center_content (carousel));
-  hdy_carousel_set_center_content (carousel, TRUE);
-  g_assert_true (hdy_carousel_get_center_content (carousel));
-  g_assert_cmpint (notified, ==, 1);
-
-  /* Property */
-  g_object_set (carousel, "center-content", FALSE, NULL);
-  g_object_get (carousel, "center-content", &center_content, NULL);
-  g_assert_false (center_content);
-  g_assert_cmpint (notified, ==, 2);
-
-  /* Setting the same value should not notify */
-  hdy_carousel_set_center_content (carousel, FALSE);
-  g_assert_cmpint (notified, ==, 2);
-}
-
-static void
 test_hdy_carousel_spacing (void)
 {
   HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
@@ -320,9 +239,6 @@ main (gint argc,
   g_test_add_func("/Handy/Carousel/add_remove", test_hdy_carousel_add_remove);
   g_test_add_func("/Handy/Carousel/scroll_to", test_hdy_carousel_scroll_to);
   g_test_add_func("/Handy/Carousel/interactive", test_hdy_carousel_interactive);
-  g_test_add_func("/Handy/Carousel/indicator_style", test_hdy_carousel_indicator_style);
-  g_test_add_func("/Handy/Carousel/indicator_spacing", test_hdy_carousel_indicator_spacing);
-  g_test_add_func("/Handy/Carousel/center_content", test_hdy_carousel_center_content);
   g_test_add_func("/Handy/Carousel/spacing", test_hdy_carousel_spacing);
   g_test_add_func("/Handy/Carousel/animation_duration", test_hdy_carousel_animation_duration);
   g_test_add_func("/Handy/Carousel/allow_mouse_drag", test_hdy_carousel_allow_mouse_drag);

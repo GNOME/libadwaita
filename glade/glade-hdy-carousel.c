@@ -18,8 +18,6 @@
 
 #include <math.h>
 
-#define CENTER_CONTENT_INSENSITIVE_MSG _("This property does not apply unless Show Indicators is set.")
-
 static gint
 hdy_carousel_get_page (HdyCarousel *carousel)
 {
@@ -141,11 +139,6 @@ glade_hdy_carousel_post_create (GladeWidgetAdaptor *adaptor,
 
   g_signal_connect (G_OBJECT (container), "notify::position",
                     G_CALLBACK (position_changed_cb), gwidget);
-
-  glade_widget_property_set_sensitive (gwidget, "indicator-spacing",
-                                       FALSE, CENTER_CONTENT_INSENSITIVE_MSG);
-  glade_widget_property_set_sensitive (gwidget, "center-content",
-                                       FALSE, CENTER_CONTENT_INSENSITIVE_MSG);
 }
 
 void
@@ -262,24 +255,6 @@ set_page (GObject      *object,
     hdy_carousel_scroll_to (HDY_CAROUSEL (object), child);
 }
 
-static void
-set_indicator_style (GObject      *container,
-                     const GValue *value)
-{
-  GladeWidget *gwidget;
-  HdyCarouselIndicatorStyle style;
-
-  gwidget = glade_widget_get_from_gobject (container);
-  style = g_value_get_enum (value);
-
-  glade_widget_property_set_sensitive (gwidget, "indicator-spacing",
-                                       style != HDY_CAROUSEL_INDICATOR_STYLE_NONE,
-                                       CENTER_CONTENT_INSENSITIVE_MSG);
-  glade_widget_property_set_sensitive (gwidget, "center-content",
-                                       style != HDY_CAROUSEL_INDICATOR_STYLE_NONE,
-                                       CENTER_CONTENT_INSENSITIVE_MSG);
-}
-
 void
 glade_hdy_carousel_set_property (GladeWidgetAdaptor *adaptor,
                                  GObject            *object,
@@ -291,9 +266,6 @@ glade_hdy_carousel_set_property (GladeWidgetAdaptor *adaptor,
   else if (!strcmp (id, "page"))
     set_page (object, value);
   else {
-    if (!strcmp (id, "indicator-style"))
-      set_indicator_style (object, value);
-
     GWA_GET_CLASS (GTK_TYPE_CONTAINER)->set_property (adaptor, object, id, value);
   }
 }

@@ -62,16 +62,6 @@
           </parameter-spec>
           <tooltip>Set the currently active page to edit, this property will not be saved</tooltip>
         </property>
-        <property id="indicator-style">
-          <displayable-values>
-            <!-- HdyCarouselIndicatorStyle enumeration value -->
-            <value id="HDY_CAROUSEL_INDICATOR_STYLE_NONE" name="None"/>
-            <!-- HdyCarouselIndicatorStyle enumeration value -->
-            <value id="HDY_CAROUSEL_INDICATOR_STYLE_DOTS" name="Dots"/>
-            <!-- HdyCarouselIndicatorStyle enumeration value -->
-            <value id="HDY_CAROUSEL_INDICATOR_STYLE_LINES" name="Lines"/>
-          </displayable-values>
-        </property>
         <property id="above-child" disabled="True" />
         <property id="visible-window" disabled="True" />
       </properties>

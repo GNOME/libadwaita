@@ -17,19 +17,6 @@
 
 #include <math.h>
 
-#define DOTS_RADIUS 3
-#define DOTS_RADIUS_SELECTED 4
-#define DOTS_OPACITY 0.3
-#define DOTS_OPACITY_SELECTED 0.9
-#define DOTS_SPACING 7
-#define DOTS_MARGIN 6
-
-#define LINE_WIDTH 3
-#define LINE_LENGTH 35
-#define LINE_SPACING 5
-#define LINE_OPACITY 0.3
-#define LINE_OPACITY_ACTIVE 0.9
-#define LINE_MARGIN 2
 #define DEFAULT_DURATION 250
 
 /**
@@ -39,7 +26,7 @@
  * @See_also: #HdyCarouselIndicatorDots, #HdyCarouselIndicatorLines
  *
  * The #HdyCarousel widget can be used to display a set of pages with
- * swipe-based navigation between them and optional indicators.
+ * swipe-based navigation between them.
  *
  * # CSS nodes
  *
@@ -48,40 +35,19 @@
  * Since: 1.0
  */
 
-/**
- * HdyCarouselIndicatorStyle
- * @HDY_CAROUSEL_INDICATOR_STYLE_NONE: No indicators
- * @HDY_CAROUSEL_INDICATOR_STYLE_DOTS: Each page is represented by a dot. Active dot gradually becomes larger and more opaque.
- * @HDY_CAROUSEL_INDICATOR_STYLE_LINES: Each page is represented by a thin and long line, and active view is shown with another line that moves between them
- *
- * These enumeration values describe the possible page indicator styles in a
- * #HdyCarousel widget.
- *
- * New values may be added to this enumeration over time.
- */
-
 struct _HdyCarousel
 {
   GtkEventBox parent_instance;
 
-  GtkBox *box;
-  GtkBox *empty_box;
   HdyCarouselBox *scrolling_box;
-  GtkDrawingArea *indicators;
 
   HdySwipeTracker *tracker;
 
-  HdyCarouselIndicatorStyle indicator_style;
-  guint indicator_spacing;
-  gboolean center_content;
   GtkOrientation orientation;
   guint animation_duration;
 
   gulong scroll_timeout_id;
   gboolean can_scroll;
-
-  guint tick_cb_id;
-  guint64 end_time;
 };
 
 static void hdy_carousel_swipeable_init (HdySwipeableInterface *iface);
@@ -95,9 +61,6 @@ enum {
   PROP_N_PAGES,
   PROP_POSITION,
   PROP_INTERACTIVE,
-  PROP_INDICATOR_STYLE,
-  PROP_INDICATOR_SPACING,
-  PROP_CENTER_CONTENT,
   PROP_SPACING,
   PROP_ANIMATION_DURATION,
   PROP_ALLOW_MOUSE_DRAG,
@@ -116,56 +79,6 @@ enum {
 };
 static guint signals[SIGNAL_LAST_SIGNAL];
 
-
-static gboolean
-indicators_animation_cb (GtkWidget     *widget,
-                         GdkFrameClock *frame_clock,
-                         gpointer       user_data)
-{
-  HdyCarousel *self = HDY_CAROUSEL (widget);
-  gint64 frame_time;
-
-  g_assert (self->tick_cb_id > 0);
-
-  gtk_widget_queue_draw (GTK_WIDGET (self->indicators));
-
-  frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000;
-
-  if (frame_time >= self->end_time ||
-      !hdy_get_enable_animations (GTK_WIDGET (self))) {
-    self->tick_cb_id = 0;
-    return G_SOURCE_REMOVE;
-  }
-
-  return G_SOURCE_CONTINUE;
-}
-
-static void
-animate_indicators (HdyCarousel *self,
-                    gint64       duration)
-{
-  GdkFrameClock *frame_clock;
-  gint64 frame_time;
-
-  if (duration <= 0 || !hdy_get_enable_animations (GTK_WIDGET (self))) {
-    gtk_widget_queue_draw (GTK_WIDGET (self->indicators));
-    return;
-  }
-
-  frame_clock = gtk_widget_get_frame_clock (GTK_WIDGET (self));
-  if (!frame_clock) {
-    gtk_widget_queue_draw (GTK_WIDGET (self->indicators));
-    return;
-  }
-
-  frame_time = gdk_frame_clock_get_frame_time (frame_clock);
-
-  self->end_time = MAX (self->end_time, frame_time / 1000 + duration);
-  if (self->tick_cb_id == 0)
-    self->tick_cb_id = gtk_widget_add_tick_callback (GTK_WIDGET (self),
-                                                     indicators_animation_cb,
-                                                     NULL, NULL);
-}
 
 static void
 hdy_carousel_switch_child (HdySwipeable *swipeable,
@@ -257,7 +170,6 @@ notify_n_pages_cb (HdyCarousel *self,
                    GObject     *object)
 {
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
-  gtk_widget_queue_draw (GTK_WIDGET (self->indicators));
 }
 
 static void
@@ -266,7 +178,6 @@ notify_position_cb (HdyCarousel *self,
                     GObject     *object)
 {
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POSITION]);
-  gtk_widget_queue_draw (GTK_WIDGET (self->indicators));
 }
 
 static void
@@ -304,259 +215,6 @@ position_shifted_cb (HdyCarousel    *self,
   hdy_swipe_tracker_shift_position (self->tracker, delta);
 }
 
-static GdkRGBA
-get_color (GtkWidget *widget)
-{
-  GtkStyleContext *context;
-  GtkStateFlags flags;
-  GdkRGBA color;
-
-  context = gtk_widget_get_style_context (widget);
-  flags = gtk_widget_get_state_flags (widget);
-  gtk_style_context_get_color (context, flags, &color);
-
-  return color;
-}
-
-static void
-draw_indicators_lines (GtkWidget      *widget,
-                       cairo_t        *cr,
-                       GtkOrientation  orientation,
-                       gdouble         position,
-                       gdouble        *sizes,
-                       guint           n_pages)
-{
-  GdkRGBA color;
-  gint i, widget_length;
-  gdouble indicator_length, full_size, line_size, pos;
-
-  color = get_color (widget);
-
-  line_size = LINE_LENGTH + LINE_SPACING;
-  indicator_length = 0;
-  for (i = 0; i < n_pages; i++)
-    indicator_length += line_size * sizes[i];
-
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    widget_length = gtk_widget_get_allocated_width (widget);
-  else
-    widget_length = gtk_widget_get_allocated_height (widget);
-
-  /* Ensure the indicators are aligned to pixel grid when not animating */
-  full_size = round (indicator_length / line_size) * line_size;
-  if ((widget_length - (gint) full_size) % 2 == 0)
-    widget_length--;
-
-  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-    cairo_translate (cr, (widget_length - indicator_length) / 2.0, 0);
-    cairo_scale (cr, 1, LINE_WIDTH);
-  } else {
-    cairo_translate (cr, 0, (widget_length - indicator_length) / 2.0);
-    cairo_scale (cr, LINE_WIDTH, 1);
-  }
-
-  pos = 0;
-  cairo_set_source_rgba (cr, color.red, color.green, color.blue,
-                         color.alpha * LINE_OPACITY);
-  for (i = 0; i < n_pages; i++) {
-    gdouble length;
-
-    length = (LINE_LENGTH + LINE_SPACING) * sizes[i] - LINE_SPACING;
-
-    if (length > 0) {
-      if (orientation == GTK_ORIENTATION_HORIZONTAL)
-        cairo_rectangle (cr, LINE_SPACING / 2.0 + pos, 0, length, 1);
-      else
-        cairo_rectangle (cr, 0, LINE_SPACING / 2.0 + pos, 1, length);
-    }
-
-    cairo_fill (cr);
-
-    pos += (LINE_LENGTH + LINE_SPACING) * sizes[i];
-  }
-
-  cairo_set_source_rgba (cr, color.red, color.green, color.blue,
-                         color.alpha * LINE_OPACITY_ACTIVE);
-
-  pos = LINE_SPACING / 2.0 + position * (LINE_LENGTH + LINE_SPACING);
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    cairo_rectangle (cr, pos, 0, LINE_LENGTH, 1);
-  else
-    cairo_rectangle (cr, 0, pos, 1, LINE_LENGTH);
-  cairo_fill (cr);
-}
-
-static void
-draw_indicators_dots (GtkWidget      *widget,
-                      cairo_t        *cr,
-                      GtkOrientation  orientation,
-                      gdouble         position,
-                      gdouble        *sizes,
-                      guint           n_pages)
-{
-  GdkRGBA color;
-  gint i, widget_length;
-  gdouble x, y, indicator_length, dot_size, full_size;
-  gdouble current_position, remaining_progress;
-
-  color = get_color (widget);
-  dot_size = 2 * DOTS_RADIUS_SELECTED + DOTS_SPACING;
-
-  indicator_length = 0;
-  for (i = 0; i < n_pages; i++)
-    indicator_length += dot_size * sizes[i];
-
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    widget_length = gtk_widget_get_allocated_width (widget);
-  else
-    widget_length = gtk_widget_get_allocated_height (widget);
-
-  /* Ensure the indicators are aligned to pixel grid when not animating */
-  full_size = round (indicator_length / dot_size) * dot_size;
-  if ((widget_length - (gint) full_size) % 2 == 0)
-    widget_length--;
-
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    cairo_translate (cr, (widget_length - indicator_length) / 2.0, DOTS_RADIUS_SELECTED);
-  else
-    cairo_translate (cr, DOTS_RADIUS_SELECTED, (widget_length - indicator_length) / 2.0);
-
-  x = 0;
-  y = 0;
-
-  current_position = 0;
-  remaining_progress = 1;
-
-  for (i = 0; i < n_pages; i++) {
-    gdouble progress, radius, opacity;
-
-    if (orientation == GTK_ORIENTATION_HORIZONTAL)
-      x += dot_size * sizes[i] / 2.0;
-    else
-      y += dot_size * sizes[i] / 2.0;
-
-    current_position += sizes[i];
-
-    progress = CLAMP (current_position - position, 0, remaining_progress);
-    remaining_progress -= progress;
-
-    radius = hdy_lerp (DOTS_RADIUS, DOTS_RADIUS_SELECTED, progress) * sizes[i];
-    opacity = hdy_lerp (DOTS_OPACITY, DOTS_OPACITY_SELECTED, progress) * sizes[i];
-
-    cairo_set_source_rgba (cr, color.red, color.green, color.blue,
-                           color.alpha * opacity);
-    cairo_arc (cr, x, y, radius, 0, 2 * G_PI);
-    cairo_fill (cr);
-
-    if (orientation == GTK_ORIENTATION_HORIZONTAL)
-      x += dot_size * sizes[i] / 2.0;
-    else
-      y += dot_size * sizes[i] / 2.0;
-  }
-}
-
-static void
-page_added_cb (HdyCarousel    *self,
-               guint           index,
-               HdyCarouselBox *box)
-{
-  animate_indicators (self, hdy_carousel_get_reveal_duration (self));
-}
-
-static void
-page_removed_cb (HdyCarousel    *self,
-                 guint           index,
-                 HdyCarouselBox *box)
-{
-  animate_indicators (self, hdy_carousel_get_reveal_duration (self));
-}
-
-static gboolean
-draw_indicators_cb (HdyCarousel *self,
-                    cairo_t     *cr,
-                    GtkWidget   *widget)
-{
-  gint i, n_points;
-  gdouble position, lower;
-  gdouble *points, *sizes;
-
-  points = hdy_carousel_box_get_snap_points (self->scrolling_box, &n_points);
-  position = hdy_carousel_box_get_position (self->scrolling_box);
-  hdy_carousel_box_get_range (self->scrolling_box, &lower, NULL);
-
-  if (n_points < 2)
-    return GDK_EVENT_PROPAGATE;
-
-  if (self->orientation == GTK_ORIENTATION_HORIZONTAL &&
-      gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
-    position = points[n_points - 1] - position;
-
-  sizes = g_new0 (gdouble, n_points);
-
-  sizes[0] = points[0] + 1;
-  for (i = 1; i < n_points; i++)
-    sizes[i] = points[i] - points[i - 1];
-
-  g_free (points);
-
-  switch (self->indicator_style){
-  case HDY_CAROUSEL_INDICATOR_STYLE_NONE:
-    break;
-
-  case HDY_CAROUSEL_INDICATOR_STYLE_DOTS:
-    draw_indicators_dots (widget, cr, self->orientation, position, sizes, n_points);
-    break;
-
-  case HDY_CAROUSEL_INDICATOR_STYLE_LINES:
-    draw_indicators_lines (widget, cr, self->orientation, position, sizes, n_points);
-    break;
-
-  default:
-    g_assert_not_reached ();
-  }
-
-  g_free (sizes);
-
-  return GDK_EVENT_PROPAGATE;
-}
-
-static void
-update_indicators (HdyCarousel *self)
-{
-  gboolean show_indicators;
-  gint size, margin;
-
-  show_indicators = (self->indicator_style != HDY_CAROUSEL_INDICATOR_STYLE_NONE);
-  gtk_widget_set_visible (GTK_WIDGET (self->indicators), show_indicators);
-  gtk_widget_set_visible (GTK_WIDGET (self->empty_box),
-                          show_indicators && self->center_content);
-
-  if (!show_indicators)
-    return;
-
-  switch (self->indicator_style) {
-  case HDY_CAROUSEL_INDICATOR_STYLE_DOTS:
-    size = 2 * DOTS_RADIUS_SELECTED;
-    margin = DOTS_MARGIN;
-    break;
-
-  case HDY_CAROUSEL_INDICATOR_STYLE_LINES:
-    size = LINE_WIDTH;
-    margin = LINE_MARGIN;
-    break;
-
-  case HDY_CAROUSEL_INDICATOR_STYLE_NONE:
-  default:
-    g_assert_not_reached ();
-  }
-
-  g_object_set (self->indicators,
-                "margin", margin,
-                "width-request", size,
-                "height-request", size,
-                NULL);
-}
-
 /* Copied from GtkOrientable. Orientable widgets are supposed
  * to do this manually via a private GTK function. */
 static void
@@ -586,27 +244,20 @@ set_orientable_style_classes (GtkOrientable *orientable)
 static void
 update_orientation (HdyCarousel *self)
 {
-  GtkOrientation opposite;
   gboolean reversed;
 
   if (!self->scrolling_box)
     return;
 
-  opposite = (self->orientation == GTK_ORIENTATION_HORIZONTAL) ?
-    GTK_ORIENTATION_VERTICAL :
-    GTK_ORIENTATION_HORIZONTAL;
   reversed = self->orientation == GTK_ORIENTATION_HORIZONTAL &&
     gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
 
   g_object_set (self->scrolling_box, "orientation", self->orientation, NULL);
   g_object_set (self->tracker, "orientation", self->orientation,
                 "reversed", reversed, NULL);
-  g_object_set (self->box, "orientation", opposite, NULL);
 
   set_orientable_style_classes (GTK_ORIENTABLE (self));
   set_orientable_style_classes (GTK_ORIENTABLE (self->scrolling_box));
-
-  gtk_widget_queue_draw (GTK_WIDGET (self->indicators));
 }
 
 static gboolean
@@ -712,9 +363,9 @@ hdy_carousel_destroy (GtkWidget *widget)
 {
   HdyCarousel *self = HDY_CAROUSEL (widget);
 
-  if (self->box) {
-    gtk_widget_destroy (GTK_WIDGET (self->box));
-    self->box = NULL;
+  if (self->scrolling_box) {
+    gtk_widget_destroy (GTK_WIDGET (self->scrolling_box));
+    self->scrolling_box = NULL;
   }
 
   GTK_WIDGET_CLASS (hdy_carousel_parent_class)->destroy (widget);
@@ -762,7 +413,7 @@ hdy_carousel_forall (GtkContainer *container,
   HdyCarousel *self = HDY_CAROUSEL (container);
 
   if (include_internals)
-    (* callback) (GTK_WIDGET (self->box), callback_data);
+    (* callback) (GTK_WIDGET (self->scrolling_box), callback_data);
   else if (self->scrolling_box)
     gtk_container_foreach (GTK_CONTAINER (self->scrolling_box),
                            callback, callback_data);
@@ -814,18 +465,6 @@ hdy_carousel_get_property (GObject    *object,
     g_value_set_boolean (value, hdy_carousel_get_interactive (self));
     break;
 
-  case PROP_INDICATOR_STYLE:
-    g_value_set_enum (value, hdy_carousel_get_indicator_style (self));
-    break;
-
-  case PROP_INDICATOR_SPACING:
-    g_value_set_uint (value, hdy_carousel_get_indicator_spacing (self));
-    break;
-
-  case PROP_CENTER_CONTENT:
-    g_value_set_boolean (value, hdy_carousel_get_center_content (self));
-    break;
-
   case PROP_SPACING:
     g_value_set_uint (value, hdy_carousel_get_spacing (self));
     break;
@@ -862,18 +501,6 @@ hdy_carousel_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_INTERACTIVE:
     hdy_carousel_set_interactive (self, g_value_get_boolean (value));
-    break;
-
-  case PROP_INDICATOR_STYLE:
-    hdy_carousel_set_indicator_style (self, g_value_get_enum (value));
-    break;
-
-  case PROP_INDICATOR_SPACING:
-    hdy_carousel_set_indicator_spacing (self, g_value_get_uint (value));
-    break;
-
-  case PROP_CENTER_CONTENT:
-    hdy_carousel_set_center_content (self, g_value_get_boolean (value));
     break;
 
   case PROP_SPACING:
@@ -985,57 +612,6 @@ hdy_carousel_class_init (HdyCarouselClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * HdyCarousel:indicator-style:
-   *
-   * The style of page indicators. Depending on orientation, they are displayed
-   * below or besides the pages. If the pages are meant to be centered,
-   * #HdyCarousel:center-content can be used to compensate for that.
-   *
-   * Since: 1.0
-   */
-  props[PROP_INDICATOR_STYLE] =
-    g_param_spec_enum ("indicator-style",
-                       _("Indicator style"),
-                       _("Page indicator style"),
-                       HDY_TYPE_CAROUSEL_INDICATOR_STYLE,
-                       HDY_CAROUSEL_INDICATOR_STYLE_NONE,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * HdyCarousel:indicator-spacing:
-   *
-   * Spacing between content and page indicators. Does nothing if
-   * #HdyCarousel:indicator-style is @HDY_CAROUSEL_INDICATOR_STYLE_NONE.
-   *
-   * Since: 1.0
-   */
-  props[PROP_INDICATOR_SPACING] =
-    g_param_spec_uint ("indicator-spacing",
-                       _("Indicator spacing"),
-                       _("Spacing between content and indicators"),
-                       0,
-                       G_MAXUINT,
-                       0,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * HdyCarousel:center-content:
-   *
-   * Whether the #HdyCarousel is centering pages. If
-   * #HdyCarousel:indicator-style is @HDY_CAROUSEL_INDICATOR_STYLE_NONE,
-   * centering does nothing, otherwise it adds whitespace to the left or above
-   * the pages to compensate for the indicators.
-   *
-   * Since: 1.0
-   */
-  props[PROP_CENTER_CONTENT] =
-    g_param_spec_boolean ("center-content",
-                          _("Center content"),
-                          _("Whether to center pages to compensate for indicators"),
-                          FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
    * HdyCarousel:spacing:
    *
    * Spacing between pages in pixels.
@@ -1125,20 +701,14 @@ hdy_carousel_class_init (HdyCarouselClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-carousel.ui");
-  gtk_widget_class_bind_template_child (widget_class, HdyCarousel, box);
-  gtk_widget_class_bind_template_child (widget_class, HdyCarousel, empty_box);
   gtk_widget_class_bind_template_child (widget_class, HdyCarousel, scrolling_box);
-  gtk_widget_class_bind_template_child (widget_class, HdyCarousel, indicators);
   gtk_widget_class_bind_template_callback (widget_class, scroll_event_cb);
-  gtk_widget_class_bind_template_callback (widget_class, draw_indicators_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_n_pages_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_position_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_spacing_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_reveal_duration_cb);
   gtk_widget_class_bind_template_callback (widget_class, animation_stopped_cb);
   gtk_widget_class_bind_template_callback (widget_class, position_shifted_cb);
-  gtk_widget_class_bind_template_callback (widget_class, page_added_cb);
-  gtk_widget_class_bind_template_callback (widget_class, page_removed_cb);
 
   gtk_widget_class_set_css_name (widget_class, "carousel");
 }
@@ -1367,140 +937,6 @@ hdy_carousel_set_interactive (HdyCarousel *self,
   hdy_swipe_tracker_set_enabled (self->tracker, interactive);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INTERACTIVE]);
-}
-
-/**
- * hdy_carousel_get_indicator_style
- * @self: a #HdyCarousel
- *
- * Gets the current page indicator style.
- *
- * Returns: the current indicator style
- *
- * Since: 1.0
- */
-HdyCarouselIndicatorStyle
-hdy_carousel_get_indicator_style (HdyCarousel *self)
-{
-  g_return_val_if_fail (HDY_IS_CAROUSEL (self), FALSE);
-
-  return self->indicator_style;
-}
-
-/**
- * hdy_carousel_set_indicator_style
- * @self: a #HdyCarousel
- * @style: indicator style to use
- *
- * Sets style of page indicators. Depending on orientation, they are displayed
- * below or besides the pages. If the pages are meant to be centered,
- * #HdyCarousel:center-content can be used to compensate for that.
- *
- * Since: 1.0
- */
-void
-hdy_carousel_set_indicator_style (HdyCarousel               *self,
-                                  HdyCarouselIndicatorStyle  style)
-{
-  g_return_if_fail (HDY_IS_CAROUSEL (self));
-
-  if (self->indicator_style == style)
-    return;
-
-  self->indicator_style = style;
-  update_indicators (self);
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INDICATOR_STYLE]);
-}
-
-/**
- * hdy_carousel_get_indicator_spacing:
- * @self: a #HdyCarousel
- *
- * Gets spacing between content and page indicators.
- *
- * Returns: Spacing between content and indicators
- *
- * Since: 1.0
- */
-guint
-hdy_carousel_get_indicator_spacing (HdyCarousel *self)
-{
-  g_return_val_if_fail (HDY_IS_CAROUSEL (self), 0);
-
-  return self->indicator_spacing;
-}
-
-/**
- * hdy_carousel_set_indicator_spacing:
- * @self: a #HdyCarousel
- * @spacing: the new spacing value
- *
- * Sets spacing between content and page indicators. Does nothing if
- * #HdyCarousel:indicator-style is @HDY_CAROUSEL_INDICATOR_STYLE_NONE.
- *
- * Since: 1.0
- */
-void
-hdy_carousel_set_indicator_spacing (HdyCarousel *self,
-                                    guint        spacing)
-{
-  g_return_if_fail (HDY_IS_CAROUSEL (self));
-
-  if (self->indicator_spacing == spacing)
-    return;
-
-  self->indicator_spacing = spacing;
-  gtk_box_set_spacing (self->box, spacing);
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INDICATOR_SPACING]);
-}
-
-/**
- * hdy_carousel_get_center_content
- * @self: a #HdyCarousel
- *
- * Sets whether @self is centering pages.
- *
- * Returns: %TRUE if @self is centering pages
- *
- * Since: 1.0
- */
-gboolean
-hdy_carousel_get_center_content (HdyCarousel *self)
-{
-  g_return_val_if_fail (HDY_IS_CAROUSEL (self), FALSE);
-
-  return self->center_content;
-}
-
-/**
- * hdy_carousel_set_center_content
- * @self: a #HdyCarousel
- * @center_content: whether @self should center contents
- *
- * Sets whether @self is centering content. If #HdyCarousel:indicator-style is
- * @HDY_CAROUSEL_INDICATOR_STYLE_NONE, centering does nothing, otherwise it
- * adds whitespace to the left or above the pages to compensate for the
- * indicators.
- *
- * Since: 1.0
- */
-void
-hdy_carousel_set_center_content (HdyCarousel *self,
-                                 gboolean     center_content)
-{
-  g_return_if_fail (HDY_IS_CAROUSEL (self));
-
-  center_content = !!center_content;
-
-  if (self->center_content == center_content)
-    return;
-
-  self->center_content = center_content;
-  update_indicators (self);
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CENTER_CONTENT]);
 }
 
 /**

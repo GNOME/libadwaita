@@ -27,9 +27,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_avatar_set_text@LIBHANDY_1_0 0.80.0
  hdy_carousel_get_allow_mouse_drag@LIBHANDY_1_0 0.80.0
  hdy_carousel_get_animation_duration@LIBHANDY_1_0 0.80.0
- hdy_carousel_get_center_content@LIBHANDY_1_0 0.80.0
- hdy_carousel_get_indicator_spacing@LIBHANDY_1_0 0.80.0
- hdy_carousel_get_indicator_style@LIBHANDY_1_0 0.80.0
  hdy_carousel_get_interactive@LIBHANDY_1_0 0.80.0
  hdy_carousel_get_n_pages@LIBHANDY_1_0 0.80.0
  hdy_carousel_get_position@LIBHANDY_1_0 0.80.0
@@ -44,7 +41,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_carousel_indicator_lines_get_carousel@LIBHANDY_1_0 0.90.0
  hdy_carousel_indicator_lines_new@LIBHANDY_1_0 0.90.0
  hdy_carousel_indicator_lines_set_carousel@LIBHANDY_1_0 0.90.0
- hdy_carousel_indicator_style_get_type@LIBHANDY_1_0 0.80.0
  hdy_carousel_insert@LIBHANDY_1_0 0.80.0
  hdy_carousel_new@LIBHANDY_1_0 0.80.0
  hdy_carousel_prepend@LIBHANDY_1_0 0.80.0
@@ -53,9 +49,6 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_carousel_scroll_to_full@LIBHANDY_1_0 0.80.0
  hdy_carousel_set_allow_mouse_drag@LIBHANDY_1_0 0.80.0
  hdy_carousel_set_animation_duration@LIBHANDY_1_0 0.80.0
- hdy_carousel_set_center_content@LIBHANDY_1_0 0.80.0
- hdy_carousel_set_indicator_spacing@LIBHANDY_1_0 0.80.0
- hdy_carousel_set_indicator_style@LIBHANDY_1_0 0.80.0
  hdy_carousel_set_interactive@LIBHANDY_1_0 0.80.0
  hdy_carousel_set_reveal_duration@LIBHANDY_1_0 0.81.0
  hdy_carousel_set_spacing@LIBHANDY_1_0 0.80.0

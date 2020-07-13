@@ -6,42 +6,16 @@
     <property name="orientation">horizontal</property>
     <signal name="scroll-event" handler="scroll_event_cb"/>
     <child>
-      <object class="GtkBox" id="box">
+      <object class="HdyCarouselBox" id="scrolling_box">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkBox" id="empty_box">
-            <property name="visible">False</property>
-          </object>
-        </child>
-        <child>
-          <object class="HdyCarouselBox" id="scrolling_box">
-            <property name="visible">True</property>
-            <property name="expand">True</property>
-            <signal name="notify::n-pages" handler="notify_n_pages_cb" swapped="true"/>
-            <signal name="notify::position" handler="notify_position_cb" swapped="true"/>
-            <signal name="notify::spacing" handler="notify_spacing_cb" swapped="true"/>
-            <signal name="notify::reveal-duration" handler="notify_reveal_duration_cb" swapped="true"/>
-            <signal name="animation-stopped" handler="animation_stopped_cb" swapped="true"/>
-            <signal name="position-shifted" handler="position_shifted_cb" swapped="true"/>
-            <signal name="page-added" handler="page_added_cb" swapped="true"/>
-            <signal name="page-removed" handler="page_removed_cb" swapped="true"/>
-          </object>
-        </child>
-        <child>
-          <object class="GtkDrawingArea" id="indicators">
-            <property name="visible">False</property>
-            <signal name="draw" handler="draw_indicators_cb" swapped="true"/>
-          </object>
-        </child>
+        <property name="expand">True</property>
+        <signal name="notify::n-pages" handler="notify_n_pages_cb" swapped="true"/>
+        <signal name="notify::position" handler="notify_position_cb" swapped="true"/>
+        <signal name="notify::spacing" handler="notify_spacing_cb" swapped="true"/>
+        <signal name="notify::reveal-duration" handler="notify_reveal_duration_cb" swapped="true"/>
+        <signal name="animation-stopped" handler="animation_stopped_cb" swapped="true"/>
+        <signal name="position-shifted" handler="position_shifted_cb" swapped="true"/>
       </object>
     </child>
   </template>
-  <object class="GtkSizeGroup" id="sizegroup">
-    <property name="mode">both</property>
-    <widgets>
-      <widget name="empty_box"/>
-      <widget name="indicators"/>
-    </widgets>
-  </object>
 </interface>
