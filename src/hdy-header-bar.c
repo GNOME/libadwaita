@@ -998,21 +998,19 @@ hdy_header_bar_measure (GtkWidget      *widget,
   gtk_style_context_get_margin (style_context, state_flags, &margin);
   gtk_style_context_get_padding (style_context, state_flags, &padding);
   if (orientation == GTK_ORIENTATION_VERTICAL) {
-    *minimum += border.top + margin.top + padding.top +
-                border.bottom + margin.bottom + padding.bottom;
-    *natural += border.top + margin.top + padding.top +
-                border.bottom + margin.bottom + padding.bottom;
-
-    *minimum = MAX (*minimum, css_height);
-    *natural = MAX (*natural, css_height);
+    *minimum = MAX (*minimum, css_height) +
+               border.top + margin.top + padding.top +
+               border.bottom + margin.bottom + padding.bottom;
+    *natural = MAX (*natural, css_height) +
+               border.top + margin.top + padding.top +
+               border.bottom + margin.bottom + padding.bottom;
   } else {
-    *minimum += border.left + margin.left + padding.left +
-                border.right + margin.right + padding.right;
-    *natural += border.left + margin.left + padding.left +
-                border.right + margin.right + padding.right;
-
-    *minimum = MAX (*minimum, css_width);
-    *natural = MAX (*natural, css_width);
+    *minimum = MAX (*minimum, css_width) +
+               border.left + margin.left + padding.left +
+               border.right + margin.right + padding.right;
+    *natural = MAX (*natural, css_width) +
+               border.left + margin.left + padding.left +
+               border.right + margin.right + padding.right;
   }
 }
 
