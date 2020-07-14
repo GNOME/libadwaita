@@ -17,16 +17,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_AVATAR (hdy_avatar_get_type())
 
-G_DECLARE_DERIVABLE_TYPE (HdyAvatar, hdy_avatar, HDY, AVATAR, GtkDrawingArea)
-
-/**
- * HdyAvatarClass:
- * @parent_class: The parent class
- */
-struct _HdyAvatarClass
-{
-  GtkDrawingAreaClass parent_class;
-};
+G_DECLARE_FINAL_TYPE (HdyAvatar, hdy_avatar, HDY, AVATAR, GtkDrawingArea)
 
 /**
  * HdyAvatarImageLoadFunc:

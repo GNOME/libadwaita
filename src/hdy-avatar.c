@@ -64,8 +64,10 @@
  *
  */
 
-typedef struct
+struct _HdyAvatar
 {
+  GtkDrawingArea parent_instance;
+
   gchar *text;
   PangoLayout *layout;
   gboolean show_initials;
@@ -76,9 +78,9 @@ typedef struct
   HdyAvatarImageLoadFunc load_image_func;
   gpointer load_image_func_target;
   GDestroyNotify load_image_func_target_destroy_notify;
-} HdyAvatarPrivate;
+};
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyAvatar, hdy_avatar, GTK_TYPE_DRAWING_AREA);
+G_DEFINE_TYPE (HdyAvatar, hdy_avatar, GTK_TYPE_DRAWING_AREA);
 
 enum {
   PROP_0,
@@ -138,52 +140,50 @@ extract_initials_from_text (const gchar *text)
 static void
 update_custom_image (HdyAvatar *self)
 {
-  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (self);
   g_autoptr (GdkPixbuf) pixbuf = NULL;
   gint scale_factor;
   gint size;
   gboolean was_custom = FALSE;
 
-  if (priv->round_image != NULL) {
-    g_clear_pointer (&priv->round_image, cairo_surface_destroy);
+  if (self->round_image != NULL) {
+    g_clear_pointer (&self->round_image, cairo_surface_destroy);
     was_custom = TRUE;
   }
 
-  if (priv->load_image_func != NULL) {
+  if (self->load_image_func != NULL) {
     scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (self));
     size = MIN (gtk_widget_get_allocated_width (GTK_WIDGET (self)),
                 gtk_widget_get_allocated_height (GTK_WIDGET (self)));
-    pixbuf = priv->load_image_func (size * scale_factor, priv->load_image_func_target);
+    pixbuf = self->load_image_func (size * scale_factor, self->load_image_func_target);
     if (pixbuf != NULL) {
-      priv->round_image = round_image (pixbuf, (gdouble) size * scale_factor);
-      cairo_surface_set_device_scale (priv->round_image, scale_factor, scale_factor);
+      self->round_image = round_image (pixbuf, (gdouble) size * scale_factor);
+      cairo_surface_set_device_scale (self->round_image, scale_factor, scale_factor);
     }
   }
 
-  if (was_custom || priv->round_image != NULL)
+  if (was_custom || self->round_image != NULL)
     gtk_widget_queue_draw (GTK_WIDGET (self));
 }
 
 static void
 set_class_color (HdyAvatar *self)
 {
-  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (self);
   GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
   g_autofree GRand *rand = NULL;
   g_autofree gchar *new_class = NULL;
-  g_autofree gchar *old_class = g_strdup_printf ("color%d", priv->color_class);
+  g_autofree gchar *old_class = g_strdup_printf ("color%d", self->color_class);
 
   gtk_style_context_remove_class (context, old_class);
 
-  if (priv->text == NULL || strlen (priv->text) == 0) {
+  if (self->text == NULL || strlen (self->text) == 0) {
     /* Use a random color if we don't have a text */
     rand = g_rand_new ();
-    priv->color_class = g_rand_int_range (rand, 1, NUMBER_OF_COLORS);
+    self->color_class = g_rand_int_range (rand, 1, NUMBER_OF_COLORS);
   } else {
-    priv->color_class = (g_str_hash (priv->text) % NUMBER_OF_COLORS) + 1;
+    self->color_class = (g_str_hash (self->text) % NUMBER_OF_COLORS) + 1;
   }
 
-  new_class = g_strdup_printf ("color%d", priv->color_class);
+  new_class = g_strdup_printf ("color%d", self->color_class);
   gtk_style_context_add_class (context, new_class);
 }
 
@@ -201,29 +201,25 @@ set_class_contrasted (HdyAvatar *self, gint size)
 static void
 clear_pango_layout (HdyAvatar *self)
 {
-  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (self);
-
-  g_clear_object (&priv->layout);
+  g_clear_object (&self->layout);
 }
 
 static void
 ensure_pango_layout (HdyAvatar *self)
 {
-  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (self);
   g_autofree gchar *initials = NULL;
 
-  if (priv->layout != NULL || priv->text == NULL || strlen (priv->text) == 0)
+  if (self->layout != NULL || self->text == NULL || strlen (self->text) == 0)
     return;
 
-  initials = extract_initials_from_text (priv->text);
-  priv->layout = gtk_widget_create_pango_layout (GTK_WIDGET (self), initials);
+  initials = extract_initials_from_text (self->text);
+  self->layout = gtk_widget_create_pango_layout (GTK_WIDGET (self), initials);
 }
 
 static void
 set_font_size (HdyAvatar *self,
                gint size)
 {
-  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (self);
   GtkStyleContext *context;
   PangoFontDescription *font_desc;
   gint width, height;
@@ -232,15 +228,15 @@ set_font_size (HdyAvatar *self,
   gdouble max_size;
   gdouble new_font_size;
 
-  if (priv->round_image != NULL || priv->layout == NULL)
+  if (self->round_image != NULL || self->layout == NULL)
     return;
 
   context = gtk_widget_get_style_context (GTK_WIDGET (self));
   gtk_style_context_get (context, gtk_style_context_get_state (context),
                          "font", &font_desc, NULL);
 
-  pango_layout_set_font_description (priv->layout, font_desc);
-  pango_layout_get_pixel_size (priv->layout, &width, &height);
+  pango_layout_set_font_description (self->layout, font_desc);
+  pango_layout_get_pixel_size (self->layout, &width, &height);
 
   /* This is the size of the biggest square fitting inside the circle */
   sqr_size = (gdouble)size / 1.4142;
@@ -255,7 +251,7 @@ set_font_size (HdyAvatar *self,
   font_desc = pango_font_description_copy (font_desc);
   pango_font_description_set_absolute_size (font_desc,
                                             CLAMP (new_font_size, 0, max_size) * PANGO_SCALE);
-  pango_layout_set_font_description (priv->layout, font_desc);
+  pango_layout_set_font_description (self->layout, font_desc);
   pango_font_description_free (font_desc);
 }
 
@@ -316,14 +312,14 @@ hdy_avatar_set_property (GObject      *object,
 static void
 hdy_avatar_finalize (GObject *object)
 {
-  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (HDY_AVATAR (object));
+  HdyAvatar *self = HDY_AVATAR (object);
 
-  g_clear_pointer (&priv->text, g_free);
-  g_clear_pointer (&priv->round_image, cairo_surface_destroy);
-  g_clear_object (&priv->layout);
+  g_clear_pointer (&self->text, g_free);
+  g_clear_pointer (&self->round_image, cairo_surface_destroy);
+  g_clear_object (&self->layout);
 
-  if (priv->load_image_func_target_destroy_notify != NULL)
-    priv->load_image_func_target_destroy_notify (priv->load_image_func_target);
+  if (self->load_image_func_target_destroy_notify != NULL)
+    self->load_image_func_target_destroy_notify (self->load_image_func_target);
 
   G_OBJECT_CLASS (hdy_avatar_parent_class)->finalize (object);
 }
@@ -332,7 +328,7 @@ static gboolean
 hdy_avatar_draw (GtkWidget *widget,
                  cairo_t   *cr)
 {
-  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (HDY_AVATAR (widget));
+  HdyAvatar *self = HDY_AVATAR (widget);
   GtkStyleContext *context = gtk_widget_get_style_context (widget);
   gint width = gtk_widget_get_allocated_width (widget);
   gint height = gtk_widget_get_allocated_height (widget);
@@ -350,8 +346,8 @@ hdy_avatar_draw (GtkWidget *widget,
 
   gtk_render_frame (context, cr, x, y, size, size);
 
-  if (priv->round_image) {
-    cairo_set_source_surface (cr, priv->round_image, x, y);
+  if (self->round_image) {
+    cairo_set_source_surface (cr, self->round_image, x, y);
     cairo_paint (cr);
 
     return FALSE;
@@ -360,14 +356,14 @@ hdy_avatar_draw (GtkWidget *widget,
   gtk_render_background (context, cr, x, y, size, size);
   ensure_pango_layout (HDY_AVATAR (widget));
 
-  if (priv->show_initials && priv->layout != NULL) {
+  if (self->show_initials && self->layout != NULL) {
     set_font_size (HDY_AVATAR (widget), size);
-    pango_layout_get_pixel_size (priv->layout, &width, &height);
+    pango_layout_get_pixel_size (self->layout, &width, &height);
 
     gtk_render_layout (context, cr,
                        ((gdouble)(size - width) / 2.0) + x,
                        ((gdouble)(size - height) / 2.0) + y,
-                       priv->layout);
+                       self->layout);
 
     return FALSE;
   }
@@ -409,12 +405,12 @@ hdy_avatar_measure (GtkWidget      *widget,
                     int            *minimum_baseline,
                     int            *natural_baseline)
 {
-  HdyAvatarPrivate *priv = hdy_avatar_get_instance_private (HDY_AVATAR (widget));
+  HdyAvatar *self = HDY_AVATAR (widget);
 
   if (minimum)
-    *minimum = priv->size;
+    *minimum = self->size;
   if (natural)
-    *natural = priv->size;
+    *natural = self->size;
 }
 
 static void
@@ -584,13 +580,9 @@ hdy_avatar_new (gint         size,
 const gchar *
 hdy_avatar_get_text (HdyAvatar *self)
 {
-  HdyAvatarPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_AVATAR (self), NULL);
 
-  priv = hdy_avatar_get_instance_private (self);
-
-  return priv->text;
+  return self->text;
 }
 
 /**
@@ -604,17 +596,13 @@ void
 hdy_avatar_set_text (HdyAvatar   *self,
                      const gchar *text)
 {
-  HdyAvatarPrivate *priv;
-
   g_return_if_fail (HDY_IS_AVATAR (self));
 
-  priv = hdy_avatar_get_instance_private (self);
-
-  if (g_strcmp0 (priv->text, text) == 0)
+  if (g_strcmp0 (self->text, text) == 0)
     return;
 
-  g_clear_pointer (&priv->text, g_free);
-  priv->text = g_strdup (text);
+  g_clear_pointer (&self->text, g_free);
+  self->text = g_strdup (text);
 
   clear_pango_layout (self);
   set_class_color (self);
@@ -634,13 +622,9 @@ hdy_avatar_set_text (HdyAvatar   *self,
 gboolean
 hdy_avatar_get_show_initials (HdyAvatar *self)
 {
-  HdyAvatarPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_AVATAR (self), FALSE);
 
-  priv = hdy_avatar_get_instance_private (self);
-
-  return priv->show_initials;
+  return self->show_initials;
 }
 
 /**
@@ -655,16 +639,12 @@ void
 hdy_avatar_set_show_initials (HdyAvatar *self,
                               gboolean   show_initials)
 {
-  HdyAvatarPrivate *priv;
-
   g_return_if_fail (HDY_IS_AVATAR (self));
 
-  priv = hdy_avatar_get_instance_private (self);
-
-  if (priv->show_initials == show_initials)
+  if (self->show_initials == show_initials)
     return;
 
-  priv->show_initials = show_initials;
+  self->show_initials = show_initials;
 
   gtk_widget_queue_draw (GTK_WIDGET (self));
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_INITIALS]);
@@ -686,19 +666,15 @@ hdy_avatar_set_image_load_func (HdyAvatar *self,
                                 gpointer user_data,
                                 GDestroyNotify destroy)
 {
-  HdyAvatarPrivate *priv;
-
   g_return_if_fail (HDY_IS_AVATAR (self));
   g_return_if_fail (user_data != NULL || (user_data == NULL && destroy == NULL));
 
-  priv = hdy_avatar_get_instance_private (self);
+  if (self->load_image_func_target_destroy_notify != NULL)
+    self->load_image_func_target_destroy_notify (self->load_image_func_target);
 
-  if (priv->load_image_func_target_destroy_notify != NULL)
-    priv->load_image_func_target_destroy_notify (priv->load_image_func_target);
-
-  priv->load_image_func = load_image;
-  priv->load_image_func_target = user_data;
-  priv->load_image_func_target_destroy_notify = destroy;
+  self->load_image_func = load_image;
+  self->load_image_func_target = user_data;
+  self->load_image_func_target_destroy_notify = destroy;
 
   update_custom_image (self);
 }
@@ -714,13 +690,9 @@ hdy_avatar_set_image_load_func (HdyAvatar *self,
 gint
 hdy_avatar_get_size (HdyAvatar *self)
 {
-  HdyAvatarPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_AVATAR (self), 0);
 
-  priv = hdy_avatar_get_instance_private (self);
-
-  return priv->size;
+  return self->size;
 }
 
 /**
@@ -734,17 +706,13 @@ void
 hdy_avatar_set_size (HdyAvatar *self,
                      gint       size)
 {
-  HdyAvatarPrivate *priv;
-
   g_return_if_fail (HDY_IS_AVATAR (self));
   g_return_if_fail (size >= -1);
 
-  priv = hdy_avatar_get_instance_private (self);
-
-  if (priv->size == size)
+  if (self->size == size)
     return;
 
-  priv->size = size;
+  self->size = size;
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SIZE]);
