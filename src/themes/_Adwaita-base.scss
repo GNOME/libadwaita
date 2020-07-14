@@ -323,6 +323,7 @@ window.csd.unified:not(.solid-csd):not(.fullscreen) {
   }
 
   &:not(.tiled):not(.tiled-top):not(.tiled-bottom):not(.tiled-left):not(.tiled-right):not(.maximized) {
+    &,
     > decoration,
     > decoration-overlay {
       border-radius: 8px;
