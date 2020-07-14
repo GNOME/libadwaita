@@ -28,28 +28,29 @@ enum {
 };
 static GParamSpec *props[PROP_LAST_PROP];
 
-typedef struct
+struct _HdyKeypadButton
 {
+  GtkButton parent_instance;
+
   GtkLabel *label, *secondary_label;
   gchar *symbols;
-} HdyKeypadButtonPrivate;
+};
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyKeypadButton, hdy_keypad_button, GTK_TYPE_BUTTON)
+G_DEFINE_TYPE (HdyKeypadButton, hdy_keypad_button, GTK_TYPE_BUTTON)
 
 static void
 format_label(HdyKeypadButton *self)
 {
-  HdyKeypadButtonPrivate *priv = hdy_keypad_button_get_instance_private(self);
   g_autofree gchar *text = NULL;
   gchar *secondary_text = NULL;
 
-  if (priv->symbols != NULL && *(priv->symbols) != '\0') {
-    secondary_text = g_utf8_find_next_char (priv->symbols, NULL);
-    text = g_strndup (priv->symbols, 1);
+  if (self->symbols != NULL && *(self->symbols) != '\0') {
+    secondary_text = g_utf8_find_next_char (self->symbols, NULL);
+    text = g_strndup (self->symbols, 1);
   }
 
-  gtk_label_set_label (priv->label, text);
-  gtk_label_set_label (priv->secondary_label, secondary_text);
+  gtk_label_set_label (self->label, text);
+  gtk_label_set_label (self->secondary_label, secondary_text);
 }
 
 static void
@@ -59,13 +60,12 @@ hdy_keypad_button_set_property (GObject      *object,
                                 GParamSpec   *pspec)
 {
   HdyKeypadButton *self = HDY_KEYPAD_BUTTON (object);
-  HdyKeypadButtonPrivate *priv = hdy_keypad_button_get_instance_private(self);
 
   switch (property_id) {
   case PROP_SYMBOLS:
-    if (g_strcmp0 (priv->symbols, g_value_get_string (value)) != 0) {
-      g_free (priv->symbols);
-      priv->symbols = g_value_dup_string (value);
+    if (g_strcmp0 (self->symbols, g_value_get_string (value)) != 0) {
+      g_free (self->symbols);
+      self->symbols = g_value_dup_string (value);
       format_label(self);
       g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SYMBOLS]);
     }
@@ -88,7 +88,6 @@ hdy_keypad_button_get_property (GObject    *object,
                                 GParamSpec *pspec)
 {
   HdyKeypadButton *self = HDY_KEYPAD_BUTTON (object);
-  HdyKeypadButtonPrivate *priv = hdy_keypad_button_get_instance_private(self);
 
   switch (property_id) {
   case PROP_DIGIT:
@@ -100,7 +99,7 @@ hdy_keypad_button_get_property (GObject    *object,
     break;
 
   case PROP_SHOW_SYMBOLS:
-    g_value_set_boolean (value, gtk_widget_is_visible (GTK_WIDGET (priv->secondary_label)));
+    g_value_set_boolean (value, gtk_widget_is_visible (GTK_WIDGET (self->secondary_label)));
     break;
 
   default:
@@ -198,9 +197,8 @@ static void
 hdy_keypad_button_finalize (GObject *object)
 {
   HdyKeypadButton *self = HDY_KEYPAD_BUTTON (object);
-  HdyKeypadButtonPrivate *priv = hdy_keypad_button_get_instance_private(self);
 
-  g_clear_pointer (&priv->symbols, g_free);
+  g_clear_pointer (&self->symbols, g_free);
   G_OBJECT_CLASS (hdy_keypad_button_parent_class)->finalize (object);
 }
 
@@ -247,18 +245,16 @@ hdy_keypad_button_class_init (HdyKeypadButtonClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-keypad-button.ui");
-  gtk_widget_class_bind_template_child_private (widget_class, HdyKeypadButton, label);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyKeypadButton, secondary_label);
+  gtk_widget_class_bind_template_child (widget_class, HdyKeypadButton, label);
+  gtk_widget_class_bind_template_child (widget_class, HdyKeypadButton, secondary_label);
 }
 
 static void
 hdy_keypad_button_init (HdyKeypadButton *self)
 {
-  HdyKeypadButtonPrivate *priv = hdy_keypad_button_get_instance_private(self);
-
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  priv->symbols = NULL;
+  self->symbols = NULL;
 }
 
 /**
@@ -287,16 +283,12 @@ hdy_keypad_button_new (const gchar *symbols)
 char
 hdy_keypad_button_get_digit (HdyKeypadButton *self)
 {
-  HdyKeypadButtonPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_KEYPAD_BUTTON (self), '\0');
 
-  priv = hdy_keypad_button_get_instance_private(self);
-
-  if (priv->symbols == NULL)
+  if (self->symbols == NULL)
     return ('\0');
 
-  return *(priv->symbols);
+  return *(self->symbols);
 }
 
 /**
@@ -310,11 +302,9 @@ hdy_keypad_button_get_digit (HdyKeypadButton *self)
 const char*
 hdy_keypad_button_get_symbols (HdyKeypadButton *self)
 {
-  HdyKeypadButtonPrivate *priv = hdy_keypad_button_get_instance_private(self);
-
   g_return_val_if_fail (HDY_IS_KEYPAD_BUTTON (self), NULL);
 
-  return priv->symbols;
+  return self->symbols;
 }
 
 /**
@@ -328,17 +318,14 @@ hdy_keypad_button_get_symbols (HdyKeypadButton *self)
 void
 hdy_keypad_button_show_symbols (HdyKeypadButton *self, gboolean visible)
 {
-  HdyKeypadButtonPrivate *priv;
   gboolean old_visible;
 
   g_return_if_fail (HDY_IS_KEYPAD_BUTTON (self));
 
-  priv = hdy_keypad_button_get_instance_private(self);
-
-  old_visible = gtk_widget_get_visible (GTK_WIDGET (priv->secondary_label));
+  old_visible = gtk_widget_get_visible (GTK_WIDGET (self->secondary_label));
 
   if (old_visible != visible) {
-    gtk_widget_set_visible (GTK_WIDGET (priv->secondary_label), visible);
+    gtk_widget_set_visible (GTK_WIDGET (self->secondary_label), visible);
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_SYMBOLS]);
   }
 }

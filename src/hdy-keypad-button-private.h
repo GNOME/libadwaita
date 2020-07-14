@@ -16,7 +16,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_KEYPAD_BUTTON (hdy_keypad_button_get_type())
 
-G_DECLARE_DERIVABLE_TYPE (HdyKeypadButton, hdy_keypad_button, HDY, KEYPAD_BUTTON, GtkButton)
+G_DECLARE_FINAL_TYPE (HdyKeypadButton, hdy_keypad_button, HDY, KEYPAD_BUTTON, GtkButton)
 
 struct _HdyKeypadButtonClass
 {
