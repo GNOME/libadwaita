@@ -36,7 +36,10 @@ enum {
   LAST_PROP = PROP_NEEDS_ATTENTION + 1,
 };
 
-typedef struct {
+struct _HdyViewSwitcherButton
+{
+  GtkRadioButton parent_instance;
+
   GtkBox *horizontal_box;
   GtkImage *horizontal_image;
   GtkLabel *horizontal_label_active;
@@ -53,63 +56,50 @@ typedef struct {
   GtkIconSize icon_size;
   gchar *label;
   GtkOrientation orientation;
-} HdyViewSwitcherButtonPrivate;
+};
 
 static GParamSpec *props[LAST_PROP];
 
 G_DEFINE_TYPE_WITH_CODE (HdyViewSwitcherButton, hdy_view_switcher_button, GTK_TYPE_RADIO_BUTTON,
-                         G_ADD_PRIVATE (HdyViewSwitcherButton)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
 
 static void
 on_active_changed (HdyViewSwitcherButton *self)
 {
-  HdyViewSwitcherButtonPrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self));
 
-  priv = hdy_view_switcher_button_get_instance_private (self);
-
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self))) {
-    gtk_stack_set_visible_child (priv->horizontal_label_stack, GTK_WIDGET (priv->horizontal_label_active));
-    gtk_stack_set_visible_child (priv->vertical_label_stack, GTK_WIDGET (priv->vertical_label_active));
+    gtk_stack_set_visible_child (self->horizontal_label_stack, GTK_WIDGET (self->horizontal_label_active));
+    gtk_stack_set_visible_child (self->vertical_label_stack, GTK_WIDGET (self->vertical_label_active));
   } else {
-    gtk_stack_set_visible_child (priv->horizontal_label_stack, GTK_WIDGET (priv->horizontal_label_inactive));
-    gtk_stack_set_visible_child (priv->vertical_label_stack, GTK_WIDGET (priv->vertical_label_inactive));
+    gtk_stack_set_visible_child (self->horizontal_label_stack, GTK_WIDGET (self->horizontal_label_inactive));
+    gtk_stack_set_visible_child (self->vertical_label_stack, GTK_WIDGET (self->vertical_label_inactive));
   }
 }
 
 static GtkOrientation
 get_orientation (HdyViewSwitcherButton *self)
 {
-  HdyViewSwitcherButtonPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self), GTK_ORIENTATION_HORIZONTAL);
 
-  priv = hdy_view_switcher_button_get_instance_private (self);
-
-  return priv->orientation;
+  return self->orientation;
 }
 
 static void
 set_orientation (HdyViewSwitcherButton *self,
                  GtkOrientation         orientation)
 {
-  HdyViewSwitcherButtonPrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self));
 
-  priv = hdy_view_switcher_button_get_instance_private (self);
-
-  if (priv->orientation == orientation)
+  if (self->orientation == orientation)
     return;
 
-  priv->orientation = orientation;
+  self->orientation = orientation;
 
-  gtk_stack_set_visible_child (priv->stack,
-                               GTK_WIDGET (priv->orientation == GTK_ORIENTATION_VERTICAL ?
-                                             priv->vertical_box :
-                                             priv->horizontal_box));
+  gtk_stack_set_visible_child (self->stack,
+                               GTK_WIDGET (self->orientation == GTK_ORIENTATION_VERTICAL ?
+                                             self->vertical_box :
+                                             self->horizontal_box));
 }
 
 static void
@@ -176,10 +166,9 @@ static void
 hdy_view_switcher_button_finalize (GObject *object)
 {
   HdyViewSwitcherButton *self = HDY_VIEW_SWITCHER_BUTTON (object);
-  HdyViewSwitcherButtonPrivate *priv = hdy_view_switcher_button_get_instance_private (self);
 
-  g_free (priv->icon_name);
-  g_free (priv->label);
+  g_free (self->icon_name);
+  g_free (self->label);
 
   G_OBJECT_CLASS (hdy_view_switcher_button_parent_class)->finalize (object);
 }
@@ -258,31 +247,28 @@ hdy_view_switcher_button_class_init (HdyViewSwitcherButtonClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-view-switcher-button.ui");
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, horizontal_box);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, horizontal_image);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, horizontal_label_active);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, horizontal_label_inactive);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, horizontal_label_stack);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, stack);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, vertical_box);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, vertical_image);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, vertical_label_active);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, vertical_label_inactive);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherButton, vertical_label_stack);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, horizontal_box);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, horizontal_image);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, horizontal_label_active);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, horizontal_label_inactive);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, horizontal_label_stack);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, stack);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, vertical_box);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, vertical_image);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, vertical_label_active);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, vertical_label_inactive);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, vertical_label_stack);
   gtk_widget_class_bind_template_callback (widget_class, on_active_changed);
 }
 
 static void
 hdy_view_switcher_button_init (HdyViewSwitcherButton *self)
 {
-  HdyViewSwitcherButtonPrivate *priv;
-
-  priv = hdy_view_switcher_button_get_instance_private (self);
-  priv->icon_size = GTK_ICON_SIZE_BUTTON;
+  self->icon_size = GTK_ICON_SIZE_BUTTON;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  gtk_stack_set_visible_child (GTK_STACK (priv->stack), GTK_WIDGET (priv->horizontal_box));
+  gtk_stack_set_visible_child (GTK_STACK (self->stack), GTK_WIDGET (self->horizontal_box));
 
   gtk_widget_set_focus_on_click (GTK_WIDGET (self), FALSE);
   /* Make the button look like a regular button and not a radio button. */
@@ -319,13 +305,9 @@ hdy_view_switcher_button_new (void)
 const gchar *
 hdy_view_switcher_button_get_icon_name (HdyViewSwitcherButton *self)
 {
-  HdyViewSwitcherButtonPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self), NULL);
 
-  priv = hdy_view_switcher_button_get_instance_private (self);
-
-  return priv->icon_name;
+  return self->icon_name;
 }
 
 /**
@@ -341,17 +323,13 @@ void
 hdy_view_switcher_button_set_icon_name (HdyViewSwitcherButton *self,
                                         const gchar           *icon_name)
 {
-  HdyViewSwitcherButtonPrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self));
 
-  priv = hdy_view_switcher_button_get_instance_private (self);
-
-  if (!g_strcmp0 (priv->icon_name, icon_name))
+  if (!g_strcmp0 (self->icon_name, icon_name))
     return;
 
-  g_free (priv->icon_name);
-  priv->icon_name = g_strdup (icon_name);
+  g_free (self->icon_name);
+  self->icon_name = g_strdup (icon_name);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
 }
@@ -369,13 +347,9 @@ hdy_view_switcher_button_set_icon_name (HdyViewSwitcherButton *self,
 GtkIconSize
 hdy_view_switcher_button_get_icon_size (HdyViewSwitcherButton *self)
 {
-  HdyViewSwitcherButtonPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self), GTK_ICON_SIZE_INVALID);
 
-  priv = hdy_view_switcher_button_get_instance_private (self);
-
-  return priv->icon_size;
+  return self->icon_size;
 }
 
 /**
@@ -391,16 +365,12 @@ void
 hdy_view_switcher_button_set_icon_size (HdyViewSwitcherButton *self,
                                         GtkIconSize            icon_size)
 {
-  HdyViewSwitcherButtonPrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self));
 
-  priv = hdy_view_switcher_button_get_instance_private (self);
-
-  if (priv->icon_size == icon_size)
+  if (self->icon_size == icon_size)
     return;
 
-  priv->icon_size = icon_size;
+  self->icon_size = icon_size;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_SIZE]);
 }
@@ -471,13 +441,9 @@ hdy_view_switcher_button_set_needs_attention (HdyViewSwitcherButton *self,
 const gchar *
 hdy_view_switcher_button_get_label (HdyViewSwitcherButton *self)
 {
-  HdyViewSwitcherButtonPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self), NULL);
 
-  priv = hdy_view_switcher_button_get_instance_private (self);
-
-  return priv->label;
+  return self->label;
 }
 
 /**
@@ -493,17 +459,13 @@ void
 hdy_view_switcher_button_set_label (HdyViewSwitcherButton *self,
                                     const gchar           *label)
 {
-  HdyViewSwitcherButtonPrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self));
 
-  priv = hdy_view_switcher_button_get_instance_private (self);
-
-  if (!g_strcmp0 (priv->label, label))
+  if (!g_strcmp0 (self->label, label))
     return;
 
-  g_free (priv->label);
-  priv->label = g_strdup (label);
+  g_free (self->label);
+  self->label = g_strdup (label);
 
   g_object_notify (G_OBJECT (self), "label");
 }
@@ -522,15 +484,11 @@ void
 hdy_view_switcher_button_set_narrow_ellipsize (HdyViewSwitcherButton *self,
                                                PangoEllipsizeMode     mode)
 {
-  HdyViewSwitcherButtonPrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self));
   g_return_if_fail (mode >= PANGO_ELLIPSIZE_NONE && mode <= PANGO_ELLIPSIZE_END);
 
-  priv = hdy_view_switcher_button_get_instance_private (self);
-
-  gtk_label_set_ellipsize (priv->vertical_label_active, mode);
-  gtk_label_set_ellipsize (priv->vertical_label_inactive, mode);
+  gtk_label_set_ellipsize (self->vertical_label_active, mode);
+  gtk_label_set_ellipsize (self->vertical_label_inactive, mode);
 }
 
 /**
@@ -552,7 +510,6 @@ hdy_view_switcher_button_get_size (HdyViewSwitcherButton *self,
                                    gint                  *v_min_width,
                                    gint                  *v_nat_width)
 {
-  HdyViewSwitcherButtonPrivate *priv = hdy_view_switcher_button_get_instance_private (self);
   GtkStyleContext *context;
   GtkStateFlags state;
   GtkBorder border;
@@ -561,9 +518,9 @@ hdy_view_switcher_button_get_size (HdyViewSwitcherButton *self,
    * be NULL, so we must have guards.
    */
   if (h_min_width != NULL || h_nat_width != NULL)
-    gtk_widget_get_preferred_width (GTK_WIDGET (priv->horizontal_box), h_min_width, h_nat_width);
+    gtk_widget_get_preferred_width (GTK_WIDGET (self->horizontal_box), h_min_width, h_nat_width);
   if (v_min_width != NULL || v_nat_width != NULL)
-    gtk_widget_get_preferred_width (GTK_WIDGET (priv->vertical_box), v_min_width, v_nat_width);
+    gtk_widget_get_preferred_width (GTK_WIDGET (self->vertical_box), v_min_width, v_nat_width);
 
   context = gtk_widget_get_style_context (GTK_WIDGET (self));
   state = gtk_style_context_get_state (context);
