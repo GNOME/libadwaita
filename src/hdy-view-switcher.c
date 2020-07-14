@@ -58,7 +58,10 @@ enum {
   LAST_PROP,
 };
 
-typedef struct {
+struct _HdyViewSwitcher
+{
+  GtkBin parent_instance;
+
   GtkWidget *box;
   GHashTable *buttons;
   gboolean in_child_changed;
@@ -69,22 +72,20 @@ typedef struct {
   GtkIconSize icon_size;
   PangoEllipsizeMode narrow_ellipsize;
   GtkStack *stack;
-} HdyViewSwitcherPrivate;
+};
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyViewSwitcher, hdy_view_switcher, GTK_TYPE_BIN)
+G_DEFINE_TYPE (HdyViewSwitcher, hdy_view_switcher, GTK_TYPE_BIN)
 
 static void
 set_visible_stack_child_for_button (HdyViewSwitcher       *self,
                                     HdyViewSwitcherButton *button)
 {
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-
-  if (priv->in_child_changed)
+  if (self->in_child_changed)
     return;
 
-  gtk_stack_set_visible_child (priv->stack, GTK_WIDGET (g_object_get_data (G_OBJECT (button), "stack-child")));
+  gtk_stack_set_visible_child (self->stack, GTK_WIDGET (g_object_get_data (G_OBJECT (button), "stack-child")));
 }
 
 static void
@@ -92,12 +93,11 @@ update_button (HdyViewSwitcher       *self,
                GtkWidget             *widget,
                HdyViewSwitcherButton *button)
 {
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
   g_autofree gchar *title = NULL;
   g_autofree gchar *icon_name = NULL;
   gboolean needs_attention;
 
-  gtk_container_child_get (GTK_CONTAINER (priv->stack), widget,
+  gtk_container_child_get (GTK_CONTAINER (self->stack), widget,
                            "title", &title,
                            "icon-name", &icon_name,
                            "needs-attention", &needs_attention,
@@ -105,7 +105,7 @@ update_button (HdyViewSwitcher       *self,
 
   g_object_set (G_OBJECT (button),
                 "icon-name", icon_name,
-                "icon-size", priv->icon_size,
+                "icon-size", self->icon_size,
                 "label", title,
                 "needs-attention", needs_attention,
                 NULL);
@@ -119,9 +119,7 @@ on_stack_child_updated (GtkWidget       *widget,
                         GParamSpec      *pspec,
                         HdyViewSwitcher *self)
 {
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-
-  update_button (self, widget, g_hash_table_lookup (priv->buttons, widget));
+  update_button (self, widget, g_hash_table_lookup (self->buttons, widget));
 }
 
 static void
@@ -129,37 +127,33 @@ on_position_updated (GtkWidget       *widget,
                      GParamSpec      *pspec,
                      HdyViewSwitcher *self)
 {
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-  GtkWidget *button = g_hash_table_lookup (priv->buttons, widget);
+  GtkWidget *button = g_hash_table_lookup (self->buttons, widget);
   gint position;
 
-  gtk_container_child_get (GTK_CONTAINER (priv->stack), widget,
+  gtk_container_child_get (GTK_CONTAINER (self->stack), widget,
                            "position", &position,
                            NULL);
-  gtk_box_reorder_child (GTK_BOX (priv->box), button, position);
+  gtk_box_reorder_child (GTK_BOX (self->box), button, position);
 }
 
 static void
 remove_switch_timer (HdyViewSwitcher *self)
 {
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-
-  if (!priv->switch_timer)
+  if (!self->switch_timer)
     return;
 
-  g_source_remove (priv->switch_timer);
-  priv->switch_timer = 0;
+  g_source_remove (self->switch_timer);
+  self->switch_timer = 0;
 }
 
 static gboolean
 hdy_view_switcher_switch_timeout (gpointer data)
 {
   HdyViewSwitcher *self = HDY_VIEW_SWITCHER (data);
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-  GtkWidget *button = priv->switch_button;
+  GtkWidget *button = self->switch_button;
 
-  priv->switch_timer = 0;
-  priv->switch_button = NULL;
+  self->switch_timer = 0;
+  self->switch_button = NULL;
 
   if (button)
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
@@ -175,7 +169,6 @@ hdy_view_switcher_drag_motion (GtkWidget      *widget,
                               guint           time)
 {
   HdyViewSwitcher *self = HDY_VIEW_SWITCHER (widget);
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
   GtkAllocation allocation;
   GtkWidget *button;
   GHashTableIter iter;
@@ -188,7 +181,7 @@ hdy_view_switcher_drag_motion (GtkWidget      *widget,
   y += allocation.y;
 
   button = NULL;
-  g_hash_table_iter_init (&iter, priv->buttons);
+  g_hash_table_iter_init (&iter, self->buttons);
   while (g_hash_table_iter_next (&iter, NULL, &value)) {
     gtk_widget_get_allocation (GTK_WIDGET (value), &allocation);
     if (x >= allocation.x && x <= allocation.x + allocation.width &&
@@ -200,16 +193,16 @@ hdy_view_switcher_drag_motion (GtkWidget      *widget,
     }
   }
 
-  if (button != priv->switch_button)
+  if (button != self->switch_button)
     remove_switch_timer (self);
 
-  priv->switch_button = button;
+  self->switch_button = button;
 
-  if (button && !priv->switch_timer) {
-    priv->switch_timer = gdk_threads_add_timeout (TIMEOUT_EXPAND,
+  if (button && !self->switch_timer) {
+    self->switch_timer = gdk_threads_add_timeout (TIMEOUT_EXPAND,
                                                   hdy_view_switcher_switch_timeout,
                                                   self);
-    g_source_set_name_by_id (priv->switch_timer, "[gtk+] hdy_view_switcher_switch_timeout");
+    g_source_set_name_by_id (self->switch_timer, "[gtk+] hdy_view_switcher_switch_timeout");
   }
 
   return retval;
@@ -229,20 +222,19 @@ static void
 add_button_for_stack_child (HdyViewSwitcher *self,
                             GtkWidget       *stack_child)
 {
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (priv->box));
+  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (self->box));
   HdyViewSwitcherButton *button = HDY_VIEW_SWITCHER_BUTTON (hdy_view_switcher_button_new ());
 
   g_object_set_data (G_OBJECT (button), "stack-child", stack_child);
   g_object_bind_property (self, "icon-size", button, "icon-size", G_BINDING_SYNC_CREATE);
-  hdy_view_switcher_button_set_narrow_ellipsize (button, priv->narrow_ellipsize);
+  hdy_view_switcher_button_set_narrow_ellipsize (button, self->narrow_ellipsize);
 
   update_button (self, stack_child, button);
 
   if (children != NULL)
     gtk_radio_button_join_group (GTK_RADIO_BUTTON (button), GTK_RADIO_BUTTON (children->data));
 
-  gtk_container_add (GTK_CONTAINER (priv->box), GTK_WIDGET (button));
+  gtk_container_add (GTK_CONTAINER (self->box), GTK_WIDGET (button));
 
   g_signal_connect_swapped (button, "clicked", G_CALLBACK (set_visible_stack_child_for_button), self);
   g_signal_connect (stack_child, "notify::visible", G_CALLBACK (on_stack_child_updated), self);
@@ -251,7 +243,7 @@ add_button_for_stack_child (HdyViewSwitcher *self,
   g_signal_connect (stack_child, "child-notify::needs-attention", G_CALLBACK (on_stack_child_updated), self);
   g_signal_connect (stack_child, "child-notify::position", G_CALLBACK (on_position_updated), self);
 
-  g_hash_table_insert (priv->buttons, stack_child, button);
+  g_hash_table_insert (self->buttons, stack_child, button);
 }
 
 static void
@@ -268,12 +260,10 @@ static void
 remove_button_for_stack_child (HdyViewSwitcher *self,
                                GtkWidget       *stack_child)
 {
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-
   g_signal_handlers_disconnect_by_func (stack_child, on_stack_child_updated, self);
   g_signal_handlers_disconnect_by_func (stack_child, on_position_updated, self);
-  gtk_container_remove (GTK_CONTAINER (priv->box), g_hash_table_lookup (priv->buttons, stack_child));
-  g_hash_table_remove (priv->buttons, stack_child);
+  gtk_container_remove (GTK_CONTAINER (self->box), g_hash_table_lookup (self->buttons, stack_child));
+  g_hash_table_remove (self->buttons, stack_child);
 }
 
 static void
@@ -289,44 +279,39 @@ remove_button_for_stack_child_cb (GtkWidget       *stack_child,
 static void
 update_active_button_for_visible_stack_child (HdyViewSwitcher *self)
 {
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-  GtkWidget *visible_stack_child = gtk_stack_get_visible_child (priv->stack);
-  GtkWidget *button = g_hash_table_lookup (priv->buttons, visible_stack_child);
+  GtkWidget *visible_stack_child = gtk_stack_get_visible_child (self->stack);
+  GtkWidget *button = g_hash_table_lookup (self->buttons, visible_stack_child);
 
   if (button == NULL)
     return;
 
-  priv->in_child_changed = TRUE;
+  self->in_child_changed = TRUE;
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), TRUE);
-  priv->in_child_changed = FALSE;
+  self->in_child_changed = FALSE;
 }
 
 static void
 disconnect_stack_signals (HdyViewSwitcher *self)
 {
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-
-  g_signal_handlers_disconnect_by_func (priv->stack, add_button_for_stack_child, self);
-  g_signal_handlers_disconnect_by_func (priv->stack, remove_button_for_stack_child, self);
-  g_signal_handlers_disconnect_by_func (priv->stack, update_active_button_for_visible_stack_child, self);
-  g_signal_handlers_disconnect_by_func (priv->stack, disconnect_stack_signals, self);
+  g_signal_handlers_disconnect_by_func (self->stack, add_button_for_stack_child, self);
+  g_signal_handlers_disconnect_by_func (self->stack, remove_button_for_stack_child, self);
+  g_signal_handlers_disconnect_by_func (self->stack, update_active_button_for_visible_stack_child, self);
+  g_signal_handlers_disconnect_by_func (self->stack, disconnect_stack_signals, self);
 }
 
 static void
 connect_stack_signals (HdyViewSwitcher *self)
 {
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-
-  g_signal_connect_object (priv->stack, "add",
+  g_signal_connect_object (self->stack, "add",
                            G_CALLBACK (add_button_for_stack_child), self,
                            G_CONNECT_AFTER | G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->stack, "remove",
+  g_signal_connect_object (self->stack, "remove",
                            G_CALLBACK (remove_button_for_stack_child), self,
                            G_CONNECT_AFTER | G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->stack, "notify::visible-child",
+  g_signal_connect_object (self->stack, "notify::visible-child",
                            G_CALLBACK (update_active_button_for_visible_stack_child), self,
                            G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->stack, "destroy",
+  g_signal_connect_object (self->stack, "destroy",
                            G_CALLBACK (disconnect_stack_signals), self,
                            G_CONNECT_SWAPPED);
 }
@@ -400,9 +385,8 @@ static void
 hdy_view_switcher_finalize (GObject *object)
 {
   HdyViewSwitcher *self = HDY_VIEW_SWITCHER (object);
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
 
-  g_hash_table_destroy (priv->buttons);
+  g_hash_table_destroy (self->buttons);
 
   G_OBJECT_CLASS (hdy_view_switcher_parent_class)->finalize (object);
 }
@@ -413,8 +397,7 @@ hdy_view_switcher_get_preferred_width (GtkWidget *widget,
                                        gint      *nat)
 {
   HdyViewSwitcher *self = HDY_VIEW_SWITCHER (widget);
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (priv->box));
+  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (self->box));
   gint max_h_min = 0, max_h_nat = 0, max_v_min = 0, max_v_nat = 0;
   gint n_children = 0;
 
@@ -439,7 +422,7 @@ hdy_view_switcher_get_preferred_width (GtkWidget *widget,
   max_h_nat = MAX (max_h_nat, MIN_NAT_BUTTON_WIDTH);
   max_v_nat = MAX (max_v_nat, MIN_NAT_BUTTON_WIDTH);
 
-  switch (priv->policy) {
+  switch (self->policy) {
   case HDY_VIEW_SWITCHER_POLICY_NARROW:
     *min = max_v_min * n_children;
     *nat = max_v_nat * n_children;
@@ -460,15 +443,14 @@ static gint
 is_narrow (HdyViewSwitcher *self,
            gint             width)
 {
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
-  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (priv->box));
+  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (self->box));
   gint max_h_min = 0;
   gint n_children = 0;
 
-  if (priv->policy == HDY_VIEW_SWITCHER_POLICY_NARROW)
+  if (self->policy == HDY_VIEW_SWITCHER_POLICY_NARROW)
     return TRUE;
 
-  if (priv->policy == HDY_VIEW_SWITCHER_POLICY_WIDE)
+  if (self->policy == HDY_VIEW_SWITCHER_POLICY_WIDE)
     return FALSE;
 
   for (GList *l = children; l != NULL; l = g_list_next (l)) {
@@ -488,9 +470,8 @@ hdy_view_switcher_size_allocate (GtkWidget     *widget,
                                  GtkAllocation *allocation)
 {
   HdyViewSwitcher *self = HDY_VIEW_SWITCHER (widget);
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
 
-  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (priv->box));
+  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (self->box));
   GtkOrientation orientation = is_narrow (HDY_VIEW_SWITCHER (widget), allocation->width) ?
     GTK_ORIENTATION_VERTICAL :
     GTK_ORIENTATION_HORIZONTAL;
@@ -590,15 +571,13 @@ hdy_view_switcher_class_init (HdyViewSwitcherClass *klass)
 static void
 hdy_view_switcher_init (HdyViewSwitcher *self)
 {
-  HdyViewSwitcherPrivate *priv = hdy_view_switcher_get_instance_private (self);
+  self->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_widget_show (self->box);
+  gtk_box_set_homogeneous (GTK_BOX (self->box), TRUE);
+  gtk_container_add (GTK_CONTAINER (self), self->box);
 
-  priv->box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_widget_show (priv->box);
-  gtk_box_set_homogeneous (GTK_BOX (priv->box), TRUE);
-  gtk_container_add (GTK_CONTAINER (self), priv->box);
-
-  priv->icon_size = GTK_ICON_SIZE_BUTTON;
-  priv->buttons = g_hash_table_new (g_direct_hash, g_direct_equal);
+  self->icon_size = GTK_ICON_SIZE_BUTTON;
+  self->buttons = g_hash_table_new (g_direct_hash, g_direct_equal);
 
   gtk_widget_set_valign (GTK_WIDGET (self), GTK_ALIGN_FILL);
 
@@ -634,13 +613,9 @@ hdy_view_switcher_new (void)
 HdyViewSwitcherPolicy
 hdy_view_switcher_get_policy (HdyViewSwitcher *self)
 {
-  HdyViewSwitcherPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER (self), HDY_VIEW_SWITCHER_POLICY_AUTO);
 
-  priv = hdy_view_switcher_get_instance_private (self);
-
-  return priv->policy;
+  return self->policy;
 }
 
 /**
@@ -656,16 +631,12 @@ void
 hdy_view_switcher_set_policy (HdyViewSwitcher       *self,
                               HdyViewSwitcherPolicy  policy)
 {
-  HdyViewSwitcherPrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER (self));
 
-  priv = hdy_view_switcher_get_instance_private (self);
-
-  if (priv->policy == policy)
+  if (self->policy == policy)
     return;
 
-  priv->policy = policy;
+  self->policy = policy;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POLICY]);
 
@@ -687,13 +658,9 @@ hdy_view_switcher_set_policy (HdyViewSwitcher       *self,
 GtkIconSize
 hdy_view_switcher_get_icon_size (HdyViewSwitcher *self)
 {
-  HdyViewSwitcherPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER (self), GTK_ICON_SIZE_BUTTON);
 
-  priv = hdy_view_switcher_get_instance_private (self);
-
-  return priv->icon_size;
+  return self->icon_size;
 }
 
 /**
@@ -709,16 +676,12 @@ void
 hdy_view_switcher_set_icon_size (HdyViewSwitcher *self,
                                  GtkIconSize      icon_size)
 {
-  HdyViewSwitcherPrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER (self));
 
-  priv = hdy_view_switcher_get_instance_private (self);
-
-  if (priv->icon_size == icon_size)
+  if (self->icon_size == icon_size)
     return;
 
-  priv->icon_size = icon_size;
+  self->icon_size = icon_size;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_SIZE]);
 }
@@ -737,13 +700,9 @@ hdy_view_switcher_set_icon_size (HdyViewSwitcher *self,
 PangoEllipsizeMode
 hdy_view_switcher_get_narrow_ellipsize (HdyViewSwitcher *self)
 {
-  HdyViewSwitcherPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER (self), PANGO_ELLIPSIZE_NONE);
 
-  priv = hdy_view_switcher_get_instance_private (self);
-
-  return priv->narrow_ellipsize;
+  return self->narrow_ellipsize;
 }
 
 /**
@@ -760,21 +719,18 @@ void
 hdy_view_switcher_set_narrow_ellipsize (HdyViewSwitcher    *self,
                                         PangoEllipsizeMode  mode)
 {
-  HdyViewSwitcherPrivate *priv;
   GHashTableIter iter;
   gpointer button;
 
   g_return_if_fail (HDY_IS_VIEW_SWITCHER (self));
   g_return_if_fail (mode >= PANGO_ELLIPSIZE_NONE && mode <= PANGO_ELLIPSIZE_END);
 
-  priv = hdy_view_switcher_get_instance_private (self);
-
-  if ((PangoEllipsizeMode) priv->narrow_ellipsize == mode)
+  if ((PangoEllipsizeMode) self->narrow_ellipsize == mode)
     return;
 
-  priv->narrow_ellipsize = mode;
+  self->narrow_ellipsize = mode;
 
-  g_hash_table_iter_init (&iter, priv->buttons);
+  g_hash_table_iter_init (&iter, self->buttons);
   while (g_hash_table_iter_next (&iter, NULL, &button))
     hdy_view_switcher_button_set_narrow_ellipsize (HDY_VIEW_SWITCHER_BUTTON (button), mode);
 
@@ -796,13 +752,9 @@ hdy_view_switcher_set_narrow_ellipsize (HdyViewSwitcher    *self,
 GtkStack *
 hdy_view_switcher_get_stack (HdyViewSwitcher *self)
 {
-  HdyViewSwitcherPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER (self), NULL);
 
-  priv = hdy_view_switcher_get_instance_private (self);
-
-  return priv->stack;
+  return self->stack;
 }
 
 /**
@@ -818,25 +770,21 @@ void
 hdy_view_switcher_set_stack (HdyViewSwitcher *self,
                              GtkStack        *stack)
 {
-  HdyViewSwitcherPrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER (self));
   g_return_if_fail (stack == NULL || GTK_IS_STACK (stack));
 
-  priv = hdy_view_switcher_get_instance_private (self);
-
-  if (priv->stack == stack)
+  if (self->stack == stack)
     return;
 
-  if (priv->stack) {
+  if (self->stack) {
     disconnect_stack_signals (self);
-    gtk_container_foreach (GTK_CONTAINER (priv->stack), (GtkCallback) remove_button_for_stack_child_cb, self);
+    gtk_container_foreach (GTK_CONTAINER (self->stack), (GtkCallback) remove_button_for_stack_child_cb, self);
   }
 
-  g_set_object (&priv->stack, stack);
+  g_set_object (&self->stack, stack);
 
-  if (priv->stack) {
-    gtk_container_foreach (GTK_CONTAINER (priv->stack), (GtkCallback) add_button_for_stack_child_cb, self);
+  if (self->stack) {
+    gtk_container_foreach (GTK_CONTAINER (self->stack), (GtkCallback) add_button_for_stack_child_cb, self);
     update_active_button_for_visible_stack_child (self);
     connect_stack_signals (self);
   }

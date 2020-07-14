@@ -17,11 +17,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_VIEW_SWITCHER (hdy_view_switcher_get_type())
 
-struct _HdyViewSwitcherClass {
-  GtkBinClass parent_class;
-};
-
-G_DECLARE_DERIVABLE_TYPE (HdyViewSwitcher, hdy_view_switcher, HDY, VIEW_SWITCHER, GtkBin)
+G_DECLARE_FINAL_TYPE (HdyViewSwitcher, hdy_view_switcher, HDY, VIEW_SWITCHER, GtkBin)
 
 typedef enum {
   HDY_VIEW_SWITCHER_POLICY_AUTO,
