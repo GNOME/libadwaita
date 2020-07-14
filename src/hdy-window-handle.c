@@ -31,20 +31,21 @@
  * Since: 1.0
  */
 
-typedef struct
+struct _HdyWindowHandle
 {
-  HdyWindowHandleController *controller;
-} HdyWindowHandlePrivate;
+  GtkEventBox parent_instance;
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyWindowHandle, hdy_window_handle, GTK_TYPE_EVENT_BOX)
+  HdyWindowHandleController *controller;
+};
+
+G_DEFINE_TYPE (HdyWindowHandle, hdy_window_handle, GTK_TYPE_EVENT_BOX)
 
 static void
 hdy_window_handle_finalize (GObject *object)
 {
   HdyWindowHandle *self = (HdyWindowHandle *)object;
-  HdyWindowHandlePrivate *priv = hdy_window_handle_get_instance_private (self);
 
-  g_clear_object (&priv->controller);
+  g_clear_object (&self->controller);
 
   G_OBJECT_CLASS (hdy_window_handle_parent_class)->finalize (object);
 }
@@ -63,9 +64,7 @@ hdy_window_handle_class_init (HdyWindowHandleClass *klass)
 static void
 hdy_window_handle_init (HdyWindowHandle *self)
 {
-  HdyWindowHandlePrivate *priv = hdy_window_handle_get_instance_private (self);
-
-  priv->controller = hdy_window_handle_controller_new (GTK_WIDGET (self));
+  self->controller = hdy_window_handle_controller_new (GTK_WIDGET (self));
 }
 
 /**
