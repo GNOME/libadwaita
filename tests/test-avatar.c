@@ -7,6 +7,7 @@
 #define HANDY_USE_UNSTABLE_API
 #include <handy.h>
 
+#define TEST_ICON_NAME "avatar-default-symbolic"
 #define TEST_STRING "Mario Rossi"
 #define TEST_SIZE 128
 
@@ -114,6 +115,18 @@ test_hdy_avatar_generate (void)
 
 
 static void
+test_hdy_avatar_icon_name (void)
+{
+  HdyAvatar *avatar = HDY_AVATAR (hdy_avatar_new (128, NULL, TRUE));
+
+  g_assert_null (hdy_avatar_get_icon_name (avatar));
+  hdy_avatar_set_icon_name (avatar, TEST_ICON_NAME);
+  g_assert_cmpstr (hdy_avatar_get_icon_name (avatar), ==, TEST_ICON_NAME);
+
+  g_assert_true (did_draw_something (GTK_WIDGET (avatar)));
+}
+
+static void
 test_hdy_avatar_text (void)
 {
   HdyAvatar *avatar = HDY_AVATAR (hdy_avatar_new (128, NULL, TRUE));
@@ -190,6 +203,7 @@ main (gint argc,
 
   g_test_add_func ("/Handy/Avatar/generate", test_hdy_avatar_generate);
   g_test_add_func ("/Handy/Avatar/custom_image", test_hdy_avatar_custom_image);
+  g_test_add_func ("/Handy/Avatar/icon_name", test_hdy_avatar_icon_name);
   g_test_add_func ("/Handy/Avatar/text", test_hdy_avatar_text);
   g_test_add_func ("/Handy/Avatar/size", test_hdy_avatar_size);
 

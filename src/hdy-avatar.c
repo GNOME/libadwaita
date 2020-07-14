@@ -68,6 +68,7 @@ struct _HdyAvatar
 {
   GtkDrawingArea parent_instance;
 
+  gchar *icon_name;
   gchar *text;
   PangoLayout *layout;
   gboolean show_initials;
@@ -84,6 +85,7 @@ G_DEFINE_TYPE (HdyAvatar, hdy_avatar, GTK_TYPE_DRAWING_AREA);
 
 enum {
   PROP_0,
+  PROP_ICON_NAME,
   PROP_TEXT,
   PROP_SHOW_INITIALS,
   PROP_SIZE,
@@ -264,6 +266,10 @@ hdy_avatar_get_property (GObject    *object,
   HdyAvatar *self = HDY_AVATAR (object);
 
   switch (property_id) {
+  case PROP_ICON_NAME:
+    g_value_set_string (value, hdy_avatar_get_icon_name (self));
+    break;
+
   case PROP_TEXT:
     g_value_set_string (value, hdy_avatar_get_text (self));
     break;
@@ -291,6 +297,10 @@ hdy_avatar_set_property (GObject      *object,
   HdyAvatar *self = HDY_AVATAR (object);
 
   switch (property_id) {
+  case PROP_ICON_NAME:
+    hdy_avatar_set_icon_name (self, g_value_get_string (value));
+    break;
+
   case PROP_TEXT:
     hdy_avatar_set_text (self, g_value_get_string (value));
     break;
@@ -314,6 +324,7 @@ hdy_avatar_finalize (GObject *object)
 {
   HdyAvatar *self = HDY_AVATAR (object);
 
+  g_clear_pointer (&self->icon_name, g_free);
   g_clear_pointer (&self->text, g_free);
   g_clear_pointer (&self->round_image, cairo_surface_destroy);
   g_clear_object (&self->layout);
@@ -335,6 +346,7 @@ hdy_avatar_draw (GtkWidget *widget,
   gint size = MIN (width, height);
   gdouble x = (gdouble)(width - size) / 2.0;
   gdouble y = (gdouble)(height - size) / 2.0;
+  const gchar *icon_name;
   gint scale;
   GdkRGBA color;
   g_autoptr (GtkIconInfo) icon = NULL;
@@ -368,15 +380,17 @@ hdy_avatar_draw (GtkWidget *widget,
     return FALSE;
   }
 
+  icon_name = self->icon_name && *self->icon_name != '\0' ?
+    self->icon_name : "avatar-default-symbolic";
   scale = gtk_widget_get_scale_factor (widget);
   icon = gtk_icon_theme_lookup_icon_for_scale (gtk_icon_theme_get_default (),
-                                     "avatar-default-symbolic",
+                                     icon_name,
                                      size / 2, scale,
                                      GTK_ICON_LOOKUP_FORCE_SYMBOLIC);
   gtk_style_context_get_color (context, gtk_style_context_get_state (context), &color);
   pixbuf = gtk_icon_info_load_symbolic (icon, &color, NULL, NULL, NULL, NULL, &error);
   if (error != NULL) {
-    g_critical ("Failed to load avatar-default-symbolic: %s", error->message);
+    g_critical ("Failed to load icon `%s': %s", icon_name, error->message);
 
     return FALSE;
   }
@@ -504,6 +518,26 @@ hdy_avatar_class_init (HdyAvatarClass *klass)
                       "The size of the avatar",
                       -1, INT_MAX, -1,
                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyAvatar:icon-name:
+   *
+   * The name of the icon in the icon theme to use when the icon should be
+   * displayed.
+   * If no name is set, the avatar-default-symbolic icon will be used.
+   * If the name doesn't match a valid icon, it is an error and no icon will be
+   * displayed.
+   * If the icon theme is changed, the image will be updated automatically.
+   *
+   * Since: 1.0
+   */
+  props[PROP_ICON_NAME] =
+    g_param_spec_string ("icon-name",
+                         "Icon name",
+                         "The name of the icon from the icon theme",
+                         NULL,
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   /**
    * HdyAvatar:text:
    *
@@ -565,6 +599,58 @@ hdy_avatar_new (gint         size,
                        "text", text,
                        "show-initials", show_initials,
                        NULL);
+}
+
+/**
+ * hdy_avatar_get_icon_name:
+ * @self: a #HdyAvatar
+ *
+ * Gets the name of the icon in the icon theme to use when the icon should be
+ * displayed.
+ *
+ * Returns: (nullable) (transfer none): the name of the icon from the icon theme.
+ *
+ * Since: 1.0
+ */
+const gchar *
+hdy_avatar_get_icon_name (HdyAvatar *self)
+{
+  g_return_val_if_fail (HDY_IS_AVATAR (self), NULL);
+
+  return self->icon_name;
+}
+
+/**
+ * hdy_avatar_set_icon_name:
+ * @self: a #HdyAvatar
+ * @icon_name: (nullable): the name of the icon from the icon theme
+ *
+ * Sets the name of the icon in the icon theme to use when the icon should be
+ * displayed.
+ * If no name is set, the avatar-default-symbolic icon will be used.
+ * If the name doesn't match a valid icon, it is an error and no icon will be
+ * displayed.
+ * If the icon theme is changed, the image will be updated automatically.
+ *
+ * Since: 1.0
+ */
+void
+hdy_avatar_set_icon_name (HdyAvatar   *self,
+                          const gchar *icon_name)
+{
+  g_return_if_fail (HDY_IS_AVATAR (self));
+
+  if (g_strcmp0 (self->icon_name, icon_name) == 0)
+    return;
+
+  g_clear_pointer (&self->icon_name, g_free);
+  self->icon_name = g_strdup (icon_name);
+
+  if (!self->round_image &&
+      (!self->show_initials || self->layout == NULL))
+    gtk_widget_queue_draw (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
 }
 
 /**

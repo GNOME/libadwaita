@@ -37,6 +37,9 @@ typedef GdkPixbuf *(*HdyAvatarImageLoadFunc) (gint     size,
 GtkWidget   *hdy_avatar_new                 (gint                    size,
                                              const gchar            *text,
                                              gboolean                show_initials);
+const gchar *hdy_avatar_get_icon_name       (HdyAvatar              *self);
+void         hdy_avatar_set_icon_name       (HdyAvatar              *self,
+                                             const gchar            *icon_name);
 const gchar *hdy_avatar_get_text            (HdyAvatar              *self);
 void         hdy_avatar_set_text            (HdyAvatar              *self,
                                              const gchar            *text);

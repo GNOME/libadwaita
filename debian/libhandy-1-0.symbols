@@ -16,11 +16,13 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_action_row_set_use_underline@LIBHANDY_1_0 0.0.6
  hdy_application_window_get_type@LIBHANDY_1_0 0.80.0
  hdy_application_window_new@LIBHANDY_1_0 0.80.0
+ hdy_avatar_get_icon_name@LIBHANDY_1_0 0.85.0
  hdy_avatar_get_show_initials@LIBHANDY_1_0 0.80.0
  hdy_avatar_get_size@LIBHANDY_1_0 0.80.0
  hdy_avatar_get_text@LIBHANDY_1_0 0.80.0
  hdy_avatar_get_type@LIBHANDY_1_0 0.80.0
  hdy_avatar_new@LIBHANDY_1_0 0.80.0
+ hdy_avatar_set_icon_name@LIBHANDY_1_0 0.85.0
  hdy_avatar_set_image_load_func@LIBHANDY_1_0 0.80.0
  hdy_avatar_set_show_initials@LIBHANDY_1_0 0.80.0
  hdy_avatar_set_size@LIBHANDY_1_0 0.80.0
