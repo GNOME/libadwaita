@@ -84,7 +84,7 @@ G_DEFINE_TYPE (HdyAvatar, hdy_avatar, GTK_TYPE_DRAWING_AREA);
 
 enum {
   PROP_0,
-  PROP_NAME,
+  PROP_TEXT,
   PROP_SHOW_INITIALS,
   PROP_SIZE,
   PROP_LAST_PROP,
@@ -264,7 +264,7 @@ hdy_avatar_get_property (GObject    *object,
   HdyAvatar *self = HDY_AVATAR (object);
 
   switch (property_id) {
-  case PROP_NAME:
+  case PROP_TEXT:
     g_value_set_string (value, hdy_avatar_get_text (self));
     break;
 
@@ -291,7 +291,7 @@ hdy_avatar_set_property (GObject      *object,
   HdyAvatar *self = HDY_AVATAR (object);
 
   switch (property_id) {
-  case PROP_NAME:
+  case PROP_TEXT:
     hdy_avatar_set_text (self, g_value_get_string (value));
     break;
 
@@ -510,7 +510,7 @@ hdy_avatar_class_init (HdyAvatarClass *klass)
    * The text used for the initials and for generating the color.
    * If #HdyAvatar:show-initials is %FALSE it's only used to generate the color.
    */
-  props[PROP_NAME] =
+  props[PROP_TEXT] =
     g_param_spec_string ("text",
                          "Text",
                          "The text used to generate the color and the initials",
@@ -608,7 +608,7 @@ hdy_avatar_set_text (HdyAvatar   *self,
   set_class_color (self);
   gtk_widget_queue_draw (GTK_WIDGET (self));
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NAME]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TEXT]);
 }
 
 /**
