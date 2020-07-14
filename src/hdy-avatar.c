@@ -387,6 +387,12 @@ hdy_avatar_draw (GtkWidget *widget,
                                      icon_name,
                                      size / 2, scale,
                                      GTK_ICON_LOOKUP_FORCE_SYMBOLIC);
+  if (icon == NULL) {
+    g_critical ("Failed to load icon `%s'", icon_name);
+
+    return FALSE;
+  }
+
   gtk_style_context_get_color (context, gtk_style_context_get_state (context), &color);
   pixbuf = gtk_icon_info_load_symbolic (icon, &color, NULL, NULL, NULL, NULL, &error);
   if (error != NULL) {
