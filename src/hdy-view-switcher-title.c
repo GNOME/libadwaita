@@ -79,7 +79,10 @@ enum {
   LAST_PROP,
 };
 
-typedef struct {
+struct _HdyViewSwitcherTitle
+{
+  GtkBin parent_instance;
+
   HdySqueezer *squeezer;
   GtkLabel *subtitle_label;
   GtkBox *title_box;
@@ -87,20 +90,18 @@ typedef struct {
   HdyViewSwitcher *view_switcher;
 
   gboolean view_switcher_enabled;
-} HdyViewSwitcherTitlePrivate;
+};
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE_WITH_CODE (HdyViewSwitcherTitle, hdy_view_switcher_title, GTK_TYPE_BIN,
-                         G_ADD_PRIVATE (HdyViewSwitcherTitle))
+G_DEFINE_TYPE (HdyViewSwitcherTitle, hdy_view_switcher_title, GTK_TYPE_BIN)
 
 static void
 update_subtitle_label (HdyViewSwitcherTitle *self)
 {
-  HdyViewSwitcherTitlePrivate *priv = hdy_view_switcher_title_get_instance_private (self);
-  const gchar *subtitle = gtk_label_get_label (priv->subtitle_label);
+  const gchar *subtitle = gtk_label_get_label (self->subtitle_label);
 
-  gtk_widget_set_visible (GTK_WIDGET (priv->subtitle_label), subtitle && subtitle[0]);
+  gtk_widget_set_visible (GTK_WIDGET (self->subtitle_label), subtitle && subtitle[0]);
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
 }
@@ -115,14 +116,13 @@ count_children_cb (GtkWidget *widget,
 static void
 update_view_switcher_visible (HdyViewSwitcherTitle *self)
 {
-  HdyViewSwitcherTitlePrivate *priv = hdy_view_switcher_title_get_instance_private (self);
-  GtkStack *stack = hdy_view_switcher_get_stack (priv->view_switcher);
+  GtkStack *stack = hdy_view_switcher_get_stack (self->view_switcher);
   gint count = 0;
 
-  if (priv->view_switcher_enabled && stack)
+  if (self->view_switcher_enabled && stack)
     gtk_container_foreach (GTK_CONTAINER (stack), (GtkCallback) count_children_cb, &count);
 
-  hdy_squeezer_set_child_enabled (priv->squeezer, GTK_WIDGET (priv->view_switcher), count > 1);
+  hdy_squeezer_set_child_enabled (self->squeezer, GTK_WIDGET (self->view_switcher), count > 1);
 }
 
 static void
@@ -203,10 +203,9 @@ hdy_view_switcher_title_set_property (GObject      *object,
 static void
 hdy_view_switcher_title_dispose (GObject *object) {
   HdyViewSwitcherTitle *self = (HdyViewSwitcherTitle *)object;
-  HdyViewSwitcherTitlePrivate *priv = hdy_view_switcher_title_get_instance_private (self);
 
-  if (priv->view_switcher) {
-    GtkStack *stack = hdy_view_switcher_get_stack (priv->view_switcher);
+  if (self->view_switcher) {
+    GtkStack *stack = hdy_view_switcher_get_stack (self->view_switcher);
 
     if (stack)
       g_signal_handlers_disconnect_by_func (stack, G_CALLBACK (update_view_switcher_visible), self);
@@ -331,25 +330,21 @@ hdy_view_switcher_title_class_init (HdyViewSwitcherTitleClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-view-switcher-title.ui");
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherTitle, squeezer);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherTitle, subtitle_label);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherTitle, title_box);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherTitle, title_label);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyViewSwitcherTitle, view_switcher);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherTitle, squeezer);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherTitle, subtitle_label);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherTitle, title_box);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherTitle, title_label);
+  gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherTitle, view_switcher);
   gtk_widget_class_bind_template_callback (widget_class, notify_squeezer_visible_child_cb);
 }
 
 static void
 hdy_view_switcher_title_init (HdyViewSwitcherTitle *self)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
   /* This must be initialized before the template so the embedded view switcher
    * can pick up the correct default value.
    */
-  priv->view_switcher_enabled = TRUE;
+  self->view_switcher_enabled = TRUE;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -385,13 +380,9 @@ hdy_view_switcher_title_new (void)
 HdyViewSwitcherPolicy
 hdy_view_switcher_title_get_policy (HdyViewSwitcherTitle *self)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self), HDY_VIEW_SWITCHER_POLICY_NARROW);
 
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  return hdy_view_switcher_get_policy (priv->view_switcher);
+  return hdy_view_switcher_get_policy (self->view_switcher);
 }
 
 /**
@@ -407,16 +398,12 @@ void
 hdy_view_switcher_title_set_policy (HdyViewSwitcherTitle  *self,
                                     HdyViewSwitcherPolicy  policy)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self));
 
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  if (hdy_view_switcher_get_policy (priv->view_switcher) == policy)
+  if (hdy_view_switcher_get_policy (self->view_switcher) == policy)
     return;
 
-  hdy_view_switcher_set_policy (priv->view_switcher, policy);
+  hdy_view_switcher_set_policy (self->view_switcher, policy);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POLICY]);
 
@@ -436,13 +423,9 @@ hdy_view_switcher_title_set_policy (HdyViewSwitcherTitle  *self,
 GtkIconSize
 hdy_view_switcher_title_get_icon_size (HdyViewSwitcherTitle *self)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self), GTK_ICON_SIZE_BUTTON);
 
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  return hdy_view_switcher_get_icon_size (priv->view_switcher);
+  return hdy_view_switcher_get_icon_size (self->view_switcher);
 }
 
 /**
@@ -458,16 +441,12 @@ void
 hdy_view_switcher_title_set_icon_size (HdyViewSwitcherTitle *self,
                                        GtkIconSize           icon_size)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self));
 
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  if (hdy_view_switcher_get_icon_size (priv->view_switcher) == icon_size)
+  if (hdy_view_switcher_get_icon_size (self->view_switcher) == icon_size)
     return;
 
-  hdy_view_switcher_set_icon_size (priv->view_switcher, icon_size);
+  hdy_view_switcher_set_icon_size (self->view_switcher, icon_size);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_SIZE]);
 }
@@ -485,13 +464,9 @@ hdy_view_switcher_title_set_icon_size (HdyViewSwitcherTitle *self,
 GtkStack *
 hdy_view_switcher_title_get_stack (HdyViewSwitcherTitle *self)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self), NULL);
 
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  return hdy_view_switcher_get_stack (priv->view_switcher);
+  return hdy_view_switcher_get_stack (self->view_switcher);
 }
 
 /**
@@ -507,14 +482,12 @@ void
 hdy_view_switcher_title_set_stack (HdyViewSwitcherTitle *self,
                                    GtkStack             *stack)
 {
-  HdyViewSwitcherTitlePrivate *priv;
   GtkStack *previous_stack;
 
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self));
   g_return_if_fail (stack == NULL || GTK_IS_STACK (stack));
 
-  priv = hdy_view_switcher_title_get_instance_private (self);
-  previous_stack = hdy_view_switcher_get_stack (priv->view_switcher);
+  previous_stack = hdy_view_switcher_get_stack (self->view_switcher);
 
   if (previous_stack == stack)
     return;
@@ -522,7 +495,7 @@ hdy_view_switcher_title_set_stack (HdyViewSwitcherTitle *self,
   if (previous_stack)
     g_signal_handlers_disconnect_by_func (previous_stack, G_CALLBACK (update_view_switcher_visible), self);
 
-  hdy_view_switcher_set_stack (priv->view_switcher, stack);
+  hdy_view_switcher_set_stack (self->view_switcher, stack);
 
   if (stack) {
     g_signal_connect_swapped (stack, "add", G_CALLBACK (update_view_switcher_visible), self);
@@ -547,13 +520,9 @@ hdy_view_switcher_title_set_stack (HdyViewSwitcherTitle *self,
 const gchar *
 hdy_view_switcher_title_get_title (HdyViewSwitcherTitle *self)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self), NULL);
 
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  return gtk_label_get_label (priv->title_label);
+  return gtk_label_get_label (self->title_label);
 }
 
 /**
@@ -570,17 +539,13 @@ void
 hdy_view_switcher_title_set_title (HdyViewSwitcherTitle *self,
                                    const gchar          *title)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self));
 
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  if (g_strcmp0 (gtk_label_get_label (priv->title_label), title) == 0)
+  if (g_strcmp0 (gtk_label_get_label (self->title_label), title) == 0)
     return;
 
-  gtk_label_set_label (priv->title_label, title);
-  gtk_widget_set_visible (GTK_WIDGET (priv->title_label), title && title[0]);
+  gtk_label_set_label (self->title_label, title);
+  gtk_widget_set_visible (GTK_WIDGET (self->title_label), title && title[0]);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
 }
@@ -598,13 +563,9 @@ hdy_view_switcher_title_set_title (HdyViewSwitcherTitle *self,
 const gchar *
 hdy_view_switcher_title_get_subtitle (HdyViewSwitcherTitle *self)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self), NULL);
 
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  return gtk_label_get_label (priv->subtitle_label);
+  return gtk_label_get_label (self->subtitle_label);
 }
 
 /**
@@ -621,16 +582,12 @@ void
 hdy_view_switcher_title_set_subtitle (HdyViewSwitcherTitle *self,
                                       const gchar          *subtitle)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self));
 
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  if (g_strcmp0 (gtk_label_get_label (priv->subtitle_label), subtitle) == 0)
+  if (g_strcmp0 (gtk_label_get_label (self->subtitle_label), subtitle) == 0)
     return;
 
-  gtk_label_set_label (priv->subtitle_label, subtitle);
+  gtk_label_set_label (self->subtitle_label, subtitle);
   update_subtitle_label (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUBTITLE]);
@@ -651,13 +608,9 @@ hdy_view_switcher_title_set_subtitle (HdyViewSwitcherTitle *self,
 gboolean
 hdy_view_switcher_title_get_view_switcher_enabled (HdyViewSwitcherTitle *self)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self), FALSE);
 
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  return priv->view_switcher_enabled;
+  return self->view_switcher_enabled;
 }
 
 /**
@@ -678,18 +631,14 @@ void
 hdy_view_switcher_title_set_view_switcher_enabled (HdyViewSwitcherTitle *self,
                                                    gboolean              enabled)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self));
-
-  priv = hdy_view_switcher_title_get_instance_private (self);
 
   enabled = !!enabled;
 
-  if (priv->view_switcher_enabled == enabled)
+  if (self->view_switcher_enabled == enabled)
     return;
 
-  priv->view_switcher_enabled = enabled;
+  self->view_switcher_enabled = enabled;
   update_view_switcher_visible (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VIEW_SWITCHER_ENABLED]);
@@ -708,11 +657,7 @@ hdy_view_switcher_title_set_view_switcher_enabled (HdyViewSwitcherTitle *self,
 gboolean
 hdy_view_switcher_title_get_title_visible (HdyViewSwitcherTitle *self)
 {
-  HdyViewSwitcherTitlePrivate *priv;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self), FALSE);
 
-  priv = hdy_view_switcher_title_get_instance_private (self);
-
-  return hdy_squeezer_get_visible_child (priv->squeezer) == (GtkWidget *) priv->title_box;
+  return hdy_squeezer_get_visible_child (self->squeezer) == (GtkWidget *) self->title_box;
 }

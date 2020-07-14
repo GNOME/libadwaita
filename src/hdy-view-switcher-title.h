@@ -19,11 +19,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_VIEW_SWITCHER_TITLE (hdy_view_switcher_title_get_type())
 
-struct _HdyViewSwitcherTitleClass {
-  GtkBinClass parent_class;
-};
-
-G_DECLARE_DERIVABLE_TYPE (HdyViewSwitcherTitle, hdy_view_switcher_title, HDY, VIEW_SWITCHER_TITLE, GtkBin)
+G_DECLARE_FINAL_TYPE (HdyViewSwitcherTitle, hdy_view_switcher_title, HDY, VIEW_SWITCHER_TITLE, GtkBin)
 
 HdyViewSwitcherTitle *hdy_view_switcher_title_new (void);
 
