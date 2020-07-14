@@ -99,6 +99,18 @@
     </refsect3>
 
     <refsect3>
+      <title>Adapt to derivability changes</title>
+      <para>
+        Some widgets are now final, if your code is deriving from them, use
+        composition instead.
+      </para>
+      <para>
+        Affected widgets:
+        #HdySqueezer, #HdyViewSwitcher, #HdyViewSwitcherBar
+      </para>
+    </refsect3>
+
+    <refsect3>
       <title>HdyFold has been removed</title>
       <para>
         #HdyFold has been removed. This affects the API of #HdyLeaflet, see the
