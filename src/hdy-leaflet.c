@@ -26,6 +26,12 @@
  * The threshold is dictated by the preferred minimum sizes of the children.
  * When a leaflet is folded, the children can be navigated using swipe gestures.
  *
+ * The “over” and “under” stack the children one on top of the other, while the
+ * “slide” transition puts the children side by side. While navigating to a
+ * child on the side or below can be performed by swiping the current child
+ * away, navigating to an upper child requires dragging it from the edge where
+ * it resides. This doesn't affect non-dragging swipes.
+ *
  * The “over” and “under” transitions can draw their shadow on top of the
  * window's transparent areas, like the rounded corners. This is a side-effect
  * of allowing shadows to be drawn on top of OpenGL areas. It can be mitigated
@@ -902,6 +908,15 @@ hdy_leaflet_get_cancel_progress (HdySwipeable *swipeable)
 }
 
 static void
+hdy_leaflet_get_swipe_area (HdySwipeable           *swipeable,
+                            HdyNavigationDirection  navigation_direction,
+                            gboolean                is_drag,
+                            GdkRectangle           *rect)
+{
+  hdy_stackable_box_get_swipe_area (HDY_GET_HELPER (swipeable), navigation_direction, is_drag, rect);
+}
+
+static void
 hdy_leaflet_class_init (HdyLeafletClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -1189,4 +1204,5 @@ hdy_leaflet_swipeable_init (HdySwipeableInterface *iface)
   iface->get_snap_points = hdy_leaflet_get_snap_points;
   iface->get_progress = hdy_leaflet_get_progress;
   iface->get_cancel_progress = hdy_leaflet_get_cancel_progress;
+  iface->get_swipe_area = hdy_leaflet_get_swipe_area;
 }
