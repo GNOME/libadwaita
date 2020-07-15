@@ -1713,8 +1713,8 @@ hdy_carousel_box_get_snap_points (HdyCarouselBox *self,
 /**
  * hdy_carousel_box_get_range:
  * @self: a #HdyCarouselBox
- * @lower: (out) (allow-none): location to store the lowest possible position, or %NULL
- * @upper: (out) (allow-none): location to store the maximum possible position, or %NULL
+ * @lower: (out) (optional): location to store the lowest possible position, or %NULL
+ * @upper: (out) (optional): location to store the maximum possible position, or %NULL
  *
  * Gets the range of possible positions.
  *
