@@ -140,14 +140,15 @@ get_range (HdySwipeTracker *self,
 
 static void
 gesture_prepare (HdySwipeTracker        *self,
-                 HdyNavigationDirection  direction)
+                 HdyNavigationDirection  direction,
+                 gboolean                is_drag)
 {
   GdkRectangle rect;
 
   if (self->state != HDY_SWIPE_TRACKER_STATE_NONE)
     return;
 
-  hdy_swipeable_get_swipe_area (self->swipeable, &rect);
+  hdy_swipeable_get_swipe_area (self->swipeable, direction, is_drag, &rect);
 
   if (self->start_x < rect.x ||
       self->start_x >= rect.x + rect.width ||
@@ -345,7 +346,7 @@ drag_update_cb (HdySwipeTracker *self,
 
   if (self->state == HDY_SWIPE_TRACKER_STATE_NONE) {
     if (is_vertical == is_offset_vertical)
-      gesture_prepare (self, offset > 0 ? HDY_NAVIGATION_DIRECTION_FORWARD : HDY_NAVIGATION_DIRECTION_BACK);
+      gesture_prepare (self, offset > 0 ? HDY_NAVIGATION_DIRECTION_FORWARD : HDY_NAVIGATION_DIRECTION_BACK, TRUE);
     else
       gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
     return;
@@ -476,7 +477,7 @@ handle_scroll_event (HdySwipeTracker *self,
                                           event_x, event_y,
                                           &self->start_x, &self->start_y);
 
-        gesture_prepare (self, delta > 0 ? HDY_NAVIGATION_DIRECTION_FORWARD : HDY_NAVIGATION_DIRECTION_BACK);
+        gesture_prepare (self, delta > 0 ? HDY_NAVIGATION_DIRECTION_FORWARD : HDY_NAVIGATION_DIRECTION_BACK, FALSE);
       }
     } else {
       self->is_scrolling = TRUE;

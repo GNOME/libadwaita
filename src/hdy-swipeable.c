@@ -228,11 +228,15 @@ hdy_swipeable_get_cancel_progress (HdySwipeable *self)
 /**
  * hdy_swipeable_get_swipe_area:
  * @self: a #HdySwipeable
+ * @navigation_direction: the direction of the swipe
+ * @is_drag: whether the swipe is caused by a dragging gesture
  * @rect: (out): a pointer to a #GdkRectangle to store the swipe area
  *
- * Gets the area @self can start a swipe from. This can be used to restrict
- * swipes to only be possible from a certain area, for example, to only allow
- * edge swipes, or to have a draggable element and ignore swipes elsewhere.
+ * Gets the area @self can start a swipe from for the given direction and
+ * gesture type.
+ * This can be used to restrict swipes to only be possible from a certain area,
+ * for example, to only allow edge swipes, or to have a draggable element and
+ * ignore swipes elsewhere.
  *
  * Swipe area is only considered for direct swipes (as in, not initiated by
  * #HdySwipeGroup).
@@ -243,8 +247,10 @@ hdy_swipeable_get_cancel_progress (HdySwipeable *self)
  * Since: 1.0
  */
 void
-hdy_swipeable_get_swipe_area (HdySwipeable *self,
-                              GdkRectangle *rect)
+hdy_swipeable_get_swipe_area (HdySwipeable           *self,
+                              HdyNavigationDirection  navigation_direction,
+                              gboolean                is_drag,
+                              GdkRectangle           *rect)
 {
   HdySwipeableInterface *iface;
 
@@ -254,7 +260,7 @@ hdy_swipeable_get_swipe_area (HdySwipeable *self,
   iface = HDY_SWIPEABLE_GET_IFACE (self);
 
   if (iface->get_swipe_area) {
-    (* iface->get_swipe_area) (self, rect);
+    (* iface->get_swipe_area) (self, navigation_direction, is_drag, rect);
     return;
   }
 
