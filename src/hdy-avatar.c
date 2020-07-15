@@ -546,7 +546,7 @@ hdy_avatar_init (HdyAvatar *self)
 /**
  * hdy_avatar_new:
  * @size: The size of the avatar
- * @text: (allow-none): The text used to generate the color and initials if
+ * @text: (nullable): The text used to generate the color and initials if
  * @show_initials is %TRUE. The color is selected at random if @text is empty.
  * @show_initials: whether to show the initials or the fallback icon on
  * top of the color generated based on @text.
@@ -588,7 +588,7 @@ hdy_avatar_get_text (HdyAvatar *self)
 /**
  * hdy_avatar_set_text:
  * @self: a #HdyAvatar
- * @text: (allow-none): the text used to get the initials and color
+ * @text: (nullable): the text used to get the initials and color
  *
  * Set the text used to generate the fallback initials color
  */
@@ -653,9 +653,9 @@ hdy_avatar_set_show_initials (HdyAvatar *self,
 /**
  * hdy_avatar_set_image_load_func:
  * @self: a #HdyAvatar
- * @load_image: (closure user_data) (allow-none): callback to set a custom image
- * @user_data: (allow-none): user data passed to @load_image
- * @destroy: (allow-none): destroy notifier for @user_data
+ * @load_image: (closure user_data) (nullable): callback to set a custom image
+ * @user_data: (nullable): user data passed to @load_image
+ * @destroy: (nullable): destroy notifier for @user_data
  *
  * A callback which is called when the custom image need to be reloaded for some
  * reason (e.g. scale-factor changes).
