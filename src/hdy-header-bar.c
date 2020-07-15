@@ -2365,7 +2365,7 @@ hdy_header_bar_pack_end (HdyHeaderBar *self,
 /**
  * hdy_header_bar_set_title:
  * @self: a #HdyHeaderBar
- * @title: (allow-none): a title, or %NULL
+ * @title: (nullable): a title, or %NULL
  *
  * Sets the title of the #HdyHeaderBar. The title should help a user
  * identify the current view. A good title should not include the
@@ -2419,7 +2419,7 @@ hdy_header_bar_get_title (HdyHeaderBar *self)
 /**
  * hdy_header_bar_set_subtitle:
  * @self: a #HdyHeaderBar
- * @subtitle: (allow-none): a subtitle, or %NULL
+ * @subtitle: (nullable): a subtitle, or %NULL
  *
  * Sets the subtitle of the #HdyHeaderBar. The title should give a user
  * an additional detail to help them identify the current view.
@@ -2479,7 +2479,7 @@ hdy_header_bar_get_subtitle (HdyHeaderBar *self)
 /**
  * hdy_header_bar_set_custom_title:
  * @self: a #HdyHeaderBar
- * @title_widget: (allow-none): a custom widget to use for a title
+ * @title_widget: (nullable): a custom widget to use for a title
  *
  * Sets a custom title for the #HdyHeaderBar.
  *
@@ -2673,8 +2673,7 @@ hdy_header_bar_get_has_subtitle (HdyHeaderBar *self)
 /**
  * hdy_header_bar_set_decoration_layout:
  * @self: a #HdyHeaderBar
- * @layout: (allow-none): a decoration layout, or %NULL to
- *     unset the layout
+ * @layout: (nullable): a decoration layout, or %NULL to unset the layout
  *
  * Sets the decoration layout for this header bar, overriding
  * the #GtkSettings:gtk-decoration-layout setting.
