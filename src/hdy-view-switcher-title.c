@@ -528,7 +528,7 @@ hdy_view_switcher_title_get_title (HdyViewSwitcherTitle *self)
 /**
  * hdy_view_switcher_title_set_title:
  * @self: a #HdyViewSwitcherTitle
- * @title: (allow-none): a title, or %NULL
+ * @title: (nullable): a title, or %NULL
  *
  * Sets the title of @self. The title should give a user additional details. A
  * good title should not include the application name.
@@ -571,7 +571,7 @@ hdy_view_switcher_title_get_subtitle (HdyViewSwitcherTitle *self)
 /**
  * hdy_view_switcher_title_set_subtitle:
  * @self: a #HdyViewSwitcherTitle
- * @subtitle: (allow-none): a subtitle, or %NULL
+ * @subtitle: (nullable): a subtitle, or %NULL
  *
  * Sets the subtitle of @self. The subtitle should give a user additional
  * details.
