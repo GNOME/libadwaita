@@ -168,6 +168,11 @@
         of a #HdyFold.
       </para>
       <para>
+        On touchscreens, swiping forward with the “over” transition and swiping
+        back with the “under” transition can now only be done from the edge
+        where the upper child is.
+      </para>
+      <para>
         The “over” and “under” transitions can draw their shadow on top of the
         window's transparent areas, like the rounded corners.
         This is a side-effect of allowing shadows to be drawn on top of OpenGL
