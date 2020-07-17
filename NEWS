@@ -1,4 +1,26 @@
 ==============
+Version 0.84.0
+==============
+
+- HdyHeaderGroup:
+  - Replace GtkHeaderBar as the child type by HdyHeaderGroupChild, and
+    adjust the matching accessors. HdyHeaderGroupChild can hold a
+    GtkHeaderBar, a HdyHeaderBar, and a HdyHeaderGroup, allowing to nest
+    header groups.
+  - Replace the 'focus' property by the 'decorate-all' property.
+  - Add the update-decoration-layouts signal, used when nesting header
+    groups.
+- HdyHeaderBar:
+  - Slight size request fix.
+- Use the window node's radius instead of the decoration node's one to
+  mask HdyWindow and HdyApplicationWindow.
+- Make HdyAvatar, HdyHeaderGroup, HdySqueezer, HdyViewSwitcher,
+  HdyViewSwitcherBar, HdyViewSwitcherTitle, and HdyWindowHandle final.
+- Replace usage of (allow-none) by (nullable) or (optional).
+- Translation updates:
+  - Ukrainian
+
+==============
 Version 0.83.0
 ==============
 
