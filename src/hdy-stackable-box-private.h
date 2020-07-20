@@ -70,6 +70,9 @@ GtkWidget       *hdy_stackable_box_get_adjacent_child (HdyStackableBox        *s
 gboolean         hdy_stackable_box_navigate (HdyStackableBox        *self,
                                              HdyNavigationDirection  direction);
 
+GtkWidget       *hdy_stackable_box_get_child_by_name (HdyStackableBox *self,
+                                                      const gchar     *name);
+
 GtkOrientation   hdy_stackable_box_get_orientation (HdyStackableBox *self);
 void             hdy_stackable_box_set_orientation (HdyStackableBox *self,
                                                     GtkOrientation   orientation);

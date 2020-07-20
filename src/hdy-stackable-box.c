@@ -1279,6 +1279,32 @@ hdy_stackable_box_navigate (HdyStackableBox        *self,
   return TRUE;
 }
 
+/**
+ * hdy_stackable_box_get_child_by_name:
+ * @self: a #HdyStackableBox
+ * @name: the name of the child to find
+ *
+ * Finds the child of @self with the name given as the argument. Returns %NULL
+ * if there is no child with this name.
+ *
+ * Returns: (transfer none) (nullable): the requested child of @self
+ *
+ * Since: 1.0
+ */
+GtkWidget *
+hdy_stackable_box_get_child_by_name (HdyStackableBox *self,
+                                     const gchar     *name)
+{
+  HdyStackableBoxChildInfo *child_info;
+
+  g_return_val_if_fail (HDY_IS_STACKABLE_BOX (self), NULL);
+  g_return_val_if_fail (name != NULL, NULL);
+
+  child_info = find_child_info_for_name (self, name);
+
+  return child_info ? child_info->widget : NULL;
+}
+
 static void
 get_preferred_size (gint     *min,
                     gint     *nat,
