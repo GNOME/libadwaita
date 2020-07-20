@@ -69,4 +69,7 @@ GtkWidget       *hdy_deck_get_adjacent_child (HdyDeck                *self,
 gboolean         hdy_deck_navigate (HdyDeck                *self,
                                     HdyNavigationDirection  direction);
 
+GtkWidget       *hdy_deck_get_child_by_name (HdyDeck     *self,
+                                             const gchar *name);
+
 G_END_DECLS
