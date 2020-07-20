@@ -77,4 +77,7 @@ GtkWidget       *hdy_leaflet_get_adjacent_child (HdyLeaflet             *self,
 gboolean         hdy_leaflet_navigate (HdyLeaflet             *self,
                                        HdyNavigationDirection  direction);
 
+GtkWidget       *hdy_leaflet_get_child_by_name (HdyLeaflet  *self,
+                                                const gchar *name);
+
 G_END_DECLS

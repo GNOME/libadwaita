@@ -547,6 +547,27 @@ hdy_leaflet_navigate (HdyLeaflet             *self,
   return hdy_stackable_box_navigate (HDY_GET_HELPER (self), direction);
 }
 
+/**
+ * hdy_leaflet_get_child_by_name:
+ * @self: a #HdyLeaflet
+ * @name: the name of the child to find
+ *
+ * Finds the child of @self with the name given as the argument. Returns %NULL
+ * if there is no child with this name.
+ *
+ * Returns: (transfer none) (nullable): the requested child of @self
+ *
+ * Since: 1.0
+ */
+GtkWidget *
+hdy_leaflet_get_child_by_name (HdyLeaflet  *self,
+                               const gchar *name)
+{
+  g_return_val_if_fail (HDY_IS_LEAFLET (self), NULL);
+
+  return hdy_stackable_box_get_child_by_name (HDY_GET_HELPER (self), name);
+}
+
 /* This private method is prefixed by the call name because it will be a virtual
  * method in GTK 4.
  */
