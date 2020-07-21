@@ -12,10 +12,9 @@
 
 #include <gtk/gtk.h>
 #include "hdy-navigation-direction.h"
+#include "hdy-types.h"
 
 G_BEGIN_DECLS
-
-typedef struct _HdySwipeTracker HdySwipeTracker;
 
 #define HDY_TYPE_SWIPEABLE (hdy_swipeable_get_type ())
 

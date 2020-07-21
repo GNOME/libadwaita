@@ -16,6 +16,7 @@ private_headers = [
     'hdy-shadow-helper-private.h',
     'hdy-stackable-box-private.h',
     'hdy-swipe-tracker-private.h',
+    'hdy-types.h',
     'hdy-view-switcher-button-private.h',
     'hdy-window-handle-controller-private.h',
     'hdy-window-mixin-private.h',

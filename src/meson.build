@@ -93,6 +93,7 @@ src_headers = [
   'hdy-swipe-tracker.h',
   'hdy-swipeable.h',
   'hdy-title-bar.h',
+  'hdy-types.h',
   'hdy-value-object.h',
   'hdy-view-switcher.h',
   'hdy-view-switcher-bar.h',
