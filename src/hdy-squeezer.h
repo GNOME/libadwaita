@@ -68,4 +68,16 @@ void     hdy_squeezer_set_child_enabled (HdySqueezer *self,
                                          GtkWidget   *child,
                                          gboolean     enabled);
 
+HDY_AVAILABLE_IN_ALL
+gfloat hdy_squeezer_get_xalign (HdySqueezer *self);
+HDY_AVAILABLE_IN_ALL
+void   hdy_squeezer_set_xalign (HdySqueezer *self,
+                                gfloat       xalign);
+
+HDY_AVAILABLE_IN_ALL
+gfloat hdy_squeezer_get_yalign (HdySqueezer *self);
+HDY_AVAILABLE_IN_ALL
+void   hdy_squeezer_set_yalign (HdySqueezer *self,
+                                gfloat       yalign);
+
 G_END_DECLS
