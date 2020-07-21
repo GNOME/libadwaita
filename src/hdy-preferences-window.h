@@ -34,4 +34,8 @@ gboolean hdy_preferences_window_get_search_enabled (HdyPreferencesWindow *self);
 void     hdy_preferences_window_set_search_enabled (HdyPreferencesWindow *self,
                                                     gboolean              search_enabled);
 
+void hdy_preferences_window_present_subpage (HdyPreferencesWindow *self,
+                                             GtkWidget            *subpage);
+void hdy_preferences_window_close_subpage (HdyPreferencesWindow *self);
+
 G_END_DECLS

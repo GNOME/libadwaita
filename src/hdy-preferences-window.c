@@ -11,6 +11,7 @@
 
 #include "hdy-animation.h"
 #include "hdy-action-row.h"
+#include "hdy-deck.h"
 #include "hdy-preferences-group-private.h"
 #include "hdy-preferences-page-private.h"
 #include "hdy-view-switcher.h"
@@ -30,6 +31,8 @@
 
 typedef struct
 {
+  HdyDeck *subpages_deck;
+  GtkWidget *preferences;
   GtkStack *content_stack;
   GtkStack *pages_stack;
   GtkToggleButton *search_button;
@@ -42,6 +45,7 @@ typedef struct
 
   gboolean search_enabled;
   gint n_last_search_results;
+  GtkWidget *subpage;
 } HdyPreferencesWindowPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (HdyPreferencesWindow, hdy_preferences_window, HDY_TYPE_WINDOW)
@@ -223,6 +227,24 @@ key_press_event_cb (GtkWidget            *sender,
   }
 
   return GDK_EVENT_PROPAGATE;
+}
+
+static void
+subpages_deck_transition_running_cb (HdyPreferencesWindow *self)
+{
+  HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
+
+  if (hdy_deck_get_transition_running (priv->subpages_deck))
+    return;
+
+  for (GList *child = gtk_container_get_children (GTK_CONTAINER (priv->subpages_deck));
+       child;
+       child = child->next)
+    if (child->data != priv->preferences && child->data != priv->subpage)
+      gtk_container_remove (GTK_CONTAINER (priv->subpages_deck), child->data);
+
+  if (hdy_deck_get_visible_child (priv->subpages_deck) == priv->preferences)
+    priv->subpage = NULL;
 }
 
 static void
@@ -444,6 +466,8 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-preferences-window.ui");
+  gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, subpages_deck);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, preferences);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, content_stack);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, pages_stack);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, search_button);
@@ -453,6 +477,7 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, title_stack);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_bar);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_title);
+  gtk_widget_class_bind_template_callback (widget_class, subpages_deck_transition_running_cb);
   gtk_widget_class_bind_template_callback (widget_class, header_bar_size_allocate_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_transition_running_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_visible_child_cb);
@@ -542,4 +567,64 @@ hdy_preferences_window_set_search_enabled (HdyPreferencesWindow *self,
     gtk_toggle_button_set_active (priv->search_button, FALSE);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SEARCH_ENABLED]);
+}
+
+/**
+ * hdy_preferences_window_present_subpage:
+ * @self: a #HdyPreferencesWindow
+ * @subpage: the subpage
+ *
+ * Sets @subpage as the window's subpage and present it.
+ * The transition can be cancelled by the user, in which case visible child will
+ * change back to the previously visible child.
+ *
+ * Since: 1.0
+ */
+void
+hdy_preferences_window_present_subpage (HdyPreferencesWindow *self,
+                                        GtkWidget            *subpage)
+{
+  HdyPreferencesWindowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_PREFERENCES_WINDOW (self));
+  g_return_if_fail (GTK_IS_WIDGET (subpage));
+
+  priv = hdy_preferences_window_get_instance_private (self);
+
+  if (priv->subpage == subpage)
+    return;
+
+  priv->subpage = subpage;
+
+  /* The check below avoids a warning when re-entering a subpage during the
+   * transition between the that subpage to the preferences.
+   */
+  if (gtk_widget_get_parent (subpage) != GTK_WIDGET (priv->subpages_deck))
+    gtk_container_add (GTK_CONTAINER (priv->subpages_deck), subpage);
+
+  hdy_deck_set_visible_child (priv->subpages_deck, subpage);
+}
+
+/**
+ * hdy_preferences_window_close_subpage:
+ * @self: a #HdyPreferencesWindow
+ *
+ * Closes the current subpage to return back to the preferences, if there is no
+ * presented subpage, this does nothing.
+ *
+ * Since: 1.0
+ */
+void
+hdy_preferences_window_close_subpage (HdyPreferencesWindow *self)
+{
+  HdyPreferencesWindowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_PREFERENCES_WINDOW (self));
+
+  priv = hdy_preferences_window_get_instance_private (self);
+
+  if (priv->subpage == NULL)
+    return;
+
+  hdy_deck_set_visible_child (priv->subpages_deck, priv->preferences);
 }
