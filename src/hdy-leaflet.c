@@ -24,6 +24,7 @@
  * When there is enough space the children are displayed side by side, otherwise
  * only one is displayed and the leaflet is said to be “folded”.
  * The threshold is dictated by the preferred minimum sizes of the children.
+ * When a leaflet is folded, the children can be navigated using swipe gestures.
  *
  * The “over” and “under” transitions can draw their shadow on top of the
  * window's transparent areas, like the rounded corners. This is a side-effect
