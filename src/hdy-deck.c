@@ -997,7 +997,7 @@ hdy_deck_class_init (HdyDeckClass *klass)
   /**
    * HdyDeck:can-swipe-back:
    *
-   * Whether or not @self allows switching to the previous child via a swipe
+   * Whether or not the deck allows switching to the previous child via a swipe
    * gesture.
    *
    * Since: 1.0
@@ -1012,7 +1012,8 @@ hdy_deck_class_init (HdyDeckClass *klass)
   /**
    * HdyDeck:can-swipe-forward:
    *
-   * Whether or not @self allows switching to the next child via a swipe gesture.
+   * Whether or not the deck allows switching to the next child via a swipe
+   * gesture.
    *
    * Since: 1.0
    */

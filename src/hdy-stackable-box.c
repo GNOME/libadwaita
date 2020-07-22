@@ -3060,7 +3060,7 @@ hdy_stackable_box_class_init (HdyStackableBoxClass *klass)
   /**
    * HdyStackableBox:can-swipe-back:
    *
-   * Whether or not @self allows switching to the previous child that has
+   * Whether or not the widget allows switching to the previous child that has
    * 'allow-visible' child property set to %TRUE via a swipe gesture.
    *
    * Since: 1.0
@@ -3075,7 +3075,7 @@ hdy_stackable_box_class_init (HdyStackableBoxClass *klass)
   /**
    * HdyStackableBox:can-swipe-forward:
    *
-   * Whether or not @self allows switching to the next child that has
+   * Whether or not the widget allows switching to the next child that has
    * 'allow-visible' child property set to %TRUE via a swipe gesture.
    *
    * Since: 1.0

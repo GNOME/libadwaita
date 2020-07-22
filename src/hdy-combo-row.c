@@ -418,7 +418,7 @@ hdy_combo_row_class_init (HdyComboRowClass *klass)
    *
    * %TRUE to set the current value as the subtitle.
    *
-   * If you use a custom widget creation function, you will need to give @self
+   * If you use a custom widget creation function, you will need to give the row
    * a name conversion closure with hdy_combo_row_set_get_name_func().
    *
    * If %TRUE, you should not access HdyActionRow:subtitle.

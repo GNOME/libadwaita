@@ -1077,7 +1077,7 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
   /**
    * HdyLeaflet:can-swipe-back:
    *
-   * Whether or not @self allows switching to the previous child that has
+   * Whether or not the leaflet allows switching to the previous child that has
    * 'allow-visible' child property set to %TRUE via a swipe gesture.
    *
    * Since: 0.0.12
@@ -1092,7 +1092,7 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
   /**
    * HdyLeaflet:can-swipe-forward:
    *
-   * Whether or not @self allows switching to the next child that has
+   * Whether or not the leaflet allows switching to the next child that has
    * 'allow-visible' child property set to %TRUE via a swipe gesture.
    *
    * Since: 0.0.12

@@ -973,8 +973,8 @@ hdy_carousel_class_init (HdyCarouselClass *klass)
   /**
    * HdyCarousel:interactive:
    *
-   * Whether @self can be navigated. This can be used to temporarily disable
-   * a #HdyCarousel to only allow navigating it in a certain state.
+   * Whether the carousel can be navigated. This can be used to temporarily
+   * disable a #HdyCarousel to only allow navigating it in a certain state.
    *
    * Since: 1.0
    */
