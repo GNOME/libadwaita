@@ -1,4 +1,52 @@
 ==============
+Version 0.85.0
+==============
+
+- HdyAvatar:
+  - Add the icon-name property to allow setting a different default icon
+    than avatar-default-symbolic.
+  - Ship avatar-default-symbolic as a resource to ensure it's there.
+    This shouldn't affect icon themes already offering it.
+  - Check the icon exists before using it to avoid a crash.
+- HdyDeck and HdyLeaflet:
+  - Allow dragging the higher sibling only from the border where it
+    sits, rather than from the anywhere on the currently visible child,
+    reinforcing spatialization.
+  - Add the get_child_by_name() methods.
+- HdyLeaflet:
+  - Rename the 'allow-visible' child property into 'navigatable'.
+- HdySwipeable:
+  - Add a navigation direction param and a gesture type param to
+    get_swipe_area().
+- HdyPreferencesWindow:
+  - Allow presenting a subpage over the window via the new
+    present_subpage() and close_subpage() methods.
+  - Add the 'can-swipe-back' property to allow closing a subpage via a
+    back swipe gesture.
+  - Exclude untitled rows as well as invisible pages, groups, and rows
+    from the search results.
+- HdyKeypad:
+  - Replace the 'show-symbols' property by 'letters-visible'.
+  - Replace the 'only-digits' property by 'symbols-visible', whose
+    boolean meaning is inverted.
+  - Replace the 'left-action' property by 'start-action'.
+  - Replace the 'right-action' property by 'end-action'.
+  - Make the 'entry' property declare it uses the GtkEntry type rather
+    than GtkWidget.
+- HdySqeezer:
+  - Add the 'xalign' and 'yalign' properties to help aligning the
+    children during transitions.
+- HdyViewSwitcherTitle:
+  - Set the 'policy' property default to 'auto' as in HdyViewSwitcher.
+- HdyTitleBar:
+  - Fix an accidental mix of natural and minimum sizes in measure().
+- Harden the ABI by making symbols implicitly private and explicitly
+  public.
+- Translation updates:
+  - Romanian
+  - Ukrainian
+
+==============
 Version 0.84.0
 ==============
 
