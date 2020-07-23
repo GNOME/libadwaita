@@ -2,6 +2,7 @@
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <template class="HdyDemoPreferencesWindow" parent="HdyPreferencesWindow">
+    <property name="can-swipe-back">True</property>
     <property name="default_height">700</property>
     <property name="default_width">640</property>
     <property name="width_request">300</property>
@@ -108,6 +109,41 @@
             </child>
           </object>
         </child>
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="description" translatable="yes">Preferences windows can have subpages.</property>
+            <property name="title" translatable="yes">Subpages</property>
+            <property name="visible">True</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Go to a subpage</property>
+                <property name="visible">True</property>
+                <property name="activatable">True</property>
+                <signal name="activated" handler="subpage1_activated_cb" swapped="yes"/>
+                <child>
+                  <object class="GtkImage">
+                    <property name="icon_name">go-next-symbolic</property>
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Go to another subpage</property>
+                <property name="visible">True</property>
+                <property name="activatable">True</property>
+                <signal name="activated" handler="subpage2_activated_cb" swapped="yes"/>
+                <child>
+                  <object class="GtkImage">
+                    <property name="icon_name">go-next-symbolic</property>
+                    <property name="visible">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
     <child>
@@ -150,4 +186,74 @@
       </object>
     </child>
   </template>
+  <object class="GtkBox" id="subpage1">
+    <property name="visible">True</property>
+    <property name="orientation">vertical</property>
+    <property name="can_focus">False</property>
+    <property name="halign">center</property>
+    <property name="valign">center</property>
+    <property name="vexpand">True</property>
+    <property name="hexpand">True</property>
+    <property name="spacing">24</property>
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">This is a subpage</property>
+        <property name="justify">center</property>
+        <property name="wrap">True</property>
+        <property name="opacity">0.5</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+          <attribute name="scale" value="2"/>
+        </attributes>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Return to the preferences</property>
+        <signal name="clicked" handler="return_to_preferences_cb" swapped="yes"/>
+        <style>
+          <class name="suggested-action"/>
+        </style>
+      </object>
+    </child>
+  </object>
+  <object class="GtkBox" id="subpage2">
+    <property name="visible">True</property>
+    <property name="orientation">vertical</property>
+    <property name="can_focus">False</property>
+    <property name="halign">center</property>
+    <property name="valign">center</property>
+    <property name="vexpand">True</property>
+    <property name="hexpand">True</property>
+    <property name="spacing">24</property>
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">This is another subpage</property>
+        <property name="justify">center</property>
+        <property name="wrap">True</property>
+        <property name="opacity">0.5</property>
+        <attributes>
+          <attribute name="weight" value="bold"/>
+          <attribute name="scale" value="2"/>
+        </attributes>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Return to the preferences</property>
+        <signal name="clicked" handler="return_to_preferences_cb" swapped="yes"/>
+        <style>
+          <class name="suggested-action"/>
+        </style>
+      </object>
+    </child>
+  </object>
 </interface>
