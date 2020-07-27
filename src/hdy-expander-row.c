@@ -65,7 +65,6 @@ static GtkBuildableIface *parent_buildable_iface;
 
 enum {
   PROP_0,
-  PROP_TITLE,
   PROP_SUBTITLE,
   PROP_USE_UNDERLINE,
   PROP_ICON_NAME,
@@ -118,9 +117,6 @@ hdy_expander_row_get_property (GObject    *object,
   HdyExpanderRow *self = HDY_EXPANDER_ROW (object);
 
   switch (prop_id) {
-  case PROP_TITLE:
-    g_value_set_string (value, hdy_expander_row_get_title (self));
-    break;
   case PROP_SUBTITLE:
     g_value_set_string (value, hdy_expander_row_get_subtitle (self));
     break;
@@ -153,9 +149,6 @@ hdy_expander_row_set_property (GObject      *object,
   HdyExpanderRow *self = HDY_EXPANDER_ROW (object);
 
   switch (prop_id) {
-  case PROP_TITLE:
-    hdy_expander_row_set_title (self, g_value_get_string (value));
-    break;
   case PROP_SUBTITLE:
     hdy_expander_row_set_subtitle (self, g_value_get_string (value));
     break;
@@ -281,20 +274,6 @@ hdy_expander_row_class_init (HdyExpanderRowClass *klass)
   container_class->forall = hdy_expander_row_forall;
 
   /**
-   * HdyExpanderRow:title:
-   *
-   * The title for this row.
-   *
-   * Since: 1.0
-   */
-  props[PROP_TITLE] =
-    g_param_spec_string ("title",
-                         _("Title"),
-                         _("The title for this row"),
-                         "",
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
    * HdyExpanderRow:subtitle:
    *
    * The subtitle for this row.
@@ -393,7 +372,6 @@ func (gpointer this) { \
   g_object_notify_by_pspec (G_OBJECT (this), props[prop]); \
 } \
 
-NOTIFY (notify_title_cb, PROP_TITLE);
 NOTIFY (notify_subtitle_cb, PROP_SUBTITLE);
 NOTIFY (notify_use_underline_cb, PROP_USE_UNDERLINE);
 NOTIFY (notify_icon_name_cb, PROP_ICON_NAME);
@@ -410,7 +388,6 @@ hdy_expander_row_init (HdyExpanderRow *self)
   hdy_expander_row_set_enable_expansion (self, TRUE);
   hdy_expander_row_set_expanded (self, FALSE);
 
-  g_signal_connect_object (priv->action_row, "notify::title", G_CALLBACK (notify_title_cb), self, G_CONNECT_SWAPPED);
   g_signal_connect_object (priv->action_row, "notify::subtitle", G_CALLBACK (notify_subtitle_cb), self, G_CONNECT_SWAPPED);
   g_signal_connect_object (priv->action_row, "notify::use-underline", G_CALLBACK (notify_use_underline_cb), self, G_CONNECT_SWAPPED);
   g_signal_connect_object (priv->action_row, "notify::icon-name", G_CALLBACK (notify_icon_name_cb), self, G_CONNECT_SWAPPED);
@@ -455,50 +432,6 @@ GtkWidget *
 hdy_expander_row_new (void)
 {
   return g_object_new (HDY_TYPE_EXPANDER_ROW, NULL);
-}
-
-/**
- * hdy_expander_row_get_title:
- * @self: a #HdyExpanderRow
- *
- * Gets the title for @self.
- *
- * Returns: the title for @self.
- *
- * Since: 1.0
- */
-const gchar *
-hdy_expander_row_get_title (HdyExpanderRow *self)
-{
-  HdyExpanderRowPrivate *priv;
-
-  g_return_val_if_fail (HDY_IS_EXPANDER_ROW (self), NULL);
-
-  priv = hdy_expander_row_get_instance_private (self);
-
-  return hdy_preferences_row_get_title (HDY_PREFERENCES_ROW (priv->action_row));
-}
-
-/**
- * hdy_expander_row_set_title:
- * @self: a #HdyExpanderRow
- * @title: the title
- *
- * Sets the title for @self.
- *
- * Since: 1.0
- */
-void
-hdy_expander_row_set_title (HdyExpanderRow *self,
-                            const gchar    *title)
-{
-  HdyExpanderRowPrivate *priv;
-
-  g_return_if_fail (HDY_IS_EXPANDER_ROW (self));
-
-  priv = hdy_expander_row_get_instance_private (self);
-
-  hdy_preferences_row_set_title (HDY_PREFERENCES_ROW (priv->action_row), title);
 }
 
 /**

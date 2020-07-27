@@ -38,12 +38,6 @@ HDY_AVAILABLE_IN_ALL
 GtkWidget   *hdy_expander_row_new (void);
 
 HDY_AVAILABLE_IN_ALL
-const gchar *hdy_expander_row_get_title (HdyExpanderRow *self);
-HDY_AVAILABLE_IN_ALL
-void         hdy_expander_row_set_title (HdyExpanderRow *self,
-                                         const gchar    *title);
-
-HDY_AVAILABLE_IN_ALL
 const gchar *hdy_expander_row_get_subtitle (HdyExpanderRow *self);
 HDY_AVAILABLE_IN_ALL
 void         hdy_expander_row_set_subtitle (HdyExpanderRow *self,

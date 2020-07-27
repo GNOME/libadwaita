@@ -36,6 +36,7 @@
                 <!-- The header row must be focusable for keyboard navigation to
                      work as expected. -->
                 <property name="can-focus">True</property>
+                <property name="title" bind-source="HdyExpanderRow" bind-property="title" bind-flags="sync-create"/>
                 <property name="visible">True</property>
                 <style>
                   <class name="header"/>
