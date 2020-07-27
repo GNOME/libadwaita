@@ -74,7 +74,6 @@ enum {
   PROP_ICON_NAME,
   PROP_ACTIVATABLE_WIDGET,
   PROP_SUBTITLE,
-  PROP_TITLE,
   PROP_USE_UNDERLINE,
   LAST_PROP,
 };
@@ -143,9 +142,6 @@ hdy_action_row_get_property (GObject    *object,
   case PROP_SUBTITLE:
     g_value_set_string (value, hdy_action_row_get_subtitle (self));
     break;
-  case PROP_TITLE:
-    g_value_set_string (value, hdy_action_row_get_title (self));
-    break;
   case PROP_USE_UNDERLINE:
     g_value_set_boolean (value, hdy_action_row_get_use_underline (self));
     break;
@@ -171,9 +167,6 @@ hdy_action_row_set_property (GObject      *object,
     break;
   case PROP_SUBTITLE:
     hdy_action_row_set_subtitle (self, g_value_get_string (value));
-    break;
-  case PROP_TITLE:
-    hdy_action_row_set_title (self, g_value_get_string (value));
     break;
   case PROP_USE_UNDERLINE:
     hdy_action_row_set_use_underline (self, g_value_get_boolean (value));
@@ -392,20 +385,6 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * HdyActionRow:title:
-   *
-   * The title for this row.
-   *
-   * Since: 0.0.6
-   */
-  props[PROP_TITLE] =
-    g_param_spec_string ("title",
-                         _("Title"),
-                         _("Title"),
-                         "",
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
    * HdyActionRow:use-underline:
    *
    * Whether an embedded underline in the text of the title and subtitle labels
@@ -450,10 +429,28 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyActionRow, title_box);
 }
 
+static gboolean
+string_is_not_empty (GBinding     *binding,
+                     const GValue *from_value,
+                     GValue       *to_value,
+                     gpointer      user_data)
+{
+  const gchar *string = g_value_get_string (from_value);
+
+  g_value_set_boolean (to_value, string != NULL && g_strcmp0 (string, "") != 0);
+
+  return TRUE;
+}
+
 static void
 hdy_action_row_init (HdyActionRow *self)
 {
+  HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
+
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  g_object_bind_property_full (self, "title", priv->title, "visible", G_BINDING_SYNC_CREATE,
+                               string_is_not_empty, NULL, NULL, NULL);
 
   update_subtitle_visibility (self);
 
@@ -498,58 +495,6 @@ GtkWidget *
 hdy_action_row_new (void)
 {
   return g_object_new (HDY_TYPE_ACTION_ROW, NULL);
-}
-
-/**
- * hdy_action_row_get_title:
- * @self: a #HdyActionRow
- *
- * Gets the title for @self.
- *
- * Returns: the title for @self.
- *
- * Since: 0.0.6
- */
-const gchar *
-hdy_action_row_get_title (HdyActionRow *self)
-{
-  HdyActionRowPrivate *priv;
-
-  g_return_val_if_fail (HDY_IS_ACTION_ROW (self), NULL);
-
-  priv = hdy_action_row_get_instance_private (self);
-
-  return gtk_label_get_text (priv->title);
-}
-
-/**
- * hdy_action_row_set_title:
- * @self: a #HdyActionRow
- * @title: the title
- *
- * Sets the title for @self.
- *
- * Since: 0.0.6
- */
-void
-hdy_action_row_set_title (HdyActionRow *self,
-                          const gchar  *title)
-{
-  HdyActionRowPrivate *priv;
-
-  g_return_if_fail (HDY_IS_ACTION_ROW (self));
-
-  priv = hdy_action_row_get_instance_private (self);
-  hdy_preferences_row_set_title (HDY_PREFERENCES_ROW (self), title);
-
-  if (g_strcmp0 (gtk_label_get_text (priv->title), title) == 0)
-    return;
-
-  gtk_label_set_text (priv->title, title);
-  gtk_widget_set_visible (GTK_WIDGET (priv->title),
-                          title != NULL && g_strcmp0 (title, "") != 0);
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
 }
 
 /**

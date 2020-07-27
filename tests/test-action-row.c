@@ -49,21 +49,6 @@ test_hdy_action_row_add_prefix (void)
 
 
 static void
-test_hdy_action_row_title (void)
-{
-  g_autoptr (HdyActionRow) row = NULL;
-
-  row = g_object_ref_sink (HDY_ACTION_ROW (hdy_action_row_new ()));
-  g_assert_nonnull (row);
-
-  g_assert_cmpstr (hdy_action_row_get_title (row), ==, "");
-
-  hdy_action_row_set_title (row, "Dummy title");
-  g_assert_cmpstr (hdy_action_row_get_title (row), ==, "Dummy title");
-}
-
-
-static void
 test_hdy_action_row_subtitle (void)
 {
   g_autoptr (HdyActionRow) row = NULL;
@@ -136,7 +121,6 @@ main (gint argc,
 
   g_test_add_func("/Handy/ActionRow/add", test_hdy_action_row_add);
   g_test_add_func("/Handy/ActionRow/add_prefix", test_hdy_action_row_add_prefix);
-  g_test_add_func("/Handy/ActionRow/title", test_hdy_action_row_title);
   g_test_add_func("/Handy/ActionRow/subtitle", test_hdy_action_row_subtitle);
   g_test_add_func("/Handy/ActionRow/icon_name", test_hdy_action_row_icon_name);
   g_test_add_func("/Handy/ActionRow/use_underline", test_hdy_action_row_use_undeline);
