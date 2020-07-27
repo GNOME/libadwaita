@@ -70,13 +70,6 @@ enum {
   LAST_PROP,
 };
 
-enum {
-  CHILD_PROP_0,
-  CHILD_PROP_NAME,
-  CHILD_PROP_ALLOW_VISIBLE,
-  LAST_CHILD_PROP,
-};
-
 #define HDY_FOLD_UNFOLDED FALSE
 #define HDY_FOLD_FOLDED TRUE
 #define HDY_FOLD_MAX 2
@@ -169,7 +162,6 @@ struct _HdyStackableBox
 };
 
 static GParamSpec *props[LAST_PROP];
-static GParamSpec *child_props[LAST_CHILD_PROP];
 
 static gint HOMOGENEOUS_PROP[HDY_FOLD_MAX][GTK_ORIENTATION_MAX] = {
   { PROP_HHOMOGENEOUS_UNFOLDED, PROP_VHOMOGENEOUS_UNFOLDED},
@@ -3096,13 +3088,6 @@ hdy_stackable_box_class_init (HdyStackableBoxClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
-
-  child_props[CHILD_PROP_NAME] =
-    g_param_spec_string ("name",
-                         _("Name"),
-                         _("The name of the child page"),
-                         NULL,
-                         G_PARAM_READWRITE);
 }
 
 HdyStackableBox *
