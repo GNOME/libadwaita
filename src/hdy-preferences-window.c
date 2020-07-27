@@ -44,6 +44,7 @@ typedef struct
   HdyViewSwitcherTitle *view_switcher_title;
 
   gboolean search_enabled;
+  gboolean can_swipe_back;
   gint n_last_search_results;
   GtkWidget *subpage;
 } HdyPreferencesWindowPrivate;
@@ -53,6 +54,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (HdyPreferencesWindow, hdy_preferences_window, HDY_TY
 enum {
   PROP_0,
   PROP_SEARCH_ENABLED,
+  PROP_CAN_SWIPE_BACK,
   LAST_PROP,
 };
 
@@ -358,6 +360,9 @@ hdy_preferences_window_get_property (GObject    *object,
   case PROP_SEARCH_ENABLED:
     g_value_set_boolean (value, hdy_preferences_window_get_search_enabled (self));
     break;
+  case PROP_CAN_SWIPE_BACK:
+    g_value_set_boolean (value, hdy_preferences_window_get_can_swipe_back (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -374,6 +379,9 @@ hdy_preferences_window_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_SEARCH_ENABLED:
     hdy_preferences_window_set_search_enabled (self, g_value_get_boolean (value));
+    break;
+  case PROP_CAN_SWIPE_BACK:
+    hdy_preferences_window_set_can_swipe_back (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -461,6 +469,20 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
                           _("Whether search is enabled"),
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyPreferencesWindow:can-swipe-back:
+   *
+   * Whether or not the window allows closing the subpage via a swipe gesture.
+   *
+   * Since: 1.0
+   */
+  props[PROP_CAN_SWIPE_BACK] =
+      g_param_spec_boolean ("can-swipe-back",
+                            _("Can swipe back"),
+                            _("Whether or not swipe gesture can be used to switch from a subpage to the preferences"),
+                            FALSE,
+                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
@@ -567,6 +589,59 @@ hdy_preferences_window_set_search_enabled (HdyPreferencesWindow *self,
     gtk_toggle_button_set_active (priv->search_button, FALSE);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SEARCH_ENABLED]);
+}
+
+/**
+ * hdy_preferences_window_set_can_swipe_back:
+ * @self: a #HdyPreferencesWindow
+ * @can_swipe_back: the new value
+ *
+ * Sets whether or not @self allows switching from a subpage to the preferences
+ * via a swipe gesture.
+ *
+ * Since: 1.0
+ */
+void
+hdy_preferences_window_set_can_swipe_back (HdyPreferencesWindow *self,
+                                           gboolean              can_swipe_back)
+{
+  HdyPreferencesWindowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_PREFERENCES_WINDOW (self));
+
+  priv = hdy_preferences_window_get_instance_private (self);
+
+  can_swipe_back = !!can_swipe_back;
+
+  if (priv->can_swipe_back == can_swipe_back)
+    return;
+
+  priv->can_swipe_back = can_swipe_back;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_SWIPE_BACK]);
+}
+
+/**
+ * hdy_preferences_window_get_can_swipe_back
+ * @self: a #HdyPreferencesWindow
+ *
+ * Returns whether or not @self allows switching from a subpage to the
+ * preferences via a swipe gesture.
+ *
+ * Returns: %TRUE if back swipe is enabled.
+ *
+ * Since: 1.0
+ */
+gboolean
+hdy_preferences_window_get_can_swipe_back (HdyPreferencesWindow *self)
+{
+  HdyPreferencesWindowPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_PREFERENCES_WINDOW (self), FALSE);
+
+  priv = hdy_preferences_window_get_instance_private (self);
+
+  return priv->can_swipe_back;
 }
 
 /**

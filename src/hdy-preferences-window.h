@@ -34,6 +34,10 @@ gboolean hdy_preferences_window_get_search_enabled (HdyPreferencesWindow *self);
 void     hdy_preferences_window_set_search_enabled (HdyPreferencesWindow *self,
                                                     gboolean              search_enabled);
 
+gboolean hdy_preferences_window_get_can_swipe_back (HdyPreferencesWindow *self);
+void     hdy_preferences_window_set_can_swipe_back (HdyPreferencesWindow *self,
+                                                    gboolean              can_swipe_back);
+
 void hdy_preferences_window_present_subpage (HdyPreferencesWindow *self,
                                              GtkWidget            *subpage);
 void hdy_preferences_window_close_subpage (HdyPreferencesWindow *self);

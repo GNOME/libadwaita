@@ -11,6 +11,7 @@
     <signal name="key-press-event" handler="key_press_event_cb" after="yes" swapped="no"/>
     <child>
       <object class="HdyDeck" id="subpages_deck">
+        <property name="can-swipe-back" bind-source="HdyPreferencesWindow" bind-property="can-swipe-back" bind-flags="sync-create"/>
         <property name="visible">True</property>
         <signal name="notify::transition-running" handler="subpages_deck_transition_running_cb" swapped="yes"/>
         <child>
