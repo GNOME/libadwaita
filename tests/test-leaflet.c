@@ -27,7 +27,7 @@ test_hdy_leaflet_adjacent_child (void)
   }
 
   gtk_container_child_set (GTK_CONTAINER (leaflet), children[1],
-                           "allow-visible", FALSE,
+                           "navigatable", FALSE,
                            NULL);
 
   hdy_leaflet_set_visible_child (leaflet, children[0]);
@@ -75,7 +75,7 @@ test_hdy_leaflet_navigate (void)
   }
 
   gtk_container_child_set (GTK_CONTAINER (leaflet), children[1],
-                           "allow-visible", FALSE,
+                           "navigatable", FALSE,
                            NULL);
 
   hdy_leaflet_set_visible_child (leaflet, children[0]);

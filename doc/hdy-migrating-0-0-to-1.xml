@@ -180,6 +180,9 @@
         It can be mitigated by using #HdyWindow or #HdyApplicationWindow as they
         will crop anything drawn beyond the rounded corners.
       </para>
+      <para>
+        The “allow-visible” child property has been renamed “navigatable”.
+      </para>
     </refsect3>
 
     <refsect3>

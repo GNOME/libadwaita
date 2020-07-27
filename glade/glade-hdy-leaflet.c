@@ -374,13 +374,13 @@ verify_page (GObject      *object,
 
   if (HDY_IS_LEAFLET (object)) {
     GtkWidget *child = glade_hdy_get_nth_child (GTK_CONTAINER (object), page);
-    gboolean allow_visible;
+    gboolean navigatable;
 
     gtk_container_child_get (GTK_CONTAINER (object), child,
-                             "allow-visible", &allow_visible,
+                             "navigatable", &navigatable,
                              NULL);
 
-    if (!allow_visible)
+    if (!navigatable)
       return FALSE;
   }
 

@@ -84,7 +84,7 @@ enum {
 enum {
   CHILD_PROP_0,
   CHILD_PROP_NAME,
-  CHILD_PROP_ALLOW_VISIBLE,
+  CHILD_PROP_NAVIGATABLE,
   LAST_CHILD_PROP,
 };
 
@@ -441,7 +441,7 @@ hdy_leaflet_get_interpolate_size (HdyLeaflet *self)
  * @can_swipe_back: the new value
  *
  * Sets whether or not @self allows switching to the previous child that has
- * 'allow-visible' child property set to %TRUE via a swipe gesture
+ * 'navigatable' child property set to %TRUE via a swipe gesture
  *
  * Since: 0.0.12
  */
@@ -478,7 +478,7 @@ hdy_leaflet_get_can_swipe_back (HdyLeaflet *self)
  * @can_swipe_forward: the new value
  *
  * Sets whether or not @self allows switching to the next child that has
- * 'allow-visible' child property set to %TRUE via a swipe gesture.
+ * 'navigatable' child property set to %TRUE via a swipe gesture.
  *
  * Since: 0.0.12
  */
@@ -514,7 +514,7 @@ hdy_leaflet_get_can_swipe_forward (HdyLeaflet *self)
  * @self: a #HdyLeaflet
  * @direction: the direction
  *
- * Gets the previous or next child that doesn't have 'allow-visible' child
+ * Gets the previous or next child that doesn't have 'navigatable' child
  * property set to %FALSE, or %NULL if it doesn't exist. This will be the same
  * widget hdy_leaflet_navigate() will navigate to.
  *
@@ -537,9 +537,9 @@ hdy_leaflet_get_adjacent_child (HdyLeaflet             *self,
  * @self: a #HdyLeaflet
  * @direction: the direction
  *
- * Switches to the previous or next child that doesn't have 'allow-visible'
- * child property set to %FALSE, similar to performing a swipe gesture to go
- * in @direction.
+ * Switches to the previous or next child that doesn't have 'navigatable' child
+ * property set to %FALSE, similar to performing a swipe gesture to go in
+ * @direction.
  *
  * Returns: %TRUE if visible child was changed, %FALSE otherwise.
  *
@@ -810,7 +810,7 @@ hdy_leaflet_get_child_property (GtkContainer *container,
     g_value_set_string (value, hdy_stackable_box_get_child_name (HDY_GET_HELPER (container), widget));
     break;
 
-  case CHILD_PROP_ALLOW_VISIBLE:
+  case CHILD_PROP_NAVIGATABLE:
     g_value_set_boolean (value, hdy_stackable_box_get_child_navigatable (HDY_GET_HELPER (container), widget));
     break;
 
@@ -833,7 +833,7 @@ hdy_leaflet_set_child_property (GtkContainer *container,
     gtk_container_child_notify_by_pspec (container, widget, pspec);
     break;
 
-  case CHILD_PROP_ALLOW_VISIBLE:
+  case CHILD_PROP_NAVIGATABLE:
     hdy_stackable_box_set_child_navigatable (HDY_GET_HELPER (container), widget, g_value_get_boolean (value));
     gtk_container_child_notify_by_pspec (container, widget, pspec);
     break;
@@ -1078,7 +1078,7 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
    * HdyLeaflet:can-swipe-back:
    *
    * Whether or not the leaflet allows switching to the previous child that has
-   * 'allow-visible' child property set to %TRUE via a swipe gesture.
+   * 'navigatable' child property set to %TRUE via a swipe gesture.
    *
    * Since: 0.0.12
    */
@@ -1093,7 +1093,7 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
    * HdyLeaflet:can-swipe-forward:
    *
    * Whether or not the leaflet allows switching to the next child that has
-   * 'allow-visible' child property set to %TRUE via a swipe gesture.
+   * 'navigatable' child property set to %TRUE via a swipe gesture.
    *
    * Since: 0.0.12
    */
@@ -1114,19 +1114,20 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                          G_PARAM_READWRITE);
 
   /**
-   * HdyLeaflet:allow-visible:
+   * HdyLeaflet:navigatable:
    *
-   * Whether the child can be visible when folded. This can be used used in
-   * conjunction with #HdyLeaflet:can-swipe-back or
-   * #HdyLeaflet:can-swipe-forward to prevent switching to widgets like
-   * separators.
+   * Whether the child can be navigated to when folded.
+   * If %FALSE, the child will be ignored by hdy_leaflet_get_adjacent_child(),
+   * hdy_leaflet_navigate(), and swipe gestures.
    *
-   * Since: 0.0.12
+   * This can be used used to prevent switching to widgets like separators.
+   *
+   * Since: 1.0
    */
-  child_props[CHILD_PROP_ALLOW_VISIBLE] =
-    g_param_spec_boolean ("allow-visible",
-                          _("Allow visible"),
-                          _("Whether the child can be visible in folded mode"),
+  child_props[CHILD_PROP_NAVIGATABLE] =
+    g_param_spec_boolean ("navigatable",
+                          _("Navigatable"),
+                          _("Whether the child can be navigated to"),
                           TRUE,
                           G_PARAM_READWRITE);
 

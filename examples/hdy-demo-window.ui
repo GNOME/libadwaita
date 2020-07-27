@@ -126,7 +126,7 @@
             </child>
           </object>
           <packing>
-            <property name="allow-visible">False</property>
+            <property name="navigatable">False</property>
           </packing>
         </child>
         <child>
