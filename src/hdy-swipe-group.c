@@ -104,7 +104,7 @@ hdy_swipe_group_new (void)
 
 static void
 child_switched_cb (HdySwipeGroup *self,
-                   uint           index,
+                   guint          index,
                    gint64         duration,
                    HdySwipeable  *swipeable)
 {

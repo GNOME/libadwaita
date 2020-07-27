@@ -158,7 +158,7 @@ static void
 test_hdy_carousel_indicator_spacing (void)
 {
   HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
-  uint spacing;
+  guint spacing;
 
   notified = 0;
   g_signal_connect (carousel, "notify::indicator-spacing", G_CALLBACK (notify_cb), NULL);
@@ -210,7 +210,7 @@ static void
 test_hdy_carousel_spacing (void)
 {
   HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
-  uint spacing;
+  guint spacing;
 
   notified = 0;
   g_signal_connect (carousel, "notify::spacing", G_CALLBACK (notify_cb), NULL);
@@ -236,7 +236,7 @@ static void
 test_hdy_carousel_animation_duration (void)
 {
   HdyCarousel *carousel = HDY_CAROUSEL (hdy_carousel_new ());
-  uint duration;
+  guint duration;
 
   notified = 0;
   g_signal_connect (carousel, "notify::animation-duration", G_CALLBACK (notify_cb), NULL);
