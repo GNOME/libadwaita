@@ -811,7 +811,7 @@ hdy_leaflet_get_child_property (GtkContainer *container,
     break;
 
   case CHILD_PROP_ALLOW_VISIBLE:
-    g_value_set_boolean (value, hdy_stackable_box_get_child_allow_visible (HDY_GET_HELPER (container), widget));
+    g_value_set_boolean (value, hdy_stackable_box_get_child_navigatable (HDY_GET_HELPER (container), widget));
     break;
 
   default:
@@ -834,7 +834,7 @@ hdy_leaflet_set_child_property (GtkContainer *container,
     break;
 
   case CHILD_PROP_ALLOW_VISIBLE:
-    hdy_stackable_box_set_child_allow_visible (HDY_GET_HELPER (container), widget, g_value_get_boolean (value));
+    hdy_stackable_box_set_child_navigatable (HDY_GET_HELPER (container), widget, g_value_get_boolean (value));
     gtk_container_child_notify_by_pspec (container, widget, pspec);
     break;
 

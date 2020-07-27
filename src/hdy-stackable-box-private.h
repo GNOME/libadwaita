@@ -82,11 +82,11 @@ const gchar     *hdy_stackable_box_get_child_name (HdyStackableBox *self,
 void             hdy_stackable_box_set_child_name (HdyStackableBox *self,
                                                    GtkWidget       *widget,
                                                    const gchar     *name);
-gboolean         hdy_stackable_box_get_child_allow_visible (HdyStackableBox *self,
-                                                            GtkWidget       *widget);
-void             hdy_stackable_box_set_child_allow_visible (HdyStackableBox *self,
-                                                            GtkWidget       *widget,
-                                                            gboolean         allow_visible);
+gboolean         hdy_stackable_box_get_child_navigatable (HdyStackableBox *self,
+                                                          GtkWidget       *widget);
+void             hdy_stackable_box_set_child_navigatable (HdyStackableBox *self,
+                                                          GtkWidget       *widget,
+                                                          gboolean         navigatable);
 
 void             hdy_stackable_box_switch_child (HdyStackableBox *self,
                                                  guint            index,
