@@ -43,6 +43,7 @@
                 <property name="ellipsize">end</property>
                 <property name="halign">start</property>
                 <property name="hexpand">True</property>
+                <property name="label" bind-source="HdyActionRow" bind-property="title" bind-flags="sync-create"/>
                 <property name="visible">True</property>
                 <property name="xalign">0</property>
                 <style>

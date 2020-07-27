@@ -66,7 +66,7 @@ filter_search_results (HdyActionRow         *row,
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
   g_autofree gchar *text = g_utf8_casefold (gtk_entry_get_text (GTK_ENTRY (priv->search_entry)), -1);
-  g_autofree gchar *title = g_utf8_casefold (hdy_action_row_get_title (row), -1);
+  g_autofree gchar *title = g_utf8_casefold (hdy_preferences_row_get_title (HDY_PREFERENCES_ROW (row)), -1);
   g_autofree gchar *subtitle = NULL;
 
   /* The CSS engine works in such a way that invisible children are treated as
