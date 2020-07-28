@@ -8,6 +8,7 @@ private_headers = [
     'gtk-window-private.h',
     'hdy-animation-private.h',
     'hdy-carousel-box-private.h',
+    'hdy-enums-private.h',
     'hdy-main-private.h',
     'hdy-nothing-private.h',
     'hdy-keypad-button-private.h',
