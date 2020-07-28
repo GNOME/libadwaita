@@ -235,7 +235,7 @@ hdy_keypad_button_class_init (HdyKeypadButtonClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_SHOW_SYMBOLS] =
-    g_param_spec_boolean ("show_symbols",
+    g_param_spec_boolean ("show-symbols",
                          _("Show Symbols"),
                          _("Whether the second line of symbols should be shown or not"),
                          TRUE,
