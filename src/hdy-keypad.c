@@ -57,14 +57,11 @@ static void
 symbol_clicked (HdyKeypad *self,
                 gchar      symbol)
 {
-  HdyKeypadPrivate *priv;
+  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
   g_autofree gchar *string = g_strdup_printf ("%c", symbol);
 
-  g_return_if_fail (HDY_IS_KEYPAD (self));
-
-  priv = hdy_keypad_get_instance_private (self);
-
-  g_return_if_fail (priv->entry != NULL);
+  if (!priv->entry)
+    return;
 
   g_signal_emit_by_name (priv->entry, "insert-at-cursor", string, NULL);
   /* Set focus to the entry only when it can get focus
@@ -79,12 +76,7 @@ static void
 button_clicked_cb (HdyKeypad       *self,
                    HdyKeypadButton *btn)
 {
-  gchar digit;
-
-  g_return_if_fail (HDY_IS_KEYPAD (self));
-  g_return_if_fail (HDY_IS_KEYPAD_BUTTON (btn));
-
-  digit = hdy_keypad_button_get_digit (btn);
+  gchar digit = hdy_keypad_button_get_digit (btn);
   symbol_clicked (self, digit);
   g_debug ("Button with number %c was pressed", digit);
 }
@@ -94,8 +86,6 @@ static void
 asterisk_button_clicked_cb (HdyKeypad *self,
                             GtkWidget *btn)
 {
-  g_return_if_fail (HDY_IS_KEYPAD (self));
-
   symbol_clicked (self, '*');
   g_debug ("Button with * was pressed");
 }
@@ -105,8 +95,6 @@ static void
 hash_button_clicked_cb (HdyKeypad *self,
                         GtkWidget *btn)
 {
-  g_return_if_fail (HDY_IS_KEYPAD (self));
-
   symbol_clicked (self, '#');
   g_debug ("Button with # was pressed");
 }
@@ -119,12 +107,9 @@ insert_text_cb (HdyKeypad   *self,
                 gpointer     position,
                 GtkEditable *editable)
 {
-  HdyKeypadPrivate *priv;
+  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
 
-  g_return_if_fail (HDY_IS_KEYPAD (self));
-  g_return_if_fail (length == 1);
-
-  priv = hdy_keypad_get_instance_private (self);
+  g_assert (length == 1);
 
   if (g_ascii_isdigit (*text))
      return;
@@ -142,11 +127,7 @@ long_press_zero_cb (HdyKeypad  *self,
                     gdouble     y,
                     GtkGesture *gesture)
 {
-  HdyKeypadPrivate *priv;
-
-  g_return_if_fail (HDY_IS_KEYPAD (self));
-
-  priv = hdy_keypad_get_instance_private (self);
+  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
 
   if (priv->symbols_visible)
     return;
