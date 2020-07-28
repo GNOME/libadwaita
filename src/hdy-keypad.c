@@ -21,6 +21,8 @@
  * # CSS nodes
  *
  * #HdyKeypad has a single CSS node with name keypad.
+ *
+ * Since: 0.0.12
  */
 
 typedef struct
@@ -381,6 +383,7 @@ hdy_keypad_init (HdyKeypad *self)
  *
  * Returns: the newly created #HdyKeypad widget
  *
+ * Since: 0.0.12
  */
 GtkWidget *
 hdy_keypad_new (gboolean symbols_visible,
@@ -398,6 +401,8 @@ hdy_keypad_new (gboolean symbols_visible,
  * @spacing: the amount of space to insert between rows
  *
  * Sets the amount of space between rows of @self.
+ *
+ * Since: 1.0
  */
 void
 hdy_keypad_set_row_spacing (HdyKeypad *self,
@@ -426,6 +431,8 @@ hdy_keypad_set_row_spacing (HdyKeypad *self,
  * Returns the amount of space between the rows of @self.
  *
  * Returns: the row spacing of @self
+ *
+ * Since: 1.0
  */
 guint
 hdy_keypad_get_row_spacing (HdyKeypad *self)
@@ -446,6 +453,8 @@ hdy_keypad_get_row_spacing (HdyKeypad *self)
  * @spacing: the amount of space to insert between columns
  *
  * Sets the amount of space between columns of @self.
+ *
+ * Since: 1.0
  */
 void
 hdy_keypad_set_column_spacing (HdyKeypad *self,
@@ -474,6 +483,8 @@ hdy_keypad_set_column_spacing (HdyKeypad *self,
  * Returns the amount of space between the columns of @self.
  *
  * Returns: the column spacing of @self
+ *
+ * Since: 1.0
  */
 guint
 hdy_keypad_get_column_spacing (HdyKeypad *self)
