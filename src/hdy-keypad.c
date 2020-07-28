@@ -254,6 +254,13 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
   object_class->set_property = hdy_keypad_set_property;
   object_class->get_property = hdy_keypad_get_property;
 
+  /**
+   * HdyKeypad:row-spacing:
+   *
+   * The amount of space between two consecutive rows.
+   *
+   * Since: 1.0
+   */
   props[PROP_ROW_SPACING] =
     g_param_spec_uint ("row-spacing",
                        _("Row spacing"),
@@ -261,6 +268,13 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
                        0, G_MAXINT16, 0,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * HdyKeypad:column-spacing:
+   *
+   * The amount of space between two consecutive columns.
+   *
+   * Since: 1.0
+   */
   props[PROP_COLUMN_SPACING] =
     g_param_spec_uint ("column-spacing",
                        _("Column spacing"),
