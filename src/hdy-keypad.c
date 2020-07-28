@@ -363,6 +363,7 @@ hdy_keypad_init (HdyKeypad *self)
   priv->letters_visible = TRUE;
   priv->symbols_visible = TRUE;
 
+  g_type_ensure (HDY_TYPE_KEYPAD_BUTTON);
   gtk_widget_init_template (GTK_WIDGET (self));
 }
 
