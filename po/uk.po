@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
-"POT-Creation-Date: 2020-07-10 18:42+0000\n"
-"PO-Revision-Date: 2020-07-10 22:09+0300\n"
+"POT-Creation-Date: 2020-07-28 11:41+0000\n"
+"PO-Revision-Date: 2020-07-28 15:10+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -87,15 +87,15 @@ msgid "The widget to be activated when the row is activated"
 msgstr "Віджет, який буде активовано, якщо активовано рядок"
 
 #: src/hdy-action-row.c:389 src/hdy-action-row.c:390 src/hdy-expander-row.c:306
-#: src/hdy-header-bar.c:2149 src/hdy-view-switcher-title.c:295
+#: src/hdy-header-bar.c:2147 src/hdy-view-switcher-title.c:294
 msgid "Subtitle"
 msgstr "Підзаголовок"
 
 #: src/hdy-action-row.c:403 src/hdy-action-row.c:404 src/hdy-expander-row.c:292
-#: src/hdy-header-bar.c:2142 src/hdy-preferences-group.c:265
+#: src/hdy-header-bar.c:2140 src/hdy-preferences-group.c:265
 #: src/hdy-preferences-group.c:266 src/hdy-preferences-page.c:193
 #: src/hdy-preferences-page.c:194 src/hdy-preferences-row.c:115
-#: src/hdy-view-switcher-title.c:281
+#: src/hdy-view-switcher-title.c:280
 msgid "Title"
 msgstr "Заголовок"
 
@@ -118,7 +118,7 @@ msgstr ""
 msgid "Number of pages"
 msgstr "Кількість сторінок"
 
-#: src/hdy-carousel-box.c:1111 src/hdy-carousel.c:966 src/hdy-header-bar.c:2135
+#: src/hdy-carousel-box.c:1111 src/hdy-carousel.c:966 src/hdy-header-bar.c:2133
 msgid "Position"
 msgstr "Позиція"
 
@@ -127,7 +127,7 @@ msgid "Current scrolling position"
 msgstr "Поточна позиція гортання"
 
 #: src/hdy-carousel-box.c:1127 src/hdy-carousel.c:1048
-#: src/hdy-header-bar.c:2163
+#: src/hdy-header-bar.c:2161
 msgid "Spacing"
 msgstr "Інтервал"
 
@@ -223,72 +223,72 @@ msgstr "Використовувати підзаголовок"
 msgid "Set the current value as the subtitle"
 msgstr "Встановити поточне значення як підзаголовок"
 
-#: src/hdy-deck.c:852
+#: src/hdy-deck.c:888
 msgid "Horizontally homogeneous"
 msgstr "Горизонтально однорідний"
 
-#: src/hdy-deck.c:853
+#: src/hdy-deck.c:889
 msgid "Horizontally homogeneous sizing"
 msgstr "Однорідний за розміром горизонтально"
 
-#: src/hdy-deck.c:866
+#: src/hdy-deck.c:902
 msgid "Vertically homogeneous"
 msgstr "Вертикально однорідний"
 
-#: src/hdy-deck.c:867
+#: src/hdy-deck.c:903
 msgid "Vertically homogeneous sizing"
 msgstr "Однорідний за розміром вертикально"
 
-#: src/hdy-deck.c:880 src/hdy-leaflet.c:981 src/hdy-squeezer.c:1100
-#: src/hdy-stackable-box.c:2924
+#: src/hdy-deck.c:916 src/hdy-leaflet.c:1018 src/hdy-squeezer.c:1073
+#: src/hdy-stackable-box.c:2993
 msgid "Visible child"
 msgstr "Видимий дочірній елемент"
 
-#: src/hdy-deck.c:881
+#: src/hdy-deck.c:917
 msgid "The widget currently visible"
 msgstr "Віджет є видимим"
 
-#: src/hdy-deck.c:894 src/hdy-leaflet.c:988 src/hdy-stackable-box.c:2931
+#: src/hdy-deck.c:930 src/hdy-leaflet.c:1025 src/hdy-stackable-box.c:3000
 msgid "Name of visible child"
 msgstr "Назва видимого дочірнього елемента"
 
-#: src/hdy-deck.c:895
+#: src/hdy-deck.c:931
 msgid "The name of the widget currently visible"
 msgstr "Назва віджета є видимою"
 
-#: src/hdy-deck.c:913 src/hdy-leaflet.c:1007 src/hdy-squeezer.c:1114
-#: src/hdy-stackable-box.c:2950
+#: src/hdy-deck.c:949 src/hdy-leaflet.c:1044 src/hdy-squeezer.c:1087
+#: src/hdy-stackable-box.c:3019
 msgid "Transition type"
 msgstr "Тип переходу"
 
-#: src/hdy-deck.c:914
+#: src/hdy-deck.c:950
 msgid "The type of animation used to transition between children"
 msgstr ""
 "Тип анімації, який буде використано для переходу між дочірніми об'єктами"
 
-#: src/hdy-deck.c:927 src/hdy-header-bar.c:2245 src/hdy-squeezer.c:1107
+#: src/hdy-deck.c:963 src/hdy-header-bar.c:2243 src/hdy-squeezer.c:1080
 msgid "Transition duration"
 msgstr "Тривалість переходу"
 
-#: src/hdy-deck.c:928
+#: src/hdy-deck.c:964
 msgid "The transition animation duration, in milliseconds"
 msgstr "Тривалість анімації переходу у мілісекундах"
 
-#: src/hdy-deck.c:941 src/hdy-header-bar.c:2252 src/hdy-squeezer.c:1122
+#: src/hdy-deck.c:977 src/hdy-header-bar.c:2250 src/hdy-squeezer.c:1095
 msgid "Transition running"
 msgstr "Виконання переходу"
 
-#: src/hdy-deck.c:942 src/hdy-header-bar.c:2253 src/hdy-squeezer.c:1123
+#: src/hdy-deck.c:978 src/hdy-header-bar.c:2251 src/hdy-squeezer.c:1096
 msgid "Whether or not the transition is currently running"
 msgstr "Чи виконується перехід цієї миті"
 
-#: src/hdy-deck.c:956 src/hdy-header-bar.c:2259 src/hdy-leaflet.c:1035
-#: src/hdy-squeezer.c:1129 src/hdy-stackable-box.c:2978
+#: src/hdy-deck.c:992 src/hdy-header-bar.c:2257 src/hdy-leaflet.c:1072
+#: src/hdy-squeezer.c:1102 src/hdy-stackable-box.c:3047
 msgid "Interpolate size"
 msgstr "Інтерполювати розмір"
 
-#: src/hdy-deck.c:957 src/hdy-header-bar.c:2260 src/hdy-leaflet.c:1036
-#: src/hdy-squeezer.c:1130 src/hdy-stackable-box.c:2979
+#: src/hdy-deck.c:993 src/hdy-header-bar.c:2258 src/hdy-leaflet.c:1073
+#: src/hdy-squeezer.c:1103 src/hdy-stackable-box.c:3048
 msgid ""
 "Whether or not the size should smoothly change when changing between "
 "differently sized children"
@@ -296,32 +296,32 @@ msgstr ""
 "Визначає, чи повинен розмір змінюватися плавно при перемиканні між дочірніми "
 "елементами різних розмірів"
 
-#: src/hdy-deck.c:971 src/hdy-leaflet.c:1050 src/hdy-stackable-box.c:2993
+#: src/hdy-deck.c:1007 src/hdy-leaflet.c:1087 src/hdy-stackable-box.c:3062
 msgid "Can swipe back"
 msgstr "Можна змахнути назад"
 
-#: src/hdy-deck.c:972 src/hdy-leaflet.c:1051 src/hdy-stackable-box.c:2994
+#: src/hdy-deck.c:1008 src/hdy-leaflet.c:1088 src/hdy-stackable-box.c:3063
 msgid ""
 "Whether or not swipe gesture can be used to switch to the previous child"
 msgstr ""
 "Визначає, чи можна скористатися жестом змахування для перемикання до "
 "попереднього дочірнього об'єкта"
 
-#: src/hdy-deck.c:985 src/hdy-leaflet.c:1065 src/hdy-stackable-box.c:3008
+#: src/hdy-deck.c:1022 src/hdy-leaflet.c:1102 src/hdy-stackable-box.c:3077
 msgid "Can swipe forward"
 msgstr "Можна змахувати вперед"
 
-#: src/hdy-deck.c:986 src/hdy-leaflet.c:1066 src/hdy-stackable-box.c:3009
+#: src/hdy-deck.c:1023 src/hdy-leaflet.c:1103 src/hdy-stackable-box.c:3078
 msgid "Whether or not swipe gesture can be used to switch to the next child"
 msgstr ""
 "Визначає, чи можна скористатися жестом змахування для перемикання до "
 "наступного дочірнього об'єкта"
 
-#: src/hdy-deck.c:994 src/hdy-leaflet.c:1074 src/hdy-stackable-box.c:3025
+#: src/hdy-deck.c:1031 src/hdy-leaflet.c:1111
 msgid "Name"
 msgstr "Назва"
 
-#: src/hdy-deck.c:995 src/hdy-leaflet.c:1075 src/hdy-stackable-box.c:3026
+#: src/hdy-deck.c:1032 src/hdy-leaflet.c:1112
 msgid "The name of the child page"
 msgstr "Назва дочірньої сторінки"
 
@@ -381,11 +381,11 @@ msgstr "Закрити"
 msgid "Back"
 msgstr "Назад"
 
-#: src/hdy-header-bar.c:2128
+#: src/hdy-header-bar.c:2126
 msgid "Pack type"
 msgstr "Тип упаковки"
 
-#: src/hdy-header-bar.c:2129
+#: src/hdy-header-bar.c:2127
 msgid ""
 "A GtkPackType indicating whether the child is packed with reference to the "
 "start or end of the parent"
@@ -393,76 +393,75 @@ msgstr ""
 "Об'єкт GtkPackType, що визначає відносно чого упаковується вкладений об'єкт "
 "-- відносно початку, кінця, чи батьківського об'єкта"
 
-#: src/hdy-header-bar.c:2136
+#: src/hdy-header-bar.c:2134
 msgid "The index of the child in the parent"
 msgstr "Індекс вкладеного елемента у батьківському"
 
-#: src/hdy-header-bar.c:2143 src/hdy-view-switcher-title.c:282
+#: src/hdy-header-bar.c:2141 src/hdy-view-switcher-title.c:281
 msgid "The title to display"
 msgstr "Заголовок для показу"
 
-#: src/hdy-header-bar.c:2150 src/hdy-view-switcher-title.c:296
+#: src/hdy-header-bar.c:2148 src/hdy-view-switcher-title.c:295
 msgid "The subtitle to display"
 msgstr "Підзаголовок для показу"
 
-#: src/hdy-header-bar.c:2156
+#: src/hdy-header-bar.c:2154
 msgid "Custom Title"
 msgstr "Нетиповий заголовок"
 
-#: src/hdy-header-bar.c:2157
+#: src/hdy-header-bar.c:2155
 msgid "Custom title widget to display"
 msgstr "Віджет для показу нетипового заголовка"
 
-#: src/hdy-header-bar.c:2164
+#: src/hdy-header-bar.c:2162
 msgid "The amount of space between children"
 msgstr "Відстані між вкладеними елементами"
 
-#: src/hdy-header-bar.c:2183
+#: src/hdy-header-bar.c:2181
 msgid "Show decorations"
 msgstr "Показувати оформлення"
 
-#: src/hdy-header-bar.c:2184
+#: src/hdy-header-bar.c:2182
 msgid "Whether to show window decorations"
 msgstr "Чи показувати оформлення вікна"
 
-#: src/hdy-header-bar.c:2202
+#: src/hdy-header-bar.c:2200
 msgid "Decoration Layout"
 msgstr "Компонування оформлення"
 
-#: src/hdy-header-bar.c:2203
+#: src/hdy-header-bar.c:2201
 msgid "The layout for window decorations"
 msgstr "Компонування оформлення вікон"
 
-#: src/hdy-header-bar.c:2216
+#: src/hdy-header-bar.c:2214
 msgid "Decoration Layout Set"
 msgstr "Компонування оформлення встановлено"
 
-#: src/hdy-header-bar.c:2217
+#: src/hdy-header-bar.c:2215
 msgid "Whether the decoration-layout property has been set"
 msgstr "Чи було встановлено властивість decoration-layout"
 
-#: src/hdy-header-bar.c:2231
+#: src/hdy-header-bar.c:2229
 msgid "Has Subtitle"
 msgstr "Має підзаголовок"
 
-#: src/hdy-header-bar.c:2232
+#: src/hdy-header-bar.c:2230
 msgid "Whether to reserve space for a subtitle"
 msgstr "Чи резервувати місце для підзаголовка"
 
-#: src/hdy-header-bar.c:2238
+#: src/hdy-header-bar.c:2236
 msgid "Centering policy"
 msgstr "Правила центрування"
 
-#: src/hdy-header-bar.c:2239
+#: src/hdy-header-bar.c:2237
 msgid "The policy to horizontally align the center widget"
 msgstr "Правила для горизонтального вирівнювання центрального віджета"
 
-#: src/hdy-header-bar.c:2246 src/hdy-squeezer.c:1108
+#: src/hdy-header-bar.c:2244 src/hdy-squeezer.c:1081
 msgid "The animation duration, in milliseconds"
 msgstr "Тривалість анімації у мілісекундах"
 
 #: src/hdy-header-group.c:827
-#| msgid "Decoration Layout"
 msgid "Decorate all"
 msgstr "Декорувати усе"
 
@@ -471,28 +470,28 @@ msgid ""
 "Whether the elements of the group should all receive the full decoration"
 msgstr "Чи мають елементи групи усі отримувати повну декорацію"
 
-#: src/hdy-keypad-button.c:227
+#: src/hdy-keypad-button.c:225
 msgid "Digit"
 msgstr "Цифра"
 
-#: src/hdy-keypad-button.c:228
+#: src/hdy-keypad-button.c:226
 msgid "The keypad digit of the button"
 msgstr "Цифра цифрової панелі для кнопки"
 
-#: src/hdy-keypad-button.c:234
+#: src/hdy-keypad-button.c:232
 msgid "Symbols"
 msgstr "Символи"
 
-#: src/hdy-keypad-button.c:235
+#: src/hdy-keypad-button.c:233
 msgid "The keypad symbols of the button. The first symbol is used as the digit"
 msgstr ""
 "Символи цифрової панелі на кнопці. Перший символ буде використано як цифру"
 
-#: src/hdy-keypad-button.c:241 src/hdy-keypad.c:278
+#: src/hdy-keypad-button.c:239 src/hdy-keypad.c:278
 msgid "Show Symbols"
 msgstr "Показувати символи"
 
-#: src/hdy-keypad-button.c:242 src/hdy-keypad.c:279
+#: src/hdy-keypad-button.c:240 src/hdy-keypad.c:279
 msgid "Whether the second line of symbols should be shown or not"
 msgstr "Визначає, чи має бути показано другий рядок символів"
 
@@ -547,91 +546,92 @@ msgstr "Віджет дії ліворуч"
 msgid "The left action widget"
 msgstr "Віджет дії ліворуч"
 
-#: src/hdy-leaflet.c:926 src/hdy-stackable-box.c:2869
+#: src/hdy-leaflet.c:963 src/hdy-stackable-box.c:2938
 msgid "Folded"
 msgstr "Згорнуто"
 
-#: src/hdy-leaflet.c:927 src/hdy-stackable-box.c:2870
+#: src/hdy-leaflet.c:964 src/hdy-stackable-box.c:2939
 msgid "Whether the widget is folded"
 msgstr "Визначає, чи згорнуто віджет"
 
-#: src/hdy-leaflet.c:938 src/hdy-stackable-box.c:2881
+#: src/hdy-leaflet.c:975 src/hdy-stackable-box.c:2950
 msgid "Horizontally homogeneous folded"
 msgstr "Горизонтально однорідний згорнутий"
 
-#: src/hdy-leaflet.c:939
+#: src/hdy-leaflet.c:976
 msgid "Horizontally homogeneous sizing when the leaflet is folded"
 msgstr "Однорідний за розміром горизонтально, якщо листівку згорнуто"
 
-#: src/hdy-leaflet.c:950 src/hdy-stackable-box.c:2893
+#: src/hdy-leaflet.c:987 src/hdy-stackable-box.c:2962
 msgid "Vertically homogeneous folded"
 msgstr "Вертикально однорідний згорнутий"
 
-#: src/hdy-leaflet.c:951
+#: src/hdy-leaflet.c:988
 msgid "Vertically homogeneous sizing when the leaflet is folded"
 msgstr "Однорідний за розміром вертикально, якщо листівку згорнуто"
 
-#: src/hdy-leaflet.c:962 src/hdy-stackable-box.c:2905
+#: src/hdy-leaflet.c:999 src/hdy-stackable-box.c:2974
 msgid "Box horizontally homogeneous"
 msgstr "Панель горизонтально однорідна"
 
-#: src/hdy-leaflet.c:963
+#: src/hdy-leaflet.c:1000
 msgid "Horizontally homogeneous sizing when the leaflet is unfolded"
 msgstr "Однорідний за розміром горизонтально, якщо листівку розгорнуто"
 
-#: src/hdy-leaflet.c:974 src/hdy-stackable-box.c:2917
+#: src/hdy-leaflet.c:1011 src/hdy-stackable-box.c:2986
 msgid "Box vertically homogeneous"
 msgstr "Панель вертикально однорідна"
 
-#: src/hdy-leaflet.c:975
+#: src/hdy-leaflet.c:1012
 msgid "Vertically homogeneous sizing when the leaflet is unfolded"
 msgstr "Однорідний за розміром вертикально, якщо листівку розгорнуто"
 
-#: src/hdy-leaflet.c:982
+#: src/hdy-leaflet.c:1019
 msgid "The widget currently visible when the leaflet is folded"
 msgstr "Віджет є видимим, коли листівку згорнуто"
 
-#: src/hdy-leaflet.c:989 src/hdy-stackable-box.c:2932
+#: src/hdy-leaflet.c:1026 src/hdy-stackable-box.c:3001
 msgid "The name of the widget currently visible when the children are stacked"
 msgstr "Назва віджета є видимою, коли дочірні об'єкти розташовано у стосі"
 
-#: src/hdy-leaflet.c:1008 src/hdy-stackable-box.c:2951
+#: src/hdy-leaflet.c:1045 src/hdy-stackable-box.c:3020
 msgid "The type of animation used to transition between modes and children"
 msgstr ""
 "Тип анімації, який буде використано для переходу між режимами і дочірніми "
 "об'єктами"
 
-#: src/hdy-leaflet.c:1014 src/hdy-stackable-box.c:2957
+#: src/hdy-leaflet.c:1051 src/hdy-stackable-box.c:3026
 msgid "Mode transition duration"
 msgstr "Тривалість переходу між режимами"
 
-#: src/hdy-leaflet.c:1015 src/hdy-stackable-box.c:2958
+#: src/hdy-leaflet.c:1052 src/hdy-stackable-box.c:3027
 msgid "The mode transition animation duration, in milliseconds"
 msgstr "Тривалість анімації переходу між режимами у мілісекундах"
 
-#: src/hdy-leaflet.c:1021 src/hdy-stackable-box.c:2964
+#: src/hdy-leaflet.c:1058 src/hdy-stackable-box.c:3033
 msgid "Child transition duration"
 msgstr "Тривалість переходу між дочірніми об'єктами"
 
-#: src/hdy-leaflet.c:1022 src/hdy-stackable-box.c:2965
+#: src/hdy-leaflet.c:1059 src/hdy-stackable-box.c:3034
 msgid "The child transition animation duration, in milliseconds"
 msgstr "Тривалість анімації переходу між дочірніми об'єктами у мілісекундах"
 
-#: src/hdy-leaflet.c:1028 src/hdy-stackable-box.c:2971
+#: src/hdy-leaflet.c:1065 src/hdy-stackable-box.c:3040
 msgid "Child transition running"
 msgstr "Виконання переходу між дочірніми об'єктами"
 
-#: src/hdy-leaflet.c:1029 src/hdy-stackable-box.c:2972
+#: src/hdy-leaflet.c:1066 src/hdy-stackable-box.c:3041
 msgid "Whether or not the child transition is currently running"
 msgstr "Чи виконується перехід між дочірніми об'єктами цієї миті"
 
-#: src/hdy-leaflet.c:1091
-msgid "Allow visible"
-msgstr "Дозволити видимість"
+#: src/hdy-leaflet.c:1129
+msgid "Navigatable"
+msgstr "Придатний до навігації"
 
-#: src/hdy-leaflet.c:1092
-msgid "Whether the child can be visible in folded mode"
-msgstr "визначає, чи дочірній об'єкт може бути видимим у згорнутому режимі"
+#: src/hdy-leaflet.c:1130
+#| msgid "Whether the child can be visible in folded mode"
+msgid "Whether the child can be navigated to"
+msgstr "Визначає, чи можна переходити до дочірнього об'єкта"
 
 #: src/hdy-preferences-group.c:251 src/hdy-preferences-group.c:252
 msgid "Description"
@@ -693,27 +693,27 @@ msgstr "Віджет"
 msgid "The widget the shadow will be drawn for"
 msgstr "Віджет, для якого буде намальовано тінь"
 
-#: src/hdy-squeezer.c:1093
+#: src/hdy-squeezer.c:1066
 msgid "Homogeneous"
 msgstr "Однорідний"
 
-#: src/hdy-squeezer.c:1094
+#: src/hdy-squeezer.c:1067
 msgid "Homogeneous sizing"
 msgstr "Однорідний розмір"
 
-#: src/hdy-squeezer.c:1101
+#: src/hdy-squeezer.c:1074
 msgid "The widget currently visible in the squeezer"
 msgstr "Віджет, який зараз показано у відтискачі"
 
-#: src/hdy-squeezer.c:1115
+#: src/hdy-squeezer.c:1088
 msgid "The type of animation used to transition"
 msgstr "Тип анімації, яку буде використано для переходу"
 
-#: src/hdy-squeezer.c:1138 src/hdy-swipe-tracker.c:772
+#: src/hdy-squeezer.c:1111 src/hdy-swipe-tracker.c:772
 msgid "Enabled"
 msgstr "Увімкнено"
 
-#: src/hdy-squeezer.c:1139
+#: src/hdy-squeezer.c:1112
 msgid ""
 "Whether the child can be picked or should be ignored when looking for the "
 "child fitting the available size best"
@@ -721,27 +721,27 @@ msgstr ""
 "Визначає, можна вибирати дочірній об'єкт чи його слід ігнорувати при пошуку "
 "найкращої відповідності розмірів дочірнього об'єкта"
 
-#: src/hdy-stackable-box.c:2882
+#: src/hdy-stackable-box.c:2951
 msgid "Horizontally homogeneous sizing when the widget is folded"
 msgstr "Однорідний за розміром горизонтально, якщо віджет згорнуто"
 
-#: src/hdy-stackable-box.c:2894
+#: src/hdy-stackable-box.c:2963
 msgid "Vertically homogeneous sizing when the widget is folded"
 msgstr "Однорідний за розміром вертикально, якщо віджет згорнуто"
 
-#: src/hdy-stackable-box.c:2906
+#: src/hdy-stackable-box.c:2975
 msgid "Horizontally homogeneous sizing when the widget is unfolded"
 msgstr "Однорідний за розміром горизонтально, якщо віджет розгорнуто"
 
-#: src/hdy-stackable-box.c:2918
+#: src/hdy-stackable-box.c:2987
 msgid "Vertically homogeneous sizing when the widget is unfolded"
 msgstr "Однорідний за розміром вертикально, якщо віджет розгорнуто"
 
-#: src/hdy-stackable-box.c:2925
+#: src/hdy-stackable-box.c:2994
 msgid "The widget currently visible when the widget is folded"
 msgstr "Віджет є видимим, коли віджет згорнуто"
 
-#: src/hdy-stackable-box.c:3015 src/hdy-stackable-box.c:3016
+#: src/hdy-stackable-box.c:3084 src/hdy-stackable-box.c:3085
 msgid "Orientation"
 msgstr "Орієнтація"
 
@@ -783,61 +783,61 @@ msgctxt "HdyValueObjectClass"
 msgid "The contained value"
 msgstr "Вміщене значення"
 
-#: src/hdy-view-switcher-bar.c:185 src/hdy-view-switcher.c:530
-#: src/hdy-view-switcher-title.c:238
+#: src/hdy-view-switcher-bar.c:186 src/hdy-view-switcher.c:511
+#: src/hdy-view-switcher-title.c:237
 msgid "Policy"
 msgstr "Поведінка"
 
-#: src/hdy-view-switcher-bar.c:186 src/hdy-view-switcher.c:531
-#: src/hdy-view-switcher-title.c:239
+#: src/hdy-view-switcher-bar.c:187 src/hdy-view-switcher.c:512
+#: src/hdy-view-switcher-title.c:238
 msgid "The policy to determine the mode to use"
 msgstr "Правила для визначення режиму, яким слід скористатися"
 
-#: src/hdy-view-switcher-bar.c:200 src/hdy-view-switcher-button.c:228
-#: src/hdy-view-switcher.c:545 src/hdy-view-switcher-title.c:253
+#: src/hdy-view-switcher-bar.c:201 src/hdy-view-switcher-button.c:217
+#: src/hdy-view-switcher.c:526 src/hdy-view-switcher-title.c:252
 msgid "Icon Size"
 msgstr "Розмір піктограм"
 
-#: src/hdy-view-switcher-bar.c:201 src/hdy-view-switcher-button.c:229
-#: src/hdy-view-switcher.c:546 src/hdy-view-switcher-title.c:254
+#: src/hdy-view-switcher-bar.c:202 src/hdy-view-switcher-button.c:218
+#: src/hdy-view-switcher.c:527 src/hdy-view-switcher-title.c:253
 msgid "Symbolic size to use for named icon"
 msgstr "Символьний розмір, використовуваний для іменованої піктограми"
 
-#: src/hdy-view-switcher-bar.c:214 src/hdy-view-switcher-bar.c:215
-#: src/hdy-view-switcher.c:580 src/hdy-view-switcher.c:581
-#: src/hdy-view-switcher-title.c:267 src/hdy-view-switcher-title.c:268
+#: src/hdy-view-switcher-bar.c:215 src/hdy-view-switcher-bar.c:216
+#: src/hdy-view-switcher.c:561 src/hdy-view-switcher.c:562
+#: src/hdy-view-switcher-title.c:266 src/hdy-view-switcher-title.c:267
 msgid "Stack"
 msgstr "Стос"
 
-#: src/hdy-view-switcher-bar.c:228
+#: src/hdy-view-switcher-bar.c:229
 msgid "Reveal"
 msgstr "Показати"
 
-#: src/hdy-view-switcher-bar.c:229
+#: src/hdy-view-switcher-bar.c:230
 msgid "Whether the view switcher is revealed"
 msgstr "Визначає, чи показано перемикач перегляду"
 
-#: src/hdy-view-switcher-button.c:214
+#: src/hdy-view-switcher-button.c:203
 msgid "Icon Name"
 msgstr "Назва значка"
 
-#: src/hdy-view-switcher-button.c:215
+#: src/hdy-view-switcher-button.c:204
 msgid "Icon name for image"
 msgstr "Назва піктограми для зображення"
 
-#: src/hdy-view-switcher-button.c:245
+#: src/hdy-view-switcher-button.c:234
 msgid "Needs attention"
 msgstr "Потребує уваги"
 
-#: src/hdy-view-switcher-button.c:246
+#: src/hdy-view-switcher-button.c:235
 msgid "Hint the view needs attention"
 msgstr "Підказка про те, що перегляд потребує уваги"
 
-#: src/hdy-view-switcher.c:565
+#: src/hdy-view-switcher.c:546
 msgid "Narrow ellipsize"
 msgstr "Багатокрапка при звуженні"
 
-#: src/hdy-view-switcher.c:566
+#: src/hdy-view-switcher.c:547
 msgid ""
 "The preferred place to ellipsize the string, if the narrow mode label does "
 "not have enough room to display the entire string"
@@ -845,19 +845,19 @@ msgstr ""
 "Бажане місце для обривання рядка багатокрапкою, якщо мітка у вузькому режимі "
 "не має достатньо місця для показу цілого рядка"
 
-#: src/hdy-view-switcher-title.c:309
+#: src/hdy-view-switcher-title.c:308
 msgid "View switcher enabled"
 msgstr "Увімкнено перемикач перегляду"
 
-#: src/hdy-view-switcher-title.c:310
+#: src/hdy-view-switcher-title.c:309
 msgid "Whether the view switcher is enabled"
 msgstr "Визначає, чи увімкнено перемикач перегляду"
 
-#: src/hdy-view-switcher-title.c:323
+#: src/hdy-view-switcher-title.c:322
 msgid "Title visible"
 msgstr "Заголовок видимий"
 
-#: src/hdy-view-switcher-title.c:324
+#: src/hdy-view-switcher-title.c:323
 msgid "Whether the title label is visible"
 msgstr "Визначає, чи видимою є мітка заголовка"
 
@@ -872,18 +872,3 @@ msgstr "Змінити розмір"
 #: src/hdy-window-handle-controller.c:298
 msgid "Always on Top"
 msgstr "Завжди зверху"
-
-#~ msgid "Focus"
-#~ msgstr "Фокус"
-
-#~ msgid "The header bar that should have the focus"
-#~ msgstr "Смужка заголовка, якій має бути надано фокус"
-
-#~ msgid "Maximum width"
-#~ msgstr "Максимальна ширина"
-
-#~ msgid "Linear growth width"
-#~ msgstr "Ширина лінійного зростання"
-
-#~ msgid "The width up to which the child will be allocated all the width"
-#~ msgstr "Ширина, до якої дочірньому об'єкту буде надано усю ширину"
