@@ -164,7 +164,6 @@ hdy_keypad_set_property (GObject      *object,
                          GParamSpec   *pspec)
 {
   HdyKeypad *self = HDY_KEYPAD (object);
-  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
 
   switch (property_id) {
   case PROP_ROW_SPACING:
@@ -202,14 +201,13 @@ hdy_keypad_get_property (GObject    *object,
                          GParamSpec *pspec)
 {
   HdyKeypad *self = HDY_KEYPAD (object);
-  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
 
   switch (property_id) {
   case PROP_ROW_SPACING:
-    g_value_set_uint (value, priv->row_spacing);
+    g_value_set_uint (value, hdy_keypad_get_row_spacing (self));
     break;
   case PROP_COLUMN_SPACING:
-    g_value_set_uint (value, priv->column_spacing);
+    g_value_set_uint (value, hdy_keypad_get_column_spacing (self));
     break;
   case PROP_LETTERS_VISIBLE:
     g_value_set_boolean (value, hdy_keypad_get_letters_visible (self));
@@ -218,7 +216,7 @@ hdy_keypad_get_property (GObject    *object,
     g_value_set_boolean (value, hdy_keypad_get_symbols_visible (self));
     break;
   case PROP_ENTRY:
-    g_value_set_object (value, priv->entry);
+    g_value_set_object (value, hdy_keypad_get_entry (self));
     break;
   case PROP_START_ACTION:
     g_value_set_object (value, hdy_keypad_get_start_action (self));
