@@ -65,3 +65,7 @@ _build/run glade
 
 The documentation can be found online
 [here](https://gnome.pages.gitlab.gnome.org/libhandy).
+
+## Getting in touch
+
+Matrix room: [#libhandy:talk.puri.sm](https://gnome.element.io/#/room/#libhandy:talk.puri.sm)
