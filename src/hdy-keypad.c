@@ -168,11 +168,9 @@ hdy_keypad_set_property (GObject      *object,
   case PROP_ROW_SPACING:
     hdy_keypad_set_row_spacing (self, g_value_get_uint (value));
     break;
-
   case PROP_COLUMN_SPACING:
     hdy_keypad_set_column_spacing (self, g_value_get_uint (value));
     break;
-
   case PROP_LETTERS_VISIBLE:
     hdy_keypad_set_letters_visible (self, g_value_get_boolean (value));
     break;
@@ -208,11 +206,9 @@ hdy_keypad_get_property (GObject    *object,
   case PROP_ROW_SPACING:
     g_value_set_uint (value, priv->row_spacing);
     break;
-
   case PROP_COLUMN_SPACING:
     g_value_set_uint (value, priv->column_spacing);
     break;
-
   case PROP_LETTERS_VISIBLE:
     g_value_set_boolean (value, hdy_keypad_get_letters_visible (self));
     break;
