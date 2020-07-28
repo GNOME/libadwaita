@@ -303,7 +303,7 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
    */
   props[PROP_ENTRY] =
    g_param_spec_object ("entry",
-                        _("Entry widget"),
+                        _("Entry"),
                         _("The entry widget connected to the keypad"),
                         GTK_TYPE_ENTRY,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
