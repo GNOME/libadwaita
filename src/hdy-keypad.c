@@ -25,7 +25,7 @@
 
 typedef struct
 {
-  GtkWidget *entry;
+  GtkEntry *entry;
   GtkWidget *grid;
   GtkWidget *label_asterisk;
   GtkWidget *label_hash;
@@ -64,13 +64,12 @@ symbol_clicked (HdyKeypad *self,
 
   g_return_if_fail (priv->entry != NULL);
 
-  g_signal_emit_by_name (GTK_ENTRY (priv->entry), "insert-at-cursor", string, NULL);
+  g_signal_emit_by_name (priv->entry, "insert-at-cursor", string, NULL);
   /* Set focus to the entry only when it can get focus
    * https://gitlab.gnome.org/GNOME/gtk/issues/2204
    */
-  if (gtk_widget_get_can_focus (priv->entry)) {
-    gtk_entry_grab_focus_without_selecting (GTK_ENTRY (priv->entry));
-  }
+  if (gtk_widget_get_can_focus (GTK_WIDGET (priv->entry)))
+    gtk_entry_grab_focus_without_selecting (priv->entry);
 }
 
 
@@ -303,11 +302,19 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
                          TRUE,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * HdyKeypad:entry:
+   *
+   * The entry widget connected to the keypad. See hdy_keypad_set_entry() for
+   * details.
+   *
+   * Since: 1.0
+   */
   props[PROP_ENTRY] =
    g_param_spec_object ("entry",
                         _("Entry widget"),
                         _("The entry widget connected to the keypad"),
-                        GTK_TYPE_WIDGET,
+                        GTK_TYPE_ENTRY,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -597,11 +604,12 @@ hdy_keypad_get_symbols_visible (HdyKeypad *self)
 /**
  * hdy_keypad_set_entry:
  * @self: a #HdyKeypad
- * @entry: a #GtkEntry
+ * @entry: (nullable): a #GtkEntry
  *
- * Binds a #GtkEntry to the keypad and it blocks every
- * input which wouldn't be possible to type with with the keypad
+ * Binds @entry to @self and blocks any input which wouldn't be possible to type
+ * with with the keypad.
  *
+ * Since: 0.0.12
  */
 void
 hdy_keypad_set_entry (HdyKeypad *self,
@@ -610,30 +618,28 @@ hdy_keypad_set_entry (HdyKeypad *self,
   HdyKeypadPrivate *priv;
 
   g_return_if_fail (HDY_IS_KEYPAD (self));
-  g_return_if_fail (GTK_IS_ENTRY (entry));
+  g_return_if_fail (entry == NULL || GTK_IS_ENTRY (entry));
 
   priv = hdy_keypad_get_instance_private (self);
 
-  if (priv->entry != NULL) {
-    g_object_unref (priv->entry);
-  }
-
-  if (entry == NULL) {
-    priv->entry = NULL;
+  if (entry == priv->entry)
     return;
+
+  g_clear_object (&priv->entry);
+
+  if (entry) {
+    priv->entry = g_object_ref (entry);
+
+    gtk_widget_show (GTK_WIDGET (priv->entry));
+    /* Workaround: To keep the osk closed
+     * https://gitlab.gnome.org/GNOME/gtk/merge_requests/978#note_546576 */
+    g_object_set (priv->entry, "im-module", "gtk-im-context-none", NULL);
+
+    g_signal_connect_swapped (G_OBJECT (priv->entry),
+                              "insert-text",
+                              G_CALLBACK (insert_text_cb),
+                              self);
   }
-
-  priv->entry = GTK_WIDGET (g_object_ref (entry));
-
-  gtk_widget_show (priv->entry);
-  /* Workaround: To keep the osk closed
-   * https://gitlab.gnome.org/GNOME/gtk/merge_requests/978#note_546576 */
-  g_object_set (priv->entry, "im-module", "gtk-im-context-none", NULL);
-
-  g_signal_connect_swapped (G_OBJECT (priv->entry),
-                            "insert-text",
-                            G_CALLBACK (insert_text_cb),
-                            self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ENTRY]);
 }
@@ -643,12 +649,13 @@ hdy_keypad_set_entry (HdyKeypad *self,
  * hdy_keypad_get_entry:
  * @self: a #HdyKeypad
  *
- * Get the connected entry. See hdy_keypad_set_entry () for details
+ * Get the connected entry. See hdy_keypad_set_entry() for details.
  *
- * Returns: (transfer none): the set #GtkEntry or NULL if no widget was set
+ * Returns: (transfer none): the set #GtkEntry or %NULL if no widget was set
  *
+ * Since: 1.0
  */
-GtkWidget *
+GtkEntry *
 hdy_keypad_get_entry (HdyKeypad *self)
 {
   HdyKeypadPrivate *priv;

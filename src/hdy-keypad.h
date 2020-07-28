@@ -43,7 +43,7 @@ void             hdy_keypad_set_symbols_visible     (HdyKeypad *self,
 gboolean         hdy_keypad_get_symbols_visible     (HdyKeypad *self);
 void             hdy_keypad_set_entry               (HdyKeypad *self,
                                                      GtkEntry  *entry);
-GtkWidget       *hdy_keypad_get_entry               (HdyKeypad *self);
+GtkEntry        *hdy_keypad_get_entry               (HdyKeypad *self);
 void             hdy_keypad_set_start_action        (HdyKeypad *self,
                                                      GtkWidget *start_action);
 GtkWidget       *hdy_keypad_get_start_action        (HdyKeypad *self);

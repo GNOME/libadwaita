@@ -308,6 +308,9 @@
         #HdyHeaderGroup:start-action, and the “right-action” property has been
         replaced by #HdyHeaderGroup:end-action.
       </para>
+      <para>
+        The “entry” property isn't a #GtkWidget anymore but a #GtkEntry.
+      </para>
     </refsect3>
 
     <refsect3>
