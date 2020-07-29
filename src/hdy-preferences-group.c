@@ -435,5 +435,8 @@ hdy_preferences_group_add_preferences_to_model (HdyPreferencesGroup *self,
   g_return_if_fail (HDY_IS_PREFERENCES_GROUP (self));
   g_return_if_fail (G_IS_LIST_STORE (model));
 
+  if (!gtk_widget_get_visible (GTK_WIDGET (self)))
+    return;
+
   gtk_container_foreach (GTK_CONTAINER (priv->listbox), (GtkCallback) add_preferences_to_model, model);
 }
