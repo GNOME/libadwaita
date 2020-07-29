@@ -37,6 +37,12 @@ HDY_AVAILABLE_IN_ALL
 GtkWidget *hdy_action_row_new (void);
 
 HDY_AVAILABLE_IN_ALL
+const gchar *hdy_action_row_get_title (HdyActionRow *self);
+HDY_AVAILABLE_IN_ALL
+void         hdy_action_row_set_title (HdyActionRow *self,
+                                       const gchar  *title);
+
+HDY_AVAILABLE_IN_ALL
 const gchar *hdy_action_row_get_subtitle (HdyActionRow *self);
 HDY_AVAILABLE_IN_ALL
 void         hdy_action_row_set_subtitle (HdyActionRow *self,

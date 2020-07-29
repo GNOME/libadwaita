@@ -476,7 +476,7 @@ hdy_expander_row_get_title (HdyExpanderRow *self)
 
   priv = hdy_expander_row_get_instance_private (self);
 
-  return hdy_preferences_row_get_title (HDY_PREFERENCES_ROW (priv->action_row));
+  return hdy_action_row_get_title (priv->action_row);
 }
 
 /**
@@ -498,7 +498,7 @@ hdy_expander_row_set_title (HdyExpanderRow *self,
 
   priv = hdy_expander_row_get_instance_private (self);
 
-  hdy_preferences_row_set_title (HDY_PREFERENCES_ROW (priv->action_row), title);
+  hdy_action_row_set_title (priv->action_row, title);
 }
 
 /**
