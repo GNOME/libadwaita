@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
-"POT-Creation-Date: 2020-07-28 14:53+0000\n"
-"PO-Revision-Date: 2020-07-29 09:00+0300\n"
+"POT-Creation-Date: 2020-07-29 12:15+0000\n"
+"PO-Revision-Date: 2020-07-29 17:01+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -488,64 +488,77 @@ msgid "The keypad symbols of the button. The first symbol is used as the digit"
 msgstr ""
 "Символи цифрової панелі на кнопці. Перший символ буде використано як цифру"
 
-#: src/hdy-keypad-button.c:239 src/hdy-keypad.c:278
-msgid "Show Symbols"
+#: src/hdy-keypad-button.c:239
+#| msgid "Show Symbols"
+msgid "Show symbols"
 msgstr "Показувати символи"
 
-#: src/hdy-keypad-button.c:240 src/hdy-keypad.c:279
+#: src/hdy-keypad-button.c:240
 msgid "Whether the second line of symbols should be shown or not"
 msgstr "Визначає, чи має бути показано другий рядок символів"
 
-#: src/hdy-keypad.c:264
+#: src/hdy-keypad.c:247
 msgid "Row spacing"
 msgstr "Міжрядковий інтервал"
 
-#: src/hdy-keypad.c:265
+#: src/hdy-keypad.c:248
 msgid "The amount of space between two consecutive rows"
 msgstr "Інтервал між двома послідовними рядками"
 
-#: src/hdy-keypad.c:271
+#: src/hdy-keypad.c:261
 msgid "Column spacing"
 msgstr "Інтервал між стовпчиками"
 
-#: src/hdy-keypad.c:272
+#: src/hdy-keypad.c:262
 msgid "The amount of space between two consecutive columns"
 msgstr "Інтервал між двома послідовними стовпчиками"
 
-#: src/hdy-keypad.c:285
-msgid "Only Digits"
-msgstr "Лише цифри"
+#: src/hdy-keypad.c:276
+#| msgid "Title visible"
+msgid "Letters visible"
+msgstr "Видимі літери"
 
-#: src/hdy-keypad.c:286
-msgid ""
-"Whether the keypad should show only digits or also extra buttons for #, *"
-msgstr ""
-"Визначає, слід показувати на цифровій панелі лише цифри чи додаткові кнопки "
-"#, *"
+#: src/hdy-keypad.c:277
+#| msgid "Whether the title label is visible"
+msgid "Whether the letters below the digits should be visible"
+msgstr "Визначає, чи будуть видимими літери під цифрами"
+
+#: src/hdy-keypad.c:291
+#| msgid "Title visible"
+msgid "Symbols visible"
+msgstr "Видимі символи"
 
 #: src/hdy-keypad.c:292
-msgid "Entry widget"
-msgstr "Віджет введення"
+#| msgid "Whether the second line of symbols should be shown or not"
+msgid "Whether the hash, plus, and asterisk symbols should be visible"
+msgstr "Визначає, чи має бути показано символи решітки, плюса та зірочки"
 
-#: src/hdy-keypad.c:293
+#: src/hdy-keypad.c:306
+msgid "Entry"
+msgstr "Введення"
+
+#: src/hdy-keypad.c:307
 msgid "The entry widget connected to the keypad"
 msgstr "Віджет введення, з'єднаний із цифровою панеллю"
 
-#: src/hdy-keypad.c:299
-msgid "Right action widget"
-msgstr "Віджет дії праворуч"
+#: src/hdy-keypad.c:320
+msgid "End action"
+msgstr "Завершення дії"
 
-#: src/hdy-keypad.c:300
-msgid "The right action widget"
-msgstr "Віджет дії праворуч"
+#: src/hdy-keypad.c:321
+#| msgid "The left action widget"
+msgid "The end action widget"
+msgstr "Віджет завершення дії"
 
-#: src/hdy-keypad.c:306
-msgid "Left action widget"
-msgstr "Віджет дії ліворуч"
+#: src/hdy-keypad.c:334
+#| msgid "Orientation"
+msgid "Start action"
+msgstr "Початок дії"
 
-#: src/hdy-keypad.c:307
-msgid "The left action widget"
-msgstr "Віджет дії ліворуч"
+#: src/hdy-keypad.c:335
+#| msgid "The right action widget"
+msgid "The start action widget"
+msgstr "Віджет початку дії"
 
 #: src/hdy-leaflet.c:963 src/hdy-stackable-box.c:2938
 msgid "Folded"
@@ -654,14 +667,12 @@ msgid "Whether search is enabled"
 msgstr "Визначає, чи увімкнено пошук"
 
 #: src/hdy-preferences-window.c:483
-#| msgid ""
-#| "Whether or not swipe gesture can be used to switch to the previous child"
 msgid ""
 "Whether or not swipe gesture can be used to switch from a subpage to the "
 "preferences"
 msgstr ""
-"Визначає, чи можна скористатися жестом змахування для перемикання з"
-" допоміжної сторінки до сторінки параметрів"
+"Визначає, чи можна скористатися жестом змахування для перемикання з "
+"допоміжної сторінки до сторінки параметрів"
 
 #: src/hdy-preferences-window.ui:9
 msgid "Preferences"
@@ -882,3 +893,21 @@ msgstr "Змінити розмір"
 #: src/hdy-window-handle-controller.c:298
 msgid "Always on Top"
 msgstr "Завжди зверху"
+
+#~ msgid "Only Digits"
+#~ msgstr "Лише цифри"
+
+#~ msgid ""
+#~ "Whether the keypad should show only digits or also extra buttons for #, *"
+#~ msgstr ""
+#~ "Визначає, слід показувати на цифровій панелі лише цифри чи додаткові "
+#~ "кнопки #, *"
+
+#~ msgid "Entry widget"
+#~ msgstr "Віджет введення"
+
+#~ msgid "Right action widget"
+#~ msgstr "Віджет дії праворуч"
+
+#~ msgid "Left action widget"
+#~ msgstr "Віджет дії ліворуч"
