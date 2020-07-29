@@ -897,12 +897,13 @@
                                           <object class="HdyActionRow">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="title" translatable="yes">Show only digits</property>
-                                            <property name="activatable_widget">keypad_only_digits</property>
+                                            <property name="title" translatable="yes">Show symbols</property>
+                                            <property name="activatable_widget">keypad_symbols_visible</property>
                                             <child>
-                                              <object class="GtkSwitch" id="keypad_only_digits">
+                                              <object class="GtkSwitch" id="keypad_symbols_visible">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">True</property>
+                                                <property name="state">True</property>
                                                 <property name="valign">center</property>
                                               </object>
                                             </child>
@@ -922,10 +923,9 @@
                                         <property name="can_focus">False</property>
                                         <property name="column_spacing">10</property>
                                         <property name="row_spacing">8</property>
-                                        <property name="only_digits">FALSE</property>
                                         <property name="halign">center</property>
                                         <property name="entry">entry_keypad</property>
-                                        <property name="only-digits" bind-source="keypad_only_digits" bind-property="state" bind-flags="sync-create | bidirectional"/>
+                                        <property name="symbols-visible" bind-source="keypad_symbols_visible" bind-property="state" bind-flags="sync-create | bidirectional"/>
                                         <property name="letters-visible" bind-source="keypad_letters_visible" bind-property="state" bind-flags="sync-create | bidirectional"/>
                                       </object>
                                       <packing>

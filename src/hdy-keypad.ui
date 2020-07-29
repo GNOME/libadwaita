@@ -152,7 +152,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="focus_on_click">False</property>
-            <property name="visible" bind-source="HdyKeypad" bind-property="only-digits" bind-flags="sync-create | invert-boolean"/>
+            <property name="visible" bind-source="HdyKeypad" bind-property="symbols-visible" bind-flags="sync-create"/>
             <signal name="clicked" handler="asterisk_button_clicked_cb" swapped="true"/>
             <child>
               <object class="GtkLabel" id="label_asterisk">
@@ -176,7 +176,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="focus_on_click">False</property>
-            <property name="show-symbols" bind-source="HdyKeypad" bind-property="only-digits" bind-flags="sync-create|invert-boolean"/>
+            <property name="show-symbols" bind-source="HdyKeypad" bind-property="symbols-visible" bind-flags="sync-create"/>
             <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
           </object>
           <packing>
@@ -189,7 +189,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="focus_on_click">False</property>
-            <property name="visible" bind-source="HdyKeypad" bind-property="only-digits" bind-flags="sync-create | invert-boolean"/>
+            <property name="visible" bind-source="HdyKeypad" bind-property="symbols-visible" bind-flags="sync-create"/>
             <signal name="clicked" handler="hash_button_clicked_cb" swapped="true"/>
             <child>
               <object class="GtkLabel" id="label_hash">

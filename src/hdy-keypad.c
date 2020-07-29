@@ -32,7 +32,7 @@ typedef struct
   GtkGesture *long_press_zero_gesture;
   guint16 row_spacing;
   guint16 column_spacing;
-  gboolean only_digits;
+  gboolean symbols_visible;
   gboolean letters_visible;
 } HdyKeypadPrivate;
 
@@ -43,7 +43,7 @@ enum {
   PROP_ROW_SPACING,
   PROP_COLUMN_SPACING,
   PROP_LETTERS_VISIBLE,
-  PROP_ONLY_DIGITS,
+  PROP_SYMBOLS_VISIBLE,
   PROP_ENTRY,
   PROP_RIGHT_ACTION,
   PROP_LEFT_ACTION,
@@ -128,7 +128,7 @@ insert_text_cb (HdyKeypad   *self,
   if (g_ascii_isdigit (*text))
      return;
 
-  if (!priv->only_digits && strchr ("#*+", *text))
+  if (!priv->symbols_visible && strchr ("#*+", *text))
      return;
 
   g_signal_stop_emission_by_name (editable, "insert-text");
@@ -147,7 +147,7 @@ long_press_zero_cb (HdyKeypad  *self,
 
   priv = hdy_keypad_get_instance_private (self);
 
-  if (priv->only_digits)
+  if (priv->symbols_visible)
     return;
 
   g_debug ("Long press on zero button");
@@ -177,11 +177,8 @@ hdy_keypad_set_property (GObject      *object,
   case PROP_LETTERS_VISIBLE:
     hdy_keypad_set_letters_visible (self, g_value_get_boolean (value));
     break;
-  case PROP_ONLY_DIGITS:
-    if (g_value_get_boolean (value) != priv->only_digits) {
-      priv->only_digits = g_value_get_boolean (value);
-      g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ONLY_DIGITS]);
-    }
+  case PROP_SYMBOLS_VISIBLE:
+    hdy_keypad_set_symbols_visible (self, g_value_get_boolean (value));
     break;
   case PROP_ENTRY:
     hdy_keypad_set_entry (self, g_value_get_object (value));
@@ -220,8 +217,8 @@ hdy_keypad_get_property (GObject    *object,
   case PROP_LETTERS_VISIBLE:
     g_value_set_boolean (value, hdy_keypad_get_letters_visible (self));
     break;
-  case PROP_ONLY_DIGITS:
-    g_value_set_boolean (value, priv->only_digits);
+  case PROP_SYMBOLS_VISIBLE:
+    g_value_set_boolean (value, hdy_keypad_get_symbols_visible (self));
     break;
   case PROP_ENTRY:
     g_value_set_object (value, priv->entry);
@@ -285,11 +282,19 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
                          TRUE,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
-  props[PROP_ONLY_DIGITS] =
-    g_param_spec_boolean ("only-digits",
-                         _("Only Digits"),
-                         _("Whether the keypad should show only digits or also extra buttons for #, *"),
-                         FALSE,
+  /**
+   * HdyKeypad:symbols-visible:
+   *
+   * Whether the keypad should display the hash and asterisk buttons, and should
+   * display the plus symbol at the bottom of its 0 button.
+   *
+   * Since: 1.0
+   */
+  props[PROP_SYMBOLS_VISIBLE] =
+    g_param_spec_boolean ("symbols-visible",
+                         _("Symbols visible"),
+                         _("Whether the hash, plus, and asterisk symbols should be visible"),
+                         TRUE,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_ENTRY] =
@@ -338,6 +343,7 @@ hdy_keypad_init (HdyKeypad *self)
   HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
 
   priv->letters_visible = TRUE;
+  priv->symbols_visible = TRUE;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 }
@@ -345,7 +351,7 @@ hdy_keypad_init (HdyKeypad *self)
 
 /**
  * hdy_keypad_new:
- * @only_digits: whether the keypad should show only digits or also extra buttons for #, *
+ * @symbols_visible: whether the hash, plus, and asterisk symbols should be visible
  * @letters_visible: whether the letters below the digits should be visible
  *
  * Create a new #HdyKeypad widget.
@@ -354,11 +360,11 @@ hdy_keypad_init (HdyKeypad *self)
  *
  */
 GtkWidget *
-hdy_keypad_new (gboolean only_digits,
+hdy_keypad_new (gboolean symbols_visible,
                 gboolean letters_visible)
 {
   return g_object_new (HDY_TYPE_KEYPAD,
-                       "only-digits", only_digits,
+                       "symbols-visible", symbols_visible,
                        "letters-visible", letters_visible,
                        NULL);
 }
@@ -509,6 +515,62 @@ hdy_keypad_get_letters_visible (HdyKeypad *self)
   priv = hdy_keypad_get_instance_private (self);
 
   return priv->letters_visible;
+}
+
+
+/**
+ * hdy_keypad_set_symbols_visible:
+ * @self: a #HdyKeypad
+ * @symbols_visible: whether the hash, plus, and asterisk symbols should be visible
+ *
+ * Sets whether @self should display the hash and asterisk buttons, and should
+ * display the plus symbol at the bottom of its 0 button.
+ *
+ * Since: 1.0
+ */
+void
+hdy_keypad_set_symbols_visible (HdyKeypad *self,
+                                gboolean   symbols_visible)
+{
+  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
+
+  g_return_if_fail (HDY_IS_KEYPAD (self));
+
+  symbols_visible = !!symbols_visible;
+
+  if (priv->symbols_visible == symbols_visible)
+    return;
+
+  priv->symbols_visible = symbols_visible;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SYMBOLS_VISIBLE]);
+}
+
+
+/**
+ * hdy_keypad_get_symbols_visible:
+ * @self: a #HdyKeypad
+ *
+ * Returns whether @self should display the standard letters below the digits on
+ * its buttons.
+ *
+ * Returns Whether @self should display the hash and asterisk buttons, and
+ * should display the plus symbol at the bottom of its 0 button.
+ *
+ * Returns: whether the hash, plus, and asterisk symbols should be visible
+ *
+ * Since: 1.0
+ */
+gboolean
+hdy_keypad_get_symbols_visible (HdyKeypad *self)
+{
+  HdyKeypadPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_KEYPAD (self), FALSE);
+
+  priv = hdy_keypad_get_instance_private (self);
+
+  return priv->symbols_visible;
 }
 
 
