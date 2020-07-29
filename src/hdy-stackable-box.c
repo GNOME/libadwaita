@@ -373,8 +373,8 @@ hdy_stackable_box_child_transition_cb (GtkWidget     *widget,
                                         gdk_frame_clock_get_frame_time (frame_clock));
     progress = gtk_progress_tracker_get_ease_out_cubic (&self->child_transition.tracker, FALSE);
     self->child_transition.progress =
-      hdy_lerp (self->child_transition.end_progress,
-                self->child_transition.start_progress, progress);
+      hdy_lerp (self->child_transition.start_progress,
+                self->child_transition.end_progress, progress);
   } else
     self->child_transition.first_frame_skipped = TRUE;
 
@@ -1315,7 +1315,7 @@ get_preferred_size (gint     *min,
   if (same_orientation) {
     *min = homogeneous_folded ?
              max_min :
-             hdy_lerp (visible_min, last_visible_min, visible_child_progress);
+             hdy_lerp (last_visible_min, visible_min, visible_child_progress);
     *nat = homogeneous_unfolded ?
              max_nat * visible_children :
              sum_nat;
@@ -1323,7 +1323,7 @@ get_preferred_size (gint     *min,
   else {
     *min = homogeneous_folded ?
              max_min :
-             hdy_lerp (visible_min, last_visible_min, visible_child_progress);
+             hdy_lerp (last_visible_min, visible_min, visible_child_progress);
     *nat = max_nat;
   }
 }

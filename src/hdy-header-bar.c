@@ -779,12 +779,12 @@ hdy_header_bar_get_size (GtkWidget      *widget,
       strict_centering_t = priv->centering_policy == HDY_CENTERING_POLICY_STRICT ? 1.0 : 0.0;
 
     *minimum = center_min + n_start_children * priv->spacing +
-               hdy_lerp (2 * MAX (start_min_spaced, end_min_spaced),
-                         start_min_spaced + end_min_spaced,
+               hdy_lerp (start_min_spaced + end_min_spaced,
+                         2 * MAX (start_min_spaced, end_min_spaced),
                          strict_centering_t);
     *natural = center_nat + n_start_children * priv->spacing +
-               hdy_lerp (2 * MAX (start_nat_spaced, end_nat_spaced),
-                         start_nat_spaced + end_nat_spaced,
+               hdy_lerp (start_nat_spaced + end_nat_spaced,
+                         2 * MAX (start_nat_spaced, end_nat_spaced),
                          strict_centering_t);
   } else {
     *minimum = MAX (MAX (start_min, end_min), center_min);
@@ -1549,15 +1549,15 @@ hdy_header_bar_size_allocate (GtkWidget     *widget,
     get_strict_centering_allocations (self, allocation, &strict_allocations, &strict_title_allocation, decoration_width);
 
     for (i = 0; i < nvis_children; i++) {
-      allocations[i].x = hdy_lerp (strict_allocations[i].x, allocations[i].x, strict_centering_t);
-      allocations[i].y = hdy_lerp (strict_allocations[i].y, allocations[i].y, strict_centering_t);
-      allocations[i].width = hdy_lerp (strict_allocations[i].width, allocations[i].width, strict_centering_t);
-      allocations[i].height = hdy_lerp (strict_allocations[i].height, allocations[i].height, strict_centering_t);
+      allocations[i].x = hdy_lerp (allocations[i].x, strict_allocations[i].x, strict_centering_t);
+      allocations[i].y = hdy_lerp (allocations[i].y, strict_allocations[i].y, strict_centering_t);
+      allocations[i].width = hdy_lerp (allocations[i].width, strict_allocations[i].width, strict_centering_t);
+      allocations[i].height = hdy_lerp (allocations[i].height, strict_allocations[i].height, strict_centering_t);
     }
-    title_allocation.x = hdy_lerp (strict_title_allocation.x, title_allocation.x, strict_centering_t);
-    title_allocation.y = hdy_lerp (strict_title_allocation.y, title_allocation.y, strict_centering_t);
-    title_allocation.width = hdy_lerp (strict_title_allocation.width, title_allocation.width, strict_centering_t);
-    title_allocation.height = hdy_lerp (strict_title_allocation.height, title_allocation.height, strict_centering_t);
+    title_allocation.x = hdy_lerp (title_allocation.x, strict_title_allocation.x, strict_centering_t);
+    title_allocation.y = hdy_lerp (title_allocation.y, strict_title_allocation.y, strict_centering_t);
+    title_allocation.width = hdy_lerp (title_allocation.width, strict_title_allocation.width, strict_centering_t);
+    title_allocation.height = hdy_lerp (title_allocation.height, strict_title_allocation.height, strict_centering_t);
   }
 
   /* Allocate the children on both sides of the title. */

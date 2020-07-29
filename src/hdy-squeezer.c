@@ -905,11 +905,11 @@ hdy_squeezer_measure (GtkWidget      *widget,
       self->last_visible_child != NULL) {
     gdouble t = gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE);
     if (orientation == GTK_ORIENTATION_VERTICAL) {
-      *minimum = hdy_lerp (*minimum, self->last_visible_widget_height, t);
-      *natural = hdy_lerp (*natural, self->last_visible_widget_height, t);
+      *minimum = hdy_lerp (self->last_visible_widget_height, *minimum, t);
+      *natural = hdy_lerp (self->last_visible_widget_height, *natural, t);
     } else {
-      *minimum = hdy_lerp (*minimum, self->last_visible_widget_width, t);
-      *natural = hdy_lerp (*natural, self->last_visible_widget_width, t);
+      *minimum = hdy_lerp (self->last_visible_widget_width, *minimum, t);
+      *natural = hdy_lerp (self->last_visible_widget_width, *natural, t);
     }
   }
 }

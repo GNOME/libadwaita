@@ -304,7 +304,7 @@ get_animation_value (HdyCarouselBoxAnimation *animation,
   t = (gdouble) (frame_time - animation->start_time) / duration;
   t = hdy_ease_out_cubic (t);
 
-  return hdy_lerp (animation->start_value, animation->end_value, 1 - t);
+  return hdy_lerp (animation->start_value, animation->end_value, t);
 }
 
 static gboolean

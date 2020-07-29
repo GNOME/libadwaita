@@ -51,9 +51,6 @@ hdy_get_enable_animations (GtkWidget *widget)
  *
  * Computes the linear interpolation between @a and @b for @t.
  *
- * It is currently private because we cargo-culted it and don't understand the
- * reason for (1.0 - t) instead of t.
- *
  * Returns: the linear interpolation between @a and @b for @t.
  *
  * Since: 0.0.11
@@ -61,7 +58,7 @@ hdy_get_enable_animations (GtkWidget *widget)
 gdouble
 hdy_lerp (gdouble a, gdouble b, gdouble t)
 {
-  return a + (b - a) * (1.0 - t);
+  return a * (1.0 - t) + b * t;
 }
 
 /* From clutter-easing.c, based on Robert Penner's
