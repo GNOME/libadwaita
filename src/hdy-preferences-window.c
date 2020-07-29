@@ -242,14 +242,14 @@ try_remove_subpages (HdyPreferencesWindow *self)
   if (hdy_deck_get_transition_running (priv->subpages_deck))
     return;
 
+  if (hdy_deck_get_visible_child (priv->subpages_deck) == priv->preferences)
+    priv->subpage = NULL;
+
   for (GList *child = gtk_container_get_children (GTK_CONTAINER (priv->subpages_deck));
        child;
        child = child->next)
     if (child->data != priv->preferences && child->data != priv->subpage)
       gtk_container_remove (GTK_CONTAINER (priv->subpages_deck), child->data);
-
-  if (hdy_deck_get_visible_child (priv->subpages_deck) == priv->preferences)
-    priv->subpage = NULL;
 }
 
 static void
