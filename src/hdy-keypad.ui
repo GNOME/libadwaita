@@ -19,7 +19,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="focus_on_click">False</property>
-            <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+            <property name="show-symbols" bind-source="HdyKeypad" bind-property="letters-visible" bind-flags="sync-create"/>
             <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
           </object>
           <packing>
@@ -34,7 +34,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="focus_on_click">False</property>
-            <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+            <property name="show-symbols" bind-source="HdyKeypad" bind-property="letters-visible" bind-flags="sync-create"/>
             <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
           </object>
           <packing>
@@ -49,7 +49,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="focus_on_click">False</property>
-            <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+            <property name="show-symbols" bind-source="HdyKeypad" bind-property="letters-visible" bind-flags="sync-create"/>
             <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
           </object>
           <packing>
@@ -64,7 +64,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="focus_on_click">False</property>
-            <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+            <property name="show-symbols" bind-source="HdyKeypad" bind-property="letters-visible" bind-flags="sync-create"/>
             <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
           </object>
           <packing>
@@ -79,7 +79,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="focus_on_click">False</property>
-            <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+            <property name="show-symbols" bind-source="HdyKeypad" bind-property="letters-visible" bind-flags="sync-create"/>
             <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
           </object>
           <packing>
@@ -94,7 +94,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="focus_on_click">False</property>
-            <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+            <property name="show-symbols" bind-source="HdyKeypad" bind-property="letters-visible" bind-flags="sync-create"/>
             <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
           </object>
           <packing>
@@ -109,7 +109,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="focus_on_click">False</property>
-            <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+            <property name="show-symbols" bind-source="HdyKeypad" bind-property="letters-visible" bind-flags="sync-create"/>
             <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
           </object>
           <packing>
@@ -124,7 +124,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="focus_on_click">False</property>
-            <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+            <property name="show-symbols" bind-source="HdyKeypad" bind-property="letters-visible" bind-flags="sync-create"/>
             <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
           </object>
           <packing>
@@ -139,7 +139,7 @@
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="focus_on_click">False</property>
-            <property name="show-symbols" bind-source="HdyKeypad" bind-property="show-symbols" bind-flags="sync-create"/>
+            <property name="show-symbols" bind-source="HdyKeypad" bind-property="letters-visible" bind-flags="sync-create"/>
             <signal name="clicked" handler="button_clicked_cb" swapped="true"/>
           </object>
           <packing>

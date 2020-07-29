@@ -294,6 +294,10 @@
         #HdyKeypad doesn't subclass #Gtkgrid anymore. Instead, it subclasses
         #GtkBin and contains a grid.
       </para>
+      <para>
+        The “show-symbols” property has been replaced by
+        #HdyHeaderGroup:letters-visible.
+      </para>
     </refsect3>
 
     <refsect3>

@@ -20,7 +20,7 @@ notify_cb (GtkWidget *widget,
 
 
 static void
-test_hdy_keypad_show_symbols (void)
+test_hdy_keypad_letters_visible (void)
 {
   HdyKeypad *keypad = HDY_KEYPAD (hdy_keypad_new (TRUE, FALSE));
   GList *l;
@@ -31,7 +31,7 @@ test_hdy_keypad_show_symbols (void)
   for (l = list; l != NULL; l = l->next) {
     if (HDY_IS_KEYPAD_BUTTON(l->data)) {
       gboolean value;
-      g_object_get (l->data, "show-symbols", &value, NULL);
+      g_object_get (l->data, "letters-visible", &value, NULL);
       g_assert_false (value);
     }
   }
@@ -102,7 +102,7 @@ main (gint argc,
   gtk_test_init (&argc, &argv, NULL);
   hdy_init ();
 
-  g_test_add_func ("/Handy/Keypad/show_symbols", test_hdy_keypad_show_symbols);
+  g_test_add_func ("/Handy/Keypad/letters_visible", test_hdy_keypad_letters_visible);
   g_test_add_func ("/Handy/Keypad/set_actions", test_hdy_keypad_set_actions);
   g_test_add_func ("/Handy/Keypad/button_click", test_hdy_keypad_button_clicked);
 

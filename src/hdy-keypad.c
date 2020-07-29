@@ -33,7 +33,7 @@ typedef struct
   guint16 row_spacing;
   guint16 column_spacing;
   gboolean only_digits;
-  gboolean show_symbols;
+  gboolean letters_visible;
 } HdyKeypadPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (HdyKeypad, hdy_keypad, GTK_TYPE_BIN)
@@ -42,7 +42,7 @@ enum {
   PROP_0,
   PROP_ROW_SPACING,
   PROP_COLUMN_SPACING,
-  PROP_SHOW_SYMBOLS,
+  PROP_LETTERS_VISIBLE,
   PROP_ONLY_DIGITS,
   PROP_ENTRY,
   PROP_RIGHT_ACTION,
@@ -174,8 +174,8 @@ hdy_keypad_set_property (GObject      *object,
     hdy_keypad_set_column_spacing (self, g_value_get_uint (value));
     break;
 
-  case PROP_SHOW_SYMBOLS:
-    hdy_keypad_show_symbols (self, g_value_get_boolean (value));
+  case PROP_LETTERS_VISIBLE:
+    hdy_keypad_set_letters_visible (self, g_value_get_boolean (value));
     break;
   case PROP_ONLY_DIGITS:
     if (g_value_get_boolean (value) != priv->only_digits) {
@@ -217,8 +217,8 @@ hdy_keypad_get_property (GObject    *object,
     g_value_set_uint (value, priv->column_spacing);
     break;
 
-  case PROP_SHOW_SYMBOLS:
-    g_value_set_boolean (value, priv->show_symbols);
+  case PROP_LETTERS_VISIBLE:
+    g_value_set_boolean (value, hdy_keypad_get_letters_visible (self));
     break;
   case PROP_ONLY_DIGITS:
     g_value_set_boolean (value, priv->only_digits);
@@ -270,10 +270,18 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
                        0, G_MAXINT16, 0,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
-  props[PROP_SHOW_SYMBOLS] =
-    g_param_spec_boolean ("show-symbols",
-                         _("Show Symbols"),
-                         _("Whether the second line of symbols should be shown or not"),
+  /**
+   * HdyKeypad:letters-visible:
+   *
+   * Whether the keypad should display the standard letters below the digits on
+   * its buttons.
+   *
+   * Since: 1.0
+   */
+  props[PROP_LETTERS_VISIBLE] =
+    g_param_spec_boolean ("letters-visible",
+                         _("Letters visible"),
+                         _("Whether the letters below the digits should be visible"),
                          TRUE,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -327,6 +335,10 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
 static void
 hdy_keypad_init (HdyKeypad *self)
 {
+  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
+
+  priv->letters_visible = TRUE;
+
   gtk_widget_init_template (GTK_WIDGET (self));
 }
 
@@ -334,7 +346,7 @@ hdy_keypad_init (HdyKeypad *self)
 /**
  * hdy_keypad_new:
  * @only_digits: whether the keypad should show only digits or also extra buttons for #, *
- * @show_symbols: whether the keypad should show the second line or only the main digit
+ * @letters_visible: whether the letters below the digits should be visible
  *
  * Create a new #HdyKeypad widget.
  *
@@ -343,11 +355,11 @@ hdy_keypad_init (HdyKeypad *self)
  */
 GtkWidget *
 hdy_keypad_new (gboolean only_digits,
-                gboolean show_symbols)
+                gboolean letters_visible)
 {
   return g_object_new (HDY_TYPE_KEYPAD,
                        "only-digits", only_digits,
-                       "show-symbols", show_symbols,
+                       "letters-visible", letters_visible,
                        NULL);
 }
 
@@ -448,27 +460,55 @@ hdy_keypad_get_column_spacing (HdyKeypad *self)
 
 
 /**
- * hdy_keypad_show_symbols:
+ * hdy_keypad_set_letters_visible:
  * @self: a #HdyKeypad
- * @visible: whether the second line on buttons should be shown or not
+ * @letters_visible: whether the letters below the digits should be visible
  *
- * Sets the visibility of symbols (excluding the main digit) on each button in the #HdyKeypad
+ * Sets whether @self should display the standard letters below the digits on
+ * its buttons.
  *
+ * Since: 1.0
  */
 void
-hdy_keypad_show_symbols (HdyKeypad *self,
-                         gboolean   visible)
+hdy_keypad_set_letters_visible (HdyKeypad *self,
+                                gboolean   letters_visible)
 {
   HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
 
   g_return_if_fail (HDY_IS_KEYPAD (self));
 
-  if (visible == priv->show_symbols)
+  letters_visible = !!letters_visible;
+
+  if (priv->letters_visible == letters_visible)
     return;
 
-  priv->show_symbols = visible;
+  priv->letters_visible = letters_visible;
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_SYMBOLS]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_LETTERS_VISIBLE]);
+}
+
+
+/**
+ * hdy_keypad_get_letters_visible:
+ * @self: a #HdyKeypad
+ *
+ * Returns whether @self should display the standard letters below the digits on
+ * its buttons.
+ *
+ * Returns: whether the letters below the digits should be visible
+ *
+ * Since: 1.0
+ */
+gboolean
+hdy_keypad_get_letters_visible (HdyKeypad *self)
+{
+  HdyKeypadPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_KEYPAD (self), FALSE);
+
+  priv = hdy_keypad_get_instance_private (self);
+
+  return priv->letters_visible;
 }
 
 

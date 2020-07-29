@@ -881,10 +881,10 @@
                                           <object class="HdyActionRow">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="title" translatable="yes">Show extra symbols</property>
-                                            <property name="activatable_widget">keypad_show_symbols</property>
+                                            <property name="title" translatable="yes">Show letters</property>
+                                            <property name="activatable_widget">keypad_letters_visible</property>
                                             <child>
-                                              <object class="GtkSwitch" id="keypad_show_symbols">
+                                              <object class="GtkSwitch" id="keypad_letters_visible">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">True</property>
                                                 <property name="state">True</property>
@@ -926,7 +926,7 @@
                                         <property name="halign">center</property>
                                         <property name="entry">entry_keypad</property>
                                         <property name="only-digits" bind-source="keypad_only_digits" bind-property="state" bind-flags="sync-create | bidirectional"/>
-                                        <property name="show-symbols" bind-source="keypad_show_symbols" bind-property="state" bind-flags="sync-create | bidirectional"/>
+                                        <property name="letters-visible" bind-source="keypad_letters_visible" bind-property="state" bind-flags="sync-create | bidirectional"/>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>

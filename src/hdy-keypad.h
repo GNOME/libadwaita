@@ -28,15 +28,16 @@ struct _HdyKeypadClass
 };
 
 GtkWidget       *hdy_keypad_new                     (gboolean only_digits,
-                                                     gboolean show_symbols);
+                                                     gboolean letters_visible);
 void             hdy_keypad_set_row_spacing         (HdyKeypad *self,
                                                      guint      spacing);
 guint            hdy_keypad_get_row_spacing         (HdyKeypad *self);
 void             hdy_keypad_set_column_spacing      (HdyKeypad *self,
                                                      guint      spacing);
 guint            hdy_keypad_get_column_spacing      (HdyKeypad *self);
-void             hdy_keypad_show_symbols            (HdyKeypad *self,
-                                                     gboolean   visible);
+void             hdy_keypad_set_letters_visible     (HdyKeypad *self,
+                                                     gboolean   letters_visible);
+gboolean         hdy_keypad_get_letters_visible     (HdyKeypad *self);
 void             hdy_keypad_set_entry               (HdyKeypad *self,
                                                      GtkEntry  *entry);
 GtkWidget       *hdy_keypad_get_entry               (HdyKeypad *self);
