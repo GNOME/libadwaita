@@ -356,6 +356,9 @@ hdy_preferences_page_add_preferences_to_model (HdyPreferencesPage *self,
   g_return_if_fail (HDY_IS_PREFERENCES_PAGE (self));
   g_return_if_fail (G_IS_LIST_STORE (model));
 
+  if (!gtk_widget_get_visible (GTK_WIDGET (self)))
+    return;
+
   priv = hdy_preferences_page_get_instance_private (self);
 
   gtk_container_foreach (GTK_CONTAINER (priv->box), (GtkCallback) hdy_preferences_group_add_preferences_to_model, model);
