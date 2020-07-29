@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
-"POT-Creation-Date: 2020-07-28 11:41+0000\n"
-"PO-Revision-Date: 2020-07-28 15:10+0300\n"
+"POT-Creation-Date: 2020-07-28 14:53+0000\n"
+"PO-Revision-Date: 2020-07-29 09:00+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -296,7 +296,8 @@ msgstr ""
 "Визначає, чи повинен розмір змінюватися плавно при перемиканні між дочірніми "
 "елементами різних розмірів"
 
-#: src/hdy-deck.c:1007 src/hdy-leaflet.c:1087 src/hdy-stackable-box.c:3062
+#: src/hdy-deck.c:1007 src/hdy-leaflet.c:1087 src/hdy-preferences-window.c:482
+#: src/hdy-stackable-box.c:3062
 msgid "Can swipe back"
 msgstr "Можна змахнути назад"
 
@@ -629,7 +630,6 @@ msgid "Navigatable"
 msgstr "Придатний до навігації"
 
 #: src/hdy-leaflet.c:1130
-#| msgid "Whether the child can be visible in folded mode"
 msgid "Whether the child can be navigated to"
 msgstr "Визначає, чи можна переходити до дочірнього об'єкта"
 
@@ -641,31 +641,41 @@ msgstr "Опис"
 msgid "The title of the preference"
 msgstr "Заголовок налаштувань"
 
-#: src/hdy-preferences-window.c:135
+#: src/hdy-preferences-window.c:141
 msgid "Untitled page"
 msgstr "Сторінка без назви"
 
-#: src/hdy-preferences-window.c:438
+#: src/hdy-preferences-window.c:468
 msgid "Search enabled"
 msgstr "Пошук увімкнено"
 
-#: src/hdy-preferences-window.c:439
+#: src/hdy-preferences-window.c:469
 msgid "Whether search is enabled"
 msgstr "Визначає, чи увімкнено пошук"
+
+#: src/hdy-preferences-window.c:483
+#| msgid ""
+#| "Whether or not swipe gesture can be used to switch to the previous child"
+msgid ""
+"Whether or not swipe gesture can be used to switch from a subpage to the "
+"preferences"
+msgstr ""
+"Визначає, чи можна скористатися жестом змахування для перемикання з"
+" допоміжної сторінки до сторінки параметрів"
 
 #: src/hdy-preferences-window.ui:9
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: src/hdy-preferences-window.ui:72
+#: src/hdy-preferences-window.ui:77
 msgid "Search"
 msgstr "Пошук"
 
-#: src/hdy-preferences-window.ui:195
+#: src/hdy-preferences-window.ui:200
 msgid "No Results Found"
 msgstr "Нічого не знайдено"
 
-#: src/hdy-preferences-window.ui:210
+#: src/hdy-preferences-window.ui:215
 msgid "Try a different search"
 msgstr "Спробувати інші критерії пошуку"
 
