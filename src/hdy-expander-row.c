@@ -440,7 +440,7 @@ hdy_expander_row_new (void)
  *
  * Gets the subtitle for @self.
  *
- * Returns: (transfer none) (nullable): the subtitle for @self, or %NULL.
+ * Returns: the subtitle for @self.
  *
  * Since: 1.0
  */
@@ -459,7 +459,7 @@ hdy_expander_row_get_subtitle (HdyExpanderRow *self)
 /**
  * hdy_expander_row_set_subtitle:
  * @self: a #HdyExpanderRow
- * @subtitle: (nullable): the subtitle
+ * @subtitle: the subtitle
  *
  * Sets the subtitle for @self.
  *
