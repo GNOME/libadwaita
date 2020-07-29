@@ -411,6 +411,9 @@ add_preferences_to_model (HdyPreferencesRow *row,
   g_assert (HDY_IS_PREFERENCES_ROW (row));
   g_assert (G_IS_LIST_STORE (model));
 
+  if (!gtk_widget_get_visible (GTK_WIDGET (row)))
+    return;
+
   g_list_store_append (model, row);
 }
 
