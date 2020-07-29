@@ -236,7 +236,7 @@ hdy_view_switcher_title_class_init (HdyViewSwitcherTitleClass *klass)
     g_param_spec_enum ("policy",
                        _("Policy"),
                        _("The policy to determine the mode to use"),
-                       HDY_TYPE_VIEW_SWITCHER_POLICY, HDY_VIEW_SWITCHER_POLICY_WIDE,
+                       HDY_TYPE_VIEW_SWITCHER_POLICY, HDY_VIEW_SWITCHER_POLICY_AUTO,
                        G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**

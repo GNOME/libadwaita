@@ -10,7 +10,6 @@
         <signal name="notify::visible-child" handler="notify_squeezer_visible_child_cb" swapped="yes"/>
         <child>
           <object class="HdyViewSwitcher" id="view_switcher">
-            <property name="policy">wide</property>
             <property name="visible">True</property>
           </object>
         </child>
