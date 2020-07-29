@@ -44,10 +44,12 @@ gboolean         hdy_keypad_get_symbols_visible     (HdyKeypad *self);
 void             hdy_keypad_set_entry               (HdyKeypad *self,
                                                      GtkEntry  *entry);
 GtkWidget       *hdy_keypad_get_entry               (HdyKeypad *self);
-void             hdy_keypad_set_left_action         (HdyKeypad *self,
-                                                     GtkWidget *widget);
-void             hdy_keypad_set_right_action        (HdyKeypad *self,
-                                                     GtkWidget *widget);
+void             hdy_keypad_set_start_action        (HdyKeypad *self,
+                                                     GtkWidget *start_action);
+GtkWidget       *hdy_keypad_get_start_action        (HdyKeypad *self);
+void             hdy_keypad_set_end_action          (HdyKeypad *self,
+                                                     GtkWidget *end_action);
+GtkWidget       *hdy_keypad_get_end_action          (HdyKeypad *self);
 
 
 G_END_DECLS

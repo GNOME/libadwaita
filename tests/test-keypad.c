@@ -52,15 +52,15 @@ test_hdy_keypad_set_actions (void)
   // Left extra button
   g_assert (gtk_grid_get_child_at (grid, 0, 3) != NULL);
 
-  hdy_keypad_set_right_action (keypad, button_right);
-  hdy_keypad_set_left_action (keypad, button_left);
+  hdy_keypad_set_end_action (keypad, button_right);
+  hdy_keypad_set_start_action (keypad, button_left);
   g_assert (button_right == gtk_grid_get_child_at (grid, 2, 3));
   g_assert (button_left == gtk_grid_get_child_at (grid, 0, 3));
 
-  hdy_keypad_set_right_action (keypad, NULL);
+  hdy_keypad_set_end_action (keypad, NULL);
   g_assert (gtk_grid_get_child_at (grid, 2, 3) == NULL);
 
-  hdy_keypad_set_left_action (keypad, NULL);
+  hdy_keypad_set_start_action (keypad, NULL);
   g_assert (gtk_grid_get_child_at (grid, 0, 3) == NULL);
 }
 

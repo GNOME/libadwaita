@@ -303,6 +303,11 @@
         #HdyHeaderGroup:symbols-visible, which has a inverse boolean meaning.
         This also affects the corresponding parameter of the constructor.
       </para>
+      <para>
+        The “left-action” property has been replaced by
+        #HdyHeaderGroup:start-action, and the “right-action” property has been
+        replaced by #HdyHeaderGroup:end-action.
+      </para>
     </refsect3>
 
     <refsect3>

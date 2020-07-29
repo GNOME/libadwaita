@@ -193,18 +193,20 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_keypad_button_new@LIBHANDY_1_0 0.0.12
  hdy_keypad_button_show_symbols@LIBHANDY_1_0 0.0.12
  hdy_keypad_get_column_spacing@LIBHANDY_1_0 0.81.0
+ hdy_keypad_get_end_action@LIBHANDY_1_0 0.85.0
  hdy_keypad_get_entry@LIBHANDY_1_0 0.0.12
  hdy_keypad_get_letters_visible@LIBHANDY_1_0 0.85.0
  hdy_keypad_get_row_spacing@LIBHANDY_1_0 0.81.0
+ hdy_keypad_get_start_action@LIBHANDY_1_0 0.85.0
  hdy_keypad_get_symbols_visible@LIBHANDY_1_0 0.85.0
  hdy_keypad_get_type@LIBHANDY_1_0 0.0.12
  hdy_keypad_new@LIBHANDY_1_0 0.0.12
  hdy_keypad_set_column_spacing@LIBHANDY_1_0 0.81.0
+ hdy_keypad_set_end_action@LIBHANDY_1_0 0.85.0
  hdy_keypad_set_entry@LIBHANDY_1_0 0.0.12
- hdy_keypad_set_left_action@LIBHANDY_1_0 0.0.12
  hdy_keypad_set_letters_visible@LIBHANDY_1_0 0.85.0
- hdy_keypad_set_right_action@LIBHANDY_1_0 0.0.12
  hdy_keypad_set_row_spacing@LIBHANDY_1_0 0.81.0
+ hdy_keypad_set_start_action@LIBHANDY_1_0 0.85.0
  hdy_keypad_set_symbols_visible@LIBHANDY_1_0 0.85.0
  hdy_leaflet_get_adjacent_child@LIBHANDY_1_0 0.81.0
  hdy_leaflet_get_can_swipe_back@LIBHANDY_1_0 0.0.12

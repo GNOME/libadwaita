@@ -45,8 +45,8 @@ enum {
   PROP_LETTERS_VISIBLE,
   PROP_SYMBOLS_VISIBLE,
   PROP_ENTRY,
-  PROP_RIGHT_ACTION,
-  PROP_LEFT_ACTION,
+  PROP_END_ACTION,
+  PROP_START_ACTION,
   PROP_LAST_PROP,
 };
 static GParamSpec *props[PROP_LAST_PROP];
@@ -183,11 +183,11 @@ hdy_keypad_set_property (GObject      *object,
   case PROP_ENTRY:
     hdy_keypad_set_entry (self, g_value_get_object (value));
     break;
-  case PROP_RIGHT_ACTION:
-    hdy_keypad_set_right_action (self, g_value_get_object (value));
+  case PROP_END_ACTION:
+    hdy_keypad_set_end_action (self, g_value_get_object (value));
     break;
-  case PROP_LEFT_ACTION:
-    hdy_keypad_set_left_action (self, g_value_get_object (value));
+  case PROP_START_ACTION:
+    hdy_keypad_set_start_action (self, g_value_get_object (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -222,6 +222,12 @@ hdy_keypad_get_property (GObject    *object,
     break;
   case PROP_ENTRY:
     g_value_set_object (value, priv->entry);
+    break;
+  case PROP_START_ACTION:
+    g_value_set_object (value, hdy_keypad_get_start_action (self));
+    break;
+  case PROP_END_ACTION:
+    g_value_set_object (value, hdy_keypad_get_end_action (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -304,19 +310,33 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
                         GTK_TYPE_WIDGET,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
-  props[PROP_RIGHT_ACTION] =
-   g_param_spec_object ("right-action",
-                        _("Right action widget"),
-                        _("The right action widget"),
+  /**
+   * HdyKeypad:end-action:
+   *
+   * The widget for the lower end corner of @self.
+   *
+   * Since: 1.0
+   */
+  props[PROP_END_ACTION] =
+   g_param_spec_object ("end-action",
+                        _("End action"),
+                        _("The end action widget"),
                         GTK_TYPE_WIDGET,
-                        G_PARAM_WRITABLE | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
-  props[PROP_LEFT_ACTION] =
-   g_param_spec_object ("left-action",
-                        _("Left action widget"),
-                        _("The left action widget"),
+  /**
+   * HdyKeypad:start-action:
+   *
+   * The widget for the lower start corner of @self.
+   *
+   * Since: 1.0
+   */
+  props[PROP_START_ACTION] =
+   g_param_spec_object ("start-action",
+                        _("Start action"),
+                        _("The start action widget"),
                         GTK_TYPE_WIDGET,
-                        G_PARAM_WRITABLE | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
@@ -642,68 +662,122 @@ hdy_keypad_get_entry (HdyKeypad *self)
 
 
 /**
- * hdy_keypad_set_left_action:
+ * hdy_keypad_set_start_action:
  * @self: a #HdyKeypad
- * @widget: nullable: the widget which should be show in the left lower corner of #HdyKeypad
+ * @start_action: (nullable): the start action widget
  *
- * Sets the widget for the left lower corner of #HdyKeypad replacing the existing widget, if NULL it just removes whatever widget is there
+ * Sets the widget for the lower left corner (or right, in RTL locales) of
+ * @self.
  *
+ * Since: 1.0
  */
 void
-hdy_keypad_set_left_action (HdyKeypad *self,
-                            GtkWidget *widget)
+hdy_keypad_set_start_action (HdyKeypad *self,
+                             GtkWidget *start_action)
 {
   HdyKeypadPrivate *priv;
   GtkWidget *old_widget;
 
   g_return_if_fail (HDY_IS_KEYPAD (self));
+  g_return_if_fail (start_action == NULL || GTK_IS_WIDGET (start_action));
 
   priv = hdy_keypad_get_instance_private (self);
 
   old_widget = gtk_grid_get_child_at (GTK_GRID (priv->grid), 0, 3);
 
-  if (old_widget == widget)
+  if (old_widget == start_action)
     return;
 
   if (old_widget != NULL)
     gtk_container_remove (GTK_CONTAINER (priv->grid), old_widget);
 
-  if (widget != NULL)
-    gtk_grid_attach (GTK_GRID (priv->grid), widget, 0, 3, 1, 1);
+  if (start_action != NULL)
+    gtk_grid_attach (GTK_GRID (priv->grid), start_action, 0, 3, 1, 1);
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_LEFT_ACTION]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_START_ACTION]);
 }
 
 
 /**
- * hdy_keypad_set_right_action:
+ * hdy_keypad_get_start_action:
  * @self: a #HdyKeypad
- * @widget: nullable: the widget which should be show in the right lower corner of #HdyKeypad
  *
- * Sets the widget for the right lower corner of #HdyKeypad replacing the existing widget, if NULL it just removes whatever widget is there
+ * Returns the widget for the lower left corner (or right, in RTL locales) of
+ * @self.
  *
+ * Returns: (transfer none) (nullable): the start action widget
+ *
+ * Since: 1.0
+ */
+GtkWidget *
+hdy_keypad_get_start_action (HdyKeypad *self)
+{
+  HdyKeypadPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_KEYPAD (self), NULL);
+
+  priv = hdy_keypad_get_instance_private (self);
+
+  return gtk_grid_get_child_at (GTK_GRID (priv->grid), 0, 3);
+}
+
+
+/**
+ * hdy_keypad_set_end_action:
+ * @self: a #HdyKeypad
+ * @end_action: (nullable): the end action widget
+ *
+ * Sets the widget for the lower right corner (or left, in RTL locales) of
+ * @self.
+ *
+ * Since: 1.0
  */
 void
-hdy_keypad_set_right_action (HdyKeypad *self,
-                             GtkWidget *widget)
+hdy_keypad_set_end_action (HdyKeypad *self,
+                           GtkWidget *end_action)
 {
   HdyKeypadPrivate *priv;
   GtkWidget *old_widget;
 
   g_return_if_fail (HDY_IS_KEYPAD (self));
+  g_return_if_fail (end_action == NULL || GTK_IS_WIDGET (end_action));
 
   priv = hdy_keypad_get_instance_private (self);
 
   old_widget = gtk_grid_get_child_at (GTK_GRID (priv->grid), 2, 3);
 
-  if (old_widget == widget)
+  if (old_widget == end_action)
     return;
 
   if (old_widget != NULL)
     gtk_container_remove (GTK_CONTAINER (priv->grid), old_widget);
 
-  if (widget != NULL)
-    gtk_grid_attach (GTK_GRID (priv->grid), widget, 2, 3, 1, 1);
+  if (end_action != NULL)
+    gtk_grid_attach (GTK_GRID (priv->grid), end_action, 2, 3, 1, 1);
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_RIGHT_ACTION]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_END_ACTION]);
+}
+
+
+/**
+ * hdy_keypad_get_end_action:
+ * @self: a #HdyKeypad
+ *
+ * Returns the widget for the lower right corner (or left, in RTL locales) of
+ * @self.
+ *
+ * Returns: (transfer none) (nullable): the end action widget
+ *
+ * Since: 1.0
+ */
+GtkWidget *
+hdy_keypad_get_end_action (HdyKeypad *self)
+{
+  HdyKeypadPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_KEYPAD (self), NULL);
+
+  priv = hdy_keypad_get_instance_private (self);
+
+  return gtk_grid_get_child_at (GTK_GRID (priv->grid), 2, 3);
 }
