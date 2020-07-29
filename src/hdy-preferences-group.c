@@ -408,10 +408,17 @@ static void
 add_preferences_to_model (HdyPreferencesRow *row,
                           GListStore        *model)
 {
+  const gchar *title;
+
   g_assert (HDY_IS_PREFERENCES_ROW (row));
   g_assert (G_IS_LIST_STORE (model));
 
   if (!gtk_widget_get_visible (GTK_WIDGET (row)))
+    return;
+
+  title = hdy_preferences_row_get_title (row);
+
+  if (!title || !*title)
     return;
 
   g_list_store_append (model, row);
