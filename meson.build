@@ -29,10 +29,6 @@ current = handy_version_minor * 100 + handy_version_micro - handy_interface_age
 revision = handy_interface_age
 libversion = '@0@.@1@.@2@'.format(soversion, current, revision)
 
-config_h = configuration_data()
-config_h.set_quoted('GETTEXT_PACKAGE', 'libhandy')
-config_h.set_quoted('LOCALEDIR', get_option('prefix') / get_option('localedir'))
-
 add_project_arguments([
   '-DHAVE_CONFIG_H',
   '-DHANDY_COMPILATION',
@@ -95,18 +91,6 @@ if get_option('profiling')
   test_c_args += '-pg'
 endif
 
-# Symbol visibility
-if target_system == 'windows'
-  config_h.set('DLL_EXPORT', true)
-  config_h.set('_HDY_EXTERN', '__declspec(dllexport) extern')
-  if cc.get_id() != 'msvc'
-    global_c_args += ['-fvisibility=hidden']
-  endif
-else
-  config_h.set('_HDY_EXTERN', '__attribute__((visibility("default"))) extern')
-  global_c_args += ['-fvisibility=hidden']
-endif
-
 foreach arg: test_c_args
   if cc.has_multi_arguments(arg)
     global_c_args += arg
@@ -137,11 +121,6 @@ introspection_feature = get_option('introspection')
 introspection = introspection_feature.enabled() or introspection_feature.auto()
 
 gnome = import('gnome')
-
-configure_file(
-         output: 'config.h',
-  configuration: config_h,
-)
 
 subdir('src')
 subdir('po')

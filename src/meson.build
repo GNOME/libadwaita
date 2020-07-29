@@ -185,6 +185,28 @@ libhandy_deps = [
 libhandy_c_args = [
   '-DG_LOG_DOMAIN="Handy"',
 ]
+
+config_h = configuration_data()
+config_h.set_quoted('GETTEXT_PACKAGE', 'libhandy')
+config_h.set_quoted('LOCALEDIR', get_option('prefix') / get_option('localedir'))
+
+# Symbol visibility
+if target_system == 'windows'
+  config_h.set('DLL_EXPORT', true)
+  config_h.set('_HDY_EXTERN', '__declspec(dllexport) extern')
+  if cc.get_id() != 'msvc'
+    libhandy_c_args += ['-fvisibility=hidden']
+  endif
+else
+  config_h.set('_HDY_EXTERN', '__attribute__((visibility("default"))) extern')
+  libhandy_c_args += ['-fvisibility=hidden']
+endif
+
+configure_file(
+         output: 'config.h',
+  configuration: config_h,
+)
+
 libhandy_link_args = []
 libhandy_symbols_file = 'libhandy.syms'
 
