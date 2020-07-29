@@ -210,6 +210,9 @@ key_press_event_cb (GtkWidget            *sender,
   guint keyval;
   GdkModifierType state;
 
+  if (priv->subpage)
+    return GDK_EVENT_PROPAGATE;
+
   gdk_event_get_keyval (event, &keyval);
   gdk_event_get_state (event, &state);
 
