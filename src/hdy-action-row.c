@@ -503,7 +503,7 @@ hdy_action_row_new (void)
  *
  * Gets the subtitle for @self.
  *
- * Returns: (transfer none) (nullable): the subtitle for @self, or %NULL.
+ * Returns: the subtitle for @self.
  *
  * Since: 0.0.6
  */
@@ -522,7 +522,7 @@ hdy_action_row_get_subtitle (HdyActionRow *self)
 /**
  * hdy_action_row_set_subtitle:
  * @self: a #HdyActionRow
- * @subtitle: (nullable): the subtitle
+ * @subtitle: the subtitle
  *
  * Sets the subtitle for @self.
  *
