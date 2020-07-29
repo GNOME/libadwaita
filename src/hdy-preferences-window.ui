@@ -14,6 +14,7 @@
         <property name="can-swipe-back" bind-source="HdyPreferencesWindow" bind-property="can-swipe-back" bind-flags="sync-create"/>
         <property name="visible">True</property>
         <signal name="notify::transition-running" handler="subpages_deck_transition_running_cb" swapped="yes"/>
+        <signal name="notify::visible-child" handler="subpages_deck_visible_child_cb" swapped="yes"/>
         <child>
           <object class="GtkBox" id="preferences">
             <property name="visible">True</property>

@@ -232,7 +232,7 @@ key_press_event_cb (GtkWidget            *sender,
 }
 
 static void
-subpages_deck_transition_running_cb (HdyPreferencesWindow *self)
+try_remove_subpages (HdyPreferencesWindow *self)
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
 
@@ -247,6 +247,18 @@ subpages_deck_transition_running_cb (HdyPreferencesWindow *self)
 
   if (hdy_deck_get_visible_child (priv->subpages_deck) == priv->preferences)
     priv->subpage = NULL;
+}
+
+static void
+subpages_deck_transition_running_cb (HdyPreferencesWindow *self)
+{
+  try_remove_subpages (self);
+}
+
+static void
+subpages_deck_visible_child_cb (HdyPreferencesWindow *self)
+{
+  try_remove_subpages (self);
 }
 
 static void
@@ -500,6 +512,7 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_bar);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_title);
   gtk_widget_class_bind_template_callback (widget_class, subpages_deck_transition_running_cb);
+  gtk_widget_class_bind_template_callback (widget_class, subpages_deck_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, header_bar_size_allocate_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_transition_running_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_visible_child_cb);
