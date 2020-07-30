@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
-"POT-Creation-Date: 2020-07-29 12:15+0000\n"
-"PO-Revision-Date: 2020-07-29 17:01+0300\n"
+"POT-Creation-Date: 2020-07-29 16:22+0000\n"
+"PO-Revision-Date: 2020-07-30 13:02+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.07.70\n"
+"X-Generator: Lokalize 20.03.70\n"
 
 #: glade/glade-hdy-carousel.c:21
 msgid "This property does not apply unless Show Indicators is set."
@@ -114,80 +114,80 @@ msgstr ""
 "використовуватися в комбінації клавіш."
 
 #: src/hdy-carousel-box.c:1095 src/hdy-carousel-box.c:1096
-#: src/hdy-carousel.c:949 src/hdy-carousel.c:950
+#: src/hdy-carousel.c:947 src/hdy-carousel.c:948
 msgid "Number of pages"
 msgstr "Кількість сторінок"
 
-#: src/hdy-carousel-box.c:1111 src/hdy-carousel.c:966 src/hdy-header-bar.c:2133
+#: src/hdy-carousel-box.c:1111 src/hdy-carousel.c:964 src/hdy-header-bar.c:2133
 msgid "Position"
 msgstr "Позиція"
 
-#: src/hdy-carousel-box.c:1112 src/hdy-carousel.c:967
+#: src/hdy-carousel-box.c:1112 src/hdy-carousel.c:965
 msgid "Current scrolling position"
 msgstr "Поточна позиція гортання"
 
-#: src/hdy-carousel-box.c:1127 src/hdy-carousel.c:1048
+#: src/hdy-carousel-box.c:1127 src/hdy-carousel.c:1046
 #: src/hdy-header-bar.c:2161
 msgid "Spacing"
 msgstr "Інтервал"
 
-#: src/hdy-carousel-box.c:1128 src/hdy-carousel.c:1049
+#: src/hdy-carousel-box.c:1128 src/hdy-carousel.c:1047
 msgid "Spacing between pages"
 msgstr "Інтервал між сторінками"
 
-#: src/hdy-carousel-box.c:1144 src/hdy-carousel.c:1093
+#: src/hdy-carousel-box.c:1144 src/hdy-carousel.c:1091
 msgid "Reveal duration"
 msgstr "Тривалість появи"
 
-#: src/hdy-carousel-box.c:1145 src/hdy-carousel.c:1094
+#: src/hdy-carousel-box.c:1145 src/hdy-carousel.c:1092
 msgid "Page reveal duration"
 msgstr "Тривалість появи сторінки"
 
-#: src/hdy-carousel.c:983
+#: src/hdy-carousel.c:981
 msgid "Interactive"
 msgstr "Інтерактивний"
 
-#: src/hdy-carousel.c:984
+#: src/hdy-carousel.c:982
 msgid "Whether the widget can be swiped"
 msgstr "Визначає, чи можна змахнути віджет"
 
-#: src/hdy-carousel.c:999
+#: src/hdy-carousel.c:997
 msgid "Indicator style"
 msgstr "Стиль індикаторів"
 
-#: src/hdy-carousel.c:1000
+#: src/hdy-carousel.c:998
 msgid "Page indicator style"
 msgstr "Стиль індикаторів сторінки"
 
-#: src/hdy-carousel.c:1015
+#: src/hdy-carousel.c:1013
 msgid "Indicator spacing"
 msgstr "Інтервал індикатора"
 
-#: src/hdy-carousel.c:1016
+#: src/hdy-carousel.c:1014
 msgid "Spacing between content and indicators"
 msgstr "Інтервал між вмістом та індикаторами"
 
-#: src/hdy-carousel.c:1034
+#: src/hdy-carousel.c:1032
 msgid "Center content"
 msgstr "Центрувати вміст"
 
-#: src/hdy-carousel.c:1035
+#: src/hdy-carousel.c:1033
 msgid "Whether to center pages to compensate for indicators"
 msgstr "Визначає, чи слід центрувати сторінки для компенсації індикаторів"
 
-#: src/hdy-carousel.c:1064
+#: src/hdy-carousel.c:1062
 msgid "Animation duration"
 msgstr "Тривалість анімації"
 
-#: src/hdy-carousel.c:1065
+#: src/hdy-carousel.c:1063
 msgid "Default animation duration"
 msgstr "Типова тривалість анімації"
 
-#: src/hdy-carousel.c:1079 src/hdy-swipe-tracker.c:802
+#: src/hdy-carousel.c:1077 src/hdy-swipe-tracker.c:802
 msgid "Allow mouse drag"
 msgstr "Дозволити перетягування мишею"
 
-#: src/hdy-carousel.c:1080 src/hdy-swipe-tracker.c:803
+#: src/hdy-carousel.c:1078 src/hdy-swipe-tracker.c:803
 msgid "Whether to allow dragging with mouse pointer"
 msgstr "Визначає, чи можна перетягувати за допомогою вказівника миші"
 
@@ -239,7 +239,7 @@ msgstr "Вертикально однорідний"
 msgid "Vertically homogeneous sizing"
 msgstr "Однорідний за розміром вертикально"
 
-#: src/hdy-deck.c:916 src/hdy-leaflet.c:1018 src/hdy-squeezer.c:1073
+#: src/hdy-deck.c:916 src/hdy-leaflet.c:1018 src/hdy-squeezer.c:1093
 #: src/hdy-stackable-box.c:2993
 msgid "Visible child"
 msgstr "Видимий дочірній елемент"
@@ -256,7 +256,7 @@ msgstr "Назва видимого дочірнього елемента"
 msgid "The name of the widget currently visible"
 msgstr "Назва віджета є видимою"
 
-#: src/hdy-deck.c:949 src/hdy-leaflet.c:1044 src/hdy-squeezer.c:1087
+#: src/hdy-deck.c:949 src/hdy-leaflet.c:1044 src/hdy-squeezer.c:1107
 #: src/hdy-stackable-box.c:3019
 msgid "Transition type"
 msgstr "Тип переходу"
@@ -266,7 +266,7 @@ msgid "The type of animation used to transition between children"
 msgstr ""
 "Тип анімації, який буде використано для переходу між дочірніми об'єктами"
 
-#: src/hdy-deck.c:963 src/hdy-header-bar.c:2243 src/hdy-squeezer.c:1080
+#: src/hdy-deck.c:963 src/hdy-header-bar.c:2243 src/hdy-squeezer.c:1100
 msgid "Transition duration"
 msgstr "Тривалість переходу"
 
@@ -274,21 +274,21 @@ msgstr "Тривалість переходу"
 msgid "The transition animation duration, in milliseconds"
 msgstr "Тривалість анімації переходу у мілісекундах"
 
-#: src/hdy-deck.c:977 src/hdy-header-bar.c:2250 src/hdy-squeezer.c:1095
+#: src/hdy-deck.c:977 src/hdy-header-bar.c:2250 src/hdy-squeezer.c:1115
 msgid "Transition running"
 msgstr "Виконання переходу"
 
-#: src/hdy-deck.c:978 src/hdy-header-bar.c:2251 src/hdy-squeezer.c:1096
+#: src/hdy-deck.c:978 src/hdy-header-bar.c:2251 src/hdy-squeezer.c:1116
 msgid "Whether or not the transition is currently running"
 msgstr "Чи виконується перехід цієї миті"
 
 #: src/hdy-deck.c:992 src/hdy-header-bar.c:2257 src/hdy-leaflet.c:1072
-#: src/hdy-squeezer.c:1102 src/hdy-stackable-box.c:3047
+#: src/hdy-squeezer.c:1122 src/hdy-stackable-box.c:3047
 msgid "Interpolate size"
 msgstr "Інтерполювати розмір"
 
 #: src/hdy-deck.c:993 src/hdy-header-bar.c:2258 src/hdy-leaflet.c:1073
-#: src/hdy-squeezer.c:1103 src/hdy-stackable-box.c:3048
+#: src/hdy-squeezer.c:1123 src/hdy-stackable-box.c:3048
 msgid ""
 "Whether or not the size should smoothly change when changing between "
 "differently sized children"
@@ -296,7 +296,7 @@ msgstr ""
 "Визначає, чи повинен розмір змінюватися плавно при перемиканні між дочірніми "
 "елементами різних розмірів"
 
-#: src/hdy-deck.c:1007 src/hdy-leaflet.c:1087 src/hdy-preferences-window.c:482
+#: src/hdy-deck.c:1007 src/hdy-leaflet.c:1087 src/hdy-preferences-window.c:497
 #: src/hdy-stackable-box.c:3062
 msgid "Can swipe back"
 msgstr "Можна змахнути назад"
@@ -458,7 +458,7 @@ msgstr "Правила центрування"
 msgid "The policy to horizontally align the center widget"
 msgstr "Правила для горизонтального вирівнювання центрального віджета"
 
-#: src/hdy-header-bar.c:2244 src/hdy-squeezer.c:1081
+#: src/hdy-header-bar.c:2244 src/hdy-squeezer.c:1101
 msgid "The animation duration, in milliseconds"
 msgstr "Тривалість анімації у мілісекундах"
 
@@ -489,7 +489,6 @@ msgstr ""
 "Символи цифрової панелі на кнопці. Перший символ буде використано як цифру"
 
 #: src/hdy-keypad-button.c:239
-#| msgid "Show Symbols"
 msgid "Show symbols"
 msgstr "Показувати символи"
 
@@ -514,22 +513,18 @@ msgid "The amount of space between two consecutive columns"
 msgstr "Інтервал між двома послідовними стовпчиками"
 
 #: src/hdy-keypad.c:276
-#| msgid "Title visible"
 msgid "Letters visible"
 msgstr "Видимі літери"
 
 #: src/hdy-keypad.c:277
-#| msgid "Whether the title label is visible"
 msgid "Whether the letters below the digits should be visible"
 msgstr "Визначає, чи будуть видимими літери під цифрами"
 
 #: src/hdy-keypad.c:291
-#| msgid "Title visible"
 msgid "Symbols visible"
 msgstr "Видимі символи"
 
 #: src/hdy-keypad.c:292
-#| msgid "Whether the second line of symbols should be shown or not"
 msgid "Whether the hash, plus, and asterisk symbols should be visible"
 msgstr "Визначає, чи має бути показано символи решітки, плюса та зірочки"
 
@@ -546,17 +541,14 @@ msgid "End action"
 msgstr "Завершення дії"
 
 #: src/hdy-keypad.c:321
-#| msgid "The left action widget"
 msgid "The end action widget"
 msgstr "Віджет завершення дії"
 
 #: src/hdy-keypad.c:334
-#| msgid "Orientation"
 msgid "Start action"
 msgstr "Початок дії"
 
 #: src/hdy-keypad.c:335
-#| msgid "The right action widget"
 msgid "The start action widget"
 msgstr "Віджет початку дії"
 
@@ -658,15 +650,15 @@ msgstr "Заголовок налаштувань"
 msgid "Untitled page"
 msgstr "Сторінка без назви"
 
-#: src/hdy-preferences-window.c:468
+#: src/hdy-preferences-window.c:483
 msgid "Search enabled"
 msgstr "Пошук увімкнено"
 
-#: src/hdy-preferences-window.c:469
+#: src/hdy-preferences-window.c:484
 msgid "Whether search is enabled"
 msgstr "Визначає, чи увімкнено пошук"
 
-#: src/hdy-preferences-window.c:483
+#: src/hdy-preferences-window.c:498
 msgid ""
 "Whether or not swipe gesture can be used to switch from a subpage to the "
 "preferences"
@@ -678,15 +670,15 @@ msgstr ""
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: src/hdy-preferences-window.ui:77
+#: src/hdy-preferences-window.ui:78
 msgid "Search"
 msgstr "Пошук"
 
-#: src/hdy-preferences-window.ui:200
+#: src/hdy-preferences-window.ui:201
 msgid "No Results Found"
 msgstr "Нічого не знайдено"
 
-#: src/hdy-preferences-window.ui:215
+#: src/hdy-preferences-window.ui:216
 msgid "Try a different search"
 msgstr "Спробувати інші критерії пошуку"
 
@@ -714,27 +706,43 @@ msgstr "Віджет"
 msgid "The widget the shadow will be drawn for"
 msgstr "Віджет, для якого буде намальовано тінь"
 
-#: src/hdy-squeezer.c:1066
+#: src/hdy-squeezer.c:1086
 msgid "Homogeneous"
 msgstr "Однорідний"
 
-#: src/hdy-squeezer.c:1067
+#: src/hdy-squeezer.c:1087
 msgid "Homogeneous sizing"
 msgstr "Однорідний розмір"
 
-#: src/hdy-squeezer.c:1074
+#: src/hdy-squeezer.c:1094
 msgid "The widget currently visible in the squeezer"
 msgstr "Віджет, який зараз показано у відтискачі"
 
-#: src/hdy-squeezer.c:1088
+#: src/hdy-squeezer.c:1108
 msgid "The type of animation used to transition"
 msgstr "Тип анімації, яку буде використано для переходу"
 
-#: src/hdy-squeezer.c:1111 src/hdy-swipe-tracker.c:772
+#: src/hdy-squeezer.c:1143
+msgid "X align"
+msgstr "Вирівнювання за X"
+
+#: src/hdy-squeezer.c:1144
+msgid "The horizontal alignment, from 0 (start) to 1 (end)"
+msgstr "Вирівнювання за горизонталлю, від 0 (початок) до 1 (кінець)"
+
+#: src/hdy-squeezer.c:1165
+msgid "Y align"
+msgstr "Вирівнювання за Y"
+
+#: src/hdy-squeezer.c:1166
+msgid "The vertical alignment, from 0 (top) to 1 (bottom)"
+msgstr "Вирівнювання за вертикаллю, від 0 (верх) до 1 (низ)"
+
+#: src/hdy-squeezer.c:1175 src/hdy-swipe-tracker.c:772
 msgid "Enabled"
 msgstr "Увімкнено"
 
-#: src/hdy-squeezer.c:1112
+#: src/hdy-squeezer.c:1176
 msgid ""
 "Whether the child can be picked or should be ignored when looking for the "
 "child fitting the available size best"
