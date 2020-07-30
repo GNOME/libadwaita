@@ -214,9 +214,9 @@ hdy_title_bar_measure (GtkWidget      *widget,
   }
 
   if (minimum)
-    *natural = MAX (parent_min, css_min);
+    *minimum = MAX (parent_min, css_min);
 
-  if (minimum)
+  if (natural)
     *natural = MAX (parent_nat, css_min);
 
   if (minimum_baseline)
