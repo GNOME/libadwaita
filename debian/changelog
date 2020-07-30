@@ -1,3 +1,9 @@
+libhandy-1 (0.90.0) UNRELEASED; urgency=medium
+
+  * Post-release version bump.
+
+ -- Adrien Plazas <adrien.plazas@puri.sm>  Thu, 30 Jul 2020 15:37:40 +0200
+
 libhandy-1 (0.85.0) amber-phone; urgency=medium
 
   * New upstream release
