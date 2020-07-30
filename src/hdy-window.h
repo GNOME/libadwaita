@@ -24,6 +24,9 @@ G_DECLARE_DERIVABLE_TYPE (HdyWindow, hdy_window, HDY, WINDOW, GtkWindow)
 struct _HdyWindowClass
 {
   GtkWindowClass parent_class;
+
+  /*< private >*/
+  gpointer padding[4];
 };
 
 HDY_AVAILABLE_IN_ALL

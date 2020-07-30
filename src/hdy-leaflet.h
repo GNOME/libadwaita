@@ -36,6 +36,9 @@ typedef enum {
 struct _HdyLeafletClass
 {
   GtkContainerClass parent_class;
+
+  /*< private >*/
+  gpointer padding[4];
 };
 
 HDY_AVAILABLE_IN_ALL

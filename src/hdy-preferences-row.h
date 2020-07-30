@@ -28,6 +28,9 @@ G_DECLARE_DERIVABLE_TYPE (HdyPreferencesRow, hdy_preferences_row, HDY, PREFERENC
 struct _HdyPreferencesRowClass
 {
   GtkListBoxRowClass parent_class;
+
+  /*< private >*/
+  gpointer padding[4];
 };
 
 HDY_AVAILABLE_IN_ALL

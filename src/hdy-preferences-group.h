@@ -28,6 +28,9 @@ G_DECLARE_DERIVABLE_TYPE (HdyPreferencesGroup, hdy_preferences_group, HDY, PREFE
 struct _HdyPreferencesGroupClass
 {
   GtkBinClass parent_class;
+
+  /*< private >*/
+  gpointer padding[4];
 };
 
 HDY_AVAILABLE_IN_ALL

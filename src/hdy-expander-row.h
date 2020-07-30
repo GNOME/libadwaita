@@ -29,6 +29,9 @@ G_DECLARE_DERIVABLE_TYPE (HdyExpanderRow, hdy_expander_row, HDY, EXPANDER_ROW, H
 struct _HdyExpanderRowClass
 {
   HdyPreferencesRowClass parent_class;
+
+  /*< private >*/
+  gpointer padding[4];
 };
 
 HDY_AVAILABLE_IN_ALL

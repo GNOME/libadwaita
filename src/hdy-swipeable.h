@@ -56,6 +56,9 @@ struct _HdySwipeableInterface
                                             HdyNavigationDirection  navigation_direction,
                                             gboolean                is_drag,
                                             GdkRectangle           *rect);
+
+  /*< private >*/
+  gpointer padding[4];
 };
 
 HDY_AVAILABLE_IN_ALL

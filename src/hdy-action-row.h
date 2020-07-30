@@ -31,6 +31,9 @@ struct _HdyActionRowClass
   GtkListBoxRowClass parent_class;
 
   void (*activate) (HdyActionRow *self);
+
+  /*< private >*/
+  gpointer padding[4];
 };
 
 HDY_AVAILABLE_IN_ALL

@@ -35,6 +35,9 @@ typedef enum {
 struct _HdyDeckClass
 {
   GtkContainerClass parent_class;
+
+  /*< private >*/
+  gpointer padding[4];
 };
 
 HDY_AVAILABLE_IN_ALL

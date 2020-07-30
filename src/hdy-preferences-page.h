@@ -28,6 +28,9 @@ G_DECLARE_DERIVABLE_TYPE (HdyPreferencesPage, hdy_preferences_page, HDY, PREFERE
 struct _HdyPreferencesPageClass
 {
   GtkBinClass parent_class;
+
+  /*< private >*/
+  gpointer padding[4];
 };
 
 HDY_AVAILABLE_IN_ALL

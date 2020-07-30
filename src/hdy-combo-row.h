@@ -56,6 +56,9 @@ typedef gchar * (*HdyComboRowGetEnumValueNameFunc) (HdyEnumValueObject *value,
 struct _HdyComboRowClass
 {
   HdyActionRowClass parent_class;
+
+  /*< private >*/
+  gpointer padding[4];
 };
 
 HDY_AVAILABLE_IN_ALL

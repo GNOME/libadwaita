@@ -24,6 +24,9 @@ G_DECLARE_DERIVABLE_TYPE (HdySearchBar, hdy_search_bar, HDY, SEARCH_BAR, GtkBin)
 struct _HdySearchBarClass
 {
   GtkBinClass parent_class;
+
+  /*< private >*/
+  gpointer padding[4];
 };
 
 HDY_AVAILABLE_IN_ALL

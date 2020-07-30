@@ -29,6 +29,9 @@ G_DECLARE_DERIVABLE_TYPE (HdyPreferencesWindow, hdy_preferences_window, HDY, PRE
 struct _HdyPreferencesWindowClass
 {
   HdyWindowClass parent_class;
+
+  /*< private >*/
+  gpointer padding[4];
 };
 
 HDY_AVAILABLE_IN_ALL
