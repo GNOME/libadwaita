@@ -535,7 +535,7 @@
                                 <property name="expand">True</property>
                                 <property name="selection-mode">none</property>
                                 <style>
-                                  <class name="preferences"/>
+                                  <class name="content"/>
                                 </style>
                                 <child>
                                   <object class="HdyComboRow" id="leaflet_transition_row">
@@ -677,7 +677,7 @@
                                     <property name="expand">True</property>
                                     <property name="selection-mode">none</property>
                                     <style>
-                                      <class name="preferences"/>
+                                      <class name="content"/>
                                     </style>
                                     <child>
                                       <object class="HdyComboRow" id="deck_transition_row">
@@ -875,7 +875,7 @@
                                         <property name="expand">True</property>
                                         <property name="selection-mode">none</property>
                                         <style>
-                                          <class name="preferences"/>
+                                          <class name="content"/>
                                         </style>
                                         <child>
                                           <object class="HdyActionRow">
@@ -1061,7 +1061,7 @@
                                 <property name="expand">True</property>
                                 <property name="selection-mode">none</property>
                                 <style>
-                                  <class name="preferences"/>
+                                  <class name="content"/>
                                 </style>
                                 <child>
                                   <object class="HdyActionRow">
@@ -1215,7 +1215,7 @@
                                 <property name="expand">True</property>
                                 <property name="selection-mode">none</property>
                                 <style>
-                                  <class name="preferences"/>
+                                  <class name="content"/>
                                 </style>
                                 <child>
                                   <object class="HdyActionRow">
@@ -1785,7 +1785,7 @@
                                 <property name="valign">center</property>
                                 <property name="selection-mode">none</property>
                                 <style>
-                                  <class name="preferences"/>
+                                  <class name="content"/>
                                 </style>
                                 <child>
                                   <object class="HdyComboRow" id="carousel_orientation_row">
@@ -1950,7 +1950,7 @@
                                     <property name="expand">True</property>
                                     <property name="selection-mode">none</property>
                                     <style>
-                                      <class name="preferences"/>
+                                      <class name="content"/>
                                     </style>
                                     <child>
                                       <object class="HdyActionRow">
@@ -2041,7 +2041,7 @@
                                     <property name="expand">True</property>
                                     <property name="selection-mode">none</property>
                                     <style>
-                                      <class name="preferences"/>
+                                      <class name="content"/>
                                     </style>
                                     <child>
                                       <object class="HdyActionRow" id="avatar1">
@@ -2297,7 +2297,7 @@
                                 <property name="expand">True</property>
                                 <property name="selection-mode">none</property>
                                 <style>
-                                  <class name="preferences"/>
+                                  <class name="content"/>
                                 </style>
                                 <child>
                                   <object class="HdyActionRow">
@@ -2328,7 +2328,7 @@
                                     <property name="expand">True</property>
                                     <property name="selection-mode">none</property>
                                     <style>
-                                      <class name="preferences"/>
+                                      <class name="content"/>
                                     </style>
                                     <child>
                                       <object class="HdyActionRow">

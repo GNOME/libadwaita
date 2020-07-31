@@ -150,27 +150,27 @@ viewswitcher button.needs-attention > stack > box label:dir(rtl) { background-po
 
 viewswitcherbar actionbar > revealer > box { padding: 0; }
 
-list.preferences, list.preferences list { background-color: transparent; }
+list.content, list.content list { background-color: transparent; }
 
-list.preferences list.nested > row:not(:active):not(:hover):not(:selected), list.preferences list.nested > row:not(:active):hover:not(.activatable):not(:selected) { background-color: mix(#303030, #2d2d2d, 0.5); }
+list.content list.nested > row:not(:active):not(:hover):not(:selected), list.content list.nested > row:not(:active):hover:not(.activatable):not(:selected) { background-color: mix(#303030, #2d2d2d, 0.5); }
 
-list.preferences list.nested > row:not(:active):hover.activatable:not(:selected) { background-color: mix(#f3f3f1, #2d2d2d, 0.95); }
+list.content list.nested > row:not(:active):hover.activatable:not(:selected) { background-color: mix(#f3f3f1, #2d2d2d, 0.95); }
 
-list.preferences > row:not(.expander):not(:active):not(:hover):not(:selected), list.preferences > row:not(.expander):not(:active):hover:not(.activatable):not(:selected), list.preferences > row.expander row.header:not(:active):not(:hover):not(:selected), list.preferences > row.expander row.header:not(:active):hover:not(.activatable):not(:selected) { background-color: #2d2d2d; }
+list.content > row:not(.expander):not(:active):not(:hover):not(:selected), list.content > row:not(.expander):not(:active):hover:not(.activatable):not(:selected), list.content > row.expander row.header:not(:active):not(:hover):not(:selected), list.content > row.expander row.header:not(:active):hover:not(.activatable):not(:selected) { background-color: #2d2d2d; }
 
-list.preferences > row:not(.expander):not(:active):hover.activatable:not(:selected), list.preferences > row.expander row.header:not(:active):hover.activatable:not(:selected) { background-color: mix(#f3f3f1, #2d2d2d, 0.95); }
+list.content > row:not(.expander):not(:active):hover.activatable:not(:selected), list.content > row.expander row.header:not(:active):hover.activatable:not(:selected) { background-color: mix(#f3f3f1, #2d2d2d, 0.95); }
 
-list.preferences > row, list.preferences > row list > row { border-color: alpha(#686868, 0.7); border-style: solid; transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+list.content > row, list.content > row list > row { border-color: alpha(#686868, 0.7); border-style: solid; transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 
-list.preferences > row:not(:last-child) { border-width: 1px 1px 0px 1px; }
+list.content > row:not(:last-child) { border-width: 1px 1px 0px 1px; }
 
-list.preferences > row:first-child, list.preferences > row.expander:first-child row.header, list.preferences > row.expander:checked, list.preferences > row.expander:checked row.header, list.preferences > row.expander:checked + row, list.preferences > row.expander:checked + row.expander row.header { border-top-left-radius: 8px; -gtk-outline-top-left-radius: 7px; border-top-right-radius: 8px; -gtk-outline-top-right-radius: 7px; }
+list.content > row:first-child, list.content > row.expander:first-child row.header, list.content > row.expander:checked, list.content > row.expander:checked row.header, list.content > row.expander:checked + row, list.content > row.expander:checked + row.expander row.header { border-top-left-radius: 8px; -gtk-outline-top-left-radius: 7px; border-top-right-radius: 8px; -gtk-outline-top-right-radius: 7px; }
 
-list.preferences > row:last-child, list.preferences > row.checked-expander-row-previous-sibling, list.preferences > row.expander:checked { border-width: 1px; }
+list.content > row:last-child, list.content > row.checked-expander-row-previous-sibling, list.content > row.expander:checked { border-width: 1px; }
 
-list.preferences > row:last-child, list.preferences > row.checked-expander-row-previous-sibling, list.preferences > row.expander:checked, list.preferences > row.expander:not(:checked):last-child row.header, list.preferences > row.expander:not(:checked).checked-expander-row-previous-sibling row.header, list.preferences > row.expander.empty:checked row.header, list.preferences > row.expander list.nested > row:last-child { border-bottom-left-radius: 8px; -gtk-outline-bottom-left-radius: 7px; border-bottom-right-radius: 8px; -gtk-outline-bottom-right-radius: 7px; }
+list.content > row:last-child, list.content > row.checked-expander-row-previous-sibling, list.content > row.expander:checked, list.content > row.expander:not(:checked):last-child row.header, list.content > row.expander:not(:checked).checked-expander-row-previous-sibling row.header, list.content > row.expander.empty:checked row.header, list.content > row.expander list.nested > row:last-child { border-bottom-left-radius: 8px; -gtk-outline-bottom-left-radius: 7px; border-bottom-right-radius: 8px; -gtk-outline-bottom-right-radius: 7px; }
 
-list.preferences > row.expander:checked:not(:first-child), list.preferences > row.expander:checked + row { margin-top: 6px; }
+list.content > row.expander:checked:not(:first-child), list.content > row.expander:checked + row { margin-top: 6px; }
 
 button.list-button:not(:active):not(:checked):not(:hover) { background: none; border: 1px solid alpha(#686868, 0.5); box-shadow: none; }
 

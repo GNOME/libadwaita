@@ -316,7 +316,7 @@
     <refsect3>
       <title>Stop using hdy_list_box_separator_header()</title>
       <para>
-        Instead, either use CSS styling (the list.preferences style class may
+        Instead, either use CSS styling (the list.content style class may
         fit your need), or implement it yourself as it is trivial.
       </para>
     </refsect3>

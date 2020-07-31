@@ -43,7 +43,7 @@
                 <signal name="add" handler="update_listbox_visibility" after="yes" swapped="yes"/>
                 <signal name="remove" handler="update_listbox_visibility" after="yes" swapped="yes"/>
                 <style>
-                  <class name="preferences"/>
+                  <class name="content"/>
                 </style>
               </object>
             </child>
