@@ -630,6 +630,7 @@ hdy_swipe_tracker_constructed (GObject *object)
   g_signal_connect_swapped (self->touch_gesture, "cancel", G_CALLBACK (drag_cancel_cb), self);
 
   g_signal_connect_object (self->swipeable, "event", G_CALLBACK (handle_event_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->swipeable, "unrealize", G_CALLBACK (reset), self, G_CONNECT_SWAPPED);
 
   /*
    * HACK: GTK3 has no other way to get events on capture phase.
