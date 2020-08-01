@@ -174,7 +174,9 @@ list.content > row.expander:checked:not(:first-child), list.content > row.expand
 
 button.list-button:not(:active):not(:checked):not(:hover) { background: none; border: 1px solid alpha(#686868, 0.5); box-shadow: none; }
 
-window.csd.unified:not(.solid-csd):not(.fullscreen) headerbar { box-shadow: none; }
+window.csd.unified:not(.solid-csd):not(.fullscreen) headerbar { box-shadow: inset 0 1px rgba(255, 255, 255, 0); }
+
+window.csd.unified:not(.solid-csd):not(.fullscreen) headerbar.selection-mode { box-shadow: none; }
 
 window.csd.unified:not(.solid-csd):not(.fullscreen) > decoration-overlay { box-shadow: inset 0 1px rgba(255, 255, 255, 0.065); }
 
