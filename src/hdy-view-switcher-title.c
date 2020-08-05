@@ -70,7 +70,6 @@
 enum {
   PROP_0,
   PROP_POLICY,
-  PROP_ICON_SIZE,
   PROP_STACK,
   PROP_TITLE,
   PROP_SUBTITLE,
@@ -143,9 +142,6 @@ hdy_view_switcher_title_get_property (GObject    *object,
   case PROP_POLICY:
     g_value_set_enum (value, hdy_view_switcher_title_get_policy (self));
     break;
-  case PROP_ICON_SIZE:
-    g_value_set_int (value, hdy_view_switcher_title_get_icon_size (self));
-    break;
   case PROP_STACK:
     g_value_set_object (value, hdy_view_switcher_title_get_stack (self));
     break;
@@ -178,9 +174,6 @@ hdy_view_switcher_title_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_POLICY:
     hdy_view_switcher_title_set_policy (self, g_value_get_enum (value));
-    break;
-  case PROP_ICON_SIZE:
-    hdy_view_switcher_title_set_icon_size (self, g_value_get_int (value));
     break;
   case PROP_STACK:
     hdy_view_switcher_title_set_stack (self, g_value_get_object (value));
@@ -238,21 +231,6 @@ hdy_view_switcher_title_class_init (HdyViewSwitcherTitleClass *klass)
                        _("The policy to determine the mode to use"),
                        HDY_TYPE_VIEW_SWITCHER_POLICY, HDY_VIEW_SWITCHER_POLICY_AUTO,
                        G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
-
-  /**
-   * HdyViewSwitcherTitle:icon-size:
-   *
-   * Use the "icon-size" property to hint the icons to use, you almost certainly
-   * want to leave this as %GTK_ICON_SIZE_BUTTON.
-   *
-   * Since: 1.0
-   */
-  props[PROP_ICON_SIZE] =
-    g_param_spec_int ("icon-size",
-                      _("Icon Size"),
-                      _("Symbolic size to use for named icon"),
-                      0, G_MAXINT, GTK_ICON_SIZE_BUTTON,
-                      G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
    * HdyViewSwitcherTitle:stack:
@@ -408,47 +386,6 @@ hdy_view_switcher_title_set_policy (HdyViewSwitcherTitle  *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POLICY]);
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
-}
-
-/**
- * hdy_view_switcher_title_get_icon_size:
- * @self: a #HdyViewSwitcherTitle
- *
- * Get the icon size of the images used in the #HdyViewSwitcher.
- *
- * Returns: the icon size of the images
- *
- * Since: 1.0
- */
-GtkIconSize
-hdy_view_switcher_title_get_icon_size (HdyViewSwitcherTitle *self)
-{
-  g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self), GTK_ICON_SIZE_BUTTON);
-
-  return hdy_view_switcher_get_icon_size (self->view_switcher);
-}
-
-/**
- * hdy_view_switcher_title_set_icon_size:
- * @self: a #HdyViewSwitcherTitle
- * @icon_size: the new icon size
- *
- * Change the icon size hint for the icons in a #HdyViewSwitcher.
- *
- * Since: 1.0
- */
-void
-hdy_view_switcher_title_set_icon_size (HdyViewSwitcherTitle *self,
-                                       GtkIconSize           icon_size)
-{
-  g_return_if_fail (HDY_IS_VIEW_SWITCHER_TITLE (self));
-
-  if (hdy_view_switcher_get_icon_size (self->view_switcher) == icon_size)
-    return;
-
-  hdy_view_switcher_set_icon_size (self->view_switcher, icon_size);
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_SIZE]);
 }
 
 /**

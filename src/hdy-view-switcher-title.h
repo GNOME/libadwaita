@@ -34,12 +34,6 @@ void                  hdy_view_switcher_title_set_policy (HdyViewSwitcherTitle  
                                                           HdyViewSwitcherPolicy  policy);
 
 HDY_AVAILABLE_IN_ALL
-GtkIconSize hdy_view_switcher_title_get_icon_size (HdyViewSwitcherTitle *self);
-HDY_AVAILABLE_IN_ALL
-void        hdy_view_switcher_title_set_icon_size (HdyViewSwitcherTitle *self,
-                                                   GtkIconSize           icon_size);
-
-HDY_AVAILABLE_IN_ALL
 GtkStack *hdy_view_switcher_title_get_stack (HdyViewSwitcherTitle *self);
 HDY_AVAILABLE_IN_ALL
 void      hdy_view_switcher_title_set_stack (HdyViewSwitcherTitle *self,
