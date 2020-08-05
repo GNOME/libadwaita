@@ -22,6 +22,7 @@
 #include "gtkprogresstrackerprivate.h"
 #include "hdy-animation-private.h"
 #include "hdy-cairo-private.h"
+#include "hdy-css-private.h"
 
 /**
  * SECTION:hdy-squeezer
@@ -779,6 +780,8 @@ hdy_squeezer_size_allocate (GtkWidget     *widget,
   GList *l;
   GtkAllocation child_allocation;
 
+  hdy_css_size_allocate (widget, allocation);
+
   gtk_widget_set_allocation (widget, allocation);
 
   for (l = self->children; l != NULL; l = l->next) {
@@ -932,6 +935,8 @@ hdy_squeezer_measure (GtkWidget      *widget,
       *natural = hdy_lerp (self->last_visible_widget_width, *natural, t);
     }
   }
+
+  hdy_css_measure (widget, orientation, minimum, natural);
 }
 
 static void
