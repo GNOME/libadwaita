@@ -58,3 +58,5 @@ avatar.color7 { background-image: linear-gradient(#f67365, #d91a23); color: #f6c
 avatar.color8 { background-image: linear-gradient(#cdab8f, #865d3c); color: #e5d6ca; }
 
 avatar.contrasted { color: #fff; }
+
+viewswitchertitle viewswitcher { margin-left: 12px; margin-right: 12px; }

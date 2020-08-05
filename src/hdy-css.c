@@ -68,6 +68,6 @@ hdy_css_size_allocate (GtkWidget     *widget,
   allocation->height -= border.top + border.bottom +
                         margin.top + margin.bottom +
                         padding.top + padding.bottom;
-  allocation->x = border.left + margin.left + padding.left;
-  allocation->y = border.top + margin.top + padding.top;
+  allocation->x += border.left + margin.left + padding.left;
+  allocation->y += border.top + margin.top + padding.top;
 }

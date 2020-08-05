@@ -59,6 +59,8 @@ avatar.color8 { background-image: linear-gradient(#cdab8f, #865d3c); color: #e5d
 
 avatar.contrasted { color: #fff; }
 
+viewswitchertitle viewswitcher { margin-left: 12px; margin-right: 12px; }
+
 /*************************** Check and Radio buttons * */
 popover.combo list { min-width: 200px; }
 
