@@ -69,7 +69,7 @@
 #define DEFAULT_SPACING 6
 #define MIN_TITLE_CHARS 5
 
-#define MOBILE_WINDOW_WIDTH  400
+#define MOBILE_WINDOW_WIDTH  480
 #define MOBILE_WINDOW_HEIGHT 800
 
 typedef struct {
@@ -614,7 +614,7 @@ compute_is_mobile_window (GtkWindow *window)
   gtk_window_get_size (window, &window_width, &window_height);
 
   if (window_width <= MOBILE_WINDOW_WIDTH &&
-      window_height <= MOBILE_WINDOW_HEIGHT)
+      gtk_window_is_maximized (window))
     return TRUE;
 
   /* Mobile landscape mode. */
