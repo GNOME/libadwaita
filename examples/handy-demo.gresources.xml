@@ -6,6 +6,7 @@
     <file preprocess="xml-stripblanks">icons/gesture-touchscreen-swipe-back-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/gesture-touchpad-swipe-back-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">icons/gesture-touchpad-swipe-back-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/gnome-smartphone-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/light-mode-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/window-symbolic.svg</file>
   </gresource>

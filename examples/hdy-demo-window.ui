@@ -353,7 +353,7 @@
                             <property name="valign">center</property>
                             <property name="margin_bottom">18</property>
                             <property name="pixel_size">128</property>
-                            <property name="icon_name">phone-symbolic</property>
+                            <property name="icon_name">gnome-smartphone-symbolic</property>
                             <property name="icon_size">0</property>
                             <style>
                               <class name="dim-label"/>
