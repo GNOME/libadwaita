@@ -11,6 +11,7 @@
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
+#include "hdy-css-private.h"
 #include "hdy-enums.h"
 #include "hdy-view-switcher.h"
 #include "hdy-view-switcher-button-private.h"
@@ -437,6 +438,8 @@ hdy_view_switcher_get_preferred_width (GtkWidget *widget,
     *nat = max_h_nat * n_children;
     break;
   }
+
+  hdy_css_measure (widget, GTK_ORIENTATION_HORIZONTAL, min, nat);
 }
 
 static gint
@@ -472,7 +475,11 @@ hdy_view_switcher_size_allocate (GtkWidget     *widget,
   HdyViewSwitcher *self = HDY_VIEW_SWITCHER (widget);
 
   g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (self->box));
-  GtkOrientation orientation = is_narrow (HDY_VIEW_SWITCHER (widget), allocation->width) ?
+  GtkOrientation orientation;
+
+  hdy_css_size_allocate (widget, allocation);
+
+  orientation = is_narrow (HDY_VIEW_SWITCHER (widget), allocation->width) ?
     GTK_ORIENTATION_VERTICAL :
     GTK_ORIENTATION_HORIZONTAL;
 
