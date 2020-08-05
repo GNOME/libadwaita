@@ -69,7 +69,6 @@
 enum {
   PROP_0,
   PROP_POLICY,
-  PROP_ICON_SIZE,
   PROP_STACK,
   PROP_REVEAL,
   LAST_PROP,
@@ -84,7 +83,6 @@ struct _HdyViewSwitcherBar
   HdyViewSwitcher *view_switcher;
 
   HdyViewSwitcherPolicy policy;
-  GtkIconSize icon_size;
   gboolean reveal;
 };
 
@@ -122,9 +120,6 @@ hdy_view_switcher_bar_get_property (GObject    *object,
   case PROP_POLICY:
     g_value_set_enum (value, hdy_view_switcher_bar_get_policy (self));
     break;
-  case PROP_ICON_SIZE:
-    g_value_set_int (value, hdy_view_switcher_bar_get_icon_size (self));
-    break;
   case PROP_STACK:
     g_value_set_object (value, hdy_view_switcher_bar_get_stack (self));
     break;
@@ -148,9 +143,6 @@ hdy_view_switcher_bar_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_POLICY:
     hdy_view_switcher_bar_set_policy (self, g_value_get_enum (value));
-    break;
-  case PROP_ICON_SIZE:
-    hdy_view_switcher_bar_set_icon_size (self, g_value_get_int (value));
     break;
   case PROP_STACK:
     hdy_view_switcher_bar_set_stack (self, g_value_get_object (value));
@@ -187,21 +179,6 @@ hdy_view_switcher_bar_class_init (HdyViewSwitcherBarClass *klass)
                        _("The policy to determine the mode to use"),
                        HDY_TYPE_VIEW_SWITCHER_POLICY, HDY_VIEW_SWITCHER_POLICY_NARROW,
                        G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
-
-  /**
-   * HdyViewSwitcherBar:icon-size:
-   *
-   * Use the "icon-size" property to hint the icons to use, you almost certainly
-   * want to leave this as %GTK_ICON_SIZE_BUTTON.
-   *
-   * Since: 0.0.10
-   */
-  props[PROP_ICON_SIZE] =
-    g_param_spec_int ("icon-size",
-                      _("Icon Size"),
-                      _("Symbolic size to use for named icon"),
-                      0, G_MAXINT, GTK_ICON_SIZE_BUTTON,
-                      G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
    * HdyViewSwitcherBar:stack:
@@ -248,7 +225,6 @@ hdy_view_switcher_bar_init (HdyViewSwitcherBar *self)
    * can pick up the correct default value.
    */
   self->policy = HDY_VIEW_SWITCHER_POLICY_NARROW;
-  self->icon_size = GTK_ICON_SIZE_BUTTON;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -313,47 +289,6 @@ hdy_view_switcher_bar_set_policy (HdyViewSwitcherBar    *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POLICY]);
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
-}
-
-/**
- * hdy_view_switcher_bar_get_icon_size:
- * @self: a #HdyViewSwitcherBar
- *
- * Get the icon size of the images used in the #HdyViewSwitcher.
- *
- * Returns: the icon size of the images
- *
- * Since: 0.0.10
- */
-GtkIconSize
-hdy_view_switcher_bar_get_icon_size (HdyViewSwitcherBar *self)
-{
-  g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_BAR (self), GTK_ICON_SIZE_BUTTON);
-
-  return self->icon_size;
-}
-
-/**
- * hdy_view_switcher_bar_set_icon_size:
- * @self: a #HdyViewSwitcherBar
- * @icon_size: the new icon size
- *
- * Change the icon size hint for the icons in a #HdyViewSwitcher.
- *
- * Since: 0.0.10
- */
-void
-hdy_view_switcher_bar_set_icon_size (HdyViewSwitcherBar *self,
-                                     GtkIconSize         icon_size)
-{
-  g_return_if_fail (HDY_IS_VIEW_SWITCHER_BAR (self));
-
-  if (self->icon_size == icon_size)
-    return;
-
-  self->icon_size = icon_size;
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_SIZE]);
 }
 
 /**

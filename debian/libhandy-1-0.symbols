@@ -292,13 +292,11 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_value_object_new_collect@LIBHANDY_1_0 0.0.8
  hdy_value_object_new_string@LIBHANDY_1_0 0.0.8
  hdy_value_object_new_take_string@LIBHANDY_1_0 0.0.8
- hdy_view_switcher_bar_get_icon_size@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_bar_get_policy@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_bar_get_reveal@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_bar_get_stack@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_bar_get_type@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_bar_new@LIBHANDY_1_0 0.0.10
- hdy_view_switcher_bar_set_icon_size@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_bar_set_policy@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_bar_set_reveal@LIBHANDY_1_0 0.0.10
  hdy_view_switcher_bar_set_stack@LIBHANDY_1_0 0.0.10

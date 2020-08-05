@@ -7,7 +7,6 @@
         <property name="visible">True</property>
         <child type="center">
           <object class="HdyViewSwitcher" id="view_switcher">
-            <property name="icon-size" bind-source="HdyViewSwitcherBar" bind-property="icon-size" bind-flags="sync-create|bidirectional" />
             <property name="margin-start">10</property>
             <property name="margin-end">10</property>
             <property name="narrow-ellipsize">end</property>
