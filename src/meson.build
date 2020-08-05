@@ -126,6 +126,7 @@ src_sources = [
   'hdy-carousel-indicator-lines.c',
   'hdy-clamp.c',
   'hdy-combo-row.c',
+  'hdy-css.c',
   'hdy-deck.c',
   'hdy-enum-value-object.c',
   'hdy-expander-row.c',
