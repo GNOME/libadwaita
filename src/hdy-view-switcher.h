@@ -38,12 +38,6 @@ void                  hdy_view_switcher_set_policy (HdyViewSwitcher       *self,
                                                     HdyViewSwitcherPolicy  policy);
 
 HDY_AVAILABLE_IN_ALL
-GtkIconSize hdy_view_switcher_get_icon_size (HdyViewSwitcher *self);
-HDY_AVAILABLE_IN_ALL
-void        hdy_view_switcher_set_icon_size (HdyViewSwitcher *self,
-                                             GtkIconSize      icon_size);
-
-HDY_AVAILABLE_IN_ALL
 PangoEllipsizeMode hdy_view_switcher_get_narrow_ellipsize (HdyViewSwitcher *self);
 HDY_AVAILABLE_IN_ALL
 void               hdy_view_switcher_set_narrow_ellipsize (HdyViewSwitcher    *self,

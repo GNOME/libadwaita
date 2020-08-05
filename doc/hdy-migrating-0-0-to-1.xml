@@ -206,6 +206,10 @@
         #HdyViewSwitcher doesn't subclass #GtkBox anymore. Instead, it
         subclasses #GtkBin and contains a box.
       </para>
+      <para>
+        The “icon-size” property has been dropped without replacement, you must
+        stop using it.
+      </para>
     </refsect3>
 
     <refsect3>

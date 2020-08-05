@@ -30,24 +30,6 @@ test_hdy_view_switcher_policy (void)
 
 
 static void
-test_hdy_view_switcher_icon_size (void)
-{
-  g_autoptr (HdyViewSwitcher) view_switcher = NULL;
-
-  view_switcher = g_object_ref_sink (HDY_VIEW_SWITCHER (hdy_view_switcher_new ()));
-  g_assert_nonnull (view_switcher);
-
-  g_assert_cmpint (hdy_view_switcher_get_icon_size (view_switcher), ==, GTK_ICON_SIZE_BUTTON);
-
-  hdy_view_switcher_set_icon_size (view_switcher, GTK_ICON_SIZE_MENU);
-  g_assert_cmpint (hdy_view_switcher_get_icon_size (view_switcher), ==, GTK_ICON_SIZE_MENU);
-
-  hdy_view_switcher_set_icon_size (view_switcher, GTK_ICON_SIZE_BUTTON);
-  g_assert_cmpint (hdy_view_switcher_get_icon_size (view_switcher), ==, GTK_ICON_SIZE_BUTTON);
-}
-
-
-static void
 test_hdy_view_switcher_narrow_ellipsize (void)
 {
   g_autoptr (HdyViewSwitcher) view_switcher = NULL;
@@ -95,7 +77,6 @@ main (gint argc,
   hdy_init ();
 
   g_test_add_func("/Handy/ViewSwitcher/policy", test_hdy_view_switcher_policy);
-  g_test_add_func("/Handy/ViewSwitcher/icon_size", test_hdy_view_switcher_icon_size);
   g_test_add_func("/Handy/ViewSwitcher/narrow_ellipsize", test_hdy_view_switcher_narrow_ellipsize);
   g_test_add_func("/Handy/ViewSwitcher/stack", test_hdy_view_switcher_stack);
 
