@@ -246,7 +246,7 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
     g_param_spec_uint ("row-spacing",
                        _("Row spacing"),
                        _("The amount of space between two consecutive rows"),
-                       0, G_MAXINT16, 0,
+                       0, G_MAXINT16, 6,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -260,7 +260,7 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
     g_param_spec_uint ("column-spacing",
                        _("Column spacing"),
                        _("The amount of space between two consecutive columns"),
-                       0, G_MAXINT16, 0,
+                       0, G_MAXINT16, 6,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -360,6 +360,8 @@ hdy_keypad_init (HdyKeypad *self)
 {
   HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
 
+  priv->row_spacing = 6;
+  priv->column_spacing = 6;
   priv->letters_visible = TRUE;
   priv->symbols_visible = TRUE;
 

@@ -29,16 +29,16 @@ test_hdy_keypad_row_spacing (void)
   notified = 0;
   g_signal_connect (keypad, "notify::row-spacing", G_CALLBACK (notify_cb), NULL);
 
-  g_assert_cmpuint (hdy_keypad_get_row_spacing (keypad), ==, 0);
-  g_object_get (keypad, "row-spacing", &row_spacing, NULL);
-  g_assert_cmpuint (row_spacing, ==, 0);
-
-  hdy_keypad_set_row_spacing (keypad, 6);
-  g_assert_cmpint (notified, ==, 1);
-
   g_assert_cmpuint (hdy_keypad_get_row_spacing (keypad), ==, 6);
   g_object_get (keypad, "row-spacing", &row_spacing, NULL);
   g_assert_cmpuint (row_spacing, ==, 6);
+
+  hdy_keypad_set_row_spacing (keypad, 0);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_assert_cmpuint (hdy_keypad_get_row_spacing (keypad), ==, 0);
+  g_object_get (keypad, "row-spacing", &row_spacing, NULL);
+  g_assert_cmpuint (row_spacing, ==, 0);
 
   g_object_set (keypad, "row-spacing", 12, NULL);
   g_assert_cmpint (notified, ==, 2);
@@ -62,16 +62,16 @@ test_hdy_keypad_column_spacing (void)
   notified = 0;
   g_signal_connect (keypad, "notify::column-spacing", G_CALLBACK (notify_cb), NULL);
 
-  g_assert_cmpuint (hdy_keypad_get_column_spacing (keypad), ==, 0);
-  g_object_get (keypad, "column-spacing", &column_spacing, NULL);
-  g_assert_cmpuint (column_spacing, ==, 0);
-
-  hdy_keypad_set_column_spacing (keypad, 6);
-  g_assert_cmpint (notified, ==, 1);
-
   g_assert_cmpuint (hdy_keypad_get_column_spacing (keypad), ==, 6);
   g_object_get (keypad, "column-spacing", &column_spacing, NULL);
   g_assert_cmpuint (column_spacing, ==, 6);
+
+  hdy_keypad_set_column_spacing (keypad, 0);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_assert_cmpuint (hdy_keypad_get_column_spacing (keypad), ==, 0);
+  g_object_get (keypad, "column-spacing", &column_spacing, NULL);
+  g_assert_cmpuint (column_spacing, ==, 0);
 
   g_object_set (keypad, "column-spacing", 12, NULL);
   g_assert_cmpint (notified, ==, 2);
