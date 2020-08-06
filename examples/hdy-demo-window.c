@@ -32,7 +32,9 @@ struct _HdyDemoWindow
   HdyComboRow *carousel_indicators_row;
   GListStore *carousel_indicators_model;
   HdyAvatar *avatar;
+  GtkEntry *avatar_text;
   GtkFileChooserButton *avatar_filechooser;
+  GtkListBox *avatar_contacts;
 };
 
 G_DEFINE_TYPE (HdyDemoWindow, hdy_demo_window, HDY_TYPE_APPLICATION_WINDOW)
@@ -339,6 +341,81 @@ avatar_file_set_cb (HdyDemoWindow *self)
   hdy_avatar_set_image_load_func (self->avatar, (HdyAvatarImageLoadFunc) avatar_load_file, self, NULL);
 }
 
+static gchar *
+avatar_new_random_name (void)
+{
+  static const char *first_names[] = {
+    "Adam",
+    "Adrian",
+    "Anna",
+    "Charlotte",
+    "Frédérique",
+    "Ilaria",
+    "Jakub",
+    "Jennyfer",
+    "Julia",
+    "Justin",
+    "Mario",
+    "Miriam",
+    "Mohamed",
+    "Nourimane",
+    "Owen",
+    "Peter",
+    "Petra",
+    "Rachid",
+    "Rebecca",
+    "Sarah",
+    "Thibault",
+    "Wolfgang",
+  };
+  static const char *last_names[] = {
+    "Bailey",
+    "Berat",
+    "Chen",
+    "Farquharson",
+    "Ferber",
+    "Franco",
+    "Galinier",
+    "Han",
+    "Lawrence",
+    "Lepied",
+    "Lopez",
+    "Mariotti",
+    "Rossi",
+    "Urasawa",
+    "Zwickelman",
+  };
+
+  return g_strdup_printf ("%s %s",
+                          first_names[g_random_int_range (0, G_N_ELEMENTS (first_names))],
+                          last_names[g_random_int_range (0, G_N_ELEMENTS (last_names))]);
+}
+
+static void
+avatar_update_contacts (HdyDemoWindow *self)
+{
+  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (self->avatar_contacts));
+
+  for (GList *child = children; child; child = child->next)
+    gtk_container_remove (GTK_CONTAINER (self->avatar_contacts), child->data);
+
+  for (int i = 0; i < 30; i++) {
+    g_autofree gchar *name = avatar_new_random_name ();
+    GtkWidget *contact = hdy_action_row_new ();
+    GtkWidget *avatar = hdy_avatar_new (40, name, TRUE);
+
+    gtk_widget_show (contact);
+    gtk_widget_show (avatar);
+
+    gtk_widget_set_margin_top (avatar, 12);
+    gtk_widget_set_margin_bottom (avatar, 12);
+
+    hdy_preferences_row_set_title (HDY_PREFERENCES_ROW (contact), name);
+    hdy_action_row_add_prefix (HDY_ACTION_ROW (contact), avatar);
+    gtk_container_add (GTK_CONTAINER (self->avatar_contacts), contact);
+  }
+}
+
 static void
 hdy_demo_window_constructed (GObject *object)
 {
@@ -383,7 +460,9 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel_orientation_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel_indicators_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_text);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_filechooser);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_contacts);
   gtk_widget_class_bind_template_callback_full (widget_class, "key_pressed_cb", G_CALLBACK(hdy_demo_window_key_pressed_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(hdy_demo_window_notify_visible_child_cb));
   gtk_widget_class_bind_template_callback_full (widget_class, "notify_deck_visible_child_cb", G_CALLBACK(hdy_demo_window_notify_deck_visible_child_cb));
@@ -456,6 +535,16 @@ carousel_page_init (HdyDemoWindow *self)
 }
 
 static void
+avatar_page_init (HdyDemoWindow *self)
+{
+  g_autofree gchar *name = avatar_new_random_name ();
+
+  gtk_entry_set_text (self->avatar_text, name);
+
+  avatar_update_contacts (self);
+}
+
+static void
 hdy_demo_window_init (HdyDemoWindow *self)
 {
   GtkSettings *settings = gtk_settings_get_default ();
@@ -478,6 +567,7 @@ hdy_demo_window_init (HdyDemoWindow *self)
 
   lists_page_init (self);
   carousel_page_init (self);
+  avatar_page_init (self);
 
   hdy_leaflet_set_visible_child_name (self->content_box, "content");
 }

@@ -2001,7 +2001,6 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="valign">center</property>
-                                            <property name="text">Mario Rossi</property>
                                           </object>
                                         </child>
                                       </object>
@@ -2074,7 +2073,7 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkListBox">
+                                  <object class="GtkListBox" id="avatar_contacts">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="expand">True</property>
@@ -2082,118 +2081,6 @@
                                     <style>
                                       <class name="content"/>
                                     </style>
-                                    <child>
-                                      <object class="HdyActionRow" id="avatar1">
-                                        <property name="title">Miriam Lepied</property>
-                                        <property name="visible">True</property>
-                                        <child type="prefix">
-                                          <object class="HdyAvatar">
-                                            <property name="show-initials">True</property>
-                                            <property name="size">48</property>
-                                            <property name="text" bind-source="avatar1" bind-property="title" bind-flags="sync-create"/>
-                                            <property name="visible">True</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow" id="avatar2">
-                                        <property name="title">Ilaria Franco</property>
-                                        <property name="visible">True</property>
-                                        <child type="prefix">
-                                          <object class="HdyAvatar">
-                                            <property name="show-initials">True</property>
-                                            <property name="size">48</property>
-                                            <property name="text" bind-source="avatar2" bind-property="title" bind-flags="sync-create"/>
-                                            <property name="visible">True</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow" id="avatar3">
-                                        <property name="title">Adrian Lopez</property>
-                                        <property name="visible">True</property>
-                                        <child type="prefix">
-                                          <object class="HdyAvatar">
-                                            <property name="show-initials">True</property>
-                                            <property name="size">48</property>
-                                            <property name="text" bind-source="avatar3" bind-property="title" bind-flags="sync-create"/>
-                                            <property name="visible">True</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow" id="avatar4">
-                                        <property name="title">Thibault Galinier</property>
-                                        <property name="visible">True</property>
-                                        <child type="prefix">
-                                          <object class="HdyAvatar">
-                                            <property name="show-initials">True</property>
-                                            <property name="size">48</property>
-                                            <property name="text" bind-source="avatar4" bind-property="title" bind-flags="sync-create"/>
-                                            <property name="visible">True</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow" id="avatar5">
-                                        <property name="title">Adam Mariotti</property>
-                                        <property name="visible">True</property>
-                                        <child type="prefix">
-                                          <object class="HdyAvatar">
-                                            <property name="show-initials">True</property>
-                                            <property name="size">48</property>
-                                            <property name="text" bind-source="avatar5" bind-property="title" bind-flags="sync-create"/>
-                                            <property name="visible">True</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow" id="avatar6">
-                                        <property name="title">Frédérique Zwickelman</property>
-                                        <property name="visible">True</property>
-                                        <child type="prefix">
-                                          <object class="HdyAvatar">
-                                            <property name="show-initials">True</property>
-                                            <property name="size">48</property>
-                                            <property name="text" bind-source="avatar6" bind-property="title" bind-flags="sync-create"/>
-                                            <property name="visible">True</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow" id="avatar7">
-                                        <property name="title">Peter Berat</property>
-                                        <property name="visible">True</property>
-                                        <child type="prefix">
-                                          <object class="HdyAvatar">
-                                            <property name="show-initials">True</property>
-                                            <property name="size">48</property>
-                                            <property name="text" bind-source="avatar7" bind-property="title" bind-flags="sync-create"/>
-                                            <property name="visible">True</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow" id="avatar8">
-                                        <property name="title">Sarah Ferber</property>
-                                        <property name="visible">True</property>
-                                        <child type="prefix">
-                                          <object class="HdyAvatar">
-                                            <property name="show-initials">True</property>
-                                            <property name="size">48</property>
-                                            <property name="text" bind-source="avatar8" bind-property="title" bind-flags="sync-create"/>
-                                            <property name="visible">True</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
                                   </object>
                                 </child>
                               </object>
