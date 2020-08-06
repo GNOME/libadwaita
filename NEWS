@@ -1,4 +1,27 @@
 ==============
+Version 0.90.0
+==============
+
+- Stop requiring the HANDY_USE_UNSTABLE_API guard.
+- Stop transforming close buttons into back buttons for dialogs on the
+  desktop.
+- Give some nice default and minimum sizes to HdyPreferencesWindow.
+- HdyCarousel:
+  - Add HdyCarouselIndicatorDots and HdyCarouselIndicatorLines.
+  - Drop the indicator-style, indicator-spacing, and center-content
+    properties.
+- Revamp the colors of HdyAvatar and augment its colors number to 14.
+- Set the default column and row spacing of HdyKeypad to 6 pixels.
+- Don't present an arrow and a popover in HdyComboRow when its model has
+  less than 2 items.
+- Support CSS sizing properties for HdySqueezer and HdyViewSwitcher.
+- Drop the icon-size properties of HdyViewSwitcher, HdyViewSwitcherTitle
+  and HdyViewSwitcherBar.
+- Give some horizontal margins to the view switcher of
+  HdyViewSwitcherTitle via CSS.
+- Add all files back to tarballs except the debian directory.
+
+==============
 Version 0.85.0
 ==============
 
