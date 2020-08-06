@@ -178,20 +178,22 @@ update (HdyComboRow *self)
   g_autoptr(GObject) item = NULL;
   g_autofree gchar *name = NULL;
   GtkWidget *widget;
+  guint n_items = priv->bound_model ? g_list_model_get_n_items (priv->bound_model) : 0;
 
   gtk_widget_set_visible (GTK_WIDGET (priv->current), !priv->use_subtitle);
   gtk_container_foreach (GTK_CONTAINER (priv->current), (GtkCallback) gtk_widget_destroy, NULL);
 
-  if (priv->bound_model == NULL || g_list_model_get_n_items (priv->bound_model) == 0) {
-    gtk_widget_set_sensitive (GTK_WIDGET (self), FALSE);
+  gtk_widget_set_sensitive (GTK_WIDGET (self), n_items > 0);
+  gtk_widget_set_visible (GTK_WIDGET (priv->image), n_items > 1);
+  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (self), n_items > 1);
+
+  if (n_items == 0) {
     g_assert (priv->selected_index == -1);
 
     return;
   }
 
-  g_assert (priv->selected_index >= 0 && priv->selected_index <= g_list_model_get_n_items (priv->bound_model));
-
-  gtk_widget_set_sensitive (GTK_WIDGET (self), TRUE);
+  g_assert (priv->selected_index >= 0 && priv->selected_index <= n_items);
 
   {
     g_autoptr (GList) rows = gtk_container_get_children (GTK_CONTAINER (priv->list));
@@ -264,7 +266,8 @@ hdy_combo_row_activate (HdyActionRow *row)
   HdyComboRow *self = HDY_COMBO_ROW (row);
   HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
 
-  gtk_popover_popup (priv->popover);
+  if (gtk_widget_get_visible (GTK_WIDGET (priv->image)))
+    gtk_popover_popup (priv->popover);
 }
 
 static void
@@ -287,8 +290,6 @@ destroy_model (HdyComboRow *self)
   priv->create_current_widget_func = NULL;
   priv->create_widget_func_data = NULL;
   priv->create_widget_func_data_free_func = NULL;
-
-  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (self), FALSE);
 }
 
 static void
@@ -562,8 +563,6 @@ hdy_combo_row_bind_model (HdyComboRow                *self,
     priv->selected_index = 0;
 
   gtk_list_box_bind_model (priv->list, model, create_list_widget, self, create_list_widget_data_free);
-
-  gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (self), TRUE);
 
   update (self);
 
