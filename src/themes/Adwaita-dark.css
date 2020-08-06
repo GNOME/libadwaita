@@ -41,21 +41,33 @@ deck > outline, leaflet > outline { min-width: 1px; min-height: 1px; background:
 
 avatar { border-radius: 9999px; -gtk-outline-radius: 9999px; font-weight: bold; }
 
-avatar.color1 { background-image: linear-gradient(#ffbe6f, #ed6f00); color: #ffe5c5; }
+avatar.color1 { background-image: linear-gradient(#83b6ec, #337fdc); color: #cfe1f5; }
 
-avatar.color2 { background-image: linear-gradient(#f8e45c, #e5a50a); color: #f9f4e1; }
+avatar.color2 { background-image: linear-gradient(#7ad9f1, #0f9ac8); color: #caeaf2; }
 
-avatar.color3 { background-image: linear-gradient(#dc8add, #8a3ea3); color: #e7c2e8; }
+avatar.color3 { background-image: linear-gradient(#8de6b1, #29ae74); color: #cef8d8; }
 
-avatar.color4 { background-image: linear-gradient(#99c1f1, #337fdc); color: #cfe1f5; }
+avatar.color4 { background-image: linear-gradient(#b5e98a, #6ab85b); color: #e6f9d7; }
 
-avatar.color5 { background-image: linear-gradient(#c0bfbc, #6e6d71); color: #d8d7d3; }
+avatar.color5 { background-image: linear-gradient(#f8e359, #d29d09); color: #f9f4e1; }
 
-avatar.color6 { background-image: linear-gradient(#8de6ae, #29ae71); color: #cbf7d5; }
+avatar.color6 { background-image: linear-gradient(#ffcb62, #d68400); color: #ffead1; }
 
-avatar.color7 { background-image: linear-gradient(#f67365, #d91a23); color: #f6c8c4; }
+avatar.color7 { background-image: linear-gradient(#ffa95a, #ed5b00); color: #ffe5c5; }
 
-avatar.color8 { background-image: linear-gradient(#cdab8f, #865d3c); color: #e5d6ca; }
+avatar.color8 { background-image: linear-gradient(#f78773, #e62d42); color: #f8d2ce; }
+
+avatar.color9 { background-image: linear-gradient(#e973ab, #e33b6a); color: #fac7de; }
+
+avatar.color10 { background-image: linear-gradient(#cb78d4, #9945b5); color: #e7c2e8; }
+
+avatar.color11 { background-image: linear-gradient(#9e91e8, #7a59ca); color: #d5d2f5; }
+
+avatar.color12 { background-image: linear-gradient(#e3cf9c, #b08952); color: #f2eade; }
+
+avatar.color13 { background-image: linear-gradient(#be916d, #785336); color: #e5d6ca; }
+
+avatar.color14 { background-image: linear-gradient(#c0bfbc, #6e6d71); color: #d8d7d3; }
 
 avatar.contrasted { color: #fff; }
 
