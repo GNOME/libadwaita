@@ -1734,7 +1734,7 @@
                                     <property name="can_focus">False</property>
                                     <property name="valign">center</property>
                                     <property name="pixel_size">128</property>
-                                    <property name="icon_name">view-continuous-symbolic</property>
+                                    <property name="icon_name">widget-carousel-symbolic</property>
                                     <property name="icon-size">0</property>
                                     <property name="margin-bottom">18</property>
                                     <style>

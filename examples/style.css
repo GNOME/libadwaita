@@ -3,6 +3,6 @@ stacksidebar list {
   border-right-width: 0px;
 }
 
-carousel.horizontal .carousel-icon {
+carousel.vertical .carousel-icon {
   -gtk-icon-transform: rotate(90deg);
 }
