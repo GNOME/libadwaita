@@ -457,7 +457,7 @@
                                     <property name="can_focus">False</property>
                                     <property name="valign">center</property>
                                     <property name="pixel_size">128</property>
-                                    <property name="icon_name">view-dual-symbolic</property>
+                                    <property name="icon_name">widget-leaflet-symbolic</property>
                                     <property name="icon-size">0</property>
                                     <property name="margin-bottom">18</property>
                                     <style>
@@ -599,7 +599,7 @@
                                         <property name="can_focus">False</property>
                                         <property name="valign">center</property>
                                         <property name="pixel_size">128</property>
-                                        <property name="icon_name">view-paged-symbolic</property>
+                                        <property name="icon_name">widget-deck-symbolic</property>
                                         <property name="icon-size">0</property>
                                         <property name="margin-bottom">18</property>
                                         <style>
@@ -797,7 +797,7 @@
                                     <property name="can_focus">False</property>
                                     <property name="valign">center</property>
                                     <property name="pixel_size">128</property>
-                                    <property name="icon_name">input-dialpad-symbolic</property>
+                                    <property name="icon_name">widget-keypad-symbolic</property>
                                     <property name="icon-size">0</property>
                                     <property name="margin-bottom">18</property>
                                     <style>
@@ -981,7 +981,7 @@
                                     <property name="can_focus">False</property>
                                     <property name="valign">center</property>
                                     <property name="pixel_size">128</property>
-                                    <property name="icon_name">edit-select-symbolic</property>
+                                    <property name="icon_name">widget-clamp-symbolic</property>
                                     <property name="icon-size">0</property>
                                     <property name="margin-bottom">18</property>
                                     <style>
@@ -1135,7 +1135,7 @@
                                     <property name="can_focus">False</property>
                                     <property name="valign">center</property>
                                     <property name="pixel_size">128</property>
-                                    <property name="icon_name">format-justify-fill-symbolic</property>
+                                    <property name="icon_name">widget-list-symbolic</property>
                                     <property name="icon-size">0</property>
                                     <property name="margin-bottom">18</property>
                                     <style>
@@ -1508,7 +1508,7 @@
                                 <property name="valign">center</property>
                                 <property name="margin_bottom">18</property>
                                 <property name="pixel_size">128</property>
-                                <property name="icon_name">edit-find-symbolic</property>
+                                <property name="icon_name">widget-search-symbolic</property>
                                 <property name="icon_size">0</property>
                                 <style>
                                   <class name="dim-label"/>
@@ -1617,7 +1617,7 @@
                                 <property name="can_focus">False</property>
                                 <property name="valign">center</property>
                                 <property name="pixel_size">128</property>
-                                <property name="icon_name">view-more-horizontal-symbolic</property>
+                                <property name="icon_name">widget-view-switcher-symbolic</property>
                                 <property name="icon-size">0</property>
                                 <property name="margin-bottom">18</property>
                                 <style>
@@ -2129,7 +2129,7 @@
                                     <property name="can_focus">False</property>
                                     <property name="valign">center</property>
                                     <property name="pixel_size">128</property>
-                                    <property name="icon_name">window-symbolic</property>
+                                    <property name="icon_name">widget-window-symbolic</property>
                                     <property name="icon-size">0</property>
                                     <property name="margin-bottom">18</property>
                                     <style>

@@ -9,7 +9,14 @@
     <file preprocess="xml-stripblanks">icons/gnome-smartphone-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/light-mode-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/widget-carousel-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/window-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/widget-clamp-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/widget-deck-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/widget-keypad-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/widget-leaflet-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/widget-list-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/widget-search-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/widget-view-switcher-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/widget-window-symbolic.svg</file>
   </gresource>
   <gresource prefix="/sm/puri/Handy/Demo/ui">
     <file preprocess="xml-stripblanks">hdy-demo-preferences-window.ui</file>
