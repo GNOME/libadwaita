@@ -1444,6 +1444,8 @@ hdy_header_bar_size_allocate (GtkWidget     *widget,
                             allocation->width,
                             allocation->height);
 
+  allocation->x = 0;
+  allocation->y = 0;
   hdy_css_size_allocate (widget, allocation);
 
   direction = gtk_widget_get_direction (widget);
