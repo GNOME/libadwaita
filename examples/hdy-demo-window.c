@@ -70,9 +70,18 @@ hdy_demo_window_key_pressed_cb (GtkWidget     *sender,
   GdkModifierType default_modifiers = gtk_accelerator_get_default_mod_mask ();
   guint keyval;
   GdkModifierType state;
+  GdkKeymap *keymap;
+  GdkEventKey *key_event = (GdkEventKey *) event;
 
-  gdk_event_get_keyval (event, &keyval);
   gdk_event_get_state (event, &state);
+
+  keymap = gdk_keymap_get_for_display (gtk_widget_get_display (sender));
+
+  gdk_keymap_translate_keyboard_state (keymap,
+                                       key_event->hardware_keycode,
+                                       state,
+                                       key_event->group,
+                                       &keyval, NULL, NULL, NULL);
 
   if ((keyval == GDK_KEY_q || keyval == GDK_KEY_Q) &&
       (state & default_modifiers) == GDK_CONTROL_MASK) {
