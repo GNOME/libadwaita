@@ -371,7 +371,7 @@ hdy_window_mixin_draw (HdyWindowMixin *self,
     h = height - shadow.top - shadow.bottom;
 
     gtk_style_context_get (context,
-                           gtk_style_context_get_state (self->decoration_context),
+                           gtk_style_context_get_state (context),
                            GTK_STYLE_PROPERTY_BORDER_RADIUS, &r,
                            NULL);
 
