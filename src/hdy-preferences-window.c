@@ -209,12 +209,21 @@ key_press_event_cb (GtkWidget            *sender,
   GdkModifierType default_modifiers = gtk_accelerator_get_default_mod_mask ();
   guint keyval;
   GdkModifierType state;
+  GdkKeymap *keymap;
+  GdkEventKey *key_event = (GdkEventKey *) event;
 
   if (priv->subpage)
     return GDK_EVENT_PROPAGATE;
 
-  gdk_event_get_keyval (event, &keyval);
   gdk_event_get_state (event, &state);
+
+  keymap = gdk_keymap_get_for_display (gtk_widget_get_display (sender));
+
+  gdk_keymap_translate_keyboard_state (keymap,
+                                       key_event->hardware_keycode,
+                                       state,
+                                       key_event->group,
+                                       &keyval, NULL, NULL, NULL);
 
   if (priv->search_enabled &&
       (keyval == GDK_KEY_f || keyval == GDK_KEY_F) &&
