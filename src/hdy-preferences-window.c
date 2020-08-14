@@ -212,9 +212,6 @@ key_press_event_cb (GtkWidget            *sender,
   GdkKeymap *keymap;
   GdkEventKey *key_event = (GdkEventKey *) event;
 
-  if (priv->subpage)
-    return GDK_EVENT_PROPAGATE;
-
   gdk_event_get_state (event, &state);
 
   keymap = gdk_keymap_get_for_display (gtk_widget_get_display (sender));
@@ -224,6 +221,17 @@ key_press_event_cb (GtkWidget            *sender,
                                        state,
                                        key_event->group,
                                        &keyval, NULL, NULL, NULL);
+
+  if (priv->subpage) {
+    if (keyval == GDK_KEY_Escape &&
+        hdy_preferences_window_get_can_swipe_back (self)) {
+      hdy_preferences_window_close_subpage (self);
+
+      return GDK_EVENT_STOP;
+    }
+
+    return GDK_EVENT_PROPAGATE;
+  }
 
   if (priv->search_enabled &&
       (keyval == GDK_KEY_f || keyval == GDK_KEY_F) &&
@@ -236,6 +244,12 @@ key_press_event_cb (GtkWidget            *sender,
   if (priv->search_enabled &&
       gtk_search_entry_handle_event (priv->search_entry, event)) {
     gtk_toggle_button_set_active (priv->search_button, TRUE);
+
+    return GDK_EVENT_STOP;
+  }
+
+  if (keyval == GDK_KEY_Escape) {
+    gtk_window_close (GTK_WINDOW (self));
 
     return GDK_EVENT_STOP;
   }
