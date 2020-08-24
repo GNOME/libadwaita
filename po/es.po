@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
-"POT-Creation-Date: 2020-08-06 15:34+0000\n"
-"PO-Revision-Date: 2020-08-13 11:29+0200\n"
+"POT-Creation-Date: 2020-08-13 09:29+0000\n"
+"PO-Revision-Date: 2020-08-24 13:07+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -35,16 +35,19 @@ msgstr "Quitar marcador de %s"
 #: glade/glade-hdy-header-bar.c:18
 msgid "This property does not apply when a custom title is set"
 msgstr ""
+"Esta propiedad no se aplica cuando se ha establecido un título personalizado"
 
 #: glade/glade-hdy-header-bar.c:289
 msgid ""
 "The decoration layout does not apply to header bars which do no show window "
 "controls"
 msgstr ""
+"La capa de decoración no se aplica a las barras de cabecera que no muestran "
+"controles"
 
 #: glade/glade-hdy-leaflet.c:19
 msgid "This property only applies when the leaflet is folded"
-msgstr ""
+msgstr "Esta propiedad sólo se aplica cuando el folleto está doblado"
 
 #: glade/glade-hdy-preferences-page.c:160
 #, c-format
@@ -60,10 +63,10 @@ msgstr "Añadir página a %s"
 msgid "Search bar is already full"
 msgstr "La barra de búsqueda ya está llena"
 
-#: glade/glade-hdy-utils.h:14
+#: glade/glade-hdy-utils.h:13
 #, c-format
 msgid "Only objects of type %s can be added to objects of type %s."
-msgstr ""
+msgstr "Sólo se pueden añadir objetos de tipo %s a objetos de tipo %s"
 
 #: src/hdy-action-row.c:354 src/hdy-action-row.c:355 src/hdy-expander-row.c:314
 #: src/hdy-expander-row.c:315 src/hdy-preferences-page.c:179
@@ -77,7 +80,7 @@ msgstr "Widget activable"
 
 #: src/hdy-action-row.c:369
 msgid "The widget to be activated when the row is activated"
-msgstr ""
+msgstr "El widget que activar cuando se activa la fila"
 
 #: src/hdy-action-row.c:382 src/hdy-action-row.c:383 src/hdy-expander-row.c:285
 #: src/hdy-header-bar.c:2105 src/hdy-view-switcher-title.c:272
@@ -131,7 +134,7 @@ msgstr "Interactivo"
 
 #: src/hdy-carousel.c:610
 msgid "Whether the widget can be swiped"
-msgstr ""
+msgstr "Indica si el widget se puede deslizar"
 
 #: src/hdy-carousel.c:639
 msgid "Animation duration"
@@ -147,7 +150,7 @@ msgstr "Permitir arrastre con el ratón"
 
 #: src/hdy-carousel.c:655 src/hdy-swipe-tracker.c:804
 msgid "Whether to allow dragging with mouse pointer"
-msgstr ""
+msgstr "Indica si se puede arrastrar con el puntero del ratón"
 
 #: src/hdy-carousel-indicator-dots.c:392 src/hdy-carousel-indicator-dots.c:393
 #: src/hdy-carousel-indicator-lines.c:391
@@ -156,13 +159,12 @@ msgid "Carousel"
 msgstr "Carrusel"
 
 #: src/hdy-clamp.c:417
-#| msgid "Maximize"
 msgid "Maximum size"
 msgstr "Tamaño máximo"
 
 #: src/hdy-clamp.c:418
 msgid "The maximum size allocated to the child"
-msgstr ""
+msgstr "El tamaño máximo reservado para el hijo"
 
 #: src/hdy-clamp.c:442
 msgid "Tightening threshold"
@@ -172,21 +174,21 @@ msgstr ""
 msgid "The size from which the clamp will tighten its grip on the child"
 msgstr ""
 
-#: src/hdy-combo-row.c:411
+#: src/hdy-combo-row.c:412
 msgid "Selected index"
 msgstr "Índice seleccionada"
 
-#: src/hdy-combo-row.c:412
+#: src/hdy-combo-row.c:413
 msgid "The index of the selected item"
 msgstr "El índice del elemento seleccionado"
 
-#: src/hdy-combo-row.c:430
+#: src/hdy-combo-row.c:431
 msgid "Use subtitle"
 msgstr "Usar subtítulo"
 
-#: src/hdy-combo-row.c:431
+#: src/hdy-combo-row.c:432
 msgid "Set the current value as the subtitle"
-msgstr ""
+msgstr "Establecer el valor actual como subtítulo"
 
 #: src/hdy-deck.c:888
 msgid "Horizontally homogeneous"
@@ -194,7 +196,7 @@ msgstr "Homogéneo horizontalmente"
 
 #: src/hdy-deck.c:889
 msgid "Horizontally homogeneous sizing"
-msgstr ""
+msgstr "Tamaño horizontal homogéneo"
 
 #: src/hdy-deck.c:902
 msgid "Vertically homogeneous"
@@ -202,7 +204,7 @@ msgstr "Homogéneo verticalmente"
 
 #: src/hdy-deck.c:903
 msgid "Vertically homogeneous sizing"
-msgstr ""
+msgstr "Tamaño vertical homogéneo"
 
 #: src/hdy-deck.c:916 src/hdy-leaflet.c:1018 src/hdy-squeezer.c:1098
 #: src/hdy-stackable-box.c:2993
@@ -219,7 +221,7 @@ msgstr "Nombre del hijo visible"
 
 #: src/hdy-deck.c:931
 msgid "The name of the widget currently visible"
-msgstr ""
+msgstr "El nombre del widget visible actualmente"
 
 #: src/hdy-deck.c:949 src/hdy-leaflet.c:1044 src/hdy-squeezer.c:1112
 #: src/hdy-stackable-box.c:3019
@@ -236,7 +238,7 @@ msgstr "Duración de la transición"
 
 #: src/hdy-deck.c:964
 msgid "The transition animation duration, in milliseconds"
-msgstr ""
+msgstr "La duración de la animación de transición, en milisegundos"
 
 #: src/hdy-deck.c:977 src/hdy-header-bar.c:2208 src/hdy-squeezer.c:1120
 msgid "Transition running"
@@ -244,7 +246,7 @@ msgstr "Transición en ejecución"
 
 #: src/hdy-deck.c:978 src/hdy-header-bar.c:2209 src/hdy-squeezer.c:1121
 msgid "Whether or not the transition is currently running"
-msgstr ""
+msgstr "Indica si la transición está actualmente en ejecución o no"
 
 #: src/hdy-deck.c:992 src/hdy-header-bar.c:2215 src/hdy-leaflet.c:1072
 #: src/hdy-squeezer.c:1127 src/hdy-stackable-box.c:3047
@@ -375,7 +377,7 @@ msgstr "Wigdet de título personalizado que mostrar"
 
 #: src/hdy-header-bar.c:2120
 msgid "The amount of space between children"
-msgstr ""
+msgstr "La cantidad de espacio entre hijos"
 
 #: src/hdy-header-bar.c:2139
 msgid "Show decorations"
@@ -422,7 +424,6 @@ msgid "The animation duration, in milliseconds"
 msgstr "La duración de la animación en milisegundos"
 
 #: src/hdy-header-group.c:827
-#| msgid "Decoration Layout"
 msgid "Decorate all"
 msgstr "Decorar todo"
 
@@ -448,7 +449,6 @@ msgid "The keypad symbols of the button. The first symbol is used as the digit"
 msgstr ""
 
 #: src/hdy-keypad-button.c:239
-#| msgid "Symbols"
 msgid "Show symbols"
 msgstr "Mostar símbolos"
 
@@ -462,7 +462,7 @@ msgstr "Espaciado de filas"
 
 #: src/hdy-keypad.c:248
 msgid "The amount of space between two consecutive rows"
-msgstr ""
+msgstr "La cantidad de espacio entre dos filas consecutivas"
 
 #: src/hdy-keypad.c:261
 msgid "Column spacing"
@@ -470,20 +470,17 @@ msgstr "Espaciado de columnas"
 
 #: src/hdy-keypad.c:262
 msgid "The amount of space between two consecutive columns"
-msgstr ""
+msgstr "La cantidad de espacio entre dos columnas consecutivas"
 
 #: src/hdy-keypad.c:276
-#| msgid "Title visible"
 msgid "Letters visible"
 msgstr "Letras visibles"
 
 #: src/hdy-keypad.c:277
-#| msgid "Whether the title label is visible"
 msgid "Whether the letters below the digits should be visible"
 msgstr "Indica si las letras de debajo de los números son visibles"
 
 #: src/hdy-keypad.c:291
-#| msgid "Title visible"
 msgid "Symbols visible"
 msgstr "Símbolos visibles"
 
@@ -501,24 +498,23 @@ msgstr ""
 
 #: src/hdy-keypad.c:320
 msgid "End action"
-msgstr ""
+msgstr "Acción de fin"
 
 #: src/hdy-keypad.c:321
 msgid "The end action widget"
-msgstr ""
+msgstr "El widget de fin de acción"
 
 #: src/hdy-keypad.c:334
-#| msgid "Orientation"
 msgid "Start action"
 msgstr "Acción de inicio"
 
 #: src/hdy-keypad.c:335
 msgid "The start action widget"
-msgstr ""
+msgstr "El widget de iniciar acción"
 
 #: src/hdy-leaflet.c:963 src/hdy-stackable-box.c:2938
 msgid "Folded"
-msgstr ""
+msgstr "Doblado"
 
 #: src/hdy-leaflet.c:964 src/hdy-stackable-box.c:2939
 msgid "Whether the widget is folded"
@@ -597,7 +593,6 @@ msgid "Navigatable"
 msgstr "Navegable"
 
 #: src/hdy-leaflet.c:1130
-#| msgid "Whether the title label is visible"
 msgid "Whether the child can be navigated to"
 msgstr "Indica si se puede navegar al hijo"
 
@@ -631,15 +626,15 @@ msgstr ""
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: src/hdy-preferences-window.ui:78
+#: src/hdy-preferences-window.ui:81
 msgid "Search"
 msgstr "Buscar"
 
-#: src/hdy-preferences-window.ui:201
+#: src/hdy-preferences-window.ui:204
 msgid "No Results Found"
 msgstr "No se han encontrado resultados"
 
-#: src/hdy-preferences-window.ui:216
+#: src/hdy-preferences-window.ui:219
 msgid "Try a different search"
 msgstr "Pruebe a hacer una búsqueda diferente"
 
@@ -666,7 +661,7 @@ msgstr "Widget"
 
 #: src/hdy-shadow-helper.c:255
 msgid "The widget the shadow will be drawn for"
-msgstr ""
+msgstr "El widget para el que se dibujará la sombra"
 
 #: src/hdy-squeezer.c:1091
 msgid "Homogeneous"
@@ -690,7 +685,7 @@ msgstr "Alineación X"
 
 #: src/hdy-squeezer.c:1149
 msgid "The horizontal alignment, from 0 (start) to 1 (end)"
-msgstr ""
+msgstr "La alineación horizontal, desde 0 (inicio) hasta 1 (fin)"
 
 #: src/hdy-squeezer.c:1170
 msgid "Y align"
@@ -698,7 +693,7 @@ msgstr "alineación Y"
 
 #: src/hdy-squeezer.c:1171
 msgid "The vertical alignment, from 0 (top) to 1 (bottom)"
-msgstr ""
+msgstr "La alineación vertical, desde 0 (inicio) hasta 1 (fin)"
 
 #: src/hdy-squeezer.c:1180 src/hdy-swipe-tracker.c:773
 msgid "Enabled"
@@ -748,7 +743,7 @@ msgstr ""
 
 #: src/hdy-swipe-tracker.c:788
 msgid "Reversed"
-msgstr ""
+msgstr "Inverso"
 
 #: src/hdy-swipe-tracker.c:789
 msgid "Whether swipe direction is reversed"
