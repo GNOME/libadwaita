@@ -8,7 +8,7 @@ popover.combo list {
 
 window.csd.unified:not(.solid-csd) {
   // Since corners are masked, there's no need for round corners anymore
-  &, headerbar {
+  headerbar {
     border-radius: 0;
   }
 }
