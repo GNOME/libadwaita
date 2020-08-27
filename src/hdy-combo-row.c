@@ -235,8 +235,10 @@ bound_model_changed (GListModel *list,
   HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
 
   /* Selection is in front of insertion/removal point, nothing to do */
-  if (priv->selected_index > 0 && priv->selected_index < index)
+  if (priv->selected_index > 0 && priv->selected_index < index) {
+    update (self);
     return;
+  }
 
   if (priv->selected_index < index + removed) {
     /* The item selected item was removed (or none is selected) */
@@ -251,6 +253,8 @@ bound_model_changed (GListModel *list,
     new_idx = 0;
 
   hdy_combo_row_set_selected_index (self, new_idx);
+
+  update (self);
 }
 
 static void
