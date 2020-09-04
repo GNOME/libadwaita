@@ -1,4 +1,28 @@
 ==============
+Version 0.91.0
+==============
+
+- Update HdyComboRow's state when its model is changed.
+- Fix padding application in HdyHeaderBar.
+- HdyPreferencesWindow:
+  - Translate the keyval properly to ensure keyboard shortcuts work with
+    all keymaps.
+  - Allow closing the window or subpages with the Esc key.
+- HdyWindow and HdyApplicationWindow:
+  - Fix a memory leak when destroying the widget.
+  - Get the state from the correct style context to avoid a contant
+    redraw after changing the text direction and before the window is
+    focused.
+  - Don't force a 0px border-radius on the window to give more freedom
+    to elementary.
+- Translation updates:
+  - Brazilian Portuguese
+  - Basque
+  - Indonesian
+  - Spanish
+  - Ukrainian
+
+==============
 Version 0.90.0
 ==============
 
