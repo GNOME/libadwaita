@@ -316,8 +316,8 @@
       </para>
       <para>
         The “left-action” property has been replaced by
-        #HdyHeaderGroup:start-action, and the “right-action” property has been
-        replaced by #HdyHeaderGroup:end-action.
+        #HdyKeypad:start-action, and the “right-action” property has been
+        replaced by #HdyKeypad:end-action.
       </para>
       <para>
         The “entry” property isn't a #GtkWidget anymore but a #GtkEntry.
