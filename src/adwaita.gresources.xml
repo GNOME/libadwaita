@@ -5,6 +5,7 @@
     <file>glsl/mask.glsl</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/adw-expander-arrow-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/avatar-default-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-icon-missing-symbolic.svg</file>
   </gresource>
   <gresource prefix="/org/gnome/Adwaita/ui">
     <file preprocess="xml-stripblanks">adw-action-row.ui</file>
