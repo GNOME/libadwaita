@@ -22,4 +22,10 @@ void hdy_css_measure (GtkWidget      *widget,
 void hdy_css_size_allocate (GtkWidget     *widget,
                             GtkAllocation *allocation);
 
+void hdy_css_size_allocate_self (GtkWidget     *widget,
+                                 GtkAllocation *allocation);
+
+void hdy_css_size_allocate_children (GtkWidget     *widget,
+                                     GtkAllocation *allocation);
+
 G_END_DECLS

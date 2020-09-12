@@ -50,24 +50,53 @@ void
 hdy_css_size_allocate (GtkWidget     *widget,
                        GtkAllocation *allocation)
 {
+  hdy_css_size_allocate_self (widget, allocation);
+  hdy_css_size_allocate_children (widget, allocation);
+}
+
+void
+hdy_css_size_allocate_self (GtkWidget     *widget,
+                            GtkAllocation *allocation)
+{
   GtkStyleContext *style_context;
   GtkStateFlags state_flags;
-  GtkBorder border, margin, padding;
+  GtkBorder margin;
 
   /* Manually apply the border, the padding and the margin as we can't use the
    * private GtkGagdet.
    */
   style_context = gtk_widget_get_style_context (widget);
   state_flags = gtk_widget_get_state_flags (widget);
-  gtk_style_context_get_border (style_context, state_flags, &border);
+
   gtk_style_context_get_margin (style_context, state_flags, &margin);
+
+  allocation->width -= margin.left + margin.right;
+  allocation->height -= margin.top + margin.bottom;
+  allocation->x += margin.left;
+  allocation->y += margin.top;
+}
+
+void
+hdy_css_size_allocate_children (GtkWidget     *widget,
+                                GtkAllocation *allocation)
+{
+  GtkStyleContext *style_context;
+  GtkStateFlags state_flags;
+  GtkBorder border, padding;
+
+  /* Manually apply the border, the padding and the margin as we can't use the
+   * private GtkGagdet.
+   */
+  style_context = gtk_widget_get_style_context (widget);
+  state_flags = gtk_widget_get_state_flags (widget);
+
+  gtk_style_context_get_border (style_context, state_flags, &border);
   gtk_style_context_get_padding (style_context, state_flags, &padding);
+
   allocation->width -= border.left + border.right +
-                       margin.left + margin.right +
                        padding.left + padding.right;
   allocation->height -= border.top + border.bottom +
-                        margin.top + margin.bottom +
                         padding.top + padding.bottom;
-  allocation->x += border.left + margin.left + padding.left;
-  allocation->y += border.top + margin.top + padding.top;
+  allocation->x += border.left + padding.left;
+  allocation->y += border.top + padding.top;
 }
