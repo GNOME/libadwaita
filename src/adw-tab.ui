@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="AdwTab" parent="GtkWidget">
+    <property name="focusable">True</property>
+    <property name="overflow">hidden</property>
+    <child>
+      <object class="GtkEventControllerMotion">
+        <signal name="motion" handler="motion_cb" swapped="true"/>
+        <signal name="leave" handler="leave_cb" swapped="true"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkDropTarget" id="drop_target">
+        <signal name="drop" handler="drop_cb" swapped="true"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="indicator_btn">
+        <property name="can-focus">False</property>
+        <property name="valign">center</property>
+        <property name="halign">start</property>
+        <signal name="clicked" handler="indicator_clicked_cb" swapped="true"/>
+        <style>
+          <class name="tab-indicator"/>
+        </style>
+        <property name="child">
+          <object class="GtkImage" id="indicator_icon">
+            <binding name="gicon">
+              <lookup name="indicator-icon" type="AdwTabPage">
+                <lookup name="page">AdwTab</lookup>
+              </lookup>
+            </binding>
+          </object>
+        </property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkStack" id="icon_stack">
+        <property name="margin-start">4</property>
+        <property name="margin-end">2</property>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">icon</property>
+            <property name="child">
+              <object class="GtkImage" id="icon">
+                <style>
+                  <class name="tab-icon"/>
+                </style>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">spinner</property>
+            <property name="child">
+              <object class="GtkSpinner" id="spinner"/>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwFadingLabel" id="title">
+        <property name="margin-start">4</property>
+        <property name="margin-end">4</property>
+        <binding name="label">
+          <lookup name="title" type="AdwTabPage">
+            <lookup name="page">AdwTab</lookup>
+          </lookup>
+        </binding>
+        <style>
+          <class name="tab-title"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="close_btn">
+        <property name="can-focus">False</property>
+        <property name="opacity">0</property>
+        <property name="valign">center</property>
+        <property name="icon-name">window-close-symbolic</property>
+        <signal name="clicked" handler="close_clicked_cb" swapped="true"/>
+        <style>
+          <class name="tab-close-button"/>
+        </style>
+      </object>
+    </child>
+  </template>
+</interface>
