@@ -112,3 +112,37 @@ hdy_css_size_allocate_children (GtkWidget     *widget,
   allocation->x += border.left + padding.left;
   allocation->y += border.top + padding.top;
 }
+
+void
+hdy_css_draw (GtkWidget *widget,
+              cairo_t   *cr)
+{
+  gint width = gtk_widget_get_allocated_width (widget);
+  gint height = gtk_widget_get_allocated_height (widget);
+  GtkStyleContext *style_context;
+
+  if (width <= 0 || height <= 0)
+    return;
+
+  /* Manually apply the border, the padding and the margin as we can't use the
+   * private GtkGagdet.
+   */
+  style_context = gtk_widget_get_style_context (widget);
+
+  gtk_render_background (style_context, cr, 0, 0, width, height);
+  gtk_render_frame (style_context, cr, 0, 0, width, height);
+
+  if (gtk_widget_has_visible_focus (widget)) {
+    GtkStateFlags state_flags;
+    GtkBorder border;
+
+    state_flags = gtk_widget_get_state_flags (widget);
+
+    gtk_style_context_get_border (style_context, state_flags, &border);
+
+    gtk_render_focus (style_context, cr,
+                      border.left, border.top,
+                      width - border.left - border.right,
+                      height - border.top - border.bottom);
+  }
+}
