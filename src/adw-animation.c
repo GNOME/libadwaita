@@ -276,3 +276,9 @@ adw_ease_out_cubic (double t)
   double p = t - 1;
   return p * p * p + 1;
 }
+
+double
+adw_ease_in_cubic (gdouble t)
+{
+  return t * t * t;
+}

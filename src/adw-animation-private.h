@@ -46,5 +46,6 @@ double        adw_animation_get_value  (AdwAnimation *self);
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AdwAnimation, adw_animation_unref)
 
 double adw_lerp (double a, double b, double t);
+double adw_ease_in_cubic (double t);
 
 G_END_DECLS
