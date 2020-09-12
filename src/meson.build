@@ -149,6 +149,7 @@ src_sources = [
   'adw-swipe-tracker.c',
   'adw-swipeable.c',
   'adw-tab.c',
+  'adw-tab-box.c',
   'adw-tab-view.c',
   'adw-value-object.c',
   'adw-view-switcher.c',

@@ -21,6 +21,7 @@ private_headers = [
     'adw-shadow-helper-private.h',
     'adw-swipe-tracker-private.h',
     'adw-tab-private.h',
+    'adw-tab-box-private.h',
     'adw-tab-view-private.h',
     'adw-view-switcher-button-private.h',
     'adw-window-mixin-private.h',
