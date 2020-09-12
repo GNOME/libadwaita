@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <template class="AdwTabBar" parent="GtkWidget">
+    <child>
+      <object class="GtkRevealer" id="revealer">
+        <property name="transition-duration">200</property>
+        <property name="transition-type">slide-down</property>
+        <child>
+          <object class="GtkBox">
+            <style>
+              <class name="box"/>
+            </style>
+            <child>
+              <object class="AdwBin" id="start_action_bin">
+                <property name="visible">False</property>
+                <style>
+                  <class name="start-action"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="pinned_scrolled_window">
+                <property name="hscrollbar-policy">external</property>
+                <property name="vscrollbar-policy">never</property>
+                <property name="overlay-scrolling">False</property>
+                <property name="propagate-natural-width">True</property>
+                <property name="hexpand">False</property>
+                <style>
+                  <class name="pinned"/>
+                </style>
+                <child>
+                  <object class="AdwTabBox" id="pinned_box">
+                    <property name="pinned">True</property>
+                    <property name="tab-bar">AdwTabBar</property>
+                    <signal name="notify::needs-attention-left" handler="notify_needs_attention_pinned_cb" swapped="true"/>
+                    <signal name="notify::needs-attention-right" handler="notify_needs_attention_pinned_cb" swapped="true"/>
+                    <signal name="notify::resize-frozen" handler="notify_resize_frozen_cb" swapped="true"/>
+                    <signal name="stop-kinetic-scrolling" handler="stop_kinetic_scrolling_cb" object="pinned_scrolled_window" swapped="true"/>
+                    <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolled_window">
+                <property name="hscrollbar-policy">external</property>
+                <property name="vscrollbar-policy">never</property>
+                <property name="overlay-scrolling">False</property>
+                <property name="hexpand">True</property>
+                <property name="min-content-width">100</property>
+                <child>
+                  <object class="AdwTabBox" id="box">
+                    <property name="tab-bar">AdwTabBar</property>
+                    <signal name="notify::needs-attention-left" handler="notify_needs_attention_cb" swapped="true"/>
+                    <signal name="notify::needs-attention-right" handler="notify_needs_attention_cb" swapped="true"/>
+                    <signal name="notify::resize-frozen" handler="notify_resize_frozen_cb" swapped="true"/>
+                    <signal name="stop-kinetic-scrolling" handler="stop_kinetic_scrolling_cb" object="scrolled_window" swapped="true"/>
+                    <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwBin" id="end_action_bin">
+                <property name="visible">False</property>
+                <style>
+                  <class name="end-action"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

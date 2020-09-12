@@ -62,6 +62,7 @@
     <xi:include href="xml/adw-status-page.xml"/>
     <xi:include href="xml/adw-swipeable.xml"/>
     <xi:include href="xml/adw-swipe-tracker.xml"/>
+    <xi:include href="xml/adw-tab-bar.xml"/>
     <xi:include href="xml/adw-tab-view.xml"/>
     <xi:include href="xml/adw-value-object.xml"/>
     <xi:include href="xml/adw-view-switcher.xml"/>

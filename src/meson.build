@@ -15,6 +15,7 @@ adw_public_enum_headers = [
   'adw-leaflet.h',
   'adw-navigation-direction.h',
   'adw-squeezer.h',
+  'adw-tab-bar.h',
   'adw-view-switcher.h',
 ]
 
@@ -93,6 +94,7 @@ src_headers = [
   'adw-status-page.h',
   'adw-swipe-tracker.h',
   'adw-swipeable.h',
+  'adw-tab-bar.h',
   'adw-tab-view.h',
   'adw-value-object.h',
   'adw-view-switcher.h',
@@ -149,6 +151,7 @@ src_sources = [
   'adw-swipe-tracker.c',
   'adw-swipeable.c',
   'adw-tab.c',
+  'adw-tab-bar.c',
   'adw-tab-box.c',
   'adw-tab-view.c',
   'adw-value-object.c',

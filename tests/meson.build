@@ -38,6 +38,7 @@ test_names = [
   'test-preferences-window',
   'test-squeezer',
   'test-status-page',
+  'test-tab-bar',
   'test-tab-view',
   'test-value-object',
   'test-view-switcher',
