@@ -13,6 +13,7 @@ adwaita_demo_sources = [
   'adw-demo-preferences-window.c',
   'adw-demo-window.c',
   'adw-flap-demo-window.c',
+  'adw-tab-view-demo-window.c',
   'adw-view-switcher-demo-window.c',
   libadwaita_generated_headers,
 ]

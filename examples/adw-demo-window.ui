@@ -837,6 +837,26 @@
                         </property>
                       </object>
                     </child>
+                    <child>
+                      <object class="GtkStackPage">
+                        <property name="name">tab-view</property>
+                        <property name="title" translatable="yes">Tab View</property>
+                        <property name="child">
+                          <object class="AdwStatusPage">
+                            <property name="icon-name">widget-tab-view-symbolic</property>
+                            <property name="title" translatable="yes">Tab View</property>
+                            <property name="description" translatable="yes">A modern tab widget.</property>
+                            <property name="child">
+                              <object class="GtkButton">
+                                <property name="label" translatable="yes">Run the demo</property>
+                                <property name="halign">center</property>
+                                <signal name="clicked" handler="tab_view_demo_clicked_cb" swapped="no"/>
+                              </object>
+                            </property>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
