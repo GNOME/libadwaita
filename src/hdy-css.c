@@ -17,7 +17,13 @@ hdy_css_measure (GtkWidget      *widget,
   GtkStyleContext *style_context = gtk_widget_get_style_context (widget);
   GtkStateFlags state_flags = gtk_widget_get_state_flags (widget);
   GtkBorder border, margin, padding;
-  gint css_width, css_height;
+  gint css_width, css_height, min = 0, nat = 0;
+
+  if (minimum)
+    min = *minimum;
+
+  if (natural)
+    nat = *natural;
 
   /* Manually apply minimum sizes, the border, the padding and the margin as we
    * can't use the private GtkGagdet.
@@ -30,20 +36,26 @@ hdy_css_measure (GtkWidget      *widget,
   gtk_style_context_get_margin (style_context, state_flags, &margin);
   gtk_style_context_get_padding (style_context, state_flags, &padding);
   if (orientation == GTK_ORIENTATION_VERTICAL) {
-    *minimum = MAX (*minimum, css_height) +
-               border.top + margin.top + padding.top +
-               border.bottom + margin.bottom + padding.bottom;
-    *natural = MAX (*natural, css_height) +
-               border.top + margin.top + padding.top +
-               border.bottom + margin.bottom + padding.bottom;
+    min = MAX (min, css_height) +
+          border.top + margin.top + padding.top +
+          border.bottom + margin.bottom + padding.bottom;
+    nat = MAX (nat, css_height) +
+          border.top + margin.top + padding.top +
+          border.bottom + margin.bottom + padding.bottom;
   } else {
-    *minimum = MAX (*minimum, css_width) +
-               border.left + margin.left + padding.left +
-               border.right + margin.right + padding.right;
-    *natural = MAX (*natural, css_width) +
-               border.left + margin.left + padding.left +
-               border.right + margin.right + padding.right;
+    min = MAX (min, css_width) +
+          border.left + margin.left + padding.left +
+          border.right + margin.right + padding.right;
+    nat = MAX (nat, css_width) +
+          border.left + margin.left + padding.left +
+          border.right + margin.right + padding.right;
   }
+
+  if (minimum)
+    *minimum = MAX (min, 0);
+
+  if (natural)
+    *natural = MAX (nat, 0);
 }
 
 void
