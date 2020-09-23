@@ -78,7 +78,7 @@ glade_hdy_swipe_group_read_widget (GladeWidgetAdaptor *adaptor,
     return;
 
   /* First chain up and read in all the normal properties.. */
-  GWA_GET_CLASS (G_TYPE_OBJECT)->read_widget (adaptor, widget, node);
+  GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (G_TYPE_OBJECT)->read_widget (adaptor, widget, node);
 
   glade_hdy_swipe_group_read_widgets (widget, node);
 }
@@ -122,7 +122,7 @@ glade_hdy_swipe_group_write_widget (GladeWidgetAdaptor *adaptor,
     return;
 
   /* First chain up and read in all the normal properties.. */
-  GWA_GET_CLASS (G_TYPE_OBJECT)->write_widget (adaptor, widget, context, node);
+  GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (G_TYPE_OBJECT)->write_widget (adaptor, widget, context, node);
 
   glade_hdy_swipe_group_write_widgets (widget, context, node);
 }
@@ -155,7 +155,7 @@ glade_hdy_swipe_group_set_property (GladeWidgetAdaptor *adaptor,
                                        HDY_SWIPEABLE (list->data));
     }
   } else {
-    GWA_GET_CLASS (G_TYPE_OBJECT)->set_property (adaptor, object,
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (G_TYPE_OBJECT)->set_property (adaptor, object,
                                                  property_name, value);
   }
 }

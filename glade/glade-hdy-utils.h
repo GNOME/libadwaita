@@ -21,6 +21,14 @@
 #define glade_widget_action_get_def glade_widget_action_get_class
 #endif
 
+/*
+ * Another macro got renamed in GladeUI 3.38. For older versions of GladeUI,
+ * define the new macro as the old one.
+ */
+#ifndef GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS
+#define GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS GWA_GET_CLASS
+#endif
+
 void glade_hdy_init (const gchar *name);
 
 void glade_hdy_sync_child_positions (GtkContainer *container);

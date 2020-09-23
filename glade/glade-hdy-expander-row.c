@@ -35,7 +35,7 @@ glade_hdy_expander_row_get_child_property (GladeWidgetAdaptor *adaptor,
     g_value_set_int (value, glade_hdy_get_child_index (GTK_CONTAINER (container),
                                                        GTK_WIDGET (child)));
   else
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->child_get_property (adaptor,
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->child_get_property (adaptor,
                                                             container,
                                                             child,
                                                             property_name,
@@ -54,7 +54,7 @@ glade_hdy_expander_row_set_child_property (GladeWidgetAdaptor *adaptor,
                              GTK_WIDGET (child),
                              g_value_get_int (value));
   else
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->child_set_property (adaptor,
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->child_set_property (adaptor,
                                                             container,
                                                             child,
                                                             property_name,

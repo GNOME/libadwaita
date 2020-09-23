@@ -237,7 +237,7 @@ glade_hdy_preferences_window_action_activate (GladeWidgetAdaptor *adaptor,
 
     glade_command_pop_group ();
   } else {
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->action_activate (adaptor,
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->action_activate (adaptor,
                                                          object,
                                                          action_path);
   }
@@ -256,7 +256,7 @@ glade_hdy_preferences_window_child_set_property (GladeWidgetAdaptor *adaptor,
     gtk_container_child_set_property (GTK_CONTAINER (parent),
                                       GTK_WIDGET (child), property_name, value);
   } else {
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->child_set_property (adaptor,
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->child_set_property (adaptor,
                                                             container,
                                                             child,
                                                             property_name,
@@ -277,7 +277,7 @@ glade_hdy_preferences_window_child_get_property (GladeWidgetAdaptor *adaptor,
     gtk_container_child_get_property (GTK_CONTAINER (parent),
                                       GTK_WIDGET (child), property_name, value);
   } else {
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->child_get_property (adaptor,
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->child_get_property (adaptor,
                                                             container,
                                                             child,
                                                             property_name,

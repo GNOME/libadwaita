@@ -203,7 +203,7 @@ glade_hdy_carousel_child_action_activate (GladeWidgetAdaptor *adaptor,
 
     glade_command_pop_group ();
   } else
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->child_action_activate (adaptor,
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->child_action_activate (adaptor,
                                                                container,
                                                                object,
                                                                action_path);
@@ -266,7 +266,7 @@ glade_hdy_carousel_set_property (GladeWidgetAdaptor *adaptor,
   else if (!strcmp (id, "page"))
     set_page (object, value);
   else {
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->set_property (adaptor, object, id, value);
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->set_property (adaptor, object, id, value);
   }
 }
 
@@ -283,7 +283,7 @@ glade_hdy_carousel_get_property (GladeWidgetAdaptor *adaptor,
     g_value_reset (value);
     g_value_set_int (value, hdy_carousel_get_page (HDY_CAROUSEL (object)));
   } else {
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->get_property (adaptor, object, id, value);
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->get_property (adaptor, object, id, value);
   }
 }
 
@@ -321,8 +321,8 @@ glade_hdy_carousel_verify_property (GladeWidgetAdaptor *adaptor,
     return glade_hdy_carousel_verify_n_pages (object, value);
   else if (!strcmp (id, "page"))
     return glade_hdy_carousel_verify_page (object, value);
-  else if (GWA_GET_CLASS (GTK_TYPE_CONTAINER)->verify_property)
-    return GWA_GET_CLASS (GTK_TYPE_CONTAINER)->verify_property (adaptor, object,
+  else if (GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->verify_property)
+    return GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->verify_property (adaptor, object,
                                                                 id, value);
 
   return TRUE;
@@ -430,7 +430,7 @@ glade_hdy_carousel_get_child_property (GladeWidgetAdaptor *adaptor,
     g_value_set_int (value, glade_hdy_get_child_index (GTK_CONTAINER (container),
                                                        GTK_WIDGET (child)));
   else
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->child_get_property (adaptor,
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->child_get_property (adaptor,
                                                             container,
                                                             child,
                                                             property_name,
@@ -451,7 +451,7 @@ glade_hdy_carousel_set_child_property (GladeWidgetAdaptor *adaptor,
 
     glade_hdy_sync_child_positions (GTK_CONTAINER (container));
   } else {
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->child_set_property (adaptor,
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->child_set_property (adaptor,
                                                             container,
                                                             child,
                                                             property_name,

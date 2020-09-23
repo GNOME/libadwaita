@@ -124,7 +124,7 @@ glade_hdy_header_bar_action_activate (GladeWidgetAdaptor *adaptor,
 
     glade_command_pop_group ();
   } else {
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->action_activate (adaptor,
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->action_activate (adaptor,
                                                          object,
                                                          action_path);
   }
@@ -159,7 +159,7 @@ glade_hdy_header_bar_child_action_activate (GladeWidgetAdaptor *adaptor,
 
     glade_command_pop_group ();
   } else {
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->child_action_activate (adaptor,
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->child_action_activate (adaptor,
                                                                container,
                                                                object,
                                                                action_path);
@@ -179,7 +179,7 @@ glade_hdy_header_bar_get_property (GladeWidgetAdaptor *adaptor,
     g_value_reset (value);
     g_value_set_int (value, get_n_children (object));
   } else {
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->get_property (adaptor, object, id, value);
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->get_property (adaptor, object, id, value);
   }
 }
 
@@ -291,7 +291,7 @@ glade_hdy_header_bar_set_property (GladeWidgetAdaptor *adaptor,
   } else if (!strcmp (id, "size")) {
     set_size (object, value);
   } else {
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->set_property (adaptor, object, id, value);
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->set_property (adaptor, object, id, value);
   }
 }
 
@@ -316,7 +316,7 @@ glade_hdy_header_bar_add_child (GladeWidgetAdaptor *adaptor,
     return;
   }
 
-  GWA_GET_CLASS (GTK_TYPE_CONTAINER)->add (adaptor, parent, child);
+  GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->add (adaptor, parent, child);
 
   gbox = glade_widget_get_from_gobject (parent);
   if (!glade_widget_superuser ()) {
@@ -380,7 +380,7 @@ glade_hdy_header_bar_replace_child (GladeWidgetAdaptor *adaptor,
 
   g_object_set_data (G_OBJECT (new_widget), "special-child-type", NULL);
 
-  GWA_GET_CLASS (GTK_TYPE_CONTAINER)->replace_child (adaptor,
+  GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->replace_child (adaptor,
                                                      container,
                                                      current,
                                                      new_widget);
@@ -400,8 +400,8 @@ glade_hdy_header_bar_verify_property (GladeWidgetAdaptor *adaptor,
 {
   if (!strcmp (id, "size"))
     return verify_size (object, value);
-  else if (GWA_GET_CLASS (GTK_TYPE_CONTAINER)->verify_property)
-    return GWA_GET_CLASS (GTK_TYPE_CONTAINER)->verify_property (adaptor,
+  else if (GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->verify_property)
+    return GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->verify_property (adaptor,
                                                                 object,
                                                                 id,
                                                                 value);
@@ -446,7 +446,7 @@ GList *
 glade_hdy_header_bar_get_children (GladeWidgetAdaptor *adaptor,
                                    GObject            *container)
 {
-  GList *children = GWA_GET_CLASS (GTK_TYPE_CONTAINER)->get_children (adaptor, container);
+  GList *children = GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->get_children (adaptor, container);
 
   return g_list_sort_with_data (children, (GCompareDataFunc) sort_children, container);
 }
@@ -539,7 +539,7 @@ glade_hdy_header_bar_child_set_property (GladeWidgetAdaptor *adaptor,
 
   /* Chain Up */
   if (!is_position)
-    GWA_GET_CLASS (GTK_TYPE_CONTAINER)->child_set_property (adaptor,
+    GLADE_WIDGET_ADAPTOR_GET_ADAPTOR_CLASS (GTK_TYPE_CONTAINER)->child_set_property (adaptor,
                                                             container,
                                                             child,
                                                             property_name,
