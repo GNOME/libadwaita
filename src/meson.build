@@ -63,7 +63,7 @@ libhandy_private_sources += [hdy_private_enums[0]]
 libhandy_generated_headers += [hdy_public_enums[1]]
 
 src_headers = [
-#  'hdy-action-row.h',
+  'hdy-action-row.h',
 #  'hdy-animation.h',
 #  'hdy-application-window.h',
 #  'hdy-avatar.h',
@@ -115,7 +115,7 @@ libhandy_init_public_types = custom_target('hdy-public-types.c',
 src_sources = [
 #  'gtkprogresstracker.c',
 #  'gtk-window.c',
-#  'hdy-action-row.c',
+  'hdy-action-row.c',
 #  'hdy-animation.c',
 #  'hdy-application-window.c',
 #  'hdy-avatar.c',

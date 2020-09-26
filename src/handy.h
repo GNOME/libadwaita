@@ -21,8 +21,8 @@ G_BEGIN_DECLS
 #define _HANDY_INSIDE
 
 #include "hdy-version.h"
-/*
 #include "hdy-action-row.h"
+/*
 #include "hdy-animation.h"
 #include "hdy-application-window.h"
 #include "hdy-avatar.h"

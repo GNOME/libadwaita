@@ -78,6 +78,12 @@ void hdy_action_row_set_subtitle_lines (HdyActionRow *self,
 HDY_AVAILABLE_IN_ALL
 void hdy_action_row_add_prefix (HdyActionRow *self,
                                 GtkWidget    *widget);
+HDY_AVAILABLE_IN_ALL
+void hdy_action_row_add_suffix (HdyActionRow *self,
+                                GtkWidget    *widget);
+HDY_AVAILABLE_IN_ALL
+void hdy_action_row_remove (HdyActionRow *self,
+                            GtkWidget    *widget);
 
 HDY_AVAILABLE_IN_ALL
 void hdy_action_row_activate (HdyActionRow *self);

@@ -203,128 +203,14 @@ hdy_action_row_dispose (GObject *object)
     priv->previous_parent = NULL;
   }
 
-  G_OBJECT_CLASS (hdy_action_row_parent_class)->dispose (object);
-}
-
-static void
-hdy_action_row_show_all (GtkWidget *widget)
-{
-  HdyActionRow *self = HDY_ACTION_ROW (widget);
-  HdyActionRowPrivate *priv;
-
-  g_return_if_fail (HDY_IS_ACTION_ROW (self));
-
-  priv = hdy_action_row_get_instance_private (self);
-
-  gtk_container_foreach (GTK_CONTAINER (priv->prefixes),
-                         (GtkCallback) gtk_widget_show_all,
-                         NULL);
-
-  gtk_container_foreach (GTK_CONTAINER (priv->suffixes),
-                         (GtkCallback) gtk_widget_show_all,
-                         NULL);
-
-  GTK_WIDGET_CLASS (hdy_action_row_parent_class)->show_all (widget);
-}
-
-static void
-hdy_action_row_destroy (GtkWidget *widget)
-{
-  HdyActionRow *self = HDY_ACTION_ROW (widget);
-  HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
-
-  if (priv->header) {
-    gtk_widget_destroy (GTK_WIDGET (priv->header));
-    priv->header = NULL;
-  }
-
   hdy_action_row_set_activatable_widget (self, NULL);
+
+  g_clear_pointer ((GtkWidget **) &priv->header, gtk_widget_unparent);
 
   priv->prefixes = NULL;
   priv->suffixes = NULL;
 
-  GTK_WIDGET_CLASS (hdy_action_row_parent_class)->destroy (widget);
-}
-
-static void
-hdy_action_row_add (GtkContainer *container,
-                    GtkWidget    *child)
-{
-  HdyActionRow *self = HDY_ACTION_ROW (container);
-  HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
-
-  /* When constructing the widget, we want the box to be added as the child of
-   * the GtkListBoxRow, as an implementation detail.
-   */
-  if (priv->header == NULL)
-    GTK_CONTAINER_CLASS (hdy_action_row_parent_class)->add (container, child);
-  else {
-    gtk_container_add (GTK_CONTAINER (priv->suffixes), child);
-    gtk_widget_show (GTK_WIDGET (priv->suffixes));
-  }
-}
-
-static void
-hdy_action_row_remove (GtkContainer *container,
-                       GtkWidget    *child)
-{
-  HdyActionRow *self = HDY_ACTION_ROW (container);
-  HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
-
-  if (child == GTK_WIDGET (priv->header))
-    GTK_CONTAINER_CLASS (hdy_action_row_parent_class)->remove (container, child);
-  else if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->prefixes))
-    gtk_container_remove (GTK_CONTAINER (priv->prefixes), child);
-  else
-    gtk_container_remove (GTK_CONTAINER (priv->suffixes), child);
-}
-
-typedef struct {
-  HdyActionRow *row;
-  GtkCallback callback;
-  gpointer callback_data;
-} ForallData;
-
-static void
-for_non_internal_child (GtkWidget *widget,
-                        gpointer   callback_data)
-{
-  ForallData *data = callback_data;
-  HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (data->row);
-
-  if (widget != (GtkWidget *) priv->image &&
-      widget != (GtkWidget *) priv->prefixes &&
-      widget != (GtkWidget *) priv->suffixes &&
-      widget != (GtkWidget *) priv->title_box)
-    data->callback (widget, data->callback_data);
-}
-
-static void
-hdy_action_row_forall (GtkContainer *container,
-                       gboolean      include_internals,
-                       GtkCallback   callback,
-                       gpointer      callback_data)
-{
-  HdyActionRow *self = HDY_ACTION_ROW (container);
-  HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
-  ForallData data;
-
-  if (include_internals) {
-    GTK_CONTAINER_CLASS (hdy_action_row_parent_class)->forall (GTK_CONTAINER (self), include_internals, callback, callback_data);
-
-    return;
-  }
-
-  data.row = self;
-  data.callback = callback;
-  data.callback_data = callback_data;
-
-  if (priv->prefixes)
-    GTK_CONTAINER_GET_CLASS (priv->prefixes)->forall (GTK_CONTAINER (priv->prefixes), include_internals, for_non_internal_child, &data);
-  if (priv->suffixes)
-    GTK_CONTAINER_GET_CLASS (priv->suffixes)->forall (GTK_CONTAINER (priv->suffixes), include_internals, for_non_internal_child, &data);
-  if (priv->header)
-    GTK_CONTAINER_GET_CLASS (priv->header)->forall (GTK_CONTAINER (priv->header), include_internals, for_non_internal_child, &data);
+  G_OBJECT_CLASS (hdy_action_row_parent_class)->dispose (object);
 }
 
 static void
@@ -343,18 +229,10 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-  GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
 
   object_class->get_property = hdy_action_row_get_property;
   object_class->set_property = hdy_action_row_set_property;
   object_class->dispose = hdy_action_row_dispose;
-
-  widget_class->destroy = hdy_action_row_destroy;
-  widget_class->show_all = hdy_action_row_show_all;
-
-  container_class->add = hdy_action_row_add;
-  container_class->remove = hdy_action_row_remove;
-  container_class->forall = hdy_action_row_forall;
 
   klass->activate = hdy_action_row_activate_real;
 
@@ -519,12 +397,16 @@ hdy_action_row_buildable_add_child (GtkBuildable *buildable,
   HdyActionRow *self = HDY_ACTION_ROW (buildable);
   HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
 
-  if (priv->header == NULL || !type)
-    gtk_container_add (GTK_CONTAINER (self), GTK_WIDGET (child));
-  else if (type && strcmp (type, "prefix") == 0)
+  if (!priv->header)
+    parent_buildable_iface->add_child (buildable, builder, child, type);
+  else if (g_strcmp0 (type, "prefix") == 0)
     hdy_action_row_add_prefix (self, GTK_WIDGET (child));
+  else if (g_strcmp0 (type, "suffix") == 0)
+    hdy_action_row_add_suffix (self, GTK_WIDGET (child));
+  else if (!type && GTK_IS_WIDGET (child))
+    hdy_action_row_add_suffix (self, GTK_WIDGET (child));
   else
-    GTK_BUILDER_WARN_INVALID_CHILD_TYPE (self, type);
+    GTK_BUILDER_WARN_INVALID_CHILD_TYPE (buildable, type);
 }
 
 static void
@@ -615,15 +497,12 @@ const gchar *
 hdy_action_row_get_icon_name (HdyActionRow *self)
 {
   HdyActionRowPrivate *priv;
-  const gchar *icon_name;
 
   g_return_val_if_fail (HDY_IS_ACTION_ROW (self), NULL);
 
   priv = hdy_action_row_get_instance_private (self);
 
-  gtk_image_get_icon_name (priv->image, &icon_name, NULL);
-
-  return icon_name;
+  return gtk_image_get_icon_name (priv->image);
 }
 
 /**
@@ -646,11 +525,11 @@ hdy_action_row_set_icon_name (HdyActionRow *self,
 
   priv = hdy_action_row_get_instance_private (self);
 
-  gtk_image_get_icon_name (priv->image, &old_icon_name, NULL);
+  old_icon_name = gtk_image_get_icon_name (priv->image);
   if (g_strcmp0 (old_icon_name, icon_name) == 0)
     return;
 
-  gtk_image_set_from_icon_name (priv->image, icon_name, GTK_ICON_SIZE_INVALID);
+  gtk_image_set_from_icon_name (priv->image, icon_name);
   gtk_widget_set_visible (GTK_WIDGET (priv->image),
                           icon_name != NULL && g_strcmp0 (icon_name, "") != 0);
 
@@ -928,12 +807,62 @@ hdy_action_row_add_prefix (HdyActionRow *self,
   HdyActionRowPrivate *priv;
 
   g_return_if_fail (HDY_IS_ACTION_ROW (self));
-  g_return_if_fail (GTK_IS_WIDGET (self));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
 
   priv = hdy_action_row_get_instance_private (self);
 
-  gtk_box_pack_start (priv->prefixes, widget, FALSE, TRUE, 0);
+  gtk_box_prepend (priv->prefixes, widget);
   gtk_widget_show (GTK_WIDGET (priv->prefixes));
+}
+
+/**
+ * hdy_action_row_add_suffix:
+ * @self: a #HdyActionRow
+ * @widget: the suffix widget
+ *
+ * Adds a suffix widget to @self.
+ *
+ * Since: 1.0
+ */
+void
+hdy_action_row_add_suffix (HdyActionRow *self,
+                           GtkWidget    *widget)
+{
+  HdyActionRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_ACTION_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
+
+  priv = hdy_action_row_get_instance_private (self);
+
+  gtk_box_append (priv->suffixes, widget);
+  gtk_widget_show (GTK_WIDGET (priv->suffixes));
+}
+
+/**
+ * hdy_action_row_remove
+ * @self: a #HdyActionRow
+ * @widget: the #GtkWidget to be removed
+ *
+ * Removes a child from @self.
+ *
+ * Since: 1.0
+ */
+void
+hdy_action_row_remove (HdyActionRow *self,
+                       GtkWidget    *child)
+{
+  HdyActionRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_ACTION_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+
+  priv = hdy_action_row_get_instance_private (self);
+
+  if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->prefixes))
+    gtk_box_remove (priv->prefixes, child);
+  else
+    gtk_box_remove (priv->suffixes, child);
 }
 
 void
