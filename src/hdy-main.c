@@ -104,9 +104,9 @@ load_fallback_style (void)
   g_autoptr (GtkCssProvider) css_provider = NULL;
 
   css_provider = gtk_css_provider_new ();
-  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
-                                             GTK_STYLE_PROVIDER (css_provider),
-                                             GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
+  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              GTK_STYLE_PROVIDER (css_provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_FALLBACK);
 
   gtk_css_provider_load_from_resource (css_provider, HDY_THEMES_PATH"fallback.css");
 }
@@ -130,9 +130,9 @@ hdy_style_init (void)
     return;
 
   css_provider = gtk_css_provider_new ();
-  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
-                                             GTK_STYLE_PROVIDER (css_provider),
-                                             HDY_STYLE_PROVIDER_PRIORITY_OVERRIDE);
+  gtk_style_context_add_provider_for_display (gdk_display_get_default (),
+                                              GTK_STYLE_PROVIDER (css_provider),
+                                              HDY_STYLE_PROVIDER_PRIORITY_OVERRIDE);
 
   settings = gtk_settings_get_default ();
   g_signal_connect_swapped (settings,
@@ -167,7 +167,7 @@ hdy_icons_init (void)
   if (!g_once_init_enter (&guard))
     return;
 
-  gtk_icon_theme_add_resource_path (gtk_icon_theme_get_default (),
+  gtk_icon_theme_add_resource_path (gtk_icon_theme_get_for_display (gdk_display_get_default ()),
                                     "/sm/puri/handy/icons");
 
   g_once_init_leave (&guard, 1);

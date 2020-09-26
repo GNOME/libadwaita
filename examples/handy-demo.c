@@ -26,7 +26,7 @@ startup (GtkApplication *app)
 {
   GtkCssProvider *css_provider = gtk_css_provider_new ();
 
-/*  hdy_init (); */
+  hdy_init ();
 
   gtk_css_provider_load_from_resource (css_provider, "/sm/puri/Handy/Demo/ui/style.css");
   gtk_style_context_add_provider_for_display (gdk_display_get_default (),
