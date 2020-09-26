@@ -13,13 +13,14 @@
 #include "hdy-version.h"
 
 #include <gtk/gtk.h>
+#include "hdy-preferences-group.h"
 
 G_BEGIN_DECLS
 
 #define HDY_TYPE_PREFERENCES_PAGE (hdy_preferences_page_get_type())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_DERIVABLE_TYPE (HdyPreferencesPage, hdy_preferences_page, HDY, PREFERENCES_PAGE, GtkBin)
+G_DECLARE_DERIVABLE_TYPE (HdyPreferencesPage, hdy_preferences_page, HDY, PREFERENCES_PAGE, GtkWidget)
 
 /**
  * HdyPreferencesPageClass
@@ -27,7 +28,7 @@ G_DECLARE_DERIVABLE_TYPE (HdyPreferencesPage, hdy_preferences_page, HDY, PREFERE
  */
 struct _HdyPreferencesPageClass
 {
-  GtkBinClass parent_class;
+  GtkWidgetClass parent_class;
 
   /*< private >*/
   gpointer padding[4];
@@ -47,5 +48,12 @@ const gchar *hdy_preferences_page_get_title (HdyPreferencesPage *self);
 HDY_AVAILABLE_IN_ALL
 void         hdy_preferences_page_set_title (HdyPreferencesPage *self,
                                              const gchar        *title);
+
+HDY_AVAILABLE_IN_ALL
+void         hdy_preferences_page_add (HdyPreferencesPage  *self,
+                                       HdyPreferencesGroup *group);
+HDY_AVAILABLE_IN_ALL
+void         hdy_preferences_page_remove (HdyPreferencesPage  *self,
+                                          HdyPreferencesGroup *group);
 
 G_END_DECLS

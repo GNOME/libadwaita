@@ -33,7 +33,7 @@ test_names = [
 #  'test-keypad',
 #  'test-leaflet',
   'test-preferences-group',
-#  'test-preferences-page',
+  'test-preferences-page',
   'test-preferences-row',
 #  'test-preferences-window',
 #  'test-search-bar',

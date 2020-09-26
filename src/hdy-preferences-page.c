@@ -35,7 +35,14 @@ typedef struct
   gchar *title;
 } HdyPreferencesPagePrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyPreferencesPage, hdy_preferences_page, GTK_TYPE_BIN)
+static void hdy_preferences_page_buildable_init (GtkBuildableIface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (HdyPreferencesPage, hdy_preferences_page, GTK_TYPE_WIDGET,
+                         G_ADD_PRIVATE (HdyPreferencesPage)
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
+                         hdy_preferences_page_buildable_init))
+
+static GtkBuildableIface *parent_buildable_iface;
 
 enum {
   PROP_0,
@@ -45,12 +52,6 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
-
-typedef struct {
-  HdyPreferencesPage *preferences_page;
-  GtkCallback callback;
-  gpointer data;
-} CallbackData;
 
 static void
 hdy_preferences_page_get_property (GObject    *object,
@@ -93,6 +94,17 @@ hdy_preferences_page_set_property (GObject      *object,
 }
 
 static void
+hdy_preferences_page_dispose (GObject *object)
+{
+  HdyPreferencesPage *self = HDY_PREFERENCES_PAGE (object);
+  HdyPreferencesPagePrivate *priv = hdy_preferences_page_get_instance_private (self);
+
+  g_clear_pointer ((GtkWidget **) &priv->scrolled_window, gtk_widget_unparent);
+
+  G_OBJECT_CLASS (hdy_preferences_page_parent_class)->dispose (object);
+}
+
+static void
 hdy_preferences_page_finalize (GObject *object)
 {
   HdyPreferencesPage *self = HDY_PREFERENCES_PAGE (object);
@@ -105,67 +117,15 @@ hdy_preferences_page_finalize (GObject *object)
 }
 
 static void
-hdy_preferences_page_add (GtkContainer *container,
-                          GtkWidget    *child)
-{
-  HdyPreferencesPage *self = HDY_PREFERENCES_PAGE (container);
-  HdyPreferencesPagePrivate *priv = hdy_preferences_page_get_instance_private (self);
-
-  if (priv->scrolled_window == NULL)
-    GTK_CONTAINER_CLASS (hdy_preferences_page_parent_class)->add (container, child);
-  else if (HDY_IS_PREFERENCES_GROUP (child))
-    gtk_container_add (GTK_CONTAINER (priv->box), child);
-  else
-    g_warning ("Can't add children of type %s to %s",
-               G_OBJECT_TYPE_NAME (child),
-               G_OBJECT_TYPE_NAME (container));
-}
-
-static void
-hdy_preferences_page_remove (GtkContainer *container,
-                             GtkWidget    *child)
-{
-  HdyPreferencesPage *self = HDY_PREFERENCES_PAGE (container);
-  HdyPreferencesPagePrivate *priv = hdy_preferences_page_get_instance_private (self);
-
-  if (child == GTK_WIDGET (priv->scrolled_window))
-    GTK_CONTAINER_CLASS (hdy_preferences_page_parent_class)->remove (container, child);
-  else
-    gtk_container_remove (GTK_CONTAINER (priv->box), child);
-}
-
-static void
-hdy_preferences_page_forall (GtkContainer *container,
-                             gboolean      include_internals,
-                             GtkCallback   callback,
-                             gpointer      callback_data)
-{
-  HdyPreferencesPage *self = HDY_PREFERENCES_PAGE (container);
-  HdyPreferencesPagePrivate *priv = hdy_preferences_page_get_instance_private (self);
-
-  if (include_internals)
-    GTK_CONTAINER_CLASS (hdy_preferences_page_parent_class)->forall (container,
-                                                                     include_internals,
-                                                                     callback,
-                                                                     callback_data);
-  else if (priv->box)
-    gtk_container_foreach (GTK_CONTAINER (priv->box), callback, callback_data);
-}
-
-static void
 hdy_preferences_page_class_init (HdyPreferencesPageClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-  GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
 
   object_class->get_property = hdy_preferences_page_get_property;
   object_class->set_property = hdy_preferences_page_set_property;
+  object_class->dispose = hdy_preferences_page_dispose;
   object_class->finalize = hdy_preferences_page_finalize;
-
-  container_class->add = hdy_preferences_page_add;
-  container_class->remove = hdy_preferences_page_remove;
-  container_class->forall = hdy_preferences_page_forall;
 
   /**
    * HdyPreferencesPage:icon-name:
@@ -199,6 +159,7 @@ hdy_preferences_page_class_init (HdyPreferencesPageClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-preferences-page.ui");
+  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesPage, box);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesPage, scrolled_window);
 
@@ -209,6 +170,28 @@ static void
 hdy_preferences_page_init (HdyPreferencesPage *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
+}
+
+static void
+hdy_preferences_page_buildable_add_child (GtkBuildable *buildable,
+                                          GtkBuilder   *builder,
+                                          GObject      *child,
+                                          const gchar  *type)
+{
+  HdyPreferencesPage *self = HDY_PREFERENCES_PAGE (buildable);
+  HdyPreferencesPagePrivate *priv = hdy_preferences_page_get_instance_private (self);
+
+  if (priv->box && HDY_IS_PREFERENCES_GROUP (child))
+    hdy_preferences_page_add (self, HDY_PREFERENCES_GROUP (child));
+  else
+    parent_buildable_iface->add_child (buildable, builder, child, type);
+}
+
+static void
+hdy_preferences_page_buildable_init (GtkBuildableIface *iface)
+{
+  parent_buildable_iface = g_type_interface_peek_parent (iface);
+  iface->add_child = hdy_preferences_page_buildable_add_child;
 }
 
 /**
@@ -327,27 +310,61 @@ hdy_preferences_page_set_title (HdyPreferencesPage *self,
 }
 
 /**
- * hdy_preferences_page_add_preferences_to_model: (skip)
+ * hdy_preferences_page_get_rows:
  * @self: a #HdyPreferencesPage
- * @model: the model
  *
- * Add preferences from @self to the model.
+ * Returns a #GListModel that contains the rows of the page, and can be used to
+ * keep an up-to-date view.
  *
- * Since: 0.0.10
+ * Returns: (transfer full): a #GListModel for the page's rows
  */
+GListModel *
+hdy_preferences_page_get_rows (HdyPreferencesPage *self)
+{
+  HdyPreferencesPagePrivate *priv;
+  GListModel *model;
+  GtkExpression *expr;
+
+  g_return_val_if_fail (HDY_IS_PREFERENCES_PAGE (self), NULL);
+
+  priv = hdy_preferences_page_get_instance_private (self);
+
+  expr = gtk_property_expression_new (GTK_TYPE_WIDGET, NULL, "visible");
+
+  model = gtk_widget_observe_children (GTK_WIDGET (priv->box));
+  model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (gtk_bool_filter_new (expr))));
+  model = G_LIST_MODEL (gtk_map_list_model_new (model,
+                                                (GtkMapListModelMapFunc) hdy_preferences_group_get_rows,
+                                                NULL,
+                                                NULL));
+
+  return G_LIST_MODEL (gtk_flatten_list_model_new (model));
+}
+
 void
-hdy_preferences_page_add_preferences_to_model (HdyPreferencesPage *self,
-                                               GListStore         *model)
+hdy_preferences_page_add (HdyPreferencesPage  *self,
+                          HdyPreferencesGroup *group)
 {
   HdyPreferencesPagePrivate *priv;
 
   g_return_if_fail (HDY_IS_PREFERENCES_PAGE (self));
-  g_return_if_fail (G_IS_LIST_STORE (model));
-
-  if (!gtk_widget_get_visible (GTK_WIDGET (self)))
-    return;
+  g_return_if_fail (HDY_IS_PREFERENCES_GROUP (group));
 
   priv = hdy_preferences_page_get_instance_private (self);
 
-  gtk_container_foreach (GTK_CONTAINER (priv->box), (GtkCallback) hdy_preferences_group_add_preferences_to_model, model);
+  gtk_box_append (priv->box, GTK_WIDGET (group));
+}
+
+void
+hdy_preferences_page_remove (HdyPreferencesPage  *self,
+                             HdyPreferencesGroup *group)
+{
+  HdyPreferencesPagePrivate *priv;
+
+  g_return_if_fail (HDY_IS_PREFERENCES_PAGE (self));
+  g_return_if_fail (HDY_IS_PREFERENCES_GROUP (group));
+
+  priv = hdy_preferences_page_get_instance_private (self);
+
+  gtk_box_remove (priv->box, GTK_WIDGET (group));
 }
