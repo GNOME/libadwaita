@@ -22,8 +22,8 @@ G_BEGIN_DECLS
 
 #include "hdy-version.h"
 #include "hdy-action-row.h"
-/*
 #include "hdy-animation.h"
+/*
 #include "hdy-application-window.h"
 #include "hdy-avatar.h"
 #include "hdy-carousel.h"

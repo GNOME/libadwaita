@@ -64,7 +64,7 @@ libhandy_generated_headers += [hdy_public_enums[1]]
 
 src_headers = [
   'hdy-action-row.h',
-#  'hdy-animation.h',
+  'hdy-animation.h',
 #  'hdy-application-window.h',
 #  'hdy-avatar.h',
 #  'hdy-carousel.h',
@@ -116,7 +116,7 @@ src_sources = [
 #  'gtkprogresstracker.c',
 #  'gtk-window.c',
   'hdy-action-row.c',
-#  'hdy-animation.c',
+  'hdy-animation.c',
 #  'hdy-application-window.c',
 #  'hdy-avatar.c',
 #  'hdy-carousel.c',
