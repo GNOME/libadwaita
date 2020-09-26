@@ -19,15 +19,23 @@ G_BEGIN_DECLS
 #define HDY_TYPE_CLAMP (hdy_clamp_get_type())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_FINAL_TYPE (HdyClamp, hdy_clamp, HDY, CLAMP, GtkBin)
+G_DECLARE_FINAL_TYPE (HdyClamp, hdy_clamp, HDY, CLAMP, GtkWidget)
 
 HDY_AVAILABLE_IN_ALL
 GtkWidget *hdy_clamp_new (void);
+
+HDY_AVAILABLE_IN_ALL
+GtkWidget *hdy_clamp_get_child (HdyClamp  *self);
+HDY_AVAILABLE_IN_ALL
+void       hdy_clamp_set_child (HdyClamp  *self,
+                                GtkWidget *child);
+
 HDY_AVAILABLE_IN_ALL
 gint hdy_clamp_get_maximum_size (HdyClamp *self);
 HDY_AVAILABLE_IN_ALL
 void hdy_clamp_set_maximum_size (HdyClamp *self,
                                  gint      maximum_size);
+
 HDY_AVAILABLE_IN_ALL
 gint hdy_clamp_get_tightening_threshold (HdyClamp *self);
 HDY_AVAILABLE_IN_ALL

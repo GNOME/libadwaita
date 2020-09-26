@@ -11,11 +11,10 @@
 #include <math.h>
 
 #include "hdy-animation-private.h"
-#include "hdy-css-private.h"
 
 /**
  * SECTION:hdy-clamp
- * @short_description: A container constraining its child to a given size.
+ * @short_description: A widget constraining its child to a given size.
  * @Title: HdyClamp
  *
  * The #HdyClamp widget constraints the size of the widget it contains to a
@@ -40,6 +39,7 @@
 
 enum {
   PROP_0,
+  PROP_CHILD,
   PROP_MAXIMUM_SIZE,
   PROP_TIGHTENING_THRESHOLD,
 
@@ -51,8 +51,9 @@ enum {
 
 struct _HdyClamp
 {
-  GtkBin parent_instance;
+  GtkWidget parent_instance;
 
+  GtkWidget *child;
   gint maximum_size;
   gint tightening_threshold;
 
@@ -61,8 +62,14 @@ struct _HdyClamp
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE_WITH_CODE (HdyClamp, hdy_clamp, GTK_TYPE_BIN,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
+static void hdy_clamp_buildable_init (GtkBuildableIface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (HdyClamp, hdy_clamp, GTK_TYPE_WIDGET,
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
+                         hdy_clamp_buildable_init))
+
+static GtkBuildableIface *parent_buildable_iface;
 
 static void
 set_orientation (HdyClamp       *self,
@@ -85,6 +92,9 @@ hdy_clamp_get_property (GObject    *object,
   HdyClamp *self = HDY_CLAMP (object);
 
   switch (prop_id) {
+  case PROP_CHILD:
+    g_value_set_object (value, hdy_clamp_get_child (self));
+    break;
   case PROP_MAXIMUM_SIZE:
     g_value_set_int (value, hdy_clamp_get_maximum_size (self));
     break;
@@ -108,6 +118,9 @@ hdy_clamp_set_property (GObject      *object,
   HdyClamp *self = HDY_CLAMP (object);
 
   switch (prop_id) {
+  case PROP_CHILD:
+    hdy_clamp_set_child (self, g_value_get_object (value));
+    break;
   case PROP_MAXIMUM_SIZE:
     hdy_clamp_set_maximum_size (self, g_value_get_int (value));
     break;
@@ -120,6 +133,16 @@ hdy_clamp_set_property (GObject      *object,
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
+}
+
+static void
+hdy_clamp_dispose (GObject *object)
+{
+  HdyClamp *self = HDY_CLAMP (object);
+
+  g_clear_pointer (&self->child, gtk_widget_unparent);
+
+  G_OBJECT_CLASS (hdy_clamp_parent_class)->dispose (object);
 }
 
 /**
@@ -145,21 +168,14 @@ get_child_size (HdyClamp *self,
                 gint     *lower_threshold,
                 gint     *upper_threshold)
 {
-  GtkBin *bin = GTK_BIN (self);
-  GtkWidget *child;
   gint min = 0, max = 0, lower = 0, upper = 0;
   gdouble amplitude, progress;
 
-  child = gtk_bin_get_child (bin);
-  if (child == NULL)
+  if (!self->child)
     return 0;
 
-  if (gtk_widget_get_visible (child)) {
-    if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
-      gtk_widget_get_preferred_width (child, &min, NULL);
-    else
-      gtk_widget_get_preferred_height (child, &min, NULL);
-  }
+  if (gtk_widget_get_visible (self->child))
+    gtk_widget_measure (self->child, self->orientation, -1, &min, NULL, NULL, NULL);
 
   lower = MAX (MIN (self->tightening_threshold, self->maximum_size), min);
   max = MAX (lower, self->maximum_size);
@@ -189,69 +205,6 @@ get_child_size (HdyClamp *self,
   return hdy_ease_out_cubic (progress) * amplitude + lower;
 }
 
-/* This private method is prefixed by the call name because it will be a virtual
- * method in GTK 4.
- */
-static void
-hdy_clamp_measure (GtkWidget      *widget,
-                   GtkOrientation  orientation,
-                   int             for_size,
-                   int            *minimum,
-                   int            *natural,
-                   int            *minimum_baseline,
-                   int            *natural_baseline)
-{
-  HdyClamp *self = HDY_CLAMP (widget);
-  GtkBin *bin = GTK_BIN (widget);
-  GtkWidget *child;
-  gint child_size;
-
-  if (minimum)
-    *minimum = 0;
-  if (natural)
-    *natural = 0;
-  if (minimum_baseline)
-    *minimum_baseline = -1;
-  if (natural_baseline)
-    *natural_baseline = -1;
-
-  child = gtk_bin_get_child (bin);
-  if (!(child && gtk_widget_get_visible (child)))
-    return;
-
-  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-    if (self->orientation == orientation) {
-      gtk_widget_get_preferred_width (child, minimum, natural);
-
-      return;
-    }
-
-    child_size = get_child_size (HDY_CLAMP (widget), for_size, NULL, NULL, NULL, NULL);
-
-    gtk_widget_get_preferred_width_for_height (child,
-                                               child_size,
-                                               minimum,
-                                               natural);
-  } else {
-    if (self->orientation == orientation) {
-      gtk_widget_get_preferred_height (child, minimum, natural);
-
-      return;
-    }
-
-    child_size = get_child_size (HDY_CLAMP (widget), for_size, NULL, NULL, NULL, NULL);
-
-    gtk_widget_get_preferred_height_and_baseline_for_width (child,
-                                                            child_size,
-                                                            minimum,
-                                                            natural,
-                                                            minimum_baseline,
-                                                            natural_baseline);
-  }
-
-  hdy_css_measure (widget, orientation, minimum, natural);
-}
-
 static GtkSizeRequestMode
 hdy_clamp_get_request_mode (GtkWidget *widget)
 {
@@ -263,73 +216,52 @@ hdy_clamp_get_request_mode (GtkWidget *widget)
 }
 
 static void
-hdy_clamp_get_preferred_width_for_height (GtkWidget *widget,
-                                          gint       height,
-                                          gint      *minimum,
-                                          gint      *natural)
-{
-  hdy_clamp_measure (widget, GTK_ORIENTATION_HORIZONTAL, height,
-                     minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_clamp_get_preferred_width (GtkWidget *widget,
-                               gint      *minimum,
-                               gint      *natural)
-{
-  hdy_clamp_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
-                     minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_clamp_get_preferred_height_and_baseline_for_width (GtkWidget *widget,
-                                                       gint       width,
-                                                       gint      *minimum,
-                                                       gint      *natural,
-                                                       gint      *minimum_baseline,
-                                                       gint      *natural_baseline)
-{
-  hdy_clamp_measure (widget, GTK_ORIENTATION_VERTICAL, width,
-                     minimum, natural, minimum_baseline, natural_baseline);
-}
-
-static void
-hdy_clamp_get_preferred_height_for_width (GtkWidget *widget,
-                                          gint       width,
-                                          gint      *minimum,
-                                          gint      *natural)
-{
-  hdy_clamp_measure (widget, GTK_ORIENTATION_VERTICAL, width,
-                     minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_clamp_get_preferred_height (GtkWidget *widget,
-                                gint      *minimum,
-                                gint      *natural)
-{
-  hdy_clamp_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
-                     minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_clamp_size_allocate (GtkWidget     *widget,
-                         GtkAllocation *allocation)
+hdy_clamp_measure (GtkWidget      *widget,
+                   GtkOrientation  orientation,
+                   int             for_size,
+                   int            *minimum,
+                   int            *natural,
+                   int            *minimum_baseline,
+                   int            *natural_baseline)
 {
   HdyClamp *self = HDY_CLAMP (widget);
-  GtkBin *bin = GTK_BIN (widget);
-  GtkAllocation child_allocation, base_child_allocation;
-  gint baseline;
-  GtkWidget *child;
+  gint child_size = -1;
+
+  if (self->child && gtk_widget_get_visible (self->child)) {
+    if (self->orientation != orientation)
+      child_size = get_child_size (HDY_CLAMP (widget), for_size,
+                                   NULL, NULL, NULL, NULL);
+
+    gtk_widget_measure (self->child, orientation,
+                        child_size, minimum, natural,
+                        minimum_baseline, natural_baseline);
+
+    return;
+  }
+
+  if (minimum)
+    *minimum = 0;
+  if (natural)
+    *natural = 0;
+  if (minimum_baseline)
+    *minimum_baseline = -1;
+  if (natural_baseline)
+    *natural_baseline = -1;
+}
+
+static void
+hdy_clamp_size_allocate (GtkWidget *widget,
+                         gint       width,
+                         gint       height,
+                         gint       baseline)
+{
+  HdyClamp *self = HDY_CLAMP (widget);
+  GtkAllocation child_allocation;
   GtkStyleContext *context = gtk_widget_get_style_context (widget);
   gint child_maximum = 0, lower_threshold = 0;
   gint child_clamped_size;
 
-  hdy_css_size_allocate_self (widget, allocation);
-  gtk_widget_set_allocation (widget, allocation);
-
-  child = gtk_bin_get_child (bin);
-  if (!(child && gtk_widget_get_visible (child))) {
+  if (!(self->child && gtk_widget_get_visible (self->child))) {
     gtk_style_context_remove_class (context, "small");
     gtk_style_context_remove_class (context, "medium");
     gtk_style_context_remove_class (context, "large");
@@ -337,17 +269,15 @@ hdy_clamp_size_allocate (GtkWidget     *widget,
     return;
   }
 
-  child_allocation = *allocation;
-  hdy_css_size_allocate_children (widget, &child_allocation);
-  base_child_allocation = child_allocation;
-
   if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
-    child_allocation.width = get_child_size (self, child_allocation.width, NULL, &child_maximum, &lower_threshold, NULL);
+    child_allocation.width = get_child_size (self, width, NULL, &child_maximum, &lower_threshold, NULL);
+    child_allocation.height = height;
 
     child_clamped_size = child_allocation.width;
   }
   else {
-    child_allocation.height = get_child_size (self, child_allocation.height, NULL, &child_maximum, &lower_threshold, NULL);
+    child_allocation.width = width;
+    child_allocation.height = get_child_size (self, height, NULL, &child_maximum, &lower_threshold, NULL);
 
     child_clamped_size = child_allocation.height;
   }
@@ -366,14 +296,16 @@ hdy_clamp_size_allocate (GtkWidget     *widget,
     gtk_style_context_remove_class (context, "large");
   }
 
-  /* This always center the child on the side of the orientation. */
-  if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
-    child_allocation.x += (base_child_allocation.width - child_allocation.width) / 2;
-  else
-    child_allocation.y += (base_child_allocation.height - child_allocation.height) / 2;
+  /* Always center the child on the side of the orientation. */
+  if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
+    child_allocation.x = (width - child_allocation.width) / 2;
+    child_allocation.y = 0;
+  } else {
+    child_allocation.x = 0;
+    child_allocation.y = (height - child_allocation.height) / 2;
+  }
 
-  baseline = gtk_widget_get_allocated_baseline (widget);
-  gtk_widget_size_allocate_with_baseline (child, &child_allocation, baseline);
+  gtk_widget_size_allocate (self->child, &child_allocation, baseline);
 }
 
 static void
@@ -381,25 +313,25 @@ hdy_clamp_class_init (HdyClampClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-  GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
 
   object_class->get_property = hdy_clamp_get_property;
   object_class->set_property = hdy_clamp_set_property;
+  object_class->dispose = hdy_clamp_dispose;
 
   widget_class->get_request_mode = hdy_clamp_get_request_mode;
-  widget_class->get_preferred_width = hdy_clamp_get_preferred_width;
-  widget_class->get_preferred_width_for_height = hdy_clamp_get_preferred_width_for_height;
-  widget_class->get_preferred_height = hdy_clamp_get_preferred_height;
-  widget_class->get_preferred_height_for_width = hdy_clamp_get_preferred_height_for_width;
-  widget_class->get_preferred_height_and_baseline_for_width = hdy_clamp_get_preferred_height_and_baseline_for_width;
+  widget_class->measure = hdy_clamp_measure;
   widget_class->size_allocate = hdy_clamp_size_allocate;
-  widget_class->draw = hdy_css_draw_bin;
-
-  gtk_container_class_handle_border_width (container_class);
 
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,
                                     "orientation");
+
+  props[PROP_CHILD] =
+      g_param_spec_object ("child",
+                           _("Child"),
+                           _("The child widget"),
+                           GTK_TYPE_WIDGET,
+                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * HdyClamp:maximum-size:
@@ -453,6 +385,26 @@ hdy_clamp_init (HdyClamp *self)
   self->tightening_threshold = 400;
 }
 
+static void
+hdy_clamp_buildable_add_child (GtkBuildable *buildable,
+                               GtkBuilder   *builder,
+                               GObject      *child,
+                               const char   *type)
+{
+  if (GTK_IS_WIDGET (child))
+    hdy_clamp_set_child (HDY_CLAMP (buildable), GTK_WIDGET (child));
+  else
+    parent_buildable_iface->add_child (buildable, builder, child, type);
+}
+
+static void
+hdy_clamp_buildable_init (GtkBuildableIface *iface)
+{
+  parent_buildable_iface = g_type_interface_peek_parent (iface);
+
+  iface->add_child = hdy_clamp_buildable_add_child;
+}
+
 /**
  * hdy_clamp_new:
  *
@@ -466,6 +418,49 @@ GtkWidget *
 hdy_clamp_new (void)
 {
   return g_object_new (HDY_TYPE_CLAMP, NULL);
+}
+
+/**
+ * hdy_clamp_get_child:
+ * @self: a #HdyClamp
+ *
+ * Gets the child widget of @self.
+ *
+ * Returns: (nullable) (transfer none): the child widget of @self
+ */
+GtkWidget *
+hdy_clamp_get_child (HdyClamp  *self)
+{
+  g_return_val_if_fail (HDY_IS_CLAMP (self), NULL);
+
+  return self->child;
+}
+
+/**
+ * hdy_clamp_set_child:
+ * @self: a #HdyClamp
+ * @child: (nullable): the child widget
+ *
+ * Sets the child widget of @self.
+ */
+void
+hdy_clamp_set_child (HdyClamp  *self,
+                     GtkWidget *child)
+{
+  g_return_if_fail (HDY_IS_CLAMP (self));
+  g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
+
+  if (self->child == child)
+    return;
+
+  g_clear_pointer (&self->child, gtk_widget_unparent);
+
+  self->child = child;
+
+  if (child)
+    gtk_widget_set_parent (child, GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD]);
 }
 
 /**
