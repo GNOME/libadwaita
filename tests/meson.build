@@ -34,7 +34,7 @@ test_names = [
 #  'test-leaflet',
 #  'test-preferences-group',
 #  'test-preferences-page',
-#  'test-preferences-row',
+  'test-preferences-row',
 #  'test-preferences-window',
 #  'test-search-bar',
 #  'test-squeezer',
