@@ -1,20 +1,24 @@
 #include <gtk/gtk.h>
 #include <handy.h>
 
+/*
 #include "hdy-demo-preferences-window.h"
 #include "hdy-demo-window.h"
+*/
 
 static void
 show_preferences (GSimpleAction *action,
                   GVariant      *state,
                   gpointer       user_data)
 {
+/*
   GtkApplication *app = GTK_APPLICATION (user_data);
   GtkWindow *window = gtk_application_get_active_window (app);
   HdyDemoPreferencesWindow *preferences = hdy_demo_preferences_window_new ();
 
   gtk_window_set_transient_for (GTK_WINDOW (preferences), window);
   gtk_widget_show (GTK_WIDGET (preferences));
+*/
 }
 
 static void
@@ -22,7 +26,7 @@ startup (GtkApplication *app)
 {
   GtkCssProvider *css_provider = gtk_css_provider_new ();
 
-  hdy_init ();
+/*  hdy_init (); */
 
   gtk_css_provider_load_from_resource (css_provider, "/sm/puri/Handy/Demo/ui/style.css");
   gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
@@ -35,11 +39,13 @@ startup (GtkApplication *app)
 static void
 show_window (GtkApplication *app)
 {
+/*
   HdyDemoWindow *window;
 
   window = hdy_demo_window_new (app);
 
   gtk_widget_show (GTK_WIDGET (window));
+*/
 }
 
 int
