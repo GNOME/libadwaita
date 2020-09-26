@@ -180,7 +180,7 @@ libhandy_deps = [
   dependency('glib-2.0', version: glib_min_version),
   dependency('gio-2.0', version: glib_min_version),
   dependency('gmodule-2.0', version: glib_min_version),
-  dependency('gtk+-3.0', version: '>= 3.24.1'),
+  dependency('gtk4'),
   cc.find_library('m', required: false),
   cc.find_library('rt', required: false),
 ]
@@ -263,7 +263,7 @@ if introspection
            symbol_prefix: 'hdy',
        identifier_prefix: 'Hdy',
                link_with: libhandy,
-                includes: ['Gio-2.0', 'Gtk-3.0'],
+                includes: ['Gio-2.0', 'Gtk-4.0'],
                  install: true,
          install_dir_gir: girdir,
      install_dir_typelib: typelibdir,
@@ -274,7 +274,7 @@ if introspection
 
      libhandy_vapi = gnome.generate_vapi(package_api_name,
              sources: libhandy_gir[0],
-            packages: [ 'gio-2.0', 'gtk+-3.0' ],
+            packages: [ 'gio-2.0', 'gtk4' ],
              install: true,
          install_dir: vapidir,
        metadata_dirs: [ meson.current_source_dir() ],
@@ -292,6 +292,6 @@ pkgg.generate(
          name: 'Handy',
      filebase: package_api_name,
   description: 'Handy Mobile widgets',
-     requires: 'gtk+-3.0',
+     requires: 'gtk4',
   install_dir: libdir / 'pkgconfig',
 )
