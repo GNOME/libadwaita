@@ -8,7 +8,7 @@
 
 
 static void
-test_hdy_preferences_group_add (void)
+test_hdy_preferences_group_add_remove (void)
 {
   g_autoptr (HdyPreferencesGroup) group = NULL;
   HdyPreferencesRow *row;
@@ -19,14 +19,17 @@ test_hdy_preferences_group_add (void)
 
   row = HDY_PREFERENCES_ROW (hdy_preferences_row_new ());
   g_assert_nonnull (row);
-  gtk_container_add (GTK_CONTAINER (group), GTK_WIDGET (row));
+  hdy_preferences_group_add (group, GTK_WIDGET (row));
 
   widget = gtk_switch_new ();
   g_assert_nonnull (widget);
-  gtk_container_add (GTK_CONTAINER (group), widget);
+  hdy_preferences_group_add (group, widget);
 
   g_assert (G_TYPE_CHECK_INSTANCE_TYPE (gtk_widget_get_parent (GTK_WIDGET (row)), GTK_TYPE_LIST_BOX));
   g_assert (G_TYPE_CHECK_INSTANCE_TYPE (gtk_widget_get_parent (widget), GTK_TYPE_BOX));
+
+  hdy_preferences_group_remove (group, GTK_WIDGET (row));
+  hdy_preferences_group_remove (group, widget);
 }
 
 
@@ -73,7 +76,7 @@ main (gint argc,
   gtk_test_init (&argc, &argv, NULL);
   hdy_init ();
 
-  g_test_add_func("/Handy/PreferencesGroup/add", test_hdy_preferences_group_add);
+  g_test_add_func("/Handy/PreferencesGroup/add_remove", test_hdy_preferences_group_add_remove);
   g_test_add_func("/Handy/PreferencesGroup/title", test_hdy_preferences_group_title);
   g_test_add_func("/Handy/PreferencesGroup/description", test_hdy_preferences_group_description);
 

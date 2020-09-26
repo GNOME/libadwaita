@@ -10,7 +10,6 @@
 
 G_BEGIN_DECLS
 
-void hdy_preferences_group_add_preferences_to_model (HdyPreferencesGroup *self,
-                                                     GListStore          *model);
+GListModel *hdy_preferences_group_get_rows (HdyPreferencesGroup *self);
 
 G_END_DECLS

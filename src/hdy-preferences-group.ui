@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="3.0"/>
-  <template class="HdyPreferencesGroup" parent="GtkBin">
+  <template class="HdyPreferencesGroup" parent="GtkWidget">
     <child>
       <object class="GtkBox" id="box">
-        <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkLabel" id="title">
+            <property name="visible">False</property>
             <property name="can_focus">False</property>
             <property name="ellipsize">end</property>
             <property name="halign">start</property>
             <property name="xalign">0</property>
-            <property name="no-show-all">True</property>
             <style>
-              <!-- Requires Adwaita from GTK 3.24.14. -->
               <class name="heading"/>
               <!-- Matching elementary class. -->
               <class name="h4"/>
             </style>
-            <accessibility>
-              <relation target="listbox_box" type="label-for"/>
-            </accessibility>
           </object>
         </child>
         <child>
           <object class="GtkLabel" id="description">
+            <property name="visible">False</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="wrap">True</property>
             <property name="wrap-mode">word-char</property>
             <property name="xalign">0</property>
-            <property name="no-show-all">True</property>
             <style>
               <class name="dim-label"/>
             </style>
@@ -40,16 +35,12 @@
         <child>
           <object class="GtkBox" id="listbox_box">
             <property name="orientation">vertical</property>
-            <property name="visible">True</property>
             <accessibility>
-              <relation target="title" type="labelled-by"/>
+              <relation name="labelled-by">title</relation>
             </accessibility>
             <child>
               <object class="GtkListBox" id="listbox">
                 <property name="selection_mode">none</property>
-                <property name="visible">True</property>
-                <signal name="add" handler="update_listbox_visibility" after="yes" swapped="yes"/>
-                <signal name="remove" handler="update_listbox_visibility" after="yes" swapped="yes"/>
                 <signal name="keynav-failed" handler="listbox_keynav_failed_cb" swapped="yes"/>
                 <style>
                   <class name="content"/>

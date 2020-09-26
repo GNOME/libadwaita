@@ -19,7 +19,7 @@ G_BEGIN_DECLS
 #define HDY_TYPE_PREFERENCES_GROUP (hdy_preferences_group_get_type())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_DERIVABLE_TYPE (HdyPreferencesGroup, hdy_preferences_group, HDY, PREFERENCES_GROUP, GtkBin)
+G_DECLARE_DERIVABLE_TYPE (HdyPreferencesGroup, hdy_preferences_group, HDY, PREFERENCES_GROUP, GtkWidget)
 
 /**
  * HdyPreferencesGroupClass
@@ -27,7 +27,7 @@ G_DECLARE_DERIVABLE_TYPE (HdyPreferencesGroup, hdy_preferences_group, HDY, PREFE
  */
 struct _HdyPreferencesGroupClass
 {
-  GtkBinClass parent_class;
+  GtkWidgetClass parent_class;
 
   /*< private >*/
   gpointer padding[4];
@@ -47,5 +47,12 @@ const gchar *hdy_preferences_group_get_description (HdyPreferencesGroup *self);
 HDY_AVAILABLE_IN_ALL
 void         hdy_preferences_group_set_description (HdyPreferencesGroup *self,
                                                     const gchar         *description);
+
+HDY_AVAILABLE_IN_ALL
+void         hdy_preferences_group_add (HdyPreferencesGroup *self,
+                                        GtkWidget           *child);
+HDY_AVAILABLE_IN_ALL
+void         hdy_preferences_group_remove (HdyPreferencesGroup *self,
+                                           GtkWidget           *child);
 
 G_END_DECLS
