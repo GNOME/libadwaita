@@ -39,7 +39,7 @@ flap > shadow.down, leaflet > shadow.down { background-image: linear-gradient(to
 
 flap > outline, leaflet > outline { min-width: 1px; min-height: 1px; background: rgba(255, 255, 255, 0.05); }
 
-avatar { border-radius: 9999px; -gtk-outline-radius: 9999px; font-weight: bold; }
+avatar { border-radius: 9999px; font-weight: bold; }
 
 avatar.color1 { background-image: linear-gradient(#83b6ec, #337fdc); color: #cfe1f5; }
 
@@ -92,10 +92,6 @@ preferencesgroup > box > box:not(:first-child) { margin-top: 12px; }
 /*************************** Check and Radio buttons * */
 popover.combo list { min-width: 200px; }
 
-window.csd.unified:not(.solid-csd) headerbar { border-radius: 0; }
-
-.windowhandle, .windowhandle * { -GtkWidget-window-dragging: true; }
-
 popover.combo { padding: 0px; }
 
 popover.combo list { border-style: none; background-color: transparent; }
@@ -104,19 +100,19 @@ popover.combo list > row { padding: 0px 12px 0px 12px; min-height: 50px; }
 
 popover.combo list > row:not(:last-child) { border-bottom: 1px solid alpha(#1b1b1b, 0.5); }
 
-popover.combo list > row:first-child { border-top-left-radius: 8px; -gtk-outline-top-left-radius: 7px; border-top-right-radius: 8px; -gtk-outline-top-right-radius: 7px; }
+popover.combo list > row:first-child { border-top-left-radius: 8px; border-top-right-radius: 8px; }
 
-popover.combo list > row:last-child { border-bottom-left-radius: 8px; -gtk-outline-bottom-left-radius: 7px; border-bottom-right-radius: 8px; -gtk-outline-bottom-right-radius: 7px; }
+popover.combo list > row:last-child { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
 
-popover.combo overshoot.top { border-top-left-radius: 8px; -gtk-outline-top-left-radius: 7px; border-top-right-radius: 8px; -gtk-outline-top-right-radius: 7px; }
+popover.combo overshoot.top { border-top-left-radius: 8px; border-top-right-radius: 8px; }
 
-popover.combo overshoot.bottom { border-bottom-left-radius: 8px; -gtk-outline-bottom-left-radius: 7px; border-bottom-right-radius: 8px; -gtk-outline-bottom-right-radius: 7px; }
+popover.combo overshoot.bottom { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
 
 popover.combo scrollbar.vertical { padding-top: 2px; padding-bottom: 2px; }
 
-popover.combo scrollbar.vertical:dir(ltr) { border-top-right-radius: 8px; -gtk-outline-top-right-radius: 7px; border-bottom-right-radius: 8px; -gtk-outline-bottom-right-radius: 7px; }
+popover.combo scrollbar.vertical:dir(ltr) { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
 
-popover.combo scrollbar.vertical:dir(rtl) { border-top-left-radius: 8px; -gtk-outline-top-left-radius: 7px; border-bottom-left-radius: 8px; -gtk-outline-bottom-left-radius: 7px; }
+popover.combo scrollbar.vertical:dir(rtl) { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
 
 row.expander { padding: 0px; }
 
@@ -172,7 +168,7 @@ viewswitcher button > stack > box label.active { font-weight: bold; }
 
 viewswitcher button.needs-attention:active > stack > box label, viewswitcher button.needs-attention:checked > stack > box label { animation: none; background-image: none; }
 
-viewswitcher button.needs-attention > stack > box label { animation: needs_attention 150ms ease-in; background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(#3584e4), to(transparent)), -gtk-gradient(radial, center center, 0, center center, 0.5, to(rgba(255, 255, 255, 0.769231)), to(transparent)); background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; background-position: right 0px, right 1px; }
+viewswitcher button.needs-attention > stack > box label { animation: needs_attention 150ms ease-in; background-image: radial-gradient(#3584e4 50%, transparent), radial-gradient(rgba(255, 255, 255, 0.769231) 50%, transparent); background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; background-position: right 0px, right 1px; }
 
 viewswitcher button.needs-attention > stack > box label:backdrop { background-size: 6px 6px, 0 0; }
 
@@ -194,11 +190,11 @@ list.content > row, list.content > row list > row { border-color: alpha(#1b1b1b,
 
 list.content > row:not(:last-child) { border-width: 1px 1px 0px 1px; }
 
-list.content > row:first-child, list.content > row.expander:first-child row.header, list.content > row.expander:checked, list.content > row.expander:checked row.header, list.content > row.expander:checked + row, list.content > row.expander:checked + row.expander row.header { border-top-left-radius: 8px; -gtk-outline-top-left-radius: 7px; border-top-right-radius: 8px; -gtk-outline-top-right-radius: 7px; }
+list.content > row:first-child, list.content > row.expander:first-child row.header, list.content > row.expander:checked, list.content > row.expander:checked row.header, list.content > row.expander:checked + row, list.content > row.expander:checked + row.expander row.header { border-top-left-radius: 8px; border-top-right-radius: 8px; }
 
 list.content > row:last-child, list.content > row.checked-expander-row-previous-sibling, list.content > row.expander:checked { border-width: 1px; }
 
-list.content > row:last-child, list.content > row.checked-expander-row-previous-sibling, list.content > row.expander:checked, list.content > row.expander:not(:checked):last-child row.header, list.content > row.expander.checked-expander-row-previous-sibling:not(:checked) row.header, list.content > row.expander.empty:checked row.header, list.content > row.expander list.nested > row:last-child { border-bottom-left-radius: 8px; -gtk-outline-bottom-left-radius: 7px; border-bottom-right-radius: 8px; -gtk-outline-bottom-right-radius: 7px; }
+list.content > row:last-child, list.content > row.checked-expander-row-previous-sibling, list.content > row.expander:checked, list.content > row.expander:not(:checked):last-child row.header, list.content > row.expander.checked-expander-row-previous-sibling:not(:checked) row.header, list.content > row.expander.empty:checked row.header, list.content > row.expander list.nested > row:last-child { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
 
 list.content > row.expander:checked:not(:first-child), list.content > row.expander:checked + row { margin-top: 6px; }
 

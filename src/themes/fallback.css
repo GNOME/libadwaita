@@ -39,7 +39,7 @@ flap > shadow.down, leaflet > shadow.down { background-image: linear-gradient(to
 
 flap > outline, leaflet > outline { min-width: 1px; min-height: 1px; background: rgba(255, 255, 255, 0.2); }
 
-avatar { border-radius: 9999px; -gtk-outline-radius: 9999px; font-weight: bold; }
+avatar { border-radius: 9999px; font-weight: bold; }
 
 avatar.color1 { background-image: linear-gradient(#83b6ec, #337fdc); color: #cfe1f5; }
 

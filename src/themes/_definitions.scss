@@ -50,7 +50,6 @@ $leaflet_outline: rgba(255, 255, 255, if($variant == 'light', 0.2, 0.05));
   @each $floor in nth(map-get($corners, $border), 1) {
     @each $wall in nth(map-get($corners, $border), 2) {
       border-#{$floor}-#{$wall}-radius: 8px;
-      -gtk-outline-#{$floor}-#{$wall}-radius: 7px;
     }
   }
 }
