@@ -22,10 +22,10 @@ G_BEGIN_DECLS
 #define HDY_TYPE_VIEW_SWITCHER_TITLE (hdy_view_switcher_title_get_type())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_FINAL_TYPE (HdyViewSwitcherTitle, hdy_view_switcher_title, HDY, VIEW_SWITCHER_TITLE, GtkBin)
+G_DECLARE_FINAL_TYPE (HdyViewSwitcherTitle, hdy_view_switcher_title, HDY, VIEW_SWITCHER_TITLE, GtkWidget)
 
 HDY_AVAILABLE_IN_ALL
-HdyViewSwitcherTitle *hdy_view_switcher_title_new (void);
+GtkWidget *hdy_view_switcher_title_new (void);
 
 HDY_AVAILABLE_IN_ALL
 HdyViewSwitcherPolicy hdy_view_switcher_title_get_policy (HdyViewSwitcherTitle *self);

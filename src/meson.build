@@ -97,7 +97,7 @@ src_headers = [
 #  'hdy-value-object.h',
   'hdy-view-switcher.h',
   'hdy-view-switcher-bar.h',
-#  'hdy-view-switcher-title.h',
+  'hdy-view-switcher-title.h',
 #  'hdy-window.h',
 #  'hdy-window-handle.h',
 ]
@@ -152,7 +152,7 @@ src_sources = [
   'hdy-view-switcher.c',
   'hdy-view-switcher-bar.c',
   'hdy-view-switcher-button.c',
-#  'hdy-view-switcher-title.c',
+  'hdy-view-switcher-title.c',
 #  'hdy-window.c',
 #  'hdy-window-handle.c',
 #  'hdy-window-handle-controller.c',

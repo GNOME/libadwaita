@@ -80,7 +80,7 @@ enum {
 
 struct _HdyViewSwitcherTitle
 {
-  GtkBin parent_instance;
+  GtkWidget parent_instance;
 
   HdySqueezer *squeezer;
   GtkLabel *subtitle_label;
@@ -89,11 +89,12 @@ struct _HdyViewSwitcherTitle
   HdyViewSwitcher *view_switcher;
 
   gboolean view_switcher_enabled;
+  GtkSelectionModel *pages;
 };
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE (HdyViewSwitcherTitle, hdy_view_switcher_title, GTK_TYPE_BIN)
+G_DEFINE_TYPE (HdyViewSwitcherTitle, hdy_view_switcher_title, GTK_TYPE_WIDGET)
 
 static void
 update_subtitle_label (HdyViewSwitcherTitle *self)
@@ -106,22 +107,28 @@ update_subtitle_label (HdyViewSwitcherTitle *self)
 }
 
 static void
-count_children_cb (GtkWidget *widget,
-                   gint      *count)
-{
-  (*count)++;
-}
-
-static void
 update_view_switcher_visible (HdyViewSwitcherTitle *self)
 {
-  GtkStack *stack = hdy_view_switcher_get_stack (self->view_switcher);
+  HdySqueezerPage *switcher_page;
   gint count = 0;
 
-  if (self->view_switcher_enabled && stack)
-    gtk_container_foreach (GTK_CONTAINER (stack), (GtkCallback) count_children_cb, &count);
+  if (!self->squeezer)
+    return;
 
-  hdy_squeezer_set_child_enabled (self->squeezer, GTK_WIDGET (self->view_switcher), count > 1);
+  if (self->view_switcher_enabled && self->pages) {
+    guint i, n;
+
+    n = g_list_model_get_n_items (G_LIST_MODEL (self->pages));
+    for (i = 0; i < n; i++) {
+      GtkStackPage *page = g_list_model_get_item (G_LIST_MODEL (self->pages), i);
+
+      if (gtk_stack_page_get_visible (page))
+        count++;
+    }
+  }
+
+  switcher_page = hdy_squeezer_get_page (self->squeezer, GTK_WIDGET (self->view_switcher));
+  hdy_squeezer_page_set_enabled (switcher_page, count > 1);
 }
 
 static void
@@ -203,6 +210,8 @@ hdy_view_switcher_title_dispose (GObject *object) {
     if (stack)
       g_signal_handlers_disconnect_by_func (stack, G_CALLBACK (update_view_switcher_visible), self);
   }
+
+  g_clear_pointer ((GtkWidget **) &self->squeezer, gtk_widget_unparent);
 
   G_OBJECT_CLASS (hdy_view_switcher_title_parent_class)->dispose (object);
 }
@@ -305,6 +314,7 @@ hdy_view_switcher_title_class_init (HdyViewSwitcherTitleClass *klass)
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_css_name (widget_class, "viewswitchertitle");
+  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-view-switcher-title.ui");
@@ -339,7 +349,7 @@ hdy_view_switcher_title_init (HdyViewSwitcherTitle *self)
  *
  * Since: 1.0
  */
-HdyViewSwitcherTitle *
+GtkWidget *
 hdy_view_switcher_title_new (void)
 {
   return g_object_new (HDY_TYPE_VIEW_SWITCHER_TITLE, NULL);
@@ -429,14 +439,17 @@ hdy_view_switcher_title_set_stack (HdyViewSwitcherTitle *self,
   if (previous_stack == stack)
     return;
 
-  if (previous_stack)
-    g_signal_handlers_disconnect_by_func (previous_stack, G_CALLBACK (update_view_switcher_visible), self);
+  if (previous_stack) {
+    g_signal_handlers_disconnect_by_func (self->pages, G_CALLBACK (update_view_switcher_visible), self);
+    g_clear_object (&self->pages);
+  }
 
   hdy_view_switcher_set_stack (self->view_switcher, stack);
 
   if (stack) {
-    g_signal_connect_swapped (stack, "add", G_CALLBACK (update_view_switcher_visible), self);
-    g_signal_connect_swapped (stack, "remove", G_CALLBACK (update_view_switcher_visible), self);
+    self->pages = gtk_stack_get_pages (stack);
+
+    g_signal_connect_swapped (self->pages, "items-changed", G_CALLBACK (update_view_switcher_visible), self);
   }
 
   update_view_switcher_visible (self);

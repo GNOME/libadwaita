@@ -67,8 +67,8 @@ G_BEGIN_DECLS
 */
 #include "hdy-view-switcher.h"
 #include "hdy-view-switcher-bar.h"
-/*
 #include "hdy-view-switcher-title.h"
+/*
 #include "hdy-window.h"
 #include "hdy-window-handle.h"
 */
