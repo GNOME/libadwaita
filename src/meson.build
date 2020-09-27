@@ -72,7 +72,7 @@ src_headers = [
 #  'hdy-carousel-indicator-lines.h',
   'hdy-clamp.h',
 #  'hdy-combo-row.h',
-#  'hdy-deprecation-macros.h',
+  'hdy-deprecation-macros.h',
 #  'hdy-enum-value-object.h',
 #  'hdy-expander-row.h',
 #  'hdy-flap.h',
