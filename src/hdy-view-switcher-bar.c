@@ -76,34 +76,39 @@ enum {
 
 struct _HdyViewSwitcherBar
 {
-  GtkBin parent_instance;
+  GtkWidget parent_instance;
 
   GtkActionBar *action_bar;
   GtkRevealer *revealer;
   HdyViewSwitcher *view_switcher;
 
   HdyViewSwitcherPolicy policy;
+  GtkSelectionModel *pages;
   gboolean reveal;
 };
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE (HdyViewSwitcherBar, hdy_view_switcher_bar, GTK_TYPE_BIN)
-
-static void
-count_children_cb (GtkWidget *widget,
-                   gint      *count)
-{
-  (*count)++;
-}
+G_DEFINE_TYPE (HdyViewSwitcherBar, hdy_view_switcher_bar, GTK_TYPE_WIDGET)
 
 static void
 update_bar_revealed (HdyViewSwitcherBar *self) {
-  GtkStack *stack = hdy_view_switcher_get_stack (self->view_switcher);
   gint count = 0;
 
-  if (self->reveal && stack)
-    gtk_container_foreach (GTK_CONTAINER (stack), (GtkCallback) count_children_cb, &count);
+  if (!self->revealer)
+    return;
+
+  if (self->reveal && self->pages) {
+    guint i, n;
+
+    n = g_list_model_get_n_items (G_LIST_MODEL (self->pages));
+    for (i = 0; i < n; i++) {
+      GtkStackPage *page = g_list_model_get_item (G_LIST_MODEL (self->pages), i);
+
+      if (gtk_stack_page_get_visible (page))
+        count++;
+    }
+  }
 
   gtk_revealer_set_reveal_child (self->revealer, count > 1);
 }
@@ -157,6 +162,18 @@ hdy_view_switcher_bar_set_property (GObject      *object,
 }
 
 static void
+hdy_view_switcher_bar_dispose (GObject *object)
+{
+  HdyViewSwitcherBar *self = HDY_VIEW_SWITCHER_BAR (object);
+
+  g_clear_pointer ((GtkWidget **) &self->action_bar, gtk_widget_unparent);
+  self->revealer = NULL;
+  self->view_switcher = NULL;
+
+  G_OBJECT_CLASS (hdy_view_switcher_bar_parent_class)->dispose (object);
+}
+
+static void
 hdy_view_switcher_bar_class_init (HdyViewSwitcherBarClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -164,6 +181,7 @@ hdy_view_switcher_bar_class_init (HdyViewSwitcherBarClass *klass)
 
   object_class->get_property = hdy_view_switcher_bar_get_property;
   object_class->set_property = hdy_view_switcher_bar_set_property;
+  object_class->dispose = hdy_view_switcher_bar_dispose;
 
   /**
    * HdyViewSwitcherBar:policy:
@@ -211,6 +229,7 @@ hdy_view_switcher_bar_class_init (HdyViewSwitcherBarClass *klass)
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_css_name (widget_class, "viewswitcherbar");
+  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-view-switcher-bar.ui");
@@ -228,7 +247,7 @@ hdy_view_switcher_bar_init (HdyViewSwitcherBar *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  self->revealer = GTK_REVEALER (gtk_bin_get_child (GTK_BIN (self->action_bar)));
+  self->revealer = GTK_REVEALER (gtk_widget_get_first_child (GTK_WIDGET (self->action_bar)));
   update_bar_revealed (self);
   gtk_revealer_set_transition_type (self->revealer, GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP);
 }
@@ -332,14 +351,17 @@ hdy_view_switcher_bar_set_stack (HdyViewSwitcherBar *self,
   if (previous_stack == stack)
     return;
 
-  if (previous_stack)
-    g_signal_handlers_disconnect_by_func (previous_stack, G_CALLBACK (update_bar_revealed), self);
+  if (previous_stack) {
+    g_signal_handlers_disconnect_by_func (self->pages, G_CALLBACK (update_bar_revealed), self);
+    g_clear_object (&self->pages);
+  }
 
   hdy_view_switcher_set_stack (self->view_switcher, stack);
 
   if (stack) {
-    g_signal_connect_swapped (stack, "add", G_CALLBACK (update_bar_revealed), self);
-    g_signal_connect_swapped (stack, "remove", G_CALLBACK (update_bar_revealed), self);
+    self->pages = gtk_stack_get_pages (stack);
+
+    g_signal_connect_swapped (self->pages, "items-changed", G_CALLBACK (update_bar_revealed), self);
   }
 
   update_bar_revealed (self);

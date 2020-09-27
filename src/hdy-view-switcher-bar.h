@@ -22,7 +22,7 @@ G_BEGIN_DECLS
 #define HDY_TYPE_VIEW_SWITCHER_BAR (hdy_view_switcher_bar_get_type())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_FINAL_TYPE (HdyViewSwitcherBar, hdy_view_switcher_bar, HDY, VIEW_SWITCHER_BAR, GtkBin)
+G_DECLARE_FINAL_TYPE (HdyViewSwitcherBar, hdy_view_switcher_bar, HDY, VIEW_SWITCHER_BAR, GtkWidget)
 
 HDY_AVAILABLE_IN_ALL
 GtkWidget *hdy_view_switcher_bar_new (void);
