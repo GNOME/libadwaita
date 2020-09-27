@@ -21,8 +21,6 @@
 
 #include "gtkprogresstrackerprivate.h"
 #include "hdy-animation-private.h"
-#include "hdy-cairo-private.h"
-#include "hdy-css-private.h"
 
 /**
  * SECTION:hdy-squeezer
@@ -51,55 +49,39 @@
  * in a #HdySqueezer widget.
  */
 
-enum  {
-  PROP_0,
-  PROP_HOMOGENEOUS,
-  PROP_VISIBLE_CHILD,
-  PROP_TRANSITION_DURATION,
-  PROP_TRANSITION_TYPE,
-  PROP_TRANSITION_RUNNING,
-  PROP_INTERPOLATE_SIZE,
-  PROP_XALIGN,
-  PROP_YALIGN,
+struct _HdySqueezerPage {
+  GObject parent_instance;
 
-  /* Overridden properties */
-  PROP_ORIENTATION,
-
-  LAST_PROP = PROP_YALIGN + 1,
+  GtkWidget *widget;
+  GtkWidget *last_focus;
+  gboolean enabled;
 };
+
+G_DEFINE_TYPE (HdySqueezerPage, hdy_squeezer_page, G_TYPE_OBJECT)
 
 enum {
-  CHILD_PROP_0,
-  CHILD_PROP_ENABLED,
-
-  LAST_CHILD_PROP,
+  PAGE_PROP_0,
+  PAGE_PROP_CHILD,
+  PAGE_PROP_ENABLED,
+  LAST_PAGE_PROP
 };
 
-typedef struct {
-  GtkWidget *widget;
-  gboolean enabled;
-  GtkWidget *last_focus;
-} HdySqueezerChildInfo;
+static GParamSpec *page_props[LAST_PAGE_PROP];
 
 struct _HdySqueezer
 {
-  GtkContainer parent_instance;
+  GtkWidget parent_instance;
 
   GList *children;
 
-  GdkWindow* bin_window;
-  GdkWindow* view_window;
-
-  HdySqueezerChildInfo *visible_child;
+  HdySqueezerPage *visible_child;
 
   gboolean homogeneous;
 
   HdySqueezerTransitionType transition_type;
   guint transition_duration;
 
-  HdySqueezerChildInfo *last_visible_child;
-  cairo_surface_t *last_visible_surface;
-  GtkAllocation last_visible_surface_allocation;
+  HdySqueezerPage *last_visible_child;
   guint tick_id;
   GtkProgressTracker tracker;
   gboolean first_frame_skipped;
@@ -115,13 +97,212 @@ struct _HdySqueezer
   gfloat yalign;
 
   GtkOrientation orientation;
+
+  GtkSelectionModel *pages;
+};
+
+enum  {
+  PROP_0,
+  PROP_HOMOGENEOUS,
+  PROP_VISIBLE_CHILD,
+  PROP_TRANSITION_DURATION,
+  PROP_TRANSITION_TYPE,
+  PROP_TRANSITION_RUNNING,
+  PROP_INTERPOLATE_SIZE,
+  PROP_XALIGN,
+  PROP_YALIGN,
+  PROP_PAGES,
+
+  /* Overridden properties */
+  PROP_ORIENTATION,
+
+  LAST_PROP = PROP_PAGES + 1,
 };
 
 static GParamSpec *props[LAST_PROP];
-static GParamSpec *child_props[LAST_CHILD_PROP];
 
-G_DEFINE_TYPE_WITH_CODE (HdySqueezer, hdy_squeezer, GTK_TYPE_CONTAINER,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
+static void hdy_squeezer_buildable_init (GtkBuildableIface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (HdySqueezer, hdy_squeezer, GTK_TYPE_WIDGET,
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, hdy_squeezer_buildable_init))
+
+static GtkBuildableIface *parent_buildable_iface;
+
+static void
+hdy_squeezer_page_get_property (GObject    *object,
+                                guint       property_id,
+                                GValue     *value,
+                                GParamSpec *pspec)
+{
+  HdySqueezerPage *self = HDY_SQUEEZER_PAGE (object);
+
+  switch (property_id) {
+  case PAGE_PROP_CHILD:
+    g_value_set_object (value, hdy_squeezer_page_get_child (self));
+    break;
+  case PAGE_PROP_ENABLED:
+    g_value_set_boolean (value, hdy_squeezer_page_get_enabled (self));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+    break;
+  }
+}
+
+static void
+hdy_squeezer_page_set_property (GObject      *object,
+                                guint         property_id,
+                                const GValue *value,
+                                GParamSpec   *pspec)
+{
+  HdySqueezerPage *self = HDY_SQUEEZER_PAGE (object);
+
+  switch (property_id) {
+  case PAGE_PROP_CHILD:
+    g_set_object (&self->widget, g_value_get_object (value));
+    break;
+  case PAGE_PROP_ENABLED:
+    hdy_squeezer_page_set_enabled (self, g_value_get_boolean (value));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+    break;
+  }
+}
+
+static void
+hdy_squeezer_page_finalize (GObject *object)
+{
+  HdySqueezerPage *self = HDY_SQUEEZER_PAGE (object);
+
+  g_clear_object (&self->widget);
+
+  if (self->last_focus)
+    g_object_remove_weak_pointer (G_OBJECT (self->last_focus),
+                                  (gpointer *) &self->last_focus);
+
+  G_OBJECT_CLASS (hdy_squeezer_page_parent_class)->finalize (object);
+}
+
+static void
+hdy_squeezer_page_class_init (HdySqueezerPageClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->get_property = hdy_squeezer_page_get_property;
+  object_class->set_property = hdy_squeezer_page_set_property;
+  object_class->finalize = hdy_squeezer_page_finalize;
+
+  page_props[PAGE_PROP_CHILD] =
+    g_param_spec_object ("child",
+                         _("Child"),
+                         _("The child of the page"),
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+
+  page_props[PAGE_PROP_ENABLED] =
+    g_param_spec_boolean ("enabled",
+                          _("Enabled"),
+                          _("Whether the child can be picked or should be ignored when looking for the child fitting the available size best"),
+                          TRUE,
+                          G_PARAM_READWRITE);
+
+  g_object_class_install_properties (object_class, LAST_PAGE_PROP, page_props);
+}
+
+static void
+hdy_squeezer_page_init (HdySqueezerPage *self)
+{
+  self->enabled = TRUE;
+}
+
+#define HDY_TYPE_SQUEEZER_PAGES (hdy_squeezer_pages_get_type ())
+
+G_DECLARE_FINAL_TYPE (HdySqueezerPages, hdy_squeezer_pages, HDY, SQUEEZER_PAGES, GObject)
+
+struct _HdySqueezerPages
+{
+  GObject parent_instance;
+  HdySqueezer *squeezer;
+};
+
+static GType
+hdy_squeezer_pages_get_item_type (GListModel *model)
+{
+  return HDY_TYPE_SQUEEZER_PAGE;
+}
+
+static guint
+hdy_squeezer_pages_get_n_items (GListModel *model)
+{
+  HdySqueezerPages *self = HDY_SQUEEZER_PAGES (model);
+
+  return g_list_length (self->squeezer->children);
+}
+
+static gpointer
+hdy_squeezer_pages_get_item (GListModel *model,
+                             guint       position)
+{
+  HdySqueezerPages *self = HDY_SQUEEZER_PAGES (model);
+  HdySqueezerPage *page;
+
+  page = g_list_nth_data (self->squeezer->children, position);
+
+  return g_object_ref (page);
+}
+
+static void
+hdy_squeezer_pages_list_model_init (GListModelInterface *iface)
+{
+  iface->get_item_type = hdy_squeezer_pages_get_item_type;
+  iface->get_n_items = hdy_squeezer_pages_get_n_items;
+  iface->get_item = hdy_squeezer_pages_get_item;
+}
+
+static gboolean
+hdy_squeezer_pages_is_selected (GtkSelectionModel *model,
+                                guint              position)
+{
+  HdySqueezerPages *self = HDY_SQUEEZER_PAGES (model);
+  HdySqueezerPage *page;
+
+  page = g_list_nth_data (self->squeezer->children, position);
+
+  return page == self->squeezer->visible_child;
+}
+
+static void
+hdy_squeezer_pages_selection_model_init (GtkSelectionModelInterface *iface)
+{
+  iface->is_selected = hdy_squeezer_pages_is_selected;
+}
+
+G_DEFINE_TYPE_WITH_CODE (HdySqueezerPages, hdy_squeezer_pages, G_TYPE_OBJECT,
+                         G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, hdy_squeezer_pages_list_model_init)
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, hdy_squeezer_pages_selection_model_init))
+
+static void
+hdy_squeezer_pages_init (HdySqueezerPages *pages)
+{
+}
+
+static void
+hdy_squeezer_pages_class_init (HdySqueezerPagesClass *klass)
+{
+}
+
+static HdySqueezerPages *
+hdy_squeezer_pages_new (HdySqueezer *squeezer)
+{
+  HdySqueezerPages *pages;
+
+  pages = g_object_new (HDY_TYPE_SQUEEZER_PAGES, NULL);
+  pages->squeezer = squeezer;
+
+  return pages;
+}
 
 static GtkOrientation
 get_orientation (HdySqueezer *self)
@@ -141,17 +322,17 @@ set_orientation (HdySqueezer    *self,
   g_object_notify (G_OBJECT (self), "orientation");
 }
 
-static HdySqueezerChildInfo *
-find_child_info_for_widget (HdySqueezer *self,
-                            GtkWidget   *child)
+static HdySqueezerPage *
+find_page_for_widget (HdySqueezer *self,
+                      GtkWidget   *child)
 {
-  HdySqueezerChildInfo *info;
+  HdySqueezerPage *page;
   GList *l;
 
   for (l = self->children; l != NULL; l = l->next) {
-    info = l->data;
-    if (info->widget == child)
-      return info;
+    page = l->data;
+    if (page->widget == child)
+      return page;
   }
 
   return NULL;
@@ -160,21 +341,15 @@ find_child_info_for_widget (HdySqueezer *self,
 static void
 hdy_squeezer_progress_updated (HdySqueezer *self)
 {
-  gtk_widget_queue_draw (GTK_WIDGET (self));
-
   if (!self->homogeneous)
     gtk_widget_queue_resize (GTK_WIDGET (self));
+  else
+    gtk_widget_queue_draw (GTK_WIDGET (self));
 
-  if (gtk_progress_tracker_get_state (&self->tracker) == GTK_PROGRESS_STATE_AFTER) {
-    if (self->last_visible_surface != NULL) {
-      cairo_surface_destroy (self->last_visible_surface);
-      self->last_visible_surface = NULL;
-    }
-
-    if (self->last_visible_child != NULL) {
-      gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
-      self->last_visible_child = NULL;
-    }
+  if (gtk_progress_tracker_get_state (&self->tracker) == GTK_PROGRESS_STATE_AFTER &&
+      self->last_visible_child != NULL) {
+    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
+    self->last_visible_child = NULL;
   }
 }
 
@@ -258,16 +433,16 @@ hdy_squeezer_start_transition (HdySqueezer               *self,
 
 static void
 set_visible_child (HdySqueezer               *self,
-                   HdySqueezerChildInfo      *child_info,
+                   HdySqueezerPage           *page,
                    HdySqueezerTransitionType  transition_type,
                    guint                      transition_duration)
 {
-  HdySqueezerChildInfo *info;
   GtkWidget *widget = GTK_WIDGET (self);
-  GList *l;
-  GtkWidget *toplevel;
+  GtkRoot *root;
   GtkWidget *focus;
   gboolean contains_focus = FALSE;
+  guint old_pos = GTK_INVALID_LIST_POSITION;
+  guint new_pos = GTK_INVALID_LIST_POSITION;
 
   /* If we are being destroyed, do not bother with transitions and
    * notifications.
@@ -276,68 +451,78 @@ set_visible_child (HdySqueezer               *self,
     return;
 
   /* If none, pick the first visible. */
-  if (child_info == NULL) {
-    for (l = self->children; l != NULL; l = l->next) {
-      info = l->data;
-      if (gtk_widget_get_visible (info->widget)) {
-        child_info = info;
+  if (!page) {
+    GList *l;
+
+    for (l = self->children; l; l = l->next) {
+      HdySqueezerPage *p = l->data;
+      if (gtk_widget_get_visible (p->widget)) {
+        page = p;
         break;
       }
     }
   }
 
-  if (child_info == self->visible_child)
+  if (page == self->visible_child)
     return;
 
-  toplevel = gtk_widget_get_toplevel (widget);
-  if (GTK_IS_WINDOW (toplevel)) {
-    focus = gtk_window_get_focus (GTK_WINDOW (toplevel));
-    if (focus &&
-        self->visible_child &&
-        self->visible_child->widget &&
-        gtk_widget_is_ancestor (focus, self->visible_child->widget)) {
-      contains_focus = TRUE;
+  if (self->pages) {
+    guint position;
+    GList *l;
 
-      if (self->visible_child->last_focus)
-        g_object_remove_weak_pointer (G_OBJECT (self->visible_child->last_focus),
-                                      (gpointer *)&self->visible_child->last_focus);
-      self->visible_child->last_focus = focus;
-      g_object_add_weak_pointer (G_OBJECT (self->visible_child->last_focus),
-                                 (gpointer *)&self->visible_child->last_focus);
+    for (l = self->children, position = 0; l; l = l->next, position++) {
+      HdySqueezerPage *p = l->data;
+      if (p == self->visible_child)
+        old_pos = position;
+      else if (p == page)
+        new_pos = position;
     }
+  }
+
+  root = gtk_widget_get_root (widget);
+  if (root)
+    focus = gtk_root_get_focus (root);
+  else
+    focus = NULL;
+
+  if (focus &&
+      self->visible_child &&
+      self->visible_child->widget &&
+      gtk_widget_is_ancestor (focus, self->visible_child->widget)) {
+    contains_focus = TRUE;
+
+    if (self->visible_child->last_focus)
+      g_object_remove_weak_pointer (G_OBJECT (self->visible_child->last_focus),
+                                    (gpointer *)&self->visible_child->last_focus);
+    self->visible_child->last_focus = focus;
+    g_object_add_weak_pointer (G_OBJECT (self->visible_child->last_focus),
+                               (gpointer *)&self->visible_child->last_focus);
   }
 
   if (self->last_visible_child != NULL)
     gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
   self->last_visible_child = NULL;
 
-  if (self->last_visible_surface != NULL)
-    cairo_surface_destroy (self->last_visible_surface);
-  self->last_visible_surface = NULL;
-
   if (self->visible_child && self->visible_child->widget) {
     if (gtk_widget_is_visible (widget)) {
-      GtkAllocation allocation;
-
       self->last_visible_child = self->visible_child;
-      gtk_widget_get_allocated_size (self->last_visible_child->widget, &allocation, NULL);
-      self->last_visible_widget_width = allocation.width;
-      self->last_visible_widget_height = allocation.height;
+      self->last_visible_widget_width = gtk_widget_get_width (self->last_visible_child->widget);
+      self->last_visible_widget_height = gtk_widget_get_height (self->last_visible_child->widget);
     } else {
       gtk_widget_set_child_visible (self->visible_child->widget, FALSE);
     }
   }
 
-  self->visible_child = child_info;
+  self->visible_child = page;
 
-  if (child_info) {
-    gtk_widget_set_child_visible (child_info->widget, TRUE);
+  if (page) {
+    gtk_widget_set_child_visible (page->widget, TRUE);
 
     if (contains_focus) {
-      if (child_info->last_focus)
-        gtk_widget_grab_focus (child_info->last_focus);
+      if (page->last_focus)
+        gtk_widget_grab_focus (page->last_focus);
       else
-        gtk_widget_child_focus (child_info->widget, GTK_DIR_TAB_FORWARD);
+        gtk_widget_child_focus (page->widget, GTK_DIR_TAB_FORWARD);
     }
   }
 
@@ -348,7 +533,39 @@ set_visible_child (HdySqueezer               *self,
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD]);
 
+  if (self->pages) {
+    if (old_pos == GTK_INVALID_LIST_POSITION && new_pos == GTK_INVALID_LIST_POSITION)
+      ; /* nothing to do */
+    else if (old_pos == GTK_INVALID_LIST_POSITION)
+      gtk_selection_model_selection_changed (self->pages, new_pos, 1);
+    else if (new_pos == GTK_INVALID_LIST_POSITION)
+      gtk_selection_model_selection_changed (self->pages, old_pos, 1);
+    else
+      gtk_selection_model_selection_changed (self->pages,
+                                             MIN (old_pos, new_pos),
+                                             MAX (old_pos, new_pos) - MIN (old_pos, new_pos) + 1);
+  }
+
   hdy_squeezer_start_transition (self, transition_type, transition_duration);
+}
+
+static void
+update_child_visible (HdySqueezer     *self,
+                      HdySqueezerPage *page)
+{
+  gboolean enabled;
+
+  enabled = page->enabled && gtk_widget_get_visible (page->widget);
+
+  if (self->visible_child == NULL && enabled)
+    set_visible_child (self, page, self->transition_type, self->transition_duration);
+  else if (self->visible_child == page && !enabled)
+    set_visible_child (self, NULL, self->transition_type, self->transition_duration);
+
+  if (page == self->last_visible_child) {
+    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
+    self->last_visible_child = NULL;
+  }
 }
 
 static void
@@ -358,73 +575,52 @@ stack_child_visibility_notify_cb (GObject    *obj,
 {
   HdySqueezer *self = HDY_SQUEEZER (user_data);
   GtkWidget *child = GTK_WIDGET (obj);
-  HdySqueezerChildInfo *child_info;
+  HdySqueezerPage *page;
 
-  child_info = find_child_info_for_widget (self, child);
+  page = find_page_for_widget (self, child);
+  g_return_if_fail (page != NULL);
 
-  if (self->visible_child == NULL &&
-      gtk_widget_get_visible (child))
-    set_visible_child (self, child_info, self->transition_type, self->transition_duration);
-  else if (self->visible_child == child_info &&
-           !gtk_widget_get_visible (child))
-    set_visible_child (self, NULL, self->transition_type, self->transition_duration);
-
-  if (child_info == self->last_visible_child) {
-    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
-    self->last_visible_child = NULL;
-  }
+  update_child_visible (self, page);
 }
 
 static void
-hdy_squeezer_add (GtkContainer *container,
-                  GtkWidget    *child)
+add_page (HdySqueezer     *self,
+          HdySqueezerPage *page)
 {
-  HdySqueezer *self = HDY_SQUEEZER (container);
-  HdySqueezerChildInfo *child_info;
+  g_return_if_fail (page->widget != NULL);
 
-  g_return_if_fail (child != NULL);
+  self->children = g_list_append (self->children, g_object_ref (page));
 
-  child_info = g_slice_new (HdySqueezerChildInfo);
-  child_info->widget = child;
-  child_info->enabled = TRUE;
-  child_info->last_focus = NULL;
+  gtk_widget_set_child_visible (page->widget, FALSE);
+  gtk_widget_set_parent (page->widget, GTK_WIDGET (self));
 
-  self->children = g_list_append (self->children, child_info);
+  if (self->pages)
+    g_list_model_items_changed (G_LIST_MODEL (self->pages), g_list_length (self->children) - 1, 0, 1);
 
-  gtk_widget_set_child_visible (child, FALSE);
-  gtk_widget_set_parent_window (child, self->bin_window);
-  gtk_widget_set_parent (child, GTK_WIDGET (self));
-
-  if (self->bin_window != NULL) {
-    gdk_window_set_events (self->bin_window,
-                           gdk_window_get_events (self->bin_window) |
-                           gtk_widget_get_events (child));
-  }
-
-  g_signal_connect (child, "notify::visible",
+  g_signal_connect (page->widget, "notify::visible",
                     G_CALLBACK (stack_child_visibility_notify_cb), self);
 
   if (self->visible_child == NULL &&
-      gtk_widget_get_visible (child))
-    set_visible_child (self, child_info, self->transition_type, self->transition_duration);
+      gtk_widget_get_visible (page->widget))
+    set_visible_child (self, page, self->transition_type, self->transition_duration);
 
-  if (self->visible_child == child_info)
+  if (self->homogeneous || self->visible_child == page)
     gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
 static void
-hdy_squeezer_remove (GtkContainer *container,
-                     GtkWidget    *child)
+squeezer_remove (HdySqueezer *self,
+                 GtkWidget   *child,
+                 gboolean     in_dispose)
 {
-  HdySqueezer *self = HDY_SQUEEZER (container);
-  HdySqueezerChildInfo *child_info;
+  HdySqueezerPage *page;
   gboolean was_visible;
 
-  child_info = find_child_info_for_widget (self, child);
-  if (child_info == NULL)
+  page = find_page_for_widget (self, child);
+  if (!page)
     return;
 
-  self->children = g_list_remove (self->children, child_info);
+  self->children = g_list_remove (self->children, page);
 
   g_signal_handlers_disconnect_by_func (child,
                                         stack_child_visibility_notify_cb,
@@ -432,21 +628,22 @@ hdy_squeezer_remove (GtkContainer *container,
 
   was_visible = gtk_widget_get_visible (child);
 
-  child_info->widget = NULL;
+  g_clear_object (&page->widget);
 
-  if (self->visible_child == child_info)
-    set_visible_child (self, NULL, self->transition_type, self->transition_duration);
+  if (self->visible_child == page)
+    {
+      if (in_dispose)
+        self->visible_child = NULL;
+      else
+        set_visible_child (self, NULL, self->transition_type, self->transition_duration);
+    }
 
-  if (self->last_visible_child == child_info)
+  if (self->last_visible_child == page)
     self->last_visible_child = NULL;
 
   gtk_widget_unparent (child);
 
-  if (child_info->last_focus)
-    g_object_remove_weak_pointer (G_OBJECT (child_info->last_focus),
-                                  (gpointer *)&child_info->last_focus);
-
-  g_slice_free (HdySqueezerChildInfo, child_info);
+  g_object_unref (page);
 
   if (self->homogeneous && was_visible)
     gtk_widget_queue_resize (GTK_WIDGET (self));
@@ -487,6 +684,9 @@ hdy_squeezer_get_property (GObject    *object,
     break;
   case PROP_ORIENTATION:
     g_value_set_enum (value, get_orientation (self));
+    break;
+  case PROP_PAGES:
+    g_value_set_object (value, hdy_squeezer_get_pages (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -531,129 +731,21 @@ hdy_squeezer_set_property (GObject      *object,
 }
 
 static void
-hdy_squeezer_realize (GtkWidget *widget)
-{
-  HdySqueezer *self = HDY_SQUEEZER (widget);
-  GtkAllocation allocation;
-  GdkWindowAttr attributes = { 0 };
-  GdkWindowAttributesType attributes_mask;
-  HdySqueezerChildInfo *info;
-  GList *l;
-
-  gtk_widget_set_realized (widget, TRUE);
-  gtk_widget_set_window (widget, g_object_ref (gtk_widget_get_parent_window (widget)));
-
-  gtk_widget_get_allocation (widget, &allocation);
-
-  attributes.x = allocation.x;
-  attributes.y = allocation.y;
-  attributes.width = allocation.width;
-  attributes.height = allocation.height;
-  attributes.window_type = GDK_WINDOW_CHILD;
-  attributes.wclass = GDK_INPUT_OUTPUT;
-  attributes.visual = gtk_widget_get_visual (widget);
-  attributes.event_mask =
-    gtk_widget_get_events (widget);
-  attributes_mask = (GDK_WA_X | GDK_WA_Y) | GDK_WA_VISUAL;
-
-  self->view_window =
-    gdk_window_new (gtk_widget_get_window (GTK_WIDGET (self)),
-                    &attributes, attributes_mask);
-  gtk_widget_register_window (widget, self->view_window);
-
-  attributes.x = 0;
-  attributes.y = 0;
-  attributes.width = allocation.width;
-  attributes.height = allocation.height;
-
-  for (l = self->children; l != NULL; l = l->next) {
-    info = l->data;
-    attributes.event_mask |= gtk_widget_get_events (info->widget);
-  }
-
-  self->bin_window =
-    gdk_window_new (self->view_window, &attributes, attributes_mask);
-  gtk_widget_register_window (widget, self->bin_window);
-
-  for (l = self->children; l != NULL; l = l->next) {
-    info = l->data;
-
-    gtk_widget_set_parent_window (info->widget, self->bin_window);
-  }
-
-  gdk_window_show (self->bin_window);
-}
-
-static void
-hdy_squeezer_unrealize (GtkWidget *widget)
-{
-  HdySqueezer *self = HDY_SQUEEZER (widget);
-
-  gtk_widget_unregister_window (widget, self->bin_window);
-  gdk_window_destroy (self->bin_window);
-  self->bin_window = NULL;
-  gtk_widget_unregister_window (widget, self->view_window);
-  gdk_window_destroy (self->view_window);
-  self->view_window = NULL;
-
-  GTK_WIDGET_CLASS (hdy_squeezer_parent_class)->unrealize (widget);
-}
-
-static void
-hdy_squeezer_map (GtkWidget *widget)
-{
-  HdySqueezer *self = HDY_SQUEEZER (widget);
-
-  GTK_WIDGET_CLASS (hdy_squeezer_parent_class)->map (widget);
-
-  gdk_window_show (self->view_window);
-}
-
-static void
-hdy_squeezer_unmap (GtkWidget *widget)
-{
-  HdySqueezer *self = HDY_SQUEEZER (widget);
-
-  gdk_window_hide (self->view_window);
-
-  GTK_WIDGET_CLASS (hdy_squeezer_parent_class)->unmap (widget);
-}
-
-static void
-hdy_squeezer_forall (GtkContainer *container,
-                     gboolean      include_internals,
-                     GtkCallback   callback,
-                     gpointer      callback_data)
-{
-  HdySqueezer *self = HDY_SQUEEZER (container);
-  HdySqueezerChildInfo *child_info;
-  GList *l;
-
-  l = self->children;
-  while (l) {
-    child_info = l->data;
-    l = l->next;
-
-    (* callback) (child_info->widget, callback_data);
-  }
-}
-
-static void
 hdy_squeezer_compute_expand (GtkWidget *widget,
                              gboolean  *hexpand_p,
                              gboolean  *vexpand_p)
 {
   HdySqueezer *self = HDY_SQUEEZER (widget);
   gboolean hexpand, vexpand;
-  HdySqueezerChildInfo *child_info;
+  HdySqueezerPage *page;
   GtkWidget *child;
   GList *l;
 
   hexpand = FALSE;
   vexpand = FALSE;
   for (l = self->children; l != NULL; l = l->next) {
-    child_info = l->data;
-    child = child_info->widget;
+    page = l->data;
+    child = page->widget;
 
     if (!hexpand &&
         gtk_widget_compute_expand (child, GTK_ORIENTATION_HORIZONTAL))
@@ -672,203 +764,162 @@ hdy_squeezer_compute_expand (GtkWidget *widget,
 }
 
 static void
-hdy_squeezer_draw_crossfade (GtkWidget *widget,
-                             cairo_t   *cr)
+hdy_squeezer_snapshot_crossfade (GtkWidget   *widget,
+                                 GtkSnapshot *snapshot)
 {
   HdySqueezer *self = HDY_SQUEEZER (widget);
   gdouble progress = gtk_progress_tracker_get_progress (&self->tracker, FALSE);
 
-  cairo_push_group (cr);
-  gtk_container_propagate_draw (GTK_CONTAINER (self),
-                                self->visible_child->widget,
-                                cr);
-  cairo_save (cr);
+  gtk_snapshot_push_cross_fade (snapshot, progress);
 
-  /* Multiply alpha by progress. */
-  cairo_set_source_rgba (cr, 1, 1, 1, progress);
-  cairo_set_operator (cr, CAIRO_OPERATOR_DEST_IN);
-  cairo_paint (cr);
+  if (self->last_visible_child) {
+    gint width_diff = gtk_widget_get_width (widget) - self->last_visible_widget_width;
+    gint height_diff = gtk_widget_get_height (widget) - self->last_visible_widget_height;
 
-  if (self->last_visible_surface != NULL) {
-    gint width_diff = gtk_widget_get_allocated_width (widget) - self->last_visible_surface_allocation.width;
-    gint height_diff = gtk_widget_get_allocated_height (widget) - self->last_visible_surface_allocation.height;
-
-    cairo_set_source_surface (cr, self->last_visible_surface,
+    gtk_snapshot_translate (snapshot,
+                            &GRAPHENE_POINT_INIT (
                               width_diff * self->xalign,
-                              height_diff * self->yalign);
-    cairo_set_operator (cr, CAIRO_OPERATOR_ADD);
-    cairo_paint_with_alpha (cr, MAX (1.0 - progress, 0));
+                              height_diff * self->yalign
+                            ));
+
+    gtk_widget_snapshot_child (widget,
+                               self->last_visible_child->widget,
+                               snapshot);
   }
 
-  cairo_restore (cr);
+  gtk_snapshot_pop (snapshot);
 
-  cairo_pop_group_to_source (cr);
-  cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
-  cairo_paint (cr);
+  gtk_widget_snapshot_child (widget,
+                             self->visible_child->widget,
+                             snapshot);
+  gtk_snapshot_pop (snapshot);
 }
 
-static gboolean
-hdy_squeezer_draw (GtkWidget *widget,
-                   cairo_t   *cr)
+
+static void
+hdy_squeezer_snapshot (GtkWidget   *widget,
+                       GtkSnapshot *snapshot)
 {
   HdySqueezer *self = HDY_SQUEEZER (widget);
-
-  if (gtk_cairo_should_draw_window (cr, self->view_window)) {
-    GtkStyleContext *context;
-
-    context = gtk_widget_get_style_context (widget);
-    gtk_render_background (context,
-                           cr,
-                           0, 0,
-                           gtk_widget_get_allocated_width (widget),
-                           gtk_widget_get_allocated_height (widget));
-  }
 
   if (self->visible_child) {
     if (gtk_progress_tracker_get_state (&self->tracker) != GTK_PROGRESS_STATE_AFTER) {
-      if (self->last_visible_surface == NULL &&
-          self->last_visible_child != NULL) {
-        g_autoptr (cairo_t) pattern_cr = NULL;
+      gtk_snapshot_push_clip (snapshot,
+                              &GRAPHENE_RECT_INIT(
+                                  0, 0,
+                                  gtk_widget_get_width (widget),
+                                  gtk_widget_get_height (widget)
+                              ));
 
-        gtk_widget_get_allocation (self->last_visible_child->widget,
-                                   &self->last_visible_surface_allocation);
-        self->last_visible_surface =
-          gdk_window_create_similar_surface (gtk_widget_get_window (widget),
-                                             CAIRO_CONTENT_COLOR_ALPHA,
-                                             self->last_visible_surface_allocation.width,
-                                             self->last_visible_surface_allocation.height);
-        pattern_cr = cairo_create (self->last_visible_surface);
-        /* We don't use propagate_draw here, because we don't want to apply the
-         * bin_window offset.
-         */
-        gtk_widget_draw (self->last_visible_child->widget, pattern_cr);
-      }
+      switch (self->active_transition_type)
+        {
+        case GTK_STACK_TRANSITION_TYPE_CROSSFADE:
+          hdy_squeezer_snapshot_crossfade (widget, snapshot);
+          break;
+        case GTK_STACK_TRANSITION_TYPE_NONE:
+        default:
+          g_assert_not_reached ();
+        }
 
-      cairo_rectangle (cr,
-                       0, 0,
-                       gtk_widget_get_allocated_width (widget),
-                       gtk_widget_get_allocated_height (widget));
-      cairo_clip (cr);
-
-      switch (self->active_transition_type) {
-      case HDY_SQUEEZER_TRANSITION_TYPE_CROSSFADE:
-        if (gtk_cairo_should_draw_window (cr, self->bin_window))
-          hdy_squeezer_draw_crossfade (widget, cr);
-        break;
-      case HDY_SQUEEZER_TRANSITION_TYPE_NONE:
-      default:
-        g_assert_not_reached ();
-      }
-
-    } else if (gtk_cairo_should_draw_window (cr, self->bin_window))
-      gtk_container_propagate_draw (GTK_CONTAINER (self),
-                                    self->visible_child->widget,
-                                    cr);
+      gtk_snapshot_pop (snapshot);
+    } else
+      gtk_widget_snapshot_child (widget,
+                                 self->visible_child->widget,
+                                 snapshot);
   }
-
-  return FALSE;
 }
 
 static void
-hdy_squeezer_size_allocate (GtkWidget     *widget,
-                            GtkAllocation *allocation)
+hdy_squeezer_size_allocate (GtkWidget *widget,
+                            gint       width,
+                            gint       height,
+                            gint       baseline)
 {
   HdySqueezer *self = HDY_SQUEEZER (widget);
-  HdySqueezerChildInfo *child_info = NULL;
+  HdySqueezerPage *page = NULL;
   GtkWidget *child = NULL;
   gint child_min;
   GList *l;
   GtkAllocation child_allocation;
 
-  hdy_css_size_allocate (widget, allocation);
+  for (l = self->children; l; l = l->next) {
+    gint for_size = -1;
 
-  gtk_widget_set_allocation (widget, allocation);
-
-  for (l = self->children; l != NULL; l = l->next) {
-    child_info = l->data;
-    child = child_info->widget;
+    page = l->data;
+    child = page->widget;
 
     if (!gtk_widget_get_visible (child))
       continue;
 
-    if (!child_info->enabled)
+    if (!page->enabled)
       continue;
 
     if (self->orientation == GTK_ORIENTATION_VERTICAL) {
-      if (gtk_widget_get_request_mode (child) != GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH)
-        gtk_widget_get_preferred_height (child, &child_min, NULL);
-      else
-        gtk_widget_get_preferred_height_for_width (child, allocation->width, &child_min, NULL);
+      if (gtk_widget_get_request_mode (child) == GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH)
+        for_size = width;
 
-      if (child_min <= allocation->height)
+      gtk_widget_measure (child, self->orientation, for_size,
+                          &child_min, NULL, NULL, NULL);
+
+      if (child_min <= height)
         break;
     } else {
-      if (gtk_widget_get_request_mode (child) != GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT)
-        gtk_widget_get_preferred_width (child, &child_min, NULL);
-      else
-        gtk_widget_get_preferred_width_for_height (child, allocation->height, &child_min, NULL);
+      if (gtk_widget_get_request_mode (child) == GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT)
+        for_size = height;
 
-      if (child_min <= allocation->width)
+      gtk_widget_measure (child, self->orientation, for_size,
+                          &child_min, NULL, NULL, NULL);
+
+      if (child_min <= width)
         break;
     }
   }
 
-  set_visible_child (self, child_info,
+  set_visible_child (self, page,
                      self->transition_type,
                      self->transition_duration);
 
   child_allocation.x = 0;
   child_allocation.y = 0;
 
-  if (gtk_widget_get_realized (widget)) {
-    gdk_window_move_resize (self->view_window,
-                            allocation->x, allocation->y,
-                            allocation->width, allocation->height);
-    gdk_window_move_resize (self->bin_window,
-                            0, 0,
-                            allocation->width, allocation->height);
+  if (self->last_visible_child) {
+    gint min, nat;
+
+    gtk_widget_measure (self->last_visible_child->widget, GTK_ORIENTATION_HORIZONTAL,
+                        -1, &min, &nat, NULL, NULL);
+    child_allocation.width = MAX (min, width);
+    gtk_widget_measure (self->last_visible_child->widget, GTK_ORIENTATION_VERTICAL,
+                        child_allocation.width, &min, &nat, NULL, NULL);
+    child_allocation.height = MAX (min, height);
+
+    gtk_widget_size_allocate (self->last_visible_child->widget, &child_allocation, -1);
   }
 
-  if (self->last_visible_child != NULL) {
-    int min, nat;
-    gtk_widget_get_preferred_width (self->last_visible_child->widget, &min, &nat);
-    child_allocation.width = MAX (min, allocation->width);
-    gtk_widget_get_preferred_height_for_width (self->last_visible_child->widget,
-                                               child_allocation.width,
-                                               &min, &nat);
-    child_allocation.height = MAX (min, allocation->height);
-
-    gtk_widget_size_allocate (self->last_visible_child->widget, &child_allocation);
-  }
-
-  child_allocation.width = allocation->width;
-  child_allocation.height = allocation->height;
+  child_allocation.width = width;
+  child_allocation.height = height;
 
   if (self->visible_child) {
-    int min, nat;
+    gint min, nat;
     GtkAlign valign;
 
-    gtk_widget_get_preferred_height_for_width (self->visible_child->widget,
-                                               allocation->width,
-                                               &min, &nat);
+    gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_VERTICAL,
+                        width, &min, &nat, NULL, NULL);
+
     if (self->interpolate_size) {
       valign = gtk_widget_get_valign (self->visible_child->widget);
-      child_allocation.height = MAX (nat, allocation->height);
+      child_allocation.height = MAX (nat, height);
       if (valign == GTK_ALIGN_END &&
-          child_allocation.height > allocation->height)
-        child_allocation.y -= nat - allocation->height;
+          child_allocation.height > height)
+        child_allocation.y -= nat - height;
       else if (valign == GTK_ALIGN_CENTER &&
-               child_allocation.height > allocation->height)
-        child_allocation.y -= (nat - allocation->height) / 2;
+               child_allocation.height > height)
+        child_allocation.y -= (nat - height) / 2;
     }
 
-    gtk_widget_size_allocate (self->visible_child->widget, &child_allocation);
+    gtk_widget_size_allocate (self->visible_child->widget, &child_allocation, -1);
   }
 }
 
-/* This private method is prefixed by the class name because it will be a
- * virtual method in GTK 4.
- */
 static void
 hdy_squeezer_measure (GtkWidget      *widget,
                       GtkOrientation  orientation,
@@ -879,20 +930,16 @@ hdy_squeezer_measure (GtkWidget      *widget,
                       int            *natural_baseline)
 {
   HdySqueezer *self = HDY_SQUEEZER (widget);
-  HdySqueezerChildInfo *child_info;
-  GtkWidget *child;
   gint child_min, child_nat;
   GList *l;
-
-  *minimum = 0;
-  *natural = 0;
+  gint min = 0, nat = 0;
 
   for (l = self->children; l != NULL; l = l->next) {
-    child_info = l->data;
-    child = child_info->widget;
+    HdySqueezerPage *page = l->data;
+    GtkWidget *child = page->widget;
 
     if (self->orientation != orientation && !self->homogeneous &&
-        self->visible_child != child_info)
+        self->visible_child != page)
       continue;
 
     if (!gtk_widget_get_visible (child))
@@ -903,137 +950,53 @@ hdy_squeezer_measure (GtkWidget      *widget,
      * appearant size and position of a child to changes suddenly when a larger
      * child gets enabled/disabled.
      */
-
-    if (orientation == GTK_ORIENTATION_VERTICAL) {
-      if (for_size < 0)
-        gtk_widget_get_preferred_height (child, &child_min, &child_nat);
-      else
-        gtk_widget_get_preferred_height_for_width (child, for_size, &child_min, &child_nat);
-    } else {
-      if (for_size < 0)
-        gtk_widget_get_preferred_width (child, &child_min, &child_nat);
-      else
-        gtk_widget_get_preferred_width_for_height (child, for_size, &child_min, &child_nat);
-    }
+    gtk_widget_measure (child, orientation, for_size,
+                        &child_min, &child_nat, NULL, NULL);
 
     if (self->orientation == orientation)
-      *minimum = *minimum == 0 ? child_min : MIN (*minimum, child_min);
+      min = min == 0 ? child_min : MIN (min, child_min);
     else
-      *minimum = MAX (*minimum, child_min);
-    *natural = MAX (*natural, child_nat);
+      min = MAX (min, child_min);
+
+    nat = MAX (nat, child_nat);
   }
 
   if (self->orientation != orientation && !self->homogeneous &&
       self->interpolate_size &&
       self->last_visible_child != NULL) {
     gdouble t = gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE);
+
     if (orientation == GTK_ORIENTATION_VERTICAL) {
-      *minimum = hdy_lerp (self->last_visible_widget_height, *minimum, t);
-      *natural = hdy_lerp (self->last_visible_widget_height, *natural, t);
+      min = hdy_lerp (self->last_visible_widget_height, min, t);
+      nat = hdy_lerp (self->last_visible_widget_height, nat, t);
     } else {
-      *minimum = hdy_lerp (self->last_visible_widget_width, *minimum, t);
-      *natural = hdy_lerp (self->last_visible_widget_width, *natural, t);
+      min = hdy_lerp (self->last_visible_widget_width, min, t);
+      nat = hdy_lerp (self->last_visible_widget_width, nat, t);
     }
   }
 
-  hdy_css_measure (widget, orientation, minimum, natural);
-}
-
-static void
-hdy_squeezer_get_preferred_width (GtkWidget *widget,
-                                  gint      *minimum,
-                                  gint      *natural)
-{
-  hdy_squeezer_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
-                        minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_squeezer_get_preferred_width_for_height (GtkWidget *widget,
-                                             gint       height,
-                                             gint      *minimum,
-                                             gint      *natural)
-{
-  hdy_squeezer_measure (widget, GTK_ORIENTATION_HORIZONTAL, height,
-                        minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_squeezer_get_preferred_height (GtkWidget *widget,
-                                   gint      *minimum,
-                                   gint      *natural)
-{
-  hdy_squeezer_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
-                        minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_squeezer_get_preferred_height_for_width (GtkWidget *widget,
-                                             gint       width,
-                                             gint      *minimum,
-                                             gint      *natural)
-{
-  hdy_squeezer_measure (widget, GTK_ORIENTATION_VERTICAL, width,
-                        minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_squeezer_get_child_property (GtkContainer *container,
-                                 GtkWidget    *widget,
-                                 guint         property_id,
-                                 GValue       *value,
-                                 GParamSpec   *pspec)
-{
-  HdySqueezer *self = HDY_SQUEEZER (container);
-  HdySqueezerChildInfo *child_info;
-
-  child_info = find_child_info_for_widget (self, widget);
-  if (child_info == NULL) {
-    g_param_value_set_default (pspec, value);
-
-    return;
-  }
-
-  switch (property_id) {
-  case CHILD_PROP_ENABLED:
-    g_value_set_boolean (value, hdy_squeezer_get_child_enabled (self, widget));
-    break;
-  default:
-    GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID (container, property_id, pspec);
-    break;
-  }
-}
-
-static void
-hdy_squeezer_set_child_property (GtkContainer *container,
-                                 GtkWidget    *widget,
-                                 guint         property_id,
-                                 const GValue *value,
-                                 GParamSpec   *pspec)
-{
-  HdySqueezer *self = HDY_SQUEEZER (container);
-  HdySqueezerChildInfo *child_info;
-
-  child_info = find_child_info_for_widget (self, widget);
-  if (child_info == NULL)
-    return;
-
-  switch (property_id) {
-  case CHILD_PROP_ENABLED:
-    hdy_squeezer_set_child_enabled (self, widget, g_value_get_boolean (value));
-    break;
-  default:
-    GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID (container, property_id, pspec);
-    break;
-  }
+  if (minimum)
+    *minimum = min;
+  if (natural)
+    *natural = nat;
+  if (minimum_baseline)
+    *minimum_baseline = -1;
+  if (natural_baseline)
+    *natural_baseline = -1;
 }
 
 static void
 hdy_squeezer_dispose (GObject *object)
 {
   HdySqueezer *self = HDY_SQUEEZER (object);
+  GtkWidget *child;
 
-  self->visible_child = NULL;
+  if (self->pages)
+    g_list_model_items_changed (G_LIST_MODEL (self->pages), 0,
+                                g_list_length (self->children), 0);
+
+  while ((child = gtk_widget_get_first_child (GTK_WIDGET (self))))
+    squeezer_remove (self, child, TRUE);
 
   G_OBJECT_CLASS (hdy_squeezer_parent_class)->dispose (object);
 }
@@ -1043,10 +1006,11 @@ hdy_squeezer_finalize (GObject *object)
 {
   HdySqueezer *self = HDY_SQUEEZER (object);
 
-  hdy_squeezer_unschedule_ticks (self);
+  if (self->pages)
+    g_object_remove_weak_pointer (G_OBJECT (self->pages),
+                                  (gpointer *) &self->pages);
 
-  if (self->last_visible_surface != NULL)
-    cairo_surface_destroy (self->last_visible_surface);
+  hdy_squeezer_unschedule_ticks (self);
 
   G_OBJECT_CLASS (hdy_squeezer_parent_class)->finalize (object);
 }
@@ -1056,7 +1020,6 @@ hdy_squeezer_class_init (HdySqueezerClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-  GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
 
   object_class->get_property = hdy_squeezer_get_property;
   object_class->set_property = hdy_squeezer_set_property;
@@ -1064,23 +1027,9 @@ hdy_squeezer_class_init (HdySqueezerClass *klass)
   object_class->finalize = hdy_squeezer_finalize;
 
   widget_class->size_allocate = hdy_squeezer_size_allocate;
-  widget_class->draw = hdy_squeezer_draw;
-  widget_class->realize = hdy_squeezer_realize;
-  widget_class->unrealize = hdy_squeezer_unrealize;
-  widget_class->map = hdy_squeezer_map;
-  widget_class->unmap = hdy_squeezer_unmap;
-  widget_class->get_preferred_height = hdy_squeezer_get_preferred_height;
-  widget_class->get_preferred_height_for_width = hdy_squeezer_get_preferred_height_for_width;
-  widget_class->get_preferred_width = hdy_squeezer_get_preferred_width;
-  widget_class->get_preferred_width_for_height = hdy_squeezer_get_preferred_width_for_height;
+  widget_class->snapshot = hdy_squeezer_snapshot;
+  widget_class->measure = hdy_squeezer_measure;
   widget_class->compute_expand = hdy_squeezer_compute_expand;
-
-  container_class->add = hdy_squeezer_add;
-  container_class->remove = hdy_squeezer_remove;
-  container_class->forall = hdy_squeezer_forall;
-  container_class->set_child_property = hdy_squeezer_set_child_property;
-  container_class->get_child_property = hdy_squeezer_get_child_property;
-  gtk_container_class_handle_border_width (container_class);
 
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,
@@ -1173,16 +1122,14 @@ hdy_squeezer_class_init (HdySqueezerClass *klass)
                         0.5,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  props[PROP_PAGES] =
+    g_param_spec_object ("pages",
+                         _("Pages"),
+                         _("A selection model with the squeezer's pages"),
+                         GTK_TYPE_SELECTION_MODEL,
+                         G_PARAM_READABLE);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
-
-  child_props[CHILD_PROP_ENABLED] =
-    g_param_spec_boolean ("enabled",
-                          _("Enabled"),
-                          _("Whether the child can be picked or should be ignored when looking for the child fitting the available size best"),
-                          TRUE,
-                          G_PARAM_READWRITE);
-
-  gtk_container_class_install_child_properties (container_class, LAST_CHILD_PROP, child_props);
 
   gtk_widget_class_set_css_name (widget_class, "squeezer");
 }
@@ -1190,14 +1137,106 @@ hdy_squeezer_class_init (HdySqueezerClass *klass)
 static void
 hdy_squeezer_init (HdySqueezer *self)
 {
-
-  gtk_widget_set_has_window (GTK_WIDGET (self), FALSE);
-
   self->homogeneous = TRUE;
   self->transition_duration = 200;
   self->transition_type = HDY_SQUEEZER_TRANSITION_TYPE_NONE;
   self->xalign = 0.5;
   self->yalign = 0.5;
+}
+
+static void
+hdy_squeezer_buildable_add_child (GtkBuildable *buildable,
+                                  GtkBuilder   *builder,
+                                  GObject      *child,
+                                  const char   *type)
+{
+  if (GTK_IS_STACK_PAGE (child))
+    add_page (HDY_SQUEEZER (buildable), HDY_SQUEEZER_PAGE (child));
+  else if (GTK_IS_WIDGET (child))
+    hdy_squeezer_add (HDY_SQUEEZER (buildable), GTK_WIDGET (child));
+  else
+    parent_buildable_iface->add_child (buildable, builder, child, type);
+}
+
+static void
+hdy_squeezer_buildable_init (GtkBuildableIface *iface)
+{
+  parent_buildable_iface = g_type_interface_peek_parent (iface);
+
+  iface->add_child = hdy_squeezer_buildable_add_child;
+}
+
+/**
+ * hdy_squeezer_page_get_child:
+ * @self: a #HdySqueezerPage
+ *
+ * Returns the squeezer child to which @self belongs.
+ *
+ * Returns: (transfer none): the child to which @self belongs
+ */
+GtkWidget *
+hdy_squeezer_page_get_child (HdySqueezerPage *self)
+{
+  g_return_val_if_fail (HDY_IS_SQUEEZER_PAGE (self), NULL);
+
+  return self->widget;
+}
+
+/**
+ * hdy_squeezer_page_get_enabled:
+ * @self: a #HdySqueezerPage
+ *
+ * Returns whether @self is enabled in its #HdySqueezer. This is independent
+ * from the #GtkWidget:visible value of its #GtkWidget.
+ *
+ * See hdy_squeezer_page_set_enabled().
+ *
+ * Returns: %TRUE if @self is enabled, %FALSE otherwise
+ */
+gboolean
+hdy_squeezer_page_get_enabled (HdySqueezerPage *self)
+{
+  g_return_val_if_fail (HDY_IS_SQUEEZER_PAGE (self), FALSE);
+
+  return self->enabled;
+}
+
+/**
+ * hdy_squeezer_page_set_enabled:
+ * @self: a #HdySqueezerPage
+ * @enabled: %TRUE to enable the child, %FALSE to disable it
+ *
+ * Make the squeezer enable or disable @child. If a child is disabled, it will
+ * be ignored when looking for the child fitting the available size best. This
+ * allows to programmatically and prematurely hide a child even if it fits in
+ * the available space.
+ *
+ * This can be used e.g. to ensure a certain child is hidden below a certain
+ * window width, or any other constraint you find suitable.
+ *
+ * Sets the new value of the #HdySqueezerPage:enabled property to @enabled.
+ */
+void
+hdy_squeezer_page_set_enabled (HdySqueezerPage *self,
+                               gboolean         enabled)
+{
+  g_return_if_fail (HDY_IS_SQUEEZER_PAGE (self));
+
+  enabled = !!enabled;
+
+  if (enabled == self->enabled)
+    return;
+
+  self->enabled = enabled;
+
+  if (self->widget && gtk_widget_get_parent (self->widget)) {
+    HdySqueezer *squeezer = HDY_SQUEEZER (gtk_widget_get_parent (self->widget));
+
+    gtk_widget_queue_resize (GTK_WIDGET (squeezer));
+    update_child_visible (squeezer, self);
+  }
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_ENABLED]);
 }
 
 /**
@@ -1211,6 +1250,85 @@ GtkWidget *
 hdy_squeezer_new (void)
 {
   return g_object_new (HDY_TYPE_SQUEEZER, NULL);
+}
+
+/**
+ * hdy_squeezer_add:
+ * @self: a #HdySqueezer
+ * @child: the widget to add
+ *
+ * Adds a child to @self.
+ *
+ * Returns: (transfer none): the #HdySqueezerPage for @child
+ */
+HdySqueezerPage *
+hdy_squeezer_add (HdySqueezer *self,
+                  GtkWidget   *child)
+{
+  HdySqueezerPage *page;
+
+  g_return_val_if_fail (HDY_IS_SQUEEZER (self), NULL);
+  g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
+
+  page = g_object_new (HDY_TYPE_SQUEEZER_PAGE,
+                       "child", child,
+                       NULL);
+
+  add_page (self, page);
+
+  g_object_unref (page);
+
+  return page;
+}
+
+/**
+ * hdy_squeezer_remove:
+ * @self: a #HdySqueezer
+ * @child: the child to remove
+ *
+ * Removes a child widget from @self.
+ */
+void
+hdy_squeezer_remove (HdySqueezer *self,
+                     GtkWidget   *child)
+{
+  GList *l;
+  guint position;
+
+  g_return_if_fail (HDY_IS_SQUEEZER (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (gtk_widget_get_parent (child) == GTK_WIDGET (self));
+
+  for (l = self->children, position = 0; l; l = l->next, position++) {
+    HdySqueezerPage *page = l->data;
+
+    if (page->widget == child)
+      break;
+  }
+
+  squeezer_remove (self, child, FALSE);
+
+  if (self->pages)
+    g_list_model_items_changed (G_LIST_MODEL (self->pages), position, 1, 0);
+}
+
+/**
+ * hdy_squeezer_get_page:
+ * @self: a #HdySqueezer
+ * @child: a child of @self
+ *
+ * Returns the #HdySqueezerPage object for @child.
+ *
+ * Returns: (transfer none): the #HdySqueezerPage for @child
+ */
+HdySqueezerPage *
+hdy_squeezer_get_page (HdySqueezer *self,
+                       GtkWidget   *child)
+{
+  g_return_val_if_fail (HDY_IS_SQUEEZER (self), NULL);
+  g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
+
+  return find_page_for_widget (self, child);
 }
 
 /**
@@ -1426,70 +1544,6 @@ hdy_squeezer_get_visible_child (HdySqueezer *self)
 }
 
 /**
- * hdy_squeezer_get_child_enabled:
- * @self: a #HdySqueezer
- * @child: a child of @self
- *
- * Gets whether @child is enabled.
- *
- * See hdy_squeezer_set_child_enabled().
- *
- * Returns: %TRUE if @child is enabled, %FALSE otherwise.
- */
-gboolean
-hdy_squeezer_get_child_enabled (HdySqueezer *self,
-                                GtkWidget   *child)
-{
-  HdySqueezerChildInfo *child_info;
-
-  g_return_val_if_fail (HDY_IS_SQUEEZER (self), FALSE);
-  g_return_val_if_fail (GTK_IS_WIDGET (child), FALSE);
-
-  child_info = find_child_info_for_widget (self, child);
-
-  g_return_val_if_fail (child_info != NULL, FALSE);
-
-  return child_info->enabled;
-}
-
-/**
- * hdy_squeezer_set_child_enabled:
- * @self: a #HdySqueezer
- * @child: a child of @self
- * @enabled: %TRUE to enable the child, %FALSE to disable it
- *
- * Make @self enable or disable @child. If a child is disabled, it will be
- * ignored when looking for the child fitting the available size best. This
- * allows to programmatically and prematurely hide a child of @self even if it
- * fits in the available space.
- *
- * This can be used e.g. to ensure a certain child is hidden below a certain
- * window width, or any other constraint you find suitable.
- */
-void
-hdy_squeezer_set_child_enabled (HdySqueezer *self,
-                                GtkWidget   *child,
-                                gboolean     enabled)
-{
-  HdySqueezerChildInfo *child_info;
-
-  g_return_if_fail (HDY_IS_SQUEEZER (self));
-  g_return_if_fail (GTK_IS_WIDGET (child));
-
-  child_info = find_child_info_for_widget (self, child);
-
-  g_return_if_fail (child_info != NULL);
-
-  enabled = !!enabled;
-
-  if (child_info->enabled == enabled)
-    return;
-
-  child_info->enabled = enabled;
-  gtk_widget_queue_resize (GTK_WIDGET (self));
-}
-
-/**
  * hdy_squeezer_get_xalign:
  * @self: a #HdySqueezer
  *
@@ -1573,4 +1627,28 @@ hdy_squeezer_set_yalign (HdySqueezer *self,
   self->yalign = yalign;
   gtk_widget_queue_draw (GTK_WIDGET (self));
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_YALIGN]);
+}
+
+/**
+ * hdy_squeezer_get_pages:
+ * @self: a #HdySqueezer
+ *
+ * Returns a #GListModel that contains the pages of the squeezer, and can be
+ * used to keep an up-to-date view. The model also implements #GtkSelectionModel
+ * and can be used to track the visible page.
+ *
+ * Returns: (transfer full): a #GtkSelectionModel for the squeezer's children
+ */
+GtkSelectionModel *
+hdy_squeezer_get_pages (HdySqueezer *self)
+{
+  g_return_val_if_fail (HDY_IS_SQUEEZER (self), NULL);
+
+  if (self->pages)
+    return g_object_ref (self->pages);
+
+  self->pages = GTK_SELECTION_MODEL (hdy_squeezer_pages_new (self));
+  g_object_add_weak_pointer (G_OBJECT (self->pages), (gpointer *) &self->pages);
+
+  return self->pages;
 }

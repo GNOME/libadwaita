@@ -85,10 +85,7 @@ test_hdy_squeezer_show_hide_child (void)
   g_assert_null (hdy_squeezer_get_visible_child (squeezer));
 
   child = gtk_label_new ("");
-  gtk_container_add (GTK_CONTAINER (squeezer), child);
-  g_assert_null (hdy_squeezer_get_visible_child (squeezer));
-
-  gtk_widget_show (child);
+  hdy_squeezer_add (squeezer, child);
   g_assert (hdy_squeezer_get_visible_child (squeezer) == child);
 
   gtk_widget_hide (child);
@@ -97,7 +94,7 @@ test_hdy_squeezer_show_hide_child (void)
   gtk_widget_show (child);
   g_assert (hdy_squeezer_get_visible_child (squeezer) == child);
 
-  gtk_container_remove (GTK_CONTAINER (squeezer), child);
+  hdy_squeezer_remove (squeezer, child);
   g_assert_null (hdy_squeezer_get_visible_child (squeezer));
 }
 
@@ -121,24 +118,24 @@ test_hdy_squeezer_interpolate_size (void)
 
 
 static void
-test_hdy_squeezer_child_enabled (void)
+test_hdy_squeezer_page_enabled (void)
 {
   g_autoptr (HdySqueezer) squeezer = NULL;
   GtkWidget *child;
+  HdySqueezerPage *page;
 
   squeezer = g_object_ref_sink (HDY_SQUEEZER (hdy_squeezer_new ()));
   g_assert_nonnull (squeezer);
 
   child = gtk_label_new ("");
-  gtk_widget_show (child);
-  gtk_container_add (GTK_CONTAINER (squeezer), child);
-  g_assert_true (hdy_squeezer_get_child_enabled (squeezer, child));
+  page = hdy_squeezer_add (squeezer, child);
+  g_assert_true (hdy_squeezer_page_get_enabled (page));
 
-  hdy_squeezer_set_child_enabled (squeezer, child, FALSE);
-  g_assert_false (hdy_squeezer_get_child_enabled (squeezer, child));
+  hdy_squeezer_page_set_enabled (page, FALSE);
+  g_assert_false (hdy_squeezer_page_get_enabled (page));
 
-  hdy_squeezer_set_child_enabled (squeezer, child, TRUE);
-  g_assert_true (hdy_squeezer_get_child_enabled (squeezer, child));
+  hdy_squeezer_page_set_enabled (page, TRUE);
+  g_assert_true (hdy_squeezer_page_get_enabled (page));
 }
 
 
@@ -155,7 +152,7 @@ main (gint argc,
   g_test_add_func("/Handy/ViewSwitcher/transition_running", test_hdy_squeezer_transition_running);
   g_test_add_func("/Handy/ViewSwitcher/show_hide_child", test_hdy_squeezer_show_hide_child);
   g_test_add_func("/Handy/ViewSwitcher/interpolate_size", test_hdy_squeezer_interpolate_size);
-  g_test_add_func("/Handy/ViewSwitcher/child_enabled", test_hdy_squeezer_child_enabled);
+  g_test_add_func("/Handy/ViewSwitcher/page_enabled", test_hdy_squeezer_page_enabled);
 
   return g_test_run();
 }

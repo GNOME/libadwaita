@@ -13,7 +13,7 @@ hdy_public_enum_headers = [
 #  'hdy-header-group.h',
 #  'hdy-leaflet.h',
 #  'hdy-navigation-direction.h',
-#  'hdy-squeezer.h',
+  'hdy-squeezer.h',
   'hdy-view-switcher.h',
 ]
 
@@ -87,7 +87,7 @@ src_headers = [
   'hdy-preferences-row.h',
 #  'hdy-preferences-window.h',
 #  'hdy-search-bar.h',
-#  'hdy-squeezer.h',
+  'hdy-squeezer.h',
 #  'hdy-status-page.h',
 #  'hdy-swipe-group.h',
 #  'hdy-swipe-tracker.h',
@@ -113,7 +113,7 @@ libhandy_init_public_types = custom_target('hdy-public-types.c',
 )
 
 src_sources = [
-#  'gtkprogresstracker.c',
+  'gtkprogresstracker.c',
 #  'gtk-window.c',
   'hdy-action-row.c',
   'hdy-animation.c',
@@ -142,7 +142,7 @@ src_sources = [
 #  'hdy-preferences-window.c',
 #  'hdy-search-bar.c',
 #  'hdy-shadow-helper.c',
-#  'hdy-squeezer.c',
+  'hdy-squeezer.c',
 #  'hdy-status-page.c',
 #  'hdy-swipe-group.c',
 #  'hdy-swipe-tracker.c',

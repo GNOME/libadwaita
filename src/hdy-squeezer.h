@@ -17,10 +17,24 @@
 
 G_BEGIN_DECLS
 
+#define HDY_TYPE_SQUEEZER_PAGE (hdy_squeezer_page_get_type ())
+
+HDY_AVAILABLE_IN_ALL
+G_DECLARE_FINAL_TYPE (HdySqueezerPage, hdy_squeezer_page, HDY, SQUEEZER_PAGE, GObject)
+
+HDY_AVAILABLE_IN_ALL
+GtkWidget *hdy_squeezer_page_get_child (HdySqueezerPage *self);
+
+HDY_AVAILABLE_IN_ALL
+gboolean hdy_squeezer_page_get_enabled (HdySqueezerPage *self);
+HDY_AVAILABLE_IN_ALL
+void     hdy_squeezer_page_set_enabled (HdySqueezerPage *self,
+                                        gboolean         enabled);
+
 #define HDY_TYPE_SQUEEZER (hdy_squeezer_get_type ())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_FINAL_TYPE (HdySqueezer, hdy_squeezer, HDY, SQUEEZER, GtkContainer)
+G_DECLARE_FINAL_TYPE (HdySqueezer, hdy_squeezer, HDY, SQUEEZER, GtkWidget)
 
 typedef enum {
   HDY_SQUEEZER_TRANSITION_TYPE_NONE,
@@ -29,6 +43,17 @@ typedef enum {
 
 HDY_AVAILABLE_IN_ALL
 GtkWidget *hdy_squeezer_new (void);
+
+HDY_AVAILABLE_IN_ALL
+HdySqueezerPage *hdy_squeezer_add (HdySqueezer *self,
+                                   GtkWidget   *child);
+HDY_AVAILABLE_IN_ALL
+void             hdy_squeezer_remove (HdySqueezer *self,
+                                      GtkWidget   *child);
+
+HDY_AVAILABLE_IN_ALL
+HdySqueezerPage *hdy_squeezer_get_page (HdySqueezer *self,
+                                        GtkWidget   *child);
 
 HDY_AVAILABLE_IN_ALL
 gboolean hdy_squeezer_get_homogeneous (HdySqueezer *self);
@@ -61,14 +86,6 @@ HDY_AVAILABLE_IN_ALL
 GtkWidget *hdy_squeezer_get_visible_child (HdySqueezer *self);
 
 HDY_AVAILABLE_IN_ALL
-gboolean hdy_squeezer_get_child_enabled (HdySqueezer *self,
-                                         GtkWidget   *child);
-HDY_AVAILABLE_IN_ALL
-void     hdy_squeezer_set_child_enabled (HdySqueezer *self,
-                                         GtkWidget   *child,
-                                         gboolean     enabled);
-
-HDY_AVAILABLE_IN_ALL
 gfloat hdy_squeezer_get_xalign (HdySqueezer *self);
 HDY_AVAILABLE_IN_ALL
 void   hdy_squeezer_set_xalign (HdySqueezer *self,
@@ -79,5 +96,8 @@ gfloat hdy_squeezer_get_yalign (HdySqueezer *self);
 HDY_AVAILABLE_IN_ALL
 void   hdy_squeezer_set_yalign (HdySqueezer *self,
                                 gfloat       yalign);
+
+HDY_AVAILABLE_IN_ALL
+GtkSelectionModel *hdy_squeezer_get_pages (HdySqueezer *self);
 
 G_END_DECLS
