@@ -23,9 +23,10 @@
  * Since: 0.0.10
  */
 
+#define TIMEOUT_EXPAND 500
+
 enum {
   PROP_0,
-  PROP_ICON_SIZE,
   PROP_ICON_NAME,
   PROP_NEEDS_ATTENTION,
 
@@ -38,7 +39,7 @@ enum {
 
 struct _HdyViewSwitcherButton
 {
-  GtkRadioButton parent_instance;
+  GtkToggleButton parent_instance;
 
   GtkBox *horizontal_box;
   GtkImage *horizontal_image;
@@ -53,20 +54,31 @@ struct _HdyViewSwitcherButton
   GtkStack *vertical_label_stack;
 
   gchar *icon_name;
-  GtkIconSize icon_size;
   gchar *label;
   GtkOrientation orientation;
+
+  guint switch_timer;
 };
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE_WITH_CODE (HdyViewSwitcherButton, hdy_view_switcher_button, GTK_TYPE_RADIO_BUTTON,
+G_DEFINE_TYPE_WITH_CODE (HdyViewSwitcherButton, hdy_view_switcher_button, GTK_TYPE_TOGGLE_BUTTON,
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
 
-static void
-on_active_changed (HdyViewSwitcherButton *self)
+static gboolean
+hdy_view_switcher_button_switch_timeout (HdyViewSwitcherButton *self)
 {
-  g_return_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self));
+  self->switch_timer = 0;
+
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (self), TRUE);
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+active_changed_cb (HdyViewSwitcherButton *self)
+{
+  g_assert (HDY_IS_VIEW_SWITCHER_BUTTON (self));
 
   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self))) {
     gtk_stack_set_visible_child (self->horizontal_label_stack, GTK_WIDGET (self->horizontal_label_active));
@@ -75,6 +87,24 @@ on_active_changed (HdyViewSwitcherButton *self)
     gtk_stack_set_visible_child (self->horizontal_label_stack, GTK_WIDGET (self->horizontal_label_inactive));
     gtk_stack_set_visible_child (self->vertical_label_stack, GTK_WIDGET (self->vertical_label_inactive));
   }
+}
+
+static void
+drag_enter_cb (HdyViewSwitcherButton *self)
+{
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self)))
+    return;
+
+  self->switch_timer = g_timeout_add (TIMEOUT_EXPAND,
+                                      (GSourceFunc) hdy_view_switcher_button_switch_timeout,
+                                      self);
+  g_source_set_name_by_id (self->switch_timer, "[gtk] hdy_view_switcher_switch_timeout");
+}
+
+static void
+drag_leave_cb (HdyViewSwitcherButton *self)
+{
+  g_clear_handle_id (&self->switch_timer, g_source_remove);
 }
 
 static GtkOrientation
@@ -114,9 +144,6 @@ hdy_view_switcher_button_get_property (GObject    *object,
   case PROP_ICON_NAME:
     g_value_set_string (value, hdy_view_switcher_button_get_icon_name (self));
     break;
-  case PROP_ICON_SIZE:
-    g_value_set_int (value, hdy_view_switcher_button_get_icon_size (self));
-    break;
   case PROP_NEEDS_ATTENTION:
     g_value_set_boolean (value, hdy_view_switcher_button_get_needs_attention (self));
     break;
@@ -144,9 +171,6 @@ hdy_view_switcher_button_set_property (GObject      *object,
   case PROP_ICON_NAME:
     hdy_view_switcher_button_set_icon_name (self, g_value_get_string (value));
     break;
-  case PROP_ICON_SIZE:
-    hdy_view_switcher_button_set_icon_size (self, g_value_get_int (value));
-    break;
   case PROP_NEEDS_ATTENTION:
     hdy_view_switcher_button_set_needs_attention (self, g_value_get_boolean (value));
     break;
@@ -160,6 +184,17 @@ hdy_view_switcher_button_set_property (GObject      *object,
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
     break;
   }
+}
+
+static void
+hdy_view_switcher_button_dispose (GObject *object)
+{
+  HdyViewSwitcherButton *self = HDY_VIEW_SWITCHER_BUTTON (object);
+
+  g_clear_handle_id (&self->switch_timer, g_source_remove);
+  g_clear_pointer ((GtkWidget **) &self->stack, gtk_widget_unparent);
+
+  G_OBJECT_CLASS (hdy_view_switcher_button_parent_class)->dispose (object);
 }
 
 static void
@@ -181,6 +216,7 @@ hdy_view_switcher_button_class_init (HdyViewSwitcherButtonClass *klass)
 
   object_class->get_property = hdy_view_switcher_button_get_property;
   object_class->set_property = hdy_view_switcher_button_set_property;
+  object_class->dispose = hdy_view_switcher_button_dispose;
   object_class->finalize = hdy_view_switcher_button_finalize;
 
   g_object_class_override_property (object_class,
@@ -204,20 +240,6 @@ hdy_view_switcher_button_class_init (HdyViewSwitcherButtonClass *klass)
                          _("Icon name for image"),
                          "text-x-generic-symbolic",
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE);
-
-  /**
-   * HdyViewSwitcherButton:icon-size:
-   *
-   * The icon size.
-   *
-   * Since: 0.0.10
-   */
-  props[PROP_ICON_SIZE] =
-    g_param_spec_int ("icon-size",
-                      _("Icon Size"),
-                      _("Symbolic size to use for named icon"),
-                      0, G_MAXINT, GTK_ICON_SIZE_BUTTON,
-                      G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE);
 
   /**
    * HdyViewSwitcherButton:needs-attention:
@@ -258,23 +280,21 @@ hdy_view_switcher_button_class_init (HdyViewSwitcherButtonClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, vertical_label_active);
   gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, vertical_label_inactive);
   gtk_widget_class_bind_template_child (widget_class, HdyViewSwitcherButton, vertical_label_stack);
-  gtk_widget_class_bind_template_callback (widget_class, on_active_changed);
+  gtk_widget_class_bind_template_callback (widget_class, active_changed_cb);
+  gtk_widget_class_bind_template_callback (widget_class, drag_enter_cb);
+  gtk_widget_class_bind_template_callback (widget_class, drag_leave_cb);
 }
 
 static void
 hdy_view_switcher_button_init (HdyViewSwitcherButton *self)
 {
-  self->icon_size = GTK_ICON_SIZE_BUTTON;
-
   gtk_widget_init_template (GTK_WIDGET (self));
 
   gtk_stack_set_visible_child (GTK_STACK (self->stack), GTK_WIDGET (self->horizontal_box));
 
   gtk_widget_set_focus_on_click (GTK_WIDGET (self), FALSE);
-  /* Make the button look like a regular button and not a radio button. */
-  gtk_toggle_button_set_mode (GTK_TOGGLE_BUTTON (self), FALSE);
 
-  on_active_changed (self);
+  active_changed_cb (self);
 }
 
 /**
@@ -335,47 +355,6 @@ hdy_view_switcher_button_set_icon_name (HdyViewSwitcherButton *self,
 }
 
 /**
- * hdy_view_switcher_button_get_icon_size:
- * @self: a #HdyViewSwitcherButton
- *
- * Gets the icon size used by @self.
- *
- * Returns: the icon size used by @self
- *
- * Since: 0.0.10
- **/
-GtkIconSize
-hdy_view_switcher_button_get_icon_size (HdyViewSwitcherButton *self)
-{
-  g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self), GTK_ICON_SIZE_INVALID);
-
-  return self->icon_size;
-}
-
-/**
- * hdy_view_switcher_button_set_icon_size:
- * @self: a #HdyViewSwitcherButton
- * @icon_size: the new icon size
- *
- * Sets the icon size used by @self.
- *
- * Since: 0.0.10
- */
-void
-hdy_view_switcher_button_set_icon_size (HdyViewSwitcherButton *self,
-                                        GtkIconSize            icon_size)
-{
-  g_return_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self));
-
-  if (self->icon_size == icon_size)
-    return;
-
-  self->icon_size = icon_size;
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_SIZE]);
-}
-
-/**
  * hdy_view_switcher_button_get_needs_attention:
  * @self: a #HdyViewSwitcherButton
  *
@@ -388,13 +367,9 @@ hdy_view_switcher_button_set_icon_size (HdyViewSwitcherButton *self,
 gboolean
 hdy_view_switcher_button_get_needs_attention (HdyViewSwitcherButton *self)
 {
-  GtkStyleContext *context;
-
   g_return_val_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self), FALSE);
 
-  context = gtk_widget_get_style_context (GTK_WIDGET (self));
-
-  return gtk_style_context_has_class (context, GTK_STYLE_CLASS_NEEDS_ATTENTION);
+  return gtk_widget_has_css_class (GTK_WIDGET (self), "needs-attention");
 }
 
 /**
@@ -410,20 +385,17 @@ void
 hdy_view_switcher_button_set_needs_attention (HdyViewSwitcherButton *self,
                                               gboolean               needs_attention)
 {
-  GtkStyleContext *context;
-
   g_return_if_fail (HDY_IS_VIEW_SWITCHER_BUTTON (self));
 
   needs_attention = !!needs_attention;
 
-  context = gtk_widget_get_style_context (GTK_WIDGET (self));
-  if (gtk_style_context_has_class (context, GTK_STYLE_CLASS_NEEDS_ATTENTION) == needs_attention)
+  if (gtk_widget_has_css_class (GTK_WIDGET (self), "needs-attention") == needs_attention)
     return;
 
   if (needs_attention)
-    gtk_style_context_add_class (context, GTK_STYLE_CLASS_NEEDS_ATTENTION);
+    gtk_widget_add_css_class (GTK_WIDGET (self), "needs-attention");
   else
-    gtk_style_context_remove_class (context, GTK_STYLE_CLASS_NEEDS_ATTENTION);
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "needs-attention");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NEEDS_ATTENTION]);
 }
@@ -510,27 +482,16 @@ hdy_view_switcher_button_get_size (HdyViewSwitcherButton *self,
                                    gint                  *v_min_width,
                                    gint                  *v_nat_width)
 {
-  GtkStyleContext *context;
-  GtkStateFlags state;
-  GtkBorder border;
-
   /* gtk_widget_get_preferred_width() doesn't accept both its out parameters to
    * be NULL, so we must have guards.
    */
   if (h_min_width != NULL || h_nat_width != NULL)
-    gtk_widget_get_preferred_width (GTK_WIDGET (self->horizontal_box), h_min_width, h_nat_width);
-  if (v_min_width != NULL || v_nat_width != NULL)
-    gtk_widget_get_preferred_width (GTK_WIDGET (self->vertical_box), v_min_width, v_nat_width);
+    gtk_widget_measure (GTK_WIDGET (self->horizontal_box),
+                        GTK_ORIENTATION_HORIZONTAL, -1,
+                        h_min_width, h_nat_width, NULL, NULL);
 
-  context = gtk_widget_get_style_context (GTK_WIDGET (self));
-  state = gtk_style_context_get_state (context);
-  gtk_style_context_get_border (context, state, &border);
-  if (h_min_width != NULL)
-    *h_min_width += border.left + border.right;
-  if (h_nat_width != NULL)
-    *h_nat_width += border.left + border.right;
-  if (v_min_width != NULL)
-    *v_min_width += border.left + border.right;
-  if (v_nat_width != NULL)
-    *v_nat_width += border.left + border.right;
+  if (v_min_width != NULL || v_nat_width != NULL)
+    gtk_widget_measure (GTK_WIDGET (self->vertical_box),
+                        GTK_ORIENTATION_HORIZONTAL, -1,
+                        v_min_width, v_nat_width, NULL, NULL);
 }

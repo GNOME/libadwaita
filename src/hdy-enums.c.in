@@ -2,15 +2,17 @@
 
 #include "config.h"
 /*
+*/
 #include "hdy-enums.h"
+/*
 #include "hdy-flap.h"
 #include "hdy-header-bar.h"
 #include "hdy-header-group.h"
 #include "hdy-leaflet.h"
 #include "hdy-navigation-direction.h"
 #include "hdy-squeezer.h"
-#include "hdy-view-switcher.h"
 */
+#include "hdy-view-switcher.h"
 
 /*** END file-header ***/
 

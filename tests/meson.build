@@ -41,7 +41,7 @@ test_names = [
 #  'test-status-page',
 #  'test-swipe-group',
 #  'test-value-object',
-#  'test-view-switcher',
+  'test-view-switcher',
 #  'test-view-switcher-bar',
 #  'test-window',
 #  'test-window-handle',

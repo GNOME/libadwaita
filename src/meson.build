@@ -14,7 +14,7 @@ hdy_public_enum_headers = [
 #  'hdy-leaflet.h',
 #  'hdy-navigation-direction.h',
 #  'hdy-squeezer.h',
-#  'hdy-view-switcher.h',
+  'hdy-view-switcher.h',
 ]
 
 hdy_private_enum_headers = [
@@ -95,7 +95,7 @@ src_headers = [
 #  'hdy-title-bar.h',
 #  'hdy-types.h',
 #  'hdy-value-object.h',
-#  'hdy-view-switcher.h',
+  'hdy-view-switcher.h',
 #  'hdy-view-switcher-bar.h',
 #  'hdy-view-switcher-title.h',
 #  'hdy-window.h',
@@ -149,9 +149,9 @@ src_sources = [
 #  'hdy-swipeable.c',
 #  'hdy-title-bar.c',
 #  'hdy-value-object.c',
-#  'hdy-view-switcher.c',
+  'hdy-view-switcher.c',
 #  'hdy-view-switcher-bar.c',
-#  'hdy-view-switcher-button.c',
+  'hdy-view-switcher-button.c',
 #  'hdy-view-switcher-title.c',
 #  'hdy-window.c',
 #  'hdy-window-handle.c',

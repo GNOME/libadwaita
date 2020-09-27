@@ -17,7 +17,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_VIEW_SWITCHER_BUTTON (hdy_view_switcher_button_get_type())
 
-G_DECLARE_FINAL_TYPE (HdyViewSwitcherButton, hdy_view_switcher_button, HDY, VIEW_SWITCHER_BUTTON, GtkRadioButton)
+G_DECLARE_FINAL_TYPE (HdyViewSwitcherButton, hdy_view_switcher_button, HDY, VIEW_SWITCHER_BUTTON, GtkToggleButton)
 
 GtkWidget   *hdy_view_switcher_button_new (void);
 
