@@ -23,8 +23,8 @@ G_BEGIN_DECLS
 #include "hdy-version.h"
 #include "hdy-action-row.h"
 #include "hdy-animation.h"
-/*
 #include "hdy-application-window.h"
+/*
 #include "hdy-avatar.h"
 #include "hdy-carousel.h"
 #include "hdy-carousel-indicator-dots.h"
@@ -68,8 +68,8 @@ G_BEGIN_DECLS
 #include "hdy-view-switcher.h"
 #include "hdy-view-switcher-bar.h"
 #include "hdy-view-switcher-title.h"
-/*
 #include "hdy-window.h"
+/*
 #include "hdy-window-handle.h"
 */
 

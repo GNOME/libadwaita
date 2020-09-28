@@ -30,6 +30,12 @@ struct _HdyApplicationWindowClass
 };
 
 HDY_AVAILABLE_IN_ALL
-GtkWidget *hdy_application_window_new (void);
+GtkWidget *hdy_application_window_new (GtkApplication *app);
+
+HDY_AVAILABLE_IN_ALL
+void       hdy_application_window_set_child (HdyApplicationWindow *self,
+                                             GtkWidget            *child);
+HDY_AVAILABLE_IN_ALL
+GtkWidget *hdy_application_window_get_child (HdyApplicationWindow *self);
 
 G_END_DECLS

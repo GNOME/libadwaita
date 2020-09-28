@@ -321,7 +321,7 @@ window.csd.unified:not(.solid-csd):not(.fullscreen) {
   }
 
   // ...and add it on the window itself
-  > decoration-overlay {
+  > contents > outline {
     // Use a white sheen instead of @borders, as it has to be neutral enough
     // for any content and not just headerbar background
     box-shadow: inset 0 1px rgba(255, 255, 255, if($variant == 'light', 0.34, 0.065));
@@ -329,8 +329,7 @@ window.csd.unified:not(.solid-csd):not(.fullscreen) {
 
   &:not(.tiled):not(.tiled-top):not(.tiled-bottom):not(.tiled-left):not(.tiled-right):not(.maximized) {
     &,
-    > decoration,
-    > decoration-overlay {
+    > contents > outline {
       border-radius: 8px;
     }
   }

@@ -12,7 +12,7 @@ test_hdy_application_window_new (void)
 {
   g_autoptr (GtkWidget) window = NULL;
 
-  window = g_object_ref_sink (hdy_application_window_new ());
+  window = g_object_ref_sink (hdy_application_window_new (NULL));
   g_assert_nonnull (window);
 }
 

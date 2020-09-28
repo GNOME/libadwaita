@@ -65,7 +65,7 @@ libhandy_generated_headers += [hdy_public_enums[1]]
 src_headers = [
   'hdy-action-row.h',
   'hdy-animation.h',
-#  'hdy-application-window.h',
+  'hdy-application-window.h',
 #  'hdy-avatar.h',
 #  'hdy-carousel.h',
 #  'hdy-carousel-indicator-dots.h',
@@ -98,7 +98,7 @@ src_headers = [
   'hdy-view-switcher.h',
   'hdy-view-switcher-bar.h',
   'hdy-view-switcher-title.h',
-#  'hdy-window.h',
+  'hdy-window.h',
 #  'hdy-window-handle.h',
 ]
 
@@ -117,7 +117,7 @@ src_sources = [
 #  'gtk-window.c',
   'hdy-action-row.c',
   'hdy-animation.c',
-#  'hdy-application-window.c',
+  'hdy-application-window.c',
 #  'hdy-avatar.c',
 #  'hdy-carousel.c',
 #  'hdy-carousel-box.c',
@@ -155,10 +155,10 @@ src_sources = [
   'hdy-view-switcher-bar.c',
   'hdy-view-switcher-button.c',
   'hdy-view-switcher-title.c',
-#  'hdy-window.c',
+  'hdy-window.c',
 #  'hdy-window-handle.c',
 #  'hdy-window-handle-controller.c',
-#  'hdy-window-mixin.c',
+  'hdy-window-mixin.c',
 ]
 
 libhandy_public_headers += files(src_headers)

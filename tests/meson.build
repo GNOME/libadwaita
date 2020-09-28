@@ -20,7 +20,7 @@ test_link_args = [
 
 test_names = [
   'test-action-row',
-#  'test-application-window',
+  'test-application-window',
 #  'test-avatar',
 #  'test-carousel',
 #  'test-carousel-indicator-dots',
@@ -43,7 +43,7 @@ test_names = [
 #  'test-value-object',
   'test-view-switcher',
   'test-view-switcher-bar',
-#  'test-window',
+  'test-window',
 #  'test-window-handle',
 ]
 

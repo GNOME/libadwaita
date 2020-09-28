@@ -32,4 +32,10 @@ struct _HdyWindowClass
 HDY_AVAILABLE_IN_ALL
 GtkWidget *hdy_window_new (void);
 
+HDY_AVAILABLE_IN_ALL
+void       hdy_window_set_child (HdyWindow *self,
+                                 GtkWidget *child);
+HDY_AVAILABLE_IN_ALL
+GtkWidget *hdy_window_get_child (HdyWindow *self);
+
 G_END_DECLS

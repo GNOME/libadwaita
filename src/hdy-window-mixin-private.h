@@ -21,22 +21,13 @@ G_DECLARE_FINAL_TYPE (HdyWindowMixin, hdy_window_mixin, HDY, WINDOW_MIXIN, GObje
 HdyWindowMixin *hdy_window_mixin_new (GtkWindow      *window,
                                       GtkWindowClass *klass);
 
-void            hdy_window_mixin_add (HdyWindowMixin *self,
-                                      GtkWidget      *widget);
-void            hdy_window_mixin_remove (HdyWindowMixin *self,
-                                         GtkWidget      *widget);
-void            hdy_window_mixin_forall (HdyWindowMixin *self,
-                                         gboolean        include_internals,
-                                         GtkCallback     callback,
-                                         gpointer        callback_data);
+void            hdy_window_mixin_size_allocate (HdyWindowMixin *self,
+                                                gint            width,
+                                                gint            height,
+                                                gint            baseline);
 
-gboolean        hdy_window_mixin_draw (HdyWindowMixin *self,
-                                       cairo_t        *cr);
-void            hdy_window_mixin_destroy (HdyWindowMixin *self);
-
-void            hdy_window_mixin_buildable_add_child (HdyWindowMixin *self,
-                                                      GtkBuilder     *builder,
-                                                      GObject        *child,
-                                                      const gchar    *type);
+void            hdy_window_mixin_set_child (HdyWindowMixin *self,
+                                            GtkWidget      *child);
+GtkWidget      *hdy_window_mixin_get_child (HdyWindowMixin *self);
 
 G_END_DECLS
