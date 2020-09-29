@@ -17,13 +17,10 @@
     </style>
     <child>
       <object class="GtkBox" id="box">
-        <property name="no-show-all">True</property>
         <property name="orientation">vertical</property>
-        <property name="visible">True</property>
         <child>
           <object class="GtkListBox">
             <property name="selection-mode">none</property>
-            <property name="visible">True</property>
             <!-- The header row is focusable, activatable, and can be activated
                  by clicking it or via keyboard. Activating the row should
                  toggle its expansion. -->
@@ -37,14 +34,11 @@
                      work as expected. -->
                 <property name="can-focus">True</property>
                 <property name="title" bind-source="HdyExpanderRow" bind-property="title" bind-flags="sync-create"/>
-                <property name="visible">True</property>
                 <style>
                   <class name="header"/>
                 </style>
                 <child>
                   <object class="GtkBox" id="actions">
-                    <property name="can_focus">False</property>
-                    <property name="no_show_all">True</property>
                     <property name="spacing">12</property>
                     <property name="visible">False</property>
                   </object>
@@ -52,18 +46,14 @@
                 <child>
                   <object class="GtkSwitch" id="enable_switch">
                     <property name="active" bind-source="HdyExpanderRow" bind-property="enable-expansion" bind-flags="bidirectional|sync-create"/>
-                    <property name="can-focus">True</property>
                     <property name="valign">center</property>
                     <property name="visible" bind-source="HdyExpanderRow" bind-property="show-enable-switch" bind-flags="bidirectional|sync-create"/>
                   </object>
                 </child>
                 <child>
                   <object class="GtkImage" id="image">
-                    <property name="can-focus">False</property>
                     <property name="icon-name">hdy-expander-arrow-symbolic</property>
-                    <property name="icon-size">1</property>
                     <property name="sensitive" bind-source="HdyExpanderRow" bind-property="enable-expansion" bind-flags="sync-create"/>
-                    <property name="visible">True</property>
                     <style>
                       <class name="expander-row-arrow"/>
                     </style>
@@ -77,13 +67,9 @@
           <object class="GtkRevealer">
             <property name="reveal-child" bind-source="HdyExpanderRow" bind-property="expanded" bind-flags="sync-create"/>
             <property name="transition-type">slide-up</property>
-            <property name="visible">True</property>
             <child>
               <object class="GtkListBox" id="list">
                 <property name="selection-mode">none</property>
-                <property name="visible">True</property>
-                <signal name="add" handler="list_children_changed_cb" swapped="yes"/>
-                <signal name="remove" handler="list_children_changed_cb" swapped="yes"/>
                 <style>
                   <class name="nested"/>
                 </style>

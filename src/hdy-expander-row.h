@@ -80,4 +80,11 @@ HDY_AVAILABLE_IN_ALL
 void     hdy_expander_row_add_prefix (HdyExpanderRow *self,
                                       GtkWidget      *widget);
 
+HDY_AVAILABLE_IN_ALL
+void     hdy_expander_row_add (HdyExpanderRow *self,
+                               GtkWidget      *child);
+HDY_AVAILABLE_IN_ALL
+void     hdy_expander_row_remove (HdyExpanderRow *self,
+                                  GtkWidget      *child);
+
 G_END_DECLS

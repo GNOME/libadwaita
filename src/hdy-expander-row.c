@@ -80,18 +80,7 @@ static void
 update_arrow (HdyExpanderRow *self)
 {
   HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
-  GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (self));
-  GtkWidget *previous_sibling = NULL;
-
-  if (parent) {
-    g_autoptr (GList) siblings = gtk_container_get_children (GTK_CONTAINER (parent));
-    GList *l;
-
-    for (l = siblings; l != NULL && l->next != NULL && l->next->data != self; l = l->next);
-
-    if (l && l->next && l->next->data == self)
-      previous_sibling = l->data;
-  }
+  GtkWidget *previous_sibling = gtk_widget_get_prev_sibling (GTK_WIDGET (self));
 
   if (priv->expanded)
     gtk_widget_set_state_flags (GTK_WIDGET (self), GTK_STATE_FLAG_CHECKED, FALSE);
@@ -99,12 +88,10 @@ update_arrow (HdyExpanderRow *self)
     gtk_widget_unset_state_flags (GTK_WIDGET (self), GTK_STATE_FLAG_CHECKED);
 
   if (previous_sibling) {
-    GtkStyleContext *previous_sibling_context = gtk_widget_get_style_context (previous_sibling);
-
     if (priv->expanded)
-      gtk_style_context_add_class (previous_sibling_context, "checked-expander-row-previous-sibling");
+      gtk_widget_add_css_class (previous_sibling, "checked-expander-row-previous-sibling");
     else
-      gtk_style_context_remove_class (previous_sibling_context, "checked-expander-row-previous-sibling");
+      gtk_widget_remove_css_class (previous_sibling, "checked-expander-row-previous-sibling");
   }
 }
 
@@ -173,27 +160,14 @@ hdy_expander_row_set_property (GObject      *object,
 }
 
 static void
-hdy_expander_row_forall (GtkContainer *container,
-                         gboolean      include_internals,
-                         GtkCallback   callback,
-                         gpointer      callback_data)
+hdy_expander_row_dispose (GObject *object)
 {
-  HdyExpanderRow *self = HDY_EXPANDER_ROW (container);
+  HdyExpanderRow *self = HDY_EXPANDER_ROW (object);
   HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
 
-  if (include_internals)
-    GTK_CONTAINER_CLASS (hdy_expander_row_parent_class)->forall (container,
-                                                                 include_internals,
-                                                                 callback,
-                                                                 callback_data);
-  else {
-    if (priv->prefixes)
-      gtk_container_foreach (GTK_CONTAINER (priv->prefixes), callback, callback_data);
-    if (priv->actions)
-      gtk_container_foreach (GTK_CONTAINER (priv->actions), callback, callback_data);
-    if (priv->list)
-      gtk_container_foreach (GTK_CONTAINER (priv->list), callback, callback_data);
-  }
+  g_clear_pointer ((GtkWidget **) &priv->box, gtk_widget_unparent);
+
+  G_OBJECT_CLASS (hdy_expander_row_parent_class)->dispose (object);
 }
 
 static void
@@ -205,73 +179,14 @@ activate_cb (HdyExpanderRow *self)
 }
 
 static void
-count_children_cb (GtkWidget *widget,
-                   gint      *count)
-{
-  (*count)++;
-}
-
-static void
-list_children_changed_cb (HdyExpanderRow *self)
-{
-  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
-  GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
-  gint count = 0;
-
-  gtk_container_foreach (GTK_CONTAINER (priv->list), (GtkCallback) count_children_cb, &count);
-
-  if (count == 0)
-    gtk_style_context_add_class (context, "empty");
-  else
-    gtk_style_context_remove_class (context, "empty");
-}
-
-static void
-hdy_expander_row_add (GtkContainer *container,
-                      GtkWidget    *child)
-{
-  HdyExpanderRow *self = HDY_EXPANDER_ROW (container);
-  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
-
-  /* When constructing the widget, we want the box to be added as the child of
-   * the GtkListBoxRow, as an implementation detail.
-   */
-  if (priv->box == NULL)
-    GTK_CONTAINER_CLASS (hdy_expander_row_parent_class)->add (container, child);
-  else
-    gtk_container_add (GTK_CONTAINER (priv->list), child);
-}
-
-static void
-hdy_expander_row_remove (GtkContainer *container,
-                         GtkWidget    *child)
-{
-  HdyExpanderRow *self = HDY_EXPANDER_ROW (container);
-  HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
-
-  if (child == GTK_WIDGET (priv->box))
-    GTK_CONTAINER_CLASS (hdy_expander_row_parent_class)->remove (container, child);
-  else if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->actions))
-    gtk_container_remove (GTK_CONTAINER (priv->actions), child);
-  else if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->prefixes))
-    gtk_container_remove (GTK_CONTAINER (priv->prefixes), child);
-  else
-    gtk_container_remove (GTK_CONTAINER (priv->list), child);
-}
-
-static void
 hdy_expander_row_class_init (HdyExpanderRowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-  GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
 
   object_class->get_property = hdy_expander_row_get_property;
   object_class->set_property = hdy_expander_row_set_property;
-
-  container_class->add = hdy_expander_row_add;
-  container_class->remove = hdy_expander_row_remove;
-  container_class->forall = hdy_expander_row_forall;
+  object_class->dispose = hdy_expander_row_dispose;
 
   /**
    * HdyExpanderRow:subtitle:
@@ -363,7 +278,6 @@ hdy_expander_row_class_init (HdyExpanderRowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, image);
   gtk_widget_class_bind_template_child_private (widget_class, HdyExpanderRow, enable_switch);
   gtk_widget_class_bind_template_callback (widget_class, activate_cb);
-  gtk_widget_class_bind_template_callback (widget_class, list_children_changed_cb);
 }
 
 #define NOTIFY(func, prop) \
@@ -402,20 +316,23 @@ hdy_expander_row_buildable_add_child (GtkBuildable *buildable,
   HdyExpanderRow *self = HDY_EXPANDER_ROW (buildable);
   HdyExpanderRowPrivate *priv = hdy_expander_row_get_instance_private (self);
 
-  if (priv->box == NULL || !type)
-    gtk_container_add (GTK_CONTAINER (self), GTK_WIDGET (child));
+  if (!priv->box)
+    parent_buildable_iface->add_child (buildable, builder, child, type);
   else if (type && strcmp (type, "action") == 0)
     hdy_expander_row_add_action (self, GTK_WIDGET (child));
   else if (type && strcmp (type, "prefix") == 0)
     hdy_expander_row_add_prefix (self, GTK_WIDGET (child));
+  else if (!type && GTK_IS_WIDGET (child))
+    hdy_expander_row_add (self, GTK_WIDGET (child));
   else
-    GTK_BUILDER_WARN_INVALID_CHILD_TYPE (self, type);
+    parent_buildable_iface->add_child (buildable, builder, child, type);
 }
 
 static void
 hdy_expander_row_buildable_init (GtkBuildableIface *iface)
 {
   parent_buildable_iface = g_type_interface_peek_parent (iface);
+
   iface->add_child = hdy_expander_row_buildable_add_child;
 }
 
@@ -727,7 +644,7 @@ hdy_expander_row_add_action (HdyExpanderRow *self,
 
   priv = hdy_expander_row_get_instance_private (self);
 
-  gtk_box_pack_start (priv->actions, widget, FALSE, TRUE, 0);
+  gtk_box_prepend (priv->actions, widget);
   gtk_widget_show (GTK_WIDGET (priv->actions));
 }
 
@@ -753,10 +670,49 @@ hdy_expander_row_add_prefix (HdyExpanderRow *self,
 
   if (priv->prefixes == NULL) {
     priv->prefixes = GTK_BOX (gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12));
-    gtk_widget_set_no_show_all (GTK_WIDGET (priv->prefixes), TRUE);
-    gtk_widget_set_can_focus (GTK_WIDGET (priv->prefixes), FALSE);
     hdy_action_row_add_prefix (HDY_ACTION_ROW (priv->action_row), GTK_WIDGET (priv->prefixes));
   }
-  gtk_box_pack_start (priv->prefixes, widget, FALSE, TRUE, 0);
-  gtk_widget_show (GTK_WIDGET (priv->prefixes));
+  gtk_box_append (priv->prefixes, widget);
+}
+
+void
+hdy_expander_row_add (HdyExpanderRow *self,
+                      GtkWidget      *child)
+{
+  HdyExpanderRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_EXPANDER_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+
+  priv = hdy_expander_row_get_instance_private (self);
+
+  /* When constructing the widget, we want the box to be added as the child of
+   * the GtkListBoxRow, as an implementation detail.
+   */
+  gtk_list_box_append (priv->list, child);
+
+  gtk_widget_remove_css_class (GTK_WIDGET (self), "empty");
+}
+
+void
+hdy_expander_row_remove (HdyExpanderRow *self,
+                         GtkWidget      *child)
+{
+  HdyExpanderRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_EXPANDER_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+
+  priv = hdy_expander_row_get_instance_private (self);
+
+  if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->actions))
+    gtk_box_remove (priv->actions, child);
+  else if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->prefixes))
+    gtk_box_remove (priv->prefixes, child);
+  else {
+    gtk_list_box_remove (priv->list, child);
+
+    if (!gtk_widget_get_first_child (GTK_WIDGET (priv->list)))
+      gtk_widget_add_css_class (GTK_WIDGET (self), "empty");
+  }
 }
