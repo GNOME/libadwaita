@@ -35,9 +35,7 @@ G_BEGIN_DECLS
 #include "hdy-combo-row.h"
 */
 #include "hdy-deprecation-macros.h"
-/*
 #include "hdy-enum-value-object.h"
-*/
 #include "hdy-expander-row.h"
 /*
 #include "hdy-flap.h"
