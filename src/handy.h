@@ -47,9 +47,7 @@ G_BEGIN_DECLS
 #include "hdy-leaflet.h"
 */
 #include "hdy-main.h"
-/*
 #include "hdy-navigation-direction.h"
-*/
 #include "hdy-preferences-group.h"
 #include "hdy-preferences-page.h"
 #include "hdy-preferences-row.h"
