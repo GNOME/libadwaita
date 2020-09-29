@@ -53,7 +53,6 @@ G_BEGIN_DECLS
 #include "hdy-preferences-row.h"
 /*
 #include "hdy-preferences-window.h"
-#include "hdy-search-bar.h"
 */
 #include "hdy-squeezer.h"
 /*
