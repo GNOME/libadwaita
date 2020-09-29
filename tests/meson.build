@@ -39,7 +39,7 @@ test_names = [
   'test-squeezer',
   'test-status-page',
 #  'test-swipe-group',
-#  'test-value-object',
+  'test-value-object',
   'test-view-switcher',
   'test-view-switcher-bar',
   'test-window',
