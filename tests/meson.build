@@ -30,7 +30,7 @@ test_names = [
 #  'test-flap',
 #  'test-header-bar',
 #  'test-header-group',
-#  'test-keypad',
+  'test-keypad',
 #  'test-leaflet',
   'test-preferences-group',
   'test-preferences-page',

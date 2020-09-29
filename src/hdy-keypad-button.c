@@ -32,7 +32,9 @@ struct _HdyKeypadButton
 {
   GtkButton parent_instance;
 
-  GtkLabel *label, *secondary_label;
+  GtkWidget *box;
+  GtkLabel *label;
+  GtkLabel *secondary_label;
   gchar *symbols;
 };
 
@@ -108,9 +110,6 @@ hdy_keypad_button_get_property (GObject    *object,
   }
 }
 
-/* This private method is prefixed by the call name because it will be a virtual
- * method in GTK 4.
- */
 static void
 hdy_keypad_button_measure (GtkWidget      *widget,
                            GtkOrientation  orientation,
@@ -124,14 +123,10 @@ hdy_keypad_button_measure (GtkWidget      *widget,
   gint min1, min2, nat1, nat2;
 
   if (for_size < 0) {
-    widget_class->get_preferred_width (widget, &min1, &nat1);
-    widget_class->get_preferred_height (widget, &min2, &nat2);
-  }
-  else {
-    if (orientation == GTK_ORIENTATION_HORIZONTAL)
-      widget_class->get_preferred_width_for_height (widget, for_size, &min1, &nat1);
-    else
-      widget_class->get_preferred_height_for_width (widget, for_size, &min1, &nat1);
+    widget_class->measure (widget, GTK_ORIENTATION_HORIZONTAL, -1, &min1, &nat1, NULL, NULL);
+    widget_class->measure (widget, GTK_ORIENTATION_VERTICAL, -1, &min2, &nat2, NULL, NULL);
+  } else {
+    widget_class->measure (widget, orientation, for_size, &min1, &nat1, NULL, NULL);
     min2 = nat2 = for_size;
   }
 
@@ -139,6 +134,10 @@ hdy_keypad_button_measure (GtkWidget      *widget,
     *minimum = MAX (min1, min2);
   if (natural)
     *natural = MAX (nat1, nat2);
+  if (minimum_baseline)
+    *minimum_baseline = -1;
+  if (natural_baseline)
+    *natural_baseline = -1;
 }
 
 static GtkSizeRequestMode
@@ -146,8 +145,10 @@ hdy_keypad_button_get_request_mode (GtkWidget *widget)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (hdy_keypad_button_parent_class);
   gint min1, min2;
-  widget_class->get_preferred_width (widget, &min1, NULL);
-  widget_class->get_preferred_height (widget, &min2, NULL);
+
+  widget_class->measure (widget, GTK_ORIENTATION_HORIZONTAL, -1, &min1, NULL, NULL, NULL);
+  widget_class->measure (widget, GTK_ORIENTATION_VERTICAL, -1, &min2, NULL, NULL, NULL);
+
   if (min1 < min2)
     return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
   else
@@ -155,43 +156,14 @@ hdy_keypad_button_get_request_mode (GtkWidget *widget)
 }
 
 static void
-hdy_keypad_button_get_preferred_width (GtkWidget *widget,
-                                       gint      *minimum_width,
-                                       gint      *natural_width)
+hdy_keypad_button_dispose (GObject *object)
 {
-  hdy_keypad_button_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
-                             minimum_width, natural_width, NULL, NULL);
-}
+  HdyKeypadButton *self = HDY_KEYPAD_BUTTON (object);
 
-static void
-hdy_keypad_button_get_preferred_height (GtkWidget *widget,
-                                        gint      *minimum_height,
-                                        gint      *natural_height)
-{
-  hdy_keypad_button_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
-                             minimum_height, natural_height, NULL, NULL);
-}
+  g_clear_pointer (&self->box, gtk_widget_unparent);
 
-static void
-hdy_keypad_button_get_preferred_width_for_height (GtkWidget *widget,
-                                                  gint       height,
-                                                  gint      *minimum_width,
-                                                  gint      *natural_width)
-{
-  *minimum_width = height;
-  *natural_width = height;
+  G_OBJECT_CLASS (hdy_keypad_button_parent_class)->dispose (object);
 }
-
-static void
-hdy_keypad_button_get_preferred_height_for_width (GtkWidget *widget,
-                                                  gint       width,
-                                                  gint      *minimum_height,
-                                                  gint      *natural_height)
-{
-  *minimum_height = width;
-  *natural_height = width;
-}
-
 
 static void
 hdy_keypad_button_finalize (GObject *object)
@@ -199,9 +171,9 @@ hdy_keypad_button_finalize (GObject *object)
   HdyKeypadButton *self = HDY_KEYPAD_BUTTON (object);
 
   g_clear_pointer (&self->symbols, g_free);
+
   G_OBJECT_CLASS (hdy_keypad_button_parent_class)->finalize (object);
 }
-
 
 static void
 hdy_keypad_button_class_init (HdyKeypadButtonClass *klass)
@@ -211,14 +183,11 @@ hdy_keypad_button_class_init (HdyKeypadButtonClass *klass)
 
   object_class->set_property = hdy_keypad_button_set_property;
   object_class->get_property = hdy_keypad_button_get_property;
-
+  object_class->dispose = hdy_keypad_button_dispose;
   object_class->finalize = hdy_keypad_button_finalize;
 
   widget_class->get_request_mode = hdy_keypad_button_get_request_mode;
-  widget_class->get_preferred_width = hdy_keypad_button_get_preferred_width;
-  widget_class->get_preferred_height = hdy_keypad_button_get_preferred_height;
-  widget_class->get_preferred_width_for_height = hdy_keypad_button_get_preferred_width_for_height;
-  widget_class->get_preferred_height_for_width = hdy_keypad_button_get_preferred_height_for_width;
+  widget_class->measure = hdy_keypad_button_measure;
 
   props[PROP_DIGIT] =
     g_param_spec_int ("digit",
@@ -245,6 +214,7 @@ hdy_keypad_button_class_init (HdyKeypadButtonClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-keypad-button.ui");
+  gtk_widget_class_bind_template_child (widget_class, HdyKeypadButton, box);
   gtk_widget_class_bind_template_child (widget_class, HdyKeypadButton, label);
   gtk_widget_class_bind_template_child (widget_class, HdyKeypadButton, secondary_label);
 }

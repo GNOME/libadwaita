@@ -19,7 +19,7 @@ G_BEGIN_DECLS
 #define HDY_TYPE_KEYPAD (hdy_keypad_get_type())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_FINAL_TYPE (HdyKeypad, hdy_keypad, HDY, KEYPAD, GtkBin)
+G_DECLARE_FINAL_TYPE (HdyKeypad, hdy_keypad, HDY, KEYPAD, GtkWidget)
 
 HDY_AVAILABLE_IN_ALL
 GtkWidget       *hdy_keypad_new                     (gboolean symbols_visible,

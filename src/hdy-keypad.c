@@ -26,20 +26,19 @@
  */
 
 struct _HdyKeypad {
-  GtkBin parent_instance;
+  GtkWidget parent_instance;
 
   GtkEntry *entry;
   GtkWidget *grid;
   GtkWidget *label_asterisk;
   GtkWidget *label_hash;
-  GtkGesture *long_press_zero_gesture;
   guint16 row_spacing;
   guint16 column_spacing;
   gboolean symbols_visible;
   gboolean letters_visible;
 };
 
-G_DEFINE_TYPE (HdyKeypad, hdy_keypad, GTK_TYPE_BIN)
+G_DEFINE_TYPE (HdyKeypad, hdy_keypad, GTK_TYPE_WIDGET)
 
 enum {
   PROP_0,
@@ -59,11 +58,17 @@ symbol_clicked (HdyKeypad *self,
                 gchar      symbol)
 {
   g_autofree gchar *string = g_strdup_printf ("%c", symbol);
+  GtkEntryBuffer *buffer;
+  gint position;
 
   if (!self->entry)
     return;
 
-  g_signal_emit_by_name (self->entry, "insert-at-cursor", string, NULL);
+  buffer = gtk_entry_get_buffer (self->entry);
+  position = gtk_editable_get_position (GTK_EDITABLE (self->entry));
+  gtk_entry_buffer_insert_text (buffer, position, string, 1);
+  gtk_editable_set_position (GTK_EDITABLE (self->entry), position + 1);
+
   /* Set focus to the entry only when it can get focus
    * https://gitlab.gnome.org/GNOME/gtk/issues/2204
    */
@@ -221,14 +226,13 @@ hdy_keypad_get_property (GObject    *object,
 
 
 static void
-hdy_keypad_finalize (GObject *object)
+hdy_keypad_dispose (GObject *object)
 {
   HdyKeypad *self = HDY_KEYPAD (object);
 
-  if (self->long_press_zero_gesture != NULL)
-    g_object_unref (self->long_press_zero_gesture);
+  g_clear_pointer (&self->grid, gtk_widget_unparent);
 
-  G_OBJECT_CLASS (hdy_keypad_parent_class)->finalize (object);
+  G_OBJECT_CLASS (hdy_keypad_parent_class)->dispose (object);
 }
 
 
@@ -238,7 +242,7 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-  object_class->finalize = hdy_keypad_finalize;
+  object_class->dispose = hdy_keypad_dispose;
 
   object_class->set_property = hdy_keypad_set_property;
   object_class->get_property = hdy_keypad_get_property;
@@ -351,14 +355,13 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyKeypad, grid);
   gtk_widget_class_bind_template_child (widget_class, HdyKeypad, label_asterisk);
   gtk_widget_class_bind_template_child (widget_class, HdyKeypad, label_hash);
-  gtk_widget_class_bind_template_child (widget_class, HdyKeypad, long_press_zero_gesture);
 
   gtk_widget_class_bind_template_callback (widget_class, button_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, asterisk_button_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, hash_button_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, long_press_zero_cb);
 
-  gtk_widget_class_set_accessible_role (widget_class, ATK_ROLE_DIAL);
+  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "keypad");
 }
 
@@ -666,7 +669,7 @@ hdy_keypad_set_start_action (HdyKeypad *self,
     return;
 
   if (old_widget != NULL)
-    gtk_container_remove (GTK_CONTAINER (self->grid), old_widget);
+    gtk_grid_remove (GTK_GRID (self->grid), old_widget);
 
   if (start_action != NULL)
     gtk_grid_attach (GTK_GRID (self->grid), start_action, 0, 3, 1, 1);
@@ -720,7 +723,7 @@ hdy_keypad_set_end_action (HdyKeypad *self,
     return;
 
   if (old_widget != NULL)
-    gtk_container_remove (GTK_CONTAINER (self->grid), old_widget);
+    gtk_grid_remove (GTK_GRID (self->grid), old_widget);
 
   if (end_action != NULL)
     gtk_grid_attach (GTK_GRID (self->grid), end_action, 2, 3, 1, 1);
