@@ -57,8 +57,11 @@ struct _HdySwipeTracker
   gboolean allow_mouse_drag;
   GtkOrientation orientation;
 
-  gint start_x;
-  gint start_y;
+  gdouble pointer_x;
+  gdouble pointer_y;
+
+  gdouble start_x;
+  gdouble start_y;
   gboolean use_capture_phase;
 
   guint32 prev_time;
@@ -70,10 +73,12 @@ struct _HdySwipeTracker
 
   gdouble prev_offset;
 
-  gboolean is_scrolling;
-
   HdySwipeTrackerState state;
+
+  GtkEventController *motion_controller;
+  GtkEventController *scroll_controller;
   GtkGesture *touch_gesture;
+  GtkGesture *touch_gesture_capture;
 };
 
 G_DEFINE_TYPE_WITH_CODE (HdySwipeTracker, hdy_swipe_tracker, G_TYPE_OBJECT,
@@ -102,45 +107,6 @@ enum {
 
 static guint signals[SIGNAL_LAST_SIGNAL];
 
-static gboolean
-get_widget_coordinates (HdySwipeTracker *self,
-                        GdkEvent        *event,
-                        gdouble         *x,
-                        gdouble         *y)
-{
-  GdkWindow *window = gdk_event_get_window (event);
-  gdouble tx, ty, out_x = -1, out_y = -1;
-
-  if (!gdk_event_get_coords (event, &tx, &ty))
-    goto out;
-
-  while (window && window != gtk_widget_get_window (GTK_WIDGET (self->swipeable))) {
-    gint window_x, window_y;
-
-    gdk_window_get_position (window, &window_x, &window_y);
-
-    tx += window_x;
-    ty += window_y;
-
-    window = gdk_window_get_parent (window);
-  }
-
-  if (window) {
-    out_x = tx;
-    out_y = ty;
-    goto out;
-  }
-
-out:
-  if (x)
-    *x = out_x;
-
-  if (y)
-    *y = out_y;
-
-  return out_x >= 0 && out_y >= 0;
-}
-
 static void
 reset (HdySwipeTracker *self)
 {
@@ -159,9 +125,6 @@ reset (HdySwipeTracker *self)
   self->velocity = 0;
 
   self->cancelled = FALSE;
-
-  if (self->swipeable)
-    gtk_grab_remove (GTK_WIDGET (self->swipeable));
 }
 
 static void
@@ -208,34 +171,27 @@ gesture_prepare (HdySwipeTracker        *self,
 }
 
 static void
-gesture_begin (HdySwipeTracker *self)
+gesture_begin (HdySwipeTracker *self,
+               guint32          time)
 {
-  g_autoptr (GdkEvent) event = NULL;
-
   if (self->state != HDY_SWIPE_TRACKER_STATE_PENDING)
     return;
 
-  event = gtk_get_current_event ();
-  self->prev_time = gdk_event_get_time (event);
+  self->prev_time = time;
   self->state = HDY_SWIPE_TRACKER_STATE_SCROLLING;
-
-  gtk_grab_add (GTK_WIDGET (self->swipeable));
 }
 
 static void
 gesture_update (HdySwipeTracker *self,
-                gdouble          delta)
+                gdouble          delta,
+                guint32          time)
 {
-  g_autoptr (GdkEvent) event = NULL;
-  guint32 time;
   gdouble progress;
   gdouble first_point, last_point;
 
   if (self->state != HDY_SWIPE_TRACKER_STATE_SCROLLING)
     return;
 
-  event = gtk_get_current_event ();
-  time = gdk_event_get_time (event);
   if (time != self->prev_time)
     self->velocity = delta / (time - self->prev_time);
 
@@ -326,10 +282,10 @@ gesture_end (HdySwipeTracker *self,
 
   hdy_swipe_tracker_emit_end_swipe (self, duration, end_progress);
 
-  if (self->cancelled)
-    reset (self);
-  else
+  if (!self->cancelled)
     self->state = HDY_SWIPE_TRACKER_STATE_FINISHING;
+
+  reset (self);
 }
 
 static void
@@ -347,17 +303,118 @@ gesture_cancel (HdySwipeTracker *self,
   gesture_end (self, distance);
 }
 
+static gboolean
+should_suppress_drag (HdySwipeTracker *self,
+                      GtkWidget       *widget)
+{
+  GtkWidget *parent = widget;
+  gboolean found_window_handle = FALSE;
+
+  while (parent && parent != GTK_WIDGET (self->swipeable)) {
+    found_window_handle |= GTK_IS_WINDOW_HANDLE (parent);
+
+    parent = gtk_widget_get_parent (parent);
+  }
+
+  return found_window_handle;
+}
+
+static gboolean
+has_conflicts (HdySwipeTracker *self,
+               GtkWidget       *widget)
+{
+  HdySwipeTracker *other;
+
+  if (widget == GTK_WIDGET (self->swipeable))
+    return TRUE;
+
+  if (!HDY_IS_SWIPEABLE (widget))
+    return FALSE;
+
+  other = hdy_swipeable_get_swipe_tracker (HDY_SWIPEABLE (widget));
+
+  return self->orientation == other->orientation;
+}
+
+/* HACK: Since we don't have _gtk_widget_consumes_motion(), we can't do a proper
+ * check for whether we can drag from a widget or not. So we trust the widgets
+ * to propagate or stop their events. However, GtkButton stops press events,
+ * making it impossible to drag from it.
+ */
+static gboolean
+should_force_drag (HdySwipeTracker *self,
+                   GtkWidget       *widget)
+{
+  GtkWidget *parent = widget;
+  gboolean found_button = FALSE;
+
+  while (parent && !has_conflicts (self, parent)) {
+    found_button |= GTK_IS_BUTTON (parent);
+
+    parent = gtk_widget_get_parent (parent);
+  }
+
+  return found_button && parent == GTK_WIDGET (self->swipeable);
+}
+
+static void
+drag_capture_begin_cb (HdySwipeTracker *self,
+                       gdouble          start_x,
+                       gdouble          start_y,
+                       GtkGestureDrag  *gesture)
+{
+  GtkWidget *widget;
+
+  if (self->state != HDY_SWIPE_TRACKER_STATE_NONE) {
+    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
+  widget = gtk_widget_pick (GTK_WIDGET (self->swipeable),
+                            start_x,
+                            start_y,
+                            GTK_PICK_DEFAULT);
+
+  if (should_suppress_drag (self, widget) || !should_force_drag (self, widget)) {
+    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
+  self->use_capture_phase = TRUE;
+
+  self->start_x = start_x;
+  self->start_y = start_y;
+
+  gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
+}
+
 static void
 drag_begin_cb (HdySwipeTracker *self,
                gdouble          start_x,
                gdouble          start_y,
                GtkGestureDrag  *gesture)
 {
-  if (self->state != HDY_SWIPE_TRACKER_STATE_NONE)
-    gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
+  GtkWidget *widget;
+
+  if (self->state != HDY_SWIPE_TRACKER_STATE_NONE) {
+    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
+  widget = gtk_widget_pick (GTK_WIDGET (self->swipeable),
+                          start_x,
+                          start_y,
+                          GTK_PICK_DEFAULT);
+
+  if (should_suppress_drag (self, widget)) {
+    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
 
   self->start_x = start_x;
   self->start_y = start_y;
+
+  gtk_gesture_set_state (self->touch_gesture_capture, GTK_EVENT_SEQUENCE_DENIED);
 }
 
 static void
@@ -368,6 +425,7 @@ drag_update_cb (HdySwipeTracker *self,
 {
   gdouble offset, distance;
   gboolean is_vertical, is_offset_vertical;
+  guint32 time;
 
   distance = hdy_swipeable_get_distance (self->swipeable);
 
@@ -383,7 +441,7 @@ drag_update_cb (HdySwipeTracker *self,
   is_offset_vertical = (ABS (offset_y) > ABS (offset_x));
 
   if (self->state == HDY_SWIPE_TRACKER_STATE_REJECTED) {
-    gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
+    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
     return;
   }
 
@@ -391,9 +449,11 @@ drag_update_cb (HdySwipeTracker *self,
     if (is_vertical == is_offset_vertical)
       gesture_prepare (self, offset > 0 ? HDY_NAVIGATION_DIRECTION_FORWARD : HDY_NAVIGATION_DIRECTION_BACK, TRUE);
     else
-      gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
+      gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
     return;
   }
+
+  time = gtk_event_controller_get_current_event_time (GTK_EVENT_CONTROLLER (gesture));
 
   if (self->state == HDY_SWIPE_TRACKER_STATE_PENDING) {
     gdouble drag_distance;
@@ -408,17 +468,17 @@ drag_update_cb (HdySwipeTracker *self,
 
     if (drag_distance >= DRAG_THRESHOLD_DISTANCE) {
       if ((is_vertical == is_offset_vertical) && !is_overshooting) {
-        gesture_begin (self);
+        gesture_begin (self, time);
         self->prev_offset = offset;
-        gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_CLAIMED);
+        gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
       } else {
-        gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
+        gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
       }
     }
   }
 
   if (self->state == HDY_SWIPE_TRACKER_STATE_SCROLLING) {
-    gesture_update (self, offset - self->prev_offset);
+    gesture_update (self, offset - self->prev_offset, time);
     self->prev_offset = offset;
   }
 }
@@ -464,71 +524,50 @@ drag_cancel_cb (HdySwipeTracker  *self,
 
 static gboolean
 handle_scroll_event (HdySwipeTracker *self,
-                     GdkEvent        *event,
-                     gboolean         capture)
+                     GdkEvent        *event)
 {
   GdkDevice *source_device;
   GdkInputSource input_source;
   gdouble dx, dy, delta, distance;
   gboolean is_vertical;
-  gboolean is_delta_vertical;
+  guint32 time;
 
   is_vertical = (self->orientation == GTK_ORIENTATION_VERTICAL);
   distance = is_vertical ? TOUCHPAD_BASE_DISTANCE_V : TOUCHPAD_BASE_DISTANCE_H;
 
-  if (gdk_event_get_scroll_direction (event, NULL))
+  if (gdk_scroll_event_get_direction (event) != GDK_SCROLL_SMOOTH)
     return GDK_EVENT_PROPAGATE;
 
-  source_device = gdk_event_get_source_device (event);
+  source_device = gdk_event_get_device (event);
   input_source = gdk_device_get_source (source_device);
   if (input_source != GDK_SOURCE_TOUCHPAD)
     return GDK_EVENT_PROPAGATE;
 
-  gdk_event_get_scroll_deltas (event, &dx, &dy);
+  gdk_scroll_event_get_deltas (event, &dx, &dy);
   delta = is_vertical ? dy : dx;
   if (self->reversed)
     delta = -delta;
 
-  is_delta_vertical = (ABS (dy) > ABS (dx));
-
-  if (self->is_scrolling) {
-    gesture_cancel (self, distance);
-
-    if (gdk_event_is_scroll_stop_event (event))
-      self->is_scrolling = FALSE;
-
-    return GDK_EVENT_PROPAGATE;
-  }
-
   if (self->state == HDY_SWIPE_TRACKER_STATE_REJECTED) {
-    if (gdk_event_is_scroll_stop_event (event))
+    if (gdk_scroll_event_is_stop (event))
       reset (self);
 
     return GDK_EVENT_PROPAGATE;
   }
 
   if (self->state == HDY_SWIPE_TRACKER_STATE_NONE) {
-    if (gdk_event_is_scroll_stop_event (event))
+    if (gdk_scroll_event_is_stop (event))
       return GDK_EVENT_PROPAGATE;
 
-    if (is_vertical == is_delta_vertical) {
-      if (!capture) {
-        gdouble event_x, event_y;
+    self->start_x = self->pointer_x;
+    self->start_y = self->pointer_y;
 
-        get_widget_coordinates (self, event, &event_x, &event_y);
-
-        self->start_x = (gint) round (event_x);
-        self->start_y = (gint) round (event_y);
-
-        gesture_prepare (self, delta > 0 ? HDY_NAVIGATION_DIRECTION_FORWARD : HDY_NAVIGATION_DIRECTION_BACK, FALSE);
-      }
-    } else {
-      self->is_scrolling = TRUE;
-      return GDK_EVENT_PROPAGATE;
-    }
+    gesture_prepare (self, delta > 0 ? HDY_NAVIGATION_DIRECTION_FORWARD : HDY_NAVIGATION_DIRECTION_BACK, FALSE);
   }
 
-  if (!capture && self->state == HDY_SWIPE_TRACKER_STATE_PENDING) {
+  time = gdk_event_get_time (event);
+
+  if (self->state == HDY_SWIPE_TRACKER_STATE_PENDING) {
     gboolean is_overshooting;
     gdouble first_point, last_point;
 
@@ -537,231 +576,172 @@ handle_scroll_event (HdySwipeTracker *self,
     is_overshooting = (delta < 0 && self->progress <= first_point) ||
                       (delta > 0 && self->progress >= last_point);
 
-    if ((is_vertical == is_delta_vertical) && !is_overshooting)
-      gesture_begin (self);
+    if (!is_overshooting)
+      gesture_begin (self, time);
     else
       gesture_cancel (self, distance);
   }
 
   if (self->state == HDY_SWIPE_TRACKER_STATE_SCROLLING) {
-    if (gdk_event_is_scroll_stop_event (event)) {
+    if (gdk_scroll_event_is_stop (event)) {
       gesture_end (self, distance);
     } else {
-      gesture_update (self, delta / distance * SCROLL_MULTIPLIER);
+      gesture_update (self, delta / distance * SCROLL_MULTIPLIER, time);
       return GDK_EVENT_STOP;
     }
   }
 
-  if (!capture && self->state == HDY_SWIPE_TRACKER_STATE_FINISHING)
+  if (self->state == HDY_SWIPE_TRACKER_STATE_FINISHING)
     reset (self);
 
   return GDK_EVENT_PROPAGATE;
 }
 
-static gboolean
-is_window_handle (GtkWidget *widget)
+static void
+scroll_begin_cb (HdySwipeTracker          *self,
+                 GtkEventControllerScroll *controller)
 {
-  gboolean window_dragging;
-  GtkWidget *parent, *window, *titlebar;
+  GdkEvent *event;
 
-  gtk_widget_style_get (widget, "window-dragging", &window_dragging, NULL);
+  if (self->use_capture_phase)
+    return;
 
-  if (window_dragging)
-    return TRUE;
+  event = gtk_event_controller_get_current_event (GTK_EVENT_CONTROLLER (controller));
 
-  /* Window titlebar area is always draggable, so check if we're inside. */
-  window = gtk_widget_get_toplevel (widget);
-  if (!GTK_IS_WINDOW (window))
-    return FALSE;
-
-  titlebar = gtk_window_get_titlebar (GTK_WINDOW (window));
-  if (!titlebar)
-    return FALSE;
-
-  parent = widget;
-  while (parent && parent != titlebar)
-    parent = gtk_widget_get_parent (parent);
-
-  return parent == titlebar;
+  handle_scroll_event (self, event);
 }
 
 static gboolean
-has_conflicts (HdySwipeTracker *self,
-               GtkWidget       *widget)
+scroll_cb (HdySwipeTracker          *self,
+           gdouble                   dx,
+           gdouble                   dy,
+           GtkEventControllerScroll *controller)
 {
-  HdySwipeTracker *other;
-
-  if (widget == GTK_WIDGET (self->swipeable))
-    return TRUE;
-
-  if (!HDY_IS_SWIPEABLE (widget))
-    return FALSE;
-
-  other = hdy_swipeable_get_swipe_tracker (HDY_SWIPEABLE (widget));
-
-  return self->orientation == other->orientation;
-}
-
-/* HACK: Since we don't have _gtk_widget_consumes_motion(), we can't do a proper
- * check for whether we can drag from a widget or not. So we trust the widgets
- * to propagate or stop their events. However, GtkButton stops press events,
- * making it impossible to drag from it.
- */
-static gboolean
-should_force_drag (HdySwipeTracker *self,
-                   GtkWidget       *widget)
-{
-  GtkWidget *parent;
-
-  if (!GTK_IS_BUTTON (widget))
-    return FALSE;
-
-  parent = widget;
-  while (parent && !has_conflicts (self, parent))
-    parent = gtk_widget_get_parent (parent);
-
-  return parent == GTK_WIDGET (self->swipeable);
-}
-
-static gboolean
-handle_event_cb (HdySwipeTracker *self,
-                 GdkEvent        *event)
-{
-  GdkEventSequence *sequence;
-  gboolean retval;
-  GtkEventSequenceState state;
-  GtkWidget *widget;
-
-  if (!self->enabled && self->state != HDY_SWIPE_TRACKER_STATE_SCROLLING)
-    return GDK_EVENT_PROPAGATE;
+  GdkEvent *event;
 
   if (self->use_capture_phase)
     return GDK_EVENT_PROPAGATE;
 
-  if (event->type == GDK_SCROLL)
-    return handle_scroll_event (self, event, FALSE);
+  event = gtk_event_controller_get_current_event (GTK_EVENT_CONTROLLER (controller));
 
-  if (event->type != GDK_BUTTON_PRESS &&
-      event->type != GDK_BUTTON_RELEASE &&
-      event->type != GDK_MOTION_NOTIFY &&
-      event->type != GDK_TOUCH_BEGIN &&
-      event->type != GDK_TOUCH_END &&
-      event->type != GDK_TOUCH_UPDATE &&
-      event->type != GDK_TOUCH_CANCEL)
-    return GDK_EVENT_PROPAGATE;
-
-  widget = gtk_get_event_widget (event);
-  if (is_window_handle (widget))
-    return GDK_EVENT_PROPAGATE;
-
-  sequence = gdk_event_get_event_sequence (event);
-  retval = gtk_event_controller_handle_event (GTK_EVENT_CONTROLLER (self->touch_gesture), event);
-  state = gtk_gesture_get_sequence_state (self->touch_gesture, sequence);
-
-  if (state == GTK_EVENT_SEQUENCE_DENIED) {
-    gtk_event_controller_reset (GTK_EVENT_CONTROLLER (self->touch_gesture));
-    return GDK_EVENT_PROPAGATE;
-  }
-
-  if (self->state == HDY_SWIPE_TRACKER_STATE_SCROLLING) {
-    return GDK_EVENT_STOP;
-  } else if (self->state == HDY_SWIPE_TRACKER_STATE_FINISHING) {
-    reset (self);
-    return GDK_EVENT_STOP;
-  }
-  return retval;
+  return handle_scroll_event (self, event);
 }
 
-static gboolean
-captured_event_cb (HdySwipeable *swipeable,
-                   GdkEvent     *event)
+static void
+scroll_end_cb (HdySwipeTracker          *self,
+               GtkEventControllerScroll *controller)
 {
-  HdySwipeTracker *self = hdy_swipeable_get_swipe_tracker (swipeable);
-  GtkWidget *widget;
-  GdkEventSequence *sequence;
-  gboolean retval;
-  GtkEventSequenceState state;
+  GdkEvent *event;
 
-  g_assert (HDY_IS_SWIPE_TRACKER (self));
+  if (self->use_capture_phase)
+    return;
 
-  if (!self->enabled && self->state != HDY_SWIPE_TRACKER_STATE_SCROLLING)
-    return GDK_EVENT_PROPAGATE;
+  event = gtk_event_controller_get_current_event (GTK_EVENT_CONTROLLER (controller));
 
-  if (event->type == GDK_SCROLL)
-    return handle_scroll_event (self, event, TRUE);
+  handle_scroll_event (self, event);
+}
 
-  if (event->type != GDK_BUTTON_PRESS &&
-      event->type != GDK_BUTTON_RELEASE &&
-      event->type != GDK_MOTION_NOTIFY &&
-      event->type != GDK_TOUCH_BEGIN &&
-      event->type != GDK_TOUCH_END &&
-      event->type != GDK_TOUCH_UPDATE &&
-      event->type != GDK_TOUCH_CANCEL)
-    return GDK_EVENT_PROPAGATE;
+static void
+motion_cb (HdySwipeTracker          *self,
+           gdouble                   x,
+           gdouble                   y,
+           GtkEventControllerMotion *controller)
+{
+  self->pointer_x = x;
+  self->pointer_y = y;
+}
 
-  widget = gtk_get_event_widget (event);
+static void
+update_controllers (HdySwipeTracker *self)
+{
+  GtkEventControllerScrollFlags flags;
 
-  if (!self->use_capture_phase && !should_force_drag (self, widget))
-    return GDK_EVENT_PROPAGATE;
+  if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
+    flags = GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL;
+  else
+    flags = GTK_EVENT_CONTROLLER_SCROLL_VERTICAL;
 
-  sequence = gdk_event_get_event_sequence (event);
-
-  if (gtk_gesture_handles_sequence (self->touch_gesture, sequence))
-    self->use_capture_phase = TRUE;
-
-  retval = gtk_event_controller_handle_event (GTK_EVENT_CONTROLLER (self->touch_gesture), event);
-  state = gtk_gesture_get_sequence_state (self->touch_gesture, sequence);
-
-  if (state == GTK_EVENT_SEQUENCE_DENIED) {
-    gtk_event_controller_reset (GTK_EVENT_CONTROLLER (self->touch_gesture));
-    return GDK_EVENT_PROPAGATE;
+  if (self->scroll_controller) {
+    gtk_event_controller_scroll_set_flags (GTK_EVENT_CONTROLLER_SCROLL (self->scroll_controller), flags);
+    gtk_event_controller_set_propagation_phase (self->scroll_controller,
+                                                self->enabled ? GTK_PHASE_BUBBLE : GTK_PHASE_NONE);
   }
 
-  if (self->state == HDY_SWIPE_TRACKER_STATE_SCROLLING) {
-    return GDK_EVENT_STOP;
-  } else if (self->state == HDY_SWIPE_TRACKER_STATE_FINISHING) {
-    reset (self);
-    return GDK_EVENT_STOP;
-  }
+  if (self->motion_controller)
+    gtk_event_controller_set_propagation_phase (self->motion_controller,
+                                                self->enabled ? GTK_PHASE_CAPTURE : GTK_PHASE_NONE);
 
-  return retval;
+  if (self->touch_gesture)
+    gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (self->touch_gesture),
+                                                self->enabled ? GTK_PHASE_BUBBLE : GTK_PHASE_NONE);
+
+  if (self->touch_gesture_capture)
+    gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (self->touch_gesture_capture),
+                                                self->enabled ? GTK_PHASE_CAPTURE : GTK_PHASE_NONE);
+}
+
+static void
+set_orientation (HdySwipeTracker *self,
+                 GtkOrientation   orientation)
+{
+
+  if (orientation == self->orientation)
+    return;
+
+  self->orientation = orientation;
+  update_controllers (self);
+
+  g_object_notify (G_OBJECT (self), "orientation");
 }
 
 static void
 hdy_swipe_tracker_constructed (GObject *object)
 {
   HdySwipeTracker *self = HDY_SWIPE_TRACKER (object);
+  GtkEventController *controller;
 
   g_assert (self->swipeable);
 
-  gtk_widget_add_events (GTK_WIDGET (self->swipeable),
-                         GDK_SMOOTH_SCROLL_MASK |
-                         GDK_BUTTON_PRESS_MASK |
-                         GDK_BUTTON_RELEASE_MASK |
-                         GDK_BUTTON_MOTION_MASK |
-                         GDK_TOUCH_MASK);
-
-  self->touch_gesture = g_object_new (GTK_TYPE_GESTURE_DRAG,
-                                      "widget", self->swipeable,
-                                      "propagation-phase", GTK_PHASE_NONE,
-                                      "touch-only", !self->allow_mouse_drag,
-                                      NULL);
-
-  g_signal_connect_swapped (self->touch_gesture, "drag-begin", G_CALLBACK (drag_begin_cb), self);
-  g_signal_connect_swapped (self->touch_gesture, "drag-update", G_CALLBACK (drag_update_cb), self);
-  g_signal_connect_swapped (self->touch_gesture, "drag-end", G_CALLBACK (drag_end_cb), self);
-  g_signal_connect_swapped (self->touch_gesture, "cancel", G_CALLBACK (drag_cancel_cb), self);
-
-  g_signal_connect_object (self->swipeable, "event", G_CALLBACK (handle_event_cb), self, G_CONNECT_SWAPPED);
   g_signal_connect_object (self->swipeable, "unrealize", G_CALLBACK (reset), self, G_CONNECT_SWAPPED);
 
-  /*
-   * HACK: GTK3 has no other way to get events on capture phase.
-   * This is a reimplementation of _gtk_widget_set_captured_event_handler(),
-   * which is private. In GTK4 it can be replaced with GtkEventControllerLegacy
-   * with capture propagation phase
-   */
-  g_object_set_data (G_OBJECT (self->swipeable), "captured-event-handler", captured_event_cb);
+  controller = gtk_event_controller_motion_new ();
+  gtk_event_controller_set_propagation_phase (controller, GTK_PHASE_CAPTURE);
+  g_signal_connect_object (controller, "motion", G_CALLBACK (motion_cb), self, G_CONNECT_SWAPPED);
+  gtk_widget_add_controller (GTK_WIDGET (self->swipeable), controller);
+  self->motion_controller = controller;
+
+  controller = GTK_EVENT_CONTROLLER (gtk_gesture_drag_new ());
+  g_signal_connect_object (controller, "drag-begin", G_CALLBACK (drag_capture_begin_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (controller, "drag-update", G_CALLBACK (drag_update_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (controller, "drag-end", G_CALLBACK (drag_end_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (controller, "cancel", G_CALLBACK (drag_cancel_cb), self, G_CONNECT_SWAPPED);
+  gtk_widget_add_controller (GTK_WIDGET (self->swipeable), controller);
+  self->touch_gesture_capture = GTK_GESTURE (controller);
+
+  controller = GTK_EVENT_CONTROLLER (gtk_gesture_drag_new ());
+  g_signal_connect_object (controller, "drag-begin", G_CALLBACK (drag_begin_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (controller, "drag-update", G_CALLBACK (drag_update_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (controller, "drag-end", G_CALLBACK (drag_end_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (controller, "cancel", G_CALLBACK (drag_cancel_cb), self, G_CONNECT_SWAPPED);
+  gtk_widget_add_controller (GTK_WIDGET (self->swipeable), controller);
+  self->touch_gesture = GTK_GESTURE (controller);
+
+  g_object_bind_property (self, "allow-mouse-drag",
+                          self->touch_gesture, "touch-only",
+                          G_BINDING_SYNC_CREATE | G_BINDING_INVERT_BOOLEAN);
+
+  g_object_bind_property (self, "allow-mouse-drag",
+                          self->touch_gesture_capture, "touch-only",
+                          G_BINDING_SYNC_CREATE | G_BINDING_INVERT_BOOLEAN);
+
+  controller = gtk_event_controller_scroll_new (GTK_EVENT_CONTROLLER_SCROLL_NONE);
+  g_signal_connect_object (controller, "scroll-begin", G_CALLBACK (scroll_begin_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (controller, "scroll", G_CALLBACK (scroll_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (controller, "scroll-end", G_CALLBACK (scroll_end_cb), self, G_CONNECT_SWAPPED);
+  gtk_widget_add_controller (GTK_WIDGET (self->swipeable), controller);
+  self->scroll_controller = controller;
+
+  update_controllers (self);
 
   G_OBJECT_CLASS (hdy_swipe_tracker_parent_class)->constructed (object);
 }
@@ -771,15 +751,22 @@ hdy_swipe_tracker_dispose (GObject *object)
 {
   HdySwipeTracker *self = HDY_SWIPE_TRACKER (object);
 
-  if (self->swipeable)
-    gtk_grab_remove (GTK_WIDGET (self->swipeable));
+  if (self->touch_gesture) {
+    gtk_widget_remove_controller (GTK_WIDGET (self->swipeable),
+                                  GTK_EVENT_CONTROLLER (self->touch_gesture));
+    g_clear_object (&self->touch_gesture);
+  }
 
-  if (self->touch_gesture)
-    g_signal_handlers_disconnect_by_data (self->touch_gesture, self);
+  if (self->motion_controller) {
+    gtk_widget_remove_controller (GTK_WIDGET (self->swipeable), self->motion_controller);
+    g_clear_object (&self->motion_controller);
+  }
 
-  g_object_set_data (G_OBJECT (self->swipeable), "captured-event-handler", NULL);
+  if (self->scroll_controller) {
+    gtk_widget_remove_controller (GTK_WIDGET (self->swipeable), self->scroll_controller);
+    g_clear_object (&self->scroll_controller);
+  }
 
-  g_clear_object (&self->touch_gesture);
   g_clear_object (&self->swipeable);
 
   G_OBJECT_CLASS (hdy_swipe_tracker_parent_class)->dispose (object);
@@ -845,13 +832,7 @@ hdy_swipe_tracker_set_property (GObject      *object,
     break;
 
   case PROP_ORIENTATION:
-    {
-      GtkOrientation orientation = g_value_get_enum (value);
-      if (orientation != self->orientation) {
-        self->orientation = g_value_get_enum (value);
-        g_object_notify (G_OBJECT (self), "orientation");
-      }
-    }
+    set_orientation (self, g_value_get_enum (value));
     break;
 
   default:
@@ -1089,6 +1070,8 @@ hdy_swipe_tracker_set_enabled (HdySwipeTracker *self,
   if (!enabled && self->state != HDY_SWIPE_TRACKER_STATE_SCROLLING)
     reset (self);
 
+  update_controllers (self);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ENABLED]);
 }
 
@@ -1176,8 +1159,7 @@ hdy_swipe_tracker_set_allow_mouse_drag (HdySwipeTracker *self,
 
   self->allow_mouse_drag = allow_mouse_drag;
 
-  if (self->touch_gesture)
-    g_object_set (self->touch_gesture, "touch-only", !allow_mouse_drag, NULL);
+  update_controllers (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALLOW_MOUSE_DRAG]);
 }
