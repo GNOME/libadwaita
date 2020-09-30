@@ -24,7 +24,7 @@ test_names = [
   'test-avatar',
   'test-carousel',
 #  'test-carousel-indicator-dots',
-#  'test-carousel-indicator-lines',
+  'test-carousel-indicator-lines',
   'test-combo-row',
   'test-expander-row',
 #  'test-flap',

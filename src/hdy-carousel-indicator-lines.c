@@ -41,7 +41,7 @@
 
 struct _HdyCarouselIndicatorLines
 {
-  GtkDrawingArea parent_instance;
+  GtkWidget parent_instance;
 
   HdyCarousel *carousel;
   GtkOrientation orientation;
@@ -50,7 +50,7 @@ struct _HdyCarouselIndicatorLines
   guint64 end_time;
 };
 
-G_DEFINE_TYPE_WITH_CODE (HdyCarouselIndicatorLines, hdy_carousel_indicator_lines, GTK_TYPE_DRAWING_AREA,
+G_DEFINE_TYPE_WITH_CODE (HdyCarouselIndicatorLines, hdy_carousel_indicator_lines, GTK_TYPE_WIDGET,
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
 
 enum {
@@ -128,41 +128,41 @@ static GdkRGBA
 get_color (GtkWidget *widget)
 {
   GtkStyleContext *context;
-  GtkStateFlags flags;
   GdkRGBA color;
 
   context = gtk_widget_get_style_context (widget);
-  flags = gtk_widget_get_state_flags (widget);
-  gtk_style_context_get_color (context, flags, &color);
+  gtk_style_context_get_color (context, &color);
 
   return color;
 }
 
 static void
-draw_lines (GtkWidget      *widget,
-            cairo_t        *cr,
-            GtkOrientation  orientation,
-            gdouble         position,
-            gdouble        *sizes,
-            guint           n_pages)
+snapshot_lines (GtkWidget      *widget,
+                GtkSnapshot    *snapshot,
+                GtkOrientation  orientation,
+                gdouble         position,
+                gdouble        *sizes,
+                guint           n_pages)
 {
   GdkRGBA color;
   gint i, widget_length, widget_thickness;
-  gdouble indicator_length, full_size, line_size, pos;
+  gdouble indicator_length, full_size, line_size;
+  gdouble x = 0, y = 0, pos;
 
   color = get_color (widget);
+  color.alpha *= LINE_OPACITY;
 
   line_size = LINE_LENGTH + LINE_SPACING;
-  indicator_length = 0;
+  indicator_length = -LINE_SPACING;
   for (i = 0; i < n_pages; i++)
     indicator_length += line_size * sizes[i];
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-    widget_length = gtk_widget_get_allocated_width (widget);
-    widget_thickness = gtk_widget_get_allocated_height (widget);
+    widget_length = gtk_widget_get_width (widget);
+    widget_thickness = gtk_widget_get_height (widget);
   } else {
-    widget_length = gtk_widget_get_allocated_height (widget);
-    widget_thickness = gtk_widget_get_allocated_width (widget);
+    widget_length = gtk_widget_get_height (widget);
+    widget_thickness = gtk_widget_get_width (widget);
   }
 
   /* Ensure the indicators are aligned to pixel grid when not animating */
@@ -171,42 +171,43 @@ draw_lines (GtkWidget      *widget,
     widget_length--;
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-    cairo_translate (cr, (widget_length - indicator_length) / 2.0, (widget_thickness - LINE_WIDTH) / 2);
-    cairo_scale (cr, 1, LINE_WIDTH);
+    x = (widget_length - indicator_length) / 2.0;
+    y = (widget_thickness - LINE_WIDTH) / 2;
   } else {
-    cairo_translate (cr, (widget_thickness - LINE_WIDTH) / 2, (widget_length - indicator_length) / 2.0);
-    cairo_scale (cr, LINE_WIDTH, 1);
+    x = (widget_thickness - LINE_WIDTH) / 2;
+    y = (widget_length - indicator_length) / 2.0;
   }
 
   pos = 0;
-  cairo_set_source_rgba (cr, color.red, color.green, color.blue,
-                         color.alpha * LINE_OPACITY);
   for (i = 0; i < n_pages; i++) {
     gdouble length;
+    graphene_rect_t rectangle;
 
     length = (LINE_LENGTH + LINE_SPACING) * sizes[i] - LINE_SPACING;
 
     if (length > 0) {
       if (orientation == GTK_ORIENTATION_HORIZONTAL)
-        cairo_rectangle (cr, LINE_SPACING / 2.0 + pos, 0, length, 1);
+        graphene_rect_init (&rectangle, x + pos, y, length, LINE_WIDTH);
       else
-        cairo_rectangle (cr, 0, LINE_SPACING / 2.0 + pos, 1, length);
+        graphene_rect_init (&rectangle, x, y + pos, LINE_WIDTH, length);
     }
 
-    cairo_fill (cr);
+    gtk_snapshot_append_color (snapshot, &color, &rectangle);
 
     pos += (LINE_LENGTH + LINE_SPACING) * sizes[i];
   }
 
-  cairo_set_source_rgba (cr, color.red, color.green, color.blue,
-                         color.alpha * LINE_OPACITY_ACTIVE);
+  color = get_color (widget);
+  color.alpha *= LINE_OPACITY_ACTIVE;
 
-  pos = LINE_SPACING / 2.0 + position * (LINE_LENGTH + LINE_SPACING);
+  pos = position * (LINE_LENGTH + LINE_SPACING);
+
   if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    cairo_rectangle (cr, pos, 0, LINE_LENGTH, 1);
+    gtk_snapshot_append_color (snapshot, &color,
+                               &GRAPHENE_RECT_INIT (x + pos, y, LINE_LENGTH, LINE_WIDTH));
   else
-    cairo_rectangle (cr, 0, pos, 1, LINE_LENGTH);
-  cairo_fill (cr);
+    gtk_snapshot_append_color (snapshot, &color,
+                               &GRAPHENE_RECT_INIT (x, y + pos, LINE_WIDTH, LINE_LENGTH));
 }
 
 static void
@@ -253,26 +254,8 @@ hdy_carousel_indicator_lines_measure (GtkWidget      *widget,
 }
 
 static void
-hdy_carousel_indicator_lines_get_preferred_width (GtkWidget *widget,
-                                                  gint      *minimum_width,
-                                                  gint      *natural_width)
-{
-  hdy_carousel_indicator_lines_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
-                                  minimum_width, natural_width, NULL, NULL);
-}
-
-static void
-hdy_carousel_indicator_lines_get_preferred_height (GtkWidget *widget,
-                                                   gint      *minimum_height,
-                                                   gint      *natural_height)
-{
-  hdy_carousel_indicator_lines_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
-                                  minimum_height, natural_height, NULL, NULL);
-}
-
-static gboolean
-hdy_carousel_indicator_lines_draw (GtkWidget *widget,
-                                   cairo_t   *cr)
+hdy_carousel_indicator_lines_snapshot (GtkWidget   *widget,
+                                       GtkSnapshot *snapshot)
 {
   HdyCarouselIndicatorLines *self = HDY_CAROUSEL_INDICATOR_LINES (widget);
   gint i, n_points;
@@ -281,13 +264,13 @@ hdy_carousel_indicator_lines_draw (GtkWidget *widget,
   g_autofree gdouble *sizes = NULL;
 
   if (!self->carousel)
-    return GDK_EVENT_PROPAGATE;
+    return;
 
   points = hdy_swipeable_get_snap_points (HDY_SWIPEABLE (self->carousel), &n_points);
   position = hdy_carousel_get_position (self->carousel);
 
   if (n_points < 2)
-    return GDK_EVENT_PROPAGATE;
+    return;
 
   if (self->orientation == GTK_ORIENTATION_HORIZONTAL &&
       gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
@@ -299,9 +282,7 @@ hdy_carousel_indicator_lines_draw (GtkWidget *widget,
   for (i = 1; i < n_points; i++)
     sizes[i] = points[i] - points[i - 1];
 
-  draw_lines (widget, cr, self->orientation, position, sizes, n_points);
-
-  return GDK_EVENT_PROPAGATE;
+  snapshot_lines (widget, snapshot, self->orientation, position, sizes, n_points);
 }
 
 static void
@@ -375,9 +356,8 @@ hdy_carousel_indicator_lines_class_init (HdyCarouselIndicatorLinesClass *klass)
   object_class->get_property = hdy_carousel_indicator_lines_get_property;
   object_class->set_property = hdy_carousel_indicator_lines_set_property;
 
-  widget_class->get_preferred_width = hdy_carousel_indicator_lines_get_preferred_width;
-  widget_class->get_preferred_height = hdy_carousel_indicator_lines_get_preferred_height;
-  widget_class->draw = hdy_carousel_indicator_lines_draw;
+  widget_class->measure = hdy_carousel_indicator_lines_measure;
+  widget_class->snapshot = hdy_carousel_indicator_lines_snapshot;
 
   /**
    * HdyCarouselIndicatorLines:carousel:

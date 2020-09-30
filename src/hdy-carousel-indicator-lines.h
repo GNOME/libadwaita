@@ -20,7 +20,7 @@ G_BEGIN_DECLS
 #define HDY_TYPE_CAROUSEL_INDICATOR_LINES (hdy_carousel_indicator_lines_get_type())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_FINAL_TYPE (HdyCarouselIndicatorLines, hdy_carousel_indicator_lines, HDY, CAROUSEL_INDICATOR_LINES, GtkDrawingArea)
+G_DECLARE_FINAL_TYPE (HdyCarouselIndicatorLines, hdy_carousel_indicator_lines, HDY, CAROUSEL_INDICATOR_LINES, GtkWidget)
 
 HDY_AVAILABLE_IN_ALL
 GtkWidget   *hdy_carousel_indicator_lines_new (void);
