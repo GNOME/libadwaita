@@ -4,7 +4,7 @@
 
 // HdyComboRow
 
-popover.combo {
+popover.combo > contents {
   padding: 0px;
 
   list {
@@ -29,23 +29,9 @@ popover.combo {
     }
   }
 
-  @each $border in top, bottom {
-    overshoot.#{$border} {
-      @include rounded-border($border);
-    }
-  }
-
   scrollbar.vertical {
     padding-top: 2px;
     padding-bottom: 2px;
-
-    &:dir(ltr) {
-      @include rounded-border(right);
-    }
-
-    &:dir(rtl) {
-      @include rounded-border(left);
-    }
   }
 }
 

@@ -142,16 +142,15 @@ create_list_widget (gpointer item,
                                        "visible", TRUE,
                                        NULL);
   GtkWidget *box = g_object_new (GTK_TYPE_BOX,
-                                 "child", priv->create_list_widget_func (item, priv->create_widget_func_data),
-                                 "child", checkmark,
                                  "halign", GTK_ALIGN_START,
                                  "spacing", 6,
                                  "valign", GTK_ALIGN_CENTER,
                                  "visible", TRUE,
                                  NULL);
-  GtkStyleContext *checkmark_context = gtk_widget_get_style_context (checkmark);
+  gtk_box_append (GTK_BOX (box), priv->create_list_widget_func (item, priv->create_widget_func_data));
+  gtk_box_append (GTK_BOX (box), checkmark);
 
-  gtk_style_context_add_class (checkmark_context, "checkmark");
+  gtk_widget_add_css_class (checkmark, "checkmark");
 
   g_object_set_data (G_OBJECT (box), "checkmark", checkmark);
 
@@ -183,7 +182,8 @@ update (HdyComboRow *self)
   guint n_items = priv->bound_model ? g_list_model_get_n_items (priv->bound_model) : 0;
 
   gtk_widget_set_visible (GTK_WIDGET (priv->current), !priv->use_subtitle);
-  gtk_container_foreach (GTK_CONTAINER (priv->current), (GtkCallback) gtk_widget_destroy, NULL);
+  if (gtk_widget_get_first_child (GTK_WIDGET (priv->current)))
+    gtk_widget_unparent (gtk_widget_get_first_child (GTK_WIDGET (priv->current)));
 
   gtk_widget_set_sensitive (GTK_WIDGET (self), n_items > 0);
   gtk_widget_set_visible (GTK_WIDGET (priv->image), n_items > 1);
@@ -198,16 +198,16 @@ update (HdyComboRow *self)
   g_assert (priv->selected_index >= 0 && priv->selected_index <= n_items);
 
   {
-    g_autoptr (GList) rows = gtk_container_get_children (GTK_CONTAINER (priv->list));
-    GList *l;
-    int i = 0;
+    GtkWidget *row = gtk_widget_get_first_child (GTK_WIDGET (priv->list));
+    gint i = 0;
 
-    for (l = rows; l; l = l->next) {
-      GtkWidget *row = GTK_WIDGET (l->data);
-      GtkWidget *box = gtk_bin_get_child (GTK_BIN (row));
+    while (row) {
+      GtkWidget *box = gtk_list_box_row_get_child (GTK_LIST_BOX_ROW (row));
 
       gtk_widget_set_opacity (GTK_WIDGET (g_object_get_data (G_OBJECT (box), "checkmark")),
                               (priv->selected_index == i++) ? 1 : 0);
+
+      row = gtk_widget_get_next_sibling (row);
     }
   }
 
@@ -221,7 +221,7 @@ update (HdyComboRow *self)
   }
   else {
     widget = priv->create_current_widget_func (item, priv->create_widget_func_data);
-    gtk_container_add (GTK_CONTAINER (priv->current), widget);
+    gtk_box_append (priv->current, widget);
   }
 }
 
@@ -350,44 +350,31 @@ hdy_combo_row_dispose (GObject *object)
   G_OBJECT_CLASS (hdy_combo_row_parent_class)->dispose (object);
 }
 
-typedef struct {
-  HdyComboRow *row;
-  GtkCallback callback;
-  gpointer callback_data;
-} ForallData;
-
 static void
-for_non_internal_child (GtkWidget *widget,
-                        gpointer   callback_data)
+hdy_combo_row_size_allocate (GtkWidget *widget,
+                             gint       width,
+                             gint       height,
+                             gint       baseline)
 {
-  ForallData *data = callback_data;
-  HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (data->row);
+  HdyComboRow *self = HDY_COMBO_ROW (widget);
+  HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
 
-  if (widget != (GtkWidget *) priv->current &&
-      widget != (GtkWidget *) priv->image)
-    data->callback (widget, data->callback_data);
+  GTK_WIDGET_CLASS (hdy_combo_row_parent_class)->size_allocate (widget, width, height, baseline);
+
+  gtk_popover_present (priv->popover);
 }
 
-static void
-hdy_combo_row_forall (GtkContainer *container,
-                      gboolean      include_internals,
-                      GtkCallback   callback,
-                      gpointer      callback_data)
+static gboolean
+hdy_combo_row_focus (GtkWidget        *widget,
+                     GtkDirectionType  direction)
 {
-  HdyComboRow *self = HDY_COMBO_ROW (container);
-  ForallData data;
+  HdyComboRow *self = HDY_COMBO_ROW (widget);
+  HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
 
-  if (include_internals) {
-    GTK_CONTAINER_CLASS (hdy_combo_row_parent_class)->forall (GTK_CONTAINER (self), include_internals, callback, callback_data);
-
-    return;
-  }
-
-  data.row = self;
-  data.callback = callback;
-  data.callback_data = callback_data;
-
-  GTK_CONTAINER_CLASS (hdy_combo_row_parent_class)->forall (GTK_CONTAINER (self), include_internals, for_non_internal_child, &data);
+  if (priv->popover && gtk_widget_get_visible (GTK_WIDGET (priv->popover)))
+    return gtk_widget_child_focus (GTK_WIDGET (priv->popover), direction);
+  else
+    return GTK_WIDGET_CLASS (hdy_combo_row_parent_class)->focus (widget, direction);
 }
 
 static void
@@ -395,14 +382,14 @@ hdy_combo_row_class_init (HdyComboRowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-  GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
   HdyActionRowClass *row_class = HDY_ACTION_ROW_CLASS (klass);
 
   object_class->get_property = hdy_combo_row_get_property;
   object_class->set_property = hdy_combo_row_set_property;
   object_class->dispose = hdy_combo_row_dispose;
 
-  container_class->forall = hdy_combo_row_forall;
+  widget_class->size_allocate = hdy_combo_row_size_allocate;
+  widget_class->focus = hdy_combo_row_focus;
 
   row_class->activate = hdy_combo_row_activate;
 
@@ -546,7 +533,9 @@ hdy_combo_row_bind_model (HdyComboRow                *self,
 
   destroy_model (self);
 
-  gtk_container_foreach (GTK_CONTAINER (priv->current), (GtkCallback) gtk_widget_destroy, NULL);
+  if (gtk_widget_get_first_child (GTK_WIDGET (priv->current)))
+    gtk_widget_unparent (gtk_widget_get_first_child (GTK_WIDGET (priv->current)));
+
   priv->selected_index = -1;
 
   if (model == NULL) {

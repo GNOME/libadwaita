@@ -6,38 +6,37 @@
       <object class="GtkBox" id="current">
         <property name="halign">end</property>
         <property name="valign">center</property>
-        <property name="visible">True</property>
       </object>
     </child>
     <child>
-      <object class="GtkImage" id="image">
-        <property name="icon_name">pan-down-symbolic</property>
-        <property name="icon_size">1</property>
+      <object class="GtkBox">
         <property name="valign">center</property>
-        <property name="visible">True</property>
-      </object>
-    </child>
-  </template>
-  <object class="GtkPopover" id="popover">
-    <property name="position">bottom</property>
-    <property name="relative_to">image</property>
-    <style>
-      <class name="combo"/>
-    </style>
-    <child>
-      <object class="GtkScrolledWindow">
-        <property name="hscrollbar_policy">never</property>
-        <property name="max_content_height">400</property>
-        <property name="propagate_natural_width">True</property>
-        <property name="propagate_natural_height">True</property>
-        <property name="visible">True</property>
         <child>
-          <object class="GtkListBox" id="list">
-            <property name="selection_mode">none</property>
-            <property name="visible">True</property>
+          <object class="GtkImage" id="image">
+            <property name="icon_name">pan-down-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkPopover" id="popover">
+            <style>
+              <class name="combo"/>
+            </style>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="hscrollbar_policy">never</property>
+                <property name="max_content_height">400</property>
+                <property name="propagate_natural_width">True</property>
+                <property name="propagate_natural_height">True</property>
+                <child>
+                  <object class="GtkListBox" id="list">
+                    <property name="selection_mode">none</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>

@@ -25,7 +25,7 @@ test_names = [
 #  'test-carousel',
 #  'test-carousel-indicator-dots',
 #  'test-carousel-indicator-lines',
-#  'test-combo-row',
+  'test-combo-row',
   'test-expander-row',
 #  'test-flap',
 #  'test-header-bar',
