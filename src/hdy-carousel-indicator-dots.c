@@ -41,7 +41,7 @@
 
 struct _HdyCarouselIndicatorDots
 {
-  GtkDrawingArea parent_instance;
+  GtkWidget parent_instance;
 
   HdyCarousel *carousel;
   GtkOrientation orientation;
@@ -50,7 +50,7 @@ struct _HdyCarouselIndicatorDots
   guint64 end_time;
 };
 
-G_DEFINE_TYPE_WITH_CODE (HdyCarouselIndicatorDots, hdy_carousel_indicator_dots, GTK_TYPE_DRAWING_AREA,
+G_DEFINE_TYPE_WITH_CODE (HdyCarouselIndicatorDots, hdy_carousel_indicator_dots, GTK_TYPE_WIDGET,
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
 
 enum {
@@ -128,42 +128,41 @@ static GdkRGBA
 get_color (GtkWidget *widget)
 {
   GtkStyleContext *context;
-  GtkStateFlags flags;
   GdkRGBA color;
 
   context = gtk_widget_get_style_context (widget);
-  flags = gtk_widget_get_state_flags (widget);
-  gtk_style_context_get_color (context, flags, &color);
+  gtk_style_context_get_color (context, &color);
 
   return color;
 }
 
 static void
-draw_dots (GtkWidget      *widget,
-           cairo_t        *cr,
-           GtkOrientation  orientation,
-           gdouble         position,
-           gdouble        *sizes,
-           guint           n_pages)
+snapshot_dots (GtkWidget      *widget,
+               GtkSnapshot    *snapshot,
+               GtkOrientation  orientation,
+               gdouble         position,
+               gdouble        *sizes,
+               guint           n_pages)
 {
   GdkRGBA color;
   gint i, widget_length, widget_thickness;
   gdouble x, y, indicator_length, dot_size, full_size;
   gdouble current_position, remaining_progress;
+  graphene_rect_t rect;
 
   color = get_color (widget);
   dot_size = 2 * DOTS_RADIUS_SELECTED + DOTS_SPACING;
 
-  indicator_length = 0;
+  indicator_length = -DOTS_SPACING;
   for (i = 0; i < n_pages; i++)
     indicator_length += dot_size * sizes[i];
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-    widget_length = gtk_widget_get_allocated_width (widget);
-    widget_thickness = gtk_widget_get_allocated_height (widget);
+    widget_length = gtk_widget_get_width (widget);
+    widget_thickness = gtk_widget_get_height (widget);
   } else {
-    widget_length = gtk_widget_get_allocated_height (widget);
-    widget_thickness = gtk_widget_get_allocated_width (widget);
+    widget_length = gtk_widget_get_height (widget);
+    widget_thickness = gtk_widget_get_width (widget);
   }
 
   /* Ensure the indicators are aligned to pixel grid when not animating */
@@ -171,19 +170,22 @@ draw_dots (GtkWidget      *widget,
   if ((widget_length - (gint) full_size) % 2 == 0)
     widget_length--;
 
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    cairo_translate (cr, (widget_length - indicator_length) / 2.0, widget_thickness / 2);
-  else
-    cairo_translate (cr, widget_thickness / 2, (widget_length - indicator_length) / 2.0);
-
-  x = 0;
-  y = 0;
+  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+    x = (widget_length - indicator_length) / 2.0;
+    y = widget_thickness / 2;
+  } else {
+    x = widget_thickness / 2;
+    y = (widget_length - indicator_length) / 2.0;
+  }
 
   current_position = 0;
   remaining_progress = 1;
 
+  graphene_rect_init (&rect, -DOTS_RADIUS, -DOTS_RADIUS, DOTS_RADIUS * 2, DOTS_RADIUS * 2);
+
   for (i = 0; i < n_pages; i++) {
     gdouble progress, radius, opacity;
+    GskRoundedRect clip;
 
     if (orientation == GTK_ORIENTATION_HORIZONTAL)
       x += dot_size * sizes[i] / 2.0;
@@ -198,10 +200,21 @@ draw_dots (GtkWidget      *widget,
     radius = hdy_lerp (DOTS_RADIUS, DOTS_RADIUS_SELECTED, progress) * sizes[i];
     opacity = hdy_lerp (DOTS_OPACITY, DOTS_OPACITY_SELECTED, progress) * sizes[i];
 
-    cairo_set_source_rgba (cr, color.red, color.green, color.blue,
-                           color.alpha * opacity);
-    cairo_arc (cr, x, y, radius, 0, 2 * G_PI);
-    cairo_fill (cr);
+    gsk_rounded_rect_init_from_rect (&clip, &rect, radius);
+
+    gtk_snapshot_save (snapshot);
+    gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (x, y));
+    gtk_snapshot_scale (snapshot, radius / DOTS_RADIUS, radius / DOTS_RADIUS);
+
+    gtk_snapshot_push_rounded_clip (snapshot, &clip);
+    gtk_snapshot_push_opacity (snapshot, opacity);
+
+    gtk_snapshot_append_color (snapshot, &color, &rect);
+
+    gtk_snapshot_pop (snapshot);
+    gtk_snapshot_pop (snapshot);
+
+    gtk_snapshot_restore (snapshot);
 
     if (orientation == GTK_ORIENTATION_HORIZONTAL)
       x += dot_size * sizes[i] / 2.0;
@@ -254,26 +267,8 @@ hdy_carousel_indicator_dots_measure (GtkWidget      *widget,
 }
 
 static void
-hdy_carousel_indicator_dots_get_preferred_width (GtkWidget *widget,
-                                                 gint      *minimum_width,
-                                                 gint      *natural_width)
-{
-  hdy_carousel_indicator_dots_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
-                                  minimum_width, natural_width, NULL, NULL);
-}
-
-static void
-hdy_carousel_indicator_dots_get_preferred_height (GtkWidget *widget,
-                                                  gint      *minimum_height,
-                                                  gint      *natural_height)
-{
-  hdy_carousel_indicator_dots_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
-                                  minimum_height, natural_height, NULL, NULL);
-}
-
-static gboolean
-hdy_carousel_indicator_dots_draw (GtkWidget *widget,
-                                  cairo_t   *cr)
+hdy_carousel_indicator_dots_snapshot (GtkWidget   *widget,
+                                      GtkSnapshot *snapshot)
 {
   HdyCarouselIndicatorDots *self = HDY_CAROUSEL_INDICATOR_DOTS (widget);
   gint i, n_points;
@@ -282,13 +277,13 @@ hdy_carousel_indicator_dots_draw (GtkWidget *widget,
   g_autofree gdouble *sizes = NULL;
 
   if (!self->carousel)
-    return GDK_EVENT_PROPAGATE;
+    return;
 
   points = hdy_swipeable_get_snap_points (HDY_SWIPEABLE (self->carousel), &n_points);
   position = hdy_carousel_get_position (self->carousel);
 
   if (n_points < 2)
-    return GDK_EVENT_PROPAGATE;
+    return;
 
   if (self->orientation == GTK_ORIENTATION_HORIZONTAL &&
       gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
@@ -300,9 +295,7 @@ hdy_carousel_indicator_dots_draw (GtkWidget *widget,
   for (i = 1; i < n_points; i++)
     sizes[i] = points[i] - points[i - 1];
 
-  draw_dots (widget, cr, self->orientation, position, sizes, n_points);
-
-  return GDK_EVENT_PROPAGATE;
+  snapshot_dots (widget, snapshot, self->orientation, position, sizes, n_points);
 }
 
 static void
@@ -376,9 +369,8 @@ hdy_carousel_indicator_dots_class_init (HdyCarouselIndicatorDotsClass *klass)
   object_class->get_property = hdy_carousel_indicator_dots_get_property;
   object_class->set_property = hdy_carousel_indicator_dots_set_property;
 
-  widget_class->get_preferred_width = hdy_carousel_indicator_dots_get_preferred_width;
-  widget_class->get_preferred_height = hdy_carousel_indicator_dots_get_preferred_height;
-  widget_class->draw = hdy_carousel_indicator_dots_draw;
+  widget_class->measure = hdy_carousel_indicator_dots_measure;
+  widget_class->snapshot = hdy_carousel_indicator_dots_snapshot;
 
   /**
    * HdyCarouselIndicatorDots:carousel:

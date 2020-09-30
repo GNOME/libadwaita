@@ -20,7 +20,7 @@ G_BEGIN_DECLS
 #define HDY_TYPE_CAROUSEL_INDICATOR_DOTS (hdy_carousel_indicator_dots_get_type())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_FINAL_TYPE (HdyCarouselIndicatorDots, hdy_carousel_indicator_dots, HDY, CAROUSEL_INDICATOR_DOTS, GtkDrawingArea)
+G_DECLARE_FINAL_TYPE (HdyCarouselIndicatorDots, hdy_carousel_indicator_dots, HDY, CAROUSEL_INDICATOR_DOTS, GtkWidget)
 
 HDY_AVAILABLE_IN_ALL
 GtkWidget   *hdy_carousel_indicator_dots_new (void);
