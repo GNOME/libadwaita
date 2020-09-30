@@ -54,9 +54,7 @@ G_BEGIN_DECLS
 */
 #include "hdy-squeezer.h"
 #include "hdy-status-page.h"
-/*
 #include "hdy-swipe-group.h"
-*/
 #include "hdy-swipe-tracker.h"
 #include "hdy-swipeable.h"
 /*

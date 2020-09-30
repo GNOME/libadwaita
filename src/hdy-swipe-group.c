@@ -342,27 +342,26 @@ hdy_swipe_group_dispose (GObject *object)
  */
 /* This has been copied and modified from gtkbuilder.c. */
 static gboolean
-_gtk_builder_check_parent (GtkBuilder           *builder,
-                           GMarkupParseContext  *context,
-                           const gchar          *parent_name,
-                           GError              **error)
+_gtk_builder_check_parent (GtkBuilder                *builder,
+                           GtkBuildableParseContext  *context,
+                           const gchar               *parent_name,
+                           GError                   **error)
 {
-  const GSList *stack;
-  gint line, col;
-  const gchar *parent;
-  const gchar *element;
+  GPtrArray *stack;
+  int line, col;
+  const char *parent;
+  const char *element;
 
-  stack = g_markup_parse_context_get_element_stack (context);
+  stack = gtk_buildable_parse_context_get_element_stack (context);
 
-  element = (const gchar *)stack->data;
-  parent = stack->next ? (const gchar *)stack->next->data : "";
+  element = g_ptr_array_index (stack, stack->len - 1);
+  parent = stack->len > 1 ? g_ptr_array_index (stack, stack->len - 2) : "";
 
   if (g_str_equal (parent_name, parent) ||
-      (g_str_equal (parent_name, BUILDABLE_TAG_OBJECT) &&
-       g_str_equal (parent, BUILDABLE_TAG_TEMPLATE)))
+      (g_str_equal (parent_name, "object") && g_str_equal (parent, "template")))
     return TRUE;
 
-  g_markup_parse_context_get_position (context, &line, &col);
+  gtk_buildable_parse_context_get_position (context, &line, &col);
   g_set_error (error,
                GTK_BUILDER_ERROR,
                GTK_BUILDER_ERROR_INVALID_TAG,
@@ -370,6 +369,7 @@ _gtk_builder_check_parent (GtkBuilder           *builder,
                line, col, element);
 
   return FALSE;
+
 }
 
 /*< private >
@@ -388,13 +388,13 @@ _gtk_builder_check_parent (GtkBuilder           *builder,
  */
 /* This has been copied and modified from gtkbuilder.c. */
 static void
-_gtk_builder_prefix_error (GtkBuilder           *builder,
-                           GMarkupParseContext  *context,
-                           GError              **error)
+_gtk_builder_prefix_error (GtkBuilder                *builder,
+                           GtkBuildableParseContext  *context,
+                           GError                   **error)
 {
   gint line, col;
 
-  g_markup_parse_context_get_position (context, &line, &col);
+  gtk_buildable_parse_context_get_position (context, &line, &col);
   g_prefix_error (error, ".:%d:%d ", line, col);
 }
 
@@ -413,15 +413,15 @@ _gtk_builder_prefix_error (GtkBuilder           *builder,
  */
 /* This has been copied and modified from gtkbuilder.c. */
 static void
-_gtk_builder_error_unhandled_tag (GtkBuilder           *builder,
-                                  GMarkupParseContext  *context,
-                                  const gchar          *object,
-                                  const gchar          *element_name,
-                                  GError              **error)
+_gtk_builder_error_unhandled_tag (GtkBuilder                *builder,
+                                  GtkBuildableParseContext  *context,
+                                  const gchar               *object,
+                                  const gchar               *element_name,
+                                  GError                   **error)
 {
   gint line, col;
 
-  g_markup_parse_context_get_position (context, &line, &col);
+  gtk_buildable_parse_context_get_position (context, &line, &col);
   g_set_error (error,
                GTK_BUILDER_ERROR,
                GTK_BUILDER_ERROR_UNHANDLED_TAG,
@@ -432,12 +432,12 @@ _gtk_builder_error_unhandled_tag (GtkBuilder           *builder,
 
 /* This has been copied and modified from gtksizegroup.c. */
 static void
-swipe_group_start_element (GMarkupParseContext  *context,
-                           const gchar          *element_name,
-                           const gchar         **names,
-                           const gchar         **values,
-                           gpointer              user_data,
-                           GError              **error)
+swipe_group_start_element (GtkBuildableParseContext  *context,
+                           const gchar               *element_name,
+                           const gchar              **names,
+                           const gchar              **values,
+                           gpointer                   user_data,
+                           GError                   **error)
 {
   GSListSubParserData *data = (GSListSubParserData*)user_data;
 
@@ -459,7 +459,7 @@ swipe_group_start_element (GMarkupParseContext  *context,
 
       item_data = g_new (ItemData, 1);
       item_data->name = g_strdup (name);
-      g_markup_parse_context_get_position (context, &item_data->line, &item_data->col);
+      gtk_buildable_parse_context_get_position (context, &item_data->line, &item_data->col);
       data->items = g_slist_prepend (data->items, item_data);
     }
   else if (strcmp (element_name, BUILDABLE_TAG_SWIPEABLES) == 0)
@@ -482,19 +482,19 @@ swipe_group_start_element (GMarkupParseContext  *context,
 
 
 /* This has been copied and modified from gtksizegroup.c. */
-static const GMarkupParser swipe_group_parser =
+static const GtkBuildableParser swipe_group_parser =
   {
     swipe_group_start_element
   };
 
 /* This has been copied and modified from gtksizegroup.c. */
 static gboolean
-hdy_swipe_group_buildable_custom_tag_start (GtkBuildable  *buildable,
-                                            GtkBuilder    *builder,
-                                            GObject       *child,
-                                            const gchar   *tagname,
-                                            GMarkupParser *parser,
-                                            gpointer      *parser_data)
+hdy_swipe_group_buildable_custom_tag_start (GtkBuildable       *buildable,
+                                            GtkBuilder         *builder,
+                                            GObject            *child,
+                                            const gchar        *tagname,
+                                            GtkBuildableParser *parser,
+                                            gpointer           *parser_data)
 {
   GSListSubParserData *data;
 
