@@ -25,8 +25,8 @@ G_BEGIN_DECLS
 #include "hdy-animation.h"
 #include "hdy-application-window.h"
 #include "hdy-avatar.h"
-/*
 #include "hdy-carousel.h"
+/*
 #include "hdy-carousel-indicator-dots.h"
 #include "hdy-carousel-indicator-lines.h"
 */

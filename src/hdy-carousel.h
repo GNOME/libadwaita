@@ -19,7 +19,7 @@ G_BEGIN_DECLS
 #define HDY_TYPE_CAROUSEL (hdy_carousel_get_type())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_FINAL_TYPE (HdyCarousel, hdy_carousel, HDY, CAROUSEL, GtkEventBox)
+G_DECLARE_FINAL_TYPE (HdyCarousel, hdy_carousel, HDY, CAROUSEL, GtkWidget)
 
 HDY_AVAILABLE_IN_ALL
 GtkWidget      *hdy_carousel_new (void);
@@ -28,13 +28,21 @@ HDY_AVAILABLE_IN_ALL
 void            hdy_carousel_prepend (HdyCarousel *self,
                                       GtkWidget   *child);
 HDY_AVAILABLE_IN_ALL
+void            hdy_carousel_append (HdyCarousel *self,
+                                     GtkWidget   *child);
+HDY_AVAILABLE_IN_ALL
 void            hdy_carousel_insert (HdyCarousel *self,
                                      GtkWidget   *child,
                                      gint         position);
+
 HDY_AVAILABLE_IN_ALL
 void            hdy_carousel_reorder (HdyCarousel *self,
                                       GtkWidget   *child,
                                       gint         position);
+
+HDY_AVAILABLE_IN_ALL
+void            hdy_carousel_remove (HdyCarousel *self,
+                                     GtkWidget   *child);
 
 HDY_AVAILABLE_IN_ALL
 void            hdy_carousel_scroll_to (HdyCarousel *self,
@@ -44,6 +52,9 @@ void            hdy_carousel_scroll_to_full (HdyCarousel *self,
                                              GtkWidget   *widget,
                                              gint64       duration);
 
+HDY_AVAILABLE_IN_ALL
+GtkWidget      *hdy_carousel_get_nth_page (HdyCarousel *self,
+                                           guint        n);
 HDY_AVAILABLE_IN_ALL
 guint           hdy_carousel_get_n_pages (HdyCarousel *self);
 HDY_AVAILABLE_IN_ALL

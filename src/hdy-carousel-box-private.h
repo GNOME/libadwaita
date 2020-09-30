@@ -16,7 +16,7 @@ G_BEGIN_DECLS
 
 #define HDY_TYPE_CAROUSEL_BOX (hdy_carousel_box_get_type())
 
-G_DECLARE_FINAL_TYPE (HdyCarouselBox, hdy_carousel_box, HDY, CAROUSEL_BOX, GtkContainer)
+G_DECLARE_FINAL_TYPE (HdyCarouselBox, hdy_carousel_box, HDY, CAROUSEL_BOX, GtkWidget)
 
 GtkWidget      *hdy_carousel_box_new (void);
 
@@ -26,6 +26,8 @@ void            hdy_carousel_box_insert (HdyCarouselBox *self,
 void            hdy_carousel_box_reorder (HdyCarouselBox *self,
                                           GtkWidget      *widget,
                                           gint            position);
+void            hdy_carousel_box_remove (HdyCarouselBox *self,
+                                         GtkWidget      *widget);
 
 gboolean        hdy_carousel_box_is_animating (HdyCarouselBox *self);
 void            hdy_carousel_box_stop_animation (HdyCarouselBox *self);
@@ -61,5 +63,7 @@ gdouble         hdy_carousel_box_get_closest_snap_point (HdyCarouselBox *self);
 GtkWidget      *hdy_carousel_box_get_page_at_position   (HdyCarouselBox *self,
                                                          gdouble         position);
 gint            hdy_carousel_box_get_current_page_index (HdyCarouselBox *self);
+gint            hdy_carousel_box_get_page_index         (HdyCarouselBox *self,
+                                                         GtkWidget      *child);
 
 G_END_DECLS

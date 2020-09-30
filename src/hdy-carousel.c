@@ -37,7 +37,7 @@
 
 struct _HdyCarousel
 {
-  GtkEventBox parent_instance;
+  GtkWidget parent_instance;
 
   HdyCarouselBox *scrolling_box;
 
@@ -50,11 +50,15 @@ struct _HdyCarousel
   gboolean can_scroll;
 };
 
+static void hdy_carousel_buildable_init (GtkBuildableIface *iface);
 static void hdy_carousel_swipeable_init (HdySwipeableInterface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (HdyCarousel, hdy_carousel, GTK_TYPE_EVENT_BOX,
+G_DEFINE_TYPE_WITH_CODE (HdyCarousel, hdy_carousel, GTK_TYPE_WIDGET,
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, hdy_carousel_buildable_init)
                          G_IMPLEMENT_INTERFACE (HDY_TYPE_SWIPEABLE, hdy_carousel_swipeable_init))
+
+static GtkBuildableIface *parent_buildable_iface;
 
 enum {
   PROP_0,
@@ -220,25 +224,16 @@ position_shifted_cb (HdyCarousel    *self,
 static void
 set_orientable_style_classes (GtkOrientable *orientable)
 {
-  GtkStyleContext *context;
-  GtkOrientation orientation;
+  GtkOrientation orientation = gtk_orientable_get_orientation (orientable);
+  GtkWidget *widget = GTK_WIDGET (orientable);
 
-  g_return_if_fail (GTK_IS_ORIENTABLE (orientable));
-  g_return_if_fail (GTK_IS_WIDGET (orientable));
-
-  context = gtk_widget_get_style_context (GTK_WIDGET (orientable));
-  orientation = gtk_orientable_get_orientation (orientable);
-
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    {
-      gtk_style_context_add_class (context, GTK_STYLE_CLASS_HORIZONTAL);
-      gtk_style_context_remove_class (context, GTK_STYLE_CLASS_VERTICAL);
-    }
-  else
-    {
-      gtk_style_context_add_class (context, GTK_STYLE_CLASS_VERTICAL);
-      gtk_style_context_remove_class (context, GTK_STYLE_CLASS_HORIZONTAL);
-    }
+  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+    gtk_widget_add_css_class (widget, "horizontal");
+    gtk_widget_remove_css_class (widget, "vertical");
+  } else {
+    gtk_widget_add_css_class (widget, "vertical");
+    gtk_widget_remove_css_class (widget, "horizontal");
+  }
 }
 
 static void
@@ -268,13 +263,13 @@ scroll_timeout_cb (HdyCarousel *self)
 }
 
 static gboolean
-scroll_event_cb (HdyCarousel *self,
-                 GdkEvent    *event)
+scroll_cb (HdyCarousel              *self,
+           gdouble                   dx,
+           gdouble                   dy,
+           GtkEventControllerScroll *controller)
 {
   GdkDevice *source_device;
   GdkInputSource input_source;
-  GdkScrollDirection direction;
-  gdouble dx, dy;
   gint index;
   gboolean allow_vertical;
   GtkOrientation orientation;
@@ -286,10 +281,7 @@ scroll_event_cb (HdyCarousel *self,
   if (!hdy_carousel_get_interactive (self))
     return GDK_EVENT_PROPAGATE;
 
-  if (event->type != GDK_SCROLL)
-    return GDK_EVENT_PROPAGATE;
-
-  source_device = gdk_event_get_source_device (event);
+  source_device = gtk_event_controller_get_current_event_device (GTK_EVENT_CONTROLLER (controller));
   input_source = gdk_device_get_source (source_device);
   if (input_source == GDK_SOURCE_TOUCHPAD)
     return GDK_EVENT_PROPAGATE;
@@ -297,32 +289,6 @@ scroll_event_cb (HdyCarousel *self,
   /* Mice often don't have easily accessible horizontal scrolling,
    * hence allow vertical mouse scrolling regardless of orientation */
   allow_vertical = (input_source == GDK_SOURCE_MOUSE);
-
-  if (gdk_event_get_scroll_direction (event, &direction)) {
-    dx = 0;
-    dy = 0;
-
-    switch (direction) {
-    case GDK_SCROLL_UP:
-      dy = -1;
-      break;
-    case GDK_SCROLL_DOWN:
-      dy = 1;
-      break;
-    case GDK_SCROLL_LEFT:
-      dy = -1;
-      break;
-    case GDK_SCROLL_RIGHT:
-      dy = 1;
-      break;
-    case GDK_SCROLL_SMOOTH:
-      g_assert_not_reached ();
-    default:
-      return GDK_EVENT_PROPAGATE;
-    }
-  } else {
-    gdk_event_get_scroll_deltas (event, &dx, &dy);
-  }
 
   orientation = gtk_orientable_get_orientation (GTK_ORIENTABLE (self));
   index = 0;
@@ -359,64 +325,12 @@ scroll_event_cb (HdyCarousel *self,
 }
 
 static void
-hdy_carousel_destroy (GtkWidget *widget)
-{
-  HdyCarousel *self = HDY_CAROUSEL (widget);
-
-  if (self->scrolling_box) {
-    gtk_widget_destroy (GTK_WIDGET (self->scrolling_box));
-    self->scrolling_box = NULL;
-  }
-
-  GTK_WIDGET_CLASS (hdy_carousel_parent_class)->destroy (widget);
-}
-
-static void
 hdy_carousel_direction_changed (GtkWidget        *widget,
                                 GtkTextDirection  previous_direction)
 {
   HdyCarousel *self = HDY_CAROUSEL (widget);
 
   update_orientation (self);
-}
-
-static void
-hdy_carousel_add (GtkContainer *container,
-                  GtkWidget    *widget)
-{
-  HdyCarousel *self = HDY_CAROUSEL (container);
-
-  if (self->scrolling_box)
-    gtk_container_add (GTK_CONTAINER (self->scrolling_box), widget);
-  else
-    GTK_CONTAINER_CLASS (hdy_carousel_parent_class)->add (container, widget);
-}
-
-static void
-hdy_carousel_remove (GtkContainer *container,
-                     GtkWidget    *widget)
-{
-  HdyCarousel *self = HDY_CAROUSEL (container);
-
-  if (self->scrolling_box)
-    gtk_container_remove (GTK_CONTAINER (self->scrolling_box), widget);
-  else
-    GTK_CONTAINER_CLASS (hdy_carousel_parent_class)->remove (container, widget);
-}
-
-static void
-hdy_carousel_forall (GtkContainer *container,
-                     gboolean      include_internals,
-                     GtkCallback   callback,
-                     gpointer      callback_data)
-{
-  HdyCarousel *self = HDY_CAROUSEL (container);
-
-  if (include_internals)
-    (* callback) (GTK_WIDGET (self->scrolling_box), callback_data);
-  else if (self->scrolling_box)
-    gtk_container_foreach (GTK_CONTAINER (self->scrolling_box),
-                           callback, callback_data);
 }
 
 static void
@@ -440,6 +354,8 @@ hdy_carousel_dispose (GObject *object)
     g_source_remove (self->scroll_timeout_id);
     self->scroll_timeout_id = 0;
   }
+
+  g_clear_pointer ((GtkWidget **) &self->scrolling_box, gtk_widget_unparent);
 
   G_OBJECT_CLASS (hdy_carousel_parent_class)->dispose (object);
 }
@@ -551,17 +467,12 @@ hdy_carousel_class_init (HdyCarouselClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-  GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
 
   object_class->constructed = hdy_carousel_constructed;
   object_class->dispose = hdy_carousel_dispose;
   object_class->get_property = hdy_carousel_get_property;
   object_class->set_property = hdy_carousel_set_property;
-  widget_class->destroy = hdy_carousel_destroy;
   widget_class->direction_changed = hdy_carousel_direction_changed;
-  container_class->add = hdy_carousel_add;
-  container_class->remove = hdy_carousel_remove;
-  container_class->forall = hdy_carousel_forall;
 
   /**
    * HdyCarousel:n-pages:
@@ -702,7 +613,7 @@ hdy_carousel_class_init (HdyCarouselClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-carousel.ui");
   gtk_widget_class_bind_template_child (widget_class, HdyCarousel, scrolling_box);
-  gtk_widget_class_bind_template_callback (widget_class, scroll_event_cb);
+  gtk_widget_class_bind_template_callback (widget_class, scroll_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_n_pages_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_position_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_spacing_cb);
@@ -710,6 +621,7 @@ hdy_carousel_class_init (HdyCarouselClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, animation_stopped_cb);
   gtk_widget_class_bind_template_callback (widget_class, position_shifted_cb);
 
+  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "carousel");
 }
 
@@ -718,6 +630,8 @@ hdy_carousel_init (HdyCarousel *self)
 {
   g_type_ensure (HDY_TYPE_CAROUSEL_BOX);
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
   self->animation_duration = DEFAULT_DURATION;
 
@@ -729,6 +643,31 @@ hdy_carousel_init (HdyCarousel *self)
   g_signal_connect_object (self->tracker, "end-swipe", G_CALLBACK (end_swipe_cb), self, 0);
 
   self->can_scroll = TRUE;
+}
+
+static void
+hdy_carousel_buildable_add_child (GtkBuildable *buildable,
+                                  GtkBuilder   *builder,
+                                  GObject      *child,
+                                  const char   *type)
+{
+  HdyCarousel *self = HDY_CAROUSEL (buildable);
+
+  if (GTK_IS_WIDGET (child))
+    if (!self->scrolling_box)
+      gtk_widget_set_parent (GTK_WIDGET (child), GTK_WIDGET (buildable));
+    else
+      hdy_carousel_append (HDY_CAROUSEL (buildable), GTK_WIDGET (child));
+  else
+    parent_buildable_iface->add_child (buildable, builder, child, type);
+}
+
+static void
+hdy_carousel_buildable_init (GtkBuildableIface *iface)
+{
+  parent_buildable_iface = g_type_interface_peek_parent (iface);
+
+  iface->add_child = hdy_carousel_buildable_add_child;
 }
 
 /**
@@ -762,6 +701,24 @@ hdy_carousel_prepend (HdyCarousel *self,
   g_return_if_fail (HDY_IS_CAROUSEL (self));
 
   hdy_carousel_box_insert (self->scrolling_box, widget, 0);
+}
+
+/**
+ * hdy_carousel_append:
+ * @self: a #HdyCarousel
+ * @child: a widget to add
+ *
+ * Appends @child to @self
+ *
+ * Since: 1.0
+ */
+void
+hdy_carousel_append (HdyCarousel *self,
+                     GtkWidget   *widget)
+{
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
+
+  hdy_carousel_box_insert (self->scrolling_box, widget, -1);
 }
 
 /**
@@ -811,6 +768,25 @@ hdy_carousel_reorder (HdyCarousel *self,
 }
 
 /**
+ * hdy_carousel_remove:
+ * @self: a #HdyCarousel
+ * @child: a widget to remove
+ *
+ * Removes @child from @self
+ *
+ * Since: 1.0
+ */
+void
+hdy_carousel_remove (HdyCarousel *self,
+                     GtkWidget   *child)
+{
+  g_return_if_fail (HDY_IS_CAROUSEL (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+
+  hdy_carousel_box_remove (self->scrolling_box, child);
+}
+
+/**
  * hdy_carousel_scroll_to:
  * @self: a #HdyCarousel
  * @widget: a child of @self
@@ -826,6 +802,7 @@ hdy_carousel_scroll_to (HdyCarousel *self,
                         GtkWidget   *widget)
 {
   g_return_if_fail (HDY_IS_CAROUSEL (self));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
 
   hdy_carousel_scroll_to_full (self, widget, self->animation_duration);
 }
@@ -845,18 +822,34 @@ hdy_carousel_scroll_to_full (HdyCarousel *self,
                              GtkWidget   *widget,
                              gint64       duration)
 {
-  GList *children;
-  gint n;
+  gint index;
 
   g_return_if_fail (HDY_IS_CAROUSEL (self));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
 
-  children = gtk_container_get_children (GTK_CONTAINER (self->scrolling_box));
-  n = g_list_index (children, widget);
-  g_list_free (children);
+  index = hdy_carousel_box_get_page_index (self->scrolling_box, widget);
+  hdy_carousel_box_scroll_to (self->scrolling_box, widget, duration);
+  hdy_swipeable_emit_child_switched (HDY_SWIPEABLE (self), index, duration);
+}
 
-  hdy_carousel_box_scroll_to (self->scrolling_box, widget,
-                               duration);
-  hdy_swipeable_emit_child_switched (HDY_SWIPEABLE (self), n, duration);
+/**
+ * hdy_carousel_get_nth_page:
+ * @self: a #HdyCarousel
+ * @n: index of the page
+ *
+ * Gets the page at position @n.
+ *
+ * Returns: (transfer none): the page
+ *
+ * Since: 1.0
+ */
+GtkWidget *
+hdy_carousel_get_nth_page (HdyCarousel *self,
+                           guint        n)
+{
+  g_return_val_if_fail (HDY_IS_CAROUSEL (self), 0);
+
+  return hdy_carousel_box_get_nth_child (self->scrolling_box, n);
 }
 
 /**

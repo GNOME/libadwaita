@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <template class="HdyCarousel" parent="GtkEventBox">
-    <property name="visible">True</property>
+  <template class="HdyCarousel" parent="GtkWidget">
     <property name="orientation">horizontal</property>
-    <signal name="scroll-event" handler="scroll_event_cb"/>
+    <child>
+      <object class="GtkEventControllerScroll">
+        <property name="flags">both-axes</property>
+        <signal name="scroll" handler="scroll_cb" swapped="true"/>
+      </object>
+    </child>
     <child>
       <object class="HdyCarouselBox" id="scrolling_box">
-        <property name="visible">True</property>
-        <property name="expand">True</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
         <signal name="notify::n-pages" handler="notify_n_pages_cb" swapped="true"/>
         <signal name="notify::position" handler="notify_position_cb" swapped="true"/>
         <signal name="notify::spacing" handler="notify_spacing_cb" swapped="true"/>

@@ -22,7 +22,7 @@ test_names = [
   'test-action-row',
   'test-application-window',
   'test-avatar',
-#  'test-carousel',
+  'test-carousel',
 #  'test-carousel-indicator-dots',
 #  'test-carousel-indicator-lines',
   'test-combo-row',

@@ -31,7 +31,7 @@ test_hdy_carousel_add_remove (void)
 
   g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 0);
 
-  gtk_container_add (GTK_CONTAINER (carousel), child1);
+  hdy_carousel_append (carousel, child1);
   g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 1);
   g_assert_cmpint (notified, ==, 1);
 
@@ -47,53 +47,17 @@ test_hdy_carousel_add_remove (void)
   g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 3);
   g_assert_cmpint (notified, ==, 3);
 
-  gtk_container_remove (GTK_CONTAINER (carousel), child2);
+  hdy_carousel_remove (carousel, child1);
   g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 2);
   g_assert_cmpint (notified, ==, 4);
 
-  gtk_container_remove (GTK_CONTAINER (carousel), child1);
+  hdy_carousel_remove (carousel, child2);
   g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 1);
   g_assert_cmpint (notified, ==, 5);
 
-  gtk_container_remove (GTK_CONTAINER (carousel), child3);
+  hdy_carousel_remove (carousel, child3);
   g_assert_cmpuint (hdy_carousel_get_n_pages (carousel), ==, 0);
   g_assert_cmpint (notified, ==, 6);
-
-  g_object_unref (carousel);
-}
-
-static void
-test_hdy_carousel_scroll_to (void)
-{
-  HdyCarousel *carousel;
-  GtkWidget *child1, *child2, *child3;
-
-  carousel = HDY_CAROUSEL (hdy_carousel_new ());
-
-  child1 = gtk_label_new ("");
-  child2 = gtk_label_new ("");
-  child3 = gtk_label_new ("");
-
-  notified = 0;
-  g_signal_connect (carousel, "notify::position", G_CALLBACK (notify_cb), NULL);
-
-  gtk_container_add (GTK_CONTAINER (carousel), child1);
-  gtk_container_add (GTK_CONTAINER (carousel), child2);
-  gtk_container_add (GTK_CONTAINER (carousel), child3);
-
-  /* Since tests are done synchronously, avoid animations */
-  hdy_carousel_set_animation_duration (carousel, 0);
-
-  g_assert_cmpfloat(hdy_carousel_get_position (carousel), ==, 0);
-  g_assert_cmpint (notified, ==, 0);
-
-  hdy_carousel_scroll_to (carousel, child3);
-  g_assert_cmpfloat(hdy_carousel_get_position (carousel), ==, 2);
-  g_assert_cmpint (notified, ==, 1);
-
-  hdy_carousel_scroll_to (carousel, child2);
-  g_assert_cmpfloat(hdy_carousel_get_position (carousel), ==, 1);
-  g_assert_cmpint (notified, ==, 2);
 
   g_object_unref (carousel);
 }
@@ -236,7 +200,6 @@ main (gint argc,
   hdy_init ();
 
   g_test_add_func("/Handy/Carousel/add_remove", test_hdy_carousel_add_remove);
-  g_test_add_func("/Handy/Carousel/scroll_to", test_hdy_carousel_scroll_to);
   g_test_add_func("/Handy/Carousel/interactive", test_hdy_carousel_interactive);
   g_test_add_func("/Handy/Carousel/spacing", test_hdy_carousel_spacing);
   g_test_add_func("/Handy/Carousel/animation_duration", test_hdy_carousel_animation_duration);
