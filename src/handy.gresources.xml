@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/sm/puri/handy">
-    <file preprocess="xml-stripblanks">icons/avatar-default-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/hdy-expander-arrow-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/hdy-expander-arrow-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/avatar-default-symbolic.svg</file>
     <file compressed="true">themes/Adwaita.css</file>
     <file compressed="true">themes/Adwaita-dark.css</file>
     <file compressed="true">themes/fallback.css</file>

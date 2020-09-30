@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/sm/puri/Handy/Demo">
-    <file preprocess="xml-stripblanks">icons/dark-mode-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/gesture-touchscreen-swipe-back-symbolic-rtl.svg</file>
-    <file preprocess="xml-stripblanks">icons/gesture-touchscreen-swipe-back-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/gesture-touchpad-swipe-back-symbolic-rtl.svg</file>
-    <file preprocess="xml-stripblanks">icons/gesture-touchpad-swipe-back-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/gnome-smartphone-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/light-mode-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/widget-carousel-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/widget-clamp-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/widget-deck-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/widget-keypad-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/widget-leaflet-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/widget-list-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/widget-search-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/widget-view-switcher-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/widget-window-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchscreen-swipe-back-symbolic-rtl.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchscreen-swipe-back-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchpad-swipe-back-symbolic-rtl.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchpad-swipe-back-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/gnome-smartphone-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-carousel-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-clamp-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-deck-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-keypad-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-leaflet-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-list-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-search-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-view-switcher-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-window-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/dark-mode-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/light-mode-symbolic.svg</file>
   </gresource>
   <gresource prefix="/sm/puri/Handy/Demo/ui">
     <file preprocess="xml-stripblanks">hdy-demo-preferences-window.ui</file>
