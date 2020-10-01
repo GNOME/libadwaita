@@ -1132,7 +1132,7 @@ hdy_squeezer_class_init (HdySqueezerClass *klass)
   /**
    * HdySqueezer:xalign:
    *
-   * The xalign property determines the horizontal aligment of the children
+   * The xalign property determines the horizontal alignment of the children
    * inside the squeezer's size allocation.
    * Compare this to #GtkWidget:halign, which determines how the squeezer's size
    * allocation is positioned in the space available for the squeezer.
@@ -1154,7 +1154,7 @@ hdy_squeezer_class_init (HdySqueezerClass *klass)
   /**
    * HdySqueezer:yalign:
    *
-   * The yalign property determines the vertical aligment of the children inside
+   * The yalign property determines the vertical alignment of the children inside
    * the squeezer's size allocation.
    * Compare this to #GtkWidget:valign, which determines how the squeezer's size
    * allocation is positioned in the space available for the squeezer.
