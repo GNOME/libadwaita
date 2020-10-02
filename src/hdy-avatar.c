@@ -146,6 +146,7 @@ update_custom_image (HdyAvatar *self)
   g_autoptr (GdkPixbuf) pixbuf = NULL;
   gint scale_factor;
   gint new_size;
+  GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
 
   scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (self));
   new_size = MIN (gtk_widget_get_allocated_width (GTK_WIDGET (self)),
@@ -164,6 +165,11 @@ update_custom_image (HdyAvatar *self)
       self->round_image_size = new_size;
     }
   }
+
+  if (self->round_image)
+    gtk_style_context_add_class (context, "image");
+  else
+    gtk_style_context_remove_class (context, "image");
 }
 
 static void
@@ -362,6 +368,8 @@ hdy_avatar_draw (GtkWidget *widget,
   if (self->round_image) {
     cairo_set_source_surface (cr, self->round_image, x, y);
     cairo_paint (cr);
+
+    gtk_render_background (context, cr, x, y, size, size);
 
     return FALSE;
   }
