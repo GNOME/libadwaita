@@ -100,13 +100,15 @@ round_image (GdkPixbuf *pixbuf,
 {
   g_autoptr (cairo_surface_t) surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, size, size);
   g_autoptr (cairo_t) cr = cairo_create (surface);
+  gint width = gdk_pixbuf_get_width (pixbuf);
+  gint height = gdk_pixbuf_get_height (pixbuf);
 
   /* Clip a circle */
   cairo_arc (cr, size / 2.0, size / 2.0, size / 2.0, 0, 2 * G_PI);
   cairo_clip (cr);
   cairo_new_path (cr);
 
-  gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
+  gdk_cairo_set_source_pixbuf (cr, pixbuf, (size - width) / 2, (size - height) / 2);
   cairo_paint (cr);
 
   return g_steal_pointer (&surface);
