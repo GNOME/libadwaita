@@ -96,7 +96,7 @@ static GParamSpec *props[PROP_LAST_PROP];
 
 static cairo_surface_t *
 round_image (GdkPixbuf *pixbuf,
-             gdouble size)
+             gdouble    size)
 {
   g_autoptr (cairo_surface_t) surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, size, size);
   g_autoptr (cairo_t) cr = cairo_create (surface);
@@ -195,7 +195,8 @@ set_class_color (HdyAvatar *self)
 }
 
 static void
-set_class_contrasted (HdyAvatar *self, gint size)
+set_class_contrasted (HdyAvatar *self,
+                      gint       size)
 {
   GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
 
@@ -225,7 +226,7 @@ ensure_pango_layout (HdyAvatar *self)
 
 static void
 set_font_size (HdyAvatar *self,
-               gint size)
+               gint       size)
 {
   GtkStyleContext *context;
   PangoFontDescription *font_desc;
@@ -382,8 +383,8 @@ hdy_avatar_draw (GtkWidget *widget,
     pango_layout_get_pixel_size (self->layout, &width, &height);
 
     gtk_render_layout (context, cr,
-                       ((gdouble)(size - width) / 2.0) + x,
-                       ((gdouble)(size - height) / 2.0) + y,
+                       ((gdouble) (size - width) / 2.0) + x,
+                       ((gdouble) (size - height) / 2.0) + y,
                        self->layout);
 
     return FALSE;
@@ -416,8 +417,8 @@ hdy_avatar_draw (GtkWidget *widget,
   width = cairo_image_surface_get_width (surface);
   height = cairo_image_surface_get_height (surface);
   gtk_render_icon_surface (context, cr, surface,
-                           (((gdouble)size - ((gdouble)width / (gdouble)scale)) / 2.0) + x,
-                           (((gdouble)size - ((gdouble)height / (gdouble)scale)) / 2.0) + y);
+                           (((gdouble) size - ((gdouble) width / (gdouble) scale)) / 2.0) + x,
+                           (((gdouble) size - ((gdouble) height / (gdouble) scale)) / 2.0) + y);
 
   return FALSE;
 }
@@ -428,11 +429,11 @@ hdy_avatar_draw (GtkWidget *widget,
 static void
 hdy_avatar_measure (GtkWidget      *widget,
                     GtkOrientation  orientation,
-                    int             for_size,
-                    int            *minimum,
-                    int            *natural,
-                    int            *minimum_baseline,
-                    int            *natural_baseline)
+                    gint            for_size,
+                    gint           *minimum,
+                    gint           *natural,
+                    gint           *minimum_baseline,
+                    gint           *natural_baseline)
 {
   HdyAvatar *self = HDY_AVATAR (widget);
 
@@ -760,10 +761,10 @@ hdy_avatar_set_show_initials (HdyAvatar *self,
  * reason (e.g. scale-factor changes).
  */
 void
-hdy_avatar_set_image_load_func (HdyAvatar *self,
-                                HdyAvatarImageLoadFunc load_image,
-                                gpointer user_data,
-                                GDestroyNotify destroy)
+hdy_avatar_set_image_load_func (HdyAvatar              *self,
+                                HdyAvatarImageLoadFunc  load_image,
+                                gpointer                user_data,
+                                GDestroyNotify          destroy)
 {
   g_return_if_fail (HDY_IS_AVATAR (self));
   g_return_if_fail (user_data != NULL || (user_data == NULL && destroy == NULL));
