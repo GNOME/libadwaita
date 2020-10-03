@@ -105,6 +105,636 @@ G_DEFINE_TYPE_WITH_CODE (HdyLeaflet, hdy_leaflet, GTK_TYPE_CONTAINER,
 
 #define HDY_GET_HELPER(obj) (HDY_LEAFLET (obj)->box)
 
+/* This private method is prefixed by the call name because it will be a virtual
+ * method in GTK 4.
+ */
+static void
+hdy_leaflet_measure (GtkWidget      *widget,
+                     GtkOrientation  orientation,
+                     int             for_size,
+                     int            *minimum,
+                     int            *natural,
+                     int            *minimum_baseline,
+                     int            *natural_baseline)
+{
+  hdy_stackable_box_measure (HDY_GET_HELPER (widget),
+                             orientation, for_size,
+                             minimum, natural,
+                             minimum_baseline, natural_baseline);
+}
+
+static void
+hdy_leaflet_get_preferred_width (GtkWidget *widget,
+                                 gint      *minimum_width,
+                                 gint      *natural_width)
+{
+  hdy_leaflet_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
+                       minimum_width, natural_width, NULL, NULL);
+}
+
+static void
+hdy_leaflet_get_preferred_height (GtkWidget *widget,
+                                  gint      *minimum_height,
+                                  gint      *natural_height)
+{
+  hdy_leaflet_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
+                       minimum_height, natural_height, NULL, NULL);
+}
+
+static void
+hdy_leaflet_get_preferred_width_for_height (GtkWidget *widget,
+                                            gint       height,
+                                            gint      *minimum_width,
+                                            gint      *natural_width)
+{
+  hdy_leaflet_measure (widget, GTK_ORIENTATION_HORIZONTAL, height,
+                       minimum_width, natural_width, NULL, NULL);
+}
+
+static void
+hdy_leaflet_get_preferred_height_for_width (GtkWidget *widget,
+                                            gint       width,
+                                            gint      *minimum_height,
+                                            gint      *natural_height)
+{
+  hdy_leaflet_measure (widget, GTK_ORIENTATION_VERTICAL, width,
+                       minimum_height, natural_height, NULL, NULL);
+}
+
+static void
+hdy_leaflet_size_allocate (GtkWidget     *widget,
+                           GtkAllocation *allocation)
+{
+  hdy_stackable_box_size_allocate (HDY_GET_HELPER (widget), allocation);
+}
+
+static gboolean
+hdy_leaflet_draw (GtkWidget *widget,
+                  cairo_t   *cr)
+{
+  return hdy_stackable_box_draw (HDY_GET_HELPER (widget), cr);
+}
+
+static void
+hdy_leaflet_direction_changed (GtkWidget        *widget,
+                               GtkTextDirection  previous_direction)
+{
+  hdy_stackable_box_direction_changed (HDY_GET_HELPER (widget), previous_direction);
+}
+
+static void
+hdy_leaflet_add (GtkContainer *container,
+                 GtkWidget    *widget)
+{
+  hdy_stackable_box_add (HDY_GET_HELPER (container), widget);
+}
+
+static void
+hdy_leaflet_remove (GtkContainer *container,
+                    GtkWidget    *widget)
+{
+  hdy_stackable_box_remove (HDY_GET_HELPER (container), widget);
+}
+
+static void
+hdy_leaflet_forall (GtkContainer *container,
+                    gboolean      include_internals,
+                    GtkCallback   callback,
+                    gpointer      callback_data)
+{
+  hdy_stackable_box_forall (HDY_GET_HELPER (container), include_internals, callback, callback_data);
+}
+
+static void
+hdy_leaflet_get_property (GObject    *object,
+                          guint       prop_id,
+                          GValue     *value,
+                          GParamSpec *pspec)
+{
+  HdyLeaflet *self = HDY_LEAFLET (object);
+
+  switch (prop_id) {
+  case PROP_FOLDED:
+    g_value_set_boolean (value, hdy_leaflet_get_folded (self));
+    break;
+  case PROP_HHOMOGENEOUS_FOLDED:
+    g_value_set_boolean (value, hdy_leaflet_get_homogeneous (self, TRUE, GTK_ORIENTATION_HORIZONTAL));
+    break;
+  case PROP_VHOMOGENEOUS_FOLDED:
+    g_value_set_boolean (value, hdy_leaflet_get_homogeneous (self, TRUE, GTK_ORIENTATION_VERTICAL));
+    break;
+  case PROP_HHOMOGENEOUS_UNFOLDED:
+    g_value_set_boolean (value, hdy_leaflet_get_homogeneous (self, FALSE, GTK_ORIENTATION_HORIZONTAL));
+    break;
+  case PROP_VHOMOGENEOUS_UNFOLDED:
+    g_value_set_boolean (value, hdy_leaflet_get_homogeneous (self, FALSE, GTK_ORIENTATION_VERTICAL));
+    break;
+  case PROP_VISIBLE_CHILD:
+    g_value_set_object (value, hdy_leaflet_get_visible_child (self));
+    break;
+  case PROP_VISIBLE_CHILD_NAME:
+    g_value_set_string (value, hdy_leaflet_get_visible_child_name (self));
+    break;
+  case PROP_TRANSITION_TYPE:
+    g_value_set_enum (value, hdy_leaflet_get_transition_type (self));
+    break;
+  case PROP_MODE_TRANSITION_DURATION:
+    g_value_set_uint (value, hdy_leaflet_get_mode_transition_duration (self));
+    break;
+  case PROP_CHILD_TRANSITION_DURATION:
+    g_value_set_uint (value, hdy_leaflet_get_child_transition_duration (self));
+    break;
+  case PROP_CHILD_TRANSITION_RUNNING:
+    g_value_set_boolean (value, hdy_leaflet_get_child_transition_running (self));
+    break;
+  case PROP_INTERPOLATE_SIZE:
+    g_value_set_boolean (value, hdy_leaflet_get_interpolate_size (self));
+    break;
+  case PROP_CAN_SWIPE_BACK:
+    g_value_set_boolean (value, hdy_leaflet_get_can_swipe_back (self));
+    break;
+  case PROP_CAN_SWIPE_FORWARD:
+    g_value_set_boolean (value, hdy_leaflet_get_can_swipe_forward (self));
+    break;
+  case PROP_ORIENTATION:
+    g_value_set_enum (value, hdy_stackable_box_get_orientation (HDY_GET_HELPER (self)));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
+hdy_leaflet_set_property (GObject      *object,
+                          guint         prop_id,
+                          const GValue *value,
+                          GParamSpec   *pspec)
+{
+  HdyLeaflet *self = HDY_LEAFLET (object);
+
+  switch (prop_id) {
+  case PROP_HHOMOGENEOUS_FOLDED:
+    hdy_leaflet_set_homogeneous (self, TRUE, GTK_ORIENTATION_HORIZONTAL, g_value_get_boolean (value));
+    break;
+  case PROP_VHOMOGENEOUS_FOLDED:
+    hdy_leaflet_set_homogeneous (self, TRUE, GTK_ORIENTATION_VERTICAL, g_value_get_boolean (value));
+    break;
+  case PROP_HHOMOGENEOUS_UNFOLDED:
+    hdy_leaflet_set_homogeneous (self, FALSE, GTK_ORIENTATION_HORIZONTAL, g_value_get_boolean (value));
+    break;
+  case PROP_VHOMOGENEOUS_UNFOLDED:
+    hdy_leaflet_set_homogeneous (self, FALSE, GTK_ORIENTATION_VERTICAL, g_value_get_boolean (value));
+    break;
+  case PROP_VISIBLE_CHILD:
+    hdy_leaflet_set_visible_child (self, g_value_get_object (value));
+    break;
+  case PROP_VISIBLE_CHILD_NAME:
+    hdy_leaflet_set_visible_child_name (self, g_value_get_string (value));
+    break;
+  case PROP_TRANSITION_TYPE:
+    hdy_leaflet_set_transition_type (self, g_value_get_enum (value));
+    break;
+  case PROP_MODE_TRANSITION_DURATION:
+    hdy_leaflet_set_mode_transition_duration (self, g_value_get_uint (value));
+    break;
+  case PROP_CHILD_TRANSITION_DURATION:
+    hdy_leaflet_set_child_transition_duration (self, g_value_get_uint (value));
+    break;
+  case PROP_INTERPOLATE_SIZE:
+    hdy_leaflet_set_interpolate_size (self, g_value_get_boolean (value));
+    break;
+  case PROP_CAN_SWIPE_BACK:
+    hdy_leaflet_set_can_swipe_back (self, g_value_get_boolean (value));
+    break;
+  case PROP_CAN_SWIPE_FORWARD:
+    hdy_leaflet_set_can_swipe_forward (self, g_value_get_boolean (value));
+    break;
+  case PROP_ORIENTATION:
+    hdy_stackable_box_set_orientation (HDY_GET_HELPER (self), g_value_get_enum (value));
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
+hdy_leaflet_finalize (GObject *object)
+{
+  HdyLeaflet *self = HDY_LEAFLET (object);
+
+  g_clear_object (&self->box);
+
+  G_OBJECT_CLASS (hdy_leaflet_parent_class)->finalize (object);
+}
+
+static void
+hdy_leaflet_get_child_property (GtkContainer *container,
+                                GtkWidget    *widget,
+                                guint         property_id,
+                                GValue       *value,
+                                GParamSpec   *pspec)
+{
+  switch (property_id) {
+  case CHILD_PROP_NAME:
+    g_value_set_string (value, hdy_stackable_box_get_child_name (HDY_GET_HELPER (container), widget));
+    break;
+
+  case CHILD_PROP_NAVIGATABLE:
+    g_value_set_boolean (value, hdy_stackable_box_get_child_navigatable (HDY_GET_HELPER (container), widget));
+    break;
+
+  default:
+    GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID (container, property_id, pspec);
+    break;
+  }
+}
+
+static void
+hdy_leaflet_set_child_property (GtkContainer *container,
+                                GtkWidget    *widget,
+                                guint         property_id,
+                                const GValue *value,
+                                GParamSpec   *pspec)
+{
+  switch (property_id) {
+  case CHILD_PROP_NAME:
+    hdy_stackable_box_set_child_name (HDY_GET_HELPER (container), widget, g_value_get_string (value));
+    gtk_container_child_notify_by_pspec (container, widget, pspec);
+    break;
+
+  case CHILD_PROP_NAVIGATABLE:
+    hdy_stackable_box_set_child_navigatable (HDY_GET_HELPER (container), widget, g_value_get_boolean (value));
+    gtk_container_child_notify_by_pspec (container, widget, pspec);
+    break;
+
+  default:
+    GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID (container, property_id, pspec);
+    break;
+  }
+}
+
+static void
+hdy_leaflet_realize (GtkWidget *widget)
+{
+  hdy_stackable_box_realize (HDY_GET_HELPER (widget));
+}
+
+static void
+hdy_leaflet_unrealize (GtkWidget *widget)
+{
+  hdy_stackable_box_unrealize (HDY_GET_HELPER (widget));
+}
+
+static void
+hdy_leaflet_map (GtkWidget *widget)
+{
+  hdy_stackable_box_map (HDY_GET_HELPER (widget));
+}
+
+static void
+hdy_leaflet_unmap (GtkWidget *widget)
+{
+  hdy_stackable_box_unmap (HDY_GET_HELPER (widget));
+}
+
+static void
+hdy_leaflet_class_init (HdyLeafletClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = (GtkWidgetClass*) klass;
+  GtkContainerClass *container_class = (GtkContainerClass*) klass;
+
+  object_class->get_property = hdy_leaflet_get_property;
+  object_class->set_property = hdy_leaflet_set_property;
+  object_class->finalize = hdy_leaflet_finalize;
+
+  widget_class->realize = hdy_leaflet_realize;
+  widget_class->unrealize = hdy_leaflet_unrealize;
+  widget_class->map = hdy_leaflet_map;
+  widget_class->unmap = hdy_leaflet_unmap;
+  widget_class->get_preferred_width = hdy_leaflet_get_preferred_width;
+  widget_class->get_preferred_height = hdy_leaflet_get_preferred_height;
+  widget_class->get_preferred_width_for_height = hdy_leaflet_get_preferred_width_for_height;
+  widget_class->get_preferred_height_for_width = hdy_leaflet_get_preferred_height_for_width;
+  widget_class->size_allocate = hdy_leaflet_size_allocate;
+  widget_class->draw = hdy_leaflet_draw;
+  widget_class->direction_changed = hdy_leaflet_direction_changed;
+
+  container_class->add = hdy_leaflet_add;
+  container_class->remove = hdy_leaflet_remove;
+  container_class->forall = hdy_leaflet_forall;
+  container_class->set_child_property = hdy_leaflet_set_child_property;
+  container_class->get_child_property = hdy_leaflet_get_child_property;
+  gtk_container_class_handle_border_width (container_class);
+
+  g_object_class_override_property (object_class,
+                                    PROP_ORIENTATION,
+                                    "orientation");
+
+  /**
+   * HdyLeaflet:folded:
+   *
+   * %TRUE if the leaflet is folded.
+   *
+   * The leaflet will be folded if the size allocated to it is smaller than the
+   * sum of the natural size of its children, it will be unfolded otherwise.
+   */
+  props[PROP_FOLDED] =
+    g_param_spec_boolean ("folded",
+                          _("Folded"),
+                          _("Whether the widget is folded"),
+                          FALSE,
+                          G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyLeaflet:hhomogeneous_folded:
+   *
+   * %TRUE if the leaflet allocates the same width for all children when folded.
+   */
+  props[PROP_HHOMOGENEOUS_FOLDED] =
+    g_param_spec_boolean ("hhomogeneous-folded",
+                          _("Horizontally homogeneous folded"),
+                          _("Horizontally homogeneous sizing when the leaflet is folded"),
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyLeaflet:vhomogeneous_folded:
+   *
+   * %TRUE if the leaflet allocates the same height for all children when folded.
+   */
+  props[PROP_VHOMOGENEOUS_FOLDED] =
+    g_param_spec_boolean ("vhomogeneous-folded",
+                          _("Vertically homogeneous folded"),
+                          _("Vertically homogeneous sizing when the leaflet is folded"),
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyLeaflet:hhomogeneous_unfolded:
+   *
+   * %TRUE if the leaflet allocates the same width for all children when unfolded.
+   */
+  props[PROP_HHOMOGENEOUS_UNFOLDED] =
+    g_param_spec_boolean ("hhomogeneous-unfolded",
+                          _("Box horizontally homogeneous"),
+                          _("Horizontally homogeneous sizing when the leaflet is unfolded"),
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyLeaflet:vhomogeneous_unfolded:
+   *
+   * %TRUE if the leaflet allocates the same height for all children when unfolded.
+   */
+  props[PROP_VHOMOGENEOUS_UNFOLDED] =
+    g_param_spec_boolean ("vhomogeneous-unfolded",
+                          _("Box vertically homogeneous"),
+                          _("Vertically homogeneous sizing when the leaflet is unfolded"),
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_VISIBLE_CHILD] =
+    g_param_spec_object ("visible-child",
+                         _("Visible child"),
+                         _("The widget currently visible when the leaflet is folded"),
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_VISIBLE_CHILD_NAME] =
+    g_param_spec_string ("visible-child-name",
+                         _("Name of visible child"),
+                         _("The name of the widget currently visible when the children are stacked"),
+                         NULL,
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyLeaflet:transition-type:
+   *
+   * The type of animation that will be used for transitions between modes and
+   * children.
+   *
+   * The transition type can be changed without problems at runtime, so it is
+   * possible to change the animation based on the mode or child that is about
+   * to become current.
+   *
+   * Since: 0.0.12
+   */
+  props[PROP_TRANSITION_TYPE] =
+    g_param_spec_enum ("transition-type",
+                       _("Transition type"),
+                       _("The type of animation used to transition between modes and children"),
+                       HDY_TYPE_LEAFLET_TRANSITION_TYPE, HDY_LEAFLET_TRANSITION_TYPE_OVER,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_MODE_TRANSITION_DURATION] =
+    g_param_spec_uint ("mode-transition-duration",
+                       _("Mode transition duration"),
+                       _("The mode transition animation duration, in milliseconds"),
+                       0, G_MAXUINT, 250,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_CHILD_TRANSITION_DURATION] =
+    g_param_spec_uint ("child-transition-duration",
+                       _("Child transition duration"),
+                       _("The child transition animation duration, in milliseconds"),
+                       0, G_MAXUINT, 200,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_CHILD_TRANSITION_RUNNING] =
+      g_param_spec_boolean ("child-transition-running",
+                            _("Child transition running"),
+                            _("Whether or not the child transition is currently running"),
+                            FALSE,
+                            G_PARAM_READABLE);
+
+  props[PROP_INTERPOLATE_SIZE] =
+      g_param_spec_boolean ("interpolate-size",
+                            _("Interpolate size"),
+                            _("Whether or not the size should smoothly change when changing between differently sized children"),
+                            FALSE,
+                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyLeaflet:can-swipe-back:
+   *
+   * Whether or not the leaflet allows switching to the previous child that has
+   * 'navigatable' child property set to %TRUE via a swipe gesture.
+   *
+   * Since: 0.0.12
+   */
+  props[PROP_CAN_SWIPE_BACK] =
+      g_param_spec_boolean ("can-swipe-back",
+                            _("Can swipe back"),
+                            _("Whether or not swipe gesture can be used to switch to the previous child"),
+                            FALSE,
+                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyLeaflet:can-swipe-forward:
+   *
+   * Whether or not the leaflet allows switching to the next child that has
+   * 'navigatable' child property set to %TRUE via a swipe gesture.
+   *
+   * Since: 0.0.12
+   */
+  props[PROP_CAN_SWIPE_FORWARD] =
+      g_param_spec_boolean ("can-swipe-forward",
+                            _("Can swipe forward"),
+                            _("Whether or not swipe gesture can be used to switch to the next child"),
+                            FALSE,
+                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, LAST_PROP, props);
+
+  child_props[CHILD_PROP_NAME] =
+    g_param_spec_string ("name",
+                         _("Name"),
+                         _("The name of the child page"),
+                         NULL,
+                         G_PARAM_READWRITE);
+
+  /**
+   * HdyLeaflet:navigatable:
+   *
+   * Whether the child can be navigated to when folded.
+   * If %FALSE, the child will be ignored by hdy_leaflet_get_adjacent_child(),
+   * hdy_leaflet_navigate(), and swipe gestures.
+   *
+   * This can be used used to prevent switching to widgets like separators.
+   *
+   * Since: 1.0
+   */
+  child_props[CHILD_PROP_NAVIGATABLE] =
+    g_param_spec_boolean ("navigatable",
+                          _("Navigatable"),
+                          _("Whether the child can be navigated to"),
+                          TRUE,
+                          G_PARAM_READWRITE);
+
+  gtk_container_class_install_child_properties (container_class, LAST_CHILD_PROP, child_props);
+
+  gtk_widget_class_set_accessible_role (widget_class, ATK_ROLE_PANEL);
+  gtk_widget_class_set_css_name (widget_class, "leaflet");
+}
+
+#define NOTIFY(func, prop) \
+static void \
+func (HdyLeaflet *self) { \
+  g_object_notify_by_pspec (G_OBJECT (self), props[prop]); \
+}
+
+NOTIFY (notify_folded_cb, PROP_FOLDED);
+NOTIFY (notify_hhomogeneous_folded_cb, PROP_HHOMOGENEOUS_FOLDED);
+NOTIFY (notify_vhomogeneous_folded_cb, PROP_VHOMOGENEOUS_FOLDED);
+NOTIFY (notify_hhomogeneous_unfolded_cb, PROP_HHOMOGENEOUS_UNFOLDED);
+NOTIFY (notify_vhomogeneous_unfolded_cb, PROP_VHOMOGENEOUS_UNFOLDED);
+NOTIFY (notify_visible_child_cb, PROP_VISIBLE_CHILD);
+NOTIFY (notify_visible_child_name_cb, PROP_VISIBLE_CHILD_NAME);
+NOTIFY (notify_transition_type_cb, PROP_TRANSITION_TYPE);
+NOTIFY (notify_mode_transition_duration_cb, PROP_MODE_TRANSITION_DURATION);
+NOTIFY (notify_child_transition_duration_cb, PROP_CHILD_TRANSITION_DURATION);
+NOTIFY (notify_child_transition_running_cb, PROP_CHILD_TRANSITION_RUNNING);
+NOTIFY (notify_interpolate_size_cb, PROP_INTERPOLATE_SIZE);
+NOTIFY (notify_can_swipe_back_cb, PROP_CAN_SWIPE_BACK);
+NOTIFY (notify_can_swipe_forward_cb, PROP_CAN_SWIPE_FORWARD);
+
+static void
+notify_orientation_cb (HdyLeaflet *self)
+{
+  g_object_notify (G_OBJECT (self), "orientation");
+}
+
+static void
+hdy_leaflet_init (HdyLeaflet *self)
+{
+  self->box = hdy_stackable_box_new (GTK_CONTAINER (self),
+                                     GTK_CONTAINER_CLASS (hdy_leaflet_parent_class),
+                                     TRUE);
+
+  g_signal_connect_object (self->box, "notify::folded", G_CALLBACK (notify_folded_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::hhomogeneous-folded", G_CALLBACK (notify_hhomogeneous_folded_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::vhomogeneous-folded", G_CALLBACK (notify_vhomogeneous_folded_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::hhomogeneous-unfolded", G_CALLBACK (notify_hhomogeneous_unfolded_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::vhomogeneous-unfolded", G_CALLBACK (notify_vhomogeneous_unfolded_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::visible-child", G_CALLBACK (notify_visible_child_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::visible-child-name", G_CALLBACK (notify_visible_child_name_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::transition-type", G_CALLBACK (notify_transition_type_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::mode-transition-duration", G_CALLBACK (notify_mode_transition_duration_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::child-transition-duration", G_CALLBACK (notify_child_transition_duration_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::child-transition-running", G_CALLBACK (notify_child_transition_running_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::interpolate-size", G_CALLBACK (notify_interpolate_size_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::can-swipe-back", G_CALLBACK (notify_can_swipe_back_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::can-swipe-forward", G_CALLBACK (notify_can_swipe_forward_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::orientation", G_CALLBACK (notify_orientation_cb), self, G_CONNECT_SWAPPED);
+}
+
+static void
+hdy_leaflet_switch_child (HdySwipeable *swipeable,
+                          guint         index,
+                          gint64        duration)
+{
+  hdy_stackable_box_switch_child (HDY_GET_HELPER (swipeable), index, duration);
+}
+
+static HdySwipeTracker *
+hdy_leaflet_get_swipe_tracker (HdySwipeable *swipeable)
+{
+  return hdy_stackable_box_get_swipe_tracker (HDY_GET_HELPER (swipeable));
+}
+
+static gdouble
+hdy_leaflet_get_distance (HdySwipeable *swipeable)
+{
+  return hdy_stackable_box_get_distance (HDY_GET_HELPER (swipeable));
+}
+
+static gdouble *
+hdy_leaflet_get_snap_points (HdySwipeable *swipeable,
+                             gint         *n_snap_points)
+{
+  return hdy_stackable_box_get_snap_points (HDY_GET_HELPER (swipeable), n_snap_points);
+}
+
+static gdouble
+hdy_leaflet_get_progress (HdySwipeable *swipeable)
+{
+  return hdy_stackable_box_get_progress (HDY_GET_HELPER (swipeable));
+}
+
+static gdouble
+hdy_leaflet_get_cancel_progress (HdySwipeable *swipeable)
+{
+  return hdy_stackable_box_get_cancel_progress (HDY_GET_HELPER (swipeable));
+}
+
+static void
+hdy_leaflet_get_swipe_area (HdySwipeable           *swipeable,
+                            HdyNavigationDirection  navigation_direction,
+                            gboolean                is_drag,
+                            GdkRectangle           *rect)
+{
+  hdy_stackable_box_get_swipe_area (HDY_GET_HELPER (swipeable), navigation_direction, is_drag, rect);
+}
+
+static void
+hdy_leaflet_swipeable_init (HdySwipeableInterface *iface)
+{
+  iface->switch_child = hdy_leaflet_switch_child;
+  iface->get_swipe_tracker = hdy_leaflet_get_swipe_tracker;
+  iface->get_distance = hdy_leaflet_get_distance;
+  iface->get_snap_points = hdy_leaflet_get_snap_points;
+  iface->get_progress = hdy_leaflet_get_progress;
+  iface->get_cancel_progress = hdy_leaflet_get_cancel_progress;
+  iface->get_swipe_area = hdy_leaflet_get_swipe_area;
+}
+
+GtkWidget *
+hdy_leaflet_new (void)
+{
+  return g_object_new (HDY_TYPE_LEAFLET, NULL);
+}
+
 /**
  * hdy_leaflet_get_folded:
  * @self: a #HdyLeaflet
@@ -648,634 +1278,4 @@ hdy_leaflet_reorder_child_after (HdyLeaflet *self,
     return;
 
   hdy_stackable_box_reorder_child_after (HDY_GET_HELPER (self), child, sibling);
-}
-
-/* This private method is prefixed by the call name because it will be a virtual
- * method in GTK 4.
- */
-static void
-hdy_leaflet_measure (GtkWidget      *widget,
-                     GtkOrientation  orientation,
-                     int             for_size,
-                     int            *minimum,
-                     int            *natural,
-                     int            *minimum_baseline,
-                     int            *natural_baseline)
-{
-  hdy_stackable_box_measure (HDY_GET_HELPER (widget),
-                             orientation, for_size,
-                             minimum, natural,
-                             minimum_baseline, natural_baseline);
-}
-
-static void
-hdy_leaflet_get_preferred_width (GtkWidget *widget,
-                                 gint      *minimum_width,
-                                 gint      *natural_width)
-{
-  hdy_leaflet_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
-                       minimum_width, natural_width, NULL, NULL);
-}
-
-static void
-hdy_leaflet_get_preferred_height (GtkWidget *widget,
-                                  gint      *minimum_height,
-                                  gint      *natural_height)
-{
-  hdy_leaflet_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
-                       minimum_height, natural_height, NULL, NULL);
-}
-
-static void
-hdy_leaflet_get_preferred_width_for_height (GtkWidget *widget,
-                                            gint       height,
-                                            gint      *minimum_width,
-                                            gint      *natural_width)
-{
-  hdy_leaflet_measure (widget, GTK_ORIENTATION_HORIZONTAL, height,
-                       minimum_width, natural_width, NULL, NULL);
-}
-
-static void
-hdy_leaflet_get_preferred_height_for_width (GtkWidget *widget,
-                                            gint       width,
-                                            gint      *minimum_height,
-                                            gint      *natural_height)
-{
-  hdy_leaflet_measure (widget, GTK_ORIENTATION_VERTICAL, width,
-                       minimum_height, natural_height, NULL, NULL);
-}
-
-static void
-hdy_leaflet_size_allocate (GtkWidget     *widget,
-                           GtkAllocation *allocation)
-{
-  hdy_stackable_box_size_allocate (HDY_GET_HELPER (widget), allocation);
-}
-
-static gboolean
-hdy_leaflet_draw (GtkWidget *widget,
-                  cairo_t   *cr)
-{
-  return hdy_stackable_box_draw (HDY_GET_HELPER (widget), cr);
-}
-
-static void
-hdy_leaflet_direction_changed (GtkWidget        *widget,
-                               GtkTextDirection  previous_direction)
-{
-  hdy_stackable_box_direction_changed (HDY_GET_HELPER (widget), previous_direction);
-}
-
-static void
-hdy_leaflet_add (GtkContainer *container,
-                 GtkWidget    *widget)
-{
-  hdy_stackable_box_add (HDY_GET_HELPER (container), widget);
-}
-
-static void
-hdy_leaflet_remove (GtkContainer *container,
-                    GtkWidget    *widget)
-{
-  hdy_stackable_box_remove (HDY_GET_HELPER (container), widget);
-}
-
-static void
-hdy_leaflet_forall (GtkContainer *container,
-                    gboolean      include_internals,
-                    GtkCallback   callback,
-                    gpointer      callback_data)
-{
-  hdy_stackable_box_forall (HDY_GET_HELPER (container), include_internals, callback, callback_data);
-}
-
-static void
-hdy_leaflet_get_property (GObject    *object,
-                          guint       prop_id,
-                          GValue     *value,
-                          GParamSpec *pspec)
-{
-  HdyLeaflet *self = HDY_LEAFLET (object);
-
-  switch (prop_id) {
-  case PROP_FOLDED:
-    g_value_set_boolean (value, hdy_leaflet_get_folded (self));
-    break;
-  case PROP_HHOMOGENEOUS_FOLDED:
-    g_value_set_boolean (value, hdy_leaflet_get_homogeneous (self, TRUE, GTK_ORIENTATION_HORIZONTAL));
-    break;
-  case PROP_VHOMOGENEOUS_FOLDED:
-    g_value_set_boolean (value, hdy_leaflet_get_homogeneous (self, TRUE, GTK_ORIENTATION_VERTICAL));
-    break;
-  case PROP_HHOMOGENEOUS_UNFOLDED:
-    g_value_set_boolean (value, hdy_leaflet_get_homogeneous (self, FALSE, GTK_ORIENTATION_HORIZONTAL));
-    break;
-  case PROP_VHOMOGENEOUS_UNFOLDED:
-    g_value_set_boolean (value, hdy_leaflet_get_homogeneous (self, FALSE, GTK_ORIENTATION_VERTICAL));
-    break;
-  case PROP_VISIBLE_CHILD:
-    g_value_set_object (value, hdy_leaflet_get_visible_child (self));
-    break;
-  case PROP_VISIBLE_CHILD_NAME:
-    g_value_set_string (value, hdy_leaflet_get_visible_child_name (self));
-    break;
-  case PROP_TRANSITION_TYPE:
-    g_value_set_enum (value, hdy_leaflet_get_transition_type (self));
-    break;
-  case PROP_MODE_TRANSITION_DURATION:
-    g_value_set_uint (value, hdy_leaflet_get_mode_transition_duration (self));
-    break;
-  case PROP_CHILD_TRANSITION_DURATION:
-    g_value_set_uint (value, hdy_leaflet_get_child_transition_duration (self));
-    break;
-  case PROP_CHILD_TRANSITION_RUNNING:
-    g_value_set_boolean (value, hdy_leaflet_get_child_transition_running (self));
-    break;
-  case PROP_INTERPOLATE_SIZE:
-    g_value_set_boolean (value, hdy_leaflet_get_interpolate_size (self));
-    break;
-  case PROP_CAN_SWIPE_BACK:
-    g_value_set_boolean (value, hdy_leaflet_get_can_swipe_back (self));
-    break;
-  case PROP_CAN_SWIPE_FORWARD:
-    g_value_set_boolean (value, hdy_leaflet_get_can_swipe_forward (self));
-    break;
-  case PROP_ORIENTATION:
-    g_value_set_enum (value, hdy_stackable_box_get_orientation (HDY_GET_HELPER (self)));
-    break;
-  default:
-    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-  }
-}
-
-static void
-hdy_leaflet_set_property (GObject      *object,
-                          guint         prop_id,
-                          const GValue *value,
-                          GParamSpec   *pspec)
-{
-  HdyLeaflet *self = HDY_LEAFLET (object);
-
-  switch (prop_id) {
-  case PROP_HHOMOGENEOUS_FOLDED:
-    hdy_leaflet_set_homogeneous (self, TRUE, GTK_ORIENTATION_HORIZONTAL, g_value_get_boolean (value));
-    break;
-  case PROP_VHOMOGENEOUS_FOLDED:
-    hdy_leaflet_set_homogeneous (self, TRUE, GTK_ORIENTATION_VERTICAL, g_value_get_boolean (value));
-    break;
-  case PROP_HHOMOGENEOUS_UNFOLDED:
-    hdy_leaflet_set_homogeneous (self, FALSE, GTK_ORIENTATION_HORIZONTAL, g_value_get_boolean (value));
-    break;
-  case PROP_VHOMOGENEOUS_UNFOLDED:
-    hdy_leaflet_set_homogeneous (self, FALSE, GTK_ORIENTATION_VERTICAL, g_value_get_boolean (value));
-    break;
-  case PROP_VISIBLE_CHILD:
-    hdy_leaflet_set_visible_child (self, g_value_get_object (value));
-    break;
-  case PROP_VISIBLE_CHILD_NAME:
-    hdy_leaflet_set_visible_child_name (self, g_value_get_string (value));
-    break;
-  case PROP_TRANSITION_TYPE:
-    hdy_leaflet_set_transition_type (self, g_value_get_enum (value));
-    break;
-  case PROP_MODE_TRANSITION_DURATION:
-    hdy_leaflet_set_mode_transition_duration (self, g_value_get_uint (value));
-    break;
-  case PROP_CHILD_TRANSITION_DURATION:
-    hdy_leaflet_set_child_transition_duration (self, g_value_get_uint (value));
-    break;
-  case PROP_INTERPOLATE_SIZE:
-    hdy_leaflet_set_interpolate_size (self, g_value_get_boolean (value));
-    break;
-  case PROP_CAN_SWIPE_BACK:
-    hdy_leaflet_set_can_swipe_back (self, g_value_get_boolean (value));
-    break;
-  case PROP_CAN_SWIPE_FORWARD:
-    hdy_leaflet_set_can_swipe_forward (self, g_value_get_boolean (value));
-    break;
-  case PROP_ORIENTATION:
-    hdy_stackable_box_set_orientation (HDY_GET_HELPER (self), g_value_get_enum (value));
-    break;
-  default:
-    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-  }
-}
-
-static void
-hdy_leaflet_finalize (GObject *object)
-{
-  HdyLeaflet *self = HDY_LEAFLET (object);
-
-  g_clear_object (&self->box);
-
-  G_OBJECT_CLASS (hdy_leaflet_parent_class)->finalize (object);
-}
-
-static void
-hdy_leaflet_get_child_property (GtkContainer *container,
-                                GtkWidget    *widget,
-                                guint         property_id,
-                                GValue       *value,
-                                GParamSpec   *pspec)
-{
-  switch (property_id) {
-  case CHILD_PROP_NAME:
-    g_value_set_string (value, hdy_stackable_box_get_child_name (HDY_GET_HELPER (container), widget));
-    break;
-
-  case CHILD_PROP_NAVIGATABLE:
-    g_value_set_boolean (value, hdy_stackable_box_get_child_navigatable (HDY_GET_HELPER (container), widget));
-    break;
-
-  default:
-    GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID (container, property_id, pspec);
-    break;
-  }
-}
-
-static void
-hdy_leaflet_set_child_property (GtkContainer *container,
-                                GtkWidget    *widget,
-                                guint         property_id,
-                                const GValue *value,
-                                GParamSpec   *pspec)
-{
-  switch (property_id) {
-  case CHILD_PROP_NAME:
-    hdy_stackable_box_set_child_name (HDY_GET_HELPER (container), widget, g_value_get_string (value));
-    gtk_container_child_notify_by_pspec (container, widget, pspec);
-    break;
-
-  case CHILD_PROP_NAVIGATABLE:
-    hdy_stackable_box_set_child_navigatable (HDY_GET_HELPER (container), widget, g_value_get_boolean (value));
-    gtk_container_child_notify_by_pspec (container, widget, pspec);
-    break;
-
-  default:
-    GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID (container, property_id, pspec);
-    break;
-  }
-}
-
-static void
-hdy_leaflet_realize (GtkWidget *widget)
-{
-  hdy_stackable_box_realize (HDY_GET_HELPER (widget));
-}
-
-static void
-hdy_leaflet_unrealize (GtkWidget *widget)
-{
-  hdy_stackable_box_unrealize (HDY_GET_HELPER (widget));
-}
-
-static void
-hdy_leaflet_map (GtkWidget *widget)
-{
-  hdy_stackable_box_map (HDY_GET_HELPER (widget));
-}
-
-static void
-hdy_leaflet_unmap (GtkWidget *widget)
-{
-  hdy_stackable_box_unmap (HDY_GET_HELPER (widget));
-}
-
-static void
-hdy_leaflet_switch_child (HdySwipeable *swipeable,
-                          guint         index,
-                          gint64        duration)
-{
-  hdy_stackable_box_switch_child (HDY_GET_HELPER (swipeable), index, duration);
-}
-
-static HdySwipeTracker *
-hdy_leaflet_get_swipe_tracker (HdySwipeable *swipeable)
-{
-  return hdy_stackable_box_get_swipe_tracker (HDY_GET_HELPER (swipeable));
-}
-
-static gdouble
-hdy_leaflet_get_distance (HdySwipeable *swipeable)
-{
-  return hdy_stackable_box_get_distance (HDY_GET_HELPER (swipeable));
-}
-
-static gdouble *
-hdy_leaflet_get_snap_points (HdySwipeable *swipeable,
-                             gint         *n_snap_points)
-{
-  return hdy_stackable_box_get_snap_points (HDY_GET_HELPER (swipeable), n_snap_points);
-}
-
-static gdouble
-hdy_leaflet_get_progress (HdySwipeable *swipeable)
-{
-  return hdy_stackable_box_get_progress (HDY_GET_HELPER (swipeable));
-}
-
-static gdouble
-hdy_leaflet_get_cancel_progress (HdySwipeable *swipeable)
-{
-  return hdy_stackable_box_get_cancel_progress (HDY_GET_HELPER (swipeable));
-}
-
-static void
-hdy_leaflet_get_swipe_area (HdySwipeable           *swipeable,
-                            HdyNavigationDirection  navigation_direction,
-                            gboolean                is_drag,
-                            GdkRectangle           *rect)
-{
-  hdy_stackable_box_get_swipe_area (HDY_GET_HELPER (swipeable), navigation_direction, is_drag, rect);
-}
-
-static void
-hdy_leaflet_class_init (HdyLeafletClass *klass)
-{
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
-  GtkWidgetClass *widget_class = (GtkWidgetClass*) klass;
-  GtkContainerClass *container_class = (GtkContainerClass*) klass;
-
-  object_class->get_property = hdy_leaflet_get_property;
-  object_class->set_property = hdy_leaflet_set_property;
-  object_class->finalize = hdy_leaflet_finalize;
-
-  widget_class->realize = hdy_leaflet_realize;
-  widget_class->unrealize = hdy_leaflet_unrealize;
-  widget_class->map = hdy_leaflet_map;
-  widget_class->unmap = hdy_leaflet_unmap;
-  widget_class->get_preferred_width = hdy_leaflet_get_preferred_width;
-  widget_class->get_preferred_height = hdy_leaflet_get_preferred_height;
-  widget_class->get_preferred_width_for_height = hdy_leaflet_get_preferred_width_for_height;
-  widget_class->get_preferred_height_for_width = hdy_leaflet_get_preferred_height_for_width;
-  widget_class->size_allocate = hdy_leaflet_size_allocate;
-  widget_class->draw = hdy_leaflet_draw;
-  widget_class->direction_changed = hdy_leaflet_direction_changed;
-
-  container_class->add = hdy_leaflet_add;
-  container_class->remove = hdy_leaflet_remove;
-  container_class->forall = hdy_leaflet_forall;
-  container_class->set_child_property = hdy_leaflet_set_child_property;
-  container_class->get_child_property = hdy_leaflet_get_child_property;
-  gtk_container_class_handle_border_width (container_class);
-
-  g_object_class_override_property (object_class,
-                                    PROP_ORIENTATION,
-                                    "orientation");
-
-  /**
-   * HdyLeaflet:folded:
-   *
-   * %TRUE if the leaflet is folded.
-   *
-   * The leaflet will be folded if the size allocated to it is smaller than the
-   * sum of the natural size of its children, it will be unfolded otherwise.
-   */
-  props[PROP_FOLDED] =
-    g_param_spec_boolean ("folded",
-                          _("Folded"),
-                          _("Whether the widget is folded"),
-                          FALSE,
-                          G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * HdyLeaflet:hhomogeneous_folded:
-   *
-   * %TRUE if the leaflet allocates the same width for all children when folded.
-   */
-  props[PROP_HHOMOGENEOUS_FOLDED] =
-    g_param_spec_boolean ("hhomogeneous-folded",
-                          _("Horizontally homogeneous folded"),
-                          _("Horizontally homogeneous sizing when the leaflet is folded"),
-                          TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * HdyLeaflet:vhomogeneous_folded:
-   *
-   * %TRUE if the leaflet allocates the same height for all children when folded.
-   */
-  props[PROP_VHOMOGENEOUS_FOLDED] =
-    g_param_spec_boolean ("vhomogeneous-folded",
-                          _("Vertically homogeneous folded"),
-                          _("Vertically homogeneous sizing when the leaflet is folded"),
-                          TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * HdyLeaflet:hhomogeneous_unfolded:
-   *
-   * %TRUE if the leaflet allocates the same width for all children when unfolded.
-   */
-  props[PROP_HHOMOGENEOUS_UNFOLDED] =
-    g_param_spec_boolean ("hhomogeneous-unfolded",
-                          _("Box horizontally homogeneous"),
-                          _("Horizontally homogeneous sizing when the leaflet is unfolded"),
-                          FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * HdyLeaflet:vhomogeneous_unfolded:
-   *
-   * %TRUE if the leaflet allocates the same height for all children when unfolded.
-   */
-  props[PROP_VHOMOGENEOUS_UNFOLDED] =
-    g_param_spec_boolean ("vhomogeneous-unfolded",
-                          _("Box vertically homogeneous"),
-                          _("Vertically homogeneous sizing when the leaflet is unfolded"),
-                          FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  props[PROP_VISIBLE_CHILD] =
-    g_param_spec_object ("visible-child",
-                         _("Visible child"),
-                         _("The widget currently visible when the leaflet is folded"),
-                         GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  props[PROP_VISIBLE_CHILD_NAME] =
-    g_param_spec_string ("visible-child-name",
-                         _("Name of visible child"),
-                         _("The name of the widget currently visible when the children are stacked"),
-                         NULL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * HdyLeaflet:transition-type:
-   *
-   * The type of animation that will be used for transitions between modes and
-   * children.
-   *
-   * The transition type can be changed without problems at runtime, so it is
-   * possible to change the animation based on the mode or child that is about
-   * to become current.
-   *
-   * Since: 0.0.12
-   */
-  props[PROP_TRANSITION_TYPE] =
-    g_param_spec_enum ("transition-type",
-                       _("Transition type"),
-                       _("The type of animation used to transition between modes and children"),
-                       HDY_TYPE_LEAFLET_TRANSITION_TYPE, HDY_LEAFLET_TRANSITION_TYPE_OVER,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  props[PROP_MODE_TRANSITION_DURATION] =
-    g_param_spec_uint ("mode-transition-duration",
-                       _("Mode transition duration"),
-                       _("The mode transition animation duration, in milliseconds"),
-                       0, G_MAXUINT, 250,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  props[PROP_CHILD_TRANSITION_DURATION] =
-    g_param_spec_uint ("child-transition-duration",
-                       _("Child transition duration"),
-                       _("The child transition animation duration, in milliseconds"),
-                       0, G_MAXUINT, 200,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  props[PROP_CHILD_TRANSITION_RUNNING] =
-      g_param_spec_boolean ("child-transition-running",
-                            _("Child transition running"),
-                            _("Whether or not the child transition is currently running"),
-                            FALSE,
-                            G_PARAM_READABLE);
-
-  props[PROP_INTERPOLATE_SIZE] =
-      g_param_spec_boolean ("interpolate-size",
-                            _("Interpolate size"),
-                            _("Whether or not the size should smoothly change when changing between differently sized children"),
-                            FALSE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * HdyLeaflet:can-swipe-back:
-   *
-   * Whether or not the leaflet allows switching to the previous child that has
-   * 'navigatable' child property set to %TRUE via a swipe gesture.
-   *
-   * Since: 0.0.12
-   */
-  props[PROP_CAN_SWIPE_BACK] =
-      g_param_spec_boolean ("can-swipe-back",
-                            _("Can swipe back"),
-                            _("Whether or not swipe gesture can be used to switch to the previous child"),
-                            FALSE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * HdyLeaflet:can-swipe-forward:
-   *
-   * Whether or not the leaflet allows switching to the next child that has
-   * 'navigatable' child property set to %TRUE via a swipe gesture.
-   *
-   * Since: 0.0.12
-   */
-  props[PROP_CAN_SWIPE_FORWARD] =
-      g_param_spec_boolean ("can-swipe-forward",
-                            _("Can swipe forward"),
-                            _("Whether or not swipe gesture can be used to switch to the next child"),
-                            FALSE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  g_object_class_install_properties (object_class, LAST_PROP, props);
-
-  child_props[CHILD_PROP_NAME] =
-    g_param_spec_string ("name",
-                         _("Name"),
-                         _("The name of the child page"),
-                         NULL,
-                         G_PARAM_READWRITE);
-
-  /**
-   * HdyLeaflet:navigatable:
-   *
-   * Whether the child can be navigated to when folded.
-   * If %FALSE, the child will be ignored by hdy_leaflet_get_adjacent_child(),
-   * hdy_leaflet_navigate(), and swipe gestures.
-   *
-   * This can be used used to prevent switching to widgets like separators.
-   *
-   * Since: 1.0
-   */
-  child_props[CHILD_PROP_NAVIGATABLE] =
-    g_param_spec_boolean ("navigatable",
-                          _("Navigatable"),
-                          _("Whether the child can be navigated to"),
-                          TRUE,
-                          G_PARAM_READWRITE);
-
-  gtk_container_class_install_child_properties (container_class, LAST_CHILD_PROP, child_props);
-
-  gtk_widget_class_set_accessible_role (widget_class, ATK_ROLE_PANEL);
-  gtk_widget_class_set_css_name (widget_class, "leaflet");
-}
-
-GtkWidget *
-hdy_leaflet_new (void)
-{
-  return g_object_new (HDY_TYPE_LEAFLET, NULL);
-}
-
-#define NOTIFY(func, prop) \
-static void \
-func (HdyLeaflet *self) { \
-  g_object_notify_by_pspec (G_OBJECT (self), props[prop]); \
-}
-
-NOTIFY (notify_folded_cb, PROP_FOLDED);
-NOTIFY (notify_hhomogeneous_folded_cb, PROP_HHOMOGENEOUS_FOLDED);
-NOTIFY (notify_vhomogeneous_folded_cb, PROP_VHOMOGENEOUS_FOLDED);
-NOTIFY (notify_hhomogeneous_unfolded_cb, PROP_HHOMOGENEOUS_UNFOLDED);
-NOTIFY (notify_vhomogeneous_unfolded_cb, PROP_VHOMOGENEOUS_UNFOLDED);
-NOTIFY (notify_visible_child_cb, PROP_VISIBLE_CHILD);
-NOTIFY (notify_visible_child_name_cb, PROP_VISIBLE_CHILD_NAME);
-NOTIFY (notify_transition_type_cb, PROP_TRANSITION_TYPE);
-NOTIFY (notify_mode_transition_duration_cb, PROP_MODE_TRANSITION_DURATION);
-NOTIFY (notify_child_transition_duration_cb, PROP_CHILD_TRANSITION_DURATION);
-NOTIFY (notify_child_transition_running_cb, PROP_CHILD_TRANSITION_RUNNING);
-NOTIFY (notify_interpolate_size_cb, PROP_INTERPOLATE_SIZE);
-NOTIFY (notify_can_swipe_back_cb, PROP_CAN_SWIPE_BACK);
-NOTIFY (notify_can_swipe_forward_cb, PROP_CAN_SWIPE_FORWARD);
-
-static void
-notify_orientation_cb (HdyLeaflet *self)
-{
-  g_object_notify (G_OBJECT (self), "orientation");
-}
-
-static void
-hdy_leaflet_init (HdyLeaflet *self)
-{
-  self->box = hdy_stackable_box_new (GTK_CONTAINER (self),
-                                     GTK_CONTAINER_CLASS (hdy_leaflet_parent_class),
-                                     TRUE);
-
-  g_signal_connect_object (self->box, "notify::folded", G_CALLBACK (notify_folded_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::hhomogeneous-folded", G_CALLBACK (notify_hhomogeneous_folded_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::vhomogeneous-folded", G_CALLBACK (notify_vhomogeneous_folded_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::hhomogeneous-unfolded", G_CALLBACK (notify_hhomogeneous_unfolded_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::vhomogeneous-unfolded", G_CALLBACK (notify_vhomogeneous_unfolded_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::visible-child", G_CALLBACK (notify_visible_child_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::visible-child-name", G_CALLBACK (notify_visible_child_name_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::transition-type", G_CALLBACK (notify_transition_type_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::mode-transition-duration", G_CALLBACK (notify_mode_transition_duration_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::child-transition-duration", G_CALLBACK (notify_child_transition_duration_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::child-transition-running", G_CALLBACK (notify_child_transition_running_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::interpolate-size", G_CALLBACK (notify_interpolate_size_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::can-swipe-back", G_CALLBACK (notify_can_swipe_back_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::can-swipe-forward", G_CALLBACK (notify_can_swipe_forward_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->box, "notify::orientation", G_CALLBACK (notify_orientation_cb), self, G_CONNECT_SWAPPED);
-}
-
-static void
-hdy_leaflet_swipeable_init (HdySwipeableInterface *iface)
-{
-  iface->switch_child = hdy_leaflet_switch_child;
-  iface->get_swipe_tracker = hdy_leaflet_get_swipe_tracker;
-  iface->get_distance = hdy_leaflet_get_distance;
-  iface->get_snap_points = hdy_leaflet_get_snap_points;
-  iface->get_progress = hdy_leaflet_get_progress;
-  iface->get_cancel_progress = hdy_leaflet_get_cancel_progress;
-  iface->get_swipe_area = hdy_leaflet_get_swipe_area;
 }
