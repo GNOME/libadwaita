@@ -456,7 +456,7 @@ hdy_combo_row_init (HdyComboRow *self)
 
   priv->selected_index = -1;
 
-  g_signal_connect_object (priv->list, "row-activated", G_CALLBACK (gtk_widget_hide),
+  g_signal_connect_object (priv->list, "row-activated", G_CALLBACK (gtk_popover_popdown),
                            priv->popover, G_CONNECT_SWAPPED);
   g_signal_connect_object (priv->list, "row-activated", G_CALLBACK (row_activated_cb),
                            self, G_CONNECT_SWAPPED);
