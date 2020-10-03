@@ -1,7 +1,6 @@
 /*** BEGIN file-header ***/
 
 #include "config.h"
-#include "hdy-deck.h"
 #include "hdy-enums.h"
 #include "hdy-flap.h"
 #include "hdy-header-bar.h"

@@ -12,7 +12,7 @@
  * SECTION:hdy-swipeable
  * @short_description: An interface for swipeable widgets.
  * @title: HdySwipeable
- * @See_also: #HdyCarousel, #HdyDeck, #HdyLeaflet, #HdySwipeGroup
+ * @See_also: #HdyCarousel, #HdyLeaflet, #HdySwipeGroup
  *
  * The #HdySwipeable interface is implemented by all swipeable widgets. They
  * can be synced using #HdySwipeGroup.

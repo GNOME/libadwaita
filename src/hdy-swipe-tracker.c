@@ -26,7 +26,7 @@
  * SECTION:hdy-swipe-tracker
  * @short_description: Swipe tracker used in #HdyCarousel and #HdyLeaflet
  * @title: HdySwipeTracker
- * @See_also: #HdyCarousel, #HdyDeck, #HdyLeaflet, #HdySwipeable
+ * @See_also: #HdyCarousel, #HdyLeaflet, #HdySwipeable
  *
  * The HdySwipeTracker object can be used for implementing widgets with swipe
  * gestures. It supports touch-based swipes, pointer dragging, and touchpad

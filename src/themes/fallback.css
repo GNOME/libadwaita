@@ -23,21 +23,21 @@ row.expander:checked image.expander-row-arrow:not(:disabled) { color: #3584e4; }
 
 row.expander image.expander-row-arrow:disabled { color: #929595; }
 
-flap > dimming, deck > dimming, leaflet > dimming { background: rgba(0, 0, 0, 0.12); }
+flap > dimming, leaflet > dimming { background: rgba(0, 0, 0, 0.12); }
 
-flap > border, deck > border, leaflet > border { min-width: 1px; min-height: 1px; background: rgba(0, 0, 0, 0.05); }
+flap > border, leaflet > border { min-width: 1px; min-height: 1px; background: rgba(0, 0, 0, 0.05); }
 
-flap > shadow, deck > shadow, leaflet > shadow { min-width: 56px; min-height: 56px; }
+flap > shadow, leaflet > shadow { min-width: 56px; min-height: 56px; }
 
-flap > shadow.left, deck > shadow.left, leaflet > shadow.left { background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.01) 40px, rgba(0, 0, 0, 0) 56px), linear-gradient(to right, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.01) 7px, rgba(0, 0, 0, 0) 24px); }
+flap > shadow.left, leaflet > shadow.left { background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.01) 40px, rgba(0, 0, 0, 0) 56px), linear-gradient(to right, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.01) 7px, rgba(0, 0, 0, 0) 24px); }
 
-flap > shadow.right, deck > shadow.right, leaflet > shadow.right { background-image: linear-gradient(to left, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.01) 40px, rgba(0, 0, 0, 0) 56px), linear-gradient(to left, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.01) 7px, rgba(0, 0, 0, 0) 24px); }
+flap > shadow.right, leaflet > shadow.right { background-image: linear-gradient(to left, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.01) 40px, rgba(0, 0, 0, 0) 56px), linear-gradient(to left, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.01) 7px, rgba(0, 0, 0, 0) 24px); }
 
-flap > shadow.up, deck > shadow.up, leaflet > shadow.up { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.01) 40px, rgba(0, 0, 0, 0) 56px), linear-gradient(to bottom, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.01) 7px, rgba(0, 0, 0, 0) 24px); }
+flap > shadow.up, leaflet > shadow.up { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.01) 40px, rgba(0, 0, 0, 0) 56px), linear-gradient(to bottom, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.01) 7px, rgba(0, 0, 0, 0) 24px); }
 
-flap > shadow.down, deck > shadow.down, leaflet > shadow.down { background-image: linear-gradient(to top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.01) 40px, rgba(0, 0, 0, 0) 56px), linear-gradient(to top, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.01) 7px, rgba(0, 0, 0, 0) 24px); }
+flap > shadow.down, leaflet > shadow.down { background-image: linear-gradient(to top, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.01) 40px, rgba(0, 0, 0, 0) 56px), linear-gradient(to top, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.01) 7px, rgba(0, 0, 0, 0) 24px); }
 
-flap > outline, deck > outline, leaflet > outline { min-width: 1px; min-height: 1px; background: rgba(255, 255, 255, 0.2); }
+flap > outline, leaflet > outline { min-width: 1px; min-height: 1px; background: rgba(255, 255, 255, 0.2); }
 
 avatar { border-radius: 9999px; -gtk-outline-radius: 9999px; font-weight: bold; }
 
