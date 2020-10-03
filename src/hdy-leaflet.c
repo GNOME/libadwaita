@@ -79,6 +79,7 @@ enum {
   PROP_INTERPOLATE_SIZE,
   PROP_CAN_SWIPE_BACK,
   PROP_CAN_SWIPE_FORWARD,
+  PROP_CAN_UNFOLD,
 
   /* orientable */
   PROP_ORIENTATION,
@@ -740,6 +741,8 @@ static void
 set_folded (HdyLeaflet *self,
             gboolean    folded)
 {
+  GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
+
   if (self->folded == folded)
     return;
 
@@ -747,15 +750,12 @@ set_folded (HdyLeaflet *self,
 
   start_mode_transition (self, folded ? 0.0 : 1.0);
 
-  if (self->can_unfold) {
-    GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
-    if (folded) {
-      gtk_style_context_add_class (context, "folded");
-      gtk_style_context_remove_class (context, "unfolded");
-    } else {
-      gtk_style_context_remove_class (context, "folded");
-      gtk_style_context_add_class (context, "unfolded");
-    }
+  if (folded) {
+    gtk_style_context_add_class (context, "folded");
+    gtk_style_context_remove_class (context, "unfolded");
+  } else {
+    gtk_style_context_remove_class (context, "folded");
+    gtk_style_context_add_class (context, "unfolded");
   }
 
   g_object_notify_by_pspec (G_OBJECT (self),
@@ -2054,6 +2054,9 @@ hdy_leaflet_get_property (GObject    *object,
   case PROP_CAN_SWIPE_FORWARD:
     g_value_set_boolean (value, hdy_leaflet_get_can_swipe_forward (self));
     break;
+  case PROP_CAN_UNFOLD:
+    g_value_set_boolean (value, hdy_leaflet_get_can_unfold (self));
+    break;
   case PROP_ORIENTATION:
     g_value_set_enum (value, self->orientation);
     break;
@@ -2106,6 +2109,9 @@ hdy_leaflet_set_property (GObject      *object,
     break;
   case PROP_CAN_SWIPE_FORWARD:
     hdy_leaflet_set_can_swipe_forward (self, g_value_get_boolean (value));
+    break;
+  case PROP_CAN_UNFOLD:
+    hdy_leaflet_set_can_unfold (self, g_value_get_boolean (value));
     break;
   case PROP_ORIENTATION:
     set_orientation (self, g_value_get_enum (value));
@@ -2444,6 +2450,13 @@ hdy_leaflet_class_init (HdyLeafletClass *klass)
                             _("Can swipe forward"),
                             _("Whether or not swipe gesture can be used to switch to the next child"),
                             FALSE,
+                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  props[PROP_CAN_UNFOLD] =
+      g_param_spec_boolean ("can-unfold",
+                            _("Can unfold"),
+                            _("Whether or not the leaflet can unfold"),
+                            TRUE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -3408,4 +3421,30 @@ hdy_leaflet_reorder_child_after (HdyLeaflet *self,
 
   if (visible_child_pos_before_reorder != visible_child_pos_after_reorder)
     hdy_swipeable_emit_child_switched (HDY_SWIPEABLE (self), visible_child_pos_after_reorder, 0);
+}
+
+void
+hdy_leaflet_set_can_unfold (HdyLeaflet *self,
+                            gboolean    can_unfold)
+{
+  g_return_if_fail (HDY_IS_LEAFLET (self));
+
+  can_unfold = !!can_unfold;
+
+  if (self->can_unfold == can_unfold)
+    return;
+
+  self->can_unfold = can_unfold;
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_UNFOLD]);
+}
+
+gboolean
+hdy_leaflet_get_can_unfold (HdyLeaflet *self)
+{
+  g_return_val_if_fail (HDY_IS_LEAFLET (self), FALSE);
+
+  return self->can_unfold;
 }

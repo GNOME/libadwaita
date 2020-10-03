@@ -110,4 +110,10 @@ void             hdy_leaflet_reorder_child_after (HdyLeaflet *self,
                                                   GtkWidget  *child,
                                                   GtkWidget  *sibling);
 
+HDY_AVAILABLE_IN_ALL
+gboolean         hdy_leaflet_get_can_unfold (HdyLeaflet *self);
+HDY_AVAILABLE_IN_ALL
+void             hdy_leaflet_set_can_unfold (HdyLeaflet *self,
+                                             gboolean    can_unfold);
+
 G_END_DECLS
