@@ -34,13 +34,15 @@
             <property name="visible">True</property>
             <child>
               <object class="HdyActionRow">
-                <property name="title" translatable="yes">Layout</property>
+                <property name="title" translatable="yes">L_ayout</property>
+                <property name="use_underline">True</property>
                 <property name="visible">True</property>
               </object>
             </child>
             <child>
               <object class="HdyActionRow">
-                <property name="title" translatable="yes">Search</property>
+                <property name="title" translatable="yes">S_earch</property>
+                <property name="use_underline">True</property>
                 <property name="visible">True</property>
               </object>
             </child>
