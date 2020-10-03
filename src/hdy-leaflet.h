@@ -21,25 +21,13 @@ G_BEGIN_DECLS
 #define HDY_TYPE_LEAFLET (hdy_leaflet_get_type())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_DERIVABLE_TYPE (HdyLeaflet, hdy_leaflet, HDY, LEAFLET, GtkContainer)
+G_DECLARE_FINAL_TYPE (HdyLeaflet, hdy_leaflet, HDY, LEAFLET, GtkContainer)
 
 typedef enum {
   HDY_LEAFLET_TRANSITION_TYPE_OVER,
   HDY_LEAFLET_TRANSITION_TYPE_UNDER,
   HDY_LEAFLET_TRANSITION_TYPE_SLIDE,
 } HdyLeafletTransitionType;
-
-/**
- * HdyLeafletClass
- * @parent_class: The parent class
- */
-struct _HdyLeafletClass
-{
-  GtkContainerClass parent_class;
-
-  /*< private >*/
-  gpointer padding[4];
-};
 
 HDY_AVAILABLE_IN_ALL
 GtkWidget       *hdy_leaflet_new (void);

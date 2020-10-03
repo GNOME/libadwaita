@@ -88,10 +88,11 @@ enum {
   LAST_CHILD_PROP,
 };
 
-typedef struct
-{
+struct _HdyLeaflet {
+  GtkContainer parent_instance;
+
   HdyStackableBox *box;
-} HdyLeafletPrivate;
+};
 
 static GParamSpec *props[LAST_PROP];
 static GParamSpec *child_props[LAST_CHILD_PROP];
@@ -99,11 +100,10 @@ static GParamSpec *child_props[LAST_CHILD_PROP];
 static void hdy_leaflet_swipeable_init (HdySwipeableInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (HdyLeaflet, hdy_leaflet, GTK_TYPE_CONTAINER,
-                         G_ADD_PRIVATE (HdyLeaflet)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
                          G_IMPLEMENT_INTERFACE (HDY_TYPE_SWIPEABLE, hdy_leaflet_swipeable_init))
 
-#define HDY_GET_HELPER(obj) (((HdyLeafletPrivate *) hdy_leaflet_get_instance_private (HDY_LEAFLET (obj)))->box)
+#define HDY_GET_HELPER(obj) (HDY_LEAFLET (obj)->box)
 
 /**
  * hdy_leaflet_get_folded:
@@ -866,9 +866,8 @@ static void
 hdy_leaflet_finalize (GObject *object)
 {
   HdyLeaflet *self = HDY_LEAFLET (object);
-  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
 
-  g_clear_object (&priv->box);
+  g_clear_object (&self->box);
 
   G_OBJECT_CLASS (hdy_leaflet_parent_class)->finalize (object);
 }
@@ -1248,27 +1247,25 @@ notify_orientation_cb (HdyLeaflet *self)
 static void
 hdy_leaflet_init (HdyLeaflet *self)
 {
-  HdyLeafletPrivate *priv = hdy_leaflet_get_instance_private (self);
-
-  priv->box = hdy_stackable_box_new (GTK_CONTAINER (self),
+  self->box = hdy_stackable_box_new (GTK_CONTAINER (self),
                                      GTK_CONTAINER_CLASS (hdy_leaflet_parent_class),
                                      TRUE);
 
-  g_signal_connect_object (priv->box, "notify::folded", G_CALLBACK (notify_folded_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::hhomogeneous-folded", G_CALLBACK (notify_hhomogeneous_folded_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::vhomogeneous-folded", G_CALLBACK (notify_vhomogeneous_folded_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::hhomogeneous-unfolded", G_CALLBACK (notify_hhomogeneous_unfolded_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::vhomogeneous-unfolded", G_CALLBACK (notify_vhomogeneous_unfolded_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::visible-child", G_CALLBACK (notify_visible_child_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::visible-child-name", G_CALLBACK (notify_visible_child_name_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::transition-type", G_CALLBACK (notify_transition_type_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::mode-transition-duration", G_CALLBACK (notify_mode_transition_duration_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::child-transition-duration", G_CALLBACK (notify_child_transition_duration_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::child-transition-running", G_CALLBACK (notify_child_transition_running_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::interpolate-size", G_CALLBACK (notify_interpolate_size_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::can-swipe-back", G_CALLBACK (notify_can_swipe_back_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::can-swipe-forward", G_CALLBACK (notify_can_swipe_forward_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->box, "notify::orientation", G_CALLBACK (notify_orientation_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::folded", G_CALLBACK (notify_folded_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::hhomogeneous-folded", G_CALLBACK (notify_hhomogeneous_folded_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::vhomogeneous-folded", G_CALLBACK (notify_vhomogeneous_folded_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::hhomogeneous-unfolded", G_CALLBACK (notify_hhomogeneous_unfolded_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::vhomogeneous-unfolded", G_CALLBACK (notify_vhomogeneous_unfolded_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::visible-child", G_CALLBACK (notify_visible_child_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::visible-child-name", G_CALLBACK (notify_visible_child_name_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::transition-type", G_CALLBACK (notify_transition_type_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::mode-transition-duration", G_CALLBACK (notify_mode_transition_duration_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::child-transition-duration", G_CALLBACK (notify_child_transition_duration_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::child-transition-running", G_CALLBACK (notify_child_transition_running_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::interpolate-size", G_CALLBACK (notify_interpolate_size_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::can-swipe-back", G_CALLBACK (notify_can_swipe_back_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::can-swipe-forward", G_CALLBACK (notify_can_swipe_forward_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->box, "notify::orientation", G_CALLBACK (notify_orientation_cb), self, G_CONNECT_SWAPPED);
 }
 
 static void
