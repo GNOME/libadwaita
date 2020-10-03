@@ -60,6 +60,48 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
+/* Copied and modified from gtklabel.c, separate_uline_pattern() */
+static gchar *
+strip_mnemonic (const gchar *src)
+{
+  g_autofree gchar *new_str = g_new (gchar, strlen (src) + 1);
+  gchar *dest = new_str;
+  gboolean underscore = FALSE;
+
+  while (*src) {
+    gunichar c;
+    const gchar *next_src;
+
+    c = g_utf8_get_char (src);
+    if (c == (gunichar) -1) {
+      g_warning ("Invalid input string");
+
+      return NULL;
+    }
+
+    next_src = g_utf8_next_char (src);
+
+    if (underscore) {
+      while (src < next_src)
+        *dest++ = *src++;
+
+      underscore = FALSE;
+    } else {
+      if (c == '_'){
+        underscore = TRUE;
+        src = next_src;
+      } else {
+        while (src < next_src)
+          *dest++ = *src++;
+      }
+    }
+  }
+
+  *dest = 0;
+
+  return g_steal_pointer (&new_str);
+}
+
 static gboolean
 filter_search_results (HdyActionRow         *row,
                        HdyPreferencesWindow *self)
@@ -80,7 +122,16 @@ filter_search_results (HdyActionRow         *row,
    * See https://gitlab.gnome.org/GNOME/libhandy/-/merge_requests/424
    */
 
-  if (strstr (title, text)) {
+  if (hdy_preferences_row_get_use_underline (HDY_PREFERENCES_ROW (row))) {
+    gchar *stripped_title = strip_mnemonic (title);
+
+    if (stripped_title) {
+      g_free (title);
+      title = stripped_title;
+    }
+  }
+
+  if (!!strstr (title, text)) {
     priv->n_last_search_results++;
     gtk_widget_show (GTK_WIDGET (row));
 
