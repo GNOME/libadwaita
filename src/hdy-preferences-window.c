@@ -11,7 +11,7 @@
 
 #include "hdy-animation.h"
 #include "hdy-action-row.h"
-#include "hdy-deck.h"
+#include "hdy-leaflet.h"
 #include "hdy-preferences-group-private.h"
 #include "hdy-preferences-page-private.h"
 #include "hdy-view-switcher.h"
@@ -31,7 +31,7 @@
 
 typedef struct
 {
-  HdyDeck *subpages_deck;
+  HdyLeaflet *subpages_leaflet;
   GtkWidget *preferences;
   GtkStack *content_stack;
   GtkStack *pages_stack;
@@ -298,27 +298,27 @@ try_remove_subpages (HdyPreferencesWindow *self)
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
 
-  if (hdy_deck_get_transition_running (priv->subpages_deck))
+  if (hdy_leaflet_get_child_transition_running (priv->subpages_leaflet))
     return;
 
-  if (hdy_deck_get_visible_child (priv->subpages_deck) == priv->preferences)
+  if (hdy_leaflet_get_visible_child (priv->subpages_leaflet) == priv->preferences)
     priv->subpage = NULL;
 
-  for (GList *child = gtk_container_get_children (GTK_CONTAINER (priv->subpages_deck));
+  for (GList *child = gtk_container_get_children (GTK_CONTAINER (priv->subpages_leaflet));
        child;
        child = child->next)
     if (child->data != priv->preferences && child->data != priv->subpage)
-      gtk_container_remove (GTK_CONTAINER (priv->subpages_deck), child->data);
+      gtk_container_remove (GTK_CONTAINER (priv->subpages_leaflet), child->data);
 }
 
 static void
-subpages_deck_transition_running_cb (HdyPreferencesWindow *self)
+subpages_leaflet_child_transition_running_cb (HdyPreferencesWindow *self)
 {
   try_remove_subpages (self);
 }
 
 static void
-subpages_deck_visible_child_cb (HdyPreferencesWindow *self)
+subpages_leaflet_visible_child_cb (HdyPreferencesWindow *self)
 {
   try_remove_subpages (self);
 }
@@ -562,7 +562,7 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-preferences-window.ui");
-  gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, subpages_deck);
+  gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, subpages_leaflet);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, preferences);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, content_stack);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, pages_stack);
@@ -573,8 +573,8 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, title_stack);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_bar);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_title);
-  gtk_widget_class_bind_template_callback (widget_class, subpages_deck_transition_running_cb);
-  gtk_widget_class_bind_template_callback (widget_class, subpages_deck_visible_child_cb);
+  gtk_widget_class_bind_template_callback (widget_class, subpages_leaflet_child_transition_running_cb);
+  gtk_widget_class_bind_template_callback (widget_class, subpages_leaflet_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, header_bar_size_allocate_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_transition_running_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_visible_child_cb);
@@ -749,10 +749,10 @@ hdy_preferences_window_present_subpage (HdyPreferencesWindow *self,
   /* The check below avoids a warning when re-entering a subpage during the
    * transition between the that subpage to the preferences.
    */
-  if (gtk_widget_get_parent (subpage) != GTK_WIDGET (priv->subpages_deck))
-    gtk_container_add (GTK_CONTAINER (priv->subpages_deck), subpage);
+  if (gtk_widget_get_parent (subpage) != GTK_WIDGET (priv->subpages_leaflet))
+    gtk_container_add (GTK_CONTAINER (priv->subpages_leaflet), subpage);
 
-  hdy_deck_set_visible_child (priv->subpages_deck, subpage);
+  hdy_leaflet_set_visible_child (priv->subpages_leaflet, subpage);
 }
 
 /**
@@ -776,5 +776,5 @@ hdy_preferences_window_close_subpage (HdyPreferencesWindow *self)
   if (priv->subpage == NULL)
     return;
 
-  hdy_deck_set_visible_child (priv->subpages_deck, priv->preferences);
+  hdy_leaflet_set_visible_child (priv->subpages_leaflet, priv->preferences);
 }
