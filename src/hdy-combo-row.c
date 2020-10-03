@@ -137,7 +137,9 @@ create_list_widget (gpointer item,
   GtkWidget *checkmark = g_object_new (GTK_TYPE_IMAGE,
                                        "halign", GTK_ALIGN_START,
                                        "icon-name", "emblem-ok-symbolic",
+                                       "opacity", 0,
                                        "valign", GTK_ALIGN_CENTER,
+                                       "visible", TRUE,
                                        NULL);
   GtkWidget *box = g_object_new (GTK_TYPE_BOX,
                                  "child", priv->create_list_widget_func (item, priv->create_widget_func_data),
@@ -204,8 +206,8 @@ update (HdyComboRow *self)
       GtkWidget *row = GTK_WIDGET (l->data);
       GtkWidget *box = gtk_bin_get_child (GTK_BIN (row));
 
-      gtk_widget_set_visible (GTK_WIDGET (g_object_get_data (G_OBJECT (box), "checkmark")),
-                              priv->selected_index == i++);
+      gtk_widget_set_opacity (GTK_WIDGET (g_object_get_data (G_OBJECT (box), "checkmark")),
+                              (priv->selected_index == i++) ? 1 : 0);
     }
   }
 
