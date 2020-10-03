@@ -7,7 +7,7 @@
 #include "config.h"
 
 #include "hdy-cairo-private.h"
-#include "hdy-deck.h"
+#include "hdy-leaflet.h"
 #include "hdy-nothing-private.h"
 #include "hdy-window-mixin-private.h"
 
@@ -562,7 +562,8 @@ hdy_window_mixin_new (GtkWindow      *window,
 
   style_changed_cb (self);
 
-  self->content = hdy_deck_new ();
+  self->content = hdy_leaflet_new ();
+  hdy_leaflet_set_can_unfold (HDY_LEAFLET (self->content), FALSE);
   gtk_widget_set_vexpand (self->content, TRUE);
   gtk_widget_show (self->content);
   GTK_CONTAINER_CLASS (self->klass)->add (GTK_CONTAINER (self->window),
