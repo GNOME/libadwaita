@@ -25,8 +25,9 @@
  * Since: 0.0.12
  */
 
-typedef struct
-{
+struct _HdyKeypad {
+  GtkBin parent_instance;
+
   GtkEntry *entry;
   GtkWidget *grid;
   GtkWidget *label_asterisk;
@@ -36,9 +37,9 @@ typedef struct
   guint16 column_spacing;
   gboolean symbols_visible;
   gboolean letters_visible;
-} HdyKeypadPrivate;
+};
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyKeypad, hdy_keypad, GTK_TYPE_BIN)
+G_DEFINE_TYPE (HdyKeypad, hdy_keypad, GTK_TYPE_BIN)
 
 enum {
   PROP_0,
@@ -57,18 +58,17 @@ static void
 symbol_clicked (HdyKeypad *self,
                 gchar      symbol)
 {
-  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
   g_autofree gchar *string = g_strdup_printf ("%c", symbol);
 
-  if (!priv->entry)
+  if (!self->entry)
     return;
 
-  g_signal_emit_by_name (priv->entry, "insert-at-cursor", string, NULL);
+  g_signal_emit_by_name (self->entry, "insert-at-cursor", string, NULL);
   /* Set focus to the entry only when it can get focus
    * https://gitlab.gnome.org/GNOME/gtk/issues/2204
    */
-  if (gtk_widget_get_can_focus (GTK_WIDGET (priv->entry)))
-    gtk_entry_grab_focus_without_selecting (priv->entry);
+  if (gtk_widget_get_can_focus (GTK_WIDGET (self->entry)))
+    gtk_entry_grab_focus_without_selecting (self->entry);
 }
 
 
@@ -107,7 +107,6 @@ insert_text_cb (HdyKeypad   *self,
                 gpointer     position,
                 GtkEditable *editable)
 {
-  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
   gchar *p = text;
 
   g_assert (g_utf8_validate (text, length, NULL));
@@ -120,7 +119,7 @@ insert_text_cb (HdyKeypad   *self,
     if (g_ascii_isdigit (*q))
       continue;
 
-    if (priv->symbols_visible && strchr ("#*+", *q))
+    if (self->symbols_visible && strchr ("#*+", *q))
       continue;
 
     gtk_widget_error_bell (GTK_WIDGET (editable));
@@ -138,9 +137,7 @@ long_press_zero_cb (HdyKeypad  *self,
                     gdouble     y,
                     GtkGesture *gesture)
 {
-  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
-
-  if (!priv->symbols_visible)
+  if (!self->symbols_visible)
     return;
 
   g_debug ("Long press on zero button");
@@ -226,10 +223,10 @@ hdy_keypad_get_property (GObject    *object,
 static void
 hdy_keypad_finalize (GObject *object)
 {
-  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (HDY_KEYPAD (object));
+  HdyKeypad *self = HDY_KEYPAD (object);
 
-  if (priv->long_press_zero_gesture != NULL)
-    g_object_unref (priv->long_press_zero_gesture);
+  if (self->long_press_zero_gesture != NULL)
+    g_object_unref (self->long_press_zero_gesture);
 
   G_OBJECT_CLASS (hdy_keypad_parent_class)->finalize (object);
 }
@@ -351,10 +348,10 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-keypad.ui");
-  gtk_widget_class_bind_template_child_private (widget_class, HdyKeypad, grid);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyKeypad, label_asterisk);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyKeypad, label_hash);
-  gtk_widget_class_bind_template_child_private (widget_class, HdyKeypad, long_press_zero_gesture);
+  gtk_widget_class_bind_template_child (widget_class, HdyKeypad, grid);
+  gtk_widget_class_bind_template_child (widget_class, HdyKeypad, label_asterisk);
+  gtk_widget_class_bind_template_child (widget_class, HdyKeypad, label_hash);
+  gtk_widget_class_bind_template_child (widget_class, HdyKeypad, long_press_zero_gesture);
 
   gtk_widget_class_bind_template_callback (widget_class, button_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, asterisk_button_clicked_cb);
@@ -369,12 +366,10 @@ hdy_keypad_class_init (HdyKeypadClass *klass)
 static void
 hdy_keypad_init (HdyKeypad *self)
 {
-  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
-
-  priv->row_spacing = 6;
-  priv->column_spacing = 6;
-  priv->letters_visible = TRUE;
-  priv->symbols_visible = TRUE;
+  self->row_spacing = 6;
+  self->column_spacing = 6;
+  self->letters_visible = TRUE;
+  self->symbols_visible = TRUE;
 
   g_type_ensure (HDY_TYPE_KEYPAD_BUTTON);
   gtk_widget_init_template (GTK_WIDGET (self));
@@ -415,17 +410,13 @@ void
 hdy_keypad_set_row_spacing (HdyKeypad *self,
                             guint      spacing)
 {
-  HdyKeypadPrivate *priv;
-
   g_return_if_fail (HDY_IS_KEYPAD (self));
   g_return_if_fail (spacing <= G_MAXINT16);
 
-  priv = hdy_keypad_get_instance_private (self);
-
-  if (priv->row_spacing == spacing)
+  if (self->row_spacing == spacing)
     return;
 
-  priv->row_spacing = spacing;
+  self->row_spacing = spacing;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ROW_SPACING]);
 }
@@ -444,13 +435,9 @@ hdy_keypad_set_row_spacing (HdyKeypad *self,
 guint
 hdy_keypad_get_row_spacing (HdyKeypad *self)
 {
-  HdyKeypadPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_KEYPAD (self), 0);
 
-  priv = hdy_keypad_get_instance_private (self);
-
-  return priv->row_spacing;
+  return self->row_spacing;
 }
 
 
@@ -467,17 +454,13 @@ void
 hdy_keypad_set_column_spacing (HdyKeypad *self,
                                guint      spacing)
 {
-  HdyKeypadPrivate *priv;
-
   g_return_if_fail (HDY_IS_KEYPAD (self));
   g_return_if_fail (spacing <= G_MAXINT16);
 
-  priv = hdy_keypad_get_instance_private (self);
-
-  if (priv->column_spacing == spacing)
+  if (self->column_spacing == spacing)
     return;
 
-  priv->column_spacing = spacing;
+  self->column_spacing = spacing;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_COLUMN_SPACING]);
 }
@@ -496,13 +479,9 @@ hdy_keypad_set_column_spacing (HdyKeypad *self,
 guint
 hdy_keypad_get_column_spacing (HdyKeypad *self)
 {
-  HdyKeypadPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_KEYPAD (self), 0);
 
-  priv = hdy_keypad_get_instance_private (self);
-
-  return priv->column_spacing;
+  return self->column_spacing;
 }
 
 
@@ -520,16 +499,14 @@ void
 hdy_keypad_set_letters_visible (HdyKeypad *self,
                                 gboolean   letters_visible)
 {
-  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
-
   g_return_if_fail (HDY_IS_KEYPAD (self));
 
   letters_visible = !!letters_visible;
 
-  if (priv->letters_visible == letters_visible)
+  if (self->letters_visible == letters_visible)
     return;
 
-  priv->letters_visible = letters_visible;
+  self->letters_visible = letters_visible;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_LETTERS_VISIBLE]);
 }
@@ -549,13 +526,9 @@ hdy_keypad_set_letters_visible (HdyKeypad *self,
 gboolean
 hdy_keypad_get_letters_visible (HdyKeypad *self)
 {
-  HdyKeypadPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_KEYPAD (self), FALSE);
 
-  priv = hdy_keypad_get_instance_private (self);
-
-  return priv->letters_visible;
+  return self->letters_visible;
 }
 
 
@@ -573,16 +546,14 @@ void
 hdy_keypad_set_symbols_visible (HdyKeypad *self,
                                 gboolean   symbols_visible)
 {
-  HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
-
   g_return_if_fail (HDY_IS_KEYPAD (self));
 
   symbols_visible = !!symbols_visible;
 
-  if (priv->symbols_visible == symbols_visible)
+  if (self->symbols_visible == symbols_visible)
     return;
 
-  priv->symbols_visible = symbols_visible;
+  self->symbols_visible = symbols_visible;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SYMBOLS_VISIBLE]);
 }
@@ -605,13 +576,9 @@ hdy_keypad_set_symbols_visible (HdyKeypad *self,
 gboolean
 hdy_keypad_get_symbols_visible (HdyKeypad *self)
 {
-  HdyKeypadPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_KEYPAD (self), FALSE);
 
-  priv = hdy_keypad_get_instance_private (self);
-
-  return priv->symbols_visible;
+  return self->symbols_visible;
 }
 
 
@@ -629,27 +596,23 @@ void
 hdy_keypad_set_entry (HdyKeypad *self,
                       GtkEntry  *entry)
 {
-  HdyKeypadPrivate *priv;
-
   g_return_if_fail (HDY_IS_KEYPAD (self));
   g_return_if_fail (entry == NULL || GTK_IS_ENTRY (entry));
 
-  priv = hdy_keypad_get_instance_private (self);
-
-  if (entry == priv->entry)
+  if (entry == self->entry)
     return;
 
-  g_clear_object (&priv->entry);
+  g_clear_object (&self->entry);
 
   if (entry) {
-    priv->entry = g_object_ref (entry);
+    self->entry = g_object_ref (entry);
 
-    gtk_widget_show (GTK_WIDGET (priv->entry));
+    gtk_widget_show (GTK_WIDGET (self->entry));
     /* Workaround: To keep the osk closed
      * https://gitlab.gnome.org/GNOME/gtk/merge_requests/978#note_546576 */
-    g_object_set (priv->entry, "im-module", "gtk-im-context-none", NULL);
+    g_object_set (self->entry, "im-module", "gtk-im-context-none", NULL);
 
-    g_signal_connect_swapped (G_OBJECT (priv->entry),
+    g_signal_connect_swapped (G_OBJECT (self->entry),
                               "insert-text",
                               G_CALLBACK (insert_text_cb),
                               self);
@@ -672,13 +635,9 @@ hdy_keypad_set_entry (HdyKeypad *self,
 GtkEntry *
 hdy_keypad_get_entry (HdyKeypad *self)
 {
-  HdyKeypadPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_KEYPAD (self), NULL);
 
-  priv = hdy_keypad_get_instance_private (self);
-
-  return priv->entry;
+  return self->entry;
 }
 
 
@@ -696,24 +655,21 @@ void
 hdy_keypad_set_start_action (HdyKeypad *self,
                              GtkWidget *start_action)
 {
-  HdyKeypadPrivate *priv;
   GtkWidget *old_widget;
 
   g_return_if_fail (HDY_IS_KEYPAD (self));
   g_return_if_fail (start_action == NULL || GTK_IS_WIDGET (start_action));
 
-  priv = hdy_keypad_get_instance_private (self);
-
-  old_widget = gtk_grid_get_child_at (GTK_GRID (priv->grid), 0, 3);
+  old_widget = gtk_grid_get_child_at (GTK_GRID (self->grid), 0, 3);
 
   if (old_widget == start_action)
     return;
 
   if (old_widget != NULL)
-    gtk_container_remove (GTK_CONTAINER (priv->grid), old_widget);
+    gtk_container_remove (GTK_CONTAINER (self->grid), old_widget);
 
   if (start_action != NULL)
-    gtk_grid_attach (GTK_GRID (priv->grid), start_action, 0, 3, 1, 1);
+    gtk_grid_attach (GTK_GRID (self->grid), start_action, 0, 3, 1, 1);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_START_ACTION]);
 }
@@ -733,13 +689,9 @@ hdy_keypad_set_start_action (HdyKeypad *self,
 GtkWidget *
 hdy_keypad_get_start_action (HdyKeypad *self)
 {
-  HdyKeypadPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_KEYPAD (self), NULL);
 
-  priv = hdy_keypad_get_instance_private (self);
-
-  return gtk_grid_get_child_at (GTK_GRID (priv->grid), 0, 3);
+  return gtk_grid_get_child_at (GTK_GRID (self->grid), 0, 3);
 }
 
 
@@ -757,24 +709,21 @@ void
 hdy_keypad_set_end_action (HdyKeypad *self,
                            GtkWidget *end_action)
 {
-  HdyKeypadPrivate *priv;
   GtkWidget *old_widget;
 
   g_return_if_fail (HDY_IS_KEYPAD (self));
   g_return_if_fail (end_action == NULL || GTK_IS_WIDGET (end_action));
 
-  priv = hdy_keypad_get_instance_private (self);
-
-  old_widget = gtk_grid_get_child_at (GTK_GRID (priv->grid), 2, 3);
+  old_widget = gtk_grid_get_child_at (GTK_GRID (self->grid), 2, 3);
 
   if (old_widget == end_action)
     return;
 
   if (old_widget != NULL)
-    gtk_container_remove (GTK_CONTAINER (priv->grid), old_widget);
+    gtk_container_remove (GTK_CONTAINER (self->grid), old_widget);
 
   if (end_action != NULL)
-    gtk_grid_attach (GTK_GRID (priv->grid), end_action, 2, 3, 1, 1);
+    gtk_grid_attach (GTK_GRID (self->grid), end_action, 2, 3, 1, 1);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_END_ACTION]);
 }
@@ -794,11 +743,7 @@ hdy_keypad_set_end_action (HdyKeypad *self,
 GtkWidget *
 hdy_keypad_get_end_action (HdyKeypad *self)
 {
-  HdyKeypadPrivate *priv;
-
   g_return_val_if_fail (HDY_IS_KEYPAD (self), NULL);
 
-  priv = hdy_keypad_get_instance_private (self);
-
-  return gtk_grid_get_child_at (GTK_GRID (priv->grid), 2, 3);
+  return gtk_grid_get_child_at (GTK_GRID (self->grid), 2, 3);
 }
