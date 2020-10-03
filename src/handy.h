@@ -55,9 +55,6 @@ G_BEGIN_DECLS
 #include "hdy-swipe-group.h"
 #include "hdy-swipe-tracker.h"
 #include "hdy-swipeable.h"
-/*
-#include "hdy-title-bar.h"
-*/
 #include "hdy-types.h"
 #include "hdy-value-object.h"
 #include "hdy-view-switcher.h"
