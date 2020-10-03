@@ -450,6 +450,9 @@ is_narrow (HdyViewSwitcher *self,
   for (GList *l = children; l != NULL; l = g_list_next (l)) {
     gint h_min = 0;
 
+    if (!gtk_widget_get_visible (l->data))
+      continue;
+
     hdy_view_switcher_button_get_size (HDY_VIEW_SWITCHER_BUTTON (l->data), &h_min, NULL, NULL, NULL);
     max_h_min = MAX (max_h_min, h_min);
 
