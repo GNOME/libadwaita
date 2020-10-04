@@ -31,7 +31,7 @@ test_names = [
 #  'test-header-bar',
 #  'test-header-group',
   'test-keypad',
-#  'test-leaflet',
+  'test-leaflet',
   'test-preferences-group',
   'test-preferences-page',
   'test-preferences-row',

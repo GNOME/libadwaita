@@ -569,9 +569,9 @@ update_child_visible (HdySqueezer     *self,
 }
 
 static void
-stack_child_visibility_notify_cb (GObject    *obj,
-                                  GParamSpec *pspec,
-                                  gpointer    user_data)
+squeezer_child_visibility_notify_cb (GObject    *obj,
+                                     GParamSpec *pspec,
+                                     gpointer    user_data)
 {
   HdySqueezer *self = HDY_SQUEEZER (user_data);
   GtkWidget *child = GTK_WIDGET (obj);
@@ -598,7 +598,7 @@ add_page (HdySqueezer     *self,
     g_list_model_items_changed (G_LIST_MODEL (self->pages), g_list_length (self->children) - 1, 0, 1);
 
   g_signal_connect (page->widget, "notify::visible",
-                    G_CALLBACK (stack_child_visibility_notify_cb), self);
+                    G_CALLBACK (squeezer_child_visibility_notify_cb), self);
 
   if (self->visible_child == NULL &&
       gtk_widget_get_visible (page->widget))
@@ -623,7 +623,7 @@ squeezer_remove (HdySqueezer *self,
   self->children = g_list_remove (self->children, page);
 
   g_signal_handlers_disconnect_by_func (child,
-                                        stack_child_visibility_notify_cb,
+                                        squeezer_child_visibility_notify_cb,
                                         self);
 
   was_visible = gtk_widget_get_visible (child);
@@ -813,10 +813,10 @@ hdy_squeezer_snapshot (GtkWidget   *widget,
 
       switch (self->active_transition_type)
         {
-        case GTK_STACK_TRANSITION_TYPE_CROSSFADE:
+        case HDY_SQUEEZER_TRANSITION_TYPE_CROSSFADE:
           hdy_squeezer_snapshot_crossfade (widget, snapshot);
           break;
-        case GTK_STACK_TRANSITION_TYPE_NONE:
+        case HDY_SQUEEZER_TRANSITION_TYPE_NONE:
         default:
           g_assert_not_reached ();
         }
@@ -1150,7 +1150,7 @@ hdy_squeezer_buildable_add_child (GtkBuildable *buildable,
                                   GObject      *child,
                                   const char   *type)
 {
-  if (GTK_IS_STACK_PAGE (child))
+  if (HDY_IS_SQUEEZER_PAGE (child))
     add_page (HDY_SQUEEZER (buildable), HDY_SQUEEZER_PAGE (child));
   else if (GTK_IS_WIDGET (child))
     hdy_squeezer_add (HDY_SQUEEZER (buildable), GTK_WIDGET (child));
@@ -1270,9 +1270,8 @@ hdy_squeezer_add (HdySqueezer *self,
   g_return_val_if_fail (HDY_IS_SQUEEZER (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
 
-  page = g_object_new (HDY_TYPE_SQUEEZER_PAGE,
-                       "child", child,
-                       NULL);
+  page = g_object_new (HDY_TYPE_SQUEEZER_PAGE, NULL);
+  page->widget = g_object_ref (child);
 
   add_page (self, page);
 

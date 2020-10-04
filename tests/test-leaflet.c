@@ -8,6 +8,19 @@
 
 
 static void
+assert_page_position (GtkSelectionModel *pages,
+                      GtkWidget         *widget,
+                      gint               position)
+{
+  g_autoptr (HdyLeafletPage) page = NULL;
+
+  page = g_list_model_get_item (G_LIST_MODEL (pages), position);
+
+  g_assert_true (widget == hdy_leaflet_page_get_child (page));
+}
+
+
+static void
 test_hdy_leaflet_adjacent_child (void)
 {
   g_autoptr (HdyLeaflet) leaflet = NULL;
@@ -19,15 +32,16 @@ test_hdy_leaflet_adjacent_child (void)
   g_assert_nonnull (leaflet);
 
   for (i = 0; i < 3; i++) {
+    HdyLeafletPage *page;
+
     children[i] = gtk_label_new ("");
     g_assert_nonnull (children[i]);
 
-    gtk_container_add (GTK_CONTAINER (leaflet), children[i]);
-  }
+    page = hdy_leaflet_append (leaflet, children[i]);
 
-  gtk_container_child_set (GTK_CONTAINER (leaflet), children[1],
-                           "navigatable", FALSE,
-                           NULL);
+    if (i == 1)
+      hdy_leaflet_page_set_navigatable (page, FALSE);
+  }
 
   hdy_leaflet_set_visible_child (leaflet, children[0]);
 
@@ -67,15 +81,16 @@ test_hdy_leaflet_navigate (void)
   g_assert_nonnull (leaflet);
 
   for (i = 0; i < 3; i++) {
+    HdyLeafletPage *page;
+
     children[i] = gtk_label_new ("");
     g_assert_nonnull (children[i]);
 
-    gtk_container_add (GTK_CONTAINER (leaflet), children[i]);
-  }
+    page = hdy_leaflet_append (leaflet, children[i]);
 
-  gtk_container_child_set (GTK_CONTAINER (leaflet), children[1],
-                           "navigatable", FALSE,
-                           NULL);
+    if (i == 1)
+      hdy_leaflet_page_set_navigatable (page, FALSE);
+  }
 
   hdy_leaflet_set_visible_child (leaflet, children[0]);
 
@@ -101,7 +116,7 @@ test_hdy_leaflet_prepend (void)
   g_autoptr (HdyLeaflet) leaflet = NULL;
   GtkWidget *labels[2];
   gint i;
-  GList *children = NULL;
+  g_autoptr (GtkSelectionModel) pages = NULL;
 
   leaflet = HDY_LEAFLET (hdy_leaflet_new ());
   g_assert_nonnull (leaflet);
@@ -111,16 +126,14 @@ test_hdy_leaflet_prepend (void)
     g_assert_nonnull (labels[i]);
   }
 
+  pages = hdy_leaflet_get_pages (leaflet);
+
   hdy_leaflet_prepend (leaflet, labels[1]);
-  children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_cmpint (g_list_index (children, labels[1]), ==, 0);
-  g_list_free (children);
+  assert_page_position (pages, labels[1], 0);
 
   hdy_leaflet_prepend (leaflet, labels[0]);
-  children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_cmpint (g_list_index (children, labels[0]), ==, 0);
-  g_assert_cmpint (g_list_index (children, labels[1]), ==, 1);
-  g_list_free (children);
+  assert_page_position (pages, labels[0], 0);
+  assert_page_position (pages, labels[1], 1);
 }
 
 
@@ -130,7 +143,7 @@ test_hdy_leaflet_insert_child_after (void)
   g_autoptr (HdyLeaflet) leaflet = NULL;
   GtkWidget *labels[3];
   gint i;
-  GList *children = NULL;
+  g_autoptr (GtkSelectionModel) pages = NULL;
 
   leaflet = HDY_LEAFLET (hdy_leaflet_new ());
   g_assert_nonnull (leaflet);
@@ -140,20 +153,21 @@ test_hdy_leaflet_insert_child_after (void)
     g_assert_nonnull (labels[i]);
   }
 
-  gtk_container_add (GTK_CONTAINER (leaflet), labels[2]);
+  hdy_leaflet_append (leaflet, labels[2]);
+
+  assert_page_position (pages, labels[2], 0);
+
+  pages = hdy_leaflet_get_pages (leaflet);
 
   hdy_leaflet_insert_child_after (leaflet, labels[0], NULL);
-  children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_cmpint (g_list_index (children, labels[0]), ==, 0);
-  g_assert_cmpint (g_list_index (children, labels[2]), ==, 1);
-  g_list_free (children);
+  assert_page_position (pages, labels[0], 0);
+  assert_page_position (pages, labels[2], 1);
+  assert_page_position (pages, labels[1], 2);
 
   hdy_leaflet_insert_child_after (leaflet, labels[1], labels[0]);
-  children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_cmpint (g_list_index (children, labels[0]), ==, 0);
-  g_assert_cmpint (g_list_index (children, labels[1]), ==, 1);
-  g_assert_cmpint (g_list_index (children, labels[2]), ==, 2);
-  g_list_free (children);
+  assert_page_position (pages, labels[0], 0);
+  assert_page_position (pages, labels[1], 1);
+  assert_page_position (pages, labels[2], 2);
 }
 
 
@@ -163,7 +177,7 @@ test_hdy_leaflet_reorder_child_after (void)
   g_autoptr (HdyLeaflet) leaflet = NULL;
   GtkWidget *labels[3];
   gint i;
-  GList *children = NULL;
+  g_autoptr (GtkSelectionModel) pages = NULL;
 
   leaflet = HDY_LEAFLET (hdy_leaflet_new ());
   g_assert_nonnull (leaflet);
@@ -172,28 +186,24 @@ test_hdy_leaflet_reorder_child_after (void)
     labels[i] = gtk_label_new ("");
     g_assert_nonnull (labels[i]);
 
-    gtk_container_add (GTK_CONTAINER (leaflet), labels[i]);
+    hdy_leaflet_append (leaflet, labels[i]);
   }
 
-  children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_cmpint (g_list_index (children, labels[0]), ==, 0);
-  g_assert_cmpint (g_list_index (children, labels[1]), ==, 1);
-  g_assert_cmpint (g_list_index (children, labels[2]), ==, 2);
-  g_list_free (children);
+  pages = hdy_leaflet_get_pages (leaflet);
+
+  assert_page_position (pages, labels[0], 0);
+  assert_page_position (pages, labels[1], 1);
+  assert_page_position (pages, labels[2], 2);
 
   hdy_leaflet_reorder_child_after (leaflet, labels[2], NULL);
-  children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_cmpint (g_list_index (children, labels[2]), ==, 0);
-  g_assert_cmpint (g_list_index (children, labels[0]), ==, 1);
-  g_assert_cmpint (g_list_index (children, labels[1]), ==, 2);
-  g_list_free (children);
+  assert_page_position (pages, labels[2], 0);
+  assert_page_position (pages, labels[0], 1);
+  assert_page_position (pages, labels[1], 2);
 
   hdy_leaflet_reorder_child_after (leaflet, labels[0], labels[1]);
-  children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_cmpint (g_list_index (children, labels[2]), ==, 0);
-  g_assert_cmpint (g_list_index (children, labels[1]), ==, 1);
-  g_assert_cmpint (g_list_index (children, labels[0]), ==, 2);
-  g_list_free (children);
+  assert_page_position (pages, labels[2], 0);
+  assert_page_position (pages, labels[1], 1);
+  assert_page_position (pages, labels[0], 2);
 }
 
 
