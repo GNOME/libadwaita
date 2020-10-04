@@ -13,6 +13,7 @@
 #include "hdy-version.h"
 
 #include <gtk/gtk.h>
+#include "hdy-preferences-page.h"
 #include "hdy-window.h"
 
 G_BEGIN_DECLS
@@ -54,5 +55,12 @@ void hdy_preferences_window_present_subpage (HdyPreferencesWindow *self,
                                              GtkWidget            *subpage);
 HDY_AVAILABLE_IN_ALL
 void hdy_preferences_window_close_subpage (HdyPreferencesWindow *self);
+
+HDY_AVAILABLE_IN_ALL
+void hdy_preferences_window_add (HdyPreferencesWindow *self,
+                                 HdyPreferencesPage   *page);
+HDY_AVAILABLE_IN_ALL
+void hdy_preferences_window_remove (HdyPreferencesWindow *self,
+                                    HdyPreferencesPage   *page);
 
 G_END_DECLS

@@ -47,9 +47,7 @@ G_BEGIN_DECLS
 #include "hdy-preferences-group.h"
 #include "hdy-preferences-page.h"
 #include "hdy-preferences-row.h"
-/*
 #include "hdy-preferences-window.h"
-*/
 #include "hdy-squeezer.h"
 #include "hdy-status-page.h"
 #include "hdy-swipe-group.h"

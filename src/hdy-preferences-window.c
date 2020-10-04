@@ -45,11 +45,21 @@ typedef struct
 
   gboolean search_enabled;
   gboolean can_swipe_back;
-  gint n_last_search_results;
+
+  GtkFilter *filter;
+  GtkFilterListModel *filter_model;
+
   GtkWidget *subpage;
 } HdyPreferencesWindowPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (HdyPreferencesWindow, hdy_preferences_window, HDY_TYPE_WINDOW)
+static void hdy_preferences_window_buildable_init (GtkBuildableIface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (HdyPreferencesWindow, hdy_preferences_window, HDY_TYPE_WINDOW,
+                         G_ADD_PRIVATE (HdyPreferencesWindow)
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
+                         hdy_preferences_window_buildable_init))
+
+static GtkBuildableIface *parent_buildable_iface;
 
 enum {
   PROP_0,
@@ -103,24 +113,17 @@ strip_mnemonic (const gchar *src)
 }
 
 static gboolean
-filter_search_results (HdyActionRow         *row,
+filter_search_results (HdyPreferencesRow    *row,
                        HdyPreferencesWindow *self)
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
-  g_autofree gchar *text = g_utf8_casefold (gtk_entry_get_text (GTK_ENTRY (priv->search_entry)), -1);
-  g_autofree gchar *title = g_utf8_casefold (hdy_preferences_row_get_title (HDY_PREFERENCES_ROW (row)), -1);
-  g_autofree gchar *subtitle = NULL;
+  g_autofree gchar *terms = NULL;
+  g_autofree gchar *title = NULL;
 
-  /* The CSS engine works in such a way that invisible children are treated as
-   * visible widgets, which breaks the expectations of the .preferences  style
-   * class when filtering a row, leading to straight corners when the first row
-   * or last row are filtered out.
-   *
-   * This works around it by explicitly toggling the row's visibility, while
-   * keeping GtkListBox's filtering logic.
-   *
-   * See https://gitlab.gnome.org/GNOME/libhandy/-/merge_requests/424
-   */
+  g_assert (HDY_IS_PREFERENCES_ROW (row));
+
+  terms = g_utf8_casefold (gtk_editable_get_text (GTK_EDITABLE (priv->search_entry)), -1);
+  title = g_utf8_casefold (hdy_preferences_row_get_title (row), -1);
 
   if (hdy_preferences_row_get_use_underline (HDY_PREFERENCES_ROW (row))) {
     gchar *stripped_title = strip_mnemonic (title);
@@ -131,23 +134,15 @@ filter_search_results (HdyActionRow         *row,
     }
   }
 
-  if (!!strstr (title, text)) {
-    priv->n_last_search_results++;
-    gtk_widget_show (GTK_WIDGET (row));
-
+  if (!!strstr (title, terms))
     return TRUE;
+
+  if (HDY_IS_ACTION_ROW (row)) {
+    g_autofree gchar *subtitle = g_utf8_casefold (hdy_action_row_get_subtitle (HDY_ACTION_ROW (row)), -1);
+
+    if (!!strstr (subtitle, terms))
+      return TRUE;
   }
-
-  subtitle = g_utf8_casefold (hdy_action_row_get_subtitle (row), -1);
-
-  if (!!strstr (subtitle, text)) {
-    priv->n_last_search_results++;
-    gtk_widget_show (GTK_WIDGET (row));
-
-    return TRUE;
-  }
-
-  gtk_widget_hide (GTK_WIDGET (row));
 
   return FALSE;
 }
@@ -194,26 +189,10 @@ new_search_row_for_preference (HdyPreferencesRow    *row,
   } else if (page_title)
     hdy_action_row_set_subtitle (widget, page_title);
 
-  gtk_widget_show (GTK_WIDGET (widget));
-
   g_object_set_data (G_OBJECT (widget), "page", page);
   g_object_set_data (G_OBJECT (widget), "row", row);
 
   return GTK_WIDGET (widget);
-}
-
-static void
-update_search_results (HdyPreferencesWindow *self)
-{
-  HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
-  g_autoptr (GListStore) model;
-
-  model = g_list_store_new (HDY_TYPE_PREFERENCES_ROW);
-  gtk_container_foreach (GTK_CONTAINER (priv->pages_stack), (GtkCallback) hdy_preferences_page_add_preferences_to_model, model);
-  gtk_container_foreach (GTK_CONTAINER (priv->search_results), (GtkCallback) gtk_widget_destroy, NULL);
-  for (guint i = 0; i < g_list_model_get_n_items (G_LIST_MODEL (model)); i++)
-    gtk_container_add (GTK_CONTAINER (priv->search_results),
-                       new_search_row_for_preference ((HdyPreferencesRow *) g_list_model_get_item (G_LIST_MODEL (model), i), self));
 }
 
 static void
@@ -234,69 +213,14 @@ search_result_activated_cb (HdyPreferencesWindow *self,
   gtk_stack_set_visible_child (priv->pages_stack, GTK_WIDGET (page));
   gtk_widget_set_can_focus (GTK_WIDGET (row), TRUE);
   gtk_widget_grab_focus (GTK_WIDGET (row));
-}
-
-static gboolean
-key_press_event_cb (GtkWidget            *sender,
-                    GdkEvent             *event,
-                    HdyPreferencesWindow *self)
-{
-  HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
-  GdkModifierType default_modifiers = gtk_accelerator_get_default_mod_mask ();
-  guint keyval;
-  GdkModifierType state;
-  GdkKeymap *keymap;
-  GdkEventKey *key_event = (GdkEventKey *) event;
-
-  gdk_event_get_state (event, &state);
-
-  keymap = gdk_keymap_get_for_display (gtk_widget_get_display (sender));
-
-  gdk_keymap_translate_keyboard_state (keymap,
-                                       key_event->hardware_keycode,
-                                       state,
-                                       key_event->group,
-                                       &keyval, NULL, NULL, NULL);
-
-  if (priv->subpage) {
-    if (keyval == GDK_KEY_Escape &&
-        hdy_preferences_window_get_can_swipe_back (self)) {
-      hdy_preferences_window_close_subpage (self);
-
-      return GDK_EVENT_STOP;
-    }
-
-    return GDK_EVENT_PROPAGATE;
-  }
-
-  if (priv->search_enabled &&
-      (keyval == GDK_KEY_f || keyval == GDK_KEY_F) &&
-      (state & default_modifiers) == GDK_CONTROL_MASK) {
-    gtk_toggle_button_set_active (priv->search_button, TRUE);
-
-    return GDK_EVENT_STOP;
-  }
-
-  if (priv->search_enabled &&
-      gtk_search_entry_handle_event (priv->search_entry, event)) {
-    gtk_toggle_button_set_active (priv->search_button, TRUE);
-
-    return GDK_EVENT_STOP;
-  }
-
-  if (keyval == GDK_KEY_Escape) {
-    gtk_window_close (GTK_WINDOW (self));
-
-    return GDK_EVENT_STOP;
-  }
-
-  return GDK_EVENT_PROPAGATE;
+  gtk_window_set_focus_visible (GTK_WINDOW (self), TRUE);
 }
 
 static void
 try_remove_subpages (HdyPreferencesWindow *self)
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
+  GtkWidget *child;
 
   if (hdy_leaflet_get_child_transition_running (priv->subpages_leaflet))
     return;
@@ -304,11 +228,15 @@ try_remove_subpages (HdyPreferencesWindow *self)
   if (hdy_leaflet_get_visible_child (priv->subpages_leaflet) == priv->preferences)
     priv->subpage = NULL;
 
-  for (GList *child = gtk_container_get_children (GTK_CONTAINER (priv->subpages_leaflet));
-       child;
-       child = child->next)
-    if (child->data != priv->preferences && child->data != priv->subpage)
-      gtk_container_remove (GTK_CONTAINER (priv->subpages_leaflet), child->data);
+  child = gtk_widget_get_first_child (GTK_WIDGET (priv->subpages_leaflet));
+  while (child) {
+    GtkWidget *page = child;
+
+    child = gtk_widget_get_next_sibling (child);
+
+    if (page != priv->preferences && page != priv->subpage)
+      hdy_leaflet_remove (priv->subpages_leaflet, page);
+  }
 }
 
 static void
@@ -324,15 +252,6 @@ subpages_leaflet_visible_child_cb (HdyPreferencesWindow *self)
 }
 
 static void
-header_bar_size_allocate_cb (HdyPreferencesWindow *self,
-                             GdkRectangle         *allocation)
-{
-  HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
-
-  hdy_view_switcher_title_set_view_switcher_enabled (priv->view_switcher_title, allocation->width > 360);
-}
-
-static void
 title_stack_notify_transition_running_cb (HdyPreferencesWindow *self)
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
@@ -341,7 +260,7 @@ title_stack_notify_transition_running_cb (HdyPreferencesWindow *self)
       gtk_stack_get_visible_child (priv->title_stack) != GTK_WIDGET (priv->view_switcher_title))
     return;
 
-  gtk_entry_set_text (GTK_ENTRY (priv->search_entry), "");
+  gtk_editable_set_text (GTK_EDITABLE (priv->search_entry), "");
 }
 
 static void
@@ -353,7 +272,7 @@ title_stack_notify_visible_child_cb (HdyPreferencesWindow *self)
       gtk_stack_get_visible_child (priv->title_stack) != GTK_WIDGET (priv->view_switcher_title))
     return;
 
-  gtk_entry_set_text (GTK_ENTRY (priv->search_entry), "");
+  gtk_editable_set_text (GTK_EDITABLE (priv->search_entry), "");
 }
 
 
@@ -363,16 +282,13 @@ search_button_notify_active_cb (HdyPreferencesWindow *self)
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
 
   if (gtk_toggle_button_get_active (priv->search_button)) {
-    update_search_results (self);
     gtk_stack_set_visible_child_name (priv->title_stack, "search");
     gtk_stack_set_visible_child_name (priv->content_stack, "search");
-    gtk_entry_grab_focus_without_selecting (GTK_ENTRY (priv->search_entry));
+    gtk_widget_grab_focus (GTK_WIDGET (priv->search_entry));
     /* Grabbing without selecting puts the cursor at the start of the buffer, so
-     * for "type to search" to work we must move the cursor at the end. We can't
-     * use GTK_MOVEMENT_BUFFER_ENDS because it causes a sound to be played.
+     * for "type to search" to work we must move the cursor at the end.
      */
-    g_signal_emit_by_name (priv->search_entry, "move-cursor",
-                           GTK_MOVEMENT_LOGICAL_POSITIONS, G_MAXINT, FALSE, NULL);
+    gtk_editable_set_position (GTK_EDITABLE (priv->search_entry), -1);
   } else {
     gtk_stack_set_visible_child_name (priv->title_stack, "pages");
     gtk_stack_set_visible_child_name (priv->content_stack, "pages");
@@ -380,26 +296,24 @@ search_button_notify_active_cb (HdyPreferencesWindow *self)
 }
 
 static void
-search_changed_cb (HdyPreferencesWindow *self)
+search_started_cb (HdyPreferencesWindow *self)
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
 
-  priv->n_last_search_results = 0;
-  gtk_list_box_invalidate_filter (priv->search_results);
-  gtk_stack_set_visible_child_name (priv->search_stack,
-                                    priv->n_last_search_results > 0 ? "results" : "no-results");
+  gtk_toggle_button_set_active (priv->search_button, TRUE);
 }
 
 static void
-on_page_icon_name_changed (HdyPreferencesPage   *page,
-                           GParamSpec           *pspec,
-                           HdyPreferencesWindow *self)
+search_changed_cb (HdyPreferencesWindow *self)
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
+  guint n;
 
-  gtk_container_child_set (GTK_CONTAINER (priv->pages_stack), GTK_WIDGET (page),
-                           "icon-name", hdy_preferences_page_get_icon_name (page),
-                           NULL);
+  gtk_filter_changed (priv->filter, GTK_FILTER_CHANGE_DIFFERENT);
+
+  n = g_list_model_get_n_items (G_LIST_MODEL (priv->filter_model));
+
+  gtk_stack_set_visible_child_name (priv->search_stack, n > 0 ? "results" : "no-results");
 }
 
 static void
@@ -408,18 +322,6 @@ stop_search_cb (HdyPreferencesWindow *self)
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
 
   gtk_toggle_button_set_active (priv->search_button, FALSE);
-}
-
-static void
-on_page_title_changed (HdyPreferencesPage   *page,
-                       GParamSpec           *pspec,
-                       HdyPreferencesWindow *self)
-{
-  HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
-
-  gtk_container_child_set (GTK_CONTAINER (priv->pages_stack), GTK_WIDGET (page),
-                           "title", hdy_preferences_page_get_title (page),
-                           NULL);
 }
 
 static void
@@ -463,57 +365,52 @@ hdy_preferences_window_set_property (GObject      *object,
 }
 
 static void
-hdy_preferences_window_add (GtkContainer *container,
-                            GtkWidget    *child)
+hdy_preferences_window_dispose (GObject *object)
 {
-  HdyPreferencesWindow *self = HDY_PREFERENCES_WINDOW (container);
+  HdyPreferencesWindow *self = HDY_PREFERENCES_WINDOW (object);
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
 
-  if (priv->content_stack == NULL)
-    GTK_CONTAINER_CLASS (hdy_preferences_window_parent_class)->add (container, child);
-  else if (HDY_IS_PREFERENCES_PAGE (child)) {
-    gtk_container_add (GTK_CONTAINER (priv->pages_stack), child);
-    on_page_icon_name_changed (HDY_PREFERENCES_PAGE (child), NULL, self);
-    on_page_title_changed (HDY_PREFERENCES_PAGE (child), NULL, self);
-    g_signal_connect (child, "notify::icon-name",
-                      G_CALLBACK (on_page_icon_name_changed), self);
-    g_signal_connect (child, "notify::title",
-                      G_CALLBACK (on_page_title_changed), self);
-  } else
-    g_warning ("Can't add children of type %s to %s",
-               G_OBJECT_TYPE_NAME (child),
-               G_OBJECT_TYPE_NAME (container));
+  g_clear_pointer ((GtkWidget **) &priv->subpages_leaflet, gtk_widget_unparent);
+
+  G_OBJECT_CLASS (hdy_preferences_window_parent_class)->dispose (object);
 }
 
-static void
-hdy_preferences_window_remove (GtkContainer *container,
-                               GtkWidget    *child)
+static gboolean
+search_open_cb (GtkWidget *widget,
+                GVariant  *args,
+                gpointer   user_data)
 {
-  HdyPreferencesWindow *self = HDY_PREFERENCES_WINDOW (container);
+  HdyPreferencesWindow *self = HDY_PREFERENCES_WINDOW (widget);
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
 
-  if (child == GTK_WIDGET (priv->content_stack))
-    GTK_CONTAINER_CLASS (hdy_preferences_window_parent_class)->remove (container, child);
-  else
-    gtk_container_remove (GTK_CONTAINER (priv->pages_stack), child);
+  if (!priv->search_enabled || gtk_toggle_button_get_active (priv->search_button))
+    return GDK_EVENT_PROPAGATE;
+
+  gtk_toggle_button_set_active (priv->search_button, TRUE);
+
+  return GDK_EVENT_STOP;
 }
 
-static void
-hdy_preferences_window_forall (GtkContainer *container,
-                               gboolean      include_internals,
-                               GtkCallback   callback,
-                               gpointer      callback_data)
+static gboolean
+close_cb (GtkWidget *widget,
+          GVariant  *args,
+          gpointer   user_data)
 {
-  HdyPreferencesWindow *self = HDY_PREFERENCES_WINDOW (container);
+  HdyPreferencesWindow *self = HDY_PREFERENCES_WINDOW (widget);
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
 
-  if (include_internals)
-    GTK_CONTAINER_CLASS (hdy_preferences_window_parent_class)->forall (container,
-                                                                       include_internals,
-                                                                       callback,
-                                                                       callback_data);
-  else if (priv->pages_stack)
-    gtk_container_foreach (GTK_CONTAINER (priv->pages_stack), callback, callback_data);
+  if (priv->subpage) {
+    if (!hdy_preferences_window_get_can_swipe_back (self))
+      return GDK_EVENT_PROPAGATE;
+
+    hdy_preferences_window_close_subpage (self);
+
+    return GDK_EVENT_STOP;
+  }
+
+  gtk_window_close (GTK_WINDOW (self));
+
+  return GDK_EVENT_STOP;
 }
 
 static void
@@ -521,14 +418,10 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-  GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
 
   object_class->get_property = hdy_preferences_window_get_property;
   object_class->set_property = hdy_preferences_window_set_property;
-
-  container_class->add = hdy_preferences_window_add;
-  container_class->remove = hdy_preferences_window_remove;
-  container_class->forall = hdy_preferences_window_forall;
+  object_class->dispose = hdy_preferences_window_dispose;
 
   /**
    * HdyPreferencesWindow:search-enabled:
@@ -560,6 +453,9 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_f, GDK_CONTROL_MASK, search_open_cb, NULL);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Escape, 0, close_cb, NULL);
+
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/sm/puri/handy/ui/hdy-preferences-window.ui");
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, subpages_leaflet);
@@ -575,26 +471,73 @@ hdy_preferences_window_class_init (HdyPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesWindow, view_switcher_title);
   gtk_widget_class_bind_template_callback (widget_class, subpages_leaflet_child_transition_running_cb);
   gtk_widget_class_bind_template_callback (widget_class, subpages_leaflet_visible_child_cb);
-  gtk_widget_class_bind_template_callback (widget_class, header_bar_size_allocate_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_transition_running_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_visible_child_cb);
-  gtk_widget_class_bind_template_callback (widget_class, key_press_event_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_button_notify_active_cb);
+  gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_changed_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_result_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, stop_search_cb);
+}
+
+static gpointer
+preferences_page_to_rows (gpointer page,
+                          gpointer user_data)
+{
+  GtkWidget *child = gtk_stack_page_get_child (GTK_STACK_PAGE (page));
+
+  return hdy_preferences_page_get_rows (HDY_PREFERENCES_PAGE (child));
 }
 
 static void
 hdy_preferences_window_init (HdyPreferencesWindow *self)
 {
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
+  GListModel *model;
+  GtkExpression *expr;
 
   priv->search_enabled = TRUE;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  gtk_list_box_set_filter_func (priv->search_results, (GtkListBoxFilterFunc) filter_search_results, self, NULL);
+  priv->filter = GTK_FILTER (gtk_custom_filter_new ((GtkCustomFilterFunc) filter_search_results, self, NULL));
+  expr = gtk_property_expression_new (GTK_TYPE_WIDGET, NULL, "visible");
+
+  model = G_LIST_MODEL (gtk_stack_get_pages (priv->pages_stack));
+  model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (gtk_bool_filter_new (expr))));
+  model = G_LIST_MODEL (gtk_map_list_model_new (model, preferences_page_to_rows, NULL, NULL));
+  model = G_LIST_MODEL (gtk_flatten_list_model_new (model));
+  priv->filter_model = gtk_filter_list_model_new (model, priv->filter);
+
+  gtk_list_box_bind_model (priv->search_results,
+                           G_LIST_MODEL (priv->filter_model),
+                           (GtkListBoxCreateWidgetFunc) new_search_row_for_preference,
+                           self,
+                           NULL);
+
+  gtk_search_entry_set_key_capture_widget (priv->search_entry, GTK_WIDGET (self));
+}
+
+static void
+hdy_preferences_window_buildable_add_child (GtkBuildable *buildable,
+                                            GtkBuilder   *builder,
+                                            GObject      *child,
+                                            const gchar  *type)
+{
+  HdyPreferencesWindow *self = HDY_PREFERENCES_WINDOW (buildable);
+  HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
+
+  if (priv->content_stack && HDY_IS_PREFERENCES_PAGE (child))
+    hdy_preferences_window_add (self, HDY_PREFERENCES_PAGE (child));
+  else
+    parent_buildable_iface->add_child (buildable, builder, child, type);
+}
+
+static void
+hdy_preferences_window_buildable_init (GtkBuildableIface *iface)
+{
+  parent_buildable_iface = g_type_interface_peek_parent (iface);
+  iface->add_child = hdy_preferences_window_buildable_add_child;
 }
 
 /**
@@ -660,8 +603,12 @@ hdy_preferences_window_set_search_enabled (HdyPreferencesWindow *self,
 
   priv->search_enabled = search_enabled;
   gtk_widget_set_visible (GTK_WIDGET (priv->search_button), search_enabled);
-  if (!search_enabled)
+  if (search_enabled) {
+    gtk_search_entry_set_key_capture_widget (priv->search_entry, GTK_WIDGET (self));
+  } else {
     gtk_toggle_button_set_active (priv->search_button, FALSE);
+    gtk_search_entry_set_key_capture_widget (priv->search_entry, NULL);
+  }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SEARCH_ENABLED]);
 }
@@ -750,7 +697,7 @@ hdy_preferences_window_present_subpage (HdyPreferencesWindow *self,
    * transition between the that subpage to the preferences.
    */
   if (gtk_widget_get_parent (subpage) != GTK_WIDGET (priv->subpages_leaflet))
-    gtk_container_add (GTK_CONTAINER (priv->subpages_leaflet), subpage);
+    hdy_leaflet_append (priv->subpages_leaflet, subpage);
 
   hdy_leaflet_set_visible_child (priv->subpages_leaflet, subpage);
 }
@@ -777,4 +724,36 @@ hdy_preferences_window_close_subpage (HdyPreferencesWindow *self)
     return;
 
   hdy_leaflet_set_visible_child (priv->subpages_leaflet, priv->preferences);
+}
+
+void
+hdy_preferences_window_add (HdyPreferencesWindow *self,
+                            HdyPreferencesPage   *page)
+{
+  HdyPreferencesWindowPrivate *priv;
+  GtkStackPage *stack_page;
+
+  g_return_if_fail (HDY_IS_PREFERENCES_WINDOW (self));
+  g_return_if_fail (HDY_IS_PREFERENCES_PAGE (page));
+
+  priv = hdy_preferences_window_get_instance_private (self);
+
+  stack_page = gtk_stack_add_child (priv->pages_stack, GTK_WIDGET (page));
+
+  g_object_bind_property (page, "icon-name", stack_page, "icon-name", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (page, "title", stack_page, "title", G_BINDING_SYNC_CREATE);
+}
+
+void
+hdy_preferences_window_remove (HdyPreferencesWindow *self,
+                               HdyPreferencesPage   *page)
+{
+  HdyPreferencesWindowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_PREFERENCES_WINDOW (self));
+  g_return_if_fail (HDY_IS_PREFERENCES_PAGE (page));
+
+  priv = hdy_preferences_window_get_instance_private (self);
+
+  gtk_stack_remove (priv->pages_stack, GTK_WIDGET (page));
 }

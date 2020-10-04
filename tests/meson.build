@@ -35,7 +35,7 @@ test_names = [
   'test-preferences-group',
   'test-preferences-page',
   'test-preferences-row',
-#  'test-preferences-window',
+  'test-preferences-window',
   'test-squeezer',
   'test-status-page',
   'test-swipe-group',
