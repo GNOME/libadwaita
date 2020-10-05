@@ -230,7 +230,7 @@ hdy_header_group_child_new_for_header_group (HdyHeaderGroup *header_group)
   self->type = HDY_HEADER_GROUP_CHILD_TYPE_HEADER_GROUP;
   self->object = G_OBJECT (header_group);
 
-  g_object_weak_unref (G_OBJECT (header_group), (GWeakNotify) object_destroyed_cb, self);
+  g_object_weak_ref (G_OBJECT (header_group), (GWeakNotify) object_destroyed_cb, self);
 
   g_signal_connect_swapped (header_group, "update-decoration-layouts", G_CALLBACK (forward_update_decoration_layouts), self);
 
