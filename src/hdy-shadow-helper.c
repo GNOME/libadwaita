@@ -7,11 +7,9 @@
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
-#include "hdy-cairo-private.h"
+#include "hdy-gizmo-private.h"
 #include "hdy-shadow-helper-private.h"
-
-#include <math.h>
-
+\
 /**
  * PRIVATE:hdy-shadow-helper
  * @short_description: Shadow helper used in #HdyLeaflet
@@ -30,20 +28,13 @@ struct _HdyShadowHelper
 
   GtkWidget *widget;
 
-  gboolean is_cache_valid;
+  GtkWidget *dimming;
+  GtkWidget *shadow;
+  GtkWidget *border;
+  GtkWidget *outline;
 
-  cairo_pattern_t *dimming_pattern;
-  cairo_pattern_t *shadow_pattern;
-  cairo_pattern_t *border_pattern;
-  cairo_pattern_t *outline_pattern;
-  gint shadow_size;
-  gint border_size;
-  gint outline_size;
-
-  GtkPanDirection last_direction;
-  gint last_width;
-  gint last_height;
-  gint last_scale;
+  gdouble progress;
+  gdouble shadow_opacity;
 };
 
 G_DEFINE_TYPE (HdyShadowHelper, hdy_shadow_helper, G_TYPE_OBJECT);
@@ -56,135 +47,29 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
-
-static GtkStyleContext *
-create_context (HdyShadowHelper *self,
-                const gchar     *name,
-                GtkPanDirection  direction)
-{
-  g_autoptr(GtkWidgetPath) path = NULL;
-  GtkStyleContext *context;
-  gint pos;
-  const gchar *direction_name;
-  GEnumClass *enum_class;
-
-  enum_class = g_type_class_ref (GTK_TYPE_PAN_DIRECTION);
-  direction_name = g_enum_get_value (enum_class, direction)->value_nick;
-
-  path = gtk_widget_path_copy (gtk_widget_get_path (self->widget));
-
-  pos = gtk_widget_path_append_type (path, GTK_TYPE_WIDGET);
-  gtk_widget_path_iter_set_object_name (path, pos, name);
-
-  gtk_widget_path_iter_add_class (path, pos, direction_name);
-
-  context = gtk_style_context_new ();
-  gtk_style_context_set_path (context, path);
-
-  g_type_class_unref (enum_class);
-
-  return context;
-}
-
-static gint
-get_element_size (GtkStyleContext *context,
-                  GtkPanDirection  direction)
-{
-  gint width, height;
-
-  gtk_style_context_get (context,
-                         gtk_style_context_get_state (context),
-                         "min-width", &width,
-                         "min-height", &height,
-                         NULL);
-
-  switch (direction) {
-  case GTK_PAN_DIRECTION_LEFT:
-  case GTK_PAN_DIRECTION_RIGHT:
-    return width;
-  case GTK_PAN_DIRECTION_UP:
-  case GTK_PAN_DIRECTION_DOWN:
-    return height;
-  default:
-    g_assert_not_reached ();
-  }
-
-  return 0;
-}
-
-static cairo_pattern_t *
-create_element_pattern (GtkStyleContext *context,
-                        gint             width,
-                        gint             height,
-                        gint             scale)
-{
-  g_autoptr (cairo_surface_t) surface =
-    cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width * scale, height * scale);
-  g_autoptr (cairo_t) cr = cairo_create (surface);
-  cairo_pattern_t *pattern;
-
-  cairo_surface_set_device_scale (surface, scale, scale);
-
-  gtk_render_background (context, cr, 0, 0, width, height);
-  gtk_render_frame (context, cr, 0, 0, width, height);
-
-  pattern = cairo_pattern_create_for_surface (surface);
-
-  return pattern;
-}
-
 static void
-cache_shadow (HdyShadowHelper *self,
-              gint             width,
-              gint             height,
-              GtkPanDirection  direction)
+hdy_shadow_helper_constructed (GObject *object)
 {
-  g_autoptr(GtkStyleContext) dim_context = NULL;
-  g_autoptr(GtkStyleContext) shadow_context = NULL;
-  g_autoptr(GtkStyleContext) border_context = NULL;
-  g_autoptr(GtkStyleContext) outline_context = NULL;
-  gint shadow_size, border_size, outline_size, scale;
+  HdyShadowHelper *self = HDY_SHADOW_HELPER (object);
 
-  scale = gtk_widget_get_scale_factor (self->widget);
+  self->dimming = hdy_gizmo_new ("dimming", NULL, NULL, NULL, NULL, NULL, NULL);
+  self->shadow = hdy_gizmo_new ("shadow", NULL, NULL, NULL, NULL, NULL, NULL);
+  self->border = hdy_gizmo_new ("border", NULL, NULL, NULL, NULL, NULL, NULL);
+  self->outline = hdy_gizmo_new ("outline", NULL, NULL, NULL, NULL, NULL, NULL);
 
-  if (self->last_direction == direction &&
-      self->last_width == width &&
-      self->last_height == height &&
-      self->last_scale == scale &&
-      self->is_cache_valid)
-    return;
+  gtk_widget_set_can_target (self->dimming, FALSE);
+  gtk_widget_set_can_target (self->shadow, FALSE);
+  gtk_widget_set_can_target (self->border, FALSE);
+  gtk_widget_set_can_target (self->outline, FALSE);
 
-  hdy_shadow_helper_clear_cache (self);
+  gtk_widget_set_parent (self->dimming, self->widget);
+  gtk_widget_set_parent (self->shadow, self->widget);
+  gtk_widget_set_parent (self->border, self->widget);
+  gtk_widget_set_parent (self->outline, self->widget);
 
-  dim_context = create_context (self, "dimming", direction);
-  shadow_context = create_context (self, "shadow", direction);
-  border_context = create_context (self, "border", direction);
-  outline_context = create_context (self, "outline", direction);
+  hdy_shadow_helper_clear (self);
 
-  shadow_size = get_element_size (shadow_context, direction);
-  border_size = get_element_size (border_context, direction);
-  outline_size = get_element_size (outline_context, direction);
-
-  self->dimming_pattern = create_element_pattern (dim_context, width, height, scale);
-  if (direction == GTK_PAN_DIRECTION_LEFT || direction == GTK_PAN_DIRECTION_RIGHT) {
-    self->shadow_pattern = create_element_pattern (shadow_context, shadow_size, height, scale);
-    self->border_pattern = create_element_pattern (border_context, border_size, height, scale);
-    self->outline_pattern = create_element_pattern (outline_context, outline_size, height, scale);
-  } else {
-    self->shadow_pattern = create_element_pattern (shadow_context, width, shadow_size, scale);
-    self->border_pattern = create_element_pattern (border_context, width, border_size, scale);
-    self->outline_pattern = create_element_pattern (outline_context, width, outline_size, scale);
-  }
-
-  self->border_size = border_size;
-  self->shadow_size = shadow_size;
-  self->outline_size = outline_size;
-
-  self->is_cache_valid = TRUE;
-  self->last_direction = direction;
-  self->last_width = width;
-  self->last_height = height;
-  self->last_scale = scale;
+  G_OBJECT_CLASS (hdy_shadow_helper_parent_class)->constructed (object);
 }
 
 static void
@@ -192,10 +77,11 @@ hdy_shadow_helper_dispose (GObject *object)
 {
   HdyShadowHelper *self = HDY_SHADOW_HELPER (object);
 
-  hdy_shadow_helper_clear_cache (self);
-
-  if (self->widget)
-    g_clear_object (&self->widget);
+  g_clear_pointer (&self->dimming, gtk_widget_unparent);
+  g_clear_pointer (&self->shadow, gtk_widget_unparent);
+  g_clear_pointer (&self->border, gtk_widget_unparent);
+  g_clear_pointer (&self->outline, gtk_widget_unparent);
+  g_clear_object (&self->widget);
 
   G_OBJECT_CLASS (hdy_shadow_helper_parent_class)->dispose (object);
 }
@@ -241,6 +127,7 @@ hdy_shadow_helper_class_init (HdyShadowHelperClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  object_class->constructed = hdy_shadow_helper_constructed;
   object_class->dispose = hdy_shadow_helper_dispose;
   object_class->get_property = hdy_shadow_helper_get_property;
   object_class->set_property = hdy_shadow_helper_set_property;
@@ -284,165 +171,151 @@ hdy_shadow_helper_new (GtkWidget *widget)
                        NULL);
 }
 
-/**
- * hdy_shadow_helper_clear_cache:
- * @self: a #HdyShadowHelper
- *
- * Clears shadow cache. This should be used after a transition is done.
- *
- * Since: 0.0.12
- */
 void
-hdy_shadow_helper_clear_cache (HdyShadowHelper *self)
+hdy_shadow_helper_clear (HdyShadowHelper *self)
 {
-  if (!self->is_cache_valid)
-    return;
+  gtk_widget_set_child_visible (self->dimming, FALSE);
+  gtk_widget_set_child_visible (self->shadow, FALSE);
+  gtk_widget_set_child_visible (self->border, FALSE);
+  gtk_widget_set_child_visible (self->outline, FALSE);
 
-  cairo_pattern_destroy (self->dimming_pattern);
-  cairo_pattern_destroy (self->shadow_pattern);
-  cairo_pattern_destroy (self->border_pattern);
-  cairo_pattern_destroy (self->outline_pattern);
-  self->border_size = 0;
-  self->shadow_size = 0;
-  self->outline_size = 0;
-
-  self->last_direction = 0;
-  self->last_width = 0;
-  self->last_height = 0;
-  self->last_scale = 0;
-
-  self->is_cache_valid = FALSE;
+  self->progress = 0;
 }
 
-/**
- * hdy_shadow_helper_draw_shadow:
- * @self: a #HdyShadowHelper
- * @cr: a Cairo context to draw to
- * @width: the width of the shadow rectangle
- * @height: the height of the shadow rectangle
- * @progress: transition progress, changes from 0 to 1
- * @direction: shadow direction
- *
- * Draws a transition shadow. For caching to work, @width, @height and
- * @direction shouldn't change between calls.
- *
- * Since: 0.0.12
- */
-void
-hdy_shadow_helper_draw_shadow (HdyShadowHelper *self,
-                               cairo_t         *cr,
-                               gint             width,
-                               gint             height,
-                               gdouble          progress,
-                               GtkPanDirection  direction)
+static void
+set_style_classes (HdyShadowHelper *self,
+                   GtkPanDirection  direction)
 {
-  gdouble remaining_distance, shadow_opacity;
-  gint shadow_size, border_size, outline_size, distance;
+  const gchar *classes[2];
 
-  if (progress >= 1)
-    return;
+  switch (direction) {
+  case GTK_PAN_DIRECTION_LEFT:
+    classes[0] = "left";
+    break;
+  case GTK_PAN_DIRECTION_RIGHT:
+    classes[0] = "right";
+    break;
+  case GTK_PAN_DIRECTION_UP:
+    classes[0] = "up";
+    break;
+  case GTK_PAN_DIRECTION_DOWN:
+    classes[0] = "down";
+    break;
+  default:
+    g_assert_not_reached ();
+  }
+  classes[1] = NULL;
 
-  cache_shadow (self, width, height, direction);
+  gtk_widget_set_css_classes (self->dimming, classes);
+  gtk_widget_set_css_classes (self->shadow, classes);
+  gtk_widget_set_css_classes (self->border, classes);
+  gtk_widget_set_css_classes (self->outline, classes);
+}
 
-  shadow_size = self->shadow_size;
-  border_size = self->border_size;
-  outline_size = self->outline_size;
+void
+hdy_shadow_helper_size_allocate (HdyShadowHelper *self,
+                                 gint             width,
+                                 gint             height,
+                                 gint             baseline,
+                                 gint             x,
+                                 gint             y,
+                                 gdouble          progress,
+                                 GtkPanDirection  direction)
+{
+  gdouble distance, remaining_distance;
+  gint shadow_size, border_size, outline_size;
+  GtkOrientation orientation;
+
+  gtk_widget_set_child_visible (self->dimming, TRUE);
+  gtk_widget_set_child_visible (self->shadow, TRUE);
+  gtk_widget_set_child_visible (self->border, TRUE);
+  gtk_widget_set_child_visible (self->outline, TRUE);
+
+  set_style_classes (self, direction);
+
+  gtk_widget_allocate (self->dimming, width, height, baseline,
+                       gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y)));
 
   switch (direction) {
   case GTK_PAN_DIRECTION_LEFT:
   case GTK_PAN_DIRECTION_RIGHT:
     distance = width;
+    orientation = GTK_ORIENTATION_HORIZONTAL;
     break;
   case GTK_PAN_DIRECTION_UP:
   case GTK_PAN_DIRECTION_DOWN:
     distance = height;
+    orientation = GTK_ORIENTATION_VERTICAL;
+    break;
+  default:
+    g_assert_not_reached ();
+  }
+
+  gtk_widget_measure (self->shadow, orientation, -1, &shadow_size, NULL, NULL, NULL);
+  gtk_widget_measure (self->border, orientation, -1, &border_size, NULL, NULL, NULL);
+  gtk_widget_measure (self->outline, orientation, -1, &outline_size, NULL, NULL, NULL);
+
+  switch (direction) {
+  case GTK_PAN_DIRECTION_LEFT:
+    gtk_widget_allocate (self->shadow, shadow_size, MAX (height, shadow_size), baseline,
+                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y)));
+    gtk_widget_allocate (self->border, border_size, MAX (height, border_size), baseline,
+                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y)));
+    gtk_widget_allocate (self->outline, outline_size, MAX (height, outline_size), baseline,
+                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x - outline_size, y)));
+    break;
+  case GTK_PAN_DIRECTION_RIGHT:
+    gtk_widget_allocate (self->shadow, shadow_size, MAX (height, shadow_size), baseline,
+                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x + width - shadow_size, y)));
+    gtk_widget_allocate (self->border, border_size, MAX (height, border_size), baseline,
+                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x + width - border_size, y)));
+    gtk_widget_allocate (self->outline, outline_size, MAX (height, outline_size), baseline,
+                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x + width, y)));
+    break;
+  case GTK_PAN_DIRECTION_UP:
+    gtk_widget_allocate (self->shadow, MAX (width, shadow_size), shadow_size, baseline,
+                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y)));
+    gtk_widget_allocate (self->border, MAX (width, border_size), border_size, baseline,
+                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y)));
+    gtk_widget_allocate (self->outline, MAX (width, outline_size), outline_size, baseline,
+                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y - outline_size)));
+    break;
+  case GTK_PAN_DIRECTION_DOWN:
+    gtk_widget_allocate (self->shadow, MAX (width, shadow_size), shadow_size, baseline,
+                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y + height - shadow_size)));
+    gtk_widget_allocate (self->border, MAX (width, border_size), border_size, baseline,
+                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y + height - border_size)));
+    gtk_widget_allocate (self->border, MAX (width, outline_size), outline_size, baseline,
+                         gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y + height)));
     break;
   default:
     g_assert_not_reached ();
   }
 
   remaining_distance = (1 - progress) * (gdouble) distance;
-  shadow_opacity = 1;
   if (remaining_distance < shadow_size)
-    shadow_opacity = (remaining_distance / shadow_size);
+    self->shadow_opacity = (remaining_distance / shadow_size);
+  else
+    self->shadow_opacity = 1;
 
-  cairo_save (cr);
+  self->progress = progress;
+}
 
-  switch (direction) {
-  case GTK_PAN_DIRECTION_LEFT:
-    cairo_rectangle (cr, -outline_size, 0, width + outline_size, height);
-    break;
-  case GTK_PAN_DIRECTION_RIGHT:
-    cairo_rectangle (cr, 0, 0, width + outline_size, height);
-    break;
-  case GTK_PAN_DIRECTION_UP:
-    cairo_rectangle (cr, 0, -outline_size, width, height + outline_size);
-    break;
-  case GTK_PAN_DIRECTION_DOWN:
-    cairo_rectangle (cr, 0, 0, width, height + outline_size);
-    break;
-  default:
-    g_assert_not_reached ();
-  }
-  cairo_clip (cr);
-  gdk_window_mark_paint_from_clip (gtk_widget_get_window (self->widget), cr);
+void
+hdy_shadow_helper_snapshot (HdyShadowHelper *self,
+                            GtkSnapshot     *snapshot)
+{
+  if (self->progress >= 1)
+    return;
 
-  cairo_set_source (cr, self->dimming_pattern);
-  cairo_paint_with_alpha (cr, 1 - progress);
+  gtk_snapshot_push_opacity (snapshot, 1 - self->progress);
+  gtk_widget_snapshot_child (self->widget, self->dimming, snapshot);
+  gtk_snapshot_pop (snapshot);
 
-  switch (direction) {
-  case GTK_PAN_DIRECTION_RIGHT:
-    cairo_translate (cr, width - shadow_size, 0);
-    break;
-  case GTK_PAN_DIRECTION_DOWN:
-    cairo_translate (cr, 0, height - shadow_size);
-    break;
-  case GTK_PAN_DIRECTION_LEFT:
-  case GTK_PAN_DIRECTION_UP:
-    break;
-  default:
-    g_assert_not_reached ();
-  }
+  gtk_snapshot_push_opacity (snapshot, self->shadow_opacity);
+  gtk_widget_snapshot_child (self->widget, self->shadow, snapshot);
+  gtk_snapshot_pop (snapshot);
 
-  cairo_set_source (cr, self->shadow_pattern);
-  cairo_paint_with_alpha (cr, shadow_opacity);
-
-  switch (direction) {
-  case GTK_PAN_DIRECTION_RIGHT:
-    cairo_translate (cr, shadow_size - border_size, 0);
-    break;
-  case GTK_PAN_DIRECTION_DOWN:
-    cairo_translate (cr, 0, shadow_size - border_size);
-    break;
-  case GTK_PAN_DIRECTION_LEFT:
-  case GTK_PAN_DIRECTION_UP:
-    break;
-  default:
-    g_assert_not_reached ();
-  }
-
-  cairo_set_source (cr, self->border_pattern);
-  cairo_paint (cr);
-
-  switch (direction) {
-  case GTK_PAN_DIRECTION_RIGHT:
-    cairo_translate (cr, border_size, 0);
-    break;
-  case GTK_PAN_DIRECTION_DOWN:
-    cairo_translate (cr, 0, border_size);
-    break;
-  case GTK_PAN_DIRECTION_LEFT:
-    cairo_translate (cr, -outline_size, 0);
-    break;
-  case GTK_PAN_DIRECTION_UP:
-    cairo_translate (cr, 0, -outline_size);
-    break;
-  default:
-    g_assert_not_reached ();
-  }
-
-  cairo_set_source (cr, self->outline_pattern);
-  cairo_paint (cr);
-
-  cairo_restore (cr);
+  gtk_widget_snapshot_child (self->widget, self->border, snapshot);
+  gtk_widget_snapshot_child (self->widget, self->outline, snapshot);
 }

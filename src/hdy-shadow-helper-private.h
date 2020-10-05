@@ -20,13 +20,18 @@ G_DECLARE_FINAL_TYPE (HdyShadowHelper, hdy_shadow_helper, HDY, SHADOW_HELPER, GO
 
 HdyShadowHelper *hdy_shadow_helper_new (GtkWidget *widget);
 
-void             hdy_shadow_helper_clear_cache (HdyShadowHelper *self);
+void             hdy_shadow_helper_clear (HdyShadowHelper *self);
 
-void             hdy_shadow_helper_draw_shadow (HdyShadowHelper *self,
-                                                cairo_t         *cr,
-                                                gint             width,
-                                                gint             height,
-                                                gdouble          progress,
-                                                GtkPanDirection  direction);
+void             hdy_shadow_helper_size_allocate (HdyShadowHelper *self,
+                                                  gint             width,
+                                                  gint             height,
+                                                  gint             baseline,
+                                                  gint             x,
+                                                  gint             y,
+                                                  gdouble          progress,
+                                                  GtkPanDirection  direction);
+
+void             hdy_shadow_helper_snapshot (HdyShadowHelper *self,
+                                             GtkSnapshot     *snapshot);
 
 G_END_DECLS

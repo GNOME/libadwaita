@@ -139,7 +139,7 @@ src_sources = [
   'hdy-preferences-page.c',
   'hdy-preferences-row.c',
 #  'hdy-preferences-window.c',
-#  'hdy-shadow-helper.c',
+  'hdy-shadow-helper.c',
   'hdy-squeezer.c',
   'hdy-status-page.c',
   'hdy-swipe-group.c',
