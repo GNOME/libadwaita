@@ -31,7 +31,6 @@ hdy_version_h = configure_file(
            input: 'hdy-version.h.in',
           output: 'hdy-version.h',
      install_dir: libhandy_header_dir,
-         install: true,
    configuration: version_data)
 
 libhandy_generated_headers = [
