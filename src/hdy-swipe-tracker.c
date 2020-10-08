@@ -298,8 +298,11 @@ gesture_cancel (HdySwipeTracker *self,
                 gdouble          distance)
 {
   if (self->state != HDY_SWIPE_TRACKER_STATE_PENDING &&
-      self->state != HDY_SWIPE_TRACKER_STATE_SCROLLING)
+      self->state != HDY_SWIPE_TRACKER_STATE_SCROLLING) {
+    reset (self);
+
     return;
+  }
 
   self->cancelled = TRUE;
   gesture_end (self, distance);
