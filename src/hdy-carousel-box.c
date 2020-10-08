@@ -1723,7 +1723,7 @@ hdy_carousel_box_get_closest_snap_point (HdyCarouselBox *self)
  * the current position, the returned widget will match the currently
  * displayed page.
  *
- * Returns: the closest page.
+ * Returns: (nullable): the closest page.
  *
  * Since: 1.0
  */
@@ -1741,6 +1741,9 @@ hdy_carousel_box_get_page_at_position (HdyCarouselBox *self,
   position = CLAMP (position, lower, upper);
 
   child = get_closest_child_at (self, position, TRUE, FALSE);
+
+  if (!child)
+    return NULL;
 
   return child->widget;
 }
