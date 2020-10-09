@@ -903,7 +903,6 @@ hdy_carousel_box_size_allocate (GtkWidget     *widget,
     gtk_widget_size_allocate (child, &alloc);
   }
 
-  invalidate_drawing_cache (self);
   gtk_widget_set_clip (widget, allocation);
 }
 
