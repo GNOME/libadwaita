@@ -328,7 +328,7 @@ hdy_swipe_group_dispose (GObject *object)
 
 /*< private >
  * @builder: a #GtkBuilder
- * @context: the #GMarkupParseContext
+ * @context: the #GtkBuildableParseContext
  * @parent_name: the name of the expected parent element
  * @error: return location for an error
  *
@@ -369,13 +369,12 @@ _gtk_builder_check_parent (GtkBuilder                *builder,
                line, col, element);
 
   return FALSE;
-
 }
 
 /*< private >
  * _gtk_builder_prefix_error:
  * @builder: a #GtkBuilder
- * @context: the #GMarkupParseContext
+ * @context: the #GtkBuildableParseContext
  * @error: an error
  *
  * Calls g_prefix_error() to prepend a filename:line:column marker
@@ -401,7 +400,7 @@ _gtk_builder_prefix_error (GtkBuilder                *builder,
 /*< private >
  * _gtk_builder_error_unhandled_tag:
  * @builder: a #GtkBuilder
- * @context: the #GMarkupParseContext
+ * @context: the #GtkBuildableParseContext
  * @object: name of the object that is being handled
  * @element_name: name of the element whose start tag is being handled
  * @error: return location for the error
