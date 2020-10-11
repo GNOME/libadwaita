@@ -6,7 +6,9 @@
 #include "hdy-enums.h"
 /*
 #include "hdy-flap.h"
+*/
 #include "hdy-header-bar.h"
+/*
 #include "hdy-header-group.h"
 */
 #include "hdy-leaflet.h"

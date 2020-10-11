@@ -34,44 +34,20 @@ G_BEGIN_DECLS
 #define HDY_TYPE_HEADER_BAR (hdy_header_bar_get_type())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_DERIVABLE_TYPE (HdyHeaderBar, hdy_header_bar, HDY, HEADER_BAR, GtkContainer)
+G_DECLARE_FINAL_TYPE (HdyHeaderBar, hdy_header_bar, HDY, HEADER_BAR, GtkWidget)
 
 typedef enum {
   HDY_CENTERING_POLICY_LOOSE,
   HDY_CENTERING_POLICY_STRICT,
 } HdyCenteringPolicy;
 
-/**
- * HdyHeaderBarClass
- * @parent_class: The parent class
- */
-struct _HdyHeaderBarClass
-{
-  GtkContainerClass parent_class;
-
-  /*< private >*/
-  gpointer padding[4];
-};
-
 HDY_AVAILABLE_IN_ALL
 GtkWidget   *hdy_header_bar_new (void);
 
 HDY_AVAILABLE_IN_ALL
-const gchar *hdy_header_bar_get_title (HdyHeaderBar *self);
+GtkWidget   *hdy_header_bar_get_title_widget  (HdyHeaderBar *self);
 HDY_AVAILABLE_IN_ALL
-void         hdy_header_bar_set_title (HdyHeaderBar *self,
-                                       const gchar  *title);
-
-HDY_AVAILABLE_IN_ALL
-const gchar *hdy_header_bar_get_subtitle      (HdyHeaderBar *self);
-HDY_AVAILABLE_IN_ALL
-void         hdy_header_bar_set_subtitle      (HdyHeaderBar *self,
-                                               const gchar  *subtitle);
-
-HDY_AVAILABLE_IN_ALL
-GtkWidget   *hdy_header_bar_get_custom_title  (HdyHeaderBar *self);
-HDY_AVAILABLE_IN_ALL
-void         hdy_header_bar_set_custom_title  (HdyHeaderBar *self,
+void         hdy_header_bar_set_title_widget  (HdyHeaderBar *self,
                                                GtkWidget    *title_widget);
 
 HDY_AVAILABLE_IN_ALL
@@ -80,18 +56,15 @@ void         hdy_header_bar_pack_start        (HdyHeaderBar *self,
 HDY_AVAILABLE_IN_ALL
 void         hdy_header_bar_pack_end          (HdyHeaderBar *self,
                                                GtkWidget    *child);
+HDY_AVAILABLE_IN_ALL
+void         hdy_header_bar_remove            (HdyHeaderBar *self,
+                                               GtkWidget    *child);
 
 HDY_AVAILABLE_IN_ALL
-gboolean     hdy_header_bar_get_show_close_button (HdyHeaderBar *self);
+gboolean     hdy_header_bar_get_show_title_buttons (HdyHeaderBar *self);
 HDY_AVAILABLE_IN_ALL
-void         hdy_header_bar_set_show_close_button (HdyHeaderBar *self,
-                                                   gboolean      setting);
-
-HDY_AVAILABLE_IN_ALL
-gboolean     hdy_header_bar_get_has_subtitle (HdyHeaderBar *self);
-HDY_AVAILABLE_IN_ALL
-void         hdy_header_bar_set_has_subtitle (HdyHeaderBar *self,
-                                              gboolean      setting);
+void         hdy_header_bar_set_show_title_buttons (HdyHeaderBar *self,
+                                                    gboolean      setting);
 
 HDY_AVAILABLE_IN_ALL
 const gchar *hdy_header_bar_get_decoration_layout (HdyHeaderBar *self);
@@ -104,20 +77,5 @@ HdyCenteringPolicy hdy_header_bar_get_centering_policy (HdyHeaderBar *self);
 HDY_AVAILABLE_IN_ALL
 void               hdy_header_bar_set_centering_policy (HdyHeaderBar       *self,
                                                         HdyCenteringPolicy  centering_policy);
-
-HDY_AVAILABLE_IN_ALL
-guint hdy_header_bar_get_transition_duration (HdyHeaderBar *self);
-HDY_AVAILABLE_IN_ALL
-void  hdy_header_bar_set_transition_duration (HdyHeaderBar *self,
-                                              guint         duration);
-
-HDY_AVAILABLE_IN_ALL
-gboolean hdy_header_bar_get_transition_running (HdyHeaderBar *self);
-
-HDY_AVAILABLE_IN_ALL
-gboolean hdy_header_bar_get_interpolate_size (HdyHeaderBar *self);
-HDY_AVAILABLE_IN_ALL
-void     hdy_header_bar_set_interpolate_size (HdyHeaderBar *self,
-                                              gboolean      interpolate_size);
 
 G_END_DECLS
