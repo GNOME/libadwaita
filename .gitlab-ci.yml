@@ -81,7 +81,7 @@ build-gtkdoc:
   dependencies:
     - build-debian-gcc
   script:
-    - ninja -C _build meson-libhandy-doc 2>&1 | tee _build/doc/buildlog
+    - ninja -C _build meson-libhandy-1-doc 2>&1 | tee _build/doc/buildlog
     - if grep -qs 'warning' _build/doc/buildlog; then exit 1; fi
     - mv _build/doc/html/ _reference/
   artifacts:

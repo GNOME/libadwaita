@@ -47,6 +47,7 @@ glib_docpath = glib_prefix / 'share' / 'gtk-doc' / 'html'
 docpath      = get_option('datadir') / 'gtk-doc' / 'html'
 
 gnome.gtkdoc('libhandy',
+     module_version: apiversion,
            main_xml: 'handy-docs.xml',
             src_dir: [
                        meson.source_root() / 'src',
@@ -67,7 +68,6 @@ gnome.gtkdoc('libhandy',
                        '--extra-dir=@0@'.format(glib_docpath / 'gtk3'),
                        '--extra-dir=@0@'.format(glib_docpath / 'gdk-pixbuf'),
                      ],
-        install_dir: 'libhandy-' + apiversion,
       content_files: content_files,
         html_assets: images,
             install: true)
