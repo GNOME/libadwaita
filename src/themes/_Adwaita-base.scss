@@ -209,7 +209,8 @@ viewswitcherbar actionbar > revealer > box {
 
 // Content list
 
-list.content {
+list.content,
+listview.content {
   &,
   list {
     background-color: transparent;
