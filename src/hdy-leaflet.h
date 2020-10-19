@@ -110,4 +110,16 @@ HDY_AVAILABLE_IN_ALL
 GtkWidget       *hdy_leaflet_get_child_by_name (HdyLeaflet  *self,
                                                 const gchar *name);
 
+HDY_AVAILABLE_IN_1_1
+void             hdy_leaflet_prepend (HdyLeaflet *self,
+                                      GtkWidget  *child);
+HDY_AVAILABLE_IN_1_1
+void             hdy_leaflet_insert_child_after (HdyLeaflet *self,
+                                                 GtkWidget  *child,
+                                                 GtkWidget  *sibling);
+HDY_AVAILABLE_IN_1_1
+void             hdy_leaflet_reorder_child_after (HdyLeaflet *self,
+                                                  GtkWidget  *child,
+                                                  GtkWidget  *sibling);
+
 G_END_DECLS

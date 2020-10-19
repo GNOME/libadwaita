@@ -13,6 +13,7 @@
 #include "hdy-enums-private.h"
 #include "hdy-stackable-box-private.h"
 #include "hdy-shadow-helper-private.h"
+#include "hdy-swipe-tracker-private.h"
 #include "hdy-swipeable.h"
 
 /**
@@ -2278,36 +2279,13 @@ void
 hdy_stackable_box_add (HdyStackableBox *self,
                        GtkWidget       *widget)
 {
-  HdyStackableBoxChildInfo *child_info;
+  if (self->children == NULL) {
+    hdy_stackable_box_insert_child_after (self, widget, NULL);
+  } else {
+    HdyStackableBoxChildInfo *last_child_info = g_list_last (self->children)->data;
 
-  g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
-
-  child_info = g_new0 (HdyStackableBoxChildInfo, 1);
-  child_info->widget = widget;
-  child_info->navigatable = TRUE;
-
-  self->children = g_list_append (self->children, child_info);
-  self->children_reversed = g_list_prepend (self->children_reversed, child_info);
-
-  if (gtk_widget_get_realized (GTK_WIDGET (self->container)))
-    register_window (self, child_info);
-
-  gtk_widget_set_child_visible (widget, FALSE);
-  gtk_widget_set_parent (widget, GTK_WIDGET (self->container));
-
-  g_signal_connect (widget, "notify::visible",
-                    G_CALLBACK (hdy_stackable_box_child_visibility_notify_cb), self);
-
-  if (hdy_stackable_box_get_visible_child (self) == NULL &&
-      gtk_widget_get_visible (widget)) {
-    set_visible_child_info (self, child_info, self->transition_type, self->child_transition.duration, FALSE);
+    hdy_stackable_box_insert_child_after (self, widget, last_child_info->widget);
   }
-
-  if (!self->folded ||
-      (self->folded && (self->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] ||
-                        self->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL] ||
-                        self->visible_child == child_info)))
-    gtk_widget_queue_resize (GTK_WIDGET (self->container));
 }
 
 void
@@ -2915,6 +2893,132 @@ hdy_stackable_box_set_child_navigatable (HdyStackableBox *self,
   if (!child_info->navigatable &&
       hdy_stackable_box_get_visible_child (self) == widget)
     set_visible_child_info (self, NULL, self->transition_type, self->child_transition.duration, TRUE);
+}
+
+void
+hdy_stackable_box_prepend (HdyStackableBox *self,
+                           GtkWidget       *child)
+{
+  g_return_if_fail (HDY_IS_STACKABLE_BOX (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (gtk_widget_get_parent (child) == NULL);
+
+  hdy_stackable_box_insert_child_after (self, child, NULL);
+}
+
+void
+hdy_stackable_box_insert_child_after (HdyStackableBox *self,
+                                      GtkWidget       *child,
+                                      GtkWidget       *sibling)
+{
+  HdyStackableBoxChildInfo *child_info;
+  gint visible_child_pos_before_insert = -1;
+  gint visible_child_pos_after_insert = -1;
+
+  g_return_if_fail (HDY_IS_STACKABLE_BOX (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (sibling == NULL || GTK_IS_WIDGET (sibling));
+
+  g_return_if_fail (gtk_widget_get_parent (child) == NULL);
+  g_return_if_fail (sibling == NULL || gtk_widget_get_parent (sibling) == GTK_WIDGET (self->container));
+
+  child_info = g_new0 (HdyStackableBoxChildInfo, 1);
+  child_info->widget = child;
+  child_info->navigatable = TRUE;
+
+  if (self->visible_child)
+    visible_child_pos_before_insert = g_list_index (self->children, self->visible_child);
+
+  if (!sibling) {
+    self->children = g_list_prepend (self->children, child_info);
+    self->children_reversed = g_list_append (self->children_reversed, child_info);
+  } else {
+    HdyStackableBoxChildInfo *sibling_info = find_child_info_for_widget (self, sibling);
+    gint sibling_info_pos = g_list_index (self->children, sibling_info);
+
+    self->children =
+      g_list_insert (self->children, child_info,
+                     sibling_info_pos + 1);
+    self->children_reversed =
+      g_list_insert (self->children_reversed, child_info,
+                     g_list_length (self->children) - sibling_info_pos - 1);
+  }
+
+  if (self->visible_child)
+    visible_child_pos_after_insert = g_list_index (self->children, self->visible_child);
+
+  if (gtk_widget_get_realized (GTK_WIDGET (self->container)))
+    register_window (self, child_info);
+
+  gtk_widget_set_child_visible (child, FALSE);
+  gtk_widget_set_parent (child, GTK_WIDGET (self->container));
+
+  g_signal_connect (child, "notify::visible",
+                    G_CALLBACK (hdy_stackable_box_child_visibility_notify_cb), self);
+
+  if (!hdy_stackable_box_get_visible_child (self) &&
+      gtk_widget_get_visible (child))
+    set_visible_child_info (self,
+                            child_info,
+                            self->transition_type,
+                            self->child_transition.duration,
+                            FALSE);
+  else if (visible_child_pos_before_insert != visible_child_pos_after_insert)
+    hdy_swipeable_emit_child_switched (HDY_SWIPEABLE (self->container),
+                                       visible_child_pos_after_insert,
+                                       0);
+
+  if (!self->folded ||
+      (self->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] ||
+       self->homogeneous[HDY_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL] ||
+       self->visible_child == child_info))
+    gtk_widget_queue_resize (GTK_WIDGET (self->container));
+}
+
+void
+hdy_stackable_box_reorder_child_after (HdyStackableBox *self,
+                                       GtkWidget       *child,
+                                       GtkWidget       *sibling)
+{
+  HdyStackableBoxChildInfo *child_info;
+  HdyStackableBoxChildInfo *sibling_info;
+  gint sibling_info_pos;
+  gint visible_child_pos_before_reorder;
+  gint visible_child_pos_after_reorder;
+
+  g_return_if_fail (HDY_IS_STACKABLE_BOX (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (sibling == NULL || GTK_IS_WIDGET (sibling));
+
+  g_return_if_fail (gtk_widget_get_parent (child) == GTK_WIDGET (self->container));
+  g_return_if_fail (sibling == NULL || gtk_widget_get_parent (sibling) == GTK_WIDGET (self->container));
+
+  if (child == sibling)
+    return;
+
+  visible_child_pos_before_reorder = g_list_index (self->children, self->visible_child);
+
+  /* Cancel a gesture if there's one in progress */
+  hdy_swipe_tracker_emit_end_swipe (self->tracker, 0, 0.0);
+
+  child_info = find_child_info_for_widget (self, child);
+  self->children = g_list_remove (self->children, child_info);
+  self->children_reversed = g_list_remove (self->children_reversed, child_info);
+
+  sibling_info = find_child_info_for_widget (self, sibling);
+  sibling_info_pos = g_list_index (self->children, sibling_info);
+
+  self->children =
+    g_list_insert (self->children, child_info,
+                   sibling_info_pos + 1);
+  self->children_reversed =
+    g_list_insert (self->children_reversed, child_info,
+                   g_list_length (self->children) - sibling_info_pos - 1);
+
+  visible_child_pos_after_reorder = g_list_index (self->children, self->visible_child);
+
+  if (visible_child_pos_before_reorder != visible_child_pos_after_reorder)
+    hdy_swipeable_emit_child_switched (HDY_SWIPEABLE (self->container), visible_child_pos_after_reorder, 0);
 }
 
 static void

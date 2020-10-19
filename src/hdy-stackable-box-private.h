@@ -129,5 +129,13 @@ void             hdy_stackable_box_map (HdyStackableBox *self);
 void             hdy_stackable_box_unmap (HdyStackableBox *self);
 void             hdy_stackable_box_direction_changed (HdyStackableBox  *self,
                                                       GtkTextDirection  previous_direction);
+void             hdy_stackable_box_prepend (HdyStackableBox *self,
+                                            GtkWidget       *child);
+void             hdy_stackable_box_insert_child_after (HdyStackableBox *self,
+                                                       GtkWidget       *child,
+                                                       GtkWidget       *sibling);
+void             hdy_stackable_box_reorder_child_after (HdyStackableBox *self,
+                                                        GtkWidget       *child,
+                                                        GtkWidget       *sibling);
 
 G_END_DECLS

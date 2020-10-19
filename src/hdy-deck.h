@@ -99,4 +99,16 @@ HDY_AVAILABLE_IN_ALL
 GtkWidget       *hdy_deck_get_child_by_name (HdyDeck     *self,
                                              const gchar *name);
 
+HDY_AVAILABLE_IN_1_1
+void             hdy_deck_prepend (HdyDeck   *self,
+                                   GtkWidget *child);
+HDY_AVAILABLE_IN_1_1
+void             hdy_deck_insert_child_after (HdyDeck   *self,
+                                              GtkWidget *child,
+                                              GtkWidget *sibling);
+HDY_AVAILABLE_IN_1_1
+void             hdy_deck_reorder_child_after (HdyDeck   *self,
+                                               GtkWidget *child,
+                                               GtkWidget *sibling);
+
 G_END_DECLS

@@ -575,6 +575,81 @@ hdy_leaflet_get_child_by_name (HdyLeaflet  *self,
   return hdy_stackable_box_get_child_by_name (HDY_GET_HELPER (self), name);
 }
 
+/**
+ * hdy_leaflet_prepend:
+ * @self: a #HdyLeaflet
+ * @child: the #GtkWidget to prepend
+ *
+ * Inserts @child at the first position in @self.
+ *
+ * Since: 1.1
+ */
+void
+hdy_leaflet_prepend (HdyLeaflet *self,
+                     GtkWidget  *child)
+{
+  g_return_if_fail (HDY_IS_LEAFLET (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (gtk_widget_get_parent (child) == NULL);
+
+  hdy_stackable_box_prepend (HDY_GET_HELPER (self), child);
+}
+
+/**
+ * hdy_leaflet_insert_child_after:
+ * @self: a #HdyLeaflet
+ * @child: the #GtkWidget to insert
+ * @sibling: (nullable): the sibling to insert @child after, or %NULL
+ *
+ * Inserts @child in the position after @sibling in the list of children.
+ * If @sibling is %NULL, insert @child at the first position.
+ *
+ * Since: 1.1
+ */
+void
+hdy_leaflet_insert_child_after (HdyLeaflet *self,
+                                GtkWidget  *child,
+                                GtkWidget  *sibling)
+{
+  g_return_if_fail (HDY_IS_LEAFLET (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (sibling == NULL || GTK_IS_WIDGET (sibling));
+
+  g_return_if_fail (gtk_widget_get_parent (child) == NULL);
+  g_return_if_fail (sibling == NULL || gtk_widget_get_parent (sibling) == GTK_WIDGET (self));
+
+  hdy_stackable_box_insert_child_after (HDY_GET_HELPER (self), child, sibling);
+}
+
+/**
+ * hdy_leaflet_reorder_child_after:
+ * @self: a #HdyLeaflet
+ * @child: the #GtkWidget to move, must be a child of @self
+ * @sibling: (nullable): the sibling to move @child after, or %NULL
+ *
+ * Moves @child to the position after @sibling in the list of children.
+ * If @sibling is %NULL, move @child to the first position.
+ *
+ * Since: 1.1
+ */
+void
+hdy_leaflet_reorder_child_after (HdyLeaflet *self,
+                                 GtkWidget  *child,
+                                 GtkWidget  *sibling)
+{
+  g_return_if_fail (HDY_IS_LEAFLET (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (sibling == NULL || GTK_IS_WIDGET (sibling));
+
+  g_return_if_fail (gtk_widget_get_parent (child) == GTK_WIDGET (self));
+  g_return_if_fail (sibling == NULL || gtk_widget_get_parent (sibling) == GTK_WIDGET (self));
+
+  if (child == sibling)
+    return;
+
+  hdy_stackable_box_reorder_child_after (HDY_GET_HELPER (self), child, sibling);
+}
+
 /* This private method is prefixed by the call name because it will be a virtual
  * method in GTK 4.
  */
