@@ -29,6 +29,7 @@ G_BEGIN_DECLS
 #include "hdy-carousel-indicator-dots.h"
 #include "hdy-carousel-indicator-lines.h"
 #include "hdy-clamp.h"
+#include "hdy-clamp-layout.h"
 #include "hdy-combo-row.h"
 #include "hdy-deprecation-macros.h"
 #include "hdy-enum-value-object.h"
