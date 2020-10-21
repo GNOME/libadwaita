@@ -288,6 +288,8 @@ hdy_view_switcher_button_class_init (HdyViewSwitcherButtonClass *klass)
 static void
 hdy_view_switcher_button_init (HdyViewSwitcherButton *self)
 {
+  self->icon_name = g_strdup ("image-missing");
+
   gtk_widget_init_template (GTK_WIDGET (self));
 
   gtk_stack_set_visible_child (GTK_STACK (self->stack), GTK_WIDGET (self->horizontal_box));
@@ -349,7 +351,11 @@ hdy_view_switcher_button_set_icon_name (HdyViewSwitcherButton *self,
     return;
 
   g_free (self->icon_name);
-  self->icon_name = g_strdup (icon_name);
+
+  if (icon_name && strlen (icon_name) > 0)
+    self->icon_name = g_strdup (icon_name);
+  else
+    self->icon_name = g_strdup ("image-missing");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
 }
