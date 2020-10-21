@@ -96,13 +96,11 @@ popover.combo > contents { padding: 0px; }
 
 popover.combo > contents list { border-style: none; background-color: transparent; }
 
-popover.combo > contents list > row { padding: 0px 12px 0px 12px; min-height: 50px; }
+popover.combo > contents list > row { padding: 0px 12px 0px 12px; min-height: 50px; border-bottom: 1px solid alpha(#686868, 0.5); }
 
-popover.combo > contents list > row:not(:last-child) { border-bottom: 1px solid alpha(#686868, 0.5); }
+popover.combo > contents list > row:first-child { border-top-left-radius: 7px; border-top-right-radius: 7px; }
 
-popover.combo > contents list > row:first-child { border-top-left-radius: 8px; border-top-right-radius: 8px; }
-
-popover.combo > contents list > row:last-child { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
+popover.combo > contents list > row:last-child { border-bottom-left-radius: 7px; border-bottom-right-radius: 7px; border-bottom: none; }
 
 popover.combo > contents scrollbar.vertical { padding-top: 2px; padding-bottom: 2px; }
 

@@ -4,6 +4,9 @@
 
 // HdyComboRow
 
+$button_radius: 5px;
+$popover_radius: $button_radius + 4;
+
 popover.combo > contents {
   padding: 0px;
 
@@ -14,17 +17,17 @@ popover.combo > contents {
     > row {
       padding: 0px 12px 0px 12px;
       min-height: 50px;
-
-      &:not(:last-child) {
-        border-bottom: 1px solid hdyalpha($borders_color, 0.5)
-      }
+      border-bottom: 1px solid hdyalpha($borders_color, 0.5);
 
       &:first-child {
-        @include rounded-border(top);
+        border-top-left-radius: $popover_radius - 2;
+        border-top-right-radius: $popover_radius - 2;
       }
 
       &:last-child {
-        @include rounded-border(bottom);
+        border-bottom-left-radius: $popover_radius - 2;
+        border-bottom-right-radius: $popover_radius - 2;
+        border-bottom: none;
       }
     }
   }
