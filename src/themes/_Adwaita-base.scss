@@ -10,14 +10,20 @@ $popover_radius: $button_radius + 4;
 popover.combo > contents {
   padding: 0px;
 
-  list {
+  list, listview {
     border-style: none;
     background-color: transparent;
 
-    > row {
+    & > row {
       padding: 0px 12px 0px 12px;
       min-height: 50px;
       border-bottom: 1px solid hdyalpha($borders_color, 0.5);
+
+      &:selected {
+        outline-color: $alt_focus_border_color;
+        color: $text-color;
+        background-color: $menu_selected_color;
+      }
 
       &:first-child {
         border-top-left-radius: $popover_radius - 2;

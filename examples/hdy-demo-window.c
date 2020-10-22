@@ -17,15 +17,10 @@ struct _HdyDemoWindow
   HdyComboRow *leaflet_transition_row;
   HdyLeaflet *content_leaflet;
   GtkListBox *lists_listbox;
-  HdyComboRow *combo_row;
-  HdyComboRow *enum_combo_row;
   HdyCarousel *carousel;
   GtkBox *carousel_box;
   GtkListBox *carousel_listbox;
   GtkStack *carousel_indicators_stack;
-  HdyComboRow *carousel_orientation_row;
-  HdyComboRow *carousel_indicators_row;
-  GListStore *carousel_indicators_model;
   HdyAvatar *avatar;
   GtkEntry *avatar_text;
   GtkLabel *avatar_file_chooser_label;
@@ -128,7 +123,7 @@ notify_leaflet_transition_cb (GObject       *sender,
   g_assert (HDY_IS_COMBO_ROW (row));
   g_assert (HDY_IS_DEMO_WINDOW (self));
 
-  hdy_leaflet_set_transition_type (HDY_LEAFLET (self->content_box), hdy_combo_row_get_selected_index (row));
+  hdy_leaflet_set_transition_type (HDY_LEAFLET (self->content_box), hdy_combo_row_get_selected (row));
 }
 
 static void
@@ -176,19 +171,19 @@ notify_carousel_orientation_cb (GObject       *sender,
   g_assert (HDY_IS_DEMO_WINDOW (self));
 
   gtk_orientable_set_orientation (GTK_ORIENTABLE (self->carousel_box),
-                                  1 - hdy_combo_row_get_selected_index (row));
+                                  1 - hdy_combo_row_get_selected (row));
   gtk_orientable_set_orientation (GTK_ORIENTABLE (self->carousel),
-                                  hdy_combo_row_get_selected_index (row));
+                                  hdy_combo_row_get_selected (row));
 }
 
 static gchar *
-carousel_indicators_name (HdyValueObject *value)
+carousel_indicators_name (GtkStringObject *value)
 {
   const gchar *style;
 
-  g_assert (HDY_IS_VALUE_OBJECT (value));
+  g_assert (GTK_IS_STRING_OBJECT (value));
 
-  style = hdy_value_object_get_string (value);
+  style = gtk_string_object_get_string (value);
 
   if (!g_strcmp0 (style, "dots"))
     return g_strdup (_("Dots"));
@@ -205,16 +200,15 @@ notify_carousel_indicators_cb (GObject       *sender,
                                HdyDemoWindow *self)
 {
   HdyComboRow *row = HDY_COMBO_ROW (sender);
-  HdyValueObject *obj;
+  GtkStringObject *obj;
 
   g_assert (HDY_IS_COMBO_ROW (row));
   g_assert (HDY_IS_DEMO_WINDOW (self));
 
-  obj = g_list_model_get_item (G_LIST_MODEL (self->carousel_indicators_model),
-                               hdy_combo_row_get_selected_index (row));
+  obj = hdy_combo_row_get_selected_item (row);
 
   gtk_stack_set_visible_child_name (self->carousel_indicators_stack,
-                                    hdy_value_object_get_string (obj));
+                                    gtk_string_object_get_string (obj));
 }
 
 static void
@@ -442,14 +436,10 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, leaflet_transition_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, content_leaflet);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, lists_listbox);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, combo_row);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, enum_combo_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel_box);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel_listbox);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel_indicators_stack);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel_orientation_row);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel_indicators_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_text);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_file_chooser_label);
@@ -459,71 +449,20 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, notify_leaflet_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, back_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, leaflet_back_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, leaflet_transition_name);
   gtk_widget_class_bind_template_callback (widget_class, notify_leaflet_transition_cb);
   gtk_widget_class_bind_template_callback (widget_class, leaflet_go_next_row_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, theme_variant_button_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, view_switcher_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_carousel_orientation_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_carousel_indicators_cb);
+  gtk_widget_class_bind_template_callback (widget_class, carousel_indicators_name);
+  gtk_widget_class_bind_template_callback (widget_class, carousel_orientation_name);
   gtk_widget_class_bind_template_callback (widget_class, carousel_return_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, avatar_file_remove_cb);
   gtk_widget_class_bind_template_callback (widget_class, avatar_file_chooser_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, avatar_save_to_file_cb);
   gtk_widget_class_bind_template_callback (widget_class, flap_demo_clicked_cb);
-}
-
-static void
-lists_page_init (HdyDemoWindow *self)
-{
-  GListStore *list_store;
-  HdyValueObject *obj;
-
-  list_store = g_list_store_new (HDY_TYPE_VALUE_OBJECT);
-
-  obj = hdy_value_object_new_string ("Foo");
-  g_list_store_insert (list_store, 0, obj);
-  g_clear_object (&obj);
-
-  obj = hdy_value_object_new_string ("Bar");
-  g_list_store_insert (list_store, 1, obj);
-  g_clear_object (&obj);
-
-  obj = hdy_value_object_new_string ("Baz");
-  g_list_store_insert (list_store, 2, obj);
-  g_clear_object (&obj);
-
-  hdy_combo_row_bind_name_model (self->combo_row, G_LIST_MODEL (list_store), (HdyComboRowGetNameFunc) hdy_value_object_dup_string, NULL, NULL);
-
-  hdy_combo_row_set_for_enum (self->enum_combo_row, GTK_TYPE_LICENSE, hdy_enum_value_row_name, NULL, NULL);
-  update (self);
-}
-
-static void
-carousel_page_init (HdyDemoWindow *self)
-{
-  HdyValueObject *obj;
-
-  hdy_combo_row_set_for_enum (self->carousel_orientation_row,
-                              GTK_TYPE_ORIENTATION,
-                              carousel_orientation_name,
-                              NULL,
-                              NULL);
-
-  self->carousel_indicators_model = g_list_store_new (HDY_TYPE_VALUE_OBJECT);
-
-  obj = hdy_value_object_new_string ("dots");
-  g_list_store_insert (self->carousel_indicators_model, 0, obj);
-  g_clear_object (&obj);
-
-  obj = hdy_value_object_new_string ("lines");
-  g_list_store_insert (self->carousel_indicators_model, 1, obj);
-  g_clear_object (&obj);
-
-  hdy_combo_row_bind_name_model (self->carousel_indicators_row,
-                                 G_LIST_MODEL (self->carousel_indicators_model),
-                                 (HdyComboRowGetNameFunc) carousel_indicators_name,
-                                 NULL,
-                                 NULL);
 }
 
 static void
@@ -565,12 +504,8 @@ hdy_demo_window_init (HdyDemoWindow *self)
                                NULL,
                                NULL);
 
-  hdy_combo_row_set_for_enum (self->leaflet_transition_row, HDY_TYPE_LEAFLET_TRANSITION_TYPE, leaflet_transition_name, NULL, NULL);
-  hdy_combo_row_set_selected_index (self->leaflet_transition_row, HDY_LEAFLET_TRANSITION_TYPE_OVER);
-
-  lists_page_init (self);
-  carousel_page_init (self);
   avatar_page_init (self);
+  update (self);
 
   hdy_leaflet_set_visible_child (self->content_box, GTK_WIDGET (self->right_box));
 }

@@ -9,8 +9,6 @@ struct _HdyFlapDemoWindow
   HdyFlap *flap;
   GtkWidget *reveal_btn_start;
   GtkWidget *reveal_btn_end;
-  HdyComboRow *fold_policy_row;
-  HdyComboRow *transition_type_row;
 };
 
 G_DEFINE_TYPE (HdyFlapDemoWindow, hdy_flap_demo_window, HDY_TYPE_WINDOW)
@@ -82,28 +80,16 @@ hdy_flap_demo_window_class_init (HdyFlapDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyFlapDemoWindow, flap);
   gtk_widget_class_bind_template_child (widget_class, HdyFlapDemoWindow, reveal_btn_start);
   gtk_widget_class_bind_template_child (widget_class, HdyFlapDemoWindow, reveal_btn_end);
-  gtk_widget_class_bind_template_child (widget_class, HdyFlapDemoWindow, fold_policy_row);
-  gtk_widget_class_bind_template_child (widget_class, HdyFlapDemoWindow, transition_type_row);
   gtk_widget_class_bind_template_callback (widget_class, start_toggle_button_toggled_cb);
   gtk_widget_class_bind_template_callback (widget_class, stack_notify_visible_child_cb);
+  gtk_widget_class_bind_template_callback (widget_class, fold_policy_name);
+  gtk_widget_class_bind_template_callback (widget_class, transition_type_name);
 }
 
 static void
 hdy_flap_demo_window_init (HdyFlapDemoWindow *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
-
-  hdy_combo_row_set_for_enum (self->fold_policy_row,
-                              HDY_TYPE_FLAP_FOLD_POLICY,
-                              fold_policy_name, NULL, NULL);
-  hdy_combo_row_set_selected_index (self->fold_policy_row,
-                                    HDY_FLAP_FOLD_POLICY_AUTO);
-
-  hdy_combo_row_set_for_enum (self->transition_type_row,
-                              HDY_TYPE_FLAP_TRANSITION_TYPE,
-                              transition_type_name, NULL, NULL);
-  hdy_combo_row_set_selected_index (self->transition_type_row,
-                                    HDY_FLAP_TRANSITION_TYPE_OVER);
 }
 
 HdyFlapDemoWindow *

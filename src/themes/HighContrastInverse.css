@@ -90,17 +90,21 @@ preferencesgroup > box > label:not(:first-child) { margin-top: 6px; }
 preferencesgroup > box > box:not(:first-child) { margin-top: 12px; }
 
 /*************************** Check and Radio buttons * */
-popover.combo list { min-width: 200px; }
+listview.inline { background: none; }
+
+popover.combo list, popover.combo listview { min-width: 200px; }
 
 popover.combo > contents { padding: 0px; }
 
-popover.combo > contents list { border-style: none; background-color: transparent; }
+popover.combo > contents list, popover.combo > contents listview { border-style: none; background-color: transparent; }
 
-popover.combo > contents list > row { padding: 0px 12px 0px 12px; min-height: 50px; border-bottom: 1px solid alpha(#686868, 0.5); }
+popover.combo > contents list > row, popover.combo > contents listview > row { padding: 0px 12px 0px 12px; min-height: 50px; border-bottom: 1px solid alpha(#686868, 0.5); }
 
-popover.combo > contents list > row:first-child { border-top-left-radius: 7px; border-top-right-radius: 7px; }
+popover.combo > contents list > row:selected, popover.combo > contents listview > row:selected { outline-color: rgba(255, 255, 255, 0.6); color: white; background-color: #161616; }
 
-popover.combo > contents list > row:last-child { border-bottom-left-radius: 7px; border-bottom-right-radius: 7px; border-bottom: none; }
+popover.combo > contents list > row:first-child, popover.combo > contents listview > row:first-child { border-top-left-radius: 7px; border-top-right-radius: 7px; }
+
+popover.combo > contents list > row:last-child, popover.combo > contents listview > row:last-child { border-bottom-left-radius: 7px; border-bottom-right-radius: 7px; border-bottom: none; }
 
 popover.combo > contents scrollbar.vertical { padding-top: 2px; padding-bottom: 2px; }
 

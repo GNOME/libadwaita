@@ -3,9 +3,14 @@
   <template class="HdyComboRow" parent="HdyActionRow">
     <property name="activatable">False</property>
     <child>
-      <object class="GtkBox" id="current">
-        <property name="halign">end</property>
+      <object class="GtkListView" id="current">
+        <property name="visible" bind-source="HdyComboRow" bind-property="use-subtitle" bind-flags="sync-create|invert-boolean"/>
         <property name="valign">center</property>
+        <property name="can-focus">False</property>
+        <property name="can-target">False</property>
+        <style>
+          <class name="inline"/>
+        </style>
       </object>
     </child>
     <child>
@@ -28,8 +33,9 @@
                 <property name="propagate_natural_width">True</property>
                 <property name="propagate_natural_height">True</property>
                 <child>
-                  <object class="GtkListBox" id="list">
-                    <property name="selection_mode">none</property>
+                  <object class="GtkListView" id="list">
+                    <property name="single-click-activate">True</property>
+                    <signal name="activate" handler="row_activated_cb" swapped="true"/>
                   </object>
                 </child>
               </object>

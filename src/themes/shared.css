@@ -1,2 +1,4 @@
 /*************************** Check and Radio buttons * */
-popover.combo list { min-width: 200px; }
+listview.inline { background: none; }
+
+popover.combo list, popover.combo listview { min-width: 200px; }

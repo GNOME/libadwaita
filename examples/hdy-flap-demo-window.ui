@@ -31,8 +31,6 @@
           <object class="HdyFlap" id="flap">
             <property name="vexpand">True</property>
             <property name="locked" bind-source="locked_switch" bind-property="active" bind-flags="sync-create"/>
-            <property name="fold-policy" bind-source="fold_policy_row" bind-property="selected-index"/>
-            <property name="transition-type" bind-source="transition_type_row" bind-property="selected-index"/>
             <property name="modal" bind-source="modal_switch" bind-property="active" bind-flags="sync-create"/>
             <property name="swipe-to-open" bind-source="swipe_to_open_switch" bind-property="active" bind-flags="sync-create"/>
             <property name="swipe-to-close" bind-source="swipe_to_close_switch" bind-property="active" bind-flags="sync-create"/>
@@ -62,8 +60,17 @@
                         <child>
                           <object class="HdyPreferencesGroup">
                             <child>
-                              <object class="HdyComboRow" id="fold_policy_row">
+                              <object class="HdyComboRow">
                                 <property name="title" translatable="yes">Fold policy</property>
+                                <property name="selected" bind-source="flap" bind-property="fold-policy" bind-flags="sync-create|bidirectional"/>
+                                <property name="model">
+                                  <object class="HdyEnumListModel">
+                                    <property name="enum-type">HdyFlapFoldPolicy</property>
+                                  </object>
+                                </property>
+                                <property name="expression">
+                                  <closure type="gchararray" function="fold_policy_name"/>
+                                </property>
                               </object>
                             </child>
                             <child>
@@ -118,8 +125,17 @@
                               </object>
                             </child>
                             <child>
-                              <object class="HdyComboRow" id="transition_type_row">
+                              <object class="HdyComboRow">
                                 <property name="title" translatable="yes">Transition type</property>
+                                <property name="selected" bind-source="flap" bind-property="transition-type" bind-flags="sync-create|bidirectional"/>
+                                <property name="model">
+                                  <object class="HdyEnumListModel">
+                                    <property name="enum-type">HdyFlapTransitionType</property>
+                                  </object>
+                                </property>
+                                <property name="expression">
+                                  <closure type="gchararray" function="transition_type_name"/>
+                                </property>
                               </object>
                             </child>
                           </object>
