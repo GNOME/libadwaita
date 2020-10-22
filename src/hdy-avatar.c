@@ -75,6 +75,7 @@ struct _HdyAvatar
   guint color_class;
   gint size;
   cairo_surface_t *round_image;
+  gint round_image_size;
 
   HdyAvatarImageLoadFunc load_image_func;
   gpointer load_image_func_target;
@@ -144,26 +145,30 @@ update_custom_image (HdyAvatar *self)
 {
   g_autoptr (GdkPixbuf) pixbuf = NULL;
   gint scale_factor;
-  gint size;
-  gboolean was_custom = FALSE;
+  gint new_size;
+  gboolean needs_redraw = FALSE;
 
-  if (self->round_image != NULL) {
+  scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (self));
+  new_size = MIN (gtk_widget_get_allocated_width (GTK_WIDGET (self)),
+                  gtk_widget_get_allocated_height (GTK_WIDGET (self))) * scale_factor;
+
+  if (self->round_image_size != new_size && self->round_image != NULL) {
     g_clear_pointer (&self->round_image, cairo_surface_destroy);
-    was_custom = TRUE;
+    self->round_image_size = -1;
+    needs_redraw = TRUE;
   }
 
-  if (self->load_image_func != NULL) {
-    scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (self));
-    size = MIN (gtk_widget_get_allocated_width (GTK_WIDGET (self)),
-                gtk_widget_get_allocated_height (GTK_WIDGET (self)));
-    pixbuf = self->load_image_func (size * scale_factor, self->load_image_func_target);
+  if (self->load_image_func != NULL && self->round_image == NULL) {
+    pixbuf = self->load_image_func (new_size, self->load_image_func_target);
     if (pixbuf != NULL) {
-      self->round_image = round_image (pixbuf, (gdouble) size * scale_factor);
+      self->round_image = round_image (pixbuf, (gdouble) new_size);
       cairo_surface_set_device_scale (self->round_image, scale_factor, scale_factor);
+      self->round_image_size = new_size;
+      needs_redraw = TRUE;
     }
   }
 
-  if (was_custom || self->round_image != NULL)
+  if (needs_redraw)
     gtk_widget_queue_draw (GTK_WIDGET (self));
 }
 
