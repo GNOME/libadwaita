@@ -48,7 +48,7 @@
         </child>
         <child>
           <object class="HdyPreferencesGroup">
-            <property name="description" translatable="yes">Preferences are grouped together, a group can have a tile and a description. Descriptions will be wrapped if they are too long. This page has the following groups:</property>
+            <property name="description" translatable="yes">Preferences are grouped together, a group can have a title and a description. Descriptions will be wrapped if they are too long. This page has the following groups:</property>
             <property name="title" translatable="yes">Groups</property>
             <property name="visible">True</property>
             <child>
