@@ -11,6 +11,8 @@
 #define TEST_SIZE 128
 
 
+gint load_image_func_count;
+
 static gboolean
 is_surface_empty (cairo_surface_t *surface)
 {
@@ -32,6 +34,7 @@ static GdkPixbuf *
 load_null_image_func (gint size,
                       gpointer data)
 {
+  load_image_func_count++;
   return NULL;
 }
 
@@ -42,6 +45,8 @@ load_image_func (gint size,
   GdkPixbuf *pixbuf;
   cairo_surface_t *surface;
   cairo_t *cr;
+
+  load_image_func_count++;
 
   surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, size, size);
   cr = cairo_create (surface);
@@ -159,6 +164,8 @@ test_hdy_avatar_custom_image (void)
 
   g_assert (HDY_IS_AVATAR (avatar));
 
+  load_image_func_count = 0;
+
   hdy_avatar_set_image_load_func (HDY_AVATAR (avatar),
                                   (HdyAvatarImageLoadFunc) load_image_func,
                                   NULL,
@@ -188,6 +195,8 @@ test_hdy_avatar_custom_image (void)
                                   NULL);
 
   g_assert_true (did_draw_something (avatar));
+
+  g_assert_cmpint (load_image_func_count, ==, 3);
 
   g_object_unref (avatar);
 }
