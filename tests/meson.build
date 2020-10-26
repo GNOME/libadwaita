@@ -21,7 +21,7 @@ test_link_args = [
 test_names = [
   'test-action-row',
   'test-application-window',
-#  'test-avatar',
+  'test-avatar',
 #  'test-carousel',
 #  'test-carousel-indicator-dots',
 #  'test-carousel-indicator-lines',

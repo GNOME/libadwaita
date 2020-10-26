@@ -14,8 +14,7 @@
 #include <math.h>
 
 #include "hdy-avatar.h"
-#include "hdy-cairo-private.h"
-#include "hdy-css-private.h"
+#include "hdy-gizmo-private.h"
 
 #define NUMBER_OF_COLORS 14
 /**
@@ -67,15 +66,19 @@
 
 struct _HdyAvatar
 {
-  GtkDrawingArea parent_instance;
+  GtkWidget parent_instance;
+
+  GtkWidget *gizmo;
+  GtkLabel *label;
+  GtkImage *icon;
+  GtkImage *custom_image;
 
   gchar *icon_name;
   gchar *text;
-  PangoLayout *layout;
   gboolean show_initials;
   guint color_class;
   gint size;
-  cairo_surface_t *round_image;
+  GdkTexture *texture;
   gint round_image_size;
 
   HdyAvatarImageLoadFunc load_image_func;
@@ -83,7 +86,7 @@ struct _HdyAvatar
   GDestroyNotify load_image_func_target_destroy_notify;
 };
 
-G_DEFINE_TYPE (HdyAvatar, hdy_avatar, GTK_TYPE_DRAWING_AREA);
+G_DEFINE_TYPE (HdyAvatar, hdy_avatar, GTK_TYPE_WIDGET);
 
 enum {
   PROP_0,
@@ -94,26 +97,6 @@ enum {
   PROP_LAST_PROP,
 };
 static GParamSpec *props[PROP_LAST_PROP];
-
-static cairo_surface_t *
-round_image (GdkPixbuf *pixbuf,
-             gdouble    size)
-{
-  g_autoptr (cairo_surface_t) surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, size, size);
-  g_autoptr (cairo_t) cr = cairo_create (surface);
-  gint width = gdk_pixbuf_get_width (pixbuf);
-  gint height = gdk_pixbuf_get_height (pixbuf);
-
-  /* Clip a circle */
-  cairo_arc (cr, size / 2.0, size / 2.0, size / 2.0, 0, 2 * G_PI);
-  cairo_clip (cr);
-  cairo_new_path (cr);
-
-  gdk_cairo_set_source_pixbuf (cr, pixbuf, (size - width) / 2, (size - height) / 2);
-  cairo_paint (cr);
-
-  return g_steal_pointer (&surface);
-}
 
 static gchar *
 extract_initials_from_text (const gchar *text)
@@ -144,6 +127,17 @@ extract_initials_from_text (const gchar *text)
 }
 
 static void
+update_visibility (HdyAvatar *self)
+{
+  gboolean has_custom_image = self->texture != NULL;
+  gboolean has_initials = self->show_initials && self->text && strlen (self->text);
+
+  gtk_widget_set_visible (GTK_WIDGET (self->label), !has_custom_image && has_initials);
+  gtk_widget_set_visible (GTK_WIDGET (self->icon), !has_custom_image && !has_initials);
+  gtk_widget_set_visible (GTK_WIDGET (self->custom_image), has_custom_image);
+}
+
+static void
 update_custom_image (HdyAvatar *self,
                      gint       width,
                      gint       height,
@@ -151,39 +145,53 @@ update_custom_image (HdyAvatar *self,
 {
   g_autoptr (GdkPixbuf) pixbuf = NULL;
   gint new_size;
-  GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
 
   new_size = MIN (width, height) * scale_factor;
 
-  if (self->round_image_size != new_size && self->round_image != NULL) {
-    g_clear_pointer (&self->round_image, cairo_surface_destroy);
+  if (self->round_image_size != new_size && self->texture != NULL) {
     self->round_image_size = -1;
   }
+  g_clear_object (&self->texture);
 
-  if (self->load_image_func != NULL && self->round_image == NULL) {
+  if (self->load_image_func != NULL && self->texture == NULL) {
     pixbuf = self->load_image_func (new_size, self->load_image_func_target);
     if (pixbuf != NULL) {
-      self->round_image = round_image (pixbuf, (gdouble) new_size);
-      cairo_surface_set_device_scale (self->round_image, scale_factor, scale_factor);
+      if (width != height) {
+        GdkPixbuf *subpixbuf;
+
+        subpixbuf = gdk_pixbuf_new_subpixbuf (pixbuf,
+                                              (width - new_size) / 2,
+                                              (height - new_size) / 2,
+                                              new_size,
+                                              new_size);
+
+        g_object_unref (pixbuf);
+
+        pixbuf = subpixbuf;
+      }
+
+      self->texture = gdk_texture_new_for_pixbuf (pixbuf);
       self->round_image_size = new_size;
     }
   }
 
-  if (self->round_image)
-    gtk_style_context_add_class (context, "image");
+  if (self->texture)
+    gtk_widget_add_css_class (self->gizmo, "image");
   else
-    gtk_style_context_remove_class (context, "image");
+    gtk_widget_remove_css_class (self->gizmo, "image");
+
+  gtk_image_set_from_paintable (self->custom_image, GDK_PAINTABLE (self->texture));
+  update_visibility (self);
 }
 
 static void
 set_class_color (HdyAvatar *self)
 {
-  GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
   g_autofree GRand *rand = NULL;
   g_autofree gchar *new_class = NULL;
   g_autofree gchar *old_class = g_strdup_printf ("color%d", self->color_class);
 
-  gtk_style_context_remove_class (context, old_class);
+  gtk_widget_remove_css_class (self->gizmo, old_class);
 
   if (self->text == NULL || strlen (self->text) == 0) {
     /* Use a random color if we don't have a text */
@@ -194,76 +202,71 @@ set_class_color (HdyAvatar *self)
   }
 
   new_class = g_strdup_printf ("color%d", self->color_class);
-  gtk_style_context_add_class (context, new_class);
+
+  gtk_widget_add_css_class (self->gizmo, new_class);
 }
 
 static void
-set_class_contrasted (HdyAvatar *self,
-                      gint       size)
-{
-  GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
-
-  if (size < 25)
-    gtk_style_context_add_class (context, "contrasted");
-  else
-    gtk_style_context_remove_class (context, "contrasted");
-}
-
-static void
-clear_pango_layout (HdyAvatar *self)
-{
-  g_clear_object (&self->layout);
-}
-
-static void
-ensure_pango_layout (HdyAvatar *self)
+update_initials (HdyAvatar *self)
 {
   g_autofree gchar *initials = NULL;
 
-  if (self->layout != NULL || self->text == NULL || strlen (self->text) == 0)
+  if (self->texture != NULL ||
+      !self->show_initials ||
+      self->text == NULL ||
+      strlen (self->text) == 0)
     return;
 
   initials = extract_initials_from_text (self->text);
-  self->layout = gtk_widget_create_pango_layout (GTK_WIDGET (self), initials);
+
+  gtk_label_set_label (self->label, initials);
 }
 
 static void
-set_font_size (HdyAvatar *self,
-               gint       size)
+update_icon (HdyAvatar *self)
 {
-  GtkStyleContext *context;
-  PangoFontDescription *font_desc;
+  if (self->icon_name)
+    gtk_image_set_from_icon_name (self->icon, self->icon_name);
+  else
+    gtk_image_set_from_icon_name (self->icon, "avatar-default-symbolic");
+}
+
+static void
+update_font_size (HdyAvatar *self)
+{
   gint width, height;
   gdouble padding;
   gdouble sqr_size;
   gdouble max_size;
   gdouble new_font_size;
+  PangoAttrList *attributes;
 
-  if (self->round_image != NULL || self->layout == NULL)
+  if (self->texture != NULL ||
+      !self->show_initials ||
+      self->text == NULL ||
+      strlen (self->text) == 0)
     return;
 
-  context = gtk_widget_get_style_context (GTK_WIDGET (self));
-  gtk_style_context_get (context, gtk_style_context_get_state (context),
-                         "font", &font_desc, NULL);
+  /* Reset font size first to avoid rounding errors */
+  attributes = pango_attr_list_new ();
+  gtk_label_set_attributes (self->label, attributes);
 
-  pango_layout_set_font_description (self->layout, font_desc);
-  pango_layout_get_pixel_size (self->layout, &width, &height);
+  pango_layout_get_pixel_size (gtk_label_get_layout (self->label), &width, &height);
 
   /* This is the size of the biggest square fitting inside the circle */
-  sqr_size = (gdouble)size / 1.4142;
+  sqr_size = (gdouble) self->size / 1.4142;
   /* The padding has to be a function of the overall size.
    * The 0.4 is how steep the linear function grows and the -5 is just
    * an adjustment for smaller sizes which doesn't have a big impact on bigger sizes.
    * Make also sure we don't have a negative padding */
-  padding = MAX (size * 0.4 - 5, 0);
+  padding = MAX (self->size * 0.4 - 5, 0);
   max_size = sqr_size - padding;
-  new_font_size = (gdouble)height * (max_size / (gdouble)width);
+  new_font_size = (gdouble) height * (max_size / (gdouble) width);
 
-  font_desc = pango_font_description_copy (font_desc);
-  pango_font_description_set_absolute_size (font_desc,
-                                            CLAMP (new_font_size, 0, max_size) * PANGO_SCALE);
-  pango_layout_set_font_description (self->layout, font_desc);
-  pango_font_description_free (font_desc);
+  pango_attr_list_change (attributes, pango_attr_size_new_absolute (CLAMP (new_font_size, 0, max_size) * PANGO_SCALE));
+  gtk_label_set_attributes (self->label, attributes);
+
+  pango_attr_list_unref (attributes);
 }
 
 static void
@@ -329,14 +332,27 @@ hdy_avatar_set_property (GObject      *object,
 }
 
 static void
+hdy_avatar_dispose (GObject *object)
+{
+  HdyAvatar *self = HDY_AVATAR (object);
+
+  g_clear_pointer (&self->gizmo, gtk_widget_unparent);
+
+  self->label = NULL;
+  self->icon = NULL;
+  self->custom_image = NULL;
+
+  G_OBJECT_CLASS (hdy_avatar_parent_class)->dispose (object);
+}
+
+static void
 hdy_avatar_finalize (GObject *object)
 {
   HdyAvatar *self = HDY_AVATAR (object);
 
   g_clear_pointer (&self->icon_name, g_free);
   g_clear_pointer (&self->text, g_free);
-  g_clear_pointer (&self->round_image, cairo_surface_destroy);
-  g_clear_object (&self->layout);
+  g_clear_object (&self->texture);
 
   if (self->load_image_func_target_destroy_notify != NULL)
     self->load_image_func_target_destroy_notify (self->load_image_func_target);
@@ -345,196 +361,15 @@ hdy_avatar_finalize (GObject *object)
 }
 
 static void
-draw_for_size (HdyAvatar *self,
-               cairo_t   *cr,
-               gint       width,
-               gint       height,
-               gint       scale_factor)
-{
-  GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
-  gint size = MIN (width, height);
-  gdouble x = (gdouble)(width - size) / 2.0;
-  gdouble y = (gdouble)(height - size) / 2.0;
-  const gchar *icon_name;
-  GdkRGBA color;
-  g_autoptr (GtkIconInfo) icon = NULL;
-  g_autoptr (GdkPixbuf) pixbuf = NULL;
-  g_autoptr (GError) error = NULL;
-  g_autoptr (cairo_surface_t) surface = NULL;
-
-  set_class_contrasted (self, size);
-
-  update_custom_image (self, width, height, scale_factor);
-
-  if (self->round_image) {
-    cairo_set_source_surface (cr, self->round_image, x, y);
-    cairo_paint (cr);
-
-    gtk_render_background (context, cr, x, y, size, size);
-    gtk_render_frame (context, cr, x, y, size, size);
-    return;
-  }
-
-  gtk_render_background (context, cr, x, y, size, size);
-  gtk_render_frame (context, cr, x, y, size, size);
-
-  ensure_pango_layout (self);
-
-  if (self->show_initials && self->layout != NULL) {
-    set_font_size (self, size);
-    pango_layout_get_pixel_size (self->layout, &width, &height);
-
-    gtk_render_layout (context, cr,
-                       ((gdouble) (size - width) / 2.0) + x,
-                       ((gdouble) (size - height) / 2.0) + y,
-                       self->layout);
-    return;
-  }
-
-  icon_name = self->icon_name && *self->icon_name != '\0' ?
-    self->icon_name : "avatar-default-symbolic";
-  icon = gtk_icon_theme_lookup_icon_for_scale (gtk_icon_theme_get_default (),
-                                     icon_name,
-                                     size / 2, scale_factor,
-                                     GTK_ICON_LOOKUP_FORCE_SYMBOLIC);
-  if (icon == NULL) {
-    g_critical ("Failed to load icon `%s'", icon_name);
-    return;
-  }
-
-  gtk_style_context_get_color (context, gtk_style_context_get_state (context), &color);
-  pixbuf = gtk_icon_info_load_symbolic (icon, &color, NULL, NULL, NULL, NULL, &error);
-  if (error != NULL) {
-    g_critical ("Failed to load icon `%s': %s", icon_name, error->message);
-    return;
-  }
-
-  surface = gdk_cairo_surface_create_from_pixbuf (pixbuf, scale_factor,
-                                                  gtk_widget_get_window (GTK_WIDGET (self)));
-
-  width = cairo_image_surface_get_width (surface);
-  height = cairo_image_surface_get_height (surface);
-  gtk_render_icon_surface (context, cr, surface,
-                           (((gdouble) size - ((gdouble) width / (gdouble) scale_factor)) / 2.0) + x,
-                           (((gdouble) size - ((gdouble) height / (gdouble) scale_factor)) / 2.0) + y);
-}
-
-static gboolean
-hdy_avatar_draw (GtkWidget *widget,
-                 cairo_t   *cr)
-{
-  gint width = gtk_widget_get_allocated_width (widget);
-  gint height = gtk_widget_get_allocated_height (widget);
-  gint scale_factor = gtk_widget_get_scale_factor (widget);
-
-  draw_for_size (HDY_AVATAR (widget), cr, width, height, scale_factor);
-  return FALSE;
-}
-
-/* This private method is prefixed by the class name because it will be a
- * virtual method in GTK 4.
- */
-static void
-hdy_avatar_measure (GtkWidget      *widget,
-                    GtkOrientation  orientation,
-                    gint            for_size,
-                    gint           *minimum,
-                    gint           *natural,
-                    gint           *minimum_baseline,
-                    gint           *natural_baseline)
-{
-  HdyAvatar *self = HDY_AVATAR (widget);
-
-  if (minimum)
-    *minimum = self->size;
-  if (natural)
-    *natural = self->size;
-
-  hdy_css_measure (widget, orientation, minimum, natural);
-}
-
-static void
-hdy_avatar_get_preferred_width (GtkWidget *widget,
-                                gint      *minimum,
-                                gint      *natural)
-{
-  hdy_avatar_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
-                      minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_avatar_get_preferred_width_for_height (GtkWidget *widget,
-                                           gint       height,
-                                           gint      *minimum,
-                                           gint      *natural)
-{
-  hdy_avatar_measure (widget, GTK_ORIENTATION_HORIZONTAL, height,
-                      minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_avatar_get_preferred_height (GtkWidget *widget,
-                                 gint      *minimum,
-                                 gint      *natural)
-{
-  hdy_avatar_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
-                      minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_avatar_get_preferred_height_for_width (GtkWidget *widget,
-                                           gint       width,
-                                           gint      *minimum,
-                                           gint      *natural)
-{
-  hdy_avatar_measure (widget, GTK_ORIENTATION_VERTICAL, width,
-                      minimum, natural, NULL, NULL);
-}
-
-static GtkSizeRequestMode
-hdy_avatar_get_request_mode (GtkWidget *widget)
-{
-  return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
-}
-
-static void
-hdy_avatar_size_allocate (GtkWidget     *widget,
-                          GtkAllocation *allocation)
-{
-  GtkAllocation clip;
-
-  hdy_css_size_allocate_self (widget, allocation);
-  gtk_widget_set_allocation (widget, allocation);
-
-  gtk_render_background_get_clip (gtk_widget_get_style_context (widget),
-                                  allocation->x,
-                                  allocation->y,
-                                  allocation->width,
-                                  allocation->height,
-                                  &clip);
-
-  GTK_WIDGET_CLASS (hdy_avatar_parent_class)->size_allocate (widget, allocation);
-  gtk_widget_set_clip (widget, &clip);
-}
-
-static void
 hdy_avatar_class_init (HdyAvatarClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+  object_class->dispose = hdy_avatar_dispose;
   object_class->finalize = hdy_avatar_finalize;
-
   object_class->set_property = hdy_avatar_set_property;
   object_class->get_property = hdy_avatar_get_property;
-
-  widget_class->draw = hdy_avatar_draw;
-  widget_class->get_request_mode = hdy_avatar_get_request_mode;
-  widget_class->get_preferred_width = hdy_avatar_get_preferred_width;
-  widget_class->get_preferred_height = hdy_avatar_get_preferred_height;
-  widget_class->get_preferred_width_for_height = hdy_avatar_get_preferred_width_for_height;
-  widget_class->get_preferred_height_for_width = hdy_avatar_get_preferred_height_for_width;
-  widget_class->size_allocate = hdy_avatar_size_allocate;
 
   /**
    * HdyAvatar:size:
@@ -594,14 +429,36 @@ hdy_avatar_class_init (HdyAvatarClass *klass)
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
-  gtk_widget_class_set_css_name (widget_class, "avatar");
+  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
 }
 
 static void
 hdy_avatar_init (HdyAvatar *self)
 {
+  self->gizmo = hdy_gizmo_new ("avatar", NULL, NULL, NULL, NULL, NULL, NULL);
+  gtk_widget_set_overflow (self->gizmo, GTK_OVERFLOW_HIDDEN);
+  gtk_widget_set_halign (self->gizmo, GTK_ALIGN_CENTER);
+  gtk_widget_set_valign (self->gizmo, GTK_ALIGN_CENTER);
+  gtk_widget_set_layout_manager (self->gizmo, gtk_bin_layout_new ());
+  gtk_widget_set_parent (self->gizmo, GTK_WIDGET (self));
+
+  self->label = GTK_LABEL (gtk_label_new (NULL));
+  gtk_widget_set_parent (GTK_WIDGET (self->label), self->gizmo);
+
+  self->icon = GTK_IMAGE (gtk_image_new ());
+  gtk_widget_set_parent (GTK_WIDGET (self->icon), self->gizmo);
+
+  self->custom_image = GTK_IMAGE (gtk_image_new ());
+  gtk_widget_set_parent (GTK_WIDGET (self->custom_image), self->gizmo);
+
   set_class_color (self);
-  g_signal_connect (self, "screen-changed", G_CALLBACK (clear_pango_layout), NULL);
+  update_initials (self);
+  update_font_size (self);
+  update_icon (self);
+  update_visibility (self);
+
+  g_signal_connect (self, "notify::scale-factor", G_CALLBACK (update_custom_image), NULL);
+  g_signal_connect (self, "notify::root", G_CALLBACK (update_font_size), NULL);
 }
 
 /**
@@ -673,9 +530,7 @@ hdy_avatar_set_icon_name (HdyAvatar   *self,
   g_clear_pointer (&self->icon_name, g_free);
   self->icon_name = g_strdup (icon_name);
 
-  if (!self->round_image &&
-      (!self->show_initials || self->layout == NULL))
-    gtk_widget_queue_draw (GTK_WIDGET (self));
+  update_icon (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
 }
@@ -717,9 +572,11 @@ hdy_avatar_set_text (HdyAvatar   *self,
   g_clear_pointer (&self->text, g_free);
   self->text = g_strdup (text);
 
-  clear_pango_layout (self);
   set_class_color (self);
-  gtk_widget_queue_draw (GTK_WIDGET (self));
+
+  update_initials (self);
+  update_font_size (self);
+  update_visibility (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TEXT]);
 }
@@ -759,7 +616,10 @@ hdy_avatar_set_show_initials (HdyAvatar *self,
 
   self->show_initials = show_initials;
 
-  gtk_widget_queue_draw (GTK_WIDGET (self));
+  update_initials (self);
+  update_font_size (self);
+  update_visibility (self);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_INITIALS]);
 }
 
@@ -789,9 +649,10 @@ hdy_avatar_set_image_load_func (HdyAvatar              *self,
   self->load_image_func_target = user_data;
   self->load_image_func_target_destroy_notify = destroy;
 
-  g_clear_pointer (&self->round_image, cairo_surface_destroy);
-  self->round_image_size = -1;
-  gtk_widget_queue_draw (GTK_WIDGET (self));
+  update_custom_image (self,
+                       gtk_widget_get_width (GTK_WIDGET (self)),
+                       gtk_widget_get_height (GTK_WIDGET (self)),
+                       gtk_widget_get_scale_factor (GTK_WIDGET (self)));
 }
 
 /**
@@ -829,6 +690,20 @@ hdy_avatar_set_size (HdyAvatar *self,
 
   self->size = size;
 
+  gtk_widget_set_size_request (self->gizmo, size, size);
+  gtk_image_set_pixel_size (self->icon, size / 2);
+
+  if (size < 25)
+    gtk_widget_add_css_class (self->gizmo, "contrasted");
+  else
+    gtk_widget_remove_css_class (self->gizmo, "contrasted");
+
+  update_font_size (self);
+  update_custom_image (self,
+                       gtk_widget_get_width (GTK_WIDGET (self)),
+                       gtk_widget_get_height (GTK_WIDGET (self)),
+                       gtk_widget_get_scale_factor (GTK_WIDGET (self)));
+
   gtk_widget_queue_resize (GTK_WIDGET (self));
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SIZE]);
 }
@@ -850,28 +725,39 @@ hdy_avatar_draw_to_pixbuf (HdyAvatar *self,
                            gint       size,
                            gint       scale_factor)
 {
-  g_autoptr (cairo_surface_t) surface = NULL;
-  g_autoptr (cairo_t) cr = NULL;
-  GtkStyleContext *context;
-  GtkAllocation bounds;
+  GtkSnapshot *snapshot;
+  g_autoptr (GskRenderNode) node = NULL;
+  cairo_surface_t *surface;
+  cairo_t *cr;
+  graphene_rect_t bounds;
 
   g_return_val_if_fail (HDY_IS_AVATAR (self), NULL);
   g_return_val_if_fail (size > 0, NULL);
   g_return_val_if_fail (scale_factor > 0, NULL);
 
-  context = gtk_widget_get_style_context (GTK_WIDGET (self));
-  gtk_render_background_get_clip (context, 0, 0, size, size, &bounds);
+  update_custom_image (self, size, size, scale_factor);
+
+  snapshot = gtk_snapshot_new ();
+  GTK_WIDGET_GET_CLASS (self)->snapshot (GTK_WIDGET (self), snapshot);
+
+  node = gtk_snapshot_free_to_node (snapshot);
+
+  gsk_render_node_get_bounds (node, &bounds);
+  graphene_rect_round_to_pixel (&bounds);
+  graphene_rect_scale (&bounds, scale_factor, scale_factor, &bounds);
 
   surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
-                                        bounds.width * scale_factor,
-                                        bounds.height * scale_factor);
+                                        bounds.size.width,
+                                        bounds.size.height);
   cairo_surface_set_device_scale (surface, scale_factor, scale_factor);
   cr = cairo_create (surface);
 
-  cairo_translate (cr, -bounds.x, -bounds.y);
-  draw_for_size (self, cr, size, size, scale_factor);
+  cairo_translate (cr, -bounds.origin.x, -bounds.origin.y);
+
+  gsk_render_node_draw (node, cr);
 
   return gdk_pixbuf_get_from_surface (surface, 0, 0,
-                                      bounds.width * scale_factor,
-                                      bounds.height * scale_factor);
+                                      bounds.size.width,
+                                      bounds.size.height);
+  return NULL;
 }

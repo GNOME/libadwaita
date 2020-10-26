@@ -20,7 +20,7 @@ G_BEGIN_DECLS
 #define HDY_TYPE_AVATAR (hdy_avatar_get_type())
 
 HDY_AVAILABLE_IN_ALL
-G_DECLARE_FINAL_TYPE (HdyAvatar, hdy_avatar, HDY, AVATAR, GtkDrawingArea)
+G_DECLARE_FINAL_TYPE (HdyAvatar, hdy_avatar, HDY, AVATAR, GtkWidget)
 
 /**
  * HdyAvatarImageLoadFunc:
