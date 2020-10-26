@@ -367,6 +367,7 @@ drag_update_cb (HdySwipeTracker *self,
     if (drag_distance >= DRAG_THRESHOLD_DISTANCE) {
       if ((is_vertical == is_offset_vertical) && !is_overshooting) {
         gesture_begin (self);
+        self->prev_offset = offset;
         gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_CLAIMED);
       } else {
         gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
