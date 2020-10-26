@@ -146,7 +146,6 @@ update_custom_image (HdyAvatar *self)
   g_autoptr (GdkPixbuf) pixbuf = NULL;
   gint scale_factor;
   gint new_size;
-  gboolean needs_redraw = FALSE;
 
   scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (self));
   new_size = MIN (gtk_widget_get_allocated_width (GTK_WIDGET (self)),
@@ -155,7 +154,6 @@ update_custom_image (HdyAvatar *self)
   if (self->round_image_size != new_size && self->round_image != NULL) {
     g_clear_pointer (&self->round_image, cairo_surface_destroy);
     self->round_image_size = -1;
-    needs_redraw = TRUE;
   }
 
   if (self->load_image_func != NULL && self->round_image == NULL) {
@@ -164,12 +162,8 @@ update_custom_image (HdyAvatar *self)
       self->round_image = round_image (pixbuf, (gdouble) new_size);
       cairo_surface_set_device_scale (self->round_image, scale_factor, scale_factor);
       self->round_image_size = new_size;
-      needs_redraw = TRUE;
     }
   }
-
-  if (needs_redraw)
-    gtk_widget_queue_draw (GTK_WIDGET (self));
 }
 
 static void
@@ -362,6 +356,8 @@ hdy_avatar_draw (GtkWidget *widget,
   set_class_contrasted (HDY_AVATAR (widget), size);
 
   gtk_render_frame (context, cr, x, y, size, size);
+
+  update_custom_image (self);
 
   if (self->round_image) {
     cairo_set_source_surface (cr, self->round_image, x, y);
@@ -583,8 +579,6 @@ static void
 hdy_avatar_init (HdyAvatar *self)
 {
   set_class_color (self);
-  g_signal_connect (self, "notify::scale-factor", G_CALLBACK (update_custom_image), NULL);
-  g_signal_connect (self, "size-allocate", G_CALLBACK (update_custom_image), NULL);
   g_signal_connect (self, "screen-changed", G_CALLBACK (clear_pango_layout), NULL);
 }
 
@@ -773,7 +767,9 @@ hdy_avatar_set_image_load_func (HdyAvatar *self,
   self->load_image_func_target = user_data;
   self->load_image_func_target_destroy_notify = destroy;
 
-  update_custom_image (self);
+  g_clear_pointer (&self->round_image, cairo_surface_destroy);
+  self->round_image_size = -1;
+  gtk_widget_queue_draw (GTK_WIDGET (self));
 }
 
 /**
