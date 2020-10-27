@@ -2015,6 +2015,27 @@
                                         </child>
                                       </object>
                                     </child>
+                                    <child>
+                                      <object class="HdyActionRow">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="title" translatable="yes">Export to file</property>
+                                        <child>
+                                          <object class="GtkButton" id="avatar_save_file">
+                                            <property name="visible">True</property>
+                                            <property name="valign">center</property>
+                                            <signal name="clicked" swapped="yes" handler="avatar_save_to_file_cb"/>
+                                            <child>
+                                              <object class="GtkImage">
+                                                <property name="visible">True</property>
+                                                <property name="icon_name">avatar-save-symbolic</property>
+                                                <property name="icon_size">1</property>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                                 <child>

@@ -350,6 +350,46 @@ avatar_file_set_cb (HdyDemoWindow *self)
   hdy_avatar_set_image_load_func (self->avatar, (HdyAvatarImageLoadFunc) avatar_load_file, self, NULL);
 }
 
+static void
+file_chooser_response_cb (HdyDemoWindow  *self,
+                         gint            response_id,
+                         GtkFileChooser *chooser)
+{
+  if (response_id == GTK_RESPONSE_ACCEPT) {
+    g_autofree gchar *filename = NULL;
+    g_autoptr (GdkPixbuf) pixbuf = NULL;
+
+    filename = gtk_file_chooser_get_filename (chooser);
+    pixbuf = hdy_avatar_draw_to_pixbuf (self->avatar,
+                                        hdy_avatar_get_size (self->avatar),
+                                        gtk_widget_get_scale_factor (GTK_WIDGET (self)));
+
+    if (pixbuf != NULL)
+      gdk_pixbuf_save (pixbuf, filename, "png", NULL, NULL);
+  }
+
+  g_object_unref (chooser);
+}
+
+static void
+avatar_save_to_file_cb (HdyDemoWindow *self)
+{
+  GtkFileChooserNative *chooser = NULL;
+
+  g_assert (HDY_IS_DEMO_WINDOW (self));
+
+  chooser = gtk_file_chooser_native_new (_("Save Avatar"),
+                                         GTK_WINDOW (self),
+                                         GTK_FILE_CHOOSER_ACTION_SAVE,
+                                         _("_Save"),
+                                         _("_Cancel"));
+
+  gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (chooser), TRUE);
+  g_signal_connect_swapped (chooser, "response", G_CALLBACK (file_chooser_response_cb), self);
+
+  gtk_native_dialog_show (GTK_NATIVE_DIALOG (chooser));
+}
+
 static gchar *
 avatar_new_random_name (void)
 {
@@ -487,6 +527,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, carousel_return_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, avatar_file_remove_cb);
   gtk_widget_class_bind_template_callback (widget_class, avatar_file_set_cb);
+  gtk_widget_class_bind_template_callback (widget_class, avatar_save_to_file_cb);
 }
 
 static void
