@@ -11,7 +11,7 @@ handy_version_minor = version_arr[1].to_int()
 handy_version_micro = version_arr[2].to_int()
 
 # The major api version as encoded in the libraries name
-apiversion = '1'
+apiversion = '4'
 # The so major version of the library
 soversion = 0
 package_api_name = '@0@-@1@'.format(meson.project_name(), apiversion)

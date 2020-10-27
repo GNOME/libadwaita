@@ -3,7 +3,7 @@
   "runtime": "org.gnome.Platform",
   "runtime-version": "master",
   "sdk": "org.gnome.Sdk",
-  "command": "handy-1-demo",
+  "command": "handy-4-demo",
   "finish-args": [
     "--device=all",
     "--share=ipc",
