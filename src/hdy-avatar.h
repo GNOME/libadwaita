@@ -66,5 +66,9 @@ gint         hdy_avatar_get_size            (HdyAvatar              *self);
 HDY_AVAILABLE_IN_ALL
 void         hdy_avatar_set_size            (HdyAvatar              *self,
                                              gint                    size);
+HDY_AVAILABLE_IN_ALL
+GdkPixbuf   *hdy_avatar_draw_to_pixbuf      (HdyAvatar              *self,
+                                             gint                    size,
+                                             gint                    scale_factor);
 
 G_END_DECLS
