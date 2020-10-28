@@ -114,7 +114,7 @@ insert_text_cb (HdyKeypad   *self,
   if (g_ascii_isdigit (*text))
      return;
 
-  if (!priv->symbols_visible && strchr ("#*+", *text))
+  if (priv->symbols_visible && strchr ("#*+", *text))
      return;
 
   g_signal_stop_emission_by_name (editable, "insert-text");
