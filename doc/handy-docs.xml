@@ -133,8 +133,8 @@
   </index>
 
   <index id="annotations-glossary">
-  <title>Annotations glossary</title>
-  <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
+    <title>Annotations glossary</title>
+    <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
   </index>
 
 </book>
