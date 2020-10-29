@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
-"POT-Creation-Date: 2020-10-25 12:08+0000\n"
-"PO-Revision-Date: 2020-10-25 21:27+0100\n"
+"POT-Creation-Date: 2020-10-25 20:28+0000\n"
+"PO-Revision-Date: 2020-10-26 19:36+0100\n"
+"Last-Translator: \n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: \n"
 "X-Generator: Poedit 2.4.1\n"
 
 #: glade/glade-hdy-carousel.c:160 glade/glade-hdy-header-bar.c:118
@@ -133,9 +133,8 @@ msgid "Interactive"
 msgstr "Interatîf"
 
 #: src/hdy-carousel.c:610
-#, fuzzy
 msgid "Whether the widget can be swiped"
-msgstr "Indiche se si pues fâ cori vie il widget"
+msgstr "Indiche se si pues scori il widget"
 
 #: src/hdy-carousel.c:639
 msgid "Animation duration"
@@ -266,20 +265,24 @@ msgstr ""
 #: src/hdy-deck.c:1007 src/hdy-leaflet.c:1087 src/hdy-preferences-window.c:520
 #: src/hdy-stackable-box.c:3062
 msgid "Can swipe back"
-msgstr ""
+msgstr "Al pues scori indaûr"
 
 #: src/hdy-deck.c:1008 src/hdy-leaflet.c:1088 src/hdy-stackable-box.c:3063
 msgid ""
 "Whether or not swipe gesture can be used to switch to the previous child"
 msgstr ""
+"Indiche se (o mancul) il moviment di scoriment al pues jessi doprât par "
+"passâ al fi precedent"
 
 #: src/hdy-deck.c:1022 src/hdy-leaflet.c:1102 src/hdy-stackable-box.c:3077
 msgid "Can swipe forward"
-msgstr ""
+msgstr "Al pues scori indenant"
 
 #: src/hdy-deck.c:1023 src/hdy-leaflet.c:1103 src/hdy-stackable-box.c:3078
 msgid "Whether or not swipe gesture can be used to switch to the next child"
 msgstr ""
+"Indiche se (o mancul) il moviment di scoriment al pues jessi doprât par "
+"passâ al fi sucessîf"
 
 #: src/hdy-deck.c:1031 src/hdy-leaflet.c:1111
 msgid "Name"
@@ -343,13 +346,15 @@ msgstr "Indaûr"
 
 #: src/hdy-header-bar.c:2086
 msgid "Pack type"
-msgstr ""
+msgstr "Gjenar di pachet"
 
 #: src/hdy-header-bar.c:2087
 msgid ""
 "A GtkPackType indicating whether the child is packed with reference to the "
 "start or end of the parent"
 msgstr ""
+"Un GtkPackType che al indiche se il fi al è impachetât cul riferiment al "
+"inizi o ae fin dal gjenitôr"
 
 #: src/hdy-header-bar.c:2094
 msgid "The index of the child in the parent"
@@ -494,7 +499,7 @@ msgstr "Simbui visibii"
 
 #: src/hdy-keypad.c:292
 msgid "Whether the hash, plus, and asterisk symbols should be visible"
-msgstr ""
+msgstr "Indiche se i simbui cancelut, plui e asterisc a àn di jessi visibii"
 
 #: src/hdy-keypad.c:306
 msgid "Entry"
@@ -530,19 +535,19 @@ msgstr "Indiche se il widget al è pleât"
 
 #: src/hdy-leaflet.c:975 src/hdy-stackable-box.c:2950
 msgid "Horizontally homogeneous folded"
-msgstr ""
+msgstr "Omogjenei in orizontâl pleât"
 
 #: src/hdy-leaflet.c:976
 msgid "Horizontally homogeneous sizing when the leaflet is folded"
-msgstr ""
+msgstr "Dimensionament omogjenei in orizontâl cuant che il sfueut al è pleât"
 
 #: src/hdy-leaflet.c:987 src/hdy-stackable-box.c:2962
 msgid "Vertically homogeneous folded"
-msgstr ""
+msgstr "Omogjenei in verticâl pleât"
 
 #: src/hdy-leaflet.c:988
 msgid "Vertically homogeneous sizing when the leaflet is folded"
-msgstr ""
+msgstr "Dimensionament omogjenei in verticâl cuant che il sfueut al è pleât"
 
 #: src/hdy-leaflet.c:999 src/hdy-stackable-box.c:2974
 msgid "Box horizontally homogeneous"
@@ -550,7 +555,7 @@ msgstr ""
 
 #: src/hdy-leaflet.c:1000
 msgid "Horizontally homogeneous sizing when the leaflet is unfolded"
-msgstr ""
+msgstr "Dimensionament omogjenei in orizontâl cuant che il sfueut nol è pleât"
 
 #: src/hdy-leaflet.c:1011 src/hdy-stackable-box.c:2986
 msgid "Box vertically homogeneous"
@@ -558,43 +563,43 @@ msgstr ""
 
 #: src/hdy-leaflet.c:1012
 msgid "Vertically homogeneous sizing when the leaflet is unfolded"
-msgstr ""
+msgstr "Dimensionament omogjenei in verticâl cuant che il sfueut nol è pleât"
 
 #: src/hdy-leaflet.c:1019
 msgid "The widget currently visible when the leaflet is folded"
-msgstr ""
+msgstr "Il widget cumò visibil cuant che il sfueut al è pleât"
 
 #: src/hdy-leaflet.c:1026 src/hdy-stackable-box.c:3001
 msgid "The name of the widget currently visible when the children are stacked"
-msgstr ""
+msgstr "Il non dal ogjet cumò visibil cuant che i fîs a son intassâts"
 
 #: src/hdy-leaflet.c:1045 src/hdy-stackable-box.c:3020
 msgid "The type of animation used to transition between modes and children"
-msgstr ""
+msgstr "Il gjenar di animazion doprade par passâ tra modalitâts e fîs"
 
 #: src/hdy-leaflet.c:1051 src/hdy-stackable-box.c:3026
 msgid "Mode transition duration"
-msgstr ""
+msgstr "Durade transizion modalitât"
 
 #: src/hdy-leaflet.c:1052 src/hdy-stackable-box.c:3027
 msgid "The mode transition animation duration, in milliseconds"
-msgstr ""
+msgstr "La durade de animazion pe transizion de modalitât, in miliseconts"
 
 #: src/hdy-leaflet.c:1058 src/hdy-stackable-box.c:3033
 msgid "Child transition duration"
-msgstr ""
+msgstr "Durade transizion fi"
 
 #: src/hdy-leaflet.c:1059 src/hdy-stackable-box.c:3034
 msgid "The child transition animation duration, in milliseconds"
-msgstr ""
+msgstr "La durade de animazion pe transizion dal fi, in miliseconts"
 
 #: src/hdy-leaflet.c:1065 src/hdy-stackable-box.c:3040
 msgid "Child transition running"
-msgstr ""
+msgstr "Transizion fi in esecuzion"
 
 #: src/hdy-leaflet.c:1066 src/hdy-stackable-box.c:3041
 msgid "Whether or not the child transition is currently running"
-msgstr ""
+msgstr "Indiche se (o mancul) la transizion dal fi e je cumò in esecuzion"
 
 #: src/hdy-leaflet.c:1129
 msgid "Navigatable"
@@ -670,7 +675,7 @@ msgstr "Widget"
 
 #: src/hdy-shadow-helper.c:255
 msgid "The widget the shadow will be drawn for"
-msgstr ""
+msgstr "Il widget che par chel e vignarà dissegnade la ombrene"
 
 #: src/hdy-squeezer.c:1091
 msgid "Homogeneous"
@@ -716,19 +721,19 @@ msgstr ""
 
 #: src/hdy-stackable-box.c:2951
 msgid "Horizontally homogeneous sizing when the widget is folded"
-msgstr ""
+msgstr "Dimensionament omogjenei in orizontâl cuant che il widget al è pleât"
 
 #: src/hdy-stackable-box.c:2963
 msgid "Vertically homogeneous sizing when the widget is folded"
-msgstr ""
+msgstr "Dimensionament omogjenei in verticâl cuant che il widget al è pleât"
 
 #: src/hdy-stackable-box.c:2975
 msgid "Horizontally homogeneous sizing when the widget is unfolded"
-msgstr ""
+msgstr "Dimensionament omogjenei in orizontâl cuant che il widget nol è pleât"
 
 #: src/hdy-stackable-box.c:2987
 msgid "Vertically homogeneous sizing when the widget is unfolded"
-msgstr ""
+msgstr "Dimensionament omogjenei in verticâl cuant che il widget nol è pleât"
 
 #: src/hdy-stackable-box.c:2994
 msgid "The widget currently visible when the widget is folded"
@@ -752,11 +757,11 @@ msgstr ""
 
 #: src/hdy-swipe-tracker.c:850
 msgid "Reversed"
-msgstr ""
+msgstr "Invertît"
 
 #: src/hdy-swipe-tracker.c:851
 msgid "Whether swipe direction is reversed"
-msgstr ""
+msgstr "Indiche se la direzion dal scoriment e je invertide"
 
 #: src/hdy-title-bar.c:308
 msgid "Selection mode"
@@ -764,7 +769,7 @@ msgstr "Modalitât di selezion"
 
 #: src/hdy-title-bar.c:309
 msgid "Whether or not the title bar is in selection mode"
-msgstr ""
+msgstr "Indiche se (o mancul) la sbare dal titul e je in modalitât selezion"
 
 #: src/hdy-value-object.c:191
 msgctxt "HdyValueObjectClass"
@@ -774,27 +779,27 @@ msgstr "Valôr"
 #: src/hdy-value-object.c:192
 msgctxt "HdyValueObjectClass"
 msgid "The contained value"
-msgstr ""
+msgstr "Il valôr contignût"
 
 #: src/hdy-view-switcher-bar.c:178 src/hdy-view-switcher.c:509
 #: src/hdy-view-switcher-title.c:230
 msgid "Policy"
-msgstr ""
+msgstr "Politiche"
 
 #: src/hdy-view-switcher-bar.c:179 src/hdy-view-switcher.c:510
 #: src/hdy-view-switcher-title.c:231
 msgid "The policy to determine the mode to use"
-msgstr ""
+msgstr "La politiche par determinâ la modalitât di doprâ"
 
 #: src/hdy-view-switcher-bar.c:192 src/hdy-view-switcher-bar.c:193
 #: src/hdy-view-switcher.c:544 src/hdy-view-switcher.c:545
 #: src/hdy-view-switcher-title.c:244 src/hdy-view-switcher-title.c:245
 msgid "Stack"
-msgstr ""
+msgstr "Tasse"
 
 #: src/hdy-view-switcher-bar.c:206
 msgid "Reveal"
-msgstr ""
+msgstr "Mostre"
 
 #: src/hdy-view-switcher-bar.c:207
 msgid "Whether the view switcher is revealed"
@@ -806,7 +811,7 @@ msgstr "Non icone"
 
 #: src/hdy-view-switcher-button.c:204
 msgid "Icon name for image"
-msgstr ""
+msgstr "Non de icone pe imagjin"
 
 #: src/hdy-view-switcher-button.c:217
 msgid "Icon Size"
@@ -814,15 +819,15 @@ msgstr "Dimension icone"
 
 #: src/hdy-view-switcher-button.c:218
 msgid "Symbolic size to use for named icon"
-msgstr ""
+msgstr "Dimension simboliche di doprâ pe icone nomenade"
 
 #: src/hdy-view-switcher-button.c:234
 msgid "Needs attention"
-msgstr ""
+msgstr "Al clame atenzion"
 
 #: src/hdy-view-switcher-button.c:235
 msgid "Hint the view needs attention"
-msgstr ""
+msgstr "Sugjeriment che la viodude e domande atenzion"
 
 #: src/hdy-view-switcher.c:529
 msgid "Narrow ellipsize"
