@@ -1,3 +1,9 @@
+libhandy-1 (1.0.1) amber-phone; urgency=medium
+
+  * New upstream release
+
+ -- Alexander Mikhaylenko <alexander.mikhaylenko@puri.sm>  Fri, 30 Oct 2020 20:46:00 +0500
+
 libhandy-1 (1.0.0) amber-phone; urgency=medium
 
   * New upstream release

@@ -1,3 +1,41 @@
+=============
+Version 1.0.1
+=============
+
+- Fix build with Glade 3.37.
+- Fix a Meson version warning.
+- Typo fixes.
+- HdyAvatar:
+  - Minimize the amount of redundant load_image() calls.
+  - Center non-square custom images.
+  - Add .image style class to avatars with custom images.
+  - Allow css border and shadow on avatars with custom images so
+    elementary can style it.
+- HdyCarousel:
+  - Fix drawing cache.
+  - Fix crash when scrolling over empty carousel.
+- HdyComboRow:
+  - Fix popover hiding animation when clicking a row.
+  - Always reserve space for checkmarks.
+- HdyHeaderGroup:
+  - Fix a warning on nesting HdyHeaderGroups.
+- HdyKeypad:
+  - Fix input of the #, @ and + characters.
+- HdyLeaflet and HdyDeck:
+  - Fix minimum size when 'interpolate-size' property is TRUE.
+- HdyPreferencesWindow:
+  - Fix searching rows that have mnemonics.
+- HdySwipeTracker:
+  - Fix swipes not working if started from GtkButton.
+  - Increase drag threshold for touchscreens.
+  - Avoid a jump when starting a drag.
+- HdyViewSwitcher:
+  - Fix sizing with invisible pages.
+- Transiation updates:
+  - French
+  - Friulian
+  - Slovenian
+
 ==============
 Version 1.0.0
 ==============
