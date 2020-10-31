@@ -137,7 +137,7 @@ create_list_widget (gpointer item,
   GtkWidget *checkmark = g_object_new (GTK_TYPE_IMAGE,
                                        "halign", GTK_ALIGN_START,
                                        "icon-name", "emblem-ok-symbolic",
-                                       "opacity", 0,
+                                       "opacity", 0.0,
                                        "valign", GTK_ALIGN_CENTER,
                                        "visible", TRUE,
                                        NULL);
