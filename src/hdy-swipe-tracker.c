@@ -666,9 +666,11 @@ captured_event_cb (HdySwipeable *swipeable,
   if (!self->use_capture_phase && !should_force_drag (self, widget))
     return GDK_EVENT_PROPAGATE;
 
-  self->use_capture_phase = TRUE;
-
   sequence = gdk_event_get_event_sequence (event);
+
+  if (gtk_gesture_handles_sequence (self->touch_gesture, sequence))
+    self->use_capture_phase = TRUE;
+
   retval = gtk_event_controller_handle_event (GTK_EVENT_CONTROLLER (self->touch_gesture), event);
   state = gtk_gesture_get_sequence_state (self->touch_gesture, sequence);
 
