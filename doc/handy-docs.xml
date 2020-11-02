@@ -59,6 +59,7 @@
     <xi:include href="xml/hdy-preferences-window.xml"/>
     <xi:include href="xml/hdy-search-bar.xml"/>
     <xi:include href="xml/hdy-squeezer.xml"/>
+    <xi:include href="xml/hdy-status-page.xml"/>
     <xi:include href="xml/hdy-swipeable.xml"/>
     <xi:include href="xml/hdy-swipe-group.xml"/>
     <xi:include href="xml/hdy-swipe-tracker.xml"/>

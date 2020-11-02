@@ -74,3 +74,11 @@ avatar.contrasted { color: #fff; }
 avatar.image { background: none; }
 
 viewswitchertitle viewswitcher { margin-left: 12px; margin-right: 12px; }
+
+statuspage > scrolledwindow > viewport > box { margin: 36px 12px; }
+
+statuspage > scrolledwindow > viewport > box > clamp > box > .icon { margin-bottom: 36px; opacity: 0.5; }
+
+statuspage > scrolledwindow > viewport > box > clamp > box > .title { margin-bottom: 12px; }
+
+statuspage > scrolledwindow > viewport > box > clamp > box > .description { margin-bottom: 36px; }

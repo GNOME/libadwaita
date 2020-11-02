@@ -102,6 +102,14 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_deck_set_visible_child_name@LIBHANDY_1_0 0.80.0
  hdy_deck_transition_type_get_type@LIBHANDY_1_0 0.80.0
  hdy_ease_out_cubic@LIBHANDY_1_0 0.0.11
+ hdy_status_page_get_description@LIBHANDY_1_0 1.1.0
+ hdy_status_page_get_icon_name@LIBHANDY_1_0 1.1.0
+ hdy_status_page_get_title@LIBHANDY_1_0 1.1.0
+ hdy_status_page_get_type@LIBHANDY_1_0 1.1.0
+ hdy_status_page_new@LIBHANDY_1_0 1.1.0
+ hdy_status_page_set_description@LIBHANDY_1_0 1.1.0
+ hdy_status_page_set_icon_name@LIBHANDY_1_0 1.1.0
+ hdy_status_page_set_title@LIBHANDY_1_0 1.1.0
  hdy_enum_value_object_get_name@LIBHANDY_1_0 0.0.6
  hdy_enum_value_object_get_nick@LIBHANDY_1_0 0.0.6
  hdy_enum_value_object_get_type@LIBHANDY_1_0 0.0.6

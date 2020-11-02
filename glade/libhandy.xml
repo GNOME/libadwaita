@@ -370,6 +370,19 @@
       </properties>
     </glade-widget-class>
     <glade-widget-class name="HdySqueezer" generic-name="squeezer" title="Squeezer" since="0.0.10"/>
+    <glade-widget-class name="HdyStatusPage" generic-name="statuspage" title="Status Page" since="1.1" use-placeholders="False">
+      <post-create-function>glade_hdy_bin_post_create</post-create-function>
+      <add-child-verify-function>glade_hdy_bin_add_verify</add-child-verify-function>
+      <add-child-function>glade_hdy_bin_add_child</add-child-function>
+      <remove-child-function>glade_hdy_bin_remove_child</remove-child-function>
+      <replace-child-function>glade_hdy_bin_replace_child</replace-child-function>
+      <get-children-function>glade_hdy_bin_get_children</get-children-function>
+      <properties>
+        <property id="title" translatable="True" />
+        <property id="description" translatable="True" />
+        <property id="icon-name" themed-icon="True" />
+      </properties>
+    </glade-widget-class>
     <glade-widget-class name="HdySwipeGroup" generic-name="swipegroup" title="Swipe Group" toplevel="True">
       <read-widget-function>glade_hdy_swipe_group_read_widget</read-widget-function>
       <write-widget-function>glade_hdy_swipe_group_write_widget</write-widget-function>
@@ -444,6 +457,7 @@
     <glade-widget-class-ref name="HdyPreferencesWindow"/>
     <glade-widget-class-ref name="HdySearchBar"/>
     <glade-widget-class-ref name="HdySqueezer"/>
+    <glade-widget-class-ref name="HdyStatusPage"/>
     <glade-widget-class-ref name="HdySwipeGroup"/>
     <glade-widget-class-ref name="HdyTitleBar"/>
     <glade-widget-class-ref name="HdyViewSwitcher"/>
