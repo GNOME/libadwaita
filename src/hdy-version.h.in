@@ -80,8 +80,30 @@
          (HDY_MAJOR_VERSION == (major) && HDY_MINOR_VERSION == (minor) && \
           HDY_MICRO_VERSION >= (micro)))
 
+/**
+ * HDY_VERSION_1_1:
+ *
+ * A macro that evaluates to the 1.1 version of Handy, in a format
+ * that can be used by the C pre-processor.
+ *
+ * Since: 1.1
+ */
+#define HDY_VERSION_1_1 (HDY_ENCODE_VERSION (1, 1, 0))
+
 #ifndef _HDY_EXTERN
 #define _HDY_EXTERN extern
 #endif
 
+#ifndef HDY_VERSION_MAX_ALLOWED
+# define HDY_VERSION_MAX_ALLOWED HDY_VERSION_1_1
+#endif
+
+#define HDY_UNAVAILABLE(major, minor) G_UNAVAILABLE(major, minor) _HDY_EXTERN
+
 #define HDY_AVAILABLE_IN_ALL _HDY_EXTERN
+
+#if HDY_VERSION_MAX_ALLOWED < HDY_VERSION_1_1
+# define HDY_AVAILABLE_IN_1_1 HDY_UNAVAILABLE(1, 1)
+#else
+# define HDY_AVAILABLE_IN_1_1 _HDY_EXTERN
+#endif
