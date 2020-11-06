@@ -547,6 +547,23 @@ is_window_handle (GtkWidget *widget)
   return parent == titlebar;
 }
 
+static gboolean
+has_conflicts (HdySwipeTracker *self,
+               GtkWidget       *widget)
+{
+  HdySwipeTracker *other;
+
+  if (widget == GTK_WIDGET (self->swipeable))
+    return TRUE;
+
+  if (!HDY_IS_SWIPEABLE (widget))
+    return FALSE;
+
+  other = hdy_swipeable_get_swipe_tracker (HDY_SWIPEABLE (widget));
+
+  return self->orientation == other->orientation;
+}
+
 /* HACK: Since we don't have _gtk_widget_consumes_motion(), we can't do a proper
  * check for whether we can drag from a widget or not. So we trust the widgets
  * to propagate or stop their events. However, GtkButton stops press events,
@@ -562,7 +579,7 @@ should_force_drag (HdySwipeTracker *self,
     return FALSE;
 
   parent = widget;
-  while (parent && !HDY_IS_SWIPEABLE (parent))
+  while (parent && !has_conflicts (self, parent))
     parent = gtk_widget_get_parent (parent);
 
   return parent == GTK_WIDGET (self->swipeable);
