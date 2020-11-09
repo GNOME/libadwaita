@@ -236,6 +236,37 @@ invalidate_handler_cb (GdkWindow      *window,
 }
 
 static void
+invalidate_cache_for_child (HdyCarouselBox          *self,
+                            HdyCarouselBoxChildInfo *child)
+{
+  cairo_rectangle_int_t rect;
+
+  rect.x = 0;
+  rect.y = 0;
+  rect.width = self->child_width;
+  rect.height = self->child_height;
+
+  if (child->surface)
+    g_clear_pointer (&child->surface, cairo_surface_destroy);
+
+  if (child->dirty_region)
+    cairo_region_destroy (child->dirty_region);
+  child->dirty_region = cairo_region_create_rectangle (&rect);
+}
+
+static void
+invalidate_drawing_cache (HdyCarouselBox *self)
+{
+  GList *l;
+
+  for (l = self->children; l; l = l->next) {
+    HdyCarouselBoxChildInfo *child_info = l->data;
+
+    invalidate_cache_for_child (self, child_info);
+  }
+}
+
+static void
 register_window (HdyCarouselBoxChildInfo *info,
                  HdyCarouselBox          *self)
 {
@@ -273,6 +304,8 @@ register_window (HdyCarouselBoxChildInfo *info,
   info->window = window;
 
   gdk_window_set_invalidate_handler (window, invalidate_handler_cb);
+
+  invalidate_cache_for_child (self, info);
 }
 
 static void
@@ -677,37 +710,6 @@ hdy_carousel_box_get_preferred_height_for_width (GtkWidget *widget,
 {
   measure (widget, GTK_ORIENTATION_VERTICAL, for_width,
            minimum_height, natural_height, NULL, NULL);
-}
-
-static void
-invalidate_cache_for_child (HdyCarouselBox          *self,
-                            HdyCarouselBoxChildInfo *child)
-{
-  cairo_rectangle_int_t rect;
-
-  rect.x = 0;
-  rect.y = 0;
-  rect.width = self->child_width;
-  rect.height = self->child_height;
-
-  if (child->surface)
-    g_clear_pointer (&child->surface, cairo_surface_destroy);
-
-  if (child->dirty_region)
-    cairo_region_destroy (child->dirty_region);
-  child->dirty_region = cairo_region_create_rectangle (&rect);
-}
-
-static void
-invalidate_drawing_cache (HdyCarouselBox *self)
-{
-  GList *l;
-
-  for (l = self->children; l; l = l->next) {
-    HdyCarouselBoxChildInfo *child_info = l->data;
-
-    invalidate_cache_for_child (self, child_info);
-  }
 }
 
 static void
