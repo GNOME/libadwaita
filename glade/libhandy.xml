@@ -367,6 +367,8 @@
             <value id="HDY_VIEW_SWITCHER_POLICY_WIDE" name="Wide"/>
           </displayable-values>
         </property>
+        <property id="subtitle" translatable="True" />
+        <property id="title" translatable="True" />
       </properties>
     </glade-widget-class>
     <glade-widget-class name="HdyWindow" generic-name="window" title="Window" since="1.0" use-placeholders="False">
