@@ -78,7 +78,7 @@ test_hdy_action_row_icon_name (void)
 
 
 static void
-test_hdy_action_row_use_undeline (void)
+test_hdy_action_row_use_underline (void)
 {
   g_autoptr (HdyActionRow) row = NULL;
 
@@ -122,7 +122,7 @@ main (gint argc,
   g_test_add_func("/Handy/ActionRow/add_prefix", test_hdy_action_row_add_prefix);
   g_test_add_func("/Handy/ActionRow/subtitle", test_hdy_action_row_subtitle);
   g_test_add_func("/Handy/ActionRow/icon_name", test_hdy_action_row_icon_name);
-  g_test_add_func("/Handy/ActionRow/use_underline", test_hdy_action_row_use_undeline);
+  g_test_add_func("/Handy/ActionRow/use_underline", test_hdy_action_row_use_underline);
   g_test_add_func("/Handy/ActionRow/activate", test_hdy_action_row_activate);
 
   return g_test_run();
