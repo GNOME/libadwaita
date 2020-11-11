@@ -57,6 +57,8 @@ typedef struct
   GtkWidget *previous_parent;
 
   gboolean use_underline;
+  gint title_lines;
+  gint subtitle_lines;
   GtkWidget *activatable_widget;
 } HdyActionRowPrivate;
 
@@ -75,6 +77,8 @@ enum {
   PROP_ACTIVATABLE_WIDGET,
   PROP_SUBTITLE,
   PROP_USE_UNDERLINE,
+  PROP_TITLE_LINES,
+  PROP_SUBTITLE_LINES,
   LAST_PROP,
 };
 
@@ -142,6 +146,12 @@ hdy_action_row_get_property (GObject    *object,
   case PROP_SUBTITLE:
     g_value_set_string (value, hdy_action_row_get_subtitle (self));
     break;
+  case PROP_SUBTITLE_LINES:
+    g_value_set_int (value, hdy_action_row_get_subtitle_lines (self));
+    break;
+  case PROP_TITLE_LINES:
+    g_value_set_int (value, hdy_action_row_get_title_lines (self));
+    break;
   case PROP_USE_UNDERLINE:
     g_value_set_boolean (value, hdy_action_row_get_use_underline (self));
     break;
@@ -167,6 +177,12 @@ hdy_action_row_set_property (GObject      *object,
     break;
   case PROP_SUBTITLE:
     hdy_action_row_set_subtitle (self, g_value_get_string (value));
+    break;
+  case PROP_SUBTITLE_LINES:
+    hdy_action_row_set_subtitle_lines (self, g_value_get_int (value));
+    break;
+  case PROP_TITLE_LINES:
+    hdy_action_row_set_title_lines (self, g_value_get_int (value));
     break;
   case PROP_USE_UNDERLINE:
     hdy_action_row_set_use_underline (self, g_value_get_boolean (value));
@@ -399,6 +415,39 @@ hdy_action_row_class_init (HdyActionRowClass *klass)
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * HdyActionRow:title-lines:
+   *
+   * The number of lines at the end of which the title label will be ellipsized.
+   * Set this property to 0 if you don't want to limit the number of lines.
+   *
+   * Since: 1.1
+   */
+  props[PROP_TITLE_LINES] =
+    g_param_spec_int ("title-lines",
+                      _("Number of title lines"),
+                      _("The desired number of title lines"),
+                      0, G_MAXINT,
+                      1,
+                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyActionRow:subtitle-lines:
+   *
+   * The number of lines at the end of which the subtitle label will be
+   * ellipsized.
+   * Set this property to 0 if you don't want to limit the number of lines.
+   *
+   * Since: 1.1
+   */
+  props[PROP_SUBTITLE_LINES] =
+    g_param_spec_int ("subtitle-lines",
+                      _("Number of subtitle lines"),
+                      _("The desired number of subtitle lines"),
+                      0, G_MAXINT,
+                      1,
+                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   /**
@@ -446,6 +495,9 @@ static void
 hdy_action_row_init (HdyActionRow *self)
 {
   HdyActionRowPrivate *priv = hdy_action_row_get_instance_private (self);
+
+  priv->title_lines = 1;
+  priv->subtitle_lines = 1;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -741,6 +793,122 @@ hdy_action_row_set_use_underline (HdyActionRow *self,
   gtk_label_set_mnemonic_widget (priv->subtitle, GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_UNDERLINE]);
+}
+
+/**
+ * hdy_action_row_get_title_lines:
+ * @self: a #HdyActionRow
+ *
+ * Gets the number of lines at the end of which the title label will be
+ * ellipsized.
+ * If the value is 0, the number of lines won't be limited.
+ *
+ * Returns: the number of lines at the end of which the title label will be
+ *          ellipsized.
+ *
+ * Since: 1.1
+ */
+gint
+hdy_action_row_get_title_lines (HdyActionRow *self)
+{
+  HdyActionRowPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_ACTION_ROW (self), 0);
+
+  priv = hdy_action_row_get_instance_private (self);
+
+  return priv->title_lines;
+}
+
+/**
+ * hdy_action_row_set_title_lines:
+ * @self: a #HdyActionRow
+ * @title_lines: the number of lines at the end of which the title label will be ellipsized
+ *
+ * Sets the number of lines at the end of which the title label will be
+ * ellipsized.
+ * If the value is 0, the number of lines won't be limited.
+ *
+ * Since: 1.1
+ */
+void
+hdy_action_row_set_title_lines (HdyActionRow *self,
+                                gint          title_lines)
+{
+  HdyActionRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_ACTION_ROW (self));
+  g_return_if_fail (title_lines >= 0);
+
+  priv = hdy_action_row_get_instance_private (self);
+
+  if (priv->title_lines == title_lines)
+    return;
+
+  priv->title_lines = title_lines;
+
+  gtk_label_set_lines (priv->title, title_lines);
+  gtk_label_set_ellipsize (priv->title, title_lines == 0 ? PANGO_ELLIPSIZE_NONE : PANGO_ELLIPSIZE_END);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE_LINES]);
+}
+
+/**
+ * hdy_action_row_get_subtitle_lines:
+ * @self: a #HdyActionRow
+ *
+ * Gets the number of lines at the end of which the subtitle label will be
+ * ellipsized.
+ * If the value is 0, the number of lines won't be limited.
+ *
+ * Returns: the number of lines at the end of which the subtitle label will be
+ *          ellipsized.
+ *
+ * Since: 1.1
+ */
+gint
+hdy_action_row_get_subtitle_lines (HdyActionRow *self)
+{
+  HdyActionRowPrivate *priv;
+
+  g_return_val_if_fail (HDY_IS_ACTION_ROW (self), 0);
+
+  priv = hdy_action_row_get_instance_private (self);
+
+  return priv->subtitle_lines;
+}
+
+/**
+ * hdy_action_row_set_subtitle_lines:
+ * @self: a #HdyActionRow
+ * @subtitle_lines: the number of lines at the end of which the subtitle label will be ellipsized
+ *
+ * Sets the number of lines at the end of which the subtitle label will be
+ * ellipsized.
+ * If the value is 0, the number of lines won't be limited.
+ *
+ * Since: 1.1
+ */
+void
+hdy_action_row_set_subtitle_lines (HdyActionRow *self,
+                                   gint          subtitle_lines)
+{
+  HdyActionRowPrivate *priv;
+
+  g_return_if_fail (HDY_IS_ACTION_ROW (self));
+  g_return_if_fail (subtitle_lines >= 0);
+
+  priv = hdy_action_row_get_instance_private (self);
+
+  if (priv->subtitle_lines == subtitle_lines)
+    return;
+
+  priv->subtitle_lines = subtitle_lines;
+
+  gtk_label_set_lines (priv->subtitle, subtitle_lines);
+  gtk_label_set_ellipsize (priv->subtitle, subtitle_lines == 0 ? PANGO_ELLIPSIZE_NONE : PANGO_ELLIPSIZE_END);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUBTITLE_LINES]);
 }
 
 /**

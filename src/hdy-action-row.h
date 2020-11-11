@@ -63,6 +63,18 @@ HDY_AVAILABLE_IN_ALL
 void     hdy_action_row_set_use_underline (HdyActionRow *self,
                                            gboolean      use_underline);
 
+HDY_AVAILABLE_IN_1_1
+gint hdy_action_row_get_title_lines (HdyActionRow *self);
+HDY_AVAILABLE_IN_1_1
+void hdy_action_row_set_title_lines (HdyActionRow *self,
+                                     gint          title_lines);
+
+HDY_AVAILABLE_IN_1_1
+gint hdy_action_row_get_subtitle_lines (HdyActionRow *self);
+HDY_AVAILABLE_IN_1_1
+void hdy_action_row_set_subtitle_lines (HdyActionRow *self,
+                                        gint          subtitle_lines);
+
 HDY_AVAILABLE_IN_ALL
 void hdy_action_row_add_prefix (HdyActionRow *self,
                                 GtkWidget    *widget);

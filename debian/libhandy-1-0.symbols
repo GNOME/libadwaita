@@ -5,12 +5,16 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_action_row_get_activatable_widget@LIBHANDY_1_0 0.0.7
  hdy_action_row_get_icon_name@LIBHANDY_1_0 0.0.6
  hdy_action_row_get_subtitle@LIBHANDY_1_0 0.0.6
+ hdy_action_row_get_subtitle_lines@LIBHANDY_1_0 1.1.0
+ hdy_action_row_get_title_lines@LIBHANDY_1_0 1.1.0
  hdy_action_row_get_type@LIBHANDY_1_0 0.0.6
  hdy_action_row_get_use_underline@LIBHANDY_1_0 0.0.6
  hdy_action_row_new@LIBHANDY_1_0 0.0.6
  hdy_action_row_set_activatable_widget@LIBHANDY_1_0 0.0.7
  hdy_action_row_set_icon_name@LIBHANDY_1_0 0.0.6
  hdy_action_row_set_subtitle@LIBHANDY_1_0 0.0.6
+ hdy_action_row_set_subtitle_lines@LIBHANDY_1_0 1.1.0
+ hdy_action_row_set_title_lines@LIBHANDY_1_0 1.1.0
  hdy_action_row_set_use_underline@LIBHANDY_1_0 0.0.6
  hdy_application_window_get_type@LIBHANDY_1_0 0.80.0
  hdy_application_window_new@LIBHANDY_1_0 0.80.0
