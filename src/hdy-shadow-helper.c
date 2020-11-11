@@ -115,12 +115,15 @@ get_element_size (GtkStyleContext *context,
 static cairo_pattern_t *
 create_element_pattern (GtkStyleContext *context,
                         gint             width,
-                        gint             height)
+                        gint             height,
+                        gint             scale)
 {
   g_autoptr (cairo_surface_t) surface =
-    cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
+    cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width * scale, height * scale);
   g_autoptr (cairo_t) cr = cairo_create (surface);
   cairo_pattern_t *pattern;
+
+  cairo_surface_set_device_scale (surface, scale, scale);
 
   gtk_render_background (context, cr, 0, 0, width, height);
   gtk_render_frame (context, cr, 0, 0, width, height);
@@ -162,15 +165,15 @@ cache_shadow (HdyShadowHelper *self,
   border_size = get_element_size (border_context, direction);
   outline_size = get_element_size (outline_context, direction);
 
-  self->dimming_pattern = create_element_pattern (dim_context, width, height);
+  self->dimming_pattern = create_element_pattern (dim_context, width, height, scale);
   if (direction == GTK_PAN_DIRECTION_LEFT || direction == GTK_PAN_DIRECTION_RIGHT) {
-    self->shadow_pattern = create_element_pattern (shadow_context, shadow_size, height);
-    self->border_pattern = create_element_pattern (border_context, border_size, height);
-    self->outline_pattern = create_element_pattern (outline_context, outline_size, height);
+    self->shadow_pattern = create_element_pattern (shadow_context, shadow_size, height, scale);
+    self->border_pattern = create_element_pattern (border_context, border_size, height, scale);
+    self->outline_pattern = create_element_pattern (outline_context, outline_size, height, scale);
   } else {
-    self->shadow_pattern = create_element_pattern (shadow_context, width, shadow_size);
-    self->border_pattern = create_element_pattern (border_context, width, border_size);
-    self->outline_pattern = create_element_pattern (outline_context, width, outline_size);
+    self->shadow_pattern = create_element_pattern (shadow_context, width, shadow_size, scale);
+    self->border_pattern = create_element_pattern (border_context, width, border_size, scale);
+    self->outline_pattern = create_element_pattern (outline_context, width, outline_size, scale);
   }
 
   self->border_size = border_size;
