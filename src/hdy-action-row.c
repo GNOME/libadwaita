@@ -728,10 +728,12 @@ hdy_action_row_set_use_underline (HdyActionRow *self,
 
   priv = hdy_action_row_get_instance_private (self);
 
-  if (priv->use_underline == !!use_underline)
+  use_underline = !!use_underline;
+
+  if (priv->use_underline == use_underline)
     return;
 
-  priv->use_underline = !!use_underline;
+  priv->use_underline = use_underline;
   hdy_preferences_row_set_use_underline (HDY_PREFERENCES_ROW (self), priv->use_underline);
   gtk_label_set_use_underline (priv->title, priv->use_underline);
   gtk_label_set_use_underline (priv->subtitle, priv->use_underline);

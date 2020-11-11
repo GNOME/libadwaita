@@ -250,10 +250,12 @@ hdy_preferences_row_set_use_underline (HdyPreferencesRow *self,
 
   priv = hdy_preferences_row_get_instance_private (self);
 
-  if (priv->use_underline == !!use_underline)
+  use_underline = !!use_underline;
+
+  if (priv->use_underline == use_underline)
     return;
 
-  priv->use_underline = !!use_underline;
+  priv->use_underline = use_underline;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_UNDERLINE]);
 }
