@@ -1,4 +1,24 @@
 =============
+Version 1.0.2
+=============
+
+- Fix gtk-doc install path.
+- Code cleanups.
+- HdyCarousel:
+  - Fix pages not being drawn until scrolled on X11.
+- HdyComboRow:
+  - Fix test failures on x86.
+- HdyLeaflet and HdyDeck:
+  - Fix transition shadow on HiDPI.
+- HdySwipeTracker:
+  - Fix touchpad swipes not working after pressing a GtkButton.
+  - Fix swipes in nested swipeable widgets when started from a GtkButton.
+- HdyViewSwitcherTitle:
+  - Mark title and subtitle properties as translatable for Glade.
+- Translation updates:
+  - Catalan
+
+=============
 Version 1.0.1
 =============
 
