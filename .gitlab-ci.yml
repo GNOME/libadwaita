@@ -1,0 +1,6 @@
+pages:
+  artifacts:
+    paths:
+      - public
+  only:
+    - pages
