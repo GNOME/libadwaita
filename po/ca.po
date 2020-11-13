@@ -27,13 +27,13 @@ msgstr ""
 #: glade/glade-hdy-leaflet.c:184
 #, c-format
 msgid "Insert placeholder to %s"
-msgstr "Unsereix un marcador de posició %s"
+msgstr "Insereix un espai reservat a %s"
 
 #: glade/glade-hdy-carousel.c:189 glade/glade-hdy-header-bar.c:144
 #: glade/glade-hdy-leaflet.c:214
 #, c-format
 msgid "Remove placeholder from %s"
-msgstr "Suprimeix un marcador de posició %s"
+msgstr "Suprimeix espai reservat de %s"
 
 #: glade/glade-hdy-header-bar.c:18
 msgid "This property does not apply when a custom title is set"
@@ -180,7 +180,7 @@ msgstr "Llindar de tensió"
 
 #: src/hdy-clamp.c:443
 msgid "The size from which the clamp will tighten its grip on the child"
-msgstr "La mida des de la qual la pinça li estrènyerà el control al fill"
+msgstr "La mida des de la qual la pinça li estrenyerà el control al fill"
 
 #: src/hdy-combo-row.c:418
 msgid "Selected index"
@@ -282,7 +282,7 @@ msgstr ""
 
 #: src/hdy-deck.c:1022 src/hdy-leaflet.c:1102 src/hdy-stackable-box.c:3079
 msgid "Can swipe forward"
-msgstr "Pot lliscar endavat"
+msgstr "Pot lliscar endavant"
 
 #: src/hdy-deck.c:1023 src/hdy-leaflet.c:1103 src/hdy-stackable-box.c:3080
 msgid "Whether or not swipe gesture can be used to switch to the next child"
@@ -315,7 +315,7 @@ msgstr "Activar l'estesa"
 
 #: src/hdy-expander-row.c:339
 msgid "Whether the expansion is enabled"
-msgstr "Si està activa l'estensa"
+msgstr "Si l'expansió està habilitada"
 
 #: src/hdy-expander-row.c:350
 msgid "Show enable switch"
@@ -774,7 +774,7 @@ msgstr "Mode de selecció"
 
 #: src/hdy-title-bar.c:309
 msgid "Whether or not the title bar is in selection mode"
-msgstr "Si, o no, la barra de títol està en mode selecció"
+msgstr "Si la barra de títol està o no en mode selecció"
 
 #: src/hdy-value-object.c:191
 msgctxt "HdyValueObjectClass"
