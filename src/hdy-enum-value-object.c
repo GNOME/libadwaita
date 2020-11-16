@@ -7,7 +7,7 @@
 #include "config.h"
 #include <glib/gi18n-lib.h>
 
-#include "hdy-enum-value-object.h"
+#include "hdy-enum-value-object-private.h"
 
 /**
  * SECTION:hdy-enum-value-object

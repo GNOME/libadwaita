@@ -8,6 +8,7 @@
 #include <glib/gi18n-lib.h>
 
 #include "hdy-enum-list-model.h"
+#include "hdy-enum-value-object-private.h"
 
 #include <gio/gio.h>
 

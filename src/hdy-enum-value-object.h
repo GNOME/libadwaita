@@ -23,9 +23,6 @@ HDY_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (HdyEnumValueObject, hdy_enum_value_object, HDY, ENUM_VALUE_OBJECT, GObject)
 
 HDY_AVAILABLE_IN_ALL
-HdyEnumValueObject *hdy_enum_value_object_new (GEnumValue *enum_value);
-
-HDY_AVAILABLE_IN_ALL
 gint         hdy_enum_value_object_get_value (HdyEnumValueObject *self);
 HDY_AVAILABLE_IN_ALL
 const gchar *hdy_enum_value_object_get_name  (HdyEnumValueObject *self);
