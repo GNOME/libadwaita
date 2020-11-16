@@ -156,7 +156,7 @@ ul.urllist li, ul.doclist li {
 ul.urllist li { background-color: var(--dark4); }
 ul.urllist li:hover { background-color: var(--dark3); }
 ul.urllist li:active { background-color: var(--dark5); }
-ul.doclist li { background-color: var(--dark32); }
+ul.doclist li { background-color: var(--dark3); }
 ul.doclist li:hover { background-color: var(--dark2); }
 ul.doclist li:active { background-color: var(--dark4); }
 ul.urllist li:hover svg,
