@@ -129,7 +129,7 @@ long_press_zero_cb (HdyKeypad  *self,
 {
   HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
 
-  if (priv->symbols_visible)
+  if (!priv->symbols_visible)
     return;
 
   g_debug ("Long press on zero button");
