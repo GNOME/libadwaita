@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>HdyDialerButton: Handy Reference Manual</title>
+<meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Handy Reference Manual">
+<link rel="up" href="core-api.html" title="Widgets and Objects">
+<link rel="prev" href="HdyDialer.html" title="HdyDialer">
+<link rel="next" href="HdyDialerCycleButton.html" title="HdyDialerCycleButton">
+<meta name="generator" content="GTK-Doc V1.33.0 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#HdyDialerButton.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#HdyDialerButton.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#HdyDialerButton.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#HdyDialerButton.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="core-api.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="HdyDialer.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="HdyDialerCycleButton.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="HdyDialerButton"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="HdyDialerButton.top_of_page"></a>HdyDialerButton</span></h2>
+<p>HdyDialerButton — A button on a <a class="link" href="HdyDialer.html" title="HdyDialer"><span class="type">HdyDialer</span></a> keypad</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="HdyDialerButton.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_proto_type">
+<col class="functions_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GtkWidget</span> *
+</td>
+<td class="function_name">
+<a class="link" href="HdyDialerButton.html#hdy-dialer-button-new" title="hdy_dialer_button_new ()">hdy_dialer_button_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyDialerButton.html#hdy-dialer-button-get-digit" title="hdy_dialer_button_get_digit ()">hdy_dialer_button_get_digit</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="HdyDialerButton.html#hdy-dialer-button-get-letters" title="hdy_dialer_button_get_letters ()">hdy_dialer_button_get_letters</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdyDialerButton.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">int</span></td>
+<td class="property_name"><a class="link" href="HdyDialerButton.html#HdyDialerButton--digit" title="The “digit” property">digit</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">char</span> *</td>
+<td class="property_name"><a class="link" href="HdyDialerButton.html#HdyDialerButton--letters" title="The “letters” property">letters</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdyDialerButton.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="other_proto_type">
+<col class="other_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="HdyDialerButton.html#HDY-TYPE-DIALER-BUTTON:CAPS" title="HDY_TYPE_DIALER_BUTTON">HDY_TYPE_DIALER_BUTTON</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="HdyDialerButton.html#HdyDialerButtonClass" title="struct HdyDialerButtonClass">HdyDialerButtonClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="HdyDialerButton.html#HdyDialerButton-struct" title="HdyDialerButton">HdyDialerButton</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdyDialerButton.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> GtkWidget
+            <span class="lineart">╰──</span> GtkContainer
+                <span class="lineart">╰──</span> GtkBin
+                    <span class="lineart">╰──</span> GtkButton
+                        <span class="lineart">╰──</span> HdyDialerButton
+                            <span class="lineart">╰──</span> <a class="link" href="HdyDialerCycleButton.html" title="HdyDialerCycleButton">HdyDialerCycleButton</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="HdyDialerButton.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+HdyDialerButton implements
+ AtkImplementorIface,  GtkBuildable,  GtkActionable and  GtkActivatable.</p>
+</div>
+<div class="refsect1">
+<a name="HdyDialerButton.description"></a><h2>Description</h2>
+<p>The <a class="link" href="HdyDialerButton.html" title="HdyDialerButton"><span class="type">HdyDialerButton</span></a> widget is a single button on an <a class="link" href="HdyDialer.html" title="HdyDialer"><span class="type">HdyDialer</span></a>. It
+can represent a single digit (0-9) plus an arbitrary number of
+letters that are displayed below the number.</p>
+</div>
+<div class="refsect1">
+<a name="HdyDialerButton.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="hdy-dialer-button-new"></a><h3>hdy_dialer_button_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *
+hdy_dialer_button_new (<em class="parameter"><code><span class="type">int</span> digit</code></em>,
+                       <em class="parameter"><code>const <span class="type">gchar</span> *letters</code></em>);</pre>
+<p>Create a new <a class="link" href="HdyDialerButton.html" title="HdyDialerButton"><span class="type">HdyDialerButton</span></a> which displays <em class="parameter"><code>digit</code></em>
+ and
+<em class="parameter"><code>letters</code></em>
+. If <em class="parameter"><code>digit</code></em>
+ is negative no number will be displayed. If
+<em class="parameter"><code>letters</code></em>
+ is <code class="literal">NULL</code> no letters will be displayed.</p>
+<div class="refsect3">
+<a name="hdy-dialer-button-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>digit</p></td>
+<td class="parameter_description"><p>the digit displayed on the <a class="link" href="HdyDialerButton.html" title="HdyDialerButton"><span class="type">HdyDialerButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>letters</p></td>
+<td class="parameter_description"><p>the letters displayed on the <a class="link" href="HdyDialerButton.html" title="HdyDialerButton"><span class="type">HdyDialerButton</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<a href="http://foldoc.org/nullable"><span class="acronym">nullable</span></a>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-dialer-button-new.returns"></a><h4>Returns</h4>
+<p> the newly created <a class="link" href="HdyDialerButton.html" title="HdyDialerButton"><span class="type">HdyDialerButton</span></a> widget</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-dialer-button-get-digit"></a><h3>hdy_dialer_button_get_digit ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+hdy_dialer_button_get_digit (<em class="parameter"><code><a class="link" href="HdyDialerButton.html" title="HdyDialerButton"><span class="type">HdyDialerButton</span></a> *self</code></em>);</pre>
+<p>Get the <a class="link" href="HdyDialerButton.html" title="HdyDialerButton"><span class="type">HdyDialerButton</span></a>'s digit.</p>
+<div class="refsect3">
+<a name="hdy-dialer-button-get-digit.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyDialerButton.html" title="HdyDialerButton"><span class="type">HdyDialerButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-dialer-button-get-digit.returns"></a><h4>Returns</h4>
+<p> the button's digit</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-dialer-button-get-letters"></a><h3>hdy_dialer_button_get_letters ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+hdy_dialer_button_get_letters (<em class="parameter"><code><a class="link" href="HdyDialerButton.html" title="HdyDialerButton"><span class="type">HdyDialerButton</span></a> *self</code></em>);</pre>
+<p>Get the <a class="link" href="HdyDialerButton.html" title="HdyDialerButton"><span class="type">HdyDialerButton</span></a>'s letters.</p>
+<div class="refsect3">
+<a name="hdy-dialer-button-get-letters.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyDialerButton.html" title="HdyDialerButton"><span class="type">HdyDialerButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-dialer-button-get-letters.returns"></a><h4>Returns</h4>
+<p> the button's letters.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="HdyDialerButton.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="HDY-TYPE-DIALER-BUTTON:CAPS"></a><h3>HDY_TYPE_DIALER_BUTTON</h3>
+<pre class="programlisting">#define HDY_TYPE_DIALER_BUTTON (hdy_dialer_button_get_type())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyDialerButtonClass"></a><h3>struct HdyDialerButtonClass</h3>
+<pre class="programlisting">struct HdyDialerButtonClass {
+  GtkButtonClass parent_class;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyDialerButton-struct"></a><h3>HdyDialerButton</h3>
+<pre class="programlisting">typedef struct _HdyDialerButton HdyDialerButton;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="HdyDialerButton.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="HdyDialerButton--digit"></a><h3>The <code class="literal">“digit”</code> property</h3>
+<pre class="programlisting">  “digit”                    <span class="type">int</span></pre>
+<p>The dialer digit of the button.</p>
+<p>Owner: HdyDialerButton</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyDialerButton--letters"></a><h3>The <code class="literal">“letters”</code> property</h3>
+<pre class="programlisting">  “letters”                  <span class="type">char</span> *</pre>
+<p>The dialer letters of the button.</p>
+<p>Owner: HdyDialerButton</p>
+<p>Flags: Read / Write</p>
+<p>Default value: ""</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.33.0</div>
+</body>
+</html>

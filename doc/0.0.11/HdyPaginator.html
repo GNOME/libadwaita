@@ -1,0 +1,1088 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>HdyPaginator: Handy Reference Manual</title>
+<meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Handy Reference Manual">
+<link rel="up" href="core-api.html" title="Widgets and Objects">
+<link rel="prev" href="HdyLeaflet.html" title="HdyLeaflet">
+<link rel="next" href="HdyPreferencesGroup.html" title="HdyPreferencesGroup">
+<meta name="generator" content="GTK-Doc V1.33.0 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#HdyPaginator.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#HdyPaginator.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#HdyPaginator.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#HdyPaginator.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="core-api.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="HdyLeaflet.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="HdyPreferencesGroup.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="HdyPaginator"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="HdyPaginator.top_of_page"></a>HdyPaginator</span></h2>
+<p>HdyPaginator — A paginated scrolling widget.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="HdyPaginator.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_proto_type">
+<col class="functions_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="returnvalue">HdyPaginator</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-new" title="hdy_paginator_new ()">hdy_paginator_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-prepend" title="hdy_paginator_prepend ()">hdy_paginator_prepend</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-insert" title="hdy_paginator_insert ()">hdy_paginator_insert</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-reorder" title="hdy_paginator_reorder ()">hdy_paginator_reorder</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-scroll-to" title="hdy_paginator_scroll_to ()">hdy_paginator_scroll_to</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-scroll-to-full" title="hdy_paginator_scroll_to_full ()">hdy_paginator_scroll_to_full</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-get-n-pages" title="hdy_paginator_get_n_pages ()">hdy_paginator_get_n_pages</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-get-position" title="hdy_paginator_get_position ()">hdy_paginator_get_position</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-get-interactive" title="hdy_paginator_get_interactive ()">hdy_paginator_get_interactive</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-set-interactive" title="hdy_paginator_set_interactive ()">hdy_paginator_set_interactive</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="HdyPaginator.html#HdyPaginatorIndicatorStyle" title="enum HdyPaginatorIndicatorStyle"><span class="returnvalue">HdyPaginatorIndicatorStyle</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-get-indicator-style" title="hdy_paginator_get_indicator_style ()">hdy_paginator_get_indicator_style</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-set-indicator-style" title="hdy_paginator_set_indicator_style ()">hdy_paginator_set_indicator_style</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-get-indicator-spacing" title="hdy_paginator_get_indicator_spacing ()">hdy_paginator_get_indicator_spacing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-set-indicator-spacing" title="hdy_paginator_set_indicator_spacing ()">hdy_paginator_set_indicator_spacing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-get-center-content" title="hdy_paginator_get_center_content ()">hdy_paginator_get_center_content</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-set-center-content" title="hdy_paginator_set_center_content ()">hdy_paginator_set_center_content</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-get-spacing" title="hdy_paginator_get_spacing ()">hdy_paginator_get_spacing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-set-spacing" title="hdy_paginator_set_spacing ()">hdy_paginator_set_spacing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-get-animation-duration" title="hdy_paginator_get_animation_duration ()">hdy_paginator_get_animation_duration</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyPaginator.html#hdy-paginator-set-animation-duration" title="hdy_paginator_set_animation_duration ()">hdy_paginator_set_animation_duration</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdyPaginator.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="HdyPaginator.html#HdyPaginator--animation-duration" title="The “animation-duration” property">animation-duration</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="HdyPaginator.html#HdyPaginator--center-content" title="The “center-content” property">center-content</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="HdyPaginator.html#HdyPaginator--indicator-spacing" title="The “indicator-spacing” property">indicator-spacing</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="HdyPaginator.html#HdyPaginatorIndicatorStyle" title="enum HdyPaginatorIndicatorStyle"><span class="type">HdyPaginatorIndicatorStyle</span></a></td>
+<td class="property_name"><a class="link" href="HdyPaginator.html#HdyPaginator--indicator-style" title="The “indicator-style” property">indicator-style</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="HdyPaginator.html#HdyPaginator--interactive" title="The “interactive” property">interactive</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="HdyPaginator.html#HdyPaginator--n-pages" title="The “n-pages” property">n-pages</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">double</span></td>
+<td class="property_name"><a class="link" href="HdyPaginator.html#HdyPaginator--position" title="The “position” property">position</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="HdyPaginator.html#HdyPaginator--spacing" title="The “spacing” property">spacing</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdyPaginator.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="other_proto_type">
+<col class="other_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="HdyPaginator.html#HDY-TYPE-PAGINATOR:CAPS" title="HDY_TYPE_PAGINATOR">HDY_TYPE_PAGINATOR</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="HdyPaginator.html#HdyPaginatorIndicatorStyle" title="enum HdyPaginatorIndicatorStyle">HdyPaginatorIndicatorStyle</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="HdyPaginator.html#HdyPaginator-struct" title="HdyPaginator">HdyPaginator</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdyPaginator.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GEnum
+    <span class="lineart">╰──</span> HdyPaginatorIndicatorStyle
+    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> GtkWidget
+            <span class="lineart">╰──</span> GtkContainer
+                <span class="lineart">╰──</span> GtkBin
+                    <span class="lineart">╰──</span> GtkEventBox
+                        <span class="lineart">╰──</span> HdyPaginator
+</pre>
+</div>
+<div class="refsect1">
+<a name="HdyPaginator.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+HdyPaginator implements
+ AtkImplementorIface,  GtkBuildable and  GtkOrientable.</p>
+</div>
+<div class="refsect1">
+<a name="HdyPaginator.description"></a><h2>Description</h2>
+<p>The <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> widget can be used to display a set of pages with
+swipe-based navigation between them and optional indicators.</p>
+</div>
+<div class="refsect1">
+<a name="HdyPaginator.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="hdy-paginator-new"></a><h3>hdy_paginator_new ()</h3>
+<pre class="programlisting"><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="returnvalue">HdyPaginator</span></a> *
+hdy_paginator_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Create a new <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> widget.</p>
+<div class="refsect3">
+<a name="hdy-paginator-new.returns"></a><h4>Returns</h4>
+<p> The newly created <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> widget</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-prepend"></a><h3>hdy_paginator_prepend ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_paginator_prepend (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>,
+                       <em class="parameter"><code><span class="type">GtkWidget</span> *child</code></em>);</pre>
+<p>Prepends <em class="parameter"><code>child</code></em>
+ to <em class="parameter"><code>self</code></em>
+</p>
+<div class="refsect3">
+<a name="hdy-paginator-prepend.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a widget to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-insert"></a><h3>hdy_paginator_insert ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_paginator_insert (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>,
+                      <em class="parameter"><code><span class="type">GtkWidget</span> *child</code></em>,
+                      <em class="parameter"><code><span class="type">gint</span> position</code></em>);</pre>
+<p>Inserts <em class="parameter"><code>child</code></em>
+ into <em class="parameter"><code>self</code></em>
+ at position <em class="parameter"><code>position</code></em>
+.</p>
+<p>If position is -1, or larger than the number of pages,
+<em class="parameter"><code>child</code></em>
+ will be appended to the end.</p>
+<div class="refsect3">
+<a name="hdy-paginator-insert.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a widget to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>position</p></td>
+<td class="parameter_description"><p>the position to insert <em class="parameter"><code>child</code></em>
+in.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-reorder"></a><h3>hdy_paginator_reorder ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_paginator_reorder (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>,
+                       <em class="parameter"><code><span class="type">GtkWidget</span> *child</code></em>,
+                       <em class="parameter"><code><span class="type">gint</span> position</code></em>);</pre>
+<p>Moves <em class="parameter"><code>child</code></em>
+ into position <em class="parameter"><code>position</code></em>
+.</p>
+<p>If position is -1, or larger than the number of pages, <em class="parameter"><code>child</code></em>
+ will be moved
+to the end.</p>
+<div class="refsect3">
+<a name="hdy-paginator-reorder.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a widget to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>position</p></td>
+<td class="parameter_description"><p>the position to move <em class="parameter"><code>child</code></em>
+to.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-scroll-to"></a><h3>hdy_paginator_scroll_to ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_paginator_scroll_to (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>,
+                         <em class="parameter"><code><span class="type">GtkWidget</span> *widget</code></em>);</pre>
+<p>Scrolls to <em class="parameter"><code>widget</code></em>
+ position with an animation.
+<a class="link" href="HdyPaginator.html#HdyPaginator--animation-duration" title="The “animation-duration” property"><span class="type">“animation-duration”</span></a> property can be used for controlling the
+duration.</p>
+<div class="refsect3">
+<a name="hdy-paginator-scroll-to.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a child of <em class="parameter"><code>self</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-scroll-to-full"></a><h3>hdy_paginator_scroll_to_full ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_paginator_scroll_to_full (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>,
+                              <em class="parameter"><code><span class="type">GtkWidget</span> *widget</code></em>,
+                              <em class="parameter"><code><span class="type">gint64</span> duration</code></em>);</pre>
+<p>Scrolls to <em class="parameter"><code>widget</code></em>
+ position with an animation.</p>
+<div class="refsect3">
+<a name="hdy-paginator-scroll-to-full.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a child of <em class="parameter"><code>self</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>duration</p></td>
+<td class="parameter_description"><p>animation duration in milliseconds</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-get-n-pages"></a><h3>hdy_paginator_get_n_pages ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+hdy_paginator_get_n_pages (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>);</pre>
+<p>Gets the number of pages in <em class="parameter"><code>self</code></em>
+.</p>
+<div class="refsect3">
+<a name="hdy-paginator-get-n-pages.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-paginator-get-n-pages.returns"></a><h4>Returns</h4>
+<p> The number of pages in <em class="parameter"><code>self</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-get-position"></a><h3>hdy_paginator_get_position ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+hdy_paginator_get_position (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>);</pre>
+<p>Gets current scroll position in <em class="parameter"><code>self</code></em>
+. It's unitless, 1 matches 1 page.</p>
+<div class="refsect3">
+<a name="hdy-paginator-get-position.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-paginator-get-position.returns"></a><h4>Returns</h4>
+<p> The scroll position</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-get-interactive"></a><h3>hdy_paginator_get_interactive ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+hdy_paginator_get_interactive (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>);</pre>
+<p>Gets whether <em class="parameter"><code>self</code></em>
+ can be navigated.</p>
+<div class="refsect3">
+<a name="hdy-paginator-get-interactive.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-paginator-get-interactive.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em>
+can be swiped</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-set-interactive"></a><h3>hdy_paginator_set_interactive ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_paginator_set_interactive (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>,
+                               <em class="parameter"><code><span class="type">gboolean</span> interactive</code></em>);</pre>
+<p>Sets whether <em class="parameter"><code>self</code></em>
+ can be navigated. This can be used to temporarily disable
+a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> to only allow swiping in a certain state.</p>
+<div class="refsect3">
+<a name="hdy-paginator-set-interactive.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>interactive</p></td>
+<td class="parameter_description"><p>whether <em class="parameter"><code>self</code></em>
+can be swiped.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-get-indicator-style"></a><h3>hdy_paginator_get_indicator_style ()</h3>
+<pre class="programlisting"><a class="link" href="HdyPaginator.html#HdyPaginatorIndicatorStyle" title="enum HdyPaginatorIndicatorStyle"><span class="returnvalue">HdyPaginatorIndicatorStyle</span></a>
+hdy_paginator_get_indicator_style (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>);</pre>
+<p>Gets the current page indicator style.</p>
+<div class="refsect3">
+<a name="hdy-paginator-get-indicator-style.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-paginator-get-indicator-style.returns"></a><h4>Returns</h4>
+<p> the current indicator style</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-set-indicator-style"></a><h3>hdy_paginator_set_indicator_style ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_paginator_set_indicator_style (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>,
+                                   <em class="parameter"><code><a class="link" href="HdyPaginator.html#HdyPaginatorIndicatorStyle" title="enum HdyPaginatorIndicatorStyle"><span class="type">HdyPaginatorIndicatorStyle</span></a> style</code></em>);</pre>
+<p>Sets style of page indicators. Depending on orientation, they are displayed
+below or besides the pages. If the pages are meant to be centered,
+<a class="link" href="HdyPaginator.html#HdyPaginator--center-content" title="The “center-content” property"><span class="type">“center-content”</span></a> can be used to compensate for that.</p>
+<div class="refsect3">
+<a name="hdy-paginator-set-indicator-style.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>style</p></td>
+<td class="parameter_description"><p>indicator style to use</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-get-indicator-spacing"></a><h3>hdy_paginator_get_indicator_spacing ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+hdy_paginator_get_indicator_spacing (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>);</pre>
+<p>Gets spacing between content and page indicators.</p>
+<div class="refsect3">
+<a name="hdy-paginator-get-indicator-spacing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-paginator-get-indicator-spacing.returns"></a><h4>Returns</h4>
+<p> Spacing between content and indicators</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-set-indicator-spacing"></a><h3>hdy_paginator_set_indicator_spacing ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_paginator_set_indicator_spacing (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>,
+                                     <em class="parameter"><code><span class="type">guint</span> spacing</code></em>);</pre>
+<p>Sets spacing between content and page indicators. Does nothing if
+<a class="link" href="HdyPaginator.html#HdyPaginator--indicator-style" title="The “indicator-style” property"><span class="type">“indicator-style”</span></a> is <em class="parameter"><code>HDY_PAGINATOR_INDICATOR_STYLE_NONE</code></em>
+.</p>
+<div class="refsect3">
+<a name="hdy-paginator-set-indicator-spacing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>spacing</p></td>
+<td class="parameter_description"><p>the new spacing value</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-get-center-content"></a><h3>hdy_paginator_get_center_content ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+hdy_paginator_get_center_content (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>);</pre>
+<p>Sets whether <em class="parameter"><code>self</code></em>
+ is centering pages.</p>
+<div class="refsect3">
+<a name="hdy-paginator-get-center-content.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-paginator-get-center-content.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em>
+is centering pages</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-set-center-content"></a><h3>hdy_paginator_set_center_content ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_paginator_set_center_content (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>,
+                                  <em class="parameter"><code><span class="type">gboolean</span> center_content</code></em>);</pre>
+<p>Sets whether <em class="parameter"><code>self</code></em>
+ is centering content. If <a class="link" href="HdyPaginator.html#HdyPaginator--indicator-style" title="The “indicator-style” property"><span class="type">“indicator-style”</span></a> is
+<em class="parameter"><code>HDY_PAGINATOR_INDICATOR_STYLE_NONE</code></em>
+, centering does nothing, otherwise it
+adds whitespace to the left or above the pages to compensate for the
+indicators.</p>
+<div class="refsect3">
+<a name="hdy-paginator-set-center-content.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>center_content</p></td>
+<td class="parameter_description"><p>whether <em class="parameter"><code>self</code></em>
+should center contents</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-get-spacing"></a><h3>hdy_paginator_get_spacing ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+hdy_paginator_get_spacing (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>);</pre>
+<p>Gets spacing between pages in pixels.</p>
+<div class="refsect3">
+<a name="hdy-paginator-get-spacing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-paginator-get-spacing.returns"></a><h4>Returns</h4>
+<p> Spacing between pages</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-set-spacing"></a><h3>hdy_paginator_set_spacing ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_paginator_set_spacing (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>,
+                           <em class="parameter"><code><span class="type">guint</span> spacing</code></em>);</pre>
+<p>Sets spacing between pages in pixels.</p>
+<div class="refsect3">
+<a name="hdy-paginator-set-spacing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>spacing</p></td>
+<td class="parameter_description"><p>the new spacing value</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-get-animation-duration"></a><h3>hdy_paginator_get_animation_duration ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+hdy_paginator_get_animation_duration (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>);</pre>
+<p>Gets animation duration used by <a class="link" href="HdyPaginator.html#hdy-paginator-scroll-to" title="hdy_paginator_scroll_to ()"><code class="function">hdy_paginator_scroll_to()</code></a>.</p>
+<div class="refsect3">
+<a name="hdy-paginator-get-animation-duration.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-paginator-get-animation-duration.returns"></a><h4>Returns</h4>
+<p> Animation duration in milliseconds</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-paginator-set-animation-duration"></a><h3>hdy_paginator_set_animation_duration ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_paginator_set_animation_duration (<em class="parameter"><code><a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> *self</code></em>,
+                                      <em class="parameter"><code><span class="type">guint</span> duration</code></em>);</pre>
+<p>Sets animation duration used by <a class="link" href="HdyPaginator.html#hdy-paginator-scroll-to" title="hdy_paginator_scroll_to ()"><code class="function">hdy_paginator_scroll_to()</code></a>.</p>
+<div class="refsect3">
+<a name="hdy-paginator-set-animation-duration.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>duration</p></td>
+<td class="parameter_description"><p>animation duration in milliseconds</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="HdyPaginator.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="HDY-TYPE-PAGINATOR:CAPS"></a><h3>HDY_TYPE_PAGINATOR</h3>
+<pre class="programlisting">#define HDY_TYPE_PAGINATOR (hdy_paginator_get_type())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyPaginatorIndicatorStyle"></a><h3>enum HdyPaginatorIndicatorStyle</h3>
+<p>These enumeration values describe the possible page indicator styles in a
+<a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> widget.</p>
+<p>New values may be added to this enumeration over time.</p>
+<div class="refsect3">
+<a name="HdyPaginatorIndicatorStyle.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="HDY-PAGINATOR-INDICATOR-STYLE-NONE:CAPS"></a>HDY_PAGINATOR_INDICATOR_STYLE_NONE</p></td>
+<td class="enum_member_description">
+<p>No indicators</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="HDY-PAGINATOR-INDICATOR-STYLE-DOTS:CAPS"></a>HDY_PAGINATOR_INDICATOR_STYLE_DOTS</p></td>
+<td class="enum_member_description">
+<p>Each page is represented by a dot. Active dot gradually becomes larger and more opaque.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="HDY-PAGINATOR-INDICATOR-STYLE-LINES:CAPS"></a>HDY_PAGINATOR_INDICATOR_STYLE_LINES</p></td>
+<td class="enum_member_description">
+<p>Each page is represented by a thin and long line, and active view is shown with another line that moves between them</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyPaginator-struct"></a><h3>HdyPaginator</h3>
+<pre class="programlisting">typedef struct _HdyPaginator HdyPaginator;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="HdyPaginator.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="HdyPaginator--animation-duration"></a><h3>The <code class="literal">“animation-duration”</code> property</h3>
+<pre class="programlisting">  “animation-duration”       <span class="type">guint</span></pre>
+<p>Animation duration in milliseconds, used by <a class="link" href="HdyPaginator.html#hdy-paginator-scroll-to" title="hdy_paginator_scroll_to ()"><code class="function">hdy_paginator_scroll_to()</code></a>.</p>
+<p>Owner: HdyPaginator</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 250</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyPaginator--center-content"></a><h3>The <code class="literal">“center-content”</code> property</h3>
+<pre class="programlisting">  “center-content”           <span class="type">gboolean</span></pre>
+<p>Whether the <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> is centering pages. If
+<a class="link" href="HdyPaginator.html#HdyPaginator--indicator-style" title="The “indicator-style” property"><span class="type">“indicator-style”</span></a> is <em class="parameter"><code>HDY_PAGINATOR_INDICATOR_STYLE_NONE</code></em>
+,
+centering does nothing, otherwise it adds whitespace to the left or above
+the pages to compensate for the indicators.</p>
+<p>Owner: HdyPaginator</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyPaginator--indicator-spacing"></a><h3>The <code class="literal">“indicator-spacing”</code> property</h3>
+<pre class="programlisting">  “indicator-spacing”        <span class="type">guint</span></pre>
+<p>Spacing between content and page indicators. Does nothing if
+<a class="link" href="HdyPaginator.html#HdyPaginator--indicator-style" title="The “indicator-style” property"><span class="type">“indicator-style”</span></a> is <em class="parameter"><code>HDY_PAGINATOR_INDICATOR_STYLE_NONE</code></em>
+.</p>
+<p>Owner: HdyPaginator</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 0</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyPaginator--indicator-style"></a><h3>The <code class="literal">“indicator-style”</code> property</h3>
+<pre class="programlisting">  “indicator-style”          <a class="link" href="HdyPaginator.html#HdyPaginatorIndicatorStyle" title="enum HdyPaginatorIndicatorStyle"><span class="type">HdyPaginatorIndicatorStyle</span></a></pre>
+<p>The style of page indicators. Depending on orientation, they are displayed
+below or besides the pages. If the pages are meant to be centered,
+<a class="link" href="HdyPaginator.html#HdyPaginator--center-content" title="The “center-content” property"><span class="type">“center-content”</span></a> can be used to compensate for that.</p>
+<p>Owner: HdyPaginator</p>
+<p>Flags: Read / Write</p>
+<p>Default value: HDY_PAGINATOR_INDICATOR_STYLE_NONE</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyPaginator--interactive"></a><h3>The <code class="literal">“interactive”</code> property</h3>
+<pre class="programlisting">  “interactive”              <span class="type">gboolean</span></pre>
+<p>Whether <em class="parameter"><code>self</code></em>
+ can be navigated. This can be used to temporarily disable
+a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a> to only allow navigating it in a certain state.</p>
+<p>Owner: HdyPaginator</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyPaginator--n-pages"></a><h3>The <code class="literal">“n-pages”</code> property</h3>
+<pre class="programlisting">  “n-pages”                  <span class="type">guint</span></pre>
+<p>The number of pages in a <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a></p>
+<p>Owner: HdyPaginator</p>
+<p>Flags: Read</p>
+<p>Default value: 0</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyPaginator--position"></a><h3>The <code class="literal">“position”</code> property</h3>
+<pre class="programlisting">  “position”                 <span class="type">double</span></pre>
+<p>Current scrolling position, unitless. 1 matches 1 page. Use
+<a class="link" href="HdyPaginator.html#hdy-paginator-scroll-to" title="hdy_paginator_scroll_to ()"><code class="function">hdy_paginator_scroll_to()</code></a> for changing it.</p>
+<p>Owner: HdyPaginator</p>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyPaginator--spacing"></a><h3>The <code class="literal">“spacing”</code> property</h3>
+<pre class="programlisting">  “spacing”                  <span class="type">guint</span></pre>
+<p>Spacing between pages in pixels.</p>
+<p>Owner: HdyPaginator</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 0</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.33.0</div>
+</body>
+</html>

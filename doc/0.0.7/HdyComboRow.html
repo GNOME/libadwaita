@@ -1,0 +1,676 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>HdyComboRow: Handy Reference Manual</title>
+<meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Handy Reference Manual">
+<link rel="up" href="core-api.html" title="Widgets and Objects">
+<link rel="prev" href="HdyColumn.html" title="HdyColumn">
+<link rel="next" href="HdyDialer.html" title="HdyDialer">
+<meta name="generator" content="GTK-Doc V1.33.0 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#HdyComboRow.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#HdyComboRow.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#HdyComboRow.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#HdyComboRow.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="core-api.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="HdyColumn.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="HdyDialer.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="HdyComboRow"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="HdyComboRow.top_of_page"></a>HdyComboRow</span></h2>
+<p>HdyComboRow — A <span class="type">GtkListBox</span> row used to choose from a list of items</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="HdyComboRow.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_proto_type">
+<col class="functions_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="HdyComboRow.html#HdyComboRowGetNameFunc" title="HdyComboRowGetNameFunc ()">*HdyComboRowGetNameFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="HdyComboRow.html#HdyComboRowGetEnumValueNameFunc" title="HdyComboRowGetEnumValueNameFunc ()">*HdyComboRowGetEnumValueNameFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="returnvalue">HdyComboRow</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="HdyComboRow.html#hdy-combo-row-new" title="hdy_combo_row_new ()">hdy_combo_row_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GListModel</span> *
+</td>
+<td class="function_name">
+<a class="link" href="HdyComboRow.html#hdy-combo-row-get-model" title="hdy_combo_row_get_model ()">hdy_combo_row_get_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyComboRow.html#hdy-combo-row-bind-model" title="hdy_combo_row_bind_model ()">hdy_combo_row_bind_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyComboRow.html#hdy-combo-row-bind-name-model" title="hdy_combo_row_bind_name_model ()">hdy_combo_row_bind_name_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyComboRow.html#hdy-combo-row-set-for-enum" title="hdy_combo_row_set_for_enum ()">hdy_combo_row_set_for_enum</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyComboRow.html#hdy-combo-row-get-selected-index" title="hdy_combo_row_get_selected_index ()">hdy_combo_row_get_selected_index</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdyComboRow.html#hdy-combo-row-set-selected-index" title="hdy_combo_row_set_selected_index ()">hdy_combo_row_set_selected_index</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="HdyComboRow.html#hdy-enum-value-row-name" title="hdy_enum_value_row_name ()">hdy_enum_value_row_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdyComboRow.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type"><span class="type">int</span></td>
+<td class="property_name"><a class="link" href="HdyComboRow.html#HdyComboRow--selected-index" title="The “selected-index” property">selected-index</a></td>
+<td class="property_flags">Read / Write</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdyComboRow.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="other_proto_type">
+<col class="other_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="HdyComboRow.html#HDY-TYPE-COMBO-ROW:CAPS" title="HDY_TYPE_COMBO_ROW">HDY_TYPE_COMBO_ROW</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="HdyComboRow.html#HdyComboRowClass" title="struct HdyComboRowClass">HdyComboRowClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="HdyComboRow.html#HdyComboRow-struct" title="HdyComboRow">HdyComboRow</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdyComboRow.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> GtkWidget
+            <span class="lineart">╰──</span> GtkContainer
+                <span class="lineart">╰──</span> GtkBin
+                    <span class="lineart">╰──</span> GtkListBoxRow
+                        <span class="lineart">╰──</span> <a class="link" href="HdyActionRow.html" title="HdyActionRow">HdyActionRow</a>
+                            <span class="lineart">╰──</span> HdyComboRow
+</pre>
+</div>
+<div class="refsect1">
+<a name="HdyComboRow.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+HdyComboRow implements
+ AtkImplementorIface,  GtkBuildable and  GtkActionable.</p>
+</div>
+<div class="refsect1">
+<a name="HdyComboRow.description"></a><h2>Description</h2>
+<p>The <a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a> widget allows the user to choose from a list of valid
+choices. The row displays the selected choice. When activated, the row
+displays a popover which allows the user to make a new choice.</p>
+<p>The <a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a> uses the model-view pattern; the list of valid choices
+is specified in the form of a <span class="type">GListModel</span>, and the display of the choices can
+be adapted to the data in the model via widget creation functions.</p>
+</div>
+<div class="refsect1">
+<a name="HdyComboRow.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="HdyComboRowGetNameFunc"></a><h3>HdyComboRowGetNameFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+<span class="c_punctuation">(</span>*HdyComboRowGetNameFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><span class="type">gpointer</span> item</code></em>,
+                           <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<p>Called for combo rows that are bound to a <span class="type">GListModel</span> with
+<a class="link" href="HdyComboRow.html#hdy-combo-row-bind-name-model" title="hdy_combo_row_bind_name_model ()"><code class="function">hdy_combo_row_bind_name_model()</code></a> for each item that gets added to the model.</p>
+<div class="refsect3">
+<a name="HdyComboRowGetNameFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>item</p></td>
+<td class="parameter_description"><p>the item from the model from which to get a name. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> GObject]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="HdyComboRowGetNameFunc.returns"></a><h4>Returns</h4>
+<p>a newly allocated displayable name that represents <em class="parameter"><code>item</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyComboRowGetEnumValueNameFunc"></a><h3>HdyComboRowGetEnumValueNameFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+<span class="c_punctuation">(</span>*HdyComboRowGetEnumValueNameFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="HdyEnumValueObject.html" title="HdyEnumValueObject"><span class="type">HdyEnumValueObject</span></a> *value</code></em>,
+                                    <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<p>Called for combo rows that are bound to an enumeration with
+<a class="link" href="HdyComboRow.html#hdy-combo-row-set-for-enum" title="hdy_combo_row_set_for_enum ()"><code class="function">hdy_combo_row_set_for_enum()</code></a> for each value from that enumeration.</p>
+<div class="refsect3">
+<a name="HdyComboRowGetEnumValueNameFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the value from the enum from which to get a name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="HdyComboRowGetEnumValueNameFunc.returns"></a><h4>Returns</h4>
+<p>a newly allocated displayable name that represents <em class="parameter"><code>value</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-combo-row-new"></a><h3>hdy_combo_row_new ()</h3>
+<pre class="programlisting"><a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="returnvalue">HdyComboRow</span></a> *
+hdy_combo_row_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a>.</p>
+<div class="refsect3">
+<a name="hdy-combo-row-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-6.html#api-index-0.0.6">0.0.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-combo-row-get-model"></a><h3>hdy_combo_row_get_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">GListModel</span> *
+hdy_combo_row_get_model (<em class="parameter"><code><a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a> *self</code></em>);</pre>
+<p>Gets the model bound to <em class="parameter"><code>self</code></em>
+, or <code class="literal">NULL</code> if none is bound.</p>
+<div class="refsect3">
+<a name="hdy-combo-row-get-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-combo-row-get-model.returns"></a><h4>Returns</h4>
+<p>the <span class="type">GListModel</span> bound to <em class="parameter"><code>self</code></em>
+or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-6.html#api-index-0.0.6">0.0.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-combo-row-bind-model"></a><h3>hdy_combo_row_bind_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_combo_row_bind_model (<em class="parameter"><code><a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a> *self</code></em>,
+                          <em class="parameter"><code><span class="type">GListModel</span> *model</code></em>,
+                          <em class="parameter"><code><span class="type">GtkListBoxCreateWidgetFunc</span> create_list_widget_func</code></em>,
+                          <em class="parameter"><code><span class="type">GtkListBoxCreateWidgetFunc</span> create_current_widget_func</code></em>,
+                          <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>,
+                          <em class="parameter"><code><span class="type">GDestroyNotify</span> user_data_free_func</code></em>);</pre>
+<p>Binds <em class="parameter"><code>model</code></em>
+ to <em class="parameter"><code>self</code></em>
+.</p>
+<p>If <em class="parameter"><code>self</code></em>
+ was already bound to a model, that previous binding is destroyed.</p>
+<p>The contents of <em class="parameter"><code>self</code></em>
+ are cleared and then filled with widgets that represent
+items from <em class="parameter"><code>model</code></em>
+. <em class="parameter"><code>self</code></em>
+ is updated whenever <em class="parameter"><code>model</code></em>
+ changes. If <em class="parameter"><code>model</code></em>
+ is
+<code class="literal">NULL</code>, <em class="parameter"><code>self</code></em>
+ is left empty.</p>
+<div class="refsect3">
+<a name="hdy-combo-row-bind-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <span class="type">GListModel</span> to be bound to <em class="parameter"><code>self</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>create_list_widget_func</p></td>
+<td class="parameter_description"><p>a function that creates
+widgets for items to display in the list, or <code class="literal">NULL</code> in case you also passed
+<code class="literal">NULL</code> as <em class="parameter"><code>model</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>create_current_widget_func</p></td>
+<td class="parameter_description"><p>a function that creates
+widgets for items to display as the seleted item, or <code class="literal">NULL</code> in case you also
+passed <code class="literal">NULL</code> as <em class="parameter"><code>model</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data passed to <em class="parameter"><code>create_list_widget_func</code></em>
+and
+<em class="parameter"><code>create_current_widget_func</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data_free_func</p></td>
+<td class="parameter_description"><p>function for freeing <em class="parameter"><code>user_data</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-6.html#api-index-0.0.6">0.0.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-combo-row-bind-name-model"></a><h3>hdy_combo_row_bind_name_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_combo_row_bind_name_model (<em class="parameter"><code><a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a> *self</code></em>,
+                               <em class="parameter"><code><span class="type">GListModel</span> *model</code></em>,
+                               <em class="parameter"><code><a class="link" href="HdyComboRow.html#HdyComboRowGetNameFunc" title="HdyComboRowGetNameFunc ()"><span class="type">HdyComboRowGetNameFunc</span></a> get_name_func</code></em>,
+                               <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>,
+                               <em class="parameter"><code><span class="type">GDestroyNotify</span> user_data_free_func</code></em>);</pre>
+<p>Binds <em class="parameter"><code>model</code></em>
+ to <em class="parameter"><code>self</code></em>
+.</p>
+<p>If <em class="parameter"><code>self</code></em>
+ was already bound to a model, that previous binding is destroyed.</p>
+<p>The contents of <em class="parameter"><code>self</code></em>
+ are cleared and then filled with widgets that represent
+items from <em class="parameter"><code>model</code></em>
+. <em class="parameter"><code>self</code></em>
+ is updated whenever <em class="parameter"><code>model</code></em>
+ changes. If <em class="parameter"><code>model</code></em>
+ is
+<code class="literal">NULL</code>, <em class="parameter"><code>self</code></em>
+ is left empty.</p>
+<p>This is more conventient to use than <a class="link" href="HdyComboRow.html#hdy-combo-row-bind-model" title="hdy_combo_row_bind_model ()"><code class="function">hdy_combo_row_bind_model()</code></a> if you want
+to represent items of the model with names.</p>
+<div class="refsect3">
+<a name="hdy-combo-row-bind-name-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <span class="type">GListModel</span> to be bound to <em class="parameter"><code>self</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>get_name_func</p></td>
+<td class="parameter_description"><p>a function that creates names for items, or <code class="literal">NULL</code>
+in case you also passed <code class="literal">NULL</code> as <em class="parameter"><code>model</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data passed to <em class="parameter"><code>get_name_func</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data_free_func</p></td>
+<td class="parameter_description"><p>function for freeing <em class="parameter"><code>user_data</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-6.html#api-index-0.0.6">0.0.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-combo-row-set-for-enum"></a><h3>hdy_combo_row_set_for_enum ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_combo_row_set_for_enum (<em class="parameter"><code><a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a> *self</code></em>,
+                            <em class="parameter"><code><span class="type">GType</span> enum_type</code></em>,
+                            <em class="parameter"><code><a class="link" href="HdyComboRow.html#HdyComboRowGetEnumValueNameFunc" title="HdyComboRowGetEnumValueNameFunc ()"><span class="type">HdyComboRowGetEnumValueNameFunc</span></a> get_name_func</code></em>,
+                            <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>,
+                            <em class="parameter"><code><span class="type">GDestroyNotify</span> user_data_free_func</code></em>);</pre>
+<p>Creates a model for <em class="parameter"><code>enum_type</code></em>
+ and binds it to <em class="parameter"><code>self</code></em>
+. The items of the model
+will be <a class="link" href="HdyEnumValueObject.html" title="HdyEnumValueObject"><span class="type">HdyEnumValueObject</span></a> objects.</p>
+<p>If <em class="parameter"><code>self</code></em>
+ was already bound to a model, that previous binding is destroyed.</p>
+<p>The contents of <em class="parameter"><code>self</code></em>
+ are cleared and then filled with widgets that represent
+items from <em class="parameter"><code>model</code></em>
+. <em class="parameter"><code>self</code></em>
+ is updated whenever <em class="parameter"><code>model</code></em>
+ changes. If <em class="parameter"><code>model</code></em>
+ is
+<code class="literal">NULL</code>, <em class="parameter"><code>self</code></em>
+ is left empty.</p>
+<p>This is more conventient to use than <a class="link" href="HdyComboRow.html#hdy-combo-row-bind-name-model" title="hdy_combo_row_bind_name_model ()"><code class="function">hdy_combo_row_bind_name_model()</code></a> if you
+want to represent values of an enumeration with names.</p>
+<p>See <a class="link" href="HdyComboRow.html#hdy-enum-value-row-name" title="hdy_enum_value_row_name ()"><code class="function">hdy_enum_value_row_name()</code></a>.</p>
+<div class="refsect3">
+<a name="hdy-combo-row-set-for-enum.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>enum_type</p></td>
+<td class="parameter_description"><p>the enumeration <span class="type">GType</span> to be bound to <em class="parameter"><code>self</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>get_name_func</p></td>
+<td class="parameter_description"><p>a function that creates names for items, or <code class="literal">NULL</code>
+in case you also passed <code class="literal">NULL</code> as <em class="parameter"><code>model</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data passed to <em class="parameter"><code>get_name_func</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data_free_func</p></td>
+<td class="parameter_description"><p>function for freeing <em class="parameter"><code>user_data</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-6.html#api-index-0.0.6">0.0.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-combo-row-get-selected-index"></a><h3>hdy_combo_row_get_selected_index ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+hdy_combo_row_get_selected_index (<em class="parameter"><code><a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a> *self</code></em>);</pre>
+<p>Gets the index of the selected item in its <span class="type">GListModel</span>.</p>
+<div class="refsect3">
+<a name="hdy-combo-row-get-selected-index.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <span class="type">GtkListBoxRow</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-combo-row-get-selected-index.returns"></a><h4>Returns</h4>
+<p> the index of the selected item, or -1 if no item is selected</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-7.html#api-index-0.0.7">0.0.7</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-combo-row-set-selected-index"></a><h3>hdy_combo_row_set_selected_index ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_combo_row_set_selected_index (<em class="parameter"><code><a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a> *self</code></em>,
+                                  <em class="parameter"><code><span class="type">gint</span> selected_index</code></em>);</pre>
+<p>Sets the index of the selected item in its <span class="type">GListModel</span>.</p>
+<div class="refsect3">
+<a name="hdy-combo-row-set-selected-index.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdyComboRow.html" title="HdyComboRow"><span class="type">HdyComboRow</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selected_index</p></td>
+<td class="parameter_description"><p>the index of the selected item</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-7.html#api-index-0.0.7">0.0.7</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-enum-value-row-name"></a><h3>hdy_enum_value_row_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+hdy_enum_value_row_name (<em class="parameter"><code><a class="link" href="HdyEnumValueObject.html" title="HdyEnumValueObject"><span class="type">HdyEnumValueObject</span></a> *value</code></em>,
+                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<p>This is a default implementation of <a class="link" href="HdyComboRow.html#HdyComboRowGetEnumValueNameFunc" title="HdyComboRowGetEnumValueNameFunc ()"><span class="type">HdyComboRowGetEnumValueNameFunc</span></a> to be
+used with <a class="link" href="HdyComboRow.html#hdy-combo-row-set-for-enum" title="hdy_combo_row_set_for_enum ()"><code class="function">hdy_combo_row_set_for_enum()</code></a>. If the enumeration has a nickname, it
+will return it, otherwise it will return its name.</p>
+<div class="refsect3">
+<a name="hdy-enum-value-row-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the value from the enum from which to get a name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>unused user data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-enum-value-row-name.returns"></a><h4>Returns</h4>
+<p>a newly allocated displayable name that represents <em class="parameter"><code>value</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-6.html#api-index-0.0.6">0.0.6</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="HdyComboRow.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="HDY-TYPE-COMBO-ROW:CAPS"></a><h3>HDY_TYPE_COMBO_ROW</h3>
+<pre class="programlisting">#define HDY_TYPE_COMBO_ROW (hdy_combo_row_get_type())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyComboRowClass"></a><h3>struct HdyComboRowClass</h3>
+<pre class="programlisting">struct HdyComboRowClass {
+  HdyActionRowClass parent_class;
+};
+</pre>
+<div class="refsect3">
+<a name="HdyComboRowClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdyComboRow-struct"></a><h3>HdyComboRow</h3>
+<pre class="programlisting">typedef struct _HdyComboRow HdyComboRow;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="HdyComboRow.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="HdyComboRow--selected-index"></a><h3>The <code class="literal">“selected-index”</code> property</h3>
+<pre class="programlisting">  “selected-index”           <span class="type">int</span></pre>
+<p>The index of the selected item in its <span class="type">GListModel</span>.</p>
+<p>Owner: HdyComboRow</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: -1</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-7.html#api-index-0.0.7">0.0.7</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.33.0</div>
+</body>
+</html>

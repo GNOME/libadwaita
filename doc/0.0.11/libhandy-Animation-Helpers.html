@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Animation Helpers: Handy Reference Manual</title>
+<meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Handy Reference Manual">
+<link rel="up" href="core-api.html" title="Widgets and Objects">
+<link rel="prev" href="HdyActionRow.html" title="HdyActionRow">
+<link rel="next" href="HdyArrows.html" title="HdyArrows">
+<meta name="generator" content="GTK-Doc V1.33.0 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libhandy-Animation-Helpers.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="core-api.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="HdyActionRow.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="HdyArrows.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libhandy-Animation-Helpers"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libhandy-Animation-Helpers.top_of_page"></a>Animation Helpers</span></h2>
+<p>Animation Helpers — Animation helpers</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libhandy-Animation-Helpers.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_proto_type">
+<col class="functions_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="libhandy-Animation-Helpers.html#hdy-get-enable-animations" title="hdy_get_enable_animations ()">hdy_get_enable_animations</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="libhandy-Animation-Helpers.html#hdy-ease-out-cubic" title="hdy_ease_out_cubic ()">hdy_ease_out_cubic</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libhandy-Animation-Helpers.description"></a><h2>Description</h2>
+<p>Animation helpers.</p>
+</div>
+<div class="refsect1">
+<a name="libhandy-Animation-Helpers.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="hdy-get-enable-animations"></a><h3>hdy_get_enable_animations ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+hdy_get_enable_animations (<em class="parameter"><code><span class="type">GtkWidget</span> *widget</code></em>);</pre>
+<p>Returns whether animations are enabled for that widget. This should be used
+when implementing an animated widget to know whether to animate it or not.</p>
+<div class="refsect3">
+<a name="hdy-get-enable-animations.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a <span class="type">GtkWidget</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-get-enable-animations.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if animations are enabled for <em class="parameter"><code>widget</code></em>
+.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-ease-out-cubic"></a><h3>hdy_ease_out_cubic ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+hdy_ease_out_cubic (<em class="parameter"><code><span class="type">gdouble</span> t</code></em>);</pre>
+<p>Computes the ease out for <em class="parameter"><code>t</code></em>
+.</p>
+<div class="refsect3">
+<a name="hdy-ease-out-cubic.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>t</p></td>
+<td class="parameter_description"><p>the term</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-ease-out-cubic.returns"></a><h4>Returns</h4>
+<p> the ease out for <em class="parameter"><code>t</code></em>
+.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-11.html#api-index-0.0.11">0.0.11</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.33.0</div>
+</body>
+</html>

@@ -1,0 +1,909 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Annotations glossary: Handy Reference Manual</title>
+<meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Handy Reference Manual">
+<link rel="up" href="index.html" title="Handy Reference Manual">
+<link rel="prev" href="api-index-0-0-12.html" title="Index of new symbols in 0.0.12">
+<meta name="generator" content="GTK-Doc V1.33.0 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><img src="up-insensitive.png" width="16" height="16" border="0"></td>
+<td><a accesskey="p" href="api-index-0-0-12.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><img src="right-insensitive.png" width="16" height="16" border="0"></td>
+</tr></table>
+<div class="index">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="annotations-glossary"></a>Annotations glossary</h1></div></div></div>
+<div class="glossary">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="annotation-glossary"></a>Annotation Glossary</h2></div></div></div>
+<a name="glsA"></a><h3 class="title">A</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-allow-none"></a>allow-none</span></dt>
+<dd class="glossdef"><p>NULL is OK, both for passing and for returning.</p></dd>
+<dt><span class="glossterm"><a name="annotation-glossterm-array"></a>array</span></dt>
+<dd class="glossdef"><p>Parameter points to an array of items.</p></dd>
+<a name="glsC"></a><h3 class="title">C</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-closure"></a>closure</span></dt>
+<dd class="glossdef"><p>This parameter is a 'user_data', for callbacks; many bindings can pass NULL here.</p></dd>
+<a name="glsE"></a><h3 class="title">E</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-element-type"></a>element-type</span></dt>
+<dd class="glossdef"><p>Generics and defining elements of containers and arrays.</p></dd>
+<a name="glsI"></a><h3 class="title">I</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-inout"></a>inout</span></dt>
+<dd class="glossdef"><p>Parameter for input and for returning results. Default is <acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>.</p></dd>
+<a name="glsN"></a><h3 class="title">N</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-nullable"></a>nullable</span></dt>
+<dd class="glossdef"><p>NULL may be passed as the value in, out, in-out; or as a return value.</p></dd>
+<a name="glsO"></a><h3 class="title">O</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-optional"></a>optional</span></dt>
+<dd class="glossdef"><p>NULL may be passed instead of a pointer to a location.</p></dd>
+<a name="glsS"></a><h3 class="title">S</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-scope%20call"></a>scope call</span></dt>
+<dd class="glossdef"><p>The callback is valid only during the call to the method.</p></dd>
+<dt><span class="glossterm"><a name="annotation-glossterm-skip"></a>skip</span></dt>
+<dd class="glossdef"><p>Exposed in C code, not necessarily available in other languages.</p></dd>
+<a name="glsT"></a><h3 class="title">T</h3>
+<dt><span class="glossterm"><a name="annotation-glossterm-transfer%20full"></a>transfer full</span></dt>
+<dd class="glossdef"><p>Free data after the code is done.</p></dd>
+<dt><span class="glossterm"><a name="annotation-glossterm-transfer%20none"></a>transfer none</span></dt>
+<dd class="glossdef"><p>Don't free data after the code is done.</p></dd>
+<dt><span class="glossterm"><a name="annotation-glossterm-type"></a>type</span></dt>
+<dd class="glossdef"><p>Override the parsed C type with given type.</p></dd>
+</div>
+<div xmlns:xlink="http://www.w3.org/1999/xlink" class="index"><div class="indexdiv">
+<h3>H</h3>
+<dl>
+<dt id="ientry-idm45378774573520">HdyActionRow, <a class="indexterm" href="HdyActionRow.html#HdyActionRow-struct">HdyActionRow</a>
+</dt>
+<dt id="ientry-idm45378774567344">HdyActionRow:activatable-widget, <a class="indexterm" href="HdyActionRow.html#HdyActionRow--activatable-widget">The “activatable-widget” property</a>
+</dt>
+<dt id="ientry-idm45378774559584">HdyActionRow:icon-name, <a class="indexterm" href="HdyActionRow.html#HdyActionRow--icon-name">The “icon-name” property</a>
+</dt>
+<dt id="ientry-idm45378774551408">HdyActionRow:subtitle, <a class="indexterm" href="HdyActionRow.html#HdyActionRow--subtitle">The “subtitle” property</a>
+</dt>
+<dt id="ientry-idm45378774543232">HdyActionRow:title, <a class="indexterm" href="HdyActionRow.html#HdyActionRow--title">The “title” property</a>
+</dt>
+<dt id="ientry-idm45378774535040">HdyActionRow:use-underline, <a class="indexterm" href="HdyActionRow.html#HdyActionRow--use-underline">The “use-underline” property</a>
+</dt>
+<dt id="ientry-idm45378774586672">HdyActionRowClass, <a class="indexterm" href="HdyActionRow.html#HdyActionRowClass">struct HdyActionRowClass</a>
+</dt>
+<dt id="ientry-idm45378774448848">HdyArrows, <a class="indexterm" href="HdyArrows.html#HdyArrows-struct">HdyArrows</a>
+</dt>
+<dt id="ientry-idm45378774442672">HdyArrows:count, <a class="indexterm" href="HdyArrows.html#HdyArrows--count">The “count” property</a>
+</dt>
+<dt id="ientry-idm45378774435760">HdyArrows:direction, <a class="indexterm" href="HdyArrows.html#HdyArrows--direction">The “direction” property</a>
+</dt>
+<dt id="ientry-idm45378774429280">HdyArrows:duration, <a class="indexterm" href="HdyArrows.html#HdyArrows--duration">The “duration” property</a>
+</dt>
+<dt id="ientry-idm45378774458400">HdyArrowsClass, <a class="indexterm" href="HdyArrows.html#HdyArrowsClass">struct HdyArrowsClass</a>
+</dt>
+<dt id="ientry-idm45378774485232">HdyArrowsDirection, <a class="indexterm" href="HdyArrows.html#HdyArrowsDirection">enum HdyArrowsDirection</a>
+</dt>
+<dt id="ientry-idm45378770142320">HdyCenteringPolicy, <a class="indexterm" href="HdyHeaderBar.html#HdyCenteringPolicy">enum HdyCenteringPolicy</a>
+</dt>
+<dt id="ientry-idm45378774119040">HdyColumn, <a class="indexterm" href="HdyColumn.html#HdyColumn-struct">HdyColumn</a>
+</dt>
+<dt id="ientry-idm45378774112816">HdyColumn:linear-growth-width, <a class="indexterm" href="HdyColumn.html#HdyColumn--linear-growth-width">The “linear-growth-width” property</a>
+</dt>
+<dt id="ientry-idm45378774105888">HdyColumn:maximum-width, <a class="indexterm" href="HdyColumn.html#HdyColumn--maximum-width">The “maximum-width” property</a>
+</dt>
+<dt id="ientry-idm45378772449872">HdyComboRow, <a class="indexterm" href="HdyComboRow.html#HdyComboRow-struct">HdyComboRow</a>
+</dt>
+<dt id="ientry-idm45378772444784">HdyComboRow:selected-index, <a class="indexterm" href="HdyComboRow.html#HdyComboRow--selected-index">The “selected-index” property</a>
+</dt>
+<dt id="ientry-idm45378772436896">HdyComboRow:use-subtitle, <a class="indexterm" href="HdyComboRow.html#HdyComboRow--use-subtitle">The “use-subtitle” property</a>
+</dt>
+<dt id="ientry-idm45378772458048">HdyComboRowClass, <a class="indexterm" href="HdyComboRow.html#HdyComboRowClass">struct HdyComboRowClass</a>
+</dt>
+<dt id="ientry-idm45378773840720">HdyComboRowGetEnumValueNameFunc, <a class="indexterm" href="HdyComboRow.html#HdyComboRowGetEnumValueNameFunc">HdyComboRowGetEnumValueNameFunc ()</a>
+</dt>
+<dt id="ientry-idm45378774992464">HdyComboRowGetNameFunc, <a class="indexterm" href="HdyComboRow.html#HdyComboRowGetNameFunc">HdyComboRowGetNameFunc ()</a>
+</dt>
+<dt id="ientry-idm45378773449088">HdyDialer, <a class="indexterm" href="HdyDialer.html#HdyDialer-struct">HdyDialer</a>
+</dt>
+<dt id="ientry-idm45378773408528">HdyDialer::deleted, <a class="indexterm" href="HdyDialer.html#HdyDialer-deleted">The “deleted” signal</a>
+</dt>
+<dt id="ientry-idm45378773389120">HdyDialer::submitted, <a class="indexterm" href="HdyDialer.html#HdyDialer-submitted">The “submitted” signal</a>
+</dt>
+<dt id="ientry-idm45378773366528">HdyDialer::symbol-clicked, <a class="indexterm" href="HdyDialer.html#HdyDialer-symbol-clicked">The “symbol-clicked” signal</a>
+</dt>
+<dt id="ientry-idm45378773442880">HdyDialer:column-spacing, <a class="indexterm" href="HdyDialer.html#HdyDialer--column-spacing">The “column-spacing” property</a>
+</dt>
+<dt id="ientry-idm45378773436432">HdyDialer:number, <a class="indexterm" href="HdyDialer.html#HdyDialer--number">The “number” property</a>
+</dt>
+<dt id="ientry-idm45378773429808">HdyDialer:relief, <a class="indexterm" href="HdyDialer.html#HdyDialer--relief">The “relief” property</a>
+</dt>
+<dt id="ientry-idm45378773423216">HdyDialer:row-spacing, <a class="indexterm" href="HdyDialer.html#HdyDialer--row-spacing">The “row-spacing” property</a>
+</dt>
+<dt id="ientry-idm45378773416752">HdyDialer:show-action-buttons, <a class="indexterm" href="HdyDialer.html#HdyDialer--show-action-buttons">The “show-action-buttons” property</a>
+</dt>
+<dt id="ientry-idm45378774303776">HdyDialerButton, <a class="indexterm" href="HdyDialerButton.html#HdyDialerButton-struct">HdyDialerButton</a>
+</dt>
+<dt id="ientry-idm45378773134528">HdyDialerButton:digit, <a class="indexterm" href="HdyDialerButton.html#HdyDialerButton--digit">The “digit” property</a>
+</dt>
+<dt id="ientry-idm45378773127584">HdyDialerButton:symbols, <a class="indexterm" href="HdyDialerButton.html#HdyDialerButton--symbols">The “symbols” property</a>
+</dt>
+<dt id="ientry-idm45378774308944">HdyDialerButtonClass, <a class="indexterm" href="HdyDialerButton.html#HdyDialerButtonClass">struct HdyDialerButtonClass</a>
+</dt>
+<dt id="ientry-idm45378773464416">HdyDialerClass, <a class="indexterm" href="HdyDialer.html#HdyDialerClass">struct HdyDialerClass</a>
+</dt>
+<dt id="ientry-idm45378772736144">HdyDialerCycleButton, <a class="indexterm" href="HdyDialerCycleButton.html#HdyDialerCycleButton-struct">HdyDialerCycleButton</a>
+</dt>
+<dt id="ientry-idm45378772721184">HdyDialerCycleButton::cycle-end, <a class="indexterm" href="HdyDialerCycleButton.html#HdyDialerCycleButton-cycle-end">The “cycle-end” signal</a>
+</dt>
+<dt id="ientry-idm45378772697872">HdyDialerCycleButton::cycle-start, <a class="indexterm" href="HdyDialerCycleButton.html#HdyDialerCycleButton-cycle-start">The “cycle-start” signal</a>
+</dt>
+<dt id="ientry-idm45378772730016">HdyDialerCycleButton:cycle-timeout, <a class="indexterm" href="HdyDialerCycleButton.html#HdyDialerCycleButton--cycle-timeout">The “cycle-timeout” property</a>
+</dt>
+<dt id="ientry-idm45378772755984">HdyDialerCycleButtonClass, <a class="indexterm" href="HdyDialerCycleButton.html#HdyDialerCycleButtonClass">struct HdyDialerCycleButtonClass</a>
+</dt>
+<dt id="ientry-idm45378772673744">HdyDialog, <a class="indexterm" href="HdyDialog.html#HdyDialog-struct">HdyDialog</a>
+</dt>
+<dt id="ientry-idm45378772667568">HdyDialog:narrow, <a class="indexterm" href="HdyDialog.html#HdyDialog--narrow">The “narrow” property</a>
+</dt>
+<dt id="ientry-idm45378772831536">HdyDialogClass, <a class="indexterm" href="HdyDialog.html#HdyDialogClass">HdyDialogClass</a>
+</dt>
+<dt id="ientry-idm45378780169792">HdyEnumValueObject, <a class="indexterm" href="HdyEnumValueObject.html#HdyEnumValueObject-struct">HdyEnumValueObject</a>
+</dt>
+<dt id="ientry-idm45378772209168">HdyExpanderRow, <a class="indexterm" href="HdyExpanderRow.html#HdyExpanderRow-struct">HdyExpanderRow</a>
+</dt>
+<dt id="ientry-idm45378772203008">HdyExpanderRow:enable-expansion, <a class="indexterm" href="HdyExpanderRow.html#HdyExpanderRow--enable-expansion">The “enable-expansion” property</a>
+</dt>
+<dt id="ientry-idm45378772195280">HdyExpanderRow:expanded, <a class="indexterm" href="HdyExpanderRow.html#HdyExpanderRow--expanded">The “expanded” property</a>
+</dt>
+<dt id="ientry-idm45378772187552">HdyExpanderRow:show-enable-switch, <a class="indexterm" href="HdyExpanderRow.html#HdyExpanderRow--show-enable-switch">The “show-enable-switch” property</a>
+</dt>
+<dt id="ientry-idm45378772218752">HdyExpanderRowClass, <a class="indexterm" href="HdyExpanderRow.html#HdyExpanderRowClass">struct HdyExpanderRowClass</a>
+</dt>
+<dt id="ientry-idm45378766424992">HdyFold, <a class="indexterm" href="libhandy-HdyFold.html#HdyFold">enum HdyFold</a>
+</dt>
+<dt id="ientry-idm45378770121232">HdyHeaderBar, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar-struct">HdyHeaderBar</a>
+</dt>
+<dt id="ientry-idm45378770116144">HdyHeaderBar:centering-policy, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar--centering-policy">The “centering-policy” property</a>
+</dt>
+<dt id="ientry-idm45378770110752">HdyHeaderBar:custom-title, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar--custom-title">The “custom-title” property</a>
+</dt>
+<dt id="ientry-idm45378770105616">HdyHeaderBar:decoration-layout, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar--decoration-layout">The “decoration-layout” property</a>
+</dt>
+<dt id="ientry-idm45378770096608">HdyHeaderBar:decoration-layout-set, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar--decoration-layout-set">The “decoration-layout-set” property</a>
+</dt>
+<dt id="ientry-idm45378770088112">HdyHeaderBar:has-subtitle, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar--has-subtitle">The “has-subtitle” property</a>
+</dt>
+<dt id="ientry-idm45378770080368">HdyHeaderBar:interpolate-size, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar--interpolate-size">The “interpolate-size” property</a>
+</dt>
+<dt id="ientry-idm45378770074864">HdyHeaderBar:show-close-button, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar--show-close-button">The “show-close-button” property</a>
+</dt>
+<dt id="ientry-idm45378770066848">HdyHeaderBar:spacing, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar--spacing">The “spacing” property</a>
+</dt>
+<dt id="ientry-idm45378770061072">HdyHeaderBar:subtitle, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar--subtitle">The “subtitle” property</a>
+</dt>
+<dt id="ientry-idm45378770055552">HdyHeaderBar:title, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar--title">The “title” property</a>
+</dt>
+<dt id="ientry-idm45378770050032">HdyHeaderBar:transition-duration, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar--transition-duration">The “transition-duration” property</a>
+</dt>
+<dt id="ientry-idm45378770044640">HdyHeaderBar:transition-running, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBar--transition-running">The “transition-running” property</a>
+</dt>
+<dt id="ientry-idm45378770129408">HdyHeaderBarClass, <a class="indexterm" href="HdyHeaderBar.html#HdyHeaderBarClass">struct HdyHeaderBarClass</a>
+</dt>
+<dt id="ientry-idm45378771718128">HdyHeaderGroup, <a class="indexterm" href="HdyHeaderGroup.html#HdyHeaderGroup-struct">HdyHeaderGroup</a>
+</dt>
+<dt id="ientry-idm45378771712000">HdyHeaderGroup:focus, <a class="indexterm" href="HdyHeaderGroup.html#HdyHeaderGroup--focus">The “focus” property</a>
+</dt>
+<dt id="ientry-idm45378771727712">HdyHeaderGroupClass, <a class="indexterm" href="HdyHeaderGroup.html#HdyHeaderGroupClass">struct HdyHeaderGroupClass</a>
+</dt>
+<dt id="ientry-idm45378771447904">HdyKeypad, <a class="indexterm" href="HdyKeypad.html#HdyKeypad-struct">HdyKeypad</a>
+</dt>
+<dt id="ientry-idm45378771441728">HdyKeypad:entry, <a class="indexterm" href="HdyKeypad.html#HdyKeypad--entry">The “entry” property</a>
+</dt>
+<dt id="ientry-idm45378771435600">HdyKeypad:left-action, <a class="indexterm" href="HdyKeypad.html#HdyKeypad--left-action">The “left-action” property</a>
+</dt>
+<dt id="ientry-idm45378771429440">HdyKeypad:only-digits, <a class="indexterm" href="HdyKeypad.html#HdyKeypad--only-digits">The “only-digits” property</a>
+</dt>
+<dt id="ientry-idm45378771423024">HdyKeypad:right-action, <a class="indexterm" href="HdyKeypad.html#HdyKeypad--right-action">The “right-action” property</a>
+</dt>
+<dt id="ientry-idm45378771416848">HdyKeypad:show-symbols, <a class="indexterm" href="HdyKeypad.html#HdyKeypad--show-symbols">The “show-symbols” property</a>
+</dt>
+<dt id="ientry-idm45378771457456">HdyKeypadClass, <a class="indexterm" href="HdyKeypad.html#HdyKeypadClass">struct HdyKeypadClass</a>
+</dt>
+<dt id="ientry-idm45378768552576">HdyLeaflet, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet-struct">HdyLeaflet</a>
+</dt>
+<dt id="ientry-idm45378768547488">HdyLeaflet:can-swipe-back, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--can-swipe-back">The “can-swipe-back” property</a>
+</dt>
+<dt id="ientry-idm45378768539008">HdyLeaflet:can-swipe-forward, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--can-swipe-forward">The “can-swipe-forward” property</a>
+</dt>
+<dt id="ientry-idm45378768530544">HdyLeaflet:child-transition-duration, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--child-transition-duration">The “child-transition-duration” property</a>
+</dt>
+<dt id="ientry-idm45378768525152">HdyLeaflet:child-transition-running, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--child-transition-running">The “child-transition-running” property</a>
+</dt>
+<dt id="ientry-idm45378768519760">HdyLeaflet:child-transition-type, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--child-transition-type">The “child-transition-type” property</a>
+</dt>
+<dt id="ientry-idm45378768511632">HdyLeaflet:fold, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--fold">The “fold” property</a>
+</dt>
+<dt id="ientry-idm45378768504432">HdyLeaflet:folded, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--folded">The “folded” property</a>
+</dt>
+<dt id="ientry-idm45378768491424">HdyLeaflet:hhomogeneous-folded, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--hhomogeneous-folded">The “hhomogeneous-folded” property</a>
+</dt>
+<dt id="ientry-idm45378768486032">HdyLeaflet:hhomogeneous-unfolded, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--hhomogeneous-unfolded">The “hhomogeneous-unfolded” property</a>
+</dt>
+<dt id="ientry-idm45378768480640">HdyLeaflet:interpolate-size, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--interpolate-size">The “interpolate-size” property</a>
+</dt>
+<dt id="ientry-idm45378768475136">HdyLeaflet:mode-transition-duration, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--mode-transition-duration">The “mode-transition-duration” property</a>
+</dt>
+<dt id="ientry-idm45378768469744">HdyLeaflet:mode-transition-type, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--mode-transition-type">The “mode-transition-type” property</a>
+</dt>
+<dt id="ientry-idm45378768461616">HdyLeaflet:transition-type, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--transition-type">The “transition-type” property</a>
+</dt>
+<dt id="ientry-idm45378768454384">HdyLeaflet:vhomogeneous-folded, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--vhomogeneous-folded">The “vhomogeneous-folded” property</a>
+</dt>
+<dt id="ientry-idm45378768448992">HdyLeaflet:vhomogeneous-unfolded, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--vhomogeneous-unfolded">The “vhomogeneous-unfolded” property</a>
+</dt>
+<dt id="ientry-idm45378768443600">HdyLeaflet:visible-child, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--visible-child">The “visible-child” property</a>
+</dt>
+<dt id="ientry-idm45378768438464">HdyLeaflet:visible-child-name, <a class="indexterm" href="HdyLeaflet.html#HdyLeaflet--visible-child-name">The “visible-child-name” property</a>
+</dt>
+<dt id="ientry-idm45378768586384">HdyLeafletChildTransitionType, <a class="indexterm" href="HdyLeaflet.html#HdyLeafletChildTransitionType">enum HdyLeafletChildTransitionType</a>
+</dt>
+<dt id="ientry-idm45378768560752">HdyLeafletClass, <a class="indexterm" href="HdyLeaflet.html#HdyLeafletClass">struct HdyLeafletClass</a>
+</dt>
+<dt id="ientry-idm45378768603360">HdyLeafletModeTransitionType, <a class="indexterm" href="HdyLeaflet.html#HdyLeafletModeTransitionType">enum HdyLeafletModeTransitionType</a>
+</dt>
+<dt id="ientry-idm45378768625376">HdyLeafletTransitionType, <a class="indexterm" href="HdyLeaflet.html#HdyLeafletTransitionType">enum HdyLeafletTransitionType</a>
+</dt>
+<dt id="ientry-idm45378767797328">HdyPaginator, <a class="indexterm" href="HdyPaginator.html#HdyPaginator-struct">HdyPaginator</a>
+</dt>
+<dt id="ientry-idm45378767717936">HdyPaginator::page-changed, <a class="indexterm" href="HdyPaginator.html#HdyPaginator-page-changed">The “page-changed” signal</a>
+</dt>
+<dt id="ientry-idm45378767792240">HdyPaginator:allow-mouse-drag, <a class="indexterm" href="HdyPaginator.html#HdyPaginator--allow-mouse-drag">The “allow-mouse-drag” property</a>
+</dt>
+<dt id="ientry-idm45378767782368">HdyPaginator:animation-duration, <a class="indexterm" href="HdyPaginator.html#HdyPaginator--animation-duration">The “animation-duration” property</a>
+</dt>
+<dt id="ientry-idm45378767774624">HdyPaginator:center-content, <a class="indexterm" href="HdyPaginator.html#HdyPaginator--center-content">The “center-content” property</a>
+</dt>
+<dt id="ientry-idm45378767765600">HdyPaginator:indicator-spacing, <a class="indexterm" href="HdyPaginator.html#HdyPaginator--indicator-spacing">The “indicator-spacing” property</a>
+</dt>
+<dt id="ientry-idm45378767757472">HdyPaginator:indicator-style, <a class="indexterm" href="HdyPaginator.html#HdyPaginator--indicator-style">The “indicator-style” property</a>
+</dt>
+<dt id="ientry-idm45378767749808">HdyPaginator:interactive, <a class="indexterm" href="HdyPaginator.html#HdyPaginator--interactive">The “interactive” property</a>
+</dt>
+<dt id="ientry-idm45378767741680">HdyPaginator:n-pages, <a class="indexterm" href="HdyPaginator.html#HdyPaginator--n-pages">The “n-pages” property</a>
+</dt>
+<dt id="ientry-idm45378767734304">HdyPaginator:position, <a class="indexterm" href="HdyPaginator.html#HdyPaginator--position">The “position” property</a>
+</dt>
+<dt id="ientry-idm45378767726176">HdyPaginator:spacing, <a class="indexterm" href="HdyPaginator.html#HdyPaginator--spacing">The “spacing” property</a>
+</dt>
+<dt id="ientry-idm45378767814752">HdyPaginatorIndicatorStyle, <a class="indexterm" href="HdyPaginator.html#HdyPaginatorIndicatorStyle">enum HdyPaginatorIndicatorStyle</a>
+</dt>
+<dt id="ientry-idm45378768276992">HdyPreferencesGroup, <a class="indexterm" href="HdyPreferencesGroup.html#HdyPreferencesGroup-struct">HdyPreferencesGroup</a>
+</dt>
+<dt id="ientry-idm45378768270864">HdyPreferencesGroup:description, <a class="indexterm" href="HdyPreferencesGroup.html#HdyPreferencesGroup--description">The “description” property</a>
+</dt>
+<dt id="ientry-idm45378768262656">HdyPreferencesGroup:title, <a class="indexterm" href="HdyPreferencesGroup.html#HdyPreferencesGroup--title">The “title” property</a>
+</dt>
+<dt id="ientry-idm45378768286688">HdyPreferencesGroupClass, <a class="indexterm" href="HdyPreferencesGroup.html#HdyPreferencesGroupClass">struct HdyPreferencesGroupClass</a>
+</dt>
+<dt id="ientry-idm45378769741216">HdyPreferencesPage, <a class="indexterm" href="HdyPreferencesPage.html#HdyPreferencesPage-struct">HdyPreferencesPage</a>
+</dt>
+<dt id="ientry-idm45378769735088">HdyPreferencesPage:icon-name, <a class="indexterm" href="HdyPreferencesPage.html#HdyPreferencesPage--icon-name">The “icon-name” property</a>
+</dt>
+<dt id="ientry-idm45378769726880">HdyPreferencesPage:title, <a class="indexterm" href="HdyPreferencesPage.html#HdyPreferencesPage--title">The “title” property</a>
+</dt>
+<dt id="ientry-idm45378769750880">HdyPreferencesPageClass, <a class="indexterm" href="HdyPreferencesPage.html#HdyPreferencesPageClass">struct HdyPreferencesPageClass</a>
+</dt>
+<dt id="ientry-idm45378768143424">HdyPreferencesRow, <a class="indexterm" href="HdyPreferencesRow.html#HdyPreferencesRow-struct">HdyPreferencesRow</a>
+</dt>
+<dt id="ientry-idm45378769017008">HdyPreferencesRow:title, <a class="indexterm" href="HdyPreferencesRow.html#HdyPreferencesRow--title">The “title” property</a>
+</dt>
+<dt id="ientry-idm45378769008816">HdyPreferencesRow:use-underline, <a class="indexterm" href="HdyPreferencesRow.html#HdyPreferencesRow--use-underline">The “use-underline” property</a>
+</dt>
+<dt id="ientry-idm45378768153088">HdyPreferencesRowClass, <a class="indexterm" href="HdyPreferencesRow.html#HdyPreferencesRowClass">struct HdyPreferencesRowClass</a>
+</dt>
+<dt id="ientry-idm45378777483504">HdyPreferencesWindow, <a class="indexterm" href="HdyPreferencesWindow.html#HdyPreferencesWindow-struct">HdyPreferencesWindow</a>
+</dt>
+<dt id="ientry-idm45378776520352">HdyPreferencesWindowClass, <a class="indexterm" href="HdyPreferencesWindow.html#HdyPreferencesWindowClass">struct HdyPreferencesWindowClass</a>
+</dt>
+<dt id="ientry-idm45378769315040">HdySearchBar, <a class="indexterm" href="HdySearchBar.html#HdySearchBar-struct">HdySearchBar</a>
+</dt>
+<dt id="ientry-idm45378769308864">HdySearchBar:search-mode-enabled, <a class="indexterm" href="HdySearchBar.html#HdySearchBar--search-mode-enabled">The “search-mode-enabled” property</a>
+</dt>
+<dt id="ientry-idm45378769300544">HdySearchBar:show-close-button, <a class="indexterm" href="HdySearchBar.html#HdySearchBar--show-close-button">The “show-close-button” property</a>
+</dt>
+<dt id="ientry-idm45378769318752">HdySearchBarClass, <a class="indexterm" href="HdySearchBar.html#HdySearchBarClass">struct HdySearchBarClass</a>
+</dt>
+<dt id="ientry-idm45378766104880">HdySqueezer, <a class="indexterm" href="HdySqueezer.html#HdySqueezer-struct">HdySqueezer</a>
+</dt>
+<dt id="ientry-idm45378766099792">HdySqueezer:homogeneous, <a class="indexterm" href="HdySqueezer.html#HdySqueezer--homogeneous">The “homogeneous” property</a>
+</dt>
+<dt id="ientry-idm45378766094400">HdySqueezer:interpolate-size, <a class="indexterm" href="HdySqueezer.html#HdySqueezer--interpolate-size">The “interpolate-size” property</a>
+</dt>
+<dt id="ientry-idm45378766088896">HdySqueezer:transition-duration, <a class="indexterm" href="HdySqueezer.html#HdySqueezer--transition-duration">The “transition-duration” property</a>
+</dt>
+<dt id="ientry-idm45378766083504">HdySqueezer:transition-running, <a class="indexterm" href="HdySqueezer.html#HdySqueezer--transition-running">The “transition-running” property</a>
+</dt>
+<dt id="ientry-idm45378766078112">HdySqueezer:transition-type, <a class="indexterm" href="HdySqueezer.html#HdySqueezer--transition-type">The “transition-type” property</a>
+</dt>
+<dt id="ientry-idm45378766072720">HdySqueezer:visible-child, <a class="indexterm" href="HdySqueezer.html#HdySqueezer--visible-child">The “visible-child” property</a>
+</dt>
+<dt id="ientry-idm45378766113056">HdySqueezerClass, <a class="indexterm" href="HdySqueezer.html#HdySqueezerClass">struct HdySqueezerClass</a>
+</dt>
+<dt id="ientry-idm45378766127104">HdySqueezerTransitionType, <a class="indexterm" href="HdySqueezer.html#HdySqueezerTransitionType">enum HdySqueezerTransitionType</a>
+</dt>
+<dt id="ientry-idm45378768997408">HdySwipeable, <a class="indexterm" href="HdySwipeable.html#HdySwipeable-struct">HdySwipeable</a>
+</dt>
+<dt id="ientry-idm45378767551760">HdySwipeable::begin-swipe, <a class="indexterm" href="HdySwipeable.html#HdySwipeable-begin-swipe">The “begin-swipe” signal</a>
+</dt>
+<dt id="ientry-idm45378767657344">HdySwipeable::end-swipe, <a class="indexterm" href="HdySwipeable.html#HdySwipeable-end-swipe">The “end-swipe” signal</a>
+</dt>
+<dt id="ientry-idm45378769514000">HdySwipeable::switch-child, <a class="indexterm" href="HdySwipeable.html#HdySwipeable-switch-child">The “switch-child” signal</a>
+</dt>
+<dt id="ientry-idm45378769485664">HdySwipeable::update-swipe, <a class="indexterm" href="HdySwipeable.html#HdySwipeable-update-swipe">The “update-swipe” signal</a>
+</dt>
+<dt id="ientry-idm45378778764352">HdySwipeableInterface, <a class="indexterm" href="HdySwipeable.html#HdySwipeableInterface">struct HdySwipeableInterface</a>
+</dt>
+<dt id="ientry-idm45378767080320">HdySwipeGroup, <a class="indexterm" href="HdySwipeGroup.html#HdySwipeGroup-struct">HdySwipeGroup</a>
+</dt>
+<dt id="ientry-idm45378767641872">HdyTitleBar, <a class="indexterm" href="HdyTitleBar.html#HdyTitleBar-struct">HdyTitleBar</a>
+</dt>
+<dt id="ientry-idm45378767635712">HdyTitleBar:selection-mode, <a class="indexterm" href="HdyTitleBar.html#HdyTitleBar--selection-mode">The “selection-mode” property</a>
+</dt>
+<dt id="ientry-idm45378766270064">HdyValueObject, <a class="indexterm" href="HdyValueObject.html#HdyValueObject-struct">HdyValueObject</a>
+</dt>
+<dt id="ientry-idm45378766263936">HdyValueObject:value, <a class="indexterm" href="HdyValueObject.html#HdyValueObject--value">The “value” property</a>
+</dt>
+<dt id="ientry-idm45378765886704">HdyViewSwitcher, <a class="indexterm" href="HdyViewSwitcher.html#HdyViewSwitcher-struct">HdyViewSwitcher</a>
+</dt>
+<dt id="ientry-idm45378765880544">HdyViewSwitcher:icon-size, <a class="indexterm" href="HdyViewSwitcher.html#HdyViewSwitcher--icon-size">The “icon-size” property</a>
+</dt>
+<dt id="ientry-idm45378765870736">HdyViewSwitcher:narrow-ellipsize, <a class="indexterm" href="HdyViewSwitcher.html#HdyViewSwitcher--narrow-ellipsize">The “narrow-ellipsize” property</a>
+</dt>
+<dt id="ientry-idm45378765860112">HdyViewSwitcher:policy, <a class="indexterm" href="HdyViewSwitcher.html#HdyViewSwitcher--policy">The “policy” property</a>
+</dt>
+<dt id="ientry-idm45378765851328">HdyViewSwitcher:stack, <a class="indexterm" href="HdyViewSwitcher.html#HdyViewSwitcher--stack">The “stack” property</a>
+</dt>
+<dt id="ientry-idm45378765704720">HdyViewSwitcherBar, <a class="indexterm" href="HdyViewSwitcherBar.html#HdyViewSwitcherBar-struct">HdyViewSwitcherBar</a>
+</dt>
+<dt id="ientry-idm45378765698592">HdyViewSwitcherBar:icon-size, <a class="indexterm" href="HdyViewSwitcherBar.html#HdyViewSwitcherBar--icon-size">The “icon-size” property</a>
+</dt>
+<dt id="ientry-idm45378765688768">HdyViewSwitcherBar:policy, <a class="indexterm" href="HdyViewSwitcherBar.html#HdyViewSwitcherBar--policy">The “policy” property</a>
+</dt>
+<dt id="ientry-idm45378765679056">HdyViewSwitcherBar:reveal, <a class="indexterm" href="HdyViewSwitcherBar.html#HdyViewSwitcherBar--reveal">The “reveal” property</a>
+</dt>
+<dt id="ientry-idm45378765671008">HdyViewSwitcherBar:stack, <a class="indexterm" href="HdyViewSwitcherBar.html#HdyViewSwitcherBar--stack">The “stack” property</a>
+</dt>
+<dt id="ientry-idm45378765708512">HdyViewSwitcherBarClass, <a class="indexterm" href="HdyViewSwitcherBar.html#HdyViewSwitcherBarClass">HdyViewSwitcherBarClass</a>
+</dt>
+<dt id="ientry-idm45378765908768">HdyViewSwitcherClass, <a class="indexterm" href="HdyViewSwitcher.html#HdyViewSwitcherClass">HdyViewSwitcherClass</a>
+</dt>
+<dt id="ientry-idm45378765905040">HdyViewSwitcherPolicy, <a class="indexterm" href="HdyViewSwitcher.html#HdyViewSwitcherPolicy">enum HdyViewSwitcherPolicy</a>
+</dt>
+<dt id="ientry-idm45378774598160">hdy_action_row_activate, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-activate">hdy_action_row_activate ()</a>
+</dt>
+<dt id="ientry-idm45378777925600">hdy_action_row_add_action, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-add-action">hdy_action_row_add_action ()</a>
+</dt>
+<dt id="ientry-idm45378777903008">hdy_action_row_add_prefix, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-add-prefix">hdy_action_row_add_prefix ()</a>
+</dt>
+<dt id="ientry-idm45378778017664">hdy_action_row_get_activatable_widget, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-get-activatable-widget">hdy_action_row_get_activatable_widget ()</a>
+</dt>
+<dt id="ientry-idm45378778059824">hdy_action_row_get_icon_name, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-get-icon-name">hdy_action_row_get_icon_name ()</a>
+</dt>
+<dt id="ientry-idm45378778101984">hdy_action_row_get_subtitle, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-get-subtitle">hdy_action_row_get_subtitle ()</a>
+</dt>
+<dt id="ientry-idm45378776821632">hdy_action_row_get_title, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-get-title">hdy_action_row_get_title ()</a>
+</dt>
+<dt id="ientry-idm45378777968496">hdy_action_row_get_use_underline, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-get-use-underline">hdy_action_row_get_use_underline ()</a>
+</dt>
+<dt id="ientry-idm45378777510496">hdy_action_row_new, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-new">hdy_action_row_new ()</a>
+</dt>
+<dt id="ientry-idm45378777994704">hdy_action_row_set_activatable_widget, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-set-activatable-widget">hdy_action_row_set_activatable_widget ()</a>
+</dt>
+<dt id="ientry-idm45378778039392">hdy_action_row_set_icon_name, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-set-icon-name">hdy_action_row_set_icon_name ()</a>
+</dt>
+<dt id="ientry-idm45378778081552">hdy_action_row_set_subtitle, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-set-subtitle">hdy_action_row_set_subtitle ()</a>
+</dt>
+<dt id="ientry-idm45378778123712">hdy_action_row_set_title, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-set-title">hdy_action_row_set_title ()</a>
+</dt>
+<dt id="ientry-idm45378777947408">hdy_action_row_set_use_underline, <a class="indexterm" href="HdyActionRow.html#hdy-action-row-set-use-underline">hdy_action_row_set_use_underline ()</a>
+</dt>
+<dt id="ientry-idm45378774505360">hdy_arrows_animate, <a class="indexterm" href="HdyArrows.html#hdy-arrows-animate">hdy_arrows_animate ()</a>
+</dt>
+<dt id="ientry-idm45378775268864">hdy_arrows_get_count, <a class="indexterm" href="HdyArrows.html#hdy-arrows-get-count">hdy_arrows_get_count ()</a>
+</dt>
+<dt id="ientry-idm45378777081664">hdy_arrows_get_direction, <a class="indexterm" href="HdyArrows.html#hdy-arrows-get-direction">hdy_arrows_get_direction ()</a>
+</dt>
+<dt id="ientry-idm45378774525440">hdy_arrows_get_duration, <a class="indexterm" href="HdyArrows.html#hdy-arrows-get-duration">hdy_arrows_get_duration ()</a>
+</dt>
+<dt id="ientry-idm45378778144880">hdy_arrows_new, <a class="indexterm" href="HdyArrows.html#hdy-arrows-new">hdy_arrows_new ()</a>
+</dt>
+<dt id="ientry-idm45378779681584">hdy_arrows_set_count, <a class="indexterm" href="HdyArrows.html#hdy-arrows-set-count">hdy_arrows_set_count ()</a>
+</dt>
+<dt id="ientry-idm45378774847840">hdy_arrows_set_direction, <a class="indexterm" href="HdyArrows.html#hdy-arrows-set-direction">hdy_arrows_set_direction ()</a>
+</dt>
+<dt id="ientry-idm45378777061488">hdy_arrows_set_duration, <a class="indexterm" href="HdyArrows.html#hdy-arrows-set-duration">hdy_arrows_set_duration ()</a>
+</dt>
+<dt id="ientry-idm45378776591648">HDY_CHECK_VERSION, <a class="indexterm" href="libhandy-hdy-version.html#HDY-CHECK-VERSION:CAPS">HDY_CHECK_VERSION()</a>
+</dt>
+<dt id="ientry-idm45378778705392">hdy_column_get_linear_growth_width, <a class="indexterm" href="HdyColumn.html#hdy-column-get-linear-growth-width">hdy_column_get_linear_growth_width ()</a>
+</dt>
+<dt id="ientry-idm45378776569520">hdy_column_get_maximum_width, <a class="indexterm" href="HdyColumn.html#hdy-column-get-maximum-width">hdy_column_get_maximum_width ()</a>
+</dt>
+<dt id="ientry-idm45378778984768">hdy_column_new, <a class="indexterm" href="HdyColumn.html#hdy-column-new">hdy_column_new ()</a>
+</dt>
+<dt id="ientry-idm45378774627216">hdy_column_set_linear_growth_width, <a class="indexterm" href="HdyColumn.html#hdy-column-set-linear-growth-width">hdy_column_set_linear_growth_width ()</a>
+</dt>
+<dt id="ientry-idm45378779298336">hdy_column_set_maximum_width, <a class="indexterm" href="HdyColumn.html#hdy-column-set-maximum-width">hdy_column_set_maximum_width ()</a>
+</dt>
+<dt id="ientry-idm45378773778624">hdy_combo_row_bind_model, <a class="indexterm" href="HdyComboRow.html#hdy-combo-row-bind-model">hdy_combo_row_bind_model ()</a>
+</dt>
+<dt id="ientry-idm45378773718608">hdy_combo_row_bind_name_model, <a class="indexterm" href="HdyComboRow.html#hdy-combo-row-bind-name-model">hdy_combo_row_bind_name_model ()</a>
+</dt>
+<dt id="ientry-idm45378773803872">hdy_combo_row_get_model, <a class="indexterm" href="HdyComboRow.html#hdy-combo-row-get-model">hdy_combo_row_get_model ()</a>
+</dt>
+<dt id="ientry-idm45378773613600">hdy_combo_row_get_selected_index, <a class="indexterm" href="HdyComboRow.html#hdy-combo-row-get-selected-index">hdy_combo_row_get_selected_index ()</a>
+</dt>
+<dt id="ientry-idm45378772553120">hdy_combo_row_get_use_subtitle, <a class="indexterm" href="HdyComboRow.html#hdy-combo-row-get-use-subtitle">hdy_combo_row_get_use_subtitle ()</a>
+</dt>
+<dt id="ientry-idm45378773814688">hdy_combo_row_new, <a class="indexterm" href="HdyComboRow.html#hdy-combo-row-new">hdy_combo_row_new ()</a>
+</dt>
+<dt id="ientry-idm45378773666928">hdy_combo_row_set_for_enum, <a class="indexterm" href="HdyComboRow.html#hdy-combo-row-set-for-enum">hdy_combo_row_set_for_enum ()</a>
+</dt>
+<dt id="ientry-idm45378772515072">hdy_combo_row_set_get_name_func, <a class="indexterm" href="HdyComboRow.html#hdy-combo-row-set-get-name-func">hdy_combo_row_set_get_name_func ()</a>
+</dt>
+<dt id="ientry-idm45378772571776">hdy_combo_row_set_selected_index, <a class="indexterm" href="HdyComboRow.html#hdy-combo-row-set-selected-index">hdy_combo_row_set_selected_index ()</a>
+</dt>
+<dt id="ientry-idm45378772535840">hdy_combo_row_set_use_subtitle, <a class="indexterm" href="HdyComboRow.html#hdy-combo-row-set-use-subtitle">hdy_combo_row_set_use_subtitle ()</a>
+</dt>
+<dt id="ientry-idm45378774004128">hdy_dialer_button_get_digit, <a class="indexterm" href="HdyDialerButton.html#hdy-dialer-button-get-digit">hdy_dialer_button_get_digit ()</a>
+</dt>
+<dt id="ientry-idm45378773156288">hdy_dialer_button_get_symbols, <a class="indexterm" href="HdyDialerButton.html#hdy-dialer-button-get-symbols">hdy_dialer_button_get_symbols ()</a>
+</dt>
+<dt id="ientry-idm45378778471632">hdy_dialer_button_new, <a class="indexterm" href="HdyDialerButton.html#hdy-dialer-button-new">hdy_dialer_button_new ()</a>
+</dt>
+<dt id="ientry-idm45378773580592">hdy_dialer_clear_number, <a class="indexterm" href="HdyDialer.html#hdy-dialer-clear-number">hdy_dialer_clear_number ()</a>
+</dt>
+<dt id="ientry-idm45378773252752">hdy_dialer_cycle_button_get_current_symbol, <a class="indexterm" href="HdyDialerCycleButton.html#hdy-dialer-cycle-button-get-current-symbol">hdy_dialer_cycle_button_get_current_symbol ()</a>
+</dt>
+<dt id="ientry-idm45378772802016">hdy_dialer_cycle_button_get_cycle_timeout, <a class="indexterm" href="HdyDialerCycleButton.html#hdy-dialer-cycle-button-get-cycle-timeout">hdy_dialer_cycle_button_get_cycle_timeout ()</a>
+</dt>
+<dt id="ientry-idm45378773112896">hdy_dialer_cycle_button_is_cycling, <a class="indexterm" href="HdyDialerCycleButton.html#hdy-dialer-cycle-button-is-cycling">hdy_dialer_cycle_button_is_cycling ()</a>
+</dt>
+<dt id="ientry-idm45378775572208">hdy_dialer_cycle_button_new, <a class="indexterm" href="HdyDialerCycleButton.html#hdy-dialer-cycle-button-new">hdy_dialer_cycle_button_new ()</a>
+</dt>
+<dt id="ientry-idm45378772783904">hdy_dialer_cycle_button_set_cycle_timeout, <a class="indexterm" href="HdyDialerCycleButton.html#hdy-dialer-cycle-button-set-cycle-timeout">hdy_dialer_cycle_button_set_cycle_timeout ()</a>
+</dt>
+<dt id="ientry-idm45378772820208">hdy_dialer_cycle_button_stop_cycle, <a class="indexterm" href="HdyDialerCycleButton.html#hdy-dialer-cycle-button-stop-cycle">hdy_dialer_cycle_button_stop_cycle ()</a>
+</dt>
+<dt id="ientry-idm45378778678272">hdy_dialer_get_number, <a class="indexterm" href="HdyDialer.html#hdy-dialer-get-number">hdy_dialer_get_number ()</a>
+</dt>
+<dt id="ientry-idm45378773520080">hdy_dialer_get_relief, <a class="indexterm" href="HdyDialer.html#hdy-dialer-get-relief">hdy_dialer_get_relief ()</a>
+</dt>
+<dt id="ientry-idm45378773562176">hdy_dialer_get_show_action_buttons, <a class="indexterm" href="HdyDialer.html#hdy-dialer-get-show-action-buttons">hdy_dialer_get_show_action_buttons ()</a>
+</dt>
+<dt id="ientry-idm45378774393792">hdy_dialer_new, <a class="indexterm" href="HdyDialer.html#hdy-dialer-new">hdy_dialer_new ()</a>
+</dt>
+<dt id="ientry-idm45378774408656">hdy_dialer_set_number, <a class="indexterm" href="HdyDialer.html#hdy-dialer-set-number">hdy_dialer_set_number ()</a>
+</dt>
+<dt id="ientry-idm45378773497456">hdy_dialer_set_relief, <a class="indexterm" href="HdyDialer.html#hdy-dialer-set-relief">hdy_dialer_set_relief ()</a>
+</dt>
+<dt id="ientry-idm45378773542208">hdy_dialer_set_show_action_buttons, <a class="indexterm" href="HdyDialer.html#hdy-dialer-set-show-action-buttons">hdy_dialer_set_show_action_buttons ()</a>
+</dt>
+<dt id="ientry-idm45378772902624">hdy_dialog_get_narrow, <a class="indexterm" href="HdyDialog.html#hdy-dialog-get-narrow">hdy_dialog_get_narrow ()</a>
+</dt>
+<dt id="ientry-idm45378775884272">hdy_dialog_new, <a class="indexterm" href="HdyDialog.html#hdy-dialog-new">hdy_dialog_new ()</a>
+</dt>
+<dt id="ientry-idm45378779565360">hdy_ease_out_cubic, <a class="indexterm" href="libhandy-Animation-Helpers.html#hdy-ease-out-cubic">hdy_ease_out_cubic ()</a>
+</dt>
+<dt id="ientry-idm45378778449664">HDY_ENCODE_VERSION, <a class="indexterm" href="libhandy-hdy-version.html#HDY-ENCODE-VERSION:CAPS">HDY_ENCODE_VERSION()</a>
+</dt>
+<dt id="ientry-idm45378775010464">hdy_enum_value_object_get_name, <a class="indexterm" href="HdyEnumValueObject.html#hdy-enum-value-object-get-name">hdy_enum_value_object_get_name ()</a>
+</dt>
+<dt id="ientry-idm45378779393040">hdy_enum_value_object_get_nick, <a class="indexterm" href="HdyEnumValueObject.html#hdy-enum-value-object-get-nick">hdy_enum_value_object_get_nick ()</a>
+</dt>
+<dt id="ientry-idm45378777653680">hdy_enum_value_object_get_value, <a class="indexterm" href="HdyEnumValueObject.html#hdy-enum-value-object-get-value">hdy_enum_value_object_get_value ()</a>
+</dt>
+<dt id="ientry-idm45378773170736">hdy_enum_value_object_new, <a class="indexterm" href="HdyEnumValueObject.html#hdy-enum-value-object-new">hdy_enum_value_object_new ()</a>
+</dt>
+<dt id="ientry-idm45378772485680">hdy_enum_value_row_name, <a class="indexterm" href="HdyComboRow.html#hdy-enum-value-row-name">hdy_enum_value_row_name ()</a>
+</dt>
+<dt id="ientry-idm45378772853136">hdy_expander_row_get_enable_expansion, <a class="indexterm" href="HdyExpanderRow.html#hdy-expander-row-get-enable-expansion">hdy_expander_row_get_enable_expansion ()</a>
+</dt>
+<dt id="ientry-idm45378772868352">hdy_expander_row_get_expanded, <a class="indexterm" href="HdyExpanderRow.html#hdy-expander-row-get-expanded">hdy_expander_row_get_expanded ()</a>
+</dt>
+<dt id="ientry-idm45378772266256">hdy_expander_row_get_show_enable_switch, <a class="indexterm" href="HdyExpanderRow.html#hdy-expander-row-get-show-enable-switch">hdy_expander_row_get_show_enable_switch ()</a>
+</dt>
+<dt id="ientry-idm45378773011056">hdy_expander_row_new, <a class="indexterm" href="HdyExpanderRow.html#hdy-expander-row-new">hdy_expander_row_new ()</a>
+</dt>
+<dt id="ientry-idm45378772390944">hdy_expander_row_set_enable_expansion, <a class="indexterm" href="HdyExpanderRow.html#hdy-expander-row-set-enable-expansion">hdy_expander_row_set_enable_expansion ()</a>
+</dt>
+<dt id="ientry-idm45378773291968">hdy_expander_row_set_expanded, <a class="indexterm" href="HdyExpanderRow.html#hdy-expander-row-set-expanded">hdy_expander_row_set_expanded ()</a>
+</dt>
+<dt id="ientry-idm45378772246336">hdy_expander_row_set_show_enable_switch, <a class="indexterm" href="HdyExpanderRow.html#hdy-expander-row-set-show-enable-switch">hdy_expander_row_set_show_enable_switch ()</a>
+</dt>
+<dt id="ientry-idm45378776891568">hdy_get_enable_animations, <a class="indexterm" href="libhandy-Animation-Helpers.html#hdy-get-enable-animations">hdy_get_enable_animations ()</a>
+</dt>
+<dt id="ientry-idm45378770278064">hdy_header_bar_get_centering_policy, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-get-centering-policy">hdy_header_bar_get_centering_policy ()</a>
+</dt>
+<dt id="ientry-idm45378771845008">hdy_header_bar_get_custom_title, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-get-custom-title">hdy_header_bar_get_custom_title ()</a>
+</dt>
+<dt id="ientry-idm45378770317168">hdy_header_bar_get_decoration_layout, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-get-decoration-layout">hdy_header_bar_get_decoration_layout ()</a>
+</dt>
+<dt id="ientry-idm45378770353200">hdy_header_bar_get_has_subtitle, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-get-has-subtitle">hdy_header_bar_get_has_subtitle ()</a>
+</dt>
+<dt id="ientry-idm45378770189056">hdy_header_bar_get_interpolate_size, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-get-interpolate-size">hdy_header_bar_get_interpolate_size ()</a>
+</dt>
+<dt id="ientry-idm45378771745520">hdy_header_bar_get_show_close_button, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-get-show-close-button">hdy_header_bar_get_show_close_button ()</a>
+</dt>
+<dt id="ientry-idm45378771894208">hdy_header_bar_get_subtitle, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-get-subtitle">hdy_header_bar_get_subtitle ()</a>
+</dt>
+<dt id="ientry-idm45378771940976">hdy_header_bar_get_title, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-get-title">hdy_header_bar_get_title ()</a>
+</dt>
+<dt id="ientry-idm45378770242880">hdy_header_bar_get_transition_duration, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-get-transition-duration">hdy_header_bar_get_transition_duration ()</a>
+</dt>
+<dt id="ientry-idm45378770207696">hdy_header_bar_get_transition_running, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-get-transition-running">hdy_header_bar_get_transition_running ()</a>
+</dt>
+<dt id="ientry-idm45378771951792">hdy_header_bar_new, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-new">hdy_header_bar_new ()</a>
+</dt>
+<dt id="ientry-idm45378771770272">hdy_header_bar_pack_end, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-pack-end">hdy_header_bar_pack_end ()</a>
+</dt>
+<dt id="ientry-idm45378771795024">hdy_header_bar_pack_start, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-pack-start">hdy_header_bar_pack_start ()</a>
+</dt>
+<dt id="ientry-idm45378770261408">hdy_header_bar_set_centering_policy, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-set-centering-policy">hdy_header_bar_set_centering_policy ()</a>
+</dt>
+<dt id="ientry-idm45378771822304">hdy_header_bar_set_custom_title, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-set-custom-title">hdy_header_bar_set_custom_title ()</a>
+</dt>
+<dt id="ientry-idm45378770300016">hdy_header_bar_set_decoration_layout, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-set-decoration-layout">hdy_header_bar_set_decoration_layout ()</a>
+</dt>
+<dt id="ientry-idm45378770336048">hdy_header_bar_set_has_subtitle, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-set-has-subtitle">hdy_header_bar_set_has_subtitle ()</a>
+</dt>
+<dt id="ientry-idm45378770168416">hdy_header_bar_set_interpolate_size, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-set-interpolate-size">hdy_header_bar_set_interpolate_size ()</a>
+</dt>
+<dt id="ientry-idm45378770372096">hdy_header_bar_set_show_close_button, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-set-show-close-button">hdy_header_bar_set_show_close_button ()</a>
+</dt>
+<dt id="ientry-idm45378771871568">hdy_header_bar_set_subtitle, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-set-subtitle">hdy_header_bar_set_subtitle ()</a>
+</dt>
+<dt id="ientry-idm45378771918288">hdy_header_bar_set_title, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-set-title">hdy_header_bar_set_title ()</a>
+</dt>
+<dt id="ientry-idm45378770226224">hdy_header_bar_set_transition_duration, <a class="indexterm" href="HdyHeaderBar.html#hdy-header-bar-set-transition-duration">hdy_header_bar_set_transition_duration ()</a>
+</dt>
+<dt id="ientry-idm45378772152144">hdy_header_group_add_header_bar, <a class="indexterm" href="HdyHeaderGroup.html#hdy-header-group-add-header-bar">hdy_header_group_add_header_bar ()</a>
+</dt>
+<dt id="ientry-idm45378770649840">hdy_header_group_get_focus, <a class="indexterm" href="HdyHeaderGroup.html#hdy-header-group-get-focus">hdy_header_group_get_focus ()</a>
+</dt>
+<dt id="ientry-idm45378770529408">hdy_header_group_get_header_bars, <a class="indexterm" href="HdyHeaderGroup.html#hdy-header-group-get-header-bars">hdy_header_group_get_header_bars ()</a>
+</dt>
+<dt id="ientry-idm45378777616848">hdy_header_group_new, <a class="indexterm" href="HdyHeaderGroup.html#hdy-header-group-new">hdy_header_group_new ()</a>
+</dt>
+<dt id="ientry-idm45378770509264">hdy_header_group_remove_header_bar, <a class="indexterm" href="HdyHeaderGroup.html#hdy-header-group-remove-header-bar">hdy_header_group_remove_header_bar ()</a>
+</dt>
+<dt id="ientry-idm45378771998544">hdy_header_group_set_focus, <a class="indexterm" href="HdyHeaderGroup.html#hdy-header-group-set-focus">hdy_header_group_set_focus ()</a>
+</dt>
+<dt id="ientry-idm45378767155296">hdy_init, <a class="indexterm" href="libhandy-hdy-main.html#hdy-init">hdy_init ()</a>
+</dt>
+<dt id="ientry-idm45378770401504">hdy_keypad_get_entry, <a class="indexterm" href="HdyKeypad.html#hdy-keypad-get-entry">hdy_keypad_get_entry ()</a>
+</dt>
+<dt id="ientry-idm45378775867696">hdy_keypad_new, <a class="indexterm" href="HdyKeypad.html#hdy-keypad-new">hdy_keypad_new ()</a>
+</dt>
+<dt id="ientry-idm45378770669488">hdy_keypad_set_entry, <a class="indexterm" href="HdyKeypad.html#hdy-keypad-set-entry">hdy_keypad_set_entry ()</a>
+</dt>
+<dt id="ientry-idm45378771503952">hdy_keypad_set_left_action, <a class="indexterm" href="HdyKeypad.html#hdy-keypad-set-left-action">hdy_keypad_set_left_action ()</a>
+</dt>
+<dt id="ientry-idm45378771483408">hdy_keypad_set_right_action, <a class="indexterm" href="HdyKeypad.html#hdy-keypad-set-right-action">hdy_keypad_set_right_action ()</a>
+</dt>
+<dt id="ientry-idm45378770631392">hdy_keypad_show_symbols, <a class="indexterm" href="HdyKeypad.html#hdy-keypad-show-symbols">hdy_keypad_show_symbols ()</a>
+</dt>
+<dt id="ientry-idm45378768704768">hdy_leaflet_get_can_swipe_back, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-can-swipe-back">hdy_leaflet_get_can_swipe_back ()</a>
+</dt>
+<dt id="ientry-idm45378768667360">hdy_leaflet_get_can_swipe_forward, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-can-swipe-forward">hdy_leaflet_get_can_swipe_forward ()</a>
+</dt>
+<dt id="ientry-idm45378768790688">hdy_leaflet_get_child_transition_duration, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-child-transition-duration">hdy_leaflet_get_child_transition_duration ()</a>
+</dt>
+<dt id="ientry-idm45378768758160">hdy_leaflet_get_child_transition_running, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-child-transition-running">hdy_leaflet_get_child_transition_running ()</a>
+</dt>
+<dt id="ientry-idm45378768829712">hdy_leaflet_get_child_transition_type, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-child-transition-type">hdy_leaflet_get_child_transition_type ()</a>
+</dt>
+<dt id="ientry-idm45378771145744">hdy_leaflet_get_fold, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-fold">hdy_leaflet_get_fold ()</a>
+</dt>
+<dt id="ientry-idm45378771087616">hdy_leaflet_get_homogeneous, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-homogeneous">hdy_leaflet_get_homogeneous ()</a>
+</dt>
+<dt id="ientry-idm45378768740896">hdy_leaflet_get_interpolate_size, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-interpolate-size">hdy_leaflet_get_interpolate_size ()</a>
+</dt>
+<dt id="ientry-idm45378768862192">hdy_leaflet_get_mode_transition_duration, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-mode-transition-duration">hdy_leaflet_get_mode_transition_duration ()</a>
+</dt>
+<dt id="ientry-idm45378770987056">hdy_leaflet_get_mode_transition_type, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-mode-transition-type">hdy_leaflet_get_mode_transition_type ()</a>
+</dt>
+<dt id="ientry-idm45378771029328">hdy_leaflet_get_transition_type, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-transition-type">hdy_leaflet_get_transition_type ()</a>
+</dt>
+<dt id="ientry-idm45378771127184">hdy_leaflet_get_visible_child, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-visible-child">hdy_leaflet_get_visible_child ()</a>
+</dt>
+<dt id="ientry-idm45378771101424">hdy_leaflet_get_visible_child_name, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-get-visible-child-name">hdy_leaflet_get_visible_child_name ()</a>
+</dt>
+<dt id="ientry-idm45378771151072">hdy_leaflet_new, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-new">hdy_leaflet_new ()</a>
+</dt>
+<dt id="ientry-idm45378768686992">hdy_leaflet_set_can_swipe_back, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-set-can-swipe-back">hdy_leaflet_set_can_swipe_back ()</a>
+</dt>
+<dt id="ientry-idm45378768649584">hdy_leaflet_set_can_swipe_forward, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-set-can-swipe-forward">hdy_leaflet_set_can_swipe_forward ()</a>
+</dt>
+<dt id="ientry-idm45378768775312">hdy_leaflet_set_child_transition_duration, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-set-child-transition-duration">hdy_leaflet_set_child_transition_duration ()</a>
+</dt>
+<dt id="ientry-idm45378768810944">hdy_leaflet_set_child_transition_type, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-set-child-transition-type">hdy_leaflet_set_child_transition_type ()</a>
+</dt>
+<dt id="ientry-idm45378771060064">hdy_leaflet_set_homogeneous, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-set-homogeneous">hdy_leaflet_set_homogeneous ()</a>
+</dt>
+<dt id="ientry-idm45378768724592">hdy_leaflet_set_interpolate_size, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-set-interpolate-size">hdy_leaflet_set_interpolate_size ()</a>
+</dt>
+<dt id="ientry-idm45378768847008">hdy_leaflet_set_mode_transition_duration, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-set-mode-transition-duration">hdy_leaflet_set_mode_transition_duration ()</a>
+</dt>
+<dt id="ientry-idm45378768882256">hdy_leaflet_set_mode_transition_type, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-set-mode-transition-type">hdy_leaflet_set_mode_transition_type ()</a>
+</dt>
+<dt id="ientry-idm45378771009024">hdy_leaflet_set_transition_type, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-set-transition-type">hdy_leaflet_set_transition_type ()</a>
+</dt>
+<dt id="ientry-idm45378771108944">hdy_leaflet_set_visible_child, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-set-visible-child">hdy_leaflet_set_visible_child ()</a>
+</dt>
+<dt id="ientry-idm45378771095296">hdy_leaflet_set_visible_child_name, <a class="indexterm" href="HdyLeaflet.html#hdy-leaflet-set-visible-child-name">hdy_leaflet_set_visible_child_name ()</a>
+</dt>
+<dt id="ientry-idm45378768942832">hdy_list_box_separator_header, <a class="indexterm" href="libhandy-GtkListBox-helpers.html#hdy-list-box-separator-header">hdy_list_box_separator_header ()</a>
+</dt>
+<dt id="ientry-idm45378767624704">HDY_MAJOR_VERSION, <a class="indexterm" href="libhandy-hdy-version.html#HDY-MAJOR-VERSION:CAPS">HDY_MAJOR_VERSION</a>
+</dt>
+<dt id="ientry-idm45378779879392">HDY_MICRO_VERSION, <a class="indexterm" href="libhandy-hdy-version.html#HDY-MICRO-VERSION:CAPS">HDY_MICRO_VERSION</a>
+</dt>
+<dt id="ientry-idm45378767008560">HDY_MINOR_VERSION, <a class="indexterm" href="libhandy-hdy-version.html#HDY-MINOR-VERSION:CAPS">HDY_MINOR_VERSION</a>
+</dt>
+<dt id="ientry-idm45378767859520">hdy_paginator_get_allow_mouse_drag, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-get-allow-mouse-drag">hdy_paginator_get_allow_mouse_drag ()</a>
+</dt>
+<dt id="ientry-idm45378767895440">hdy_paginator_get_animation_duration, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-get-animation-duration">hdy_paginator_get_animation_duration ()</a>
+</dt>
+<dt id="ientry-idm45378767968176">hdy_paginator_get_center_content, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-get-center-content">hdy_paginator_get_center_content ()</a>
+</dt>
+<dt id="ientry-idm45378768003488">hdy_paginator_get_indicator_spacing, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-get-indicator-spacing">hdy_paginator_get_indicator_spacing ()</a>
+</dt>
+<dt id="ientry-idm45378768038336">hdy_paginator_get_indicator_style, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-get-indicator-style">hdy_paginator_get_indicator_style ()</a>
+</dt>
+<dt id="ientry-idm45378769820544">hdy_paginator_get_interactive, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-get-interactive">hdy_paginator_get_interactive ()</a>
+</dt>
+<dt id="ientry-idm45378769860352">hdy_paginator_get_n_pages, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-get-n-pages">hdy_paginator_get_n_pages ()</a>
+</dt>
+<dt id="ientry-idm45378769840048">hdy_paginator_get_position, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-get-position">hdy_paginator_get_position ()</a>
+</dt>
+<dt id="ientry-idm45378767929376">hdy_paginator_get_spacing, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-get-spacing">hdy_paginator_get_spacing ()</a>
+</dt>
+<dt id="ientry-idm45378769967072">hdy_paginator_insert, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-insert">hdy_paginator_insert ()</a>
+</dt>
+<dt id="ientry-idm45378770000304">hdy_paginator_new, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-new">hdy_paginator_new ()</a>
+</dt>
+<dt id="ientry-idm45378769989376">hdy_paginator_prepend, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-prepend">hdy_paginator_prepend ()</a>
+</dt>
+<dt id="ientry-idm45378769938064">hdy_paginator_reorder, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-reorder">hdy_paginator_reorder ()</a>
+</dt>
+<dt id="ientry-idm45378769909840">hdy_paginator_scroll_to, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-scroll-to">hdy_paginator_scroll_to ()</a>
+</dt>
+<dt id="ientry-idm45378769886640">hdy_paginator_scroll_to_full, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-scroll-to-full">hdy_paginator_scroll_to_full ()</a>
+</dt>
+<dt id="ientry-idm45378767841248">hdy_paginator_set_allow_mouse_drag, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-set-allow-mouse-drag">hdy_paginator_set_allow_mouse_drag ()</a>
+</dt>
+<dt id="ientry-idm45378767878416">hdy_paginator_set_animation_duration, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-set-animation-duration">hdy_paginator_set_animation_duration ()</a>
+</dt>
+<dt id="ientry-idm45378767949904">hdy_paginator_set_center_content, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-set-center-content">hdy_paginator_set_center_content ()</a>
+</dt>
+<dt id="ientry-idm45378767987456">hdy_paginator_set_indicator_spacing, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-set-indicator-spacing">hdy_paginator_set_indicator_spacing ()</a>
+</dt>
+<dt id="ientry-idm45378768022304">hdy_paginator_set_indicator_style, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-set-indicator-style">hdy_paginator_set_indicator_style ()</a>
+</dt>
+<dt id="ientry-idm45378769799168">hdy_paginator_set_interactive, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-set-interactive">hdy_paginator_set_interactive ()</a>
+</dt>
+<dt id="ientry-idm45378767913344">hdy_paginator_set_spacing, <a class="indexterm" href="HdyPaginator.html#hdy-paginator-set-spacing">hdy_paginator_set_spacing ()</a>
+</dt>
+<dt id="ientry-idm45378770768752">hdy_preferences_group_get_description, <a class="indexterm" href="HdyPreferencesGroup.html#hdy-preferences-group-get-description">hdy_preferences_group_get_description ()</a>
+</dt>
+<dt id="ientry-idm45378775796624">hdy_preferences_group_get_title, <a class="indexterm" href="HdyPreferencesGroup.html#hdy-preferences-group-get-title">hdy_preferences_group_get_title ()</a>
+</dt>
+<dt id="ientry-idm45378772617872">hdy_preferences_group_new, <a class="indexterm" href="HdyPreferencesGroup.html#hdy-preferences-group-new">hdy_preferences_group_new ()</a>
+</dt>
+<dt id="ientry-idm45378768313488">hdy_preferences_group_set_description, <a class="indexterm" href="HdyPreferencesGroup.html#hdy-preferences-group-set-description">hdy_preferences_group_set_description ()</a>
+</dt>
+<dt id="ientry-idm45378770874448">hdy_preferences_group_set_title, <a class="indexterm" href="HdyPreferencesGroup.html#hdy-preferences-group-set-title">hdy_preferences_group_set_title ()</a>
+</dt>
+<dt id="ientry-idm45378770812992">hdy_preferences_page_get_icon_name, <a class="indexterm" href="HdyPreferencesPage.html#hdy-preferences-page-get-icon-name">hdy_preferences_page_get_icon_name ()</a>
+</dt>
+<dt id="ientry-idm45378770927424">hdy_preferences_page_get_title, <a class="indexterm" href="HdyPreferencesPage.html#hdy-preferences-page-get-title">hdy_preferences_page_get_title ()</a>
+</dt>
+<dt id="ientry-idm45378771623872">hdy_preferences_page_new, <a class="indexterm" href="HdyPreferencesPage.html#hdy-preferences-page-new">hdy_preferences_page_new ()</a>
+</dt>
+<dt id="ientry-idm45378768057952">hdy_preferences_page_set_icon_name, <a class="indexterm" href="HdyPreferencesPage.html#hdy-preferences-page-set-icon-name">hdy_preferences_page_set_icon_name ()</a>
+</dt>
+<dt id="ientry-idm45378769780000">hdy_preferences_page_set_title, <a class="indexterm" href="HdyPreferencesPage.html#hdy-preferences-page-set-title">hdy_preferences_page_set_title ()</a>
+</dt>
+<dt id="ientry-idm45378771366304">hdy_preferences_row_get_title, <a class="indexterm" href="HdyPreferencesRow.html#hdy-preferences-row-get-title">hdy_preferences_row_get_title ()</a>
+</dt>
+<dt id="ientry-idm45378768200608">hdy_preferences_row_get_use_underline, <a class="indexterm" href="HdyPreferencesRow.html#hdy-preferences-row-get-use-underline">hdy_preferences_row_get_use_underline ()</a>
+</dt>
+<dt id="ientry-idm45378774829168">hdy_preferences_row_new, <a class="indexterm" href="HdyPreferencesRow.html#hdy-preferences-row-new">hdy_preferences_row_new ()</a>
+</dt>
+<dt id="ientry-idm45378768363056">hdy_preferences_row_set_title, <a class="indexterm" href="HdyPreferencesRow.html#hdy-preferences-row-set-title">hdy_preferences_row_set_title ()</a>
+</dt>
+<dt id="ientry-idm45378768179856">hdy_preferences_row_set_use_underline, <a class="indexterm" href="HdyPreferencesRow.html#hdy-preferences-row-set-use-underline">hdy_preferences_row_set_use_underline ()</a>
+</dt>
+<dt id="ientry-idm45378769686208">hdy_preferences_window_new, <a class="indexterm" href="HdyPreferencesWindow.html#hdy-preferences-window-new">hdy_preferences_window_new ()</a>
+</dt>
+<dt id="ientry-idm45378768224224">hdy_search_bar_connect_entry, <a class="indexterm" href="HdySearchBar.html#hdy-search-bar-connect-entry">hdy_search_bar_connect_entry ()</a>
+</dt>
+<dt id="ientry-idm45378769661168">hdy_search_bar_get_search_mode, <a class="indexterm" href="HdySearchBar.html#hdy-search-bar-get-search-mode">hdy_search_bar_get_search_mode ()</a>
+</dt>
+<dt id="ientry-idm45378769394464">hdy_search_bar_get_show_close_button, <a class="indexterm" href="HdySearchBar.html#hdy-search-bar-get-show-close-button">hdy_search_bar_get_show_close_button ()</a>
+</dt>
+<dt id="ientry-idm45378769355536">hdy_search_bar_handle_event, <a class="indexterm" href="HdySearchBar.html#hdy-search-bar-handle-event">hdy_search_bar_handle_event ()</a>
+</dt>
+<dt id="ientry-idm45378771248720">hdy_search_bar_new, <a class="indexterm" href="HdySearchBar.html#hdy-search-bar-new">hdy_search_bar_new ()</a>
+</dt>
+<dt id="ientry-idm45378769415168">hdy_search_bar_set_search_mode, <a class="indexterm" href="HdySearchBar.html#hdy-search-bar-set-search-mode">hdy_search_bar_set_search_mode ()</a>
+</dt>
+<dt id="ientry-idm45378769376048">hdy_search_bar_set_show_close_button, <a class="indexterm" href="HdySearchBar.html#hdy-search-bar-set-show-close-button">hdy_search_bar_set_show_close_button ()</a>
+</dt>
+<dt id="ientry-idm45378767337424">hdy_squeezer_get_child_enabled, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-get-child-enabled">hdy_squeezer_get_child_enabled ()</a>
+</dt>
+<dt id="ientry-idm45378769283392">hdy_squeezer_get_homogeneous, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-get-homogeneous">hdy_squeezer_get_homogeneous ()</a>
+</dt>
+<dt id="ientry-idm45378767395904">hdy_squeezer_get_interpolate_size, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-get-interpolate-size">hdy_squeezer_get_interpolate_size ()</a>
+</dt>
+<dt id="ientry-idm45378767492000">hdy_squeezer_get_transition_duration, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-get-transition-duration">hdy_squeezer_get_transition_duration ()</a>
+</dt>
+<dt id="ientry-idm45378767416128">hdy_squeezer_get_transition_running, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-get-transition-running">hdy_squeezer_get_transition_running ()</a>
+</dt>
+<dt id="ientry-idm45378767454752">hdy_squeezer_get_transition_type, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-get-transition-type">hdy_squeezer_get_transition_type ()</a>
+</dt>
+<dt id="ientry-idm45378767358976">hdy_squeezer_get_visible_child, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-get-visible-child">hdy_squeezer_get_visible_child ()</a>
+</dt>
+<dt id="ientry-idm45378769292800">hdy_squeezer_new, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-new">hdy_squeezer_new ()</a>
+</dt>
+<dt id="ientry-idm45378767310144">hdy_squeezer_set_child_enabled, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-set-child-enabled">hdy_squeezer_set_child_enabled ()</a>
+</dt>
+<dt id="ientry-idm45378767517648">hdy_squeezer_set_homogeneous, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-set-homogeneous">hdy_squeezer_set_homogeneous ()</a>
+</dt>
+<dt id="ientry-idm45378783535104">hdy_squeezer_set_interpolate_size, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-set-interpolate-size">hdy_squeezer_set_interpolate_size ()</a>
+</dt>
+<dt id="ientry-idm45378767474448">hdy_squeezer_set_transition_duration, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-set-transition-duration">hdy_squeezer_set_transition_duration ()</a>
+</dt>
+<dt id="ientry-idm45378767436320">hdy_squeezer_set_transition_type, <a class="indexterm" href="HdySqueezer.html#hdy-squeezer-set-transition-type">hdy_squeezer_set_transition_type ()</a>
+</dt>
+<dt id="ientry-idm45378766448896">hdy_string_utf8_len, <a class="indexterm" href="libhandy-HdyStringUtf8.html#hdy-string-utf8-len">hdy_string_utf8_len ()</a>
+</dt>
+<dt id="ientry-idm45378773909456">hdy_string_utf8_truncate, <a class="indexterm" href="libhandy-HdyStringUtf8.html#hdy-string-utf8-truncate">hdy_string_utf8_truncate ()</a>
+</dt>
+<dt id="ientry-idm45378776202576">hdy_swipe_group_add_swipeable, <a class="indexterm" href="HdySwipeGroup.html#hdy-swipe-group-add-swipeable">hdy_swipe_group_add_swipeable ()</a>
+</dt>
+<dt id="ientry-idm45378777748384">hdy_swipe_group_get_swipeables, <a class="indexterm" href="HdySwipeGroup.html#hdy-swipe-group-get-swipeables">hdy_swipe_group_get_swipeables ()</a>
+</dt>
+<dt id="ientry-idm45378779063712">hdy_swipe_group_new, <a class="indexterm" href="HdySwipeGroup.html#hdy-swipe-group-new">hdy_swipe_group_new ()</a>
+</dt>
+<dt id="ientry-idm45378767288432">hdy_swipe_group_remove_swipeable, <a class="indexterm" href="HdySwipeGroup.html#hdy-swipe-group-remove-swipeable">hdy_swipe_group_remove_swipeable ()</a>
+</dt>
+<dt id="ientry-idm45378777703392">hdy_title_bar_get_selection_mode, <a class="indexterm" href="HdyTitleBar.html#hdy-title-bar-get-selection-mode">hdy_title_bar_get_selection_mode ()</a>
+</dt>
+<dt id="ientry-idm45378767689520">hdy_title_bar_new, <a class="indexterm" href="HdyTitleBar.html#hdy-title-bar-new">hdy_title_bar_new ()</a>
+</dt>
+<dt id="ientry-idm45378778691712">hdy_title_bar_set_selection_mode, <a class="indexterm" href="HdyTitleBar.html#hdy-title-bar-set-selection-mode">hdy_title_bar_set_selection_mode ()</a>
+</dt>
+<dt id="ientry-idm45378774590368">HDY_TYPE_ACTION_ROW, <a class="indexterm" href="HdyActionRow.html#HDY-TYPE-ACTION-ROW:CAPS">HDY_TYPE_ACTION_ROW</a>
+</dt>
+<dt id="ientry-idm45378774462112">HDY_TYPE_ARROWS, <a class="indexterm" href="HdyArrows.html#HDY-TYPE-ARROWS:CAPS">HDY_TYPE_ARROWS</a>
+</dt>
+<dt id="ientry-idm45378774122752">HDY_TYPE_COLUMN, <a class="indexterm" href="HdyColumn.html#HDY-TYPE-COLUMN:CAPS">HDY_TYPE_COLUMN</a>
+</dt>
+<dt id="ientry-idm45378772461152">HDY_TYPE_COMBO_ROW, <a class="indexterm" href="HdyComboRow.html#HDY-TYPE-COMBO-ROW:CAPS">HDY_TYPE_COMBO_ROW</a>
+</dt>
+<dt id="ientry-idm45378773468352">HDY_TYPE_DIALER, <a class="indexterm" href="HdyDialer.html#HDY-TYPE-DIALER:CAPS">HDY_TYPE_DIALER</a>
+</dt>
+<dt id="ientry-idm45378774312912">HDY_TYPE_DIALER_BUTTON, <a class="indexterm" href="HdyDialerButton.html#HDY-TYPE-DIALER-BUTTON:CAPS">HDY_TYPE_DIALER_BUTTON</a>
+</dt>
+<dt id="ientry-idm45378772760144">HDY_TYPE_DIALER_CYCLE_BUTTON, <a class="indexterm" href="HdyDialerCycleButton.html#HDY-TYPE-DIALER-CYCLE-BUTTON:CAPS">HDY_TYPE_DIALER_CYCLE_BUTTON</a>
+</dt>
+<dt id="ientry-idm45378772835248">HDY_TYPE_DIALOG, <a class="indexterm" href="HdyDialog.html#HDY-TYPE-DIALOG:CAPS">HDY_TYPE_DIALOG</a>
+</dt>
+<dt id="ientry-idm45378773298928">HDY_TYPE_ENUM_VALUE_OBJECT, <a class="indexterm" href="HdyEnumValueObject.html#HDY-TYPE-ENUM-VALUE-OBJECT:CAPS">HDY_TYPE_ENUM_VALUE_OBJECT</a>
+</dt>
+<dt id="ientry-idm45378772222448">HDY_TYPE_EXPANDER_ROW, <a class="indexterm" href="HdyExpanderRow.html#HDY-TYPE-EXPANDER-ROW:CAPS">HDY_TYPE_EXPANDER_ROW</a>
+</dt>
+<dt id="ientry-idm45378770145424">HDY_TYPE_HEADER_BAR, <a class="indexterm" href="HdyHeaderBar.html#HDY-TYPE-HEADER-BAR:CAPS">HDY_TYPE_HEADER_BAR</a>
+</dt>
+<dt id="ientry-idm45378771731408">HDY_TYPE_HEADER_GROUP, <a class="indexterm" href="HdyHeaderGroup.html#HDY-TYPE-HEADER-GROUP:CAPS">HDY_TYPE_HEADER_GROUP</a>
+</dt>
+<dt id="ientry-idm45378771461120">HDY_TYPE_KEYPAD, <a class="indexterm" href="HdyKeypad.html#HDY-TYPE-KEYPAD:CAPS">HDY_TYPE_KEYPAD</a>
+</dt>
+<dt id="ientry-idm45378768628720">HDY_TYPE_LEAFLET, <a class="indexterm" href="HdyLeaflet.html#HDY-TYPE-LEAFLET:CAPS">HDY_TYPE_LEAFLET</a>
+</dt>
+<dt id="ientry-idm45378767817856">HDY_TYPE_PAGINATOR, <a class="indexterm" href="HdyPaginator.html#HDY-TYPE-PAGINATOR:CAPS">HDY_TYPE_PAGINATOR</a>
+</dt>
+<dt id="ientry-idm45378768290480">HDY_TYPE_PREFERENCES_GROUP, <a class="indexterm" href="HdyPreferencesGroup.html#HDY-TYPE-PREFERENCES-GROUP:CAPS">HDY_TYPE_PREFERENCES_GROUP</a>
+</dt>
+<dt id="ientry-idm45378769754640">HDY_TYPE_PREFERENCES_PAGE, <a class="indexterm" href="HdyPreferencesPage.html#HDY-TYPE-PREFERENCES-PAGE:CAPS">HDY_TYPE_PREFERENCES_PAGE</a>
+</dt>
+<dt id="ientry-idm45378768156848">HDY_TYPE_PREFERENCES_ROW, <a class="indexterm" href="HdyPreferencesRow.html#HDY-TYPE-PREFERENCES-ROW:CAPS">HDY_TYPE_PREFERENCES_ROW</a>
+</dt>
+<dt id="ientry-idm45378778603344">HDY_TYPE_PREFERENCES_WINDOW, <a class="indexterm" href="HdyPreferencesWindow.html#HDY-TYPE-PREFERENCES-WINDOW:CAPS">HDY_TYPE_PREFERENCES_WINDOW</a>
+</dt>
+<dt id="ientry-idm45378769322448">HDY_TYPE_SEARCH_BAR, <a class="indexterm" href="HdySearchBar.html#HDY-TYPE-SEARCH-BAR:CAPS">HDY_TYPE_SEARCH_BAR</a>
+</dt>
+<dt id="ientry-idm45378766130208">HDY_TYPE_SQUEEZER, <a class="indexterm" href="HdySqueezer.html#HDY-TYPE-SQUEEZER:CAPS">HDY_TYPE_SQUEEZER</a>
+</dt>
+<dt id="ientry-idm45378769687216">HDY_TYPE_SWIPEABLE, <a class="indexterm" href="HdySwipeable.html#HDY-TYPE-SWIPEABLE:CAPS">HDY_TYPE_SWIPEABLE</a>
+</dt>
+<dt id="ientry-idm45378767084000">HDY_TYPE_SWIPE_GROUP, <a class="indexterm" href="HdySwipeGroup.html#HDY-TYPE-SWIPE-GROUP:CAPS">HDY_TYPE_SWIPE_GROUP</a>
+</dt>
+<dt id="ientry-idm45378767541696">HDY_TYPE_TITLE_BAR, <a class="indexterm" href="HdyTitleBar.html#HDY-TYPE-TITLE-BAR:CAPS">HDY_TYPE_TITLE_BAR</a>
+</dt>
+<dt id="ientry-idm45378766273744">HDY_TYPE_VALUE_OBJECT, <a class="indexterm" href="HdyValueObject.html#HDY-TYPE-VALUE-OBJECT:CAPS">HDY_TYPE_VALUE_OBJECT</a>
+</dt>
+<dt id="ientry-idm45378765912448">HDY_TYPE_VIEW_SWITCHER, <a class="indexterm" href="HdyViewSwitcher.html#HDY-TYPE-VIEW-SWITCHER:CAPS">HDY_TYPE_VIEW_SWITCHER</a>
+</dt>
+<dt id="ientry-idm45378765712256">HDY_TYPE_VIEW_SWITCHER_BAR, <a class="indexterm" href="HdyViewSwitcherBar.html#HDY-TYPE-VIEW-SWITCHER-BAR:CAPS">HDY_TYPE_VIEW_SWITCHER_BAR</a>
+</dt>
+<dt id="ientry-idm45378766340160">hdy_value_object_copy_value, <a class="indexterm" href="HdyValueObject.html#hdy-value-object-copy-value">hdy_value_object_copy_value ()</a>
+</dt>
+<dt id="ientry-idm45378766296080">hdy_value_object_dup_string, <a class="indexterm" href="HdyValueObject.html#hdy-value-object-dup-string">hdy_value_object_dup_string ()</a>
+</dt>
+<dt id="ientry-idm45378766317024">hdy_value_object_get_string, <a class="indexterm" href="HdyValueObject.html#hdy-value-object-get-string">hdy_value_object_get_string ()</a>
+</dt>
+<dt id="ientry-idm45378766361152">hdy_value_object_get_value, <a class="indexterm" href="HdyValueObject.html#hdy-value-object-get-value">hdy_value_object_get_value ()</a>
+</dt>
+<dt id="ientry-idm45378769426160">hdy_value_object_new, <a class="indexterm" href="HdyValueObject.html#hdy-value-object-new">hdy_value_object_new ()</a>
+</dt>
+<dt id="ientry-idm45378767096608">hdy_value_object_new_collect, <a class="indexterm" href="HdyValueObject.html#hdy-value-object-new-collect">hdy_value_object_new_collect ()</a>
+</dt>
+<dt id="ientry-idm45378767121856">hdy_value_object_new_string, <a class="indexterm" href="HdyValueObject.html#hdy-value-object-new-string">hdy_value_object_new_string ()</a>
+</dt>
+<dt id="ientry-idm45378766383408">hdy_value_object_new_take_string, <a class="indexterm" href="HdyValueObject.html#hdy-value-object-new-take-string">hdy_value_object_new_take_string ()</a>
+</dt>
+<dt id="ientry-idm45378775281504">HDY_VERSION, <a class="indexterm" href="libhandy-hdy-version.html#HDY-VERSION:CAPS">HDY_VERSION</a>
+</dt>
+<dt id="ientry-idm45378778983664">HDY_VERSION_HEX, <a class="indexterm" href="libhandy-hdy-version.html#HDY-VERSION-HEX:CAPS">HDY_VERSION_HEX</a>
+</dt>
+<dt id="ientry-idm45378766856400">HDY_VERSION_S, <a class="indexterm" href="libhandy-hdy-version.html#HDY-VERSION-S:CAPS">HDY_VERSION_S</a>
+</dt>
+<dt id="ientry-idm45378766572336">hdy_view_switcher_bar_get_icon_size, <a class="indexterm" href="HdyViewSwitcherBar.html#hdy-view-switcher-bar-get-icon-size">hdy_view_switcher_bar_get_icon_size ()</a>
+</dt>
+<dt id="ientry-idm45378766554464">hdy_view_switcher_bar_get_policy, <a class="indexterm" href="HdyViewSwitcherBar.html#hdy-view-switcher-bar-get-policy">hdy_view_switcher_bar_get_policy ()</a>
+</dt>
+<dt id="ientry-idm45378765759584">hdy_view_switcher_bar_get_reveal, <a class="indexterm" href="HdyViewSwitcherBar.html#hdy-view-switcher-bar-get-reveal">hdy_view_switcher_bar_get_reveal ()</a>
+</dt>
+<dt id="ientry-idm45378765807040">hdy_view_switcher_bar_get_stack, <a class="indexterm" href="HdyViewSwitcherBar.html#hdy-view-switcher-bar-get-stack">hdy_view_switcher_bar_get_stack ()</a>
+</dt>
+<dt id="ientry-idm45378766871792">hdy_view_switcher_bar_new, <a class="indexterm" href="HdyViewSwitcherBar.html#hdy-view-switcher-bar-new">hdy_view_switcher_bar_new ()</a>
+</dt>
+<dt id="ientry-idm45378765828528">hdy_view_switcher_bar_set_icon_size, <a class="indexterm" href="HdyViewSwitcherBar.html#hdy-view-switcher-bar-set-icon-size">hdy_view_switcher_bar_set_icon_size ()</a>
+</dt>
+<dt id="ientry-idm45378766757552">hdy_view_switcher_bar_set_policy, <a class="indexterm" href="HdyViewSwitcherBar.html#hdy-view-switcher-bar-set-policy">hdy_view_switcher_bar_set_policy ()</a>
+</dt>
+<dt id="ientry-idm45378765737088">hdy_view_switcher_bar_set_reveal, <a class="indexterm" href="HdyViewSwitcherBar.html#hdy-view-switcher-bar-set-reveal">hdy_view_switcher_bar_set_reveal ()</a>
+</dt>
+<dt id="ientry-idm45378765782960">hdy_view_switcher_bar_set_stack, <a class="indexterm" href="HdyViewSwitcherBar.html#hdy-view-switcher-bar-set-stack">hdy_view_switcher_bar_set_stack ()</a>
+</dt>
+<dt id="ientry-idm45378766047152">hdy_view_switcher_get_icon_size, <a class="indexterm" href="HdyViewSwitcher.html#hdy-view-switcher-get-icon-size">hdy_view_switcher_get_icon_size ()</a>
+</dt>
+<dt id="ientry-idm45378766004736">hdy_view_switcher_get_narrow_ellipsize, <a class="indexterm" href="HdyViewSwitcher.html#hdy-view-switcher-get-narrow-ellipsize">hdy_view_switcher_get_narrow_ellipsize ()</a>
+</dt>
+<dt id="ientry-idm45378766439792">hdy_view_switcher_get_policy, <a class="indexterm" href="HdyViewSwitcher.html#hdy-view-switcher-get-policy">hdy_view_switcher_get_policy ()</a>
+</dt>
+<dt id="ientry-idm45378765963152">hdy_view_switcher_get_stack, <a class="indexterm" href="HdyViewSwitcher.html#hdy-view-switcher-get-stack">hdy_view_switcher_get_stack ()</a>
+</dt>
+<dt id="ientry-idm45378766421904">hdy_view_switcher_new, <a class="indexterm" href="HdyViewSwitcher.html#hdy-view-switcher-new">hdy_view_switcher_new ()</a>
+</dt>
+<dt id="ientry-idm45378766026224">hdy_view_switcher_set_icon_size, <a class="indexterm" href="HdyViewSwitcher.html#hdy-view-switcher-set-icon-size">hdy_view_switcher_set_icon_size ()</a>
+</dt>
+<dt id="ientry-idm45378765984512">hdy_view_switcher_set_narrow_ellipsize, <a class="indexterm" href="HdyViewSwitcher.html#hdy-view-switcher-set-narrow-ellipsize">hdy_view_switcher_set_narrow_ellipsize ()</a>
+</dt>
+<dt id="ientry-idm45378766068672">hdy_view_switcher_set_policy, <a class="indexterm" href="HdyViewSwitcher.html#hdy-view-switcher-set-policy">hdy_view_switcher_set_policy ()</a>
+</dt>
+<dt id="ientry-idm45378765937456">hdy_view_switcher_set_stack, <a class="indexterm" href="HdyViewSwitcher.html#hdy-view-switcher-set-stack">hdy_view_switcher_set_stack ()</a>
+</dt>
+</dl>
+</div></div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.33.0</div>
+</body>
+</html>

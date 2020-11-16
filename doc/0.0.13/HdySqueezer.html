@@ -1,0 +1,784 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>HdySqueezer: Handy Reference Manual</title>
+<meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Handy Reference Manual">
+<link rel="up" href="core-api.html" title="Widgets and Objects">
+<link rel="prev" href="HdySearchBar.html" title="HdySearchBar">
+<link rel="next" href="HdySwipeable.html" title="HdySwipeable">
+<meta name="generator" content="GTK-Doc V1.33.0 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#HdySqueezer.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#HdySqueezer.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#HdySqueezer.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#HdySqueezer.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="core-api.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="HdySearchBar.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="HdySwipeable.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="HdySqueezer"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="HdySqueezer.top_of_page"></a>HdySqueezer</span></h2>
+<p>HdySqueezer — A best fit container.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="HdySqueezer.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_proto_type">
+<col class="functions_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="returnvalue">HdySqueezer</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-new" title="hdy_squeezer_new ()">hdy_squeezer_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-get-homogeneous" title="hdy_squeezer_get_homogeneous ()">hdy_squeezer_get_homogeneous</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-set-homogeneous" title="hdy_squeezer_set_homogeneous ()">hdy_squeezer_set_homogeneous</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-get-transition-duration" title="hdy_squeezer_get_transition_duration ()">hdy_squeezer_get_transition_duration</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-set-transition-duration" title="hdy_squeezer_set_transition_duration ()">hdy_squeezer_set_transition_duration</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="HdySqueezer.html#HdySqueezerTransitionType" title="enum HdySqueezerTransitionType"><span class="returnvalue">HdySqueezerTransitionType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-get-transition-type" title="hdy_squeezer_get_transition_type ()">hdy_squeezer_get_transition_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-set-transition-type" title="hdy_squeezer_set_transition_type ()">hdy_squeezer_set_transition_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-get-transition-running" title="hdy_squeezer_get_transition_running ()">hdy_squeezer_get_transition_running</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-get-interpolate-size" title="hdy_squeezer_get_interpolate_size ()">hdy_squeezer_get_interpolate_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-set-interpolate-size" title="hdy_squeezer_set_interpolate_size ()">hdy_squeezer_set_interpolate_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GtkWidget</span> *
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-get-visible-child" title="hdy_squeezer_get_visible_child ()">hdy_squeezer_get_visible_child</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-get-child-enabled" title="hdy_squeezer_get_child_enabled ()">hdy_squeezer_get_child_enabled</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="HdySqueezer.html#hdy-squeezer-set-child-enabled" title="hdy_squeezer_set_child_enabled ()">hdy_squeezer_set_child_enabled</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdySqueezer.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="HdySqueezer.html#HdySqueezer--homogeneous" title="The “homogeneous” property">homogeneous</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="HdySqueezer.html#HdySqueezer--interpolate-size" title="The “interpolate-size” property">interpolate-size</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="HdySqueezer.html#HdySqueezer--transition-duration" title="The “transition-duration” property">transition-duration</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="HdySqueezer.html#HdySqueezer--transition-running" title="The “transition-running” property">transition-running</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="HdySqueezer.html#HdySqueezerTransitionType" title="enum HdySqueezerTransitionType"><span class="type">HdySqueezerTransitionType</span></a></td>
+<td class="property_name"><a class="link" href="HdySqueezer.html#HdySqueezer--transition-type" title="The “transition-type” property">transition-type</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">GtkWidget</span> *</td>
+<td class="property_name"><a class="link" href="HdySqueezer.html#HdySqueezer--visible-child" title="The “visible-child” property">visible-child</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdySqueezer.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="other_proto_type">
+<col class="other_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="HdySqueezer.html#HDY-TYPE-SQUEEZER:CAPS" title="HDY_TYPE_SQUEEZER">HDY_TYPE_SQUEEZER</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="HdySqueezer.html#HdySqueezerTransitionType" title="enum HdySqueezerTransitionType">HdySqueezerTransitionType</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="HdySqueezer.html#HdySqueezerClass" title="struct HdySqueezerClass">HdySqueezerClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="HdySqueezer.html#HdySqueezer-struct" title="HdySqueezer">HdySqueezer</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdySqueezer.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GEnum
+    <span class="lineart">╰──</span> HdySqueezerTransitionType
+    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> GtkWidget
+            <span class="lineart">╰──</span> GtkContainer
+                <span class="lineart">╰──</span> HdySqueezer
+</pre>
+</div>
+<div class="refsect1">
+<a name="HdySqueezer.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+HdySqueezer implements
+ AtkImplementorIface,  GtkBuildable and  GtkOrientable.</p>
+</div>
+<div class="refsect1">
+<a name="HdySqueezer.description"></a><h2>Description</h2>
+<p>The HdySqueezer widget is a container which only shows the first of its
+children that fits in the available size. It is convenient to offer different
+widgets to represent the same data with different levels of detail, making
+the widget seem to squeeze itself to fit in the available space.</p>
+<p>Transitions between children can be animated as fades. This can be controlled
+with <a class="link" href="HdySqueezer.html#hdy-squeezer-set-transition-type" title="hdy_squeezer_set_transition_type ()"><code class="function">hdy_squeezer_set_transition_type()</code></a>.</p>
+</div>
+<div class="refsect1">
+<a name="HdySqueezer.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="hdy-squeezer-new"></a><h3>hdy_squeezer_new ()</h3>
+<pre class="programlisting"><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="returnvalue">HdySqueezer</span></a> *
+hdy_squeezer_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> container.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-squeezer-get-homogeneous"></a><h3>hdy_squeezer_get_homogeneous ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+hdy_squeezer_get_homogeneous (<em class="parameter"><code><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> *self</code></em>);</pre>
+<p>Gets whether <em class="parameter"><code>self</code></em>
+ is homogeneous.</p>
+<p>See <a class="link" href="HdySqueezer.html#hdy-squeezer-set-homogeneous" title="hdy_squeezer_set_homogeneous ()"><code class="function">hdy_squeezer_set_homogeneous()</code></a>.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-get-homogeneous.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-squeezer-get-homogeneous.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em>
+is homogeneous, <code class="literal">FALSE</code> is not</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-10.html#api-index-0.0.10">0.0.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-squeezer-set-homogeneous"></a><h3>hdy_squeezer_set_homogeneous ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_squeezer_set_homogeneous (<em class="parameter"><code><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> *self</code></em>,
+                              <em class="parameter"><code><span class="type">gboolean</span> homogeneous</code></em>);</pre>
+<p>Sets <em class="parameter"><code>self</code></em>
+ to be homogeneous or not. If it is homogeneous, <em class="parameter"><code>self</code></em>
+ will request
+the same size for all its children for its opposite orientation, e.g. if
+<em class="parameter"><code>self</code></em>
+ is oriented horizontally and is homogeneous, it will request the same
+height for all its children. If it isn't, <em class="parameter"><code>self</code></em>
+ may change size when a
+different child becomes visible.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-set-homogeneous.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>homogeneous</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to make <em class="parameter"><code>self</code></em>
+homogeneous</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-10.html#api-index-0.0.10">0.0.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-squeezer-get-transition-duration"></a><h3>hdy_squeezer_get_transition_duration ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+hdy_squeezer_get_transition_duration (<em class="parameter"><code><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> *self</code></em>);</pre>
+<p>Gets the amount of time (in milliseconds) that transitions between children
+in <em class="parameter"><code>self</code></em>
+ will take.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-get-transition-duration.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-squeezer-get-transition-duration.returns"></a><h4>Returns</h4>
+<p> the transition duration</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-squeezer-set-transition-duration"></a><h3>hdy_squeezer_set_transition_duration ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_squeezer_set_transition_duration (<em class="parameter"><code><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> *self</code></em>,
+                                      <em class="parameter"><code><span class="type">guint</span> duration</code></em>);</pre>
+<p>Sets the duration that transitions between children in <em class="parameter"><code>self</code></em>
+ will take.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-set-transition-duration.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>duration</p></td>
+<td class="parameter_description"><p>the new duration, in milliseconds</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-squeezer-get-transition-type"></a><h3>hdy_squeezer_get_transition_type ()</h3>
+<pre class="programlisting"><a class="link" href="HdySqueezer.html#HdySqueezerTransitionType" title="enum HdySqueezerTransitionType"><span class="returnvalue">HdySqueezerTransitionType</span></a>
+hdy_squeezer_get_transition_type (<em class="parameter"><code><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> *self</code></em>);</pre>
+<p>Gets the type of animation that will be used for transitions between children
+in <em class="parameter"><code>self</code></em>
+.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-get-transition-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-squeezer-get-transition-type.returns"></a><h4>Returns</h4>
+<p> the current transition type of <em class="parameter"><code>self</code></em>
+</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-squeezer-set-transition-type"></a><h3>hdy_squeezer_set_transition_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_squeezer_set_transition_type (<em class="parameter"><code><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> *self</code></em>,
+                                  <em class="parameter"><code><a class="link" href="HdySqueezer.html#HdySqueezerTransitionType" title="enum HdySqueezerTransitionType"><span class="type">HdySqueezerTransitionType</span></a> transition</code></em>);</pre>
+<p>Sets the type of animation that will be used for transitions between children
+in <em class="parameter"><code>self</code></em>
+. Available types include various kinds of fades and slides.</p>
+<p>The transition type can be changed without problems at runtime, so it is
+possible to change the animation based on the child that is about to become
+current.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-set-transition-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>transition</p></td>
+<td class="parameter_description"><p>the new transition type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-squeezer-get-transition-running"></a><h3>hdy_squeezer_get_transition_running ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+hdy_squeezer_get_transition_running (<em class="parameter"><code><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> *self</code></em>);</pre>
+<p>Gets whether <em class="parameter"><code>self</code></em>
+ is currently in a transition from one child to another.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-get-transition-running.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-squeezer-get-transition-running.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the transition is currently running, <code class="literal">FALSE</code> otherwise.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-squeezer-get-interpolate-size"></a><h3>hdy_squeezer_get_interpolate_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+hdy_squeezer_get_interpolate_size (<em class="parameter"><code><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> *self</code></em>);</pre>
+<p>Gets wether <em class="parameter"><code>self</code></em>
+ should interpolate its size on visible child change.</p>
+<p>See <a class="link" href="HdySqueezer.html#hdy-squeezer-set-interpolate-size" title="hdy_squeezer_set_interpolate_size ()"><code class="function">hdy_squeezer_set_interpolate_size()</code></a>.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-get-interpolate-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>A <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-squeezer-get-interpolate-size.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>self</code></em>
+interpolates its size on visible child change, <code class="literal">FALSE</code> if not</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-10.html#api-index-0.0.10">0.0.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-squeezer-set-interpolate-size"></a><h3>hdy_squeezer_set_interpolate_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_squeezer_set_interpolate_size (<em class="parameter"><code><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> *self</code></em>,
+                                   <em class="parameter"><code><span class="type">gboolean</span> interpolate_size</code></em>);</pre>
+<p>Sets whether or not <em class="parameter"><code>self</code></em>
+ will interpolate the size of its opposing
+orientation when changing the visible child. If <code class="literal">TRUE</code>, <em class="parameter"><code>self</code></em>
+ will interpolate
+its size between the one of the previous visible child and the one of the new
+visible child, according to the set transition duration and the orientation,
+e.g. if <em class="parameter"><code>self</code></em>
+ is horizontal, it will interpolate the its height.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-set-interpolate-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>A <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>interpolate_size</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to interpolate the size</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-10.html#api-index-0.0.10">0.0.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-squeezer-get-visible-child"></a><h3>hdy_squeezer_get_visible_child ()</h3>
+<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *
+hdy_squeezer_get_visible_child (<em class="parameter"><code><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> *self</code></em>);</pre>
+<p>Gets the currently visible child of <em class="parameter"><code>self</code></em>
+, or <code class="literal">NULL</code> if there are no visible
+children.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-get-visible-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-squeezer-get-visible-child.returns"></a><h4>Returns</h4>
+<p>the visible child of the <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-squeezer-get-child-enabled"></a><h3>hdy_squeezer_get_child_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+hdy_squeezer_get_child_enabled (<em class="parameter"><code><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> *self</code></em>,
+                                <em class="parameter"><code><span class="type">GtkWidget</span> *child</code></em>);</pre>
+<p>Gets whether <em class="parameter"><code>child</code></em>
+ is enabled.</p>
+<p>See <a class="link" href="HdySqueezer.html#hdy-squeezer-set-child-enabled" title="hdy_squeezer_set_child_enabled ()"><code class="function">hdy_squeezer_set_child_enabled()</code></a>.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-get-child-enabled.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a child of <em class="parameter"><code>self</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="hdy-squeezer-get-child-enabled.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>child</code></em>
+is enabled, <code class="literal">FALSE</code> otherwise.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="hdy-squeezer-set-child-enabled"></a><h3>hdy_squeezer_set_child_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+hdy_squeezer_set_child_enabled (<em class="parameter"><code><a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> *self</code></em>,
+                                <em class="parameter"><code><span class="type">GtkWidget</span> *child</code></em>,
+                                <em class="parameter"><code><span class="type">gboolean</span> enabled</code></em>);</pre>
+<p>Make <em class="parameter"><code>self</code></em>
+ enable or disable <em class="parameter"><code>child</code></em>
+. If a child is disabled, it will be
+ignored when looking for the child fitting the available size best. This
+allows to programmatically and prematurely hide a child of <em class="parameter"><code>self</code></em>
+ even if it
+fits in the available space.</p>
+<p>This can be used e.g. to ensure a certain child is hidden below a certain
+window width, or any other constraint you find suitable.</p>
+<div class="refsect3">
+<a name="hdy-squeezer-set-child-enabled.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a child of <em class="parameter"><code>self</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>enabled</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to enable the child, <code class="literal">FALSE</code> to disable it</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="HdySqueezer.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="HDY-TYPE-SQUEEZER:CAPS"></a><h3>HDY_TYPE_SQUEEZER</h3>
+<pre class="programlisting">#define HDY_TYPE_SQUEEZER (hdy_squeezer_get_type ())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySqueezerTransitionType"></a><h3>enum HdySqueezerTransitionType</h3>
+<p>These enumeration values describe the possible transitions between children
+in a <a class="link" href="HdySqueezer.html" title="HdySqueezer"><span class="type">HdySqueezer</span></a> widget.</p>
+<div class="refsect3">
+<a name="HdySqueezerTransitionType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="HDY-SQUEEZER-TRANSITION-TYPE-NONE:CAPS"></a>HDY_SQUEEZER_TRANSITION_TYPE_NONE</p></td>
+<td class="enum_member_description">
+<p>No transition</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="HDY-SQUEEZER-TRANSITION-TYPE-CROSSFADE:CAPS"></a>HDY_SQUEEZER_TRANSITION_TYPE_CROSSFADE</p></td>
+<td class="enum_member_description">
+<p>A cross-fade</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySqueezerClass"></a><h3>struct HdySqueezerClass</h3>
+<pre class="programlisting">struct HdySqueezerClass {
+  GtkContainerClass parent_class;
+};
+</pre>
+<div class="refsect3">
+<a name="HdySqueezerClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySqueezer-struct"></a><h3>HdySqueezer</h3>
+<pre class="programlisting">typedef struct _HdySqueezer HdySqueezer;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="HdySqueezer.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="HdySqueezer--homogeneous"></a><h3>The <code class="literal">“homogeneous”</code> property</h3>
+<pre class="programlisting">  “homogeneous”              <span class="type">gboolean</span></pre>
+<p>Homogeneous sizing.</p>
+<p>Owner: HdySqueezer</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySqueezer--interpolate-size"></a><h3>The <code class="literal">“interpolate-size”</code> property</h3>
+<pre class="programlisting">  “interpolate-size”         <span class="type">gboolean</span></pre>
+<p>Whether or not the size should smoothly change when changing between differently sized children.</p>
+<p>Owner: HdySqueezer</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySqueezer--transition-duration"></a><h3>The <code class="literal">“transition-duration”</code> property</h3>
+<pre class="programlisting">  “transition-duration”      <span class="type">guint</span></pre>
+<p>The animation duration, in milliseconds.</p>
+<p>Owner: HdySqueezer</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 200</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySqueezer--transition-running"></a><h3>The <code class="literal">“transition-running”</code> property</h3>
+<pre class="programlisting">  “transition-running”       <span class="type">gboolean</span></pre>
+<p>Whether or not the transition is currently running.</p>
+<p>Owner: HdySqueezer</p>
+<p>Flags: Read</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySqueezer--transition-type"></a><h3>The <code class="literal">“transition-type”</code> property</h3>
+<pre class="programlisting">  “transition-type”          <a class="link" href="HdySqueezer.html#HdySqueezerTransitionType" title="enum HdySqueezerTransitionType"><span class="type">HdySqueezerTransitionType</span></a></pre>
+<p>The type of animation used to transition.</p>
+<p>Owner: HdySqueezer</p>
+<p>Flags: Read / Write</p>
+<p>Default value: HDY_SQUEEZER_TRANSITION_TYPE_NONE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySqueezer--visible-child"></a><h3>The <code class="literal">“visible-child”</code> property</h3>
+<pre class="programlisting">  “visible-child”            <span class="type">GtkWidget</span> *</pre>
+<p>The widget currently visible in the squeezer.</p>
+<p>Owner: HdySqueezer</p>
+<p>Flags: Read</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.33.0</div>
+</body>
+</html>

@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<book xmlns="http://www.devhelp.net/book" title="Handy Reference Manual" link="index.html" author="" name="libhandy" version="2" language="c">
+  <chapters>
+    <sub name="Introduction" link="intro.html">
+      <sub name="Compiling with libhandy" link="build-howto.html"/>
+      <sub name="Visual index" link="visual-index.html"/>
+    </sub>
+    <sub name="Widgets and Objects" link="core-api.html">
+      <sub name="HdyActionRow" link="HdyActionRow.html"/>
+      <sub name="Animation Helpers" link="libhandy-Animation-Helpers.html"/>
+      <sub name="HdyArrows" link="HdyArrows.html"/>
+      <sub name="HdyColumn" link="HdyColumn.html"/>
+      <sub name="HdyComboRow" link="HdyComboRow.html"/>
+      <sub name="HdyDialer" link="HdyDialer.html"/>
+      <sub name="HdyDialerButton" link="HdyDialerButton.html"/>
+      <sub name="HdyDialerCycleButton" link="HdyDialerCycleButton.html"/>
+      <sub name="HdyDialog" link="HdyDialog.html"/>
+      <sub name="HdyEnumValueObject" link="HdyEnumValueObject.html"/>
+      <sub name="HdyExpanderRow" link="HdyExpanderRow.html"/>
+      <sub name="HdyHeaderBar" link="HdyHeaderBar.html"/>
+      <sub name="HdyHeaderGroup" link="HdyHeaderGroup.html"/>
+      <sub name="HdyKeypad" link="HdyKeypad.html"/>
+      <sub name="HdyLeaflet" link="HdyLeaflet.html"/>
+      <sub name="HdyPaginator" link="HdyPaginator.html"/>
+      <sub name="HdyPreferencesGroup" link="HdyPreferencesGroup.html"/>
+      <sub name="HdyPreferencesPage" link="HdyPreferencesPage.html"/>
+      <sub name="HdyPreferencesRow" link="HdyPreferencesRow.html"/>
+      <sub name="HdyPreferencesWindow" link="HdyPreferencesWindow.html"/>
+      <sub name="HdySearchBar" link="HdySearchBar.html"/>
+      <sub name="HdySqueezer" link="HdySqueezer.html"/>
+      <sub name="HdySwipeable" link="HdySwipeable.html"/>
+      <sub name="HdySwipeGroup" link="HdySwipeGroup.html"/>
+      <sub name="HdyTitleBar" link="HdyTitleBar.html"/>
+      <sub name="HdyValueObject" link="HdyValueObject.html"/>
+      <sub name="HdyViewSwitcher" link="HdyViewSwitcher.html"/>
+      <sub name="HdyViewSwitcherBar" link="HdyViewSwitcherBar.html"/>
+    </sub>
+    <sub name="Helpers" link="helpers.html">
+      <sub name="hdy-version" link="libhandy-hdy-version.html"/>
+      <sub name="hdy-main" link="libhandy-hdy-main.html"/>
+      <sub name="HdyStringUtf8" link="libhandy-HdyStringUtf8.html"/>
+      <sub name="HdyFold" link="libhandy-HdyFold.html"/>
+      <sub name="GtkListBox helpers" link="libhandy-GtkListBox-helpers.html"/>
+    </sub>
+    <sub name="Object Hierarchy" link="object-tree.html"/>
+    <sub name="API Index" link="api-index-full.html"/>
+    <sub name="Index of deprecated API" link="deprecated-api-index.html"/>
+    <sub name="Index of new symbols in 0.0.6" link="api-index-0-0-6.html"/>
+    <sub name="Index of new symbols in 0.0.7" link="api-index-0-0-7.html"/>
+    <sub name="Index of new symbols in 0.0.8" link="api-index-0-0-8.html"/>
+    <sub name="Index of new symbols in 0.0.10" link="api-index-0-0-10.html"/>
+    <sub name="Index of new symbols in 0.0.11" link="api-index-0-0-11.html"/>
+    <sub name="Index of new symbols in 0.0.12" link="api-index-0-0-12.html"/>
+    <sub name="Annotations glossary" link="annotations-glossary.html">
+      <sub name="Annotation Glossary" link="annotations-glossary.html#annotation-glossary"/>
+    </sub>
+  </chapters>
+  <functions>
+    <keyword type="function" name="hdy_action_row_new ()" link="HdyActionRow.html#hdy-action-row-new" since="0.0.6"/>
+    <keyword type="function" name="hdy_action_row_get_title ()" link="HdyActionRow.html#hdy-action-row-get-title" since="0.0.6"/>
+    <keyword type="function" name="hdy_action_row_set_title ()" link="HdyActionRow.html#hdy-action-row-set-title" since="0.0.6"/>
+    <keyword type="function" name="hdy_action_row_get_subtitle ()" link="HdyActionRow.html#hdy-action-row-get-subtitle" since="0.0.6"/>
+    <keyword type="function" name="hdy_action_row_set_subtitle ()" link="HdyActionRow.html#hdy-action-row-set-subtitle" since="0.0.6"/>
+    <keyword type="function" name="hdy_action_row_get_icon_name ()" link="HdyActionRow.html#hdy-action-row-get-icon-name" since="0.0.6"/>
+    <keyword type="function" name="hdy_action_row_set_icon_name ()" link="HdyActionRow.html#hdy-action-row-set-icon-name" since="0.0.6"/>
+    <keyword type="function" name="hdy_action_row_get_activatable_widget ()" link="HdyActionRow.html#hdy-action-row-get-activatable-widget" since="0.0.7"/>
+    <keyword type="function" name="hdy_action_row_set_activatable_widget ()" link="HdyActionRow.html#hdy-action-row-set-activatable-widget" since="0.0.7"/>
+    <keyword type="function" name="hdy_action_row_get_use_underline ()" link="HdyActionRow.html#hdy-action-row-get-use-underline" since="0.0.6"/>
+    <keyword type="function" name="hdy_action_row_set_use_underline ()" link="HdyActionRow.html#hdy-action-row-set-use-underline" since="0.0.6"/>
+    <keyword type="function" name="hdy_action_row_add_action ()" link="HdyActionRow.html#hdy-action-row-add-action" since="0.0.6"/>
+    <keyword type="function" name="hdy_action_row_add_prefix ()" link="HdyActionRow.html#hdy-action-row-add-prefix" since="0.0.6"/>
+    <keyword type="function" name="hdy_action_row_activate ()" link="HdyActionRow.html#hdy-action-row-activate"/>
+    <keyword type="macro" name="HDY_TYPE_ACTION_ROW" link="HdyActionRow.html#HDY-TYPE-ACTION-ROW:CAPS"/>
+    <keyword type="struct" name="struct HdyActionRowClass" link="HdyActionRow.html#HdyActionRowClass"/>
+    <keyword type="struct" name="HdyActionRow" link="HdyActionRow.html#HdyActionRow-struct"/>
+    <keyword type="property" name="The “activatable-widget” property" link="HdyActionRow.html#HdyActionRow--activatable-widget"/>
+    <keyword type="property" name="The “icon-name” property" link="HdyActionRow.html#HdyActionRow--icon-name"/>
+    <keyword type="property" name="The “subtitle” property" link="HdyActionRow.html#HdyActionRow--subtitle"/>
+    <keyword type="property" name="The “title” property" link="HdyActionRow.html#HdyActionRow--title"/>
+    <keyword type="property" name="The “use-underline” property" link="HdyActionRow.html#HdyActionRow--use-underline"/>
+    <keyword type="function" name="hdy_get_enable_animations ()" link="libhandy-Animation-Helpers.html#hdy-get-enable-animations" since="0.0.11"/>
+    <keyword type="function" name="hdy_ease_out_cubic ()" link="libhandy-Animation-Helpers.html#hdy-ease-out-cubic" since="0.0.11"/>
+    <keyword type="function" name="hdy_arrows_new ()" link="HdyArrows.html#hdy-arrows-new" deprecated="0.0.12: Use e.g. #GtkImage and CSS animation instead"/>
+    <keyword type="function" name="hdy_arrows_get_count ()" link="HdyArrows.html#hdy-arrows-get-count" deprecated="0.0.12: Use e.g. #GtkImage and CSS animation instead"/>
+    <keyword type="function" name="hdy_arrows_set_count ()" link="HdyArrows.html#hdy-arrows-set-count" deprecated="0.0.12: Use e.g. #GtkImage and CSS animation instead"/>
+    <keyword type="function" name="hdy_arrows_set_direction ()" link="HdyArrows.html#hdy-arrows-set-direction" deprecated="0.0.12: Use e.g. #GtkImage and CSS animation instead"/>
+    <keyword type="function" name="hdy_arrows_get_direction ()" link="HdyArrows.html#hdy-arrows-get-direction" deprecated="0.0.12: Use e.g. #GtkImage and CSS animation instead"/>
+    <keyword type="function" name="hdy_arrows_set_duration ()" link="HdyArrows.html#hdy-arrows-set-duration" deprecated="0.0.12: Use e.g. #GtkImage and CSS animation instead"/>
+    <keyword type="function" name="hdy_arrows_get_duration ()" link="HdyArrows.html#hdy-arrows-get-duration" deprecated="0.0.12: Use e.g. #GtkImage and CSS animation instead"/>
+    <keyword type="function" name="hdy_arrows_animate ()" link="HdyArrows.html#hdy-arrows-animate" deprecated="0.0.12: Use e.g. #GtkImage and CSS animation instead"/>
+    <keyword type="enum" name="enum HdyArrowsDirection" link="HdyArrows.html#HdyArrowsDirection" deprecated=""/>
+    <keyword type="macro" name="HDY_TYPE_ARROWS" link="HdyArrows.html#HDY-TYPE-ARROWS:CAPS"/>
+    <keyword type="struct" name="struct HdyArrowsClass" link="HdyArrows.html#HdyArrowsClass"/>
+    <keyword type="struct" name="HdyArrows" link="HdyArrows.html#HdyArrows-struct"/>
+    <keyword type="property" name="The “count” property" link="HdyArrows.html#HdyArrows--count"/>
+    <keyword type="property" name="The “direction” property" link="HdyArrows.html#HdyArrows--direction"/>
+    <keyword type="property" name="The “duration” property" link="HdyArrows.html#HdyArrows--duration"/>
+    <keyword type="function" name="hdy_column_new ()" link="HdyColumn.html#hdy-column-new"/>
+    <keyword type="function" name="hdy_column_get_maximum_width ()" link="HdyColumn.html#hdy-column-get-maximum-width"/>
+    <keyword type="function" name="hdy_column_set_maximum_width ()" link="HdyColumn.html#hdy-column-set-maximum-width"/>
+    <keyword type="function" name="hdy_column_get_linear_growth_width ()" link="HdyColumn.html#hdy-column-get-linear-growth-width"/>
+    <keyword type="function" name="hdy_column_set_linear_growth_width ()" link="HdyColumn.html#hdy-column-set-linear-growth-width"/>
+    <keyword type="macro" name="HDY_TYPE_COLUMN" link="HdyColumn.html#HDY-TYPE-COLUMN:CAPS"/>
+    <keyword type="struct" name="HdyColumn" link="HdyColumn.html#HdyColumn-struct"/>
+    <keyword type="property" name="The “linear-growth-width” property" link="HdyColumn.html#HdyColumn--linear-growth-width"/>
+    <keyword type="property" name="The “maximum-width” property" link="HdyColumn.html#HdyColumn--maximum-width"/>
+    <keyword type="function" name="HdyComboRowGetNameFunc ()" link="HdyComboRow.html#HdyComboRowGetNameFunc"/>
+    <keyword type="function" name="HdyComboRowGetEnumValueNameFunc ()" link="HdyComboRow.html#HdyComboRowGetEnumValueNameFunc"/>
+    <keyword type="function" name="hdy_combo_row_new ()" link="HdyComboRow.html#hdy-combo-row-new" since="0.0.6"/>
+    <keyword type="function" name="hdy_combo_row_get_model ()" link="HdyComboRow.html#hdy-combo-row-get-model" since="0.0.6"/>
+    <keyword type="function" name="hdy_combo_row_bind_model ()" link="HdyComboRow.html#hdy-combo-row-bind-model" since="0.0.6"/>
+    <keyword type="function" name="hdy_combo_row_bind_name_model ()" link="HdyComboRow.html#hdy-combo-row-bind-name-model" since="0.0.6"/>
+    <keyword type="function" name="hdy_combo_row_set_for_enum ()" link="HdyComboRow.html#hdy-combo-row-set-for-enum" since="0.0.6"/>
+    <keyword type="function" name="hdy_combo_row_get_selected_index ()" link="HdyComboRow.html#hdy-combo-row-get-selected-index" since="0.0.7"/>
+    <keyword type="function" name="hdy_combo_row_set_selected_index ()" link="HdyComboRow.html#hdy-combo-row-set-selected-index" since="0.0.7"/>
+    <keyword type="function" name="hdy_combo_row_get_use_subtitle ()" link="HdyComboRow.html#hdy-combo-row-get-use-subtitle" since="0.0.10"/>
+    <keyword type="function" name="hdy_combo_row_set_use_subtitle ()" link="HdyComboRow.html#hdy-combo-row-set-use-subtitle" since="0.0.10"/>
+    <keyword type="function" name="hdy_combo_row_set_get_name_func ()" link="HdyComboRow.html#hdy-combo-row-set-get-name-func" since="0.0.10"/>
+    <keyword type="function" name="hdy_enum_value_row_name ()" link="HdyComboRow.html#hdy-enum-value-row-name" since="0.0.6"/>
+    <keyword type="macro" name="HDY_TYPE_COMBO_ROW" link="HdyComboRow.html#HDY-TYPE-COMBO-ROW:CAPS"/>
+    <keyword type="struct" name="struct HdyComboRowClass" link="HdyComboRow.html#HdyComboRowClass"/>
+    <keyword type="struct" name="HdyComboRow" link="HdyComboRow.html#HdyComboRow-struct"/>
+    <keyword type="property" name="The “selected-index” property" link="HdyComboRow.html#HdyComboRow--selected-index"/>
+    <keyword type="property" name="The “use-subtitle” property" link="HdyComboRow.html#HdyComboRow--use-subtitle"/>
+    <keyword type="function" name="hdy_dialer_new ()" link="HdyDialer.html#hdy-dialer-new" deprecated="0.0.12: use #HdyKeypad instead"/>
+    <keyword type="function" name="hdy_dialer_get_number ()" link="HdyDialer.html#hdy-dialer-get-number" deprecated="0.0.12: use #HdyKeypad instead"/>
+    <keyword type="function" name="hdy_dialer_set_number ()" link="HdyDialer.html#hdy-dialer-set-number" deprecated="0.0.12: use #HdyKeypad instead"/>
+    <keyword type="function" name="hdy_dialer_clear_number ()" link="HdyDialer.html#hdy-dialer-clear-number" deprecated="0.0.12: use #HdyKeypad instead"/>
+    <keyword type="function" name="hdy_dialer_get_show_action_buttons ()" link="HdyDialer.html#hdy-dialer-get-show-action-buttons" deprecated="0.0.12: use #HdyKeypad instead"/>
+    <keyword type="function" name="hdy_dialer_set_show_action_buttons ()" link="HdyDialer.html#hdy-dialer-set-show-action-buttons" deprecated="0.0.12: use #HdyKeypad instead"/>
+    <keyword type="function" name="hdy_dialer_get_relief ()" link="HdyDialer.html#hdy-dialer-get-relief" deprecated="0.0.12: use #HdyKeypad instead"/>
+    <keyword type="function" name="hdy_dialer_set_relief ()" link="HdyDialer.html#hdy-dialer-set-relief" deprecated="0.0.12: use #HdyKeypad instead"/>
+    <keyword type="macro" name="HDY_TYPE_DIALER" link="HdyDialer.html#HDY-TYPE-DIALER:CAPS"/>
+    <keyword type="struct" name="struct HdyDialerClass" link="HdyDialer.html#HdyDialerClass" deprecated=""/>
+    <keyword type="struct" name="HdyDialer" link="HdyDialer.html#HdyDialer-struct"/>
+    <keyword type="property" name="The “column-spacing” property" link="HdyDialer.html#HdyDialer--column-spacing"/>
+    <keyword type="property" name="The “number” property" link="HdyDialer.html#HdyDialer--number"/>
+    <keyword type="property" name="The “relief” property" link="HdyDialer.html#HdyDialer--relief"/>
+    <keyword type="property" name="The “row-spacing” property" link="HdyDialer.html#HdyDialer--row-spacing"/>
+    <keyword type="property" name="The “show-action-buttons” property" link="HdyDialer.html#HdyDialer--show-action-buttons"/>
+    <keyword type="signal" name="The “deleted” signal" link="HdyDialer.html#HdyDialer-deleted"/>
+    <keyword type="signal" name="The “submitted” signal" link="HdyDialer.html#HdyDialer-submitted"/>
+    <keyword type="signal" name="The “symbol-clicked” signal" link="HdyDialer.html#HdyDialer-symbol-clicked"/>
+    <keyword type="function" name="hdy_dialer_button_new ()" link="HdyDialerButton.html#hdy-dialer-button-new" deprecated=""/>
+    <keyword type="function" name="hdy_dialer_button_get_digit ()" link="HdyDialerButton.html#hdy-dialer-button-get-digit" deprecated=""/>
+    <keyword type="function" name="hdy_dialer_button_get_symbols ()" link="HdyDialerButton.html#hdy-dialer-button-get-symbols" deprecated=""/>
+    <keyword type="macro" name="HDY_TYPE_DIALER_BUTTON" link="HdyDialerButton.html#HDY-TYPE-DIALER-BUTTON:CAPS"/>
+    <keyword type="struct" name="struct HdyDialerButtonClass" link="HdyDialerButton.html#HdyDialerButtonClass" deprecated=""/>
+    <keyword type="struct" name="HdyDialerButton" link="HdyDialerButton.html#HdyDialerButton-struct"/>
+    <keyword type="property" name="The “digit” property" link="HdyDialerButton.html#HdyDialerButton--digit"/>
+    <keyword type="property" name="The “symbols” property" link="HdyDialerButton.html#HdyDialerButton--symbols"/>
+    <keyword type="function" name="hdy_dialer_cycle_button_new ()" link="HdyDialerCycleButton.html#hdy-dialer-cycle-button-new" deprecated=""/>
+    <keyword type="function" name="hdy_dialer_cycle_button_get_current_symbol ()" link="HdyDialerCycleButton.html#hdy-dialer-cycle-button-get-current-symbol" deprecated=""/>
+    <keyword type="function" name="hdy_dialer_cycle_button_is_cycling ()" link="HdyDialerCycleButton.html#hdy-dialer-cycle-button-is-cycling" deprecated=""/>
+    <keyword type="function" name="hdy_dialer_cycle_button_stop_cycle ()" link="HdyDialerCycleButton.html#hdy-dialer-cycle-button-stop-cycle" deprecated=""/>
+    <keyword type="function" name="hdy_dialer_cycle_button_get_cycle_timeout ()" link="HdyDialerCycleButton.html#hdy-dialer-cycle-button-get-cycle-timeout" deprecated=""/>
+    <keyword type="function" name="hdy_dialer_cycle_button_set_cycle_timeout ()" link="HdyDialerCycleButton.html#hdy-dialer-cycle-button-set-cycle-timeout" deprecated=""/>
+    <keyword type="macro" name="HDY_TYPE_DIALER_CYCLE_BUTTON" link="HdyDialerCycleButton.html#HDY-TYPE-DIALER-CYCLE-BUTTON:CAPS"/>
+    <keyword type="struct" name="struct HdyDialerCycleButtonClass" link="HdyDialerCycleButton.html#HdyDialerCycleButtonClass" deprecated=""/>
+    <keyword type="struct" name="HdyDialerCycleButton" link="HdyDialerCycleButton.html#HdyDialerCycleButton-struct"/>
+    <keyword type="property" name="The “cycle-timeout” property" link="HdyDialerCycleButton.html#HdyDialerCycleButton--cycle-timeout"/>
+    <keyword type="signal" name="The “cycle-end” signal" link="HdyDialerCycleButton.html#HdyDialerCycleButton-cycle-end"/>
+    <keyword type="signal" name="The “cycle-start” signal" link="HdyDialerCycleButton.html#HdyDialerCycleButton-cycle-start"/>
+    <keyword type="function" name="hdy_dialog_new ()" link="HdyDialog.html#hdy-dialog-new" since="0.0.7"/>
+    <keyword type="function" name="hdy_dialog_get_narrow ()" link="HdyDialog.html#hdy-dialog-get-narrow" since="0.0.11"/>
+    <keyword type="macro" name="HDY_TYPE_DIALOG" link="HdyDialog.html#HDY-TYPE-DIALOG:CAPS"/>
+    <keyword type="struct" name="HdyDialogClass" link="HdyDialog.html#HdyDialogClass"/>
+    <keyword type="struct" name="HdyDialog" link="HdyDialog.html#HdyDialog-struct"/>
+    <keyword type="property" name="The “narrow” property" link="HdyDialog.html#HdyDialog--narrow"/>
+    <keyword type="function" name="hdy_enum_value_object_new ()" link="HdyEnumValueObject.html#hdy-enum-value-object-new"/>
+    <keyword type="function" name="hdy_enum_value_object_get_value ()" link="HdyEnumValueObject.html#hdy-enum-value-object-get-value"/>
+    <keyword type="function" name="hdy_enum_value_object_get_name ()" link="HdyEnumValueObject.html#hdy-enum-value-object-get-name"/>
+    <keyword type="function" name="hdy_enum_value_object_get_nick ()" link="HdyEnumValueObject.html#hdy-enum-value-object-get-nick"/>
+    <keyword type="macro" name="HDY_TYPE_ENUM_VALUE_OBJECT" link="HdyEnumValueObject.html#HDY-TYPE-ENUM-VALUE-OBJECT:CAPS"/>
+    <keyword type="struct" name="HdyEnumValueObject" link="HdyEnumValueObject.html#HdyEnumValueObject-struct"/>
+    <keyword type="function" name="hdy_expander_row_new ()" link="HdyExpanderRow.html#hdy-expander-row-new" since="0.0.6"/>
+    <keyword type="function" name="hdy_expander_row_get_expanded ()" link="HdyExpanderRow.html#hdy-expander-row-get-expanded"/>
+    <keyword type="function" name="hdy_expander_row_set_expanded ()" link="HdyExpanderRow.html#hdy-expander-row-set-expanded"/>
+    <keyword type="function" name="hdy_expander_row_get_enable_expansion ()" link="HdyExpanderRow.html#hdy-expander-row-get-enable-expansion" since="0.0.6"/>
+    <keyword type="function" name="hdy_expander_row_set_enable_expansion ()" link="HdyExpanderRow.html#hdy-expander-row-set-enable-expansion" since="0.0.6"/>
+    <keyword type="function" name="hdy_expander_row_get_show_enable_switch ()" link="HdyExpanderRow.html#hdy-expander-row-get-show-enable-switch" since="0.0.6"/>
+    <keyword type="function" name="hdy_expander_row_set_show_enable_switch ()" link="HdyExpanderRow.html#hdy-expander-row-set-show-enable-switch" since="0.0.6"/>
+    <keyword type="macro" name="HDY_TYPE_EXPANDER_ROW" link="HdyExpanderRow.html#HDY-TYPE-EXPANDER-ROW:CAPS"/>
+    <keyword type="struct" name="struct HdyExpanderRowClass" link="HdyExpanderRow.html#HdyExpanderRowClass"/>
+    <keyword type="struct" name="HdyExpanderRow" link="HdyExpanderRow.html#HdyExpanderRow-struct"/>
+    <keyword type="property" name="The “enable-expansion” property" link="HdyExpanderRow.html#HdyExpanderRow--enable-expansion"/>
+    <keyword type="property" name="The “expanded” property" link="HdyExpanderRow.html#HdyExpanderRow--expanded"/>
+    <keyword type="property" name="The “show-enable-switch” property" link="HdyExpanderRow.html#HdyExpanderRow--show-enable-switch"/>
+    <keyword type="function" name="hdy_header_bar_new ()" link="HdyHeaderBar.html#hdy-header-bar-new" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_get_title ()" link="HdyHeaderBar.html#hdy-header-bar-get-title" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_set_title ()" link="HdyHeaderBar.html#hdy-header-bar-set-title" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_get_subtitle ()" link="HdyHeaderBar.html#hdy-header-bar-get-subtitle" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_set_subtitle ()" link="HdyHeaderBar.html#hdy-header-bar-set-subtitle" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_get_custom_title ()" link="HdyHeaderBar.html#hdy-header-bar-get-custom-title" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_set_custom_title ()" link="HdyHeaderBar.html#hdy-header-bar-set-custom-title" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_pack_start ()" link="HdyHeaderBar.html#hdy-header-bar-pack-start" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_pack_end ()" link="HdyHeaderBar.html#hdy-header-bar-pack-end" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_get_show_close_button ()" link="HdyHeaderBar.html#hdy-header-bar-get-show-close-button" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_set_show_close_button ()" link="HdyHeaderBar.html#hdy-header-bar-set-show-close-button" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_get_has_subtitle ()" link="HdyHeaderBar.html#hdy-header-bar-get-has-subtitle" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_set_has_subtitle ()" link="HdyHeaderBar.html#hdy-header-bar-set-has-subtitle" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_get_decoration_layout ()" link="HdyHeaderBar.html#hdy-header-bar-get-decoration-layout" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_set_decoration_layout ()" link="HdyHeaderBar.html#hdy-header-bar-set-decoration-layout" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_get_centering_policy ()" link="HdyHeaderBar.html#hdy-header-bar-get-centering-policy" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_set_centering_policy ()" link="HdyHeaderBar.html#hdy-header-bar-set-centering-policy" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_get_transition_duration ()" link="HdyHeaderBar.html#hdy-header-bar-get-transition-duration" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_set_transition_duration ()" link="HdyHeaderBar.html#hdy-header-bar-set-transition-duration" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_get_transition_running ()" link="HdyHeaderBar.html#hdy-header-bar-get-transition-running" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_get_interpolate_size ()" link="HdyHeaderBar.html#hdy-header-bar-get-interpolate-size" since="0.0.10"/>
+    <keyword type="function" name="hdy_header_bar_set_interpolate_size ()" link="HdyHeaderBar.html#hdy-header-bar-set-interpolate-size" since="0.0.10"/>
+    <keyword type="macro" name="HDY_TYPE_HEADER_BAR" link="HdyHeaderBar.html#HDY-TYPE-HEADER-BAR:CAPS"/>
+    <keyword type="enum" name="enum HdyCenteringPolicy" link="HdyHeaderBar.html#HdyCenteringPolicy"/>
+    <keyword type="struct" name="struct HdyHeaderBarClass" link="HdyHeaderBar.html#HdyHeaderBarClass"/>
+    <keyword type="struct" name="HdyHeaderBar" link="HdyHeaderBar.html#HdyHeaderBar-struct"/>
+    <keyword type="property" name="The “centering-policy” property" link="HdyHeaderBar.html#HdyHeaderBar--centering-policy"/>
+    <keyword type="property" name="The “custom-title” property" link="HdyHeaderBar.html#HdyHeaderBar--custom-title"/>
+    <keyword type="property" name="The “decoration-layout” property" link="HdyHeaderBar.html#HdyHeaderBar--decoration-layout"/>
+    <keyword type="property" name="The “decoration-layout-set” property" link="HdyHeaderBar.html#HdyHeaderBar--decoration-layout-set"/>
+    <keyword type="property" name="The “has-subtitle” property" link="HdyHeaderBar.html#HdyHeaderBar--has-subtitle"/>
+    <keyword type="property" name="The “interpolate-size” property" link="HdyHeaderBar.html#HdyHeaderBar--interpolate-size"/>
+    <keyword type="property" name="The “show-close-button” property" link="HdyHeaderBar.html#HdyHeaderBar--show-close-button"/>
+    <keyword type="property" name="The “spacing” property" link="HdyHeaderBar.html#HdyHeaderBar--spacing"/>
+    <keyword type="property" name="The “subtitle” property" link="HdyHeaderBar.html#HdyHeaderBar--subtitle"/>
+    <keyword type="property" name="The “title” property" link="HdyHeaderBar.html#HdyHeaderBar--title"/>
+    <keyword type="property" name="The “transition-duration” property" link="HdyHeaderBar.html#HdyHeaderBar--transition-duration"/>
+    <keyword type="property" name="The “transition-running” property" link="HdyHeaderBar.html#HdyHeaderBar--transition-running"/>
+    <keyword type="function" name="hdy_header_group_new ()" link="HdyHeaderGroup.html#hdy-header-group-new"/>
+    <keyword type="function" name="hdy_header_group_add_header_bar ()" link="HdyHeaderGroup.html#hdy-header-group-add-header-bar"/>
+    <keyword type="function" name="hdy_header_group_get_focus ()" link="HdyHeaderGroup.html#hdy-header-group-get-focus"/>
+    <keyword type="function" name="hdy_header_group_set_focus ()" link="HdyHeaderGroup.html#hdy-header-group-set-focus"/>
+    <keyword type="function" name="hdy_header_group_get_header_bars ()" link="HdyHeaderGroup.html#hdy-header-group-get-header-bars"/>
+    <keyword type="function" name="hdy_header_group_remove_header_bar ()" link="HdyHeaderGroup.html#hdy-header-group-remove-header-bar"/>
+    <keyword type="macro" name="HDY_TYPE_HEADER_GROUP" link="HdyHeaderGroup.html#HDY-TYPE-HEADER-GROUP:CAPS"/>
+    <keyword type="struct" name="struct HdyHeaderGroupClass" link="HdyHeaderGroup.html#HdyHeaderGroupClass"/>
+    <keyword type="struct" name="HdyHeaderGroup" link="HdyHeaderGroup.html#HdyHeaderGroup-struct"/>
+    <keyword type="property" name="The “focus” property" link="HdyHeaderGroup.html#HdyHeaderGroup--focus"/>
+    <keyword type="function" name="hdy_keypad_new ()" link="HdyKeypad.html#hdy-keypad-new"/>
+    <keyword type="function" name="hdy_keypad_show_symbols ()" link="HdyKeypad.html#hdy-keypad-show-symbols"/>
+    <keyword type="function" name="hdy_keypad_set_entry ()" link="HdyKeypad.html#hdy-keypad-set-entry"/>
+    <keyword type="function" name="hdy_keypad_get_entry ()" link="HdyKeypad.html#hdy-keypad-get-entry"/>
+    <keyword type="function" name="hdy_keypad_set_left_action ()" link="HdyKeypad.html#hdy-keypad-set-left-action"/>
+    <keyword type="function" name="hdy_keypad_set_right_action ()" link="HdyKeypad.html#hdy-keypad-set-right-action"/>
+    <keyword type="macro" name="HDY_TYPE_KEYPAD" link="HdyKeypad.html#HDY-TYPE-KEYPAD:CAPS"/>
+    <keyword type="struct" name="struct HdyKeypadClass" link="HdyKeypad.html#HdyKeypadClass"/>
+    <keyword type="struct" name="HdyKeypad" link="HdyKeypad.html#HdyKeypad-struct"/>
+    <keyword type="property" name="The “entry” property" link="HdyKeypad.html#HdyKeypad--entry"/>
+    <keyword type="property" name="The “left-action” property" link="HdyKeypad.html#HdyKeypad--left-action"/>
+    <keyword type="property" name="The “only-digits” property" link="HdyKeypad.html#HdyKeypad--only-digits"/>
+    <keyword type="property" name="The “right-action” property" link="HdyKeypad.html#HdyKeypad--right-action"/>
+    <keyword type="property" name="The “show-symbols” property" link="HdyKeypad.html#HdyKeypad--show-symbols"/>
+    <keyword type="function" name="hdy_leaflet_new ()" link="HdyLeaflet.html#hdy-leaflet-new"/>
+    <keyword type="function" name="hdy_leaflet_get_fold ()" link="HdyLeaflet.html#hdy-leaflet-get-fold"/>
+    <keyword type="function" name="hdy_leaflet_get_visible_child ()" link="HdyLeaflet.html#hdy-leaflet-get-visible-child"/>
+    <keyword type="function" name="hdy_leaflet_set_visible_child ()" link="HdyLeaflet.html#hdy-leaflet-set-visible-child"/>
+    <keyword type="function" name="hdy_leaflet_get_visible_child_name ()" link="HdyLeaflet.html#hdy-leaflet-get-visible-child-name"/>
+    <keyword type="function" name="hdy_leaflet_set_visible_child_name ()" link="HdyLeaflet.html#hdy-leaflet-set-visible-child-name"/>
+    <keyword type="function" name="hdy_leaflet_get_homogeneous ()" link="HdyLeaflet.html#hdy-leaflet-get-homogeneous"/>
+    <keyword type="function" name="hdy_leaflet_set_homogeneous ()" link="HdyLeaflet.html#hdy-leaflet-set-homogeneous"/>
+    <keyword type="function" name="hdy_leaflet_get_transition_type ()" link="HdyLeaflet.html#hdy-leaflet-get-transition-type" since="0.0.12"/>
+    <keyword type="function" name="hdy_leaflet_set_transition_type ()" link="HdyLeaflet.html#hdy-leaflet-set-transition-type" since="0.0.12"/>
+    <keyword type="function" name="hdy_leaflet_get_mode_transition_type ()" link="HdyLeaflet.html#hdy-leaflet-get-mode-transition-type" deprecated="0.0.12: Use hdy_leaflet_get_transition_type()"/>
+    <keyword type="function" name="hdy_leaflet_set_mode_transition_type ()" link="HdyLeaflet.html#hdy-leaflet-set-mode-transition-type" deprecated="0.0.12: Use hdy_leaflet_set_transition_type()"/>
+    <keyword type="function" name="hdy_leaflet_get_mode_transition_duration ()" link="HdyLeaflet.html#hdy-leaflet-get-mode-transition-duration"/>
+    <keyword type="function" name="hdy_leaflet_set_mode_transition_duration ()" link="HdyLeaflet.html#hdy-leaflet-set-mode-transition-duration"/>
+    <keyword type="function" name="hdy_leaflet_get_child_transition_type ()" link="HdyLeaflet.html#hdy-leaflet-get-child-transition-type" deprecated="0.0.12: Use hdy_leaflet_get_transition_type()"/>
+    <keyword type="function" name="hdy_leaflet_set_child_transition_type ()" link="HdyLeaflet.html#hdy-leaflet-set-child-transition-type" deprecated="0.0.12: Use hdy_leaflet_set_transition_type()"/>
+    <keyword type="function" name="hdy_leaflet_get_child_transition_duration ()" link="HdyLeaflet.html#hdy-leaflet-get-child-transition-duration"/>
+    <keyword type="function" name="hdy_leaflet_set_child_transition_duration ()" link="HdyLeaflet.html#hdy-leaflet-set-child-transition-duration"/>
+    <keyword type="function" name="hdy_leaflet_get_child_transition_running ()" link="HdyLeaflet.html#hdy-leaflet-get-child-transition-running"/>
+    <keyword type="function" name="hdy_leaflet_get_interpolate_size ()" link="HdyLeaflet.html#hdy-leaflet-get-interpolate-size"/>
+    <keyword type="function" name="hdy_leaflet_set_interpolate_size ()" link="HdyLeaflet.html#hdy-leaflet-set-interpolate-size"/>
+    <keyword type="function" name="hdy_leaflet_get_can_swipe_back ()" link="HdyLeaflet.html#hdy-leaflet-get-can-swipe-back" since="0.0.12"/>
+    <keyword type="function" name="hdy_leaflet_set_can_swipe_back ()" link="HdyLeaflet.html#hdy-leaflet-set-can-swipe-back" since="0.0.12"/>
+    <keyword type="function" name="hdy_leaflet_get_can_swipe_forward ()" link="HdyLeaflet.html#hdy-leaflet-get-can-swipe-forward" since="0.0.12"/>
+    <keyword type="function" name="hdy_leaflet_set_can_swipe_forward ()" link="HdyLeaflet.html#hdy-leaflet-set-can-swipe-forward" since="0.0.12"/>
+    <keyword type="macro" name="HDY_TYPE_LEAFLET" link="HdyLeaflet.html#HDY-TYPE-LEAFLET:CAPS"/>
+    <keyword type="enum" name="enum HdyLeafletTransitionType" link="HdyLeaflet.html#HdyLeafletTransitionType" since="0.0.12"/>
+    <keyword type="enum" name="enum HdyLeafletModeTransitionType" link="HdyLeaflet.html#HdyLeafletModeTransitionType" deprecated="0.0.12: Use #HdyLeafletTransitionType"/>
+    <keyword type="enum" name="enum HdyLeafletChildTransitionType" link="HdyLeaflet.html#HdyLeafletChildTransitionType" deprecated="0.0.12: Use #HdyLeafletTransitionType"/>
+    <keyword type="struct" name="struct HdyLeafletClass" link="HdyLeaflet.html#HdyLeafletClass"/>
+    <keyword type="struct" name="HdyLeaflet" link="HdyLeaflet.html#HdyLeaflet-struct"/>
+    <keyword type="property" name="The “can-swipe-back” property" link="HdyLeaflet.html#HdyLeaflet--can-swipe-back"/>
+    <keyword type="property" name="The “can-swipe-forward” property" link="HdyLeaflet.html#HdyLeaflet--can-swipe-forward"/>
+    <keyword type="property" name="The “child-transition-duration” property" link="HdyLeaflet.html#HdyLeaflet--child-transition-duration"/>
+    <keyword type="property" name="The “child-transition-running” property" link="HdyLeaflet.html#HdyLeaflet--child-transition-running"/>
+    <keyword type="property" name="The “child-transition-type” property" link="HdyLeaflet.html#HdyLeaflet--child-transition-type"/>
+    <keyword type="property" name="The “fold” property" link="HdyLeaflet.html#HdyLeaflet--fold"/>
+    <keyword type="property" name="The “folded” property" link="HdyLeaflet.html#HdyLeaflet--folded"/>
+    <keyword type="property" name="The “hhomogeneous-folded” property" link="HdyLeaflet.html#HdyLeaflet--hhomogeneous-folded"/>
+    <keyword type="property" name="The “hhomogeneous-unfolded” property" link="HdyLeaflet.html#HdyLeaflet--hhomogeneous-unfolded"/>
+    <keyword type="property" name="The “interpolate-size” property" link="HdyLeaflet.html#HdyLeaflet--interpolate-size"/>
+    <keyword type="property" name="The “mode-transition-duration” property" link="HdyLeaflet.html#HdyLeaflet--mode-transition-duration"/>
+    <keyword type="property" name="The “mode-transition-type” property" link="HdyLeaflet.html#HdyLeaflet--mode-transition-type"/>
+    <keyword type="property" name="The “transition-type” property" link="HdyLeaflet.html#HdyLeaflet--transition-type"/>
+    <keyword type="property" name="The “vhomogeneous-folded” property" link="HdyLeaflet.html#HdyLeaflet--vhomogeneous-folded"/>
+    <keyword type="property" name="The “vhomogeneous-unfolded” property" link="HdyLeaflet.html#HdyLeaflet--vhomogeneous-unfolded"/>
+    <keyword type="property" name="The “visible-child” property" link="HdyLeaflet.html#HdyLeaflet--visible-child"/>
+    <keyword type="property" name="The “visible-child-name” property" link="HdyLeaflet.html#HdyLeaflet--visible-child-name"/>
+    <keyword type="function" name="hdy_paginator_new ()" link="HdyPaginator.html#hdy-paginator-new" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_prepend ()" link="HdyPaginator.html#hdy-paginator-prepend" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_insert ()" link="HdyPaginator.html#hdy-paginator-insert" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_reorder ()" link="HdyPaginator.html#hdy-paginator-reorder" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_scroll_to ()" link="HdyPaginator.html#hdy-paginator-scroll-to" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_scroll_to_full ()" link="HdyPaginator.html#hdy-paginator-scroll-to-full" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_get_n_pages ()" link="HdyPaginator.html#hdy-paginator-get-n-pages" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_get_position ()" link="HdyPaginator.html#hdy-paginator-get-position" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_get_interactive ()" link="HdyPaginator.html#hdy-paginator-get-interactive" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_set_interactive ()" link="HdyPaginator.html#hdy-paginator-set-interactive" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_get_indicator_style ()" link="HdyPaginator.html#hdy-paginator-get-indicator-style" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_set_indicator_style ()" link="HdyPaginator.html#hdy-paginator-set-indicator-style" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_get_indicator_spacing ()" link="HdyPaginator.html#hdy-paginator-get-indicator-spacing" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_set_indicator_spacing ()" link="HdyPaginator.html#hdy-paginator-set-indicator-spacing" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_get_center_content ()" link="HdyPaginator.html#hdy-paginator-get-center-content" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_set_center_content ()" link="HdyPaginator.html#hdy-paginator-set-center-content" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_get_spacing ()" link="HdyPaginator.html#hdy-paginator-get-spacing" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_set_spacing ()" link="HdyPaginator.html#hdy-paginator-set-spacing" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_get_animation_duration ()" link="HdyPaginator.html#hdy-paginator-get-animation-duration" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_set_animation_duration ()" link="HdyPaginator.html#hdy-paginator-set-animation-duration" since="0.0.11"/>
+    <keyword type="function" name="hdy_paginator_get_allow_mouse_drag ()" link="HdyPaginator.html#hdy-paginator-get-allow-mouse-drag" since="0.0.12"/>
+    <keyword type="function" name="hdy_paginator_set_allow_mouse_drag ()" link="HdyPaginator.html#hdy-paginator-set-allow-mouse-drag" since="0.0.12"/>
+    <keyword type="macro" name="HDY_TYPE_PAGINATOR" link="HdyPaginator.html#HDY-TYPE-PAGINATOR:CAPS"/>
+    <keyword type="enum" name="enum HdyPaginatorIndicatorStyle" link="HdyPaginator.html#HdyPaginatorIndicatorStyle"/>
+    <keyword type="struct" name="HdyPaginator" link="HdyPaginator.html#HdyPaginator-struct"/>
+    <keyword type="property" name="The “allow-mouse-drag” property" link="HdyPaginator.html#HdyPaginator--allow-mouse-drag"/>
+    <keyword type="property" name="The “animation-duration” property" link="HdyPaginator.html#HdyPaginator--animation-duration"/>
+    <keyword type="property" name="The “center-content” property" link="HdyPaginator.html#HdyPaginator--center-content"/>
+    <keyword type="property" name="The “indicator-spacing” property" link="HdyPaginator.html#HdyPaginator--indicator-spacing"/>
+    <keyword type="property" name="The “indicator-style” property" link="HdyPaginator.html#HdyPaginator--indicator-style"/>
+    <keyword type="property" name="The “interactive” property" link="HdyPaginator.html#HdyPaginator--interactive"/>
+    <keyword type="property" name="The “n-pages” property" link="HdyPaginator.html#HdyPaginator--n-pages"/>
+    <keyword type="property" name="The “position” property" link="HdyPaginator.html#HdyPaginator--position"/>
+    <keyword type="property" name="The “spacing” property" link="HdyPaginator.html#HdyPaginator--spacing"/>
+    <keyword type="signal" name="The “page-changed” signal" link="HdyPaginator.html#HdyPaginator-page-changed"/>
+    <keyword type="function" name="hdy_preferences_group_new ()" link="HdyPreferencesGroup.html#hdy-preferences-group-new" since="0.0.10"/>
+    <keyword type="function" name="hdy_preferences_group_get_title ()" link="HdyPreferencesGroup.html#hdy-preferences-group-get-title" since="0.0.10"/>
+    <keyword type="function" name="hdy_preferences_group_set_title ()" link="HdyPreferencesGroup.html#hdy-preferences-group-set-title" since="0.0.10"/>
+    <keyword type="function" name="hdy_preferences_group_get_description ()" link="HdyPreferencesGroup.html#hdy-preferences-group-get-description" since="0.0.10"/>
+    <keyword type="function" name="hdy_preferences_group_set_description ()" link="HdyPreferencesGroup.html#hdy-preferences-group-set-description" since="0.0.10"/>
+    <keyword type="macro" name="HDY_TYPE_PREFERENCES_GROUP" link="HdyPreferencesGroup.html#HDY-TYPE-PREFERENCES-GROUP:CAPS"/>
+    <keyword type="struct" name="struct HdyPreferencesGroupClass" link="HdyPreferencesGroup.html#HdyPreferencesGroupClass"/>
+    <keyword type="struct" name="HdyPreferencesGroup" link="HdyPreferencesGroup.html#HdyPreferencesGroup-struct"/>
+    <keyword type="property" name="The “description” property" link="HdyPreferencesGroup.html#HdyPreferencesGroup--description"/>
+    <keyword type="property" name="The “title” property" link="HdyPreferencesGroup.html#HdyPreferencesGroup--title"/>
+    <keyword type="function" name="hdy_preferences_page_new ()" link="HdyPreferencesPage.html#hdy-preferences-page-new" since="0.0.10"/>
+    <keyword type="function" name="hdy_preferences_page_get_icon_name ()" link="HdyPreferencesPage.html#hdy-preferences-page-get-icon-name" since="0.0.10"/>
+    <keyword type="function" name="hdy_preferences_page_set_icon_name ()" link="HdyPreferencesPage.html#hdy-preferences-page-set-icon-name" since="0.0.10"/>
+    <keyword type="function" name="hdy_preferences_page_get_title ()" link="HdyPreferencesPage.html#hdy-preferences-page-get-title" since="0.0.10"/>
+    <keyword type="function" name="hdy_preferences_page_set_title ()" link="HdyPreferencesPage.html#hdy-preferences-page-set-title" since="0.0.10"/>
+    <keyword type="macro" name="HDY_TYPE_PREFERENCES_PAGE" link="HdyPreferencesPage.html#HDY-TYPE-PREFERENCES-PAGE:CAPS"/>
+    <keyword type="struct" name="struct HdyPreferencesPageClass" link="HdyPreferencesPage.html#HdyPreferencesPageClass"/>
+    <keyword type="struct" name="HdyPreferencesPage" link="HdyPreferencesPage.html#HdyPreferencesPage-struct"/>
+    <keyword type="property" name="The “icon-name” property" link="HdyPreferencesPage.html#HdyPreferencesPage--icon-name"/>
+    <keyword type="property" name="The “title” property" link="HdyPreferencesPage.html#HdyPreferencesPage--title"/>
+    <keyword type="function" name="hdy_preferences_row_new ()" link="HdyPreferencesRow.html#hdy-preferences-row-new" since="0.0.10"/>
+    <keyword type="function" name="hdy_preferences_row_get_title ()" link="HdyPreferencesRow.html#hdy-preferences-row-get-title" since="0.0.10"/>
+    <keyword type="function" name="hdy_preferences_row_set_title ()" link="HdyPreferencesRow.html#hdy-preferences-row-set-title" since="0.0.10"/>
+    <keyword type="function" name="hdy_preferences_row_get_use_underline ()" link="HdyPreferencesRow.html#hdy-preferences-row-get-use-underline" since="0.0.10"/>
+    <keyword type="function" name="hdy_preferences_row_set_use_underline ()" link="HdyPreferencesRow.html#hdy-preferences-row-set-use-underline" since="0.0.10"/>
+    <keyword type="macro" name="HDY_TYPE_PREFERENCES_ROW" link="HdyPreferencesRow.html#HDY-TYPE-PREFERENCES-ROW:CAPS"/>
+    <keyword type="struct" name="struct HdyPreferencesRowClass" link="HdyPreferencesRow.html#HdyPreferencesRowClass"/>
+    <keyword type="struct" name="HdyPreferencesRow" link="HdyPreferencesRow.html#HdyPreferencesRow-struct"/>
+    <keyword type="property" name="The “title” property" link="HdyPreferencesRow.html#HdyPreferencesRow--title"/>
+    <keyword type="property" name="The “use-underline” property" link="HdyPreferencesRow.html#HdyPreferencesRow--use-underline"/>
+    <keyword type="function" name="hdy_preferences_window_new ()" link="HdyPreferencesWindow.html#hdy-preferences-window-new" since="0.0.10"/>
+    <keyword type="macro" name="HDY_TYPE_PREFERENCES_WINDOW" link="HdyPreferencesWindow.html#HDY-TYPE-PREFERENCES-WINDOW:CAPS"/>
+    <keyword type="struct" name="struct HdyPreferencesWindowClass" link="HdyPreferencesWindow.html#HdyPreferencesWindowClass"/>
+    <keyword type="struct" name="HdyPreferencesWindow" link="HdyPreferencesWindow.html#HdyPreferencesWindow-struct"/>
+    <keyword type="function" name="hdy_search_bar_new ()" link="HdySearchBar.html#hdy-search-bar-new" since="0.0.6"/>
+    <keyword type="function" name="hdy_search_bar_connect_entry ()" link="HdySearchBar.html#hdy-search-bar-connect-entry" since="0.0.6"/>
+    <keyword type="function" name="hdy_search_bar_get_search_mode ()" link="HdySearchBar.html#hdy-search-bar-get-search-mode" since="0.0.6"/>
+    <keyword type="function" name="hdy_search_bar_set_search_mode ()" link="HdySearchBar.html#hdy-search-bar-set-search-mode" since="0.0.6"/>
+    <keyword type="function" name="hdy_search_bar_get_show_close_button ()" link="HdySearchBar.html#hdy-search-bar-get-show-close-button" since="0.0.6"/>
+    <keyword type="function" name="hdy_search_bar_set_show_close_button ()" link="HdySearchBar.html#hdy-search-bar-set-show-close-button" since="0.0.6"/>
+    <keyword type="function" name="hdy_search_bar_handle_event ()" link="HdySearchBar.html#hdy-search-bar-handle-event" since="0.0.6"/>
+    <keyword type="macro" name="HDY_TYPE_SEARCH_BAR" link="HdySearchBar.html#HDY-TYPE-SEARCH-BAR:CAPS"/>
+    <keyword type="struct" name="struct HdySearchBarClass" link="HdySearchBar.html#HdySearchBarClass"/>
+    <keyword type="struct" name="HdySearchBar" link="HdySearchBar.html#HdySearchBar-struct"/>
+    <keyword type="property" name="The “search-mode-enabled” property" link="HdySearchBar.html#HdySearchBar--search-mode-enabled"/>
+    <keyword type="property" name="The “show-close-button” property" link="HdySearchBar.html#HdySearchBar--show-close-button"/>
+    <keyword type="function" name="hdy_squeezer_new ()" link="HdySqueezer.html#hdy-squeezer-new"/>
+    <keyword type="function" name="hdy_squeezer_get_homogeneous ()" link="HdySqueezer.html#hdy-squeezer-get-homogeneous" since="0.0.10"/>
+    <keyword type="function" name="hdy_squeezer_set_homogeneous ()" link="HdySqueezer.html#hdy-squeezer-set-homogeneous" since="0.0.10"/>
+    <keyword type="function" name="hdy_squeezer_get_transition_duration ()" link="HdySqueezer.html#hdy-squeezer-get-transition-duration"/>
+    <keyword type="function" name="hdy_squeezer_set_transition_duration ()" link="HdySqueezer.html#hdy-squeezer-set-transition-duration"/>
+    <keyword type="function" name="hdy_squeezer_get_transition_type ()" link="HdySqueezer.html#hdy-squeezer-get-transition-type"/>
+    <keyword type="function" name="hdy_squeezer_set_transition_type ()" link="HdySqueezer.html#hdy-squeezer-set-transition-type"/>
+    <keyword type="function" name="hdy_squeezer_get_transition_running ()" link="HdySqueezer.html#hdy-squeezer-get-transition-running"/>
+    <keyword type="function" name="hdy_squeezer_get_interpolate_size ()" link="HdySqueezer.html#hdy-squeezer-get-interpolate-size" since="0.0.10"/>
+    <keyword type="function" name="hdy_squeezer_set_interpolate_size ()" link="HdySqueezer.html#hdy-squeezer-set-interpolate-size" since="0.0.10"/>
+    <keyword type="function" name="hdy_squeezer_get_visible_child ()" link="HdySqueezer.html#hdy-squeezer-get-visible-child"/>
+    <keyword type="function" name="hdy_squeezer_get_child_enabled ()" link="HdySqueezer.html#hdy-squeezer-get-child-enabled"/>
+    <keyword type="function" name="hdy_squeezer_set_child_enabled ()" link="HdySqueezer.html#hdy-squeezer-set-child-enabled"/>
+    <keyword type="macro" name="HDY_TYPE_SQUEEZER" link="HdySqueezer.html#HDY-TYPE-SQUEEZER:CAPS"/>
+    <keyword type="enum" name="enum HdySqueezerTransitionType" link="HdySqueezer.html#HdySqueezerTransitionType"/>
+    <keyword type="struct" name="struct HdySqueezerClass" link="HdySqueezer.html#HdySqueezerClass"/>
+    <keyword type="struct" name="HdySqueezer" link="HdySqueezer.html#HdySqueezer-struct"/>
+    <keyword type="property" name="The “homogeneous” property" link="HdySqueezer.html#HdySqueezer--homogeneous"/>
+    <keyword type="property" name="The “interpolate-size” property" link="HdySqueezer.html#HdySqueezer--interpolate-size"/>
+    <keyword type="property" name="The “transition-duration” property" link="HdySqueezer.html#HdySqueezer--transition-duration"/>
+    <keyword type="property" name="The “transition-running” property" link="HdySqueezer.html#HdySqueezer--transition-running"/>
+    <keyword type="property" name="The “transition-type” property" link="HdySqueezer.html#HdySqueezer--transition-type"/>
+    <keyword type="property" name="The “visible-child” property" link="HdySqueezer.html#HdySqueezer--visible-child"/>
+    <keyword type="macro" name="HDY_TYPE_SWIPEABLE" link="HdySwipeable.html#HDY-TYPE-SWIPEABLE:CAPS"/>
+    <keyword type="struct" name="struct HdySwipeableInterface" link="HdySwipeable.html#HdySwipeableInterface" since="0.0.12"/>
+    <keyword type="struct" name="HdySwipeable" link="HdySwipeable.html#HdySwipeable-struct"/>
+    <keyword type="signal" name="The “begin-swipe” signal" link="HdySwipeable.html#HdySwipeable-begin-swipe"/>
+    <keyword type="signal" name="The “end-swipe” signal" link="HdySwipeable.html#HdySwipeable-end-swipe"/>
+    <keyword type="signal" name="The “switch-child” signal" link="HdySwipeable.html#HdySwipeable-switch-child"/>
+    <keyword type="signal" name="The “update-swipe” signal" link="HdySwipeable.html#HdySwipeable-update-swipe"/>
+    <keyword type="function" name="hdy_swipe_group_new ()" link="HdySwipeGroup.html#hdy-swipe-group-new" since="0.0.12"/>
+    <keyword type="function" name="hdy_swipe_group_add_swipeable ()" link="HdySwipeGroup.html#hdy-swipe-group-add-swipeable" since="0.0.12"/>
+    <keyword type="function" name="hdy_swipe_group_get_swipeables ()" link="HdySwipeGroup.html#hdy-swipe-group-get-swipeables" since="0.0.12"/>
+    <keyword type="function" name="hdy_swipe_group_remove_swipeable ()" link="HdySwipeGroup.html#hdy-swipe-group-remove-swipeable" since="0.0.12"/>
+    <keyword type="macro" name="HDY_TYPE_SWIPE_GROUP" link="HdySwipeGroup.html#HDY-TYPE-SWIPE-GROUP:CAPS"/>
+    <keyword type="struct" name="HdySwipeGroup" link="HdySwipeGroup.html#HdySwipeGroup-struct"/>
+    <keyword type="function" name="hdy_title_bar_new ()" link="HdyTitleBar.html#hdy-title-bar-new"/>
+    <keyword type="function" name="hdy_title_bar_get_selection_mode ()" link="HdyTitleBar.html#hdy-title-bar-get-selection-mode"/>
+    <keyword type="function" name="hdy_title_bar_set_selection_mode ()" link="HdyTitleBar.html#hdy-title-bar-set-selection-mode"/>
+    <keyword type="macro" name="HDY_TYPE_TITLE_BAR" link="HdyTitleBar.html#HDY-TYPE-TITLE-BAR:CAPS"/>
+    <keyword type="struct" name="HdyTitleBar" link="HdyTitleBar.html#HdyTitleBar-struct"/>
+    <keyword type="property" name="The “selection-mode” property" link="HdyTitleBar.html#HdyTitleBar--selection-mode"/>
+    <keyword type="function" name="hdy_value_object_new ()" link="HdyValueObject.html#hdy-value-object-new" since="0.0.8"/>
+    <keyword type="function" name="hdy_value_object_new_collect ()" link="HdyValueObject.html#hdy-value-object-new-collect" since="0.0.8"/>
+    <keyword type="function" name="hdy_value_object_new_string ()" link="HdyValueObject.html#hdy-value-object-new-string" since="0.0.8"/>
+    <keyword type="function" name="hdy_value_object_new_take_string ()" link="HdyValueObject.html#hdy-value-object-new-take-string" since="0.0.8"/>
+    <keyword type="function" name="hdy_value_object_get_value ()" link="HdyValueObject.html#hdy-value-object-get-value" since="0.0.8"/>
+    <keyword type="function" name="hdy_value_object_copy_value ()" link="HdyValueObject.html#hdy-value-object-copy-value" since="0.0.8"/>
+    <keyword type="function" name="hdy_value_object_get_string ()" link="HdyValueObject.html#hdy-value-object-get-string" since="0.0.8"/>
+    <keyword type="function" name="hdy_value_object_dup_string ()" link="HdyValueObject.html#hdy-value-object-dup-string" since="0.0.8"/>
+    <keyword type="macro" name="HDY_TYPE_VALUE_OBJECT" link="HdyValueObject.html#HDY-TYPE-VALUE-OBJECT:CAPS"/>
+    <keyword type="struct" name="HdyValueObject" link="HdyValueObject.html#HdyValueObject-struct"/>
+    <keyword type="property" name="The “value” property" link="HdyValueObject.html#HdyValueObject--value"/>
+    <keyword type="function" name="hdy_view_switcher_new ()" link="HdyViewSwitcher.html#hdy-view-switcher-new" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_get_policy ()" link="HdyViewSwitcher.html#hdy-view-switcher-get-policy" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_set_policy ()" link="HdyViewSwitcher.html#hdy-view-switcher-set-policy" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_get_icon_size ()" link="HdyViewSwitcher.html#hdy-view-switcher-get-icon-size" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_set_icon_size ()" link="HdyViewSwitcher.html#hdy-view-switcher-set-icon-size" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_get_narrow_ellipsize ()" link="HdyViewSwitcher.html#hdy-view-switcher-get-narrow-ellipsize" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_set_narrow_ellipsize ()" link="HdyViewSwitcher.html#hdy-view-switcher-set-narrow-ellipsize" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_get_stack ()" link="HdyViewSwitcher.html#hdy-view-switcher-get-stack" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_set_stack ()" link="HdyViewSwitcher.html#hdy-view-switcher-set-stack" since="0.0.10"/>
+    <keyword type="macro" name="HDY_TYPE_VIEW_SWITCHER" link="HdyViewSwitcher.html#HDY-TYPE-VIEW-SWITCHER:CAPS"/>
+    <keyword type="struct" name="HdyViewSwitcherClass" link="HdyViewSwitcher.html#HdyViewSwitcherClass"/>
+    <keyword type="enum" name="enum HdyViewSwitcherPolicy" link="HdyViewSwitcher.html#HdyViewSwitcherPolicy"/>
+    <keyword type="struct" name="HdyViewSwitcher" link="HdyViewSwitcher.html#HdyViewSwitcher-struct"/>
+    <keyword type="property" name="The “icon-size” property" link="HdyViewSwitcher.html#HdyViewSwitcher--icon-size"/>
+    <keyword type="property" name="The “narrow-ellipsize” property" link="HdyViewSwitcher.html#HdyViewSwitcher--narrow-ellipsize"/>
+    <keyword type="property" name="The “policy” property" link="HdyViewSwitcher.html#HdyViewSwitcher--policy"/>
+    <keyword type="property" name="The “stack” property" link="HdyViewSwitcher.html#HdyViewSwitcher--stack"/>
+    <keyword type="function" name="hdy_view_switcher_bar_new ()" link="HdyViewSwitcherBar.html#hdy-view-switcher-bar-new" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_bar_get_policy ()" link="HdyViewSwitcherBar.html#hdy-view-switcher-bar-get-policy" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_bar_set_policy ()" link="HdyViewSwitcherBar.html#hdy-view-switcher-bar-set-policy" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_bar_get_icon_size ()" link="HdyViewSwitcherBar.html#hdy-view-switcher-bar-get-icon-size" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_bar_set_icon_size ()" link="HdyViewSwitcherBar.html#hdy-view-switcher-bar-set-icon-size" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_bar_get_stack ()" link="HdyViewSwitcherBar.html#hdy-view-switcher-bar-get-stack" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_bar_set_stack ()" link="HdyViewSwitcherBar.html#hdy-view-switcher-bar-set-stack" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_bar_get_reveal ()" link="HdyViewSwitcherBar.html#hdy-view-switcher-bar-get-reveal" since="0.0.10"/>
+    <keyword type="function" name="hdy_view_switcher_bar_set_reveal ()" link="HdyViewSwitcherBar.html#hdy-view-switcher-bar-set-reveal" since="0.0.10"/>
+    <keyword type="macro" name="HDY_TYPE_VIEW_SWITCHER_BAR" link="HdyViewSwitcherBar.html#HDY-TYPE-VIEW-SWITCHER-BAR:CAPS"/>
+    <keyword type="struct" name="HdyViewSwitcherBarClass" link="HdyViewSwitcherBar.html#HdyViewSwitcherBarClass"/>
+    <keyword type="struct" name="HdyViewSwitcherBar" link="HdyViewSwitcherBar.html#HdyViewSwitcherBar-struct"/>
+    <keyword type="property" name="The “icon-size” property" link="HdyViewSwitcherBar.html#HdyViewSwitcherBar--icon-size"/>
+    <keyword type="property" name="The “policy” property" link="HdyViewSwitcherBar.html#HdyViewSwitcherBar--policy"/>
+    <keyword type="property" name="The “reveal” property" link="HdyViewSwitcherBar.html#HdyViewSwitcherBar--reveal"/>
+    <keyword type="property" name="The “stack” property" link="HdyViewSwitcherBar.html#HdyViewSwitcherBar--stack"/>
+    <keyword type="macro" name="HDY_ENCODE_VERSION()" link="libhandy-hdy-version.html#HDY-ENCODE-VERSION:CAPS"/>
+    <keyword type="macro" name="HDY_CHECK_VERSION()" link="libhandy-hdy-version.html#HDY-CHECK-VERSION:CAPS"/>
+    <keyword type="macro" name="HDY_MAJOR_VERSION" link="libhandy-hdy-version.html#HDY-MAJOR-VERSION:CAPS"/>
+    <keyword type="macro" name="HDY_MINOR_VERSION" link="libhandy-hdy-version.html#HDY-MINOR-VERSION:CAPS"/>
+    <keyword type="macro" name="HDY_MICRO_VERSION" link="libhandy-hdy-version.html#HDY-MICRO-VERSION:CAPS"/>
+    <keyword type="macro" name="HDY_VERSION" link="libhandy-hdy-version.html#HDY-VERSION:CAPS"/>
+    <keyword type="macro" name="HDY_VERSION_S" link="libhandy-hdy-version.html#HDY-VERSION-S:CAPS"/>
+    <keyword type="macro" name="HDY_VERSION_HEX" link="libhandy-hdy-version.html#HDY-VERSION-HEX:CAPS"/>
+    <keyword type="function" name="hdy_init ()" link="libhandy-hdy-main.html#hdy-init"/>
+    <keyword type="function" name="hdy_string_utf8_truncate ()" link="libhandy-HdyStringUtf8.html#hdy-string-utf8-truncate"/>
+    <keyword type="function" name="hdy_string_utf8_len ()" link="libhandy-HdyStringUtf8.html#hdy-string-utf8-len"/>
+    <keyword type="enum" name="enum HdyFold" link="libhandy-HdyFold.html#HdyFold"/>
+    <keyword type="function" name="hdy_list_box_separator_header ()" link="libhandy-GtkListBox-helpers.html#hdy-list-box-separator-header" since="0.0.6"/>
+    <keyword type="constant" name="HDY_ARROWS_DIRECTION_UP" link="HdyArrows.html#HDY-ARROWS-DIRECTION-UP:CAPS"/>
+    <keyword type="constant" name="HDY_ARROWS_DIRECTION_DOWN" link="HdyArrows.html#HDY-ARROWS-DIRECTION-DOWN:CAPS"/>
+    <keyword type="constant" name="HDY_ARROWS_DIRECTION_LEFT" link="HdyArrows.html#HDY-ARROWS-DIRECTION-LEFT:CAPS"/>
+    <keyword type="constant" name="HDY_ARROWS_DIRECTION_RIGHT" link="HdyArrows.html#HDY-ARROWS-DIRECTION-RIGHT:CAPS"/>
+    <keyword type="constant" name="HDY_CENTERING_POLICY_LOOSE" link="HdyHeaderBar.html#HDY-CENTERING-POLICY-LOOSE:CAPS"/>
+    <keyword type="constant" name="HDY_CENTERING_POLICY_STRICT" link="HdyHeaderBar.html#HDY-CENTERING-POLICY-STRICT:CAPS"/>
+    <keyword type="constant" name="HDY_LEAFLET_TRANSITION_TYPE_NONE" link="HdyLeaflet.html#HDY-LEAFLET-TRANSITION-TYPE-NONE:CAPS"/>
+    <keyword type="constant" name="HDY_LEAFLET_TRANSITION_TYPE_SLIDE" link="HdyLeaflet.html#HDY-LEAFLET-TRANSITION-TYPE-SLIDE:CAPS"/>
+    <keyword type="constant" name="HDY_LEAFLET_TRANSITION_TYPE_OVER" link="HdyLeaflet.html#HDY-LEAFLET-TRANSITION-TYPE-OVER:CAPS"/>
+    <keyword type="constant" name="HDY_LEAFLET_TRANSITION_TYPE_UNDER" link="HdyLeaflet.html#HDY-LEAFLET-TRANSITION-TYPE-UNDER:CAPS"/>
+    <keyword type="constant" name="HDY_LEAFLET_MODE_TRANSITION_TYPE_NONE" link="HdyLeaflet.html#HDY-LEAFLET-MODE-TRANSITION-TYPE-NONE:CAPS"/>
+    <keyword type="constant" name="HDY_LEAFLET_MODE_TRANSITION_TYPE_SLIDE" link="HdyLeaflet.html#HDY-LEAFLET-MODE-TRANSITION-TYPE-SLIDE:CAPS"/>
+    <keyword type="constant" name="HDY_LEAFLET_CHILD_TRANSITION_TYPE_NONE" link="HdyLeaflet.html#HDY-LEAFLET-CHILD-TRANSITION-TYPE-NONE:CAPS"/>
+    <keyword type="constant" name="HDY_LEAFLET_CHILD_TRANSITION_TYPE_CROSSFADE" link="HdyLeaflet.html#HDY-LEAFLET-CHILD-TRANSITION-TYPE-CROSSFADE:CAPS"/>
+    <keyword type="constant" name="HDY_LEAFLET_CHILD_TRANSITION_TYPE_SLIDE" link="HdyLeaflet.html#HDY-LEAFLET-CHILD-TRANSITION-TYPE-SLIDE:CAPS"/>
+    <keyword type="constant" name="HDY_LEAFLET_CHILD_TRANSITION_TYPE_OVER" link="HdyLeaflet.html#HDY-LEAFLET-CHILD-TRANSITION-TYPE-OVER:CAPS"/>
+    <keyword type="constant" name="HDY_LEAFLET_CHILD_TRANSITION_TYPE_UNDER" link="HdyLeaflet.html#HDY-LEAFLET-CHILD-TRANSITION-TYPE-UNDER:CAPS"/>
+    <keyword type="constant" name="HDY_PAGINATOR_INDICATOR_STYLE_NONE" link="HdyPaginator.html#HDY-PAGINATOR-INDICATOR-STYLE-NONE:CAPS"/>
+    <keyword type="constant" name="HDY_PAGINATOR_INDICATOR_STYLE_DOTS" link="HdyPaginator.html#HDY-PAGINATOR-INDICATOR-STYLE-DOTS:CAPS"/>
+    <keyword type="constant" name="HDY_PAGINATOR_INDICATOR_STYLE_LINES" link="HdyPaginator.html#HDY-PAGINATOR-INDICATOR-STYLE-LINES:CAPS"/>
+    <keyword type="constant" name="HDY_SQUEEZER_TRANSITION_TYPE_NONE" link="HdySqueezer.html#HDY-SQUEEZER-TRANSITION-TYPE-NONE:CAPS"/>
+    <keyword type="constant" name="HDY_SQUEEZER_TRANSITION_TYPE_CROSSFADE" link="HdySqueezer.html#HDY-SQUEEZER-TRANSITION-TYPE-CROSSFADE:CAPS"/>
+    <keyword type="constant" name="HDY_VIEW_SWITCHER_POLICY_AUTO" link="HdyViewSwitcher.html#HDY-VIEW-SWITCHER-POLICY-AUTO:CAPS"/>
+    <keyword type="constant" name="HDY_VIEW_SWITCHER_POLICY_NARROW" link="HdyViewSwitcher.html#HDY-VIEW-SWITCHER-POLICY-NARROW:CAPS"/>
+    <keyword type="constant" name="HDY_VIEW_SWITCHER_POLICY_WIDE" link="HdyViewSwitcher.html#HDY-VIEW-SWITCHER-POLICY-WIDE:CAPS"/>
+    <keyword type="constant" name="HDY_FOLD_UNFOLDED" link="libhandy-HdyFold.html#HDY-FOLD-UNFOLDED:CAPS"/>
+    <keyword type="constant" name="HDY_FOLD_FOLDED" link="libhandy-HdyFold.html#HDY-FOLD-FOLDED:CAPS"/>
+    <keyword type="member" name="HdyActionRowClass.activate" link="HdyActionRow.html#HdyActionRowClass.activate"/>
+    <keyword type="member" name="HdyDialerClass.submitted" link="HdyDialer.html#HdyDialerClass.submitted"/>
+    <keyword type="member" name="HdyDialerCycleButtonClass.cycle-start" link="HdyDialerCycleButton.html#HdyDialerCycleButtonClass.cycle-start"/>
+    <keyword type="member" name="HdyDialerCycleButtonClass.cycle-end" link="HdyDialerCycleButton.html#HdyDialerCycleButtonClass.cycle-end"/>
+    <keyword type="member" name="HdySwipeableInterface.parent" link="HdySwipeable.html#HdySwipeableInterface.parent"/>
+    <keyword type="member" name="HdySwipeableInterface.switch-child" link="HdySwipeable.html#HdySwipeableInterface.switch-child"/>
+    <keyword type="member" name="HdySwipeableInterface.begin-swipe" link="HdySwipeable.html#HdySwipeableInterface.begin-swipe"/>
+    <keyword type="member" name="HdySwipeableInterface.update-swipe" link="HdySwipeable.html#HdySwipeableInterface.update-swipe"/>
+    <keyword type="member" name="HdySwipeableInterface.end-swipe" link="HdySwipeable.html#HdySwipeableInterface.end-swipe"/>
+  </functions>
+</book>

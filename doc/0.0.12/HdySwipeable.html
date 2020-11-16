@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>HdySwipeable: Handy Reference Manual</title>
+<meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Handy Reference Manual">
+<link rel="up" href="core-api.html" title="Widgets and Objects">
+<link rel="prev" href="HdySqueezer.html" title="HdySqueezer">
+<link rel="next" href="HdySwipeGroup.html" title="HdySwipeGroup">
+<meta name="generator" content="GTK-Doc V1.33.0 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#HdySwipeable.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#HdySwipeable.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_prerequisites">  <span class="dim">|</span> 
+                  <a href="#HdySwipeable.prerequisites" class="shortcut">Prerequisites</a></span><span id="nav_implementations">  <span class="dim">|</span> 
+                  <a href="#HdySwipeable.implementations" class="shortcut">Known Implementations</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#HdySwipeable.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="core-api.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="HdySqueezer.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="HdySwipeGroup.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="HdySwipeable"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="HdySwipeable.top_of_page"></a>HdySwipeable</span></h2>
+<p>HdySwipeable — An interface for swipeable widgets.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="HdySwipeable.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signal_proto_type">
+<col width="300px" class="signal_proto_name">
+<col width="200px" class="signal_proto_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="HdySwipeable.html#HdySwipeable-begin-swipe" title="The “begin-swipe” signal">begin-swipe</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="HdySwipeable.html#HdySwipeable-end-swipe" title="The “end-swipe” signal">end-swipe</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="HdySwipeable.html#HdySwipeable-switch-child" title="The “switch-child” signal">switch-child</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="HdySwipeable.html#HdySwipeable-update-swipe" title="The “update-swipe” signal">update-swipe</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdySwipeable.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="other_proto_type">
+<col class="other_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="HdySwipeable.html#HDY-TYPE-SWIPEABLE:CAPS" title="HDY_TYPE_SWIPEABLE">HDY_TYPE_SWIPEABLE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="HdySwipeable.html#HdySwipeableInterface" title="struct HdySwipeableInterface">HdySwipeableInterface</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="HdySwipeable.html#HdySwipeable-struct" title="HdySwipeable">HdySwipeable</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="HdySwipeable.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GInterface
+    <span class="lineart">╰──</span> HdySwipeable
+</pre>
+</div>
+<div class="refsect1">
+<a name="HdySwipeable.prerequisites"></a><h2>Prerequisites</h2>
+<p>
+HdySwipeable requires
+ GtkWidget.</p>
+</div>
+<div class="refsect1">
+<a name="HdySwipeable.implementations"></a><h2>Known Implementations</h2>
+<p>
+HdySwipeable is implemented by
+ <a class="link" href="HdyLeaflet.html" title="HdyLeaflet">HdyLeaflet</a> and  <a class="link" href="HdyPaginator.html" title="HdyPaginator">HdyPaginator</a>.</p>
+</div>
+<div class="refsect1">
+<a name="HdySwipeable.description"></a><h2>Description</h2>
+<p>The <a class="link" href="HdySwipeable.html" title="HdySwipeable"><span class="type">HdySwipeable</span></a> interface is implemented by all swipeable widgets. They
+can be synced using <a class="link" href="HdySwipeGroup.html" title="HdySwipeGroup"><span class="type">HdySwipeGroup</span></a>.</p>
+<p><a class="link" href="HdySwipeable.html" title="HdySwipeable"><span class="type">HdySwipeable</span></a> is only meant to be used by libhandy widgets and is currently
+implemented by <a class="link" href="HdyLeaflet.html" title="HdyLeaflet"><span class="type">HdyLeaflet</span></a> and <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a>. It should not be implemented
+by applications.</p>
+</div>
+<div class="refsect1">
+<a name="HdySwipeable.functions_details"></a><h2>Functions</h2>
+<p></p>
+</div>
+<div class="refsect1">
+<a name="HdySwipeable.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="HDY-TYPE-SWIPEABLE:CAPS"></a><h3>HDY_TYPE_SWIPEABLE</h3>
+<pre class="programlisting">#define HDY_TYPE_SWIPEABLE (hdy_swipeable_get_type ())
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySwipeableInterface"></a><h3>struct HdySwipeableInterface</h3>
+<pre class="programlisting">struct HdySwipeableInterface {
+  GTypeInterface parent;
+
+  void (*switch_child) (HdySwipeable *self,
+                        guint         index,
+                        gint64        duration);
+  void (*begin_swipe)  (HdySwipeable *self,
+                        gint          direction,
+                        gboolean      direct);
+  void (*update_swipe) (HdySwipeable *self,
+                        gdouble       value);
+  void (*end_swipe)    (HdySwipeable *self,
+                        gint64        duration,
+                        gdouble       to);
+};
+</pre>
+<p>An interface for swipeable widgets.</p>
+<div class="refsect3">
+<a name="HdySwipeableInterface.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">GTypeInterface</span> <em class="structfield"><code><a name="HdySwipeableInterface.parent"></a>parent</code></em>;</p></td>
+<td class="struct_member_description"><p>The parent interface.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="HdySwipeableInterface.switch-child"></a>switch_child</code></em> ()</p></td>
+<td class="struct_member_description"><p>Switches visible child.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="HdySwipeableInterface.begin-swipe"></a>begin_swipe</code></em> ()</p></td>
+<td class="struct_member_description"><p>Starts a swipe gesture.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="HdySwipeableInterface.update-swipe"></a>update_swipe</code></em> ()</p></td>
+<td class="struct_member_description"><p>Updates swipe progress value.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="HdySwipeableInterface.end-swipe"></a>end_swipe</code></em> ()</p></td>
+<td class="struct_member_description"><p>Ends a swipe gesture.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-0-0-12.html#api-index-0.0.12">0.0.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySwipeable-struct"></a><h3>HdySwipeable</h3>
+<pre class="programlisting">typedef struct _HdySwipeable HdySwipeable;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="HdySwipeable.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="HdySwipeable-begin-swipe"></a><h3>The <code class="literal">“begin-swipe”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="HdySwipeable.html" title="HdySwipeable"><span class="type">HdySwipeable</span></a> *self,
+               <span class="type">int</span>           direction,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>This signal is emitted when a possible swipe is detected. This is used by
+<a class="link" href="HdySwipeGroup.html" title="HdySwipeGroup"><span class="type">HdySwipeGroup</span></a>, applications should not connect to it.
+The <em class="parameter"><code>direction</code></em>
+ value can be used to restrict the swipe to a certain
+direction.</p>
+<div class="refsect3">
+<a name="HdySwipeable-begin-swipe.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>The <a class="link" href="HdySwipeable.html" title="HdySwipeable"><span class="type">HdySwipeable</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>direction</p></td>
+<td class="parameter_description"><p>The direction of the swipe, can be 1 or -1</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-12.html#api-index-0.0.12">0.0.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySwipeable-end-swipe"></a><h3>The <code class="literal">“end-swipe”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="HdySwipeable.html" title="HdySwipeable"><span class="type">HdySwipeable</span></a> *self,
+               <span class="type">gint64</span>        duration,
+               <span class="type">double</span>        to,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>This signal is emitted as soon as the gesture has stopped. This is used by
+<a class="link" href="HdySwipeGroup.html" title="HdySwipeGroup"><span class="type">HdySwipeGroup</span></a>, applications should not connect to it.</p>
+<div class="refsect3">
+<a name="HdySwipeable-end-swipe.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>The <a class="link" href="HdySwipeable.html" title="HdySwipeable"><span class="type">HdySwipeable</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>duration</p></td>
+<td class="parameter_description"><p>Snap-back animation duration in milliseconds</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>to</p></td>
+<td class="parameter_description"><p>The progress value to animate to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-12.html#api-index-0.0.12">0.0.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySwipeable-switch-child"></a><h3>The <code class="literal">“switch-child”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="HdySwipeable.html" title="HdySwipeable"><span class="type">HdySwipeable</span></a> *self,
+               <span class="type">guint</span>         index,
+               <span class="type">gint64</span>        duration,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>This signal should be emitted when the widget's visible child is changed.</p>
+<p><em class="parameter"><code>duration</code></em>
+ can be 0 if the child is switched without animation.</p>
+<div class="refsect3">
+<a name="HdySwipeable-switch-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>The <a class="link" href="HdySwipeable.html" title="HdySwipeable"><span class="type">HdySwipeable</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>index</p></td>
+<td class="parameter_description"><p>the index of the child to switch to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>duration</p></td>
+<td class="parameter_description"><p>Animation duration in milliseconds</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-12.html#api-index-0.0.12">0.0.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HdySwipeable-update-swipe"></a><h3>The <code class="literal">“update-swipe”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="HdySwipeable.html" title="HdySwipeable"><span class="type">HdySwipeable</span></a> *self,
+               <span class="type">double</span>        value,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>This signal is emitted every time the progress value changes. This is used
+by <a class="link" href="HdySwipeGroup.html" title="HdySwipeGroup"><span class="type">HdySwipeGroup</span></a>, applications should not connect to it.</p>
+<div class="refsect3">
+<a name="HdySwipeable-update-swipe.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>The <a class="link" href="HdySwipeable.html" title="HdySwipeable"><span class="type">HdySwipeable</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>The current animation progress value</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+<p class="since">Since: <a class="link" href="api-index-0-0-12.html#api-index-0.0.12">0.0.12</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="HdySwipeable.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="HdyLeaflet.html" title="HdyLeaflet"><span class="type">HdyLeaflet</span></a>, <a class="link" href="HdyPaginator.html" title="HdyPaginator"><span class="type">HdyPaginator</span></a>, <a class="link" href="HdySwipeGroup.html" title="HdySwipeGroup"><span class="type">HdySwipeGroup</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.33.0</div>
+</body>
+</html>

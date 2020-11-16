@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>hdy-version: Handy Reference Manual</title>
+<meta name="generator" content="DocBook XSL-NS Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="Handy Reference Manual">
+<link rel="up" href="helpers.html" title="Helpers">
+<link rel="prev" href="helpers.html" title="Helpers">
+<link rel="next" href="libhandy-hdy-main.html" title="hdy-main">
+<meta name="generator" content="GTK-Doc V1.33.0 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#libhandy-hdy-version.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="helpers.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="helpers.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="libhandy-hdy-main.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="libhandy-hdy-version"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libhandy-hdy-version.top_of_page"></a>hdy-version</span></h2>
+<p>hdy-version — Handy version checking.</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="libhandy-hdy-version.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_proto_type">
+<col class="functions_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name">
+<a class="link" href="libhandy-hdy-version.html#HDY-ENCODE-VERSION:CAPS" title="HDY_ENCODE_VERSION()">HDY_ENCODE_VERSION</a><span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name">
+<a class="link" href="libhandy-hdy-version.html#HDY-CHECK-VERSION:CAPS" title="HDY_CHECK_VERSION()">HDY_CHECK_VERSION</a><span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libhandy-hdy-version.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="other_proto_type">
+<col class="other_proto_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libhandy-hdy-version.html#HDY-MAJOR-VERSION:CAPS" title="HDY_MAJOR_VERSION">HDY_MAJOR_VERSION</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libhandy-hdy-version.html#HDY-MINOR-VERSION:CAPS" title="HDY_MINOR_VERSION">HDY_MINOR_VERSION</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libhandy-hdy-version.html#HDY-MICRO-VERSION:CAPS" title="HDY_MICRO_VERSION">HDY_MICRO_VERSION</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libhandy-hdy-version.html#HDY-VERSION:CAPS" title="HDY_VERSION">HDY_VERSION</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libhandy-hdy-version.html#HDY-VERSION-S:CAPS" title="HDY_VERSION_S">HDY_VERSION_S</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="libhandy-hdy-version.html#HDY-VERSION-HEX:CAPS" title="HDY_VERSION_HEX">HDY_VERSION_HEX</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="libhandy-hdy-version.description"></a><h2>Description</h2>
+<p>Handy provides macros to check the version of the library at compile-time.</p>
+</div>
+<div class="refsect1">
+<a name="libhandy-hdy-version.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="HDY-ENCODE-VERSION:CAPS"></a><h3>HDY_ENCODE_VERSION()</h3>
+<pre class="programlisting">#define             HDY_ENCODE_VERSION(major,minor,micro)</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HDY-CHECK-VERSION:CAPS"></a><h3>HDY_CHECK_VERSION()</h3>
+<pre class="programlisting">#define             HDY_CHECK_VERSION(major,minor,micro)</pre>
+<p>Compile-time version checking. Evaluates to <code class="literal">TRUE</code> if the version
+of handy is greater than the required one.</p>
+<div class="refsect3">
+<a name="HDY-CHECK-VERSION.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>major</p></td>
+<td class="parameter_description"><p>required major version</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>minor</p></td>
+<td class="parameter_description"><p>required minor version</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>micro</p></td>
+<td class="parameter_description"><p>required micro version</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="libhandy-hdy-version.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="HDY-MAJOR-VERSION:CAPS"></a><h3>HDY_MAJOR_VERSION</h3>
+<pre class="programlisting">#define HDY_MAJOR_VERSION              (0)
+</pre>
+<p>Hdy major version component (e.g. 1 if <a class="link" href="libhandy-hdy-version.html#HDY-VERSION:CAPS" title="HDY_VERSION"><code class="literal">HDY_VERSION</code></a> is 1.2.3)</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HDY-MINOR-VERSION:CAPS"></a><h3>HDY_MINOR_VERSION</h3>
+<pre class="programlisting">#define HDY_MINOR_VERSION              (0)
+</pre>
+<p>Hdy minor version component (e.g. 2 if <a class="link" href="libhandy-hdy-version.html#HDY-VERSION:CAPS" title="HDY_VERSION"><code class="literal">HDY_VERSION</code></a> is 1.2.3)</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HDY-MICRO-VERSION:CAPS"></a><h3>HDY_MICRO_VERSION</h3>
+<pre class="programlisting">#define HDY_MICRO_VERSION              (13)
+</pre>
+<p>Hdy micro version component (e.g. 3 if <a class="link" href="libhandy-hdy-version.html#HDY-VERSION:CAPS" title="HDY_VERSION"><code class="literal">HDY_VERSION</code></a> is 1.2.3)</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HDY-VERSION:CAPS"></a><h3>HDY_VERSION</h3>
+<pre class="programlisting">#define HDY_VERSION                    (0.0.13)
+</pre>
+<p>Hdy version.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HDY-VERSION-S:CAPS"></a><h3>HDY_VERSION_S</h3>
+<pre class="programlisting">#define HDY_VERSION_S                  "0.0.13"
+</pre>
+<p>Handy version, encoded as a string, useful for printing and
+concatenation.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="HDY-VERSION-HEX:CAPS"></a><h3>HDY_VERSION_HEX</h3>
+<pre class="programlisting">#define             HDY_VERSION_HEX</pre>
+<p>Handy version, encoded as an hexadecimal number, useful for
+integer comparisons.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.33.0</div>
+</body>
+</html>
