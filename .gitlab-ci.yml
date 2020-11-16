@@ -1,9 +1,11 @@
 pages:
   image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
   script:
-    - ./doc.sh
+    - mkdir public
     - mv index.html public/
+    - mv doc public/
     - mv style.css public/
+    - ./doc.sh
   artifacts:
     paths:
       - public

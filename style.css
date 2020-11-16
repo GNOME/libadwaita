@@ -139,7 +139,7 @@ header h1 svg .dim {
   overflow: hidden;
 }
 
-ul.urllist {
+ul.urllist, ul.doclist {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   width: 100%;
@@ -147,19 +147,23 @@ ul.urllist {
   gap: 1rem;
 }
 
-ul.urllist li, ul.textlist li {
-  background-color: var(--dark4);
+ul.urllist li, ul.doclist li {
   display: block;
   transition: all 200ms ease-in-out;
   border-radius: 10px;
 }
 
-ul.urllist li:hover, ul.textlist li:hover { background-color: var(--dark3); }
-ul.urllist li:active, ul.textlist li:active { background-color: var(--dark5); }
+ul.urllist li { background-color: var(--dark4); }
+ul.urllist li:hover { background-color: var(--dark3); }
+ul.urllist li:active { background-color: var(--dark5); }
+ul.doclist li { background-color: var(--dark32); }
+ul.doclist li:hover { background-color: var(--dark2); }
+ul.doclist li:active { background-color: var(--dark4); }
 ul.urllist li:hover svg,
-ul.textlist li:hover img { transform: scale(1.3); transition: transform 300ms ease-in-out; }
+ul.doclist li:hover svg { transform: scale(1.3); transition: transform 300ms ease-in-out; }
 
-ul.urllist li a {
+ul.urllist li a,
+ul.doclist li a {
   display: flex;
   text-decoration: none;
   color: var(--light3);
@@ -173,12 +177,42 @@ ul.urllist li a {
   padding: 1em;
 }
 
-ul.urllist svg {
+ul.urllist svg,
+ul.doclist svg {
   display: block;
   width: 64px;
   height: auto;
   margin-bottom: 1rem;
   transition: transform 600ms ease-in-out;
+}
+
+.back-button {
+  width: 12em;
+  padding: 0.9em 3em;
+  font-size: 1.4em;
+  background: linear-gradient(0deg, #c01c28 0%, #ed333b 100%);
+  color: white;
+}
+
+.button {
+  display: block;
+  border-radius: 99999px;
+  margin: 16px auto;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.35s cubic-bezier(0.17, 0.89, 0.32, 1.28);
+  filter: /* Sharp drop shadow */
+          drop-shadow(0 0.08rem 0.1em rgba(0,0,0, 0.2))
+          /* Diffuse ambient shadow */
+          drop-shadow(0 0.1rem 0.9em rgba(0,0,0, 0.2));
+}
+.button:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.button:active {
+  transform: scale(0.98);
 }
 
 /* FOOTER */
