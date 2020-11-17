@@ -329,192 +329,76 @@
               </object>
             </child>
             <child>
-              <object class="GtkScrolledWindow" id="scrolled_window">
+              <object class="GtkStack" id="stack">
                 <property name="visible">True</property>
-                <property name="hscrollbar_policy">never</property>
-                <property name="vexpand">True</property>
+                <property name="can_focus">False</property>
+                <property name="vhomogeneous">False</property>
+                <signal name="notify::visible-child" handler="notify_visible_child_cb" after="yes" swapped="no"/>
                 <child>
-                  <object class="GtkStack" id="stack">
+                  <object class="HdyStatusPage">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="vhomogeneous">False</property>
-                    <signal name="notify::visible-child" handler="notify_visible_child_cb" after="yes" swapped="no"/>
-                    <child>
-                      <object class="GtkBox" id="welcome">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="halign">center</property>
-                        <property name="valign">center</property>
-                        <property name="orientation">vertical</property>
-                        <child>
-                          <object class="GtkImage" id="icon">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="valign">center</property>
-                            <property name="margin_bottom">18</property>
-                            <property name="pixel_size">128</property>
-                            <property name="icon_name">gnome-smartphone-symbolic</property>
-                            <property name="icon_size">0</property>
-                            <style>
-                              <class name="dim-label"/>
-                            </style>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkBox" id="box">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="orientation">vertical</property>
-                            <property name="margin_start">12</property>
-                            <property name="margin_end">12</property>
-                            <child>
-                              <object class="GtkLabel" id="label">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="opacity">0.5</property>
-                                <property name="halign">center</property>
-                                <property name="margin_bottom">12</property>
-                                <property name="label" translatable="yes">Welcome to Handy Demo</property>
-                                <property name="justify">center</property>
-                                <property name="wrap">True</property>
-                                <attributes>
-                                  <attribute name="weight" value="bold"/>
-                                  <attribute name="scale" value="2"/>
-                                </attributes>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="empty-state-label">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="opacity">0.5</property>
-                                <property name="label" translatable="yes">This is a tour of the features the library has to offer.</property>
-                                <property name="justify">center</property>
-                                <property name="wrap">True</property>
-                                <property name="use_markup">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="name">welcome</property>
-                        <property name="title">Welcome</property>
-                      </packing>
-                    </child>
+                    <property name="icon-name">gnome-smartphone-symbolic</property>
+                    <property name="title">Welcome to Handy Demo</property>
+                    <property name="description">This is a tour of the features the library has to offer.</property>
+                  </object>
+                  <packing>
+                    <property name="name">welcome</property>
+                    <property name="title">Welcome</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="HdyStatusPage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">widget-leaflet-symbolic</property>
+                    <property name="title">Leaflet</property>
+                    <property name="description">A widget showing either all its children or only one, depending on the available space. This window is using a leaflet, you can control it with the settings below.</property>
                     <child>
                       <object class="HdyClamp">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="halign">fill</property>
-                        <property name="valign">fill</property>
-                        <property name="margin-bottom">32</property>
-                        <property name="margin-start">12</property>
-                        <property name="margin-end">12</property>
-                        <property name="margin-top">32</property>
-                        <property name="expand">True</property>
-                        <property name="maximum-size">400</property>
-                        <property name="tightening-threshold">300</property>
                         <child>
-                          <object class="GtkBox">
+                          <object class="GtkListBox">
                             <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
                             <property name="can_focus">False</property>
-                            <property name="valign">start</property>
                             <property name="expand">True</property>
+                            <property name="selection-mode">none</property>
+                            <style>
+                              <class name="content"/>
+                            </style>
                             <child>
-                              <object class="GtkBox">
+                              <object class="HdyComboRow" id="leaflet_transition_row">
+                                <property name="subtitle" translatable="yes">The type of transition to use when the leaflet adapts its size or when changing the visible child</property>
+                                <property name="title" translatable="yes">Transition type</property>
                                 <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="margin-bottom">32</property>
-                                <property name="expand">True</property>
-                                <child>
-                                  <object class="GtkImage">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="valign">center</property>
-                                    <property name="pixel_size">128</property>
-                                    <property name="icon_name">widget-leaflet-symbolic</property>
-                                    <property name="icon-size">0</property>
-                                    <property name="margin-bottom">18</property>
-                                    <style>
-                                      <class name="dim-label"/>
-                                    </style>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="visible">True</property>
-                                    <property name="orientation">vertical</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Leaflet</property>
-                                        <property name="halign">center</property>
-                                        <property name="xalign">0</property>
-                                        <property name="margin-bottom">12</property>
-                                        <attributes>
-                                          <attribute name="weight" value="bold"/>
-                                          <attribute name="scale" value="2"/>
-                                        </attributes>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">A widget showing either all its children or only one, depending on the available space. This window is using a leaflet, you can control it with the settings below.</property>
-                                        <property name="justify">center</property>
-                                        <property name="use_markup">true</property>
-                                        <property name="wrap">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
-                                </child>
+                                <signal name="notify::selected-index" handler="notify_leaflet_transition_cb" swapped="no"/>
                               </object>
                             </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">leaflet</property>
+                    <property name="title">Leaflet</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="HdyDeck" id="content_deck">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="vexpand">True</property>
+                    <property name="transition-type">over</property>
+                    <property name="can-swipe-back">True</property>
+                    <signal name="notify::visible-child" handler="notify_deck_visible_child_cb" after="yes" swapped="yes"/>
+                    <child>
+                      <object class="HdyStatusPage">
+                        <property name="visible">True</property>
+                        <property name="icon-name">widget-deck-symbolic</property>
+                        <property name="title">Deck</property>
+                        <property name="description">A widget showing either all its children or only one, depending on the available space. This window is using a leaflet, you can control it with the settings below.</property>
+                        <child>
+                          <object class="HdyClamp">
+                            <property name="visible">True</property>
                             <child>
                               <object class="GtkListBox">
                                 <property name="visible">True</property>
@@ -525,11 +409,26 @@
                                   <class name="content"/>
                                 </style>
                                 <child>
-                                  <object class="HdyComboRow" id="leaflet_transition_row">
-                                    <property name="subtitle" translatable="yes">The type of transition to use when the leaflet adapts its size or when changing the visible child</property>
+                                  <object class="HdyComboRow" id="deck_transition_row">
+                                    <property name="subtitle" translatable="yes">The type of transition to use when the decks adapt their size or when changing the visible child</property>
                                     <property name="title" translatable="yes">Transition type</property>
                                     <property name="visible">True</property>
-                                    <signal name="notify::selected-index" handler="notify_leaflet_transition_cb" swapped="no"/>
+                                    <signal name="notify::selected-index" handler="notify_deck_transition_cb" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="title" translatable="yes">Go to the next page of the deck</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="visible">True</property>
+                                    <property name="activatable">True</property>
+                                    <signal name="activated" handler="deck_go_next_row_activated_cb" swapped="yes"/>
+                                    <child>
+                                      <object class="GtkImage">
+                                        <property name="icon_name">go-next-symbolic</property>
+                                        <property name="visible">True</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                               </object>
@@ -537,150 +436,11 @@
                           </object>
                         </child>
                       </object>
-                      <packing>
-                        <property name="name">leaflet</property>
-                        <property name="title">Leaflet</property>
-                      </packing>
                     </child>
                     <child>
-                      <object class="HdyDeck" id="content_deck">
+                      <object class="GtkScrolledWindow">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="vexpand">True</property>
-                        <property name="transition-type">over</property>
-                        <property name="can-swipe-back">True</property>
-                        <signal name="notify::visible-child" handler="notify_deck_visible_child_cb" after="yes" swapped="yes"/>
-                        <child>
-                          <object class="HdyClamp">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">fill</property>
-                            <property name="valign">fill</property>
-                            <property name="margin-bottom">32</property>
-                            <property name="margin-start">12</property>
-                            <property name="margin-end">12</property>
-                            <property name="margin-top">32</property>
-                            <property name="expand">True</property>
-                            <property name="maximum-size">400</property>
-                            <property name="tightening-threshold">300</property>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
-                                <property name="can_focus">False</property>
-                                <property name="valign">start</property>
-                                <property name="expand">True</property>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="visible">True</property>
-                                    <property name="orientation">vertical</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="halign">center</property>
-                                    <property name="valign">center</property>
-                                    <property name="margin-bottom">32</property>
-                                    <property name="expand">True</property>
-                                    <child>
-                                      <object class="GtkImage">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="valign">center</property>
-                                        <property name="pixel_size">128</property>
-                                        <property name="icon_name">widget-deck-symbolic</property>
-                                        <property name="icon-size">0</property>
-                                        <property name="margin-bottom">18</property>
-                                        <style>
-                                          <class name="dim-label"/>
-                                        </style>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkBox">
-                                        <property name="visible">True</property>
-                                        <property name="orientation">vertical</property>
-                                        <child>
-                                          <object class="GtkLabel">
-                                            <property name="visible">True</property>
-                                            <property name="opacity">0.5</property>
-                                            <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">Deck</property>
-                                            <property name="halign">center</property>
-                                            <property name="xalign">0</property>
-                                            <property name="margin-bottom">12</property>
-                                            <attributes>
-                                              <attribute name="weight" value="bold"/>
-                                              <attribute name="scale" value="2"/>
-                                            </attributes>
-                                          </object>
-                                          <packing>
-                                            <property name="expand">False</property>
-                                            <property name="fill">True</property>
-                                          </packing>
-                                        </child>
-                                        <child>
-                                          <object class="GtkLabel">
-                                            <property name="visible">True</property>
-                                            <property name="opacity">0.5</property>
-                                            <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">A widget showing only one of its children at a time. This page is using decks, you can control them with the settings below.</property>
-                                            <property name="justify">center</property>
-                                            <property name="use_markup">true</property>
-                                            <property name="wrap">True</property>
-                                          </object>
-                                          <packing>
-                                            <property name="expand">False</property>
-                                            <property name="fill">True</property>
-                                          </packing>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkListBox">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="expand">True</property>
-                                    <property name="selection-mode">none</property>
-                                    <style>
-                                      <class name="content"/>
-                                    </style>
-                                    <child>
-                                      <object class="HdyComboRow" id="deck_transition_row">
-                                        <property name="subtitle" translatable="yes">The type of transition to use when the decks adapt their size or when changing the visible child</property>
-                                        <property name="title" translatable="yes">Transition type</property>
-                                        <property name="visible">True</property>
-                                        <signal name="notify::selected-index" handler="notify_deck_transition_cb" swapped="no"/>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow">
-                                        <property name="title" translatable="yes">Go to the next page of the deck</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="visible">True</property>
-                                        <property name="activatable">True</property>
-                                        <signal name="activated" handler="deck_go_next_row_activated_cb" swapped="yes"/>
-                                        <child>
-                                          <object class="GtkImage">
-                                            <property name="icon_name">go-next-symbolic</property>
-                                            <property name="visible">True</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
+                        <property name="hscrollbar-policy">never</property>
                         <child>
                           <object class="GtkBox">
                             <property name="orientation">vertical</property>
@@ -724,200 +484,119 @@
                               </object>
                             </child>
                           </object>
-                          <packing>
-                            <property name="name">sub</property>
-                          </packing>
                         </child>
                       </object>
                       <packing>
-                        <property name="name">deck</property>
-                        <property name="title">Deck</property>
+                        <property name="name">sub</property>
                       </packing>
                     </child>
+                  </object>
+                  <packing>
+                    <property name="name">deck</property>
+                    <property name="title">Deck</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="HdyStatusPage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">widget-keypad-symbolic</property>
+                    <property name="title">Keypad</property>
+                    <property name="description">A number keypad.</property>
                     <child>
                       <object class="HdyClamp">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="halign">fill</property>
-                        <property name="valign">fill</property>
-                        <property name="margin-bottom">32</property>
-                        <property name="margin-start">12</property>
-                        <property name="margin-end">12</property>
-                        <property name="margin-top">32</property>
-                        <property name="expand">True</property>
-                        <property name="maximum-size">400</property>
+                        <property name="maximum-size">300</property>
                         <property name="tightening-threshold">300</property>
                         <child>
-                          <object class="GtkBox">
+                          <object class="GtkBox" id="box_keypad">
                             <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
                             <property name="can_focus">False</property>
-                            <property name="valign">start</property>
-                            <property name="expand">True</property>
+                            <property name="valign">center</property>
+                            <property name="hexpand">True</property>
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">12</property>
                             <child>
-                              <object class="GtkBox">
+                              <object class="GtkListBox" id="keypad_listbox">
                                 <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
                                 <property name="can_focus">False</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="margin-bottom">32</property>
                                 <property name="expand">True</property>
+                                <property name="selection-mode">none</property>
+                                <style>
+                                  <class name="content"/>
+                                </style>
                                 <child>
-                                  <object class="GtkImage">
+                                  <object class="HdyActionRow">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="valign">center</property>
-                                    <property name="pixel_size">128</property>
-                                    <property name="icon_name">widget-keypad-symbolic</property>
-                                    <property name="icon-size">0</property>
-                                    <property name="margin-bottom">18</property>
-                                    <style>
-                                      <class name="dim-label"/>
-                                    </style>
+                                    <property name="title" translatable="yes">Show letters</property>
+                                    <property name="activatable_widget">keypad_letters_visible</property>
+                                    <child>
+                                      <object class="GtkSwitch" id="keypad_letters_visible">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="state">True</property>
+                                        <property name="valign">center</property>
+                                      </object>
+                                    </child>
                                   </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkBox">
+                                  <object class="HdyActionRow">
                                     <property name="visible">True</property>
-                                    <property name="orientation">vertical</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="title" translatable="yes">Show symbols</property>
+                                    <property name="activatable_widget">keypad_symbols_visible</property>
                                     <child>
-                                      <object class="GtkLabel">
+                                      <object class="GtkSwitch" id="keypad_symbols_visible">
                                         <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Keypad</property>
-                                        <property name="halign">center</property>
-                                        <property name="xalign">0</property>
-                                        <property name="margin-bottom">12</property>
-                                        <attributes>
-                                          <attribute name="weight" value="bold"/>
-                                          <attribute name="scale" value="2"/>
-                                        </attributes>
+                                        <property name="can_focus">True</property>
+                                        <property name="state">True</property>
+                                        <property name="valign">center</property>
                                       </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">A number keypad.</property>
-                                        <property name="justify">center</property>
-                                        <property name="use_markup">true</property>
-                                        <property name="wrap">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
                                     </child>
                                   </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
                                 </child>
                               </object>
                             </child>
                             <child>
-                              <object class="HdyClamp">
+                              <object class="GtkEntry" id="entry_keypad">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyKeypad" id="keypad">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="maximum-size">300</property>
-                                <property name="tightening-threshold">300</property>
-                                <child>
-                                  <object class="GtkBox" id="box_keypad">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="valign">center</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="orientation">vertical</property>
-                                    <property name="spacing">12</property>
-                                    <child>
-                                      <object class="GtkListBox" id="keypad_listbox">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="expand">True</property>
-                                        <property name="selection-mode">none</property>
-                                        <style>
-                                          <class name="content"/>
-                                        </style>
-                                        <child>
-                                          <object class="HdyActionRow">
-                                            <property name="visible">True</property>
-                                            <property name="can_focus">False</property>
-                                            <property name="title" translatable="yes">Show letters</property>
-                                            <property name="activatable_widget">keypad_letters_visible</property>
-                                            <child>
-                                              <object class="GtkSwitch" id="keypad_letters_visible">
-                                                <property name="visible">True</property>
-                                                <property name="can_focus">True</property>
-                                                <property name="state">True</property>
-                                                <property name="valign">center</property>
-                                              </object>
-                                            </child>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="HdyActionRow">
-                                            <property name="visible">True</property>
-                                            <property name="can_focus">False</property>
-                                            <property name="title" translatable="yes">Show symbols</property>
-                                            <property name="activatable_widget">keypad_symbols_visible</property>
-                                            <child>
-                                              <object class="GtkSwitch" id="keypad_symbols_visible">
-                                                <property name="visible">True</property>
-                                                <property name="can_focus">True</property>
-                                                <property name="state">True</property>
-                                                <property name="valign">center</property>
-                                              </object>
-                                            </child>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkEntry" id="entry_keypad">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyKeypad" id="keypad">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="halign">center</property>
-                                        <property name="entry">entry_keypad</property>
-                                        <property name="symbols-visible" bind-source="keypad_symbols_visible" bind-property="state" bind-flags="sync-create | bidirectional"/>
-                                        <property name="letters-visible" bind-source="keypad_letters_visible" bind-property="state" bind-flags="sync-create | bidirectional"/>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="pack_type">end</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                </child>
+                                <property name="halign">center</property>
+                                <property name="entry">entry_keypad</property>
+                                <property name="symbols-visible" bind-source="keypad_symbols_visible" bind-property="state" bind-flags="sync-create | bidirectional"/>
+                                <property name="letters-visible" bind-source="keypad_letters_visible" bind-property="state" bind-flags="sync-create | bidirectional"/>
                               </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="pack_type">end</property>
+                                <property name="position">1</property>
+                              </packing>
                             </child>
                           </object>
                         </child>
                       </object>
-                      <packing>
-                        <property name="name">keypad</property>
-                        <property name="title">Keypad</property>
-                      </packing>
                     </child>
+                  </object>
+                  <packing>
+                    <property name="name">keypad</property>
+                    <property name="title">Keypad</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="HdyStatusPage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">widget-clamp-symbolic</property>
+                    <property name="title">Clamp</property>
+                    <property name="description">This page is clamped to smoothly grow up to a maximum width.</property>
                     <child>
                       <object class="HdyClamp">
                         <property name="visible">True</property>
@@ -927,125 +606,42 @@
                         <property name="margin-bottom">32</property>
                         <property name="margin-start">12</property>
                         <property name="margin-end">12</property>
-                        <property name="margin-top">32</property>
                         <property name="expand">True</property>
                         <property name="maximum-size" bind-source="clamp_maximum_size_adjustment" bind-property="value" bind-flags="sync-create"/>
                         <property name="tightening-threshold" bind-source="clamp_tightening_threshold_adjustment" bind-property="value" bind-flags="sync-create"/>
                         <child>
-                          <object class="GtkBox">
+                          <object class="GtkListBox" id="clamp_listbox">
                             <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
                             <property name="can_focus">False</property>
-                            <property name="valign">start</property>
                             <property name="expand">True</property>
+                            <property name="selection-mode">none</property>
+                            <style>
+                              <class name="content"/>
+                            </style>
                             <child>
-                              <object class="GtkBox">
-                                <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
+                              <object class="HdyActionRow">
                                 <property name="can_focus">False</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="margin-bottom">32</property>
-                                <property name="expand">True</property>
+                                <property name="title" translatable="yes">Maximum width</property>
+                                <property name="visible">True</property>
                                 <child>
-                                  <object class="GtkImage">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
+                                  <object class="GtkSpinButton">
+                                    <property name="adjustment">clamp_maximum_size_adjustment</property>
                                     <property name="valign">center</property>
-                                    <property name="pixel_size">128</property>
-                                    <property name="icon_name">widget-clamp-symbolic</property>
-                                    <property name="icon-size">0</property>
-                                    <property name="margin-bottom">18</property>
-                                    <style>
-                                      <class name="dim-label"/>
-                                    </style>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkBox">
                                     <property name="visible">True</property>
-                                    <property name="orientation">vertical</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Clamp</property>
-                                        <property name="halign">center</property>
-                                        <property name="xalign">0</property>
-                                        <property name="margin-bottom">12</property>
-                                        <attributes>
-                                          <attribute name="weight" value="bold"/>
-                                          <attribute name="scale" value="2"/>
-                                        </attributes>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">This page is clamped to smoothly grow up to a maximum width.</property>
-                                        <property name="justify">center</property>
-                                        <property name="use_markup">true</property>
-                                        <property name="wrap">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
                                   </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
                                 </child>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkListBox" id="clamp_listbox">
-                                <property name="visible">True</property>
+                              <object class="HdyActionRow">
                                 <property name="can_focus">False</property>
-                                <property name="expand">True</property>
-                                <property name="selection-mode">none</property>
-                                <style>
-                                  <class name="content"/>
-                                </style>
+                                <property name="title" translatable="yes">Tightening threshold</property>
+                                <property name="visible">True</property>
                                 <child>
-                                  <object class="HdyActionRow">
-                                    <property name="can_focus">False</property>
-                                    <property name="title" translatable="yes">Maximum width</property>
+                                  <object class="GtkSpinButton">
+                                    <property name="adjustment">clamp_tightening_threshold_adjustment</property>
+                                    <property name="valign">center</property>
                                     <property name="visible">True</property>
-                                    <child>
-                                      <object class="GtkSpinButton">
-                                        <property name="adjustment">clamp_maximum_size_adjustment</property>
-                                        <property name="valign">center</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyActionRow">
-                                    <property name="can_focus">False</property>
-                                    <property name="title" translatable="yes">Tightening threshold</property>
-                                    <property name="visible">True</property>
-                                    <child>
-                                      <object class="GtkSpinButton">
-                                        <property name="adjustment">clamp_tightening_threshold_adjustment</property>
-                                        <property name="valign">center</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
                                   </object>
                                 </child>
                               </object>
@@ -1053,11 +649,19 @@
                           </object>
                         </child>
                       </object>
-                      <packing>
-                        <property name="name">clamp</property>
-                        <property name="title">Clamp</property>
-                      </packing>
                     </child>
+                  </object>
+                  <packing>
+                    <property name="name">clamp</property>
+                    <property name="title">Clamp</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="HdyStatusPage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">widget-list-symbolic</property>
+                    <property name="title">Lists</property>
+                    <property name="description">Rows and helpers for GtkListBox.</property>
                     <child>
                       <object class="HdyClamp">
                         <property name="visible">True</property>
@@ -1067,370 +671,384 @@
                         <property name="margin-bottom">32</property>
                         <property name="margin-start">12</property>
                         <property name="margin-end">12</property>
-                        <property name="margin-top">32</property>
                         <property name="expand">True</property>
                         <property name="maximum-size">400</property>
                         <property name="tightening-threshold">300</property>
                         <child>
-                          <object class="GtkBox">
+                          <object class="GtkListBox" id="lists_listbox">
                             <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
                             <property name="can_focus">False</property>
-                            <property name="valign">start</property>
                             <property name="expand">True</property>
+                            <property name="selection-mode">none</property>
+                            <style>
+                              <class name="content"/>
+                            </style>
                             <child>
-                              <object class="GtkBox">
+                              <object class="HdyActionRow">
+                                <property name="icon_name" translatable="yes">row-preferences-symbolic</property>
+                                <property name="subtitle" translatable="yes">They also have a subtitle and an icon</property>
+                                <property name="title" translatable="yes">Rows have a title</property>
                                 <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="margin-bottom">32</property>
-                                <property name="expand">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyActionRow">
+                                <property name="activatable_widget">frobnicate</property>
+                                <property name="title" translatable="yes">Rows can have action widgets</property>
+                                <property name="visible">True</property>
                                 <child>
-                                  <object class="GtkImage">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
+                                  <object class="GtkButton" id="frobnicate">
+                                    <property name="can_focus">True</property>
+                                    <property name="halign">end</property>
+                                    <property name="label" translatable="yes">Frobnicate</property>
                                     <property name="valign">center</property>
-                                    <property name="pixel_size">128</property>
-                                    <property name="icon_name">widget-list-symbolic</property>
-                                    <property name="icon-size">0</property>
-                                    <property name="margin-bottom">18</property>
+                                    <property name="visible">True</property>
                                     <style>
-                                      <class name="dim-label"/>
+                                      <class name="list-button"/>
                                     </style>
                                   </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="visible">True</property>
-                                    <property name="orientation">vertical</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Lists</property>
-                                        <property name="halign">center</property>
-                                        <property name="xalign">0</property>
-                                        <property name="margin-bottom">12</property>
-                                        <attributes>
-                                          <attribute name="weight" value="bold"/>
-                                          <attribute name="scale" value="2"/>
-                                        </attributes>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Rows and helpers for &lt;i&gt;GtkListBox&lt;/i&gt;.</property>
-                                        <property name="justify">center</property>
-                                        <property name="use_markup">true</property>
-                                        <property name="wrap">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
                                 </child>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkListBox" id="lists_listbox">
+                              <object class="HdyActionRow">
+                                <property name="activatable_widget">radio_button_1</property>
+                                <property name="title" translatable="yes">Rows can have prefix widgets</property>
+                                <property name="visible">True</property>
+                                <child type="prefix">
+                                  <object class="GtkRadioButton" id="radio_button_1">
+                                    <property name="can_focus">False</property>
+                                    <property name="valign">center</property>
+                                    <property name="visible">True</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyActionRow">
+                                <property name="activatable_widget">radio_button_2</property>
+                                <property name="title" translatable="yes">Rows can have prefix widgets</property>
+                                <property name="visible">True</property>
+                                <child type="prefix">
+                                  <object class="GtkRadioButton" id="radio_button_2">
+                                    <property name="can_focus">False</property>
+                                    <property name="group">radio_button_1</property>
+                                    <property name="valign">center</property>
+                                    <property name="visible">True</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyComboRow" id="combo_row">
+                                <property name="title" translatable="yes">Combo row</property>
+                                <property name="visible">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyComboRow" id="enum_combo_row">
+                                <property name="subtitle" translatable="yes">This combo row was created from an enumeration</property>
+                                <property name="title" translatable="yes">Enumeration combo row</property>
+                                <property name="visible">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyExpanderRow" id="expander_row">
+                                <property name="title" translatable="yes">Expander row</property>
+                                <property name="visible">True</property>
+                                <child>
+                                  <object class="GtkListBoxRow">
+                                    <property name="activatable">False</property>
+                                    <property name="visible">True</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="label" translatable="yes">Hello, world!</property>
+                                        <property name="margin">12</property>
+                                        <property name="visible">True</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyExpanderRow" id="action_expander_row">
+                                <property name="title" translatable="yes">Expander row with an action</property>
+                                <property name="visible">True</property>
+                                <child type="action">
+                                  <object class="GtkButton">
+                                    <property name="visible">True</property>
+                                    <property name="valign">center</property>
+                                    <style>
+                                      <class name="list-button"/>
+                                    </style>
+                                    <child>
+                                      <object class="GtkImage">
+                                        <property name="visible">True</property>
+                                        <property name="icon-name">row-copy-symbolic</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="title" translatable="yes">A nested row</property>
+                                    <property name="visible">True</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="title" translatable="yes">Another nested row</property>
+                                    <property name="visible">True</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyExpanderRow">
+                                <property name="title" translatable="yes">Expander row with a prefix</property>
+                                <property name="visible">True</property>
+                                <child type="prefix">
+                                  <object class="GtkButton">
+                                    <property name="visible">True</property>
+                                    <property name="valign">center</property>
+                                    <style>
+                                      <class name="list-button"/>
+                                    </style>
+                                    <child>
+                                      <object class="GtkImage">
+                                        <property name="visible">True</property>
+                                        <property name="icon-name">row-shutdown-symbolic</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="title" translatable="yes">A nested row</property>
+                                    <property name="visible">True</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="title" translatable="yes">Another nested row</property>
+                                    <property name="visible">True</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyExpanderRow">
+                                <property name="title" translatable="yes">Expander row with a prefix and icon</property>
+                                <property name="visible">True</property>
+                                <property name="icon-name">row-forbidden-symbolic</property>
+                                <child type="prefix">
+                                  <object class="GtkButton">
+                                    <property name="visible">True</property>
+                                    <property name="valign">center</property>
+                                    <style>
+                                      <class name="list-button"/>
+                                    </style>
+                                    <child>
+                                      <object class="GtkImage">
+                                        <property name="visible">True</property>
+                                        <property name="icon-name">row-shutdown-symbolic</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="title" translatable="yes">A nested row</property>
+                                    <property name="visible">True</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="title" translatable="yes">Another nested row</property>
+                                    <property name="visible">True</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyExpanderRow" id="enable_expander_row">
+                                <property name="show_enable_switch">True</property>
+                                <property name="title" translatable="yes">Toggleable expander row</property>
+                                <property name="visible">True</property>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="title" translatable="yes">A nested row</property>
+                                    <property name="visible">True</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="title" translatable="yes">Another nested row</property>
+                                    <property name="visible">True</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyExpanderRow" id="action_switch_expander_row">
+                                <property name="show_enable_switch">True</property>
+                                <property name="title" translatable="yes">Toggleable expander row with an action</property>
+                                <property name="visible">True</property>
+                                <child type="action">
+                                  <object class="GtkButton">
+                                    <property name="visible">True</property>
+                                    <property name="valign">center</property>
+                                    <style>
+                                      <class name="list-button"/>
+                                    </style>
+                                    <child>
+                                      <object class="GtkImage">
+                                        <property name="visible">True</property>
+                                        <property name="icon-name">row-copy-symbolic</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="title" translatable="yes">A nested row</property>
+                                    <property name="visible">True</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="title" translatable="yes">Another nested row</property>
+                                    <property name="visible">True</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">lists</property>
+                    <property name="title">Lists</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkOverlay">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child type="overlay">
+                      <object class="HdySearchBar" id="search_bar">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">fill</property>
+                        <property name="valign">start</property>
+                        <property name="hexpand">True</property>
+                        <property name="show-close-button">True</property>
+                        <child>
+                          <object class="HdyClamp">
+                            <property name="visible">True</property>
+                            <property name="hexpand">True</property>
+                            <child>
+                              <object class="GtkSearchEntry" id="search_entry">
+                                <property name="visible">True</property>
+                                <property name="hexpand">True</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="HdyStatusPage">
+                        <property name="visible">True</property>
+                        <property name="icon-name">widget-search-symbolic</property>
+                        <property name="title">Search bar</property>
+                        <property name="description">A search bar that gives your search entry all the space it needs.
+
+Try using it with a horizontally expanded clamp to make your search entry adaptive.</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">search-bar</property>
+                    <property name="title">Search bar</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="HdyStatusPage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">widget-view-switcher-symbolic</property>
+                    <property name="title">View Switcher</property>
+                    <property name="description">Widgets to switch the window's view.</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Run the demo</property>
+                        <property name="halign">center</property>
+                        <signal name="clicked" handler="view_switcher_demo_clicked_cb" swapped="no"/>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">view-switcher</property>
+                    <property name="title">View Switcher</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="carousel_box">
+                    <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkBox" id="carousel_empty_box">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="HdyCarousel" id="carousel">
+                        <property name="visible">True</property>
+                        <child>
+                          <object class="HdyStatusPage">
+                            <property name="visible">True</property>
+                            <property name="icon-name">widget-carousel-symbolic</property>
+                            <property name="title">Carousel</property>
+                            <property name="description">A widget for paginated scrolling.</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="HdyClamp">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">fill</property>
+                            <property name="valign">fill</property>
+                            <property name="margin-bottom">32</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">12</property>
+                            <property name="expand">True</property>
+                            <property name="maximum-size">400</property>
+                            <property name="tightening-threshold">300</property>
+                            <child>
+                              <object class="GtkListBox" id="carousel_listbox">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="expand">True</property>
+                                <property name="valign">center</property>
                                 <property name="selection-mode">none</property>
                                 <style>
                                   <class name="content"/>
                                 </style>
                                 <child>
-                                  <object class="HdyActionRow">
-                                    <property name="icon_name" translatable="yes">row-preferences-symbolic</property>
-                                    <property name="subtitle" translatable="yes">They also have a subtitle and an icon</property>
-                                    <property name="title" translatable="yes">Rows have a title</property>
+                                  <object class="HdyComboRow" id="carousel_orientation_row">
+                                    <property name="title" translatable="yes">Orientation</property>
                                     <property name="visible">True</property>
+                                    <signal name="notify::selected-index" handler="notify_carousel_orientation_cb" swapped="no"/>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="HdyActionRow">
-                                    <property name="activatable_widget">frobnicate</property>
-                                    <property name="title" translatable="yes">Rows can have action widgets</property>
+                                  <object class="HdyComboRow" id="carousel_indicators_row">
+                                    <property name="title" translatable="yes">Page Indicators</property>
                                     <property name="visible">True</property>
-                                    <child>
-                                      <object class="GtkButton" id="frobnicate">
-                                        <property name="can_focus">True</property>
-                                        <property name="halign">end</property>
-                                        <property name="label" translatable="yes">Frobnicate</property>
-                                        <property name="valign">center</property>
-                                        <property name="visible">True</property>
-                                        <style>
-                                          <class name="list-button"/>
-                                        </style>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyActionRow">
-                                    <property name="activatable_widget">radio_button_1</property>
-                                    <property name="title" translatable="yes">Rows can have prefix widgets</property>
-                                    <property name="visible">True</property>
-                                    <child type="prefix">
-                                      <object class="GtkRadioButton" id="radio_button_1">
-                                        <property name="can_focus">False</property>
-                                        <property name="valign">center</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyActionRow">
-                                    <property name="activatable_widget">radio_button_2</property>
-                                    <property name="title" translatable="yes">Rows can have prefix widgets</property>
-                                    <property name="visible">True</property>
-                                    <child type="prefix">
-                                      <object class="GtkRadioButton" id="radio_button_2">
-                                        <property name="can_focus">False</property>
-                                        <property name="group">radio_button_1</property>
-                                        <property name="valign">center</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyComboRow" id="combo_row">
-                                    <property name="title" translatable="yes">Combo row</property>
-                                    <property name="visible">True</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyComboRow" id="enum_combo_row">
-                                    <property name="subtitle" translatable="yes">This combo row was created from an enumeration</property>
-                                    <property name="title" translatable="yes">Enumeration combo row</property>
-                                    <property name="visible">True</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyExpanderRow" id="expander_row">
-                                    <property name="title" translatable="yes">Expander row</property>
-                                    <property name="visible">True</property>
-                                    <child>
-                                      <object class="GtkListBoxRow">
-                                        <property name="activatable">False</property>
-                                        <property name="visible">True</property>
-                                        <child>
-                                          <object class="GtkLabel">
-                                            <property name="label" translatable="yes">Hello, world!</property>
-                                            <property name="margin">12</property>
-                                            <property name="visible">True</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyExpanderRow" id="action_expander_row">
-                                    <property name="title" translatable="yes">Expander row with an action</property>
-                                    <property name="visible">True</property>
-                                    <child type="action">
-                                      <object class="GtkButton">
-                                        <property name="visible">True</property>
-                                        <property name="valign">center</property>
-                                        <style>
-                                          <class name="list-button"/>
-                                        </style>
-                                        <child>
-                                          <object class="GtkImage">
-                                            <property name="visible">True</property>
-                                            <property name="icon-name">row-copy-symbolic</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow">
-                                        <property name="title" translatable="yes">A nested row</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow">
-                                        <property name="title" translatable="yes">Another nested row</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyExpanderRow">
-                                    <property name="title" translatable="yes">Expander row with a prefix</property>
-                                    <property name="visible">True</property>
-                                    <child type="prefix">
-                                      <object class="GtkButton">
-                                        <property name="visible">True</property>
-                                        <property name="valign">center</property>
-                                        <style>
-                                          <class name="list-button"/>
-                                        </style>
-                                        <child>
-                                          <object class="GtkImage">
-                                            <property name="visible">True</property>
-                                            <property name="icon-name">row-shutdown-symbolic</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow">
-                                        <property name="title" translatable="yes">A nested row</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow">
-                                        <property name="title" translatable="yes">Another nested row</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyExpanderRow">
-                                    <property name="title" translatable="yes">Expander row with a prefix and icon</property>
-                                    <property name="visible">True</property>
-                                    <property name="icon-name">row-forbidden-symbolic</property>
-                                    <child type="prefix">
-                                      <object class="GtkButton">
-                                        <property name="visible">True</property>
-                                        <property name="valign">center</property>
-                                        <style>
-                                          <class name="list-button"/>
-                                        </style>
-                                        <child>
-                                          <object class="GtkImage">
-                                            <property name="visible">True</property>
-                                            <property name="icon-name">row-shutdown-symbolic</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow">
-                                        <property name="title" translatable="yes">A nested row</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow">
-                                        <property name="title" translatable="yes">Another nested row</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyExpanderRow" id="enable_expander_row">
-                                    <property name="show_enable_switch">True</property>
-                                    <property name="title" translatable="yes">Toggleable expander row</property>
-                                    <property name="visible">True</property>
-                                    <child>
-                                      <object class="HdyActionRow">
-                                        <property name="title" translatable="yes">A nested row</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow">
-                                        <property name="title" translatable="yes">Another nested row</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyExpanderRow" id="action_switch_expander_row">
-                                    <property name="show_enable_switch">True</property>
-                                    <property name="title" translatable="yes">Toggleable expander row with an action</property>
-                                    <property name="visible">True</property>
-                                    <child type="action">
-                                      <object class="GtkButton">
-                                        <property name="visible">True</property>
-                                        <property name="valign">center</property>
-                                        <style>
-                                          <class name="list-button"/>
-                                        </style>
-                                        <child>
-                                          <object class="GtkImage">
-                                            <property name="visible">True</property>
-                                            <property name="icon-name">row-copy-symbolic</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow">
-                                        <property name="title" translatable="yes">A nested row</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyActionRow">
-                                        <property name="title" translatable="yes">Another nested row</property>
-                                        <property name="visible">True</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="name">lists</property>
-                        <property name="title">Lists</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkOverlay">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <child type="overlay">
-                          <object class="HdySearchBar" id="search_bar">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">fill</property>
-                            <property name="valign">start</property>
-                            <property name="hexpand">True</property>
-                            <property name="show-close-button">True</property>
-                            <child>
-                              <object class="HdyClamp">
-                                <property name="visible">True</property>
-                                <property name="hexpand">True</property>
-                                <child>
-                                  <object class="GtkSearchEntry" id="search_entry">
-                                    <property name="visible">True</property>
-                                    <property name="hexpand">True</property>
+                                    <signal name="notify::selected-index" handler="notify_carousel_indicators_cb" swapped="no"/>
                                   </object>
                                 </child>
                               </object>
@@ -1440,399 +1058,80 @@
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
                             <property name="can_focus">False</property>
                             <property name="halign">center</property>
                             <property name="valign">center</property>
                             <property name="vexpand">True</property>
-                            <property name="orientation">vertical</property>
+                            <property name="hexpand">True</property>
+                            <property name="spacing">24</property>
                             <child>
-                              <object class="GtkImage">
+                              <object class="GtkLabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="valign">center</property>
-                                <property name="margin_bottom">18</property>
-                                <property name="pixel_size">128</property>
-                                <property name="icon_name">widget-search-symbolic</property>
-                                <property name="icon_size">0</property>
-                                <style>
-                                  <class name="dim-label"/>
-                                </style>
+                                <property name="label" translatable="yes">Another page</property>
+                                <property name="justify">center</property>
+                                <property name="wrap">True</property>
+                                <property name="opacity">0.5</property>
+                                <attributes>
+                                  <attribute name="weight" value="bold"/>
+                                  <attribute name="scale" value="2"/>
+                                </attributes>
                               </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
-                              </packing>
                             </child>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="orientation">vertical</property>
-                                <property name="margin_start">12</property>
-                                <property name="margin_end">12</property>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="opacity">0.5</property>
-                                    <property name="halign">center</property>
-                                    <property name="margin_bottom">12</property>
-                                    <property name="label" translatable="yes">Search bar</property>
-                                    <property name="justify">center</property>
-                                    <property name="wrap">True</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                      <attribute name="scale" value="2"/>
-                                    </attributes>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="opacity">0.5</property>
-                                    <property name="margin_bottom">6</property>
-                                    <property name="label" translatable="yes">A search bar that gives your search entry all the space it needs.</property>
-                                    <property name="justify">center</property>
-                                    <property name="wrap">True</property>
-                                    <property name="use_markup">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="opacity">0.5</property>
-                                    <property name="label" translatable="yes">Try using it with an horizontaly expanded clamp to make your search entry adaptive.</property>
-                                    <property name="justify">center</property>
-                                    <property name="wrap">True</property>
-                                    <property name="use_markup">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">2</property>
-                                  </packing>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="name">search-bar</property>
-                        <property name="title">Search bar</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="orientation">vertical</property>
-                        <property name="can_focus">False</property>
-                        <property name="valign">center</property>
-                        <property name="expand">True</property>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
-                            <property name="margin-bottom">32</property>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="valign">center</property>
-                                <property name="pixel_size">128</property>
-                                <property name="icon_name">widget-view-switcher-symbolic</property>
-                                <property name="icon-size">0</property>
-                                <property name="margin-bottom">18</property>
-                                <style>
-                                  <class name="dim-label"/>
-                                </style>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="visible">True</property>
-                                    <property name="opacity">0.5</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">View Switcher</property>
-                                    <property name="halign">center</property>
-                                    <property name="xalign">0</property>
-                                    <property name="margin-bottom">12</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                      <attribute name="scale" value="2"/>
-                                    </attributes>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="visible">True</property>
-                                    <property name="opacity">0.5</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Widgets to switch the window's view.</property>
-                                    <property name="justify">center</property>
-                                    <property name="use_markup">true</property>
-                                    <property name="wrap">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                              </packing>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">center</property>
-                            <property name="spacing">12</property>
                             <child>
                               <object class="GtkButton">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">Run the demo</property>
-                                <signal name="clicked" handler="view_switcher_demo_clicked_cb" swapped="no"/>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">_Return to the first page</property>
+                                <property name="use-underline">True</property>
+                                <signal name="clicked" handler="carousel_return_clicked_cb" swapped="no"/>
+                                <style>
+                                  <class name="suggested-action"/>
+                                </style>
                               </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
                             </child>
                           </object>
                         </child>
                       </object>
-                      <packing>
-                        <property name="name">view-switcher</property>
-                        <property name="title">View Switcher</property>
-                      </packing>
                     </child>
                     <child>
-                      <object class="GtkBox">
+                      <object class="GtkStack" id="carousel_indicators_stack">
                         <property name="visible">True</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkBox" id="carousel_box">
-                        <property name="visible">True</property>
-                        <property name="orientation">vertical</property>
+                        <property name="homogeneous">False</property>
+                        <property name="margin">6</property>
                         <child>
-                          <object class="GtkBox" id="carousel_empty_box">
+                          <object class="HdyCarouselIndicatorDots">
                             <property name="visible">True</property>
+                            <property name="carousel">carousel</property>
+                            <property name="orientation" bind-source="carousel" bind-property="orientation" bind-flags="sync-create"/>
                           </object>
+                          <packing>
+                            <property name="name">dots</property>
+                          </packing>
                         </child>
                         <child>
-                          <object class="HdyCarousel" id="carousel">
+                          <object class="HdyCarouselIndicatorLines">
                             <property name="visible">True</property>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="vexpand">True</property>
-                                <property name="hexpand">True</property>
-                                <child>
-                                  <object class="GtkImage">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="valign">center</property>
-                                    <property name="pixel_size">128</property>
-                                    <property name="icon_name">widget-carousel-symbolic</property>
-                                    <property name="icon-size">0</property>
-                                    <property name="margin-bottom">18</property>
-                                    <style>
-                                      <class name="dim-label"/>
-                                      <class name="carousel-icon"/>
-                                    </style>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="visible">True</property>
-                                    <property name="orientation">vertical</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Carousel</property>
-                                        <property name="halign">center</property>
-                                        <property name="xalign">0</property>
-                                        <property name="margin-bottom">12</property>
-                                        <attributes>
-                                          <attribute name="weight" value="bold"/>
-                                          <attribute name="scale" value="2"/>
-                                        </attributes>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">A widget for paginated scrolling.</property>
-                                        <property name="justify">center</property>
-                                        <property name="use_markup">true</property>
-                                        <property name="wrap">True</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="HdyClamp">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">fill</property>
-                                <property name="valign">fill</property>
-                                <property name="margin-bottom">32</property>
-                                <property name="margin-start">12</property>
-                                <property name="margin-end">12</property>
-                                <property name="expand">True</property>
-                                <property name="maximum-size">400</property>
-                                <property name="tightening-threshold">300</property>
-                                <child>
-                                  <object class="GtkListBox" id="carousel_listbox">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="valign">center</property>
-                                    <property name="selection-mode">none</property>
-                                    <style>
-                                      <class name="content"/>
-                                    </style>
-                                    <child>
-                                      <object class="HdyComboRow" id="carousel_orientation_row">
-                                        <property name="title" translatable="yes">Orientation</property>
-                                        <property name="visible">True</property>
-                                        <signal name="notify::selected-index" handler="notify_carousel_orientation_cb" swapped="no"/>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="HdyComboRow" id="carousel_indicators_row">
-                                        <property name="title" translatable="yes">Page Indicators</property>
-                                        <property name="visible">True</property>
-                                        <signal name="notify::selected-index" handler="notify_carousel_indicators_cb" swapped="no"/>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="vexpand">True</property>
-                                <property name="hexpand">True</property>
-                                <property name="spacing">24</property>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Another page</property>
-                                    <property name="justify">center</property>
-                                    <property name="wrap">True</property>
-                                    <property name="opacity">0.5</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                      <attribute name="scale" value="2"/>
-                                    </attributes>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkButton">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">_Return to the first page</property>
-                                    <property name="use-underline">True</property>
-                                    <signal name="clicked" handler="carousel_return_clicked_cb" swapped="no"/>
-                                    <style>
-                                      <class name="suggested-action"/>
-                                    </style>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
+                            <property name="carousel">carousel</property>
+                            <property name="orientation" bind-source="carousel" bind-property="orientation" bind-flags="sync-create"/>
                           </object>
-                        </child>
-                        <child>
-                          <object class="GtkStack" id="carousel_indicators_stack">
-                            <property name="visible">True</property>
-                            <property name="homogeneous">False</property>
-                            <property name="margin">6</property>
-                            <child>
-                              <object class="HdyCarouselIndicatorDots">
-                                <property name="visible">True</property>
-                                <property name="carousel">carousel</property>
-                                <property name="orientation" bind-source="carousel" bind-property="orientation" bind-flags="sync-create"/>
-                              </object>
-                              <packing>
-                                <property name="name">dots</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="HdyCarouselIndicatorLines">
-                                <property name="visible">True</property>
-                                <property name="carousel">carousel</property>
-                                <property name="orientation" bind-source="carousel" bind-property="orientation" bind-flags="sync-create"/>
-                              </object>
-                              <packing>
-                                <property name="name">lines</property>
-                              </packing>
-                            </child>
-                          </object>
+                          <packing>
+                            <property name="name">lines</property>
+                          </packing>
                         </child>
                       </object>
-                      <packing>
-                        <property name="name">carousel</property>
-                        <property name="title">Carousel</property>
-                      </packing>
                     </child>
+                  </object>
+                  <packing>
+                    <property name="name">carousel</property>
+                    <property name="title">Carousel</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow">
+                    <property name="visible">True</property>
+                    <property name="hscrollbar-policy">never</property>
                     <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
@@ -1840,16 +1139,14 @@
                         <property name="can_focus">False</property>
                         <property name="valign">start</property>
                         <property name="expand">True</property>
-                        <property name="margin-bottom">32</property>
-                        <property name="margin-start">12</property>
-                        <property name="margin-end">12</property>
-                        <property name="margin-top">32</property>
+                        <style>
+                          <class name="avatar-page"/>
+                        </style>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
                             <property name="orientation">vertical</property>
                             <property name="can_focus">False</property>
-                            <property name="margin-bottom">32</property>
                             <property name="expand">True</property>
                             <child>
                               <object class="HdyAvatar" id="avatar">
@@ -1858,7 +1155,6 @@
                                 <property name="valign">center</property>
                                 <property name="halign">center</property>
                                 <property name="size" bind-source="avatar_size" bind-property="value" bind-flags="sync-create"></property>
-                                <property name="margin-bottom">18</property>
                                 <property name="show-initials" bind-source="avatar_show_initials" bind-property="state" bind-flags="sync-create"/>
                                 <property name="text" bind-source="avatar_text" bind-property="text" bind-flags="sync-create"/>
                               </object>
@@ -1868,43 +1164,34 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkBox">
+                              <object class="GtkLabel">
                                 <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="visible">True</property>
-                                    <property name="opacity">0.5</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Avatar</property>
-                                    <property name="halign">center</property>
-                                    <property name="xalign">0</property>
-                                    <property name="margin-bottom">12</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                      <attribute name="scale" value="2"/>
-                                    </attributes>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="visible">True</property>
-                                    <property name="opacity">0.5</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">A user avatar with generated fallback.</property>
-                                    <property name="justify">center</property>
-                                    <property name="use_markup">true</property>
-                                    <property name="wrap">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
-                                </child>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Avatar</property>
+                                <property name="halign">center</property>
+                                <property name="xalign">0</property>
+                                <style>
+                                  <class name="title"/>
+                                  <class name="large-title"/>
+                                </style>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">A user avatar with generated fallback.</property>
+                                <property name="justify">center</property>
+                                <property name="use_markup">true</property>
+                                <property name="wrap">True</property>
+                                <style>
+                                  <class name="body"/>
+                                  <class name="description"/>
+                                </style>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -2054,11 +1341,21 @@
                           </object>
                         </child>
                       </object>
-                      <packing>
-                        <property name="name">avatar</property>
-                        <property name="title">Avatar</property>
-                      </packing>
                     </child>
+                  </object>
+                  <packing>
+                    <property name="name">avatar</property>
+                    <property name="title">Avatar</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="HdyStatusPage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">widget-window-symbolic</property>
+                    <property name="title">Window</property>
+                    <property name="description">A freeform window.
+
+It allows to have headerbar in content area, incl. above content, and round corners on the bottom. This window is an example, try hiding the titlebar.</property>
                     <child>
                       <object class="HdyClamp">
                         <property name="visible">True</property>
@@ -2068,7 +1365,6 @@
                         <property name="margin-bottom">32</property>
                         <property name="margin-start">12</property>
                         <property name="margin-end">12</property>
-                        <property name="margin-top">32</property>
                         <property name="expand">True</property>
                         <property name="maximum-size">400</property>
                         <property name="tightening-threshold">300</property>
@@ -2079,95 +1375,6 @@
                             <property name="can_focus">False</property>
                             <property name="valign">start</property>
                             <property name="expand">True</property>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
-                                <property name="can_focus">False</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="margin-bottom">32</property>
-                                <property name="expand">True</property>
-                                <child>
-                                  <object class="GtkImage">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="valign">center</property>
-                                    <property name="pixel_size">128</property>
-                                    <property name="icon_name">widget-window-symbolic</property>
-                                    <property name="icon-size">0</property>
-                                    <property name="margin-bottom">18</property>
-                                    <style>
-                                      <class name="dim-label"/>
-                                    </style>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="visible">True</property>
-                                    <property name="orientation">vertical</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Window</property>
-                                        <property name="halign">center</property>
-                                        <property name="xalign">0</property>
-                                        <property name="margin-bottom">6</property>
-                                        <attributes>
-                                          <attribute name="weight" value="bold"/>
-                                          <attribute name="scale" value="2"/>
-                                        </attributes>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">A freeform window.</property>
-                                        <property name="justify">center</property>
-                                        <property name="use_markup">true</property>
-                                        <property name="wrap">True</property>
-                                        <property name="margin-bottom">6</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="opacity">0.5</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">It allows to have headerbar in content area, incl. above content, and round corners on the bottom. This window is an example, try hiding the titlebar.</property>
-                                        <property name="justify">center</property>
-                                        <property name="use_markup">true</property>
-                                        <property name="wrap">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
-                                </child>
-                              </object>
-                            </child>
                             <child>
                               <object class="GtkListBox">
                                 <property name="visible">True</property>
@@ -2223,118 +1430,32 @@
                           </object>
                         </child>
                       </object>
-                      <packing>
-                        <property name="name">window</property>
-                        <property name="title">Window</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="orientation">vertical</property>
-                        <property name="can_focus">False</property>
-                        <property name="valign">center</property>
-                        <property name="expand">True</property>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
-                            <property name="margin-bottom">32</property>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="valign">center</property>
-                                <property name="pixel_size">128</property>
-                                <property name="icon_name">widget-flap-symbolic</property>
-                                <property name="icon-size">0</property>
-                                <property name="margin-bottom">18</property>
-                                <style>
-                                  <class name="dim-label"/>
-                                </style>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="visible">True</property>
-                                    <property name="opacity">0.5</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Flap</property>
-                                    <property name="halign">center</property>
-                                    <property name="xalign">0</property>
-                                    <property name="margin-bottom">12</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                      <attribute name="scale" value="2"/>
-                                    </attributes>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="visible">True</property>
-                                    <property name="opacity">0.5</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">A widgets showing a flap next to or above the content.</property>
-                                    <property name="justify">center</property>
-                                    <property name="use_markup">true</property>
-                                    <property name="wrap">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                  </packing>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                              </packing>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
-                            <property name="can_focus">False</property>
-                            <property name="halign">center</property>
-                            <property name="spacing">12</property>
-                            <child>
-                              <object class="GtkButton">
-                                <property name="visible">True</property>
-                                <property name="label" translatable="yes">Run the demo</property>
-                                <signal name="clicked" handler="flap_demo_clicked_cb" swapped="no"/>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="name">flap</property>
-                        <property name="title">Flap</property>
-                      </packing>
                     </child>
                   </object>
+                  <packing>
+                    <property name="name">window</property>
+                    <property name="title">Window</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="HdyStatusPage">
+                    <property name="visible">True</property>
+                    <property name="icon-name">widget-flap-symbolic</property>
+                    <property name="title">Flap</property>
+                    <property name="description">A widget showing a flap next to or above the content.</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Run the demo</property>
+                        <property name="halign">center</property>
+                        <signal name="clicked" handler="flap_demo_clicked_cb" swapped="no"/>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">flap</property>
+                    <property name="title">Flap</property>
+                  </packing>
                 </child>
               </object>
             </child>
