@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOC_DIR=public/doc/
+DOC_DIR=public/doc
 REFS="
 master
 libhandy-1-0
