@@ -18,9 +18,14 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/row-forbidden-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/row-preferences-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/row-shutdown-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/view-sidebar-start-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/view-sidebar-start-symbolic-rtl.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/view-sidebar-end-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/view-sidebar-end-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-carousel-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-clamp-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-deck-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-flap-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-keypad-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-leaflet-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-list-symbolic.svg</file>
@@ -33,6 +38,7 @@
   <gresource prefix="/sm/puri/Handy/Demo/ui">
     <file preprocess="xml-stripblanks">hdy-demo-preferences-window.ui</file>
     <file preprocess="xml-stripblanks">hdy-demo-window.ui</file>
+    <file preprocess="xml-stripblanks">hdy-flap-demo-window.ui</file>
     <file preprocess="xml-stripblanks">hdy-view-switcher-demo-window.ui</file>
     <file compressed="true">style.css</file>
   </gresource>

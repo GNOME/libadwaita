@@ -1,6 +1,7 @@
 #include "hdy-demo-window.h"
 
 #include <glib/gi18n.h>
+#include "hdy-flap-demo-window.h"
 #include "hdy-view-switcher-demo-window.h"
 
 struct _HdyDemoWindow
@@ -464,6 +465,16 @@ avatar_update_contacts (HdyDemoWindow *self)
 }
 
 static void
+flap_demo_clicked_cb (GtkButton     *btn,
+                      HdyDemoWindow *self)
+{
+  HdyFlapDemoWindow *window = hdy_flap_demo_window_new ();
+
+  gtk_window_set_transient_for (GTK_WINDOW (window), GTK_WINDOW (self));
+  gtk_widget_show (GTK_WIDGET (window));
+}
+
+static void
 hdy_demo_window_constructed (GObject *object)
 {
   HdyDemoWindow *self = HDY_DEMO_WINDOW (object);
@@ -526,6 +537,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, avatar_file_remove_cb);
   gtk_widget_class_bind_template_callback (widget_class, avatar_file_set_cb);
   gtk_widget_class_bind_template_callback (widget_class, avatar_save_to_file_cb);
+  gtk_widget_class_bind_template_callback (widget_class, flap_demo_clicked_cb);
 }
 
 static void
