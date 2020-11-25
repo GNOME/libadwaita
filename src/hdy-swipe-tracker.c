@@ -102,6 +102,45 @@ enum {
 
 static guint signals[SIGNAL_LAST_SIGNAL];
 
+static gboolean
+get_widget_coordinates (HdySwipeTracker *self,
+                        GdkEvent        *event,
+                        gdouble         *x,
+                        gdouble         *y)
+{
+  GdkWindow *window = gdk_event_get_window (event);
+  gdouble tx, ty, out_x = -1, out_y = -1;
+
+  if (!gdk_event_get_coords (event, &tx, &ty))
+    goto out;
+
+  while (window && window != gtk_widget_get_window (GTK_WIDGET (self->swipeable))) {
+    gint window_x, window_y;
+
+    gdk_window_get_position (window, &window_x, &window_y);
+
+    tx += window_x;
+    ty += window_y;
+
+    window = gdk_window_get_parent (window);
+  }
+
+  if (window) {
+    out_x = tx;
+    out_y = ty;
+    goto out;
+  }
+
+out:
+  if (x)
+    *x = out_x;
+
+  if (y)
+    *y = out_y;
+
+  return out_x >= 0 && out_y >= 0;
+}
+
 static void
 reset (HdySwipeTracker *self)
 {
@@ -474,13 +513,12 @@ handle_scroll_event (HdySwipeTracker *self,
 
     if (is_vertical == is_delta_vertical) {
       if (!capture) {
-        GtkWidget *widget = gtk_get_event_widget (event);
         gdouble event_x, event_y;
 
-        gdk_event_get_coords (event, &event_x, &event_y);
-        gtk_widget_translate_coordinates (widget, GTK_WIDGET (self->swipeable),
-                                          event_x, event_y,
-                                          &self->start_x, &self->start_y);
+        get_widget_coordinates (self, event, &event_x, &event_y);
+
+        self->start_x = (gint) round (event_x);
+        self->start_y = (gint) round (event_y);
 
         gesture_prepare (self, delta > 0 ? HDY_NAVIGATION_DIRECTION_FORWARD : HDY_NAVIGATION_DIRECTION_BACK, FALSE);
       }
