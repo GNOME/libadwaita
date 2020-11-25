@@ -2179,12 +2179,14 @@ hdy_stackable_box_draw (HdyStackableBox *self,
                                   cr);
   }
 
-  cairo_save (cr);
-  cairo_translate (cr, shadow_rect.x, shadow_rect.y);
-  hdy_shadow_helper_draw_shadow (self->shadow_helper, cr,
-                                 shadow_rect.width, shadow_rect.height,
-                                 shadow_progress, shadow_direction);
-  cairo_restore (cr);
+  if (shadow_progress > 0) {
+    cairo_save (cr);
+    cairo_translate (cr, shadow_rect.x, shadow_rect.y);
+    hdy_shadow_helper_draw_shadow (self->shadow_helper, cr,
+                                   shadow_rect.width, shadow_rect.height,
+                                   shadow_progress, shadow_direction);
+    cairo_restore (cr);
+  }
 
   return GDK_EVENT_PROPAGATE;
 }
