@@ -143,6 +143,38 @@
         <property id="enable-expansion" save="True" ignore="True"/>
       </properties>
     </glade-widget-class>
+    <glade-widget-class name="HdyFlap" generic-name="flap" title="Flap" since="1.1" use-placeholders="False">
+      <post-create-function>glade_hdy_flap_post_create</post-create-function>
+      <add-child-function>glade_hdy_flap_add_child</add-child-function>
+      <remove-child-function>glade_hdy_flap_remove_child</remove-child-function>
+      <replace-child-function>glade_hdy_flap_replace_child</replace-child-function>
+      <special-child-type>type</special-child-type>
+      <properties>
+        <property id="content" disabled="True"/>
+        <property id="flap" disabled="True"/>
+        <property id="separator" disabled="True"/>
+        <property id="fold-policy">
+          <displayable-values>
+            <!-- HdyFlapFoldPolicy enumeration value -->
+            <value id="HDY_FLAP_FOLD_POLICY_NEVER" name="Never"/>
+            <!-- HdyFlapFoldPolicy enumeration value -->
+            <value id="HDY_FLAP_FOLD_POLICY_ALWAYS" name="Always"/>
+            <!-- HdyFlapFoldPolicy enumeration value -->
+            <value id="HDY_FLAP_FOLD_POLICY_AUTO" name="Auto"/>
+          </displayable-values>
+        </property>
+        <property id="transition-type">
+          <displayable-values>
+            <!-- HdyFlapTransitionType enumeration value -->
+            <value id="HDY_FLAP_TRANSITION_TYPE_OVER" name="Over"/>
+            <!-- HdyFlapTransitionType enumeration value -->
+            <value id="HDY_FLAP_TRANSITION_TYPE_UNDER" name="Under"/>
+            <!-- HdyFlapTransitionType enumeration value -->
+            <value id="HDY_FLAP_TRANSITION_TYPE_SLIDE" name="Slide"/>
+          </displayable-values>
+        </property>
+      </properties>
+    </glade-widget-class>
     <glade-widget-class name="HdyHeaderBar" generic-name="headerbar" title="Header Bar" since="0.0.10">
       <post-create-function>glade_hdy_header_bar_post_create</post-create-function>
       <add-child-function>glade_hdy_header_bar_add_child</add-child-function>
@@ -401,6 +433,7 @@
     <glade-widget-class-ref name="HdyComboRow"/>
     <glade-widget-class-ref name="HdyDeck"/>
     <glade-widget-class-ref name="HdyExpanderRow"/>
+    <glade-widget-class-ref name="HdyFlap"/>
     <glade-widget-class-ref name="HdyHeaderBar"/>
     <glade-widget-class-ref name="HdyHeaderGroup"/>
     <glade-widget-class-ref name="HdyKeypad"/>

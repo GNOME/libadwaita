@@ -28,6 +28,7 @@ test_names = [
   'test-combo-row',
   'test-deck',
   'test-expander-row',
+  'test-flap',
   'test-header-bar',
   'test-header-group',
   'test-keypad',

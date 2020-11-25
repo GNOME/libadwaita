@@ -124,6 +124,38 @@ libhandy-1.so.0 libhandy-1-0 #MINVER#
  hdy_expander_row_set_show_enable_switch@LIBHANDY_1_0 0.0.6
  hdy_expander_row_set_subtitle@LIBHANDY_1_0 0.80.0
  hdy_expander_row_set_use_underline@LIBHANDY_1_0 0.80.0
+ hdy_flap_fold_policy_get_type@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_content@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_flap@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_flap_position@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_fold_duration@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_fold_policy@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_folded@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_locked@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_modal@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_reveal_duration@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_reveal_flap@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_reveal_progress@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_separator@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_swipe_to_close@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_swipe_to_open@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_transition_type@LIBHANDY_1_0 1.1.0
+ hdy_flap_get_type@LIBHANDY_1_0 1.1.0
+ hdy_flap_new@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_content@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_flap@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_flap_position@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_fold_duration@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_fold_policy@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_locked@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_modal@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_reveal_duration@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_reveal_flap@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_separator@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_swipe_to_close@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_swipe_to_open@LIBHANDY_1_0 1.1.0
+ hdy_flap_set_transition_type@LIBHANDY_1_0 1.1.0
+ hdy_flap_transition_type_get_type@LIBHANDY_1_0 1.1.0
  hdy_get_enable_animations@LIBHANDY_1_0 0.0.11
  hdy_header_bar_get_centering_policy@LIBHANDY_1_0 0.0.10
  hdy_header_bar_get_custom_title@LIBHANDY_1_0 0.0.10

@@ -10,6 +10,7 @@ glade_catalogdir   = gladeui_dep.get_pkgconfig_variable('catalogdir',
 libglade_hdy_sources = [
   'glade-hdy-carousel.c',
   'glade-hdy-expander-row.c',
+  'glade-hdy-flap.c',
   'glade-hdy-header-bar.c',
   'glade-hdy-header-group.c',
   'glade-hdy-leaflet.c',
