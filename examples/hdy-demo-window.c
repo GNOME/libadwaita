@@ -63,9 +63,9 @@ prefer_dark_theme_to_icon_name_cb (GBinding     *binding,
 }
 
 static gboolean
-hdy_demo_window_key_pressed_cb (GtkWidget     *sender,
-                                GdkEvent      *event,
-                                HdyDemoWindow *self)
+key_pressed_cb (GtkWidget     *sender,
+                GdkEvent      *event,
+                HdyDemoWindow *self)
 {
   GdkModifierType default_modifiers = gtk_accelerator_get_default_mod_mask ();
   guint keyval;
@@ -107,15 +107,15 @@ update (HdyDemoWindow *self)
 }
 
 static void
-hdy_demo_window_notify_deck_visible_child_cb (HdyDemoWindow *self)
+notify_deck_visible_child_cb (HdyDemoWindow *self)
 {
   update (self);
 }
 
 static void
-hdy_demo_window_notify_visible_child_cb (GObject       *sender,
-                                         GParamSpec    *pspec,
-                                         HdyDemoWindow *self)
+notify_visible_child_cb (GObject       *sender,
+                         GParamSpec    *pspec,
+                         HdyDemoWindow *self)
 {
   update (self);
 
@@ -123,15 +123,15 @@ hdy_demo_window_notify_visible_child_cb (GObject       *sender,
 }
 
 static void
-hdy_demo_window_back_clicked_cb (GtkWidget     *sender,
-                                 HdyDemoWindow *self)
+back_clicked_cb (GtkWidget     *sender,
+                 HdyDemoWindow *self)
 {
   hdy_leaflet_navigate (self->content_box, HDY_NAVIGATION_DIRECTION_BACK);
 }
 
 static void
-hdy_demo_window_deck_back_clicked_cb (GtkWidget     *sender,
-                                      HdyDemoWindow *self)
+deck_back_clicked_cb (GtkWidget     *sender,
+                      HdyDemoWindow *self)
 {
   hdy_deck_navigate (self->content_deck, HDY_NAVIGATION_DIRECTION_BACK);
 }
@@ -472,21 +472,21 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_text);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_filechooser);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_contacts);
-  gtk_widget_class_bind_template_callback_full (widget_class, "key_pressed_cb", G_CALLBACK(hdy_demo_window_key_pressed_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_visible_child_cb", G_CALLBACK(hdy_demo_window_notify_visible_child_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_deck_visible_child_cb", G_CALLBACK(hdy_demo_window_notify_deck_visible_child_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "back_clicked_cb", G_CALLBACK(hdy_demo_window_back_clicked_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "deck_back_clicked_cb", G_CALLBACK(hdy_demo_window_deck_back_clicked_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_leaflet_transition_cb", G_CALLBACK(notify_leaflet_transition_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_deck_transition_cb", G_CALLBACK(notify_deck_transition_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "deck_go_next_row_activated_cb", G_CALLBACK(deck_go_next_row_activated_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "theme_variant_button_clicked_cb", G_CALLBACK(theme_variant_button_clicked_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "view_switcher_demo_clicked_cb", G_CALLBACK(view_switcher_demo_clicked_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_carousel_orientation_cb", G_CALLBACK(notify_carousel_orientation_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "notify_carousel_indicators_cb", G_CALLBACK(notify_carousel_indicators_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "carousel_return_clicked_cb", G_CALLBACK(carousel_return_clicked_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "avatar_file_remove_cb", G_CALLBACK(avatar_file_remove_cb));
-  gtk_widget_class_bind_template_callback_full (widget_class, "avatar_file_set_cb", G_CALLBACK(avatar_file_set_cb));
+  gtk_widget_class_bind_template_callback (widget_class, key_pressed_cb);
+  gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
+  gtk_widget_class_bind_template_callback (widget_class, notify_deck_visible_child_cb);
+  gtk_widget_class_bind_template_callback (widget_class, back_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, deck_back_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, notify_leaflet_transition_cb);
+  gtk_widget_class_bind_template_callback (widget_class, notify_deck_transition_cb);
+  gtk_widget_class_bind_template_callback (widget_class, deck_go_next_row_activated_cb);
+  gtk_widget_class_bind_template_callback (widget_class, theme_variant_button_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, view_switcher_demo_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, notify_carousel_orientation_cb);
+  gtk_widget_class_bind_template_callback (widget_class, notify_carousel_indicators_cb);
+  gtk_widget_class_bind_template_callback (widget_class, carousel_return_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, avatar_file_remove_cb);
+  gtk_widget_class_bind_template_callback (widget_class, avatar_file_set_cb);
 }
 
 static void
