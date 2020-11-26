@@ -74,7 +74,7 @@ enum {
 #define HDY_FOLD_FOLDED TRUE
 #define HDY_FOLD_MAX 2
 #define GTK_ORIENTATION_MAX 2
-#define HDY_SWIPE_BORDER 16
+#define HDY_SWIPE_BORDER 32
 
 typedef struct _HdyStackableBoxChildInfo HdyStackableBoxChildInfo;
 
