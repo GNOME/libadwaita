@@ -15,6 +15,7 @@
 
 #include "hdy-avatar.h"
 #include "hdy-cairo-private.h"
+#include "hdy-css-private.h"
 
 #define NUMBER_OF_COLORS 14
 /**
@@ -444,6 +445,8 @@ hdy_avatar_measure (GtkWidget      *widget,
     *minimum = self->size;
   if (natural)
     *natural = self->size;
+
+  hdy_css_measure (widget, orientation, minimum, natural);
 }
 
 static void
@@ -495,6 +498,9 @@ hdy_avatar_size_allocate (GtkWidget     *widget,
                           GtkAllocation *allocation)
 {
   GtkAllocation clip;
+
+  hdy_css_size_allocate_self (widget, allocation);
+  gtk_widget_set_allocation (widget, allocation);
 
   gtk_render_background_get_clip (gtk_widget_get_style_context (widget),
                                   allocation->x,
