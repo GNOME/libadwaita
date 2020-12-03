@@ -201,11 +201,11 @@
         <property name="label" translatable="yes">This is a subpage</property>
         <property name="justify">center</property>
         <property name="wrap">True</property>
-        <property name="opacity">0.5</property>
-        <attributes>
-          <attribute name="weight" value="bold"/>
-          <attribute name="scale" value="2"/>
-        </attributes>
+        <property name="wrap-mode">word-char</property>
+        <style>
+          <class name="title"/>
+          <class name="large-title"/>
+        </style>
       </object>
     </child>
     <child>
@@ -213,6 +213,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">Return to the preferences</property>
+        <property name="halign">center</property>
         <signal name="clicked" handler="return_to_preferences_cb" swapped="yes"/>
         <style>
           <class name="suggested-action"/>
@@ -236,11 +237,11 @@
         <property name="label" translatable="yes">This is another subpage</property>
         <property name="justify">center</property>
         <property name="wrap">True</property>
-        <property name="opacity">0.5</property>
-        <attributes>
-          <attribute name="weight" value="bold"/>
-          <attribute name="scale" value="2"/>
-        </attributes>
+        <property name="wrap-mode">word-char</property>
+        <style>
+          <class name="title"/>
+          <class name="large-title"/>
+        </style>
       </object>
     </child>
     <child>
@@ -248,6 +249,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">Return to the preferences</property>
+        <property name="halign">center</property>
         <signal name="clicked" handler="return_to_preferences_cb" swapped="yes"/>
         <style>
           <class name="suggested-action"/>
