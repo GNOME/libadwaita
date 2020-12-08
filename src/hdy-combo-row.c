@@ -136,7 +136,7 @@ create_list_widget (gpointer item,
   HdyComboRowPrivate *priv = hdy_combo_row_get_instance_private (self);
   GtkWidget *checkmark = g_object_new (GTK_TYPE_IMAGE,
                                        "halign", GTK_ALIGN_START,
-                                       "icon-name", "emblem-ok-symbolic",
+                                       "icon-name", "object-select-symbolic",
                                        "opacity", 0.0,
                                        "valign", GTK_ALIGN_CENTER,
                                        "visible", TRUE,
