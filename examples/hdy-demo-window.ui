@@ -1162,7 +1162,7 @@
                                 </style>
                                 <child>
                                   <object class="HdyActionRow">
-                                    <property name="icon_name" translatable="yes">preferences-other-symbolic</property>
+                                    <property name="icon_name" translatable="yes">row-preferences-symbolic</property>
                                     <property name="subtitle" translatable="yes">They also have a subtitle and an icon</property>
                                     <property name="title" translatable="yes">Rows have a title</property>
                                     <property name="visible">True</property>
@@ -1262,7 +1262,7 @@
                                         <child>
                                           <object class="GtkImage">
                                             <property name="visible">True</property>
-                                            <property name="icon-name">edit-copy-symbolic</property>
+                                            <property name="icon-name">row-copy-symbolic</property>
                                           </object>
                                         </child>
                                       </object>
@@ -1295,7 +1295,7 @@
                                         <child>
                                           <object class="GtkImage">
                                             <property name="visible">True</property>
-                                            <property name="icon-name">system-shutdown-symbolic</property>
+                                            <property name="icon-name">row-shutdown-symbolic</property>
                                           </object>
                                         </child>
                                       </object>
@@ -1318,7 +1318,7 @@
                                   <object class="HdyExpanderRow">
                                     <property name="title" translatable="yes">Expander row with a prefix and icon</property>
                                     <property name="visible">True</property>
-                                    <property name="icon-name">action-unavailable-symbolic</property>
+                                    <property name="icon-name">row-forbidden-symbolic</property>
                                     <child type="prefix">
                                       <object class="GtkButton">
                                         <property name="visible">True</property>
@@ -1329,7 +1329,7 @@
                                         <child>
                                           <object class="GtkImage">
                                             <property name="visible">True</property>
-                                            <property name="icon-name">system-shutdown-symbolic</property>
+                                            <property name="icon-name">row-shutdown-symbolic</property>
                                           </object>
                                         </child>
                                       </object>
@@ -1382,7 +1382,7 @@
                                         <child>
                                           <object class="GtkImage">
                                             <property name="visible">True</property>
-                                            <property name="icon-name">edit-copy-symbolic</property>
+                                            <property name="icon-name">row-copy-symbolic</property>
                                           </object>
                                         </child>
                                       </object>
@@ -1991,7 +1991,7 @@
                                               <object class="GtkImage">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="icon_name">user-trash-symbolic</property>
+                                                <property name="icon_name">avatar-delete-symbolic</property>
                                                 <property name="icon_size">1</property>
                                               </object>
                                             </child>

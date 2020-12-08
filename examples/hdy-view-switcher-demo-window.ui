@@ -43,7 +43,7 @@
               <packing>
                 <property name="name">page1</property>
                 <property name="title" translatable="yes">World</property>
-                <property name="icon_name">help-about-symbolic</property>
+                <property name="icon_name">clock-world-symbolic</property>
               </packing>
             </child>
             <child>
@@ -56,7 +56,7 @@
               <packing>
                 <property name="name">page2</property>
                 <property name="title" translatable="yes">Alarm</property>
-                <property name="icon_name">alarm-symbolic</property>
+                <property name="icon_name">clock-alarm-symbolic</property>
                 <property name="position">1</property>
                 <property name="needs_attention">True</property>
               </packing>
@@ -71,7 +71,7 @@
               <packing>
                 <property name="name">page3</property>
                 <property name="title" translatable="yes">Stopwatch</property>
-                <property name="icon_name">document-print-symbolic</property>
+                <property name="icon_name">clock-stopwatch-symbolic</property>
                 <property name="position">2</property>
               </packing>
             </child>
@@ -85,7 +85,7 @@
               <packing>
                 <property name="name">page0</property>
                 <property name="title" translatable="yes">Timer</property>
-                <property name="icon_name">weather-clear-symbolic</property>
+                <property name="icon_name">clock-timer-symbolic</property>
                 <property name="position">3</property>
               </packing>
             </child>

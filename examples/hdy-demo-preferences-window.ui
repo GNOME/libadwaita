@@ -5,7 +5,7 @@
     <property name="can-swipe-back">True</property>
     <child>
       <object class="HdyPreferencesPage">
-        <property name="icon_name">edit-select-all-symbolic</property>
+        <property name="icon_name">preferences-window-layout-symbolic</property>
         <property name="title">Layout</property>
         <property name="visible">True</property>
         <child>
@@ -147,7 +147,7 @@
     </child>
     <child>
       <object class="HdyPreferencesPage">
-        <property name="icon_name">edit-find-symbolic</property>
+        <property name="icon_name">preferences-window-search-symbolic</property>
         <property name="title">Search</property>
         <property name="visible">True</property>
         <child>

@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/sm/puri/Handy/Demo">
-    <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchscreen-swipe-back-symbolic-rtl.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchscreen-swipe-back-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/avatar-delete-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/clock-alarm-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/clock-stopwatch-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/clock-timer-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/clock-world-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchpad-swipe-back-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchpad-swipe-back-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchscreen-swipe-back-symbolic-rtl.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchscreen-swipe-back-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/gnome-smartphone-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/preferences-window-layout-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/preferences-window-search-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/row-copy-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/row-forbidden-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/row-preferences-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/row-shutdown-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-carousel-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-clamp-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-deck-symbolic.svg</file>
