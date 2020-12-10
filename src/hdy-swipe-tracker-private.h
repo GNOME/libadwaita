@@ -14,6 +14,8 @@
 
 G_BEGIN_DECLS
 
+#define HDY_SWIPE_BORDER 32
+
 void hdy_swipe_tracker_emit_begin_swipe (HdySwipeTracker        *self,
                                          HdyNavigationDirection  direction,
                                          gboolean                direct);
