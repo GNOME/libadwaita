@@ -122,7 +122,7 @@ load_fallback_style (void)
 static void
 hdy_style_init (void)
 {
-  static volatile gsize guard = 0;
+  static gsize guard = 0;
   g_autoptr (GtkCssProvider) css_provider = NULL;
   GtkSettings *settings;
 
@@ -162,7 +162,7 @@ hdy_style_init (void)
 static void
 hdy_icons_init (void)
 {
-  static volatile gsize guard = 0;
+  static gsize guard = 0;
 
   if (!g_once_init_enter (&guard))
     return;
