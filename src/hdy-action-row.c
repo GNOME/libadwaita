@@ -606,7 +606,8 @@ hdy_action_row_set_subtitle (HdyActionRow *self,
  *
  * Gets the icon name for @self.
  *
- * Returns: the icon name for @self.
+ * Returns: (transfer none): the icon name for @self.
+ * The returned string is owned by the #HdyActionRow and should not be freed.
  *
  * Since: 0.0.6
  */
