@@ -821,6 +821,7 @@ hdy_carousel_box_size_allocate (GtkWidget     *widget,
 {
   HdyCarouselBox *self = HDY_CAROUSEL_BOX (widget);
   gint size, width, height;
+  gboolean should_invalidate = FALSE;
   GList *children;
 
   gtk_widget_set_allocation (widget, allocation);
@@ -865,10 +866,13 @@ hdy_carousel_box_size_allocate (GtkWidget     *widget,
   }
 
   if (width != self->child_width || height != self->child_height)
-    invalidate_drawing_cache (self);
+    should_invalidate = TRUE;
 
   self->child_width = width;
   self->child_height = height;
+
+  if (should_invalidate)
+    invalidate_drawing_cache (self);
 
   for (children = self->children; children; children = children->next) {
     HdyCarouselBoxChildInfo *child_info = children->data;
