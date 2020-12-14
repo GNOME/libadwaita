@@ -99,22 +99,27 @@ static void
 test_hdy_leaflet_prepend (void)
 {
   g_autoptr (HdyLeaflet) leaflet = NULL;
-  GtkWidget *label_A = gtk_label_new("");
-  GtkWidget *label_B = gtk_label_new("");
+  GtkWidget *labels[2];
+  gint i;
   GList *children = NULL;
 
   leaflet = HDY_LEAFLET (hdy_leaflet_new ());
   g_assert_nonnull (leaflet);
 
-  hdy_leaflet_prepend (leaflet, label_B);
+  for (i = 0; i < 2; i++) {
+    labels[i] = gtk_label_new ("");
+    g_assert_nonnull (labels[i]);
+  }
+
+  hdy_leaflet_prepend (leaflet, labels[1]);
   children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_true (g_list_index (children, label_B) == 0);
+  g_assert_cmpint (g_list_index (children, labels[1]), ==, 0);
   g_list_free (children);
 
-  hdy_leaflet_prepend (leaflet, label_A);
+  hdy_leaflet_prepend (leaflet, labels[0]);
   children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_true (g_list_index (children, label_A) == 0);
-  g_assert_true (g_list_index (children, label_B) == 1);
+  g_assert_cmpint (g_list_index (children, labels[0]), ==, 0);
+  g_assert_cmpint (g_list_index (children, labels[1]), ==, 1);
   g_list_free (children);
 }
 
@@ -123,24 +128,31 @@ static void
 test_hdy_leaflet_insert_child_after (void)
 {
   g_autoptr (HdyLeaflet) leaflet = NULL;
-  GtkWidget *label_A = gtk_label_new("");
-  GtkWidget *label_B = gtk_label_new("");
-  GtkWidget *label_C = gtk_label_new("");
+  GtkWidget *labels[3];
+  gint i;
   GList *children = NULL;
 
   leaflet = HDY_LEAFLET (hdy_leaflet_new ());
   g_assert_nonnull (leaflet);
 
-  gtk_container_add (GTK_CONTAINER (leaflet), label_B);
+  for (i = 0; i < 3; i++) {
+    labels[i] = gtk_label_new ("");
+    g_assert_nonnull (labels[i]);
+  }
 
-  hdy_leaflet_insert_child_after (leaflet, label_A, NULL);
+  gtk_container_add (GTK_CONTAINER (leaflet), labels[2]);
+
+  hdy_leaflet_insert_child_after (leaflet, labels[0], NULL);
   children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_true (g_list_index (children, label_A) == 0);
+  g_assert_cmpint (g_list_index (children, labels[0]), ==, 0);
+  g_assert_cmpint (g_list_index (children, labels[2]), ==, 1);
   g_list_free (children);
 
-  hdy_leaflet_insert_child_after (leaflet, label_C, label_B);
+  hdy_leaflet_insert_child_after (leaflet, labels[1], labels[0]);
   children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_true (g_list_index (children, label_C) == 2);
+  g_assert_cmpint (g_list_index (children, labels[0]), ==, 0);
+  g_assert_cmpint (g_list_index (children, labels[1]), ==, 1);
+  g_assert_cmpint (g_list_index (children, labels[2]), ==, 2);
   g_list_free (children);
 }
 
@@ -149,26 +161,38 @@ static void
 test_hdy_leaflet_reorder_child_after (void)
 {
   g_autoptr (HdyLeaflet) leaflet = NULL;
-  GtkWidget *label_A = gtk_label_new("");
-  GtkWidget *label_B = gtk_label_new("");
-  GtkWidget *label_C = gtk_label_new("");
+  GtkWidget *labels[3];
+  gint i;
   GList *children = NULL;
 
   leaflet = HDY_LEAFLET (hdy_leaflet_new ());
   g_assert_nonnull (leaflet);
 
-  gtk_container_add (GTK_CONTAINER (leaflet), label_A);
-  gtk_container_add (GTK_CONTAINER (leaflet), label_B);
-  gtk_container_add (GTK_CONTAINER (leaflet), label_C);
+  for (i = 0; i < 3; i++) {
+    labels[i] = gtk_label_new ("");
+    g_assert_nonnull (labels[i]);
 
-  hdy_leaflet_reorder_child_after (leaflet, label_C, NULL);
+    gtk_container_add (GTK_CONTAINER (leaflet), labels[i]);
+  }
+
   children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_true (g_list_index (children, label_C) == 0);
+  g_assert_cmpint (g_list_index (children, labels[0]), ==, 0);
+  g_assert_cmpint (g_list_index (children, labels[1]), ==, 1);
+  g_assert_cmpint (g_list_index (children, labels[2]), ==, 2);
   g_list_free (children);
 
-  hdy_leaflet_reorder_child_after (leaflet, label_A, label_B);
+  hdy_leaflet_reorder_child_after (leaflet, labels[2], NULL);
   children = gtk_container_get_children (GTK_CONTAINER (leaflet));
-  g_assert_true (g_list_index (children, label_A) == 2);
+  g_assert_cmpint (g_list_index (children, labels[2]), ==, 0);
+  g_assert_cmpint (g_list_index (children, labels[0]), ==, 1);
+  g_assert_cmpint (g_list_index (children, labels[1]), ==, 2);
+  g_list_free (children);
+
+  hdy_leaflet_reorder_child_after (leaflet, labels[0], labels[1]);
+  children = gtk_container_get_children (GTK_CONTAINER (leaflet));
+  g_assert_cmpint (g_list_index (children, labels[2]), ==, 0);
+  g_assert_cmpint (g_list_index (children, labels[1]), ==, 1);
+  g_assert_cmpint (g_list_index (children, labels[0]), ==, 2);
   g_list_free (children);
 }
 
