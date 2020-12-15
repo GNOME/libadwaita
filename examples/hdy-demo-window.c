@@ -352,8 +352,8 @@ avatar_file_set_cb (HdyDemoWindow *self)
 
 static void
 file_chooser_response_cb (HdyDemoWindow  *self,
-                         gint            response_id,
-                         GtkFileChooser *chooser)
+                          gint            response_id,
+                          GtkFileChooser *chooser)
 {
   if (response_id == GTK_RESPONSE_ACCEPT) {
     g_autofree gchar *filename = NULL;
