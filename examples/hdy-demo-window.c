@@ -356,13 +356,11 @@ file_chooser_response_cb (HdyDemoWindow  *self,
                           GtkFileChooser *chooser)
 {
   if (response_id == GTK_RESPONSE_ACCEPT) {
-    g_autofree gchar *filename = NULL;
-    g_autoptr (GdkPixbuf) pixbuf = NULL;
-
-    filename = gtk_file_chooser_get_filename (chooser);
-    pixbuf = hdy_avatar_draw_to_pixbuf (self->avatar,
-                                        hdy_avatar_get_size (self->avatar),
-                                        gtk_widget_get_scale_factor (GTK_WIDGET (self)));
+    g_autofree gchar *filename = gtk_file_chooser_get_filename (chooser);
+    g_autoptr (GdkPixbuf) pixbuf =
+      hdy_avatar_draw_to_pixbuf (self->avatar,
+                                 hdy_avatar_get_size (self->avatar),
+                                 gtk_widget_get_scale_factor (GTK_WIDGET (self)));
 
     if (pixbuf != NULL)
       gdk_pixbuf_save (pixbuf, filename, "png", NULL, NULL);
