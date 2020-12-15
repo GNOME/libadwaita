@@ -2,6 +2,7 @@
 <gresources>
   <gresource prefix="/sm/puri/Handy/Demo">
     <file preprocess="xml-stripblanks">icons/scalable/actions/avatar-delete-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/avatar-save-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/clock-alarm-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/clock-stopwatch-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/clock-timer-symbolic.svg</file>

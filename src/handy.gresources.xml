@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/sm/puri/handy">
-    <file preprocess="xml-stripblanks">icons/scalable/actions/avatar-save-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/hdy-expander-arrow-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/object-select-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/pan-down-symbolic.svg</file>
