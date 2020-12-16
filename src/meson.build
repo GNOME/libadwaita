@@ -8,7 +8,7 @@ libhandy_resources = gnome.compile_resources(
 )
 
 hdy_public_enum_headers = [
-#  'hdy-flap.h',
+  'hdy-flap.h',
   'hdy-header-bar.h',
   'hdy-header-group.h',
   'hdy-leaflet.h',
@@ -75,7 +75,7 @@ src_headers = [
   'hdy-deprecation-macros.h',
   'hdy-enum-value-object.h',
   'hdy-expander-row.h',
-#  'hdy-flap.h',
+  'hdy-flap.h',
   'hdy-header-bar.h',
   'hdy-header-group.h',
   'hdy-keypad.h',
@@ -123,7 +123,7 @@ src_sources = [
   'hdy-combo-row.c',
   'hdy-enum-value-object.c',
   'hdy-expander-row.c',
-#  'hdy-flap.c',
+  'hdy-flap.c',
   'hdy-focus.c',
   'hdy-gizmo.c',
   'hdy-header-bar.c',

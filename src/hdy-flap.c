@@ -12,6 +12,7 @@
 #include <math.h>
 
 #include "hdy-animation-private.h"
+#include "hdy-gizmo-private.h"
 #include "hdy-shadow-helper-private.h"
 #include "hdy-swipeable.h"
 #include "hdy-swipe-tracker-private.h"
@@ -101,17 +102,17 @@
 
 typedef struct {
   GtkWidget *widget;
-  GdkWindow *window;
   GtkAllocation allocation;
 } ChildInfo;
 
 struct _HdyFlap
 {
-  GtkContainer parent_instance;
+  GtkWidget parent_instance;
 
   ChildInfo content;
   ChildInfo flap;
   ChildInfo separator;
+  GtkWidget *shield;
 
   HdyFlapFoldPolicy fold_policy;
   HdyFlapTransitionType transition_type;
@@ -140,17 +141,18 @@ struct _HdyFlap
   gboolean swipe_active;
 
   gboolean modal;
-  GtkGesture *click_gesture;
   GtkEventController *key_controller;
 };
 
 static void hdy_flap_buildable_init (GtkBuildableIface *iface);
 static void hdy_flap_swipeable_init (HdySwipeableInterface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (HdyFlap, hdy_flap, GTK_TYPE_CONTAINER,
+G_DEFINE_TYPE_WITH_CODE (HdyFlap, hdy_flap, GTK_TYPE_WIDGET,
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, hdy_flap_buildable_init)
                          G_IMPLEMENT_INTERFACE (HDY_TYPE_SWIPEABLE, hdy_flap_swipeable_init))
+
+static GtkBuildableIface *parent_buildable_iface;
 
 enum {
   PROP_0,
@@ -223,24 +225,23 @@ update_child_visibility (HdyFlap *self)
   if (self->separator.widget)
     gtk_widget_set_child_visible (self->separator.widget, visible);
 
-  if (!gtk_widget_get_realized (GTK_WIDGET (self)))
-    return;
+  if (self->fold_policy == HDY_FLAP_FOLD_POLICY_NEVER)
+    gtk_widget_queue_resize (GTK_WIDGET (self));
+  else
+    gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
 
-  if (self->flap.widget) {
-    if (visible)
-      gdk_window_show (self->flap.window);
-    else
-      gdk_window_hide (self->flap.window);
-  }
 
-  if (self->separator.widget) {
-    if (visible)
-      gdk_window_show (self->separator.window);
-    else
-      gdk_window_hide (self->separator.window);
-  }
+static void
+update_shield (HdyFlap *self)
+{
+  if (self->shield)
+    gtk_widget_set_child_visible (self->shield,
+                                  self->modal &&
+                                  self->fold_progress > 0 &&
+                                  self->reveal_progress > 0);
 
-  gtk_widget_queue_resize (GTK_WIDGET (self));
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
 }
 
 static void
@@ -250,6 +251,7 @@ set_reveal_progress (HdyFlap *self,
   self->reveal_progress = progress;
 
   update_child_visibility (self);
+  update_shield (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVEAL_PROGRESS]);
 }
@@ -259,6 +261,8 @@ fold_animation_value_cb (gdouble  value,
                          HdyFlap *self)
 {
   self->fold_progress = value;
+
+  update_shield (self);
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
 }
@@ -301,9 +305,9 @@ reveal_animation_done_cb (HdyFlap *self)
 {
   g_clear_pointer (&self->reveal_animation, hdy_animation_unref);
 
-  if (self->reveal_progress <= 0 ||
+/*  if (self->reveal_progress <= 0 ||
       self->transition_type == HDY_FLAP_TRANSITION_TYPE_UNDER)
-    hdy_shadow_helper_clear_cache (self->shadow_helper);
+    hdy_shadow_helper_clear (self->shadow_helper);*/
 
   if (self->schedule_fold) {
     self->schedule_fold = FALSE;
@@ -454,27 +458,12 @@ end_swipe_cb (HdySwipeTracker *tracker,
 }
 
 static void
-released_cb (GtkGestureMultiPress *gesture,
-             gint                  n_press,
-             gdouble               x,
-             gdouble               y,
-             HdyFlap              *self)
+released_cb (GtkGestureClick *gesture,
+             gint             n_press,
+             gdouble          x,
+             gdouble          y,
+             HdyFlap         *self)
 {
-  if (self->reveal_progress <= 0 || self->fold_progress <= 0) {
-    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
-
-    return;
-  }
-
-  if (x >= self->flap.allocation.x &&
-      x <= self->flap.allocation.x + self->flap.allocation.width &&
-      y >= self->flap.allocation.y &&
-      y <= self->flap.allocation.y + self->flap.allocation.height) {
-    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
-
-    return;
-  }
-
   hdy_flap_set_reveal_flap (self, FALSE);
 }
 
@@ -494,50 +483,6 @@ key_pressed_cb (GtkEventControllerKey *controller,
   }
 
   return GDK_EVENT_PROPAGATE;
-}
-
-static void
-register_window (HdyFlap   *self,
-                 ChildInfo *info)
-{
-  GdkWindowAttr attributes = { 0 };
-  GdkWindowAttributesType attributes_mask;
-
-  if (!info->widget)
-    return;
-
-  attributes.x = info->allocation.x;
-  attributes.y = info->allocation.y;
-  attributes.width = info->allocation.width;
-  attributes.height = info->allocation.height;
-  attributes.window_type = GDK_WINDOW_CHILD;
-  attributes.wclass = GDK_INPUT_OUTPUT;
-  attributes.visual = gtk_widget_get_visual (info->widget);
-  attributes.event_mask = gtk_widget_get_events (info->widget);
-  attributes_mask = (GDK_WA_X | GDK_WA_Y) | GDK_WA_VISUAL;
-
-  attributes.event_mask = gtk_widget_get_events (GTK_WIDGET (self)) |
-                          gtk_widget_get_events (info->widget);
-
-  info->window = gdk_window_new (gtk_widget_get_window (GTK_WIDGET (self)),
-                                 &attributes, attributes_mask);
-  gtk_widget_register_window (GTK_WIDGET (self), info->window);
-
-  gtk_widget_set_parent_window (info->widget, info->window);
-
-  gdk_window_show (info->window);
-}
-
-static void
-unregister_window (HdyFlap   *self,
-                   ChildInfo *info)
-{
-  if (!info->window)
-    return;
-
-  gtk_widget_unregister_window (GTK_WIDGET (self), info->window);
-  gdk_window_destroy (info->window);
-  info->window = NULL;
 }
 
 static gboolean
@@ -605,27 +550,26 @@ transition_get_flap_motion_factor (HdyFlap *self)
 }
 
 static void
-restack_windows (HdyFlap *self)
+restack_children (HdyFlap *self)
 {
-  gboolean content_above_flap = transition_is_content_above_flap (self);
-
-  if (!content_above_flap) {
-    if (self->content.window)
-      gdk_window_raise (self->content.window);
-
-    if (self->separator.window)
-      gdk_window_raise (self->separator.window);
-  }
-
-  if (self->flap.window)
-    gdk_window_raise (self->flap.window);
-
-  if (content_above_flap) {
-    if (self->separator.window)
-      gdk_window_raise (self->separator.window);
-
-    if (self->content.window)
-      gdk_window_raise (self->content.window);
+  if (transition_is_content_above_flap (self)) {
+    if (self->flap.widget)
+      gtk_widget_insert_before (self->flap.widget, GTK_WIDGET (self), NULL);
+    if (self->separator.widget)
+      gtk_widget_insert_before (self->separator.widget, GTK_WIDGET (self), NULL);
+    if (self->content.widget)
+      gtk_widget_insert_before (self->content.widget, GTK_WIDGET (self), NULL);
+    if (self->shield)
+      gtk_widget_insert_before (self->shield, GTK_WIDGET (self), NULL);
+  } else {
+    if (self->flap.widget)
+      gtk_widget_insert_after (self->flap.widget, GTK_WIDGET (self), NULL);
+    if (self->separator.widget)
+      gtk_widget_insert_after (self->separator.widget, GTK_WIDGET (self), NULL);
+    if (self->shield)
+      gtk_widget_insert_after (self->shield, GTK_WIDGET (self), NULL);
+    if (self->content.widget)
+      gtk_widget_insert_after (self->content.widget, GTK_WIDGET (self), NULL);
   }
 }
 
@@ -633,21 +577,15 @@ static void
 add_child (HdyFlap   *self,
            ChildInfo *info)
 {
-  if (gtk_widget_get_realized (GTK_WIDGET (self))) {
-    register_window (self, info);
-    restack_windows (self);
-  }
-
   gtk_widget_set_parent (info->widget, GTK_WIDGET (self));
+
+  restack_children (self);
 }
 
 static void
 remove_child (HdyFlap   *self,
               ChildInfo *info)
 {
-  if (gtk_widget_get_realized (GTK_WIDGET (self)))
-    unregister_window (self, info);
-
   gtk_widget_unparent (info->widget);
 }
 
@@ -657,20 +595,18 @@ get_preferred_size (GtkWidget      *widget,
                     gint           *min,
                     gint           *nat)
 {
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    gtk_widget_get_preferred_width (widget, min, nat);
-  else
-    gtk_widget_get_preferred_height (widget, min, nat);
+  gtk_widget_measure (widget, orientation, -1, min, nat, NULL, NULL);
 }
 
 static void
-compute_sizes (HdyFlap       *self,
-               GtkAllocation *alloc,
-               gboolean       folded,
-               gboolean       revealed,
-               gint          *flap_size,
-               gint          *content_size,
-               gint          *separator_size)
+compute_sizes (HdyFlap  *self,
+               gint      width,
+               gint      height,
+               gboolean  folded,
+               gboolean  revealed,
+               gint     *flap_size,
+               gint     *content_size,
+               gint     *separator_size)
 {
   gboolean flap_expand, content_expand;
   gint total, extra;
@@ -685,9 +621,9 @@ compute_sizes (HdyFlap       *self,
     *separator_size = 0;
 
   if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
-    total = alloc->width;
+    total = width;
   else
-    total = alloc->height;
+    total = height;
 
   if (!self->flap.widget) {
     *content_size = total;
@@ -775,23 +711,24 @@ compute_sizes (HdyFlap       *self,
 }
 
 static inline void
-interpolate_reveal (HdyFlap       *self,
-                    GtkAllocation *alloc,
-                    gboolean       folded,
-                    gint          *flap_size,
-                    gint          *content_size,
-                    gint          *separator_size)
+interpolate_reveal (HdyFlap  *self,
+                    gint      width,
+                    gint      height,
+                    gboolean  folded,
+                    gint     *flap_size,
+                    gint     *content_size,
+                    gint     *separator_size)
 {
   if (self->reveal_progress <= 0) {
-    compute_sizes (self, alloc, folded, FALSE, flap_size, content_size, separator_size);
+    compute_sizes (self, width, height, folded, FALSE, flap_size, content_size, separator_size);
   } else if (self->reveal_progress >= 1) {
-    compute_sizes (self, alloc, folded, TRUE, flap_size, content_size, separator_size);
+    compute_sizes (self, width, height, folded, TRUE, flap_size, content_size, separator_size);
   } else {
     gint flap_revealed, content_revealed, separator_revealed;
     gint flap_hidden, content_hidden, separator_hidden;
 
-    compute_sizes (self, alloc, folded, TRUE, &flap_revealed, &content_revealed, &separator_revealed);
-    compute_sizes (self, alloc, folded, FALSE, &flap_hidden, &content_hidden, &separator_hidden);
+    compute_sizes (self, width, height, folded, TRUE, &flap_revealed, &content_revealed, &separator_revealed);
+    compute_sizes (self, width, height, folded, FALSE, &flap_hidden, &content_hidden, &separator_hidden);
 
     *flap_size =
       (gint) round (hdy_lerp (flap_hidden, flap_revealed,
@@ -806,22 +743,23 @@ interpolate_reveal (HdyFlap       *self,
 }
 
 static inline void
-interpolate_fold (HdyFlap       *self,
-                  GtkAllocation *alloc,
-                  gint          *flap_size,
-                  gint          *content_size,
-                  gint          *separator_size)
+interpolate_fold (HdyFlap *self,
+                  gint     width,
+                  gint     height,
+                  gint    *flap_size,
+                  gint    *content_size,
+                  gint    *separator_size)
 {
   if (self->fold_progress <= 0) {
-    interpolate_reveal (self, alloc, FALSE, flap_size, content_size, separator_size);
+    interpolate_reveal (self, width, height, FALSE, flap_size, content_size, separator_size);
   } else if (self->fold_progress >= 1) {
-    interpolate_reveal (self, alloc, TRUE, flap_size, content_size, separator_size);
+    interpolate_reveal (self, width, height, TRUE, flap_size, content_size, separator_size);
   } else {
     gint flap_folded, content_folded, separator_folded;
     gint flap_unfolded, content_unfolded, separator_unfolded;
 
-    interpolate_reveal (self, alloc, TRUE, &flap_folded, &content_folded, &separator_folded);
-    interpolate_reveal (self, alloc, FALSE, &flap_unfolded, &content_unfolded, &separator_unfolded);
+    interpolate_reveal (self, width, height, TRUE, &flap_folded, &content_folded, &separator_folded);
+    interpolate_reveal (self, width, height, FALSE, &flap_unfolded, &content_unfolded, &separator_unfolded);
 
     *flap_size =
       (gint) round (hdy_lerp (flap_unfolded, flap_folded,
@@ -837,7 +775,8 @@ interpolate_fold (HdyFlap       *self,
 
 static void
 compute_allocation (HdyFlap       *self,
-                    GtkAllocation *alloc,
+                    gint           width,
+                    gint           height,
                     GtkAllocation *flap_alloc,
                     GtkAllocation *content_alloc,
                     GtkAllocation *separator_alloc)
@@ -857,20 +796,20 @@ compute_allocation (HdyFlap       *self,
   separator_alloc->x = 0;
   separator_alloc->y = 0;
 
-  interpolate_fold (self, alloc, &flap_size, &content_size, &separator_size);
+  interpolate_fold (self, width, height, &flap_size, &content_size, &separator_size);
 
   if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
     flap_alloc->width = flap_size;
     content_alloc->width = content_size;
     separator_alloc->width = separator_size;
-    flap_alloc->height = content_alloc->height = separator_alloc->height = alloc->height;
-    total = alloc->width;
+    flap_alloc->height = content_alloc->height = separator_alloc->height = height;
+    total = width;
   } else {
     flap_alloc->height = flap_size;
     content_alloc->height = content_size;
     separator_alloc->height = separator_size;
-    flap_alloc->width = content_alloc->width = separator_alloc->width = alloc->width;
-    total = alloc->height;
+    flap_alloc->width = content_alloc->width = separator_alloc->width = width;
+    total = height;
   }
 
   if (!self->flap.widget)
@@ -911,46 +850,86 @@ compute_allocation (HdyFlap       *self,
 static inline void
 allocate_child (HdyFlap   *self,
                 ChildInfo *info,
-                gboolean   expand_window)
+                gint       baseline)
 {
-  GtkAllocation child_alloc;
-
-  if (!info->widget)
+  if (!info->widget || !gtk_widget_should_layout (info->widget))
     return;
 
-  if (gtk_widget_get_realized (GTK_WIDGET (self))) {
-    if (expand_window)
-      gdk_window_move_resize (info->window,
-                              0, 0,
-                              gtk_widget_get_allocated_width (GTK_WIDGET (self)),
-                              gtk_widget_get_allocated_height (GTK_WIDGET (self)));
-    else
-      gdk_window_move_resize (info->window,
-                              info->allocation.x,
-                              info->allocation.y,
-                              info->allocation.width,
-                              info->allocation.height);
-  }
-
-  child_alloc.x = expand_window ? info->allocation.x : 0;
-  child_alloc.y = expand_window ? info->allocation.y : 0;
-  child_alloc.width = info->allocation.width;
-  child_alloc.height = info->allocation.height;
-
-  gtk_widget_size_allocate (info->widget, &child_alloc);
+  gtk_widget_size_allocate (info->widget, &info->allocation, baseline);
 }
 
 static void
-hdy_flap_size_allocate (GtkWidget     *widget,
-                        GtkAllocation *alloc)
+allocate_shadow (HdyFlap *self,
+                 gint     width,
+                 gint     height,
+                 gint     baseline)
+{
+  gdouble shadow_progress;
+  GtkAllocation *shadow_alloc;
+  GtkPanDirection shadow_direction;
+  gint shadow_x = 0, shadow_y = 0;
+  gboolean content_above_flap = transition_is_content_above_flap (self);
+
+  if (!self->flap.widget)
+    return;
+
+  shadow_alloc = content_above_flap ? &self->content.allocation : &self->flap.allocation;
+
+  if (self->orientation == GTK_ORIENTATION_VERTICAL) {
+    if ((self->flap_position == GTK_PACK_START) != content_above_flap) {
+      shadow_direction = GTK_PAN_DIRECTION_UP;
+      shadow_y = shadow_alloc->y + shadow_alloc->height;
+    } else {
+      shadow_direction = GTK_PAN_DIRECTION_DOWN;
+      shadow_y = shadow_alloc->y - height;
+    }
+  } else {
+    if ((self->flap_position == get_start_or_end (self)) != content_above_flap) {
+      shadow_direction = GTK_PAN_DIRECTION_LEFT;
+      shadow_x = shadow_alloc->x + shadow_alloc->width;
+    } else {
+      shadow_direction = GTK_PAN_DIRECTION_RIGHT;
+      shadow_x = shadow_alloc->x - width;
+    }
+  }
+
+  switch (self->transition_type) {
+  case HDY_FLAP_TRANSITION_TYPE_OVER:
+    shadow_progress = 1 - MIN (self->reveal_progress, self->fold_progress);
+    break;
+
+  case HDY_FLAP_TRANSITION_TYPE_UNDER:
+    shadow_progress = self->reveal_progress;
+    break;
+
+  case HDY_FLAP_TRANSITION_TYPE_SLIDE:
+    shadow_progress = 1;
+    break;
+
+  default:
+    g_assert_not_reached ();
+  }
+
+  if (shadow_progress >= 1 ||
+      !self->flap.widget ||
+      !gtk_widget_should_layout (self->flap.widget)) {
+    hdy_shadow_helper_clear (self->shadow_helper);
+
+    return;
+  }
+
+  hdy_shadow_helper_size_allocate (self->shadow_helper, width, height,
+                                   baseline, shadow_x, shadow_y,
+                                   shadow_progress, shadow_direction);
+}
+
+static void
+hdy_flap_size_allocate (GtkWidget *widget,
+                        gint       width,
+                        gint       height,
+                        gint       baseline)
 {
   HdyFlap *self = HDY_FLAP (widget);
-
-  gtk_widget_set_allocation (widget, alloc);
-
-  if (gtk_widget_get_realized (widget))
-    gdk_window_move_resize (gtk_widget_get_window (widget),
-                            alloc->x, alloc->y, alloc->width, alloc->height);
 
   if (self->fold_policy == HDY_FLAP_FOLD_POLICY_AUTO) {
     GtkRequisition flap_min = { 0, 0 };
@@ -965,30 +944,28 @@ hdy_flap_size_allocate (GtkWidget     *widget,
       gtk_widget_get_preferred_size (self->separator.widget, &separator_min, NULL);
 
     if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
-      set_folded (self, alloc->width < content_min.width + flap_min.width + separator_min.width);
+      set_folded (self, width < content_min.width + flap_min.width + separator_min.width);
     else
-      set_folded (self, alloc->height < content_min.height + flap_min.height + separator_min.height);
+      set_folded (self, height < content_min.height + flap_min.height + separator_min.height);
   }
 
   compute_allocation (self,
-                      alloc,
+                      width,
+                      height,
                       &self->flap.allocation,
                       &self->content.allocation,
                       &self->separator.allocation);
 
-  allocate_child (self, &self->content, FALSE);
-  allocate_child (self, &self->separator, FALSE);
-  allocate_child (self, &self->flap,
-                  self->modal &&
-                  self->reveal_progress > 0 &&
-                  self->fold_progress > 0);
+  allocate_child (self, &self->content, baseline);
+  allocate_child (self, &self->separator, baseline);
+  allocate_child (self, &self->flap, baseline);
 
-  gtk_widget_set_clip (widget, alloc);
+  if (gtk_widget_should_layout (self->shield))
+    gtk_widget_size_allocate (self->shield, &self->content.allocation, baseline);
+
+  allocate_shadow (self, width, height, baseline);
 }
 
-/* This private method is prefixed by the call name because it will be a virtual
- * method in GTK 4.
- */
 static void
 hdy_flap_measure (GtkWidget      *widget,
                   GtkOrientation  orientation,
@@ -1055,78 +1032,32 @@ hdy_flap_measure (GtkWidget      *widget,
 }
 
 static void
-hdy_flap_get_preferred_width_for_height (GtkWidget *widget,
-                                         gint       height,
-                                         gint      *minimum,
-                                         gint      *natural)
-{
-  hdy_flap_measure (widget, GTK_ORIENTATION_HORIZONTAL, height,
-                    minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_flap_get_preferred_width (GtkWidget *widget,
-                              gint      *minimum,
-                              gint      *natural)
-{
-  hdy_flap_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
-                    minimum, natural, NULL, NULL);
-}
-
-
-static void
-hdy_flap_get_preferred_height_for_width (GtkWidget *widget,
-                                         gint       width,
-                                         gint      *minimum,
-                                         gint      *natural)
-{
-  hdy_flap_measure (widget, GTK_ORIENTATION_VERTICAL, width,
-                    minimum, natural, NULL, NULL);
-}
-
-static void
-hdy_flap_get_preferred_height (GtkWidget *widget,
-                               gint      *minimum,
-                               gint      *natural)
-{
-  hdy_flap_measure (widget, GTK_ORIENTATION_VERTICAL, -1,
-                    minimum, natural, NULL, NULL);
-}
-
-static gboolean
-hdy_flap_draw (GtkWidget *widget,
-               cairo_t   *cr)
+hdy_flap_snapshot (GtkWidget   *widget,
+                   GtkSnapshot *snapshot)
 {
   HdyFlap *self = HDY_FLAP (widget);
   gint width, height;
   gint shadow_x = 0, shadow_y = 0;
   gdouble shadow_progress;
-  GtkPanDirection shadow_direction;
   gboolean content_above_flap = transition_is_content_above_flap (self);
   GtkAllocation *shadow_alloc;
   gboolean should_clip;
 
   shadow_alloc = content_above_flap ? &self->content.allocation : &self->flap.allocation;
 
-  width = gtk_widget_get_allocated_width (widget);
-  height = gtk_widget_get_allocated_height (widget);
+  width = gtk_widget_get_width (widget);
+  height = gtk_widget_get_height (widget);
 
   if (self->orientation == GTK_ORIENTATION_VERTICAL) {
-    if ((self->flap_position == GTK_PACK_START) != content_above_flap) {
-      shadow_direction = GTK_PAN_DIRECTION_UP;
+    if ((self->flap_position == GTK_PACK_START) != content_above_flap)
       shadow_y = shadow_alloc->y + shadow_alloc->height;
-    } else {
-      shadow_direction = GTK_PAN_DIRECTION_DOWN;
+    else
       shadow_y = shadow_alloc->y - height;
-    }
   } else {
-    if ((self->flap_position == get_start_or_end (self)) != content_above_flap) {
-      shadow_direction = GTK_PAN_DIRECTION_LEFT;
+    if ((self->flap_position == get_start_or_end (self)) != content_above_flap)
       shadow_x = shadow_alloc->x + shadow_alloc->width;
-    } else {
-      shadow_direction = GTK_PAN_DIRECTION_RIGHT;
+    else
       shadow_x = shadow_alloc->x - width;
-    }
   }
 
   switch (self->transition_type) {
@@ -1150,106 +1081,39 @@ hdy_flap_draw (GtkWidget *widget,
                 shadow_progress < 1 &&
                 self->reveal_progress > 0;
 
-  if (should_clip) {
-    cairo_save (cr);
-    cairo_rectangle (cr, shadow_x, shadow_y, width, height);
-    cairo_clip (cr);
-  }
+  if (should_clip)
+    gtk_snapshot_push_clip (snapshot,
+                            &GRAPHENE_RECT_INIT (shadow_x,
+                                                 shadow_y,
+                                                 width,
+                                                 height));
 
   if (!content_above_flap) {
     if (self->content.widget)
-      gtk_container_propagate_draw (GTK_CONTAINER (self),
-                                    self->content.widget,
-                                    cr);
+      gtk_widget_snapshot_child (widget, self->content.widget, snapshot);
 
     if (self->separator.widget)
-      gtk_container_propagate_draw (GTK_CONTAINER (self),
-                                    self->separator.widget,
-                                    cr);
+      gtk_widget_snapshot_child (widget, self->separator.widget, snapshot);
 
     if (should_clip)
-      cairo_restore (cr);
+      gtk_snapshot_pop (snapshot);
   }
 
   if (self->flap.widget)
-    gtk_container_propagate_draw (GTK_CONTAINER (self),
-                                  self->flap.widget,
-                                  cr);
+    gtk_widget_snapshot_child (widget, self->flap.widget, snapshot);
 
   if (content_above_flap) {
     if (self->separator.widget)
-      gtk_container_propagate_draw (GTK_CONTAINER (self),
-                                    self->separator.widget,
-                                    cr);
+      gtk_widget_snapshot_child (widget, self->separator.widget, snapshot);
 
     if (should_clip)
-      cairo_restore (cr);
+      gtk_snapshot_pop (snapshot);
 
     if (self->content.widget)
-      gtk_container_propagate_draw (GTK_CONTAINER (self),
-                                    self->content.widget,
-                                    cr);
+      gtk_widget_snapshot_child (widget, self->content.widget, snapshot);
   }
 
-  if (!self->flap.widget)
-    return GDK_EVENT_PROPAGATE;
-
-  if (shadow_progress < 1 && gtk_widget_get_mapped (self->flap.widget)) {
-    cairo_save (cr);
-    cairo_translate (cr, shadow_x, shadow_y);
-    hdy_shadow_helper_draw_shadow (self->shadow_helper, cr, width, height,
-                                   shadow_progress, shadow_direction);
-    cairo_restore (cr);
-  }
-
-  return GDK_EVENT_PROPAGATE;
-}
-
-static void
-hdy_flap_realize (GtkWidget *widget)
-{
-  HdyFlap *self = HDY_FLAP (widget);
-  GtkAllocation allocation;
-  GdkWindowAttr attributes;
-  gint attributes_mask;
-  GdkWindow *window;
-
-  gtk_widget_get_allocation (widget, &allocation);
-  gtk_widget_set_realized (widget, TRUE);
-
-  attributes.x = allocation.x;
-  attributes.y = allocation.y;
-  attributes.width = allocation.width;
-  attributes.height = allocation.height;
-  attributes.window_type = GDK_WINDOW_CHILD;
-  attributes.event_mask = gtk_widget_get_events (widget);
-  attributes.visual = gtk_widget_get_visual (widget);
-  attributes.wclass = GDK_INPUT_OUTPUT;
-  attributes_mask = GDK_WA_X | GDK_WA_Y | GDK_WA_VISUAL;
-
-  window = gdk_window_new (gtk_widget_get_parent_window (widget),
-                           &attributes,
-                           attributes_mask);
-  gtk_widget_set_window (widget, window);
-  gtk_widget_register_window (widget, window);
-
-  register_window (self, &self->content);
-  register_window (self, &self->separator);
-  register_window (self, &self->flap);
-
-  restack_windows (self);
-}
-
-static void
-hdy_flap_unrealize (GtkWidget *widget)
-{
-  HdyFlap *self = HDY_FLAP (widget);
-
-  unregister_window (self, &self->content);
-  unregister_window (self, &self->separator);
-  unregister_window (self, &self->flap);
-
-  GTK_WIDGET_CLASS (hdy_flap_parent_class)->unrealize (widget);
+  hdy_shadow_helper_snapshot (self->shadow_helper, snapshot);
 }
 
 static void
@@ -1262,61 +1126,6 @@ hdy_flap_direction_changed (GtkWidget        *widget,
 
   GTK_WIDGET_CLASS (hdy_flap_parent_class)->direction_changed (widget,
                                                                previous_direction);
-}
-
-static void
-hdy_flap_forall (GtkContainer *container,
-                 gboolean      include_internals,
-                 GtkCallback   callback,
-                 gpointer      callback_data)
-{
-  HdyFlap *self = HDY_FLAP (container);
-
-  if (self->content.widget)
-    callback (self->content.widget, callback_data);
-
-  if (self->separator.widget)
-    callback (self->separator.widget, callback_data);
-
-  if (self->flap.widget)
-    callback (self->flap.widget, callback_data);
-}
-
-static void
-hdy_flap_add (GtkContainer *container,
-              GtkWidget    *widget)
-{
-  HdyFlap *self = HDY_FLAP (container);
-
-  if (self->content.widget) {
-    g_warning ("Attempting to add a widget with type %s to a %s, "
-               "but %s can only contain one widget at a time; "
-               "it already contains a widget of type %s",
-               g_type_name (G_OBJECT_TYPE (widget)),
-               g_type_name (G_OBJECT_TYPE (self)),
-               g_type_name (G_OBJECT_TYPE (self)),
-               g_type_name (G_OBJECT_TYPE (self->content.widget)));
-
-    return;
-  }
-
-  hdy_flap_set_content (self, widget);
-}
-
-static void
-hdy_flap_remove (GtkContainer *container,
-                 GtkWidget    *widget)
-{
-  HdyFlap *self = HDY_FLAP (container);
-
-  if (widget == self->flap.widget)
-    hdy_flap_set_flap (self, NULL);
-  else if (widget == self->separator.widget)
-    hdy_flap_set_separator (self, NULL);
-  else if (widget == self->content.widget)
-    hdy_flap_set_content (self, NULL);
-  else
-    g_return_if_reached ();
 }
 
 static void
@@ -1442,10 +1251,16 @@ hdy_flap_dispose (GObject *object)
 {
   HdyFlap *self = HDY_FLAP (object);
 
+  hdy_flap_set_flap (self, NULL);
+  hdy_flap_set_separator (self, NULL);
+  hdy_flap_set_content (self, NULL);
+
+  g_clear_pointer (&self->shield, gtk_widget_unparent);
+
   g_clear_object (&self->shadow_helper);
   g_clear_object (&self->tracker);
-  g_clear_object (&self->click_gesture);
-  g_clear_object (&self->key_controller);
+
+  self->key_controller = NULL;
 
   G_OBJECT_CLASS (hdy_flap_parent_class)->dispose (object);
 }
@@ -1455,25 +1270,15 @@ hdy_flap_class_init (HdyFlapClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-  GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
 
   object_class->get_property = hdy_flap_get_property;
   object_class->set_property = hdy_flap_set_property;
   object_class->dispose = hdy_flap_dispose;
 
-  widget_class->get_preferred_width = hdy_flap_get_preferred_width;
-  widget_class->get_preferred_width_for_height = hdy_flap_get_preferred_width_for_height;
-  widget_class->get_preferred_height = hdy_flap_get_preferred_height;
-  widget_class->get_preferred_height_for_width = hdy_flap_get_preferred_height_for_width;
+  widget_class->measure = hdy_flap_measure;
   widget_class->size_allocate = hdy_flap_size_allocate;
-  widget_class->draw = hdy_flap_draw;
-  widget_class->realize = hdy_flap_realize;
-  widget_class->unrealize = hdy_flap_unrealize;
+  widget_class->snapshot = hdy_flap_snapshot;
   widget_class->direction_changed = hdy_flap_direction_changed;
-
-  container_class->remove = hdy_flap_remove;
-  container_class->add = hdy_flap_add;
-  container_class->forall = hdy_flap_forall;
 
   /**
    * HdyFlap:content:
@@ -1729,8 +1534,7 @@ static void
 hdy_flap_init (HdyFlap *self)
 {
   GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
-
-  gtk_widget_add_events (GTK_WIDGET (self), GDK_KEY_PRESS_MASK);
+  GtkEventController *gesture;
 
   self->orientation = GTK_ORIENTATION_HORIZONTAL;
   self->flap_position = GTK_PACK_START;
@@ -1757,19 +1561,28 @@ hdy_flap_init (HdyFlap *self)
 
   update_swipe_tracker (self);
 
-  self->click_gesture = gtk_gesture_multi_press_new (GTK_WIDGET (self));
-  gtk_gesture_single_set_exclusive (GTK_GESTURE_SINGLE (self->click_gesture), TRUE);
-  gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (self->click_gesture), GDK_BUTTON_PRIMARY);
-  gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (self->click_gesture),
-                                              GTK_PHASE_CAPTURE);
-  g_signal_connect_object (self->click_gesture, "released", G_CALLBACK (released_cb), self, 0);
+  self->shield = hdy_gizmo_new ("widget", NULL, NULL, NULL, NULL, NULL, NULL);
+  gtk_widget_set_parent (self->shield, GTK_WIDGET (self));
 
-  self->key_controller = gtk_event_controller_key_new (GTK_WIDGET (self));
-  gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (self->key_controller),
+  gesture = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
+  gtk_gesture_single_set_exclusive (GTK_GESTURE_SINGLE (gesture), TRUE);
+  gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (gesture),
+                                              GTK_PHASE_CAPTURE);
+  g_signal_connect_object (gesture, "released", G_CALLBACK (released_cb), self, 0);
+  gtk_widget_add_controller (self->shield, gesture);
+
+  self->key_controller = gtk_event_controller_key_new ();
+  gtk_event_controller_set_propagation_phase (self->key_controller,
                                               GTK_PHASE_BUBBLE);
-  g_signal_connect_object (self->key_controller, "key-pressed", G_CALLBACK (key_pressed_cb), self, 0);
+  g_signal_connect_object (self->key_controller, "key-pressed",
+                           G_CALLBACK (key_pressed_cb), self, 0);
+  gtk_widget_add_controller (GTK_WIDGET (self), self->key_controller);
+
+  gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
   gtk_style_context_add_class (context, "unfolded");
+
+  update_shield (self);
 }
 
 static void
@@ -1778,19 +1591,23 @@ hdy_flap_add_child (GtkBuildable *buildable,
                     GObject      *child,
                     const gchar  *type)
 {
-  if (!type || !g_strcmp0 (type, "content"))
+  if (!g_strcmp0 (type, "content"))
     hdy_flap_set_content (HDY_FLAP (buildable), GTK_WIDGET (child));
   else if (!g_strcmp0 (type, "flap"))
     hdy_flap_set_flap (HDY_FLAP (buildable), GTK_WIDGET (child));
   else if (!g_strcmp0 (type, "separator"))
     hdy_flap_set_separator (HDY_FLAP (buildable), GTK_WIDGET (child));
+  else if (!type && GTK_IS_WIDGET (child))
+    hdy_flap_set_content (HDY_FLAP (buildable), GTK_WIDGET (child));
   else
-    GTK_BUILDER_WARN_INVALID_CHILD_TYPE (HDY_FLAP (buildable), type);
+    parent_buildable_iface->add_child (buildable, builder, child, type);
 }
 
 static void
 hdy_flap_buildable_init (GtkBuildableIface *iface)
 {
+  parent_buildable_iface = g_type_interface_peek_parent (iface);
+
   iface->add_child = hdy_flap_add_child;
 }
 
@@ -1906,8 +1723,8 @@ hdy_flap_get_swipe_area (HdySwipeable           *swipeable,
     return;
   }
 
-  width = gtk_widget_get_allocated_width (GTK_WIDGET (self));
-  height = gtk_widget_get_allocated_height (GTK_WIDGET (self));
+  width = gtk_widget_get_width (GTK_WIDGET (self));
+  height = gtk_widget_get_height (GTK_WIDGET (self));
 
   content_above_flap = transition_is_content_above_flap (self);
   flap_factor = transition_get_flap_motion_factor (self);
@@ -2180,7 +1997,6 @@ hdy_flap_set_flap_position (HdyFlap     *self,
   self->flap_position = position;
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
-  hdy_shadow_helper_clear_cache (self->shadow_helper);
   update_swipe_tracker (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FLAP_POSITION]);
@@ -2497,7 +2313,7 @@ hdy_flap_set_transition_type (HdyFlap               *self,
 
   self->transition_type = transition_type;
 
-  restack_windows (self);
+  restack_children (self);
 
   if (self->reveal_progress > 0 || (self->fold_progress > 0 && self->fold_progress < 1))
     gtk_widget_queue_allocate (GTK_WIDGET (self));
@@ -2549,10 +2365,10 @@ hdy_flap_set_modal (HdyFlap  *self,
 
   self->modal = modal;
 
-  gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (self->click_gesture),
-                                              modal ? GTK_PHASE_CAPTURE : GTK_PHASE_NONE);
   gtk_event_controller_set_propagation_phase (self->key_controller,
                                               modal ? GTK_PHASE_BUBBLE : GTK_PHASE_NONE);
+
+  update_shield (self);
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 

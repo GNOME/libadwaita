@@ -20,7 +20,7 @@ G_BEGIN_DECLS
 #define HDY_TYPE_FLAP (hdy_flap_get_type ())
 
 HDY_AVAILABLE_IN_1_1
-G_DECLARE_FINAL_TYPE (HdyFlap, hdy_flap, HDY, FLAP, GtkContainer)
+G_DECLARE_FINAL_TYPE (HdyFlap, hdy_flap, HDY, FLAP, GtkWidget)
 
 typedef enum {
   HDY_FLAP_FOLD_POLICY_NEVER,
