@@ -180,12 +180,13 @@ hdy_preferences_group_dispose (GObject *object)
 
   /*
    * Since we overload forall(), the inherited destroy() won't work as normal.
-   * Remove internal widgets ourself.
+   * Remove internal widgets ourselves.
    */
-  g_clear_pointer ((GtkWidget **) &priv->description, gtk_widget_destroy);
-  g_clear_pointer ((GtkWidget **) &priv->listbox, gtk_widget_destroy);
-  g_clear_pointer ((GtkWidget **) &priv->listbox_box, gtk_widget_destroy);
-  g_clear_pointer ((GtkWidget **) &priv->title, gtk_widget_destroy);
+  g_clear_pointer ((GtkWidget **) &priv->box, gtk_widget_destroy);
+  priv->description = NULL;
+  priv->listbox = NULL;
+  priv->listbox_box = NULL;
+  priv->title = NULL;
 
   G_OBJECT_CLASS (hdy_preferences_group_parent_class)->dispose (object);
 }
