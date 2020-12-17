@@ -9,6 +9,7 @@
 
 #include "hdy-preferences-group-private.h"
 
+#include "hdy-css-private.h"
 #include "hdy-preferences-row.h"
 
 /**
@@ -232,6 +233,13 @@ hdy_preferences_group_class_init (HdyPreferencesGroupClass *klass)
   object_class->set_property = hdy_preferences_group_set_property;
 
   widget_class->destroy = hdy_preferences_group_destroy;
+
+  widget_class->size_allocate = hdy_css_size_allocate_bin;
+  widget_class->get_preferred_height = hdy_css_get_preferred_height;
+  widget_class->get_preferred_height_for_width = hdy_css_get_preferred_height_for_width;
+  widget_class->get_preferred_width = hdy_css_get_preferred_width;
+  widget_class->get_preferred_width_for_height = hdy_css_get_preferred_width_for_height;
+  widget_class->draw = hdy_css_draw_bin;
 
   container_class->add = hdy_preferences_group_add;
   container_class->remove = hdy_preferences_group_remove;
