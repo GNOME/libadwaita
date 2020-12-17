@@ -32,7 +32,7 @@
 
 typedef struct
 {
-  GtkBox *box;
+  GtkWidget *box;
   GtkLabel *description;
   GtkListBox *listbox;
   GtkBox *listbox_box;
@@ -217,7 +217,7 @@ hdy_preferences_group_remove (GtkContainer *container,
   HdyPreferencesGroup *self = HDY_PREFERENCES_GROUP (container);
   HdyPreferencesGroupPrivate *priv = hdy_preferences_group_get_instance_private (self);
 
-  if (child == GTK_WIDGET (priv->box))
+  if (child == priv->box)
     GTK_CONTAINER_CLASS (hdy_preferences_group_parent_class)->remove (container, child);
   else if (HDY_IS_PREFERENCES_ROW (child))
     gtk_container_remove (GTK_CONTAINER (priv->listbox), child);
