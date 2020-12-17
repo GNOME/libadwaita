@@ -13,6 +13,7 @@
             <property name="ellipsize">end</property>
             <property name="halign">start</property>
             <property name="xalign">0</property>
+            <property name="no-show-all">True</property>
             <style>
               <!-- Requires Adwaita from GTK 3.24.14. -->
               <class name="heading"/>
@@ -27,6 +28,7 @@
             <property name="halign">start</property>
             <property name="wrap">True</property>
             <property name="xalign">0</property>
+            <property name="no-show-all">True</property>
             <style>
               <class name="dim-label"/>
             </style>
