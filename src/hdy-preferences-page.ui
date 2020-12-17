@@ -12,10 +12,6 @@
             <property name="visible">True</property>
             <child>
               <object class="HdyClamp">
-                <property name="margin-bottom">18</property>
-                <property name="margin-end">12</property>
-                <property name="margin-start">12</property>
-                <property name="margin-top">18</property>
                 <property name="visible">True</property>
                 <child>
                   <object class="GtkBox" id="box">

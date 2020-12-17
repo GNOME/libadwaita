@@ -83,6 +83,8 @@ statuspage > scrolledwindow > viewport > box > clamp > box > .title { margin-bot
 
 statuspage > scrolledwindow > viewport > box > clamp > box > .description { margin-bottom: 36px; }
 
+preferencespage > scrolledwindow > viewport > clamp { margin: 18px 12px; }
+
 preferencesgroup > box > label:not(:first-child) { margin-top: 6px; }
 
 preferencesgroup > box > box:not(:first-child) { margin-top: 12px; }
