@@ -146,3 +146,91 @@ hdy_css_draw (GtkWidget *widget,
                       height - border.top - border.bottom);
   }
 }
+
+void
+hdy_css_get_preferred_width (GtkWidget *widget,
+                             gint      *minimum,
+                             gint      *natural)
+{
+  GObjectClass *pclass = g_type_class_peek_parent (G_OBJECT_GET_CLASS (widget));
+
+  g_assert (G_OBJECT_CLASS_TYPE (pclass) == GTK_TYPE_BIN);
+
+  GTK_WIDGET_CLASS (pclass)->get_preferred_width (widget, minimum, natural);
+
+  hdy_css_measure (widget, GTK_ORIENTATION_HORIZONTAL, minimum, natural);
+}
+
+void
+hdy_css_get_preferred_width_for_height (GtkWidget *widget,
+                                        gint       height,
+                                        gint      *minimum,
+                                        gint      *natural)
+{
+  GObjectClass *pclass = g_type_class_peek_parent (G_OBJECT_GET_CLASS (widget));
+
+  g_assert (G_OBJECT_CLASS_TYPE (pclass) == GTK_TYPE_BIN);
+
+  GTK_WIDGET_CLASS (pclass)->get_preferred_width_for_height (widget, height, minimum, natural);
+
+  hdy_css_measure (widget, GTK_ORIENTATION_HORIZONTAL, minimum, natural);
+}
+
+void
+hdy_css_get_preferred_height (GtkWidget *widget,
+                              gint      *minimum,
+                              gint      *natural)
+{
+  GObjectClass *pclass = g_type_class_peek_parent (G_OBJECT_GET_CLASS (widget));
+
+  g_assert (G_OBJECT_CLASS_TYPE (pclass) == GTK_TYPE_BIN);
+
+  GTK_WIDGET_CLASS (pclass)->get_preferred_height (widget, minimum, natural);
+
+  hdy_css_measure (widget, GTK_ORIENTATION_VERTICAL, minimum, natural);
+}
+
+void
+hdy_css_get_preferred_height_for_width (GtkWidget *widget,
+                                        gint       width,
+                                        gint      *minimum,
+                                        gint      *natural)
+{
+  GObjectClass *pclass = g_type_class_peek_parent (G_OBJECT_GET_CLASS (widget));
+
+  g_assert (G_OBJECT_CLASS_TYPE (pclass) == GTK_TYPE_BIN);
+
+  GTK_WIDGET_CLASS (pclass)->get_preferred_height_for_width (widget, width, minimum, natural);
+
+  hdy_css_measure (widget, GTK_ORIENTATION_VERTICAL, minimum, natural);
+}
+
+void
+hdy_css_size_allocate_bin (GtkWidget     *widget,
+                           GtkAllocation *allocation)
+{
+  GObjectClass *pclass = g_type_class_peek_parent (G_OBJECT_GET_CLASS (widget));
+  GtkAllocation child_alloc;
+
+  g_assert (G_OBJECT_CLASS_TYPE (pclass) == GTK_TYPE_BIN);
+
+  hdy_css_size_allocate_self (widget, allocation);
+  gtk_widget_set_allocation (widget, allocation);
+
+  child_alloc = *allocation;
+  hdy_css_size_allocate_children (widget, &child_alloc);
+  gtk_widget_size_allocate (gtk_bin_get_child (GTK_BIN (widget)), &child_alloc);
+}
+
+gboolean
+hdy_css_draw_bin (GtkWidget *widget,
+                  cairo_t   *cr)
+{
+  GObjectClass *pclass = g_type_class_peek_parent (G_OBJECT_GET_CLASS (widget));
+
+  g_assert (G_OBJECT_CLASS_TYPE (pclass) == GTK_TYPE_BIN);
+
+  hdy_css_draw (widget, cr);
+
+  return GTK_WIDGET_CLASS (pclass)->draw (widget, cr);
+}
