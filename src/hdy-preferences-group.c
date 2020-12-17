@@ -173,9 +173,9 @@ hdy_preferences_group_set_property (GObject      *object,
 }
 
 static void
-hdy_preferences_group_dispose (GObject *object)
+hdy_preferences_group_destroy (GtkWidget *widget)
 {
-  HdyPreferencesGroup *self = HDY_PREFERENCES_GROUP (object);
+  HdyPreferencesGroup *self = HDY_PREFERENCES_GROUP (widget);
   HdyPreferencesGroupPrivate *priv = hdy_preferences_group_get_instance_private (self);
 
   /*
@@ -188,7 +188,7 @@ hdy_preferences_group_dispose (GObject *object)
   priv->listbox_box = NULL;
   priv->title = NULL;
 
-  G_OBJECT_CLASS (hdy_preferences_group_parent_class)->dispose (object);
+  GTK_WIDGET_CLASS (hdy_preferences_group_parent_class)->destroy (widget);
 }
 
 static void
@@ -234,7 +234,8 @@ hdy_preferences_group_class_init (HdyPreferencesGroupClass *klass)
 
   object_class->get_property = hdy_preferences_group_get_property;
   object_class->set_property = hdy_preferences_group_set_property;
-  object_class->dispose = hdy_preferences_group_dispose;
+
+  widget_class->destroy = hdy_preferences_group_destroy;
 
   container_class->add = hdy_preferences_group_add;
   container_class->remove = hdy_preferences_group_remove;
