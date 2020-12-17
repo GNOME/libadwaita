@@ -169,4 +169,16 @@ statuspage > scrolledwindow > viewport > box {
   }
 }
 
+// Preferences
 
+preferencesgroup > box {
+  // Add space between the description and the title.
+  > label:not(:first-child) {
+    margin-top: 6px;
+  }
+
+  // Add space between the box and the labels.
+  > box:not(:first-child) {
+    margin-top: 12px;
+  }
+}
