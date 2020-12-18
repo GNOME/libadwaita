@@ -164,35 +164,6 @@
                         </property>
                       </object>
                     </child>
-                    <child>
-                      <object class="GtkStackPage">
-                        <property name="name">search-bar</property>
-                        <property name="child">
-                          <object class="GtkHeaderBar" id="search_bar_header_bar">
-                            <property name="title-widget">
-                              <object class="GtkBox"/>
-                            </property>
-                            <child type="start">
-                              <object class="GtkButton">
-                                <property name="valign">center</property>
-                                <property name="tooltip-text" translatable="yes">Back</property>
-                                <property name="icon-name">go-previous-symbolic</property>
-                                <property name="visible" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
-                                <signal name="clicked" handler="back_clicked_cb"/>
-                              </object>
-                            </child>
-                            <child type="end">
-                              <object class="GtkToggleButton">
-                                <property name="valign">center</property>
-                                <property name="tooltip-text" translatable="yes">Search</property>
-                                <property name="icon-name">edit-find-symbolic</property>
-                                <property name="active" bind-source="search_bar" bind-property="search-mode-enabled" bind-flags="sync-create|bidirectional"/>
-                              </object>
-                            </child>
-                          </object>
-                        </property>
-                      </object>
-                    </child>
                   </object>
                 </child>
               </object>
@@ -661,42 +632,6 @@
                 </child>
                 <child>
                   <object class="GtkStackPage">
-                    <property name="name">search-bar</property>
-                    <property name="title" translatable="yes">Search bar</property>
-                    <property name="child">
-                      <object class="GtkOverlay">
-                        <child type="overlay">
-                          <object class="GtkSearchBar" id="search_bar">
-                            <property name="valign">start</property>
-                            <property name="hexpand">True</property>
-                            <property name="show-close-button">True</property>
-                            <property name="child">
-                              <object class="HdyClamp">
-                                <property name="hexpand">True</property>
-                                <property name="child">
-                                  <object class="GtkSearchEntry" id="search_entry">
-                                    <property name="hexpand">True</property>
-                                  </object>
-                                </property>
-                              </object>
-                            </property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="HdyStatusPage">
-                            <property name="icon-name">widget-search-symbolic</property>
-                            <property name="title" translatable="yes">Search bar</property>
-                            <property name="description" translatable="yes">A search bar that gives your search entry all the space it needs.
-
-    Try using it with a horizontally expanded clamp to make your search entry adaptive.</property>
-                          </object>
-                        </child>
-                      </object>
-                    </property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkStackPage">
                     <property name="name">view-switcher</property>
                     <property name="title" translatable="yes">View Switcher</property>
                     <property name="child">
@@ -1108,7 +1043,6 @@
     <headerbars>
       <headerbar name="header_bar"/>
       <headerbar name="default_header_bar"/>
-      <headerbar name="search_bar_header_bar"/>
       <headerbar name="leaflet_header_bar"/>
       <headerbar name="leaflet_sub_header_bar"/>
     </headerbars>

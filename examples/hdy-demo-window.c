@@ -17,8 +17,6 @@ struct _HdyDemoWindow
   GtkStack *stack;
   HdyComboRow *leaflet_transition_row;
   HdyLeaflet *content_leaflet;
-  GtkSearchBar *search_bar;
-  GtkEntry *search_entry;
   GtkListBox *lists_listbox;
   HdyComboRow *combo_row;
   HdyComboRow *enum_combo_row;
@@ -69,8 +67,6 @@ update (HdyDemoWindow *self)
 
   if (g_strcmp0 (gtk_stack_get_visible_child_name (self->stack), "leaflet") == 0)
     header_bar_name = "leaflet";
-  else if (g_strcmp0 (gtk_stack_get_visible_child_name (self->stack), "search-bar") == 0)
-    header_bar_name = "search-bar";
 
   gtk_stack_set_visible_child_name (self->header_stack, header_bar_name);
 }
@@ -431,23 +427,9 @@ flap_demo_clicked_cb (GtkButton     *btn,
 }
 
 static void
-hdy_demo_window_constructed (GObject *object)
-{
-  HdyDemoWindow *self = HDY_DEMO_WINDOW (object);
-
-  G_OBJECT_CLASS (hdy_demo_window_parent_class)->constructed (object);
-
-  gtk_search_bar_connect_entry (self->search_bar, GTK_EDITABLE (self->search_entry));
-}
-
-
-static void
 hdy_demo_window_class_init (HdyDemoWindowClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-
-  object_class->constructed = hdy_demo_window_constructed;
 
   gtk_widget_class_add_binding_action (widget_class, GDK_KEY_q, GDK_CONTROL_MASK, "window.close", NULL);
 
@@ -461,8 +443,6 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, leaflet_transition_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, content_leaflet);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_bar);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_entry);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, lists_listbox);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, combo_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, enum_combo_row);
