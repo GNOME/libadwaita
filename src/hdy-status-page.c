@@ -29,6 +29,7 @@ enum {
   PROP_ICON_NAME,
   PROP_TITLE,
   PROP_DESCRIPTION,
+  PROP_CHILD,
   LAST_PROP,
 };
 
@@ -36,7 +37,7 @@ static GParamSpec *props[LAST_PROP];
 
 struct _HdyStatusPage
 {
-  GtkBin parent_instance;
+  GtkWidget parent_instance;
 
   GtkWidget *scrolled_window;
   GtkBox *toplevel_box;
@@ -48,7 +49,12 @@ struct _HdyStatusPage
   GtkWidget *user_widget;
 };
 
-G_DEFINE_TYPE (HdyStatusPage, hdy_status_page, GTK_TYPE_BIN)
+static void hdy_status_page_buildable_init (GtkBuildableIface *iface);
+
+G_DEFINE_TYPE_WITH_CODE (HdyStatusPage, hdy_status_page, GTK_TYPE_WIDGET,
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, hdy_status_page_buildable_init))
+
+static GtkBuildableIface *parent_buildable_iface;
 
 static void
 update_title_visibility (HdyStatusPage *self)
@@ -87,6 +93,10 @@ hdy_status_page_get_property (GObject    *object,
     g_value_set_string (value, hdy_status_page_get_description (self));
     break;
 
+  case PROP_CHILD:
+    g_value_set_object (value, hdy_status_page_get_child (self));
+    break;
+
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -113,9 +123,30 @@ hdy_status_page_set_property (GObject      *object,
     hdy_status_page_set_description (self, g_value_get_string (value));
     break;
 
+  case PROP_CHILD:
+    hdy_status_page_set_child (self, g_value_get_object (value));
+    break;
+
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
+}
+
+static void
+hdy_status_page_dispose (GObject *object)
+{
+  HdyStatusPage *self = HDY_STATUS_PAGE (object);
+
+  hdy_status_page_set_child (self, NULL);
+
+  g_clear_pointer (&self->scrolled_window, gtk_widget_unparent);
+  self->toplevel_box = NULL;
+  self->image = NULL;
+  self->title_label = NULL;
+  self->description_label = NULL;
+  self->user_widget = NULL;
+
+  G_OBJECT_CLASS (hdy_status_page_parent_class)->dispose (object);
 }
 
 static void
@@ -129,85 +160,15 @@ hdy_status_page_finalize (GObject *object)
 }
 
 static void
-hdy_status_page_destroy (GtkWidget *widget)
-{
-  HdyStatusPage *self = HDY_STATUS_PAGE (widget);
-
-  if (self->scrolled_window) {
-    gtk_container_remove (GTK_CONTAINER (self), self->scrolled_window);
-    self->toplevel_box = NULL;
-    self->image = NULL;
-    self->title_label = NULL;
-    self->description_label = NULL;
-    self->user_widget = NULL;
-  }
-
-  GTK_WIDGET_CLASS (hdy_status_page_parent_class)->destroy (widget);
-}
-
-static void
-hdy_status_page_add (GtkContainer *container,
-                     GtkWidget    *child)
-{
-  HdyStatusPage *self = HDY_STATUS_PAGE (container);
-
-  if (!self->scrolled_window) {
-    GTK_CONTAINER_CLASS (hdy_status_page_parent_class)->add (container, child);
-  } else if (!self->user_widget) {
-    gtk_container_add (GTK_CONTAINER (self->toplevel_box), child);
-    self->user_widget = child;
-  } else {
-    g_warning ("Attempting to add a second child to a HdyStatusPage, but a HdyStatusPage can only have one child");
-  }
-}
-
-static void
-hdy_status_page_remove (GtkContainer *container,
-                        GtkWidget    *child)
-{
-  HdyStatusPage *self = HDY_STATUS_PAGE (container);
-
-  if (child == self->scrolled_window) {
-    GTK_CONTAINER_CLASS (hdy_status_page_parent_class)->remove (container, child);
-  } else if (child == self->user_widget) {
-    gtk_container_remove (GTK_CONTAINER (self->toplevel_box), child);
-    self->user_widget = NULL;
-  } else {
-    g_return_if_reached ();
-  }
-}
-
-static void
-hdy_status_page_forall (GtkContainer *container,
-                        gboolean      include_internals,
-                        GtkCallback   callback,
-                        gpointer      callback_data)
-{
-  HdyStatusPage *self = HDY_STATUS_PAGE (container);
-
-  if (include_internals)
-    GTK_CONTAINER_CLASS (hdy_status_page_parent_class)->forall (container,
-                                                                include_internals,
-                                                                callback,
-                                                                callback_data);
-  else if (self->user_widget)
-    callback (self->user_widget, callback_data);
-}
-
-static void
 hdy_status_page_class_init (HdyStatusPageClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-  GtkContainerClass *container_class = GTK_CONTAINER_CLASS (klass);
 
   object_class->get_property = hdy_status_page_get_property;
   object_class->set_property = hdy_status_page_set_property;
+  object_class->dispose = hdy_status_page_dispose;
   object_class->finalize = hdy_status_page_finalize;
-  widget_class->destroy = hdy_status_page_destroy;
-  container_class->add = hdy_status_page_add;
-  container_class->remove = hdy_status_page_remove;
-  container_class->forall = hdy_status_page_forall;
 
   /**
    * HdyStatusPage:icon-name:
@@ -251,6 +212,13 @@ hdy_status_page_class_init (HdyStatusPageClass *klass)
                          "",
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  props[PROP_CHILD] =
+    g_param_spec_object ("child",
+                         _("Child"),
+                         _("The child widget"),
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
@@ -261,6 +229,7 @@ hdy_status_page_class_init (HdyStatusPageClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyStatusPage, title_label);
   gtk_widget_class_bind_template_child (widget_class, HdyStatusPage, description_label);
 
+  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "statuspage");
 }
 
@@ -272,6 +241,31 @@ hdy_status_page_init (HdyStatusPage *self)
   update_title_visibility (self);
   update_description_visibility (self);
 }
+
+static void
+hdy_status_page_buildable_add_child (GtkBuildable *buildable,
+                                     GtkBuilder   *builder,
+                                     GObject      *child,
+                                     const gchar  *type)
+{
+  HdyStatusPage *self = HDY_STATUS_PAGE (buildable);
+
+  if (!self->scrolled_window && GTK_IS_WIDGET (child))
+    gtk_widget_set_parent (GTK_WIDGET (child), GTK_WIDGET (buildable));
+  else if (GTK_IS_WIDGET (child))
+    hdy_status_page_set_child (self, GTK_WIDGET (child));
+  else
+    parent_buildable_iface->add_child (buildable, builder, child, type);
+}
+
+static void
+hdy_status_page_buildable_init (GtkBuildableIface *iface)
+{
+  parent_buildable_iface = g_type_interface_peek_parent (iface);
+
+  iface->add_child = hdy_status_page_buildable_add_child;
+}
+
 
 /**
  * hdy_status_page_new:
@@ -325,10 +319,8 @@ hdy_status_page_set_icon_name (HdyStatusPage *self,
   g_free (self->icon_name);
   self->icon_name = g_strdup (icon_name);
 
-  if (!icon_name)
-    g_object_set (G_OBJECT (self->image), "icon-name", "image-missing", NULL);
-  else
-    g_object_set (G_OBJECT (self->image), "icon-name", icon_name, NULL);
+  gtk_image_set_from_icon_name (self->image,
+                                icon_name ? icon_name : "image-missing");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
 }
@@ -413,6 +405,49 @@ hdy_status_page_set_description (HdyStatusPage *self,
 
   gtk_label_set_label (self->description_label, description);
   update_description_visibility (self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DESCRIPTION]);
+}
+
+/**
+ * hdy_status_page_get_child:
+ * @self: a #HdyStatusPage
+ *
+ * Gets the child widget of @self.
+ *
+ * Returns: (nullable) (transfer none): the child widget of @self
+ */
+GtkWidget *
+hdy_status_page_get_child (HdyStatusPage *self)
+{
+  g_return_val_if_fail (HDY_IS_STATUS_PAGE (self), NULL);
+
+  return self->user_widget;
+}
+
+/**
+ * hdy_status_page_set_child:
+ * @self: a #HdyStatusPage
+ * @child: (allow-none): the child widget
+ *
+ * Sets the child widget of @self.
+ */
+void
+hdy_status_page_set_child (HdyStatusPage *self,
+                           GtkWidget     *child)
+{
+  g_return_if_fail (HDY_IS_STATUS_PAGE (self));
+
+  if (child == self->user_widget)
+    return;
+
+  if (self->user_widget)
+    gtk_box_remove (self->toplevel_box, self->user_widget);
+
+  self->user_widget = child;
+
+  if (self->user_widget)
+    gtk_box_append (self->toplevel_box, self->user_widget);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DESCRIPTION]);
 }

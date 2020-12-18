@@ -19,7 +19,7 @@ G_BEGIN_DECLS
 #define HDY_TYPE_STATUS_PAGE (hdy_status_page_get_type())
 
 HDY_AVAILABLE_IN_1_1
-G_DECLARE_FINAL_TYPE (HdyStatusPage, hdy_status_page, HDY, STATUS_PAGE, GtkBin)
+G_DECLARE_FINAL_TYPE (HdyStatusPage, hdy_status_page, HDY, STATUS_PAGE, GtkWidget)
 
 HDY_AVAILABLE_IN_1_1
 GtkWidget       *hdy_status_page_new (void);
@@ -41,5 +41,11 @@ const gchar     *hdy_status_page_get_description (HdyStatusPage *self);
 HDY_AVAILABLE_IN_1_1
 void             hdy_status_page_set_description (HdyStatusPage *self,
                                                   const gchar   *description);
+
+HDY_AVAILABLE_IN_1_1
+GtkWidget       *hdy_status_page_get_child (HdyStatusPage *self);
+HDY_AVAILABLE_IN_1_1
+void             hdy_status_page_set_child (HdyStatusPage *self,
+                                            GtkWidget     *child);
 
 G_END_DECLS
