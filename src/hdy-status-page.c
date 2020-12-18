@@ -51,6 +51,22 @@ struct _HdyStatusPage
 G_DEFINE_TYPE (HdyStatusPage, hdy_status_page, GTK_TYPE_BIN)
 
 static void
+update_title_visibility (HdyStatusPage *self)
+{
+  gtk_widget_set_visible (GTK_WIDGET (self->title_label),
+                          gtk_label_get_text (self->title_label) != NULL &&
+                          g_strcmp0 (gtk_label_get_text (self->title_label), "") != 0);
+}
+
+static void
+update_description_visibility (HdyStatusPage *self)
+{
+  gtk_widget_set_visible (GTK_WIDGET (self->description_label),
+                          gtk_label_get_text (self->description_label) != NULL &&
+                          g_strcmp0 (gtk_label_get_text (self->description_label), "") != 0);
+}
+
+static void
 hdy_status_page_get_property (GObject    *object,
                               guint       prop_id,
                               GValue     *value,
@@ -252,6 +268,9 @@ static void
 hdy_status_page_init (HdyStatusPage *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  update_title_visibility (self);
+  update_description_visibility (self);
 }
 
 /**
@@ -351,6 +370,7 @@ hdy_status_page_set_title (HdyStatusPage *self,
     return;
 
   gtk_label_set_label (self->title_label, title);
+  update_title_visibility (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
 }
@@ -392,6 +412,7 @@ hdy_status_page_set_description (HdyStatusPage *self,
     return;
 
   gtk_label_set_label (self->description_label, description);
+  update_description_visibility (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DESCRIPTION]);
 }
