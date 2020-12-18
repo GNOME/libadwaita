@@ -13,7 +13,7 @@
   </menu>
   <template class="HdyDemoWindow" parent="HdyApplicationWindow">
     <property name="can_focus">False</property>
-    <property name="title">Handy Demo</property>
+    <property name="title" translatable="yes">Handy Demo</property>
     <property name="default_width">800</property>
     <property name="default_height">576</property>
     <signal name="key-press-event" handler="key_pressed_cb" after="yes" swapped="no"/>
@@ -36,7 +36,7 @@
                   <object class="HdyHeaderBar" id="header_bar">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="title">Handy Demo</property>
+                    <property name="title" translatable="yes">Handy Demo</property>
                     <property name="show_close_button">True</property>
                     <child>
                       <object class="GtkButton">
@@ -338,20 +338,20 @@
                   <object class="HdyStatusPage">
                     <property name="visible">True</property>
                     <property name="icon-name">gnome-smartphone-symbolic</property>
-                    <property name="title">Welcome to Handy Demo</property>
-                    <property name="description">This is a tour of the features the library has to offer.</property>
+                    <property name="title" translatable="yes">Welcome to Handy Demo</property>
+                    <property name="description" translatable="yes">This is a tour of the features the library has to offer.</property>
                   </object>
                   <packing>
                     <property name="name">welcome</property>
-                    <property name="title">Welcome</property>
+                    <property name="title" translatable="yes">Welcome</property>
                   </packing>
                 </child>
                 <child>
                   <object class="HdyStatusPage">
                     <property name="visible">True</property>
                     <property name="icon-name">widget-leaflet-symbolic</property>
-                    <property name="title">Leaflet</property>
-                    <property name="description">A widget showing either all its children or only one, depending on the available space. This window is using a leaflet, you can control it with the settings below.</property>
+                    <property name="title" translatable="yes">Leaflet</property>
+                    <property name="description" translatable="yes">A widget showing either all its children or only one, depending on the available space. This window is using a leaflet, you can control it with the settings below.</property>
                     <child>
                       <object class="HdyClamp">
                         <property name="visible">True</property>
@@ -379,7 +379,7 @@
                   </object>
                   <packing>
                     <property name="name">leaflet</property>
-                    <property name="title">Leaflet</property>
+                    <property name="title" translatable="yes">Leaflet</property>
                   </packing>
                 </child>
                 <child>
@@ -394,8 +394,8 @@
                       <object class="HdyStatusPage">
                         <property name="visible">True</property>
                         <property name="icon-name">widget-deck-symbolic</property>
-                        <property name="title">Deck</property>
-                        <property name="description">A widget showing either all its children or only one, depending on the available space. This window is using a leaflet, you can control it with the settings below.</property>
+                        <property name="title" translatable="yes">Deck</property>
+                        <property name="description" translatable="yes">A widget showing either all its children or only one, depending on the available space. This window is using a leaflet, you can control it with the settings below.</property>
                         <child>
                           <object class="HdyClamp">
                             <property name="visible">True</property>
@@ -493,15 +493,15 @@
                   </object>
                   <packing>
                     <property name="name">deck</property>
-                    <property name="title">Deck</property>
+                    <property name="title" translatable="yes">Deck</property>
                   </packing>
                 </child>
                 <child>
                   <object class="HdyStatusPage">
                     <property name="visible">True</property>
                     <property name="icon-name">widget-keypad-symbolic</property>
-                    <property name="title">Keypad</property>
-                    <property name="description">A number keypad.</property>
+                    <property name="title" translatable="yes">Keypad</property>
+                    <property name="description" translatable="yes">A number keypad.</property>
                     <child>
                       <object class="HdyClamp">
                         <property name="visible">True</property>
@@ -588,15 +588,15 @@
                   </object>
                   <packing>
                     <property name="name">keypad</property>
-                    <property name="title">Keypad</property>
+                    <property name="title" translatable="yes">Keypad</property>
                   </packing>
                 </child>
                 <child>
                   <object class="HdyStatusPage">
                     <property name="visible">True</property>
                     <property name="icon-name">widget-clamp-symbolic</property>
-                    <property name="title">Clamp</property>
-                    <property name="description">This page is clamped to smoothly grow up to a maximum width.</property>
+                    <property name="title" translatable="yes">Clamp</property>
+                    <property name="description" translatable="yes">This page is clamped to smoothly grow up to a maximum width.</property>
                     <child>
                       <object class="HdyClamp">
                         <property name="visible">True</property>
@@ -653,15 +653,15 @@
                   </object>
                   <packing>
                     <property name="name">clamp</property>
-                    <property name="title">Clamp</property>
+                    <property name="title" translatable="yes">Clamp</property>
                   </packing>
                 </child>
                 <child>
                   <object class="HdyStatusPage">
                     <property name="visible">True</property>
                     <property name="icon-name">widget-list-symbolic</property>
-                    <property name="title">Lists</property>
-                    <property name="description">Rows and helpers for GtkListBox.</property>
+                    <property name="title" translatable="yes">Lists</property>
+                    <property name="description" translatable="yes">Rows and helpers for GtkListBox.</property>
                     <child>
                       <object class="HdyClamp">
                         <property name="visible">True</property>
@@ -685,7 +685,7 @@
                             </style>
                             <child>
                               <object class="HdyActionRow">
-                                <property name="icon_name" translatable="yes">row-preferences-symbolic</property>
+                                <property name="icon-name">row-preferences-symbolic</property>
                                 <property name="subtitle" translatable="yes">They also have a subtitle and an icon</property>
                                 <property name="title" translatable="yes">Rows have a title</property>
                                 <property name="visible">True</property>
@@ -931,7 +931,7 @@
                   </object>
                   <packing>
                     <property name="name">lists</property>
-                    <property name="title">Lists</property>
+                    <property name="title" translatable="yes">Lists</property>
                   </packing>
                 </child>
                 <child>
@@ -964,8 +964,8 @@
                       <object class="HdyStatusPage">
                         <property name="visible">True</property>
                         <property name="icon-name">widget-search-symbolic</property>
-                        <property name="title">Search bar</property>
-                        <property name="description">A search bar that gives your search entry all the space it needs.
+                        <property name="title" translatable="yes">Search bar</property>
+                        <property name="description" translatable="yes">A search bar that gives your search entry all the space it needs.
 
 Try using it with a horizontally expanded clamp to make your search entry adaptive.</property>
                       </object>
@@ -973,15 +973,15 @@ Try using it with a horizontally expanded clamp to make your search entry adapti
                   </object>
                   <packing>
                     <property name="name">search-bar</property>
-                    <property name="title">Search bar</property>
+                    <property name="title" translatable="yes">Search bar</property>
                   </packing>
                 </child>
                 <child>
                   <object class="HdyStatusPage">
                     <property name="visible">True</property>
                     <property name="icon-name">widget-view-switcher-symbolic</property>
-                    <property name="title">View Switcher</property>
-                    <property name="description">Widgets to switch the window's view.</property>
+                    <property name="title" translatable="yes">View Switcher</property>
+                    <property name="description" translatable="yes">Widgets to switch the window's view.</property>
                     <child>
                       <object class="GtkButton">
                         <property name="visible">True</property>
@@ -993,7 +993,7 @@ Try using it with a horizontally expanded clamp to make your search entry adapti
                   </object>
                   <packing>
                     <property name="name">view-switcher</property>
-                    <property name="title">View Switcher</property>
+                    <property name="title" translatable="yes">View Switcher</property>
                   </packing>
                 </child>
                 <child>
@@ -1012,8 +1012,8 @@ Try using it with a horizontally expanded clamp to make your search entry adapti
                           <object class="HdyStatusPage">
                             <property name="visible">True</property>
                             <property name="icon-name">widget-carousel-symbolic</property>
-                            <property name="title">Carousel</property>
-                            <property name="description">A widget for paginated scrolling.</property>
+                            <property name="title" translatable="yes">Carousel</property>
+                            <property name="description" translatable="yes">A widget for paginated scrolling.</property>
                           </object>
                         </child>
                         <child>
@@ -1125,7 +1125,7 @@ Try using it with a horizontally expanded clamp to make your search entry adapti
                   </object>
                   <packing>
                     <property name="name">carousel</property>
-                    <property name="title">Carousel</property>
+                    <property name="title" translatable="yes">Carousel</property>
                   </packing>
                 </child>
                 <child>
@@ -1345,15 +1345,15 @@ Try using it with a horizontally expanded clamp to make your search entry adapti
                   </object>
                   <packing>
                     <property name="name">avatar</property>
-                    <property name="title">Avatar</property>
+                    <property name="title" translatable="yes">Avatar</property>
                   </packing>
                 </child>
                 <child>
                   <object class="HdyStatusPage">
                     <property name="visible">True</property>
                     <property name="icon-name">widget-window-symbolic</property>
-                    <property name="title">Window</property>
-                    <property name="description">A freeform window.
+                    <property name="title" translatable="yes">Window</property>
+                    <property name="description" translatable="yes">A freeform window.
 
 It allows to have headerbar in content area, incl. above content, and round corners on the bottom. This window is an example, try hiding the titlebar.</property>
                     <child>
@@ -1434,15 +1434,15 @@ It allows to have headerbar in content area, incl. above content, and round corn
                   </object>
                   <packing>
                     <property name="name">window</property>
-                    <property name="title">Window</property>
+                    <property name="title" translatable="yes">Window</property>
                   </packing>
                 </child>
                 <child>
                   <object class="HdyStatusPage">
                     <property name="visible">True</property>
                     <property name="icon-name">widget-flap-symbolic</property>
-                    <property name="title">Flap</property>
-                    <property name="description">A widget showing a flap next to or above the content.</property>
+                    <property name="title" translatable="yes">Flap</property>
+                    <property name="description" translatable="yes">A widget showing a flap next to or above the content.</property>
                     <child>
                       <object class="GtkButton">
                         <property name="visible">True</property>
@@ -1454,7 +1454,7 @@ It allows to have headerbar in content area, incl. above content, and round corn
                   </object>
                   <packing>
                     <property name="name">flap</property>
-                    <property name="title">Flap</property>
+                    <property name="title" translatable="yes">Flap</property>
                   </packing>
                 </child>
               </object>
