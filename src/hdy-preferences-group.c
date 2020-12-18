@@ -55,10 +55,6 @@ update_title_visibility (HdyPreferencesGroup *self)
 {
   HdyPreferencesGroupPrivate *priv = hdy_preferences_group_get_instance_private (self);
 
-  /* Show the listbox only if it has children to avoid having showing the
-   * listbox as an empty frame, parasiting the look of non-GtkListBoxRow
-   * children.
-   */
   gtk_widget_set_visible (GTK_WIDGET (priv->title),
                           gtk_label_get_text (priv->title) != NULL &&
                           g_strcmp0 (gtk_label_get_text (priv->title), "") != 0);
@@ -80,7 +76,7 @@ update_listbox_visibility (HdyPreferencesGroup *self)
   HdyPreferencesGroupPrivate *priv = hdy_preferences_group_get_instance_private (self);
   g_autoptr(GList) children = NULL;
 
-  /* We must wait until listob has been built and added. */
+  /* We must wait until the listbox has been built and added. */
   if (priv->listbox == NULL)
     return;
 
