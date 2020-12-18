@@ -113,10 +113,6 @@ else
   vapidir = get_option('datadir') / 'vala' / 'vapi'
 endif
 
-glade_catalog_feature = get_option('glade_catalog')
-gladeui_dep = dependency('gladeui-2.0', required : glade_catalog_feature)
-glade_catalog = not glade_catalog_feature.disabled() and gladeui_dep.found()
-
 introspection_feature = get_option('introspection')
 introspection = introspection_feature.enabled() or introspection_feature.auto()
 
@@ -127,7 +123,6 @@ subdir('po')
 subdir('examples')
 subdir('tests')
 subdir('doc')
-subdir('glade')
 
 run_data = configuration_data()
 run_data.set('ABS_BUILDDIR', meson.current_build_dir())
@@ -147,7 +142,6 @@ summary = [
   '     Documentation: @0@'.format(get_option('gtk_doc')),
   '     Introspection: @0@'.format(introspection),
   '              Vapi: @0@'.format(get_option('vapi')),
-  '     Glade Catalog: @0@'.format(glade_catalog),
  '------',
   ''
 ]
