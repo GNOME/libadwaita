@@ -23,22 +23,16 @@
           <object class="GtkBox">
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkRevealer" id="header_revealer">
-                <property name="transition-type">slide-down</property>
-                <property name="reveal-child" bind-source="window_header_revealer_switch" bind-property="state" bind-flags="sync-create | bidirectional"/>
-                <child>
-                  <object class="GtkHeaderBar" id="header_bar">
-                    <child type="start">
-                      <object class="GtkButton" id="theme_variant">
-                        <signal name="clicked" handler="theme_variant_button_clicked_cb" swapped="yes"/>
-                      </object>
-                    </child>
-                    <child type="end">
-                      <object class="GtkMenuButton" id="menu_button">
-                        <property name="menu-model">primary_menu</property>
-                        <property name="icon-name">open-menu-symbolic</property>
-                      </object>
-                    </child>
+              <object class="GtkHeaderBar" id="header_bar">
+                <child type="start">
+                  <object class="GtkButton" id="theme_variant">
+                    <signal name="clicked" handler="theme_variant_button_clicked_cb" swapped="yes"/>
+                  </object>
+                </child>
+                <child type="end">
+                  <object class="GtkMenuButton" id="menu_button">
+                    <property name="menu-model">primary_menu</property>
+                    <property name="icon-name">open-menu-symbolic</property>
                   </object>
                 </child>
               </object>
@@ -59,19 +53,13 @@
               <object class="GtkBox">
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkRevealer">
-                    <property name="transition-type" bind-source="header_revealer" bind-property="transition-type" bind-flags="bidirectional|sync-create"/>
-                    <property name="reveal-child" bind-source="header_revealer" bind-property="reveal-child" bind-flags="bidirectional|sync-create"/>
+                  <object class="GtkWindowHandle" id="header_separator">
                     <child>
-                      <object class="GtkWindowHandle" id="header_separator">
-                        <child>
-                          <object class="GtkSeparator">
-                            <property name="orientation">vertical</property>
-                            <style>
-                              <class name="sidebar"/>
-                            </style>
-                          </object>
-                        </child>
+                      <object class="GtkSeparator">
+                        <property name="orientation">vertical</property>
+                        <style>
+                          <class name="sidebar"/>
+                        </style>
                       </object>
                     </child>
                   </object>
@@ -94,22 +82,44 @@
             <property name="orientation">vertical</property>
             <property name="hexpand">True</property>
             <child>
-              <object class="GtkRevealer">
-                <property name="transition-type" bind-source="header_revealer" bind-property="transition-type" bind-flags="bidirectional|sync-create"/>
-                <property name="reveal-child" bind-source="header_revealer" bind-property="reveal-child" bind-flags="bidirectional|sync-create"/>
+              <object class="GtkStack" id="header_stack">
+                <property name="transition-type" bind-source="stack" bind-property="transition-type" bind-flags="sync-create"/>
                 <child>
-                  <object class="GtkStack" id="header_stack">
-                    <property name="transition-type" bind-source="stack" bind-property="transition-type" bind-flags="sync-create"/>
-                    <child>
-                      <object class="GtkStackPage">
-                        <property name="name">default</property>
-                        <property name="child">
-                          <object class="GtkHeaderBar" id="default_header_bar">
+                  <object class="GtkStackPage">
+                    <property name="name">default</property>
+                    <property name="child">
+                      <object class="GtkHeaderBar" id="default_header_bar">
+                        <property name="title-widget">
+                          <object class="GtkBox"/>
+                        </property>
+                        <child type="start">
+                          <object class="GtkButton" id="back">
+                            <property name="valign">center</property>
+                            <property name="tooltip-text" translatable="yes">Back</property>
+                            <property name="icon-name">go-previous-symbolic</property>
+                            <property name="visible" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
+                            <signal name="clicked" handler="back_clicked_cb"/>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">leaflet</property>
+                    <property name="child">
+                      <object class="HdyLeaflet" id="header_leaflet">
+                        <property name="can-unfold">False</property>
+                        <property name="can-swipe-back">True</property>
+                        <property name="transition-type" bind-source="content_box" bind-property="transition-type" bind-flags="sync-create"/>
+                        <child>
+                          <object class="GtkHeaderBar" id="leaflet_header_bar">
                             <property name="title-widget">
                               <object class="GtkBox"/>
                             </property>
                             <child type="start">
-                              <object class="GtkButton" id="back">
+                              <object class="GtkButton" id="leaflet-back">
                                 <property name="valign">center</property>
                                 <property name="tooltip-text" translatable="yes">Back</property>
                                 <property name="icon-name">go-previous-symbolic</property>
@@ -118,52 +128,24 @@
                               </object>
                             </child>
                           </object>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkStackPage">
-                        <property name="name">leaflet</property>
-                        <property name="child">
-                          <object class="HdyLeaflet" id="header_leaflet">
-                            <property name="can-unfold">False</property>
-                            <property name="can-swipe-back">True</property>
-                            <property name="transition-type" bind-source="content_box" bind-property="transition-type" bind-flags="sync-create"/>
-                            <child>
-                              <object class="GtkHeaderBar" id="leaflet_header_bar">
-                                <property name="title-widget">
-                                  <object class="GtkBox"/>
-                                </property>
-                                <child type="start">
-                                  <object class="GtkButton" id="leaflet-back">
-                                    <property name="valign">center</property>
-                                    <property name="tooltip-text" translatable="yes">Back</property>
-                                    <property name="icon-name">go-previous-symbolic</property>
-                                    <property name="visible" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
-                                    <signal name="clicked" handler="back_clicked_cb"/>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkHeaderBar" id="leaflet_sub_header_bar">
-                                <property name="title-widget">
-                                  <object class="GtkBox"/>
-                                </property>
-                                <child type="start">
-                                  <object class="GtkButton" id="leaflet-sub-back">
-                                    <property name="valign">center</property>
-                                    <property name="tooltip-text" translatable="yes">Back</property>
-                                    <property name="icon-name">go-previous-symbolic</property>
-                                    <signal name="clicked" handler="leaflet_back_clicked_cb"/>
-                                  </object>
-                                </child>
+                        </child>
+                        <child>
+                          <object class="GtkHeaderBar" id="leaflet_sub_header_bar">
+                            <property name="title-widget">
+                              <object class="GtkBox"/>
+                            </property>
+                            <child type="start">
+                              <object class="GtkButton" id="leaflet-sub-back">
+                                <property name="valign">center</property>
+                                <property name="tooltip-text" translatable="yes">Back</property>
+                                <property name="icon-name">go-previous-symbolic</property>
+                                <signal name="clicked" handler="leaflet_back_clicked_cb"/>
                               </object>
                             </child>
                           </object>
-                        </property>
+                        </child>
                       </object>
-                    </child>
+                    </property>
                   </object>
                 </child>
               </object>
@@ -929,76 +911,6 @@
                             </child>
                           </object>
                         </child>
-                      </object>
-                    </property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkStackPage">
-                    <property name="name">window</property>
-                    <property name="title" translatable="yes">Window</property>
-                    <property name="child">
-                      <object class="HdyStatusPage">
-                        <property name="icon-name">widget-window-symbolic</property>
-                        <property name="title" translatable="yes">Window</property>
-                        <property name="description" translatable="yes">A freeform window.
-
-    It allows to have headerbar in content area, incl. above content, and round corners on the bottom. This window is an example, try hiding the titlebar.</property>
-                        <property name="child">
-                          <object class="HdyClamp">
-                            <property name="margin-bottom">32</property>
-                            <property name="margin-start">12</property>
-                            <property name="margin-end">12</property>
-                            <property name="margin-top">32</property>
-                            <property name="maximum-size">400</property>
-                            <property name="tightening-threshold">300</property>
-                            <property name="child">
-                              <object class="GtkBox">
-                                <property name="orientation">vertical</property>
-                                <property name="valign">start</property>
-                                <child>
-                                  <object class="GtkListBox">
-                                    <property name="selection-mode">none</property>
-                                    <style>
-                                      <class name="content"/>
-                                    </style>
-                                    <child>
-                                      <object class="HdyActionRow">
-                                        <property name="title" translatable="yes">Show titlebar</property>
-                                        <property name="activatable_widget">window_header_revealer_switch</property>
-                                        <child>
-                                          <object class="GtkSwitch" id="window_header_revealer_switch">
-                                            <property name="state">True</property>
-                                            <property name="valign">center</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkWindowHandle">
-                                    <property name="margin-top">12</property>
-                                    <property name="child">
-                                      <object class="GtkListBox">
-                                        <property name="selection-mode">none</property>
-                                        <style>
-                                          <class name="content"/>
-                                        </style>
-                                        <child>
-                                          <object class="HdyActionRow">
-                                            <property name="title" translatable="yes">This row acts as a titlebar</property>
-                                            <property name="subtitle" translatable="yes">Try dragging or right clicking it.</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </property>
-                                  </object>
-                                </child>
-                              </object>
-                            </property>
-                          </object>
-                        </property>
                       </object>
                     </property>
                   </object>
