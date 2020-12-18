@@ -7,20 +7,19 @@
       <object class="HdyPreferencesPage">
         <property name="icon_name">preferences-window-layout-symbolic</property>
         <property name="title">Layout</property>
-        <property name="visible">True</property>
         <child>
           <object class="HdyPreferencesGroup">
-            <property name="visible">True</property>
             <child>
               <object class="HdyPreferencesRow">
                 <property name="title" bind-source="welcome_label" bind-property="label" bind-flags="sync-create"/>
-                <property name="visible">True</property>
                 <child>
                   <object class="GtkLabel" id="welcome_label">
                     <property name="ellipsize">end</property>
                     <property name="label" translatable="yes">This is a preferences window</property>
-                    <property name="margin">12</property>
-                    <property name="visible">True</property>
+                    <property name="margin-top">12</property>
+                    <property name="margin-bottom">12</property>
+                    <property name="margin-start">12</property>
+                    <property name="margin-end">12</property>
                   </object>
                 </child>
               </object>
@@ -31,19 +30,16 @@
           <object class="HdyPreferencesGroup">
             <property name="description" translatable="yes">Preferences are organized in pages, this example has the following pages:</property>
             <property name="title" translatable="yes">Pages</property>
-            <property name="visible">True</property>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">L_ayout</property>
                 <property name="use_underline">True</property>
-                <property name="visible">True</property>
               </object>
             </child>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">S_earch</property>
                 <property name="use_underline">True</property>
-                <property name="visible">True</property>
               </object>
             </child>
           </object>
@@ -52,29 +48,24 @@
           <object class="HdyPreferencesGroup">
             <property name="description" translatable="yes">Preferences are grouped together, a group can have a title and a description. Descriptions will be wrapped if they are too long. This page has the following groups:</property>
             <property name="title" translatable="yes">Groups</property>
-            <property name="visible">True</property>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">An untitled group</property>
-                <property name="visible">True</property>
               </object>
             </child>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Pages</property>
-                <property name="visible">True</property>
               </object>
             </child>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Groups</property>
-                <property name="visible">True</property>
               </object>
             </child>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Preferences</property>
-                <property name="visible">True</property>
               </object>
             </child>
           </object>
@@ -82,16 +73,13 @@
         <child>
           <object class="HdyPreferencesGroup">
             <property name="title" translatable="yes">Preferences</property>
-            <property name="visible">True</property>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Preferences rows are appended to the list box</property>
-                <property name="visible">True</property>
               </object>
             </child>
             <child>
               <object class="GtkBox">
-                <property name="visible">True</property>
                 <style>
                   <class name="inline-toolbar"/>
                 </style>
@@ -99,8 +87,10 @@
                   <object class="GtkLabel">
                     <property name="ellipsize">end</property>
                     <property name="label" translatable="yes">Other widgets are appended after the list box</property>
-                    <property name="margin">12</property>
-                    <property name="visible">True</property>
+                    <property name="margin-top">12</property>
+                    <property name="margin-bottom">12</property>
+                    <property name="margin-start">12</property>
+                    <property name="margin-end">12</property>
                     <property name="xalign">0</property>
                   </object>
                 </child>
@@ -112,17 +102,14 @@
           <object class="HdyPreferencesGroup">
             <property name="description" translatable="yes">Preferences windows can have subpages.</property>
             <property name="title" translatable="yes">Subpages</property>
-            <property name="visible">True</property>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Go to a subpage</property>
-                <property name="visible">True</property>
                 <property name="activatable">True</property>
                 <signal name="activated" handler="subpage1_activated_cb" swapped="yes"/>
                 <child>
                   <object class="GtkImage">
                     <property name="icon_name">go-next-symbolic</property>
-                    <property name="visible">True</property>
                   </object>
                 </child>
               </object>
@@ -130,13 +117,11 @@
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Go to another subpage</property>
-                <property name="visible">True</property>
                 <property name="activatable">True</property>
                 <signal name="activated" handler="subpage2_activated_cb" swapped="yes"/>
                 <child>
                   <object class="GtkImage">
                     <property name="icon_name">go-next-symbolic</property>
-                    <property name="visible">True</property>
                   </object>
                 </child>
               </object>
@@ -149,27 +134,25 @@
       <object class="HdyPreferencesPage">
         <property name="icon_name">preferences-window-search-symbolic</property>
         <property name="title">Search</property>
-        <property name="visible">True</property>
         <child>
           <object class="HdyPreferencesGroup">
             <property name="description">Preferences can be searched, do so using one of the following ways:</property>
             <property name="title">Searching</property>
-            <property name="visible">True</property>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Activate the search button</property>
-                <property name="visible">True</property>
               </object>
             </child>
             <child>
               <object class="HdyPreferencesRow">
                 <property name="title" translatable="yes">Ctrl + F</property>
-                <property name="visible">True</property>
                 <child>
                   <object class="GtkShortcutLabel">
                     <property name="accelerator">&lt;ctrl&gt;f</property>
-                    <property name="margin">12</property>
-                    <property name="visible">True</property>
+                    <property name="margin-top">12</property>
+                    <property name="margin-bottom">12</property>
+                    <property name="margin-start">12</property>
+                    <property name="margin-end">12</property>
                   </object>
                 </child>
               </object>
@@ -177,7 +160,6 @@
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Directly type your search</property>
-                <property name="visible">True</property>
               </object>
             </child>
           </object>
@@ -186,9 +168,7 @@
     </child>
   </template>
   <object class="GtkBox" id="subpage1">
-    <property name="visible">True</property>
     <property name="orientation">vertical</property>
-    <property name="can_focus">False</property>
     <property name="halign">center</property>
     <property name="valign">center</property>
     <property name="vexpand">True</property>
@@ -196,8 +176,6 @@
     <property name="spacing">24</property>
     <child>
       <object class="GtkLabel">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="label" translatable="yes">This is a subpage</property>
         <property name="justify">center</property>
         <property name="wrap">True</property>
@@ -210,8 +188,6 @@
     </child>
     <child>
       <object class="GtkButton">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="label" translatable="yes">Return to the preferences</property>
         <property name="halign">center</property>
         <signal name="clicked" handler="return_to_preferences_cb" swapped="yes"/>
@@ -222,9 +198,7 @@
     </child>
   </object>
   <object class="GtkBox" id="subpage2">
-    <property name="visible">True</property>
     <property name="orientation">vertical</property>
-    <property name="can_focus">False</property>
     <property name="halign">center</property>
     <property name="valign">center</property>
     <property name="vexpand">True</property>
@@ -232,8 +206,6 @@
     <property name="spacing">24</property>
     <child>
       <object class="GtkLabel">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="label" translatable="yes">This is another subpage</property>
         <property name="justify">center</property>
         <property name="wrap">True</property>
@@ -246,8 +218,6 @@
     </child>
     <child>
       <object class="GtkButton">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="label" translatable="yes">Return to the preferences</property>
         <property name="halign">center</property>
         <signal name="clicked" handler="return_to_preferences_cb" swapped="yes"/>

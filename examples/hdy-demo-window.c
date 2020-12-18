@@ -9,17 +9,15 @@ struct _HdyDemoWindow
   HdyApplicationWindow parent_instance;
 
   HdyLeaflet *content_box;
+  GtkBox *right_box;
   GtkStack *header_revealer;
   GtkStack *header_stack;
-  GtkImage *theme_variant_image;
+  GtkImage *theme_variant;
   GtkStackSidebar *sidebar;
   GtkStack *stack;
   HdyComboRow *leaflet_transition_row;
   HdyLeaflet *content_leaflet;
-  GtkWidget *box_keypad;
-  GtkListBox *keypad_listbox;
-  HdyKeypad *keypad;
-  HdySearchBar *search_bar;
+  GtkSearchBar *search_bar;
   GtkEntry *search_entry;
   GtkListBox *lists_listbox;
   HdyComboRow *combo_row;
@@ -33,7 +31,9 @@ struct _HdyDemoWindow
   GListStore *carousel_indicators_model;
   HdyAvatar *avatar;
   GtkEntry *avatar_text;
-  GtkFileChooserButton *avatar_filechooser;
+  GtkLabel *avatar_file_chooser_label;
+  GtkButton *avatar_remove_button;
+  GtkFileChooserNative *avatar_file_chooser;
   GtkListBox *avatar_contacts;
 };
 
@@ -60,37 +60,6 @@ prefer_dark_theme_to_icon_name_cb (GBinding     *binding,
                                                          "dark-mode-symbolic");
 
   return TRUE;
-}
-
-static gboolean
-key_pressed_cb (GtkWidget     *sender,
-                GdkEvent      *event,
-                HdyDemoWindow *self)
-{
-  GdkModifierType default_modifiers = gtk_accelerator_get_default_mod_mask ();
-  guint keyval;
-  GdkModifierType state;
-  GdkKeymap *keymap;
-  GdkEventKey *key_event = (GdkEventKey *) event;
-
-  gdk_event_get_state (event, &state);
-
-  keymap = gdk_keymap_get_for_display (gtk_widget_get_display (sender));
-
-  gdk_keymap_translate_keyboard_state (keymap,
-                                       key_event->hardware_keycode,
-                                       state,
-                                       key_event->group,
-                                       &keyval, NULL, NULL, NULL);
-
-  if ((keyval == GDK_KEY_q || keyval == GDK_KEY_Q) &&
-      (state & default_modifiers) == GDK_CONTROL_MASK) {
-    gtk_widget_destroy (GTK_WIDGET (self));
-
-    return TRUE;
-  }
-
-  return FALSE;
 }
 
 static void
@@ -182,7 +151,7 @@ view_switcher_demo_clicked_cb (GtkButton     *btn,
   HdyViewSwitcherDemoWindow *window = hdy_view_switcher_demo_window_new ();
 
   gtk_window_set_transient_for (GTK_WINDOW (window), GTK_WINDOW (self));
-  gtk_widget_show (GTK_WIDGET (window));
+  gtk_window_present (GTK_WINDOW (window));
 }
 
 static gchar *
@@ -257,10 +226,8 @@ static void
 carousel_return_clicked_cb (GtkButton     *btn,
                             HdyDemoWindow *self)
 {
-  g_autoptr (GList) children =
-    gtk_container_get_children (GTK_CONTAINER (self->carousel));
-
-  hdy_carousel_scroll_to (self->carousel, GTK_WIDGET (children->data));
+  hdy_carousel_scroll_to (self->carousel,
+                          hdy_carousel_get_nth_page (self->carousel, 0));
 }
 
 HdyDemoWindow *
@@ -272,14 +239,12 @@ hdy_demo_window_new (GtkApplication *application)
 static void
 avatar_file_remove_cb (HdyDemoWindow *self)
 {
-  g_autofree gchar *file = NULL;
-
   g_assert (HDY_IS_DEMO_WINDOW (self));
 
   g_signal_handlers_disconnect_by_data (self->avatar, self);
-  file = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (self->avatar_filechooser));
-  if (file)
-    gtk_file_chooser_unselect_filename (GTK_FILE_CHOOSER (self->avatar_filechooser), file);
+
+  gtk_label_set_label (self->avatar_file_chooser_label, _("(None)"));
+  gtk_widget_set_sensitive (GTK_WIDGET (self->avatar_remove_button), FALSE);
   hdy_avatar_set_image_load_func (self->avatar, NULL, NULL, NULL);
 }
 
@@ -288,20 +253,22 @@ avatar_load_file (gint size, HdyDemoWindow *self)
 {
   g_autoptr (GError) error = NULL;
   g_autoptr (GdkPixbuf) pixbuf = NULL;
-  g_autofree gchar *file = NULL;
+  g_autoptr (GFile) file = NULL;
+  g_autofree gchar *filename = NULL;
   gint width, height;
 
   g_assert (HDY_IS_DEMO_WINDOW (self));
 
-  file = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (self->avatar_filechooser));
+  file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (self->avatar_file_chooser));
+  filename = g_file_get_path (file);
 
-  gdk_pixbuf_get_file_info (file, &width, &height);
+  gdk_pixbuf_get_file_info (filename, &width, &height);
 
-  pixbuf = gdk_pixbuf_new_from_file_at_scale (file,
-                                            (width <= height) ? size : -1,
-                                            (width >= height) ? size : -1,
-                                            TRUE,
-                                            &error);
+  pixbuf = gdk_pixbuf_new_from_file_at_scale (filename,
+                                              (width <= height) ? size : -1,
+                                              (width >= height) ? size : -1,
+                                              TRUE,
+                                              &error);
   if (error != NULL) {
     g_critical ("Failed to create pixbuf from file: %s", error->message);
 
@@ -312,11 +279,36 @@ avatar_load_file (gint size, HdyDemoWindow *self)
 }
 
 static void
-avatar_file_set_cb (HdyDemoWindow *self)
+avatar_file_chooser_response_cb (HdyDemoWindow *self,
+                                 gint           response)
 {
+  g_autoptr (GFile) file = NULL;
+  g_autoptr (GFileInfo) info = NULL;
+
   g_assert (HDY_IS_DEMO_WINDOW (self));
 
+  if (response != GTK_RESPONSE_ACCEPT)
+    return;
+
+  file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (self->avatar_file_chooser));
+  info = g_file_query_info (file,
+                            G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
+                            G_FILE_QUERY_INFO_NONE,
+                            NULL,
+                            NULL);
+
+  if (info)
+    gtk_label_set_label (self->avatar_file_chooser_label,
+                         g_file_info_get_display_name (info));
+
+  gtk_widget_set_sensitive (GTK_WIDGET (self->avatar_remove_button), TRUE);
   hdy_avatar_set_image_load_func (self->avatar, (HdyAvatarImageLoadFunc) avatar_load_file, self, NULL);
+}
+
+static void
+avatar_file_chooser_clicked_cb (HdyDemoWindow *self)
+{
+  gtk_native_dialog_show (GTK_NATIVE_DIALOG (self->avatar_file_chooser));
 }
 
 static void
@@ -325,14 +317,14 @@ file_chooser_response_cb (HdyDemoWindow  *self,
                           GtkFileChooser *chooser)
 {
   if (response_id == GTK_RESPONSE_ACCEPT) {
-    g_autofree gchar *filename = gtk_file_chooser_get_filename (chooser);
+    g_autoptr (GFile) file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (chooser));
     g_autoptr (GdkPixbuf) pixbuf =
       hdy_avatar_draw_to_pixbuf (self->avatar,
                                  hdy_avatar_get_size (self->avatar),
                                  gtk_widget_get_scale_factor (GTK_WIDGET (self)));
 
     if (pixbuf != NULL)
-      gdk_pixbuf_save (pixbuf, filename, "png", NULL, NULL);
+      gdk_pixbuf_save (pixbuf, g_file_get_path (file), "png", NULL, NULL);
   }
 
   g_object_unref (chooser);
@@ -351,7 +343,6 @@ avatar_save_to_file_cb (HdyDemoWindow *self)
                                          _("_Save"),
                                          _("_Cancel"));
 
-  gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (chooser), TRUE);
   g_signal_connect_swapped (chooser, "response", G_CALLBACK (file_chooser_response_cb), self);
 
   gtk_native_dialog_show (GTK_NATIVE_DIALOG (chooser));
@@ -410,25 +401,22 @@ avatar_new_random_name (void)
 static void
 avatar_update_contacts (HdyDemoWindow *self)
 {
-  g_autoptr (GList) children = gtk_container_get_children (GTK_CONTAINER (self->avatar_contacts));
+  GtkWidget *row;
 
-  for (GList *child = children; child; child = child->next)
-    gtk_container_remove (GTK_CONTAINER (self->avatar_contacts), child->data);
+  while ((row = gtk_widget_get_first_child (GTK_WIDGET (self->avatar_contacts))))
+    gtk_list_box_remove (self->avatar_contacts, row);
 
   for (int i = 0; i < 30; i++) {
     g_autofree gchar *name = avatar_new_random_name ();
     GtkWidget *contact = hdy_action_row_new ();
     GtkWidget *avatar = hdy_avatar_new (40, name, TRUE);
 
-    gtk_widget_show (contact);
-    gtk_widget_show (avatar);
-
     gtk_widget_set_margin_top (avatar, 12);
     gtk_widget_set_margin_bottom (avatar, 12);
 
     hdy_preferences_row_set_title (HDY_PREFERENCES_ROW (contact), name);
     hdy_action_row_add_prefix (HDY_ACTION_ROW (contact), avatar);
-    gtk_container_add (GTK_CONTAINER (self->avatar_contacts), contact);
+    gtk_list_box_append (self->avatar_contacts, contact);
   }
 }
 
@@ -439,7 +427,7 @@ flap_demo_clicked_cb (GtkButton     *btn,
   HdyFlapDemoWindow *window = hdy_flap_demo_window_new ();
 
   gtk_window_set_transient_for (GTK_WINDOW (window), GTK_WINDOW (self));
-  gtk_widget_show (GTK_WIDGET (window));
+  gtk_window_present (GTK_WINDOW (window));
 }
 
 static void
@@ -449,7 +437,7 @@ hdy_demo_window_constructed (GObject *object)
 
   G_OBJECT_CLASS (hdy_demo_window_parent_class)->constructed (object);
 
-  hdy_search_bar_connect_entry (self->search_bar, self->search_entry);
+  gtk_search_bar_connect_entry (self->search_bar, GTK_EDITABLE (self->search_entry));
 }
 
 
@@ -461,18 +449,18 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
 
   object_class->constructed = hdy_demo_window_constructed;
 
+  gtk_widget_class_add_binding_action (widget_class, GDK_KEY_q, GDK_CONTROL_MASK, "window.close", NULL);
+
   gtk_widget_class_set_template_from_resource (widget_class, "/sm/puri/Handy/Demo/ui/hdy-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, content_box);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, right_box);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, header_revealer);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, header_stack);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, theme_variant_image);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, theme_variant);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, leaflet_transition_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, content_leaflet);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, box_keypad);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, keypad_listbox);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, keypad);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_bar);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, search_entry);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, lists_listbox);
@@ -486,9 +474,9 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, carousel_indicators_row);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_text);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_filechooser);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_file_chooser_label);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_remove_button);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_contacts);
-  gtk_widget_class_bind_template_callback (widget_class, key_pressed_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_leaflet_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, back_clicked_cb);
@@ -501,7 +489,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, notify_carousel_indicators_cb);
   gtk_widget_class_bind_template_callback (widget_class, carousel_return_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, avatar_file_remove_cb);
-  gtk_widget_class_bind_template_callback (widget_class, avatar_file_set_cb);
+  gtk_widget_class_bind_template_callback (widget_class, avatar_file_chooser_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, avatar_save_to_file_cb);
   gtk_widget_class_bind_template_callback (widget_class, flap_demo_clicked_cb);
 }
@@ -565,9 +553,23 @@ avatar_page_init (HdyDemoWindow *self)
 {
   g_autofree gchar *name = avatar_new_random_name ();
 
-  gtk_entry_set_text (self->avatar_text, name);
+  gtk_editable_set_text (GTK_EDITABLE (self->avatar_text), name);
 
   avatar_update_contacts (self);
+
+  self->avatar_file_chooser =
+    gtk_file_chooser_native_new (_("Select an Avatar"),
+                                 GTK_WINDOW (self),
+                                 GTK_FILE_CHOOSER_ACTION_OPEN,
+                                 _("_Select"),
+                                 _("_Cancel"));
+
+  gtk_native_dialog_set_modal (GTK_NATIVE_DIALOG (self->avatar_file_chooser), TRUE);
+  g_signal_connect_object (self->avatar_file_chooser, "response",
+                           G_CALLBACK (avatar_file_chooser_response_cb), self,
+                           G_CONNECT_SWAPPED);
+
+  avatar_file_remove_cb (self);
 }
 
 static void
@@ -578,7 +580,7 @@ hdy_demo_window_init (HdyDemoWindow *self)
   gtk_widget_init_template (GTK_WIDGET (self));
 
   g_object_bind_property_full (settings, "gtk-application-prefer-dark-theme",
-                               self->theme_variant_image, "icon-name",
+                               self->theme_variant, "icon-name",
                                G_BINDING_SYNC_CREATE,
                                prefer_dark_theme_to_icon_name_cb,
                                NULL,
@@ -592,5 +594,5 @@ hdy_demo_window_init (HdyDemoWindow *self)
   carousel_page_init (self);
   avatar_page_init (self);
 
-  hdy_leaflet_set_visible_child_name (self->content_box, "content");
+  hdy_leaflet_set_visible_child (self->content_box, GTK_WIDGET (self->right_box));
 }
