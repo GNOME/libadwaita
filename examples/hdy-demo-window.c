@@ -15,8 +15,7 @@ struct _HdyDemoWindow
   GtkStackSidebar *sidebar;
   GtkStack *stack;
   HdyComboRow *leaflet_transition_row;
-  HdyDeck *content_deck;
-  HdyComboRow *deck_transition_row;
+  HdyLeaflet *content_leaflet;
   GtkWidget *box_keypad;
   GtkListBox *keypad_listbox;
   HdyKeypad *keypad;
@@ -99,8 +98,8 @@ update (HdyDemoWindow *self)
 {
   const gchar *header_bar_name = "default";
 
-  if (g_strcmp0 (gtk_stack_get_visible_child_name (self->stack), "deck") == 0)
-    header_bar_name = "deck";
+  if (g_strcmp0 (gtk_stack_get_visible_child_name (self->stack), "leaflet") == 0)
+    header_bar_name = "leaflet";
   else if (g_strcmp0 (gtk_stack_get_visible_child_name (self->stack), "search-bar") == 0)
     header_bar_name = "search-bar";
 
@@ -108,7 +107,7 @@ update (HdyDemoWindow *self)
 }
 
 static void
-notify_deck_visible_child_cb (HdyDemoWindow *self)
+notify_leaflet_visible_child_cb (HdyDemoWindow *self)
 {
   update (self);
 }
@@ -131,10 +130,10 @@ back_clicked_cb (GtkWidget     *sender,
 }
 
 static void
-deck_back_clicked_cb (GtkWidget     *sender,
-                      HdyDemoWindow *self)
+leaflet_back_clicked_cb (GtkWidget     *sender,
+                         HdyDemoWindow *self)
 {
-  hdy_deck_navigate (self->content_deck, HDY_NAVIGATION_DIRECTION_BACK);
+  hdy_leaflet_navigate (self->content_leaflet, HDY_NAVIGATION_DIRECTION_BACK);
 }
 
 static gchar *
@@ -168,43 +167,12 @@ notify_leaflet_transition_cb (GObject       *sender,
   hdy_leaflet_set_transition_type (HDY_LEAFLET (self->content_box), hdy_combo_row_get_selected_index (row));
 }
 
-static gchar *
-deck_transition_name (HdyEnumValueObject *value,
-                      gpointer            user_data)
-{
-  g_return_val_if_fail (HDY_IS_ENUM_VALUE_OBJECT (value), NULL);
-
-  switch (hdy_enum_value_object_get_value (value)) {
-  case HDY_DECK_TRANSITION_TYPE_OVER:
-    return g_strdup (_("Over"));
-  case HDY_DECK_TRANSITION_TYPE_UNDER:
-    return g_strdup (_("Under"));
-  case HDY_DECK_TRANSITION_TYPE_SLIDE:
-    return g_strdup (_("Slide"));
-  default:
-    return NULL;
-  }
-}
-
 static void
-notify_deck_transition_cb (GObject       *sender,
-                           GParamSpec    *pspec,
-                           HdyDemoWindow *self)
-{
-  HdyComboRow *row = HDY_COMBO_ROW (sender);
-
-  g_assert (HDY_IS_COMBO_ROW (row));
-  g_assert (HDY_IS_DEMO_WINDOW (self));
-
-  hdy_deck_set_transition_type (HDY_DECK (self->content_deck), hdy_combo_row_get_selected_index (row));
-}
-
-static void
-deck_go_next_row_activated_cb (HdyDemoWindow *self)
+leaflet_go_next_row_activated_cb (HdyDemoWindow *self)
 {
   g_assert (HDY_IS_DEMO_WINDOW (self));
 
-  hdy_deck_navigate (self->content_deck, HDY_NAVIGATION_DIRECTION_FORWARD);
+  hdy_leaflet_navigate (self->content_leaflet, HDY_NAVIGATION_DIRECTION_FORWARD);
 }
 
 static void
@@ -501,8 +469,7 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, leaflet_transition_row);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, content_deck);
-  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, deck_transition_row);
+  gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, content_leaflet);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, box_keypad);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, keypad_listbox);
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, keypad);
@@ -523,12 +490,11 @@ hdy_demo_window_class_init (HdyDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, HdyDemoWindow, avatar_contacts);
   gtk_widget_class_bind_template_callback (widget_class, key_pressed_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
-  gtk_widget_class_bind_template_callback (widget_class, notify_deck_visible_child_cb);
+  gtk_widget_class_bind_template_callback (widget_class, notify_leaflet_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, back_clicked_cb);
-  gtk_widget_class_bind_template_callback (widget_class, deck_back_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, leaflet_back_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_leaflet_transition_cb);
-  gtk_widget_class_bind_template_callback (widget_class, notify_deck_transition_cb);
-  gtk_widget_class_bind_template_callback (widget_class, deck_go_next_row_activated_cb);
+  gtk_widget_class_bind_template_callback (widget_class, leaflet_go_next_row_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, theme_variant_button_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, view_switcher_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_carousel_orientation_cb);
@@ -621,9 +587,6 @@ hdy_demo_window_init (HdyDemoWindow *self)
 
   hdy_combo_row_set_for_enum (self->leaflet_transition_row, HDY_TYPE_LEAFLET_TRANSITION_TYPE, leaflet_transition_name, NULL, NULL);
   hdy_combo_row_set_selected_index (self->leaflet_transition_row, HDY_LEAFLET_TRANSITION_TYPE_OVER);
-
-  hdy_combo_row_set_for_enum (self->deck_transition_row, HDY_TYPE_DECK_TRANSITION_TYPE, deck_transition_name, NULL, NULL);
-  hdy_combo_row_set_selected_index (self->deck_transition_row, HDY_DECK_TRANSITION_TYPE_OVER);
 
   lists_page_init (self);
   carousel_page_init (self);

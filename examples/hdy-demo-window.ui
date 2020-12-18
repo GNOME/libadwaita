@@ -182,19 +182,20 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="HdyDeck" id="header_deck">
+                      <object class="HdyLeaflet" id="header_leaflet">
                         <property name="visible">True</property>
+                        <property name="can-unfold">False</property>
                         <property name="can_focus">False</property>
                         <property name="vexpand">True</property>
                         <property name="can-swipe-back">True</property>
-                        <property name="transition-type" bind-source="content_deck" bind-property="transition-type" bind-flags="sync-create"/>
+                        <property name="transition-type" bind-source="content_leaflet" bind-property="transition-type" bind-flags="sync-create"/>
                         <child>
-                          <object class="HdyHeaderBar" id="deck_header_bar">
+                          <object class="HdyHeaderBar" id="leaflet_header_bar">
                             <property name="visible">True</property>
                             <property name="expand">True</property>
                             <property name="show_close_button">True</property>
                             <child>
-                              <object class="GtkButton" id="deck-back">
+                              <object class="GtkButton" id="leaflet-back">
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">False</property>
                                 <property name="valign">center</property>
@@ -205,7 +206,7 @@
                                   <class name="image-button"/>
                                 </style>
                                 <child internal-child="accessible">
-                                  <object class="AtkObject" id="a11y-deck-back">
+                                  <object class="AtkObject" id="a11y-leaflet-back">
                                     <property name="accessible-name" translatable="yes">Back</property>
                                   </object>
                                 </child>
@@ -222,23 +223,23 @@
                           </object>
                         </child>
                         <child>
-                          <object class="HdyHeaderBar" id="deck_sub_header_bar">
+                          <object class="HdyHeaderBar" id="leaflet_sub_header_bar">
                             <property name="visible">True</property>
                             <property name="expand">True</property>
                             <property name="show_close_button">True</property>
                             <child>
-                              <object class="GtkButton" id="deck-sub-back">
+                              <object class="GtkButton" id="leaflet-sub-back">
                                 <property name="can_focus">False</property>
                                 <property name="receives_default">False</property>
                                 <property name="valign">center</property>
                                 <property name="use-underline">True</property>
                                 <property name="visible">True</property>
-                                <signal name="clicked" handler="deck_back_clicked_cb"/>
+                                <signal name="clicked" handler="leaflet_back_clicked_cb"/>
                                 <style>
                                   <class name="image-button"/>
                                 </style>
                                 <child internal-child="accessible">
-                                  <object class="AtkObject" id="a11y-deck-sub-back">
+                                  <object class="AtkObject" id="a11y-leaflet-sub-back">
                                     <property name="accessible-name" translatable="yes">Back</property>
                                   </object>
                                 </child>
@@ -256,7 +257,7 @@
                         </child>
                       </object>
                       <packing>
-                        <property name="name">deck</property>
+                        <property name="name">leaflet</property>
                       </packing>
                     </child>
                     <child>
@@ -347,54 +348,19 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="HdyStatusPage">
+                  <object class="HdyLeaflet" id="content_leaflet">
                     <property name="visible">True</property>
-                    <property name="icon-name">widget-leaflet-symbolic</property>
-                    <property name="title" translatable="yes">Leaflet</property>
-                    <property name="description" translatable="yes">A widget showing either all its children or only one, depending on the available space. This window is using a leaflet, you can control it with the settings below.</property>
-                    <child>
-                      <object class="HdyClamp">
-                        <property name="visible">True</property>
-                        <child>
-                          <object class="GtkListBox">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="expand">True</property>
-                            <property name="selection-mode">none</property>
-                            <style>
-                              <class name="content"/>
-                            </style>
-                            <child>
-                              <object class="HdyComboRow" id="leaflet_transition_row">
-                                <property name="subtitle" translatable="yes">The type of transition to use when the leaflet adapts its size or when changing the visible child</property>
-                                <property name="title" translatable="yes">Transition type</property>
-                                <property name="visible">True</property>
-                                <signal name="notify::selected-index" handler="notify_leaflet_transition_cb" swapped="no"/>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="name">leaflet</property>
-                    <property name="title" translatable="yes">Leaflet</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="HdyDeck" id="content_deck">
-                    <property name="visible">True</property>
+                    <property name="can-unfold">False</property>
                     <property name="can_focus">False</property>
                     <property name="vexpand">True</property>
                     <property name="transition-type">over</property>
                     <property name="can-swipe-back">True</property>
-                    <signal name="notify::visible-child" handler="notify_deck_visible_child_cb" after="yes" swapped="yes"/>
+                    <signal name="notify::visible-child" handler="notify_leaflet_visible_child_cb" after="yes" swapped="yes"/>
                     <child>
                       <object class="HdyStatusPage">
                         <property name="visible">True</property>
-                        <property name="icon-name">widget-deck-symbolic</property>
-                        <property name="title" translatable="yes">Deck</property>
+                        <property name="icon-name">widget-leaflet-symbolic</property>
+                        <property name="title" translatable="yes">Leaflet</property>
                         <property name="description" translatable="yes">A widget showing either all its children or only one, depending on the available space. This window is using a leaflet, you can control it with the settings below.</property>
                         <child>
                           <object class="HdyClamp">
@@ -409,20 +375,20 @@
                                   <class name="content"/>
                                 </style>
                                 <child>
-                                  <object class="HdyComboRow" id="deck_transition_row">
-                                    <property name="subtitle" translatable="yes">The type of transition to use when the decks adapt their size or when changing the visible child</property>
+                                  <object class="HdyComboRow" id="leaflet_transition_row">
+                                    <property name="subtitle" translatable="yes">The type of transition to use when the leaflet adapt its size or when changing the visible child</property>
                                     <property name="title" translatable="yes">Transition type</property>
                                     <property name="visible">True</property>
-                                    <signal name="notify::selected-index" handler="notify_deck_transition_cb" swapped="no"/>
+                                    <signal name="notify::selected-index" handler="notify_leaflet_transition_cb" swapped="no"/>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="HdyActionRow">
-                                    <property name="title" translatable="yes">Go to the next page of the deck</property>
+                                    <property name="title" translatable="yes">Go to the next page of the leaflet</property>
                                     <property name="use_underline">True</property>
                                     <property name="visible">True</property>
                                     <property name="activatable">True</property>
-                                    <signal name="activated" handler="deck_go_next_row_activated_cb" swapped="yes"/>
+                                    <signal name="activated" handler="leaflet_go_next_row_activated_cb" swapped="yes"/>
                                     <child>
                                       <object class="GtkImage">
                                         <property name="icon_name">go-next-symbolic</property>
@@ -492,8 +458,8 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="name">deck</property>
-                    <property name="title" translatable="yes">Deck</property>
+                    <property name="name">leaflet</property>
+                    <property name="title" translatable="yes">Leaflet</property>
                   </packing>
                 </child>
                 <child>
@@ -1484,14 +1450,14 @@ It allows to have headerbar in content area, incl. above content, and round corn
       <headerbar name="header_bar"/>
       <headerbar name="default_header_bar"/>
       <headerbar name="search_bar_header_bar"/>
-      <headerbar name="deck_header_bar"/>
-      <headerbar name="deck_sub_header_bar"/>
+      <headerbar name="leaflet_header_bar"/>
+      <headerbar name="leaflet_sub_header_bar"/>
     </headerbars>
   </object>
-  <object class="HdySwipeGroup" id="deck_swipe_group">
+  <object class="HdySwipeGroup" id="leaflet_swipe_group">
     <swipeables>
-      <swipeable name="header_deck"/>
-      <swipeable name="content_deck"/>
+      <swipeable name="header_leaflet"/>
+      <swipeable name="content_leaflet"/>
     </swipeables>
   </object>
   <object class="GtkAdjustment" id="clamp_maximum_size_adjustment">
