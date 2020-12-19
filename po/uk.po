@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
-"POT-Creation-Date: 2020-12-18 15:52+0000\n"
-"PO-Revision-Date: 2020-12-18 19:47+0200\n"
+"POT-Creation-Date: 2020-12-19 10:35+0000\n"
+"PO-Revision-Date: 2020-12-19 14:09+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -68,7 +68,7 @@ msgstr "Лише об'єкти типу %s можна додавати до об
 
 #: src/hdy-action-row.c:370 src/hdy-action-row.c:371 src/hdy-expander-row.c:314
 #: src/hdy-expander-row.c:315 src/hdy-preferences-page.c:179
-#: src/hdy-preferences-page.c:180
+#: src/hdy-preferences-page.c:180 src/hdy-status-page.c:221
 msgid "Icon name"
 msgstr "Назва піктограми"
 
@@ -337,6 +337,148 @@ msgstr "Показувати перемикач вмикання"
 msgid "Whether the switch enabling the expansion is visible"
 msgstr "Визначає, чи є видимим перемикач, який вмикає розгортання"
 
+#: src/hdy-flap.c:1469
+#| msgid "Center content"
+msgid "Content"
+msgstr "Вміст"
+
+#: src/hdy-flap.c:1470
+#| msgid "The end action widget"
+msgid "The content Widget"
+msgstr "Віджет вмісту"
+
+#: src/hdy-flap.c:1484
+msgid "Flap"
+msgstr "Відкидна панель"
+
+#: src/hdy-flap.c:1485
+#| msgid "The end action widget"
+msgid "The flap widget"
+msgstr "Віджет відкидної панелі"
+
+#: src/hdy-flap.c:1500
+msgid "Separator"
+msgstr "Роздільник"
+
+#: src/hdy-flap.c:1501
+#| msgid "The start action widget"
+msgid "The separator widget"
+msgstr "Віджет роздільника"
+
+#: src/hdy-flap.c:1515
+#| msgid "Position"
+msgid "Flap Position"
+msgstr "Позиція відкидної панелі"
+
+#: src/hdy-flap.c:1516
+msgid "The flap position"
+msgstr "Позиція відкидної панелі"
+
+#: src/hdy-flap.c:1530
+#| msgid "Reveal"
+msgid "Reveal Flap"
+msgstr "Розкриття відкидної панелі"
+
+#: src/hdy-flap.c:1531
+#| msgid "Whether the view switcher is revealed"
+msgid "Whether the flap is revealed"
+msgstr "Визначає, чи розкрито відкидну панель"
+
+#: src/hdy-flap.c:1544
+#| msgid "Reveal duration"
+msgid "Reveal Duration"
+msgstr "Тривалість розкриття"
+
+#: src/hdy-flap.c:1545
+#| msgid "The transition animation duration, in milliseconds"
+msgid "The reveal transition animation duration, in milliseconds"
+msgstr "Тривалість анімації переходу розкриття у мілісекундах"
+
+#: src/hdy-flap.c:1560
+#| msgid "Reveal duration"
+msgid "Reveal Progress"
+msgstr "Поступ розкриття"
+
+#: src/hdy-flap.c:1561
+msgid "The current reveal transition progress"
+msgstr "Поточний поступ переходу розкриття"
+
+#: src/hdy-flap.c:1575
+#| msgid "Policy"
+msgid "Fold Policy"
+msgstr "Правила відкидної панелі"
+
+#: src/hdy-flap.c:1576
+msgid "The current fold policy"
+msgstr "Поточні правила згортання"
+
+#: src/hdy-flap.c:1590
+#| msgid "Reveal duration"
+msgid "Fold Duration"
+msgstr "Тривалість згортання"
+
+#: src/hdy-flap.c:1591
+#| msgid "The mode transition animation duration, in milliseconds"
+msgid "The fold transition animation duration, in milliseconds"
+msgstr "Тривалість анімації переходу згортання у мілісекундах"
+
+#: src/hdy-flap.c:1607 src/hdy-leaflet.c:1038 src/hdy-stackable-box.c:3045
+msgid "Folded"
+msgstr "Згорнуто"
+
+#: src/hdy-flap.c:1608
+#| msgid "Whether the widget is folded"
+msgid "Whether the flap is currently folded"
+msgstr "Визначає, чи згорнуто відкидну панель"
+
+#: src/hdy-flap.c:1625
+msgid "Locked"
+msgstr "Заблоковано"
+
+#: src/hdy-flap.c:1626
+#| msgid "Whether the widget is folded"
+msgid "Whether the flap is locked"
+msgstr "Визначає, чи заблоковано відкидну панель"
+
+#: src/hdy-flap.c:1644
+#| msgid "Transition type"
+msgid "Transition Type"
+msgstr "Тип переходу"
+
+#: src/hdy-flap.c:1645
+#| msgid "The type of animation used to transition"
+msgid "The type of animation used for reveal and fold transitions"
+msgstr ""
+"Тип анімації, яку буде використано для переходів розгортання і згортання"
+
+#: src/hdy-flap.c:1663
+msgid "Modal"
+msgstr "Модальне"
+
+#: src/hdy-flap.c:1664
+#| msgid "Whether the widget is folded"
+msgid "Whether the flap is modal"
+msgstr "Визначає, чи є відкидна панель модальною"
+
+#: src/hdy-flap.c:1679
+msgid "Swipe to Open"
+msgstr "Змахнути для відкриття"
+
+#: src/hdy-flap.c:1680
+#| msgid "Whether the child can be navigated to"
+msgid "Whether the flap can be opened with a swipe gesture"
+msgstr "Визначає, чи можна відкрити відкидну панель жестом змахування"
+
+#: src/hdy-flap.c:1695
+#| msgid "Swipeable"
+msgid "Swipe to Close"
+msgstr "Змахування для закриття"
+
+#: src/hdy-flap.c:1696
+#| msgid "Whether the widget can be swiped"
+msgid "Whether the flap can be closed with a swipe gesture"
+msgstr "Визначає, чи можна закрити відкидну панель жестом змахування"
+
 #: src/hdy-header-bar.c:485
 msgid "Application menu"
 msgstr "Меню програм"
@@ -380,7 +522,7 @@ msgstr "Індекс вкладеного елемента у батьківсь
 #: src/hdy-header-bar.c:2100 src/hdy-preferences-group.c:263
 #: src/hdy-preferences-group.c:264 src/hdy-preferences-page.c:193
 #: src/hdy-preferences-page.c:194 src/hdy-preferences-row.c:115
-#: src/hdy-view-switcher-title.c:258
+#: src/hdy-status-page.c:235 src/hdy-view-switcher-title.c:258
 msgid "Title"
 msgstr "Заголовок"
 
@@ -538,10 +680,6 @@ msgstr "Початок дії"
 msgid "The start action widget"
 msgstr "Віджет початку дії"
 
-#: src/hdy-leaflet.c:1038 src/hdy-stackable-box.c:3045
-msgid "Folded"
-msgstr "Згорнуто"
-
 #: src/hdy-leaflet.c:1039 src/hdy-stackable-box.c:3046
 msgid "Whether the widget is folded"
 msgstr "Визначає, чи згорнуто віджет"
@@ -625,6 +763,7 @@ msgid "Whether the child can be navigated to"
 msgstr "Визначає, чи можна переходити до дочірнього об'єкта"
 
 #: src/hdy-preferences-group.c:249 src/hdy-preferences-group.c:250
+#: src/hdy-status-page.c:249
 msgid "Description"
 msgstr "Опис"
 
@@ -665,7 +804,6 @@ msgid "No Results Found"
 msgstr "Нічого не знайдено"
 
 #: src/hdy-preferences-window.ui:169
-#| msgid "Try a different search"
 msgid "Try a different search."
 msgstr "Спробуйте інші критерії пошуку."
 
@@ -760,6 +898,20 @@ msgstr "Віджет є видимим, коли віджет згорнуто"
 #: src/hdy-stackable-box.c:3191 src/hdy-stackable-box.c:3192
 msgid "Orientation"
 msgstr "Орієнтація"
+
+#: src/hdy-status-page.c:222
+#| msgid "The name of the child page"
+msgid "The name of the icon to be used"
+msgstr "Назва піктограми, яку слід використати"
+
+#: src/hdy-status-page.c:236
+#| msgid "The title to display"
+msgid "The title to be displayed below the icon"
+msgstr "Заголовок, який має бути показано під піктограмою"
+
+#: src/hdy-status-page.c:250
+msgid "The description to be displayed below the title"
+msgstr "Опис, який слід показати під заголовком"
 
 #: src/hdy-swipe-tracker.c:881
 msgid "Swipeable"
@@ -903,9 +1055,6 @@ msgstr "Завжди зверху"
 
 #~ msgid "Spacing between content and indicators"
 #~ msgstr "Інтервал між вмістом та індикаторами"
-
-#~ msgid "Center content"
-#~ msgstr "Центрувати вміст"
 
 #~ msgid "Whether to center pages to compensate for indicators"
 #~ msgstr "Визначає, чи слід центрувати сторінки для компенсації індикаторів"
