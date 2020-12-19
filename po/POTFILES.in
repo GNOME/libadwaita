@@ -16,6 +16,7 @@ src/hdy-clamp.c
 src/hdy-combo-row.c
 src/hdy-deck.c
 src/hdy-expander-row.c
+src/hdy-flap.c
 src/hdy-header-bar.c
 src/hdy-header-group.c
 src/hdy-keypad-button.c
@@ -30,6 +31,7 @@ src/hdy-search-bar.c
 src/hdy-shadow-helper.c
 src/hdy-squeezer.c
 src/hdy-stackable-box.c
+src/hdy-status-page.c
 src/hdy-swipe-tracker.c
 src/hdy-title-bar.c
 src/hdy-value-object.c
