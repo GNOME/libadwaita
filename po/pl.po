@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
-"POT-Creation-Date: 2020-06-20 07:06+0000\n"
-"PO-Revision-Date: 2020-06-21 11:20+0200\n"
+"POT-Creation-Date: 2020-12-19 10:35+0000\n"
+"PO-Revision-Date: 2020-12-20 12:50+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -19,31 +19,31 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: src/hdy-header-bar.c:484
+#: src/hdy-header-bar.c:485
 msgid "Application menu"
 msgstr "Menu programu"
 
-#: src/hdy-header-bar.c:506 src/hdy-window-handle-controller.c:275
+#: src/hdy-header-bar.c:507 src/hdy-window-handle-controller.c:275
 msgid "Minimize"
 msgstr "Zminimalizuj"
 
-#: src/hdy-header-bar.c:528 src/hdy-window-handle-controller.c:241
+#: src/hdy-header-bar.c:529 src/hdy-window-handle-controller.c:241
 msgid "Restore"
 msgstr "Przywróć"
 
-#: src/hdy-header-bar.c:528 src/hdy-window-handle-controller.c:284
+#: src/hdy-header-bar.c:529 src/hdy-window-handle-controller.c:284
 msgid "Maximize"
 msgstr "Zmaksymalizuj"
 
-#: src/hdy-header-bar.c:546 src/hdy-window-handle-controller.c:311
+#: src/hdy-header-bar.c:547 src/hdy-window-handle-controller.c:311
 msgid "Close"
 msgstr "Zamknij"
 
-#: src/hdy-header-bar.c:562
+#: src/hdy-header-bar.c:563
 msgid "Back"
 msgstr "Wstecz"
 
-#: src/hdy-preferences-window.c:135
+#: src/hdy-preferences-window.c:192
 msgid "Untitled page"
 msgstr "Strona bez tytułu"
 
@@ -51,17 +51,17 @@ msgstr "Strona bez tytułu"
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: src/hdy-preferences-window.ui:72
+#: src/hdy-preferences-window.ui:81
 msgid "Search"
 msgstr "Wyszukiwanie"
 
-#: src/hdy-preferences-window.ui:195
+#: src/hdy-preferences-window.ui:168
 msgid "No Results Found"
 msgstr "Brak wyników"
 
-#: src/hdy-preferences-window.ui:210
-msgid "Try a different search"
-msgstr "Proszę spróbować innych słów"
+#: src/hdy-preferences-window.ui:169
+msgid "Try a different search."
+msgstr "Proszę spróbować innych słów."
 
 #: src/hdy-window-handle-controller.c:259
 msgid "Move"
