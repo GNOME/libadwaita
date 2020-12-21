@@ -555,7 +555,7 @@ hdy_deck_prepend (HdyDeck   *self,
  * hdy_deck_insert_child_after:
  * @self: a #HdyDeck
  * @child: the #GtkWidget to insert
- * @sibling: (nullable): the sibling to insert @child after, or %NULL
+ * @sibling: (nullable): the sibling after which to insert @child
  *
  * Inserts @child in the position after @sibling in the list of children.
  * If @sibling is %NULL, insert @child at the first position.
