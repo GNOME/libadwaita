@@ -1014,12 +1014,31 @@ hdy_flap_measure (GtkWidget      *widget,
   if (self->separator.widget)
     get_preferred_size (self->separator.widget, orientation, &separator_min, &separator_nat);
 
-  if (self->orientation == orientation &&
-      self->fold_policy != HDY_FLAP_FOLD_POLICY_AUTO) {
-    gdouble progress = (1 - self->fold_progress) * self->reveal_progress;
+  if (self->orientation == orientation) {
+    gdouble min_progress, nat_progress;
 
-    min = MAX (content_min + (gint) round ((flap_min + separator_min) * progress), flap_min);
-    nat = MAX (content_nat + (gint) round ((flap_nat + separator_nat) * progress), flap_nat);
+    switch (self->fold_policy) {
+    case HDY_FLAP_FOLD_POLICY_NEVER:
+      min_progress = (1 - self->fold_progress) * self->reveal_progress;
+      nat_progress = 1;
+      break;
+
+    case HDY_FLAP_FOLD_POLICY_ALWAYS:
+      min_progress = 0;
+      nat_progress = 0;
+      break;
+
+    case HDY_FLAP_FOLD_POLICY_AUTO:
+      min_progress = 0;
+      nat_progress = self->locked ? self->reveal_progress : 1;
+      break;
+
+    default:
+      g_assert_not_reached ();
+    }
+
+    min = MAX (content_min + (gint) round ((flap_min + separator_min) * min_progress), flap_min);
+    nat = MAX (content_nat + (gint) round ((flap_nat + separator_min) * nat_progress), flap_nat);
   } else {
     min = MAX (MAX (content_min, flap_min), separator_min);
     nat = MAX (MAX (content_nat, flap_nat), separator_nat);
