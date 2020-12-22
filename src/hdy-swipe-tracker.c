@@ -210,7 +210,7 @@ gesture_prepare (HdySwipeTracker        *self,
 static void
 gesture_begin (HdySwipeTracker *self)
 {
-  GdkEvent *event;
+  g_autoptr (GdkEvent) event = NULL;
 
   if (self->state != HDY_SWIPE_TRACKER_STATE_PENDING)
     return;
@@ -226,7 +226,7 @@ static void
 gesture_update (HdySwipeTracker *self,
                 gdouble          delta)
 {
-  GdkEvent *event;
+  g_autoptr (GdkEvent) event = NULL;
   guint32 time;
   gdouble progress;
   gdouble first_point, last_point;
