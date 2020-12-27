@@ -108,16 +108,25 @@ insert_text_cb (HdyKeypad   *self,
                 GtkEditable *editable)
 {
   HdyKeypadPrivate *priv = hdy_keypad_get_instance_private (self);
+  gchar *p = text;
 
-  g_assert (length == 1);
+  g_assert (g_utf8_validate (text, length, NULL));
 
-  if (g_ascii_isdigit (*text))
-     return;
+  while (p != text + length) {
+    gchar *q = p;
 
-  if (priv->symbols_visible && strchr ("#*+", *text))
-     return;
+    p = g_utf8_next_char (p);
 
-  g_signal_stop_emission_by_name (editable, "insert-text");
+    if (g_ascii_isdigit (*q))
+      continue;
+
+    if (priv->symbols_visible && strchr ("#*+", *q))
+      continue;
+
+    g_signal_stop_emission_by_name (editable, "insert-text");
+
+    return;
+  }
 }
 
 
