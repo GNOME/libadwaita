@@ -129,6 +129,7 @@ src_sources = [
 #  'hdy-enum-value-object.c',
 #  'hdy-expander-row.c',
 #  'hdy-flap.c',
+  'hdy-focus.c',
   'hdy-gizmo.c',
 #  'hdy-header-bar.c',
 #  'hdy-header-group.c',
