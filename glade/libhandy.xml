@@ -141,6 +141,8 @@
       <properties>
         <property id="expanded" save="True" ignore="True"/>
         <property id="enable-expansion" save="True" ignore="True"/>
+        <property id="title" translatable="True"/>
+        <property id="subtitle" translatable="True"/>
       </properties>
     </glade-widget-class>
     <glade-widget-class name="HdyFlap" generic-name="flap" title="Flap" since="1.1" use-placeholders="False">
