@@ -332,7 +332,11 @@
         <action id="add_group" name="Add Group" stock="list-add" important="True"/>
       </actions>
     </glade-widget-class>
-    <glade-widget-class name="HdyPreferencesRow" generic-name="preferencesrow" title="Preferences Row" since="0.0.10"/>
+    <glade-widget-class name="HdyPreferencesRow" generic-name="preferencesrow" title="Preferences Row" since="0.0.10">
+      <properties>
+        <property id="title" translatable="True"/>
+      </properties>
+    </glade-widget-class>
     <glade-widget-class name="HdyPreferencesWindow" generic-name="preferenceswindow" title="Preferences Window" since="0.0.10" use-placeholders="False">
       <post-create-function>glade_hdy_preferences_window_post_create</post-create-function>
       <add-child-verify-function>glade_hdy_preferences_window_add_verify</add-child-verify-function>
