@@ -32,6 +32,7 @@
                       <object class="GtkLabel" id="title_label">
                         <property name="visible">True</property>
                         <property name="wrap">True</property>
+                        <property name="justify">center</property>
                         <style>
                           <class name="title"/>
                           <class name="large-title"/>
