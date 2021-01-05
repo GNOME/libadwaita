@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
 "POT-Creation-Date: 2020-12-19 10:35+0000\n"
-"PO-Revision-Date: 2020-12-30 23:24+0100\n"
+"PO-Revision-Date: 2021-01-01 11:47+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -342,15 +342,15 @@ msgstr "Innehåll"
 msgid "The content Widget"
 msgstr "Innehållskomponenten"
 
+# https://gitlab.gnome.org/GNOME/libhandy/-/issues/202
+# Som en sidopanel, men kan även vara högst upp/längst ner.
 #: src/hdy-flap.c:1484
-#, fuzzy
 msgid "Flap"
-msgstr "Flärp"
+msgstr "Flikpanel"
 
 #: src/hdy-flap.c:1485
-#, fuzzy
 msgid "The flap widget"
-msgstr "Flärpkomponenten"
+msgstr "Flikpanelskomponenten"
 
 #: src/hdy-flap.c:1500
 msgid "Separator"
@@ -361,24 +361,20 @@ msgid "The separator widget"
 msgstr "Avgränsarkomponenten"
 
 #: src/hdy-flap.c:1515
-#, fuzzy
 msgid "Flap Position"
-msgstr "Flärpposition"
+msgstr "Flikpanelsposition"
 
 #: src/hdy-flap.c:1516
-#, fuzzy
 msgid "The flap position"
-msgstr "Flärppositionen"
+msgstr "Flikpanelspositionen"
 
 #: src/hdy-flap.c:1530
-#, fuzzy
 msgid "Reveal Flap"
-msgstr "Visa flärp"
+msgstr "Visa flikpanel"
 
 #: src/hdy-flap.c:1531
-#, fuzzy
 msgid "Whether the flap is revealed"
-msgstr "Huruvida flärpen visas"
+msgstr "Huruvida flikpanelen visas"
 
 #: src/hdy-flap.c:1544
 msgid "Reveal Duration"
@@ -419,18 +415,16 @@ msgid "Folded"
 msgstr "Ihopvikt"
 
 #: src/hdy-flap.c:1608
-#, fuzzy
 msgid "Whether the flap is currently folded"
-msgstr "Huruvida flärpen är ihopvikt"
+msgstr "Huruvida flikpanelen är ihopvikt"
 
 #: src/hdy-flap.c:1625
 msgid "Locked"
 msgstr "Låst"
 
 #: src/hdy-flap.c:1626
-#, fuzzy
 msgid "Whether the flap is locked"
-msgstr "Huruvida flärpen är låst"
+msgstr "Huruvida flikpanelen är låst"
 
 #: src/hdy-flap.c:1644
 msgid "Transition Type"
@@ -445,27 +439,24 @@ msgid "Modal"
 msgstr "Modal"
 
 #: src/hdy-flap.c:1664
-#, fuzzy
 msgid "Whether the flap is modal"
-msgstr "Huruvida flärpen är modal"
+msgstr "Huruvida flikpanelen är modal"
 
 #: src/hdy-flap.c:1679
 msgid "Swipe to Open"
 msgstr "Svep för att öppna"
 
 #: src/hdy-flap.c:1680
-#, fuzzy
 msgid "Whether the flap can be opened with a swipe gesture"
-msgstr "Huruvida flärpen kan öppnas med en svepgest"
+msgstr "Huruvida flikpanelen kan öppnas med en svepgest"
 
 #: src/hdy-flap.c:1695
 msgid "Swipe to Close"
 msgstr "Svep för att stänga"
 
 #: src/hdy-flap.c:1696
-#, fuzzy
 msgid "Whether the flap can be closed with a swipe gesture"
-msgstr "Huruvida flärpen kan stängas med en svepgest"
+msgstr "Huruvida flikpanelen kan stängas med en svepgest"
 
 #: src/hdy-header-bar.c:485
 msgid "Application menu"
@@ -699,8 +690,8 @@ msgstr "Vågrätt homogent utfälld"
 msgid "Horizontally homogeneous sizing when the leaflet is unfolded"
 msgstr "Vågrätt homogen omformning när broschyren är utfälld"
 
-# #HdyLeaflet widget can display its children like a 
-# #GtkBox does or like a #GtkStack does, when 
+# #HdyLeaflet widget can display its children like a
+# #GtkBox does or like a #GtkStack does, when
 # unfolded respectively folded
 #: src/hdy-leaflet.c:1086 src/hdy-stackable-box.c:3093
 msgid "Box vertically homogeneous"
