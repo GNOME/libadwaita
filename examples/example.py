@@ -8,6 +8,7 @@ gi.require_version('Handy', '1')
 from gi.repository import Handy
 import sys
 
+Handy.init()
 
 window = Gtk.Window(title = "Keypad Example with Python")
 vbox = Gtk.Box(orientation = Gtk.Orientation.VERTICAL)
