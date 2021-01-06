@@ -50,20 +50,38 @@ test_hdy_header_bar_title_widget (void)
 
 
 static void
-test_hdy_header_bar_show_title_buttons (void)
+test_hdy_header_bar_show_start_title_buttons (void)
 {
   g_autoptr (HdyHeaderBar) bar = NULL;
 
   bar = g_object_ref_sink (HDY_HEADER_BAR (hdy_header_bar_new ()));
   g_assert_nonnull (bar);
 
-  g_assert_true (hdy_header_bar_get_show_title_buttons (bar));
+  g_assert_true (hdy_header_bar_get_show_start_title_buttons (bar));
 
-  hdy_header_bar_set_show_title_buttons (bar, FALSE);
-  g_assert_false (hdy_header_bar_get_show_title_buttons (bar));
+  hdy_header_bar_set_show_start_title_buttons (bar, FALSE);
+  g_assert_false (hdy_header_bar_get_show_start_title_buttons (bar));
 
-  hdy_header_bar_set_show_title_buttons (bar, TRUE);
-  g_assert_true (hdy_header_bar_get_show_title_buttons (bar));
+  hdy_header_bar_set_show_start_title_buttons (bar, TRUE);
+  g_assert_true (hdy_header_bar_get_show_start_title_buttons (bar));
+}
+
+
+static void
+test_hdy_header_bar_show_end_title_buttons (void)
+{
+  g_autoptr (HdyHeaderBar) bar = NULL;
+
+  bar = g_object_ref_sink (HDY_HEADER_BAR (hdy_header_bar_new ()));
+  g_assert_nonnull (bar);
+
+  g_assert_true (hdy_header_bar_get_show_end_title_buttons (bar));
+
+  hdy_header_bar_set_show_end_title_buttons (bar, FALSE);
+  g_assert_false (hdy_header_bar_get_show_end_title_buttons (bar));
+
+  hdy_header_bar_set_show_end_title_buttons (bar, TRUE);
+  g_assert_true (hdy_header_bar_get_show_end_title_buttons (bar));
 }
 
 
@@ -112,7 +130,8 @@ main (gint argc,
 
   g_test_add_func("/Handy/HeaderBar/pack", test_hdy_header_bar_pack);
   g_test_add_func("/Handy/HeaderBar/title_widget", test_hdy_header_bar_title_widget);
-  g_test_add_func("/Handy/HeaderBar/show_title_buttons", test_hdy_header_bar_show_title_buttons);
+  g_test_add_func("/Handy/HeaderBar/show_start_title_buttons", test_hdy_header_bar_show_start_title_buttons);
+  g_test_add_func("/Handy/HeaderBar/show_end_title_buttons", test_hdy_header_bar_show_end_title_buttons);
   g_test_add_func("/Handy/HeaderBar/decoration_layout", test_hdy_header_bar_decoration_layout);
   g_test_add_func("/Handy/HeaderBar/centering_policy", test_hdy_header_bar_centering_policy);
 

@@ -77,7 +77,8 @@ struct _HdyHeaderBar {
 
   gchar *decoration_layout;
 
-  guint show_title_buttons : 1;
+  guint show_start_title_buttons : 1;
+  guint show_end_title_buttons : 1;
   guint track_default_decoration : 1;
 
   HdyCenteringPolicy centering_policy;
@@ -89,7 +90,8 @@ struct _HdyHeaderBar {
 enum {
   PROP_0,
   PROP_TITLE_WIDGET,
-  PROP_SHOW_TITLE_BUTTONS,
+  PROP_SHOW_START_TITLE_BUTTONS,
+  PROP_SHOW_END_TITLE_BUTTONS,
   PROP_DECORATION_LAYOUT,
   PROP_CENTERING_POLICY,
   LAST_PROP
@@ -106,11 +108,9 @@ G_DEFINE_TYPE_WITH_CODE (HdyHeaderBar, hdy_header_bar, GTK_TYPE_WIDGET,
 static GtkBuildableIface *parent_buildable_iface;
 
 static void
-create_window_controls (HdyHeaderBar *self)
+create_start_window_controls (HdyHeaderBar *self)
 {
-  GtkWidget *controls;
-
-  controls = gtk_window_controls_new (GTK_PACK_START);
+  GtkWidget *controls = gtk_window_controls_new (GTK_PACK_START);
   g_object_bind_property (self, "decoration-layout",
                           controls, "decoration-layout",
                           G_BINDING_SYNC_CREATE);
@@ -119,8 +119,12 @@ create_window_controls (HdyHeaderBar *self)
                           G_BINDING_SYNC_CREATE | G_BINDING_INVERT_BOOLEAN);
   gtk_box_prepend (GTK_BOX (self->start_box), controls);
   self->start_window_controls = controls;
+}
 
-  controls = gtk_window_controls_new (GTK_PACK_END);
+static void
+create_end_window_controls (HdyHeaderBar *self)
+{
+  GtkWidget *controls = gtk_window_controls_new (GTK_PACK_END);
   g_object_bind_property (self, "decoration-layout",
                           controls, "decoration-layout",
                           G_BINDING_SYNC_CREATE);
@@ -239,8 +243,11 @@ hdy_header_bar_get_property (GObject    *object,
   case PROP_TITLE_WIDGET:
     g_value_set_object (value, self->title_widget);
     break;
-  case PROP_SHOW_TITLE_BUTTONS:
-    g_value_set_boolean (value, hdy_header_bar_get_show_title_buttons (self));
+  case PROP_SHOW_START_TITLE_BUTTONS:
+    g_value_set_boolean (value, hdy_header_bar_get_show_start_title_buttons (self));
+    break;
+  case PROP_SHOW_END_TITLE_BUTTONS:
+    g_value_set_boolean (value, hdy_header_bar_get_show_end_title_buttons (self));
     break;
   case PROP_DECORATION_LAYOUT:
     g_value_set_string (value, hdy_header_bar_get_decoration_layout (self));
@@ -266,8 +273,11 @@ hdy_header_bar_set_property (GObject      *object,
   case PROP_TITLE_WIDGET:
     hdy_header_bar_set_title_widget (self, g_value_get_object (value));
     break;
-  case PROP_SHOW_TITLE_BUTTONS:
-    hdy_header_bar_set_show_title_buttons (self, g_value_get_boolean (value));
+  case PROP_SHOW_START_TITLE_BUTTONS:
+    hdy_header_bar_set_show_start_title_buttons (self, g_value_get_boolean (value));
+    break;
+  case PROP_SHOW_END_TITLE_BUTTONS:
+    hdy_header_bar_set_show_end_title_buttons (self, g_value_get_boolean (value));
     break;
   case PROP_DECORATION_LAYOUT:
     hdy_header_bar_set_decoration_layout (self, g_value_get_string (value));
@@ -350,7 +360,7 @@ hdy_header_bar_class_init (HdyHeaderBarClass *class)
                          G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS);
 
   /**
-   * HdyHeaderBar:show-title-buttons:
+   * HdyHeaderBar:show-start-title-buttons:
    *
    * Whether to show title buttons like close, minimize, maximize.
    *
@@ -361,10 +371,29 @@ hdy_header_bar_class_init (HdyHeaderBarClass *class)
    *
    * Since: 0.0.10
    */
-  props[PROP_SHOW_TITLE_BUTTONS] =
-    g_param_spec_boolean ("show-title-buttons",
-                          _("Show title buttons"),
-                          _("Whether to show title buttons"),
+  props[PROP_SHOW_START_TITLE_BUTTONS] =
+    g_param_spec_boolean ("show-start-title-buttons",
+                          _("Show start title buttons"),
+                          _("Whether to show start title buttons"),
+                          TRUE,
+                          G_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * HdyHeaderBar:show-end-title-buttons:
+   *
+   * Whether to show title buttons like close, minimize, maximize.
+   *
+   * Which buttons are actually shown and where is determined
+   * by the #HdyHeaderBar:decoration-layout property, and by
+   * the state of the window (e.g. a close button will not be
+   * shown if the window can't be closed).
+   *
+   * Since: 0.0.10
+   */
+  props[PROP_SHOW_END_TITLE_BUTTONS] =
+    g_param_spec_boolean ("show-end-title-buttons",
+                          _("Show end title buttons"),
+                          _("Whether to show end title buttons"),
                           TRUE,
                           G_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
 
@@ -405,7 +434,8 @@ hdy_header_bar_init (HdyHeaderBar *self)
 {
   self->title_widget = NULL;
   self->decoration_layout = NULL;
-  self->show_title_buttons = TRUE;
+  self->show_start_title_buttons = TRUE;
+  self->show_end_title_buttons = TRUE;
 
   self->handle = gtk_window_handle_new ();
   gtk_widget_set_parent (self->handle, GTK_WIDGET (self));
@@ -424,7 +454,8 @@ hdy_header_bar_init (HdyHeaderBar *self)
   self->size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
   construct_title_label (self);
-  create_window_controls (self);
+  create_start_window_controls (self);
+  create_end_window_controls (self);
 }
 
 static void
@@ -597,7 +628,7 @@ hdy_header_bar_remove (HdyHeaderBar *self,
 }
 
 /**
- * hdy_header_bar_get_show_title_buttons:
+ * hdy_header_bar_get_show_start_title_buttons:
  * @self: a #HdyHeaderBar
  *
  * Returns whether this header bar shows the standard window
@@ -608,15 +639,15 @@ hdy_header_bar_remove (HdyHeaderBar *self,
  * Since: 0.0.10
  */
 gboolean
-hdy_header_bar_get_show_title_buttons (HdyHeaderBar *self)
+hdy_header_bar_get_show_start_title_buttons (HdyHeaderBar *self)
 {
   g_return_val_if_fail (HDY_IS_HEADER_BAR (self), FALSE);
 
-  return self->show_title_buttons;
+  return self->show_start_title_buttons;
 }
 
 /**
- * hdy_header_bar_set_show_title_buttons:
+ * hdy_header_bar_set_show_start_title_buttons:
  * @self: a #HdyHeaderBar
  * @setting: %TRUE to show standard title buttons
  *
@@ -626,26 +657,74 @@ hdy_header_bar_get_show_title_buttons (HdyHeaderBar *self)
  * Since: 0.0.10
  */
 void
-hdy_header_bar_set_show_title_buttons (HdyHeaderBar *self,
-                                       gboolean      setting)
+hdy_header_bar_set_show_start_title_buttons (HdyHeaderBar *self,
+                                             gboolean      setting)
 {
   g_return_if_fail (HDY_IS_HEADER_BAR (self));
 
   setting = setting != FALSE;
 
-  if (self->show_title_buttons == setting)
+  if (self->show_start_title_buttons == setting)
     return;
 
-  self->show_title_buttons = setting;
+  self->show_start_title_buttons = setting;
 
   if (setting)
-    create_window_controls (self);
-  else {
+    create_start_window_controls (self);
+  else
     g_clear_pointer (&self->start_window_controls, gtk_widget_unparent);
-    g_clear_pointer (&self->end_window_controls, gtk_widget_unparent);
-  }
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_TITLE_BUTTONS]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_START_TITLE_BUTTONS]);
+}
+
+/**
+ * hdy_header_bar_get_show_end_title_buttons:
+ * @self: a #HdyHeaderBar
+ *
+ * Returns whether this header bar shows the standard window
+ * title buttons.
+ *
+ * Returns: %TRUE if title buttons are shown
+ *
+ * Since: 0.0.10
+ */
+gboolean
+hdy_header_bar_get_show_end_title_buttons (HdyHeaderBar *self)
+{
+  g_return_val_if_fail (HDY_IS_HEADER_BAR (self), FALSE);
+
+  return self->show_end_title_buttons;
+}
+
+/**
+ * hdy_header_bar_set_show_end_title_buttons:
+ * @self: a #HdyHeaderBar
+ * @setting: %TRUE to show standard title buttons
+ *
+ * Sets whether this header bar shows the standard window title buttons
+ * including close, maximize, and minimize.
+ *
+ * Since: 0.0.10
+ */
+void
+hdy_header_bar_set_show_end_title_buttons (HdyHeaderBar *self,
+                                           gboolean      setting)
+{
+  g_return_if_fail (HDY_IS_HEADER_BAR (self));
+
+  setting = setting != FALSE;
+
+  if (self->show_end_title_buttons == setting)
+    return;
+
+  self->show_end_title_buttons = setting;
+
+  if (setting)
+    create_end_window_controls (self);
+  else
+    g_clear_pointer (&self->end_window_controls, gtk_widget_unparent);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_END_TITLE_BUTTONS]);
 }
 
 /**

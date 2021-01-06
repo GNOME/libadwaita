@@ -61,10 +61,16 @@ void         hdy_header_bar_remove            (HdyHeaderBar *self,
                                                GtkWidget    *child);
 
 HDY_AVAILABLE_IN_ALL
-gboolean     hdy_header_bar_get_show_title_buttons (HdyHeaderBar *self);
+gboolean     hdy_header_bar_get_show_start_title_buttons (HdyHeaderBar *self);
 HDY_AVAILABLE_IN_ALL
-void         hdy_header_bar_set_show_title_buttons (HdyHeaderBar *self,
-                                                    gboolean      setting);
+void         hdy_header_bar_set_show_start_title_buttons (HdyHeaderBar *self,
+                                                          gboolean      setting);
+
+HDY_AVAILABLE_IN_ALL
+gboolean     hdy_header_bar_get_show_end_title_buttons (HdyHeaderBar *self);
+HDY_AVAILABLE_IN_ALL
+void         hdy_header_bar_set_show_end_title_buttons (HdyHeaderBar *self,
+                                                        gboolean      setting);
 
 HDY_AVAILABLE_IN_ALL
 const gchar *hdy_header_bar_get_decoration_layout (HdyHeaderBar *self);

@@ -23,7 +23,8 @@
           <object class="GtkBox">
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkHeaderBar" id="header_bar">
+              <object class="HdyHeaderBar" id="header_bar">
+                <property name="show-end-title-buttons" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
                 <child type="start">
                   <object class="GtkButton" id="theme_variant">
                     <signal name="clicked" handler="theme_variant_button_clicked_cb" swapped="yes"/>
@@ -88,7 +89,8 @@
                   <object class="GtkStackPage">
                     <property name="name">default</property>
                     <property name="child">
-                      <object class="GtkHeaderBar" id="default_header_bar">
+                      <object class="HdyHeaderBar" id="default_header_bar">
+                        <property name="show-start-title-buttons" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
                         <property name="title-widget">
                           <object class="GtkBox"/>
                         </property>
@@ -114,7 +116,8 @@
                         <property name="can-swipe-back">True</property>
                         <property name="transition-type" bind-source="content_box" bind-property="transition-type" bind-flags="sync-create"/>
                         <child>
-                          <object class="GtkHeaderBar" id="leaflet_header_bar">
+                          <object class="HdyHeaderBar" id="leaflet_header_bar">
+                            <property name="show-start-title-buttons" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
                             <property name="title-widget">
                               <object class="GtkBox"/>
                             </property>
@@ -130,7 +133,8 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkHeaderBar" id="leaflet_sub_header_bar">
+                          <object class="HdyHeaderBar" id="leaflet_sub_header_bar">
+                            <property name="show-start-title-buttons" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
                             <property name="title-widget">
                               <object class="GtkBox"/>
                             </property>
@@ -993,15 +997,6 @@
       <widget name="header_separator"/>
       <widget name="header_stack"/>
     </widgets>
-  </object>
-  <object class="HdyHeaderGroup" id="header_group">
-    <property name="decorate-all" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
-    <headerbars>
-      <headerbar name="header_bar"/>
-      <headerbar name="default_header_bar"/>
-      <headerbar name="leaflet_header_bar"/>
-      <headerbar name="leaflet_sub_header_bar"/>
-    </headerbars>
   </object>
   <object class="HdySwipeGroup" id="leaflet_swipe_group">
     <swipeables>
