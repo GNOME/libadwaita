@@ -2153,6 +2153,7 @@ hdy_flap_set_flap_position (HdyFlap     *self,
                             GtkPackType  position)
 {
   g_return_if_fail (HDY_IS_FLAP (self));
+  g_return_if_fail (position <= GTK_PACK_END);
 
   if (self->flap_position == position)
     return;
@@ -2296,6 +2297,7 @@ hdy_flap_set_fold_policy (HdyFlap           *self,
                           HdyFlapFoldPolicy  policy)
 {
   g_return_if_fail (HDY_IS_FLAP (self));
+  g_return_if_fail (policy <= HDY_FLAP_FOLD_POLICY_AUTO);
 
   if (self->fold_policy == policy)
     return;
@@ -2469,6 +2471,7 @@ hdy_flap_set_transition_type (HdyFlap               *self,
                               HdyFlapTransitionType  transition_type)
 {
   g_return_if_fail (HDY_IS_FLAP (self));
+  g_return_if_fail (transition_type <= HDY_FLAP_TRANSITION_TYPE_SLIDE);
 
   if (self->transition_type == transition_type)
     return;
