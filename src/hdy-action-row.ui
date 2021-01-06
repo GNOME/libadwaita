@@ -20,7 +20,6 @@
         <child>
           <object class="GtkImage" id="image">
             <property name="visible">False</property>
-            <property name="pixel_size">32</property>
             <property name="valign">center</property>
           </object>
         </child>
