@@ -19,6 +19,9 @@
               <!-- Matching elementary class. -->
               <class name="h4"/>
             </style>
+            <accessibility>
+              <relation target="listbox_box" type="label-for"/>
+            </accessibility>
           </object>
         </child>
         <child>
@@ -38,6 +41,9 @@
           <object class="GtkBox" id="listbox_box">
             <property name="orientation">vertical</property>
             <property name="visible">True</property>
+            <accessibility>
+              <relation target="title" type="labelled-by"/>
+            </accessibility>
             <child>
               <object class="GtkListBox" id="listbox">
                 <property name="selection_mode">none</property>
