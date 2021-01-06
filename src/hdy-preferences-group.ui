@@ -44,6 +44,7 @@
                 <property name="visible">True</property>
                 <signal name="add" handler="update_listbox_visibility" after="yes" swapped="yes"/>
                 <signal name="remove" handler="update_listbox_visibility" after="yes" swapped="yes"/>
+                <signal name="keynav-failed" handler="listbox_keynav_failed_cb" swapped="yes"/>
                 <style>
                   <class name="content"/>
                 </style>

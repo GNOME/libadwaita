@@ -86,6 +86,22 @@ update_listbox_visibility (HdyPreferencesGroup *self)
   gtk_widget_set_visible (GTK_WIDGET (priv->listbox), children != NULL);
 }
 
+static gboolean
+listbox_keynav_failed_cb (HdyPreferencesGroup *self,
+                          GtkDirectionType     direction)
+{
+  GtkWidget *toplevel = gtk_widget_get_toplevel (GTK_WIDGET (self));
+
+  if (!toplevel)
+    return FALSE;
+
+  if (direction != GTK_DIR_UP && direction != GTK_DIR_DOWN)
+    return FALSE;
+
+  return gtk_widget_child_focus (toplevel, direction == GTK_DIR_UP ?
+                                 GTK_DIR_TAB_BACKWARD : GTK_DIR_TAB_FORWARD);
+}
+
 typedef struct {
   HdyPreferencesGroup *group;
   GtkCallback callback;
@@ -284,6 +300,7 @@ hdy_preferences_group_class_init (HdyPreferencesGroupClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesGroup, listbox_box);
   gtk_widget_class_bind_template_child_private (widget_class, HdyPreferencesGroup, title);
   gtk_widget_class_bind_template_callback (widget_class, update_listbox_visibility);
+  gtk_widget_class_bind_template_callback (widget_class, listbox_keynav_failed_cb);
 }
 
 static void
