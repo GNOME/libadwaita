@@ -123,6 +123,8 @@ insert_text_cb (HdyKeypad   *self,
     if (priv->symbols_visible && strchr ("#*+", *q))
       continue;
 
+    gtk_widget_error_bell (GTK_WIDGET (editable));
+
     g_signal_stop_emission_by_name (editable, "insert-text");
 
     return;
