@@ -1,0 +1,878 @@
+# Finnish translation for libhandy.
+# Copyright (C) 2020 libhandy's COPYRIGHT HOLDER
+# This file is distributed under the same license as the libhandy package.
+# JRfi <starman@starman.fi>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libhandy master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
+"POT-Creation-Date: 2020-08-07 12:26+0000\n"
+"PO-Revision-Date: 2020-08-08 18:27+0300\n"
+"Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: JR-Fi <starman@starman.fi>\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: glade/glade-hdy-carousel.c:160 glade/glade-hdy-header-bar.c:118
+#: glade/glade-hdy-leaflet.c:184
+#, c-format
+msgid "Insert placeholder to %s"
+msgstr "Lisää paikkavaraus %s:lle"
+
+#: glade/glade-hdy-carousel.c:189 glade/glade-hdy-header-bar.c:144
+#: glade/glade-hdy-leaflet.c:214
+#, c-format
+msgid "Remove placeholder from %s"
+msgstr "Poista paikanvaraaja %s:stä"
+
+#: glade/glade-hdy-header-bar.c:18
+msgid "This property does not apply when a custom title is set"
+msgstr "Tämä ominaisuus ei ole käytössä, kun itse valittu nimi on asetettu"
+
+#: glade/glade-hdy-header-bar.c:289
+msgid ""
+"The decoration layout does not apply to header bars which do no show window "
+"controls"
+msgstr ""
+"Koristeluasettelu ei päde otsikkopalkkeihin, jotka eivät näytä "
+"ikkunanhallinnan nappeja"
+
+#: glade/glade-hdy-leaflet.c:19
+msgid "This property only applies when the leaflet is folded"
+msgstr ""
+"Tämä ominaisuus on käytössä vain, kun sivulehdykkä on kokoon taitettuna"
+
+#: glade/glade-hdy-preferences-page.c:160
+#, c-format
+msgid "Add group to %s"
+msgstr "Lisää ryhmä %s:ään"
+
+#: glade/glade-hdy-preferences-window.c:228
+#, c-format
+msgid "Add page to %s"
+msgstr "Lisää sivu %s:ään"
+
+#: glade/glade-hdy-search-bar.c:101
+msgid "Search bar is already full"
+msgstr "Etsintärivi on jo täynnä"
+
+#: glade/glade-hdy-utils.h:13
+#, c-format
+msgid "Only objects of type %s can be added to objects of type %s."
+msgstr ""
+"Vain %s tyypin objekteja voidaan lisätä objekteihin, jotka ovat tyyppiä %s."
+
+#: src/hdy-action-row.c:354 src/hdy-action-row.c:355 src/hdy-expander-row.c:314
+#: src/hdy-expander-row.c:315 src/hdy-preferences-page.c:179
+#: src/hdy-preferences-page.c:180
+msgid "Icon name"
+msgstr "Kuvakkeen nimi"
+
+#: src/hdy-action-row.c:368
+msgid "Activatable widget"
+msgstr "Aktivoitava pienohjelma"
+
+#: src/hdy-action-row.c:369
+msgid "The widget to be activated when the row is activated"
+msgstr "Aktivoitava pienohjelma, kun rivi aktivoidaan"
+
+# aliotsikko vai tekstitys?
+#: src/hdy-action-row.c:382 src/hdy-action-row.c:383 src/hdy-expander-row.c:285
+#: src/hdy-header-bar.c:2105 src/hdy-view-switcher-title.c:272
+msgid "Subtitle"
+msgstr "Tekstitys"
+
+#: src/hdy-action-row.c:397 src/hdy-expander-row.c:300
+#: src/hdy-preferences-row.c:130
+msgid "Use underline"
+msgstr "Käytä alleviivausta"
+
+#: src/hdy-action-row.c:398 src/hdy-expander-row.c:301
+#: src/hdy-preferences-row.c:131
+#, fuzzy
+msgid ""
+"If set, an underline in the text indicates the next character should be used "
+"for the mnemonic accelerator key"
+msgstr ""
+"Mikäli asetettu, alleviivaus tekstissä tarkoittaa että, seuraavaa merkkiä "
+"tulisi käyttää muistisäännön kiihdytyksen avaimena"
+
+#: src/hdy-carousel-box.c:1088 src/hdy-carousel-box.c:1089
+#: src/hdy-carousel.c:575 src/hdy-carousel.c:576
+msgid "Number of pages"
+msgstr "Sivujen määrä"
+
+#: src/hdy-carousel-box.c:1104 src/hdy-carousel.c:592 src/hdy-header-bar.c:2091
+msgid "Position"
+msgstr "Sijainti"
+
+#: src/hdy-carousel-box.c:1105 src/hdy-carousel.c:593
+msgid "Current scrolling position"
+msgstr "Nykyinen vierityksen sijainti"
+
+#: src/hdy-carousel-box.c:1120 src/hdy-carousel.c:623 src/hdy-header-bar.c:2119
+msgid "Spacing"
+msgstr "Asettelu"
+
+#: src/hdy-carousel-box.c:1121 src/hdy-carousel.c:624
+msgid "Spacing between pages"
+msgstr "Asettelu sivujen välillä"
+
+#: src/hdy-carousel-box.c:1137 src/hdy-carousel.c:668
+msgid "Reveal duration"
+msgstr "Paljastuksen kesto"
+
+#: src/hdy-carousel-box.c:1138 src/hdy-carousel.c:669
+msgid "Page reveal duration"
+msgstr "Sivun paljastuksen kesto"
+
+#: src/hdy-carousel.c:609
+msgid "Interactive"
+msgstr "Vuorovaikutteinen"
+
+#: src/hdy-carousel.c:610
+msgid "Whether the widget can be swiped"
+msgstr "Voiko pienohjelmaa hipaista"
+
+#: src/hdy-carousel.c:639
+msgid "Animation duration"
+msgstr "Animoinnin kesto"
+
+#: src/hdy-carousel.c:640
+msgid "Default animation duration"
+msgstr "Oletusanimaation kesto"
+
+#: src/hdy-carousel.c:654 src/hdy-swipe-tracker.c:803
+msgid "Allow mouse drag"
+msgstr "Salli hiirellä vetäminen"
+
+#: src/hdy-carousel.c:655 src/hdy-swipe-tracker.c:804
+msgid "Whether to allow dragging with mouse pointer"
+msgstr "Sallitaanko hiiren osoittimella raahaaminen"
+
+#: src/hdy-carousel-indicator-dots.c:392 src/hdy-carousel-indicator-dots.c:393
+#: src/hdy-carousel-indicator-lines.c:391
+#: src/hdy-carousel-indicator-lines.c:392
+msgid "Carousel"
+msgstr "Karuselli"
+
+#: src/hdy-clamp.c:417
+msgid "Maximum size"
+msgstr "Maksimi koko"
+
+#: src/hdy-clamp.c:418
+msgid "The maximum size allocated to the child"
+msgstr "Suurin lapsiobjektille varattu koko"
+
+#: src/hdy-clamp.c:442
+msgid "Tightening threshold"
+msgstr "Raja-arvon tiukennus"
+
+# sisällön kontekstin merkitys?
+#: src/hdy-clamp.c:443
+#, fuzzy
+msgid "The size from which the clamp will tighten its grip on the child"
+msgstr "Koko, jossa puristin tiukentaa otettaan lapsiobjektista"
+
+#: src/hdy-combo-row.c:412
+msgid "Selected index"
+msgstr "Valittu indeksitunnus"
+
+#: src/hdy-combo-row.c:413
+msgid "The index of the selected item"
+msgstr "Valitun asian indeksitunnus"
+
+# Aliotsikko vai tekstitys?
+#: src/hdy-combo-row.c:431
+msgid "Use subtitle"
+msgstr "Käytä tekstitystä"
+
+# aliotsikko vai tekstitys?
+#: src/hdy-combo-row.c:432
+msgid "Set the current value as the subtitle"
+msgstr "Aseta nykyinen arvo tekstitykseksi"
+
+#: src/hdy-deck.c:888
+msgid "Horizontally homogeneous"
+msgstr "Vaakatasossa yhtenevä"
+
+#: src/hdy-deck.c:889
+msgid "Horizontally homogeneous sizing"
+msgstr "Vaakatasossa yhtenevät koot"
+
+#: src/hdy-deck.c:902
+msgid "Vertically homogeneous"
+msgstr "Pystysuuntaan yhtenevät"
+
+#: src/hdy-deck.c:903
+msgid "Vertically homogeneous sizing"
+msgstr "Pystysuuntaan yhtenevät koot"
+
+#: src/hdy-deck.c:916 src/hdy-leaflet.c:1018 src/hdy-squeezer.c:1098
+#: src/hdy-stackable-box.c:2993
+msgid "Visible child"
+msgstr "Näkyvä lapsiobjekti"
+
+#: src/hdy-deck.c:917
+msgid "The widget currently visible"
+msgstr "Nyt näkyvissä oleva pienohjelma"
+
+#: src/hdy-deck.c:930 src/hdy-leaflet.c:1025 src/hdy-stackable-box.c:3000
+msgid "Name of visible child"
+msgstr "Näkyvän lapsiobjektin nimi"
+
+#: src/hdy-deck.c:931
+msgid "The name of the widget currently visible"
+msgstr "Nyt näkyvissä olevan pienohjelman nimi"
+
+#: src/hdy-deck.c:949 src/hdy-leaflet.c:1044 src/hdy-squeezer.c:1112
+#: src/hdy-stackable-box.c:3019
+msgid "Transition type"
+msgstr "Muutoksen tyyppi"
+
+#: src/hdy-deck.c:950
+msgid "The type of animation used to transition between children"
+msgstr "Animaation tyyppi siirryttäessä lapsiobjektien välillä"
+
+#: src/hdy-deck.c:963 src/hdy-header-bar.c:2201 src/hdy-squeezer.c:1105
+msgid "Transition duration"
+msgstr "Muutoksen kesto"
+
+#: src/hdy-deck.c:964
+msgid "The transition animation duration, in milliseconds"
+msgstr "Siirtymäanimaation kesto, millisekunneissa"
+
+#: src/hdy-deck.c:977 src/hdy-header-bar.c:2208 src/hdy-squeezer.c:1120
+msgid "Transition running"
+msgstr "Muutos menossa"
+
+#: src/hdy-deck.c:978 src/hdy-header-bar.c:2209 src/hdy-squeezer.c:1121
+msgid "Whether or not the transition is currently running"
+msgstr "Onko muutos juuri nyt käynnissä"
+
+#: src/hdy-deck.c:992 src/hdy-header-bar.c:2215 src/hdy-leaflet.c:1072
+#: src/hdy-squeezer.c:1127 src/hdy-stackable-box.c:3047
+msgid "Interpolate size"
+msgstr "Päättele koko"
+
+#: src/hdy-deck.c:993 src/hdy-header-bar.c:2216 src/hdy-leaflet.c:1073
+#: src/hdy-squeezer.c:1128 src/hdy-stackable-box.c:3048
+msgid ""
+"Whether or not the size should smoothly change when changing between "
+"differently sized children"
+msgstr ""
+"Tulisiko koon vaihtua sulavasti vaihdettaessa erikokoisten lasten välillä"
+
+#: src/hdy-deck.c:1007 src/hdy-leaflet.c:1087 src/hdy-preferences-window.c:497
+#: src/hdy-stackable-box.c:3062
+msgid "Can swipe back"
+msgstr "Voi hipaista takaisin"
+
+#: src/hdy-deck.c:1008 src/hdy-leaflet.c:1088 src/hdy-stackable-box.c:3063
+msgid ""
+"Whether or not swipe gesture can be used to switch to the previous child"
+msgstr "Voidaanko hipaisua käyttää vaihtamaan edelliseen lapsiobjektiin"
+
+#: src/hdy-deck.c:1022 src/hdy-leaflet.c:1102 src/hdy-stackable-box.c:3077
+msgid "Can swipe forward"
+msgstr "Voi hipaista eteenpäin"
+
+#: src/hdy-deck.c:1023 src/hdy-leaflet.c:1103 src/hdy-stackable-box.c:3078
+msgid "Whether or not swipe gesture can be used to switch to the next child"
+msgstr "Voidaanko hipaisua käyttää vaihtamaan seuraavaan lapsiobjektiin"
+
+#: src/hdy-deck.c:1031 src/hdy-leaflet.c:1111
+msgid "Name"
+msgstr "Nimi"
+
+#: src/hdy-deck.c:1032 src/hdy-leaflet.c:1112
+msgid "The name of the child page"
+msgstr "Lapsiobjektin sivun nimi"
+
+# Aliotsikko vai tekstitys?
+#: src/hdy-expander-row.c:286
+msgid "The subtitle for this row"
+msgstr "Tämän rivin tekstitys"
+
+#: src/hdy-expander-row.c:326
+msgid "Expanded"
+msgstr "Laajennettu"
+
+#: src/hdy-expander-row.c:327
+msgid "Whether the row is expanded"
+msgstr "Onko rivi laajennettuna"
+
+#: src/hdy-expander-row.c:338
+msgid "Enable expansion"
+msgstr "Salli laajennus"
+
+#: src/hdy-expander-row.c:339
+msgid "Whether the expansion is enabled"
+msgstr "Onko laajennus käytössä"
+
+#: src/hdy-expander-row.c:350
+msgid "Show enable switch"
+msgstr "Näytä sallimisen kytkin"
+
+#: src/hdy-expander-row.c:351
+msgid "Whether the switch enabling the expansion is visible"
+msgstr "Onko laajennuksen käytön salliva kytkin näkyvissä"
+
+#: src/hdy-header-bar.c:485
+msgid "Application menu"
+msgstr "Ohjelman valikko"
+
+#: src/hdy-header-bar.c:507 src/hdy-window-handle-controller.c:275
+msgid "Minimize"
+msgstr "Minimoi"
+
+#: src/hdy-header-bar.c:529 src/hdy-window-handle-controller.c:241
+msgid "Restore"
+msgstr "Palauta"
+
+#: src/hdy-header-bar.c:529 src/hdy-window-handle-controller.c:284
+msgid "Maximize"
+msgstr "Maksimoi"
+
+#: src/hdy-header-bar.c:547 src/hdy-window-handle-controller.c:311
+msgid "Close"
+msgstr "Sulje"
+
+#: src/hdy-header-bar.c:563
+msgid "Back"
+msgstr "Takaisin"
+
+#: src/hdy-header-bar.c:2084
+msgid "Pack type"
+msgstr "Pakkauksen tyyppi"
+
+# Sisältö ei ihan aukea
+#: src/hdy-header-bar.c:2085
+msgid ""
+"A GtkPackType indicating whether the child is packed with reference to the "
+"start or end of the parent"
+msgstr ""
+"GtkPackType, joka kertoo mikäli lapsiobjektilla on yhteystieto emoprosessin "
+"alkuun tai loppuun"
+
+#: src/hdy-header-bar.c:2092
+msgid "The index of the child in the parent"
+msgstr "Lapsiobjektin indeksitunnus isännässä"
+
+#: src/hdy-header-bar.c:2098 src/hdy-preferences-group.c:265
+#: src/hdy-preferences-group.c:266 src/hdy-preferences-page.c:193
+#: src/hdy-preferences-page.c:194 src/hdy-preferences-row.c:115
+#: src/hdy-view-switcher-title.c:258
+msgid "Title"
+msgstr "Nimi"
+
+#: src/hdy-header-bar.c:2099 src/hdy-view-switcher-title.c:259
+msgid "The title to display"
+msgstr "Näytettävä nimi"
+
+# Aliotsikko vai tekstitys?
+#: src/hdy-header-bar.c:2106 src/hdy-view-switcher-title.c:273
+msgid "The subtitle to display"
+msgstr "Näytettävä tekstitys"
+
+#: src/hdy-header-bar.c:2112
+msgid "Custom Title"
+msgstr "Itse valittu nimi"
+
+#: src/hdy-header-bar.c:2113
+msgid "Custom title widget to display"
+msgstr "Itse valittu pienohjelman nimi esitettäväksi"
+
+#: src/hdy-header-bar.c:2120
+msgid "The amount of space between children"
+msgstr "Tila lapsiobjektien välisen tilan määrä"
+
+#: src/hdy-header-bar.c:2139
+msgid "Show decorations"
+msgstr "Näytä koristeet"
+
+#: src/hdy-header-bar.c:2140
+msgid "Whether to show window decorations"
+msgstr "Näytetäänkö ikkunoiden koristeita"
+
+#: src/hdy-header-bar.c:2158
+msgid "Decoration Layout"
+msgstr "Koristelun asettelu"
+
+#: src/hdy-header-bar.c:2159
+msgid "The layout for window decorations"
+msgstr "Asettelu ikkunan koristeille"
+
+#: src/hdy-header-bar.c:2172
+msgid "Decoration Layout Set"
+msgstr "Koristelun asettelun asettaminen"
+
+#: src/hdy-header-bar.c:2173
+msgid "Whether the decoration-layout property has been set"
+msgstr "Onko koristeluasettelun ominaisuus asetettu"
+
+# aliotsikko vai tekstitys?
+#: src/hdy-header-bar.c:2187
+msgid "Has Subtitle"
+msgstr "Tekstitys käytössä"
+
+# Aliotsikko vai teksitys?
+#: src/hdy-header-bar.c:2188
+msgid "Whether to reserve space for a subtitle"
+msgstr "Varataanko tilaa tekstitykselle"
+
+#: src/hdy-header-bar.c:2194
+msgid "Centering policy"
+msgstr "Keskityksen asetus"
+
+#: src/hdy-header-bar.c:2195
+msgid "The policy to horizontally align the center widget"
+msgstr "Yleinen sääntö asetella keskimmäinen pienohjelma vaakatasossa"
+
+#: src/hdy-header-bar.c:2202 src/hdy-squeezer.c:1106
+msgid "The animation duration, in milliseconds"
+msgstr "Animaation kesto, millisekunneissa"
+
+#: src/hdy-header-group.c:827
+msgid "Decorate all"
+msgstr "Korista kaikki"
+
+#: src/hdy-header-group.c:828
+msgid ""
+"Whether the elements of the group should all receive the full decoration"
+msgstr "Kuuluuko joukon kaikkien elementtien saada täysi koristelu"
+
+# Merkki vai numero?
+#: src/hdy-keypad-button.c:225
+msgid "Digit"
+msgstr "Merkki"
+
+#: src/hdy-keypad-button.c:226
+msgid "The keypad digit of the button"
+msgstr "Näppäimistön painikkeen merkki"
+
+#: src/hdy-keypad-button.c:232
+msgid "Symbols"
+msgstr "Symbolit"
+
+#: src/hdy-keypad-button.c:233
+msgid "The keypad symbols of the button. The first symbol is used as the digit"
+msgstr ""
+"Näppäimistön painikkeen symbolit. Ensimmäistä symbolia käytetään merkkinä"
+
+#: src/hdy-keypad-button.c:239
+msgid "Show symbols"
+msgstr "Näytä symbolit"
+
+#: src/hdy-keypad-button.c:240
+msgid "Whether the second line of symbols should be shown or not"
+msgstr "Kuuluuko toisen rivillisen symboleita olla näkyvissä"
+
+#: src/hdy-keypad.c:247
+msgid "Row spacing"
+msgstr "Rivien välys"
+
+#: src/hdy-keypad.c:248
+msgid "The amount of space between two consecutive rows"
+msgstr "Kahden vierekkäisen rivin välisen tilan määrä"
+
+#: src/hdy-keypad.c:261
+msgid "Column spacing"
+msgstr "Sarakkeiden välys"
+
+#: src/hdy-keypad.c:262
+msgid "The amount of space between two consecutive columns"
+msgstr "Kahden vierekkäisen sarakkeen välisen tilan määrä"
+
+#: src/hdy-keypad.c:276
+msgid "Letters visible"
+msgstr "Kirjaimia näkyvissä"
+
+#: src/hdy-keypad.c:277
+msgid "Whether the letters below the digits should be visible"
+msgstr "Kuuluuko merkkien alla olevien kirjainten olla näkyvissä"
+
+#: src/hdy-keypad.c:291
+msgid "Symbols visible"
+msgstr "Näkyvät symbolit"
+
+#: src/hdy-keypad.c:292
+msgid "Whether the hash, plus, and asterisk symbols should be visible"
+msgstr "Kuuluuko risuaita-, plus- ja tähtimerkkien olla näkyvissä"
+
+#: src/hdy-keypad.c:306
+msgid "Entry"
+msgstr "Merkintä"
+
+#: src/hdy-keypad.c:307
+msgid "The entry widget connected to the keypad"
+msgstr "Sisääntulon pienohjelma liittyen näppäimistöön"
+
+#: src/hdy-keypad.c:320
+msgid "End action"
+msgstr "Lopeta toiminta"
+
+#: src/hdy-keypad.c:321
+#, fuzzy
+msgid "The end action widget"
+msgstr "Lopputoiminnon pienohjelma"
+
+#: src/hdy-keypad.c:334
+msgid "Start action"
+msgstr "Aloita toiminto"
+
+#: src/hdy-keypad.c:335
+#, fuzzy
+msgid "The start action widget"
+msgstr "Alkutoiminnon pienohjelma"
+
+#: src/hdy-leaflet.c:963 src/hdy-stackable-box.c:2938
+msgid "Folded"
+msgstr "Taitettu kokoon"
+
+#: src/hdy-leaflet.c:964 src/hdy-stackable-box.c:2939
+msgid "Whether the widget is folded"
+msgstr "Onko pienohjelma kokoon taitettuna"
+
+#: src/hdy-leaflet.c:975 src/hdy-stackable-box.c:2950
+msgid "Horizontally homogeneous folded"
+msgstr "Vaakatasossa yhtenevästi kokoontaitettu"
+
+#: src/hdy-leaflet.c:976
+msgid "Horizontally homogeneous sizing when the leaflet is folded"
+msgstr "Vaakatasossa yhtenevät koot, kun sivulehdykkä on kokoon taitettuna"
+
+#: src/hdy-leaflet.c:987 src/hdy-stackable-box.c:2962
+msgid "Vertically homogeneous folded"
+msgstr "Pystysuuntaan yhtenevästi kokoon taitetut"
+
+#: src/hdy-leaflet.c:988
+msgid "Vertically homogeneous sizing when the leaflet is folded"
+msgstr "Pystysuuntaan yhtenevät koot, kun sivulehdykkä on kokoon taitettuna"
+
+#: src/hdy-leaflet.c:999 src/hdy-stackable-box.c:2974
+msgid "Box horizontally homogeneous"
+msgstr "Laatikoi vaakatasoon samansuuruisina"
+
+#: src/hdy-leaflet.c:1000
+msgid "Horizontally homogeneous sizing when the leaflet is unfolded"
+msgstr "Vaakatasossa yhtenevät koot, kun sivulehdykkä on avattuna esiin"
+
+#: src/hdy-leaflet.c:1011 src/hdy-stackable-box.c:2986
+msgid "Box vertically homogeneous"
+msgstr "Laatikoi pystysuunnassa samansuuruisina"
+
+#: src/hdy-leaflet.c:1012
+msgid "Vertically homogeneous sizing when the leaflet is unfolded"
+msgstr "Pystysuuntaan yhtenevät koot, kun sivulehdykkä on avattuna esiin"
+
+#: src/hdy-leaflet.c:1019
+msgid "The widget currently visible when the leaflet is folded"
+msgstr "Nyt näkyvissä oleva pienohjelma, kun sivulehdykkä on kokoon taitettuna"
+
+#: src/hdy-leaflet.c:1026 src/hdy-stackable-box.c:3001
+msgid "The name of the widget currently visible when the children are stacked"
+msgstr "Nyt näkyvissä olevan pienohjelman nimi, kun lapsiobjektit on kasattu"
+
+#: src/hdy-leaflet.c:1045 src/hdy-stackable-box.c:3020
+msgid "The type of animation used to transition between modes and children"
+msgstr "Animaation tyyppi siirryttäessä tilojen ja lapsiobjektien välillä"
+
+#: src/hdy-leaflet.c:1051 src/hdy-stackable-box.c:3026
+msgid "Mode transition duration"
+msgstr "Tilan muutoksen kesto"
+
+#: src/hdy-leaflet.c:1052 src/hdy-stackable-box.c:3027
+msgid "The mode transition animation duration, in milliseconds"
+msgstr "Tilan muutoksen animaation kesto, millisekunneissa"
+
+#: src/hdy-leaflet.c:1058 src/hdy-stackable-box.c:3033
+msgid "Child transition duration"
+msgstr "Lapsiobjektin siirtymän kesto"
+
+#: src/hdy-leaflet.c:1059 src/hdy-stackable-box.c:3034
+msgid "The child transition animation duration, in milliseconds"
+msgstr "Lapsiobjektin siirtymäanimaation kesto, millisekunneissa"
+
+#: src/hdy-leaflet.c:1065 src/hdy-stackable-box.c:3040
+msgid "Child transition running"
+msgstr "Lapsiobjektin siirtymä menossa"
+
+#: src/hdy-leaflet.c:1066 src/hdy-stackable-box.c:3041
+msgid "Whether or not the child transition is currently running"
+msgstr "Onko lapsiobjektin muutos juuri nyt käynnissä"
+
+#: src/hdy-leaflet.c:1129
+#, fuzzy
+msgid "Navigatable"
+msgstr "Navigoitavissa"
+
+#: src/hdy-leaflet.c:1130
+msgid "Whether the child can be navigated to"
+msgstr "Voiko lapsiobjektiin navigoida"
+
+#: src/hdy-preferences-group.c:251 src/hdy-preferences-group.c:252
+msgid "Description"
+msgstr "Kuvaus"
+
+#: src/hdy-preferences-row.c:116
+msgid "The title of the preference"
+msgstr "Asetusten nimi"
+
+#: src/hdy-preferences-window.c:141
+msgid "Untitled page"
+msgstr "Nimetön sivu"
+
+#: src/hdy-preferences-window.c:483
+msgid "Search enabled"
+msgstr "Etsintä sallittu"
+
+#: src/hdy-preferences-window.c:484
+msgid "Whether search is enabled"
+msgstr "Onko haku sallittu"
+
+#: src/hdy-preferences-window.c:498
+msgid ""
+"Whether or not swipe gesture can be used to switch from a subpage to the "
+"preferences"
+msgstr "Voidaanko hipaisua käyttää vaihtamaan alisivulta asetuksiin"
+
+#: src/hdy-preferences-window.ui:9
+msgid "Preferences"
+msgstr "Asetukset"
+
+#: src/hdy-preferences-window.ui:81
+msgid "Search"
+msgstr "Etsi"
+
+#: src/hdy-preferences-window.ui:204
+msgid "No Results Found"
+msgstr "Ei löytynyt"
+
+#: src/hdy-preferences-window.ui:219
+msgid "Try a different search"
+msgstr "Yritä toisenlaista hakua"
+
+#: src/hdy-search-bar.c:451
+msgid "Search Mode Enabled"
+msgstr "Etsintätila sallittu"
+
+#: src/hdy-search-bar.c:452
+msgid "Whether the search mode is on and the search bar shown"
+msgstr "Onko hakutoiminto käytössä ja hakurivi näkyvissä"
+
+#: src/hdy-search-bar.c:463
+msgid "Show Close Button"
+msgstr "Näytä 'Sulje' nappi"
+
+#: src/hdy-search-bar.c:464
+msgid "Whether to show the close button in the toolbar"
+msgstr "Näytetäänkö 'Sulje' nappi työkalupalkissa"
+
+#: src/hdy-shadow-helper.c:254
+msgid "Widget"
+msgstr "Pienohjelma"
+
+#: src/hdy-shadow-helper.c:255
+msgid "The widget the shadow will be drawn for"
+msgstr "Pienohjelma, josta varjo piirretään"
+
+#: src/hdy-squeezer.c:1091
+msgid "Homogeneous"
+msgstr "Yhtenevä"
+
+#: src/hdy-squeezer.c:1092
+msgid "Homogeneous sizing"
+msgstr "Yhtenevän kokoinen"
+
+#: src/hdy-squeezer.c:1099
+msgid "The widget currently visible in the squeezer"
+msgstr "Nyt puristimessa näkyvissä oleva pienohjelma"
+
+#: src/hdy-squeezer.c:1113
+msgid "The type of animation used to transition"
+msgstr "Animaation tyyppi siirtymissä"
+
+#: src/hdy-squeezer.c:1148
+msgid "X align"
+msgstr "X tasaus"
+
+#: src/hdy-squeezer.c:1149
+msgid "The horizontal alignment, from 0 (start) to 1 (end)"
+msgstr "Vaakatason asettelu, alkaen 0:sta (alku) päättyen 1:een (loppu)"
+
+#: src/hdy-squeezer.c:1170
+msgid "Y align"
+msgstr "Y tasaus"
+
+#: src/hdy-squeezer.c:1171
+msgid "The vertical alignment, from 0 (top) to 1 (bottom)"
+msgstr ""
+"Pystysuuntainen sijoittuminen, alkaen 0:sta (ylin) loppuen 1:een (alin)"
+
+#: src/hdy-squeezer.c:1180 src/hdy-swipe-tracker.c:773
+msgid "Enabled"
+msgstr "Sallittu"
+
+#: src/hdy-squeezer.c:1181
+msgid ""
+"Whether the child can be picked or should be ignored when looking for the "
+"child fitting the available size best"
+msgstr ""
+"Voiko lapsiobjektin valita vai pitäisikö se sivuuttaa, kun etsitään "
+"saatavilla olevaan kokoon sopivaa lapsiobjektia"
+
+#: src/hdy-stackable-box.c:2951
+msgid "Horizontally homogeneous sizing when the widget is folded"
+msgstr "Vaakatasossa yhtenevät koot, kun pienohjelma on kokoontaitettuna"
+
+#: src/hdy-stackable-box.c:2963
+msgid "Vertically homogeneous sizing when the widget is folded"
+msgstr "Pystysuuntaan yhtenevät koot, kun pienohjelma on kokoon taitettuna"
+
+#: src/hdy-stackable-box.c:2975
+msgid "Horizontally homogeneous sizing when the widget is unfolded"
+msgstr "Vaakatasossa yhtenevät koot, kun pienohjelma on avattuna esiin"
+
+#: src/hdy-stackable-box.c:2987
+msgid "Vertically homogeneous sizing when the widget is unfolded"
+msgstr "Pystysuuntaan yhtenevät koot, kun pienohjelma on avattuna esiin"
+
+#: src/hdy-stackable-box.c:2994
+msgid "The widget currently visible when the widget is folded"
+msgstr "Nyt näkyvissä oleva pienohjelma, kun pienohjelma on kokoon taitettuna"
+
+#: src/hdy-stackable-box.c:3084 src/hdy-stackable-box.c:3085
+msgid "Orientation"
+msgstr "Suunta"
+
+#: src/hdy-swipe-tracker.c:758
+msgid "Swipeable"
+msgstr "Hipaistavissa"
+
+#: src/hdy-swipe-tracker.c:759
+msgid "The swipeable the swipe tracker is attached to"
+msgstr "Hipaistavissa oleva, johon hipaisun seuranta liittyy"
+
+#: src/hdy-swipe-tracker.c:774
+msgid "Whether the swipe tracker processes events"
+msgstr "Käsitteleekö hipaisujen seuraaja tapahtumia"
+
+#: src/hdy-swipe-tracker.c:788
+msgid "Reversed"
+msgstr "Käänteinen"
+
+#: src/hdy-swipe-tracker.c:789
+msgid "Whether swipe direction is reversed"
+msgstr "Onko hipaisun suunta käänteinen"
+
+#: src/hdy-title-bar.c:308
+msgid "Selection mode"
+msgstr "Valintatila"
+
+#: src/hdy-title-bar.c:309
+msgid "Whether or not the title bar is in selection mode"
+msgstr "Onko otsikkopalkki valintatilassa"
+
+#: src/hdy-value-object.c:191
+msgctxt "HdyValueObjectClass"
+msgid "Value"
+msgstr "Arvo"
+
+#: src/hdy-value-object.c:192
+msgctxt "HdyValueObjectClass"
+msgid "The contained value"
+msgstr "Kohteen arvo"
+
+#: src/hdy-view-switcher-bar.c:178 src/hdy-view-switcher.c:509
+#: src/hdy-view-switcher-title.c:230
+msgid "Policy"
+msgstr "Yleinen sääntö"
+
+#: src/hdy-view-switcher-bar.c:179 src/hdy-view-switcher.c:510
+#: src/hdy-view-switcher-title.c:231
+msgid "The policy to determine the mode to use"
+msgstr "Yleinen sääntö, jolla määrätään mitä tilaa käytetään"
+
+#: src/hdy-view-switcher-bar.c:192 src/hdy-view-switcher-bar.c:193
+#: src/hdy-view-switcher.c:544 src/hdy-view-switcher.c:545
+#: src/hdy-view-switcher-title.c:244 src/hdy-view-switcher-title.c:245
+msgid "Stack"
+msgstr "Kasa"
+
+#: src/hdy-view-switcher-bar.c:206
+msgid "Reveal"
+msgstr "Paljasta"
+
+#: src/hdy-view-switcher-bar.c:207
+msgid "Whether the view switcher is revealed"
+msgstr "Onko näkymän vaihtaja paljastettu"
+
+#: src/hdy-view-switcher-button.c:203
+msgid "Icon Name"
+msgstr "Kuvakkeen nimi"
+
+#: src/hdy-view-switcher-button.c:204
+msgid "Icon name for image"
+msgstr "Kuvakkeen nimi kuvalle"
+
+#: src/hdy-view-switcher-button.c:217
+msgid "Icon Size"
+msgstr "Kuvakkeen koko"
+
+#: src/hdy-view-switcher-button.c:218
+msgid "Symbolic size to use for named icon"
+msgstr "Symbolinen koko käytettäväksi nimetylle ikonille"
+
+#: src/hdy-view-switcher-button.c:234
+msgid "Needs attention"
+msgstr "Tarvitsee huomiota"
+
+#: src/hdy-view-switcher-button.c:235
+msgid "Hint the view needs attention"
+msgstr "Vihje näkymän huomion tarpeesta"
+
+#: src/hdy-view-switcher.c:529
+msgid "Narrow ellipsize"
+msgstr "Merkkijonon lyhennys pisteillä"
+
+#: src/hdy-view-switcher.c:530
+msgid ""
+"The preferred place to ellipsize the string, if the narrow mode label does "
+"not have enough room to display the entire string"
+msgstr ""
+"Haluttu kohta, jossa merkkijonoa kavennetaan pisteillä, mikäli kapean tilan "
+"otsakkeella ei ole tarpeeksi tilaa esittää koko merkkijonoa"
+
+#: src/hdy-view-switcher-title.c:286
+msgid "View switcher enabled"
+msgstr "Näkymänyhdistäjä käytössä"
+
+#: src/hdy-view-switcher-title.c:287
+msgid "Whether the view switcher is enabled"
+msgstr "Onko näkymän vaihtaja käytössä"
+
+#: src/hdy-view-switcher-title.c:300
+msgid "Title visible"
+msgstr "Nimi näkyvissä"
+
+#: src/hdy-view-switcher-title.c:301
+msgid "Whether the title label is visible"
+msgstr "Onko nimen otsakerivi näkyvissä"
+
+#: src/hdy-window-handle-controller.c:259
+msgid "Move"
+msgstr "Siirrä"
+
+#: src/hdy-window-handle-controller.c:267
+msgid "Resize"
+msgstr "Muuta kokoa"
+
+#: src/hdy-window-handle-controller.c:298
+msgid "Always on Top"
+msgstr "Aina päällimmäisenä"
