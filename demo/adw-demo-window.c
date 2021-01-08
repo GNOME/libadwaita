@@ -6,6 +6,7 @@
 
 #include "pages/controls/adw-demo-page-controls.h"
 #include "pages/lists/adw-demo-page-lists.h"
+#include "pages/spring/adw-demo-page-spring.h"
 #include "pages/stub/adw-demo-page-stub.h"
 
 struct _AdwDemoWindow
@@ -95,6 +96,7 @@ adw_demo_window_init (AdwDemoWindow *self)
   ADD_STUB (list, _("Feedback"), "page-feedback-symbolic");
   ADD_STUB (list, _("Status Page"), "page-status-page-symbolic");
   ADD_STUB (list, _("Avatars"), "page-avatars-symbolic");
+  ADD_PAGE (list, _("Spring Animations"), "page-spring-symbolic", ADW_TYPE_DEMO_PAGE_SPRING);
   ADD_STUB (list, _("Menus"), "page-menus-symbolic");
   ADD_STUB (list, _("Preferences"), "page-preferences-symbolic");
   ADD_STUB (list, _("Keyboard Shortcuts"), "page-keyboard-shortcuts-symbolic");

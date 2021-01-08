@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwDemoAdjustmentRow" parent="AdwBin">
+    <property name="hexpand-set">True</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-spacing">12</property>
+        <property name="margin-top">12</property>
+        <property name="margin-bottom">6</property>
+        <style>
+          <class name="header"/>
+        </style>
+        <child>
+          <object class="GtkLabel">
+            <property name="margin-start">12</property>
+            <property name="hexpand">True</property>
+            <property name="halign">start</property>
+            <property name="ellipsize">end</property>
+            <property name="xalign">0</property>
+            <binding name="label">
+              <lookup name="title">AdwDemoAdjustmentRow</lookup>
+            </binding>
+            <style>
+              <class name="title"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSpinButton">
+            <property name="valign">center</property>
+            <property name="margin-end">12</property>
+            <binding name="adjustment">
+              <lookup name="adjustment">AdwDemoAdjustmentRow</lookup>
+            </binding>
+            <binding name="digits">
+              <lookup name="digits">AdwDemoAdjustmentRow</lookup>
+            </binding>
+            <layout>
+              <property name="column">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScale">
+            <property name="valign">center</property>
+            <binding name="adjustment">
+              <lookup name="adjustment">AdwDemoAdjustmentRow</lookup>
+            </binding>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">1</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

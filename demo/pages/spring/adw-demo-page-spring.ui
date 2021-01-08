@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwDemoPageSpring" parent="AdwDemoPage">
+    <property name="title" translatable="yes">Spring Animations</property>
+    <property name="child">
+      <object class="AdwPreferencesPage">
+        <property name="vexpand">True</property>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <child>
+              <object class="GtkStackSwitcher">
+                <property name="stack">stack</property>
+                <property name="halign">center</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <child>
+              <object class="GtkStack" id="stack">
+                <property name="transition-type">crossfade</property>
+                <style>
+                  <class name="content"/>
+                </style>
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="title" translatable="yes">Basic</property>
+                    <property name="child">
+                      <object class="AdwDemoSpringBasic" id="basic_view">
+                        <property name="damping"   bind-source="AdwDemoPageSpring" bind-property="damping"   bind-flags="sync-create"/>
+                        <property name="mass"      bind-source="AdwDemoPageSpring" bind-property="mass"      bind-flags="sync-create"/>
+                        <property name="stiffness" bind-source="AdwDemoPageSpring" bind-property="stiffness" bind-flags="sync-create"/>
+                        <property name="precision" bind-source="AdwDemoPageSpring" bind-property="precision" bind-flags="sync-create"/>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="title" translatable="yes">Interactive</property>
+                    <property name="child">
+                      <object class="AdwDemoSpringInteractive" id="interactive_view">
+                        <property name="damping"   bind-source="AdwDemoPageSpring" bind-property="damping"   bind-flags="sync-create"/>
+                        <property name="mass"      bind-source="AdwDemoPageSpring" bind-property="mass"      bind-flags="sync-create"/>
+                        <property name="stiffness" bind-source="AdwDemoPageSpring" bind-property="stiffness" bind-flags="sync-create"/>
+                        <property name="precision" bind-source="AdwDemoPageSpring" bind-property="precision" bind-flags="sync-create"/>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <child>
+              <object class="AdwComboRow" id="presets_row">
+                <property name="title" translatable="yes">Preset</property>
+                <signal name="notify::selected-item" handler="preset_cb" swapped="true"/>
+                <property name="model">
+                  <object class="GListStore" id="presets"/>
+                </property>
+                <property name="expression">
+                  <lookup name="name" type="AdwDemoSpringPreset"/>
+                </property>`
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <child>
+              <object class="GtkFlowBox">
+                <property name="selection-mode">none</property>
+                <property name="min-children-per-line">1</property>
+                <property name="max-children-per-line">2</property>
+                <property name="row-spacing">1</property>
+                <property name="column-spacing">1</property>
+                <property name="overflow">hidden</property>
+                <style>
+                  <class name="content"/>
+                </style>
+                <child>
+                  <object class="AdwDemoAdjustmentRow">
+                    <property name="title" translatable="yes">Damping</property>
+                    <property name="adjustment">damping</property>
+                    <property name="digits">1</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwDemoAdjustmentRow">
+                    <property name="title" translatable="yes">Mass</property>
+                    <property name="adjustment">mass</property>
+                    <property name="digits">1</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwDemoAdjustmentRow">
+                    <property name="title" translatable="yes">Stiffness</property>
+                    <property name="adjustment">stiffness</property>
+                    <property name="digits">1</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwDemoAdjustmentRow">
+                    <property name="title" translatable="yes">Precision</property>
+                    <property name="adjustment">precision</property>
+                    <property name="digits">4</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+  <object class="GtkAdjustment" id="damping">
+    <property name="lower">0</property>
+    <property name="upper">200</property>
+    <property name="value" bind-source="AdwDemoPageSpring" bind-property="damping" bind-flags="bidirectional"/>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+    <signal name="value-changed" handler="reset" swapped="true"/>
+  </object>
+  <object class="GtkAdjustment" id="mass">
+    <property name="lower">0</property>
+    <property name="upper">10</property>
+    <property name="value" bind-source="AdwDemoPageSpring" bind-property="mass" bind-flags="bidirectional"/>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+    <signal name="value-changed" handler="reset" swapped="true"/>
+  </object>
+  <object class="GtkAdjustment" id="stiffness">
+    <property name="lower">0</property>
+    <property name="upper">400</property>
+    <property name="value" bind-source="AdwDemoPageSpring" bind-property="stiffness" bind-flags="bidirectional"/>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+    <signal name="value-changed" handler="reset" swapped="true"/>
+  </object>
+  <object class="GtkAdjustment" id="precision">
+    <property name="lower">0.0001</property>
+    <property name="upper">0.01</property>
+    <property name="value" bind-source="AdwDemoPageSpring" bind-property="precision" bind-flags="bidirectional"/>
+    <property name="step-increment">0.001</property>
+    <property name="page-increment">0.1</property>
+    <signal name="value-changed" handler="reset" swapped="true"/>
+  </object>
+</interface>

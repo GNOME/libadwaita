@@ -31,15 +31,23 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/page-scrolling-window-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/page-search-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/page-sidebar-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-spring-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/page-status-page-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/page-tabs-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/page-toolbars-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/page-view-switcher-symbolic.svg</file>
 
+    <file preprocess="xml-stripblanks">icons/scalable/actions/spring-interactive-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/spring-graph-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/spring-run-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/star-outline-thick-symbolic.svg</file>
 
     <file preprocess="xml-stripblanks">pages/controls/adw-demo-page-controls.ui</file>
     <file preprocess="xml-stripblanks">pages/lists/adw-demo-page-lists.ui</file>
+    <file preprocess="xml-stripblanks">pages/spring/adw-demo-adjustment-row.ui</file>
+    <file preprocess="xml-stripblanks">pages/spring/adw-demo-page-spring.ui</file>
+    <file preprocess="xml-stripblanks">pages/spring/adw-demo-spring-basic.ui</file>
+    <file preprocess="xml-stripblanks">pages/spring/adw-demo-spring-interactive.ui</file>
     <file preprocess="xml-stripblanks">pages/stub/adw-demo-page-stub.ui</file>
 
     <file preprocess="xml-stripblanks">adw-demo-page.ui</file>

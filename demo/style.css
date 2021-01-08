@@ -1,3 +1,84 @@
+@define-color red_1 #f66151;
+@define-color red_3 #e01b24;
+@define-color green_2 #57e389;
+@define-color green_5 #26a269;
+@define-color blue_2 #62a0ea;
+@define-color blue_4 #1c71d8;
+@define-color yellow_1 #f9f06b;
+@define-color yellow_2 #f8e45c;
+@define-color yellow_5 #e5a50a;
+
+/* Welp */
+window.maximized {
+  box-shadow: none;
+}
+
+.htranslate,
+.vtranslate,
+.scale {
+  min-width: 30px;
+  min-height: 30px;
+  border-radius: 24px;
+  background: #33d17a;
+}
+
+.scale {
+  background: linear-gradient(to bottom, @blue_2, @blue_4);
+}
+
+.htranslate {
+  background: linear-gradient(to bottom, @green_2, @green_5);
+}
+
+.vtranslate {
+  background: linear-gradient(to bottom, @yellow_2, @yellow_5);
+}
+
+.rotate {
+  min-width: 54px;
+  min-height: 90px;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, @red_1, @red_3);
+}
+
+.interactive {
+  min-width: 96px;
+  min-height: 96px;
+  border-radius: 48px;
+  background: linear-gradient(to bottom, @red_1, @red_3);
+  color: white;
+}
+
+stack.content {
+  border: 1px solid alpha(@borders, .7);
+  border-radius: 8px;
+  background: @theme_base_color;
+}
+
+flowbox.content {
+  background: @theme_base_color;
+  border-radius: 8px;
+  border: 1px solid alpha(@borders, .7);
+  background: alpha(@borders, .7);
+  background-clip: padding-box;
+}
+
+flowbox.content > flowboxchild {
+  background: @theme_base_color;
+}
+
+.numeric {
+  font-feature-settings: "tnum";
+}
+
+.circular-large {
+  min-width: 50px;
+  min-height: 50px;
+  padding: 0;
+  border-radius: 100px;
+  -gtk-icon-size: 24px;
+}
+
 .numeric {
   font-feature-settings: "tnum";
 }

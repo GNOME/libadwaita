@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwDemoSpringInteractive" parent="AdwBin">
+    <property name="layout-manager">
+      <object class="AdwDemoTransformLayout" id="layout"/>
+    </property>
+    <property name="child">
+      <object class="GtkImage" id="handle">
+        <property name="halign">center</property>
+        <property name="valign">center</property>
+        <property name="icon-name">spring-interactive-symbolic</property>
+        <property name="icon-size">large</property>
+        <property name="cursor">grab_cursor</property>
+        <style>
+          <class name="interactive"/>
+        </style>
+      </object>
+    </property>
+    <child>
+      <object class="GtkGestureDrag" id="drag_gesture">
+        <property name="propagation-phase">capture</property>
+        <signal name="drag-begin" handler="drag_begin_cb" swapped="true"/>
+        <signal name="drag-update" handler="drag_update_cb" swapped="true"/>
+        <signal name="cancel" handler="drag_cancel_cb" swapped="true"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkGestureSwipe" id="swipe_gesture">
+        <property name="propagation-phase">capture</property>
+        <signal name="swipe" handler="animate" swapped="true"/>
+      </object>
+    </child>
+  </template>
+  <object class="GdkCursor" id="grab_cursor">
+    <property name="name">grab</property>
+  </object>
+  <object class="GdkCursor" id="grabbing_cursor">
+    <property name="name">grabbing</property>
+  </object>
+</interface>
