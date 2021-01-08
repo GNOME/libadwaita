@@ -71,9 +71,9 @@ msgid "Only objects of type %s can be added to objects of type %s."
 msgstr ""
 "Només els objectes de tipus %s poden afegir-se als objectes de tipus %s."
 
-#: src/hdy-action-row.c:354 src/hdy-action-row.c:355
-#: src/hdy-expander-row.c:314 src/hdy-expander-row.c:315
-#: src/hdy-preferences-page.c:179 src/hdy-preferences-page.c:180
+#: src/hdy-action-row.c:354 src/hdy-action-row.c:355 src/hdy-expander-row.c:314
+#: src/hdy-expander-row.c:315 src/hdy-preferences-page.c:179
+#: src/hdy-preferences-page.c:180
 msgid "Icon name"
 msgstr "Nom de la icona"
 
@@ -85,9 +85,8 @@ msgstr "Giny activable"
 msgid "The widget to be activated when the row is activated"
 msgstr "Giny a activar quan s'activa la fila"
 
-#: src/hdy-action-row.c:382 src/hdy-action-row.c:383
-#: src/hdy-expander-row.c:285 src/hdy-header-bar.c:2107
-#: src/hdy-view-switcher-title.c:272
+#: src/hdy-action-row.c:382 src/hdy-action-row.c:383 src/hdy-expander-row.c:285
+#: src/hdy-header-bar.c:2107 src/hdy-view-switcher-title.c:272
 msgid "Subtitle"
 msgstr "Subtítol"
 
@@ -99,8 +98,8 @@ msgstr "Utilitza el subratllat"
 #: src/hdy-action-row.c:398 src/hdy-expander-row.c:301
 #: src/hdy-preferences-row.c:131
 msgid ""
-"If set, an underline in the text indicates the next character should be "
-"used for the mnemonic accelerator key"
+"If set, an underline in the text indicates the next character should be used "
+"for the mnemonic accelerator key"
 msgstr ""
 "Quan està actiu, un subratllat al text indica quin és el següent caràcter "
 "que s'hauria d'utilitzar per a la clau acceleradora mnemotècnica"
@@ -110,8 +109,7 @@ msgstr ""
 msgid "Number of pages"
 msgstr "Nombre de pàgines"
 
-#: src/hdy-carousel-box.c:1103 src/hdy-carousel.c:592
-#: src/hdy-header-bar.c:2093
+#: src/hdy-carousel-box.c:1103 src/hdy-carousel.c:592 src/hdy-header-bar.c:2093
 msgid "Position"
 msgstr "Posició"
 
@@ -119,8 +117,7 @@ msgstr "Posició"
 msgid "Current scrolling position"
 msgstr "Posició actual de la barra de desplaçament"
 
-#: src/hdy-carousel-box.c:1119 src/hdy-carousel.c:623
-#: src/hdy-header-bar.c:2121
+#: src/hdy-carousel-box.c:1119 src/hdy-carousel.c:623 src/hdy-header-bar.c:2121
 msgid "Spacing"
 msgstr "Espaiat"
 
@@ -278,7 +275,8 @@ msgstr "Pot lliscar enrere"
 msgid ""
 "Whether or not swipe gesture can be used to switch to the previous child"
 msgstr ""
-"Si es pot utilitzar o no el gest de lliscar per canviar cap al fill anterior"
+"Si es pot utilitzar o no el gest de lliscar per a canviar cap al fill "
+"anterior"
 
 #: src/hdy-deck.c:1022 src/hdy-leaflet.c:1102 src/hdy-stackable-box.c:3079
 msgid "Can swipe forward"
@@ -287,7 +285,7 @@ msgstr "Pot lliscar endavant"
 #: src/hdy-deck.c:1023 src/hdy-leaflet.c:1103 src/hdy-stackable-box.c:3080
 msgid "Whether or not swipe gesture can be used to switch to the next child"
 msgstr ""
-"Si es pot utilitzar o no el gest de lliscar per canviar cap al fill següent"
+"Si es pot utilitzar o no el gest de lliscar per a canviar cap al fill següent"
 
 #: src/hdy-deck.c:1031 src/hdy-leaflet.c:1111
 msgid "Name"
@@ -458,8 +456,7 @@ msgid "Symbols"
 msgstr "Símbols"
 
 #: src/hdy-keypad-button.c:233
-msgid ""
-"The keypad symbols of the button. The first symbol is used as the digit"
+msgid "The keypad symbols of the button. The first symbol is used as the digit"
 msgstr ""
 "Els símbols de teclat del botó. El primer símbol s'utilitza com a dígit"
 
@@ -636,7 +633,7 @@ msgid ""
 "Whether or not swipe gesture can be used to switch from a subpage to the "
 "preferences"
 msgstr ""
-"Si es pot utilitzar o no el gest de lliscar per canviar d'una subpàgina a "
+"Si es pot utilitzar o no el gest de lliscar per a canviar d'una subpàgina a "
 "les preferències"
 
 #: src/hdy-preferences-window.ui:9
@@ -794,7 +791,7 @@ msgstr "Política"
 #: src/hdy-view-switcher-bar.c:179 src/hdy-view-switcher.c:513
 #: src/hdy-view-switcher-title.c:231
 msgid "The policy to determine the mode to use"
-msgstr "Política per determinar el mode d'ús"
+msgstr "Política per a determinar el mode d'ús"
 
 #: src/hdy-view-switcher-bar.c:192 src/hdy-view-switcher-bar.c:193
 #: src/hdy-view-switcher.c:547 src/hdy-view-switcher.c:548
@@ -845,8 +842,8 @@ msgid ""
 "The preferred place to ellipsize the string, if the narrow mode label does "
 "not have enough room to display the entire string"
 msgstr ""
-"El lloc preferit per ellipsize la cadena si l'etiqueta del mode estret no "
-"té prou espai per mostrar tota la cadena"
+"El lloc preferit per ellipsize la cadena si l'etiqueta del mode estret no té "
+"prou espai per a mostrar tota la cadena"
 
 #: src/hdy-view-switcher-title.c:286
 msgid "View switcher enabled"
