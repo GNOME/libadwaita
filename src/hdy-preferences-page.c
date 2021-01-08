@@ -326,18 +326,6 @@ hdy_preferences_page_set_title (HdyPreferencesPage *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
 }
 
-GtkAdjustment *
-hdy_preferences_page_get_vadjustment (HdyPreferencesPage *self)
-{
-  HdyPreferencesPagePrivate *priv;
-
-  g_return_val_if_fail (HDY_IS_PREFERENCES_PAGE (self), NULL);
-
-  priv = hdy_preferences_page_get_instance_private (self);
-
-  return gtk_scrolled_window_get_vadjustment (priv->scrolled_window);
-}
-
 /**
  * hdy_preferences_page_add_preferences_to_model: (skip)
  * @self: a #HdyPreferencesPage

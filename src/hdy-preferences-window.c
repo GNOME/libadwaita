@@ -223,9 +223,6 @@ search_result_activated_cb (HdyPreferencesWindow *self,
   HdyPreferencesWindowPrivate *priv = hdy_preferences_window_get_instance_private (self);
   HdyPreferencesPage *page;
   HdyPreferencesRow *row;
-  GtkAdjustment *adjustment;
-  GtkAllocation allocation;
-  gint y = 0;
 
   gtk_toggle_button_set_active (priv->search_button, FALSE);
   page = HDY_PREFERENCES_PAGE (g_object_get_data (G_OBJECT (widget), "page"));
@@ -234,21 +231,9 @@ search_result_activated_cb (HdyPreferencesWindow *self,
   g_assert (page != NULL);
   g_assert (row != NULL);
 
-  adjustment = hdy_preferences_page_get_vadjustment (page);
-
-  g_assert (adjustment != NULL);
-
   gtk_stack_set_visible_child (priv->pages_stack, GTK_WIDGET (page));
   gtk_widget_set_can_focus (GTK_WIDGET (row), TRUE);
   gtk_widget_grab_focus (GTK_WIDGET (row));
-
-  if (!gtk_widget_translate_coordinates (GTK_WIDGET (row), GTK_WIDGET (page), 0, 0, NULL, &y))
-    return;
-
-  gtk_container_set_focus_child (GTK_CONTAINER (page), GTK_WIDGET (row));
-  y += gtk_adjustment_get_value (adjustment);
-  gtk_widget_get_allocation (GTK_WIDGET (row), &allocation);
-  gtk_adjustment_clamp_page (adjustment, y, y + allocation.height);
 }
 
 static gboolean

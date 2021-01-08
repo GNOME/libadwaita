@@ -10,8 +10,6 @@
 
 G_BEGIN_DECLS
 
-GtkAdjustment *hdy_preferences_page_get_vadjustment (HdyPreferencesPage *self);
-
 void hdy_preferences_page_add_preferences_to_model (HdyPreferencesPage *self,
                                                     GListStore         *model);
 
