@@ -287,7 +287,7 @@ glade_hdy_header_bar_set_property (GladeWidgetAdaptor *adaptor,
     glade_widget_property_set_sensitive (gwidget, "decoration-layout",
                                          g_value_get_boolean (value),
                                          _("The decoration layout does not apply to header bars "
-                                           "which do no show window controls"));
+                                           "which do not show window controls"));
   } else if (!strcmp (id, "size")) {
     set_size (object, value);
   } else {
