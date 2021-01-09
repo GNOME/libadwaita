@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
-"POT-Creation-Date: 2020-12-19 10:35+0000\n"
-"PO-Revision-Date: 2021-01-01 11:47+0100\n"
+"POT-Creation-Date: 2021-01-09 13:06+0000\n"
+"PO-Revision-Date: 2021-01-09 14:42+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -36,7 +36,7 @@ msgstr "Denna egenskap gäller inte när en anpassad titel är satt"
 
 #: glade/glade-hdy-header-bar.c:289
 msgid ""
-"The decoration layout does not apply to header bars which do no show window "
+"The decoration layout does not apply to header bars which do not show window "
 "controls"
 msgstr ""
 "Dekorationslayouten gäller inte rubrikrader som inte visar fönsterkontroller"
@@ -172,19 +172,19 @@ msgstr "Huruvida dragning med muspekaren ska tillåtas"
 msgid "Carousel"
 msgstr "Karusell"
 
-#: src/hdy-clamp.c:417
+#: src/hdy-clamp.c:414
 msgid "Maximum size"
 msgstr "Maximal storlek"
 
-#: src/hdy-clamp.c:418
+#: src/hdy-clamp.c:415
 msgid "The maximum size allocated to the child"
 msgstr "Den största storlek som allokeras till den underordnade"
 
-#: src/hdy-clamp.c:442
+#: src/hdy-clamp.c:439
 msgid "Tightening threshold"
 msgstr "Åtstramningströskelvärde"
 
-#: src/hdy-clamp.c:443
+#: src/hdy-clamp.c:440
 msgid "The size from which the clamp will tighten its grip on the child"
 msgstr ""
 "Storleken från vilken klämman kommer att strama åt sitt grepp om den "
@@ -334,127 +334,127 @@ msgstr "Visa brytare för aktivering"
 msgid "Whether the switch enabling the expansion is visible"
 msgstr "Huruvida brytaren som aktiverar expansionen är synlig"
 
-#: src/hdy-flap.c:1469
+#: src/hdy-flap.c:1488
 msgid "Content"
 msgstr "Innehåll"
 
-#: src/hdy-flap.c:1470
+#: src/hdy-flap.c:1489
 msgid "The content Widget"
 msgstr "Innehållskomponenten"
 
 # https://gitlab.gnome.org/GNOME/libhandy/-/issues/202
 # Som en sidopanel, men kan även vara högst upp/längst ner.
-#: src/hdy-flap.c:1484
+#: src/hdy-flap.c:1503
 msgid "Flap"
 msgstr "Flikpanel"
 
-#: src/hdy-flap.c:1485
+#: src/hdy-flap.c:1504
 msgid "The flap widget"
 msgstr "Flikpanelskomponenten"
 
-#: src/hdy-flap.c:1500
+#: src/hdy-flap.c:1519
 msgid "Separator"
 msgstr "Avgränsare"
 
-#: src/hdy-flap.c:1501
+#: src/hdy-flap.c:1520
 msgid "The separator widget"
 msgstr "Avgränsarkomponenten"
 
-#: src/hdy-flap.c:1515
+#: src/hdy-flap.c:1534
 msgid "Flap Position"
 msgstr "Flikpanelsposition"
 
-#: src/hdy-flap.c:1516
+#: src/hdy-flap.c:1535
 msgid "The flap position"
 msgstr "Flikpanelspositionen"
 
-#: src/hdy-flap.c:1530
+#: src/hdy-flap.c:1549
 msgid "Reveal Flap"
 msgstr "Visa flikpanel"
 
-#: src/hdy-flap.c:1531
+#: src/hdy-flap.c:1550
 msgid "Whether the flap is revealed"
 msgstr "Huruvida flikpanelen visas"
 
-#: src/hdy-flap.c:1544
+#: src/hdy-flap.c:1563
 msgid "Reveal Duration"
 msgstr "Visningslängd"
 
-#: src/hdy-flap.c:1545
+#: src/hdy-flap.c:1564
 msgid "The reveal transition animation duration, in milliseconds"
 msgstr "Längd på visningsövergångsanimeringen i millisekunder"
 
-#: src/hdy-flap.c:1560
+#: src/hdy-flap.c:1579
 msgid "Reveal Progress"
 msgstr "Visningsförlopp"
 
 # 0 means fully hidden,
 #  * 1 means fully revealed
-#: src/hdy-flap.c:1561
+#: src/hdy-flap.c:1580
 msgid "The current reveal transition progress"
 msgstr "Det aktuella visningsövergångsförloppet"
 
-#: src/hdy-flap.c:1575
+#: src/hdy-flap.c:1594
 msgid "Fold Policy"
 msgstr "Vikningspolicy"
 
-#: src/hdy-flap.c:1576
+#: src/hdy-flap.c:1595
 msgid "The current fold policy"
 msgstr "Aktuell vikningspolicy"
 
-#: src/hdy-flap.c:1590
+#: src/hdy-flap.c:1609
 msgid "Fold Duration"
 msgstr "Vikningslängd"
 
-#: src/hdy-flap.c:1591
+#: src/hdy-flap.c:1610
 msgid "The fold transition animation duration, in milliseconds"
 msgstr "Längd på vikningsövergångsanimeringen i millisekunder"
 
-#: src/hdy-flap.c:1607 src/hdy-leaflet.c:1038 src/hdy-stackable-box.c:3045
+#: src/hdy-flap.c:1626 src/hdy-leaflet.c:1038 src/hdy-stackable-box.c:3045
 msgid "Folded"
 msgstr "Ihopvikt"
 
-#: src/hdy-flap.c:1608
+#: src/hdy-flap.c:1627
 msgid "Whether the flap is currently folded"
 msgstr "Huruvida flikpanelen är ihopvikt"
 
-#: src/hdy-flap.c:1625
+#: src/hdy-flap.c:1644
 msgid "Locked"
 msgstr "Låst"
 
-#: src/hdy-flap.c:1626
+#: src/hdy-flap.c:1645
 msgid "Whether the flap is locked"
 msgstr "Huruvida flikpanelen är låst"
 
-#: src/hdy-flap.c:1644
+#: src/hdy-flap.c:1663
 msgid "Transition Type"
 msgstr "Övergångstyp"
 
-#: src/hdy-flap.c:1645
+#: src/hdy-flap.c:1664
 msgid "The type of animation used for reveal and fold transitions"
 msgstr "Den typ av animering som används vid visnings- och vikningsövergångar"
 
-#: src/hdy-flap.c:1663
+#: src/hdy-flap.c:1682
 msgid "Modal"
 msgstr "Modal"
 
-#: src/hdy-flap.c:1664
+#: src/hdy-flap.c:1683
 msgid "Whether the flap is modal"
 msgstr "Huruvida flikpanelen är modal"
 
-#: src/hdy-flap.c:1679
+#: src/hdy-flap.c:1698
 msgid "Swipe to Open"
 msgstr "Svep för att öppna"
 
-#: src/hdy-flap.c:1680
+#: src/hdy-flap.c:1699
 msgid "Whether the flap can be opened with a swipe gesture"
 msgstr "Huruvida flikpanelen kan öppnas med en svepgest"
 
-#: src/hdy-flap.c:1695
+#: src/hdy-flap.c:1714
 msgid "Swipe to Close"
 msgstr "Svep för att stänga"
 
-#: src/hdy-flap.c:1696
+#: src/hdy-flap.c:1715
 msgid "Whether the flap can be closed with a swipe gesture"
 msgstr "Huruvida flikpanelen kan stängas med en svepgest"
 
@@ -498,8 +498,8 @@ msgstr ""
 msgid "The index of the child in the parent"
 msgstr "Indexet för den underordnade i den överordnade"
 
-#: src/hdy-header-bar.c:2100 src/hdy-preferences-group.c:263
-#: src/hdy-preferences-group.c:264 src/hdy-preferences-page.c:193
+#: src/hdy-header-bar.c:2100 src/hdy-preferences-group.c:287
+#: src/hdy-preferences-group.c:288 src/hdy-preferences-page.c:193
 #: src/hdy-preferences-page.c:194 src/hdy-preferences-row.c:115
 #: src/hdy-status-page.c:235 src/hdy-view-switcher-title.c:258
 msgid "Title"
@@ -603,61 +603,61 @@ msgstr "Visa symboler"
 msgid "Whether the second line of symbols should be shown or not"
 msgstr "Huruvida den andra raden med symboler ska visas eller inte"
 
-#: src/hdy-keypad.c:247
+#: src/hdy-keypad.c:258
 msgid "Row spacing"
 msgstr "Radavstånd"
 
-#: src/hdy-keypad.c:248
+#: src/hdy-keypad.c:259
 msgid "The amount of space between two consecutive rows"
 msgstr "Mängden utrymme mellan två efterföljande rader"
 
-#: src/hdy-keypad.c:261
+#: src/hdy-keypad.c:272
 msgid "Column spacing"
 msgstr "Kolumnavstånd"
 
-#: src/hdy-keypad.c:262
+#: src/hdy-keypad.c:273
 msgid "The amount of space between two consecutive columns"
 msgstr "Mängden utrymme mellan två efterföljande kolumner"
 
-#: src/hdy-keypad.c:276
+#: src/hdy-keypad.c:287
 msgid "Letters visible"
 msgstr "Bokstäver synliga"
 
-#: src/hdy-keypad.c:277
+#: src/hdy-keypad.c:288
 msgid "Whether the letters below the digits should be visible"
 msgstr "Huruvida bokstäverna under siffrorna ska vara synliga"
 
-#: src/hdy-keypad.c:291
+#: src/hdy-keypad.c:302
 msgid "Symbols visible"
 msgstr "Symboler synliga"
 
-#: src/hdy-keypad.c:292
+#: src/hdy-keypad.c:303
 msgid "Whether the hash, plus, and asterisk symbols should be visible"
 msgstr "Huruvida symbolerna fyrkant, plus och asterisk ska vara synliga"
 
-#: src/hdy-keypad.c:306
+#: src/hdy-keypad.c:317
 msgid "Entry"
 msgstr "Fält"
 
-#: src/hdy-keypad.c:307
+#: src/hdy-keypad.c:318
 msgid "The entry widget connected to the keypad"
 msgstr "Fältkomponenten som är kopplad till knappsatsen"
 
 # The “right-action” property has been replaced by #HdyHeaderGroup:end-action
-#: src/hdy-keypad.c:320
+#: src/hdy-keypad.c:331
 msgid "End action"
 msgstr "Slutåtgärd"
 
-#: src/hdy-keypad.c:321
+#: src/hdy-keypad.c:332
 msgid "The end action widget"
 msgstr "Åtgärdskomponenten i slutet"
 
 # The “left-action” property has been replaced by #HdyHeaderGroup:start-action
-#: src/hdy-keypad.c:334
+#: src/hdy-keypad.c:345
 msgid "Start action"
 msgstr "Startåtgärd"
 
-#: src/hdy-keypad.c:335
+#: src/hdy-keypad.c:346
 msgid "The start action widget"
 msgstr "Åtgärdskomponenten i början"
 
@@ -748,7 +748,7 @@ msgstr "Navigerbar"
 msgid "Whether the child can be navigated to"
 msgstr "Huruvida det går att navigera till den underordnade"
 
-#: src/hdy-preferences-group.c:249 src/hdy-preferences-group.c:250
+#: src/hdy-preferences-group.c:273 src/hdy-preferences-group.c:274
 #: src/hdy-status-page.c:249
 msgid "Description"
 msgstr "Beskrivning"
