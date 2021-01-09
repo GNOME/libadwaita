@@ -2,13 +2,13 @@
 # Copyright (C) 2020 libhandy's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libhandy package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
-"POT-Creation-Date: 2020-12-19 10:35+0000\n"
-"PO-Revision-Date: 2020-12-19 14:09+0200\n"
+"POT-Creation-Date: 2021-01-09 13:06+0000\n"
+"PO-Revision-Date: 2021-01-09 17:32+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -36,8 +36,11 @@ msgid "This property does not apply when a custom title is set"
 msgstr "Ця властивість не застосовується, якщо встановлено нетиповий заголовок"
 
 #: glade/glade-hdy-header-bar.c:289
+#| msgid ""
+#| "The decoration layout does not apply to header bars which do no show "
+#| "window controls"
 msgid ""
-"The decoration layout does not apply to header bars which do no show window "
+"The decoration layout does not apply to header bars which do not show window "
 "controls"
 msgstr ""
 "Компонування декорацій не стосується смужок заголовків, на яких не буде "
@@ -174,19 +177,19 @@ msgstr "Визначає, чи можна перетягувати за допо
 msgid "Carousel"
 msgstr "Карусель"
 
-#: src/hdy-clamp.c:417
+#: src/hdy-clamp.c:414
 msgid "Maximum size"
 msgstr "Максимальний розмір"
 
-#: src/hdy-clamp.c:418
+#: src/hdy-clamp.c:415
 msgid "The maximum size allocated to the child"
 msgstr "Максимальний розмір, який буде отримано для дочірнього об'єкта"
 
-#: src/hdy-clamp.c:442
+#: src/hdy-clamp.c:439
 msgid "Tightening threshold"
 msgstr "Поріг ущільнення"
 
-#: src/hdy-clamp.c:443
+#: src/hdy-clamp.c:440
 msgid "The size from which the clamp will tighten its grip on the child"
 msgstr "Розмір, починаючи з якого защіпка починає ущільнювати дочірній об'єкт"
 
@@ -337,145 +340,124 @@ msgstr "Показувати перемикач вмикання"
 msgid "Whether the switch enabling the expansion is visible"
 msgstr "Визначає, чи є видимим перемикач, який вмикає розгортання"
 
-#: src/hdy-flap.c:1469
-#| msgid "Center content"
+#: src/hdy-flap.c:1488
 msgid "Content"
 msgstr "Вміст"
 
-#: src/hdy-flap.c:1470
-#| msgid "The end action widget"
+#: src/hdy-flap.c:1489
 msgid "The content Widget"
 msgstr "Віджет вмісту"
 
-#: src/hdy-flap.c:1484
+#: src/hdy-flap.c:1503
 msgid "Flap"
 msgstr "Відкидна панель"
 
-#: src/hdy-flap.c:1485
-#| msgid "The end action widget"
+#: src/hdy-flap.c:1504
 msgid "The flap widget"
 msgstr "Віджет відкидної панелі"
 
-#: src/hdy-flap.c:1500
+#: src/hdy-flap.c:1519
 msgid "Separator"
 msgstr "Роздільник"
 
-#: src/hdy-flap.c:1501
-#| msgid "The start action widget"
+#: src/hdy-flap.c:1520
 msgid "The separator widget"
 msgstr "Віджет роздільника"
 
-#: src/hdy-flap.c:1515
-#| msgid "Position"
+#: src/hdy-flap.c:1534
 msgid "Flap Position"
 msgstr "Позиція відкидної панелі"
 
-#: src/hdy-flap.c:1516
+#: src/hdy-flap.c:1535
 msgid "The flap position"
 msgstr "Позиція відкидної панелі"
 
-#: src/hdy-flap.c:1530
-#| msgid "Reveal"
+#: src/hdy-flap.c:1549
 msgid "Reveal Flap"
 msgstr "Розкриття відкидної панелі"
 
-#: src/hdy-flap.c:1531
-#| msgid "Whether the view switcher is revealed"
+#: src/hdy-flap.c:1550
 msgid "Whether the flap is revealed"
 msgstr "Визначає, чи розкрито відкидну панель"
 
-#: src/hdy-flap.c:1544
-#| msgid "Reveal duration"
+#: src/hdy-flap.c:1563
 msgid "Reveal Duration"
 msgstr "Тривалість розкриття"
 
-#: src/hdy-flap.c:1545
-#| msgid "The transition animation duration, in milliseconds"
+#: src/hdy-flap.c:1564
 msgid "The reveal transition animation duration, in milliseconds"
 msgstr "Тривалість анімації переходу розкриття у мілісекундах"
 
-#: src/hdy-flap.c:1560
-#| msgid "Reveal duration"
+#: src/hdy-flap.c:1579
 msgid "Reveal Progress"
 msgstr "Поступ розкриття"
 
-#: src/hdy-flap.c:1561
+#: src/hdy-flap.c:1580
 msgid "The current reveal transition progress"
 msgstr "Поточний поступ переходу розкриття"
 
-#: src/hdy-flap.c:1575
-#| msgid "Policy"
+#: src/hdy-flap.c:1594
 msgid "Fold Policy"
 msgstr "Правила відкидної панелі"
 
-#: src/hdy-flap.c:1576
+#: src/hdy-flap.c:1595
 msgid "The current fold policy"
 msgstr "Поточні правила згортання"
 
-#: src/hdy-flap.c:1590
-#| msgid "Reveal duration"
+#: src/hdy-flap.c:1609
 msgid "Fold Duration"
 msgstr "Тривалість згортання"
 
-#: src/hdy-flap.c:1591
-#| msgid "The mode transition animation duration, in milliseconds"
+#: src/hdy-flap.c:1610
 msgid "The fold transition animation duration, in milliseconds"
 msgstr "Тривалість анімації переходу згортання у мілісекундах"
 
-#: src/hdy-flap.c:1607 src/hdy-leaflet.c:1038 src/hdy-stackable-box.c:3045
+#: src/hdy-flap.c:1626 src/hdy-leaflet.c:1038 src/hdy-stackable-box.c:3045
 msgid "Folded"
 msgstr "Згорнуто"
 
-#: src/hdy-flap.c:1608
-#| msgid "Whether the widget is folded"
+#: src/hdy-flap.c:1627
 msgid "Whether the flap is currently folded"
 msgstr "Визначає, чи згорнуто відкидну панель"
 
-#: src/hdy-flap.c:1625
+#: src/hdy-flap.c:1644
 msgid "Locked"
 msgstr "Заблоковано"
 
-#: src/hdy-flap.c:1626
-#| msgid "Whether the widget is folded"
+#: src/hdy-flap.c:1645
 msgid "Whether the flap is locked"
 msgstr "Визначає, чи заблоковано відкидну панель"
 
-#: src/hdy-flap.c:1644
-#| msgid "Transition type"
+#: src/hdy-flap.c:1663
 msgid "Transition Type"
 msgstr "Тип переходу"
 
-#: src/hdy-flap.c:1645
-#| msgid "The type of animation used to transition"
+#: src/hdy-flap.c:1664
 msgid "The type of animation used for reveal and fold transitions"
 msgstr ""
 "Тип анімації, яку буде використано для переходів розгортання і згортання"
 
-#: src/hdy-flap.c:1663
+#: src/hdy-flap.c:1682
 msgid "Modal"
 msgstr "Модальне"
 
-#: src/hdy-flap.c:1664
-#| msgid "Whether the widget is folded"
+#: src/hdy-flap.c:1683
 msgid "Whether the flap is modal"
 msgstr "Визначає, чи є відкидна панель модальною"
 
-#: src/hdy-flap.c:1679
+#: src/hdy-flap.c:1698
 msgid "Swipe to Open"
 msgstr "Змахнути для відкриття"
 
-#: src/hdy-flap.c:1680
-#| msgid "Whether the child can be navigated to"
+#: src/hdy-flap.c:1699
 msgid "Whether the flap can be opened with a swipe gesture"
 msgstr "Визначає, чи можна відкрити відкидну панель жестом змахування"
 
-#: src/hdy-flap.c:1695
-#| msgid "Swipeable"
+#: src/hdy-flap.c:1714
 msgid "Swipe to Close"
 msgstr "Змахування для закриття"
 
-#: src/hdy-flap.c:1696
-#| msgid "Whether the widget can be swiped"
+#: src/hdy-flap.c:1715
 msgid "Whether the flap can be closed with a swipe gesture"
 msgstr "Визначає, чи можна закрити відкидну панель жестом змахування"
 
@@ -519,8 +501,8 @@ msgstr ""
 msgid "The index of the child in the parent"
 msgstr "Індекс вкладеного елемента у батьківському"
 
-#: src/hdy-header-bar.c:2100 src/hdy-preferences-group.c:263
-#: src/hdy-preferences-group.c:264 src/hdy-preferences-page.c:193
+#: src/hdy-header-bar.c:2100 src/hdy-preferences-group.c:287
+#: src/hdy-preferences-group.c:288 src/hdy-preferences-page.c:193
 #: src/hdy-preferences-page.c:194 src/hdy-preferences-row.c:115
 #: src/hdy-status-page.c:235 src/hdy-view-switcher-title.c:258
 msgid "Title"
@@ -624,59 +606,59 @@ msgstr "Показувати символи"
 msgid "Whether the second line of symbols should be shown or not"
 msgstr "Визначає, чи має бути показано другий рядок символів"
 
-#: src/hdy-keypad.c:247
+#: src/hdy-keypad.c:258
 msgid "Row spacing"
 msgstr "Міжрядковий інтервал"
 
-#: src/hdy-keypad.c:248
+#: src/hdy-keypad.c:259
 msgid "The amount of space between two consecutive rows"
 msgstr "Інтервал між двома послідовними рядками"
 
-#: src/hdy-keypad.c:261
+#: src/hdy-keypad.c:272
 msgid "Column spacing"
 msgstr "Інтервал між стовпчиками"
 
-#: src/hdy-keypad.c:262
+#: src/hdy-keypad.c:273
 msgid "The amount of space between two consecutive columns"
 msgstr "Інтервал між двома послідовними стовпчиками"
 
-#: src/hdy-keypad.c:276
+#: src/hdy-keypad.c:287
 msgid "Letters visible"
 msgstr "Видимі літери"
 
-#: src/hdy-keypad.c:277
+#: src/hdy-keypad.c:288
 msgid "Whether the letters below the digits should be visible"
 msgstr "Визначає, чи будуть видимими літери під цифрами"
 
-#: src/hdy-keypad.c:291
+#: src/hdy-keypad.c:302
 msgid "Symbols visible"
 msgstr "Видимі символи"
 
-#: src/hdy-keypad.c:292
+#: src/hdy-keypad.c:303
 msgid "Whether the hash, plus, and asterisk symbols should be visible"
 msgstr "Визначає, чи має бути показано символи решітки, плюса та зірочки"
 
-#: src/hdy-keypad.c:306
+#: src/hdy-keypad.c:317
 msgid "Entry"
 msgstr "Введення"
 
-#: src/hdy-keypad.c:307
+#: src/hdy-keypad.c:318
 msgid "The entry widget connected to the keypad"
 msgstr "Віджет введення, з'єднаний із цифровою панеллю"
 
-#: src/hdy-keypad.c:320
+#: src/hdy-keypad.c:331
 msgid "End action"
 msgstr "Завершення дії"
 
-#: src/hdy-keypad.c:321
+#: src/hdy-keypad.c:332
 msgid "The end action widget"
 msgstr "Віджет завершення дії"
 
-#: src/hdy-keypad.c:334
+#: src/hdy-keypad.c:345
 msgid "Start action"
 msgstr "Початок дії"
 
-#: src/hdy-keypad.c:335
+#: src/hdy-keypad.c:346
 msgid "The start action widget"
 msgstr "Віджет початку дії"
 
@@ -762,7 +744,7 @@ msgstr "Придатний до навігації"
 msgid "Whether the child can be navigated to"
 msgstr "Визначає, чи можна переходити до дочірнього об'єкта"
 
-#: src/hdy-preferences-group.c:249 src/hdy-preferences-group.c:250
+#: src/hdy-preferences-group.c:273 src/hdy-preferences-group.c:274
 #: src/hdy-status-page.c:249
 msgid "Description"
 msgstr "Опис"
@@ -900,12 +882,10 @@ msgid "Orientation"
 msgstr "Орієнтація"
 
 #: src/hdy-status-page.c:222
-#| msgid "The name of the child page"
 msgid "The name of the icon to be used"
 msgstr "Назва піктограми, яку слід використати"
 
 #: src/hdy-status-page.c:236
-#| msgid "The title to display"
 msgid "The title to be displayed below the icon"
 msgstr "Заголовок, який має бути показано під піктограмою"
 
