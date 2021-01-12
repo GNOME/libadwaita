@@ -24,32 +24,6 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_DERIVABLE_TYPE (AdwComboRow, adw_combo_row, ADW, COMBO_ROW, AdwActionRow)
 
 /**
- * AdwComboRowGetNameFunc:
- * @item: (type GObject): the item from the model from which to get a name
- * @user_data: (closure): user data
- *
- * Called for combo rows that are bound to a #GListModel with
- * adw_combo_row_bind_name_model() for each item that gets added to the model.
- *
- * Returns: (transfer full): a newly allocated displayable name that represents @item
- */
-typedef gchar * (*AdwComboRowGetNameFunc) (gpointer item,
-                                           gpointer user_data);
-
-/**
- * AdwComboRowGetEnumValueNameFunc:
- * @value: the value from the enum from which to get a name
- * @user_data: (closure): user data
- *
- * Called for combo rows that are bound to an enumeration with
- * adw_combo_row_set_for_enum() for each value from that enumeration.
- *
- * Returns: (transfer full): a newly allocated displayable name that represents @value
- */
-typedef gchar * (*AdwComboRowGetEnumValueNameFunc) (AdwEnumValueObject *value,
-                                                    gpointer            user_data);
-
-/**
  * AdwComboRowClass
  * @parent_class: The parent class
  */

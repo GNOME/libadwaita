@@ -50,19 +50,11 @@
 
 typedef struct
 {
-  AdwComboRowGetNameFunc func;
-  gpointer func_data;
-  GDestroyNotify func_data_destroy;
-} AdwComboRowGetName;
-
-typedef struct
-{
   GtkImage *image;
   GtkListView *current;
   GtkListView *list;
   GtkPopover *popover;
   gboolean use_subtitle;
-  AdwComboRowGetName *get_name;
 
   GtkListItemFactory *factory;
   GtkListItemFactory *list_factory;
@@ -485,10 +477,10 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    *
    * %TRUE to set the current value as the subtitle.
    *
-   * If you use a custom widget creation function, you will need to give the row
-   * a name conversion closure with adw_combo_row_set_get_name_func().
+   * If you use a custom list item factory, you will need to give the row a
+   * name conversion expression with #AdwComboRow:expression.
    *
-   * If %TRUE, you should not access AdwActionRow:subtitle.
+   * If %TRUE, you should not access #AdwActionRow:subtitle.
    *
    * Since: 0.0.10
    */
