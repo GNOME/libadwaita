@@ -153,6 +153,8 @@ test_adw_leaflet_insert_child_after (void)
     g_assert_nonnull (labels[i]);
   }
 
+  pages = adw_leaflet_get_pages (leaflet);
+
   adw_leaflet_append (leaflet, labels[2]);
 
   assert_page_position (pages, labels[2], 0);
@@ -162,7 +164,6 @@ test_adw_leaflet_insert_child_after (void)
   adw_leaflet_insert_child_after (leaflet, labels[0], NULL);
   assert_page_position (pages, labels[0], 0);
   assert_page_position (pages, labels[2], 1);
-  assert_page_position (pages, labels[1], 2);
 
   adw_leaflet_insert_child_after (leaflet, labels[1], labels[0]);
   assert_page_position (pages, labels[0], 0);
