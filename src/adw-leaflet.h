@@ -55,14 +55,14 @@ GtkWidget       *adw_leaflet_new (void);
 ADW_AVAILABLE_IN_ALL
 AdwLeafletPage  *adw_leaflet_append (AdwLeaflet *self,
                                      GtkWidget  *child);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 AdwLeafletPage  *adw_leaflet_prepend (AdwLeaflet *self,
                                       GtkWidget  *child);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 AdwLeafletPage  *adw_leaflet_insert_child_after (AdwLeaflet *self,
                                                  GtkWidget  *child,
                                                  GtkWidget  *sibling);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void             adw_leaflet_reorder_child_after (AdwLeaflet *self,
                                                   GtkWidget  *child,
                                                   GtkWidget  *sibling);

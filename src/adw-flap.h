@@ -19,7 +19,7 @@ G_BEGIN_DECLS
 
 #define ADW_TYPE_FLAP (adw_flap_get_type ())
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwFlap, adw_flap, ADW, FLAP, GtkWidget)
 
 typedef enum {
@@ -34,90 +34,90 @@ typedef enum {
   ADW_FLAP_TRANSITION_TYPE_SLIDE,
 } AdwFlapTransitionType;
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_flap_new (void);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_flap_get_content (AdwFlap *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void       adw_flap_set_content (AdwFlap   *self,
                                  GtkWidget *content);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_flap_get_flap (AdwFlap   *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void       adw_flap_set_flap (AdwFlap   *self,
                               GtkWidget *flap);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_flap_get_separator (AdwFlap   *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void       adw_flap_set_separator (AdwFlap   *self,
                                    GtkWidget *separator);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 GtkPackType adw_flap_get_flap_position (AdwFlap *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void        adw_flap_set_flap_position (AdwFlap     *self,
                                         GtkPackType  position);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 gboolean adw_flap_get_reveal_flap (AdwFlap *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void     adw_flap_set_reveal_flap (AdwFlap  *self,
                                    gboolean  reveal_flap);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 guint adw_flap_get_reveal_duration (AdwFlap *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void  adw_flap_set_reveal_duration (AdwFlap *self,
                                     guint    duration);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 gdouble adw_flap_get_reveal_progress (AdwFlap *self);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 AdwFlapFoldPolicy adw_flap_get_fold_policy (AdwFlap           *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void              adw_flap_set_fold_policy (AdwFlap           *self,
                                             AdwFlapFoldPolicy  policy);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 guint adw_flap_get_fold_duration (AdwFlap *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void  adw_flap_set_fold_duration (AdwFlap *self,
                                   guint    duration);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 gboolean adw_flap_get_folded (AdwFlap *self);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 gboolean adw_flap_get_locked (AdwFlap *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void     adw_flap_set_locked (AdwFlap  *self,
                               gboolean  locked);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 AdwFlapTransitionType adw_flap_get_transition_type (AdwFlap               *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void                  adw_flap_set_transition_type (AdwFlap               *self,
                                                     AdwFlapTransitionType  transition_type);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 gboolean adw_flap_get_modal (AdwFlap  *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void     adw_flap_set_modal (AdwFlap  *self,
                              gboolean  modal);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 gboolean adw_flap_get_swipe_to_open (AdwFlap  *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void     adw_flap_set_swipe_to_open (AdwFlap  *self,
                                      gboolean  swipe_to_open);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 gboolean adw_flap_get_swipe_to_close (AdwFlap  *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void     adw_flap_set_swipe_to_close (AdwFlap  *self,
                                       gboolean  swipe_to_close);
 

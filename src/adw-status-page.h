@@ -18,33 +18,33 @@ G_BEGIN_DECLS
 
 #define ADW_TYPE_STATUS_PAGE (adw_status_page_get_type())
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwStatusPage, adw_status_page, ADW, STATUS_PAGE, GtkWidget)
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 GtkWidget       *adw_status_page_new (void);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 const gchar     *adw_status_page_get_icon_name (AdwStatusPage *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void             adw_status_page_set_icon_name (AdwStatusPage *self,
                                                 const gchar   *icon_name);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 const gchar     *adw_status_page_get_title (AdwStatusPage *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void             adw_status_page_set_title (AdwStatusPage *self,
                                             const gchar   *title);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 const gchar     *adw_status_page_get_description (AdwStatusPage *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void             adw_status_page_set_description (AdwStatusPage *self,
                                                   const gchar   *description);
 
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 GtkWidget       *adw_status_page_get_child (AdwStatusPage *self);
-ADW_AVAILABLE_IN_1_1
+ADW_AVAILABLE_IN_ALL
 void             adw_status_page_set_child (AdwStatusPage *self,
                                             GtkWidget     *child);
 
