@@ -1,27 +1,16 @@
 include:
- - 'https://source.puri.sm/Librem5/librem5-ci/raw/master/librem5-pipeline-definitions.yml'
- - 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
+  - project: 'gnome/citemplates'
+    file: 'flatpak/flatpak_ci_initiative.yml'
+
+variables:
+  MANIFEST_PATH: 'examples/org.gnome.Adwaita.Demo.json'
+  FLATPAK_MODULE: 'libadwaita'
+  FLATPAK_BUILD_DIR: build
 
 stages:
   - build
-  - test+docs
-  - package
-  - test-package
+  - docs
   - publish
-
-before_script:
-  - echo "man-db man-db/auto-update boolean false" | debconf-set-selections
-  - export DEBIAN_FRONTEND=noninteractive
-  - apt-get -y update
-  - apt-get -y install eatmydata
-  - eatmydata apt-get -y install build-essential libgtk-3-doc libgdk-pixbuf2.0-doc lcov
-  - eatmydata apt-get -y build-dep .
-
-.build: &build_steps
-    echo "BUILD_OPTS=${BUILD_OPTS}" &&
-    export LC_ALL=C.UTF-8 &&
-    meson ${BUILD_OPTS} . _build  &&
-    ninja -C _build
 
 api-visibility:
   stage: build
@@ -29,103 +18,30 @@ api-visibility:
   script:
     - lint/api-visibility.sh
 
-build-debian-gcc:
-  image: debian:buster
+doc:
+  image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
   stage: build
+  tags:
+    - flatpak
   variables:
-    BUILD_OPTS: -Dgtk_doc=true -Db_coverage=true --werror
+    MESON_ARGS: >-
+      -Dbuild-tests=false
+      -Dgtk_doc=true
+      -Dintrospection=disabled
   script:
-    - *build_steps
+    - flatpak-builder --user --disable-rofiles-fuse --stop-at=${FLATPAK_MODULE} ${FLATPAK_BUILD_DIR} ${MANIFEST_PATH}
+    - flatpak build ${FLATPAK_BUILD_DIR} meson --prefix=/app ${SHARED_MESON_ARGS} ${MESON_ARGS} _build
+    - flatpak build ${FLATPAK_BUILD_DIR} ninja -C _build libadwaita-1-doc
+    - mv _build/doc/html/ _doc/
   artifacts:
-    when: always
     paths:
-      - _build
-
-build-debian-clang:
-  image: debian:buster
-  before_script:
-    - echo "man-db man-db/auto-update boolean false" | debconf-set-selections
-    - export DEBIAN_FRONTEND=noninteractive
-    - apt-get -y update
-    - apt-get -y install eatmydata
-    - eatmydata apt-get -y install build-essential clang-tools
-    - eatmydata apt-get -y build-dep .
-  stage: build
-  script:
-    - export LC_ALL=C.UTF-8
-    - meson . _build
-    # With meson 0.49 we can do
-    # SCANBUILD="scan-build --status-bugs" ninja scan-build
-    # https://github.com/mesonbuild/meson/commit/1e7aea65e68a43b0319a4a28908daddfec621548
-    - ninja -C _build scan-build
-  artifacts:
-    when: always
-    paths:
-      - _build/meson-logs/scanbuild
-
-build-fedora-gcc:
-  image: fedora:32
-  stage: build
-  variables:
-    BUILD_OPTS: -Dgtk_doc=true
-  before_script:
-    - dnf -y update
-    - dnf -y install @development-tools redhat-rpm-config dnf-plugins-core
-    - dnf -y builddep data/packaging/rpm/libhandy.spec
-  script:
-    - *build_steps
-
-build-gtkdoc:
-  image: debian:buster
-  stage: test+docs
-  dependencies:
-    - build-debian-gcc
-  script:
-    - ninja -C _build meson-libhandy-1-doc 2>&1 | tee _build/doc/buildlog
-    - if grep -qs 'warning' _build/doc/buildlog; then exit 1; fi
-    - mv _build/doc/html/ _reference/
-  artifacts:
-    when: always
-    paths:
-      - _reference
-
-unit-test:
-  image: debian:buster
-  stage: test+docs
-  dependencies:
-    - build-debian-gcc
-  script:
-    - xvfb-run -s -noreset ninja -C _build test
-    - ninja -C _build coverage
-  coverage: '/^\s+lines\.+:\s+([\d.]+\%)\s+/'
-  artifacts:
-    when: always
-    paths:
-      - _build
-
-package-debian-buster:
-  tags: []
-  extends: .l5-build-debian-package
-
-autopkgtest-debian-buster-package:
-  tags: []
-  dependencies:
-    - package-debian-buster
-  extends: .l5-autopkgtest-debian-package
-
-lintian-debian-buster-package:
-  tags: []
-  dependencies:
-    - package-debian-buster
-  extends: .l5-lintian-debian-package
+      - _doc
 
 build-flatpak:
   extends: '.flatpak'
   stage: build
   before_script: []
   variables:
-    MANIFEST_PATH: 'examples/org.gnome.Adwaita.Demo.json'
     RUNTIME_REPO: 'https://nightly.gnome.org/gnome-nightly.flatpakrepo'
-    FLATPAK_MODULE: 'libadwaita'
     APP_ID: 'org.gnome.Adwaita.Demo'
     BUNDLE: 'org.gnome.Adwaita.Demo.flatpak'
