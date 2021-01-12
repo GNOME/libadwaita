@@ -13,7 +13,7 @@
  * SECTION:adw-window
  * @short_description: A freeform window.
  * @title: AdwWindow
- * @See_also: #AdwApplicationWindow, #AdwHeaderBar, #AdwWindowHandle
+ * @See_also: #AdwApplicationWindow
  *
  * The AdwWindow widget is a subclass of #GtkWindow which has no titlebar area
  * and provides rounded corners on all sides, ensuring they can never be
@@ -24,13 +24,9 @@
  * <object class="AdwWindow"/>
  *   <child>
  *     <object class="GtkBox">
- *       <property name="visible">True</property>
  *       <property name="orientation">vertical</property>
  *       <child>
- *         <object class="AdwHeaderBar">
- *           <property name="visible">True</property>
- *           <property name="show-close-button">True</property>
- *         </object>
+ *         <object class="AdwHeaderBar"/>
  *       </child>
  *       <child>
  *         ...
@@ -39,10 +35,6 @@
  *   </child>
  * </object>
  * ]|
- *
- * It's recommended to use #AdwHeaderBar with #AdwWindow, as unlike
- * #GtkHeaderBar it remains draggable inside the window. Otherwise,
- * #AdwWindowHandle can be used.
  *
  * #AdwWindow allows to easily implement titlebar autohiding by putting the
  * headerbar inside a #GtkRevealer, and to show titlebar above content by

@@ -13,7 +13,7 @@
  * SECTION:adw-application-window
  * @short_description: A freeform application window.
  * @title: AdwApplicationWindow
- * @See_also: #AdwHeaderBar, #AdwWindow, #AdwWindowHandle
+ * @See_also: #AdwWindow
  *
  * AdwApplicationWindow is a #GtkApplicationWindow subclass providing the same
  * features as #AdwWindow.
