@@ -7,6 +7,7 @@ test_env = [
   'GSETTINGS_BACKEND=memory',
   'PYTHONDONTWRITEBYTECODE=yes',
   'MALLOC_CHECK_=2',
+  'GTK_A11Y=none',
 ]
 
 test_cflags = [
