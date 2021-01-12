@@ -8,12 +8,12 @@ private_headers = [
     'gtk-window-private.h',
     'adw-animation-private.h',
     'adw-carousel-box-private.h',
-    'adw-css-private.h',
     'adw-enums.h',
     'adw-enums-private.h',
     'adw-enum-value-object-private.h',
+    'adw-focus-private.h',
+    'adw-gizmo-private.h',
     'adw-main-private.h',
-    'adw-nothing-private.h',
     'adw-keypad-button-private.h',
     'adw-preferences-group-private.h',
     'adw-preferences-page-private.h',
@@ -21,7 +21,6 @@ private_headers = [
     'adw-swipe-tracker-private.h',
     'adw-types.h',
     'adw-view-switcher-button-private.h',
-    'adw-window-handle-controller-private.h',
     'adw-window-mixin-private.h',
 ]
 
