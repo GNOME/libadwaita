@@ -171,7 +171,7 @@ adw_application_window_new (GtkApplication *app)
 
 /**
  * adw_application_window_set_child:
- * @self: a #AdwApplicaitonWindow
+ * @self: a #AdwApplicationWindow
  * @child: (allow-none): the child widget
  *
  * Sets the child widget of @self.
