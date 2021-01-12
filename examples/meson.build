@@ -1,25 +1,25 @@
 if get_option('examples')
 
-handy_demo_resources = gnome.compile_resources(
-   'handy-demo-resources',
-   'handy-demo.gresources.xml',
+adwaita_demo_resources = gnome.compile_resources(
+   'adwaita-demo-resources',
+   'adwaita-demo.gresources.xml',
 
-   c_name: 'hdy',
+   c_name: 'adw',
 )
 
-handy_demo_sources = [
-  handy_demo_resources,
-  'handy-demo.c',
-  'hdy-demo-preferences-window.c',
-  'hdy-demo-window.c',
-  'hdy-flap-demo-window.c',
-  'hdy-view-switcher-demo-window.c',
-  libhandy_generated_headers,
+adwaita_demo_sources = [
+  adwaita_demo_resources,
+  'adwaita-demo.c',
+  'adw-demo-preferences-window.c',
+  'adw-demo-window.c',
+  'adw-flap-demo-window.c',
+  'adw-view-switcher-demo-window.c',
+  libadwaita_generated_headers,
 ]
 
-handy_demo = executable('handy-@0@-demo'.format(apiversion),
-  handy_demo_sources,
-  dependencies: libhandy_dep,
+adwaita_demo = executable('adwaita-@0@-demo'.format(apiversion),
+  adwaita_demo_sources,
+  dependencies: libadwaita_dep,
   gui_app: true,
   install: true,
 )

@@ -1,10 +1,10 @@
 @import 'drawing';
 
-@function hdyalpha($c, $a) {
+@function adwalpha($c, $a) {
   @return unquote("alpha(#{$c}, #{$a})");
 }
 
-@function hdymix($c1, $c2, $r) {
+@function adwmix($c1, $c2, $r) {
   @return unquote("mix(#{$c1}, #{$c2}, #{$r})");
 }
 

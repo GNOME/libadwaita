@@ -4,68 +4,68 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#include <handy.h>
+#include <adwaita.h>
 
 
 static void
-test_hdy_preferences_group_add_remove (void)
+test_adw_preferences_group_add_remove (void)
 {
-  g_autoptr (HdyPreferencesGroup) group = NULL;
-  HdyPreferencesRow *row;
+  g_autoptr (AdwPreferencesGroup) group = NULL;
+  AdwPreferencesRow *row;
   GtkWidget *widget;
 
-  group = g_object_ref_sink (HDY_PREFERENCES_GROUP (hdy_preferences_group_new ()));
+  group = g_object_ref_sink (ADW_PREFERENCES_GROUP (adw_preferences_group_new ()));
   g_assert_nonnull (group);
 
-  row = HDY_PREFERENCES_ROW (hdy_preferences_row_new ());
+  row = ADW_PREFERENCES_ROW (adw_preferences_row_new ());
   g_assert_nonnull (row);
-  hdy_preferences_group_add (group, GTK_WIDGET (row));
+  adw_preferences_group_add (group, GTK_WIDGET (row));
 
   widget = gtk_switch_new ();
   g_assert_nonnull (widget);
-  hdy_preferences_group_add (group, widget);
+  adw_preferences_group_add (group, widget);
 
   g_assert (G_TYPE_CHECK_INSTANCE_TYPE (gtk_widget_get_parent (GTK_WIDGET (row)), GTK_TYPE_LIST_BOX));
   g_assert (G_TYPE_CHECK_INSTANCE_TYPE (gtk_widget_get_parent (widget), GTK_TYPE_BOX));
 
-  hdy_preferences_group_remove (group, GTK_WIDGET (row));
-  hdy_preferences_group_remove (group, widget);
+  adw_preferences_group_remove (group, GTK_WIDGET (row));
+  adw_preferences_group_remove (group, widget);
 }
 
 
 static void
-test_hdy_preferences_group_title (void)
+test_adw_preferences_group_title (void)
 {
-  g_autoptr (HdyPreferencesGroup) group = NULL;
+  g_autoptr (AdwPreferencesGroup) group = NULL;
 
-  group = g_object_ref_sink (HDY_PREFERENCES_GROUP (hdy_preferences_group_new ()));
+  group = g_object_ref_sink (ADW_PREFERENCES_GROUP (adw_preferences_group_new ()));
   g_assert_nonnull (group);
 
-  g_assert_cmpstr (hdy_preferences_group_get_title (group), ==, "");
+  g_assert_cmpstr (adw_preferences_group_get_title (group), ==, "");
 
-  hdy_preferences_group_set_title (group, "Dummy title");
-  g_assert_cmpstr (hdy_preferences_group_get_title (group), ==, "Dummy title");
+  adw_preferences_group_set_title (group, "Dummy title");
+  g_assert_cmpstr (adw_preferences_group_get_title (group), ==, "Dummy title");
 
-  hdy_preferences_group_set_title (group, NULL);
-  g_assert_cmpstr (hdy_preferences_group_get_title (group), ==, "");
+  adw_preferences_group_set_title (group, NULL);
+  g_assert_cmpstr (adw_preferences_group_get_title (group), ==, "");
 }
 
 
 static void
-test_hdy_preferences_group_description (void)
+test_adw_preferences_group_description (void)
 {
-  g_autoptr (HdyPreferencesGroup) group = NULL;
+  g_autoptr (AdwPreferencesGroup) group = NULL;
 
-  group = g_object_ref_sink (HDY_PREFERENCES_GROUP (hdy_preferences_group_new ()));
+  group = g_object_ref_sink (ADW_PREFERENCES_GROUP (adw_preferences_group_new ()));
   g_assert_nonnull (group);
 
-  g_assert_cmpstr (hdy_preferences_group_get_description (group), ==, "");
+  g_assert_cmpstr (adw_preferences_group_get_description (group), ==, "");
 
-  hdy_preferences_group_set_description (group, "Dummy description");
-  g_assert_cmpstr (hdy_preferences_group_get_description (group), ==, "Dummy description");
+  adw_preferences_group_set_description (group, "Dummy description");
+  g_assert_cmpstr (adw_preferences_group_get_description (group), ==, "Dummy description");
 
-  hdy_preferences_group_set_description (group, NULL);
-  g_assert_cmpstr (hdy_preferences_group_get_description (group), ==, "");
+  adw_preferences_group_set_description (group, NULL);
+  g_assert_cmpstr (adw_preferences_group_get_description (group), ==, "");
 }
 
 
@@ -74,11 +74,11 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init ();
+  adw_init ();
 
-  g_test_add_func("/Handy/PreferencesGroup/add_remove", test_hdy_preferences_group_add_remove);
-  g_test_add_func("/Handy/PreferencesGroup/title", test_hdy_preferences_group_title);
-  g_test_add_func("/Handy/PreferencesGroup/description", test_hdy_preferences_group_description);
+  g_test_add_func("/Adwaita/PreferencesGroup/add_remove", test_adw_preferences_group_add_remove);
+  g_test_add_func("/Adwaita/PreferencesGroup/title", test_adw_preferences_group_title);
+  g_test_add_func("/Adwaita/PreferencesGroup/description", test_adw_preferences_group_description);
 
   return g_test_run();
 }

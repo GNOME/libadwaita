@@ -1,0 +1,39 @@
+/*
+ * Copyright (C) 2018-2020 Purism SPC
+ *
+ * SPDX-License-Identifier: LGPL-2.1+
+ */
+
+#pragma once
+
+#if !defined(_ADWAITA_INSIDE) && !defined(ADWAITA_COMPILATION)
+#error "Only <adwaita.h> can be included directly."
+#endif
+
+#include "adw-version.h"
+
+#include <gtk/gtk.h>
+
+G_BEGIN_DECLS
+
+#define ADW_TYPE_CLAMP_LAYOUT (adw_clamp_layout_get_type())
+
+ADW_AVAILABLE_IN_ALL
+G_DECLARE_FINAL_TYPE (AdwClampLayout, adw_clamp_layout, ADW, CLAMP_LAYOUT, GtkLayoutManager)
+
+ADW_AVAILABLE_IN_ALL
+GtkLayoutManager *adw_clamp_layout_new (void);
+
+ADW_AVAILABLE_IN_ALL
+gint adw_clamp_layout_get_maximum_size (AdwClampLayout *self);
+ADW_AVAILABLE_IN_ALL
+void adw_clamp_layout_set_maximum_size (AdwClampLayout *self,
+                                        gint            maximum_size);
+
+ADW_AVAILABLE_IN_ALL
+gint adw_clamp_layout_get_tightening_threshold (AdwClampLayout *self);
+ADW_AVAILABLE_IN_ALL
+void adw_clamp_layout_set_tightening_threshold (AdwClampLayout *self,
+                                                gint            tightening_threshold);
+
+G_END_DECLS

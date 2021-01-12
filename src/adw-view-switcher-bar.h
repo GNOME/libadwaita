@@ -1,0 +1,48 @@
+/*
+ * Copyright (C) 2019 Zander Brown <zbrown@gnome.org>
+ * Copyright (C) 2019 Purism SPC
+ *
+ * SPDX-License-Identifier: LGPL-2.1+
+ */
+
+#pragma once
+
+#if !defined(_ADWAITA_INSIDE) && !defined(ADWAITA_COMPILATION)
+#error "Only <adwaita.h> can be included directly."
+#endif
+
+#include "adw-version.h"
+
+#include <gtk/gtk.h>
+
+#include "adw-view-switcher.h"
+
+G_BEGIN_DECLS
+
+#define ADW_TYPE_VIEW_SWITCHER_BAR (adw_view_switcher_bar_get_type())
+
+ADW_AVAILABLE_IN_ALL
+G_DECLARE_FINAL_TYPE (AdwViewSwitcherBar, adw_view_switcher_bar, ADW, VIEW_SWITCHER_BAR, GtkWidget)
+
+ADW_AVAILABLE_IN_ALL
+GtkWidget *adw_view_switcher_bar_new (void);
+
+ADW_AVAILABLE_IN_ALL
+AdwViewSwitcherPolicy adw_view_switcher_bar_get_policy (AdwViewSwitcherBar *self);
+ADW_AVAILABLE_IN_ALL
+void                  adw_view_switcher_bar_set_policy (AdwViewSwitcherBar    *self,
+                                                        AdwViewSwitcherPolicy  policy);
+
+ADW_AVAILABLE_IN_ALL
+GtkStack *adw_view_switcher_bar_get_stack (AdwViewSwitcherBar *self);
+ADW_AVAILABLE_IN_ALL
+void      adw_view_switcher_bar_set_stack (AdwViewSwitcherBar *self,
+                                           GtkStack           *stack);
+
+ADW_AVAILABLE_IN_ALL
+gboolean adw_view_switcher_bar_get_reveal (AdwViewSwitcherBar *self);
+ADW_AVAILABLE_IN_ALL
+void     adw_view_switcher_bar_set_reveal (AdwViewSwitcherBar *self,
+                                           gboolean            reveal);
+
+G_END_DECLS

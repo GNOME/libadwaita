@@ -1,0 +1,106 @@
+/*
+ * Copyright (C) 2018-2020 Purism SPC
+ *
+ * SPDX-License-Identifier: LGPL-2.1+
+ */
+
+#pragma once
+
+#if !defined(_ADWAITA_INSIDE) && !defined(ADWAITA_COMPILATION)
+#error "Only <adwaita.h> can be included directly."
+#endif
+
+#include "adw-version.h"
+
+#include <gtk/gtk.h>
+#include "adw-enum-value-object.h"
+#include "adw-action-row.h"
+
+G_BEGIN_DECLS
+
+#define ADW_TYPE_COMBO_ROW (adw_combo_row_get_type())
+
+ADW_AVAILABLE_IN_ALL
+G_DECLARE_DERIVABLE_TYPE (AdwComboRow, adw_combo_row, ADW, COMBO_ROW, AdwActionRow)
+
+/**
+ * AdwComboRowGetNameFunc:
+ * @item: (type GObject): the item from the model from which to get a name
+ * @user_data: (closure): user data
+ *
+ * Called for combo rows that are bound to a #GListModel with
+ * adw_combo_row_bind_name_model() for each item that gets added to the model.
+ *
+ * Returns: (transfer full): a newly allocated displayable name that represents @item
+ */
+typedef gchar * (*AdwComboRowGetNameFunc) (gpointer item,
+                                           gpointer user_data);
+
+/**
+ * AdwComboRowGetEnumValueNameFunc:
+ * @value: the value from the enum from which to get a name
+ * @user_data: (closure): user data
+ *
+ * Called for combo rows that are bound to an enumeration with
+ * adw_combo_row_set_for_enum() for each value from that enumeration.
+ *
+ * Returns: (transfer full): a newly allocated displayable name that represents @value
+ */
+typedef gchar * (*AdwComboRowGetEnumValueNameFunc) (AdwEnumValueObject *value,
+                                                    gpointer            user_data);
+
+/**
+ * AdwComboRowClass
+ * @parent_class: The parent class
+ */
+struct _AdwComboRowClass
+{
+  AdwActionRowClass parent_class;
+
+  /*< private >*/
+  gpointer padding[4];
+};
+
+ADW_AVAILABLE_IN_ALL
+GtkWidget *adw_combo_row_new (void);
+
+ADW_AVAILABLE_IN_ALL
+GListModel *adw_combo_row_get_model (AdwComboRow *self);
+ADW_AVAILABLE_IN_ALL
+void        adw_combo_row_set_model (AdwComboRow *self,
+                                     GListModel  *model);
+
+ADW_AVAILABLE_IN_ALL
+void  adw_combo_row_set_selected (AdwComboRow *self,
+                                  guint        position);
+ADW_AVAILABLE_IN_ALL
+guint adw_combo_row_get_selected (AdwComboRow *self);
+
+ADW_AVAILABLE_IN_ALL
+gpointer adw_combo_row_get_selected_item (AdwComboRow *self);
+
+ADW_AVAILABLE_IN_ALL
+GtkListItemFactory *adw_combo_row_get_factory (AdwComboRow        *self);
+ADW_AVAILABLE_IN_ALL
+void                adw_combo_row_set_factory (AdwComboRow        *self,
+                                               GtkListItemFactory *factory);
+
+ADW_AVAILABLE_IN_ALL
+GtkListItemFactory *adw_combo_row_get_list_factory (AdwComboRow        *self);
+ADW_AVAILABLE_IN_ALL
+void                adw_combo_row_set_list_factory (AdwComboRow        *self,
+                                                    GtkListItemFactory *factory);
+
+ADW_AVAILABLE_IN_ALL
+GtkExpression *adw_combo_row_get_expression (AdwComboRow   *self);
+ADW_AVAILABLE_IN_ALL
+void           adw_combo_row_set_expression (AdwComboRow   *self,
+                                             GtkExpression *expression);
+
+ADW_AVAILABLE_IN_ALL
+gboolean adw_combo_row_get_use_subtitle (AdwComboRow *self);
+ADW_AVAILABLE_IN_ALL
+void     adw_combo_row_set_use_subtitle (AdwComboRow *self,
+                                         gboolean     use_subtitle);
+
+G_END_DECLS

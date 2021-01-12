@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#include <handy.h>
+#include <adwaita.h>
 
 gint activated;
 
@@ -16,12 +16,12 @@ activated_cb (GtkWidget *widget, gpointer data)
 
 
 static void
-test_hdy_action_row_add_remove (void)
+test_adw_action_row_add_remove (void)
 {
-  g_autoptr (HdyActionRow) row = NULL;
+  g_autoptr (AdwActionRow) row = NULL;
   GtkWidget *prefix, *suffix;
 
-  row = g_object_ref_sink (HDY_ACTION_ROW (hdy_action_row_new ()));
+  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
   prefix = gtk_check_button_new ();
@@ -30,116 +30,116 @@ test_hdy_action_row_add_remove (void)
   suffix = gtk_check_button_new ();
   g_assert_nonnull (suffix);
 
-  hdy_action_row_add_prefix (row, prefix);
-  hdy_action_row_add_suffix (row, suffix);
+  adw_action_row_add_prefix (row, prefix);
+  adw_action_row_add_suffix (row, suffix);
 
-  hdy_action_row_remove (row, prefix);
-  hdy_action_row_remove (row, suffix);
+  adw_action_row_remove (row, prefix);
+  adw_action_row_remove (row, suffix);
 }
 
 
 static void
-test_hdy_action_row_subtitle (void)
+test_adw_action_row_subtitle (void)
 {
-  g_autoptr (HdyActionRow) row = NULL;
+  g_autoptr (AdwActionRow) row = NULL;
 
-  row = g_object_ref_sink (HDY_ACTION_ROW (hdy_action_row_new ()));
+  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
-  g_assert_cmpstr (hdy_action_row_get_subtitle (row), ==, "");
+  g_assert_cmpstr (adw_action_row_get_subtitle (row), ==, "");
 
-  hdy_action_row_set_subtitle (row, "Dummy subtitle");
-  g_assert_cmpstr (hdy_action_row_get_subtitle (row), ==, "Dummy subtitle");
+  adw_action_row_set_subtitle (row, "Dummy subtitle");
+  g_assert_cmpstr (adw_action_row_get_subtitle (row), ==, "Dummy subtitle");
 }
 
 
 static void
-test_hdy_action_row_icon_name (void)
+test_adw_action_row_icon_name (void)
 {
-  g_autoptr (HdyActionRow) row = NULL;
+  g_autoptr (AdwActionRow) row = NULL;
 
-  row = g_object_ref_sink (HDY_ACTION_ROW (hdy_action_row_new ()));
+  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
-  g_assert_null (hdy_action_row_get_icon_name (row));
+  g_assert_null (adw_action_row_get_icon_name (row));
 
-  hdy_action_row_set_icon_name (row, "dummy-icon-name");
-  g_assert_cmpstr (hdy_action_row_get_icon_name (row), ==, "dummy-icon-name");
+  adw_action_row_set_icon_name (row, "dummy-icon-name");
+  g_assert_cmpstr (adw_action_row_get_icon_name (row), ==, "dummy-icon-name");
 }
 
 
 static void
-test_hdy_action_row_use_underline (void)
+test_adw_action_row_use_underline (void)
 {
-  g_autoptr (HdyActionRow) row = NULL;
+  g_autoptr (AdwActionRow) row = NULL;
 
-  row = g_object_ref_sink (HDY_ACTION_ROW (hdy_action_row_new ()));
+  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
-  g_assert_false (hdy_action_row_get_use_underline (row));
+  g_assert_false (adw_action_row_get_use_underline (row));
 
-  hdy_action_row_set_use_underline (row, TRUE);
-  g_assert_true (hdy_action_row_get_use_underline (row));
+  adw_action_row_set_use_underline (row, TRUE);
+  g_assert_true (adw_action_row_get_use_underline (row));
 
-  hdy_action_row_set_use_underline (row, FALSE);
-  g_assert_false (hdy_action_row_get_use_underline (row));
+  adw_action_row_set_use_underline (row, FALSE);
+  g_assert_false (adw_action_row_get_use_underline (row));
 }
 
 
 static void
-test_hdy_action_row_title_lines (void)
+test_adw_action_row_title_lines (void)
 {
-  g_autoptr (HdyActionRow) row = NULL;
+  g_autoptr (AdwActionRow) row = NULL;
 
-  row = g_object_ref_sink (HDY_ACTION_ROW (hdy_action_row_new ()));
+  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
-  g_assert_cmpint (hdy_action_row_get_title_lines (row), ==, 1);
+  g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 1);
 
-  g_test_expect_message (HDY_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "hdy_action_row_set_title_lines: assertion 'title_lines >= 0' failed");
-  hdy_action_row_set_title_lines (row, -1);
+  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "adw_action_row_set_title_lines: assertion 'title_lines >= 0' failed");
+  adw_action_row_set_title_lines (row, -1);
   g_test_assert_expected_messages ();
 
-  g_assert_cmpint (hdy_action_row_get_title_lines (row), ==, 1);
+  g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 1);
 
-  hdy_action_row_set_title_lines (row, 0);
-  g_assert_cmpint (hdy_action_row_get_title_lines (row), ==, 0);
+  adw_action_row_set_title_lines (row, 0);
+  g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 0);
 }
 
 
 static void
-test_hdy_action_row_subtitle_lines (void)
+test_adw_action_row_subtitle_lines (void)
 {
-  g_autoptr (HdyActionRow) row = NULL;
+  g_autoptr (AdwActionRow) row = NULL;
 
-  row = g_object_ref_sink (HDY_ACTION_ROW (hdy_action_row_new ()));
+  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
-  g_assert_cmpint (hdy_action_row_get_subtitle_lines (row), ==, 1);
+  g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 1);
 
-  g_test_expect_message (HDY_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "hdy_action_row_set_subtitle_lines: assertion 'subtitle_lines >= 0' failed");
-  hdy_action_row_set_subtitle_lines (row, -1);
+  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "adw_action_row_set_subtitle_lines: assertion 'subtitle_lines >= 0' failed");
+  adw_action_row_set_subtitle_lines (row, -1);
   g_test_assert_expected_messages ();
 
-  g_assert_cmpint (hdy_action_row_get_subtitle_lines (row), ==, 1);
+  g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 1);
 
-  hdy_action_row_set_subtitle_lines (row, 0);
-  g_assert_cmpint (hdy_action_row_get_subtitle_lines (row), ==, 0);
+  adw_action_row_set_subtitle_lines (row, 0);
+  g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 0);
 }
 
 
 static void
-test_hdy_action_row_activate (void)
+test_adw_action_row_activate (void)
 {
-  g_autoptr (HdyActionRow) row = NULL;
+  g_autoptr (AdwActionRow) row = NULL;
 
-  row = g_object_ref_sink (HDY_ACTION_ROW (hdy_action_row_new ()));
+  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
   activated = 0;
   g_signal_connect (row, "activated", G_CALLBACK (activated_cb), NULL);
 
-  hdy_action_row_activate (row);
+  adw_action_row_activate (row);
   g_assert_cmpint (activated, ==, 1);
 }
 
@@ -149,15 +149,15 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init ();
+  adw_init ();
 
-  g_test_add_func("/Handy/ActionRow/add_remove", test_hdy_action_row_add_remove);
-  g_test_add_func("/Handy/ActionRow/subtitle", test_hdy_action_row_subtitle);
-  g_test_add_func("/Handy/ActionRow/icon_name", test_hdy_action_row_icon_name);
-  g_test_add_func("/Handy/ActionRow/use_underline", test_hdy_action_row_use_underline);
-  g_test_add_func("/Handy/ActionRow/title_lines", test_hdy_action_row_title_lines);
-  g_test_add_func("/Handy/ActionRow/subtitle_lines", test_hdy_action_row_subtitle_lines);
-  g_test_add_func("/Handy/ActionRow/activate", test_hdy_action_row_activate);
+  g_test_add_func("/Adwaita/ActionRow/add_remove", test_adw_action_row_add_remove);
+  g_test_add_func("/Adwaita/ActionRow/subtitle", test_adw_action_row_subtitle);
+  g_test_add_func("/Adwaita/ActionRow/icon_name", test_adw_action_row_icon_name);
+  g_test_add_func("/Adwaita/ActionRow/use_underline", test_adw_action_row_use_underline);
+  g_test_add_func("/Adwaita/ActionRow/title_lines", test_adw_action_row_title_lines);
+  g_test_add_func("/Adwaita/ActionRow/subtitle_lines", test_adw_action_row_subtitle_lines);
+  g_test_add_func("/Adwaita/ActionRow/activate", test_adw_action_row_activate);
 
   return g_test_run();
 }

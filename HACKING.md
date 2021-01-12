@@ -151,8 +151,8 @@ Internal headers (for consistency, whether they need to be installed or not)
 should contain the following guard to prevent users from directly including
 them:
 ```c
-#if !defined(_HANDY_INSIDE) && !defined(HANDY_COMPILATION)
-#error "Only <handy.h> can be included directly."
+#if !defined(_ADWAITA_INSIDE) && !defined(ADWAITA_COMPILATION)
+#error "Only <adwaita.h> can be included directly."
 #endif
 ```
 
@@ -241,16 +241,18 @@ Static functions don't need the class prefix.  E.g. with a type foo_bar:
 
 ```c
 static void
-grab_focus_cb (HdyDialer *dialer,
-               gpointer   unused)
+selection_changed_cb (AdwViewSwitcher   *self,
+                      guint              position,
+                      guint              n_items)
 ```
 
 *Bad*:
 
 ```c
 static void
-hdy_dialer_grab_focus_cb (HdyDialer *dialer,
-                          gpointer   unused)
+adw_view_switcher_selection_changed_cb (AdwViewSwitcher   *self,
+                                        guint              position,
+                                        guint              n_items)
 ```
 
 Note however that virtual methods like
@@ -331,5 +333,5 @@ GdkPixbuf *pixbuf = gtk_icon_info_load_icon (info, NULL);
 g_object_unref (pixbuf);
 ```
 
-Using the above is fine since libhandy doesn't target any older glib versions
+Using the above is fine since libadwaita doesn't target any older glib versions
 or non GCC/Clang compilers at the moment.

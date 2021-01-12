@@ -2,7 +2,7 @@
 @import 'fallback-base';
 @import 'shared-base';
 
-// HdyComboRow
+// AdwComboRow
 
 $button_radius: 5px;
 $popover_radius: $button_radius + 4;
@@ -17,7 +17,7 @@ popover.combo > contents {
     & > row {
       padding: 0px 12px 0px 12px;
       min-height: 50px;
-      border-bottom: 1px solid hdyalpha($borders_color, 0.5);
+      border-bottom: 1px solid adwalpha($borders_color, 0.5);
 
       &:selected {
         outline-color: $alt_focus_border_color;
@@ -44,7 +44,7 @@ popover.combo > contents {
   }
 }
 
-// HdyExpanderRow
+// AdwExpanderRow
 
 row.expander {
   padding: 0px;
@@ -54,7 +54,7 @@ row.expander {
   }
 }
 
-// HdyKeypad
+// AdwKeypad
 
 keypad {
   .digit {
@@ -71,7 +71,7 @@ keypad {
   }
 }
 
-// HdyViewSwitcher
+// AdwViewSwitcher
 
 viewswitcher {
   &, & button {
@@ -126,7 +126,7 @@ viewswitcher {
       &:hover:not(:backdrop) {
         // Reimplementation of $button_fill from Adwaita. The colors are made
         // only 70% visible to avoid the highlight to be too strong.
-        $c: hdyalpha($bg_color, 0.7);
+        $c: adwalpha($bg_color, 0.7);
         $button_fill: if($variant == 'light', linear-gradient(to top, shade($c, 0.96) 2px, $c),
                                               linear-gradient(to top, shade($c, 0.99) 2px, $c)) !global;
         background-image: $button_fill;
@@ -207,7 +207,7 @@ viewswitcher {
   }
 }
 
-// HdyViewSwitcherBar
+// AdwViewSwitcherBar
 
 viewswitcherbar actionbar > revealer > box {
   padding: 0;
@@ -226,11 +226,11 @@ listview.content {
   list.nested > row:not(:active) {
     &:not(:hover):not(:selected),
     &:hover:not(.activatable):not(:selected) {
-      background-color: hdymix($bg_color, $base_color, 0.5);
+      background-color: adwmix($bg_color, $base_color, 0.5);
     }
 
     &:hover.activatable:not(:selected) {
-      background-color: hdymix($fg_color, $base_color, 0.95);
+      background-color: adwmix($fg_color, $base_color, 0.95);
     }
   }
 
@@ -245,12 +245,12 @@ listview.content {
 
     &:not(.expander):not(:active):hover.activatable:not(:selected),
     &.expander row.header:not(:active):hover.activatable:not(:selected) {
-      background-color: hdymix($fg_color, $base_color, 0.95);
+      background-color: adwmix($fg_color, $base_color, 0.95);
     }
 
     &,
     list > row {
-      border-color: hdyalpha($borders_color, 0.7);
+      border-color: adwalpha($borders_color, 0.7);
       border-style: solid;
       transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
@@ -300,7 +300,7 @@ listview.content {
 
 button.list-button:not(:active):not(:checked):not(:hover) {
   background: none;
-  border: 1px solid hdyalpha($borders_color, 0.5);
+  border: 1px solid adwalpha($borders_color, 0.5);
   box-shadow: none;
 }
 
@@ -331,7 +331,7 @@ window.csd.unified:not(.solid-csd):not(.fullscreen) {
   }
 }
 
-// HdyStatusPage
+// AdwStatusPage
 
 statuspage > scrolledwindow > viewport > box > clamp > box > .icon {
   color: transparentize($fg_color, 0.5);

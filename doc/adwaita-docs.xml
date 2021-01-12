@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+  <!ENTITY % gtkdocentities SYSTEM "xml/gtkdocentities.ent">
+  %gtkdocentities;
+]>
+<book id="index">
+  <bookinfo>
+    <title>&package_name; Reference Manual</title>
+    <releaseinfo>
+      <para>This document is the API reference for &package_name; &package_version;.</para>
+      <para>
+        <ulink type="http" url="&package_url;">Adwaitay</ulink> is a library to help you write apps for GTK/GNOME based mobile phones.
+      </para>
+      <para>
+        If you find any issues in this API reference, please report it using
+        <ulink type="http" url="&package_bugreport;">the bugtracker</ulink>.
+      </para>
+    </releaseinfo>
+
+    <copyright>
+      <year>2017-2020</year>
+      <holder>Purism SPC</holder>
+    </copyright>
+  </bookinfo>
+
+  <chapter id="intro">
+    <title>Introduction</title>
+
+    <xi:include href="build-howto.xml"/>
+    <xi:include href="visual-index.xml"/>
+  </chapter>
+
+  <chapter id="core-api">
+    <title>Widgets and Objects</title>
+    <xi:include href="xml/adw-action-row.xml"/>
+    <xi:include href="xml/adw-animation.xml"/>
+    <xi:include href="xml/adw-application-window.xml"/>
+    <xi:include href="xml/adw-avatar.xml"/>
+    <xi:include href="xml/adw-carousel.xml"/>
+    <xi:include href="xml/adw-carousel-indicator-dots.xml"/>
+    <xi:include href="xml/adw-carousel-indicator-lines.xml"/>
+    <xi:include href="xml/adw-clamp.xml"/>
+    <xi:include href="xml/adw-combo-row.xml"/>
+    <xi:include href="xml/adw-enum-value-object.xml"/>
+    <xi:include href="xml/adw-expander-row.xml"/>
+    <xi:include href="xml/adw-flap.xml"/>
+    <xi:include href="xml/adw-header-bar.xml"/>
+    <xi:include href="xml/adw-header-group.xml"/>
+    <xi:include href="xml/adw-keypad.xml"/>
+    <xi:include href="xml/adw-leaflet.xml"/>
+    <xi:include href="xml/adw-navigation-direction.xml"/>
+    <xi:include href="xml/adw-preferences-group.xml"/>
+    <xi:include href="xml/adw-preferences-page.xml"/>
+    <xi:include href="xml/adw-preferences-row.xml"/>
+    <xi:include href="xml/adw-preferences-window.xml"/>
+    <xi:include href="xml/adw-search-bar.xml"/>
+    <xi:include href="xml/adw-squeezer.xml"/>
+    <xi:include href="xml/adw-status-page.xml"/>
+    <xi:include href="xml/adw-swipeable.xml"/>
+    <xi:include href="xml/adw-swipe-group.xml"/>
+    <xi:include href="xml/adw-swipe-tracker.xml"/>
+    <xi:include href="xml/adw-title-bar.xml"/>
+    <xi:include href="xml/adw-value-object.xml"/>
+    <xi:include href="xml/adw-view-switcher.xml"/>
+    <xi:include href="xml/adw-view-switcher-bar.xml"/>
+    <xi:include href="xml/adw-view-switcher-title.xml"/>
+    <xi:include href="xml/adw-window.xml"/>
+    <xi:include href="xml/adw-window-handle.xml"/>
+  </chapter>
+
+  <chapter id="helpers">
+    <title>Helpers</title>
+    <xi:include href="xml/adw-version.xml"/>
+    <xi:include href="xml/adw-main.xml"/>
+  </chapter>
+
+  <chapter id="migrating">
+    <title>Migrating from Previous Versions of Adwaita</title>
+
+    <xi:include href="hdy-migrating-0-0-to-1.xml"/>
+  </chapter>
+
+  <chapter id="object-tree">
+    <title>Object Hierarchy</title>
+    <xi:include href="xml/tree_index.sgml"/>
+  </chapter>
+
+  <index id="api-index-full">
+    <title>API Index</title>
+    <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="deprecated-api-index" role="deprecated">
+    <title>Index of deprecated API</title>
+    <xi:include href="xml/api-index-deprecated.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="api-index-0-0-6" role="0.0.6">
+    <title>Index of new symbols in 0.0.6</title>
+    <xi:include href="xml/api-index-0.0.6.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="api-index-0-0-7" role="0.0.7">
+    <title>Index of new symbols in 0.0.7</title>
+    <xi:include href="xml/api-index-0.0.7.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="api-index-0-0-8" role="0.0.8">
+    <title>Index of new symbols in 0.0.8</title>
+    <xi:include href="xml/api-index-0.0.8.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="api-index-0-0-10" role="0.0.10">
+    <title>Index of new symbols in 0.0.10</title>
+    <xi:include href="xml/api-index-0.0.10.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="api-index-0-0-11" role="0.0.11">
+    <title>Index of new symbols in 0.0.11</title>
+    <xi:include href="xml/api-index-0.0.11.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="api-index-0-0-12" role="0.0.12">
+    <title>Index of new symbols in 0.0.12</title>
+    <xi:include href="xml/api-index-0.0.12.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="api-index-1-0" role="1.0">
+    <title>Index of new symbols in 1.0</title>
+    <xi:include href="xml/api-index-1.0.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="api-index-1-1" role="1.1">
+    <title>Index of new symbols in 1.1</title>
+    <xi:include href="xml/api-index-1.1.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <index id="annotations-glossary">
+    <title>Annotations glossary</title>
+    <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
+  </index>
+
+</book>

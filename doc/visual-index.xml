@@ -18,12 +18,12 @@
   <refsect2>
     <title>Widgets</title>
     <para role="gallery">
-      <link linkend="HdyAvatar">
+      <link linkend="AdwAvatar">
         <inlinegraphic fileref="avatar.png" format="PNG"></inlinegraphic>
       </link>
     </para>
     <para role="gallery">
-      <link linkend="HdyKeypad">
+      <link linkend="AdwKeypad">
         <inlinegraphic fileref="keypad.png" format="PNG"></inlinegraphic>
       </link>
     </para>
@@ -31,26 +31,26 @@
       <link>
         <inlinegraphic fileref="list.png" format="PNG" scale="60"></inlinegraphic>
       </link>
-      <link linkend="HdySearchBar">
+      <link linkend="AdwSearchBar">
         <inlinegraphic fileref="search.png" format="PNG"></inlinegraphic>
       </link>
     </para>
     <para role="gallery">
-      <link linkend="HdyHeaderBar">
+      <link linkend="AdwHeaderBar">
         <inlinegraphic fileref="header-bar.png" format="PNG"></inlinegraphic>
       </link>
-      <link linkend="HdyPreferencesWindow">
+      <link linkend="AdwPreferencesWindow">
         <inlinegraphic fileref="preferences-window.png" format="PNG"></inlinegraphic>
       </link>
     </para>
   </refsect2>
   <refsect2>
-    <title>HdyViewSwitcher</title>
+    <title>AdwViewSwitcher</title>
     <para role="gallery">
-      <link linkend="HdyViewSwitcher">
+      <link linkend="AdwViewSwitcher">
         <inlinegraphic fileref="view-switcher.png" format="PNG"></inlinegraphic>
       </link>
-      <link linkend="HdyViewSwitcherBar">
+      <link linkend="AdwViewSwitcherBar">
         <inlinegraphic fileref="view-switcher-bar.png" format="PNG"></inlinegraphic>
       </link>
     </para>

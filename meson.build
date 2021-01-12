@@ -1,4 +1,4 @@
-project('libhandy', 'c',
+project('libadwaita', 'c',
           version: '1.1.0',
           license: 'LGPL-2.1+',
     meson_version: '>= 0.49.0',
@@ -6,32 +6,32 @@ project('libhandy', 'c',
 )
 
 version_arr = meson.project_version().split('.')
-handy_version_major = version_arr[0].to_int()
-handy_version_minor = version_arr[1].to_int()
-handy_version_micro = version_arr[2].to_int()
+adwaita_version_major = version_arr[0].to_int()
+adwaita_version_minor = version_arr[1].to_int()
+adwaita_version_micro = version_arr[2].to_int()
 
 # The major api version as encoded in the libraries name
-apiversion = '4'
+apiversion = '1'
 # The so major version of the library
 soversion = 0
 package_api_name = '@0@-@1@'.format(meson.project_name(), apiversion)
 
-if handy_version_minor.is_odd()
-  handy_interface_age = 0
+if adwaita_version_minor.is_odd()
+  adwaita_interface_age = 0
 else
-  handy_interface_age = handy_version_micro
+  adwaita_interface_age = adwaita_version_micro
 endif
 
 # maintaining compatibility with libtool versioning
 # current = minor * 100 + micro - interface
 # revision = interface
-current = handy_version_minor * 100 + handy_version_micro - handy_interface_age
-revision = handy_interface_age
+current = adwaita_version_minor * 100 + adwaita_version_micro - adwaita_interface_age
+revision = adwaita_interface_age
 libversion = '@0@.@1@.@2@'.format(soversion, current, revision)
 
 add_project_arguments([
   '-DHAVE_CONFIG_H',
-  '-DHANDY_COMPILATION',
+  '-DADWAITA_COMPILATION',
   '-I' + meson.build_root(),
 ], language: 'c')
 
@@ -135,7 +135,7 @@ configure_file(
 summary = [
   '',
   '------',
-  'Handy @0@ (@1@)'.format(current, apiversion),
+  'Libadwaita @0@ (@1@)'.format(current, apiversion),
   '',
   '             Tests: @0@'.format(get_option('tests')),
   '          Examples: @0@'.format(get_option('examples')),

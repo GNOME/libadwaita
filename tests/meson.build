@@ -10,7 +10,7 @@ test_env = [
 ]
 
 test_cflags = [
-  '-DHDY_LOG_DOMAIN="Handy"',
+  '-DADW_LOG_DOMAIN="Adwaita"',
   '-DTEST_DATA_DIR="@0@/data"'.format(meson.current_source_dir()),
 ]
 
@@ -46,10 +46,10 @@ test_names = [
 ]
 
 foreach test_name : test_names
-  t = executable(test_name, [test_name + '.c'] + libhandy_generated_headers,
+  t = executable(test_name, [test_name + '.c'] + libadwaita_generated_headers,
                        c_args: test_cflags,
                     link_args: test_link_args,
-                 dependencies: libhandy_deps + [libhandy_dep],
+                 dependencies: libadwaita_deps + [libadwaita_dep],
                           pie: true,
                 )
   test(test_name, t, env: test_env)

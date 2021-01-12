@@ -1,6 +1,6 @@
 @import 'definitions';
 
-// HdyActionRow
+// AdwActionRow
 
 row {
   label.subtitle {
@@ -21,7 +21,7 @@ row {
   }
 }
 
-// HdyExpanderRow
+// AdwExpanderRow
 
 row.expander {
   // Drop transparent background on expander rows to let nested rows handle it,
@@ -29,13 +29,13 @@ row.expander {
   background-color: transparent;
 
   list.nested > row {
-    background-color: hdyalpha($bg_color, 0.5);
-    border-color: hdyalpha($borders_color, 0.7);
+    background-color: adwalpha($bg_color, 0.5);
+    border-color: adwalpha($borders_color, 0.7);
     border-style: solid;
     border-width: 1px 0px 0px 0px;
   }
 
-  // HdyExpanderRow arrow rotation
+  // AdwExpanderRow arrow rotation
 
   image.expander-row-arrow {
     transition: 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -107,7 +107,7 @@ avatar {
   // The list of colors to generate avatars.
   // Each avatar color is represented by a font color, a gradient start color and a gradient stop color.
   // There are 8 different colors for avtars in the list if you change the number of them you
-  // need to update the NUMBER_OF_COLORS in src/hdy-avatar.c.
+  // need to update the NUMBER_OF_COLORS in src/adw-avatar.c.
   // The 2D list has this form: ((font-color, gradient-top-color, gradient-bottom-color)).
   $avatarcolorlist: (
    (#cfe1f5, #83b6ec, #337fdc), // blue
@@ -139,14 +139,14 @@ avatar {
   &.image { background: none; }
 }
 
-// HdyViewSwitcherTitle
+// AdwViewSwitcherTitle
 
 viewswitchertitle viewswitcher {
   margin-left: 12px;
   margin-right: 12px;
 }
 
-// HdyStatusPage
+// AdwStatusPage
 
 statuspage > scrolledwindow > viewport > box {
   margin: 36px 12px;

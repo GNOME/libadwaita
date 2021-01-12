@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.0"/>
+  <template class="AdwViewSwitcherButton" parent="GtkToggleButton">
+    <signal name="notify::active" handler="active_changed_cb" after="yes"/>
+    <child>
+      <object class="GtkStack" id="stack">
+        <property name="hhomogeneous">False</property>
+        <property name="transition-type">crossfade</property>
+        <property name="vhomogeneous">True</property>
+        <child>
+          <object class="GtkBox" id="horizontal_box">
+            <property name="halign">center</property>
+            <property name="orientation">horizontal</property>
+            <property name="spacing">8</property>
+            <property name="valign">center</property>
+            <style>
+              <class name="wide"/>
+            </style>
+            <child>
+              <object class="GtkImage" id="horizontal_image">
+                <property name="icon-name" bind-source="AdwViewSwitcherButton" bind-property="icon-name" bind-flags="sync-create" />
+              </object>
+            </child>
+            <child>
+              <object class="GtkStack" id="horizontal_label_stack">
+                <child>
+                  <object class="GtkLabel" id="horizontal_label_inactive">
+                    <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="horizontal_label_active">
+                    <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                    <style>
+                      <class name="active"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox" id="vertical_box">
+            <property name="halign">center</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">4</property>
+            <property name="valign">center</property>
+            <style>
+              <class name="narrow"/>
+            </style>
+            <child>
+              <object class="GtkImage" id="vertical_image">
+                <property name="icon-name" bind-source="AdwViewSwitcherButton" bind-property="icon-name" bind-flags="sync-create" />
+              </object>
+            </child>
+            <child>
+              <object class="GtkStack" id="vertical_label_stack">
+                <child>
+                  <object class="GtkLabel" id="vertical_label_inactive">
+                    <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="vertical_label_active">
+                    <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                    <style>
+                      <class name="active"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkDropControllerMotion">
+        <signal name="enter" handler="drag_enter_cb" swapped="yes"/>
+        <signal name="leave" handler="drag_leave_cb" swapped="yes"/>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -4,23 +4,23 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#include <handy.h>
+#include <adwaita.h>
 
 
 static void
-test_hdy_preferences_window_add_remove (void)
+test_adw_preferences_window_add_remove (void)
 {
-  g_autoptr (HdyPreferencesWindow) window = NULL;
-  HdyPreferencesPage *page;
+  g_autoptr (AdwPreferencesWindow) window = NULL;
+  AdwPreferencesPage *page;
 
-  window = g_object_ref_sink (HDY_PREFERENCES_WINDOW (hdy_preferences_window_new ()));
+  window = g_object_ref_sink (ADW_PREFERENCES_WINDOW (adw_preferences_window_new ()));
   g_assert_nonnull (window);
 
-  page = HDY_PREFERENCES_PAGE (hdy_preferences_page_new ());
+  page = ADW_PREFERENCES_PAGE (adw_preferences_page_new ());
   g_assert_nonnull (page);
-  hdy_preferences_window_add (window, page);
+  adw_preferences_window_add (window, page);
 
-  hdy_preferences_window_remove (window, page);
+  adw_preferences_window_remove (window, page);
 }
 
 
@@ -29,9 +29,9 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init ();
+  adw_init ();
 
-  g_test_add_func("/Handy/PreferencesWindow/add_remove", test_hdy_preferences_window_add_remove);
+  g_test_add_func("/Adwaita/PreferencesWindow/add_remove", test_adw_preferences_window_add_remove);
 
   return g_test_run();
 }

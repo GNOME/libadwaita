@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#include <handy.h>
+#include <adwaita.h>
 
 gint notified;
 
@@ -15,29 +15,29 @@ notify_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-test_hdy_carousel_indicator_dots_carousel (void)
+test_adw_carousel_indicator_dots_carousel (void)
 {
-  g_autoptr (HdyCarouselIndicatorDots) dots = NULL;
-  HdyCarousel *carousel;
+  g_autoptr (AdwCarouselIndicatorDots) dots = NULL;
+  AdwCarousel *carousel;
 
-  dots = g_object_ref_sink (HDY_CAROUSEL_INDICATOR_DOTS (hdy_carousel_indicator_dots_new ()));
+  dots = g_object_ref_sink (ADW_CAROUSEL_INDICATOR_DOTS (adw_carousel_indicator_dots_new ()));
   g_assert_nonnull (dots);
 
   notified = 0;
   g_signal_connect (dots, "notify::carousel", G_CALLBACK (notify_cb), NULL);
 
-  carousel = HDY_CAROUSEL (hdy_carousel_new ());
+  carousel = ADW_CAROUSEL (adw_carousel_new ());
   g_assert_nonnull (carousel);
 
-  g_assert_null (hdy_carousel_indicator_dots_get_carousel (dots));
+  g_assert_null (adw_carousel_indicator_dots_get_carousel (dots));
   g_assert_cmpint (notified, ==, 0);
 
-  hdy_carousel_indicator_dots_set_carousel (dots, carousel);
-  g_assert (hdy_carousel_indicator_dots_get_carousel (dots) == carousel);
+  adw_carousel_indicator_dots_set_carousel (dots, carousel);
+  g_assert (adw_carousel_indicator_dots_get_carousel (dots) == carousel);
   g_assert_cmpint (notified, ==, 1);
 
-  hdy_carousel_indicator_dots_set_carousel (dots, NULL);
-  g_assert_null (hdy_carousel_indicator_dots_get_carousel (dots));
+  adw_carousel_indicator_dots_set_carousel (dots, NULL);
+  g_assert_null (adw_carousel_indicator_dots_get_carousel (dots));
   g_assert_cmpint (notified, ==, 2);
 }
 
@@ -46,8 +46,8 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init ();
+  adw_init ();
 
-  g_test_add_func("/Handy/CarouselIndicatorDots/carousel", test_hdy_carousel_indicator_dots_carousel);
+  g_test_add_func("/Adwaita/CarouselIndicatorDots/carousel", test_adw_carousel_indicator_dots_carousel);
   return g_test_run();
 }

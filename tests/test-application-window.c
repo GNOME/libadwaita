@@ -4,15 +4,15 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#include <handy.h>
+#include <adwaita.h>
 
 
 static void
-test_hdy_application_window_new (void)
+test_adw_application_window_new (void)
 {
   g_autoptr (GtkWidget) window = NULL;
 
-  window = g_object_ref_sink (hdy_application_window_new (NULL));
+  window = g_object_ref_sink (adw_application_window_new (NULL));
   g_assert_nonnull (window);
 }
 
@@ -22,9 +22,9 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init ();
+  adw_init ();
 
-  g_test_add_func("/Handy/ApplicationWindow/new", test_hdy_application_window_new);
+  g_test_add_func("/Adwaita/ApplicationWindow/new", test_adw_application_window_new);
 
   return g_test_run();
 }

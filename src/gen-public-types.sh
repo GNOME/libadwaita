@@ -10,13 +10,13 @@ do
   echo "#include \"$var\""
 done
 
-echo '#include "hdy-main-private.h"
+echo '#include "adw-main-private.h"
 
 void
-hdy_init_public_types (void)
+adw_init_public_types (void)
 {'
 
-sed -ne 's/^#define \{1,\}\(HDY_TYPE_[A-Z0-9_]\{1,\}\) \{1,\}.*/  g_type_ensure (\1);/p' "$@" | sort
+sed -ne 's/^#define \{1,\}\(ADW_TYPE_[A-Z0-9_]\{1,\}\) \{1,\}.*/  g_type_ensure (\1);/p' "$@" | sort
 
 echo '}
 '

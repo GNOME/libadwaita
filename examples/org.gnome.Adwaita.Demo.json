@@ -1,0 +1,27 @@
+{
+  "app-id": "org.gnome.Adwaita.Demo",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "master",
+  "sdk": "org.gnome.Sdk",
+  "command": "adwaita-1-demo",
+  "finish-args": [
+    "--device=all",
+    "--share=ipc",
+    "--socket=wayland",
+    "--socket=x11",
+    "--talk-name=org.a11y.Bus"
+  ],
+  "modules": [
+    {
+      "name": "libadwaita",
+      "buildsystem": "meson",
+      "builddir": true,
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://gitlab.gnome.org/GNOME/libadwaita.git"
+        }
+      ]
+    }
+  ]
+}

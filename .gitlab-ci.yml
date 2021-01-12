@@ -124,19 +124,8 @@ build-flatpak:
   stage: build
   before_script: []
   variables:
-    MANIFEST_PATH: 'examples/sm.puri.Handy.Demo.json'
+    MANIFEST_PATH: 'examples/org.gnome.Adwaita.Demo.json'
     RUNTIME_REPO: 'https://nightly.gnome.org/gnome-nightly.flatpakrepo'
-    FLATPAK_MODULE: 'libhandy'
-    APP_ID: 'sm.puri.Handy.Demo'
-    BUNDLE: 'sm.puri.Handy.Demo.flatpak'
-
-build-flatpak-glade:
-  extends: '.flatpak'
-  stage: build
-  before_script: []
-  variables:
-    MANIFEST_PATH: 'glade/sm.puri.Handy.Glade.json'
-    RUNTIME_REPO: 'https://nightly.gnome.org/gnome-nightly.flatpakrepo'
-    FLATPAK_MODULE: 'libhandy'
-    APP_ID: 'sm.puri.Handy.Glade'
-    BUNDLE: 'sm.puri.Handy.Glade.flatpak'
+    FLATPAK_MODULE: 'libadwaita'
+    APP_ID: 'org.gnome.Adwaita.Demo'
+    BUNDLE: 'org.gnome.Adwaita.Demo.flatpak'

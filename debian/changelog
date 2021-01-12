@@ -912,7 +912,7 @@ libhandy (0.0.8) experimental; urgency=medium
     and 'under' child transitions.
 
   [ maxice8 ]
-  * meson: pass -DHANDY_COMPILATION to GIR compiler.
+  * meson: pass -DADWAITA_COMPILATION to GIR compiler.
     Fixes cross compilation of GIR in Void Linux.
 
  -- Guido Günther <agx@sigxcpu.org>  Fri, 15 Feb 2019 11:27:35 +0100

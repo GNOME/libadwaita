@@ -1,8 +1,8 @@
 # List of source files that should *not* be translated.
 # Please keep this file sorted alphabetically.
-examples/hdy-demo-preferences-window.ui
-examples/hdy-demo-window.c
-examples/hdy-demo-window.ui
-examples/hdy-flap-demo-window.c
-examples/hdy-flap-demo-window.ui
-examples/hdy-view-switcher-demo-window.ui
+examples/adw-demo-preferences-window.ui
+examples/adw-demo-window.c
+examples/adw-demo-window.ui
+examples/adw-flap-demo-window.c
+examples/adw-flap-demo-window.ui
+examples/adw-view-switcher-demo-window.ui

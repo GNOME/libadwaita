@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="AdwExpanderRow" parent="AdwPreferencesRow">
+    <!-- The row must not be activatable, to be sure it doesn't conflict with
+         clicking nested rows. -->
+    <property name="activatable">False</property>
+    <!-- The row must be focusable for keyboard navigation to work as
+         expected. -->
+    <property name="can-focus">True</property>
+    <!-- The row is focusable and can still be activated via keyboard, despite
+         being marked as inactivatable. Activating the row should toggle its
+         expansion. -->
+    <signal name="activate" handler="activate_cb" after="yes"/>
+    <style>
+      <class name="empty"/>
+      <class name="expander"/>
+    </style>
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkListBox">
+            <property name="selection-mode">none</property>
+            <!-- The header row is focusable, activatable, and can be activated
+                 by clicking it or via keyboard. Activating the row should
+                 toggle its expansion. -->
+            <signal name="row-activated" handler="activate_cb" after="yes" swapped="yes"/>
+            <child>
+              <object class="AdwActionRow" id="action_row">
+                <!-- The header row must be activatable to toggle expansion by
+                     clicking it or via keyboard activation. -->
+                <property name="activatable">True</property>
+                <!-- The header row must be focusable for keyboard navigation to
+                     work as expected. -->
+                <property name="can-focus">True</property>
+                <property name="title" bind-source="AdwExpanderRow" bind-property="title" bind-flags="sync-create"/>
+                <style>
+                  <class name="header"/>
+                </style>
+                <child>
+                  <object class="GtkBox" id="actions">
+                    <property name="spacing">12</property>
+                    <property name="visible">False</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSwitch" id="enable_switch">
+                    <property name="active" bind-source="AdwExpanderRow" bind-property="enable-expansion" bind-flags="bidirectional|sync-create"/>
+                    <property name="valign">center</property>
+                    <property name="visible" bind-source="AdwExpanderRow" bind-property="show-enable-switch" bind-flags="bidirectional|sync-create"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImage" id="image">
+                    <property name="icon-name">adw-expander-arrow-symbolic</property>
+                    <property name="sensitive" bind-source="AdwExpanderRow" bind-property="enable-expansion" bind-flags="sync-create"/>
+                    <style>
+                      <class name="expander-row-arrow"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkRevealer">
+            <property name="reveal-child" bind-source="AdwExpanderRow" bind-property="expanded" bind-flags="sync-create"/>
+            <property name="transition-type">slide-up</property>
+            <child>
+              <object class="GtkListBox" id="list">
+                <property name="selection-mode">none</property>
+                <style>
+                  <class name="nested"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

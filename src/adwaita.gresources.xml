@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Adwaita">
+    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-expander-arrow-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/object-select-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/pan-down-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/avatar-default-symbolic.svg</file>
+    <file compressed="true">themes/Adwaita.css</file>
+    <file compressed="true">themes/Adwaita-dark.css</file>
+    <file compressed="true">themes/fallback.css</file>
+    <file compressed="true">themes/HighContrast.css</file>
+    <file compressed="true">themes/HighContrastInverse.css</file>
+    <file compressed="true">themes/shared.css</file>
+  </gresource>
+  <gresource prefix="/org/gnome/Adwaita/ui">
+    <file preprocess="xml-stripblanks">adw-action-row.ui</file>
+    <file preprocess="xml-stripblanks">adw-carousel.ui</file>
+    <file preprocess="xml-stripblanks">adw-combo-row.ui</file>
+    <file preprocess="xml-stripblanks">adw-expander-row.ui</file>
+    <file preprocess="xml-stripblanks">adw-keypad.ui</file>
+    <file preprocess="xml-stripblanks">adw-keypad-button.ui</file>
+    <file preprocess="xml-stripblanks">adw-preferences-group.ui</file>
+    <file preprocess="xml-stripblanks">adw-preferences-page.ui</file>
+    <file preprocess="xml-stripblanks">adw-preferences-window.ui</file>
+    <file preprocess="xml-stripblanks">adw-status-page.ui</file>
+    <file preprocess="xml-stripblanks">adw-view-switcher-bar.ui</file>
+    <file preprocess="xml-stripblanks">adw-view-switcher-button.ui</file>
+    <file preprocess="xml-stripblanks">adw-view-switcher-title.ui</file>
+  </gresource>
+</gresources>

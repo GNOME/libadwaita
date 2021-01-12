@@ -1,180 +1,180 @@
-libhandy_header_subdir = package_subdir / package_api_name
-libhandy_header_dir = get_option('includedir') / libhandy_header_subdir
-libhandy_resources = gnome.compile_resources(
-   'hdy-resources',
-   'handy.gresources.xml',
+libadwaita_header_subdir = package_subdir / package_api_name
+libadwaita_header_dir = get_option('includedir') / libadwaita_header_subdir
+libadwaita_resources = gnome.compile_resources(
+   'adw-resources',
+   'adwaita.gresources.xml',
 
-   c_name: 'hdy',
+   c_name: 'adw',
 )
 
-hdy_public_enum_headers = [
-  'hdy-flap.h',
-  'hdy-header-bar.h',
-  'hdy-header-group.h',
-  'hdy-leaflet.h',
-  'hdy-navigation-direction.h',
-  'hdy-squeezer.h',
-  'hdy-view-switcher.h',
+adw_public_enum_headers = [
+  'adw-flap.h',
+  'adw-header-bar.h',
+  'adw-header-group.h',
+  'adw-leaflet.h',
+  'adw-navigation-direction.h',
+  'adw-squeezer.h',
+  'adw-view-switcher.h',
 ]
 
-hdy_private_enum_headers = [
+adw_private_enum_headers = [
 ]
 
 version_data = configuration_data()
-version_data.set('HDY_MAJOR_VERSION', handy_version_major)
-version_data.set('HDY_MINOR_VERSION', handy_version_minor)
-version_data.set('HDY_MICRO_VERSION', handy_version_micro)
-version_data.set('HDY_VERSION', meson.project_version())
+version_data.set('ADW_MAJOR_VERSION', adwaita_version_major)
+version_data.set('ADW_MINOR_VERSION', adwaita_version_minor)
+version_data.set('ADW_MICRO_VERSION', adwaita_version_micro)
+version_data.set('ADW_VERSION', meson.project_version())
 
-hdy_version_h = configure_file(
-           input: 'hdy-version.h.in',
-          output: 'hdy-version.h',
-     install_dir: libhandy_header_dir,
+adw_version_h = configure_file(
+           input: 'adw-version.h.in',
+          output: 'adw-version.h',
+     install_dir: libadwaita_header_dir,
    configuration: version_data)
 
-libhandy_generated_headers = [
+libadwaita_generated_headers = [
 ]
 
-install_headers(['handy.h'],
-  subdir: libhandy_header_subdir)
+install_headers(['adwaita.h'],
+  subdir: libadwaita_header_subdir)
 
 # Filled out in the subdirs
-libhandy_public_headers = []
-libhandy_public_sources = []
-libhandy_private_sources = []
+libadwaita_public_headers = []
+libadwaita_public_sources = []
+libadwaita_private_sources = []
 
-hdy_public_enums = gnome.mkenums('hdy-enums',
-      h_template: 'hdy-enums.h.in',
-      c_template: 'hdy-enums.c.in',
-         sources: hdy_public_enum_headers,
+adw_public_enums = gnome.mkenums('adw-enums',
+      h_template: 'adw-enums.h.in',
+      c_template: 'adw-enums.c.in',
+         sources: adw_public_enum_headers,
   install_header: true,
-     install_dir: libhandy_header_dir,
+     install_dir: libadwaita_header_dir,
 )
 
-hdy_private_enums = gnome.mkenums('hdy-enums-private',
-      h_template: 'hdy-enums-private.h.in',
-      c_template: 'hdy-enums-private.c.in',
-         sources: hdy_private_enum_headers,
+adw_private_enums = gnome.mkenums('adw-enums-private',
+      h_template: 'adw-enums-private.h.in',
+      c_template: 'adw-enums-private.c.in',
+         sources: adw_private_enum_headers,
   install_header: false,
 )
 
-libhandy_public_sources += [hdy_public_enums[0]]
-libhandy_private_sources += [hdy_private_enums[0]]
-libhandy_generated_headers += [hdy_public_enums[1]]
+libadwaita_public_sources += [adw_public_enums[0]]
+libadwaita_private_sources += [adw_private_enums[0]]
+libadwaita_generated_headers += [adw_public_enums[1]]
 
 src_headers = [
-  'hdy-action-row.h',
-  'hdy-animation.h',
-  'hdy-application-window.h',
-  'hdy-avatar.h',
-  'hdy-carousel.h',
-  'hdy-carousel-indicator-dots.h',
-  'hdy-carousel-indicator-lines.h',
-  'hdy-clamp.h',
-  'hdy-clamp-layout.h',
-  'hdy-clamp-scrollable.h',
-  'hdy-combo-row.h',
-  'hdy-deprecation-macros.h',
-  'hdy-enum-list-model.h',
-  'hdy-enum-value-object.h',
-  'hdy-expander-row.h',
-  'hdy-flap.h',
-  'hdy-header-bar.h',
-  'hdy-header-group.h',
-  'hdy-keypad.h',
-  'hdy-leaflet.h',
-  'hdy-main.h',
-  'hdy-navigation-direction.h',
-  'hdy-preferences-group.h',
-  'hdy-preferences-page.h',
-  'hdy-preferences-row.h',
-  'hdy-preferences-window.h',
-  'hdy-squeezer.h',
-  'hdy-status-page.h',
-  'hdy-swipe-group.h',
-  'hdy-swipe-tracker.h',
-  'hdy-swipeable.h',
-  'hdy-types.h',
-  'hdy-value-object.h',
-  'hdy-view-switcher.h',
-  'hdy-view-switcher-bar.h',
-  'hdy-view-switcher-title.h',
-  'hdy-window.h',
+  'adw-action-row.h',
+  'adw-animation.h',
+  'adw-application-window.h',
+  'adw-avatar.h',
+  'adw-carousel.h',
+  'adw-carousel-indicator-dots.h',
+  'adw-carousel-indicator-lines.h',
+  'adw-clamp.h',
+  'adw-clamp-layout.h',
+  'adw-clamp-scrollable.h',
+  'adw-combo-row.h',
+  'adw-deprecation-macros.h',
+  'adw-enum-list-model.h',
+  'adw-enum-value-object.h',
+  'adw-expander-row.h',
+  'adw-flap.h',
+  'adw-header-bar.h',
+  'adw-header-group.h',
+  'adw-keypad.h',
+  'adw-leaflet.h',
+  'adw-main.h',
+  'adw-navigation-direction.h',
+  'adw-preferences-group.h',
+  'adw-preferences-page.h',
+  'adw-preferences-row.h',
+  'adw-preferences-window.h',
+  'adw-squeezer.h',
+  'adw-status-page.h',
+  'adw-swipe-group.h',
+  'adw-swipe-tracker.h',
+  'adw-swipeable.h',
+  'adw-types.h',
+  'adw-value-object.h',
+  'adw-view-switcher.h',
+  'adw-view-switcher-bar.h',
+  'adw-view-switcher-title.h',
+  'adw-window.h',
 ]
 
 sed = find_program('sed', required: true)
 gen_public_types = find_program('gen-public-types.sh', required: true)
 
-libhandy_init_public_types = custom_target('hdy-public-types.c',
-   output: 'hdy-public-types.c',
-    input: [src_headers, libhandy_generated_headers],
+libadwaita_init_public_types = custom_target('adw-public-types.c',
+   output: 'adw-public-types.c',
+    input: [src_headers, libadwaita_generated_headers],
   command: [gen_public_types, '@INPUT@'],
   capture: true,
 )
 
 src_sources = [
   'gtkprogresstracker.c',
-  'hdy-action-row.c',
-  'hdy-animation.c',
-  'hdy-application-window.c',
-  'hdy-avatar.c',
-  'hdy-carousel.c',
-  'hdy-carousel-box.c',
-  'hdy-carousel-indicator-dots.c',
-  'hdy-carousel-indicator-lines.c',
-  'hdy-clamp.c',
-  'hdy-clamp-layout.c',
-  'hdy-clamp-scrollable.c',
-  'hdy-combo-row.c',
-  'hdy-enum-list-model.c',
-  'hdy-enum-value-object.c',
-  'hdy-expander-row.c',
-  'hdy-flap.c',
-  'hdy-focus.c',
-  'hdy-gizmo.c',
-  'hdy-header-bar.c',
-  'hdy-header-group.c',
-  'hdy-keypad-button.c',
-  'hdy-keypad.c',
-  'hdy-leaflet.c',
-  'hdy-main.c',
-  'hdy-navigation-direction.c',
-  'hdy-preferences-group.c',
-  'hdy-preferences-page.c',
-  'hdy-preferences-row.c',
-  'hdy-preferences-window.c',
-  'hdy-shadow-helper.c',
-  'hdy-squeezer.c',
-  'hdy-status-page.c',
-  'hdy-swipe-group.c',
-  'hdy-swipe-tracker.c',
-  'hdy-swipeable.c',
-  'hdy-value-object.c',
-  'hdy-view-switcher.c',
-  'hdy-view-switcher-bar.c',
-  'hdy-view-switcher-button.c',
-  'hdy-view-switcher-title.c',
-  'hdy-window.c',
-  'hdy-window-mixin.c',
+  'adw-action-row.c',
+  'adw-animation.c',
+  'adw-application-window.c',
+  'adw-avatar.c',
+  'adw-carousel.c',
+  'adw-carousel-box.c',
+  'adw-carousel-indicator-dots.c',
+  'adw-carousel-indicator-lines.c',
+  'adw-clamp.c',
+  'adw-clamp-layout.c',
+  'adw-clamp-scrollable.c',
+  'adw-combo-row.c',
+  'adw-enum-list-model.c',
+  'adw-enum-value-object.c',
+  'adw-expander-row.c',
+  'adw-flap.c',
+  'adw-focus.c',
+  'adw-gizmo.c',
+  'adw-header-bar.c',
+  'adw-header-group.c',
+  'adw-keypad-button.c',
+  'adw-keypad.c',
+  'adw-leaflet.c',
+  'adw-main.c',
+  'adw-navigation-direction.c',
+  'adw-preferences-group.c',
+  'adw-preferences-page.c',
+  'adw-preferences-row.c',
+  'adw-preferences-window.c',
+  'adw-shadow-helper.c',
+  'adw-squeezer.c',
+  'adw-status-page.c',
+  'adw-swipe-group.c',
+  'adw-swipe-tracker.c',
+  'adw-swipeable.c',
+  'adw-value-object.c',
+  'adw-view-switcher.c',
+  'adw-view-switcher-bar.c',
+  'adw-view-switcher-button.c',
+  'adw-view-switcher-title.c',
+  'adw-window.c',
+  'adw-window-mixin.c',
 ]
 
-libhandy_public_headers += files(src_headers)
-libhandy_public_sources += files(src_sources)
+libadwaita_public_headers += files(src_headers)
+libadwaita_public_sources += files(src_sources)
 
-install_headers(src_headers, subdir: libhandy_header_subdir)
+install_headers(src_headers, subdir: libadwaita_header_subdir)
 
 
-libhandy_sources = [
-  libhandy_generated_headers,
-  libhandy_public_sources,
-  libhandy_private_sources,
-  libhandy_resources,
-  libhandy_init_public_types,
+libadwaita_sources = [
+  libadwaita_generated_headers,
+  libadwaita_public_sources,
+  libadwaita_private_sources,
+  libadwaita_resources,
+  libadwaita_init_public_types,
 ]
 
 glib_min_version = '>= 2.44'
 
-libhandy_deps = [
+libadwaita_deps = [
   dependency('glib-2.0', version: glib_min_version),
   dependency('gio-2.0', version: glib_min_version),
   dependency('gmodule-2.0', version: glib_min_version),
@@ -183,24 +183,24 @@ libhandy_deps = [
   cc.find_library('rt', required: false),
 ]
 
-libhandy_c_args = [
-  '-DG_LOG_DOMAIN="Handy"',
+libadwaita_c_args = [
+  '-DG_LOG_DOMAIN="Adwaita"',
 ]
 
 config_h = configuration_data()
-config_h.set_quoted('GETTEXT_PACKAGE', 'libhandy')
+config_h.set_quoted('GETTEXT_PACKAGE', 'libadwaita')
 config_h.set_quoted('LOCALEDIR', get_option('prefix') / get_option('localedir'))
 
 # Symbol visibility
 if target_system == 'windows'
   config_h.set('DLL_EXPORT', true)
-  config_h.set('_HDY_EXTERN', '__declspec(dllexport) extern')
+  config_h.set('_ADW_EXTERN', '__declspec(dllexport) extern')
   if cc.get_id() != 'msvc'
-    libhandy_c_args += ['-fvisibility=hidden']
+    libadwaita_c_args += ['-fvisibility=hidden']
   endif
 else
-  config_h.set('_HDY_EXTERN', '__attribute__((visibility("default"))) extern')
-  libhandy_c_args += ['-fvisibility=hidden']
+  config_h.set('_ADW_EXTERN', '__attribute__((visibility("default"))) extern')
+  libadwaita_c_args += ['-fvisibility=hidden']
 endif
 
 configure_file(
@@ -208,70 +208,70 @@ configure_file(
   configuration: config_h,
 )
 
-libhandy_link_args = []
-libhandy_symbols_file = 'libhandy.syms'
+libadwaita_link_args = []
+libadwaita_symbols_file = 'libadwaita.syms'
 
 # Check linker flags
 ld_version_script_arg = '-Wl,--version-script,@0@/@1@'.format(meson.source_root(),
-                                                              libhandy_symbols_file)
+                                                              libadwaita_symbols_file)
 if cc.links('int main() { return 0; }', args : ld_version_script_arg, name : 'ld_supports_version_script')
-  libhandy_link_args += [ld_version_script_arg]
+  libadwaita_link_args += [ld_version_script_arg]
 endif
 
-# set default libdir on win32 for libhandy target to keep MinGW compatibility
+# set default libdir on win32 for libadwaita target to keep MinGW compatibility
 if target_system == 'windows'
-  handy_libdir = [true]
+  adwaita_libdir = [true]
 else
-  handy_libdir = libdir
+  adwaita_libdir = libdir
 endif
 
-libhandy = shared_library(
-  'handy-' + apiversion,
-  libhandy_sources,
+libadwaita = shared_library(
+  'adwaita-' + apiversion,
+  libadwaita_sources,
 
             soversion: soversion,
-               c_args: libhandy_c_args,
-         dependencies: libhandy_deps,
+               c_args: libadwaita_c_args,
+         dependencies: libadwaita_deps,
   include_directories: [ root_inc, src_inc ],
               install: true,
-            link_args: libhandy_link_args,
-          install_dir: handy_libdir,
+            link_args: libadwaita_link_args,
+          install_dir: adwaita_libdir,
 )
 
-libhandy_dep = declare_dependency(
-              sources: libhandy_generated_headers,
-         dependencies: libhandy_deps,
-            link_with: libhandy,
+libadwaita_dep = declare_dependency(
+              sources: libadwaita_generated_headers,
+         dependencies: libadwaita_deps,
+            link_with: libadwaita,
   include_directories: include_directories('.'),
 )
 
 if introspection
 
-   libhandy_gir_extra_args = [
-     '--c-include=handy.h',
+   libadwaita_gir_extra_args = [
+     '--c-include=adwaita.h',
      '--quiet',
-     '-DHANDY_COMPILATION',
+     '-DADWAITA_COMPILATION',
    ]
 
-   libhandy_gir = gnome.generate_gir(libhandy,
-                 sources: libhandy_generated_headers + libhandy_public_headers + libhandy_public_sources,
+   libadwaita_gir = gnome.generate_gir(libadwaita,
+                 sources: libadwaita_generated_headers + libadwaita_public_headers + libadwaita_public_sources,
                nsversion: apiversion,
-               namespace: 'Handy',
+               namespace: 'Adw',
          export_packages: package_api_name,
-           symbol_prefix: 'hdy',
-       identifier_prefix: 'Hdy',
-               link_with: libhandy,
+           symbol_prefix: 'adw',
+       identifier_prefix: 'Adw',
+               link_with: libadwaita,
                 includes: ['Gio-2.0', 'Gtk-4.0'],
                  install: true,
          install_dir_gir: girdir,
      install_dir_typelib: typelibdir,
-              extra_args: libhandy_gir_extra_args,
+              extra_args: libadwaita_gir_extra_args,
    )
 
    if get_option('vapi')
 
-     libhandy_vapi = gnome.generate_vapi(package_api_name,
-             sources: libhandy_gir[0],
+     libadwaita_vapi = gnome.generate_vapi(package_api_name,
+             sources: libadwaita_gir[0],
             packages: [ 'gio-2.0', 'gtk4' ],
              install: true,
          install_dir: vapidir,
@@ -284,12 +284,12 @@ endif
 pkgg = import('pkgconfig')
 
 pkgg.generate(
-    libraries: [libhandy],
-      subdirs: libhandy_header_subdir,
+    libraries: [libadwaita],
+      subdirs: libadwaita_header_subdir,
       version: meson.project_version(),
-         name: 'Handy',
+         name: 'Adwaita',
      filebase: package_api_name,
-  description: 'Handy Mobile widgets',
+  description: 'Adwaita Mobile widgets',
      requires: 'gtk4',
   install_dir: libdir / 'pkgconfig',
 )

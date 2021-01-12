@@ -1,2 +1,2 @@
 i18n = import('i18n')
-i18n.gettext('libhandy', preset : 'glib')
+i18n.gettext('libadwaita', preset : 'glib')

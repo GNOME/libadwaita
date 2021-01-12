@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="AdwStatusPage" parent="GtkWidget">
+    <child>
+      <object class="GtkScrolledWindow" id="scrolled_window">
+        <property name="hscrollbar-policy">never</property>
+        <property name="propagate-natural-height">True</property>
+        <child>
+          <object class="GtkBox" id="toplevel_box">
+            <property name="orientation">vertical</property>
+            <property name="valign">center</property>
+            <child>
+              <object class="AdwClamp">
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="valign">center</property>
+                    <child>
+                      <object class="GtkImage" id="image">
+                        <property name="pixel-size">128</property>
+                        <property name="icon-name">image-missing</property>
+                        <style>
+                          <class name="icon"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="title_label">
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word-char</property>
+                        <property name="justify">center</property>
+                        <style>
+                          <class name="title"/>
+                          <class name="large-title"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="description_label">
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word-char</property>
+                        <property name="justify">center</property>
+                        <property name="use-markup">True</property>
+                        <style>
+                          <class name="body"/>
+                          <class name="description"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

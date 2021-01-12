@@ -24,7 +24,7 @@
 #include <math.h>
 #include <string.h>
 
-#include "hdy-animation-private.h"
+#include "adw-animation-private.h"
 
 /*
  * Progress tracker is small helper for tracking progress through gtk
@@ -244,5 +244,5 @@ gtk_progress_tracker_get_ease_out_cubic (GtkProgressTracker *tracker,
                                          gboolean reversed)
 {
   gdouble progress = gtk_progress_tracker_get_progress (tracker, reversed);
-  return hdy_ease_out_cubic (progress);
+  return adw_ease_out_cubic (progress);
 }

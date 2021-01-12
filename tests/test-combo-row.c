@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: LGPL-2.1+
  */
 
-#include <handy.h>
+#include <adwaita.h>
 
 gint notified;
 
@@ -15,48 +15,48 @@ notify_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-test_hdy_combo_row_set_for_enum (void)
+test_adw_combo_row_set_for_enum (void)
 {
-  g_autoptr (HdyComboRow) row = NULL;
+  g_autoptr (AdwComboRow) row = NULL;
   GtkExpression *expr = NULL;
   GListModel *model;
-  HdyEnumValueObject *value;
+  AdwEnumValueObject *value;
 
-  row = g_object_ref_sink (HDY_COMBO_ROW (hdy_combo_row_new ()));
+  row = g_object_ref_sink (ADW_COMBO_ROW (adw_combo_row_new ()));
   g_assert_nonnull (row);
 
-  g_assert_null (hdy_combo_row_get_model (row));
+  g_assert_null (adw_combo_row_get_model (row));
 
-  expr = gtk_property_expression_new (HDY_TYPE_ENUM_VALUE_OBJECT, NULL, "nick");
-  hdy_combo_row_set_expression (row, expr);
+  expr = gtk_property_expression_new (ADW_TYPE_ENUM_VALUE_OBJECT, NULL, "nick");
+  adw_combo_row_set_expression (row, expr);
   gtk_expression_unref (expr);
 
-  model = G_LIST_MODEL (hdy_enum_list_model_new (GTK_TYPE_ORIENTATION));
-  hdy_combo_row_set_model (row, model);
+  model = G_LIST_MODEL (adw_enum_list_model_new (GTK_TYPE_ORIENTATION));
+  adw_combo_row_set_model (row, model);
   g_object_unref (model);
 
-  model = hdy_combo_row_get_model (row);
+  model = adw_combo_row_get_model (row);
   g_assert_true (G_IS_LIST_MODEL (model));
 
   g_assert_cmpuint (g_list_model_get_n_items (model), ==, 2);
 
   value = g_list_model_get_item (model, 0);
-  g_assert_true (HDY_IS_ENUM_VALUE_OBJECT (value));
-  g_assert_cmpstr (hdy_enum_value_object_get_nick (value), ==, "horizontal");
+  g_assert_true (ADW_IS_ENUM_VALUE_OBJECT (value));
+  g_assert_cmpstr (adw_enum_value_object_get_nick (value), ==, "horizontal");
 
   value = g_list_model_get_item (model, 1);
-  g_assert_true (HDY_IS_ENUM_VALUE_OBJECT (value));
-  g_assert_cmpstr (hdy_enum_value_object_get_nick (value), ==, "vertical");
+  g_assert_true (ADW_IS_ENUM_VALUE_OBJECT (value));
+  g_assert_cmpstr (adw_enum_value_object_get_nick (value), ==, "vertical");
 }
 
 static void
-test_hdy_combo_row_selected (void)
+test_adw_combo_row_selected (void)
 {
-  g_autoptr (HdyComboRow) row = NULL;
+  g_autoptr (AdwComboRow) row = NULL;
   g_autoptr (GListModel) model = NULL;
   gint selected = 0;
 
-  row = HDY_COMBO_ROW (g_object_ref_sink (hdy_combo_row_new ()));
+  row = ADW_COMBO_ROW (g_object_ref_sink (adw_combo_row_new ()));
   g_assert_nonnull (row);
 
   notified = 0;
@@ -65,44 +65,44 @@ test_hdy_combo_row_selected (void)
   g_object_get (row, "selected", &selected, NULL);
   g_assert_cmpint (selected, ==, -1);
 
-  hdy_combo_row_set_selected (row, -1);
+  adw_combo_row_set_selected (row, -1);
   g_assert_cmpint (notified, ==, 0);
 
-  model = G_LIST_MODEL (hdy_enum_list_model_new (GTK_TYPE_SELECTION_MODE));
+  model = G_LIST_MODEL (adw_enum_list_model_new (GTK_TYPE_SELECTION_MODE));
 
-  hdy_combo_row_set_model (row, model);
+  adw_combo_row_set_model (row, model);
 
-  g_assert_cmpint (hdy_combo_row_get_selected (row), ==, 0);
+  g_assert_cmpint (adw_combo_row_get_selected (row), ==, 0);
   g_assert_cmpint (notified, ==, 1);
 
-  hdy_combo_row_set_selected (row, 3);
-  g_assert_cmpint (hdy_combo_row_get_selected (row), ==, 3);
+  adw_combo_row_set_selected (row, 3);
+  g_assert_cmpint (adw_combo_row_get_selected (row), ==, 3);
   g_assert_cmpint (notified, ==, 2);
 
   g_object_set (row, "selected", 1, NULL);
-  g_assert_cmpint (hdy_combo_row_get_selected (row), ==, 1);
+  g_assert_cmpint (adw_combo_row_get_selected (row), ==, 1);
   g_assert_cmpint (notified, ==, 3);
 }
 
 static void
-test_hdy_combo_row_use_subtitle (void)
+test_adw_combo_row_use_subtitle (void)
 {
-  g_autoptr (HdyComboRow) row = NULL;
+  g_autoptr (AdwComboRow) row = NULL;
   gboolean use_subtitle = FALSE;
 
-  row = g_object_ref_sink (HDY_COMBO_ROW (hdy_combo_row_new ()));
+  row = g_object_ref_sink (ADW_COMBO_ROW (adw_combo_row_new ()));
   g_assert_nonnull (row);
 
   notified = 0;
   g_signal_connect (row, "notify::use-subtitle", G_CALLBACK (notify_cb), NULL);
 
-  g_assert_false (hdy_combo_row_get_use_subtitle (row));
+  g_assert_false (adw_combo_row_get_use_subtitle (row));
 
-  hdy_combo_row_set_use_subtitle (row, FALSE);
+  adw_combo_row_set_use_subtitle (row, FALSE);
   g_assert_cmpint (notified, ==, 0);
 
-  hdy_combo_row_set_use_subtitle (row, TRUE);
-  g_assert_true (hdy_combo_row_get_use_subtitle (row));
+  adw_combo_row_set_use_subtitle (row, TRUE);
+  g_assert_true (adw_combo_row_get_use_subtitle (row));
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (row, "use-subtitle", FALSE, NULL);
@@ -117,11 +117,11 @@ main (gint argc,
       gchar *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
-  hdy_init ();
+  adw_init ();
 
-  g_test_add_func("/Handy/ComboRow/set_for_enum", test_hdy_combo_row_set_for_enum);
-  g_test_add_func("/Handy/ComboRow/selected", test_hdy_combo_row_selected);
-  g_test_add_func("/Handy/ComboRow/use_subtitle", test_hdy_combo_row_use_subtitle);
+  g_test_add_func("/Adwaita/ComboRow/set_for_enum", test_adw_combo_row_set_for_enum);
+  g_test_add_func("/Adwaita/ComboRow/selected", test_adw_combo_row_selected);
+  g_test_add_func("/Adwaita/ComboRow/use_subtitle", test_adw_combo_row_use_subtitle);
 
   return g_test_run();
 }

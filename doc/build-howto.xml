@@ -41,9 +41,9 @@
     </para>
 
     <informalexample><programlisting>
-      PKG_CHECK_MODULES(LIBHANDY, [&package_ver_str;])
-      AC_SUBST(LIBHANDY_CFLAGS)
-      AC_SUBST(LIBHANDY_LIBS)
+      PKG_CHECK_MODULES(LIBADWAITA, [&package_ver_str;])
+      AC_SUBST(LIBADWAITA_CFLAGS)
+      AC_SUBST(LIBADWAITA_LIBS)
     </programlisting></informalexample>
 
     <para>
@@ -138,8 +138,8 @@
 
     <informalexample>
       <programlisting>
-        git clone https://gitlab.gnome.org/GNOME/libhandy.git
-        cd libhandy
+        git clone https://gitlab.gnome.org/GNOME/libadwaita.git
+        cd libadwaita
         meson . _build
         ninja -C _build test
         ninja -C _build install
@@ -152,7 +152,7 @@
 
     <informalexample>
       <programlisting>
-        gcc $(pkg-config --cflags --libs gtk+-3.0) $(pkg-config --cflags --libs libhandy-1) main.c -o main
+        gcc $(pkg-config --cflags --libs gtk+-3.0) $(pkg-config --cflags --libs libadwaita-1) main.c -o main
       </programlisting>
     </informalexample>
   </refsect2>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="AdwComboRow" parent="AdwActionRow">
+    <property name="activatable">False</property>
+    <child>
+      <object class="GtkListView" id="current">
+        <property name="visible" bind-source="AdwComboRow" bind-property="use-subtitle" bind-flags="sync-create|invert-boolean"/>
+        <property name="valign">center</property>
+        <property name="can-focus">False</property>
+        <property name="can-target">False</property>
+        <style>
+          <class name="inline"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <property name="valign">center</property>
+        <child>
+          <object class="GtkImage" id="image">
+            <property name="icon_name">pan-down-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkPopover" id="popover">
+            <style>
+              <class name="combo"/>
+            </style>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="hscrollbar_policy">never</property>
+                <property name="max_content_height">400</property>
+                <property name="propagate_natural_width">True</property>
+                <property name="propagate_natural_height">True</property>
+                <child>
+                  <object class="GtkListView" id="list">
+                    <property name="single-click-activate">True</property>
+                    <signal name="activate" handler="row_activated_cb" swapped="true"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

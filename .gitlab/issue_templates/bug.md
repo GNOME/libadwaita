@@ -1,31 +1,31 @@
 # What problem did you encounter?
 
-## In what part of libhandy did you experience the problem? Note that multiple boxes may be checked.
+## In what part of libadwaita did you experience the problem? Note that multiple boxes may be checked.
 
  - [ ] build system
  - [ ] documentation
  - [ ] example application
- - [ ] HdyActionRow
- - [ ] HdyCarousel
- - [ ] HdyClamp
- - [ ] HdyComboRow
- - [ ] HdyEnumValueObject
- - [ ] HdyExpanderRow
- - [ ] HdyHeaderBar
- - [ ] HdyKeypad
- - [ ] HdyLeaflet
- - [ ] HdyPreferencesGroup
- - [ ] HdyPreferencesPage
- - [ ] HdyPreferencesRow
- - [ ] HdyPreferencesWindow
- - [ ] HdySearchBar
- - [ ] HdySqueezer
- - [ ] HdySwipeable
- - [ ] HdySwipeGroup
- - [ ] HdyTitleBar
- - [ ] HdyValueObject
- - [ ] HdyViewSwitcher
- - [ ] HdyViewSwitcherBar
+ - [ ] AdwActionRow
+ - [ ] AdwCarousel
+ - [ ] AdwClamp
+ - [ ] AdwComboRow
+ - [ ] AdwEnumValueObject
+ - [ ] AdwExpanderRow
+ - [ ] AdwHeaderBar
+ - [ ] AdwKeypad
+ - [ ] AdwLeaflet
+ - [ ] AdwPreferencesGroup
+ - [ ] AdwPreferencesPage
+ - [ ] AdwPreferencesRow
+ - [ ] AdwPreferencesWindow
+ - [ ] AdwSearchBar
+ - [ ] AdwSqueezer
+ - [ ] AdwSwipeable
+ - [ ] AdwSwipeGroup
+ - [ ] AdwTitleBar
+ - [ ] AdwValueObject
+ - [ ] AdwViewSwitcher
+ - [ ] AdwViewSwitcherBar
  - [ ] somewhere else (please elaborate)
 
 ## What is the actual behaviour?
