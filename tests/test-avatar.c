@@ -41,20 +41,6 @@ test_adw_avatar_size (void)
   g_assert_cmpint (adw_avatar_get_size (avatar), ==, TEST_SIZE / 2);
 }
 
-static void
-test_adw_avatar_draw_to_pixbuf (void)
-{
-  g_autoptr (AdwAvatar) avatar = NULL;
-  g_autoptr (GdkPixbuf) pixbuf = NULL;
-
-  avatar = g_object_ref_sink (ADW_AVATAR (adw_avatar_new (TEST_SIZE, NULL, TRUE)));
-
-  pixbuf = adw_avatar_draw_to_pixbuf (avatar, TEST_SIZE * 2, 1);
-
-  g_assert_cmpint (gdk_pixbuf_get_width (pixbuf), ==, TEST_SIZE * 2);
-  g_assert_cmpint (gdk_pixbuf_get_height (pixbuf), ==, TEST_SIZE * 2);
-}
-
 gint
 main (gint argc,
       gchar *argv[])
@@ -65,7 +51,6 @@ main (gint argc,
   g_test_add_func ("/Adwaita/Avatar/icon_name", test_adw_avatar_icon_name);
   g_test_add_func ("/Adwaita/Avatar/text", test_adw_avatar_text);
   g_test_add_func ("/Adwaita/Avatar/size", test_adw_avatar_size);
-  g_test_add_func ("/Adwaita/Avatar/draw_to_pixbuf", test_adw_avatar_draw_to_pixbuf);
 
   return g_test_run ();
 }
