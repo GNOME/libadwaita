@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <requires lib="gtk" version="4.0"/>
   <template class="AdwExpanderRow" parent="AdwPreferencesRow">
     <!-- The row must not be activatable, to be sure it doesn't conflict with
          clicking nested rows. -->
