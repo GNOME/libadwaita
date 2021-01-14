@@ -25,6 +25,7 @@
 #include "adw-header-bar.h"
 
 #include "adw-enums.h"
+#include "adw-gizmo-private.h"
 
 /**
  * SECTION:adw-header-bar
@@ -41,13 +42,15 @@
  * headerbar
  * ╰── windowhandle
  *     ╰── box
- *         ├── box.start
- *         │   ├── windowcontrols.start
- *         │   ╰── [other children]
+ *         ├── widget
+ *         │   ╰── box.start
+ *         │       ├── windowcontrols.start
+ *         │       ╰── [other children]
  *         ├── [Title Widget]
- *         ╰── box.end
- *             ├── [other children]
- *             ╰── windowcontrols.end
+ *         ╰── widget
+ *             ╰── box.end
+ *                 ├── [other children]
+ *                 ╰── windowcontrols.end
  *
  * Since: 1.0
  */
@@ -70,6 +73,9 @@ struct _AdwHeaderBar {
 
   GtkWidget *handle;
   GtkWidget *center_box;
+  GtkWidget *start_bin;
+  GtkWidget *end_bin;
+
   GtkWidget *start_box;
   GtkWidget *end_box;
 
@@ -218,6 +224,8 @@ adw_header_bar_dispose (GObject *object)
   self->title_label = NULL;
   self->start_box = NULL;
   self->end_box = NULL;
+  self->start_bin = NULL;
+  self->end_bin = NULL;
 
   g_clear_object (&self->size_group);
   g_clear_pointer (&self->handle, gtk_widget_unparent);
@@ -448,13 +456,23 @@ adw_header_bar_init (AdwHeaderBar *self)
   self->center_box = gtk_center_box_new ();
   gtk_window_handle_set_child (GTK_WINDOW_HANDLE (self->handle), self->center_box);
 
-  self->start_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
-  gtk_widget_add_css_class (self->start_box, "start");
-  gtk_center_box_set_start_widget (GTK_CENTER_BOX (self->center_box), self->start_box);
+  self->start_bin = adw_gizmo_new ("widget", NULL, NULL, NULL, NULL, NULL, NULL);
+  gtk_widget_set_layout_manager (self->start_bin, gtk_bin_layout_new ());
+  gtk_center_box_set_start_widget (GTK_CENTER_BOX (self->center_box), self->start_bin);
 
-  self->end_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
+  self->end_bin = adw_gizmo_new ("widget", NULL, NULL, NULL, NULL, NULL, NULL);
+  gtk_widget_set_layout_manager (self->end_bin, gtk_bin_layout_new ());
+  gtk_center_box_set_end_widget (GTK_CENTER_BOX (self->center_box), self->end_bin);
+
+  self->start_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  gtk_widget_set_halign (self->start_box, GTK_ALIGN_START);
+  gtk_widget_add_css_class (self->start_box, "start");
+  gtk_widget_set_parent (self->start_box, self->start_bin);
+
+  self->end_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  gtk_widget_set_halign (self->end_box, GTK_ALIGN_END);
   gtk_widget_add_css_class (self->end_box, "end");
-  gtk_center_box_set_end_widget (GTK_CENTER_BOX (self->center_box), self->end_box);
+  gtk_widget_set_parent (self->end_box, self->end_bin);
 
   self->size_group = gtk_size_group_new (GTK_SIZE_GROUP_HORIZONTAL);
 
@@ -828,11 +846,11 @@ adw_header_bar_set_centering_policy (AdwHeaderBar       *self,
   self->centering_policy = centering_policy;
 
   if (self->centering_policy == ADW_CENTERING_POLICY_STRICT) {
-    gtk_size_group_add_widget (self->size_group, self->start_box);
-    gtk_size_group_add_widget (self->size_group, self->end_box);
+    gtk_size_group_add_widget (self->size_group, self->start_bin);
+    gtk_size_group_add_widget (self->size_group, self->end_bin);
   } else {
-    gtk_size_group_remove_widget (self->size_group, self->start_box);
-    gtk_size_group_remove_widget (self->size_group, self->end_box);
+    gtk_size_group_remove_widget (self->size_group, self->start_bin);
+    gtk_size_group_remove_widget (self->size_group, self->end_bin);
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CENTERING_POLICY]);
