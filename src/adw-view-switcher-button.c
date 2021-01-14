@@ -192,7 +192,6 @@ adw_view_switcher_button_dispose (GObject *object)
   AdwViewSwitcherButton *self = ADW_VIEW_SWITCHER_BUTTON (object);
 
   g_clear_handle_id (&self->switch_timer, g_source_remove);
-  g_clear_pointer ((GtkWidget **) &self->stack, gtk_widget_unparent);
 
   G_OBJECT_CLASS (adw_view_switcher_button_parent_class)->dispose (object);
 }

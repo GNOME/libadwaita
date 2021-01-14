@@ -46,7 +46,7 @@
 
 typedef struct
 {
-  GtkBox *header;
+  GtkWidget *header;
   GtkImage *image;
   GtkBox *prefixes;
   GtkLabel *subtitle;
@@ -205,10 +205,7 @@ adw_action_row_dispose (GObject *object)
 
   adw_action_row_set_activatable_widget (self, NULL);
 
-  g_clear_pointer ((GtkWidget **) &priv->header, gtk_widget_unparent);
-
-  priv->prefixes = NULL;
-  priv->suffixes = NULL;
+  gtk_widget_unparent (priv->header);
 
   G_OBJECT_CLASS (adw_action_row_parent_class)->dispose (object);
 }

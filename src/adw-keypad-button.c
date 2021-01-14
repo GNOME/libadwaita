@@ -32,7 +32,6 @@ struct _AdwKeypadButton
 {
   GtkButton parent_instance;
 
-  GtkWidget *box;
   GtkLabel *label;
   GtkLabel *secondary_label;
   gchar *symbols;
@@ -156,16 +155,6 @@ adw_keypad_button_get_request_mode (GtkWidget *widget)
 }
 
 static void
-adw_keypad_button_dispose (GObject *object)
-{
-  AdwKeypadButton *self = ADW_KEYPAD_BUTTON (object);
-
-  g_clear_pointer (&self->box, gtk_widget_unparent);
-
-  G_OBJECT_CLASS (adw_keypad_button_parent_class)->dispose (object);
-}
-
-static void
 adw_keypad_button_finalize (GObject *object)
 {
   AdwKeypadButton *self = ADW_KEYPAD_BUTTON (object);
@@ -183,7 +172,6 @@ adw_keypad_button_class_init (AdwKeypadButtonClass *klass)
 
   object_class->set_property = adw_keypad_button_set_property;
   object_class->get_property = adw_keypad_button_get_property;
-  object_class->dispose = adw_keypad_button_dispose;
   object_class->finalize = adw_keypad_button_finalize;
 
   widget_class->get_request_mode = adw_keypad_button_get_request_mode;
@@ -214,7 +202,6 @@ adw_keypad_button_class_init (AdwKeypadButtonClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-keypad-button.ui");
-  gtk_widget_class_bind_template_child (widget_class, AdwKeypadButton, box);
   gtk_widget_class_bind_template_child (widget_class, AdwKeypadButton, label);
   gtk_widget_class_bind_template_child (widget_class, AdwKeypadButton, secondary_label);
 }

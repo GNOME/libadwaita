@@ -29,7 +29,7 @@
 typedef struct
 {
   GtkBox *box;
-  GtkScrolledWindow *scrolled_window;
+  GtkWidget *scrolled_window;
 
   gchar *icon_name;
   gchar *title;
@@ -99,7 +99,7 @@ adw_preferences_page_dispose (GObject *object)
   AdwPreferencesPage *self = ADW_PREFERENCES_PAGE (object);
   AdwPreferencesPagePrivate *priv = adw_preferences_page_get_instance_private (self);
 
-  g_clear_pointer ((GtkWidget **) &priv->scrolled_window, gtk_widget_unparent);
+  gtk_widget_unparent (priv->scrolled_window);
 
   G_OBJECT_CLASS (adw_preferences_page_parent_class)->dispose (object);
 }

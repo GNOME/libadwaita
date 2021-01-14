@@ -160,17 +160,6 @@ adw_expander_row_set_property (GObject      *object,
 }
 
 static void
-adw_expander_row_dispose (GObject *object)
-{
-  AdwExpanderRow *self = ADW_EXPANDER_ROW (object);
-  AdwExpanderRowPrivate *priv = adw_expander_row_get_instance_private (self);
-
-  g_clear_pointer ((GtkWidget **) &priv->box, gtk_widget_unparent);
-
-  G_OBJECT_CLASS (adw_expander_row_parent_class)->dispose (object);
-}
-
-static void
 activate_cb (AdwExpanderRow *self)
 {
   AdwExpanderRowPrivate *priv = adw_expander_row_get_instance_private (self);
@@ -186,7 +175,6 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
 
   object_class->get_property = adw_expander_row_get_property;
   object_class->set_property = adw_expander_row_set_property;
-  object_class->dispose = adw_expander_row_dispose;
 
   /**
    * AdwExpanderRow:subtitle:

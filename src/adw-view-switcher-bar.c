@@ -78,7 +78,7 @@ struct _AdwViewSwitcherBar
 {
   GtkWidget parent_instance;
 
-  GtkActionBar *action_bar;
+  GtkWidget *action_bar;
   GtkRevealer *revealer;
   AdwViewSwitcher *view_switcher;
 
@@ -166,9 +166,8 @@ adw_view_switcher_bar_dispose (GObject *object)
 {
   AdwViewSwitcherBar *self = ADW_VIEW_SWITCHER_BAR (object);
 
-  g_clear_pointer ((GtkWidget **) &self->action_bar, gtk_widget_unparent);
+  gtk_widget_unparent (self->action_bar);
   self->revealer = NULL;
-  self->view_switcher = NULL;
 
   G_OBJECT_CLASS (adw_view_switcher_bar_parent_class)->dispose (object);
 }

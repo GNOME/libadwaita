@@ -139,11 +139,7 @@ adw_status_page_dispose (GObject *object)
 
   adw_status_page_set_child (self, NULL);
 
-  g_clear_pointer (&self->scrolled_window, gtk_widget_unparent);
-  self->toplevel_box = NULL;
-  self->image = NULL;
-  self->title_label = NULL;
-  self->description_label = NULL;
+  gtk_widget_unparent (self->scrolled_window);
   self->user_widget = NULL;
 
   G_OBJECT_CLASS (adw_status_page_parent_class)->dispose (object);

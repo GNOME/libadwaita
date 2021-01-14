@@ -364,17 +364,6 @@ adw_preferences_window_set_property (GObject      *object,
   }
 }
 
-static void
-adw_preferences_window_dispose (GObject *object)
-{
-  AdwPreferencesWindow *self = ADW_PREFERENCES_WINDOW (object);
-  AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
-
-  g_clear_pointer ((GtkWidget **) &priv->subpages_leaflet, gtk_widget_unparent);
-
-  G_OBJECT_CLASS (adw_preferences_window_parent_class)->dispose (object);
-}
-
 static gboolean
 search_open_cb (GtkWidget *widget,
                 GVariant  *args,
@@ -421,7 +410,6 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
 
   object_class->get_property = adw_preferences_window_get_property;
   object_class->set_property = adw_preferences_window_set_property;
-  object_class->dispose = adw_preferences_window_dispose;
 
   /**
    * AdwPreferencesWindow:search-enabled:

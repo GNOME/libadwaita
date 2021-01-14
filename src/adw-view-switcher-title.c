@@ -211,7 +211,7 @@ adw_view_switcher_title_dispose (GObject *object) {
       g_signal_handlers_disconnect_by_func (stack, G_CALLBACK (update_view_switcher_visible), self);
   }
 
-  g_clear_pointer ((GtkWidget **) &self->squeezer, gtk_widget_unparent);
+  gtk_widget_unparent (GTK_WIDGET (self->squeezer));
 
   G_OBJECT_CLASS (adw_view_switcher_title_parent_class)->dispose (object);
 }

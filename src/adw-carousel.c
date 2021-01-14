@@ -355,7 +355,7 @@ adw_carousel_dispose (GObject *object)
     self->scroll_timeout_id = 0;
   }
 
-  g_clear_pointer ((GtkWidget **) &self->scrolling_box, gtk_widget_unparent);
+  gtk_widget_unparent (GTK_WIDGET (self->scrolling_box));
 
   G_OBJECT_CLASS (adw_carousel_parent_class)->dispose (object);
 }

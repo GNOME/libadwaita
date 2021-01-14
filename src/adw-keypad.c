@@ -230,7 +230,7 @@ adw_keypad_dispose (GObject *object)
 {
   AdwKeypad *self = ADW_KEYPAD (object);
 
-  g_clear_pointer (&self->grid, gtk_widget_unparent);
+  gtk_widget_unparent (self->grid);
 
   G_OBJECT_CLASS (adw_keypad_parent_class)->dispose (object);
 }
