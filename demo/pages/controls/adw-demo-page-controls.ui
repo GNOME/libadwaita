@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwDemoPageControls" parent="AdwDemoPage">
+    <property name="title" translatable="yes">Controls</property>
+    <property name="child">
+      <object class="AdwPreferencesPage">
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Buttons</property>
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="spacing">12</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="spacing">6</property>
+                    <property name="homogeneous">True</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="label" translatable="yes">Regular</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="label" translatable="yes">Suggested</property>
+                        <style>
+                          <class name="suggested-action"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="label" translatable="yes">Destructive</property>
+                        <style>
+                          <class name="destructive-action"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkFlowBox">
+                    <property name="min-children-per-line">1</property>
+                    <property name="max-children-per-line">2</property>
+                    <property name="column-spacing">6</property>
+                    <property name="row-spacing">12</property>
+                    <property name="selection-mode">none</property>
+                    <style>
+                      <class name="inline"/>
+                    </style>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">6</property>
+                        <property name="homogeneous">True</property>
+                        <child>
+                          <object class="GtkToggleButton">
+                            <property name="label" translatable="yes">Toggle</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkDropDown">
+                            <property name="model">
+                              <object class="GtkStringList">
+                                <items>
+                                  <item translatable="yes">Dropdown</item>
+                                  <item translatable="yes">Dropdown</item>
+                                  <item translatable="yes">Dropdown</item>
+                                </items>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="homogeneous">True</property>
+                        <style>
+                          <class name="linked"/>
+                        </style>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">Three</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">Linked</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">Buttons</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkColorButton"/>
+                        </child>
+                        <child>
+                          <object class="GtkFontButton">
+                            <property name="hexpand">True</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkBox">
+                            <style>
+                              <class name="linked"/>
+                            </style>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="icon-name">document-edit-symbolic</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="icon-name">edit-copy-symbolic</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="icon-name">edit-cut-symbolic</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="icon-name">media-playback-start-symbolic</property>
+                            <style>
+                              <class name="circular"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkVolumeButton"/>
+                        </child>
+                        <child>
+                          <object class="GtkLinkButton">
+                            <property name="label" translatable="yes">Link Button</property>
+                            <property name="uri" translatable="yes">https://os.gnome.org/</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Labels</property>
+            <child>
+              <object class="GtkFlowBox">
+                <property name="min-children-per-line">1</property>
+                <property name="max-children-per-line">2</property>
+                <property name="column-spacing">12</property>
+                <property name="row-spacing">18</property>
+                <property name="selection-mode">none</property>
+                <style>
+                  <class name="inline"/>
+                </style>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">12</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Large Title</property>
+                        <property name="xalign">0</property>
+                        <property name="ellipsize">end</property>
+                        <style>
+                          <class name="large-title"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Title 1</property>
+                        <property name="xalign">0</property>
+                        <property name="ellipsize">end</property>
+                        <style>
+                          <class name="title-1"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Title 2</property>
+                        <property name="xalign">0</property>
+                        <property name="ellipsize">end</property>
+                        <style>
+                          <class name="title-2"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Title 3</property>
+                        <property name="xalign">0</property>
+                        <property name="ellipsize">end</property>
+                        <style>
+                          <class name="title-3"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Title 4</property>
+                        <property name="xalign">0</property>
+                        <property name="ellipsize">end</property>
+                        <style>
+                          <class name="title-4"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">12</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Heading</property>
+                        <property name="xalign">0</property>
+                        <property name="ellipsize">end</property>
+                        <style>
+                          <class name="heading"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">This is a paragraph of a body copy. You would use this style for most text in interfaces. It can also include &lt;b&gt;styling&lt;/b&gt; or &lt;a href="https://os.gnome.org/">links&lt;/a&gt;.</property>
+                        <property name="use-markup">True</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word-char</property>
+                        <property name="max-width-chars">25</property>
+                        <style>
+                          <class name="body"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">This is a paragraph of small body copy.</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word-char</property>
+                        <property name="max-width-chars">25</property>
+                        <style>
+                          <class name="body"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">This is a dimmed paragraph, mostly used for secondary labels or descriptions.</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word-char</property>
+                        <property name="max-width-chars">25</property>
+                        <style>
+                          <class name="body"/>
+                          <class name="dim-label"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Caption Heading</property>
+                        <property name="xalign">0</property>
+                        <property name="ellipsize">end</property>
+                        <style>
+                          <class name="caption-heading"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Caption body text, to be used for body copy on image captions and the like.</property>
+                        <property name="xalign">0</property>
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word-char</property>
+                        <property name="max-width-chars">25</property>
+                        <style>
+                          <class name="caption"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Entries</property>
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="spacing">12</property>
+                <child>
+                  <object class="GtkFlowBox">
+                    <property name="min-children-per-line">1</property>
+                    <property name="max-children-per-line">2</property>
+                    <property name="column-spacing">6</property>
+                    <property name="row-spacing">12</property>
+                    <property name="selection-mode">none</property>
+                    <style>
+                      <class name="inline"/>
+                    </style>
+                    <child>
+                      <object class="GtkEntry">
+                        <property name="placeholder-text" translatable="yes">Entry with button</property>
+                        <property name="secondary-icon-name">edit-copy-symbolic</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkEntry">
+                        <property name="placeholder-text" translatable="yes">Entry with emoji picker</property>
+                        <property name="show-emoji-icon">True</property>
+                        <property name="enable-emoji-completion">True</property>
+                        <binding name="progress-fraction">
+                          <lookup name="value">adj</lookup>
+                        </binding>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkPasswordEntry">
+                        <property name="placeholder-text" translatable="yes">Password entry</property>
+                        <property name="text" translatable="yes">Password entry</property>
+                        <property name="show-peek-icon">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkSpinButton">
+                            <property name="hexpand">True</property>
+                            <property name="adjustment">
+                              <object class="GtkAdjustment">
+                                <property name="lower">0</property>
+                                <property name="upper">1000</property>
+                                <property name="step-increment">1</property>
+                                <property name="page-increment">50</property>
+                                <property name="value">342</property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="homogeneous">True</property>
+                    <style>
+                      <class name="linked"/>
+                    </style>
+                    <child>
+                      <object class="GtkEntry">
+                        <property name="placeholder-text" translatable="yes">Name</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkEntry">
+                        <property name="placeholder-text" translatable="yes">Address</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkEntry">
+                        <property name="placeholder-text" translatable="yes">Country</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkFrame">
+                    <property name="child">
+                      <object class="GtkScrolledWindow">
+                        <property name="hscrollbar-policy">never</property>
+                        <property name="propagate-natural-height">True</property>
+                        <property name="min-content-height">100</property>
+                        <property name="child">
+                          <object class="GtkTextView">
+                            <property name="top-margin">6</property>
+                            <property name="bottom-margin">6</property>
+                            <property name="left-margin">6</property>
+                            <property name="right-margin">6</property>
+                          </object>
+                        </property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Choice</property>
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="spacing">12</property>
+                <child>
+                  <object class="GtkFlowBox">
+                    <property name="min-children-per-line">1</property>
+                    <property name="max-children-per-line">2</property>
+                    <property name="column-spacing">6</property>
+                    <property name="row-spacing">12</property>
+                    <property name="selection-mode">none</property>
+                    <style>
+                      <class name="inline"/>
+                    </style>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkCheckButton">
+                            <property name="label" translatable="yes">Check Button</property>
+                            <property name="active">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton">
+                            <property name="label" translatable="yes">Unchecked Check Button</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton">
+                            <property name="label" translatable="yes">Blocked Check Button</property>
+                            <property name="inconsistent">True</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkCheckButton" id="radio">
+                            <property name="label" translatable="yes">Radio Button</property>
+                            <property name="active">True</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton">
+                            <property name="label" translatable="yes">Inactive Radio Button</property>
+                            <property name="group">radio</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton">
+                            <property name="label" translatable="yes">Blocked Radio Button</property>
+                            <property name="inconsistent">True</property>
+                            <property name="group">radio</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Switches</property>
+                    <property name="margin-top">6</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="spacing">12</property>
+                    <child>
+                      <object class="GtkSwitch">
+                        <property name="active">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSwitch"/>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Progress</property>
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkFlowBox">
+                    <property name="min-children-per-line">1</property>
+                    <property name="max-children-per-line">2</property>
+                    <property name="column-spacing">6</property>
+                    <property name="selection-mode">none</property>
+                    <property name="homogeneous">True</property>
+                    <style>
+                      <class name="inline"/>
+                    </style>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <property name="width-request">240</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label" translatable="yes">Slider</property>
+                            <property name="xalign">0</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkScale">
+                            <property name="adjustment">adj</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label" translatable="yes">Discrete Slider</property>
+                            <property name="xalign">0</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkScale">
+                            <property name="adjustment">adj</property>
+                            <marks>
+                              <mark value="0"/>
+                              <mark value="0.25"/>
+                              <mark value="0.5"/>
+                              <mark value="0.75"/>
+                              <mark value="1"/>
+                            </marks>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label" translatable="yes">Level Bar</property>
+                            <property name="xalign">0</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLevelBar">
+                            <property name="max-value">5</property>
+                            <binding name="value">
+                              <closure function="progress_to_level" type="gdouble">
+                                <lookup name="value">adj</lookup>
+                              </closure>
+                            </binding>
+                            <offsets>
+                              <offset name="low" value="1.25"/>
+                              <offset name="high" value="3.75"/>
+                              <offset name="full" value="5"/>
+                            </offsets>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label" translatable="yes">Discrete Level Bar</property>
+                            <property name="xalign">0</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLevelBar">
+                            <property name="mode">discrete</property>
+                            <property name="max-value">5</property>
+                            <binding name="value">
+                              <closure function="progress_to_level" type="gdouble">
+                                <lookup name="value">adj</lookup>
+                              </closure>
+                            </binding>
+                            <offsets>
+                              <offset name="low" value="1.25"/>
+                              <offset name="high" value="3.75"/>
+                              <offset name="full" value="5"/>
+                            </offsets>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label" translatable="yes">Progress Bar</property>
+                        <property name="xalign">0</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkProgressBar">
+                        <binding name="fraction">
+                          <lookup name="value">adj</lookup>
+                        </binding>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+  <object class="GtkAdjustment" id="adj">
+    <property name="lower">0</property>
+    <property name="upper">1</property>
+    <property name="value">0.5</property>
+  </object>
+</interface>

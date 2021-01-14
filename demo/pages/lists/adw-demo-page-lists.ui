@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwDemoPageLists" parent="AdwDemoPage">
+    <property name="title" translatable="yes">Lists</property>
+    <property name="child">
+      <object class="AdwPreferencesPage">
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Basic List Rows</property>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Row with Buttons</property>
+                <child>
+                  <object class="GtkButton">
+                    <property name="valign">center</property>
+                    <property name="icon-name">call-start-symbolic</property>
+                    <style>
+                      <class name="flat"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="valign">center</property>
+                    <property name="icon-name">star-outline-thick-symbolic</property>
+                    <style>
+                      <class name="flat"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Row with a Subtitle</property>
+                <property name="subtitle" translatable="yes">Can be used to provide more context</property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Row with an Icon</property>
+                <property name="icon-name">library-music-symbolic</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label" translatable="yes">Value displayed in the row</property>
+                    <property name="ellipsize">start</property>
+                    <property name="xalign">1</property>
+                    <style>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Navigation</property>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Row Opening a Sub-View</property>
+                <property name="subtitle" translatable="yes">Dialog or sub-page, depending on screen size</property>
+                <property name="activatable">True</property>
+                <property name="action-name">page.sub-view</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="icon-name">go-next-symbolic</property>
+                    <style>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Row Opening an External Link</property>
+                <property name="subtitle" translatable="yes">Could be a different app, or a website</property>
+                <property name="activatable">True</property>
+                <property name="action-name">page.external-link</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="icon-name">open-link-symbolic</property>
+                    <style>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwExpanderRow">
+                <property name="title" translatable="yes">Expanding Row</property>
+                <child>
+                  <object class="AdwActionRow">
+                    <property name="title" translatable="yes">An Option</property>
+                    <property name="activatable-widget">switch1</property>
+                    <child>
+                      <object class="GtkSwitch" id="switch1">
+                        <property name="valign">center</property>
+                        <property name="active">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwActionRow">
+                    <property name="title" translatable="yes">Another Option</property>
+                    <property name="activatable-widget">switch2</property>
+                    <child>
+                      <object class="GtkSwitch" id="switch2">
+                        <property name="valign">center</property>
+                        <property name="active">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwActionRow">
+                    <property name="title" translatable="yes">A Third Option</property>
+                    <property name="activatable-widget">switch3</property>
+                    <child>
+                      <object class="GtkSwitch" id="switch3">
+                        <property name="valign">center</property>
+                        <property name="active">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Choice Rows</property>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Row with a Switch</property>
+                <property name="activatable-widget">basic_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="basic_switch">
+                    <property name="valign">center</property>
+                    <property name="active">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">One Exclusive Option</property>
+                <property name="activatable-widget">check_exclusive1</property>
+                <child type="prefix">
+                  <object class="GtkCheckButton" id="check_exclusive1">
+                    <property name="valign">center</property>
+                    <property name="active">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Another Exclusive Option</property>
+                <property name="activatable-widget">check_exclusive2</property>
+                <child type="prefix">
+                  <object class="GtkCheckButton" id="check_exclusive2">
+                    <property name="valign">center</property>
+                    <property name="group">check_exclusive1</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">One Non-Exclusive Option</property>
+                <property name="activatable-widget">check_non_exclusive1</property>
+                <child>
+                  <object class="GtkCheckButton" id="check_non_exclusive1">
+                    <property name="valign">center</property>
+                    <property name="active">True</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Another Non-Exclusive Option</property>
+                <property name="activatable-widget">check_non_exclusive2</property>
+                <child>
+                  <object class="GtkCheckButton" id="check_non_exclusive2">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Inline Choice</property>
+                <property name="subtitle" translatable="yes">For cases with few options and short labels</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="valign">center</property>
+                    <style>
+                      <class name="linked"/>
+                    </style>
+                    <child>
+                      <object class="GtkToggleButton" id="inline_choice_1">
+                        <property name="label" translatable="yes">AM/PM</property>
+                        <style>
+                          <class name="list-button"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="inline_choice_2">
+                        <property name="label" translatable="yes">24 hour</property>
+                        <property name="active">True</property>
+                        <property name="group">inline_choice_1</property>
+                        <style>
+                          <class name="list-button"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Combo Row</property>
+                <property name="activatable-widget">dropdown</property>
+                <child>
+                  <object class="GtkDropDown" id="dropdown">
+                    <property name="valign">center</property>
+                    <property name="model">
+                      <object class="GtkStringList">
+                        <items>
+                          <item translatable="yes">5 minutes</item>
+                          <item translatable="yes">10 minutes</item>
+                          <item translatable="yes">1 hour</item>
+                        </items>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Re-Orderable Rows</property>
+            <property name="description" translatable="yes">These list rows can be re-ordered using drag and drop</property>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Under Construction</property>
+                <property name="subtitle" translatable="yes">Nothing to see here</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Entry Rows</property>
+            <property name="description" translatable="yes">These list rows do not exist</property>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">I'm not here</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">List Buttons</property>
+            <property name="description" translatable="yes">Standalone buttons for important actions, usually right after a list</property>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Suggested Action</property>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Other Action</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Destructive Action</property>
+                <style>
+                  <class name="destructive-action"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+  <object class="AdwWindow" id="sub_view">
+    <property name="title" translatable="yes">Sub-View</property>
+    <property name="modal">True</property>
+    <property name="default-width">500</property>
+    <property name="default-height">420</property>
+    <property name="hide-on-close">True</property>
+    <property name="child">
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkHeaderBar"/>
+        </child>
+        <child>
+          <object class="AdwPreferencesPage">
+            <property name="vexpand">True</property>
+            <child>
+              <object class="AdwPreferencesGroup">
+                <child>
+                  <object class="AdwActionRow">
+                    <property name="icon-name">data-movies-symbolic</property>
+                    <property name="title" translatable="yes">Movies</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label">24 GB</property>
+                        <property name="ellipsize">start</property>
+                        <property name="xalign">1</property>
+                        <style>
+                          <class name="dim-label"/>
+                          <class name="numeric"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwActionRow">
+                    <property name="icon-name">data-music-symbolic</property>
+                    <property name="title" translatable="yes">Music</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label">17 GB</property>
+                        <property name="ellipsize">start</property>
+                        <property name="xalign">1</property>
+                        <style>
+                          <class name="dim-label"/>
+                          <class name="numeric"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwActionRow">
+                    <property name="icon-name">data-photos-symbolic</property>
+                    <property name="title" translatable="yes">Photos</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label">201 GB</property>
+                        <property name="ellipsize">start</property>
+                        <property name="xalign">1</property>
+                        <style>
+                          <class name="dim-label"/>
+                          <class name="numeric"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwActionRow">
+                    <property name="icon-name">data-podcasts-symbolic</property>
+                    <property name="title" translatable="yes">Podcasts</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label">59 GB</property>
+                        <property name="ellipsize">start</property>
+                        <property name="xalign">1</property>
+                        <style>
+                          <class name="dim-label"/>
+                          <class name="numeric"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwPreferencesGroup">
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">Empty Trash</property>
+                    <style>
+                      <class name="destructive-action"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </property>
+    <child>
+      <object class='GtkShortcutController'>
+        <property name='scope'>managed</property>
+        <child>
+          <object class='GtkShortcut'>
+            <property name='trigger'>Escape</property>
+            <property name='action'>action(window.close)</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

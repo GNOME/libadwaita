@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwDemoWindow" parent="AdwApplicationWindow">
+    <property name="default-width">1000</property>
+    <property name="default-height">720</property>
+    <property name="child">
+      <object class="AdwLeaflet" id="leaflet">
+        <property name="can-swipe-back">True</property>
+        <signal name="notify::folded" handler="folded_notify_cb" swapped="true"/>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="width-request">240</property>
+            <child>
+              <object class="AdwHeaderBar">
+                <binding name="show-end-title-buttons">
+                  <lookup name="folded">leaflet</lookup>
+                </binding>
+                <property name="title-widget">
+                  <object class="AdwWindowTitle"/>
+                </property>
+                <child type="start">
+                  <object class="GtkToggleButton" id="search_button">
+                    <property name="icon-name">edit-find-symbolic</property>
+                  </object>
+                </child>
+                <child type="end">
+                  <object class="GtkMenuButton">
+                    <property name="icon-name">open-menu-symbolic</property>
+                    <property name="menu-model">primary_menu</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSearchBar">
+                <property name="search-mode-enabled" bind-source="search_button" bind-property="active"/>
+                <property name="child">
+                  <object class="GtkSearchEntry"/>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="hscrollbar-policy">never</property>
+                <property name="vexpand">True</property>
+                <child>
+                  <object class="GtkListView">
+                    <signal name="activate" handler="list_activate_cb" swapped="true"/>
+                    <property name="model">
+                      <object class="GtkSingleSelection" id="selection"/>
+                    </property>
+                    <property name="factory">
+                      <object class="GtkBuilderListItemFactory">
+                        <property name="bytes"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="GtkListItem">
+    <property name="child">
+      <object class="GtkBox">
+        <property name="margin-top">6</property>
+        <property name="margin-bottom">6</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkImage">
+            <binding name="icon-name">
+              <lookup type="AdwDemoPageInfo" name="icon-name">
+                <lookup name="item">GtkListItem</lookup>
+              </lookup>
+            </binding>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="halign">start</property>
+            <binding name="label">
+              <lookup type="AdwDemoPageInfo" name="title">
+                <lookup name="item">GtkListItem</lookup>
+              </lookup>
+            </binding>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+</interface>
+                        ]]></property>
+                      </object>
+                    </property>
+                    <style>
+                      <class name="navigation-sidebar"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwLeafletPage">
+            <property name="navigatable">False</property>
+            <property name="child">
+              <object class="GtkSeparator">
+                <property name="orientation">vertical</property>
+                <style>
+                  <class name="sidebar"/>
+                </style>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwBin">
+            <property name="hexpand">True</property>
+            <binding name="child">
+              <closure type="GtkWidget" function="new_page_cb">
+                <lookup type="AdwDemoPageInfo" name="gtype">
+                  <lookup type="GtkSingleSelection" name="selected-item">selection</lookup>
+                </lookup>
+              </closure>
+            </binding>
+          </object>
+        </child>
+      </object>
+    </property>
+    <child>
+      <object class='GtkShortcutController'>
+        <property name='scope'>managed</property>
+        <child>
+          <object class='GtkShortcut'>
+            <property name='trigger'>&lt;Control&gt;Q</property>
+            <property name='action'>action(window.close)</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+  <menu id="primary_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Preferences</attribute>
+        <attribute name="action">app.preferences</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>

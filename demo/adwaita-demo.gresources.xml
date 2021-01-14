@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/Adwaita/Demo">
+    <file preprocess="xml-stripblanks">icons/scalable/actions/call-start-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/data-movies-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/data-music-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/data-photos-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/data-podcasts-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/document-edit-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/edit-copy-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/edit-cut-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/library-music-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/media-playback-start-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/open-link-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-lists-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/star-outline-thick-symbolic.svg</file>
+
+    <file preprocess="xml-stripblanks">pages/controls/adw-demo-page-controls.ui</file>
+    <file preprocess="xml-stripblanks">pages/lists/adw-demo-page-lists.ui</file>
+    <file preprocess="xml-stripblanks">pages/stub/adw-demo-page-stub.ui</file>
+
+    <file preprocess="xml-stripblanks">adw-demo-page.ui</file>
+    <file preprocess="xml-stripblanks">adw-demo-window.ui</file>
+    <file compressed="true">style.css</file>
+  </gresource>
+</gresources>

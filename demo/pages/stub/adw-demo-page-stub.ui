@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwDemoPageStub" parent="AdwDemoPage">
+    <property name="child">
+      <object class="AdwStatusPage">
+        <property name="icon-name">dialog-warning-symbolic</property>
+        <property name="title" translatable="yes">Under Construction</property>
+        <property name="description" translatable="yes">This page is not implemented yet</property>
+      </object>
+    </property>
+  </template>
+</interface>

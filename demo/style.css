@@ -1,0 +1,9 @@
+.numeric {
+  font-feature-settings: "tnum";
+}
+
+flowbox.inline flowboxchild {
+  padding: 0;
+  background: none;
+  color: inherit;
+}
