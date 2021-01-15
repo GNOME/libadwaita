@@ -5,7 +5,7 @@ REFS="
 master
 "
 
-LATEST_STABLE_1=1.0
+# LATEST_STABLE_1=1.0
 
 IFS='
 '
