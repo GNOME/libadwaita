@@ -2,7 +2,7 @@
 
 DOC_DIR=public/doc
 REFS="
-master
+main
 "
 
 # LATEST_STABLE_1=1.0
