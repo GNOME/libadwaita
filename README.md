@@ -1,6 +1,6 @@
 # Adwaita
-[![Pipeline status](https://gitlab.gnome.org/exalm/libadwaita/badges/master/build.svg)](https://gitlab.gnome.org/exalm/libadwaita/commits/master)
-[![Code coverage](https://gitlab.gnome.org/exalm/libadwaita/badges/master/coverage.svg)](https://gitlab.gnome.org/exalm/libadwaita/commits/master)
+[![Pipeline status](https://gitlab.gnome.org/exalm/libadwaita/badges/main/build.svg)](https://gitlab.gnome.org/exalm/libadwaita/commits/main)
+[![Code coverage](https://gitlab.gnome.org/exalm/libadwaita/badges/main/coverage.svg)](https://gitlab.gnome.org/exalm/libadwaita/commits/main)
 
 The aim of the Adwaita library is to help with developing UI for mobile devices
 using GTK/GNOME.
