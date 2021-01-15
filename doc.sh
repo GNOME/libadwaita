@@ -17,7 +17,7 @@ for REF in $REFS; do
 
   curl -L --output "$REF.zip" "https://gitlab.gnome.org/exalm/libadwaita/-/jobs/artifacts/$REF/download?job=doc"
   unzip -d "$REF" "$REF.zip"
-  mv "$REF/_reference" $DOC_DIR/$API_VERSION
+  mv "$REF/_doc" $DOC_DIR/$API_VERSION
 
   rm "$REF.zip"
   rm -rf "$REF"
