@@ -2209,13 +2209,29 @@ adw_leaflet_set_property (GObject      *object,
 }
 
 static void
+adw_leaflet_dispose (GObject *object)
+{
+  AdwLeaflet *self = ADW_LEAFLET (object);
+  GtkWidget *child;
+
+  if (self->pages)
+    g_list_model_items_changed (G_LIST_MODEL (self->pages), 0,
+                                g_list_length (self->children), 0);
+
+  while ((child = gtk_widget_get_first_child (GTK_WIDGET (self))))
+    leaflet_remove (self, child, TRUE);
+
+  g_clear_object (&self->shadow_helper);
+
+  G_OBJECT_CLASS (adw_leaflet_parent_class)->dispose (object);
+}
+
+static void
 adw_leaflet_finalize (GObject *object)
 {
   AdwLeaflet *self = ADW_LEAFLET (object);
 
   self->visible_child = NULL;
-
-//  g_clear_object (&self->shadow_helper);
 
   if (self->pages)
     g_object_remove_weak_pointer (G_OBJECT (self->pages),
@@ -2234,6 +2250,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
 
   object_class->get_property = adw_leaflet_get_property;
   object_class->set_property = adw_leaflet_set_property;
+  object_class->dispose = adw_leaflet_dispose;
   object_class->finalize = adw_leaflet_finalize;
 
   widget_class->measure = adw_leaflet_measure;
