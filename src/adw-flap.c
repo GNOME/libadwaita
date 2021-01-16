@@ -140,7 +140,7 @@ struct _AdwFlap
   gboolean swipe_active;
 
   gboolean modal;
-  GtkEventController *key_controller;
+  GtkEventController *shortcut_controller;
 };
 
 static void adw_flap_buildable_init (GtkBuildableIface *iface);
@@ -241,6 +241,15 @@ update_shield (AdwFlap *self)
                                   self->reveal_progress > 0);
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
+
+static void
+update_shortcuts (AdwFlap *self)
+{
+  gtk_event_controller_set_propagation_phase (self->shortcut_controller,
+                                              self->modal ? GTK_PHASE_BUBBLE : GTK_PHASE_NONE);
+  gtk_shortcut_controller_set_scope (GTK_SHORTCUT_CONTROLLER (self->shortcut_controller),
+                                     self->modal ? GTK_SHORTCUT_SCOPE_MANAGED : GTK_SHORTCUT_SCOPE_LOCAL);
 }
 
 static void
@@ -460,24 +469,6 @@ released_cb (GtkGestureClick *gesture,
              AdwFlap         *self)
 {
   adw_flap_set_reveal_flap (self, FALSE);
-}
-
-static gboolean
-key_pressed_cb (GtkEventControllerKey *controller,
-                guint                  keyval,
-                guint                  keycode,
-                GdkModifierType        modifiers,
-                AdwFlap               *self)
-{
-  if (keyval == GDK_KEY_Escape &&
-      self->reveal_progress > 0 &&
-      self->fold_progress > 0) {
-    adw_flap_set_reveal_flap (self, FALSE);
-
-    return GDK_EVENT_STOP;
-  }
-
-  return GDK_EVENT_PROPAGATE;
 }
 
 static gboolean
@@ -1247,7 +1238,7 @@ adw_flap_dispose (GObject *object)
   g_clear_object (&self->shadow_helper);
   g_clear_object (&self->tracker);
 
-  self->key_controller = NULL;
+  self->shortcut_controller = NULL;
 
   G_OBJECT_CLASS (adw_flap_parent_class)->dispose (object);
 }
@@ -1517,11 +1508,23 @@ adw_flap_class_init (AdwFlapClass *klass)
   gtk_widget_class_set_css_name (widget_class, "flap");
 }
 
+static gboolean
+flap_close_cb (AdwFlap *self)
+{
+  if (self->reveal_progress <= 0 || self->fold_progress <= 0)
+    return GDK_EVENT_PROPAGATE;
+
+  adw_flap_set_reveal_flap (ADW_FLAP (self), FALSE);
+
+  return GDK_EVENT_STOP;
+}
+
 static void
 adw_flap_init (AdwFlap *self)
 {
   GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
   GtkEventController *gesture;
+  GtkShortcut *shortcut;
 
   self->orientation = GTK_ORIENTATION_HORIZONTAL;
   self->flap_position = GTK_PACK_START;
@@ -1558,17 +1561,19 @@ adw_flap_init (AdwFlap *self)
   g_signal_connect_object (gesture, "released", G_CALLBACK (released_cb), self, 0);
   gtk_widget_add_controller (self->shield, gesture);
 
-  self->key_controller = gtk_event_controller_key_new ();
-  gtk_event_controller_set_propagation_phase (self->key_controller,
-                                              GTK_PHASE_BUBBLE);
-  g_signal_connect_object (self->key_controller, "key-pressed",
-                           G_CALLBACK (key_pressed_cb), self, 0);
-  gtk_widget_add_controller (GTK_WIDGET (self), self->key_controller);
+  shortcut = gtk_shortcut_new (gtk_keyval_trigger_new (GDK_KEY_Escape, 0),
+                               gtk_callback_action_new ((GtkShortcutFunc) flap_close_cb, NULL, NULL));
+
+  self->shortcut_controller = gtk_shortcut_controller_new ();
+  gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (self->shortcut_controller),
+                                        shortcut);
+  gtk_widget_add_controller (GTK_WIDGET (self), self->shortcut_controller);
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
   gtk_style_context_add_class (context, "unfolded");
 
+  update_shortcuts (self);
   update_shield (self);
 }
 
@@ -2352,9 +2357,7 @@ adw_flap_set_modal (AdwFlap  *self,
 
   self->modal = modal;
 
-  gtk_event_controller_set_propagation_phase (self->key_controller,
-                                              modal ? GTK_PHASE_BUBBLE : GTK_PHASE_NONE);
-
+  update_shortcuts (self);
   update_shield (self);
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
