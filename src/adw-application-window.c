@@ -175,6 +175,8 @@ adw_application_window_new (GtkApplication *app)
  * @child: (allow-none): the child widget
  *
  * Sets the child widget of @self.
+ *
+ * Since: 1.0
  */
 void
 adw_application_window_set_child (AdwApplicationWindow *self,
@@ -195,6 +197,8 @@ adw_application_window_set_child (AdwApplicationWindow *self,
  * Gets the child widget of @self.
  *
  * Returns: (nullable) (transfer none): the child widget of @self
+ *
+ * Since: 1.0
  */
 GtkWidget *
 adw_application_window_get_child (AdwApplicationWindow *self)

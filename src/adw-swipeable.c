@@ -19,7 +19,7 @@
  *
  * See #AdwSwipeTracker for details about implementing it.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 
 G_DEFINE_INTERFACE (AdwSwipeable, adw_swipeable, GTK_TYPE_WIDGET)

@@ -20,6 +20,8 @@ static gint adw_initialized = FALSE;
  * adw_init() function.
  * This makes sure translations, types, themes, and icons for the Adwaita
  * library are set up properly.
+ *
+ * Since: 1.0
  */
 
 /* The style provider priority to use for libadwaita widgets custom styling. It
@@ -183,6 +185,8 @@ adw_icons_init (void)
  *
  * This makes sure translations, types, themes, and icons for the Adwaita
  * library are set up properly.
+ *
+ * Since: 1.0
  */
 void
 adw_init (void)

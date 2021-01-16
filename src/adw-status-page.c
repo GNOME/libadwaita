@@ -21,7 +21,7 @@
  *
  * #AdwStatusPage has a main CSS node with name statuspage.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 
 enum {
@@ -171,7 +171,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    *
    * The name of the icon to be used.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
@@ -185,7 +185,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    *
    * The title to be displayed below the icon.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title",
@@ -199,7 +199,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    *
    * The description to be displayed below the title.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_DESCRIPTION] =
     g_param_spec_string ("description",
@@ -270,7 +270,7 @@ adw_status_page_buildable_init (GtkBuildableIface *iface)
  *
  * Returns: a new #AdwStatusPage
  *
- * Since: 1.1
+ * Since: 1.0
  */
 GtkWidget *
 adw_status_page_new (void)
@@ -286,7 +286,7 @@ adw_status_page_new (void)
  *
  * Returns: (transfer none) (nullable): the icon name for @self.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 const gchar *
 adw_status_page_get_icon_name (AdwStatusPage *self)
@@ -301,7 +301,7 @@ adw_status_page_get_icon_name (AdwStatusPage *self)
  *
  * Sets the icon name for @self.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_status_page_set_icon_name (AdwStatusPage *self,
@@ -329,7 +329,7 @@ adw_status_page_set_icon_name (AdwStatusPage *self,
  *
  * Returns: (transfer none) (nullable): the title for @self, or %NULL.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 const gchar *
 adw_status_page_get_title (AdwStatusPage *self)
@@ -346,7 +346,7 @@ adw_status_page_get_title (AdwStatusPage *self)
  *
  * Sets the title for @self.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_status_page_set_title (AdwStatusPage *self,
@@ -371,7 +371,7 @@ adw_status_page_set_title (AdwStatusPage *self,
  *
  * Returns: (transfer none) (nullable): the description for @self, or %NULL.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 const gchar *
 adw_status_page_get_description (AdwStatusPage *self)
@@ -388,7 +388,7 @@ adw_status_page_get_description (AdwStatusPage *self)
  *
  * Sets the description for @self.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_status_page_set_description (AdwStatusPage *self,
@@ -412,6 +412,8 @@ adw_status_page_set_description (AdwStatusPage *self,
  * Gets the child widget of @self.
  *
  * Returns: (nullable) (transfer none): the child widget of @self
+ *
+ * Since: 1.0
  */
 GtkWidget *
 adw_status_page_get_child (AdwStatusPage *self)
@@ -427,6 +429,8 @@ adw_status_page_get_child (AdwStatusPage *self)
  * @child: (allow-none): the child widget
  *
  * Sets the child widget of @self.
+ *
+ * Since: 1.0
  */
 void
 adw_status_page_set_child (AdwStatusPage *self,

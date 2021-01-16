@@ -23,7 +23,7 @@
  *
  * #AdwPreferencesPage has a single CSS node with name preferencespage.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 
 typedef struct
@@ -132,7 +132,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    *
    * The icon name for this page of preferences.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
@@ -146,7 +146,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    *
    * The title for this page of preferences.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title",
@@ -201,7 +201,7 @@ adw_preferences_page_buildable_init (GtkBuildableIface *iface)
  *
  * Returns: a new #AdwPreferencesPage
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 GtkWidget *
 adw_preferences_page_new (void)
@@ -217,7 +217,7 @@ adw_preferences_page_new (void)
  *
  * Returns: (transfer none) (nullable): the icon name for @self, or %NULL.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 const gchar *
 adw_preferences_page_get_icon_name (AdwPreferencesPage *self)
@@ -238,7 +238,7 @@ adw_preferences_page_get_icon_name (AdwPreferencesPage *self)
  *
  * Sets the icon name for @self.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
@@ -267,7 +267,7 @@ adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
  *
  * Returns: (transfer none) (nullable): the title of the @self, or %NULL.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 const gchar *
 adw_preferences_page_get_title (AdwPreferencesPage *self)
@@ -288,7 +288,7 @@ adw_preferences_page_get_title (AdwPreferencesPage *self)
  *
  * Sets the title of @self.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_preferences_page_set_title (AdwPreferencesPage *self,
@@ -317,6 +317,8 @@ adw_preferences_page_set_title (AdwPreferencesPage *self,
  * keep an up-to-date view.
  *
  * Returns: (transfer full): a #GListModel for the page's rows
+ *
+ * Since: 1.0
  */
 GListModel *
 adw_preferences_page_get_rows (AdwPreferencesPage *self)

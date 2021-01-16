@@ -12,6 +12,8 @@
  * @short_description: Swipe navigation directions.
  * @title: AdwNavigationDirection
  * @See_also: #AdwLeaflet
+ *
+ * Since: 1.0
  */
 
 /**

@@ -258,6 +258,8 @@ adw_clamp_new (void)
  * Gets the child widget of @self.
  *
  * Returns: (nullable) (transfer none): the child widget of @self
+ *
+ * Since: 1.0
  */
 GtkWidget *
 adw_clamp_get_child (AdwClamp  *self)
@@ -273,6 +275,8 @@ adw_clamp_get_child (AdwClamp  *self)
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
+ *
+ * Since: 1.0
  */
 void
 adw_clamp_set_child (AdwClamp  *self,

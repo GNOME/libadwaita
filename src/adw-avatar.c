@@ -62,6 +62,7 @@
  *
  * #AdwAvatar has a single CSS node with name avatar.
  *
+ * Since: 1.0
  */
 
 struct _AdwAvatar
@@ -375,6 +376,8 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    * AdwAvatar:size:
    *
    * The avatar size of the avatar.
+   *
+   * Since: 1.0
    */
   props[PROP_SIZE] =
     g_param_spec_int ("size",
@@ -407,6 +410,8 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    *
    * The text used for the initials and for generating the color.
    * If #AdwAvatar:show-initials is %FALSE it's only used to generate the color.
+   *
+   * Since: 1.0
    */
   props[PROP_TEXT] =
     g_param_spec_string ("text",
@@ -419,6 +424,8 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    * AdwAvatar:show_initials:
    *
    * Whether to show the initials or the fallback icon on the generated avatar.
+   *
+   * Since: 1.0
    */
   props[PROP_SHOW_INITIALS] =
     g_param_spec_boolean ("show-initials",
@@ -472,6 +479,8 @@ adw_avatar_init (AdwAvatar *self)
  * Creates a new #AdwAvatar.
  *
  * Returns: the newly created #AdwAvatar
+ *
+ * Since: 1.0
  */
 GtkWidget *
 adw_avatar_new (gint         size,
@@ -544,6 +553,8 @@ adw_avatar_set_icon_name (AdwAvatar   *self,
  * Returns: (nullable) (transfer none): returns the text used to generate
  * the fallback initials. This is the internal string used by
  * the #AdwAvatar, and must not be modified.
+ *
+ * Since: 1.0
  */
 const gchar *
 adw_avatar_get_text (AdwAvatar *self)
@@ -559,6 +570,8 @@ adw_avatar_get_text (AdwAvatar *self)
  * @text: (nullable): the text used to get the initials and color
  *
  * Set the text used to generate the fallback initials color
+ *
+ * Since: 1.0
  */
 void
 adw_avatar_set_text (AdwAvatar   *self,
@@ -588,6 +601,8 @@ adw_avatar_set_text (AdwAvatar   *self,
  * Returns whether initials are used for the fallback or the icon.
  *
  * Returns: %TRUE if the initials are used for the fallback.
+ *
+ * Since: 1.0
  */
 gboolean
 adw_avatar_get_show_initials (AdwAvatar *self)
@@ -604,6 +619,8 @@ adw_avatar_get_show_initials (AdwAvatar *self)
  * or the icon.
  *
  * Sets whether the initials should be shown on the fallback avatar or the icon.
+ *
+ * Since: 1.0
  */
 void
 adw_avatar_set_show_initials (AdwAvatar *self,
@@ -632,6 +649,8 @@ adw_avatar_set_show_initials (AdwAvatar *self,
  *
  * A callback which is called when the custom image need to be reloaded for some
  * reason (e.g. scale-factor changes).
+ *
+ * Since: 1.0
  */
 void
 adw_avatar_set_image_load_func (AdwAvatar              *self,
@@ -662,6 +681,8 @@ adw_avatar_set_image_load_func (AdwAvatar              *self,
  * Returns the size of the avatar.
  *
  * Returns: the size of the avatar.
+ *
+ * Since: 1.0
  */
 gint
 adw_avatar_get_size (AdwAvatar *self)
@@ -677,6 +698,8 @@ adw_avatar_get_size (AdwAvatar *self)
  * @size: The size to be used for the avatar
  *
  * Sets the size of the avatar.
+ *
+ * Since: 1.0
  */
 void
 adw_avatar_set_size (AdwAvatar *self,
@@ -718,7 +741,7 @@ adw_avatar_set_size (AdwAvatar *self,
  *
  * Returns: (transfer full): the pixbuf.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 GdkPixbuf *
 adw_avatar_draw_to_pixbuf (AdwAvatar *self,

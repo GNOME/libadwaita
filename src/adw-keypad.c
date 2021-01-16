@@ -22,7 +22,7 @@
  *
  * #AdwKeypad has a single CSS node with name keypad.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 
 struct _AdwKeypad {
@@ -388,7 +388,7 @@ adw_keypad_init (AdwKeypad *self)
  *
  * Returns: the newly created #AdwKeypad widget
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 GtkWidget *
 adw_keypad_new (gboolean symbols_visible,
@@ -593,7 +593,7 @@ adw_keypad_get_symbols_visible (AdwKeypad *self)
  * Binds @entry to @self and blocks any input which wouldn't be possible to type
  * with with the keypad.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 void
 adw_keypad_set_entry (AdwKeypad *self,

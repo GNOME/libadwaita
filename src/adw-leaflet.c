@@ -47,6 +47,8 @@
  * #AdwLeaflet has a single CSS node with name leaflet. The node will get the
  * style classes .folded when it is folded, .unfolded when it's not, or none if
  * it didn't compute its fold yet.
+ *
+ * Since: 1.0
  */
 
 /**
@@ -60,7 +62,7 @@
  *
  * New values may be added to this enumeration over time.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 
 enum {
@@ -2250,6 +2252,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    *
    * The leaflet will be folded if the size allocated to it is smaller than the
    * sum of the natural size of its children, it will be unfolded otherwise.
+   *
+   * Since: 1.0
    */
   props[PROP_FOLDED] =
     g_param_spec_boolean ("folded",
@@ -2262,6 +2266,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * AdwLeaflet:hhomogeneous_folded:
    *
    * %TRUE if the leaflet allocates the same width for all children when folded.
+   *
+   * Since: 1.0
    */
   props[PROP_HHOMOGENEOUS_FOLDED] =
     g_param_spec_boolean ("hhomogeneous-folded",
@@ -2274,6 +2280,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * AdwLeaflet:vhomogeneous_folded:
    *
    * %TRUE if the leaflet allocates the same height for all children when folded.
+   *
+   * Since: 1.0
    */
   props[PROP_VHOMOGENEOUS_FOLDED] =
     g_param_spec_boolean ("vhomogeneous-folded",
@@ -2286,6 +2294,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * AdwLeaflet:hhomogeneous_unfolded:
    *
    * %TRUE if the leaflet allocates the same width for all children when unfolded.
+   *
+   * Since: 1.0
    */
   props[PROP_HHOMOGENEOUS_UNFOLDED] =
     g_param_spec_boolean ("hhomogeneous-unfolded",
@@ -2298,6 +2308,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * AdwLeaflet:vhomogeneous_unfolded:
    *
    * %TRUE if the leaflet allocates the same height for all children when unfolded.
+   *
+   * Since: 1.0
    */
   props[PROP_VHOMOGENEOUS_UNFOLDED] =
     g_param_spec_boolean ("vhomogeneous-unfolded",
@@ -2330,7 +2342,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * possible to change the animation based on the mode or child that is about
    * to become current.
    *
-   * Since: 0.0.12
+   * Since: 1.0
    */
   props[PROP_TRANSITION_TYPE] =
     g_param_spec_enum ("transition-type",
@@ -2373,7 +2385,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Whether or not the leaflet allows switching to the previous child that has
    * 'navigatable' child property set to %TRUE via a swipe gesture.
    *
-   * Since: 0.0.12
+   * Since: 1.0
    */
   props[PROP_CAN_SWIPE_BACK] =
       g_param_spec_boolean ("can-swipe-back",
@@ -2388,7 +2400,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Whether or not the leaflet allows switching to the next child that has
    * 'navigatable' child property set to %TRUE via a swipe gesture.
    *
-   * Since: 0.0.12
+   * Since: 1.0
    */
   props[PROP_CAN_SWIPE_FORWARD] =
       g_param_spec_boolean ("can-swipe-forward",
@@ -2681,6 +2693,8 @@ adw_leaflet_swipeable_init (AdwSwipeableInterface *iface)
  * Returns the leaflet child to which @self belongs.
  *
  * Returns: (transfer none): the child to which @self belongs
+ *
+ * Since: 1.0
  */
 GtkWidget *
 adw_leaflet_page_get_child (AdwLeafletPage *self)
@@ -2698,6 +2712,8 @@ adw_leaflet_page_get_child (AdwLeafletPage *self)
  *
  * Returns: (nullable): The value of the #AdwLeafletPage:name property.
  *   See adw_leaflet_page_set_name() for details on how to set a new value.
+ *
+ * Since: 1.0
  */
 const char *
 adw_leaflet_page_get_name (AdwLeafletPage *self)
@@ -2714,6 +2730,8 @@ adw_leaflet_page_get_name (AdwLeafletPage *self)
  *
  * Sets the new value of the #AdwLeafletPage:name property.
  * See also adw_leaflet_page_get_name()
+ *
+ * Since: 1.0
  */
 void
 adw_leaflet_page_set_name (AdwLeafletPage *self,
@@ -2764,6 +2782,8 @@ adw_leaflet_page_set_name (AdwLeafletPage *self,
  * See adw_leaflet_page_set_navigatable() and #AdwLeafletPage:navigatable.
  *
  * Returns: %TRUE if @self is enabled, %FALSE otherwise
+ *
+ * Since: 1.0
  */
 gboolean
 adw_leaflet_page_get_navigatable (AdwLeafletPage *self)
@@ -2786,6 +2806,8 @@ adw_leaflet_page_get_navigatable (AdwLeafletPage *self)
  *
  * Sets the new value of the #AdwLeafletPage:navigatable property to
  * @navigatable.
+ *
+ * Since: 1.0
  */
 void
 adw_leaflet_page_set_navigatable (AdwLeafletPage *self,
@@ -2825,6 +2847,8 @@ adw_leaflet_new (void)
  * Adds a child to @self.
  *
  * Returns: (transfer none): the #AdwLeafletPage for @child
+ *
+ * Since: 1.0
  */
 AdwLeafletPage *
 adw_leaflet_append (AdwLeaflet *self,
@@ -2853,7 +2877,7 @@ adw_leaflet_append (AdwLeaflet *self,
  *
  * Returns: (transfer none): the #AdwLeafletPage for @child
  *
- * Since: 1.1
+ * Since: 1.0
  */
 AdwLeafletPage *
 adw_leaflet_prepend (AdwLeaflet *self,
@@ -2877,7 +2901,7 @@ adw_leaflet_prepend (AdwLeaflet *self,
  *
  * Returns: (transfer none): the #AdwLeafletPage for @child
  *
- * Since: 1.1
+ * Since: 1.0
  */
 AdwLeafletPage *
 adw_leaflet_insert_child_after (AdwLeaflet *self,
@@ -2913,7 +2937,7 @@ adw_leaflet_insert_child_after (AdwLeaflet *self,
  * Moves @child to the position after @sibling in the list of children.
  * If @sibling is %NULL, move @child to the first position.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_leaflet_reorder_child_after (AdwLeaflet *self,
@@ -2987,6 +3011,8 @@ adw_leaflet_reorder_child_after (AdwLeaflet *self,
  * @child: the child to remove
  *
  * Removes a child widget from @self.
+ *
+ * Since: 1.0
  */
 void
 adw_leaflet_remove (AdwLeaflet *self,
@@ -3020,6 +3046,8 @@ adw_leaflet_remove (AdwLeaflet *self,
  * Returns the #AdwLeafletPage object for @child.
  *
  * Returns: (transfer none): the #AdwLeafletPage for @child
+ *
+ * Since: 1.0
  */
 AdwLeafletPage *
 adw_leaflet_get_page (AdwLeaflet *self,
@@ -3038,6 +3066,8 @@ adw_leaflet_get_page (AdwLeaflet *self,
  * Gets whether @self is folded.
  *
  * Returns: whether @self is folded.
+ *
+ * Since: 1.0
  */
 gboolean
 adw_leaflet_get_folded (AdwLeaflet *self)
@@ -3059,6 +3089,8 @@ adw_leaflet_get_folded (AdwLeaflet *self)
  * width or height for all its children depending on the orientation.
  * If it isn't and it is folded, the leaflet may change width or height
  * when a different child becomes visible.
+ *
+ * Since: 1.0
  */
 void
 adw_leaflet_set_homogeneous (AdwLeaflet     *self,
@@ -3092,6 +3124,8 @@ adw_leaflet_set_homogeneous (AdwLeaflet     *self,
  * See adw_leaflet_set_homogeneous().
  *
  * Returns: whether @self is homogeneous for the given fold and orientation.
+ *
+ * Since: 1.0
  */
 gboolean
 adw_leaflet_get_homogeneous (AdwLeaflet     *self,
@@ -3114,7 +3148,7 @@ adw_leaflet_get_homogeneous (AdwLeaflet     *self,
  *
  * Returns: the current transition type of @self
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 AdwLeafletTransitionType
 adw_leaflet_get_transition_type (AdwLeaflet *self)
@@ -3136,7 +3170,7 @@ adw_leaflet_get_transition_type (AdwLeaflet *self)
  * possible to change the animation based on the mode or child that is about to
  * become current.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 void
 adw_leaflet_set_transition_type (AdwLeaflet               *self,
@@ -3173,6 +3207,8 @@ adw_leaflet_set_transition_type (AdwLeaflet               *self,
  * transitions between modes in @self will take.
  *
  * Returns: the mode transition duration
+ *
+ * Since: 1.0
  */
 guint
 adw_leaflet_get_mode_transition_duration (AdwLeaflet *self)
@@ -3189,6 +3225,8 @@ adw_leaflet_get_mode_transition_duration (AdwLeaflet *self)
  *
  * Sets the duration that transitions between modes in @self
  * will take.
+ *
+ * Since: 1.0
  */
 void
 adw_leaflet_set_mode_transition_duration (AdwLeaflet *self,
@@ -3212,6 +3250,8 @@ adw_leaflet_set_mode_transition_duration (AdwLeaflet *self,
  * transitions between children in @self will take.
  *
  * Returns: the child transition duration
+ *
+ * Since: 1.0
  */
 guint
 adw_leaflet_get_child_transition_duration (AdwLeaflet *self)
@@ -3228,6 +3268,8 @@ adw_leaflet_get_child_transition_duration (AdwLeaflet *self)
  *
  * Sets the duration that transitions between children in @self
  * will take.
+ *
+ * Since: 1.0
  */
 void
 adw_leaflet_set_child_transition_duration (AdwLeaflet *self,
@@ -3250,6 +3292,8 @@ adw_leaflet_set_child_transition_duration (AdwLeaflet *self,
  * Gets the visible child widget.
  *
  * Returns: (transfer none): the visible child widget
+ *
+ * Since: 1.0
  */
 GtkWidget *
 adw_leaflet_get_visible_child (AdwLeaflet *self)
@@ -3271,6 +3315,8 @@ adw_leaflet_get_visible_child (AdwLeaflet *self)
  * AdwLeaflet:transition-type and AdwLeaflet:child-transition-duration. The
  * transition can be cancelled by the user, in which case visible child will
  * change back to the previously visible child.
+ *
+ * Since: 1.0
  */
 void
 adw_leaflet_set_visible_child (AdwLeaflet *self,
@@ -3298,6 +3344,8 @@ adw_leaflet_set_visible_child (AdwLeaflet *self,
  * Gets the name of the currently visible child widget.
  *
  * Returns: (transfer none): the name of the visible child
+ *
+ * Since: 1.0
  */
 const gchar *
 adw_leaflet_get_visible_child_name (AdwLeaflet *self)
@@ -3318,6 +3366,8 @@ adw_leaflet_get_visible_child_name (AdwLeaflet *self)
  * Makes the child with the name @name visible.
  *
  * See adw_leaflet_set_visible_child() for more details.
+ *
+ * Since: 1.0
  */
 void
 adw_leaflet_set_visible_child_name (AdwLeaflet  *self,
@@ -3345,6 +3395,8 @@ adw_leaflet_set_visible_child_name (AdwLeaflet  *self,
  * another.
  *
  * Returns: %TRUE if the transition is currently running, %FALSE otherwise.
+ *
+ * Since: 1.0
  */
 gboolean
 adw_leaflet_get_child_transition_running (AdwLeaflet *self)
@@ -3365,6 +3417,8 @@ adw_leaflet_get_child_transition_running (AdwLeaflet *self)
  * property is set to %TRUE, @self will interpolate its size between
  * the current one and the one it'll take after changing the
  * visible child, according to the set transition duration.
+ *
+ * Since: 1.0
  */
 void
 adw_leaflet_set_interpolate_size (AdwLeaflet *self,
@@ -3389,6 +3443,8 @@ adw_leaflet_set_interpolate_size (AdwLeaflet *self,
  * the sizes of children on page switch.
  *
  * Returns: %TRUE if child sizes are interpolated
+ *
+ * Since: 1.0
  */
 gboolean
 adw_leaflet_get_interpolate_size (AdwLeaflet *self)
@@ -3406,7 +3462,7 @@ adw_leaflet_get_interpolate_size (AdwLeaflet *self)
  * Sets whether or not @self allows switching to the previous child that has
  * 'navigatable' child property set to %TRUE via a swipe gesture
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 void
 adw_leaflet_set_can_swipe_back (AdwLeaflet *self,
@@ -3433,7 +3489,7 @@ adw_leaflet_set_can_swipe_back (AdwLeaflet *self,
  *
  * Returns: %TRUE if back swipe is enabled.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 gboolean
 adw_leaflet_get_can_swipe_back (AdwLeaflet *self)
@@ -3451,7 +3507,7 @@ adw_leaflet_get_can_swipe_back (AdwLeaflet *self)
  * Sets whether or not @self allows switching to the next child that has
  * 'navigatable' child property set to %TRUE via a swipe gesture.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 void
 adw_leaflet_set_can_swipe_forward (AdwLeaflet *self,
@@ -3478,7 +3534,7 @@ adw_leaflet_set_can_swipe_forward (AdwLeaflet *self,
  *
  * Returns: %TRUE if forward swipe is enabled.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 gboolean
 adw_leaflet_get_can_swipe_forward (AdwLeaflet *self)
@@ -3607,6 +3663,8 @@ adw_leaflet_get_can_unfold (AdwLeaflet *self)
  * and can be used to track the visible page.
  *
  * Returns: (transfer full): a #GtkSelectionModel for the leaflet's children
+ *
+ * Since: 1.0
  */
 GtkSelectionModel *
 adw_leaflet_get_pages (AdwLeaflet *self)

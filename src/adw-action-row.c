@@ -41,7 +41,7 @@
  * It contains subnodes label.title and label.subtitle representing respectively
  * the title label and subtitle label.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 
 typedef struct
@@ -238,7 +238,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    *
    * The icon name for this row.
    *
-   * Since: 0.0.6
+   * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
@@ -252,7 +252,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    *
    * The activatable widget for this row.
    *
-   * Since: 0.0.7
+   * Since: 1.0
    */
   props[PROP_ACTIVATABLE_WIDGET] =
       g_param_spec_object ("activatable-widget",
@@ -266,7 +266,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    *
    * The subtitle for this row.
    *
-   * Since: 0.0.6
+   * Since: 1.0
    */
   props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle",
@@ -281,7 +281,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * Whether an embedded underline in the text of the title and subtitle labels
    * indicates a mnemonic.
    *
-   * Since: 0.0.6
+   * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline",
@@ -296,7 +296,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * The number of lines at the end of which the title label will be ellipsized.
    * Set this property to 0 if you don't want to limit the number of lines.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_TITLE_LINES] =
     g_param_spec_int ("title-lines",
@@ -313,7 +313,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * ellipsized.
    * Set this property to 0 if you don't want to limit the number of lines.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_SUBTITLE_LINES] =
     g_param_spec_int ("subtitle-lines",
@@ -420,7 +420,7 @@ adw_action_row_buildable_init (GtkBuildableIface *iface)
  *
  * Returns: a new #AdwActionRow
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 GtkWidget *
 adw_action_row_new (void)
@@ -436,7 +436,7 @@ adw_action_row_new (void)
  *
  * Returns: (transfer none) (nullable): the subtitle for @self, or %NULL.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 const gchar *
 adw_action_row_get_subtitle (AdwActionRow *self)
@@ -457,7 +457,7 @@ adw_action_row_get_subtitle (AdwActionRow *self)
  *
  * Sets the subtitle for @self.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 void
 adw_action_row_set_subtitle (AdwActionRow *self,
@@ -488,7 +488,7 @@ adw_action_row_set_subtitle (AdwActionRow *self,
  * Returns: (transfer none): the icon name for @self.
  * The returned string is owned by the #AdwActionRow and should not be freed.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 const gchar *
 adw_action_row_get_icon_name (AdwActionRow *self)
@@ -509,7 +509,7 @@ adw_action_row_get_icon_name (AdwActionRow *self)
  *
  * Sets the icon name for @self.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 void
 adw_action_row_set_icon_name (AdwActionRow *self,
@@ -542,7 +542,7 @@ adw_action_row_set_icon_name (AdwActionRow *self,
  * Returns: (nullable) (transfer none): the widget activated when @self is
  *          activated, or %NULL if none has been set.
  *
- * Since: 0.0.7
+ * Since: 1.0
  */
 GtkWidget *
 adw_action_row_get_activatable_widget (AdwActionRow *self)
@@ -580,7 +580,7 @@ activatable_widget_weak_notify (gpointer  data,
  * The target widget will be activated by emitting the
  * GtkWidget::mnemonic-activate signal on it.
  *
- * Since: 0.0.7
+ * Since: 1.0
  */
 void
 adw_action_row_set_activatable_widget (AdwActionRow *self,
@@ -623,7 +623,7 @@ adw_action_row_set_activatable_widget (AdwActionRow *self,
  * Returns: %TRUE if an embedded underline in the title and subtitle labels
  *          indicates the mnemonic accelerator keys.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 gboolean
 adw_action_row_get_use_underline (AdwActionRow *self)
@@ -645,7 +645,7 @@ adw_action_row_get_use_underline (AdwActionRow *self)
  * If true, an underline in the text of the title and subtitle labels indicates
  * the next character should be used for the mnemonic accelerator key.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 void
 adw_action_row_set_use_underline (AdwActionRow *self,
@@ -683,7 +683,7 @@ adw_action_row_set_use_underline (AdwActionRow *self,
  * Returns: the number of lines at the end of which the title label will be
  *          ellipsized.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 gint
 adw_action_row_get_title_lines (AdwActionRow *self)
@@ -706,7 +706,7 @@ adw_action_row_get_title_lines (AdwActionRow *self)
  * ellipsized.
  * If the value is 0, the number of lines won't be limited.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_action_row_set_title_lines (AdwActionRow *self,
@@ -741,7 +741,7 @@ adw_action_row_set_title_lines (AdwActionRow *self,
  * Returns: the number of lines at the end of which the subtitle label will be
  *          ellipsized.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 gint
 adw_action_row_get_subtitle_lines (AdwActionRow *self)
@@ -764,7 +764,7 @@ adw_action_row_get_subtitle_lines (AdwActionRow *self)
  * ellipsized.
  * If the value is 0, the number of lines won't be limited.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_action_row_set_subtitle_lines (AdwActionRow *self,
@@ -795,7 +795,7 @@ adw_action_row_set_subtitle_lines (AdwActionRow *self,
  *
  * Adds a prefix widget to @self.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 void
 adw_action_row_add_prefix (AdwActionRow *self,

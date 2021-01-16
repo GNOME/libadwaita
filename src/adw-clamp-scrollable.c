@@ -360,6 +360,8 @@ adw_clamp_scrollable_new (void)
  * Gets the child widget of @self.
  *
  * Returns: (nullable) (transfer none): the child widget of @self
+ *
+ * Since: 1.0
  */
 GtkWidget *
 adw_clamp_scrollable_get_child (AdwClampScrollable *self)
@@ -375,6 +377,8 @@ adw_clamp_scrollable_get_child (AdwClampScrollable *self)
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
+ *
+ * Since: 1.0
  */
 void
 adw_clamp_scrollable_set_child (AdwClampScrollable *self,

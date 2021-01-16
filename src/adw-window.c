@@ -208,6 +208,8 @@ adw_window_new (void)
  * @child: (allow-none): the child widget
  *
  * Sets the child widget of @self.
+ *
+ * Since: 1.0
  */
 void
 adw_window_set_child (AdwWindow *self,
@@ -228,6 +230,8 @@ adw_window_set_child (AdwWindow *self,
  * Gets the child widget of @self.
  *
  * Returns: (nullable) (transfer none): the child widget of @self
+ *
+ * Since: 1.0
  */
 GtkWidget *
 adw_window_get_child (AdwWindow *self)

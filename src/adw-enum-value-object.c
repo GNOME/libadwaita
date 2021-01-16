@@ -17,7 +17,7 @@
  * The #AdwEnumValueObject object represents a #GEnumValue, allowing it to be
  * used with #GListModel.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 
 struct _AdwEnumValueObject

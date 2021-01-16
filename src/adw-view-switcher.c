@@ -36,7 +36,7 @@
  *
  * #AdwViewSwitcher has a single CSS node with name viewswitcher.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 
 /**
@@ -482,7 +482,7 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
    * The #AdwViewSwitcherPolicy the view switcher should use to determine which
    * mode to use.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_POLICY] =
     g_param_spec_enum ("policy",
@@ -502,7 +502,7 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
    * has the side-effect that the label requests only enough space to display
    * the ellipsis.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_NARROW_ELLIPSIZE] =
     g_param_spec_enum ("narrow-ellipsize",
@@ -517,7 +517,7 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
    *
    * The #GtkStack the view switcher controls.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_STACK] =
     g_param_spec_object ("stack",
@@ -549,7 +549,7 @@ adw_view_switcher_init (AdwViewSwitcher *self)
  *
  * Returns: a new #AdwViewSwitcher
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 GtkWidget *
 adw_view_switcher_new (void)
@@ -565,7 +565,7 @@ adw_view_switcher_new (void)
  *
  * Returns: the policy of @self
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 AdwViewSwitcherPolicy
 adw_view_switcher_get_policy (AdwViewSwitcher *self)
@@ -582,7 +582,7 @@ adw_view_switcher_get_policy (AdwViewSwitcher *self)
  *
  * Sets the policy of @self.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_view_switcher_set_policy (AdwViewSwitcher       *self,
@@ -609,8 +609,8 @@ adw_view_switcher_set_policy (AdwViewSwitcher       *self,
  *
  * Returns: #PangoEllipsizeMode
  *
- * Since: 0.0.10
- **/
+ * Since: 1.0
+ */
 PangoEllipsizeMode
 adw_view_switcher_get_narrow_ellipsize (AdwViewSwitcher *self)
 {
@@ -627,8 +627,8 @@ adw_view_switcher_get_narrow_ellipsize (AdwViewSwitcher *self)
  * Set the mode used to ellipsize the text in narrow mode if there is not
  * enough space to render the entire string.
  *
- * Since: 0.0.10
- **/
+ * Since: 1.0
+ */
 void
 adw_view_switcher_set_narrow_ellipsize (AdwViewSwitcher    *self,
                                         PangoEllipsizeMode  mode)
@@ -661,7 +661,7 @@ adw_view_switcher_set_narrow_ellipsize (AdwViewSwitcher    *self,
  *
  * Returns: (nullable) (transfer none): the #GtkStack, or %NULL if none has been set
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 GtkStack *
 adw_view_switcher_get_stack (AdwViewSwitcher *self)
@@ -678,7 +678,7 @@ adw_view_switcher_get_stack (AdwViewSwitcher *self)
  *
  * Sets the #GtkStack to control.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_view_switcher_set_stack (AdwViewSwitcher *self,

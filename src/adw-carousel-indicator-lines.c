@@ -414,7 +414,6 @@ adw_carousel_indicator_lines_new (void)
  *
  * Since: 1.0
  */
-
 AdwCarousel *
 adw_carousel_indicator_lines_get_carousel (AdwCarouselIndicatorLines *self)
 {

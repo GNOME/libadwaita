@@ -63,7 +63,7 @@
  *
  * #AdwViewSwitcherBar has a single CSS node with name viewswitcherbar.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 
 enum {
@@ -188,7 +188,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
    * The #AdwViewSwitcherPolicy the #AdwViewSwitcher should use to determine
    * which mode to use.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_POLICY] =
     g_param_spec_enum ("policy",
@@ -202,7 +202,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
    *
    * The #GtkStack the #AdwViewSwitcher controls.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_STACK] =
     g_param_spec_object ("stack",
@@ -216,7 +216,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
    *
    * Whether the bar should be revealed or hidden.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_REVEAL] =
     g_param_spec_boolean ("reveal",
@@ -258,7 +258,7 @@ adw_view_switcher_bar_init (AdwViewSwitcherBar *self)
  *
  * Returns: a new #AdwViewSwitcherBar
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 GtkWidget *
 adw_view_switcher_bar_new (void)
@@ -274,7 +274,7 @@ adw_view_switcher_bar_new (void)
  *
  * Returns: the policy of @self
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 AdwViewSwitcherPolicy
 adw_view_switcher_bar_get_policy (AdwViewSwitcherBar *self)
@@ -291,7 +291,7 @@ adw_view_switcher_bar_get_policy (AdwViewSwitcherBar *self)
  *
  * Sets the policy of @self.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_view_switcher_bar_set_policy (AdwViewSwitcherBar    *self,
@@ -317,7 +317,7 @@ adw_view_switcher_bar_set_policy (AdwViewSwitcherBar    *self,
  *
  * Returns: (nullable) (transfer none): the #GtkStack, or %NULL if none has been set
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 GtkStack *
 adw_view_switcher_bar_get_stack (AdwViewSwitcherBar *self)
@@ -334,7 +334,7 @@ adw_view_switcher_bar_get_stack (AdwViewSwitcherBar *self)
  *
  * Sets the #GtkStack to control.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_view_switcher_bar_set_stack (AdwViewSwitcherBar *self,
@@ -376,7 +376,7 @@ adw_view_switcher_bar_set_stack (AdwViewSwitcherBar *self,
  *
  * Returns: %TRUE if @self is revealed, %FALSE if not.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 gboolean
 adw_view_switcher_bar_get_reveal (AdwViewSwitcherBar *self)
@@ -393,7 +393,7 @@ adw_view_switcher_bar_get_reveal (AdwViewSwitcherBar *self)
  *
  * Sets whether @self should be revealed or not.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_view_switcher_bar_set_reveal (AdwViewSwitcherBar *self,

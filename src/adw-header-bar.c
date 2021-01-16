@@ -48,12 +48,16 @@
  *         ╰── box.end
  *             ├── [other children]
  *             ╰── windowcontrols.end
+ *
+ * Since: 1.0
  */
 
 /**
  * AdwCenteringPolicy:
  * @ADW_CENTERING_POLICY_LOOSE: Keep the title centered when possible
  * @ADW_CENTERING_POLICY_STRICT: Keep the title centered at all cost
+ *
+ * Since: 1.0
  */
 
 #define MIN_TITLE_CHARS 5
@@ -369,7 +373,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * the state of the window (e.g. a close button will not be
    * shown if the window can't be closed).
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_SHOW_START_TITLE_BUTTONS] =
     g_param_spec_boolean ("show-start-title-buttons",
@@ -388,7 +392,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * the state of the window (e.g. a close button will not be
    * shown if the window can't be closed).
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_SHOW_END_TITLE_BUTTONS] =
     g_param_spec_boolean ("show-end-title-buttons",
@@ -407,7 +411,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * See adw_header_bar_set_decoration_layout() for information
    * about the format of this string.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_DECORATION_LAYOUT] =
     g_param_spec_string ("decoration-layout",
@@ -491,7 +495,7 @@ adw_header_bar_buildable_init (GtkBuildableIface *iface)
  *
  * Returns: a new #AdwHeaderBar
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 GtkWidget *
 adw_header_bar_new (void)
@@ -507,7 +511,7 @@ adw_header_bar_new (void)
  * Adds @child to @self, packed with reference to the
  * start of the @self.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_header_bar_pack_start (AdwHeaderBar *self,
@@ -524,7 +528,7 @@ adw_header_bar_pack_start (AdwHeaderBar *self,
  * Adds @child to @self, packed with reference to the
  * end of the @self.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_header_bar_pack_end (AdwHeaderBar *self,
@@ -549,7 +553,7 @@ adw_header_bar_pack_end (AdwHeaderBar *self,
  * You should set the title widget to %NULL, for the window title label to be
  * visible again.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_header_bar_set_title_widget (AdwHeaderBar *self,
@@ -589,7 +593,7 @@ adw_header_bar_set_title_widget (AdwHeaderBar *self,
  * Returns: (nullable) (transfer none): the title widget
  *    of the header, or %NULL if none has been set explicitly.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 GtkWidget *
 adw_header_bar_get_title_widget (AdwHeaderBar *self)
@@ -607,6 +611,8 @@ adw_header_bar_get_title_widget (AdwHeaderBar *self)
  * Removes a child from @self, after it has been added
  * with adw_header_bar_pack_start(), adw_header_bar_pack_end()
  * or adw_header_bar_set_title_widget().
+ *
+ * Since: 1.0
  */
 void
 adw_header_bar_remove (AdwHeaderBar *self,
@@ -636,7 +642,7 @@ adw_header_bar_remove (AdwHeaderBar *self,
  *
  * Returns: %TRUE if title buttons are shown
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 gboolean
 adw_header_bar_get_show_start_title_buttons (AdwHeaderBar *self)
@@ -654,7 +660,7 @@ adw_header_bar_get_show_start_title_buttons (AdwHeaderBar *self)
  * Sets whether this header bar shows the standard window title buttons
  * including close, maximize, and minimize.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_header_bar_set_show_start_title_buttons (AdwHeaderBar *self,
@@ -686,7 +692,7 @@ adw_header_bar_set_show_start_title_buttons (AdwHeaderBar *self,
  *
  * Returns: %TRUE if title buttons are shown
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 gboolean
 adw_header_bar_get_show_end_title_buttons (AdwHeaderBar *self)
@@ -704,7 +710,7 @@ adw_header_bar_get_show_end_title_buttons (AdwHeaderBar *self)
  * Sets whether this header bar shows the standard window title buttons
  * including close, maximize, and minimize.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
@@ -749,7 +755,7 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
  * For example, “icon:minimize,maximize,close” specifies an icon
  * on the left, and minimize, maximize and close buttons on the right.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
@@ -772,7 +778,7 @@ adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
  *
  * Returns: (nullable): the decoration layout
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 const gchar *
 adw_header_bar_get_decoration_layout (AdwHeaderBar *self)
@@ -790,7 +796,7 @@ adw_header_bar_get_decoration_layout (AdwHeaderBar *self)
  *
  * Returns: the centering policy
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 AdwCenteringPolicy
 adw_header_bar_get_centering_policy (AdwHeaderBar *self)
@@ -807,7 +813,7 @@ adw_header_bar_get_centering_policy (AdwHeaderBar *self)
  *
  * Sets the policy @self must follow to horizontally align its center widget.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_header_bar_set_centering_policy (AdwHeaderBar       *self,

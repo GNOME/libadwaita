@@ -36,7 +36,7 @@
  * .checked-expander-row-previous-sibling style class to its previous sibling,
  * and remove it when retracted.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 
 typedef struct
@@ -223,6 +223,8 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    * AdwExpanderRow:expanded:
    *
    * %TRUE if the row is expanded.
+   *
+   * Since: 1.0
    */
   props[PROP_EXPANDED] =
     g_param_spec_boolean ("expanded",
@@ -235,6 +237,8 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    * AdwExpanderRow:enable-expansion:
    *
    * %TRUE if the expansion is enabled.
+   *
+   * Since: 1.0
    */
   props[PROP_ENABLE_EXPANSION] =
     g_param_spec_boolean ("enable-expansion",
@@ -247,6 +251,8 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    * AdwExpanderRow:show-enable-switch:
    *
    * %TRUE if the switch enabling the expansion is visible.
+   *
+   * Since: 1.0
    */
   props[PROP_SHOW_ENABLE_SWITCH] =
     g_param_spec_boolean ("show-enable-switch",
@@ -331,7 +337,7 @@ adw_expander_row_buildable_init (GtkBuildableIface *iface)
  *
  * Returns: a new #AdwExpanderRow
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 GtkWidget *
 adw_expander_row_new (void)
@@ -516,7 +522,7 @@ adw_expander_row_set_expanded (AdwExpanderRow *self,
  *
  * Returns: whether the expansion of @self is enabled.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 gboolean
 adw_expander_row_get_enable_expansion (AdwExpanderRow *self)
@@ -537,7 +543,7 @@ adw_expander_row_get_enable_expansion (AdwExpanderRow *self)
  *
  * Sets whether the expansion of @self is enabled.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 void
 adw_expander_row_set_enable_expansion (AdwExpanderRow *self,
@@ -569,7 +575,7 @@ adw_expander_row_set_enable_expansion (AdwExpanderRow *self,
  *
  * Returns: whether the switch enabling the expansion of @self is visible.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 gboolean
 adw_expander_row_get_show_enable_switch (AdwExpanderRow *self)
@@ -590,7 +596,7 @@ adw_expander_row_get_show_enable_switch (AdwExpanderRow *self)
  *
  * Sets whether the switch enabling the expansion of @self is visible.
  *
- * Since: 0.0.6
+ * Since: 1.0
  */
 void
 adw_expander_row_set_show_enable_switch (AdwExpanderRow *self,

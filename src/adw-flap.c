@@ -64,7 +64,7 @@
  * #AdwFlap has a single CSS node with name flap. The node will get the style
  * classes .folded when it is folded, and .unfolded when it's not.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 
 /**
@@ -78,7 +78,7 @@
  * These enumeration values describe the possible folding behavior in a #AdwFlap
  * widget.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 
 /**
@@ -97,7 +97,7 @@
  *
  * New values may be added to this enum over time.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 
 typedef struct {
@@ -1286,7 +1286,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * The content widget, always displayed when unfolded, and partially visible
    * when folded.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_CONTENT] =
     g_param_spec_object ("content",
@@ -1301,7 +1301,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * The flap widget, only visible when #AdwFlap:reveal-progress is greater than
    * 0.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_FLAP] =
     g_param_spec_object ("flap",
@@ -1317,7 +1317,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * shadow to display. When exactly it's visible depends on the
    * #AdwFlap:transition-type value. If %NULL, no separator will be used.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_SEPARATOR] =
     g_param_spec_object ("separator",
@@ -1332,7 +1332,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * The flap position for @self. If @GTK_PACK_START, the flap is displayed
    * before the content, if @GTK_PACK_END, it's displayed after the content.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_FLAP_POSITION] =
     g_param_spec_enum ("flap-position",
@@ -1347,7 +1347,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * Whether the flap widget is revealed.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_REVEAL_FLAP] =
     g_param_spec_boolean ("reveal-flap",
@@ -1361,7 +1361,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * The reveal transition animation duration, in milliseconds.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_REVEAL_DURATION] =
     g_param_spec_uint ("reveal-duration",
@@ -1377,7 +1377,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * The current reveal transition progress. 0 means fully hidden, 1 means fully
    * revealed See #AdwFlap:reveal-flap.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_REVEAL_PROGRESS] =
     g_param_spec_double ("reveal-progress",
@@ -1392,7 +1392,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * The current fold policy. See #AdwFlapFoldPolicy for available
    * policies.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_FOLD_POLICY] =
     g_param_spec_enum ("fold-policy",
@@ -1407,7 +1407,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * The fold transition animation duration, in milliseconds.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_FOLD_DURATION] =
     g_param_spec_uint ("fold-duration",
@@ -1424,7 +1424,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * See #AdwFlap:fold-policy.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_FOLDED] =
     g_param_spec_boolean ("folded",
@@ -1442,7 +1442,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * unfolding it when the flap is not revealed opens it. If %TRUE,
    * #AdwFlap:reveal-flap value never changes on its own.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_LOCKED] =
     g_param_spec_boolean ("locked",
@@ -1461,7 +1461,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * seen through it with %ADW_FLAP_TRANSITION_TYPE_OVER transitions; add the
    * .background style class to it if this is unwanted.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_TRANSITION_TYPE] =
     g_param_spec_enum ("transition-type",
@@ -1480,7 +1480,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * pressing Escape key, will close the flap. If %FALSE, clicks are passed
    * through to the content widget.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_MODAL] =
     g_param_spec_boolean ("modal",
@@ -1496,7 +1496,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * The area that can be swiped depends on the #AdwFlap:transition-type value.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_SWIPE_TO_OPEN] =
     g_param_spec_boolean ("swipe-to-open",
@@ -1512,7 +1512,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * The area that can be swiped depends on the #AdwFlap:transition-type value.
    *
-   * Since: 1.1
+   * Since: 1.0
    */
   props[PROP_SWIPE_TO_CLOSE] =
     g_param_spec_boolean ("swipe-to-close",
@@ -1793,7 +1793,7 @@ adw_flap_swipeable_init (AdwSwipeableInterface *iface)
  *
  * Returns: a new #AdwFlap
  *
- * Since: 1.1
+ * Since: 1.0
  */
 GtkWidget *
 adw_flap_new (void)
@@ -1809,7 +1809,7 @@ adw_flap_new (void)
  *
  * Returns: (transfer none) (nullable): the content widget for @self
  *
- * Since: 1.1
+ * Since: 1.0
  */
 GtkWidget *
 adw_flap_get_content (AdwFlap *self)
@@ -1827,7 +1827,7 @@ adw_flap_get_content (AdwFlap *self)
  * Sets the content widget for @self, always displayed when unfolded, and
  * partially visible when folded.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_content (AdwFlap   *self,
@@ -1860,7 +1860,7 @@ adw_flap_set_content (AdwFlap   *self,
  *
  * Returns: (transfer none) (nullable): the flap widget for @self
  *
- * Since: 1.1
+ * Since: 1.0
  */
 GtkWidget *
 adw_flap_get_flap (AdwFlap *self)
@@ -1878,7 +1878,7 @@ adw_flap_get_flap (AdwFlap *self)
  * Sets the flap widget for @self, only visible when #AdwFlap:reveal-progress is
  * greater than 0.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_flap (AdwFlap   *self,
@@ -1912,7 +1912,7 @@ adw_flap_set_flap (AdwFlap   *self,
  *
  * Returns: (transfer none) (nullable): the separator widget for @self
  *
- * Since: 1.1
+ * Since: 1.0
  */
 GtkWidget *
 adw_flap_get_separator (AdwFlap *self)
@@ -1931,7 +1931,7 @@ adw_flap_get_separator (AdwFlap *self)
  * there's no shadow to display. When exactly it's visible depends on the
  * #AdwFlap:transition-type value. If %NULL, no separator will be used.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_separator (AdwFlap   *self,
@@ -1964,7 +1964,7 @@ adw_flap_set_separator (AdwFlap   *self,
  *
  * Returns: the flap position for @self
  *
- * Since: 1.1
+ * Since: 1.0
  */
 GtkPackType
 adw_flap_get_flap_position (AdwFlap *self)
@@ -1982,7 +1982,7 @@ adw_flap_get_flap_position (AdwFlap *self)
  * Sets the flap position for @self. If @GTK_PACK_START, the flap is displayed
  * before the content, if @GTK_PACK_END, it's displayed after the content.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_flap_position (AdwFlap     *self,
@@ -2010,7 +2010,7 @@ adw_flap_set_flap_position (AdwFlap     *self,
  *
  * Returns: %TRUE if the flap widget is revealed, %FALSE otherwise.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 gboolean
 adw_flap_get_reveal_flap (AdwFlap *self)
@@ -2027,7 +2027,7 @@ adw_flap_get_reveal_flap (AdwFlap *self)
  *
  * Sets whether the flap widget is revealed for @self.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_reveal_flap (AdwFlap  *self,
@@ -2047,7 +2047,7 @@ adw_flap_set_reveal_flap (AdwFlap  *self,
  *
  * Returns: the reveal transition duration
  *
- * Since: 1.1
+ * Since: 1.0
  */
 guint
 adw_flap_get_reveal_duration (AdwFlap *self)
@@ -2064,7 +2064,7 @@ adw_flap_get_reveal_duration (AdwFlap *self)
  *
  * Sets the duration that reveal transitions in @self will take.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_reveal_duration (AdwFlap *self,
@@ -2089,7 +2089,7 @@ adw_flap_set_reveal_duration (AdwFlap *self,
  *
  * Returns: the current reveal progress for @self
  *
- * Since: 1.1
+ * Since: 1.0
  */
 gdouble
 adw_flap_get_reveal_progress (AdwFlap *self)
@@ -2107,7 +2107,7 @@ adw_flap_get_reveal_progress (AdwFlap *self)
  *
  * Returns: the current fold policy of @self
  *
- * Since: 1.1
+ * Since: 1.0
  */
 AdwFlapFoldPolicy
 adw_flap_get_fold_policy (AdwFlap *self)
@@ -2125,7 +2125,7 @@ adw_flap_get_fold_policy (AdwFlap *self)
  * Sets the current fold policy for @self. See #AdwFlapFoldPolicy for available
  * policies.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_fold_policy (AdwFlap           *self,
@@ -2168,7 +2168,7 @@ adw_flap_set_fold_policy (AdwFlap           *self,
  *
  * Returns: the fold transition duration
  *
- * Since: 1.1
+ * Since: 1.0
  */
 guint
 adw_flap_get_fold_duration (AdwFlap *self)
@@ -2185,7 +2185,7 @@ adw_flap_get_fold_duration (AdwFlap *self)
  *
  * Sets the duration that fold transitions in @self will take.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_fold_duration (AdwFlap *self,
@@ -2211,7 +2211,7 @@ adw_flap_set_fold_duration (AdwFlap *self,
  *
  * Returns: %TRUE if @self is currently folded, %FALSE otherwise
  *
- * Since: 1.1
+ * Since: 1.0
  */
 gboolean
 adw_flap_get_folded (AdwFlap *self)
@@ -2229,7 +2229,7 @@ adw_flap_get_folded (AdwFlap *self)
  *
  * Returns: %TRUE if @self is locked, %FALSE otherwise
  *
- * Since: 1.1
+ * Since: 1.0
  */
 gboolean
 adw_flap_get_locked (AdwFlap *self)
@@ -2250,7 +2250,7 @@ adw_flap_get_locked (AdwFlap *self)
  * and unfolding it when the flap is not revealed opens it. If %TRUE,
  * #AdwFlap:reveal-flap value never changes on its own.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_locked (AdwFlap  *self,
@@ -2277,7 +2277,7 @@ adw_flap_set_locked (AdwFlap  *self,
  *
  * Returns: the current transition type of @self
  *
- * Since: 1.1
+ * Since: 1.0
  */
 AdwFlapTransitionType
 adw_flap_get_transition_type (AdwFlap *self)
@@ -2299,7 +2299,7 @@ adw_flap_get_transition_type (AdwFlap *self)
  * through it with %ADW_FLAP_TRANSITION_TYPE_OVER transitions; add the
  * .background style class to it if this is unwanted.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_transition_type (AdwFlap               *self,
@@ -2329,7 +2329,7 @@ adw_flap_set_transition_type (AdwFlap               *self,
  *
  * Returns: %TRUE if @self is modal
  *
- * Since: 1.1
+ * Since: 1.0
  */
 gboolean
 adw_flap_get_modal (AdwFlap *self)
@@ -2350,7 +2350,7 @@ adw_flap_get_modal (AdwFlap *self)
  * pressing Escape key, will close the flap. If %FALSE, clicks are passed
  * through to the content widget.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_modal (AdwFlap  *self,
@@ -2383,7 +2383,7 @@ adw_flap_set_modal (AdwFlap  *self,
  *
  * Returns: %TRUE if @self can be opened with a swipe gesture
  *
- * Since: 1.1
+ * Since: 1.0
  */
 gboolean
 adw_flap_get_swipe_to_open (AdwFlap *self)
@@ -2402,7 +2402,7 @@ adw_flap_get_swipe_to_open (AdwFlap *self)
  *
  * The area that can be swiped depends on the #AdwFlap:transition-type value.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_swipe_to_open (AdwFlap  *self,
@@ -2430,7 +2430,7 @@ adw_flap_set_swipe_to_open (AdwFlap  *self,
  *
  * Returns: %TRUE if @self can be closed with a swipe gesture
  *
- * Since: 1.1
+ * Since: 1.0
  */
 gboolean
 adw_flap_get_swipe_to_close (AdwFlap *self)
@@ -2449,7 +2449,7 @@ adw_flap_get_swipe_to_close (AdwFlap *self)
  *
  * The area that can be swiped depends on the #AdwFlap:transition-type value.
  *
- * Since: 1.1
+ * Since: 1.0
  */
 void
 adw_flap_set_swipe_to_close (AdwFlap  *self,

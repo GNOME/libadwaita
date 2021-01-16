@@ -38,6 +38,8 @@
  * # CSS nodes
  *
  * #AdwSqueezer has a single CSS node with name squeezer.
+ *
+ * Since: 1.0
  */
 
 /**
@@ -47,6 +49,8 @@
  *
  * These enumeration values describe the possible transitions between children
  * in a #AdwSqueezer widget.
+ *
+ * Since: 1.0
  */
 
 struct _AdwSqueezerPage {
@@ -1173,6 +1177,8 @@ adw_squeezer_buildable_init (GtkBuildableIface *iface)
  * Returns the squeezer child to which @self belongs.
  *
  * Returns: (transfer none): the child to which @self belongs
+ *
+ * Since: 1.0
  */
 GtkWidget *
 adw_squeezer_page_get_child (AdwSqueezerPage *self)
@@ -1192,6 +1198,8 @@ adw_squeezer_page_get_child (AdwSqueezerPage *self)
  * See adw_squeezer_page_set_enabled().
  *
  * Returns: %TRUE if @self is enabled, %FALSE otherwise
+ *
+ * Since: 1.0
  */
 gboolean
 adw_squeezer_page_get_enabled (AdwSqueezerPage *self)
@@ -1215,6 +1223,8 @@ adw_squeezer_page_get_enabled (AdwSqueezerPage *self)
  * window width, or any other constraint you find suitable.
  *
  * Sets the new value of the #AdwSqueezerPage:enabled property to @enabled.
+ *
+ * Since: 1.0
  */
 void
 adw_squeezer_page_set_enabled (AdwSqueezerPage *self,
@@ -1245,6 +1255,8 @@ adw_squeezer_page_set_enabled (AdwSqueezerPage *self,
  * Creates a new #AdwSqueezer container.
  *
  * Returns: a new #AdwSqueezer
+ *
+ * Since: 1.0
  */
 GtkWidget *
 adw_squeezer_new (void)
@@ -1260,6 +1272,8 @@ adw_squeezer_new (void)
  * Adds a child to @self.
  *
  * Returns: (transfer none): the #AdwSqueezerPage for @child
+ *
+ * Since: 1.0
  */
 AdwSqueezerPage *
 adw_squeezer_add (AdwSqueezer *self,
@@ -1286,6 +1300,8 @@ adw_squeezer_add (AdwSqueezer *self,
  * @child: the child to remove
  *
  * Removes a child widget from @self.
+ *
+ * Since: 1.0
  */
 void
 adw_squeezer_remove (AdwSqueezer *self,
@@ -1319,6 +1335,8 @@ adw_squeezer_remove (AdwSqueezer *self,
  * Returns the #AdwSqueezerPage object for @child.
  *
  * Returns: (transfer none): the #AdwSqueezerPage for @child
+ *
+ * Since: 1.0
  */
 AdwSqueezerPage *
 adw_squeezer_get_page (AdwSqueezer *self,
@@ -1340,7 +1358,7 @@ adw_squeezer_get_page (AdwSqueezer *self,
  *
  * Returns: %TRUE if @self is homogeneous, %FALSE is not
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 gboolean
 adw_squeezer_get_homogeneous (AdwSqueezer *self)
@@ -1361,7 +1379,7 @@ adw_squeezer_get_homogeneous (AdwSqueezer *self)
  * height for all its children. If it isn't, @self may change size when a
  * different child becomes visible.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_squeezer_set_homogeneous (AdwSqueezer *self,
@@ -1390,6 +1408,8 @@ adw_squeezer_set_homogeneous (AdwSqueezer *self,
  * in @self will take.
  *
  * Returns: the transition duration
+ *
+ * Since: 1.0
  */
 guint
 adw_squeezer_get_transition_duration (AdwSqueezer *self)
@@ -1405,6 +1425,8 @@ adw_squeezer_get_transition_duration (AdwSqueezer *self)
  * @duration: the new duration, in milliseconds
  *
  * Sets the duration that transitions between children in @self will take.
+ *
+ * Since: 1.0
  */
 void
 adw_squeezer_set_transition_duration (AdwSqueezer *self,
@@ -1427,6 +1449,8 @@ adw_squeezer_set_transition_duration (AdwSqueezer *self,
  * in @self.
  *
  * Returns: the current transition type of @self
+ *
+ * Since: 1.0
  */
 AdwSqueezerTransitionType
 adw_squeezer_get_transition_type (AdwSqueezer *self)
@@ -1447,6 +1471,8 @@ adw_squeezer_get_transition_type (AdwSqueezer *self)
  * The transition type can be changed without problems at runtime, so it is
  * possible to change the animation based on the child that is about to become
  * current.
+ *
+ * Since: 1.0
  */
 void
 adw_squeezer_set_transition_type (AdwSqueezer               *self,
@@ -1468,6 +1494,8 @@ adw_squeezer_set_transition_type (AdwSqueezer               *self,
  * Gets whether @self is currently in a transition from one child to another.
  *
  * Returns: %TRUE if the transition is currently running, %FALSE otherwise.
+ *
+ * Since: 1.0
  */
 gboolean
 adw_squeezer_get_transition_running (AdwSqueezer *self)
@@ -1487,7 +1515,7 @@ adw_squeezer_get_transition_running (AdwSqueezer *self)
  *
  * Returns: %TRUE if @self interpolates its size on visible child change, %FALSE if not
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 gboolean
 adw_squeezer_get_interpolate_size (AdwSqueezer *self)
@@ -1508,7 +1536,7 @@ adw_squeezer_get_interpolate_size (AdwSqueezer *self)
  * visible child, according to the set transition duration and the orientation,
  * e.g. if @self is horizontal, it will interpolate the its height.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_squeezer_set_interpolate_size (AdwSqueezer *self,
@@ -1533,6 +1561,8 @@ adw_squeezer_set_interpolate_size (AdwSqueezer *self,
  * children.
  *
  * Returns: (transfer none) (nullable): the visible child of the #AdwSqueezer
+ *
+ * Since: 1.0
  */
 GtkWidget *
 adw_squeezer_get_visible_child (AdwSqueezer *self)
@@ -1637,6 +1667,8 @@ adw_squeezer_set_yalign (AdwSqueezer *self,
  * and can be used to track the visible page.
  *
  * Returns: (transfer full): a #GtkSelectionModel for the squeezer's children
+ *
+ * Since: 1.0
  */
 GtkSelectionModel *
 adw_squeezer_get_pages (AdwSqueezer *self)

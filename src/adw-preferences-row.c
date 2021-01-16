@@ -22,7 +22,7 @@
  * they take care of presenting the preference's title while letting you compose
  * the inputs of the preference around it.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 
 typedef struct
@@ -108,7 +108,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
    *
    * The title of the preference represented by this row.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title",
@@ -123,7 +123,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
    * Whether an embedded underline in the text of the title indicates a
    * mnemonic.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline",
@@ -147,7 +147,7 @@ adw_preferences_row_init (AdwPreferencesRow *self)
  *
  * Returns: a new #AdwPreferencesRow
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 GtkWidget *
 adw_preferences_row_new (void)
@@ -164,7 +164,7 @@ adw_preferences_row_new (void)
  * Returns: (transfer none) (nullable): the title of the preference represented
  *          by @self, or %NULL.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 const gchar *
 adw_preferences_row_get_title (AdwPreferencesRow *self)
@@ -185,7 +185,7 @@ adw_preferences_row_get_title (AdwPreferencesRow *self)
  *
  * Sets the title of the preference represented by @self.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_preferences_row_set_title (AdwPreferencesRow *self,
@@ -216,7 +216,7 @@ adw_preferences_row_set_title (AdwPreferencesRow *self,
  * Returns: %TRUE if an embedded underline in the title indicates the mnemonic
  *          accelerator keys.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 gboolean
 adw_preferences_row_get_use_underline (AdwPreferencesRow *self)
@@ -238,7 +238,7 @@ adw_preferences_row_get_use_underline (AdwPreferencesRow *self)
  * If true, an underline in the text of the title indicates the next character
  * should be used for the mnemonic accelerator key.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_preferences_row_set_use_underline (AdwPreferencesRow *self,

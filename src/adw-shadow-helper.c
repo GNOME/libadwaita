@@ -19,7 +19,7 @@
  *
  * A helper class for drawing #AdwLeaflet transition shadow.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 
 struct _AdwShadowHelper
@@ -137,7 +137,7 @@ adw_shadow_helper_class_init (AdwShadowHelperClass *klass)
    *
    * The widget the shadow will be drawn for. Must not be %NULL
    *
-   * Since: 0.0.11
+   * Since: 1.0
    */
   props[PROP_WIDGET] =
     g_param_spec_object ("widget",
@@ -161,7 +161,7 @@ adw_shadow_helper_init (AdwShadowHelper *self)
  *
  * Returns: The newly created #AdwShadowHelper object
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 AdwShadowHelper *
 adw_shadow_helper_new (GtkWidget *widget)

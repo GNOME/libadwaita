@@ -45,7 +45,7 @@
  * </object>
  * ]|
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 
 struct _AdwSwipeGroup
@@ -94,7 +94,7 @@ swipeable_destroyed (AdwSwipeGroup *self,
  *
  * Returns: The newly created #AdwSwipeGroup object
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 AdwSwipeGroup *
 adw_swipe_group_new (void)
@@ -217,7 +217,7 @@ end_swipe_cb (AdwSwipeGroup   *self,
  * When the widget is destroyed or no longer referenced elsewhere, it will
  * be removed from the swipe group.
  *
- * Since: 0.0.12
+ * Since: 1.0
  */
 void
 adw_swipe_group_add_swipeable (AdwSwipeGroup *self,
@@ -252,7 +252,7 @@ adw_swipe_group_add_swipeable (AdwSwipeGroup *self,
  *
  * Removes a widget from a #AdwSwipeGroup.
  *
- * Since: 0.0.12
+ * Since: 1.0
  **/
 void
 adw_swipe_group_remove_swipeable (AdwSwipeGroup *self,
@@ -284,7 +284,7 @@ adw_swipe_group_remove_swipeable (AdwSwipeGroup *self,
  * Returns:  (element-type AdwSwipeable) (transfer none): a #GSList of
  *   swipeables. The list is owned by libadwaita and should not be modified.
  *
- * Since: 0.0.12
+ * Since: 1.0
  **/
 GSList *
 adw_swipe_group_get_swipeables (AdwSwipeGroup *self)

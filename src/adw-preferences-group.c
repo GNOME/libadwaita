@@ -27,7 +27,7 @@
  *
  * #AdwPreferencesGroup has a single CSS node with name preferencesgroup.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 
 typedef struct
@@ -176,7 +176,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
    *
    * The description for this group of preferences.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_DESCRIPTION] =
     g_param_spec_string ("description",
@@ -190,7 +190,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
    *
    * The title for this group of preferences.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title",
@@ -260,7 +260,7 @@ adw_preferences_group_buildable_init (GtkBuildableIface *iface)
  *
  * Returns: a new #AdwPreferencesGroup
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 GtkWidget *
 adw_preferences_group_new (void)
@@ -276,7 +276,7 @@ adw_preferences_group_new (void)
  *
  * Returns: the title of @self.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 const gchar *
 adw_preferences_group_get_title (AdwPreferencesGroup *self)
@@ -297,7 +297,7 @@ adw_preferences_group_get_title (AdwPreferencesGroup *self)
  *
  * Sets the title for @self.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_preferences_group_set_title (AdwPreferencesGroup *self,
@@ -322,10 +322,9 @@ adw_preferences_group_set_title (AdwPreferencesGroup *self,
  * adw_preferences_group_get_description:
  * @self: a #AdwPreferencesGroup
  *
- *
  * Returns: the description of @self.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 const gchar *
 adw_preferences_group_get_description (AdwPreferencesGroup *self)
@@ -346,7 +345,7 @@ adw_preferences_group_get_description (AdwPreferencesGroup *self)
  *
  * Sets the description for @self.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_preferences_group_set_description (AdwPreferencesGroup *self,
@@ -391,6 +390,8 @@ row_has_title (AdwPreferencesRow *row,
  * keep an up-to-date view.
  *
  * Returns: (transfer full): a #GListModel for the page's rows
+ *
+ * Since: 1.0
  */
 GListModel *
 adw_preferences_group_get_rows (AdwPreferencesGroup *self)

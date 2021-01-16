@@ -20,7 +20,7 @@
  * #AdwViewSwitcherButton represents an application's view. It is designed to be
  * used exclusively internally by #AdwViewSwitcher.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 
 #define TIMEOUT_EXPAND 500
@@ -231,7 +231,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    *
    * The icon name representing the view, or %NULL for no icon.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
@@ -248,7 +248,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    * corresponding button when a view needs attention and it is not the current
    * one.
    *
-   * Since: 0.0.10
+   * Since: 1.0
    */
   props[PROP_NEEDS_ATTENTION] =
   g_param_spec_boolean ("needs-attention",
@@ -305,7 +305,7 @@ adw_view_switcher_button_init (AdwViewSwitcherButton *self)
  *
  * Returns: a new #AdwViewSwitcherButton
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 GtkWidget *
 adw_view_switcher_button_new (void)
@@ -321,7 +321,7 @@ adw_view_switcher_button_new (void)
  *
  * Returns: (transfer none) (nullable): the icon name, or %NULL
  *
- * Since: 0.0.10
+ * Since: 1.0
  **/
 const gchar *
 adw_view_switcher_button_get_icon_name (AdwViewSwitcherButton *self)
@@ -338,7 +338,7 @@ adw_view_switcher_button_get_icon_name (AdwViewSwitcherButton *self)
  *
  * Sets the icon name representing the view, or %NULL to disable the icon.
  *
- * Since: 0.0.10
+ * Since: 1.0
  **/
 void
 adw_view_switcher_button_set_icon_name (AdwViewSwitcherButton *self,
@@ -367,7 +367,7 @@ adw_view_switcher_button_set_icon_name (AdwViewSwitcherButton *self,
  *
  * Returns: %TRUE if the view represented by @self requires the user attention, %FALSE otherwise
  *
- * Since: 0.0.10
+ * Since: 1.0
  **/
 gboolean
 adw_view_switcher_button_get_needs_attention (AdwViewSwitcherButton *self)
@@ -384,7 +384,7 @@ adw_view_switcher_button_get_needs_attention (AdwViewSwitcherButton *self)
  *
  * Sets whether the view represented by @self requires the user attention.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_view_switcher_button_set_needs_attention (AdwViewSwitcherButton *self,
@@ -413,7 +413,7 @@ adw_view_switcher_button_set_needs_attention (AdwViewSwitcherButton *self,
  *
  * Returns: (transfer none) (nullable): the label, or %NULL
  *
- * Since: 0.0.10
+ * Since: 1.0
  **/
 const gchar *
 adw_view_switcher_button_get_label (AdwViewSwitcherButton *self)
@@ -430,7 +430,7 @@ adw_view_switcher_button_get_label (AdwViewSwitcherButton *self)
  *
  * Sets the label representing the view.
  *
- * Since: 0.0.10
+ * Since: 1.0
  **/
 void
 adw_view_switcher_button_set_label (AdwViewSwitcherButton *self,
@@ -455,7 +455,7 @@ adw_view_switcher_button_set_label (AdwViewSwitcherButton *self,
  * Set the mode used to ellipsize the text in narrow mode if there is not
  * enough space to render the entire string.
  *
- * Since: 0.0.10
+ * Since: 1.0
  **/
 void
 adw_view_switcher_button_set_narrow_ellipsize (AdwViewSwitcherButton *self,
@@ -478,7 +478,7 @@ adw_view_switcher_button_set_narrow_ellipsize (AdwViewSwitcherButton *self,
  *
  * Measure the size requests in both horizontal and vertical modes.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 void
 adw_view_switcher_button_get_size (AdwViewSwitcherButton *self,

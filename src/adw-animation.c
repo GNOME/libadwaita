@@ -15,7 +15,7 @@
  *
  * Animation helpers.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 
 G_DEFINE_BOXED_TYPE (AdwAnimation, adw_animation, adw_animation_ref, adw_animation_unref)
@@ -194,7 +194,7 @@ adw_animation_get_value (AdwAnimation *self)
  *
  * Returns: %TRUE if animations are enabled for @widget.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 gboolean
 adw_get_enable_animations (GtkWidget *widget)
@@ -220,7 +220,7 @@ adw_get_enable_animations (GtkWidget *widget)
  *
  * Returns: the linear interpolation between @a and @b for @t.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 gdouble
 adw_lerp (gdouble a, gdouble b, gdouble t)
@@ -240,7 +240,7 @@ adw_lerp (gdouble a, gdouble b, gdouble t)
  *
  * Returns: the ease out for @t.
  *
- * Since: 0.0.11
+ * Since: 1.0
  */
 gdouble
 adw_ease_out_cubic (gdouble t)

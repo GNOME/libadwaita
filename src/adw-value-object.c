@@ -17,7 +17,7 @@
  * The #AdwValueObject object represents a #GValue, allowing it to be
  * used with #GListModel.
  *
- * Since: 0.0.8
+ * Since: 1.0
  */
 
 struct _AdwValueObject
@@ -44,7 +44,8 @@ static GParamSpec *props [N_PROPS];
  * Create a new #AdwValueObject.
  *
  * Returns: a new #AdwValueObject
- * Since: 0.0.8
+ *
+ * Since: 1.0
  */
 AdwValueObject *
 adw_value_object_new (const GValue *value)
@@ -63,9 +64,10 @@ adw_value_object_new (const GValue *value)
  * the G_VALUE_COLLECT() macro internally.
  *
  * Returns: a new #AdwValueObject
- * Since: 0.0.8
+ *
+ * Since: 1.0
  */
-AdwValueObject*
+AdwValueObject *
 adw_value_object_new_collect (GType type, ...)
 {
   g_auto(GValue) value = G_VALUE_INIT;
@@ -94,9 +96,10 @@ adw_value_object_new_collect (GType type, ...)
  * #AdwValueObject that stores a string.
  *
  * Returns: a new #AdwValueObject
- * Since: 0.0.8
+ *
+ * Since: 1.0
  */
-AdwValueObject*
+AdwValueObject *
 adw_value_object_new_string (const gchar *string)
 {
   g_auto(GValue) value = G_VALUE_INIT;
@@ -114,9 +117,10 @@ adw_value_object_new_string (const gchar *string)
  * #AdwValueObject that stores a string taking ownership of it.
  *
  * Returns: a new #AdwValueObject
- * Since: 0.0.8
+ *
+ * Since: 1.0
  */
-AdwValueObject*
+AdwValueObject *
 adw_value_object_new_take_string (gchar *string)
 {
   g_auto(GValue) value = G_VALUE_INIT;
@@ -210,9 +214,10 @@ adw_value_object_init (AdwValueObject *self)
  * Return the contained value.
  *
  * Returns: (transfer none): the contained #GValue
- * Since: 0.0.8
+ *
+ * Since: 1.0
  */
-const GValue*
+const GValue *
 adw_value_object_get_value (AdwValueObject *value)
 {
   return &value->value;
@@ -225,7 +230,7 @@ adw_value_object_get_value (AdwValueObject *value)
  *
  * Copy data from the contained #GValue into @dest.
  *
- * Since: 0.0.8
+ * Since: 1.0
  */
 void
 adw_value_object_copy_value (AdwValueObject *value,
@@ -241,9 +246,10 @@ adw_value_object_copy_value (AdwValueObject *value,
  * Returns the contained string if the value is of type #G_TYPE_STRING.
  *
  * Returns: (transfer none): the contained string
- * Since: 0.0.8
+ *
+ * Since: 1.0
  */
-const gchar*
+const gchar *
 adw_value_object_get_string (AdwValueObject *value)
 {
   return g_value_get_string (&value->value);
@@ -257,11 +263,11 @@ adw_value_object_get_string (AdwValueObject *value)
  * #G_TYPE_STRING.
  *
  * Returns: (transfer full): a copy of the contained string
- * Since: 0.0.8
+ *
+ * Since: 1.0
  */
-gchar*
+gchar *
 adw_value_object_dup_string (AdwValueObject *value)
 {
   return g_value_dup_string (&value->value);
 }
-

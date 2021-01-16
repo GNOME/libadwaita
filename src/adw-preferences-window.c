@@ -26,7 +26,7 @@
  * The #AdwPreferencesWindow widget presents an application's preferences
  * gathered into pages and groups. The preferences are searchable by the user.
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 
 typedef struct
@@ -535,7 +535,7 @@ adw_preferences_window_buildable_init (GtkBuildableIface *iface)
  *
  * Returns: a new #AdwPreferencesWindow
  *
- * Since: 0.0.10
+ * Since: 1.0
  */
 GtkWidget *
 adw_preferences_window_new (void)
