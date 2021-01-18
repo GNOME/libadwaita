@@ -36,6 +36,11 @@
  *
  * #AdwViewSwitcher has a single CSS node with name viewswitcher.
  *
+ * # Accessibility
+ *
+ * #AdwViewSwitcher uses the #GTK_ACCESSIBLE_ROLE_TAB_LIST role
+ * and uses the #GTK_ACCESSIBLE_ROLE_TAB for its buttons.
+ *
  * Since: 1.0
  */
 
@@ -153,6 +158,14 @@ add_child (AdwViewSwitcher *self,
   selected = gtk_selection_model_is_selected (self->pages, position);
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), selected);
 
+  gtk_accessible_update_state (GTK_ACCESSIBLE (button),
+                               GTK_ACCESSIBLE_STATE_SELECTED, selected,
+                               -1);
+
+  gtk_accessible_update_relation (GTK_ACCESSIBLE (button),
+                                  GTK_ACCESSIBLE_RELATION_CONTROLS, page, NULL,
+                                  -1);
+
   adw_view_switcher_button_set_narrow_ellipsize (button, self->narrow_ellipsize);
 
   g_signal_connect (button, "notify::active", G_CALLBACK (on_button_toggled), self);
@@ -214,6 +227,10 @@ selection_changed_cb (AdwViewSwitcher   *self,
     if (button) {
       selected = gtk_selection_model_is_selected (self->pages, i);
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (button), selected);
+
+      gtk_accessible_update_state (GTK_ACCESSIBLE (button),
+                                   GTK_ACCESSIBLE_STATE_SELECTED, selected,
+                                   -1);
     }
 
     g_object_unref (page);
@@ -529,6 +546,7 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_css_name (widget_class, "viewswitcher");
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TAB_LIST);
 }
 
 static void
