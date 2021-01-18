@@ -32,9 +32,6 @@ struct _AdwShadowHelper
   GtkWidget *shadow;
   GtkWidget *border;
   GtkWidget *outline;
-
-  gdouble progress;
-  gdouble shadow_opacity;
 };
 
 G_DEFINE_TYPE (AdwShadowHelper, adw_shadow_helper, G_TYPE_OBJECT);
@@ -57,6 +54,11 @@ adw_shadow_helper_constructed (GObject *object)
   self->border = adw_gizmo_new ("border", NULL, NULL, NULL, NULL, NULL, NULL);
   self->outline = adw_gizmo_new ("outline", NULL, NULL, NULL, NULL, NULL, NULL);
 
+  gtk_widget_set_child_visible (self->dimming, FALSE);
+  gtk_widget_set_child_visible (self->shadow, FALSE);
+  gtk_widget_set_child_visible (self->border, FALSE);
+  gtk_widget_set_child_visible (self->outline, FALSE);
+
   gtk_widget_set_can_target (self->dimming, FALSE);
   gtk_widget_set_can_target (self->shadow, FALSE);
   gtk_widget_set_can_target (self->border, FALSE);
@@ -66,8 +68,6 @@ adw_shadow_helper_constructed (GObject *object)
   gtk_widget_set_parent (self->shadow, self->widget);
   gtk_widget_set_parent (self->border, self->widget);
   gtk_widget_set_parent (self->outline, self->widget);
-
-  adw_shadow_helper_clear (self);
 
   G_OBJECT_CLASS (adw_shadow_helper_parent_class)->constructed (object);
 }
@@ -171,17 +171,6 @@ adw_shadow_helper_new (GtkWidget *widget)
                        NULL);
 }
 
-void
-adw_shadow_helper_clear (AdwShadowHelper *self)
-{
-  gtk_widget_set_child_visible (self->dimming, FALSE);
-  gtk_widget_set_child_visible (self->shadow, FALSE);
-  gtk_widget_set_child_visible (self->border, FALSE);
-  gtk_widget_set_child_visible (self->outline, FALSE);
-
-  self->progress = 0;
-}
-
 static void
 set_style_classes (AdwShadowHelper *self,
                    GtkPanDirection  direction)
@@ -223,13 +212,9 @@ adw_shadow_helper_size_allocate (AdwShadowHelper *self,
                                  GtkPanDirection  direction)
 {
   gdouble distance, remaining_distance;
+  gdouble shadow_opacity;
   gint shadow_size, border_size, outline_size;
   GtkOrientation orientation;
-
-  gtk_widget_set_child_visible (self->dimming, TRUE);
-  gtk_widget_set_child_visible (self->shadow, TRUE);
-  gtk_widget_set_child_visible (self->border, TRUE);
-  gtk_widget_set_child_visible (self->outline, TRUE);
 
   set_style_classes (self, direction);
 
@@ -251,9 +236,23 @@ adw_shadow_helper_size_allocate (AdwShadowHelper *self,
     g_assert_not_reached ();
   }
 
+  gtk_widget_set_child_visible (self->dimming, progress < 1);
+  gtk_widget_set_child_visible (self->shadow, progress < 1);
+  gtk_widget_set_child_visible (self->border, progress < 1);
+  gtk_widget_set_child_visible (self->outline, progress < 1);
+
   gtk_widget_measure (self->shadow, orientation, -1, &shadow_size, NULL, NULL, NULL);
   gtk_widget_measure (self->border, orientation, -1, &border_size, NULL, NULL, NULL);
   gtk_widget_measure (self->outline, orientation, -1, &outline_size, NULL, NULL, NULL);
+
+  remaining_distance = (1 - progress) * (gdouble) distance;
+  if (remaining_distance < shadow_size)
+    shadow_opacity = (remaining_distance / shadow_size);
+  else
+    shadow_opacity = 1;
+
+  gtk_widget_set_opacity (self->dimming, 1 - progress);
+  gtk_widget_set_opacity (self->shadow, shadow_opacity);
 
   switch (direction) {
   case GTK_PAN_DIRECTION_LEFT:
@@ -291,31 +290,17 @@ adw_shadow_helper_size_allocate (AdwShadowHelper *self,
   default:
     g_assert_not_reached ();
   }
-
-  remaining_distance = (1 - progress) * (gdouble) distance;
-  if (remaining_distance < shadow_size)
-    self->shadow_opacity = (remaining_distance / shadow_size);
-  else
-    self->shadow_opacity = 1;
-
-  self->progress = progress;
 }
 
 void
 adw_shadow_helper_snapshot (AdwShadowHelper *self,
                             GtkSnapshot     *snapshot)
 {
-  if (self->progress >= 1)
+  if (!gtk_widget_get_child_visible (self->dimming))
     return;
 
-  gtk_snapshot_push_opacity (snapshot, 1 - self->progress);
   gtk_widget_snapshot_child (self->widget, self->dimming, snapshot);
-  gtk_snapshot_pop (snapshot);
-
-  gtk_snapshot_push_opacity (snapshot, self->shadow_opacity);
   gtk_widget_snapshot_child (self->widget, self->shadow, snapshot);
-  gtk_snapshot_pop (snapshot);
-
   gtk_widget_snapshot_child (self->widget, self->border, snapshot);
   gtk_widget_snapshot_child (self->widget, self->outline, snapshot);
 }

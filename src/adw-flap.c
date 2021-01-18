@@ -305,10 +305,6 @@ reveal_animation_done_cb (AdwFlap *self)
 {
   g_clear_pointer (&self->reveal_animation, adw_animation_unref);
 
-/*  if (self->reveal_progress <= 0 ||
-      self->transition_type == ADW_FLAP_TRANSITION_TYPE_UNDER)
-    adw_shadow_helper_clear (self->shadow_helper);*/
-
   if (self->schedule_fold) {
     self->schedule_fold = FALSE;
 
@@ -908,14 +904,6 @@ allocate_shadow (AdwFlap *self,
 
   default:
     g_assert_not_reached ();
-  }
-
-  if (shadow_progress >= 1 ||
-      !self->flap.widget ||
-      !gtk_widget_should_layout (self->flap.widget)) {
-    adw_shadow_helper_clear (self->shadow_helper);
-
-    return;
   }
 
   adw_shadow_helper_size_allocate (self->shadow_helper, width, height,

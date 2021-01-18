@@ -1842,75 +1842,80 @@ allocate_shadow (AdwLeaflet *self,
 
   overlap_child = get_top_overlap_child (self);
 
-  if (!is_transition ||
-      self->transition_type == ADW_LEAFLET_TRANSITION_TYPE_SLIDE ||
-      !overlap_child) {
-    adw_shadow_helper_clear (self->shadow_helper);
-
-    return;
-  }
+  shadow_rect.x = 0;
+  shadow_rect.y = 0;
+  shadow_rect.width = width;
+  shadow_rect.height = height;
 
   is_vertical = gtk_orientable_get_orientation (GTK_ORIENTABLE (self)) == GTK_ORIENTATION_VERTICAL;
   is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
   is_over = self->transition_type == ADW_LEAFLET_TRANSITION_TYPE_OVER;
 
-  shadow_rect.x = 0;
-  shadow_rect.y = 0;
-  shadow_rect.width = gtk_widget_get_width (GTK_WIDGET (self));
-  shadow_rect.height = gtk_widget_get_height (GTK_WIDGET (self));
-
   if (is_vertical) {
-    if (!is_over) {
-      shadow_rect.y = overlap_child->alloc.y + overlap_child->alloc.height;
-      shadow_rect.height -= shadow_rect.y;
+    if (!is_over)
       shadow_direction = GTK_PAN_DIRECTION_UP;
-      mode_progress = self->mode_transition.end_progress;
-    } else {
-      shadow_rect.height = overlap_child->alloc.y;
-      shadow_direction = GTK_PAN_DIRECTION_DOWN;
-      mode_progress = self->mode_transition.start_progress;
-    }
-  } else {
-    if (is_over == is_rtl) {
-      shadow_rect.x = overlap_child->alloc.x + overlap_child->alloc.width;
-      shadow_rect.width -= shadow_rect.x;
-      shadow_direction = GTK_PAN_DIRECTION_LEFT;
-      mode_progress = self->mode_transition.end_progress;
-    } else {
-      shadow_rect.width = overlap_child->alloc.x;
-      shadow_direction = GTK_PAN_DIRECTION_RIGHT;
-      mode_progress = self->mode_transition.start_progress;
-    }
-  }
-
-  if (gtk_progress_tracker_get_state (&self->mode_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
-    shadow_progress = mode_progress;
-  } else {
-    GtkPanDirection direction = self->child_transition.active_direction;
-    GtkPanDirection left_or_right = is_rtl ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_LEFT;
-
-    if (direction == GTK_PAN_DIRECTION_UP || direction == left_or_right)
-      shadow_progress = self->child_transition.progress;
     else
-      shadow_progress = 1 - self->child_transition.progress;
-
-    if (is_over)
-      shadow_progress = 1 - shadow_progress;
-
-    /* Normalize the shadow rect size so that we can cache the shadow */
-    if (shadow_direction == GTK_PAN_DIRECTION_RIGHT)
-      shadow_rect.x -= (width - shadow_rect.width);
-    else if (shadow_direction == GTK_PAN_DIRECTION_DOWN)
-      shadow_rect.y -= (height - shadow_rect.height);
-
-    shadow_rect.width = width;
-    shadow_rect.height = height;
+      shadow_direction = GTK_PAN_DIRECTION_DOWN;
+  } else {
+    if (is_over == is_rtl)
+      shadow_direction = GTK_PAN_DIRECTION_LEFT;
+    else
+      shadow_direction = GTK_PAN_DIRECTION_RIGHT;
   }
 
-  if (shadow_progress > 0)
-    adw_shadow_helper_size_allocate (self->shadow_helper, shadow_rect.width, shadow_rect.height,
-                                     baseline, shadow_rect.x, shadow_rect.y,
-                                     shadow_progress, shadow_direction);
+  if (!is_transition ||
+      self->transition_type == ADW_LEAFLET_TRANSITION_TYPE_SLIDE ||
+      !overlap_child) {
+    shadow_progress = 1;
+  } else {
+    if (is_vertical) {
+      if (!is_over) {
+        shadow_rect.y = overlap_child->alloc.y + overlap_child->alloc.height;
+        shadow_rect.height -= shadow_rect.y;
+        mode_progress = self->mode_transition.end_progress;
+      } else {
+        shadow_rect.height = overlap_child->alloc.y;
+        mode_progress = self->mode_transition.start_progress;
+      }
+    } else {
+      if (is_over == is_rtl) {
+        shadow_rect.x = overlap_child->alloc.x + overlap_child->alloc.width;
+        shadow_rect.width -= shadow_rect.x;
+        mode_progress = self->mode_transition.end_progress;
+      } else {
+        shadow_rect.width = overlap_child->alloc.x;
+        mode_progress = self->mode_transition.start_progress;
+      }
+    }
+
+    if (gtk_progress_tracker_get_state (&self->mode_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
+      shadow_progress = mode_progress;
+    } else {
+      GtkPanDirection direction = self->child_transition.active_direction;
+      GtkPanDirection left_or_right = is_rtl ? GTK_PAN_DIRECTION_RIGHT : GTK_PAN_DIRECTION_LEFT;
+
+      if (direction == GTK_PAN_DIRECTION_UP || direction == left_or_right)
+        shadow_progress = self->child_transition.progress;
+      else
+        shadow_progress = 1 - self->child_transition.progress;
+
+      if (is_over)
+        shadow_progress = 1 - shadow_progress;
+
+      /* Normalize the shadow rect size so that we can cache the shadow */
+      if (shadow_direction == GTK_PAN_DIRECTION_RIGHT)
+        shadow_rect.x -= (width - shadow_rect.width);
+      else if (shadow_direction == GTK_PAN_DIRECTION_DOWN)
+        shadow_rect.y -= (height - shadow_rect.height);
+
+      shadow_rect.width = width;
+      shadow_rect.height = height;
+    }
+  }
+
+  adw_shadow_helper_size_allocate (self->shadow_helper, shadow_rect.width, shadow_rect.height,
+                                   baseline, shadow_rect.x, shadow_rect.y,
+                                   shadow_progress, shadow_direction);
 }
 
 static void
