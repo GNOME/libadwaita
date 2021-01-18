@@ -41,6 +41,10 @@
  * A checkmark of node and style class image.checkmark in the popover denotes
  * the current item.
  *
+ * # Accessibility
+ *
+ * #AdwComboRow uses the #GTK_ACCESSIBLE_ROLE_COMBO_BOX role.
+ *
  * Since: 1.0
  */
 
@@ -511,8 +515,9 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, image);
   gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, list);
   gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, popover);
-
   gtk_widget_class_bind_template_callback (widget_class, row_activated_cb);
+
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_COMBO_BOX);
 }
 
 static void
