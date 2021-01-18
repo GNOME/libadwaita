@@ -317,8 +317,6 @@ animation_cb (GtkWidget     *widget,
       position_shift += delta;
   }
 
-  // FIXME there was update windows here, some stuff may depend on it
-
   if (position_shift != 0) {
     set_position (self, self->position + position_shift);
     g_signal_emit (self, signals[SIGNAL_POSITION_SHIFTED], 0, position_shift);
