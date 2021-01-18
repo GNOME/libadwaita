@@ -604,7 +604,6 @@ child_progress_updated (AdwLeaflet *self)
 
     gtk_widget_queue_allocate (GTK_WIDGET (self));
     self->child_transition.swipe_direction = 0;
-//    adw_shadow_helper_clear_cache (self->shadow_helper);
   }
 }
 
@@ -676,7 +675,6 @@ stop_child_transition (AdwLeaflet *self)
   }
 
   self->child_transition.swipe_direction = 0;
-//  adw_shadow_helper_clear_cache (self->shadow_helper);
 }
 
 static void
@@ -892,13 +890,6 @@ set_mode_transition_progress (AdwLeaflet *self,
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 }
 
-static void
-mode_progress_updated (AdwLeaflet *self)
-{
-//  if (gtk_progress_tracker_get_state (&self->mode_transition.tracker) == GTK_PROGRESS_STATE_AFTER)
-//    adw_shadow_helper_clear_cache (self->shadow_helper);
-}
-
 static gboolean
 mode_transition_cb (GtkWidget     *widget,
                     GdkFrameClock *frame_clock,
@@ -912,8 +903,6 @@ mode_transition_cb (GtkWidget     *widget,
   ease = gtk_progress_tracker_get_ease_out_cubic (&self->mode_transition.tracker, FALSE);
   set_mode_transition_progress (self,
                                 self->mode_transition.source_pos + (ease * (self->mode_transition.target_pos - self->mode_transition.source_pos)));
-
-  mode_progress_updated (self);
 
   if (gtk_progress_tracker_get_state (&self->mode_transition.tracker) == GTK_PROGRESS_STATE_AFTER) {
     self->mode_transition.tick_id = 0;
@@ -1500,7 +1489,7 @@ get_top_overlap_child (AdwLeaflet *self)
 
   switch (self->transition_type) {
   case ADW_LEAFLET_TRANSITION_TYPE_SLIDE:
-    // Nothing overlaps in this case
+    /* Nothing overlaps in this case */
     return NULL;
   case ADW_LEAFLET_TRANSITION_TYPE_OVER:
     return start ? self->visible_child : self->last_visible_child;
