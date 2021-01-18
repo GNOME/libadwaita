@@ -282,6 +282,8 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, active_changed_cb);
   gtk_widget_class_bind_template_callback (widget_class, drag_enter_cb);
   gtk_widget_class_bind_template_callback (widget_class, drag_leave_cb);
+
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TAB);
 }
 
 static void
