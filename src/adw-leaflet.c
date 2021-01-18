@@ -2755,7 +2755,7 @@ adw_leaflet_page_get_name (AdwLeafletPage *self)
 /**
  * adw_leaflet_page_set_name:
  * @self: a #AdwLeafletPage
- * @name: (transfer none): the new value to set
+ * @name: (transfer none) (nullable): the new value to set
  *
  * Sets the new value of the #AdwLeafletPage:name property.
  * See also adw_leaflet_page_get_name()
