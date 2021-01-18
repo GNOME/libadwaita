@@ -1664,8 +1664,20 @@ add_page (AdwLeaflet     *self,
 {
   gint visible_child_pos_before_insert = -1;
   gint visible_child_pos_after_insert = -1;
+  GList *l;
 
   g_return_if_fail (page->widget != NULL);
+
+  if (page->name) {
+    for (l = self->children; l; l = l->next) {
+      AdwLeafletPage *p = l->data;
+
+      if (p->name && !g_strcmp0 (p->name, page->name)) {
+        g_warning ("While adding page: duplicate child name in AdwLeaflet: %s", page->name);
+        break;
+      }
+    }
+  }
 
   if (self->visible_child)
     visible_child_pos_before_insert = g_list_index (self->children, self->visible_child);
