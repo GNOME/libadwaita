@@ -10,7 +10,6 @@ libadwaita_resources = gnome.compile_resources(
 adw_public_enum_headers = [
   'adw-flap.h',
   'adw-header-bar.h',
-  'adw-header-group.h',
   'adw-leaflet.h',
   'adw-navigation-direction.h',
   'adw-squeezer.h',
@@ -81,7 +80,6 @@ src_headers = [
   'adw-expander-row.h',
   'adw-flap.h',
   'adw-header-bar.h',
-  'adw-header-group.h',
   'adw-keypad.h',
   'adw-leaflet.h',
   'adw-main.h',
@@ -135,7 +133,6 @@ src_sources = [
   'adw-focus.c',
   'adw-gizmo.c',
   'adw-header-bar.c',
-  'adw-header-group.c',
   'adw-keypad-button.c',
   'adw-keypad.c',
   'adw-leaflet.c',

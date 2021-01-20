@@ -39,7 +39,6 @@ G_BEGIN_DECLS
 #include "adw-expander-row.h"
 #include "adw-flap.h"
 #include "adw-header-bar.h"
-#include "adw-header-group.h"
 #include "adw-keypad.h"
 #include "adw-leaflet.h"
 #include "adw-main.h"
