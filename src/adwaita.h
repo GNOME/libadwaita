@@ -25,6 +25,7 @@ G_BEGIN_DECLS
 #include "adw-animation.h"
 #include "adw-application-window.h"
 #include "adw-avatar.h"
+#include "adw-bin.h"
 #include "adw-carousel.h"
 #include "adw-carousel-indicator-dots.h"
 #include "adw-carousel-indicator-lines.h"

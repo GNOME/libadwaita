@@ -39,6 +39,7 @@
     <xi:include href="xml/adw-animation.xml"/>
     <xi:include href="xml/adw-application-window.xml"/>
     <xi:include href="xml/adw-avatar.xml"/>
+    <xi:include href="xml/adw-bin.xml"/>
     <xi:include href="xml/adw-carousel.xml"/>
     <xi:include href="xml/adw-carousel-indicator-dots.xml"/>
     <xi:include href="xml/adw-carousel-indicator-lines.xml"/>
