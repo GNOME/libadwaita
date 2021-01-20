@@ -106,23 +106,30 @@
                             <property name="child">
                               <object class="GtkScrolledWindow" id="scrolled_window">
                                 <property name="hscrollbar_policy">never</property>
-                                <child>
-                                  <object class="AdwClamp">
-                                    <property name="margin_bottom">18</property>
-                                    <property name="margin_end">12</property>
-                                    <property name="margin_start">12</property>
-                                    <property name="margin_top">18</property>
-                                    <child>
-                                      <object class="GtkListBox" id="search_results">
-                                        <property name="selection-mode">none</property>
-                                        <property name="valign">start</property>
-                                        <signal name="row-activated" handler="search_result_activated_cb" swapped="yes"/>
-                                        <style>
-                                          <class name="content"/>
-                                        </style>
+                                <property name="child">
+                                  <object class="GtkViewport">
+                                    <property name="scroll-to-focus">True</property>
+                                    <property name="child">
+                                      <object class="AdwClamp">
+                                        <property name="margin_bottom">18</property>
+                                        <property name="margin_end">12</property>
+                                        <property name="margin_start">12</property>
+                                        <property name="margin_top">18</property>
+                                        <child>
+                                          <object class="GtkListBox" id="search_results">
+                                            <property name="selection-mode">none</property>
+                                            <property name="valign">start</property>
+                                            <signal name="row-activated" handler="search_result_activated_cb" swapped="yes"/>
+                                            <style>
+                                              <class name="content"/>
+                                            </style>
+                                          </object>
+                                        </child>
                                       </object>
-                                    </child>
+                                    </property>
                                   </object>
+                                </property>
+                                <child>
                                 </child>
                               </object>
                             </property>
