@@ -58,6 +58,7 @@ G_BEGIN_DECLS
 #include "adw-view-switcher-bar.h"
 #include "adw-view-switcher-title.h"
 #include "adw-window.h"
+#include "adw-window-title.h"
 
 #undef _ADWAITA_INSIDE
 

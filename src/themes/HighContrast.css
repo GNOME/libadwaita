@@ -89,6 +89,10 @@ preferencesgroup > box > label:not(:first-child) { margin-top: 6px; }
 
 preferencesgroup > box > box:not(:first-child) { margin-top: 12px; }
 
+windowtitle .title { padding-left: 12px; padding-right: 12px; font-weight: bold; }
+
+windowtitle .subtitle { font-size: smaller; padding-left: 12px; padding-right: 12px; opacity: 0.55; text-shadow: none; }
+
 /*************************** Check and Radio buttons * */
 listview.inline { background: none; }
 
