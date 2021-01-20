@@ -10,6 +10,7 @@
 
 #include "adw-view-switcher-title.h"
 #include "adw-squeezer.h"
+#include "adw-window-title.h"
 
 /**
  * SECTION:adw-view-switcher-title
@@ -83,9 +84,7 @@ struct _AdwViewSwitcherTitle
   GtkWidget parent_instance;
 
   AdwSqueezer *squeezer;
-  GtkLabel *subtitle_label;
-  GtkBox *title_box;
-  GtkLabel *title_label;
+  AdwWindowTitle *title_widget;
   AdwViewSwitcher *view_switcher;
 
   gboolean view_switcher_enabled;
@@ -95,16 +94,6 @@ struct _AdwViewSwitcherTitle
 static GParamSpec *props[LAST_PROP];
 
 G_DEFINE_TYPE (AdwViewSwitcherTitle, adw_view_switcher_title, GTK_TYPE_WIDGET)
-
-static void
-update_subtitle_label (AdwViewSwitcherTitle *self)
-{
-  const gchar *subtitle = gtk_label_get_label (self->subtitle_label);
-
-  gtk_widget_set_visible (GTK_WIDGET (self->subtitle_label), subtitle && subtitle[0]);
-
-  gtk_widget_queue_resize (GTK_WIDGET (self));
-}
 
 static void
 update_view_switcher_visible (AdwViewSwitcherTitle *self)
@@ -319,9 +308,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-view-switcher-title.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherTitle, squeezer);
-  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherTitle, subtitle_label);
-  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherTitle, title_box);
-  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherTitle, title_label);
+  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherTitle, title_widget);
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherTitle, view_switcher);
   gtk_widget_class_bind_template_callback (widget_class, notify_squeezer_visible_child_cb);
 }
@@ -336,7 +323,6 @@ adw_view_switcher_title_init (AdwViewSwitcherTitle *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  update_subtitle_label (self);
   update_view_switcher_visible (self);
 }
 
@@ -472,7 +458,7 @@ adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self), NULL);
 
-  return gtk_label_get_label (self->title_label);
+  return adw_window_title_get_title (self->title_widget);
 }
 
 /**
@@ -491,11 +477,10 @@ adw_view_switcher_title_set_title (AdwViewSwitcherTitle *self,
 {
   g_return_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self));
 
-  if (g_strcmp0 (gtk_label_get_label (self->title_label), title) == 0)
+  if (g_strcmp0 (adw_window_title_get_title (self->title_widget), title) == 0)
     return;
 
-  gtk_label_set_label (self->title_label, title);
-  gtk_widget_set_visible (GTK_WIDGET (self->title_label), title && title[0]);
+  adw_window_title_set_title (self->title_widget, title);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
 }
@@ -515,7 +500,7 @@ adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self), NULL);
 
-  return gtk_label_get_label (self->subtitle_label);
+  return adw_window_title_get_subtitle (self->title_widget);
 }
 
 /**
@@ -534,11 +519,10 @@ adw_view_switcher_title_set_subtitle (AdwViewSwitcherTitle *self,
 {
   g_return_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self));
 
-  if (g_strcmp0 (gtk_label_get_label (self->subtitle_label), subtitle) == 0)
+  if (g_strcmp0 (adw_window_title_get_subtitle (self->title_widget), subtitle) == 0)
     return;
 
-  gtk_label_set_label (self->subtitle_label, subtitle);
-  update_subtitle_label (self);
+  adw_window_title_set_subtitle (self->title_widget, subtitle);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUBTITLE]);
 }
@@ -609,5 +593,5 @@ adw_view_switcher_title_get_title_visible (AdwViewSwitcherTitle *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self), FALSE);
 
-  return adw_squeezer_get_visible_child (self->squeezer) == (GtkWidget *) self->title_box;
+  return adw_squeezer_get_visible_child (self->squeezer) == GTK_WIDGET (self->title_widget);
 }

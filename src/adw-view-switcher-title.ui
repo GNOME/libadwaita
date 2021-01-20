@@ -10,34 +10,7 @@
           <object class="AdwViewSwitcher" id="view_switcher"/>
         </child>
         <child>
-          <object class="GtkBox" id="title_box">
-            <property name="orientation">vertical</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <child>
-              <object class="GtkLabel" id="title_label">
-                <property name="ellipsize">end</property>
-                <property name="halign">center</property>
-                <property name="wrap">False</property>
-                <property name="single-line-mode">True</property>
-                <property name="width-chars">5</property>
-                <style>
-                  <class name="title"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkLabel" id="subtitle_label">
-                <property name="ellipsize">end</property>
-                <property name="halign">center</property>
-                <property name="wrap">False</property>
-                <property name="single-line-mode">True</property>
-                <style>
-                  <class name="subtitle"/>
-                </style>
-              </object>
-            </child>
-          </object>
+          <object class="AdwWindowTitle" id="title_widget"/>
         </child>
       </object>
     </child>
