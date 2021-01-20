@@ -670,7 +670,7 @@ compute_sizes (AdwFlap  *self,
 
   extra = total - *content_size - *flap_size;
 
-  if (flap_expand) {
+  if (extra > 0 && flap_expand) {
     *flap_size += extra;
     extra = 0;
 
@@ -680,7 +680,7 @@ compute_sizes (AdwFlap  *self,
     return;
   }
 
-  if (content_expand) {
+  if (extra > 0 && content_expand) {
     *content_size += extra;
     extra = 0;
   }
