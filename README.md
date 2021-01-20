@@ -55,7 +55,7 @@ _build/run examples/example.py
 ## Documentation
 
 The documentation can be found online
-[here](https://gnome.pages.gitlab.gnome.org/libadwaita).
+[here](https://exalm.pages.gitlab.gnome.org/libadwaita/doc/).
 
 ## Getting in touch
 
