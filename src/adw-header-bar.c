@@ -30,7 +30,7 @@
  * SECTION:adw-header-bar
  * @short_description: A box with a centered child.
  * @Title: AdwHeaderBar
- * @See_also: #GtkHeaderBar, #AdwViewSwitcherTitle
+ * @See_also: #GtkHeaderBar, #AdwViewSwitcherTitle, #AdwWindowTitle
  *
  * AdwHeaderBar is similar to #GtkHeaderBar but is designed to fix some of its
  * shortcomings for adaptive applications.
