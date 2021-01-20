@@ -69,6 +69,7 @@
     <xi:include href="xml/adw-view-switcher-bar.xml"/>
     <xi:include href="xml/adw-view-switcher-title.xml"/>
     <xi:include href="xml/adw-window.xml"/>
+    <xi:include href="xml/adw-window-title.xml"/>
   </chapter>
 
   <chapter id="helpers">
