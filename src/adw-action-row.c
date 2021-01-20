@@ -403,7 +403,7 @@ adw_action_row_buildable_add_child (GtkBuildable *buildable,
   else if (!type && GTK_IS_WIDGET (child))
     adw_action_row_add_suffix (self, GTK_WIDGET (child));
   else
-    GTK_BUILDER_WARN_INVALID_CHILD_TYPE (buildable, type);
+    parent_buildable_iface->add_child (buildable, builder, child, type);
 }
 
 static void
