@@ -11,8 +11,6 @@ src/adw-deck.c
 src/adw-expander-row.c
 src/adw-flap.c
 src/adw-header-bar.c
-src/adw-keypad-button.c
-src/adw-keypad.c
 src/adw-leaflet.c
 src/adw-preferences-group.c
 src/adw-preferences-page.c

@@ -118,12 +118,6 @@ row.expander image.expander-row-arrow:dir(ltr) { margin-left: 6px; }
 
 row.expander image.expander-row-arrow:dir(rtl) { margin-right: 6px; }
 
-keypad .digit { font-size: 200%; font-weight: bold; }
-
-keypad .letters { font-size: 70%; }
-
-keypad .symbol { font-size: 160%; }
-
 viewswitcher, viewswitcher button { margin: 0; padding: 0; }
 
 viewswitcher button { border-radius: 0; border-top: 0; border-bottom: 0; box-shadow: none; font-size: 1rem; }

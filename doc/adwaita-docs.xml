@@ -52,7 +52,6 @@
     <xi:include href="xml/adw-expander-row.xml"/>
     <xi:include href="xml/adw-flap.xml"/>
     <xi:include href="xml/adw-header-bar.xml"/>
-    <xi:include href="xml/adw-keypad.xml"/>
     <xi:include href="xml/adw-leaflet.xml"/>
     <xi:include href="xml/adw-navigation-direction.xml"/>
     <xi:include href="xml/adw-preferences-group.xml"/>

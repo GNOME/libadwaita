@@ -25,7 +25,6 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-carousel-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-clamp-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-flap-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-keypad-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-leaflet-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-list-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-search-symbolic.svg</file>

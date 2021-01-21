@@ -14,7 +14,6 @@ private_headers = [
     'adw-focus-private.h',
     'adw-gizmo-private.h',
     'adw-main-private.h',
-    'adw-keypad-button-private.h',
     'adw-preferences-group-private.h',
     'adw-preferences-page-private.h',
     'adw-shadow-helper-private.h',
@@ -27,7 +26,6 @@ private_headers = [
 images = [
   'images/avatar.png',
   'images/header-bar.png',
-  'images/keypad.png',
   'images/list.png',
   'images/preferences-window.png',
   'images/search.png',

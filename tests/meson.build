@@ -31,7 +31,6 @@ test_names = [
   'test-expander-row',
   'test-flap',
   'test-header-bar',
-  'test-keypad',
   'test-leaflet',
   'test-preferences-group',
   'test-preferences-page',
