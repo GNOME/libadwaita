@@ -738,158 +738,163 @@
                     <property name="child">
                       <object class="GtkScrolledWindow">
                         <property name="hscrollbar-policy">never</property>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="orientation">vertical</property>
-                            <property name="valign">start</property>
-                            <style>
-                              <class name="avatar-page"/>
-                            </style>
-                            <child>
+                        <property name="child">
+                          <object class="GtkViewport">
+                            <property name="scroll-to-focus">True</property>
+                            <property name="child">
                               <object class="GtkBox">
                                 <property name="orientation">vertical</property>
+                                <property name="valign">start</property>
+                                <style>
+                                  <class name="avatar-page"/>
+                                </style>
                                 <child>
-                                  <object class="AdwAvatar" id="avatar">
-                                    <property name="valign">center</property>
-                                    <property name="halign">center</property>
-                                    <property name="size" bind-source="avatar_size" bind-property="value" bind-flags="sync-create"></property>
-                                    <property name="show-initials" bind-source="avatar_show_initials" bind-property="state" bind-flags="sync-create"/>
-                                    <property name="text" bind-source="avatar_text" bind-property="text" bind-flags="sync-create"/>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="label" translatable="yes">Avatar</property>
-                                    <property name="halign">center</property>
-                                    <property name="xalign">0</property>
-                                    <property name="wrap">True</property>
-                                    <property name="wrap-mode">word-char</property>
-                                    <property name="justify">center</property>
-                                    <style>
-                                      <class name="title"/>
-                                      <class name="large-title"/>
-                                    </style>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="label" translatable="yes">A user avatar with generated fallback.</property>
-                                    <property name="justify">center</property>
-                                    <property name="use_markup">true</property>
-                                    <property name="wrap">True</property>
-                                    <style>
-                                      <class name="body"/>
-                                      <class name="description"/>
-                                    </style>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="AdwClamp">
-                                <property name="maximum-size">400</property>
-                                <property name="tightening-threshold">300</property>
-                                <property name="child">
                                   <object class="GtkBox">
-                                    <property name="valign">center</property>
                                     <property name="orientation">vertical</property>
-                                    <property name="spacing">12</property>
                                     <child>
-                                      <object class="GtkListBox">
-                                        <property name="selection-mode">none</property>
+                                      <object class="AdwAvatar" id="avatar">
+                                        <property name="valign">center</property>
+                                        <property name="halign">center</property>
+                                        <property name="size" bind-source="avatar_size" bind-property="value" bind-flags="sync-create"></property>
+                                        <property name="show-initials" bind-source="avatar_show_initials" bind-property="state" bind-flags="sync-create"/>
+                                        <property name="text" bind-source="avatar_text" bind-property="text" bind-flags="sync-create"/>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="label" translatable="yes">Avatar</property>
+                                        <property name="halign">center</property>
+                                        <property name="xalign">0</property>
+                                        <property name="wrap">True</property>
+                                        <property name="wrap-mode">word-char</property>
+                                        <property name="justify">center</property>
                                         <style>
-                                          <class name="content"/>
+                                          <class name="title"/>
+                                          <class name="large-title"/>
                                         </style>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="label" translatable="yes">A user avatar with generated fallback.</property>
+                                        <property name="justify">center</property>
+                                        <property name="use_markup">true</property>
+                                        <property name="wrap">True</property>
+                                        <style>
+                                          <class name="body"/>
+                                          <class name="description"/>
+                                        </style>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwClamp">
+                                    <property name="maximum-size">400</property>
+                                    <property name="tightening-threshold">300</property>
+                                    <property name="child">
+                                      <object class="GtkBox">
+                                        <property name="valign">center</property>
+                                        <property name="orientation">vertical</property>
+                                        <property name="spacing">12</property>
                                         <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Text</property>
+                                          <object class="GtkListBox">
+                                            <property name="selection-mode">none</property>
+                                            <style>
+                                              <class name="content"/>
+                                            </style>
                                             <child>
-                                              <object class="GtkEntry" id="avatar_text">
-                                                <property name="valign">center</property>
-                                              </object>
-                                            </child>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Show initials</property>
-                                            <property name="activatable_widget">avatar_show_initials</property>
-                                            <child>
-                                              <object class="GtkSwitch" id="avatar_show_initials">
-                                                <property name="valign">center</property>
-                                                <property name="state">True</property>
-                                              </object>
-                                            </child>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">File</property>
-                                            <child>
-                                              <object class="GtkButton">
-                                                <property name="valign">center</property>
-                                                <signal name="clicked" handler="avatar_file_chooser_clicked_cb" swapped="true"/>
+                                              <object class="AdwActionRow">
+                                                <property name="title" translatable="yes">Text</property>
                                                 <child>
-                                                  <object class="GtkLabel" id="avatar_file_chooser_label">
-                                                    <property name="ellipsize">middle</property>
-                                                    <property name="max-width-chars">20</property>
+                                                  <object class="GtkEntry" id="avatar_text">
+                                                    <property name="valign">center</property>
                                                   </object>
                                                 </child>
-                                                <style>
-                                                  <class name="text-button"/>
-                                                  <class name="list-button"/>
-                                                </style>
                                               </object>
                                             </child>
                                             <child>
-                                              <object class="GtkButton" id="avatar_remove_button">
-                                                <property name="valign">center</property>
-                                                <property name="icon_name">avatar-delete-symbolic</property>
-                                                <signal name="clicked" swapped="yes" handler="avatar_file_remove_cb"/>
+                                              <object class="AdwActionRow">
+                                                <property name="title" translatable="yes">Show initials</property>
+                                                <property name="activatable_widget">avatar_show_initials</property>
+                                                <child>
+                                                  <object class="GtkSwitch" id="avatar_show_initials">
+                                                    <property name="valign">center</property>
+                                                    <property name="state">True</property>
+                                                  </object>
+                                                </child>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="AdwActionRow">
+                                                <property name="title" translatable="yes">File</property>
+                                                <child>
+                                                  <object class="GtkButton">
+                                                    <property name="valign">center</property>
+                                                    <signal name="clicked" handler="avatar_file_chooser_clicked_cb" swapped="true"/>
+                                                    <child>
+                                                      <object class="GtkLabel" id="avatar_file_chooser_label">
+                                                        <property name="ellipsize">middle</property>
+                                                        <property name="max-width-chars">20</property>
+                                                      </object>
+                                                    </child>
+                                                    <style>
+                                                      <class name="text-button"/>
+                                                      <class name="list-button"/>
+                                                    </style>
+                                                  </object>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkButton" id="avatar_remove_button">
+                                                    <property name="valign">center</property>
+                                                    <property name="icon_name">avatar-delete-symbolic</property>
+                                                    <signal name="clicked" swapped="yes" handler="avatar_file_remove_cb"/>
+                                                  </object>
+                                                </child>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="AdwActionRow">
+                                                <property name="title" translatable="yes">Size</property>
+                                                <child>
+                                                  <object class="GtkSpinButton" id="avatar_size">
+                                                    <property name="valign">center</property>
+                                                    <property name="numeric">True</property>
+                                                    <property name="adjustment">avatar_adjustment</property>
+                                                  </object>
+                                                </child>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="AdwActionRow">
+                                                <property name="title" translatable="yes">Export to file</property>
+                                                <child>
+                                                  <object class="GtkButton" id="avatar_save_file">
+                                                    <property name="valign">center</property>
+                                                    <property name="icon_name">avatar-save-symbolic</property>
+                                                    <signal name="clicked" swapped="yes" handler="avatar_save_to_file_cb"/>
+                                                  </object>
+                                                </child>
                                               </object>
                                             </child>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Size</property>
-                                            <child>
-                                              <object class="GtkSpinButton" id="avatar_size">
-                                                <property name="valign">center</property>
-                                                <property name="numeric">True</property>
-                                                <property name="adjustment">avatar_adjustment</property>
-                                              </object>
-                                            </child>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Export to file</property>
-                                            <child>
-                                              <object class="GtkButton" id="avatar_save_file">
-                                                <property name="valign">center</property>
-                                                <property name="icon_name">avatar-save-symbolic</property>
-                                                <signal name="clicked" swapped="yes" handler="avatar_save_to_file_cb"/>
-                                              </object>
-                                            </child>
+                                          <object class="GtkListBox" id="avatar_contacts">
+                                            <property name="selection-mode">none</property>
+                                            <style>
+                                              <class name="content"/>
+                                            </style>
                                           </object>
                                         </child>
                                       </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkListBox" id="avatar_contacts">
-                                        <property name="selection-mode">none</property>
-                                        <style>
-                                          <class name="content"/>
-                                        </style>
-                                      </object>
-                                    </child>
+                                    </property>
                                   </object>
-                                </property>
+                                </child>
                               </object>
-                            </child>
+                            </property>
                           </object>
-                        </child>
+                        </property>
                       </object>
                     </property>
                   </object>
