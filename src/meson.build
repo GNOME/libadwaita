@@ -117,6 +117,7 @@ src_sources = [
   'adw-animation.c',
   'adw-application-window.c',
   'adw-avatar.c',
+  'adw-bidi.c',
   'adw-bin.c',
   'adw-carousel.c',
   'adw-carousel-indicator-dots.c',
@@ -178,6 +179,7 @@ gtk_dep = dependency('gtk4')
 libadwaita_deps = [
   dependency('glib-2.0', version: glib_min_version),
   dependency('gmodule-2.0', version: glib_min_version),
+  dependency('fribidi'),
   gio_dep,
   gtk_dep,
   cc.find_library('m', required: false),
