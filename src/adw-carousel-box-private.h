@@ -22,10 +22,10 @@ GtkWidget      *adw_carousel_box_new (void);
 
 void            adw_carousel_box_insert (AdwCarouselBox *self,
                                          GtkWidget      *widget,
-                                         gint            position);
+                                         int             position);
 void            adw_carousel_box_reorder (AdwCarouselBox *self,
                                           GtkWidget      *widget,
-                                          gint            position);
+                                          int             position);
 void            adw_carousel_box_remove (AdwCarouselBox *self,
                                          GtkWidget      *widget);
 
@@ -55,15 +55,15 @@ GtkWidget      *adw_carousel_box_get_nth_child (AdwCarouselBox *self,
                                                 guint           n);
 
 gdouble        *adw_carousel_box_get_snap_points        (AdwCarouselBox *self,
-                                                         gint           *n_snap_points);
+                                                         int            *n_snap_points);
 void            adw_carousel_box_get_range              (AdwCarouselBox *self,
                                                          gdouble        *lower,
                                                          gdouble        *upper);
 gdouble         adw_carousel_box_get_closest_snap_point (AdwCarouselBox *self);
 GtkWidget      *adw_carousel_box_get_page_at_position   (AdwCarouselBox *self,
                                                          gdouble         position);
-gint            adw_carousel_box_get_current_page_index (AdwCarouselBox *self);
-gint            adw_carousel_box_get_page_index         (AdwCarouselBox *self,
+int             adw_carousel_box_get_current_page_index (AdwCarouselBox *self);
+int             adw_carousel_box_get_page_index         (AdwCarouselBox *self,
                                                          GtkWidget      *child);
 
 G_END_DECLS

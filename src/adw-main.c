@@ -9,7 +9,7 @@
 #include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
 
-static gint adw_initialized = FALSE;
+static int adw_initialized = FALSE;
 
 /**
  * SECTION:adw-main

@@ -40,7 +40,7 @@ typedef struct _AdwCarouselBoxChildInfo AdwCarouselBoxChildInfo;
 struct _AdwCarouselBoxChildInfo
 {
   GtkWidget *widget;
-  gint position;
+  int position;
   gboolean visible;
   gdouble size;
   gdouble snap_point;
@@ -108,13 +108,13 @@ find_child_info (AdwCarouselBox *self,
   return NULL;
 }
 
-static gint
+static int
 find_child_index (AdwCarouselBox *self,
                   GtkWidget      *widget,
                   gboolean        count_removing)
 {
   GList *l;
-  gint i;
+  int i;
 
   i = 0;
   for (l = self->children; l; l = l->next) {
@@ -134,11 +134,11 @@ find_child_index (AdwCarouselBox *self,
 
 static GList *
 get_nth_link (AdwCarouselBox *self,
-              gint            n)
+              int             n)
 {
 
   GList *l;
-  gint i;
+  int i;
 
   i = n;
   for (l = self->children; l; l = l->next) {
@@ -337,7 +337,7 @@ update_shift_position_flag (AdwCarouselBox          *self,
                             AdwCarouselBoxChildInfo *child)
 {
   AdwCarouselBoxChildInfo *closest_child;
-  gint animating_index, closest_index;
+  int animating_index, closest_index;
 
   /* We want to still shift position when the active child is being removed */
   closest_child = get_closest_child_at (self, self->position, FALSE, TRUE);
@@ -413,11 +413,11 @@ animate_child (AdwCarouselBox          *self,
 static void
 adw_carousel_box_measure (GtkWidget      *widget,
                           GtkOrientation  orientation,
-                          gint            for_size,
-                          gint           *minimum,
-                          gint           *natural,
-                          gint           *minimum_baseline,
-                          gint           *natural_baseline)
+                          int             for_size,
+                          int            *minimum,
+                          int            *natural,
+                          int            *minimum_baseline,
+                          int            *natural_baseline)
 {
   AdwCarouselBox *self = ADW_CAROUSEL_BOX (widget);
   GList *children;
@@ -435,7 +435,7 @@ adw_carousel_box_measure (GtkWidget      *widget,
   for (children = self->children; children; children = children->next) {
     AdwCarouselBoxChildInfo *child_info = children->data;
     GtkWidget *child = child_info->widget;
-    gint child_min, child_nat;
+    int child_min, child_nat;
 
     if (child_info->removing)
       continue;
@@ -455,12 +455,12 @@ adw_carousel_box_measure (GtkWidget      *widget,
 
 static void
 adw_carousel_box_size_allocate (GtkWidget *widget,
-                                gint       width,
-                                gint       height,
-                                gint       baseline)
+                                int        width,
+                                int        height,
+                                int        baseline)
 {
   AdwCarouselBox *self = ADW_CAROUSEL_BOX (widget);
-  gint size, child_width, child_height;
+  int size, child_width, child_height;
   GList *children;
   gdouble x, y, offset;
   gboolean is_rtl;
@@ -470,8 +470,8 @@ adw_carousel_box_size_allocate (GtkWidget *widget,
   for (children = self->children; children; children = children->next) {
     AdwCarouselBoxChildInfo *child_info = children->data;
     GtkWidget *child = child_info->widget;
-    gint min, nat;
-    gint child_size;
+    int min, nat;
+    int child_size;
 
     if (child_info->removing)
       continue;
@@ -821,7 +821,7 @@ adw_carousel_box_new (void)
 void
 adw_carousel_box_insert (AdwCarouselBox *self,
                          GtkWidget      *widget,
-                         gint            position)
+                         int             position)
 {
   AdwCarouselBoxChildInfo *info;
   GList *prev_link;
@@ -866,11 +866,11 @@ adw_carousel_box_insert (AdwCarouselBox *self,
 void
 adw_carousel_box_reorder (AdwCarouselBox *self,
                           GtkWidget      *widget,
-                          gint            position)
+                          int             position)
 {
   AdwCarouselBoxChildInfo *info, *prev_info;
   GList *link, *prev_link;
-  gint old_position;
+  int old_position;
   gdouble closest_point, old_point, new_point;
 
   g_return_if_fail (ADW_IS_CAROUSEL_BOX (self));
@@ -1247,7 +1247,7 @@ adw_carousel_box_get_nth_child (AdwCarouselBox *self,
  */
 gdouble *
 adw_carousel_box_get_snap_points (AdwCarouselBox *self,
-                                  gint           *n_snap_points)
+                                  int            *n_snap_points)
 {
   guint i, n_pages;
   gdouble *points;
@@ -1372,7 +1372,7 @@ adw_carousel_box_get_page_at_position (AdwCarouselBox *self,
  *
  * Since: 1.0
  */
-gint
+int
 adw_carousel_box_get_current_page_index (AdwCarouselBox *self)
 {
   GtkWidget *child;
@@ -1384,7 +1384,7 @@ adw_carousel_box_get_current_page_index (AdwCarouselBox *self)
   return find_child_index (self, child, FALSE);
 }
 
-gint
+int
 adw_carousel_box_get_page_index (AdwCarouselBox *self,
                                  GtkWidget      *child)
 {

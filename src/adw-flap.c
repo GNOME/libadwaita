@@ -338,7 +338,7 @@ animate_reveal (AdwFlap *self,
 static void
 set_reveal_flap (AdwFlap  *self,
                  gboolean  reveal_flap,
-                 guint64   duration,
+                 gint64    duration,
                  gboolean  emit_child_switched)
 {
   reveal_flap = !!reveal_flap;
@@ -455,7 +455,7 @@ end_swipe_cb (AdwSwipeTracker *tracker,
 
 static void
 released_cb (GtkGestureClick *gesture,
-             gint             n_press,
+             int              n_press,
              gdouble          x,
              gdouble          y,
              AdwFlap         *self)
@@ -588,25 +588,25 @@ remove_child (AdwFlap   *self,
 static inline void
 get_preferred_size (GtkWidget      *widget,
                     GtkOrientation  orientation,
-                    gint           *min,
-                    gint           *nat)
+                    int            *min,
+                    int            *nat)
 {
   gtk_widget_measure (widget, orientation, -1, min, nat, NULL, NULL);
 }
 
 static void
 compute_sizes (AdwFlap  *self,
-               gint      width,
-               gint      height,
+               int       width,
+               int       height,
                gboolean  folded,
                gboolean  revealed,
-               gint     *flap_size,
-               gint     *content_size,
-               gint     *separator_size)
+               int      *flap_size,
+               int      *content_size,
+               int      *separator_size)
 {
   gboolean flap_expand, content_expand;
-  gint total, extra;
-  gint flap_nat, content_nat;
+  int total, extra;
+  int flap_nat, content_nat;
 
   if (!self->flap.widget && !self->content.widget)
     return;
@@ -708,78 +708,78 @@ compute_sizes (AdwFlap  *self,
 
 static inline void
 interpolate_reveal (AdwFlap  *self,
-                    gint      width,
-                    gint      height,
+                    int       width,
+                    int       height,
                     gboolean  folded,
-                    gint     *flap_size,
-                    gint     *content_size,
-                    gint     *separator_size)
+                    int      *flap_size,
+                    int      *content_size,
+                    int      *separator_size)
 {
   if (self->reveal_progress <= 0) {
     compute_sizes (self, width, height, folded, FALSE, flap_size, content_size, separator_size);
   } else if (self->reveal_progress >= 1) {
     compute_sizes (self, width, height, folded, TRUE, flap_size, content_size, separator_size);
   } else {
-    gint flap_revealed, content_revealed, separator_revealed;
-    gint flap_hidden, content_hidden, separator_hidden;
+    int flap_revealed, content_revealed, separator_revealed;
+    int flap_hidden, content_hidden, separator_hidden;
 
     compute_sizes (self, width, height, folded, TRUE, &flap_revealed, &content_revealed, &separator_revealed);
     compute_sizes (self, width, height, folded, FALSE, &flap_hidden, &content_hidden, &separator_hidden);
 
     *flap_size =
-      (gint) round (adw_lerp (flap_hidden, flap_revealed,
+      (int) round (adw_lerp (flap_hidden, flap_revealed,
                               self->reveal_progress));
     *content_size =
-      (gint) round (adw_lerp (content_hidden, content_revealed,
+      (int) round (adw_lerp (content_hidden, content_revealed,
                               self->reveal_progress));
     *separator_size =
-      (gint) round (adw_lerp (separator_hidden, separator_revealed,
+      (int) round (adw_lerp (separator_hidden, separator_revealed,
                               self->reveal_progress));
   }
 }
 
 static inline void
 interpolate_fold (AdwFlap *self,
-                  gint     width,
-                  gint     height,
-                  gint    *flap_size,
-                  gint    *content_size,
-                  gint    *separator_size)
+                  int      width,
+                  int      height,
+                  int     *flap_size,
+                  int     *content_size,
+                  int     *separator_size)
 {
   if (self->fold_progress <= 0) {
     interpolate_reveal (self, width, height, FALSE, flap_size, content_size, separator_size);
   } else if (self->fold_progress >= 1) {
     interpolate_reveal (self, width, height, TRUE, flap_size, content_size, separator_size);
   } else {
-    gint flap_folded, content_folded, separator_folded;
-    gint flap_unfolded, content_unfolded, separator_unfolded;
+    int flap_folded, content_folded, separator_folded;
+    int flap_unfolded, content_unfolded, separator_unfolded;
 
     interpolate_reveal (self, width, height, TRUE, &flap_folded, &content_folded, &separator_folded);
     interpolate_reveal (self, width, height, FALSE, &flap_unfolded, &content_unfolded, &separator_unfolded);
 
     *flap_size =
-      (gint) round (adw_lerp (flap_unfolded, flap_folded,
+      (int) round (adw_lerp (flap_unfolded, flap_folded,
                               self->fold_progress));
     *content_size =
-      (gint) round (adw_lerp (content_unfolded, content_folded,
+      (int) round (adw_lerp (content_unfolded, content_folded,
                               self->fold_progress));
     *separator_size =
-      (gint) round (adw_lerp (separator_unfolded, separator_folded,
+      (int) round (adw_lerp (separator_unfolded, separator_folded,
                               self->fold_progress));
   }
 }
 
 static void
 compute_allocation (AdwFlap       *self,
-                    gint           width,
-                    gint           height,
+                    int            width,
+                    int            height,
                     GtkAllocation *flap_alloc,
                     GtkAllocation *content_alloc,
                     GtkAllocation *separator_alloc)
 {
   gdouble distance;
-  gint content_size, flap_size, separator_size;
-  gint total, content_pos, flap_pos, separator_pos;
+  int content_size, flap_size, separator_size;
+  int total, content_pos, flap_pos, separator_pos;
   gboolean content_above_flap = transition_is_content_above_flap (self);
 
   if (!self->flap.widget && !self->content.widget && !self->separator.widget)
@@ -816,13 +816,13 @@ compute_allocation (AdwFlap       *self,
   else
     distance = flap_size + separator_size * (1 - self->fold_progress);
 
-  flap_pos = -(gint) round ((1 - self->reveal_progress) * transition_get_flap_motion_factor (self) * distance);
+  flap_pos = -(int) round ((1 - self->reveal_progress) * transition_get_flap_motion_factor (self) * distance);
 
   if (content_above_flap) {
-    content_pos = (gint) round (self->reveal_progress * transition_get_content_motion_factor (self) * distance);
+    content_pos = (int) round (self->reveal_progress * transition_get_content_motion_factor (self) * distance);
     separator_pos = flap_pos + flap_size;
   } else {
-    content_pos = total - content_size + (gint) round (self->reveal_progress * self->fold_progress * transition_get_content_motion_factor (self) * distance);
+    content_pos = total - content_size + (int) round (self->reveal_progress * self->fold_progress * transition_get_content_motion_factor (self) * distance);
     separator_pos = content_pos - separator_size;
   }
 
@@ -846,7 +846,7 @@ compute_allocation (AdwFlap       *self,
 static inline void
 allocate_child (AdwFlap   *self,
                 ChildInfo *info,
-                gint       baseline)
+                int        baseline)
 {
   if (!info->widget || !gtk_widget_should_layout (info->widget))
     return;
@@ -856,14 +856,14 @@ allocate_child (AdwFlap   *self,
 
 static void
 allocate_shadow (AdwFlap *self,
-                 gint     width,
-                 gint     height,
-                 gint     baseline)
+                 int      width,
+                 int      height,
+                 int      baseline)
 {
   gdouble shadow_progress;
   GtkAllocation *shadow_alloc;
   GtkPanDirection shadow_direction;
-  gint shadow_x = 0, shadow_y = 0;
+  int shadow_x = 0, shadow_y = 0;
   gboolean content_above_flap = transition_is_content_above_flap (self);
 
   if (!self->flap.widget)
@@ -913,9 +913,9 @@ allocate_shadow (AdwFlap *self,
 
 static void
 adw_flap_size_allocate (GtkWidget *widget,
-                        gint       width,
-                        gint       height,
-                        gint       baseline)
+                        int        width,
+                        int        height,
+                        int        baseline)
 {
   AdwFlap *self = ADW_FLAP (widget);
 
@@ -957,18 +957,18 @@ adw_flap_size_allocate (GtkWidget *widget,
 static void
 adw_flap_measure (GtkWidget      *widget,
                   GtkOrientation  orientation,
-                  gint            for_size,
-                  gint           *minimum,
-                  gint           *natural,
-                  gint           *minimum_baseline,
-                  gint           *natural_baseline)
+                  int             for_size,
+                  int            *minimum,
+                  int            *natural,
+                  int            *minimum_baseline,
+                  int            *natural_baseline)
 {
   AdwFlap *self = ADW_FLAP (widget);
 
-  gint content_min = 0, content_nat = 0;
-  gint flap_min = 0, flap_nat = 0;
-  gint separator_min = 0, separator_nat = 0;
-  gint min, nat;
+  int content_min = 0, content_nat = 0;
+  int flap_min = 0, flap_nat = 0;
+  int separator_min = 0, separator_nat = 0;
+  int min, nat;
 
   if (self->content.widget)
     get_preferred_size (self->content.widget, orientation, &content_min, &content_nat);
@@ -1002,8 +1002,8 @@ adw_flap_measure (GtkWidget      *widget,
       g_assert_not_reached ();
     }
 
-    min = MAX (content_min + (gint) round ((flap_min + separator_min) * min_progress), flap_min);
-    nat = MAX (content_nat + (gint) round ((flap_nat + separator_min) * nat_progress), flap_nat);
+    min = MAX (content_min + (int) round ((flap_min + separator_min) * min_progress), flap_min);
+    nat = MAX (content_nat + (int) round ((flap_nat + separator_min) * nat_progress), flap_nat);
   } else {
     min = MAX (MAX (content_min, flap_min), separator_min);
     nat = MAX (MAX (content_nat, flap_nat), separator_nat);
@@ -1024,8 +1024,8 @@ adw_flap_snapshot (GtkWidget   *widget,
                    GtkSnapshot *snapshot)
 {
   AdwFlap *self = ADW_FLAP (widget);
-  gint width, height;
-  gint shadow_x = 0, shadow_y = 0;
+  int width, height;
+  int shadow_x = 0, shadow_y = 0;
   gdouble shadow_progress;
   gboolean content_above_flap = transition_is_content_above_flap (self);
   GtkAllocation *shadow_alloc;
@@ -1621,7 +1621,7 @@ static gdouble
 adw_flap_get_distance (AdwSwipeable *swipeable)
 {
   AdwFlap *self = ADW_FLAP (swipeable);
-  gint flap, separator;
+  int flap, separator;
 
   if (!self->flap.widget)
     return 0;
@@ -1642,7 +1642,7 @@ adw_flap_get_distance (AdwSwipeable *swipeable)
 
 static gdouble *
 adw_flap_get_snap_points (AdwSwipeable *swipeable,
-                          gint         *n_snap_points)
+                          int          *n_snap_points)
 {
   AdwFlap *self = ADW_FLAP (swipeable);
   gboolean can_open = self->reveal_progress > 0 || self->swipe_to_open || self->swipe_active;
@@ -1698,7 +1698,7 @@ adw_flap_get_swipe_area (AdwSwipeable           *swipeable,
 {
   AdwFlap *self = ADW_FLAP (swipeable);
   GtkAllocation *alloc;
-  gint width, height;
+  int width, height;
   gdouble flap_factor, content_factor;
   gboolean content_above_flap;
 

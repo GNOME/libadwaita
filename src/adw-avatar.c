@@ -34,12 +34,12 @@
  *
  * |[<!-- language="C" -->
  * static GdkPixbuf *
- * image_load_func (gint size, gpointer user_data)
+ * image_load_func (int size, gpointer user_data)
  * {
  *   g_autoptr (GError) error = NULL;
  *   g_autoptr (GdkPixbuf) pixbuf = NULL;
  *   g_autofree char *file = gtk_file_chooser_get_filename ("avatar.png");
- *   gint width, height;
+ *   int width, height;
  *
  *   gdk_pixbuf_get_file_info (file, &width, &height);
  *
@@ -78,9 +78,9 @@ struct _AdwAvatar
   char *text;
   gboolean show_initials;
   guint color_class;
-  gint size;
+  int size;
   GdkTexture *texture;
-  gint round_image_size;
+  int round_image_size;
 
   AdwAvatarImageLoadFunc load_image_func;
   gpointer load_image_func_target;
@@ -140,12 +140,12 @@ update_visibility (AdwAvatar *self)
 
 static void
 update_custom_image (AdwAvatar *self,
-                     gint       width,
-                     gint       height,
-                     gint       scale_factor)
+                     int        width,
+                     int        height,
+                     int        scale_factor)
 {
   g_autoptr (GdkPixbuf) pixbuf = NULL;
-  gint new_size;
+  int new_size;
 
   new_size = MIN (width, height) * scale_factor;
 
@@ -235,7 +235,7 @@ update_icon (AdwAvatar *self)
 static void
 update_font_size (AdwAvatar *self)
 {
-  gint width, height;
+  int width, height;
   gdouble padding;
   gdouble sqr_size;
   gdouble max_size;
@@ -483,9 +483,9 @@ adw_avatar_init (AdwAvatar *self)
  * Since: 1.0
  */
 GtkWidget *
-adw_avatar_new (gint         size,
-                const char  *text,
-                gboolean     show_initials)
+adw_avatar_new (int         size,
+                const char *text,
+                gboolean    show_initials)
 {
   return g_object_new (ADW_TYPE_AVATAR,
                        "size", size,
@@ -684,7 +684,7 @@ adw_avatar_set_image_load_func (AdwAvatar              *self,
  *
  * Since: 1.0
  */
-gint
+int
 adw_avatar_get_size (AdwAvatar *self)
 {
   g_return_val_if_fail (ADW_IS_AVATAR (self), 0);
@@ -703,7 +703,7 @@ adw_avatar_get_size (AdwAvatar *self)
  */
 void
 adw_avatar_set_size (AdwAvatar *self,
-                     gint       size)
+                     int        size)
 {
   g_return_if_fail (ADW_IS_AVATAR (self));
   g_return_if_fail (size >= -1);
@@ -745,8 +745,8 @@ adw_avatar_set_size (AdwAvatar *self,
  */
 GdkPixbuf *
 adw_avatar_draw_to_pixbuf (AdwAvatar *self,
-                           gint       size,
-                           gint       scale_factor)
+                           int        size,
+                           int        scale_factor)
 {
   GtkSnapshot *snapshot;
   g_autoptr (GskRenderNode) node = NULL;

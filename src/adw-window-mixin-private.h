@@ -22,9 +22,9 @@ AdwWindowMixin *adw_window_mixin_new (GtkWindow      *window,
                                       GtkWindowClass *klass);
 
 void            adw_window_mixin_size_allocate (AdwWindowMixin *self,
-                                                gint            width,
-                                                gint            height,
-                                                gint            baseline);
+                                                int             width,
+                                                int             height,
+                                                int             baseline);
 
 void            adw_window_mixin_set_child (AdwWindowMixin *self,
                                             GtkWidget      *child);

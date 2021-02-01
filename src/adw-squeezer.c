@@ -90,8 +90,8 @@ struct _AdwSqueezer
   GtkProgressTracker tracker;
   gboolean first_frame_skipped;
 
-  gint last_visible_widget_width;
-  gint last_visible_widget_height;
+  int last_visible_widget_width;
+  int last_visible_widget_height;
 
   AdwSqueezerTransitionType active_transition_type;
 
@@ -777,8 +777,8 @@ adw_squeezer_snapshot_crossfade (GtkWidget   *widget,
   gtk_snapshot_push_cross_fade (snapshot, progress);
 
   if (self->last_visible_child) {
-    gint width_diff = gtk_widget_get_width (widget) - self->last_visible_widget_width;
-    gint height_diff = gtk_widget_get_height (widget) - self->last_visible_widget_height;
+    int width_diff = gtk_widget_get_width (widget) - self->last_visible_widget_width;
+    int height_diff = gtk_widget_get_height (widget) - self->last_visible_widget_height;
 
     gtk_snapshot_translate (snapshot,
                             &GRAPHENE_POINT_INIT (
@@ -835,19 +835,19 @@ adw_squeezer_snapshot (GtkWidget   *widget,
 
 static void
 adw_squeezer_size_allocate (GtkWidget *widget,
-                            gint       width,
-                            gint       height,
-                            gint       baseline)
+                            int        width,
+                            int        height,
+                            int        baseline)
 {
   AdwSqueezer *self = ADW_SQUEEZER (widget);
   AdwSqueezerPage *page = NULL;
   GtkWidget *child = NULL;
-  gint child_min;
+  int child_min;
   GList *l;
   GtkAllocation child_allocation;
 
   for (l = self->children; l; l = l->next) {
-    gint for_size = -1;
+    int for_size = -1;
 
     page = l->data;
     child = page->widget;
@@ -887,7 +887,7 @@ adw_squeezer_size_allocate (GtkWidget *widget,
   child_allocation.y = 0;
 
   if (self->last_visible_child) {
-    gint min, nat;
+    int min, nat;
 
     gtk_widget_measure (self->last_visible_child->widget, GTK_ORIENTATION_HORIZONTAL,
                         -1, &min, &nat, NULL, NULL);
@@ -903,7 +903,7 @@ adw_squeezer_size_allocate (GtkWidget *widget,
   child_allocation.height = height;
 
   if (self->visible_child) {
-    gint min, nat;
+    int min, nat;
     GtkAlign valign;
 
     gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_VERTICAL,
@@ -934,9 +934,9 @@ adw_squeezer_measure (GtkWidget      *widget,
                       int            *natural_baseline)
 {
   AdwSqueezer *self = ADW_SQUEEZER (widget);
-  gint child_min, child_nat;
+  int child_min, child_nat;
   GList *l;
-  gint min = 0, nat = 0;
+  int min = 0, nat = 0;
 
   for (l = self->children; l != NULL; l = l->next) {
     AdwSqueezerPage *page = l->data;

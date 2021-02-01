@@ -8,7 +8,7 @@
 
 #include <adwaita.h>
 
-gint notified;
+int notified;
 
 static void
 notify_cb (GtkWidget *widget, gpointer data)
@@ -44,8 +44,8 @@ test_adw_bin_child (void)
   g_assert_cmpint (notified, ==, 2);
 }
 
-gint
-main (gint argc,
+int
+main (int   argc,
       char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);

@@ -51,9 +51,9 @@ outline_contains (AdwGizmo *gizmo,
 
 void
 adw_window_mixin_size_allocate (AdwWindowMixin *self,
-                                gint            width,
-                                gint            height,
-                                gint            baseline)
+                                int             width,
+                                int             height,
+                                int             baseline)
 {
   /* We don't want to allow any other titlebar */
   if (gtk_window_get_titlebar (self->window) != self->titlebar)

@@ -6,7 +6,7 @@
 
 #include <adwaita.h>
 
-gint notified;
+int notified;
 
 static void
 notify_cb (GtkWidget *widget, gpointer data)
@@ -54,7 +54,7 @@ test_adw_combo_row_selected (void)
 {
   g_autoptr (AdwComboRow) row = NULL;
   g_autoptr (GListModel) model = NULL;
-  gint selected = 0;
+  int selected = 0;
 
   row = ADW_COMBO_ROW (g_object_ref_sink (adw_combo_row_new ()));
   g_assert_nonnull (row);
@@ -112,8 +112,8 @@ test_adw_combo_row_use_subtitle (void)
 }
 
 
-gint
-main (gint argc,
+int
+main (int   argc,
       char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);

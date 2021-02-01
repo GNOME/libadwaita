@@ -30,6 +30,6 @@ GType adw_enum_list_model_get_enum_type (AdwEnumListModel *self);
 
 ADW_AVAILABLE_IN_ALL
 guint adw_enum_list_model_find_position (AdwEnumListModel *self,
-                                         gint              value);
+                                         int               value);
 
 G_END_DECLS

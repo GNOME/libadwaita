@@ -169,7 +169,7 @@ adw_swipeable_get_distance (AdwSwipeable *self)
  */
 gdouble *
 adw_swipeable_get_snap_points (AdwSwipeable *self,
-                               gint         *n_snap_points)
+                               int          *n_snap_points)
 {
   AdwSwipeableInterface *iface;
 

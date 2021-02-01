@@ -27,17 +27,17 @@ enum Axis {
 struct _CompareInfo
 {
   GtkWidget *widget;
-  gint x;
-  gint y;
+  int x;
+  int y;
   guint reverse : 1;
   guint axis : 1;
 };
 
 static inline void
 get_axis_info (const graphene_rect_t *bounds,
-               gint                   axis,
-               gint                  *start,
-               gint                  *end)
+               int                    axis,
+               int                   *start,
+               int                   *end)
 {
   if (axis == HORIZONTAL) {
     *start = bounds->origin.x;
@@ -54,7 +54,7 @@ get_axis_info (const graphene_rect_t *bounds,
 static void
 reverse_ptr_array (GPtrArray *arr)
 {
-  gint i;
+  int i;
 
   for (i = 0; i < arr->len / 2; i ++) {
     void *a = g_ptr_array_index (arr, i);
@@ -117,7 +117,7 @@ static GtkWidget *
 find_old_focus (GtkWidget *widget,
                 GPtrArray *children)
 {
-  gint i;
+  int i;
 
   for (i = 0; i < children->len; i ++) {
     GtkWidget *child = g_ptr_array_index (children, i);
@@ -162,8 +162,8 @@ axis_compare (gconstpointer a,
   graphene_rect_t bounds1;
   graphene_rect_t bounds2;
   CompareInfo *compare = user_data;
-  gint start1, end1;
-  gint start2, end2;
+  int start1, end1;
+  int start2, end2;
 
   if (!gtk_widget_compute_bounds (*((GtkWidget **) a), compare->widget, &bounds1) ||
       !gtk_widget_compute_bounds (*((GtkWidget **) b), compare->widget, &bounds2))
@@ -176,7 +176,7 @@ axis_compare (gconstpointer a,
   start2 = start2 + (end2 / 2);
 
   if (start1 == start2) {
-    gint x1, x2;
+    int x1, x2;
 
     /* Now use origin/bounds to compare the 2 widgets on the other axis */
     get_axis_info (&bounds1, 1 - compare->axis, &start1, &end1);
@@ -213,7 +213,7 @@ focus_sort_left_right (GtkWidget        *widget,
     gfloat compare_y1;
     gfloat compare_y2;
     gfloat compare_x;
-    gint i;
+    int i;
 
     /* Delete widgets from list that don't match minimum criteria */
 
@@ -302,7 +302,7 @@ focus_sort_up_down (GtkWidget        *widget,
     gfloat compare_x1;
     gfloat compare_x2;
     gfloat compare_y;
-    gint i;
+    int i;
 
     /* Delete widgets from list that don't match minimum criteria */
 
@@ -418,7 +418,7 @@ focus_move (GtkWidget        *widget,
 {
   GPtrArray *focus_order;
   GtkWidget *focus_child = gtk_widget_get_focus_child (widget);
-  gint i;
+  int i;
   gboolean ret = FALSE;
 
   focus_order = g_ptr_array_new ();

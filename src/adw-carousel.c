@@ -145,7 +145,7 @@ adw_carousel_get_distance (AdwSwipeable *swipeable)
 
 static gdouble *
 adw_carousel_get_snap_points (AdwSwipeable *swipeable,
-                              gint         *n_snap_points)
+                              int          *n_snap_points)
 {
   AdwCarousel *self = ADW_CAROUSEL (swipeable);
 
@@ -205,7 +205,7 @@ static void
 animation_stopped_cb (AdwCarousel    *self,
                       AdwCarouselBox *box)
 {
-  gint index;
+  int index;
 
   index = adw_carousel_box_get_current_page_index (self->scrolling_box);
 
@@ -271,7 +271,7 @@ scroll_cb (AdwCarousel              *self,
 {
   GdkDevice *source_device;
   GdkInputSource input_source;
-  gint index;
+  int index;
   gboolean allow_vertical;
   GtkOrientation orientation;
   guint duration;
@@ -312,7 +312,7 @@ scroll_cb (AdwCarousel              *self,
     return GDK_EVENT_PROPAGATE;
 
   index += adw_carousel_box_get_current_page_index (self->scrolling_box);
-  index = CLAMP (index, 0, (gint) adw_carousel_get_n_pages (self) - 1);
+  index = CLAMP (index, 0, (int) adw_carousel_get_n_pages (self) - 1);
 
   adw_carousel_scroll_to (self, adw_carousel_box_get_nth_child (self->scrolling_box, index));
 
@@ -761,7 +761,7 @@ adw_carousel_append (AdwCarousel *self,
 void
 adw_carousel_insert (AdwCarousel *self,
                      GtkWidget   *widget,
-                     gint         position)
+                     int          position)
 {
   g_return_if_fail (ADW_IS_CAROUSEL (self));
 
@@ -783,7 +783,7 @@ adw_carousel_insert (AdwCarousel *self,
 void
 adw_carousel_reorder (AdwCarousel *self,
                       GtkWidget   *child,
-                      gint         position)
+                      int          position)
 {
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (child));
@@ -846,7 +846,7 @@ adw_carousel_scroll_to_full (AdwCarousel *self,
                              GtkWidget   *widget,
                              gint64       duration)
 {
-  gint index;
+  int index;
 
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));

@@ -348,25 +348,25 @@ adw_view_switcher_finalize (GObject *object)
 static void
 adw_view_switcher_measure (GtkWidget      *widget,
                            GtkOrientation  orientation,
-                           gint            for_size,
-                           gint           *minimum,
-                           gint           *natural,
-                           gint           *minimum_baseline,
-                           gint           *natural_baseline)
+                           int             for_size,
+                           int            *minimum,
+                           int            *natural,
+                           int            *minimum_baseline,
+                           int            *natural_baseline)
 {
   AdwViewSwitcher *self = ADW_VIEW_SWITCHER (widget);
   GHashTableIter iter;
   GtkStackPage *page;
   AdwViewSwitcherButton *button;
-  gint max_h_min = 0, max_h_nat = 0, max_v_min = 0, max_v_nat = 0;
-  gint min = 0, nat = 0;
-  gint n_children = 0;
+  int max_h_min = 0, max_h_nat = 0, max_v_min = 0, max_v_nat = 0;
+  int min = 0, nat = 0;
+  int n_children = 0;
 
   g_hash_table_iter_init (&iter, self->buttons);
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
     while (g_hash_table_iter_next (&iter, (gpointer *) &page, (gpointer *) &button)) {
-      gint h_min = 0, h_nat = 0, v_min = 0, v_nat = 0;
+      int h_min = 0, h_nat = 0, v_min = 0, v_nat = 0;
 
       if (!gtk_stack_page_get_visible (page))
         continue;
@@ -403,7 +403,7 @@ adw_view_switcher_measure (GtkWidget      *widget,
     }
   } else {
     while (g_hash_table_iter_next (&iter, (gpointer *) &page, (gpointer *) &button)) {
-      gint child_min, child_nat;
+      int child_min, child_nat;
 
       if (!gtk_stack_page_get_visible (page))
         continue;
@@ -426,14 +426,14 @@ adw_view_switcher_measure (GtkWidget      *widget,
     *natural_baseline = -1;
 }
 
-static gint
+static int
 is_narrow (AdwViewSwitcher *self,
-           gint             width)
+           int              width)
 {
   GHashTableIter iter;
   AdwViewSwitcherButton *button;
-  gint max_h_min = 0;
-  gint n_children = 0;
+  int max_h_min = 0;
+  int n_children = 0;
 
   if (self->policy == ADW_VIEW_SWITCHER_POLICY_NARROW)
     return TRUE;
@@ -443,7 +443,7 @@ is_narrow (AdwViewSwitcher *self,
 
   g_hash_table_iter_init (&iter, self->buttons);
   while (g_hash_table_iter_next (&iter, NULL, (gpointer *) &button)) {
-    gint h_min = 0;
+    int h_min = 0;
 
     if (!gtk_widget_get_visible (GTK_WIDGET (button)))
       continue;
@@ -459,9 +459,9 @@ is_narrow (AdwViewSwitcher *self,
 
 static void
 adw_view_switcher_size_allocate (GtkWidget *widget,
-                                 gint       width,
-                                 gint       height,
-                                 gint       baseline)
+                                 int        width,
+                                 int        height,
+                                 int        baseline)
 {
   AdwViewSwitcher *self = ADW_VIEW_SWITCHER (widget);
   GtkOrientation orientation;

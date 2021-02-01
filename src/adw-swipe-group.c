@@ -296,8 +296,8 @@ adw_swipe_group_get_swipeables (AdwSwipeGroup *self)
 
 typedef struct {
   char *name;
-  gint line;
-  gint col;
+  int line;
+  int col;
 } ItemData;
 
 static void
@@ -391,7 +391,7 @@ _gtk_builder_prefix_error (GtkBuilder                *builder,
                            GtkBuildableParseContext  *context,
                            GError                   **error)
 {
-  gint line, col;
+  int line, col;
 
   gtk_buildable_parse_context_get_position (context, &line, &col);
   g_prefix_error (error, ".:%d:%d ", line, col);
@@ -418,7 +418,7 @@ _gtk_builder_error_unhandled_tag (GtkBuilder                *builder,
                                   const char                *element_name,
                                   GError                   **error)
 {
-  gint line, col;
+  int line, col;
 
   gtk_buildable_parse_context_get_position (context, &line, &col);
   g_set_error (error,

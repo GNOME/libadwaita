@@ -41,8 +41,8 @@ test_adw_value_object_init (void)
 }
 
 
-gint
-main (gint argc,
+int
+main (int   argc,
       char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);

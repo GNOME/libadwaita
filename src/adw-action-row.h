@@ -64,16 +64,16 @@ void     adw_action_row_set_use_underline (AdwActionRow *self,
                                            gboolean      use_underline);
 
 ADW_AVAILABLE_IN_ALL
-gint adw_action_row_get_title_lines (AdwActionRow *self);
+int  adw_action_row_get_title_lines (AdwActionRow *self);
 ADW_AVAILABLE_IN_ALL
 void adw_action_row_set_title_lines (AdwActionRow *self,
-                                     gint          title_lines);
+                                     int           title_lines);
 
 ADW_AVAILABLE_IN_ALL
-gint adw_action_row_get_subtitle_lines (AdwActionRow *self);
+int  adw_action_row_get_subtitle_lines (AdwActionRow *self);
 ADW_AVAILABLE_IN_ALL
 void adw_action_row_set_subtitle_lines (AdwActionRow *self,
-                                        gint          subtitle_lines);
+                                        int           subtitle_lines);
 
 ADW_AVAILABLE_IN_ALL
 void adw_action_row_add_prefix (AdwActionRow *self,

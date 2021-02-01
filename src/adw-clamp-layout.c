@@ -52,8 +52,8 @@ struct _AdwClampLayout
 {
   GtkLayoutManager parent_instance;
 
-  gint maximum_size;
-  gint tightening_threshold;
+  int maximum_size;
+  int tightening_threshold;
 
   GtkOrientation orientation;
 };
@@ -139,16 +139,16 @@ adw_clamp_layout_set_property (GObject      *object,
  * If the clamp is horizontal, all values are widths, otherwise they are
  * heights.
  */
-static gint
+static int
 get_child_size (AdwClampLayout *self,
                 GtkWidget      *child,
-                gint            for_size,
-                gint           *child_minimum,
-                gint           *child_maximum,
-                gint           *lower_threshold,
-                gint           *upper_threshold)
+                int             for_size,
+                int            *child_minimum,
+                int            *child_maximum,
+                int            *lower_threshold,
+                int            *upper_threshold)
 {
-  gint min = 0, max = 0, lower = 0, upper = 0;
+  int min = 0, max = 0, lower = 0, upper = 0;
   gdouble amplitude, progress;
 
   if (gtk_widget_get_visible (child))
@@ -209,11 +209,11 @@ adw_clamp_layout_measure (GtkLayoutManager *manager,
   for (child = gtk_widget_get_first_child (widget);
        child != NULL;
        child = gtk_widget_get_next_sibling (child)) {
-    gint child_size = -1;
-    gint child_min = 0;
-    gint child_nat = 0;
-    gint child_min_baseline = -1;
-    gint child_nat_baseline = -1;
+    int child_size = -1;
+    int child_min = 0;
+    int child_nat = 0;
+    int child_min_baseline = -1;
+    int child_nat_baseline = -1;
 
     if (!gtk_widget_should_layout (child))
       continue;
@@ -239,9 +239,9 @@ adw_clamp_layout_measure (GtkLayoutManager *manager,
 static void
 adw_clamp_layout_allocate (GtkLayoutManager *manager,
                            GtkWidget        *widget,
-                           gint              width,
-                           gint              height,
-                           gint              baseline)
+                           int               width,
+                           int               height,
+                           int               baseline)
 {
   AdwClampLayout *self = ADW_CLAMP_LAYOUT (manager);
   GtkWidget *child;
@@ -250,8 +250,8 @@ adw_clamp_layout_allocate (GtkLayoutManager *manager,
        child != NULL;
        child = gtk_widget_get_next_sibling (child)) {
     GtkAllocation child_allocation;
-    gint child_maximum = 0, lower_threshold = 0;
-    gint child_clamped_size;
+    int child_maximum = 0, lower_threshold = 0;
+    int child_clamped_size;
 
     if (!gtk_widget_should_layout (child)) {
       gtk_widget_remove_css_class (child, "small");
@@ -398,7 +398,7 @@ adw_clamp_layout_new (void)
  *
  * Since: 1.0
  */
-gint
+int
 adw_clamp_layout_get_maximum_size (AdwClampLayout *self)
 {
   g_return_val_if_fail (ADW_IS_CLAMP_LAYOUT (self), 0);
@@ -418,7 +418,7 @@ adw_clamp_layout_get_maximum_size (AdwClampLayout *self)
  */
 void
 adw_clamp_layout_set_maximum_size (AdwClampLayout *self,
-                                   gint            maximum_size)
+                                   int             maximum_size)
 {
   g_return_if_fail (ADW_IS_CLAMP_LAYOUT (self));
 
@@ -444,7 +444,7 @@ adw_clamp_layout_set_maximum_size (AdwClampLayout *self,
  *
  * Since: 1.0
  */
-gint
+int
 adw_clamp_layout_get_tightening_threshold (AdwClampLayout *self)
 {
   g_return_val_if_fail (ADW_IS_CLAMP_LAYOUT (self), 0);
@@ -464,7 +464,7 @@ adw_clamp_layout_get_tightening_threshold (AdwClampLayout *self)
  */
 void
 adw_clamp_layout_set_tightening_threshold (AdwClampLayout *self,
-                                           gint            tightening_threshold)
+                                           int             tightening_threshold)
 {
   g_return_if_fail (ADW_IS_CLAMP_LAYOUT (self));
 

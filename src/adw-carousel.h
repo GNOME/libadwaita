@@ -33,12 +33,12 @@ void            adw_carousel_append (AdwCarousel *self,
 ADW_AVAILABLE_IN_ALL
 void            adw_carousel_insert (AdwCarousel *self,
                                      GtkWidget   *child,
-                                     gint         position);
+                                     int          position);
 
 ADW_AVAILABLE_IN_ALL
 void            adw_carousel_reorder (AdwCarousel *self,
                                       GtkWidget   *child,
-                                      gint         position);
+                                      int          position);
 
 ADW_AVAILABLE_IN_ALL
 void            adw_carousel_remove (AdwCarousel *self,

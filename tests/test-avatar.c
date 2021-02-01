@@ -41,8 +41,8 @@ test_adw_avatar_size (void)
   g_assert_cmpint (adw_avatar_get_size (avatar), ==, TEST_SIZE / 2);
 }
 
-gint
-main (gint argc,
+int
+main (int   argc,
       char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);

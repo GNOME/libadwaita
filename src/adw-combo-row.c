@@ -360,9 +360,9 @@ adw_combo_row_dispose (GObject *object)
 
 static void
 adw_combo_row_size_allocate (GtkWidget *widget,
-                             gint       width,
-                             gint       height,
-                             gint       baseline)
+                             int        width,
+                             int        height,
+                             int        baseline)
 {
   AdwComboRow *self = ADW_COMBO_ROW (widget);
   AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);

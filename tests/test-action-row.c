@@ -6,7 +6,7 @@
 
 #include <adwaita.h>
 
-gint activated;
+int activated;
 
 static void
 activated_cb (GtkWidget *widget, gpointer data)
@@ -144,8 +144,8 @@ test_adw_action_row_activate (void)
 }
 
 
-gint
-main (gint argc,
+int
+main (int   argc,
       char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);

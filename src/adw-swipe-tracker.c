@@ -147,7 +147,7 @@ get_range (AdwSwipeTracker *self,
            gdouble         *last)
 {
   g_autofree gdouble *points = NULL;
-  gint n;
+  int n;
 
   points = adw_swipeable_get_snap_points (self->swipeable, &n);
 
@@ -251,9 +251,9 @@ gesture_begin (AdwSwipeTracker *self)
   self->state = ADW_SWIPE_TRACKER_STATE_SCROLLING;
 }
 
-static gint
+static int
 find_closest_point (gdouble *points,
-                    gint     n,
+                    int      n,
                     gdouble  pos)
 {
   guint i, min = 0;
@@ -265,9 +265,9 @@ find_closest_point (gdouble *points,
   return min;
 }
 
-static gint
+static int
 find_next_point (gdouble *points,
-                 gint     n,
+                 int      n,
                  gdouble  pos)
 {
   guint i;
@@ -279,12 +279,12 @@ find_next_point (gdouble *points,
   return -1;
 }
 
-static gint
+static int
 find_previous_point (gdouble *points,
-                     gint     n,
+                     int      n,
                      gdouble  pos)
 {
-  gint i;
+  int i;
 
   for (i = n - 1; i >= 0; i--)
     if (points[i] <= pos)
@@ -293,16 +293,16 @@ find_previous_point (gdouble *points,
   return -1;
 }
 
-static gint
+static int
 find_point_for_projection (AdwSwipeTracker *self,
                            gdouble         *points,
-                           gint             n,
+                           int              n,
                            gdouble          pos,
                            gdouble          velocity)
 {
-  gint initial = find_closest_point (points, n, self->initial_progress);
-  gint prev = find_previous_point (points, n, pos);
-  gint next = find_next_point (points, n, pos);
+  int initial = find_closest_point (points, n, self->initial_progress);
+  int prev = find_previous_point (points, n, pos);
+  int next = find_next_point (points, n, pos);
 
   if ((velocity > 0 ? prev : next) == initial)
     return velocity > 0 ? next : prev;
@@ -313,13 +313,13 @@ find_point_for_projection (AdwSwipeTracker *self,
 static void
 get_bounds (AdwSwipeTracker *self,
             gdouble         *points,
-            gint             n,
+            int              n,
             gdouble          pos,
             gdouble         *lower,
             gdouble         *upper)
 {
-  gint prev, next;
-  gint closest = find_closest_point (points, n, pos);
+  int prev, next;
+  int closest = find_closest_point (points, n, pos);
 
   if (ABS (points[closest] - pos) < EPSILON) {
     prev = next = closest;
@@ -345,7 +345,7 @@ gesture_update (AdwSwipeTracker *self,
 
   if (!self->allow_long_swipes) {
     g_autofree gdouble *points = NULL;
-    gint n;
+    int n;
 
     points = adw_swipeable_get_snap_points (self->swipeable, &n);
     get_bounds (self, points, n, self->initial_progress, &lower, &upper);
@@ -368,7 +368,7 @@ get_end_progress (AdwSwipeTracker *self,
 {
   gdouble pos, decel, slope;
   g_autofree gdouble *points = NULL;
-  gint n;
+  int n;
 
   if (self->cancelled)
     return adw_swipeable_get_cancel_progress (self->swipeable);

@@ -33,8 +33,8 @@ test_adw_swipe_group_add_remove (void)
   g_assert_cmpint (g_slist_length (adw_swipe_group_get_swipeables (group)), ==, 0);
 }
 
-gint
-main (gint argc,
+int
+main (int   argc,
       char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);

@@ -49,9 +49,9 @@ enum {
 
 static void
 adw_application_window_size_allocate (GtkWidget *widget,
-                                      gint       width,
-                                      gint       height,
-                                      gint       baseline)
+                                      int        width,
+                                      int        height,
+                                      int        baseline)
 {
   adw_window_mixin_size_allocate (ADW_GET_WINDOW_MIXIN (widget),
                                   width,

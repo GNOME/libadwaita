@@ -10,7 +10,7 @@
 static void
 assert_page_position (GtkSelectionModel *pages,
                       GtkWidget         *widget,
-                      gint               position)
+                      int                position)
 {
   g_autoptr (AdwLeafletPage) page = NULL;
 
@@ -25,7 +25,7 @@ test_adw_leaflet_adjacent_child (void)
 {
   g_autoptr (AdwLeaflet) leaflet = NULL;
   GtkWidget *children[3];
-  gint i;
+  int i;
   GtkWidget *result;
 
   leaflet = ADW_LEAFLET (adw_leaflet_new ());
@@ -74,7 +74,7 @@ test_adw_leaflet_navigate (void)
 {
   g_autoptr (AdwLeaflet) leaflet = NULL;
   GtkWidget *children[3];
-  gint i;
+  int i;
   gboolean result;
 
   leaflet = ADW_LEAFLET (adw_leaflet_new ());
@@ -115,7 +115,7 @@ test_adw_leaflet_prepend (void)
 {
   g_autoptr (AdwLeaflet) leaflet = NULL;
   GtkWidget *labels[2];
-  gint i;
+  int i;
   g_autoptr (GtkSelectionModel) pages = NULL;
 
   leaflet = ADW_LEAFLET (adw_leaflet_new ());
@@ -142,7 +142,7 @@ test_adw_leaflet_insert_child_after (void)
 {
   g_autoptr (AdwLeaflet) leaflet = NULL;
   GtkWidget *labels[3];
-  gint i;
+  int i;
   g_autoptr (GtkSelectionModel) pages = NULL;
 
   leaflet = ADW_LEAFLET (adw_leaflet_new ());
@@ -177,7 +177,7 @@ test_adw_leaflet_reorder_child_after (void)
 {
   g_autoptr (AdwLeaflet) leaflet = NULL;
   GtkWidget *labels[3];
-  gint i;
+  int i;
   g_autoptr (GtkSelectionModel) pages = NULL;
 
   leaflet = ADW_LEAFLET (adw_leaflet_new ());
@@ -208,8 +208,8 @@ test_adw_leaflet_reorder_child_after (void)
 }
 
 
-gint
-main (gint argc,
+int
+main (int   argc,
       char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);

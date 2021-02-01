@@ -37,11 +37,11 @@ G_DEFINE_TYPE (AdwGizmo, adw_gizmo, GTK_TYPE_WIDGET)
 static void
 adw_gizmo_measure (GtkWidget      *widget,
                    GtkOrientation  orientation,
-                   gint            for_size,
-                   gint           *minimum,
-                   gint           *natural,
-                   gint           *minimum_baseline,
-                   gint           *natural_baseline)
+                   int             for_size,
+                   int            *minimum,
+                   int            *natural,
+                   int            *minimum_baseline,
+                   int            *natural_baseline)
 {
   AdwGizmo *self = ADW_GIZMO (widget);
 
@@ -53,9 +53,9 @@ adw_gizmo_measure (GtkWidget      *widget,
 
 static void
 adw_gizmo_size_allocate (GtkWidget *widget,
-                         gint       width,
-                         gint       height,
-                         gint       baseline)
+                         int        width,
+                         int        height,
+                         int        baseline)
 {
   AdwGizmo *self = ADW_GIZMO (widget);
 

@@ -24,8 +24,8 @@ test_adw_preferences_window_add_remove (void)
 }
 
 
-gint
-main (gint argc,
+int
+main (int   argc,
       char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);

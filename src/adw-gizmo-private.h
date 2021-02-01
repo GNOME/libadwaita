@@ -23,15 +23,15 @@ G_DECLARE_FINAL_TYPE (AdwGizmo, adw_gizmo, ADW, GIZMO, GtkWidget)
 
 typedef void     (* AdwGizmoMeasureFunc)  (AdwGizmo       *self,
                                            GtkOrientation  orientation,
-                                           gint            for_size,
-                                           gint           *minimum,
-                                           gint           *natural,
-                                           gint           *minimum_baseline,
-                                           gint           *natural_baseline);
+                                           int             for_size,
+                                           int            *minimum,
+                                           int            *natural,
+                                           int            *minimum_baseline,
+                                           int            *natural_baseline);
 typedef void     (* AdwGizmoAllocateFunc) (AdwGizmo *self,
-                                           gint      width,
-                                           gint      height,
-                                           gint      baseline);
+                                           int       width,
+                                           int       height,
+                                           int       baseline);
 typedef void     (* AdwGizmoSnapshotFunc) (AdwGizmo    *self,
                                            GtkSnapshot *snapshot);
 typedef gboolean (* AdwGizmoContainsFunc) (AdwGizmo *self,

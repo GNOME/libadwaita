@@ -283,7 +283,7 @@ And for a public function:
 *Good*:
 
 ```c
-gint
+int
 foo_button_get_state (FooButton *self)
 {
   FooButtonPrivate *priv = bar_foo_get_instance_private(self);

@@ -172,8 +172,8 @@ struct _AdwLeaflet {
     GtkProgressTracker tracker;
     gboolean first_frame_skipped;
 
-    gint last_visible_widget_width;
-    gint last_visible_widget_height;
+    int last_visible_widget_width;
+    int last_visible_widget_height;
 
     gboolean interpolate_size;
     gboolean can_swipe_back;
@@ -181,7 +181,7 @@ struct _AdwLeaflet {
 
     GtkPanDirection active_direction;
     gboolean is_direct_swipe;
-    gint swipe_direction;
+    int swipe_direction;
   } child_transition;
 
   AdwShadowHelper *shadow_helper;
@@ -192,7 +192,7 @@ struct _AdwLeaflet {
 
 static GParamSpec *props[LAST_PROP];
 
-static gint HOMOGENEOUS_PROP[ADW_FOLD_MAX][GTK_ORIENTATION_MAX] = {
+static int HOMOGENEOUS_PROP[ADW_FOLD_MAX][GTK_ORIENTATION_MAX] = {
   { PROP_HHOMOGENEOUS_UNFOLDED, PROP_VHOMOGENEOUS_UNFOLDED},
   { PROP_HHOMOGENEOUS_FOLDED, PROP_VHOMOGENEOUS_FOLDED},
 };
@@ -483,13 +483,13 @@ get_pan_direction (AdwLeaflet *self,
     return new_child_first ? GTK_PAN_DIRECTION_DOWN : GTK_PAN_DIRECTION_UP;
 }
 
-static gint
+static int
 get_child_window_x (AdwLeaflet     *self,
                     AdwLeafletPage *page,
-                    gint            width)
+                    int             width)
 {
   gboolean is_rtl;
-  gint rtl_multiplier;
+  int rtl_multiplier;
 
   if (!self->child_transition.is_gesture_active &&
       gtk_progress_tracker_get_state (&self->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER)
@@ -527,10 +527,10 @@ get_child_window_x (AdwLeaflet     *self,
   return 0;
 }
 
-static gint
+static int
 get_child_window_y (AdwLeaflet     *self,
                     AdwLeafletPage *page,
-                    gint            height)
+                    int             height)
 {
   if (!self->child_transition.is_gesture_active &&
       gtk_progress_tracker_get_state (&self->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER)
@@ -843,7 +843,7 @@ set_visible_child (AdwLeaflet               *self,
   }
 
   if (emit_child_switched) {
-    gint index = 0;
+    int index = 0;
     GList *l;
 
     for (l = self->children; l; l = l->next) {
@@ -984,18 +984,18 @@ set_folded (AdwLeaflet *self,
 }
 
 static void
-get_preferred_size (gint     *min,
-                    gint     *nat,
+get_preferred_size (int      *min,
+                    int      *nat,
                     gboolean  same_orientation,
                     gboolean  homogeneous_folded,
                     gboolean  homogeneous_unfolded,
-                    gint      visible_children,
+                    int       visible_children,
                     gdouble   visible_child_progress,
-                    gint      sum_nat,
-                    gint      max_min,
-                    gint      max_nat,
-                    gint      visible_min,
-                    gint      last_visible_min)
+                    int       sum_nat,
+                    int       max_min,
+                    int       max_nat,
+                    int       visible_min,
+                    int       last_visible_min)
 {
   if (same_orientation) {
     *min = homogeneous_folded ?
@@ -1015,18 +1015,18 @@ get_preferred_size (gint     *min,
 
 static void
 adw_leaflet_size_allocate_folded (AdwLeaflet *self,
-                                  gint        width,
-                                  gint        height)
+                                  int         width,
+                                  int         height)
 {
   GtkWidget *widget = GTK_WIDGET (self);
   GtkOrientation orientation = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget));
   GList *directed_children, *children;
   AdwLeafletPage *page, *visible_child;
-  gint start_size, end_size, visible_size;
-  gint remaining_start_size, remaining_end_size, remaining_size;
-  gint current_pad;
-  gint max_child_size = 0;
-  gint start_position, end_position;
+  int start_size, end_size, visible_size;
+  int remaining_start_size, remaining_end_size, remaining_size;
+  int current_pad;
+  int max_child_size = 0;
+  int start_position, end_position;
   gboolean box_homogeneous;
   AdwLeafletTransitionType mode_transition_type;
   GtkTextDirection direction;
@@ -1095,8 +1095,8 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
 
   /* Compute visible child size. */
   visible_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
-    MIN (width, MAX (visible_child->nat.width, (gint) (width * (1.0 - self->mode_transition.current_pos)))) :
-    MIN (height, MAX (visible_child->nat.height, (gint) (height * (1.0 - self->mode_transition.current_pos))));
+    MIN (width, MAX (visible_child->nat.width, (int) (width * (1.0 - self->mode_transition.current_pos)))) :
+    MIN (height, MAX (visible_child->nat.height, (int) (height * (1.0 - self->mode_transition.current_pos))));
 
   /* Compute homogeneous box child size. */
   box_homogeneous = (self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] && orientation == GTK_ORIENTATION_HORIZONTAL) ||
@@ -1141,7 +1141,7 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
   remaining_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
     width - visible_size :
     height - visible_size;
-  remaining_start_size = (gint) (remaining_size * ((gdouble) start_size / (gdouble) (start_size + end_size)));
+  remaining_start_size = (int) (remaining_size * ((gdouble) start_size / (gdouble) (start_size + end_size)));
   remaining_end_size = remaining_size - remaining_start_size;
 
   /* Store start and end allocations. */
@@ -1254,18 +1254,18 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
 
 static void
 adw_leaflet_size_allocate_unfolded (AdwLeaflet *self,
-                                    gint        width,
-                                    gint        height)
+                                    int         width,
+                                    int         height)
 {
   GtkWidget *widget = GTK_WIDGET (self);
   GtkOrientation orientation = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget));
   GtkAllocation remaining_alloc;
   GList *directed_children, *children;
   AdwLeafletPage *page, *visible_child;
-  gint homogeneous_size = 0, min_size, extra_size;
-  gint per_child_extra, n_extra_widgets;
-  gint n_visible_children, n_expand_children;
-  gint start_pad = 0, end_pad = 0;
+  int homogeneous_size = 0, min_size, extra_size;
+  int per_child_extra, n_extra_widgets;
+  int n_visible_children, n_expand_children;
+  int start_pad = 0, end_pad = 0;
   gboolean box_homogeneous;
   AdwLeafletTransitionType mode_transition_type;
   GtkTextDirection direction;
@@ -1402,12 +1402,12 @@ adw_leaflet_size_allocate_unfolded (AdwLeaflet *self,
   /* Apply animations. */
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-    start_pad = (gint) ((visible_child->alloc.x) * (1.0 - self->mode_transition.current_pos));
-    end_pad = (gint) ((width - (visible_child->alloc.x + visible_child->alloc.width)) * (1.0 - self->mode_transition.current_pos));
+    start_pad = (int) ((visible_child->alloc.x) * (1.0 - self->mode_transition.current_pos));
+    end_pad = (int) ((width - (visible_child->alloc.x + visible_child->alloc.width)) * (1.0 - self->mode_transition.current_pos));
   }
   else {
-    start_pad = (gint) ((visible_child->alloc.y) * (1.0 - self->mode_transition.current_pos));
-    end_pad = (gint) ((height - (visible_child->alloc.y + visible_child->alloc.height)) * (1.0 - self->mode_transition.current_pos));
+    start_pad = (int) ((visible_child->alloc.y) * (1.0 - self->mode_transition.current_pos));
+    end_pad = (int) ((height - (visible_child->alloc.y + visible_child->alloc.height)) * (1.0 - self->mode_transition.current_pos));
   }
 
   mode_transition_type = self->transition_type;
@@ -1651,8 +1651,8 @@ add_page (AdwLeaflet     *self,
           AdwLeafletPage *page,
           AdwLeafletPage *sibling_page)
 {
-  gint visible_child_pos_before_insert = -1;
-  gint visible_child_pos_after_insert = -1;
+  int visible_child_pos_before_insert = -1;
+  int visible_child_pos_after_insert = -1;
   GList *l;
 
   g_return_if_fail (page->widget != NULL);
@@ -1677,7 +1677,7 @@ add_page (AdwLeaflet     *self,
     self->children = g_list_prepend (self->children, page);
     self->children_reversed = g_list_append (self->children_reversed, page);
   } else {
-    gint sibling_pos = g_list_index (self->children, sibling_page);
+    int sibling_pos = g_list_index (self->children, sibling_page);
 
     self->children =
       g_list_insert (self->children, page, sibling_pos + 1);
@@ -1699,7 +1699,7 @@ add_page (AdwLeaflet     *self,
                               sibling_page ? sibling_page->widget : NULL);
 
   if (self->pages) {
-    gint position = g_list_index (self->children, page);
+    int position = g_list_index (self->children, page);
 
     g_list_model_items_changed (G_LIST_MODEL (self->pages), position, 0, 1);
   }
@@ -1768,18 +1768,18 @@ leaflet_remove (AdwLeaflet *self,
 static void
 adw_leaflet_measure (GtkWidget      *widget,
                      GtkOrientation  orientation,
-                     gint            for_size,
-                     gint           *minimum,
-                     gint           *natural,
-                     gint           *minimum_baseline,
-                     gint           *natural_baseline)
+                     int             for_size,
+                     int            *minimum,
+                     int            *natural,
+                     int            *minimum_baseline,
+                     int            *natural_baseline)
 {
   AdwLeaflet *self = ADW_LEAFLET (widget);
   GList *l;
-  gint visible_children;
+  int visible_children;
   gdouble visible_child_progress;
-  gint child_min, max_min, visible_min, last_visible_min;
-  gint child_nat, max_nat, sum_nat;
+  int child_min, max_min, visible_min, last_visible_min;
+  int child_nat, max_nat, sum_nat;
   gboolean same_orientation;
 
   visible_children = 0;
@@ -1826,9 +1826,9 @@ adw_leaflet_measure (GtkWidget      *widget,
 
 static void
 allocate_shadow (AdwLeaflet *self,
-                 gint        width,
-                 gint        height,
-                 gint        baseline)
+                 int         width,
+                 int         height,
+                 int         baseline)
 {
   AdwLeafletPage *overlap_child;
   gboolean is_transition;
@@ -1923,9 +1923,9 @@ allocate_shadow (AdwLeaflet *self,
 
 static void
 adw_leaflet_size_allocate (GtkWidget *widget,
-                           gint       width,
-                           gint       height,
-                           gint       baseline)
+                           int        width,
+                           int        height,
+                           int        baseline)
 {
   AdwLeaflet *self = ADW_LEAFLET (widget);
   GtkOrientation orientation = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget));
@@ -1945,7 +1945,7 @@ adw_leaflet_size_allocate (GtkWidget *widget,
 
   /* Check whether the children should be stacked or not. */
   if (self->can_unfold) {
-    gint nat_box_size = 0, nat_max_size = 0, visible_children = 0;
+    int nat_box_size = 0, nat_max_size = 0, visible_children = 0;
 
     if (orientation == GTK_ORIENTATION_HORIZONTAL) {
 
@@ -2566,15 +2566,15 @@ adw_leaflet_get_distance (AdwSwipeable *swipeable)
 
 static gdouble *
 adw_leaflet_get_snap_points (AdwSwipeable *swipeable,
-                             gint         *n_snap_points)
+                             int          *n_snap_points)
 {
   AdwLeaflet *self = ADW_LEAFLET (swipeable);
-  gint n;
+  int n;
   gdouble *points, lower, upper;
 
   if (self->child_transition.tick_id > 0 ||
       self->child_transition.is_gesture_active) {
-    gint current_direction;
+    int current_direction;
     gboolean is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
 
     switch (self->child_transition.active_direction) {
@@ -2656,8 +2656,8 @@ adw_leaflet_get_swipe_area (AdwSwipeable           *swipeable,
                             GdkRectangle           *rect)
 {
   AdwLeaflet *self = ADW_LEAFLET (swipeable);
-  gint width = gtk_widget_get_allocated_width (GTK_WIDGET (self));
-  gint height = gtk_widget_get_allocated_height (GTK_WIDGET (self));
+  int width = gtk_widget_get_allocated_width (GTK_WIDGET (self));
+  int height = gtk_widget_get_allocated_height (GTK_WIDGET (self));
   gdouble progress = 0;
 
   rect->x = 0;
@@ -2972,10 +2972,10 @@ adw_leaflet_reorder_child_after (AdwLeaflet *self,
 {
   AdwLeafletPage *child_page;
   AdwLeafletPage *sibling_page;
-  gint sibling_page_pos;
-  gint visible_child_pos_before_reorder;
-  gint visible_child_pos_after_reorder;
-  gint previous_position;
+  int sibling_page_pos;
+  int visible_child_pos_before_reorder;
+  int visible_child_pos_after_reorder;
+  int previous_position;
 
   g_return_if_fail (ADW_IS_LEAFLET (self));
   g_return_if_fail (GTK_IS_WIDGET (child));

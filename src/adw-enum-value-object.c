@@ -108,7 +108,7 @@ adw_enum_value_object_new (GEnumValue *enum_value)
   return self;
 }
 
-gint
+int
 adw_enum_value_object_get_value (AdwEnumValueObject *self)
 {
   g_return_val_if_fail (ADW_IS_ENUM_VALUE_OBJECT (self), 0);

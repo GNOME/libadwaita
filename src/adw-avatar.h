@@ -33,12 +33,12 @@ G_DECLARE_FINAL_TYPE (AdwAvatar, adw_avatar, ADW, AVATAR, GtkWidget)
  * Returns: (nullable) (transfer full): the #GdkPixbuf to use as a custom avatar
  * or %NULL to fallback to the generated avatar.
  */
-typedef GdkPixbuf *(*AdwAvatarImageLoadFunc) (gint     size,
+typedef GdkPixbuf *(*AdwAvatarImageLoadFunc) (int      size,
                                               gpointer user_data);
 
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget   *adw_avatar_new                 (gint                    size,
+GtkWidget   *adw_avatar_new                 (int                     size,
                                              const char             *text,
                                              gboolean                show_initials);
 ADW_AVAILABLE_IN_ALL
@@ -62,13 +62,13 @@ void         adw_avatar_set_image_load_func (AdwAvatar              *self,
                                              gpointer                user_data,
                                              GDestroyNotify          destroy);
 ADW_AVAILABLE_IN_ALL
-gint         adw_avatar_get_size            (AdwAvatar              *self);
+int          adw_avatar_get_size            (AdwAvatar              *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_avatar_set_size            (AdwAvatar              *self,
-                                             gint                    size);
+                                             int                     size);
 ADW_AVAILABLE_IN_ALL
 GdkPixbuf   *adw_avatar_draw_to_pixbuf      (AdwAvatar              *self,
-                                             gint                    size,
-                                             gint                    scale_factor);
+                                             int                     size,
+                                             int                     scale_factor);
 
 G_END_DECLS

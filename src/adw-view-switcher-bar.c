@@ -93,7 +93,7 @@ G_DEFINE_TYPE (AdwViewSwitcherBar, adw_view_switcher_bar, GTK_TYPE_WIDGET)
 
 static void
 update_bar_revealed (AdwViewSwitcherBar *self) {
-  gint count = 0;
+  int count = 0;
 
   if (!self->revealer)
     return;

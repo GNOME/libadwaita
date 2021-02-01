@@ -25,15 +25,15 @@ ADW_AVAILABLE_IN_ALL
 GtkLayoutManager *adw_clamp_layout_new (void);
 
 ADW_AVAILABLE_IN_ALL
-gint adw_clamp_layout_get_maximum_size (AdwClampLayout *self);
+int  adw_clamp_layout_get_maximum_size (AdwClampLayout *self);
 ADW_AVAILABLE_IN_ALL
 void adw_clamp_layout_set_maximum_size (AdwClampLayout *self,
-                                        gint            maximum_size);
+                                        int             maximum_size);
 
 ADW_AVAILABLE_IN_ALL
-gint adw_clamp_layout_get_tightening_threshold (AdwClampLayout *self);
+int  adw_clamp_layout_get_tightening_threshold (AdwClampLayout *self);
 ADW_AVAILABLE_IN_ALL
 void adw_clamp_layout_set_tightening_threshold (AdwClampLayout *self,
-                                                gint            tightening_threshold);
+                                                int             tightening_threshold);
 
 G_END_DECLS

@@ -484,10 +484,10 @@ adw_view_switcher_button_set_narrow_ellipsize (AdwViewSwitcherButton *self,
  */
 void
 adw_view_switcher_button_get_size (AdwViewSwitcherButton *self,
-                                   gint                  *h_min_width,
-                                   gint                  *h_nat_width,
-                                   gint                  *v_min_width,
-                                   gint                  *v_nat_width)
+                                   int                   *h_min_width,
+                                   int                   *h_nat_width,
+                                   int                   *v_min_width,
+                                   int                   *v_nat_width)
 {
   /* gtk_widget_get_preferred_width() doesn't accept both its out parameters to
    * be NULL, so we must have guards.

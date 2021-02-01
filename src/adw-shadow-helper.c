@@ -203,17 +203,17 @@ set_style_classes (AdwShadowHelper *self,
 
 void
 adw_shadow_helper_size_allocate (AdwShadowHelper *self,
-                                 gint             width,
-                                 gint             height,
-                                 gint             baseline,
-                                 gint             x,
-                                 gint             y,
+                                 int              width,
+                                 int              height,
+                                 int              baseline,
+                                 int              x,
+                                 int              y,
                                  gdouble          progress,
                                  GtkPanDirection  direction)
 {
   gdouble distance, remaining_distance;
   gdouble shadow_opacity;
-  gint shadow_size, border_size, outline_size;
+  int shadow_size, border_size, outline_size;
   GtkOrientation orientation;
 
   set_style_classes (self, direction);

@@ -31,15 +31,15 @@ void       adw_clamp_set_child (AdwClamp  *self,
                                 GtkWidget *child);
 
 ADW_AVAILABLE_IN_ALL
-gint adw_clamp_get_maximum_size (AdwClamp *self);
+int  adw_clamp_get_maximum_size (AdwClamp *self);
 ADW_AVAILABLE_IN_ALL
 void adw_clamp_set_maximum_size (AdwClamp *self,
-                                 gint      maximum_size);
+                                 int       maximum_size);
 
 ADW_AVAILABLE_IN_ALL
-gint adw_clamp_get_tightening_threshold (AdwClamp *self);
+int  adw_clamp_get_tightening_threshold (AdwClamp *self);
 ADW_AVAILABLE_IN_ALL
 void adw_clamp_set_tightening_threshold (AdwClamp *self,
-                                         gint      tightening_threshold);
+                                         int       tightening_threshold);
 
 G_END_DECLS

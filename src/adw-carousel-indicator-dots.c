@@ -47,7 +47,7 @@ struct _AdwCarouselIndicatorDots
   GtkOrientation orientation;
 
   guint tick_cb_id;
-  guint64 end_time;
+  gint64 end_time;
 };
 
 G_DEFINE_TYPE_WITH_CODE (AdwCarouselIndicatorDots, adw_carousel_indicator_dots, GTK_TYPE_WIDGET,
@@ -145,7 +145,7 @@ snapshot_dots (GtkWidget      *widget,
                guint           n_pages)
 {
   GdkRGBA color;
-  gint i, widget_length, widget_thickness;
+  int i, widget_length, widget_thickness;
   gdouble x, y, indicator_length, dot_size, full_size;
   gdouble current_position, remaining_progress;
   graphene_rect_t rect;
@@ -167,7 +167,7 @@ snapshot_dots (GtkWidget      *widget,
 
   /* Ensure the indicators are aligned to pixel grid when not animating */
   full_size = round (indicator_length / dot_size) * dot_size;
-  if ((widget_length - (gint) full_size) % 2 == 0)
+  if ((widget_length - (int) full_size) % 2 == 0)
     widget_length--;
 
   if (orientation == GTK_ORIENTATION_HORIZONTAL) {
@@ -232,17 +232,17 @@ n_pages_changed_cb (AdwCarouselIndicatorDots *self)
 static void
 adw_carousel_indicator_dots_measure (GtkWidget      *widget,
                                      GtkOrientation  orientation,
-                                     gint            for_size,
-                                     gint           *minimum,
-                                     gint           *natural,
-                                     gint           *minimum_baseline,
-                                     gint           *natural_baseline)
+                                     int             for_size,
+                                     int            *minimum,
+                                     int            *natural,
+                                     int            *minimum_baseline,
+                                     int            *natural_baseline)
 {
   AdwCarouselIndicatorDots *self = ADW_CAROUSEL_INDICATOR_DOTS (widget);
-  gint size = 0;
+  int size = 0;
 
   if (orientation == self->orientation) {
-    gint n_pages = 0;
+    int n_pages = 0;
     if (self->carousel)
       n_pages = adw_carousel_get_n_pages (self->carousel);
 
@@ -271,7 +271,7 @@ adw_carousel_indicator_dots_snapshot (GtkWidget   *widget,
                                       GtkSnapshot *snapshot)
 {
   AdwCarouselIndicatorDots *self = ADW_CAROUSEL_INDICATOR_DOTS (widget);
-  gint i, n_points;
+  int i, n_points;
   gdouble position;
   g_autofree gdouble *points = NULL;
   g_autofree gdouble *sizes = NULL;

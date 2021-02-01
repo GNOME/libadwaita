@@ -31,15 +31,15 @@ void       adw_clamp_scrollable_set_child (AdwClampScrollable *self,
                                            GtkWidget          *child);
 
 ADW_AVAILABLE_IN_ALL
-gint adw_clamp_scrollable_get_maximum_size (AdwClampScrollable *self);
+int  adw_clamp_scrollable_get_maximum_size (AdwClampScrollable *self);
 ADW_AVAILABLE_IN_ALL
 void adw_clamp_scrollable_set_maximum_size (AdwClampScrollable *self,
-                                            gint                maximum_size);
+                                            int                 maximum_size);
 
 ADW_AVAILABLE_IN_ALL
-gint adw_clamp_scrollable_get_tightening_threshold (AdwClampScrollable *self);
+int  adw_clamp_scrollable_get_tightening_threshold (AdwClampScrollable *self);
 ADW_AVAILABLE_IN_ALL
 void adw_clamp_scrollable_set_tightening_threshold (AdwClampScrollable *self,
-                                                    gint                tightening_threshold);
+                                                    int                 tightening_threshold);
 
 G_END_DECLS

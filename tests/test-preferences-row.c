@@ -43,8 +43,8 @@ test_adw_preferences_row_use_undeline (void)
 }
 
 
-gint
-main (gint argc,
+int
+main (int   argc,
       char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);

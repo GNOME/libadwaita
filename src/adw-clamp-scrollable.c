@@ -436,7 +436,7 @@ adw_clamp_scrollable_set_child (AdwClampScrollable *self,
  *
  * Since: 1.0
  */
-gint
+int
 adw_clamp_scrollable_get_maximum_size (AdwClampScrollable *self)
 {
   AdwClampLayout *layout;
@@ -460,7 +460,7 @@ adw_clamp_scrollable_get_maximum_size (AdwClampScrollable *self)
  */
 void
 adw_clamp_scrollable_set_maximum_size (AdwClampScrollable *self,
-                                       gint                maximum_size)
+                                       int                 maximum_size)
 {
   AdwClampLayout *layout;
 
@@ -488,7 +488,7 @@ adw_clamp_scrollable_set_maximum_size (AdwClampScrollable *self,
  *
  * Since: 1.0
  */
-gint
+int
 adw_clamp_scrollable_get_tightening_threshold (AdwClampScrollable *self)
 {
   AdwClampLayout *layout;
@@ -512,7 +512,7 @@ adw_clamp_scrollable_get_tightening_threshold (AdwClampScrollable *self)
  */
 void
 adw_clamp_scrollable_set_tightening_threshold (AdwClampScrollable *self,
-                                               gint                tightening_threshold)
+                                               int                 tightening_threshold)
 {
   AdwClampLayout *layout;
 

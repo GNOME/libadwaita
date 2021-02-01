@@ -99,7 +99,7 @@ static void
 update_view_switcher_visible (AdwViewSwitcherTitle *self)
 {
   AdwSqueezerPage *switcher_page;
-  gint count = 0;
+  int count = 0;
 
   if (!self->squeezer)
     return;

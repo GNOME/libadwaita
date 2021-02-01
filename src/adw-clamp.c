@@ -309,7 +309,7 @@ adw_clamp_set_child (AdwClamp  *self,
  *
  * Since: 1.0
  */
-gint
+int
 adw_clamp_get_maximum_size (AdwClamp *self)
 {
   AdwClampLayout *layout;
@@ -333,7 +333,7 @@ adw_clamp_get_maximum_size (AdwClamp *self)
  */
 void
 adw_clamp_set_maximum_size (AdwClamp *self,
-                            gint      maximum_size)
+                            int       maximum_size)
 {
   AdwClampLayout *layout;
 
@@ -361,7 +361,7 @@ adw_clamp_set_maximum_size (AdwClamp *self,
  *
  * Since: 1.0
  */
-gint
+int
 adw_clamp_get_tightening_threshold (AdwClamp *self)
 {
   AdwClampLayout *layout;
@@ -385,7 +385,7 @@ adw_clamp_get_tightening_threshold (AdwClamp *self)
  */
 void
 adw_clamp_set_tightening_threshold (AdwClamp *self,
-                                    gint      tightening_threshold)
+                                    int       tightening_threshold)
 {
   AdwClampLayout *layout;
 

@@ -181,7 +181,7 @@ adw_enum_list_model_get_enum_type (AdwEnumListModel *self)
 
 guint
 adw_enum_list_model_find_position (AdwEnumListModel *self,
-                                   gint              value)
+                                   int               value)
 {
   guint i;
 

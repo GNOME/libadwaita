@@ -238,13 +238,13 @@ avatar_file_remove_cb (AdwDemoWindow *self)
 }
 
 static GdkPixbuf *
-avatar_load_file (gint size, AdwDemoWindow *self)
+avatar_load_file (int size, AdwDemoWindow *self)
 {
   g_autoptr (GError) error = NULL;
   g_autoptr (GdkPixbuf) pixbuf = NULL;
   g_autoptr (GFile) file = NULL;
   g_autofree char *filename = NULL;
-  gint width, height;
+  int width, height;
 
   g_assert (ADW_IS_DEMO_WINDOW (self));
 
@@ -269,7 +269,7 @@ avatar_load_file (gint size, AdwDemoWindow *self)
 
 static void
 avatar_file_chooser_response_cb (AdwDemoWindow *self,
-                                 gint           response)
+                                 int            response)
 {
   g_autoptr (GFile) file = NULL;
   g_autoptr (GFileInfo) info = NULL;
@@ -302,7 +302,7 @@ avatar_file_chooser_clicked_cb (AdwDemoWindow *self)
 
 static void
 file_chooser_response_cb (AdwDemoWindow  *self,
-                          gint            response_id,
+                          int             response_id,
                           GtkFileChooser *chooser)
 {
   if (response_id == GTK_RESPONSE_ACCEPT) {
