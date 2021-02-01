@@ -86,16 +86,16 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_squeezer_get_visible_child (AdwSqueezer *self);
 
 ADW_AVAILABLE_IN_ALL
-gfloat adw_squeezer_get_xalign (AdwSqueezer *self);
+float adw_squeezer_get_xalign (AdwSqueezer *self);
 ADW_AVAILABLE_IN_ALL
-void   adw_squeezer_set_xalign (AdwSqueezer *self,
-                                gfloat       xalign);
+void  adw_squeezer_set_xalign (AdwSqueezer *self,
+                               float       xalign);
 
 ADW_AVAILABLE_IN_ALL
-gfloat adw_squeezer_get_yalign (AdwSqueezer *self);
+float adw_squeezer_get_yalign (AdwSqueezer *self);
 ADW_AVAILABLE_IN_ALL
-void   adw_squeezer_set_yalign (AdwSqueezer *self,
-                                gfloat       yalign);
+void  adw_squeezer_set_yalign (AdwSqueezer *self,
+                               float       yalign);
 
 ADW_AVAILABLE_IN_ALL
 GtkSelectionModel *adw_squeezer_get_pages (AdwSqueezer *self);

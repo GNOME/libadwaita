@@ -74,7 +74,7 @@ tab_sort_func (gconstpointer a,
   GtkWidget *child1 = *((GtkWidget **) a);
   GtkWidget *child2 = *((GtkWidget **) b);
   GtkTextDirection text_direction = GPOINTER_TO_INT (user_data);
-  gfloat y1, y2;
+  float y1, y2;
 
   if (!gtk_widget_compute_bounds (child1, gtk_widget_get_parent (child1), &child_bounds1) ||
       !gtk_widget_compute_bounds (child2, gtk_widget_get_parent (child2), &child_bounds2))
@@ -84,8 +84,8 @@ tab_sort_func (gconstpointer a,
   y2 = child_bounds2.origin.y + (child_bounds2.size.height / 2.0f);
 
   if (y1 == y2) {
-    const gfloat x1 = child_bounds1.origin.x + (child_bounds1.size.width / 2.0f);
-    const gfloat x2 = child_bounds2.origin.x + (child_bounds2.size.width / 2.0f);
+    const float x1 = child_bounds1.origin.x + (child_bounds1.size.width / 2.0f);
+    const float x2 = child_bounds2.origin.x + (child_bounds2.size.width / 2.0f);
 
     if (text_direction == GTK_TEXT_DIR_RTL)
       return (x1 < x2) ? 1 : ((x1 == x2) ? 0 : -1);
@@ -210,9 +210,9 @@ focus_sort_left_right (GtkWidget        *widget,
     old_focus = find_old_focus (widget, focus_order);
 
   if (old_focus && gtk_widget_compute_bounds (old_focus, widget, &old_bounds)) {
-    gfloat compare_y1;
-    gfloat compare_y2;
-    gfloat compare_x;
+    float compare_y1;
+    float compare_y2;
+    float compare_x;
     int i;
 
     /* Delete widgets from list that don't match minimum criteria */
@@ -232,8 +232,8 @@ focus_sort_left_right (GtkWidget        *widget,
         graphene_rect_t child_bounds;
 
         if (gtk_widget_compute_bounds (child, widget, &child_bounds)) {
-          const gfloat child_y1 = child_bounds.origin.y;
-          const gfloat child_y2 = child_bounds.origin.y + child_bounds.size.height;
+          const float child_y1 = child_bounds.origin.y;
+          const float child_y2 = child_bounds.origin.y + child_bounds.size.height;
 
           if ((child_y2 <= compare_y1 || child_y1 >= compare_y2) /* No vertical overlap */ ||
               (direction == GTK_DIR_RIGHT && child_bounds.origin.x + child_bounds.size.width < compare_x) || /* Not to left */
@@ -299,9 +299,9 @@ focus_sort_up_down (GtkWidget        *widget,
     old_focus = find_old_focus (widget, focus_order);
 
   if (old_focus && gtk_widget_compute_bounds (old_focus, widget, &old_bounds)) {
-    gfloat compare_x1;
-    gfloat compare_x2;
-    gfloat compare_y;
+    float compare_x1;
+    float compare_x2;
+    float compare_y;
     int i;
 
     /* Delete widgets from list that don't match minimum criteria */
@@ -321,8 +321,8 @@ focus_sort_up_down (GtkWidget        *widget,
         graphene_rect_t child_bounds;
 
         if (gtk_widget_compute_bounds (child, widget, &child_bounds)) {
-          const gfloat child_x1 = child_bounds.origin.x;
-          const gfloat child_x2 = child_bounds.origin.x + child_bounds.size.width;
+          const float child_x1 = child_bounds.origin.x;
+          const float child_x2 = child_bounds.origin.x + child_bounds.size.width;
 
           if ((child_x2 <= compare_x1 || child_x1 >= compare_x2) /* No horizontal overlap */ ||
               (direction == GTK_DIR_DOWN && child_bounds.origin.y + child_bounds.size.height < compare_y) || /* Not below */

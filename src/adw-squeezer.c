@@ -97,8 +97,8 @@ struct _AdwSqueezer
 
   gboolean interpolate_size;
 
-  gfloat xalign;
-  gfloat yalign;
+  float xalign;
+  float yalign;
 
   GtkOrientation orientation;
 
@@ -1582,7 +1582,7 @@ adw_squeezer_get_visible_child (AdwSqueezer *self)
  *
  * Since: 1.0
  */
-gfloat
+float
 adw_squeezer_get_xalign (AdwSqueezer *self)
 {
   g_return_val_if_fail (ADW_IS_SQUEEZER (self), 0.5);
@@ -1601,7 +1601,7 @@ adw_squeezer_get_xalign (AdwSqueezer *self)
  */
 void
 adw_squeezer_set_xalign (AdwSqueezer *self,
-                         gfloat       xalign)
+                         float        xalign)
 {
   g_return_if_fail (ADW_IS_SQUEEZER (self));
 
@@ -1625,7 +1625,7 @@ adw_squeezer_set_xalign (AdwSqueezer *self,
  *
  * Since: 1.0
  */
-gfloat
+float
 adw_squeezer_get_yalign (AdwSqueezer *self)
 {
   g_return_val_if_fail (ADW_IS_SQUEEZER (self), 0.5);
@@ -1644,7 +1644,7 @@ adw_squeezer_get_yalign (AdwSqueezer *self)
  */
 void
 adw_squeezer_set_yalign (AdwSqueezer *self,
-                         gfloat       yalign)
+                         float        yalign)
 {
   g_return_if_fail (ADW_IS_SQUEEZER (self));
 
