@@ -1780,6 +1780,7 @@ adw_leaflet_measure (GtkWidget      *widget,
   gdouble visible_child_progress;
   gint child_min, max_min, visible_min, last_visible_min;
   gint child_nat, max_nat, sum_nat;
+  gboolean same_orientation;
 
   visible_children = 0;
   child_min = max_min = visible_min = last_visible_min = 0;
@@ -1813,8 +1814,10 @@ adw_leaflet_measure (GtkWidget      *widget,
 
   visible_child_progress = self->child_transition.interpolate_size ? self->child_transition.progress : 1.0;
 
+  same_orientation = orientation == gtk_orientable_get_orientation (GTK_ORIENTABLE (self));
+
   get_preferred_size (minimum, natural,
-                      gtk_orientable_get_orientation (GTK_ORIENTABLE (self)) == orientation,
+                      same_orientation && self->can_unfold,
                       self->homogeneous[ADW_FOLD_FOLDED][orientation],
                       self->homogeneous[ADW_FOLD_UNFOLDED][orientation],
                       visible_children, visible_child_progress,
