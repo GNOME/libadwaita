@@ -141,7 +141,7 @@ adw_swipeable_get_swipe_tracker (AdwSwipeable *self)
  *
  * Since: 1.0
  */
-gdouble
+double
 adw_swipeable_get_distance (AdwSwipeable *self)
 {
   AdwSwipeableInterface *iface;
@@ -167,7 +167,7 @@ adw_swipeable_get_distance (AdwSwipeable *self)
  *
  * Since: 1.0
  */
-gdouble *
+double *
 adw_swipeable_get_snap_points (AdwSwipeable *self,
                                int          *n_snap_points)
 {
@@ -191,7 +191,7 @@ adw_swipeable_get_snap_points (AdwSwipeable *self,
  *
  * Since: 1.0
  */
-gdouble
+double
 adw_swipeable_get_progress (AdwSwipeable *self)
 {
   AdwSwipeableInterface *iface;
@@ -214,7 +214,7 @@ adw_swipeable_get_progress (AdwSwipeable *self)
  *
  * Since: 1.0
  */
-gdouble
+double
 adw_swipeable_get_cancel_progress (AdwSwipeable *self)
 {
   AdwSwipeableInterface *iface;

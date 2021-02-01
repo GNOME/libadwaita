@@ -159,7 +159,7 @@ static void
 test_adw_flap_reveal_progress (void)
 {
   g_autoptr (AdwFlap) flap = NULL;
-  gdouble progress;
+  double progress;
 
   flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);

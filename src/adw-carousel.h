@@ -58,7 +58,7 @@ GtkWidget      *adw_carousel_get_nth_page (AdwCarousel *self,
 ADW_AVAILABLE_IN_ALL
 guint           adw_carousel_get_n_pages (AdwCarousel *self);
 ADW_AVAILABLE_IN_ALL
-gdouble         adw_carousel_get_position (AdwCarousel *self);
+double          adw_carousel_get_position (AdwCarousel *self);
 
 ADW_AVAILABLE_IN_ALL
 gboolean        adw_carousel_get_interactive (AdwCarousel *self);

@@ -236,10 +236,10 @@ static void
 update_font_size (AdwAvatar *self)
 {
   int width, height;
-  gdouble padding;
-  gdouble sqr_size;
-  gdouble max_size;
-  gdouble new_font_size;
+  double padding;
+  double sqr_size;
+  double max_size;
+  double new_font_size;
   PangoAttrList *attributes;
 
   if (self->texture != NULL ||
@@ -255,14 +255,14 @@ update_font_size (AdwAvatar *self)
   pango_layout_get_pixel_size (gtk_label_get_layout (self->label), &width, &height);
 
   /* This is the size of the biggest square fitting inside the circle */
-  sqr_size = (gdouble) self->size / 1.4142;
+  sqr_size = (double) self->size / 1.4142;
   /* The padding has to be a function of the overall size.
    * The 0.4 is how steep the linear function grows and the -5 is just
    * an adjustment for smaller sizes which doesn't have a big impact on bigger sizes.
    * Make also sure we don't have a negative padding */
   padding = MAX (self->size * 0.4 - 5, 0);
   max_size = sqr_size - padding;
-  new_font_size = (gdouble) height * (max_size / (gdouble) width);
+  new_font_size = (double) height * (max_size / (double) width);
 
   pango_attr_list_change (attributes, pango_attr_size_new_absolute (CLAMP (new_font_size, 0, max_size) * PANGO_SCALE));
   gtk_label_set_attributes (self->label, attributes);

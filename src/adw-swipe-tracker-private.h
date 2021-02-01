@@ -20,9 +20,9 @@ void adw_swipe_tracker_emit_begin_swipe (AdwSwipeTracker        *self,
                                          AdwNavigationDirection  direction,
                                          gboolean                direct);
 void adw_swipe_tracker_emit_update_swipe (AdwSwipeTracker *self,
-                                          gdouble          progress);
+                                          double           progress);
 void adw_swipe_tracker_emit_end_swipe (AdwSwipeTracker *self,
                                        gint64           duration,
-                                       gdouble          to);
+                                       double           to);
 
 G_END_DECLS

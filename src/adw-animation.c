@@ -26,10 +26,10 @@ struct _AdwAnimation
 
   GtkWidget *widget;
 
-  gdouble value;
+  double value;
 
-  gdouble value_from;
-  gdouble value_to;
+  double value_from;
+  double value_to;
   gint64 duration; /* ms */
 
   gint64 start_time; /* ms */
@@ -43,7 +43,7 @@ struct _AdwAnimation
 
 static void
 set_value (AdwAnimation *self,
-           gdouble       value)
+           double        value)
 {
   self->value = value;
   self->value_cb (value, self->user_data);
@@ -55,7 +55,7 @@ tick_cb (GtkWidget     *widget,
          AdwAnimation  *self)
 {
   gint64 frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000; /* ms */
-  gdouble t = (gdouble) (frame_time - self->start_time) / self->duration;
+  double t = (double) (frame_time - self->start_time) / self->duration;
 
   if (t >= 1) {
     self->tick_cb_id = 0;
@@ -84,8 +84,8 @@ adw_animation_free (AdwAnimation *self)
 
 AdwAnimation *
 adw_animation_new (GtkWidget                 *widget,
-                   gdouble                    from,
-                   gdouble                    to,
+                   double                     from,
+                   double                     to,
                    gint64                     duration,
                    AdwAnimationEasingFunc     easing_func,
                    AdwAnimationValueCallback  value_cb,
@@ -177,7 +177,7 @@ adw_animation_stop (AdwAnimation *self)
   self->done_cb (self->user_data);
 }
 
-gdouble
+double
 adw_animation_get_value (AdwAnimation *self)
 {
   g_return_val_if_fail (self != NULL, 0.0);
@@ -222,8 +222,8 @@ adw_get_enable_animations (GtkWidget *widget)
  *
  * Since: 1.0
  */
-gdouble
-adw_lerp (gdouble a, gdouble b, gdouble t)
+double
+adw_lerp (double a, double b, double t)
 {
   return a * (1.0 - t) + b * t;
 }
@@ -242,9 +242,9 @@ adw_lerp (gdouble a, gdouble b, gdouble t)
  *
  * Since: 1.0
  */
-gdouble
-adw_ease_out_cubic (gdouble t)
+double
+adw_ease_out_cubic (double t)
 {
-  gdouble p = t - 1;
+  double p = t - 1;
   return p * p * p + 1;
 }

@@ -109,7 +109,7 @@ begin_swipe_cb (AdwSwipeTracker        *tracker,
 
 static void
 update_swipe_cb (AdwSwipeTracker *tracker,
-                 gdouble          progress,
+                 double           progress,
                  AdwCarousel     *self)
 {
   adw_carousel_box_set_position (self->scrolling_box, progress);
@@ -118,7 +118,7 @@ update_swipe_cb (AdwSwipeTracker *tracker,
 static void
 end_swipe_cb (AdwSwipeTracker *tracker,
               gint64           duration,
-              gdouble          to,
+              double           to,
               AdwCarousel     *self)
 {
   GtkWidget *child;
@@ -135,7 +135,7 @@ adw_carousel_get_swipe_tracker (AdwSwipeable *swipeable)
   return self->tracker;
 }
 
-static gdouble
+static double
 adw_carousel_get_distance (AdwSwipeable *swipeable)
 {
   AdwCarousel *self = ADW_CAROUSEL (swipeable);
@@ -143,7 +143,7 @@ adw_carousel_get_distance (AdwSwipeable *swipeable)
   return adw_carousel_box_get_distance (self->scrolling_box);
 }
 
-static gdouble *
+static double *
 adw_carousel_get_snap_points (AdwSwipeable *swipeable,
                               int          *n_snap_points)
 {
@@ -153,7 +153,7 @@ adw_carousel_get_snap_points (AdwSwipeable *swipeable,
                                            n_snap_points);
 }
 
-static gdouble
+static double
 adw_carousel_get_progress (AdwSwipeable *swipeable)
 {
   AdwCarousel *self = ADW_CAROUSEL (swipeable);
@@ -161,7 +161,7 @@ adw_carousel_get_progress (AdwSwipeable *swipeable)
   return adw_carousel_get_position (self);
 }
 
-static gdouble
+static double
 adw_carousel_get_cancel_progress (AdwSwipeable *swipeable)
 {
   AdwCarousel *self = ADW_CAROUSEL (swipeable);
@@ -214,7 +214,7 @@ animation_stopped_cb (AdwCarousel    *self,
 
 static void
 position_shifted_cb (AdwCarousel    *self,
-                     gdouble         delta,
+                     double          delta,
                      AdwCarouselBox *box)
 {
   adw_swipe_tracker_shift_position (self->tracker, delta);
@@ -265,8 +265,8 @@ scroll_timeout_cb (AdwCarousel *self)
 
 static gboolean
 scroll_cb (AdwCarousel              *self,
-           gdouble                   dx,
-           gdouble                   dy,
+           double                    dx,
+           double                    dy,
            GtkEventControllerScroll *controller)
 {
   GdkDevice *source_device;
@@ -904,7 +904,7 @@ adw_carousel_get_n_pages (AdwCarousel *self)
  *
  * Since: 1.0
  */
-gdouble
+double
 adw_carousel_get_position (AdwCarousel *self)
 {
   g_return_val_if_fail (ADW_IS_CAROUSEL (self), 0);

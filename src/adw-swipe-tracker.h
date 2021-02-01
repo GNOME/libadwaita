@@ -54,6 +54,6 @@ void             adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
 
 ADW_AVAILABLE_IN_ALL
 void             adw_swipe_tracker_shift_position (AdwSwipeTracker *self,
-                                                   gdouble          delta);
+                                                   double           delta);
 
 G_END_DECLS

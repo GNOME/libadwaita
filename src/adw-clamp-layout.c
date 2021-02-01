@@ -149,7 +149,7 @@ get_child_size (AdwClampLayout *self,
                 int            *upper_threshold)
 {
   int min = 0, max = 0, lower = 0, upper = 0;
-  gdouble amplitude, progress;
+  double amplitude, progress;
 
   if (gtk_widget_get_visible (child))
     gtk_widget_measure (child, self->orientation, -1, &min, NULL, NULL, NULL);

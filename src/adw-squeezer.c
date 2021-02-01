@@ -772,7 +772,7 @@ adw_squeezer_snapshot_crossfade (GtkWidget   *widget,
                                  GtkSnapshot *snapshot)
 {
   AdwSqueezer *self = ADW_SQUEEZER (widget);
-  gdouble progress = gtk_progress_tracker_get_progress (&self->tracker, FALSE);
+  double progress = gtk_progress_tracker_get_progress (&self->tracker, FALSE);
 
   gtk_snapshot_push_cross_fade (snapshot, progress);
 
@@ -968,7 +968,7 @@ adw_squeezer_measure (GtkWidget      *widget,
   if (self->orientation != orientation && !self->homogeneous &&
       self->interpolate_size &&
       self->last_visible_child != NULL) {
-    gdouble t = gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE);
+    double t = gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE);
 
     if (orientation == GTK_ORIENTATION_VERTICAL) {
       min = adw_lerp (self->last_visible_widget_height, min, t);

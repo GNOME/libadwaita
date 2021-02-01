@@ -57,7 +57,7 @@ typedef enum {
 } AdwSwipeTrackerState;
 
 typedef struct {
-  gdouble delta;
+  double delta;
   guint32 time;
 } EventHistoryRecord;
 
@@ -72,20 +72,20 @@ struct _AdwSwipeTracker
   gboolean allow_long_swipes;
   GtkOrientation orientation;
 
-  gdouble pointer_x;
-  gdouble pointer_y;
+  double pointer_x;
+  double pointer_y;
 
   GArray *event_history;
 
-  gdouble start_x;
-  gdouble start_y;
+  double start_x;
+  double start_y;
   gboolean use_capture_phase;
 
-  gdouble initial_progress;
-  gdouble progress;
+  double initial_progress;
+  double progress;
   gboolean cancelled;
 
-  gdouble prev_offset;
+  double prev_offset;
 
   AdwSwipeTrackerState state;
 
@@ -143,10 +143,10 @@ reset (AdwSwipeTracker *self)
 
 static void
 get_range (AdwSwipeTracker *self,
-           gdouble         *first,
-           gdouble         *last)
+           double          *first,
+           double          *last)
 {
-  g_autofree gdouble *points = NULL;
+  g_autofree double *points = NULL;
   int n;
 
   points = adw_swipeable_get_snap_points (self->swipeable, &n);
@@ -204,7 +204,7 @@ trim_history (AdwSwipeTracker *self,
 
 static void
 append_to_history (AdwSwipeTracker *self,
-                   gdouble          delta,
+                   double           delta,
                    guint32          time)
 {
   EventHistoryRecord record;
@@ -217,10 +217,10 @@ append_to_history (AdwSwipeTracker *self,
   g_array_append_val (self->event_history, record);
 }
 
-static gdouble
+static double
 calculate_velocity (AdwSwipeTracker *self)
 {
-  gdouble total_delta = 0;
+  double total_delta = 0;
   guint32 first_time = 0, last_time = 0;
   guint i;
 
@@ -252,9 +252,9 @@ gesture_begin (AdwSwipeTracker *self)
 }
 
 static int
-find_closest_point (gdouble *points,
-                    int      n,
-                    gdouble  pos)
+find_closest_point (double *points,
+                    int     n,
+                    double  pos)
 {
   guint i, min = 0;
 
@@ -266,9 +266,9 @@ find_closest_point (gdouble *points,
 }
 
 static int
-find_next_point (gdouble *points,
-                 int      n,
-                 gdouble  pos)
+find_next_point (double *points,
+                 int     n,
+                 double  pos)
 {
   guint i;
 
@@ -280,9 +280,9 @@ find_next_point (gdouble *points,
 }
 
 static int
-find_previous_point (gdouble *points,
-                     int      n,
-                     gdouble  pos)
+find_previous_point (double *points,
+                     int     n,
+                     double  pos)
 {
   int i;
 
@@ -295,10 +295,10 @@ find_previous_point (gdouble *points,
 
 static int
 find_point_for_projection (AdwSwipeTracker *self,
-                           gdouble         *points,
+                           double          *points,
                            int              n,
-                           gdouble          pos,
-                           gdouble          velocity)
+                           double           pos,
+                           double           velocity)
 {
   int initial = find_closest_point (points, n, self->initial_progress);
   int prev = find_previous_point (points, n, pos);
@@ -312,11 +312,11 @@ find_point_for_projection (AdwSwipeTracker *self,
 
 static void
 get_bounds (AdwSwipeTracker *self,
-            gdouble         *points,
+            double          *points,
             int              n,
-            gdouble          pos,
-            gdouble         *lower,
-            gdouble         *upper)
+            double           pos,
+            double          *lower,
+            double          *upper)
 {
   int prev, next;
   int closest = find_closest_point (points, n, pos);
@@ -334,17 +334,17 @@ get_bounds (AdwSwipeTracker *self,
 
 static void
 gesture_update (AdwSwipeTracker *self,
-                gdouble          delta,
+                double           delta,
                 guint32          time)
 {
-  gdouble lower, upper;
-  gdouble progress;
+  double lower, upper;
+  double progress;
 
   if (self->state != ADW_SWIPE_TRACKER_STATE_SCROLLING)
     return;
 
   if (!self->allow_long_swipes) {
-    g_autofree gdouble *points = NULL;
+    g_autofree double *points = NULL;
     int n;
 
     points = adw_swipeable_get_snap_points (self->swipeable, &n);
@@ -361,13 +361,13 @@ gesture_update (AdwSwipeTracker *self,
   adw_swipe_tracker_emit_update_swipe (self, progress);
 }
 
-static gdouble
+static double
 get_end_progress (AdwSwipeTracker *self,
-                  gdouble          velocity,
+                  double           velocity,
                   gboolean         is_touchpad)
 {
-  gdouble pos, decel, slope;
-  g_autofree gdouble *points = NULL;
+  double pos, decel, slope;
+  g_autofree double *points = NULL;
   int n;
 
   if (self->cancelled)
@@ -382,8 +382,8 @@ get_end_progress (AdwSwipeTracker *self,
   slope = decel / (1.0 - decel) / 1000.0;
 
   if (ABS (velocity) > VELOCITY_CURVE_THRESHOLD) {
-    const gdouble c = slope / 2 / DECELERATION_PARABOLA_MULTIPLIER;
-    const gdouble x = ABS (velocity) - VELOCITY_CURVE_THRESHOLD + c;
+    const double c = slope / 2 / DECELERATION_PARABOLA_MULTIPLIER;
+    const double x = ABS (velocity) - VELOCITY_CURVE_THRESHOLD + c;
 
     pos = DECELERATION_PARABOLA_MULTIPLIER * x * x
         - DECELERATION_PARABOLA_MULTIPLIER * c * c
@@ -395,7 +395,7 @@ get_end_progress (AdwSwipeTracker *self,
   pos = (pos * SIGN (velocity)) + self->progress;
 
   if (!self->allow_long_swipes) {
-    gdouble lower, upper;
+    double lower, upper;
 
     get_bounds (self, points, n, self->initial_progress, &lower, &upper);
 
@@ -409,11 +409,11 @@ get_end_progress (AdwSwipeTracker *self,
 
 static void
 gesture_end (AdwSwipeTracker *self,
-             gdouble          distance,
+             double           distance,
              guint32          time,
              gboolean         is_touchpad)
 {
-  gdouble end_progress, velocity;
+  double end_progress, velocity;
   gint64 duration, max_duration;
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_NONE)
@@ -446,7 +446,7 @@ gesture_end (AdwSwipeTracker *self,
 
 static void
 gesture_cancel (AdwSwipeTracker *self,
-                gdouble          distance,
+                double           distance,
                 guint32          time,
                 gboolean         is_touchpad)
 {
@@ -517,8 +517,8 @@ should_force_drag (AdwSwipeTracker *self,
 
 static void
 drag_capture_begin_cb (AdwSwipeTracker *self,
-                       gdouble          start_x,
-                       gdouble          start_y,
+                       double           start_x,
+                       double           start_y,
                        GtkGestureDrag  *gesture)
 {
   GtkWidget *widget;
@@ -548,8 +548,8 @@ drag_capture_begin_cb (AdwSwipeTracker *self,
 
 static void
 drag_begin_cb (AdwSwipeTracker *self,
-               gdouble          start_x,
-               gdouble          start_y,
+               double           start_x,
+               double           start_y,
                GtkGestureDrag  *gesture)
 {
   GtkWidget *widget;
@@ -577,11 +577,11 @@ drag_begin_cb (AdwSwipeTracker *self,
 
 static void
 drag_update_cb (AdwSwipeTracker *self,
-                gdouble          offset_x,
-                gdouble          offset_y,
+                double           offset_x,
+                double           offset_y,
                 GtkGestureDrag  *gesture)
 {
-  gdouble offset, distance, delta;
+  double offset, distance, delta;
   gboolean is_vertical, is_offset_vertical;
   guint32 time;
 
@@ -616,8 +616,8 @@ drag_update_cb (AdwSwipeTracker *self,
   }
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_PENDING) {
-    gdouble drag_distance;
-    gdouble first_point, last_point;
+    double drag_distance;
+    double first_point, last_point;
     gboolean is_overshooting;
 
     get_range (self, &first_point, &last_point);
@@ -643,11 +643,11 @@ drag_update_cb (AdwSwipeTracker *self,
 
 static void
 drag_end_cb (AdwSwipeTracker *self,
-             gdouble          offset_x,
-             gdouble          offset_y,
+             double           offset_x,
+             double           offset_y,
              GtkGestureDrag  *gesture)
 {
-  gdouble distance;
+  double distance;
   guint32 time;
 
   distance = adw_swipeable_get_distance (self->swipeable);
@@ -676,7 +676,7 @@ drag_cancel_cb (AdwSwipeTracker  *self,
                 GtkGesture       *gesture)
 {
   guint32 time;
-  gdouble distance;
+  double distance;
 
   distance = adw_swipeable_get_distance (self->swipeable);
 
@@ -692,7 +692,7 @@ handle_scroll_event (AdwSwipeTracker *self,
 {
   GdkDevice *source_device;
   GdkInputSource input_source;
-  gdouble dx, dy, delta, distance;
+  double dx, dy, delta, distance;
   gboolean is_vertical;
   guint32 time;
 
@@ -733,7 +733,7 @@ handle_scroll_event (AdwSwipeTracker *self,
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_PENDING) {
     gboolean is_overshooting;
-    gdouble first_point, last_point;
+    double first_point, last_point;
 
     get_range (self, &first_point, &last_point);
 
@@ -781,8 +781,8 @@ scroll_begin_cb (AdwSwipeTracker          *self,
 
 static gboolean
 scroll_cb (AdwSwipeTracker          *self,
-           gdouble                   dx,
-           gdouble                   dy,
+           double                    dx,
+           double                    dy,
            GtkEventControllerScroll *controller)
 {
   GdkEvent *event;
@@ -811,8 +811,8 @@ scroll_end_cb (AdwSwipeTracker          *self,
 
 static void
 motion_cb (AdwSwipeTracker          *self,
-           gdouble                   x,
-           gdouble                   y,
+           double                    x,
+           double                    y,
            GtkEventControllerMotion *controller)
 {
   self->pointer_x = x;
@@ -1414,7 +1414,7 @@ adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
  */
 void
 adw_swipe_tracker_shift_position (AdwSwipeTracker *self,
-                                  gdouble          delta)
+                                  double           delta)
 {
   g_return_if_fail (ADW_IS_SWIPE_TRACKER (self));
 
@@ -1438,7 +1438,7 @@ adw_swipe_tracker_emit_begin_swipe (AdwSwipeTracker        *self,
 
 void
 adw_swipe_tracker_emit_update_swipe (AdwSwipeTracker *self,
-                                     gdouble          progress)
+                                     double           progress)
 {
   g_return_if_fail (ADW_IS_SWIPE_TRACKER (self));
 
@@ -1448,7 +1448,7 @@ adw_swipe_tracker_emit_update_swipe (AdwSwipeTracker *self,
 void
 adw_swipe_tracker_emit_end_swipe (AdwSwipeTracker *self,
                                   gint64           duration,
-                                  gdouble          to)
+                                  double           to)
 {
   g_return_if_fail (ADW_IS_SWIPE_TRACKER (self));
 

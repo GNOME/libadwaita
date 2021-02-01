@@ -35,8 +35,8 @@ typedef void     (* AdwGizmoAllocateFunc) (AdwGizmo *self,
 typedef void     (* AdwGizmoSnapshotFunc) (AdwGizmo    *self,
                                            GtkSnapshot *snapshot);
 typedef gboolean (* AdwGizmoContainsFunc) (AdwGizmo *self,
-                                           gdouble   x,
-                                           gdouble   y);
+                                           double    x,
+                                           double    y);
 typedef gboolean (* AdwGizmoFocusFunc)    (AdwGizmo         *self,
                                            GtkDirectionType  direction);
 typedef gboolean (* AdwGizmoGrabFocusFunc)(AdwGizmo         *self);

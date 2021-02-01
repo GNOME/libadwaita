@@ -140,14 +140,14 @@ static void
 snapshot_dots (GtkWidget      *widget,
                GtkSnapshot    *snapshot,
                GtkOrientation  orientation,
-               gdouble         position,
-               gdouble        *sizes,
+               double          position,
+               double         *sizes,
                guint           n_pages)
 {
   GdkRGBA color;
   int i, widget_length, widget_thickness;
-  gdouble x, y, indicator_length, dot_size, full_size;
-  gdouble current_position, remaining_progress;
+  double x, y, indicator_length, dot_size, full_size;
+  double current_position, remaining_progress;
   graphene_rect_t rect;
 
   color = get_color (widget);
@@ -184,7 +184,7 @@ snapshot_dots (GtkWidget      *widget,
   graphene_rect_init (&rect, -DOTS_RADIUS, -DOTS_RADIUS, DOTS_RADIUS * 2, DOTS_RADIUS * 2);
 
   for (i = 0; i < n_pages; i++) {
-    gdouble progress, radius, opacity;
+    double progress, radius, opacity;
     GskRoundedRect clip;
 
     if (orientation == GTK_ORIENTATION_HORIZONTAL)
@@ -272,9 +272,9 @@ adw_carousel_indicator_dots_snapshot (GtkWidget   *widget,
 {
   AdwCarouselIndicatorDots *self = ADW_CAROUSEL_INDICATOR_DOTS (widget);
   int i, n_points;
-  gdouble position;
-  g_autofree gdouble *points = NULL;
-  g_autofree gdouble *sizes = NULL;
+  double position;
+  g_autofree double *points = NULL;
+  g_autofree double *sizes = NULL;
 
   if (!self->carousel)
     return;
@@ -289,7 +289,7 @@ adw_carousel_indicator_dots_snapshot (GtkWidget   *widget,
       gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
     position = points[n_points - 1] - position;
 
-  sizes = g_new0 (gdouble, n_points);
+  sizes = g_new0 (double, n_points);
 
   sizes[0] = points[0] + 1;
   for (i = 1; i < n_points; i++)

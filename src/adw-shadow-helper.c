@@ -208,11 +208,11 @@ adw_shadow_helper_size_allocate (AdwShadowHelper *self,
                                  int              baseline,
                                  int              x,
                                  int              y,
-                                 gdouble          progress,
+                                 double           progress,
                                  GtkPanDirection  direction)
 {
-  gdouble distance, remaining_distance;
-  gdouble shadow_opacity;
+  double distance, remaining_distance;
+  double shadow_opacity;
   int shadow_size, border_size, outline_size;
   GtkOrientation orientation;
 
@@ -245,7 +245,7 @@ adw_shadow_helper_size_allocate (AdwShadowHelper *self,
   gtk_widget_measure (self->border, orientation, -1, &border_size, NULL, NULL, NULL);
   gtk_widget_measure (self->outline, orientation, -1, &outline_size, NULL, NULL, NULL);
 
-  remaining_distance = (1 - progress) * (gdouble) distance;
+  remaining_distance = (1 - progress) * (double) distance;
   if (remaining_distance < shadow_size)
     shadow_opacity = (remaining_distance / shadow_size);
   else

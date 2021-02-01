@@ -77,8 +77,8 @@ adw_gizmo_snapshot (GtkWidget   *widget,
 
 static gboolean
 adw_gizmo_contains (GtkWidget *widget,
-                    gdouble    x,
-                    gdouble    y)
+                    double     x,
+                    double     y)
 {
   AdwGizmo *self = ADW_GIZMO (widget);
 

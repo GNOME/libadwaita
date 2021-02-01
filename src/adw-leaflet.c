@@ -147,12 +147,12 @@ struct _AdwLeaflet {
   struct {
     guint duration;
 
-    gdouble current_pos;
-    gdouble source_pos;
-    gdouble target_pos;
+    double current_pos;
+    double source_pos;
+    double target_pos;
 
-    gdouble start_progress;
-    gdouble end_progress;
+    double start_progress;
+    double end_progress;
     guint tick_id;
     GtkProgressTracker tracker;
   } mode_transition;
@@ -161,9 +161,9 @@ struct _AdwLeaflet {
   struct {
     guint duration;
 
-    gdouble progress;
-    gdouble start_progress;
-    gdouble end_progress;
+    double progress;
+    double start_progress;
+    double end_progress;
 
     gboolean is_gesture_active;
     gboolean is_cancelled;
@@ -613,7 +613,7 @@ child_transition_cb (GtkWidget     *widget,
                      gpointer       user_data)
 {
   AdwLeaflet *self = ADW_LEAFLET (user_data);
-  gdouble progress;
+  double progress;
 
   if (self->child_transition.first_frame_skipped) {
     gtk_progress_tracker_advance_frame (&self->child_transition.tracker,
@@ -883,7 +883,7 @@ set_visible_child (AdwLeaflet               *self,
 
 static void
 set_mode_transition_progress (AdwLeaflet *self,
-                              gdouble     pos)
+                              double      pos)
 {
   self->mode_transition.current_pos = pos;
 
@@ -896,7 +896,7 @@ mode_transition_cb (GtkWidget     *widget,
                     gpointer       user_data)
 {
   AdwLeaflet *self = ADW_LEAFLET (user_data);
-  gdouble ease;
+  double ease;
 
   gtk_progress_tracker_advance_frame (&self->mode_transition.tracker,
                                       gdk_frame_clock_get_frame_time (frame_clock));
@@ -914,7 +914,7 @@ mode_transition_cb (GtkWidget     *widget,
 
 static void
 start_mode_transition (AdwLeaflet *self,
-                       gdouble     target)
+                       double      target)
 {
   GtkWidget *widget = GTK_WIDGET (self);
 
@@ -990,7 +990,7 @@ get_preferred_size (int      *min,
                     gboolean  homogeneous_folded,
                     gboolean  homogeneous_unfolded,
                     int       visible_children,
-                    gdouble   visible_child_progress,
+                    double    visible_child_progress,
                     int       sum_nat,
                     int       max_min,
                     int       max_nat,
@@ -1141,7 +1141,7 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
   remaining_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
     width - visible_size :
     height - visible_size;
-  remaining_start_size = (int) (remaining_size * ((gdouble) start_size / (gdouble) (start_size + end_size)));
+  remaining_start_size = (int) (remaining_size * ((double) start_size / (double) (start_size + end_size)));
   remaining_end_size = remaining_size - remaining_start_size;
 
   /* Store start and end allocations. */
@@ -1151,19 +1151,19 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
     under = (mode_transition_type == ADW_LEAFLET_TRANSITION_TYPE_OVER && direction == GTK_TEXT_DIR_LTR) ||
             (mode_transition_type == ADW_LEAFLET_TRANSITION_TYPE_UNDER && direction == GTK_TEXT_DIR_RTL);
     start_position = under ? 0 : remaining_start_size - start_size;
-    self->mode_transition.start_progress = under ? (gdouble) remaining_size / start_size : 1;
+    self->mode_transition.start_progress = under ? (double) remaining_size / start_size : 1;
     under = (mode_transition_type == ADW_LEAFLET_TRANSITION_TYPE_UNDER && direction == GTK_TEXT_DIR_LTR) ||
             (mode_transition_type == ADW_LEAFLET_TRANSITION_TYPE_OVER && direction == GTK_TEXT_DIR_RTL);
     end_position = under ? width - end_size : remaining_start_size + visible_size;
-    self->mode_transition.end_progress = under ? (gdouble) remaining_end_size / end_size : 1;
+    self->mode_transition.end_progress = under ? (double) remaining_end_size / end_size : 1;
     break;
   case GTK_ORIENTATION_VERTICAL:
     under = mode_transition_type == ADW_LEAFLET_TRANSITION_TYPE_OVER;
     start_position = under ? 0 : remaining_start_size - start_size;
-    self->mode_transition.start_progress = under ? (gdouble) remaining_size / start_size : 1;
+    self->mode_transition.start_progress = under ? (double) remaining_size / start_size : 1;
     under = mode_transition_type == ADW_LEAFLET_TRANSITION_TYPE_UNDER;
     end_position = remaining_start_size + visible_size;
-    self->mode_transition.end_progress = under ? (gdouble) remaining_end_size / end_size : 1;
+    self->mode_transition.end_progress = under ? (double) remaining_end_size / end_size : 1;
     break;
   default:
     g_assert_not_reached ();
@@ -1608,7 +1608,7 @@ begin_swipe_cb (AdwSwipeTracker        *tracker,
 
 static void
 update_swipe_cb (AdwSwipeTracker *tracker,
-                 gdouble          progress,
+                 double           progress,
                  AdwLeaflet      *self)
 {
   self->child_transition.progress = ABS (progress);
@@ -1618,7 +1618,7 @@ update_swipe_cb (AdwSwipeTracker *tracker,
 static void
 end_swipe_cb (AdwSwipeTracker *tracker,
               gint64           duration,
-              gdouble          to,
+              double           to,
               AdwLeaflet      *self)
 {
  if (!self->child_transition.is_gesture_active)
@@ -1777,7 +1777,7 @@ adw_leaflet_measure (GtkWidget      *widget,
   AdwLeaflet *self = ADW_LEAFLET (widget);
   GList *l;
   int visible_children;
-  gdouble visible_child_progress;
+  double visible_child_progress;
   int child_min, max_min, visible_min, last_visible_min;
   int child_nat, max_nat, sum_nat;
   gboolean same_orientation;
@@ -1836,7 +1836,7 @@ allocate_shadow (AdwLeaflet *self,
   gboolean is_rtl;
   gboolean is_over;
   GtkAllocation shadow_rect;
-  gdouble shadow_progress, mode_progress;
+  double shadow_progress, mode_progress;
   GtkPanDirection shadow_direction;
 
   is_transition = self->child_transition.is_gesture_active ||
@@ -2553,7 +2553,7 @@ adw_leaflet_get_swipe_tracker (AdwSwipeable *swipeable)
   return self->tracker;
 }
 
-static gdouble
+static double
 adw_leaflet_get_distance (AdwSwipeable *swipeable)
 {
   AdwLeaflet *self = ADW_LEAFLET (swipeable);
@@ -2564,13 +2564,13 @@ adw_leaflet_get_distance (AdwSwipeable *swipeable)
     return gtk_widget_get_allocated_height (GTK_WIDGET (self));
 }
 
-static gdouble *
+static double *
 adw_leaflet_get_snap_points (AdwSwipeable *swipeable,
                              int          *n_snap_points)
 {
   AdwLeaflet *self = ADW_LEAFLET (swipeable);
   int n;
-  gdouble *points, lower, upper;
+  double *points, lower, upper;
 
   if (self->child_transition.tick_id > 0 ||
       self->child_transition.is_gesture_active) {
@@ -2609,7 +2609,7 @@ adw_leaflet_get_snap_points (AdwSwipeable *swipeable,
 
   n = (lower != upper) ? 2 : 1;
 
-  points = g_new0 (gdouble, n);
+  points = g_new0 (double, n);
   points[0] = lower;
   points[n - 1] = upper;
 
@@ -2619,7 +2619,7 @@ adw_leaflet_get_snap_points (AdwSwipeable *swipeable,
   return points;
 }
 
-static gdouble
+static double
 adw_leaflet_get_progress (AdwSwipeable *swipeable)
 {
   AdwLeaflet *self = ADW_LEAFLET (swipeable);
@@ -2643,7 +2643,7 @@ adw_leaflet_get_progress (AdwSwipeable *swipeable)
   return self->child_transition.progress * (new_first ? 1 : -1);
 }
 
-static gdouble
+static double
 adw_leaflet_get_cancel_progress (AdwSwipeable *swipeable)
 {
   return 0;
@@ -2658,7 +2658,7 @@ adw_leaflet_get_swipe_area (AdwSwipeable           *swipeable,
   AdwLeaflet *self = ADW_LEAFLET (swipeable);
   int width = gtk_widget_get_allocated_width (GTK_WIDGET (self));
   int height = gtk_widget_get_allocated_height (GTK_WIDGET (self));
-  gdouble progress = 0;
+  double progress = 0;
 
   rect->x = 0;
   rect->y = 0;

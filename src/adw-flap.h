@@ -74,7 +74,7 @@ void  adw_flap_set_reveal_duration (AdwFlap *self,
                                     guint    duration);
 
 ADW_AVAILABLE_IN_ALL
-gdouble adw_flap_get_reveal_progress (AdwFlap *self);
+double adw_flap_get_reveal_progress (AdwFlap *self);
 
 ADW_AVAILABLE_IN_ALL
 AdwFlapFoldPolicy adw_flap_get_fold_policy (AdwFlap           *self);

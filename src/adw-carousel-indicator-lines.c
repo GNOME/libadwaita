@@ -140,14 +140,14 @@ static void
 snapshot_lines (GtkWidget      *widget,
                 GtkSnapshot    *snapshot,
                 GtkOrientation  orientation,
-                gdouble         position,
-                gdouble        *sizes,
+                double          position,
+                double         *sizes,
                 guint           n_pages)
 {
   GdkRGBA color;
   int i, widget_length, widget_thickness;
-  gdouble indicator_length, full_size, line_size;
-  gdouble x = 0, y = 0, pos;
+  double indicator_length, full_size, line_size;
+  double x = 0, y = 0, pos;
 
   color = get_color (widget);
   color.alpha *= LINE_OPACITY;
@@ -180,7 +180,7 @@ snapshot_lines (GtkWidget      *widget,
 
   pos = 0;
   for (i = 0; i < n_pages; i++) {
-    gdouble length;
+    double length;
     graphene_rect_t rectangle;
 
     length = (LINE_LENGTH + LINE_SPACING) * sizes[i] - LINE_SPACING;
@@ -259,9 +259,9 @@ adw_carousel_indicator_lines_snapshot (GtkWidget   *widget,
 {
   AdwCarouselIndicatorLines *self = ADW_CAROUSEL_INDICATOR_LINES (widget);
   int i, n_points;
-  gdouble position;
-  g_autofree gdouble *points = NULL;
-  g_autofree gdouble *sizes = NULL;
+  double position;
+  g_autofree double *points = NULL;
+  g_autofree double *sizes = NULL;
 
   if (!self->carousel)
     return;
@@ -276,7 +276,7 @@ adw_carousel_indicator_lines_snapshot (GtkWidget   *widget,
       gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
     position = points[n_points - 1] - position;
 
-  sizes = g_new0 (gdouble, n_points);
+  sizes = g_new0 (double, n_points);
 
   sizes[0] = points[0] + 1;
   for (i = 1; i < n_points; i++)

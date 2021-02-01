@@ -38,7 +38,7 @@
  * the speed of animations. This can be useful for debugging.
  */
 
-static gdouble gtk_slowdown = 1.0;
+static double gtk_slowdown = 1.0;
 
 /**
  * gtk_progress_tracker_init_copy:
@@ -67,12 +67,12 @@ void
 gtk_progress_tracker_start (GtkProgressTracker *tracker,
                             guint64 duration,
                             gint64 delay,
-                            gdouble iteration_count)
+                            double iteration_count)
 {
   tracker->is_running = TRUE;
   tracker->last_frame_time = 0;
   tracker->duration = duration;
-  tracker->iteration = - delay / (gdouble) duration;
+  tracker->iteration = - delay / (double) duration;
   tracker->iteration_count = iteration_count;
 }
 
@@ -100,7 +100,7 @@ void
 gtk_progress_tracker_advance_frame (GtkProgressTracker *tracker,
                                  guint64 frame_time)
 {
-  gdouble delta;
+  double delta;
 
   if (!tracker->is_running)
     return;
@@ -172,7 +172,7 @@ gtk_progress_tracker_get_state (GtkProgressTracker *tracker)
  *
  * Returns: The current iteration.
  **/
-gdouble
+double
 gtk_progress_tracker_get_iteration (GtkProgressTracker *tracker)
 {
   return tracker->is_running ? CLAMP (tracker->iteration, 0.0, tracker->iteration_count) : 1.0;
@@ -192,7 +192,7 @@ gtk_progress_tracker_get_iteration (GtkProgressTracker *tracker)
 guint64
 gtk_progress_tracker_get_iteration_cycle (GtkProgressTracker *tracker)
 {
-  gdouble iteration = gtk_progress_tracker_get_iteration (tracker);
+  double iteration = gtk_progress_tracker_get_iteration (tracker);
 
   /* Some complexity here. We want an iteration of 0.0 to always map to 0 (start
    * of the first iteration), but an iteration of 1.0 to also map to 0 (end of
@@ -215,11 +215,11 @@ gtk_progress_tracker_get_iteration_cycle (GtkProgressTracker *tracker)
  *
  * Returns: The progress value.
  **/
-gdouble
+double
 gtk_progress_tracker_get_progress (GtkProgressTracker *tracker,
                                    gboolean reversed)
 {
-  gdouble progress, iteration;
+  double progress, iteration;
   guint64 iteration_cycle;
 
   iteration = gtk_progress_tracker_get_iteration (tracker);
@@ -239,10 +239,10 @@ gtk_progress_tracker_get_progress (GtkProgressTracker *tracker,
  *
  * Returns: The eased progress value.
  **/
-gdouble
+double
 gtk_progress_tracker_get_ease_out_cubic (GtkProgressTracker *tracker,
                                          gboolean reversed)
 {
-  gdouble progress = gtk_progress_tracker_get_progress (tracker, reversed);
+  double progress = gtk_progress_tracker_get_progress (tracker, reversed);
   return adw_ease_out_cubic (progress);
 }

@@ -47,11 +47,11 @@ struct _AdwSwipeableInterface
                         gint64        duration);
 
   AdwSwipeTracker * (*get_swipe_tracker)   (AdwSwipeable *self);
-  gdouble           (*get_distance)        (AdwSwipeable *self);
-  gdouble *         (*get_snap_points)     (AdwSwipeable *self,
+  double            (*get_distance)        (AdwSwipeable *self);
+  double *          (*get_snap_points)     (AdwSwipeable *self,
                                             int          *n_snap_points);
-  gdouble           (*get_progress)        (AdwSwipeable *self);
-  gdouble           (*get_cancel_progress) (AdwSwipeable *self);
+  double            (*get_progress)        (AdwSwipeable *self);
+  double            (*get_cancel_progress) (AdwSwipeable *self);
   void              (*get_swipe_area)      (AdwSwipeable           *self,
                                             AdwNavigationDirection  navigation_direction,
                                             gboolean                is_drag,
@@ -74,14 +74,14 @@ void adw_swipeable_emit_child_switched (AdwSwipeable *self,
 ADW_AVAILABLE_IN_ALL
 AdwSwipeTracker *adw_swipeable_get_swipe_tracker   (AdwSwipeable *self);
 ADW_AVAILABLE_IN_ALL
-gdouble          adw_swipeable_get_distance        (AdwSwipeable *self);
+double           adw_swipeable_get_distance        (AdwSwipeable *self);
 ADW_AVAILABLE_IN_ALL
-gdouble         *adw_swipeable_get_snap_points     (AdwSwipeable *self,
+double          *adw_swipeable_get_snap_points     (AdwSwipeable *self,
                                                     int          *n_snap_points);
 ADW_AVAILABLE_IN_ALL
-gdouble          adw_swipeable_get_progress        (AdwSwipeable *self);
+double           adw_swipeable_get_progress        (AdwSwipeable *self);
 ADW_AVAILABLE_IN_ALL
-gdouble          adw_swipeable_get_cancel_progress (AdwSwipeable *self);
+double           adw_swipeable_get_cancel_progress (AdwSwipeable *self);
 ADW_AVAILABLE_IN_ALL
 void             adw_swipeable_get_swipe_area      (AdwSwipeable           *self,
                                                     AdwNavigationDirection  navigation_direction,

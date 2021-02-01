@@ -18,16 +18,16 @@ G_BEGIN_DECLS
 
 typedef struct _AdwAnimation AdwAnimation;
 
-typedef void   (*AdwAnimationValueCallback) (gdouble  value,
+typedef void   (*AdwAnimationValueCallback) (double   value,
                                              gpointer user_data);
 typedef void   (*AdwAnimationDoneCallback)  (gpointer user_data);
-typedef double (*AdwAnimationEasingFunc)    (gdouble  t);
+typedef double (*AdwAnimationEasingFunc)    (double   t);
 
 GType         adw_animation_get_type  (void) G_GNUC_CONST;
 
 AdwAnimation *adw_animation_new       (GtkWidget                 *widget,
-                                       gdouble                    from,
-                                       gdouble                    to,
+                                       double                     from,
+                                       double                     to,
                                        gint64                     duration,
                                        AdwAnimationEasingFunc     easing_func,
                                        AdwAnimationValueCallback  value_cb,
@@ -40,10 +40,10 @@ void          adw_animation_unref     (AdwAnimation *self);
 void          adw_animation_start     (AdwAnimation *self);
 void          adw_animation_stop      (AdwAnimation *self);
 
-gdouble       adw_animation_get_value (AdwAnimation *self);
+double        adw_animation_get_value (AdwAnimation *self);
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AdwAnimation, adw_animation_unref)
 
-gdouble adw_lerp (gdouble a, gdouble b, gdouble t);
+double adw_lerp (double a, double b, double t);
 
 G_END_DECLS

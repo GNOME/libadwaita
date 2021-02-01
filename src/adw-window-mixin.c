@@ -43,8 +43,8 @@ G_DEFINE_TYPE (AdwWindowMixin, adw_window_mixin, G_TYPE_OBJECT)
 
 static gboolean
 outline_contains (AdwGizmo *gizmo,
-                  gdouble   x,
-                  gdouble   y)
+                  double    x,
+                  double    y)
 {
   return FALSE;
 }

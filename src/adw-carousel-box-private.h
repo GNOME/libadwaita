@@ -37,11 +37,11 @@ void            adw_carousel_box_scroll_to (AdwCarouselBox *self,
                                             gint64          duration);
 
 guint           adw_carousel_box_get_n_pages (AdwCarouselBox *self);
-gdouble         adw_carousel_box_get_distance (AdwCarouselBox *self);
+double          adw_carousel_box_get_distance (AdwCarouselBox *self);
 
-gdouble         adw_carousel_box_get_position (AdwCarouselBox *self);
+double          adw_carousel_box_get_position (AdwCarouselBox *self);
 void            adw_carousel_box_set_position (AdwCarouselBox *self,
-                                               gdouble         position);
+                                               double          position);
 
 guint           adw_carousel_box_get_spacing (AdwCarouselBox *self);
 void            adw_carousel_box_set_spacing (AdwCarouselBox *self,
@@ -54,14 +54,14 @@ void            adw_carousel_box_set_reveal_duration (AdwCarouselBox *self,
 GtkWidget      *adw_carousel_box_get_nth_child (AdwCarouselBox *self,
                                                 guint           n);
 
-gdouble        *adw_carousel_box_get_snap_points        (AdwCarouselBox *self,
+double         *adw_carousel_box_get_snap_points        (AdwCarouselBox *self,
                                                          int            *n_snap_points);
 void            adw_carousel_box_get_range              (AdwCarouselBox *self,
-                                                         gdouble        *lower,
-                                                         gdouble        *upper);
-gdouble         adw_carousel_box_get_closest_snap_point (AdwCarouselBox *self);
+                                                         double         *lower,
+                                                         double         *upper);
+double          adw_carousel_box_get_closest_snap_point (AdwCarouselBox *self);
 GtkWidget      *adw_carousel_box_get_page_at_position   (AdwCarouselBox *self,
-                                                         gdouble         position);
+                                                         double          position);
 int             adw_carousel_box_get_current_page_index (AdwCarouselBox *self);
 int             adw_carousel_box_get_page_index         (AdwCarouselBox *self,
                                                          GtkWidget      *child);

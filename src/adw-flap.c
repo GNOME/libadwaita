@@ -122,11 +122,11 @@ struct _AdwFlap
   gboolean folded;
 
   guint fold_duration;
-  gdouble fold_progress;
+  double fold_progress;
   AdwAnimation *fold_animation;
 
   guint reveal_duration;
-  gdouble reveal_progress;
+  double reveal_progress;
   AdwAnimation *reveal_animation;
 
   gboolean schedule_fold;
@@ -246,7 +246,7 @@ update_shield (AdwFlap *self)
 
 static void
 set_reveal_progress (AdwFlap *self,
-                     gdouble  progress)
+                     double   progress)
 {
   self->reveal_progress = progress;
 
@@ -257,7 +257,7 @@ set_reveal_progress (AdwFlap *self,
 }
 
 static void
-fold_animation_value_cb (gdouble  value,
+fold_animation_value_cb (double   value,
                          AdwFlap *self)
 {
   self->fold_progress = value;
@@ -294,7 +294,7 @@ animate_fold (AdwFlap *self)
 }
 
 static void
-reveal_animation_value_cb (gdouble  value,
+reveal_animation_value_cb (double   value,
                            AdwFlap *self)
 {
   set_reveal_progress (self, value);
@@ -316,7 +316,7 @@ reveal_animation_done_cb (AdwFlap *self)
 
 static void
 animate_reveal (AdwFlap *self,
-                gdouble  to,
+                double   to,
                 gint64   duration)
 {
   if (self->reveal_animation)
@@ -427,7 +427,7 @@ begin_swipe_cb (AdwSwipeTracker        *tracker,
 
 static void
 update_swipe_cb (AdwSwipeTracker *tracker,
-                 gdouble          progress,
+                 double           progress,
                  AdwFlap         *self)
 {
   if (!self->swipe_active)
@@ -439,7 +439,7 @@ update_swipe_cb (AdwSwipeTracker *tracker,
 static void
 end_swipe_cb (AdwSwipeTracker *tracker,
               gint64           duration,
-              gdouble          to,
+              double           to,
               AdwFlap         *self)
 {
   if (!self->swipe_active)
@@ -456,8 +456,8 @@ end_swipe_cb (AdwSwipeTracker *tracker,
 static void
 released_cb (GtkGestureClick *gesture,
              int              n_press,
-             gdouble          x,
-             gdouble          y,
+             double           x,
+             double           y,
              AdwFlap         *self)
 {
   adw_flap_set_reveal_flap (self, FALSE);
@@ -513,7 +513,7 @@ transition_should_clip (AdwFlap *self)
   }
 }
 
-static gdouble
+static double
 transition_get_content_motion_factor (AdwFlap *self)
 {
   switch (self->transition_type) {
@@ -529,7 +529,7 @@ transition_get_content_motion_factor (AdwFlap *self)
   }
 }
 
-static gdouble
+static double
 transition_get_flap_motion_factor (AdwFlap *self)
 {
   switch (self->transition_type) {
@@ -777,7 +777,7 @@ compute_allocation (AdwFlap       *self,
                     GtkAllocation *content_alloc,
                     GtkAllocation *separator_alloc)
 {
-  gdouble distance;
+  double distance;
   int content_size, flap_size, separator_size;
   int total, content_pos, flap_pos, separator_pos;
   gboolean content_above_flap = transition_is_content_above_flap (self);
@@ -860,7 +860,7 @@ allocate_shadow (AdwFlap *self,
                  int      height,
                  int      baseline)
 {
-  gdouble shadow_progress;
+  double shadow_progress;
   GtkAllocation *shadow_alloc;
   GtkPanDirection shadow_direction;
   int shadow_x = 0, shadow_y = 0;
@@ -980,7 +980,7 @@ adw_flap_measure (GtkWidget      *widget,
     get_preferred_size (self->separator.widget, orientation, &separator_min, &separator_nat);
 
   if (self->orientation == orientation) {
-    gdouble min_progress, nat_progress;
+    double min_progress, nat_progress;
 
     switch (self->fold_policy) {
     case ADW_FLAP_FOLD_POLICY_NEVER:
@@ -1026,7 +1026,7 @@ adw_flap_snapshot (GtkWidget   *widget,
   AdwFlap *self = ADW_FLAP (widget);
   int width, height;
   int shadow_x = 0, shadow_y = 0;
-  gdouble shadow_progress;
+  double shadow_progress;
   gboolean content_above_flap = transition_is_content_above_flap (self);
   GtkAllocation *shadow_alloc;
   gboolean should_clip;
@@ -1617,7 +1617,7 @@ adw_flap_get_swipe_tracker (AdwSwipeable *swipeable)
   return self->tracker;
 }
 
-static gdouble
+static double
 adw_flap_get_distance (AdwSwipeable *swipeable)
 {
   AdwFlap *self = ADW_FLAP (swipeable);
@@ -1640,20 +1640,20 @@ adw_flap_get_distance (AdwSwipeable *swipeable)
   return flap + separator * (1 - self->fold_progress);
 }
 
-static gdouble *
+static double *
 adw_flap_get_snap_points (AdwSwipeable *swipeable,
                           int          *n_snap_points)
 {
   AdwFlap *self = ADW_FLAP (swipeable);
   gboolean can_open = self->reveal_progress > 0 || self->swipe_to_open || self->swipe_active;
   gboolean can_close = self->reveal_progress < 1 || self->swipe_to_close || self->swipe_active;
-  gdouble *points;
+  double *points;
 
   if (!can_open && !can_close)
     return NULL;
 
   if (can_open && can_close) {
-    points = g_new0 (gdouble, 2);
+    points = g_new0 (double, 2);
 
     if (n_snap_points)
       *n_snap_points = 2;
@@ -1664,7 +1664,7 @@ adw_flap_get_snap_points (AdwSwipeable *swipeable,
     return points;
   }
 
-  points = g_new0 (gdouble, 1);
+  points = g_new0 (double, 1);
 
   if (n_snap_points)
     *n_snap_points = 1;
@@ -1674,7 +1674,7 @@ adw_flap_get_snap_points (AdwSwipeable *swipeable,
   return points;
 }
 
-static gdouble
+static double
 adw_flap_get_progress (AdwSwipeable *swipeable)
 {
   AdwFlap *self = ADW_FLAP (swipeable);
@@ -1682,7 +1682,7 @@ adw_flap_get_progress (AdwSwipeable *swipeable)
   return self->reveal_progress;
 }
 
-static gdouble
+static double
 adw_flap_get_cancel_progress (AdwSwipeable *swipeable)
 {
   AdwFlap *self = ADW_FLAP (swipeable);
@@ -1699,7 +1699,7 @@ adw_flap_get_swipe_area (AdwSwipeable           *swipeable,
   AdwFlap *self = ADW_FLAP (swipeable);
   GtkAllocation *alloc;
   int width, height;
-  gdouble flap_factor, content_factor;
+  double flap_factor, content_factor;
   gboolean content_above_flap;
 
   if (!self->flap.widget) {
@@ -2079,7 +2079,7 @@ adw_flap_set_reveal_duration (AdwFlap *self,
  *
  * Since: 1.0
  */
-gdouble
+double
 adw_flap_get_reveal_progress (AdwFlap *self)
 {
   g_return_val_if_fail (ADW_IS_FLAP (self), 0.0);

@@ -26,7 +26,7 @@ void             adw_shadow_helper_size_allocate (AdwShadowHelper *self,
                                                   int              baseline,
                                                   int              x,
                                                   int              y,
-                                                  gdouble          progress,
+                                                  double           progress,
                                                   GtkPanDirection  direction);
 
 void             adw_shadow_helper_snapshot (AdwShadowHelper *self,

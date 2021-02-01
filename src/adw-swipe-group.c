@@ -156,7 +156,7 @@ begin_swipe_cb (AdwSwipeGroup          *self,
 
 static void
 update_swipe_cb (AdwSwipeGroup   *self,
-                 gdouble          progress,
+                 double           progress,
                  AdwSwipeTracker *tracker)
 {
   AdwSwipeable *swipeable;
@@ -183,7 +183,7 @@ update_swipe_cb (AdwSwipeGroup   *self,
 static void
 end_swipe_cb (AdwSwipeGroup   *self,
               gint64           duration,
-              gdouble          to,
+              double           to,
               AdwSwipeTracker *tracker)
 {
   AdwSwipeable *swipeable;
