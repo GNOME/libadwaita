@@ -102,8 +102,8 @@ update_button (AdwViewSwitcher *self,
                GtkStackPage    *page,
                GtkWidget       *button)
 {
-  g_autofree gchar *title = NULL;
-  g_autofree gchar *icon_name = NULL;
+  g_autofree char *title = NULL;
+  g_autofree char *icon_name = NULL;
   gboolean needs_attention;
   gboolean visible;
   gboolean use_underline;

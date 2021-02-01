@@ -359,7 +359,7 @@ string_is_not_empty (GBinding     *binding,
                      GValue       *to_value,
                      gpointer      user_data)
 {
-  const gchar *string = g_value_get_string (from_value);
+  const char *string = g_value_get_string (from_value);
 
   g_value_set_boolean (to_value, string != NULL && g_strcmp0 (string, "") != 0);
 
@@ -389,7 +389,7 @@ static void
 adw_action_row_buildable_add_child (GtkBuildable *buildable,
                                     GtkBuilder   *builder,
                                     GObject      *child,
-                                    const gchar  *type)
+                                    const char   *type)
 {
   AdwActionRow *self = ADW_ACTION_ROW (buildable);
   AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
@@ -438,7 +438,7 @@ adw_action_row_new (void)
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_action_row_get_subtitle (AdwActionRow *self)
 {
   AdwActionRowPrivate *priv;
@@ -461,7 +461,7 @@ adw_action_row_get_subtitle (AdwActionRow *self)
  */
 void
 adw_action_row_set_subtitle (AdwActionRow *self,
-                             const gchar  *subtitle)
+                             const char   *subtitle)
 {
   AdwActionRowPrivate *priv;
 
@@ -490,7 +490,7 @@ adw_action_row_set_subtitle (AdwActionRow *self,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_action_row_get_icon_name (AdwActionRow *self)
 {
   AdwActionRowPrivate *priv;
@@ -513,10 +513,10 @@ adw_action_row_get_icon_name (AdwActionRow *self)
  */
 void
 adw_action_row_set_icon_name (AdwActionRow *self,
-                              const gchar  *icon_name)
+                              const char   *icon_name)
 {
   AdwActionRowPrivate *priv;
-  const gchar *old_icon_name;
+  const char *old_icon_name;
 
   g_return_if_fail (ADW_IS_ACTION_ROW (self));
 

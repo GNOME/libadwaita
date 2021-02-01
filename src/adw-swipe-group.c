@@ -295,7 +295,7 @@ adw_swipe_group_get_swipeables (AdwSwipeGroup *self)
 }
 
 typedef struct {
-  gchar *name;
+  char *name;
   gint line;
   gint col;
 } ItemData;
@@ -344,7 +344,7 @@ adw_swipe_group_dispose (GObject *object)
 static gboolean
 _gtk_builder_check_parent (GtkBuilder                *builder,
                            GtkBuildableParseContext  *context,
-                           const gchar               *parent_name,
+                           const char                *parent_name,
                            GError                   **error)
 {
   GPtrArray *stack;
@@ -414,8 +414,8 @@ _gtk_builder_prefix_error (GtkBuilder                *builder,
 static void
 _gtk_builder_error_unhandled_tag (GtkBuilder                *builder,
                                   GtkBuildableParseContext  *context,
-                                  const gchar               *object,
-                                  const gchar               *element_name,
+                                  const char                *object,
+                                  const char                *element_name,
                                   GError                   **error)
 {
   gint line, col;
@@ -432,9 +432,9 @@ _gtk_builder_error_unhandled_tag (GtkBuilder                *builder,
 /* This has been copied and modified from gtksizegroup.c. */
 static void
 swipe_group_start_element (GtkBuildableParseContext  *context,
-                           const gchar               *element_name,
-                           const gchar              **names,
-                           const gchar              **values,
+                           const char                *element_name,
+                           const char               **names,
+                           const char               **values,
                            gpointer                   user_data,
                            GError                   **error)
 {
@@ -442,7 +442,7 @@ swipe_group_start_element (GtkBuildableParseContext  *context,
 
   if (strcmp (element_name, BUILDABLE_TAG_SWIPEABLE) == 0)
     {
-      const gchar *name;
+      const char *name;
       ItemData *item_data;
 
       if (!_gtk_builder_check_parent (data->builder, context, BUILDABLE_TAG_SWIPEABLES, error))
@@ -494,7 +494,7 @@ static gboolean
 adw_swipe_group_buildable_custom_tag_start (GtkBuildable       *buildable,
                                             GtkBuilder         *builder,
                                             GObject            *child,
-                                            const gchar        *tagname,
+                                            const char         *tagname,
                                             GtkBuildableParser *parser,
                                             gpointer           *parser_data)
 {
@@ -524,7 +524,7 @@ static void
 adw_swipe_group_buildable_custom_finished (GtkBuildable *buildable,
                                            GtkBuilder   *builder,
                                            GObject      *child,
-                                           const gchar  *tagname,
+                                           const char   *tagname,
                                            gpointer      user_data)
 {
   GSList *l;

@@ -38,10 +38,10 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget   *adw_expander_row_new (void);
 
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_expander_row_get_subtitle (AdwExpanderRow *self);
+const char  *adw_expander_row_get_subtitle (AdwExpanderRow *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_expander_row_set_subtitle (AdwExpanderRow *self,
-                                            const gchar    *subtitle);
+                                            const char     *subtitle);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_expander_row_get_use_underline (AdwExpanderRow *self);
@@ -50,10 +50,10 @@ void     adw_expander_row_set_use_underline (AdwExpanderRow *self,
                                              gboolean        use_underline);
 
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_expander_row_get_icon_name (AdwExpanderRow *self);
+const char  *adw_expander_row_get_icon_name (AdwExpanderRow *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_expander_row_set_icon_name (AdwExpanderRow *self,
-                                             const gchar    *icon_name);
+                                             const char     *icon_name);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_expander_row_get_expanded (AdwExpanderRow *self);

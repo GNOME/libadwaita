@@ -453,7 +453,7 @@ adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self), NULL);
@@ -473,7 +473,7 @@ adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self)
  */
 void
 adw_view_switcher_title_set_title (AdwViewSwitcherTitle *self,
-                                   const gchar          *title)
+                                   const char           *title)
 {
   g_return_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self));
 
@@ -495,7 +495,7 @@ adw_view_switcher_title_set_title (AdwViewSwitcherTitle *self,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self), NULL);
@@ -515,7 +515,7 @@ adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self)
  */
 void
 adw_view_switcher_title_set_subtitle (AdwViewSwitcherTitle *self,
-                                      const gchar          *subtitle)
+                                      const char           *subtitle)
 {
   g_return_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self));
 

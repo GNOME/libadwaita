@@ -20,7 +20,7 @@ static void
 test_adw_window_title_title (void)
 {
   g_autoptr (AdwWindowTitle) window_title = NULL;
-  const gchar *title;
+  const char *title;
 
   window_title = g_object_ref_sink (ADW_WINDOW_TITLE (adw_window_title_new ("Some title", NULL)));
   g_assert_nonnull (window_title);
@@ -47,7 +47,7 @@ static void
 test_adw_window_title_subtitle (void)
 {
   g_autoptr (AdwWindowTitle) window_title = NULL;
-  const gchar *subtitle;
+  const char *subtitle;
 
   window_title = g_object_ref_sink (ADW_WINDOW_TITLE (adw_window_title_new (NULL, "Some subtitle")));
   g_assert_nonnull (window_title);
@@ -72,7 +72,7 @@ test_adw_window_title_subtitle (void)
 
 gint
 main (gint argc,
-      gchar *argv[])
+      char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
   adw_init ();

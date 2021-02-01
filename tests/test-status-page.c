@@ -18,7 +18,7 @@ static void
 test_adw_status_page_icon_name (void)
 {
   g_autoptr (AdwStatusPage) status_page = NULL;
-  const gchar *icon_name = NULL;
+  const char *icon_name = NULL;
 
   status_page = ADW_STATUS_PAGE (g_object_ref_sink (adw_status_page_new ()));
   g_assert_nonnull (status_page);
@@ -45,7 +45,7 @@ static void
 test_adw_status_page_title (void)
 {
   g_autoptr (AdwStatusPage) status_page = NULL;
-  const gchar *title = NULL;
+  const char *title = NULL;
 
   status_page = ADW_STATUS_PAGE (g_object_ref_sink (adw_status_page_new ()));
   g_assert_nonnull (status_page);
@@ -72,7 +72,7 @@ static void
 test_adw_status_page_description (void)
 {
   g_autoptr (AdwStatusPage) status_page = NULL;
-  const gchar *description = NULL;
+  const char *description = NULL;
 
   status_page = ADW_STATUS_PAGE (g_object_ref_sink (adw_status_page_new ()));
   g_assert_nonnull (status_page);
@@ -97,7 +97,7 @@ test_adw_status_page_description (void)
 
 gint
 main (gint argc,
-      gchar *argv[])
+      char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
   adw_init ();

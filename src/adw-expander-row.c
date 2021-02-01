@@ -305,7 +305,7 @@ static void
 adw_expander_row_buildable_add_child (GtkBuildable *buildable,
                                       GtkBuilder   *builder,
                                       GObject      *child,
-                                      const gchar  *type)
+                                      const char   *type)
 {
   AdwExpanderRow *self = ADW_EXPANDER_ROW (buildable);
   AdwExpanderRowPrivate *priv = adw_expander_row_get_instance_private (self);
@@ -355,7 +355,7 @@ adw_expander_row_new (void)
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_expander_row_get_subtitle (AdwExpanderRow *self)
 {
   AdwExpanderRowPrivate *priv;
@@ -378,7 +378,7 @@ adw_expander_row_get_subtitle (AdwExpanderRow *self)
  */
 void
 adw_expander_row_set_subtitle (AdwExpanderRow *self,
-                               const gchar    *subtitle)
+                               const char     *subtitle)
 {
   AdwExpanderRowPrivate *priv;
 
@@ -446,7 +446,7 @@ adw_expander_row_set_use_underline (AdwExpanderRow *self,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_expander_row_get_icon_name (AdwExpanderRow *self)
 {
   AdwExpanderRowPrivate *priv;
@@ -469,7 +469,7 @@ adw_expander_row_get_icon_name (AdwExpanderRow *self)
  */
 void
 adw_expander_row_set_icon_name (AdwExpanderRow *self,
-                                const gchar    *icon_name)
+                                const char     *icon_name)
 {
   AdwExpanderRowPrivate *priv;
 

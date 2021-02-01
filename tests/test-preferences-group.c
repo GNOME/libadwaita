@@ -71,7 +71,7 @@ test_adw_preferences_group_description (void)
 
 gint
 main (gint argc,
-      gchar *argv[])
+      char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
   adw_init ();

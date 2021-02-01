@@ -116,7 +116,7 @@ adw_enum_value_object_get_value (AdwEnumValueObject *self)
   return self->enum_value.value;
 }
 
-const gchar *
+const char *
 adw_enum_value_object_get_name (AdwEnumValueObject *self)
 {
   g_return_val_if_fail (ADW_IS_ENUM_VALUE_OBJECT (self), NULL);
@@ -124,7 +124,7 @@ adw_enum_value_object_get_name (AdwEnumValueObject *self)
   return self->enum_value.value_name;
 }
 
-const gchar *
+const char *
 adw_enum_value_object_get_nick (AdwEnumValueObject *self)
 {
   g_return_val_if_fail (ADW_IS_ENUM_VALUE_OBJECT (self), NULL);

@@ -71,7 +71,7 @@ AdwValueObject *
 adw_value_object_new_collect (GType type, ...)
 {
   g_auto(GValue) value = G_VALUE_INIT;
-  g_autofree gchar *error = NULL;
+  g_autofree char *error = NULL;
   va_list var_args;
 
   va_start (var_args, type);
@@ -100,7 +100,7 @@ adw_value_object_new_collect (GType type, ...)
  * Since: 1.0
  */
 AdwValueObject *
-adw_value_object_new_string (const gchar *string)
+adw_value_object_new_string (const char *string)
 {
   g_auto(GValue) value = G_VALUE_INIT;
 
@@ -121,7 +121,7 @@ adw_value_object_new_string (const gchar *string)
  * Since: 1.0
  */
 AdwValueObject *
-adw_value_object_new_take_string (gchar *string)
+adw_value_object_new_take_string (char *string)
 {
   g_auto(GValue) value = G_VALUE_INIT;
 
@@ -249,7 +249,7 @@ adw_value_object_copy_value (AdwValueObject *value,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_value_object_get_string (AdwValueObject *value)
 {
   return g_value_get_string (&value->value);
@@ -266,7 +266,7 @@ adw_value_object_get_string (AdwValueObject *value)
  *
  * Since: 1.0
  */
-gchar *
+char *
 adw_value_object_dup_string (AdwValueObject *value)
 {
   return g_value_dup_string (&value->value);

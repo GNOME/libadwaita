@@ -220,7 +220,7 @@ test_adw_carousel_reveal_duration (void)
 
 gint
 main (gint argc,
-      gchar *argv[])
+      char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
   adw_init ();

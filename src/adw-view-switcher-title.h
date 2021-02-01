@@ -40,16 +40,16 @@ void      adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
                                              GtkStack             *stack);
 
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self);
+const char  *adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_view_switcher_title_set_title (AdwViewSwitcherTitle *self,
-                                                const gchar          *title);
+                                                const char           *title);
 
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self);
+const char  *adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_view_switcher_title_set_subtitle (AdwViewSwitcherTitle *self,
-                                                   const gchar          *subtitle);
+                                                   const char           *subtitle);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_view_switcher_title_get_view_switcher_enabled (AdwViewSwitcherTitle *self);

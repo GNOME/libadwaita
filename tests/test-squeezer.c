@@ -141,7 +141,7 @@ test_adw_squeezer_page_enabled (void)
 
 gint
 main (gint argc,
-      gchar *argv[])
+      char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
   adw_init ();

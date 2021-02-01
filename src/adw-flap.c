@@ -1577,7 +1577,7 @@ static void
 adw_flap_add_child (GtkBuildable *buildable,
                     GtkBuilder   *builder,
                     GObject      *child,
-                    const gchar  *type)
+                    const char   *type)
 {
   if (!g_strcmp0 (type, "content"))
     adw_flap_set_content (ADW_FLAP (buildable), GTK_WIDGET (child));

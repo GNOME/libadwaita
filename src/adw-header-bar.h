@@ -73,10 +73,10 @@ void         adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
                                                         gboolean      setting);
 
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_header_bar_get_decoration_layout (AdwHeaderBar *self);
+const char  *adw_header_bar_get_decoration_layout (AdwHeaderBar *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
-                                                   const gchar  *layout);
+                                                   const char   *layout);
 
 ADW_AVAILABLE_IN_ALL
 AdwCenteringPolicy adw_header_bar_get_centering_policy (AdwHeaderBar *self);

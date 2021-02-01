@@ -28,9 +28,9 @@ ADW_AVAILABLE_IN_ALL
 AdwValueObject *adw_value_object_new_collect     (GType         type,
                                                   ...);
 ADW_AVAILABLE_IN_ALL
-AdwValueObject *adw_value_object_new_string      (const gchar  *string);
+AdwValueObject *adw_value_object_new_string      (const char   *string);
 ADW_AVAILABLE_IN_ALL
-AdwValueObject *adw_value_object_new_take_string (gchar        *string);
+AdwValueObject *adw_value_object_new_take_string (char         *string);
 
 ADW_AVAILABLE_IN_ALL
 const GValue*   adw_value_object_get_value  (AdwValueObject *value);
@@ -38,8 +38,8 @@ ADW_AVAILABLE_IN_ALL
 void            adw_value_object_copy_value (AdwValueObject *value,
                                              GValue         *dest);
 ADW_AVAILABLE_IN_ALL
-const gchar*    adw_value_object_get_string (AdwValueObject *value);
+const char*     adw_value_object_get_string (AdwValueObject *value);
 ADW_AVAILABLE_IN_ALL
-gchar*          adw_value_object_dup_string (AdwValueObject *value);
+char*           adw_value_object_dup_string (AdwValueObject *value);
 
 G_END_DECLS

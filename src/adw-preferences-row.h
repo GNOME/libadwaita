@@ -37,10 +37,10 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget   *adw_preferences_row_new (void);
 
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_preferences_row_get_title (AdwPreferencesRow *self);
+const char  *adw_preferences_row_get_title (AdwPreferencesRow *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_preferences_row_set_title (AdwPreferencesRow *self,
-                                            const gchar       *title);
+                                            const char        *title);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_preferences_row_get_use_underline (AdwPreferencesRow *self);

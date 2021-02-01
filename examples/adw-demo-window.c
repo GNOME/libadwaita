@@ -57,7 +57,7 @@ prefer_dark_theme_to_icon_name_cb (GBinding     *binding,
 static void
 update (AdwDemoWindow *self)
 {
-  const gchar *header_bar_name = "default";
+  const char *header_bar_name = "default";
 
   if (g_strcmp0 (gtk_stack_get_visible_child_name (self->stack), "leaflet") == 0)
     header_bar_name = "leaflet";
@@ -95,7 +95,7 @@ leaflet_back_clicked_cb (GtkWidget     *sender,
   adw_leaflet_navigate (self->content_leaflet, ADW_NAVIGATION_DIRECTION_BACK);
 }
 
-static gchar *
+static char *
 leaflet_transition_name (AdwEnumValueObject *value,
                          gpointer            user_data)
 {
@@ -144,7 +144,7 @@ view_switcher_demo_clicked_cb (GtkButton     *btn,
   gtk_window_present (GTK_WINDOW (window));
 }
 
-static gchar *
+static char *
 carousel_orientation_name (AdwEnumValueObject *value,
                            gpointer            user_data)
 {
@@ -176,10 +176,10 @@ notify_carousel_orientation_cb (GObject       *sender,
                                   adw_combo_row_get_selected (row));
 }
 
-static gchar *
+static char *
 carousel_indicators_name (GtkStringObject *value)
 {
-  const gchar *style;
+  const char *style;
 
   g_assert (GTK_IS_STRING_OBJECT (value));
 
@@ -243,7 +243,7 @@ avatar_load_file (gint size, AdwDemoWindow *self)
   g_autoptr (GError) error = NULL;
   g_autoptr (GdkPixbuf) pixbuf = NULL;
   g_autoptr (GFile) file = NULL;
-  g_autofree gchar *filename = NULL;
+  g_autofree char *filename = NULL;
   gint width, height;
 
   g_assert (ADW_IS_DEMO_WINDOW (self));
@@ -337,7 +337,7 @@ avatar_save_to_file_cb (AdwDemoWindow *self)
   gtk_native_dialog_show (GTK_NATIVE_DIALOG (chooser));
 }
 
-static gchar *
+static char *
 avatar_new_random_name (void)
 {
   static const char *first_names[] = {
@@ -396,7 +396,7 @@ avatar_update_contacts (AdwDemoWindow *self)
     gtk_list_box_remove (self->avatar_contacts, row);
 
   for (int i = 0; i < 30; i++) {
-    g_autofree gchar *name = avatar_new_random_name ();
+    g_autofree char *name = avatar_new_random_name ();
     GtkWidget *contact = adw_action_row_new ();
     GtkWidget *avatar = adw_avatar_new (40, name, TRUE);
 
@@ -468,7 +468,7 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
 static void
 avatar_page_init (AdwDemoWindow *self)
 {
-  g_autofree gchar *name = avatar_new_random_name ();
+  g_autofree char *name = avatar_new_random_name ();
 
   gtk_editable_set_text (GTK_EDITABLE (self->avatar_text), name);
 

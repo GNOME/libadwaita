@@ -33,16 +33,16 @@ static gint adw_initialized = FALSE;
 #define ADW_THEMES_PATH "/org/gnome/Adwaita/themes/"
 
 static inline gboolean
-adw_resource_exists (const gchar *resource_path)
+adw_resource_exists (const char *resource_path)
 {
   return g_resources_get_info (resource_path, G_RESOURCE_LOOKUP_FLAGS_NONE, NULL, NULL, NULL);
 }
 
-static gchar *
+static char *
 adw_themes_get_theme_name (gboolean *prefer_dark_theme)
 {
-  gchar *theme_name = NULL;
-  gchar *p;
+  char *theme_name = NULL;
+  char *p;
 
   g_assert (prefer_dark_theme);
 
@@ -71,8 +71,8 @@ adw_themes_get_theme_name (gboolean *prefer_dark_theme)
 static void
 adw_themes_update (GtkCssProvider *css_provider)
 {
-  g_autofree gchar *theme_name = NULL;
-  g_autofree gchar *resource_path = NULL;
+  g_autofree char *theme_name = NULL;
+  g_autofree char *resource_path = NULL;
   gboolean prefer_dark_theme = FALSE;
 
   g_assert (GTK_IS_CSS_PROVIDER (css_provider));

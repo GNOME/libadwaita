@@ -38,16 +38,16 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget   *adw_preferences_page_new (void);
 
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_preferences_page_get_icon_name (AdwPreferencesPage *self);
+const char  *adw_preferences_page_get_icon_name (AdwPreferencesPage *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
-                                                 const gchar        *icon_name);
+                                                 const char         *icon_name);
 
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_preferences_page_get_title (AdwPreferencesPage *self);
+const char  *adw_preferences_page_get_title (AdwPreferencesPage *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_preferences_page_set_title (AdwPreferencesPage *self,
-                                             const gchar        *title);
+                                             const char         *title);
 
 ADW_AVAILABLE_IN_ALL
 void         adw_preferences_page_add (AdwPreferencesPage  *self,

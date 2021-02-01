@@ -40,16 +40,16 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_action_row_new (void);
 
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_action_row_get_subtitle (AdwActionRow *self);
+const char  *adw_action_row_get_subtitle (AdwActionRow *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_action_row_set_subtitle (AdwActionRow *self,
-                                          const gchar  *subtitle);
+                                          const char   *subtitle);
 
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_action_row_get_icon_name (AdwActionRow *self);
+const char  *adw_action_row_get_icon_name (AdwActionRow *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_action_row_set_icon_name (AdwActionRow *self,
-                                           const gchar  *icon_name);
+                                           const char   *icon_name);
 
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_action_row_get_activatable_widget (AdwActionRow *self);

@@ -13,7 +13,7 @@ struct _AdwFlapDemoWindow
 
 G_DEFINE_TYPE (AdwFlapDemoWindow, adw_flap_demo_window, ADW_TYPE_WINDOW)
 
-static gchar *
+static char *
 fold_policy_name (AdwEnumValueObject *value,
                   gpointer            user_data)
 {
@@ -31,7 +31,7 @@ fold_policy_name (AdwEnumValueObject *value,
   }
 }
 
-static gchar *
+static char *
 transition_type_name (AdwEnumValueObject *value,
                       gpointer            user_data)
 {

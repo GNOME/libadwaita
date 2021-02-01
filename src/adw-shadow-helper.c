@@ -175,7 +175,7 @@ static void
 set_style_classes (AdwShadowHelper *self,
                    GtkPanDirection  direction)
 {
-  const gchar *classes[2];
+  const char *classes[2];
 
   switch (direction) {
   case GTK_PAN_DIRECTION_LEFT:

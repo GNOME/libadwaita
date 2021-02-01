@@ -42,7 +42,7 @@ struct _AdwStatusPage
   GtkWidget *scrolled_window;
   GtkBox *toplevel_box;
   GtkImage *image;
-  gchar *icon_name;
+  char *icon_name;
   GtkLabel *title_label;
   GtkLabel *description_label;
 
@@ -242,7 +242,7 @@ static void
 adw_status_page_buildable_add_child (GtkBuildable *buildable,
                                      GtkBuilder   *builder,
                                      GObject      *child,
-                                     const gchar  *type)
+                                     const char   *type)
 {
   AdwStatusPage *self = ADW_STATUS_PAGE (buildable);
 
@@ -288,7 +288,7 @@ adw_status_page_new (void)
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_status_page_get_icon_name (AdwStatusPage *self)
 {
   return self->icon_name;
@@ -305,7 +305,7 @@ adw_status_page_get_icon_name (AdwStatusPage *self)
  */
 void
 adw_status_page_set_icon_name (AdwStatusPage *self,
-                               const gchar   *icon_name)
+                               const char    *icon_name)
 {
   g_return_if_fail (ADW_IS_STATUS_PAGE (self));
 
@@ -331,7 +331,7 @@ adw_status_page_set_icon_name (AdwStatusPage *self,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_status_page_get_title (AdwStatusPage *self)
 {
   g_return_val_if_fail (ADW_IS_STATUS_PAGE (self), NULL);
@@ -350,7 +350,7 @@ adw_status_page_get_title (AdwStatusPage *self)
  */
 void
 adw_status_page_set_title (AdwStatusPage *self,
-                           const gchar   *title)
+                           const char    *title)
 {
   g_return_if_fail (ADW_IS_STATUS_PAGE (self));
 
@@ -373,7 +373,7 @@ adw_status_page_set_title (AdwStatusPage *self,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_status_page_get_description (AdwStatusPage *self)
 {
   g_return_val_if_fail (ADW_IS_STATUS_PAGE (self), NULL);
@@ -392,7 +392,7 @@ adw_status_page_get_description (AdwStatusPage *self)
  */
 void
 adw_status_page_set_description (AdwStatusPage *self,
-                                 const gchar   *description)
+                                 const char    *description)
 {
   g_return_if_fail (ADW_IS_STATUS_PAGE (self));
 

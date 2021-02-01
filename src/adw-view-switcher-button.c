@@ -53,8 +53,8 @@ struct _AdwViewSwitcherButton
   GtkLabel *vertical_label_inactive;
   GtkStack *vertical_label_stack;
 
-  gchar *icon_name;
-  gchar *label;
+  char *icon_name;
+  char *label;
   GtkOrientation orientation;
 
   guint switch_timer;
@@ -325,7 +325,7 @@ adw_view_switcher_button_new (void)
  *
  * Since: 1.0
  **/
-const gchar *
+const char *
 adw_view_switcher_button_get_icon_name (AdwViewSwitcherButton *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_BUTTON (self), NULL);
@@ -344,7 +344,7 @@ adw_view_switcher_button_get_icon_name (AdwViewSwitcherButton *self)
  **/
 void
 adw_view_switcher_button_set_icon_name (AdwViewSwitcherButton *self,
-                                        const gchar           *icon_name)
+                                        const char            *icon_name)
 {
   g_return_if_fail (ADW_IS_VIEW_SWITCHER_BUTTON (self));
 
@@ -417,7 +417,7 @@ adw_view_switcher_button_set_needs_attention (AdwViewSwitcherButton *self,
  *
  * Since: 1.0
  **/
-const gchar *
+const char *
 adw_view_switcher_button_get_label (AdwViewSwitcherButton *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_BUTTON (self), NULL);
@@ -436,7 +436,7 @@ adw_view_switcher_button_get_label (AdwViewSwitcherButton *self)
  **/
 void
 adw_view_switcher_button_set_label (AdwViewSwitcherButton *self,
-                                    const gchar           *label)
+                                    const char            *label)
 {
   g_return_if_fail (ADW_IS_VIEW_SWITCHER_BUTTON (self));
 

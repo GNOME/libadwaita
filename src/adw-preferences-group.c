@@ -235,7 +235,7 @@ static void
 adw_preferences_group_buildable_add_child (GtkBuildable *buildable,
                                            GtkBuilder   *builder,
                                            GObject      *child,
-                                           const gchar  *type)
+                                           const char   *type)
 {
   AdwPreferencesGroup *self = ADW_PREFERENCES_GROUP (buildable);
   AdwPreferencesGroupPrivate *priv = adw_preferences_group_get_instance_private (self);
@@ -278,7 +278,7 @@ adw_preferences_group_new (void)
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_preferences_group_get_title (AdwPreferencesGroup *self)
 {
   AdwPreferencesGroupPrivate *priv;
@@ -301,7 +301,7 @@ adw_preferences_group_get_title (AdwPreferencesGroup *self)
  */
 void
 adw_preferences_group_set_title (AdwPreferencesGroup *self,
-                                 const gchar         *title)
+                                 const char          *title)
 {
   AdwPreferencesGroupPrivate *priv;
 
@@ -326,7 +326,7 @@ adw_preferences_group_set_title (AdwPreferencesGroup *self,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_preferences_group_get_description (AdwPreferencesGroup *self)
 {
   AdwPreferencesGroupPrivate *priv;
@@ -349,7 +349,7 @@ adw_preferences_group_get_description (AdwPreferencesGroup *self)
  */
 void
 adw_preferences_group_set_description (AdwPreferencesGroup *self,
-                                       const gchar         *description)
+                                       const char          *description)
 {
   AdwPreferencesGroupPrivate *priv;
 
@@ -370,7 +370,7 @@ static gboolean
 row_has_title (AdwPreferencesRow *row,
                gpointer           user_data)
 {
-  const gchar *title;
+  const char *title;
 
   g_assert (ADW_IS_PREFERENCES_ROW (row));
 

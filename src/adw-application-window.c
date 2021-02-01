@@ -133,7 +133,7 @@ static void
 adw_application_window_buildable_add_child (GtkBuildable *buildable,
                                             GtkBuilder   *builder,
                                             GObject      *child,
-                                            const gchar  *type)
+                                            const char   *type)
 {
   if (!g_strcmp0 (type, "titlebar"))
     GTK_BUILDER_WARN_INVALID_CHILD_TYPE (buildable, type);

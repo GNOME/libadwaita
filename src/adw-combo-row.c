@@ -86,7 +86,7 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
-static gchar *
+static char *
 get_item_representation (AdwComboRow *self,
                          gpointer     item)
 {
@@ -95,7 +95,7 @@ get_item_representation (AdwComboRow *self,
 
   if (priv->expression &&
       gtk_expression_evaluate (priv->expression, item, &value)) {
-    gchar *ret = g_value_dup_string (&value);
+    char *ret = g_value_dup_string (&value);
 
     g_value_unset (&value);
 
@@ -120,7 +120,7 @@ selection_changed (AdwComboRow *self)
 
   if (priv->use_subtitle) {
     GtkListItem *item = g_list_model_get_item (G_LIST_MODEL (priv->current_selection), 0);
-    g_autofree gchar *repr = get_item_representation (self, item);
+    g_autofree char *repr = get_item_representation (self, item);
 
     adw_action_row_set_subtitle (ADW_ACTION_ROW (self), repr);
 
@@ -215,7 +215,7 @@ bind_item (GtkSignalListItemFactory *factory,
   gpointer item;
   GtkWidget *box;
   GtkWidget *icon;
-  g_autofree gchar *repr = NULL;
+  g_autofree char *repr = NULL;
 
   item = gtk_list_item_get_item (list_item);
   box = gtk_list_item_get_child (list_item);

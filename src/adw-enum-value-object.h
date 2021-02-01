@@ -25,8 +25,8 @@ G_DECLARE_FINAL_TYPE (AdwEnumValueObject, adw_enum_value_object, ADW, ENUM_VALUE
 ADW_AVAILABLE_IN_ALL
 gint         adw_enum_value_object_get_value (AdwEnumValueObject *self);
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_enum_value_object_get_name  (AdwEnumValueObject *self);
+const char  *adw_enum_value_object_get_name  (AdwEnumValueObject *self);
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_enum_value_object_get_nick  (AdwEnumValueObject *self);
+const char  *adw_enum_value_object_get_nick  (AdwEnumValueObject *self);
 
 G_END_DECLS

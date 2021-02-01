@@ -12,7 +12,7 @@ test_adw_value_object_init (void)
 {
   AdwValueObject *obj;
   GValue value = G_VALUE_INIT;
-  gchar *str;
+  char *str;
 
   g_value_init (&value, G_TYPE_STRING);
   g_value_set_string (&value, "asdfasdf");
@@ -43,7 +43,7 @@ test_adw_value_object_init (void)
 
 gint
 main (gint argc,
-      gchar *argv[])
+      char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
   adw_init ();

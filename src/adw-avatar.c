@@ -38,7 +38,7 @@
  * {
  *   g_autoptr (GError) error = NULL;
  *   g_autoptr (GdkPixbuf) pixbuf = NULL;
- *   g_autofree gchar *file = gtk_file_chooser_get_filename ("avatar.png");
+ *   g_autofree char *file = gtk_file_chooser_get_filename ("avatar.png");
  *   gint width, height;
  *
  *   gdk_pixbuf_get_file_info (file, &width, &height);
@@ -74,8 +74,8 @@ struct _AdwAvatar
   GtkImage *icon;
   GtkImage *custom_image;
 
-  gchar *icon_name;
-  gchar *text;
+  char *icon_name;
+  char *text;
   gboolean show_initials;
   guint color_class;
   gint size;
@@ -99,14 +99,14 @@ enum {
 };
 static GParamSpec *props[PROP_LAST_PROP];
 
-static gchar *
-extract_initials_from_text (const gchar *text)
+static char *
+extract_initials_from_text (const char *text)
 {
   GString *initials;
-  g_autofree gchar *p = g_utf8_strup (text, -1);
-  g_autofree gchar *normalized = g_utf8_normalize (g_strstrip (p), -1, G_NORMALIZE_DEFAULT_COMPOSE);
+  g_autofree char *p = g_utf8_strup (text, -1);
+  g_autofree char *normalized = g_utf8_normalize (g_strstrip (p), -1, G_NORMALIZE_DEFAULT_COMPOSE);
   gunichar unichar;
-  gchar *q = NULL;
+  char *q = NULL;
 
   if (normalized == NULL)
     return NULL;
@@ -189,8 +189,8 @@ static void
 set_class_color (AdwAvatar *self)
 {
   g_autofree GRand *rand = NULL;
-  g_autofree gchar *new_class = NULL;
-  g_autofree gchar *old_class = g_strdup_printf ("color%d", self->color_class);
+  g_autofree char *new_class = NULL;
+  g_autofree char *old_class = g_strdup_printf ("color%d", self->color_class);
 
   gtk_widget_remove_css_class (self->gizmo, old_class);
 
@@ -210,7 +210,7 @@ set_class_color (AdwAvatar *self)
 static void
 update_initials (AdwAvatar *self)
 {
-  g_autofree gchar *initials = NULL;
+  g_autofree char *initials = NULL;
 
   if (self->texture != NULL ||
       !self->show_initials ||
@@ -484,7 +484,7 @@ adw_avatar_init (AdwAvatar *self)
  */
 GtkWidget *
 adw_avatar_new (gint         size,
-                const gchar *text,
+                const char  *text,
                 gboolean     show_initials)
 {
   return g_object_new (ADW_TYPE_AVATAR,
@@ -505,7 +505,7 @@ adw_avatar_new (gint         size,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_avatar_get_icon_name (AdwAvatar *self)
 {
   g_return_val_if_fail (ADW_IS_AVATAR (self), NULL);
@@ -528,8 +528,8 @@ adw_avatar_get_icon_name (AdwAvatar *self)
  * Since: 1.0
  */
 void
-adw_avatar_set_icon_name (AdwAvatar   *self,
-                          const gchar *icon_name)
+adw_avatar_set_icon_name (AdwAvatar  *self,
+                          const char *icon_name)
 {
   g_return_if_fail (ADW_IS_AVATAR (self));
 
@@ -556,7 +556,7 @@ adw_avatar_set_icon_name (AdwAvatar   *self,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_avatar_get_text (AdwAvatar *self)
 {
   g_return_val_if_fail (ADW_IS_AVATAR (self), NULL);
@@ -574,8 +574,8 @@ adw_avatar_get_text (AdwAvatar *self)
  * Since: 1.0
  */
 void
-adw_avatar_set_text (AdwAvatar   *self,
-                     const gchar *text)
+adw_avatar_set_text (AdwAvatar  *self,
+                     const char *text)
 {
   g_return_if_fail (ADW_IS_AVATAR (self));
 

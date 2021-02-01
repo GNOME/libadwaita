@@ -85,7 +85,7 @@ struct _AdwHeaderBar {
   GtkWidget *start_window_controls;
   GtkWidget *end_window_controls;
 
-  gchar *decoration_layout;
+  char *decoration_layout;
 
   guint show_start_title_buttons : 1;
   guint show_end_title_buttons : 1;
@@ -485,7 +485,7 @@ static void
 adw_header_bar_buildable_add_child (GtkBuildable *buildable,
                                     GtkBuilder   *builder,
                                     GObject      *child,
-                                    const gchar  *type)
+                                    const char   *type)
 {
   if (g_strcmp0 (type, "title") == 0)
     adw_header_bar_set_title_widget (ADW_HEADER_BAR (buildable), GTK_WIDGET (child));
@@ -786,7 +786,7 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
  */
 void
 adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
-                                      const gchar  *layout)
+                                      const char   *layout)
 {
   g_return_if_fail (ADW_IS_HEADER_BAR (self));
 
@@ -807,7 +807,7 @@ adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_header_bar_get_decoration_layout (AdwHeaderBar *self)
 {
   g_return_val_if_fail (ADW_IS_HEADER_BAR (self), NULL);

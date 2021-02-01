@@ -114,7 +114,7 @@ test_adw_combo_row_use_subtitle (void)
 
 gint
 main (gint argc,
-      gchar *argv[])
+      char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
   adw_init ();

@@ -27,10 +27,10 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_leaflet_page_get_child (AdwLeafletPage *self);
 
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_leaflet_page_get_name (AdwLeafletPage *self);
+const char *adw_leaflet_page_get_name (AdwLeafletPage *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_leaflet_page_set_name (AdwLeafletPage *self,
-                                        const gchar    *name);
+void        adw_leaflet_page_set_name (AdwLeafletPage *self,
+                                       const char     *name);
 
 ADW_AVAILABLE_IN_ALL
 gboolean   adw_leaflet_page_get_navigatable (AdwLeafletPage *self);
@@ -83,10 +83,10 @@ ADW_AVAILABLE_IN_ALL
 void             adw_leaflet_set_visible_child (AdwLeaflet *self,
                                                 GtkWidget  *visible_child);
 ADW_AVAILABLE_IN_ALL
-const gchar     *adw_leaflet_get_visible_child_name (AdwLeaflet *self);
+const char      *adw_leaflet_get_visible_child_name (AdwLeaflet *self);
 ADW_AVAILABLE_IN_ALL
-void             adw_leaflet_set_visible_child_name (AdwLeaflet  *self,
-                                                     const gchar *name);
+void             adw_leaflet_set_visible_child_name (AdwLeaflet *self,
+                                                     const char *name);
 ADW_AVAILABLE_IN_ALL
 gboolean         adw_leaflet_get_homogeneous (AdwLeaflet     *self,
                                               gboolean        folded,
@@ -139,8 +139,8 @@ gboolean         adw_leaflet_navigate (AdwLeaflet             *self,
                                        AdwNavigationDirection  direction);
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget       *adw_leaflet_get_child_by_name (AdwLeaflet  *self,
-                                                const gchar *name);
+GtkWidget       *adw_leaflet_get_child_by_name (AdwLeaflet *self,
+                                                const char *name);
 
 ADW_AVAILABLE_IN_ALL
 gboolean         adw_leaflet_get_can_unfold (AdwLeaflet *self);

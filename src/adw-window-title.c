@@ -171,8 +171,8 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
  * Since: 1.0
  */
 GtkWidget *
-adw_window_title_new (const gchar *title,
-                      const gchar *subtitle)
+adw_window_title_new (const char *title,
+                      const char *subtitle)
 {
   return g_object_new (ADW_TYPE_WINDOW_TITLE,
                        "title", title,
@@ -190,7 +190,7 @@ adw_window_title_new (const gchar *title,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_window_title_get_title (AdwWindowTitle *self)
 {
   g_return_val_if_fail (ADW_IS_WINDOW_TITLE (self), NULL);
@@ -212,7 +212,7 @@ adw_window_title_get_title (AdwWindowTitle *self)
  */
 void
 adw_window_title_set_title (AdwWindowTitle *self,
-                            const gchar    *title)
+                            const char     *title)
 {
   g_return_if_fail (ADW_IS_WINDOW_TITLE (self));
 
@@ -236,7 +236,7 @@ adw_window_title_set_title (AdwWindowTitle *self,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_window_title_get_subtitle (AdwWindowTitle *self)
 {
   g_return_val_if_fail (ADW_IS_WINDOW_TITLE (self), NULL);
@@ -257,7 +257,7 @@ adw_window_title_get_subtitle (AdwWindowTitle *self)
  */
 void
 adw_window_title_set_subtitle (AdwWindowTitle *self,
-                               const gchar    *subtitle)
+                               const char     *subtitle)
 {
   g_return_if_fail (ADW_IS_WINDOW_TITLE (self));
 

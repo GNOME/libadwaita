@@ -137,7 +137,7 @@ test_adw_expander_row_show_enable_switch (void)
 
 gint
 main (gint argc,
-      gchar *argv[])
+      char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
   adw_init ();

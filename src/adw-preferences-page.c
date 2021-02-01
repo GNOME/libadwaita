@@ -31,8 +31,8 @@ typedef struct
   GtkBox *box;
   GtkWidget *scrolled_window;
 
-  gchar *icon_name;
-  gchar *title;
+  char *icon_name;
+  char *title;
 } AdwPreferencesPagePrivate;
 
 static void adw_preferences_page_buildable_init (GtkBuildableIface *iface);
@@ -176,7 +176,7 @@ static void
 adw_preferences_page_buildable_add_child (GtkBuildable *buildable,
                                           GtkBuilder   *builder,
                                           GObject      *child,
-                                          const gchar  *type)
+                                          const char   *type)
 {
   AdwPreferencesPage *self = ADW_PREFERENCES_PAGE (buildable);
   AdwPreferencesPagePrivate *priv = adw_preferences_page_get_instance_private (self);
@@ -219,7 +219,7 @@ adw_preferences_page_new (void)
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_preferences_page_get_icon_name (AdwPreferencesPage *self)
 {
   AdwPreferencesPagePrivate *priv;
@@ -242,7 +242,7 @@ adw_preferences_page_get_icon_name (AdwPreferencesPage *self)
  */
 void
 adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
-                                    const gchar        *icon_name)
+                                    const char         *icon_name)
 {
   AdwPreferencesPagePrivate *priv;
 
@@ -269,7 +269,7 @@ adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_preferences_page_get_title (AdwPreferencesPage *self)
 {
   AdwPreferencesPagePrivate *priv;
@@ -292,7 +292,7 @@ adw_preferences_page_get_title (AdwPreferencesPage *self)
  */
 void
 adw_preferences_page_set_title (AdwPreferencesPage *self,
-                                const gchar        *title)
+                                const char         *title)
 {
   AdwPreferencesPagePrivate *priv;
 

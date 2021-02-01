@@ -25,22 +25,22 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget       *adw_status_page_new (void);
 
 ADW_AVAILABLE_IN_ALL
-const gchar     *adw_status_page_get_icon_name (AdwStatusPage *self);
+const char      *adw_status_page_get_icon_name (AdwStatusPage *self);
 ADW_AVAILABLE_IN_ALL
 void             adw_status_page_set_icon_name (AdwStatusPage *self,
-                                                const gchar   *icon_name);
+                                                const char    *icon_name);
 
 ADW_AVAILABLE_IN_ALL
-const gchar     *adw_status_page_get_title (AdwStatusPage *self);
+const char      *adw_status_page_get_title (AdwStatusPage *self);
 ADW_AVAILABLE_IN_ALL
 void             adw_status_page_set_title (AdwStatusPage *self,
-                                            const gchar   *title);
+                                            const char    *title);
 
 ADW_AVAILABLE_IN_ALL
-const gchar     *adw_status_page_get_description (AdwStatusPage *self);
+const char      *adw_status_page_get_description (AdwStatusPage *self);
 ADW_AVAILABLE_IN_ALL
 void             adw_status_page_set_description (AdwStatusPage *self,
-                                                  const gchar   *description);
+                                                  const char    *description);
 
 ADW_AVAILABLE_IN_ALL
 GtkWidget       *adw_status_page_get_child (AdwStatusPage *self);

@@ -99,7 +99,7 @@ struct _AdwLeafletPage {
   GObject parent_instance;
 
   GtkWidget *widget;
-  gchar *name;
+  char *name;
   gboolean navigatable;
 
   /* Convenience storage for per-child temporary frequently computed values. */
@@ -425,8 +425,8 @@ find_page_for_widget (AdwLeaflet *self,
 }
 
 static AdwLeafletPage *
-find_page_for_name (AdwLeaflet  *self,
-                    const gchar *name)
+find_page_for_name (AdwLeaflet *self,
+                    const char *name)
 {
   AdwLeafletPage *page;
   GList *l;
@@ -3373,7 +3373,7 @@ adw_leaflet_set_visible_child (AdwLeaflet *self,
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_leaflet_get_visible_child_name (AdwLeaflet *self)
 {
   g_return_val_if_fail (ADW_IS_LEAFLET (self), NULL);
@@ -3396,8 +3396,8 @@ adw_leaflet_get_visible_child_name (AdwLeaflet *self)
  * Since: 1.0
  */
 void
-adw_leaflet_set_visible_child_name (AdwLeaflet  *self,
-                                    const gchar *name)
+adw_leaflet_set_visible_child_name (AdwLeaflet *self,
+                                    const char *name)
 {
   AdwLeafletPage *page;
   gboolean contains_child;
@@ -3642,7 +3642,7 @@ adw_leaflet_navigate (AdwLeaflet             *self,
  */
 GtkWidget *
 adw_leaflet_get_child_by_name (AdwLeaflet  *self,
-                               const gchar *name)
+                               const char  *name)
 {
   AdwLeafletPage *page;
 

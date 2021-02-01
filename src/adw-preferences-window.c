@@ -71,16 +71,16 @@ enum {
 static GParamSpec *props[LAST_PROP];
 
 /* Copied and modified from gtklabel.c, separate_uline_pattern() */
-static gchar *
-strip_mnemonic (const gchar *src)
+static char *
+strip_mnemonic (const char *src)
 {
-  g_autofree gchar *new_str = g_new (gchar, strlen (src) + 1);
-  gchar *dest = new_str;
+  g_autofree char *new_str = g_new (char, strlen (src) + 1);
+  char *dest = new_str;
   gboolean underscore = FALSE;
 
   while (*src) {
     gunichar c;
-    const gchar *next_src;
+    const char *next_src;
 
     c = g_utf8_get_char (src);
     if (c == (gunichar) -1) {
@@ -117,8 +117,8 @@ filter_search_results (AdwPreferencesRow    *row,
                        AdwPreferencesWindow *self)
 {
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
-  g_autofree gchar *terms = NULL;
-  g_autofree gchar *title = NULL;
+  g_autofree char *terms = NULL;
+  g_autofree char *title = NULL;
 
   g_assert (ADW_IS_PREFERENCES_ROW (row));
 
@@ -126,7 +126,7 @@ filter_search_results (AdwPreferencesRow    *row,
   title = g_utf8_casefold (adw_preferences_row_get_title (row), -1);
 
   if (adw_preferences_row_get_use_underline (ADW_PREFERENCES_ROW (row))) {
-    gchar *stripped_title = strip_mnemonic (title);
+    char *stripped_title = strip_mnemonic (title);
 
     if (stripped_title) {
       g_free (title);
@@ -138,7 +138,7 @@ filter_search_results (AdwPreferencesRow    *row,
     return TRUE;
 
   if (ADW_IS_ACTION_ROW (row)) {
-    g_autofree gchar *subtitle = g_utf8_casefold (adw_action_row_get_subtitle (ADW_ACTION_ROW (row)), -1);
+    g_autofree char *subtitle = g_utf8_casefold (adw_action_row_get_subtitle (ADW_ACTION_ROW (row)), -1);
 
     if (!!strstr (subtitle, terms))
       return TRUE;
@@ -155,7 +155,7 @@ new_search_row_for_preference (AdwPreferencesRow    *row,
   AdwActionRow *widget;
   AdwPreferencesGroup *group;
   AdwPreferencesPage *page;
-  const gchar *group_title, *page_title;
+  const char *group_title, *page_title;
   GtkWidget *parent;
 
   g_assert (ADW_IS_PREFERENCES_ROW (row));
@@ -184,7 +184,7 @@ new_search_row_for_preference (AdwPreferencesRow    *row,
   if (group_title && !adw_view_switcher_title_get_title_visible (priv->view_switcher_title))
     adw_action_row_set_subtitle (widget, group_title);
   if (group_title) {
-    g_autofree gchar *subtitle = g_strdup_printf ("%s → %s", page_title != NULL ? page_title : _("Untitled page"), group_title);
+    g_autofree char *subtitle = g_strdup_printf ("%s → %s", page_title != NULL ? page_title : _("Untitled page"), group_title);
     adw_action_row_set_subtitle (widget, subtitle);
   } else if (page_title)
     adw_action_row_set_subtitle (widget, page_title);
@@ -510,7 +510,7 @@ static void
 adw_preferences_window_buildable_add_child (GtkBuildable *buildable,
                                             GtkBuilder   *builder,
                                             GObject      *child,
-                                            const gchar  *type)
+                                            const char   *type)
 {
   AdwPreferencesWindow *self = ADW_PREFERENCES_WINDOW (buildable);
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);

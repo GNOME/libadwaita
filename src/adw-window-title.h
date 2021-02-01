@@ -22,19 +22,19 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwWindowTitle, adw_window_title, ADW, WINDOW_TITLE, GtkWidget)
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget   *adw_window_title_new          (const gchar    *title,
-                                            const gchar    *subtitle);
+GtkWidget  *adw_window_title_new          (const char     *title,
+                                           const char     *subtitle);
 
 ADW_AVAILABLE_IN_ALL
-void         adw_window_title_set_title    (AdwWindowTitle *self,
-                                            const gchar    *title);
+void        adw_window_title_set_title    (AdwWindowTitle *self,
+                                           const char     *title);
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_window_title_get_title    (AdwWindowTitle *self);
+const char *adw_window_title_get_title    (AdwWindowTitle *self);
 
 ADW_AVAILABLE_IN_ALL
-void         adw_window_title_set_subtitle (AdwWindowTitle *self,
-                                            const gchar    *subtitle);
+void        adw_window_title_set_subtitle (AdwWindowTitle *self,
+                                           const char     *subtitle);
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_window_title_get_subtitle (AdwWindowTitle *self);
+const char *adw_window_title_get_subtitle (AdwWindowTitle *self);
 
 G_END_DECLS

@@ -27,7 +27,7 @@
 
 typedef struct
 {
-  gchar *title;
+  char *title;
 
   gboolean use_underline;
 } AdwPreferencesRowPrivate;
@@ -166,7 +166,7 @@ adw_preferences_row_new (void)
  *
  * Since: 1.0
  */
-const gchar *
+const char *
 adw_preferences_row_get_title (AdwPreferencesRow *self)
 {
   AdwPreferencesRowPrivate *priv;
@@ -189,7 +189,7 @@ adw_preferences_row_get_title (AdwPreferencesRow *self)
  */
 void
 adw_preferences_row_set_title (AdwPreferencesRow *self,
-                               const gchar       *title)
+                               const char        *title)
 {
   AdwPreferencesRowPrivate *priv;
 

@@ -39,18 +39,18 @@ typedef GdkPixbuf *(*AdwAvatarImageLoadFunc) (gint     size,
 
 ADW_AVAILABLE_IN_ALL
 GtkWidget   *adw_avatar_new                 (gint                    size,
-                                             const gchar            *text,
+                                             const char             *text,
                                              gboolean                show_initials);
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_avatar_get_icon_name       (AdwAvatar              *self);
+const char  *adw_avatar_get_icon_name       (AdwAvatar              *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_avatar_set_icon_name       (AdwAvatar              *self,
-                                             const gchar            *icon_name);
+                                             const char             *icon_name);
 ADW_AVAILABLE_IN_ALL
-const gchar *adw_avatar_get_text            (AdwAvatar              *self);
+const char  *adw_avatar_get_text            (AdwAvatar              *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_avatar_set_text            (AdwAvatar              *self,
-                                             const gchar            *text);
+                                             const char             *text);
 ADW_AVAILABLE_IN_ALL
 gboolean     adw_avatar_get_show_initials   (AdwAvatar              *self);
 ADW_AVAILABLE_IN_ALL

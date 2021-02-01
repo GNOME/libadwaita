@@ -401,7 +401,7 @@ test_adw_flap_swipe_to_close (void)
 
 gint
 main (gint argc,
-      gchar *argv[])
+      char *argv[])
 {
   gtk_test_init (&argc, &argv, NULL);
   adw_init ();
