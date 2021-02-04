@@ -14,6 +14,7 @@
 
 #define TOUCHPAD_BASE_DISTANCE_H 400
 #define TOUCHPAD_BASE_DISTANCE_V 300
+#define EVENT_HISTORY_THRESHOLD_MS 150
 #define SCROLL_MULTIPLIER 10
 #define MIN_ANIMATION_DURATION 100
 #define MAX_ANIMATION_DURATION 400
@@ -47,6 +48,11 @@ typedef enum {
   ADW_SWIPE_TRACKER_STATE_REJECTED,
 } AdwSwipeTrackerState;
 
+typedef struct {
+  gdouble delta;
+  guint32 time;
+} EventHistoryRecord;
+
 struct _AdwSwipeTracker
 {
   GObject parent_instance;
@@ -60,12 +66,11 @@ struct _AdwSwipeTracker
   gdouble pointer_x;
   gdouble pointer_y;
 
+  GArray *event_history;
+
   gdouble start_x;
   gdouble start_y;
   gboolean use_capture_phase;
-
-  guint32 prev_time;
-  gdouble velocity;
 
   gdouble initial_progress;
   gdouble progress;
@@ -117,12 +122,11 @@ reset (AdwSwipeTracker *self)
   self->initial_progress = 0;
   self->progress = 0;
 
+  g_array_remove_range (self->event_history, 0, self->event_history->len);
+
   self->start_x = 0;
   self->start_y = 0;
   self->use_capture_phase = FALSE;
-
-  self->prev_time = 0;
-  self->velocity = 0;
 
   self->cancelled = FALSE;
 }
@@ -166,18 +170,74 @@ gesture_prepare (AdwSwipeTracker        *self,
 
   self->initial_progress = adw_swipeable_get_progress (self->swipeable);
   self->progress = self->initial_progress;
-  self->velocity = 0;
   self->state = ADW_SWIPE_TRACKER_STATE_PENDING;
 }
 
 static void
-gesture_begin (AdwSwipeTracker *self,
-               guint32          time)
+trim_history (AdwSwipeTracker *self,
+              guint32          current_time)
+{
+  guint32 threshold_time = current_time - EVENT_HISTORY_THRESHOLD_MS;
+  guint i;
+
+  for (i = 0; i < self->event_history->len; i++) {
+    guint32 time = g_array_index (self->event_history,
+                                  EventHistoryRecord, i).time;
+
+    if (time >= threshold_time)
+      break;
+  }
+
+  if (i > 0)
+    g_array_remove_range (self->event_history, 0, i);
+}
+
+static void
+append_to_history (AdwSwipeTracker *self,
+                   guint32          time,
+                   gdouble          delta)
+{
+  EventHistoryRecord record;
+
+  trim_history (self, time);
+
+  record.delta = delta;
+  record.time = time;
+
+  g_array_append_val (self->event_history, record);
+}
+
+static gdouble
+calculate_velocity (AdwSwipeTracker *self)
+{
+  gdouble total_delta = 0;
+  guint32 first_time = 0, last_time = 0;
+  guint i;
+
+  for (i = 0; i < self->event_history->len; i++) {
+    EventHistoryRecord *r =
+      &g_array_index (self->event_history, EventHistoryRecord, i);
+
+    if (i == 0)
+      first_time = r->time;
+    else
+      total_delta += r->delta;
+
+    last_time = r->time;
+  }
+
+  if (first_time == last_time)
+    return 0;
+
+  return total_delta / (last_time - first_time);
+}
+
+static void
+gesture_begin (AdwSwipeTracker *self)
 {
   if (self->state != ADW_SWIPE_TRACKER_STATE_PENDING)
     return;
 
-  self->prev_time = time;
   self->state = ADW_SWIPE_TRACKER_STATE_SCROLLING;
 }
 
@@ -192,12 +252,12 @@ gesture_update (AdwSwipeTracker *self,
   if (self->state != ADW_SWIPE_TRACKER_STATE_SCROLLING)
     return;
 
-  if (time != self->prev_time)
-    self->velocity = delta / (time - self->prev_time);
+  append_to_history (self, time, delta);
 
   get_range (self, &first_point, &last_point);
 
   progress = self->progress + delta;
+
   progress = CLAMP (progress, first_point, last_point);
 
   /* FIXME: this is a hack to prevent swiping more than 1 page at once */
@@ -206,8 +266,6 @@ gesture_update (AdwSwipeTracker *self,
   self->progress = progress;
 
   adw_swipe_tracker_emit_update_swipe (self, progress);
-
-  self->prev_time = time;
 }
 
 static void
@@ -242,7 +300,8 @@ get_closest_snap_points (AdwSwipeTracker *self,
 
 static gdouble
 get_end_progress (AdwSwipeTracker *self,
-                  gdouble          distance)
+                  gdouble          distance,
+                  gdouble          velocity)
 {
   gdouble upper, lower, middle;
 
@@ -253,16 +312,17 @@ get_end_progress (AdwSwipeTracker *self,
   middle = (upper + lower) / 2;
 
   if (self->progress > middle)
-    return (self->velocity * distance > -VELOCITY_THRESHOLD ||
+    return (velocity * distance > -VELOCITY_THRESHOLD ||
             self->initial_progress > upper) ? upper : lower;
 
-  return (self->velocity * distance < VELOCITY_THRESHOLD ||
+  return (velocity * distance < VELOCITY_THRESHOLD ||
           self->initial_progress < lower) ? lower : upper;
 }
 
 static void
 gesture_end (AdwSwipeTracker *self,
-             gdouble          distance)
+             gdouble          distance,
+             guint32          time)
 {
   gdouble end_progress, velocity;
   gint64 duration;
@@ -270,11 +330,14 @@ gesture_end (AdwSwipeTracker *self,
   if (self->state == ADW_SWIPE_TRACKER_STATE_NONE)
     return;
 
-  end_progress = get_end_progress (self, distance);
+  trim_history (self, time);
 
-  velocity = ANIMATION_BASE_VELOCITY;
-  if ((end_progress - self->progress) * self->velocity > 0)
-    velocity = self->velocity;
+  velocity = calculate_velocity (self);
+
+  end_progress = get_end_progress (self, distance, velocity);
+
+  if ((end_progress - self->progress) * velocity <= 0)
+    velocity = ANIMATION_BASE_VELOCITY;
 
   duration = ABS ((self->progress - end_progress) / velocity * DURATION_MULTIPLIER);
   if (self->progress != end_progress)
@@ -290,7 +353,8 @@ gesture_end (AdwSwipeTracker *self,
 
 static void
 gesture_cancel (AdwSwipeTracker *self,
-                gdouble          distance)
+                gdouble          distance,
+                guint32          time)
 {
   if (self->state != ADW_SWIPE_TRACKER_STATE_PENDING &&
       self->state != ADW_SWIPE_TRACKER_STATE_SCROLLING) {
@@ -300,7 +364,7 @@ gesture_cancel (AdwSwipeTracker *self,
   }
 
   self->cancelled = TRUE;
-  gesture_end (self, distance);
+  gesture_end (self, distance, time);
 }
 
 static gboolean
@@ -468,7 +532,7 @@ drag_update_cb (AdwSwipeTracker *self,
 
     if (drag_distance >= DRAG_THRESHOLD_DISTANCE) {
       if ((is_vertical == is_offset_vertical) && !is_overshooting) {
-        gesture_begin (self, time);
+        gesture_begin (self);
         self->prev_offset = offset;
         gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_CLAIMED);
       } else {
@@ -490,6 +554,7 @@ drag_end_cb (AdwSwipeTracker *self,
              GtkGestureDrag  *gesture)
 {
   gdouble distance;
+  guint32 time;
 
   distance = adw_swipeable_get_distance (self->swipeable);
 
@@ -500,13 +565,15 @@ drag_end_cb (AdwSwipeTracker *self,
     return;
   }
 
+  time = gtk_event_controller_get_current_event_time (GTK_EVENT_CONTROLLER (gesture));
+
   if (self->state != ADW_SWIPE_TRACKER_STATE_SCROLLING) {
-    gesture_cancel (self, distance);
+    gesture_cancel (self, distance, time);
     gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
     return;
   }
 
-  gesture_end (self, distance);
+  gesture_end (self, distance, time);
 }
 
 static void
@@ -514,11 +581,14 @@ drag_cancel_cb (AdwSwipeTracker  *self,
                 GdkEventSequence *sequence,
                 GtkGesture       *gesture)
 {
+  guint32 time;
   gdouble distance;
 
   distance = adw_swipeable_get_distance (self->swipeable);
 
-  gesture_cancel (self, distance);
+  time = gtk_event_controller_get_current_event_time (GTK_EVENT_CONTROLLER (gesture));
+
+  gesture_cancel (self, distance, time);
   gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
 }
 
@@ -577,14 +647,14 @@ handle_scroll_event (AdwSwipeTracker *self,
                       (delta > 0 && self->progress >= last_point);
 
     if (!is_overshooting)
-      gesture_begin (self, time);
+      gesture_begin (self);
     else
-      gesture_cancel (self, distance);
+      gesture_cancel (self, distance, time);
   }
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_SCROLLING) {
     if (gdk_scroll_event_is_stop (event)) {
-      gesture_end (self, distance);
+      gesture_end (self, distance, time);
     } else {
       gesture_update (self, delta / distance * SCROLL_MULTIPLIER, time);
       return GDK_EVENT_STOP;
@@ -982,7 +1052,9 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
 static void
 adw_swipe_tracker_init (AdwSwipeTracker *self)
 {
+  self->event_history = g_array_new (FALSE, FALSE, sizeof (EventHistoryRecord));
   reset (self);
+
   self->orientation = GTK_ORIENTATION_HORIZONTAL;
   self->enabled = TRUE;
 }
