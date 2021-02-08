@@ -319,13 +319,13 @@ get_bounds (AdwSwipeTracker *self,
             gdouble         *upper)
 {
   gint prev, next;
-  gint closest = find_closest_point (points, n, self->initial_progress);
+  gint closest = find_closest_point (points, n, pos);
 
-  if (ABS (points[closest] - self->initial_progress) < EPSILON) {
+  if (ABS (points[closest] - pos) < EPSILON) {
     prev = next = closest;
   } else {
-    prev = find_previous_point (points, n, self->initial_progress);
-    next = find_next_point (points, n, self->initial_progress);
+    prev = find_previous_point (points, n, pos);
+    next = find_next_point (points, n, pos);
   }
 
   *lower = points[MAX (prev - 1, 0)];
