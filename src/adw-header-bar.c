@@ -697,7 +697,7 @@ adw_header_bar_set_show_start_title_buttons (AdwHeaderBar *self,
   if (self->start_box) {
     if (setting) {
       create_start_window_controls (self);
-    } else if (self->start_window_controls) {
+    } else if (self->start_box && self->start_window_controls) {
       gtk_box_remove (GTK_BOX (self->start_box), self->start_window_controls);
       self->start_window_controls = NULL;
     }
@@ -751,7 +751,7 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
   if (self->end_box) {
     if (setting) {
       create_end_window_controls (self);
-    } else if (self->end_window_controls) {
+    } else if (self->end_box && self->end_window_controls) {
       gtk_box_remove (GTK_BOX (self->end_box), self->end_window_controls);
       self->end_window_controls = NULL;
     }
