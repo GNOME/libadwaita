@@ -291,10 +291,6 @@
                         <property name="description" translatable="yes">This page is clamped to smoothly grow up to a maximum width.</property>
                         <property name="child">
                           <object class="AdwClamp">
-                            <property name="margin-bottom">32</property>
-                            <property name="margin-start">12</property>
-                            <property name="margin-end">12</property>
-                            <property name="margin-top">32</property>
                             <property name="maximum-size" bind-source="clamp_maximum_size_adjustment" bind-property="value" bind-flags="sync-create"/>
                             <property name="tightening-threshold" bind-source="clamp_tightening_threshold_adjustment" bind-property="value" bind-flags="sync-create"/>
                             <property name="child">
@@ -344,10 +340,6 @@
                         <property name="description" translatable="yes">Rows and helpers for GtkListBox.</property>
                         <property name="child">
                           <object class="AdwClamp">
-                            <property name="margin-bottom">32</property>
-                            <property name="margin-start">12</property>
-                            <property name="margin-end">12</property>
-                            <property name="margin-top">32</property>
                             <property name="maximum-size">400</property>
                             <property name="tightening-threshold">300</property>
                             <property name="child">
