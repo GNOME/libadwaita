@@ -301,7 +301,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                       "Number of title lines",
                       "The desired number of title lines",
                       0, G_MAXINT,
-                      1,
+                      0,
                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -318,7 +318,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                       "Number of subtitle lines",
                       "The desired number of subtitle lines",
                       0, G_MAXINT,
-                      1,
+                      0,
                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -368,9 +368,6 @@ static void
 adw_action_row_init (AdwActionRow *self)
 {
   AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
-
-  priv->title_lines = 1;
-  priv->subtitle_lines = 1;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 

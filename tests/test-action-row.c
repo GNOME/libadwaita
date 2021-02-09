@@ -94,16 +94,16 @@ test_adw_action_row_title_lines (void)
   row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
-  g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 1);
+  g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 0);
 
   g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "adw_action_row_set_title_lines: assertion 'title_lines >= 0' failed");
   adw_action_row_set_title_lines (row, -1);
   g_test_assert_expected_messages ();
 
-  g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 1);
-
-  adw_action_row_set_title_lines (row, 0);
   g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 0);
+
+  adw_action_row_set_title_lines (row, 1);
+  g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 1);
 }
 
 
@@ -115,16 +115,16 @@ test_adw_action_row_subtitle_lines (void)
   row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
-  g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 1);
+  g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 0);
 
   g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "adw_action_row_set_subtitle_lines: assertion 'subtitle_lines >= 0' failed");
   adw_action_row_set_subtitle_lines (row, -1);
   g_test_assert_expected_messages ();
 
-  g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 1);
-
-  adw_action_row_set_subtitle_lines (row, 0);
   g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 0);
+
+  adw_action_row_set_subtitle_lines (row, 1);
+  g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 1);
 }
 
 
