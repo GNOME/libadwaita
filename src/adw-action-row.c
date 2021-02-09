@@ -292,7 +292,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * AdwActionRow:title-lines:
    *
    * The number of lines at the end of which the title label will be ellipsized.
-   * Set this property to 0 if you don't want to limit the number of lines.
+   * If the value is 0, the number of lines won't be limited.
    *
    * Since: 1.0
    */
@@ -309,7 +309,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    *
    * The number of lines at the end of which the subtitle label will be
    * ellipsized.
-   * Set this property to 0 if you don't want to limit the number of lines.
+   * If the value is 0, the number of lines won't be limited.
    *
    * Since: 1.0
    */
