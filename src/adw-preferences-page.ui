@@ -14,7 +14,6 @@
                 <child>
                   <object class="GtkBox" id="box">
                     <property name="orientation">vertical</property>
-                    <property name="spacing">30</property>
                   </object>
                 </child>
               </object>

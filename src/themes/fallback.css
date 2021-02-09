@@ -83,7 +83,13 @@ statuspage > scrolledwindow > viewport > box > clamp > box > .title { margin-bot
 
 statuspage > scrolledwindow > viewport > box > clamp > box > .description { margin-bottom: 36px; }
 
-preferencespage > scrolledwindow > viewport > clamp { margin: 18px 12px; }
+preferencespage > scrolledwindow > viewport > clamp > box { margin: 0 12px; transition: margin-bottom 200ms ease, margin-top 200ms ease, border-spacing 200ms ease; }
+
+preferencespage > scrolledwindow > viewport > clamp > box.small { margin-top: 18px; margin-bottom: 18px; border-spacing: 18px; }
+
+preferencespage > scrolledwindow > viewport > clamp > box.medium { margin-top: 24px; margin-bottom: 24px; border-spacing: 24px; }
+
+preferencespage > scrolledwindow > viewport > clamp > box.large { margin-top: 30px; margin-bottom: 30px; border-spacing: 30px; }
 
 preferencesgroup > box > label:not(:first-child) { margin-top: 6px; }
 
