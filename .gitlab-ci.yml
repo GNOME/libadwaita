@@ -46,7 +46,8 @@ build-flatpak:
     BUNDLE: 'org.gnome.Adwaita.Demo.flatpak'
 
 abi-check:
-  image: fedora:rawhide
+  # See https://sourceware.org/bugzilla/show_bug.cgi?id=27267
+  image: fedora:33
   stage: build
   variables:
     DEPS: libabigail git gcc meson pkgconfig(gtk4) vala gobject-introspection
