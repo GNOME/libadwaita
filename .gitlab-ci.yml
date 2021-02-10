@@ -45,6 +45,18 @@ build-flatpak:
     APP_ID: 'org.gnome.Adwaita.Demo'
     BUNDLE: 'org.gnome.Adwaita.Demo.flatpak'
 
+abi-check:
+  image: fedora:rawhide
+  stage: build
+  variables:
+    DEPS: libabigail git gcc meson pkgconfig(gtk4) vala gobject-introspection
+    LAST_ABI_BREAK: "c6ded459e635154ec8b8e2c175b1937f9618fd01"
+  before_script:
+    - dnf -y update
+    - dnf -y install @development-tools redhat-rpm-config dnf-plugins-core $DEPS
+  script:
+    - ./.gitlab-ci/check-abi ${LAST_ABI_BREAK} $(git rev-parse HEAD)
+
 refresh-doc:
   stage: publish
   only:
