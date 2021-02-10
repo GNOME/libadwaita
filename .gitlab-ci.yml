@@ -15,7 +15,7 @@ api-visibility:
   stage: build
   before_script: []
   script:
-    - lint/api-visibility.sh
+    - ./.gitlab-ci/api-visibility.sh
 
 doc:
   image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
