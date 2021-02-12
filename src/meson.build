@@ -172,13 +172,21 @@ libadwaita_sources = [
 
 glib_min_version = '>= 2.44'
 
+gio_dep = dependency('gio-2.0', version: glib_min_version)
+gtk_dep = dependency('gtk4')
+
 libadwaita_deps = [
   dependency('glib-2.0', version: glib_min_version),
-  dependency('gio-2.0', version: glib_min_version),
   dependency('gmodule-2.0', version: glib_min_version),
-  dependency('gtk4'),
+  gio_dep,
+  gtk_dep,
   cc.find_library('m', required: false),
   cc.find_library('rt', required: false),
+]
+
+libadwaita_public_deps = [
+  gio_dep,
+  gtk_dep,
 ]
 
 libadwaita_c_args = [
@@ -238,7 +246,7 @@ libadwaita = shared_library(
 
 libadwaita_dep = declare_dependency(
               sources: libadwaita_generated_headers,
-         dependencies: libadwaita_deps,
+         dependencies: libadwaita_public_deps,
             link_with: libadwaita,
   include_directories: include_directories('.'),
 )
