@@ -2226,6 +2226,20 @@ adw_leaflet_finalize (GObject *object)
   G_OBJECT_CLASS (adw_leaflet_parent_class)->finalize (object);
 }
 
+static gboolean
+back_forward_shortcut_cb (AdwLeaflet *self,
+                          GVariant   *args)
+{
+  AdwNavigationDirection direction;
+
+  g_variant_get (args, "h", &direction);
+
+  direction = adjust_direction_for_rtl (self, direction);
+
+  return can_navigate_in_direction (self, direction) &&
+         adw_leaflet_navigate (self, direction);
+}
+
 static void
 adw_leaflet_class_init (AdwLeafletClass *klass)
 {
@@ -2409,6 +2423,11 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * - Horizontal scrolling on touchpads (usually two-finger swipe)
    * - Back/forward mouse buttons
    *
+   * The keyboard back/forward keys are also supported, as well as the Alt+←
+   * and Alt+→ shortcuts.
+   *
+   * For right-to-left locales, gestures and shortcuts are reversed.
+   *
    * Only children that have [property@Adw.LeafletPage:navigatable] set to
    * `TRUE` can be navigated to.
    *
@@ -2430,6 +2449,11 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * - One-finger swipe on touchscreens
    * - Horizontal scrolling on touchpads (usually two-finger swipe)
    * - Back/forward mouse buttons
+   *
+   * The keyboard back/forward keys are also supported, as well as the Alt+←
+   * and Alt+→ shortcuts.
+   *
+   * For right-to-left locales, gestures and shortcuts are reversed.
    *
    * Only children that have [property@Adw.LeafletPage:navigatable] set to
    * `TRUE` can be navigated to.
@@ -2478,7 +2502,20 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_css_name (widget_class, "leaflet");
-}
+
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Back, 0,
+                                (GtkShortcutFunc) back_forward_shortcut_cb,
+                                "h", ADW_NAVIGATION_DIRECTION_BACK);
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Forward, 0,
+                                (GtkShortcutFunc) back_forward_shortcut_cb,
+                                "h", ADW_NAVIGATION_DIRECTION_FORWARD);
+
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Left, GDK_ALT_MASK,
+                                (GtkShortcutFunc) back_forward_shortcut_cb,
+                                "h", ADW_NAVIGATION_DIRECTION_BACK);
+  gtk_widget_class_add_binding (widget_class,  GDK_KEY_Right, GDK_ALT_MASK,
+                                (GtkShortcutFunc) back_forward_shortcut_cb,
+                                "h", ADW_NAVIGATION_DIRECTION_FORWARD);}
 
 
 static void

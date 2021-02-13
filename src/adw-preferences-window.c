@@ -570,6 +570,10 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    * - Horizontal scrolling on touchpads (usually two-finger swipe)
    * - Back mouse button
    *
+   * The keyboard back key is also supported, as well as the Alt+← shortcut.
+   *
+   * For right-to-left locales, gestures and shortcuts are reversed.
+   *
    * Since: 1.0
    */
   props[PROP_CAN_NAVIGATE_BACK] =
