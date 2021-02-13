@@ -435,6 +435,21 @@ adw_leaflet_pages_new (AdwLeaflet *leaflet)
   return pages;
 }
 
+static inline AdwNavigationDirection
+adjust_direction_for_rtl (AdwLeaflet             *self,
+                          AdwNavigationDirection  direction)
+{
+  if (self->orientation == GTK_ORIENTATION_HORIZONTAL &&
+      gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL) {
+    if (direction == ADW_NAVIGATION_DIRECTION_BACK)
+      return ADW_NAVIGATION_DIRECTION_FORWARD;
+    else
+      return ADW_NAVIGATION_DIRECTION_BACK;
+  }
+
+  return direction;
+}
+
 static AdwLeafletPage *
 find_page_for_widget (AdwLeaflet *self,
                       GtkWidget  *widget)
@@ -1513,6 +1528,44 @@ set_orientation (AdwLeaflet     *self,
 }
 
 static void
+back_forward_button_pressed_cb (GtkGesture *gesture,
+                                int         n_press,
+                                double      x,
+                                double      y,
+                                AdwLeaflet *self)
+{
+  guint button;
+  AdwNavigationDirection direction;
+
+  if (n_press > 1) {
+    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
+  button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
+
+  /* Unfortunately, there are no constants for these buttons */
+  if (button == 8) {
+    direction = ADW_NAVIGATION_DIRECTION_BACK;
+  } else if (button == 9) {
+    direction = ADW_NAVIGATION_DIRECTION_FORWARD;
+  } else {
+    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
+  direction = adjust_direction_for_rtl (self, direction);
+
+  if (can_navigate_in_direction (self, direction) &&
+      adw_leaflet_navigate (self, direction)) {
+    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
+    return;
+  }
+
+  gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
+}
+
+static void
 prepare_cb (AdwSwipeTracker        *tracker,
             AdwNavigationDirection  direction,
             AdwLeaflet             *self)
@@ -2354,6 +2407,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * The supported gestures are:
    * - One-finger swipe on touchscreens
    * - Horizontal scrolling on touchpads (usually two-finger swipe)
+   * - Back/forward mouse buttons
    *
    * Only children that have [property@Adw.LeafletPage:navigatable] set to
    * `TRUE` can be navigated to.
@@ -2375,6 +2429,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * The supported gestures are:
    * - One-finger swipe on touchscreens
    * - Horizontal scrolling on touchpads (usually two-finger swipe)
+   * - Back/forward mouse buttons
    *
    * Only children that have [property@Adw.LeafletPage:navigatable] set to
    * `TRUE` can be navigated to.
@@ -2430,6 +2485,7 @@ static void
 adw_leaflet_init (AdwLeaflet *self)
 {
   GtkWidget *widget = GTK_WIDGET (self);
+  GtkEventController *controller;
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
@@ -2445,6 +2501,11 @@ adw_leaflet_init (AdwLeaflet *self)
   self->mode_transition.current_pos = 1.0;
   self->mode_transition.target_pos = 1.0;
   self->can_unfold = TRUE;
+
+  controller = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
+  gtk_gesture_single_set_button (GTK_GESTURE_SINGLE (controller), 0);
+  g_signal_connect_object (controller, "pressed", G_CALLBACK (back_forward_button_pressed_cb), self, 0);
+  gtk_widget_add_controller (widget, controller);
 
   self->tracker = adw_swipe_tracker_new (ADW_SWIPEABLE (self));
 
