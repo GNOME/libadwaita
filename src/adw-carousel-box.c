@@ -276,7 +276,7 @@ static void
 set_position (AdwCarouselBox *self,
               gdouble         position)
 {
-  gdouble lower, upper;
+  gdouble lower = 0, upper = 0;
 
   adw_carousel_box_get_range (self, &lower, &upper);
 
@@ -1346,6 +1346,9 @@ adw_carousel_box_get_page_at_position (AdwCarouselBox *self,
   AdwCarouselBoxChildInfo *child;
 
   g_return_val_if_fail (ADW_IS_CAROUSEL_BOX (self), NULL);
+
+  lower = 0;
+  upper = 0;
 
   adw_carousel_box_get_range (self, &lower, &upper);
 
