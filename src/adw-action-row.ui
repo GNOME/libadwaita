@@ -3,6 +3,9 @@
   <requires lib="gtk" version="4.0"/>
   <template class="AdwActionRow" parent="AdwPreferencesRow">
     <property name="activatable">False</property>
+    <accessibility>
+      <relation name="labelled-by">title</relation>
+    </accessibility>
     <child>
       <object class="GtkBox" id="header">
         <property name="spacing">12</property>
