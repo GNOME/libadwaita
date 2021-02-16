@@ -13,7 +13,7 @@ fi
 SASSC_OPT="-M -t compact"
 
 : ${GTK_SOURCE_PATH:="../../../gtk4"}
-: ${GTK_TAG:="4.0.0"}
+: ${GTK_TAG:="4.0.3"}
 
 if [ ! -d "${GTK_SOURCE_PATH}/gtk/theme/Adwaita" ]; then
    echo GTK sources not found at ${GTK_SOURCE_PATH}.
