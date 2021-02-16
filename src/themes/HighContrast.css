@@ -75,13 +75,11 @@ avatar.image { background: none; }
 
 viewswitchertitle viewswitcher { margin-left: 12px; margin-right: 12px; }
 
-statuspage > scrolledwindow > viewport > box { margin: 36px 12px; }
+statuspage > scrolledwindow > viewport > box { margin: 36px 12px; border-spacing: 36px; }
 
-statuspage > scrolledwindow > viewport > box > clamp > box > .icon { margin-bottom: 36px; }
+statuspage > scrolledwindow > viewport > box > clamp > box { border-spacing: 12px; }
 
-statuspage > scrolledwindow > viewport > box > clamp > box > .title { margin-bottom: 12px; }
-
-statuspage > scrolledwindow > viewport > box > clamp > box > .description { margin-bottom: 36px; }
+statuspage > scrolledwindow > viewport > box > clamp > box > .icon:not(:last-child) { margin-bottom: 24px; }
 
 preferencespage > scrolledwindow > viewport > clamp > box { margin: 0 12px; transition: margin-bottom 200ms ease, margin-top 200ms ease, border-spacing 200ms ease; }
 

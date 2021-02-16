@@ -150,18 +150,13 @@ viewswitchertitle viewswitcher {
 
 statuspage > scrolledwindow > viewport > box {
   margin: 36px 12px;
+  border-spacing: 36px;
 
   > clamp > box {
-    > .icon {
-      margin-bottom: 36px;
-    }
+    border-spacing: 12px;
 
-    > .title {
-      margin-bottom: 12px;
-    }
-
-    > .description {
-      margin-bottom: 36px;
+    > .icon:not(:last-child) {
+      margin-bottom: 24px;
     }
   }
 }
