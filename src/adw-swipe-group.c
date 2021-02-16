@@ -483,7 +483,10 @@ swipe_group_start_element (GtkBuildableParseContext  *context,
 /* This has been copied and modified from gtksizegroup.c. */
 static const GtkBuildableParser swipe_group_parser =
   {
-    swipe_group_start_element
+    swipe_group_start_element,
+    NULL,
+    NULL,
+    NULL
   };
 
 /* This has been copied and modified from gtksizegroup.c. */
