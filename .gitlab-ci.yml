@@ -51,6 +51,22 @@ build-flatpak-aarch64:
   stage: build
   before_script: []
 
+scan-build:
+  extends: '.flatpak'
+  stage: build
+  variables:
+    MESON_ARGS: >-
+      --werror
+  script:
+    - flatpak-builder --user --disable-rofiles-fuse --stop-at=${FLATPAK_MODULE} ${FLATPAK_BUILD_DIR} ${MANIFEST_PATH}
+    - flatpak build ${FLATPAK_BUILD_DIR} meson --prefix=/app ${SHARED_MESON_ARGS} ${MESON_ARGS} _build
+    - flatpak build ${FLATPAK_BUILD_DIR} ninja -C _build scan-build
+    - bash -c 'if [[ -n "$(ls -A _build/meson-logs/scanbuild/)" ]]; then echo "Scan build log found, assuming defects exist"; exit 1; fi'
+  artifacts:
+    when: on_failure
+    paths:
+      - _build/meson-logs/scanbuild
+
 abi-check:
   image: $ABI_CHECKER_IMAGE
   stage: build
