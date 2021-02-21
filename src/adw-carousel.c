@@ -429,74 +429,6 @@ end_swipe_cb (AdwSwipeTracker *tracker,
   scroll_to (self, child, duration);
 }
 
-static void
-adw_carousel_switch_child (AdwSwipeable *swipeable,
-                           guint         index,
-                           gint64        duration)
-{
-  AdwCarousel *self = ADW_CAROUSEL (swipeable);
-  GtkWidget *child = adw_carousel_get_nth_page (self, index);
-
-  scroll_to (self, child, duration);
-}
-
-static AdwSwipeTracker *
-adw_carousel_get_swipe_tracker (AdwSwipeable *swipeable)
-{
-  AdwCarousel *self = ADW_CAROUSEL (swipeable);
-
-  return self->tracker;
-}
-
-static double
-adw_carousel_get_distance (AdwSwipeable *swipeable)
-{
-  AdwCarousel *self = ADW_CAROUSEL (swipeable);
-
-  return self->distance;
-}
-
-static double *
-adw_carousel_get_snap_points (AdwSwipeable *swipeable,
-                              int          *n_snap_points)
-{
-  AdwCarousel *self = ADW_CAROUSEL (swipeable);
-  guint i, n_pages;
-  double *points;
-  GList *l;
-
-  n_pages = MAX (g_list_length (self->children), 1);
-  points = g_new0 (double, n_pages);
-
-  i = 0;
-  for (l = self->children; l; l = l->next) {
-    ChildInfo *info = l->data;
-
-    points[i++] = info->snap_point;
-  }
-
-  if (n_snap_points)
-    *n_snap_points = n_pages;
-
-  return points;
-}
-
-static double
-adw_carousel_get_progress (AdwSwipeable *swipeable)
-{
-  AdwCarousel *self = ADW_CAROUSEL (swipeable);
-
-  return adw_carousel_get_position (self);
-}
-
-static double
-adw_carousel_get_cancel_progress (AdwSwipeable *swipeable)
-{
-  AdwCarousel *self = ADW_CAROUSEL (swipeable);
-
-  return get_closest_snap_point (self);
-}
-
 /* Copied from GtkOrientable. Orientable widgets are supposed
  * to do this manually via a private GTK function. */
 static void
@@ -921,17 +853,6 @@ adw_carousel_set_property (GObject      *object,
 }
 
 static void
-adw_carousel_swipeable_init (AdwSwipeableInterface *iface)
-{
-  iface->switch_child = adw_carousel_switch_child;
-  iface->get_swipe_tracker = adw_carousel_get_swipe_tracker;
-  iface->get_distance = adw_carousel_get_distance;
-  iface->get_snap_points = adw_carousel_get_snap_points;
-  iface->get_progress = adw_carousel_get_progress;
-  iface->get_cancel_progress = adw_carousel_get_cancel_progress;
-}
-
-static void
 adw_carousel_class_init (AdwCarouselClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -1159,6 +1080,85 @@ adw_carousel_buildable_init (GtkBuildableIface *iface)
   parent_buildable_iface = g_type_interface_peek_parent (iface);
 
   iface->add_child = adw_carousel_buildable_add_child;
+}
+
+static void
+adw_carousel_switch_child (AdwSwipeable *swipeable,
+                           guint         index,
+                           gint64        duration)
+{
+  AdwCarousel *self = ADW_CAROUSEL (swipeable);
+  GtkWidget *child = adw_carousel_get_nth_page (self, index);
+
+  scroll_to (self, child, duration);
+}
+
+static AdwSwipeTracker *
+adw_carousel_get_swipe_tracker (AdwSwipeable *swipeable)
+{
+  AdwCarousel *self = ADW_CAROUSEL (swipeable);
+
+  return self->tracker;
+}
+
+static double
+adw_carousel_get_distance (AdwSwipeable *swipeable)
+{
+  AdwCarousel *self = ADW_CAROUSEL (swipeable);
+
+  return self->distance;
+}
+
+static double *
+adw_carousel_get_snap_points (AdwSwipeable *swipeable,
+                              int          *n_snap_points)
+{
+  AdwCarousel *self = ADW_CAROUSEL (swipeable);
+  guint i, n_pages;
+  double *points;
+  GList *l;
+
+  n_pages = MAX (g_list_length (self->children), 1);
+  points = g_new0 (double, n_pages);
+
+  i = 0;
+  for (l = self->children; l; l = l->next) {
+    ChildInfo *info = l->data;
+
+    points[i++] = info->snap_point;
+  }
+
+  if (n_snap_points)
+    *n_snap_points = n_pages;
+
+  return points;
+}
+
+static double
+adw_carousel_get_progress (AdwSwipeable *swipeable)
+{
+  AdwCarousel *self = ADW_CAROUSEL (swipeable);
+
+  return adw_carousel_get_position (self);
+}
+
+static double
+adw_carousel_get_cancel_progress (AdwSwipeable *swipeable)
+{
+  AdwCarousel *self = ADW_CAROUSEL (swipeable);
+
+  return get_closest_snap_point (self);
+}
+
+static void
+adw_carousel_swipeable_init (AdwSwipeableInterface *iface)
+{
+  iface->switch_child = adw_carousel_switch_child;
+  iface->get_swipe_tracker = adw_carousel_get_swipe_tracker;
+  iface->get_distance = adw_carousel_get_distance;
+  iface->get_snap_points = adw_carousel_get_snap_points;
+  iface->get_progress = adw_carousel_get_progress;
+  iface->get_cancel_progress = adw_carousel_get_cancel_progress;
 }
 
 /**
