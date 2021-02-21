@@ -205,6 +205,14 @@ adw_animation_get_value (AdwAnimation *self)
   return self->value;
 }
 
+GtkWidget *
+adw_animation_get_widget (AdwAnimation *self)
+{
+  g_return_val_if_fail (self != NULL, NULL);
+
+  return self->widget;
+}
+
 /**
  * adw_get_enable_animations:
  * @widget: a #GtkWidget
