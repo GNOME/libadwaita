@@ -24,16 +24,6 @@
  * Since: 1.0
  */
 
-typedef struct _AdwCarouselBoxAnimation AdwCarouselBoxAnimation;
-
-struct _AdwCarouselBoxAnimation
-{
-  gint64 start_time;
-  gint64 end_time;
-  double start_value;
-  double end_value;
-};
-
 typedef struct _AdwCarouselBoxChildInfo AdwCarouselBoxChildInfo;
 
 struct _AdwCarouselBoxChildInfo
@@ -47,15 +37,16 @@ struct _AdwCarouselBoxChildInfo
   gboolean removing;
 
   gboolean shift_position;
-  AdwCarouselBoxAnimation resize_animation;
+  AdwAnimation *resize_animation;
 };
 
 struct _AdwCarouselBox
 {
   GtkWidget parent_instance;
 
-  AdwCarouselBoxAnimation animation;
-  AdwCarouselBoxChildInfo *destination_child;
+  double animation_source_position;
+  AdwAnimation *animation;
+  AdwCarouselBoxChildInfo *animation_target_child;
   GList *children;
 
   double distance;
@@ -64,7 +55,7 @@ struct _AdwCarouselBox
   GtkOrientation orientation;
   guint reveal_duration;
 
-  guint tick_cb_id;
+  double position_shift;
 };
 
 G_DEFINE_TYPE_WITH_CODE (AdwCarouselBox, adw_carousel_box, GTK_TYPE_WIDGET,
@@ -180,97 +171,6 @@ get_closest_child_at (AdwCarouselBox *self,
   return closest_child;
 }
 
-static double
-get_animation_value (AdwCarouselBoxAnimation *animation,
-                     GdkFrameClock           *frame_clock)
-{
-  gint64 frame_time, duration;
-  double t;
-
-  frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000;
-  frame_time = MIN (frame_time, animation->end_time);
-
-  duration = animation->end_time - animation->start_time;
-  t = (double) (frame_time - animation->start_time) / duration;
-  t = adw_ease_out_cubic (t);
-
-  return adw_lerp (animation->start_value, animation->end_value, t);
-}
-
-static gboolean
-animate_position (AdwCarouselBox *self,
-                  GdkFrameClock  *frame_clock)
-{
-  gint64 frame_time;
-  double value;
-
-  if (!adw_carousel_box_is_animating (self))
-    return G_SOURCE_REMOVE;
-
-  frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000;
-
-  self->animation.end_value = self->destination_child->snap_point;
-  value = get_animation_value (&self->animation, frame_clock);
-  adw_carousel_box_set_position (self, value);
-
-  if (frame_time >= self->animation.end_time) {
-    self->animation.start_time = 0;
-    self->animation.end_time = 0;
-    g_signal_emit (self, signals[SIGNAL_ANIMATION_STOPPED], 0);
-    return G_SOURCE_REMOVE;
-  }
-
-  return G_SOURCE_CONTINUE;
-}
-
-static void
-complete_child_animation (AdwCarouselBox          *self,
-                          AdwCarouselBoxChildInfo *child)
-{
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
-
-  if (child->adding)
-    child->adding = FALSE;
-
-  if (child->removing) {
-    self->children = g_list_remove (self->children, child);
-
-    g_free (child);
-  }
-}
-
-static gboolean
-animate_child_size (AdwCarouselBox          *self,
-                    AdwCarouselBoxChildInfo *child,
-                    GdkFrameClock           *frame_clock,
-                    double                  *delta)
-{
-  gint64 frame_time;
-  double d, new_value;
-
-  if (child->resize_animation.start_time == 0)
-    return G_SOURCE_REMOVE;
-
-  new_value = get_animation_value (&child->resize_animation, frame_clock);
-  d = new_value - child->size;
-
-  child->size += d;
-
-  frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000;
-
-  if (delta)
-    *delta = d;
-
-  if (frame_time >= child->resize_animation.end_time) {
-    child->resize_animation.start_time = 0;
-    child->resize_animation.end_time = 0;
-    complete_child_animation (self, child);
-    return G_SOURCE_REMOVE;
-  }
-
-  return G_SOURCE_CONTINUE;
-}
-
 static void
 set_position (AdwCarouselBox *self,
               double          position)
@@ -284,51 +184,6 @@ set_position (AdwCarouselBox *self,
   self->position = position;
   gtk_widget_queue_allocate (GTK_WIDGET (self));
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POSITION]);
-}
-
-static gboolean
-animation_cb (GtkWidget     *widget,
-              GdkFrameClock *frame_clock,
-              gpointer       user_data)
-{
-  AdwCarouselBox *self = ADW_CAROUSEL_BOX (widget);
-  g_autoptr (GList) children = NULL;
-  GList *l;
-  gboolean should_continue;
-  double position_shift;
-
-  should_continue = G_SOURCE_REMOVE;
-
-  position_shift = 0;
-
-  children = g_list_copy (self->children);
-  for (l = children; l; l = l->next) {
-    AdwCarouselBoxChildInfo *child = l->data;
-    double delta;
-    gboolean shift;
-
-    delta = 0;
-    shift = child->shift_position;
-
-    should_continue |= animate_child_size (self, child, frame_clock, &delta);
-
-    if (shift)
-      position_shift += delta;
-  }
-
-  if (position_shift != 0) {
-    set_position (self, self->position + position_shift);
-    g_signal_emit (self, signals[SIGNAL_POSITION_SHIFTED], 0, position_shift);
-  }
-
-  should_continue |= animate_position (self, frame_clock);
-
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
-
-  if (!should_continue)
-    self->tick_cb_id = 0;
-
-  return should_continue;
 }
 
 static void
@@ -351,62 +206,60 @@ update_shift_position_flag (AdwCarouselBox          *self,
 }
 
 static void
+resize_animation_value_cb (double                   value,
+                           AdwCarouselBoxChildInfo *child)
+{
+  AdwCarouselBox *self = ADW_CAROUSEL_BOX (adw_animation_get_widget (child->resize_animation));
+  double delta = value - child->size;
+
+  child->size = value;
+
+  if (child->shift_position)
+    self->position_shift += delta;
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
+
+static void
+resize_animation_done_cb (AdwCarouselBoxChildInfo *child)
+{
+  AdwCarouselBox *self = ADW_CAROUSEL_BOX (adw_animation_get_widget (child->resize_animation));
+
+  g_clear_pointer (&child->resize_animation, adw_animation_unref);
+
+  if (child->adding)
+    child->adding = FALSE;
+
+  if (child->removing) {
+    self->children = g_list_remove (self->children, child);
+
+    g_free (child);
+  }
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
+
+static void
 animate_child (AdwCarouselBox          *self,
                AdwCarouselBoxChildInfo *child,
                double                   value,
                gint64                   duration)
 {
-  GdkFrameClock *frame_clock;
-  gint64 frame_time;
-
-  if (child->resize_animation.start_time > 0) {
-    child->resize_animation.start_time = 0;
-    child->resize_animation.end_time = 0;
-  }
+  double old_size = child->size;
 
   update_shift_position_flag (self, child);
 
-  if (!gtk_widget_get_realized (GTK_WIDGET (self)) ||
-      duration <= 0 ||
-      !adw_get_enable_animations (GTK_WIDGET (self))) {
-    double delta = value - child->size;
+  if (child->resize_animation)
+    adw_animation_stop (child->resize_animation);
 
-    child->size = value;
+  child->resize_animation =
+    adw_animation_new (GTK_WIDGET (self), old_size, value, duration,
+                       adw_ease_out_cubic,
+                       (AdwAnimationValueCallback) resize_animation_value_cb,
+                       (AdwAnimationDoneCallback) resize_animation_done_cb,
+                       child);
 
-    if (child->shift_position) {
-      set_position (self, self->position + delta);
-      g_signal_emit (self, signals[SIGNAL_POSITION_SHIFTED], 0, delta);
-    }
-
-    complete_child_animation (self, child);
-    return;
-  }
-
-  frame_clock = gtk_widget_get_frame_clock (GTK_WIDGET (self));
-  if (!frame_clock) {
-    double delta = value - child->size;
-
-    child->size = value;
-
-    if (child->shift_position) {
-      set_position (self, self->position + delta);
-      g_signal_emit (self, signals[SIGNAL_POSITION_SHIFTED], 0, delta);
-    }
-
-    complete_child_animation (self, child);
-    return;
-  }
-
-  frame_time = gdk_frame_clock_get_frame_time (frame_clock);
-
-  child->resize_animation.start_value = child->size;
-  child->resize_animation.end_value = value;
-
-  child->resize_animation.start_time = frame_time / 1000;
-  child->resize_animation.end_time = child->resize_animation.start_time + duration;
-  if (self->tick_cb_id == 0)
-    self->tick_cb_id =
-      gtk_widget_add_tick_callback (GTK_WIDGET (self), animation_cb, self, NULL);
+  adw_animation_start (child->resize_animation);
 }
 
 static void
@@ -464,6 +317,12 @@ adw_carousel_box_size_allocate (GtkWidget *widget,
   double x, y, offset;
   gboolean is_rtl;
   double snap_point;
+
+  if (self->position_shift != 0) {
+    set_position (self, self->position + self->position_shift);
+    g_signal_emit (self, signals[SIGNAL_POSITION_SHIFTED], 0, self->position_shift);
+    self->position_shift = 0;
+  }
 
   size = 0;
   for (children = self->children; children; children = children->next) {
@@ -581,9 +440,6 @@ static void
 adw_carousel_box_finalize (GObject *object)
 {
   AdwCarouselBox *self = ADW_CAROUSEL_BOX (object);
-
-  if (self->tick_cb_id > 0)
-    gtk_widget_remove_tick_callback (GTK_WIDGET (self), self->tick_cb_id);
 
   g_list_free_full (self->children, (GDestroyNotify) g_free);
 
@@ -944,7 +800,7 @@ adw_carousel_box_is_animating (AdwCarouselBox *self)
 {
   g_return_val_if_fail (ADW_IS_CAROUSEL_BOX (self), FALSE);
 
-  return (self->animation.start_time != 0);
+  return self->animation != NULL;
 }
 
 /**
@@ -962,11 +818,31 @@ adw_carousel_box_stop_animation (AdwCarouselBox *self)
 {
   g_return_if_fail (ADW_IS_CAROUSEL_BOX (self));
 
-  if (self->animation.start_time == 0)
-    return;
+  if (self->animation)
+    adw_animation_stop (self->animation);
+}
 
-  self->animation.start_time = 0;
-  self->animation.end_time = 0;
+static void
+scroll_animation_value_cb (double          value,
+                           AdwCarouselBox *self)
+{
+  double position = adw_lerp (self->animation_source_position,
+                              self->animation_target_child->snap_point,
+                              value);
+
+  adw_carousel_box_set_position (self, position);
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
+
+static void
+scroll_animation_done_cb (AdwCarouselBox *self)
+{
+  g_clear_pointer (&self->animation, adw_animation_unref);
+  self->animation_source_position = 0;
+  self->animation_target_child = NULL;
+
+  g_signal_emit (self, signals[SIGNAL_ANIMATION_STOPPED], 0);
 }
 
 /**
@@ -990,45 +866,24 @@ adw_carousel_box_scroll_to (AdwCarouselBox *self,
                             GtkWidget      *widget,
                             gint64          duration)
 {
-  GdkFrameClock *frame_clock;
-  gint64 frame_time;
-  double position;
-  AdwCarouselBoxChildInfo *child;
-
   g_return_if_fail (ADW_IS_CAROUSEL_BOX (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
   g_return_if_fail (duration >= 0);
 
-  child = find_child_info (self, widget);
-  position = child->snap_point;
+  self->animation_source_position = self->position;
+  self->animation_target_child = find_child_info (self, widget);
 
   adw_carousel_box_stop_animation (self);
 
-  if (duration <= 0 || !adw_get_enable_animations (GTK_WIDGET (self))) {
-    adw_carousel_box_set_position (self, position);
-    g_signal_emit (self, signals[SIGNAL_ANIMATION_STOPPED], 0);
-    return;
-  }
+  self->animation =
+    adw_animation_new (GTK_WIDGET (self), 0, 1, duration,
+                       adw_ease_out_cubic,
+                       (AdwAnimationValueCallback) scroll_animation_value_cb,
+                       (AdwAnimationDoneCallback) scroll_animation_done_cb,
+                       self);
 
-  frame_clock = gtk_widget_get_frame_clock (GTK_WIDGET (self));
-  if (!frame_clock) {
-    adw_carousel_box_set_position (self, position);
-    g_signal_emit (self, signals[SIGNAL_ANIMATION_STOPPED], 0);
-    return;
-  }
+  adw_animation_start (self->animation);
 
-  frame_time = gdk_frame_clock_get_frame_time (frame_clock);
-
-  self->destination_child = child;
-
-  self->animation.start_value = self->position;
-  self->animation.end_value = position;
-
-  self->animation.start_time = frame_time / 1000;
-  self->animation.end_time = self->animation.start_time + duration;
-  if (self->tick_cb_id == 0)
-    self->tick_cb_id =
-      gtk_widget_add_tick_callback (GTK_WIDGET (self), animation_cb, self, NULL);
 }
 
 /**
