@@ -9,7 +9,6 @@
 #include "adw-carousel.h"
 
 #include "adw-animation-private.h"
-#include "adw-carousel-box-private.h"
 #include "adw-navigation-direction.h"
 #include "adw-swipe-tracker.h"
 #include "adw-swipeable.h"
@@ -34,18 +33,40 @@
  * Since: 1.0
  */
 
+typedef struct {
+  GtkWidget *widget;
+  int position;
+  gboolean visible;
+  double size;
+  double snap_point;
+  gboolean adding;
+  gboolean removing;
+
+  gboolean shift_position;
+  AdwAnimation *resize_animation;
+} ChildInfo;
+
 struct _AdwCarousel
 {
   GtkWidget parent_instance;
 
-  AdwCarouselBox *scrolling_box;
+  GList *children;
+  double distance;
+  double position;
+  guint spacing;
+  GtkOrientation orientation;
+  guint animation_duration;
+  guint reveal_duration;
+
+  double animation_source_position;
+  AdwAnimation *animation;
+  ChildInfo *animation_target_child;
 
   AdwSwipeTracker *tracker;
 
   gboolean allow_scroll_wheel;
 
-  GtkOrientation orientation;
-  guint animation_duration;
+  double position_shift;
 
   gulong scroll_timeout_id;
   gboolean can_scroll;
@@ -86,18 +107,297 @@ enum {
 };
 static guint signals[SIGNAL_LAST_SIGNAL];
 
+static ChildInfo *
+find_child_info (AdwCarousel *self,
+                 GtkWidget   *widget)
+{
+  GList *l;
+
+  for (l = self->children; l; l = l->next) {
+    ChildInfo *info = l->data;
+
+    if (widget == info->widget)
+      return info;
+  }
+
+  return NULL;
+}
+
+static int
+find_child_index (AdwCarousel *self,
+                  GtkWidget   *widget,
+                  gboolean     count_removing)
+{
+  GList *l;
+  int i;
+
+  i = 0;
+  for (l = self->children; l; l = l->next) {
+    ChildInfo *info = l->data;
+
+    if (info->removing && !count_removing)
+      continue;
+
+    if (widget == info->widget)
+      return i;
+
+    i++;
+  }
+
+  return -1;
+}
+
+static GList *
+get_nth_link (AdwCarousel *self,
+              int          n)
+{
+
+  GList *l;
+  int i;
+
+  i = n;
+  for (l = self->children; l; l = l->next) {
+    ChildInfo *info = l->data;
+
+    if (info->removing)
+      continue;
+
+    if (i-- == 0)
+      return l;
+  }
+
+  return NULL;
+}
+
+static ChildInfo *
+get_closest_child_at (AdwCarousel *self,
+                      double       position,
+                      gboolean     count_adding,
+                      gboolean     count_removing)
+{
+  GList *l;
+  ChildInfo *closest_child = NULL;
+
+  for (l = self->children; l; l = l->next) {
+    ChildInfo *child = l->data;
+
+    if (child->adding && !count_adding)
+      continue;
+
+    if (child->removing && !count_removing)
+      continue;
+
+    if (!closest_child ||
+        ABS (closest_child->snap_point - position) >
+        ABS (child->snap_point - position))
+      closest_child = child;
+  }
+
+  return closest_child;
+}
+
+static inline void
+get_range (AdwCarousel *self,
+           double      *lower,
+           double      *upper)
+{
+  GList *l = g_list_last (self->children);
+  ChildInfo *child = l ? l->data : NULL;
+
+  if (lower)
+    *lower = 0;
+
+  if (upper)
+    *upper = child ? child->snap_point : 0;
+}
+
+static GtkWidget *
+get_page_at_position (AdwCarousel *self,
+                      double       position)
+{
+  double lower = 0, upper = 0;
+  ChildInfo *child;
+
+  get_range (self, &lower, &upper);
+
+  position = CLAMP (position, lower, upper);
+
+  child = get_closest_child_at (self, position, TRUE, FALSE);
+
+  if (!child)
+    return NULL;
+
+  return child->widget;
+}
 
 static void
-adw_carousel_switch_child (AdwSwipeable *swipeable,
-                           guint         index,
-                           gint64        duration)
+update_shift_position_flag (AdwCarousel *self,
+                            ChildInfo   *child)
 {
-  AdwCarousel *self = ADW_CAROUSEL (swipeable);
+  ChildInfo *closest_child;
+  int animating_index, closest_index;
+
+  /* We want to still shift position when the active child is being removed */
+  closest_child = get_closest_child_at (self, self->position, FALSE, TRUE);
+
+  if (!closest_child)
+    return;
+
+  animating_index = g_list_index (self->children, child);
+  closest_index = g_list_index (self->children, closest_child);
+
+  child->shift_position = (closest_index >= animating_index);
+}
+
+static void
+set_position (AdwCarousel *self,
+              double       position)
+{
+  GList *l;
+  double lower = 0, upper = 0;
+
+  get_range (self, &lower, &upper);
+
+  position = CLAMP (position, lower, upper);
+
+  self->position = position;
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+
+  for (l = self->children; l; l = l->next) {
+    ChildInfo *child = l->data;
+
+    if (child->adding || child->removing)
+      update_shift_position_flag (self, child);
+  }
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POSITION]);
+}
+
+static void
+resize_animation_value_cb (double     value,
+                           ChildInfo *child)
+{
+  AdwCarousel *self = ADW_CAROUSEL (adw_animation_get_widget (child->resize_animation));
+  double delta = value - child->size;
+
+  child->size = value;
+
+  if (child->shift_position)
+    self->position_shift += delta;
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
+
+static void
+resize_animation_done_cb (ChildInfo *child)
+{
+  AdwCarousel *self = ADW_CAROUSEL (adw_animation_get_widget (child->resize_animation));
+
+  g_clear_pointer (&child->resize_animation, adw_animation_unref);
+
+  if (child->adding)
+    child->adding = FALSE;
+
+  if (child->removing) {
+    self->children = g_list_remove (self->children, child);
+
+    g_free (child);
+  }
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
+
+static void
+animate_child_resize (AdwCarousel *self,
+                      ChildInfo   *child,
+                      double       value,
+                      gint64       duration)
+{
+  double old_size = child->size;
+
+  update_shift_position_flag (self, child);
+
+  if (child->resize_animation)
+    adw_animation_stop (child->resize_animation);
+
+  child->resize_animation =
+    adw_animation_new (GTK_WIDGET (self), old_size, value, duration,
+                       adw_ease_out_cubic,
+                       (AdwAnimationValueCallback) resize_animation_value_cb,
+                       (AdwAnimationDoneCallback) resize_animation_done_cb,
+                       child);
+
+  adw_animation_start (child->resize_animation);
+}
+
+static void
+shift_position (AdwCarousel *self,
+                double       delta)
+{
+  set_position (self, self->position + delta);
+  adw_swipe_tracker_shift_position (self->tracker, delta);
+}
+
+static void
+scroll_animation_value_cb (double       value,
+                           AdwCarousel *self)
+{
+  double position = adw_lerp (self->animation_source_position,
+                              self->animation_target_child->snap_point,
+                              value);
+
+  set_position (self, position);
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
+
+static void
+scroll_animation_done_cb (AdwCarousel *self)
+{
   GtkWidget *child;
+  int index;
 
-  child = adw_carousel_box_get_nth_child (self->scrolling_box, index);
+  g_clear_pointer (&self->animation, adw_animation_unref);
+  self->animation_source_position = 0;
+  self->animation_target_child = NULL;
 
-  adw_carousel_box_scroll_to (self->scrolling_box, child, duration);
+  child = get_page_at_position (self, self->position);
+  index = find_child_index (self, child, FALSE);
+
+  g_signal_emit (self, signals[SIGNAL_PAGE_CHANGED], 0, index);
+}
+
+static void
+scroll_to (AdwCarousel *self,
+           GtkWidget   *widget,
+           gint64       duration)
+{
+  self->animation_source_position = self->position;
+  self->animation_target_child = find_child_info (self, widget);
+
+  if (self->animation)
+    adw_animation_stop (self->animation);
+
+  self->animation =
+    adw_animation_new (GTK_WIDGET (self), 0, 1, duration,
+                       adw_ease_out_cubic,
+                       (AdwAnimationValueCallback) scroll_animation_value_cb,
+                       (AdwAnimationDoneCallback) scroll_animation_done_cb,
+                       self);
+
+  adw_animation_start (self->animation);
+}
+
+static inline double
+get_closest_snap_point (AdwCarousel *self)
+{
+  ChildInfo *closest_child =
+    get_closest_child_at (self, self->position, TRUE, TRUE);
+
+  if (!closest_child)
+    return 0;
+
+  return closest_child->snap_point;
 }
 
 static void
@@ -106,7 +406,8 @@ begin_swipe_cb (AdwSwipeTracker        *tracker,
                 gboolean                direct,
                 AdwCarousel            *self)
 {
-  adw_carousel_box_stop_animation (self->scrolling_box);
+  if (self->animation)
+    adw_animation_stop (self->animation);
 }
 
 static void
@@ -114,7 +415,7 @@ update_swipe_cb (AdwSwipeTracker *tracker,
                  double           progress,
                  AdwCarousel     *self)
 {
-  adw_carousel_box_set_position (self->scrolling_box, progress);
+  set_position (self, progress);
 }
 
 static void
@@ -123,10 +424,20 @@ end_swipe_cb (AdwSwipeTracker *tracker,
               double           to,
               AdwCarousel     *self)
 {
-  GtkWidget *child;
+  GtkWidget *child = get_page_at_position (self, to);
 
-  child = adw_carousel_box_get_page_at_position (self->scrolling_box, to);
-  adw_carousel_box_scroll_to (self->scrolling_box, child, duration);
+  scroll_to (self, child, duration);
+}
+
+static void
+adw_carousel_switch_child (AdwSwipeable *swipeable,
+                           guint         index,
+                           gint64        duration)
+{
+  AdwCarousel *self = ADW_CAROUSEL (swipeable);
+  GtkWidget *child = adw_carousel_get_nth_page (self, index);
+
+  scroll_to (self, child, duration);
 }
 
 static AdwSwipeTracker *
@@ -142,7 +453,7 @@ adw_carousel_get_distance (AdwSwipeable *swipeable)
 {
   AdwCarousel *self = ADW_CAROUSEL (swipeable);
 
-  return adw_carousel_box_get_distance (self->scrolling_box);
+  return self->distance;
 }
 
 static double *
@@ -150,9 +461,24 @@ adw_carousel_get_snap_points (AdwSwipeable *swipeable,
                               int          *n_snap_points)
 {
   AdwCarousel *self = ADW_CAROUSEL (swipeable);
+  guint i, n_pages;
+  double *points;
+  GList *l;
 
-  return adw_carousel_box_get_snap_points (self->scrolling_box,
-                                           n_snap_points);
+  n_pages = MAX (g_list_length (self->children), 1);
+  points = g_new0 (double, n_pages);
+
+  i = 0;
+  for (l = self->children; l; l = l->next) {
+    ChildInfo *info = l->data;
+
+    points[i++] = info->snap_point;
+  }
+
+  if (n_snap_points)
+    *n_snap_points = n_pages;
+
+  return points;
 }
 
 static double
@@ -168,58 +494,7 @@ adw_carousel_get_cancel_progress (AdwSwipeable *swipeable)
 {
   AdwCarousel *self = ADW_CAROUSEL (swipeable);
 
-  return adw_carousel_box_get_closest_snap_point (self->scrolling_box);
-}
-
-static void
-notify_n_pages_cb (AdwCarousel *self,
-                   GParamSpec  *spec,
-                   GObject     *object)
-{
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
-}
-
-static void
-notify_position_cb (AdwCarousel *self,
-                    GParamSpec  *spec,
-                    GObject     *object)
-{
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POSITION]);
-}
-
-static void
-notify_spacing_cb (AdwCarousel *self,
-                   GParamSpec  *spec,
-                   GObject     *object)
-{
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SPACING]);
-}
-
-static void
-notify_reveal_duration_cb (AdwCarousel *self,
-                           GParamSpec  *spec,
-                           GObject     *object)
-{
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVEAL_DURATION]);
-}
-
-static void
-animation_stopped_cb (AdwCarousel    *self,
-                      AdwCarouselBox *box)
-{
-  int index;
-
-  index = adw_carousel_box_get_current_page_index (self->scrolling_box);
-
-  g_signal_emit (self, signals[SIGNAL_PAGE_CHANGED], 0, index);
-}
-
-static void
-position_shifted_cb (AdwCarousel    *self,
-                     double          delta,
-                     AdwCarouselBox *box)
-{
-  adw_swipe_tracker_shift_position (self->tracker, delta);
+  return get_closest_snap_point (self);
 }
 
 /* Copied from GtkOrientable. Orientable widgets are supposed
@@ -242,20 +517,16 @@ set_orientable_style_classes (GtkOrientable *orientable)
 static void
 update_orientation (AdwCarousel *self)
 {
-  gboolean reversed;
-
-  if (!self->scrolling_box)
-    return;
-
-  reversed = self->orientation == GTK_ORIENTATION_HORIZONTAL &&
+  gboolean reversed =
+    self->orientation == GTK_ORIENTATION_HORIZONTAL &&
     gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
 
-  g_object_set (self->scrolling_box, "orientation", self->orientation, NULL);
-  g_object_set (self->tracker, "orientation", self->orientation,
-                "reversed", reversed, NULL);
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (self->tracker),
+                                  self->orientation);
+  adw_swipe_tracker_set_reversed (self->tracker,
+                                  reversed);
 
   set_orientable_style_classes (GTK_ORIENTABLE (self));
-  set_orientable_style_classes (GTK_ORIENTABLE (self->scrolling_box));
 }
 
 static gboolean
@@ -277,6 +548,7 @@ scroll_cb (AdwCarousel              *self,
   gboolean allow_vertical;
   GtkOrientation orientation;
   guint duration;
+  GtkWidget *child;
 
   if (!self->allow_scroll_wheel)
     return GDK_EVENT_PROPAGATE;
@@ -316,10 +588,12 @@ scroll_cb (AdwCarousel              *self,
   if (index == 0)
     return GDK_EVENT_PROPAGATE;
 
-  index += adw_carousel_box_get_current_page_index (self->scrolling_box);
+  child = get_page_at_position (self, self->position);
+
+  index += find_child_index (self, child, FALSE);
   index = CLAMP (index, 0, (int) adw_carousel_get_n_pages (self) - 1);
 
-  adw_carousel_scroll_to (self, adw_carousel_box_get_nth_child (self->scrolling_box, index));
+  scroll_to (self, adw_carousel_get_nth_page (self, index), self->animation_duration);
 
   /* Don't allow the delay to go lower than 250ms */
   duration = MIN (self->animation_duration, DEFAULT_DURATION);
@@ -328,6 +602,170 @@ scroll_cb (AdwCarousel              *self,
   g_timeout_add (duration, (GSourceFunc) scroll_timeout_cb, self);
 
   return GDK_EVENT_STOP;
+}
+
+static void
+adw_carousel_measure (GtkWidget      *widget,
+                      GtkOrientation  orientation,
+                      int             for_size,
+                      int            *minimum,
+                      int            *natural,
+                      int            *minimum_baseline,
+                      int            *natural_baseline)
+{
+  AdwCarousel *self = ADW_CAROUSEL (widget);
+  GList *children;
+
+  if (minimum)
+    *minimum = 0;
+  if (natural)
+    *natural = 0;
+
+  if (minimum_baseline)
+    *minimum_baseline = -1;
+  if (natural_baseline)
+    *natural_baseline = -1;
+
+  for (children = self->children; children; children = children->next) {
+    ChildInfo *child_info = children->data;
+    GtkWidget *child = child_info->widget;
+    int child_min, child_nat;
+
+    if (child_info->removing)
+      continue;
+
+    if (!gtk_widget_get_visible (child))
+      continue;
+
+    gtk_widget_measure (child, orientation, for_size,
+                        &child_min, &child_nat, NULL, NULL);
+
+    if (minimum)
+      *minimum = MAX (*minimum, child_min);
+    if (natural)
+      *natural = MAX (*natural, child_nat);
+  }
+}
+
+static void
+adw_carousel_size_allocate (GtkWidget *widget,
+                            int        width,
+                            int        height,
+                            int        baseline)
+{
+  AdwCarousel *self = ADW_CAROUSEL (widget);
+  int size, child_width, child_height;
+  GList *children;
+  double x, y, offset;
+  gboolean is_rtl;
+  double snap_point;
+
+  if (self->position_shift != 0) {
+    shift_position (self, self->position_shift);
+    self->position_shift = 0;
+  }
+
+  size = 0;
+  for (children = self->children; children; children = children->next) {
+    ChildInfo *child_info = children->data;
+    GtkWidget *child = child_info->widget;
+    int min, nat;
+    int child_size;
+
+    if (child_info->removing)
+      continue;
+
+    if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
+      gtk_widget_measure (child, self->orientation,
+                          height, &min, &nat, NULL, NULL);
+      if (gtk_widget_get_hexpand (child))
+        child_size = MAX (min, width);
+      else
+        child_size = MAX (min, nat);
+    } else {
+      gtk_widget_measure (child, self->orientation,
+                          width, &min, &nat, NULL, NULL);
+      if (gtk_widget_get_vexpand (child))
+        child_size = MAX (min, height);
+      else
+        child_size = MAX (min, nat);
+    }
+
+    size = MAX (size, child_size);
+  }
+
+  self->distance = size + self->spacing;
+
+  if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
+    child_width = size;
+    child_height = height;
+  } else {
+    child_width = width;
+    child_height = size;
+  }
+
+  snap_point = 0;
+
+  for (children = self->children; children; children = children->next) {
+    ChildInfo *child_info = children->data;
+
+    child_info->snap_point = snap_point + child_info->size - 1;
+
+    snap_point += child_info->size;
+  }
+
+  if (!gtk_widget_get_realized (GTK_WIDGET (self)))
+    return;
+
+  x = 0;
+  y = 0;
+
+  is_rtl = (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL);
+
+  if (self->orientation == GTK_ORIENTATION_VERTICAL)
+    offset = (self->distance * self->position) - (height - child_height) / 2.0;
+  else if (is_rtl)
+    offset = -(self->distance * self->position) - (width - child_width) / 2.0;
+  else
+    offset = (self->distance * self->position) - (width - child_width) / 2.0;
+
+  if (self->orientation == GTK_ORIENTATION_VERTICAL)
+    y -= offset;
+  else
+    x -= offset;
+
+  for (children = self->children; children; children = children->next) {
+    ChildInfo *child_info = children->data;
+    GskTransform *transform = gsk_transform_new ();
+
+    if (!child_info->removing) {
+      if (!gtk_widget_get_visible (child_info->widget))
+        continue;
+
+      if (self->orientation == GTK_ORIENTATION_VERTICAL) {
+        child_info->position = y;
+        child_info->visible = child_info->position < height &&
+                              child_info->position + child_height > 0;
+
+        transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (0, child_info->position));
+      } else {
+        child_info->position = x;
+        child_info->visible = child_info->position < width &&
+                              child_info->position + child_width > 0;
+
+        transform = gsk_transform_translate (transform, &GRAPHENE_POINT_INIT (child_info->position, 0));
+      }
+
+      gtk_widget_allocate (child_info->widget, child_width, child_height, baseline, transform);
+    }
+
+    if (self->orientation == GTK_ORIENTATION_VERTICAL)
+      y += self->distance * child_info->size;
+    else if (is_rtl)
+      x -= self->distance * child_info->size;
+    else
+      x += self->distance * child_info->size;
+  }
 }
 
 static void
@@ -352,7 +790,7 @@ adw_carousel_constructed (GObject *object)
 static void
 adw_carousel_dispose (GObject *object)
 {
-  AdwCarousel *self = (AdwCarousel *)object;
+  AdwCarousel *self = ADW_CAROUSEL (object);
 
   g_clear_object (&self->tracker);
 
@@ -361,9 +799,17 @@ adw_carousel_dispose (GObject *object)
     self->scroll_timeout_id = 0;
   }
 
-  gtk_widget_unparent (GTK_WIDGET (self->scrolling_box));
-
   G_OBJECT_CLASS (adw_carousel_parent_class)->dispose (object);
+}
+
+static void
+adw_carousel_finalize (GObject *object)
+{
+  AdwCarousel *self = ADW_CAROUSEL (object);
+
+  g_list_free_full (self->children, (GDestroyNotify) g_free);
+
+  G_OBJECT_CLASS (adw_carousel_parent_class)->finalize (object);
 }
 
 static void
@@ -463,6 +909,7 @@ adw_carousel_set_property (GObject      *object,
       if (orientation != self->orientation) {
         self->orientation = orientation;
         update_orientation (self);
+        gtk_widget_queue_resize (GTK_WIDGET (self));
         g_object_notify (G_OBJECT (self), "orientation");
       }
     }
@@ -492,8 +939,12 @@ adw_carousel_class_init (AdwCarouselClass *klass)
 
   object_class->constructed = adw_carousel_constructed;
   object_class->dispose = adw_carousel_dispose;
+  object_class->finalize = adw_carousel_finalize;
   object_class->get_property = adw_carousel_get_property;
   object_class->set_property = adw_carousel_set_property;
+
+  widget_class->measure = adw_carousel_measure;
+  widget_class->size_allocate = adw_carousel_size_allocate;
   widget_class->direction_changed = adw_carousel_direction_changed;
 
   /**
@@ -662,32 +1113,21 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                   1,
                   G_TYPE_UINT);
 
-  gtk_widget_class_set_template_from_resource (widget_class,
-                                               "/org/gnome/Adwaita/ui/adw-carousel.ui");
-  gtk_widget_class_bind_template_child (widget_class, AdwCarousel, scrolling_box);
-  gtk_widget_class_bind_template_callback (widget_class, scroll_cb);
-  gtk_widget_class_bind_template_callback (widget_class, notify_n_pages_cb);
-  gtk_widget_class_bind_template_callback (widget_class, notify_position_cb);
-  gtk_widget_class_bind_template_callback (widget_class, notify_spacing_cb);
-  gtk_widget_class_bind_template_callback (widget_class, notify_reveal_duration_cb);
-  gtk_widget_class_bind_template_callback (widget_class, animation_stopped_cb);
-  gtk_widget_class_bind_template_callback (widget_class, position_shifted_cb);
-
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "carousel");
 }
 
 static void
 adw_carousel_init (AdwCarousel *self)
 {
+  GtkEventController *controller;
   self->allow_scroll_wheel = TRUE;
-
-  g_type_ensure (ADW_TYPE_CAROUSEL_BOX);
-  gtk_widget_init_template (GTK_WIDGET (self));
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
+  self->orientation = GTK_ORIENTATION_HORIZONTAL;
+  self->reveal_duration = 0;
   self->animation_duration = DEFAULT_DURATION;
+  self->can_scroll = TRUE;
 
   self->tracker = adw_swipe_tracker_new (ADW_SWIPEABLE (self));
   adw_swipe_tracker_set_allow_mouse_drag (self->tracker, TRUE);
@@ -696,7 +1136,9 @@ adw_carousel_init (AdwCarousel *self)
   g_signal_connect_object (self->tracker, "update-swipe", G_CALLBACK (update_swipe_cb), self, 0);
   g_signal_connect_object (self->tracker, "end-swipe", G_CALLBACK (end_swipe_cb), self, 0);
 
-  self->can_scroll = TRUE;
+  controller = gtk_event_controller_scroll_new (GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES);
+  g_signal_connect_swapped (controller, "scroll", G_CALLBACK (scroll_cb), self);
+  gtk_widget_add_controller (GTK_WIDGET (self), controller);
 }
 
 static void
@@ -705,13 +1147,8 @@ adw_carousel_buildable_add_child (GtkBuildable *buildable,
                                   GObject      *child,
                                   const char   *type)
 {
-  AdwCarousel *self = ADW_CAROUSEL (buildable);
-
   if (GTK_IS_WIDGET (child))
-    if (!self->scrolling_box)
-      gtk_widget_set_parent (GTK_WIDGET (child), GTK_WIDGET (buildable));
-    else
-      adw_carousel_append (ADW_CAROUSEL (buildable), GTK_WIDGET (child));
+    adw_carousel_append (ADW_CAROUSEL (buildable), GTK_WIDGET (child));
   else
     parent_buildable_iface->add_child (buildable, builder, child, type);
 }
@@ -753,8 +1190,9 @@ adw_carousel_prepend (AdwCarousel *self,
                       GtkWidget   *widget)
 {
   g_return_if_fail (ADW_IS_CAROUSEL (self));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
 
-  adw_carousel_box_insert (self->scrolling_box, widget, 0);
+  adw_carousel_insert (self, widget, 0);
 }
 
 /**
@@ -771,8 +1209,9 @@ adw_carousel_append (AdwCarousel *self,
                      GtkWidget   *widget)
 {
   g_return_if_fail (ADW_IS_CAROUSEL (self));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
 
-  adw_carousel_box_insert (self->scrolling_box, widget, -1);
+  adw_carousel_insert (self, widget, -1);
 }
 
 /**
@@ -793,9 +1232,29 @@ adw_carousel_insert (AdwCarousel *self,
                      GtkWidget   *widget,
                      int          position)
 {
-  g_return_if_fail (ADW_IS_CAROUSEL (self));
+  ChildInfo *info;
+  GList *prev_link = NULL;
 
-  adw_carousel_box_insert (self->scrolling_box, widget, position);
+  g_return_if_fail (ADW_IS_CAROUSEL (self));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
+
+  info = g_new0 (ChildInfo, 1);
+  info->widget = widget;
+  info->size = 0;
+  info->adding = TRUE;
+
+  if (position >= 0)
+    prev_link = get_nth_link (self, position);
+
+  self->children = g_list_insert_before (self->children, prev_link, info);
+
+  gtk_widget_set_parent (widget, GTK_WIDGET (self));
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+
+  animate_child_resize (self, info, 1, self->reveal_duration);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
 }
 /**
  * adw_carousel_reorder:
@@ -815,10 +1274,44 @@ adw_carousel_reorder (AdwCarousel *self,
                       GtkWidget   *child,
                       int          position)
 {
+  ChildInfo *info, *prev_info;
+  GList *link, *prev_link;
+  int old_position;
+  double closest_point, old_point, new_point;
+
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (child));
 
-  adw_carousel_box_reorder (self->scrolling_box, child, position);
+  closest_point = get_closest_snap_point (self);
+
+  info = find_child_info (self, child);
+  link = g_list_find (self->children, info);
+  old_position = g_list_position (self->children, link);
+
+  if (position == old_position)
+    return;
+
+  old_point = ((ChildInfo *) link->data)->snap_point;
+
+  if (position < 0 || position >= adw_carousel_get_n_pages (self))
+    prev_link = g_list_last (self->children);
+  else
+    prev_link = get_nth_link (self, position);
+
+  prev_info = prev_link->data;
+  new_point = prev_info->snap_point;
+  if (new_point > old_point)
+    new_point -= prev_info->size;
+
+  self->children = g_list_remove_link (self->children, link);
+  self->children = g_list_insert_before (self->children, prev_link, link->data);
+
+  if (closest_point == old_point)
+    shift_position (self, new_point - old_point);
+  else if (old_point > closest_point && closest_point >= new_point)
+    shift_position (self, info->size);
+  else if (new_point >= closest_point && closest_point > old_point)
+    shift_position (self, -info->size);
 }
 
 /**
@@ -834,10 +1327,26 @@ void
 adw_carousel_remove (AdwCarousel *self,
                      GtkWidget   *child)
 {
+  ChildInfo *info;
+
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (child));
 
-  adw_carousel_box_remove (self->scrolling_box, child);
+  info = find_child_info (self, child);
+
+  if (!info)
+    return;
+
+  info->removing = TRUE;
+
+  gtk_widget_unparent (child);
+
+  info->widget = NULL;
+
+  if (!gtk_widget_in_destruction (GTK_WIDGET (self)))
+    animate_child_resize (self, info, 0, self->reveal_duration);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
 }
 
 /**
@@ -880,9 +1389,10 @@ adw_carousel_scroll_to_full (AdwCarousel *self,
 
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
+  g_return_if_fail (duration >= 0);
 
-  index = adw_carousel_box_get_page_index (self->scrolling_box, widget);
-  adw_carousel_box_scroll_to (self->scrolling_box, widget, duration);
+  index = find_child_index (self, widget, FALSE);
+  scroll_to (self, widget, duration);
   adw_swipeable_emit_child_switched (ADW_SWIPEABLE (self), index, duration);
 }
 
@@ -901,9 +1411,14 @@ GtkWidget *
 adw_carousel_get_nth_page (AdwCarousel *self,
                            guint        n)
 {
-  g_return_val_if_fail (ADW_IS_CAROUSEL (self), 0);
+  ChildInfo *info;
 
-  return adw_carousel_box_get_nth_child (self->scrolling_box, n);
+  g_return_val_if_fail (ADW_IS_CAROUSEL (self), NULL);
+  g_return_val_if_fail (n < adw_carousel_get_n_pages (self), NULL);
+
+  info = get_nth_link (self, n)->data;
+
+  return info->widget;
 }
 
 /**
@@ -919,9 +1434,20 @@ adw_carousel_get_nth_page (AdwCarousel *self,
 guint
 adw_carousel_get_n_pages (AdwCarousel *self)
 {
+  GList *l;
+  guint n_pages;
+
   g_return_val_if_fail (ADW_IS_CAROUSEL (self), 0);
 
-  return adw_carousel_box_get_n_pages (self->scrolling_box);
+  n_pages = 0;
+  for (l = self->children; l; l = l->next) {
+    ChildInfo *child = l->data;
+
+    if (!child->removing)
+      n_pages++;
+  }
+
+  return n_pages;
 }
 
 /**
@@ -937,9 +1463,9 @@ adw_carousel_get_n_pages (AdwCarousel *self)
 double
 adw_carousel_get_position (AdwCarousel *self)
 {
-  g_return_val_if_fail (ADW_IS_CAROUSEL (self), 0);
+  g_return_val_if_fail (ADW_IS_CAROUSEL (self), 0.0);
 
-  return adw_carousel_box_get_position (self->scrolling_box);
+  return self->position;
 }
 
 /**
@@ -1001,7 +1527,7 @@ adw_carousel_get_spacing (AdwCarousel *self)
 {
   g_return_val_if_fail (ADW_IS_CAROUSEL (self), 0);
 
-  return adw_carousel_box_get_spacing (self->scrolling_box);
+  return self->spacing;
 }
 
 /**
@@ -1019,7 +1545,13 @@ adw_carousel_set_spacing (AdwCarousel *self,
 {
   g_return_if_fail (ADW_IS_CAROUSEL (self));
 
-  adw_carousel_box_set_spacing (self->scrolling_box, spacing);
+  if (self->spacing == spacing)
+    return;
+
+  self->spacing = spacing;
+  gtk_widget_queue_resize (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SPACING]);
 }
 
 /**
@@ -1212,7 +1744,7 @@ adw_carousel_get_reveal_duration (AdwCarousel *self)
 {
   g_return_val_if_fail (ADW_IS_CAROUSEL (self), 0);
 
-  return adw_carousel_box_get_reveal_duration (self->scrolling_box);
+  return self->reveal_duration;
 }
 
 /**
@@ -1231,5 +1763,10 @@ adw_carousel_set_reveal_duration (AdwCarousel *self,
 {
   g_return_if_fail (ADW_IS_CAROUSEL (self));
 
-  adw_carousel_box_set_reveal_duration (self->scrolling_box, reveal_duration);
+  if (self->reveal_duration == reveal_duration)
+    return;
+
+  self->reveal_duration = reveal_duration;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVEAL_DURATION]);
 }

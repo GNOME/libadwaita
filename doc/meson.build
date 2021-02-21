@@ -7,7 +7,6 @@ private_headers = [
     'gtkprogresstrackerprivate.h',
     'gtk-window-private.h',
     'adw-animation-private.h',
-    'adw-carousel-box-private.h',
     'adw-enums.h',
     'adw-enums-private.h',
     'adw-enum-value-object-private.h',

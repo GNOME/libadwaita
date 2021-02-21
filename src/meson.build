@@ -121,7 +121,6 @@ src_sources = [
   'adw-avatar.c',
   'adw-bin.c',
   'adw-carousel.c',
-  'adw-carousel-box.c',
   'adw-carousel-indicator-dots.c',
   'adw-carousel-indicator-lines.c',
   'adw-clamp.c',

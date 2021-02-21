@@ -6,7 +6,6 @@
   </gresource>
   <gresource prefix="/org/gnome/Adwaita/ui">
     <file preprocess="xml-stripblanks">adw-action-row.ui</file>
-    <file preprocess="xml-stripblanks">adw-carousel.ui</file>
     <file preprocess="xml-stripblanks">adw-combo-row.ui</file>
     <file preprocess="xml-stripblanks">adw-expander-row.ui</file>
     <file preprocess="xml-stripblanks">adw-preferences-group.ui</file>
