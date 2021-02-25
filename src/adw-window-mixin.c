@@ -34,20 +34,11 @@ struct _AdwWindowMixin
 
   GtkWidget *titlebar;
   GtkWidget *contents;
-  GtkWidget *outline;
 
   GtkWidget *child;
 };
 
 G_DEFINE_TYPE (AdwWindowMixin, adw_window_mixin, G_TYPE_OBJECT)
-
-static gboolean
-outline_contains (AdwGizmo *gizmo,
-                  double    x,
-                  double    y)
-{
-  return FALSE;
-}
 
 void
 adw_window_mixin_size_allocate (AdwWindowMixin *self,
@@ -103,9 +94,6 @@ adw_window_mixin_new (GtkWindow      *window,
   gtk_widget_set_layout_manager (self->contents, gtk_bin_layout_new ());
   gtk_window_set_child (window, self->contents);
 
-  self->outline = adw_gizmo_new ("outline", NULL, NULL, NULL, outline_contains, NULL, NULL);
-  gtk_widget_set_parent (self->outline, self->contents);
-
   gtk_widget_add_css_class (GTK_WIDGET (window), "unified");
 
   return self;
@@ -119,7 +107,7 @@ adw_window_mixin_set_child (AdwWindowMixin *self,
 
   if (child) {
     self->child = child;
-    gtk_widget_insert_before (child, self->contents, self->outline);
+    gtk_widget_set_parent (child, self->contents);
   }
 }
 
