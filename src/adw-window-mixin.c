@@ -94,8 +94,6 @@ adw_window_mixin_new (GtkWindow      *window,
   gtk_widget_set_layout_manager (self->contents, gtk_bin_layout_new ());
   gtk_window_set_child (window, self->contents);
 
-  gtk_widget_add_css_class (GTK_WIDGET (window), "unified");
-
   return self;
 }
 
