@@ -10,12 +10,11 @@ struct _AdwDemoWindow
 
   AdwLeaflet *content_box;
   GtkBox *right_box;
-  GtkStack *header_stack;
   GtkImage *theme_variant;
   GtkStackSidebar *sidebar;
   GtkStack *stack;
   AdwComboRow *leaflet_transition_row;
-  AdwLeaflet *content_leaflet;
+  AdwLeaflet *subpage_leaflet;
   GtkListBox *lists_listbox;
   AdwCarousel *carousel;
   GtkBox *carousel_box;
@@ -55,29 +54,10 @@ prefer_dark_theme_to_icon_name_cb (GBinding     *binding,
 }
 
 static void
-update (AdwDemoWindow *self)
-{
-  const char *header_bar_name = "default";
-
-  if (g_strcmp0 (gtk_stack_get_visible_child_name (self->stack), "leaflet") == 0)
-    header_bar_name = "leaflet";
-
-  gtk_stack_set_visible_child_name (self->header_stack, header_bar_name);
-}
-
-static void
-notify_leaflet_visible_child_cb (AdwDemoWindow *self)
-{
-  update (self);
-}
-
-static void
 notify_visible_child_cb (GObject       *sender,
                          GParamSpec    *pspec,
                          AdwDemoWindow *self)
 {
-  update (self);
-
   adw_leaflet_navigate (self->content_box, ADW_NAVIGATION_DIRECTION_FORWARD);
 }
 
@@ -92,7 +72,7 @@ static void
 leaflet_back_clicked_cb (GtkWidget     *sender,
                          AdwDemoWindow *self)
 {
-  adw_leaflet_navigate (self->content_leaflet, ADW_NAVIGATION_DIRECTION_BACK);
+  adw_leaflet_navigate (self->subpage_leaflet, ADW_NAVIGATION_DIRECTION_BACK);
 }
 
 static char *
@@ -131,7 +111,7 @@ leaflet_go_next_row_activated_cb (AdwDemoWindow *self)
 {
   g_assert (ADW_IS_DEMO_WINDOW (self));
 
-  adw_leaflet_navigate (self->content_leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
+  adw_leaflet_navigate (self->subpage_leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
 }
 
 static void
@@ -429,12 +409,11 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita/Demo/ui/adw-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, content_box);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, right_box);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, header_stack);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, theme_variant);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, leaflet_transition_row);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, content_leaflet);
+  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, subpage_leaflet);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, lists_listbox);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, carousel);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, carousel_box);
@@ -446,7 +425,6 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar_remove_button);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar_contacts);
   gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
-  gtk_widget_class_bind_template_callback (widget_class, notify_leaflet_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, back_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, leaflet_back_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, leaflet_transition_name);
@@ -505,7 +483,6 @@ adw_demo_window_init (AdwDemoWindow *self)
                                NULL);
 
   avatar_page_init (self);
-  update (self);
 
   adw_leaflet_set_visible_child (self->content_box, GTK_WIDGET (self->right_box));
 }
