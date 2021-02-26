@@ -14,7 +14,6 @@
 
 #include <gtk/gtk.h>
 #include "adw-navigation-direction.h"
-#include "adw-types.h"
 
 G_BEGIN_DECLS
 

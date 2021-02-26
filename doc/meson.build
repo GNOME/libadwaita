@@ -17,7 +17,6 @@ private_headers = [
     'adw-preferences-page-private.h',
     'adw-shadow-helper-private.h',
     'adw-swipe-tracker-private.h',
-    'adw-types.h',
     'adw-view-switcher-button-private.h',
     'adw-window-mixin-private.h',
 ]

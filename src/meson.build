@@ -93,7 +93,6 @@ src_headers = [
   'adw-status-page.h',
   'adw-swipe-tracker.h',
   'adw-swipeable.h',
-  'adw-types.h',
   'adw-value-object.h',
   'adw-view-switcher.h',
   'adw-view-switcher-bar.h',

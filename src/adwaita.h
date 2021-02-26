@@ -50,7 +50,6 @@ G_BEGIN_DECLS
 #include "adw-status-page.h"
 #include "adw-swipe-tracker.h"
 #include "adw-swipeable.h"
-#include "adw-types.h"
 #include "adw-value-object.h"
 #include "adw-view-switcher.h"
 #include "adw-view-switcher-bar.h"
