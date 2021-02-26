@@ -2502,14 +2502,6 @@ adw_leaflet_buildable_init (GtkBuildableIface *iface)
   iface->add_child = adw_leaflet_buildable_add_child;
 }
 
-static AdwSwipeTracker *
-adw_leaflet_get_swipe_tracker (AdwSwipeable *swipeable)
-{
-  AdwLeaflet *self = ADW_LEAFLET (swipeable);
-
-  return self->tracker;
-}
-
 static double
 adw_leaflet_get_distance (AdwSwipeable *swipeable)
 {
@@ -2660,7 +2652,6 @@ adw_leaflet_get_swipe_area (AdwSwipeable           *swipeable,
 static void
 adw_leaflet_swipeable_init (AdwSwipeableInterface *iface)
 {
-  iface->get_swipe_tracker = adw_leaflet_get_swipe_tracker;
   iface->get_distance = adw_leaflet_get_distance;
   iface->get_snap_points = adw_leaflet_get_snap_points;
   iface->get_progress = adw_leaflet_get_progress;

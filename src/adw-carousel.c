@@ -1082,14 +1082,6 @@ adw_carousel_buildable_init (GtkBuildableIface *iface)
   iface->add_child = adw_carousel_buildable_add_child;
 }
 
-static AdwSwipeTracker *
-adw_carousel_get_swipe_tracker (AdwSwipeable *swipeable)
-{
-  AdwCarousel *self = ADW_CAROUSEL (swipeable);
-
-  return self->tracker;
-}
-
 static double
 adw_carousel_get_distance (AdwSwipeable *swipeable)
 {
@@ -1142,7 +1134,6 @@ adw_carousel_get_cancel_progress (AdwSwipeable *swipeable)
 static void
 adw_carousel_swipeable_init (AdwSwipeableInterface *iface)
 {
-  iface->get_swipe_tracker = adw_carousel_get_swipe_tracker;
   iface->get_distance = adw_carousel_get_distance;
   iface->get_snap_points = adw_carousel_get_snap_points;
   iface->get_progress = adw_carousel_get_progress;

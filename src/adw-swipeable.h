@@ -26,7 +26,6 @@ G_DECLARE_INTERFACE (AdwSwipeable, adw_swipeable, ADW, SWIPEABLE, GtkWidget)
 /**
  * AdwSwipeableInterface:
  * @parent: The parent interface.
- * @get_swipe_tracker: Gets the swipe tracker.
  * @get_distance: Gets the swipe distance.
  * @get_snap_points: Gets the snap points
  * @get_progress: Gets the current progress.
@@ -41,7 +40,6 @@ struct _AdwSwipeableInterface
 {
   GTypeInterface parent;
 
-  AdwSwipeTracker * (*get_swipe_tracker)   (AdwSwipeable *self);
   double            (*get_distance)        (AdwSwipeable *self);
   double *          (*get_snap_points)     (AdwSwipeable *self,
                                             int          *n_snap_points);
@@ -56,8 +54,6 @@ struct _AdwSwipeableInterface
   gpointer padding[4];
 };
 
-ADW_AVAILABLE_IN_ALL
-AdwSwipeTracker *adw_swipeable_get_swipe_tracker   (AdwSwipeable *self);
 ADW_AVAILABLE_IN_ALL
 double           adw_swipeable_get_distance        (AdwSwipeable *self);
 ADW_AVAILABLE_IN_ALL

@@ -29,29 +29,6 @@ adw_swipeable_default_init (AdwSwipeableInterface *iface)
 }
 
 /**
- * adw_swipeable_get_swipe_tracker:
- * @self: a #AdwSwipeable
- *
- * Gets the #AdwSwipeTracker used by this swipeable widget.
- *
- * Returns: (transfer none): the swipe tracker
- *
- * Since: 1.0
- */
-AdwSwipeTracker *
-adw_swipeable_get_swipe_tracker (AdwSwipeable *self)
-{
-  AdwSwipeableInterface *iface;
-
-  g_return_val_if_fail (ADW_IS_SWIPEABLE (self), NULL);
-
-  iface = ADW_SWIPEABLE_GET_IFACE (self);
-  g_return_val_if_fail (iface->get_swipe_tracker != NULL, NULL);
-
-  return iface->get_swipe_tracker (self);
-}
-
-/**
  * adw_swipeable_get_distance:
  * @self: a #AdwSwipeable
  *

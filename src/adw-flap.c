@@ -1598,14 +1598,6 @@ adw_flap_buildable_init (GtkBuildableIface *iface)
   iface->add_child = adw_flap_add_child;
 }
 
-static AdwSwipeTracker *
-adw_flap_get_swipe_tracker (AdwSwipeable *swipeable)
-{
-  AdwFlap *self = ADW_FLAP (swipeable);
-
-  return self->tracker;
-}
-
 static double
 adw_flap_get_distance (AdwSwipeable *swipeable)
 {
@@ -1754,7 +1746,6 @@ adw_flap_get_swipe_area (AdwSwipeable           *swipeable,
 static void
 adw_flap_swipeable_init (AdwSwipeableInterface *iface)
 {
-  iface->get_swipe_tracker = adw_flap_get_swipe_tracker;
   iface->get_distance = adw_flap_get_distance;
   iface->get_snap_points = adw_flap_get_snap_points;
   iface->get_progress = adw_flap_get_progress;
