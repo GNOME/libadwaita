@@ -16,7 +16,6 @@ viewswitcher {
         padding-top: 7px;
         padding-bottom: 5px;
 
-        image,
         label {
           padding-left: 8px;
           padding-right: 8px;
@@ -39,27 +38,6 @@ viewswitcher {
 
       label.active {
         font-weight: bold;
-      }
-    }
-
-    &.needs-attention {
-      &:active > stack > box label,
-      &:checked > stack > box label {
-        animation: none;
-        background-image: none;
-      }
-
-      > stack > box label {
-        animation: needs_attention 150ms ease-in;
-        background-image: radial-gradient(#3584e4 50%, transparent),
-                          radial-gradient(rgba(255, 255, 255, 0.769231) 50%, transparent);
-        background-size: 6px 6px, 6px 6px;
-        background-repeat: no-repeat;
-        background-position: right 0px, right 1px;
-
-        &:dir(rtl) {
-          background-position: left 0px, left 1px;
-        }
       }
     }
   }
