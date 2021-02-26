@@ -78,7 +78,6 @@ struct _AdwSwipeTracker
 
   double start_x;
   double start_y;
-  gboolean use_capture_phase;
 
   double initial_progress;
   double progress;
@@ -135,7 +134,6 @@ reset (AdwSwipeTracker *self)
 
   self->start_x = 0;
   self->start_y = 0;
-  self->use_capture_phase = FALSE;
 
   self->cancelled = FALSE;
 }
@@ -477,73 +475,13 @@ should_suppress_drag (AdwSwipeTracker *self,
   return found_window_handle;
 }
 
-static gboolean
-has_conflicts (AdwSwipeTracker *self,
-               GtkWidget       *widget)
-{
-  AdwSwipeTracker *other;
-
-  if (widget == GTK_WIDGET (self->swipeable))
-    return TRUE;
-
-  if (!ADW_IS_SWIPEABLE (widget))
-    return FALSE;
-
-  other = adw_swipeable_get_swipe_tracker (ADW_SWIPEABLE (widget));
-
-  return self->orientation == other->orientation;
-}
-
-/* HACK: Since we don't have _gtk_widget_consumes_motion(), we can't do a proper
- * check for whether we can drag from a widget or not. So we trust the widgets
- * to propagate or stop their events. However, GtkButton stops press events,
- * making it impossible to drag from it.
- */
-static gboolean
-should_force_drag (AdwSwipeTracker *self,
-                   GtkWidget       *widget)
-{
-  GtkWidget *parent = widget;
-  gboolean found_button = FALSE;
-
-  while (parent && !has_conflicts (self, parent)) {
-    found_button |= GTK_IS_BUTTON (parent);
-
-    parent = gtk_widget_get_parent (parent);
-  }
-
-  return found_button && parent == GTK_WIDGET (self->swipeable);
-}
-
 static void
 drag_capture_begin_cb (AdwSwipeTracker *self,
                        double           start_x,
                        double           start_y,
                        GtkGestureDrag  *gesture)
 {
-  GtkWidget *widget;
-
-  if (self->state != ADW_SWIPE_TRACKER_STATE_NONE) {
-    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
-    return;
-  }
-
-  widget = gtk_widget_pick (GTK_WIDGET (self->swipeable),
-                            start_x,
-                            start_y,
-                            GTK_PICK_DEFAULT);
-
-  if (should_suppress_drag (self, widget) || !should_force_drag (self, widget)) {
-    gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
-    return;
-  }
-
-  self->use_capture_phase = TRUE;
-
-  self->start_x = start_x;
-  self->start_y = start_y;
-
-  gtk_gesture_set_state (self->touch_gesture, GTK_EVENT_SEQUENCE_DENIED);
+  gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
 }
 
 static void
@@ -771,9 +709,6 @@ scroll_begin_cb (AdwSwipeTracker          *self,
 {
   GdkEvent *event;
 
-  if (self->use_capture_phase)
-    return;
-
   event = gtk_event_controller_get_current_event (GTK_EVENT_CONTROLLER (controller));
 
   handle_scroll_event (self, event);
@@ -787,9 +722,6 @@ scroll_cb (AdwSwipeTracker          *self,
 {
   GdkEvent *event;
 
-  if (self->use_capture_phase)
-    return GDK_EVENT_PROPAGATE;
-
   event = gtk_event_controller_get_current_event (GTK_EVENT_CONTROLLER (controller));
 
   return handle_scroll_event (self, event);
@@ -800,9 +732,6 @@ scroll_end_cb (AdwSwipeTracker          *self,
                GtkEventControllerScroll *controller)
 {
   GdkEvent *event;
-
-  if (self->use_capture_phase)
-    return;
 
   event = gtk_event_controller_get_current_event (GTK_EVENT_CONTROLLER (controller));
 
