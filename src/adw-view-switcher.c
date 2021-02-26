@@ -123,11 +123,6 @@ update_button (AdwViewSwitcher *self,
                 NULL);
 
   gtk_widget_set_visible (button, visible && (title != NULL || icon_name != NULL));
-
-  if (needs_attention)
-    gtk_widget_add_css_class (button, "needs-attention");
-  else
-    gtk_widget_remove_css_class (button, "needs-attention");
 }
 
 static void
