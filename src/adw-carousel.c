@@ -1082,17 +1082,6 @@ adw_carousel_buildable_init (GtkBuildableIface *iface)
   iface->add_child = adw_carousel_buildable_add_child;
 }
 
-static void
-adw_carousel_switch_child (AdwSwipeable *swipeable,
-                           guint         index,
-                           gint64        duration)
-{
-  AdwCarousel *self = ADW_CAROUSEL (swipeable);
-  GtkWidget *child = adw_carousel_get_nth_page (self, index);
-
-  scroll_to (self, child, duration);
-}
-
 static AdwSwipeTracker *
 adw_carousel_get_swipe_tracker (AdwSwipeable *swipeable)
 {
@@ -1153,7 +1142,6 @@ adw_carousel_get_cancel_progress (AdwSwipeable *swipeable)
 static void
 adw_carousel_swipeable_init (AdwSwipeableInterface *iface)
 {
-  iface->switch_child = adw_carousel_switch_child;
   iface->get_swipe_tracker = adw_carousel_get_swipe_tracker;
   iface->get_distance = adw_carousel_get_distance;
   iface->get_snap_points = adw_carousel_get_snap_points;
@@ -1387,15 +1375,11 @@ adw_carousel_scroll_to_full (AdwCarousel *self,
                              GtkWidget   *widget,
                              gint64       duration)
 {
-  int index;
-
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
   g_return_if_fail (duration >= 0);
 
-  index = find_child_index (self, widget, FALSE);
   scroll_to (self, widget, duration);
-  adw_swipeable_emit_child_switched (ADW_SWIPEABLE (self), index, duration);
 }
 
 /**

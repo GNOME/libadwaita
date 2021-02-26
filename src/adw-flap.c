@@ -346,8 +346,7 @@ animate_reveal (AdwFlap *self,
 static void
 set_reveal_flap (AdwFlap  *self,
                  gboolean  reveal_flap,
-                 gint64    duration,
-                 gboolean  emit_child_switched)
+                 guint64   duration)
 {
   reveal_flap = !!reveal_flap;
 
@@ -356,12 +355,8 @@ set_reveal_flap (AdwFlap  *self,
 
   self->reveal_flap = reveal_flap;
 
-  if (!self->swipe_active) {
+  if (!self->swipe_active)
     animate_reveal (self, reveal_flap ? 1 : 0, duration);
-
-    if (emit_child_switched)
-      adw_swipeable_emit_child_switched (ADW_SWIPEABLE (self), reveal_flap ? 1 : 0, duration);
-  }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVEAL_FLAP]);
 }
@@ -391,7 +386,7 @@ set_folded (AdwFlap  *self,
     animate_fold (self);
 
   if (!self->locked)
-    set_reveal_flap (self, !self->folded, self->fold_duration, TRUE);
+    set_reveal_flap (self, !self->folded, self->fold_duration);
 
   context = gtk_widget_get_style_context (GTK_WIDGET (self));
   if (folded) {
@@ -458,7 +453,7 @@ end_swipe_cb (AdwSwipeTracker *tracker,
   if ((to > 0) == self->reveal_flap)
     animate_reveal (self, to, duration);
   else
-    set_reveal_flap (self, to > 0, duration, FALSE);
+    set_reveal_flap (self, to > 0, duration);
 }
 
 static void
@@ -1603,16 +1598,6 @@ adw_flap_buildable_init (GtkBuildableIface *iface)
   iface->add_child = adw_flap_add_child;
 }
 
-static void
-adw_flap_switch_child (AdwSwipeable *swipeable,
-                       guint         index,
-                       gint64        duration)
-{
-  AdwFlap *self = ADW_FLAP (swipeable);
-
-  set_reveal_flap (self, index > 0, duration, FALSE);
-}
-
 static AdwSwipeTracker *
 adw_flap_get_swipe_tracker (AdwSwipeable *swipeable)
 {
@@ -1769,7 +1754,6 @@ adw_flap_get_swipe_area (AdwSwipeable           *swipeable,
 static void
 adw_flap_swipeable_init (AdwSwipeableInterface *iface)
 {
-  iface->switch_child = adw_flap_switch_child;
   iface->get_swipe_tracker = adw_flap_get_swipe_tracker;
   iface->get_distance = adw_flap_get_distance;
   iface->get_snap_points = adw_flap_get_snap_points;
@@ -2027,7 +2011,7 @@ adw_flap_set_reveal_flap (AdwFlap  *self,
 {
   g_return_if_fail (ADW_IS_FLAP (self));
 
-  set_reveal_flap (self, reveal_flap, self->reveal_duration, TRUE);
+  set_reveal_flap (self, reveal_flap, self->reveal_duration);
 }
 
 /**

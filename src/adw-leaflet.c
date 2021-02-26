@@ -736,8 +736,7 @@ static void
 set_visible_child (AdwLeaflet               *self,
                    AdwLeafletPage           *page,
                    AdwLeafletTransitionType  transition_type,
-                   guint                     transition_duration,
-                   gboolean                  emit_child_switched)
+                   guint                     transition_duration)
 {
   GtkWidget *widget = GTK_WIDGET (self);
   GtkRoot *root;
@@ -858,26 +857,6 @@ set_visible_child (AdwLeaflet               *self,
       gtk_widget_queue_resize (widget);
 
     start_child_transition (self, transition_duration, transition_direction);
-  }
-
-  if (emit_child_switched) {
-    int index = 0;
-    GList *l;
-
-    for (l = self->children; l; l = l->next) {
-      AdwLeafletPage *p = l->data;
-
-      if (!p->navigatable)
-        continue;
-
-      if (p == page)
-        break;
-
-      index++;
-    }
-
-    adw_swipeable_emit_child_switched (ADW_SWIPEABLE (self), index,
-                                       transition_duration);
   }
 
   if (self->pages) {
@@ -1544,9 +1523,9 @@ update_child_visible (AdwLeaflet     *self,
   enabled = gtk_widget_get_visible (page->widget);
 
   if (self->visible_child == NULL && enabled)
-    set_visible_child (self, page, self->transition_type, self->child_transition.duration, TRUE);
+    set_visible_child (self, page, self->transition_type, self->child_transition.duration);
   else if (self->visible_child == page && !enabled)
-    set_visible_child (self, NULL, self->transition_type, self->child_transition.duration, TRUE);
+    set_visible_child (self, NULL, self->transition_type, self->child_transition.duration);
 
   if (page == self->last_visible_child) {
     gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
@@ -1620,7 +1599,7 @@ begin_swipe_cb (AdwSwipeTracker        *tracker,
     if (page) {
       self->child_transition.is_gesture_active = TRUE;
       set_visible_child (self, page, self->transition_type,
-                         self->child_transition.duration, FALSE);
+                         self->child_transition.duration);
 
       g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_TRANSITION_RUNNING]);
     }
@@ -1672,8 +1651,6 @@ add_page (AdwLeaflet     *self,
           AdwLeafletPage *page,
           AdwLeafletPage *sibling_page)
 {
-  int visible_child_pos_before_insert = -1;
-  int visible_child_pos_after_insert = -1;
   GList *l;
 
   g_return_if_fail (page->widget != NULL);
@@ -1689,9 +1666,6 @@ add_page (AdwLeaflet     *self,
     }
   }
 
-  if (self->visible_child)
-    visible_child_pos_before_insert = g_list_index (self->children, self->visible_child);
-
   g_object_ref (page);
 
   if (!sibling_page) {
@@ -1706,9 +1680,6 @@ add_page (AdwLeaflet     *self,
     self->children_reversed =
       g_list_insert (self->children_reversed, page, length - sibling_pos - 1);
   }
-
-  if (self->visible_child)
-    visible_child_pos_after_insert = g_list_index (self->children, self->visible_child);
 
   gtk_widget_set_child_visible (page->widget, FALSE);
 
@@ -1731,12 +1702,7 @@ add_page (AdwLeaflet     *self,
   if (self->visible_child == NULL &&
       gtk_widget_get_visible (page->widget))
     set_visible_child (self, page, self->transition_type,
-                       self->child_transition.duration, FALSE);
-  else if (visible_child_pos_before_insert != visible_child_pos_after_insert)
-    adw_swipeable_emit_child_switched (ADW_SWIPEABLE (self),
-                                       visible_child_pos_after_insert,
-                                       0);
-
+                       self->child_transition.duration);
   if (!self->folded ||
       (self->folded && (self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] ||
                         self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL] ||
@@ -1772,7 +1738,7 @@ leaflet_remove (AdwLeaflet *self,
       if (in_dispose)
         self->visible_child = NULL;
       else
-        set_visible_child (self, NULL, self->transition_type, self->child_transition.duration, TRUE);
+        set_visible_child (self, NULL, self->transition_type, self->child_transition.duration);
     }
 
   if (self->last_visible_child == page)
@@ -2536,36 +2502,6 @@ adw_leaflet_buildable_init (GtkBuildableIface *iface)
   iface->add_child = adw_leaflet_buildable_add_child;
 }
 
-static void
-adw_leaflet_switch_child (AdwSwipeable *swipeable,
-                          guint         index,
-                          gint64        duration)
-{
-  AdwLeaflet *self = ADW_LEAFLET (swipeable);
-  AdwLeafletPage *page = NULL;
-  GList *l;
-  guint i = 0;
-
-  for (l = self->children; l; l = l->next) {
-    page = l->data;
-
-    if (!page->navigatable)
-      continue;
-
-    if (i == index)
-      break;
-
-    i++;
-  }
-
-  if (page == NULL) {
-    g_critical ("Couldn't find eligible child with index %u", index);
-    return;
-  }
-
-  set_visible_child (self, page, self->transition_type, duration, FALSE);
-}
-
 static AdwSwipeTracker *
 adw_leaflet_get_swipe_tracker (AdwSwipeable *swipeable)
 {
@@ -2724,7 +2660,6 @@ adw_leaflet_get_swipe_area (AdwSwipeable           *swipeable,
 static void
 adw_leaflet_swipeable_init (AdwSwipeableInterface *iface)
 {
-  iface->switch_child = adw_leaflet_switch_child;
   iface->get_swipe_tracker = adw_leaflet_get_swipe_tracker;
   iface->get_distance = adw_leaflet_get_distance;
   iface->get_snap_points = adw_leaflet_get_snap_points;
@@ -2874,7 +2809,7 @@ adw_leaflet_page_set_navigatable (AdwLeafletPage *self,
 
     if (self == leaflet->visible_child)
       set_visible_child (leaflet, NULL, leaflet->transition_type,
-                         leaflet->child_transition.duration, TRUE);
+                         leaflet->child_transition.duration);
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_NAVIGATABLE]);
@@ -2994,8 +2929,6 @@ adw_leaflet_reorder_child_after (AdwLeaflet *self,
   AdwLeafletPage *child_page;
   AdwLeafletPage *sibling_page;
   int sibling_page_pos;
-  int visible_child_pos_before_reorder;
-  int visible_child_pos_after_reorder;
   int previous_position;
 
   g_return_if_fail (ADW_IS_LEAFLET (self));
@@ -3008,7 +2941,6 @@ adw_leaflet_reorder_child_after (AdwLeaflet *self,
   if (child == sibling)
     return;
 
-  visible_child_pos_before_reorder = g_list_index (self->children, self->visible_child);
   previous_position = g_list_index (self->children, child) - 1;
 
   /* Cancel a gesture if there's one in progress */
@@ -3045,11 +2977,6 @@ adw_leaflet_reorder_child_after (AdwLeaflet *self,
     max = MAX (position, previous_position) + 1;
     g_list_model_items_changed (G_LIST_MODEL (self->pages), min, max - min, max - min);
   }
-
-  visible_child_pos_after_reorder = g_list_index (self->children, self->visible_child);
-
-  if (visible_child_pos_before_reorder != visible_child_pos_after_reorder)
-    adw_swipeable_emit_child_switched (ADW_SWIPEABLE (self), visible_child_pos_after_reorder, 0);
 }
 
 /**
@@ -3381,7 +3308,7 @@ adw_leaflet_set_visible_child (AdwLeaflet *self,
 
   g_return_if_fail (contains_child);
 
-  set_visible_child (self, page, self->transition_type, self->child_transition.duration, TRUE);
+  set_visible_child (self, page, self->transition_type, self->child_transition.duration);
 }
 
 /**
@@ -3431,7 +3358,7 @@ adw_leaflet_set_visible_child_name (AdwLeaflet *self,
 
   g_return_if_fail (contains_child);
 
-  set_visible_child (self, page, self->transition_type, self->child_transition.duration, TRUE);
+  set_visible_child (self, page, self->transition_type, self->child_transition.duration);
 }
 
 /**
@@ -3644,7 +3571,7 @@ adw_leaflet_navigate (AdwLeaflet             *self,
   if (!page)
     return FALSE;
 
-  set_visible_child (self, page, self->transition_type, self->child_transition.duration, TRUE);
+  set_visible_child (self, page, self->transition_type, self->child_transition.duration);
 
   return TRUE;
 }

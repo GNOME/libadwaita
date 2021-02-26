@@ -23,87 +23,9 @@
 
 G_DEFINE_INTERFACE (AdwSwipeable, adw_swipeable, GTK_TYPE_WIDGET)
 
-enum {
-  SIGNAL_CHILD_SWITCHED,
-  SIGNAL_LAST_SIGNAL,
-};
-
-static guint signals[SIGNAL_LAST_SIGNAL];
-
 static void
 adw_swipeable_default_init (AdwSwipeableInterface *iface)
 {
-  /**
-   * AdwSwipeable::child-switched:
-   * @self: The #AdwSwipeable instance
-   * @index: the index of the child to switch to
-   * @duration: Animation duration in milliseconds
-   *
-   * This signal should be emitted when the widget's visible child is changed.
-   *
-   * @duration can be 0 if the child is switched without animation.
-   *
-   * This is used by #AdwSwipeGroup, applications should not connect to it.
-   *
-   * Since: 1.0
-   */
-  signals[SIGNAL_CHILD_SWITCHED] =
-    g_signal_new ("child-switched",
-                  G_TYPE_FROM_INTERFACE (iface),
-                  G_SIGNAL_RUN_FIRST,
-                  0,
-                  NULL, NULL, NULL,
-                  G_TYPE_NONE,
-                  2,
-                  G_TYPE_UINT, G_TYPE_INT64);
-}
-
-/**
- * adw_swipeable_switch_child:
- * @self: a #AdwSwipeable
- * @index: the index of the child to switch to
- * @duration: Animation duration in milliseconds
- *
- * See AdwSwipeable::child-switched.
- *
- * Since: 1.0
- */
-void
-adw_swipeable_switch_child (AdwSwipeable *self,
-                            guint         index,
-                            gint64        duration)
-{
-  AdwSwipeableInterface *iface;
-
-  g_return_if_fail (ADW_IS_SWIPEABLE (self));
-
-  iface = ADW_SWIPEABLE_GET_IFACE (self);
-  g_return_if_fail (iface->switch_child != NULL);
-
-  iface->switch_child (self, index, duration);
-}
-
-/**
- * adw_swipeable_emit_child_switched:
- * @self: a #AdwSwipeable
- * @index: the index of the child to switch to
- * @duration: Animation duration in milliseconds
- *
- * Emits AdwSwipeable::child-switched signal. This should be called when the
- * widget switches visible child widget.
- *
- * @duration can be 0 if the child is switched without animation.
- *
- * Since: 1.0
- */
-void
-adw_swipeable_emit_child_switched (AdwSwipeable *self,
-                                   guint         index,
-                                   gint64        duration)
-{
-  g_return_if_fail (ADW_IS_SWIPEABLE (self));
-
-  g_signal_emit (self, signals[SIGNAL_CHILD_SWITCHED], 0, index, duration);
 }
 
 /**
