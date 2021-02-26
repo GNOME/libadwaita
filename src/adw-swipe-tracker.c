@@ -173,7 +173,7 @@ gesture_prepare (AdwSwipeTracker        *self,
     return;
   }
 
-  adw_swipe_tracker_emit_begin_swipe (self, direction);
+  g_signal_emit (self, signals[SIGNAL_BEGIN_SWIPE], 0, direction);
 
   self->initial_progress = adw_swipeable_get_progress (self->swipeable);
   self->progress = self->initial_progress;
@@ -355,7 +355,7 @@ gesture_update (AdwSwipeTracker *self,
 
   self->progress = progress;
 
-  adw_swipe_tracker_emit_update_swipe (self, progress);
+  g_signal_emit (self, signals[SIGNAL_UPDATE_SWIPE], 0, progress);
 }
 
 static double
@@ -434,7 +434,7 @@ gesture_end (AdwSwipeTracker *self,
   if (self->progress != end_progress)
     duration = CLAMP (duration, MIN_ANIMATION_DURATION, max_duration);
 
-  adw_swipe_tracker_emit_end_swipe (self, duration, end_progress);
+  g_signal_emit (self, signals[SIGNAL_END_SWIPE], 0, duration, end_progress);
 
   if (!self->cancelled)
     self->state = ADW_SWIPE_TRACKER_STATE_FINISHING;
@@ -1351,34 +1351,6 @@ adw_swipe_tracker_shift_position (AdwSwipeTracker *self,
 
   self->progress += delta;
   self->initial_progress += delta;
-}
-
-void
-adw_swipe_tracker_emit_begin_swipe (AdwSwipeTracker        *self,
-                                    AdwNavigationDirection  direction)
-{
-  g_return_if_fail (ADW_IS_SWIPE_TRACKER (self));
-
-  g_signal_emit (self, signals[SIGNAL_BEGIN_SWIPE], 0, direction);
-}
-
-void
-adw_swipe_tracker_emit_update_swipe (AdwSwipeTracker *self,
-                                     double           progress)
-{
-  g_return_if_fail (ADW_IS_SWIPE_TRACKER (self));
-
-  g_signal_emit (self, signals[SIGNAL_UPDATE_SWIPE], 0, progress);
-}
-
-void
-adw_swipe_tracker_emit_end_swipe (AdwSwipeTracker *self,
-                                  gint64           duration,
-                                  double           to)
-{
-  g_return_if_fail (ADW_IS_SWIPE_TRACKER (self));
-
-  g_signal_emit (self, signals[SIGNAL_END_SWIPE], 0, duration, to);
 }
 
 void
