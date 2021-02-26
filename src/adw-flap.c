@@ -413,7 +413,6 @@ get_start_or_end (AdwFlap *self)
 static void
 begin_swipe_cb (AdwSwipeTracker        *tracker,
                 AdwNavigationDirection  direction,
-                gboolean                direct,
                 AdwFlap                *self)
 {
   if (self->reveal_progress <= 0 && !self->swipe_to_open)

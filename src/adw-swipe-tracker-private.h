@@ -17,8 +17,7 @@ G_BEGIN_DECLS
 #define ADW_SWIPE_BORDER 32
 
 void adw_swipe_tracker_emit_begin_swipe (AdwSwipeTracker        *self,
-                                         AdwNavigationDirection  direction,
-                                         gboolean                direct);
+                                         AdwNavigationDirection  direction);
 void adw_swipe_tracker_emit_update_swipe (AdwSwipeTracker *self,
                                           double           progress);
 void adw_swipe_tracker_emit_end_swipe (AdwSwipeTracker *self,

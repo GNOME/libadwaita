@@ -173,7 +173,7 @@ gesture_prepare (AdwSwipeTracker        *self,
     return;
   }
 
-  adw_swipe_tracker_emit_begin_swipe (self, direction, TRUE);
+  adw_swipe_tracker_emit_begin_swipe (self, direction);
 
   self->initial_progress = adw_swipeable_get_progress (self->swipeable);
   self->progress = self->initial_progress;
@@ -1039,8 +1039,6 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    * AdwSwipeTracker::begin-swipe:
    * @self: The #AdwSwipeTracker instance
    * @direction: The direction of the swipe
-   * @direct: %TRUE if the swipe is directly triggered by a gesture,
-   *   %FALSE if it's triggered via a #AdwSwipeGroup
    *
    * This signal is emitted when a possible swipe is detected.
    *
@@ -1056,8 +1054,8 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                   0,
                   NULL, NULL, NULL,
                   G_TYPE_NONE,
-                  2,
-                  ADW_TYPE_NAVIGATION_DIRECTION, G_TYPE_BOOLEAN);
+                  1,
+                  ADW_TYPE_NAVIGATION_DIRECTION);
 
   /**
    * AdwSwipeTracker::update-swipe:
@@ -1357,12 +1355,11 @@ adw_swipe_tracker_shift_position (AdwSwipeTracker *self,
 
 void
 adw_swipe_tracker_emit_begin_swipe (AdwSwipeTracker        *self,
-                                    AdwNavigationDirection  direction,
-                                    gboolean                direct)
+                                    AdwNavigationDirection  direction)
 {
   g_return_if_fail (ADW_IS_SWIPE_TRACKER (self));
 
-  g_signal_emit (self, signals[SIGNAL_BEGIN_SWIPE], 0, direction, direct);
+  g_signal_emit (self, signals[SIGNAL_BEGIN_SWIPE], 0, direction);
 }
 
 void

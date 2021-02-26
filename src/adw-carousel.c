@@ -403,7 +403,6 @@ get_closest_snap_point (AdwCarousel *self)
 static void
 begin_swipe_cb (AdwSwipeTracker        *tracker,
                 AdwNavigationDirection  direction,
-                gboolean                direct,
                 AdwCarousel            *self)
 {
   if (self->animation)
