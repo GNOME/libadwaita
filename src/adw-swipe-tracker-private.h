@@ -24,4 +24,6 @@ void adw_swipe_tracker_emit_end_swipe (AdwSwipeTracker *self,
                                        gint64           duration,
                                        double           to);
 
+void adw_swipe_tracker_reset (AdwSwipeTracker *self);
+
 G_END_DECLS

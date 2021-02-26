@@ -1380,3 +1380,18 @@ adw_swipe_tracker_emit_end_swipe (AdwSwipeTracker *self,
 
   g_signal_emit (self, signals[SIGNAL_END_SWIPE], 0, duration, to);
 }
+
+void
+adw_swipe_tracker_reset (AdwSwipeTracker *self)
+{
+  g_return_if_fail (ADW_IS_SWIPE_TRACKER (self));
+
+  if (self->touch_gesture_capture)
+    gtk_event_controller_reset (GTK_EVENT_CONTROLLER (self->touch_gesture_capture));
+
+  if (self->touch_gesture)
+    gtk_event_controller_reset GTK_EVENT_CONTROLLER ((self->touch_gesture));
+
+  if (self->scroll_controller)
+    gtk_event_controller_reset (self->scroll_controller);
+}

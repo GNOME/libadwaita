@@ -2931,7 +2931,7 @@ adw_leaflet_reorder_child_after (AdwLeaflet *self,
   previous_position = g_list_index (self->children, child) - 1;
 
   /* Cancel a gesture if there's one in progress */
-  adw_swipe_tracker_emit_end_swipe (self->tracker, 0, 0.0);
+  adw_swipe_tracker_reset (self->tracker);
 
   child_page = find_page_for_widget (self, child);
   self->children = g_list_remove (self->children, child_page);
