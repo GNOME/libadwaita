@@ -12,10 +12,9 @@
  * SECTION:adw-swipeable
  * @short_description: An interface for swipeable widgets.
  * @title: AdwSwipeable
- * @See_also: #AdwCarousel, #AdwLeaflet, #AdwSwipeGroup
+ * @See_also: #AdwCarousel, #AdwLeaflet
  *
- * The #AdwSwipeable interface is implemented by all swipeable widgets. They
- * can be synced using #AdwSwipeGroup.
+ * The #AdwSwipeable interface is implemented by all swipeable widgets.
  *
  * See #AdwSwipeTracker for details about implementing it.
  *
@@ -239,9 +238,6 @@ adw_swipeable_get_cancel_progress (AdwSwipeable *self)
  * This can be used to restrict swipes to only be possible from a certain area,
  * for example, to only allow edge swipes, or to have a draggable element and
  * ignore swipes elsewhere.
- *
- * Swipe area is only considered for direct swipes (as in, not initiated by
- * #AdwSwipeGroup).
  *
  * If not implemented, the default implementation returns the allocation of
  * @self, allowing swipes from anywhere.

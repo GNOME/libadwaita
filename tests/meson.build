@@ -38,7 +38,6 @@ test_names = [
   'test-preferences-window',
   'test-squeezer',
   'test-status-page',
-  'test-swipe-group',
   'test-value-object',
   'test-view-switcher',
   'test-view-switcher-bar',

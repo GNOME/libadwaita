@@ -48,7 +48,6 @@ G_BEGIN_DECLS
 #include "adw-preferences-window.h"
 #include "adw-squeezer.h"
 #include "adw-status-page.h"
-#include "adw-swipe-group.h"
 #include "adw-swipe-tracker.h"
 #include "adw-swipeable.h"
 #include "adw-types.h"
