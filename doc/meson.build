@@ -12,6 +12,7 @@ private_headers = [
     'adw-enum-value-object-private.h',
     'adw-focus-private.h',
     'adw-gizmo-private.h',
+    'adw-indicator-bin-private.h',
     'adw-main-private.h',
     'adw-preferences-group-private.h',
     'adw-preferences-page-private.h',

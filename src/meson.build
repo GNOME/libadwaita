@@ -132,6 +132,7 @@ src_sources = [
   'adw-focus.c',
   'adw-gizmo.c',
   'adw-header-bar.c',
+  'adw-indicator-bin.c',
   'adw-leaflet.c',
   'adw-main.c',
   'adw-navigation-direction.c',
