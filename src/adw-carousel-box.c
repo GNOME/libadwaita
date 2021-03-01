@@ -526,7 +526,7 @@ adw_carousel_box_size_allocate (GtkWidget *widget,
   if (self->orientation == GTK_ORIENTATION_VERTICAL)
     offset = (self->distance * self->position) - (height - child_height) / 2.0;
   else if (is_rtl)
-    offset = -(self->distance * self->position) + (width - child_width) / 2.0;
+    offset = -(self->distance * self->position) - (width - child_width) / 2.0;
   else
     offset = (self->distance * self->position) - (width - child_width) / 2.0;
 
