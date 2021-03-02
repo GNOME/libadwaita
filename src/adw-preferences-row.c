@@ -45,9 +45,9 @@ static GParamSpec *props[LAST_PROP];
 
 static void
 adw_preferences_row_get_property (GObject    *object,
-                             guint       prop_id,
-                             GValue     *value,
-                             GParamSpec *pspec)
+                                  guint       prop_id,
+                                  GValue     *value,
+                                  GParamSpec *pspec)
 {
   AdwPreferencesRow *self = ADW_PREFERENCES_ROW (object);
 
@@ -65,9 +65,9 @@ adw_preferences_row_get_property (GObject    *object,
 
 static void
 adw_preferences_row_set_property (GObject      *object,
-                             guint         prop_id,
-                             const GValue *value,
-                             GParamSpec   *pspec)
+                                  guint         prop_id,
+                                  const GValue *value,
+                                  GParamSpec   *pspec)
 {
   AdwPreferencesRow *self = ADW_PREFERENCES_ROW (object);
 
