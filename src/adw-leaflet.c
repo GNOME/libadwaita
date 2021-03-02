@@ -346,7 +346,7 @@ adw_leaflet_pages_get_n_items (GListModel *model)
 
 static gpointer
 adw_leaflet_pages_get_item (GListModel *model,
-                             guint       position)
+                            guint       position)
 {
   AdwLeafletPages *self = ADW_LEAFLET_PAGES (model);
   AdwLeafletPage *page;
