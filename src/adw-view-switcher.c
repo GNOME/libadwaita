@@ -302,9 +302,9 @@ adw_view_switcher_get_property (GObject    *object,
 
 static void
 adw_view_switcher_set_property (GObject      *object,
-                               guint         prop_id,
-                               const GValue *value,
-                               GParamSpec   *pspec)
+                                guint         prop_id,
+                                const GValue *value,
+                                GParamSpec   *pspec)
 {
   AdwViewSwitcher *self = ADW_VIEW_SWITCHER (object);
 
