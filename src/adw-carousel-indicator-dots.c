@@ -45,8 +45,7 @@ struct _AdwCarouselIndicatorDots
   AdwCarousel *carousel;
   GtkOrientation orientation;
 
-  guint tick_cb_id;
-  gint64 end_time;
+  AdwAnimation *animation;
 };
 
 G_DEFINE_TYPE_WITH_CODE (AdwCarouselIndicatorDots, adw_carousel_indicator_dots, GTK_TYPE_WIDGET,
@@ -63,64 +62,33 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
-static gboolean
-animation_cb (GtkWidget     *widget,
-              GdkFrameClock *frame_clock,
-              gpointer       user_data)
+static void
+value_cb (double     value,
+          GtkWidget *widget)
 {
-  AdwCarouselIndicatorDots *self = ADW_CAROUSEL_INDICATOR_DOTS (widget);
-  gint64 frame_time;
-
-  g_assert (self->tick_cb_id > 0);
-
-  gtk_widget_queue_draw (GTK_WIDGET (self));
-
-  frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000;
-
-  if (frame_time >= self->end_time ||
-      !adw_get_enable_animations (GTK_WIDGET (self))) {
-    self->tick_cb_id = 0;
-    return G_SOURCE_REMOVE;
-  }
-
-  return G_SOURCE_CONTINUE;
+  gtk_widget_queue_draw (widget);
 }
 
 static void
-stop_animation (AdwCarouselIndicatorDots *self)
+done_cb (AdwCarouselIndicatorDots *self)
 {
-  if (self->tick_cb_id == 0)
-    return;
-
-  gtk_widget_remove_tick_callback (GTK_WIDGET (self), self->tick_cb_id);
-  self->tick_cb_id = 0;
+  g_clear_pointer (&self->animation, adw_animation_unref);
 }
 
 static void
 animate (AdwCarouselIndicatorDots *self,
          gint64                    duration)
 {
-  GdkFrameClock *frame_clock;
-  gint64 frame_time;
+  if (self->animation)
+    adw_animation_stop (self->animation);
 
-  if (duration <= 0 || !adw_get_enable_animations (GTK_WIDGET (self))) {
-    gtk_widget_queue_draw (GTK_WIDGET (self));
-    return;
-  }
+  self->animation =
+    adw_animation_new (GTK_WIDGET (self), 0, 1, duration, adw_ease_out_cubic,
+                       (AdwAnimationValueCallback) value_cb,
+                       (AdwAnimationDoneCallback) done_cb,
+                       self);
 
-  frame_clock = gtk_widget_get_frame_clock (GTK_WIDGET (self));
-  if (!frame_clock) {
-    gtk_widget_queue_draw (GTK_WIDGET (self));
-    return;
-  }
-
-  frame_time = gdk_frame_clock_get_frame_time (frame_clock);
-
-  self->end_time = MAX (self->end_time, frame_time / 1000 + duration);
-  if (self->tick_cb_id == 0)
-    self->tick_cb_id = gtk_widget_add_tick_callback (GTK_WIDGET (self),
-                                                     animation_cb,
-                                                     NULL, NULL);
+  adw_animation_start (self->animation);
 }
 
 static GdkRGBA
@@ -454,8 +422,10 @@ adw_carousel_indicator_dots_set_carousel (AdwCarouselIndicatorDots *self,
   if (self->carousel == carousel)
     return;
 
+  if (self->animation)
+    adw_animation_stop (self->animation);
+
   if (self->carousel) {
-    stop_animation (self);
     g_signal_handlers_disconnect_by_func (self->carousel, gtk_widget_queue_draw, self);
     g_signal_handlers_disconnect_by_func (self->carousel, n_pages_changed_cb, self);
   }
