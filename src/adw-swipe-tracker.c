@@ -76,9 +76,6 @@ struct _AdwSwipeTracker
 
   GArray *event_history;
 
-  double start_x;
-  double start_y;
-
   double initial_progress;
   double progress;
   gboolean cancelled;
@@ -132,9 +129,6 @@ reset (AdwSwipeTracker *self)
 
   g_array_remove_range (self->event_history, 0, self->event_history->len);
 
-  self->start_x = 0;
-  self->start_y = 0;
-
   self->cancelled = FALSE;
 }
 
@@ -154,24 +148,10 @@ get_range (AdwSwipeTracker *self,
 
 static void
 gesture_prepare (AdwSwipeTracker        *self,
-                 AdwNavigationDirection  direction,
-                 gboolean                is_drag)
+                 AdwNavigationDirection  direction)
 {
-  GdkRectangle rect;
-
   if (self->state != ADW_SWIPE_TRACKER_STATE_NONE)
     return;
-
-  adw_swipeable_get_swipe_area (self->swipeable, direction, is_drag, &rect);
-
-  if (self->start_x < rect.x ||
-      self->start_x >= rect.x + rect.width ||
-      self->start_y < rect.y ||
-      self->start_y >= rect.y + rect.height) {
-    self->state = ADW_SWIPE_TRACKER_STATE_REJECTED;
-
-    return;
-  }
 
   g_signal_emit (self, signals[SIGNAL_BEGIN_SWIPE], 0, direction);
 
@@ -475,6 +455,22 @@ should_suppress_drag (AdwSwipeTracker *self,
   return found_window_handle;
 }
 
+
+static inline gboolean
+is_in_swipe_area (AdwSwipeTracker        *self,
+                  double                  x,
+                  double                  y,
+                  AdwNavigationDirection  direction,
+                  gboolean                is_drag)
+{
+  GdkRectangle rect;
+
+  adw_swipeable_get_swipe_area (self->swipeable, direction, is_drag, &rect);
+
+  return x >= rect.x && x < rect.x + rect.width &&
+         y >= rect.y && y < rect.y + rect.height;
+}
+
 static void
 drag_capture_begin_cb (AdwSwipeTracker *self,
                        double           start_x,
@@ -506,9 +502,6 @@ drag_begin_cb (AdwSwipeTracker *self,
     gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
     return;
   }
-
-  self->start_x = start_x;
-  self->start_y = start_y;
 
   gtk_gesture_set_state (self->touch_gesture_capture, GTK_EVENT_SEQUENCE_DENIED);
 }
@@ -547,7 +540,7 @@ drag_update_cb (AdwSwipeTracker *self,
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_NONE) {
     if (is_vertical == is_offset_vertical)
-      gesture_prepare (self, offset > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK, TRUE);
+      gesture_prepare (self, offset > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK);
     else
       gtk_gesture_set_state (GTK_GESTURE (gesture), GTK_EVENT_SEQUENCE_DENIED);
     return;
@@ -565,6 +558,16 @@ drag_update_cb (AdwSwipeTracker *self,
                       (offset > 0 && self->progress >= last_point);
 
     if (drag_distance >= DRAG_THRESHOLD_DISTANCE) {
+      double start_x, start_y;
+      AdwNavigationDirection direction;
+
+      gtk_gesture_drag_get_start_point (gesture, &start_x, &start_y);
+      direction = offset > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK;
+
+      if (!is_in_swipe_area (self, start_x, start_y, direction, TRUE) &&
+          !is_in_swipe_area (self, start_x + offset_x, start_y + offset_y, direction, TRUE))
+        return;
+
       if ((is_vertical == is_offset_vertical) && !is_overshooting) {
         gesture_begin (self);
         self->prev_offset = offset;
@@ -658,13 +661,19 @@ handle_scroll_event (AdwSwipeTracker *self,
   }
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_NONE) {
+    AdwNavigationDirection direction;
+
     if (gdk_scroll_event_is_stop (event))
       return GDK_EVENT_PROPAGATE;
 
-    self->start_x = self->pointer_x;
-    self->start_y = self->pointer_y;
+    direction = delta > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK;
 
-    gesture_prepare (self, delta > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK, FALSE);
+    if (!is_in_swipe_area (self, self->pointer_x, self->pointer_y, direction, FALSE)) {
+      self->state = ADW_SWIPE_TRACKER_STATE_REJECTED;
+      return GDK_EVENT_PROPAGATE;
+    }
+
+    gesture_prepare (self, delta > 0 ? ADW_NAVIGATION_DIRECTION_FORWARD : ADW_NAVIGATION_DIRECTION_BACK);
   }
 
   time = gdk_event_get_time (event);
