@@ -1271,8 +1271,11 @@ adw_leaflet_size_allocate_unfolded (AdwLeaflet *self,
   GtkTextDirection direction;
   gboolean under;
 
-  directed_children = get_directed_children (self);
   visible_child = self->visible_child;
+  if (!visible_child)
+    return;
+
+  directed_children = get_directed_children (self);
 
   box_homogeneous = (self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] && orientation == GTK_ORIENTATION_HORIZONTAL) ||
                     (self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL] && orientation == GTK_ORIENTATION_VERTICAL);
