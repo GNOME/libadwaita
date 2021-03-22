@@ -192,14 +192,11 @@ static void
 adw_view_switcher_title_dispose (GObject *object) {
   AdwViewSwitcherTitle *self = (AdwViewSwitcherTitle *)object;
 
-  if (self->view_switcher) {
-    GtkStack *stack = adw_view_switcher_get_stack (self->view_switcher);
+  if (self->pages)
+    g_signal_handlers_disconnect_by_func (self->pages, G_CALLBACK (update_view_switcher_visible), self);
 
-    if (stack)
-      g_signal_handlers_disconnect_by_func (stack, G_CALLBACK (update_view_switcher_visible), self);
-  }
-
-  gtk_widget_unparent (GTK_WIDGET (self->squeezer));
+  if (self->squeezer)
+    gtk_widget_unparent (GTK_WIDGET (self->squeezer));
 
   G_OBJECT_CLASS (adw_view_switcher_title_parent_class)->dispose (object);
 }
