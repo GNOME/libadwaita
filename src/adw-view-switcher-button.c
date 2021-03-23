@@ -297,6 +297,11 @@ adw_view_switcher_button_init (AdwViewSwitcherButton *self)
 
   gtk_widget_set_focus_on_click (GTK_WIDGET (self), FALSE);
 
+  gtk_label_set_mnemonic_widget(GTK_LABEL (self -> horizontal_label_active), GTK_WIDGET (self));
+  gtk_label_set_mnemonic_widget(GTK_LABEL (self -> horizontal_label_inactive), GTK_WIDGET (self));
+  gtk_label_set_mnemonic_widget(GTK_LABEL (self -> vertical_label_active), GTK_WIDGET (self));
+  gtk_label_set_mnemonic_widget(GTK_LABEL (self -> vertical_label_inactive), GTK_WIDGET (self));
+
   active_changed_cb (self);
 }
 

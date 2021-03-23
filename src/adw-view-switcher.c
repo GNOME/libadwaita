@@ -120,6 +120,7 @@ update_button (AdwViewSwitcher *self,
                 "icon-name", icon_name,
                 "label", title,
                 "needs-attention", needs_attention,
+                "use-underline", use_underline,
                 NULL);
 
   gtk_widget_set_visible (button, visible && (title != NULL || icon_name != NULL));
