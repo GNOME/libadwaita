@@ -33,6 +33,8 @@ typedef struct
 
   char *icon_name;
   char *title;
+
+  gboolean use_underline;
 } AdwPreferencesPagePrivate;
 
 static void adw_preferences_page_buildable_init (GtkBuildableIface *iface);
@@ -48,6 +50,7 @@ enum {
   PROP_0,
   PROP_ICON_NAME,
   PROP_TITLE,
+  PROP_USE_UNDERLINE,
   LAST_PROP,
 };
 
@@ -68,6 +71,9 @@ adw_preferences_page_get_property (GObject    *object,
   case PROP_TITLE:
     g_value_set_string (value, adw_preferences_page_get_title (self));
     break;
+  case PROP_USE_UNDERLINE:
+    g_value_set_boolean (value, adw_preferences_page_get_use_underline (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -87,6 +93,9 @@ adw_preferences_page_set_property (GObject      *object,
     break;
   case PROP_TITLE:
     adw_preferences_page_set_title (self, g_value_get_string (value));
+    break;
+  case PROP_USE_UNDERLINE:
+    adw_preferences_page_set_use_underline (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -154,6 +163,21 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
                          _("Title"),
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwPreferencesPage:use-underline:
+   *
+   * Whether an embedded underline in the text of the title label
+   * indicates a mnemonic.
+   *
+   * Since: 1.0
+   */
+  props[PROP_USE_UNDERLINE] =
+    g_param_spec_boolean ("use-underline",
+                          _("Use underline"),
+                          _("Whether an embedded underline in the text of the title label indicates a mnemonic"),
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
@@ -341,6 +365,60 @@ adw_preferences_page_get_rows (AdwPreferencesPage *self)
                                                 NULL));
 
   return G_LIST_MODEL (gtk_flatten_list_model_new (model));
+}
+
+/**
+ * adw_preferences_page_get_use_underline:
+ * @self: a #AdwPreferencesPage
+ *
+ * Gets whether an embedded underline in the text of the title label indicates
+ * a mnemonic. See adw_preferences_page_set_use_underline().
+ *
+ * Returns: %TRUE if an embedded underline in the title label
+ *          indicates the mnemonic accelerator keys.
+ *
+ * Since: 1.0
+ */
+gboolean
+adw_preferences_page_get_use_underline (AdwPreferencesPage *self)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_PAGE (self), FALSE);
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  return priv->use_underline;
+}
+
+/**
+ * adw_preferences_page_set_use_underline:
+ * @self: a #AdwPreferencesPage
+ * @use_underline: %TRUE if underlines in the text indicate mnemonics
+ *
+ * If true, an underline in the text of the title label indicates
+ * the next character should be used for the mnemonic accelerator key.
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
+                                        gboolean           use_underline)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  use_underline = !!use_underline;
+
+  if (priv->use_underline == use_underline)
+    return;
+
+  priv->use_underline = use_underline;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_UNDERLINE]);
 }
 
 void

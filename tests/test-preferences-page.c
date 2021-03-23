@@ -60,6 +60,24 @@ test_adw_preferences_page_icon_name (void)
 }
 
 
+static void
+test_adw_preferences_page_use_underline (void)
+{
+  g_autoptr (AdwPreferencesPage) page = NULL;
+
+  page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
+  g_assert_nonnull (page);
+
+  g_assert_false (adw_preferences_page_get_use_underline (page));
+
+  adw_preferences_page_set_use_underline (page, TRUE);
+  g_assert_true (adw_preferences_page_get_use_underline (page));
+
+  adw_preferences_page_set_use_underline (page, FALSE);
+  g_assert_false (adw_preferences_page_get_use_underline (page));
+}
+
+
 int
 main (int   argc,
       char *argv[])
@@ -70,6 +88,7 @@ main (int   argc,
   g_test_add_func("/Adwaita/PreferencesPage/add_remove", test_adw_preferences_page_add_remove);
   g_test_add_func("/Adwaita/PreferencesPage/title", test_adw_preferences_page_title);
   g_test_add_func("/Adwaita/PreferencesPage/icon_name", test_adw_preferences_page_icon_name);
+  g_test_add_func("/Adwaita/PreferencesPage/use_underline", test_adw_preferences_page_use_underline);
 
   return g_test_run();
 }

@@ -730,6 +730,7 @@ adw_preferences_window_add (AdwPreferencesWindow *self,
 
   g_object_bind_property (page, "icon-name", stack_page, "icon-name", G_BINDING_SYNC_CREATE);
   g_object_bind_property (page, "title", stack_page, "title", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (page, "use-underline", stack_page, "use-underline", G_BINDING_SYNC_CREATE);
 }
 
 void
