@@ -277,7 +277,7 @@ adw_squeezer_pages_is_selected (GtkSelectionModel *model,
 
   page = g_list_nth_data (self->squeezer->children, position);
 
-  return page == self->squeezer->visible_child;
+  return page && page == self->squeezer->visible_child;
 }
 
 static void
