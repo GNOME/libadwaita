@@ -34,6 +34,7 @@ struct _AdwAnimation
 
   gint64 start_time; /* ms */
   guint tick_cb_id;
+  gulong unmap_cb_id;
 
   AdwAnimationEasingFunc easing_func;
   AdwAnimationValueCallback value_cb;
@@ -74,7 +75,10 @@ tick_cb (GtkWidget     *widget,
 
     set_value (self, self->value_to);
 
-    g_signal_handlers_disconnect_by_func (self->widget, adw_animation_stop, self);
+    if (self->unmap_cb_id) {
+      g_signal_handler_disconnect (self->widget, self->unmap_cb_id);
+      self->unmap_cb_id = 0;
+    }
 
     done (self);
 
@@ -169,8 +173,9 @@ adw_animation_start (AdwAnimation *self)
   if (self->tick_cb_id)
     return;
 
-  g_signal_connect_swapped (self->widget, "unmap",
-                            G_CALLBACK (adw_animation_stop), self);
+  self->unmap_cb_id =
+    g_signal_connect_swapped (self->widget, "unmap",
+                              G_CALLBACK (adw_animation_stop), self);
   self->tick_cb_id = gtk_widget_add_tick_callback (self->widget, (GtkTickCallback) tick_cb, self, NULL);
 }
 
@@ -182,8 +187,11 @@ adw_animation_stop (AdwAnimation *self)
   if (self->tick_cb_id) {
     gtk_widget_remove_tick_callback (self->widget, self->tick_cb_id);
     self->tick_cb_id = 0;
+  }
 
-    g_signal_handlers_disconnect_by_func (self->widget, adw_animation_stop, self);
+  if (self->unmap_cb_id) {
+    g_signal_handler_disconnect (self->widget, self->unmap_cb_id);
+    self->unmap_cb_id = 0;
   }
 
   done (self);
