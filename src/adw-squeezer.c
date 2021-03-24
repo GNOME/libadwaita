@@ -254,6 +254,9 @@ adw_squeezer_pages_get_item (GListModel *model,
 
   page = g_list_nth_data (self->squeezer->children, position);
 
+  if (!page)
+    return NULL;
+
   return g_object_ref (page);
 }
 
