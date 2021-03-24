@@ -376,7 +376,7 @@ adw_leaflet_pages_is_selected (GtkSelectionModel *model,
 
   page = g_list_nth_data (self->leaflet->children, position);
 
-  return page == self->leaflet->visible_child;
+  return page && page == self->leaflet->visible_child;
 }
 
 static void
