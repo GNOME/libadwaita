@@ -39,6 +39,8 @@ struct _AdwAnimation
   AdwAnimationValueCallback value_cb;
   AdwAnimationDoneCallback done_cb;
   gpointer user_data;
+
+  gboolean is_done;
 };
 
 static void
@@ -47,6 +49,16 @@ set_value (AdwAnimation *self,
 {
   self->value = value;
   self->value_cb (value, self->user_data);
+}
+
+static void
+done (AdwAnimation *self)
+{
+  if (self->is_done)
+    return;
+
+  self->is_done = TRUE;
+  self->done_cb (self->user_data);
 }
 
 static gboolean
@@ -64,7 +76,7 @@ tick_cb (GtkWidget     *widget,
 
     g_signal_handlers_disconnect_by_func (self->widget, adw_animation_stop, self);
 
-    self->done_cb (self->user_data);
+    done (self);
 
     return G_SOURCE_REMOVE;
   }
@@ -113,6 +125,7 @@ adw_animation_new (GtkWidget                 *widget,
   self->user_data = user_data;
 
   self->value = from;
+  self->is_done = FALSE;
 
   return self;
 }
@@ -146,7 +159,7 @@ adw_animation_start (AdwAnimation *self)
       self->duration <= 0) {
     set_value (self, self->value_to);
 
-    self->done_cb (self->user_data);
+    done (self);
 
     return;
   }
@@ -166,15 +179,14 @@ adw_animation_stop (AdwAnimation *self)
 {
   g_return_if_fail (self != NULL);
 
-  if (!self->tick_cb_id)
-    return;
+  if (self->tick_cb_id) {
+    gtk_widget_remove_tick_callback (self->widget, self->tick_cb_id);
+    self->tick_cb_id = 0;
 
-  gtk_widget_remove_tick_callback (self->widget, self->tick_cb_id);
-  self->tick_cb_id = 0;
+    g_signal_handlers_disconnect_by_func (self->widget, adw_animation_stop, self);
+  }
 
-  g_signal_handlers_disconnect_by_func (self->widget, adw_animation_stop, self);
-
-  self->done_cb (self->user_data);
+  done (self);
 }
 
 double
