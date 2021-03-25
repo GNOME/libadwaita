@@ -7,7 +7,8 @@
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon_name">preferences-window-layout-symbolic</property>
-        <property name="title">Layout</property>
+        <property name="title">L_ayout</property>
+        <property name="use-underline">True</property>
         <child>
           <object class="AdwPreferencesGroup">
             <child>
@@ -134,7 +135,8 @@
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon_name">preferences-window-search-symbolic</property>
-        <property name="title">Search</property>
+        <property name="title">_Search</property>
+        <property name="use-underline">True</property>
         <child>
           <object class="AdwPreferencesGroup">
             <property name="description">Preferences can be searched, do so using one of the following ways:</property>
