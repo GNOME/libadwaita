@@ -59,4 +59,4 @@ The documentation can be found online
 
 ## Getting in touch
 
-Matrix room: [#libadwaita:gnome.org](https://gnome.element.io/#/room/#libadwaita:gnome.org)
+Matrix room: [#libadwaita:gnome.org](https://matrix.to/#/#libadwaita:gnome.org)
