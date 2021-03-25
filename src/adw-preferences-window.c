@@ -155,7 +155,9 @@ new_search_row_for_preference (AdwPreferencesRow    *row,
   AdwActionRow *widget;
   AdwPreferencesGroup *group;
   AdwPreferencesPage *page;
-  const char *group_title, *page_title;
+  const char *group_title;
+  g_autofree char *page_title = NULL;
+  gboolean page_title_use_underline;
   GtkWidget *parent;
 
   g_assert (ADW_IS_PREFERENCES_ROW (row));
@@ -177,9 +179,22 @@ new_search_row_for_preference (AdwPreferencesRow    *row,
        parent != NULL && !ADW_IS_PREFERENCES_PAGE (parent);
        parent = gtk_widget_get_parent (parent));
   page = parent != NULL ? ADW_PREFERENCES_PAGE (parent) : NULL;
-  page_title = page != NULL ? adw_preferences_page_get_title (page) : NULL;
+
+  if (page) {
+    page_title = adw_preferences_page_get_title (page);
+    page_title_use_underline = adw_preferences_page_get_use_underline (page);
+  } else {
+    page_title = NULL;
+    page_title_use_underline = FALSE;
+  }
+
   if (g_strcmp0 (page_title, "") == 0)
     page_title = NULL;
+    
+  if (page_title_use_underline)
+    page_title = strip_mnemonic (page_title);
+  else
+    page_title = g_strdup (page_title);
 
   if (group_title && !adw_view_switcher_title_get_title_visible (priv->view_switcher_title))
     adw_action_row_set_subtitle (widget, group_title);

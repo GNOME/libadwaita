@@ -167,8 +167,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
   /**
    * AdwPreferencesPage:use-underline:
    *
-   * Whether an embedded underline in the text of the title label
-   * indicates a mnemonic.
+   * Whether an embedded underline in the title label indicates a mnemonic.
    *
    * Since: 1.0
    */
@@ -396,8 +395,8 @@ adw_preferences_page_get_use_underline (AdwPreferencesPage *self)
  * @self: a #AdwPreferencesPage
  * @use_underline: %TRUE if underlines in the text indicate mnemonics
  *
- * If true, an underline in the text of the title label indicates
- * the next character should be used for the mnemonic accelerator key.
+ * If true, an underline in the title label indicates the next character
+ * should be used for the mnemonic accelerator key.
  *
  * Since: 1.0
  */
