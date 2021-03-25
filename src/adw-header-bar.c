@@ -24,6 +24,7 @@
 #include "adw-header-bar.h"
 
 #include "adw-enums.h"
+#include "adw-focus-private.h"
 #include "adw-gizmo-private.h"
 
 /**
@@ -455,11 +456,15 @@ adw_header_bar_init (AdwHeaderBar *self)
   self->center_box = gtk_center_box_new ();
   gtk_window_handle_set_child (GTK_WINDOW_HANDLE (self->handle), self->center_box);
 
-  self->start_bin = adw_gizmo_new ("widget", NULL, NULL, NULL, NULL, NULL, NULL);
+  self->start_bin = adw_gizmo_new ("widget", NULL, NULL, NULL, NULL,
+                                   (AdwGizmoFocusFunc) adw_widget_focus_child,
+                                   (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
   gtk_widget_set_layout_manager (self->start_bin, gtk_bin_layout_new ());
   gtk_center_box_set_start_widget (GTK_CENTER_BOX (self->center_box), self->start_bin);
 
-  self->end_bin = adw_gizmo_new ("widget", NULL, NULL, NULL, NULL, NULL, NULL);
+  self->end_bin = adw_gizmo_new ("widget", NULL, NULL, NULL, NULL,
+                                 (AdwGizmoFocusFunc) adw_widget_focus_child,
+                                 (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
   gtk_widget_set_layout_manager (self->end_bin, gtk_bin_layout_new ());
   gtk_center_box_set_end_widget (GTK_CENTER_BOX (self->center_box), self->end_bin);
 
