@@ -154,8 +154,8 @@ new_search_row_for_preference (AdwPreferencesRow    *row,
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
   AdwActionRow *widget;
   GtkWidget *group, *page;
-  const char *group_title;
-  g_autofree char *page_title = NULL;
+  const char *group_title, *page_title;
+  g_autofree char *stripped_page_title = NULL;
   gboolean page_title_use_underline;
 
   g_assert (ADW_IS_PREFERENCES_ROW (row));
@@ -184,17 +184,17 @@ new_search_row_for_preference (AdwPreferencesRow    *row,
     page_title = NULL;
     
   if (page_title_use_underline)
-    page_title = strip_mnemonic (page_title);
+    stripped_page_title = strip_mnemonic (page_title);
   else
-    page_title = g_strdup (page_title);
+    stripped_page_title = g_strdup (page_title);
 
   if (group_title && !adw_view_switcher_title_get_title_visible (priv->view_switcher_title))
     adw_action_row_set_subtitle (widget, group_title);
   if (group_title) {
-    g_autofree char *subtitle = g_strdup_printf ("%s → %s", page_title != NULL ? page_title : _("Untitled page"), group_title);
+    g_autofree char *subtitle = g_strdup_printf ("%s → %s", stripped_page_title != NULL ? stripped_page_title : _("Untitled page"), group_title);
     adw_action_row_set_subtitle (widget, subtitle);
-  } else if (page_title)
-    adw_action_row_set_subtitle (widget, page_title);
+  } else if (stripped_page_title)
+    adw_action_row_set_subtitle (widget, stripped_page_title);
 
   g_object_set_data (G_OBJECT (widget), "page", page);
   g_object_set_data (G_OBJECT (widget), "row", row);
