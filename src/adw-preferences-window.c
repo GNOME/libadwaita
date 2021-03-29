@@ -147,54 +147,69 @@ filter_search_results (AdwPreferencesRow    *row,
   return FALSE;
 }
 
+static gchar *
+create_search_row_subtitle (AdwPreferencesWindow *self,
+                            GtkWidget            *row)
+{
+  AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
+  GtkWidget *group, *page;
+  const char *group_title = NULL;
+  g_autofree char *page_title = NULL;
+
+  group = gtk_widget_get_ancestor (row, ADW_TYPE_PREFERENCES_GROUP);
+
+  if (group) {
+    group_title = adw_preferences_group_get_title (ADW_PREFERENCES_GROUP (group));
+
+    if (g_strcmp0 (group_title, "") == 0)
+      group_title = NULL;
+  }
+
+  page = gtk_widget_get_ancestor (group, ADW_TYPE_PREFERENCES_PAGE);
+
+  if (page) {
+    const char *title = adw_preferences_page_get_title (ADW_PREFERENCES_PAGE (page));
+
+    if (adw_preferences_page_get_use_underline (ADW_PREFERENCES_PAGE (page)))
+      page_title = strip_mnemonic (title);
+    else
+      page_title = g_strdup (title);
+
+    if (g_strcmp0 (page_title, "") == 0)
+      page_title = NULL;
+  }
+
+  if (group_title) {
+    if (!adw_view_switcher_title_get_title_visible (priv->view_switcher_title))
+      return g_strdup_printf ("%s → %s", page_title ? page_title : _("Untitled page"), group_title);
+
+    return g_strdup (group_title);
+  }
+
+  if (page_title)
+    return g_steal_pointer (&page_title);
+
+  return NULL;
+}
+
 static GtkWidget *
 new_search_row_for_preference (AdwPreferencesRow    *row,
                                AdwPreferencesWindow *self)
 {
-  AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
   AdwActionRow *widget;
-  GtkWidget *group, *page;
-  const char *group_title, *page_title;
-  g_autofree char *stripped_page_title = NULL;
-  gboolean page_title_use_underline;
+  GtkWidget *page;
+  g_autofree char *subtitle = NULL;
 
   g_assert (ADW_IS_PREFERENCES_ROW (row));
+
+  subtitle = create_search_row_subtitle (self, GTK_WIDGET (row));
+  page = gtk_widget_get_ancestor (GTK_WIDGET (row), ADW_TYPE_PREFERENCES_PAGE);
 
   widget = ADW_ACTION_ROW (adw_action_row_new ());
   gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (widget), TRUE);
   g_object_bind_property (row, "title", widget, "title", G_BINDING_SYNC_CREATE);
   g_object_bind_property (row, "use-underline", widget, "use-underline", G_BINDING_SYNC_CREATE);
-
-  group = gtk_widget_get_ancestor (GTK_WIDGET (row), ADW_TYPE_PREFERENCES_GROUP);
-  group_title = group != NULL ? adw_preferences_group_get_title (ADW_PREFERENCES_GROUP (group)) : NULL;
-  if (g_strcmp0 (group_title, "") == 0)
-    group_title = NULL;
-
-  page = gtk_widget_get_ancestor (group, ADW_TYPE_PREFERENCES_PAGE);
-
-  if (page) {
-    page_title = adw_preferences_page_get_title (ADW_PREFERENCES_PAGE (page));
-    page_title_use_underline = adw_preferences_page_get_use_underline (ADW_PREFERENCES_PAGE (page));
-  } else {
-    page_title = NULL;
-    page_title_use_underline = FALSE;
-  }
-
-  if (g_strcmp0 (page_title, "") == 0)
-    page_title = NULL;
-    
-  if (page_title_use_underline)
-    stripped_page_title = strip_mnemonic (page_title);
-  else
-    stripped_page_title = g_strdup (page_title);
-
-  if (group_title && !adw_view_switcher_title_get_title_visible (priv->view_switcher_title))
-    adw_action_row_set_subtitle (widget, group_title);
-  if (group_title) {
-    g_autofree char *subtitle = g_strdup_printf ("%s → %s", stripped_page_title != NULL ? stripped_page_title : _("Untitled page"), group_title);
-    adw_action_row_set_subtitle (widget, subtitle);
-  } else if (stripped_page_title)
-    adw_action_row_set_subtitle (widget, stripped_page_title);
+  adw_action_row_set_subtitle (widget, subtitle);
 
   g_object_set_data (G_OBJECT (widget), "page", page);
   g_object_set_data (G_OBJECT (widget), "row", row);
