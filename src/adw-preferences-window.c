@@ -153,12 +153,10 @@ new_search_row_for_preference (AdwPreferencesRow    *row,
 {
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
   AdwActionRow *widget;
-  AdwPreferencesGroup *group;
-  AdwPreferencesPage *page;
+  GtkWidget *group, *page;
   const char *group_title;
   g_autofree char *page_title = NULL;
   gboolean page_title_use_underline;
-  GtkWidget *parent;
 
   g_assert (ADW_IS_PREFERENCES_ROW (row));
 
@@ -167,22 +165,16 @@ new_search_row_for_preference (AdwPreferencesRow    *row,
   g_object_bind_property (row, "title", widget, "title", G_BINDING_SYNC_CREATE);
   g_object_bind_property (row, "use-underline", widget, "use-underline", G_BINDING_SYNC_CREATE);
 
-  for (parent = gtk_widget_get_parent (GTK_WIDGET (row));
-       parent != NULL && !ADW_IS_PREFERENCES_GROUP (parent);
-       parent = gtk_widget_get_parent (parent));
-  group = parent != NULL ? ADW_PREFERENCES_GROUP (parent) : NULL;
-  group_title = group != NULL ? adw_preferences_group_get_title (group) : NULL;
+  group = gtk_widget_get_ancestor (GTK_WIDGET (row), ADW_TYPE_PREFERENCES_GROUP);
+  group_title = group != NULL ? adw_preferences_group_get_title (ADW_PREFERENCES_GROUP (group)) : NULL;
   if (g_strcmp0 (group_title, "") == 0)
     group_title = NULL;
 
-  for (parent = gtk_widget_get_parent (GTK_WIDGET (group));
-       parent != NULL && !ADW_IS_PREFERENCES_PAGE (parent);
-       parent = gtk_widget_get_parent (parent));
-  page = parent != NULL ? ADW_PREFERENCES_PAGE (parent) : NULL;
+  page = gtk_widget_get_ancestor (group, ADW_TYPE_PREFERENCES_PAGE);
 
   if (page) {
-    page_title = adw_preferences_page_get_title (page);
-    page_title_use_underline = adw_preferences_page_get_use_underline (page);
+    page_title = adw_preferences_page_get_title (ADW_PREFERENCES_PAGE (page));
+    page_title_use_underline = adw_preferences_page_get_use_underline (ADW_PREFERENCES_PAGE (page));
   } else {
     page_title = NULL;
     page_title_use_underline = FALSE;
