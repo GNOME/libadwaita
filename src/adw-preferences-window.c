@@ -257,6 +257,26 @@ search_result_activated_cb (AdwPreferencesWindow *self,
 }
 
 static void
+search_results_map (AdwPreferencesWindow *self)
+{
+  AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
+
+  gtk_list_box_bind_model (priv->search_results,
+                           G_LIST_MODEL (priv->filter_model),
+                           (GtkListBoxCreateWidgetFunc) new_search_row_for_preference,
+                           self,
+                           NULL);
+}
+
+static void
+search_results_unmap (AdwPreferencesWindow *self)
+{
+  AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
+
+  gtk_list_box_bind_model (priv->search_results, NULL, NULL, NULL, NULL);
+}
+
+static void
 try_remove_subpages (AdwPreferencesWindow *self)
 {
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
@@ -505,6 +525,8 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_changed_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_result_activated_cb);
+  gtk_widget_class_bind_template_callback (widget_class, search_results_map);
+  gtk_widget_class_bind_template_callback (widget_class, search_results_unmap);
   gtk_widget_class_bind_template_callback (widget_class, stop_search_cb);
 }
 
@@ -536,12 +558,6 @@ adw_preferences_window_init (AdwPreferencesWindow *self)
   model = G_LIST_MODEL (gtk_map_list_model_new (model, preferences_page_to_rows, NULL, NULL));
   model = G_LIST_MODEL (gtk_flatten_list_model_new (model));
   priv->filter_model = gtk_filter_list_model_new (model, priv->filter);
-
-  gtk_list_box_bind_model (priv->search_results,
-                           G_LIST_MODEL (priv->filter_model),
-                           (GtkListBoxCreateWidgetFunc) new_search_row_for_preference,
-                           self,
-                           NULL);
 
   gtk_search_entry_set_key_capture_widget (priv->search_entry, GTK_WIDGET (self));
 }

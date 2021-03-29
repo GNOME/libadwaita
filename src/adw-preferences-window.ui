@@ -120,6 +120,8 @@
                                             <property name="selection-mode">none</property>
                                             <property name="valign">start</property>
                                             <signal name="row-activated" handler="search_result_activated_cb" swapped="yes"/>
+                                            <signal name="map" handler="search_results_map" swapped="yes"/>
+                                            <signal name="unmap" handler="search_results_unmap" swapped="yes"/>
                                             <style>
                                               <class name="content"/>
                                             </style>
