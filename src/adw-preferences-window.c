@@ -147,11 +147,29 @@ filter_search_results (AdwPreferencesRow    *row,
   return FALSE;
 }
 
+static int
+get_n_pages (AdwPreferencesWindow *self)
+{
+  AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
+  int count = 0;
+  GtkWidget *child;
+
+  for (child = gtk_widget_get_first_child (GTK_WIDGET (priv->pages_stack));
+       child;
+       child = gtk_widget_get_next_sibling (child)) {
+    GtkStackPage *page = gtk_stack_get_page (priv->pages_stack, child);
+
+    if (gtk_stack_page_get_visible (page))
+      count++;
+  }
+
+  return count;
+}
+
 static gchar *
 create_search_row_subtitle (AdwPreferencesWindow *self,
                             GtkWidget            *row)
 {
-  AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
   GtkWidget *group, *page;
   const char *group_title = NULL;
   g_autofree char *page_title = NULL;
@@ -180,7 +198,7 @@ create_search_row_subtitle (AdwPreferencesWindow *self,
   }
 
   if (group_title) {
-    if (!adw_view_switcher_title_get_title_visible (priv->view_switcher_title))
+    if (get_n_pages (self) > 1)
       return g_strdup_printf ("%s → %s", page_title ? page_title : _("Untitled page"), group_title);
 
     return g_strdup (group_title);
