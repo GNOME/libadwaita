@@ -20,16 +20,23 @@
 
   <maintainer>
     <foaf:Person>
-      <foaf:name>Guido Günther</foaf:name>
-      <foaf:mbox rdf:resource="mailto:agx@sigxcpu.org" />
-      <gnome:userid>guidog</gnome:userid>
+      <foaf:name>Adrien Plazas</foaf:name>
+      <foaf:mbox rdf:resource="mailto:kekun.plazas@laposte.net" />
+      <gnome:userid>aplazas</gnome:userid>
     </foaf:Person>
   </maintainer>
   <maintainer>
     <foaf:Person>
-      <foaf:name>Adrien Plazas</foaf:name>
-      <foaf:mbox rdf:resource="mailto:kekun.plazas@laposte.net" />
-      <gnome:userid>aplazas</gnome:userid>
+      <foaf:name>Alexander Mikhaylenko</foaf:name>
+      <foaf:mbox rdf:resource="mailto:alexm@gnome.org" />
+      <gnome:userid>alexm</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Guido Günther</foaf:name>
+      <foaf:mbox rdf:resource="mailto:agx@sigxcpu.org" />
+      <gnome:userid>guidog</gnome:userid>
     </foaf:Person>
   </maintainer>
 
