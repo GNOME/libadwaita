@@ -1684,12 +1684,12 @@ add_page (AdwLeaflet     *self,
     self->children_reversed = g_list_append (self->children_reversed, page);
   } else {
     int sibling_pos = g_list_index (self->children, sibling_page);
+    int length = g_list_length (self->children);
 
     self->children =
       g_list_insert (self->children, page, sibling_pos + 1);
     self->children_reversed =
-      g_list_insert (self->children_reversed, page,
-                     g_list_length (self->children) - sibling_pos - 1);
+      g_list_insert (self->children_reversed, page, length - sibling_pos - 1);
   }
 
   if (self->visible_child)
