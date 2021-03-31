@@ -1,13 +1,17 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 src/adw-action-row.c
+src/adw-bin.c
 src/adw-carousel-box.c
 src/adw-carousel.c
 src/adw-carousel-indicator-dots.c
 src/adw-carousel-indicator-lines.c
 src/adw-clamp.c
+src/adw-clamp-layout.c
+src/adw-clamp-scrollable.c
 src/adw-combo-row.c
-src/adw-deck.c
+src/adw-enum-list-model.c
+src/adw-enum-value-object.c
 src/adw-expander-row.c
 src/adw-flap.c
 src/adw-header-bar.c
@@ -17,16 +21,13 @@ src/adw-preferences-page.c
 src/adw-preferences-row.c
 src/adw-preferences-window.c
 src/adw-preferences-window.ui
-src/adw-search-bar.c
 src/adw-shadow-helper.c
 src/adw-squeezer.c
-src/adw-stackable-box.c
 src/adw-status-page.c
 src/adw-swipe-tracker.c
-src/adw-title-bar.c
 src/adw-value-object.c
 src/adw-view-switcher-bar.c
 src/adw-view-switcher-button.c
 src/adw-view-switcher.c
 src/adw-view-switcher-title.c
-src/adw-window-handle-controller.c
+src/adw-window-title.c
