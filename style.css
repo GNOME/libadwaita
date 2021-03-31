@@ -69,7 +69,7 @@ html, body {
 }
 body {
   color: var(--text);
-  background: linear-gradient(90deg, var(--red4) 0%, var(--red5) 100%);
+  background: linear-gradient(90deg, var(--blue4) 0%, var(--green5) 100%);
 }
 svg {
   fill: var(--text);
@@ -80,7 +80,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.25;
 }
 a {
-  color: var(--red1);
+  color: var(--blue1);
 }
 
 /* LAYOUT */
@@ -118,7 +118,7 @@ header h1 svg {
 }
 
 header h1 svg .dim {
-  fill: var(--red1);
+  fill: var(--blue1);
 }
 
 /* CONTENT */
