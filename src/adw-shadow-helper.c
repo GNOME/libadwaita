@@ -8,7 +8,7 @@
 
 #include "adw-gizmo-private.h"
 #include "adw-shadow-helper-private.h"
-\
+
 /**
  * PRIVATE:adw-shadow-helper
  * @short_description: Shadow helper used in #AdwLeaflet
