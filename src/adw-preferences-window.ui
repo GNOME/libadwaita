@@ -8,6 +8,9 @@
     <property name="title" translatable="yes">Preferences</property>
     <property name="default-width">640</property>
     <property name="default-height">576</property>
+    <style>
+      <class name="preferences"/>
+    </style>
     <child>
       <object class="AdwLeaflet" id="subpages_leaflet">
         <property name="can-swipe-back" bind-source="AdwPreferencesWindow" bind-property="can-swipe-back" bind-flags="sync-create"/>
@@ -111,10 +114,6 @@
                                     <property name="scroll-to-focus">True</property>
                                     <property name="child">
                                       <object class="AdwClamp">
-                                        <property name="margin_bottom">18</property>
-                                        <property name="margin_end">12</property>
-                                        <property name="margin_start">12</property>
-                                        <property name="margin_top">18</property>
                                         <child>
                                           <object class="GtkListBox" id="search_results">
                                             <property name="selection-mode">none</property>
