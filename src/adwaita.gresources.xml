@@ -3,12 +3,6 @@
   <gresource prefix="/org/gnome/Adwaita">
     <file preprocess="xml-stripblanks">icons/scalable/actions/adw-expander-arrow-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/avatar-default-symbolic.svg</file>
-    <file compressed="true">themes/Adwaita.css</file>
-    <file compressed="true">themes/Adwaita-dark.css</file>
-    <file compressed="true">themes/fallback.css</file>
-    <file compressed="true">themes/HighContrast.css</file>
-    <file compressed="true">themes/HighContrastInverse.css</file>
-    <file compressed="true">themes/shared.css</file>
   </gresource>
   <gresource prefix="/org/gnome/Adwaita/ui">
     <file preprocess="xml-stripblanks">adw-action-row.ui</file>

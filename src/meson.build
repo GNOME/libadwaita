@@ -1,5 +1,8 @@
 libadwaita_header_subdir = package_subdir / package_api_name
 libadwaita_header_dir = get_option('includedir') / libadwaita_header_subdir
+
+subdir('stylesheet')
+
 libadwaita_resources = gnome.compile_resources(
    'adw-resources',
    'adwaita.gresources.xml',
@@ -167,6 +170,7 @@ libadwaita_sources = [
   libadwaita_public_sources,
   libadwaita_private_sources,
   libadwaita_resources,
+  libadwaita_stylesheet_resources,
   libadwaita_init_public_types,
 ]
 
