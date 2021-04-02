@@ -551,7 +551,7 @@ adw_preferences_window_init (AdwPreferencesWindow *self)
   gtk_widget_init_template (GTK_WIDGET (self));
 
   priv->filter = GTK_FILTER (gtk_custom_filter_new ((GtkCustomFilterFunc) filter_search_results, self, NULL));
-  expr = gtk_property_expression_new (GTK_TYPE_WIDGET, NULL, "visible");
+  expr = gtk_property_expression_new (GTK_TYPE_STACK_PAGE, NULL, "visible");
 
   model = G_LIST_MODEL (gtk_stack_get_pages (priv->pages_stack));
   model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (gtk_bool_filter_new (expr))));
