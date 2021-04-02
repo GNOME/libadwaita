@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-carousel.h"
 
@@ -492,8 +491,8 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    */
   props[PROP_N_PAGES] =
     g_param_spec_uint ("n-pages",
-                       _("Number of pages"),
-                       _("Number of pages"),
+                       "Number of pages",
+                       "Number of pages",
                        0,
                        G_MAXUINT,
                        0,
@@ -509,8 +508,8 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    */
   props[PROP_POSITION] =
     g_param_spec_double ("position",
-                         _("Position"),
-                         _("Current scrolling position"),
+                         "Position",
+                         "Current scrolling position",
                          0,
                          G_MAXDOUBLE,
                          0,
@@ -526,8 +525,8 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    */
   props[PROP_INTERACTIVE] =
     g_param_spec_boolean ("interactive",
-                          _("Interactive"),
-                          _("Whether the widget can be swiped"),
+                          "Interactive",
+                          "Whether the widget can be swiped",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -540,8 +539,8 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    */
   props[PROP_SPACING] =
     g_param_spec_uint ("spacing",
-                       _("Spacing"),
-                       _("Spacing between pages"),
+                       "Spacing",
+                       "Spacing between pages",
                        0,
                        G_MAXUINT,
                        0,
@@ -556,8 +555,8 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    */
   props[PROP_ANIMATION_DURATION] =
     g_param_spec_uint ("animation-duration",
-                       _("Animation duration"),
-                       _("Default animation duration"),
+                       "Animation duration",
+                       "Default animation duration",
                        0, G_MAXUINT, DEFAULT_DURATION,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -571,8 +570,8 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    */
   props[PROP_ALLOW_MOUSE_DRAG] =
     g_param_spec_boolean ("allow-mouse-drag",
-                          _("Allow mouse drag"),
-                          _("Whether to allow dragging with mouse pointer"),
+                          "Allow mouse drag",
+                          "Whether to allow dragging with mouse pointer",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -586,8 +585,8 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    */
   props[PROP_ALLOW_LONG_SWIPES] =
     g_param_spec_boolean ("allow-long-swipes",
-                          _("Allow long swipes"),
-                          _("Whether to allow swiping for more than one page at a time"),
+                          "Allow long swipes",
+                          "Whether to allow swiping for more than one page at a time",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -600,8 +599,8 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    */
   props[PROP_REVEAL_DURATION] =
     g_param_spec_uint ("reveal-duration",
-                       _("Reveal duration"),
-                       _("Page reveal duration"),
+                       "Reveal duration",
+                       "Page reveal duration",
                        0,
                        G_MAXUINT,
                        0,

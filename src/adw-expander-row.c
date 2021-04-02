@@ -7,7 +7,6 @@
 #include "config.h"
 #include "adw-expander-row.h"
 
-#include <glib/gi18n-lib.h>
 #include "adw-action-row.h"
 
 /**
@@ -185,8 +184,8 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    */
   props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle",
-                         _("Subtitle"),
-                         _("The subtitle for this row"),
+                         "Subtitle",
+                         "The subtitle for this row",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -200,8 +199,8 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline",
-                          _("Use underline"),
-                          _("If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key"),
+                          "Use underline",
+                          "If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -214,8 +213,8 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
-                         _("Icon name"),
-                         _("Icon name"),
+                         "Icon name",
+                         "Icon name",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -228,8 +227,8 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    */
   props[PROP_EXPANDED] =
     g_param_spec_boolean ("expanded",
-                          _("Expanded"),
-                          _("Whether the row is expanded"),
+                          "Expanded",
+                          "Whether the row is expanded",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -242,8 +241,8 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    */
   props[PROP_ENABLE_EXPANSION] =
     g_param_spec_boolean ("enable-expansion",
-                          _("Enable expansion"),
-                          _("Whether the expansion is enabled"),
+                          "Enable expansion",
+                          "Whether the expansion is enabled",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -256,8 +255,8 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    */
   props[PROP_SHOW_ENABLE_SWITCH] =
     g_param_spec_boolean ("show-enable-switch",
-                          _("Show enable switch"),
-                          _("Whether the switch enabling the expansion is visible"),
+                          "Show enable switch",
+                          "Whether the switch enabling the expansion is visible",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 

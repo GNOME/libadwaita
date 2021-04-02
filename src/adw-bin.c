@@ -9,8 +9,6 @@
 #include "config.h"
 #include "adw-bin.h"
 
-#include <glib/gi18n-lib.h>
-
 /**
  * SECTION:adw-bin
  * @Short_description: A widget with one child
@@ -109,8 +107,8 @@ adw_bin_class_init (AdwBinClass *klass)
    */
   props[PROP_CHILD] =
       g_param_spec_object ("child",
-                           _("Child"),
-                           _("The child widget"),
+                           "Child",
+                           "The child widget",
                            GTK_TYPE_WIDGET,
                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 

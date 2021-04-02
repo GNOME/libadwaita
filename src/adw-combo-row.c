@@ -13,8 +13,6 @@
 #include "config.h"
 #include "adw-combo-row.h"
 
-#include <glib/gi18n-lib.h>
-
 /**
  * SECTION:adw-combo-row
  * @short_description: A #GtkListBox row used to choose from a list of items.
@@ -410,8 +408,8 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    */
   props[PROP_MODEL] =
     g_param_spec_object ("model",
-                         _("Model"),
-                         _("Model for the displayed items"),
+                         "Model",
+                         "Model for the displayed items",
                          G_TYPE_LIST_MODEL,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -425,10 +423,10 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    */
   props[PROP_SELECTED] =
     g_param_spec_uint ("selected",
-                         _("Selected"),
-                         _("Position of the selected item"),
-                         0, G_MAXUINT, GTK_INVALID_LIST_POSITION,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       "Selected",
+                       "Position of the selected item",
+                       0, G_MAXUINT, GTK_INVALID_LIST_POSITION,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwComboRow:selected-item:
@@ -439,10 +437,10 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    */
   props[PROP_SELECTED_ITEM] =
     g_param_spec_object ("selected-item",
-                       _("Selected Item"),
-                       _("The selected item"),
-                       G_TYPE_OBJECT,
-                       G_PARAM_READABLE);
+                         "Selected Item",
+                         "The selected item",
+                         G_TYPE_OBJECT,
+                         G_PARAM_READABLE);
 
   /**
    * AdwComboRow:factory:
@@ -453,8 +451,8 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    */
   props[PROP_FACTORY] =
     g_param_spec_object ("factory",
-                         _("Factory"),
-                         _("Factory for populating list items"),
+                         "Factory",
+                         "Factory for populating list items",
                          GTK_TYPE_LIST_ITEM_FACTORY,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -469,8 +467,8 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    */
   props[PROP_LIST_FACTORY] =
     g_param_spec_object ("list-factory",
-                         _("List Factory"),
-                         _("Factory for populating list items"),
+                         "List Factory",
+                         "Factory for populating list items",
                          GTK_TYPE_LIST_ITEM_FACTORY,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -484,8 +482,8 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    */
   props[PROP_EXPRESSION] =
     gtk_param_spec_expression ("expression",
-                               _("Expression"),
-                               _("Expression to determine strings to search for"),
+                               "Expression",
+                               "Expression to determine strings to search for",
                                G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -502,8 +500,8 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    */
   props[PROP_USE_SUBTITLE] =
     g_param_spec_boolean ("use-subtitle",
-                          _("Use subtitle"),
-                          _("Set the current value as the subtitle"),
+                          "Use subtitle",
+                          "Set the current value as the subtitle",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 

@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-enum-value-object-private.h"
 
@@ -71,22 +70,22 @@ adw_enum_value_object_class_init (AdwEnumValueObjectClass *klass)
 
   props[PROP_VALUE] =
     g_param_spec_int ("value",
-                      _("Value"),
-                      _("The enum object value"),
+                      "Value",
+                      "The enum object value",
                       G_MININT, G_MAXINT, 0,
                       G_PARAM_READABLE);
 
   props[PROP_NAME] =
     g_param_spec_string ("name",
-                         _("Name"),
-                         _("The enum object name"),
+                         "Name",
+                         "The enum object name",
                          NULL,
                          G_PARAM_READABLE);
 
   props[PROP_NICK] =
     g_param_spec_string ("nick",
-                         _("Nick"),
-                         _("The enum object nick"),
+                         "Nick",
+                         "The enum object nick",
                          NULL,
                          G_PARAM_READABLE);
 

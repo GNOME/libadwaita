@@ -6,7 +6,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "gtkprogresstrackerprivate.h"
 #include "adw-animation-private.h"
@@ -281,15 +280,15 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
 
   page_props[PAGE_PROP_CHILD] =
     g_param_spec_object ("child",
-                         _("Child"),
-                         _("The child of the page"),
+                         "Child",
+                         "The child of the page",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
   page_props[PAGE_PROP_NAME] =
     g_param_spec_string ("name",
-                         _("Name"),
-                         _("The name of the child page"),
+                         "Name",
+                         "The name of the child page",
                          NULL,
                          G_PARAM_READWRITE);
 
@@ -306,8 +305,8 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
    */
   page_props[PAGE_PROP_NAVIGATABLE] =
     g_param_spec_boolean ("navigatable",
-                          _("Navigatable"),
-                          _("Whether the child can be navigated to"),
+                          "Navigatable",
+                          "Whether the child can be navigated to",
                           TRUE,
                           G_PARAM_READWRITE);
 
@@ -2289,8 +2288,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    */
   props[PROP_FOLDED] =
     g_param_spec_boolean ("folded",
-                          _("Folded"),
-                          _("Whether the widget is folded"),
+                          "Folded",
+                          "Whether the widget is folded",
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2303,8 +2302,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    */
   props[PROP_HHOMOGENEOUS_FOLDED] =
     g_param_spec_boolean ("hhomogeneous-folded",
-                          _("Horizontally homogeneous folded"),
-                          _("Horizontally homogeneous sizing when the leaflet is folded"),
+                          "Horizontally homogeneous folded",
+                          "Horizontally homogeneous sizing when the leaflet is folded",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2317,8 +2316,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    */
   props[PROP_VHOMOGENEOUS_FOLDED] =
     g_param_spec_boolean ("vhomogeneous-folded",
-                          _("Vertically homogeneous folded"),
-                          _("Vertically homogeneous sizing when the leaflet is folded"),
+                          "Vertically homogeneous folded",
+                          "Vertically homogeneous sizing when the leaflet is folded",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2331,8 +2330,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    */
   props[PROP_HHOMOGENEOUS_UNFOLDED] =
     g_param_spec_boolean ("hhomogeneous-unfolded",
-                          _("Box horizontally homogeneous"),
-                          _("Horizontally homogeneous sizing when the leaflet is unfolded"),
+                          "Box horizontally homogeneous",
+                          "Horizontally homogeneous sizing when the leaflet is unfolded",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2345,22 +2344,22 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    */
   props[PROP_VHOMOGENEOUS_UNFOLDED] =
     g_param_spec_boolean ("vhomogeneous-unfolded",
-                          _("Box vertically homogeneous"),
-                          _("Vertically homogeneous sizing when the leaflet is unfolded"),
+                          "Box vertically homogeneous",
+                          "Vertically homogeneous sizing when the leaflet is unfolded",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_VISIBLE_CHILD] =
     g_param_spec_object ("visible-child",
-                         _("Visible child"),
-                         _("The widget currently visible when the leaflet is folded"),
+                         "Visible child",
+                         "The widget currently visible when the leaflet is folded",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_VISIBLE_CHILD_NAME] =
     g_param_spec_string ("visible-child-name",
-                         _("Name of visible child"),
-                         _("The name of the widget currently visible when the children are stacked"),
+                         "Name of visible child",
+                         "The name of the widget currently visible when the children are stacked",
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2378,36 +2377,36 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    */
   props[PROP_TRANSITION_TYPE] =
     g_param_spec_enum ("transition-type",
-                       _("Transition type"),
-                       _("The type of animation used to transition between modes and children"),
+                       "Transition type",
+                       "The type of animation used to transition between modes and children",
                        ADW_TYPE_LEAFLET_TRANSITION_TYPE, ADW_LEAFLET_TRANSITION_TYPE_OVER,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_MODE_TRANSITION_DURATION] =
     g_param_spec_uint ("mode-transition-duration",
-                       _("Mode transition duration"),
-                       _("The mode transition animation duration, in milliseconds"),
+                       "Mode transition duration",
+                       "The mode transition animation duration, in milliseconds",
                        0, G_MAXUINT, 250,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_CHILD_TRANSITION_DURATION] =
     g_param_spec_uint ("child-transition-duration",
-                       _("Child transition duration"),
-                       _("The child transition animation duration, in milliseconds"),
+                       "Child transition duration",
+                       "The child transition animation duration, in milliseconds",
                        0, G_MAXUINT, 200,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_CHILD_TRANSITION_RUNNING] =
       g_param_spec_boolean ("child-transition-running",
-                            _("Child transition running"),
-                            _("Whether or not the child transition is currently running"),
+                            "Child transition running",
+                            "Whether or not the child transition is currently running",
                             FALSE,
                             G_PARAM_READABLE);
 
   props[PROP_INTERPOLATE_SIZE] =
       g_param_spec_boolean ("interpolate-size",
-                            _("Interpolate size"),
-                            _("Whether or not the size should smoothly change when changing between differently sized children"),
+                            "Interpolate size",
+                            "Whether or not the size should smoothly change when changing between differently sized children",
                             FALSE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2421,8 +2420,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    */
   props[PROP_CAN_SWIPE_BACK] =
       g_param_spec_boolean ("can-swipe-back",
-                            _("Can swipe back"),
-                            _("Whether or not swipe gesture can be used to switch to the previous child"),
+                            "Can swipe back",
+                            "Whether or not swipe gesture can be used to switch to the previous child",
                             FALSE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2436,22 +2435,22 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    */
   props[PROP_CAN_SWIPE_FORWARD] =
       g_param_spec_boolean ("can-swipe-forward",
-                            _("Can swipe forward"),
-                            _("Whether or not swipe gesture can be used to switch to the next child"),
+                            "Can swipe forward",
+                            "Whether or not swipe gesture can be used to switch to the next child",
                             FALSE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_CAN_UNFOLD] =
       g_param_spec_boolean ("can-unfold",
-                            _("Can unfold"),
-                            _("Whether or not the leaflet can unfold"),
+                            "Can unfold",
+                            "Whether or not the leaflet can unfold",
                             TRUE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
  props[PROP_PAGES] =
     g_param_spec_object ("pages",
-                         _("Pages"),
-                         _("A selection model with the leaflet's pages"),
+                         "Pages",
+                         "A selection model with the leaflet's pages",
                          GTK_TYPE_SELECTION_MODEL,
                          G_PARAM_READABLE);
 

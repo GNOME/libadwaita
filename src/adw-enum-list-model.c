@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-enum-list-model.h"
 #include "adw-enum-value-object-private.h"
@@ -116,8 +115,8 @@ adw_enum_list_model_class_init (AdwEnumListModelClass *klass)
 
   props[PROP_ENUM_TYPE] =
     g_param_spec_gtype ("enum-type",
-                        _("Enum type"),
-                        _("The type of the enum to construct the model from"),
+                        "Enum type",
+                        "The type of the enum to construct the model from",
                         G_TYPE_ENUM,
                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 

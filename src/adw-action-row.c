@@ -7,8 +7,6 @@
 #include "config.h"
 #include "adw-action-row.h"
 
-#include <glib/gi18n-lib.h>
-
 /**
  * SECTION:adw-action-row
  * @short_description: A #GtkListBox row used to present actions.
@@ -242,8 +240,8 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
-                         _("Icon name"),
-                         _("Icon name"),
+                         "Icon name",
+                         "Icon name",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -256,8 +254,8 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    */
   props[PROP_ACTIVATABLE_WIDGET] =
       g_param_spec_object ("activatable-widget",
-                           _("Activatable widget"),
-                           _("The widget to be activated when the row is activated"),
+                           "Activatable widget",
+                           "The widget to be activated when the row is activated",
                            GTK_TYPE_WIDGET,
                            G_PARAM_READWRITE);
 
@@ -270,8 +268,8 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    */
   props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle",
-                         _("Subtitle"),
-                         _("Subtitle"),
+                         "Subtitle",
+                         "Subtitle",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -285,8 +283,8 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline",
-                          _("Use underline"),
-                          _("If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key"),
+                          "Use underline",
+                          "If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -300,8 +298,8 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    */
   props[PROP_TITLE_LINES] =
     g_param_spec_int ("title-lines",
-                      _("Number of title lines"),
-                      _("The desired number of title lines"),
+                      "Number of title lines",
+                      "The desired number of title lines",
                       0, G_MAXINT,
                       1,
                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
@@ -317,8 +315,8 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    */
   props[PROP_SUBTITLE_LINES] =
     g_param_spec_int ("subtitle-lines",
-                      _("Number of subtitle lines"),
-                      _("The desired number of subtitle lines"),
+                      "Number of subtitle lines",
+                      "The desired number of subtitle lines",
                       0, G_MAXINT,
                       1,
                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);

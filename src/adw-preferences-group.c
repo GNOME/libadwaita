@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-preferences-group-private.h"
 
@@ -180,8 +179,8 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
    */
   props[PROP_DESCRIPTION] =
     g_param_spec_string ("description",
-                         _("Description"),
-                         _("Description"),
+                         "Description",
+                         "Description",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
@@ -194,8 +193,8 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title",
-                         _("Title"),
-                         _("Title"),
+                         "Title",
+                         "Title",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 

@@ -6,7 +6,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-view-switcher-button-private.h"
 
@@ -235,8 +234,8 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
-                         _("Icon Name"),
-                         _("Icon name for image"),
+                         "Icon Name",
+                         "Icon name for image",
                          "text-x-generic-symbolic",
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE);
 
@@ -252,8 +251,8 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    */
   props[PROP_NEEDS_ATTENTION] =
   g_param_spec_boolean ("needs-attention",
-                        _("Needs attention"),
-                        _("Hint the view needs attention"),
+                        "Needs attention",
+                        "Hint the view needs attention",
                         FALSE,
                         G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE);
 

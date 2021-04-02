@@ -15,7 +15,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-squeezer.h"
 
@@ -200,15 +199,15 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
 
   page_props[PAGE_PROP_CHILD] =
     g_param_spec_object ("child",
-                         _("Child"),
-                         _("The child of the page"),
+                         "Child",
+                         "The child of the page",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
   page_props[PAGE_PROP_ENABLED] =
     g_param_spec_boolean ("enabled",
-                          _("Enabled"),
-                          _("Whether the child can be picked or should be ignored when looking for the child fitting the available size best"),
+                          "Enabled",
+                          "Whether the child can be picked or should be ignored when looking for the child fitting the available size best",
                           TRUE,
                           G_PARAM_READWRITE);
 
@@ -1044,46 +1043,46 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
 
   props[PROP_HOMOGENEOUS] =
     g_param_spec_boolean ("homogeneous",
-                          _("Homogeneous"),
-                          _("Homogeneous sizing"),
-                            FALSE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          "Homogeneous",
+                          "Homogeneous sizing",
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_VISIBLE_CHILD] =
     g_param_spec_object ("visible-child",
-                         _("Visible child"),
-                         _("The widget currently visible in the squeezer"),
+                         "Visible child",
+                         "The widget currently visible in the squeezer",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_TRANSITION_DURATION] =
     g_param_spec_uint ("transition-duration",
-                       _("Transition duration"),
-                       _("The animation duration, in milliseconds"),
+                       "Transition duration",
+                       "The animation duration, in milliseconds",
                        0, G_MAXUINT, 200,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_TRANSITION_TYPE] =
     g_param_spec_enum ("transition-type",
-                       _("Transition type"),
-                       _("The type of animation used to transition"),
+                       "Transition type",
+                       "The type of animation used to transition",
                        ADW_TYPE_SQUEEZER_TRANSITION_TYPE,
                        ADW_SQUEEZER_TRANSITION_TYPE_NONE,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_TRANSITION_RUNNING] =
     g_param_spec_boolean ("transition-running",
-                          _("Transition running"),
-                          _("Whether or not the transition is currently running"),
+                          "Transition running",
+                          "Whether or not the transition is currently running",
                           FALSE,
                           G_PARAM_READABLE);
 
   props[PROP_INTERPOLATE_SIZE] =
     g_param_spec_boolean ("interpolate-size",
-                          _("Interpolate size"),
-                          _("Whether or not the size should smoothly change when changing between differently sized children"),
-                            FALSE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          "Interpolate size",
+                          "Whether or not the size should smoothly change when changing between differently sized children",
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSqueezer:xalign:
@@ -1101,8 +1100,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    */
   props[PROP_XALIGN] =
     g_param_spec_float ("xalign",
-                        _("X align"),
-                        _("The horizontal alignment, from 0 (start) to 1 (end)"),
+                        "X align",
+                        "The horizontal alignment, from 0 (start) to 1 (end)",
                         0.0, 1.0,
                         0.5,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
@@ -1123,16 +1122,16 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    */
   props[PROP_YALIGN] =
     g_param_spec_float ("yalign",
-                        _("Y align"),
-                        _("The vertical alignment, from 0 (top) to 1 (bottom)"),
+                        "Y align",
+                        "The vertical alignment, from 0 (top) to 1 (bottom)",
                         0.0, 1.0,
                         0.5,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_PAGES] =
     g_param_spec_object ("pages",
-                         _("Pages"),
-                         _("A selection model with the squeezer's pages"),
+                         "Pages",
+                         "A selection model with the squeezer's pages",
                          GTK_TYPE_SELECTION_MODEL,
                          G_PARAM_READABLE);
 

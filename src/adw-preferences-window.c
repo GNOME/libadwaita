@@ -435,8 +435,8 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    */
   props[PROP_SEARCH_ENABLED] =
     g_param_spec_boolean ("search-enabled",
-                          _("Search enabled"),
-                          _("Whether search is enabled"),
+                          "Search enabled",
+                          "Whether search is enabled",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -449,8 +449,8 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    */
   props[PROP_CAN_SWIPE_BACK] =
       g_param_spec_boolean ("can-swipe-back",
-                            _("Can swipe back"),
-                            _("Whether or not swipe gesture can be used to switch from a subpage to the preferences"),
+                            "Can swipe back",
+                            "Whether or not swipe gesture can be used to switch from a subpage to the preferences",
                             FALSE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 

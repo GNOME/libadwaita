@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 #include <gobject/gvaluecollector.h>
 #include "adw-value-object.h"
 
@@ -192,8 +191,9 @@ adw_value_object_class_init (AdwValueObjectClass *klass)
   object_class->set_property = adw_value_object_set_property;
 
   props[PROP_VALUE] =
-    g_param_spec_boxed ("value", C_("AdwValueObjectClass", "Value"),
-                        C_("AdwValueObjectClass", "The contained value"),
+    g_param_spec_boxed ("value",
+                        "Value",
+                        "The contained value",
                         G_TYPE_VALUE,
                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 

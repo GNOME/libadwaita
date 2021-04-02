@@ -9,7 +9,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-enums.h"
 #include "adw-view-switcher.h"
@@ -504,8 +503,8 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
    */
   props[PROP_POLICY] =
     g_param_spec_enum ("policy",
-                       _("Policy"),
-                       _("The policy to determine the mode to use"),
+                       "Policy",
+                       "The policy to determine the mode to use",
                        ADW_TYPE_VIEW_SWITCHER_POLICY, ADW_VIEW_SWITCHER_POLICY_AUTO,
                        G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
@@ -524,8 +523,8 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
    */
   props[PROP_NARROW_ELLIPSIZE] =
     g_param_spec_enum ("narrow-ellipsize",
-                       _("Narrow ellipsize"),
-                       _("The preferred place to ellipsize the string, if the narrow mode label does not have enough room to display the entire string"),
+                       "Narrow ellipsize",
+                       "The preferred place to ellipsize the string, if the narrow mode label does not have enough room to display the entire string",
                        PANGO_TYPE_ELLIPSIZE_MODE,
                        PANGO_ELLIPSIZE_NONE,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
@@ -539,8 +538,8 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
    */
   props[PROP_STACK] =
     g_param_spec_object ("stack",
-                         _("Stack"),
-                         _("Stack"),
+                         "Stack",
+                         "Stack",
                          GTK_TYPE_STACK,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 

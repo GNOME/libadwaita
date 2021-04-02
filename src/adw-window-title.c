@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-window-title.h"
 
@@ -126,8 +125,8 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title",
-                         _("Title"),
-                         _("The title to display"),
+                         "Title",
+                         "The title to display",
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
 
@@ -142,8 +141,8 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
    */
   props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle",
-                         _("Subtitle"),
-                         _("The subtitle to display"),
+                         "Subtitle",
+                         "The subtitle to display",
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
 

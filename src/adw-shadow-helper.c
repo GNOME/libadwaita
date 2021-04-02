@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-gizmo-private.h"
 #include "adw-shadow-helper-private.h"
@@ -141,8 +140,8 @@ adw_shadow_helper_class_init (AdwShadowHelperClass *klass)
    */
   props[PROP_WIDGET] =
     g_param_spec_object ("widget",
-                         _("Widget"),
-                         _("The widget the shadow will be drawn for"),
+                         "Widget",
+                         "The widget the shadow will be drawn for",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 

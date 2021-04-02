@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-carousel-indicator-dots.h"
 
@@ -381,8 +380,8 @@ adw_carousel_indicator_dots_class_init (AdwCarouselIndicatorDotsClass *klass)
    */
   props[PROP_CAROUSEL] =
     g_param_spec_object ("carousel",
-                         _("Carousel"),
-                         _("Carousel"),
+                         "Carousel",
+                         "Carousel",
                          ADW_TYPE_CAROUSEL,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 

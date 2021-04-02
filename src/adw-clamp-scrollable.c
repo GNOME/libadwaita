@@ -7,8 +7,6 @@
 #include "config.h"
 #include "adw-clamp-scrollable.h"
 
-#include <glib/gi18n-lib.h>
-
 #include "adw-clamp-layout.h"
 
 /**
@@ -262,8 +260,8 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
 
   props[PROP_CHILD] =
       g_param_spec_object ("child",
-                           _("Child"),
-                           _("The child widget"),
+                           "Child",
+                           "The child widget",
                            GTK_TYPE_WIDGET,
                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -277,8 +275,8 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
    */
   props[PROP_MAXIMUM_SIZE] =
       g_param_spec_int ("maximum-size",
-                        _("Maximum size"),
-                        _("The maximum size allocated to the child"),
+                        "Maximum size",
+                        "The maximum size allocated to the child",
                         0, G_MAXINT, 600,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -302,8 +300,8 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
    */
   props[PROP_TIGHTENING_THRESHOLD] =
       g_param_spec_int ("tightening-threshold",
-                        _("Tightening threshold"),
-                        _("The size from which the clamp will tighten its grip on the child"),
+                        "Tightening threshold",
+                        "The size from which the clamp will tighten its grip on the child",
                         0, G_MAXINT, 400,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 

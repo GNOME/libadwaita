@@ -8,7 +8,6 @@
 #include "config.h"
 #include "adw-flap.h"
 
-#include <glib/gi18n-lib.h>
 #include <math.h>
 
 #include "adw-animation-private.h"
@@ -1278,8 +1277,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_CONTENT] =
     g_param_spec_object ("content",
-                         _("Content"),
-                         _("The content Widget"),
+                         "Content",
+                         "The content Widget",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1293,8 +1292,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_FLAP] =
     g_param_spec_object ("flap",
-                         _("Flap"),
-                         _("The flap widget"),
+                         "Flap",
+                         "The flap widget",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1309,8 +1308,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_SEPARATOR] =
     g_param_spec_object ("separator",
-                         _("Separator"),
-                         _("The separator widget"),
+                         "Separator",
+                         "The separator widget",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1324,8 +1323,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_FLAP_POSITION] =
     g_param_spec_enum ("flap-position",
-                       _("Flap Position"),
-                       _("The flap position"),
+                       "Flap Position",
+                       "The flap position",
                        GTK_TYPE_PACK_TYPE,
                        GTK_PACK_START,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
@@ -1339,8 +1338,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_REVEAL_FLAP] =
     g_param_spec_boolean ("reveal-flap",
-                          _("Reveal Flap"),
-                          _("Whether the flap is revealed"),
+                          "Reveal Flap",
+                          "Whether the flap is revealed",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1353,8 +1352,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_REVEAL_DURATION] =
     g_param_spec_uint ("reveal-duration",
-                       _("Reveal Duration"),
-                       _("The reveal transition animation duration, in milliseconds"),
+                       "Reveal Duration",
+                       "The reveal transition animation duration, in milliseconds",
                        0, G_MAXINT,
                        250,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
@@ -1369,8 +1368,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_REVEAL_PROGRESS] =
     g_param_spec_double ("reveal-progress",
-                          _("Reveal Progress"),
-                          _("The current reveal transition progress"),
+                          "Reveal Progress",
+                          "The current reveal transition progress",
                           0.0, 1.0, 1.0,
                           G_PARAM_READABLE);
 
@@ -1384,8 +1383,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_FOLD_POLICY] =
     g_param_spec_enum ("fold-policy",
-                       _("Fold Policy"),
-                       _("The current fold policy"),
+                       "Fold Policy",
+                       "The current fold policy",
                        ADW_TYPE_FLAP_FOLD_POLICY,
                        ADW_FLAP_FOLD_POLICY_AUTO,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
@@ -1399,8 +1398,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_FOLD_DURATION] =
     g_param_spec_uint ("fold-duration",
-                       _("Fold Duration"),
-                       _("The fold transition animation duration, in milliseconds"),
+                       "Fold Duration",
+                       "The fold transition animation duration, in milliseconds",
                        0, G_MAXINT,
                        250,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
@@ -1416,8 +1415,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_FOLDED] =
     g_param_spec_boolean ("folded",
-                          _("Folded"),
-                          _("Whether the flap is currently folded"),
+                          "Folded",
+                          "Whether the flap is currently folded",
                           FALSE,
                           G_PARAM_READABLE);
 
@@ -1434,8 +1433,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_LOCKED] =
     g_param_spec_boolean ("locked",
-                          _("Locked"),
-                          _("Whether the flap is locked"),
+                          "Locked",
+                          "Whether the flap is locked",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1453,8 +1452,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_TRANSITION_TYPE] =
     g_param_spec_enum ("transition-type",
-                       _("Transition Type"),
-                       _("The type of animation used for reveal and fold transitions"),
+                       "Transition Type",
+                       "The type of animation used for reveal and fold transitions",
                        ADW_TYPE_FLAP_TRANSITION_TYPE,
                        ADW_FLAP_TRANSITION_TYPE_OVER,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
@@ -1472,8 +1471,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_MODAL] =
     g_param_spec_boolean ("modal",
-                          _("Modal"),
-                          _("Whether the flap is modal"),
+                          "Modal",
+                          "Whether the flap is modal",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1488,8 +1487,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_SWIPE_TO_OPEN] =
     g_param_spec_boolean ("swipe-to-open",
-                          _("Swipe to Open"),
-                          _("Whether the flap can be opened with a swipe gesture"),
+                          "Swipe to Open",
+                          "Whether the flap can be opened with a swipe gesture",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1504,8 +1503,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    */
   props[PROP_SWIPE_TO_CLOSE] =
     g_param_spec_boolean ("swipe-to-close",
-                          _("Swipe to Close"),
-                          _("Whether the flap can be closed with a swipe gesture"),
+                          "Swipe to Close",
+                          "Whether the flap can be closed with a swipe gesture",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 

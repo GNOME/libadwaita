@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-status-page.h"
 
@@ -175,8 +174,8 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
-                         _("Icon name"),
-                         _("The name of the icon to be used"),
+                         "Icon name",
+                         "The name of the icon to be used",
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -189,8 +188,8 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title",
-                         _("Title"),
-                         _("The title to be displayed below the icon"),
+                         "Title",
+                         "The title to be displayed below the icon",
                          "",
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -203,15 +202,15 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    */
   props[PROP_DESCRIPTION] =
     g_param_spec_string ("description",
-                         _("Description"),
-                         _("The description to be displayed below the title"),
+                         "Description",
+                         "The description to be displayed below the title",
                          "",
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_CHILD] =
     g_param_spec_object ("child",
-                         _("Child"),
-                         _("The child widget"),
+                         "Child",
+                         "The child widget",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 

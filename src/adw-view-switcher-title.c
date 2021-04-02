@@ -6,7 +6,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-view-switcher-title.h"
 #include "adw-squeezer.h"
@@ -225,8 +224,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    */
   props[PROP_POLICY] =
     g_param_spec_enum ("policy",
-                       _("Policy"),
-                       _("The policy to determine the mode to use"),
+                       "Policy",
+                       "The policy to determine the mode to use",
                        ADW_TYPE_VIEW_SWITCHER_POLICY, ADW_VIEW_SWITCHER_POLICY_AUTO,
                        G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
@@ -239,8 +238,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    */
   props[PROP_STACK] =
     g_param_spec_object ("stack",
-                         _("Stack"),
-                         _("Stack"),
+                         "Stack",
+                         "Stack",
                          GTK_TYPE_STACK,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
@@ -253,8 +252,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title",
-                         _("Title"),
-                         _("The title to display"),
+                         "Title",
+                         "The title to display",
                          NULL,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
@@ -267,8 +266,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    */
   props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle",
-                         _("Subtitle"),
-                         _("The subtitle to display"),
+                         "Subtitle",
+                         "The subtitle to display",
                          NULL,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
@@ -281,8 +280,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    */
   props[PROP_VIEW_SWITCHER_ENABLED] =
     g_param_spec_boolean ("view-switcher-enabled",
-                         _("View switcher enabled"),
-                         _("Whether the view switcher is enabled"),
+                         "View switcher enabled",
+                         "Whether the view switcher is enabled",
                          TRUE,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
@@ -295,8 +294,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    */
   props[PROP_TITLE_VISIBLE] =
     g_param_spec_boolean ("title-visible",
-                         _("Title visible"),
-                         _("Whether the title label is visible"),
+                         "Title visible",
+                         "Whether the title label is visible",
                          TRUE,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 

@@ -20,7 +20,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-header-bar.h"
 
@@ -366,8 +365,8 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
 
   props[PROP_TITLE_WIDGET] =
     g_param_spec_object ("title-widget",
-                         _("Title Widget"),
-                         _("Title widget to display"),
+                         "Title Widget",
+                         "Title widget to display",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS);
 
@@ -385,8 +384,8 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    */
   props[PROP_SHOW_START_TITLE_BUTTONS] =
     g_param_spec_boolean ("show-start-title-buttons",
-                          _("Show start title buttons"),
-                          _("Whether to show start title buttons"),
+                          "Show start title buttons",
+                          "Whether to show start title buttons",
                           TRUE,
                           G_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
 
@@ -404,8 +403,8 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    */
   props[PROP_SHOW_END_TITLE_BUTTONS] =
     g_param_spec_boolean ("show-end-title-buttons",
-                          _("Show end title buttons"),
-                          _("Whether to show end title buttons"),
+                          "Show end title buttons",
+                          "Whether to show end title buttons",
                           TRUE,
                           G_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
 
@@ -423,15 +422,15 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    */
   props[PROP_DECORATION_LAYOUT] =
     g_param_spec_string ("decoration-layout",
-                         _("Decoration Layout"),
-                         _("The layout for window decorations"),
+                         "Decoration Layout",
+                         "The layout for window decorations",
                          NULL,
                          G_PARAM_READWRITE);
 
   props[PROP_CENTERING_POLICY] =
     g_param_spec_enum ("centering-policy",
-                       _("Centering policy"),
-                       _("The policy to horizontally align the center widget"),
+                       "Centering policy",
+                       "The policy to horizontally align the center widget",
                        ADW_TYPE_CENTERING_POLICY, ADW_CENTERING_POLICY_LOOSE,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 

@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-preferences-page-private.h"
 
@@ -145,8 +144,8 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
-                         _("Icon name"),
-                         _("Icon name"),
+                         "Icon name",
+                         "Icon name",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -159,8 +158,8 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title",
-                         _("Title"),
-                         _("Title"),
+                         "Title",
+                         "Title",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -173,8 +172,8 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline",
-                          _("Use underline"),
-                          _("Whether an embedded underline in the text of the title label indicates a mnemonic"),
+                          "Use underline",
+                          "Whether an embedded underline in the text of the title label indicates a mnemonic",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 

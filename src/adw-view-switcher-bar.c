@@ -6,7 +6,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-enums.h"
 #include "adw-view-switcher-bar.h"
@@ -192,8 +191,8 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
    */
   props[PROP_POLICY] =
     g_param_spec_enum ("policy",
-                       _("Policy"),
-                       _("The policy to determine the mode to use"),
+                       "Policy",
+                       "The policy to determine the mode to use",
                        ADW_TYPE_VIEW_SWITCHER_POLICY, ADW_VIEW_SWITCHER_POLICY_NARROW,
                        G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
@@ -206,8 +205,8 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
    */
   props[PROP_STACK] =
     g_param_spec_object ("stack",
-                         _("Stack"),
-                         _("Stack"),
+                         "Stack",
+                         "Stack",
                          GTK_TYPE_STACK,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
@@ -220,8 +219,8 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
    */
   props[PROP_REVEAL] =
     g_param_spec_boolean ("reveal",
-                         _("Reveal"),
-                         _("Whether the view switcher is revealed"),
+                         "Reveal",
+                         "Whether the view switcher is revealed",
                          FALSE,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 

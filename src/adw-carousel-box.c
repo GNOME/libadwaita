@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-animation-private.h"
 #include "adw-carousel-box-private.h"
@@ -683,8 +682,8 @@ adw_carousel_box_class_init (AdwCarouselBoxClass *klass)
    */
   props[PROP_N_PAGES] =
     g_param_spec_uint ("n-pages",
-                       _("Number of pages"),
-                       _("Number of pages"),
+                       "Number of pages",
+                       "Number of pages",
                        0,
                        G_MAXUINT,
                        0,
@@ -699,8 +698,8 @@ adw_carousel_box_class_init (AdwCarouselBoxClass *klass)
    */
   props[PROP_POSITION] =
     g_param_spec_double ("position",
-                         _("Position"),
-                         _("Current scrolling position"),
+                         "Position",
+                         "Current scrolling position",
                          0,
                          G_MAXDOUBLE,
                          0,
@@ -715,8 +714,8 @@ adw_carousel_box_class_init (AdwCarouselBoxClass *klass)
    */
   props[PROP_SPACING] =
     g_param_spec_uint ("spacing",
-                       _("Spacing"),
-                       _("Spacing between pages"),
+                       "Spacing",
+                       "Spacing between pages",
                        0,
                        G_MAXUINT,
                        0,
@@ -732,8 +731,8 @@ adw_carousel_box_class_init (AdwCarouselBoxClass *klass)
    */
   props[PROP_REVEAL_DURATION] =
     g_param_spec_uint ("reveal-duration",
-                       _("Reveal duration"),
-                       _("Page reveal duration"),
+                       "Reveal duration",
+                       "Page reveal duration",
                        0,
                        G_MAXUINT,
                        0,

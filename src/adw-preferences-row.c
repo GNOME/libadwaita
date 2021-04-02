@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-preferences-row.h"
 
@@ -112,8 +111,8 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title",
-                         _("Title"),
-                         _("The title of the preference"),
+                         "Title",
+                         "The title of the preference",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -127,8 +126,8 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline",
-                          _("Use underline"),
-                          _("If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key"),
+                          "Use underline",
+                          "If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 

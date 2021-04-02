@@ -5,7 +5,6 @@
  */
 
 #include "config.h"
-#include <glib/gi18n-lib.h>
 
 #include "adw-swipe-tracker-private.h"
 #include "adw-navigation-direction.h"
@@ -1036,8 +1035,8 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    */
   props[PROP_SWIPEABLE] =
     g_param_spec_object ("swipeable",
-                         _("Swipeable"),
-                         _("The swipeable the swipe tracker is attached to"),
+                         "Swipeable",
+                         "The swipeable the swipe tracker is attached to",
                          ADW_TYPE_SWIPEABLE,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
@@ -1051,8 +1050,8 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    */
   props[PROP_ENABLED] =
     g_param_spec_boolean ("enabled",
-                          _("Enabled"),
-                          _("Whether the swipe tracker processes events"),
+                          "Enabled",
+                          "Whether the swipe tracker processes events",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1066,8 +1065,8 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    */
   props[PROP_REVERSED] =
     g_param_spec_boolean ("reversed",
-                          _("Reversed"),
-                          _("Whether swipe direction is reversed"),
+                          "Reversed",
+                          "Whether swipe direction is reversed",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1081,8 +1080,8 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    */
   props[PROP_ALLOW_MOUSE_DRAG] =
     g_param_spec_boolean ("allow-mouse-drag",
-                          _("Allow mouse drag"),
-                          _("Whether to allow dragging with mouse pointer"),
+                          "Allow mouse drag",
+                          "Whether to allow dragging with mouse pointer",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1096,8 +1095,8 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    */
   props[PROP_ALLOW_LONG_SWIPES] =
     g_param_spec_boolean ("allow-long-swipes",
-                          _("Allow long swipes"),
-                          _("Whether to allow swiping for more than one snap point at a time"),
+                          "Allow long swipes",
+                          "Whether to allow swiping for more than one snap point at a time",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
