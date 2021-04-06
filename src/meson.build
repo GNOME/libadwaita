@@ -4,10 +4,9 @@ libadwaita_header_dir = get_option('includedir') / libadwaita_header_subdir
 subdir('stylesheet')
 
 libadwaita_resources = gnome.compile_resources(
-   'adw-resources',
-   'adwaita.gresources.xml',
-
-   c_name: 'adw',
+  'adw-resources',
+  'adwaita.gresources.xml',
+  c_name: 'adw',
 )
 
 adw_public_enum_headers = [
