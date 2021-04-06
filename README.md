@@ -9,16 +9,6 @@ using GTK/GNOME.
 
 libadwaita is licensed under the LGPL-2.1+.
 
-## Build dependencies
-
-To build libadwaita you need to first install the build-deps defined by [the debian/control file](https://gitlab.gnome.org/GNOME/libadwaita/blob/master/debian/control#L6).
-
-If you are running a Debian based distribution, you can easily install all those the dependencies making use of the following command
-
-```sh
-sudo apt-get build-dep .
-```
-
 ## Building
 
 We use the Meson (and thereby Ninja) build system for libadwaita. The quickest
