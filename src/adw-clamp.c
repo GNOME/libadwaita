@@ -24,10 +24,10 @@
  *
  * # CSS nodes
  *
- * #AdwClamp has a single CSS node with name clamp. The node will get the style
- * classes .large when its child reached its maximum size, .small when the clamp
- * allocates its full size to its child, .medium in-between, or none if it
- * didn't compute its size yet.
+ * #AdwClamp has a single CSS node with name clamp. Its children will receive
+ * the style classes .large when the child reached its maximum size, .small when
+ * the clamp allocates its full size to the child, .medium in-between, or none
+ * if it didn't compute its size yet.
  *
  * Since: 1.0
  */
