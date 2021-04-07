@@ -46,21 +46,6 @@
  * Using gtk_window_get_titlebar() and gtk_window_set_titlebar() is not
  * supported and will result in a crash.
  *
- * # CSS nodes
- *
- * #AdwWindow has a main CSS node with the name window and style classes
- * .background, .csd and .unified.
- *
- * The .solid-csd style class on the main node is used for client-side
- * decorations without invisible borders.
- *
- * #AdwWindow also represents window states with the following
- * style classes on the main node: .tiled, .maximized, .fullscreen.
- *
- * It contains the subnodes decoration for window shadow and/or border,
- * decoration-overlay for the sheen on top of the window, widget.titlebar, and
- * deck, which contains the child inside the window.
- *
  * Since: 1.0
  */
 
