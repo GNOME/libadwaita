@@ -299,19 +299,6 @@ $_default_button_c: lighten($bg_color,2%);
     background-clip: padding-box;
   }
 
-  @else if $t==osd-backdrop {
-  //
-  // backdrop osd button
-  //
-    $_bg: if($c != $_default_button_c, transparentize($c, 0.5), $osd_bg_color);
-
-    color: $osd_fg_color;
-    border-color: $osd_borders_color;
-    background-color: transparent;
-    background-image: image($_bg);
-    background-clip: padding-box;
-  }
-
   @else if $t==undecorated {
   //
   // reset
