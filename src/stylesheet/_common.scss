@@ -320,7 +320,6 @@ entry {
     }
 
     &:focus-within {
-      @include entry(focus);
       > placeholder {
         opacity: 0; /* We hide placeholders on focus */
       }
@@ -337,8 +336,6 @@ entry {
         color: $e_color;
 
         @include focus-ring($focus-state: 'focus-within', $fc: transparentize($e_color, 0.5));
-
-        &:focus-within { @include entry(focus, $e_color); }
 
         > selection { background-color: $e_color; }
       }

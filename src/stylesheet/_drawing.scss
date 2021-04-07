@@ -48,7 +48,7 @@
 // $fc: focus color
 //
 // possible $t values:
-// normal, focus, insensitive, backdrop, backdrop-insensitive, osd, osd-focus, osd-backdrop, block_cursor;
+// normal, insensitive, osd, osd-focus, block_cursor;
 //
 
   @if $t==normal {
@@ -60,16 +60,6 @@
   @if $t==insensitive {
     color: $insensitive_fg_color;
     border-color: $borders_color;
-    background-color: $insensitive_bg_color;
-  }
-  @if $t==backdrop {
-    color: $backdrop_text_color;
-    border-color: $backdrop_borders_color;
-    background-color: $backdrop_base_color;
-  }
-  @if $t==backdrop-insensitive {
-    color: $backdrop_insensitive_color;
-    border-color: $backdrop_borders_color;
     background-color: $insensitive_bg_color;
   }
   @if $t==osd {
@@ -90,12 +80,6 @@
     color: $osd_insensitive_fg_color;
     border-color: $osd_borders_color;
     background-color: $osd_insensitive_bg_color;
-    background-clip: padding-box;
-  }
-  @if $t==osd-backdrop {
-    color: $osd_text_color;
-    border-color: $osd_borders_color;
-    background-color: transparentize(opacify($osd_borders_color, 1), 0.5);
     background-clip: padding-box;
   }
   @if $t==block_cursor {
