@@ -44,8 +44,7 @@ dnd {
 spinner:disabled,
 arrow:disabled,
 check:disabled,
-radio:disabled,
-treeview.expander:disabled { -gtk-icon-filter: opacity(0.5); }
+radio:disabled { -gtk-icon-filter: opacity(0.5); }
 
 .view,
 %view {
@@ -1669,6 +1668,8 @@ treeview.view {
     }
 
     &:checked { -gtk-icon-source: -gtk-icontheme('pan-down-symbolic'); }
+
+    &:disabled { color: gtkalpha(currentColor, 0.5); }
   }
 
   &.progressbar { // progress bar in treeviews
