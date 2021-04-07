@@ -15,7 +15,6 @@ row {
   label.subtitle {
     font-size: smaller;
     opacity: 0.55;
-    text-shadow: none;
   }
 
   > box.header {
@@ -112,7 +111,6 @@ row.expander {
 
   &:not(:checked) image.expander-row-arrow {
     opacity: 0.55;
-    text-shadow: none;
 
     &:dir(ltr) {
       -gtk-icon-transform: rotate(-0.25turn);
@@ -551,6 +549,5 @@ windowtitle {
     padding-left: 12px;
     padding-right: 12px;
     opacity: 0.55;
-    text-shadow: none;
   }
 }

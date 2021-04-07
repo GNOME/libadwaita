@@ -20,11 +20,6 @@ $popover_radius: $button_radius + 4;
 .background {
   color: $fg_color;
   background-color: $bg_color;
-
-  &:backdrop {
-    text-shadow: none;
-    -gtk-icon-shadow: none;
-  }
 }
 
 dnd {
@@ -182,7 +177,6 @@ label {
 
 .dim-label {
   opacity: $dim_label_opacity;
-  text-shadow: none;
 }
 
 window.assistant {
@@ -823,8 +817,6 @@ button {
   border-color: transparent;
   box-shadow: inset 0 1px transparentize(white, 1),
               0 1px transparentize(white, 1);
-  text-shadow: none;
-  -gtk-icon-shadow: none;
 }
 
 .linked:not(.vertical) > menubutton,
@@ -986,8 +978,6 @@ button.link {
   &:active,
   &:checked {
     @extend %undecorated_button;
-
-    text-shadow: none;
   }
 
   > label {
@@ -1739,7 +1729,6 @@ treeview.view {
       color: $_column_header_color;
       background-color: $base_color;
       font-weight: bold;
-      text-shadow: none;
       box-shadow: none;
 
       &:hover {
@@ -1780,7 +1769,6 @@ treeview.view {
       border-style: none;
       border-radius: 0;
       box-shadow: inset 0 0 0 1px $base_color;
-      text-shadow: none;
       transition: none;
     }
   }
@@ -1794,7 +1782,6 @@ treeview.view {
   border-style: none none solid solid;
   border-color: $_treeview_borders_color;
   border-radius: 0;
-  text-shadow: none;
 
   &:disabled {
     border-color: $bg_color;
@@ -2373,7 +2360,6 @@ switch {
     color: $insensitive_fg_color;
     border-color: $borders_color;
     background-color: $insensitive_bg_color;
-    text-shadow: none;
   }
 
   > slider {
@@ -2443,7 +2429,6 @@ switch {
     box-shadow: none;
     border-width: 0;
     -gtk-icon-source: #{$check_icon};
-    -gtk-icon-shadow: none;
   }
 }
 
@@ -4258,7 +4243,6 @@ button.emoji-section {
   /* reset props inherited from the button style */
   background: none;
   box-shadow: none;
-  text-shadow: none;
 
   &:hover { border-color: if($variant == 'light', $borders_color, transparentize($fg_color, .9)); }
   &:checked { border-color: $selected_bg_color; }
