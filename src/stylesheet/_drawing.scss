@@ -68,7 +68,6 @@
     background-color: transparentize(opacify($osd_borders_color, 1), 0.5);
     background-clip: padding-box;
     box-shadow: none;
-    -gtk-icon-shadow: 0 1px black;
   }
   @if $t==osd-focus {
     color: $osd_text_color;

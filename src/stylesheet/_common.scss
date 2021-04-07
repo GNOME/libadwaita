@@ -211,8 +211,6 @@ window.aboutdialog image.large-icons {
   border: none;
   background-color: $osd_bg_color;
   background-clip: padding-box;
-  -gtk-icon-shadow: 0 1px black;
-
 }
 
 
@@ -650,7 +648,6 @@ button {
       @include button(undecorated);
 
       box-shadow: none;
-      -gtk-icon-shadow: 0 1px black;
 
       &:hover { @include button(osd-hover); }
 
@@ -1082,7 +1079,6 @@ spinbutton {
       border-color: transparentize($osd_borders_color, 0.3);
       border-radius: 0;
       box-shadow: none;
-      -gtk-icon-shadow: 0 1px black;
 
       &:dir(rtl) { border-style: none solid none none; }
 
@@ -1092,7 +1088,6 @@ spinbutton {
         color: $osd_fg_color;
         border-color: transparentize(opacify($osd_borders_color, 1), 0.5);
         background-color: darken($osd_bg_color,10%);
-        -gtk-icon-shadow: 0 1px black;
         box-shadow: none;
       }
 
@@ -1101,7 +1096,6 @@ spinbutton {
 
         color: $osd_insensitive_fg_color;
         border-color: transparentize(opacify($osd_borders_color, 1), 0.5);
-        -gtk-icon-shadow: none;
         box-shadow: none;
       }
 
