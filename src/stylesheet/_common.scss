@@ -4061,12 +4061,6 @@ window {
       transition: $backdrop_transition;
     }
 
-    &.popup {
-      border-radius: $menu_radius;
-      box-shadow: 0 1px 2px transparentize(black, 0.8),
-                  0 0 0 1px transparentize($_wm_border, 0.1);
-    }
-
     &.dialog.message {
       box-shadow: 0 1px 2px transparentize(black, 0.8),
                   0 0 0 1px transparentize($_wm_border, 0.1);
@@ -4098,8 +4092,6 @@ window {
    &:backdrop { box-shadow: 0 0 0 1px $_wm_border_backdrop,
                             0 0 0 20px transparent; // #3670
   }
-
-  &.popup { box-shadow: none; }
 
   // server-side decorations as used by mutter
   &.ssd { box-shadow: 0 0 0 1px $_wm_border; } //just doing borders, wm draws actual shadows
