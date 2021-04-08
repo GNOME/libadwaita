@@ -2890,42 +2890,43 @@ progressbar {
   &.horizontal > trough > progress { margin: 0 -1px; } // the progress node is positioned after the trough border
   &.vertical > trough > progress { margin: -1px 0; }   // this moves it over it.
 
-
   // FIXME: insensitive state missing and some other state should be set probably
   font-size: smaller;
   color: transparentize($fg_color, 0.6);
   font-feature-settings: "tnum";
 
-  > trough { @extend %scale_trough; }
+  > trough {
+    @extend %scale_trough;
 
-  > trough > progress {
-    @extend %scale_highlight; /* share most of scales' */
-    /* override insensitive that is specific to progress */
-    &:disabled {
-      background-color: $insensitive_fg_color;
-      border-color: $insensitive_fg_color;
-    }
+    > progress {
+      @extend %scale_highlight; /* share most of scales' */
+      /* override insensitive that is specific to progress */
+      &:disabled {
+        background-color: $insensitive_fg_color;
+        border-color: $insensitive_fg_color;
+      }
 
-    border-radius: 1.5px;
-    $_progress-radius: 5px;
-    &.left {
-      border-top-left-radius: $_progress-radius;
-      border-bottom-left-radius: $_progress-radius;
-    }
+      border-radius: 1.5px;
+      $_progress-radius: 5px;
+      &.left {
+        border-top-left-radius: $_progress-radius;
+        border-bottom-left-radius: $_progress-radius;
+      }
 
-    &.right {
-      border-top-right-radius: $_progress-radius;
-      border-bottom-right-radius: $_progress-radius;
-    }
+      &.right {
+        border-top-right-radius: $_progress-radius;
+        border-bottom-right-radius: $_progress-radius;
+      }
 
-    &.top {
-      border-top-right-radius: $_progress-radius;
-      border-top-left-radius: $_progress-radius;
-    }
+      &.top {
+        border-top-right-radius: $_progress-radius;
+        border-top-left-radius: $_progress-radius;
+      }
 
-    &.bottom {
-      border-bottom-right-radius: $_progress-radius;
-      border-bottom-left-radius: $_progress-radius;
+      &.bottom {
+        border-bottom-right-radius: $_progress-radius;
+        border-bottom-left-radius: $_progress-radius;
+      }
     }
   }
 
