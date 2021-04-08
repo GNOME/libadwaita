@@ -1301,8 +1301,8 @@ infobar {
   }
 
   &.action:hover > revealer > box {
-      background-color: if($variant == 'light', desaturate(lighten(invert($selected_bg_color), 47%), 30%),
-                        desaturate(darken(invert($selected_bg_color), 42%), 70%));
+    background-color: if($variant == 'light', desaturate(lighten(invert($selected_bg_color), 47%), 30%),
+                      desaturate(darken(invert($selected_bg_color), 42%), 70%));
   }
 
   &.info,
