@@ -556,7 +556,6 @@ button {
     }
   }
 
-
   // big standalone buttons like in Documents pager
   &.osd {
     min-width: 26px;
@@ -668,7 +667,6 @@ button {
         &:checked { &:backdrop, & { @include button(osd-active, $b_color); }}
 
         &:disabled { &:backdrop, & { @include button(osd-insensitive, $b_color); }}
-
       }
     }
   }
@@ -814,6 +812,7 @@ button {
 }
 
 /* menu buttons */
+
 modelbutton.flat {
   min-height: 26px;
   padding-left: 5px;
@@ -887,12 +886,14 @@ button.color {
 list > row button.image-button:not(.flat) {
   @extend %undecorated_button;
   border: 1px solid transparentize($borders_color, .5);
+
   &:hover { @include button(hover); }
+
   &:active,
   &:checked { @include button(active); }
 
   @each $b_type, $b_color in (suggested-action, $selected_bg_color),
-                         (destructive-action, $destructive_color) {
+                             (destructive-action, $destructive_color) {
     &.#{$b_type} { // allow colored buttons in lists #3643
       @include button(normal, $b_color, white);
       @include focus-ring($fc: $alt_focus_border_color);
