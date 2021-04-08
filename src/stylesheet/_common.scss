@@ -3291,16 +3291,6 @@ expander-widget {
   }
 }
 
-.navigation-sidebar,
-placessidebar,
-stackswitcher,
-expander-widget {
-  &:not(decoration):not(window):drop(active):focus,
-  &:not(decoration):not(window):drop(active) {
-    box-shadow: none;
-  }
-}
-
 
 /************
  * Calendar *
@@ -4079,11 +4069,21 @@ shortcut > .keycap {
 
 }
 
-:not(decoration):not(window):drop(active):focus,
-:not(decoration):not(window):drop(active) { // FIXME needs to be done widget by widget, this wildcard should really die
+:not(window):drop(active):focus,
+:not(window):drop(active) { // FIXME needs to be done widget by widget, this wildcard should really die
   border-color: $drop_target_color;
   box-shadow: inset 0 0 0 1px $drop_target_color;
   caret-color: $drop_target_color;
+}
+
+.navigation-sidebar,
+placessidebar,
+stackswitcher,
+expander-widget {
+  :not(window):drop(active):focus,
+  :not(window):drop(active) {
+    box-shadow: none;
+  }
 }
 
 stackswitcher > button.text-button { min-width: 100px; } // FIXME aggregate with buttons
