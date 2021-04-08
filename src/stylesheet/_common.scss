@@ -91,8 +91,6 @@ rubberband {
 }
 
 flowbox {
-  > rubberband { @extend rubberband; }
-
   > flowboxchild {
     padding: 3px;
     transition: $focus_transition;
@@ -108,8 +106,6 @@ flowbox {
 }
 
 gridview {
-  > rubberband { @extend rubberband; }
-
   > child {
     padding: 3px;
     transition: $focus_transition;
@@ -1594,8 +1590,6 @@ treeview.view {
   border-top-color: $_treeview_borders_color;                         // while this is the grid lines color, better then nothing
 
   @include focus-ring();
-
-  > rubberband { @extend rubberband; } // to avoid borders being overridden by the previously set props
 
   &:selected {
     &:focus, & {
@@ -3976,10 +3970,7 @@ colorchooser .popover.osd { border-radius: 5px; }
 
     &:active, &:selected { background-color: if($variant=='light', transparent, $selected_bg_color); }
     &:disabled { background-color: if($variant=='light', transparent, $insensitive_bg_color); }
-}
-
-  > rubberband { @extend rubberband; }
-
+  }
 }
 
 .scale-popup {
