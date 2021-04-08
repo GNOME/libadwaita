@@ -34,17 +34,6 @@ dnd {
   -gtk-icon-size: 32px;
 }
 
-/*
-   These wildcard seems unavoidable, need to investigate.
-   Wildcards are bad and troublesome, use them with care,
-   or better, just don't.
-   Every time a wildcard is used a kitten dies, painfully.
-*/
-
-arrow:disabled,
-check:disabled,
-radio:disabled { -gtk-icon-filter: opacity(0.5); }
-
 .view,
 %view {
   color: $text_color;
@@ -1933,6 +1922,10 @@ popover.menu {
     margin-left: 6px;
     margin-right: -2px;
   }
+
+  arrow:disabled,
+  check:disabled,
+  radio:disabled { -gtk-icon-filter: opacity(0.5); }
 
   modelbutton {
     min-height: 30px;
