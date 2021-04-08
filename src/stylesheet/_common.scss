@@ -1253,6 +1253,14 @@ searchbar > revealer > box {
   @extend %darkbar;
 
   border-width: 0 0 1px;
+
+ .close {
+    min-width: 16px;
+    min-height: 16px;
+    padding: 4px;
+    border-radius: 50%;
+    @extend %button_basic_flat;
+  }
 }
 
 %darkbar {
@@ -1293,20 +1301,15 @@ infobar {
                         desaturate(darken(invert($selected_bg_color), 40%), 70%));
     }
   }
+
+ .close {
+    min-width: 16px;
+    min-height: 16px;
+    padding: 4px;
+    border-radius: 50%;
+    @extend %button_basic_flat;
+  }
 }
-
-   //close button for info and searchbar (#3215)
-
-   infobar .close,
-   searchbar .close {
-      @include button(undecorated);
-      min-width: 16px;
-      min-height: 16px;
-      padding: 4px;
-      border-radius: 50%;
-
-      &:hover { @include button(hover); }
-   }
 
 
 /*****************
