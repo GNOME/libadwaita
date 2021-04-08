@@ -823,26 +823,22 @@ modelbutton.flat {
 
   &:hover { background-color: $menu_selected_color; }
 
-  &:disabled {
-    color: $insensitive_fg_color;
-
-
-  }
+  &:disabled { color: $insensitive_fg_color; }
 
   &:selected { @extend %selected_items; }
-}
 
-modelbutton.flat arrow {
-  background: none;
-  min-width: 16px;
-  min-height: 16px;
-  opacity: 0.3; //dim icon
+  arrow {
+    background: none;
+    min-width: 16px;
+    min-height: 16px;
+    opacity: 0.3; // dim icon
 
-  &:hover { background: none; }
+    &:hover { background: none; }
 
-  &.left { -gtk-icon-source: -gtk-icontheme("go-previous-symbolic"); }
+    &.left { -gtk-icon-source: -gtk-icontheme("go-previous-symbolic"); }
 
-  &.right { -gtk-icon-source: -gtk-icontheme("go-next-symbolic"); }
+    &.right { -gtk-icon-source: -gtk-icontheme("go-next-symbolic"); }
+  }
 }
 
 /* oldstyle toolbar buttons */
