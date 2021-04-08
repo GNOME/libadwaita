@@ -1219,14 +1219,10 @@ combobox {
 /************
  * Toolbars *
  ************/
-%toolbar {
+.toolbar {
   padding: 4px;
   border-spacing: 4px;
   background-color: $bg_color;
-}
-
-.toolbar {
-  @extend %toolbar;
 
   // on OSD
   .osd & { background-color: transparent; }
@@ -1253,7 +1249,6 @@ combobox {
 searchbar > revealer > box {
   padding: 6px;
   border-spacing: 6px;
-  @extend %toolbar;
 
   @extend %darkbar;
 
