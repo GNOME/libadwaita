@@ -1157,22 +1157,22 @@ combobox {
 
   // newstyle
   popover {
-   margin-top: 6px;
-   padding: 0;
+    margin-top: 6px;
+    padding: 0;
 
-   listview {
+    listview {
       padding: 8px 0;
 
-      &>row {
-         padding: 8px;
+      & > row {
+        padding: 8px;
 
-         &:selected {
-           outline-color: $alt_focus_border_color;
-           color: $text-color;
-           background-color: $menu_selected_color;
-         }
+        &:selected {
+          outline-color: $alt_focus_border_color;
+          color: $text-color;
+          background-color: $menu_selected_color;
+        }
       }
-   }
+    }
 
     // dropdowns with searchboxes on top
     .dropdown-searchbar {
