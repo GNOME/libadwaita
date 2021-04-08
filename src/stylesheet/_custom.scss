@@ -387,14 +387,6 @@ listview.content {
   }
 }
 
-// List button
-
-button.list-button:not(:active):not(:checked):not(:hover) {
-  background: none;
-  border: 1px solid transparentize($borders_color, 0.5);
-  box-shadow: none;
-}
-
 // AdwStatusPage
 
 statuspage > scrolledwindow > viewport > box {
