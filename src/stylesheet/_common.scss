@@ -290,12 +290,6 @@ entry {
       }
     }
 
-    &:focus-within {
-      > placeholder {
-        opacity: 0; /* We hide placeholders on focus */
-      }
-    }
-
     &:disabled { @include entry(insensitive); }
 
     // entry error and warning style
