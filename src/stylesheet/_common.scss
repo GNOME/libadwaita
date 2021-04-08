@@ -3870,21 +3870,12 @@ plane {
 // colorscale popup
 colorchooser .popover.osd { border-radius: 5px; }
 
+
 /********
  * Misc *
  ********/
 .content-view {
   background-color: darken($bg_color,7%);
-
-  .tile {
-    margin: 2px;
-    background-color: if($variant=='light', transparent, black);
-    border-radius: 0;
-    padding: 0;
-
-    &:active, &:selected { background-color: if($variant=='light', transparent, $selected_bg_color); }
-    &:disabled { background-color: if($variant=='light', transparent, $insensitive_bg_color); }
-  }
 }
 
 .scale-popup {
