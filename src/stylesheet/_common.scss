@@ -2241,11 +2241,6 @@ scrollbar {
   &.vertical > range > trough > slider { min-height: $_slider_min_length; }
 }
 
-treeview ~ scrollbar.vertical {
-  border-top: 1px solid $borders_color;
-  margin-top: -1px;
-}
-
 /**********
  * Switch *
  **********/
