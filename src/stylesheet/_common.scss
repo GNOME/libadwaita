@@ -1245,7 +1245,10 @@ combobox {
   &.vertical > separator { margin: 0 4px; }
 }
 
-//searchbar & location-bar
+
+/****************
+ * GtkSearchBar *
+ ****************/
 searchbar > revealer > box {
   padding: 6px;
   border-spacing: 6px;
@@ -1276,6 +1279,17 @@ searchbar > revealer > box {
     transition: $backdrop_transition;
   }
 }
+
+
+/****************
+ * GtkActionBar *
+ ****************/
+actionbar > revealer > box {
+  padding: 6px;
+  border-spacing: 6px;
+  border-top: 1px solid $borders_color;
+}
+
 
 /**************
  * GtkInfoBar *
@@ -3126,12 +3140,6 @@ frame {
   > label {
     margin: 4px;
   }
-}
-
-actionbar > revealer > box {
-  padding: 6px;
-  border-spacing: 6px;
-  border-top: 1px solid $borders_color;
 }
 
 scrolledwindow {
