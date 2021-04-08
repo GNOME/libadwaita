@@ -3367,7 +3367,7 @@ window.dialog.message { // Message Dialog styling
     font-size: 15pt;
   }
 
-  &.csd { // rounded bottom border styling for csd version
+  &.csd {
     &.background {
       // bigger radius for better antialiasing
       border-bottom-left-radius: $window_radius+1;
@@ -3381,7 +3381,7 @@ window.dialog.message { // Message Dialog styling
       border-right-style: none;
       border-bottom-style: none;
 
-      &:first-child{
+      &:first-child {
         border-left-style: none;
         border-bottom-left-radius: 7px;
       }
