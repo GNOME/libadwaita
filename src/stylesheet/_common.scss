@@ -1678,6 +1678,56 @@ treeview.view {
   &:last-child { &:backdrop, & { border-right-style: none; }}
 }
 
+/********************************************************
+ * Data Tables                                          *
+ * treeview like tables with individual focusable cells *
+ * https://gitlab.gnome.org/GNOME/gtk/-/issues/2929     *
+ ********************************************************/
+
+columnview {
+  // move padding to child cells
+  > listview > row {
+    padding: 0;
+
+    // align horizontal sizing with header buttons
+    > cell {
+      padding: 8px 6px;
+
+      &:not(:first-child) {
+        border-left: 1px solid transparent;
+      }
+    }
+  }
+
+  // make column separators visible when :show-column-separators is true
+  &.column-separators > listview > row > cell {
+    border-left-color: $_treeview_borders_color;
+  }
+
+  // shrink vertically for .data-table
+  &.data-table > listview > row > cell {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+}
+
+columnview row:not(:selected) cell editablelabel:not(.editing):focus-within {
+  outline: 2px solid $focus_border_color;
+}
+
+columnview row:not(:selected) cell editablelabel.editing:focus-within {
+  outline: 2px solid $selected_bg_color;
+}
+
+columnview row:not(:selected) cell editablelabel.editing text selection {
+  color: $selected_fg_color;
+  background-color: $selected_bg_color;
+}
+
+treeexpander {
+  border-spacing: 4px;
+}
+
 /***************
  * Popovers   *
  ***************/
@@ -3174,56 +3224,6 @@ row {
 
     @extend %selected_items;
   }
-}
-
-columnview {
-  // move padding to child cells
-  > listview > row {
-    padding: 0;
-
-    // align horizontal sizing with header buttons
-    > cell {
-      padding: 8px 6px;
-
-      &:not(:first-child) {
-        border-left: 1px solid transparent;
-      }
-    }
-  }
-
-  // make column separators visible when :show-column-separators is true
-  &.column-separators > listview > row > cell {
-    border-left-color: $_treeview_borders_color;
-  }
-
-  // shrink vertically for .data-table
-  &.data-table > listview > row > cell {
-    padding-top: 2px;
-    padding-bottom: 2px;
-  }
-}
-
-treeexpander {
-  border-spacing: 4px;
-}
-
-/********************************************************
- * Data Tables                                          *
- * treeview like tables with individual focusable cells *
- * https://gitlab.gnome.org/GNOME/gtk/-/issues/2929     *
- ********************************************************/
-
-columnview row:not(:selected) cell editablelabel:not(.editing):focus-within {
-  outline: 2px solid $focus_border_color;
-}
-
-columnview row:not(:selected) cell editablelabel.editing:focus-within {
-  outline: 2px solid $selected_bg_color;
-}
-
-columnview row:not(:selected) cell editablelabel.editing text selection {
-  color: $selected_fg_color;
-  background-color: $selected_bg_color;
 }
 
 /*******************************************************
