@@ -266,17 +266,18 @@ entry {
 
     @include focus-ring($focus-state: 'focus-within');
 
-    > image { // icons inside the entry
-      &.left { margin-right: 6px; }
-      &.right { margin-left: 6px; }
-    }
+    > text {
+      > placeholder {
+        @extend .dim-label;
+      }
 
-    > text > placeholder {
-      @extend .dim-label;
-    }
+      > block-cursor {
+        @include entry(block_cursor);
+      }
 
-    > text > block-cursor {
-      @include entry(block_cursor);
+      > selection {
+        @extend %selected_items;
+      }
     }
 
     &.flat {
@@ -297,8 +298,6 @@ entry {
 
     &:disabled { @include entry(insensitive); }
 
-    > text > selection { @extend %selected_items; }
-
     // entry error and warning style
     @each $e_type, $e_color in (error, $error_color),
                                (warning, $warning_color) {
@@ -311,13 +310,15 @@ entry {
       }
     }
 
-    > image { // entry icons colors
+    > image { // icons inside the entry
       color: mix($fg_color, $base_color, 80%);
 
       &:hover { color: $fg_color; }
 
       &:active { color: $selected_bg_color; }
 
+      &.left { margin-right: 6px; }
+      &.right { margin-left: 6px; }
     }
 
     &.password image.caps-lock-indicator {
@@ -342,17 +343,16 @@ entry {
 
   > progress {
     margin-bottom: 2px;
-  }
 
-  progress > trough > progress {
-    background-color: transparent;
-    background-image: none;
-    border-radius: 0;
-    border-width: 0 0 2px;
-    border-color: $selected_bg_color;
-    border-style: solid;
-    box-shadow: none;
-
+    > trough > progress {
+      background-color: transparent;
+      background-image: none;
+      border-radius: 0;
+      border-width: 0 0 2px;
+      border-color: $selected_bg_color;
+      border-style: solid;
+      box-shadow: none;
+    }
   }
 
    // linked entries
