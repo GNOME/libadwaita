@@ -1825,7 +1825,7 @@ popover.menu {
   }
 
   accelerator {
-    color: gtkalpha(currentColor,0.55);
+    color: gtkalpha(currentColor, 0.55);
 
     &:dir(ltr) { margin-left: $_menu-padding; }
     &:dir(rtl) { margin-right: $_menu-padding; }
@@ -1840,7 +1840,9 @@ popover.menu {
   }
 
   //only menu radios have a border
-  radio { border-color: $borders_color;
+  radio {
+    border-color: $borders_color;
+
     &:active { border-color: transparentize($borders_color,0.5); }
   }
 
