@@ -1181,7 +1181,6 @@ combobox {
 // work, special case needed. See
 // https://bugzilla.gnome.org/show_bug.cgi?id=733979
 
-.linked:not(.vertical) > appchooserbutton > combobox,
 .linked:not(.vertical) > combobox {
   &:dir(ltr) {
     &:not(:first-child) > box > button.combo { @extend %linked_not_left; }
@@ -1194,10 +1193,26 @@ combobox {
   }
 }
 
-.linked.vertical > appchooserbutton > combobox,
 .linked.vertical > combobox {
   &:not(:first-child) > box > button.combo { @extend %linked_not_top; }
   &:not(:last-child) > box > button.combo { @extend %linked_not_bottom; }
+}
+
+.linked:not(.vertical) > appchooserbutton {
+  &:dir(ltr) {
+    &:not(:first-child) > combobox > box > button.combo { @extend %linked_not_left; }
+    &:not(:last-child) > combobox > box > button.combo { @extend %linked_not_right; }
+  }
+
+  &:dir(rtl) {
+    &:not(:first-child) > combobox > box > button.combo { @extend %linked_not_right; }
+    &:not(:last-child) > combobox > box > button.combo { @extend %linked_not_left; }
+  }
+}
+
+.linked.vertical > appchooserbutton {
+  &:not(:first-child) > combobox > box > button.combo { @extend %linked_not_top; }
+  &:not(:last-child) > combobox > box > button.combo { @extend %linked_not_bottom; }
 }
 
 
