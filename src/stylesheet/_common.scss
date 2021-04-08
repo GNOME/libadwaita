@@ -3706,6 +3706,11 @@ tooltip {
     color: white;
   }
 
+  &.csd {
+    border-radius: 5px;
+    box-shadow: none;
+  }
+
   padding: 6px 10px;
   border-radius: $window_radius;
   box-shadow: none; // otherwise it gets inherited by windowframe.csd
@@ -3962,12 +3967,6 @@ window {
 
   // server-side decorations as used by mutter
   &.ssd { box-shadow: 0 0 0 1px $_wm_border; } //just doing borders, wm draws actual shadows
-
-}
-
-tooltip.csd {
-  border-radius: 5px;
-  box-shadow: none;
 }
 
 // catch all extend :)
