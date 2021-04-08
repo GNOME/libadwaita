@@ -3976,6 +3976,23 @@ window {
 
 .monospace { font-family: monospace; }
 
+:not(window):drop(active):focus,
+:not(window):drop(active) { // FIXME needs to be done widget by widget, this wildcard should really die
+  border-color: $drop_target_color;
+  box-shadow: inset 0 0 0 1px $drop_target_color;
+  caret-color: $drop_target_color;
+}
+
+.navigation-sidebar,
+placessidebar,
+stackswitcher,
+expander-widget {
+  :not(window):drop(active):focus,
+  :not(window):drop(active) {
+    box-shadow: none;
+  }
+}
+
 
 /**********************
  * Touch Copy & Paste *
@@ -4016,6 +4033,10 @@ cursor-handle {
   }
 }
 
+
+/********************
+ * Shortcuts Window *
+ ********************/
 shortcuts-section {
   margin: 20px;
 }
@@ -4028,40 +4049,22 @@ shortcuts-section {
 // shortcut window keys
 shortcut {
   border-spacing: 6px;
-}
 
-shortcut > .keycap {
-  min-width: 20px;
-  min-height: 25px;
-  margin-top: 2px;
-  padding-bottom: 3px;
-  padding-left: 6px;
-  padding-right: 6px;
+  > .keycap {
+    min-width: 20px;
+    min-height: 25px;
+    margin-top: 2px;
+    padding-bottom: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
 
-  color: $fg_color;
-  background-color: $base_color;
-  border: 1px solid;
-  border-color: if($variant == 'light', mix($borders_color, $bg_color, 50%), $borders_color);
-  border-radius: 5px;
-  box-shadow: if($variant == 'light', inset 0 -3px mix($base_color, $bg_color, 20%), inset 0 -3px mix($borders_color, $base_color, 60%));
-  font-size: smaller;
-
-}
-
-:not(window):drop(active):focus,
-:not(window):drop(active) { // FIXME needs to be done widget by widget, this wildcard should really die
-  border-color: $drop_target_color;
-  box-shadow: inset 0 0 0 1px $drop_target_color;
-  caret-color: $drop_target_color;
-}
-
-.navigation-sidebar,
-placessidebar,
-stackswitcher,
-expander-widget {
-  :not(window):drop(active):focus,
-  :not(window):drop(active) {
-    box-shadow: none;
+    color: $fg_color;
+    background-color: $base_color;
+    border: 1px solid;
+    border-color: if($variant == 'light', mix($borders_color, $bg_color, 50%), $borders_color);
+    border-radius: 5px;
+    box-shadow: if($variant == 'light', inset 0 -3px mix($base_color, $bg_color, 20%), inset 0 -3px mix($borders_color, $base_color, 60%));
+    font-size: smaller;
   }
 }
 
@@ -4078,6 +4081,7 @@ stackswitcher.circular {
     padding: 0;
   }
 }
+
 /*************
  * App Icons *
  *************/
