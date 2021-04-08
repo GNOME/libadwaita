@@ -3305,21 +3305,15 @@ calendar {
     > button {
       border: none;
       box-shadow: none;
-      background: none;
       border-radius: 0;
-    }
-    > button:backdrop {
-      background: none;
+
+      &, &:backdrop {
+        background: none;
+      }
     }
   }
 
   > grid {
-    > label.day-name {
-    }
-
-    > label.week-number {
-    }
-
     > label.today {
       box-shadow: inset 0px -2px $borders_color;
 
@@ -3338,7 +3332,7 @@ calendar {
     > label.day-number {
       padding: 4px;
 
-      &:selected{
+      &:selected {
         @extend %selected_items;
         border-radius: 3px;
       }
@@ -3348,7 +3342,6 @@ calendar {
       color: gtkalpha(currentColor, 0.3);
     }
   }
-
 }
 
 
