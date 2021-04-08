@@ -358,8 +358,6 @@ entry {
   .linked:not(.vertical) > &:drop(active) + dropdown > button,
   .linked:not(.vertical) > &:drop(active) + colorbutton > button,
   .linked:not(.vertical) > &:drop(active) + fontbutton > button,
-  .linked:not(.vertical) > &:drop(active) + filechooserbutton > button,
-  .linked:not(.vertical) > &:drop(active) + filechooserbutton > combobox > box > button.combo,
   .linked:not(.vertical) > &:drop(active) + appchooserbutton > combobox > box > button.combo,
   .linked:not(.vertical) > &:drop(active) + combobox > box > button.combo { border-left-color: $drop_target_color; }
 
@@ -389,8 +387,6 @@ entry {
       + dropdown > button,
       + colorbutton > button,
       + fontbutton > button,
-      + filechooserbutton > button,
-      + filechooserbutton > combobox > box > button.combo,
       + appchooserbutton > combobox > box > button.combo,
       + combobox > box > button.combo { border-top-color: $drop_target_color; }
     }
@@ -789,8 +785,7 @@ button {
 .linked:not(.vertical) > menubutton,
 .linked:not(.vertical) > dropdown,
 .linked:not(.vertical) > colorbutton,
-.linked:not(.vertical) > fontbutton,
-.linked:not(.vertical) > filechooserbutton {
+.linked:not(.vertical) > fontbutton {
   &:dir(ltr) {
     &:not(:first-child) > button { @extend %linked_not_left; }
     &:not(:last-child) > button { @extend %linked_not_right; }
@@ -805,8 +800,7 @@ button {
 .linked.vertical > menubutton,
 .linked.vertical > dropdown,
 .linked.vertical > colorbutton,
-.linked.vertical > fontbutton,
-.linked.vertical > filechooserbutton {
+.linked.vertical > fontbutton {
   &:not(:first-child) > button { @extend %linked_not_top; }
   &:not(:last-child) > button { @extend %linked_not_bottom; }
 }
@@ -1187,7 +1181,6 @@ combobox {
 // work, special case needed. See
 // https://bugzilla.gnome.org/show_bug.cgi?id=733979
 
-.linked:not(.vertical) > filechooserbutton > combobox,
 .linked:not(.vertical) > appchooserbutton > combobox,
 .linked:not(.vertical) > combobox {
   &:dir(ltr) {
@@ -1201,7 +1194,6 @@ combobox {
   }
 }
 
-.linked.vertical > filechooserbutton > combobox,
 .linked.vertical > appchooserbutton > combobox,
 .linked.vertical > combobox {
   &:not(:first-child) > box > button.combo { @extend %linked_not_top; }
@@ -3470,16 +3462,6 @@ filechooser {
 
   #pathbarbox { border-bottom: 1px solid $bg_color; }
 }
-
-
-filechooserbutton>button>box {
-  border-spacing: 6px;
-}
-filechooserbutton:drop(active) {
-  box-shadow: none;
-  border-color: transparent;
-}
-
 
 /***********
  * Sidebar *
