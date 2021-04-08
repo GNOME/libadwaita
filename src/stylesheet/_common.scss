@@ -847,11 +847,9 @@ modelbutton.flat {
   margin: 1px;
   @extend %undecorated_button;
 
-  &:hover { @include button('hover'); }
-  &:active { @include button('active'); }
-  &:disabled { @include button('insensitive'); }
-  &:backdrop { @include button('backdrop'); }
-  &:backdrop:disabled { @include button('backdrop-insensitive'); }
+  &:hover { @include button(undecorated-hover); }
+  &:active { @include button(undecorated-active); }
+  &:backdrop, &:disabled, &:backdrop:disabled { @include button(undecorated); }
 }
 
 button.color {
