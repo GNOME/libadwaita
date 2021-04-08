@@ -1497,7 +1497,7 @@ headerbar {
 // Development versions of apps to use a differently styled headerbar
 
 window.devel {
-  headerbar.titlebar {
+  headerbar {
     $c: darken($bg_color, 10%);
     $gradient: cross-fade(10% -gtk-icontheme("system-run-symbolic"), image(transparent)) 90% 0/256px 256px no-repeat,
                linear-gradient(to right, transparent 65%, transparentize($selected_bg_color, 0.8)),
