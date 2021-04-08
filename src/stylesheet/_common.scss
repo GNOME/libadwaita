@@ -964,22 +964,9 @@ spinbutton {
     padding: 0;
     border-spacing: 0;
 
-    %spinbutton_horz_entry {
-      min-width: 28px;
-      // reset all the other props since the spinbutton node is styled here
-      margin: 0;
-      background: none;
-      background-color: transparent;
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-      padding: 6px;
-
-      &:backdrop:disabled { background-color: transparent; }
-    }
-
     > text {
-      @extend %spinbutton_horz_entry;
+      min-width: 28px;
+      padding: 6px;
     }
 
     /* :not here just to bump specificity above that of the list button styling */
@@ -1021,10 +1008,6 @@ spinbutton {
 
   // OSD horizontal
   .osd &:not(.vertical) {
-    > text {
-      @extend %spinbutton_horz_entry;
-    }
-
     > button.image-button.up:not(.flat),
     > button.image-button.down:not(.flat) {
       @include button(undecorated);
