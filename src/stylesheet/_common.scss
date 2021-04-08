@@ -1369,7 +1369,6 @@ headerbar windowcontrols button {
 /***************
  * Header bars *
  ***************/
-%titlebar,
 headerbar {
   padding: 0 6px;
   min-height: 46px;
@@ -1377,6 +1376,14 @@ headerbar {
   border-style: solid;
   border-color: $alt_borders_color;
   border-radius: 0;
+
+  > windowhandle > box {
+    &,
+    > box.start,
+    > box.end {
+      border-spacing: 6px;
+    }
+  }
 
   @include headerbar_fill(darken($bg_color, 10%));
 
@@ -1460,16 +1467,6 @@ headerbar {
       }
     }
   }
-}
-
-headerbar {
-  > windowhandle > box {
-    &,
-    > box.start,
-    > box.end {
-      border-spacing: 6px;
-    }
-  }
 
   // add vertical margins to common widget on the headerbar to avoid them spanning the whole height
   entry,
@@ -1493,20 +1490,8 @@ headerbar {
   }
 }
 
-
 .titlebar:not(headerbar) {
-  window.csd > & {
-    // in csd we assume every titlebar is a headerbar so reset anything, this is needed for split toolbars cases
-    padding: 0;
-    background-color: transparent;
-    background-image: none;
-    border-style: none;
-    border-color: transparent;
-  }
-
   separator { background-color: $borders_color; }  // FIXME: use darker border?
-
-  @extend %titlebar;
 }
 
 // Development versions of apps to use a differently styled headerbar
