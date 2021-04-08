@@ -1225,8 +1225,7 @@ combobox {
   background-color: $bg_color;
 }
 
-.toolbar,
-toolbar {
+.toolbar {
   @extend %toolbar;
 
   // on OSD
