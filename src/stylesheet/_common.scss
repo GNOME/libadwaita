@@ -1122,7 +1122,7 @@ spinbutton {
 /**************
  * ComboBoxes *
  **************/
-dropdown > popover.menu.background > contents { padding: 0; } //allow search entries with no margin
+dropdown > popover.menu.background > contents { padding: 0; }
 
 dropdown > button > box {
   border-spacing: 6px;
