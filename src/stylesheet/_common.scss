@@ -3435,7 +3435,6 @@ filechooser {
   background-color: mix($bg_color, $base_color, 50%);
 
   &:not(separator) {
-    @at-root %sidebar_left,
     &:dir(ltr),
     &.left,
     &.left:dir(rtl) {
@@ -3443,7 +3442,6 @@ filechooser {
       border-left-style: none;
     }
 
-    @at-root %sidebar_right,
     &:dir(rtl),
     &.right {
       border-left: 1px solid $borders_color;
@@ -3457,35 +3455,33 @@ filechooser {
   paned & { &.left, &.right, &.left:dir(rtl), &:dir(rtl), &:dir(ltr), & { border-style: none; }}
 }
 
-stacksidebar {
-  //not a regular list
-  list.separators:not(.horizontal) > row:not(.separator) {
-    border-bottom: none;
+stacksidebar row {
+  padding: 10px 4px;
+  @include focus-ring();
+
+  > label {
+    padding-left: 6px;
+    padding-right: 6px;
   }
-  row {
-    padding: 10px 4px;
-    @include focus-ring();
 
-    > label {
-      padding-left: 6px;
-      padding-right: 6px;
-    }
+  &.needs-attention > label {
+    @extend %needs_attention;
+    background-size: 6px 6px, 0 0;
+  }
 
-    &.needs-attention > label {
-      @extend %needs_attention;
-       background-size: 6px 6px, 0 0;
+  &:selected {
+    background-color: $menu_selected_color;
+    border-radius: $menu_radius;
+    color: $fg_color;
+
+    &:hover {
+      background-color: darken($menu_selected_color, 5%);
     }
-    &:selected {
-      background-color: $menu_selected_color;
-      border-radius: $menu_radius;
-      color: $fg_color;
-    }
-    &:selected:hover:dir(ltr), &:selected:hover:dir(rtl) {
-      background-color: darken($menu_selected_color,5%);
-    }
-    &.activatable:active, &.activatable:selected:active {
-      box-shadow: none; // #3413
-    }
+  }
+
+  &.activatable:active,
+  &.activatable:selected:active {
+    box-shadow: none; // #3413
   }
 }
 
@@ -3511,6 +3507,7 @@ separator.sidebar {
     border-radius: $menu-margin;
     margin: 0 $menu-margin 2px;
     @include focus-ring($focus-state: 'focus-visible:focus-within');
+
     &:hover {
       background-color: darken($menu_selected_color, 5%);
     }
@@ -3522,7 +3519,6 @@ separator.sidebar {
       &:hover {
         background-color: darken($menu_selected_color,5%);
       }
-
     }
 
     &:disabled { color: $insensitive_fg_color; }
