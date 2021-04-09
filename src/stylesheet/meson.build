@@ -18,6 +18,9 @@ if not fs.exists('Adwaita-light.css')
       '_colors.scss',
       '_common.scss',
       '_drawing.scss',
+      '_widgets.scss',
+
+      'widgets/_buttons.scss',
     ])
 
     theme_variants = [
