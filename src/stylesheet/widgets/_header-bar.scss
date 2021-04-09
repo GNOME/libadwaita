@@ -24,20 +24,6 @@ headerbar {
     transition: $backdrop_transition;
   }
 
-  .title {
-    padding-left: 12px;
-    padding-right: 12px;
-    font-weight: bold;
-  }
-
-  .subtitle {
-    font-size: smaller;
-    padding-left: 12px;
-    padding-right: 12px;
-
-    @extend .dim-label;
-  }
-
   /* Darken switchbuttons for headerbars. issue #1588 */
   stackswitcher > button:checked,
   button.toggle:checked {
@@ -167,6 +153,7 @@ headerbar windowcontrols button {
  * AdwWindowTitle *
  ******************/
 
+headerbar,
 windowtitle {
   .title {
     padding-left: 12px;
