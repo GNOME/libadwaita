@@ -30,6 +30,7 @@ if not fs.exists('Adwaita-light.css')
       'widgets/_expanders.scss',
       'widgets/_file-chooser.scss',
       'widgets/_header-bar.scss',
+      'widgets/_labels.scss',
       'widgets/_level-bar.scss',
       'widgets/_links.scss',
       'widgets/_lists.scss',
