@@ -25,6 +25,7 @@ if not fs.exists('Adwaita-light.css')
       'widgets/_dropdowns.scss',
       'widgets/_entries.scss',
       'widgets/_header-bar.scss',
+      'widgets/_level-bar.scss',
       'widgets/_links.scss',
       'widgets/_menus.scss',
       'widgets/_notebook.scss',
