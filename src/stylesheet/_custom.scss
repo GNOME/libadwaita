@@ -526,20 +526,3 @@ preferencesgroup > box {
     margin-top: 12px;
   }
 }
-
-// AdwWindowTitle
-
-windowtitle {
-  .title {
-    padding-left: 12px;
-    padding-right: 12px;
-    font-weight: bold;
-  }
-
-  .subtitle {
-    font-size: smaller;
-    padding-left: 12px;
-    padding-right: 12px;
-    @extend .dim-label;
-  }
-}
