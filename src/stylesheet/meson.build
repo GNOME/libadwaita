@@ -46,6 +46,7 @@ if not fs.exists('Adwaita-light.css')
       'widgets/_spin-button.scss',
       'widgets/_switch.scss',
       'widgets/_toolbars.scss',
+      'widgets/_tooltip.scss',
       'widgets/_trees.scss',
       'widgets/_views.scss',
       'widgets/_window.scss',
