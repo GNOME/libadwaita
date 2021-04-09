@@ -1,5 +1,3 @@
-// TODO: Integrate these styles into _common.scss
-
 $leaflet_dimming: rgba(0, 0, 0, if($variant == 'light', 0.12, 0.24));
 $leaflet_border: rgba(0, 0, 0, if($variant == 'light', 0.05, 0.2));
 $leaflet_outline: rgba(255, 255, 255, if($variant == 'light', 0.2, 0.05));
@@ -8,8 +6,6 @@ $leaflet_outline: rgba(255, 255, 255, if($variant == 'light', 0.2, 0.05));
   $leaflet_border: $borders_color;
   $leaflet_outline: transparent;
 }
-
-// Shadows
 
 @mixin background-shadow($direction) {
   background-image:
