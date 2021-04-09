@@ -134,3 +134,28 @@ window.aboutdialog image.large-icons {
 statusbar {
   padding: 6px 10px 6px 10px;
 }
+
+/*****************
+ * AdwStatusPage *
+ *****************/
+
+statuspage > scrolledwindow > viewport > box {
+  margin: 36px 12px;
+  border-spacing: 36px;
+
+  > clamp > box {
+    border-spacing: 12px;
+
+    > .icon {
+      color: transparentize($fg_color, 0.5);
+
+      &:not(:last-child) {
+        margin-bottom: 24px;
+      }
+
+      &:backdrop {
+        color: transparentize($backdrop_fg_color, 0.5);
+      }
+    }
+  }
+}

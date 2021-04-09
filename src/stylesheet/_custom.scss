@@ -9,29 +9,6 @@ $leaflet_outline: rgba(255, 255, 255, if($variant == 'light', 0.2, 0.05));
   $leaflet_outline: transparent;
 }
 
-// AdwStatusPage
-
-statuspage > scrolledwindow > viewport > box {
-  margin: 36px 12px;
-  border-spacing: 36px;
-
-  > clamp > box {
-    border-spacing: 12px;
-
-    > .icon {
-      color: transparentize($fg_color, 0.5);
-
-      &:not(:last-child) {
-        margin-bottom: 24px;
-      }
-
-      &:backdrop {
-        color: transparentize($backdrop_fg_color, 0.5);
-      }
-    }
-  }
-}
-
 // Shadows
 
 @mixin background-shadow($direction) {
