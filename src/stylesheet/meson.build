@@ -38,6 +38,7 @@ if not fs.exists('Adwaita-light.css')
       'widgets/_progress-bar.scss',
       'widgets/_scale.scss',
       'widgets/_scrolling.scss',
+      'widgets/_shortcuts-window.scss',
       'widgets/_sidebars.scss',
       'widgets/_spinner.scss',
       'widgets/_spin-button.scss',
