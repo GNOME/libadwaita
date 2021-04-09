@@ -17,9 +17,6 @@ $popover_radius: $button_radius + 4;
 $treeview_borders_color: if($variant=='light',mix($borders_color, $base_color,80%),mix($fg_color, $base_color, 20%));
 $treeview_backdrop_borders_color: if($variant=='light',mix($backdrop_borders_color, $base_color, 80%),mix($backdrop_fg_color, $base_color, 20%));
 
-/***************
- * Base States *
- ***************/
 .background {
   color: $fg_color;
   background-color: $bg_color;
@@ -37,26 +34,6 @@ dnd {
   -gtk-icon-size: 32px;
 }
 
-window.assistant {
-  .sidebar {
-    padding: $menu-margin;
-    border-top: 1px solid $borders_color;
-  }
-
-  &.csd .sidebar { border-top-style: none; }
-
-  .sidebar > label { padding: 6px 12px; }
-
-  .sidebar > label.highlight {
-    background-color: $menu_selected_color;
-    border-radius: $menu-margin;
-  }
-}
-
-window.aboutdialog image.large-icons {
-  -gtk-icon-size: 128px;
-}
-
 %osd,
 .osd {
   color: $osd_fg_color;
@@ -64,107 +41,6 @@ window.aboutdialog image.large-icons {
   background-color: $osd_bg_color;
   background-clip: padding-box;
 }
-
-/****************
- * Print dialog *
-*****************/
-window.dialog.print {
-  drawing {
-    color: $fg_color;
-    background: none;
-    border: none;
-    padding: 0;
-
-    paper {
-      background: white;
-      color: #2e3436;
-      border: 1px solid $borders_color;
-    }
-  }
-
-  .dialog-action-box { margin: 12px; }
-}
-
-
-/**********
- * Frames *
- **********/
-frame,
-.frame {
-  border: 1px solid $borders_color;
-}
-
-frame {
-  border-radius: $window_radius;
-
-  > label {
-    margin: 4px;
-  }
-}
-
-//vbox and hbox separators
-separator {
-  background: lighten($borders_color, 5%);
-  min-width: 1px;
-  min-height: 1px;
-}
-
-
-/*********************
- * App Notifications *
- *********************/
-.app-notification {
-  @extend %osd;
-
-  padding: 10px;
-  border-spacing: 10px;
-  border-radius: 0 0 5px 5px;
-  background-color: $osd_bg_color;
-  background-image: linear-gradient(to bottom, transparentize(black, 0.8),
-                                               transparent 2px);
-  background-clip: padding-box;
-
-  button { @extend %osd_button; }
-
-  border { border: none; }
-}
-
-
-/**************
- * GtkVideo *
- **************/
-
-video {
-  & image.osd {
-    min-width: 64px;
-    min-height: 64px;
-    border-radius: 32px;
-  }
-  background: black;
-}
-
-
-/********
- * Misc *
- ********/
-
-.scale-popup {
-  .osd & { @extend %osd; }
-
-  .osd & button.flat {  //FIXME: quick hack, redo properly
-    border-style: none;
-    border-radius: 5px;
-  }
-
-  button { // +/- buttons on GtkVolumeButton popup
-    &:hover {
-      @extend %undecorated_button;
-      background-color: transparentize($fg_color,0.9);
-      border-radius: 5px;
-    }
-  }
-}
-
 
 // catch all extend :)
 
@@ -197,10 +73,6 @@ expander-widget {
   }
 }
 
-
-/*************
- * App Icons *
- *************/
 /* Outline for low res icons */
 .lowres-icon {
     -gtk-icon-shadow: 0 -1px rgba(0,0,0,0.05),
@@ -209,18 +81,13 @@ expander-widget {
       -1px 0 rgba(0,0,0,0.1);
 }
 
-/* Drapshadow for large icons */
+/* Drop shadow for large icons */
 .icon-dropshadow {
   -gtk-icon-shadow: 0 1px 12px rgba(0,0,0,0.05),
       0 -1px rgba(0,0,0,0.05),
       1px 0 rgba(0,0,0,0.1),
       0 1px rgba(0,0,0,0.3),
       -1px 0 rgba(0,0,0,0.1);
-}
-
-
-statusbar {
-  padding: 6px 10px 6px 10px;
 }
 
 @import 'widgets';
