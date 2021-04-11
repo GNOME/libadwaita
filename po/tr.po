@@ -1,0 +1,39 @@
+# Turkish translation for libadwaita.
+# Copyright (C) 2021 libadwaita's COPYRIGHT HOLDER
+# This file is distributed under the same license as the libadwaita package.
+# Muhammet Kara <muhammetk@gmail.com>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libadwaita main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2021-04-10 10:20+0000\n"
+"PO-Revision-Date: 2021-04-12 00:12+0300\n"
+"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
+"Language-Team: Turkish <gnometurk@gnome.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Gtranslator 40.0\n"
+
+#: src/adw-preferences-window.c:207
+msgid "Untitled page"
+msgstr "Adsız sayfa"
+
+#: src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "Tercihler"
+
+#: src/adw-preferences-window.ui:68
+msgid "Search"
+msgstr "Ara"
+
+#: src/adw-preferences-window.ui:145
+msgid "No Results Found"
+msgstr "Hiçbir Sonuç Bulunamadı"
+
+#: src/adw-preferences-window.ui:146
+msgid "Try a different search."
+msgstr "Farklı bir arama deneyin."
