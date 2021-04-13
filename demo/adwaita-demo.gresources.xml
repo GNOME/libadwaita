@@ -12,7 +12,30 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/library-music-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/media-playback-start-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/open-link-symbolic.svg</file>
+
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-about-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-avatars-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-carousel-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-controls-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-deck-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-dialogs-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-feedback-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-flap-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-flat-window-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-grids-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-keyboard-shortcuts-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-leaflet-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/page-lists-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-menus-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-preferences-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-scrolling-window-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-search-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-sidebar-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-status-page-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-tabs-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-toolbars-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/page-view-switcher-symbolic.svg</file>
+
     <file preprocess="xml-stripblanks">icons/scalable/actions/star-outline-thick-symbolic.svg</file>
 
     <file preprocess="xml-stripblanks">pages/controls/adw-demo-page-controls.ui</file>

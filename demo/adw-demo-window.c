@@ -64,7 +64,7 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
 }
 
 #define ADD_PAGE(list, title, icon, type) g_list_store_append ((list), adw_demo_page_info_new ((title), (icon), (type)));
-#define ADD_STUB(list, title) ADD_PAGE ((list), (title), "dialog-warning-symbolic", ADW_TYPE_DEMO_PAGE_STUB);
+#define ADD_STUB(list, title, icon) ADD_PAGE ((list), (title), (icon), ADW_TYPE_DEMO_PAGE_STUB);
 
 static void
 adw_demo_window_init (AdwDemoWindow *self)
@@ -77,28 +77,28 @@ adw_demo_window_init (AdwDemoWindow *self)
 
   list = g_list_store_new (ADW_TYPE_DEMO_PAGE_INFO);
 
-  ADD_STUB (list, _("Scrolling Window"));
-  ADD_STUB (list, _("Flat Window"));
-  ADD_STUB (list, _("Dialogs"));
-  ADD_STUB (list, _("Deck"));
-  ADD_STUB (list, _("View Switcher"));
-  ADD_STUB (list, _("Leaflet"));
-  ADD_STUB (list, _("Sidebar"));
-  ADD_STUB (list, _("Flap"));
-  ADD_STUB (list, _("Carousel"));
-  ADD_STUB (list, _("Tabs"));
+  ADD_STUB (list, _("Scrolling Window"), "page-scrolling-window-symbolic");
+  ADD_STUB (list, _("Flat Window"), "page-flat-window-symbolic");
+  ADD_STUB (list, _("Dialogs"), "page-dialogs-symbolic");
+  ADD_STUB (list, _("Deck"), "page-deck-symbolic");
+  ADD_STUB (list, _("View Switcher"), "page-view-switcher-symbolic");
+  ADD_STUB (list, _("Leaflet"), "page-leaflet-symbolic");
+  ADD_STUB (list, _("Sidebar"), "page-sidebar-symbolic");
+  ADD_STUB (list, _("Flap"), "page-flap-symbolic");
+  ADD_STUB (list, _("Carousel"), "page-carousel-symbolic");
+  ADD_STUB (list, _("Tabs"), "page-tabs-symbolic");
   ADD_PAGE (list, _("Lists"), "page-lists-symbolic", ADW_TYPE_DEMO_PAGE_LISTS);
-  ADD_STUB (list, _("Grids"));
-  ADD_PAGE (list, _("Controls"), "page-lists-symbolic", ADW_TYPE_DEMO_PAGE_CONTROLS);
-  ADD_STUB (list, _("Toolbars"));
-  ADD_STUB (list, _("Search"));
-  ADD_STUB (list, _("Feedback"));
-  ADD_STUB (list, _("Status Page"));
-  ADD_STUB (list, _("Avatars"));
-  ADD_STUB (list, _("Menus"));
-  ADD_STUB (list, _("Preferences"));
-  ADD_STUB (list, _("Keyboard Shortcuts"));
-  ADD_STUB (list, _("About"));
+  ADD_STUB (list, _("Grids"), "page-grids-symbolic");
+  ADD_PAGE (list, _("Controls"), "page-controls-symbolic", ADW_TYPE_DEMO_PAGE_CONTROLS);
+  ADD_STUB (list, _("Toolbars"), "page-toolbars-symbolic");
+  ADD_STUB (list, _("Search"), "page-search-symbolic");
+  ADD_STUB (list, _("Feedback"), "page-feedback-symbolic");
+  ADD_STUB (list, _("Status Page"), "page-status-page-symbolic");
+  ADD_STUB (list, _("Avatars"), "page-avatars-symbolic");
+  ADD_STUB (list, _("Menus"), "page-menus-symbolic");
+  ADD_STUB (list, _("Preferences"), "page-preferences-symbolic");
+  ADD_STUB (list, _("Keyboard Shortcuts"), "page-keyboard-shortcuts-symbolic");
+  ADD_STUB (list, _("About"), "page-about-symbolic");
 
   gtk_single_selection_set_model (self->selection, G_LIST_MODEL (list));
 
