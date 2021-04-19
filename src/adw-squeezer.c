@@ -779,8 +779,8 @@ adw_squeezer_snapshot_crossfade (GtkWidget   *widget,
   gtk_snapshot_push_cross_fade (snapshot, progress);
 
   if (self->last_visible_child) {
-    int width_diff = gtk_widget_get_width (widget) - self->last_visible_widget_width;
-    int height_diff = gtk_widget_get_height (widget) - self->last_visible_widget_height;
+    int width_diff = MIN (gtk_widget_get_width (widget) - self->last_visible_widget_width, 0);
+    int height_diff = MIN (gtk_widget_get_height (widget) - self->last_visible_widget_height, 0);
 
     gtk_snapshot_translate (snapshot,
                             &GRAPHENE_POINT_INIT (
