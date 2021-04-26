@@ -37,7 +37,6 @@ G_DECLARE_FINAL_TYPE (AdwAvatar, adw_avatar, ADW, AVATAR, GtkWidget)
 typedef GdkPixbuf *(* AdwAvatarImageLoadFunc) (int      size,
                                                gpointer user_data);
 
-
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_avatar_new (int         size,
                            const char *text,
