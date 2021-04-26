@@ -22,21 +22,6 @@ G_BEGIN_DECLS
 ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwAvatar, adw_avatar, ADW, AVATAR, GtkWidget)
 
-/**
- * AdwAvatarImageLoadFunc:
- * @size: the required size of the avatar
- * @user_data: (nullable): user data
- *
- * A callback for loading a custom image for [class@Adw.Avatar].
- *
- * The returned [class@GdkPixbuf.Pixbuf] will be cropped to a circle from the
- * center.
- *
- * Returns: (nullable) (transfer full): The pixbuf to use as a custom avatar.
- */
-typedef GdkPixbuf *(* AdwAvatarImageLoadFunc) (int      size,
-                                               gpointer user_data);
-
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_avatar_new (int         size,
                            const char *text,
@@ -61,10 +46,10 @@ void     adw_avatar_set_show_initials (AdwAvatar *self,
                                        gboolean   show_initials);
 
 ADW_AVAILABLE_IN_ALL
-void adw_avatar_set_image_load_func (AdwAvatar              *self,
-                                     AdwAvatarImageLoadFunc  load_image,
-                                     gpointer                user_data,
-                                     GDestroyNotify          destroy);
+GdkPaintable *adw_avatar_get_custom_image (AdwAvatar    *self);
+ADW_AVAILABLE_IN_ALL
+void          adw_avatar_set_custom_image (AdwAvatar    *self,
+                                           GdkPaintable *custom_image);
 
 ADW_AVAILABLE_IN_ALL
 int  adw_avatar_get_size (AdwAvatar *self);

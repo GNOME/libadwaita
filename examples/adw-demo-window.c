@@ -215,37 +215,7 @@ avatar_file_remove_cb (AdwDemoWindow *self)
 
   gtk_label_set_label (self->avatar_file_chooser_label, _("(None)"));
   gtk_widget_set_sensitive (GTK_WIDGET (self->avatar_remove_button), FALSE);
-  adw_avatar_set_image_load_func (self->avatar, NULL, NULL, NULL);
-}
-
-static GdkPixbuf *
-avatar_load_file (int size, AdwDemoWindow *self)
-{
-  g_autoptr (GError) error = NULL;
-  g_autoptr (GdkPixbuf) pixbuf = NULL;
-  g_autoptr (GFile) file = NULL;
-  g_autofree char *filename = NULL;
-  int width, height;
-
-  g_assert (ADW_IS_DEMO_WINDOW (self));
-
-  file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (self->avatar_file_chooser));
-  filename = g_file_get_path (file);
-
-  gdk_pixbuf_get_file_info (filename, &width, &height);
-
-  pixbuf = gdk_pixbuf_new_from_file_at_scale (filename,
-                                              (width <= height) ? size : -1,
-                                              (width >= height) ? size : -1,
-                                              TRUE,
-                                              &error);
-  if (error != NULL) {
-    g_critical ("Failed to create pixbuf from file: %s", error->message);
-
-    return NULL;
-  }
-
-  return g_steal_pointer (&pixbuf);
+  adw_avatar_set_custom_image (self->avatar, NULL);
 }
 
 static void
@@ -254,6 +224,8 @@ avatar_file_chooser_response_cb (AdwDemoWindow *self,
 {
   g_autoptr (GFile) file = NULL;
   g_autoptr (GFileInfo) info = NULL;
+  g_autoptr (GdkTexture) texture = NULL;
+  g_autoptr (GError) error = NULL;
 
   g_assert (ADW_IS_DEMO_WINDOW (self));
 
@@ -272,7 +244,12 @@ avatar_file_chooser_response_cb (AdwDemoWindow *self,
                          g_file_info_get_display_name (info));
 
   gtk_widget_set_sensitive (GTK_WIDGET (self->avatar_remove_button), TRUE);
-  adw_avatar_set_image_load_func (self->avatar, (AdwAvatarImageLoadFunc) avatar_load_file, self, NULL);
+
+  texture = gdk_texture_new_from_file (file, &error);
+  if (error)
+    g_critical ("Failed to create texture from file: %s", error->message);
+
+  adw_avatar_set_custom_image (self->avatar, texture ? GDK_PAINTABLE (texture) : NULL);
 }
 
 static void

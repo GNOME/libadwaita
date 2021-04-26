@@ -33,8 +33,7 @@
  * [property@Adw.Avatar:icon-name] or `avatar-default-symbolic` is shown instead
  * of the initials.
  *
- * [method@Adw.Avatar.set_image_load_func] can be used to provide a custom
- * image.
+ * Use [property@Adw.Avatar:custom-image] to set a custom image.
  *
  * ## CSS nodes
  *
@@ -57,12 +56,6 @@ struct _AdwAvatar
   gboolean show_initials;
   guint color_class;
   int size;
-  GdkTexture *texture;
-  int round_image_size;
-
-  AdwAvatarImageLoadFunc load_image_func;
-  gpointer load_image_func_target;
-  GDestroyNotify load_image_func_target_destroy_notify;
 };
 
 G_DEFINE_TYPE (AdwAvatar, adw_avatar, GTK_TYPE_WIDGET);
@@ -72,6 +65,7 @@ enum {
   PROP_ICON_NAME,
   PROP_TEXT,
   PROP_SHOW_INITIALS,
+  PROP_CUSTOM_IMAGE,
   PROP_SIZE,
   PROP_LAST_PROP,
 };
@@ -108,59 +102,12 @@ extract_initials_from_text (const char *text)
 static void
 update_visibility (AdwAvatar *self)
 {
-  gboolean has_custom_image = self->texture != NULL;
+  gboolean has_custom_image = gtk_image_get_paintable (self->custom_image) != NULL;
   gboolean has_initials = self->show_initials && self->text && strlen (self->text);
 
   gtk_widget_set_visible (GTK_WIDGET (self->label), !has_custom_image && has_initials);
   gtk_widget_set_visible (GTK_WIDGET (self->icon), !has_custom_image && !has_initials);
   gtk_widget_set_visible (GTK_WIDGET (self->custom_image), has_custom_image);
-}
-
-static void
-update_custom_image (AdwAvatar *self,
-                     int        width,
-                     int        height,
-                     int        scale_factor)
-{
-  g_autoptr (GdkPixbuf) pixbuf = NULL;
-  int new_size;
-
-  new_size = MIN (width, height) * scale_factor;
-
-  if (self->round_image_size != new_size && self->texture != NULL) {
-    self->round_image_size = -1;
-  }
-  g_clear_object (&self->texture);
-
-  if (self->load_image_func != NULL && self->texture == NULL) {
-    pixbuf = self->load_image_func (new_size, self->load_image_func_target);
-    if (pixbuf != NULL) {
-      if (width != height) {
-        GdkPixbuf *subpixbuf;
-
-        subpixbuf = gdk_pixbuf_new_subpixbuf (pixbuf,
-                                              (width - new_size) / 2,
-                                              (height - new_size) / 2,
-                                              new_size,
-                                              new_size);
-
-        g_object_unref (pixbuf);
-
-        pixbuf = subpixbuf;
-      }
-
-      self->texture = gdk_texture_new_for_pixbuf (pixbuf);
-      self->round_image_size = new_size;
-    }
-  }
-
-  if (self->texture)
-    gtk_widget_add_css_class (self->gizmo, "image");
-  else
-    gtk_widget_remove_css_class (self->gizmo, "image");
-
-  gtk_image_set_from_paintable (self->custom_image, GDK_PAINTABLE (self->texture));
-  update_visibility (self);
 }
 
 static void
@@ -190,7 +137,7 @@ update_initials (AdwAvatar *self)
 {
   g_autofree char *initials = NULL;
 
-  if (self->texture != NULL ||
+  if (gtk_image_get_paintable (self->custom_image) != NULL ||
       !self->show_initials ||
       self->text == NULL ||
       strlen (self->text) == 0)
@@ -220,7 +167,7 @@ update_font_size (AdwAvatar *self)
   double new_font_size;
   PangoAttrList *attributes;
 
-  if (self->texture != NULL ||
+  if (gtk_image_get_paintable (self->custom_image) != NULL ||
       !self->show_initials ||
       self->text == NULL ||
       strlen (self->text) == 0)
@@ -269,6 +216,10 @@ adw_avatar_get_property (GObject    *object,
     g_value_set_boolean (value, adw_avatar_get_show_initials (self));
     break;
 
+  case PROP_CUSTOM_IMAGE:
+    g_value_set_object (value, adw_avatar_get_custom_image (self));
+    break;
+
   case PROP_SIZE:
     g_value_set_int (value, adw_avatar_get_size (self));
     break;
@@ -298,6 +249,10 @@ adw_avatar_set_property (GObject      *object,
 
   case PROP_SHOW_INITIALS:
     adw_avatar_set_show_initials (self, g_value_get_boolean (value));
+    break;
+
+  case PROP_CUSTOM_IMAGE:
+    adw_avatar_set_custom_image (self, g_value_get_object (value));
     break;
 
   case PROP_SIZE:
@@ -331,10 +286,6 @@ adw_avatar_finalize (GObject *object)
 
   g_clear_pointer (&self->icon_name, g_free);
   g_clear_pointer (&self->text, g_free);
-  g_clear_object (&self->texture);
-
-  if (self->load_image_func_target_destroy_notify != NULL)
-    self->load_image_func_target_destroy_notify (self->load_image_func_target);
 
   G_OBJECT_CLASS (adw_avatar_parent_class)->finalize (object);
 }
@@ -400,6 +351,20 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
+   * AdwAvatar:custom-image: (attributes org.gtk.Property.get=adw_avatar_get_custom_image org.gtk.Property.set=adw_avatar_set_custom_image)
+   *
+   * A custom image to use instead of initials or icon.
+   *
+   * Since: 1.0
+   */
+  props[PROP_CUSTOM_IMAGE] =
+    g_param_spec_object ("custom-image",
+                         "Custom image",
+                         "A custom image to use instead of initials or icon",
+                         GDK_TYPE_PAINTABLE,
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
    * AdwAvatar:size: (attributes org.gtk.Property.get=adw_avatar_get_size org.gtk.Property.set=adw_avatar_set_size)
    *
    * The size of the avatar.
@@ -443,7 +408,6 @@ adw_avatar_init (AdwAvatar *self)
   update_icon (self);
   update_visibility (self);
 
-  g_signal_connect (self, "notify::scale-factor", G_CALLBACK (update_custom_image), NULL);
   g_signal_connect (self, "notify::root", G_CALLBACK (update_font_size), NULL);
 }
 
@@ -612,39 +576,52 @@ adw_avatar_set_show_initials (AdwAvatar *self,
 }
 
 /**
- * adw_avatar_set_image_load_func:
+ * adw_avatar_get_custom_image: (attributes org.gtk.Method.get_property=custom-image)
  * @self: a `AdwAvatar`
- * @load_image: (scope notified) (nullable): callback to set a custom image
- * @user_data: (closure load_image) (nullable): user data passed to @load_image
- * @destroy: (destroy user_data) (nullable): destroy notifier for @user_data
  *
- * Sets a function that loads a custom image.
+ * Gets the custom image paintable.
  *
- * @load_image will be called when the custom image needs to be reloaded for
- * some reason (e.g. scale-factor changes).
+ * Returns: (nullable) (transfer none): the custom image
+ *
+ * Since: 1.0
+ */
+GdkPaintable *
+adw_avatar_get_custom_image (AdwAvatar *self)
+{
+  g_return_val_if_fail (ADW_IS_AVATAR (self), NULL);
+
+  return gtk_image_get_paintable (self->custom_image);
+}
+
+/**
+ * adw_avatar_set_custom_image: (attributes org.gtk.Method.set_property=custom-image)
+ * @self: a `AdwAvatar`
+ * @custom_image: (nullable) (transfer none): a custom image
+ *
+ * Sets the custom image paintable.
  *
  * Since: 1.0
  */
 void
-adw_avatar_set_image_load_func (AdwAvatar              *self,
-                                AdwAvatarImageLoadFunc  load_image,
-                                gpointer                user_data,
-                                GDestroyNotify          destroy)
+adw_avatar_set_custom_image (AdwAvatar    *self,
+                             GdkPaintable *custom_image)
 {
   g_return_if_fail (ADW_IS_AVATAR (self));
-  g_return_if_fail (user_data != NULL || (user_data == NULL && destroy == NULL));
+  g_return_if_fail (GDK_IS_PAINTABLE (custom_image) || custom_image == NULL);
 
-  if (self->load_image_func_target_destroy_notify != NULL)
-    self->load_image_func_target_destroy_notify (self->load_image_func_target);
+  if (gtk_image_get_paintable (self->custom_image) == custom_image)
+    return;
 
-  self->load_image_func = load_image;
-  self->load_image_func_target = user_data;
-  self->load_image_func_target_destroy_notify = destroy;
+  gtk_image_set_from_paintable (self->custom_image, custom_image);
 
-  update_custom_image (self,
-                       gtk_widget_get_width (GTK_WIDGET (self)),
-                       gtk_widget_get_height (GTK_WIDGET (self)),
-                       gtk_widget_get_scale_factor (GTK_WIDGET (self)));
+  if (custom_image)
+    gtk_widget_add_css_class (self->gizmo, "image");
+  else
+    gtk_widget_remove_css_class (self->gizmo, "image");
+
+  update_visibility (self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CUSTOM_IMAGE]);
 }
 
 /**
@@ -695,10 +672,6 @@ adw_avatar_set_size (AdwAvatar *self,
     gtk_widget_remove_css_class (self->gizmo, "contrasted");
 
   update_font_size (self);
-  update_custom_image (self,
-                       gtk_widget_get_width (GTK_WIDGET (self)),
-                       gtk_widget_get_height (GTK_WIDGET (self)),
-                       gtk_widget_get_scale_factor (GTK_WIDGET (self)));
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SIZE]);
@@ -732,8 +705,6 @@ adw_avatar_draw_to_pixbuf (AdwAvatar *self,
   g_return_val_if_fail (ADW_IS_AVATAR (self), NULL);
   g_return_val_if_fail (size > 0, NULL);
   g_return_val_if_fail (scale_factor > 0, NULL);
-
-  update_custom_image (self, size, size, scale_factor);
 
   snapshot = gtk_snapshot_new ();
   GTK_WIDGET_GET_CLASS (self)->snapshot (GTK_WIDGET (self), snapshot);
