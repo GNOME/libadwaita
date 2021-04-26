@@ -351,20 +351,6 @@ adw_avatar_class_init (AdwAvatarClass *klass)
   object_class->get_property = adw_avatar_get_property;
 
   /**
-   * AdwAvatar:size: (attributes org.gtk.Property.get=adw_avatar_get_size org.gtk.Property.set=adw_avatar_set_size)
-   *
-   * The size of the avatar.
-   *
-   * Since: 1.0
-   */
-  props[PROP_SIZE] =
-    g_param_spec_int ("size",
-                      "Size",
-                      "The size of the avatar",
-                      -1, INT_MAX, -1,
-                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
    * AdwAvatar:icon-name: (attributes org.gtk.Property.get=adw_avatar_get_icon_name org.gtk.Property.set=adw_avatar_set_icon_name)
    *
    * The name of an icon to use as a fallback.
@@ -412,6 +398,20 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                           "Whether initials are used instead of an icon on the fallback avatar",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwAvatar:size: (attributes org.gtk.Property.get=adw_avatar_get_size org.gtk.Property.set=adw_avatar_set_size)
+   *
+   * The size of the avatar.
+   *
+   * Since: 1.0
+   */
+  props[PROP_SIZE] =
+    g_param_spec_int ("size",
+                      "Size",
+                      "The size of the avatar",
+                      -1, INT_MAX, -1,
+                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
