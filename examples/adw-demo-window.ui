@@ -853,6 +853,9 @@
                                                     <property name="valign">center</property>
                                                     <property name="icon_name">avatar-delete-symbolic</property>
                                                     <signal name="clicked" swapped="yes" handler="avatar_file_remove_cb"/>
+                                                    <style>
+                                                      <class name="list-button"/>
+                                                    </style>
                                                   </object>
                                                 </child>
                                               </object>
@@ -877,6 +880,9 @@
                                                     <property name="valign">center</property>
                                                     <property name="icon_name">avatar-save-symbolic</property>
                                                     <signal name="clicked" swapped="yes" handler="avatar_save_to_file_cb"/>
+                                                    <style>
+                                                      <class name="list-button"/>
+                                                    </style>
                                                   </object>
                                                 </child>
                                               </object>
