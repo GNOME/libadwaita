@@ -3,6 +3,9 @@
   <requires lib="gtk" version="4.0"/>
   <template class="AdwViewSwitcherButton" parent="GtkToggleButton">
     <signal name="notify::active" handler="active_changed_cb" after="yes"/>
+    <style>
+      <class name="flat"/>
+    </style>
     <child>
       <object class="GtkStack" id="stack">
         <property name="hhomogeneous">False</property>
