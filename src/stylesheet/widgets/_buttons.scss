@@ -416,8 +416,8 @@ button.color {
 
 /* list buttons */
 /* tone down as per new designs, see issue #1473 */
-%list_button,
-button.list-button {
+%outline_button,
+button.outline {
   @extend %undecorated_button;
   border: 1px solid transparentize($borders_color, .5);
 

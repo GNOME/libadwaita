@@ -365,7 +365,7 @@
                                         <property name="label" translatable="yes">Frobnicate</property>
                                         <property name="valign">center</property>
                                         <style>
-                                          <class name="list-button"/>
+                                          <class name="outline"/>
                                         </style>
                                       </object>
                                     </child>
@@ -450,7 +450,7 @@
                                         <property name="valign">center</property>
                                         <property name="icon-name">row-copy-symbolic</property>
                                         <style>
-                                          <class name="list-button"/>
+                                          <class name="outline"/>
                                         </style>
                                       </object>
                                     </child>
@@ -474,7 +474,7 @@
                                         <property name="valign">center</property>
                                         <property name="icon-name">row-shutdown-symbolic</property>
                                         <style>
-                                          <class name="list-button"/>
+                                          <class name="outline"/>
                                         </style>
                                       </object>
                                     </child>
@@ -499,7 +499,7 @@
                                         <property name="valign">center</property>
                                         <property name="icon-name">row-shutdown-symbolic</property>
                                         <style>
-                                          <class name="list-button"/>
+                                          <class name="outline"/>
                                         </style>
                                       </object>
                                     </child>
@@ -540,7 +540,7 @@
                                         <property name="valign">center</property>
                                         <property name="icon-name">row-copy-symbolic</property>
                                         <style>
-                                          <class name="list-button"/>
+                                          <class name="outline"/>
                                         </style>
                                       </object>
                                     </child>
@@ -844,7 +844,7 @@
                                                     </child>
                                                     <style>
                                                       <class name="text-button"/>
-                                                      <class name="list-button"/>
+                                                      <class name="outline"/>
                                                     </style>
                                                   </object>
                                                 </child>
@@ -854,7 +854,7 @@
                                                     <property name="icon_name">avatar-delete-symbolic</property>
                                                     <signal name="clicked" swapped="yes" handler="avatar_file_remove_cb"/>
                                                     <style>
-                                                      <class name="list-button"/>
+                                                      <class name="outline"/>
                                                     </style>
                                                   </object>
                                                 </child>
@@ -881,7 +881,7 @@
                                                     <property name="icon_name">avatar-save-symbolic</property>
                                                     <signal name="clicked" swapped="yes" handler="avatar_save_to_file_cb"/>
                                                     <style>
-                                                      <class name="list-button"/>
+                                                      <class name="outline"/>
                                                     </style>
                                                   </object>
                                                 </child>

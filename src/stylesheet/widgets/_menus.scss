@@ -25,7 +25,7 @@ popover.menu {
     padding: $_menu-padding $_menu-padding 6px;
 
     button.circular.image-button.model {
-      @extend %list_button;
+      @extend %outline_button;
 
       padding: 11px;
       &:focus {
