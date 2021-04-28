@@ -378,10 +378,26 @@ adw_leaflet_pages_is_selected (GtkSelectionModel *model,
   return page && page == self->leaflet->visible_child;
 }
 
+static gboolean
+adw_leaflet_pages_select_item (GtkSelectionModel *model,
+                               guint              position,
+                               gboolean           exclusive)
+{
+  AdwLeafletPages *self = ADW_LEAFLET_PAGES (model);
+  AdwLeafletPage *page;
+
+  page = g_list_nth_data (self->leaflet->children, position);
+
+  adw_leaflet_set_visible_child (self->leaflet, page->widget);
+
+  return TRUE;
+}
+
 static void
 adw_leaflet_pages_selection_model_init (GtkSelectionModelInterface *iface)
 {
   iface->is_selected = adw_leaflet_pages_is_selected;
+  iface->select_item = adw_leaflet_pages_select_item;
 }
 
 G_DEFINE_TYPE_WITH_CODE (AdwLeafletPages, adw_leaflet_pages, G_TYPE_OBJECT,
