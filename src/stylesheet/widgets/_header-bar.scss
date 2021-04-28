@@ -121,6 +121,7 @@ windowcontrols {
 }
 
 // special case hover colors inside a headerbar
+headerbar button.flat,
 headerbar windowcontrols button {
   &:hover {
     @include button(undecorated-hover,$c:darken($headerbar_bg_color,6%));
