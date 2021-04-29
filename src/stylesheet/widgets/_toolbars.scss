@@ -32,9 +32,11 @@ searchbar > revealer > box {
   padding: 6px;
   border-spacing: 6px;
 
-  @extend %darkbar;
-
   border-width: 0 0 1px;
+  border-style: solid;
+  border-color: $borders_color;
+
+  background-color: mix($bg_color, $borders_color, 70%);
 
  .close {
     min-width: 16px;
@@ -42,20 +44,6 @@ searchbar > revealer > box {
     padding: 4px;
     border-radius: 50%;
     @extend %button_basic_flat;
-  }
-}
-
-%darkbar {
-  border-style: solid;
-  border-color: $borders_color;
-  $_bg: mix($bg_color, $borders_color, 70%);
-  background-color: $_bg;
-
-  &:backdrop {
-    border-color: $backdrop_borders_color;
-    background-color: $backdrop_dark_fill;
-    box-shadow: none;
-    transition: $backdrop_transition;
   }
 }
 
