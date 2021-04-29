@@ -28,7 +28,7 @@ entry {
     }
 
     &.flat {
-      &:focus-within, &:backdrop, &:disabled, &:backdrop:disabled, & {
+      &:focus-within, &:disabled, & {
         min-height: 0;
         padding: 2px;
         background-color: transparent;
