@@ -17,7 +17,6 @@ headerbar {
   @include headerbar_fill(darken($bg_color, 10%));
 
   &:backdrop {
-    border-color: $backdrop_borders_color;
     background-color: $bg_color;
     background-image: none;
 

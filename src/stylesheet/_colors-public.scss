@@ -75,7 +75,7 @@ widgets main borders color */
 
 /*
 widgets main borders color on backdrop windows */
-@define-color unfocused_borders #{"" +$backdrop_borders_color};
+@define-color unfocused_borders #{"" +$borders_color};
 
 /*
 these are pretty self explicative */
