@@ -196,7 +196,7 @@ $_default_button_c: lighten($bg_color,2%);
   //
   // backdrop button
   //
-    $_bg: if($c != $_default_button_c, $c, $backdrop_bg_color);
+    $_bg: if($c != $_default_button_c, $c, $bg_color);
     $_bc: if($variant == 'light', $c, _border_color($c));
 
     color: if($tc != $fg_color, mix($tc, $_bg, 80%), $backdrop_fg_color);

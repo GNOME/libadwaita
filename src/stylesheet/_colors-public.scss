@@ -51,7 +51,7 @@ text color for entries, views and content in general on backdrop windows */
 
 /*
 widget base background color on backdrop windows */
-@define-color theme_unfocused_bg_color #{"" +$backdrop_bg_color};
+@define-color theme_unfocused_bg_color #{"" +$bg_color};
 
 /*
 text widgets and the like base background color on backdrop windows */
