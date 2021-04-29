@@ -28,7 +28,7 @@ viewswitcher {
       border-right-color: transparent;
     }
 
-    &:not(:checked):hover:not(:backdrop) {
+    &:not(:checked):hover {
       background-image: image(lighter($bg_color));
     }
 
@@ -42,13 +42,9 @@ viewswitcher {
       border-right-color: shade($borders_color, 1.15);
     }
 
-    &:not(:checked):hover:backdrop {
-      background-image: image($bg_color);
-    }
-
     // View switcher in a header bar
     headerbar &:not(:checked) {
-      &:hover:not(:backdrop) {
+      &:hover {
         // Reimplementation of $button_fill from Adwaita. The colors are made
         // only 70% visible to avoid the highlight to be too strong.
         $c: transparentize($bg_color, 0.3);
@@ -65,10 +61,6 @@ viewswitcher {
 
       &:not(only-child):last-child:hover {
         border-right-color: $borders_color;
-      }
-
-      &:hover:backdrop {
-        background-image: image($bg_color);
       }
     }
 
@@ -119,10 +111,6 @@ viewswitcher {
         background-size: 6px 6px, 6px 6px;
         background-repeat: no-repeat;
         background-position: right 0px, right 1px;
-
-        &:backdrop {
-          background-size: 6px 6px, 0 0;
-        }
 
         &:dir(rtl) {
           background-position: left 0px, left 1px;

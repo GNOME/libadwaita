@@ -105,8 +105,7 @@ $_default_button_c: lighten($bg_color,2%);
 //
 // possible $t values:
 // normal, hover, active, checked-hover, checked-active, insensitive, insensitive-active,
-// backdrop, backdrop-active, backdrop-insensitive, backdrop-insensitive-active,
-// osd, osd-hover, osd-active, osd-insensitive, osd-backdrop, undecorated
+// osd, osd-hover, osd-active, osd-insensitive, undecorated
 //
   $_button_shadow: 0 1px 2px transparentize($shadow_color, 0.03);
 
@@ -188,60 +187,6 @@ $_default_button_c: lighten($bg_color,2%);
 
     color: if($c != $_default_button_c, mix($tc, $_bg, 60%), $insensitive_fg_color);
     border-color: $_bc;
-    background-image: image($_bg);
-    box-shadow: none;
-  }
-
-  @else if $t==backdrop {
-  //
-  // backdrop button
-  //
-    $_bg: if($c != $_default_button_c, $c, $bg_color);
-    $_bc: if($variant == 'light', $c, _border_color($c));
-
-    color: if($tc != $fg_color, mix($tc, $_bg, 80%), $backdrop_fg_color);
-    border-color: if($c != $_default_button_c, $_bc, $backdrop_borders_color);
-    background-image: image($_bg);
-    box-shadow: none;
-  }
-
-  @else if $t==backdrop-active {
-  //
-  // backdrop pushed button
-  //
-    $_bg: if($variant == 'light', darken(mix($c, $base_color, 85%), 8%), darken(mix($c, $base_color, 85%), 4%));
-    $_bc: if($variant == 'light', $_bg ,_border_color($c));
-
-    color: if($tc != $fg_color, mix($tc, $_bg, 80%), $backdrop_fg_color);
-    border-color: if($c != $_default_button_c, $_bc, $backdrop_borders_color);
-    background-image: image($_bg);
-    box-shadow: none;
-  }
-
-  @else if $t==backdrop-insensitive {
-  //
-  // backdrop insensitive button
-  //
-
-    $_bg: if($c != $_default_button_c, mix($c, $base_color, 85%), $insensitive_bg_color);
-    $_bc: if($variant == 'light', $_bg,_border_color($c));
-
-    color: if($c != $_default_button_c, mix($tc, $_bg, 35%), $backdrop_insensitive_color);
-    border-color: if($c != $_default_button_c, $_bc, $backdrop_borders_color);
-    background-image: image($_bg);
-    box-shadow: none;
-  }
-
-  @else if $t==backdrop-insensitive-active {
-  //
-  // backdrop insensitive pushed button
-  //
-
-    $_bg: if($variant == 'light', darken(mix($c, $base_color, 85%), 8%), darken(mix($c, $base_color, 85%), 4%));
-    $_bc: if($variant == 'light', $_bg, _border_color($c));
-
-    color: if($c != $_default_button_c, mix($tc, $_bg, 35%), $backdrop_insensitive_color);
-    border-color: if($c != $_default_button_c, $_bc, $backdrop_borders_color);
     background-image: image($_bg);
     box-shadow: none;
   }

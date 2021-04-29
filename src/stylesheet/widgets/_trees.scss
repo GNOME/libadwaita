@@ -166,7 +166,7 @@ treeview.view {
     background-image: none;
   }
 
-  &:last-child { &:backdrop, & { border-right-style: none; }}
+  &:last-child { border-right-style: none; }
 }
 
 /********************************************************
