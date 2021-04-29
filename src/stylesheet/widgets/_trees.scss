@@ -19,18 +19,12 @@ treeview.view {
 
     &:selected {
       color: mix($selected_fg_color, $selected_bg_color, 40%);
-      &:backdrop { color: mix($backdrop_selected_fg_color, $selected_bg_color, 30%); }
     }
   }
 
   &.separator {
     min-height: 2px;
     color: $treeview_borders_color;
-  }
-
-  &:backdrop {
-    border-left-color: $treeview_backdrop_borders_color;
-    border-top: $treeview_backdrop_borders_color;
   }
 
   &:drop(active) {
@@ -88,13 +82,6 @@ treeview.view {
         }
 
         background-image: image($base_color);
-
-        &:backdrop {
-          @if $variant == 'light' {
-            color: $selected_bg_color;
-          }
-          background-color: $backdrop_base_color;
-        }
       }
     }
   }
