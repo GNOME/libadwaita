@@ -324,7 +324,7 @@ scale {
 
         > slider {
           &:dir(ltr), &:dir(rtl) { // specificity bump
-            &:hover, &:backdrop, &:disabled, &:backdrop:disabled, & {
+            &:hover, &:disabled, & {
               margin-bottom: -15px;
               margin-top: 6px;
             }
@@ -344,7 +344,7 @@ scale {
           border-top-right-radius: 0;
 
           > slider {
-            &:hover, &:backdrop, &:disabled, &:backdrop:disabled, & {
+            &:hover, &:disabled, & {
               margin-left: -15px;
               margin-right: 6px;
             }
@@ -362,7 +362,7 @@ scale {
           border-top-left-radius: 0;
 
           > slider {
-            &:hover, &:backdrop, &:disabled, &:backdrop:disabled, & {
+            &:hover, &:disabled, & {
               margin-right: -15px;
               margin-left: 6px;
             }
