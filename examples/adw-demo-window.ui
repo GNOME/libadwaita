@@ -598,6 +598,7 @@
                           <object class="AdwCarousel" id="carousel">
                             <property name="vexpand">True</property>
                             <property name="hexpand">True</property>
+                            <property name="allow-scroll-wheel" bind-source="carousel_scroll_wheel" bind-property="active" bind-flags="sync-create|bidirectional"/>
                             <property name="allow-long-swipes" bind-source="carousel_long_swipes" bind-property="active" bind-flags="sync-create|bidirectional"/>
                             <child>
                               <object class="AdwStatusPage">
@@ -649,6 +650,18 @@
                                         <property name="expression">
                                           <closure type="gchararray" function="carousel_indicators_name"/>
                                         </property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="AdwActionRow">
+                                        <property name="title" translatable="yes">Scroll wheel</property>
+                                        <property name="activatable_widget">carousel_scroll_wheel</property>
+                                        <child>
+                                          <object class="GtkSwitch" id="carousel_scroll_wheel">
+                                            <property name="valign">center</property>
+                                            <property name="active">True</property>
+                                          </object>
+                                        </child>
                                       </object>
                                     </child>
                                     <child>
