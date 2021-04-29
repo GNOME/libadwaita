@@ -409,7 +409,7 @@ $_default_button_c: lighten($bg_color,2%);
   // $checked:  bool to chose between checked/unchecked
   //
   // possible $t values:
-  // normal, hover, active, insensitive, backdrop, backdrop-insensitive, menu
+  // normal, hover, active, insensitive, menu
 
   $_border_color: if($c==$checkradio_bg_color, $checkradio_borders_color, $alt_borders_color);
   $_dim_border_color: transparentize($_border_color, if($variant == 'light', 0.3, 0.7));
@@ -432,17 +432,6 @@ $_default_button_c: lighten($bg_color,2%);
   }
 
   @if $t==insensitive {
-    box-shadow: none;
-    color: transparentize($tc, 0.3);
-  }
-
-  @if $t==backdrop {
-    background-image: image($c);
-    box-shadow: none;
-    color: $tc;
-  }
-
-  @if $t==backdrop-insensitive {
     box-shadow: none;
     color: transparentize($tc, 0.3);
   }
