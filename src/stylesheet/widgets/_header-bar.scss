@@ -1,3 +1,10 @@
+$_header_bar_color: darken($bg_color, 10%);
+$_header_bar_gradient: linear-gradient(to top, darken($_header_bar_color, 2%), lighten($_header_bar_color, 1%));
+
+@if $variant == 'dark' {
+  $_header_bar_gradient: linear-gradient(to top, lighten($_header_bar_color, 4%), lighten($_header_bar_color, 6%));
+}
+
 headerbar {
   padding: 0 6px;
   min-height: 46px;
@@ -5,6 +12,7 @@ headerbar {
   border-style: solid;
   border-color: $alt_borders_color;
   border-radius: 0;
+  background-image: $_header_bar_gradient;
 
   > windowhandle > box {
     &,
@@ -13,8 +21,6 @@ headerbar {
       border-spacing: 6px;
     }
   }
-
-  @include headerbar_fill(darken($bg_color, 10%));
 
   &:backdrop {
     background-color: $bg_color;

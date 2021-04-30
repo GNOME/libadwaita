@@ -275,22 +275,6 @@ $_default_button_c: lighten($bg_color,2%);
   }
 }
 
-@mixin headerbar_fill($c:$headerbar_bg_color, $ov: none) {
-//
-// headerbar fill
-//
-// $c:  base color
-// $ov: a background layer for background shorthand (hence no commas!)
-//
-  $gradient: linear-gradient(to top, darken($c, 2%), lighten($c, 1%));
-
-  @if $variant == 'dark' { $gradient: linear-gradient(to top, lighten($c, 4%), lighten($c, 6%)); }
-
-  @if $ov != none { background: $c $ov, $gradient; }
-  @else { background: $c $gradient; }
-
-}
-
 @mixin overshoot($p, $c:$fg_color) {
 //
 // overshoot
