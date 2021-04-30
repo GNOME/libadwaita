@@ -11,7 +11,6 @@ headerbar {
   border-width: 0 0 1px;
   border-style: solid;
   border-color: $alt_borders_color;
-  border-radius: 0;
   background-image: $_header_bar_gradient;
 
   > windowhandle > box {
@@ -44,19 +43,6 @@ headerbar {
     border-top-color: darken($borders_color, 8%);
   }
 
-  // squared corners when the window is maximized, tiled, or fullscreen
-  .tiled &,
-  .tiled-top &,
-  .tiled-left &,
-  .tiled-right &,
-  .tiled-bottom &,
-  .maximized &,
-  .fullscreen & {
-    &:backdrop, & {
-      border-radius: 0;
-    }
-  }
-
   &.default-decoration {
     min-height: 28px;
     padding: 4px;
@@ -85,8 +71,6 @@ headerbar {
         margin-left: -1px;
         margin-right: -1px;
         margin-top: -1px;
-        border-radius: 0;
-        box-shadow: none;
       }
     }
   }
