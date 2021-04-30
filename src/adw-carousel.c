@@ -1237,6 +1237,7 @@ adw_carousel_insert (AdwCarousel *self,
 
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
+  g_return_if_fail (position >= -1);
 
   info = g_new0 (ChildInfo, 1);
   info->widget = widget;
@@ -1281,6 +1282,7 @@ adw_carousel_reorder (AdwCarousel *self,
 
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (position >= -1);
 
   closest_point = get_closest_snap_point (self);
 
