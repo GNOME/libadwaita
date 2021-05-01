@@ -166,7 +166,7 @@ window.devel {
     background: $bg_color $gradient;
 
     &:backdrop {
-      background: $bg_color cross-fade(10% -gtk-icontheme("system-run-symbolic"), image(transparent)) 90% 0/256px 256px no-repeat,
+      background: $bg_color cross-fade(5% -gtk-icontheme("system-run-symbolic"), image(transparent)) 90% 0/256px 256px no-repeat,
                   linear-gradient(to right, transparent 65%, transparent),
                   linear-gradient(to top, $bg_color, $bg_color);
     }
