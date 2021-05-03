@@ -5,8 +5,6 @@ label {
     @extend .dim-label;
   }
 
-  &:selected { @extend %nobg_selected_items; }
-
   > selection {
     background-color: $selected_bg_color;
     color: $selected_fg_color;

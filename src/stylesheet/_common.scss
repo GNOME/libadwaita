@@ -45,14 +45,10 @@ dnd {
 
 %selected_items {
   background-color: $selected_bg_color;
+  color: $selected_fg_color;
 
-  @at-root %nobg_selected_items, & {
-    color: $selected_fg_color;
-
-    @at-root %selected_items_disabled,
-    &:disabled { color: mix($selected_fg_color, $selected_bg_color, 50%); }
-
-  }
+  @at-root %selected_items_disabled,
+  &:disabled { color: mix($selected_fg_color, $selected_bg_color, 50%); }
 }
 
 :not(window):drop(active):focus,
