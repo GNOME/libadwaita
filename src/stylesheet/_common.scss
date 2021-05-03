@@ -47,7 +47,6 @@ dnd {
   background-color: $selected_bg_color;
   color: $selected_fg_color;
 
-  @at-root %selected_items_disabled,
   &:disabled { color: mix($selected_fg_color, $selected_bg_color, 50%); }
 }
 

@@ -11,16 +11,11 @@ label {
   }
 
   &:disabled {
-    color: $insensitive_fg_color;
-
-    button & { color: inherit; }
-
-    > selection { @extend %selected_items_disabled; }
+    filter: opacity(0.5);
   }
 
   &.error {
    color: $error_color;
-   &:disabled { color: transparentize($error_color,0.5); }
   }
 }
 
