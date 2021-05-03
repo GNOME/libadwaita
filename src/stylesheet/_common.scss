@@ -50,6 +50,17 @@ dnd {
   &:disabled { color: mix($selected_fg_color, $selected_bg_color, 50%); }
 }
 
+/* Text selection */
+
+selection {
+  background-color: transparentize($text_color, 0.9);
+  color: transparent;
+
+  &:focus-within {
+    background-color: transparentize($selected_bg_color, 0.7);
+  }
+}
+
 :not(window):drop(active):focus,
 :not(window):drop(active) { // FIXME needs to be done widget by widget, this wildcard should really die
   border-color: $drop_target_color;

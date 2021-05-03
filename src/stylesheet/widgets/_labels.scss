@@ -5,11 +5,6 @@ label {
     @extend .dim-label;
   }
 
-  > selection {
-    background-color: $selected_bg_color;
-    color: $selected_fg_color;
-  }
-
   &:disabled {
     filter: opacity(0.5);
   }

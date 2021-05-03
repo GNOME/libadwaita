@@ -20,8 +20,6 @@
 textview {
   > text {
     @extend %view;
-
-    > selection { &:focus, & { @extend %selected_items; }}
   }
 
   > border {

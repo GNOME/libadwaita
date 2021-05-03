@@ -21,10 +21,6 @@ entry {
       > block-cursor {
         @include entry(block_cursor);
       }
-
-      > selection {
-        @extend %selected_items;
-      }
     }
 
     &.flat {
@@ -47,7 +43,7 @@ entry {
 
         @include focus-ring($focus-state: 'focus-within', $fc: transparentize($e_color, 0.5));
 
-        > text > selection { background-color: $e_color; }
+        > text > selection:focus-within { background-color: transparentize($e_color, .8); }
       }
     }
 
