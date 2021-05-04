@@ -103,6 +103,10 @@ adw_style_init (void)
 
   update_theme ();
 
+  g_object_set (settings,
+                "gtk-icon-theme-name", "hicolor",
+                NULL);
+
   g_once_init_leave (&guard, 1);
 }
 
