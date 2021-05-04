@@ -34,7 +34,10 @@ switch {
     transition: $button_transition;
   }
 
-  > image { color: transparent; } /* only show i / o for the accessible theme */
+  /* only show i / o for the accessible theme */
+  @if $contrast == 'normal' {
+    > image { color: transparent; }
+  }
 
   &:hover > slider {
     @include button(hover);
