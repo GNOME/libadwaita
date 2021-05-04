@@ -147,7 +147,9 @@ statuspage > scrolledwindow > viewport > box {
     border-spacing: 12px;
 
     > .icon {
-      color: transparentize($fg_color, 0.5);
+      @if $contrast == 'normal' {
+        color: transparentize($fg_color, 0.5);
+      }
 
       &:not(:last-child) {
         margin-bottom: 24px;
