@@ -39,16 +39,5 @@
     <file>assets/bullet-symbolic.svg</file>
     <file>assets/check-symbolic.svg</file>
     <file>assets/dash-symbolic.svg</file>
-
-    <file>assets-hc/bullet-symbolic.symbolic.png</file>
-    <file>assets-hc/bullet@2-symbolic.symbolic.png</file>
-    <file>assets-hc/check-symbolic.symbolic.png</file>
-    <file>assets-hc/check@2-symbolic.symbolic.png</file>
-    <file>assets-hc/dash-symbolic.symbolic.png</file>
-    <file>assets-hc/dash@2-symbolic.symbolic.png</file>
-
-    <file>assets-hc/bullet-symbolic.svg</file>
-    <file>assets-hc/check-symbolic.svg</file>
-    <file>assets-hc/dash-symbolic.svg</file>
   </gresource>
 </gresources>
