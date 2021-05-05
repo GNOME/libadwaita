@@ -43,7 +43,11 @@ entry {
 
         @include focus-ring($focus-state: 'focus-within', $fc: transparentize($e_color, 0.5));
 
-        > text > selection:focus-within { background-color: transparentize($e_color, .8); }
+        > text {
+          > selection:focus-within { background-color: transparentize($e_color, .8); }
+
+          > cursor-handle > contents { background-color: $e_color; }
+        }
       }
     }
 
