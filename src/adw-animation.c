@@ -8,16 +8,6 @@
 
 #include "adw-animation-private.h"
 
-/**
- * SECTION:adwanimation
- * @short_description: Animation helpers
- * @title: Animation Helpers
- *
- * Animation helpers.
- *
- * Since: 1.0
- */
-
 G_DEFINE_BOXED_TYPE (AdwAnimation, adw_animation, adw_animation_ref, adw_animation_unref)
 
 struct _AdwAnimation
@@ -215,12 +205,14 @@ adw_animation_get_widget (AdwAnimation *self)
 
 /**
  * adw_get_enable_animations:
- * @widget: a #GtkWidget
+ * @widget: a `GtkWidget`
  *
- * Returns whether animations are enabled for that widget. This should be used
- * when implementing an animated widget to know whether to animate it or not.
+ * Checks whether animations are enabled for @widget.
  *
- * Returns: %TRUE if animations are enabled for @widget.
+ * This should be used when implementing an animated widget to know whether to
+ * animate it or not.
+ *
+ * Returns: whether animations are enabled for @widget
  *
  * Since: 1.0
  */
@@ -239,14 +231,14 @@ adw_get_enable_animations (GtkWidget *widget)
 }
 
 /**
- * adw_lerp: (skip)
+ * adw_lerp:
  * @a: the start
  * @b: the end
  * @t: the interpolation rate
  *
  * Computes the linear interpolation between @a and @b for @t.
  *
- * Returns: the linear interpolation between @a and @b for @t.
+ * Returns: the linear interpolation between @a and @b for @t
  *
  * Since: 1.0
  */
@@ -266,7 +258,7 @@ adw_lerp (double a, double b, double t)
  *
  * Computes the ease out for @t.
  *
- * Returns: the ease out for @t.
+ * Returns: the ease out for @t
  *
  * Since: 1.0
  */
