@@ -7,6 +7,7 @@ variables:
   FLATPAK_MODULE: 'libadwaita'
   FLATPAK_BUILD_DIR: build
   ABI_CHECKER_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/abi-checker:v1"
+  DOCS_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/docs:v1"
 
 stages:
   - build
@@ -19,7 +20,7 @@ api-visibility:
     - ./.gitlab-ci/api-visibility.sh
 
 doc:
-  image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
+  image: $DOCS_IMAGE
   stage: build
   tags:
     - flatpak
@@ -27,12 +28,11 @@ doc:
     MESON_ARGS: >-
       -Dbuild-tests=false
       -Dgtk_doc=true
-      -Dintrospection=disabled
+      -Dvapi=false
   script:
-    - flatpak-builder --user --disable-rofiles-fuse --stop-at=${FLATPAK_MODULE} ${FLATPAK_BUILD_DIR} ${MANIFEST_PATH}
-    - flatpak build ${FLATPAK_BUILD_DIR} meson --prefix=/app ${SHARED_MESON_ARGS} ${MESON_ARGS} _build
-    - flatpak build ${FLATPAK_BUILD_DIR} ninja -C _build libadwaita-1-doc
-    - mv _build/doc/html/ _doc/
+    - meson --prefix=/app ${MESON_ARGS} _build
+    - ninja -C _build
+    - mv _build/doc/libadwaita-1 _doc/
   artifacts:
     paths:
       - _doc

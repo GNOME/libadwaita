@@ -1,77 +1,45 @@
 if get_option('gtk_doc')
 
-subdir('xml')
-
-private_headers = [
-    'config.h',
-    'gtkprogresstrackerprivate.h',
-    'gtk-window-private.h',
-    'adw-animation-private.h',
-    'adw-bidi-private.h',
-    'adw-enums.h',
-    'adw-enums-private.h',
-    'adw-enum-value-object-private.h',
-    'adw-fading-label-private.h',
-    'adw-focus-private.h',
-    'adw-gizmo-private.h',
-    'adw-indicator-bin-private.h',
-    'adw-main-private.h',
-    'adw-preferences-group-private.h',
-    'adw-preferences-page-private.h',
-    'adw-shadow-helper-private.h',
-    'adw-swipe-tracker-private.h',
-    'adw-tab-private.h',
-    'adw-tab-bar-private.h',
-    'adw-tab-box-private.h',
-    'adw-tab-view-private.h',
-    'adw-view-switcher-button-private.h',
-    'adw-window-mixin-private.h',
+expand_content_md_files = [
+  'build-howto.md',
+  'visual-index.md',
 ]
 
-images = [
-  'images/avatar.png',
-  'images/header-bar.png',
-  'images/list.png',
-  'images/preferences-window.png',
-  'images/search.png',
-  'images/view-switcher.png',
-  'images/view-switcher-bar.png',
-]
+toml_data = configuration_data()
+toml_data.set('VERSION', meson.project_version())
 
-content_files = [
-  'build-howto.xml',
-  'hdy-migrating-0-0-to-1.xml',
-  'visual-index.xml',
-]
+libadwaita_toml = configure_file(
+  input: 'libadwaita.toml.in',
+  output: 'libadwaita.toml',
+  configuration: toml_data
+)
 
-glib_prefix  = dependency('glib-2.0').get_pkgconfig_variable('prefix')
-glib_docpath = glib_prefix / 'share' / 'gtk-doc' / 'html'
-docpath      = get_option('datadir') / 'gtk-doc' / 'html'
+dependency('gi-docgen', version: '>= 2021.1',
+           fallback: ['gi-docgen', 'dummy_dep'],
+           required: get_option('gtk_doc'))
 
-gnome.gtkdoc('libadwaita',
-     module_version: apiversion,
-           main_xml: 'adwaita-docs.xml',
-            src_dir: [
-                       meson.source_root() / 'src',
-                       meson.build_root()  / 'src',
-                     ],
-       dependencies: libadwaita_dep,
-  gobject_typesfile: 'libadwaita.types',
-          scan_args: [
-                       '--rebuild-types',
-                       '--ignore-headers=' + ' '.join(private_headers),
-                     ],
-       fixxref_args: [
-                       '--html-dir=@0@'.format(docpath),
-                       '--extra-dir=@0@'.format(glib_docpath / 'glib'),
-                       '--extra-dir=@0@'.format(glib_docpath / 'gobject'),
-                       '--extra-dir=@0@'.format(glib_docpath / 'gio'),
-                       '--extra-dir=@0@'.format(glib_docpath / 'gi'),
-                       '--extra-dir=@0@'.format(glib_docpath / 'gtk3'),
-                       '--extra-dir=@0@'.format(glib_docpath / 'gdk-pixbuf'),
-                     ],
-      content_files: content_files,
-        html_assets: images,
-            install: true)
+gidocgen = find_program('gi-docgen')
+
+docs_dir = datadir / 'doc'
+
+custom_target('libadwaita-doc',
+  input: [ libadwaita_toml, libadwaita_gir[0] ],
+  output: 'libadwaita-@0@'.format(apiversion),
+  command: [
+    gidocgen,
+    'generate',
+    '--quiet',
+    '--add-include-path=@0@'.format(meson.current_build_dir() / '../../src'),
+    '--config=@INPUT0@',
+    '--output-dir=@OUTPUT@',
+    '--no-namespace-dir',
+    '--content-dir=@0@'.format(meson.current_source_dir()),
+    '@INPUT1@',
+  ],
+  depend_files: [ expand_content_md_files ],
+  build_by_default: true,
+  install: true,
+  install_dir: docs_dir,
+)
 
 endif
