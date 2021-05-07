@@ -12,7 +12,7 @@
 #include "adw-window-title.h"
 
 /**
- * SECTION:adw-view-switcher-title
+ * SECTION:adwviewswitchertitle
  * @short_description: A view switcher title.
  * @title: AdwViewSwitcherTitle
  * @See_also: #AdwHeaderBar, #AdwViewSwitcher, #AdwViewSwitcherBar

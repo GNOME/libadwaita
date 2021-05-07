@@ -10,7 +10,7 @@
 #include "adw-bin.h"
 
 /**
- * SECTION:adw-bin
+ * SECTION:adwbin
  * @Short_description: A widget with one child
  * @Title: AdwBin
  *

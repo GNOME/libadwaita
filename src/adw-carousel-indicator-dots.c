@@ -21,7 +21,7 @@
 #define DOTS_MARGIN 6
 
 /**
- * SECTION:adw-carousel-indicator-dots
+ * SECTION:adwcarouselindicatordots
  * @short_description: A dots indicator for #AdwCarousel
  * @title: AdwCarouselIndicatorDots
  * @See_also: #AdwCarousel, #AdwCarouselIndicatorLines

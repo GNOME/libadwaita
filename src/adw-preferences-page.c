@@ -11,7 +11,7 @@
 #include "adw-preferences-group-private.h"
 
 /**
- * SECTION:adw-preferences-page
+ * SECTION:adwpreferencespage
  * @short_description: A page from the preferences window.
  * @Title: AdwPreferencesPage
  *

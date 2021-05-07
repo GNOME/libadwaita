@@ -10,7 +10,7 @@
 #include "adw-clamp-layout.h"
 
 /**
- * SECTION:adw-clamp-scrollable
+ * SECTION:adwclampscrollable
  * @short_description: A widget constraining its child to a given size.
  * @Title: AdwClampScrollable
  *

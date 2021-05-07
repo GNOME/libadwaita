@@ -22,7 +22,7 @@
 #include "adw-animation-private.h"
 
 /**
- * SECTION:adw-squeezer
+ * SECTION:adwsqueezer
  * @short_description: A best fit container.
  * @Title: AdwSqueezer
  *

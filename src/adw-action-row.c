@@ -8,7 +8,7 @@
 #include "adw-action-row.h"
 
 /**
- * SECTION:adw-action-row
+ * SECTION:adwactionrow
  * @short_description: A #GtkListBox row used to present actions.
  * @Title: AdwActionRow
  *

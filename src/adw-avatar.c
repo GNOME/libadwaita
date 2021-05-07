@@ -18,7 +18,7 @@
 
 #define NUMBER_OF_COLORS 14
 /**
- * SECTION:adw-avatar
+ * SECTION:adwavatar
  * @short_description: A widget displaying an image, with a generated fallback.
  * @Title: AdwAvatar
  *

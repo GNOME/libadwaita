@@ -10,7 +10,7 @@
 #include "adw-view-switcher-button-private.h"
 
 /**
- * PRIVATE:adw-view-switcher-button
+ * PRIVATE:adwviewswitcherbutton
  * @short_description: Button used in #AdwViewSwitcher.
  * @title: AdwViewSwitcherButton
  * @See_also: #AdwViewSwitcher

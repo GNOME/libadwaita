@@ -9,7 +9,7 @@
 #include "adw-preferences-row.h"
 
 /**
- * SECTION:adw-preferences-row
+ * SECTION:adwpreferencesrow
  * @short_description: A #GtkListBox row used to present preferences.
  * @Title: AdwPreferencesRow
  *

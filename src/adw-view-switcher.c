@@ -15,7 +15,7 @@
 #include "adw-view-switcher-button-private.h"
 
 /**
- * SECTION:adw-view-switcher
+ * SECTION:adwviewswitcher
  * @short_description: An adaptive view switcher.
  * @title: AdwViewSwitcher
  *

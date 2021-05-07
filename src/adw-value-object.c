@@ -9,7 +9,7 @@
 #include "adw-value-object.h"
 
 /**
- * SECTION:adw-value-object
+ * SECTION:adwvalueobject
  * @short_description: An object representing a #GValue.
  * @Title: AdwValueObject
  *

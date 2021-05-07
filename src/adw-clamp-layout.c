@@ -12,7 +12,7 @@
 #include "adw-animation-private.h"
 
 /**
- * SECTION:adw-clamp-layout
+ * SECTION:adwclamplayout
  * @short_description: A layout manager constraining its children to a given size.
  * @Title: AdwClampLayout
  *

@@ -9,7 +9,7 @@
 #include "adw-enum-value-object-private.h"
 
 /**
- * SECTION:adw-enum-value-object
+ * SECTION:adwenumvalueobject
  * @short_description: An object representing a #GEnumValue.
  * @Title: AdwEnumValueObject
  *

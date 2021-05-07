@@ -18,7 +18,7 @@
 #define DEFAULT_DURATION 250
 
 /**
- * SECTION:adw-carousel
+ * SECTION:adwcarousel
  * @short_description: A paginated scrolling widget.
  * @title: AdwCarousel
  * @See_also: #AdwCarouselIndicatorDots, #AdwCarouselIndicatorLines

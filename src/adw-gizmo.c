@@ -12,7 +12,7 @@
 #include "adw-gizmo-private.h"
 
 /**
- * PRIVATE:adw-gizmo
+ * PRIVATE:adwgizmo
  * @short_description: A helper widget
  * @title: AdwGizmo
  * @stability: Private

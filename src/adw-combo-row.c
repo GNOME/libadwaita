@@ -14,7 +14,7 @@
 #include "adw-combo-row.h"
 
 /**
- * SECTION:adw-combo-row
+ * SECTION:adwcomborow
  * @short_description: A #GtkListBox row used to choose from a list of items.
  * @Title: AdwComboRow
  *

@@ -8,7 +8,7 @@
 #include "adw-navigation-direction.h"
 
 /**
- * SECTION:adw-navigation-direction
+ * SECTION:adwnavigationdirection
  * @short_description: Swipe navigation directions.
  * @title: AdwNavigationDirection
  * @See_also: #AdwLeaflet

@@ -10,7 +10,7 @@
 #include "adw-shadow-helper-private.h"
 
 /**
- * PRIVATE:adw-shadow-helper
+ * PRIVATE:adwshadowhelper
  * @short_description: Shadow helper used in #AdwLeaflet
  * @title: AdwShadowHelper
  * @See_also: #AdwLeaflet

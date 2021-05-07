@@ -11,7 +11,7 @@
 #endif
 
 /**
- * SECTION:adw-version
+ * SECTION:adwversion
  * @short_description: Adwaita version checking.
  *
  * libadwaita provides macros to check the version of the library at compile-time.

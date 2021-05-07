@@ -11,7 +11,7 @@
 #include "adw-window-mixin-private.h"
 
 /**
- * PRIVATE:adw-window-mixin
+ * PRIVATE:adwwindowmixin
  * @short_description: A helper object for #AdwWindow and #AdwApplicationWindow
  * @title: AdwWindowMixin
  * @See_also: #AdwApplicationWindow, #AdwWindow

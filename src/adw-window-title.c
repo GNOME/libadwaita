@@ -9,7 +9,7 @@
 #include "adw-window-title.h"
 
 /**
- * SECTION:adw-window-title
+ * SECTION:adwwindowtitle
  * @short_description: A helper widget for setting a window's title and subtitle
  * @title: AdwWindowTitle
  * @See_also: #AdwHeaderBar

@@ -12,7 +12,7 @@
 #include <gio/gio.h>
 
 /**
- * SECTION:adw-enum-list-model
+ * SECTION:adwenumlistmodel
  * @short_description: TODO
  * @Title: AdwEnumListModel
  *

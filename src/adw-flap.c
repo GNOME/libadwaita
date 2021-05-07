@@ -17,7 +17,7 @@
 #include "adw-swipe-tracker-private.h"
 
 /**
- * SECTION:adw-flap
+ * SECTION:adwflap
  * @short_description: An adaptive container acting like a box or an overlay.
  * @Title: AdwFlap
  *

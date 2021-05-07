@@ -9,7 +9,7 @@
 #include "adw-swipeable.h"
 
 /**
- * SECTION:adw-swipeable
+ * SECTION:adwswipeable
  * @short_description: An interface for swipeable widgets.
  * @title: AdwSwipeable
  * @See_also: #AdwCarousel, #AdwLeaflet

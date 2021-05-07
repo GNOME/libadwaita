@@ -11,7 +11,7 @@
 #include "adw-preferences-row.h"
 
 /**
- * SECTION:adw-preferences-group
+ * SECTION:adwpreferencesgroup
  * @short_description: A group gathering preferences rows.
  * @Title: AdwPreferencesGroup
  *

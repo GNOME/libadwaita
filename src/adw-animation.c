@@ -9,7 +9,7 @@
 #include "adw-animation-private.h"
 
 /**
- * SECTION:adw-animation
+ * SECTION:adwanimation
  * @short_description: Animation helpers
  * @title: Animation Helpers
  *

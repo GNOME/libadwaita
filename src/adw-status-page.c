@@ -9,7 +9,7 @@
 #include "adw-status-page.h"
 
 /**
- * SECTION:adw-status-page
+ * SECTION:adwstatuspage
  * @short_description: A page used for empty/error states and similar use-cases.
  * @Title: AdwStatusPage
  *

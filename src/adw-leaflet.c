@@ -16,7 +16,7 @@
 #include "adw-swipe-tracker-private.h"
 
 /**
- * SECTION:adw-leaflet
+ * SECTION:adwleaflet
  * @short_description: An adaptive container acting like a box or a stack.
  * @Title: AdwLeaflet
  *

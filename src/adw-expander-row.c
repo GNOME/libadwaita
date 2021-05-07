@@ -10,7 +10,7 @@
 #include "adw-action-row.h"
 
 /**
- * SECTION:adw-expander-row
+ * SECTION:adwexpanderrow
  * @short_description: A #GtkListBox row used to reveal widgets.
  * @Title: AdwExpanderRow
  *

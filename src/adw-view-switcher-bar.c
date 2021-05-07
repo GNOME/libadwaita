@@ -11,7 +11,7 @@
 #include "adw-view-switcher-bar.h"
 
 /**
- * SECTION:adw-view-switcher-bar
+ * SECTION:adwviewswitcherbar
  * @short_description: A view switcher action bar.
  * @title: AdwViewSwitcherBar
  * @See_also: #AdwViewSwitcher, #AdwViewSwitcherTitle

@@ -10,7 +10,7 @@
 #include "adw-window-mixin-private.h"
 
 /**
- * SECTION:adw-window
+ * SECTION:adwwindow
  * @short_description: A freeform window.
  * @title: AdwWindow
  * @See_also: #AdwApplicationWindow

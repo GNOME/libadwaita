@@ -28,7 +28,7 @@
 #include "adw-gizmo-private.h"
 
 /**
- * SECTION:adw-header-bar
+ * SECTION:adwheaderbar
  * @short_description: A box with a centered child.
  * @Title: AdwHeaderBar
  * @See_also: #GtkHeaderBar, #AdwViewSwitcherTitle, #AdwWindowTitle

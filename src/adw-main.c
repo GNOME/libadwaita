@@ -12,7 +12,7 @@
 static int adw_initialized = FALSE;
 
 /**
- * SECTION:adw-main
+ * SECTION:adwmain
  * @short_description: Library initialization.
  * @Title: adw-main
  *

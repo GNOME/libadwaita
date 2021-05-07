@@ -21,7 +21,7 @@
 #define LINE_MARGIN 2
 
 /**
- * SECTION:adw-carousel-indicator-lines
+ * SECTION:adwcarouselindicatorlines
  * @short_description: A lines indicator for #AdwCarousel
  * @title: AdwCarouselIndicatorLines
  * @See_also: #AdwCarousel, #AdwCarouselIndicatorDots

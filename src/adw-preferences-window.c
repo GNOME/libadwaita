@@ -19,7 +19,7 @@
 #include "adw-view-switcher-title.h"
 
 /**
- * SECTION:adw-preferences-window
+ * SECTION:adwpreferenceswindow
  * @short_description: A window to present an application's preferences.
  * @Title: AdwPreferencesWindow
  *
