@@ -18,49 +18,27 @@
 
 #define NUMBER_OF_COLORS 14
 /**
- * SECTION:adwavatar
- * @short_description: A widget displaying an image, with a generated fallback.
- * @Title: AdwAvatar
+ * AdwAvatar:
  *
- * #AdwAvatar is a widget to display a round avatar.
- * A provided image is made round before displaying, if no image is given this
- * widget generates a round fallback with the initials of the #AdwAvatar:text
- * on top of a colord background.
- * The color is picked based on the hash of the #AdwAvatar:text.
- * If #AdwAvatar:show-initials is set to %FALSE, `avatar-default-symbolic` is
- * shown in place of the initials.
- * Use adw_avatar_set_image_load_func () to set a custom image.
- * Create a #AdwAvatarImageLoadFunc similar to this example:
+ * A widget displaying an image, with a generated fallback.
  *
- * |[<!-- language="C" -->
- * static GdkPixbuf *
- * image_load_func (int size, gpointer user_data)
- * {
- *   g_autoptr (GError) error = NULL;
- *   g_autoptr (GdkPixbuf) pixbuf = NULL;
- *   g_autofree char *file = gtk_file_chooser_get_filename ("avatar.png");
- *   int width, height;
+ * `AdwAvatar` is a widget that shows a round avatar.
  *
- *   gdk_pixbuf_get_file_info (file, &width, &height);
+ * `AdwAvatar` generates an avatar with the initials of  the
+ * [property@Adw.Avatar:text] on top of a colored background.
  *
- *   pixbuf = gdk_pixbuf_new_from_file_at_scale (file,
- *                                              (width <= height) ? size : -1,
- *                                              (width >= height) ? size : -1,
- *                                              TRUE,
- *                                              error);
- *   if (error != NULL) {
- *    g_critical ("Failed to create pixbuf from file: %s", error->message);
+ * The color is picked based on the hash of the [property@Adw.Avatar:text].
  *
- *    return NULL;
- *   }
+ * If [property@Adw.Avatar:show-initials] is set to `FALSE`,
+ * [property@Adw.Avatar:icon-name] or `avatar-default-symbolic` is shown instead
+ * of the initials.
  *
- *   return pixbuf;
- * }
- * ]|
+ * [method@Adw.Avatar.set_image_load_func] can be used to provide a custom
+ * image.
  *
- * # CSS nodes
+ * ## CSS nodes
  *
- * #AdwAvatar has a single CSS node with name avatar.
+ * `AdwAvatar` has a single CSS node with name `avatar`.
  *
  * Since: 1.0
  */
@@ -373,9 +351,9 @@ adw_avatar_class_init (AdwAvatarClass *klass)
   object_class->get_property = adw_avatar_get_property;
 
   /**
-   * AdwAvatar:size:
+   * AdwAvatar:size: (attributes org.gtk.Property.get=adw_avatar_get_size org.gtk.Property.set=adw_avatar_set_size)
    *
-   * The avatar size of the avatar.
+   * The size of the avatar.
    *
    * Since: 1.0
    */
@@ -387,29 +365,28 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAvatar:icon-name:
+   * AdwAvatar:icon-name: (attributes org.gtk.Property.get=adw_avatar_get_icon_name org.gtk.Property.set=adw_avatar_set_icon_name)
    *
-   * The name of the icon in the icon theme to use when the icon should be
-   * displayed.
-   * If no name is set, the avatar-default-symbolic icon will be used.
-   * If the name doesn't match a valid icon, it is an error and no icon will be
-   * displayed.
-   * If the icon theme is changed, the image will be updated automatically.
+   * The name of an icon to use as a fallback.
+   *
+   * If no name is set, `avatar-default-symbolic` will be used.
    *
    * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
                          "Icon name",
-                         "The name of the icon from the icon theme",
+                         "The name of an icon to use as a fallback",
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAvatar:text:
+   * AdwAvatar:text: (attributes org.gtk.Property.get=adw_avatar_get_text org.gtk.Property.set=adw_avatar_set_text)
    *
-   * The text used for the initials and for generating the color.
-   * If #AdwAvatar:show-initials is %FALSE it's only used to generate the color.
+   * Sets the text used to generate the fallback initials and color.
+   *
+   * It's only used to generate the color if [property@Adw.Avatar:show-initials]
+   * is `FALSE`.
    *
    * Since: 1.0
    */
@@ -421,16 +398,18 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwAvatar:show_initials:
+   * AdwAvatar:show-initials: (attributes org.gtk.Property.get=adw_avatar_get_show_initials org.gtk.Property.set=adw_avatar_set_show_initials)
    *
-   * Whether to show the initials or the fallback icon on the generated avatar.
+   * Whether initials are used instead of an icon on the fallback avatar.
+   *
+   * See [property@Adw.Avatar:icon-name] for how to change the fallback icon.
    *
    * Since: 1.0
    */
   props[PROP_SHOW_INITIALS] =
     g_param_spec_boolean ("show-initials",
                           "Show initials",
-                          "Whether to show the initials",
+                          "Whether initials are used instead of an icon on the fallback avatar",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -471,14 +450,12 @@ adw_avatar_init (AdwAvatar *self)
 /**
  * adw_avatar_new:
  * @size: The size of the avatar
- * @text: (nullable): The text used to generate the color and initials if
- * @show_initials is %TRUE. The color is selected at random if @text is empty.
- * @show_initials: whether to show the initials or the fallback icon on
- * top of the color generated based on @text.
+ * @text: (nullable): the text used to get the initials and color
+ * @show_initials: whether to use initials instead of an icon as fallback
  *
- * Creates a new #AdwAvatar.
+ * Creates a new `AdwAvatar`.
  *
- * Returns: the newly created #AdwAvatar
+ * Returns: the newly created `AdwAvatar`
  *
  * Since: 1.0
  */
@@ -495,13 +472,12 @@ adw_avatar_new (int         size,
 }
 
 /**
- * adw_avatar_get_icon_name:
- * @self: a #AdwAvatar
+ * adw_avatar_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
+ * @self: a `AdwAvatar`
  *
- * Gets the name of the icon in the icon theme to use when the icon should be
- * displayed.
+ * Gets the name of an icon to use as a fallback.
  *
- * Returns: (nullable) (transfer none): the name of the icon from the icon theme.
+ * Returns: (nullable): the icon name
  *
  * Since: 1.0
  */
@@ -514,16 +490,13 @@ adw_avatar_get_icon_name (AdwAvatar *self)
 }
 
 /**
- * adw_avatar_set_icon_name:
- * @self: a #AdwAvatar
- * @icon_name: (nullable): the name of the icon from the icon theme
+ * adw_avatar_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
+ * @self: a `AdwAvatar`
+ * @icon_name: (nullable): the icon name
  *
- * Sets the name of the icon in the icon theme to use when the icon should be
- * displayed.
- * If no name is set, the avatar-default-symbolic icon will be used.
- * If the name doesn't match a valid icon, it is an error and no icon will be
- * displayed.
- * If the icon theme is changed, the image will be updated automatically.
+ * Sets the name of an icon to use as a fallback.
+ *
+ * If no name is set, `avatar-default-symbolic` will be used.
  *
  * Since: 1.0
  */
@@ -545,14 +518,13 @@ adw_avatar_set_icon_name (AdwAvatar  *self,
 }
 
 /**
- * adw_avatar_get_text:
- * @self: a #AdwAvatar
+ * adw_avatar_get_text: (attributes org.gtk.Method.get_property=text)
+ * @self: a `AdwAvatar`
  *
- * Get the text used to generate the fallback initials and color
+ * Gets the text used to generate the fallback initials and color.
  *
- * Returns: (nullable) (transfer none): returns the text used to generate
- * the fallback initials. This is the internal string used by
- * the #AdwAvatar, and must not be modified.
+ * Returns: (nullable): the text used to generate the fallback initials and
+ *   color
  *
  * Since: 1.0
  */
@@ -565,11 +537,11 @@ adw_avatar_get_text (AdwAvatar *self)
 }
 
 /**
- * adw_avatar_set_text:
- * @self: a #AdwAvatar
+ * adw_avatar_set_text: (attributes org.gtk.Method.set_property=text)
+ * @self: a `AdwAvatar`
  * @text: (nullable): the text used to get the initials and color
  *
- * Set the text used to generate the fallback initials color
+ * Sets the text used to generate the fallback initials and color.
  *
  * Since: 1.0
  */
@@ -595,12 +567,12 @@ adw_avatar_set_text (AdwAvatar  *self,
 }
 
 /**
- * adw_avatar_get_show_initials:
- * @self: a #AdwAvatar
+ * adw_avatar_get_show_initials: (attributes org.gtk.Method.get_property=show-initials)
+ * @self: a `AdwAvatar`
  *
- * Returns whether initials are used for the fallback or the icon.
+ * Gets whether initials are used instead of an icon on the fallback avatar.
  *
- * Returns: %TRUE if the initials are used for the fallback.
+ * Returns: whether initials are used instead of an icon as fallback
  *
  * Since: 1.0
  */
@@ -613,12 +585,11 @@ adw_avatar_get_show_initials (AdwAvatar *self)
 }
 
 /**
- * adw_avatar_set_show_initials:
- * @self: a #AdwAvatar
- * @show_initials: whether the initials should be shown on the fallback avatar
- * or the icon.
+ * adw_avatar_set_show_initials: (attributes org.gtk.Method.set_property=show-initials)
+ * @self: a `AdwAvatar`
+ * @show_initials: whether to use initials instead of an icon as fallback
  *
- * Sets whether the initials should be shown on the fallback avatar or the icon.
+ * Sets whether to use initials instead of an icon on the fallback avatar.
  *
  * Since: 1.0
  */
@@ -642,13 +613,15 @@ adw_avatar_set_show_initials (AdwAvatar *self,
 
 /**
  * adw_avatar_set_image_load_func:
- * @self: a #AdwAvatar
- * @load_image: (closure user_data) (nullable): callback to set a custom image
- * @user_data: (nullable): user data passed to @load_image
- * @destroy: (nullable): destroy notifier for @user_data
+ * @self: a `AdwAvatar`
+ * @load_image: (scope notified) (nullable): callback to set a custom image
+ * @user_data: (closure load_image) (nullable): user data passed to @load_image
+ * @destroy: (destroy user_data) (nullable): destroy notifier for @user_data
  *
- * A callback which is called when the custom image need to be reloaded for some
- * reason (e.g. scale-factor changes).
+ * Sets a function that loads a custom image.
+ *
+ * @load_image will be called when the custom image needs to be reloaded for
+ * some reason (e.g. scale-factor changes).
  *
  * Since: 1.0
  */
@@ -675,12 +648,12 @@ adw_avatar_set_image_load_func (AdwAvatar              *self,
 }
 
 /**
- * adw_avatar_get_size:
- * @self: a #AdwAvatar
+ * adw_avatar_get_size: (attributes org.gtk.Method.get_property=size)
+ * @self: a `AdwAvatar`
  *
- * Returns the size of the avatar.
+ * Gets the size of the avatar.
  *
- * Returns: the size of the avatar.
+ * Returns: the size of the avatar
  *
  * Since: 1.0
  */
@@ -693,9 +666,9 @@ adw_avatar_get_size (AdwAvatar *self)
 }
 
 /**
- * adw_avatar_set_size:
- * @self: a #AdwAvatar
- * @size: The size to be used for the avatar
+ * adw_avatar_set_size: (attributes org.gtk.Method.set_property=size)
+ * @self: a `AdwAvatar`
+ * @size: The size of the avatar
  *
  * Sets the size of the avatar.
  *
@@ -733,13 +706,15 @@ adw_avatar_set_size (AdwAvatar *self,
 
 /**
  * adw_avatar_draw_to_pixbuf:
- * @self: a #AdwAvatar
+ * @self: a `AdwAvatar`
  * @size: The size of the pixbuf
  * @scale_factor: The scale factor
  *
- * Renders @self into a pixbuf at @size and @scale_factor. This can be used to export the fallback avatar.
+ * Renders @self into a [class@GdkPixbuf.Pixbuf] at @size and @scale_factor.
  *
- * Returns: (transfer full): the pixbuf.
+ * This can be used to export the fallback avatar.
+ *
+ * Returns: (transfer full): the pixbuf
  *
  * Since: 1.0
  */

@@ -156,7 +156,7 @@ adw_application_window_buildable_init (GtkBuildableIface *iface)
  *
  * Creates a new `AdwApplicationWindow` for @app.
  *
- * Returns: The newly created `AdwApplicationWindow`.
+ * Returns: the newly created `AdwApplicationWindow`
  *
  * Since: 1.0
  */
@@ -197,9 +197,9 @@ adw_application_window_set_child (AdwApplicationWindow *self,
  *
  * Gets the child widget of @self.
  *
- * Returns: (nullable) (transfer none): The child widget of @self.
- *
  * This method should always be used instead of [method@Gtk.Window.get_child].
+ *
+ * Returns: (nullable) (transfer none): the child widget of @self
  *
  * Since: 1.0
  */

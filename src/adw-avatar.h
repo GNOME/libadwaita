@@ -25,16 +25,17 @@ G_DECLARE_FINAL_TYPE (AdwAvatar, adw_avatar, ADW, AVATAR, GtkWidget)
 /**
  * AdwAvatarImageLoadFunc:
  * @size: the required size of the avatar
- * @user_data: (closure): user data
+ * @user_data: (nullable): user data
  *
- * The returned #GdkPixbuf is expected to be square with width and height set
- * to @size. The image is cropped to a circle without any scaling or transformation.
+ * A callback for loading a custom image for [class@Adw.Avatar].
  *
- * Returns: (nullable) (transfer full): the #GdkPixbuf to use as a custom avatar
- * or %NULL to fallback to the generated avatar.
+ * The returned [class@GdkPixbuf.Pixbuf] will be cropped to a circle from the
+ * center.
+ *
+ * Returns: (nullable) (transfer full): The pixbuf to use as a custom avatar.
  */
-typedef GdkPixbuf *(*AdwAvatarImageLoadFunc) (int      size,
-                                              gpointer user_data);
+typedef GdkPixbuf *(* AdwAvatarImageLoadFunc) (int      size,
+                                               gpointer user_data);
 
 
 ADW_AVAILABLE_IN_ALL
