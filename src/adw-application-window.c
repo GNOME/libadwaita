@@ -10,18 +10,17 @@
 #include "adw-window-mixin-private.h"
 
 /**
- * SECTION:adwapplicationwindow
- * @short_description: A freeform application window.
- * @title: AdwApplicationWindow
- * @See_also: #AdwWindow
+ * AdwApplicationWindow:
  *
- * AdwApplicationWindow is a #GtkApplicationWindow subclass providing the same
- * features as #AdwWindow.
+ * A freeform application window.
  *
- * See #AdwWindow for details.
+ * `AdwApplicationWindow` is a [class@Gtk.ApplicationWindow] subclass providing
+ * the same features as [class@Adw.Window].
  *
- * Using gtk_application_set_app_menu() and gtk_application_set_menubar() is
- * not supported and may result in visual glitches.
+ * See [class@Adw.Window] for details.
+ *
+ * Using [property@Gtk.Application:menubar] is not supported and may result in
+ * visual glitches.
  *
  * Since: 1.0
  */
@@ -153,11 +152,11 @@ adw_application_window_buildable_init (GtkBuildableIface *iface)
 
 /**
  * adw_application_window_new:
- * @app: a #GtkApplication
+ * @app: an application instance
  *
- * Creates a new #AdwApplicationWindow for @app.
+ * Creates a new `AdwApplicationWindow` for @app.
  *
- * Returns: (transfer full): a newly created #AdwApplicationWindow
+ * Returns: The newly created `AdwApplicationWindow`.
  *
  * Since: 1.0
  */
@@ -171,10 +170,12 @@ adw_application_window_new (GtkApplication *app)
 
 /**
  * adw_application_window_set_child:
- * @self: a #AdwApplicationWindow
- * @child: (allow-none): the child widget
+ * @self: a `AdwApplicationWindow`
+ * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
+ *
+ * This method should always be used instead of [method@Gtk.Window.set_child].
  *
  * Since: 1.0
  */
@@ -192,11 +193,13 @@ adw_application_window_set_child (AdwApplicationWindow *self,
 
 /**
  * adw_application_window_get_child:
- * @self: a #AdwApplicationWindow
+ * @self: a `AdwApplicationWindow`
  *
  * Gets the child widget of @self.
  *
- * Returns: (nullable) (transfer none): the child widget of @self
+ * Returns: (nullable) (transfer none): The child widget of @self.
+ *
+ * This method should always be used instead of [method@Gtk.Window.get_child].
  *
  * Since: 1.0
  */
