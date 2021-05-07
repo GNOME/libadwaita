@@ -8,36 +8,37 @@
 #include "adw-action-row.h"
 
 /**
- * SECTION:adwactionrow
- * @short_description: A #GtkListBox row used to present actions.
- * @Title: AdwActionRow
+ * AdwActionRow:
  *
- * The #AdwActionRow widget can have a title, a subtitle and an icon. The row
+ * A [class@Gtk.ListBoxRow] used to present actions.
+ *
+ * The `AdwActionRow` widget can have a title, a subtitle and an icon. The row
  * can receive additional widgets at its end, or prefix widgets at its start.
  *
  * It is convenient to present a preference and its related actions.
  *
- * #AdwActionRow is unactivatable by default, giving it an activatable widget
+ * `AdwActionRow` is unactivatable by default, giving it an activatable widget
  * will automatically make it activatable, but unsetting it won't change the
  * row's activatability.
  *
- * # AdwActionRow as GtkBuildable
+ * ## AdwActionRow as GtkBuildable
  *
- * The GtkWindow implementation of the GtkBuildable interface supports setting a
- * child at its end by omitting the “type” attribute of a &lt;child&gt; element.
+ * The `AdwActionRow` implementation of the [iface@Gtk.Buildable] interface
+ * supports adding a child at its end by specifying “suffix” or omitting the
+ * “type” attribute of a <child> element or.
  *
- * It also supports setting a child as a prefix widget by specifying “prefix” as
- * the “type” attribute of a &lt;child&gt; element.
+ * It also supports adding a child as a prefix widget by specifying “prefix” as
+ * the “type” attribute of a <child> element.
  *
- * # CSS nodes
+ * ## CSS nodes
  *
- * #AdwActionRow has a main CSS node with name row.
+ * `AdwActionRow` has a main CSS node with name `row`.
  *
- * It contains the subnode box.header for its main horizontal box, and box.title
- * for the vertical box containing the title and subtitle labels.
+ * It contains the subnode `box.header` for its main horizontal box, and
+ * `box.title` for the vertical box containing the title and subtitle labels.
  *
- * It contains subnodes label.title and label.subtitle representing respectively
- * the title label and subtitle label.
+ * It contains subnodes `label.title` and `label.subtitle` representing
+ * respectively the title label and subtitle label.
  *
  * Since: 1.0
  */
@@ -232,7 +233,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
   klass->activate = adw_action_row_activate_real;
 
   /**
-   * AdwActionRow:icon-name:
+   * AdwActionRow:icon-name: (attributes org.gtk.Property.get=adw_action_row_get_icon_name org.gtk.Property.set=adw_action_row_set_icon_name)
    *
    * The icon name for this row.
    *
@@ -241,14 +242,22 @@ adw_action_row_class_init (AdwActionRowClass *klass)
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
                          "Icon name",
-                         "Icon name",
+                         "The icon name for this row",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwActionRow:activatable-widget:
+   * AdwActionRow:activatable-widget: (attributes org.gtk.Property.get=adw_action_row_get_activatable_widget org.gtk.Property.set=adw_action_row_set_activatable_widget)
    *
-   * The activatable widget for this row.
+   * The widget to activate when the row is activated.
+   *
+   * The row can be activated either by clicking on it, calling
+   * [method@Adw.ActionRow.activate], or via mnemonics in the title or the
+   * subtitle. See the [property@Adw.ActionRow:use-underline] property to
+   * enable mnemonics.
+   *
+   * The target widget will be activated by emitting the
+   * [signal@Gtk.Widget::mnemonic-activate] signal on it.
    *
    * Since: 1.0
    */
@@ -260,7 +269,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                            G_PARAM_READWRITE);
 
   /**
-   * AdwActionRow:subtitle:
+   * AdwActionRow:subtitle: (attributes org.gtk.Property.get=adw_action_row_get_subtitle org.gtk.Property.set=adw_action_row_set_subtitle)
    *
    * The subtitle for this row.
    *
@@ -269,29 +278,29 @@ adw_action_row_class_init (AdwActionRowClass *klass)
   props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle",
                          "Subtitle",
-                         "Subtitle",
+                         "The subtitle for this row",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwActionRow:use-underline:
+   * AdwActionRow:use-underline: (attributes org.gtk.Property.get=adw_action_row_get_use_underline org.gtk.Property.set=adw_action_row_set_use_underline)
    *
-   * Whether an embedded underline in the text of the title and subtitle labels
-   * indicates a mnemonic.
+   * Whether underlines in title or subtitle are interpreted as mnemonics.
    *
    * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline",
                           "Use underline",
-                          "If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key",
+                          "Whether underlines in title or subtitle are interpreted as mnemonics",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwActionRow:title-lines:
+   * AdwActionRow:title-lines: (attributes org.gtk.Property.get=adw_action_row_get_title_lines org.gtk.Property.set=adw_action_row_set_title_lines)
    *
    * The number of lines at the end of which the title label will be ellipsized.
+   *
    * If the value is 0, the number of lines won't be limited.
    *
    * Since: 1.0
@@ -305,10 +314,11 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwActionRow:subtitle-lines:
+   * AdwActionRow:subtitle-lines: (attributes org.gtk.Property.get=adw_action_row_get_subtitle_lines org.gtk.Property.set=adw_action_row_set_subtitle_lines)
    *
    * The number of lines at the end of which the subtitle label will be
    * ellipsized.
+   *
    * If the value is 0, the number of lines won't be limited.
    *
    * Since: 1.0
@@ -325,7 +335,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
 
   /**
    * AdwActionRow::activated:
-   * @self: The #AdwActionRow instance
+   * @self: the `AdwActionRow` instance
    *
    * This signal is emitted after the row has been activated.
    *
@@ -411,9 +421,9 @@ adw_action_row_buildable_init (GtkBuildableIface *iface)
 /**
  * adw_action_row_new:
  *
- * Creates a new #AdwActionRow.
+ * Creates a new `AdwActionRow`.
  *
- * Returns: a new #AdwActionRow
+ * Returns: the newly created `AdwActionRow`
  *
  * Since: 1.0
  */
@@ -424,12 +434,12 @@ adw_action_row_new (void)
 }
 
 /**
- * adw_action_row_get_subtitle:
- * @self: a #AdwActionRow
+ * adw_action_row_get_subtitle: (attributes org.gtk.Method.get_property=subtitle)
+ * @self: a `AdwActionRow`
  *
  * Gets the subtitle for @self.
  *
- * Returns: (transfer none) (nullable): the subtitle for @self, or %NULL.
+ * Returns: (nullable): the subtitle for @self
  *
  * Since: 1.0
  */
@@ -446,8 +456,8 @@ adw_action_row_get_subtitle (AdwActionRow *self)
 }
 
 /**
- * adw_action_row_set_subtitle:
- * @self: a #AdwActionRow
+ * adw_action_row_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
+ * @self: a `AdwActionRow`
  * @subtitle: (nullable): the subtitle
  *
  * Sets the subtitle for @self.
@@ -475,13 +485,12 @@ adw_action_row_set_subtitle (AdwActionRow *self,
 }
 
 /**
- * adw_action_row_get_icon_name:
- * @self: a #AdwActionRow
+ * adw_action_row_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
+ * @self: a `AdwActionRow`
  *
  * Gets the icon name for @self.
  *
- * Returns: (transfer none): the icon name for @self.
- * The returned string is owned by the #AdwActionRow and should not be freed.
+ * Returns: the icon name for @self
  *
  * Since: 1.0
  */
@@ -498,8 +507,8 @@ adw_action_row_get_icon_name (AdwActionRow *self)
 }
 
 /**
- * adw_action_row_set_icon_name:
- * @self: a #AdwActionRow
+ * adw_action_row_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
+ * @self: a `AdwActionRow`
  * @icon_name: the icon name
  *
  * Sets the icon name for @self.
@@ -529,13 +538,12 @@ adw_action_row_set_icon_name (AdwActionRow *self,
 }
 
 /**
- * adw_action_row_get_activatable_widget:
- * @self: a #AdwActionRow
+ * adw_action_row_get_activatable_widget: (attributes org.gtk.Method.get_property=activatable-widget)
+ * @self: a `AdwActionRow`
  *
  * Gets the widget activated when @self is activated.
  *
- * Returns: (nullable) (transfer none): the widget activated when @self is
- *          activated, or %NULL if none has been set.
+ * Returns: (nullable) (transfer none): the activatable widget for @self
  *
  * Since: 1.0
  */
@@ -564,16 +572,11 @@ activatable_widget_weak_notify (gpointer  data,
 }
 
 /**
- * adw_action_row_set_activatable_widget:
- * @self: a #AdwActionRow
- * @widget: (nullable): the target #GtkWidget, or %NULL to unset
+ * adw_action_row_set_activatable_widget: (attributes org.gtk.Method.set_property=activatable-widget)
+ * @self: a `AdwActionRow`
+ * @widget: (nullable): the target widget
  *
- * Sets the widget to activate when @self is activated, either by clicking
- * on it, by calling adw_action_row_activate(), or via mnemonics in the title or
- * the subtitle. See the “use_underline” property to enable mnemonics.
- *
- * The target widget will be activated by emitting the
- * GtkWidget::mnemonic-activate signal on it.
+ * Sets the widget to activate when @self is activated.
  *
  * Since: 1.0
  */
@@ -609,14 +612,12 @@ adw_action_row_set_activatable_widget (AdwActionRow *self,
 }
 
 /**
- * adw_action_row_get_use_underline:
- * @self: a #AdwActionRow
+ * adw_action_row_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
+ * @self: a `AdwActionRow`
  *
- * Gets whether an embedded underline in the text of the title and subtitle
- * labels indicates a mnemonic. See adw_action_row_set_use_underline().
+ * Gets whether underlines in title or subtitle are interpreted as mnemonics.
  *
- * Returns: %TRUE if an embedded underline in the title and subtitle labels
- *          indicates the mnemonic accelerator keys.
+ * Returns: `TRUE` if underlines are interpreted as mnemonics
  *
  * Since: 1.0
  */
@@ -633,12 +634,11 @@ adw_action_row_get_use_underline (AdwActionRow *self)
 }
 
 /**
- * adw_action_row_set_use_underline:
- * @self: a #AdwActionRow
- * @use_underline: %TRUE if underlines in the text indicate mnemonics
+ * adw_action_row_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
+ * @self: a `AdwActionRow`
+ * @use_underline: whether underlines are interpreted as mnemonics
  *
- * If true, an underline in the text of the title and subtitle labels indicates
- * the next character should be used for the mnemonic accelerator key.
+ * Sets whether underlines in title or subtitle are interpreted as mnemonics.
  *
  * Since: 1.0
  */
@@ -668,15 +668,16 @@ adw_action_row_set_use_underline (AdwActionRow *self,
 }
 
 /**
- * adw_action_row_get_title_lines:
- * @self: a #AdwActionRow
+ * adw_action_row_get_title_lines: (attributes org.gtk.Method.get_property=title-lines)
+ * @self: a `AdwActionRow`
  *
  * Gets the number of lines at the end of which the title label will be
  * ellipsized.
+ *
  * If the value is 0, the number of lines won't be limited.
  *
  * Returns: the number of lines at the end of which the title label will be
- *          ellipsized.
+ *   ellipsized
  *
  * Since: 1.0
  */
@@ -693,12 +694,13 @@ adw_action_row_get_title_lines (AdwActionRow *self)
 }
 
 /**
- * adw_action_row_set_title_lines:
- * @self: a #AdwActionRow
+ * adw_action_row_set_title_lines: (attributes org.gtk.Method.set_property=title-lines)
+ * @self: a `AdwActionRow`
  * @title_lines: the number of lines at the end of which the title label will be ellipsized
  *
  * Sets the number of lines at the end of which the title label will be
  * ellipsized.
+ *
  * If the value is 0, the number of lines won't be limited.
  *
  * Since: 1.0
@@ -726,15 +728,16 @@ adw_action_row_set_title_lines (AdwActionRow *self,
 }
 
 /**
- * adw_action_row_get_subtitle_lines:
- * @self: a #AdwActionRow
+ * adw_action_row_get_subtitle_lines: (attributes org.gtk.Method.get_property=subtitle-lines)
+ * @self: a `AdwActionRow`
  *
  * Gets the number of lines at the end of which the subtitle label will be
  * ellipsized.
+ *
  * If the value is 0, the number of lines won't be limited.
  *
  * Returns: the number of lines at the end of which the subtitle label will be
- *          ellipsized.
+ *   ellipsized
  *
  * Since: 1.0
  */
@@ -751,12 +754,13 @@ adw_action_row_get_subtitle_lines (AdwActionRow *self)
 }
 
 /**
- * adw_action_row_set_subtitle_lines:
- * @self: a #AdwActionRow
+ * adw_action_row_set_subtitle_lines: (attributes org.gtk.Method.set_property=subtitle-lines)
+ * @self: a `AdwActionRow`
  * @subtitle_lines: the number of lines at the end of which the subtitle label will be ellipsized
  *
  * Sets the number of lines at the end of which the subtitle label will be
  * ellipsized.
+ *
  * If the value is 0, the number of lines won't be limited.
  *
  * Since: 1.0
@@ -785,8 +789,8 @@ adw_action_row_set_subtitle_lines (AdwActionRow *self,
 
 /**
  * adw_action_row_add_prefix:
- * @self: a #AdwActionRow
- * @widget: the prefix widget
+ * @self: a `AdwActionRow`
+ * @widget: a widget
  *
  * Adds a prefix widget to @self.
  *
@@ -809,8 +813,8 @@ adw_action_row_add_prefix (AdwActionRow *self,
 
 /**
  * adw_action_row_add_suffix:
- * @self: a #AdwActionRow
- * @widget: the suffix widget
+ * @self: a `AdwActionRow`
+ * @widget: a widget
  *
  * Adds a suffix widget to @self.
  *
@@ -832,9 +836,9 @@ adw_action_row_add_suffix (AdwActionRow *self,
 }
 
 /**
- * adw_action_row_remove
- * @self: a #AdwActionRow
- * @widget: the #GtkWidget to be removed
+ * adw_action_row_remove:
+ * @self: a `AdwActionRow`
+ * @widget: the child to be removed
  *
  * Removes a child from @self.
  *
@@ -857,6 +861,14 @@ adw_action_row_remove (AdwActionRow *self,
     gtk_box_remove (priv->suffixes, child);
 }
 
+/**
+ * adw_action_row_activate:
+ * @self: a `AdwActionRow`
+ *
+ * Activates @self.
+ *
+ * Since: 1.0
+ */
 void
 adw_action_row_activate (AdwActionRow *self)
 {
