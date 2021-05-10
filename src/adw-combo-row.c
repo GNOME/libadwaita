@@ -14,34 +14,29 @@
 #include "adw-combo-row.h"
 
 /**
- * SECTION:adwcomborow
- * @short_description: A #GtkListBox row used to choose from a list of items.
- * @Title: AdwComboRow
+ * AdwComboRow:
  *
- * The #AdwComboRow widget allows the user to choose from a list of valid
+ * A [class@Gtk.ListBoxRow] used to choose from a list of items.
+ *
+ * The `AdwComboRow` widget allows the user to choose from a list of valid
  * choices. The row displays the selected choice. When activated, the row
  * displays a popover which allows the user to make a new choice.
  *
- * The #AdwComboRow uses the model-view pattern; the list of valid choices
- * is specified in the form of a #GListModel, and the display of the choices can
- * be adapted to the data in the model via widget creation functions.
+ * `AdwComboRow` mirrors [class@Gtk.DropDown], see that widget for details.
  *
- * #AdwComboRow is #GtkListBoxRow:activatable if a model is set.
+ * `AdwComboRow` is [property@Gtk.ListBoxRow:activatable] if a model is set.
  *
- * # CSS nodes
+ * ## CSS nodes
  *
- * #AdwComboRow has a main CSS node with name row.
+ * `AdwComboRow` has a main CSS node with name `row`.
  *
- * Its popover has the node name popover with the .combo style class, it
- * contains a #GtkScrolledWindow, which in turn contains a #GtkListBox, both are
- * accessible via their regular nodes.
+ * Its popover has the node named `popover` with the `.combo` style class, it
+ * contains a [class@Gtk.ScrolledWindow], which in turn contains a
+ * [class@Gtk.ListView], both are accessible via their regular nodes.
  *
- * A checkmark of node and style class image.checkmark in the popover denotes
- * the current item.
+ * ## Accessibility
  *
- * # Accessibility
- *
- * #AdwComboRow uses the #GTK_ACCESSIBLE_ROLE_COMBO_BOX role.
+ * `AdwComboRow` uses the `GTK_ACCESSIBLE_ROLE_COMBO_BOX` role.
  *
  * Since: 1.0
  */
@@ -400,7 +395,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
   row_class->activate = adw_combo_row_activate;
 
   /**
-   * AdwComboRow:model:
+   * AdwComboRow:model: (attributes org.gtk.Property.get=adw_combo_row_get_model org.gtk.Property.set=adw_combo_row_set_model)
    *
    * Model for the displayed items.
    *
@@ -414,10 +409,12 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:selected:
+   * AdwComboRow:selected: (attributes org.gtk.Property.get=adw_combo_row_get_selected org.gtk.Property.set=adw_combo_row_set_selected)
    *
-   * The position of the selected item in #AdwComboRow:model,
-   * or #GTK_INVALID_LIST_POSITION if no item is selected.
+   * The position of the selected item.
+   *
+   * If no item is selected, the property has the value
+   * `GTK_INVALID_LIST_POSITION`.
    *
    * Since: 1.0
    */
@@ -429,7 +426,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:selected-item:
+   * AdwComboRow:selected-item: (attributes org.gtk.Property.get=adw_combo_row_get_selected_item)
    *
    * The selected item.
    *
@@ -443,9 +440,12 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          G_PARAM_READABLE);
 
   /**
-   * AdwComboRow:factory:
+   * AdwComboRow:factory: (attributes org.gtk.Property.get=adw_combo_row_get_factory org.gtk.Property.set=adw_combo_row_set_factory)
    *
    * Factory for populating list items.
+   *
+   * This factory is always used for the item in the row. It is also used for
+   * items in the popup unless [property@Adw.ComboRow:list-factory] is set.
    *
    * Since: 1.0
    */
@@ -457,11 +457,11 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:list-factory:
+   * AdwComboRow:list-factory: (attributes org.gtk.Property.get=adw_combo_row_get_list_factory org.gtk.Property.set=adw_combo_row_set_list_factory)
    *
    * The factory for populating list items in the popup.
    *
-   * If this is not set, #AdwComboRow:factory is used.
+   * If this is not set, [property@Adw.ComboRow:factory] is used.
    *
    * Since: 1.0
    */
@@ -473,10 +473,14 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:expression: (type GtkExpression)
+   * AdwComboRow:expression: (type GtkExpression) (attributes org.gtk.Property.get=adw_combo_row_get_expression org.gtk.Property.set=adw_combo_row_set_expression)
    *
-   * An expression to evaluate to obtain strings, used to bind strings to labels
-   * produced by the default factory.
+   * An expression used to obtain strings from items.
+   *
+   * It's used to bind strings to labels produced by the default factory.
+   *
+   * If [property@Adw.ComboRow:factory] is not set, the expression is also
+   * used to bind strings to labels produced by a default factory.
    *
    * Since: 1.0
    */
@@ -487,21 +491,21 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                                G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwComboRow:use-subtitle:
+   * AdwComboRow:use-subtitle: (attributes org.gtk.Property.get=adw_combo_row_get_use_subtitle org.gtk.Property.set=adw_combo_row_set_use_subtitle)
    *
-   * %TRUE to set the current value as the subtitle.
+   * Whether to use the current value as the subtitle.
    *
    * If you use a custom list item factory, you will need to give the row a
-   * name conversion expression with #AdwComboRow:expression.
+   * name conversion expression with [property@Adw.ComboRow:expression].
    *
-   * If %TRUE, you should not access #AdwActionRow:subtitle.
+   * If `TRUE`, you should not access [property@Adw.ActionRow:subtitle].
    *
    * Since: 1.0
    */
   props[PROP_USE_SUBTITLE] =
     g_param_spec_boolean ("use-subtitle",
                           "Use subtitle",
-                          "Set the current value as the subtitle",
+                          "Whether to use the current value as the subtitle",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -530,9 +534,9 @@ adw_combo_row_init (AdwComboRow *self)
 /**
  * adw_combo_row_new:
  *
- * Creates a new #AdwComboRow.
+ * Creates a new `AdwComboRow`.
  *
- * Returns: a new #AdwComboRow
+ * Returns: the newly created `AdwComboRow`
  *
  * Since: 1.0
  */
@@ -543,9 +547,9 @@ adw_combo_row_new (void)
 }
 
 /**
- * adw_combo_row_set_selected:
- * @self: a #AdwComboRow
- * @position: the position of the item to select, or #GTK_INVALID_LIST_POSITION
+ * adw_combo_row_set_selected: (attributes org.gtk.Method.set_property=selected)
+ * @self: a `AdwComboRow`
+ * @position: the position of the item to select, or `GTK_INVALID_LIST_POSITION`
  *
  * Selects the item at the given position.
  *
@@ -571,13 +575,13 @@ adw_combo_row_set_selected (AdwComboRow *self,
 }
 
 /**
- * adw_combo_row_get_selected:
- * @self: a #AdwComboRow
+ * adw_combo_row_get_selected: (attributes org.gtk.Method.get_property=selected)
+ * @self: a `AdwComboRow`
  *
  * Gets the position of the selected item.
  *
- * Returns: the position of the selected item, or #GTK_INVALID_LIST_POSITION
- *     if not item is selected
+ * Returns: the position of the selected item, or `GTK_INVALID_LIST_POSITION`
+ *   if no item is selected
  *
  * Since: 1.0
  */
@@ -597,12 +601,12 @@ adw_combo_row_get_selected (AdwComboRow *self)
 }
 
 /**
- * adw_combo_row_get_selected_item:
- * @self: a #AdwComboRow
+ * adw_combo_row_get_selected_item: (attributes org.gtk.Method.get_property=selected-item)
+ * @self: a `AdwComboRow`
  *
- * Gets the selected item. If no item is selected, %NULL is returned.
+ * Gets the selected item.
  *
- * Returns: (transfer none) (type GObject) (nullable): The selected item
+ * Returns: (transfer none) (type GObject) (nullable): the selected item
  *
  * Since: 1.0
  */
@@ -622,8 +626,8 @@ adw_combo_row_get_selected_item (AdwComboRow *self)
 }
 
 /**
- * adw_combo_row_get_model:
- * @self: a #AdwComboRow
+ * adw_combo_row_get_model: (attributes org.gtk.Method.get_property=model)
+ * @self: a `AdwComboRow`
  *
  * Gets the model that provides the displayed items.
  *
@@ -644,11 +648,11 @@ adw_combo_row_get_model (AdwComboRow *self)
 }
 
 /**
- * adw_combo_row_set_model:
- * @self: a #AdwComboRow
- * @model: (allow-none) (transfer none): the model to use or %NULL for none
+ * adw_combo_row_set_model: (attributes org.gtk.Method.set_property=model)
+ * @self: a `AdwComboRow`
+ * @model: (nullable) (transfer none): the model to use
  *
- * Sets the #GListModel to use.
+ * Sets the `GListModel` to use.
  *
  * Since: 1.0
  */
@@ -708,16 +712,12 @@ adw_combo_row_set_model (AdwComboRow *self,
 }
 
 /**
- * adw_combo_row_get_factory:
- * @self: a #AdwComboRow
+ * adw_combo_row_get_factory: (attributes org.gtk.Method.get_property=factory)
+ * @self: a `AdwComboRow`
  *
  * Gets the factory that's currently used to populate list items.
  *
- * The factory returned by this function is always used for the
- * item in the button. It is also used for items in the popup
- * if #AdwComboRow:list-factory is not set.
- *
- * Returns: (nullable) (transfer none): The factory in use
+ * Returns: (nullable) (transfer none): the factory in use
  *
  * Since: 1.0
  */
@@ -734,11 +734,11 @@ adw_combo_row_get_factory (AdwComboRow *self)
 }
 
 /**
- * adw_combo_row_set_factory:
- * @self: a #AdwComboRow
- * @factory: (allow-none) (transfer none): the factory to use or %NULL for none
+ * adw_combo_row_set_factory: (attributes org.gtk.Method.set_property=factory)
+ * @self: a `AdwComboRow`
+ * @factory: (nullable) (transfer none): the factory to use
  *
- * Sets the #GtkListItemFactory to use for populating list items.
+ * Sets the `GtkListItemFactory` to use for populating list items.
  *
  * Since: 1.0
  */
@@ -765,12 +765,12 @@ adw_combo_row_set_factory (AdwComboRow        *self,
 }
 
 /**
- * adw_combo_row_get_list_factory:
- * @self: a #AdwComboRow
+ * adw_combo_row_get_list_factory: (attributes org.gtk.Method.get_property=list-factory)
+ * @self: a `AdwComboRow`
  *
  * Gets the factory that's currently used to populate list items in the popup.
  *
- * Returns: (nullable) (transfer none): The factory in use
+ * Returns: (nullable) (transfer none): the factory in use
  *
  * Since: 1.0
  */
@@ -787,11 +787,11 @@ adw_combo_row_get_list_factory (AdwComboRow *self)
 }
 
 /**
- * adw_combo_row_set_list_factory:
- * @self: a #AdwComboRow
- * @factory: (allow-none) (transfer none): the factory to use or %NULL for none
+ * adw_combo_row_set_list_factory: (attributes org.gtk.Method.set_property=list-factory)
+ * @self: a `AdwComboRow`
+ * @factory: (nullable) (transfer none): the factory to use
  *
- * Sets the #GtkListItemFactory to use for populating list items in the popup.
+ * Sets the `GtkListItemFactory` to use for populating list items in the popup.
  *
  * Since: 1.0
  */
@@ -818,12 +818,12 @@ adw_combo_row_set_list_factory (AdwComboRow        *self,
 }
 
 /**
- * adw_combo_row_get_expression:
- * @self: a #AdwComboRow
+ * adw_combo_row_get_expression: (attributes org.gtk.Method.get_property=expression)
+ * @self: a `AdwComboRow`
  *
- * Gets the expression set with adw_combo_row_set_expression().
+ * Gets the expression used to obtain strings from items.
  *
- * Returns: (nullable) (transfer none): a #GtkExpression or %NULL
+ * Returns: (nullable) (transfer none): the expression used to obtain strings from items
  *
  * Since: 1.0
  */
@@ -840,14 +840,13 @@ adw_combo_row_get_expression (AdwComboRow *self)
 }
 
 /**
- * adw_combo_row_set_expression:
- * @self: a #AdwComboRow
- * @expression: (nullable): a #GtkExpression, or %NULL
+ * adw_combo_row_set_expression: (attributes org.gtk.Method.set_property=expression)
+ * @self: a `AdwComboRow`
+ * @expression: (nullable): an expression
  *
- * Sets the expression that gets evaluated to obtain strings, used to bind
- * strings to labels produced by the default factory.
+ * Sets the expression used to obtain strings from items.
  *
- * The expression must have a value type of #G_TYPE_STRING.
+ * The expression must have a value type of `G_TYPE_STRING`.
  *
  * Since: 1.0
  */
@@ -876,12 +875,12 @@ adw_combo_row_set_expression (AdwComboRow   *self,
 }
 
 /**
- * adw_combo_row_get_use_subtitle:
- * @self: a #GtkListBoxRow
+ * adw_combo_row_get_use_subtitle: (attributes org.gtk.Method.get_property=use-subtitle)
+ * @self: a `AdwComboRow`
  *
- * Gets whether the current value of @self should be displayed as its subtitle.
+ * Gets whether to use the current value as the subtitle.
  *
- * Returns: whether the current value of @self should be displayed as its subtitle
+ * Returns: whether to use the current value as the subtitle
  *
  * Since: 1.0
  */
@@ -898,13 +897,11 @@ adw_combo_row_get_use_subtitle (AdwComboRow *self)
 }
 
 /**
- * adw_combo_row_set_use_subtitle:
- * @self: a #AdwComboRow
- * @use_subtitle: %TRUE to set the current value as the subtitle
+ * adw_combo_row_set_use_subtitle: (attributes org.gtk.Method.set_property=use-subtitle)
+ * @self: a `AdwComboRow`
+ * @use_subtitle: whether to use the current value as the subtitle
  *
- * Sets whether the current value of @self should be displayed as its subtitle.
- *
- * If %TRUE, you should not access AdwActionRow:subtitle.
+ * Sets whether to use the current value as the subtitle.
  *
  * Since: 1.0
  */
