@@ -12,11 +12,13 @@
 #include <gio/gio.h>
 
 /**
- * SECTION:adwenumlistmodel
- * @short_description: TODO
- * @Title: AdwEnumListModel
+ * AdwEnumListModel:
  *
- * TODO
+ * A `GListModel` representing values of a given enum.
+ *
+ * `AdwEnumListModel` contains objects of type [class@AdwEnumValueObject].
+ *
+ * Since: 1.0
  */
 
 struct _AdwEnumListModel
@@ -113,10 +115,17 @@ adw_enum_list_model_class_init (AdwEnumListModelClass *klass)
   object_class->get_property = adw_enum_list_model_get_property;
   object_class->set_property = adw_enum_list_model_set_property;
 
+  /**
+   * AdwEnumListModel:enum-type: (attributes org.gtk.Property.get=adw_enum_list_model_get_enum_type)
+   *
+   * The type of the enum represented by the model.
+   *
+   * Since: 1.0
+   */
   props[PROP_ENUM_TYPE] =
     g_param_spec_gtype ("enum-type",
                         "Enum type",
-                        "The type of the enum to construct the model from",
+                        "The type of the enum represented by the model",
                         G_TYPE_ENUM,
                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
@@ -162,6 +171,16 @@ adw_enum_list_model_list_model_init (GListModelInterface *iface)
   iface->get_item = adw_enum_list_model_get_item;
 }
 
+/**
+ * adw_enum_list_model_new:
+ * @enum_type: the type of the enum to construct the model from
+ *
+ * Creates a new `AdwEnumListModel` for @enum_type.
+ *
+ * Returns: the newly created `AdwEnumListModel`
+ *
+ * Since: 1.0
+ */
 AdwEnumListModel *
 adw_enum_list_model_new (GType enum_type)
 {
@@ -170,6 +189,15 @@ adw_enum_list_model_new (GType enum_type)
                        NULL);
 }
 
+/**
+ * adw_enum_list_model_get_enum_type: (attributes org.gtk.Method.get_property=enum-type)
+ *
+ * Gets the type of the enum represented by @self.
+ *
+ * Returns: the enum type
+ *
+ * Since: 1.0
+ */
 GType
 adw_enum_list_model_get_enum_type (AdwEnumListModel *self)
 {
@@ -178,6 +206,14 @@ adw_enum_list_model_get_enum_type (AdwEnumListModel *self)
   return self->enum_type;
 }
 
+/**
+ * adw_enum_list_model_find_position:
+ * @value: an enum value
+ *
+ * Finds the position of a given enum value in @self.
+ *
+ * Since: 1.0
+ */
 guint
 adw_enum_list_model_find_position (AdwEnumListModel *self,
                                    int               value)
