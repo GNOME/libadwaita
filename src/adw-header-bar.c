@@ -28,17 +28,51 @@
 #include "adw-gizmo-private.h"
 
 /**
- * SECTION:adwheaderbar
- * @short_description: A box with a centered child.
- * @Title: AdwHeaderBar
- * @See_also: #GtkHeaderBar, #AdwViewSwitcherTitle, #AdwWindowTitle
+ * AdwHeaderBar:
  *
- * AdwHeaderBar is similar to #GtkHeaderBar but is designed to fix some of its
- * shortcomings for adaptive applications.
+ * A title bar widget.
  *
- * # CSS nodes
+ * `AdwHeaderBar` is similar to [class@Gtk.HeaderBar], but provides additional
+ * features compared to it. Refer to `GtkHeaderBar` for details.
  *
- * |[<!-- language="plain" -->
+ * [property@Adw.HeaderBar:centering-policy] allows to enforce strict centering
+ * of the title widget, this is useful for [class@Adw.ViewSwitcherTitle].
+ *
+ * [property@Adw.HeaderBar:show-start-title-buttons] and
+ * [property@Adw.HeaderBar:show-end-title-buttons] allow to easily create split
+ * header bar layouts using [class@Adw.Leaflet], as follows:
+ *
+ * ```xml
+ * <object class="AdwLeaflet" id="leaflet">
+ *   <child>
+ *     <object class="GtkBox">
+ *       <property name="orientation">vertical</property>
+ *       <object class="AdwHeaderBar">
+ *         <binding name="show-end-title-buttons">
+ *           <lookup name="folded">AdwLeaflet</lookup>
+ *         </binding>
+ *       </object>
+ *       ...
+ *     </object>
+ *   </child>
+ *   ...
+ *   <child>
+ *     <object class="GtkBox">
+ *       <property name="orientation">vertical</property>
+ *       <object class="AdwHeaderBar">
+ *         <binding name="show-start-title-buttons">
+ *           <lookup name="folded">AdwLeaflet</lookup>
+ *         </binding>
+ *       </object>
+ *       ...
+ *     </object>
+ *   </child>
+ * </object>
+ * ```
+ *
+ * ## CSS nodes
+ *
+ * ```
  * headerbar
  * ╰── windowhandle
  *     ╰── box
@@ -51,6 +85,20 @@
  *             ╰── box.end
  *                 ├── [other children]
  *                 ╰── windowcontrols.end
+ * ```
+ *
+ * `AdwHeaderBar`'s CSS node is called `headerbar`. It contains a `windowhandle`
+ * subnode, which contains a `box` subnode, which contains two `widget` subnodes
+ * at the start and end of the header bar, each of which contains a `box`
+ * subnode with the `.start` and `.end` style classes respectively, as well as a
+ * center node that represents the title.
+ *
+ * Each of the boxes contains a `windowcontrols` subnode, see
+ * [class@Gtk.WindowControls] for details, as well as other children.
+ *
+ * ## Accessibility
+ *
+ * `AdwHeaderBar` uses the %GTK_ACCESSIBLE_ROLE_GROUP role.
  *
  * Since: 1.0
  */
@@ -59,6 +107,8 @@
  * AdwCenteringPolicy:
  * @ADW_CENTERING_POLICY_LOOSE: Keep the title centered when possible
  * @ADW_CENTERING_POLICY_STRICT: Keep the title centered at all cost
+ *
+ * Describes title centering behavior of a [class@Adw.HeaderBar] widget.
  *
  * Since: 1.0
  */
@@ -364,60 +414,92 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
   widget_class->unroot = adw_header_bar_unroot;
   widget_class->get_request_mode = adw_header_bar_get_request_mode;
 
+  /**
+   * AdwHeaderBar:title-widget: (attributes org.gtk.Property.get=adw_header_bar_get_title_widget org.gtk.Property.set=adw_header_bar_set_title_widget)
+   *
+   * The title widget to display.
+   *
+   * When set to `NULL`, the header bar will display the title of the window it
+   * is contained in.
+   *
+   * To use a different title, use [class@Adw.WindowTitle]:
+   *
+   * ```xml
+   * <object class="AdwHeaderBar">
+   *   <property name="title-widget">
+   *     <object class="AdwWindowTitle">
+   *       <property name="title" translatable="yes">Title</property>
+   *     </object>
+   *   </property>
+   * </object>
+   * ```
+   *
+   * Since: 1.0
+   */
   props[PROP_TITLE_WIDGET] =
     g_param_spec_object ("title-widget",
                          "Title Widget",
-                         "Title widget to display",
+                         "The title widget to display",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwHeaderBar:show-start-title-buttons:
+   * AdwHeaderBar:show-start-title-buttons: (attributes org.gtk.Property.get=adw_header_bar_get_show_start_title_buttons org.gtk.Property.set=adw_header_bar_set_show_start_title_buttons)
    *
-   * Whether to show title buttons like close, minimize, maximize.
+   * Whether to show title buttons at the start of the header bar.
    *
-   * Which buttons are actually shown and where is determined
-   * by the #AdwHeaderBar:decoration-layout property, and by
-   * the state of the window (e.g. a close button will not be
-   * shown if the window can't be closed).
+   * See [property@Adw.HeaderBar:show-end-title-buttons] for the other side.
+   *
+   * Which buttons are actually shown and where is determined by the
+   * [property@Adw.HeaderBar:decoration-layout] property, and by the state of
+   * the window (e.g. a close button will not be shown if the window can't be
+   * closed).
    *
    * Since: 1.0
    */
   props[PROP_SHOW_START_TITLE_BUTTONS] =
     g_param_spec_boolean ("show-start-title-buttons",
                           "Show start title buttons",
-                          "Whether to show start title buttons",
+                          "Whether to show title buttons at the start of the header bar",
                           TRUE,
                           G_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwHeaderBar:show-end-title-buttons:
+   * AdwHeaderBar:show-end-title-buttons: (attributes org.gtk.Property.get=adw_header_bar_get_show_end_title_buttons org.gtk.Property.set=adw_header_bar_set_show_end_title_buttons)
    *
-   * Whether to show title buttons like close, minimize, maximize.
+   * Whether to show title buttons at the end of the header bar.
    *
-   * Which buttons are actually shown and where is determined
-   * by the #AdwHeaderBar:decoration-layout property, and by
-   * the state of the window (e.g. a close button will not be
-   * shown if the window can't be closed).
+   * See [property@Adw.HeaderBar:show-start-title-buttons] for the other side.
+   *
+   * Which buttons are actually shown and where is determined by the
+   * [property@Adw.HeaderBar:decoration-layout] property, and by the state of
+   * the window (e.g. a close button will not be shown if the window can't be
+   * closed).
    *
    * Since: 1.0
    */
   props[PROP_SHOW_END_TITLE_BUTTONS] =
     g_param_spec_boolean ("show-end-title-buttons",
                           "Show end title buttons",
-                          "Whether to show end title buttons",
+                          "Whether to show title buttons at the end of the header bar",
                           TRUE,
                           G_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwHeaderBar:decoration-layout:
+   * AdwHeaderBar:decoration-layout: (attributes org.gtk.Property.get=adw_header_bar_get_decoration_layout org.gtk.Property.set=adw_header_bar_set_decoration_layout)
    *
-   * The decoration layout for buttons. If this property is
-   * not set, the #GtkSettings:gtk-decoration-layout setting
-   * is used.
+   * The decoration layout for buttons.
    *
-   * See adw_header_bar_set_decoration_layout() for information
-   * about the format of this string.
+   * Ithis property is not set, the
+   * [property@Gtk.Settings:gtk-decoration-layout] setting is used.
+   *
+   * The format of the string is button names, separated by commas. A colon
+   * separates the buttons that should appear at the start from those at the
+   * ebd. Recognized button names are minimize, maximize, close and icon (the
+   * window icon).
+   *
+   * For example, “icon:minimize,maximize,close” specifies an icon at the start,
+   * and minimize, maximize and close buttons at the end.
    *
    * Since: 1.0
    */
@@ -428,11 +510,19 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                          NULL,
                          G_PARAM_READWRITE);
 
+  /**
+   * AdwHeaderBar:centering-policy: (attributes org.gtk.Property.get=adw_header_bar_get_centering_policy org.gtk.Property.set=adw_header_bar_set_centering_policy)
+   *
+   * The policy for aligning the center widget.
+   *
+   * Since: 1.0
+   */
   props[PROP_CENTERING_POLICY] =
     g_param_spec_enum ("centering-policy",
                        "Centering policy",
-                       "The policy to horizontally align the center widget",
-                       ADW_TYPE_CENTERING_POLICY, ADW_CENTERING_POLICY_LOOSE,
+                       "The policy for aligning the center widget",
+                       ADW_TYPE_CENTERING_POLICY,
+                       ADW_CENTERING_POLICY_LOOSE,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -514,9 +604,9 @@ adw_header_bar_buildable_init (GtkBuildableIface *iface)
 /**
  * adw_header_bar_new:
  *
- * Creates a new #AdwHeaderBar widget.
+ * Creates a new `AdwHeaderBar`.
  *
- * Returns: a new #AdwHeaderBar
+ * Returns: the newly created `AdwHeaderBar`.
  *
  * Since: 1.0
  */
@@ -528,11 +618,10 @@ adw_header_bar_new (void)
 
 /**
  * adw_header_bar_pack_start:
- * @self: A #AdwHeaderBar
- * @child: the #GtkWidget to be added to @self
+ * @self: A `AdwHeaderBar`
+ * @child: the widget to be added to @self
  *
- * Adds @child to @self, packed with reference to the
- * start of the @self.
+ * Adds @child to @self, packed with reference to the start of the @self.
  *
  * Since: 1.0
  */
@@ -545,11 +634,10 @@ adw_header_bar_pack_start (AdwHeaderBar *self,
 
 /**
  * adw_header_bar_pack_end:
- * @self: A #AdwHeaderBar
- * @child: the #GtkWidget to be added to @self
+ * @self: A `AdwHeaderBar`
+ * @child: the widget to be added to @self
  *
- * Adds @child to @self, packed with reference to the
- * end of the @self.
+ * Adds @child to @self, packed with reference to the end of @self.
  *
  * Since: 1.0
  */
@@ -561,20 +649,11 @@ adw_header_bar_pack_end (AdwHeaderBar *self,
 }
 
 /**
- * adw_header_bar_set_title_widget:
- * @self: a #AdwHeaderBar
- * @title_widget: (allow-none): a widget to use for a title
+ * adw_header_bar_set_title_widget: (attributes org.gtk.Method.set_property=title-widget)
+ * @self: a `AdwHeaderBar`
+ * @title_widget: (nullable): a widget to use for a title
  *
- * Sets the title for the #AdwHeaderBar.
- *
- * When set to %NULL, the headerbar will display the title of the window it is
- * contained in.
- *
- * The title should help a user identify the current view. To achieve the same
- * style as the builtin title, use the “title” style class.
- *
- * You should set the title widget to %NULL, for the window title label to be
- * visible again.
+ * Sets the title widget for @self.
  *
  * Since: 1.0
  */
@@ -607,14 +686,12 @@ adw_header_bar_set_title_widget (AdwHeaderBar *self,
 }
 
 /**
- * adw_header_bar_get_title_widget:
- * @self: a #AdwHeaderBar
+ * adw_header_bar_get_title_widget: (attributes org.gtk.Method.get_property=title-widget)
+ * @self: a `AdwHeaderBar`
  *
- * Retrieves the title widget widget of the header. See
- * adw_header_bar_set_title_widget().
+ * Gets the title widget widget of @self.
  *
  * Returns: (nullable) (transfer none): the title widget
- *    of the header, or %NULL if none has been set explicitly.
  *
  * Since: 1.0
  */
@@ -628,12 +705,13 @@ adw_header_bar_get_title_widget (AdwHeaderBar *self)
 
 /**
  * adw_header_bar_remove:
- * @self: a #AdwHeaderBar
+ * @self: a `AdwHeaderBar`
  * @child: the child to remove
  *
- * Removes a child from @self, after it has been added
- * with adw_header_bar_pack_start(), adw_header_bar_pack_end()
- * or adw_header_bar_set_title_widget().
+ * Removes a child from @self.
+ *
+ * The child must have been added with [method@Adw.HeaderBar.pack_start],
+ * [method@Adw.HeaderBar.pack_end] or [property@Adw.HeaderBar:title-widget].
  *
  * Since: 1.0
  */
@@ -657,13 +735,12 @@ adw_header_bar_remove (AdwHeaderBar *self,
 }
 
 /**
- * adw_header_bar_get_show_start_title_buttons:
- * @self: a #AdwHeaderBar
+ * adw_header_bar_get_show_start_title_buttons: (attributes org.gtk.Method.get_property=show-start-title-buttons)
+ * @self: a `AdwHeaderBar`
  *
- * Returns whether this header bar shows the standard window
- * title buttons.
+ * Gets whether to show title buttons at the start of @self.
  *
- * Returns: %TRUE if title buttons are shown
+ * Returns: `TRUE` if title buttons at the start are shown
  *
  * Since: 1.0
  */
@@ -676,12 +753,11 @@ adw_header_bar_get_show_start_title_buttons (AdwHeaderBar *self)
 }
 
 /**
- * adw_header_bar_set_show_start_title_buttons:
- * @self: a #AdwHeaderBar
- * @setting: %TRUE to show standard title buttons
+ * adw_header_bar_set_show_start_title_buttons: (attributes org.gtk.Method.set_property=show-start-title-buttons)
+ * @self: a `AdwHeaderBar`
+ * @setting: `TRUE` to show standard title buttons
  *
- * Sets whether this header bar shows the standard window title buttons
- * including close, maximize, and minimize.
+ * Sets whether to show title buttons at the start of @self.
  *
  * Since: 1.0
  */
@@ -711,13 +787,12 @@ adw_header_bar_set_show_start_title_buttons (AdwHeaderBar *self,
 }
 
 /**
- * adw_header_bar_get_show_end_title_buttons:
- * @self: a #AdwHeaderBar
+ * adw_header_bar_get_show_end_title_buttons: (attributes org.gtk.Method.get_property=show-end-title-buttons)
+ * @self: a `AdwHeaderBar`
  *
- * Returns whether this header bar shows the standard window
- * title buttons.
+ * Gets whether to show title buttons at the end of @self.
  *
- * Returns: %TRUE if title buttons are shown
+ * Returns: `TRUE` if title buttons at the end are shown
  *
  * Since: 1.0
  */
@@ -730,12 +805,11 @@ adw_header_bar_get_show_end_title_buttons (AdwHeaderBar *self)
 }
 
 /**
- * adw_header_bar_set_show_end_title_buttons:
- * @self: a #AdwHeaderBar
- * @setting: %TRUE to show standard title buttons
+ * adw_header_bar_set_show_end_title_buttons: (attributes org.gtk.Method.set_property=show-end-title-buttons)
+ * @self: a `AdwHeaderBar`
+ * @setting: `TRUE` to show standard title buttons
  *
- * Sets whether this header bar shows the standard window title buttons
- * including close, maximize, and minimize.
+ * Sets whether to show title buttons at the end of @self.
  *
  * Since: 1.0
  */
@@ -765,26 +839,11 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
 }
 
 /**
- * adw_header_bar_set_decoration_layout:
- * @self: a #AdwHeaderBar
- * @layout: (nullable): a decoration layout, or %NULL to unset the layout
+ * adw_header_bar_set_decoration_layout: (attributes org.gtk.Method.set_property=decoration-layout)
+ * @self: a `AdwHeaderBar`
+ * @layout: (nullable): a decoration layout, or `NULL` to unset the layout
  *
- * Sets the decoration layout for this header bar, overriding
- * the #GtkSettings:gtk-decoration-layout setting.
- *
- * There can be valid reasons for overriding the setting, such
- * as a header bar design that does not allow for buttons to take
- * room on the right, or only offers room for a single close button.
- * Split header bars are another example for overriding the
- * setting.
- *
- * The format of the string is button names, separated by commas.
- * A colon separates the buttons that should appear on the left
- * from those on the right. Recognized button names are minimize,
- * maximize, close and icon (the window icon).
- *
- * For example, “icon:minimize,maximize,close” specifies an icon
- * on the left, and minimize, maximize and close buttons on the right.
+ * Sets the decoration layout for @self.
  *
  * Since: 1.0
  */
@@ -801,11 +860,10 @@ adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
 }
 
 /**
- * adw_header_bar_get_decoration_layout:
- * @self: a #AdwHeaderBar
+ * adw_header_bar_get_decoration_layout: (attributes org.gtk.Method.get_property=decoration-layout)
+ * @self: a `AdwHeaderBar`
  *
- * Gets the decoration layout set with
- * adw_header_bar_set_decoration_layout().
+ * Gets the decoration layout for @self.
  *
  * Returns: (nullable): the decoration layout
  *
@@ -820,10 +878,10 @@ adw_header_bar_get_decoration_layout (AdwHeaderBar *self)
 }
 
 /**
- * adw_header_bar_get_centering_policy:
- * @self: a #AdwHeaderBar
+ * adw_header_bar_get_centering_policy: (attributes org.gtk.Method.get_property=centering-policy)
+ * @self: a `AdwHeaderBar`
  *
- * Gets the policy @self follows to horizontally align its center widget.
+ * Gets the policy for aligning the center widget.
  *
  * Returns: the centering policy
  *
@@ -838,11 +896,11 @@ adw_header_bar_get_centering_policy (AdwHeaderBar *self)
 }
 
 /**
- * adw_header_bar_set_centering_policy:
- * @self: a #AdwHeaderBar
+ * adw_header_bar_set_centering_policy: (attributes org.gtk.Method.set_property=centering-policy)
+ * @self: a `AdwHeaderBar`
  * @centering_policy: the centering policy
  *
- * Sets the policy @self must follow to horizontally align its center widget.
+ * Sets the policy for aligning the center widget.
  *
  * Since: 1.0
  */
