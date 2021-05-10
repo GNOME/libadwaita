@@ -21,19 +21,21 @@
 #define DOTS_MARGIN 6
 
 /**
- * SECTION:adwcarouselindicatordots
- * @short_description: A dots indicator for #AdwCarousel
- * @title: AdwCarouselIndicatorDots
- * @See_also: #AdwCarousel, #AdwCarouselIndicatorLines
+ * AdwCarouselIndicatorDots:
  *
- * The #AdwCarouselIndicatorDots widget can be used to show a set of dots for each
- * page of a given #AdwCarousel. The dot representing the carousel's active page
+ * A dots indicator for [class@Adw.Carousel].
+ *
+ * The `AdwCarouselIndicatorDots` widget shows a set of dots for each page of a
+ * given [class@Adw.Carousel]. The dot representing the carousel's active page
  * is larger and more opaque than the others, the transition to the active and
  * inactive state is gradual to match the carousel's position.
  *
- * # CSS nodes
+ * See also [class@Adw.CarouselIndicatorLines].
  *
- * #AdwCarouselIndicatorDots has a single CSS node with name carouselindicatordots.
+ * ## CSS nodes
+ *
+ * `AdwCarouselIndicatorDots` has a single CSS node with name
+ * `carouselindicatordots`.
  *
  * Since: 1.0
  */
@@ -340,16 +342,16 @@ adw_carousel_indicator_dots_class_init (AdwCarouselIndicatorDotsClass *klass)
   widget_class->snapshot = adw_carousel_indicator_dots_snapshot;
 
   /**
-   * AdwCarouselIndicatorDots:carousel:
+   * AdwCarouselIndicatorDots:carousel: (attributes org.gtk.Property.get=adw_carousel_indicator_dots_get_carousel org.gtk.Property.set=adw_carousel_indicator_dots_set_carousel)
    *
-   * The #AdwCarousel the indicator uses.
+   * The displayed carousel.
    *
    * Since: 1.0
    */
   props[PROP_CAROUSEL] =
     g_param_spec_object ("carousel",
                          "Carousel",
-                         "Carousel",
+                         "The displayed carousel",
                          ADW_TYPE_CAROUSEL,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -370,9 +372,9 @@ adw_carousel_indicator_dots_init (AdwCarouselIndicatorDots *self)
 /**
  * adw_carousel_indicator_dots_new:
  *
- * Create a new #AdwCarouselIndicatorDots widget.
+ * Creates a new `AdwCarouselIndicatorDots`.
  *
- * Returns: (transfer full): The newly created #AdwCarouselIndicatorDots widget
+ * Returns: the newly created `AdwCarouselIndicatorDots`
  *
  * Since: 1.0
  */
@@ -383,18 +385,15 @@ adw_carousel_indicator_dots_new (void)
 }
 
 /**
- * adw_carousel_indicator_dots_get_carousel:
- * @self: a #AdwCarouselIndicatorDots
+ * adw_carousel_indicator_dots_get_carousel: (attributes org.gtk.Method.get_property=carousel)
+ * @self: a `AdwCarouselIndicatorDots`
  *
- * Get the #AdwCarousel the indicator uses.
+ * Gets the displayed carousel.
  *
- * See: adw_carousel_indicator_dots_set_carousel()
- *
- * Returns: (nullable) (transfer none): the #AdwCarousel, or %NULL if none has been set
+ * Returns: (nullable) (transfer none): the displayed carousel
  *
  * Since: 1.0
  */
-
 AdwCarousel *
 adw_carousel_indicator_dots_get_carousel (AdwCarouselIndicatorDots *self)
 {
@@ -404,11 +403,11 @@ adw_carousel_indicator_dots_get_carousel (AdwCarouselIndicatorDots *self)
 }
 
 /**
- * adw_carousel_indicator_dots_set_carousel:
- * @self: a #AdwCarouselIndicatorDots
- * @carousel: (nullable): a #AdwCarousel
+ * adw_carousel_indicator_dots_set_carousel: (attributes org.gtk.Method.set_property=carousel)
+ * @self: a `AdwCarouselIndicatorDots`
+ * @carousel: (nullable): a carousel
  *
- * Sets the #AdwCarousel to use.
+ * Sets the displayed carousel.
  *
  * Since: 1.0
  */
