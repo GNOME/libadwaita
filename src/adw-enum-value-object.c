@@ -9,12 +9,9 @@
 #include "adw-enum-value-object-private.h"
 
 /**
- * SECTION:adwenumvalueobject
- * @short_description: An object representing a #GEnumValue.
- * @Title: AdwEnumValueObject
+ * AdwEnumValueObject:
  *
- * The #AdwEnumValueObject object represents a #GEnumValue, allowing it to be
- * used with #GListModel.
+ * `AdwEnumValueObject` is the type of items in a [class@Adw.EnumListModel].
  *
  * Since: 1.0
  */
@@ -68,24 +65,45 @@ adw_enum_value_object_class_init (AdwEnumValueObjectClass *klass)
 
   object_class->get_property = adw_enum_value_object_get_property;
 
+  /**
+   * AdwEnumValueObject:value: (attributes org.gtk.Property.get=adw_enum_value_object_get_value)
+   *
+   * The enum value.
+   *
+   * Since: 1.0
+   */
   props[PROP_VALUE] =
     g_param_spec_int ("value",
                       "Value",
-                      "The enum object value",
+                      "The enum value",
                       G_MININT, G_MAXINT, 0,
                       G_PARAM_READABLE);
 
+  /**
+   * AdwEnumValueObject:name: (attributes org.gtk.Property.get=adw_enum_value_object_get_name)
+   *
+   * The enum value name.
+   *
+   * Since: 1.0
+   */
   props[PROP_NAME] =
     g_param_spec_string ("name",
                          "Name",
-                         "The enum object name",
+                         "The enum value name",
                          NULL,
                          G_PARAM_READABLE);
 
+  /**
+   * AdwEnumValueObject:nick: (attributes org.gtk.Property.get=adw_enum_value_object_get_nick)
+   *
+   * The enum value nick.
+   *
+   * Since: 1.0
+   */
   props[PROP_NICK] =
     g_param_spec_string ("nick",
                          "Nick",
-                         "The enum object nick",
+                         "The enum value nick",
                          NULL,
                          G_PARAM_READABLE);
 
@@ -107,6 +125,15 @@ adw_enum_value_object_new (GEnumValue *enum_value)
   return self;
 }
 
+/**
+ * adw_enum_value_object_get_value: (attributes org.gtk.Method.get_property=value)
+ *
+ * Gets the enum value.
+ *
+ * Returns: the enum value
+ *
+ * Since: 1.0
+ */
 int
 adw_enum_value_object_get_value (AdwEnumValueObject *self)
 {
@@ -115,6 +142,15 @@ adw_enum_value_object_get_value (AdwEnumValueObject *self)
   return self->enum_value.value;
 }
 
+/**
+ * adw_enum_value_object_get_name: (attributes org.gtk.Method.get_property=name)
+ *
+ * Gets the enum value name.
+ *
+ * Returns: the enum value name
+ *
+ * Since: 1.0
+ */
 const char *
 adw_enum_value_object_get_name (AdwEnumValueObject *self)
 {
@@ -123,6 +159,15 @@ adw_enum_value_object_get_name (AdwEnumValueObject *self)
   return self->enum_value.value_name;
 }
 
+/**
+ * adw_enum_value_object_get_nick: (attributes org.gtk.Method.get_property=nick)
+ *
+ * Gets the enum value nick.
+ *
+ * Returns: the enum value nick
+ *
+ * Since: 1.0
+ */
 const char *
 adw_enum_value_object_get_nick (AdwEnumValueObject *self)
 {
