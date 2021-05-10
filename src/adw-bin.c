@@ -10,11 +10,12 @@
 #include "adw-bin.h"
 
 /**
- * SECTION:adwbin
- * @Short_description: A widget with one child
- * @Title: AdwBin
+ * AdwBin:
  *
- * The #AdwBin widget has only one child, set with the #AdwBin:child property.
+ * A widget with one child.
+ *
+ * The `AdwBin` widget has only one child, set with the [property@Adw.Bin:child]
+ * property.
  *
  * It is useful for deriving subclasses, since it provides common code needed
  * for handling a single child widget.
@@ -99,9 +100,9 @@ adw_bin_class_init (AdwBinClass *klass)
   object_class->set_property = adw_bin_set_property;
 
   /**
-   * AdwBin:child:
+   * AdwBin:child: (attributes org.gtk.Property.get=adw_bin_get_child org.gtk.Property.set=adw_bin_set_child)
    *
-   * The child widget of the #AdwBin.
+   * The child widget of the `AdwBin`.
    *
    * Since: 1.0
    */
@@ -145,9 +146,9 @@ adw_bin_buildable_init (GtkBuildableIface *iface)
 /**
  * adw_bin_new:
  *
- * Creates a new #AdwBin.
+ * Creates a new `AdwBin`.
  *
- * Returns: a new #AdwBin
+ * Returns: the new created `AdwBin`
  *
  * Since: 1.0
  */
@@ -158,8 +159,8 @@ adw_bin_new (void)
 }
 
 /**
- * adw_bin_get_child:
- * @self: an #AdwBin
+ * adw_bin_get_child: (attributes org.gtk.Method.get_property=child)
+ * @self: a `AdwBin`
  *
  * Gets the child widget of @self.
  *
@@ -180,8 +181,8 @@ adw_bin_get_child (AdwBin *self)
 }
 
 /**
- * adw_bin_set_child:
- * @self: an #AdwBin
+ * adw_bin_set_child: (attributes org.gtk.Method.set_property=child)
+ * @self: a `AdwBin`
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
