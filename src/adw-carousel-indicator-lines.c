@@ -21,19 +21,20 @@
 #define LINE_MARGIN 2
 
 /**
- * SECTION:adwcarouselindicatorlines
- * @short_description: A lines indicator for #AdwCarousel
- * @title: AdwCarouselIndicatorLines
- * @See_also: #AdwCarousel, #AdwCarouselIndicatorDots
+ * AdwCarouselIndicatorLines:
  *
- * The #AdwCarouselIndicatorLines widget can be used to show a set of thin and long
- * rectangles for each page of a given #AdwCarousel. The carousel's active page
- * is shown with another rectangle that moves between them to match the
- * carousel's position.
+ * A lines indicator for [class@Adw.Carousel].
  *
- * # CSS nodes
+ * The `AdwCarouselIndicatorLines` widget shows a set of lines for each page of
+ * a given [class@Adw.Carousel]. The carousel's active page is shown as another
+ * line that moves between them to match the carousel's position.
  *
- * #AdwCarouselIndicatorLines has a single CSS node with name carouselindicatorlines.
+ * See also [class@Adw.CarouselIndicatorDots].
+ *
+ * ## CSS nodes
+ *
+ * `AdwCarouselIndicatorLines` has a single CSS node with name
+ * `carouselindicatorlines`.
  *
  * Since: 1.0
  */
@@ -327,16 +328,16 @@ adw_carousel_indicator_lines_class_init (AdwCarouselIndicatorLinesClass *klass)
   widget_class->snapshot = adw_carousel_indicator_lines_snapshot;
 
   /**
-   * AdwCarouselIndicatorLines:carousel:
+   * AdwCarouselIndicatorLines:carousel: (attributes org.gtk.Property.get=adw_carousel_indicator_lines_get_carousel org.gtk.Property.set=adw_carousel_indicator_lines_set_carousel)
    *
-   * The #AdwCarousel the indicator uses.
+   * The displayed carousel.
    *
    * Since: 1.0
    */
   props[PROP_CAROUSEL] =
     g_param_spec_object ("carousel",
                          "Carousel",
-                         "Carousel",
+                         "The displayed carousel",
                          ADW_TYPE_CAROUSEL,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -357,9 +358,9 @@ adw_carousel_indicator_lines_init (AdwCarouselIndicatorLines *self)
 /**
  * adw_carousel_indicator_lines_new:
  *
- * Create a new #AdwCarouselIndicatorLines widget.
+ * Creates a new `AdwCarouselIndicatorLines`.
  *
- * Returns: (transfer full): The newly created #AdwCarouselIndicatorLines widget
+ * Returns: the newly created `AdwCarouselIndicatorLines`
  *
  * Since: 1.0
  */
@@ -370,14 +371,12 @@ adw_carousel_indicator_lines_new (void)
 }
 
 /**
- * adw_carousel_indicator_lines_get_carousel:
- * @self: a #AdwCarouselIndicatorLines
+ * adw_carousel_indicator_lines_get_carousel: (attributes org.gtk.Method.get_property=carousel)
+ * @self: a `AdwCarouselIndicatorLines`
  *
- * Get the #AdwCarousel the indicator uses.
+ * Gets the displayed carousel.
  *
- * See: adw_carousel_indicator_lines_set_carousel()
- *
- * Returns: (nullable) (transfer none): the #AdwCarousel, or %NULL if none has been set
+ * Returns: (nullable) (transfer none): the displayed carousel
  *
  * Since: 1.0
  */
@@ -390,11 +389,11 @@ adw_carousel_indicator_lines_get_carousel (AdwCarouselIndicatorLines *self)
 }
 
 /**
- * adw_carousel_indicator_lines_set_carousel:
- * @self: a #AdwCarouselIndicatorLines
- * @carousel: (nullable): a #AdwCarousel
+ * adw_carousel_indicator_lines_set_carousel: (attributes org.gtk.Method.set_property=carousel)
+ * @self: a `AdwCarouselIndicatorLines`
+ * @carousel: (nullable): a carousel
  *
- * Sets the #AdwCarousel to use.
+ * Sets the displayed carousel.
  *
  * Since: 1.0
  */
