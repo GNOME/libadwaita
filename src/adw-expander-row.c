@@ -10,29 +10,34 @@
 #include "adw-action-row.h"
 
 /**
- * SECTION:adwexpanderrow
- * @short_description: A #GtkListBox row used to reveal widgets.
- * @Title: AdwExpanderRow
+ * AdwExpanderRow:
  *
- * The #AdwExpanderRow allows the user to reveal or hide widgets below it. It
- * also allows the user to enable the expansion of the row, allowing to disable
- * all that the row contains.
+ * A [class@Gtk.ListBoxRow] used to reveal widgets.
  *
- * It also supports adding a child as an action widget by specifying “action” as
- * the “type” attribute of a &lt;child&gt; element. It also supports setting a
- * child as a prefix widget by specifying “prefix” as the “type” attribute of a
- * &lt;child&gt; element.
+ * The `AdwExpanderRow` widget allows the user to reveal or hide widgets below
+ * it. It also allows the user to enable the expansion of the row, allowing to
+ * disable all that the row contains.
  *
- * # CSS nodes
+ * ## AdwExpanderRow as GtkBuildable
  *
- * #AdwExpanderRow has a main CSS node with name row, and the .expander style
- * class. It has the .empty style class when it contains no children.
+ * The `AdwExpanderRow` implementation of the [iface@Gtk.Buildable] interface
+ * supports adding a child as an action widget by specifying “action” as the
+ * “type” attribute of a <child> element.
  *
- * It contains the subnodes row.header for its main embedded row, list.nested
- * for the list it can expand, and image.expander-row-arrow for its arrow.
+ * It also supports adding it as a prefix widget by specifying “prefix” as the
+ * “type” attribute of a <child> element.
  *
- * When expanded, #AdwExpanderRow will add the
- * .checked-expander-row-previous-sibling style class to its previous sibling,
+ * ## CSS nodes
+ *
+ * `AdwExpanderRow` has a main CSS node with name `row` and the `.expander`
+ * style class. It has the `.empty` style class when it contains no children.
+ *
+ * It contains the subnodes `row.header` for its main embedded row,
+ * `list.nested` for the list it can expand, and `image.expander-row-arrow` for
+ * its arrow.
+ *
+ * When expanded, `AdwExpanderRow` will add the
+ * `.checked-expander-row-previous-sibling` style class to its previous sibling,
  * and remove it when retracted.
  *
  * Since: 1.0
@@ -176,7 +181,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
   object_class->set_property = adw_expander_row_set_property;
 
   /**
-   * AdwExpanderRow:subtitle:
+   * AdwExpanderRow:subtitle: (attributes org.gtk.Property.get=adw_expander_row_get_subtitle org.gtk.Property.set=adw_expander_row_set_subtitle)
    *
    * The subtitle for this row.
    *
@@ -190,22 +195,21 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwExpanderRow:use-underline:
+   * AdwExpanderRow:use-underline: (attributes org.gtk.Property.get=adw_expander_row_get_use_underline org.gtk.Property.set=adw_expander_row_set_use_underline)
    *
-   * Whether an embedded underline in the text of the title and subtitle labels
-   * indicates a mnemonic.
+   * Whether underlines in title or subtitle are interpreted as mnemonics.
    *
    * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline",
                           "Use underline",
-                          "If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key",
+                          "Whether underlines in title or subtitle are interpreted as mnemonics",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwExpanderRow:icon-name:
+   * AdwExpanderRow:icon-name: (attributes org.gtk.Property.get=adw_expander_row_get_icon_name org.gtk.Property.set=adw_expander_row_set_icon_name)
    *
    * The icon name for this row.
    *
@@ -214,14 +218,14 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
                          "Icon name",
-                         "Icon name",
+                         "The icon name for this row",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwExpanderRow:expanded:
+   * AdwExpanderRow:expanded: (attributes org.gtk.Property.get=adw_expander_row_get_expanded org.gtk.Property.set=adw_expander_row_set_expanded)
    *
-   * %TRUE if the row is expanded.
+   * Whether the row is expanded.
    *
    * Since: 1.0
    */
@@ -233,23 +237,23 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwExpanderRow:enable-expansion:
+   * AdwExpanderRow:enable-expansion: (attributes org.gtk.Property.get=adw_expander_row_get_enable_expansion org.gtk.Property.set=adw_expander_row_set_enable_expansion)
    *
-   * %TRUE if the expansion is enabled.
+   * Whether expansion is enabled.
    *
    * Since: 1.0
    */
   props[PROP_ENABLE_EXPANSION] =
     g_param_spec_boolean ("enable-expansion",
                           "Enable expansion",
-                          "Whether the expansion is enabled",
+                          "Whether expansion is enabled",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwExpanderRow:show-enable-switch:
+   * AdwExpanderRow:show-enable-switch: (attributes org.gtk.Property.get=adw_expander_row_get_show_enable_switch org.gtk.Property.set=adw_expander_row_set_show_enable_switch)
    *
-   * %TRUE if the switch enabling the expansion is visible.
+   * Whether the switch enabling the expansion is visible.
    *
    * Since: 1.0
    */
@@ -332,9 +336,9 @@ adw_expander_row_buildable_init (GtkBuildableIface *iface)
 /**
  * adw_expander_row_new:
  *
- * Creates a new #AdwExpanderRow.
+ * Creates a new `AdwExpanderRow`.
  *
- * Returns: a new #AdwExpanderRow
+ * Returns: the newly created `AdwExpanderRow`
  *
  * Since: 1.0
  */
@@ -345,12 +349,12 @@ adw_expander_row_new (void)
 }
 
 /**
- * adw_expander_row_get_subtitle:
- * @self: a #AdwExpanderRow
+ * adw_expander_row_get_subtitle: (attributes org.gtk.Method.get_property=subtitle)
+ * @self: a `AdwExpanderRow`
  *
  * Gets the subtitle for @self.
  *
- * Returns: (transfer none) (nullable): the subtitle for @self, or %NULL.
+ * Returns: (nullable): the subtitle for @self
  *
  * Since: 1.0
  */
@@ -367,8 +371,8 @@ adw_expander_row_get_subtitle (AdwExpanderRow *self)
 }
 
 /**
- * adw_expander_row_set_subtitle:
- * @self: a #AdwExpanderRow
+ * adw_expander_row_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
+ * @self: a `AdwExpanderRow`
  * @subtitle: (nullable): the subtitle
  *
  * Sets the subtitle for @self.
@@ -389,14 +393,12 @@ adw_expander_row_set_subtitle (AdwExpanderRow *self,
 }
 
 /**
- * adw_expander_row_get_use_underline:
- * @self: a #AdwExpanderRow
+ * adw_expander_row_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
+ * @self: a `AdwExpanderRow`
  *
- * Gets whether an embedded underline in the text of the title and subtitle
- * labels indicates a mnemonic. See adw_expander_row_set_use_underline().
+ * Gets whether underlines in title or subtitle are interpreted as mnemonics.
  *
- * Returns: %TRUE if an embedded underline in the title and subtitle labels
- *          indicates the mnemonic accelerator keys.
+ * Returns: `TRUE` if underlines are interpreted as mnemonics
  *
  * Since: 1.0
  */
@@ -413,12 +415,11 @@ adw_expander_row_get_use_underline (AdwExpanderRow *self)
 }
 
 /**
- * adw_expander_row_set_use_underline:
- * @self: a #AdwExpanderRow
- * @use_underline: %TRUE if underlines in the text indicate mnemonics
+ * adw_expander_row_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
+ * @self: a `AdwExpanderRow`
+ * @use_underline: whether underlines are interpreted as mnemonics
  *
- * If true, an underline in the text of the title and subtitle labels indicates
- * the next character should be used for the mnemonic accelerator key.
+ * Sets whether underlines in title or subtitle are interpreted as mnemonics.
  *
  * Since: 1.0
  */
@@ -436,12 +437,12 @@ adw_expander_row_set_use_underline (AdwExpanderRow *self,
 }
 
 /**
- * adw_expander_row_get_icon_name:
- * @self: a #AdwExpanderRow
+ * adw_expander_row_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
+ * @self: a `AdwExpanderRow`
  *
  * Gets the icon name for @self.
  *
- * Returns: the icon name for @self.
+ * Returns: the icon name for @self
  *
  * Since: 1.0
  */
@@ -458,8 +459,8 @@ adw_expander_row_get_icon_name (AdwExpanderRow *self)
 }
 
 /**
- * adw_expander_row_set_icon_name:
- * @self: a #AdwExpanderRow
+ * adw_expander_row_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
+ * @self: a `AdwExpanderRow`
  * @icon_name: the icon name
  *
  * Sets the icon name for @self.
@@ -479,6 +480,16 @@ adw_expander_row_set_icon_name (AdwExpanderRow *self,
   adw_action_row_set_icon_name (priv->action_row, icon_name);
 }
 
+/**
+ * adw_expander_row_get_expanded: (attributes org.gtk.Method.get_property=expanded)
+ * @self: a `AdwExpanderRow`
+ *
+ * Gets whether @self is expanded.
+ *
+ * Returns: whether @self is expanded
+ *
+ * Since: 1.0
+ */
 gboolean
 adw_expander_row_get_expanded (AdwExpanderRow *self)
 {
@@ -491,6 +502,15 @@ adw_expander_row_get_expanded (AdwExpanderRow *self)
   return priv->expanded;
 }
 
+/**
+ * adw_expander_row_set_expanded: (attributes org.gtk.Method.set_property=expanded)
+ * @self: a `AdwExpanderRow`
+ * @expanded: whether to expand the row
+ *
+ * Sets whether @self is expanded.
+ *
+ * Since: 1.0
+ */
 void
 adw_expander_row_set_expanded (AdwExpanderRow *self,
                                gboolean        expanded)
@@ -514,8 +534,8 @@ adw_expander_row_set_expanded (AdwExpanderRow *self,
 }
 
 /**
- * adw_expander_row_get_enable_expansion:
- * @self: a #AdwExpanderRow
+ * adw_expander_row_get_enable_expansion: (attributes org.gtk.Method.get_property=enable-expansion)
+ * @self: a `AdwExpanderRow`
  *
  * Gets whether the expansion of @self is enabled.
  *
@@ -536,9 +556,9 @@ adw_expander_row_get_enable_expansion (AdwExpanderRow *self)
 }
 
 /**
- * adw_expander_row_set_enable_expansion:
- * @self: a #AdwExpanderRow
- * @enable_expansion: %TRUE to enable the expansion
+ * adw_expander_row_set_enable_expansion: (attributes org.gtk.Method.set_property=enable-expansion)
+ * @self: a `AdwExpanderRow`
+ * @enable_expansion: whether to enable the expansion
  *
  * Sets whether the expansion of @self is enabled.
  *
@@ -567,12 +587,12 @@ adw_expander_row_set_enable_expansion (AdwExpanderRow *self,
 }
 
 /**
- * adw_expander_row_get_show_enable_switch:
- * @self: a #AdwExpanderRow
+ * adw_expander_row_get_show_enable_switch: (attributes org.gtk.Method.get_property=show-enable-switch)
+ * @self: a `AdwExpanderRow`
  *
  * Gets whether the switch enabling the expansion of @self is visible.
  *
- * Returns: whether the switch enabling the expansion of @self is visible.
+ * Returns: whether the switch enabling the expansion is visible
  *
  * Since: 1.0
  */
@@ -589,9 +609,9 @@ adw_expander_row_get_show_enable_switch (AdwExpanderRow *self)
 }
 
 /**
- * adw_expander_row_set_show_enable_switch:
- * @self: a #AdwExpanderRow
- * @show_enable_switch: %TRUE to show the switch enabling the expansion
+ * adw_expander_row_set_show_enable_switch: (attributes org.gtk.Method.set_property=show-enable-switch)
+ * @self: a `AdwExpanderRow`
+ * @show_enable_switch: whether to show the switch enabling the expansion
  *
  * Sets whether the switch enabling the expansion of @self is visible.
  *
@@ -619,8 +639,8 @@ adw_expander_row_set_show_enable_switch (AdwExpanderRow *self,
 
 /**
  * adw_expander_row_add_action:
- * @self: a #AdwExpanderRow
- * @widget: the action widget
+ * @self: a `AdwExpanderRow`
+ * @widget: a widget
  *
  * Adds an action widget to @self.
  *
@@ -643,8 +663,8 @@ adw_expander_row_add_action (AdwExpanderRow *self,
 
 /**
  * adw_expander_row_add_prefix:
- * @self: a #AdwExpanderRow
- * @widget: the prefix widget
+ * @self: a `AdwExpanderRow`
+ * @widget: a widget
  *
  * Adds a prefix widget to @self.
  *
@@ -668,6 +688,17 @@ adw_expander_row_add_prefix (AdwExpanderRow *self,
   gtk_box_append (priv->prefixes, widget);
 }
 
+/**
+ * adw_expander_row_add:
+ * @self: a `AdwExpanderRow`
+ * @child: a widget
+ *
+ * Adds a widget to @self.
+ *
+ * The widget will appear in the expanding list below @self.
+ *
+ * Since: 1.0
+ */
 void
 adw_expander_row_add (AdwExpanderRow *self,
                       GtkWidget      *child)
@@ -687,6 +718,15 @@ adw_expander_row_add (AdwExpanderRow *self,
   gtk_widget_remove_css_class (GTK_WIDGET (self), "empty");
 }
 
+/**
+ * adw_action_row_expander:
+ * @self: a `AdwExpanderRow`
+ * @widget: the child to be removed
+ *
+ * Removes a child from @self.
+ *
+ * Since: 1.0
+ */
 void
 adw_expander_row_remove (AdwExpanderRow *self,
                          GtkWidget      *child)
