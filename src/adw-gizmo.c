@@ -11,15 +11,6 @@
 
 #include "adw-gizmo-private.h"
 
-/**
- * PRIVATE:adwgizmo
- * @short_description: A helper widget
- * @title: AdwGizmo
- * @stability: Private
- *
- * Since: 1.0
- */
-
 struct _AdwGizmo
 {
   GtkWidget parent_instance;
