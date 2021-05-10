@@ -16,20 +16,17 @@
  * @short_description: A layout manager constraining its children to a given size.
  * @Title: AdwClampLayout
  *
- * The #AdwClamp widget constraints the size of the widget it contains to a
+ * #AdwClampLayout constraints the size of the widgets it contains to a
  * given maximum size. It will constrain the width if it is horizontal, or the
- * height if it is vertical. The expansion of the child from its minimum to its
- * maximum size is eased out for a smooth transition.
+ * height if it is vertical. The expansion of the children from their minimum to
+ * their maximum size is eased out for a smooth transition.
  *
- * If the child requires more than the requested maximum size, it will be
+ * If a child requires more than the requested maximum size, it will be
  * allocated the minimum size it can fit in instead.
  *
- * # CSS nodes
- *
- * #AdwClamp has a single CSS node with name clamp. The node will get the style
- * classes .large when its child reached its maximum size, .small when the clamp
- * allocates its full size to its child, .medium in-between, or none if it
- * didn't compute its size yet.
+ * Each child will get the style  classes .large when it reached its maximum
+ * size, .small when it's allocated the full size, .medium in-between, or none
+ * if it hasn't been allocated yet.
  *
  * Since: 1.0
  */
@@ -122,22 +119,6 @@ adw_clamp_layout_set_property (GObject      *object,
   }
 }
 
-/**
- * get_child_size:
- * @self: a #AdwClampLayout
- * @child: a #GtkWidget
- * @for_size: the size of the clamp
- * @child_minimum: the minimum size reachable by the child, and hence by @self
- * @child_maximum: the maximum size @self will ever allocate its child
- * @lower_threshold: the threshold below which @self will allocate its full size to its child
- * @upper_threshold: the threshold up from which @self will allocate its maximum size to its child
- *
- * Measures @child's extremes, the clamp's thresholds, and returns size to
- * allocate to the child.
- *
- * If the clamp is horizontal, all values are widths, otherwise they are
- * heights.
- */
 static int
 get_child_size (AdwClampLayout *self,
                 GtkWidget      *child,
@@ -324,8 +305,8 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
   /**
    * AdwClampLayout:maximum-size:
    *
-   * The maximum size to allocate to the child. It is the width if the clamp is
-   * horizontal, or the height if it is vertical.
+   * The maximum size to allocate to the children. It is the width if the
+   * layout is horizontal, or the height if it is vertical.
    *
    * Since: 1.0
    */
@@ -339,17 +320,19 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
   /**
    * AdwClampLayout:tightening-threshold:
    *
-   * The size starting from which the clamp will tighten its grip on the child,
+   * The size above which the child is clamped.
+   *
+   * Starting from this size, the layout will tighten its grip on the children,
    * slowly allocating less and less of the available size up to the maximum
-   * allocated size. Below that threshold and below the maximum width, the child
-   * will be allocated all the available size.
+   * allocated size. Below that threshold and below the maximum width, the
+   * children will be allocated all the available size.
    *
-   * If the threshold is greater than the maximum size to allocate to the child,
-   * the child will be allocated all the width up to the maximum.
-   * If the threshold is lower than the minimum size to allocate to the child,
-   * that size will be used as the tightening threshold.
+   * If the threshold is greater than the maximum size to allocate to the
+   * children, they will be allocated the whole size up to the maximum. If the
+   * threshold is lower than the minimum size to allocate to the children, that
+   * size will be used as the tightening threshold.
    *
-   * Effectively, tightening the grip on the child before it reaches its maximum
+   * Effectively, tightening the grip on a child before it reaches its maximum
    * size makes transitions to and from the maximum size smoother when resizing.
    *
    * Since: 1.0
@@ -357,7 +340,7 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
   props[PROP_TIGHTENING_THRESHOLD] =
       g_param_spec_int ("tightening-threshold",
                         "Tightening threshold",
-                        "The size from which the clamp will tighten its grip on the child",
+                        "The size above which the children are clamped",
                         0, G_MAXINT, 400,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -376,7 +359,7 @@ adw_clamp_layout_init (AdwClampLayout *self)
  *
  * Creates a new #AdwClampLayout.
  *
- * Returns: a new #AdwClampLayout
+ * Returns: the newly created #AdwClampLayout
  *
  * Since: 1.0
  */
@@ -390,10 +373,9 @@ adw_clamp_layout_new (void)
  * adw_clamp_layout_get_maximum_size:
  * @self: a #AdwClampLayout
  *
- * Gets the maximum size to allocate to the contained child. It is the width if
- * @self is horizontal, or the height if it is vertical.
+ * Gets the maximum size allocated to the children.
  *
- * Returns: the maximum width to allocate to the contained child.
+ * Returns: the maximum size to allocate to the children
  *
  * Since: 1.0
  */
@@ -410,8 +392,7 @@ adw_clamp_layout_get_maximum_size (AdwClampLayout *self)
  * @self: a #AdwClampLayout
  * @maximum_size: the maximum size
  *
- * Sets the maximum size to allocate to the contained child. It is the width if
- * @self is horizontal, or the height if it is vertical.
+ * Sets the maximum size allocated to the children.
  *
  * Since: 1.0
  */
@@ -435,11 +416,9 @@ adw_clamp_layout_set_maximum_size (AdwClampLayout *self,
  * adw_clamp_layout_get_tightening_threshold:
  * @self: a #AdwClampLayout
  *
- * Gets the size starting from which the clamp will tighten its grip on the
- * child.
+ * Gets the size above which the children are clamped.
  *
- * Returns: the size starting from which the clamp will tighten its grip on the
- * child.
+ * Returns: the size above which the children are clamped
  *
  * Since: 1.0
  */
@@ -456,8 +435,7 @@ adw_clamp_layout_get_tightening_threshold (AdwClampLayout *self)
  * @self: a #AdwClampLayout
  * @tightening_threshold: the tightening threshold
  *
- * Sets the size starting from which the clamp will tighten its grip on the
- * child.
+ * Sets the size above which the children are clamped.
  *
  * Since: 1.0
  */
