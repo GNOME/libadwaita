@@ -11,20 +11,20 @@
 #include "adw-preferences-row.h"
 
 /**
- * SECTION:adwpreferencesgroup
- * @short_description: A group gathering preferences rows.
- * @Title: AdwPreferencesGroup
+ * AdwPreferencesGroup:
  *
- * A #AdwPreferencesGroup represents a group or tightly related preferences,
- * which in turn are represented by AdwPreferencesRow.
+ * A group of preference rows.
+ *
+ * An `AdwPreferencesGroup` represents a group or tightly related preferences,
+ * which in turn are represented by [class@Adw.PreferencesRow].
  *
  * To summarize the role of the preferences it gathers, a group can have both a
- * title and a description. The title will be used by #AdwPreferencesWindow to
- * let the user look for a preference.
+ * title and a description. The title will be used by
+ * [class@Adw.PreferencesWindow] to let the user look for a preference.
  *
- * # CSS nodes
+ * ## CSS nodes
  *
- * #AdwPreferencesGroup has a single CSS node with name preferencesgroup.
+ * `AdwPreferencesGroup` has a single CSS node with name `preferencesgroup`.
  *
  * Since: 1.0
  */
@@ -171,7 +171,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
   object_class->dispose = adw_preferences_group_dispose;
 
   /**
-   * AdwPreferencesGroup:description:
+   * AdwPreferencesGroup:description: (attributes org.gtk.Property.get=adw_preferences_group_get_description org.gtk.Property.set=adw_preferences_group_set_description)
    *
    * The description for this group of preferences.
    *
@@ -180,12 +180,12 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
   props[PROP_DESCRIPTION] =
     g_param_spec_string ("description",
                          "Description",
-                         "Description",
+                         "The description for this group of preferences",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwPreferencesGroup:title:
+   * AdwPreferencesGroup:title: (attributes org.gtk.Property.get=adw_preferences_group_get_title org.gtk.Property.set=adw_preferences_group_set_title)
    *
    * The title for this group of preferences.
    *
@@ -194,7 +194,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
   props[PROP_TITLE] =
     g_param_spec_string ("title",
                          "Title",
-                         "Title",
+                         "The title for this group of preferences",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
@@ -255,9 +255,9 @@ adw_preferences_group_buildable_init (GtkBuildableIface *iface)
 /**
  * adw_preferences_group_new:
  *
- * Creates a new #AdwPreferencesGroup.
+ * Creates a new `AdwPreferencesGroup`.
  *
- * Returns: a new #AdwPreferencesGroup
+ * Returns: the newly created `AdwPreferencesGroup`
  *
  * Since: 1.0
  */
@@ -268,12 +268,12 @@ adw_preferences_group_new (void)
 }
 
 /**
- * adw_preferences_group_get_title:
- * @self: a #AdwPreferencesGroup
+ * adw_preferences_group_get_title: (attributes org.gtk.Method.get_property=title)
+ * @self: a `AdwPreferencesGroup`
  *
  * Gets the title of @self.
  *
- * Returns: the title of @self.
+ * Returns: the title of @self
  *
  * Since: 1.0
  */
@@ -290,8 +290,8 @@ adw_preferences_group_get_title (AdwPreferencesGroup *self)
 }
 
 /**
- * adw_preferences_group_set_title:
- * @self: a #AdwPreferencesGroup
+ * adw_preferences_group_set_title: (attributes org.gtk.Method.set_property=title)
+ * @self: a `AdwPreferencesGroup`
  * @title: the title
  *
  * Sets the title for @self.
@@ -318,10 +318,12 @@ adw_preferences_group_set_title (AdwPreferencesGroup *self,
 }
 
 /**
- * adw_preferences_group_get_description:
- * @self: a #AdwPreferencesGroup
+ * adw_preferences_group_get_description: (attributes org.gtk.Method.get_property=description)
+ * @self: a `AdwPreferencesGroup`
  *
- * Returns: the description of @self.
+ * Gets the description of @self.
+ *
+ * Returns: the description of @self
  *
  * Since: 1.0
  */
@@ -338,8 +340,8 @@ adw_preferences_group_get_description (AdwPreferencesGroup *self)
 }
 
 /**
- * adw_preferences_group_set_description:
- * @self: a #AdwPreferencesGroup
+ * adw_preferences_group_set_description: (attributes org.gtk.Method.set_property=description)
+ * @self: a `AdwPreferencesGroup`
  * @description: the description
  *
  * Sets the description for @self.
@@ -383,12 +385,13 @@ row_has_title (AdwPreferencesRow *row,
 
 /**
  * adw_preferences_group_get_rows:
- * @self: a #AdwPreferencesGroup
+ * @self: a `AdwPreferencesGroup`
  *
- * Returns a #GListModel that contains the rows of the group, and can be used to
- * keep an up-to-date view.
+ * Gets a `GListModel` that contains the rows of the group.
  *
- * Returns: (transfer full): a #GListModel for the page's rows
+ * This can be used to keep an up-to-date view.
+ *
+ * Returns: (transfer full): a `GListModel` for the group's rows
  *
  * Since: 1.0
  */
@@ -410,6 +413,15 @@ adw_preferences_group_get_rows (AdwPreferencesGroup *self)
   return model;
 }
 
+/**
+ * adw_preferences_group_add:
+ * @self: a `AdwPreferencesGroup`
+ * @child: the widget to add
+ *
+ * Adds a child to @self.
+ *
+ * Since: 1.0
+ */
 void
 adw_preferences_group_add (AdwPreferencesGroup *self,
                            GtkWidget           *child)
@@ -427,6 +439,15 @@ adw_preferences_group_add (AdwPreferencesGroup *self,
     gtk_box_append (priv->listbox_box, child);
 }
 
+/**
+ * adw_preferences_group_remove:
+ * @self: a `AdwPreferencesGroup`
+ * @child: the child to remove
+ *
+ * Removes a child from @self.
+ *
+ * Since: 1.0
+ */
 void
 adw_preferences_group_remove (AdwPreferencesGroup *self,
                               GtkWidget           *child)
