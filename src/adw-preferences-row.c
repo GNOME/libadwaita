@@ -9,17 +9,17 @@
 #include "adw-preferences-row.h"
 
 /**
- * SECTION:adwpreferencesrow
- * @short_description: A #GtkListBox row used to present preferences.
- * @Title: AdwPreferencesRow
+ * AdwPreferencesRow:
  *
- * The #AdwPreferencesRow widget has a title that #AdwPreferencesWindow will use
- * to let the user look for a preference. It doesn't present the title in any
- * way and it lets you present the preference as you please.
+ * A [class@Gtk.ListBoxRow] used to present preferences.
  *
- * #AdwActionRow and its derivatives are convenient to use as preference rows as
- * they take care of presenting the preference's title while letting you compose
- * the inputs of the preference around it.
+ * The `AdwPreferencesRow` widget has a title that [class@Adw.PreferencesWindow]
+ * will use to let the user look for a preference. It doesn't present the title
+ * in any way and lets you present the preference as you please.
+ *
+ * [class@Adw.ActionRow] and its derivatives are convenient to use as preference
+ * rows as they take care of presenting the preference's title while letting you
+ * compose the inputs of the preference around it.
  *
  * Since: 1.0
  */
@@ -103,7 +103,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
   object_class->finalize = adw_preferences_row_finalize;
 
   /**
-   * AdwPreferencesRow:title:
+   * AdwPreferencesRow:title: (attributes org.gtk.Property.get=adw_preferences_row_get_title org.gtk.Property.set=adw_preferences_row_set_title)
    *
    * The title of the preference represented by this row.
    *
@@ -112,22 +112,21 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
   props[PROP_TITLE] =
     g_param_spec_string ("title",
                          "Title",
-                         "The title of the preference",
+                         "The title of the preference represented by this row",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesRow:use-underline:
+   * AdwPreferencesRow:use-underline: (attributes org.gtk.Property.get=adw_preferences_row_get_use_underline org.gtk.Property.set=adw_preferences_row_set_use_underline)
    *
-   * Whether an embedded underline in the text of the title indicates a
-   * mnemonic.
+   * Whether an embedded underline in the title indicates a mnemonic.
    *
    * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline",
                           "Use underline",
-                          "If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key",
+                          "Whether an embedded underline in the title indicates a mnemonic",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -142,9 +141,9 @@ adw_preferences_row_init (AdwPreferencesRow *self)
 /**
  * adw_preferences_row_new:
  *
- * Creates a new #AdwPreferencesRow.
+ * Creates a new `AdwPreferencesRow`.
  *
- * Returns: a new #AdwPreferencesRow
+ * Returns: the newly created `AdwPreferencesRow`
  *
  * Since: 1.0
  */
@@ -155,13 +154,12 @@ adw_preferences_row_new (void)
 }
 
 /**
- * adw_preferences_row_get_title:
- * @self: a #AdwPreferencesRow
+ * adw_preferences_row_get_title: (attributes org.gtk.Method.get_property=title)
+ * @self: a `AdwPreferencesRow`
  *
  * Gets the title of the preference represented by @self.
  *
- * Returns: (transfer none) (nullable): the title of the preference represented
- *          by @self, or %NULL.
+ * Returns:(nullable): the title
  *
  * Since: 1.0
  */
@@ -178,9 +176,9 @@ adw_preferences_row_get_title (AdwPreferencesRow *self)
 }
 
 /**
- * adw_preferences_row_set_title:
- * @self: a #AdwPreferencesRow
- * @title: (nullable): the title, or %NULL.
+ * adw_preferences_row_set_title: (attributes org.gtk.Method.set_property=title)
+ * @self: a `AdwPreferencesRow`
+ * @title: (nullable): the title
  *
  * Sets the title of the preference represented by @self.
  *
@@ -206,14 +204,12 @@ adw_preferences_row_set_title (AdwPreferencesRow *self,
 }
 
 /**
- * adw_preferences_row_get_use_underline:
- * @self: a #AdwPreferencesRow
+ * adw_preferences_row_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
+ * @self: a `AdwPreferencesRow`
  *
- * Gets whether an embedded underline in the text of the title indicates a
- * mnemonic. See adw_preferences_row_set_use_underline().
+ * Gets whether an embedded underline in the title indicates a mnemonic.
  *
- * Returns: %TRUE if an embedded underline in the title indicates the mnemonic
- *          accelerator keys.
+ * Returns: whether an embedded underline in the title indicates a mnemonic
  *
  * Since: 1.0
  */
@@ -230,12 +226,11 @@ adw_preferences_row_get_use_underline (AdwPreferencesRow *self)
 }
 
 /**
- * adw_preferences_row_set_use_underline:
- * @self: a #AdwPreferencesRow
- * @use_underline: %TRUE if underlines in the text indicate mnemonics
+ * adw_preferences_row_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
+ * @self: a `AdwPreferencesRow`
+ * @use_underline: `TRUE` if underlines in the text indicate mnemonics
  *
- * If true, an underline in the text of the title indicates the next character
- * should be used for the mnemonic accelerator key.
+ * Sets whether an embedded underline in the title indicates a mnemonic.
  *
  * Since: 1.0
  */
