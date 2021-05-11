@@ -9,16 +9,16 @@
 #include "adw-status-page.h"
 
 /**
- * SECTION:adwstatuspage
- * @short_description: A page used for empty/error states and similar use-cases.
- * @Title: AdwStatusPage
+ * AdwStatusPage:
  *
- * The #AdwStatusPage widget can have an icon, a title, a description and a
+ * A page used for empty/error states and similar use-cases.
+ *
+ * The `AdwStatusPage` widget can have an icon, a title, a description and a
  * custom widget which is displayed below them.
  *
- * # CSS nodes
+ * ## CSS nodes
  *
- * #AdwStatusPage has a main CSS node with name statuspage.
+ * `AdwStatusPage` has a main CSS node with name `statuspage`.
  *
  * Since: 1.0
  */
@@ -166,7 +166,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
   object_class->finalize = adw_status_page_finalize;
 
   /**
-   * AdwStatusPage:icon-name:
+   * AdwStatusPage:icon-name: (attributes org.gtk.Property.get=adw_status_page_get_icon_name org.gtk.Property.set=adw_status_page_set_icon_name)
    *
    * The name of the icon to be used.
    *
@@ -180,7 +180,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwStatusPage:title:
+   * AdwStatusPage:title: (attributes org.gtk.Property.get=adw_status_page_get_title org.gtk.Property.set=adw_status_page_set_title)
    *
    * The title to be displayed below the icon.
    *
@@ -194,7 +194,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwStatusPage:description:
+   * AdwStatusPage:description: (attributes org.gtk.Property.get=adw_status_page_get_description org.gtk.Property.set=adw_status_page_set_description)
    *
    * The description to be displayed below the title.
    *
@@ -207,6 +207,13 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          "",
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwStatusPage:child: (attributes org.gtk.Property.get=adw_status_page_get_child org.gtk.Property.set=adw_status_page_set_child)
+   *
+   * The child widget.
+   *
+   * Since: 1.0
+   */
   props[PROP_CHILD] =
     g_param_spec_object ("child",
                          "Child",
@@ -265,9 +272,9 @@ adw_status_page_buildable_init (GtkBuildableIface *iface)
 /**
  * adw_status_page_new:
  *
- * Creates a new #AdwStatusPage.
+ * Creates a new `AdwStatusPage`.
  *
- * Returns: a new #AdwStatusPage
+ * Returns: the newly created `AdwStatusPage`
  *
  * Since: 1.0
  */
@@ -278,12 +285,12 @@ adw_status_page_new (void)
 }
 
 /**
- * adw_status_page_get_icon_name:
- * @self: a #AdwStatusPage
+ * adw_status_page_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
+ * @self: a `AdwStatusPage`
  *
  * Gets the icon name for @self.
  *
- * Returns: (transfer none) (nullable): the icon name for @self.
+ * Returns: (nullable): the icon name
  *
  * Since: 1.0
  */
@@ -294,8 +301,8 @@ adw_status_page_get_icon_name (AdwStatusPage *self)
 }
 
 /**
- * adw_status_page_set_icon_name:
- * @self: a #AdwStatusPage
+ * adw_status_page_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
+ * @self: a `AdwStatusPage`
  * @icon_name: (nullable): the icon name
  *
  * Sets the icon name for @self.
@@ -321,12 +328,12 @@ adw_status_page_set_icon_name (AdwStatusPage *self,
 }
 
 /**
- * adw_status_page_get_title:
- * @self: a #AdwStatusPage
+ * adw_status_page_get_title: (attributes org.gtk.Method.get_property=title)
+ * @self: a `AdwStatusPage`
  *
  * Gets the title for @self.
  *
- * Returns: (transfer none) (nullable): the title for @self, or %NULL.
+ * Returns: (nullable): the title
  *
  * Since: 1.0
  */
@@ -339,8 +346,8 @@ adw_status_page_get_title (AdwStatusPage *self)
 }
 
 /**
- * adw_status_page_set_title:
- * @self: a #AdwStatusPage
+ * adw_status_page_set_title: (attributes org.gtk.Method.set_property=title)
+ * @self: a `AdwStatusPage`
  * @title: (nullable): the title
  *
  * Sets the title for @self.
@@ -363,12 +370,12 @@ adw_status_page_set_title (AdwStatusPage *self,
 }
 
 /**
- * adw_status_page_get_description:
- * @self: a #AdwStatusPage
+ * adw_status_page_get_description: (attributes org.gtk.Method.get_property=description)
+ * @self: a `AdwStatusPage`
  *
  * Gets the description for @self.
  *
- * Returns: (transfer none) (nullable): the description for @self, or %NULL.
+ * Returns: (nullable): the description
  *
  * Since: 1.0
  */
@@ -381,8 +388,8 @@ adw_status_page_get_description (AdwStatusPage *self)
 }
 
 /**
- * adw_status_page_set_description:
- * @self: a #AdwStatusPage
+ * adw_status_page_set_description: (attributes org.gtk.Method.set_property=description)
+ * @self: a `AdwStatusPage`
  * @description: (nullable): the description
  *
  * Sets the description for @self.
@@ -405,8 +412,8 @@ adw_status_page_set_description (AdwStatusPage *self,
 }
 
 /**
- * adw_status_page_get_child:
- * @self: a #AdwStatusPage
+ * adw_status_page_get_child: (attributes org.gtk.Method.get_property=child)
+ * @self: a `AdwStatusPage`
  *
  * Gets the child widget of @self.
  *
@@ -423,9 +430,9 @@ adw_status_page_get_child (AdwStatusPage *self)
 }
 
 /**
- * adw_status_page_set_child:
- * @self: a #AdwStatusPage
- * @child: (allow-none): the child widget
+ * adw_status_page_set_child: (attributes org.gtk.Method.set_property=child)
+ * @self: a `AdwStatusPage`
+ * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
  *
