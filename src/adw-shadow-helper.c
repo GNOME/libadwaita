@@ -9,18 +9,6 @@
 #include "adw-gizmo-private.h"
 #include "adw-shadow-helper-private.h"
 
-/**
- * PRIVATE:adwshadowhelper
- * @short_description: Shadow helper used in #AdwLeaflet
- * @title: AdwShadowHelper
- * @See_also: #AdwLeaflet
- * @stability: Private
- *
- * A helper class for drawing #AdwLeaflet transition shadow.
- *
- * Since: 1.0
- */
-
 struct _AdwShadowHelper
 {
   GObject parent_instance;
@@ -134,7 +122,7 @@ adw_shadow_helper_class_init (AdwShadowHelperClass *klass)
   /**
    * AdwShadowHelper:widget:
    *
-   * The widget the shadow will be drawn for. Must not be %NULL
+   * The widget the shadow will be drawn for. Must not be `NULL`
    *
    * Since: 1.0
    */
@@ -156,9 +144,9 @@ adw_shadow_helper_init (AdwShadowHelper *self)
 /**
  * adw_shadow_helper_new:
  *
- * Creates a new #AdwShadowHelper object.
+ * Creates a new `AdwShadowHelper`.
  *
- * Returns: The newly created #AdwShadowHelper object
+ * Returns: the newly created `AdwShadowHelper`
  *
  * Since: 1.0
  */
