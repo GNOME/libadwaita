@@ -11,16 +11,16 @@
 #include "adw-preferences-group-private.h"
 
 /**
- * SECTION:adwpreferencespage
- * @short_description: A page from the preferences window.
- * @Title: AdwPreferencesPage
+ * AdwPreferencesPage:
  *
- * The #AdwPreferencesPage widget gathers preferences groups into a single page
+ * A page from [class@Adw.PreferencesWindow].
+ *
+ * The `AdwPreferencesPage` widget gathers preferences groups into a single page
  * of a preferences window.
  *
- * # CSS nodes
+ * ## CSS nodes
  *
- * #AdwPreferencesPage has a single CSS node with name preferencespage.
+ * `AdwPreferencesPage` has a single CSS node with name `preferencespage`.
  *
  * Since: 1.0
  */
@@ -136,44 +136,44 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
   object_class->finalize = adw_preferences_page_finalize;
 
   /**
-   * AdwPreferencesPage:icon-name:
+   * AdwPreferencesPage:icon-name: (attributes org.gtk.Property.get=adw_preferences_page_get_icon_name org.gtk.Property.set=adw_preferences_page_set_icon_name)
    *
-   * The icon name for this page of preferences.
+   * The icon name for this page.
    *
    * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name",
                          "Icon name",
-                         "Icon name",
+                         "The icon name for this page",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesPage:title:
+   * AdwPreferencesPage:title: (attributes org.gtk.Property.get=adw_preferences_page_get_title org.gtk.Property.set=adw_preferences_page_set_title)
    *
-   * The title for this page of preferences.
+   * The title for this page.
    *
    * Since: 1.0
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title",
                          "Title",
-                         "Title",
+                         "The title for this page",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesPage:use-underline:
+   * AdwPreferencesPage:use-underline: (attributes org.gtk.Property.get=adw_preferences_page_get_use_underline org.gtk.Property.set=adw_preferences_page_set_use_underline)
    *
-   * Whether an embedded underline in the title label indicates a mnemonic.
+   * Whether an embedded underline in the title indicates a mnemonic.
    *
    * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline",
                           "Use underline",
-                          "Whether an embedded underline in the text of the title label indicates a mnemonic",
+                          " Whether an embedded underline in the title label indicates a mnemonic",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -219,9 +219,9 @@ adw_preferences_page_buildable_init (GtkBuildableIface *iface)
 /**
  * adw_preferences_page_new:
  *
- * Creates a new #AdwPreferencesPage.
+ * Creates a new `AdwPreferencesPage`.
  *
- * Returns: a new #AdwPreferencesPage
+ * Returns: the newly created `AdwPreferencesPage`
  *
  * Since: 1.0
  */
@@ -232,12 +232,12 @@ adw_preferences_page_new (void)
 }
 
 /**
- * adw_preferences_page_get_icon_name:
- * @self: a #AdwPreferencesPage
+ * adw_preferences_page_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
+ * @self: a `AdwPreferencesPage`
  *
- * Gets the icon name for @self, or %NULL.
+ * Gets the icon name for @self.
  *
- * Returns: (transfer none) (nullable): the icon name for @self, or %NULL.
+ * Returns: (nullable): the icon name for @self
  *
  * Since: 1.0
  */
@@ -254,9 +254,9 @@ adw_preferences_page_get_icon_name (AdwPreferencesPage *self)
 }
 
 /**
- * adw_preferences_page_set_icon_name:
- * @self: a #AdwPreferencesPage
- * @icon_name: (nullable): the icon name, or %NULL
+ * adw_preferences_page_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
+ * @self: a `AdwPreferencesPage`
+ * @icon_name: (nullable): the icon name
  *
  * Sets the icon name for @self.
  *
@@ -282,12 +282,12 @@ adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
 }
 
 /**
- * adw_preferences_page_get_title:
- * @self: a #AdwPreferencesPage
+ * adw_preferences_page_get_title: (attributes org.gtk.Method.get_property=title)
+ * @self: a `AdwPreferencesPage`
  *
- * Gets the title of @self, or %NULL.
+ * Gets the title of @self.
  *
- * Returns: (transfer none) (nullable): the title of the @self, or %NULL.
+ * Returns: (nullable): the title of @self.
  *
  * Since: 1.0
  */
@@ -304,9 +304,9 @@ adw_preferences_page_get_title (AdwPreferencesPage *self)
 }
 
 /**
- * adw_preferences_page_set_title:
- * @self: a #AdwPreferencesPage
- * @title: (nullable): the title of the page, or %NULL
+ * adw_preferences_page_set_title: (attributes org.gtk.Method.set_property=title)
+ * @self: a `AdwPreferencesPage`
+ * @title: (nullable): the title
  *
  * Sets the title of @self.
  *
@@ -333,12 +333,13 @@ adw_preferences_page_set_title (AdwPreferencesPage *self,
 
 /**
  * adw_preferences_page_get_rows:
- * @self: a #AdwPreferencesPage
+ * @self: a `AdwPreferencesPage`
  *
- * Returns a #GListModel that contains the rows of the page, and can be used to
- * keep an up-to-date view.
+ * Gets a `GListModel` that contains the rows of the page.
  *
- * Returns: (transfer full): a #GListModel for the page's rows
+ * This can be used to keep an up-to-date view.
+ *
+ * Returns: (transfer full): a `GListModel` for the page's rows
  *
  * Since: 1.0
  */
@@ -366,14 +367,12 @@ adw_preferences_page_get_rows (AdwPreferencesPage *self)
 }
 
 /**
- * adw_preferences_page_get_use_underline:
- * @self: a #AdwPreferencesPage
+ * adw_preferences_page_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
+ * @self: a `AdwPreferencesPage`
  *
- * Gets whether an embedded underline in the text of the title label indicates
- * a mnemonic. See adw_preferences_page_set_use_underline().
+ * Gets whether an embedded underline in the title indicates a mnemonic.
  *
- * Returns: %TRUE if an embedded underline in the title label
- *          indicates the mnemonic accelerator keys.
+ * Returns: whether an embedded underline in the title indicates a mnemonic
  *
  * Since: 1.0
  */
@@ -390,12 +389,11 @@ adw_preferences_page_get_use_underline (AdwPreferencesPage *self)
 }
 
 /**
- * adw_preferences_page_set_use_underline:
- * @self: a #AdwPreferencesPage
- * @use_underline: %TRUE if underlines in the text indicate mnemonics
+ * adw_preferences_page_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
+ * @self: a `AdwPreferencesPage`
+ * @use_underline: `TRUE` if underlines in the text indicate mnemonics
  *
- * If true, an underline in the title label indicates the next character
- * should be used for the mnemonic accelerator key.
+ * Sets whether an embedded underline in the title indicates a mnemonic.
  *
  * Since: 1.0
  */
@@ -419,6 +417,15 @@ adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_UNDERLINE]);
 }
 
+/**
+ * adw_preferences_page_add:
+ * @self: a `AdwPreferencesPage`
+ * @group: the group to add
+ *
+ * Adds a preferences group to @self.
+ *
+ * Since: 1.0
+ */
 void
 adw_preferences_page_add (AdwPreferencesPage  *self,
                           AdwPreferencesGroup *group)
@@ -433,6 +440,15 @@ adw_preferences_page_add (AdwPreferencesPage  *self,
   gtk_box_append (priv->box, GTK_WIDGET (group));
 }
 
+/**
+ * adw_preferences_page_remove:
+ * @self: a `AdwPreferencesPage`
+ * @group: the group to remove
+ *
+ * Removes a group from @self.
+ *
+ * Since: 1.0
+ */
 void
 adw_preferences_page_remove (AdwPreferencesPage  *self,
                              AdwPreferencesGroup *group)
