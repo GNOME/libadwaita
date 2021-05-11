@@ -22,23 +22,29 @@
 #include "adw-animation-private.h"
 
 /**
- * SECTION:adwsqueezer
- * @short_description: A best fit container.
- * @Title: AdwSqueezer
+ * AdwSqueezer:
  *
- * The AdwSqueezer widget is a container which only shows the first of its
+ * A best fit container.
+ *
+ * The `AdwSqueezer` widget is a container which only shows the first of its
  * children that fits in the available size. It is convenient to offer different
  * widgets to represent the same data with different levels of detail, making
  * the widget seem to squeeze itself to fit in the available space.
  *
  * Transitions between children can be animated as fades. This can be controlled
- * with adw_squeezer_set_transition_type().
+ * with [property@Adw.Squeezer:transition-type].
  *
- * # CSS nodes
+ * ## CSS nodes
  *
- * #AdwSqueezer has a single CSS node with name squeezer.
+ * `AdwSqueezer` has a single CSS node with name `squeezer`.
  *
  * Since: 1.0
+ */
+
+/**
+ * AdwSqueezerPage:
+ *
+ * An auxiliary class used by [class@Adw.Squeezer].
  */
 
 /**
@@ -46,8 +52,7 @@
  * @ADW_SQUEEZER_TRANSITION_TYPE_NONE: No transition
  * @ADW_SQUEEZER_TRANSITION_TYPE_CROSSFADE: A cross-fade
  *
- * These enumeration values describe the possible transitions between children
- * in a #AdwSqueezer widget.
+ * Describes the possible transitions in a [class@Adw.Squeezer] widget.
  *
  * Since: 1.0
  */
@@ -197,6 +202,13 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
   object_class->set_property = adw_squeezer_page_set_property;
   object_class->finalize = adw_squeezer_page_finalize;
 
+  /**
+   * AdwSqueezerPage:child: (attributes org.gtk.Property.get=adw_squeezer_page_get_child)
+   *
+   * The child of the page.
+   *
+   * Since: 1.0
+   */
   page_props[PAGE_PROP_CHILD] =
     g_param_spec_object ("child",
                          "Child",
@@ -204,10 +216,26 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
+  /**
+   * AdwSqueezerPage:enabled: (attributes org.gtk.Property.get=adw_squeezer_page_get_enabled org.gtk.Property.get=adw_squeezer_page_set_enabled)
+   *
+   * Whether the child is enabled.
+   *
+   * If a child is disabled, it will be ignored when looking for the child
+   * fitting the available size best.
+   *
+   * This allows to programmatically and prematurely hide a child even if it
+   * fits in the available space.
+   *
+   * This can be used e.g. to ensure a certain child is hidden below a certain
+   * window width, or any other constraint you find suitable.
+   *
+   * Since: 1.0
+   */
   page_props[PAGE_PROP_ENABLED] =
     g_param_spec_boolean ("enabled",
                           "Enabled",
-                          "Whether the child can be picked or should be ignored when looking for the child fitting the available size best",
+                          "Whether the child is enabled",
                           TRUE,
                           G_PARAM_READWRITE);
 
@@ -1057,20 +1085,45 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                                     PROP_ORIENTATION,
                                     "orientation");
 
+  /**
+   * AdwSqueezer:homogeneous: (attributes org.gtk.Property.get=adw_squeezer_get_homogeneous org.gtk.Property.set=adw_squeezer_set_homogeneous)
+   *
+   * Whether all children have the same size for the opposite orientation.
+   *
+   * For example, if a squeezer is horizontal and is homogeneous, it will request
+   * the same height for all its children. If it isn't, the squeezer may change
+   * size when a different child becomes visible.
+   *
+   * Since: 1.0
+   */
   props[PROP_HOMOGENEOUS] =
     g_param_spec_boolean ("homogeneous",
                           "Homogeneous",
-                          "Homogeneous sizing",
+                          "Whether all children have the same size for the opposite orientation",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwSqueezer:visible-child: (attributes org.gtk.Property.get=adw_squeezer_get_visible_child)
+   *
+   * The currently visible child.
+   *
+   * Since: 1.0
+   */
   props[PROP_VISIBLE_CHILD] =
     g_param_spec_object ("visible-child",
                          "Visible child",
-                         "The widget currently visible in the squeezer",
+                         "The currently visible child",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwSqueezer:transition-duration: (attributes org.gtk.Property.get=adw_squeezer_get_transition_duration org.gtk.Property.set=adw_squeezer_set_transition_duration)
+   *
+   * The animation duration, in milliseconds.
+   *
+   * Since: 1.0
+   */
   props[PROP_TRANSITION_DURATION] =
     g_param_spec_uint ("transition-duration",
                        "Transition duration",
@@ -1078,39 +1131,64 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                        0, G_MAXUINT, 200,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwSqueezer:transition-type: (attributes org.gtk.Property.get=adw_squeezer_get_transition_type org.gtk.Property.set=adw_squeezer_set_transition_type)
+   *
+   * The type of animation used for transitions between children.
+   *
+   * Since: 1.0
+   */
   props[PROP_TRANSITION_TYPE] =
     g_param_spec_enum ("transition-type",
                        "Transition type",
-                       "The type of animation used to transition",
+                       "The type of animation used for transitions between children",
                        ADW_TYPE_SQUEEZER_TRANSITION_TYPE,
                        ADW_SQUEEZER_TRANSITION_TYPE_NONE,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwSqueezer:transition-running: (attributes org.gtk.Property.get=adw_squeezer_get_transition_running)
+   *
+   * Whether a transition is currently running.
+   *
+   * Since: 1.0
+   */
   props[PROP_TRANSITION_RUNNING] =
     g_param_spec_boolean ("transition-running",
                           "Transition running",
-                          "Whether or not the transition is currently running",
+                          "Whether a transition is currently running",
                           FALSE,
                           G_PARAM_READABLE);
 
+  /**
+   * AdwSqueezer:interpolate-size: (attributes org.gtk.Property.get=adw_squeezer_get_interpolate_size org.gtk.Property.set=adw_squeezer_set_interpolate_size)
+   *
+   * Whether the squeezer interpolates its size when changing the visible child.
+   *
+   * If `TRUE`, the squeezer will interpolate its size between the one of the
+   * previous visible child and the one of the new visible child, according to
+   * the set transition duration and the orientation, e.g. if the squeezer is
+   * horizontal, it will interpolate the its height.
+   *
+   * Since: 1.0
+   */
   props[PROP_INTERPOLATE_SIZE] =
     g_param_spec_boolean ("interpolate-size",
                           "Interpolate size",
-                          "Whether or not the size should smoothly change when changing between differently sized children",
+                          "Whether the squeezer interpolates its size when changing the visible child",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSqueezer:xalign:
+   * AdwSqueezer:xalign: (attributes org.gtk.Property.get=adw_squeezer_get_xalign org.gtk.Property.set=adw_squeezer_set_xalign)
    *
-   * The xalign property determines the horizontal alignment of the children
-   * inside the squeezer's size allocation.
-   * Compare this to #GtkWidget:halign, which determines how the squeezer's size
-   * allocation is positioned in the space available for the squeezer.
-   * The range goes from 0 (start) to 1 (end).
+   * The horizontal alignment, from 0 (start) to 1 (end).
    *
-   * This will affect the position of children too wide to fit in the squeezer
-   * as they are fading out.
+   * This affects the children allocation during transitions, when they exceed
+   * the size of the squeezer.
+   *
+   * For example, 0.5 means the child will be centered, 0 means it will keep the
+   * start side aligned and overflow the end side, and 1 means the opposite.
    *
    * Since: 1.0
    */
@@ -1123,16 +1201,15 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSqueezer:yalign:
+   * AdwSqueezer:yalign: (attributes org.gtk.Property.get=adw_squeezer_get_yalign org.gtk.Property.set=adw_squeezer_set_yalign)
    *
-   * The yalign property determines the vertical alignment of the children inside
-   * the squeezer's size allocation.
-   * Compare this to #GtkWidget:valign, which determines how the squeezer's size
-   * allocation is positioned in the space available for the squeezer.
-   * The range goes from 0 (top) to 1 (bottom).
+   * The vertical alignment, from 0 (top) to 1 (bottom).
    *
-   * This will affect the position of children too tall to fit in the squeezer
-   * as they are fading out.
+   * This affects the children allocation during transitions, when they exceed
+   * the size of the squeezer.
+   *
+   * For example, 0.5 means the child will be centered, 0 means it will keep the
+   * top side aligned and overflow the bottom side, and 1 means the opposite.
    *
    * Since: 1.0
    */
@@ -1144,6 +1221,16 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                         0.5,
                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwSqueezer:pages: (attributes org.gtk.Property.get=adw_squeezer_get_pages)
+   *
+   * A selection model with the squeezer's pages.
+   *
+   * This can be used to keep an up-to-date view. The model also implements
+   * [iface@Gtk.SelectionModel] and can be used to track the visible page.
+   *
+   * Since: 1.0
+   */
   props[PROP_PAGES] =
     g_param_spec_object ("pages",
                          "Pages",
@@ -1189,8 +1276,8 @@ adw_squeezer_buildable_init (GtkBuildableIface *iface)
 }
 
 /**
- * adw_squeezer_page_get_child:
- * @self: a #AdwSqueezerPage
+ * adw_squeezer_page_get_child: (attributes org.gtk.Method.get_property=child)
+ * @self: a `AdwSqueezerPage`
  *
  * Returns the squeezer child to which @self belongs.
  *
@@ -1207,15 +1294,12 @@ adw_squeezer_page_get_child (AdwSqueezerPage *self)
 }
 
 /**
- * adw_squeezer_page_get_enabled:
- * @self: a #AdwSqueezerPage
+ * adw_squeezer_page_get_enabled: (attributes org.gtk.Method.get_property=enabled)
+ * @self: a `AdwSqueezerPage`
  *
- * Returns whether @self is enabled in its #AdwSqueezer. This is independent
- * from the #GtkWidget:visible value of its #GtkWidget.
+ * Gets whether @self is enabled.
  *
- * See adw_squeezer_page_set_enabled().
- *
- * Returns: %TRUE if @self is enabled, %FALSE otherwise
+ * Returns: whether @self is enabled
  *
  * Since: 1.0
  */
@@ -1228,19 +1312,11 @@ adw_squeezer_page_get_enabled (AdwSqueezerPage *self)
 }
 
 /**
- * adw_squeezer_page_set_enabled:
- * @self: a #AdwSqueezerPage
- * @enabled: %TRUE to enable the child, %FALSE to disable it
+ * adw_squeezer_page_set_enabled: (attributes org.gtk.Method.set_property=enabled)
+ * @self: a `AdwSqueezerPage`
+ * @enabled: whether @self is enabled
  *
- * Make the squeezer enable or disable @child. If a child is disabled, it will
- * be ignored when looking for the child fitting the available size best. This
- * allows to programmatically and prematurely hide a child even if it fits in
- * the available space.
- *
- * This can be used e.g. to ensure a certain child is hidden below a certain
- * window width, or any other constraint you find suitable.
- *
- * Sets the new value of the #AdwSqueezerPage:enabled property to @enabled.
+ * Sets whether @self is enabled.
  *
  * Since: 1.0
  */
@@ -1270,9 +1346,9 @@ adw_squeezer_page_set_enabled (AdwSqueezerPage *self,
 /**
  * adw_squeezer_new:
  *
- * Creates a new #AdwSqueezer container.
+ * Creates a new `AdwSqueezer`.
  *
- * Returns: a new #AdwSqueezer
+ * Returns: the newly created `AdwSqueezer`
  *
  * Since: 1.0
  */
@@ -1284,12 +1360,12 @@ adw_squeezer_new (void)
 
 /**
  * adw_squeezer_add:
- * @self: a #AdwSqueezer
+ * @self: a `AdwSqueezer`
  * @child: the widget to add
  *
  * Adds a child to @self.
  *
- * Returns: (transfer none): the #AdwSqueezerPage for @child
+ * Returns: (transfer none): the [class@Adw.SqueezerPage] for @child
  *
  * Since: 1.0
  */
@@ -1314,7 +1390,7 @@ adw_squeezer_add (AdwSqueezer *self,
 
 /**
  * adw_squeezer_remove:
- * @self: a #AdwSqueezer
+ * @self: a `AdwSqueezer`
  * @child: the child to remove
  *
  * Removes a child widget from @self.
@@ -1347,12 +1423,12 @@ adw_squeezer_remove (AdwSqueezer *self,
 
 /**
  * adw_squeezer_get_page:
- * @self: a #AdwSqueezer
+ * @self: a `AdwSqueezer`
  * @child: a child of @self
  *
- * Returns the #AdwSqueezerPage object for @child.
+ * Returns the [class@Adw.SqueezerPage] object for @child.
  *
- * Returns: (transfer none): the #AdwSqueezerPage for @child
+ * Returns: (transfer none): the page object for @child
  *
  * Since: 1.0
  */
@@ -1367,14 +1443,12 @@ adw_squeezer_get_page (AdwSqueezer *self,
 }
 
 /**
- * adw_squeezer_get_homogeneous:
- * @self: a #AdwSqueezer
+ * adw_squeezer_get_homogeneous: (attributes org.gtk.Method.get_property=homogeneous)
+ * @self: a `AdwSqueezer`
  *
- * Gets whether @self is homogeneous.
+ * Gets whether all children have the same size for the opposite orientation.
  *
- * See adw_squeezer_set_homogeneous().
- *
- * Returns: %TRUE if @self is homogeneous, %FALSE is not
+ * Returns: whether @self is homogeneous
  *
  * Since: 1.0
  */
@@ -1387,15 +1461,11 @@ adw_squeezer_get_homogeneous (AdwSqueezer *self)
 }
 
 /**
- * adw_squeezer_set_homogeneous:
- * @self: a #AdwSqueezer
- * @homogeneous: %TRUE to make @self homogeneous
+ * adw_squeezer_set_homogeneous: (attributes org.gtk.Method.set_property=homogeneous)
+ * @self: a `AdwSqueezer`
+ * @homogeneous: whether @self is homogeneous
  *
- * Sets @self to be homogeneous or not. If it is homogeneous, @self will request
- * the same size for all its children for its opposite orientation, e.g. if
- * @self is oriented horizontally and is homogeneous, it will request the same
- * height for all its children. If it isn't, @self may change size when a
- * different child becomes visible.
+ * Sets hether all children have the same size for the opposite orientation.
  *
  * Since: 1.0
  */
@@ -1419,13 +1489,12 @@ adw_squeezer_set_homogeneous (AdwSqueezer *self,
 }
 
 /**
- * adw_squeezer_get_transition_duration:
- * @self: a #AdwSqueezer
+ * adw_squeezer_get_transition_duration: (attributes org.gtk.Method.get_property=transition-duration)
+ * @self: a `AdwSqueezer`
  *
- * Gets the amount of time (in milliseconds) that transitions between children
- * in @self will take.
+ * Gets the transition animation duration for @self.
  *
- * Returns: the transition duration
+ * Returns: the transition duration, in milliseconds
  *
  * Since: 1.0
  */
@@ -1438,11 +1507,11 @@ adw_squeezer_get_transition_duration (AdwSqueezer *self)
 }
 
 /**
- * adw_squeezer_set_transition_duration:
- * @self: a #AdwSqueezer
+ * adw_squeezer_set_transition_duration: (attributes org.gtk.Method.set_property=transition-duration)
+ * @self: a `AdwSqueezer`
  * @duration: the new duration, in milliseconds
  *
- * Sets the duration that transitions between children in @self will take.
+ * Sets the transition animation duration for @self.
  *
  * Since: 1.0
  */
@@ -1460,11 +1529,10 @@ adw_squeezer_set_transition_duration (AdwSqueezer *self,
 }
 
 /**
- * adw_squeezer_get_transition_type:
- * @self: a #AdwSqueezer
+ * adw_squeezer_get_transition_type: (attributes org.gtk.Method.get_property=transition-type)
+ * @self: a `AdwSqueezer`
  *
- * Gets the type of animation that will be used for transitions between children
- * in @self.
+ * Gets the type of animation used for transitions between children in @self.
  *
  * Returns: the current transition type of @self
  *
@@ -1479,16 +1547,11 @@ adw_squeezer_get_transition_type (AdwSqueezer *self)
 }
 
 /**
- * adw_squeezer_set_transition_type:
- * @self: a #AdwSqueezer
+ * adw_squeezer_set_transition_type: (attributes org.gtk.Method.set_property=transition-type)
+ * @self: a `AdwSqueezer`
  * @transition: the new transition type
  *
- * Sets the type of animation that will be used for transitions between children
- * in @self. Available types include various kinds of fades and slides.
- *
- * The transition type can be changed without problems at runtime, so it is
- * possible to change the animation based on the child that is about to become
- * current.
+ * Sets the type of animation used for transitions between children in @self.
  *
  * Since: 1.0
  */
@@ -1506,12 +1569,12 @@ adw_squeezer_set_transition_type (AdwSqueezer               *self,
 }
 
 /**
- * adw_squeezer_get_transition_running:
- * @self: a #AdwSqueezer
+ * adw_squeezer_get_transition_running: (attributes org.gtk.Method.get_property=transition-running)
+ * @self: a `AdwSqueezer`
  *
- * Gets whether @self is currently in a transition from one child to another.
+ * Gets whether a transition is currently running for @self.
  *
- * Returns: %TRUE if the transition is currently running, %FALSE otherwise.
+ * Returns: whether a transition is currently running
  *
  * Since: 1.0
  */
@@ -1524,14 +1587,12 @@ adw_squeezer_get_transition_running (AdwSqueezer *self)
 }
 
 /**
- * adw_squeezer_get_interpolate_size:
- * @self: A #AdwSqueezer
+ * adw_squeezer_get_interpolate_size: (attributes org.gtk.Method.get_property=interpolate-size)
+ * @self: A `AdwSqueezer`
  *
- * Gets whether @self should interpolate its size on visible child change.
+ * Gets whether @self interpolates its size when changing the visible child.
  *
- * See adw_squeezer_set_interpolate_size().
- *
- * Returns: %TRUE if @self interpolates its size on visible child change, %FALSE if not
+ * Returns: whether the size is interpolated
  *
  * Since: 1.0
  */
@@ -1544,15 +1605,11 @@ adw_squeezer_get_interpolate_size (AdwSqueezer *self)
 }
 
 /**
- * adw_squeezer_set_interpolate_size:
- * @self: A #AdwSqueezer
- * @interpolate_size: %TRUE to interpolate the size
+ * adw_squeezer_set_interpolate_size: (attributes org.gtk.Method.set_property=interpolate-size)
+ * @self: A `AdwSqueezer`
+ * @interpolate_size: whether to interpolate the size
  *
- * Sets whether or not @self will interpolate the size of its opposing
- * orientation when changing the visible child. If %TRUE, @self will interpolate
- * its size between the one of the previous visible child and the one of the new
- * visible child, according to the set transition duration and the orientation,
- * e.g. if @self is horizontal, it will interpolate the its height.
+ * Sets whether @self interpolates its size when changing the visible child.
  *
  * Since: 1.0
  */
@@ -1572,13 +1629,12 @@ adw_squeezer_set_interpolate_size (AdwSqueezer *self,
 }
 
 /**
- * adw_squeezer_get_visible_child:
- * @self: a #AdwSqueezer
+ * adw_squeezer_get_visible_child: (attributes org.gtk.Method.get_property=visible-child)
+ * @self: a `AdwSqueezer`
  *
- * Gets the currently visible child of @self, or %NULL if there are no visible
- * children.
+ * Gets the currently visible child of @self.
  *
- * Returns: (transfer none) (nullable): the visible child of the #AdwSqueezer
+ * Returns: (transfer none) (nullable): the visible child
  *
  * Since: 1.0
  */
@@ -1591,12 +1647,12 @@ adw_squeezer_get_visible_child (AdwSqueezer *self)
 }
 
 /**
- * adw_squeezer_get_xalign:
- * @self: a #AdwSqueezer
+ * adw_squeezer_get_xalign: (attributes org.gtk.Method.get_property=xalign)
+ * @self: a `AdwSqueezer`
  *
- * Gets the #AdwSqueezer:xalign property for @self.
+ * Gets the horizontal alignment, from 0 (start) to 1 (end).
  *
- * Returns: the xalign property
+ * Returns: the alignment value
  *
  * Since: 1.0
  */
@@ -1609,11 +1665,11 @@ adw_squeezer_get_xalign (AdwSqueezer *self)
 }
 
 /**
- * adw_squeezer_set_xalign:
- * @self: a #AdwSqueezer
- * @xalign: the new xalign value, between 0 and 1
+ * adw_squeezer_set_xalign: (attributes org.gtk.Method.set_property=xalign)
+ * @self: a `AdwSqueezer`
+ * @xalign: the new alignment value
  *
- * Sets the #AdwSqueezer:xalign property for @self.
+ * Sets the horizontal alignment, from 0 (start) to 1 (end).
  *
  * Since: 1.0
  */
@@ -1634,12 +1690,12 @@ adw_squeezer_set_xalign (AdwSqueezer *self,
 }
 
 /**
- * adw_squeezer_get_yalign:
- * @self: a #AdwSqueezer
+ * adw_squeezer_get_yalign: (attributes org.gtk.Method.get_property=yalign)
+ * @self: a `AdwSqueezer`
  *
- * Gets the #AdwSqueezer:yalign property for @self.
+ * Gets the vertical alignment, from 0 (top) to 1 (bottom).
  *
- * Returns: the yalign property
+ * Returns: the alignment value
  *
  * Since: 1.0
  */
@@ -1652,11 +1708,11 @@ adw_squeezer_get_yalign (AdwSqueezer *self)
 }
 
 /**
- * adw_squeezer_set_yalign:
- * @self: a #AdwSqueezer
- * @yalign: the new yalign value, between 0 and 1
+ * adw_squeezer_set_yalign: (attributes org.gtk.Method.set_property=yalign)
+ * @self: a `AdwSqueezer`
+ * @yalign: the new alignment value
  *
- * Sets the #AdwSqueezer:yalign property for @self.
+ * Sets the vertical alignment, from 0 (top) to 1 (bottom).
  *
  * Since: 1.0
  */
@@ -1677,14 +1733,15 @@ adw_squeezer_set_yalign (AdwSqueezer *self,
 }
 
 /**
- * adw_squeezer_get_pages:
- * @self: a #AdwSqueezer
+ * adw_squeezer_get_pages: (attributes org.gtk.Method.get_property=pages)
+ * @self: a `AdwSqueezer`
  *
- * Returns a #GListModel that contains the pages of the squeezer, and can be
- * used to keep an up-to-date view. The model also implements #GtkSelectionModel
- * and can be used to track the visible page.
+ * Returns a `GListModel` that contains the pages of the squeezer,
  *
- * Returns: (transfer full): a #GtkSelectionModel for the squeezer's children
+ * This can be used to keep an up-to-date view. The model also implements
+ * [iface@Gtk.SelectionModel] and can be used to track the visible page.
+ *
+ * Returns: (transfer full): a `GtkSelectionModel` for the squeezer's children
  *
  * Since: 1.0
  */
