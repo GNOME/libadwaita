@@ -12,12 +12,11 @@
 #include "adw-gizmo-private.h"
 
 /**
- * PRIVATE:adwindicatorbin
- * @short_description: A helper object for #AdwViewSwitcherButton
- * @title: AdwIndicatorBin
- * @stability: Private
+ * AdwIndicatorBin:
  *
- * The AdwIndicatorBin widget shows an unread indicator over the child widget
+ * A helper object for [class@Adw.ViewSwitcherButton]
+ *
+ * The `AdwIndicatorBin` widget shows an unread indicator over the child widget
  * masking it if they overlap.
  *
  * Since: 1.0
@@ -273,7 +272,7 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
   /**
    * AdwIndicatorBin:child:
    *
-   * The child widget of the #AdwIndicatorBin.
+   * The child widget.
    *
    * Since: 1.0
    */
@@ -353,9 +352,9 @@ adw_indicator_bin_buildable_init (GtkBuildableIface *iface)
 /**
  * adw_indicator_bin_new:
  *
- * Creates a new #AdwIndicatorBin.
+ * Creates a new `AdwIndicatorBin`.
  *
- * Returns: a new #AdwIndicatorBin
+ * Returns: the newly created `AdwIndicatorBin`
  *
  * Since: 1.0
  */
@@ -367,7 +366,7 @@ adw_indicator_bin_new (void)
 
 /**
  * adw_indicator_bin_get_child:
- * @self: an #AdwIndicatorBin
+ * @self: an `AdwIndicatorBin`
  *
  * Gets the child widget of @self.
  *
@@ -385,7 +384,7 @@ adw_indicator_bin_get_child (AdwIndicatorBin *self)
 
 /**
  * adw_indicator_bin_set_child:
- * @self: an #AdwIndicatorBin
+ * @self: an `AdwIndicatorBin`
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
