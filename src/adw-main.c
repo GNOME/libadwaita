@@ -11,19 +11,6 @@
 
 static int adw_initialized = FALSE;
 
-/**
- * SECTION:adwmain
- * @short_description: Library initialization.
- * @Title: adw-main
- *
- * Before using the Adwaita library you should initialize it by calling the
- * adw_init() function.
- * This makes sure translations, types, themes, and icons for the Adwaita
- * library are set up properly.
- *
- * Since: 1.0
- */
-
 static gboolean
 is_high_contrast (void)
 {
@@ -106,14 +93,6 @@ adw_style_init (void)
   g_once_init_leave (&guard, 1);
 }
 
-/**
- * adw_icons_init:
- *
- * Initializes the embedded icons. This must be called once GTK has been
- * initialized.
- *
- * Since: 1.0
- */
 static void
 adw_icons_init (void)
 {
@@ -131,10 +110,13 @@ adw_icons_init (void)
 /**
  * adw_init:
  *
+ * Initializes Libadwaita.
+ *
  * Call this function just after initializing GTK, if you are using
- * #GtkApplication it means it must be called when the #GApplication::startup
- * signal is emitted. If libadwaita has already been initialized, the function
- * will simply return.
+ * [class@Gtk.Application] it means it must be called when the
+ * `GApplication::startup` signal is emitted.
+ *
+ * If Libadwaita has already been initialized, the function will simply return.
  *
  * This makes sure translations, types, themes, and icons for the Adwaita
  * library are set up properly.
