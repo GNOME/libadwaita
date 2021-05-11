@@ -8,20 +8,11 @@
 #include "adw-navigation-direction.h"
 
 /**
- * SECTION:adwnavigationdirection
- * @short_description: Swipe navigation directions.
- * @title: AdwNavigationDirection
- * @See_also: #AdwLeaflet
- *
- * Since: 1.0
- */
-
-/**
  * AdwNavigationDirection:
  * @ADW_NAVIGATION_DIRECTION_BACK: Corresponds to start or top, depending on orientation and text direction
  * @ADW_NAVIGATION_DIRECTION_FORWARD: Corresponds to end or bottom, depending on orientation and text direction
  *
- * Represents direction of a swipe navigation gesture in #AdwLeaflet.
+ * Describes the direction of a swipe navigation gesture.
  *
  * Since: 1.0
  */
