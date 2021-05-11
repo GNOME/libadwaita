@@ -19,17 +19,17 @@
 #include "adw-view-switcher-title.h"
 
 /**
- * SECTION:adwpreferenceswindow
- * @short_description: A window to present an application's preferences.
- * @Title: AdwPreferencesWindow
+ * AdwPreferencesWindow:
  *
- * The #AdwPreferencesWindow widget presents an application's preferences
+ * A window to present an application's preferences.
+ *
+ * The `AdwPreferencesWindow` widget presents an application's preferences
  * gathered into pages and groups. The preferences are searchable by the user.
  *
- * # CSS nodes
+ * ## CSS nodes
  *
- * #AdwPreferencesWindow has a main CSS node with the name window and the style
- * class .preferences.
+ * `AdwPreferencesWindow` has a main CSS node with the name `window` and the
+ * style class `.preferences`.
  *
  * Since: 1.0
  */
@@ -477,7 +477,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   object_class->set_property = adw_preferences_window_set_property;
 
   /**
-   * AdwPreferencesWindow:search-enabled:
+   * AdwPreferencesWindow:search-enabled: (attributes org.gtk.Property.get=adw_preferences_window_get_search_enabled org.gtk.Property.set=adw_preferences_window_set_search_enabled)
    *
    * Whether search is enabled.
    *
@@ -491,16 +491,16 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesWindow:can-swipe-back:
+   * AdwPreferencesWindow:can-swipe-back: (attributes org.gtk.Property.get=adw_preferences_window_get_can_swipe_back org.gtk.Property.set=adw_preferences_window_set_can_swipe_back)
    *
-   * Whether or not the window allows closing the subpage via a swipe gesture.
+   * Whether or not the window allows closing subpages via a swipe gesture.
    *
    * Since: 1.0
    */
   props[PROP_CAN_SWIPE_BACK] =
       g_param_spec_boolean ("can-swipe-back",
                             "Can swipe back",
-                            "Whether or not swipe gesture can be used to switch from a subpage to the preferences",
+                            "Whether or not the window allows closing subpages via a swipe gesture",
                             FALSE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -592,9 +592,9 @@ adw_preferences_window_buildable_init (GtkBuildableIface *iface)
 /**
  * adw_preferences_window_new:
  *
- * Creates a new #AdwPreferencesWindow.
+ * Creates a new `AdwPreferencesWindow`.
  *
- * Returns: a new #AdwPreferencesWindow
+ * Returns: the newly created `AdwPreferencesWindow`
  *
  * Since: 1.0
  */
@@ -605,8 +605,8 @@ adw_preferences_window_new (void)
 }
 
 /**
- * adw_preferences_window_get_search_enabled:
- * @self: a #AdwPreferencesWindow
+ * adw_preferences_window_get_search_enabled: (attributes org.gtk.Method.get_property=search-enabled)
+ * @self: a `AdwPreferencesWindow`
  *
  * Gets whether search is enabled for @self.
  *
@@ -627,9 +627,9 @@ adw_preferences_window_get_search_enabled (AdwPreferencesWindow *self)
 }
 
 /**
- * adw_preferences_window_set_search_enabled:
- * @self: a #AdwPreferencesWindow
- * @search_enabled: %TRUE to enable search, %FALSE to disable it
+ * adw_preferences_window_set_search_enabled: (attributes org.gtk.Method.set_property=search-enabled)
+ * @self: a `AdwPreferencesWindow`
+ * @search_enabled: whether search is enabled
  *
  * Sets whether search is enabled for @self.
  *
@@ -663,12 +663,11 @@ adw_preferences_window_set_search_enabled (AdwPreferencesWindow *self,
 }
 
 /**
- * adw_preferences_window_set_can_swipe_back:
- * @self: a #AdwPreferencesWindow
+ * adw_preferences_window_set_can_swipe_back: (attributes org.gtk.Method.set_property=can-swipe-back)
+ * @self: a `AdwPreferencesWindow`
  * @can_swipe_back: the new value
  *
- * Sets whether or not @self allows switching from a subpage to the preferences
- * via a swipe gesture.
+ * Sets whether or not @self allows closing subpages via a swipe gesture.
  *
  * Since: 1.0
  */
@@ -693,13 +692,12 @@ adw_preferences_window_set_can_swipe_back (AdwPreferencesWindow *self,
 }
 
 /**
- * adw_preferences_window_get_can_swipe_back
- * @self: a #AdwPreferencesWindow
+ * adw_preferences_window_get_can_swipe_back: (attributes org.gtk.Method.get_property=can-swipe-back)
+ * @self: a `AdwPreferencesWindow`
  *
- * Returns whether or not @self allows switching from a subpage to the
- * preferences via a swipe gesture.
+ * Gets whether or not @self allows closing subpages via a swipe gesture.
  *
- * Returns: %TRUE if back swipe is enabled.
+ * Returns: whether back swipe is enabled.
  *
  * Since: 1.0
  */
@@ -717,10 +715,11 @@ adw_preferences_window_get_can_swipe_back (AdwPreferencesWindow *self)
 
 /**
  * adw_preferences_window_present_subpage:
- * @self: a #AdwPreferencesWindow
+ * @self: a `AdwPreferencesWindow`
  * @subpage: the subpage
  *
- * Sets @subpage as the window's subpage and present it.
+ * Sets @subpage as the window's subpage and opens it.
+ *
  * The transition can be cancelled by the user, in which case visible child will
  * change back to the previously visible child.
  *
@@ -753,10 +752,13 @@ adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
 
 /**
  * adw_preferences_window_close_subpage:
- * @self: a #AdwPreferencesWindow
+ * @self: a `AdwPreferencesWindow`
  *
- * Closes the current subpage to return back to the preferences, if there is no
- * presented subpage, this does nothing.
+ * Closes the current subpage.
+ *
+ * If there is no presented subpage, this does nothing.
+ *
+ * See [method@Adw.PreferencesWindow.close_subpage].
  *
  * Since: 1.0
  */
@@ -775,6 +777,15 @@ adw_preferences_window_close_subpage (AdwPreferencesWindow *self)
   adw_leaflet_set_visible_child (priv->subpages_leaflet, priv->preferences);
 }
 
+/**
+ * adw_preferences_window_add:
+ * @self: a `AdwPreferencesWindow`
+ * @page: the page to add
+ *
+ * Adds a preferences page to @self.
+ *
+ * Since: 1.0
+ */
 void
 adw_preferences_window_add (AdwPreferencesWindow *self,
                             AdwPreferencesPage   *page)
@@ -794,6 +805,15 @@ adw_preferences_window_add (AdwPreferencesWindow *self,
   g_object_bind_property (page, "use-underline", stack_page, "use-underline", G_BINDING_SYNC_CREATE);
 }
 
+/**
+ * adw_preferences_window_remove:
+ * @self: a `AdwPreferencesWindow`
+ * @page: the page to remove
+ *
+ * Removes a page from @self.
+ *
+ * Since: 1.0
+ */
 void
 adw_preferences_window_remove (AdwPreferencesWindow *self,
                                AdwPreferencesPage   *page)
