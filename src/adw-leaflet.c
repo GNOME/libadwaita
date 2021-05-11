@@ -277,6 +277,13 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
   object_class->set_property = adw_leaflet_page_set_property;
   object_class->finalize = adw_leaflet_page_finalize;
 
+  /**
+   * AdwLeafletPage:child:
+   *
+   * The child of the page.
+   *
+   * Since: 1.0
+   */
   page_props[PAGE_PROP_CHILD] =
     g_param_spec_object ("child",
                          "Child",
@@ -284,6 +291,13 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
+  /**
+   * AdwLeafletPage:name:
+   *
+   * The name of the child page.
+   *
+   * Since: 1.0
+   */
   page_props[PAGE_PROP_NAME] =
     g_param_spec_string ("name",
                          "Name",
@@ -2328,6 +2342,13 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwLeaflet:visible-child:
+   *
+   * The widget currently visible when the leaflet is folded.
+   *
+   * Since: 1.0
+   */
   props[PROP_VISIBLE_CHILD] =
     g_param_spec_object ("visible-child",
                          "Visible child",
@@ -2335,10 +2356,17 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwLeaflet:visible-child-name:
+   *
+   * The name of the widget currently visible when the leaflet is folded.
+   *
+   * Since: 1.0
+   */
   props[PROP_VISIBLE_CHILD_NAME] =
     g_param_spec_string ("visible-child-name",
                          "Name of visible child",
-                         "The name of the widget currently visible when the children are stacked",
+                         "The name of the widget currently visible when the leaflet is folded",
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2361,6 +2389,13 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                        ADW_TYPE_LEAFLET_TRANSITION_TYPE, ADW_LEAFLET_TRANSITION_TYPE_OVER,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwLeaflet:mode-transition-duration:
+   *
+   * The mode transition animation duration, in milliseconds.
+   *
+   * Since: 1.0
+   */
   props[PROP_MODE_TRANSITION_DURATION] =
     g_param_spec_uint ("mode-transition-duration",
                        "Mode transition duration",
@@ -2368,6 +2403,13 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                        0, G_MAXUINT, 250,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwLeaflet:child-transition-duration:
+   *
+   * The child transition animation duration, in milliseconds.
+   *
+   * Since: 1.0
+   */
   props[PROP_CHILD_TRANSITION_DURATION] =
     g_param_spec_uint ("child-transition-duration",
                        "Child transition duration",
@@ -2375,6 +2417,13 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                        0, G_MAXUINT, 200,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwLeaflet:child-transition-running:
+   *
+   * Whether or not the child transition is currently running.
+   *
+   * Since: 1.0
+   */
   props[PROP_CHILD_TRANSITION_RUNNING] =
       g_param_spec_boolean ("child-transition-running",
                             "Child transition running",
@@ -2382,6 +2431,13 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                             FALSE,
                             G_PARAM_READABLE);
 
+  /**
+   * AdwLeaflet:interpolate-size:
+   *
+   * Whether or not the size should smoothly change when changing between differently sized children.
+   *
+   * Since: 1.0
+   */
   props[PROP_INTERPOLATE_SIZE] =
       g_param_spec_boolean ("interpolate-size",
                             "Interpolate size",
@@ -2419,6 +2475,13 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                             FALSE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwLeaflet:can-unfold:
+   *
+   * Whether or not the leaflet can unfold.
+   *
+   * Since: 1.0
+   */
   props[PROP_CAN_UNFOLD] =
       g_param_spec_boolean ("can-unfold",
                             "Can unfold",
@@ -2426,6 +2489,13 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                             TRUE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwLeaflet:pages:
+   *
+   * A selection model with the leaflet's pages.
+   *
+   * Since: 1.0
+   */
  props[PROP_PAGES] =
     g_param_spec_object ("pages",
                          "Pages",
@@ -2802,6 +2872,15 @@ adw_leaflet_page_set_navigatable (AdwLeafletPage *self,
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_NAVIGATABLE]);
 }
 
+/**
+ * adw_leaflet_new:
+ *
+ * Creates a new #AdwLeaflet.
+ *
+ * Returns: the new created #AdwLeaflet
+ *
+ * Since: 1.0
+ */
 GtkWidget *
 adw_leaflet_new (void)
 {
@@ -3589,6 +3668,15 @@ adw_leaflet_get_child_by_name (AdwLeaflet  *self,
   return page ? page->widget : NULL;
 }
 
+/**
+ * adw_leaflet_set_can_unfold:
+ * @self: a #AdwLeaflet
+ * @can_unfold: whether @self can unfold
+ *
+ * Sets whether @self can unfold.
+ *
+ * Since: 1.0
+ */
 void
 adw_leaflet_set_can_unfold (AdwLeaflet *self,
                             gboolean    can_unfold)
@@ -3607,6 +3695,16 @@ adw_leaflet_set_can_unfold (AdwLeaflet *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_UNFOLD]);
 }
 
+/**
+ * adw_leaflet_get_can_unfold:
+ * @self: a #AdwLeaflet
+ *
+ * Gets whether @self can unfold.
+ *
+ * Returns: whether @self can unfold
+ *
+ * Since: 1.0
+ */
 gboolean
 adw_leaflet_get_can_unfold (AdwLeaflet *self)
 {
