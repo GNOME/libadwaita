@@ -273,7 +273,7 @@ adw_preferences_group_new (void)
  *
  * Gets the title of @self.
  *
- * Returns: the title of @self
+ * Returns: (nullable): the title of @self
  *
  * Since: 1.0
  */
@@ -292,7 +292,7 @@ adw_preferences_group_get_title (AdwPreferencesGroup *self)
 /**
  * adw_preferences_group_set_title: (attributes org.gtk.Method.set_property=title)
  * @self: a `AdwPreferencesGroup`
- * @title: the title
+ * @title: (nullable): the title
  *
  * Sets the title for @self.
  *
@@ -323,7 +323,7 @@ adw_preferences_group_set_title (AdwPreferencesGroup *self,
  *
  * Gets the description of @self.
  *
- * Returns: the description of @self
+ * Returns: (nullable): the description of @self
  *
  * Since: 1.0
  */
@@ -342,7 +342,7 @@ adw_preferences_group_get_description (AdwPreferencesGroup *self)
 /**
  * adw_preferences_group_set_description: (attributes org.gtk.Method.set_property=description)
  * @self: a `AdwPreferencesGroup`
- * @description: the description
+ * @description: (nullable): the description
  *
  * Sets the description for @self.
  *
