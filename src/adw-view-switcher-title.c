@@ -12,30 +12,31 @@
 #include "adw-window-title.h"
 
 /**
- * SECTION:adwviewswitchertitle
- * @short_description: A view switcher title.
- * @title: AdwViewSwitcherTitle
- * @See_also: #AdwHeaderBar, #AdwViewSwitcher, #AdwViewSwitcherBar
+ * AdwViewSwitcherTitle:
  *
- * A widget letting you switch between multiple views offered by a #GtkStack,
- * via an #AdwViewSwitcher. It is designed to be used as the title widget of a
- * #AdwHeaderBar, and will display the window's title when the window is too
- * narrow to fit the view switcher e.g. on mobile phones, or if there are less
- * than two views.
+ * A view switcher title.
  *
- * You can conveniently bind the #AdwViewSwitcherBar:reveal property to
- * #AdwViewSwitcherTitle:title-visible to automatically reveal the view switcher
- * bar when the title label is displayed in place of the view switcher.
+ * A widget letting you switch between multiple views contained by a
+ * [class@Gtk.Stack] via an [class@Adw.ViewSwitcher].
+ *
+ * It is designed to be used as the title widget of a [class@Adw.HeaderBar], and
+ * will display the window's title when the window is too narrow to fit the view
+ * switcher e.g. on mobile phones, or if there are less than two views.
+ *
+ * You can conveniently bind the [property@Adw.ViewSwitcherBar:reveal] property
+ * to [property@Adw.ViewSwitcherTitle:title-visible] to automatically reveal the
+ * view switcher bar when the title label is displayed in place of the view
+ * switcher.
  *
  * An example of the UI definition for a common use case:
- * |[
+ *
+ * ```xml
  * <object class="GtkWindow"/>
  *   <child type="titlebar">
  *     <object class="AdwHeaderBar">
  *       <property name="centering-policy">strict</property>
  *       <child type="title">
- *         <object class="AdwViewSwitcherTitle"
- *                 id="view_switcher_title">
+ *         <object class="AdwViewSwitcherTitle" id="title">
  *           <property name="stack">stack</property>
  *         </object>
  *       </child>
@@ -49,20 +50,19 @@
  *       <child>
  *         <object class="AdwViewSwitcherBar">
  *           <property name="stack">stack</property>
- *           <property name="reveal"
- *                     bind-source="view_switcher_title"
- *                     bind-property="title-visible"
- *                     bind-flags="sync-create"/>
+ *           <binding name="reveal">
+ *             <lookup name="title-visible">title</lookup>
+ *           </binding>
  *         </object>
  *       </child>
  *     </object>
  *   </child>
  * </object>
- * ]|
+ * ```
  *
- * # CSS nodes
+ * ## CSS nodes
  *
- * #AdwViewSwitcherTitle has a single CSS node with name viewswitchertitle.
+ * `AdwViewSwitcherTitle` has a single CSS node with name `viewswitchertitle`.
  *
  * Since: 1.0
  */
@@ -212,10 +212,9 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
   object_class->set_property = adw_view_switcher_title_set_property;
 
   /**
-   * AdwViewSwitcherTitle:policy:
+   * AdwViewSwitcherTitle:policy: (attributes org.gtk.Property.get=adw_view_switcher_title_get_policy org.gtk.Property.set=adw_view_switcher_title_set_policy)
    *
-   * The #AdwViewSwitcherPolicy the #AdwViewSwitcher should use to determine
-   * which mode to use.
+   * The policy to determine which mode to use.
    *
    * Since: 1.0
    */
@@ -223,27 +222,31 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
     g_param_spec_enum ("policy",
                        "Policy",
                        "The policy to determine the mode to use",
-                       ADW_TYPE_VIEW_SWITCHER_POLICY, ADW_VIEW_SWITCHER_POLICY_AUTO,
+                       ADW_TYPE_VIEW_SWITCHER_POLICY,
+                       ADW_VIEW_SWITCHER_POLICY_AUTO,
                        G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwViewSwitcherTitle:stack:
+   * AdwViewSwitcherTitle:stack: (attributes org.gtk.Property.get=adw_view_switcher_title_get_stack org.gtk.Property.set=adw_view_switcher_title_set_stack)
    *
-   * The #GtkStack the #AdwViewSwitcher controls.
+   * The stack the view switcher controls.
    *
    * Since: 1.0
    */
   props[PROP_STACK] =
     g_param_spec_object ("stack",
                          "Stack",
-                         "Stack",
+                         "The stack the view switcher controls",
                          GTK_TYPE_STACK,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwViewSwitcherTitle:title:
+   * AdwViewSwitcherTitle:title: (attributes org.gtk.Property.get=adw_view_switcher_title_get_title org.gtk.Property.set=adw_view_switcher_title_set_title)
    *
-   * The title of the #AdwViewSwitcher.
+   * The title to display.
+   *
+   * The title should give a user additional details. A good title should not
+   * include the application name.
    *
    * Since: 1.0
    */
@@ -255,9 +258,11 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwViewSwitcherTitle:subtitle:
+   * AdwViewSwitcherTitle:subtitle: (attributes org.gtk.Property.get=adw_view_switcher_title_get_subtitle org.gtk.Property.set=adw_view_switcher_title_set_subtitle)
    *
-   * The subtitle of the #AdwViewSwitcher.
+   * The subtitle to display.
+   *
+   * The subtitle should give a user additional details.
    *
    * Since: 1.0
    */
@@ -269,9 +274,16 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwViewSwitcherTitle:view-switcher-enabled:
+   * AdwViewSwitcherTitle:view-switcher-enabled: (attributes org.gtk.Property.get=adw_view_switcher_title_get_view_switcher_enabled org.gtk.Property.set=adw_view_switcher_title_set_view_switcher_enabled)
    *
-   * Whether the bar should be revealed or hidden.
+   * Whether the view switcher is enabled.
+   *
+   * If it is disabled, the title will be displayed instead. This allows to
+   * programmatically hide the view switcher even if it fits in the available
+   * space.
+   *
+   * This can be used e.g. to ensure the view switcher is hidden below a certain
+   * window width, or any other constraint you find suitable.
    *
    * Since: 1.0
    */
@@ -283,16 +295,19 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwViewSwitcherTitle:title-visible:
+   * AdwViewSwitcherTitle:title-visible: (attributes org.gtk.Property.get=adw_view_switcher_title_get_title_visible)
    *
-   * Whether the bar should be revealed or hidden.
+   * Whether the title is currently visible.
+   *
+   * If the title is visible, it means the view switcher is hidden an it may be
+   * wanted to show an alternative switcher, e.g. a [class@Adw.ViewSwitcherBar].
    *
    * Since: 1.0
    */
   props[PROP_TITLE_VISIBLE] =
     g_param_spec_boolean ("title-visible",
                          "Title visible",
-                         "Whether the title label is visible",
+                         "Whether the title is currently visible",
                          TRUE,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -325,9 +340,9 @@ adw_view_switcher_title_init (AdwViewSwitcherTitle *self)
 /**
  * adw_view_switcher_title_new:
  *
- * Creates a new #AdwViewSwitcherTitle widget.
+ * Creates a new `AdwViewSwitcherTitle`.
  *
- * Returns: a new #AdwViewSwitcherTitle
+ * Returns: the newly created `AdwViewSwitcherTitle`
  *
  * Since: 1.0
  */
@@ -338,8 +353,8 @@ adw_view_switcher_title_new (void)
 }
 
 /**
- * adw_view_switcher_title_get_policy:
- * @self: a #AdwViewSwitcherTitle
+ * adw_view_switcher_title_get_policy: (attributes org.gtk.Method.get_property=policy)
+ * @self: a `AdwViewSwitcherTitle`
  *
  * Gets the policy of @self.
  *
@@ -356,8 +371,8 @@ adw_view_switcher_title_get_policy (AdwViewSwitcherTitle *self)
 }
 
 /**
- * adw_view_switcher_title_set_policy:
- * @self: a #AdwViewSwitcherTitle
+ * adw_view_switcher_title_set_policy: (attributes org.gtk.Method.set_property=policy)
+ * @self: a `AdwViewSwitcherTitle`
  * @policy: the new policy
  *
  * Sets the policy of @self.
@@ -381,12 +396,12 @@ adw_view_switcher_title_set_policy (AdwViewSwitcherTitle  *self,
 }
 
 /**
- * adw_view_switcher_title_get_stack:
- * @self: a #AdwViewSwitcherTitle
+ * adw_view_switcher_title_get_stack: (attributes org.gtk.Method.get_property=stack)
+ * @self: a `AdwViewSwitcherTitle`
  *
- * Get the #GtkStack being controlled by the #AdwViewSwitcher.
+ * Gets the stack controlled by @self.
  *
- * Returns: (nullable) (transfer none): the #GtkStack, or %NULL if none has been set
+ * Returns: (nullable) (transfer none): the stack
  *
  * Since: 1.0
  */
@@ -399,11 +414,11 @@ adw_view_switcher_title_get_stack (AdwViewSwitcherTitle *self)
 }
 
 /**
- * adw_view_switcher_title_set_stack:
- * @self: a #AdwViewSwitcherTitle
- * @stack: (nullable): a #GtkStack
+ * adw_view_switcher_title_set_stack: (attributes org.gtk.Method.set_property=stack)
+ * @self: a `AdwViewSwitcherTitle`
+ * @stack: (nullable): a stack
  *
- * Sets the #GtkStack to control.
+ * Sets the stack controlled by @self.
  *
  * Since: 1.0
  */
@@ -440,12 +455,12 @@ adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
 }
 
 /**
- * adw_view_switcher_title_get_title:
- * @self: a #AdwViewSwitcherTitle
+ * adw_view_switcher_title_get_title: (attributes org.gtk.Method.get_property=title)
+ * @self: a `AdwViewSwitcherTitle`
  *
- * Gets the title of @self. See adw_view_switcher_title_set_title().
+ * Gets the title of @self.
  *
- * Returns: (transfer none) (nullable): the title of @self, or %NULL.
+ * Returns: (nullable): the title
  *
  * Since: 1.0
  */
@@ -458,12 +473,11 @@ adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self)
 }
 
 /**
- * adw_view_switcher_title_set_title:
- * @self: a #AdwViewSwitcherTitle
- * @title: (nullable): a title, or %NULL
+ * adw_view_switcher_title_set_title: (attributes org.gtk.Method.set_property=title)
+ * @self: a `AdwViewSwitcherTitle`
+ * @title: (nullable): a title
  *
- * Sets the title of @self. The title should give a user additional details. A
- * good title should not include the application name.
+ * Sets the title of @self.
  *
  * Since: 1.0
  */
@@ -482,12 +496,12 @@ adw_view_switcher_title_set_title (AdwViewSwitcherTitle *self,
 }
 
 /**
- * adw_view_switcher_title_get_subtitle:
- * @self: a #AdwViewSwitcherTitle
+ * adw_view_switcher_title_get_subtitle: (attributes org.gtk.Method.get_property=subtitle)
+ * @self: a `AdwViewSwitcherTitle`
  *
- * Gets the subtitle of @self. See adw_view_switcher_title_set_subtitle().
+ * Gets the subtitle of @self.
  *
- * Returns: (transfer none) (nullable): the subtitle of @self, or %NULL.
+ * Returns: (nullable): the subtitle
  *
  * Since: 1.0
  */
@@ -500,12 +514,11 @@ adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self)
 }
 
 /**
- * adw_view_switcher_title_set_subtitle:
- * @self: a #AdwViewSwitcherTitle
- * @subtitle: (nullable): a subtitle, or %NULL
+ * adw_view_switcher_title_set_subtitle: (attributes org.gtk.Method.get_property=subtitle)
+ * @self: a `AdwViewSwitcherTitle`
+ * @subtitle: (nullable): a subtitle
  *
- * Sets the subtitle of @self. The subtitle should give a user additional
- * details.
+ * Sets the subtitle of @self.
  *
  * Since: 1.0
  */
@@ -524,14 +537,12 @@ adw_view_switcher_title_set_subtitle (AdwViewSwitcherTitle *self,
 }
 
 /**
- * adw_view_switcher_title_get_view_switcher_enabled:
- * @self: a #AdwViewSwitcherTitle
+ * adw_view_switcher_title_get_view_switcher_enabled: (attributes org.gtk.Method.get_property=view-switcher-enabled)
+ * @self: a `AdwViewSwitcherTitle`
  *
  * Gets whether @self's view switcher is enabled.
  *
- * See adw_view_switcher_title_set_view_switcher_enabled().
- *
- * Returns: %TRUE if the view switcher is enabled, %FALSE otherwise.
+ * Returns: whether the view switcher is enabled
  *
  * Since: 1.0
  */
@@ -544,16 +555,11 @@ adw_view_switcher_title_get_view_switcher_enabled (AdwViewSwitcherTitle *self)
 }
 
 /**
- * adw_view_switcher_title_set_view_switcher_enabled:
- * @self: a #AdwViewSwitcherTitle
- * @enabled: %TRUE to enable the view switcher, %FALSE to disable it
+ * adw_view_switcher_title_set_view_switcher_enabled: (attributes org.gtk.Method.set_property=view-switcher-enabled)
+ * @self: a `AdwViewSwitcherTitle`
+ * @enabled: whether the view switcher is enabled
  *
- * Make @self enable or disable its view switcher. If it is disabled, the title
- * will be displayed instead. This allows to programmatically and prematurely
- * hide the view switcher of @self even if it fits in the available space.
- *
- * This can be used e.g. to ensure the view switcher is hidden below a certain
- * window width, or any other constraint you find suitable.
+ * Sets whether @self's view switcher is enabled.
  *
  * Since: 1.0
  */
@@ -575,12 +581,12 @@ adw_view_switcher_title_set_view_switcher_enabled (AdwViewSwitcherTitle *self,
 }
 
 /**
- * adw_view_switcher_title_get_title_visible:
- * @self: a #AdwViewSwitcherTitle
+ * adw_view_switcher_title_get_title_visible: (attributes org.gtk.Method.get_property=title-visible)
+ * @self: a `AdwViewSwitcherTitle`
  *
- * Get whether the title label of @self is visible.
+ * Gets whether the title of @self is currently visible.
  *
- * Returns: %TRUE if the title label of @self is visible, %FALSE if not.
+ * Returns: whether the title of @self is currently visible
  *
  * Since: 1.0
  */
