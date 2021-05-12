@@ -31,18 +31,18 @@
 #define SIGN(x) ((x) > 0.0 ? 1.0 : ((x) < 0.0 ? -1.0 : 0.0))
 
 /**
- * SECTION:adwswipetracker
- * @short_description: Swipe tracker used in #AdwCarousel and #AdwLeaflet
- * @title: AdwSwipeTracker
- * @See_also: #AdwCarousel, #AdwLeaflet, #AdwSwipeable
+ * AdwSwipeTracker:
  *
- * The AdwSwipeTracker object can be used for implementing widgets with swipe
+ * A swipe tracker used in [class@Adw.Carousel] and [class@Adw.Leaflet].
+ *
+ * The `AdwSwipeTracker` object can be used for implementing widgets with swipe
  * gestures. It supports touch-based swipes, pointer dragging, and touchpad
  * scrolling.
  *
- * The widgets will probably want to expose #AdwSwipeTracker:enabled property.
- * If they expect to use horizontal orientation, #AdwSwipeTracker:reversed
- * property can be used for supporting RTL text direction.
+ * The widgets will probably want to expose the
+ * [property@Adw.SwipeTracker:enabled] property. If they expect to use
+ * horizontal orientation, [property@Adw.SwipeTracker:reversed] can be used for
+ * supporting RTL text direction.
  *
  * Since: 1.0
  */
@@ -965,54 +965,57 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
   object_class->set_property = adw_swipe_tracker_set_property;
 
   /**
-   * AdwSwipeTracker:swipeable:
+   * AdwSwipeTracker:swipeable: (attributes org.gtk.Property.get=adw_swipe_tracker_get_swipeable)
    *
-   * The widget the swipe tracker is attached to. Must not be %NULL.
+   * The widget the swipe tracker is attached to.
    *
    * Since: 1.0
    */
   props[PROP_SWIPEABLE] =
     g_param_spec_object ("swipeable",
                          "Swipeable",
-                         "The swipeable the swipe tracker is attached to",
+                         "The widget the swipe tracker is attached to",
                          ADW_TYPE_SWIPEABLE,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
   /**
-   * AdwSwipeTracker:enabled:
+   * AdwSwipeTracker:enabled: (attributes org.gtk.Property.get=adw_swipe_tracker_get_enabled org.gtk.Property.set=adw_swipe_tracker_set_enabled)
    *
-   * Whether the swipe tracker is enabled. When it's not enabled, no events
-   * will be processed. Usually widgets will want to expose this via a property.
+   * Whether the swipe tracker is enabled.
+   *
+   * When it's not enabled, no events will be processed. Usually widgets will
+   * want to expose this via a property.
    *
    * Since: 1.0
    */
   props[PROP_ENABLED] =
     g_param_spec_boolean ("enabled",
                           "Enabled",
-                          "Whether the swipe tracker processes events",
+                          "Whether the swipe tracker is enabled",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSwipeTracker:reversed:
+   * AdwSwipeTracker:reversed: (attributes org.gtk.Property.get=adw_swipe_tracker_get_reversed org.gtk.Property.set=adw_swipe_tracker_set_reversed)
    *
-   * Whether to reverse the swipe direction. If the swipe tracker is horizontal,
-   * it can be used for supporting RTL text direction.
+   * Whether to reverse the swipe direction.
+   *
+   * If the swipe tracker is horizontal, it can be used for supporting RTL text
+   * direction.
    *
    * Since: 1.0
    */
   props[PROP_REVERSED] =
     g_param_spec_boolean ("reversed",
                           "Reversed",
-                          "Whether swipe direction is reversed",
+                          "Whether to reverse the swipe direction",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSwipeTracker:allow-mouse-drag:
+   * AdwSwipeTracker:allow-mouse-drag: (attributes org.gtk.Property.get=adw_swipe_tracker_get_allow_mouse_drag org.gtk.Property.set=adw_swipe_tracker_set_allow_mouse_drag)
    *
-   * Whether to allow dragging with mouse pointer. This should usually be
-   * %FALSE.
+   * Whether to allow dragging with mouse pointer.
    *
    * Since: 1.0
    */
@@ -1024,10 +1027,12 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwSwipeTracker:allow-long-swipes:
+   * AdwSwipeTracker:allow-long-swipes: (attributes org.gtk.Property.get=adw_swipe_tracker_get_allow_long_swipes org.gtk.Property.set=adw_swipe_tracker_set_allow_long_swipes)
    *
-   * Whether to allow swiping for more than one snap point at a time. If the
-   * value is %FALSE, each swipe can only move to the adjacent snap points.
+   * Whether to allow swiping for more than one snap point at a time.
+   *
+   * If the value is `FALSE`, each swipe can only move to the adjacent snap
+   * points.
    *
    * Since: 1.0
    */
@@ -1046,8 +1051,8 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
 
   /**
    * AdwSwipeTracker::begin-swipe:
-   * @self: The #AdwSwipeTracker instance
-   * @direction: The direction of the swipe
+   * @self: the `AdwSwipeTracker` instance
+   * @direction: the direction of the swipe
    *
    * This signal is emitted when a possible swipe is detected.
    *
@@ -1068,8 +1073,8 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
 
   /**
    * AdwSwipeTracker::update-swipe:
-   * @self: The #AdwSwipeTracker instance
-   * @progress: The current animation progress value
+   * @self: the `AdwSwipeTracker` instance
+   * @progress: the current animation progress value
    *
    * This signal is emitted every time the progress value changes.
    *
@@ -1087,9 +1092,9 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
 
   /**
    * AdwSwipeTracker::end-swipe:
-   * @self: The #AdwSwipeTracker instance
-   * @duration: Snap-back animation duration in milliseconds
-   * @to: The progress value to animate to
+   * @self: t`he `AdwSwipeTracker` instance
+   * @duration: snap-back animation duration in milliseconds
+   * @to: the progress value to animate to
    *
    * This signal is emitted as soon as the gesture has stopped.
    *
@@ -1118,11 +1123,11 @@ adw_swipe_tracker_init (AdwSwipeTracker *self)
 
 /**
  * adw_swipe_tracker_new:
- * @swipeable: a #GtkWidget to add the tracker on
+ * @swipeable: a widget to add the tracker on
  *
- * Create a new #AdwSwipeTracker object on @widget.
+ * Creates a new `AdwSwipeTracker` for @widget.
  *
- * Returns: the newly created #AdwSwipeTracker object
+ * Returns: the newly created `AdwSwipeTracker`
  *
  * Since: 1.0
  */
@@ -1137,10 +1142,10 @@ adw_swipe_tracker_new (AdwSwipeable *swipeable)
 }
 
 /**
- * adw_swipe_tracker_get_swipeable:
- * @self: a #AdwSwipeTracker
+ * adw_swipe_tracker_get_swipeable: (attributes org.gtk.Method.get_property=swipeable)
+ * @self: a `AdwSwipeTracker`
  *
- * Get @self's swipeable widget.
+ * Get the widget @self is attached to.
  *
  * Returns: (transfer none): the swipeable widget
  *
@@ -1155,13 +1160,12 @@ adw_swipe_tracker_get_swipeable (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_get_enabled:
- * @self: a #AdwSwipeTracker
+ * adw_swipe_tracker_get_enabled: (attributes org.gtk.Method.get_property=enabled)
+ * @self: a `AdwSwipeTracker`
  *
- * Get whether @self is enabled. When it's not enabled, no events will be
- * processed. Generally widgets will want to expose this via a property.
+ * Gets whether @self is enabled.
  *
- * Returns: %TRUE if @self is enabled
+ * Returns: whether @self is enabled
  *
  * Since: 1.0
  */
@@ -1174,12 +1178,11 @@ adw_swipe_tracker_get_enabled (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_set_enabled:
- * @self: a #AdwSwipeTracker
- * @enabled: whether to enable to swipe tracker
+ * adw_swipe_tracker_set_enabled: (attributes org.gtk.Method.set_property=enabled)
+ * @self: a `AdwSwipeTracker`
+ * @enabled: whether @self is enabled
  *
- * Set whether @self is enabled. When it's not enabled, no events will be
- * processed. Usually widgets will want to expose this via a property.
+ * Sets whether @self is enabled.
  *
  * Since: 1.0
  */
@@ -1205,12 +1208,12 @@ adw_swipe_tracker_set_enabled (AdwSwipeTracker *self,
 }
 
 /**
- * adw_swipe_tracker_get_reversed:
- * @self: a #AdwSwipeTracker
+ * adw_swipe_tracker_get_reversed: (attributes org.gtk.Method.get_property=reversed)
+ * @self: a `AdwSwipeTracker`
  *
- * Get whether @self is reversing the swipe direction.
+ * Gets whether @self is reversing the swipe direction.
  *
- * Returns: %TRUE is the direction is reversed
+ * Returns: whether the direction is reversed
  *
  * Since: 1.0
  */
@@ -1223,12 +1226,11 @@ adw_swipe_tracker_get_reversed (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_set_reversed:
- * @self: a #AdwSwipeTracker
+ * adw_swipe_tracker_set_reversed: (attributes org.gtk.Method.set_property=reversed)
+ * @self: a `AdwSwipeTracker`
  * @reversed: whether to reverse the swipe direction
  *
- * Set whether to reverse the swipe direction. If @self is horizontal,
- * can be used for supporting RTL text direction.
+ * Sets whether to reverse the swipe direction.
  *
  * Since: 1.0
  */
@@ -1248,12 +1250,12 @@ adw_swipe_tracker_set_reversed (AdwSwipeTracker *self,
 }
 
 /**
- * adw_swipe_tracker_get_allow_mouse_drag:
- * @self: a #AdwSwipeTracker
+ * adw_swipe_tracker_get_allow_mouse_drag: (attributes org.gtk.Method.get_property=allow-mouse-drag)
+ * @self: a `AdwSwipeTracker`
  *
- * Get whether @self can be dragged with mouse pointer.
+ * Gets whether @self can be dragged with mouse pointer.
  *
- * Returns: %TRUE is mouse dragging is allowed
+ * Returns: whether mouse dragging is allowed
  *
  * Since: 1.0
  */
@@ -1266,12 +1268,11 @@ adw_swipe_tracker_get_allow_mouse_drag (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_set_allow_mouse_drag:
- * @self: a #AdwSwipeTracker
+ * adw_swipe_tracker_set_allow_mouse_drag: (attributes org.gtk.Method.set_property=allow-mouse-drag)
+ * @self: a `AdwSwipeTracker`
  * @allow_mouse_drag: whether to allow mouse dragging
  *
- * Set whether @self can be dragged with mouse pointer. This should usually be
- * %FALSE.
+ * Sets whether @self can be dragged with mouse pointer.
  *
  * Since: 1.0
  */
@@ -1294,13 +1295,12 @@ adw_swipe_tracker_set_allow_mouse_drag (AdwSwipeTracker *self,
 }
 
 /**
- * adw_swipe_tracker_get_allow_long_swipes:
- * @self: a #AdwSwipeTracker
+ * adw_swipe_tracker_get_allow_long_swipes: (attributes org.gtk.Method.get_property=allow-long-swipes)
+ * @self: a `AdwSwipeTracker`
  *
- * Whether to allow swiping for more than one snap point at a time. If the
- * value is %FALSE, each swipe can only move to the adjacent snap points.
+ * Gets whether to allow swiping for more than one snap point at a time.
  *
- * Returns: %TRUE if long swipes are allowed, %FALSE otherwise
+ * Returns: whether long swipes are allowed
  *
  * Since: 1.0
  */
@@ -1313,12 +1313,11 @@ adw_swipe_tracker_get_allow_long_swipes (AdwSwipeTracker *self)
 }
 
 /**
- * adw_swipe_tracker_set_allow_long_swipes:
- * @self: a #AdwSwipeTracker
+ * adw_swipe_tracker_set_allow_long_swipes: (attributes org.gtk.Method.set_property=allow-long-swipes)
+ * @self: a `AdwSwipeTracker`
  * @allow_long_swipes: whether to allow long swipes
  *
- * Sets whether to allow swiping for more than one snap point at a time. If the
- * value is %FALSE, each swipe can only move to the adjacent snap points.
+ * Sets whether to allow swiping for more than one snap point at a time.
  *
  * Since: 1.0
  */
@@ -1340,11 +1339,13 @@ adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
 
 /**
  * adw_swipe_tracker_shift_position:
- * @self: a #AdwSwipeTracker
+ * @self: a `AdwSwipeTracker`
  * @delta: the position delta
  *
- * Move the current progress value by @delta. This can be used to adjust the
- * current position if snap points move during the gesture.
+ * Moves the current progress value by @delta.
+ *
+ * This can be used to adjust the current position if snap points move during
+ * the gesture.
  *
  * Since: 1.0
  */
