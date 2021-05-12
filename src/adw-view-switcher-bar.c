@@ -11,29 +11,29 @@
 #include "adw-view-switcher-bar.h"
 
 /**
- * SECTION:adwviewswitcherbar
- * @short_description: A view switcher action bar.
- * @title: AdwViewSwitcherBar
- * @See_also: #AdwViewSwitcher, #AdwViewSwitcherTitle
+ * AdwViewSwitcherBar:
  *
- * An action bar letting you switch between multiple views offered by a
- * #GtkStack, via an #AdwViewSwitcher. It is designed to be put at the bottom of
- * a window and to be revealed only on really narrow windows e.g. on mobile
- * phones. It can't be revealed if there are less than two pages.
+ * A view switcher action bar.
  *
- * You can conveniently bind the #AdwViewSwitcherBar:reveal property to
- * #AdwViewSwitcherTitle:title-visible to automatically reveal the view switcher
- * bar when the title label is displayed in place of the view switcher.
+ * An action bar letting you switch between multiple views contained in a
+ * [class@Gtk.Stack], via an [class@Adw.ViewSwitcher]. It is designed to be put
+ * at the bottom of a window and to be revealed only on really narrow windows,
+ * e.g. on mobile phones. It can't be revealed if there are less than two pages.
+ *
+ * You can conveniently bind the [property@Adw.ViewSwitcherBar:reveal] property
+ * to [property@Adw.ViewSwitcherTitle:title-visible] to automatically reveal the
+ * view switcher bar when the title label is displayed in place of the view
+ * switcher.
  *
  * An example of the UI definition for a common use case:
- * |[
+ *
+ * ```xml
  * <object class="GtkWindow"/>
  *   <child type="titlebar">
  *     <object class="AdwHeaderBar">
  *       <property name="centering-policy">strict</property>
  *       <child type="title">
- *         <object class="AdwViewSwitcherTitle"
- *                 id="view_switcher_title">
+ *         <object class="AdwViewSwitcherTitle" id="title">
  *           <property name="stack">stack</property>
  *         </object>
  *       </child>
@@ -47,20 +47,19 @@
  *       <child>
  *         <object class="AdwViewSwitcherBar">
  *           <property name="stack">stack</property>
- *           <property name="reveal"
- *                     bind-source="view_switcher_title"
- *                     bind-property="title-visible"
- *                     bind-flags="sync-create"/>
+ *           <binding name="reveal">
+ *             <lookup name="title-visible">title</lookup>
+ *           </binding>
  *         </object>
  *       </child>
  *     </object>
  *   </child>
  * </object>
- * ]|
+ * ```
  *
- * # CSS nodes
+ * ## CSS nodes
  *
- * #AdwViewSwitcherBar has a single CSS node with name viewswitcherbar.
+ * `AdwViewSwitcherBar` has a single CSS node with name` viewswitcherbar`.
  *
  * Since: 1.0
  */
@@ -182,10 +181,9 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
   object_class->dispose = adw_view_switcher_bar_dispose;
 
   /**
-   * AdwViewSwitcherBar:policy:
+   * AdwViewSwitcherBar:policy: (attributes org.gtk.Property.get=adw_view_switcher_bar_get_policy org.gtk.Property.set=adw_view_switcher_bar_set_policy)
    *
-   * The #AdwViewSwitcherPolicy the #AdwViewSwitcher should use to determine
-   * which mode to use.
+   * The policy to determine which mode to use.
    *
    * Since: 1.0
    */
@@ -193,25 +191,26 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
     g_param_spec_enum ("policy",
                        "Policy",
                        "The policy to determine the mode to use",
-                       ADW_TYPE_VIEW_SWITCHER_POLICY, ADW_VIEW_SWITCHER_POLICY_NARROW,
+                       ADW_TYPE_VIEW_SWITCHER_POLICY,
+                       ADW_VIEW_SWITCHER_POLICY_NARROW,
                        G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwViewSwitcherBar:stack:
+   * AdwViewSwitcherBar:stack: (attributes org.gtk.Property.get=adw_view_switcher_bar_get_stack org.gtk.Property.set=adw_view_switcher_bar_set_stack)
    *
-   * The #GtkStack the #AdwViewSwitcher controls.
+   * The stack the view switcher controls.
    *
    * Since: 1.0
    */
   props[PROP_STACK] =
     g_param_spec_object ("stack",
                          "Stack",
-                         "Stack",
+                         "The stack the view switcher controls",
                          GTK_TYPE_STACK,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwViewSwitcherBar:reveal:
+   * AdwViewSwitcherBar:reveal: (attributes org.gtk.Property.get=adw_view_switcher_bar_get_reveal org.gtk.Property.set=adw_view_switcher_bar_set_reveal)
    *
    * Whether the bar should be revealed or hidden.
    *
@@ -220,7 +219,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
   props[PROP_REVEAL] =
     g_param_spec_boolean ("reveal",
                          "Reveal",
-                         "Whether the view switcher is revealed",
+                         "Whether the bar should be revealed or hidden",
                          FALSE,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
@@ -253,9 +252,9 @@ adw_view_switcher_bar_init (AdwViewSwitcherBar *self)
 /**
  * adw_view_switcher_bar_new:
  *
- * Creates a new #AdwViewSwitcherBar widget.
+ * Creates a new `AdwViewSwitcherBar`.
  *
- * Returns: a new #AdwViewSwitcherBar
+ * Returns: the newly created `AdwViewSwitcherBar`
  *
  * Since: 1.0
  */
@@ -266,8 +265,8 @@ adw_view_switcher_bar_new (void)
 }
 
 /**
- * adw_view_switcher_bar_get_policy:
- * @self: a #AdwViewSwitcherBar
+ * adw_view_switcher_bar_get_policy: (attributes org.gtk.Method.get_property=policy)
+ * @self: a `AdwViewSwitcherBar`
  *
  * Gets the policy of @self.
  *
@@ -284,8 +283,8 @@ adw_view_switcher_bar_get_policy (AdwViewSwitcherBar *self)
 }
 
 /**
- * adw_view_switcher_bar_set_policy:
- * @self: a #AdwViewSwitcherBar
+ * adw_view_switcher_bar_set_policy: (attributes org.gtk.Method.set_property=policy)
+ * @self: a `AdwViewSwitcherBar`
  * @policy: the new policy
  *
  * Sets the policy of @self.
@@ -309,12 +308,12 @@ adw_view_switcher_bar_set_policy (AdwViewSwitcherBar    *self,
 }
 
 /**
- * adw_view_switcher_bar_get_stack:
- * @self: a #AdwViewSwitcherBar
+ * adw_view_switcher_bar_get_stack: (attributes org.gtk.Method.get_property=stack)
+ * @self: a `AdwViewSwitcherBar`
  *
- * Get the #GtkStack being controlled by the #AdwViewSwitcher.
+ * Gets the stack controlled by @self.
  *
- * Returns: (nullable) (transfer none): the #GtkStack, or %NULL if none has been set
+ * Returns: (nullable) (transfer none): the stack
  *
  * Since: 1.0
  */
@@ -327,11 +326,11 @@ adw_view_switcher_bar_get_stack (AdwViewSwitcherBar *self)
 }
 
 /**
- * adw_view_switcher_bar_set_stack:
- * @self: a #AdwViewSwitcherBar
- * @stack: (nullable): a #GtkStack
+ * adw_view_switcher_bar_set_stack: (attributes org.gtk.Method.set_property=stack)
+ * @self: a `AdwViewSwitcherBar`
+ * @stack: (nullable): a stack
  *
- * Sets the #GtkStack to control.
+ * Sets the stack controlled by @self.
  *
  * Since: 1.0
  */
@@ -368,12 +367,12 @@ adw_view_switcher_bar_set_stack (AdwViewSwitcherBar *self,
 }
 
 /**
- * adw_view_switcher_bar_get_reveal:
- * @self: a #AdwViewSwitcherBar
+ * adw_view_switcher_bar_get_reveal: (attributes org.gtk.Method.get_property=reveal)
+ * @self: a `AdwViewSwitcherBar`
  *
- * Gets whether @self should be revealed or not.
+ * Gets whether @self should be revealed or hidden.
  *
- * Returns: %TRUE if @self is revealed, %FALSE if not.
+ * Returns: whether @self is revealed
  *
  * Since: 1.0
  */
@@ -386,11 +385,11 @@ adw_view_switcher_bar_get_reveal (AdwViewSwitcherBar *self)
 }
 
 /**
- * adw_view_switcher_bar_set_reveal:
- * @self: a #AdwViewSwitcherBar
- * @reveal: %TRUE to reveal @self
+ * adw_view_switcher_bar_set_reveal: (attributes org.gtk.Method.set_property=reveal)
+ * @self: a `AdwViewSwitcherBar`
+ * @reveal: whether to reveal @self
  *
- * Sets whether @self should be revealed or not.
+ * Sets whether @self should be revealed or hidden.
  *
  * Since: 1.0
  */
