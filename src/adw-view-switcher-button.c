@@ -10,19 +10,6 @@
 #include "adw-indicator-bin-private.h"
 #include "adw-view-switcher-button-private.h"
 
-/**
- * PRIVATE:adwviewswitcherbutton
- * @short_description: Button used in #AdwViewSwitcher.
- * @title: AdwViewSwitcherButton
- * @See_also: #AdwViewSwitcher
- * @stability: Private
- *
- * #AdwViewSwitcherButton represents an application's view. It is designed to be
- * used exclusively internally by #AdwViewSwitcher.
- *
- * Since: 1.0
- */
-
 #define TIMEOUT_EXPAND 500
 
 enum {
@@ -236,9 +223,9 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
                                     "orientation");
 
   /**
-   * AdwViewSwitcherButton:icon-name:
+   * AdwViewSwitcherButton:icon-name: (attributes org.gtk.Property.get=adw_view_switcher_button_get_icon_name org.gtk.Property.set=adw_view_switcher_button_set_icon_name)
    *
-   * The icon name representing the view, or %NULL for no icon.
+   * The icon name representing the view, or `NULL` for no icon.
    *
    * Since: 1.0
    */
@@ -250,12 +237,13 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE);
 
   /**
-   * AdwViewSwitcherButton:needs-attention:
+   * AdwViewSwitcherButton:needs-attention: (attributes org.gtk.Property.get=adw_view_switcher_button_get_needs_attention org.gtk.Property.set=adw_view_switcher_button_set_needs_attention)
    *
-   * Sets a flag specifying whether the view requires the user attention. This
-   * is used by the AdwViewSwitcher to change the appearance of the
-   * corresponding button when a view needs attention and it is not the current
-   * one.
+   * Sets a flag specifying whether the view requires the user attention.
+   *
+   * This is used by the [class@Adw.ViewSwitcher] to change the appearance of
+   * the corresponding button when a view needs attention and it is not the
+   * current one.
    *
    * Since: 1.0
    */
@@ -320,9 +308,9 @@ adw_view_switcher_button_init (AdwViewSwitcherButton *self)
 /**
  * adw_view_switcher_button_new:
  *
- * Creates a new #AdwViewSwitcherButton widget.
+ * Creates a new `AdwViewSwitcherButton`.
  *
- * Returns: a new #AdwViewSwitcherButton
+ * Returns: the newly created `AdwViewSwitcherButton`
  *
  * Since: 1.0
  */
@@ -333,12 +321,12 @@ adw_view_switcher_button_new (void)
 }
 
 /**
- * adw_view_switcher_button_get_icon_name:
- * @self: a #AdwViewSwitcherButton
+ * adw_view_switcher_button_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
+ * @self: a `AdwViewSwitcherButton`
  *
- * Gets the icon name representing the view, or %NULL is no icon is set.
+ * Gets the icon name representing the view.
  *
- * Returns: (transfer none) (nullable): the icon name, or %NULL
+ * Returns: (nullable): the icon name
  *
  * Since: 1.0
  **/
@@ -351,11 +339,11 @@ adw_view_switcher_button_get_icon_name (AdwViewSwitcherButton *self)
 }
 
 /**
- * adw_view_switcher_button_set_icon_name:
- * @self: a #AdwViewSwitcherButton
- * @icon_name: (nullable): an icon name or %NULL
+ * adw_view_switcher_button_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
+ * @self: a `AdwViewSwitcherButton`
+ * @icon_name: (nullable): an icon name
  *
- * Sets the icon name representing the view, or %NULL to disable the icon.
+ * Sets the icon name representing the view.
  *
  * Since: 1.0
  **/
@@ -379,12 +367,12 @@ adw_view_switcher_button_set_icon_name (AdwViewSwitcherButton *self,
 }
 
 /**
- * adw_view_switcher_button_get_needs_attention:
- * @self: a #AdwViewSwitcherButton
+ * adw_view_switcher_button_get_needs_attention: (attributes org.gtk.Method.get_property=needs-attention)
+ * @self: a `AdwViewSwitcherButton`
  *
  * Gets whether the view represented by @self requires the user attention.
  *
- * Returns: %TRUE if the view represented by @self requires the user attention, %FALSE otherwise
+ * Returns: whether the view requires the user attention
  *
  * Since: 1.0
  **/
@@ -397,9 +385,9 @@ adw_view_switcher_button_get_needs_attention (AdwViewSwitcherButton *self)
 }
 
 /**
- * adw_view_switcher_button_set_needs_attention:
- * @self: a #AdwViewSwitcherButton
- * @needs_attention: the new icon size
+ * adw_view_switcher_button_set_needs_attention: (attributes org.gtk.Method.set_property=needs-attention)
+ * @self: a `AdwViewSwitcherButton`
+ * @needs_attention: whether the view needs attention
  *
  * Sets whether the view represented by @self requires the user attention.
  *
@@ -423,11 +411,11 @@ adw_view_switcher_button_set_needs_attention (AdwViewSwitcherButton *self,
 
 /**
  * adw_view_switcher_button_get_label:
- * @self: a #AdwViewSwitcherButton
+ * @self: a `AdwViewSwitcherButton`
  *
  * Gets the label representing the view.
  *
- * Returns: (transfer none) (nullable): the label, or %NULL
+ * Returns: (nullable): the label
  *
  * Since: 1.0
  **/
@@ -441,8 +429,8 @@ adw_view_switcher_button_get_label (AdwViewSwitcherButton *self)
 
 /**
  * adw_view_switcher_button_set_label:
- * @self: a #AdwViewSwitcherButton
- * @label: (nullable): a label or %NULL
+ * @self: a `AdwViewSwitcherButton`
+ * @label: (nullable): a label
  *
  * Sets the label representing the view.
  *
@@ -465,11 +453,10 @@ adw_view_switcher_button_set_label (AdwViewSwitcherButton *self,
 
 /**
  * adw_view_switcher_button_set_narrow_ellipsize:
- * @self: a #AdwViewSwitcherButton
- * @mode: a #PangoEllipsizeMode
+ * @self: a `AdwViewSwitcherButton`
+ * @mode: an ellipsize mode
  *
- * Set the mode used to ellipsize the text in narrow mode if there is not
- * enough space to render the entire string.
+ * Sets the ellipsizing position for the label.
  *
  * Since: 1.0
  **/
@@ -486,7 +473,7 @@ adw_view_switcher_button_set_narrow_ellipsize (AdwViewSwitcherButton *self,
 
 /**
  * adw_view_switcher_button_get_size:
- * @self: a #AdwViewSwitcherButton
+ * @self: a `AdwViewSwitcherButton`
  * @h_min_width: (out) (nullable): the minimum width when horizontal
  * @h_nat_width: (out) (nullable): the natural width when horizontal
  * @v_min_width: (out) (nullable): the minimum width when vertical
