@@ -15,30 +15,27 @@
 #include "adw-view-switcher-button-private.h"
 
 /**
- * SECTION:adwviewswitcher
- * @short_description: An adaptive view switcher.
- * @title: AdwViewSwitcher
+ * AdwViewSwitcher:
  *
- * An adaptive view switcher, designed to switch between multiple views in a
- * similar fashion than a #GtkStackSwitcher.
+ * An adaptive view switcher.
+ *
+ * An adaptive view switcher designed to switch between multiple views
+ * contained in a [class@Gtk.Stack] in a similar fashion to
+ * [class@Gtk.StackSwitcher].
  *
  * Depending on the available width, the view switcher can adapt from a wide
  * mode showing the view's icon and title side by side, to a narrow mode showing
  * the view's icon and title one on top of the other, in a more compact way.
- * This can be controlled via the policy property.
+ * This can be controlled via the [property@Adw.ViewSwitcher:policy] property.
  *
- * To look good in a header bar, an #AdwViewSwitcher requires to fill its full
- * height. Contrary to #GtkHeaderBar, #AdwHeaderBar doesn't force a vertical
- * alignment on its title widget, so we recommend it over #GtkHeaderBar.
+ * ## CSS nodes
  *
- * # CSS nodes
+ * `AdwViewSwitcher` has a single CSS node with name `viewswitcher`.
  *
- * #AdwViewSwitcher has a single CSS node with name viewswitcher.
+ * ## Accessibility
  *
- * # Accessibility
- *
- * #AdwViewSwitcher uses the #GTK_ACCESSIBLE_ROLE_TAB_LIST role
- * and uses the #GTK_ACCESSIBLE_ROLE_TAB for its buttons.
+ * `AdwViewSwitcher` uses the `GTK_ACCESSIBLE_ROLE_TAB_LIST` role and uses the
+ * `GTK_ACCESSIBLE_ROLE_TAB` for its buttons.
  *
  * Since: 1.0
  */
@@ -48,6 +45,8 @@
  * @ADW_VIEW_SWITCHER_POLICY_AUTO: Automatically adapt to the best fitting mode
  * @ADW_VIEW_SWITCHER_POLICY_NARROW: Force the narrow mode
  * @ADW_VIEW_SWITCHER_POLICY_WIDE: Force the wide mode
+ *
+ * Describes the adaptive modes of [class@Adw.ViewSwitcher].
  */
 
 #define MIN_NAT_BUTTON_WIDTH 100
@@ -489,10 +488,9 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
   widget_class->measure = adw_view_switcher_measure;
 
   /**
-   * AdwViewSwitcher:policy:
+   * AdwViewSwitcher:policy: (attributes org.gtk.Property.get=adw_view_switcher_get_policy org.gtk.Property.set=adw_view_switcher_set_policy)
    *
-   * The #AdwViewSwitcherPolicy the view switcher should use to determine which
-   * mode to use.
+   * The policy to determine which mode to use.
    *
    * Since: 1.0
    */
@@ -500,41 +498,40 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
     g_param_spec_enum ("policy",
                        "Policy",
                        "The policy to determine the mode to use",
-                       ADW_TYPE_VIEW_SWITCHER_POLICY, ADW_VIEW_SWITCHER_POLICY_AUTO,
+                       ADW_TYPE_VIEW_SWITCHER_POLICY,
+                       ADW_VIEW_SWITCHER_POLICY_AUTO,
                        G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwViewSwitcher:narrow-ellipsize:
+   * AdwViewSwitcher:narrow-ellipsize: (attributes org.gtk.Property.get=adw_view_switcher_get_narrow_ellipsize org.gtk.Property.set=adw_view_switcher_set_narrow_ellipsize)
    *
-   * The preferred place to ellipsize the string, if the narrow mode label does
-   * not have enough room to display the entire string, specified as a
-   * #PangoEllipsizeMode.
+   * The ellipsizing position for the titles.
    *
-   * Note that setting this property to a value other than %PANGO_ELLIPSIZE_NONE
-   * has the side-effect that the label requests only enough space to display
-   * the ellipsis.
+   * Note that setting this property to a value other than
+   * `PANGO_ELLIPSIZE_NONE` has the side-effect that the label requests only
+   * enough space to display the ellipsis.
    *
    * Since: 1.0
    */
   props[PROP_NARROW_ELLIPSIZE] =
     g_param_spec_enum ("narrow-ellipsize",
                        "Narrow ellipsize",
-                       "The preferred place to ellipsize the string, if the narrow mode label does not have enough room to display the entire string",
+                       "The ellipsizing position for the titles",
                        PANGO_TYPE_ELLIPSIZE_MODE,
                        PANGO_ELLIPSIZE_NONE,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewSwitcher:stack:
+   * AdwViewSwitcher:stack: (attributes org.gtk.Property.get=adw_view_switcher_get_stack org.gtk.Property.set=adw_view_switcher_set_stack)
    *
-   * The #GtkStack the view switcher controls.
+   * The stack the view switcher controls.
    *
    * Since: 1.0
    */
   props[PROP_STACK] =
     g_param_spec_object ("stack",
                          "Stack",
-                         "Stack",
+                         "The stack the view switcher controls",
                          GTK_TYPE_STACK,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
@@ -558,9 +555,9 @@ adw_view_switcher_init (AdwViewSwitcher *self)
 /**
  * adw_view_switcher_new:
  *
- * Creates a new #AdwViewSwitcher widget.
+ * Creates a new `AdwViewSwitcher`.
  *
- * Returns: a new #AdwViewSwitcher
+ * Returns: the newly created `AdwViewSwitcher`
  *
  * Since: 1.0
  */
@@ -571,8 +568,8 @@ adw_view_switcher_new (void)
 }
 
 /**
- * adw_view_switcher_get_policy:
- * @self: a #AdwViewSwitcher
+ * adw_view_switcher_get_policy: (attributes org.gtk.Method.get_property=policy)
+ * @self: a `AdwViewSwitcher`
  *
  * Gets the policy of @self.
  *
@@ -589,8 +586,8 @@ adw_view_switcher_get_policy (AdwViewSwitcher *self)
 }
 
 /**
- * adw_view_switcher_set_policy:
- * @self: a #AdwViewSwitcher
+ * adw_view_switcher_set_policy: (attributes org.gtk.Method.set_property=policy)
+ * @self: a `AdwViewSwitcher`
  * @policy: the new policy
  *
  * Sets the policy of @self.
@@ -614,13 +611,12 @@ adw_view_switcher_set_policy (AdwViewSwitcher       *self,
 }
 
 /**
- * adw_view_switcher_get_narrow_ellipsize:
- * @self: a #AdwViewSwitcher
+ * adw_view_switcher_get_narrow_ellipsize: (attributes org.gtk.Method.get_property=narrow-ellipsize)
+ * @self: a `AdwViewSwitcher`
  *
- * Get the ellipsizing position of the narrow mode label. See
- * adw_view_switcher_set_narrow_ellipsize().
+ * Gets the ellipsizing position for the titles.
  *
- * Returns: #PangoEllipsizeMode
+ * Returns: the ellipsize mode.
  *
  * Since: 1.0
  */
@@ -633,12 +629,11 @@ adw_view_switcher_get_narrow_ellipsize (AdwViewSwitcher *self)
 }
 
 /**
- * adw_view_switcher_set_narrow_ellipsize:
- * @self: a #AdwViewSwitcher
- * @mode: a #PangoEllipsizeMode
+ * adw_view_switcher_set_narrow_ellipsize: (attributes org.gtk.Method.set_property=narrow-ellipsize)
+ * @self: a `AdwViewSwitcher`
+ * @mode: the new value
  *
- * Set the mode used to ellipsize the text in narrow mode if there is not
- * enough space to render the entire string.
+ * Sets the ellipsizing position for the titles.
  *
  * Since: 1.0
  */
@@ -665,14 +660,12 @@ adw_view_switcher_set_narrow_ellipsize (AdwViewSwitcher    *self,
 }
 
 /**
- * adw_view_switcher_get_stack:
- * @self: a #AdwViewSwitcher
+ * adw_view_switcher_get_stack: (attributes org.gtk.Method.get_property=stack)
+ * @self: a `AdwViewSwitcher`
  *
- * Get the #GtkStack being controlled by the #AdwViewSwitcher.
+ * Gets the stack controlled by @self.
  *
- * See: adw_view_switcher_set_stack()
- *
- * Returns: (nullable) (transfer none): the #GtkStack, or %NULL if none has been set
+ * Returns: (nullable) (transfer none): the stack
  *
  * Since: 1.0
  */
@@ -685,11 +678,11 @@ adw_view_switcher_get_stack (AdwViewSwitcher *self)
 }
 
 /**
- * adw_view_switcher_set_stack:
- * @self: a #AdwViewSwitcher
- * @stack: (nullable): a #GtkStack
+ * adw_view_switcher_set_stack: (attributes org.gtk.Method.set_property=stack)
+ * @self: a `AdwViewSwitcher`
+ * @stack: (nullable): a stack
  *
- * Sets the #GtkStack to control.
+ * Sets the stack controlled by @self.
  *
  * Since: 1.0
  */
