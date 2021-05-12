@@ -9,12 +9,12 @@
 #include "adw-value-object.h"
 
 /**
- * SECTION:adwvalueobject
- * @short_description: An object representing a #GValue.
- * @Title: AdwValueObject
+ * AdwValueObject:
  *
- * The #AdwValueObject object represents a #GValue, allowing it to be
- * used with #GListModel.
+ * An object representing a `GValue`.
+ *
+ * The `AdwValueObject` object represents a `GValue`, allowing it to be used
+ * with `GListModel`.
  *
  * Since: 1.0
  */
@@ -38,11 +38,11 @@ static GParamSpec *props [N_PROPS];
 
 /**
  * adw_value_object_new:
- * @value: the #GValue to store
+ * @value: the value to store
  *
- * Create a new #AdwValueObject.
+ * Create a new `AdwValueObject` from @value.
  *
- * Returns: a new #AdwValueObject
+ * Returns: the newly created `AdwValueObject`
  *
  * Since: 1.0
  */
@@ -56,13 +56,15 @@ adw_value_object_new (const GValue *value)
 
 /**
  * adw_value_object_new_collect: (skip)
- * @type: the #GType of the value
+ * @type: the type of the value
  * @...: the value to store
  *
- * Creates a new #AdwValueObject. This is a convenience method which uses
- * the G_VALUE_COLLECT() macro internally.
+ * Creates a new `AdwValueObject`.
  *
- * Returns: a new #AdwValueObject
+ * This is a convenience method which uses the `G_VALUE_COLLECT()` macro
+ * internally.
+ *
+ * Returns: the newly created `AdwValueObject`
  *
  * Since: 1.0
  */
@@ -89,12 +91,14 @@ adw_value_object_new_collect (GType type, ...)
 
 /**
  * adw_value_object_new_string: (skip)
- * @string: (transfer none): the string to store
+ * @string: the string to store
  *
- * Creates a new #AdwValueObject. This is a convenience method to create a
- * #AdwValueObject that stores a string.
+ * Creates a new `AdwValueObject` from a string.
  *
- * Returns: a new #AdwValueObject
+ * This is a convenience method to create a `AdwValueObject` that stores a
+ * string.
+ *
+ * Returns: the newly created `AdwValueObject`
  *
  * Since: 1.0
  */
@@ -110,12 +114,14 @@ adw_value_object_new_string (const char *string)
 
 /**
  * adw_value_object_new_take_string: (skip)
- * @string: (transfer full): the string to store
+ * @string: the string to store
  *
- * Creates a new #AdwValueObject. This is a convenience method to create a
- * #AdwValueObject that stores a string taking ownership of it.
+ * Creates a new `AdwValueObject` from a string.
  *
- * Returns: a new #AdwValueObject
+ * This is a convenience method to create a `AdwValueObject` that stores a
+ * string taking ownership of it.
+ *
+ * Returns: the newly created `AdwValueObject`
  *
  * Since: 1.0
  */
@@ -190,6 +196,13 @@ adw_value_object_class_init (AdwValueObjectClass *klass)
   object_class->get_property = adw_value_object_get_property;
   object_class->set_property = adw_value_object_set_property;
 
+  /**
+   * AdwValueObject:value: (attributes org.gtk.Property.get=adw_value_object_get_value)
+   *
+   * The contained value.
+   *
+   * Since: 1.0
+   */
   props[PROP_VALUE] =
     g_param_spec_boxed ("value",
                         "Value",
@@ -208,12 +221,12 @@ adw_value_object_init (AdwValueObject *self)
 }
 
 /**
- * adw_value_object_get_value:
- * @value: the #AdwValueObject
+ * adw_value_object_get_value: (attributes org.gtk.Method.get_property=value)
+ * @value: a `AdwValueObject`
  *
- * Return the contained value.
+ * Gets the contained value.
  *
- * Returns: (transfer none): the contained #GValue
+ * Returns: the contained value
  *
  * Since: 1.0
  */
@@ -225,10 +238,10 @@ adw_value_object_get_value (AdwValueObject *value)
 
 /**
  * adw_value_object_copy_value:
- * @value: the #AdwValueObject
- * @dest: #GValue with correct type to copy into
+ * @value: a `AdwValueObject`
+ * @dest: `GValue` with correct type to copy into
  *
- * Copy data from the contained #GValue into @dest.
+ * Copies data from the contained Value into @dest.
  *
  * Since: 1.0
  */
@@ -241,11 +254,11 @@ adw_value_object_copy_value (AdwValueObject *value,
 
 /**
  * adw_value_object_get_string:
- * @value: the #AdwValueObject
+ * @value: a `AdwValueObject`
  *
- * Returns the contained string if the value is of type #G_TYPE_STRING.
+ * Gets the contained string if the value is of type `G_TYPE_STRING`.
  *
- * Returns: (transfer none): the contained string
+ * Returns: the contained string
  *
  * Since: 1.0
  */
@@ -257,12 +270,11 @@ adw_value_object_get_string (AdwValueObject *value)
 
 /**
  * adw_value_object_dup_string:
- * @value: the #AdwValueObject
+ * @value: a `AdwValueObject`
  *
- * Returns a copy of the contained string if the value is of type
- * #G_TYPE_STRING.
+ * Copies the contained string if the value is of type  `G_TYPE_STRING`.
  *
- * Returns: (transfer full): a copy of the contained string
+ * Returns: a copy of the contained string
  *
  * Since: 1.0
  */
