@@ -10,21 +10,6 @@
 #include "adw-gizmo-private.h"
 #include "adw-window-mixin-private.h"
 
-/**
- * PRIVATE:adwwindowmixin
- * @short_description: A helper object for #AdwWindow and #AdwApplicationWindow
- * @title: AdwWindowMixin
- * @See_also: #AdwApplicationWindow, #AdwWindow
- * @stability: Private
- *
- * The AdwWindowMixin object contains the implementation of the AdwWindow and
- * AdwApplicationWindow classes, providing a way to make a GtkWindow subclass
- * that has masked window corners on all sides and no titlebar by default,
- * allowing for more freedom with how to handle the titlebar for applications.
- *
- * Since: 1.0
- */
-
 struct _AdwWindowMixin
 {
   GObject parent;
