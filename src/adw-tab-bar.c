@@ -14,24 +14,23 @@
 #include "adw-tab-box-private.h"
 
 /**
- * SECTION:adw-tab-bar
- * @short_description: A tab bar for #AdwTabView
- * @title: AdwTabBar
- * @See_also: #AdwTabView
+ * AdwTabBar:
  *
- * The #AdwTabBar widget is a tab bar that can be used with conjunction with
- * #AdwTabView.
+ * A tab bar for [class@Adw.TabView].
  *
- * #AdwTabBar can autohide and can optionally contain action widgets on both
+ * The `AdwTabBar` widget is a tab bar that can be used with conjunction with
+ * `AdwTabView`.
+ *
+ * `AdwTabBar` can autohide and can optionally contain action widgets on both
  * sides of the tabs.
  *
- * When there's not enough space to show all the tabs, #AdwTabBar will scroll
+ * When there's not enough space to show all the tabs, `AdwTabBar` will scroll
  * them. Pinned tabs always stay visible and aren't a part of the scrollable
  * area.
  *
- * # CSS nodes
+ * ## CSS nodes
  *
- * #AdwTabBar has a single CSS node with name tabbar.
+ * `AdwTabBar` has a single CSS node with name `tabbar`.
  *
  * Since: 1.0
  */
@@ -438,21 +437,21 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
   widget_class->focus = adw_tab_bar_focus;
 
   /**
-   * AdwTabBar:view:
+   * AdwTabBar:view: (attributes org.gtk.Property.get=adw_tab_bar_get_view org.gtk.Property.set=adw_tab_bar_set_view)
    *
-   * The #AdwTabView the tab bar controls.
+   * The tab view the tab bar controls.
    *
    * Since: 1.0
    */
   props[PROP_VIEW] =
     g_param_spec_object ("view",
                          "View",
-                         "The view the tab bar controls.",
+                         "The tab view the tab bar controls.",
                          ADW_TYPE_TAB_VIEW,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:start-action-widget:
+   * AdwTabBar:start-action-widget: (attributes org.gtk.Property.get=adw_tab_bar_get_start_action_widget org.gtk.Property.set=adw_tab_bar_set_start_action_widget)
    *
    * The widget shown before the tabs.
    *
@@ -466,7 +465,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:end-action-widget:
+   * AdwTabBar:end-action-widget: (attributes org.gtk.Property.get=adw_tab_bar_get_end_action_widget org.gtk.Property.set=adw_tab_bar_set_end_action_widget)
    *
    * The widget shown after the tabs.
    *
@@ -480,14 +479,14 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:autohide:
+   * AdwTabBar:autohide: (attributes org.gtk.Property.get=adw_tab_bar_get_autohide org.gtk.Property.set=adw_tab_bar_set_autohide)
    *
-   * Whether tabs automatically hide.
+   * Whether the tabs automatically hide.
    *
-   * If set to %TRUE, the tab bar disappears when the associated #AdwTabView
+   * If set to `TRUE`, the tab bar disappears when [property@Adw.TabBar:view]
    * has 0 or 1 tab, no pinned tabs, and no tab is being transferred.
    *
-   * See #AdwTabBar:tabs-revealed.
+   * See [property@Adw.TabBar:tabs-revealed].
    *
    * Since: 1.0
    */
@@ -499,11 +498,11 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:tabs-revealed:
+   * AdwTabBar:tabs-revealed: (attributes org.gtk.Property.get=adw_tab_bar_get_tabs_revealed)
    *
-   * Whether tabs are currently revealed.
+   * Whether the tabs are currently revealed.
    *
-   * See AdwTabBar:autohide.
+   * See [property@Adw.TabBar:autohide].
    *
    * Since: 1.0
    */
@@ -515,11 +514,11 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                           G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:expand-tabs:
+   * AdwTabBar:expand-tabs: (attributes org.gtk.Property.get=adw_tab_bar_get_expand_tabs org.gtk.Property.set=adw_tab_bar_set_expand_tabs)
    *
-   * Whether tabs should expand.
+   * Whether tabs expand to full width.
    *
-   * If set to %TRUE, the tabs will always vary width filling the whole width
+   * If set to `TRUE`, the tabs will always vary width filling the whole width
    * when possible, otherwise tabs will always have the minimum possible size.
    *
    * Since: 1.0
@@ -532,11 +531,11 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:inverted:
+   * AdwTabBar:inverted: (attributes org.gtk.Property.get=adw_tab_bar_get_inverted org.gtk.Property.set=adw_tab_bar_set_inverted)
    *
    * Whether tabs use inverted layout.
    *
-   * If set to %TRUE, non-pinned tabs will have the close button at the
+   * If set to `TRUE`, non-pinned tabs will have the close button at the
    * beginning and the indicator at the end rather than the opposite.
    *
    * Since: 1.0
@@ -549,12 +548,11 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabBar:is-overflowing:
+   * AdwTabBar:is-overflowing: (attributes org.gtk.Property.get=adw_tab_bar_get_is_overflowing)
    *
    * Whether the tab bar is overflowing.
    *
-   * If set to %TRUE, all tabs cannot be displayed at once and require
-   * scrolling.
+   * If `TRUE`, all tabs cannot be displayed at once and require scrolling.
    *
    * Since: 1.0
    */
@@ -569,17 +567,18 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
 
   /**
    * AdwTabBar::extra-drag-drop:
-   * @self: a #AdwTabBar
-   * @page: the #AdwTabPage matching the tab the content was dropped onto
-   * @value: the #GValue being dropped
+   * @self: a `AdwTabBar`
+   * @page: the page matching the tab the content was dropped onto
+   * @value: the `GValue` being dropped
    *
-   * This signal is emitted when content allowed via
-   * #adw_tab_bar_setup_extra_drop_target() is dropped onto a tab representing
-   * @page.
+   * This signal is emitted when content is dropped onto a tab.
    *
-   * See #GtkDropTarget::drop.
+   * The content must be of one of the types set up via
+   * [method@Adw.TabBar.setup_extra_drop_target].
    *
-   * Returns: whether the drop was accepted for the given page
+   * See [signal@Gtk.DropTarget::drop].
+   *
+   * Returns: whether the drop was accepted for @page
    *
    * Since: 1.0
    */
@@ -685,9 +684,9 @@ adw_tab_bar_tabs_have_visible_focus (AdwTabBar *self)
 /**
  * adw_tab_bar_new:
  *
- * Creates a new #AdwTabBar widget.
+ * Creates a new `AdwTabBar`.
  *
- * Returns: a new #AdwTabBar
+ * Returns: the newly created `AdwTabBar`
  *
  * Since: 1.0
  */
@@ -698,12 +697,12 @@ adw_tab_bar_new (void)
 }
 
 /**
- * adw_tab_bar_get_view:
- * @self: a #AdwTabBar
+ * adw_tab_bar_get_view: (attributes org.gtk.Method.get_property=view)
+ * @self: a `AdwTabBar`
  *
- * Gets the #AdwTabView @self controls.
+ * Gets the tab view @self controls.
  *
- * Returns: (transfer none) (nullable): the #AdwTabView @self controls
+ * Returns: (transfer none) (nullable): the view @self controls
  *
  * Since: 1.0
  */
@@ -716,11 +715,11 @@ adw_tab_bar_get_view (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_view:
- * @self: a #AdwTabBar
- * @view: (nullable): a #AdwTabView
+ * adw_tab_bar_set_view: (attributes org.gtk.Method.set_property=view)
+ * @self: a `AdwTabBar`
+ * @view: (nullable): a tab view
  *
- * Sets the #AdwTabView @self controls.
+ * Sets the tab view @self controls.
  *
  * Since: 1.0
  */
@@ -794,12 +793,12 @@ adw_tab_bar_set_view (AdwTabBar  *self,
 }
 
 /**
- * adw_tab_bar_get_start_action_widget:
- * @self: a #AdwTabBar
+ * adw_tab_bar_get_start_action_widget: (attributes org.gtk.Method.get_property=start-action-widget)
+ * @self: a `AdwTabBar`
  *
  * Gets the widget shown before the tabs.
  *
- * Returns: (transfer none) (nullable): the widget shown before the tabs, or %NULL
+ * Returns: (transfer none) (nullable): the widget shown before the tabs
  *
  * Since: 1.0
  */
@@ -812,9 +811,9 @@ adw_tab_bar_get_start_action_widget (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_start_action_widget:
- * @self: a #AdwTabBar
- * @widget: (transfer none) (nullable): the widget to show before the tabs, or %NULL
+ * adw_tab_bar_set_start_action_widget: (attributes org.gtk.Method.set_property=start-action-widget)
+ * @self: a `AdwTabBar`
+ * @widget: (transfer none) (nullable): the widget to show before the tabs
  *
  * Sets the widget to show before the tabs.
  *
@@ -841,12 +840,12 @@ adw_tab_bar_set_start_action_widget (AdwTabBar *self,
 }
 
 /**
- * adw_tab_bar_get_end_action_widget:
- * @self: a #AdwTabBar
+ * adw_tab_bar_get_end_action_widget: (attributes org.gtk.Method.get_property=end-action-widget)
+ * @self: a `AdwTabBar`
  *
  * Gets the widget shown after the tabs.
  *
- * Returns: (transfer none) (nullable): the widget shown after the tabs, or %NULL
+ * Returns: (transfer none) (nullable): the widget shown after the tabs
  *
  * Since: 1.0
  */
@@ -859,9 +858,9 @@ adw_tab_bar_get_end_action_widget (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_end_action_widget:
- * @self: a #AdwTabBar
- * @widget: (transfer none) (nullable): the widget to show after the tabs, or %NULL
+ * adw_tab_bar_set_end_action_widget: (attributes org.gtk.Method.set_property=end-action-widget)
+ * @self: a `AdwTabBar`
+ * @widget: (transfer none) (nullable): the widget to show after the tabs
  *
  * Sets the widget to show after the tabs.
  *
@@ -888,10 +887,10 @@ adw_tab_bar_set_end_action_widget (AdwTabBar *self,
 }
 
 /**
- * adw_tab_bar_get_autohide:
- * @self: a #AdwTabBar
+ * adw_tab_bar_get_autohide: (attributes org.gtk.Method.get_property=autohide)
+ * @self: a `AdwTabBar`
  *
- * Gets whether the tabs automatically hide, see adw_tab_bar_set_autohide().
+ * Gets whether the tabs automatically hide.
  *
  * Returns: whether the tabs automatically hide
  *
@@ -906,18 +905,11 @@ adw_tab_bar_get_autohide (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_autohide:
- * @self: a #AdwTabBar
+ * adw_tab_bar_set_autohide: (attributes org.gtk.Method.get_property=autohide)
+ * @self: a `AdwTabBar`
  * @autohide: whether the tabs automatically hide
  *
  * Sets whether the tabs automatically hide.
- *
- * If @autohide is %TRUE, the tab bar disappears when the associated #AdwTabView
- * has 0 or 1 tab, no pinned tabs, and no tab is being transferred.
- *
- * Autohide is enabled by default.
- *
- * See #AdwTabBar:tabs-revealed.
  *
  * Since: 1.0
  */
@@ -940,12 +932,12 @@ adw_tab_bar_set_autohide (AdwTabBar *self,
 }
 
 /**
- * adw_tab_bar_get_tabs_revealed:
- * @self: a #AdwTabBar
+ * adw_tab_bar_get_tabs_revealed: (attributes org.gtk.Method.get_property=tabs-revealed)
+ * @self: a `AdwTabBar`
  *
- * Gets the value of the #AdwTabBar:tabs-revealed property.
+ * Gets whether the tabs are currently revealed.
  *
- * Returns: whether the tabs are current revealed
+ * Returns: whether the tabs are currently revealed
  *
  * Since: 1.0
  */
@@ -958,12 +950,12 @@ adw_tab_bar_get_tabs_revealed (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_get_expand_tabs:
- * @self: a #AdwTabBar
+ * adw_tab_bar_get_expand_tabs: (attributes org.gtk.Method.get_property=expand-tabs)
+ * @self: a `AdwTabBar`
  *
- * Gets whether tabs should expand, see adw_tab_bar_set_expand_tabs().
+ * Gets whether tabs expand to full width.
  *
- * Returns: whether tabs should expand
+ * Returns: whether tabs expand to full width.
  *
  * Since: 1.0
  */
@@ -976,17 +968,11 @@ adw_tab_bar_get_expand_tabs (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_expand_tabs:
- * @self: a #AdwTabBar
+ * adw_tab_bar_set_expand_tabs: (attributes org.gtk.Method.set_property=expand-tabs)
+ * @self: a `AdwTabBar`
  * @expand_tabs: whether to expand tabs
  *
- * Sets whether tabs should expand.
- *
- * If @expand_tabs is %TRUE, the tabs will always vary width filling the whole
- * width when possible, otherwise tabs will always have the minimum possible
- * size.
- *
- * Expand is enabled by default.
+ * Sets whether tabs expand to full width.
  *
  * Since: 1.0
  */
@@ -1007,10 +993,10 @@ adw_tab_bar_set_expand_tabs (AdwTabBar *self,
 }
 
 /**
- * adw_tab_bar_get_inverted:
- * @self: a #AdwTabBar
+ * adw_tab_bar_get_inverted: (attributes org.gtk.Method.get_property=inverted)
+ * @self: a `AdwTabBar`
  *
- * Gets whether tabs use inverted layout, see adw_tab_bar_set_inverted().
+ * Gets whether tabs use inverted layout.
  *
  * Returns: whether tabs use inverted layout
  *
@@ -1025,14 +1011,11 @@ adw_tab_bar_get_inverted (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_inverted:
- * @self: a #AdwTabBar
+ * adw_tab_bar_set_inverted: (attributes org.gtk.Method.set_property=inverted)
+ * @self: a `AdwTabBar`
  * @inverted: whether tabs use inverted layout
  *
  * Sets whether tabs tabs use inverted layout.
- *
- * If @inverted is %TRUE, non-pinned tabs will have the close button at the
- * beginning and the indicator at the end rather than the opposite.
  *
  * Since: 1.0
  */
@@ -1054,13 +1037,13 @@ adw_tab_bar_set_inverted (AdwTabBar *self,
 
 /**
  * adw_tab_bar_setup_extra_drop_target:
- * @self: a #AdwTabBar
+ * @self: a `AdwTabBar`
  * @actions: the supported actions
  * @types: (nullable) (transfer none) (array length=n_types):
- *     all supported #GTypes that can be dropped
+ *   all supported `GType`s that can be dropped
  * @n_types: number of @types
  *
- * Sets the supported #GTypes for this drop target.
+ * Sets the supported types for this drop target.
  *
  * Sets up an extra drop target on tabs.
  *
@@ -1070,8 +1053,8 @@ adw_tab_bar_set_inverted (AdwTabBar *self,
  * If a tab is hovered for a certain period of time while dragging the content,
  * it will be automatically selected.
  *
- * After content is dropped, the #AdwTabBar::extra-drag-data-received signal can
- * be used to retrieve and process the drag data.
+ * The [signal@Adw.TabBar::extra-drag-drop] signal can be used to handle the
+ * drop.
  *
  * Since: 1.0
  */
@@ -1089,8 +1072,8 @@ adw_tab_bar_setup_extra_drop_target (AdwTabBar     *self,
 }
 
 /**
- * adw_tab_bar_get_is_overflowing:
- * @self: a #AdwTabBar
+ * adw_tab_bar_get_is_overflowing: (attributes org.gtk.Method.get_property=is-overflowing)
+ * @self: a `AdwTabBar`
  *
  * Gets whether @self is overflowing.
  *
