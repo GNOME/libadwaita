@@ -9,17 +9,16 @@
 #include "adw-window-title.h"
 
 /**
- * SECTION:adwwindowtitle
- * @short_description: A helper widget for setting a window's title and subtitle
- * @title: AdwWindowTitle
- * @See_also: #AdwHeaderBar
+ * AdwWindowTitle:
  *
- * A helper widget for setting a window's title and subtitle. Made to simplify
- * having a different title from the window in the headerbar.
+ * A helper widget for setting a window's title and subtitle.
  *
- * # CSS nodes
+ * `AdwWindowTitle` shows a title and subtitle. It's intended to be used as the
+ * title child of [class@Gtk.HeaderBar] or [class@Adw.HeaderBar].
  *
- * #AdwWindowTitle has a single CSS node with name windowtitle.
+ * ## CSS nodes
+ *
+ * `AdwWindowTitle` has a single CSS node with name `windowtitle`.
  *
  * Since: 1.0
  */
@@ -114,7 +113,7 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
   object_class->dispose = adw_window_title_dispose;
 
   /**
-   * AdwWindowTitle:title:
+   * AdwWindowTitle:title: (attributes org.gtk.Property.get=adw_window_title_get_title org.gtk.Property.set=adw_window_title_set_title)
    *
    * The title to display.
    *
@@ -131,7 +130,7 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwWindowTitle:subtitle:
+   * AdwWindowTitle:subtitle: (attributes org.gtk.Property.get=adw_window_title_get_subtitle org.gtk.Property.set=adw_window_title_set_subtitle)
    *
    * The subtitle to display.
    *
@@ -160,12 +159,12 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
 
 /**
  * adw_window_title_new:
- * @title: (nullable): a title, or %NULL
- * @subtitle: (nullable): a subtitle, or %NULL
+ * @title: (nullable): a title
+ * @subtitle: (nullable): a subtitle
  *
- * Creates a new #AdwWindowTitle widget.
+ * Creates a new `AdwWindowTitle`.
  *
- * Returns: a new #AdwWindowTitle
+ * Returns: the newly created `AdwWindowTitle`
  *
  * Since: 1.0
  */
@@ -180,12 +179,12 @@ adw_window_title_new (const char *title,
 }
 
 /**
- * adw_window_title_get_title:
- * @self: a #AdwWindowTitle
+ * adw_window_title_get_title: (attributes org.gtk.Method.get_property=title)
+ * @self: a `AdwWindowTitle`
  *
- * Gets the title of @self. See adw_window_title_set_title().
+ * Gets the title of @self.
  *
- * Returns: (transfer none) (nullable): the title of @self, or %NULL.
+ * Returns: (nullable): the title
  *
  * Since: 1.0
  */
@@ -198,14 +197,11 @@ adw_window_title_get_title (AdwWindowTitle *self)
 }
 
 /**
- * adw_window_title_set_title:
- * @self: a #AdwWindowTitle
- * @title: (nullable): a title, or %NULL
+ * adw_window_title_set_title: (attributes org.gtk.Method.set_property=title)
+ * @self: a `AdwWindowTitle`
+ * @title: (nullable): a title
  *
  * Sets the title of @self.
- *
- * The title typically identifies the current view or content item, and
- * generally does not use the application name.
  *
  * Since: 1.0
  */
@@ -226,12 +222,12 @@ adw_window_title_set_title (AdwWindowTitle *self,
 }
 
 /**
- * adw_window_title_get_subtitle:
- * @self: a #AdwWindowTitle
+ * adw_window_title_get_subtitle: (attributes org.gtk.Method.get_property=subtitle)
+ * @self: a `AdwWindowTitle`
  *
- * Gets the subtitle of @self. See adw_window_title_set_subtitle().
+ * Gets the subtitle of @self.
  *
- * Returns: (transfer none) (nullable): the subtitle of @self, or %NULL.
+ * Returns: (nullable): the subtitle
  *
  * Since: 1.0
  */
@@ -244,13 +240,11 @@ adw_window_title_get_subtitle (AdwWindowTitle *self)
 }
 
 /**
- * adw_window_title_set_subtitle:
- * @self: a #AdwWindowTitle
- * @subtitle: (nullable): a subtitle, or %NULL
+ * adw_window_title_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
+ * @self: a `AdwWindowTitle`
+ * @subtitle: (nullable): a subtitle
  *
  * Sets the subtitle of @self.
- *
- * The subtitle should give a user additional details.
  *
  * Since: 1.0
  */
