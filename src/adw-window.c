@@ -10,23 +10,20 @@
 #include "adw-window-mixin-private.h"
 
 /**
- * SECTION:adwwindow
- * @short_description: A freeform window.
- * @title: AdwWindow
- * @See_also: #AdwApplicationWindow
+ * AdwWindow:
  *
- * The AdwWindow widget is a subclass of #GtkWindow which has no titlebar area
- * and provides rounded corners on all sides, ensuring they can never be
- * overlapped by the content. This makes it safe to use headerbars in the
- * content area as follows:
+ * A freeform window.
  *
- * |[
+ * The `AdwWindow` widget is a subclass of [class@Gtk.Window] which has no
+ * titlebar area. It means [class@Gtk.HeaderBar] can be used as follows:
+ *
+ * ```xml
  * <object class="AdwWindow"/>
  *   <child>
  *     <object class="GtkBox">
  *       <property name="orientation">vertical</property>
  *       <child>
- *         <object class="AdwHeaderBar"/>
+ *         <object class="GtkHeaderBar"/>
  *       </child>
  *       <child>
  *         ...
@@ -34,17 +31,10 @@
  *     </object>
  *   </child>
  * </object>
- * ]|
+ * ```
  *
- * #AdwWindow allows to easily implement titlebar autohiding by putting the
- * headerbar inside a #GtkRevealer, and to show titlebar above content by
- * putting it into a #GtkOverlay instead of #GtkBox.
- *
- * if the window has a #GtkGLArea, it may bring a slight performance regression
- * when the window is not fullscreen, tiled or maximized.
- *
- * Using gtk_window_get_titlebar() and gtk_window_set_titlebar() is not
- * supported and will result in a crash.
+ * Using [method@Gtk.Window.get_titlebar] and [method@Gtk.Window.set_titlebar]
+ * is not supported and will result in a crash.
  *
  * Since: 1.0
  */
@@ -175,9 +165,9 @@ adw_window_buildable_init (GtkBuildableIface *iface)
 /**
  * adw_window_new:
  *
- * Creates a new #AdwWindow.
+ * Creates a new `AdwWindow`.
  *
- * Returns: (transfer full): a newly created #AdwWindow
+ * Returns: the newly created `AdwWindow`
  *
  * Since: 1.0
  */
@@ -189,10 +179,12 @@ adw_window_new (void)
 
 /**
  * adw_window_set_child:
- * @self: a #AdwWindow
- * @child: (allow-none): the child widget
+ * @self: a `AdwWindow`
+ * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
+ *
+ * This method should always be used instead of [method@Gtk.Window.set_child].
  *
  * Since: 1.0
  */
@@ -210,9 +202,11 @@ adw_window_set_child (AdwWindow *self,
 
 /**
  * adw_window_get_child:
- * @self: a #AdwWindow
+ * @self: a `AdwWindow`
  *
  * Gets the child widget of @self.
+ *
+ * This method should always be used instead of [method@Gtk.Window.get_child].
  *
  * Returns: (nullable) (transfer none): the child widget of @self
  *
