@@ -16,43 +16,39 @@
 static GSList *tab_view_list;
 
 /**
- * SECTION:adw-tab-view
- * @short_description: A dynamic tabbed container
- * @title: AdwTabView
- * @See_also: #AdwTabBar
+ * AdwTabView:
  *
- * #AdwTabView is a container which shows one child at a time. While it provides
- * keyboard shortcuts for switching between pages, it does not provide a visible
- * tab bar and relies on external widgets for that, such as #AdwTabBar.
+ * A dynamic tabbed container
  *
- * #AdwTabView maintains a #AdwTabPage object for each page,which holds
- * additional per-page properties. You can obtain the #AdwTabPage for a page
- * with adw_tab_view_get_page(), and as return value for adw_tab_view_append()
- * and other functions for adding children.
+ * `AdwTabView` is a container which shows one child at a time. While it
+ * provides keyboard shortcuts for switching between pages, it does not provide
+ * a visible tab bar and relies on external widgets for that, such as
+ * [class@Adw.TabBar].
  *
- * #AdwTabView only aims to be useful for dynamic tabs in multi-window
+ * `AdwTabView` maintains a [class@Adw.TabPage] object for each page, which
+ * holds additional per-page properties. You can obtain the `AdwTabPage` for a
+ * page with [method@Adw.TabView.get_page], and as the return value for
+ * [method@Adw.TabView.append] and other functions for adding children.
+ *
+ * `AdwTabView` only aims to be useful for dynamic tabs in multi-window
  * document-based applications, such as web browsers, file managers, text
- * editors or terminals. It does not aim to replace #GtkNotebook for use cases
- * such as tabbed dialogs.
+ * editors or terminals. It does not aim to replace [class@Gtk.Notebook] for use
+ * cases such as tabbed dialogs.
  *
  * As such, it does not support disabling page reordering or detaching, or
- * adding children via #GtkBuilder.
+ * adding children via [class@Gtk.Builder].
  *
- * # CSS nodes
+ * ## CSS nodes
  *
- * #AdwTabView has a main CSS node with the name tabview.
- *
- * It contains the subnode overlay, which contains subnodes stack and widget.
- * The stack subnode contains the added pages.
- *
- * |[<!-- language="plain" -->
- * tabview
- * ├── stack
- * │   ╰── [ Children ]
- * ╰── widget
- * ]|
+ * `AdwTabView` has a main CSS node with the name `tabview`.
  *
  * Since: 1.0
+ */
+
+/**
+ * AdwTabPage:
+ *
+ * An auxiliary class used by [class@Adw.TabView].
  */
 
 struct _AdwTabPage
@@ -361,7 +357,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
   object_class->set_property = adw_tab_page_set_property;
 
   /**
-   * AdwTabPage:child:
+   * AdwTabPage:child: (attributes org.gtk.Property.get=adw_tab_page_get_child)
    *
    * The child of the page.
    *
@@ -375,11 +371,11 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
   /**
-   * AdwTabPage:parent:
+   * AdwTabPage:parent: (attributes org.gtk.Property.get=adw_tab_page_get_parent)
    *
    * The parent page of the page.
    *
-   * See adw_tab_view_add_page() and adw_tab_view_close_page().
+   * See [method@Adw.TabView.add_page] and [method@Adw.TabView.close_page].
 
    * Since: 1.0
    */
@@ -391,7 +387,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:selected:
+   * AdwTabPage:selected: (attributes org.gtk.Property.get=adw_tab_page_get_selected)
    *
    * Whether the page is selected.
    *
@@ -405,9 +401,11 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                           G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:pinned:
+   * AdwTabPage:pinned: (attributes org.gtk.Property.get=adw_tab_page_get_pinned)
    *
-   * Whether the page is pinned. See adw_tab_view_set_page_pinned().
+   * Whether the page is pinned.
+   *
+   * See [method@Adw.TabView.set_page_pinned].
    *
    * Since: 1.0
    */
@@ -419,12 +417,13 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                           G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:title:
+   * AdwTabPage:title: (attributes org.gtk.Property.get=adw_tab_page_get_title org.gtk.Property.set=adw_tab_page_set_title)
    *
    * The title of the page.
    *
-   * #AdwTabBar will display it in the center of the tab unless it's pinned,
-   * and will use it as a tooltip unless #AdwTabPage:tooltip is set.
+   * [class@Adw.TabBar] will display it in the center of the tab unless it's
+   * pinned, and will use it as a tooltip unless [property@Adw.TabPage:tooltip]
+   * is set.
    *
    * Since: 1.0
    */
@@ -436,11 +435,14 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:tooltip:
+   * AdwTabPage:tooltip: (attributes org.gtk.Property.get=adw_tab_page_get_tooltip org.gtk.Property.set=adw_tab_page_set_tooltip)
    *
-   * The tooltip of the page, marked up with the Pango text markup language.
+   * The tooltip of the page.
    *
-   * If not set, #AdwTabBar will use #AdwTabPage:title as a tooltip instead.
+   * The tooltip can be marked up with the Pango text markup language.
+   *
+   * If not set, [class@Adw.TabBar] will use [property@Adw.TabPage:title] as a
+   * tooltip instead.
    *
    * Since: 1.0
    */
@@ -452,12 +454,15 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:icon:
+   * AdwTabPage:icon: (attributes org.gtk.Property.get=adw_tab_page_get_icon org.gtk.Property.set=adw_tab_page_set_icon)
    *
-   * The icon of the page, displayed next to the title.
+   * The icon of the page.
    *
-   * #AdwTabBar will not show the icon if #AdwTabPage:loading is set to %TRUE,
-   * or if the page is pinned and #AdwTabPage:indicator-icon is set.
+   * [class@Adw.TabBar] displays the icon next to the title.
+   *
+   * It will not show the icon if [property@Adw.TabPage:loading] is set to
+   * `TRUE`, or if the page is pinned and [property@Adw.TabPage:indicator-icon]
+   * is set.
    *
    * Since: 1.0
    */
@@ -469,14 +474,15 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:loading:
+   * AdwTabPage:loading: (attributes org.gtk.Property.get=adw_tab_page_get_loading org.gtk.Property.set=adw_tab_page_set_loading)
    *
    * Whether the page is loading.
    *
-   * If set to %TRUE, #AdwTabBar will display a spinner in place of icon.
+   * If set to `TRUE`, [class@Adw.TabBar] will display a spinner in place of
+   * icon.
    *
-   * If the page is pinned and #AdwTabPage:indicator-icon is set, the loading
-   * status will not be visible.
+   * If the page is pinned and [property@Adw.TabPage:indicator-icon] is set, the
+   * loading status will not be visible.
    *
    * Since: 1.0
    */
@@ -488,20 +494,20 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:indicator-icon:
+   * AdwTabPage:indicator-icon: (attributes org.gtk.Property.get=adw_tab_page_get_indicator_icon org.gtk.Property.set=adw_tab_page_set_indicator_icon)
    *
    * An indicator icon for the page.
    *
    * A common use case is an audio or camera indicator in a web browser.
    *
-   * #AdwTabPage will show it at the beginning of the tab, alongside icon
-   * representing #AdwTabPage:icon or loading spinner.
+   * [class@Adw.TabBar] will show it at the beginning of the tab, alongside icon
+   * representing [property@Adw.TabPage:icon] or loading spinner.
    *
    * If the page is pinned, the indicator will be shown instead of icon or
    * spinner.
    *
-   * If #AdwTabPage:indicator-activatable is set to %TRUE, the indicator icon
-   * can act as a button.
+   * If [property@Adw.TabPage:indicator-activatable] is set to `TRUE`, the
+   * indicator icon can act as a button.
    *
    * Since: 1.0
    */
@@ -513,14 +519,14 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:indicator-activatable:
+   * AdwTabPage:indicator-activatable: (attributes org.gtk.Property.get=adw_tab_page_get_indicator_activatable org.gtk.Property.set=adw_tab_page_set_indicator_activatable)
    *
    * Whether the indicator icon is activatable.
    *
-   * If set to %TRUE, #AdwTabView::indicator-activated will be emitted when
-   * the indicator icon is clicked.
+   * If set to `TRUE`, [signal@Adw.TabView::indicator-activated] will be emitted
+   * when the indicator icon is clicked.
    *
-   * If #AdwTabPage:indicator-icon is not set, does nothing.
+   * If [property@Adw.TabPage:indicator-icon] is not set, does nothing.
    *
    * Since: 1.0
    */
@@ -532,13 +538,13 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabPage:needs-attention:
+   * AdwTabPage:needs-attention: (attributes org.gtk.Property.get=adw_tab_page_get_needs_attention org.gtk.Property.set=adw_tab_page_set_needs_attention)
    *
    * Whether the page needs attention.
    *
-   * #AdwTabBar will display a glow under the tab representing the page if set
-   * to %TRUE. If the tab is not visible, the corresponding edge of the tab bar
-   * will be highlighted.
+   * [class@Adw.TabBar] will display a glow under the tab representing the page
+   * if set to `TRUE`. If the tab is not visible, the corresponding edge of the
+   * tab bar will be highlighted.
    *
    * Since: 1.0
    */
@@ -1383,7 +1389,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
   object_class->set_property = adw_tab_view_set_property;
 
   /**
-   * AdwTabView:n-pages:
+   * AdwTabView:n-pages: (attributes org.gtk.Property.get=adw_tab_view_get_n_pages)
    *
    * The number of pages in the tab view.
    *
@@ -1397,11 +1403,11 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                       G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabView:n-pinned-pages:
+   * AdwTabView:n-pinned-pages: (attributes org.gtk.Property.get=adw_tab_view_get_n_pinned_pages)
    *
    * The number of pinned pages in the tab view.
    *
-   * See adw_tab_view_set_page_pinned().
+   * See [method@Adw.TabView.set_page_pinned].
    *
    * Since: 1.0
    */
@@ -1413,12 +1419,12 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                       G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabView:is-transferring-page:
+   * AdwTabView:is-transferring-page: (attributes org.gtk.Property.get=adw_tab_view_get_is_transferring_page)
    *
    * Whether a page is being transferred.
    *
-   * This property will be set to %TRUE when a drag-n-drop tab transfer starts
-   * on any #AdwTabView, and to %FALSE after it ends.
+   * This property will be set to `TRUE` when a drag-n-drop tab transfer starts
+   * on any `AdwTabView`, and to `FALSE` after it ends.
    *
    * During the transfer, children cannot receive pointer input and a tab can
    * be safely dropped on the tab view.
@@ -1433,7 +1439,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                           G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabView:selected-page:
+   * AdwTabView:selected-page: (attributes org.gtk.Property.get=adw_tab_view_get_selected_page org.gtk.Property.set=adw_tab_view_set_selected_page)
    *
    * The currently selected page.
    *
@@ -1447,16 +1453,19 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabView:default-icon:
+   * AdwTabView:default-icon: (attributes org.gtk.Property.get=adw_tab_view_get_default_icon org.gtk.Property.set=adw_tab_view_set_default_icon)
    *
    * Default page icon.
    *
-   * If a page doesn't provide its own icon via #AdwTabPage:icon, default icon
-   * may be used instead for contexts where having an icon is necessary.
+   * If a page doesn't provide its own icon via [property@Adw.TabPage:icon],
+   * a default icon may be used instead for contexts where having an icon is
+   * necessary.
    *
-   * #AdwTabBar will use default icon for pinned tabs in case the page is not
-   * loading, doesn't have an icon and an indicator. Default icon is never used
-   * for tabs that aren't pinned.
+   * [class@Adw.TabBar] will use default icon for pinned tabs in case the page
+   * is not loading, doesn't have an icon and an indicator. Default icon is
+   * never used for tabs that aren't pinned.
+   *
+   * By default, the `adw-tab-icon-missing-symbolic` icon is used.
    *
    * Since: 1.0
    */
@@ -1468,13 +1477,13 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabView:menu-model:
+   * AdwTabView:menu-model: (attributes org.gtk.Property.get=adw_tab_view_get_menu_model org.gtk.Property.set=adw_tab_view_set_menu_model)
    *
    * Tab context menu model.
    *
    * When a context menu is shown for a tab, it will be constructed from the
-   * provided menu model. Use #AdwTabView::setup-menu signal to set up the menu
-   * actions for the particular tab.
+   * provided menu model. Use the [signal@Adw.TabView::setup-menu] signal to set
+   * up the menu actions for the particular tab.
    *
    * Since: 1.0
    */
@@ -1486,9 +1495,11 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabView:shortcut-widget:
+   * AdwTabView:shortcut-widget: (attributes org.gtk.Property.get=adw_tab_view_get_shortcut_widget org.gtk.Property.set=adw_tab_view_set_shortcut_widget)
    *
-   * Tab shortcut widget, has the following shortcuts:
+   * The shortcut widget.
+   *
+   * It has the following shortcuts:
    * * Ctrl+Page Up - switch to the previous page
    * * Ctrl+Page Down - switch to the next page
    * * Ctrl+Home - switch to the first page
@@ -1502,8 +1513,8 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
    * * Alt+1-9 - switch to pages 1-9
    * * Alt+0 - switch to page 10
    *
-   * These shortcuts are always available on @self, this property is useful if
-   * they should be available globally.
+   * These shortcuts are always available on the tab view itself, this property
+   * is useful if they should be available globally.
    *
    * Since: 1.0
    */
@@ -1515,11 +1526,13 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwTabView:pages:
+   * AdwTabView:pages: (attributes org.gtk.Property.get=adw_tab_view_get_pages)
    *
    * A selection model with the tab view's pages.
    *
-   * It can be used to keep an up-to-date view.
+   * This can be used to keep an up-to-date view. The model also implements
+   * [iface@Gtk.SelectionModel] and can be used to track and change the selected
+   * page.
    *
    * Since: 1.0
    */
@@ -1534,12 +1547,11 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::page-attached:
-   * @self: a #AdwTabView
+   * @self: a `AdwTabView`
    * @page: a page of @self
    * @position: the position of the page, starting from 0
    *
-   * This signal is emitted when a page has been created or transferred to
-   * @self.
+   * Emitted when a page has been created or transferred to @self.
    *
    * A typical reason to connect to this signal would be to connect to page
    * signals for things such as updating window title.
@@ -1558,20 +1570,19 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::page-detached:
-   * @self: a #AdwTabView
+   * @self: a `AdwTabView`
    * @page: a page of @self
    * @position: the position of the removed page, starting from 0
    *
-   * This signal is emitted when a page has been removed or transferred to
-   * another view.
+   * Emitted when a page has been removed or transferred to another view.
    *
    * A typical reason to connect to this signal would be to disconnect signal
-   * handlers connected in the #AdwTabView::page-attached handler.
+   * handlers connected in the [signal@Adw.TabView::page-attached] handler.
    *
    * It is important not to try and destroy the page child in the handler of
    * this function as the child might merely be moved to another window; use
    * child dispose handler for that or do it in sync with your
-   * adw_tab_view_close_page_finish() calls.
+   * [method@Adw.TabView.close_page_finish] calls.
    *
    * Since: 1.0
    */
@@ -1587,11 +1598,11 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::page-reordered:
-   * @self: a #AdwTabView
+   * @self: a `AdwTabView`
    * @page: a page of @self
    * @position: the position @page was moved to, starting at 0
    *
-   * This signal is emitted after @page has been reordered to @position.
+   * Emitted after @page has been reordered to @position.
    *
    * Since: 1.0
    */
@@ -1607,19 +1618,19 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::close-page:
-   * @self: a #AdwTabView
+   * @self: a `AdwTabView`
    * @page: a page of @self
    *
-   * This signal is emitted after adw_tab_view_close_page() has been called for
+   * Emitted after [method@Adw.TabView.close_page] has been called for
    * @page.
    *
-   * The handler is expected to call adw_tab_view_close_page_finish() to confirm
-   * or reject the closing.
+   * The handler is expected to call [method@Adw.TabView.close_page_finish] to
+   * confirm or reject the closing.
    *
    * The default handler will immediately confirm closing for non-pinned pages,
    * or reject it for pinned pages, equivalent to the following example:
    *
-   * |[<!-- language="C" -->
+   * ```c
    * static gboolean
    * close_page_cb (AdwTabView *view,
    *                AdwTabPage *page,
@@ -1629,11 +1640,11 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
    *
    *   return GDK_EVENT_STOP;
    * }
-   * ]|
+   * ```
    *
-   * The adw_tab_view_close_page_finish() doesn't have to happen during the
-   * handler, so can be used to do asynchronous checks before confirming the
-   * closing.
+   * The [method@Adw.TabView.close_page_finish] call doesn't have to happen
+   * inside the handler, so can be used to do asynchronous checks before
+   * confirming the closing.
    *
    * A typical reason to connect to this signal is to show a confirmation dialog
    * for closing a tab.
@@ -1653,11 +1664,12 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::setup-menu:
-   * @self: a #AdwTabView
-   * @page: a page of @self, or %NULL
+   * @self: a `AdwTabView`
+   * @page: (nullable): a page of @self
    *
-   * This signal is emitted before a context menu is opened for @page, and after
-   * it's closed, in the latter case the @page will be set to %NULL.
+   * Emitted when a context menu is opened or closed for @page.
+   *
+   * If the menu has been closed, @page will be set to `NULL`.
    *
    * It can be used to set up menu actions before showing the menu, for example
    * disable actions not applicable to @page.
@@ -1676,15 +1688,16 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::create-window:
-   * @self: a #AdwTabView
+   * @self: a `AdwTabView`
    *
-   * This signal is emitted when a tab is dropped onto desktop and should be
-   * transferred into a new window.
+   * Emitted when a tab should be transferred into a new window.
+   *
+   * This can happen after a tab has been dropped on desktop.
    *
    * The signal handler is expected to create a new window, position it as
-   * needed and return its #AdwTabView that the page will be transferred into.
+   * needed and return its `AdwTabView` that the page will be transferred into.
    *
-   * Returns: (transfer none) (nullable): the #AdwTabView from the new window
+   * Returns: (transfer none) (nullable): the `AdwTabView` from the new window
    *
    * Since: 1.0
    */
@@ -1700,12 +1713,13 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::indicator-activated:
-   * @self: a #AdwTabView
+   * @self: a `AdwTabView`
    * @page: a page of @self
    *
-   * This signal is emitted after the indicator icon on @page has been activated.
+   * Emitted after the indicator icon on @page has been activated.
    *
-   * See #AdwTabPage:indicator-icon and #AdwTabPage:indicator-activatable.
+   * See [property@Adw.TabPage:indicator-icon] and
+   * [property@Adw.TabPage:indicator-activatable].
    *
    * Since: 1.0
    */
@@ -1753,8 +1767,8 @@ adw_tab_view_init (AdwTabView *self)
 }
 
 /**
- * adw_tab_page_get_child:
- * @self: a #AdwTabPage
+ * adw_tab_page_get_child: (attributes org.gtk.Method.get_property=child)
+ * @self: a `AdwTabPage`
  *
  * Gets the child of @self.
  *
@@ -1771,14 +1785,12 @@ adw_tab_page_get_child (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_get_parent:
- * @self: a #AdwTabPage
+ * adw_tab_page_get_parent: (attributes org.gtk.Method.get_property=parent)
+ * @self: a `AdwTabPage`
  *
- * Gets the parent page of @self, or %NULL if the @self does not have a parent.
+ * Gets the parent page of @self.
  *
- * See adw_tab_view_add_page() and adw_tab_view_close_page().
- *
- * Returns: (transfer none) (nullable): the parent page of @self, or %NULL
+ * Returns: (transfer none) (nullable): the parent page
  *
  * Since: 1.0
  */
@@ -1791,10 +1803,10 @@ adw_tab_page_get_parent (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_get_selected:
- * @self: a #AdwTabPage
+ * adw_tab_page_get_selected: (attributes org.gtk.Method.get_property=selected)
+ * @self: a `AdwTabPage`
  *
- * Gets whether @self is selected. See adw_tab_view_set_selected_page().
+ * Gets whether @self is selected.
  *
  * Returns: whether @self is selected
  *
@@ -1809,10 +1821,10 @@ adw_tab_page_get_selected (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_get_pinned:
- * @self: a #AdwTabPage
+ * adw_tab_page_get_pinned: (attributes org.gtk.Method.get_property=pinned)
+ * @self: a `AdwTabPage`
  *
- * Gets whether @self is pinned. See adw_tab_view_set_page_pinned().
+ * Gets whether @self is pinned.
  *
  * Returns: whether @self is pinned
  *
@@ -1827,10 +1839,10 @@ adw_tab_page_get_pinned (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_get_title:
- * @self: a #AdwTabPage
+ * adw_tab_page_get_title: (attributes org.gtk.Method.get_property=title)
+ * @self: a `AdwTabPage`
  *
- * Gets the title of @self, see adw_tab_page_set_title().
+ * Gets the title of @self.
  *
  * Returns: (nullable): the title of @self
  *
@@ -1845,15 +1857,11 @@ adw_tab_page_get_title (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_title:
- * @self: a #AdwTabPage
+ * adw_tab_page_set_title: (attributes org.gtk.Method.set_property=title)
+ * @self: a `AdwTabPage`
  * @title: (nullable): the title of @self
  *
  * Sets the title of @self.
- *
- * #AdwTabBar will display it in the center of the tab representing @self
- * unless it's pinned, and will use it as a tooltip unless #AdwTabPage:tooltip
- * is set.
  *
  * Since: 1.0
  */
@@ -1873,10 +1881,10 @@ adw_tab_page_set_title (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_tooltip:
- * @self: a #AdwTabPage
+ * adw_tab_page_get_tooltip: (attributes org.gtk.Method.get_property=tooltip)
+ * @self: a `AdwTabPage`
  *
- * Gets the tooltip of @self, see adw_tab_page_set_tooltip().
+ * Gets the tooltip of @self.
  *
  * Returns: (nullable): the tooltip of @self
  *
@@ -1891,13 +1899,11 @@ adw_tab_page_get_tooltip (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_tooltip:
- * @self: a #AdwTabPage
+ * adw_tab_page_set_tooltip: (attributes org.gtk.Method.set_property=tooltip)
+ * @self: a `AdwTabPage`
  * @tooltip: (nullable): the tooltip of @self
  *
- * Sets the tooltip of @self, marked up with the Pango text markup language.
- *
- * If not set, #AdwTabBar will use #AdwTabPage:title as a tooltip instead.
+ * Sets the tooltip of @self.
  *
  * Since: 1.0
  */
@@ -1917,10 +1923,10 @@ adw_tab_page_set_tooltip (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_icon:
- * @self: a #AdwTabPage
+ * adw_tab_page_get_icon: (attributes org.gtk.Method.get_property=icon)
+ * @self: a `AdwTabPage`
  *
- * Gets the icon of @self, see adw_tab_page_set_icon().
+ * Gets the icon of @self.
  *
  * Returns: (transfer none) (nullable): the icon of @self
  *
@@ -1935,14 +1941,11 @@ adw_tab_page_get_icon (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_icon:
- * @self: a #AdwTabPage
+ * adw_tab_page_set_icon: (attributes org.gtk.Method.set_property=icon)
+ * @self: a `AdwTabPage`
  * @icon: (nullable): the icon of @self
  *
- * Sets the icon of @self, displayed next to the title.
- *
- * #AdwTabBar will not show the icon if #AdwTabPage:loading is set to %TRUE,
- * or if @self is pinned and #AdwTabPage:indicator-icon is set.
+ * Sets the icon of @self.
  *
  * Since: 1.0
  */
@@ -1962,10 +1965,10 @@ adw_tab_page_set_icon (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_loading:
- * @self: a #AdwTabPage
+ * adw_tab_page_get_loading: (attributes org.gtk.Method.get_property=loading)
+ * @self: a `AdwTabPage`
  *
- * Gets whether @self is loading, see adw_tab_page_set_loading().
+ * Gets whether @self is loading.
  *
  * Returns: whether @self is loading
  *
@@ -1980,16 +1983,11 @@ adw_tab_page_get_loading (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_loading:
- * @self: a #AdwTabPage
+ * adw_tab_page_set_loading: (attributes org.gtk.Method.set_property=loading)
+ * @self: a `AdwTabPage`
  * @loading: whether @self is loading
  *
  * Sets wether @self is loading.
- *
- * If set to %TRUE, #AdwTabBar will display a spinner in place of icon.
- *
- * If @self is pinned and #AdwTabPage:indicator-icon is set, the loading status
- * will not be visible.
  *
  * Since: 1.0
  */
@@ -2010,10 +2008,10 @@ adw_tab_page_set_loading (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_indicator_icon:
- * @self: a #AdwTabPage
+ * adw_tab_page_get_indicator_icon: (attributes org.gtk.Method.get_property=indicator-icon)
+ * @self: a `AdwTabPage`
  *
- * Gets the indicator icon of @self, see adw_tab_page_set_indicator_icon().
+ * Gets the indicator icon of @self.
  *
  * Returns: (transfer none) (nullable): the indicator icon of @self
  *
@@ -2028,22 +2026,12 @@ adw_tab_page_get_indicator_icon (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_indicator_icon:
- * @self: a #AdwTabPage
+ * adw_tab_page_set_indicator_icon: (attributes org.gtk.Method.set_property=indicator-icon)
+ * @self: a `AdwTabPage`
  * @indicator_icon: (nullable): the indicator icon of @self
  *
  * Sets the indicator icon of @self.
- *
- * A common use case is an audio or camera indicator in a web browser.
- *
- * #AdwTabPage will show it at the beginning of the tab, alongside icon
- * representing #AdwTabPage:icon or loading spinner.
- *
- * If the page is pinned, the indicator will be shown instead of icon or spinner.
- *
- * If #AdwTabPage:indicator-activatable is set to %TRUE, indicator icon
- * can act as a button.
- *
+
  * Since: 1.0
  */
 void
@@ -2062,12 +2050,11 @@ adw_tab_page_set_indicator_icon (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_indicator_activatable:
- * @self: a #AdwTabPage
+ * adw_tab_page_get_indicator_activatable: (attributes org.gtk.Method.get_property=indicator-activatable)
+ * @self: a `AdwTabPage`
  *
  *
- * Gets whether the indicator of @self is activatable, see
- * adw_tab_page_set_indicator_activatable().
+ * Gets whether the indicator of @self is activatable.
  *
  * Returns: whether the indicator is activatable
  *
@@ -2082,16 +2069,11 @@ adw_tab_page_get_indicator_activatable (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_indicator_activatable:
- * @self: a #AdwTabPage
+ * adw_tab_page_set_indicator_activatable: (attributes org.gtk.Method.set_property=indicator-activatable)
+ * @self: a `AdwTabPage`
  * @activatable: whether the indicator is activatable
  *
- * sets whether the indicator of @self is activatable.
- *
- * If set to %TRUE, #AdwTabView::indicator-activated will be emitted when
- * the indicator is clicked.
- *
- * If #AdwTabPage:indicator-icon is not set, does nothing.
+ * Sets whether the indicator of @self is activatable.
  *
  * Since: 1.0
  */
@@ -2112,10 +2094,10 @@ adw_tab_page_set_indicator_activatable (AdwTabPage *self,
 }
 
 /**
- * adw_tab_page_get_needs_attention:
- * @self: a #AdwTabPage
+ * adw_tab_page_get_needs_attention: (attributes org.gtk.Method.get_property=needs-attention)
+ * @self: a `AdwTabPage`
  *
- * Gets whether @self needs attention, see adw_tab_page_set_needs_attention().
+ * Gets whether @self needs attention.
  *
  * Returns: whether @self needs attention
  *
@@ -2130,15 +2112,11 @@ adw_tab_page_get_needs_attention (AdwTabPage *self)
 }
 
 /**
- * adw_tab_page_set_needs_attention:
- * @self: a #AdwTabPage
+ * adw_tab_page_set_needs_attention: (attributes org.gtk.Method.set_property=needs-attention)
+ * @self: a `AdwTabPage`
  * @needs_attention: whether @self needs attention
  *
  * Sets whether @self needs attention.
- *
- * #AdwTabBar will display a glow under the tab representing @self if set to
- * %TRUE. If the tab is not visible, the corresponding edge of the tab bar will
- * be highlighted.
  *
  * Since: 1.0
  */
@@ -2161,9 +2139,9 @@ adw_tab_page_set_needs_attention (AdwTabPage *self,
 /**
  * adw_tab_view_new:
  *
- * Creates a new #AdwTabView widget.
+ * Creates a new `AdwTabView`.
  *
- * Returns: a new #AdwTabView
+ * Returns: the newly created `AdwTabView`
  *
  * Since: 1.0
  */
@@ -2174,8 +2152,8 @@ adw_tab_view_new (void)
 }
 
 /**
- * adw_tab_view_get_n_pages:
- * @self: a #AdwTabView
+ * adw_tab_view_get_n_pages: (attributes org.gtk.Method.get_property=n-pages)
+ * @self: a `AdwTabView`
  *
  * Gets the number of pages in @self.
  *
@@ -2192,12 +2170,10 @@ adw_tab_view_get_n_pages (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_get_n_pinned_pages:
- * @self: a #AdwTabView
+ * adw_tab_view_get_n_pinned_pages: (attributes org.gtk.Method.get_property=n-pinned-pages)
+ * @self: a `AdwTabView`
  *
  * Gets the number of pinned pages in @self.
- *
- * See adw_tab_view_set_page_pinned().
  *
  * Returns: the number of pinned pages in @self
  *
@@ -2212,12 +2188,10 @@ adw_tab_view_get_n_pinned_pages (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_get_is_transferring_page:
- * @self: a #AdwTabView
+ * adw_tab_view_get_is_transferring_page: (attributes org.gtk.Method.get_property=is-transferring-page)
+ * @self: a `AdwTabView`
  *
  * Whether a page is being transferred.
- *
- * Gets the value of #AdwTabView:is-transferring-page property.
  *
  * Returns: whether a page is being transferred
  *
@@ -2232,12 +2206,12 @@ adw_tab_view_get_is_transferring_page (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_get_selected_page:
- * @self: a #AdwTabView
+ * adw_tab_view_get_selected_page: (attributes org.gtk.Method.get_property=selected-page)
+ * @self: a `AdwTabView`
  *
  * Gets the currently selected page in @self.
  *
- * Returns: (transfer none) (nullable): the selected page in @self
+ * Returns: (transfer none) (nullable): the selected page
  *
  * Since: 1.0
  */
@@ -2250,8 +2224,8 @@ adw_tab_view_get_selected_page (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_set_selected_page:
- * @self: a #AdwTabView
+ * adw_tab_view_set_selected_page: (attributes org.gtk.Method.set_property=selected-page)
+ * @self: a `AdwTabView`
  * @selected_page: a page in @self
  *
  * Sets the currently selected page in @self.
@@ -2276,13 +2250,13 @@ adw_tab_view_set_selected_page (AdwTabView *self,
 
 /**
  * adw_tab_view_select_previous_page:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  *
  * Selects the page before the currently selected page.
  *
  * If the first page was already selected, this function does nothing.
  *
- * Returns: %TRUE if the selected page was changed, %FALSE otherwise
+ * Returns: whether the selected page was changed
  *
  * Since: 1.0
  */
@@ -2311,13 +2285,13 @@ adw_tab_view_select_previous_page (AdwTabView *self)
 
 /**
  * adw_tab_view_select_next_page:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  *
  * Selects the page after the currently selected page.
  *
  * If the last page was already selected, this function does nothing.
  *
- * Returns: %TRUE if the selected page was changed, %FALSE otherwise
+ * Returns: whether the selected page was changed
  *
  * Since: 1.0
  */
@@ -2403,10 +2377,10 @@ adw_tab_view_select_last_page (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_get_default_icon:
- * @self: a #AdwTabView
+ * adw_tab_view_get_default_icon: (attributes org.gtk.Method.get_property=default-icon)
+ * @self: a `AdwTabView`
  *
- * Gets default icon of @self, see adw_tab_view_set_default_icon().
+ * Gets the default icon of @self.
  *
  * Returns: (transfer none): the default icon of @self.
  *
@@ -2421,20 +2395,11 @@ adw_tab_view_get_default_icon (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_set_default_icon:
- * @self: a #AdwTabView
+ * adw_tab_view_set_default_icon: (attributes org.gtk.Method.set_property=default-icon)
+ * @self: a `AdwTabView`
  * @default_icon: the default icon
  *
- * Sets default page icon for @self.
- *
- * If a page doesn't provide its own icon via #AdwTabPage:icon, default icon
- * may be used instead for contexts where having an icon is necessary.
- *
- * #AdwTabBar will use default icon for pinned tabs in case the page is not
- * loading, doesn't have an icon and an indicator. Default icon is never used
- * for tabs that aren't pinned.
- *
- * By default, 'adw-tab-icon-missing-symbolic' icon is used.
+ * Sets the default page icon for @self.
  *
  * Since: 1.0
  */
@@ -2454,10 +2419,10 @@ adw_tab_view_set_default_icon (AdwTabView *self,
 }
 
 /**
- * adw_tab_view_get_menu_model:
- * @self: a #AdwTabView
+ * adw_tab_view_get_menu_model: (attributes org.gtk.Method.get_property=menu-model)
+ * @self: a `AdwTabView`
  *
- * Gets the tab context menu model for @self, see adw_tab_view_set_menu_model().
+ * Gets the tab context menu model for @self.
  *
  * Returns: (transfer none) (nullable): the tab context menu model for @self
  *
@@ -2472,15 +2437,11 @@ adw_tab_view_get_menu_model (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_set_menu_model:
- * @self: a #AdwTabView
+ * adw_tab_view_set_menu_model: (attributes org.gtk.Method.set_property=menu-model)
+ * @self: a `AdwTabView`
  * @menu_model: (nullable): a menu model
  *
  * Sets the tab context menu model for @self.
- *
- * When a context menu is shown for a tab, it will be constructed from the
- * provided menu model. Use #AdwTabView::setup-menu signal to set up the menu
- * actions for the particular tab.
  *
  * Since: 1.0
  */
@@ -2500,10 +2461,10 @@ adw_tab_view_set_menu_model (AdwTabView *self,
 }
 
 /**
- * adw_tab_view_get_shortcut_widget:
- * @self: a #AdwTabView
+ * adw_tab_view_get_shortcut_widget: (attributes org.gtk.Method.get_property=shortcut-widget)
+ * @self: a `AdwTabView`
  *
- * Gets the shortcut widget for @self, see adw_tab_view_set_shortcut_widget().
+ * Gets the shortcut widget for @self.
  *
  * Returns: (transfer none) (nullable): the shortcut widget for @self
  *
@@ -2518,28 +2479,11 @@ adw_tab_view_get_shortcut_widget (AdwTabView *self)
 }
 
 /**
- * adw_tab_view_set_shortcut_widget:
- * @self: a #AdwTabView
+ * adw_tab_view_set_shortcut_widget: (attributes org.gtk.Method.set_property=shortcut-widget)
+ * @self: a `AdwTabView`
  * @widget: (nullable): a shortcut widget
  *
  * Sets the shortcut widget for @self.
- *
- * Registers the following shortcuts on @widget:
- * * Ctrl+Page Up - switch to the previous page
- * * Ctrl+Page Down - switch to the next page
- * * Ctrl+Home - switch to the first page
- * * Ctrl+End - switch to the last page
- * * Ctrl+Shift+Page Up - move the current page backward
- * * Ctrl+Shift+Page Down - move the current page forward
- * * Ctrl+Shift+Home - move the current page at the start
- * * Ctrl+Shift+End - move the current page at the end
- * * Ctrl+Tab - switch to the next page, with looping
- * * Ctrl+Shift+Tab - switch to the previous page, with looping
- * * Alt+1-9 - switch to pages 1-9
- * * Alt+0 - switch to page 10
- *
- * These shortcuts are always available on @self, this function is useful if
- * they should be available globally.
  *
  * Since: 1.0
  */
@@ -2581,15 +2525,15 @@ adw_tab_view_set_shortcut_widget (AdwTabView *self,
 
 /**
  * adw_tab_view_set_page_pinned:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  * @pinned: whether @page should be pinned
  *
  * Pins or unpins @page.
  *
  * Pinned pages are guaranteed to be placed before all non-pinned pages; at any
- * given moment the first #AdwTabView:n-pinned-pages pages in @self are
- * guaranteed to be pinned.
+ * given moment the first [property@Adw.TabView:n-pinned-pages] pages in @self
+ * are guaranteed to be pinned.
  *
  * When a page is pinned or unpinned, it's automatically reordered: pinning a
  * page moves it after other pinned pages; unpinning a page moves it before
@@ -2597,17 +2541,19 @@ adw_tab_view_set_shortcut_widget (AdwTabView *self,
  *
  * Pinned pages can still be reordered between each other.
  *
- * #AdwTabBar will display pinned pages in a compact form, never showing the
- * title or close button, and only showing a single icon, selected in the
+ * [class@Adw.TabBar] will display pinned pages in a compact form, never showing
+ * the title or close button, and only showing a single icon, selected in the
  * following order:
  *
- * 1. #AdwTabPage:indicator-icon
- * 2. A spinner if #AdwTabPage:loading is %TRUE
- * 3. #AdwTabPage:icon
- * 4. #AdwTabView:default-icon
+ * 1. [property@Adw.TabPage:indicator-icon]
+ * 2. A spinner if [property@Adw.TabPage:loading] is `TRUE`
+ * 3. [property@Adw.TabPage:icon]
+ * 4. [property@Adw.TabView:default-icon]
  *
- * Pinned pages cannot be closed by default, see #AdwTabView::close-page for how
- * to override that behavior.
+ * Pinned pages cannot be closed by default, see
+ * [signal@Adw.TabView::close-page] for how to override that behavior.
+ *
+ * Changes the value of the [property@Adw.TabPage:pinned] property.
  *
  * Since: 1.0
  */
@@ -2655,12 +2601,12 @@ adw_tab_view_set_page_pinned (AdwTabView *self,
 
 /**
  * adw_tab_view_get_page:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @child: a child in @self
  *
- * Gets the #AdwTabPage object representing @child.
+ * Gets the [class@Adw.TabPage] object representing @child.
  *
- * Returns: (transfer none): the #AdwTabPage representing @child
+ * Returns: (transfer none): the page object for @child
  *
  * Since: 1.0
  */
@@ -2686,10 +2632,10 @@ adw_tab_view_get_page (AdwTabView *self,
 
 /**
  * adw_tab_view_get_nth_page:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @position: the index of the page in @self, starting from 0
  *
- * Gets the #AdwTabPage representing the child at @position.
+ * Gets the [class@Adw.TabPage] representing the child at @position.
  *
  * Returns: (transfer none): the page object at @position
  *
@@ -2712,7 +2658,7 @@ adw_tab_view_get_nth_page (AdwTabView *self,
 
 /**
  * adw_tab_view_get_page_position:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  *
  * Finds the position of @page in @self, starting from 0.
@@ -2743,17 +2689,18 @@ adw_tab_view_get_page_position (AdwTabView *self,
 
 /**
  * adw_tab_view_add_page:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @child: a widget to add
- * @parent: (nullable): a parent page for @child, or %NULL
+ * @parent: (nullable): a parent page for @child
  *
  * Adds @child to @self with @parent as the parent.
  *
  * This function can be used to automatically position new pages, and to select
  * the correct page when this page is closed while being selected (see
- * adw_tab_view_close_page()).
+ * [method@Adw.TabView.close_page]).
  *
- * If @parent is %NULL, this function is equivalent to adw_tab_view_append().
+ * If @parent is `NULL`, this function is equivalent to
+ * [method@Adw.TabView.append].
  *
  * Returns: (transfer none): the page object representing @child
  *
@@ -2797,14 +2744,14 @@ adw_tab_view_add_page (AdwTabView *self,
 
 /**
  * adw_tab_view_insert:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @child: a widget to add
  * @position: the position to add @child at, starting from 0
  *
  * Inserts a non-pinned page at @position.
  *
  * It's an error to try to insert a page before a pinned page, in that case
- * adw_tab_view_insert_pinned() should be used instead.
+ * [method@Adw.TabView.insert_pinned] should be used instead.
  *
  * Returns: (transfer none): the page object representing @child
  *
@@ -2825,7 +2772,7 @@ adw_tab_view_insert (AdwTabView *self,
 
 /**
  * adw_tab_view_prepend:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @child: a widget to add
  *
  * Inserts @child as the first non-pinned page.
@@ -2846,7 +2793,7 @@ adw_tab_view_prepend (AdwTabView *self,
 
 /**
  * adw_tab_view_append:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @child: a widget to add
  *
  * Inserts @child as the last non-pinned page.
@@ -2867,14 +2814,14 @@ adw_tab_view_append (AdwTabView *self,
 
 /**
  * adw_tab_view_insert_pinned:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @child: a widget to add
  * @position: the position to add @child at, starting from 0
  *
  * Inserts a pinned page at @position.
  *
  * It's an error to try to insert a pinned page after a non-pinned page, in
- * that case adw_tab_view_insert() should be used instead.
+ * that case [method@Adw.TabView.insert] should be used instead.
  *
  * Returns: (transfer none): the page object representing @child
  *
@@ -2895,7 +2842,7 @@ adw_tab_view_insert_pinned (AdwTabView *self,
 
 /**
  * adw_tab_view_prepend_pinned:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @child: a widget to add
  *
  * Inserts @child as the first pinned page.
@@ -2916,7 +2863,7 @@ adw_tab_view_prepend_pinned (AdwTabView *self,
 
 /**
  * adw_tab_view_append_pinned:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @child: a widget to add
  *
  * Inserts @child as the last pinned page.
@@ -2937,31 +2884,31 @@ adw_tab_view_append_pinned (AdwTabView *self,
 
 /**
  * adw_tab_view_close_page:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  *
  * Requests to close @page.
  *
- * Calling this function will result in #AdwTabView::close-page signal being
- * emitted for @page. Closing the page can then be confirmed or denied via
- * adw_tab_view_close_page_finish().
+ * Calling this function will result in the [signal@Adw.TabView::close-page]
+ * signal being emitted for @page. Closing the page can then be confirmed or
+ * denied via [method@Adw.TabView.close_page_finish].
  *
- * If the page is waiting for a adw_tab_view_close_page_finish() call, this
- * function will do nothing.
+ * If the page is waiting for a [method@Adw.TabView.close_page_finish] call,
+ * this function will do nothing.
  *
- * The default handler for #AdwTabView::close-page will immediately confirm
- * closing the page if it's non-pinned, or reject it if it's pinned. This
- * behavior can be changed by registering your own handler for that signal.
+ * The default handler for [signal@Adw.TabView::close-page] will immediately
+ * confirm closing the page if it's non-pinned, or reject it if it's pinned.
+ * This behavior can be changed by registering your own handler for that signal.
  *
  * If @page was selected, another page will be selected instead:
  *
- * If the #AdwTabPage:parent value is %NULL, the next page will be selected when
- * possible, or if the page was already last, the previous page will be selected
- * instead.
+ * If the [property@Adw.TabPage:parent] value is `NULL`, the next page will be
+ * selected when possible, or if the page was already last, the previous page
+ * will be selected instead.
  *
- * If it's not %NULL, the previous page will be selected if it's a
- * descendant (possibly indirect) of the parent. If both the previous page and
- * the parent are pinned, the parent will be selected instead.
+ * If it's not `NULL`, the previous page will be selected if it's a descendant
+ * (possibly indirect) of the parent. If both the previous page and the parent
+ * are pinned, the parent will be selected instead.
  *
  * Since: 1.0
  */
@@ -2984,18 +2931,18 @@ adw_tab_view_close_page (AdwTabView *self,
 
 /**
  * adw_tab_view_close_page_finish:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  * @confirm: whether to confirm or deny closing @page
  *
- * Completes a adw_tab_view_close_page() call for @page.
+ * Completes a [method@Adw.TabView.close_page] call for @page.
  *
- * If @confirm is %TRUE, @page will be closed. If it's %FALSE, ite will be
- * reverted to its previous state and adw_tab_view_close_page() can be called
- * for it again.
+ * If @confirm is `TRUE`, @page will be closed. If it's `FALSE`, it will be
+ * reverted to its previous state and [method@Adw.TabView.close_page] can be
+ * called for it again.
  *
  * This function should not be called unless a custom handler for
- * #AdwTabView::close-page is used.
+ * [signal@Adw.TabView::close-page] is used.
  *
  * Since: 1.0
  */
@@ -3017,7 +2964,7 @@ adw_tab_view_close_page_finish (AdwTabView *self,
 
 /**
  * adw_tab_view_close_other_pages:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  *
  * Requests to close all pages other than @page.
@@ -3046,7 +2993,7 @@ adw_tab_view_close_other_pages (AdwTabView *self,
 
 /**
  * adw_tab_view_close_pages_before:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  *
  * Requests to close all pages before @page.
@@ -3074,7 +3021,7 @@ adw_tab_view_close_pages_before (AdwTabView *self,
 
 /**
  * adw_tab_view_close_pages_after:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  *
  * Requests to close all pages after @page.
@@ -3102,7 +3049,7 @@ adw_tab_view_close_pages_after (AdwTabView *self,
 
 /**
  * adw_tab_view_reorder_page:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  * @position: the position to insert the page at, starting at 0
  *
@@ -3111,7 +3058,7 @@ adw_tab_view_close_pages_after (AdwTabView *self,
  * It's a programmer error to try to reorder a pinned page after a non-pinned
  * one, or a non-pinned page before a pinned one.
  *
- * Returns: %TRUE if @page was moved, %FALSE otherwise
+ * Returns: whether @page was moved
  *
  * Since: 1.0
  */
@@ -3160,12 +3107,12 @@ adw_tab_view_reorder_page (AdwTabView *self,
 
 /**
  * adw_tab_view_reorder_backward:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  *
  * Reorders @page to before its previous page if possible.
  *
- * Returns: %TRUE if @page was moved, %FALSE otherwise
+ * Returns: whether @page was moved
  *
  * Since: 1.0
  */
@@ -3193,12 +3140,12 @@ adw_tab_view_reorder_backward (AdwTabView *self,
 
 /**
  * adw_tab_view_reorder_forward:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  *
  * Reorders @page to after its next page if possible.
  *
- * Returns: %TRUE if @page was moved, %FALSE otherwise
+ * Returns: whether @page was moved
  *
  * Since: 1.0
  */
@@ -3226,12 +3173,12 @@ adw_tab_view_reorder_forward (AdwTabView *self,
 
 /**
  * adw_tab_view_reorder_first:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  *
  * Reorders @page to the first possible position.
  *
- * Returns: %TRUE if @page was moved, %FALSE otherwise
+ * Returns: whether @page was moved
  *
  * Since: 1.0
  */
@@ -3254,12 +3201,12 @@ adw_tab_view_reorder_first (AdwTabView *self,
 
 /**
  * adw_tab_view_reorder_last:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  *
  * Reorders @page to the last possible position.
  *
- * Returns: %TRUE if @page was moved, %FALSE otherwise
+ * Returns: whether @page was moved
  *
  * Since: 1.0
  */
@@ -3317,12 +3264,14 @@ adw_tab_view_attach_page (AdwTabView *self,
 
 /**
  * adw_tab_view_transfer_page:
- * @self: a #AdwTabView
+ * @self: a `AdwTabView`
  * @page: a page of @self
  * @other_view: the tab view to transfer the page to
  * @position: the position to insert the page at, starting at 0
  *
- * Transfers @page from @self to @other_view. The @page object will be reused.
+ * Transfers @page from @self to @other_view.
+ *
+ * The @page object will be reused.
  *
  * It's a programmer error to try to insert a pinned page after a non-pinned
  * one, or a non-pinned page before a pinned one.
@@ -3354,14 +3303,16 @@ adw_tab_view_transfer_page (AdwTabView *self,
 }
 
 /**
- * adw_tab_view_get_pages:
- * @self: a #AdwTabView
+ * adw_tab_view_get_pages: (attributes org.gtk.Method.get_property=pages)
+ * @self: a `AdwTabView`
  *
- * Returns a #GListModel that contains the pages of the tab view, and can be
- * used to keep an up-to-date view. The model also implements #GtkSelectionModel
- * and can be used to track the selected page.
+ * Returns a `GListModel` that contains the pages of @self.
  *
- * Returns: (transfer full): a #GtkSelectionModel for the pages of @self
+ * This can be used to keep an up-to-date view. The model also implements
+ * [iface@Gtk.SelectionModel] and can be used to track and change the selected
+ * page.
+ *
+ * Returns: (transfer full): a `GtkSelectionModel` for the pages of @self
  *
  * Since: 1.0
  */
