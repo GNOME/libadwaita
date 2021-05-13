@@ -99,7 +99,7 @@ popover.menu {
       background-color: $menu_selected_color;
 
       &:active {
-        background-color: darken($bg_color,14%); // matching buttons
+        background-color: $menu_active_color; // matching buttons
       }
     }
 
