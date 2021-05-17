@@ -70,24 +70,35 @@ separator.sidebar {
   > row {
     min-height: 36px;
     padding: 0 8px;
-    border-radius: $menu-margin;
-    margin: 0 $menu-margin 2px;
+    border-radius: $menu_radius;
+    margin: 0 $menu_margin 2px;
     @include focus-ring($focus-state: 'focus-visible:focus-within');
-
-    &:hover {
-      background-color: darken($menu_selected_color, 5%);
-    }
 
     &:selected {
       background-color: $menu_selected_color;
       color: inherit;
+    }
 
+    &.activatable {
+      &.has-open-popup,
       &:hover {
-        background-color: darken($menu_selected_color,5%);
+        background-color: $menu_hover_color;
+      }
+
+      &:selected {
+        &.has-open-popup,
+        &:hover {
+          background-color: $menu_selected_hover_color;
+        }
+      }
+
+      &:active,
+      &:selected:active {
+        background-color: $menu_active_color;
       }
     }
 
-    &:disabled { color: $insensitive_fg_color; }
+    &:disabled { color: gtkalpha(currentColor, .55); }
   }
 }
 
