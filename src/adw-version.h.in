@@ -11,13 +11,6 @@
 #endif
 
 /**
- * SECTION:adwversion
- * @short_description: Adwaita version checking.
- *
- * libadwaita provides macros to check the version of the library at compile-time.
- */
-
-/**
  * ADW_MAJOR_VERSION:
  *
  * Adw major version component (e.g. 1 if %ADW_VERSION is 1.2.3)
@@ -71,7 +64,7 @@
  * @minor: required minor version
  * @micro: required micro version
  *
- * Compile-time version checking. Evaluates to %TRUE if the version
+ * Compile-time version checking. Evaluates to `TRUE` if the version
  * of Adwaita is greater than the required one.
  */
 #define ADW_CHECK_VERSION(major,minor,micro)   \
