@@ -2,6 +2,10 @@ dropdown > popover.menu.background > contents { padding: 0; }
 
 dropdown > button > box {
   border-spacing: 6px;
+
+  > stack > row.activatable:hover {
+    background: none;
+  }
 }
 
 dropdown,
