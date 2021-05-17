@@ -227,11 +227,11 @@ listview.content {
   list.nested > row:not(:active) {
     &:not(:hover):not(:selected),
     &:hover:not(.activatable):not(:selected) {
-      background-color: mix($bg_color, $base_color, 0.5);
+      background-color: mix($bg_color, $base_color, 50%);
     }
 
     &:hover.activatable:not(:selected) {
-      background-color: mix($fg_color, $base_color, 0.95);
+      background-color: mix($fg_color, $base_color, 5%);
     }
   }
 
@@ -246,7 +246,7 @@ listview.content {
 
     &:not(.expander):not(:active):hover.activatable:not(:selected),
     &.expander row.header:not(:active):hover.activatable:not(:selected) {
-      background-color: mix($fg_color, $base_color, 0.95);
+      background-color: mix($fg_color, $base_color, 5%);
     }
 
     &,
