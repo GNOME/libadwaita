@@ -10,14 +10,6 @@
    border-color: $insensitive_borders_color;
   }
 
-  // ...on selected list rows
-  row:selected & {
-    &:disabled, & {
-      outline-color: $alt_focus_border_color;
-      border-color: $selected_borders_color;
-    }
-  }
-
   // OSD
   .osd & {
     border-color: $osd_borders_color;
@@ -36,9 +28,6 @@
     background-color: transparent;
     border-color: transparent;
   }
-
-  // ...on selected list rows
-  row:selected & { &:disabled, & { border-color: $selected_borders_color; }}
 
   // OSD
   .osd & {
@@ -109,9 +98,6 @@ scale {
       &:active { border-color: $selected_borders_color; }
 
       &:disabled { @include button(insensitive); }
-
-      // ...on selected list rows
-      row:selected & { &:disabled, & { border-color: $selected_borders_color; } }
 
       // OSD
       .osd & {

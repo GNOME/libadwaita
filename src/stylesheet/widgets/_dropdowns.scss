@@ -45,12 +45,6 @@ combobox {
 
       & > row {
         padding: 8px;
-
-        &:selected {
-          outline-color: $alt_focus_border_color;
-          color: $text-color;
-          background-color: $menu_selected_color;
-        }
       }
     }
 

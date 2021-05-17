@@ -46,16 +46,4 @@ switch {
   &:checked > slider { border: 1px solid $switch_borders_color; }
 
   &:disabled > slider { @include button(insensitive); }
-
-
-  row:selected & {
-    outline-color: $alt_focus_border_color;
-
-    @if $variant == 'light' {
-      box-shadow: none;
-      border-color: $switch_borders_color;
-
-      > slider { &:checked, & { border-color: $switch_borders_color; } }
-    }
-  }
 }

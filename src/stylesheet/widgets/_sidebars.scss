@@ -57,33 +57,6 @@ separator.sidebar {
     padding: 0 8px;
     border-radius: $menu_radius;
     margin: 0 $menu_margin 2px;
-    @include focus-ring($focus-state: 'focus-visible:focus-within');
-
-    &:selected {
-      background-color: $menu_selected_color;
-      color: inherit;
-    }
-
-    &.activatable {
-      &.has-open-popup,
-      &:hover {
-        background-color: $menu_hover_color;
-      }
-
-      &:selected {
-        &.has-open-popup,
-        &:hover {
-          background-color: $menu_selected_hover_color;
-        }
-      }
-
-      &:active,
-      &:selected:active {
-        background-color: $menu_active_color;
-      }
-    }
-
-    &:disabled { color: gtkalpha(currentColor, .55); }
   }
 }
 
@@ -123,7 +96,6 @@ placessidebar {
     @at-root button.sidebar-button {
       @extend %button_basic_flat;
 
-      @extend %button_selected_flat;
       min-height: 26px;
       min-width: 26px;
       margin-top: 3px;
