@@ -35,21 +35,6 @@ stacksidebar row {
     @extend %needs_attention;
     background-size: 6px 6px, 0 0;
   }
-
-  &:selected {
-    background-color: $menu_selected_color;
-    border-radius: $menu_radius;
-    color: $fg_color;
-
-    &:hover {
-      background-color: darken($menu_selected_color, 5%);
-    }
-  }
-
-  &.activatable:active,
-  &.activatable:selected:active {
-    box-shadow: none; // #3413
-  }
 }
 
 separator.sidebar {
