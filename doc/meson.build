@@ -2,6 +2,7 @@ if get_option('gtk_doc')
 
 expand_content_md_files = [
   'build-howto.md',
+  'migrating-libhandy-1-4-to-libadwaita.md',
   'visual-index.md',
 ]
 
