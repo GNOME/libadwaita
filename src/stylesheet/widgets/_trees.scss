@@ -1,7 +1,7 @@
 columnview.view,
 treeview.view {
-  border-left-color:  $treeview_borders_color; // this is actually the tree lines color,
-  border-top-color: $treeview_borders_color;                         // while this is the grid lines color, better then nothing
+  border-left-color: $treeview_borders_color; // this is actually the tree lines color,
+  border-top-color: $treeview_borders_color; // while this is the grid lines color, better then nothing
 
   @include focus-ring();
 
