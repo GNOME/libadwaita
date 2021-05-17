@@ -12,17 +12,6 @@
 #include <glib/gi18n-lib.h>
 #include "adw-bidi-private.h"
 
-/**
- * PRIVATE:adw-fading-label
- * @short_description: A helper object for #AdwTab
- * @title: AdwFadingLabel
- * @stability: Private
- *
- * The AdwFadingLabel widget allows to ellipsize a label with a fading effect.
- *
- * Since: 1.0
- */
-
 #define FADE_WIDTH 18
 
 struct _AdwFadingLabel
