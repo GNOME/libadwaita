@@ -1,11 +1,8 @@
-$_menu-padding: 12px; //inner menuitem padding
-//global $menu-margin for outside menuitems
-
 popover.menu {
   padding: 0;
 
   box.inline-buttons {
-    padding: 0 $_menu-padding;
+    padding: 0 $menu_padding;
 
     button.image-button.model {
       @include button(undecorated);
@@ -22,7 +19,7 @@ popover.menu {
   }
 
   box.circular-buttons {
-    padding: $_menu-padding $_menu-padding 6px;
+    padding: $menu_padding $menu_padding 6px;
 
     button.circular.image-button.model {
       @extend %outline_button;
@@ -48,8 +45,8 @@ popover.menu {
   accelerator {
     color: gtkalpha(currentColor, 0.55);
 
-    &:dir(ltr) { margin-left: $_menu-padding; }
-    &:dir(rtl) { margin-right: $_menu-padding; }
+    &:dir(ltr) { margin-left: $menu_padding; }
+    &:dir(rtl) { margin-right: $menu_padding; }
   }
 
   check,
@@ -88,7 +85,7 @@ popover.menu {
   modelbutton {
     min-height: 30px;
     min-width: 40px;
-    padding: 0 $_menu-padding;
+    padding: 0 $menu_padding;
     border-radius: $menu-margin;
 
     @extend %undecorated_button;
@@ -121,7 +118,7 @@ popover.menu {
 
   label.title {
     font-weight: bold;
-    padding: 4px ($_menu-padding + 20px); //this will fall apart with font sizing
+    padding: 4px ($menu_padding + 20px); //this will fall apart with font sizing
   }
 }
 
