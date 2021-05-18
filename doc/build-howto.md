@@ -75,7 +75,7 @@ To build on macOS you need to install the build-dependencies first. This can
 e.g. be done via [`brew`](https://brew.sh):
 
 ```bash
-brew install pkg-config gtk+3 adwaita-icon-theme meson glade gobject-introspection vala
+brew install pkg-config gtk4 meson gobject-introspection vala
 ```
 
 After running the command above, one may now build the library:
@@ -83,8 +83,8 @@ After running the command above, one may now build the library:
 ```bash
 git clone https://gitlab.gnome.org/GNOME/libadwaita.git
 cd libadwaita
-meson . _build
-ninja -C _build test
+meson _build
+ninja -C _build
 ninja -C _build install
 ```
 
@@ -92,5 +92,5 @@ Working with the library on macOS is pretty much the same as on Linux. To link
 it, use `pkg-config`:
 
 ```bash
-gcc $(pkg-config --cflags --libs gtk+-3.0) $(pkg-config --cflags --libs libadwaita-1) main.c -o main
+gcc $(pkg-config --cflags --libs gtk4) $(pkg-config --cflags --libs libadwaita-1) main.c -o main
 ```
