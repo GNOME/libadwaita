@@ -10,6 +10,7 @@
 #include <gtk/gtk.h>
 
 static int adw_initialized = FALSE;
+static GtkCssProvider *provider;
 
 static gboolean
 is_high_contrast (void)
@@ -30,25 +31,36 @@ is_high_contrast (void)
 }
 
 static void
+load_theme (gboolean dark,
+            gboolean high_contrast)
+{
+  g_autofree char *path = NULL;
+  const char *variant;
+
+  if (high_contrast)
+    variant = dark ? "hc-dark" : "hc";
+  else
+    variant = dark ? "dark" : "light";
+
+  path = g_strdup_printf ("/org/gtk/libgtk/theme/Adwaita/Adwaita-%s.css", variant);
+
+  gtk_css_provider_load_from_resource (provider, path);
+}
+
+static void
 update_theme (void)
 {
   GtkSettings *settings = gtk_settings_get_default ();
-  g_autofree char *new_theme_name = NULL;
   gboolean prefer_dark_theme;
-  const char *variant;
 
   g_object_get (settings,
                 "gtk-application-prefer-dark-theme", &prefer_dark_theme,
                 NULL);
 
-  if (is_high_contrast ())
-    variant = prefer_dark_theme ? "hc-dark" : "hc";
-  else
-    variant = prefer_dark_theme ? "dark" : "light";
+  // Empty doesn't have a gtk-dark.css so we'll make our own instead
+  g_object_set (settings, "gtk-theme-name", "Adwaita", NULL);
 
-  new_theme_name = g_strdup_printf ("Adwaita-%s", variant);
-
-  g_object_set (settings, "gtk-theme-name", new_theme_name, NULL);
+  load_theme (prefer_dark_theme, is_high_contrast ());
 }
 
 static void
@@ -64,6 +76,7 @@ adw_style_init (void)
 {
   static gsize guard = 0;
   GtkSettings *settings;
+  GdkDisplay *display;
 
   if (!g_once_init_enter (&guard))
     return;
@@ -76,6 +89,13 @@ adw_style_init (void)
     return;
   }
 
+  display = gdk_display_get_default ();
+
+  provider = gtk_css_provider_new ();
+  gtk_style_context_add_provider_for_display (display,
+                                              GTK_STYLE_PROVIDER (provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_THEME);
+
   g_signal_connect (settings,
                     "notify::gtk-application-prefer-dark-theme",
                     G_CALLBACK (update_theme),
@@ -83,7 +103,7 @@ adw_style_init (void)
 
   /* If gtk_settings_get_default() has worked, GdkDisplay
    * exists, so we don't need to check that separately. */
-  g_signal_connect (gdk_display_get_default (),
+  g_signal_connect (display,
                     "setting-changed",
                     G_CALLBACK (setting_changed_cb),
                     NULL);
