@@ -11,16 +11,7 @@ If you need to build Libadwaita, get the source from
 Like other GNOME libraries, Libadwaita uses `pkg-config` to provide compiler
 options. The package name is `libadwaita-1`.
 
-If you use Automake/Autoconf, in your `configure.ac` script, you might specify
-something like:
-
-```autoconf
-PKG_CHECK_MODULES(LIBADWAITA, [libadwaita-1])
-AC_SUBST(LIBADWAITA_CFLAGS)
-AC_SUBST(LIBADWAITA_LIBS)
-```
-
-Or when using the Meson build system you can declare a dependency like:
+When using the Meson build system you can declare a dependency like:
 
 ```meson
 dependency('libadwaita-1')
