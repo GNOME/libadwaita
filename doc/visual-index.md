@@ -1,7 +1,7 @@
-Title: Visual index
+Title: Visual Index
 Slug: visual-index
 
-# Widgets
+# Visual Index
 
 [![avatar](avatar.png)](class.Avatar.html)
 [![header-bar](header-bar.png)](class.HeaderBar.html)

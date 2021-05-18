@@ -1,12 +1,12 @@
 Title: Compiling with Libadwaita
 Slug: building
 
-# Building
+# Compiling with Libadwaita
 
 If you need to build Libadwaita, get the source from
 [here](https://gitlab.gnome.org/GNOME/libadwaita/) and see the `README.md` file.
 
-# Using `pkg-config`
+## Using `pkg-config`
 
 Like other GNOME libraries, Libadwaita uses `pkg-config` to provide compiler
 options. The package name is `libadwaita-1`.
@@ -30,7 +30,7 @@ The `1` in the package name is the "API version" (indicating "the version of the
 Libadwaita API that first appeared in version 1") and is essentially just part
 of the package name.
 
-# Bundling the library
+## Bundling the Library
 
 As Libadwaita uses the Meson build system, bundling it as a subproject when it
 is not installed is easy. Add this to your `meson.build`:
@@ -78,7 +78,7 @@ your manifest:
 }
 ```
 
-# Building on macOS
+## Building on macOS
 
 To build on macOS you need to install the build-dependencies first. This can
 e.g. be done via [`brew`](https://brew.sh):
