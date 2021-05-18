@@ -81,19 +81,6 @@ radio {
                                                   -gtk-recolor(url("assets/dash@2-symbolic.symbolic.png"))); }
 }
 
-treeview.view check,
-treeview.view radio {
-  &:selected {
-    &:focus, & {
-      color: $checkradio_fg_color;
-
-      @if $variant == 'light' { border-color: $selected_borders_color; }
-    }
-  }
-}
-
-treeview.view radio:selected { &:focus, & { @extend %radio; }} // This is a workaround
-
 //selection-mode
 @each $check_state, $check_icon, $check_color, $check_background in
   ('', 'none', 'transparent', $checkradio_bg_color),
