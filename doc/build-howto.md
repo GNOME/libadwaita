@@ -55,7 +55,6 @@ your manifest:
 {
   "name" : "libadwaita",
   "buildsystem" : "meson",
-  "builddir" : true,
   "config-opts": [
     "-Dexamples=false",
     "-Dtests=false"
@@ -63,7 +62,8 @@ your manifest:
   "sources" : [
     {
       "type" : "git",
-      "url" : "https://gitlab.gnome.org/GNOME/libadwaita.git"
+      "url" : "https://gitlab.gnome.org/GNOME/libadwaita.git",
+      "branch" : "main"
     }
   ]
 }
