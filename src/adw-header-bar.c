@@ -49,7 +49,7 @@
  *       <property name="orientation">vertical</property>
  *       <object class="AdwHeaderBar">
  *         <binding name="show-end-title-buttons">
- *           <lookup name="folded">AdwLeaflet</lookup>
+ *           <lookup name="folded">leaflet</lookup>
  *         </binding>
  *       </object>
  *       ...
@@ -61,7 +61,7 @@
  *       <property name="orientation">vertical</property>
  *       <object class="AdwHeaderBar">
  *         <binding name="show-start-title-buttons">
- *           <lookup name="folded">AdwLeaflet</lookup>
+ *           <lookup name="folded">leaflet</lookup>
  *         </binding>
  *       </object>
  *       ...
