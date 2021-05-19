@@ -2,6 +2,10 @@ $_levelbar_size: 11px;
 $_levelbar_border_radius: 6px;
 
 levelbar {
+  &:disabled {
+    filter: opacity(.5);
+  }
+
   &.horizontal {
     trough > block {
       min-height: $_levelbar_size;
