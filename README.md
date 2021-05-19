@@ -1,13 +1,10 @@
 # Adwaita
-[![Pipeline status](https://gitlab.gnome.org/GNOME/libadwaita/badges/main/build.svg)](https://gitlab.gnome.org/GNOME/libadwaita/commits/main)
-[![Code coverage](https://gitlab.gnome.org/GNOME/libadwaita/badges/main/coverage.svg)](https://gitlab.gnome.org/GNOME/libadwaita/commits/main)
 
-The aim of the Adwaita library is to help with developing UI for mobile devices
-using GTK/GNOME.
+Building blocks for modern GNOME applications.
 
 ## License
 
-libadwaita is licensed under the LGPL-2.1+.
+Libadwaita is licensed under the LGPL-2.1+.
 
 ## Building
 
@@ -24,7 +21,7 @@ For build options see [meson_options.txt](./meson_options.txt). E.g. to enable d
 
 ```sh
 meson . _build -Dgtk_doc=true
-ninja -C _build libadwaita-doc
+ninja -C _build
 ```
 
 ## Usage
@@ -32,14 +29,7 @@ ninja -C _build libadwaita-doc
 There's a C example:
 
 ```sh
-_build/examples/example
-```
-
-and one in Python. When running from the built source tree it
-needs several environment variables so use \_build/run to set them:
-
-```sh
-_build/run examples/example.py
+_build/run _build/examples/adwaita-1-demo
 ```
 
 ## Documentation
