@@ -341,7 +341,6 @@ $_default_button_c: lighten($bg_color,2%);
   // normal, hover, active, insensitive, menu
 
   $_border_color: if($c==$checkradio_bg_color, $checkradio_borders_color, $alt_borders_color);
-  $_dim_border_color: transparentize($_border_color, if($variant == 'light', 0.3, 0.7));
 
   @if $t==normal  {
     background-clip: if($checked, border-box, padding-box);
@@ -372,13 +371,5 @@ $_default_button_c: lighten($bg_color,2%);
    box-shadow: none;
    background-image: image(transparent);
    color: $tc;
-  }
-
-  @if $t==menu-active {
-   transform: scale(0.8);
-   border-width: 1.2px;
-   color: $tc;
-   box-shadow: none;
-   background-image: image(transparent);
   }
 }
