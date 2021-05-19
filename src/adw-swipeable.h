@@ -26,7 +26,7 @@ G_DECLARE_INTERFACE (AdwSwipeable, adw_swipeable, ADW, SWIPEABLE, GtkWidget)
  * AdwSwipeableInterface:
  * @parent: The parent interface.
  * @get_distance: Gets the swipe distance.
- * @get_snap_points: Gets the snap points
+ * @get_snap_points: Gets the snap points.
  * @get_progress: Gets the current progress.
  * @get_cancel_progress: Gets the cancel progress.
  * @get_swipe_area: Gets the swipeable rectangle.
