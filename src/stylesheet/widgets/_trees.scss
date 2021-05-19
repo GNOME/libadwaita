@@ -1,3 +1,6 @@
+// To be used for opaque elements overlaid atop the selected row
+$treeview_selection_opaque: mix(opacify($menu_selected_color, 1), $base_color, 100% * alpha($menu_selected_color));
+
 columnview.view,
 treeview.view {
   border-left-color: $treeview_borders_color; // this is actually the tree lines color,
@@ -115,7 +118,10 @@ treeview.view {
     }
   }
 
-  acceleditor > label { background-color: $selected_bg_color; } // see tests/testaccel to test
+  acceleditor > label {
+    // see tests/testaccel in GTK to test
+    background-color: $treeview_selection_opaque;
+  }
 }
 
 %column_header_button {
