@@ -43,7 +43,7 @@ iconview {
   > dndtarget:drop(active) {
     border-style: solid;
     border-width: 1px;
-    border-color: $selected_borders_color;
+    border-color: $drop_target_color;
   }
 }
 

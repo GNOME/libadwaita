@@ -26,7 +26,7 @@ treeview.view {
   > dndtarget:drop(active) {
     border-style: solid none;
     border-width: 1px;
-    border-color: $selected_borders_color;
+    border-color: $drop_target_color;
 
     &.after { border-top-style: none; }
 
