@@ -732,17 +732,21 @@ adw_expander_row_remove (AdwExpanderRow *self,
                          GtkWidget      *child)
 {
   AdwExpanderRowPrivate *priv;
+  GtkWidget *parent;
 
   g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
   g_return_if_fail (GTK_IS_WIDGET (child));
 
   priv = adw_expander_row_get_instance_private (self);
 
-  if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->actions))
+  parent = gtk_widget_get_parent (child);
+
+  if (parent == GTK_WIDGET (priv->actions))
     gtk_box_remove (priv->actions, child);
-  else if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->prefixes))
+  else if (parent == GTK_WIDGET (priv->prefixes))
     gtk_box_remove (priv->prefixes, child);
-  else {
+  else if (parent == GTK_WIDGET (priv->list) ||
+           (GTK_IS_WIDGET (parent) && (gtk_widget_get_parent (parent) == GTK_WIDGET (priv->list)))) {
     gtk_list_box_remove (priv->list, child);
 
     if (!gtk_widget_get_first_child (GTK_WIDGET (priv->list)))

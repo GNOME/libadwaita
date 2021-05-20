@@ -825,5 +825,6 @@ adw_preferences_window_remove (AdwPreferencesWindow *self,
 
   priv = adw_preferences_window_get_instance_private (self);
 
-  gtk_stack_remove (priv->pages_stack, GTK_WIDGET (page));
+  if (gtk_widget_get_parent (GTK_WIDGET (page)) == GTK_WIDGET (priv->pages_stack))
+    gtk_stack_remove (priv->pages_stack, GTK_WIDGET (page));
 }

@@ -460,5 +460,6 @@ adw_preferences_page_remove (AdwPreferencesPage  *self,
 
   priv = adw_preferences_page_get_instance_private (self);
 
-  gtk_box_remove (priv->box, GTK_WIDGET (group));
+  if (gtk_widget_get_parent (GTK_WIDGET (group)) == GTK_WIDGET (priv->box))
+    gtk_box_remove (priv->box, GTK_WIDGET (group));
 }

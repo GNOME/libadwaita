@@ -849,15 +849,18 @@ adw_action_row_remove (AdwActionRow *self,
                        GtkWidget    *child)
 {
   AdwActionRowPrivate *priv;
+  GtkWidget *parent;
 
   g_return_if_fail (ADW_IS_ACTION_ROW (self));
   g_return_if_fail (GTK_IS_WIDGET (child));
 
   priv = adw_action_row_get_instance_private (self);
 
-  if (gtk_widget_get_parent (child) == GTK_WIDGET (priv->prefixes))
+  parent = gtk_widget_get_parent (child);
+
+  if (parent == GTK_WIDGET (priv->prefixes))
     gtk_box_remove (priv->prefixes, child);
-  else
+  else if (parent == GTK_WIDGET (priv->suffixes))
     gtk_box_remove (priv->suffixes, child);
 }
 

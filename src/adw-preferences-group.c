@@ -453,14 +453,17 @@ adw_preferences_group_remove (AdwPreferencesGroup *self,
                               GtkWidget           *child)
 {
   AdwPreferencesGroupPrivate *priv;
+  GtkWidget *parent;
 
   g_return_if_fail (ADW_IS_PREFERENCES_GROUP (self));
   g_return_if_fail (GTK_IS_WIDGET (child));
 
   priv = adw_preferences_group_get_instance_private (self);
 
-  if (ADW_IS_PREFERENCES_ROW (child))
+  parent = gtk_widget_get_parent (child);
+
+  if (parent == GTK_WIDGET (priv->listbox))
     gtk_list_box_remove (priv->listbox, child);
-  else if (child != GTK_WIDGET (priv->listbox))
+  else if (parent == GTK_WIDGET (priv->listbox_box))
     gtk_box_remove (priv->listbox_box, child);
 }
