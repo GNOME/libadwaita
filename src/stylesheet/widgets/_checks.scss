@@ -24,10 +24,10 @@ radio {
   }
 
   &:hover {
-    background-color: transparentize($text_color, .75);
+    background-color: transparentize($text_color, .8);
 
     &:active {
-      background-color: transparentize(black, .65);
+      background-color: transparentize(black, .75);
     }
   }
 
@@ -41,10 +41,10 @@ radio {
     }
 
     &:hover {
-      background-color: mix($selected_bg_color, $text_color, 80%);
+      background-color: mix($selected_bg_color, $text_color, 90%);
 
       &:active {
-        background-color: mix($selected_bg_color, black, 60%);
+        background-color: mix($selected_bg_color, black, 80%);
       }
     }
   }
