@@ -7,6 +7,8 @@
 #include "config.h"
 #include "adw-action-row.h"
 
+#include "adw-macros-private.h"
+
 /**
  * AdwActionRow:
  *
@@ -862,6 +864,8 @@ adw_action_row_remove (AdwActionRow *self,
     gtk_box_remove (priv->prefixes, child);
   else if (parent == GTK_WIDGET (priv->suffixes))
     gtk_box_remove (priv->suffixes, child);
+  else
+    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
 }
 
 /**

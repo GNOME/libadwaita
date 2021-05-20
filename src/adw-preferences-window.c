@@ -12,6 +12,7 @@
 #include "adw-animation.h"
 #include "adw-action-row.h"
 #include "adw-leaflet.h"
+#include "adw-macros-private.h"
 #include "adw-preferences-group-private.h"
 #include "adw-preferences-page-private.h"
 #include "adw-view-switcher.h"
@@ -827,4 +828,6 @@ adw_preferences_window_remove (AdwPreferencesWindow *self,
 
   if (gtk_widget_get_parent (GTK_WIDGET (page)) == GTK_WIDGET (priv->pages_stack))
     gtk_stack_remove (priv->pages_stack, GTK_WIDGET (page));
+  else
+    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, page);
 }

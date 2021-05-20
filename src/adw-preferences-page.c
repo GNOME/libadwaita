@@ -8,6 +8,7 @@
 
 #include "adw-preferences-page-private.h"
 
+#include "adw-macros-private.h"
 #include "adw-preferences-group-private.h"
 
 /**
@@ -462,4 +463,6 @@ adw_preferences_page_remove (AdwPreferencesPage  *self,
 
   if (gtk_widget_get_parent (GTK_WIDGET (group)) == GTK_WIDGET (priv->box))
     gtk_box_remove (priv->box, GTK_WIDGET (group));
+  else
+    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, group);
 }

@@ -8,6 +8,7 @@
 #include "adw-expander-row.h"
 
 #include "adw-action-row.h"
+#include "adw-macros-private.h"
 
 /**
  * AdwExpanderRow:
@@ -752,4 +753,6 @@ adw_expander_row_remove (AdwExpanderRow *self,
     if (!gtk_widget_get_first_child (GTK_WIDGET (priv->list)))
       gtk_widget_add_css_class (GTK_WIDGET (self), "empty");
   }
+  else
+    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
 }

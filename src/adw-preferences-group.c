@@ -8,6 +8,7 @@
 
 #include "adw-preferences-group-private.h"
 
+#include "adw-macros-private.h"
 #include "adw-preferences-row.h"
 
 /**
@@ -466,4 +467,6 @@ adw_preferences_group_remove (AdwPreferencesGroup *self,
     gtk_list_box_remove (priv->listbox, child);
   else if (parent == GTK_WIDGET (priv->listbox_box))
     gtk_box_remove (priv->listbox_box, child);
+  else
+    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
 }

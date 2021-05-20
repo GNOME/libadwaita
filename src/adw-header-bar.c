@@ -26,6 +26,7 @@
 #include "adw-enums.h"
 #include "adw-focus-private.h"
 #include "adw-gizmo-private.h"
+#include "adw-macros-private.h"
 
 /**
  * AdwHeaderBar:
@@ -732,6 +733,8 @@ adw_header_bar_remove (AdwHeaderBar *self,
     gtk_box_remove (GTK_BOX (self->end_box), child);
   else if (parent == self->center_box)
     gtk_center_box_set_center_widget (GTK_CENTER_BOX (self->center_box), NULL);
+  else
+    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
 }
 
 /**
