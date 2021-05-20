@@ -28,7 +28,7 @@ G_DECLARE_DERIVABLE_TYPE (AdwActionRow, adw_action_row, ADW, ACTION_ROW, AdwPref
  */
 struct _AdwActionRowClass
 {
-  GtkListBoxRowClass parent_class;
+  AdwPreferencesRowClass parent_class;
 
   void (*activate) (AdwActionRow *self);
 
