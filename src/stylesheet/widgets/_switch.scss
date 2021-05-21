@@ -16,13 +16,13 @@ switch {
     }
    }
    @else {
-     background-color: transparentize($text_color, .85);
+     background-color: $trough_color;
      color: $fg_color;
 
      &:hover {
-      background-color: transparentize($text_color, .8);
+      background-color: $trough_hover_color;
 
-      &:active { background-color: transparentize(black, .75); }
+      &:active { background-color: $trough_active_color; }
     }
 
     > image { color: transparent; }

@@ -1,6 +1,6 @@
 %scale_trough {
   border-radius: 3px;
-  background-color: transparentize($text_color, .85);
+  background-color: $trough_color;
 
   @if $contrast == "high" {
     box-shadow: inset 0 0 0 1px $borders_color;
@@ -64,7 +64,7 @@ scale {
 
   &:hover {
     > trough {
-      background-color: transparentize($text_color, .8);
+      background-color: $trough_hover_color;
 
       > highlight {
         background-color: mix($selected_bg_color, $text_color, 90%);
