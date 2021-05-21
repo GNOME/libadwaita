@@ -24,6 +24,10 @@ $view_active_color: transparentize(black, .85);
 $trough_color: transparentize($text_color, .85);
 $trough_hover_color: transparentize($text_color, .8);
 $trough_active_color: transparentize(black, .75);
+$fill_color: $selected_bg_color;
+$fill_text_color: $selected_fg_color;
+$fill_hover_color: mix($selected_bg_color, $text_color, 90%);
+$fill_active_color: mix($selected_bg_color, black, 80%);
 
 $scrollbar_bg_color: if($variant == 'light', mix($bg_color, $fg_color, 80%), mix($base_color, $bg_color, 50%));
 $scrollbar_slider_color: mix($fg_color, $bg_color, 60%);

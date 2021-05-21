@@ -31,19 +31,17 @@ radio {
 
   &:checked,
   &:indeterminate {
-    background-color: $selected_bg_color;
-    color: $selected_fg_color;
+    background-color: $fill_color;
+    color: $fill_text_color;
 
     @if $contrast == "high" {
       box-shadow: none;
     }
 
     &:hover {
-      background-color: mix($selected_bg_color, $text_color, 90%);
+      background-color: $fill_hover_color;
 
-      &:active {
-        background-color: mix($selected_bg_color, black, 80%);
-      }
+      &:active { background-color: $fill_active_color; }
     }
   }
 

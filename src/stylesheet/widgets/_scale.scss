@@ -14,7 +14,7 @@
 
 %scale_highlight {
   border-radius: 3px;
-  background-color: $selected_bg_color;
+  background-color: $fill_color;
 }
 
 scale {
@@ -67,7 +67,7 @@ scale {
       background-color: $trough_hover_color;
 
       > highlight {
-        background-color: mix($selected_bg_color, $text_color, 90%);
+        background-color: $fill_hover_color;
       }
 
       > slider {
