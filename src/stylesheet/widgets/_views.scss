@@ -10,7 +10,7 @@
 
   &:selected {
     &:focus, & {
-      background-color: $menu_selected_color;
+      background-color: $view_selected_color;
 
       border-radius: 3px;
     }
@@ -60,7 +60,7 @@ flowbox {
     @include focus-ring();
 
     &:selected {
-      background-color: $menu_selected_color;
+      background-color: $view_selected_color;
     }
   }
 }
@@ -73,7 +73,7 @@ gridview {
     @include focus-ring();
 
     &:selected {
-      background-color: $menu_selected_color;
+      background-color: $view_selected_color;
     }
 
     box { //cells

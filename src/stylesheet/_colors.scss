@@ -17,10 +17,10 @@ $link_visited_color: if($variant == 'light', darken($selected_bg_color, 20%), li
 $dark_fill: mix($borders_color, $bg_color, 50%);
 $headerbar_bg_color: if($variant == 'light', lighten($bg_color, 5%), darken($bg_color, 3%));
 $menu_color: $base_color;
-$menu_hover_color: transparentize($text_color, .93);
-$menu_selected_color: transparentize($text_color, .9);
-$menu_selected_hover_color: transparentize($text_color, .87);
-$menu_active_color: transparentize(black, .85);
+$view_hover_color: transparentize($text_color, .93);
+$view_selected_color: transparentize($text_color, .9);
+$view_selected_hover_color: transparentize($text_color, .87);
+$view_active_color: transparentize(black, .85);
 
 $scrollbar_bg_color: if($variant == 'light', mix($bg_color, $fg_color, 80%), mix($base_color, $bg_color, 50%));
 $scrollbar_slider_color: mix($fg_color, $bg_color, 60%);
