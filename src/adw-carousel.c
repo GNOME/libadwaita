@@ -1320,11 +1320,11 @@ adw_carousel_remove (AdwCarousel *self,
 
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (gtk_widget_get_parent (child) == GTK_WIDGET (self));
 
   info = find_child_info (self, child);
 
-  if (!info)
-    return;
+  g_assert_nonnull (info);
 
   info->removing = TRUE;
 
