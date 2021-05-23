@@ -348,11 +348,7 @@ button {
 
 .toolbar button {
   margin: 1px;
-  @extend %undecorated_button;
-
-  &:hover { @include button(undecorated-hover); }
-  &:active { @include button(undecorated-active); }
-  &:disabled { @include button(undecorated); }
+  @extend %button_basic_flat;
 }
 
 button.color {
