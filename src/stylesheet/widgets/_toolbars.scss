@@ -22,6 +22,11 @@
   // toolbar separators
   &.horizontal > separator { margin: 4px 0; }
   &.vertical > separator { margin: 0 4px; }
+
+  button {
+    margin: 1px;
+    @extend %button_basic_flat;
+  }
 }
 
 /****************

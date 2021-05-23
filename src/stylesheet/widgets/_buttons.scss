@@ -344,13 +344,6 @@ button {
   &:not(:last-child) > button { @extend %linked_not_bottom; }
 }
 
-/* oldstyle toolbar buttons */
-
-.toolbar button {
-  margin: 1px;
-  @extend %button_basic_flat;
-}
-
 button.color {
   padding: 4px;
 
