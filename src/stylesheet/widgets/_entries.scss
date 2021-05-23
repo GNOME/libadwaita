@@ -2,16 +2,15 @@
 entry {
   %entry_basic, & {
     min-height: 32px;
-    padding-left: 8px;
-    padding-right: 8px;
-    border: 1px solid;
+    padding-left: 9px;
+    padding-right: 9px;
     border-radius: $button_radius;
     border-spacing: 6px;
     transition: all 200ms $ease-out-quad;
 
     @include entry(normal);
 
-    @include focus-ring($focus-state: 'focus-within');
+    @include focus-ring($focus-state: 'focus-within', $offset: -1px);
 
     > text {
       > placeholder {

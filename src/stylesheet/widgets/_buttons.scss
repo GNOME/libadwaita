@@ -11,14 +11,13 @@ button {
   @at-root %button_basic, & {
     min-height: 24px;
     min-width: 16px;
-    padding: 4px 9px;
-    border: 1px solid;
+    padding: 5px 10px;
     border-radius: $button_radius;
     transition: $button_transition;
 
     @include button(normal);
 
-    @include focus-ring();
+    @include focus-ring($offset: -1px);
 
     &:hover {
       @include button(hover);
@@ -79,18 +78,18 @@ button {
 
     &.image-button {
       min-width: 24px;
-      padding-left: 5px;
-      padding-right: 5px;
+      padding-left: 6px;
+      padding-right: 6px;
     }
 
     &.text-button {
-      padding-left: 16px;
-      padding-right: 16px;
+      padding-left: 17px;
+      padding-right: 17px;
     }
 
     &.text-button.image-button {
-      padding-left: 8px;
-      padding-right: 8px;
+      padding-left: 9px;
+      padding-right: 9px;
 
       label {
         padding-left: 8px;
@@ -289,7 +288,7 @@ button {
 }
 
 button.color {
-  padding: 4px;
+  padding: 5px;
 
   > colorswatch:only-child {
     &, > overlay { border-radius: 0; }
@@ -352,3 +351,36 @@ menubutton {
     }
   }
 }
+
+button {
+  color: inherit;
+}
+
+$shade_color: rgb(50,0,50);
+
+.colored button {
+  background: rgba(255,255,255,.25);
+  box-shadow: 0 0 0 1px gtkalpha(black, .15), 0 2px 1px gtkalpha(black, .1);
+}
+
+.colored.shifted button {
+  background: rgba(255,255,220,.25);
+  box-shadow: 0 0 0 1px gtkalpha($shade_color, .15), 0 2px 1px gtkalpha($shade_color, .1);
+}
+
+.colored.shifted.dark button {
+  background: rgba(255,255,220, .1);
+}
+
+.colored.dark button {
+  background: rgba(255,255,255, .1);
+}
+
+.colored.shifted.light button {
+  background: rgba(255,255,220, .9);
+}
+
+.colored.light button {
+  background: rgba(255,255,255, .9);
+}
+
