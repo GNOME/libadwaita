@@ -1,3 +1,15 @@
+// .linked >        element            child
+$_linked_widgets: ("%button",          ""),
+                  ("button",           ""),
+                  ("menubutton",       "> button"),
+                  ("dropdown",         "> button"),
+                  ("colorbutton",      "> button"),
+                  ("fontbutton",       "> button"),
+                  ("combobox",         "> box > button.combo"),
+                  ("appchooserbutton", "> combobox > box > button.combo"),
+                  ("%entry",           ""),
+                  ("entry",            "");
+
 %linked_not_left {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -20,91 +32,25 @@
   border-bottom-right-radius: 0;
 }
 
-// 1st/last child are at text start/end
-%linked {
-  &:dir(ltr) {
-    &:not(:first-child) { @extend %linked_not_left; }
-    &:not(:last-child) { @extend %linked_not_right; }
+@each $widget, $child in $_linked_widgets {
+  .linked:not(.vertical) > {
+    #{$widget}:dir(ltr) {
+      &:not(:first-child) #{$child} { @extend %linked_not_left; }
+      &:not(:last-child) #{$child} { @extend %linked_not_right; }
+    }
+
+    #{$widget}:dir(rtl) {
+      &:not(:first-child) #{$child} { @extend %linked_not_right; }
+      &:not(:last-child) #{$child} { @extend %linked_not_left; }
+    }
   }
 
-  &:dir(rtl) {
-    &:not(:first-child) { @extend %linked_not_right; }
-    &:not(:last-child) { @extend %linked_not_left; }
+  .linked.vertical {
+    #{$widget} {
+      &:not(:first-child) #{$child} { @extend %linked_not_top; }
+      &:not(:last-child) #{$child} { @extend %linked_not_bottom; }
+    }
   }
-}
-
-%linked_vertical {
-  &:not(:first-child) { @extend %linked_not_top; }
-
-  &:not(:last-child) { @extend %linked_not_bottom; }
-}
-
-%button,
-button {
-  .linked:not(.vertical) > & { @extend %linked; }
-
-  .linked.vertical > & { @extend %linked_vertical; }
-}
-
-.linked:not(.vertical) > menubutton,
-.linked:not(.vertical) > dropdown,
-.linked:not(.vertical) > colorbutton,
-.linked:not(.vertical) > fontbutton {
-  &:dir(ltr) {
-    &:not(:first-child) > button { @extend %linked_not_left; }
-    &:not(:last-child) > button { @extend %linked_not_right; }
-  }
-
-  &:dir(rtl) {
-    &:not(:first-child) > button { @extend %linked_not_right; }
-    &:not(:last-child) > button { @extend %linked_not_left; }
-  }
-}
-
-.linked.vertical > menubutton,
-.linked.vertical > dropdown,
-.linked.vertical > colorbutton,
-.linked.vertical > fontbutton {
-  &:not(:first-child) > button { @extend %linked_not_top; }
-  &:not(:last-child) > button { @extend %linked_not_bottom; }
-}
-
-// the combo is a composite widget so the way we do button linking doesn't
-// work, special case needed. See
-// https://bugzilla.gnome.org/show_bug.cgi?id=733979
-
-.linked:not(.vertical) > combobox {
-  &:dir(ltr) {
-    &:not(:first-child) > box > button.combo { @extend %linked_not_left; }
-    &:not(:last-child) > box > button.combo { @extend %linked_not_right; }
-  }
-
-  &:dir(rtl) {
-    &:not(:first-child) > box > button.combo { @extend %linked_not_right; }
-    &:not(:last-child) > box > button.combo { @extend %linked_not_left; }
-  }
-}
-
-.linked.vertical > combobox {
-  &:not(:first-child) > box > button.combo { @extend %linked_not_top; }
-  &:not(:last-child) > box > button.combo { @extend %linked_not_bottom; }
-}
-
-.linked:not(.vertical) > appchooserbutton {
-  &:dir(ltr) {
-    &:not(:first-child) > combobox > box > button.combo { @extend %linked_not_left; }
-    &:not(:last-child) > combobox > box > button.combo { @extend %linked_not_right; }
-  }
-
-  &:dir(rtl) {
-    &:not(:first-child) > combobox > box > button.combo { @extend %linked_not_right; }
-    &:not(:last-child) > combobox > box > button.combo { @extend %linked_not_left; }
-  }
-}
-
-.linked.vertical > appchooserbutton {
-  &:not(:first-child) > combobox > box > button.combo { @extend %linked_not_top; }
-  &:not(:last-child) > combobox > box > button.combo { @extend %linked_not_bottom; }
 }
 
 dropdown,
@@ -119,23 +65,9 @@ combobox {
 
 %entry,
 entry {
-   // linked entries
-  .linked:not(.vertical) > & { @extend %linked; }
-
-  .linked:not(.vertical) > &:drop(active) + &,
-  .linked:not(.vertical) > &:drop(active) + button,
-  .linked:not(.vertical) > &:drop(active) + menubutton > button,
-  .linked:not(.vertical) > &:drop(active) + dropdown > button,
-  .linked:not(.vertical) > &:drop(active) + colorbutton > button,
-  .linked:not(.vertical) > &:drop(active) + fontbutton > button,
-  .linked:not(.vertical) > &:drop(active) + appchooserbutton > combobox > box > button.combo,
-  .linked:not(.vertical) > &:drop(active) + combobox > box > button.combo { border-left-color: $drop_target_color; }
-
   // Vertically linked entries
   // FIXME: take care of "colored" entries
   .linked.vertical > & {
-    @extend %linked_vertical;
-
     // brighter border between linked entries
     &:not(:disabled) + entry:not(:disabled),
     &:not(:disabled) + %entry:not(:disabled) {
@@ -148,17 +80,19 @@ entry {
 
     + %entry:drop(active):not(:only-child),
     + entry:drop(active):not(:only-child) { border-top-color: $drop_target_color; }
+  }
 
-    &:drop(active):not(:only-child) {
-      + %entry,
-      + entry,
-      + button,
-      + menubutton > button,
-      + dropdown > button,
-      + colorbutton > button,
-      + fontbutton > button,
-      + appchooserbutton > combobox > box > button.combo,
-      + combobox > box > button.combo { border-top-color: $drop_target_color; }
+  @each $widget, $child in $_linked_widgets {
+    .linked:not(.vertical) > &:drop(active):not(:only-child) + {
+      #{$widget} #{$child} {
+        border-left-color: $drop_target_color;
+      }
+    }
+
+    .linked.vertical > &:drop(active):not(:only-child) + {
+      #{$widget} #{$child} {
+        border-top-color: $drop_target_color;
+      }
     }
   }
 }
