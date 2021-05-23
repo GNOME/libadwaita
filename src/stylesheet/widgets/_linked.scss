@@ -53,16 +53,6 @@ $_linked_widgets: ("%button",          ""),
   }
 }
 
-dropdown,
-combobox {
-  &.linked {
-    button:nth-child(2) {
-      &:dir(ltr) { @extend %linked_not_left; }
-      &:dir(rtl) { @extend %linked_not_right; }
-    }
-  }
-}
-
 %entry,
 entry {
   // Vertically linked entries
