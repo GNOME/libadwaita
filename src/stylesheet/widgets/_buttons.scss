@@ -55,12 +55,25 @@ button {
         @include button(undecorated-hover);
         transition: $button_transition;
         transition-duration: 500ms;
+
+        &:active {
+          @include button(undecorated-active);
+        }
       }
-      &:active,
+
       &:checked {
-        @include button(undecorated-active);
+        @include button(undecorated-checked);
         transition: $button_transition;
+
+        &:hover {
+          @include button(undecorated-checked-hover);
+
+          &:active {
+            @include button(undecorated-active);
+          }
+        }
       }
+
       &:disabled { @include button(undecorated); }
     }
 
