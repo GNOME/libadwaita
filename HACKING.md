@@ -1,9 +1,9 @@
-Building
-========
+## Building
+
 For build instructions see the README.md
 
-Pull Requests
-=============
+## Pull Requests
+
 Before filing a pull request run the tests:
 
 ```sh
@@ -20,15 +20,15 @@ and check
 
 for good examples.
 
-Coding Style
-============
+## Coding Style
+
 We mostly use kernel style but
 
 * Use spaces, never tabs
 * Use 2 spaces for indentation
 
-GTK Style Function Argument Indentation
-----------------------------------------
+### GTK Style Function Argument Indentation
+
 Use GTK style function argument indentation. It's harder for renames but it's
 what GNOME upstream projects do.
 
@@ -49,8 +49,8 @@ key_press_event_cb (GtkWidget *widget, GdkEvent *event, gpointer data)
 ```
 
 
-Braces
-------
+### Braces
+
 Everything besides functions and structs have the opening curly brace on the same line.
 
 *Good*:
@@ -142,8 +142,8 @@ visible_child_name = gtk_stack_get_visible_child_name(GTK_STACK(self->stack));
 ```
 
 
-Header Inclusion Guards
------------------------
+### Header Inclusion Guards
+
 Guard header inclusion with `#pragma once` rather than the traditional
 `#ifndef`-`#define`-`#endif` trio.
 
@@ -159,8 +159,8 @@ them:
 Only after these should you include headers.
 
 
-Signals
--------
+### Signals
+
 Prefix signal enum names with *SIGNAL_*.
 
 *Good*:
@@ -178,8 +178,8 @@ Also note that the last element ends with a comma to reduce diff noise when
 adding further signals.
 
 
-Properties
-----------
+### Properties
+
 Prefix property enum names with *PROP_*.
 
 *Good*:
@@ -199,8 +199,8 @@ enum {
 Also note that the last element ends with a comma to reduce diff noise when
 adding further properties.
 
-Comment Style
--------------
+### Comment Style
+
 In comments use full sentences with proper capitalization and punctuation.
 
 *Good*:
@@ -216,8 +216,8 @@ In comments use full sentences with proper capitalization and punctuation.
 ```
 
 
-Callbacks
----------
+### Callbacks
+
 Signal callbacks have a *_cb* suffix.
 
 *Good*:
@@ -233,8 +233,8 @@ g_signal_connect(self, "clicked", G_CALLBACK (handle_button_clicked), NULL);
 ```
 
 
-Static Functions
-----------------
+### Static Functions
+
 Static functions don't need the class prefix.  E.g. with a type foo_bar:
 
 *Good*:
@@ -261,8 +261,8 @@ These functions are usually never called directly but only assigned once in
 *<class_name>_constructed* so the longer name is kind of acceptable. This also
 helps to distinguish virtual methods from regular private methods.
 
-Self Argument
--------------
+### Self Argument
+
 The first argument is usually the object itself so call it *self*. E.g. for a
 non public function:
 
@@ -293,13 +293,14 @@ foo_button_get_state (FooButton *self)
 }
 ```
 
-User Interface Files
---------------------
+### User Interface Files
+
 User interface files should end in *.ui*. If there are multiple ui
 files put them in a ui/ subdirectory below the sources
 (e.g. *src/ui/main-window.ui*).
 
-### Properties
+#### Properties
+
 Use minus signs instead of underscores in property names:
 
 *Good*:
@@ -314,8 +315,8 @@ Use minus signs instead of underscores in property names:
 <property name="margin_start">12</property>
 ```
 
-Automatic Cleanup
------------------
+### Automatic Cleanup
+
 It's recommended to use `g_auto()`, `g_autoptr()`, `g_autofree()` for
 automatic resource cleanup when possible.
 
