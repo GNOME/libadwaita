@@ -2,7 +2,7 @@ Building
 ========
 For build instructions see the README.md
 
-Pull requests
+Pull Requests
 =============
 Before filing a pull request run the tests:
 
@@ -27,7 +27,7 @@ We mostly use kernel style but
 * Use spaces, never tabs
 * Use 2 spaces for indentation
 
-GTK style function argument indentation
+GTK Style Function Argument Indentation
 ----------------------------------------
 Use GTK style function argument indentation. It's harder for renames but it's
 what GNOME upstream projects do.
@@ -199,7 +199,7 @@ enum {
 Also note that the last element ends with a comma to reduce diff noise when
 adding further properties.
 
-Comment style
+Comment Style
 -------------
 In comments use full sentences with proper capitalization and punctuation.
 
@@ -233,7 +233,7 @@ g_signal_connect(self, "clicked", G_CALLBACK (handle_button_clicked), NULL);
 ```
 
 
-Static functions
+Static Functions
 ----------------
 Static functions don't need the class prefix.  E.g. with a type foo_bar:
 
@@ -261,7 +261,7 @@ These functions are usually never called directly but only assigned once in
 *<class_name>_constructed* so the longer name is kind of acceptable. This also
 helps to distinguish virtual methods from regular private methods.
 
-Self argument
+Self Argument
 -------------
 The first argument is usually the object itself so call it *self*. E.g. for a
 non public function:
@@ -293,7 +293,7 @@ foo_button_get_state (FooButton *self)
 }
 ```
 
-User interface files
+User Interface Files
 --------------------
 User interface files should end in *.ui*. If there are multiple ui
 files put them in a ui/ subdirectory below the sources
@@ -314,7 +314,7 @@ Use minus signs instead of underscores in property names:
 <property name="margin_start">12</property>
 ```
 
-Automatic cleanup
+Automatic Cleanup
 -----------------
 It's recommended to use `g_auto()`, `g_autoptr()`, `g_autofree()` for
 automatic resource cleanup when possible.

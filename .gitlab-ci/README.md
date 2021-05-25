@@ -1,4 +1,4 @@
-### Checklist for Updating the Docker images
+### Checklist for Updating the Docker Images
 
  - [ ] Update the `${image}.Dockerfile` file with the dependencies
  - [ ] Run `./run-docker.sh build --base ${image} --version ${number}`

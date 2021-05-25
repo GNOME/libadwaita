@@ -37,6 +37,6 @@ _build/run _build/examples/adwaita-1-demo
 The documentation can be found online
 [here](https://gnome.pages.gitlab.gnome.org/libadwaita/doc/).
 
-## Getting in touch
+## Getting in Touch
 
 Matrix room: [#libadwaita:gnome.org](https://matrix.to/#/#libadwaita:gnome.org)
