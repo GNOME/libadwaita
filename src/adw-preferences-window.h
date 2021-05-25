@@ -54,11 +54,11 @@ ADW_AVAILABLE_IN_ALL
 void adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
                                              GtkWidget            *subpage);
 ADW_AVAILABLE_IN_ALL
-void adw_preferences_window_close_subpage (AdwPreferencesWindow *self);
+void adw_preferences_window_close_subpage   (AdwPreferencesWindow *self);
 
 ADW_AVAILABLE_IN_ALL
-void adw_preferences_window_add (AdwPreferencesWindow *self,
-                                 AdwPreferencesPage   *page);
+void adw_preferences_window_add    (AdwPreferencesWindow *self,
+                                    AdwPreferencesPage   *page);
 ADW_AVAILABLE_IN_ALL
 void adw_preferences_window_remove (AdwPreferencesWindow *self,
                                     AdwPreferencesPage   *page);

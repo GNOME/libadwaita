@@ -21,13 +21,13 @@ G_DECLARE_FINAL_TYPE (AdwWindowMixin, adw_window_mixin, ADW, WINDOW_MIXIN, GObje
 AdwWindowMixin *adw_window_mixin_new (GtkWindow      *window,
                                       GtkWindowClass *klass);
 
-void            adw_window_mixin_size_allocate (AdwWindowMixin *self,
-                                                int             width,
-                                                int             height,
-                                                int             baseline);
+void adw_window_mixin_size_allocate (AdwWindowMixin *self,
+                                     int             width,
+                                     int             height,
+                                     int             baseline);
 
-void            adw_window_mixin_set_child (AdwWindowMixin *self,
-                                            GtkWidget      *child);
-GtkWidget      *adw_window_mixin_get_child (AdwWindowMixin *self);
+GtkWidget *adw_window_mixin_get_child (AdwWindowMixin *self);
+void       adw_window_mixin_set_child (AdwWindowMixin *self,
+                                       GtkWidget      *child);
 
 G_END_DECLS

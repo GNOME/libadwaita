@@ -42,44 +42,44 @@ typedef enum {
 } AdwCenteringPolicy;
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget   *adw_header_bar_new (void);
+GtkWidget *adw_header_bar_new (void);
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget   *adw_header_bar_get_title_widget  (AdwHeaderBar *self);
+GtkWidget *adw_header_bar_get_title_widget (AdwHeaderBar *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_header_bar_set_title_widget  (AdwHeaderBar *self,
-                                               GtkWidget    *title_widget);
+void       adw_header_bar_set_title_widget (AdwHeaderBar *self,
+                                            GtkWidget    *title_widget);
 
 ADW_AVAILABLE_IN_ALL
-void         adw_header_bar_pack_start        (AdwHeaderBar *self,
-                                               GtkWidget    *child);
+void adw_header_bar_pack_start (AdwHeaderBar *self,
+                                GtkWidget    *child);
 ADW_AVAILABLE_IN_ALL
-void         adw_header_bar_pack_end          (AdwHeaderBar *self,
-                                               GtkWidget    *child);
+void adw_header_bar_pack_end   (AdwHeaderBar *self,
+                                GtkWidget    *child);
 ADW_AVAILABLE_IN_ALL
-void         adw_header_bar_remove            (AdwHeaderBar *self,
-                                               GtkWidget    *child);
+void adw_header_bar_remove     (AdwHeaderBar *self,
+                                GtkWidget    *child);
 
 ADW_AVAILABLE_IN_ALL
-gboolean     adw_header_bar_get_show_start_title_buttons (AdwHeaderBar *self);
+gboolean adw_header_bar_get_show_start_title_buttons (AdwHeaderBar *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_header_bar_set_show_start_title_buttons (AdwHeaderBar *self,
-                                                          gboolean      setting);
+void     adw_header_bar_set_show_start_title_buttons (AdwHeaderBar *self,
+                                                      gboolean      setting);
 
 ADW_AVAILABLE_IN_ALL
-gboolean     adw_header_bar_get_show_end_title_buttons (AdwHeaderBar *self);
+gboolean adw_header_bar_get_show_end_title_buttons (AdwHeaderBar *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
-                                                        gboolean      setting);
+void     adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
+                                                    gboolean      setting);
 
 ADW_AVAILABLE_IN_ALL
-const char  *adw_header_bar_get_decoration_layout (AdwHeaderBar *self);
+const char *adw_header_bar_get_decoration_layout (AdwHeaderBar *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
-                                                   const char   *layout);
+void        adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
+                                                  const char   *layout);
 
 ADW_AVAILABLE_IN_ALL
-AdwCenteringPolicy adw_header_bar_get_centering_policy (AdwHeaderBar *self);
+AdwCenteringPolicy adw_header_bar_get_centering_policy (AdwHeaderBar       *self);
 ADW_AVAILABLE_IN_ALL
 void               adw_header_bar_set_centering_policy (AdwHeaderBar       *self,
                                                         AdwCenteringPolicy  centering_policy);

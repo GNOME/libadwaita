@@ -22,19 +22,19 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwStatusPage, adw_status_page, ADW, STATUS_PAGE, GtkWidget)
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget       *adw_status_page_new (void);
+GtkWidget *adw_status_page_new (void);
 
 ADW_AVAILABLE_IN_ALL
-const char      *adw_status_page_get_icon_name (AdwStatusPage *self);
+const char *adw_status_page_get_icon_name (AdwStatusPage *self);
 ADW_AVAILABLE_IN_ALL
-void             adw_status_page_set_icon_name (AdwStatusPage *self,
-                                                const char    *icon_name);
+void        adw_status_page_set_icon_name (AdwStatusPage *self,
+                                           const char    *icon_name);
 
 ADW_AVAILABLE_IN_ALL
-const char      *adw_status_page_get_title (AdwStatusPage *self);
+const char *adw_status_page_get_title (AdwStatusPage *self);
 ADW_AVAILABLE_IN_ALL
-void             adw_status_page_set_title (AdwStatusPage *self,
-                                            const char    *title);
+void        adw_status_page_set_title (AdwStatusPage *self,
+                                       const char    *title);
 
 ADW_AVAILABLE_IN_ALL
 const char      *adw_status_page_get_description (AdwStatusPage *self);
@@ -43,9 +43,9 @@ void             adw_status_page_set_description (AdwStatusPage *self,
                                                   const char    *description);
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget       *adw_status_page_get_child (AdwStatusPage *self);
+GtkWidget *adw_status_page_get_child (AdwStatusPage *self);
 ADW_AVAILABLE_IN_ALL
-void             adw_status_page_set_child (AdwStatusPage *self,
-                                            GtkWidget     *child);
+void       adw_status_page_set_child (AdwStatusPage *self,
+                                      GtkWidget     *child);
 
 G_END_DECLS

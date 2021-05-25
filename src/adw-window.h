@@ -33,9 +33,9 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_window_new (void);
 
 ADW_AVAILABLE_IN_ALL
+GtkWidget *adw_window_get_child (AdwWindow *self);
+ADW_AVAILABLE_IN_ALL
 void       adw_window_set_child (AdwWindow *self,
                                  GtkWidget *child);
-ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_window_get_child (AdwWindow *self);
 
 G_END_DECLS

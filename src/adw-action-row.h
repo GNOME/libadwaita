@@ -82,8 +82,8 @@ ADW_AVAILABLE_IN_ALL
 void adw_action_row_add_suffix (AdwActionRow *self,
                                 GtkWidget    *widget);
 ADW_AVAILABLE_IN_ALL
-void adw_action_row_remove (AdwActionRow *self,
-                            GtkWidget    *widget);
+void adw_action_row_remove     (AdwActionRow *self,
+                                GtkWidget    *widget);
 
 ADW_AVAILABLE_IN_ALL
 void adw_action_row_activate (AdwActionRow *self);

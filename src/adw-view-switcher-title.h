@@ -28,7 +28,7 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_view_switcher_title_new (void);
 
 ADW_AVAILABLE_IN_ALL
-AdwViewSwitcherPolicy adw_view_switcher_title_get_policy (AdwViewSwitcherTitle *self);
+AdwViewSwitcherPolicy adw_view_switcher_title_get_policy (AdwViewSwitcherTitle  *self);
 ADW_AVAILABLE_IN_ALL
 void                  adw_view_switcher_title_set_policy (AdwViewSwitcherTitle  *self,
                                                           AdwViewSwitcherPolicy  policy);
@@ -40,16 +40,16 @@ void      adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
                                              GtkStack             *stack);
 
 ADW_AVAILABLE_IN_ALL
-const char  *adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self);
+const char *adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_view_switcher_title_set_title (AdwViewSwitcherTitle *self,
-                                                const char           *title);
+void        adw_view_switcher_title_set_title (AdwViewSwitcherTitle *self,
+                                               const char           *title);
 
 ADW_AVAILABLE_IN_ALL
-const char  *adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self);
+const char *adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_view_switcher_title_set_subtitle (AdwViewSwitcherTitle *self,
-                                                   const char           *subtitle);
+void        adw_view_switcher_title_set_subtitle (AdwViewSwitcherTitle *self,
+                                                  const char           *subtitle);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_view_switcher_title_get_view_switcher_enabled (AdwViewSwitcherTitle *self);

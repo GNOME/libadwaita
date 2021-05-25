@@ -20,16 +20,16 @@ G_DECLARE_FINAL_TYPE (AdwShadowHelper, adw_shadow_helper, ADW, SHADOW_HELPER, GO
 
 AdwShadowHelper *adw_shadow_helper_new (GtkWidget *widget);
 
-void             adw_shadow_helper_size_allocate (AdwShadowHelper *self,
-                                                  int              width,
-                                                  int              height,
-                                                  int              baseline,
-                                                  int              x,
-                                                  int              y,
-                                                  double           progress,
-                                                  GtkPanDirection  direction);
+void adw_shadow_helper_size_allocate (AdwShadowHelper *self,
+                                      int              width,
+                                      int              height,
+                                      int              baseline,
+                                      int              x,
+                                      int              y,
+                                      double           progress,
+                                      GtkPanDirection  direction);
 
-void             adw_shadow_helper_snapshot (AdwShadowHelper *self,
-                                             GtkSnapshot     *snapshot);
+void adw_shadow_helper_snapshot (AdwShadowHelper *self,
+                                 GtkSnapshot     *snapshot);
 
 G_END_DECLS

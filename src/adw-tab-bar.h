@@ -29,7 +29,7 @@ ADW_AVAILABLE_IN_ALL
 AdwTabBar *adw_tab_bar_new (void);
 
 ADW_AVAILABLE_IN_ALL
-AdwTabView *adw_tab_bar_get_view (AdwTabBar *self);
+AdwTabView *adw_tab_bar_get_view (AdwTabBar  *self);
 ADW_AVAILABLE_IN_ALL
 void        adw_tab_bar_set_view (AdwTabBar  *self,
                                   AdwTabView *view);

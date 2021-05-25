@@ -32,13 +32,13 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_view_switcher_new (void);
 
 ADW_AVAILABLE_IN_ALL
-AdwViewSwitcherPolicy adw_view_switcher_get_policy (AdwViewSwitcher *self);
+AdwViewSwitcherPolicy adw_view_switcher_get_policy (AdwViewSwitcher       *self);
 ADW_AVAILABLE_IN_ALL
 void                  adw_view_switcher_set_policy (AdwViewSwitcher       *self,
                                                     AdwViewSwitcherPolicy  policy);
 
 ADW_AVAILABLE_IN_ALL
-PangoEllipsizeMode adw_view_switcher_get_narrow_ellipsize (AdwViewSwitcher *self);
+PangoEllipsizeMode adw_view_switcher_get_narrow_ellipsize (AdwViewSwitcher    *self);
 ADW_AVAILABLE_IN_ALL
 void               adw_view_switcher_set_narrow_ellipsize (AdwViewSwitcher    *self,
                                                            PangoEllipsizeMode  mode);

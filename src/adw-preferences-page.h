@@ -35,31 +35,31 @@ struct _AdwPreferencesPageClass
 };
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget   *adw_preferences_page_new (void);
+GtkWidget *adw_preferences_page_new (void);
 
 ADW_AVAILABLE_IN_ALL
-const char  *adw_preferences_page_get_icon_name (AdwPreferencesPage *self);
+const char *adw_preferences_page_get_icon_name (AdwPreferencesPage *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
-                                                 const char         *icon_name);
+void        adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
+                                                const char         *icon_name);
 
 ADW_AVAILABLE_IN_ALL
-const char  *adw_preferences_page_get_title (AdwPreferencesPage *self);
+const char *adw_preferences_page_get_title (AdwPreferencesPage *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_preferences_page_set_title (AdwPreferencesPage *self,
-                                             const char         *title);
+void        adw_preferences_page_set_title (AdwPreferencesPage *self,
+                                            const char         *title);
 
 ADW_AVAILABLE_IN_ALL
-gboolean     adw_preferences_page_get_use_underline (AdwPreferencesPage *self);
+gboolean adw_preferences_page_get_use_underline (AdwPreferencesPage *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
-                                                     gboolean            use_underline);
+void     adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
+                                                 gboolean            use_underline);
 
 ADW_AVAILABLE_IN_ALL
-void         adw_preferences_page_add (AdwPreferencesPage  *self,
-                                       AdwPreferencesGroup *group);
+void adw_preferences_page_add    (AdwPreferencesPage  *self,
+                                  AdwPreferencesGroup *group);
 ADW_AVAILABLE_IN_ALL
-void         adw_preferences_page_remove (AdwPreferencesPage  *self,
-                                          AdwPreferencesGroup *group);
+void adw_preferences_page_remove (AdwPreferencesPage  *self,
+                                  AdwPreferencesGroup *group);
 
 G_END_DECLS

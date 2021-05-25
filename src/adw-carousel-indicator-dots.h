@@ -23,7 +23,7 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwCarouselIndicatorDots, adw_carousel_indicator_dots, ADW, CAROUSEL_INDICATOR_DOTS, GtkWidget)
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget   *adw_carousel_indicator_dots_new (void);
+GtkWidget *adw_carousel_indicator_dots_new (void);
 
 ADW_AVAILABLE_IN_ALL
 AdwCarousel *adw_carousel_indicator_dots_get_carousel (AdwCarouselIndicatorDots *self);

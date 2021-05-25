@@ -39,37 +39,43 @@ typedef GdkPixbuf *(* AdwAvatarImageLoadFunc) (int      size,
 
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget   *adw_avatar_new                 (int                     size,
-                                             const char             *text,
-                                             gboolean                show_initials);
+GtkWidget *adw_avatar_new (int         size,
+                           const char *text,
+                           gboolean    show_initials);
+
 ADW_AVAILABLE_IN_ALL
-const char  *adw_avatar_get_icon_name       (AdwAvatar              *self);
+const char *adw_avatar_get_icon_name (AdwAvatar  *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_avatar_set_icon_name       (AdwAvatar              *self,
-                                             const char             *icon_name);
+void        adw_avatar_set_icon_name (AdwAvatar  *self,
+                                      const char *icon_name);
+
 ADW_AVAILABLE_IN_ALL
-const char  *adw_avatar_get_text            (AdwAvatar              *self);
+const char *adw_avatar_get_text (AdwAvatar  *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_avatar_set_text            (AdwAvatar              *self,
-                                             const char             *text);
+void        adw_avatar_set_text (AdwAvatar  *self,
+                                 const char *text);
+
 ADW_AVAILABLE_IN_ALL
-gboolean     adw_avatar_get_show_initials   (AdwAvatar              *self);
+gboolean adw_avatar_get_show_initials (AdwAvatar *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_avatar_set_show_initials   (AdwAvatar              *self,
-                                             gboolean                show_initials);
+void     adw_avatar_set_show_initials (AdwAvatar *self,
+                                       gboolean   show_initials);
+
 ADW_AVAILABLE_IN_ALL
-void         adw_avatar_set_image_load_func (AdwAvatar              *self,
-                                             AdwAvatarImageLoadFunc  load_image,
-                                             gpointer                user_data,
-                                             GDestroyNotify          destroy);
+void adw_avatar_set_image_load_func (AdwAvatar              *self,
+                                     AdwAvatarImageLoadFunc  load_image,
+                                     gpointer                user_data,
+                                     GDestroyNotify          destroy);
+
 ADW_AVAILABLE_IN_ALL
-int          adw_avatar_get_size            (AdwAvatar              *self);
+int  adw_avatar_get_size (AdwAvatar *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_avatar_set_size            (AdwAvatar              *self,
-                                             int                     size);
+void adw_avatar_set_size (AdwAvatar *self,
+                          int        size);
+
 ADW_AVAILABLE_IN_ALL
-GdkPixbuf   *adw_avatar_draw_to_pixbuf      (AdwAvatar              *self,
-                                             int                     size,
-                                             int                     scale_factor);
+GdkPixbuf *adw_avatar_draw_to_pixbuf (AdwAvatar *self,
+                                      int        size,
+                                      int        scale_factor);
 
 G_END_DECLS

@@ -34,25 +34,25 @@ struct _AdwPreferencesGroupClass
 };
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget   *adw_preferences_group_new (void);
+GtkWidget *adw_preferences_group_new (void);
 
 ADW_AVAILABLE_IN_ALL
-const char  *adw_preferences_group_get_title (AdwPreferencesGroup *self);
+const char *adw_preferences_group_get_title (AdwPreferencesGroup *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_preferences_group_set_title (AdwPreferencesGroup *self,
-                                              const char          *title);
+void        adw_preferences_group_set_title (AdwPreferencesGroup *self,
+                                             const char          *title);
 
 ADW_AVAILABLE_IN_ALL
-const char  *adw_preferences_group_get_description (AdwPreferencesGroup *self);
+const char *adw_preferences_group_get_description (AdwPreferencesGroup *self);
 ADW_AVAILABLE_IN_ALL
-void         adw_preferences_group_set_description (AdwPreferencesGroup *self,
-                                                    const char          *description);
+void        adw_preferences_group_set_description (AdwPreferencesGroup *self,
+                                                   const char          *description);
 
 ADW_AVAILABLE_IN_ALL
-void         adw_preferences_group_add (AdwPreferencesGroup *self,
-                                        GtkWidget           *child);
+void adw_preferences_group_add    (AdwPreferencesGroup *self,
+                                   GtkWidget           *child);
 ADW_AVAILABLE_IN_ALL
-void         adw_preferences_group_remove (AdwPreferencesGroup *self,
-                                           GtkWidget           *child);
+void adw_preferences_group_remove (AdwPreferencesGroup *self,
+                                   GtkWidget           *child);
 
 G_END_DECLS

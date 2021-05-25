@@ -42,10 +42,10 @@ void        adw_tab_page_set_title (AdwTabPage *self,
                                     const char *title);
 
 ADW_AVAILABLE_IN_ALL
-const char *adw_tab_page_get_tooltip (AdwTabPage  *self);
+const char *adw_tab_page_get_tooltip (AdwTabPage *self);
 ADW_AVAILABLE_IN_ALL
-void        adw_tab_page_set_tooltip (AdwTabPage  *self,
-                                       const char *tooltip);
+void        adw_tab_page_set_tooltip (AdwTabPage *self,
+                                      const char *tooltip);
 
 ADW_AVAILABLE_IN_ALL
 GIcon *adw_tab_page_get_icon (AdwTabPage *self);
@@ -86,7 +86,7 @@ ADW_AVAILABLE_IN_ALL
 AdwTabView *adw_tab_view_new (void);
 
 ADW_AVAILABLE_IN_ALL
-int adw_tab_view_get_n_pages (AdwTabView *self);
+int adw_tab_view_get_n_pages        (AdwTabView *self);
 ADW_AVAILABLE_IN_ALL
 int adw_tab_view_get_n_pinned_pages (AdwTabView *self);
 

@@ -19,11 +19,11 @@ G_BEGIN_DECLS
 gboolean adw_tab_view_select_first_page (AdwTabView *self);
 gboolean adw_tab_view_select_last_page  (AdwTabView *self);
 
-void adw_tab_view_detach_page   (AdwTabView *self,
-                                 AdwTabPage *page);
-void adw_tab_view_attach_page   (AdwTabView *self,
-                                 AdwTabPage *page,
-                                 int         position);
+void adw_tab_view_detach_page (AdwTabView *self,
+                               AdwTabPage *page);
+void adw_tab_view_attach_page (AdwTabView *self,
+                               AdwTabPage *page,
+                               int         position);
 
 AdwTabView *adw_tab_view_create_window (AdwTabView *self);
 

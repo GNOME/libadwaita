@@ -23,6 +23,7 @@ G_DECLARE_FINAL_TYPE (AdwTabBox, adw_tab_box, ADW, TAB_BOX, GtkWidget)
 
 void adw_tab_box_set_view (AdwTabBox  *self,
                            AdwTabView *view);
+
 void adw_tab_box_set_adjustment (AdwTabBox     *self,
                                  GtkAdjustment *adjustment);
 
@@ -35,8 +36,8 @@ void adw_tab_box_select_page (AdwTabBox  *self,
                               AdwTabPage *page);
 
 void adw_tab_box_try_focus_selected_tab (AdwTabBox  *self);
-gboolean adw_tab_box_is_page_focused (AdwTabBox  *self,
-                                      AdwTabPage *page);
+gboolean adw_tab_box_is_page_focused    (AdwTabBox  *self,
+                                         AdwTabPage *page);
 
 void adw_tab_box_setup_extra_drop_target (AdwTabBox     *self,
                                           GdkDragAction  actions,

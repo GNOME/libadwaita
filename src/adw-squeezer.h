@@ -45,8 +45,8 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_squeezer_new (void);
 
 ADW_AVAILABLE_IN_ALL
-AdwSqueezerPage *adw_squeezer_add (AdwSqueezer *self,
-                                   GtkWidget   *child);
+AdwSqueezerPage *adw_squeezer_add    (AdwSqueezer *self,
+                                      GtkWidget   *child);
 ADW_AVAILABLE_IN_ALL
 void             adw_squeezer_remove (AdwSqueezer *self,
                                       GtkWidget   *child);
@@ -68,7 +68,7 @@ void  adw_squeezer_set_transition_duration (AdwSqueezer *self,
                                             guint        duration);
 
 ADW_AVAILABLE_IN_ALL
-AdwSqueezerTransitionType adw_squeezer_get_transition_type (AdwSqueezer *self);
+AdwSqueezerTransitionType adw_squeezer_get_transition_type (AdwSqueezer               *self);
 ADW_AVAILABLE_IN_ALL
 void                      adw_squeezer_set_transition_type (AdwSqueezer               *self,
                                                             AdwSqueezerTransitionType  transition);
@@ -89,13 +89,13 @@ ADW_AVAILABLE_IN_ALL
 float adw_squeezer_get_xalign (AdwSqueezer *self);
 ADW_AVAILABLE_IN_ALL
 void  adw_squeezer_set_xalign (AdwSqueezer *self,
-                               float       xalign);
+                               float        xalign);
 
 ADW_AVAILABLE_IN_ALL
 float adw_squeezer_get_yalign (AdwSqueezer *self);
 ADW_AVAILABLE_IN_ALL
 void  adw_squeezer_set_yalign (AdwSqueezer *self,
-                               float       yalign);
+                               float        yalign);
 
 ADW_AVAILABLE_IN_ALL
 GtkSelectionModel *adw_squeezer_get_pages (AdwSqueezer *self);

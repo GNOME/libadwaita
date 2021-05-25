@@ -38,7 +38,7 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_flap_new (void);
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_flap_get_content (AdwFlap *self);
+GtkWidget *adw_flap_get_content (AdwFlap   *self);
 ADW_AVAILABLE_IN_ALL
 void       adw_flap_set_content (AdwFlap   *self,
                                  GtkWidget *content);
@@ -56,13 +56,13 @@ void       adw_flap_set_separator (AdwFlap   *self,
                                    GtkWidget *separator);
 
 ADW_AVAILABLE_IN_ALL
-GtkPackType adw_flap_get_flap_position (AdwFlap *self);
+GtkPackType adw_flap_get_flap_position (AdwFlap     *self);
 ADW_AVAILABLE_IN_ALL
 void        adw_flap_set_flap_position (AdwFlap     *self,
                                         GtkPackType  position);
 
 ADW_AVAILABLE_IN_ALL
-gboolean adw_flap_get_reveal_flap (AdwFlap *self);
+gboolean adw_flap_get_reveal_flap (AdwFlap  *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_flap_set_reveal_flap (AdwFlap  *self,
                                    gboolean  reveal_flap);

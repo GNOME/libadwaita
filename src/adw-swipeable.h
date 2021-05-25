@@ -39,33 +39,37 @@ struct _AdwSwipeableInterface
 {
   GTypeInterface parent;
 
-  double            (*get_distance)        (AdwSwipeable *self);
-  double *          (*get_snap_points)     (AdwSwipeable *self,
-                                            int          *n_snap_points);
-  double            (*get_progress)        (AdwSwipeable *self);
-  double            (*get_cancel_progress) (AdwSwipeable *self);
-  void              (*get_swipe_area)      (AdwSwipeable           *self,
-                                            AdwNavigationDirection  navigation_direction,
-                                            gboolean                is_drag,
-                                            GdkRectangle           *rect);
+  double  (*get_distance)        (AdwSwipeable *self);
+  double *(*get_snap_points)     (AdwSwipeable *self,
+                                  int          *n_snap_points);
+  double  (*get_progress)        (AdwSwipeable *self);
+  double  (*get_cancel_progress) (AdwSwipeable *self);
+  void    (*get_swipe_area)      (AdwSwipeable           *self,
+                                  AdwNavigationDirection  navigation_direction,
+                                  gboolean                is_drag,
+                                  GdkRectangle           *rect);
 
   /*< private >*/
   gpointer padding[4];
 };
 
 ADW_AVAILABLE_IN_ALL
-double           adw_swipeable_get_distance        (AdwSwipeable *self);
+double adw_swipeable_get_distance (AdwSwipeable *self);
+
 ADW_AVAILABLE_IN_ALL
-double          *adw_swipeable_get_snap_points     (AdwSwipeable *self,
-                                                    int          *n_snap_points);
+double *adw_swipeable_get_snap_points (AdwSwipeable *self,
+                                       int          *n_snap_points);
+
 ADW_AVAILABLE_IN_ALL
-double           adw_swipeable_get_progress        (AdwSwipeable *self);
+double adw_swipeable_get_progress (AdwSwipeable *self);
+
 ADW_AVAILABLE_IN_ALL
-double           adw_swipeable_get_cancel_progress (AdwSwipeable *self);
+double adw_swipeable_get_cancel_progress (AdwSwipeable *self);
+
 ADW_AVAILABLE_IN_ALL
-void             adw_swipeable_get_swipe_area      (AdwSwipeable           *self,
-                                                    AdwNavigationDirection  navigation_direction,
-                                                    gboolean                is_drag,
-                                                    GdkRectangle           *rect);
+void adw_swipeable_get_swipe_area (AdwSwipeable           *self,
+                                   AdwNavigationDirection  navigation_direction,
+                                   gboolean                is_drag,
+                                   GdkRectangle           *rect);
 
 G_END_DECLS

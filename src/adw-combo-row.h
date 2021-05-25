@@ -45,10 +45,10 @@ void        adw_combo_row_set_model (AdwComboRow *self,
                                      GListModel  *model);
 
 ADW_AVAILABLE_IN_ALL
+guint adw_combo_row_get_selected (AdwComboRow *self);
+ADW_AVAILABLE_IN_ALL
 void  adw_combo_row_set_selected (AdwComboRow *self,
                                   guint        position);
-ADW_AVAILABLE_IN_ALL
-guint adw_combo_row_get_selected (AdwComboRow *self);
 
 ADW_AVAILABLE_IN_ALL
 gpointer adw_combo_row_get_selected_item (AdwComboRow *self);

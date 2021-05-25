@@ -26,19 +26,19 @@ ADW_AVAILABLE_IN_ALL
 AdwSwipeTracker *adw_swipe_tracker_new (AdwSwipeable *swipeable);
 
 ADW_AVAILABLE_IN_ALL
-AdwSwipeable    *adw_swipe_tracker_get_swipeable (AdwSwipeTracker *self);
+AdwSwipeable *adw_swipe_tracker_get_swipeable (AdwSwipeTracker *self);
 
 ADW_AVAILABLE_IN_ALL
-gboolean         adw_swipe_tracker_get_enabled (AdwSwipeTracker *self);
+gboolean adw_swipe_tracker_get_enabled (AdwSwipeTracker *self);
 ADW_AVAILABLE_IN_ALL
-void             adw_swipe_tracker_set_enabled (AdwSwipeTracker *self,
-                                                gboolean         enabled);
+void     adw_swipe_tracker_set_enabled (AdwSwipeTracker *self,
+                                        gboolean         enabled);
 
 ADW_AVAILABLE_IN_ALL
-gboolean         adw_swipe_tracker_get_reversed (AdwSwipeTracker *self);
+gboolean adw_swipe_tracker_get_reversed (AdwSwipeTracker *self);
 ADW_AVAILABLE_IN_ALL
-void             adw_swipe_tracker_set_reversed (AdwSwipeTracker *self,
-                                                 gboolean         reversed);
+void     adw_swipe_tracker_set_reversed (AdwSwipeTracker *self,
+                                         gboolean         reversed);
 
 ADW_AVAILABLE_IN_ALL
 gboolean         adw_swipe_tracker_get_allow_mouse_drag (AdwSwipeTracker *self);
@@ -47,13 +47,13 @@ void             adw_swipe_tracker_set_allow_mouse_drag (AdwSwipeTracker *self,
                                                          gboolean         allow_mouse_drag);
 
 ADW_AVAILABLE_IN_ALL
-gboolean         adw_swipe_tracker_get_allow_long_swipes (AdwSwipeTracker *self);
+gboolean adw_swipe_tracker_get_allow_long_swipes (AdwSwipeTracker *self);
 ADW_AVAILABLE_IN_ALL
-void             adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
-                                                          gboolean         allow_long_swipes);
+void     adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
+                                                  gboolean         allow_long_swipes);
 
 ADW_AVAILABLE_IN_ALL
-void             adw_swipe_tracker_shift_position (AdwSwipeTracker *self,
-                                                   double           delta);
+void adw_swipe_tracker_shift_position (AdwSwipeTracker *self,
+                                       double           delta);
 
 G_END_DECLS

@@ -24,8 +24,8 @@ const char *adw_fading_label_get_label (AdwFadingLabel *self);
 void        adw_fading_label_set_label (AdwFadingLabel *self,
                                         const char     *label);
 
-float       adw_fading_label_get_align (AdwFadingLabel *self);
-void        adw_fading_label_set_align (AdwFadingLabel *self,
-                                        float           align);
+float adw_fading_label_get_align (AdwFadingLabel *self);
+void  adw_fading_label_set_align (AdwFadingLabel *self,
+                                  float           align);
 
 G_END_DECLS
