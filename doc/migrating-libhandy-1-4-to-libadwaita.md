@@ -227,6 +227,11 @@ page objects, similarly to [class@Gtk.Stack]. For example,
 [method@Adw.SqueezerPage.set_enabled] should be used to replace
 `hdy_squeezer_set_child_enabled()`.
 
+### Adapt to [class@Adw.Avatar] API Changes
+
+The `HdyAvatar:loadable-icon` property has been removed along with its getter
+and setter. It can be replaced by [property@Adw.Avatar:custom-image].
+
 ### Adapt to Stylesheet Changes
 
 Most widgets don't have a backdrop state anymore, and the following public
