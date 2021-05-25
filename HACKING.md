@@ -48,6 +48,59 @@ static gboolean
 key_press_event_cb (GtkWidget *widget, GdkEvent *event, gpointer data)
 ```
 
+### Function Prototypes
+
+Function prototypes should be grouped together in logical groups, e.g. all
+constructors, or all accessords to a given property.
+There should be no empty line in a group, and groups should be separated from
+each other by an empty line.
+
+The function's attributes and returned type should be on the same line as the
+function's name.
+Have only one parameter per line.
+If a function takes no parameters, explicit it by using `void` as the parameter.
+
+In a group, align function names, the opening parentheses, and parameter names
+together.
+Use the least possible amount of spaces while preserving alignment.
+Asterisks from the returned type should be stuck to the function's name.
+Similarly, asterisks from a parameter's type should be stuck to the parameter's
+name.
+
+Getters should come before setters.
+
+In public headers, set the function's availability or deprecation state in a
+line preceding its prototype.
+
+*Good*:
+
+```c
+ADW_AVAILABLE_IN_ALL
+AdwFoo *adw_foo_new (void) G_GNUC_WARN_UNUSED_RESULT;
+
+ADW_AVAILABLE_IN_ALL
+AdwBar *adw_foo_get_bar (AdwFoo *self);
+ADW_AVAILABLE_IN_ALL
+void    adw_foo_set_bar (AdwFoo *self,
+                         AdwBar *bar);
+
+ADW_AVAILABLE_IN_ALL
+gboolean adw_foo_get_bit (AdwFoo   *self);
+ADW_AVAILABLE_IN_ALL
+void     adw_foo_set_bit (AdwFoo   *self,
+                          gboolean  bit);
+
+ADW_AVAILABLE_IN_ALL
+void adw_foo_add_baz    (AdwFoo *self,
+                         AdwBaz *baz);
+ADW_AVAILABLE_IN_ALL
+void adw_foo_remove_baz (AdwFoo *self,
+                         AdwBaz *baz);
+
+ADW_AVAILABLE_IN_ALL
+void adw_foo_frobnicate (AdwFoo *self);
+```
+
 ### Braces
 
 Everything besides functions and structs have the opening curly brace on the same line.
