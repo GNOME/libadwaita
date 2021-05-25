@@ -48,7 +48,6 @@ static gboolean
 key_press_event_cb (GtkWidget *widget, GdkEvent *event, gpointer data)
 ```
 
-
 ### Braces
 
 Everything besides functions and structs have the opening curly brace on the same line.
@@ -141,7 +140,6 @@ visible_child_name = gtk_stack_get_visible_child_name (GTK_STACK (self->stack));
 visible_child_name = gtk_stack_get_visible_child_name(GTK_STACK(self->stack));
 ```
 
-
 ### Header Inclusion Guards
 
 Guard header inclusion with `#pragma once` rather than the traditional
@@ -157,7 +155,6 @@ them:
 ```
 
 Only after these should you include headers.
-
 
 ### Signals
 
@@ -176,7 +173,6 @@ enum {
 
 Also note that the last element ends with a comma to reduce diff noise when
 adding further signals.
-
 
 ### Properties
 
@@ -215,7 +211,6 @@ In comments use full sentences with proper capitalization and punctuation.
 /* overflow check */
 ```
 
-
 ### Callbacks
 
 Signal callbacks have a *_cb* suffix.
@@ -231,7 +226,6 @@ g_signal_connect(self, "clicked", G_CALLBACK (button_clicked_cb), NULL);
 ```c
 g_signal_connect(self, "clicked", G_CALLBACK (handle_button_clicked), NULL);
 ```
-
 
 ### Static Functions
 
