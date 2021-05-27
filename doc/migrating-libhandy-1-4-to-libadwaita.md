@@ -232,6 +232,9 @@ page objects, similarly to [class@Gtk.Stack]. For example,
 The `HdyAvatar:loadable-icon` property has been removed along with its getter
 and setter. It can be replaced by [property@Adw.Avatar:custom-image].
 
+The `hdy_avatar_draw_to_pixbuf_async()` function has been removed, use the
+regular [method@Adw.Avatar.draw_to_pixbuf] instead.
+
 ### Adapt to Stylesheet Changes
 
 Most widgets don't have a backdrop state anymore, and the following public
