@@ -136,19 +136,12 @@ configure_file(
          output: 'run',
   configuration: run_data)
 
-summary = [
-  '',
-  '------',
-  'Libadwaita @0@ (@1@)'.format(current, apiversion),
-  '',
-  '             Tests: @0@'.format(get_option('tests')),
-  '          Examples: @0@'.format(get_option('examples')),
-  '     Documentation: @0@'.format(get_option('gtk_doc')),
-  '     Introspection: @0@'.format(introspection),
-  '              Vapi: @0@'.format(get_option('vapi')),
- '------',
-  ''
-]
-
-message('\n'.join(summary))
+summary(
+  {
+    'Tests': get_option('tests'),
+    'Examples': get_option('examples'),
+    'Documentation': get_option('gtk_doc'),
+    'Introspection': introspection,
+    'Vapi': get_option('vapi'),
+  }, section: 'Options')
 
