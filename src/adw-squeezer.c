@@ -720,7 +720,7 @@ adw_squeezer_get_property (GObject    *object,
     g_value_set_enum (value, get_orientation (self));
     break;
   case PROP_PAGES:
-    g_value_set_object (value, adw_squeezer_get_pages (self));
+    g_value_take_object (value, adw_squeezer_get_pages (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);

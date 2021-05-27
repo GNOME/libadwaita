@@ -2150,7 +2150,7 @@ adw_leaflet_get_property (GObject    *object,
     g_value_set_boolean (value, adw_leaflet_get_can_unfold (self));
     break;
   case PROP_PAGES:
-    g_value_set_object (value, adw_leaflet_get_pages (self));
+    g_value_take_object (value, adw_leaflet_get_pages (self));
     break;
   case PROP_ORIENTATION:
     g_value_set_enum (value, self->orientation);

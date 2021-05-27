@@ -1339,7 +1339,7 @@ adw_tab_view_get_property (GObject    *object,
     break;
 
   case PROP_PAGES:
-    g_value_set_object (value, adw_tab_view_get_pages (self));
+    g_value_take_object (value, adw_tab_view_get_pages (self));
     break;
 
   default:
