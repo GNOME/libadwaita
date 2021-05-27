@@ -1,0 +1,7 @@
+=====================
+Version 1.0.0-alpha.1
+=====================
+
+- First libadwaita 1 alpha.
+- Check the migration guide in the documentation to port from libhandy
+  to it.

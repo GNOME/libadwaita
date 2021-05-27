@@ -1,26 +1,22 @@
 project('libadwaita', 'c',
-          version: '1.1.0',
+          version: '1.0.0-alpha.1',
           license: 'LGPL-2.1+',
     meson_version: '>= 0.53.0',
   default_options: [ 'warning_level=1', 'buildtype=debugoptimized', 'c_std=gnu11' ],
 )
 
-version_arr = meson.project_version().split('.')
+version_arr = meson.project_version().split('-')[0].split('.')
 adwaita_version_major = version_arr[0].to_int()
 adwaita_version_minor = version_arr[1].to_int()
 adwaita_version_micro = version_arr[2].to_int()
 
 # The major api version as encoded in the libraries name
-apiversion = '1'
+apiversion = adwaita_version_major.to_string()
 # The so major version of the library
 soversion = 0
 package_api_name = '@0@-@1@'.format(meson.project_name(), apiversion)
 
-if adwaita_version_minor.is_odd()
-  adwaita_interface_age = 0
-else
-  adwaita_interface_age = adwaita_version_micro
-endif
+adwaita_interface_age = adwaita_version_micro
 
 # maintaining compatibility with libtool versioning
 # current = minor * 100 + micro - interface
