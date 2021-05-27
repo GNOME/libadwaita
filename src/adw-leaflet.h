@@ -53,8 +53,8 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_leaflet_new (void);
 
 ADW_AVAILABLE_IN_ALL
-AdwLeafletPage *adw_leaflet_append (AdwLeaflet  *self,
-                                    GtkWidget   *child);
+AdwLeafletPage *adw_leaflet_append  (AdwLeaflet *self,
+                                     GtkWidget  *child);
 ADW_AVAILABLE_IN_ALL
 AdwLeafletPage *adw_leaflet_prepend (AdwLeaflet *self,
                                      GtkWidget  *child);
