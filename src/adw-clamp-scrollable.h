@@ -22,7 +22,7 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwClampScrollable, adw_clamp_scrollable, ADW, CLAMP_SCROLLABLE, GtkWidget)
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_clamp_scrollable_new (void);
+GtkWidget *adw_clamp_scrollable_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_clamp_scrollable_get_child (AdwClampScrollable *self);

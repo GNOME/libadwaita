@@ -42,7 +42,7 @@ typedef enum {
 } AdwCenteringPolicy;
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_header_bar_new (void);
+GtkWidget *adw_header_bar_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_header_bar_get_title_widget (AdwHeaderBar *self);

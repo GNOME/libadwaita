@@ -25,7 +25,7 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwViewSwitcherBar, adw_view_switcher_bar, ADW, VIEW_SWITCHER_BAR, GtkWidget)
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_view_switcher_bar_new (void);
+GtkWidget *adw_view_switcher_bar_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 AdwViewSwitcherPolicy adw_view_switcher_bar_get_policy (AdwViewSwitcherBar *self);

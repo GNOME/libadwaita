@@ -42,7 +42,7 @@ typedef enum {
 } AdwSqueezerTransitionType;
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_squeezer_new (void);
+GtkWidget *adw_squeezer_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 AdwSqueezerPage *adw_squeezer_add    (AdwSqueezer *self,
@@ -98,6 +98,6 @@ void  adw_squeezer_set_yalign (AdwSqueezer *self,
                                float        yalign);
 
 ADW_AVAILABLE_IN_ALL
-GtkSelectionModel *adw_squeezer_get_pages (AdwSqueezer *self);
+GtkSelectionModel *adw_squeezer_get_pages (AdwSqueezer *self) G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS

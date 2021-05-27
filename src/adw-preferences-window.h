@@ -36,7 +36,7 @@ struct _AdwPreferencesWindowClass
 };
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_preferences_window_new (void);
+GtkWidget *adw_preferences_window_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_preferences_window_get_search_enabled (AdwPreferencesWindow *self);

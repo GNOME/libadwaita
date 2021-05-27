@@ -23,7 +23,7 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwCarouselIndicatorLines, adw_carousel_indicator_lines, ADW, CAROUSEL_INDICATOR_LINES, GtkWidget)
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_carousel_indicator_lines_new (void);
+GtkWidget *adw_carousel_indicator_lines_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 AdwCarousel *adw_carousel_indicator_lines_get_carousel (AdwCarouselIndicatorLines *self);

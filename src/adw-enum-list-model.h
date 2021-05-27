@@ -23,7 +23,7 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwEnumListModel, adw_enum_list_model, ADW, ENUM_LIST_MODEL, GObject)
 
 ADW_AVAILABLE_IN_ALL
-AdwEnumListModel *adw_enum_list_model_new (GType enum_type);
+AdwEnumListModel *adw_enum_list_model_new (GType enum_type) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 GType adw_enum_list_model_get_enum_type (AdwEnumListModel *self);

@@ -29,7 +29,7 @@ struct _AdwBinClass
 };
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_bin_new (void);
+GtkWidget *adw_bin_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_bin_get_child (AdwBin    *self);

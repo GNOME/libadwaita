@@ -35,7 +35,7 @@ struct _AdwExpanderRowClass
 };
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_expander_row_new (void);
+GtkWidget *adw_expander_row_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 const char *adw_expander_row_get_subtitle (AdwExpanderRow *self);

@@ -10,6 +10,6 @@
 
 G_BEGIN_DECLS
 
-GListModel *adw_preferences_group_get_rows (AdwPreferencesGroup *self);
+GListModel *adw_preferences_group_get_rows (AdwPreferencesGroup *self) G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS

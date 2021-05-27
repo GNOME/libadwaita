@@ -22,7 +22,7 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwStatusPage, adw_status_page, ADW, STATUS_PAGE, GtkWidget)
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_status_page_new (void);
+GtkWidget *adw_status_page_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 const char *adw_status_page_get_icon_name (AdwStatusPage *self);

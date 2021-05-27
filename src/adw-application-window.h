@@ -30,7 +30,7 @@ struct _AdwApplicationWindowClass
 };
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_application_window_new (GtkApplication *app);
+GtkWidget *adw_application_window_new (GtkApplication *app) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 void       adw_application_window_set_child (AdwApplicationWindow *self,

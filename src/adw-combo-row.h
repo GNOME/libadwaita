@@ -36,7 +36,7 @@ struct _AdwComboRowClass
 };
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_combo_row_new (void);
+GtkWidget *adw_combo_row_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 GListModel *adw_combo_row_get_model (AdwComboRow *self);

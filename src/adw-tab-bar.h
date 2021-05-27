@@ -26,7 +26,7 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwTabBar, adw_tab_bar, ADW, TAB_BAR, GtkWidget)
 
 ADW_AVAILABLE_IN_ALL
-AdwTabBar *adw_tab_bar_new (void);
+AdwTabBar *adw_tab_bar_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 AdwTabView *adw_tab_bar_get_view (AdwTabBar  *self);

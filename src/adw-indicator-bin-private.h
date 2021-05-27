@@ -20,7 +20,7 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (AdwIndicatorBin, adw_indicator_bin, ADW, INDICATOR_BIN, GtkWidget)
 
-GtkWidget *adw_indicator_bin_new (void);
+GtkWidget *adw_indicator_bin_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 GtkWidget *adw_indicator_bin_get_child (AdwIndicatorBin *self);
 void       adw_indicator_bin_set_child (AdwIndicatorBin *self,

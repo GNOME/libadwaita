@@ -50,7 +50,7 @@ typedef enum {
 } AdwLeafletTransitionType;
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_leaflet_new (void);
+GtkWidget *adw_leaflet_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 AdwLeafletPage *adw_leaflet_append  (AdwLeaflet *self,
@@ -158,6 +158,6 @@ void     adw_leaflet_set_can_unfold (AdwLeaflet *self,
                                      gboolean    can_unfold);
 
 ADW_AVAILABLE_IN_ALL
-GtkSelectionModel *adw_leaflet_get_pages (AdwLeaflet *self);
+GtkSelectionModel *adw_leaflet_get_pages (AdwLeaflet *self) G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS

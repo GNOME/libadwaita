@@ -23,14 +23,14 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwValueObject, adw_value_object, ADW, VALUE_OBJECT, GObject)
 
 ADW_AVAILABLE_IN_ALL
-AdwValueObject *adw_value_object_new             (const GValue *value);
+AdwValueObject *adw_value_object_new             (const GValue *value) G_GNUC_WARN_UNUSED_RESULT;
 ADW_AVAILABLE_IN_ALL
 AdwValueObject *adw_value_object_new_collect     (GType         type,
-                                                  ...);
+                                                  ...) G_GNUC_WARN_UNUSED_RESULT;
 ADW_AVAILABLE_IN_ALL
-AdwValueObject *adw_value_object_new_string      (const char   *string);
+AdwValueObject *adw_value_object_new_string      (const char   *string) G_GNUC_WARN_UNUSED_RESULT;
 ADW_AVAILABLE_IN_ALL
-AdwValueObject *adw_value_object_new_take_string (char         *string);
+AdwValueObject *adw_value_object_new_take_string (char         *string) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 const GValue *adw_value_object_get_value  (AdwValueObject *value);
@@ -41,6 +41,6 @@ void          adw_value_object_copy_value (AdwValueObject *value,
 ADW_AVAILABLE_IN_ALL
 const char *adw_value_object_get_string (AdwValueObject *value);
 ADW_AVAILABLE_IN_ALL
-char       *adw_value_object_dup_string (AdwValueObject *value);
+char       *adw_value_object_dup_string (AdwValueObject *value) G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS

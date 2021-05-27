@@ -19,7 +19,7 @@ G_BEGIN_DECLS
 G_DECLARE_FINAL_TYPE (AdwWindowMixin, adw_window_mixin, ADW, WINDOW_MIXIN, GObject)
 
 AdwWindowMixin *adw_window_mixin_new (GtkWindow      *window,
-                                      GtkWindowClass *klass);
+                                      GtkWindowClass *klass) G_GNUC_WARN_UNUSED_RESULT;
 
 void adw_window_mixin_size_allocate (AdwWindowMixin *self,
                                      int             width,

@@ -83,7 +83,7 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwTabView, adw_tab_view, ADW, TAB_VIEW, GtkWidget)
 
 ADW_AVAILABLE_IN_ALL
-AdwTabView *adw_tab_view_new (void);
+AdwTabView *adw_tab_view_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 int adw_tab_view_get_n_pages        (AdwTabView *self);
@@ -208,6 +208,6 @@ void adw_tab_view_transfer_page (AdwTabView *self,
                                  int         position);
 
 ADW_AVAILABLE_IN_ALL
-GtkSelectionModel *adw_tab_view_get_pages (AdwTabView *self);
+GtkSelectionModel *adw_tab_view_get_pages (AdwTabView *self) G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS

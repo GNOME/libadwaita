@@ -23,7 +23,7 @@ G_DECLARE_FINAL_TYPE (AdwWindowTitle, adw_window_title, ADW, WINDOW_TITLE, GtkWi
 
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_window_title_new (const char *title,
-                                 const char *subtitle);
+                                 const char *subtitle) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 const char *adw_window_title_get_title (AdwWindowTitle *self);

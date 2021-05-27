@@ -58,7 +58,7 @@ double adw_swipeable_get_distance (AdwSwipeable *self);
 
 ADW_AVAILABLE_IN_ALL
 double *adw_swipeable_get_snap_points (AdwSwipeable *self,
-                                       int          *n_snap_points);
+                                       int          *n_snap_points) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 double adw_swipeable_get_progress (AdwSwipeable *self);

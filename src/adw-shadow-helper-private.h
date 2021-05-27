@@ -18,7 +18,7 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (AdwShadowHelper, adw_shadow_helper, ADW, SHADOW_HELPER, GObject)
 
-AdwShadowHelper *adw_shadow_helper_new (GtkWidget *widget);
+AdwShadowHelper *adw_shadow_helper_new (GtkWidget *widget) G_GNUC_WARN_UNUSED_RESULT;
 
 void adw_shadow_helper_size_allocate (AdwShadowHelper *self,
                                       int              width,

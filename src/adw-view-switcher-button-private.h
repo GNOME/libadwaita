@@ -19,7 +19,7 @@ G_BEGIN_DECLS
 
 G_DECLARE_FINAL_TYPE (AdwViewSwitcherButton, adw_view_switcher_button, ADW, VIEW_SWITCHER_BUTTON, GtkToggleButton)
 
-GtkWidget  *adw_view_switcher_button_new (void);
+GtkWidget  *adw_view_switcher_button_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 const char *adw_view_switcher_button_get_icon_name (AdwViewSwitcherButton *self);
 void        adw_view_switcher_button_set_icon_name (AdwViewSwitcherButton *self,

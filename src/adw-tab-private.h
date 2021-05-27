@@ -22,7 +22,7 @@ G_BEGIN_DECLS
 G_DECLARE_FINAL_TYPE (AdwTab, adw_tab, ADW, TAB, GtkWidget)
 
 AdwTab *adw_tab_new (AdwTabView *view,
-                     gboolean    pinned);
+                     gboolean    pinned) G_GNUC_WARN_UNUSED_RESULT;
 
 AdwTabPage *adw_tab_get_page (AdwTab     *self);
 void        adw_tab_set_page (AdwTab     *self,

@@ -22,7 +22,7 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwClamp, adw_clamp, ADW, CLAMP, GtkWidget)
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_clamp_new (void);
+GtkWidget *adw_clamp_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_clamp_get_child (AdwClamp  *self);

@@ -25,6 +25,6 @@ void adw_tab_view_attach_page (AdwTabView *self,
                                AdwTabPage *page,
                                int         position);
 
-AdwTabView *adw_tab_view_create_window (AdwTabView *self);
+AdwTabView *adw_tab_view_create_window (AdwTabView *self) G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS

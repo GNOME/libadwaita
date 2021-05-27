@@ -25,7 +25,7 @@ G_DECLARE_FINAL_TYPE (AdwAvatar, adw_avatar, ADW, AVATAR, GtkWidget)
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_avatar_new (int         size,
                            const char *text,
-                           gboolean    show_initials);
+                           gboolean    show_initials) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 const char *adw_avatar_get_icon_name (AdwAvatar  *self);
@@ -60,6 +60,6 @@ void adw_avatar_set_size (AdwAvatar *self,
 ADW_AVAILABLE_IN_ALL
 GdkPixbuf *adw_avatar_draw_to_pixbuf (AdwAvatar *self,
                                       int        size,
-                                      int        scale_factor);
+                                      int        scale_factor) G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS

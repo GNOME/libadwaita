@@ -22,7 +22,7 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwClampLayout, adw_clamp_layout, ADW, CLAMP_LAYOUT, GtkLayoutManager)
 
 ADW_AVAILABLE_IN_ALL
-GtkLayoutManager *adw_clamp_layout_new (void);
+GtkLayoutManager *adw_clamp_layout_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 int  adw_clamp_layout_get_maximum_size (AdwClampLayout *self);

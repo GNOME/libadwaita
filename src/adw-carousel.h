@@ -22,7 +22,7 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwCarousel, adw_carousel, ADW, CAROUSEL, GtkWidget)
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_carousel_new (void);
+GtkWidget *adw_carousel_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 void adw_carousel_prepend (AdwCarousel *self,

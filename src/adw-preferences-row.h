@@ -34,7 +34,7 @@ struct _AdwPreferencesRowClass
 };
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_preferences_row_new (void);
+GtkWidget *adw_preferences_row_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 const char *adw_preferences_row_get_title (AdwPreferencesRow *self);

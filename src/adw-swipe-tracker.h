@@ -23,7 +23,7 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwSwipeTracker, adw_swipe_tracker, ADW, SWIPE_TRACKER, GObject)
 
 ADW_AVAILABLE_IN_ALL
-AdwSwipeTracker *adw_swipe_tracker_new (AdwSwipeable *swipeable);
+AdwSwipeTracker *adw_swipe_tracker_new (AdwSwipeable *swipeable) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 AdwSwipeable *adw_swipe_tracker_get_swipeable (AdwSwipeTracker *self);

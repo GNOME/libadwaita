@@ -32,7 +32,7 @@ AdwAnimation *adw_animation_new (GtkWidget                 *widget,
                                  AdwAnimationEasingFunc     easing_func,
                                  AdwAnimationValueCallback  value_cb,
                                  AdwAnimationDoneCallback   done_cb,
-                                 gpointer                   user_data);
+                                 gpointer                   user_data) G_GNUC_WARN_UNUSED_RESULT;
 
 AdwAnimation *adw_animation_ref   (AdwAnimation *self);
 void          adw_animation_unref (AdwAnimation *self);

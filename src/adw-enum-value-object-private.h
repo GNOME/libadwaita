@@ -14,6 +14,6 @@
 
 G_BEGIN_DECLS
 
-AdwEnumValueObject *adw_enum_value_object_new (GEnumValue *enum_value);
+AdwEnumValueObject *adw_enum_value_object_new (GEnumValue *enum_value) G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS
