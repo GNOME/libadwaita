@@ -101,6 +101,37 @@ ADW_AVAILABLE_IN_ALL
 void adw_foo_frobnicate (AdwFoo *self);
 ```
 
+If the function transfers a new handle to a resource, like a reference, a
+floating reference, a file handle, or any other kind of handle that would result
+into a resource leak if ignored, add `G_GNUC_WARN_UNUSED_RESULT` after the
+closing parenthesis.
+No need to add `G_GNUC_WARN_UNUSED_RESULT` when the caller is guaranteed to have
+a handle to the resource, e.g. in methods incrementing a reference counter.
+
+*Good*:
+
+```c
+ADW_AVAILABLE_IN_ALL
+AdwFoo *adw_foo_new (void) G_GNUC_WARN_UNUSED_RESULT;
+ADW_AVAILABLE_IN_ALL
+AdwFoo *adw_foo_ref (AdwFoo *self);
+
+ADW_AVAILABLE_IN_ALL
+char *adw_foo_to_string (AdwFoo *self) G_GNUC_WARN_UNUSED_RESULT;
+```
+
+*Bad*:
+
+```c
+ADW_AVAILABLE_IN_ALL
+AdwFoo *adw_foo_new (void);
+ADW_AVAILABLE_IN_ALL
+AdwFoo *adw_foo_ref (AdwFoo *self) G_GNUC_WARN_UNUSED_RESULT;
+
+ADW_AVAILABLE_IN_ALL
+char *adw_foo_to_string (AdwFoo *self);
+```
+
 ### Braces
 
 Everything besides functions and structs have the opening curly brace on the same line.
