@@ -1372,7 +1372,7 @@ adw_swipe_tracker_reset (AdwSwipeTracker *self)
     gtk_event_controller_reset (GTK_EVENT_CONTROLLER (self->touch_gesture_capture));
 
   if (self->touch_gesture)
-    gtk_event_controller_reset GTK_EVENT_CONTROLLER ((self->touch_gesture));
+    gtk_event_controller_reset (GTK_EVENT_CONTROLLER (self->touch_gesture));
 
   if (self->scroll_controller)
     gtk_event_controller_reset (self->scroll_controller);
