@@ -77,7 +77,12 @@ used for managing children instead of `GtkContainer` API. In Libadwaita
 [property@Adw.Flap:separator] are the only way to manage [class@Adw.Flap]
 children.
 
-Adding children in a UI file still works.
+### Stop Using `HdyValueObject` with non-string values
+
+`HdyValueObject` has been removed. While it's not practical to replace the cases
+where it's storing strings in GTK3, as the preferred replacement only exists in
+4, it can also be used with any other `GValue`. That use has no replacement and
+you can instead create your own objects to store those values.
 
 ## Changes that Need to Be Done at the Time of the Switch
 
@@ -170,6 +175,11 @@ now.
 
 [class@Adw.EnumValueObject] can no longer be manually created and is only
 intended to be used with [class@Adw.EnumListModel].
+
+### Stop Using `HdyValueObject`
+
+`HdyValueObject` has been removed. The typical use for storing strings in
+combination with `GListStore` can be replaced by using [class@Gtk.StringList].
 
 ### Adapt to [class@Adw.HeaderBar] API Changes
 
