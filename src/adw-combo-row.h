@@ -13,7 +13,6 @@
 #include "adw-version.h"
 
 #include <gtk/gtk.h>
-#include "adw-enum-value-object.h"
 #include "adw-action-row.h"
 
 G_BEGIN_DECLS

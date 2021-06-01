@@ -13,9 +13,22 @@
 #include "adw-version.h"
 
 #include <glib-object.h>
-#include "adw-enum-value-object.h"
 
 G_BEGIN_DECLS
+
+#define ADW_TYPE_ENUM_VALUE_OBJECT (adw_enum_value_object_get_type())
+
+ADW_AVAILABLE_IN_ALL
+G_DECLARE_FINAL_TYPE (AdwEnumValueObject, adw_enum_value_object, ADW, ENUM_VALUE_OBJECT, GObject)
+
+ADW_AVAILABLE_IN_ALL
+int adw_enum_value_object_get_value (AdwEnumValueObject *self);
+
+ADW_AVAILABLE_IN_ALL
+const char *adw_enum_value_object_get_name (AdwEnumValueObject *self);
+
+ADW_AVAILABLE_IN_ALL
+const char *adw_enum_value_object_get_nick (AdwEnumValueObject *self);
 
 #define ADW_TYPE_ENUM_LIST_MODEL (adw_enum_list_model_get_type())
 
