@@ -40,7 +40,6 @@ test_names = [
   'test-status-page',
   'test-tab-bar',
   'test-tab-view',
-  'test-value-object',
   'test-view-switcher',
   'test-view-switcher-bar',
   'test-window',
