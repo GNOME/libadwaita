@@ -1716,9 +1716,9 @@ add_page (AdwLeaflet     *self,
     set_visible_child (self, page, self->transition_type,
                        self->child_transition.duration);
   if (!self->folded ||
-      (self->folded && (self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] ||
-                        self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL] ||
-                        self->visible_child == page)))
+      self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] ||
+      self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL] ||
+      self->visible_child == page)
     gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
