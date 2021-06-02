@@ -728,5 +728,4 @@ adw_avatar_draw_to_pixbuf (AdwAvatar *self,
   return gdk_pixbuf_get_from_surface (surface, 0, 0,
                                       bounds.size.width,
                                       bounds.size.height);
-  return NULL;
 }
