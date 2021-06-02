@@ -47,8 +47,6 @@ struct _AdwTab
   gboolean fully_visible;
 
   AdwAnimation *close_btn_animation;
-  cairo_pattern_t *gradient;
-  double gradient_opacity;
 
   GskGLShader *shader;
   gboolean shader_compiled;
@@ -731,23 +729,12 @@ adw_tab_dispose (GObject *object)
 }
 
 static void
-adw_tab_finalize (GObject *object)
-{
-  AdwTab *self = ADW_TAB (object);
-
-  g_clear_pointer (&self->gradient, cairo_pattern_destroy);
-
-  G_OBJECT_CLASS (adw_tab_parent_class)->finalize (object);
-}
-
-static void
 adw_tab_class_init (AdwTabClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->dispose = adw_tab_dispose;
-  object_class->finalize = adw_tab_finalize;
   object_class->constructed = adw_tab_constructed;
   object_class->get_property = adw_tab_get_property;
   object_class->set_property = adw_tab_set_property;
