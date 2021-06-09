@@ -782,9 +782,6 @@ attach_page (AdwTabView *self,
     set_page_parent (page, NULL);
 
   g_signal_emit (self, signals[SIGNAL_PAGE_ATTACHED], 0, page, position);
-
-  if (self->pages)
-    g_list_model_items_changed (G_LIST_MODEL (self->pages), position, 0, 1);
 }
 
 static void
@@ -934,6 +931,9 @@ insert_page (AdwTabView *self,
 
   if (!self->selected_page)
     adw_tab_view_set_selected_page (self, page);
+
+  if (self->pages)
+    g_list_model_items_changed (G_LIST_MODEL (self->pages), position, 0, 1);
 
   return page;
 }
@@ -3256,6 +3256,9 @@ adw_tab_view_attach_page (AdwTabView *self,
   attach_page (self, page, position);
 
   adw_tab_view_set_selected_page (self, page);
+
+  if (self->pages)
+    g_list_model_items_changed (G_LIST_MODEL (self->pages), position, 0, 1);
 
   end_transfer_for_group (self);
 
