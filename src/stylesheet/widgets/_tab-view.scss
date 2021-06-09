@@ -155,18 +155,6 @@ dnd {
       min-width: 24px;
       min-height: 24px;
       border-radius: 99px;
-
-      border: none;
-      box-shadow: none;
-      background: none;
-
-      &:hover {
-        background: gtkalpha($fg_color, .15);
-      }
-
-      &:active {
-        background: gtkalpha(black, .2);
-      }
     }
   }
 }

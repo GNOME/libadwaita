@@ -22,7 +22,9 @@
         <property name="halign">start</property>
         <signal name="clicked" handler="indicator_clicked_cb" swapped="true"/>
         <style>
+          <class name="flat"/>
           <class name="tab-indicator"/>
+          <class name="image-button"/>
         </style>
         <property name="child">
           <object class="GtkImage" id="indicator_icon">
@@ -83,6 +85,7 @@
         <property name="icon-name">window-close-symbolic</property>
         <signal name="clicked" handler="close_clicked_cb" swapped="true"/>
         <style>
+          <class name="flat"/>
           <class name="tab-close-button"/>
         </style>
       </object>
