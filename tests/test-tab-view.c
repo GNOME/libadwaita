@@ -63,6 +63,18 @@ close_noop (void)
 }
 
 static void
+check_selection_non_null (AdwTabView *view)
+{
+  g_assert_nonnull (adw_tab_view_get_selected_page (view));
+}
+
+static void
+check_selection_null (AdwTabView *view)
+{
+  g_assert_null (adw_tab_view_get_selected_page (view));
+}
+
+static void
 test_adw_tab_view_n_pages (void)
 {
   g_autoptr (AdwTabView) view = NULL;
@@ -227,7 +239,7 @@ test_adw_tab_view_shortcut_widget (void)
 }
 
 static void
-test_adw_tab_view_pages (void)
+test_adw_tab_view_get_page (void)
 {
   g_autoptr (AdwTabView) view = NULL;
   GtkWidget *child1, *child2, *child3;
@@ -900,6 +912,37 @@ test_adw_tab_view_transfer (void)
 }
 
 static void
+test_adw_tab_view_pages (void)
+{
+  g_autoptr (AdwTabView) view = NULL;
+  g_autoptr (GtkSelectionModel) model = NULL;
+  AdwTabPage *pages[2];
+
+  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  g_assert_nonnull (view);
+
+  model = adw_tab_view_get_pages (view);
+  g_assert_nonnull (model);
+
+  g_signal_connect_swapped (model, "items-changed", G_CALLBACK (check_selection_non_null), view);
+  g_signal_connect_swapped (model, "selection-changed", G_CALLBACK (check_selection_non_null), view);
+
+  pages[0] = adw_tab_view_add_page (view, gtk_button_new (), NULL);
+  pages[1] = adw_tab_view_add_page (view, gtk_button_new (), NULL);
+
+  adw_tab_view_close_page (view, pages[0]);
+
+  g_signal_handlers_disconnect_by_func (model, G_CALLBACK (check_selection_non_null), view);
+
+  g_signal_connect_swapped (model, "items-changed", G_CALLBACK (check_selection_null), view);
+  g_signal_connect_swapped (model, "selection-changed", G_CALLBACK (check_selection_null), view);
+
+  adw_tab_view_close_page (view, pages[1]);
+
+  g_signal_handlers_disconnect_by_func (model, G_CALLBACK (check_selection_null), view);
+}
+
+static void
 test_adw_tab_page_title (void)
 {
   g_autoptr (AdwTabView) view = NULL;
@@ -1125,7 +1168,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/TabView/default_icon", test_adw_tab_view_default_icon);
   g_test_add_func ("/Adwaita/TabView/menu_model", test_adw_tab_view_menu_model);
   g_test_add_func ("/Adwaita/TabView/shortcut_widget", test_adw_tab_view_shortcut_widget);
-  g_test_add_func ("/Adwaita/TabView/pages", test_adw_tab_view_pages);
+  g_test_add_func ("/Adwaita/TabView/get_page", test_adw_tab_view_get_page);
   g_test_add_func ("/Adwaita/TabView/select", test_adw_tab_view_select);
   g_test_add_func ("/Adwaita/TabView/add_basic", test_adw_tab_view_add_basic);
   g_test_add_func ("/Adwaita/TabView/add_auto", test_adw_tab_view_add_auto);
@@ -1139,6 +1182,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/TabView/close_signal", test_adw_tab_view_close_signal);
   g_test_add_func ("/Adwaita/TabView/close_select", test_adw_tab_view_close_select);
   g_test_add_func ("/Adwaita/TabView/transfer", test_adw_tab_view_transfer);
+  g_test_add_func ("/Adwaita/TabView/pages", test_adw_tab_view_pages);
   g_test_add_func ("/Adwaita/TabPage/title", test_adw_tab_page_title);
   g_test_add_func ("/Adwaita/TabPage/tooltip", test_adw_tab_page_tooltip);
   g_test_add_func ("/Adwaita/TabPage/icon", test_adw_tab_page_icon);
