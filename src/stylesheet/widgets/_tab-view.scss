@@ -1,4 +1,4 @@
-$tab_bg: darken($bg_color, if($variant == 'dark', 6%, 12%));
+$tab_bg: darken($headerbar_bg_color, 6%);
 
 @mixin undershoot-gradient($dir) {
   @if $variant == 'dark' {
