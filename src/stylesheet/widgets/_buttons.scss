@@ -36,10 +36,11 @@ button {
     &:checked:active { @include button(checked-active); }
 
     &:disabled {
-      @include button(insensitive);
+      filter: opacity(.5);
 
-      &:active,
-      &:checked { @include button(insensitive-active); }
+      label {
+        filter: none;
+      }
     }
 
     @at-root %button_basic_flat,
@@ -73,8 +74,6 @@ button {
           }
         }
       }
-
-      &:disabled { @include button(undecorated); }
     }
 
     &.image-button {
@@ -154,21 +153,12 @@ button {
     &:active,
     &:checked { @include button(osd-active); }
 
-    &:disabled { @include button(osd-insensitive); }
-
     &.flat {
       @include button(undecorated);
 
       box-shadow: none;
 
       &:hover { @include button(osd-hover); }
-
-      &:disabled {
-        @include button(osd-insensitive);
-        background-image: none;
-        border-color: transparent;
-        box-shadow: none;
-      }
 
       &:active,
       &:checked { @include button(osd-active); }
@@ -193,21 +183,6 @@ button {
       &:active,
       &:checked { @include button(active, $b_color, white); }
 
-      &.flat {
-        &:disabled {
-          @include button(undecorated);
-
-          color: transparentize($b_color, 0.2);
-        }
-      }
-
-      &:disabled {
-        @include button(insensitive);
-
-        &:active,
-        &:checked { @include button(insensitive-active, $b_color, white); }
-      }
-
       .osd & {
         @include button(osd, $b_color);
 
@@ -215,8 +190,6 @@ button {
 
         &:active,
         &:checked { @include button(osd-active, $b_color); }
-
-        &:disabled { @include button(osd-insensitive, $b_color); }
       }
     }
   }
@@ -303,7 +276,6 @@ button.color {
 
   @if $variant == 'light' {
     .osd &, & {
-      &:disabled,
       &:active,
       &:checked { colorswatch:only-child { box-shadow: none; }}
     }
