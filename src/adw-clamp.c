@@ -194,11 +194,11 @@ adw_clamp_class_init (AdwClampClass *klass)
    *
    * Starting from this size, the clamp will tighten its grip on the child,
    * slowly allocating less and less of the available size up to the maximum
-   * allocated size. Below that threshold and below the maximum width, the child
+   * allocated size. Below that threshold and below the maximum size, the child
    * will be allocated all the available size.
    *
    * If the threshold is greater than the maximum size to allocate to the child,
-   * the child will be allocated all the width up to the maximum.
+   * the child will be allocated all the size up to the maximum.
    * If the threshold is lower than the minimum size to allocate to the child,
    * that size will be used as the tightening threshold.
    *

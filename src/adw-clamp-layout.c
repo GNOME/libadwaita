@@ -324,7 +324,7 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
    *
    * Starting from this size, the layout will tighten its grip on the children,
    * slowly allocating less and less of the available size up to the maximum
-   * allocated size. Below that threshold and below the maximum width, the
+   * allocated size. Below that threshold and below the maximum size, the
    * children will be allocated all the available size.
    *
    * If the threshold is greater than the maximum size to allocate to the
