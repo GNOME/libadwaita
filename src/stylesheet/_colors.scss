@@ -28,6 +28,13 @@ $trough_color: #{"alpha(currentColor, .15)"};
 $trough_hover_color: #{"alpha(currentColor, .2)"};
 $trough_active_color: #{"alpha(currentColor, .25)"};
 
+$button_color: #{"alpha(currentColor, .1)"};
+$button_hover_color: #{"alpha(currentColor, .15)"};
+$button_active_color: #{"alpha(currentColor, .25)"};
+$button_checked_color: #{"alpha(currentColor, .2)"};
+$button_checked_hover_color: #{"alpha(currentColor, .25)"};
+$button_checked_active_color: #{"alpha(currentColor, .35)"};
+
 $fill_color: $selected_bg_color;
 $fill_text_color: $selected_fg_color;
 $fill_hover_color: mix($selected_bg_color, $text_color, 90%);
@@ -44,7 +51,10 @@ $scrollbar_slider_active_color: if($variant=='light', darken($selected_bg_color,
 $warning_color: #f57900;
 $error_color: #cc0000;
 $success_color: if($variant == 'light', #33d17a, darken(#33d17a, 10%));
+$suggested_color: if($variant == 'light', $selected_bg_color, $selected_bg_color);
+$suggested_text_color: if($variant == 'light', darken($suggested_color, 10%), lighten($suggested_color, 20%));
 $destructive_color: if($variant == 'light', #e01b24, darken(#e01b24, 10%));
+$destructive_text_color: if($variant == 'light', darken($destructive_color, 10%), lighten($destructive_color, 20%));
 
 $osd_fg_color: #eeeeec;
 $osd_text_color: white;

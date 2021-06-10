@@ -50,15 +50,15 @@ headerbar {
     windowcontrols {
       button,
       menubutton {
-        min-height: 26px;
-        min-width: 26px;
+        min-height: 28px;
+        min-width: 28px;
         margin: 0;
         padding: 0;
       }
 
       menubutton button {
-        min-height: 20px;
-        min-width: 20px;
+        min-height: 22px;
+        min-width: 22px;
         margin: 0;
         padding: 4px;
       }
@@ -112,7 +112,7 @@ windowcontrols {
     @extend %button_basic_flat;
 
     border-radius: 9999px;
-    padding: 6px;
+    padding: 7px;
     margin: 0 2px;
     min-width: 0;
     min-height: 0;
