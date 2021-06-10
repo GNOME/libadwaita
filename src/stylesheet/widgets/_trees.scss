@@ -1,5 +1,6 @@
 // To be used for opaque elements overlaid atop the selected row
-$treeview_selection_opaque: mix(opacify($view_selected_color, 1), $base_color, 100% * alpha($view_selected_color));
+$treeview_selection_default: transparentize($text_color, .9);
+$treeview_selection_opaque: mix(opacify($treeview_selection_default, 1), $base_color, 100% * alpha($treeview_selection_default));
 
 columnview.view,
 treeview.view {
