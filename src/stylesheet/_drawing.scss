@@ -53,13 +53,13 @@
 
   @if $t==normal {
     color: $text_color;
-    border-color: $borders_color;
+    border-color: mix($borders_color, $base_color, 75%);
     background-color: $base_color;
     // for the transition to work the number of shadows in different states needs to match, hence the transparent shadow here.
   }
   @if $t==insensitive {
     color: $insensitive_fg_color;
-    border-color: $borders_color;
+    border-color: mix($borders_color, $insensitive_bg_color, 75%);
     background-color: $insensitive_bg_color;
   }
   @if $t==osd {
