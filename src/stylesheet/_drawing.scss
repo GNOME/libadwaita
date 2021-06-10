@@ -241,6 +241,12 @@ $_default_button_c: lighten($bg_color,2%);
     box-shadow: none;
     background-color: $view_selected_hover_color;
   }
+  @else if $t==undecorated-checked-active {
+    border-color: transparent;
+    background-image: none;
+    box-shadow: none;
+    background-color: $view_selected_active_color;
+  }
 }
 
 @mixin overshoot($p, $c:$fg_color) {

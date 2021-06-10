@@ -70,7 +70,7 @@ button {
           @include button(undecorated-checked-hover);
 
           &:active {
-            @include button(undecorated-active);
+            @include button(undecorated-checked-active);
           }
         }
       }

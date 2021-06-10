@@ -93,7 +93,7 @@ popover.menu {
       background-color: $view_selected_color;
 
       &:active {
-        background-color: $view_active_color; // matching buttons
+        background-color: $view_selected_active_color; // matching buttons
       }
     }
 
