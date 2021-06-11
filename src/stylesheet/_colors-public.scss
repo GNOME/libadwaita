@@ -23,11 +23,11 @@ text widgets and the like base background color */
 
 /*
 base background color of selections */
-@define-color theme_selected_bg_color #{"" +$selected_bg_color};
+@define-color theme_selected_bg_color #{"" +$accent_color};
 
 /*
 text/foreground color of selections */
-@define-color theme_selected_fg_color #{"" +$selected_fg_color};
+@define-color theme_selected_fg_color #{"" +$accent_text};
 
 /*
 base background color of insensitive widgets */

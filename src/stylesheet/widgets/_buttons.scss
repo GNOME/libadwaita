@@ -1,7 +1,7 @@
 // stuff for .needs-attention
 @keyframes needs_attention {
-  from { background-image: radial-gradient(farthest-side, $selected_bg_color 0%, transparentize($selected_bg_color, 1) 0%); }
-  to { background-image: radial-gradient(farthest-side, $selected_bg_color 95%, transparentize($selected_bg_color, 1)); }
+  from { background-image: radial-gradient(farthest-side, $accent_color 0%, transparentize($accent_color, 1) 0%); }
+  to { background-image: radial-gradient(farthest-side, $accent_color 95%, transparentize($accent_color, 1)); }
 }
 
 %button,
@@ -255,7 +255,7 @@ button {
   // simulates the shadow labels and icons normally have in buttons.
   animation: needs_attention 150ms ease-in;
 
-  background-image: radial-gradient(farthest-side, $selected_bg_color 96%, transparentize($selected_bg_color, 1));
+  background-image: radial-gradient(farthest-side, $accent_color 96%, transparentize($accent_color, 1));
   background-size: 6px 6px, 6px 6px;
   background-repeat: no-repeat;
 
