@@ -48,13 +48,13 @@ $scrollbar_slider_color: mix($fg_color, $bg_color, 60%);
 $scrollbar_slider_hover_color: mix($fg_color, $bg_color, 80%);
 $scrollbar_slider_active_color: darken($selected_bg_color, 10%);
 
-$warning_color: #f57900;
-$error_color: #cc0000;
+$warning_color: #e5a50a;
+$error_color: #e01b24;
 $success_color: if($variant == 'light', #33d17a, darken(#33d17a, 10%));
 $suggested_color: $selected_bg_color;
 $suggested_text_color: if($variant == 'light', darken($suggested_color, 10%), lighten($suggested_color, 10%));
-$destructive_color: if($variant == 'light', #e01b24, darken(#e01b24, 10%));
-$destructive_text_color: if($variant == 'light', darken($destructive_color, 10%), lighten($destructive_color, 20%));
+$destructive_color: if($variant == 'light', $error_color, darken($error_color, 10%));
+$destructive_text_color: if($variant == 'light', darken($error_color, 10%), lighten($error_color, 10%));
 
 $osd_fg_color: #eeeeec;
 $osd_text_color: white;
