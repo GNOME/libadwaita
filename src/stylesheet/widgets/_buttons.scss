@@ -124,10 +124,10 @@ button {
   }
 
   // Suggested and Destructive Action buttons
-  @each $b_type, $b_color in (suggested-action, $suggested_color),
-                             (destructive-action, $destructive_color) {
+  @each $b_type, $b_color, $b_text in (suggested-action,   $accent_color,      $accent_text),
+                                      (destructive-action, $destructive_color, $destructive_text) {
     &.#{$b_type} {
-      color: white;
+      color: $b_text;
 
       &, &:checked {
         background-color: $b_color;
@@ -201,7 +201,7 @@ button {
       }
     }
 
-    @each $b_type, $b_color in (suggested-action, $suggested_color),
+    @each $b_type, $b_color in (suggested-action,   $accent_color),
                                (destructive-action, $destructive_color) {
       &.#{$b_type} {
         color: if($variant == 'light', darken($b_color, 10%), lighten($b_color, 10%));

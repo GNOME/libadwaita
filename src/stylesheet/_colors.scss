@@ -1,13 +1,20 @@
 // When color definition differs for dark and light variant
 // it gets @if ed depending on $variant
 
+$accent_color: if($variant == 'light', #3584e4, #62a0ea);
+$accent_text: #ffffff;
+$destructive_color: if($variant == 'light', #e01b24, #a51d2d);
+$destructive_text: #ffffff;
+
+$success_color: #33d17a;
+$warning_color: #e5a50a;
+$error_color: #e01b24;
+
 $base_color: if($variant == 'light', #ffffff, lighten(desaturate(#241f31, 100%), 2%));
 $text_color: if($variant == 'light', black, white);
 $bg_color: if($variant == 'light', #f6f5f4, darken(desaturate(#3d3846, 100%), 4%));
 $fg_color: if($variant == 'light', #2e3436, #eeeeec);
 
-$accent_text: #ffffff;
-$accent_color: if($variant == 'light', #3584e4, #62a0ea);
 $borders_color: if($variant == 'light', darken($bg_color, 18%), darken($bg_color, 10%));
 $alt_borders_color: if($variant == 'light', darken($bg_color, 24%), darken($bg_color, 18%));
 $borders_edge: if($variant == 'light', transparentize(white, 0.2), transparentize($fg_color, 0.93));
@@ -46,12 +53,6 @@ $scrollbar_bg_color: if($variant == 'light', mix($bg_color, $fg_color, 80%), mix
 $scrollbar_slider_color: mix($fg_color, $bg_color, 60%);
 $scrollbar_slider_hover_color: mix($fg_color, $bg_color, 80%);
 $scrollbar_slider_active_color: darken($accent_color, 10%);
-
-$warning_color: #e5a50a;
-$error_color: #e01b24;
-$success_color: if($variant == 'light', #33d17a, darken(#33d17a, 10%));
-$suggested_color: $accent_color;
-$destructive_color: if($variant == 'light', $error_color, darken($error_color, 10%));
 
 $osd_fg_color: #eeeeec;
 $osd_text_color: white;
