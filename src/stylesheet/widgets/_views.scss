@@ -49,7 +49,7 @@ iconview {
 
 rubberband {
   border: 1px solid $accent_color;
-  background-color: transparentize($accent_color, 0.8);
+  background-color: gtkalpha($accent_color, 0.2);
 }
 
 flowbox {

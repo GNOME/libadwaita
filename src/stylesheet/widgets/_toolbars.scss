@@ -88,7 +88,7 @@ infobar {
                              (warning, $warning_color),
                              (error, $error_color) {
     &.#{$i_type} > revealer > box {
-      background-color: mix($i_color, $base_color, if($variant == 'dark', 30%, 15%));
+      background-color: gtkmix($i_color, $base_color, if($variant == 'dark', 30%, 15%));
     }
   }
 

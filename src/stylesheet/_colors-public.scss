@@ -44,15 +44,3 @@ widgets main borders color */
 
 /* Very contrasty background for text views (@theme_text_color foreground) */
 @define-color text_view_bg #{"" + if($variant == 'light', $base_color, darken($base_color,6%))};
-
-/* Overridable colors */
-
-@define-color accent_color #{"" +$accent_color};
-@define-color accent_text #{"" +$accent_text};
-
-@define-color destructive_color #{"" +$accent_text};
-@define-color destructive_text #{"" +$accent_text};
-
-@define-color success_color #{"" +$success_color};
-@define-color warning_color #{"" +$warning_color};
-@define-color error_color #{"" +$error_color};

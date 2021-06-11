@@ -1,0 +1,22 @@
+/* GTK NAMED COLORS
+   ----------------
+   use responsibly! */
+
+// Sass thinks we're using the colors in the variables as strings and may shoot
+// warning, it's innocuous and can be defeated by using "" + $var
+
+// These are the colors apps are can override. We define the defaults here and
+// define variables for them in _colors.scss
+
+// The main accent color and the matching text value
+@define-color accent_color #{"" + if($variant == 'light', #3584e4, #62a0ea)};
+@define-color accent_text #ffffff;
+
+// destructive-action buttons
+@define-color destructive_color #{"" + if($variant == 'light', #e01b24, #a51d2d)};
+@define-color destructive_text #ffffff;
+
+// Levelbars, entries, labels and infobars. These don't need text colors
+@define-color success_color #33d17a;
+@define-color warning_color #e5a50a;
+@define-color error_color #e01b24;

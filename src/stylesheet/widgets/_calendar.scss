@@ -32,7 +32,7 @@ calendar {
           background-color: $accent_color;
           color: $accent_text;
 
-          &:disabled { color: mix($accent_text, $accent_color, 50%); }
+          &:disabled { color: gtkmix($accent_text, $accent_color, 50%); }
         }
       }
 
