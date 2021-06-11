@@ -73,7 +73,7 @@ popover.menu {
   //only menu radios have a border
   radio {
     padding: 0;
-    border: 1.2px solid #{"alpha(currentColor, #{if($contrast == "high", 1, 0.3)})"};
+    border: 1.2px solid gtkalpha(currentColor, if($contrast == "high", 1, 0.3));
   }
 
   check,

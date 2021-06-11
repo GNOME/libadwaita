@@ -18,6 +18,7 @@ if not fs.exists('Adwaita-light.css')
       '_colors.scss',
       '_common.scss',
       '_drawing.scss',
+      '_functions.scss',
       '_widgets.scss',
 
       'widgets/_avatar.scss',
