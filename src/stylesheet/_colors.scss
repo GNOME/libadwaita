@@ -43,8 +43,8 @@ $button_checked_active_color: gtkalpha(currentColor, .35);
 
 $fill_color: $accent_color;
 $fill_text_color: $accent_text;
-$fill_hover_color: #{"mix(#{$accent_color}, currentColor, .1)"};
-$fill_active_color: #{"mix(#{$accent_color}, black, .2)"};
+$fill_hover_color: gtkmix($accent_color, currentColor, 90%);
+$fill_active_color: gtkmix($accent_color, black, 80%);
 
 $slider_color: mix(white, $base_color, 80%);
 $slider_hover_color: white;
