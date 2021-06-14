@@ -251,3 +251,9 @@ colors have been removed:
 
 The `.list-button` style class has been renamed to the more accurate name
 `.outline`.
+
+The public colors `@theme_selected_bg_color` and `@theme_selected_fg_color` have
+been renamed to `@accent_color` and `@accent_text`.
+
+If you were using `@theme_selected_bg_color` as text color, use the `.accent`
+style class instead to make sure the text is readable.
