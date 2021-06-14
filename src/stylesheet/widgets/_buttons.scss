@@ -123,42 +123,52 @@ button {
     }
   }
 
-  // Suggested and Destructive Action buttons
-  @each $b_type, $b_color, $b_text in (suggested-action,   $accent_color,      $accent_text),
-                                      (destructive-action, $destructive_color, $destructive_text) {
-    &.#{$b_type} {
-      color: $b_text;
+  @at-root %filled_button {
+    box-shadow: none;
 
-      &, &:checked {
-        background-color: $b_color;
-      }
+    @include focus-ring($outer: true, $offset: 1px);
+    transition: $button_transition;
 
-      box-shadow: none;
+    &:hover {
+      background-image: image(gtkalpha(currentColor, .1));
+    }
 
-      @include focus-ring($outer: true, $offset: 1px);
-      transition: $button_transition;
+    &.keyboard-activating,
+    &:active {
+      background-image: image(transparentize(black, .8));
+    }
+
+    &:checked {
+      background-image: image(transparentize(black, .85));
 
       &:hover {
-        background-image: image(gtkalpha(currentColor, .1));
+        background-image: image(transparentize(black, .95));
       }
 
       &.keyboard-activating,
       &:active {
-        background-image: image(transparentize(black, .8));
+        background-image: image(transparentize(black, .7));
       }
+    }
+  }
 
-      &:checked {
-        background-image: image(transparentize(black, .85));
+  &.destructive-action {
+    @extend %filled_button;
 
-        &:hover {
-          background-image: image(transparentize(black, .95));
-        }
+    color: $destructive_text;
 
-        &.keyboard-activating,
-        &:active {
-          background-image: image(transparentize(black, .7));
-        }
-      }
+    &, &:checked {
+      background-color: $destructive_color;
+    }
+  }
+
+  &.suggested-action {
+    @extend %filled_button;
+
+    color: $accent_text;
+
+    &, &:checked {
+      background-color: $accent_color;
     }
   }
 
@@ -201,11 +211,12 @@ button {
       }
     }
 
-    @each $b_type, $b_color in (suggested-action,   $accent_color),
-                               (destructive-action, $destructive_color) {
-      &.#{$b_type} {
-        color: gtkmix($b_color, $text_color, 90%);
-      }
+    &.suggested-action {
+      color: $accent_standalone_color;
+    }
+
+    &.destructive-action {
+      color: $destructive_standalone_color;
     }
 
     // Specificity bump

@@ -9,11 +9,11 @@
 // define variables for them in _colors.scss
 
 // The main accent color and the matching text value
-@define-color accent_color #{"" + if($variant == 'light', #3584e4, #62a0ea)};
+@define-color accent_color #3584e4;
 @define-color accent_text #ffffff;
 
 // destructive-action buttons
-@define-color destructive_color #{"" + if($variant == 'light', #e01b24, #a51d2d)};
+@define-color destructive_color #e01b24;
 @define-color destructive_text #ffffff;
 
 // Levelbars, entries, labels and infobars. These don't need text colors

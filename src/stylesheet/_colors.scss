@@ -15,11 +15,14 @@ $text_color: if($variant == 'light', black, white);
 $bg_color: if($variant == 'light', #f6f5f4, darken(desaturate(#3d3846, 100%), 4%));
 $fg_color: if($variant == 'light', #2e3436, #eeeeec);
 
+$accent_standalone_color: gtkmix($accent_color, $text_color, if($variant == 'dark', 50%, 75%));
+$destructive_standalone_color: gtkmix($destructive_color, $text_color, if($variant == 'dark', 50%, 75%));
+
 $borders_color: if($variant == 'light', darken($bg_color, 18%), darken($bg_color, 10%));
 $alt_borders_color: if($variant == 'light', darken($bg_color, 24%), darken($bg_color, 18%));
 $borders_edge: if($variant == 'light', transparentize(white, 0.2), transparentize($fg_color, 0.93));
-$link_color: gtkmix($accent_color, $text_color, 90%);
-$link_visited_color: gtkmix($accent_color, $text_color, 80%);
+$link_color: $accent_standalone_color;
+$link_visited_color: gtkmix($accent_standalone_color, $text_color, 80%);
 $dark_fill: mix($borders_color, $bg_color, 50%);
 $headerbar_bg_color: $bg_color;
 $menu_color: $base_color;

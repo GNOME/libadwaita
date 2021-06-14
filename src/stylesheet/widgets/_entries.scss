@@ -56,7 +56,7 @@ entry {
 
       &:hover { color: $fg_color; }
 
-      &:active { color: $accent_color; }
+      &:active { color: $accent_standalone_color; }
 
       &.left { margin-right: 6px; }
       &.right { margin-left: 6px; }
