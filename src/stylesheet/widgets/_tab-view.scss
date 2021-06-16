@@ -27,6 +27,12 @@ tabbar {
     border-bottom: 1px solid $alt_borders_color;
   }
 
+  &:backdrop {
+    filter: brightness(.92);
+    transition: $backdrop_transition;
+    transition-property: filter;
+  }
+
   scrolledwindow.pinned {
     undershoot {
       border: 0 solid $alt_borders_color;
@@ -90,6 +96,16 @@ tabbar {
 
     &:hover {
       background-color: lighten($tab_bg, 3%);
+    }
+
+    &:backdrop {
+      // Apply it to children individually so we don't opacify the background
+      stack,
+      .tab-title,
+      .tab-close-button,
+      .tab-indicator {
+        filter: opacity(.5);
+      }
     }
   }
 
