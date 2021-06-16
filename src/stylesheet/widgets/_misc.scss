@@ -80,7 +80,7 @@ window.dialog.print {
 
     paper {
       background: white;
-      color: #2e3436;
+      color: $light_fg;
       border: 1px solid $borders_color;
     }
   }
