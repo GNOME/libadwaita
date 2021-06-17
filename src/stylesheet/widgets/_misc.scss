@@ -67,6 +67,15 @@ video {
   }
 }
 
+/***********
+ * Dialogs *
+************/
+
+.dialog-action-area {
+  margin: 6px;
+  border-spacing: 6px;
+}
+
 /****************
  * Print dialog *
 *****************/
@@ -84,8 +93,6 @@ window.dialog.print {
       border: 1px solid $borders_color;
     }
   }
-
-  .dialog-action-box { margin: 12px; }
 }
 
 /****************
