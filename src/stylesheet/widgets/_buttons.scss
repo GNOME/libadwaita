@@ -296,17 +296,20 @@ button.color {
   padding: 5px;
 
   > colorswatch:only-child {
-    &, > overlay { border-radius: 0; }
+    border-radius: 2.5px;
+
+    > overlay {
+      border-radius: 2px;
+    }
+
+    &:disabled {
+      filter: none;
+    }
 
     @if $variant == 'light' {
-      box-shadow: 0 1px $shadow_color;
-    }
-  }
-
-  @if $variant == 'light' {
-    .osd &, & {
-      &:active,
-      &:checked { colorswatch:only-child { box-shadow: none; }}
+      &.light > overlay {
+        border-color: transparentize(black, .8);
+      }
     }
   }
 }
