@@ -3,6 +3,8 @@
 
 $light_fg: #2e3436;
 $dark_fg: #eeeeec;
+$light_bg: $light_2;
+$dark_bg: darken(desaturate($dark_3, 100%), 4%);
 
 $accent_color: gtkcolor(accent_color);
 $accent_text: gtkcolor(accent_text);
@@ -15,7 +17,7 @@ $error_color: gtkcolor(error_color);
 
 $base_color: if($variant == 'light', $light_1, lighten(desaturate($dark_4, 100%), 2%));
 $text_color: if($variant == 'light', black, white);
-$bg_color: if($variant == 'light', $light_2, darken(desaturate($dark_3, 100%), 4%));
+$bg_color: if($variant == 'light', $light_bg, $dark_bg);
 $fg_color: if($variant == 'light', $light_fg, $dark_fg);
 
 $accent_standalone_color: gtkmix($accent_color, $text_color, if($variant == 'dark', 50%, 75%));
@@ -62,7 +64,7 @@ $scrollbar_slider_active_color: $accent_color;
 
 $osd_fg_color: $dark_fg;
 $osd_text_color: white;
-$osd_bg_color: if($variant == 'light', transparentize(darken(desaturate($dark_3, 100%), 4%),0.3), transparentize(darken(desaturate($dark_3, 100%), 10%),0.3));
+$osd_bg_color: if($variant == 'light', transparentize($dark_bg,0.3), transparentize(darken(desaturate($dark_3, 100%), 10%),0.3));
 $osd_insensitive_bg_color: transparentize(mix($osd_fg_color, opacify($osd_bg_color, 1), 10%), 0.5);
 $osd_insensitive_fg_color: mix($osd_fg_color, opacify($osd_bg_color, 1), 50%);
 $osd_borders_color: transparentize(black, 0.3);
