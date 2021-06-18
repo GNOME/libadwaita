@@ -80,6 +80,12 @@ test_adw_leaflet_navigate (void)
   leaflet = ADW_LEAFLET (adw_leaflet_new ());
   g_assert_nonnull (leaflet);
 
+  result = adw_leaflet_navigate (leaflet, ADW_NAVIGATION_DIRECTION_BACK);
+  g_assert_false (result);
+
+  result = adw_leaflet_navigate (leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
+  g_assert_false (result);
+
   for (i = 0; i < 3; i++) {
     AdwLeafletPage *page;
 

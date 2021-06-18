@@ -481,6 +481,10 @@ find_swipeable_page (AdwLeaflet             *self,
   GList *l;
 
   l = g_list_find (self->children, self->visible_child);
+
+  if (!l)
+    return NULL;
+
   do {
     l = (direction == ADW_NAVIGATION_DIRECTION_BACK) ? l->prev : l->next;
 
