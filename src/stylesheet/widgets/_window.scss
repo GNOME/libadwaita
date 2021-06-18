@@ -64,12 +64,17 @@ window {
 
   &.solid-csd {
     margin: 0;
-    padding: 4px;
-    border: solid 1px $borders_color;
+    padding: 5px;
     border-radius: 0;
-    box-shadow: inset 0 0 0 4px $borders_color, inset 0 0 0 3px $headerbar_bg_color;
+    box-shadow: inset 0 0 0 5px $borders_color,
+                inset 0 0 0 4px $headerbar_bg_color,
+                inset 0 0 0 1px $_wm_border;
 
-    &:backdrop { box-shadow: inset 0 0 0 4px $borders_color, inset 0 0 0 3px $bg_color; }
+    &:backdrop {
+      box-shadow: inset 0 0 0 5px $borders_color,
+                  inset 0 0 0 4px $bg_color,
+                  inset 0 0 0 1px $_wm_border_backdrop;
+    }
   }
 
   // server-side decorations as used by mutter
