@@ -875,6 +875,8 @@ adw_combo_row_set_expression (AdwComboRow   *self,
   if (priv->expression)
     gtk_expression_ref (priv->expression);
 
+  selection_changed (self);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXPRESSION]);
 }
 
