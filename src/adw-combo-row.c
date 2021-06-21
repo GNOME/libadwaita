@@ -112,12 +112,16 @@ selection_changed (AdwComboRow *self)
   selected = gtk_single_selection_get_selected (GTK_SINGLE_SELECTION (priv->selection));
 
   if (priv->use_subtitle) {
-    GtkListItem *item = g_list_model_get_item (G_LIST_MODEL (priv->current_selection), 0);
-    g_autofree char *repr = get_item_representation (self, item);
+    if (g_list_model_get_n_items (G_LIST_MODEL (priv->current_selection)) > 0) {
+      GtkListItem *item = g_list_model_get_item (G_LIST_MODEL (priv->current_selection), 0);
+      g_autofree char *repr = get_item_representation (self, item);
 
-    adw_action_row_set_subtitle (ADW_ACTION_ROW (self), repr);
+      adw_action_row_set_subtitle (ADW_ACTION_ROW (self), repr);
 
-    g_object_unref (item);
+      g_object_unref (item);
+    } else {
+      adw_action_row_set_subtitle (ADW_ACTION_ROW (self), NULL);
+    }
   }
 
   gtk_single_selection_set_selected (GTK_SINGLE_SELECTION (priv->popup_selection), selected);
