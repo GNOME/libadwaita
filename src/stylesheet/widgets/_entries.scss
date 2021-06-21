@@ -7,6 +7,7 @@ entry {
     border: 1px solid;
     border-radius: $button_radius;
     border-spacing: 6px;
+    background-clip: padding-box;
     transition: all 200ms $ease-out-quad;
 
     @include entry(normal);

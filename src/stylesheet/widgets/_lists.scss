@@ -2,9 +2,14 @@ listview,
 list {
   color: $text_color;
   background-color: $base_color;
+  background-clip: padding-box;
   border-color: $borders_color;
 
-  > row { padding: 2px; }
+  > row {
+    padding: 2px;
+    background-clip: padding-box;
+  }
+
   > row.expander { padding: 0px; }
   > row.expander .row-header { padding: 2px; }
 
@@ -12,6 +17,7 @@ list {
   &.separators.horizontal > row:not(.separator) {
     border-left: 1px solid $borders_color;
   }
+
   &:not(.horizontal) row.separator,
   &.separators:not(.horizontal) > row:not(.separator) {
     border-bottom: 1px solid $borders_color;
@@ -20,6 +26,8 @@ list {
 
 row {
   @include focus-ring($focus-state: 'focus-visible:focus-within');
+
+  background-clip: padding-box;
 
   &.activatable {
     &.has-open-popup, // this is for indicathing which row generated a popover see https://bugzilla.gnome.org/show_bug.cgi?id=754411

@@ -1,5 +1,6 @@
 calendar {
   color: $text_color;
+  background-clip: padding-box;
   border: 1px solid $borders_color;
 
   > header {

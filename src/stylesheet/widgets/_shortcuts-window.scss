@@ -21,6 +21,7 @@ shortcut {
 
     color: $fg_color;
     background-color: $base_color;
+    background-clip: padding-box;
     border: 1px solid;
     border-color: if($variant == 'light', mix($borders_color, $bg_color, 50%), $borders_color);
     border-radius: 5px;

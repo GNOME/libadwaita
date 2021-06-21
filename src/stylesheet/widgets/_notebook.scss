@@ -6,6 +6,7 @@ notebook {
     border-color: $borders_color;
     border-width: 1px;
     background-color: $dark_fill;
+    background-clip: padding-box;
 
     > tabs { margin: -1px; }
 
@@ -125,8 +126,9 @@ notebook {
       color: $fg_color;
       font-weight: normal;
 
-      border-width: 1px;         // for reorderable tabs
-      border-color: transparent; //
+      border-width: 1px;            // for reorderable tabs
+      border-color: transparent;    //
+      background-clip: padding-box; //
 
       &:hover {
         background-color: transparentize($bg_color, 0.8);
