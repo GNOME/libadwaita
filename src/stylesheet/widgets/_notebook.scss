@@ -134,7 +134,7 @@ notebook {
         background-color: transparentize($bg_color, 0.8);
 
         &.reorderable-page {
-          border-color: transparentize($borders_color, 0.7);
+          border-color: $thin_borders_color;
         }
       }
 
@@ -144,7 +144,7 @@ notebook {
 
       &:checked {
         &.reorderable-page {
-          border-color: transparentize($borders_color, 0.5);
+          border-color: $thin_borders_color;
           background-color: transparentize($bg_color, 0.5);
 
           &:hover { background-color: transparentize($bg_color, 0.3); }

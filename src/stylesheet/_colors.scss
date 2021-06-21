@@ -23,7 +23,8 @@ $text_color: if($variant == 'light', black, white);
 $bg_color: if($variant == 'light', $light_bg, $dark_bg);
 $fg_color: if($variant == 'light', $light_fg, $dark_fg);
 
-$borders_color: if($variant == 'light', darken($bg_color, 18%), darken($bg_color, 10%));
+$borders_color: gtkalpha(currentColor, .15);
+$thin_borders_color: gtkalpha(currentColor, .05);
 $link_color: $accent_color;
 $link_visited_color: gtkmix($accent_color, $text_color, 80%);
 $dark_fill: if($variant == 'light', darken($bg_color, 9%), darken($bg_color, 5%));
@@ -88,7 +89,8 @@ $dim_label_opacity: 0.55;
 
   $fg_color: if($variant == 'light', darken($fg_color, 3%), lighten($fg_color, 2%));
   $bg_color: if($variant == 'light', lighten($bg_color, 3%), darken($bg_color, 2%));
-  $borders_color: if($variant == 'light', darken($borders_color, 30%), lighten($borders_color, 30%));
+  $borders_color: gtkalpha(currentColor, .5);
+  $thin_borders_color: gtkalpha(currentColor, .25);
 
   $headerbar_border_color: transparentize($fg_color, .5);
 
