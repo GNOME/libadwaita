@@ -155,10 +155,10 @@ button {
   &.destructive-action {
     @extend %filled_button;
 
-    color: $destructive_text;
+    color: $destructive_fg_color;
 
     &, &:checked {
-      background-color: $destructive_color;
+      background-color: $destructive_bg_color;
     }
   }
 
