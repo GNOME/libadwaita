@@ -38,6 +38,7 @@ G_BEGIN_DECLS
 #include "adw-enum-value-object.h"
 #include "adw-expander-row.h"
 #include "adw-flap.h"
+#include "adw-fold-threshold-policy.h"
 #include "adw-header-bar.h"
 #include "adw-leaflet.h"
 #include "adw-main.h"

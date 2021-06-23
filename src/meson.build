@@ -11,6 +11,7 @@ libadwaita_resources = gnome.compile_resources(
 
 adw_public_enum_headers = [
   'adw-flap.h',
+  'adw-fold-threshold-policy.h',
   'adw-header-bar.h',
   'adw-leaflet.h',
   'adw-navigation-direction.h',
@@ -82,6 +83,7 @@ src_headers = [
   'adw-enum-value-object.h',
   'adw-expander-row.h',
   'adw-flap.h',
+  'adw-fold-threshold-policy.h',
   'adw-header-bar.h',
   'adw-leaflet.h',
   'adw-main.h',
@@ -135,6 +137,7 @@ src_sources = [
   'adw-fading-label.c',
   'adw-flap.c',
   'adw-focus.c',
+  'adw-fold-threshold-policy.c',
   'adw-gizmo.c',
   'adw-header-bar.c',
   'adw-indicator-bin.c',

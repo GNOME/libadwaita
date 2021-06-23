@@ -1,0 +1,18 @@
+/*
+ * Copyright (C) 2021 Christopher Davis <christopherdavis@gnome.org>
+ *
+ * SPDX-License-Identifier: LGPL-2.1+
+ */
+
+#include "config.h"
+#include "adw-fold-threshold-policy.h"
+
+/**
+ * AdwFoldThresholdPolicy:
+ * @ADW_FOLD_THRESHOLD_POLICY_MINIMUM: Folding is based on the minimum size
+ * @ADW_FOLD_THRESHOLD_POLICY_NATURAL: Folding is based on the natural size
+ *
+ * Determines when [class@Adw.Flap] and [class@Adw.Leaflet] will fold.
+ *
+ * Since: 1.0
+ */
