@@ -253,7 +253,8 @@ The `.list-button` style class has been renamed to the more accurate name
 `.outline`.
 
 The public colors `@theme_selected_bg_color` and `@theme_selected_fg_color` have
-been renamed to `@accent_color` and `@accent_text`.
+been renamed to `@accent_bg_color` and `@accent_fg_color`.
 
-If you were using `@theme_selected_bg_color` as text color, use the `.accent`
-style class instead to make sure the text is readable.
+If you were using `@theme_selected_bg_color` as a text color, use
+`@accent_color` instead to make sure the text is readable. You can also use the
+`.accent` style class to apply the correct color.
