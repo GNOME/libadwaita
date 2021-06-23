@@ -24,7 +24,7 @@
 #include <math.h>
 #include <string.h>
 
-#include "adw-animation-private.h"
+#include "adw-animation-util.h"
 
 /*
  * Progress tracker is small helper for tracking progress through gtk

@@ -17,9 +17,9 @@
 G_BEGIN_DECLS
 
 ADW_AVAILABLE_IN_ALL
-gboolean adw_get_enable_animations (GtkWidget *widget);
+double adw_ease_out_cubic (double t);
 
 ADW_AVAILABLE_IN_ALL
-double adw_ease_out_cubic (double t);
+gboolean adw_get_enable_animations (GtkWidget *widget);
 
 G_END_DECLS

@@ -10,32 +10,61 @@
 #error "Only <adwaita.h> can be included directly."
 #endif
 
-#include "adw-animation.h"
+#include <gtk/gtk.h>
+#include "adw-version.h"
+#include "adw-enums-private.h"
 
 G_BEGIN_DECLS
+typedef void   (*AdwAnimationTargetFunc) (double   value,
+                                          gpointer user_data);
+
+#define ADW_TYPE_ANIMATION_TARGET (adw_animation_target_get_type())
+
+G_DECLARE_FINAL_TYPE (AdwAnimationTarget, adw_animation_target, ADW, ANIMATION_TARGET, GObject)
+
+
+AdwAnimationTarget *adw_animation_target_new (AdwAnimationTargetFunc callback,
+                                              gpointer               data);
 
 #define ADW_TYPE_ANIMATION (adw_animation_get_type())
 
-typedef struct _AdwAnimation AdwAnimation;
+G_DECLARE_DERIVABLE_TYPE (AdwAnimation, adw_animation, ADW, ANIMATION, GObject)
 
-typedef void   (*AdwAnimationValueCallback) (double   value,
-                                             gpointer user_data);
 typedef void   (*AdwAnimationDoneCallback)  (gpointer user_data);
 typedef double (*AdwAnimationEasingFunc)    (double   t);
 
-GType adw_animation_get_type  (void) G_GNUC_CONST;
+typedef enum {
+  ADW_ANIMATION_INTERPOLATOR_EASE_IN,
+  ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+  ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT,
+} AdwAnimationInterpolator;
+
+typedef enum {
+  ADW_ANIMATION_STATUS_NONE,
+  ADW_ANIMATION_STATUS_COMPLETED,
+  ADW_ANIMATION_STATUS_RUNNING,
+  ADW_ANIMATION_STATUS_PAUSED,
+  ADW_ANIMATION_STATUS_CANCELED,
+} AdwAnimationStatus;
+
+/**
+ * AdwAnimation
+ * @parent_class: The parent class
+ */
+struct _AdwAnimationClass
+{
+  GObjectClass parent_class;
+
+  /*< private >*/
+  gpointer padding[4];
+};
 
 AdwAnimation *adw_animation_new (GtkWidget                 *widget,
                                  double                     from,
                                  double                     to,
                                  gint64                     duration,
-                                 AdwAnimationEasingFunc     easing_func,
-                                 AdwAnimationValueCallback  value_cb,
-                                 AdwAnimationDoneCallback   done_cb,
+                                 AdwAnimationTargetFunc     value_cb,
                                  gpointer                   user_data) G_GNUC_WARN_UNUSED_RESULT;
-
-AdwAnimation *adw_animation_ref   (AdwAnimation *self);
-void          adw_animation_unref (AdwAnimation *self);
 
 void adw_animation_start (AdwAnimation *self);
 void adw_animation_stop  (AdwAnimation *self);
@@ -43,13 +72,24 @@ void adw_animation_stop  (AdwAnimation *self);
 GtkWidget *adw_animation_get_widget (AdwAnimation *self);
 double     adw_animation_get_value  (AdwAnimation *self);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (AdwAnimation, adw_animation_unref)
+double                    adw_animation_get_value_from   (AdwAnimation *self);
+double                    adw_animation_get_value_to     (AdwAnimation *self);
+gint64                    adw_animation_get_duration     (AdwAnimation *self);
+AdwAnimationInterpolator  adw_animation_get_interpolator (AdwAnimation *self);
+AdwAnimationTarget       *adw_animation_get_target       (AdwAnimation *self);
+AdwAnimationStatus        adw_animation_get_status       (AdwAnimation *self);
 
-double adw_lerp (double a,
-                 double b,
-                 double t);
-
-double adw_ease_in_cubic     (double t);
-double adw_ease_in_out_cubic (double t);
+void adw_animation_set_value_from   (AdwAnimation             *self,
+                                     double                    value);
+void adw_animation_set_value_to     (AdwAnimation             *self,
+                                     double                    value);
+void adw_animation_set_duration     (AdwAnimation             *self,
+                                     gint64                    duration);
+void adw_animation_set_interpolator (AdwAnimation             *self,
+                                     AdwAnimationInterpolator  interpolator);
+void adw_animation_target_set_value (AdwAnimationTarget       *target,
+                                     double                    value);
+void adw_animation_set_status       (AdwAnimation             *self,
+                                     AdwAnimationStatus        status);
 
 G_END_DECLS

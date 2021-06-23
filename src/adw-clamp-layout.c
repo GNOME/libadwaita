@@ -9,6 +9,7 @@
 
 #include <math.h>
 
+#include "adw-animation-util.h"
 #include "adw-animation-private.h"
 
 /**

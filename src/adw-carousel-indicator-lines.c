@@ -8,6 +8,7 @@
 
 #include "adw-carousel-indicator-lines.h"
 
+#include "adw-animation-util.h"
 #include "adw-animation-private.h"
 #include "adw-swipeable.h"
 
@@ -73,7 +74,7 @@ value_cb (double     value,
 static void
 done_cb (AdwCarouselIndicatorLines *self)
 {
-  g_clear_pointer (&self->animation, adw_animation_unref);
+  g_clear_object (&self->animation);
 }
 
 static void
@@ -84,10 +85,15 @@ animate (AdwCarouselIndicatorLines *self,
     adw_animation_stop (self->animation);
 
   self->animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1, duration, adw_ease_out_cubic,
-                       (AdwAnimationValueCallback) value_cb,
-                       (AdwAnimationDoneCallback) done_cb,
+    adw_animation_new (GTK_WIDGET (self), 0, 1, duration,
+                       (AdwAnimationTargetFunc) value_cb,
                        self);
+
+  g_object_set (self->animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(self->animation, "done", G_CALLBACK (done_cb), self);
 
   adw_animation_start (self->animation);
 }

@@ -8,6 +8,8 @@
 
 #include "adw-carousel.h"
 
+#include "adw-animation-util.h"
+#include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
 #include "adw-navigation-direction.h"
 #include "adw-swipe-tracker.h"
@@ -295,7 +297,7 @@ resize_animation_done_cb (ChildInfo *child)
 {
   AdwCarousel *self = ADW_CAROUSEL (adw_animation_get_widget (child->resize_animation));
 
-  g_clear_pointer (&child->resize_animation, adw_animation_unref);
+  g_clear_object (&child->resize_animation);
 
   if (child->adding)
     child->adding = FALSE;
@@ -324,10 +326,14 @@ animate_child_resize (AdwCarousel *self,
 
   child->resize_animation =
     adw_animation_new (GTK_WIDGET (self), old_size, value, duration,
-                       adw_ease_out_cubic,
-                       (AdwAnimationValueCallback) resize_animation_value_cb,
-                       (AdwAnimationDoneCallback) resize_animation_done_cb,
+                       (AdwAnimationTargetFunc) resize_animation_value_cb,
                        child);
+
+  g_object_set (child->resize_animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(child->resize_animation, "done", G_CALLBACK (resize_animation_done_cb), child);
 
   adw_animation_start (child->resize_animation);
 }
@@ -359,7 +365,7 @@ scroll_animation_done_cb (AdwCarousel *self)
   GtkWidget *child;
   int index;
 
-  g_clear_pointer (&self->animation, adw_animation_unref);
+  g_clear_object (&self->animation);
   self->animation_source_position = 0;
   self->animation_target_child = NULL;
 
@@ -382,10 +388,14 @@ scroll_to (AdwCarousel *self,
 
   self->animation =
     adw_animation_new (GTK_WIDGET (self), 0, 1, duration,
-                       adw_ease_out_cubic,
-                       (AdwAnimationValueCallback) scroll_animation_value_cb,
-                       (AdwAnimationDoneCallback) scroll_animation_done_cb,
+                       (AdwAnimationTargetFunc) scroll_animation_value_cb,
                        self);
+
+  g_object_set (self->animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(self->animation, "done", G_CALLBACK (scroll_animation_done_cb), self);
 
   adw_animation_start (self->animation);
 }

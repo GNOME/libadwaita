@@ -19,6 +19,7 @@
 #include "adw-squeezer.h"
 
 #include "gtkprogresstrackerprivate.h"
+#include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
 
 /**

@@ -21,6 +21,7 @@ adw_public_enum_headers = [
 ]
 
 adw_private_enum_headers = [
+  'adw-animation-private.h',
 ]
 
 version_data = configuration_data()
@@ -67,7 +68,7 @@ libadwaita_generated_headers += [adw_public_enums[1]]
 
 src_headers = [
   'adw-action-row.h',
-  'adw-animation.h',
+  'adw-animation-util.h',
   'adw-application-window.h',
   'adw-avatar.h',
   'adw-bin.h',
@@ -121,6 +122,7 @@ src_sources = [
   'gtkprogresstracker.c',
   'adw-action-row.c',
   'adw-animation.c',
+  'adw-animation-util.c',
   'adw-application-window.c',
   'adw-avatar.c',
   'adw-bidi.c',

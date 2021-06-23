@@ -9,6 +9,8 @@
 #include "config.h"
 
 #include "adw-tab-box-private.h"
+#include "adw-animation-util.h"
+#include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
 #include "adw-tab-private.h"
 #include "adw-tab-bar-private.h"
@@ -430,7 +432,7 @@ resize_animation_done_cb (gpointer user_data)
   self->end_padding = 0;
   gtk_widget_queue_resize (GTK_WIDGET (self));
 
-  g_clear_pointer (&self->resize_animation, adw_animation_unref);
+  g_clear_object (&self->resize_animation);
 }
 
 static void
@@ -465,10 +467,14 @@ set_tab_resize_mode (AdwTabBox     *self,
     self->resize_animation =
       adw_animation_new (GTK_WIDGET (self), 0, 1,
                          RESIZE_ANIMATION_DURATION,
-                         adw_ease_out_cubic,
                          resize_animation_value_cb,
-                         resize_animation_done_cb,
                          self);
+
+    g_object_set (self->resize_animation,
+                  "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                  NULL);
+
+    g_signal_connect_swapped(self->resize_animation, "done", G_CALLBACK (resize_animation_done_cb), self);
 
     adw_animation_start (self->resize_animation);
   }
@@ -797,7 +803,7 @@ animate_scroll (AdwTabBox *self,
   if (self->scroll_animation)
     adw_animation_stop (self->scroll_animation);
 
-  g_clear_pointer (&self->scroll_animation, adw_animation_unref);
+  g_clear_object (&self->scroll_animation);
   self->scroll_animation_done = FALSE;
   self->scroll_animation_from = gtk_adjustment_get_value (self->adjustment);
   self->scroll_animation_tab = info;
@@ -810,10 +816,14 @@ animate_scroll (AdwTabBox *self,
 
   self->scroll_animation =
     adw_animation_new (GTK_WIDGET (self), 0, 1, duration,
-                       adw_ease_out_cubic,
                        scroll_animation_value_cb,
-                       scroll_animation_done_cb,
                        self);
+
+  g_object_set (self->scroll_animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(self->scroll_animation, "done", G_CALLBACK (scroll_animation_done_cb), self);
 
   adw_animation_start (self->scroll_animation);
 }
@@ -1029,7 +1039,7 @@ reorder_animation_done_cb (gpointer user_data)
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (dest_tab->tab));
   AdwTabBox *self = ADW_TAB_BOX (parent);
 
-  g_clear_pointer (&self->reorder_animation, adw_animation_unref);
+  g_clear_object (&self->reorder_animation);
   check_end_reordering (self);
 }
 
@@ -1043,10 +1053,14 @@ animate_reordering (AdwTabBox *self,
   self->reorder_animation =
     adw_animation_new (GTK_WIDGET (self), 0, 1,
                        REORDER_ANIMATION_DURATION,
-                       adw_ease_out_cubic,
                        reorder_animation_value_cb,
-                       reorder_animation_done_cb,
                        dest_tab);
+
+  g_object_set (self->reorder_animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(self->reorder_animation, "done", G_CALLBACK (reorder_animation_done_cb), dest_tab);
 
   adw_animation_start (self->reorder_animation);
 
@@ -1071,7 +1085,7 @@ reorder_offset_animation_done_cb (gpointer user_data)
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
   AdwTabBox *self = ADW_TAB_BOX (parent);
 
-  g_clear_pointer (&info->reorder_animation, adw_animation_unref);
+  g_clear_object (&info->reorder_animation);
   check_end_reordering (self);
 }
 
@@ -1095,10 +1109,14 @@ animate_reorder_offset (AdwTabBox *self,
   info->reorder_animation =
     adw_animation_new (GTK_WIDGET (self), info->reorder_offset, offset,
                        REORDER_ANIMATION_DURATION,
-                       adw_ease_out_cubic,
                        reorder_offset_animation_value_cb,
-                       reorder_offset_animation_done_cb,
                        info);
+
+  g_object_set (info->reorder_animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(info->reorder_animation, "done", G_CALLBACK (reorder_offset_animation_done_cb), info);
 
   adw_animation_start (info->reorder_animation);
 }
@@ -1618,7 +1636,7 @@ open_animation_done_cb (gpointer user_data)
 {
   TabInfo *info = user_data;
 
-  g_clear_pointer (&info->appear_animation, adw_animation_unref);
+  g_clear_object (&info->appear_animation);
 }
 
 static TabInfo *
@@ -1676,10 +1694,14 @@ page_attached_cb (AdwTabBox  *self,
   info->appear_animation =
     adw_animation_new (GTK_WIDGET (self), 0, 1,
                        OPEN_ANIMATION_DURATION,
-                       adw_ease_out_cubic,
                        appear_animation_value_cb,
-                       open_animation_done_cb,
                        info);
+
+  g_object_set (info->appear_animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(info->appear_animation, "done", G_CALLBACK (open_animation_done_cb), info);
 
   l = find_nth_alive_tab (self, position);
   self->tabs = g_list_insert_before (self->tabs, l, info);
@@ -1703,7 +1725,7 @@ close_animation_done_cb (gpointer user_data)
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
   AdwTabBox *self = ADW_TAB_BOX (parent);
 
-  g_clear_pointer (&info->appear_animation, adw_animation_unref);
+  g_clear_object (&info->appear_animation);
 
   self->tabs = g_list_remove (self->tabs, info);
 
@@ -1783,10 +1805,14 @@ page_detached_cb (AdwTabBox  *self,
   info->appear_animation =
     adw_animation_new (GTK_WIDGET (self), info->appear_progress, 0,
                        CLOSE_ANIMATION_DURATION,
-                       adw_ease_out_cubic,
                        appear_animation_value_cb,
-                       close_animation_done_cb,
                        info);
+
+  g_object_set (info->appear_animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(info->appear_animation, "done", G_CALLBACK (close_animation_done_cb), info);
 
   adw_animation_start (info->appear_animation);
 }
@@ -1976,10 +2002,14 @@ insert_placeholder (AdwTabBox  *self,
   info->appear_animation =
     adw_animation_new (GTK_WIDGET (self), initial_progress, 1,
                        OPEN_ANIMATION_DURATION,
-                       adw_ease_out_cubic,
                        insert_animation_value_cb,
-                       open_animation_done_cb,
                        info);
+
+  g_object_set (info->appear_animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(info->appear_animation, "done", G_CALLBACK (open_animation_done_cb), info);
 
   adw_animation_start (info->appear_animation);
 }
@@ -1991,7 +2021,7 @@ replace_animation_done_cb (gpointer user_data)
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
   AdwTabBox *self = ADW_TAB_BOX (parent);
 
-  g_clear_pointer (&info->appear_animation, adw_animation_unref);
+  g_clear_object (&info->appear_animation);
   self->reorder_placeholder = NULL;
   self->can_remove_placeholder = TRUE;
 }
@@ -2025,10 +2055,14 @@ replace_placeholder (AdwTabBox  *self,
   info->appear_animation =
     adw_animation_new (GTK_WIDGET (self), initial_progress, 1,
                        OPEN_ANIMATION_DURATION,
-                       adw_ease_out_cubic,
                        appear_animation_value_cb,
-                       replace_animation_done_cb,
                        info);
+
+  g_object_set (info->appear_animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(info->appear_animation, "done", G_CALLBACK (replace_animation_done_cb), info);
 
   adw_animation_start (info->appear_animation);
 }
@@ -2040,7 +2074,7 @@ remove_animation_done_cb (gpointer user_data)
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
   AdwTabBox *self = ADW_TAB_BOX (parent);
 
-  g_clear_pointer (&info->appear_animation, adw_animation_unref);
+  g_clear_object (&info->appear_animation);
 
   if (!self->can_remove_placeholder) {
     adw_tab_set_page (info->tab, self->placeholder_page);
@@ -2098,10 +2132,14 @@ remove_placeholder (AdwTabBox *self)
   info->appear_animation =
     adw_animation_new (GTK_WIDGET (self), info->appear_progress, 0,
                        CLOSE_ANIMATION_DURATION,
-                       adw_ease_out_cubic,
                        appear_animation_value_cb,
-                       remove_animation_done_cb,
                        info);
+
+  g_object_set (info->appear_animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(info->appear_animation, "done", G_CALLBACK (remove_animation_done_cb), info);
 
   adw_animation_start (info->appear_animation);
 }
@@ -2301,7 +2339,7 @@ icon_resize_animation_done_cb (gpointer user_data)
 {
   DragIcon *icon = user_data;
 
-  g_clear_pointer (&icon->resize_animation, adw_animation_unref);
+  g_clear_object (&icon->resize_animation);
 }
 
 static void
@@ -2321,10 +2359,14 @@ resize_drag_icon (AdwTabBox *self,
   icon->resize_animation =
     adw_animation_new (GTK_WIDGET (icon->tab), icon->width, width,
                        ICON_RESIZE_ANIMATION_DURATION,
-                       adw_ease_out_cubic,
                        icon_resize_animation_value_cb,
-                       icon_resize_animation_done_cb,
                        icon);
+
+  g_object_set (icon->resize_animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(icon->resize_animation, "done", G_CALLBACK (icon_resize_animation_done_cb), icon);
 
   adw_animation_start (icon->resize_animation);
 }
@@ -3006,7 +3048,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
     if (self->scroll_animation_done) {
         self->scroll_animation_done = FALSE;
         self->scroll_animation_tab = NULL;
-        g_clear_pointer (&self->scroll_animation, adw_animation_unref);
+        g_clear_object (&self->scroll_animation);
     }
   }
 

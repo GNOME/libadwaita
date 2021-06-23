@@ -9,6 +9,8 @@
 #include "config.h"
 #include "adw-tab-private.h"
 
+#include "adw-animation-util.h"
+#include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
 #include "adw-bidi-private.h"
 #include "adw-fading-label-private.h"
@@ -99,7 +101,7 @@ close_btn_animation_done_cb (AdwTab *self)
 {
   gtk_widget_set_opacity (self->close_btn, self->show_close ? 1 : 0);
   gtk_widget_set_can_target (self->close_btn, self->show_close);
-  g_clear_pointer (&self->close_btn_animation, adw_animation_unref);
+  g_clear_object (&self->close_btn_animation);
 }
 
 static void
@@ -134,10 +136,14 @@ update_state (AdwTab *self)
                          opacity,
                          self->show_close ? 1 : 0,
                          CLOSE_BTN_ANIMATION_DURATION,
-                         adw_ease_in_out_cubic,
-                         (AdwAnimationValueCallback) close_btn_animation_value_cb,
-                         (AdwAnimationDoneCallback) close_btn_animation_done_cb,
+                         (AdwAnimationTargetFunc) close_btn_animation_value_cb,
                          self);
+
+    g_object_set (self->close_btn_animation,
+                  "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT,
+                  NULL);
+
+    g_signal_connect_swapped(self->close_btn_animation, "done", G_CALLBACK (close_btn_animation_done_cb), self);
 
     adw_animation_start (self->close_btn_animation);
   }

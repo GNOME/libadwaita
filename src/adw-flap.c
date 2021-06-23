@@ -10,6 +10,8 @@
 
 #include <math.h>
 
+#include "adw-animation-util.h"
+#include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
 #include "adw-gizmo-private.h"
 #include "adw-shadow-helper-private.h"
@@ -285,7 +287,7 @@ fold_animation_value_cb (double   value,
 static void
 fold_animation_done_cb (AdwFlap *self)
 {
-  g_clear_pointer (&self->fold_animation, adw_animation_unref);
+  g_clear_object (&self->fold_animation);
 }
 
 static void
@@ -300,10 +302,14 @@ animate_fold (AdwFlap *self)
                        self->folded ? 1 : 0,
                        /* When the flap is completely hidden, we can skip animation */
                        (self->reveal_progress > 0) ? self->fold_duration : 0,
-                       adw_ease_out_cubic,
-                       (AdwAnimationValueCallback) fold_animation_value_cb,
-                       (AdwAnimationDoneCallback) fold_animation_done_cb,
+                       (AdwAnimationTargetFunc) fold_animation_value_cb,
                        self);
+
+  g_object_set (self->fold_animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(self->fold_animation, "done", G_CALLBACK (fold_animation_done_cb), self);
 
   adw_animation_start (self->fold_animation);
 }
@@ -318,7 +324,7 @@ reveal_animation_value_cb (double   value,
 static void
 reveal_animation_done_cb (AdwFlap *self)
 {
-  g_clear_pointer (&self->reveal_animation, adw_animation_unref);
+  g_clear_object (&self->reveal_animation);
 
   if (self->schedule_fold) {
     self->schedule_fold = FALSE;
@@ -340,12 +346,15 @@ animate_reveal (AdwFlap *self,
   self->reveal_animation =
     adw_animation_new (GTK_WIDGET (self),
                        self->reveal_progress,
-                       to,
-                       duration,
-                       adw_ease_out_cubic,
-                       (AdwAnimationValueCallback) reveal_animation_value_cb,
-                       (AdwAnimationDoneCallback) reveal_animation_done_cb,
+                       to, duration,
+                       (AdwAnimationTargetFunc) reveal_animation_value_cb,
                        self);
+
+  g_object_set (self->reveal_animation,
+                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                NULL);
+
+  g_signal_connect_swapped(self->reveal_animation, "done", G_CALLBACK (reveal_animation_done_cb), self);
 
   adw_animation_start (self->reveal_animation);
 }
