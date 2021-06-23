@@ -9,8 +9,8 @@
 // define variables for them in _colors.scss
 
 // The main accent color and the matching text value
-@define-color accent_color #{$blue_3};
-@define-color accent_text #{$light_1};
+@define-color accent_bg_color #{$blue_3};
+@define-color accent_fg_color #{$light_1};
 
 // destructive-action buttons
 @define-color destructive_color #{$red_3};
