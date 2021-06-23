@@ -1754,7 +1754,7 @@ adw_tab_view_init (AdwTabView *self)
   gtk_widget_set_parent (GTK_WIDGET (self->stack), GTK_WIDGET (self));
 
   g_object_bind_property (self, "is-transferring-page",
-                          self->stack, "can-focus",
+                          self->stack, "can-target",
                           G_BINDING_INVERT_BOOLEAN);
 
   tab_view_list = g_slist_prepend (tab_view_list, self);
