@@ -55,18 +55,6 @@ video {
   background: black;
 }
 
-/******************
- * GtkScaleButton *
- ******************/
-
-.scale-popup {
-  .osd & { @extend %osd; }
-
-  button { // +/- buttons on GtkVolumeButton popup
-    @extend %button_basic_flat;
-  }
-}
-
 /****************
  * GtkStatusBar *
  ****************/
