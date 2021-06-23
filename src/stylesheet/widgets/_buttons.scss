@@ -247,13 +247,13 @@ button {
   }
 
   // hide separators
-  &.font{
+  &.font {
     separator { background-color: transparent; }
     > box { border-spacing: 6px; }
     > box > box > label { font-weight: bold; }
   }
 
-  menubutton.circular &,
+  @at-root %circular_button,
   &.circular { // force circular button shape
     min-width: 34px;
     min-height: 34px;
@@ -344,6 +344,10 @@ menubutton {
 
     > button { @extend %osd_button; }
   }
+
+  &.circular > button { @extend %circular_button; }
+  &.flat > button { @extend %button_basic_flat; }
+  &.outline > button { @extend %outline_button; }
 
   arrow {
     min-height: 16px;
