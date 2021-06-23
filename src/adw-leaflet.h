@@ -14,6 +14,7 @@
 
 #include <gtk/gtk.h>
 #include "adw-enums.h"
+#include "adw-fold-threshold-policy.h"
 #include "adw-navigation-direction.h"
 
 G_BEGIN_DECLS
@@ -160,4 +161,9 @@ void     adw_leaflet_set_can_unfold (AdwLeaflet *self,
 ADW_AVAILABLE_IN_ALL
 GtkSelectionModel *adw_leaflet_get_pages (AdwLeaflet *self) G_GNUC_WARN_UNUSED_RESULT;
 
+ADW_AVAILABLE_IN_ALL
+AdwFoldThresholdPolicy adw_leaflet_get_fold_threshold_policy (AdwLeaflet             *self);
+ADW_AVAILABLE_IN_ALL
+void                   adw_leaflet_set_fold_threshold_policy (AdwLeaflet             *self,
+                                                              AdwFoldThresholdPolicy  policy);
 G_END_DECLS
