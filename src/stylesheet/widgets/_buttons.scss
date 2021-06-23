@@ -212,11 +212,11 @@ button {
     }
 
     &.suggested-action {
-      color: $accent_standalone_color;
+      color: $accent_color;
     }
 
     &.destructive-action {
-      color: $destructive_standalone_color;
+      color: $destructive_color;
     }
 
     // Specificity bump
