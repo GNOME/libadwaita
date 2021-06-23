@@ -79,10 +79,10 @@ button {
   }
 
   // big standalone buttons like in Documents pager
+  @at-root %osd_button,
   &.osd {
     min-width: 32px;
     min-height: 32px;
-
     @include focus-ring($outer: true, $offset: 1px);
     transition: $button_transition;
 
@@ -338,6 +338,13 @@ button.outline {
 }
 
 menubutton {
+  &.osd {
+    background: none;
+    color: inherit;
+
+    > button { @extend %osd_button; }
+  }
+
   arrow {
     min-height: 16px;
     min-width: 16px;
