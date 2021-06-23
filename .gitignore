@@ -6,3 +6,7 @@ _build
 build
 .buildconfig
 .flatpak-builder
+subprojects/sassc
+subprojects/libsass
+subprojects/gi-docgen
+
