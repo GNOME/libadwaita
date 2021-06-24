@@ -119,6 +119,7 @@ struct _AdwFlap
   GtkWidget *shield;
 
   AdwFlapFoldPolicy fold_policy;
+  AdwFoldThresholdPolicy fold_threshold_policy;
   AdwFlapTransitionType transition_type;
   GtkPackType flap_position;
   gboolean reveal_flap;
@@ -168,6 +169,7 @@ enum {
   PROP_REVEAL_DURATION,
   PROP_REVEAL_PROGRESS,
   PROP_FOLD_POLICY,
+  PROP_FOLD_THRESHOLD_POLICY,
   PROP_FOLD_DURATION,
   PROP_FOLDED,
   PROP_LOCKED,
@@ -897,21 +899,30 @@ adw_flap_size_allocate (GtkWidget *widget,
   AdwFlap *self = ADW_FLAP (widget);
 
   if (self->fold_policy == ADW_FLAP_FOLD_POLICY_AUTO) {
-    GtkRequisition flap_min = { 0, 0 };
-    GtkRequisition content_min = { 0, 0 };
-    GtkRequisition separator_min = { 0, 0 };
+    GtkRequisition flap_size = { 0, 0 };
+    GtkRequisition content_size = { 0, 0 };
+    GtkRequisition separator_size = { 0, 0 };
 
-    if (self->flap.widget)
-      gtk_widget_get_preferred_size (self->flap.widget, &flap_min, NULL);
-    if (self->content.widget)
-      gtk_widget_get_preferred_size (self->content.widget, &content_min, NULL);
-    if (self->separator.widget)
-      gtk_widget_get_preferred_size (self->separator.widget, &separator_min, NULL);
+    if (self->fold_threshold_policy == ADW_FOLD_THRESHOLD_POLICY_MINIMUM) {
+      if (self->flap.widget)
+        gtk_widget_get_preferred_size (self->flap.widget, &flap_size, NULL);
+      if (self->content.widget)
+        gtk_widget_get_preferred_size (self->content.widget, &content_size, NULL);
+      if (self->separator.widget)
+        gtk_widget_get_preferred_size (self->separator.widget, &separator_size, NULL);
+    } else {
+      if (self->flap.widget)
+        gtk_widget_get_preferred_size (self->flap.widget, NULL, &flap_size);
+      if (self->content.widget)
+        gtk_widget_get_preferred_size (self->content.widget, NULL, &content_size);
+      if (self->separator.widget)
+        gtk_widget_get_preferred_size (self->separator.widget, NULL, &separator_size);
+    }
 
     if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
-      set_folded (self, width < content_min.width + flap_min.width + separator_min.width);
+      set_folded (self, width < content_size.width + flap_size.width + separator_size.width);
     else
-      set_folded (self, height < content_min.height + flap_min.height + separator_min.height);
+      set_folded (self, height < content_size.height + flap_size.height + separator_size.height);
   }
 
   compute_allocation (self,
@@ -1126,6 +1137,9 @@ adw_flap_get_property (GObject    *object,
   case PROP_FOLD_POLICY:
     g_value_set_enum (value, adw_flap_get_fold_policy (self));
     break;
+  case PROP_FOLD_THRESHOLD_POLICY:
+    g_value_set_enum (value, adw_flap_get_fold_threshold_policy (self));
+    break;
   case PROP_FOLD_DURATION:
     g_value_set_uint (value, adw_flap_get_fold_duration (self));
     break;
@@ -1184,6 +1198,9 @@ adw_flap_set_property (GObject      *object,
     break;
   case PROP_FOLD_POLICY:
     adw_flap_set_fold_policy (self, g_value_get_enum (value));
+    break;
+  case PROP_FOLD_THRESHOLD_POLICY:
+    adw_flap_set_fold_threshold_policy (self, g_value_get_enum (value));
     break;
   case PROP_FOLD_DURATION:
     adw_flap_set_fold_duration (self, g_value_get_uint (value));
@@ -1378,6 +1395,28 @@ adw_flap_class_init (AdwFlapClass *klass)
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
+   * AdwFlap:fold-threshold-policy: (attributes org.gtk.Property.get=adw_flap_get_fold_threshold_policy org.gtk.Property.set=adw_flap_set_fold_threshold_policy)
+   *
+   * Determines when the flap will fold.
+   *
+   * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, flap will only fold when
+   * the children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`,
+   * it will fold as soon as children don't get their natural size.
+   *
+   * This can be useful if you have a long ellipsizing label and want to let it
+   * ellipsize instead of immediately folding.
+   *
+   * Since: 1.0
+   */
+  props[PROP_FOLD_THRESHOLD_POLICY] =
+    g_param_spec_enum ("fold-threshold-policy",
+                       "Fold Threshold Policy",
+                       "Determines when the flap will fold",
+                       ADW_TYPE_FOLD_THRESHOLD_POLICY,
+                       ADW_FOLD_THRESHOLD_POLICY_MINIMUM,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
    * AdwFlap:fold-duration: (attributes org.gtk.Property.get=adw_flap_get_fold_duration org.gtk.Property.set=adw_flap_set_fold_duration)
    *
    * The fold transition animation duration, in milliseconds.
@@ -1527,6 +1566,7 @@ adw_flap_init (AdwFlap *self)
   self->orientation = GTK_ORIENTATION_HORIZONTAL;
   self->flap_position = GTK_PACK_START;
   self->fold_policy = ADW_FLAP_FOLD_POLICY_AUTO;
+  self->fold_threshold_policy = ADW_FOLD_THRESHOLD_POLICY_MINIMUM;
   self->transition_type = ADW_FLAP_TRANSITION_TYPE_OVER;
   self->reveal_flap = TRUE;
   self->locked = FALSE;
@@ -2405,4 +2445,47 @@ adw_flap_set_swipe_to_close (AdwFlap  *self,
   update_swipe_tracker (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SWIPE_TO_CLOSE]);
+}
+
+/**
+ * adw_flap_get_fold_threshold_policy: (attributes org.gtk.Method.get_property=fold-threshold-policy)
+ * @self: a `AdwFlap`
+ *
+ * Gets the fold threshold policy for @self.
+ *
+ * Since: 1.0
+ */
+AdwFoldThresholdPolicy
+adw_flap_get_fold_threshold_policy (AdwFlap *self)
+{
+  g_return_val_if_fail (ADW_IS_FLAP (self), ADW_FOLD_THRESHOLD_POLICY_MINIMUM);
+
+  return self->fold_threshold_policy;
+}
+
+
+/**
+ * adw_flap_set_fold_threshold_policy: (attributes org.gtk.Method.set_property=fold-threshold-policy)
+ * @self: a `AdwFlap`
+ * @policy: the policy to use
+ *
+ * Sets the fold threshold policy for @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_flap_set_fold_threshold_policy (AdwFlap                *self,
+                                    AdwFoldThresholdPolicy  policy)
+{
+  g_return_if_fail (ADW_IS_FLAP (self));
+  g_return_if_fail (policy <= ADW_FOLD_THRESHOLD_POLICY_NATURAL);
+
+  if (self->fold_threshold_policy == policy)
+    return;
+
+  self->fold_threshold_policy = policy;
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FOLD_THRESHOLD_POLICY]);
 }

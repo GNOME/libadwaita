@@ -14,6 +14,7 @@
 
 #include <gtk/gtk.h>
 #include "adw-enums.h"
+#include "adw-fold-threshold-policy.h"
 
 G_BEGIN_DECLS
 
@@ -120,5 +121,11 @@ gboolean adw_flap_get_swipe_to_close (AdwFlap  *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_flap_set_swipe_to_close (AdwFlap  *self,
                                       gboolean  swipe_to_close);
+
+ADW_AVAILABLE_IN_ALL
+AdwFoldThresholdPolicy adw_flap_get_fold_threshold_policy (AdwFlap                *self);
+ADW_AVAILABLE_IN_ALL
+void                   adw_flap_set_fold_threshold_policy (AdwFlap                *self,
+                                                           AdwFoldThresholdPolicy  policy);
 
 G_END_DECLS
