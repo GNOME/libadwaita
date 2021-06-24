@@ -16,7 +16,7 @@ headerbar {
   }
 
   &:backdrop {
-    background-color: $headerbar_bg_color;
+    background-color: $bg_color;
 
     transition: $backdrop_transition;
 
