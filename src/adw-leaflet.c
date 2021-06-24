@@ -3401,7 +3401,7 @@ adw_leaflet_set_child_transition_duration (AdwLeaflet *self,
  *
  * Gets the widget currently visible when the leaflet is folded.
  *
- * Returns: (transfer none): the visible child
+ * Returns: (nullable) (transfer none): the visible child
  *
  * Since: 1.0
  */
@@ -3450,7 +3450,7 @@ adw_leaflet_set_visible_child (AdwLeaflet *self,
  *
  * Gets the name of the currently visible child widget.
  *
- * Returns: (transfer none): the name of the visible child
+ * Returns: (nullable) (transfer none): the name of the visible child
  *
  * Since: 1.0
  */
