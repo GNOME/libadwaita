@@ -227,6 +227,13 @@ page objects, similarly to [class@Gtk.Stack]. For example,
 [method@Adw.SqueezerPage.set_enabled] should be used to replace
 `hdy_squeezer_set_child_enabled()`.
 
+### Adapt to view switcher API Changes
+
+[class@Adw.ViewSwitcher], [class@Adw.ViewSwitcherBar] and
+[class@Adw.ViewSwitcherTitle] now use [class@Adw.ViewStack] instead of
+[class@Gtk.Stack]. For the most part, the new widget should be a drop-in
+replacement.
+
 ### Adapt to [class@Adw.Avatar] API Changes
 
 The `HdyAvatar:loadable-icon` property has been removed along with its getter
