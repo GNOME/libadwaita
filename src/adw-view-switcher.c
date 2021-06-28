@@ -20,7 +20,7 @@
  * An adaptive view switcher.
  *
  * An adaptive view switcher designed to switch between multiple views
- * contained in a [class@Gtk.Stack] in a similar fashion to
+ * contained in a [class@Adw.ViewStack] in a similar fashion to
  * [class@Gtk.StackSwitcher].
  *
  * Depending on the available width, the view switcher can adapt from a wide
@@ -63,7 +63,7 @@ struct _AdwViewSwitcher
 {
   GtkWidget parent_instance;
 
-  GtkStack *stack;
+  AdwViewStack *stack;
   GtkSelectionModel *pages;
   GHashTable *buttons;
   GtkBox *box;
@@ -96,9 +96,9 @@ on_button_toggled (GtkWidget       *button,
 }
 
 static void
-update_button (AdwViewSwitcher *self,
-               GtkStackPage    *page,
-               GtkWidget       *button)
+update_button (AdwViewSwitcher  *self,
+               AdwViewStackPage *page,
+               GtkWidget        *button)
 {
   g_autofree char *title = NULL;
   g_autofree char *icon_name = NULL;
@@ -125,9 +125,9 @@ update_button (AdwViewSwitcher *self,
 }
 
 static void
-on_page_updated (GtkStackPage    *page,
-                 GParamSpec      *pspec,
-                 AdwViewSwitcher *self)
+on_page_updated (AdwViewStackPage *page,
+                 GParamSpec       *pspec,
+                 AdwViewSwitcher  *self)
 {
   GtkWidget *button;
 
@@ -140,7 +140,7 @@ add_child (AdwViewSwitcher *self,
            guint            position)
 {
   AdwViewSwitcherButton *button = ADW_VIEW_SWITCHER_BUTTON (adw_view_switcher_button_new ());
-  GtkStackPage *page;
+  AdwViewStackPage *page;
   gboolean selected;
 
   page = g_list_model_get_item (G_LIST_MODEL (self->pages), position);
@@ -155,10 +155,6 @@ add_child (AdwViewSwitcher *self,
   gtk_accessible_update_state (GTK_ACCESSIBLE (button),
                                GTK_ACCESSIBLE_STATE_SELECTED, selected,
                                -1);
-
-  gtk_accessible_update_relation (GTK_ACCESSIBLE (button),
-                                  GTK_ACCESSIBLE_RELATION_CONTROLS, page, NULL,
-                                  -1);
 
   adw_view_switcher_button_set_narrow_ellipsize (button, self->narrow_ellipsize);
 
@@ -211,7 +207,7 @@ selection_changed_cb (AdwViewSwitcher   *self,
   guint i;
 
   for (i = position; i < position + n_items; i++) {
-    GtkStackPage *page = NULL;
+    AdwViewStackPage *page = NULL;
     GtkWidget *button;
     gboolean selected;
 
@@ -247,13 +243,13 @@ connect_stack_signals (AdwViewSwitcher *self)
 
 static void
 set_stack (AdwViewSwitcher *self,
-           GtkStack        *stack)
+           AdwViewStack    *stack)
 {
   if (!stack)
     return;
 
   self->stack = g_object_ref (stack);
-  self->pages = gtk_stack_get_pages (stack);
+  self->pages = adw_view_stack_get_pages (stack);
   populate_switcher (self);
   connect_stack_signals (self);
 }
@@ -350,7 +346,7 @@ adw_view_switcher_measure (GtkWidget      *widget,
 {
   AdwViewSwitcher *self = ADW_VIEW_SWITCHER (widget);
   GHashTableIter iter;
-  GtkStackPage *page;
+  AdwViewStackPage *page;
   AdwViewSwitcherButton *button;
   int max_h_min = 0, max_h_nat = 0, max_v_min = 0, max_v_nat = 0;
   int min = 0, nat = 0;
@@ -362,7 +358,7 @@ adw_view_switcher_measure (GtkWidget      *widget,
     while (g_hash_table_iter_next (&iter, (gpointer *) &page, (gpointer *) &button)) {
       int h_min = 0, h_nat = 0, v_min = 0, v_nat = 0;
 
-      if (!gtk_stack_page_get_visible (page))
+      if (!adw_view_stack_page_get_visible (page))
         continue;
 
       adw_view_switcher_button_get_size (button, &h_min, &h_nat, &v_min, &v_nat);
@@ -399,7 +395,7 @@ adw_view_switcher_measure (GtkWidget      *widget,
     while (g_hash_table_iter_next (&iter, (gpointer *) &page, (gpointer *) &button)) {
       int child_min, child_nat;
 
-      if (!gtk_stack_page_get_visible (page))
+      if (!adw_view_stack_page_get_visible (page))
         continue;
 
       gtk_widget_measure (GTK_WIDGET (button), GTK_ORIENTATION_VERTICAL, -1,
@@ -532,7 +528,7 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
     g_param_spec_object ("stack",
                          "Stack",
                          "The stack the view switcher controls",
-                         GTK_TYPE_STACK,
+                         ADW_TYPE_VIEW_STACK,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -669,7 +665,7 @@ adw_view_switcher_set_narrow_ellipsize (AdwViewSwitcher    *self,
  *
  * Since: 1.0
  */
-GtkStack *
+AdwViewStack *
 adw_view_switcher_get_stack (AdwViewSwitcher *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_SWITCHER (self), NULL);
@@ -688,10 +684,10 @@ adw_view_switcher_get_stack (AdwViewSwitcher *self)
  */
 void
 adw_view_switcher_set_stack (AdwViewSwitcher *self,
-                             GtkStack        *stack)
+                             AdwViewStack    *stack)
 {
   g_return_if_fail (ADW_IS_VIEW_SWITCHER (self));
-  g_return_if_fail (stack == NULL || GTK_IS_STACK (stack));
+  g_return_if_fail (stack == NULL || ADW_IS_VIEW_STACK (stack));
 
   if (self->stack == stack)
     return;

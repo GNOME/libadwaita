@@ -40,7 +40,7 @@ typedef struct
   AdwLeaflet *subpages_leaflet;
   GtkWidget *preferences;
   GtkStack *content_stack;
-  GtkStack *pages_stack;
+  AdwViewStack *pages_stack;
   GtkToggleButton *search_button;
   GtkSearchEntry *search_entry;
   GtkListBox *search_results;
@@ -163,9 +163,9 @@ get_n_pages (AdwPreferencesWindow *self)
   for (child = gtk_widget_get_first_child (GTK_WIDGET (priv->pages_stack));
        child;
        child = gtk_widget_get_next_sibling (child)) {
-    GtkStackPage *page = gtk_stack_get_page (priv->pages_stack, child);
+    AdwViewStackPage *page = adw_view_stack_get_page (priv->pages_stack, child);
 
-    if (gtk_stack_page_get_visible (page))
+    if (adw_view_stack_page_get_visible (page))
       count++;
   }
 
@@ -256,7 +256,7 @@ search_result_activated_cb (AdwPreferencesWindow *self,
   g_assert (page != NULL);
   g_assert (row != NULL);
 
-  gtk_stack_set_visible_child (priv->pages_stack, GTK_WIDGET (page));
+  adw_view_stack_set_visible_child (priv->pages_stack, GTK_WIDGET (page));
   gtk_widget_set_can_focus (GTK_WIDGET (row), TRUE);
   gtk_widget_grab_focus (GTK_WIDGET (row));
   gtk_window_set_focus_visible (GTK_WINDOW (self), TRUE);
@@ -540,7 +540,7 @@ static gpointer
 preferences_page_to_rows (gpointer page,
                           gpointer user_data)
 {
-  GtkWidget *child = gtk_stack_page_get_child (GTK_STACK_PAGE (page));
+  GtkWidget *child = adw_view_stack_page_get_child (ADW_VIEW_STACK_PAGE (page));
 
   return adw_preferences_page_get_rows (ADW_PREFERENCES_PAGE (child));
 }
@@ -559,7 +559,7 @@ adw_preferences_window_init (AdwPreferencesWindow *self)
   priv->filter = GTK_FILTER (gtk_custom_filter_new ((GtkCustomFilterFunc) filter_search_results, self, NULL));
   expr = gtk_property_expression_new (GTK_TYPE_STACK_PAGE, NULL, "visible");
 
-  model = G_LIST_MODEL (gtk_stack_get_pages (priv->pages_stack));
+  model = G_LIST_MODEL (adw_view_stack_get_pages (priv->pages_stack));
   model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (gtk_bool_filter_new (expr))));
   model = G_LIST_MODEL (gtk_map_list_model_new (model, preferences_page_to_rows, NULL, NULL));
   model = G_LIST_MODEL (gtk_flatten_list_model_new (model));
@@ -792,14 +792,14 @@ adw_preferences_window_add (AdwPreferencesWindow *self,
                             AdwPreferencesPage   *page)
 {
   AdwPreferencesWindowPrivate *priv;
-  GtkStackPage *stack_page;
+  AdwViewStackPage *stack_page;
 
   g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
   g_return_if_fail (ADW_IS_PREFERENCES_PAGE (page));
 
   priv = adw_preferences_window_get_instance_private (self);
 
-  stack_page = gtk_stack_add_child (priv->pages_stack, GTK_WIDGET (page));
+  stack_page = adw_view_stack_add (priv->pages_stack, GTK_WIDGET (page));
 
   g_object_bind_property (page, "icon-name", stack_page, "icon-name", G_BINDING_SYNC_CREATE);
   g_object_bind_property (page, "title", stack_page, "title", G_BINDING_SYNC_CREATE);
@@ -827,7 +827,7 @@ adw_preferences_window_remove (AdwPreferencesWindow *self,
   priv = adw_preferences_window_get_instance_private (self);
 
   if (gtk_widget_get_parent (GTK_WIDGET (page)) == GTK_WIDGET (priv->pages_stack))
-    gtk_stack_remove (priv->pages_stack, GTK_WIDGET (page));
+    adw_view_stack_remove (priv->pages_stack, GTK_WIDGET (page));
   else
     ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, page);
 }

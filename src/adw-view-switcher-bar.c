@@ -16,7 +16,7 @@
  * A view switcher action bar.
  *
  * An action bar letting you switch between multiple views contained in a
- * [class@Gtk.Stack], via an [class@Adw.ViewSwitcher]. It is designed to be put
+ * [class@Adw.ViewStack], via an [class@Adw.ViewSwitcher]. It is designed to be put
  * at the bottom of a window and to be revealed only on really narrow windows,
  * e.g. on mobile phones. It can't be revealed if there are less than two pages.
  *
@@ -42,7 +42,7 @@
  *   <child>
  *     <object class="GtkBox">
  *       <child>
- *         <object class="GtkStack" id="stack"/>
+ *         <object class="AdwViewStack" id="stack"/>
  *       </child>
  *       <child>
  *         <object class="AdwViewSwitcherBar">
@@ -101,9 +101,9 @@ update_bar_revealed (AdwViewSwitcherBar *self) {
 
     n = g_list_model_get_n_items (G_LIST_MODEL (self->pages));
     for (i = 0; i < n; i++) {
-      GtkStackPage *page = g_list_model_get_item (G_LIST_MODEL (self->pages), i);
+      AdwViewStackPage *page = g_list_model_get_item (G_LIST_MODEL (self->pages), i);
 
-      if (gtk_stack_page_get_visible (page))
+      if (adw_view_stack_page_get_visible (page))
         count++;
     }
   }
@@ -206,7 +206,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
     g_param_spec_object ("stack",
                          "Stack",
                          "The stack the view switcher controls",
-                         GTK_TYPE_STACK,
+                         ADW_TYPE_VIEW_STACK,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
@@ -317,7 +317,7 @@ adw_view_switcher_bar_set_policy (AdwViewSwitcherBar    *self,
  *
  * Since: 1.0
  */
-GtkStack *
+AdwViewStack *
 adw_view_switcher_bar_get_stack (AdwViewSwitcherBar *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_BAR (self), NULL);
@@ -336,12 +336,12 @@ adw_view_switcher_bar_get_stack (AdwViewSwitcherBar *self)
  */
 void
 adw_view_switcher_bar_set_stack (AdwViewSwitcherBar *self,
-                                 GtkStack           *stack)
+                                 AdwViewStack       *stack)
 {
-  GtkStack *previous_stack;
+  AdwViewStack *previous_stack;
 
   g_return_if_fail (ADW_IS_VIEW_SWITCHER_BAR (self));
-  g_return_if_fail (stack == NULL || GTK_IS_STACK (stack));
+  g_return_if_fail (stack == NULL || ADW_IS_VIEW_STACK (stack));
 
   previous_stack = adw_view_switcher_get_stack (self->view_switcher);
 
@@ -356,7 +356,7 @@ adw_view_switcher_bar_set_stack (AdwViewSwitcherBar *self,
   adw_view_switcher_set_stack (self->view_switcher, stack);
 
   if (stack) {
-    self->pages = gtk_stack_get_pages (stack);
+    self->pages = adw_view_stack_get_pages (stack);
 
     g_signal_connect_swapped (self->pages, "items-changed", G_CALLBACK (update_bar_revealed), self);
   }

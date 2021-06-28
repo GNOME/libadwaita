@@ -34,10 +34,10 @@ void                  adw_view_switcher_title_set_policy (AdwViewSwitcherTitle  
                                                           AdwViewSwitcherPolicy  policy);
 
 ADW_AVAILABLE_IN_ALL
-GtkStack *adw_view_switcher_title_get_stack (AdwViewSwitcherTitle *self);
+AdwViewStack *adw_view_switcher_title_get_stack (AdwViewSwitcherTitle *self);
 ADW_AVAILABLE_IN_ALL
-void      adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
-                                             GtkStack             *stack);
+void          adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
+                                                 AdwViewStack         *stack);
 
 ADW_AVAILABLE_IN_ALL
 const char *adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self);

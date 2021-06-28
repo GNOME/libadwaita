@@ -15,6 +15,8 @@
 
 #include <gtk/gtk.h>
 
+#include "adw-view-stack.h"
+
 G_BEGIN_DECLS
 
 #define ADW_TYPE_VIEW_SWITCHER (adw_view_switcher_get_type())
@@ -44,9 +46,9 @@ void               adw_view_switcher_set_narrow_ellipsize (AdwViewSwitcher    *s
                                                            PangoEllipsizeMode  mode);
 
 ADW_AVAILABLE_IN_ALL
-GtkStack *adw_view_switcher_get_stack (AdwViewSwitcher *self);
+AdwViewStack *adw_view_switcher_get_stack (AdwViewSwitcher *self);
 ADW_AVAILABLE_IN_ALL
-void      adw_view_switcher_set_stack (AdwViewSwitcher *self,
-                                       GtkStack        *stack);
+void          adw_view_switcher_set_stack (AdwViewSwitcher *self,
+                                           AdwViewStack    *stack);
 
 G_END_DECLS

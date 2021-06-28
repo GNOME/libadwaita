@@ -17,7 +17,7 @@
  * A view switcher title.
  *
  * A widget letting you switch between multiple views contained by a
- * [class@Gtk.Stack] via an [class@Adw.ViewSwitcher].
+ * [class@Adw.ViewStack] via an [class@Adw.ViewSwitcher].
  *
  * It is designed to be used as the title widget of a [class@Adw.HeaderBar], and
  * will display the window's title when the window is too narrow to fit the view
@@ -45,7 +45,7 @@
  *   <child>
  *     <object class="GtkBox">
  *       <child>
- *         <object class="GtkStack" id="stack"/>
+ *         <object class="AdwViewStack" id="stack"/>
  *       </child>
  *       <child>
  *         <object class="AdwViewSwitcherBar">
@@ -108,9 +108,9 @@ update_view_switcher_visible (AdwViewSwitcherTitle *self)
 
     n = g_list_model_get_n_items (G_LIST_MODEL (self->pages));
     for (i = 0; i < n; i++) {
-      GtkStackPage *page = g_list_model_get_item (G_LIST_MODEL (self->pages), i);
+      AdwViewStackPage *page = g_list_model_get_item (G_LIST_MODEL (self->pages), i);
 
-      if (gtk_stack_page_get_visible (page))
+      if (adw_view_stack_page_get_visible (page))
         count++;
     }
   }
@@ -237,7 +237,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
     g_param_spec_object ("stack",
                          "Stack",
                          "The stack the view switcher controls",
-                         GTK_TYPE_STACK,
+                         ADW_TYPE_VIEW_STACK,
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
@@ -405,7 +405,7 @@ adw_view_switcher_title_set_policy (AdwViewSwitcherTitle  *self,
  *
  * Since: 1.0
  */
-GtkStack *
+AdwViewStack *
 adw_view_switcher_title_get_stack (AdwViewSwitcherTitle *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self), NULL);
@@ -424,12 +424,12 @@ adw_view_switcher_title_get_stack (AdwViewSwitcherTitle *self)
  */
 void
 adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
-                                   GtkStack             *stack)
+                                   AdwViewStack         *stack)
 {
-  GtkStack *previous_stack;
+  AdwViewStack *previous_stack;
 
   g_return_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self));
-  g_return_if_fail (stack == NULL || GTK_IS_STACK (stack));
+  g_return_if_fail (stack == NULL || ADW_IS_VIEW_STACK (stack));
 
   previous_stack = adw_view_switcher_get_stack (self->view_switcher);
 
@@ -444,7 +444,7 @@ adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
   adw_view_switcher_set_stack (self->view_switcher, stack);
 
   if (stack) {
-    self->pages = gtk_stack_get_pages (stack);
+    self->pages = adw_view_stack_get_pages (stack);
 
     g_signal_connect_swapped (self->pages, "items-changed", G_CALLBACK (update_view_switcher_visible), self);
   }

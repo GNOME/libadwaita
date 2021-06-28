@@ -34,10 +34,10 @@ void                  adw_view_switcher_bar_set_policy (AdwViewSwitcherBar    *s
                                                         AdwViewSwitcherPolicy  policy);
 
 ADW_AVAILABLE_IN_ALL
-GtkStack *adw_view_switcher_bar_get_stack (AdwViewSwitcherBar *self);
+AdwViewStack *adw_view_switcher_bar_get_stack (AdwViewSwitcherBar *self);
 ADW_AVAILABLE_IN_ALL
-void      adw_view_switcher_bar_set_stack (AdwViewSwitcherBar *self,
-                                           GtkStack           *stack);
+void          adw_view_switcher_bar_set_stack (AdwViewSwitcherBar *self,
+                                               AdwViewStack       *stack);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_view_switcher_bar_get_reveal (AdwViewSwitcherBar *self);

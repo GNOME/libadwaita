@@ -32,12 +32,12 @@ static void
 test_adw_view_switcher_bar_stack (void)
 {
   g_autoptr (AdwViewSwitcherBar) bar = NULL;
-  GtkStack *stack;
+  AdwViewStack *stack;
 
   bar = g_object_ref_sink (ADW_VIEW_SWITCHER_BAR (adw_view_switcher_bar_new ()));
   g_assert_nonnull (bar);
 
-  stack = GTK_STACK (gtk_stack_new ());
+  stack = ADW_VIEW_STACK (adw_view_stack_new ());
   g_assert_nonnull (stack);
 
   g_assert_null (adw_view_switcher_bar_get_stack (bar));
