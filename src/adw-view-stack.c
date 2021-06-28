@@ -27,6 +27,9 @@
  * `AdwViewStack` is similar to [class@Gtk.Stack] and can be used with
  * [class@Adw.ViewSwitcher]. Refer to `GtkStack` for details.
  *
+ * `AdwViewStack` pages can have numbered badges on them, set using the
+ * [property@Adw.ViewStackPage:badge-number] property.
+ *
  * `AdwViewStack` does not provide the transition types other than crossfade.
  *
  * Since: 1.0
@@ -59,6 +62,7 @@ struct _AdwViewStackPage {
   char *name;
   char *title;
   char *icon_name;
+  guint badge_number;
   GtkWidget *last_focus;
 
   bool needs_attention;
@@ -75,6 +79,7 @@ enum {
   PAGE_PROP_TITLE,
   PAGE_PROP_ICON_NAME,
   PAGE_PROP_NEEDS_ATTENTION,
+  PAGE_PROP_BADGE_NUMBER,
   PAGE_PROP_VISIBLE,
   PAGE_PROP_USE_UNDERLINE,
   LAST_PAGE_PROP
@@ -140,6 +145,9 @@ adw_view_stack_page_get_property (GObject      *object,
   case PAGE_PROP_NEEDS_ATTENTION:
     g_value_set_boolean (value, adw_view_stack_page_get_needs_attention (self));
     break;
+  case PAGE_PROP_BADGE_NUMBER:
+    g_value_set_uint (value, adw_view_stack_page_get_badge_number (self));
+    break;
   case PAGE_PROP_VISIBLE:
     g_value_set_boolean (value, adw_view_stack_page_get_visible (self));
     break;
@@ -175,6 +183,9 @@ adw_view_stack_page_set_property (GObject      *object,
     break;
   case PAGE_PROP_NEEDS_ATTENTION:
     adw_view_stack_page_set_needs_attention (self, g_value_get_boolean (value));
+    break;
+  case PAGE_PROP_BADGE_NUMBER:
+    adw_view_stack_page_set_badge_number (self, g_value_get_uint (value));
     break;
   case PAGE_PROP_VISIBLE:
     adw_view_stack_page_set_visible (self, g_value_get_boolean (value));
@@ -275,9 +286,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    *
    * Whether the page requires the user attention.
    *
-   * This is used by the [class@Adw.ViewSwitcher] to change the
-   * appearance of the corresponding button when a page needs
-   * attention and it is not the current one.
+   * [class@Adw.ViewSwitcher] will display it as a dot next to the page icon.
    *
    * Since: 1.0
    */
@@ -287,6 +296,25 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                           "Whether the page requires the user attention",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwViewStackPage:badge-number: (attributes org.gtk.Property.get=adw_view_stack_page_get_badge_number org.gtk.Property.set=adw_view_stack_page_set_badge_number)
+   *
+   * A number associated with the page.
+   *
+   * [class@Adw.ViewSwitcher] can display it as a badge next to the page icon.
+   * It is commonly used to display a number of unread items within the page.
+   *
+   * It can be used together with [property@Adw.ViewStack{age}:needs-attention].
+   *
+   * Since: 1.0
+   */
+  page_props[PAGE_PROP_BADGE_NUMBER] =
+    g_param_spec_uint ("badge-number",
+                       "Badge_number",
+                       "A number associated with the page",
+                       0, G_MAXUINT, 0,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStackPage:visible: (attributes org.gtk.Property.get=adw_view_stack_page_get_visible org.gtk.Property.set=adw_view_stack_page_set_visible)
@@ -1396,6 +1424,47 @@ adw_view_stack_page_set_needs_attention (AdwViewStackPage *self,
   self->needs_attention = needs_attention;
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_NEEDS_ATTENTION]);
+}
+
+/**
+ * adw_view_stack_page_get_badge_number: (attributes org.gtk.Method.get_property=badge-number)
+ * @self: a `AdwViewStackPage`
+ *
+ * Gets the badge number for this page.
+ *
+ * Returns: the badge number for this page
+ *
+ * Since: 1.0
+ */
+guint
+adw_view_stack_page_get_badge_number (AdwViewStackPage *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_STACK_PAGE (self), 0);
+
+  return self->badge_number;
+}
+
+/**
+ * adw_view_stack_page_set_badge_number: (attributes org.gtk.Method.set_property=badge-number)
+ * @self: a `AdwViewStackPage`
+ * @badge_number: the new value to set
+ *
+ * Sets the badge number for this page.
+ *
+ * Since: 1.0
+ */
+void
+adw_view_stack_page_set_badge_number (AdwViewStackPage *self,
+                                      guint             badge_number)
+{
+  g_return_if_fail (ADW_IS_VIEW_STACK_PAGE (self));
+
+  if (badge_number == self->badge_number)
+    return;
+
+  self->badge_number = badge_number;
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_BADGE_NUMBER]);
 }
 
 /**

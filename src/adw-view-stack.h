@@ -43,10 +43,10 @@ void     adw_view_stack_page_set_needs_attention (AdwViewStackPage *self,
                                                   gboolean          needs_attention);
 
 ADW_AVAILABLE_IN_ALL
-guint adw_view_stack_page_get_counter (AdwViewStackPage *self);
+guint adw_view_stack_page_get_badge_number (AdwViewStackPage *self);
 ADW_AVAILABLE_IN_ALL
-void  adw_view_stack_page_set_counter (AdwViewStackPage *self,
-                                       guint             counter);
+void  adw_view_stack_page_set_badge_number (AdwViewStackPage *self,
+                                            guint             badge_number);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_view_stack_page_get_use_underline (AdwViewStackPage *self);
