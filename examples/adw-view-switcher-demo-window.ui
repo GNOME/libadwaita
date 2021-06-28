@@ -60,6 +60,8 @@
                 <property name="name">page3</property>
                 <property name="title" translatable="yes">Stopwatch</property>
                 <property name="icon-name">clock-stopwatch-symbolic</property>
+                <property name="badge-number">3</property>
+                <property name="needs-attention">true</property>
                 <property name="child">
                   <object class="GtkLabel">
                     <property name="margin-top">24</property>
