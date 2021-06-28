@@ -21,36 +21,36 @@
               <class name="wide"/>
             </style>
             <child>
-              <object class="GtkImage" id="horizontal_image">
-                <property name="icon-name" bind-source="AdwViewSwitcherButton" bind-property="icon-name" bind-flags="sync-create" />
-              </object>
-            </child>
-            <child>
               <object class="AdwIndicatorBin">
-                <property name="contained">True</property>
+                <property name="valign">center</property>
                 <binding name="needs-attention">
                   <closure type="gboolean" function="should_show_indicator">
                     <lookup name="needs-attention">AdwViewSwitcherButton</lookup>
                     <lookup name="active">AdwViewSwitcherButton</lookup>
                   </closure>
                 </binding>
+                <property name="child">
+                  <object class="GtkImage" id="horizontal_image">
+                    <property name="icon-name" bind-source="AdwViewSwitcherButton" bind-property="icon-name" bind-flags="sync-create" />
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkStack" id="horizontal_label_stack">
                 <child>
-                  <object class="GtkStack" id="horizontal_label_stack">
-                    <child>
-                      <object class="GtkLabel" id="horizontal_label_inactive">
-                        <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
-                        <property name="use-underline" bind-source="AdwViewSwitcherButton" bind-property="use-underline" bind-flags="sync-create|bidirectional" />
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="horizontal_label_active">
-                        <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
-                        <property name="use-underline" bind-source="AdwViewSwitcherButton" bind-property="use-underline" bind-flags="sync-create|bidirectional" />
-                        <style>
-                          <class name="active"/>
-                        </style>
-                      </object>
-                    </child>
+                  <object class="GtkLabel" id="horizontal_label_inactive">
+                    <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                    <property name="use-underline" bind-source="AdwViewSwitcherButton" bind-property="use-underline" bind-flags="sync-create|bidirectional" />
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="horizontal_label_active">
+                    <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                    <property name="use-underline" bind-source="AdwViewSwitcherButton" bind-property="use-underline" bind-flags="sync-create|bidirectional" />
+                    <style>
+                      <class name="active"/>
+                    </style>
                   </object>
                 </child>
               </object>
@@ -69,6 +69,7 @@
             <child>
               <object class="AdwIndicatorBin">
                 <property name="halign">center</property>
+                <property name="valign">center</property>
                 <binding name="needs-attention">
                   <closure type="gboolean" function="should_show_indicator">
                     <lookup name="needs-attention">AdwViewSwitcherButton</lookup>
