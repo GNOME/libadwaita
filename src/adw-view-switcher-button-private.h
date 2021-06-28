@@ -33,6 +33,10 @@ gboolean adw_view_switcher_button_get_needs_attention (AdwViewSwitcherButton *se
 void     adw_view_switcher_button_set_needs_attention (AdwViewSwitcherButton *self,
                                                        gboolean               needs_attention);
 
+guint adw_view_switcher_button_get_badge_number (AdwViewSwitcherButton *self);
+void  adw_view_switcher_button_set_badge_number (AdwViewSwitcherButton *self,
+                                                 guint                  badge_number);
+
 const char *adw_view_switcher_button_get_label (AdwViewSwitcherButton *self);
 void        adw_view_switcher_button_set_label (AdwViewSwitcherButton *self,
                                                 const char            *label);

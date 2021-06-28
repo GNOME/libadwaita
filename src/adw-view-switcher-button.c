@@ -16,12 +16,13 @@ enum {
   PROP_0,
   PROP_ICON_NAME,
   PROP_NEEDS_ATTENTION,
+  PROP_BADGE_NUMBER,
 
   /* Overridden properties */
   PROP_LABEL,
   PROP_ORIENTATION,
 
-  LAST_PROP = PROP_NEEDS_ATTENTION + 1,
+  LAST_PROP = PROP_BADGE_NUMBER + 1,
 };
 
 struct _AdwViewSwitcherButton
@@ -44,6 +45,7 @@ struct _AdwViewSwitcherButton
   char *label;
   GtkOrientation orientation;
   gboolean needs_attention;
+  guint badge_number;
 
   guint switch_timer;
 };
@@ -128,6 +130,19 @@ should_show_indicator (AdwViewSwitcherButton *self,
   return needs_attention && !active;
 }
 
+static gchar *
+get_badge_text (AdwViewSwitcherButton *self,
+                guint                  badge_number)
+{
+  if (badge_number > 999)
+    return g_strdup ("999+");
+
+  if (!badge_number)
+    return g_strdup ("");
+
+  return g_strdup_printf ("%u", badge_number);
+}
+
 static void
 adw_view_switcher_button_get_property (GObject    *object,
                                        guint       prop_id,
@@ -142,6 +157,9 @@ adw_view_switcher_button_get_property (GObject    *object,
     break;
   case PROP_NEEDS_ATTENTION:
     g_value_set_boolean (value, adw_view_switcher_button_get_needs_attention (self));
+    break;
+  case PROP_BADGE_NUMBER:
+    g_value_set_uint (value, adw_view_switcher_button_get_badge_number (self));
     break;
   case PROP_LABEL:
     g_value_set_string (value, adw_view_switcher_button_get_label (self));
@@ -169,6 +187,9 @@ adw_view_switcher_button_set_property (GObject      *object,
     break;
   case PROP_NEEDS_ATTENTION:
     adw_view_switcher_button_set_needs_attention (self, g_value_get_boolean (value));
+    break;
+  case PROP_BADGE_NUMBER:
+    adw_view_switcher_button_set_badge_number (self, g_value_get_uint (value));
     break;
   case PROP_LABEL:
     adw_view_switcher_button_set_label (self, g_value_get_string (value));
@@ -254,6 +275,22 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
                         FALSE,
                         G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE);
 
+  /**
+   * AdwViewSwitcherButton:badge-number:
+   *
+   * A number to display as a badge on the button.
+   *
+   * Since: 1.0
+   */
+  props[PROP_BADGE_NUMBER] =
+    g_param_spec_uint ("badge-number",
+                       "Badge number",
+                       "A number to display as a badge on the button",
+                       0,
+                       G_MAXUINT,
+                       0,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   /* We probably should set the class's CSS name to "viewswitcherbutton"
@@ -280,6 +317,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, drag_enter_cb);
   gtk_widget_class_bind_template_callback (widget_class, drag_leave_cb);
   gtk_widget_class_bind_template_callback (widget_class, should_show_indicator);
+  gtk_widget_class_bind_template_callback (widget_class, get_badge_text);
 
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TAB);
 }
@@ -407,6 +445,47 @@ adw_view_switcher_button_set_needs_attention (AdwViewSwitcherButton *self,
   self->needs_attention = needs_attention;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NEEDS_ATTENTION]);
+}
+
+/**
+ * adw_view_switcher_button_get_badge_number:
+ * @self: a `AdwViewSwitcherButton`
+ *
+ * Gets the badge number.
+ *
+ * Returns: the badge number
+ *
+ * Since: 1.0
+ */
+guint
+adw_view_switcher_button_get_badge_number (AdwViewSwitcherButton *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_BUTTON (self), 0);
+
+  return self->badge_number;
+}
+
+/**
+ * adw_view_switcher_button_set_badge_number:
+ * @self: a `AdwViewSwitcherButton`
+ * @badge_number: the new value
+ *
+ * Sets the badge number.
+ *
+ * Since: 1.0
+ */
+void
+adw_view_switcher_button_set_badge_number (AdwViewSwitcherButton *self,
+                                           guint                  badge_number)
+{
+  g_return_if_fail (ADW_IS_VIEW_SWITCHER_BUTTON (self));
+
+  if (self->badge_number == badge_number)
+    return;
+
+  self->badge_number = badge_number;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BADGE_NUMBER]);
 }
 
 /**

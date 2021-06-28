@@ -103,6 +103,7 @@ update_button (AdwViewSwitcher  *self,
   g_autofree char *title = NULL;
   g_autofree char *icon_name = NULL;
   gboolean needs_attention;
+  guint badge_number;
   gboolean visible;
   gboolean use_underline;
 
@@ -111,6 +112,7 @@ update_button (AdwViewSwitcher  *self,
                 "icon-name", &icon_name,
                 "needs-attention", &needs_attention,
                 "visible", &visible,
+                "badge-number", &badge_number,
                 "use-underline", &use_underline,
                 NULL);
 
@@ -118,6 +120,7 @@ update_button (AdwViewSwitcher  *self,
                 "icon-name", icon_name,
                 "label", title,
                 "needs-attention", needs_attention,
+                "badge-number", badge_number,
                 "use-underline", use_underline,
                 NULL);
 
