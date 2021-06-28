@@ -28,7 +28,6 @@ struct _AdwIndicatorBin
 
   GtkWidget *child;
   gboolean needs_attention;
-  gboolean contained;
 
   GtkWidget *mask;
   GtkWidget *indicator;
@@ -50,7 +49,6 @@ enum {
   PROP_CHILD,
   PROP_NEEDS_ATTENTION,
   PROP_BADGE,
-  PROP_CONTAINED,
   LAST_PROP
 };
 
@@ -133,24 +131,14 @@ adw_indicator_bin_size_allocate (GtkWidget *widget,
 
   gtk_widget_get_preferred_size (self->indicator, NULL, &size);
 
-  if (self->contained) {
-    if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
-      x = 0;
-    else
-      x = width - size.width;
-
-    y = 0;
-  } else {
-    if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
-      x = -size.height / 2.0f;
-    else
-      x = width - size.width + size.height / 2.0f;
-
-    y = -size.height / 2.0f;
-  }
-
   if (size.width > width * 2)
     x = (width - size.width) / 2.0f;
+  else if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
+    x = -size.height / 2.0f;
+  else
+    x = width - size.width + size.height / 2.0f;
+
+  y = -size.height / 2.0f;
 
   gtk_widget_allocate (self->mask, size.width, size.height, baseline,
                        gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y)));
@@ -225,10 +213,6 @@ adw_indicator_bin_get_property (GObject    *object,
     g_value_set_string (value, adw_indicator_bin_get_badge (self));
     break;
 
-  case PROP_CONTAINED:
-    g_value_set_boolean (value, adw_indicator_bin_get_contained (self));
-    break;
-
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -253,10 +237,6 @@ adw_indicator_bin_set_property (GObject      *object,
 
   case PROP_BADGE:
     adw_indicator_bin_set_badge (self, g_value_get_string (value));
-    break;
-
-  case PROP_CONTAINED:
-    adw_indicator_bin_set_contained (self, g_value_get_boolean (value));
     break;
 
   default:
@@ -332,21 +312,6 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
                          "Additional information for the user",
                          "",
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwIndicatorBin:contained:
-   *
-   * Whether the indicator is centered on the top end corner of the widget or is
-   * at the top end corner but contained in the widget bounds.
-   *
-   * Since: 1.0
-   */
-  props[PROP_CONTAINED] =
-    g_param_spec_boolean ("contained",
-                          "Contained",
-                          "Whether the indicator is contained in the widget bounds",
-                          FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
@@ -510,30 +475,4 @@ adw_indicator_bin_set_badge (AdwIndicatorBin *self,
   gtk_widget_queue_draw (GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BADGE]);
-}
-
-gboolean
-adw_indicator_bin_get_contained (AdwIndicatorBin *self)
-{
-  g_return_val_if_fail (ADW_IS_INDICATOR_BIN (self), FALSE);
-
-  return self->contained;
-}
-
-void
-adw_indicator_bin_set_contained (AdwIndicatorBin *self,
-                                 gboolean         contained)
-{
-  g_return_if_fail (ADW_IS_INDICATOR_BIN (self));
-
-  contained = !!contained;
-
-  if (self->contained == contained)
-    return;
-
-  self->contained = contained;
-
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CONTAINED]);
 }
