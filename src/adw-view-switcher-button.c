@@ -122,14 +122,6 @@ set_orientation (AdwViewSwitcherButton *self,
                                              self->horizontal_box));
 }
 
-static bool
-should_show_indicator (AdwViewSwitcherButton *self,
-                       gboolean               needs_attention,
-                       gboolean               active)
-{
-  return needs_attention && !active;
-}
-
 static gchar *
 get_badge_text (AdwViewSwitcherButton *self,
                 guint                  badge_number)
@@ -316,7 +308,6 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, active_changed_cb);
   gtk_widget_class_bind_template_callback (widget_class, drag_enter_cb);
   gtk_widget_class_bind_template_callback (widget_class, drag_leave_cb);
-  gtk_widget_class_bind_template_callback (widget_class, should_show_indicator);
   gtk_widget_class_bind_template_callback (widget_class, get_badge_text);
 
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TAB);

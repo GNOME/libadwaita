@@ -29,10 +29,7 @@
                   </closure>
                 </binding>
                 <binding name="needs-attention">
-                  <closure type="gboolean" function="should_show_indicator">
-                    <lookup name="needs-attention">AdwViewSwitcherButton</lookup>
-                    <lookup name="active">AdwViewSwitcherButton</lookup>
-                  </closure>
+                  <lookup name="needs-attention">AdwViewSwitcherButton</lookup>
                 </binding>
                 <property name="child">
                   <object class="GtkImage" id="horizontal_image">
@@ -81,10 +78,7 @@
                   </closure>
                 </binding>
                 <binding name="needs-attention">
-                  <closure type="gboolean" function="should_show_indicator">
-                    <lookup name="needs-attention">AdwViewSwitcherButton</lookup>
-                    <lookup name="active">AdwViewSwitcherButton</lookup>
-                  </closure>
+                  <lookup name="needs-attention">AdwViewSwitcherButton</lookup>
                 </binding>
                 <property name="child">
                   <object class="GtkImage" id="vertical_image">
