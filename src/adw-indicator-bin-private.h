@@ -26,9 +26,9 @@ GtkWidget *adw_indicator_bin_get_child (AdwIndicatorBin *self);
 void       adw_indicator_bin_set_child (AdwIndicatorBin *self,
                                         GtkWidget       *child);
 
-gboolean adw_indicator_bin_get_show_indicator (AdwIndicatorBin *self);
-void     adw_indicator_bin_set_show_indicator (AdwIndicatorBin *self,
-                                               gboolean         show_indicator);
+gboolean adw_indicator_bin_get_needs_attention (AdwIndicatorBin *self);
+void     adw_indicator_bin_set_needs_attention (AdwIndicatorBin *self,
+                                                gboolean         needs_attention);
 
 gboolean adw_indicator_bin_get_contained (AdwIndicatorBin *self);
 void     adw_indicator_bin_set_contained (AdwIndicatorBin *self,

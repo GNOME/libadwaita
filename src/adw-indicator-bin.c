@@ -27,7 +27,7 @@ struct _AdwIndicatorBin
   GtkWidget parent_instance;
 
   GtkWidget *child;
-  gboolean show_indicator;
+  gboolean needs_attention;
   gboolean contained;
 
   GtkWidget *mask;
@@ -47,7 +47,7 @@ static GtkBuildableIface *parent_buildable_iface;
 enum {
   PROP_0,
   PROP_CHILD,
-  PROP_SHOW_INDICATOR,
+  PROP_NEEDS_ATTENTION,
   PROP_CONTAINED,
   LAST_PROP
 };
@@ -151,7 +151,7 @@ adw_indicator_bin_snapshot (GtkWidget   *widget,
 {
   AdwIndicatorBin *self = ADW_INDICATOR_BIN (widget);
 
-  if (!self->show_indicator) {
+  if (!self->needs_attention) {
     if (self->child)
       gtk_widget_snapshot_child (widget, self->child, snapshot);
 
@@ -204,8 +204,8 @@ adw_indicator_bin_get_property (GObject    *object,
     g_value_set_object (value, adw_indicator_bin_get_child (self));
     break;
 
-  case PROP_SHOW_INDICATOR:
-    g_value_set_boolean (value, adw_indicator_bin_get_show_indicator (self));
+  case PROP_NEEDS_ATTENTION:
+    g_value_set_boolean (value, adw_indicator_bin_get_needs_attention (self));
     break;
 
   case PROP_CONTAINED:
@@ -230,8 +230,8 @@ adw_indicator_bin_set_property (GObject      *object,
     adw_indicator_bin_set_child (self, g_value_get_object (value));
     break;
 
-  case PROP_SHOW_INDICATOR:
-    adw_indicator_bin_set_show_indicator (self, g_value_get_boolean (value));
+  case PROP_NEEDS_ATTENTION:
+    adw_indicator_bin_set_needs_attention (self, g_value_get_boolean (value));
     break;
 
   case PROP_CONTAINED:
@@ -284,16 +284,16 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwIndicatorBin:show-indicator:
+   * AdwIndicatorBin:needs-attention:
    *
-   * Whether to show the indicator.
+   * Whether the indicator requires attention of the user.
    *
    * Since: 1.0
    */
-  props[PROP_SHOW_INDICATOR] =
-    g_param_spec_boolean ("show-indicator",
-                          "Show Indicator",
-                          "Whether to show the indicator",
+  props[PROP_NEEDS_ATTENTION] =
+    g_param_spec_boolean ("needs-attention",
+                          "Needs Attention",
+                          "Whether the indicator requires attention of the user",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -413,29 +413,29 @@ adw_indicator_bin_set_child (AdwIndicatorBin *self,
 }
 
 gboolean
-adw_indicator_bin_get_show_indicator (AdwIndicatorBin *self)
+adw_indicator_bin_get_needs_attention (AdwIndicatorBin *self)
 {
   g_return_val_if_fail (ADW_IS_INDICATOR_BIN (self), FALSE);
 
-  return self->show_indicator;
+  return self->needs_attention;
 }
 
 void
-adw_indicator_bin_set_show_indicator (AdwIndicatorBin *self,
-                                      gboolean         show_indicator)
+adw_indicator_bin_set_needs_attention (AdwIndicatorBin *self,
+                                       gboolean         needs_attention)
 {
   g_return_if_fail (ADW_IS_INDICATOR_BIN (self));
 
-  show_indicator = !!show_indicator;
+  needs_attention = !!needs_attention;
 
-  if (self->show_indicator == show_indicator)
+  if (self->needs_attention == needs_attention)
     return;
 
-  self->show_indicator = show_indicator;
+  self->needs_attention = needs_attention;
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_INDICATOR]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NEEDS_ATTENTION]);
 }
 
 gboolean

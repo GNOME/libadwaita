@@ -28,7 +28,7 @@
             <child>
               <object class="AdwIndicatorBin">
                 <property name="contained">True</property>
-                <binding name="show-indicator">
+                <binding name="needs-attention">
                   <closure type="gboolean" function="should_show_indicator">
                     <lookup name="needs-attention">AdwViewSwitcherButton</lookup>
                     <lookup name="active">AdwViewSwitcherButton</lookup>
@@ -69,7 +69,7 @@
             <child>
               <object class="AdwIndicatorBin">
                 <property name="halign">center</property>
-                <binding name="show-indicator">
+                <binding name="needs-attention">
                   <closure type="gboolean" function="should_show_indicator">
                     <lookup name="needs-attention">AdwViewSwitcherButton</lookup>
                     <lookup name="active">AdwViewSwitcherButton</lookup>
