@@ -32,6 +32,7 @@ struct _AdwIndicatorBin
 
   GtkWidget *mask;
   GtkWidget *indicator;
+  GtkWidget *label;
 
   GskGLShader *shader;
   gboolean shader_compiled;
@@ -48,6 +49,7 @@ enum {
   PROP_0,
   PROP_CHILD,
   PROP_NEEDS_ATTENTION,
+  PROP_BADGE,
   PROP_CONTAINED,
   LAST_PROP
 };
@@ -78,6 +80,14 @@ ensure_shader (AdwIndicatorBin *self)
     if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
       g_critical ("Couldn't compile shader: %s\n", error->message);
   }
+}
+
+static gboolean
+has_badge (AdwIndicatorBin *self)
+{
+  const char *text = gtk_label_get_label (GTK_LABEL (self->label));
+
+  return text && text[0];
 }
 
 static void
@@ -132,12 +142,15 @@ adw_indicator_bin_size_allocate (GtkWidget *widget,
     y = 0;
   } else {
     if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
-      x = -size.width / 2.0f;
+      x = -size.height / 2.0f;
     else
-      x = width - size.width / 2.0f;
+      x = width - size.width + size.height / 2.0f;
 
     y = -size.height / 2.0f;
   }
+
+  if (size.width > width * 2)
+    x = (width - size.width) / 2.0f;
 
   gtk_widget_allocate (self->mask, size.width, size.height, baseline,
                        gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y)));
@@ -151,7 +164,7 @@ adw_indicator_bin_snapshot (GtkWidget   *widget,
 {
   AdwIndicatorBin *self = ADW_INDICATOR_BIN (widget);
 
-  if (!self->needs_attention) {
+  if (!has_badge (self) && !self->needs_attention) {
     if (self->child)
       gtk_widget_snapshot_child (widget, self->child, snapshot);
 
@@ -208,6 +221,10 @@ adw_indicator_bin_get_property (GObject    *object,
     g_value_set_boolean (value, adw_indicator_bin_get_needs_attention (self));
     break;
 
+  case PROP_BADGE:
+    g_value_set_string (value, adw_indicator_bin_get_badge (self));
+    break;
+
   case PROP_CONTAINED:
     g_value_set_boolean (value, adw_indicator_bin_get_contained (self));
     break;
@@ -234,6 +251,10 @@ adw_indicator_bin_set_property (GObject      *object,
     adw_indicator_bin_set_needs_attention (self, g_value_get_boolean (value));
     break;
 
+  case PROP_BADGE:
+    adw_indicator_bin_set_badge (self, g_value_get_string (value));
+    break;
+
   case PROP_CONTAINED:
     adw_indicator_bin_set_contained (self, g_value_get_boolean (value));
     break;
@@ -252,6 +273,7 @@ adw_indicator_bin_dispose (GObject *object)
   g_clear_pointer (&self->child, gtk_widget_unparent);
   g_clear_pointer (&self->mask, gtk_widget_unparent);
   g_clear_pointer (&self->indicator, gtk_widget_unparent);
+  self->label = NULL;
 
   G_OBJECT_CLASS (adw_indicator_bin_parent_class)->dispose (object);
 }
@@ -298,6 +320,20 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
+   * AdwIndicatorBin:badge:
+   *
+   * Additional information for the user.
+   *
+   * Since: 1.0
+   */
+  props[PROP_BADGE] =
+    g_param_spec_string ("badge",
+                         "Badge",
+                         "Additional information for the user",
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
    * AdwIndicatorBin:contained:
    *
    * Whether the indicator is centered on the top end corner of the widget or is
@@ -327,6 +363,11 @@ adw_indicator_bin_init (AdwIndicatorBin *self)
   self->indicator = adw_gizmo_new ("indicator", NULL, NULL, NULL, NULL, NULL, NULL);
   gtk_widget_set_can_target (self->indicator, FALSE);
   gtk_widget_set_parent (self->indicator, GTK_WIDGET (self));
+  gtk_widget_set_layout_manager (self->indicator, gtk_bin_layout_new ());
+
+  self->label = gtk_label_new (NULL);
+  gtk_widget_set_visible (self->label, FALSE);
+  gtk_widget_set_parent (self->label, self->indicator);
 }
 
 static void
@@ -433,9 +474,42 @@ adw_indicator_bin_set_needs_attention (AdwIndicatorBin *self,
 
   self->needs_attention = needs_attention;
 
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
+  if (self->needs_attention)
+    gtk_widget_add_css_class (GTK_WIDGET (self), "needs-attention");
+  else
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "needs-attention");
+
+  gtk_widget_queue_draw (GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NEEDS_ATTENTION]);
+}
+
+const char *
+adw_indicator_bin_get_badge (AdwIndicatorBin *self)
+{
+  g_return_val_if_fail (ADW_IS_INDICATOR_BIN (self), "");
+
+  return gtk_label_get_label (GTK_LABEL (self->label));
+}
+
+void
+adw_indicator_bin_set_badge (AdwIndicatorBin *self,
+                             const char      *badge)
+{
+  g_return_if_fail (ADW_IS_INDICATOR_BIN (self));
+
+  gtk_label_set_text (GTK_LABEL (self->label), badge);
+
+  if (badge && badge[0])
+    gtk_widget_add_css_class (GTK_WIDGET (self), "badge");
+  else
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "badge");
+
+  gtk_widget_set_visible (self->label, badge && badge[0]);
+
+  gtk_widget_queue_draw (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BADGE]);
 }
 
 gboolean

@@ -30,6 +30,10 @@ gboolean adw_indicator_bin_get_needs_attention (AdwIndicatorBin *self);
 void     adw_indicator_bin_set_needs_attention (AdwIndicatorBin *self,
                                                 gboolean         needs_attention);
 
+const char *adw_indicator_bin_get_badge (AdwIndicatorBin *self);
+void        adw_indicator_bin_set_badge (AdwIndicatorBin *self,
+                                         const char      *badge);
+
 gboolean adw_indicator_bin_get_contained (AdwIndicatorBin *self);
 void     adw_indicator_bin_set_contained (AdwIndicatorBin *self,
                                           gboolean         contained);
