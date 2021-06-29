@@ -1,0 +1,40 @@
+# Chinese (China) translation for libadwaita.
+# Copyright (C) 2021 libadwaita's COPYRIGHT HOLDER
+# This file is distributed under the same license as the libadwaita package.
+#
+# Translators:
+# Silence Zhou <silence_zhou@126.com>, 2021
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libadwaita main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2021-06-24 22:02+0000\n"
+"PO-Revision-Date: 2021-06-29 16:33-0400\n"
+"Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
+"Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: src/adw-preferences-window.c:208
+msgid "Untitled page"
+msgstr "无标题页面"
+
+#: src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "首选项"
+
+#: src/adw-preferences-window.ui:68
+msgid "Search"
+msgstr "搜索"
+
+#: src/adw-preferences-window.ui:145
+msgid "No Results Found"
+msgstr "没有找到结果"
+
+#: src/adw-preferences-window.ui:146
+msgid "Try a different search."
+msgstr "尝试搜索其它内容。"
