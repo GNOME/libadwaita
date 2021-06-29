@@ -69,6 +69,7 @@ libadwaita_generated_headers += [adw_public_enums[1]]
 src_headers = [
   'adw-action-row.h',
   'adw-animation-util.h',
+  'adw-application.h',
   'adw-application-window.h',
   'adw-avatar.h',
   'adw-bin.h',
@@ -123,6 +124,7 @@ src_sources = [
   'adw-action-row.c',
   'adw-animation.c',
   'adw-animation-util.c',
+  'adw-application.c',
   'adw-application-window.c',
   'adw-avatar.c',
   'adw-bidi.c',

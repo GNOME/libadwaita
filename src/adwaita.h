@@ -23,6 +23,7 @@ G_BEGIN_DECLS
 #include "adw-version.h"
 #include "adw-action-row.h"
 #include "adw-animation-util.h"
+#include "adw-application.h"
 #include "adw-application-window.h"
 #include "adw-avatar.h"
 #include "adw-bin.h"
