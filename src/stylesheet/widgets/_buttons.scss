@@ -338,6 +338,14 @@ button.outline {
 }
 
 menubutton {
+  > button > box {
+    border-spacing: 6px;
+  }
+
+  > button.arrow-button > box {
+    border-spacing: 3px;
+  }
+
   &.osd {
     background: none;
     color: inherit;
