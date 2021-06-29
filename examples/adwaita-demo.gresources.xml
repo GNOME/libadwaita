@@ -34,6 +34,7 @@
     <file preprocess="xml-stripblanks">icons/scalable/status/light-mode-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-playing-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-muted-symbolic.svg</file>
+    <file compressed="true">style.css</file>
   </gresource>
   <gresource prefix="/org/gnome/Adwaita/Demo/ui">
     <file preprocess="xml-stripblanks">adw-demo-preferences-window.ui</file>
@@ -41,6 +42,5 @@
     <file preprocess="xml-stripblanks">adw-flap-demo-window.ui</file>
     <file preprocess="xml-stripblanks">adw-tab-view-demo-window.ui</file>
     <file preprocess="xml-stripblanks">adw-view-switcher-demo-window.ui</file>
-    <file compressed="true">style.css</file>
   </gresource>
 </gresources>
