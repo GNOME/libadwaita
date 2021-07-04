@@ -380,3 +380,126 @@ menubutton {
     }
   }
 }
+
+splitbutton {
+  border-radius: $button_radius;
+
+  &, & > separator {
+    transition: $button_transition;
+    transition-property: background;
+  }
+
+  > separator {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    background: none;
+  }
+
+  > menubutton > button {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  // Since the inner button doesn't have any style classes on it,
+  // we have to add them manually
+  &.image-button > button {
+    min-width: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  &.text-button.image-button > button {
+    padding-left: 10px;
+    padding-right: 10px;
+
+    > box {
+      border-spacing: 6px;
+    }
+  }
+
+  // Reimplementing linked so we don't blow up css
+  > button:dir(ltr),
+  > menubutton > button:dir(rtl) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-right: -1px;
+  }
+
+  > button:dir(rtl),
+  > menubutton > button:dir(ltr) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -1px;
+  }
+
+  &.flat {
+    > separator {
+      background: gtkalpha(currentColor, .3);
+    }
+
+    &:hover,
+    &:active,
+    &:checked {
+      background: gtkalpha(currentColor, .05);
+
+      > separator {
+        background: none;
+      }
+    }
+
+    &:focus-within:focus-visible > separator {
+      background: none;
+    }
+
+    > button,
+    > menubutton > button {
+      @extend %button_basic_flat;
+
+      border-radius: $button_radius;
+    }
+  }
+
+  &.outline {
+    > button,
+    > menubutton > button {
+      @extend %outline_button;
+    }
+  }
+
+  &.suggested-action {
+    > button, > menubutton > button {
+      @extend %filled_button;
+
+      color: $accent_fg_color;
+
+      &, &:checked {
+        background-color: $accent_bg_color;
+      }
+    }
+  }
+
+  &.destructive-action {
+    > button, > menubutton > button {
+      @extend %filled_button;
+
+      color: $destructive_fg_color;
+
+      &, &:checked {
+        background-color: $destructive_bg_color;
+      }
+    }
+  }
+
+  &.suggested-action,
+  &.destructive-action {
+    $_separator_color: gtkalpha(currentColor, if($contrast == 'high', .6, .3));
+    > menubutton > button {
+      &:dir(ltr) { box-shadow: inset 1px 0 $_separator_color; }
+      &:dir(rtl) { box-shadow: inset -1px 0 $_separator_color; }
+    }
+  }
+
+  > menubutton > button > arrow.none {
+    -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+  }
+}

@@ -47,6 +47,7 @@ G_BEGIN_DECLS
 #include "adw-preferences-page.h"
 #include "adw-preferences-row.h"
 #include "adw-preferences-window.h"
+#include "adw-split-button.h"
 #include "adw-squeezer.h"
 #include "adw-status-page.h"
 #include "adw-swipe-tracker.h"
