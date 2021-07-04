@@ -8,6 +8,8 @@ headerbar {
   margin-left: -1px;
   margin-right: -1px;
 
+  @extend %toolbar;
+
   > windowhandle > box {
     padding: 0 7px 1px 7px;
 
@@ -79,27 +81,6 @@ headerbar {
         > windowhandle > box { padding-top: 1px; }
       }
     }
-  }
-
-  // add vertical margins to common widget on the headerbar to avoid them spanning the whole height
-  entry,
-  spinbutton,
-  separator:not(.sidebar),
-  button,
-  menubutton {
-    margin-top: 6px;
-    margin-bottom: 6px;
-  }
-
-  // Reset margins for buttons inside menubutton
-  menubutton > button {
-    margin-top: 0px;
-    margin-bottom: 0px;
-  }
-
-  switch {
-    margin-top: 10px;
-    margin-bottom: 10px;
   }
 }
 

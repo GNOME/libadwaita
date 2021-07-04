@@ -444,6 +444,7 @@ splitbutton {
     margin-left: -1px;
   }
 
+  @at-root %flat_split_button,
   &.flat {
     > separator {
       background: gtkalpha(currentColor, .3);
