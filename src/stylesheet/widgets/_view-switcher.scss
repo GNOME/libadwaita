@@ -9,6 +9,7 @@ viewswitcher {
     border-top: none;
     border-bottom: none;
     font-size: 1rem;
+    font-weight: inherit;
 
     > stack > box {
       &.narrow {
