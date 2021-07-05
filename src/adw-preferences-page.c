@@ -192,6 +192,9 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
 static void
 adw_preferences_page_init (AdwPreferencesPage *self)
 {
+  AdwPreferencesPagePrivate *priv = adw_preferences_page_get_instance_private (self);
+  priv->title = g_strdup ("");
+
   gtk_widget_init_template (GTK_WIDGET (self));
 }
 
@@ -288,7 +291,7 @@ adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
  *
  * Gets the title of @self.
  *
- * Returns: (nullable): the title of @self.
+ * Returns: the title of @self.
  *
  * Since: 1.0
  */
@@ -307,7 +310,7 @@ adw_preferences_page_get_title (AdwPreferencesPage *self)
 /**
  * adw_preferences_page_set_title: (attributes org.gtk.Method.set_property=title)
  * @self: a `AdwPreferencesPage`
- * @title: (nullable): the title
+ * @title: the title
  *
  * Sets the title of @self.
  *
@@ -327,7 +330,7 @@ adw_preferences_page_set_title (AdwPreferencesPage *self,
     return;
 
   g_clear_pointer (&priv->title, g_free);
-  priv->title = g_strdup (title);
+  priv->title = g_strdup (title ? title : "");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
 }

@@ -126,7 +126,7 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
     g_param_spec_string ("title",
                          "Title",
                          "The title to display",
-                         NULL,
+                         "",
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
 
   /**
@@ -142,7 +142,7 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
     g_param_spec_string ("subtitle",
                          "Subtitle",
                          "The subtitle to display",
-                         NULL,
+                         "",
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -159,8 +159,8 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
 
 /**
  * adw_window_title_new:
- * @title: (nullable): a title
- * @subtitle: (nullable): a subtitle
+ * @title: a title
+ * @subtitle: a subtitle
  *
  * Creates a new `AdwWindowTitle`.
  *
@@ -184,7 +184,7 @@ adw_window_title_new (const char *title,
  *
  * Gets the title of @self.
  *
- * Returns: (nullable): the title
+ * Returns: the title
  *
  * Since: 1.0
  */
@@ -199,7 +199,7 @@ adw_window_title_get_title (AdwWindowTitle *self)
 /**
  * adw_window_title_set_title: (attributes org.gtk.Method.set_property=title)
  * @self: a `AdwWindowTitle`
- * @title: (nullable): a title
+ * @title: a title
  *
  * Sets the title of @self.
  *
@@ -227,7 +227,7 @@ adw_window_title_set_title (AdwWindowTitle *self,
  *
  * Gets the subtitle of @self.
  *
- * Returns: (nullable): the subtitle
+ * Returns: the subtitle
  *
  * Since: 1.0
  */
@@ -242,7 +242,7 @@ adw_window_title_get_subtitle (AdwWindowTitle *self)
 /**
  * adw_window_title_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
  * @self: a `AdwWindowTitle`
- * @subtitle: (nullable): a subtitle
+ * @subtitle: a subtitle
  *
  * Sets the subtitle of @self.
  *

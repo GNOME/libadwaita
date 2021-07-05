@@ -26,7 +26,7 @@ test_adw_avatar_text (void)
 {
   AdwAvatar *avatar = ADW_AVATAR (adw_avatar_new (128, NULL, TRUE));
 
-  g_assert_null (adw_avatar_get_text (avatar));
+  g_assert_cmpstr (adw_avatar_get_text (avatar), ==, "");
   adw_avatar_set_text (avatar, TEST_STRING);
   g_assert_cmpstr (adw_avatar_get_text (avatar), ==, TEST_STRING);
 }

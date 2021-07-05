@@ -460,7 +460,7 @@ adw_action_row_get_subtitle (AdwActionRow *self)
 /**
  * adw_action_row_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
  * @self: a `AdwActionRow`
- * @subtitle: (nullable): the subtitle
+ * @subtitle: the subtitle
  *
  * Sets the subtitle for @self.
  *
@@ -479,7 +479,7 @@ adw_action_row_set_subtitle (AdwActionRow *self,
   if (g_strcmp0 (gtk_label_get_text (priv->subtitle), subtitle) == 0)
     return;
 
-  gtk_label_set_text (priv->subtitle, subtitle);
+  gtk_label_set_label (priv->subtitle, subtitle);
   gtk_widget_set_visible (GTK_WIDGET (priv->subtitle),
                           subtitle != NULL && g_strcmp0 (subtitle, "") != 0);
 

@@ -355,7 +355,7 @@ adw_expander_row_new (void)
  *
  * Gets the subtitle for @self.
  *
- * Returns: (nullable): the subtitle for @self
+ * Returns: the subtitle for @self
  *
  * Since: 1.0
  */
@@ -374,7 +374,7 @@ adw_expander_row_get_subtitle (AdwExpanderRow *self)
 /**
  * adw_expander_row_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
  * @self: a `AdwExpanderRow`
- * @subtitle: (nullable): the subtitle
+ * @subtitle: the subtitle
  *
  * Sets the subtitle for @self.
  *

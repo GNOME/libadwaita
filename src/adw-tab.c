@@ -148,7 +148,7 @@ update_tooltip (AdwTab *self)
 {
   const char *tooltip = adw_tab_page_get_tooltip (self->page);
 
-  if (tooltip)
+  if (tooltip && g_strcmp0 (tooltip, "") != 0)
     gtk_widget_set_tooltip_markup (GTK_WIDGET (self), tooltip);
   else
     gtk_widget_set_tooltip_text (GTK_WIDGET (self),

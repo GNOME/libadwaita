@@ -333,7 +333,7 @@ adw_status_page_set_icon_name (AdwStatusPage *self,
  *
  * Gets the title for @self.
  *
- * Returns: (nullable): the title
+ * Returns: the title
  *
  * Since: 1.0
  */
@@ -348,7 +348,7 @@ adw_status_page_get_title (AdwStatusPage *self)
 /**
  * adw_status_page_set_title: (attributes org.gtk.Method.set_property=title)
  * @self: a `AdwStatusPage`
- * @title: (nullable): the title
+ * @title: the title
  *
  * Sets the title for @self.
  *

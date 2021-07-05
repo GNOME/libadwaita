@@ -959,7 +959,7 @@ test_adw_tab_page_title (void)
   g_signal_connect (page, "notify::title", G_CALLBACK (notify_cb), NULL);
 
   g_object_get (page, "title", &title, NULL);
-  g_assert_null (title);
+  g_assert_cmpstr (title, ==, "");
   g_assert_cmpint (notified, ==, 0);
 
   adw_tab_page_set_title (page, "Some title");
@@ -989,7 +989,7 @@ test_adw_tab_page_tooltip (void)
   g_signal_connect (page, "notify::tooltip", G_CALLBACK (notify_cb), NULL);
 
   g_object_get (page, "tooltip", &tooltip, NULL);
-  g_assert_null (tooltip);
+  g_assert_cmpstr (tooltip, ==, "");
   g_assert_cmpint (notified, ==, 0);
 
   adw_tab_page_set_tooltip (page, "Some tooltip");

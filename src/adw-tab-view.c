@@ -431,7 +431,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
     g_param_spec_string ("title",
                          "Title",
                          "The title of the page",
-                         NULL,
+                         "",
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -450,7 +450,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
     g_param_spec_string ("tooltip",
                          "Tooltip",
                          "The tooltip of the page",
-                         NULL,
+                         "",
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -561,6 +561,8 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
 static void
 adw_tab_page_init (AdwTabPage *self)
 {
+  self->title = g_strdup ("");
+  self->tooltip = g_strdup ("");
 }
 
 #define ADW_TYPE_TAB_PAGES (adw_tab_pages_get_type ())
@@ -1844,7 +1846,7 @@ adw_tab_page_get_pinned (AdwTabPage *self)
  *
  * Gets the title of @self.
  *
- * Returns: (nullable): the title of @self
+ * Returns: the title of @self
  *
  * Since: 1.0
  */
@@ -1859,7 +1861,7 @@ adw_tab_page_get_title (AdwTabPage *self)
 /**
  * adw_tab_page_set_title: (attributes org.gtk.Method.set_property=title)
  * @self: a `AdwTabPage`
- * @title: (nullable): the title of @self
+ * @title: the title of @self
  *
  * Sets the title of @self.
  *
@@ -1875,7 +1877,7 @@ adw_tab_page_set_title (AdwTabPage *self,
     return;
 
   g_clear_pointer (&self->title, g_free);
-  self->title = g_strdup (title);
+  self->title = g_strdup (title ? title : "");
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_TITLE]);
 }
@@ -1901,7 +1903,7 @@ adw_tab_page_get_tooltip (AdwTabPage *self)
 /**
  * adw_tab_page_set_tooltip: (attributes org.gtk.Method.set_property=tooltip)
  * @self: a `AdwTabPage`
- * @tooltip: (nullable): the tooltip of @self
+ * @tooltip: the tooltip of @self
  *
  * Sets the tooltip of @self.
  *
@@ -1917,7 +1919,7 @@ adw_tab_page_set_tooltip (AdwTabPage *self,
     return;
 
   g_clear_pointer (&self->tooltip, g_free);
-  self->tooltip = g_strdup (tooltip);
+  self->tooltip = g_strdup (tooltip ? tooltip : "");
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_TOOLTIP]);
 }

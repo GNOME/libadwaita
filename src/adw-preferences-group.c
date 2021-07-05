@@ -274,7 +274,7 @@ adw_preferences_group_new (void)
  *
  * Gets the title of @self.
  *
- * Returns: (nullable): the title of @self
+ * Returns: the title of @self
  *
  * Since: 1.0
  */
@@ -293,7 +293,7 @@ adw_preferences_group_get_title (AdwPreferencesGroup *self)
 /**
  * adw_preferences_group_set_title: (attributes org.gtk.Method.set_property=title)
  * @self: a `AdwPreferencesGroup`
- * @title: (nullable): the title
+ * @title: the title
  *
  * Sets the title for @self.
  *

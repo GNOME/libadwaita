@@ -136,6 +136,8 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
 static void
 adw_preferences_row_init (AdwPreferencesRow *self)
 {
+    AdwPreferencesRowPrivate *priv = adw_preferences_row_get_instance_private (self);
+    priv->title = g_strdup ("");
 }
 
 /**
@@ -159,7 +161,7 @@ adw_preferences_row_new (void)
  *
  * Gets the title of the preference represented by @self.
  *
- * Returns:(nullable): the title
+ * Returns: the title
  *
  * Since: 1.0
  */
@@ -178,7 +180,7 @@ adw_preferences_row_get_title (AdwPreferencesRow *self)
 /**
  * adw_preferences_row_set_title: (attributes org.gtk.Method.set_property=title)
  * @self: a `AdwPreferencesRow`
- * @title: (nullable): the title
+ * @title: the title
  *
  * Sets the title of the preference represented by @self.
  *
@@ -198,7 +200,7 @@ adw_preferences_row_set_title (AdwPreferencesRow *self,
     return;
 
   g_free (priv->title);
-  priv->title = g_strdup (title);
+  priv->title = g_strdup (title ? title : "");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
 }

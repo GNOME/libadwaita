@@ -331,7 +331,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
     g_param_spec_string ("text",
                          "Text",
                          "The text used to generate the color and the initials",
-                         NULL,
+                         "",
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -401,6 +401,8 @@ adw_avatar_init (AdwAvatar *self)
 
   self->custom_image = GTK_IMAGE (gtk_image_new ());
   gtk_widget_set_parent (GTK_WIDGET (self->custom_image), self->gizmo);
+
+  self->text = g_strdup ("");
 
   set_class_color (self);
   update_initials (self);
@@ -519,7 +521,7 @@ adw_avatar_set_text (AdwAvatar  *self,
     return;
 
   g_clear_pointer (&self->text, g_free);
-  self->text = g_strdup (text);
+  self->text = g_strdup (text ? text : "");
 
   set_class_color (self);
 

@@ -15,13 +15,13 @@ test_adw_preferences_row_title (void)
   row = g_object_ref_sink (ADW_PREFERENCES_ROW (adw_preferences_row_new ()));
   g_assert_nonnull (row);
 
-  g_assert_null (adw_preferences_row_get_title (row));
+  g_assert_cmpstr (adw_preferences_row_get_title (row), ==, "");
 
   adw_preferences_row_set_title (row, "Dummy title");
   g_assert_cmpstr (adw_preferences_row_get_title (row), ==, "Dummy title");
 
   adw_preferences_row_set_title (row, NULL);
-  g_assert_null (adw_preferences_row_get_title (row));
+  g_assert_cmpstr (adw_preferences_row_get_title (row), ==, "");
 }
 
 

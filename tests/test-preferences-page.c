@@ -32,13 +32,13 @@ test_adw_preferences_page_title (void)
   page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
   g_assert_nonnull (page);
 
-  g_assert_null (adw_preferences_page_get_title (page));
+  g_assert_cmpstr (adw_preferences_page_get_title (page), ==, "");
 
   adw_preferences_page_set_title (page, "Dummy title");
   g_assert_cmpstr (adw_preferences_page_get_title (page), ==, "Dummy title");
 
   adw_preferences_page_set_title (page, NULL);
-  g_assert_null (adw_preferences_page_get_title (page));
+  g_assert_cmpstr (adw_preferences_page_get_title (page), ==, "");
 }
 
 

@@ -254,7 +254,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
     g_param_spec_string ("title",
                          "Title",
                          "The title to display",
-                         NULL,
+                         "",
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
@@ -270,7 +270,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
     g_param_spec_string ("subtitle",
                          "Subtitle",
                          "The subtitle to display",
-                         NULL,
+                         "",
                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
@@ -460,7 +460,7 @@ adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
  *
  * Gets the title of @self.
  *
- * Returns: (nullable): the title
+ * Returns: the title
  *
  * Since: 1.0
  */
@@ -475,7 +475,7 @@ adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self)
 /**
  * adw_view_switcher_title_set_title: (attributes org.gtk.Method.set_property=title)
  * @self: a `AdwViewSwitcherTitle`
- * @title: (nullable): a title
+ * @title: a title
  *
  * Sets the title of @self.
  *
@@ -501,7 +501,7 @@ adw_view_switcher_title_set_title (AdwViewSwitcherTitle *self,
  *
  * Gets the subtitle of @self.
  *
- * Returns: (nullable): the subtitle
+ * Returns: the subtitle
  *
  * Since: 1.0
  */
@@ -516,7 +516,7 @@ adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self)
 /**
  * adw_view_switcher_title_set_subtitle: (attributes org.gtk.Method.get_property=subtitle)
  * @self: a `AdwViewSwitcherTitle`
- * @subtitle: (nullable): a subtitle
+ * @subtitle: a subtitle
  *
  * Sets the subtitle of @self.
  *
