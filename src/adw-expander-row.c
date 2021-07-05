@@ -443,7 +443,7 @@ adw_expander_row_set_use_underline (AdwExpanderRow *self,
  *
  * Gets the icon name for @self.
  *
- * Returns: the icon name for @self
+ * Returns: (nullable): the icon name for @self
  *
  * Since: 1.0
  */
@@ -462,7 +462,7 @@ adw_expander_row_get_icon_name (AdwExpanderRow *self)
 /**
  * adw_expander_row_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
  * @self: a `AdwExpanderRow`
- * @icon_name: the icon name
+ * @icon_name: (nullable): the icon name
  *
  * Sets the icon name for @self.
  *
