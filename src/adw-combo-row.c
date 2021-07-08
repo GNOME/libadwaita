@@ -114,12 +114,10 @@ selection_changed (AdwComboRow *self)
 
   if (priv->use_subtitle) {
     if (g_list_model_get_n_items (G_LIST_MODEL (priv->current_selection)) > 0) {
-      GtkListItem *item = g_list_model_get_item (G_LIST_MODEL (priv->current_selection), 0);
+      g_autoptr (GtkListItem) item = g_list_model_get_item (G_LIST_MODEL (priv->current_selection), 0);
       g_autofree char *repr = get_item_representation (self, item);
 
       adw_action_row_set_subtitle (ADW_ACTION_ROW (self), repr);
-
-      g_object_unref (item);
     } else {
       adw_action_row_set_subtitle (ADW_ACTION_ROW (self), NULL);
     }
@@ -250,7 +248,7 @@ unbind_item (GtkSignalListItemFactory *factory,
 static void
 set_default_factory (AdwComboRow *self)
 {
-  GtkListItemFactory *factory;
+  g_autoptr (GtkListItemFactory) factory;
 
   factory = gtk_signal_list_item_factory_new ();
 
@@ -259,8 +257,6 @@ set_default_factory (AdwComboRow *self)
   g_signal_connect (factory, "unbind", G_CALLBACK (unbind_item), self);
 
   adw_combo_row_set_factory (self, factory);
-
-  g_object_unref (factory);
 }
 
 static void
