@@ -24,13 +24,58 @@
 /**
  * AdwViewStack:
  *
- * `AdwViewStack` is similar to [class@Gtk.Stack] and can be used with
- * [class@Adw.ViewSwitcher]. Refer to `GtkStack` for details.
+ * A view container for [class@Adw.ViewSwitcher].
  *
- * `AdwViewStack` pages can have numbered badges on them, set using the
- * [property@Adw.ViewStackPage:badge-number] property.
+ * `AdwViewStack` is a container which only shows one page at a time.
+ * It is typically used to hold an application's main views.
  *
- * `AdwViewStack` does not provide the transition types other than crossfade.
+ * It doesn't provide a way to transition between pages.
+ * Instead, a separate widget such as [class@Adw.ViewSwitcher] can be used with
+ * `AdwViewStack` to provide this functionality.
+ *
+ * `AdwViewStack` pages can have a title, an icon, an attention request, and a
+ * numbered badge that [class@Adw.ViewSwitcher] will use to let users identify
+ * which page is which.
+ * Set them using the [property@Adw.ViewStackPage:title],
+ * [property@Adw.ViewStackPage:icon-name],
+ * [property@Adw.ViewStackPage:needs-attention], and
+ * [property@Adw.ViewStackPage:badge-number] properties.
+ *
+ * Transitions between views are animated by crossfading.
+ * These animations respect the [property@Gtk.Settings:gtk-enable-animations]
+ * setting.
+ *
+ * `AdwViewStack` maintains a [class@Adw.ViewStackPage] object for each added
+ * child, which holds additional per-child properties.
+ * You obtain the [class@Adw.ViewStackPage] for a child with
+ * [method@Adw.ViewStack.get_page] and you can obtain a
+ * [iface@Gtk.SelectionModel] containing all the pages with
+ * [method@Adw.ViewStack.get_pages].
+ *
+ * ## AdwViewStack as GtkBuildable
+ *
+ * To set child-specific properties in a .ui file, create
+ * [class@Adw.ViewStackPage] objects explicitly, and set the child widget as a
+ * property on it:
+ *
+ * ```xml
+ *   <object class="AdwViewStack" id="stack">
+ *     <child>
+ *       <object class="AdwViewStackPage">
+ *         <property name="name">overview</property>
+ *         <property name="title">Overview</property>
+ *         <property name="child">
+ *           <object class="AdwStatusPage">
+ *             <property name="title">Welcome!</property>
+ *           </object>
+ *         </property>
+ *       </object>
+ *     </child>
+ * ```
+ *
+ * ## CSS nodes
+ *
+ * `AdwViewStack` has a single CSS node named `stack`.
  *
  * Since: 1.0
  */
@@ -38,7 +83,7 @@
 /**
  * AdwViewStackPage:
  *
- * `AdwViewStackPage` is an auxiliary class used by [class@Adw.ViewStack].
+ * An auxiliary class used by [class@Adw.ViewStack].
  *
  * Since: 1.0
  */
