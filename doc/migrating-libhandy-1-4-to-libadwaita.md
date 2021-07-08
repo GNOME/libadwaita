@@ -231,8 +231,11 @@ page objects, similarly to [class@Gtk.Stack]. For example,
 
 [class@Adw.ViewSwitcher], [class@Adw.ViewSwitcherBar] and
 [class@Adw.ViewSwitcherTitle] now use [class@Adw.ViewStack] instead of
-[class@Gtk.Stack]. For the most part, the new widget should be a drop-in
-replacement.
+[class@Gtk.Stack].
+
+You should stop using [property@Gtk.Stack:transition-type] and
+[property@Gtk.Stack:transition-duration] properties before switching to
+[class@Adw.ViewStack].
 
 ### Adapt to [class@Adw.Avatar] API Changes
 
