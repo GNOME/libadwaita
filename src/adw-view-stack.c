@@ -43,6 +43,8 @@
  * Since: 1.0
  */
 
+#define TRANSITION_DURATION 200
+
 enum {
   PROP_0,
   PROP_HHOMOGENEOUS,
@@ -96,8 +98,6 @@ struct _AdwViewStack {
 
   gboolean hhomogeneous;
   gboolean vhomogeneous;
-
-  guint transition_duration;
 
   AdwViewStackPage *last_visible_child;
   guint tick_id;
@@ -573,7 +573,7 @@ start_transition (AdwViewStack *self)
     self->first_frame_skipped = FALSE;
     schedule_ticks (self);
     gtk_progress_tracker_start (&self->tracker,
-                                self->transition_duration * 1000,
+                                TRANSITION_DURATION * 1000,
                                 0,
                                 1.0);
   } else {
@@ -1289,7 +1289,6 @@ adw_view_stack_init (AdwViewStack *self)
 {
   self->vhomogeneous = TRUE;
   self->hhomogeneous = TRUE;
-  self->transition_duration = 200;
 }
 
 static void
