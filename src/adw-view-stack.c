@@ -1587,7 +1587,8 @@ adw_view_stack_page_set_name (AdwViewStackPage *self,
 
   if (self->widget &&
       gtk_widget_get_parent (self->widget) &&
-      ADW_IS_VIEW_STACK (gtk_widget_get_parent (self->widget))) {
+      ADW_IS_VIEW_STACK (gtk_widget_get_parent (self->widget)) &&
+      name) {
     GList *l;
 
     stack = ADW_VIEW_STACK (gtk_widget_get_parent (self->widget));
