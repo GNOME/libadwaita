@@ -34,6 +34,8 @@ typedef struct
   char *icon_name;
   char *title;
 
+  char *name;
+
   gboolean use_underline;
 } AdwPreferencesPagePrivate;
 
@@ -50,6 +52,7 @@ enum {
   PROP_0,
   PROP_ICON_NAME,
   PROP_TITLE,
+  PROP_NAME,
   PROP_USE_UNDERLINE,
   LAST_PROP,
 };
@@ -70,6 +73,9 @@ adw_preferences_page_get_property (GObject    *object,
     break;
   case PROP_TITLE:
     g_value_set_string (value, adw_preferences_page_get_title (self));
+    break;
+  case PROP_NAME:
+    g_value_set_string (value, adw_preferences_page_get_name (self));
     break;
   case PROP_USE_UNDERLINE:
     g_value_set_boolean (value, adw_preferences_page_get_use_underline (self));
@@ -93,6 +99,9 @@ adw_preferences_page_set_property (GObject      *object,
     break;
   case PROP_TITLE:
     adw_preferences_page_set_title (self, g_value_get_string (value));
+    break;
+  case PROP_NAME:
+    adw_preferences_page_set_name (self, g_value_get_string (value));
     break;
   case PROP_USE_UNDERLINE:
     adw_preferences_page_set_use_underline (self, g_value_get_boolean (value));
@@ -121,6 +130,7 @@ adw_preferences_page_finalize (GObject *object)
 
   g_clear_pointer (&priv->icon_name, g_free);
   g_clear_pointer (&priv->title, g_free);
+  g_clear_pointer (&priv->name, g_free);
 
   G_OBJECT_CLASS (adw_preferences_page_parent_class)->finalize (object);
 }
@@ -162,6 +172,20 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
                          "Title",
                          "The title for this page",
                          "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwPreferencesPage:name: (attributes org.gtk.Property.get=adw_preferences_page_get_name org.gtk.Property.set=adw_preferences_page_set_name)
+   *
+   * The name of this page.
+   *
+   * Since: 1.0
+   */
+  props[PROP_NAME] =
+    g_param_spec_string ("name",
+                         "Name",
+                         "The name of this page",
+                         NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -333,6 +357,56 @@ adw_preferences_page_set_title (AdwPreferencesPage *self,
   priv->title = g_strdup (title ? title : "");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
+}
+
+/**
+ * adw_preferences_page_get_name: (attributes org.gtk.Method.get_property=name)
+ * @self: a `AdwPreferencesPage`
+ *
+ * Gets the name of @self.
+ *
+ * Returns: (nullable): the name of @self
+ *
+ * Since: 1.0
+ */
+const char *
+adw_preferences_page_get_name (AdwPreferencesPage *self)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_PAGE (self), NULL);
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  return priv->name;
+}
+
+/**
+ * adw_preferences_page_set_name: (attributes org.gtk.Method.set_property=name)
+ * @self: a `AdwPreferencesPage`
+ * @name: (nullable): the name
+ *
+ * Sets the name of @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_page_set_name (AdwPreferencesPage *self,
+                               const char         *name)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  if (g_strcmp0(priv->name, name) == 0)
+    return;
+
+  g_clear_pointer (&priv->name, g_free);
+  priv->name = g_strdup (name);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NAME]);
 }
 
 /**

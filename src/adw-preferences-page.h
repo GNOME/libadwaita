@@ -50,6 +50,12 @@ void        adw_preferences_page_set_title (AdwPreferencesPage *self,
                                             const char         *title);
 
 ADW_AVAILABLE_IN_ALL
+const char *adw_preferences_page_get_name (AdwPreferencesPage *self);
+ADW_AVAILABLE_IN_ALL
+void        adw_preferences_page_set_name (AdwPreferencesPage *self,
+                                           const char         *name);
+
+ADW_AVAILABLE_IN_ALL
 gboolean adw_preferences_page_get_use_underline (AdwPreferencesPage *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
