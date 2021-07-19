@@ -296,7 +296,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          "Name",
                          "The name of the child page",
                          NULL,
-                         G_PARAM_READWRITE);
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStackPage:title: (attributes org.gtk.Property.get=adw_view_stack_page_get_title org.gtk.Property.set=adw_view_stack_page_set_title)
@@ -310,7 +310,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          "Title",
                          "The title of the child page",
                          NULL,
-                         G_PARAM_READWRITE);
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStackPage:icon-name: (attributes org.gtk.Property.get=adw_view_stack_page_get_icon_name org.gtk.Property.set=adw_view_stack_page_set_icon_name)
@@ -324,7 +324,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          "Icon name",
                          "The icon name of the child page",
                          NULL,
-                         G_PARAM_READWRITE);
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStackPage:needs-attention: (attributes org.gtk.Property.get=adw_view_stack_page_get_needs_attention org.gtk.Property.set=adw_view_stack_page_set_needs_attention)
