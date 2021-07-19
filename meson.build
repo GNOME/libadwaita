@@ -1,5 +1,5 @@
 project('libadwaita', 'c',
-          version: '1.0.0-alpha.1',
+          version: '1.0.0-alpha.2',
           license: 'LGPL-2.1+',
     meson_version: '>= 0.53.0',
   default_options: [ 'warning_level=1', 'buildtype=debugoptimized', 'c_std=gnu11' ],

@@ -1,4 +1,65 @@
 =====================
+Version 1.0.0-alpha.2
+=====================
+
+- Stylesheet:
+  - Large redesign to make it flat and recolorable.
+  - Replace @theme_suggested_bg_color by @accent_bg_color and
+    @accent_color.
+  - Replace @theme_suggested_fg_color by @accent_fg_color.
+  - Add @destructive_bg_color, @destructive_fg_color and
+    @destructive_color.
+  - Add the .accent style class to give the accent color to labels.
+  - Add the palette colors in the form @hue_n, with hue being blue,
+    green, yellow, orange, red, purple, brown, light and dark, and n
+    being a darkness level from 1 to 5.
+- View Switcher:
+  - Add the AdwViewStack widget to represent views.
+  - Use AdwViewStack instead of GtkStack.
+  - Display a badge on buttons to display the pages' value from the
+    AdwViewStack:badge-number property.
+  - Keep displaying needs-attention when active.
+- Preferences Page:
+  - Add the name property.
+- Preferences Window:
+  - Add the visible-child and visible-child-name properties.
+- Leaflet and Flap:
+  - Add the AdwFoldThresholdPolicy enumeration.
+  - Add the fold-threshold-policy property to determine the size at
+     which the leaflet or flap should fold.
+- Leaflet:
+  - Fix a crash by NULL-checking a pointer before dereferencing it when
+    there is no children.
+  - Annotate the values of the visible-child and visible-child-name
+    properties as nullable in their accessors.
+- Action Row and Expander Row:
+  - Annotate the value of the icon-name property as nullable in its
+    accessors.
+- Tab View:
+  - Fix updating the model at the right time after attaching pages.
+  - Fix emitting notify::selected-page after the model has been
+    completely updated.
+  - Prevent pages from receiving pointer events during drag and drop.
+- Combo Row:
+  - Fix subtitles when the model is empty and when using expressions.
+- Carousel:
+  - Fix a crash with 2 overlapping animations.
+  - Fix a crash when scrolling when there is no children.
+- Avatar:
+  - Fix memory leaks in adw_avatar_draw_to_pixbuf().
+  - Fix a memory leak in the avatar demo.
+- Fix crashes by freeing shaders at the right time.
+- Specify the translation domain in UI files to avoid leaving them
+  unlocalized.
+- Fix cross-compilation with -Dgtk_doc=true.
+- Stop accepting NULL for most string properties, use the empty string
+  instead.
+- Translation updates:
+  - German
+  - Indonesian
+  - Chinese (China)
+
+=====================
 Version 1.0.0-alpha.1
 =====================
 
