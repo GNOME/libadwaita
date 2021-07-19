@@ -63,4 +63,16 @@ ADW_AVAILABLE_IN_ALL
 void adw_preferences_window_remove (AdwPreferencesWindow *self,
                                     AdwPreferencesPage   *page);
 
+ADW_AVAILABLE_IN_ALL
+AdwPreferencesPage *adw_preferences_window_get_visible_page (AdwPreferencesWindow *self);
+ADW_AVAILABLE_IN_ALL
+void                adw_preferences_window_set_visible_page (AdwPreferencesWindow *self,
+                                                             AdwPreferencesPage   *page);
+
+ADW_AVAILABLE_IN_ALL
+const char *adw_preferences_window_get_visible_page_name (AdwPreferencesWindow *self);
+ADW_AVAILABLE_IN_ALL
+void        adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
+                                                          const char           *name);
+
 G_END_DECLS

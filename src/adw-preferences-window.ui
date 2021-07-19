@@ -85,6 +85,8 @@
                         <child>
                           <object class="AdwViewStack" id="pages_stack">
                             <property name="vexpand">True</property>
+                            <signal name="notify::visible-child" handler="notify_visible_page_cb" swapped="yes"/>
+                            <signal name="notify::visible-child-name" handler="notify_visible_page_name_cb" swapped="yes"/>
                           </object>
                         </child>
                         <child>

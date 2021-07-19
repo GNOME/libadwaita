@@ -69,6 +69,8 @@ static GtkBuildableIface *parent_buildable_iface;
 
 enum {
   PROP_0,
+  PROP_VISIBLE_PAGE,
+  PROP_VISIBLE_PAGE_NAME,
   PROP_SEARCH_ENABLED,
   PROP_CAN_SWIPE_BACK,
   LAST_PROP,
@@ -341,6 +343,17 @@ title_stack_notify_visible_child_cb (AdwPreferencesWindow *self)
   gtk_editable_set_text (GTK_EDITABLE (priv->search_entry), "");
 }
 
+static void
+notify_visible_page_cb (AdwPreferencesWindow *self)
+{
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE]);
+}
+
+static void
+notify_visible_page_name_cb (AdwPreferencesWindow *self)
+{
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_PAGE_NAME]);
+}
 
 static void
 search_button_notify_active_cb (AdwPreferencesWindow *self)
@@ -399,6 +412,12 @@ adw_preferences_window_get_property (GObject    *object,
   AdwPreferencesWindow *self = ADW_PREFERENCES_WINDOW (object);
 
   switch (prop_id) {
+  case PROP_VISIBLE_PAGE:
+    g_value_set_object (value, adw_preferences_window_get_visible_page (self));
+    break;
+  case PROP_VISIBLE_PAGE_NAME:
+    g_value_set_string (value, adw_preferences_window_get_visible_page_name (self));
+    break;
   case PROP_SEARCH_ENABLED:
     g_value_set_boolean (value, adw_preferences_window_get_search_enabled (self));
     break;
@@ -419,6 +438,12 @@ adw_preferences_window_set_property (GObject      *object,
   AdwPreferencesWindow *self = ADW_PREFERENCES_WINDOW (object);
 
   switch (prop_id) {
+  case PROP_VISIBLE_PAGE:
+    adw_preferences_window_set_visible_page (self, g_value_get_object (value));
+    break;
+  case PROP_VISIBLE_PAGE_NAME:
+    adw_preferences_window_set_visible_page_name (self, g_value_get_string (value));
+    break;
   case PROP_SEARCH_ENABLED:
     adw_preferences_window_set_search_enabled (self, g_value_get_boolean (value));
     break;
@@ -478,6 +503,36 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   object_class->set_property = adw_preferences_window_set_property;
 
   /**
+   * AdwViewStack:visible-page: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page org.gtk.Property.set=adw_preferences_window_set_visible_page)
+   *
+   * The currently visible page.
+   *
+   * Since: 1.0
+   */
+  props[PROP_VISIBLE_PAGE] =
+      g_param_spec_object ("visible-page",
+                           "Visible page",
+                           "The currently visible page",
+                           GTK_TYPE_WIDGET,
+                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwViewStack:visible-page-name: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page_name org.gtk.Poperty.set=adw_preferences_window_set_visible_page_name)
+   *
+   * The name of the currently visible page.
+   *
+   * See [property@Adw.ViewStack:visible-child].
+   *
+   * Since: 1.0
+   */
+  props[PROP_VISIBLE_PAGE_NAME] =
+      g_param_spec_string ("visible-child-name",
+                           "Name of visible child",
+                           "The name of the currently visible page",
+                           NULL,
+                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
    * AdwPreferencesWindow:search-enabled: (attributes org.gtk.Property.get=adw_preferences_window_get_search_enabled org.gtk.Property.set=adw_preferences_window_set_search_enabled)
    *
    * Whether search is enabled.
@@ -527,6 +582,8 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, subpages_leaflet_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_transition_running_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_visible_child_cb);
+  gtk_widget_class_bind_template_callback (widget_class, notify_visible_page_cb);
+  gtk_widget_class_bind_template_callback (widget_class, notify_visible_page_name_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_button_notify_active_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_started_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_changed_cb);
@@ -799,11 +856,12 @@ adw_preferences_window_add (AdwPreferencesWindow *self,
 
   priv = adw_preferences_window_get_instance_private (self);
 
-  stack_page = adw_view_stack_add (priv->pages_stack, GTK_WIDGET (page));
+  stack_page = adw_view_stack_add_named (priv->pages_stack, GTK_WIDGET (page), adw_preferences_page_get_name (page));
 
   g_object_bind_property (page, "icon-name", stack_page, "icon-name", G_BINDING_SYNC_CREATE);
   g_object_bind_property (page, "title", stack_page, "title", G_BINDING_SYNC_CREATE);
   g_object_bind_property (page, "use-underline", stack_page, "use-underline", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (page, "name", stack_page, "name", G_BINDING_SYNC_CREATE);
 }
 
 /**
@@ -830,4 +888,93 @@ adw_preferences_window_remove (AdwPreferencesWindow *self,
     adw_view_stack_remove (priv->pages_stack, GTK_WIDGET (page));
   else
     ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, page);
+}
+
+/**
+ * adw_preferences_window_get_visible_page:
+ * @self: a `AdwPreferencesWindow`
+ *
+ * Gets the currently visible page of @self.
+ *
+ * Returns: (transfer none) (nullable): the visible page
+ *
+ * Since: 1.0
+ */
+AdwPreferencesPage *
+adw_preferences_window_get_visible_page (AdwPreferencesWindow *self)
+{
+  AdwPreferencesWindowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_WINDOW (self), NULL);
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  return ADW_PREFERENCES_PAGE (adw_view_stack_get_visible_child (priv->pages_stack));
+}
+
+/**
+ * adw_preferences_window_set_visible_page:
+ * @self: a `AdwPreferencesWindow`
+ * @page: a page of @self
+ *
+ * Makes @page the visible page of @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_window_set_visible_page (AdwPreferencesWindow *self,
+                                         AdwPreferencesPage   *page)
+{
+  AdwPreferencesWindowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (page));
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  adw_view_stack_set_visible_child (priv->pages_stack, GTK_WIDGET (page));
+}
+
+/**
+ * adw_preferences_window_get_visible_page_name:
+ * @self: a `AdwPreferencesWindow`
+ *
+ * Gets the name of currently visible page of @self.
+ *
+ * Returns: (transfer none) (nullable): the name of the visible page
+ *
+ * Since: 1.0
+ */
+const char *
+adw_preferences_window_get_visible_page_name (AdwPreferencesWindow *self)
+{
+  AdwPreferencesWindowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_WINDOW (self), NULL);
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  return adw_view_stack_get_visible_child_name (priv->pages_stack);
+}
+
+/**
+ * adw_preferences_window_set_visible_page_name:
+ * @self: a `AdwPreferencesWindow`
+ * @name: the name of the page to make visible
+ *
+ * Makes the page with the given name visible.
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
+                                              const char           *name)
+{
+  AdwPreferencesWindowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  adw_view_stack_set_visible_child_name (priv->pages_stack, name);
 }
