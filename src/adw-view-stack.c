@@ -296,7 +296,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          "Name",
                          "The name of the child page",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                         G_PARAM_READWRITE);
 
   /**
    * AdwViewStackPage:title: (attributes org.gtk.Property.get=adw_view_stack_page_get_title org.gtk.Property.set=adw_view_stack_page_set_title)
