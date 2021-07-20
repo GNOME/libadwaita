@@ -78,6 +78,16 @@ other rows.
   <img src="combo-row.png" alt="combo-row">
 </picture>
 
+## Entry Rows
+
+[class@EntryRow] is a row with an embedded entry. It can have prefix and suffix
+widgets, and an apply button.
+
+<picture>
+  <source srcset="entry-row-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="entry-row.png" alt="entry-row">
+</picture>
+
 ## Preferences Group
 
 [class@PreferencesGroup] provides a boxed list along with a title and a

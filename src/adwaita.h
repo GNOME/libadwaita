@@ -39,6 +39,7 @@ G_BEGIN_DECLS
 #include "adw-combo-row.h"
 #include "adw-deprecation-macros.h"
 #include "adw-easing.h"
+#include "adw-entry-row.h"
 #include "adw-enum-list-model.h"
 #include "adw-expander-row.h"
 #include "adw-flap.h"

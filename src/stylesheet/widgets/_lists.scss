@@ -112,6 +112,33 @@ row {
 }
 
 /***************
+ * AdwEntryRow *
+ ***************/
+
+row.entry {
+  @include focus-ring($focus-state: '.focused', $offset: -1px);
+
+  &:not(:selected).activatable.focused:hover,
+  &:not(:selected).activatable.focused:active {
+    background-color: transparent;
+  }
+
+  .edit-icon, .indicator {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 5px;
+  }
+
+  .edit-icon:disabled {
+    opacity: $strong_disabled_opacity;
+  }
+
+  .indicator {
+    opacity: $dimmer_opacity;
+  }
+}
+
+/***************
  * AdwComboRow *
  ***************/
 
