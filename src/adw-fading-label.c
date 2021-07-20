@@ -172,6 +172,16 @@ adw_fading_label_snapshot (GtkWidget   *widget,
 }
 
 static void
+adw_fading_label_unrealize (GtkWidget *widget)
+{
+  AdwFadingLabel *self = ADW_FADING_LABEL (widget);
+
+  GTK_WIDGET_CLASS (adw_fading_label_parent_class)->unrealize (widget);
+
+  g_clear_object (&self->shader);
+}
+
+static void
 adw_fading_label_get_property (GObject    *object,
                                guint       prop_id,
                                GValue     *value,
@@ -220,7 +230,6 @@ adw_fading_label_dispose (GObject *object)
 {
   AdwFadingLabel *self = ADW_FADING_LABEL (object);
 
-  g_clear_object (&self->shader);
   g_clear_pointer (&self->label, gtk_widget_unparent);
 
   G_OBJECT_CLASS (adw_fading_label_parent_class)->dispose (object);
@@ -239,6 +248,7 @@ adw_fading_label_class_init (AdwFadingLabelClass *klass)
   widget_class->measure = adw_fading_label_measure;
   widget_class->size_allocate = adw_fading_label_size_allocate;
   widget_class->snapshot = adw_fading_label_snapshot;
+  widget_class->unrealize = adw_fading_label_unrealize;
 
   props[PROP_LABEL] =
     g_param_spec_string ("label",
