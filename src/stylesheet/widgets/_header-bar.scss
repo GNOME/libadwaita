@@ -129,8 +129,25 @@ windowtitle {
 
 // Development versions of apps to use a differently styled headerbar
 
+@mixin devel-stripes($_fadeto) {
+  background:
+      linear-gradient(to bottom, transparent, $_fadeto),
+      repeating-linear-gradient(
+        45deg,
+        transparentize($fg_color, .955),
+        transparentize($fg_color, .955) 10px,
+        transparent 10px,
+        transparent 20px
+      );
+}
+
 window.devel {
   headerbar > windowhandle {
-    background: cross-fade(8% -gtk-icontheme("system-run-symbolic"), image(transparent)) 90% 0/256px 256px no-repeat;
+    @include devel-stripes($headerbar_bg_color);
+
+    &:backdrop { background: image(transparent); }
+  }
+  headerbar.flat > windowhandle {
+    @include devel-stripes($bg_color);
   }
 }
