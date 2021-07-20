@@ -492,6 +492,9 @@ scroll_cb (AdwCarousel              *self,
   if (!adw_carousel_get_interactive (self))
     return GDK_EVENT_PROPAGATE;
 
+  if (adw_carousel_get_n_pages (self) == 0)
+    return GDK_EVENT_PROPAGATE;
+
   source_device = gtk_event_controller_get_current_event_device (GTK_EVENT_CONTROLLER (controller));
   input_source = gdk_device_get_source (source_device);
   if (input_source == GDK_SOURCE_TOUCHPAD)
