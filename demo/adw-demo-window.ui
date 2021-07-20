@@ -138,7 +138,9 @@
                           <object class="GtkStackPage">
                             <property name="title" translatable="yes">Lists</property>
                             <property name="child">
-                              <object class="AdwDemoPageLists"/>
+                              <object class="AdwDemoPageLists">
+                                <signal name="add-toast" handler="adw_toast_overlay_add_toast" object="toast_overlay" swapped="yes"/>
+                              </object>
                             </property>
                           </object>
                         </child>

@@ -68,6 +68,47 @@
                 </child>
                 <child>
                   <object class="AdwPreferencesGroup">
+                    <property name="title" translatable="yes">Entry Rows</property>
+                    <child>
+                      <object class="AdwEntryRow">
+                        <property name="title" translatable="yes">Entry Row</property>
+                        <property name="use_underline">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwPreferencesGroup">
+                    <child>
+                      <object class="AdwEntryRow">
+                        <property name="title" translatable="yes">Entry With Confirmation</property>
+                        <property name="show-apply-button">True</property>
+                        <signal name="apply" handler="entry_apply_cb" swapped="yes"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwEntryRow">
+                        <property name="title" translatable="yes">Entry With Suffix</property>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="valign">center</property>
+                            <property name="icon_name">edit-copy-symbolic</property>
+                            <style>
+                              <class name="flat"/>
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwPasswordEntryRow">
+                        <property name="title" translatable="yes">Password Entry</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwPreferencesGroup">
                     <property name="title" translatable="yes">Combo Rows</property>
                     <child>
                       <object class="AdwComboRow" id="combo_row">
