@@ -617,6 +617,16 @@ adw_tab_direction_changed (GtkWidget        *widget,
 }
 
 static void
+adw_tab_unrealize (GtkWidget *widget)
+{
+  AdwTab *self = ADW_TAB (widget);
+
+  GTK_WIDGET_CLASS (adw_tab_parent_class)->unrealize (widget);
+
+  g_clear_object (&self->shader);
+}
+
+static void
 adw_tab_constructed (GObject *object)
 {
   AdwTab *self = ADW_TAB (object);
@@ -745,6 +755,7 @@ adw_tab_class_init (AdwTabClass *klass)
   widget_class->unmap = adw_tab_unmap;
   widget_class->snapshot = adw_tab_snapshot;
   widget_class->direction_changed = adw_tab_direction_changed;
+  widget_class->unrealize = adw_tab_unrealize;
 
   props[PROP_VIEW] =
     g_param_spec_object ("view",
