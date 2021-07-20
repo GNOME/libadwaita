@@ -270,8 +270,12 @@ file_chooser_response_cb (AdwDemoWindow  *self,
                                  adw_avatar_get_size (self->avatar),
                                  gtk_widget_get_scale_factor (GTK_WIDGET (self)));
 
-    if (pixbuf != NULL)
-      gdk_pixbuf_save (pixbuf, g_file_get_path (file), "png", NULL, NULL);
+    if (pixbuf != NULL) {
+      g_autofree char *path = NULL;
+
+      path = g_file_get_path (file);
+      gdk_pixbuf_save (pixbuf, path, "png", NULL, NULL);
+    }
   }
 
   g_object_unref (chooser);
