@@ -700,6 +700,7 @@ adw_avatar_draw_to_pixbuf (AdwAvatar *self,
 {
   GtkSnapshot *snapshot;
   g_autoptr (GskRenderNode) node = NULL;
+  GdkPixbuf *avatar;
   cairo_surface_t *surface;
   cairo_t *cr;
   graphene_rect_t bounds;
@@ -727,7 +728,11 @@ adw_avatar_draw_to_pixbuf (AdwAvatar *self,
 
   gsk_render_node_draw (node, cr);
 
-  return gdk_pixbuf_get_from_surface (surface, 0, 0,
-                                      bounds.size.width,
-                                      bounds.size.height);
+  avatar = gdk_pixbuf_get_from_surface (surface, 0, 0,
+                                        bounds.size.width,
+                                        bounds.size.height);
+  cairo_surface_destroy (surface);
+  cairo_destroy (cr);
+
+  return avatar;
 }
