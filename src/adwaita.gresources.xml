@@ -3,6 +3,7 @@
   <gresource prefix="/org/gnome/Adwaita">
     <file>glsl/fade.glsl</file>
     <file>glsl/mask.glsl</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/adw-entry-apply-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/adw-expander-arrow-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/avatar-default-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-icon-missing-symbolic.svg</file>
@@ -10,6 +11,7 @@
   <gresource prefix="/org/gnome/Adwaita/ui">
     <file preprocess="xml-stripblanks">adw-action-row.ui</file>
     <file preprocess="xml-stripblanks">adw-combo-row.ui</file>
+    <file preprocess="xml-stripblanks">adw-entry-row.ui</file>
     <file preprocess="xml-stripblanks">adw-expander-row.ui</file>
     <file preprocess="xml-stripblanks">adw-inspector-page.ui</file>
     <file preprocess="xml-stripblanks">adw-preferences-group.ui</file>

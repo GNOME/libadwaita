@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="libadwaita">
+  <requires lib="gtk" version="4.0"/>
+  <template class="AdwEntryRow" parent="AdwPreferencesRow">
+    <accessibility>
+      <relation name="labelled-by">title</relation>
+    </accessibility>
+    <property name="activatable">True</property>
+    <child>
+      <object class="GtkGestureClick">
+        <signal name="pressed" handler="pressed_cb"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox" id="header">
+        <property name="valign">center</property>
+        <style>
+          <class name="header"/>
+        </style>
+        <child>
+          <object class="GtkBox" id="prefixes">
+            <property name="visible">False</property>
+            <style>
+              <class name="prefixes"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="AdwGizmo" id="editable_area">
+            <property name="hexpand">True</property>
+            <property name="overflow">hidden</property>
+            <child>
+              <object class="GtkLabel" id="empty_title">
+                <property name="ellipsize">end</property>
+                <property name="halign">start</property>
+                <property name="lines">0</property>
+                <property name="xalign">0</property>
+                <property name="label" bind-source="AdwEntryRow" bind-property="title" bind-flags="sync-create"/>
+                <property name="mnemonic-widget">AdwEntryRow</property>
+                <property name="use-underline" bind-source="AdwEntryRow" bind-property="use-underline" bind-flags="sync-create"/>
+                <property name="can-target">False</property>
+                <style>
+                  <class name="title"/>
+                  <class name="dim-label"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="title">
+                <property name="ellipsize">end</property>
+                <property name="halign">start</property>
+                <property name="xalign">0</property>
+                <property name="opacity">0</property>
+                <property name="label" bind-source="AdwEntryRow" bind-property="title" bind-flags="sync-create"/>
+                <property name="mnemonic-widget">AdwEntryRow</property>
+                <property name="use-underline" bind-source="AdwEntryRow" bind-property="use-underline" bind-flags="sync-create"/>
+                <property name="can-target">False</property>
+                <style>
+                  <class name="subtitle"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkText" id="text">
+                <property name="enable-undo">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="max-length">0</property>
+                <property name="opacity">0</property>
+                <signal name="activate" handler="text_activated_cb" swapped="yes"/>
+                <signal name="state-flags-changed" handler="text_state_flags_changed_cb" swapped="yes"/>
+                <signal name="keynav-failed" handler="text_keynav_failed_cb" swapped="yes"/>
+                <signal name="changed" handler="text_changed_cb" swapped="yes"/>
+                <signal name="notify::editable" handler="update_empty" swapped="yes"/>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkImage" id="indicator">
+            <property name="visible">False</property>
+            <property name="valign">center</property>
+            <style>
+              <class name="indicator"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="apply_button">
+            <property name="visible">False</property>
+            <property name="valign">center</property>
+            <property name="icon-name">adw-entry-apply-symbolic</property>
+            <property name="tooltip-text" translatable="yes">Apply</property>
+            <property name="focus-on-click">False</property>
+            <signal name="clicked" handler="apply_button_clicked_cb" swapped="yes"/>
+             <style>
+              <class name="suggested-action"/>
+              <class name="circular"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkImage" id="edit_icon">
+            <property name="valign">center</property>
+            <property name="can-target">False</property>
+            <property name="icon-name">document-edit-symbolic</property>
+            <style>
+              <class name="edit-icon"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox" id="suffixes">
+            <property name="visible">False</property>
+            <style>
+              <class name="suffixes"/>
+            </style>
+          </object>
+        </child>
+     </object>
+    </child>
+    <style>
+      <class name="entry"/>
+    </style>
+  </template>
+</interface>

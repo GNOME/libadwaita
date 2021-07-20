@@ -122,6 +122,8 @@ content_images = [
   "images/devel-window-dark.png",
   "images/dim-label.png",
   "images/dim-label-dark.png",
+  "images/entry-row.png",
+  "images/entry-row-dark.png",
   "images/expander-row.png",
   "images/expander-row-dark.png",
   "images/flap-narrow.png",

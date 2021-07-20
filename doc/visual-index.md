@@ -49,6 +49,13 @@ Slug: visual-index
   <img src="expander-row.png" alt="expander-row">
 </picture>](class.ExpanderRow.html)
 
+### Entry Row
+
+[<picture>
+  <source srcset="entry-row-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="entry-row.png" alt="entry-row">
+</picture>](class.EntryRow.html)
+
 ## Preferences
 
 ### Preferences Group
