@@ -193,6 +193,16 @@ adw_indicator_bin_snapshot (GtkWidget   *widget,
 }
 
 static void
+adw_indicator_bin_unrealize (GtkWidget *widget)
+{
+  AdwIndicatorBin *self = ADW_INDICATOR_BIN (widget);
+
+  GTK_WIDGET_CLASS (adw_indicator_bin_parent_class)->unrealize (widget);
+
+  g_clear_object (&self->shader);
+}
+
+static void
 adw_indicator_bin_get_property (GObject    *object,
                                 guint       prop_id,
                                 GValue     *value,
@@ -249,7 +259,6 @@ adw_indicator_bin_dispose (GObject *object)
 {
   AdwIndicatorBin *self = ADW_INDICATOR_BIN (object);
 
-  g_clear_object (&self->shader);
   g_clear_pointer (&self->child, gtk_widget_unparent);
   g_clear_pointer (&self->mask, gtk_widget_unparent);
   g_clear_pointer (&self->indicator, gtk_widget_unparent);
@@ -270,6 +279,7 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
   widget_class->measure = adw_indicator_bin_measure;
   widget_class->size_allocate = adw_indicator_bin_size_allocate;
   widget_class->snapshot = adw_indicator_bin_snapshot;
+  widget_class->unrealize = adw_indicator_bin_unrealize;
 
   /**
    * AdwIndicatorBin:child:
