@@ -1156,6 +1156,73 @@ test_adw_tab_page_needs_attention (void)
   g_assert_cmpint (notified, ==, 2);
 }
 
+static void
+test_adw_tab_view_pages_to_list_view_setup (GtkSignalListItemFactory *factory,
+                                            GtkListItem              *list_item,
+                                            gpointer                  unused)
+{
+  gtk_list_item_set_child (list_item, gtk_label_new (NULL));
+}
+
+
+static void
+test_adw_tab_view_pages_to_list_view_bind (GtkSignalListItemFactory *factory,
+                                           GtkListItem              *list_item,
+                                           gpointer                  unused)
+{
+  AdwTabPage *item = gtk_list_item_get_item (list_item);
+  GtkWidget *row = gtk_list_item_get_child (list_item);
+  GBinding *binding;
+
+  g_assert (GTK_IS_LABEL (item));
+  g_assert (GTK_IS_LABEL (row));
+
+  binding = g_object_bind_property (item, "label", row, "label", G_BINDING_SYNC_CREATE);
+  g_object_set_data (G_OBJECT (list_item), "BINDING", binding);
+}
+
+static void
+test_adw_tab_view_pages_to_list_view_unbind (GtkSignalListItemFactory *factory,
+                                             GtkListItem              *list_item,
+                                             gpointer                  unused)
+{
+  GBinding *binding = g_object_get_data (G_OBJECT (list_item), "BINDING");
+  g_binding_unbind (binding);
+}
+
+static void
+test_adw_tab_view_pages_to_list_view (void)
+{
+  g_autoptr (AdwTabView) view = NULL;
+  g_autoptr (GtkSelectionModel) pages = NULL;
+  g_autoptr (GtkListView) list_view = NULL;
+  GtkListItemFactory *factory;
+  GtkLabel *label;
+
+  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  g_assert_nonnull (view);
+
+  list_view = g_object_ref_sink (GTK_LIST_VIEW (gtk_list_view_new (NULL, NULL)));
+  g_assert_nonnull (list_view);
+
+  pages = adw_tab_view_get_pages (view);
+  g_assert_nonnull (pages);
+  g_assert_true (GTK_IS_SELECTION_MODEL (pages));
+
+  factory = gtk_signal_list_item_factory_new ();
+  g_signal_connect (factory, "setup", G_CALLBACK (test_adw_tab_view_pages_to_list_view_setup), NULL);
+  g_signal_connect (factory, "bind", G_CALLBACK (test_adw_tab_view_pages_to_list_view_bind), NULL);
+  g_signal_connect (factory, "unbind", G_CALLBACK (test_adw_tab_view_pages_to_list_view_unbind), NULL);
+
+  gtk_list_view_set_factory (list_view, GTK_LIST_ITEM_FACTORY (factory));
+  gtk_list_view_set_model (list_view, pages);
+
+  label = GTK_LABEL (gtk_label_new ("test label"));
+  adw_tab_view_append (view, GTK_WIDGET (label));
+
+  g_clear_object (&factory);
+}
+
 int
 main (int   argc,
       char *argv[])
@@ -1183,6 +1250,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/TabView/close_select", test_adw_tab_view_close_select);
   g_test_add_func ("/Adwaita/TabView/transfer", test_adw_tab_view_transfer);
   g_test_add_func ("/Adwaita/TabView/pages", test_adw_tab_view_pages);
+  g_test_add_func ("/Adwaita/TabView/pages_to_list_view", test_adw_tab_view_pages_to_list_view);
   g_test_add_func ("/Adwaita/TabPage/title", test_adw_tab_page_title);
   g_test_add_func ("/Adwaita/TabPage/tooltip", test_adw_tab_page_tooltip);
   g_test_add_func ("/Adwaita/TabPage/icon", test_adw_tab_page_icon);
