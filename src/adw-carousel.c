@@ -329,11 +329,10 @@ animate_child_resize (AdwCarousel *self,
                        (AdwAnimationTargetFunc) resize_animation_value_cb,
                        child);
 
-  g_object_set (child->resize_animation,
-                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
-                NULL);
+  adw_animation_set_interpolator (child->resize_animation,
+                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
 
-  g_signal_connect_swapped(child->resize_animation, "done", G_CALLBACK (resize_animation_done_cb), child);
+  g_signal_connect_swapped (child->resize_animation, "done", G_CALLBACK (resize_animation_done_cb), child);
 
   adw_animation_start (child->resize_animation);
 }
@@ -391,11 +390,10 @@ scroll_to (AdwCarousel *self,
                        (AdwAnimationTargetFunc) scroll_animation_value_cb,
                        self);
 
-  g_object_set (self->animation,
-                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
-                NULL);
+  adw_animation_set_interpolator (self->animation,
+                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
 
-  g_signal_connect_swapped(self->animation, "done", G_CALLBACK (scroll_animation_done_cb), self);
+  g_signal_connect_swapped (self->animation, "done", G_CALLBACK (scroll_animation_done_cb), self);
 
   adw_animation_start (self->animation);
 }

@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2019-2020 Purism SPC
+ * Copyright (C) 2021 Manuel Genovés <manuel.genoves@gmail.com>
  *
  * SPDX-License-Identifier: LGPL-2.1+
  */
@@ -85,7 +86,7 @@ adw_get_enable_animations (GtkWidget *widget)
 {
   gboolean enable_animations = TRUE;
 
-  g_assert (GTK_IS_WIDGET (widget));
+  g_return_val_if_fail (GTK_IS_WIDGET (widget), NULL);
 
   g_object_get (gtk_widget_get_settings (widget),
                 "gtk-enable-animations", &enable_animations,

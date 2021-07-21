@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2019-2020 Purism SPC
+ * Copyright (C) 2021 Manuel Genovés <manuel.genoves@gmail.com>
  *
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
@@ -260,7 +261,6 @@ adw_animation_init (AdwAnimation *self)
 {
 }
 
-
 static void
 done (AdwAnimation *self)
 {
@@ -270,6 +270,8 @@ done (AdwAnimation *self)
     return;
 
   priv->status = ADW_ANIMATION_STATUS_COMPLETED;
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATUS]);
+
   g_signal_emit (self, signals[SIGNAL_DONE], 0);
 }
 
@@ -326,22 +328,19 @@ adw_animation_new (GtkWidget                 *widget,
                    AdwAnimationTargetFunc     target_func,
                    gpointer                   user_data)
 {
-  AdwAnimation *self;
   AdwAnimationTarget *target;
 
   g_return_val_if_fail (GTK_IS_WIDGET (widget), NULL);
   g_return_val_if_fail (target_func != NULL, NULL);
 
   target = adw_animation_target_new(target_func, user_data);
-  self = g_object_new (ADW_TYPE_ANIMATION,
+  return g_object_new (ADW_TYPE_ANIMATION,
                        "widget", widget,
                        "value-from", from,
                        "value-to", to,
                        "duration", duration,
                        "target", target,
                        NULL);
-
-  return self;
 }
 
 
@@ -448,7 +447,7 @@ adw_animation_get_interpolator (AdwAnimation *self)
 {
   AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
 
-  g_return_val_if_fail (ADW_IS_ANIMATION (self), 0);
+  g_return_val_if_fail (ADW_IS_ANIMATION (self), ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
 
   return priv->interpolator;
 }
@@ -466,9 +465,11 @@ adw_animation_get_target (AdwAnimation *self)
 AdwAnimationStatus
 adw_animation_get_status (AdwAnimation *self)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
-  g_return_val_if_fail (ADW_IS_ANIMATION (self), 0);
+  g_return_val_if_fail (ADW_IS_ANIMATION (self), ADW_ANIMATION_STATUS_NONE);
+
+  priv = adw_animation_get_instance_private (self);
 
   return priv->status;
 }
@@ -485,6 +486,8 @@ adw_animation_set_value_from (AdwAnimation *self,
     return;
 
   priv->value_from = value;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE_FROM]);
 }
 
 void
@@ -499,6 +502,8 @@ adw_animation_set_value_to (AdwAnimation *self,
     return;
 
   priv->value_to = value;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE_TO]);
 }
 
 void
@@ -513,6 +518,8 @@ adw_animation_set_duration (AdwAnimation *self,
     return;
 
   priv->duration = duration;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DURATION]);
 }
 
 void
@@ -528,6 +535,8 @@ adw_animation_set_interpolator (AdwAnimation             *self,
     return;
 
   priv->interpolator = interpolator;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INTERPOLATOR]);
 }
 
 void
@@ -543,6 +552,8 @@ adw_animation_set_status (AdwAnimation       *self,
     return;
 
   priv->status = status;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATUS]);
 }
 
 struct _AdwAnimationTarget

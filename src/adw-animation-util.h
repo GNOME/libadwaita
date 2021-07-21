@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2019 Purism SPC
+ * Copyright (C) 2021 Manuel Genovés <manuel.genoves@gmail.com>
  *
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */

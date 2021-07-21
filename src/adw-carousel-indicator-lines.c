@@ -89,11 +89,10 @@ animate (AdwCarouselIndicatorLines *self,
                        (AdwAnimationTargetFunc) value_cb,
                        self);
 
-  g_object_set (self->animation,
-                "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
-                NULL);
+  adw_animation_set_interpolator (self->animation,
+                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
 
-  g_signal_connect_swapped(self->animation, "done", G_CALLBACK (done_cb), self);
+  g_signal_connect_swapped (self->animation, "done", G_CALLBACK (done_cb), self);
 
   adw_animation_start (self->animation);
 }

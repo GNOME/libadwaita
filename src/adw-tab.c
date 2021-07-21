@@ -139,11 +139,10 @@ update_state (AdwTab *self)
                          (AdwAnimationTargetFunc) close_btn_animation_value_cb,
                          self);
 
-    g_object_set (self->close_btn_animation,
-                  "interpolator", ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT,
-                  NULL);
+    adw_animation_set_interpolator (self->close_btn_animation,
+                                    ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT);
 
-    g_signal_connect_swapped(self->close_btn_animation, "done", G_CALLBACK (close_btn_animation_done_cb), self);
+    g_signal_connect_swapped (self->close_btn_animation, "done", G_CALLBACK (close_btn_animation_done_cb), self);
 
     adw_animation_start (self->close_btn_animation);
   }
