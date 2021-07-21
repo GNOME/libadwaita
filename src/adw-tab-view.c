@@ -931,11 +931,15 @@ insert_page (AdwTabView *self,
 
   attach_page (self, page, position);
 
+  g_object_freeze_notify (G_OBJECT (self));
+
   if (!self->selected_page)
-    adw_tab_view_set_selected_page (self, page);
+    set_selected_page (self, page, FALSE);
 
   if (self->pages)
     g_list_model_items_changed (G_LIST_MODEL (self->pages), position, 0, 1);
+
+  g_object_thaw_notify (G_OBJECT (self));
 
   return page;
 }
