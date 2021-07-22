@@ -42,6 +42,9 @@
  * Since: 1.0
  */
 
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (cairo_t, cairo_destroy);
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (cairo_surface_t, cairo_surface_destroy);
+
 struct _AdwAvatar
 {
   GtkWidget parent_instance;
@@ -700,9 +703,8 @@ adw_avatar_draw_to_pixbuf (AdwAvatar *self,
 {
   GtkSnapshot *snapshot;
   g_autoptr (GskRenderNode) node = NULL;
-  GdkPixbuf *avatar;
-  cairo_surface_t *surface;
-  cairo_t *cr;
+  g_autoptr (cairo_surface_t) surface = NULL;
+  g_autoptr (cairo_t) cr = NULL;
   graphene_rect_t bounds;
 
   g_return_val_if_fail (ADW_IS_AVATAR (self), NULL);
@@ -728,11 +730,7 @@ adw_avatar_draw_to_pixbuf (AdwAvatar *self,
 
   gsk_render_node_draw (node, cr);
 
-  avatar = gdk_pixbuf_get_from_surface (surface, 0, 0,
-                                        bounds.size.width,
-                                        bounds.size.height);
-  cairo_surface_destroy (surface);
-  cairo_destroy (cr);
-
-  return avatar;
+  return gdk_pixbuf_get_from_surface (surface, 0, 0,
+                                      bounds.size.width,
+                                      bounds.size.height);
 }
