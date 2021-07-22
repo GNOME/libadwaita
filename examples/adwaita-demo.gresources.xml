@@ -28,10 +28,8 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-flap-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-leaflet-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-list-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-search-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-tab-view-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-view-switcher-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-window-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/dark-mode-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/light-mode-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-playing-symbolic.svg</file>
