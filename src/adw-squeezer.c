@@ -1465,7 +1465,7 @@ adw_squeezer_get_homogeneous (AdwSqueezer *self)
  * @self: a `AdwSqueezer`
  * @homogeneous: whether @self is homogeneous
  *
- * Sets hether all children have the same size for the opposite orientation.
+ * Sets whether all children have the same size for the opposite orientation.
  *
  * Since: 1.0
  */
