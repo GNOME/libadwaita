@@ -62,6 +62,12 @@ void     adw_squeezer_set_homogeneous (AdwSqueezer *self,
                                        gboolean     homogeneous);
 
 ADW_AVAILABLE_IN_ALL
+gboolean adw_squeezer_get_allow_none (AdwSqueezer *self);
+ADW_AVAILABLE_IN_ALL
+void     adw_squeezer_set_allow_none (AdwSqueezer *self,
+                                      gboolean     allow_none);
+
+ADW_AVAILABLE_IN_ALL
 guint adw_squeezer_get_transition_duration (AdwSqueezer *self);
 ADW_AVAILABLE_IN_ALL
 void  adw_squeezer_set_transition_duration (AdwSqueezer *self,

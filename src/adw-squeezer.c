@@ -86,6 +86,8 @@ struct _AdwSqueezer
 
   gboolean homogeneous;
 
+  gboolean allow_none;
+
   AdwSqueezerTransitionType transition_type;
   guint transition_duration;
 
@@ -113,6 +115,7 @@ enum  {
   PROP_0,
   PROP_HOMOGENEOUS,
   PROP_VISIBLE_CHILD,
+  PROP_ALLOW_NONE,
   PROP_TRANSITION_DURATION,
   PROP_TRANSITION_TYPE,
   PROP_TRANSITION_RUNNING,
@@ -448,7 +451,7 @@ adw_squeezer_start_transition (AdwSqueezer               *self,
       adw_get_enable_animations (widget) &&
       transition_type != ADW_SQUEEZER_TRANSITION_TYPE_NONE &&
       transition_duration != 0 &&
-      self->last_visible_child != NULL) {
+      (self->last_visible_child != NULL || self->allow_none)) {
     self->active_transition_type = transition_type;
     self->first_frame_skipped = FALSE;
     adw_squeezer_schedule_ticks (self);
@@ -485,7 +488,7 @@ set_visible_child (AdwSqueezer               *self,
     return;
 
   /* If none, pick the first visible. */
-  if (!page) {
+  if (!page && !self->allow_none) {
     GList *l;
 
     for (l = self->children; l; l = l->next) {
@@ -500,7 +503,7 @@ set_visible_child (AdwSqueezer               *self,
   if (page == self->visible_child)
     return;
 
-  if (self->pages) {
+  if (page != NULL && self->pages) {
     guint position;
     GList *l;
 
@@ -698,6 +701,9 @@ adw_squeezer_get_property (GObject    *object,
   case PROP_VISIBLE_CHILD:
     g_value_set_object (value, adw_squeezer_get_visible_child (self));
     break;
+  case PROP_ALLOW_NONE:
+    g_value_set_boolean (value, adw_squeezer_get_allow_none (self));
+    break;
   case PROP_TRANSITION_DURATION:
     g_value_set_uint (value, adw_squeezer_get_transition_duration (self));
     break;
@@ -739,6 +745,9 @@ adw_squeezer_set_property (GObject      *object,
   switch (property_id) {
   case PROP_HOMOGENEOUS:
     adw_squeezer_set_homogeneous (self, g_value_get_boolean (value));
+    break;
+  case PROP_ALLOW_NONE:
+    adw_squeezer_set_allow_none (self, g_value_get_boolean (value));
     break;
   case PROP_TRANSITION_DURATION:
     adw_squeezer_set_transition_duration (self, g_value_get_uint (value));
@@ -827,9 +836,10 @@ adw_squeezer_snapshot_crossfade (GtkWidget   *widget,
 
   gtk_snapshot_pop (snapshot);
 
-  gtk_widget_snapshot_child (widget,
-                             self->visible_child->widget,
-                             snapshot);
+  if (self->visible_child)
+    gtk_widget_snapshot_child (widget,
+                               self->visible_child->widget,
+                               snapshot);
   gtk_snapshot_pop (snapshot);
 }
 
@@ -840,7 +850,7 @@ adw_squeezer_snapshot (GtkWidget   *widget,
 {
   AdwSqueezer *self = ADW_SQUEEZER (widget);
 
-  if (self->visible_child) {
+  if (self->visible_child || self->allow_none) {
     if (gtk_progress_tracker_get_state (&self->tracker) != GTK_PROGRESS_STATE_AFTER) {
       gtk_snapshot_push_clip (snapshot,
                               &GRAPHENE_RECT_INIT(
@@ -860,10 +870,11 @@ adw_squeezer_snapshot (GtkWidget   *widget,
         }
 
       gtk_snapshot_pop (snapshot);
-    } else
+    } else if (self->visible_child) {
       gtk_widget_snapshot_child (widget,
                                  self->visible_child->widget,
                                  snapshot);
+    }
   }
 }
 
@@ -912,6 +923,9 @@ adw_squeezer_size_allocate (GtkWidget *widget,
         break;
     }
   }
+
+  if (l == NULL && self->allow_none)
+    page = NULL;
 
   set_visible_child (self, page,
                      self->transition_type,
@@ -1003,17 +1017,21 @@ adw_squeezer_measure (GtkWidget      *widget,
     gtk_widget_measure (child, orientation, for_size,
                         &child_min, &child_nat, NULL, NULL);
 
-    if (self->orientation == orientation)
-      min = min == 0 ? child_min : MIN (min, child_min);
-    else
+    if (self->orientation == orientation) {
+      if (self->allow_none)
+        min = 0;
+      else
+        min = min == 0 ? child_min : MIN (min, child_min);
+    } else {
       min = MAX (min, child_min);
+    }
 
     nat = MAX (nat, child_nat);
   }
 
   if (self->orientation != orientation && !self->homogeneous &&
       self->interpolate_size &&
-      self->last_visible_child != NULL) {
+      (self->last_visible_child != NULL || self->allow_none)) {
     double t = gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE);
 
     if (orientation == GTK_ORIENTATION_VERTICAL) {
@@ -1116,6 +1134,24 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                          "The currently visible child",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwSqueezer:allow-none: (attributes org.gtk.Property.get=adw_squeezer_get_allow_none org.gtk.Property.set=adw_squeezer_set_allow_none)
+   *
+   * Whether to allow squeezing beyond the last child's minimum size.
+   *
+   * If set to `TRUE`, the squeezer can shrink to the point where no child can
+   * be shown. This is functionally equivalent to appending a widget with 0x0
+   * minimum size.
+   *
+   * Since: 1.0
+   */
+  props[PROP_ALLOW_NONE] =
+    g_param_spec_boolean ("allow-none",
+                          "Allow none",
+                          "Whether to allow squeezing beyond the last child's minimum size",
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSqueezer:transition-duration: (attributes org.gtk.Property.get=adw_squeezer_get_transition_duration org.gtk.Property.set=adw_squeezer_set_transition_duration)
@@ -1486,6 +1522,51 @@ adw_squeezer_set_homogeneous (AdwSqueezer *self,
     gtk_widget_queue_resize (GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HOMOGENEOUS]);
+}
+
+/**
+ * adw_squeezer_get_allow_none: (attributes org.gtk.Method.get_property=allow-none)
+ * @self: a `AdwSqueezer`
+ *
+ * Gets whether to allow squeezing beyond the last child's minimum size.
+ *
+ * Returns: whether @self allows squeezing beyond the last child
+ *
+ * Since: 1.0
+ */
+gboolean
+adw_squeezer_get_allow_none (AdwSqueezer *self)
+{
+  g_return_val_if_fail (ADW_IS_SQUEEZER (self), FALSE);
+
+  return self->allow_none;
+}
+
+/**
+ * adw_squeezer_set_allow_none: (attributes org.gtk.Method.set_property=allow-none)
+ * @self: a `AdwSqueezer`
+ * @allow_none: whether @self allows squeezing beyond the last child
+ *
+ * Sets whether to allow squeezing beyond the last child's minimum size.
+ *
+ * Since: 1.0
+ */
+void
+adw_squeezer_set_allow_none (AdwSqueezer *self,
+                             gboolean     allow_none)
+{
+  g_return_if_fail (ADW_IS_SQUEEZER (self));
+
+  allow_none = !!allow_none;
+
+  if (self->allow_none == allow_none)
+    return;
+
+  self->allow_none = allow_none;
+
+  gtk_widget_queue_resize (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALLOW_NONE]);
 }
 
 /**

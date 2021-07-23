@@ -26,6 +26,24 @@ test_adw_squeezer_homogeneous (void)
 
 
 static void
+test_adw_squeezer_allow_none (void)
+{
+  g_autoptr (AdwSqueezer) squeezer = NULL;
+
+  squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
+  g_assert_nonnull (squeezer);
+
+  g_assert_true (adw_squeezer_get_allow_none (squeezer));
+
+  adw_squeezer_set_allow_none (squeezer, FALSE);
+  g_assert_false (adw_squeezer_get_allow_none (squeezer));
+
+  adw_squeezer_set_allow_none (squeezer, TRUE);
+  g_assert_true (adw_squeezer_get_allow_none (squeezer));
+}
+
+
+static void
 test_adw_squeezer_transition_duration (void)
 {
   g_autoptr (AdwSqueezer) squeezer = NULL;
@@ -147,6 +165,7 @@ main (int   argc,
   adw_init ();
 
   g_test_add_func("/Adwaita/ViewSwitcher/homogeneous", test_adw_squeezer_homogeneous);
+  g_test_add_func("/Adwaita/ViewSwitcher/allow_none", test_adw_squeezer_allow_none);
   g_test_add_func("/Adwaita/ViewSwitcher/transition_duration", test_adw_squeezer_transition_duration);
   g_test_add_func("/Adwaita/ViewSwitcher/transition_type", test_adw_squeezer_transition_type);
   g_test_add_func("/Adwaita/ViewSwitcher/transition_running", test_adw_squeezer_transition_running);
