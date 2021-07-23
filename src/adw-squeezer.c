@@ -875,12 +875,12 @@ adw_squeezer_size_allocate (GtkWidget *widget,
 {
   AdwSqueezer *self = ADW_SQUEEZER (widget);
   AdwSqueezerPage *page = NULL;
-  GtkWidget *child = NULL;
-  int child_min;
   GList *l;
   GtkAllocation child_allocation;
 
   for (l = self->children; l; l = l->next) {
+    GtkWidget *child = NULL;
+    int child_min;
     int for_size = -1;
 
     page = l->data;
