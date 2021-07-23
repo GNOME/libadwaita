@@ -9,7 +9,6 @@
         <property name="valign">center</property>
         <child>
           <object class="GtkLabel" id="title_label">
-            <property name="ellipsize">end</property>
             <property name="halign">center</property>
             <property name="wrap">False</property>
             <property name="single-line-mode">True</property>
