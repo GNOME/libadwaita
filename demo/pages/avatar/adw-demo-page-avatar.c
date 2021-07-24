@@ -7,7 +7,7 @@ struct _AdwDemoPageAvatar
   AdwBin parent_instance;
 
   AdwAvatar *avatar;
-  GtkEntry *text;
+  AdwEntryRow *text;
   GtkLabel *file_chooser_label;
   GtkListBox *contacts;
 };
