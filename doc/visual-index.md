@@ -56,6 +56,13 @@ Slug: visual-index
   <img src="entry-row.png" alt="entry-row">
 </picture>](class.EntryRow.html)
 
+### Password Entry Row
+
+[<picture>
+  <source srcset="password-entry-row-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="password-entry-row.png" alt="password-entry-row">
+</picture>](class.PasswordEntryRow.html)
+
 ## Preferences
 
 ### Preferences Group

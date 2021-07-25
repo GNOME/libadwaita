@@ -40,6 +40,7 @@ test_names = [
   'test-flap',
   'test-header-bar',
   'test-leaflet',
+  'test-password-entry-row',
   'test-preferences-group',
   'test-preferences-page',
   'test-preferences-row',

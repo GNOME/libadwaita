@@ -48,6 +48,7 @@ G_BEGIN_DECLS
 #include "adw-leaflet.h"
 #include "adw-main.h"
 #include "adw-navigation-direction.h"
+#include "adw-password-entry-row.h"
 #include "adw-preferences-group.h"
 #include "adw-preferences-page.h"
 #include "adw-preferences-row.h"

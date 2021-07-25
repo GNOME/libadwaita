@@ -154,6 +154,8 @@ content_images = [
   "images/osd-progress-bar-dark.png",
   "images/osd-toolbar.png",
   "images/osd-toolbar-dark.png",
+  "images/password-entry-row.png",
+  "images/password-entry-row-dark.png",
   "images/popover-menu-list.png",
   "images/popover-menu-list-dark.png",
   "images/preferences-group.png",
