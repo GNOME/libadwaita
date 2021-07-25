@@ -8,7 +8,6 @@
 
 #include "adw-carousel.h"
 
-#include "adw-animation-util.h"
 #include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
 #include "adw-navigation-direction.h"
@@ -329,9 +328,6 @@ animate_child_resize (AdwCarousel *self,
                        (AdwAnimationTargetFunc) resize_animation_value_cb,
                        child);
 
-  adw_animation_set_interpolator (child->resize_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
-
   g_signal_connect_swapped (child->resize_animation, "done", G_CALLBACK (resize_animation_done_cb), child);
 
   adw_animation_start (child->resize_animation);
@@ -389,9 +385,6 @@ scroll_to (AdwCarousel *self,
     adw_animation_new (GTK_WIDGET (self), 0, 1, duration,
                        (AdwAnimationTargetFunc) scroll_animation_value_cb,
                        self);
-
-  adw_animation_set_interpolator (self->animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
 
   g_signal_connect_swapped (self->animation, "done", G_CALLBACK (scroll_animation_done_cb), self);
 

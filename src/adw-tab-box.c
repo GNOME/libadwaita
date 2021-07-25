@@ -9,7 +9,6 @@
 #include "config.h"
 
 #include "adw-tab-box-private.h"
-#include "adw-animation-util.h"
 #include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
 #include "adw-tab-private.h"
@@ -470,9 +469,6 @@ set_tab_resize_mode (AdwTabBox     *self,
                          resize_animation_value_cb,
                          self);
 
-    adw_animation_set_interpolator (self->resize_animation,
-                                    ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
-
     g_signal_connect_swapped (self->resize_animation, "done", G_CALLBACK (resize_animation_done_cb), self);
 
     adw_animation_start (self->resize_animation);
@@ -818,9 +814,6 @@ animate_scroll (AdwTabBox *self,
                        scroll_animation_value_cb,
                        self);
 
-  adw_animation_set_interpolator (self->scroll_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
-
   g_signal_connect_swapped (self->scroll_animation, "done", G_CALLBACK (scroll_animation_done_cb), self);
 
   adw_animation_start (self->scroll_animation);
@@ -1054,9 +1047,6 @@ animate_reordering (AdwTabBox *self,
                        reorder_animation_value_cb,
                        dest_tab);
 
-  adw_animation_set_interpolator (self->reorder_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
-
   g_signal_connect_swapped (self->reorder_animation, "done", G_CALLBACK (reorder_animation_done_cb), dest_tab);
 
   adw_animation_start (self->reorder_animation);
@@ -1108,9 +1098,6 @@ animate_reorder_offset (AdwTabBox *self,
                        REORDER_ANIMATION_DURATION,
                        reorder_offset_animation_value_cb,
                        info);
-
-  adw_animation_set_interpolator (info->reorder_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
 
   g_signal_connect_swapped (info->reorder_animation, "done", G_CALLBACK (reorder_offset_animation_done_cb), info);
 
@@ -1693,9 +1680,6 @@ page_attached_cb (AdwTabBox  *self,
                        appear_animation_value_cb,
                        info);
 
-  adw_animation_set_interpolator (info->appear_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
-
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (open_animation_done_cb), info);
 
   l = find_nth_alive_tab (self, position);
@@ -1802,9 +1786,6 @@ page_detached_cb (AdwTabBox  *self,
                        CLOSE_ANIMATION_DURATION,
                        appear_animation_value_cb,
                        info);
-
-  adw_animation_set_interpolator (info->appear_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
 
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (close_animation_done_cb), info);
 
@@ -1999,9 +1980,6 @@ insert_placeholder (AdwTabBox  *self,
                        insert_animation_value_cb,
                        info);
 
-  adw_animation_set_interpolator (info->appear_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
-
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (open_animation_done_cb), info);
 
   adw_animation_start (info->appear_animation);
@@ -2050,9 +2028,6 @@ replace_placeholder (AdwTabBox  *self,
                        OPEN_ANIMATION_DURATION,
                        appear_animation_value_cb,
                        info);
-
-  adw_animation_set_interpolator (info->appear_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
 
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (replace_animation_done_cb), info);
 
@@ -2126,9 +2101,6 @@ remove_placeholder (AdwTabBox *self)
                        CLOSE_ANIMATION_DURATION,
                        appear_animation_value_cb,
                        info);
-
-  adw_animation_set_interpolator (info->appear_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
 
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (remove_animation_done_cb), info);
 
@@ -2352,9 +2324,6 @@ resize_drag_icon (AdwTabBox *self,
                        ICON_RESIZE_ANIMATION_DURATION,
                        icon_resize_animation_value_cb,
                        icon);
-
-  adw_animation_set_interpolator (icon->resize_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
 
   g_signal_connect_swapped (icon->resize_animation, "done", G_CALLBACK (icon_resize_animation_done_cb), icon);
 

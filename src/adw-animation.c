@@ -226,7 +226,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
                        "Interpolator",
                        "Easing function used in the animation",
                        ADW_TYPE_ANIMATION_INTERPOLATOR,
-                       ADW_ANIMATION_INTERPOLATOR_EASE_IN,
+                       ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
   props[PROP_TARGET] =
@@ -347,9 +347,11 @@ adw_animation_new (GtkWidget                 *widget,
 void
 adw_animation_start (AdwAnimation *self)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
-  g_return_if_fail (self != NULL);
+  g_return_if_fail (ADW_IS_ANIMATION (self));
+
+  priv = adw_animation_get_instance_private (self);
 
   if (!adw_get_enable_animations (priv->widget) ||
       !gtk_widget_get_mapped (priv->widget) ||
@@ -375,9 +377,11 @@ adw_animation_start (AdwAnimation *self)
 void
 adw_animation_stop (AdwAnimation *self)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
-  g_return_if_fail (self != NULL);
+  g_return_if_fail (ADW_IS_ANIMATION (self));
+
+  priv = adw_animation_get_instance_private (self);
 
   if (priv->tick_cb_id) {
     gtk_widget_remove_tick_callback (priv->widget, priv->tick_cb_id);
@@ -395,9 +399,11 @@ adw_animation_stop (AdwAnimation *self)
 double
 adw_animation_get_value (AdwAnimation *self)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
-  g_return_val_if_fail (self != NULL, 0.0);
+  g_return_val_if_fail (ADW_IS_ANIMATION (self), 0.0);
+
+  priv = adw_animation_get_instance_private (self);
 
   return priv->value;
 }
@@ -405,9 +411,11 @@ adw_animation_get_value (AdwAnimation *self)
 GtkWidget *
 adw_animation_get_widget (AdwAnimation *self)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
-  g_return_val_if_fail (self != NULL, NULL);
+  g_return_val_if_fail (ADW_IS_ANIMATION (self), NULL);
+
+  priv = adw_animation_get_instance_private (self);
 
   return priv->widget;
 }
@@ -415,9 +423,11 @@ adw_animation_get_widget (AdwAnimation *self)
 double
 adw_animation_get_value_from (AdwAnimation *self)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
   g_return_val_if_fail (ADW_IS_ANIMATION (self), 0.0);
+
+  priv = adw_animation_get_instance_private (self);
 
   return priv->value_from;
 }
@@ -425,9 +435,11 @@ adw_animation_get_value_from (AdwAnimation *self)
 double
 adw_animation_get_value_to (AdwAnimation *self)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
   g_return_val_if_fail (ADW_IS_ANIMATION (self), 0.0);
+
+  priv = adw_animation_get_instance_private (self);
 
   return priv->value_to;
 }
@@ -435,9 +447,11 @@ adw_animation_get_value_to (AdwAnimation *self)
 gint64
 adw_animation_get_duration (AdwAnimation *self)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
   g_return_val_if_fail (ADW_IS_ANIMATION (self), 0);
+
+  priv = adw_animation_get_instance_private (self);
 
   return priv->duration;
 }
@@ -445,9 +459,11 @@ adw_animation_get_duration (AdwAnimation *self)
 AdwAnimationInterpolator
 adw_animation_get_interpolator (AdwAnimation *self)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
   g_return_val_if_fail (ADW_IS_ANIMATION (self), ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
+
+  priv = adw_animation_get_instance_private (self);
 
   return priv->interpolator;
 }
@@ -455,9 +471,11 @@ adw_animation_get_interpolator (AdwAnimation *self)
 AdwAnimationTarget *
 adw_animation_get_target (AdwAnimation *self)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
-  g_return_val_if_fail (self != NULL, NULL);
+  g_return_val_if_fail (ADW_IS_ANIMATION (self), NULL);
+
+  priv = adw_animation_get_instance_private (self);
 
   return priv->target;
 }
@@ -478,9 +496,11 @@ void
 adw_animation_set_value_from (AdwAnimation *self,
                               double        value)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
   g_return_if_fail (ADW_IS_ANIMATION (self));
+
+  priv = adw_animation_get_instance_private (self);
 
   if (priv->value_from == value)
     return;
@@ -494,9 +514,11 @@ void
 adw_animation_set_value_to (AdwAnimation *self,
                             double        value)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
   g_return_if_fail (ADW_IS_ANIMATION (self));
+
+  priv = adw_animation_get_instance_private (self);
 
   if (priv->value_to == value)
     return;
@@ -510,9 +532,11 @@ void
 adw_animation_set_duration (AdwAnimation *self,
                             gint64        duration)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
   g_return_if_fail (ADW_IS_ANIMATION (self));
+
+  priv = adw_animation_get_instance_private (self);
 
   if (priv->duration == duration)
     return;
@@ -526,10 +550,12 @@ void
 adw_animation_set_interpolator (AdwAnimation             *self,
                                 AdwAnimationInterpolator  interpolator)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
   g_return_if_fail (ADW_IS_ANIMATION (self));
   g_return_if_fail (interpolator <= ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT);
+
+  priv = adw_animation_get_instance_private (self);
 
   if (priv->interpolator == interpolator)
     return;
@@ -543,10 +569,12 @@ void
 adw_animation_set_status (AdwAnimation       *self,
                           AdwAnimationStatus  status)
 {
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  AdwAnimationPrivate *priv;
 
   g_return_if_fail (ADW_IS_ANIMATION (self));
   g_return_if_fail (status <= ADW_ANIMATION_STATUS_CANCELED);
+
+  priv = adw_animation_get_instance_private (self);
 
   if (priv->status == status)
     return;

@@ -9,7 +9,6 @@
 #include "config.h"
 #include "adw-tab-private.h"
 
-#include "adw-animation-util.h"
 #include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
 #include "adw-bidi-private.h"

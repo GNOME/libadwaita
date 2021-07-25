@@ -9,7 +9,6 @@
 
 #include "adw-preferences-window.h"
 
-#include "adw-animation-private.h"
 #include "adw-animation-util-private.h"
 #include "adw-action-row.h"
 #include "adw-leaflet.h"

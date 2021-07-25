@@ -304,9 +304,6 @@ animate_fold (AdwFlap *self)
                        (AdwAnimationTargetFunc) fold_animation_value_cb,
                        self);
 
-  adw_animation_set_interpolator (self->fold_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
-
   g_signal_connect_swapped (self->fold_animation, "done", G_CALLBACK (fold_animation_done_cb), self);
 
   adw_animation_start (self->fold_animation);
@@ -347,9 +344,6 @@ animate_reveal (AdwFlap *self,
                        to, duration,
                        (AdwAnimationTargetFunc) reveal_animation_value_cb,
                        self);
-
-  adw_animation_set_interpolator (self->reveal_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_OUT);
 
   g_signal_connect_swapped (self->reveal_animation, "done", G_CALLBACK (reveal_animation_done_cb), self);
 
