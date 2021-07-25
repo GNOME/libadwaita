@@ -3,5 +3,6 @@
 src/adw-entry-row.ui
 src/adw-inspector-page.c
 src/adw-inspector-page.ui
+src/adw-password-entry-row.c
 src/adw-preferences-window.c
 src/adw-preferences-window.ui

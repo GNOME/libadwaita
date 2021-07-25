@@ -88,6 +88,17 @@ widgets, and an apply button.
   <img src="entry-row.png" alt="entry-row">
 </picture>
 
+## Password Entry Rows
+
+[class@PasswordEntryRow] is a variant of [class@EntryRow] tailored for entering
+secrets. It conceals the text and provides a button to show it, along with a
+<kbd>Caps Lock</kbd> indicator.
+
+<picture>
+  <source srcset="password-entry-row-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="password-entry-row.png" alt="password-entry-row">
+</picture>
+
 ## Preferences Group
 
 [class@PreferencesGroup] provides a boxed list along with a title and a
