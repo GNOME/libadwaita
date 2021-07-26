@@ -1,5 +1,5 @@
 headerbar {
-  min-height: 46px;
+  min-height: 47px;
   background-color: $headerbar_bg_color;
   box-shadow: inset 0 -1px $headerbar_border_color,
               inset  1px 0 $headerbar_border_color,
@@ -32,10 +32,10 @@ headerbar {
   }
 
   &.default-decoration {
-    min-height: 36px;
+    min-height: 37px;
 
     > windowhandle > box {
-      padding: 0 4px;
+      padding: 0 4px 1px 4px;
     }
 
     windowcontrols {
