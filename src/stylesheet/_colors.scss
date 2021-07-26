@@ -100,4 +100,7 @@ $dim_label_opacity: 0.55;
 
   $dim_label_opacity: 0.9;
 
+  $trough_color: gtkalpha(currentColor, .3);
+  $trough_hover_color: gtkalpha(currentColor, .4);
+  $trough_active_color: gtkalpha(currentColor, .5);
 }
