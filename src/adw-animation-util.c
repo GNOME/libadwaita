@@ -2,7 +2,7 @@
  * Copyright (C) 2019-2020 Purism SPC
  * Copyright (C) 2021 Manuel Genovés <manuel.genoves@gmail.com>
  *
- * SPDX-License-Identifier: LGPL-2.1+
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #include "config.h"
