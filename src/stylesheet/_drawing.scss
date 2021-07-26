@@ -53,31 +53,31 @@
 
   @if $t==normal {
     color: $text_color;
-    border-color: mix($borders_color, $base_color, 75%);
+    border-color: $borders_color;
     background-color: $base_color;
     // for the transition to work the number of shadows in different states needs to match, hence the transparent shadow here.
   }
   @if $t==insensitive {
     color: $insensitive_fg_color;
-    border-color: mix($borders_color, $insensitive_bg_color, 75%);
+    border-color: $borders_color;
     background-color: $insensitive_bg_color;
   }
   @if $t==osd {
     color: $osd_text_color;
-    border-color: $osd_borders_color;
-    background-color: transparentize(opacify($osd_borders_color, 1), 0.5);
+    border-color: $borders_color;
+    background-color: transparentize(black, 0.5);
     background-clip: padding-box;
     box-shadow: none;
   }
   @if $t==osd-focus {
     color: $osd_text_color;
-    border-color: $accent_bg_color;
-    background-color: transparentize(opacify($osd_borders_color, 1), 0.5);
+    border-color: $borders_color;
+    background-color: transparentize(black, 0.5);
     background-clip: padding-box;
   }
   @if $t==osd-insensitive {
     color: $osd_insensitive_fg_color;
-    border-color: $osd_borders_color;
+    border-color: $borders_color;
     background-color: $osd_insensitive_bg_color;
     background-clip: padding-box;
   }
