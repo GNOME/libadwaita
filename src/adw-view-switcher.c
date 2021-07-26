@@ -5,7 +5,7 @@
  * Based on gtkstackswitcher.c, Copyright (c) 2013 Red Hat, Inc.
  * https://gitlab.gnome.org/GNOME/gtk/blob/a0129f556b1fd655215165739d0277d7f7a2c1a8/gtk/gtkstackswitcher.c
  *
- * SPDX-License-Identifier: LGPL-2.1+
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #include "config.h"

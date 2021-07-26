@@ -2,7 +2,7 @@
  * Copyright (C) 2020 Felix Häcker <haeckerfelix@gnome.org>
  * Copyright (C) 2020 Purism SPC
  *
- * SPDX-License-Identifier: LGPL-2.1+
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 #include "config.h"

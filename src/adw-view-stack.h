@@ -4,7 +4,7 @@
  *
  * Author: Alexander Larsson <alexl@redhat.com>
  *
- * SPDX-License-Identifier: LGPL-2.1+
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  *
  * Based on gtkstack.h
  * https://gitlab.gnome.org/GNOME/gtk/-/blob/ba44668478b7184bec02609f292691b85a2c6cdd/gtk/gtkstack.h

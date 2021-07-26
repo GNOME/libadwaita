@@ -5,7 +5,7 @@
  * Author: Alexander Larsson <alexl@redhat.com>
  * Author: Adrien Plazas <adrien.plazas@puri.sm>
  *
- * SPDX-License-Identifier: LGPL-2.1+
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
 /*
