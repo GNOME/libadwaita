@@ -15,9 +15,13 @@ test_cflags = [
   '-DTEST_DATA_DIR="@0@/data"'.format(meson.current_source_dir()),
 ]
 
-test_link_args = [
-  '-fPIC',
-]
+test_link_args = []
+use_pie = false
+
+if cc.get_argument_syntax() != 'msvc'
+  test_link_args += '-fPIC'
+  use_pie = true
+endif
 
 test_names = [
   'test-action-row',
@@ -59,7 +63,7 @@ foreach test_name : test_names
                        c_args: test_cflags,
                     link_args: test_link_args,
                  dependencies: libadwaita_deps + [libadwaita_dep],
-                          pie: true,
+                          pie: use_pie,
                 )
   test(test_name, t, env: test_env)
 endforeach
