@@ -10,11 +10,11 @@ list {
 
   &.horizontal row.separator,
   &.separators.horizontal > row:not(.separator) {
-    border-left: 1px solid $treeview_borders_color;
+    border-left: 1px solid $borders_color;
   }
   &:not(.horizontal) row.separator,
   &.separators:not(.horizontal) > row:not(.separator) {
-    border-bottom: 1px solid $treeview_borders_color;
+    border-bottom: 1px solid $borders_color;
   }
 }
 
