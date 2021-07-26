@@ -19,7 +19,7 @@ frame {
  **************/
 
 separator {
-  background: lighten($borders_color, 5%);
+  background: $borders_color;
   min-width: 1px;
   min-height: 1px;
 }
