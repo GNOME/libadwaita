@@ -49,11 +49,11 @@ row {
  *******************************************************/
 
 .rich-list { /* rich lists usually containing other widgets than just labels/text */
-  & > row {
+  > row {
     padding: 8px 12px;
     min-height: 32px; /* should be tall even when only containing a label */
 
-    & > box {
+    > box {
       border-spacing: 12px;
     }
   }
@@ -93,7 +93,7 @@ popover.background.combo > contents {
     background-color: transparent;
     min-width: 200px;
 
-    & > row {
+    > row {
       padding: 0px 12px 0px 12px;
       min-height: 50px;
       border-bottom: 1px solid $borders_color;
