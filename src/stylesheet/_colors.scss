@@ -77,7 +77,6 @@ $drop_target_color: if($variant == 'light', $green_4, $green_5);
 //insensitive state derived colors
 $insensitive_fg_color: mix($fg_color, $bg_color, 50%);
 $insensitive_bg_color: mix($bg_color, $base_color, 60%);
-$insensitive_borders_color: mix($borders_color, $bg_color, 80%);
 
 //special cased widget colors
 $focus_border_color:  gtkalpha($accent_bg_color, 0.5);
@@ -94,7 +93,6 @@ $dim_label_opacity: 0.55;
   //insensitive state derived colors
   $insensitive_fg_color: mix($fg_color, $bg_color, 50%);
   $insensitive_bg_color: mix($bg_color, $base_color, 60%);
-  $insensitive_borders_color: mix($borders_color, $bg_color, 80%);
 
   //focus rings
   $focus_border_color: gtkalpha($accent_bg_color, 0.8);
