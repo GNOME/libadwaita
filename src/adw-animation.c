@@ -432,6 +432,24 @@ adw_animation_get_value_from (AdwAnimation *self)
   return priv->value_from;
 }
 
+void
+adw_animation_set_value_from (AdwAnimation *self,
+                              double        value)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ANIMATION (self));
+
+  priv = adw_animation_get_instance_private (self);
+
+  if (priv->value_from == value)
+    return;
+
+  priv->value_from = value;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE_FROM]);
+}
+
 double
 adw_animation_get_value_to (AdwAnimation *self)
 {
@@ -442,6 +460,24 @@ adw_animation_get_value_to (AdwAnimation *self)
   priv = adw_animation_get_instance_private (self);
 
   return priv->value_to;
+}
+
+void
+adw_animation_set_value_to (AdwAnimation *self,
+                            double        value)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ANIMATION (self));
+
+  priv = adw_animation_get_instance_private (self);
+
+  if (priv->value_to == value)
+    return;
+
+  priv->value_to = value;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE_TO]);
 }
 
 gint64
@@ -456,6 +492,24 @@ adw_animation_get_duration (AdwAnimation *self)
   return priv->duration;
 }
 
+void
+adw_animation_set_duration (AdwAnimation *self,
+                            gint64        duration)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ANIMATION (self));
+
+  priv = adw_animation_get_instance_private (self);
+
+  if (priv->duration == duration)
+    return;
+
+  priv->duration = duration;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DURATION]);
+}
+
 AdwAnimationInterpolator
 adw_animation_get_interpolator (AdwAnimation *self)
 {
@@ -466,6 +520,25 @@ adw_animation_get_interpolator (AdwAnimation *self)
   priv = adw_animation_get_instance_private (self);
 
   return priv->interpolator;
+}
+
+void
+adw_animation_set_interpolator (AdwAnimation             *self,
+                                AdwAnimationInterpolator  interpolator)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ANIMATION (self));
+  g_return_if_fail (interpolator <= ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT);
+
+  priv = adw_animation_get_instance_private (self);
+
+  if (priv->interpolator == interpolator)
+    return;
+
+  priv->interpolator = interpolator;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INTERPOLATOR]);
 }
 
 AdwAnimationTarget *
@@ -490,79 +563,6 @@ adw_animation_get_status (AdwAnimation *self)
   priv = adw_animation_get_instance_private (self);
 
   return priv->status;
-}
-
-void
-adw_animation_set_value_from (AdwAnimation *self,
-                              double        value)
-{
-  AdwAnimationPrivate *priv;
-
-  g_return_if_fail (ADW_IS_ANIMATION (self));
-
-  priv = adw_animation_get_instance_private (self);
-
-  if (priv->value_from == value)
-    return;
-
-  priv->value_from = value;
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE_FROM]);
-}
-
-void
-adw_animation_set_value_to (AdwAnimation *self,
-                            double        value)
-{
-  AdwAnimationPrivate *priv;
-
-  g_return_if_fail (ADW_IS_ANIMATION (self));
-
-  priv = adw_animation_get_instance_private (self);
-
-  if (priv->value_to == value)
-    return;
-
-  priv->value_to = value;
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE_TO]);
-}
-
-void
-adw_animation_set_duration (AdwAnimation *self,
-                            gint64        duration)
-{
-  AdwAnimationPrivate *priv;
-
-  g_return_if_fail (ADW_IS_ANIMATION (self));
-
-  priv = adw_animation_get_instance_private (self);
-
-  if (priv->duration == duration)
-    return;
-
-  priv->duration = duration;
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DURATION]);
-}
-
-void
-adw_animation_set_interpolator (AdwAnimation             *self,
-                                AdwAnimationInterpolator  interpolator)
-{
-  AdwAnimationPrivate *priv;
-
-  g_return_if_fail (ADW_IS_ANIMATION (self));
-  g_return_if_fail (interpolator <= ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT);
-
-  priv = adw_animation_get_instance_private (self);
-
-  if (priv->interpolator == interpolator)
-    return;
-
-  priv->interpolator = interpolator;
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INTERPOLATOR]);
 }
 
 void
