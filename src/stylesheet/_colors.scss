@@ -26,7 +26,7 @@ $fg_color: if($variant == 'light', $light_fg, $dark_fg);
 $borders_color: if($variant == 'light', darken($bg_color, 18%), darken($bg_color, 10%));
 $link_color: $accent_color;
 $link_visited_color: gtkmix($accent_color, $text_color, 80%);
-$dark_fill: mix($borders_color, $bg_color, 50%);
+$dark_fill: if($variant == 'light', darken($bg_color, 9%), darken($bg_color, 5%));
 $headerbar_bg_color: darken($bg_color, if($variant == 'dark', 5%, 10%));
 $menu_color: $base_color;
 

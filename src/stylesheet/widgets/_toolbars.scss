@@ -40,7 +40,7 @@ searchbar > revealer > box {
   border-style: solid;
   border-color: $borders_color;
 
-  background-color: mix($bg_color, $borders_color, 70%);
+  background-color: $dark_fill;
 
  .close {
     min-width: 18px;
