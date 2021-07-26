@@ -27,7 +27,7 @@
  *
  * The `AdwActionRow` implementation of the [iface@Gtk.Buildable] interface
  * supports adding a child at its end by specifying “suffix” or omitting the
- * “type” attribute of a <child> element or.
+ * “type” attribute of a <child> element.
  *
  * It also supports adding a child as a prefix widget by specifying “prefix” as
  * the “type” attribute of a <child> element.
