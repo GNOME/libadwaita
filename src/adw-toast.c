@@ -659,9 +659,9 @@ void
 adw_toast_set_detailed_action_name (AdwToast   *self,
                                     const char *detailed_action_name)
 {
-  g_autofree char *name = NULL;
-  g_autoptr (GVariant) target = NULL;
-  g_autoptr (GError) error = NULL;
+  char *name;
+  GVariant *target;
+  GError *error = NULL;
 
   g_return_if_fail (ADW_IS_TOAST (self));
 
@@ -672,14 +672,16 @@ adw_toast_set_detailed_action_name (AdwToast   *self,
     return;
   }
 
-  if (!g_action_parse_detailed_name (detailed_action_name, &name, &target, &error)) {
+  if (g_action_parse_detailed_name (detailed_action_name, &name, &target, &error)) {
+    adw_toast_set_action_name (self, name);
+    adw_toast_set_action_target_value (self, target);
+  } else {
     g_critical ("Couldn't parse detailed action name: %s", error->message);
-
-    return;
   }
 
-  adw_toast_set_action_name (self, name);
-  adw_toast_set_action_target_value (self, target);
+  g_clear_error (&error);
+  g_clear_pointer (&target, g_variant_unref);
+  g_clear_pointer (&name, g_free);
 }
 
 /**

@@ -242,12 +242,14 @@ timed_animation_cb (double     value,
 static void
 notify_spring_params_change (AdwDemoPageAnimations *self)
 {
-  g_autoptr (AdwSpringParams) spring_params =
+  AdwSpringParams *spring_params =
     adw_spring_params_new_full (gtk_spin_button_get_value (self->spring_animation_damping),
                                 gtk_spin_button_get_value (self->spring_animation_mass),
                                 gtk_spin_button_get_value (self->spring_animation_stiffness));
 
   adw_spring_animation_set_spring_params (ADW_SPRING_ANIMATION (self->spring_animation), spring_params);
+
+  adw_spring_params_unref (spring_params);
 }
 
 static void

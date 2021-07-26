@@ -160,7 +160,7 @@ test_adw_tab_view_default_icon (void)
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   GIcon *icon1 = g_themed_icon_new ("go-previous-symbolic");
   GIcon *icon2 = g_themed_icon_new ("go-next-symbolic");
-  g_autofree char *icon_str = NULL;
+  char *icon_str;
 
   g_assert_nonnull (view);
 
@@ -179,6 +179,7 @@ test_adw_tab_view_default_icon (void)
   g_assert_true (adw_tab_view_get_default_icon (view) == icon2);
   g_assert_cmpint (notified, ==, 2);
 
+  g_free (icon_str);
   g_assert_finalize_object (view);
   g_assert_finalize_object (icon1);
   g_assert_finalize_object (icon2);
@@ -932,7 +933,7 @@ test_adw_tab_page_title (void)
 {
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
-  g_autofree char *title = NULL;
+  char *title;
 
   g_assert_nonnull (view);
 
@@ -954,6 +955,7 @@ test_adw_tab_page_title (void)
   g_assert_cmpstr (adw_tab_page_get_title (page), ==, "Some other title");
   g_assert_cmpint (notified, ==, 2);
 
+  g_free (title);
   g_assert_finalize_object (view);
 }
 
@@ -962,7 +964,7 @@ test_adw_tab_page_tooltip (void)
 {
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
-  g_autofree char *tooltip = NULL;
+  char *tooltip;
 
   g_assert_nonnull (view);
 
@@ -984,6 +986,7 @@ test_adw_tab_page_tooltip (void)
   g_assert_cmpstr (adw_tab_page_get_tooltip (page), ==, "Some other tooltip");
   g_assert_cmpint (notified, ==, 2);
 
+  g_free (tooltip);
   g_assert_finalize_object (view);
 }
 

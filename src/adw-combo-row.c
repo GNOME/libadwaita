@@ -119,10 +119,13 @@ selection_changed (AdwComboRow *self)
 
   if (priv->use_subtitle) {
     if (g_list_model_get_n_items (G_LIST_MODEL (priv->current_selection)) > 0) {
-      g_autoptr (GtkListItem) item = g_list_model_get_item (G_LIST_MODEL (priv->current_selection), 0);
-      g_autofree char *repr = get_item_representation (self, item);
+      GtkListItem *item = g_list_model_get_item (G_LIST_MODEL (priv->current_selection), 0);
+      char *repr = get_item_representation (self, item);
 
       adw_action_row_set_subtitle (ADW_ACTION_ROW (self), repr);
+
+      g_free (repr);
+      g_object_unref (item);
     } else {
       adw_action_row_set_subtitle (ADW_ACTION_ROW (self), NULL);
     }
@@ -226,7 +229,7 @@ bind_item (GtkSignalListItemFactory *factory,
   gpointer item;
   GtkWidget *box;
   GtkWidget *icon;
-  g_autofree char *repr = NULL;
+  char *repr;
 
   item = gtk_list_item_get_item (list_item);
   box = gtk_list_item_get_child (list_item);
@@ -250,6 +253,8 @@ bind_item (GtkSignalListItemFactory *factory,
   } else {
     gtk_widget_hide (icon);
   }
+
+  g_clear_pointer (&repr, g_free);
 }
 
 static void
@@ -263,13 +268,15 @@ unbind_item (GtkSignalListItemFactory *factory,
 static void
 set_default_factory (AdwComboRow *self)
 {
-  g_autoptr (GtkListItemFactory) factory = gtk_signal_list_item_factory_new ();
+  GtkListItemFactory *factory = gtk_signal_list_item_factory_new ();
 
   g_signal_connect (factory, "setup", G_CALLBACK (setup_item), self);
   g_signal_connect (factory, "bind", G_CALLBACK (bind_item), self);
   g_signal_connect (factory, "unbind", G_CALLBACK (unbind_item), self);
 
   adw_combo_row_set_factory (self, factory);
+
+  g_object_unref (factory);
 }
 
 static void

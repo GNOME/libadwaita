@@ -169,13 +169,15 @@ get_range (AdwSwipeTracker *self,
            double          *first,
            double          *last)
 {
-  g_autofree double *points = NULL;
+  double *points;
   int n;
 
   points = adw_swipeable_get_snap_points (self->swipeable, &n);
 
   *first = points[0];
   *last = points[n - 1];
+
+  g_free (points);
 }
 
 static void
@@ -355,11 +357,13 @@ gesture_update (AdwSwipeTracker *self,
     return;
 
   if (!self->allow_long_swipes) {
-    g_autofree double *points = NULL;
+    double *points;
     int n;
 
     points = adw_swipeable_get_snap_points (self->swipeable, &n);
     get_bounds (self, points, n, self->initial_progress, &lower, &upper);
+
+    g_free (points);
   } else {
     get_range (self, &lower, &upper);
   }
@@ -378,7 +382,7 @@ get_end_progress (AdwSwipeTracker *self,
                   gboolean         is_touchpad)
 {
   double pos, decel, slope;
-  g_autofree double *points = NULL;
+  double *points;
   int n;
   double lower, upper;
 
@@ -387,8 +391,13 @@ get_end_progress (AdwSwipeTracker *self,
 
   points = adw_swipeable_get_snap_points (self->swipeable, &n);
 
-  if (ABS (velocity) < (is_touchpad ? VELOCITY_THRESHOLD_TOUCHPAD : VELOCITY_THRESHOLD_TOUCH))
-    return points[find_closest_point (points, n, self->progress)];
+  if (ABS (velocity) < (is_touchpad ? VELOCITY_THRESHOLD_TOUCHPAD : VELOCITY_THRESHOLD_TOUCH)) {
+    pos = points[find_closest_point (points, n, self->progress)];
+
+    g_free (points);
+
+    return pos;
+  }
 
   decel = is_touchpad ? DECELERATION_TOUCHPAD : DECELERATION_TOUCH;
   slope = decel / (1.0 - decel) / 1000.0;
@@ -406,15 +415,15 @@ get_end_progress (AdwSwipeTracker *self,
 
   pos = (pos * SIGN (velocity)) + self->progress;
 
-  if (!self->allow_long_swipes) {
-
+  if (!self->allow_long_swipes)
     get_bounds (self, points, n, self->initial_progress, &lower, &upper);
-  } else {
+  else
     get_range (self, &lower, &upper);
-  }
 
   pos = CLAMP (pos, lower, upper);
   pos = points[find_point_for_projection (self, points, n, pos, velocity)];
+
+  g_free (points);
 
   return pos;
 }

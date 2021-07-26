@@ -20,7 +20,7 @@ static void
 test_adw_toast_title (void)
 {
   AdwToast *toast = adw_toast_new ("Title");
-  g_autofree char *title = NULL;
+  char *title;
 
   g_assert_nonnull (toast);
 
@@ -38,6 +38,7 @@ test_adw_toast_title (void)
   g_assert_cmpstr (adw_toast_get_title (toast), ==, "Title");
   g_assert_cmpint (notified, ==, 2);
 
+  g_free (title);
   g_assert_finalize_object (toast);
 }
 
@@ -95,10 +96,7 @@ static void
 test_adw_toast_action_target (void)
 {
   AdwToast *toast = adw_toast_new ("Title");
-  GVariant *action_target;
-  g_autoptr (GVariant) variant1 = g_variant_ref_sink (g_variant_new_int32 (1));
-  g_autoptr (GVariant) variant2 = g_variant_ref_sink (g_variant_new_int32 (2));
-  g_autoptr (GVariant) variant3 = g_variant_ref_sink (g_variant_new_int32 (3));
+  GVariant *action_target, *variant;
 
   g_assert_nonnull (toast);
 
@@ -108,17 +106,23 @@ test_adw_toast_action_target (void)
   g_object_get (toast, "action-target", &action_target, NULL);
   g_assert_null (action_target);
 
+  variant = g_variant_ref_sink (g_variant_new_int32 (1));
   adw_toast_set_action_target_value (toast, g_variant_new_int32 (1));
-  g_assert_cmpvariant (adw_toast_get_action_target_value (toast), variant1);
+  g_assert_cmpvariant (adw_toast_get_action_target_value (toast), variant);
   g_assert_cmpint (notified, ==, 1);
+  g_variant_unref (variant);
 
+  variant = g_variant_ref_sink (g_variant_new_int32 (2));
   g_object_set (toast, "action-target", g_variant_new_int32 (2), NULL);
-  g_assert_cmpvariant (adw_toast_get_action_target_value (toast), variant2);
+  g_assert_cmpvariant (adw_toast_get_action_target_value (toast), variant);
   g_assert_cmpint (notified, ==, 2);
+  g_variant_unref (variant);
 
+  variant = g_variant_ref_sink (g_variant_new_int32 (3));
   adw_toast_set_action_target (toast, "i", 3);
-  g_assert_cmpvariant (adw_toast_get_action_target_value (toast), variant3);
+  g_assert_cmpvariant (adw_toast_get_action_target_value (toast), variant);
   g_assert_cmpint (notified, ==, 3);
+  g_variant_unref (variant);
 
   g_assert_finalize_object (toast);
 }
@@ -127,7 +131,7 @@ static void
 test_adw_toast_detailed_action_name (void)
 {
   AdwToast *toast = adw_toast_new ("Title");
-  g_autoptr (GVariant) variant = g_variant_ref_sink (g_variant_new_int32 (2));
+  GVariant *variant = g_variant_ref_sink (g_variant_new_int32 (2));
 
   g_assert_nonnull (toast);
 
@@ -142,6 +146,7 @@ test_adw_toast_detailed_action_name (void)
   g_assert_cmpstr (adw_toast_get_action_name (toast), ==, "win.something");
   g_assert_cmpvariant (adw_toast_get_action_target_value (toast), variant);
 
+  g_variant_unref (variant);
   g_assert_finalize_object (toast);
 }
 

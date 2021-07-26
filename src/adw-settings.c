@@ -100,11 +100,11 @@ read_portal_setting (AdwSettings  *self,
                      const char   *type,
                      GVariant    **out)
 {
-  g_autoptr (GError) error = NULL;
-  g_autoptr (GVariant) ret = NULL;
-  g_autoptr (GVariant) child = NULL;
-  g_autoptr (GVariant) child2 = NULL;
-  g_autoptr (GVariantType) out_type = NULL;
+  GError *error = NULL;
+  GVariant *ret;
+  GVariant *child, *child2;
+  GVariantType *out_type;
+  gboolean result = FALSE;
 
   ret = g_dbus_proxy_call_sync (self->settings_portal,
                                 "Read",
@@ -117,28 +117,19 @@ read_portal_setting (AdwSettings  *self,
     if (error->domain == G_DBUS_ERROR &&
         error->code == G_DBUS_ERROR_SERVICE_UNKNOWN) {
       g_debug ("Portal not found: %s", error->message);
-
-      return FALSE;
-    }
-
-    if (error->domain == G_DBUS_ERROR &&
-        error->code == G_DBUS_ERROR_UNKNOWN_METHOD) {
+    } else if (error->domain == G_DBUS_ERROR &&
+               error->code == G_DBUS_ERROR_UNKNOWN_METHOD) {
       g_debug ("Portal doesn't provide settings: %s", error->message);
-
-      return FALSE;
-    }
-
-    if (g_dbus_error_is_remote_error (error)) {
-      g_autofree char *remote_error = g_dbus_error_get_remote_error (error);
+    } else if (g_dbus_error_is_remote_error (error)) {
+      char *remote_error = g_dbus_error_get_remote_error (error);
 
       if (!g_strcmp0 (remote_error, PORTAL_ERROR_NOT_FOUND)) {
         g_debug ("Setting %s.%s of type %s not found", schema, name, type);
-
-        return FALSE;
       }
+      g_free (remote_error);
+    } else {
+      g_critical ("Couldn't read the %s setting: %s", name, error->message);
     }
-
-    g_critical ("Couldn't read the %s setting: %s", name, error->message);
 
     return FALSE;
   }
@@ -147,16 +138,23 @@ read_portal_setting (AdwSettings  *self,
   g_variant_get (child, "v", &child2);
 
   out_type = g_variant_type_new (type);
-  if (!g_variant_type_equal (g_variant_get_type (child2), out_type)) {
+  if (g_variant_type_equal (g_variant_get_type (child2), out_type)) {
+    *out = child2;
+
+    result = TRUE;
+  } else {
     g_critical ("Invalid type for %s.%s: expected %s, got %s",
                 schema, name, type, g_variant_get_type_string (child2));
 
-    return FALSE;
+    g_variant_unref (child2);
   }
 
-  *out = g_steal_pointer (&child2);
+  g_variant_type_free (out_type);
+  g_variant_unref (child);
+  g_variant_unref (ret);
+  g_clear_error (&error);
 
-  return TRUE;
+  return result;
 }
 
 static AdwSystemColorScheme
@@ -201,7 +199,7 @@ settings_portal_changed_cb (GDBusProxy  *proxy,
 {
   const char *namespace;
   const char *name;
-  g_autoptr (GVariant) value = NULL;
+  GVariant *value = NULL;
 
   if (g_strcmp0 (signal_name, "SettingChanged"))
     return;
@@ -213,6 +211,8 @@ settings_portal_changed_cb (GDBusProxy  *proxy,
       self->color_scheme_use_fdo_setting) {
     set_color_scheme (self, get_fdo_color_scheme (value));
 
+    g_variant_unref (value);
+
     return;
   }
 
@@ -221,12 +221,16 @@ settings_portal_changed_cb (GDBusProxy  *proxy,
       !self->color_scheme_use_fdo_setting) {
     set_color_scheme (self, get_gnome_color_scheme (value));
 
+    g_variant_unref (value);
+
     return;
   }
 
   if (!g_strcmp0 (namespace, "org.gnome.desktop.interface.a11y") &&
       !g_strcmp0 (name, "high-contrast")) {
     set_high_contrast (self, g_variant_get_boolean (value));
+
+    g_variant_unref (value);
 
     return;
   }
@@ -235,9 +239,8 @@ settings_portal_changed_cb (GDBusProxy  *proxy,
 static void
 init_portal (AdwSettings *self)
 {
-  g_autoptr (GError) error = NULL;
-  g_autoptr (GVariant) color_scheme_variant = NULL;
-  g_autoptr (GVariant) high_contrast_variant = NULL;
+  GError *error = NULL;
+  GVariant *variant;
 
   if (get_disable_portal ())
     return;
@@ -253,27 +256,35 @@ init_portal (AdwSettings *self)
   if (error) {
     g_debug ("Settings portal not found: %s", error->message);
 
+    g_error_free (error);
+
     return;
   }
 
   if (read_portal_setting (self, "org.freedesktop.appearance",
-                           "color-scheme", "u", &color_scheme_variant)) {
+                           "color-scheme", "u", &variant)) {
     self->has_color_scheme = TRUE;
     self->color_scheme_use_fdo_setting = TRUE;
-    self->color_scheme = get_fdo_color_scheme (color_scheme_variant);
+    self->color_scheme = get_fdo_color_scheme (variant);
+
+    g_variant_unref (variant);
   }
 
   if (!self->has_color_scheme &&
       read_portal_setting (self, "org.gnome.desktop.interface",
-                           "color-scheme", "s", &color_scheme_variant)) {
+                           "color-scheme", "s", &variant)) {
     self->has_color_scheme = TRUE;
-    self->color_scheme = get_gnome_color_scheme (color_scheme_variant);
+    self->color_scheme = get_gnome_color_scheme (variant);
+
+    g_variant_unref (variant);
   }
 
   if (read_portal_setting (self, "org.gnome.desktop.interface.a11y",
-                           "high-contrast", "b", &high_contrast_variant)) {
+                           "high-contrast", "b", &variant)) {
     self->has_high_contrast = TRUE;
-    self->high_contrast = g_variant_get_boolean (high_contrast_variant);
+    self->high_contrast = g_variant_get_boolean (variant);
+
+    g_variant_unref (variant);
   }
 
   if (!self->has_color_scheme && !self->has_high_contrast)
@@ -310,8 +321,7 @@ static void
 init_gsettings (AdwSettings *self)
 {
   GSettingsSchemaSource *source;
-  g_autoptr (GSettingsSchema) schema = NULL;
-  g_autoptr (GSettingsSchema) a11y_schema = NULL;
+  GSettingsSchema *schema;
 
 #ifndef G_OS_WIN32
   /* While we can access gsettings in flatpak, we can't do anything useful with
@@ -334,12 +344,14 @@ init_gsettings (AdwSettings *self)
                               "changed::color-scheme",
                               G_CALLBACK (gsettings_color_scheme_changed_cb),
                               self);
+
+    g_settings_schema_unref (schema);
   }
 
-  a11y_schema = g_settings_schema_source_lookup (source, "org.gnome.desktop.a11y.interface", TRUE);
-  if (a11y_schema &&
+  schema = g_settings_schema_source_lookup (source, "org.gnome.desktop.a11y.interface", TRUE);
+  if (schema &&
       !self->has_high_contrast &&
-      g_settings_schema_has_key (a11y_schema, "high-contrast")) {
+      g_settings_schema_has_key (schema, "high-contrast")) {
     self->has_high_contrast = TRUE;
     self->a11y_settings = g_settings_new ("org.gnome.desktop.a11y.interface");
     self->high_contrast = g_settings_get_boolean (self->a11y_settings, "high-contrast");
@@ -348,6 +360,8 @@ init_gsettings (AdwSettings *self)
                               "changed::high-contrast",
                               G_CALLBACK (gsettings_high_contrast_changed_cb),
                               self);
+
+    g_settings_schema_unref (schema);
   }
 }
 
@@ -356,7 +370,7 @@ init_gsettings (AdwSettings *self)
 static gboolean
 is_theme_high_contrast (GdkDisplay *display)
 {
-  g_auto (GValue) value = G_VALUE_INIT;
+  GValue value = G_VALUE_INIT;
   const char *theme_name;
 
   g_value_init (&value, G_TYPE_STRING);
@@ -364,6 +378,8 @@ is_theme_high_contrast (GdkDisplay *display)
     return FALSE;
 
   theme_name = g_value_get_string (&value);
+
+  g_value_unset (&value);
 
   return !g_strcmp0 (theme_name, "HighContrast") ||
          !g_strcmp0 (theme_name, "HighContrastInverse");

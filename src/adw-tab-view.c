@@ -958,7 +958,7 @@ create_and_insert_page (AdwTabView *self,
                         int         position,
                         gboolean    pinned)
 {
-  g_autoptr (AdwTabPage) page =
+  AdwTabPage *page =
     g_object_new (ADW_TYPE_TAB_PAGE,
                   "child", child,
                   "parent", parent,
@@ -967,6 +967,8 @@ create_and_insert_page (AdwTabView *self,
   set_page_pinned (page, pinned);
 
   insert_page (self, page, position);
+
+  g_object_unref (page);
 
   return page;
 }
@@ -2594,13 +2596,15 @@ AdwTabPage *
 adw_tab_view_get_nth_page (AdwTabView *self,
                            int         position)
 {
-  g_autoptr (AdwTabPage) page = NULL;
+  AdwTabPage *page;
 
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (position >= 0, NULL);
   g_return_val_if_fail (position < self->n_pages, NULL);
 
   page = g_list_model_get_item (G_LIST_MODEL (self->children), (guint) position);
+
+  g_object_unref (page);
 
   return page;
 }

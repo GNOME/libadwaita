@@ -83,10 +83,12 @@ static char *
 extract_initials_from_text (const char *text)
 {
   GString *initials;
-  g_autofree char *p = g_utf8_strup (text, -1);
-  g_autofree char *normalized = g_utf8_normalize (g_strstrip (p), -1, G_NORMALIZE_DEFAULT_COMPOSE);
+  char *p = g_utf8_strup (text, -1);
+  char *normalized = g_utf8_normalize (g_strstrip (p), -1, G_NORMALIZE_DEFAULT_COMPOSE);
   gunichar unichar;
   char *q = NULL;
+
+  g_clear_pointer (&p, g_free);
 
   if (normalized == NULL)
     return NULL;
@@ -103,6 +105,8 @@ extract_initials_from_text (const char *text)
     unichar = g_utf8_get_char (q);
     g_string_append_unichar (initials, unichar);
   }
+
+  g_free (normalized);
 
   return g_string_free (initials, FALSE);
 }
@@ -121,29 +125,33 @@ update_visibility (AdwAvatar *self)
 static void
 set_class_color (AdwAvatar *self)
 {
-  g_autofree GRand *rand = NULL;
-  g_autofree char *new_class = NULL;
-  g_autofree char *old_class = g_strdup_printf ("color%d", self->color_class);
+  char *old_class, *new_class;
 
+  old_class = g_strdup_printf ("color%d", self->color_class);
   gtk_widget_remove_css_class (self->gizmo, old_class);
 
   if (self->text == NULL || strlen (self->text) == 0) {
     /* Use a random color if we don't have a text */
-    rand = g_rand_new ();
+    GRand *rand = g_rand_new ();
+
     self->color_class = g_rand_int_range (rand, 1, NUMBER_OF_COLORS);
+
+    g_rand_free (rand);
   } else {
     self->color_class = (g_str_hash (self->text) % NUMBER_OF_COLORS) + 1;
   }
 
   new_class = g_strdup_printf ("color%d", self->color_class);
-
   gtk_widget_add_css_class (self->gizmo, new_class);
+
+  g_free (old_class);
+  g_free (new_class);
 }
 
 static void
 update_initials (AdwAvatar *self)
 {
-  g_autofree char *initials = NULL;
+  char *initials;
 
   if (gtk_image_get_paintable (self->custom_image) != NULL ||
       !self->show_initials ||
@@ -154,6 +162,8 @@ update_initials (AdwAvatar *self)
   initials = extract_initials_from_text (self->text);
 
   gtk_label_set_label (self->label, initials);
+
+  g_free (initials);
 }
 
 static void
@@ -633,7 +643,7 @@ adw_avatar_set_custom_image (AdwAvatar    *self,
       gtk_image_set_from_paintable (self->custom_image, custom_image);
     } else {
       GtkSnapshot *snapshot = gtk_snapshot_new ();
-      g_autoptr (GdkPaintable) square_image = NULL;
+      GdkPaintable *square_image;
       int size = MIN (width, height);
 
       gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT ((size - width) / 2.f, (size - height) / 2.f));
@@ -641,6 +651,8 @@ adw_avatar_set_custom_image (AdwAvatar    *self,
 
       square_image = gtk_snapshot_free_to_paintable (snapshot, &GRAPHENE_SIZE_INIT (size, size));
       gtk_image_set_from_paintable (self->custom_image, square_image);
+
+      g_object_unref (square_image);
     }
 
     gtk_widget_add_css_class (self->gizmo, "image");
@@ -724,7 +736,8 @@ GdkTexture *
 adw_avatar_draw_to_texture (AdwAvatar *self,
                             int        scale_factor)
 {
-  g_autoptr (GskRenderNode) node = NULL;
+  GdkTexture *result;
+  GskRenderNode *node;
   GtkSnapshot *snapshot;
   GtkNative *native;
   GskRenderer *renderer;
@@ -744,5 +757,9 @@ adw_avatar_draw_to_texture (AdwAvatar *self,
   native = gtk_widget_get_native (GTK_WIDGET (self));
   renderer = gtk_native_get_renderer (native);
 
-  return gsk_renderer_render_texture (renderer, node, &GRAPHENE_RECT_INIT (0, 0, size, size));
+  result = gsk_renderer_render_texture (renderer, node, &GRAPHENE_RECT_INIT (0, 0, size, size));
+
+  gsk_render_node_unref (node);
+
+  return result;
 }

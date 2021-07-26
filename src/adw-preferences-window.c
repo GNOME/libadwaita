@@ -89,7 +89,7 @@ static GParamSpec *props[LAST_PROP];
 static char *
 strip_mnemonic (const char *src)
 {
-  g_autofree char *new_str = g_new (char, strlen (src) + 1);
+  char *new_str = g_new (char, strlen (src) + 1);
   char *dest = new_str;
   gboolean underscore = FALSE;
 
@@ -100,6 +100,8 @@ strip_mnemonic (const char *src)
     c = g_utf8_get_char (src);
     if (c == (gunichar) -1) {
       g_warning ("Invalid input string");
+
+      g_free (new_str);
 
       return NULL;
     }
@@ -124,7 +126,7 @@ strip_mnemonic (const char *src)
 
   *dest = 0;
 
-  return g_steal_pointer (&new_str);
+  return new_str;
 }
 
 static gboolean
@@ -132,8 +134,8 @@ filter_search_results (AdwPreferencesRow    *row,
                        AdwPreferencesWindow *self)
 {
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
-  g_autofree char *terms = NULL;
-  g_autofree char *title = NULL;
+  char *terms, *title;
+  gboolean result = FALSE;
 
   g_assert (ADW_IS_PREFERENCES_ROW (row));
 
@@ -145,21 +147,26 @@ filter_search_results (AdwPreferencesRow    *row,
 
     if (stripped_title) {
       g_free (title);
+
       title = stripped_title;
     }
   }
 
-  if (!!strstr (title, terms))
-    return TRUE;
-
-  if (ADW_IS_ACTION_ROW (row)) {
-    g_autofree char *subtitle = g_utf8_casefold (adw_action_row_get_subtitle (ADW_ACTION_ROW (row)), -1);
+  if (!!strstr (title, terms)) {
+    result = TRUE;
+  } else if (ADW_IS_ACTION_ROW (row)) {
+    char *subtitle = g_utf8_casefold (adw_action_row_get_subtitle (ADW_ACTION_ROW (row)), -1);
 
     if (!!strstr (subtitle, terms))
-      return TRUE;
+      result = TRUE;
+
+    g_free (subtitle);
   }
 
-  return FALSE;
+  g_free (title);
+  g_free (terms);
+
+  return result;
 }
 
 static int
@@ -187,7 +194,7 @@ create_search_row_subtitle (AdwPreferencesWindow *self,
 {
   GtkWidget *group, *page;
   const char *group_title = NULL;
-  g_autofree char *page_title = NULL;
+  char *page_title = NULL;
 
   group = gtk_widget_get_ancestor (row, ADW_TYPE_PREFERENCES_GROUP);
 
@@ -209,20 +216,23 @@ create_search_row_subtitle (AdwPreferencesWindow *self,
       page_title = g_strdup (title);
 
     if (g_strcmp0 (page_title, "") == 0)
-      page_title = NULL;
+      g_clear_pointer (&page_title, g_free);
   }
 
   if (group_title) {
-    if (get_n_pages (self) > 1)
-      return g_strdup_printf ("%s → %s", page_title ? page_title : _("Untitled page"), group_title);
+    gchar *result;
 
-    return g_strdup (group_title);
+    if (get_n_pages (self) > 1)
+      result = g_strdup_printf ("%s → %s", page_title ? page_title : _("Untitled page"), group_title);
+    else
+      result = g_strdup (group_title);
+
+    g_free (page_title);
+
+    return result;
   }
 
-  if (page_title)
-    return g_steal_pointer (&page_title);
-
-  return NULL;
+  return page_title;
 }
 
 static GtkWidget *
@@ -231,7 +241,7 @@ new_search_row_for_preference (AdwPreferencesRow    *row,
 {
   AdwActionRow *widget;
   GtkWidget *page;
-  g_autofree char *subtitle = NULL;
+  char *subtitle;
 
   g_assert (ADW_IS_PREFERENCES_ROW (row));
 
@@ -246,6 +256,8 @@ new_search_row_for_preference (AdwPreferencesRow    *row,
 
   g_object_set_data (G_OBJECT (widget), "page", page);
   g_object_set_data (G_OBJECT (widget), "row", row);
+
+  g_clear_pointer (&subtitle, g_free);
 
   return GTK_WIDGET (widget);
 }

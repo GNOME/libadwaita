@@ -509,7 +509,7 @@ void
 adw_style_manager_ensure (void)
 {
   GdkDisplayManager *display_manager = gdk_display_manager_get ();
-  g_autoptr (GSList) displays = NULL;
+  GSList *displays;
   GSList *l;
 
   if (display_style_managers)
@@ -530,6 +530,8 @@ adw_style_manager_ensure (void)
                     "display-opened",
                     G_CALLBACK (register_display),
                     NULL);
+
+  g_slist_free (displays);
 }
 
 /**

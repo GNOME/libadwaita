@@ -68,7 +68,7 @@ static void
 populate_contacts (AdwDemoPageAvatar *self)
 {
   for (int i = 0; i < 30; i++) {
-    g_autofree char *name = create_random_name ();
+    char *name = create_random_name ();
     GtkWidget *contact = adw_action_row_new ();
     GtkWidget *avatar = adw_avatar_new (40, name, TRUE);
 
@@ -78,6 +78,8 @@ populate_contacts (AdwDemoPageAvatar *self)
     adw_preferences_row_set_title (ADW_PREFERENCES_ROW (contact), name);
     adw_action_row_add_prefix (ADW_ACTION_ROW (contact), avatar);
     gtk_list_box_append (self->contacts, contact);
+
+    g_free (name);
   }
 }
 
@@ -87,10 +89,10 @@ open_response_cb (AdwDemoPageAvatar *self,
                   GtkFileChooser    *chooser)
 {
   if (response == GTK_RESPONSE_ACCEPT) {
-    g_autoptr (GFile) file = gtk_file_chooser_get_file (chooser);
-    g_autoptr (GFileInfo) info = NULL;
-    g_autoptr (GdkTexture) texture = NULL;
-    g_autoptr (GError) error = NULL;
+    GFile *file = gtk_file_chooser_get_file (chooser);
+    GFileInfo *info;
+    GdkTexture *texture;
+    GError *error = NULL;
 
     info = g_file_query_info (file,
                               G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
@@ -109,6 +111,11 @@ open_response_cb (AdwDemoPageAvatar *self,
       g_critical ("Failed to create texture from file: %s", error->message);
 
     adw_avatar_set_custom_image (self->avatar, texture ? GDK_PAINTABLE (texture) : NULL);
+
+    g_clear_error (&error);
+    g_clear_object (&info);
+    g_object_unref (texture);
+    g_object_unref (file);
   }
 
   gtk_native_dialog_destroy (GTK_NATIVE_DIALOG (chooser));
@@ -145,12 +152,15 @@ save_response_cb (AdwDemoPageAvatar *self,
                   GtkFileChooser    *chooser)
 {
   if (response == GTK_RESPONSE_ACCEPT) {
-    g_autoptr (GFile) file = gtk_file_chooser_get_file (chooser);
-    g_autoptr (GdkTexture) texture =
+    GFile *file = gtk_file_chooser_get_file (chooser);
+    GdkTexture *texture =
       adw_avatar_draw_to_texture (self->avatar,
                                   gtk_widget_get_scale_factor (GTK_WIDGET (self)));
 
     gdk_texture_save_to_png (texture, g_file_peek_path (file));
+
+    g_object_unref (texture);
+    g_object_unref (file);
   }
 
   gtk_native_dialog_destroy (GTK_NATIVE_DIALOG (chooser));
@@ -192,7 +202,7 @@ adw_demo_page_avatar_class_init (AdwDemoPageAvatarClass *klass)
 static void
 adw_demo_page_avatar_init (AdwDemoPageAvatar *self)
 {
-  g_autofree char *name = NULL;
+  char *name;
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -201,4 +211,6 @@ adw_demo_page_avatar_init (AdwDemoPageAvatar *self)
 
   populate_contacts (self);
   avatar_remove_cb (self);
+
+  g_free (name);
 }

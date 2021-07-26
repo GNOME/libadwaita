@@ -111,10 +111,9 @@ static void
 init_providers (AdwApplication *self)
 {
   AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
-
-  const char *base_path = NULL;
-  g_autofree char *base_uri = NULL;
-  g_autoptr (GFile) base_file = NULL;
+  const char *base_path;
+  char *base_uri;
+  GFile *base_file;
 
   base_path = g_application_get_resource_base_path (G_APPLICATION (self));
 
@@ -132,6 +131,9 @@ init_providers (AdwApplication *self)
                            g_file_get_child (base_file, "style-hc.css"));
   init_provider_from_file (&priv->hc_dark_style_provider,
                            g_file_get_child (base_file, "style-hc-dark.css"));
+
+  g_object_unref (base_file);
+  g_free (base_uri);
 }
 
 static void

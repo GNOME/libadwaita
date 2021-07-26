@@ -12,11 +12,11 @@ assert_page_position (GtkSelectionModel *pages,
                       GtkWidget         *widget,
                       int                position)
 {
-  g_autoptr (AdwLeafletPage) page = NULL;
-
-  page = g_list_model_get_item (G_LIST_MODEL (pages), position);
+  AdwLeafletPage *page = g_list_model_get_item (G_LIST_MODEL (pages), position);
 
   g_assert_true (widget == adw_leaflet_page_get_child (page));
+
+  g_object_unref (page);
 }
 
 

@@ -21,7 +21,7 @@ int
 main (int   argc,
       char *argv[])
 {
-  g_autoptr (GEnumClass) enum_class = NULL;
+  GEnumClass *enum_class;
   guint i;
 
   gtk_test_init (&argc, &argv, NULL);
@@ -31,11 +31,14 @@ main (int   argc,
 
   for (i = 0; i < enum_class->n_values; i++) {
     GEnumValue *value = &enum_class->values[i];
-    g_autofree char *path =
-      g_strdup_printf ("/Adwaita/Easing/%s", value->value_nick);
+    char *path = g_strdup_printf ("/Adwaita/Easing/%s", value->value_nick);
 
     g_test_add_data_func (path, GINT_TO_POINTER (value->value), test_easing_ease);
+
+    g_free (path);
   }
+
+  g_type_class_unref (enum_class);
 
   return g_test_run();
 }

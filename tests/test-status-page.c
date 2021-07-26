@@ -46,7 +46,7 @@ static void
 test_adw_status_page_title (void)
 {
   AdwStatusPage *status_page = ADW_STATUS_PAGE (g_object_ref_sink (adw_status_page_new ()));
-  g_autofree char *title = NULL;
+  char *title;
 
   g_assert_nonnull (status_page);
 
@@ -67,6 +67,7 @@ test_adw_status_page_title (void)
   g_assert_cmpstr (adw_status_page_get_title (status_page), ==, "Other Title");
   g_assert_cmpint (notified, ==, 2);
 
+  g_free (title);
   g_assert_finalize_object (status_page);
 }
 
@@ -74,7 +75,7 @@ static void
 test_adw_status_page_description (void)
 {
   AdwStatusPage *status_page = ADW_STATUS_PAGE (g_object_ref_sink (adw_status_page_new ()));
-  g_autofree char *description = NULL;
+  char *description;
 
   g_assert_nonnull (status_page);
 
@@ -95,6 +96,7 @@ test_adw_status_page_description (void)
   g_assert_cmpstr (adw_status_page_get_description (status_page), ==, "Other description");
   g_assert_cmpint (notified, ==, 2);
 
+  g_free (description);
   g_assert_finalize_object (status_page);
 }
 

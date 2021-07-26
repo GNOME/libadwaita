@@ -103,8 +103,8 @@ update_button (AdwViewSwitcher  *self,
                AdwViewStackPage *page,
                GtkWidget        *button)
 {
-  g_autofree char *title = NULL;
-  g_autofree char *icon_name = NULL;
+  char *title;
+  char *icon_name;
   gboolean needs_attention;
   guint badge_number;
   gboolean visible;
@@ -128,6 +128,9 @@ update_button (AdwViewSwitcher  *self,
                 NULL);
 
   gtk_widget_set_visible (button, visible && (title != NULL || icon_name != NULL));
+
+  g_free (title);
+  g_free (icon_name);
 }
 
 static void

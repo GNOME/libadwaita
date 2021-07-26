@@ -49,7 +49,7 @@ show_about (GSimpleAction *action,
 
   GtkApplication *app = GTK_APPLICATION (user_data);
   GtkWindow *window = gtk_application_get_active_window (app);
-  g_autofree char *version = NULL;
+  char *version;
 
   version = g_strdup_printf ("%s\nRunning against libadwaita %d.%d.%d, GTK %d.%d.%d",
                              ADW_VERSION_S,
@@ -73,6 +73,7 @@ show_about (GSimpleAction *action,
                          "artists", artists,
                          "translator-credits", _("translator-credits"),
                          NULL);
+  g_free (version);
 }
 
 static void

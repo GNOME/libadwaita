@@ -307,7 +307,7 @@ ensure_shader (AdwTab *self)
 {
   GtkNative *native;
   GskRenderer *renderer;
-  g_autoptr (GError) error = NULL;
+  GError *error = NULL;
 
   if (self->shader)
     return;
@@ -325,6 +325,8 @@ ensure_shader (AdwTab *self)
     if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
       g_critical ("Couldn't compile shader: %s\n", error->message);
   }
+
+  g_clear_error (&error);
 }
 
 static gboolean

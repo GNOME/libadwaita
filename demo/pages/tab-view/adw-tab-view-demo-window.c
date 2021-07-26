@@ -106,7 +106,7 @@ tab_new (GSimpleAction *action,
          gpointer       user_data)
 {
   AdwTabViewDemoWindow *self = ADW_TAB_VIEW_DEMO_WINDOW (user_data);
-  g_autofree char *title = NULL;
+  char *title;
   AdwTabPage *page;
   GtkWidget *content;
   GIcon *icon;
@@ -123,6 +123,8 @@ tab_new (GSimpleAction *action,
   gtk_widget_grab_focus (content);
 
   next_page++;
+
+  g_free (title);
 }
 
 static AdwTabPage *
@@ -256,13 +258,15 @@ tab_change_indicator (GSimpleAction *action,
 {
   AdwTabViewDemoWindow *self = ADW_TAB_VIEW_DEMO_WINDOW (user_data);
   gboolean indicator = g_variant_get_boolean (parameter);
-  g_autoptr (GIcon) icon = NULL;
+  GIcon *icon = NULL;
 
   if (indicator)
     icon = get_indicator_icon (get_current_page (self));
 
   adw_tab_page_set_indicator_icon (get_current_page (self), icon);
   g_simple_action_set_state (action, g_variant_new_boolean (indicator));
+
+  g_clear_object (&icon);
 }
 
 static void
@@ -274,9 +278,11 @@ tab_change_icon (GSimpleAction *action,
   gboolean enable_icon = g_variant_get_boolean (parameter);
 
   if (enable_icon) {
-    g_autoptr (GIcon) icon = get_random_icon (self);
+    GIcon *icon = get_random_icon (self);
 
     adw_tab_page_set_icon (get_current_page (self), icon);
+
+    g_object_unref (icon);
   } else {
     adw_tab_page_set_icon (get_current_page (self), NULL);
   }
@@ -290,9 +296,11 @@ tab_refresh_icon (GSimpleAction *action,
                   gpointer       user_data)
 {
   AdwTabViewDemoWindow *self = ADW_TAB_VIEW_DEMO_WINDOW (user_data);
-  g_autoptr (GIcon) icon = get_random_icon (self);
+  GIcon *icon = get_random_icon (self);
 
   adw_tab_page_set_icon (get_current_page (self), icon);
+
+  g_object_unref (icon);
 }
 
 static void
@@ -436,7 +444,7 @@ static void
 indicator_activated_cb (AdwTabViewDemoWindow *self,
                         AdwTabPage           *page)
 {
-  g_autoptr (GIcon) icon = NULL;
+  GIcon *icon;
   gboolean muted;
 
   muted = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (page),
@@ -449,6 +457,8 @@ indicator_activated_cb (AdwTabViewDemoWindow *self,
   icon = get_indicator_icon (page);
 
   adw_tab_page_set_indicator_icon (page, icon);
+
+  g_object_unref (icon);
 }
 
 static gboolean

@@ -44,11 +44,18 @@ toast_add_cb (AdwDemoPageToasts *self)
 static void
 toast_add_with_button_cb (AdwDemoPageToasts *self)
 {
-  g_autofree char *title = NULL;
+  char *title;
 
   self->toast_undo_items++;
 
-  if (!self->undo_toast) {
+  if (self->undo_toast) {
+    title =
+      g_strdup_printf (ngettext ("<span font_features='tnum=1'>%d</span> item deleted",
+                                 "<span font_features='tnum=1'>%d</span> items deleted",
+                                 self->toast_undo_items), self->toast_undo_items);
+
+    adw_toast_set_title (self->undo_toast, title);
+  } else {
     title = g_strdup_printf (_("‘%s’ deleted"), "Lorem Ipsum");
 
     self->undo_toast = adw_toast_new (title);
@@ -62,16 +69,9 @@ toast_add_with_button_cb (AdwDemoPageToasts *self)
     add_toast (self, self->undo_toast);
 
     gtk_widget_action_set_enabled (GTK_WIDGET (self), "toast.dismiss", TRUE);
-
-    return;
   }
 
-  title =
-    g_strdup_printf (ngettext ("<span font_features='tnum=1'>%d</span> item deleted",
-                               "<span font_features='tnum=1'>%d</span> items deleted",
-                               self->toast_undo_items), self->toast_undo_items);
-
-  adw_toast_set_title (self->undo_toast, title);
+  g_free (title);
 }
 
 static void
@@ -124,7 +124,7 @@ adw_demo_page_toasts_init (AdwDemoPageToasts *self)
 void
 adw_demo_page_toasts_undo (AdwDemoPageToasts *self)
 {
-  g_autofree char *title =
+  char *title =
     g_strdup_printf (ngettext ("Undoing deleting <span font_features='tnum=1'>%d</span> item…",
                                "Undoing deleting <span font_features='tnum=1'>%d</span> items…",
                                self->toast_undo_items), self->toast_undo_items);
@@ -133,4 +133,6 @@ adw_demo_page_toasts_undo (AdwDemoPageToasts *self)
   adw_toast_set_priority (toast, ADW_TOAST_PRIORITY_HIGH);
 
   add_toast (self, toast);
+
+  g_free (title);
 }

@@ -207,8 +207,7 @@ adw_carousel_indicator_lines_snapshot (GtkWidget   *widget,
   AdwCarouselIndicatorLines *self = ADW_CAROUSEL_INDICATOR_LINES (widget);
   int i, n_points;
   double position;
-  g_autofree double *points = NULL;
-  g_autofree double *sizes = NULL;
+  double *points, *sizes;
 
   if (!self->carousel)
     return;
@@ -216,8 +215,11 @@ adw_carousel_indicator_lines_snapshot (GtkWidget   *widget,
   points = adw_swipeable_get_snap_points (ADW_SWIPEABLE (self->carousel), &n_points);
   position = adw_carousel_get_position (self->carousel);
 
-  if (n_points < 2)
+  if (n_points < 2) {
+    g_free (points);
+
     return;
+  }
 
   if (self->orientation == GTK_ORIENTATION_HORIZONTAL &&
       gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
@@ -230,6 +232,9 @@ adw_carousel_indicator_lines_snapshot (GtkWidget   *widget,
     sizes[i] = points[i] - points[i - 1];
 
   snapshot_lines (widget, snapshot, self->orientation, position, sizes, n_points);
+
+  g_free (sizes);
+  g_free (points);
 }
 
 static void

@@ -1837,7 +1837,7 @@ adw_tab_box_root_content_write_mime_type_async (GdkContentProvider  *provider,
                                                 gpointer             user_data)
 {
   AdwTabBoxRootContent *self = ADW_TAB_BOX_ROOT_CONTENT (provider);
-  g_autoptr (GTask) task = NULL;
+  GTask *task;
 
   self->tab_box->should_detach_into_new_window = TRUE;
 
@@ -1845,6 +1845,8 @@ adw_tab_box_root_content_write_mime_type_async (GdkContentProvider  *provider,
   g_task_set_priority (task, io_priority);
   g_task_set_source_tag (task, adw_tab_box_root_content_write_mime_type_async);
   g_task_return_boolean (task, TRUE);
+
+  g_object_unref (task);
 }
 
 static gboolean
@@ -2344,7 +2346,7 @@ static void
 begin_drag (AdwTabBox *self,
             GdkDevice *device)
 {
-  g_autoptr (GdkContentProvider) content = NULL;
+  GdkContentProvider *content;
   GtkNative *native;
   GdkSurface *surface;
   GdkDrag *drag;
@@ -2398,6 +2400,7 @@ begin_drag (AdwTabBox *self,
 
   animate_scroll_relative (self, -self->placeholder_scroll_offset, CLOSE_ANIMATION_DURATION);
 
+  g_object_unref (content);
   g_object_unref (detached_tab);
 }
 

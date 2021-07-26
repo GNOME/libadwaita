@@ -62,7 +62,7 @@ ensure_shader (AdwIndicatorBin *self)
 {
   GtkNative *native;
   GskRenderer *renderer;
-  g_autoptr (GError) error = NULL;
+  GError *error = NULL;
 
   if (self->shader)
     return;
@@ -80,6 +80,8 @@ ensure_shader (AdwIndicatorBin *self)
     if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
       g_critical ("Couldn't compile shader: %s\n", error->message);
   }
+
+  g_clear_error (&error);
 }
 
 static gboolean
@@ -167,7 +169,7 @@ adw_indicator_bin_snapshot (GtkWidget   *widget,
 
   if (self->child) {
     GtkSnapshot *child_snapshot;
-    g_autoptr (GskRenderNode) child_node = NULL;
+    GskRenderNode *child_node;
 
     child_snapshot = gtk_snapshot_new ();
     gtk_widget_snapshot_child (widget, self->child, child_snapshot);
@@ -193,6 +195,8 @@ adw_indicator_bin_snapshot (GtkWidget   *widget,
 
       gtk_snapshot_pop (snapshot);
     }
+
+    gsk_render_node_unref (child_node);
   }
 
   gtk_widget_snapshot_child (widget, self->indicator, snapshot);

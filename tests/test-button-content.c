@@ -20,7 +20,7 @@ static void
 test_adw_button_content_icon_name (void)
 {
   AdwButtonContent *content = g_object_ref_sink (ADW_BUTTON_CONTENT (adw_button_content_new ()));
-  g_autofree char *icon_name = NULL;
+  char *icon_name;
 
   g_assert_nonnull (content);
 
@@ -41,6 +41,7 @@ test_adw_button_content_icon_name (void)
   g_assert_cmpstr (adw_button_content_get_icon_name (content), ==, "");
   g_assert_cmpint (notified, ==, 2);
 
+  g_free (icon_name);
   g_assert_finalize_object (content);
 }
 
@@ -48,7 +49,7 @@ static void
 test_adw_button_content_label (void)
 {
   AdwButtonContent *content = g_object_ref_sink (ADW_BUTTON_CONTENT (adw_button_content_new ()));
-  g_autofree char *label = NULL;
+  char *label;
 
   g_assert_nonnull (content);
 
@@ -69,6 +70,7 @@ test_adw_button_content_label (void)
   g_assert_cmpstr (adw_button_content_get_label (content), ==, "");
   g_assert_cmpint (notified, ==, 2);
 
+  g_free (label);
   g_assert_finalize_object (content);
 }
 

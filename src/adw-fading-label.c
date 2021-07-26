@@ -60,7 +60,7 @@ ensure_shader (AdwFadingLabel *self)
 {
   GtkNative *native;
   GskRenderer *renderer;
-  g_autoptr (GError) error = NULL;
+  GError *error = NULL;
 
   if (self->shader)
     return;
@@ -78,6 +78,8 @@ ensure_shader (AdwFadingLabel *self)
     if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
       g_critical ("Couldn't compile shader: %s\n", error->message);
   }
+
+  g_clear_error (&error);
 }
 
 static void
@@ -128,7 +130,7 @@ adw_fading_label_snapshot (GtkWidget   *widget,
   int width = gtk_widget_get_width (widget);
   int clipped_size;
   GtkSnapshot *child_snapshot;
-  g_autoptr (GskRenderNode) node = NULL;
+  GskRenderNode *node;
   graphene_rect_t bounds;
 
   if (width <= 0)
@@ -170,6 +172,8 @@ adw_fading_label_snapshot (GtkWidget   *widget,
     gtk_snapshot_gl_shader_pop_texture (snapshot);
 
   gtk_snapshot_pop (snapshot);
+
+  gsk_render_node_unref (node);
 }
 
 static void
