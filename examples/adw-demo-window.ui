@@ -28,7 +28,7 @@
               <object class="GtkBox">
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="AdwHeaderBar" id="left_header_bar">
+                  <object class="AdwHeaderBar">
                     <property name="show-end-title-buttons" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
                     <child type="start">
                       <object class="GtkButton" id="theme_variant">
@@ -56,29 +56,10 @@
               <object class="AdwLeafletPage">
                 <property name="navigatable">False</property>
                 <property name="child">
-                  <object class="GtkBox">
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="GtkWindowHandle" id="header_separator">
-                        <child>
-                          <object class="GtkSeparator">
-                            <property name="orientation">vertical</property>
-                            <style>
-                              <class name="sidebar"/>
-                            </style>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSeparator">
-                        <property name="orientation">vertical</property>
-                        <property name="vexpand">True</property>
-                        <style>
-                          <class name="sidebar"/>
-                        </style>
-                      </object>
-                    </child>
+                  <object class="GtkSeparator">
+                    <style>
+                      <class name="sidebar"/>
+                    </style>
                   </object>
                 </property>
               </object>
@@ -88,7 +69,7 @@
                 <property name="orientation">vertical</property>
                 <property name="hexpand">True</property>
                 <child>
-                  <object class="AdwHeaderBar" id="right_header_bar">
+                  <object class="AdwHeaderBar">
                     <property name="show-start-title-buttons" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
                     <property name="title-widget">
                       <object class="GtkBox"/>
@@ -934,14 +915,6 @@
       </object>
     </child>
   </template>
-  <object class="GtkSizeGroup">
-    <property name="mode">vertical</property>
-    <widgets>
-      <widget name="left_header_bar"/>
-      <widget name="header_separator"/>
-      <widget name="right_header_bar"/>
-    </widgets>
-  </object>
   <object class="GtkAdjustment" id="clamp_maximum_size_adjustment">
     <property name="lower">0</property>
     <property name="upper">10000</property>
