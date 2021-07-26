@@ -206,8 +206,6 @@ adw_action_row_dispose (GObject *object)
 
   adw_action_row_set_activatable_widget (self, NULL);
 
-  gtk_widget_unparent (priv->header);
-
   G_OBJECT_CLASS (adw_action_row_parent_class)->dispose (object);
 }
 
