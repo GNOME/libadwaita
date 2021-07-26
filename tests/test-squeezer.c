@@ -33,13 +33,13 @@ test_adw_squeezer_allow_none (void)
   squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
   g_assert_nonnull (squeezer);
 
-  g_assert_false (adw_squeezer_get_allow_none (squeezer));
-
-  adw_squeezer_set_allow_none (squeezer, TRUE);
   g_assert_true (adw_squeezer_get_allow_none (squeezer));
 
   adw_squeezer_set_allow_none (squeezer, FALSE);
   g_assert_false (adw_squeezer_get_allow_none (squeezer));
+
+  adw_squeezer_set_allow_none (squeezer, TRUE);
+  g_assert_true (adw_squeezer_get_allow_none (squeezer));
 }
 
 
