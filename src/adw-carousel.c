@@ -618,14 +618,14 @@ adw_carousel_size_allocate (GtkWidget *widget,
       if (gtk_widget_get_hexpand (child))
         child_size = MAX (min, width);
       else
-        child_size = MAX (min, nat);
+        child_size = CLAMP (nat, min, width);
     } else {
       gtk_widget_measure (child, self->orientation,
                           width, &min, &nat, NULL, NULL);
       if (gtk_widget_get_vexpand (child))
         child_size = MAX (min, height);
       else
-        child_size = MAX (min, nat);
+        child_size = CLAMP (nat, min, height);
     }
 
     size = MAX (size, child_size);
