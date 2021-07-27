@@ -526,8 +526,8 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    * Since: 1.0
    */
   props[PROP_VISIBLE_PAGE_NAME] =
-      g_param_spec_string ("visible-child-name",
-                           "Name of visible child",
+      g_param_spec_string ("visible-page-name",
+                           "Name of visible page",
                            "The name of the currently visible page",
                            NULL,
                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
