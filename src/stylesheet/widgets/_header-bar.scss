@@ -56,6 +56,21 @@ headerbar {
     }
   }
 
+  &.flat {
+    background: none;
+    box-shadow: none;
+
+    min-height: 46px;
+
+    > windowhandle > box {
+      padding-bottom: 0;
+    }
+
+    &.default-decoration {
+      min-height: 36px;
+    }
+  }
+
   .solid-csd & {
     &:backdrop, & {
       &:dir(rtl), &:dir(ltr) { // specificity bump
