@@ -136,6 +136,8 @@ windowtitle {
 
 window.devel {
   headerbar > windowhandle {
-    background: cross-fade(8% -gtk-icontheme("system-run-symbolic"), image(transparent)) 90% 0/256px 256px no-repeat;
+    background-image: cross-fade(8% -gtk-recolor(url("assets/devel-symbolic.svg")),
+                                 image(transparent));
+    background-repeat: repeat-x;
   }
 }
