@@ -15,7 +15,7 @@
 #include "adw-view-stack.h"
 
 #include "gtkprogresstrackerprivate.h"
-#include "adw-animation-private.h"
+#include "adw-animation-util-private.h"
 #include "adw-enums.h"
 #include "adw-focus-private.h"
 #include "adw-gizmo-private.h"

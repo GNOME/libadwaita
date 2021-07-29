@@ -86,7 +86,7 @@ adw_get_enable_animations (GtkWidget *widget)
 {
   gboolean enable_animations = TRUE;
 
-  g_return_val_if_fail (GTK_IS_WIDGET (widget), NULL);
+  g_return_val_if_fail (GTK_IS_WIDGET (widget), FALSE);
 
   g_object_get (gtk_widget_get_settings (widget),
                 "gtk-enable-animations", &enable_animations,
