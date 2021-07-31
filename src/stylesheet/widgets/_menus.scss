@@ -28,8 +28,6 @@ popover.menu {
     padding: $menu_padding $menu_padding 6px;
 
     button.circular.image-button.model {
-      @extend %outline_button;
-
       outline: none;
       padding: 11px;
       &:selected {

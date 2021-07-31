@@ -50,8 +50,8 @@ spinbutton {
 
   &.vertical {
     > text {
-      min-height: 30px;
-      min-width: 30px;
+      min-height: 32px;
+      min-width: 32px;
     }
 
     /* :not here just to bump specificity above that of the list button styling */

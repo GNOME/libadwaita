@@ -42,12 +42,7 @@ $trough_color: gtkalpha(currentColor, .15);
 $trough_hover_color: gtkalpha(currentColor, .2);
 $trough_active_color: gtkalpha(currentColor, .25);
 
-$button_color: gtkalpha(currentColor, .1);
-$button_hover_color: gtkalpha(currentColor, .15);
-$button_active_color: gtkalpha(currentColor, .25);
-$button_checked_color: gtkalpha(currentColor, .2);
-$button_checked_hover_color: gtkalpha(currentColor, .25);
-$button_checked_active_color: gtkalpha(currentColor, .35);
+$button_border_color: $view_selected_active_color;
 
 $fill_color: $accent_bg_color;
 $fill_text_color: $accent_fg_color;
@@ -93,6 +88,7 @@ $dim_label_opacity: 0.55;
   $thin_borders_color: gtkalpha(currentColor, .25);
 
   $headerbar_border_color: transparentize($fg_color, .5);
+  $button_border_color: $borders_color;
 
   //insensitive state derived colors
   $insensitive_fg_color: mix($fg_color, $bg_color, 50%);

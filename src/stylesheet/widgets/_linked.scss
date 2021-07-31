@@ -17,7 +17,7 @@ $_linked_widgets: ("%button",          ""),
       &:dir(rtl):not(:last-child) #{$child} {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
-        margin-left: -1px;
+        border-left: none;
       }
 
       &:dir(ltr):not(:last-child) #{$child},
@@ -33,7 +33,7 @@ $_linked_widgets: ("%button",          ""),
       &:not(:first-child) #{$child} {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-        margin-top: -1px;
+        border-top: none;
       }
 
       &:not(:last-child) #{$child} {
