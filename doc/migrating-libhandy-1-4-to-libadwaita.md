@@ -259,8 +259,8 @@ colors have been removed:
 * `@unfocused_insensitive_color`
 * `@unfocused_borders`
 
-The `.list-button` style class has been renamed to the more accurate name
-`.outline`.
+The `.list-button` style class has been removed, buttons have a similar
+appearance by default.
 
 The public colors `@theme_selected_bg_color` and `@theme_selected_fg_color` have
 been renamed to `@accent_bg_color` and `@accent_fg_color`.
