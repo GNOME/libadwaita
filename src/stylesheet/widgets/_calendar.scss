@@ -22,7 +22,7 @@ calendar {
     }
 
     > label {
-      @include focus-ring($focus-state: 'focus');
+      @include focus-ring($focus-state: ':focus');
 
       &.day-number {
         padding: 4px;
