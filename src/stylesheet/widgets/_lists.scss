@@ -25,7 +25,7 @@ list {
 }
 
 row {
-  @include focus-ring($focus-state: 'focus-visible:focus-within');
+  @include focus-ring();
 
   background-clip: padding-box;
 
