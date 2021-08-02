@@ -22,7 +22,11 @@
                         <child>
                           <object class="GtkImage" id="image">
                             <property name="pixel-size">128</property>
-                            <property name="icon-name">image-missing</property>
+                            <binding name="visible">
+                              <closure function="string_is_not_empty" type="gboolean">
+                                <lookup name="icon-name">image</lookup>
+                              </closure>
+                            </binding>
                             <style>
                               <class name="icon"/>
                             </style>

@@ -310,8 +310,7 @@ adw_status_page_set_icon_name (AdwStatusPage *self,
   g_free (self->icon_name);
   self->icon_name = g_strdup (icon_name);
 
-  gtk_image_set_from_icon_name (self->image,
-                                icon_name ? icon_name : "image-missing");
+  gtk_image_set_from_icon_name (self->image, icon_name);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
 }
