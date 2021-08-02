@@ -55,20 +55,11 @@ G_DEFINE_TYPE_WITH_CODE (AdwStatusPage, adw_status_page, GTK_TYPE_WIDGET,
 
 static GtkBuildableIface *parent_buildable_iface;
 
-static void
-update_title_visibility (AdwStatusPage *self)
+static gboolean
+string_is_not_empty (AdwStatusPage *self,
+                     const char    *string)
 {
-  gtk_widget_set_visible (GTK_WIDGET (self->title_label),
-                          gtk_label_get_text (self->title_label) != NULL &&
-                          g_strcmp0 (gtk_label_get_text (self->title_label), "") != 0);
-}
-
-static void
-update_description_visibility (AdwStatusPage *self)
-{
-  gtk_widget_set_visible (GTK_WIDGET (self->description_label),
-                          gtk_label_get_text (self->description_label) != NULL &&
-                          g_strcmp0 (gtk_label_get_text (self->description_label), "") != 0);
+  return string && string[0];
 }
 
 static void
@@ -230,6 +221,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwStatusPage, image);
   gtk_widget_class_bind_template_child (widget_class, AdwStatusPage, title_label);
   gtk_widget_class_bind_template_child (widget_class, AdwStatusPage, description_label);
+  gtk_widget_class_bind_template_callback (widget_class, string_is_not_empty);
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "statuspage");
@@ -239,9 +231,6 @@ static void
 adw_status_page_init (AdwStatusPage *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
-
-  update_title_visibility (self);
-  update_description_visibility (self);
 }
 
 static void
@@ -364,7 +353,6 @@ adw_status_page_set_title (AdwStatusPage *self,
     return;
 
   gtk_label_set_label (self->title_label, title);
-  update_title_visibility (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
 }
@@ -406,7 +394,6 @@ adw_status_page_set_description (AdwStatusPage *self,
     return;
 
   gtk_label_set_label (self->description_label, description);
-  update_description_visibility (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DESCRIPTION]);
 }

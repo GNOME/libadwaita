@@ -33,6 +33,11 @@
                             <property name="wrap">True</property>
                             <property name="wrap-mode">word-char</property>
                             <property name="justify">center</property>
+                            <binding name="visible">
+                              <closure function="string_is_not_empty" type="gboolean">
+                                <lookup name="label">title_label</lookup>
+                              </closure>
+                            </binding>
                             <style>
                               <class name="title"/>
                               <class name="large-title"/>
@@ -45,6 +50,11 @@
                             <property name="wrap-mode">word-char</property>
                             <property name="justify">center</property>
                             <property name="use-markup">True</property>
+                            <binding name="visible">
+                              <closure function="string_is_not_empty" type="gboolean">
+                                <lookup name="label">description_label</lookup>
+                              </closure>
+                            </binding>
                             <style>
                               <class name="body"/>
                               <class name="description"/>
