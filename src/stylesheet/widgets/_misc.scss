@@ -75,6 +75,8 @@ statuspage > scrolledwindow > viewport > box {
     border-spacing: 12px;
 
     > .icon {
+      -gtk-icon-size: 128px;
+
       @if $contrast == 'normal' {
         color: gtkalpha(currentColor, 0.5);
       }
