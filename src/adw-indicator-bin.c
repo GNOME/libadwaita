@@ -343,6 +343,7 @@ adw_indicator_bin_init (AdwIndicatorBin *self)
   self->label = gtk_label_new (NULL);
   gtk_widget_set_visible (self->label, FALSE);
   gtk_widget_set_parent (self->label, self->indicator);
+  gtk_widget_add_css_class (self->label, "numeric");
 }
 
 static void

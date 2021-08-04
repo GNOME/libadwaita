@@ -1,5 +1,6 @@
 spinbutton {
   @extend %entry;
+  @extend .numeric;
 
   padding: 0;
   border-spacing: 0;
@@ -80,6 +81,4 @@ spinbutton {
       padding: 1px 2px;
     }
   }
-
-  font-feature-settings: "tnum";
 }

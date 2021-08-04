@@ -108,8 +108,8 @@ scale {
   }
 
   > value {
-    color: gtkalpha(currentColor, 0.55);
-    font-feature-settings: "tnum";
+    @extend .dim-label;
+    @extend .numeric;
   }
 
   &.marks-before:not(.marks-after),
