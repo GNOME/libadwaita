@@ -1,6 +1,4 @@
 label {
-  @include focus-ring();
-
   &.separator {
     @extend .dim-label;
   }
