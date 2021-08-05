@@ -3261,10 +3261,10 @@ adw_tab_view_attach_page (AdwTabView *self,
 
   attach_page (self, page, position);
 
-  adw_tab_view_set_selected_page (self, page);
-
   if (self->pages)
     g_list_model_items_changed (G_LIST_MODEL (self->pages), position, 0, 1);
+
+  adw_tab_view_set_selected_page (self, page);
 
   end_transfer_for_group (self);
 
