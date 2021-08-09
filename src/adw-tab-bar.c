@@ -12,6 +12,7 @@
 
 #include "adw-bin.h"
 #include "adw-tab-box-private.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwTabBar:
@@ -435,6 +436,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
   object_class->set_property = adw_tab_bar_set_property;
 
   widget_class->focus = adw_tab_bar_focus;
+  widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
    * AdwTabBar:view: (attributes org.gtk.Property.get=adw_tab_bar_get_view org.gtk.Property.set=adw_tab_bar_set_view)

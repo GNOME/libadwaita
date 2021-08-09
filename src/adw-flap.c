@@ -16,6 +16,7 @@
 #include "adw-shadow-helper-private.h"
 #include "adw-swipeable.h"
 #include "adw-swipe-tracker-private.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwFlap:
@@ -1261,6 +1262,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   widget_class->size_allocate = adw_flap_size_allocate;
   widget_class->snapshot = adw_flap_snapshot;
   widget_class->direction_changed = adw_flap_direction_changed;
+  widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
    * AdwFlap:content: (attributes org.gtk.Property.get=adw_flap_get_content org.gtk.Property.set=adw_flap_set_content)

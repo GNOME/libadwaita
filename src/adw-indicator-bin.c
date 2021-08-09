@@ -10,6 +10,7 @@
 #include "adw-indicator-bin-private.h"
 
 #include "adw-gizmo-private.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwIndicatorBin:
@@ -280,6 +281,7 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
   widget_class->size_allocate = adw_indicator_bin_size_allocate;
   widget_class->snapshot = adw_indicator_bin_snapshot;
   widget_class->unrealize = adw_indicator_bin_unrealize;
+  widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
    * AdwIndicatorBin:child:

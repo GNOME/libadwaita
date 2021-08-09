@@ -7,9 +7,9 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
 
-
-
 #include "adw-gizmo-private.h"
+
+#include "adw-widget-utils-private.h"
 
 struct _AdwGizmo
 {
@@ -133,6 +133,7 @@ adw_gizmo_class_init (AdwGizmoClass *klass)
   widget_class->contains = adw_gizmo_contains;
   widget_class->grab_focus = adw_gizmo_grab_focus;
   widget_class->focus = adw_gizmo_focus;
+  widget_class->compute_expand = adw_widget_compute_expand;
 }
 
 static void

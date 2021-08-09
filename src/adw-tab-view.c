@@ -11,6 +11,7 @@
 #include "adw-tab-view-private.h"
 
 #include "adw-gizmo-private.h"
+#include "adw-widget-utils-private.h"
 
 /* FIXME replace with groups */
 static GSList *tab_view_list;
@@ -1393,6 +1394,8 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
   object_class->finalize = adw_tab_view_finalize;
   object_class->get_property = adw_tab_view_get_property;
   object_class->set_property = adw_tab_view_set_property;
+
+  widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
    * AdwTabView:n-pages: (attributes org.gtk.Property.get=adw_tab_view_get_n_pages)

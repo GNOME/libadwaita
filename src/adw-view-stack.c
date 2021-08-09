@@ -882,38 +882,6 @@ stack_remove (AdwViewStack  *self,
     gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
-static void
-adw_view_stack_compute_expand (GtkWidget *widget,
-                               gboolean  *hexpand_p,
-                               gboolean  *vexpand_p)
-{
-  AdwViewStack *self = ADW_VIEW_STACK (widget);
-  gboolean hexpand, vexpand;
-  GList *l;
-
-  hexpand = FALSE;
-  vexpand = FALSE;
-
-  for (l = self->children; l; l = l->next) {
-    AdwViewStackPage *page = l->data;
-    GtkWidget *child = page->widget;
-
-    if (!hexpand &&
-        gtk_widget_compute_expand (child, GTK_ORIENTATION_HORIZONTAL))
-      hexpand = TRUE;
-
-    if (!vexpand &&
-        gtk_widget_compute_expand (child, GTK_ORIENTATION_VERTICAL))
-      vexpand = TRUE;
-
-    if (hexpand && vexpand)
-      break;
-  }
-
-  *hexpand_p = hexpand;
-  *vexpand_p = vexpand;
-}
-
 static GtkSizeRequestMode
 adw_view_stack_get_request_mode (GtkWidget *widget)
 {
@@ -1212,7 +1180,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
   widget_class->size_allocate = adw_view_stack_size_allocate;
   widget_class->snapshot = adw_view_stack_snapshot;
   widget_class->measure = adw_view_stack_measure;
-  widget_class->compute_expand = adw_view_stack_compute_expand;
+  widget_class->compute_expand = adw_widget_compute_expand;
   widget_class->get_request_mode = adw_view_stack_get_request_mode;
 
   /**

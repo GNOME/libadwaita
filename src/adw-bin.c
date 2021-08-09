@@ -9,6 +9,8 @@
 #include "config.h"
 #include "adw-bin.h"
 
+#include "adw-widget-utils-private.h"
+
 /**
  * AdwBin:
  *
@@ -98,6 +100,8 @@ adw_bin_class_init (AdwBinClass *klass)
   object_class->dispose = adw_bin_dispose;
   object_class->get_property = adw_bin_get_property;
   object_class->set_property = adw_bin_set_property;
+
+  widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
    * AdwBin:child: (attributes org.gtk.Property.get=adw_bin_get_child org.gtk.Property.set=adw_bin_set_child)

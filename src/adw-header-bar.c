@@ -414,6 +414,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
   widget_class->root = adw_header_bar_root;
   widget_class->unroot = adw_header_bar_unroot;
   widget_class->get_request_mode = adw_header_bar_get_request_mode;
+  widget_class->compute_expand = adw_widget_compute_expand_horizontal_only;
 
   /**
    * AdwHeaderBar:title-widget: (attributes org.gtk.Property.get=adw_header_bar_get_title_widget org.gtk.Property.set=adw_header_bar_set_title_widget)

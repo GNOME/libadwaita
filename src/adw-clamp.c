@@ -8,6 +8,7 @@
 #include "adw-clamp.h"
 
 #include "adw-clamp-layout.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwClamp:
@@ -152,6 +153,8 @@ adw_clamp_class_init (AdwClampClass *klass)
   object_class->get_property = adw_clamp_get_property;
   object_class->set_property = adw_clamp_set_property;
   object_class->dispose = adw_clamp_dispose;
+
+  widget_class->compute_expand = adw_widget_compute_expand;
 
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,

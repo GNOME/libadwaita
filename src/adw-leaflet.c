@@ -16,6 +16,7 @@
 #include "adw-shadow-helper-private.h"
 #include "adw-swipeable.h"
 #include "adw-swipe-tracker-private.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwLeaflet:
@@ -2306,6 +2307,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   widget_class->size_allocate = adw_leaflet_size_allocate;
   widget_class->snapshot = adw_leaflet_snapshot;
   widget_class->direction_changed = adw_leaflet_direction_changed;
+  widget_class->compute_expand = adw_widget_compute_expand;
 
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,

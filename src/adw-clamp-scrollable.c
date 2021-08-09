@@ -8,6 +8,7 @@
 #include "adw-clamp-scrollable.h"
 
 #include "adw-clamp-layout.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwClampScrollable:
@@ -228,6 +229,8 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
   object_class->get_property = adw_clamp_scrollable_get_property;
   object_class->set_property = adw_clamp_scrollable_set_property;
   object_class->dispose = adw_clamp_scrollable_dispose;
+
+  widget_class->compute_expand = adw_widget_compute_expand;
 
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,

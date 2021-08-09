@@ -10,6 +10,7 @@
 
 #include "adw-macros-private.h"
 #include "adw-preferences-row.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwPreferencesGroup:
@@ -170,6 +171,8 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
   object_class->get_property = adw_preferences_group_get_property;
   object_class->set_property = adw_preferences_group_set_property;
   object_class->dispose = adw_preferences_group_dispose;
+
+  widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
    * AdwPreferencesGroup:description: (attributes org.gtk.Property.get=adw_preferences_group_get_description org.gtk.Property.set=adw_preferences_group_set_description)

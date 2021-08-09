@@ -21,6 +21,7 @@
 #include "gtkprogresstrackerprivate.h"
 #include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwSqueezer:
@@ -775,39 +776,6 @@ adw_squeezer_set_property (GObject      *object,
 }
 
 static void
-adw_squeezer_compute_expand (GtkWidget *widget,
-                             gboolean  *hexpand_p,
-                             gboolean  *vexpand_p)
-{
-  AdwSqueezer *self = ADW_SQUEEZER (widget);
-  gboolean hexpand, vexpand;
-  AdwSqueezerPage *page;
-  GtkWidget *child;
-  GList *l;
-
-  hexpand = FALSE;
-  vexpand = FALSE;
-  for (l = self->children; l != NULL; l = l->next) {
-    page = l->data;
-    child = page->widget;
-
-    if (!hexpand &&
-        gtk_widget_compute_expand (child, GTK_ORIENTATION_HORIZONTAL))
-      hexpand = TRUE;
-
-    if (!vexpand &&
-        gtk_widget_compute_expand (child, GTK_ORIENTATION_VERTICAL))
-      vexpand = TRUE;
-
-    if (hexpand && vexpand)
-      break;
-  }
-
-  *hexpand_p = hexpand;
-  *vexpand_p = vexpand;
-}
-
-static void
 adw_squeezer_snapshot_crossfade (GtkWidget   *widget,
                                  GtkSnapshot *snapshot)
 {
@@ -1098,7 +1066,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
   widget_class->size_allocate = adw_squeezer_size_allocate;
   widget_class->snapshot = adw_squeezer_snapshot;
   widget_class->measure = adw_squeezer_measure;
-  widget_class->compute_expand = adw_squeezer_compute_expand;
+  widget_class->compute_expand = adw_widget_compute_expand;
 
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,

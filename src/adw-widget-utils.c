@@ -474,3 +474,40 @@ adw_widget_grab_focus_child (GtkWidget *widget)
 
   return FALSE;
 }
+
+void
+adw_widget_compute_expand (GtkWidget *widget,
+                           gboolean  *hexpand_p,
+                           gboolean  *vexpand_p)
+{
+  GtkWidget *child;
+  gboolean hexpand = FALSE;
+  gboolean vexpand = FALSE;
+
+  for (child = gtk_widget_get_first_child (widget);
+       child != NULL;
+       child = gtk_widget_get_next_sibling (child)) {
+    hexpand = hexpand || gtk_widget_compute_expand (child, GTK_ORIENTATION_HORIZONTAL);
+    vexpand = vexpand || gtk_widget_compute_expand (child, GTK_ORIENTATION_VERTICAL);
+  }
+
+  *hexpand_p = hexpand;
+  *vexpand_p = vexpand;
+}
+
+void
+adw_widget_compute_expand_horizontal_only (GtkWidget *widget,
+                                           gboolean  *hexpand_p,
+                                           gboolean  *vexpand_p)
+{
+  GtkWidget *child;
+  gboolean hexpand = FALSE;
+
+  for (child = gtk_widget_get_first_child (widget);
+       child != NULL;
+       child = gtk_widget_get_next_sibling (child))
+    hexpand = hexpand || gtk_widget_compute_expand (child, GTK_ORIENTATION_HORIZONTAL);
+
+  *hexpand_p = hexpand;
+  *vexpand_p = FALSE;
+}

@@ -31,4 +31,12 @@ gboolean adw_widget_focus_child (GtkWidget        *widget,
 gboolean adw_widget_grab_focus_self  (GtkWidget *widget);
 gboolean adw_widget_grab_focus_child (GtkWidget *widget);
 
+void adw_widget_compute_expand (GtkWidget *widget,
+                                gboolean  *hexpand_p,
+                                gboolean  *vexpand_p);
+
+void adw_widget_compute_expand_horizontal_only (GtkWidget *widget,
+                                                gboolean  *hexpand_p,
+                                                gboolean  *vexpand_p);
+
 G_END_DECLS

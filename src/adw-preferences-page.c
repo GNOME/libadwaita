@@ -10,6 +10,7 @@
 
 #include "adw-macros-private.h"
 #include "adw-preferences-group-private.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwPreferencesPage:
@@ -145,6 +146,8 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
   object_class->set_property = adw_preferences_page_set_property;
   object_class->dispose = adw_preferences_page_dispose;
   object_class->finalize = adw_preferences_page_finalize;
+
+  widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
    * AdwPreferencesPage:icon-name: (attributes org.gtk.Property.get=adw_preferences_page_get_icon_name org.gtk.Property.set=adw_preferences_page_set_icon_name)

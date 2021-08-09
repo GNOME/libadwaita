@@ -13,6 +13,7 @@
 #include "adw-navigation-direction.h"
 #include "adw-swipe-tracker.h"
 #include "adw-swipeable.h"
+#include "adw-widget-utils-private.h"
 
 #include <math.h>
 
@@ -872,6 +873,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
   widget_class->measure = adw_carousel_measure;
   widget_class->size_allocate = adw_carousel_size_allocate;
   widget_class->direction_changed = adw_carousel_direction_changed;
+  widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
    * AdwCarousel:n-pages: (attributes org.gtk.Property.get=adw_carousel_get_n_pages)
