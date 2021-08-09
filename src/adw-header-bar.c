@@ -354,19 +354,6 @@ adw_header_bar_set_property (GObject      *object,
   }
 }
 
-static void
-adw_header_bar_pack (AdwHeaderBar *self,
-                     GtkWidget    *widget,
-                     GtkPackType   pack_type)
-{
-  if (pack_type == GTK_PACK_START)
-    gtk_box_append (GTK_BOX (self->start_box), widget);
-  else if (pack_type == GTK_PACK_END) {
-    gtk_box_append (GTK_BOX (self->end_box), widget);
-    gtk_box_reorder_child_after (GTK_BOX (self->end_box), widget, NULL);
-  }
-}
-
 static GtkSizeRequestMode
 adw_header_bar_get_request_mode (GtkWidget *widget)
 {
@@ -631,7 +618,7 @@ void
 adw_header_bar_pack_start (AdwHeaderBar *self,
                            GtkWidget    *child)
 {
-  adw_header_bar_pack (self, child, GTK_PACK_START);
+  gtk_box_append (GTK_BOX (self->start_box), child);
 }
 
 /**
@@ -647,7 +634,7 @@ void
 adw_header_bar_pack_end (AdwHeaderBar *self,
                          GtkWidget    *child)
 {
-  adw_header_bar_pack (self, child, GTK_PACK_END);
+  gtk_box_prepend (GTK_BOX (self->end_box), child);
 }
 
 /**
