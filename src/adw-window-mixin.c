@@ -6,8 +6,8 @@
 
 #include "config.h"
 
-#include "adw-focus-private.h"
 #include "adw-gizmo-private.h"
+#include "adw-widget-utils-private.h"
 #include "adw-window-mixin-private.h"
 
 struct _AdwWindowMixin
