@@ -1262,6 +1262,7 @@ adw_flap_class_init (AdwFlapClass *klass)
   widget_class->size_allocate = adw_flap_size_allocate;
   widget_class->snapshot = adw_flap_snapshot;
   widget_class->direction_changed = adw_flap_direction_changed;
+  widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**

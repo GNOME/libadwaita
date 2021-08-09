@@ -354,39 +354,6 @@ adw_header_bar_set_property (GObject      *object,
   }
 }
 
-static GtkSizeRequestMode
-adw_header_bar_get_request_mode (GtkWidget *widget)
-{
-  GtkWidget *w;
-  int wfh = 0, hfw = 0;
-
-  for (w = gtk_widget_get_first_child (widget);
-       w != NULL;
-       w = gtk_widget_get_next_sibling (w)) {
-    GtkSizeRequestMode mode = gtk_widget_get_request_mode (w);
-
-    switch (mode) {
-    case GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH:
-      hfw ++;
-      break;
-    case GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT:
-      wfh ++;
-      break;
-    case GTK_SIZE_REQUEST_CONSTANT_SIZE:
-    default:
-      break;
-    }
-  }
-
-  if (hfw == 0 && wfh == 0)
-    return GTK_SIZE_REQUEST_CONSTANT_SIZE;
-  else
-    return wfh > hfw ?
-        GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT :
-        GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
-}
-
-
 static void
 adw_header_bar_class_init (AdwHeaderBarClass *class)
 {
@@ -400,7 +367,6 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
 
   widget_class->root = adw_header_bar_root;
   widget_class->unroot = adw_header_bar_unroot;
-  widget_class->get_request_mode = adw_header_bar_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand_horizontal_only;
 
   /**

@@ -1066,6 +1066,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
   widget_class->size_allocate = adw_squeezer_size_allocate;
   widget_class->snapshot = adw_squeezer_snapshot;
   widget_class->measure = adw_squeezer_measure;
+  widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
 
   g_object_class_override_property (object_class,

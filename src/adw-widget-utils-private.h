@@ -39,4 +39,6 @@ void adw_widget_compute_expand_horizontal_only (GtkWidget *widget,
                                                 gboolean  *hexpand_p,
                                                 gboolean  *vexpand_p);
 
+GtkSizeRequestMode adw_widget_get_request_mode (GtkWidget *widget);
+
 G_END_DECLS
