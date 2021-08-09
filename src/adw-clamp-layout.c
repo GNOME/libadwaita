@@ -129,11 +129,14 @@ get_child_size (AdwClampLayout *self,
                 int            *lower_threshold,
                 int            *upper_threshold)
 {
-  int min = 0, max = 0, lower = 0, upper = 0;
+  int min = 0, nat = 0, max = 0, lower = 0, upper = 0;
   double amplitude, progress;
 
   if (gtk_widget_get_visible (child))
-    gtk_widget_measure (child, self->orientation, -1, &min, NULL, NULL, NULL);
+    gtk_widget_measure (child, self->orientation, -1, &min, &nat, NULL, NULL);
+
+  if (for_size < 0)
+    return nat;
 
   lower = MAX (MIN (self->tightening_threshold, self->maximum_size), min);
   max = MAX (lower, self->maximum_size);
@@ -148,9 +151,6 @@ get_child_size (AdwClampLayout *self,
     *lower_threshold = lower;
   if (upper_threshold)
     *upper_threshold = upper;
-
-  if (for_size < 0)
-    return 0;
 
   if (for_size <= lower)
     return for_size;
