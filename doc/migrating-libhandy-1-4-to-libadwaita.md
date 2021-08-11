@@ -160,6 +160,11 @@ requiring an expression.
 The `HdyComboRow:selected-index` property has been renamed to
 [property@Adw.ComboRow:selected], matching [class@Gtk.DropDown].
 
+### Adapt to [class@Adw.PreferencesGroup] API Changes
+
+`HdyPreferencesGroup:use-markup` has been removed, the labels always use markup
+now.
+
 ### Stop Creating `HdyEnumValueObject` Instances
 
 [class@Adw.EnumValueObject] can no longer be manually created and is only

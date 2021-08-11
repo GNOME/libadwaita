@@ -11,6 +11,7 @@
             <property name="can_focus">False</property>
             <property name="ellipsize">end</property>
             <property name="halign">start</property>
+            <property name="use-markup">True</property>
             <property name="xalign">0</property>
             <style>
               <class name="heading"/>
@@ -24,6 +25,7 @@
             <property name="visible">False</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
+            <property name="use-markup">True</property>
             <property name="wrap">True</property>
             <property name="wrap-mode">word-char</property>
             <property name="xalign">0</property>
