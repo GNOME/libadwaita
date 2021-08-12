@@ -454,6 +454,9 @@
                                 <property name="label" translatable="yes">Run the demo</property>
                                 <property name="halign">center</property>
                                 <signal name="clicked" handler="view_switcher_demo_clicked_cb" swapped="no"/>
+                                <style>
+                                  <class name="pill"/>
+                                </style>
                               </object>
                             </child>
                           </object>
@@ -582,6 +585,7 @@
                                         <signal name="clicked" handler="carousel_return_clicked_cb" swapped="no"/>
                                         <style>
                                           <class name="suggested-action"/>
+                                          <class name="pill"/>
                                         </style>
                                       </object>
                                     </child>
@@ -812,6 +816,9 @@
                                 <property name="label" translatable="yes">Run the demo</property>
                                 <property name="halign">center</property>
                                 <signal name="clicked" handler="flap_demo_clicked_cb" swapped="no"/>
+                                <style>
+                                  <class name="pill"/>
+                                </style>
                               </object>
                             </property>
                           </object>
@@ -832,6 +839,9 @@
                                 <property name="label" translatable="yes">Run the demo</property>
                                 <property name="halign">center</property>
                                 <signal name="clicked" handler="tab_view_demo_clicked_cb" swapped="no"/>
+                                <style>
+                                  <class name="pill"/>
+                                </style>
                               </object>
                             </property>
                           </object>
