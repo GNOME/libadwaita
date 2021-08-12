@@ -559,36 +559,21 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkBox">
-                                    <property name="orientation">vertical</property>
-                                    <property name="halign">center</property>
-                                    <property name="valign">center</property>
-                                    <property name="vexpand">True</property>
+                                  <object class="AdwStatusPage">
+                                    <property name="title" translatable="yes">Another page</property>
                                     <property name="hexpand">True</property>
-                                    <property name="spacing">24</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="label" translatable="yes">Another page</property>
-                                        <property name="justify">center</property>
-                                        <property name="wrap">True</property>
-                                        <property name="wrap-mode">word-char</property>
-                                        <style>
-                                          <class name="title"/>
-                                          <class name="large-title"/>
-                                        </style>
-                                      </object>
-                                    </child>
-                                    <child>
+                                    <property name="child">
                                       <object class="GtkButton">
                                         <property name="label" translatable="yes">_Return to the first page</property>
                                         <property name="use-underline">True</property>
+                                        <property name="halign">center</property>
                                         <signal name="clicked" handler="carousel_return_clicked_cb" swapped="no"/>
                                         <style>
                                           <class name="suggested-action"/>
                                           <class name="pill"/>
                                         </style>
                                       </object>
-                                    </child>
+                                    </property>
                                   </object>
                                 </child>
                               </object>
@@ -873,31 +858,13 @@
               </object>
             </child>
             <child>
-              <object class="GtkScrolledWindow">
-                <property name="hscrollbar-policy">never</property>
-                <property name="vexpand">True</property>
-                <child>
+              <object class="AdwStatusPage">
+                <property name="title" translatable="yes">Go back</property>
+                <property name="child">
                   <object class="GtkBox">
                     <property name="orientation">vertical</property>
-                    <property name="valign">center</property>
-                    <property name="margin-top">12</property>
-                    <property name="margin-bottom">12</property>
-                    <property name="margin-start">12</property>
-                    <property name="margin-end">12</property>
+                    <property name="halign">center</property>
                     <property name="spacing">12</property>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="halign">center</property>
-                        <property name="label" translatable="yes">Go back</property>
-                        <property name="justify">center</property>
-                        <property name="wrap">True</property>
-                        <property name="wrap-mode">word-char</property>
-                        <style>
-                          <class name="title"/>
-                          <class name="large-title"/>
-                        </style>
-                      </object>
-                    </child>
                     <child>
                       <object class="GtkImage">
                         <property name="icon-name">gesture-touchscreen-swipe-back-symbolic</property>
@@ -917,7 +884,7 @@
                       </object>
                     </child>
                   </object>
-                </child>
+                </property>
               </object>
             </child>
           </object>

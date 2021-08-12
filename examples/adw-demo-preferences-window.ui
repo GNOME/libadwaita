@@ -170,26 +170,9 @@
       </object>
     </child>
   </template>
-  <object class="GtkBox" id="subpage1">
-    <property name="orientation">vertical</property>
-    <property name="halign">center</property>
-    <property name="valign">center</property>
-    <property name="vexpand">True</property>
-    <property name="hexpand">True</property>
-    <property name="spacing">24</property>
-    <child>
-      <object class="GtkLabel">
-        <property name="label" translatable="yes">This is a subpage</property>
-        <property name="justify">center</property>
-        <property name="wrap">True</property>
-        <property name="wrap-mode">word-char</property>
-        <style>
-          <class name="title"/>
-          <class name="large-title"/>
-        </style>
-      </object>
-    </child>
-    <child>
+  <object class="AdwStatusPage" id="subpage1">
+    <property name="title" translatable="yes">This is a subpage</property>
+    <property name="child">
       <object class="GtkButton">
         <property name="label" translatable="yes">Return to the preferences</property>
         <property name="halign">center</property>
@@ -199,28 +182,11 @@
           <class name="pill"/>
         </style>
       </object>
-    </child>
+    </property>
   </object>
-  <object class="GtkBox" id="subpage2">
-    <property name="orientation">vertical</property>
-    <property name="halign">center</property>
-    <property name="valign">center</property>
-    <property name="vexpand">True</property>
-    <property name="hexpand">True</property>
-    <property name="spacing">24</property>
-    <child>
-      <object class="GtkLabel">
-        <property name="label" translatable="yes">This is another subpage</property>
-        <property name="justify">center</property>
-        <property name="wrap">True</property>
-        <property name="wrap-mode">word-char</property>
-        <style>
-          <class name="title"/>
-          <class name="large-title"/>
-        </style>
-      </object>
-    </child>
-    <child>
+  <object class="AdwStatusPage" id="subpage2">
+    <property name="title" translatable="yes">This is another subpage</property>
+    <property name="child">
       <object class="GtkButton">
         <property name="label" translatable="yes">Return to the preferences</property>
         <property name="halign">center</property>
@@ -230,6 +196,6 @@
           <class name="pill"/>
         </style>
       </object>
-    </child>
+    </property>
   </object>
 </interface>
