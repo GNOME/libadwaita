@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="AdwTabButton" parent="GtkWidget">
+    <child>
+      <object class="GtkButton" id="button">
+        <property name="tooltip-text" translatable="yes">View Open Tabs</property>
+        <signal name="clicked" handler="clicked_cb" swapped="yes"/>
+        <property name="child">
+          <object class="AdwIndicatorBin" id="indicator">
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <property name="child">
+              <object class="GtkOverlay">
+                <child>
+                  <object class="GtkImage" id="icon"/>
+                </child>
+                <child type="overlay">
+                  <object class="GtkLabel" id="label">
+                    <property name="halign">center</property>
+                    <property name="justify">center</property>
+                    <style>
+                      <class name="numeric"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </property>
+        <style>
+          <class name="image-button"/>
+        </style>
+      </object>
+    </child>
+  </template>
+</interface>

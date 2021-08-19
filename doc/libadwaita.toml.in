@@ -198,6 +198,8 @@ content_images = [
   "images/tab-bar-dark.png",
   "images/tab-bar-inline.png",
   "images/tab-bar-inline-dark.png",
+  "images/tab-button.png",
+  "images/tab-button-dark.png",
   "images/toast-action.png",
   "images/toast-action-dark.png",
   "images/toast-overlay.png",

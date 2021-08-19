@@ -53,6 +53,7 @@ test_names = [
   'test-status-page',
   'test-style-manager',
   'test-tab-bar',
+  'test-tab-button',
   'test-tab-view',
   'test-timed-animation',
   'test-toast',

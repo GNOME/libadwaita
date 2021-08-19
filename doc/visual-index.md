@@ -133,12 +133,17 @@ Slug: visual-index
   <img src="view-switcher-bar.png" alt="view-switcher-bar">
 </picture>](class.ViewSwitcherBar.html)
 
-### Tab Bar
+### Tabs
 
 [<picture>
   <source srcset="tab-bar-dark.png" media="(prefers-color-scheme: dark)">
   <img src="tab-bar.png" alt="tab-bar">
 </picture>](class.TabBar.html)
+
+[<picture>
+  <source srcset="tab-button-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="tab-button.png" alt="tab-button">
+</picture>](class.TabButton.html)
 
 ## Adaptive Containers
 

@@ -594,3 +594,19 @@ buttoncontent {
     }
   }
 }
+
+tabbutton {
+  label {
+    font-weight: 800;
+    font-size: 8pt;
+
+    &.small {
+      font-size: 6pt;
+    }
+  }
+
+  indicatorbin > indicator,
+  indicatorbin > mask {
+    transform: translate(-1px, 1px);
+  }
+}

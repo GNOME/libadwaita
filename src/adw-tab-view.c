@@ -25,8 +25,8 @@ static GSList *tab_view_list;
  *
  * `AdwTabView` is a container which shows one child at a time. While it
  * provides keyboard shortcuts for switching between pages, it does not provide
- * a visible tab bar and relies on external widgets for that, such as
- * [class@TabBar].
+ * a visible tab switcher and relies on external widgets for that, such as
+ * [class@TabBar] and [class@TabButton].
  *
  * `AdwTabView` maintains a [class@TabPage] object for each page, which holds
  * additional per-page properties. You can obtain the `AdwTabPage` for a page
@@ -626,6 +626,9 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * [class@TabBar] will display a line under the tab representing the page if
    * set to `TRUE`. If the tab is not visible, the corresponding edge of the tab
    * bar will be highlighted.
+   *
+   * [class@TabButton] will display a dot if any of the pages that aren't
+   * selected have this property set to `TRUE`.
    *
    * Since: 1.0
    */
@@ -2333,6 +2336,9 @@ adw_tab_page_get_needs_attention (AdwTabPage *self)
  * [class@TabBar] will display a line under the tab representing the page if
  * set to `TRUE`. If the tab is not visible, the corresponding edge of the tab
  * bar will be highlighted.
+ *
+ * [class@TabButton] will display a dot if any of the pages that aren't
+ * selected have [property@TabPage:needs-attention] set to `TRUE`.
  *
  * Since: 1.0
  */
