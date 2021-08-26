@@ -22,6 +22,7 @@ adw_public_enum_headers = [
 
 adw_private_enum_headers = [
   'adw-animation-private.h',
+  'adw-settings-private.h',
 ]
 
 version_data = configuration_data()
@@ -153,6 +154,7 @@ src_sources = [
   'adw-preferences-page.c',
   'adw-preferences-row.c',
   'adw-preferences-window.c',
+  'adw-settings.c',
   'adw-shadow-helper.c',
   'adw-split-button.c',
   'adw-squeezer.c',

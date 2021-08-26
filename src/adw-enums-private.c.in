@@ -3,6 +3,7 @@
 #include "config.h"
 #include "adw-enums-private.h"
 #include "adw-animation-private.h"
+#include "adw-settings-private.h"
 
 /*** END file-header ***/
 
