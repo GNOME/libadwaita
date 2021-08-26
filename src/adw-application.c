@@ -52,6 +52,14 @@ typedef struct
 
 G_DEFINE_TYPE_WITH_PRIVATE (AdwApplication, adw_application, GTK_TYPE_APPLICATION)
 
+enum {
+  PROP_0,
+  PROP_STYLE_MANAGER,
+  LAST_PROP,
+};
+
+static GParamSpec *props[LAST_PROP];
+
 static inline void
 style_provider_set_enabled (GtkStyleProvider *provider,
                             gboolean          enabled)
@@ -187,14 +195,52 @@ adw_application_dispose (GObject *object)
 }
 
 static void
+adw_application_get_property (GObject    *object,
+                              guint       prop_id,
+                              GValue     *value,
+                              GParamSpec *pspec)
+{
+  AdwApplication *self = ADW_APPLICATION (object);
+
+  switch (prop_id) {
+  case PROP_STYLE_MANAGER:
+    g_value_set_object (value, adw_application_get_style_manager (self));
+    break;
+
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
 adw_application_class_init (AdwApplicationClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GApplicationClass *application_class = G_APPLICATION_CLASS (klass);
 
   object_class->dispose = adw_application_dispose;
+  object_class->get_property = adw_application_get_property;
 
   application_class->startup = adw_application_startup;
+
+  /**
+   * AdwApplication:style-manager: (attributes org.gtk.Property.get=adw_application_get_style_manager)
+   *
+   * The style manager for this application.
+   *
+   * This is a convenience property allowing to access `AdwStyleManager` through
+   * property bindings or expressions.
+   *
+   * Since: 1.0
+   */
+  props[PROP_STYLE_MANAGER] =
+    g_param_spec_object ("style-manager",
+                         "Style Manager",
+                         "The default style manager",
+                         ADW_TYPE_STYLE_MANAGER,
+                         G_PARAM_READABLE);
+
+  g_object_class_install_properties (object_class, LAST_PROP, props);
 }
 
 static void
@@ -227,4 +273,22 @@ adw_application_new (const char        *application_id,
                        "application-id", application_id,
                        "flags", flags,
                        NULL);
+}
+
+/**
+ * adw_application_get_style_manager: (attributes org.gtk.Method.get_property=style-manager)
+ * @self: a `AdwApplication`
+ *
+ * Gets the style manager for @self.
+ *
+ * Returns: (transfer none): the style manager
+ *
+ * Since: 1.0
+ */
+AdwStyleManager *
+adw_application_get_style_manager (AdwApplication *self)
+{
+  g_return_val_if_fail (ADW_IS_APPLICATION (self), NULL);
+
+  return adw_style_manager_get_default ();
 }

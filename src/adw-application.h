@@ -14,6 +14,8 @@
 
 #include <gtk/gtk.h>
 
+#include "adw-style-manager.h"
+
 G_BEGIN_DECLS
 
 #define ADW_TYPE_APPLICATION (adw_application_get_type())
@@ -36,5 +38,8 @@ struct _AdwApplicationClass
 ADW_AVAILABLE_IN_ALL
 AdwApplication *adw_application_new (const char        *application_id,
                                      GApplicationFlags  flags) G_GNUC_WARN_UNUSED_RESULT;
+
+ADW_AVAILABLE_IN_ALL
+AdwStyleManager *adw_application_get_style_manager (AdwApplication *self);
 
 G_END_DECLS
