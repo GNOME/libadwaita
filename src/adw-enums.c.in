@@ -8,6 +8,7 @@
 #include "adw-leaflet.h"
 #include "adw-navigation-direction.h"
 #include "adw-squeezer.h"
+#include "adw-style-manager.h"
 #include "adw-view-switcher.h"
 
 /*** END file-header ***/

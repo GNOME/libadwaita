@@ -51,6 +51,7 @@ G_BEGIN_DECLS
 #include "adw-split-button.h"
 #include "adw-squeezer.h"
 #include "adw-status-page.h"
+#include "adw-style-manager.h"
 #include "adw-swipe-tracker.h"
 #include "adw-swipeable.h"
 #include "adw-tab-bar.h"
