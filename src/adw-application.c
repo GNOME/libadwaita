@@ -70,7 +70,7 @@ update_stylesheet (AdwApplication *self)
 {
   AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
   gboolean is_dark, is_hc, is_hc_dark;
-  const char *theme_name;
+  g_autofree gchar *theme_name;
 
   g_object_get (gtk_settings_get_default (),
                 "gtk-theme-name", &theme_name,
