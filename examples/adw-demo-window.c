@@ -11,7 +11,7 @@ struct _AdwDemoWindow
 
   AdwLeaflet *content_box;
   GtkBox *right_box;
-  GtkImage *theme_variant;
+  GtkWidget *color_scheme_button;
   GtkStackSidebar *sidebar;
   GtkStack *stack;
   AdwComboRow *leaflet_transition_row;
@@ -31,27 +31,22 @@ struct _AdwDemoWindow
 
 G_DEFINE_TYPE (AdwDemoWindow, adw_demo_window, ADW_TYPE_APPLICATION_WINDOW)
 
-static void
-theme_variant_button_clicked_cb (AdwDemoWindow *self)
+static char *
+get_color_scheme_icon_name (gpointer user_data,
+                            gboolean dark)
 {
-  GtkSettings *settings = gtk_settings_get_default ();
-  gboolean prefer_dark_theme;
-
-  g_object_get (settings, "gtk-application-prefer-dark-theme", &prefer_dark_theme, NULL);
-  g_object_set (settings, "gtk-application-prefer-dark-theme", !prefer_dark_theme, NULL);
+  return g_strdup (dark ? "light-mode-symbolic" : "dark-mode-symbolic");
 }
 
-static gboolean
-prefer_dark_theme_to_icon_name_cb (GBinding     *binding,
-                                   const GValue *from_value,
-                                   GValue       *to_value,
-                                   gpointer      user_data)
+static void
+color_scheme_button_clicked_cb (AdwDemoWindow *self)
 {
-  g_value_set_string (to_value,
-                      g_value_get_boolean (from_value) ? "light-mode-symbolic" :
-                                                         "dark-mode-symbolic");
+  AdwStyleManager *manager = adw_style_manager_get_default ();
 
-  return TRUE;
+  if (adw_style_manager_get_dark (manager))
+    adw_style_manager_set_color_scheme (manager, ADW_COLOR_SCHEME_FORCE_LIGHT);
+  else
+    adw_style_manager_set_color_scheme (manager, ADW_COLOR_SCHEME_FORCE_DARK);
 }
 
 static void
@@ -394,7 +389,7 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita/Demo/ui/adw-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, content_box);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, right_box);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, theme_variant);
+  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, color_scheme_button);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, leaflet_transition_row);
@@ -415,7 +410,8 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, leaflet_transition_name);
   gtk_widget_class_bind_template_callback (widget_class, notify_leaflet_transition_cb);
   gtk_widget_class_bind_template_callback (widget_class, leaflet_go_next_row_activated_cb);
-  gtk_widget_class_bind_template_callback (widget_class, theme_variant_button_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
+  gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, view_switcher_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_carousel_orientation_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_carousel_indicators_cb);
@@ -456,17 +452,12 @@ avatar_page_init (AdwDemoWindow *self)
 static void
 adw_demo_window_init (AdwDemoWindow *self)
 {
-  GtkSettings *settings = gtk_settings_get_default ();
+  AdwStyleManager *manager = adw_style_manager_get_default ();
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  g_object_bind_property_full (settings, "gtk-application-prefer-dark-theme",
-                               self->theme_variant, "icon-name",
-                               G_BINDING_SYNC_CREATE,
-                               prefer_dark_theme_to_icon_name_cb,
-                               NULL,
-                               NULL,
-                               NULL);
+  gtk_widget_set_visible (self->color_scheme_button,
+                          !adw_style_manager_get_system_supports_color_schemes (manager));
 
   avatar_page_init (self);
 

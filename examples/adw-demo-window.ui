@@ -44,8 +44,17 @@
                   <object class="AdwHeaderBar">
                     <property name="show-end-title-buttons" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
                     <child type="start">
-                      <object class="GtkButton" id="theme_variant">
-                        <signal name="clicked" handler="theme_variant_button_clicked_cb" swapped="yes"/>
+                      <object class="GtkButton" id="color_scheme_button">
+                        <binding name="icon-name">
+                          <closure type="gchararray" function="get_color_scheme_icon_name">
+                            <lookup name="dark" type="AdwStyleManager">
+                              <lookup name="style-manager" type="AdwApplication">
+                                <lookup name="application">AdwDemoWindow</lookup>
+                              </lookup>
+                            </lookup>
+                          </closure>
+                        </binding>
+                        <signal name="clicked" handler="color_scheme_button_clicked_cb" swapped="yes"/>
                       </object>
                     </child>
                     <child type="end">
