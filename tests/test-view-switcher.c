@@ -15,16 +15,13 @@ test_adw_view_switcher_policy (void)
   view_switcher = g_object_ref_sink (ADW_VIEW_SWITCHER (adw_view_switcher_new ()));
   g_assert_nonnull (view_switcher);
 
-  g_assert_cmpint (adw_view_switcher_get_policy (view_switcher), ==, ADW_VIEW_SWITCHER_POLICY_AUTO);
-
-  adw_view_switcher_set_policy (view_switcher, ADW_VIEW_SWITCHER_POLICY_NARROW);
   g_assert_cmpint (adw_view_switcher_get_policy (view_switcher), ==, ADW_VIEW_SWITCHER_POLICY_NARROW);
 
   adw_view_switcher_set_policy (view_switcher, ADW_VIEW_SWITCHER_POLICY_WIDE);
   g_assert_cmpint (adw_view_switcher_get_policy (view_switcher), ==, ADW_VIEW_SWITCHER_POLICY_WIDE);
 
-  adw_view_switcher_set_policy (view_switcher, ADW_VIEW_SWITCHER_POLICY_AUTO);
-  g_assert_cmpint (adw_view_switcher_get_policy (view_switcher), ==, ADW_VIEW_SWITCHER_POLICY_AUTO);
+  adw_view_switcher_set_policy (view_switcher, ADW_VIEW_SWITCHER_POLICY_NARROW);
+  g_assert_cmpint (adw_view_switcher_get_policy (view_switcher), ==, ADW_VIEW_SWITCHER_POLICY_NARROW);
 }
 
 

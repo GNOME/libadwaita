@@ -254,6 +254,10 @@ You should stop using [property@Gtk.Stack:transition-type] and
 [property@Gtk.Stack:transition-duration] properties before switching to
 [class@Adw.ViewStack].
 
+The `auto` view switcher policy has been removed. [class@Adw.ViewSwitcher] only
+has narrow and wide policies; if you had used the `auto` policy, use an
+[class@Adw.Squeezer] with two view switchers inside.
+
 ### Adapt to [class@Adw.ViewSwitcher] API Changes
 
 The "narrow-ellipsize" property has been removed. Narrow view switchers always
@@ -266,10 +270,10 @@ The "policy" property has been removed. If you had used it, use a plain
 
 ### Adapt to [class@Adw.ViewSwitcherTitle] API Changes
 
-The "policy" property has been removed, the behavior is similar to the `auto`
-policy. If you had used `wide` or `narrow` policies, use an [class@Adw.Squeezer]
-with an [class@Adw.ViewSwitcher] and an [class@Adw.WindowTitle] inside, with the
-switcher having the desired policy.
+The "policy" property has been removed, the behavior is similar to the removed
+`auto` policy. If you had used `wide` or `narrow` policies, use an
+[class@Adw.Squeezer] with an [class@Adw.ViewSwitcher] and an
+[class@Adw.WindowTitle] inside, with the switcher having the desired policy.
 
 ### Adapt to [class@Adw.Avatar] API Changes
 

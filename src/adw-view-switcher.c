@@ -42,7 +42,6 @@
 
 /**
  * AdwViewSwitcherPolicy:
- * @ADW_VIEW_SWITCHER_POLICY_AUTO: Automatically adapt to the best fitting mode
  * @ADW_VIEW_SWITCHER_POLICY_NARROW: Force the narrow mode
  * @ADW_VIEW_SWITCHER_POLICY_WIDE: Force the wide mode
  *
@@ -371,16 +370,12 @@ adw_view_switcher_measure (GtkWidget      *widget,
 
     switch (self->policy) {
     case ADW_VIEW_SWITCHER_POLICY_NARROW:
+    default:
       min = max_v_min * n_children;
       nat = max_v_nat * n_children;
       break;
     case ADW_VIEW_SWITCHER_POLICY_WIDE:
       min = max_h_min * n_children;
-      nat = max_h_nat * n_children;
-      break;
-    case ADW_VIEW_SWITCHER_POLICY_AUTO:
-    default:
-      min = max_v_min * n_children;
       nat = max_h_nat * n_children;
       break;
     }
@@ -488,7 +483,7 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
                        "Policy",
                        "The policy to determine the mode to use",
                        ADW_TYPE_VIEW_SWITCHER_POLICY,
-                       ADW_VIEW_SWITCHER_POLICY_AUTO,
+                       ADW_VIEW_SWITCHER_POLICY_NARROW,
                        G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
@@ -550,7 +545,7 @@ adw_view_switcher_new (void)
 AdwViewSwitcherPolicy
 adw_view_switcher_get_policy (AdwViewSwitcher *self)
 {
-  g_return_val_if_fail (ADW_IS_VIEW_SWITCHER (self), ADW_VIEW_SWITCHER_POLICY_AUTO);
+  g_return_val_if_fail (ADW_IS_VIEW_SWITCHER (self), ADW_VIEW_SWITCHER_POLICY_NARROW);
 
   return self->policy;
 }
