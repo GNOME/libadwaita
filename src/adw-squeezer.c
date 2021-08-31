@@ -784,24 +784,10 @@ adw_squeezer_snapshot_crossfade (GtkWidget   *widget,
 
   gtk_snapshot_push_cross_fade (snapshot, progress);
 
-  if (self->last_visible_child) {
-    int width_diff = MIN (gtk_widget_get_width (widget) - self->last_visible_widget_width, 0);
-    int height_diff = MIN (gtk_widget_get_height (widget) - self->last_visible_widget_height, 0);
-    float xalign = self->xalign;
-
-    if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
-      xalign = 1 - xalign;
-
-    gtk_snapshot_translate (snapshot,
-                            &GRAPHENE_POINT_INIT (
-                              width_diff * xalign,
-                              height_diff * self->yalign
-                            ));
-
+  if (self->last_visible_child)
     gtk_widget_snapshot_child (widget,
                                self->last_visible_child->widget,
                                snapshot);
-  }
 
   gtk_snapshot_pop (snapshot);
 
@@ -904,40 +890,60 @@ adw_squeezer_size_allocate (GtkWidget *widget,
   child_allocation.y = 0;
 
   if (self->last_visible_child) {
-    int min, nat;
+    int min;
 
     if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
       gtk_widget_measure (self->last_visible_child->widget, GTK_ORIENTATION_HORIZONTAL,
-                          -1, &min, &nat, NULL, NULL);
+                          -1, &min, NULL, NULL, NULL);
       child_allocation.width = MAX (min, width);
       gtk_widget_measure (self->last_visible_child->widget, GTK_ORIENTATION_VERTICAL,
-                          child_allocation.width, &min, &nat, NULL, NULL);
+                          child_allocation.width, &min, NULL, NULL, NULL);
       child_allocation.height = MAX (min, height);
     } else {
       gtk_widget_measure (self->last_visible_child->widget, GTK_ORIENTATION_VERTICAL,
-                          -1, &min, &nat, NULL, NULL);
+                          -1, &min, NULL, NULL, NULL);
       child_allocation.height = MAX (min, height);
       gtk_widget_measure (self->last_visible_child->widget, GTK_ORIENTATION_HORIZONTAL,
-                          child_allocation.height, &min, &nat, NULL, NULL);
+                          child_allocation.height, &min, NULL, NULL, NULL);
       child_allocation.width = MAX (min, width);
     }
+
+    if (child_allocation.width > width) {
+      if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
+        child_allocation.x = (width - child_allocation.width) * (1 - self->xalign);
+      else
+        child_allocation.x = (width - child_allocation.width) * self->xalign;
+    }
+
+    if (child_allocation.height > height)
+      child_allocation.y = (height - child_allocation.height) * self->yalign;
 
     gtk_widget_size_allocate (self->last_visible_child->widget, &child_allocation, -1);
   }
 
   child_allocation.width = width;
   child_allocation.height = height;
+  child_allocation.x = 0;
+  child_allocation.y = 0;
 
   if (self->visible_child) {
     int min;
 
-    gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_HORIZONTAL,
-                        height, &min, NULL, NULL, NULL);
-    child_allocation.width = MAX (child_allocation.width, min);
-
-    gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_VERTICAL,
-                        width, &min, NULL, NULL, NULL);
-    child_allocation.height = MAX (child_allocation.height, min);
+    if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
+      gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_HORIZONTAL,
+                          -1, &min, NULL, NULL, NULL);
+      child_allocation.width = MAX (min, width);
+      gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_VERTICAL,
+                          child_allocation.width, &min, NULL, NULL, NULL);
+      child_allocation.height = MAX (min, height);
+    } else {
+      gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_VERTICAL,
+                          -1, &min, NULL, NULL, NULL);
+      child_allocation.height = MAX (min, height);
+      gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_HORIZONTAL,
+                          child_allocation.height, &min, NULL, NULL, NULL);
+      child_allocation.width = MAX (min, width);
+    }
 
     if (child_allocation.width > width) {
       if (gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL)
