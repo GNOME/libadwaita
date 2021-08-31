@@ -2350,7 +2350,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                        "Fold Threshold Policy",
                        "Determines when the leaflet will fold",
                        ADW_TYPE_FOLD_THRESHOLD_POLICY,
-                       ADW_FOLD_THRESHOLD_POLICY_NATURAL,
+                       ADW_FOLD_THRESHOLD_POLICY_MINIMUM,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -2603,7 +2603,7 @@ adw_leaflet_init (AdwLeaflet *self)
   self->children_reversed = NULL;
   self->visible_child = NULL;
   self->folded = FALSE;
-  self->fold_threshold_policy = ADW_FOLD_THRESHOLD_POLICY_NATURAL;
+  self->fold_threshold_policy = ADW_FOLD_THRESHOLD_POLICY_MINIMUM;
   self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] = FALSE;
   self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL] = FALSE;
   self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] = TRUE;
@@ -3828,7 +3828,7 @@ adw_leaflet_get_pages (AdwLeaflet *self)
 AdwFoldThresholdPolicy
 adw_leaflet_get_fold_threshold_policy (AdwLeaflet *self)
 {
-  g_return_val_if_fail (ADW_IS_LEAFLET (self), ADW_FOLD_THRESHOLD_POLICY_NATURAL);
+  g_return_val_if_fail (ADW_IS_LEAFLET (self), ADW_FOLD_THRESHOLD_POLICY_MINIMUM);
 
   return self->fold_threshold_policy;
 }
