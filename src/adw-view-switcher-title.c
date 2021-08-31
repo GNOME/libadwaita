@@ -84,7 +84,8 @@ struct _AdwViewSwitcherTitle
 
   AdwSqueezer *squeezer;
   AdwWindowTitle *title_widget;
-  AdwViewSwitcher *view_switcher;
+  AdwViewSwitcher *wide_view_switcher;
+  AdwViewSwitcher *narrow_view_switcher;
 
   gboolean view_switcher_enabled;
   GtkSelectionModel *pages;
@@ -115,7 +116,10 @@ update_view_switcher_visible (AdwViewSwitcherTitle *self)
     }
   }
 
-  switcher_page = adw_squeezer_get_page (self->squeezer, GTK_WIDGET (self->view_switcher));
+  switcher_page = adw_squeezer_get_page (self->squeezer, GTK_WIDGET (self->wide_view_switcher));
+  adw_squeezer_page_set_enabled (switcher_page, count > 1);
+
+  switcher_page = adw_squeezer_get_page (self->squeezer, GTK_WIDGET (self->narrow_view_switcher));
   adw_squeezer_page_set_enabled (switcher_page, count > 1);
 }
 
@@ -320,7 +324,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                                                "/org/gnome/Adwaita/ui/adw-view-switcher-title.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherTitle, squeezer);
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherTitle, title_widget);
-  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherTitle, view_switcher);
+  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherTitle, wide_view_switcher);
+  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherTitle, narrow_view_switcher);
   gtk_widget_class_bind_template_callback (widget_class, notify_squeezer_visible_child_cb);
 }
 
@@ -367,7 +372,7 @@ adw_view_switcher_title_get_policy (AdwViewSwitcherTitle *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self), ADW_VIEW_SWITCHER_POLICY_NARROW);
 
-  return adw_view_switcher_get_policy (self->view_switcher);
+  return adw_view_switcher_get_policy (self->wide_view_switcher);
 }
 
 /**
@@ -385,10 +390,10 @@ adw_view_switcher_title_set_policy (AdwViewSwitcherTitle  *self,
 {
   g_return_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self));
 
-  if (adw_view_switcher_get_policy (self->view_switcher) == policy)
+  if (adw_view_switcher_get_policy (self->wide_view_switcher) == policy)
     return;
 
-  adw_view_switcher_set_policy (self->view_switcher, policy);
+  adw_view_switcher_set_policy (self->wide_view_switcher, policy);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POLICY]);
 
@@ -410,7 +415,7 @@ adw_view_switcher_title_get_stack (AdwViewSwitcherTitle *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self), NULL);
 
-  return adw_view_switcher_get_stack (self->view_switcher);
+  return adw_view_switcher_get_stack (self->wide_view_switcher);
 }
 
 /**
@@ -431,7 +436,7 @@ adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
   g_return_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self));
   g_return_if_fail (stack == NULL || ADW_IS_VIEW_STACK (stack));
 
-  previous_stack = adw_view_switcher_get_stack (self->view_switcher);
+  previous_stack = adw_view_switcher_get_stack (self->wide_view_switcher);
 
   if (previous_stack == stack)
     return;
@@ -441,7 +446,8 @@ adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
     g_clear_object (&self->pages);
   }
 
-  adw_view_switcher_set_stack (self->view_switcher, stack);
+  adw_view_switcher_set_stack (self->wide_view_switcher, stack);
+  adw_view_switcher_set_stack (self->narrow_view_switcher, stack);
 
   if (stack) {
     self->pages = adw_view_stack_get_pages (stack);

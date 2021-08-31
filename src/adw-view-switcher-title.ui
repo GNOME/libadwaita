@@ -5,9 +5,19 @@
     <child>
       <object class="AdwSqueezer" id="squeezer">
         <property name="transition-type">crossfade</property>
+        <property name="switch-threshold-policy">natural</property>
         <signal name="notify::visible-child" handler="notify_squeezer_visible_child_cb" swapped="yes"/>
         <child>
-          <object class="AdwViewSwitcher" id="view_switcher"/>
+          <object class="AdwViewSwitcher" id="wide_view_switcher">
+            <property name="policy">wide</property>
+            <property name="halign">center</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwViewSwitcher" id="narrow_view_switcher">
+            <property name="policy">narrow</property>
+            <property name="halign">center</property>
+          </object>
         </child>
         <child>
           <object class="AdwWindowTitle" id="title_widget"/>
