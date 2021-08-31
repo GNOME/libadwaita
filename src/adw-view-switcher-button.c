@@ -25,7 +25,8 @@ enum {
   LAST_PROP = PROP_BADGE_NUMBER + 1,
 };
 
-#define MIN_NAT_BUTTON_WIDTH 100
+#define MIN_NAT_BUTTON_WIDTH_NARROW 100
+#define MIN_NAT_BUTTON_WIDTH_WIDE 120
 
 struct _AdwViewSwitcherButton
 {
@@ -232,8 +233,13 @@ adw_view_switcher_button_measure (GtkWidget      *widget,
   gtk_widget_measure (GTK_WIDGET (self->stack), orientation, for_size,
                       minimum, natural, minimum_baseline, natural_baseline);
 
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    *natural = MAX (*natural, MIN_NAT_BUTTON_WIDTH);
+  if (orientation != GTK_ORIENTATION_HORIZONTAL)
+    return;
+
+  if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
+    *natural = MAX (*natural, MIN_NAT_BUTTON_WIDTH_WIDE);
+  else
+    *natural = MAX (*natural, MIN_NAT_BUTTON_WIDTH_NARROW);
 }
 
 static void
