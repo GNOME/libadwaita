@@ -184,7 +184,7 @@ row.expander {
   }
 
   & image.expander-row-arrow:disabled {
-    color: $insensitive_fg_color;
+    filter: opacity(.5);
   }
 }
 

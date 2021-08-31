@@ -58,9 +58,7 @@
     // for the transition to work the number of shadows in different states needs to match, hence the transparent shadow here.
   }
   @if $t==insensitive {
-    color: $insensitive_fg_color;
-    border-color: $borders_color;
-    background-color: $insensitive_bg_color;
+    filter: opacity(.5);
   }
   @if $t==osd {
     color: $osd_text_color;

@@ -23,11 +23,11 @@ text widgets and the like base background color */
 
 /*
 base background color of insensitive widgets */
-@define-color insensitive_bg_color #{$insensitive_bg_color};
+@define-color insensitive_bg_color #{gtkmix($bg_color, $base_color, 60%)};
 
 /*
 text foreground color of insensitive widgets */
-@define-color insensitive_fg_color #{$insensitive_fg_color};
+@define-color insensitive_fg_color #{gtkalpha($fg_color, .5)};
 
 /*
 insensitive text widgets and the like base background color */

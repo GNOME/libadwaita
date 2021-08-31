@@ -150,11 +150,6 @@ menubar {
       background-color: $view_selected_color;
     }
 
-    &:disabled {
-      color: $insensitive_fg_color;
-      box-shadow: none;
-    }
-
     popover.menu.background > contents {
       padding: $menu-margin;
     }
