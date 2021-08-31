@@ -848,6 +848,7 @@ adw_squeezer_size_allocate (GtkWidget *widget,
     GtkWidget *child = NULL;
     int child_min;
     int for_size = -1;
+    int compare_size;
 
     page = l->data;
     child = page->widget;
@@ -859,6 +860,8 @@ adw_squeezer_size_allocate (GtkWidget *widget,
       continue;
 
     if (self->orientation == GTK_ORIENTATION_VERTICAL) {
+      compare_size = height;
+
       if (gtk_widget_get_request_mode (child) == GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH)
         for_size = width;
 
@@ -868,13 +871,15 @@ adw_squeezer_size_allocate (GtkWidget *widget,
       if (child_min <= height)
         break;
     } else {
+      compare_size = width;
+
       if (gtk_widget_get_request_mode (child) == GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT)
         for_size = height;
 
       gtk_widget_measure (child, self->orientation, for_size,
                           &child_min, NULL, NULL, NULL);
 
-      if (child_min <= width)
+      if (child_min <= compare_size)
         break;
     }
   }
