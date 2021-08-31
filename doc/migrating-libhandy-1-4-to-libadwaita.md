@@ -94,10 +94,11 @@ Same as GTK itself, all widgets that have children have a new API to replace
 The following widgets that formerly subclassed `GtkBin` have a "child" property
 now:
 
-* [class@Adw.ApplicationWindow]
 * [class@Adw.Clamp]
 * [class@Adw.StatusPage]
-* [class@Adw.Window]
+
+[class@Adw.Window] and [class@Adw.ApplicationWindow] have a "content" property
+instead.
 
 For other widgets use the following replacements:
 

@@ -18,8 +18,8 @@
  * titlebar area. It means [class@Gtk.HeaderBar] can be used as follows:
  *
  * ```xml
- * <object class="AdwWindow"/>
- *   <child>
+ * <object class="AdwWindow">
+ *   <property name="content">
  *     <object class="GtkBox">
  *       <property name="orientation">vertical</property>
  *       <child>
@@ -29,7 +29,7 @@
  *         ...
  *       </child>
  *     </object>
- *   </child>
+ *   </property>
  * </object>
  * ```
  *
@@ -54,9 +54,11 @@ static GtkBuildableIface *parent_buildable_iface;
 
 enum {
   PROP_0,
-  PROP_CHILD,
-  LAST_PROP = PROP_0,
+  PROP_CONTENT,
+  LAST_PROP,
 };
+
+static GParamSpec *props[LAST_PROP];
 
 #define ADW_GET_WINDOW_MIXIN(obj) (((AdwWindowPrivate *) adw_window_get_instance_private (ADW_WINDOW (obj)))->mixin)
 
@@ -92,8 +94,8 @@ adw_window_get_property (GObject    *object,
   AdwWindow *self = ADW_WINDOW (object);
 
   switch (prop_id) {
-  case PROP_CHILD:
-    g_value_set_object (value, adw_window_get_child (self));
+  case PROP_CONTENT:
+    g_value_set_object (value, adw_window_get_content (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -109,8 +111,8 @@ adw_window_set_property (GObject      *object,
   AdwWindow *self = ADW_WINDOW (object);
 
   switch (prop_id) {
-  case PROP_CHILD:
-    adw_window_set_child (self, g_value_get_object (value));
+  case PROP_CONTENT:
+    adw_window_set_content (self, g_value_get_object (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -128,7 +130,21 @@ adw_window_class_init (AdwWindowClass *klass)
   object_class->set_property = adw_window_set_property;
   widget_class->size_allocate = adw_window_size_allocate;
 
-  g_object_class_override_property (object_class, PROP_CHILD, "child");
+  /**
+   * AdwWindow:content: (attributes org.gtk.Property.get=adw_window_get_content org.gtk.Property.set=adw_window_set_content)
+   *
+   * The content widget.
+   *
+   * Since: 1.0
+   */
+  props[PROP_CONTENT] =
+    g_param_spec_object ("content",
+                         "Content",
+                         "The content widget",
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  g_object_class_install_properties (object_class, LAST_PROP, props);
 }
 
 static void
@@ -149,7 +165,7 @@ adw_window_buildable_add_child (GtkBuildable *buildable,
   if (!g_strcmp0 (type, "titlebar"))
     GTK_BUILDER_WARN_INVALID_CHILD_TYPE (buildable, type);
   else if (GTK_IS_WIDGET (child))
-    adw_window_set_child (ADW_WINDOW (buildable), GTK_WIDGET (child));
+    adw_window_set_content (ADW_WINDOW (buildable), GTK_WIDGET (child));
   else
     parent_buildable_iface->add_child (buildable, builder, child, type);
 }
@@ -178,44 +194,44 @@ adw_window_new (void)
 }
 
 /**
- * adw_window_set_child:
+ * adw_window_set_content: (attributes org.gtk.Method.set_property=content)
  * @self: a `AdwWindow`
- * @child: (nullable): the child widget
+ * @content: (nullable): the content widget
  *
- * Sets the child widget of @self.
+ * Sets the content widget of @self.
  *
  * This method should always be used instead of [method@Gtk.Window.set_child].
  *
  * Since: 1.0
  */
 void
-adw_window_set_child (AdwWindow *self,
-                      GtkWidget *child)
+adw_window_set_content (AdwWindow *self,
+                        GtkWidget *content)
 {
   g_return_if_fail (ADW_IS_WINDOW (self));
-  g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
+  g_return_if_fail (content == NULL || GTK_IS_WIDGET (content));
 
-  adw_window_mixin_set_child (ADW_GET_WINDOW_MIXIN (self), child);
+  adw_window_mixin_set_content (ADW_GET_WINDOW_MIXIN (self), content);
 
-  g_object_notify (G_OBJECT (self), "child");
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CONTENT]);
 }
 
 /**
- * adw_window_get_child:
+ * adw_window_get_content: (attributes org.gtk.Method.get_property=content)
  * @self: a `AdwWindow`
  *
- * Gets the child widget of @self.
+ * Gets the content widget of @self.
  *
  * This method should always be used instead of [method@Gtk.Window.get_child].
  *
- * Returns: (nullable) (transfer none): the child widget of @self
+ * Returns: (nullable) (transfer none): the content widget of @self
  *
  * Since: 1.0
  */
 GtkWidget *
-adw_window_get_child (AdwWindow *self)
+adw_window_get_content (AdwWindow *self)
 {
   g_return_val_if_fail (ADW_IS_WINDOW (self), NULL);
 
-  return adw_window_mixin_get_child (ADW_GET_WINDOW_MIXIN (self));
+  return adw_window_mixin_get_content (ADW_GET_WINDOW_MIXIN (self));
 }

@@ -26,8 +26,8 @@ void adw_window_mixin_size_allocate (AdwWindowMixin *self,
                                      int             height,
                                      int             baseline);
 
-GtkWidget *adw_window_mixin_get_child (AdwWindowMixin *self);
-void       adw_window_mixin_set_child (AdwWindowMixin *self,
-                                       GtkWidget      *child);
+GtkWidget *adw_window_mixin_get_content (AdwWindowMixin *self);
+void       adw_window_mixin_set_content (AdwWindowMixin *self,
+                                         GtkWidget      *content);
 
 G_END_DECLS

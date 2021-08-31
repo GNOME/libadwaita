@@ -33,9 +33,9 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_window_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_window_get_child (AdwWindow *self);
+GtkWidget *adw_window_get_content (AdwWindow *self);
 ADW_AVAILABLE_IN_ALL
-void       adw_window_set_child (AdwWindow *self,
-                                 GtkWidget *child);
+void       adw_window_set_content (AdwWindow *self,
+                                   GtkWidget *content);
 
 G_END_DECLS

@@ -18,9 +18,9 @@ struct _AdwWindowMixin
   GtkWindowClass *klass;
 
   GtkWidget *titlebar;
-  GtkWidget *contents;
-
   GtkWidget *child;
+
+  GtkWidget *content;
 };
 
 G_DEFINE_TYPE (AdwWindowMixin, adw_window_mixin, G_TYPE_OBJECT)
@@ -35,7 +35,7 @@ adw_window_mixin_size_allocate (AdwWindowMixin *self,
   if (gtk_window_get_titlebar (self->window) != self->titlebar)
     g_error ("gtk_window_set_titlebar() is not supported for AdwWindow");
 
-  if (gtk_window_get_child (self->window) != self->contents)
+  if (gtk_window_get_child (self->window) != self->child)
     g_error ("gtk_window_set_child() is not supported for AdwWindow");
 
   GTK_WIDGET_CLASS (self->klass)->size_allocate (GTK_WIDGET (self->window),
@@ -73,29 +73,29 @@ adw_window_mixin_new (GtkWindow      *window,
   gtk_widget_hide (self->titlebar);
   gtk_window_set_titlebar (self->window, self->titlebar);
 
-  self->contents = adw_gizmo_new ("contents", NULL, NULL, NULL, NULL,
-                                  (AdwGizmoFocusFunc) adw_widget_focus_child,
-                                  (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
-  gtk_widget_set_layout_manager (self->contents, gtk_bin_layout_new ());
-  gtk_window_set_child (window, self->contents);
+  self->child = adw_gizmo_new ("contents", NULL, NULL, NULL, NULL,
+                               (AdwGizmoFocusFunc) adw_widget_focus_child,
+                               (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
+  gtk_widget_set_layout_manager (self->child, gtk_bin_layout_new ());
+  gtk_window_set_child (window, self->child);
 
   return self;
 }
 
 void
-adw_window_mixin_set_child (AdwWindowMixin *self,
-                            GtkWidget      *child)
+adw_window_mixin_set_content (AdwWindowMixin *self,
+                              GtkWidget      *content)
 {
-  g_clear_pointer (&self->child, gtk_widget_unparent);
+  g_clear_pointer (&self->content, gtk_widget_unparent);
 
-  if (child) {
-    self->child = child;
-    gtk_widget_set_parent (child, self->contents);
+  if (content) {
+    self->content = content;
+    gtk_widget_set_parent (content, self->child);
   }
 }
 
 GtkWidget *
-adw_window_mixin_get_child (AdwWindowMixin *self)
+adw_window_mixin_get_content (AdwWindowMixin *self)
 {
-  return self->child;
+  return self->content;
 }
