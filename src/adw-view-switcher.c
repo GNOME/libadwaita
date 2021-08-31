@@ -48,8 +48,6 @@
  * Describes the adaptive modes of [class@Adw.ViewSwitcher].
  */
 
-#define MIN_NAT_BUTTON_WIDTH 100
-
 enum {
   PROP_0,
   PROP_POLICY,
@@ -64,7 +62,6 @@ struct _AdwViewSwitcher
   AdwViewStack *stack;
   GtkSelectionModel *pages;
   GHashTable *buttons;
-  GtkBox *box;
 
   AdwViewSwitcherPolicy policy;
 };
@@ -146,7 +143,7 @@ add_child (AdwViewSwitcher *self,
   page = g_list_model_get_item (G_LIST_MODEL (self->pages), position);
   update_button (self, page, GTK_WIDGET (button));
 
-  gtk_box_append (self->box, GTK_WIDGET (button));
+  gtk_widget_set_parent (GTK_WIDGET (button), GTK_WIDGET (self));
 
   g_object_set_data (G_OBJECT (button), "child-index", GUINT_TO_POINTER (position));
   selected = gtk_selection_model_is_selected (self->pages, position);
@@ -155,6 +152,9 @@ add_child (AdwViewSwitcher *self,
   gtk_accessible_update_state (GTK_ACCESSIBLE (button),
                                GTK_ACCESSIBLE_STATE_SELECTED, selected,
                                -1);
+
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (button),
+                                  self->policy == ADW_VIEW_SWITCHER_POLICY_WIDE ? GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL);
 
   g_signal_connect (button, "notify::active", G_CALLBACK (on_button_toggled), self);
   g_signal_connect (page, "notify", G_CALLBACK (on_page_updated), self);
@@ -183,7 +183,7 @@ clear_switcher (AdwViewSwitcher *self)
 
   g_hash_table_iter_init (&iter, self->buttons);
   while (g_hash_table_iter_next (&iter, (gpointer *) &page, (gpointer *) &button)) {
-    gtk_box_remove (self->box, button);
+    gtk_widget_unparent (button);
     g_signal_handlers_disconnect_by_func (page, on_page_updated, self);
     g_hash_table_iter_remove (&iter);
   }
@@ -312,7 +312,6 @@ adw_view_switcher_dispose (GObject *object)
   AdwViewSwitcher *self = ADW_VIEW_SWITCHER (object);
 
   unset_stack (self);
-  g_clear_pointer ((GtkWidget **) &self->box, gtk_widget_unparent);
 
   G_OBJECT_CLASS (adw_view_switcher_parent_class)->dispose (object);
 }
@@ -328,136 +327,6 @@ adw_view_switcher_finalize (GObject *object)
 }
 
 static void
-adw_view_switcher_measure (GtkWidget      *widget,
-                           GtkOrientation  orientation,
-                           int             for_size,
-                           int            *minimum,
-                           int            *natural,
-                           int            *minimum_baseline,
-                           int            *natural_baseline)
-{
-  AdwViewSwitcher *self = ADW_VIEW_SWITCHER (widget);
-  GHashTableIter iter;
-  AdwViewStackPage *page;
-  AdwViewSwitcherButton *button;
-  int max_h_min = 0, max_h_nat = 0, max_v_min = 0, max_v_nat = 0;
-  int min = 0, nat = 0;
-  int n_children = 0;
-
-  g_hash_table_iter_init (&iter, self->buttons);
-
-  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-    while (g_hash_table_iter_next (&iter, (gpointer *) &page, (gpointer *) &button)) {
-      int h_min = 0, h_nat = 0, v_min = 0, v_nat = 0;
-
-      if (!adw_view_stack_page_get_visible (page))
-        continue;
-
-      adw_view_switcher_button_get_size (button, &h_min, &h_nat, &v_min, &v_nat);
-      max_h_min = MAX (h_min, max_h_min);
-      max_h_nat = MAX (h_nat, max_h_nat);
-      max_v_min = MAX (v_min, max_v_min);
-      max_v_nat = MAX (v_nat, max_v_nat);
-
-      n_children++;
-    }
-
-    /* Make the buttons ask at least a minimum arbitrary size for their natural
-     * width. This prevents them from looking terribly narrow in a very wide bar.
-     */
-    max_h_nat = MAX (max_h_nat, MIN_NAT_BUTTON_WIDTH);
-    max_v_nat = MAX (max_v_nat, MIN_NAT_BUTTON_WIDTH);
-
-    switch (self->policy) {
-    case ADW_VIEW_SWITCHER_POLICY_NARROW:
-    default:
-      min = max_v_min * n_children;
-      nat = max_v_nat * n_children;
-      break;
-    case ADW_VIEW_SWITCHER_POLICY_WIDE:
-      min = max_h_min * n_children;
-      nat = max_h_nat * n_children;
-      break;
-    }
-  } else {
-    while (g_hash_table_iter_next (&iter, (gpointer *) &page, (gpointer *) &button)) {
-      int child_min, child_nat;
-
-      if (!adw_view_stack_page_get_visible (page))
-        continue;
-
-      gtk_widget_measure (GTK_WIDGET (button), GTK_ORIENTATION_VERTICAL, -1,
-                          &child_min, &child_nat, NULL, NULL);
-
-      min = MAX (child_min, min);
-      nat = MAX (child_nat, nat);
-    }
-  }
-
-  if (minimum)
-    *minimum = min;
-  if (natural)
-    *natural = nat;
-  if (minimum_baseline)
-    *minimum_baseline = -1;
-  if (natural_baseline)
-    *natural_baseline = -1;
-}
-
-static int
-is_narrow (AdwViewSwitcher *self,
-           int              width)
-{
-  GHashTableIter iter;
-  AdwViewSwitcherButton *button;
-  int max_h_min = 0;
-  int n_children = 0;
-
-  if (self->policy == ADW_VIEW_SWITCHER_POLICY_NARROW)
-    return TRUE;
-
-  if (self->policy == ADW_VIEW_SWITCHER_POLICY_WIDE)
-    return FALSE;
-
-  g_hash_table_iter_init (&iter, self->buttons);
-  while (g_hash_table_iter_next (&iter, NULL, (gpointer *) &button)) {
-    int h_min = 0;
-
-    if (!gtk_widget_get_visible (GTK_WIDGET (button)))
-      continue;
-
-    adw_view_switcher_button_get_size (button, &h_min, NULL, NULL, NULL);
-    max_h_min = MAX (max_h_min, h_min);
-
-    n_children++;
-  }
-
-  return (max_h_min * n_children) > width;
-}
-
-static void
-adw_view_switcher_size_allocate (GtkWidget *widget,
-                                 int        width,
-                                 int        height,
-                                 int        baseline)
-{
-  AdwViewSwitcher *self = ADW_VIEW_SWITCHER (widget);
-  GtkOrientation orientation;
-  GHashTableIter iter;
-  AdwViewSwitcherButton *button;
-
-  orientation = is_narrow (ADW_VIEW_SWITCHER (widget), width) ?
-    GTK_ORIENTATION_VERTICAL :
-    GTK_ORIENTATION_HORIZONTAL;
-
-  g_hash_table_iter_init (&iter, self->buttons);
-  while (g_hash_table_iter_next (&iter, NULL, (gpointer *) &button))
-    gtk_orientable_set_orientation (GTK_ORIENTABLE (button), orientation);
-
-  gtk_widget_allocate (GTK_WIDGET (self->box), width, height, baseline, NULL);
-}
-
-static void
 adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -467,9 +336,6 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
   object_class->set_property = adw_view_switcher_set_property;
   object_class->dispose = adw_view_switcher_dispose;
   object_class->finalize = adw_view_switcher_finalize;
-
-  widget_class->size_allocate = adw_view_switcher_size_allocate;
-  widget_class->measure = adw_view_switcher_measure;
 
   /**
    * AdwViewSwitcher:policy: (attributes org.gtk.Property.get=adw_view_switcher_get_policy org.gtk.Property.set=adw_view_switcher_set_policy)
@@ -503,16 +369,16 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_css_name (widget_class, "viewswitcher");
+  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BOX_LAYOUT);
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TAB_LIST);
 }
 
 static void
 adw_view_switcher_init (AdwViewSwitcher *self)
 {
-  self->box = GTK_BOX (gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0));
-  gtk_box_set_homogeneous (self->box, TRUE);
+  GtkLayoutManager *layout = gtk_widget_get_layout_manager (GTK_WIDGET (self));
 
-  gtk_widget_set_parent (GTK_WIDGET (self->box), GTK_WIDGET (self));
+  gtk_box_layout_set_homogeneous (GTK_BOX_LAYOUT (layout), TRUE);
 
   self->buttons = g_hash_table_new_full (g_direct_hash, g_direct_equal, g_object_unref, NULL);
 }
@@ -563,12 +429,20 @@ void
 adw_view_switcher_set_policy (AdwViewSwitcher       *self,
                               AdwViewSwitcherPolicy  policy)
 {
+  GHashTableIter iter;
+  GtkWidget *button;
+
   g_return_if_fail (ADW_IS_VIEW_SWITCHER (self));
 
   if (self->policy == policy)
     return;
 
   self->policy = policy;
+
+  g_hash_table_iter_init (&iter, self->buttons);
+  while (g_hash_table_iter_next (&iter, NULL, (gpointer *) &button))
+    gtk_orientable_set_orientation (GTK_ORIENTABLE (button),
+                                    self->policy == ADW_VIEW_SWITCHER_POLICY_WIDE ? GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POLICY]);
 

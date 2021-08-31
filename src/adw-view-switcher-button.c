@@ -25,6 +25,8 @@ enum {
   LAST_PROP = PROP_BADGE_NUMBER + 1,
 };
 
+#define MIN_NAT_BUTTON_WIDTH 100
+
 struct _AdwViewSwitcherButton
 {
   GtkToggleButton parent_instance;
@@ -217,6 +219,35 @@ adw_view_switcher_button_finalize (GObject *object)
 }
 
 static void
+adw_view_switcher_button_measure (GtkWidget      *widget,
+                                  GtkOrientation  orientation,
+                                  int             for_size,
+                                  int            *minimum,
+                                  int            *natural,
+                                  int            *minimum_baseline,
+                                  int            *natural_baseline)
+{
+  AdwViewSwitcherButton *self = ADW_VIEW_SWITCHER_BUTTON (widget);
+
+  gtk_widget_measure (GTK_WIDGET (self->stack), orientation, for_size,
+                      minimum, natural, minimum_baseline, natural_baseline);
+
+  if (orientation == GTK_ORIENTATION_HORIZONTAL)
+    *natural = MAX (*natural, MIN_NAT_BUTTON_WIDTH);
+}
+
+static void
+adw_view_switcher_button_size_allocate (GtkWidget *widget,
+                                        int        width,
+                                        int        height,
+                                        int        baseline)
+{
+  AdwViewSwitcherButton *self = ADW_VIEW_SWITCHER_BUTTON (widget);
+
+  gtk_widget_allocate (GTK_WIDGET (self->stack), width, height, baseline, NULL);
+}
+
+static void
 adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -226,6 +257,9 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
   object_class->set_property = adw_view_switcher_button_set_property;
   object_class->dispose = adw_view_switcher_button_dispose;
   object_class->finalize = adw_view_switcher_button_finalize;
+
+  widget_class->measure = adw_view_switcher_button_measure;
+  widget_class->size_allocate = adw_view_switcher_button_size_allocate;
 
   g_object_class_override_property (object_class,
                                     PROP_LABEL,
@@ -316,6 +350,8 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
 static void
 adw_view_switcher_button_init (AdwViewSwitcherButton *self)
 {
+  gtk_widget_set_layout_manager (GTK_WIDGET (self), NULL);
+
   self->icon_name = g_strdup ("image-missing");
 
   g_type_ensure (ADW_TYPE_INDICATOR_BIN);
@@ -519,37 +555,4 @@ adw_view_switcher_button_set_label (AdwViewSwitcherButton *self,
   self->label = g_strdup (label);
 
   g_object_notify (G_OBJECT (self), "label");
-}
-
-/**
- * adw_view_switcher_button_get_size:
- * @self: a `AdwViewSwitcherButton`
- * @h_min_width: (out) (nullable): the minimum width when horizontal
- * @h_nat_width: (out) (nullable): the natural width when horizontal
- * @v_min_width: (out) (nullable): the minimum width when vertical
- * @v_nat_width: (out) (nullable): the natural width when vertical
- *
- * Measure the size requests in both horizontal and vertical modes.
- *
- * Since: 1.0
- */
-void
-adw_view_switcher_button_get_size (AdwViewSwitcherButton *self,
-                                   int                   *h_min_width,
-                                   int                   *h_nat_width,
-                                   int                   *v_min_width,
-                                   int                   *v_nat_width)
-{
-  /* gtk_widget_get_preferred_width() doesn't accept both its out parameters to
-   * be NULL, so we must have guards.
-   */
-  if (h_min_width != NULL || h_nat_width != NULL)
-    gtk_widget_measure (GTK_WIDGET (self->horizontal_box),
-                        GTK_ORIENTATION_HORIZONTAL, -1,
-                        h_min_width, h_nat_width, NULL, NULL);
-
-  if (v_min_width != NULL || v_nat_width != NULL)
-    gtk_widget_measure (GTK_WIDGET (self->vertical_box),
-                        GTK_ORIENTATION_HORIZONTAL, -1,
-                        v_min_width, v_nat_width, NULL, NULL);
 }

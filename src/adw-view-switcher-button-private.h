@@ -41,10 +41,4 @@ const char *adw_view_switcher_button_get_label (AdwViewSwitcherButton *self);
 void        adw_view_switcher_button_set_label (AdwViewSwitcherButton *self,
                                                 const char            *label);
 
-void adw_view_switcher_button_get_size (AdwViewSwitcherButton *self,
-                                        int                   *h_min_width,
-                                        int                   *h_nat_width,
-                                        int                   *v_min_width,
-                                        int                   *v_nat_width);
-
 G_END_DECLS
