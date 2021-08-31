@@ -2336,7 +2336,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    *
    * Determines when the leaflet will fold.
    *
-   * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, flap will only fold when
+   * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when
    * the children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`,
    * it will fold as soon as children don't get their natural size.
    *
