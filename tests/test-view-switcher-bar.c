@@ -8,27 +8,6 @@
 
 
 static void
-test_adw_view_switcher_bar_policy (void)
-{
-  g_autoptr (AdwViewSwitcherBar) bar = NULL;
-
-  bar = g_object_ref_sink (ADW_VIEW_SWITCHER_BAR (adw_view_switcher_bar_new ()));
-  g_assert_nonnull (bar);
-
-  g_assert_cmpint (adw_view_switcher_bar_get_policy (bar), ==, ADW_VIEW_SWITCHER_POLICY_NARROW);
-
-  adw_view_switcher_bar_set_policy (bar, ADW_VIEW_SWITCHER_POLICY_AUTO);
-  g_assert_cmpint (adw_view_switcher_bar_get_policy (bar), ==, ADW_VIEW_SWITCHER_POLICY_AUTO);
-
-  adw_view_switcher_bar_set_policy (bar, ADW_VIEW_SWITCHER_POLICY_WIDE);
-  g_assert_cmpint (adw_view_switcher_bar_get_policy (bar), ==, ADW_VIEW_SWITCHER_POLICY_WIDE);
-
-  adw_view_switcher_bar_set_policy (bar, ADW_VIEW_SWITCHER_POLICY_NARROW);
-  g_assert_cmpint (adw_view_switcher_bar_get_policy (bar), ==, ADW_VIEW_SWITCHER_POLICY_NARROW);
-}
-
-
-static void
 test_adw_view_switcher_bar_stack (void)
 {
   g_autoptr (AdwViewSwitcherBar) bar = NULL;
@@ -75,7 +54,6 @@ main (int   argc,
   gtk_test_init (&argc, &argv, NULL);
   adw_init ();
 
-  g_test_add_func("/Adwaita/ViewSwitcherBar/policy", test_adw_view_switcher_bar_policy);
   g_test_add_func("/Adwaita/ViewSwitcherBar/stack", test_adw_view_switcher_bar_stack);
   g_test_add_func("/Adwaita/ViewSwitcherBar/reveal", test_adw_view_switcher_bar_reveal);
 

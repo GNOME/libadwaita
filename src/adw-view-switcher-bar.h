@@ -28,12 +28,6 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_view_switcher_bar_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
-AdwViewSwitcherPolicy adw_view_switcher_bar_get_policy (AdwViewSwitcherBar *self);
-ADW_AVAILABLE_IN_ALL
-void                  adw_view_switcher_bar_set_policy (AdwViewSwitcherBar    *self,
-                                                        AdwViewSwitcherPolicy  policy);
-
-ADW_AVAILABLE_IN_ALL
 AdwViewStack *adw_view_switcher_bar_get_stack (AdwViewSwitcherBar *self);
 ADW_AVAILABLE_IN_ALL
 void          adw_view_switcher_bar_set_stack (AdwViewSwitcherBar *self,

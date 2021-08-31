@@ -254,6 +254,11 @@ You should stop using [property@Gtk.Stack:transition-type] and
 [property@Gtk.Stack:transition-duration] properties before switching to
 [class@Adw.ViewStack].
 
+### Adapt to [class@Adw.ViewSwitcherBar] API Changes
+
+The "policy" property has been removed. If you had used it, use a plain
+[class@Adw.ViewSwitcher] in a [class@Gtk.ActionBar] instead.
+
 ### Adapt to [class@Adw.Avatar] API Changes
 
 The `HdyAvatar:loadable-icon` property has been removed along with its getter

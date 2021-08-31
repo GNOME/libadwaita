@@ -9,7 +9,7 @@
             <property name="margin-start">10</property>
             <property name="margin-end">10</property>
             <property name="narrow-ellipsize">end</property>
-            <property name="policy" bind-source="AdwViewSwitcherBar" bind-property="policy" bind-flags="sync-create|bidirectional" />
+            <property name="policy">narrow</property>
           </object>
         </child>
       </object>
