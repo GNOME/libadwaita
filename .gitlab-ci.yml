@@ -26,8 +26,8 @@ doc:
     - flatpak
   variables:
     MESON_ARGS: >-
-      -Dbuild-tests=false
       -Dgtk_doc=true
+      -Dtests=false
       -Dvapi=false
   script:
     - meson --prefix=/app ${MESON_ARGS} _build
