@@ -152,7 +152,7 @@ in conjunction with the [property@Adw.ComboRow:expression] property, for
 example:
 
 ```c
-expr = gtk_property_expression_new (ADW_TYPE_ENUM_VALUE_OBJECT, NULL, "nick");
+expr = gtk_property_expression_new (ADW_TYPE_ENUM_LIST_ITEM, NULL, "nick");
 model = G_LIST_MODEL (adw_enum_list_model_new (GTK_TYPE_ORIENTATION));
 
 adw_combo_row_set_expression (row, expr);
@@ -171,10 +171,11 @@ The `HdyComboRow:selected-index` property has been renamed to
 `HdyPreferencesGroup:use-markup` has been removed, the labels always use markup
 now.
 
-### Stop Creating `HdyEnumValueObject` Instances
+### Adapt to `HdyEnumValueObject` API Changes
 
-[class@Adw.EnumValueObject] can no longer be manually created and is only
-intended to be used with [class@Adw.EnumListModel].
+`HdyEnumValueObject` has been renamed to [class@Adw.EnumListItem] and can no
+longer be manually created. It's only intended to be used with
+[class@Adw.EnumListModel].
 
 ### Stop Using `HdyValueObject`
 
