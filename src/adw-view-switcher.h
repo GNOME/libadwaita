@@ -40,12 +40,6 @@ void                  adw_view_switcher_set_policy (AdwViewSwitcher       *self,
                                                     AdwViewSwitcherPolicy  policy);
 
 ADW_AVAILABLE_IN_ALL
-PangoEllipsizeMode adw_view_switcher_get_narrow_ellipsize (AdwViewSwitcher    *self);
-ADW_AVAILABLE_IN_ALL
-void               adw_view_switcher_set_narrow_ellipsize (AdwViewSwitcher    *self,
-                                                           PangoEllipsizeMode  mode);
-
-ADW_AVAILABLE_IN_ALL
 AdwViewStack *adw_view_switcher_get_stack (AdwViewSwitcher *self);
 ADW_AVAILABLE_IN_ALL
 void          adw_view_switcher_set_stack (AdwViewSwitcher *self,

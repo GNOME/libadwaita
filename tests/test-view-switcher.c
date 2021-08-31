@@ -29,24 +29,6 @@ test_adw_view_switcher_policy (void)
 
 
 static void
-test_adw_view_switcher_narrow_ellipsize (void)
-{
-  g_autoptr (AdwViewSwitcher) view_switcher = NULL;
-
-  view_switcher = g_object_ref_sink (ADW_VIEW_SWITCHER (adw_view_switcher_new ()));
-  g_assert_nonnull (view_switcher);
-
-  g_assert_cmpint (adw_view_switcher_get_narrow_ellipsize (view_switcher), ==, PANGO_ELLIPSIZE_NONE);
-
-  adw_view_switcher_set_narrow_ellipsize (view_switcher, PANGO_ELLIPSIZE_END);
-  g_assert_cmpint (adw_view_switcher_get_narrow_ellipsize (view_switcher), ==, PANGO_ELLIPSIZE_END);
-
-  adw_view_switcher_set_narrow_ellipsize (view_switcher, PANGO_ELLIPSIZE_NONE);
-  g_assert_cmpint (adw_view_switcher_get_narrow_ellipsize (view_switcher), ==, PANGO_ELLIPSIZE_NONE);
-}
-
-
-static void
 test_adw_view_switcher_stack (void)
 {
   g_autoptr (AdwViewSwitcher) view_switcher = NULL;
@@ -76,7 +58,6 @@ main (int   argc,
   adw_init ();
 
   g_test_add_func("/Adwaita/ViewSwitcher/policy", test_adw_view_switcher_policy);
-  g_test_add_func("/Adwaita/ViewSwitcher/narrow_ellipsize", test_adw_view_switcher_narrow_ellipsize);
   g_test_add_func("/Adwaita/ViewSwitcher/stack", test_adw_view_switcher_stack);
 
   return g_test_run();

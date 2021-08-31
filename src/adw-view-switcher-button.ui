@@ -93,12 +93,14 @@
                   <object class="GtkLabel" id="vertical_label_inactive">
                     <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
                     <property name="use-underline" bind-source="AdwViewSwitcherButton" bind-property="use-underline" bind-flags="sync-create|bidirectional" />
+                    <property name="ellipsize">end</property>
                   </object>
                 </child>
                 <child>
                   <object class="GtkLabel" id="vertical_label_active">
                     <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
                     <property name="use-underline" bind-source="AdwViewSwitcherButton" bind-property="use-underline" bind-flags="sync-create|bidirectional" />
+                    <property name="ellipsize">end</property>
                     <style>
                       <class name="active"/>
                     </style>

@@ -54,7 +54,6 @@
 enum {
   PROP_0,
   PROP_POLICY,
-  PROP_NARROW_ELLIPSIZE,
   PROP_STACK,
   LAST_PROP,
 };
@@ -69,7 +68,6 @@ struct _AdwViewSwitcher
   GtkBox *box;
 
   AdwViewSwitcherPolicy policy;
-  PangoEllipsizeMode narrow_ellipsize;
 };
 
 static GParamSpec *props[LAST_PROP];
@@ -158,8 +156,6 @@ add_child (AdwViewSwitcher *self,
   gtk_accessible_update_state (GTK_ACCESSIBLE (button),
                                GTK_ACCESSIBLE_STATE_SELECTED, selected,
                                -1);
-
-  adw_view_switcher_button_set_narrow_ellipsize (button, self->narrow_ellipsize);
 
   g_signal_connect (button, "notify::active", G_CALLBACK (on_button_toggled), self);
   g_signal_connect (page, "notify", G_CALLBACK (on_page_updated), self);
@@ -281,9 +277,6 @@ adw_view_switcher_get_property (GObject    *object,
   case PROP_POLICY:
     g_value_set_enum (value, adw_view_switcher_get_policy (self));
     break;
-  case PROP_NARROW_ELLIPSIZE:
-    g_value_set_enum (value, adw_view_switcher_get_narrow_ellipsize (self));
-    break;
   case PROP_STACK:
     g_value_set_object (value, adw_view_switcher_get_stack (self));
     break;
@@ -304,9 +297,6 @@ adw_view_switcher_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_POLICY:
     adw_view_switcher_set_policy (self, g_value_get_enum (value));
-    break;
-  case PROP_NARROW_ELLIPSIZE:
-    adw_view_switcher_set_narrow_ellipsize (self, g_value_get_enum (value));
     break;
   case PROP_STACK:
     adw_view_switcher_set_stack (self, g_value_get_object (value));
@@ -502,25 +492,6 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
                        G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwViewSwitcher:narrow-ellipsize: (attributes org.gtk.Property.get=adw_view_switcher_get_narrow_ellipsize org.gtk.Property.set=adw_view_switcher_set_narrow_ellipsize)
-   *
-   * The ellipsizing position for the titles.
-   *
-   * Note that setting this property to a value other than
-   * `PANGO_ELLIPSIZE_NONE` has the side-effect that the label requests only
-   * enough space to display the ellipsis.
-   *
-   * Since: 1.0
-   */
-  props[PROP_NARROW_ELLIPSIZE] =
-    g_param_spec_enum ("narrow-ellipsize",
-                       "Narrow ellipsize",
-                       "The ellipsizing position for the titles",
-                       PANGO_TYPE_ELLIPSIZE_MODE,
-                       PANGO_ELLIPSIZE_NONE,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
    * AdwViewSwitcher:stack: (attributes org.gtk.Property.get=adw_view_switcher_get_stack org.gtk.Property.set=adw_view_switcher_set_stack)
    *
    * The stack the view switcher controls.
@@ -607,55 +578,6 @@ adw_view_switcher_set_policy (AdwViewSwitcher       *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POLICY]);
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
-}
-
-/**
- * adw_view_switcher_get_narrow_ellipsize: (attributes org.gtk.Method.get_property=narrow-ellipsize)
- * @self: a `AdwViewSwitcher`
- *
- * Gets the ellipsizing position for the titles.
- *
- * Returns: the ellipsize mode.
- *
- * Since: 1.0
- */
-PangoEllipsizeMode
-adw_view_switcher_get_narrow_ellipsize (AdwViewSwitcher *self)
-{
-  g_return_val_if_fail (ADW_IS_VIEW_SWITCHER (self), PANGO_ELLIPSIZE_NONE);
-
-  return self->narrow_ellipsize;
-}
-
-/**
- * adw_view_switcher_set_narrow_ellipsize: (attributes org.gtk.Method.set_property=narrow-ellipsize)
- * @self: a `AdwViewSwitcher`
- * @mode: the new value
- *
- * Sets the ellipsizing position for the titles.
- *
- * Since: 1.0
- */
-void
-adw_view_switcher_set_narrow_ellipsize (AdwViewSwitcher    *self,
-                                        PangoEllipsizeMode  mode)
-{
-  GHashTableIter iter;
-  gpointer button;
-
-  g_return_if_fail (ADW_IS_VIEW_SWITCHER (self));
-  g_return_if_fail (mode >= PANGO_ELLIPSIZE_NONE && mode <= PANGO_ELLIPSIZE_END);
-
-  if ((PangoEllipsizeMode) self->narrow_ellipsize == mode)
-    return;
-
-  self->narrow_ellipsize = mode;
-
-  g_hash_table_iter_init (&iter, self->buttons);
-  while (g_hash_table_iter_next (&iter, NULL, &button))
-    adw_view_switcher_button_set_narrow_ellipsize (ADW_VIEW_SWITCHER_BUTTON (button), mode);
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NARROW_ELLIPSIZE]);
 }
 
 /**

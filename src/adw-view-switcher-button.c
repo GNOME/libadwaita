@@ -522,26 +522,6 @@ adw_view_switcher_button_set_label (AdwViewSwitcherButton *self,
 }
 
 /**
- * adw_view_switcher_button_set_narrow_ellipsize:
- * @self: a `AdwViewSwitcherButton`
- * @mode: an ellipsize mode
- *
- * Sets the ellipsizing position for the label.
- *
- * Since: 1.0
- **/
-void
-adw_view_switcher_button_set_narrow_ellipsize (AdwViewSwitcherButton *self,
-                                               PangoEllipsizeMode     mode)
-{
-  g_return_if_fail (ADW_IS_VIEW_SWITCHER_BUTTON (self));
-  g_return_if_fail (mode >= PANGO_ELLIPSIZE_NONE && mode <= PANGO_ELLIPSIZE_END);
-
-  gtk_label_set_ellipsize (self->vertical_label_active, mode);
-  gtk_label_set_ellipsize (self->vertical_label_inactive, mode);
-}
-
-/**
  * adw_view_switcher_button_get_size:
  * @self: a `AdwViewSwitcherButton`
  * @h_min_width: (out) (nullable): the minimum width when horizontal
