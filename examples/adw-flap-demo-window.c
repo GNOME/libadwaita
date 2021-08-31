@@ -14,12 +14,10 @@ struct _AdwFlapDemoWindow
 G_DEFINE_TYPE (AdwFlapDemoWindow, adw_flap_demo_window, ADW_TYPE_WINDOW)
 
 static char *
-fold_policy_name (AdwEnumValueObject *value,
-                  gpointer            user_data)
+fold_policy_name (AdwEnumListItem *item,
+                  gpointer         user_data)
 {
-  g_return_val_if_fail (ADW_IS_ENUM_VALUE_OBJECT (value), NULL);
-
-  switch (adw_enum_value_object_get_value (value)) {
+  switch (adw_enum_list_item_get_value (item)) {
   case ADW_FLAP_FOLD_POLICY_NEVER:
     return g_strdup (_("Never"));
   case ADW_FLAP_FOLD_POLICY_ALWAYS:
@@ -32,12 +30,10 @@ fold_policy_name (AdwEnumValueObject *value,
 }
 
 static char *
-transition_type_name (AdwEnumValueObject *value,
-                      gpointer            user_data)
+transition_type_name (AdwEnumListItem *item,
+                      gpointer         user_data)
 {
-  g_return_val_if_fail (ADW_IS_ENUM_VALUE_OBJECT (value), NULL);
-
-  switch (adw_enum_value_object_get_value (value)) {
+  switch (adw_enum_list_item_get_value (item)) {
   case ADW_FLAP_TRANSITION_TYPE_OVER:
     return g_strdup (_("Over"));
   case ADW_FLAP_TRANSITION_TYPE_UNDER:

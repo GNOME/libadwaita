@@ -295,7 +295,7 @@
                                           </object>
                                         </property>
                                         <property name="expression">
-                                          <lookup type="AdwEnumValueObject" name="nick"/>
+                                          <lookup type="AdwEnumListItem" name="nick"/>
                                         </property>
                                       </object>
                                     </child>

@@ -20,14 +20,14 @@ test_adw_combo_row_set_for_enum (void)
   g_autoptr (AdwComboRow) row = NULL;
   GtkExpression *expr = NULL;
   GListModel *model;
-  AdwEnumValueObject *value;
+  AdwEnumListItem *item;
 
   row = g_object_ref_sink (ADW_COMBO_ROW (adw_combo_row_new ()));
   g_assert_nonnull (row);
 
   g_assert_null (adw_combo_row_get_model (row));
 
-  expr = gtk_property_expression_new (ADW_TYPE_ENUM_VALUE_OBJECT, NULL, "nick");
+  expr = gtk_property_expression_new (ADW_TYPE_ENUM_LIST_ITEM, NULL, "nick");
   adw_combo_row_set_expression (row, expr);
   gtk_expression_unref (expr);
 
@@ -40,13 +40,13 @@ test_adw_combo_row_set_for_enum (void)
 
   g_assert_cmpuint (g_list_model_get_n_items (model), ==, 2);
 
-  value = g_list_model_get_item (model, 0);
-  g_assert_true (ADW_IS_ENUM_VALUE_OBJECT (value));
-  g_assert_cmpstr (adw_enum_value_object_get_nick (value), ==, "horizontal");
+  item = g_list_model_get_item (model, 0);
+  g_assert_true (ADW_IS_ENUM_LIST_ITEM (item));
+  g_assert_cmpstr (adw_enum_list_item_get_nick (item), ==, "horizontal");
 
-  value = g_list_model_get_item (model, 1);
-  g_assert_true (ADW_IS_ENUM_VALUE_OBJECT (value));
-  g_assert_cmpstr (adw_enum_value_object_get_nick (value), ==, "vertical");
+  item = g_list_model_get_item (model, 1);
+  g_assert_true (ADW_IS_ENUM_LIST_ITEM (item));
+  g_assert_cmpstr (adw_enum_list_item_get_nick (item), ==, "vertical");
 }
 
 static void

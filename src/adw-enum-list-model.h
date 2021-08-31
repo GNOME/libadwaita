@@ -16,19 +16,19 @@
 
 G_BEGIN_DECLS
 
-#define ADW_TYPE_ENUM_VALUE_OBJECT (adw_enum_value_object_get_type())
+#define ADW_TYPE_ENUM_LIST_ITEM (adw_enum_list_item_get_type())
 
 ADW_AVAILABLE_IN_ALL
-G_DECLARE_FINAL_TYPE (AdwEnumValueObject, adw_enum_value_object, ADW, ENUM_VALUE_OBJECT, GObject)
+G_DECLARE_FINAL_TYPE (AdwEnumListItem, adw_enum_list_item, ADW, ENUM_LIST_ITEM, GObject)
 
 ADW_AVAILABLE_IN_ALL
-int adw_enum_value_object_get_value (AdwEnumValueObject *self);
+int adw_enum_list_item_get_value (AdwEnumListItem *self);
 
 ADW_AVAILABLE_IN_ALL
-const char *adw_enum_value_object_get_name (AdwEnumValueObject *self);
+const char *adw_enum_list_item_get_name (AdwEnumListItem *self);
 
 ADW_AVAILABLE_IN_ALL
-const char *adw_enum_value_object_get_nick (AdwEnumValueObject *self);
+const char *adw_enum_list_item_get_nick (AdwEnumListItem *self);
 
 #define ADW_TYPE_ENUM_LIST_MODEL (adw_enum_list_model_get_type())
 

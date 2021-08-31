@@ -77,12 +77,10 @@ leaflet_back_clicked_cb (GtkWidget     *sender,
 }
 
 static char *
-leaflet_transition_name (AdwEnumValueObject *value,
-                         gpointer            user_data)
+leaflet_transition_name (AdwEnumListItem *item,
+                         gpointer         user_data)
 {
-  g_return_val_if_fail (ADW_IS_ENUM_VALUE_OBJECT (value), NULL);
-
-  switch (adw_enum_value_object_get_value (value)) {
+  switch (adw_enum_list_item_get_value (item)) {
   case ADW_LEAFLET_TRANSITION_TYPE_OVER:
     return g_strdup (_("Over"));
   case ADW_LEAFLET_TRANSITION_TYPE_UNDER:
@@ -126,12 +124,10 @@ view_switcher_demo_clicked_cb (GtkButton     *btn,
 }
 
 static char *
-carousel_orientation_name (AdwEnumValueObject *value,
-                           gpointer            user_data)
+carousel_orientation_name (AdwEnumListItem *item,
+                           gpointer         user_data)
 {
-  g_return_val_if_fail (ADW_IS_ENUM_VALUE_OBJECT (value), NULL);
-
-  switch (adw_enum_value_object_get_value (value)) {
+  switch (adw_enum_list_item_get_value (item)) {
   case GTK_ORIENTATION_HORIZONTAL:
     return g_strdup (_("Horizontal"));
   case GTK_ORIENTATION_VERTICAL:

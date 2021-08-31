@@ -15,7 +15,7 @@
  *
  * A `GListModel` representing values of a given enum.
  *
- * `AdwEnumListModel` contains objects of type [class@AdwEnumValueObject].
+ * `AdwEnumListModel` contains objects of type [class@AdwEnumListItem].
  *
  * Since: 1.0
  */
@@ -27,7 +27,7 @@ struct _AdwEnumListModel
   GType enum_type;
   GEnumClass *enum_class;
 
-  AdwEnumValueObject **objects;
+  AdwEnumListItem **objects;
 };
 
 enum {
@@ -44,14 +44,14 @@ G_DEFINE_TYPE_WITH_CODE (AdwEnumListModel, adw_enum_list_model, G_TYPE_OBJECT,
                          G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_enum_list_model_list_model_init))
 
 /**
- * AdwEnumValueObject:
+ * AdwEnumListItem:
  *
- * `AdwEnumValueObject` is the type of items in a [class@Adw.EnumListModel].
+ * `AdwEnumListItem` is the type of items in a [class@Adw.EnumListModel].
  *
  * Since: 1.0
  */
 
-struct _AdwEnumValueObject
+struct _AdwEnumListItem
 {
   GObject parent_instance;
 
@@ -68,25 +68,25 @@ enum {
 
 static GParamSpec *value_props[LAST_VALUE_PROP];
 
-G_DEFINE_TYPE (AdwEnumValueObject, adw_enum_value_object, G_TYPE_OBJECT)
+G_DEFINE_TYPE (AdwEnumListItem, adw_enum_list_item, G_TYPE_OBJECT)
 
 static void
-adw_enum_value_object_get_property (GObject    *object,
-                                    guint       prop_id,
-                                    GValue     *value,
-                                    GParamSpec *pspec)
+adw_enum_list_item_get_property (GObject    *object,
+                                 guint       prop_id,
+                                 GValue     *value,
+                                 GParamSpec *pspec)
 {
-  AdwEnumValueObject *self = ADW_ENUM_VALUE_OBJECT (object);
+  AdwEnumListItem *self = ADW_ENUM_LIST_ITEM (object);
 
   switch (prop_id) {
   case VALUE_PROP_VALUE:
-    g_value_set_int (value, adw_enum_value_object_get_value (self));
+    g_value_set_int (value, adw_enum_list_item_get_value (self));
     break;
   case VALUE_PROP_NAME:
-    g_value_set_string (value, adw_enum_value_object_get_name (self));
+    g_value_set_string (value, adw_enum_list_item_get_name (self));
     break;
   case VALUE_PROP_NICK:
-    g_value_set_string (value, adw_enum_value_object_get_nick (self));
+    g_value_set_string (value, adw_enum_list_item_get_nick (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -94,14 +94,14 @@ adw_enum_value_object_get_property (GObject    *object,
 }
 
 static void
-adw_enum_value_object_class_init (AdwEnumValueObjectClass *klass)
+adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  object_class->get_property = adw_enum_value_object_get_property;
+  object_class->get_property = adw_enum_list_item_get_property;
 
   /**
-   * AdwEnumValueObject:value: (attributes org.gtk.Property.get=adw_enum_value_object_get_value)
+   * AdwEnumListItem:value: (attributes org.gtk.Property.get=adw_enum_list_item_get_value)
    *
    * The enum value.
    *
@@ -115,7 +115,7 @@ adw_enum_value_object_class_init (AdwEnumValueObjectClass *klass)
                       G_PARAM_READABLE);
 
   /**
-   * AdwEnumValueObject:name: (attributes org.gtk.Property.get=adw_enum_value_object_get_name)
+   * AdwEnumListItem:name: (attributes org.gtk.Property.get=adw_enum_list_item_get_name)
    *
    * The enum value name.
    *
@@ -129,7 +129,7 @@ adw_enum_value_object_class_init (AdwEnumValueObjectClass *klass)
                          G_PARAM_READABLE);
 
   /**
-   * AdwEnumValueObject:nick: (attributes org.gtk.Property.get=adw_enum_value_object_get_nick)
+   * AdwEnumListItem:nick: (attributes org.gtk.Property.get=adw_enum_list_item_get_nick)
    *
    * The enum value nick.
    *
@@ -146,14 +146,14 @@ adw_enum_value_object_class_init (AdwEnumValueObjectClass *klass)
 }
 
 static void
-adw_enum_value_object_init (AdwEnumValueObject *self)
+adw_enum_list_item_init (AdwEnumListItem *self)
 {
 }
 
-static AdwEnumValueObject *
-adw_enum_value_object_new (GEnumValue *enum_value)
+static AdwEnumListItem *
+adw_enum_list_item_new (GEnumValue *enum_value)
 {
-  AdwEnumValueObject *self = g_object_new (ADW_TYPE_ENUM_VALUE_OBJECT, NULL);
+  AdwEnumListItem *self = g_object_new (ADW_TYPE_ENUM_LIST_ITEM, NULL);
 
   self->enum_value = *enum_value;
 
@@ -161,7 +161,7 @@ adw_enum_value_object_new (GEnumValue *enum_value)
 }
 
 /**
- * adw_enum_value_object_get_value: (attributes org.gtk.Method.get_property=value)
+ * adw_enum_list_item_get_value: (attributes org.gtk.Method.get_property=value)
  *
  * Gets the enum value.
  *
@@ -170,15 +170,15 @@ adw_enum_value_object_new (GEnumValue *enum_value)
  * Since: 1.0
  */
 int
-adw_enum_value_object_get_value (AdwEnumValueObject *self)
+adw_enum_list_item_get_value (AdwEnumListItem *self)
 {
-  g_return_val_if_fail (ADW_IS_ENUM_VALUE_OBJECT (self), 0);
+  g_return_val_if_fail (ADW_IS_ENUM_LIST_ITEM (self), 0);
 
   return self->enum_value.value;
 }
 
 /**
- * adw_enum_value_object_get_name: (attributes org.gtk.Method.get_property=name)
+ * adw_enum_list_item_get_name: (attributes org.gtk.Method.get_property=name)
  *
  * Gets the enum value name.
  *
@@ -187,15 +187,15 @@ adw_enum_value_object_get_value (AdwEnumValueObject *self)
  * Since: 1.0
  */
 const char *
-adw_enum_value_object_get_name (AdwEnumValueObject *self)
+adw_enum_list_item_get_name (AdwEnumListItem *self)
 {
-  g_return_val_if_fail (ADW_IS_ENUM_VALUE_OBJECT (self), NULL);
+  g_return_val_if_fail (ADW_IS_ENUM_LIST_ITEM (self), NULL);
 
   return self->enum_value.value_name;
 }
 
 /**
- * adw_enum_value_object_get_nick: (attributes org.gtk.Method.get_property=nick)
+ * adw_enum_list_item_get_nick: (attributes org.gtk.Method.get_property=nick)
  *
  * Gets the enum value nick.
  *
@@ -204,9 +204,9 @@ adw_enum_value_object_get_name (AdwEnumValueObject *self)
  * Since: 1.0
  */
 const char *
-adw_enum_value_object_get_nick (AdwEnumValueObject *self)
+adw_enum_list_item_get_nick (AdwEnumListItem *self)
 {
-  g_return_val_if_fail (ADW_IS_ENUM_VALUE_OBJECT (self), NULL);
+  g_return_val_if_fail (ADW_IS_ENUM_LIST_ITEM (self), NULL);
 
   return self->enum_value.value_nick;
 }
@@ -219,10 +219,10 @@ adw_enum_list_model_constructed (GObject *object)
 
   self->enum_class = g_type_class_ref (self->enum_type);
 
-  self->objects = g_new0 (AdwEnumValueObject *, self->enum_class->n_values);
+  self->objects = g_new0 (AdwEnumListItem *, self->enum_class->n_values);
 
   for (i = 0; i < self->enum_class->n_values; i++)
-    self->objects[i] = adw_enum_value_object_new (&self->enum_class->values[i]);
+    self->objects[i] = adw_enum_list_item_new (&self->enum_class->values[i]);
 
   G_OBJECT_CLASS (adw_enum_list_model_parent_class)->constructed (object);
 }
@@ -307,7 +307,7 @@ adw_enum_list_model_init (AdwEnumListModel *self)
 static GType
 adw_enum_list_model_get_item_type (GListModel *list)
 {
-  return ADW_TYPE_ENUM_VALUE_OBJECT;
+  return ADW_TYPE_ENUM_LIST_ITEM;
 }
 
 static guint
