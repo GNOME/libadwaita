@@ -2,22 +2,18 @@ FROM fedora:34
 
 RUN dnf -y update \
  && dnf -y install \
-    @development-tools \
-    dnf-plugins-core \
-    gcc \
+    "dnf-command(builddep)" \
     git \
-    gobject-introspection-devel \
-    gtk4-devel \
-    meson \
-    pcre-static \
-    python3 \
-    python3-jinja2 \
-    python3-markdown \
-    python3-pip \
-    python3-pygments \
-    python3-toml \
-    python3-typogrify \
-    python3-wheel \
-    redhat-rpm-config \
+    libjpeg-turbo-devel \
     sassc \
+ && sudo dnf -y build-dep gtk4 \
  && dnf clean all
+
+RUN git clone https://gitlab.gnome.org/GNOME/gtk.git --depth=1 \
+ && cd gtk \
+ && meson build --prefix=/usr \
+ && cd build \
+ && ninja \
+ && sudo ninja install \
+ && cd ../.. \
+ && rm -rf gtk

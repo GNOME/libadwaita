@@ -7,7 +7,7 @@ variables:
   FLATPAK_MODULE: 'libadwaita'
   FLATPAK_BUILD_DIR: build
   ABI_CHECKER_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/abi-checker:v1"
-  DOCS_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/docs:v1"
+  DOCS_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/docs:v2"
 
 stages:
   - build
