@@ -69,7 +69,6 @@
 
 enum {
   PROP_0,
-  PROP_POLICY,
   PROP_STACK,
   PROP_TITLE,
   PROP_SUBTITLE,
@@ -138,9 +137,6 @@ adw_view_switcher_title_get_property (GObject    *object,
   AdwViewSwitcherTitle *self = ADW_VIEW_SWITCHER_TITLE (object);
 
   switch (prop_id) {
-  case PROP_POLICY:
-    g_value_set_enum (value, adw_view_switcher_title_get_policy (self));
-    break;
   case PROP_STACK:
     g_value_set_object (value, adw_view_switcher_title_get_stack (self));
     break;
@@ -171,9 +167,6 @@ adw_view_switcher_title_set_property (GObject      *object,
   AdwViewSwitcherTitle *self = ADW_VIEW_SWITCHER_TITLE (object);
 
   switch (prop_id) {
-  case PROP_POLICY:
-    adw_view_switcher_title_set_policy (self, g_value_get_enum (value));
-    break;
   case PROP_STACK:
     adw_view_switcher_title_set_stack (self, g_value_get_object (value));
     break;
@@ -214,21 +207,6 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
   object_class->dispose = adw_view_switcher_title_dispose;
   object_class->get_property = adw_view_switcher_title_get_property;
   object_class->set_property = adw_view_switcher_title_set_property;
-
-  /**
-   * AdwViewSwitcherTitle:policy: (attributes org.gtk.Property.get=adw_view_switcher_title_get_policy org.gtk.Property.set=adw_view_switcher_title_set_policy)
-   *
-   * The policy to determine which mode to use.
-   *
-   * Since: 1.0
-   */
-  props[PROP_POLICY] =
-    g_param_spec_enum ("policy",
-                       "Policy",
-                       "The policy to determine the mode to use",
-                       ADW_TYPE_VIEW_SWITCHER_POLICY,
-                       ADW_VIEW_SWITCHER_POLICY_AUTO,
-                       G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwViewSwitcherTitle:stack: (attributes org.gtk.Property.get=adw_view_switcher_title_get_stack org.gtk.Property.set=adw_view_switcher_title_set_stack)
@@ -355,49 +333,6 @@ GtkWidget *
 adw_view_switcher_title_new (void)
 {
   return g_object_new (ADW_TYPE_VIEW_SWITCHER_TITLE, NULL);
-}
-
-/**
- * adw_view_switcher_title_get_policy: (attributes org.gtk.Method.get_property=policy)
- * @self: a `AdwViewSwitcherTitle`
- *
- * Gets the policy of @self.
- *
- * Returns: the policy of @self
- *
- * Since: 1.0
- */
-AdwViewSwitcherPolicy
-adw_view_switcher_title_get_policy (AdwViewSwitcherTitle *self)
-{
-  g_return_val_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self), ADW_VIEW_SWITCHER_POLICY_NARROW);
-
-  return adw_view_switcher_get_policy (self->wide_view_switcher);
-}
-
-/**
- * adw_view_switcher_title_set_policy: (attributes org.gtk.Method.set_property=policy)
- * @self: a `AdwViewSwitcherTitle`
- * @policy: the new policy
- *
- * Sets the policy of @self.
- *
- * Since: 1.0
- */
-void
-adw_view_switcher_title_set_policy (AdwViewSwitcherTitle  *self,
-                                    AdwViewSwitcherPolicy  policy)
-{
-  g_return_if_fail (ADW_IS_VIEW_SWITCHER_TITLE (self));
-
-  if (adw_view_switcher_get_policy (self->wide_view_switcher) == policy)
-    return;
-
-  adw_view_switcher_set_policy (self->wide_view_switcher, policy);
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POLICY]);
-
-  gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
 /**

@@ -259,6 +259,13 @@ You should stop using [property@Gtk.Stack:transition-type] and
 The "policy" property has been removed. If you had used it, use a plain
 [class@Adw.ViewSwitcher] in a [class@Gtk.ActionBar] instead.
 
+### Adapt to [class@Adw.ViewSwitcherTitle] API Changes
+
+The "policy" property has been removed, the behavior is similar to the `auto`
+policy. If you had used `wide` or `narrow` policies, use an [class@Adw.Squeezer]
+with an [class@Adw.ViewSwitcher] and an [class@Adw.WindowTitle] inside, with the
+switcher having the desired policy.
+
 ### Adapt to [class@Adw.Avatar] API Changes
 
 The `HdyAvatar:loadable-icon` property has been removed along with its getter

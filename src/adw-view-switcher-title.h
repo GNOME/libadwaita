@@ -28,12 +28,6 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_view_switcher_title_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
-AdwViewSwitcherPolicy adw_view_switcher_title_get_policy (AdwViewSwitcherTitle  *self);
-ADW_AVAILABLE_IN_ALL
-void                  adw_view_switcher_title_set_policy (AdwViewSwitcherTitle  *self,
-                                                          AdwViewSwitcherPolicy  policy);
-
-ADW_AVAILABLE_IN_ALL
 AdwViewStack *adw_view_switcher_title_get_stack (AdwViewSwitcherTitle *self);
 ADW_AVAILABLE_IN_ALL
 void          adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
