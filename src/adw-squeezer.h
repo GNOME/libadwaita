@@ -14,6 +14,7 @@
 
 #include <gtk/gtk.h>
 #include "adw-enums.h"
+#include "adw-fold-threshold-policy.h"
 
 G_BEGIN_DECLS
 
@@ -60,6 +61,12 @@ gboolean adw_squeezer_get_homogeneous (AdwSqueezer *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_squeezer_set_homogeneous (AdwSqueezer *self,
                                        gboolean     homogeneous);
+
+ADW_AVAILABLE_IN_ALL
+AdwFoldThresholdPolicy adw_squeezer_get_switch_threshold_policy (AdwSqueezer             *self);
+ADW_AVAILABLE_IN_ALL
+void                   adw_squeezer_set_switch_threshold_policy (AdwSqueezer            *self,
+                                                                 AdwFoldThresholdPolicy  policy);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_squeezer_get_allow_none (AdwSqueezer *self);

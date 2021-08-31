@@ -85,6 +85,7 @@ struct _AdwSqueezer
   GList *children;
 
   AdwSqueezerPage *visible_child;
+  AdwFoldThresholdPolicy switch_threshold_policy;
 
   gboolean homogeneous;
 
@@ -116,6 +117,7 @@ struct _AdwSqueezer
 enum  {
   PROP_0,
   PROP_HOMOGENEOUS,
+  PROP_SWITCH_THRESHOLD_POLICY,
   PROP_VISIBLE_CHILD,
   PROP_ALLOW_NONE,
   PROP_TRANSITION_DURATION,
@@ -700,6 +702,9 @@ adw_squeezer_get_property (GObject    *object,
   case PROP_HOMOGENEOUS:
     g_value_set_boolean (value, adw_squeezer_get_homogeneous (self));
     break;
+  case PROP_SWITCH_THRESHOLD_POLICY:
+    g_value_set_enum (value, adw_squeezer_get_switch_threshold_policy (self));
+    break;
   case PROP_VISIBLE_CHILD:
     g_value_set_object (value, adw_squeezer_get_visible_child (self));
     break;
@@ -747,6 +752,9 @@ adw_squeezer_set_property (GObject      *object,
   switch (property_id) {
   case PROP_HOMOGENEOUS:
     adw_squeezer_set_homogeneous (self, g_value_get_boolean (value));
+    break;
+  case PROP_SWITCH_THRESHOLD_POLICY:
+    adw_squeezer_set_switch_threshold_policy (self, g_value_get_enum (value));
     break;
   case PROP_ALLOW_NONE:
     adw_squeezer_set_allow_none (self, g_value_get_boolean (value));
@@ -846,7 +854,7 @@ adw_squeezer_size_allocate (GtkWidget *widget,
 
   for (l = self->children; l; l = l->next) {
     GtkWidget *child = NULL;
-    int child_min;
+    int child_min, child_nat;
     int for_size = -1;
     int compare_size;
 
@@ -877,9 +885,12 @@ adw_squeezer_size_allocate (GtkWidget *widget,
         for_size = height;
 
       gtk_widget_measure (child, self->orientation, for_size,
-                          &child_min, NULL, NULL, NULL);
+                          &child_min, &child_nat, NULL, NULL);
 
-      if (child_min <= compare_size)
+      if (child_min <= compare_size && self->switch_threshold_policy == ADW_FOLD_THRESHOLD_POLICY_MINIMUM)
+        break;
+
+      if (child_nat <= compare_size && self->switch_threshold_policy == ADW_FOLD_THRESHOLD_POLICY_NATURAL)
         break;
     }
   }
@@ -1101,6 +1112,29 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                           "Whether all children have the same size for the opposite orientation",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwSqueezer:switch-threshold-policy: (attributes org.gtk.Property.get=adw_squeezer_get_switch_threshold_policy org.gtk.Property.set=adw_squeezer_set_switch_threshold_policy)
+   *
+   * Determines when the squeezer will switch children.
+   *
+   * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only switch when
+   * the visible child cannot fit anymore. With
+   * `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it will switch as soon as the visible
+   * child doesn't get their natural size.
+   *
+   * This can be useful if you have a long ellipsizing label and want to let it
+   * ellipsize instead of immediately switching.
+   *
+   * Since: 1.0
+   */
+  props[PROP_SWITCH_THRESHOLD_POLICY] =
+    g_param_spec_enum ("switch-threshold-policy",
+                       "Switch Threshold Policy",
+                       "Determines when the leaflet will fold",
+                       ADW_TYPE_FOLD_THRESHOLD_POLICY,
+                       ADW_FOLD_THRESHOLD_POLICY_NATURAL,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSqueezer:visible-child: (attributes org.gtk.Property.get=adw_squeezer_get_visible_child)
@@ -1503,6 +1537,49 @@ adw_squeezer_set_homogeneous (AdwSqueezer *self,
     gtk_widget_queue_resize (GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HOMOGENEOUS]);
+}
+
+/**
+ * adw_squeezer_get_switch_threshold_policy: (attributes org.gtk.Method.get_property=fold-threshold-policy)
+ * @self: a `AdwLeaflet`
+ *
+ * Gets the fold threshold policy for @self.
+ *
+ * Since: 1.0
+ */
+AdwFoldThresholdPolicy
+adw_squeezer_get_switch_threshold_policy (AdwSqueezer *self)
+{
+  g_return_val_if_fail (ADW_IS_SQUEEZER (self), ADW_FOLD_THRESHOLD_POLICY_NATURAL);
+
+  return self->switch_threshold_policy;
+}
+
+
+/**
+ * adw_squeezer_set_switch_threshold_policy: (attributes org.gtk.Method.set_property=fold-threshold-policy)
+ * @self: a `AdwSqueezer`
+ * @policy: the policy to use
+ *
+ * Sets the fold threshold policy for @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_squeezer_set_switch_threshold_policy (AdwSqueezer            *self,
+                                          AdwFoldThresholdPolicy  policy)
+{
+  g_return_if_fail (ADW_IS_SQUEEZER (self));
+  g_return_if_fail (policy <= ADW_FOLD_THRESHOLD_POLICY_NATURAL);
+
+  if (self->switch_threshold_policy == policy)
+    return;
+
+  self->switch_threshold_policy = policy;
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SWITCH_THRESHOLD_POLICY]);
 }
 
 /**
