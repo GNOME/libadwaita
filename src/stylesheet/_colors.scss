@@ -50,9 +50,9 @@ $fill_active_color: gtkmix($accent_bg_color, black, 80%);
 $slider_color: mix(white, $base_color, 80%);
 $slider_hover_color: white;
 
-$scrollbar_bg_color: if($variant == 'light', mix($bg_color, $fg_color, 80%), mix($base_color, $bg_color, 50%));
-$scrollbar_slider_color: mix($fg_color, $bg_color, 60%);
-$scrollbar_slider_hover_color: mix($fg_color, $bg_color, 80%);
+$scrollbar_bg_color: gtkalpha(currentColor, .1);
+$scrollbar_slider_color: gtkalpha(currentColor, .6);
+$scrollbar_slider_hover_color: gtkalpha(currentColor, .8);
 $scrollbar_slider_active_color: $accent_bg_color;
 
 $osd_fg_color: $dark_fg;
