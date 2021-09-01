@@ -233,11 +233,11 @@ listview.content {
         &.activatable {
           &.has-open-popup,
           &:hover {
-            background-color: mix($fg_color, $base_color, 5%);
+            background-color: gtkmix(currentColor, $base_color, 3%);
           }
 
           &:active {
-            background-color: mix($fg_color, $base_color, 10%);
+            background-color: gtkmix(currentColor, $base_color, 8%);
           }
         }
       }
@@ -247,16 +247,17 @@ listview.content {
 
         // Nested rows background
         list.nested > row:not(:selected) {
-          background-color: mix($bg_color, $base_color, 50%);
+          $_nested_row_bg: mix($bg_color, $base_color, 50%);
+          background-color: $_nested_row_bg;
 
           &.activatable {
             &.has-open-popup,
             &:hover {
-              background-color: mix($fg_color, $base_color, 5%);
+              background-color: gtkmix(currentColor, $_nested_row_bg, 3%);
             }
 
             &:active {
-              background-color: mix($fg_color, $base_color, 10%);
+              background-color: gtkmix(currentColor, $_nested_row_bg, 8%);
             }
           }
         }
