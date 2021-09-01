@@ -54,9 +54,9 @@ entry {
     }
 
     > image { // icons inside the entry
-      color: mix($fg_color, $base_color, 80%);
+      opacity: 0.6;
 
-      &:hover { color: $fg_color; }
+      &:hover { opacity: 1; }
 
       &:active { color: $accent_color; }
 
@@ -65,7 +65,7 @@ entry {
     }
 
     &.password image.caps-lock-indicator {
-      opacity: 0.5;
+      opacity: 0.3;
     }
 
     &:drop(active) {
