@@ -109,7 +109,7 @@ button {
     transition: $button_transition;
 
     color: $osd_fg_color;
-    background-color: $osd_bg_color;
+    background-color: transparentize(black, .35);
 
     @if $contrast == 'high' {
       box-shadow: 0 0 0 1px currentColor;
@@ -117,25 +117,25 @@ button {
 
     &:hover {
       color: white;
-      background-color: lighten($osd_bg_color, 10%);
+      background-color: transparentize(black, .5);
     }
 
     &.keyboard-activating,
     &:active {
       color: white;
-      background-color: darken($osd_bg_color, 20%);
+      background-color: transparentize(black, .2);
     }
 
     &:checked {
-      background-color: darken($osd_bg_color, 15%);
+      background-color: transparentize(black, .25);
 
       &:hover {
-        background-color: darken($osd_bg_color, 5%);
+        background-color: transparentize(black, .35);
       }
 
       &.keyboard-activating,
       &:active {
-        background-color: darken($osd_bg_color, 30%);
+        background-color: transparentize(black, .1);
       }
     }
 
