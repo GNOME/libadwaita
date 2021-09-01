@@ -1,0 +1,17 @@
+// Sass thinks we're using the colors in the variables as strings and may shoot
+// warning, it's innocuous and can be defeated by using #{$var}.
+
+/* Public colors from Default */
+
+@define-color theme_bg_color #{$bg_color};
+@define-color theme_fg_color #{$fg_color};
+
+@define-color theme_base_color #{$base_color};
+@define-color theme_text_color #{$text_color};
+
+@define-color insensitive_bg_color #{gtkmix($bg_color, $base_color, 60%)};
+@define-color insensitive_fg_color #{gtkalpha($fg_color, .5)};
+
+@define-color insensitive_base_color #{$base_color};
+
+@define-color borders #{$borders_color};
