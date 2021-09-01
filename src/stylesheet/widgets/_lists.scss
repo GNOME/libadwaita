@@ -224,33 +224,42 @@ listview.content {
     background-color: transparent;
   }
 
-  // Nested rows background
-  list.nested > row:not(:active) {
-    &:not(:hover):not(:selected),
-    &:hover:not(.activatable):not(:selected) {
-      background-color: mix($bg_color, $base_color, 50%);
-    }
-
-    &:hover.activatable:not(:selected) {
-      background-color: mix($fg_color, $base_color, 5%);
-    }
-  }
-
   > row {
-    // Regular rows and expander header rows background
-    &:not(.expander):not(:active):not(:hover):not(:selected),
-    &:not(.expander):not(:active):hover:not(.activatable):not(:selected),
-    &.expander row.header:not(:active):not(:hover):not(:selected),
-    &.expander row.header:not(:active):hover:not(.activatable):not(:selected) {
-      background-color: $base_color;
-    }
+    &:not(:selected) {
+      // Regular rows and expander header rows background
+      &, &.expander row.header {
+        background-color: $base_color;
 
-    &:not(.expander):hover.activatable:not(:selected),
-    &.expander row.header:hover.activatable:not(:selected) {
-      background-color: mix($fg_color, $base_color, 5%);
+        &.activatable {
+          &.has-open-popup,
+          &:hover {
+            background-color: mix($fg_color, $base_color, 5%);
+          }
 
-      &:active {
-        background-color: mix($fg_color, $base_color, 10%);
+          &:active {
+            background-color: mix($fg_color, $base_color, 10%);
+          }
+        }
+      }
+
+      &.expander {
+        background: none;
+
+        // Nested rows background
+        list.nested > row:not(:selected) {
+          background-color: mix($bg_color, $base_color, 50%);
+
+          &.activatable {
+            &.has-open-popup,
+            &:hover {
+              background-color: mix($fg_color, $base_color, 5%);
+            }
+
+            &:active {
+              background-color: mix($fg_color, $base_color, 10%);
+            }
+          }
+        }
       }
     }
 
