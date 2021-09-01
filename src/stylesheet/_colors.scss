@@ -29,7 +29,8 @@ $link_color: $accent_color;
 $link_visited_color: gtkmix($accent_color, $text_color, 80%);
 $dark_fill: if($variant == 'light', darken($bg_color, 9%), darken($bg_color, 5%));
 $headerbar_bg_color: darken($bg_color, if($variant == 'dark', 5%, 10%));
-$headerbar_border_color: transparentize($fg_color, .85);
+$headerbar_fg_color: $fg_color;
+$headerbar_border_color: $fg_color;
 $menu_color: $base_color;
 
 $view_hover_color: gtkalpha(currentColor, .07);
@@ -73,8 +74,6 @@ $dim_label_opacity: 0.55;
   $bg_color: if($variant == 'light', lighten($bg_color, 3%), darken($bg_color, 2%));
   $borders_color: gtkalpha(currentColor, .5);
   $thin_borders_color: gtkalpha(currentColor, .25);
-
-  $headerbar_border_color: transparentize($fg_color, .5);
 
   //focus rings
   $focus_border_color: gtkalpha($accent_bg_color, 0.8);
