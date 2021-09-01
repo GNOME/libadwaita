@@ -73,12 +73,6 @@
     background-color: transparentize(black, 0.5);
     background-clip: padding-box;
   }
-  @if $t==osd-insensitive {
-    color: $osd_insensitive_fg_color;
-    border-color: $borders_color;
-    background-color: $osd_insensitive_bg_color;
-    background-clip: padding-box;
-  }
   @if $t==block_cursor {
     color: $base_color;
     background-color: $text_color;

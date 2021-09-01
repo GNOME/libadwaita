@@ -78,8 +78,6 @@ entry {
       @include entry(osd);
 
       &:focus-within { @include entry(osd-focus); }
-
-      &:disabled { @include entry(osd-insensitive); }
     }
   }
 
