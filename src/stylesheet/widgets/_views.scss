@@ -18,6 +18,8 @@
 }
 
 textview {
+  caret-color: currentColor;
+
   > text {
     @extend %view;
   }

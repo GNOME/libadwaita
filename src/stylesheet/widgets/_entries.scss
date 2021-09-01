@@ -9,6 +9,7 @@ entry {
     border-spacing: 6px;
     background-clip: padding-box;
     transition: all 200ms $ease-out-quad;
+    caret-color: currentColor;
 
     @include entry(normal);
 
