@@ -2110,7 +2110,11 @@ remove_placeholder (AdwTabBox *self)
 static inline AdwTabBox *
 get_source_tab_box (GtkDropTarget *target)
 {
+#if GTK_CHECK_VERSION (4, 4, 0)
+  GdkDrop *drop = gtk_drop_target_get_current_drop (target);
+#else
   GdkDrop *drop = gtk_drop_target_get_drop (target);
+#endif
   GdkDrag *drag = gdk_drop_get_drag (drop);
 
   if (!drag)
