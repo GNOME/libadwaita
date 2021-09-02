@@ -1,0 +1,125 @@
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Adw &ndash; 1: Migrating between development versions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta charset="utf-8" />
+
+  
+  <meta property="og:type" content="website"/>
+
+  
+  <meta property="og:image:width" content="256"/>
+  <meta property="og:image:height" content="256"/>
+  <meta property="og:image:secure_url" content="libadwaita.svg"/>
+  <meta property="og:image:alt" content="Adw-1"/>
+  
+
+  
+  <meta property="og:title" content="Adw: Migrating between development versions"/>
+  <meta property="og:description" content="Reference for Adw-1: Migrating between development versions"/>
+  <meta name="twitter:title" content="Adw: Migrating between development versions"/>
+  <meta name="twitter:description" content="Reference for Adw-1: Migrating between development versions"/>
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+
+  
+
+  <link rel="stylesheet" href="style.css" type="text/css" />
+
+  
+
+  
+  <script src="urlmap.js"></script>
+  
+  
+  <script src="fzy.js"></script>
+  <script src="search.js"></script>
+  
+  <script src="main.js"></script>
+  <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+<body>
+  <div id="body-wrapper" tabindex="-1">
+
+    <nav class="sidebar devhelp-hidden">
+      
+      <div class="section">
+        <img src="libadwaita.svg" class="logo"/>
+      </div>
+      
+      
+      <div class="search section">
+        <form id="search-form" autocomplete="off">
+          <input id="search-input" type="text" name="do-not-autocomplete" placeholder="Click, or press 's' to search" autocomplete="off"/>
+        </form>
+      </div>
+      
+      <div class="section namespace">
+        <h3><a href="index.html">Adw</a></h3>
+        <p>API Version: 1</p>
+        
+        <p>Library Version: 1.0.0-alpha.2</p>
+        
+      </div>
+      
+      
+    </nav>
+    
+    <button id="btn-to-top" class="hidden"><span class="up-arrow"></span></button>
+
+    
+<section id="main" class="content">
+  <section>
+    <div class="docblock">
+    <h1 id="migrating-between-development-versions">Migrating between development versions<a class="md-anchor" href="#migrating-between-development-versions" title="Permanent link"></a></h1>
+<p>This guide outlines the differences between Libadwaita development releases.
+It assumes you&#8217;ve already migrated from Libhandy 1.4 to Libadwaita, or you
+created a new project using a development release of&nbsp;Libadwaita.</p>
+<p>If you want to migrate from Libhandy 1.4 to the latest Libadwaita release,
+<a href="migrating-libhandy-1-4-to-libadwaita.html">follow this guide</a>.</p>
+<h2 id="migrating-from-alpha-1-to-alpha-2">Migrating from alpha 1 to alpha 2<a class="md-anchor" href="#migrating-from-alpha-1-to-alpha-2" title="Permanent link"></a></h2>
+<h3 id="adapt-to-view-switcher-api-changes">Adapt to view switcher API Changes<a class="md-anchor" href="#adapt-to-view-switcher-api-changes" title="Permanent link"></a></h3>
+<p><a href="class.ViewSwitcher.html"><code>AdwViewSwitcher</code></a>, <a href="class.ViewSwitcherBar.html"><code>AdwViewSwitcherBar</code></a> and
+<a href="class.ViewSwitcherTitle.html"><code>AdwViewSwitcherTitle</code></a> now use <a href="class.ViewStack.html"><code>AdwViewStack</code></a> instead of
+<a href="javascript:void(0)" data-namespace="Gtk" data-link="class.Stack.html" class="external"><code>GtkStack</code></a>.</p>
+<p>You should stop using <a href="javascript:void(0)" data-namespace="Gtk" data-link="property.Stack.transition-type.html" class="external"><code>GtkStack:transition-type</code></a> and
+<a href="javascript:void(0)" data-namespace="Gtk" data-link="property.Stack.transition-duration.html" class="external"><code>GtkStack:transition-duration</code></a> properties before switching to
+<a href="class.ViewStack.html"><code>AdwViewStack</code></a>.</p>
+<h3 id="adapt-to-stylesheet-changes">Adapt to Stylesheet Changes<a class="md-anchor" href="#adapt-to-stylesheet-changes" title="Permanent link"></a></h3>
+<p>The public colors <code>theme_selected_bg_color</code> and <code>theme_selected_fg_color</code> have
+been renamed to <code>accent_bg_color</code> and <code>accent_fg_color</code>.</p>
+<p>If you were using <code>theme_selected_bg_color</code> as a text color, use
+<code>accent_color</code> instead to make sure the text is readable. You can also use the
+<code>.accent</code> style class to apply the correct&nbsp;color.</p>
+    </div>
+  </section>
+</section>
+
+
+    
+
+    <section id="search" class="content hidden"></section>
+
+    <footer>
+    
+    </footer>
+  </div>
+</body>
+</html>

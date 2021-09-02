@@ -3,7 +3,6 @@
 DOC_DIR=public/doc
 REFS="
 main
-1.0.0-alpha.1
 "
 
 # LATEST_STABLE_1=1.0

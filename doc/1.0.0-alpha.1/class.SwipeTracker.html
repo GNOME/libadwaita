@@ -1,0 +1,671 @@
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Adw.SwipeTracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta charset="utf-8" />
+
+  
+  <meta property="og:type" content="website"/>
+
+  
+  <meta property="og:image:width" content="256"/>
+  <meta property="og:image:height" content="256"/>
+  <meta property="og:image:secure_url" content="libadwaita.svg"/>
+  <meta property="og:image:alt" content="Adw-1"/>
+  
+
+  
+  <meta property="og:title" content="Adw.SwipeTracker"/>
+  <meta property="og:description" content="Reference for Adw.SwipeTracker"/>
+  <meta name="twitter:title" content="Adw.SwipeTracker"/>
+  <meta name="twitter:description" content="Reference for Adw.SwipeTracker"/>
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+
+  
+
+  <link rel="stylesheet" href="style.css" type="text/css" />
+
+  
+
+  
+  <script src="urlmap.js"></script>
+  
+  
+  <script src="fzy.js"></script>
+  <script src="search.js"></script>
+  
+  <script src="main.js"></script>
+  <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+<body>
+  <div id="body-wrapper" tabindex="-1">
+
+    <nav class="sidebar devhelp-hidden">
+      
+      <div class="section">
+        <img src="libadwaita.svg" class="logo"/>
+      </div>
+      
+      
+      <div class="search section">
+        <form id="search-form" autocomplete="off">
+          <input id="search-input" type="text" name="do-not-autocomplete" placeholder="Click, or press 's' to search" autocomplete="off"/>
+        </form>
+      </div>
+      
+      <div class="section namespace">
+        <h3><a href="index.html">Adw</a></h3>
+        <p>API Version: 1</p>
+        
+        <p>Library Version: 1.0.0-alpha.1</p>
+        
+      </div>
+      
+<div class="section">
+  <h5>Type</h5>
+  <div class="links">
+    <a class="current" href="class.SwipeTracker.html#description">SwipeTracker</a>
+  </div>
+</div>
+
+
+<div class="section">
+  <h5>Constructors</h5>
+  <div class="links">
+  
+    <a class="ctor" href="ctor.SwipeTracker.new.html">new</a>
+  
+  </div>
+</div>
+
+
+
+
+
+<div class="section">
+  <h5>Instance methods</h5>
+  <div class="links">
+  
+    <a class="method" href="method.SwipeTracker.get_allow_long_swipes.html">get_allow_long_swipes</a>
+  
+    <a class="method" href="method.SwipeTracker.get_allow_mouse_drag.html">get_allow_mouse_drag</a>
+  
+    <a class="method" href="method.SwipeTracker.get_enabled.html">get_enabled</a>
+  
+    <a class="method" href="method.SwipeTracker.get_reversed.html">get_reversed</a>
+  
+    <a class="method" href="method.SwipeTracker.get_swipeable.html">get_swipeable</a>
+  
+    <a class="method" href="method.SwipeTracker.set_allow_long_swipes.html">set_allow_long_swipes</a>
+  
+    <a class="method" href="method.SwipeTracker.set_allow_mouse_drag.html">set_allow_mouse_drag</a>
+  
+    <a class="method" href="method.SwipeTracker.set_enabled.html">set_enabled</a>
+  
+    <a class="method" href="method.SwipeTracker.set_reversed.html">set_reversed</a>
+  
+    <a class="method" href="method.SwipeTracker.shift_position.html">shift_position</a>
+  
+  </div>
+</div>
+
+
+
+<div class="section">
+  <h5>Properties</h5>
+  <div class="links">
+  
+    <a class="property" href="property.SwipeTracker.allow-long-swipes.html">allow-long-swipes</a>
+  
+    <a class="property" href="property.SwipeTracker.allow-mouse-drag.html">allow-mouse-drag</a>
+  
+    <a class="property" href="property.SwipeTracker.enabled.html">enabled</a>
+  
+    <a class="property" href="property.SwipeTracker.reversed.html">reversed</a>
+  
+    <a class="property" href="property.SwipeTracker.swipeable.html">swipeable</a>
+  
+  </div>
+</div>
+
+
+
+<div class="section">
+  <h5>Signals</h5>
+  <div class="links">
+  
+    <a class="signal" href="signal.SwipeTracker.begin-swipe.html">begin-swipe</a>
+  
+    <a class="signal" href="signal.SwipeTracker.end-swipe.html">end-swipe</a>
+  
+    <a class="signal" href="signal.SwipeTracker.update-swipe.html">update-swipe</a>
+  
+  </div>
+</div>
+
+
+
+
+
+
+
+    </nav>
+    
+    <button id="btn-to-top" class="hidden"><span class="up-arrow"></span></button>
+
+    
+<section id="main" class="content">
+  <header>
+    <h3>Class</h3>
+    <h1 aria-label="Name"><a href="index.html">Adw</a><span class="sep" role="presentation"></span>SwipeTracker</h1>
+  </header>
+
+  <section>
+    <summary>
+      <div class="toggle-wrapper">
+        <h4 id="description" style="display:flex;">
+          Description
+          <a href="#description" class="anchor"></a>
+          
+          <a class="srclink" title="go to source location" href="https://gitlab.gnome.org/GNOME/libadwaita/-/blob/main/src/adw-swipe-tracker.c#L33">[src]</a>
+          
+        </h4>
+
+        <pre><code>final class Adw.SwipeTracker : GObject.Object {
+  /* No available fields */
+}</pre></code>
+
+        <div class="docblock">
+          <p>A swipe tracker used in <a href="class.Carousel.html"><code>AdwCarousel</code></a> and <a href="class.Leaflet.html"><code>AdwLeaflet</code></a>.</p>
+<p>The <code>AdwSwipeTracker</code> object can be used for implementing widgets with swipe
+gestures. It supports touch-based swipes, pointer dragging, and touchpad&nbsp;scrolling.</p>
+<p>The widgets will probably want to expose the
+<a href="property.SwipeTracker.enabled.html"><code>AdwSwipeTracker:enabled</code></a> property. If they expect to use
+horizontal orientation, <a href="property.SwipeTracker.reversed.html"><code>AdwSwipeTracker:reversed</code></a> can be used for
+supporting <span class="caps">RTL</span> text&nbsp;direction.</p>
+        </div>
+
+        <div class="docblock">
+          <table class="attributes">
+            
+            
+            <tr><td>Available since:</td><td>1.0</td></tr>
+            
+            
+          </table>
+        </div>
+
+        
+      </div>
+    </summary>
+
+    
+    <div class="toggle-wrapper hierarchy">
+      <h4 id="hierarchy">
+        Hierarchy
+        <a href="#hierarchy" class="anchor"></a>
+      </h4>
+      <div class="docblock" alt="Hierarchy for Adw.SwipeTracker">
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.44.0 (0)
+ -->
+<!-- Title: hierarchy Pages: 1 -->
+<svg width="145pt" height="188pt"
+ viewBox="0.00 0.00 145.00 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>hierarchy</title>
+<!-- this -->
+<g id="node1" class="node">
+<title>this</title>
+<g id="a_node1"><a xlink:title="AdwSwipeTracker">
+<path fill="none" stroke="black" d="M125,-108C125,-108 12,-108 12,-108 6,-108 0,-102 0,-96 0,-96 0,-84 0,-84 0,-78 6,-72 12,-72 12,-72 125,-72 125,-72 131,-72 137,-78 137,-84 137,-84 137,-96 137,-96 137,-102 131,-108 125,-108"/>
+<text text-anchor="middle" x="68.5" y="-86.3" font-family="Times-Roman" font-size="14.00">AdwSwipeTracker</text>
+</a>
+</g>
+</g>
+<!-- implements_0 -->
+<g id="node3" class="node">
+<title>implements_0</title>
+<g id="a_node3"><a xlink:title="Gtk.Orientable">
+<polygon fill="none" stroke="black" points="125,-36 12,-36 12,0 125,0 125,-36"/>
+<text text-anchor="middle" x="68.5" y="-14.3" font-family="sans-serif" font-size="14.00">GtkOrientable</text>
+</a>
+</g>
+</g>
+<!-- this&#45;&#45;implements_0 -->
+<g id="edge2" class="edge">
+<title>this&#45;&#45;implements_0</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M68.5,-71.7C68.5,-60.85 68.5,-46.92 68.5,-36.1"/>
+</g>
+<!-- ancestor_0 -->
+<g id="node2" class="node">
+<title>ancestor_0</title>
+<g id="a_node2"><a xlink:title="GObject.Object">
+<path fill="none" stroke="black" d="M92.5,-180C92.5,-180 44.5,-180 44.5,-180 38.5,-180 32.5,-174 32.5,-168 32.5,-168 32.5,-156 32.5,-156 32.5,-150 38.5,-144 44.5,-144 44.5,-144 92.5,-144 92.5,-144 98.5,-144 104.5,-150 104.5,-156 104.5,-156 104.5,-168 104.5,-168 104.5,-174 98.5,-180 92.5,-180"/>
+<text text-anchor="middle" x="68.5" y="-158.3" font-family="Times-Roman" font-size="14.00">GObject</text>
+</a>
+</g>
+</g>
+<!-- ancestor_0&#45;&#45;this -->
+<g id="edge1" class="edge">
+<title>ancestor_0&#45;&#45;this</title>
+<path fill="none" stroke="black" d="M68.5,-143.7C68.5,-132.85 68.5,-118.92 68.5,-108.1"/>
+</g>
+</g>
+</svg>
+
+      </div>
+    </div>
+    
+
+    
+    <div class="toggle-wrapper ancestors">
+      <h4 id="ancestors">
+        Ancestors
+        <a href="#ancestors" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+        <ul>
+        
+          
+          <li class="class"><a class="external" href="javascript:void(0)" data-link="class.Object.html" data-namespace="GObject">GObject</a></li>
+          
+        
+        </ul>
+      </div>
+    </div>
+    
+
+    
+    <div class="toggle-wrapper implements">
+      <h4 id="implements">
+        Implements
+        <a href="#implements" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+        <ul>
+        
+          
+          <li class="interface"><a class="external" href="javascript:void(0)" data-link="iface.Orientable.html" data-namespace="Gtk">GtkOrientable</a></li>
+          
+        
+        </ul>
+      </div>
+    </div>
+    
+
+    
+    <div class="toggle-wrapper constructors">
+      <h4 id="constructors">
+        Constructors
+        <a href="#constructors" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="ctor.SwipeTracker.new.html">adw_swipe_tracker_new</a></h6>
+
+          <div class="docblock">
+            <p>Creates a new <code>AdwSwipeTracker</code> for <code>widget</code>.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+    </div>
+    
+
+    
+
+    
+    <div class="toggle-wrapper methods">
+      <h4 id="methods">
+        Instance methods
+        <a href="#methods" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="method.SwipeTracker.get_allow_long_swipes.html">adw_swipe_tracker_get_allow_long_swipes</a></h6>
+          <div class="docblock">
+            <p>Gets whether to allow swiping for more than one snap point at a&nbsp;time.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.SwipeTracker.get_allow_mouse_drag.html">adw_swipe_tracker_get_allow_mouse_drag</a></h6>
+          <div class="docblock">
+            <p>Gets whether <code>self</code> can be dragged with mouse&nbsp;pointer.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.SwipeTracker.get_enabled.html">adw_swipe_tracker_get_enabled</a></h6>
+          <div class="docblock">
+            <p>Gets whether <code>self</code> is&nbsp;enabled.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.SwipeTracker.get_reversed.html">adw_swipe_tracker_get_reversed</a></h6>
+          <div class="docblock">
+            <p>Gets whether <code>self</code> is reversing the swipe&nbsp;direction.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.SwipeTracker.get_swipeable.html">adw_swipe_tracker_get_swipeable</a></h6>
+          <div class="docblock">
+            <p>Get the widget <code>self</code> is attached&nbsp;to.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.SwipeTracker.set_allow_long_swipes.html">adw_swipe_tracker_set_allow_long_swipes</a></h6>
+          <div class="docblock">
+            <p>Sets whether to allow swiping for more than one snap point at a&nbsp;time.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.SwipeTracker.set_allow_mouse_drag.html">adw_swipe_tracker_set_allow_mouse_drag</a></h6>
+          <div class="docblock">
+            <p>Sets whether <code>self</code> can be dragged with mouse&nbsp;pointer.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.SwipeTracker.set_enabled.html">adw_swipe_tracker_set_enabled</a></h6>
+          <div class="docblock">
+            <p>Sets whether <code>self</code> is&nbsp;enabled.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.SwipeTracker.set_reversed.html">adw_swipe_tracker_set_reversed</a></h6>
+          <div class="docblock">
+            <p>Sets whether to reverse the swipe&nbsp;direction.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.SwipeTracker.shift_position.html">adw_swipe_tracker_shift_position</a></h6>
+          <div class="docblock">
+            <p>Moves the current progress value by <code>delta</code>.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+
+      
+        
+        <div class="toggle-wrapper default-hide ancestor-methods"><h5 style="display:block;">Methods inherited from <a class="external" href="javascript:void(0)" data-link="class.Object.html" data-namespace="GObject">GObject</a> (42)</h5>
+          
+        </div>
+        
+      
+
+      
+        
+      
+    </div>
+    
+
+    
+    <div class="toggle-wrapper properties">
+      <h4 id="properties">
+        Properties
+        <a href="#properties" class="anchor"></a>
+      </h4>
+
+      
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="property.SwipeTracker.allow-long-swipes.html">Adw.SwipeTracker:allow-long-swipes</a></h6>
+
+          <div class="docblock">
+            <p>Whether to allow swiping for more than one snap point at a&nbsp;time.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.SwipeTracker.allow-mouse-drag.html">Adw.SwipeTracker:allow-mouse-drag</a></h6>
+
+          <div class="docblock">
+            <p>Whether to allow dragging with mouse&nbsp;pointer.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.SwipeTracker.enabled.html">Adw.SwipeTracker:enabled</a></h6>
+
+          <div class="docblock">
+            <p>Whether the swipe tracker is&nbsp;enabled.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.SwipeTracker.reversed.html">Adw.SwipeTracker:reversed</a></h6>
+
+          <div class="docblock">
+            <p>Whether to reverse the swipe&nbsp;direction.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.SwipeTracker.swipeable.html">Adw.SwipeTracker:swipeable</a></h6>
+
+          <div class="docblock">
+            <p>The widget the swipe tracker is attached&nbsp;to.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+      
+
+      
+        
+      
+
+      
+        
+      
+
+    </div>
+    
+
+    
+    <div class="signals toggle-wrapper">
+      <h4 id="signals">
+        Signals
+        <a href="#signals" class="anchor"></a>
+      </h4>
+
+      
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="signal.SwipeTracker.begin-swipe.html">Adw.SwipeTracker::begin-swipe</a></h6>
+          <div class="docblock">
+            <p>This signal is emitted when a possible swipe is&nbsp;detected.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="signal.SwipeTracker.end-swipe.html">Adw.SwipeTracker::end-swipe</a></h6>
+          <div class="docblock">
+            <p>This signal is emitted as soon as the gesture has&nbsp;stopped.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="signal.SwipeTracker.update-swipe.html">Adw.SwipeTracker::update-swipe</a></h6>
+          <div class="docblock">
+            <p>This signal is emitted every time the progress value&nbsp;changes.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+      
+
+      
+        
+        <div class="toggle-wrapper default-hide ancestor-signals">
+          
+          <h5 style="display:block;">Signals inherited from <a class="external" href="javascript:void(0)" data-link="class.Object.html" data-namespace="GObject">GObject</a> (1)</h5>
+          
+
+          
+        </div>
+        
+      
+
+      
+        
+      
+
+    </div>
+    
+
+    
+    <div class="class toggle-wrapper default-hide">
+      <h4 id="class-struct">
+        Class structure
+        <a href="#class-struct" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+        <pre><code>struct AdwSwipeTrackerClass {
+  GObjectClass parent_class;
+  
+}</code></pre>
+      </div>
+
+      
+      <div class="docblock">
+        <h6>Class members</h6>
+
+        <table class="members">
+        
+        <tr>
+          <td style="vertical-align:top"><code>parent_class</code></td>
+          <td style="vertical-align:top"><pre><code>GObjectClass</code></pre></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td style="vertical-align:top">No description available.</td>
+        </td>
+        
+        </table>
+      </div>
+      
+    </div>
+    
+
+    
+
+     
+
+  </section>
+</section>
+
+
+    
+<div class="toc">
+  <nav aria-labelledby="toc-title">
+    <p id="toc-title">Content</p>
+    <ul class="toc-list">
+      <li class="toc-list-item"><a href="#description"><span class="link-text">Description</span></a></li>
+      
+      <li class="toc-list-item"><a href="#hierarchy"><span class="link-text">Hierarchy</span></a></li>
+      
+      
+      <li class="toc-list-item"><a href="#ancestors"><span class="link-text">Ancestors</span></a></li>
+      
+      
+      <li class="toc-list-item"><a href="#implements"><span class="link-text">Implements</span></a></li>
+      
+      
+<li class="toc-list-item"><a href="#constructors"><span class="link-text">Constructors</span></a></li>
+
+
+      
+
+      
+<li class="toc-list-item"><a href="#methods"><span class="link-text">Methods</span></a></li>
+
+
+      
+<li class="toc-list-item"><a href="#properties"><span class="link-text">Properties</span></a></li>
+
+
+      
+<li class="toc-list-item"><a href="#signals"><span class="link-text">Signals</span></a></li>
+
+
+      
+
+      
+
+    </ul>
+  </nav>
+</div>
+
+
+    <section id="search" class="content hidden"></section>
+
+    <footer>
+    
+    </footer>
+  </div>
+</body>
+</html>
