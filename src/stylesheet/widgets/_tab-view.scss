@@ -24,7 +24,8 @@ $tab_border: gtkmix($headerbar_border_color, $headerbar_bg_color, 100% * $header
 tabbar {
   .box {
     min-height: 38px;
-    background: darken($tab_bg, 3%);
+    background: gtkshade($tab_bg, .97);
+    color: $headerbar_fg_color;
     border-bottom: 1px solid $tab_border;
   }
 
@@ -82,15 +83,15 @@ tabbar {
     @include focus-ring();
 
     &:checked {
-      background-color: lighten($tab_bg, 6%);
+      background-color: gtkshade($tab_bg, 1.06);
 
       &:hover {
-        background-color: lighten($tab_bg, 9%);
+        background-color: gtkshade($tab_bg, 1.09);
       }
     }
 
     &:hover {
-      background-color: lighten($tab_bg, 3%);
+      background-color: gtkshade($tab_bg, 1.03);
     }
   }
 
@@ -120,7 +121,7 @@ tabbar {
 
 dnd tab {
   min-height: 26px;
-  background-color: lighten($tab_bg, 9%);
+  background-color: gtkshade($tab_bg, 1.09);
 
   $_wm_border: if($variant=='light', transparentize(black, 0.77), transparentize(black, 0.25));
 
