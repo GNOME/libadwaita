@@ -37,10 +37,6 @@
  * `list.nested` for the list it can expand, and `image.expander-row-arrow` for
  * its arrow.
  *
- * When expanded, `AdwExpanderRow` will add the
- * `.checked-expander-row-previous-sibling` style class to its previous sibling,
- * and remove it when retracted.
- *
  * Since: 1.0
  */
 
@@ -80,25 +76,6 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
-
-static void
-update_arrow (AdwExpanderRow *self)
-{
-  AdwExpanderRowPrivate *priv = adw_expander_row_get_instance_private (self);
-  GtkWidget *previous_sibling = gtk_widget_get_prev_sibling (GTK_WIDGET (self));
-
-  if (priv->expanded)
-    gtk_widget_set_state_flags (GTK_WIDGET (self), GTK_STATE_FLAG_CHECKED, FALSE);
-  else
-    gtk_widget_unset_state_flags (GTK_WIDGET (self), GTK_STATE_FLAG_CHECKED);
-
-  if (previous_sibling) {
-    if (priv->expanded)
-      gtk_widget_add_css_class (previous_sibling, "checked-expander-row-previous-sibling");
-    else
-      gtk_widget_remove_css_class (previous_sibling, "checked-expander-row-previous-sibling");
-  }
-}
 
 static void
 adw_expander_row_get_property (GObject    *object,
@@ -529,7 +506,10 @@ adw_expander_row_set_expanded (AdwExpanderRow *self,
 
   priv->expanded = expanded;
 
-  update_arrow (self);
+  if (expanded)
+    gtk_widget_set_state_flags (GTK_WIDGET (self), GTK_STATE_FLAG_CHECKED, FALSE);
+  else
+    gtk_widget_unset_state_flags (GTK_WIDGET (self), GTK_STATE_FLAG_CHECKED);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXPANDED]);
 }
