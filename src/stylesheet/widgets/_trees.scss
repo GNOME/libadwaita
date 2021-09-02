@@ -1,7 +1,6 @@
 // To be used for opaque elements overlaid atop the selected row
-$treeview_selection_default: transparentize($text_color, .9);
-$treeview_selection_opaque: mix(opacify($treeview_selection_default, 1), $base_color, 100% * alpha($treeview_selection_default));
-$treeview_borders_opaque: mix($text_color, $base_color, if($contrast == 'high', 40%, 20%));
+$treeview_selection_opaque: gtkmix($text_color, $base_color, 10%);
+$treeview_borders_opaque: gtkmix($text_color, $base_color, if($contrast == 'high', 40%, 20%));
 
 treeview.view {
   border-left-color: $treeview_borders_opaque; // this is actually the tree lines color,
@@ -45,7 +44,7 @@ treeview.view {
 
     &:dir(rtl) { -gtk-icon-source: -gtk-icontheme('pan-end-symbolic-rtl'); }
 
-    color: transparentize($text_color, .3);
+    color: gtkalpha($text_color, .7);
 
     &:hover { color: $text_color; }
 
@@ -66,7 +65,7 @@ treeview.view {
   }
 
   &.trough { // progress bar trough in treeviews
-    background-color: transparentize($fg_color,0.9);
+    background-color: gtkalpha($fg_color, 0.1);
   }
 
   > header {
