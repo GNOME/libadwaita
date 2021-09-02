@@ -127,7 +127,7 @@ notebook {
       font-weight: normal;
 
       &:hover {
-        background-color: transparentize($bg_color, 0.8);
+        background-color: $view_hover_color;
       }
 
       &:not(:checked) {
