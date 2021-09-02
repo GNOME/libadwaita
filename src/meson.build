@@ -37,6 +37,7 @@ adw_version_h = configure_file(
    configuration: version_data)
 
 libadwaita_generated_headers = [
+  adw_version_h,
 ]
 
 install_headers(['adwaita.h'],
