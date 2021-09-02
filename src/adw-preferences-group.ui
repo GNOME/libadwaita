@@ -42,6 +42,7 @@
             </accessibility>
             <child>
               <object class="GtkListBox" id="listbox">
+                <property name="visible">False</property>
                 <property name="selection_mode">none</property>
                 <signal name="keynav-failed" handler="listbox_keynav_failed_cb" swapped="yes"/>
                 <style>
