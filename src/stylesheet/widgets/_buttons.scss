@@ -62,13 +62,19 @@ button {
       padding-right: 17px;
     }
 
-    &.text-button.image-button {
-      padding-left: 9px;
-      padding-right: 9px;
+    &.text-button.image-button,
+    &.image-text-button {
+      padding-left: 10px;
+      padding-right: 10px;
 
-      label {
-        padding-left: 8px;
-        padding-right: 8px;
+      > box,
+      > box > box {
+        border-spacing: 4px;
+
+        > label {
+          padding-left: 2px;
+          padding-right: 2px;
+        }
       }
     }
 
@@ -76,8 +82,10 @@ button {
       padding-left: 10px;
       padding-right: 10px;
 
-      > box {
-        border-spacing: 4px;
+      > box { border-spacing: 4px; }
+
+      &.text-button {
+        > box { border-spacing: 4px; }
       }
     }
 
@@ -408,7 +416,8 @@ splitbutton {
     padding-right: 5px;
   }
 
-  &.text-button.image-button > button {
+  &.text-button.image-button > button,
+  &.image-text-button > button {
     padding-left: 10px;
     padding-right: 10px;
 
@@ -501,5 +510,24 @@ splitbutton {
 
   > menubutton > button > arrow.none {
     -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
+  }
+}
+
+buttoncontent {
+  border-spacing: 6px;
+
+  > label {
+    font-weight: bold;
+
+    &:dir(ltr) { padding-right: 2px; }
+    &:dir(rtl) { padding-left: 2px; }
+  }
+
+  .arrow-button > box > &,
+  splitbutton > button > & {
+    > label {
+      &:dir(ltr) { padding-right: 0; }
+      &:dir(rtl) { padding-left: 0; }
+    }
   }
 }
