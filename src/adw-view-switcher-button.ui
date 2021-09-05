@@ -15,7 +15,6 @@
           <object class="GtkBox" id="horizontal_box">
             <property name="halign">center</property>
             <property name="orientation">horizontal</property>
-            <property name="spacing">8</property>
             <property name="valign">center</property>
             <style>
               <class name="wide"/>
@@ -63,7 +62,6 @@
           <object class="GtkBox" id="vertical_box">
             <property name="halign">center</property>
             <property name="orientation">vertical</property>
-            <property name="spacing">4</property>
             <property name="valign">center</property>
             <style>
               <class name="narrow"/>
