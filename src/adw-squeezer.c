@@ -1540,7 +1540,7 @@ adw_squeezer_set_homogeneous (AdwSqueezer *self,
 }
 
 /**
- * adw_squeezer_get_switch_threshold_policy: (attributes org.gtk.Method.get_property=fold-threshold-policy)
+ * adw_squeezer_get_switch_threshold_policy: (attributes org.gtk.Method.get_property=switch-threshold-policy)
  * @self: a `AdwLeaflet`
  *
  * Gets the fold threshold policy for @self.
@@ -1557,7 +1557,7 @@ adw_squeezer_get_switch_threshold_policy (AdwSqueezer *self)
 
 
 /**
- * adw_squeezer_set_switch_threshold_policy: (attributes org.gtk.Method.set_property=fold-threshold-policy)
+ * adw_squeezer_set_switch_threshold_policy: (attributes org.gtk.Method.set_property=switch-threshold-policy)
  * @self: a `AdwSqueezer`
  * @policy: the policy to use
  *
