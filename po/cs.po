@@ -1,0 +1,40 @@
+# Czech translation for libadwaita.
+# Copyright (C) 2021 libadwaita's COPYRIGHT HOLDER
+# This file is distributed under the same license as the libadwaita package.
+#
+# Marek Černocký <marek@manet.cz>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libadwaita\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2021-09-06 11:14+0000\n"
+"PO-Revision-Date: 2021-09-06 17:33+0200\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+"X-Generator: Gtranslator 3.38.0\n"
+
+#: src/adw-preferences-window.c:210
+msgid "Untitled page"
+msgstr "Stránka bez názvu"
+
+#: src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "Předvolby"
+
+#: src/adw-preferences-window.ui:68
+msgid "Search"
+msgstr "Hledat"
+
+#: src/adw-preferences-window.ui:146
+msgid "No Results Found"
+msgstr "Nic nenalezeno"
+
+#: src/adw-preferences-window.ui:147
+msgid "Try a different search."
+msgstr "Zkuste hledat něco jiného."
