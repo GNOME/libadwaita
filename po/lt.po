@@ -1,0 +1,40 @@
+# Lithuanian translation for libadwaita.
+# Copyright (C) 2021 libadwaita's COPYRIGHT HOLDER
+# This file is distributed under the same license as the libadwaita package.
+# Aurimas Černius <aurisc4@gmail.com>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libadwaita main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2021-09-05 17:01+0000\n"
+"PO-Revision-Date: 2021-09-06 14:12+0300\n"
+"Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
+"Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2)\n"
+"X-Generator: Gtranslator 40.0\n"
+
+#: src/adw-preferences-window.c:210
+msgid "Untitled page"
+msgstr "Nepavadintas puslapis"
+
+#: src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "Nuostatos"
+
+#: src/adw-preferences-window.ui:68
+msgid "Search"
+msgstr "Ieškoti"
+
+#: src/adw-preferences-window.ui:146
+msgid "No Results Found"
+msgstr "Nerasta rezultatų"
+
+#: src/adw-preferences-window.ui:147
+msgid "Try a different search."
+msgstr "Bandykite kitą paiešką."
