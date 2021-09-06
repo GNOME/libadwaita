@@ -11,35 +11,38 @@ button {
     min-width: 16px;
     padding: 5px 10px;
     border-radius: $button_radius;
-    background-color: $button_color;
     font-weight: bold;
-
-    @if $contrast == 'high' {
-      box-shadow: inset 0 0 0 1px $borders_color;
-    }
 
     @include focus-ring();
     transition: $button_transition;
 
-    &:hover {
-      background-color: $button_hover_color;
-    }
+    @at-root %button_basic_raised, & {
+      background-color: $button_color;
 
-    &.keyboard-activating,
-    &:active {
-      background-color: $button_active_color;
-    }
-
-    &:checked {
-      background-color: $button_checked_color;
+      @if $contrast == 'high' {
+        box-shadow: inset 0 0 0 1px $borders_color;
+      }
 
       &:hover {
-        background-color: $button_checked_hover_color;
+        background-color: $button_hover_color;
       }
 
       &.keyboard-activating,
       &:active {
-        background-color: $button_checked_active_color;
+        background-color: $button_active_color;
+      }
+
+      &:checked {
+        background-color: $button_checked_color;
+
+        &:hover {
+          background-color: $button_checked_hover_color;
+        }
+
+        &.keyboard-activating,
+        &:active {
+          background-color: $button_checked_active_color;
+        }
       }
     }
 
