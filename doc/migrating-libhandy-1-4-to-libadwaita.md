@@ -283,7 +283,7 @@ and setter. It can be replaced by [property@Adw.Avatar:custom-image].
 The `hdy_avatar_draw_to_pixbuf_async()` function has been removed, use the
 regular [method@Adw.Avatar.draw_to_pixbuf] instead.
 
-### Adapt to Stylesheet Changes
+## Adapt to Stylesheet Changes
 
 Most widgets don't have a backdrop state anymore, and the following public
 colors have been removed:
@@ -306,3 +306,113 @@ been renamed to `@accent_bg_color` and `@accent_fg_color`.
 If you were using `@theme_selected_bg_color` as a text color, use
 `@accent_color` instead to make sure the text is readable. You can also use the
 `.accent` style class to apply the correct color.
+
+### Adapt to Header Bar, Action Bar and Toolbar Style Changes
+
+When possible, buttons in [class@Gtk.HeaderBar] and [class@Gtk.ActionBar] will
+use flat appearance by default.
+
+The following rules are used when deciding when to make buttons flat or not:
+
+The following buttons get flat appearance:
+
+* Icon-only buttons;
+* Buttons with an icon and a label (using [class@Adw.ButtonContent]);
+* Menu buttons containing an arrow and either an icon or [class@Adw.ButtonContent];
+* [class@Adw.SplitButton] containing either an icon or [class@Adw.ButtonContent];
+* Any other button with the `.flat` style class.
+
+The following buttons keep default appearance:
+
+* Text-only buttons;
+* Buttons with other content;
+* Buttons within widgets containing the `.linked` style class;
+* Buttons with the `.suggested-action` or `.destructive-action` style classes.
+* Buttons with the `.raised` style class.
+
+The following adjustments can be done to ensure consistent button appearance.
+
+It's important to avoid ambiguous layouts, for example text-only buttons with
+no icon, since such a button would be indistinguishable from the window title
+without hovering it.
+
+In rare cases, the existing layout may need a redesign to work with the new
+style.
+
+The same rules are also used for the `.toolbar` style class now, instead of
+making every button appear flat.
+
+### Adjusting Icon+Arrow Menu Buttons
+
+If you had menu buttons containing an icon and a dropdown arrow, switch to
+[property@Gtk.MenuButton:icon-name] and set the
+[property@Gtk.MenuButton:always-show-arrow] property to `TRUE`.
+
+### Adjusting Text-only Buttons
+
+If you had text-only buttons, consider using `[class@Adw.ButtonContent]`. For
+example, the following button:
+
+```xml
+<object class="GtkButton">
+  <property name="label" translatable="yes">_Open</property>
+  <property name="use-underline">True</property>
+</object>
+```
+
+can be changed into:
+
+```xml
+<object class="GtkButton">
+  <property name="child">
+    <object class="AdwButtonContent">
+      <property name="icon-name">document-open-symbolic</property>
+      <property name="label" translatable="yes">_Open</property>
+      <property name="use-underline">True</property>
+    </object>
+  </property>
+</object>
+```
+
+One exception are the two primary buttons in a dialog, for example, "Cancel" and
+"Open". Those buttons should retain their default appearance.
+
+### Adjusting Split Buttons
+
+If you had split buttons implemented via a `GtkBox` with the `.linked` style
+class and two buttons packed inside, use `AdwSplitButton` as follows:
+
+```xml
+<object class="AdwSplitButton">
+  <property name="menu-model">some_menu</property>
+  <property name="icon-name">view-list-symbolic</property>
+</object>
+```
+
+If the split button only had text, also use `AdwButtonContent` the same way as
+for other text buttons.
+
+### Adjusting Linked Buttons
+
+For other linked together buttons, simply stop linking them.
+
+If multiple linked groups were used to separate different groups of actions,
+insert extra spacing as follows:
+
+```xml
+<object name="GtkSeparator">
+  <style>
+    <class name="spacer"/>
+  </style>
+</object>
+```
+
+### Custom adjustments
+
+The `.flat` and `.raised` style classes can always be used to override the
+default appearance.
+
+Important: the [property@Gtk.Button:has-frame] property will **not** be set to
+`FALSE` when a button gets the flat appearance automatically. It also cannot be
+set to `TRUE` to make a button raised, the style class should be used directly
+instead.
