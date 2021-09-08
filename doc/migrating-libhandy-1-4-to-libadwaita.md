@@ -238,6 +238,17 @@ page objects, similarly to [class@Gtk.Stack]. For example,
 [method@Adw.SqueezerPage.set_enabled] should be used to replace
 `hdy_squeezer_set_child_enabled()`.
 
+The `hhomogeneous-folded`, `vhomogeneous-folded`, `hhomogeneous-unfolded`,
+and `vhomogeneous-unfolded` properties have been replaced by a single
+[property@Adw.Leaflet:homogeneous] property, set to `TRUE` by default,
+applied when the leaflet is folded for the opposite orientation.
+
+When unfolded, children are never homogeneous. Use [class@Gtk.SizeGroup]
+to make them homogeneous if needed.
+
+The `interpolate-size` property has been removed with no replacement, it's
+always enabled when [property@Adw.Leaflet:homogeneous] is set to `FALSE`.
+
 ### Adapt to view switcher API Changes
 
 [class@Adw.ViewSwitcher], [class@Adw.ViewSwitcherBar] and

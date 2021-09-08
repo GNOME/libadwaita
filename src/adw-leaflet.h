@@ -81,6 +81,12 @@ ADW_AVAILABLE_IN_ALL
 gboolean adw_leaflet_get_folded (AdwLeaflet *self);
 
 ADW_AVAILABLE_IN_ALL
+gboolean adw_leaflet_get_homogeneous (AdwLeaflet *self);
+ADW_AVAILABLE_IN_ALL
+void     adw_leaflet_set_homogeneous (AdwLeaflet *self,
+                                      gboolean    homogeneous);
+
+ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_leaflet_get_visible_child (AdwLeaflet *self);
 ADW_AVAILABLE_IN_ALL
 void       adw_leaflet_set_visible_child (AdwLeaflet *self,
@@ -91,16 +97,6 @@ const char *adw_leaflet_get_visible_child_name (AdwLeaflet *self);
 ADW_AVAILABLE_IN_ALL
 void        adw_leaflet_set_visible_child_name (AdwLeaflet *self,
                                                 const char *name);
-
-ADW_AVAILABLE_IN_ALL
-gboolean adw_leaflet_get_homogeneous (AdwLeaflet     *self,
-                                      gboolean        folded,
-                                      GtkOrientation  orientation);
-ADW_AVAILABLE_IN_ALL
-void     adw_leaflet_set_homogeneous (AdwLeaflet     *self,
-                                      gboolean        folded,
-                                      GtkOrientation  orientation,
-                                      gboolean        homogeneous);
 
 ADW_AVAILABLE_IN_ALL
 AdwLeafletTransitionType adw_leaflet_get_transition_type (AdwLeaflet               *self);
@@ -122,12 +118,6 @@ void  adw_leaflet_set_child_transition_duration (AdwLeaflet *self,
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_leaflet_get_child_transition_running (AdwLeaflet *self);
-
-ADW_AVAILABLE_IN_ALL
-gboolean adw_leaflet_get_interpolate_size (AdwLeaflet *self);
-ADW_AVAILABLE_IN_ALL
-void     adw_leaflet_set_interpolate_size (AdwLeaflet *self,
-                                           gboolean    interpolate_size);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_leaflet_get_can_swipe_back (AdwLeaflet *self);

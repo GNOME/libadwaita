@@ -70,17 +70,13 @@ enum {
   PROP_0,
   PROP_FOLDED,
   PROP_FOLD_THRESHOLD_POLICY,
-  PROP_HHOMOGENEOUS_FOLDED,
-  PROP_VHOMOGENEOUS_FOLDED,
-  PROP_HHOMOGENEOUS_UNFOLDED,
-  PROP_VHOMOGENEOUS_UNFOLDED,
+  PROP_HOMOGENEOUS,
   PROP_VISIBLE_CHILD,
   PROP_VISIBLE_CHILD_NAME,
   PROP_TRANSITION_TYPE,
   PROP_MODE_TRANSITION_DURATION,
   PROP_CHILD_TRANSITION_DURATION,
   PROP_CHILD_TRANSITION_RUNNING,
-  PROP_INTERPOLATE_SIZE,
   PROP_CAN_SWIPE_BACK,
   PROP_CAN_SWIPE_FORWARD,
   PROP_CAN_UNFOLD,
@@ -139,7 +135,7 @@ struct _AdwLeaflet {
   gboolean folded;
   AdwFoldThresholdPolicy fold_threshold_policy;
 
-  gboolean homogeneous[ADW_FOLD_MAX][GTK_ORIENTATION_MAX];
+  gboolean homogeneous;
 
   GtkOrientation orientation;
 
@@ -178,7 +174,6 @@ struct _AdwLeaflet {
     int last_visible_widget_width;
     int last_visible_widget_height;
 
-    gboolean interpolate_size;
     gboolean can_swipe_back;
     gboolean can_swipe_forward;
 
@@ -193,11 +188,6 @@ struct _AdwLeaflet {
 };
 
 static GParamSpec *props[LAST_PROP];
-
-static int HOMOGENEOUS_PROP[ADW_FOLD_MAX][GTK_ORIENTATION_MAX] = {
-  { PROP_HHOMOGENEOUS_UNFOLDED, PROP_VHOMOGENEOUS_UNFOLDED},
-  { PROP_HHOMOGENEOUS_FOLDED, PROP_VHOMOGENEOUS_FOLDED},
-};
 
 static void adw_leaflet_buildable_init (GtkBuildableIface *iface);
 static void adw_leaflet_swipeable_init (AdwSwipeableInterface *iface);
@@ -611,8 +601,7 @@ child_progress_updated (AdwLeaflet *self)
 {
   gtk_widget_queue_draw (GTK_WIDGET (self));
 
-  if (!self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL] ||
-      !self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL])
+  if (!self->homogeneous)
     gtk_widget_queue_resize (GTK_WIDGET (self));
   else
     gtk_widget_queue_allocate (GTK_WIDGET (self));
@@ -873,8 +862,7 @@ set_visible_child (AdwLeaflet               *self,
   }
 
   if (self->folded) {
-    if (self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] &&
-        self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL])
+    if (self->homogeneous)
       gtk_widget_queue_allocate (widget);
     else
       gtk_widget_queue_resize (widget);
@@ -907,7 +895,10 @@ set_mode_transition_progress (AdwLeaflet *self,
 {
   self->mode_transition.current_pos = pos;
 
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
+  if (self->homogeneous)
+    gtk_widget_queue_allocate (GTK_WIDGET (self));
+  else
+    gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
 static gboolean
@@ -1003,36 +994,6 @@ set_folded (AdwLeaflet *self,
                             props[PROP_FOLDED]);
 }
 
-static void
-get_preferred_size (int      *min,
-                    int      *nat,
-                    gboolean  same_orientation,
-                    gboolean  homogeneous_folded,
-                    gboolean  homogeneous_unfolded,
-                    int       visible_children,
-                    double    visible_child_progress,
-                    int       sum_nat,
-                    int       max_min,
-                    int       max_nat,
-                    int       visible_min,
-                    int       last_visible_min)
-{
-  if (same_orientation) {
-    *min = homogeneous_folded ?
-             max_min :
-             adw_lerp (last_visible_min, visible_min, visible_child_progress);
-    *nat = homogeneous_unfolded ?
-             max_nat * visible_children :
-             sum_nat;
-  }
-  else {
-    *min = homogeneous_folded ?
-             max_min :
-             adw_lerp (last_visible_min, visible_min, visible_child_progress);
-    *nat = max_nat;
-  }
-}
-
 static inline int
 get_page_size (AdwLeaflet     *self,
                AdwLeafletPage *page,
@@ -1060,9 +1021,7 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
   int start_size, end_size, visible_size;
   int remaining_start_size, remaining_end_size, remaining_size;
   int current_pad;
-  int max_child_size = 0;
   int start_position, end_position;
-  gboolean box_homogeneous;
   AdwLeafletTransitionType mode_transition_type;
   GtkTextDirection direction;
   gboolean under;
@@ -1133,17 +1092,6 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
     MIN (width,  MAX (get_page_size (self, visible_child, orientation), (int) (width  * (1.0 - self->mode_transition.current_pos)))) :
     MIN (height, MAX (get_page_size (self, visible_child, orientation), (int) (height * (1.0 - self->mode_transition.current_pos))));
 
-  /* Compute homogeneous box child size. */
-  box_homogeneous = (self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] && orientation == GTK_ORIENTATION_HORIZONTAL) ||
-                    (self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL] && orientation == GTK_ORIENTATION_VERTICAL);
-  if (box_homogeneous) {
-    for (children = directed_children; children; children = children->next) {
-      page = children->data;
-
-      max_child_size = MAX (max_child_size, get_page_size (self, page, orientation));
-    }
-  }
-
   /* Compute the start size. */
   start_size = 0;
   for (children = directed_children; children; children = children->next) {
@@ -1152,7 +1100,7 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
     if (page == visible_child)
       break;
 
-    start_size += box_homogeneous ? max_child_size : get_page_size (self, page, orientation);
+    start_size += get_page_size (self, page, orientation);
   }
 
   /* Compute the end size. */
@@ -1163,7 +1111,7 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
     if (page == visible_child)
       break;
 
-    end_size += box_homogeneous ? max_child_size : get_page_size (self, page, orientation);
+    end_size += get_page_size (self, page, orientation);
   }
 
   /* Compute pads. */
@@ -1224,9 +1172,7 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
       break;
 
     if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-      page->alloc.width = box_homogeneous ?
-        max_child_size :
-        get_page_size (self, page, orientation);
+      page->alloc.width = get_page_size (self, page, orientation);
       page->alloc.height = height;
       page->alloc.x = current_pad;
       page->alloc.y = 0;
@@ -1236,9 +1182,7 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
     }
     else {
       page->alloc.width = width;
-      page->alloc.height = box_homogeneous ?
-        max_child_size :
-        get_page_size (self, page, orientation);
+      page->alloc.height = get_page_size (self, page, orientation);
       page->alloc.x = 0;
       page->alloc.y = current_pad;
       page->visible = page->alloc.y + page->alloc.height > 0;
@@ -1257,9 +1201,7 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
     page = children->data;
 
     if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-      page->alloc.width = box_homogeneous ?
-        max_child_size :
-        get_page_size (self, page, orientation);
+      page->alloc.width = get_page_size (self, page, orientation);
       page->alloc.height = height;
       page->alloc.x = current_pad;
       page->alloc.y = 0;
@@ -1269,9 +1211,7 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
     }
     else {
       page->alloc.width = width;
-      page->alloc.height = box_homogeneous ?
-        max_child_size :
-        get_page_size (self, page, orientation);
+      page->alloc.height = get_page_size (self, page, orientation);
       page->alloc.x = 0;
       page->alloc.y = current_pad;
       page->visible = page->alloc.y < height;
@@ -1291,11 +1231,10 @@ adw_leaflet_size_allocate_unfolded (AdwLeaflet *self,
   GtkAllocation remaining_alloc;
   GList *directed_children, *children;
   AdwLeafletPage *page, *visible_child;
-  int homogeneous_size = 0, min_size, extra_size;
+  int min_size, extra_size;
   int per_child_extra, n_extra_widgets;
   int n_visible_children, n_expand_children;
   int start_pad = 0, end_pad = 0;
-  gboolean box_homogeneous;
   AdwLeafletTransitionType mode_transition_type;
   GtkTextDirection direction;
   gboolean under;
@@ -1305,9 +1244,6 @@ adw_leaflet_size_allocate_unfolded (AdwLeaflet *self,
     return;
 
   directed_children = get_directed_children (self);
-
-  box_homogeneous = (self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] && orientation == GTK_ORIENTATION_HORIZONTAL) ||
-                    (self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL] && orientation == GTK_ORIENTATION_VERTICAL);
 
   n_visible_children = n_expand_children = 0;
   for (children = directed_children; children; children = children->next) {
@@ -1328,33 +1264,19 @@ adw_leaflet_size_allocate_unfolded (AdwLeaflet *self,
 
   /* Compute repartition of extra space. */
 
-  if (box_homogeneous) {
-    if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-      homogeneous_size = n_visible_children > 0 ? width / n_visible_children : 0;
-      n_expand_children = n_visible_children > 0 ? width % n_visible_children : 0;
-      min_size = width - n_expand_children;
-    }
-    else {
-      homogeneous_size = n_visible_children > 0 ? height / n_visible_children : 0;
-      n_expand_children = n_visible_children > 0 ? height % n_visible_children : 0;
-      min_size = height - n_expand_children;
+  min_size = 0;
+  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+    for (children = directed_children; children; children = children->next) {
+      page = children->data;
+
+      min_size += page->nat.width;
     }
   }
   else {
-    min_size = 0;
-    if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-      for (children = directed_children; children; children = children->next) {
-        page = children->data;
+    for (children = directed_children; children; children = children->next) {
+      page = children->data;
 
-        min_size += page->nat.width;
-      }
-    }
-    else {
-      for (children = directed_children; children; children = children->next) {
-        page = children->data;
-
-        min_size += page->nat.height;
-      }
+      min_size += page->nat.height;
     }
   }
 
@@ -1384,21 +1306,12 @@ adw_leaflet_size_allocate_unfolded (AdwLeaflet *self,
     page->alloc.y = remaining_alloc.y;
 
     if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-      if (box_homogeneous) {
-        page->alloc.width = homogeneous_size;
+      page->alloc.width = page->nat.width;
+      if (gtk_widget_compute_expand (page->widget, orientation)) {
+        page->alloc.width += per_child_extra;
         if (n_extra_widgets > 0) {
           page->alloc.width++;
           n_extra_widgets--;
-        }
-      }
-      else {
-        page->alloc.width = page->nat.width;
-        if (gtk_widget_compute_expand (page->widget, orientation)) {
-          page->alloc.width += per_child_extra;
-          if (n_extra_widgets > 0) {
-            page->alloc.width++;
-            n_extra_widgets--;
-          }
         }
       }
       page->alloc.height = remaining_alloc.height;
@@ -1407,21 +1320,12 @@ adw_leaflet_size_allocate_unfolded (AdwLeaflet *self,
       remaining_alloc.width -= page->alloc.width;
     }
     else {
-      if (box_homogeneous) {
-        page->alloc.height = homogeneous_size;
+      page->alloc.height = page->nat.height;
+      if (gtk_widget_compute_expand (page->widget, orientation)) {
+        page->alloc.height += per_child_extra;
         if (n_extra_widgets > 0) {
           page->alloc.height++;
           n_extra_widgets--;
-        }
-      }
-      else {
-        page->alloc.height = page->nat.height;
-        if (gtk_widget_compute_expand (page->widget, orientation)) {
-          page->alloc.height += per_child_extra;
-          if (n_extra_widgets > 0) {
-            page->alloc.height++;
-            n_extra_widgets--;
-          }
         }
       }
       page->alloc.width = remaining_alloc.width;
@@ -1734,8 +1638,7 @@ add_page (AdwLeaflet     *self,
     set_visible_child (self, page, self->transition_type,
                        self->child_transition.duration);
   if (!self->folded ||
-      self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] ||
-      self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL] ||
+      self->homogeneous ||
       self->visible_child == page)
     gtk_widget_queue_resize (GTK_WIDGET (self));
 }
@@ -1794,7 +1697,6 @@ adw_leaflet_measure (GtkWidget      *widget,
   AdwLeaflet *self = ADW_LEAFLET (widget);
   GList *l;
   int visible_children;
-  double visible_child_progress;
   int child_min, max_min, visible_min, last_visible_min;
   int child_nat, max_nat, sum_nat;
   gboolean same_orientation;
@@ -1829,16 +1731,28 @@ adw_leaflet_measure (GtkWidget      *widget,
     last_visible_min = visible_min;
   }
 
-  visible_child_progress = self->child_transition.interpolate_size ? self->child_transition.progress : 1.0;
-
   same_orientation = orientation == gtk_orientable_get_orientation (GTK_ORIENTABLE (self));
 
-  get_preferred_size (minimum, natural,
-                      same_orientation && self->can_unfold,
-                      self->homogeneous[ADW_FOLD_FOLDED][orientation],
-                      self->homogeneous[ADW_FOLD_UNFOLDED][orientation],
-                      visible_children, visible_child_progress,
-                      sum_nat, max_min, max_nat, visible_min, last_visible_min);
+  if (minimum) {
+    if (same_orientation || self->homogeneous)
+      *minimum = max_min;
+    else {
+      *minimum = adw_lerp (last_visible_min, visible_min, self->child_transition.progress);
+      *minimum = adw_lerp (*minimum, max_min, self->mode_transition.current_pos);
+    }
+  }
+
+  if (natural) {
+    if (same_orientation && self->can_unfold)
+      *natural = sum_nat;
+    else
+      *natural = max_nat;
+  }
+
+  if (minimum_baseline)
+    *minimum_baseline = -1;
+  if (natural_baseline)
+    *natural_baseline = -1;
 }
 
 static void
@@ -1983,11 +1897,6 @@ adw_leaflet_size_allocate (GtkWidget *widget,
         visible_children++;
       }
 
-      if (self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL]) {
-        nat_box_size = nat_max_size * visible_children;
-        min_box_size = min_max_size * visible_children;
-      }
-
       if (self->fold_threshold_policy == ADW_FOLD_THRESHOLD_POLICY_NATURAL)
         folded = visible_children > 1 && width < nat_box_size;
       else
@@ -2009,11 +1918,6 @@ adw_leaflet_size_allocate (GtkWidget *widget,
         nat_max_size = MAX (nat_max_size, page->nat.height);
         min_max_size = MAX (min_max_size, page->min.height);
         visible_children++;
-      }
-
-      if (self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL]) {
-        nat_box_size = nat_max_size * visible_children;
-        min_box_size = min_max_size * visible_children;
       }
 
       if (self->fold_threshold_policy == ADW_FOLD_THRESHOLD_POLICY_NATURAL)
@@ -2146,17 +2050,8 @@ adw_leaflet_get_property (GObject    *object,
   case PROP_FOLD_THRESHOLD_POLICY:
     g_value_set_enum (value, adw_leaflet_get_fold_threshold_policy (self));
     break;
-  case PROP_HHOMOGENEOUS_FOLDED:
-    g_value_set_boolean (value, adw_leaflet_get_homogeneous (self, TRUE, GTK_ORIENTATION_HORIZONTAL));
-    break;
-  case PROP_VHOMOGENEOUS_FOLDED:
-    g_value_set_boolean (value, adw_leaflet_get_homogeneous (self, TRUE, GTK_ORIENTATION_VERTICAL));
-    break;
-  case PROP_HHOMOGENEOUS_UNFOLDED:
-    g_value_set_boolean (value, adw_leaflet_get_homogeneous (self, FALSE, GTK_ORIENTATION_HORIZONTAL));
-    break;
-  case PROP_VHOMOGENEOUS_UNFOLDED:
-    g_value_set_boolean (value, adw_leaflet_get_homogeneous (self, FALSE, GTK_ORIENTATION_VERTICAL));
+  case PROP_HOMOGENEOUS:
+    g_value_set_boolean (value, adw_leaflet_get_homogeneous (self));
     break;
   case PROP_VISIBLE_CHILD:
     g_value_set_object (value, adw_leaflet_get_visible_child (self));
@@ -2175,9 +2070,6 @@ adw_leaflet_get_property (GObject    *object,
     break;
   case PROP_CHILD_TRANSITION_RUNNING:
     g_value_set_boolean (value, adw_leaflet_get_child_transition_running (self));
-    break;
-  case PROP_INTERPOLATE_SIZE:
-    g_value_set_boolean (value, adw_leaflet_get_interpolate_size (self));
     break;
   case PROP_CAN_SWIPE_BACK:
     g_value_set_boolean (value, adw_leaflet_get_can_swipe_back (self));
@@ -2211,17 +2103,8 @@ adw_leaflet_set_property (GObject      *object,
   case PROP_FOLD_THRESHOLD_POLICY:
     adw_leaflet_set_fold_threshold_policy (self, g_value_get_enum (value));
     break;
-  case PROP_HHOMOGENEOUS_FOLDED:
-    adw_leaflet_set_homogeneous (self, TRUE, GTK_ORIENTATION_HORIZONTAL, g_value_get_boolean (value));
-    break;
-  case PROP_VHOMOGENEOUS_FOLDED:
-    adw_leaflet_set_homogeneous (self, TRUE, GTK_ORIENTATION_VERTICAL, g_value_get_boolean (value));
-    break;
-  case PROP_HHOMOGENEOUS_UNFOLDED:
-    adw_leaflet_set_homogeneous (self, FALSE, GTK_ORIENTATION_HORIZONTAL, g_value_get_boolean (value));
-    break;
-  case PROP_VHOMOGENEOUS_UNFOLDED:
-    adw_leaflet_set_homogeneous (self, FALSE, GTK_ORIENTATION_VERTICAL, g_value_get_boolean (value));
+  case PROP_HOMOGENEOUS:
+    adw_leaflet_set_homogeneous (self, g_value_get_boolean (value));
     break;
   case PROP_VISIBLE_CHILD:
     adw_leaflet_set_visible_child (self, g_value_get_object (value));
@@ -2237,9 +2120,6 @@ adw_leaflet_set_property (GObject      *object,
     break;
   case PROP_CHILD_TRANSITION_DURATION:
     adw_leaflet_set_child_transition_duration (self, g_value_get_uint (value));
-    break;
-  case PROP_INTERPOLATE_SIZE:
-    adw_leaflet_set_interpolate_size (self, g_value_get_boolean (value));
     break;
   case PROP_CAN_SWIPE_BACK:
     adw_leaflet_set_can_swipe_back (self, g_value_get_boolean (value));
@@ -2354,61 +2234,20 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwLeaflet:hhomogeneous-folded: (attributes org.gtk.Property.get=adw_leaflet_get_homogeneous org.gtk.Property.set=adw_leaflet_set_homogeneous)
+   * AdwLeaflet:homogeneous: (attributes org.gtk.Property.get=adw_leaflet_get_homogeneous org.gtk.Property.set=adw_leaflet_set_homogeneous)
    *
-   * Whether the leaflet allocates the same width for all children when folded.
+   * Whether the leaflet allocates the same size for all children when folded.
+   *
+   * If set to `FALSE`, different children can have different size along the
+   * opposite orientation.
    *
    * Since: 1.0
    */
-  props[PROP_HHOMOGENEOUS_FOLDED] =
-    g_param_spec_boolean ("hhomogeneous-folded",
-                          "Horizontally homogeneous folded",
-                          "Whether the leaflet allocates the same width for all children when folded",
+  props[PROP_HOMOGENEOUS] =
+    g_param_spec_boolean ("homogeneous",
+                          "Homogeneous",
+                          "Whether the leaflet allocates the same size for all children when folded",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwLeaflet:vhomogeneous-folded: (attributes org.gtk.Property.get=adw_leaflet_get_homogeneous org.gtk.Property.set=adw_leaflet_set_homogeneous)
-   *
-   * Whether the leaflet allocates the same height for all children when folded.
-   *
-   * Since: 1.0
-   */
-  props[PROP_VHOMOGENEOUS_FOLDED] =
-    g_param_spec_boolean ("vhomogeneous-folded",
-                          "Vertically homogeneous folded",
-                          "Whether the leaflet allocates the same height for all children when folded",
-                          TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwLeaflet:hhomogeneous-unfolded: (attributes org.gtk.Property.get=adw_leaflet_get_homogeneous org.gtk.Property.set=adw_leaflet_set_homogeneous)
-   *
-   * Whether the leaflet allocates the same width for all children when
-   * unfolded.
-   *
-   * Since: 1.0
-   */
-  props[PROP_HHOMOGENEOUS_UNFOLDED] =
-    g_param_spec_boolean ("hhomogeneous-unfolded",
-                          "Box horizontally homogeneous",
-                          "Whether the leaflet allocates the same width for all children when unfolded",
-                          FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwLeaflet:vhomogeneous-unfolded: (attributes org.gtk.Property.get=adw_leaflet_get_homogeneous org.gtk.Property.set=adw_leaflet_set_homogeneous)
-   *
-   * Whether the leaflet allocates the same height for all children when
-   * unfolded.
-   *
-   * Since: 1.0
-   */
-  props[PROP_VHOMOGENEOUS_UNFOLDED] =
-    g_param_spec_boolean ("vhomogeneous-unfolded",
-                          "Box vertically homogeneous",
-                          "Whether the leaflet allocates the same height for all children when unfolded",
-                          FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -2507,20 +2346,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                             G_PARAM_READABLE);
 
   /**
-   * AdwLeaflet:interpolate-size: (attributes org.gtk.Property.get=adw_leaflet_get_interpolate_size org.gtk.Property.set=adw_leaflet_set_interpolate_size)
-   *
-   * Whether the leaflet interpolates its size when changing the visible child.
-   *
-   * Since: 1.0
-   */
-  props[PROP_INTERPOLATE_SIZE] =
-      g_param_spec_boolean ("interpolate-size",
-                            "Interpolate size",
-                            "Whether the leaflet interpolates its size when changing the visible child",
-                            FALSE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
    * AdwLeaflet:can-swipe-back: (attributes org.gtk.Property.get=adw_leaflet_get_can_swipe_back org.gtk.Property.set=adw_leaflet_set_can_swipe_back)
    *
    * Whether a swipe gesture can be used to navigate to the previous child.
@@ -2604,10 +2429,7 @@ adw_leaflet_init (AdwLeaflet *self)
   self->visible_child = NULL;
   self->folded = FALSE;
   self->fold_threshold_policy = ADW_FOLD_THRESHOLD_POLICY_MINIMUM;
-  self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_HORIZONTAL] = FALSE;
-  self->homogeneous[ADW_FOLD_UNFOLDED][GTK_ORIENTATION_VERTICAL] = FALSE;
-  self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_HORIZONTAL] = TRUE;
-  self->homogeneous[ADW_FOLD_FOLDED][GTK_ORIENTATION_VERTICAL] = TRUE;
+  self->homogeneous = TRUE;
   self->transition_type = ADW_LEAFLET_TRANSITION_TYPE_OVER;
   self->mode_transition.duration = 250;
   self->child_transition.duration = 200;
@@ -3193,74 +3015,49 @@ adw_leaflet_get_folded (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_set_homogeneous:
+ * adw_leaflet_get_homogeneous: (attributes org.gtk.Method.get_property=homogeneous)
  * @self: a `AdwLeaflet`
- * @folded: the fold
- * @orientation: the orientation
- * @homogeneous: `TRUE` to make @self homogeneous
  *
- * Sets @self to be homogeneous or not for the given fold and orientation.
- *
- * If it is homogeneous, @self will request the same width or height for all its
- * children depending on the orientation. If it isn't and it is folded, the
- * leaflet may change width or height when a different child becomes visible.
- *
- * See [property@Adw.Leaflet:hhomogeneous-folded],
- * [property@Adw.Leaflet:vhomogeneous-folded],
- * [property@Adw.Leaflet:hhomogeneous-unfolded],
- * [property@Adw.Leaflet:vhomogeneous-unfolded].
- *
- * Since: 1.0
- */
-void
-adw_leaflet_set_homogeneous (AdwLeaflet     *self,
-                             gboolean        folded,
-                             GtkOrientation  orientation,
-                             gboolean        homogeneous)
-{
-  g_return_if_fail (ADW_IS_LEAFLET (self));
-
-  folded = !!folded;
-  homogeneous = !!homogeneous;
-
-  if (self->homogeneous[folded][orientation] == homogeneous)
-    return;
-
-  self->homogeneous[folded][orientation] = homogeneous;
-
-  if (gtk_widget_get_visible (GTK_WIDGET (self)))
-    gtk_widget_queue_resize (GTK_WIDGET (self));
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[HOMOGENEOUS_PROP[folded][orientation]]);
-}
-
-/**
- * adw_leaflet_get_homogeneous:
- * @self: a `AdwLeaflet`
- * @folded: the fold
- * @orientation: the orientation
- *
- * Gets whether @self is homogeneous for the given fold and orientation.
- *
- * See [property@Adw.Leaflet:hhomogeneous-folded],
- * [property@Adw.Leaflet:vhomogeneous-folded],
- * [property@Adw.Leaflet:hhomogeneous-unfolded],
- * [property@Adw.Leaflet:vhomogeneous-unfolded].
- *
- * Returns: whether @self is homogeneous for the given fold and orientation
+ * Gets whether @self is homogeneous.
  *
  * Since: 1.0
  */
 gboolean
-adw_leaflet_get_homogeneous (AdwLeaflet     *self,
-                             gboolean        folded,
-                             GtkOrientation  orientation)
+adw_leaflet_get_homogeneous (AdwLeaflet *self)
 {
   g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
 
-  folded = !!folded;
+  return self->homogeneous;
+}
 
-  return self->homogeneous[folded][orientation];
+/**
+ * adw_leaflet_set_homogeneous: (attributes org.gtk.Method.set_property=homogeneous)
+ * @self: a `AdwLeaflet`
+ * @homogeneous: whether to make @self homogeneous
+ *
+ * Sets @self to be homogeneous or not.
+ *
+ * If set to `FALSE`, different children can have different size along the
+ * opposite orientation.
+ *
+ * Since: 1.0
+ */
+void
+adw_leaflet_set_homogeneous (AdwLeaflet *self,
+                             gboolean    homogeneous)
+{
+  g_return_if_fail (ADW_IS_LEAFLET (self));
+
+  homogeneous = !!homogeneous;
+
+  if (self->homogeneous == homogeneous)
+    return;
+
+  self->homogeneous = homogeneous;
+
+  gtk_widget_queue_resize (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HOMOGENEOUS]);
 }
 
 /**
@@ -3515,50 +3312,6 @@ adw_leaflet_get_child_transition_running (AdwLeaflet *self)
 
   return (self->child_transition.tick_id != 0 ||
           self->child_transition.is_gesture_active);
-}
-
-/**
- * adw_leaflet_set_interpolate_size: (attributes org.gtk.Method.set_property=interpolate-size)
- * @self: a `AdwLeaflet`
- * @interpolate_size: the new value
- *
- * Sets whether the leaflet interpolates its size when changing the visible
- * child.
- *
- * Since: 1.0
- */
-void
-adw_leaflet_set_interpolate_size (AdwLeaflet *self,
-                                  gboolean    interpolate_size)
-{
-  g_return_if_fail (ADW_IS_LEAFLET (self));
-
-  interpolate_size = !!interpolate_size;
-
-  if (self->child_transition.interpolate_size == interpolate_size)
-    return;
-
-  self->child_transition.interpolate_size = interpolate_size;
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INTERPOLATE_SIZE]);
-}
-
-/**
- * adw_leaflet_get_interpolate_size: (attributes org.gtk.Method.get_property=interpolate-size)
- * @self: a `AdwLeaflet`
- *
- * Gets whether the leaflet interpolates its size when changing the visible
- * child.
- *
- * Returns: whether the size is interpolated
- *
- * Since: 1.0
- */
-gboolean
-adw_leaflet_get_interpolate_size (AdwLeaflet *self)
-{
-  g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
-
-  return self->child_transition.interpolate_size;
 }
 
 /**
