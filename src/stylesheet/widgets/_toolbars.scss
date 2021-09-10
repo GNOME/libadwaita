@@ -7,6 +7,12 @@
     }
   }
 
+  menubutton:not(.raised):not(.suggested-action):not(.destructive-action) {
+    &.image-button > button {
+      @extend %button_basic_flat;
+    }
+  }
+
   .linked button:not(.raised):not(.suggested-action):not(.destructive-action) {
     &.arrow-button,
     &.image-button,
@@ -66,6 +72,12 @@
       &.arrow-button,
       &.image-button,
       &.image-text-button {
+        @extend %button_basic_raised;
+      }
+    }
+
+    menubutton:not(.raised):not(.suggested-action):not(.destructive-action) {
+      &.image-button > button {
         @extend %button_basic_raised;
       }
     }

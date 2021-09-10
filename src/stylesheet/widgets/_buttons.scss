@@ -371,6 +371,12 @@ menubutton {
   &.flat > button { @extend %button_basic_flat; }
   &.outline > button { @extend %outline_button; }
 
+  &.image-button > button {
+    min-width: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
   arrow {
     min-height: 16px;
     min-width: 16px;
