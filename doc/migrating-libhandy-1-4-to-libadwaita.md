@@ -397,7 +397,7 @@ If multiple linked groups were used to separate different groups of actions,
 insert extra spacing as follows:
 
 ```xml
-<object name="GtkSeparator">
+<object class="GtkSeparator">
   <style>
     <class name="spacer"/>
   </style>
