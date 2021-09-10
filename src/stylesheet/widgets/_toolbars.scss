@@ -1,19 +1,24 @@
 %toolbar {
-  button.image-button:not(.raised):not(.suggested-action):not(.destructive-action),
-  button.image-text-button:not(.raised):not(.suggested-action):not(.destructive-action) {
-    @extend %button_basic_flat;
+  button:not(.raised):not(.suggested-action):not(.destructive-action) {
+    &.arrow-button,
+    &.image-button,
+    &.image-text-button {
+      @extend %button_basic_flat;
+    }
   }
 
-  .linked button {
-    &.image-button:not(.raised):not(.suggested-action):not(.destructive-action),
-    &.image-text-button:not(.raised):not(.suggested-action):not(.destructive-action) {
+  .linked button:not(.raised):not(.suggested-action):not(.destructive-action) {
+    &.arrow-button,
+    &.image-button,
+    &.image-text-button {
       @extend %button_basic_raised;
     }
   }
 
-  menubutton.raised {
-    > button.image-button,
-    > button.image-text-button {
+  menubutton.raised > button {
+    &.arrow-button,
+    &.image-button,
+    &.image-text-button {
       @extend %button_basic_raised;
     }
   }
@@ -25,8 +30,7 @@
       margin-bottom: 6px;
     }
 
-    &.image-button:not(.raised):not(.suggested-action):not(.destructive-action),
-    &.image-text-button:not(.raised):not(.suggested-action):not(.destructive-action) {
+    &:not(.raised):not(.suggested-action):not(.destructive-action) {
       @extend %flat_split_button;
     }
   }
@@ -58,9 +62,12 @@
 
   // Reset styles for popovers
   popover {
-    button.image-button:not(.raised):not(.suggested-action):not(.destructive-action),
-    button.image-text-button:not(.raised):not(.suggested-action):not(.destructive-action) {
-      @extend %button_basic_raised;
+    button:not(.raised):not(.suggested-action):not(.destructive-action) {
+      &.arrow-button,
+      &.image-button,
+      &.image-text-button {
+        @extend %button_basic_raised;
+      }
     }
 
     entry,

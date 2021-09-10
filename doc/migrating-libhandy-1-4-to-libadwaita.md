@@ -318,8 +318,8 @@ The following buttons get flat appearance:
 
 * Icon-only buttons;
 * Buttons with an icon and a label (using [class@Adw.ButtonContent]);
-* Menu buttons containing an arrow and either an icon or [class@Adw.ButtonContent];
-* [class@Adw.SplitButton] containing either an icon or [class@Adw.ButtonContent];
+* Menu buttons containing an arrow;
+* [class@Adw.SplitButton];
 * Any other button with the `.flat` style class.
 
 The following buttons keep default appearance:
