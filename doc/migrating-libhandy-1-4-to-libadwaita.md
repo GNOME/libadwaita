@@ -389,9 +389,6 @@ class and two buttons packed inside, use `AdwSplitButton` as follows:
 </object>
 ```
 
-If the split button only had text, also use `AdwButtonContent` the same way as
-for other text buttons.
-
 ### Adjusting Linked Buttons
 
 For other linked together buttons, simply stop linking them.
