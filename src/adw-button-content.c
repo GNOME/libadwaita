@@ -385,6 +385,7 @@ adw_button_content_set_label (AdwButtonContent *self,
   gtk_label_set_label (GTK_LABEL (self->label), label);
 
   gtk_widget_set_visible (self->label, label[0]);
+  gtk_widget_set_hexpand (self->icon, !label[0]);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_LABEL]);
 }
