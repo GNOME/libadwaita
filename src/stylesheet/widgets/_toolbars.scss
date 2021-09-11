@@ -13,11 +13,14 @@
     }
   }
 
-  .linked button:not(.raised):not(.suggested-action):not(.destructive-action) {
-    &.arrow-button,
-    &.image-button,
-    &.image-text-button {
-      @extend %button_basic_raised;
+  box.linked,
+  grid.linked {
+    button:not(.raised):not(.suggested-action):not(.destructive-action) {
+      &.arrow-button,
+      &.image-button,
+      &.image-text-button {
+        @extend %button_basic_raised;
+      }
     }
   }
 
