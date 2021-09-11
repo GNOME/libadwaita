@@ -21,7 +21,7 @@
     }
   }
 
-  menubutton.raised > button {
+  menubutton.raised > button:not(.raised):not(.suggested-action):not(.destructive-action) {
     &.arrow-button,
     &.image-button,
     &.image-text-button {
