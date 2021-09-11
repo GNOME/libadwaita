@@ -1,6 +1,4 @@
 popover.menu {
-  padding: 0;
-
   box.inline-buttons {
     padding: 0 $menu_padding;
 
@@ -46,7 +44,11 @@ popover.menu {
   &.background > contents {
     background-color: $menu_color;
     color: $text_color;
-    padding: $menu-margin;
+    padding: 0;
+
+    > scrolledwindow > viewport {
+      padding: $menu-margin;
+    }
   }
 
   &.background separator {
