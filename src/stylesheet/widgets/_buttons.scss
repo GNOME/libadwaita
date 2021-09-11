@@ -1,3 +1,10 @@
+$button_color: gtkalpha(currentColor, .1);
+$button_hover_color: gtkalpha(currentColor, .15);
+$button_active_color: gtkalpha(currentColor, .25);
+$button_checked_color: gtkalpha(currentColor, .2);
+$button_checked_hover_color: gtkalpha(currentColor, .25);
+$button_checked_active_color: gtkalpha(currentColor, .35);
+
 %button,
 button {
   @at-root %button_basic, & {

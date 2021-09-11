@@ -42,13 +42,6 @@ $trough_color: gtkalpha(currentColor, .15);
 $trough_hover_color: gtkalpha(currentColor, .2);
 $trough_active_color: gtkalpha(currentColor, .25);
 
-$button_color: gtkalpha(currentColor, .1);
-$button_hover_color: gtkalpha(currentColor, .15);
-$button_active_color: gtkalpha(currentColor, .25);
-$button_checked_color: gtkalpha(currentColor, .2);
-$button_checked_hover_color: gtkalpha(currentColor, .25);
-$button_checked_active_color: gtkalpha(currentColor, .35);
-
 $fill_color: $accent_bg_color;
 $fill_text_color: $accent_fg_color;
 $fill_hover_color: gtkmix($accent_bg_color, currentColor, 90%);
