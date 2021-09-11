@@ -105,7 +105,7 @@
                                   <object class="GtkBox">
                                     <property name="valign">center</property>
                                     <style>
-                                      <class name="linked"/>
+                                      <class name="toggle-group"/>
                                     </style>
                                     <child>
                                       <object class="GtkToggleButton" id="start_toggle_button">
