@@ -24,7 +24,8 @@
     }
   }
 
-  .toggle-group {
+  .toggle-group,
+  stackswitcher {
     button:not(.raised):not(.suggested-action):not(.destructive-action).toggle {
       &.arrow-button,
       &.image-button,
@@ -79,7 +80,8 @@
     margin-bottom: 10px;
   }
 
-  .toggle-group {
+  .toggle-group,
+  stackswitcher {
     margin-top: 6px;
     margin-bottom: 6px;
 
@@ -112,7 +114,8 @@
     button,
     menubutton,
     switch,
-    .toggle-group {
+    .toggle-group,
+    stackswitcher {
       margin-top: 0;
       margin-bottom: 0;
     }
