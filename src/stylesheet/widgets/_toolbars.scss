@@ -24,16 +24,6 @@
     }
   }
 
-  .toggle-group {
-    button:not(.raised):not(.suggested-action):not(.destructive-action).toggle {
-      &.arrow-button,
-      &.image-button,
-      &.image-text-button {
-        @extend %toggle_group_button;
-      }
-    }
-  }
-
   menubutton.raised > button:not(.raised):not(.suggested-action):not(.destructive-action) {
     &.arrow-button,
     &.image-button,
@@ -79,16 +69,6 @@
     margin-bottom: 10px;
   }
 
-  .toggle-group {
-    margin-top: 6px;
-    margin-bottom: 6px;
-
-    > button {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
-
   // Reset styles for popovers
   popover {
     button:not(.raised):not(.suggested-action):not(.destructive-action) {
@@ -111,8 +91,7 @@
     separator:not(.sidebar),
     button,
     menubutton,
-    switch,
-    .toggle-group {
+    switch {
       margin-top: 0;
       margin-bottom: 0;
     }
