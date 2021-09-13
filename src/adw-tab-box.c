@@ -11,6 +11,7 @@
 #include "adw-tab-box-private.h"
 #include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
+#include "adw-gizmo-private.h"
 #include "adw-tab-private.h"
 #include "adw-tab-bar-private.h"
 #include "adw-tab-view-private.h"
@@ -93,6 +94,7 @@ struct _AdwTabBox
   int n_tabs;
 
   GtkPopover *context_menu;
+  GtkWidget *background;
 
   int allocated_width;
   int last_width;
@@ -2904,6 +2906,10 @@ adw_tab_box_size_allocate (GtkWidget *widget,
   int pos;
   double value;
 
+  gtk_widget_measure (self->background, GTK_ORIENTATION_HORIZONTAL, -1,
+                      NULL, NULL, NULL, NULL);
+  gtk_widget_allocate (self->background, width, height, baseline, NULL);
+
   adw_tab_box_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
                        &self->allocated_width, NULL, NULL, NULL);
   self->allocated_width = MAX (self->allocated_width, width);
@@ -2983,7 +2989,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
     if (is_rtl)
       info->pos -= info->width;
 
-    child_allocation.x = ((info == self->reordered_tab) ? self->reorder_window_x : info->pos) - value;
+    child_allocation.x = ((info == self->reordered_tab) ? self->reorder_window_x : info->pos) - (int) floor (value);
     child_allocation.y = 0;
     child_allocation.width = info->width;
     child_allocation.height = height;
@@ -3016,6 +3022,100 @@ adw_tab_box_size_allocate (GtkWidget *widget,
   }
 
   update_visible (self);
+}
+
+static void
+snapshot_tab (AdwTabBox      *self,
+              GtkSnapshot    *snapshot,
+              TabInfo        *info,
+              cairo_region_t *clip_region)
+{
+  cairo_rectangle_int_t rect = { 0, 0, 0, 0 };
+  gboolean clip = FALSE;
+  int pos, width, scroll_pos;
+  int i, n;
+
+  if (gtk_widget_get_opacity (GTK_WIDGET (info->tab)) <= 0)
+    return;
+
+  rect.height = gtk_widget_get_height (GTK_WIDGET (self));
+  scroll_pos = (int) floor (gtk_adjustment_get_value (self->adjustment));
+
+  pos = get_tab_position (self, info);
+  width = info->width;
+
+  n = cairo_region_num_rectangles (clip_region);
+  for (i = 0; i < n; i++) {
+    cairo_rectangle_int_t clip_rect;
+    int x1, x2;
+
+    cairo_region_get_rectangle (clip_region, i, &clip_rect);
+    x1 = clip_rect.x + scroll_pos;
+    x2 = x1 + clip_rect.width;
+
+    if (x1 < pos && x2 > pos + width) {
+      clip = FALSE;
+      break;
+    }
+
+    if (x2 < pos || x1 > pos + width)
+      continue;
+
+    gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (clip_rect.x, clip_rect.y, clip_rect.width, clip_rect.height));
+    gtk_widget_snapshot_child (GTK_WIDGET (self), GTK_WIDGET (info->tab), snapshot);
+    gtk_snapshot_pop (snapshot);
+    clip = TRUE;
+  }
+
+  if (!clip)
+    gtk_widget_snapshot_child (GTK_WIDGET (self), GTK_WIDGET (info->tab), snapshot);
+
+  rect.x = pos - scroll_pos;
+  rect.width = width;
+  cairo_region_subtract_rectangle (clip_region, &rect);
+}
+
+static void
+adw_tab_box_snapshot (GtkWidget   *widget,
+                      GtkSnapshot *snapshot)
+{
+  AdwTabBox *self = ADW_TAB_BOX (widget);
+  int w = gtk_widget_get_width (widget);
+  int h = gtk_widget_get_height (widget);
+  cairo_rectangle_int_t rect = { 0, 0, 0, 0 };
+  cairo_region_t *region;
+  int i, n;
+  GList *l;
+
+  rect.width = w;
+  rect.height = h;
+  region = cairo_region_create_rectangle (&rect);
+
+  if (self->reordered_tab)
+    snapshot_tab (self, snapshot, self->reordered_tab, region);
+
+  if (self->selected_tab)
+    snapshot_tab (self, snapshot, self->selected_tab, region);
+
+  for (l = self->tabs; l; l = l->next) {
+    TabInfo *info = l->data;
+
+    if (info == self->reordered_tab || info == self->selected_tab)
+      continue;
+
+    snapshot_tab (self, snapshot, info, region);
+  }
+
+  n = cairo_region_num_rectangles (region);
+  for (i = 0; i < n; i++) {
+    cairo_region_get_rectangle (region, i, &rect);
+
+    gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (rect.x, rect.y, rect.width, rect.height));
+    gtk_widget_snapshot_child (widget, self->background, snapshot);
+    gtk_snapshot_pop (snapshot);
+  }
+
+  cairo_region_destroy (region);
 }
 
 static gboolean
@@ -3091,6 +3191,8 @@ adw_tab_box_dispose (GObject *object)
   AdwTabBox *self = ADW_TAB_BOX (object);
 
   g_clear_handle_id (&self->drop_switch_timeout_id, g_source_remove);
+
+  g_clear_pointer (&self->background, gtk_widget_unparent);
 
   self->drag_gesture = NULL;
   self->tab_bar = NULL;
@@ -3205,6 +3307,7 @@ adw_tab_box_class_init (AdwTabBoxClass *klass)
 
   widget_class->measure = adw_tab_box_measure;
   widget_class->size_allocate = adw_tab_box_size_allocate;
+  widget_class->snapshot = adw_tab_box_snapshot;
   widget_class->focus = adw_tab_box_focus;
   widget_class->unrealize = adw_tab_box_unrealize;
   widget_class->unmap = adw_tab_box_unmap;
@@ -3308,6 +3411,11 @@ adw_tab_box_init (AdwTabBox *self)
   self->expand_tabs = TRUE;
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+
+  self->background = adw_gizmo_new ("background", NULL, NULL, NULL, NULL, NULL, NULL);
+  gtk_widget_set_can_target (self->background, FALSE);
+  gtk_widget_set_can_focus (self->background, FALSE);
+  gtk_widget_set_parent (self->background, GTK_WIDGET (self));
 
   controller = gtk_event_controller_motion_new ();
   g_signal_connect_swapped (controller, "motion", G_CALLBACK (motion_cb), self);
