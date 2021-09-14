@@ -324,3 +324,5 @@ pkgg.generate(
      requires: 'gtk4',
   install_dir: libdir / 'pkgconfig',
 )
+
+subdir('inspector')

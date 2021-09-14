@@ -9,7 +9,8 @@
     "--share=ipc",
     "--socket=wayland",
     "--socket=x11",
-    "--talk-name=org.a11y.Bus"
+    "--talk-name=org.a11y.Bus",
+    "--env=GTK_PATH=/app/lib/gtk-4.0"
   ],
   "modules": [
     {

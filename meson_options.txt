@@ -20,3 +20,7 @@ option('tests',
 option('examples',
        type: 'boolean', value: true,
        description: 'Build and install the examples and demo applications')
+
+option('inspector',
+       type: 'boolean', value: true,
+       description: 'Build and install the libadwaita GtkInspector module')
