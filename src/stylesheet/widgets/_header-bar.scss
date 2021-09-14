@@ -136,7 +136,7 @@ windowtitle {
 
 window.devel {
   headerbar > windowhandle {
-    background-image: cross-fade(8% -gtk-recolor(url("assets/devel-symbolic.svg")),
+    background-image: cross-fade(5% -gtk-recolor(url("assets/devel-symbolic.svg")),
                                  image(transparent));
     background-repeat: repeat-x;
   }
