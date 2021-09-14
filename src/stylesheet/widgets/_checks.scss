@@ -13,10 +13,9 @@ checkbutton {
 
 check,
 radio {
-  min-height: 14px;
-  min-width: 14px;
-  padding: 1px;
-  -gtk-icon-size: 14px;
+  min-height: 20px;
+  min-width: 20px;
+  -gtk-icon-size: 20px;
   background-color: $trough_color;
 
   @if $contrast == "high" {

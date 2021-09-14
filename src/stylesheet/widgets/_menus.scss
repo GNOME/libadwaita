@@ -67,18 +67,29 @@ popover.menu {
 
   check,
   radio {
+    min-width: 14px;
+    min-height: 14px;
+    -gtk-icon-size: 14px;
+    padding: 2px;
+
     &, &:hover, &:hover:active, &:checked, &:disabled {
       background: none;
       color: inherit;
-
-      transform: scale(0.8);
     }
+  }
+
+  check {
+    &:checked { -gtk-icon-source: -gtk-scaled(-gtk-recolor(url("assets/check-small-symbolic.symbolic.png")),
+                                              -gtk-recolor(url("assets/check-small@2-symbolic.symbolic.png"))); }
   }
 
   //only menu radios have a border
   radio {
-    padding: 0;
-    border: 1.2px solid gtkalpha(currentColor, if($contrast == "high", 1, 0.3));
+    padding: 1px;
+    border: 1px solid gtkalpha(currentColor, if($contrast == "high", 1, 0.3));
+
+    &:checked { -gtk-icon-source: -gtk-scaled(-gtk-recolor(url("assets/bullet-small-symbolic.symbolic.png")),
+                                              -gtk-recolor(url("assets/bullet-small@2-symbolic.symbolic.png"))); }
   }
 
   check,
