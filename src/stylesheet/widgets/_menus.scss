@@ -45,9 +45,13 @@ popover.menu {
     background-color: $menu_color;
     color: $text_color;
     padding: 0;
+  }
 
-    > scrolledwindow > viewport {
-      padding: $menu-margin;
+  &.background > contents {
+    &, > scrolledwindow > viewport {
+      > stack > box {
+        padding: $menu-margin;
+      }
     }
   }
 
@@ -150,10 +154,6 @@ menubar {
 
     &:selected { //Seems like it :hover even with keyboard focus
       background-color: $view_selected_color;
-    }
-
-    popover.menu.background > contents {
-      padding: $menu-margin;
     }
 
     //nested submenus
