@@ -48,3 +48,17 @@ adw_init (void)
 
   adw_initialized = TRUE;
 }
+
+/**
+ * adw_is_initialized:
+ *
+ * Use this function to check if libadwaita has been initialized with
+ * adw_init().
+ *
+ * Returns: the initialization status
+ */
+gboolean
+adw_is_initialized (void)
+{
+  return adw_initialized;
+}

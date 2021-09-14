@@ -18,4 +18,7 @@ G_BEGIN_DECLS
 ADW_AVAILABLE_IN_ALL
 void adw_init (void);
 
+ADW_AVAILABLE_IN_ALL
+gboolean adw_is_initialized (void);
+
 G_END_DECLS
