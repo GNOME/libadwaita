@@ -5,8 +5,8 @@
 
 // A map between namespaces and base URLs for their online documentation
 baseURLs = [
-    [ 'Gdk', 'https://gnome.pages.gitlab.gnome.org/gtk/gdk4/' ],
-    [ 'Gsk', 'https://gnome.pages.gitlab.gnome.org/gtk/gsk4/' ],
-    [ 'Gtk', 'https://gnome.pages.gitlab.gnome.org/gtk/gtk4/' ],
-    [ 'Pango', 'https://gnome.pages/gitlab.gnome.org/pango/pango/' ],
+    [ 'Gdk', 'https://docs.gtk.org/gdk4/' ],
+    [ 'Gsk', 'https://docs.gtk.org/gsk4/' ],
+    [ 'Gtk', 'https://docs.gtk.org/gtk4/' ],
+    [ 'Pango', 'https://docs.gtk.org/Pango/' ],
 ]
