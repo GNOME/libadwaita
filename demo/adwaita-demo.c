@@ -2,6 +2,7 @@
 #include <gtk/gtk.h>
 #include <adwaita.h>
 
+#include "adw-demo-debug-info.h"
 #include "adw-demo-preferences-window.h"
 #include "adw-demo-window.h"
 
@@ -31,7 +32,7 @@ show_about (GSimpleAction *action,
             GVariant      *state,
             gpointer       user_data)
 {
-  const char *authors[] = {
+  const char *developers[] = {
     "Adrien Plazas",
     "Alexander Mikhaylenko",
     "Andrei Lișiță",
@@ -42,38 +43,47 @@ show_about (GSimpleAction *action,
     NULL
   };
 
-  const char *artists[] = {
+  const char *designers[] = {
     "GNOME Design Team",
     NULL
-  };
+ };
 
   GtkApplication *app = GTK_APPLICATION (user_data);
   GtkWindow *window = gtk_application_get_active_window (app);
-  char *version;
+  char *debug_info;
+  GtkWidget *about;
 
-  version = g_strdup_printf ("%s\nRunning against libadwaita %d.%d.%d, GTK %d.%d.%d",
-                             ADW_VERSION_S,
-                             adw_get_major_version (),
-                             adw_get_minor_version (),
-                             adw_get_micro_version (),
-                             gtk_get_major_version (),
-                             gtk_get_minor_version (),
-                             gtk_get_micro_version ());
+  debug_info = adw_demo_generate_debug_info ();
 
-  gtk_show_about_dialog (window,
-                         "program-name", _("Adwaita Demo"),
-                         "title", _("About Adwaita Demo"),
-                         "logo-icon-name", "org.gnome.Adwaita1.Demo",
-                         "version", version,
-                         "copyright", "Copyright © 2017–2021 Purism SPC",
-                         "comments", _("Tour of the features in Libadwaita"),
-                         "website", "https://gitlab.gnome.org/GNOME/libadwaita",
-                         "license-type", GTK_LICENSE_LGPL_2_1,
-                         "authors", authors,
-                         "artists", artists,
-                         "translator-credits", _("translator-credits"),
-                         NULL);
-  g_free (version);
+  about =
+    g_object_new (ADW_TYPE_ABOUT_WINDOW,
+                  "transient-for", window,
+                  "application-icon", "org.gnome.Adwaita1.Demo",
+                  "application-name", _("Adwaita Demo"),
+                  "developer-name", _("The GNOME Project"),
+                  "version", ADW_VERSION_S,
+                  "website", "https://gitlab.gnome.org/GNOME/libadwaita",
+                  "issue-url", "https://gitlab.gnome.org/GNOME/libadwaita/-/issues/new",
+                  "debug-info", debug_info,
+                  "debug-info-filename", "adwaita-1-demo-debug-info.txt",
+                  "copyright", "© 2017–2022 Purism SPC",
+                  "license-type", GTK_LICENSE_LGPL_2_1,
+                  "developers", developers,
+                  "designers", designers,
+                  "artists", designers,
+                  "translator-credits", _("translator-credits"),
+                  NULL);
+
+  adw_about_window_add_link (ADW_ABOUT_WINDOW (about),
+                             _("_Documentation"),
+                             "https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/");
+  adw_about_window_add_link (ADW_ABOUT_WINDOW (about),
+                             _("_Chat"),
+                             "https://matrix.to/#/#libadwaita:gnome.org");
+
+  gtk_window_present (GTK_WINDOW (about));
+
+  g_free (debug_info);
 }
 
 static void

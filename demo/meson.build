@@ -2,6 +2,17 @@ if get_option('examples')
 
 subdir('data')
 
+demo_config_data = configuration_data()
+demo_config_data.set_quoted('ADW_DEMO_VCS_TAG', '@VCS_TAG@')
+
+demo_config_h = vcs_tag(
+  input: configure_file(
+    output: 'config.h.in',
+    configuration: demo_config_data
+  ),
+  output: 'config.h'
+)
+
 adwaita_demo_resources = gnome.compile_resources(
    'adwaita-demo-resources',
    'adwaita-demo.gresources.xml',
@@ -12,6 +23,7 @@ adwaita_demo_resources = gnome.compile_resources(
 adwaita_demo_sources = [
   adwaita_demo_resources,
 
+  'pages/about/adw-demo-page-about.c',
   'pages/animations/adw-demo-page-animations.c',
   'pages/avatar/adw-demo-page-avatar.c',
   'pages/buttons/adw-demo-page-buttons.c',
@@ -32,8 +44,10 @@ adwaita_demo_sources = [
   'pages/welcome/adw-demo-page-welcome.c',
 
   'adwaita-demo.c',
+  'adw-demo-debug-info.c',
   'adw-demo-preferences-window.c',
   'adw-demo-window.c',
+  demo_config_h,
   libadwaita_generated_headers,
 ]
 

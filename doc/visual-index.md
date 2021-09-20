@@ -95,6 +95,13 @@ Slug: visual-index
   <img src="preferences-window.png" alt="preferences-window">
 </picture>](class.PreferencesWindow.html)
 
+## About Window
+
+[<picture>
+  <source srcset="about-window-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="about-window.png" alt="about-window">
+</picture>](class.AboutWindow.html)
+
 ## Navigation
 
 ### Carousel

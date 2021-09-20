@@ -54,6 +54,10 @@ content_files = [
   "visual-index.md",
 ]
 content_images = [
+  "images/about-window.png",
+  "images/about-window-dark.png",
+  "images/about-window-credits.png",
+  "images/about-window-credits-dark.png",
   "images/action-row.png",
   "images/action-row-dark.png",
   "images/adaptive-boxed-lists-narrow.png",

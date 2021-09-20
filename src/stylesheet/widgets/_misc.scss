@@ -96,6 +96,52 @@ statusbar {
   padding: 6px 10px 6px 10px;
 }
 
+/******************
+ * AdwAboutWindow *
+ ******************/
+
+window.about {
+  .main-page {
+    scrollbar.vertical {
+      // Keep in sync with header bar height
+      margin-top: 47px;
+      background: none;
+      box-shadow: none;
+    }
+
+    > viewport > clamp > box {
+      margin: 12px;
+      margin-top: 59px; // 12px + 47px
+      border-spacing: 6px;
+
+      > box {
+        margin-top: 18px;
+        border-spacing: 18px;
+        margin-bottom: 6px;
+      }
+    }
+
+    .app-version {
+      padding: 3px 18px;
+      color: $accent_color;
+      border-radius: 999px;
+      margin-top: 3px;
+    }
+  }
+
+  .subpage {
+    > viewport > clamp > box {
+      margin: 18px 12px;
+      border-spacing: 18px;
+    }
+
+    > clamp > textview {
+      background: none;
+      color: inherit;
+    }
+  }
+}
+
 /*****************
  * AdwStatusPage *
  *****************/

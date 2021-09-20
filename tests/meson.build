@@ -24,6 +24,7 @@ if cc.get_argument_syntax() != 'msvc'
 endif
 
 test_names = [
+  'test-about-window',
   'test-action-row',
   'test-animation',
   'test-animation-target',

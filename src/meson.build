@@ -81,6 +81,7 @@ libadwaita_private_sources += adw_private_enums
 libadwaita_generated_headers += [adw_public_enums[1]]
 
 src_headers = [
+  'adw-about-window.h',
   'adw-action-row.h',
   'adw-animation.h',
   'adw-animation-target.h',
@@ -145,6 +146,7 @@ libadwaita_init_public_types = custom_target('adw-public-types.c',
 )
 
 src_sources = [
+  'adw-about-window.c',
   'adw-action-row.c',
   'adw-animation.c',
   'adw-animation-target.c',

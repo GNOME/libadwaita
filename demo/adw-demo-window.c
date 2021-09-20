@@ -2,6 +2,7 @@
 
 #include <glib/gi18n.h>
 
+#include "pages/about/adw-demo-page-about.h"
 #include "pages/animations/adw-demo-page-animations.h"
 #include "pages/avatar/adw-demo-page-avatar.h"
 #include "pages/buttons/adw-demo-page-buttons.h"
@@ -116,6 +117,7 @@ adw_demo_window_init (AdwDemoWindow *self)
 {
   AdwStyleManager *manager = adw_style_manager_get_default ();
 
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_ABOUT);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_ANIMATIONS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_AVATAR);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_BUTTONS);

@@ -21,6 +21,7 @@ G_BEGIN_DECLS
 #define _ADWAITA_INSIDE
 
 #include "adw-version.h"
+#include "adw-about-window.h"
 #include "adw-action-row.h"
 #include "adw-animation.h"
 #include "adw-animation-target.h"

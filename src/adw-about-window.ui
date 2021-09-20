@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="libadwaita">
+  <requires lib="gtk" version="4.0"/>
+  <template class="AdwAboutWindow" parent="AdwWindow">
+    <property name="title" translatable="yes">About</property>
+    <property name="default-width">360</property>
+    <property name="modal">True</property>
+    <property name="destroy-with-parent">True</property>
+    <style>
+      <class name="about"/>
+    </style>
+    <property name="content">
+      <object class="AdwToastOverlay" id="toast_overlay">
+        <property name="child">
+          <object class="AdwLeaflet" id="leaflet">
+            <property name="can-navigate-back">True</property>
+            <property name="can-unfold">False</property>
+            <property name="width-request">360</property>
+            <child>
+              <object class="GtkOverlay">
+                <property name="child">
+                  <object class="GtkScrolledWindow" id="main_scrolled_window">
+                    <property name="hscrollbar-policy">never</property>
+                    <property name="propagate-natural-width">True</property>
+                    <property name="propagate-natural-height">True</property>
+                    <property name="max-content-height">600</property>
+                    <style>
+                      <class name="main-page"/>
+                    </style>
+                    <property name="child">
+                      <object class="AdwClamp">
+                        <property name="child">
+                          <object class="GtkBox">
+                            <property name="orientation">vertical</property>
+                            <property name="vexpand">True</property>
+                            <child>
+                              <object class="GtkImage">
+                                <binding name="visible">
+                                  <closure function="string_is_not_empty" type="gboolean">
+                                    <lookup name="application-icon">AdwAboutWindow</lookup>
+                                  </closure>
+                                </binding>
+                                <binding name="icon-name">
+                                  <lookup name="application-icon">AdwAboutWindow</lookup>
+                                </binding>
+                                <property name="pixel-size">128</property>
+                                <style>
+                                  <class name="icon-dropshadow"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="wrap">True</property>
+                                <property name="justify">center</property>
+                                <binding name="visible">
+                                  <closure function="string_is_not_empty" type="gboolean">
+                                    <lookup name="application-name">AdwAboutWindow</lookup>
+                                  </closure>
+                                </binding>
+                                <binding name="label">
+                                  <lookup name="application-name">AdwAboutWindow</lookup>
+                                </binding>
+                                <style>
+                                  <class name="title-1"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="wrap">True</property>
+                                <property name="justify">center</property>
+                                <binding name="visible">
+                                  <closure function="string_is_not_empty" type="gboolean">
+                                    <lookup name="developer-name">AdwAboutWindow</lookup>
+                                  </closure>
+                                </binding>
+                                <binding name="label">
+                                  <lookup name="developer-name">AdwAboutWindow</lookup>
+                                </binding>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="halign">center</property>
+                                <property name="action-name">about.copy-property</property>
+                                <property name="action-target">"version"</property>
+                                <property name="child">
+                                  <object class="GtkLabel">
+                                    <property name="ellipsize">end</property>
+                                    <binding name="label">
+                                      <lookup name="version">AdwAboutWindow</lookup>
+                                    </binding>
+                                  </object>
+                                </property>
+                                <binding name="visible">
+                                  <closure function="string_is_not_empty" type="gboolean">
+                                    <lookup name="version">AdwAboutWindow</lookup>
+                                  </closure>
+                                </binding>
+                                <style>
+                                  <class name="app-version"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <object class="AdwPreferencesGroup">
+                                    <binding name="visible">
+                                      <closure function="boolean_or" type="gboolean">
+                                        <constant type="gint">3</constant>
+                                        <lookup name="visible">whats_new_row</lookup>
+                                        <lookup name="visible">details_row</lookup>
+                                        <lookup name="visible">website_row</lookup>
+                                      </closure>
+                                    </binding>
+                                    <child>
+                                      <object class="AdwActionRow" id="whats_new_row">
+                                        <property name="title" translatable="yes">_What’s New</property>
+                                        <property name="use-underline">True</property>
+                                        <property name="activatable">True</property>
+                                        <property name="action-name">about.subpage</property>
+                                        <property name="action-target">"whatsnew"</property>
+                                        <binding name="visible">
+                                          <closure function="string_is_not_empty" type="gboolean">
+                                            <lookup name="text">release_notes_buffer</lookup>
+                                          </closure>
+                                        </binding>
+                                        <child>
+                                          <object class="GtkImage">
+                                            <property name="icon-name">go-next-symbolic</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="AdwActionRow" id="details_row">
+                                        <property name="title" translatable="yes">_Details</property>
+                                        <property name="use-underline">True</property>
+                                        <property name="activatable">True</property>
+                                        <property name="action-name">about.subpage</property>
+                                        <property name="action-target">"details"</property>
+                                        <binding name="visible">
+                                          <closure function="boolean_or" type="gboolean">
+                                            <constant type="gint">2</constant>
+                                            <lookup name="visible">comments</lookup>
+                                            <lookup name="visible">links_group</lookup>
+                                          </closure>
+                                        </binding>
+                                        <child>
+                                          <object class="GtkImage">
+                                            <property name="icon-name">go-next-symbolic</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="AdwActionRow" id="website_row">
+                                        <property name="visible">False</property>
+                                        <property name="title" translatable="yes">_Website</property>
+                                        <property name="use-underline">True</property>
+                                        <property name="activatable">True</property>
+                                        <property name="action-name">about.show-url-property</property>
+                                        <property name="action-target">"website"</property>
+                                        <binding name="tooltip-text">
+                                          <lookup name="website">AdwAboutWindow</lookup>
+                                        </binding>
+                                        <child>
+                                          <object class="GtkImage">
+                                            <property name="icon-name">adw-external-link-symbolic</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+
+                                <child>
+                                  <object class="AdwPreferencesGroup">
+                                    <binding name="visible">
+                                      <closure function="boolean_or" type="gboolean">
+                                        <constant type="gint">3</constant>
+                                        <lookup name="visible">support_row</lookup>
+                                        <lookup name="visible">issue_row</lookup>
+                                        <lookup name="visible">troubleshooting_row</lookup>
+                                      </closure>
+                                    </binding>
+                                    <child>
+                                      <object class="AdwActionRow" id="support_row">
+                                        <property name="activatable">True</property>
+                                        <property name="title" translatable="yes">_Support Questions</property>
+                                        <property name="use-underline">True</property>
+                                        <property name="action-name">about.show-url-property</property>
+                                        <property name="action-target">"support-url"</property>
+                                        <binding name="tooltip-text">
+                                          <lookup name="support-url">AdwAboutWindow</lookup>
+                                        </binding>
+                                        <binding name="visible">
+                                          <closure function="string_is_not_empty" type="gboolean">
+                                            <lookup name="support-url">AdwAboutWindow</lookup>
+                                          </closure>
+                                        </binding>
+                                        <child>
+                                          <object class="GtkImage">
+                                            <property name="icon-name">adw-external-link-symbolic</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="AdwActionRow" id="issue_row">
+                                        <property name="activatable">True</property>
+                                        <property name="title" translatable="yes">_Report an Issue</property>
+                                        <property name="use-underline">True</property>
+                                        <property name="action-name">about.show-url-property</property>
+                                        <property name="action-target">"issue-url"</property>
+                                        <binding name="tooltip-text">
+                                          <lookup name="issue-url">AdwAboutWindow</lookup>
+                                        </binding>
+                                        <binding name="visible">
+                                          <closure function="string_is_not_empty" type="gboolean">
+                                            <lookup name="issue-url">AdwAboutWindow</lookup>
+                                          </closure>
+                                        </binding>
+                                        <child>
+                                          <object class="GtkImage">
+                                            <property name="icon-name">adw-external-link-symbolic</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="AdwActionRow" id="troubleshooting_row">
+                                        <property name="title" translatable="yes">_Troubleshooting</property>
+                                        <property name="use-underline">True</property>
+                                        <property name="activatable">True</property>
+                                        <property name="action-name">about.subpage</property>
+                                        <property name="action-target">"troubleshooting"</property>
+                                        <binding name="visible">
+                                          <closure function="string_is_not_empty" type="gboolean">
+                                            <lookup name="debug-info">AdwAboutWindow</lookup>
+                                          </closure>
+                                        </binding>
+                                        <child>
+                                          <object class="GtkImage">
+                                            <property name="icon-name">go-next-symbolic</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="AdwPreferencesGroup">
+                                    <binding name="visible">
+                                      <closure function="boolean_or" type="gboolean">
+                                        <constant type="gint">3</constant>
+                                        <lookup name="visible">credits_box</lookup>
+                                        <lookup name="visible">legal_box</lookup>
+                                        <lookup name="visible">acknowledgements_box</lookup>
+                                      </closure>
+                                    </binding>
+                                    <child>
+                                      <object class="AdwActionRow">
+                                        <property name="title" translatable="yes">_Credits</property>
+                                        <property name="use-underline">True</property>
+                                        <property name="activatable">True</property>
+                                        <property name="action-name">about.subpage</property>
+                                        <property name="action-target">"credits"</property>
+                                        <binding name="visible">
+                                          <lookup name="visible">credits_box</lookup>
+                                        </binding>
+                                        <child>
+                                          <object class="GtkImage">
+                                            <property name="icon-name">go-next-symbolic</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="AdwActionRow">
+                                        <property name="title" translatable="yes">_Legal</property>
+                                        <property name="use-underline">True</property>
+                                        <property name="activatable">True</property>
+                                        <property name="action-name">about.subpage</property>
+                                        <property name="action-target">"legal"</property>
+                                        <binding name="visible">
+                                          <lookup name="visible">legal_box</lookup>
+                                        </binding>
+                                        <child>
+                                          <object class="GtkImage">
+                                            <property name="icon-name">go-next-symbolic</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="AdwActionRow">
+                                        <property name="title" translatable="yes">_Acknowledgements</property>
+                                        <property name="use-underline">True</property>
+                                        <property name="activatable">True</property>
+                                        <property name="action-name">about.subpage</property>
+                                        <property name="action-target">"acknowledgements"</property>
+                                        <binding name="visible">
+                                          <lookup name="visible">acknowledgements_box</lookup>
+                                        </binding>
+                                        <child>
+                                          <object class="GtkImage">
+                                            <property name="icon-name">go-next-symbolic</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </property>
+                      </object>
+                    </property>
+                  </object>
+                </property>
+                <child type="overlay">
+                  <object class="GtkStack" id="headerbar_stack">
+                    <property name="transition-type">crossfade</property>
+                    <property name="transition-duration">150</property>
+                    <property name="valign">start</property>
+                    <binding name="visible-child-name">
+                      <closure function="get_headerbar_name" type="gchararray">
+                        <lookup name="value" type="GtkAdjustment">
+                          <lookup name="vadjustment">main_scrolled_window</lookup>
+                        </lookup>
+                      </closure>
+                    </binding>
+                    <child>
+                      <object class="GtkStackPage">
+                        <property name="name">top</property>
+                        <property name="child">
+                          <object class="GtkHeaderBar">
+                            <property name="title-widget">
+                              <object class="AdwWindowTitle">
+                                <property name="visible">False</property>
+                              </object>
+                            </property>
+                            <style>
+                              <class name="flat"/>
+                            </style>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkStackPage">
+                        <property name="name">regular</property>
+                        <property name="child">
+                          <object class="GtkHeaderBar"/>
+                        </property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkStack" id="subpage_stack">
+
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">whatsnew</property>
+                    <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkHeaderBar">
+                            <property name="valign">start</property>
+                            <property name="title-widget">
+                              <object class="AdwWindowTitle">
+                                <property name="title" translatable="yes">What’s New</property>
+                              </object>
+                            </property>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="tooltip-text" translatable="yes">Back</property>
+                                <property name="icon-name">go-previous-symbolic</property>
+                                <property name="action-name">about.back</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkScrolledWindow">
+                            <property name="hscrollbar-policy">never</property>
+                            <property name="vexpand">True</property>
+                            <style>
+                              <class name="subpage"/>
+                            </style>
+                            <property name="child">
+                              <object class="AdwClampScrollable">
+                                <property name="child">
+                                  <object class="GtkTextView">
+                                    <property name="left-margin">12</property>
+                                    <property name="right-margin">12</property>
+                                    <property name="top-margin">18</property>
+                                    <property name="bottom-margin">18</property>
+                                    <property name="wrap-mode">word-char</property>
+                                    <property name="editable">False</property>
+                                    <property name="buffer">
+                                      <object class="GtkTextBuffer" id="release_notes_buffer">
+                                        <property name="enable-undo">False</property>
+                                      </object>
+                                    </property>
+                                  </object>
+                                </property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">details</property>
+                    <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkHeaderBar">
+                            <property name="valign">start</property>
+                            <property name="title-widget">
+                              <object class="AdwWindowTitle">
+                                <property name="title" translatable="yes">Details</property>
+                              </object>
+                            </property>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="tooltip-text" translatable="yes">Back</property>
+                                <property name="icon-name">go-previous-symbolic</property>
+                                <property name="action-name">about.back</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkScrolledWindow">
+                            <property name="hscrollbar-policy">never</property>
+                            <property name="vexpand">True</property>
+                            <style>
+                              <class name="subpage"/>
+                            </style>
+                            <property name="child">
+                              <object class="AdwClamp">
+                                <property name="child">
+                                  <object class="GtkBox">
+                                    <property name="orientation">vertical</property>
+                                    <child>
+                                      <object class="GtkLabel" id="comments">
+                                        <property name="use-markup">True</property>
+                                        <property name="wrap">True</property>
+                                        <property name="wrap-mode">word-char</property>
+                                        <property name="xalign">0</property>
+                                        <binding name="label">
+                                          <lookup name="comments">AdwAboutWindow</lookup>
+                                        </binding>
+                                        <signal name="activate-link" handler="activate_link_cb" swapped="yes"/>
+                                        <binding name="visible">
+                                          <closure function="string_is_not_empty" type="gboolean">
+                                            <lookup name="comments">AdwAboutWindow</lookup>
+                                          </closure>
+                                        </binding>
+                                        <style>
+                                          <class name="body"/>
+                                        </style>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="AdwPreferencesGroup" id="links_group">
+                                        <property name="visible">False</property>
+                                        <child>
+                                          <object class="AdwActionRow" id="details_website_row">
+                                            <property name="visible">False</property>
+                                            <property name="title" translatable="yes">_Website</property>
+                                            <property name="use-underline">True</property>
+                                            <property name="activatable">True</property>
+                                            <property name="action-name">about.show-url-property</property>
+                                            <property name="action-target">"website"</property>
+                                            <binding name="tooltip-text">
+                                              <lookup name="website">AdwAboutWindow</lookup>
+                                            </binding>
+                                            <child>
+                                              <object class="GtkImage">
+                                                <property name="icon-name">adw-external-link-symbolic</property>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">troubleshooting</property>
+                    <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkHeaderBar">
+                            <property name="valign">start</property>
+                            <property name="title-widget">
+                              <object class="AdwWindowTitle">
+                                <property name="title" translatable="yes">Troubleshooting</property>
+                              </object>
+                            </property>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="tooltip-text" translatable="yes">Back</property>
+                                <property name="icon-name">go-previous-symbolic</property>
+                                <property name="action-name">about.back</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkScrolledWindow">
+                            <property name="hscrollbar-policy">never</property>
+                            <property name="vexpand">True</property>
+                            <style>
+                              <class name="subpage"/>
+                            </style>
+                            <property name="child">
+                              <object class="AdwClamp">
+                                <property name="child">
+                                  <object class="GtkBox">
+                                    <property name="orientation">vertical</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="wrap">True</property>
+                                        <property name="wrap-mode">word-char</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">To assist in troubleshooting, you can view your debugging information. Providing this information to the application developers can help diagnose any problems you encounter when you report an issue.</property>
+                                        <signal name="activate-link" handler="activate_link_cb" swapped="yes"/>
+                                        <style>
+                                          <class name="body"/>
+                                        </style>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="AdwPreferencesGroup">
+                                        <child>
+                                          <object class="AdwActionRow">
+                                            <property name="title" translatable="yes">_Debugging Information</property>
+                                            <property name="use-underline">True</property>
+                                            <property name="activatable">True</property>
+                                            <property name="action-name">about.debug</property>
+                                            <child>
+                                              <object class="GtkImage">
+                                                <property name="icon-name">go-next-symbolic</property>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">credits</property>
+                    <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkHeaderBar">
+                            <property name="valign">start</property>
+                            <property name="title-widget">
+                              <object class="AdwWindowTitle">
+                                <property name="title" translatable="yes">Credits</property>
+                              </object>
+                            </property>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="tooltip-text" translatable="yes">Back</property>
+                                <property name="icon-name">go-previous-symbolic</property>
+                                <property name="action-name">about.back</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkScrolledWindow">
+                            <property name="hscrollbar-policy">never</property>
+                            <property name="vexpand">True</property>
+                            <style>
+                              <class name="subpage"/>
+                            </style>
+                            <property name="child">
+                              <object class="AdwClamp">
+                                <property name="child">
+                                  <object class="GtkBox" id="credits_box">
+                                    <property name="orientation">vertical</property>
+                                    <property name="visible">False</property>
+                                  </object>
+                                </property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">legal</property>
+                    <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkHeaderBar">
+                            <property name="valign">start</property>
+                            <property name="title-widget">
+                              <object class="AdwWindowTitle">
+                                <property name="title" translatable="yes">Legal</property>
+                              </object>
+                            </property>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="tooltip-text" translatable="yes">Back</property>
+                                <property name="icon-name">go-previous-symbolic</property>
+                                <property name="action-name">about.back</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkScrolledWindow">
+                            <property name="hscrollbar-policy">never</property>
+                            <property name="vexpand">True</property>
+                            <style>
+                              <class name="subpage"/>
+                            </style>
+                            <property name="child">
+                              <object class="AdwClamp">
+                                <property name="child">
+                                  <object class="GtkBox" id="legal_box">
+                                    <property name="orientation">vertical</property>
+                                    <property name="visible">False</property>
+                                  </object>
+                                </property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">acknowledgements</property>
+                    <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkHeaderBar">
+                            <property name="valign">start</property>
+                            <property name="title-widget">
+                              <object class="AdwWindowTitle">
+                                <property name="title" translatable="yes">Acknowledgements</property>
+                              </object>
+                            </property>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="tooltip-text" translatable="yes">Back</property>
+                                <property name="icon-name">go-previous-symbolic</property>
+                                <property name="action-name">about.back</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkScrolledWindow">
+                            <property name="hscrollbar-policy">never</property>
+                            <property name="vexpand">True</property>
+                            <style>
+                              <class name="subpage"/>
+                            </style>
+                            <property name="child">
+                              <object class="AdwClamp">
+                                <property name="child">
+                                  <object class="GtkBox" id="acknowledgements_box">
+                                    <property name="orientation">vertical</property>
+                                    <property name="visible">False</property>
+                                  </object>
+                                </property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkBox" id="debug_info_page">
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkHeaderBar">
+                    <property name="valign">start</property>
+                    <property name="title-widget">
+                      <object class="AdwWindowTitle">
+                        <property name="title" translatable="yes">Debugging Information</property>
+                      </object>
+                    </property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="tooltip-text" translatable="yes">Back</property>
+                        <property name="icon-name">go-previous-symbolic</property>
+                        <property name="action-name">about.back</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow">
+                    <property name="hscrollbar-policy">never</property>
+                    <property name="vexpand">True</property>
+                    <style>
+                      <class name="subpage"/>
+                    </style>
+                    <property name="child">
+                      <object class="AdwClampScrollable">
+                        <property name="child">
+                          <object class="GtkTextView">
+                            <property name="left-margin">12</property>
+                            <property name="right-margin">12</property>
+                            <property name="top-margin">18</property>
+                            <property name="bottom-margin">18</property>
+                            <property name="wrap-mode">word-char</property>
+                            <property name="editable">False</property>
+                            <property name="buffer">
+                              <object class="GtkTextBuffer" id="debug_info_buffer">
+                                <property name="enable-undo">False</property>
+                                <property name="text" bind-source="AdwAboutWindow" bind-property="debug-info" bind-flags="sync-create"/>
+                              </object>
+                            </property>
+                          </object>
+                        </property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkActionBar">
+                    <property name="revealed">True</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="action-name">about.copy-property</property>
+                        <property name="action-target">"debug-info"</property>
+                        <property name="label" translatable="yes">_Copy Text</property>
+                        <property name="use-underline">True</property>
+                      </object>
+                    </child>
+                    <child type="end">
+                      <object class="GtkButton">
+                        <property name="action-name">about.save-debug-info</property>
+                        <property name="label" translatable="yes">_Save as…</property>
+                        <property name="use-underline">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+</interface>
