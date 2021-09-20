@@ -243,12 +243,6 @@ listview.content {
       }
     }
 
-    // Bottom border
-    &.checked-expander-row-previous-sibling,
-    &.expander:checked {
-      border-width: 1px;
-    }
-
     // Rounded bottom
     &:last-child {
       &,
