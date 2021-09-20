@@ -302,6 +302,14 @@ functions have been removed, use the newly added
 [method@Adw.Avatar.draw_to_texture] does not have the `size` parameter. Instead,
 it uses the avatar's current size, with no replacement.
 
+### Adapt to [class@Adw.StyleManager] API Changes
+
+When used with the default style manager, `ADW_COLOR_SCHEME_DEFAULT` is now
+equivalent to `ADW_COLOR_SCHEME_PREFER_LIGHT` instead of
+`HDY_COLOR_SCHEME_FORCE_LIGHT`, following the system dark style preference by
+default. Make sure your application works with it, or otherwise set the
+`ADW_COLOR_SCHEME_FORCE_LIGHT` color scheme manually.
+
 ## Adapt to Stylesheet Changes
 
 Most widgets don't have a backdrop state anymore, and the following public
