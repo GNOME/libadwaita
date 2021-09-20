@@ -114,8 +114,9 @@ adw_icons_init (void)
  *
  * Call this function just after initializing GTK, if you are using
  * [class@Gtk.Application] it means it must be called when the
- * `GApplication::startup` signal is emitted. There's no need to call this
- * function if you're using [class@Adw.Application].
+ * [signal@Gio.Application::startup] signal is emitted.
+ *
+ * There's no need to call this function if you're using [class@Adw.Application].
  *
  * If Libadwaita has already been initialized, the function will simply return.
  *

@@ -656,7 +656,7 @@ adw_combo_row_get_model (AdwComboRow *self)
  * @self: a `AdwComboRow`
  * @model: (nullable) (transfer none): the model to use
  *
- * Sets the `GListModel` to use.
+ * Sets the [iface@Gio.ListModel] to use.
  *
  * Since: 1.0
  */

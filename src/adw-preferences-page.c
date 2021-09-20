@@ -416,11 +416,11 @@ adw_preferences_page_set_name (AdwPreferencesPage *self,
  * adw_preferences_page_get_rows:
  * @self: a `AdwPreferencesPage`
  *
- * Gets a `GListModel` that contains the rows of the page.
+ * Gets a [iface@Gio.ListModel] that contains the rows of the page.
  *
  * This can be used to keep an up-to-date view.
  *
- * Returns: (transfer full): a `GListModel` for the page's rows
+ * Returns: (transfer full): a list model for the page's rows
  *
  * Since: 1.0
  */

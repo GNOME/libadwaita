@@ -391,11 +391,11 @@ row_has_title (AdwPreferencesRow *row,
  * adw_preferences_group_get_rows:
  * @self: a `AdwPreferencesGroup`
  *
- * Gets a `GListModel` that contains the rows of the group.
+ * Gets a [iface@Gio.ListModel] that contains the rows of the group.
  *
  * This can be used to keep an up-to-date view.
  *
- * Returns: (transfer full): a `GListModel` for the group's rows
+ * Returns: (transfer full): a list model for the group's rows
  *
  * Since: 1.0
  */

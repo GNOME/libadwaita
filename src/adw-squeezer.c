@@ -1875,7 +1875,7 @@ adw_squeezer_set_yalign (AdwSqueezer *self,
  * adw_squeezer_get_pages: (attributes org.gtk.Method.get_property=pages)
  * @self: a `AdwSqueezer`
  *
- * Returns a `GListModel` that contains the pages of the squeezer,
+ * Returns a [iface@Gio.ListModel] that contains the pages of @self.
  *
  * This can be used to keep an up-to-date view. The model also implements
  * [iface@Gtk.SelectionModel] and can be used to track the visible page.

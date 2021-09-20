@@ -65,7 +65,7 @@ Applications should not use them.
 ### Bundle the Icons You're Using
 
 The preferred way to use icons in applications is to copy them into the
-application and to bundle them via `GResource`.
+application and to bundle them via [struct@Gio.Resource].
 Referencing system icons won't work in Libadwaita other than for icons GTK
 itself ships, so make sure to bundle the icons.
 
@@ -81,8 +81,8 @@ children.
 
 `HdyValueObject` has been removed. While it's not practical to replace the cases
 where it's storing strings in GTK3, as the preferred replacement only exists in
-4, it can also be used with any other `GValue`. That use has no replacement and
-you can instead create your own objects to store those values.
+4, it can also be used with any other [struct@GObject.Value]. That use has no
+replacement and you can instead create your own objects to store those values.
 
 ## Changes that Need to Be Done at the Time of the Switch
 
@@ -180,7 +180,8 @@ longer be manually created. It's only intended to be used with
 ### Stop Using `HdyValueObject`
 
 `HdyValueObject` has been removed. The typical use for storing strings in
-combination with `GListStore` can be replaced by using [class@Gtk.StringList].
+combination with [class@Gio.ListStore] can be replaced by using
+[class@Gtk.StringList].
 
 ### Adapt to [class@Adw.HeaderBar] API Changes
 

@@ -14,16 +14,16 @@
  * A base class for Adwaita applications.
  *
  * `AdwApplication` handles library initialization by calling [func@Adw.init] in
- * the default `GApplication::startup` signal handler, in turn chaining up as
- * required by [class@Gtk.Application]. Therefore, any subclass of
- * `AdwApplication` should always chain up its `GApplication::startup` handler
- * before using any Adwaita or GTK API.
+ * the default [signal@Gio.Application::startup] signal handler, in turn
+ * chaining up as required by [class@Gtk.Application]. Therefore, any subclass
+ * of `AdwApplication` should always chain up its `startup` handler before using
+ * any Adwaita or GTK API.
  *
  * ## Automatic Resources
  *
  * `AdwApplication` will automatically load stylesheets located in the
  * application's resource base path (see
- * `g_application_set_resource_base_path()`), if they're present.
+ * [method@Gio.Application.set_resource_base_path], if they're present.
  *
  * They can be used to add custom styles to the application, as follows:
  *
@@ -210,7 +210,7 @@ adw_application_init (AdwApplication *self)
  * Creates a new `AdwApplication`.
  *
  * If `application_id` is not `NULL`, then it must be valid. See
- * `g_application_id_is_valid()`.
+ * [func@Gio.Application.id_is_valid].
  *
  * If no application ID is given then some features (most notably application
  * uniqueness) will be disabled.

@@ -3793,7 +3793,7 @@ adw_leaflet_get_can_unfold (AdwLeaflet *self)
  * adw_leaflet_get_pages: (attributes org.gtk.Method.get_property=pages)
  * @self: a `AdwLeaflet`
  *
- * Returns a `GListModel` that contains the pages of the leaflet.
+ * Returns a [iface@Gio.ListModel] that contains the pages of the leaflet.
  *
  * This can be used to keep an up-to-date view. The model also implements
  * [iface@Gtk.SelectionModel] and can be used to track and change the visible
