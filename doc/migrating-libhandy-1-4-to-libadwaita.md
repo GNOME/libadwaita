@@ -274,8 +274,13 @@ The "policy" property has been removed, the behavior is similar to the removed
 The `HdyAvatar:loadable-icon` property has been removed along with its getter
 and setter. It can be replaced by [property@Adw.Avatar:custom-image].
 
-The `hdy_avatar_draw_to_pixbuf_async()` function has been removed, use the
-regular [method@Adw.Avatar.draw_to_pixbuf] instead.
+The `hdy_avatar_draw_to_pixbuf()` and `hdy_avatar_draw_to_pixbuf_async()`
+functions have been removed, use the newly added
+[method@Adw.Avatar.draw_to_texture] instead. [class@Gdk.Texture] implements
+`[iface@Gio.Icon], so it should just work for that case.
+
+[method@Adw.Avatar.draw_to_texture] does not have the `size` parameter. Instead,
+it uses the avatar's current size, with no replacement.
 
 ## Adapt to Stylesheet Changes
 

@@ -261,17 +261,13 @@ file_chooser_response_cb (AdwDemoWindow  *self,
 {
   if (response_id == GTK_RESPONSE_ACCEPT) {
     g_autoptr (GFile) file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (chooser));
-    g_autoptr (GdkPixbuf) pixbuf =
-      adw_avatar_draw_to_pixbuf (self->avatar,
-                                 adw_avatar_get_size (self->avatar),
-                                 gtk_widget_get_scale_factor (GTK_WIDGET (self)));
+    g_autoptr (GdkTexture) texture =
+      adw_avatar_draw_to_texture (self->avatar,
+                                  gtk_widget_get_scale_factor (GTK_WIDGET (self)));
 
-    if (pixbuf != NULL) {
-      g_autofree char *path = NULL;
+    g_autofree char *path = g_file_get_path (file);
 
-      path = g_file_get_path (file);
-      gdk_pixbuf_save (pixbuf, path, "png", NULL, NULL);
-    }
+    gdk_texture_save_to_png (texture, path);
   }
 
   g_object_unref (chooser);

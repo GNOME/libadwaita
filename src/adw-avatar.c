@@ -683,54 +683,41 @@ adw_avatar_set_size (AdwAvatar *self,
 }
 
 /**
- * adw_avatar_draw_to_pixbuf:
+ * adw_avatar_draw_to_texture:
  * @self: a `AdwAvatar`
- * @size: The size of the pixbuf
  * @scale_factor: The scale factor
  *
- * Renders @self into a [class@GdkPixbuf.Pixbuf] at @size and @scale_factor.
+ * Renders @self into a [class@Gdk.Texture] at @scale_factor.
  *
  * This can be used to export the fallback avatar.
  *
- * Returns: (transfer full): the pixbuf
+ * Returns: (transfer full): the texture
  *
  * Since: 1.0
  */
-GdkPixbuf *
-adw_avatar_draw_to_pixbuf (AdwAvatar *self,
-                           int        size,
-                           int        scale_factor)
+GdkTexture *
+adw_avatar_draw_to_texture (AdwAvatar *self,
+                            int        scale_factor)
 {
-  GtkSnapshot *snapshot;
   g_autoptr (GskRenderNode) node = NULL;
-  g_autoptr (cairo_surface_t) surface = NULL;
-  g_autoptr (cairo_t) cr = NULL;
-  graphene_rect_t bounds;
+  GtkSnapshot *snapshot;
+  GtkNative *native;
+  GskRenderer *renderer;
+  int size;
 
   g_return_val_if_fail (ADW_IS_AVATAR (self), NULL);
-  g_return_val_if_fail (size > 0, NULL);
   g_return_val_if_fail (scale_factor > 0, NULL);
 
+  size = self->size * scale_factor;
+
   snapshot = gtk_snapshot_new ();
+  gtk_snapshot_scale (snapshot, scale_factor, scale_factor);
   GTK_WIDGET_GET_CLASS (self)->snapshot (GTK_WIDGET (self), snapshot);
 
   node = gtk_snapshot_free_to_node (snapshot);
 
-  gsk_render_node_get_bounds (node, &bounds);
-  graphene_rect_round_to_pixel (&bounds);
-  graphene_rect_scale (&bounds, scale_factor, scale_factor, &bounds);
+  native = gtk_widget_get_native (GTK_WIDGET (self));
+  renderer = gtk_native_get_renderer (native);
 
-  surface = cairo_image_surface_create (CAIRO_FORMAT_ARGB32,
-                                        bounds.size.width,
-                                        bounds.size.height);
-  cairo_surface_set_device_scale (surface, scale_factor, scale_factor);
-  cr = cairo_create (surface);
-
-  cairo_translate (cr, -bounds.origin.x, -bounds.origin.y);
-
-  gsk_render_node_draw (node, cr);
-
-  return gdk_pixbuf_get_from_surface (surface, 0, 0,
-                                      bounds.size.width,
-                                      bounds.size.height);
+  return gsk_renderer_render_texture (renderer, node, &GRAPHENE_RECT_INIT (0, 0, size, size));
 }

@@ -12,7 +12,6 @@
 
 #include "adw-version.h"
 
-#include <gdk-pixbuf/gdk-pixbuf.h>
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
@@ -58,8 +57,7 @@ void adw_avatar_set_size (AdwAvatar *self,
                           int        size);
 
 ADW_AVAILABLE_IN_ALL
-GdkPixbuf *adw_avatar_draw_to_pixbuf (AdwAvatar *self,
-                                      int        size,
-                                      int        scale_factor) G_GNUC_WARN_UNUSED_RESULT;
+GdkTexture *adw_avatar_draw_to_texture (AdwAvatar *self,
+                                        int        scale_factor) G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS
