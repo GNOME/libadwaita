@@ -401,6 +401,8 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * AdwSplitButton::clicked:
    *
    * Emitted when the button has been activated (pressed and released).
+   *
+   * Since: 1.0
    */
   signals[SIGNAL_CLICKED] =
     g_signal_new ("clicked",
@@ -417,6 +419,8 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * This is an action signal. Applications should never connect
    * to this signal, but use the [signal@Adw.SplitButton::clicked] signal.
+   *
+   * Since: 1.0
    */
   signals[SIGNAL_ACTIVATE] =
     g_signal_new ("activate",
