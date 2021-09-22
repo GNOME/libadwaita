@@ -62,13 +62,6 @@ Libadwaita:
 
 Applications should not use them.
 
-### Bundle the Icons You're Using
-
-The preferred way to use icons in applications is to copy them into the
-application and to bundle them via [struct@Gio.Resource].
-Referencing system icons won't work in Libadwaita other than for icons GTK
-itself ships, so make sure to bundle the icons.
-
 ### Use `HdyFlap` Properties for Adding Children Instead of `gtk_container_add()`
 
 `HdyFlap` provides the "content", "flap" and "separator" properties that can be
