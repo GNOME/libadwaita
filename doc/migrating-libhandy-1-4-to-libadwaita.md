@@ -77,6 +77,15 @@ where it's storing strings in GTK3, as the preferred replacement only exists in
 4, it can also be used with any other [struct@GObject.Value]. That use has no
 replacement and you can instead create your own objects to store those values.
 
+### Use `HdyStyleManager` instead of [property@Gtk.Settings:gtk-application-prefer-dark-theme]
+
+If your application is setting [property@Gtk.Settings:gtk-application-prefer-dark-theme]
+to `TRUE` to request dark appearance, consider setting `HdyStyleManager:color-scheme`
+to `HDY_COLOR_SCHEME_DARK_FORCE_LIGHT` or `HDY_COLOR_SCHEME_FORCE_DARK` instead,
+as needed.
+
+In libadwaita this will be the only way to request dark appearance.
+
 ## Changes that Need to Be Done at the Time of the Switch
 
 This section outlines porting tasks that you need to tackle when you get to the
