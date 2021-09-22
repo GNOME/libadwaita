@@ -30,14 +30,13 @@
  * - `style.css` contains styles that are always present.
  *
  * - `style-dark.css` contains styles only used when
- *   [property@Gtk.Settings:gtk-application-prefer-dark-theme] is set to `TRUE`.
+ *   [property@Adw.StyleManager:dark] is `TRUE`.
  *
  * - `style-hc.css` contains styles used when the system high contrast
  *   preference is enabled.
  *
  * - `style-hc-dark.css` contains styles used when the system high contrast
- *   preference is enabled and
- *   [property@Gtk.Settings:gtk-application-prefer-dark-theme] is set to `TRUE`.
+ *   preference is enabled and [property@Adw.StyleManager:dark] is `TRUE`.
  *
  * Since: 1.0
  */
