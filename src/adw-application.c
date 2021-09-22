@@ -76,25 +76,20 @@ static void
 update_stylesheet (AdwApplication *self)
 {
   AdwApplicationPrivate *priv = adw_application_get_instance_private (self);
-  gboolean is_dark, is_hc, is_hc_dark;
-  g_autofree gchar *theme_name;
+  AdwStyleManager *manager = adw_style_manager_get_default ();
+  gboolean is_dark, is_hc;
 
-  g_object_get (gtk_settings_get_default (),
-                "gtk-theme-name", &theme_name,
-                NULL);
-
-  is_dark = !g_strcmp0 (theme_name, "Adwaita-dark");
-  is_hc = !g_strcmp0 (theme_name, "Adwaita-hc");
-  is_hc_dark = !g_strcmp0 (theme_name, "Adwaita-hc-dark");
+  is_dark = adw_style_manager_get_dark (manager);
+  is_hc = adw_style_manager_get_high_contrast (manager);
 
   if (priv->dark_style_provider)
-    style_provider_set_enabled (priv->dark_style_provider, is_dark || is_hc_dark);
+    style_provider_set_enabled (priv->dark_style_provider, is_dark);
 
   if (priv->hc_style_provider)
-    style_provider_set_enabled (priv->hc_style_provider, is_hc || is_hc_dark);
+    style_provider_set_enabled (priv->hc_style_provider, is_hc);
 
   if (priv->hc_dark_style_provider)
-    style_provider_set_enabled (priv->hc_dark_style_provider, is_hc_dark);
+    style_provider_set_enabled (priv->hc_dark_style_provider, is_hc && is_dark);
 }
 
 static void
@@ -155,10 +150,15 @@ init_styling (AdwApplication *self)
                                                 GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
   /* If gdk_display_get_default() worked, it means that
-   * gtk_settings get_default() won't return NULL, so we don't
+   * gtk_settings adw_style_manager_get_default() won't return NULL, so we don't
    * need to check it separately */
-  g_signal_connect_object (gtk_settings_get_default (),
-                           "notify::gtk-theme-name",
+  g_signal_connect_object (adw_style_manager_get_default (),
+                           "notify::dark",
+                           G_CALLBACK (update_stylesheet),
+                           self,
+                           G_CONNECT_SWAPPED);
+  g_signal_connect_object (adw_style_manager_get_default (),
+                           "notify::high-contrast",
                            G_CALLBACK (update_stylesheet),
                            self,
                            G_CONNECT_SWAPPED);
