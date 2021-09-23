@@ -335,7 +335,7 @@ adw_button_content_set_icon_name (AdwButtonContent *self,
     return;
 
   g_free (self->icon_name);
-  icon_name = g_strdup (icon_name);
+  self->icon_name = g_strdup (icon_name);
 
   if (!icon_name[0])
     icon_name = "image-missing";
