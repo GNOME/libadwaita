@@ -377,7 +377,7 @@ If you had menu buttons containing an icon and a dropdown arrow, switch to
 
 ### Adjusting Text-only Buttons
 
-If you had text-only buttons, consider using `[class@Adw.ButtonContent]`. For
+If you had text-only buttons, consider using [class@Adw.ButtonContent]. For
 example, the following button:
 
 ```xml
