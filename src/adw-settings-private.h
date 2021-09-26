@@ -27,23 +27,32 @@ typedef enum {
 
 G_DECLARE_FINAL_TYPE (AdwSettings, adw_settings, ADW, SETTINGS, GObject)
 
+ADW_AVAILABLE_IN_ALL
 AdwSettings *adw_settings_get_default (void);
 
+ADW_AVAILABLE_IN_ALL
 gboolean adw_settings_get_system_supports_color_schemes (AdwSettings *self);
 
+ADW_AVAILABLE_IN_ALL
 AdwSystemColorScheme adw_settings_get_color_scheme (AdwSettings *self);
 
+ADW_AVAILABLE_IN_ALL
 gboolean adw_settings_get_high_contrast (AdwSettings *self);
 
+ADW_AVAILABLE_IN_ALL
 void adw_settings_start_override (AdwSettings *self);
+ADW_AVAILABLE_IN_ALL
 void adw_settings_end_override   (AdwSettings *self);
 
+ADW_AVAILABLE_IN_ALL
 void adw_settings_override_system_supports_color_schemes (AdwSettings *self,
                                                           gboolean     system_supports_color_schemes);
 
+ADW_AVAILABLE_IN_ALL
 void adw_settings_override_color_scheme (AdwSettings          *self,
                                          AdwSystemColorScheme  color_scheme);
 
+ADW_AVAILABLE_IN_ALL
 void adw_settings_override_high_contrast (AdwSettings *self,
                                           gboolean     high_contrast);
 
