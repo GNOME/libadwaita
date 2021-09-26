@@ -35,4 +35,16 @@ AdwSystemColorScheme adw_settings_get_color_scheme (AdwSettings *self);
 
 gboolean adw_settings_get_high_contrast (AdwSettings *self);
 
+void adw_settings_start_override (AdwSettings *self);
+void adw_settings_end_override   (AdwSettings *self);
+
+void adw_settings_override_system_supports_color_schemes (AdwSettings *self,
+                                                          gboolean     system_supports_color_schemes);
+
+void adw_settings_override_color_scheme (AdwSettings          *self,
+                                         AdwSystemColorScheme  color_scheme);
+
+void adw_settings_override_high_contrast (AdwSettings *self,
+                                          gboolean     high_contrast);
+
 G_END_DECLS

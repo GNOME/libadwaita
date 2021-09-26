@@ -33,6 +33,11 @@ struct _AdwSettings
   gboolean has_high_contrast;
   gboolean has_color_scheme;
   gboolean color_scheme_use_fdo_setting;
+
+  gboolean override;
+  gboolean system_supports_color_schemes_override;
+  AdwSystemColorScheme color_scheme_override;
+  gboolean high_contrast_override;
 };
 
 G_DEFINE_TYPE (AdwSettings, adw_settings, G_TYPE_OBJECT);
@@ -58,7 +63,8 @@ set_color_scheme (AdwSettings          *self,
 
   self->color_scheme = color_scheme;
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_COLOR_SCHEME]);
+  if (!self->override)
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_COLOR_SCHEME]);
 }
 
 static void
@@ -70,7 +76,8 @@ set_high_contrast (AdwSettings *self,
 
   self->high_contrast = high_contrast;
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HIGH_CONTRAST]);
+  if (!self->override)
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HIGH_CONTRAST]);
 }
 
 /* Settings portal */
@@ -479,6 +486,9 @@ adw_settings_get_system_supports_color_schemes (AdwSettings *self)
 {
   g_return_val_if_fail (ADW_IS_SETTINGS (self), FALSE);
 
+  if (self->override)
+    return self->system_supports_color_schemes_override;
+
   return self->has_color_scheme;
 }
 
@@ -486,6 +496,9 @@ AdwSystemColorScheme
 adw_settings_get_color_scheme (AdwSettings *self)
 {
   g_return_val_if_fail (ADW_IS_SETTINGS (self), ADW_SYSTEM_COLOR_SCHEME_DEFAULT);
+
+  if (self->override)
+    return self->color_scheme_override;
 
   return self->color_scheme;
 }
@@ -495,5 +508,103 @@ adw_settings_get_high_contrast (AdwSettings *self)
 {
   g_return_val_if_fail (ADW_IS_SETTINGS (self), FALSE);
 
+  if (self->override)
+    return self->high_contrast_override;
+
   return self->high_contrast;
+}
+
+void
+adw_settings_start_override (AdwSettings *self)
+{
+  g_return_if_fail (ADW_IS_SETTINGS (self));
+
+  if (self->override)
+    return;
+
+  self->override = TRUE;
+
+  self->system_supports_color_schemes_override = self->has_color_scheme;
+  self->color_scheme_override = self->color_scheme;
+  self->high_contrast_override = self->high_contrast;
+}
+
+void
+adw_settings_end_override (AdwSettings *self)
+{
+  gboolean notify_system_supports_color_scheme, notify_color_scheme, notify_hc;
+
+  g_return_if_fail (ADW_IS_SETTINGS (self));
+
+  if (!self->override)
+    return;
+
+  notify_system_supports_color_scheme = self->system_supports_color_schemes_override != self->has_color_scheme;
+  notify_color_scheme = self->color_scheme_override != self->color_scheme;
+  notify_hc = self->high_contrast_override != self->high_contrast;
+
+  self->override = FALSE;
+  self->system_supports_color_schemes_override = FALSE;
+  self->color_scheme_override = ADW_SYSTEM_COLOR_SCHEME_DEFAULT;
+  self->high_contrast_override = FALSE;
+
+  if (notify_system_supports_color_scheme)
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SYSTEM_SUPPORTS_COLOR_SCHEMES]);
+  if (notify_color_scheme)
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_COLOR_SCHEME]);
+  if (notify_hc)
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HIGH_CONTRAST]);
+}
+
+void
+adw_settings_override_system_supports_color_schemes (AdwSettings *self,
+                                                     gboolean     system_supports_color_schemes)
+{
+  g_return_if_fail (ADW_IS_SETTINGS (self));
+  g_return_if_fail (self->override);
+
+  system_supports_color_schemes = !!system_supports_color_schemes;
+
+  if (system_supports_color_schemes == self->system_supports_color_schemes_override)
+    return;
+
+  if (!system_supports_color_schemes)
+    adw_settings_override_color_scheme (self, ADW_SYSTEM_COLOR_SCHEME_DEFAULT);
+
+  self->system_supports_color_schemes_override = system_supports_color_schemes;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SYSTEM_SUPPORTS_COLOR_SCHEMES]);
+}
+
+void
+adw_settings_override_color_scheme (AdwSettings          *self,
+                                    AdwSystemColorScheme  color_scheme)
+{
+  g_return_if_fail (ADW_IS_SETTINGS (self));
+  g_return_if_fail (self->override);
+
+  if (color_scheme == self->color_scheme_override ||
+      !self->system_supports_color_schemes_override)
+    return;
+
+  self->color_scheme_override = color_scheme;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_COLOR_SCHEME]);
+}
+
+void
+adw_settings_override_high_contrast (AdwSettings *self,
+                                     gboolean     high_contrast)
+{
+  g_return_if_fail (ADW_IS_SETTINGS (self));
+  g_return_if_fail (self->override);
+
+  high_contrast = !!high_contrast;
+
+  if (high_contrast == self->high_contrast_override)
+    return;
+
+  self->high_contrast_override = high_contrast;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HIGH_CONTRAST]);
 }
