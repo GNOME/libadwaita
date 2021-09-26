@@ -210,6 +210,12 @@ update_dark (AdwStyleManager *self)
 }
 
 static void
+notify_system_supports_color_schemes_cb (AdwStyleManager *self)
+{
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SYSTEM_SUPPORTS_COLOR_SCHEMES]);
+}
+
+static void
 notify_high_contrast_cb (AdwStyleManager *self)
 {
   update_stylesheet (self);
@@ -255,6 +261,11 @@ adw_style_manager_constructed (GObject *object)
 
   self->settings = adw_settings_get_default ();
 
+  g_signal_connect_object (self->settings,
+                           "notify::system-supports-color-schemes",
+                           G_CALLBACK (notify_system_supports_color_schemes_cb),
+                           self,
+                           G_CONNECT_SWAPPED);
   g_signal_connect_object (self->settings,
                            "notify::color-scheme",
                            G_CALLBACK (update_dark),
@@ -417,8 +428,6 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * This property can be used to check if the current environment provides a
    * color scheme preference. For example, applications might want to show a
    * separate appearance switcher if it's set to `FALSE`.
-   *
-   * It's only set at startup and cannot change its value later.
    *
    * See [property@Adw.StyleManager:color-scheme].
    *
