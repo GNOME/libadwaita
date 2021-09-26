@@ -50,6 +50,18 @@ color_scheme_button_clicked_cb (AdwDemoWindow *self)
 }
 
 static void
+notify_system_supports_color_schemes_cb (AdwDemoWindow *self)
+{
+  AdwStyleManager *manager = adw_style_manager_get_default ();
+  gboolean supports = adw_style_manager_get_system_supports_color_schemes (manager);
+
+  gtk_widget_set_visible (self->color_scheme_button, !supports);
+
+  if (supports)
+    adw_style_manager_set_color_scheme (manager, ADW_COLOR_SCHEME_DEFAULT);
+}
+
+static void
 notify_visible_child_cb (GObject       *sender,
                          GParamSpec    *pspec,
                          AdwDemoWindow *self)
@@ -456,8 +468,13 @@ adw_demo_window_init (AdwDemoWindow *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  gtk_widget_set_visible (self->color_scheme_button,
-                          !adw_style_manager_get_system_supports_color_schemes (manager));
+  g_signal_connect_object (manager,
+                           "notify::system-supports-color-schemes",
+                           G_CALLBACK (notify_system_supports_color_schemes_cb),
+                           self,
+                           G_CONNECT_SWAPPED);
+
+  notify_system_supports_color_schemes_cb (self);
 
   avatar_page_init (self);
 
