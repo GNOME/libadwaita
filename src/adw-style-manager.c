@@ -53,6 +53,7 @@ struct _AdwStyleManager
 
   GdkDisplay *display;
   AdwSettings *settings;
+  GtkCssProvider *provider;
 
   AdwColorScheme color_scheme;
   gboolean dark;
@@ -130,7 +131,7 @@ static void
 update_stylesheet (AdwStyleManager *self)
 {
   const char *variant;
-  g_autofree char *new_theme_name = NULL;
+  g_autofree char *stylesheet_path = NULL;
   GtkSettings *gtk_settings;
   gboolean enable_animations;
 
@@ -144,7 +145,7 @@ update_stylesheet (AdwStyleManager *self)
   else
     variant = self->dark ? "dark" : "light";
 
-  new_theme_name = g_strdup_printf ("Adwaita-%s", variant);
+  stylesheet_path = g_strdup_printf ("/org/gnome/Adwaita/styles/Adwaita-%s.css", variant);
 
   if (self->animation_timeout_id) {
     g_clear_handle_id (&self->animation_timeout_id, g_source_remove);
@@ -157,8 +158,10 @@ update_stylesheet (AdwStyleManager *self)
 
   g_object_set (gtk_settings,
                 "gtk-enable-animations", FALSE,
-                "gtk-theme-name", new_theme_name,
                 NULL);
+
+  if (self->provider)
+    gtk_css_provider_load_from_resource (self->provider, stylesheet_path);
 
   if (enable_animations) {
     self->animation_timeout_id =
@@ -237,6 +240,17 @@ adw_style_manager_constructed (GObject *object)
                              G_CALLBACK (warn_prefer_dark_theme),
                              self,
                              0);
+
+    if (!g_getenv ("GTK_THEME")) {
+      g_object_set (gtk_settings_get_for_display (self->display),
+                    "gtk-theme-name", "Empty",
+                    NULL);
+
+      self->provider = gtk_css_provider_new ();
+      gtk_style_context_add_provider_for_display (self->display,
+                                                  GTK_STYLE_PROVIDER (self->provider),
+                                                  GTK_STYLE_PROVIDER_PRIORITY_THEME);
+    }
   }
 
   self->settings = adw_settings_get_default ();
@@ -262,6 +276,7 @@ adw_style_manager_dispose (GObject *object)
   AdwStyleManager *self = ADW_STYLE_MANAGER (object);
 
   g_clear_handle_id (&self->animation_timeout_id, g_source_remove);
+  g_clear_object (&self->provider);
 
   G_OBJECT_CLASS (adw_style_manager_parent_class)->dispose (object);
 }
