@@ -463,7 +463,7 @@ adw_settings_get_default (void)
 }
 
 gboolean
-adw_settings_has_color_scheme (AdwSettings *self)
+adw_settings_get_system_supports_color_schemes (AdwSettings *self)
 {
   g_return_val_if_fail (ADW_IS_SETTINGS (self), FALSE);
 

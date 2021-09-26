@@ -650,7 +650,7 @@ adw_style_manager_get_system_supports_color_schemes (AdwStyleManager *self)
 {
   g_return_val_if_fail (ADW_IS_STYLE_MANAGER (self), FALSE);
 
-  return adw_settings_has_color_scheme (self->settings);
+  return adw_settings_get_system_supports_color_schemes (self->settings);
 }
 
 /**

@@ -29,7 +29,8 @@ G_DECLARE_FINAL_TYPE (AdwSettings, adw_settings, ADW, SETTINGS, GObject)
 
 AdwSettings *adw_settings_get_default (void);
 
-gboolean             adw_settings_has_color_scheme (AdwSettings *self);
+gboolean adw_settings_get_system_supports_color_schemes (AdwSettings *self);
+
 AdwSystemColorScheme adw_settings_get_color_scheme (AdwSettings *self);
 
 gboolean adw_settings_get_high_contrast (AdwSettings *self);
