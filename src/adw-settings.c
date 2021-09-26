@@ -39,6 +39,7 @@ G_DEFINE_TYPE (AdwSettings, adw_settings, G_TYPE_OBJECT);
 
 enum {
   PROP_0,
+  PROP_SYSTEM_SUPPORTS_COLOR_SCHEMES,
   PROP_COLOR_SCHEME,
   PROP_HIGH_CONTRAST,
   LAST_PROP,
@@ -408,6 +409,10 @@ adw_settings_get_property (GObject    *object,
   AdwSettings *self = ADW_SETTINGS (object);
 
   switch (prop_id) {
+  case PROP_SYSTEM_SUPPORTS_COLOR_SCHEMES:
+    g_value_set_boolean (value, adw_settings_get_system_supports_color_schemes (self));
+    break;
+
   case PROP_COLOR_SCHEME:
     g_value_set_enum (value, adw_settings_get_color_scheme (self));
     break;
@@ -429,6 +434,13 @@ adw_settings_class_init (AdwSettingsClass *klass)
   object_class->constructed = adw_settings_constructed;
   object_class->dispose = adw_settings_dispose;
   object_class->get_property = adw_settings_get_property;
+
+  props[PROP_SYSTEM_SUPPORTS_COLOR_SCHEMES] =
+    g_param_spec_boolean ("system-supports-color-schemes",
+                          "System supports color schemes",
+                          "Whether the system supports color schemes",
+                          FALSE,
+                          G_PARAM_READABLE);
 
   props[PROP_COLOR_SCHEME] =
     g_param_spec_enum ("color-scheme",
