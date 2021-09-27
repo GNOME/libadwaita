@@ -1,3 +1,102 @@
+===================
+Version 1.0.0.alpha.3
+===================
+
+- Depend on GTK 4.4.0.
+- Add a GtkInspector extension for simulating different system appearance
+  settings. It can be disabled with -Dinspector=false.
+- Introduce AdwStyleManager for managing color schemes (light/dark) and
+  high contrast mode.
+  - Support the cross-platform color scheme preference in the
+    settings portal.
+- Introduce AdwApplication to handle automatic initialization and style
+  loading.
+- Add adw_is_initialized() function.
+- Add AdwSplitButton to have consistent split buttons in toolbars.
+- Add AdwButtonContent as an easy way to create buttons with an icon and
+  a label inside.
+- Remove AdwValueObject.
+- Rename AdwEnumValueObject to AdwEnumListItem.
+- Avatar:
+  - Replace adw_avatar_draw_to_pixbuf() with adw_avatar_draw_to_texture()
+    that returns a GdkTexture instead.
+    - Remove the size parameter, use the avatar's current size instead.
+- Carousel
+  - Allow to shrink carousel if children are expanded.
+- Clamp
+  - Fix measuring with for_size = -1.
+- Combo Row:
+  - Have a .combo style class.
+- Leaflet:
+  - Remove hhomogeneous-folded, hhomogeneous-unfolded, vhomogeneous-folded
+    and vhomogeneous-unfolded properties. Assume non-homogeneous layout
+    when unfolded and homogeneous when folded.
+  - Add a single homogeneous property that corresponds to folded state and
+    opposite orientation.
+  - Remove interpolate-size, assume it's set to true.
+  - Set the fold threshold policy to MINIMUM by default.
+- Preferences Group:
+  - Fix default visibility of the internal list box.
+  - Allow markup on title and description.
+- Squeezer
+  - Fix the child switch threshold in vertical orientation.
+  - Add switch-threshold-policy, matching AdwFlap and AdwLeaflet.
+  - Add allow-none property, allowing to hide the last child as well.
+- Status Page
+  - Make icon optional.
+- Tab View
+  - Fix model updates when page selection changes.
+- View Switchers:
+  - Remove AdwViewSwitcher:narrow-ellipsize.
+  - Remove the policy property from AdwViewSwitcherBar and
+    AdwViewSwitcherTitle.
+  - Remove the auto policy, applications can use two view
+    switchers and an AdwSqueezer instead.
+  - Switch to narrow layouts earlier.
+- Window and Application Window:
+  - Rename the child property to content to avoid the name clash with
+    GtkWindow:child.
+- Stylesheet:
+  - New style classes:
+    - headerbar.flat to remove headerbar's background and border.
+    - separator.spacer to create spacing in toolbars or header bars.
+    - button.pill for prominent standalone buttons, for example on status
+      pages.
+    - statuspage.compact to make AdwStatusPage suitable for contexts such
+      as sidebars.
+    - .numeric as an easy way to enable tabular figures in a label.
+  - Use flat buttons by default in header bars and action bars, matching
+    existing .toolbar.
+    - .raised style class on GtkButton, GtkMenuButton, or AdwSplitButton
+      can be used to use the regular style instead.
+  - Make window controls filled instead, leave the clickable area larger
+    than the visible buttons.
+  - Fix broken styles when .content style class is used together with
+    GtkListBox:show-separators set to true.
+  - Remove @content_view_bg and @text_view_bg colors.
+  - Remove .content-view style class.
+  - Add previously removed public colors @theme_selected_bg/fg_color and
+    the backdrop colors as compatibility aliases. Applications shouldn't
+    use them in new code regardless.
+  - Use stripes for header bars in .devel windows instead of cogs to make
+    it work better with split header bars and flat header bars.
+  - Make .osd more visible in dark variant.
+  - Make borders more visible in dark variant.
+  - Fix padding on buttons inside popovers inside header bars.
+  - Fix double focus rings on labels.
+- Implement get_request_mode() and compute_expand() where appropriate.
+- Various fixes and cleanups.
+- Translation updates:
+  - Brazilian Portuguese
+  - Czech
+  - Danish
+  - Galician
+  - Lithuanian
+  - Korean
+  - Portuguese
+  - Serbian
+  - Ukrainian
+
 =====================
 Version 1.0.0-alpha.2
 =====================
