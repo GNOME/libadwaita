@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-09-06 11:14+0000\n"
-"PO-Revision-Date: 2021-09-06 17:33+0200\n"
+"POT-Creation-Date: 2021-09-27 14:23+0000\n"
+"PO-Revision-Date: 2021-09-27 22:56+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -38,3 +38,39 @@ msgstr "Nic nenalezeno"
 #: src/adw-preferences-window.ui:147
 msgid "Try a different search."
 msgstr "Zkuste hledat něco jiného."
+
+#: src/inspector/adw-inspector-page.c:75
+msgid "No Preference"
+msgstr "žádné preference"
+
+#: src/inspector/adw-inspector-page.c:77
+msgid "Prefer Dark"
+msgstr "upřednostnit tmavé"
+
+#: src/inspector/adw-inspector-page.c:79
+msgid "Prefer Light"
+msgstr "upřednostnit světlé"
+
+#: src/inspector/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Vzhled systému"
+
+#: src/inspector/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Přepsat nastavení pro tuto aplikaci. Po zavření inspektora bude uvedeno do "
+"původního stavu."
+
+#: src/inspector/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Systém podporuje schémata barev"
+
+#: src/inspector/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Upřednostňované schéma barev"
+
+#: src/inspector/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Vysoký kontrast"
