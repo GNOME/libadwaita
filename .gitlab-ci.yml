@@ -6,7 +6,7 @@ variables:
   MANIFEST_PATH: 'examples/org.gnome.Adwaita.Demo.json'
   FLATPAK_MODULE: 'libadwaita'
   FLATPAK_BUILD_DIR: build
-  ABI_CHECKER_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/abi-checker:v1"
+  ABI_CHECKER_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/abi-checker:v2"
   DOCS_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/docs:v2"
 
 stages:

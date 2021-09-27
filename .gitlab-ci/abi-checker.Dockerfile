@@ -1,19 +1,21 @@
-# See https://sourceware.org/bugzilla/show_bug.cgi?id=27267
-FROM fedora:33
+FROM fedora:34
 
 RUN dnf -y update \
  && dnf -y install \
-    @development-tools \
-    dnf-plugins-core \
-    gcc \
+    "dnf-command(builddep)" \
     git \
-    gobject-introspection \
-    gtk4-devel \
     libabigail \
-    meson \
-    redhat-rpm-config \
+    libjpeg-turbo-devel \
+    sassc \
     vala \
+ && sudo dnf -y build-dep gtk4 \
  && dnf clean all
 
-# See https://sourceware.org/bugzilla/show_bug.cgi?id=27269
-RUN rpm -Uvh --oldpackage https://kojipkgs.fedoraproject.org//packages/libabigail/1.7/2.fc33/x86_64/libabigail-1.7-2.fc33.x86_64.rpm
+RUN git clone https://gitlab.gnome.org/GNOME/gtk.git --depth=1 \
+ && cd gtk \
+ && meson build --prefix=/usr \
+ && cd build \
+ && ninja \
+ && sudo ninja install \
+ && cd ../.. \
+ && rm -rf gtk
