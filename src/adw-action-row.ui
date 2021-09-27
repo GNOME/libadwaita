@@ -23,6 +23,9 @@
           <object class="GtkImage" id="image">
             <property name="visible">False</property>
             <property name="valign">center</property>
+            <style>
+              <class name="icon"/>
+            </style>
           </object>
         </child>
         <child>
