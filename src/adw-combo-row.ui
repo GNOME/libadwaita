@@ -3,6 +3,9 @@
   <requires lib="gtk" version="4.0"/>
   <template class="AdwComboRow" parent="AdwActionRow">
     <property name="activatable">False</property>
+    <style>
+      <class name="combo"/>
+    </style>
     <child>
       <object class="GtkListView" id="current">
         <property name="visible" bind-source="AdwComboRow" bind-property="use-subtitle" bind-flags="sync-create|invert-boolean"/>
@@ -20,6 +23,9 @@
         <child>
           <object class="GtkImage" id="image">
             <property name="icon_name">pan-down-symbolic</property>
+            <style>
+              <class name="dropdown-arrow"/>
+            </style>
           </object>
         </child>
         <child>
