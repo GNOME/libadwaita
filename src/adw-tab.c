@@ -873,7 +873,7 @@ adw_tab_set_page (AdwTab     *self,
                   AdwTabPage *page)
 {
   g_return_if_fail (ADW_IS_TAB (self));
-  g_return_if_fail (ADW_IS_TAB_PAGE (page) || page == NULL);
+  g_return_if_fail (page == NULL || ADW_IS_TAB_PAGE (page));
 
   if (self->page == page)
     return;

@@ -612,7 +612,7 @@ adw_avatar_set_custom_image (AdwAvatar    *self,
                              GdkPaintable *custom_image)
 {
   g_return_if_fail (ADW_IS_AVATAR (self));
-  g_return_if_fail (GDK_IS_PAINTABLE (custom_image) || custom_image == NULL);
+  g_return_if_fail (custom_image == NULL || GDK_IS_PAINTABLE (custom_image));
 
   if (gtk_image_get_paintable (self->custom_image) == custom_image)
     return;

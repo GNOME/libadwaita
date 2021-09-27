@@ -403,7 +403,7 @@ adw_carousel_indicator_lines_set_carousel (AdwCarouselIndicatorLines *self,
                                            AdwCarousel               *carousel)
 {
   g_return_if_fail (ADW_IS_CAROUSEL_INDICATOR_LINES (self));
-  g_return_if_fail (ADW_IS_CAROUSEL (carousel) || carousel == NULL);
+  g_return_if_fail (carousel == NULL || ADW_IS_CAROUSEL (carousel));
 
   if (self->carousel == carousel)
     return;

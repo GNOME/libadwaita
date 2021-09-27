@@ -195,7 +195,7 @@ set_page_parent (AdwTabPage *self,
                  AdwTabPage *parent)
 {
   g_return_if_fail (ADW_IS_TAB_PAGE (self));
-  g_return_if_fail (ADW_IS_TAB_PAGE (parent) || parent == NULL);
+  g_return_if_fail (parent == NULL || ADW_IS_TAB_PAGE (parent));
 
   if (self->parent == parent)
     return;
@@ -1963,7 +1963,7 @@ adw_tab_page_set_icon (AdwTabPage *self,
                        GIcon      *icon)
 {
   g_return_if_fail (ADW_IS_TAB_PAGE (self));
-  g_return_if_fail (G_IS_ICON (icon) || icon == NULL);
+  g_return_if_fail (icon == NULL || G_IS_ICON (icon));
 
   if (self->icon == icon)
     return;
@@ -2048,7 +2048,7 @@ adw_tab_page_set_indicator_icon (AdwTabPage *self,
                                  GIcon      *indicator_icon)
 {
   g_return_if_fail (ADW_IS_TAB_PAGE (self));
-  g_return_if_fail (G_IS_ICON (indicator_icon) || indicator_icon == NULL);
+  g_return_if_fail (indicator_icon == NULL || G_IS_ICON (indicator_icon));
 
   if (self->indicator_icon == indicator_icon)
     return;
@@ -2501,7 +2501,7 @@ adw_tab_view_set_shortcut_widget (AdwTabView *self,
                                   GtkWidget  *widget)
 {
   g_return_if_fail (ADW_IS_TAB_VIEW (self));
-  g_return_if_fail (GTK_IS_WIDGET (widget) || widget == NULL);
+  g_return_if_fail (widget == NULL || GTK_IS_WIDGET (widget));
 
   if (widget == self->shortcut_widget)
     return;
@@ -2724,7 +2724,7 @@ adw_tab_view_add_page (AdwTabView *self,
 
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
-  g_return_val_if_fail (ADW_IS_TAB_PAGE (parent) || parent == NULL, NULL);
+  g_return_val_if_fail (parent == NULL || ADW_IS_TAB_PAGE (parent), NULL);
 
   if (parent) {
     AdwTabPage *page;

@@ -730,7 +730,7 @@ adw_tab_bar_set_view (AdwTabBar  *self,
                       AdwTabView *view)
 {
   g_return_if_fail (ADW_IS_TAB_BAR (self));
-  g_return_if_fail (ADW_IS_TAB_VIEW (view) || view == NULL);
+  g_return_if_fail (view == NULL || ADW_IS_TAB_VIEW (view));
 
   if (self->view == view)
     return;
@@ -828,7 +828,7 @@ adw_tab_bar_set_start_action_widget (AdwTabBar *self,
   GtkWidget *old_widget;
 
   g_return_if_fail (ADW_IS_TAB_BAR (self));
-  g_return_if_fail (GTK_IS_WIDGET (widget) || widget == NULL);
+  g_return_if_fail (widget == NULL || GTK_IS_WIDGET (widget));
 
   old_widget = adw_bin_get_child (self->start_action_bin);
 
@@ -875,7 +875,7 @@ adw_tab_bar_set_end_action_widget (AdwTabBar *self,
   GtkWidget *old_widget;
 
   g_return_if_fail (ADW_IS_TAB_BAR (self));
-  g_return_if_fail (GTK_IS_WIDGET (widget) || widget == NULL);
+  g_return_if_fail (widget == NULL || GTK_IS_WIDGET (widget));
 
   old_widget = adw_bin_get_child (self->end_action_bin);
 

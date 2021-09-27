@@ -3469,7 +3469,7 @@ adw_tab_box_set_view (AdwTabBox  *self,
                       AdwTabView *view)
 {
   g_return_if_fail (ADW_IS_TAB_BOX (self));
-  g_return_if_fail (ADW_IS_TAB_VIEW (view) || view == NULL);
+  g_return_if_fail (view == NULL || ADW_IS_TAB_VIEW (view));
 
   if (view == self->view)
     return;
@@ -3522,7 +3522,7 @@ adw_tab_box_set_adjustment (AdwTabBox     *self,
                             GtkAdjustment *adjustment)
 {
   g_return_if_fail (ADW_IS_TAB_BOX (self));
-  g_return_if_fail (GTK_IS_ADJUSTMENT (adjustment) || adjustment == NULL);
+  g_return_if_fail (adjustment == NULL || GTK_IS_ADJUSTMENT (adjustment));
 
   if (adjustment == self->adjustment)
     return;
@@ -3568,7 +3568,7 @@ adw_tab_box_select_page (AdwTabBox  *self,
                          AdwTabPage *page)
 {
   g_return_if_fail (ADW_IS_TAB_BOX (self));
-  g_return_if_fail (ADW_IS_TAB_PAGE (page) || page == NULL);
+  g_return_if_fail (page == NULL || ADW_IS_TAB_PAGE (page));
 
   select_page (self, page);
 }

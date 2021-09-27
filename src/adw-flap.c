@@ -1845,7 +1845,7 @@ adw_flap_set_content (AdwFlap   *self,
                       GtkWidget *content)
 {
   g_return_if_fail (ADW_IS_FLAP (self));
-  g_return_if_fail (GTK_IS_WIDGET (content) || content == NULL);
+  g_return_if_fail (content == NULL || GTK_IS_WIDGET (content));
 
   if (self->content.widget == content)
     return;
@@ -1895,7 +1895,7 @@ adw_flap_set_flap (AdwFlap   *self,
                    GtkWidget *flap)
 {
   g_return_if_fail (ADW_IS_FLAP (self));
-  g_return_if_fail (GTK_IS_WIDGET (flap) || flap == NULL);
+  g_return_if_fail (flap == NULL || GTK_IS_WIDGET (flap));
 
   if (self->flap.widget == flap)
     return;
@@ -1946,7 +1946,7 @@ adw_flap_set_separator (AdwFlap   *self,
                         GtkWidget *separator)
 {
   g_return_if_fail (ADW_IS_FLAP (self));
-  g_return_if_fail (GTK_IS_WIDGET (separator) || separator == NULL);
+  g_return_if_fail (separator == NULL || GTK_IS_WIDGET (separator));
 
   if (self->separator.widget == separator)
     return;
