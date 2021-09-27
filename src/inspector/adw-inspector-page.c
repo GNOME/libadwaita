@@ -23,6 +23,8 @@ struct _AdwInspectorPage
   GtkSwitch *support_color_schemes_switch;
   AdwComboRow *color_scheme_row;
   GtkSwitch *high_contrast_switch;
+
+  GObject *object;
 };
 
 G_DEFINE_TYPE (AdwInspectorPage, adw_inspector_page, ADW_TYPE_BIN)
@@ -30,6 +32,7 @@ G_DEFINE_TYPE (AdwInspectorPage, adw_inspector_page, ADW_TYPE_BIN)
 enum {
   PROP_0,
   PROP_TITLE,
+  PROP_OBJECT,
   LAST_PROP,
 };
 
@@ -86,9 +89,31 @@ adw_inspector_page_get_property (GObject    *object,
                                  GValue     *value,
                                  GParamSpec *pspec)
 {
+  AdwInspectorPage *self = ADW_INSPECTOR_PAGE (object);
+
   switch (prop_id) {
   case PROP_TITLE:
     g_value_set_string (value, "Libadwaita");
+    break;
+  case PROP_OBJECT:
+    g_value_set_object (value, self->object);
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
+adw_inspector_page_set_property (GObject      *object,
+                                 guint         prop_id,
+                                 const GValue *value,
+                                 GParamSpec   *pspec)
+{
+  AdwInspectorPage *self = ADW_INSPECTOR_PAGE (object);
+
+  switch (prop_id) {
+  case PROP_OBJECT:
+    g_set_object (&self->object, g_value_get_object (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -105,6 +130,8 @@ adw_inspector_page_dispose (GObject *object)
     self->settings = NULL;
   }
 
+  g_clear_object (&self->object);
+
   G_OBJECT_CLASS (adw_inspector_page_parent_class)->dispose (object);
 }
 
@@ -115,14 +142,22 @@ adw_inspector_page_class_init (AdwInspectorPageClass *klass)
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->get_property = adw_inspector_page_get_property;
+  object_class->set_property = adw_inspector_page_set_property;
   object_class->dispose = adw_inspector_page_dispose;
 
   props[PROP_TITLE] =
     g_param_spec_string ("title",
                          "Title",
-                         "title",
+                         "Title",
                          "Libadwaita",
-                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  props[PROP_OBJECT] =
+    g_param_spec_object ("object",
+                         "Object",
+                         "Object",
+                         G_TYPE_OBJECT,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
