@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-03-31 14:29+0000\n"
-"PO-Revision-Date: 2021-03-31 20:17-0300\n"
+"POT-Creation-Date: 2021-09-27 14:23+0000\n"
+"PO-Revision-Date: 2021-09-27 16:12-0300\n"
 "Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -17,830 +17,661 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 
-#: src/adw-action-row.c:245 src/adw-action-row.c:246 src/adw-expander-row.c:217
-#: src/adw-expander-row.c:218 src/adw-preferences-page.c:148
-#: src/adw-preferences-page.c:149 src/adw-status-page.c:178
-msgid "Icon name"
-msgstr "Nome do ícone"
-
-#: src/adw-action-row.c:259
-msgid "Activatable widget"
-msgstr "Widget ativável"
-
-#: src/adw-action-row.c:260
-msgid "The widget to be activated when the row is activated"
-msgstr "O widget para ser ativado quando a linha está ativada"
-
-#: src/adw-action-row.c:273 src/adw-action-row.c:274 src/adw-expander-row.c:188
-#: src/adw-view-switcher-title.c:270 src/adw-window-title.c:145
-msgid "Subtitle"
-msgstr "Subtítulo"
-
-#: src/adw-action-row.c:288 src/adw-expander-row.c:203
-#: src/adw-preferences-page.c:176 src/adw-preferences-row.c:130
-msgid "Use underline"
-msgstr "Usar sublinhado"
-
-#: src/adw-action-row.c:289 src/adw-expander-row.c:204
-#: src/adw-preferences-row.c:131
-msgid ""
-"If set, an underline in the text indicates the next character should be used "
-"for the mnemonic accelerator key"
-msgstr ""
-"Se definir, um sublinhado no texto indica a próprio caractere deve ser usado "
-"para uma tecla aceleradora mnemônica"
-
-#: src/adw-action-row.c:303
-msgid "Number of title lines"
-msgstr "Número de linhas de título"
-
-#: src/adw-action-row.c:304
-msgid "The desired number of title lines"
-msgstr "O número desejado de linhas no título"
-
-#: src/adw-action-row.c:320
-msgid "Number of subtitle lines"
-msgstr "Número de linhas de subtítulo"
-
-#: src/adw-action-row.c:321
-msgid "The desired number of subtitle lines"
-msgstr "O número desejado de linhas no subtítulo"
-
-#: src/adw-bin.c:112 src/adw-clamp.c:163 src/adw-clamp-scrollable.c:265
-#: src/adw-leaflet.c:284 src/adw-squeezer.c:203 src/adw-status-page.c:213
-msgid "Child"
-msgstr "Filho"
-
-#: src/adw-bin.c:113 src/adw-clamp.c:164 src/adw-clamp-scrollable.c:266
-#: src/adw-status-page.c:214
-msgid "The child widget"
-msgstr "O widget filho"
-
-#: src/adw-carousel-box.c:686 src/adw-carousel-box.c:687 src/adw-carousel.c:495
-#: src/adw-carousel.c:496
-msgid "Number of pages"
-msgstr "Número de páginas"
-
-#: src/adw-carousel-box.c:702 src/adw-carousel.c:512
-msgid "Position"
-msgstr "Posição"
-
-#: src/adw-carousel-box.c:703 src/adw-carousel.c:513
-msgid "Current scrolling position"
-msgstr "Posição de rolagem atual"
-
-#: src/adw-carousel-box.c:718 src/adw-carousel.c:543
-msgid "Spacing"
-msgstr "Espaçamento"
-
-#: src/adw-carousel-box.c:719 src/adw-carousel.c:544
-msgid "Spacing between pages"
-msgstr "Espaçamento entre páginas"
-
-#: src/adw-carousel-box.c:735 src/adw-carousel.c:603
-msgid "Reveal duration"
-msgstr "Revelar duração"
-
-#: src/adw-carousel-box.c:736 src/adw-carousel.c:604
-msgid "Page reveal duration"
-msgstr "Duração de revelação de página"
-
-#: src/adw-carousel.c:529
-msgid "Interactive"
-msgstr "Interativa"
-
-#: src/adw-carousel.c:530
-msgid "Whether the widget can be swiped"
-msgstr "Se é possível deslizar pelo widget"
-
-#: src/adw-carousel.c:559
-msgid "Animation duration"
-msgstr "Duração da animação"
-
-#: src/adw-carousel.c:560
-msgid "Default animation duration"
-msgstr "Duração padrão da animação"
-
-#: src/adw-carousel.c:574 src/adw-swipe-tracker.c:1084
-msgid "Allow mouse drag"
-msgstr "Permitir arrastar com mouse"
-
-#: src/adw-carousel.c:575 src/adw-swipe-tracker.c:1085
-msgid "Whether to allow dragging with mouse pointer"
-msgstr "Se deve-se permitir arrastar com ponteiro do mouse"
-
-#: src/adw-carousel.c:589 src/adw-swipe-tracker.c:1099
-msgid "Allow long swipes"
-msgstr "Permitir deslizamentos longos"
-
-#: src/adw-carousel.c:590
-msgid "Whether to allow swiping for more than one page at a time"
-msgstr "Se deve permitir deslizar por mais de uma página de cada vez"
-
-#: src/adw-carousel-indicator-dots.c:384 src/adw-carousel-indicator-dots.c:385
-#: src/adw-carousel-indicator-lines.c:371
-#: src/adw-carousel-indicator-lines.c:372
-msgid "Carousel"
-msgstr "Carrossel"
-
-#: src/adw-clamp.c:178 src/adw-clamp-layout.c:335
-#: src/adw-clamp-scrollable.c:280
-msgid "Maximum size"
-msgstr "Tamanho máximo"
-
-#: src/adw-clamp.c:179 src/adw-clamp-layout.c:336
-#: src/adw-clamp-scrollable.c:281
-msgid "The maximum size allocated to the child"
-msgstr "O tamanho máximo alocado para o filho"
-
-#: src/adw-clamp.c:203 src/adw-clamp-layout.c:360
-#: src/adw-clamp-scrollable.c:305
-msgid "Tightening threshold"
-msgstr "Limiar de aperto"
-
-#: src/adw-clamp.c:204 src/adw-clamp-layout.c:361
-#: src/adw-clamp-scrollable.c:306
-msgid "The size from which the clamp will tighten its grip on the child"
-msgstr ""
-"O tamanho a partir do qual a operação de clamping vai apertar o tamanho do "
-"filho"
-
-#: src/adw-combo-row.c:413
-msgid "Model"
-msgstr "Modelo"
-
-#: src/adw-combo-row.c:414
-msgid "Model for the displayed items"
-msgstr "Modelo para os itens exibidos"
-
-#: src/adw-combo-row.c:428
-msgid "Selected"
-msgstr "Selecionado"
-
-#: src/adw-combo-row.c:429
-msgid "Position of the selected item"
-msgstr "Posição dos itens selecionados"
-
-#: src/adw-combo-row.c:442
-msgid "Selected Item"
-msgstr "Item selecionado"
-
-#: src/adw-combo-row.c:443
-msgid "The selected item"
-msgstr "O item selecionado"
-
-#: src/adw-combo-row.c:456
-msgid "Factory"
-msgstr "Fábrica"
-
-#: src/adw-combo-row.c:457 src/adw-combo-row.c:473
-msgid "Factory for populating list items"
-msgstr "Fábrica para popular lista de itens"
-
-#: src/adw-combo-row.c:472
-msgid "List Factory"
-msgstr "Listar fábrica"
-
-#: src/adw-combo-row.c:487
-msgid "Expression"
-msgstr "Expressão"
-
-#: src/adw-combo-row.c:488
-msgid "Expression to determine strings to search for"
-msgstr "Expressão para determinar strings a serem procuradas"
-
-#: src/adw-combo-row.c:505
-msgid "Use subtitle"
-msgstr "Usar subtítulo"
-
-#: src/adw-combo-row.c:506
-msgid "Set the current value as the subtitle"
-msgstr "Define o valor atual como o subtítulo"
-
-#: src/adw-enum-list-model.c:119
-msgid "Enum type"
-msgstr "Tipo enum"
-
-#: src/adw-enum-list-model.c:120
-msgid "The type of the enum to construct the model from"
-msgstr "O tipo de enum para construir o modelo"
-
-#: src/adw-enum-value-object.c:74
-msgid "Value"
-msgstr "Valor"
-
-#: src/adw-enum-value-object.c:75
-msgid "The enum object value"
-msgstr "Valor do objeto do enum"
-
-#: src/adw-enum-value-object.c:81 src/adw-leaflet.c:291
-msgid "Name"
-msgstr "Nome"
-
-#: src/adw-enum-value-object.c:82
-msgid "The enum object name"
-msgstr "Nome do objeto do enum"
-
-#: src/adw-enum-value-object.c:88
-msgid "Nick"
-msgstr "Apelido"
-
-#: src/adw-enum-value-object.c:89
-msgid "The enum object nick"
-msgstr "Apelido do objeto do enum"
-
-#: src/adw-expander-row.c:189
-msgid "The subtitle for this row"
-msgstr "O subtítulo para esta linha"
-
-#: src/adw-expander-row.c:231
-msgid "Expanded"
-msgstr "Expandido"
-
-#: src/adw-expander-row.c:232
-msgid "Whether the row is expanded"
-msgstr "Se a linha é expandida"
-
-#: src/adw-expander-row.c:245
-msgid "Enable expansion"
-msgstr "Habilitar expansão"
-
-#: src/adw-expander-row.c:246
-msgid "Whether the expansion is enabled"
-msgstr "Se a expansão está habilitada"
-
-#: src/adw-expander-row.c:259
-msgid "Show enable switch"
-msgstr "Mostrar alternador de habilitação"
-
-#: src/adw-expander-row.c:260
-msgid "Whether the switch enabling the expansion is visible"
-msgstr "Se o alternador que habilita a expansão é visível"
-
-#: src/adw-flap.c:1281
-msgid "Content"
-msgstr "Conteúdo"
-
-#: src/adw-flap.c:1282
-msgid "The content Widget"
-msgstr "O widget de conteúdo"
-
-#: src/adw-flap.c:1296
-msgid "Flap"
-msgstr "Aba"
-
-#: src/adw-flap.c:1297
-msgid "The flap widget"
-msgstr "O widget da aba"
-
-#: src/adw-flap.c:1312
-msgid "Separator"
-msgstr "Separador"
-
-#: src/adw-flap.c:1313
-msgid "The separator widget"
-msgstr "O widget do separador"
-
-#: src/adw-flap.c:1327
-msgid "Flap Position"
-msgstr "Posição da aba"
-
-#: src/adw-flap.c:1328
-msgid "The flap position"
-msgstr "A posição da aba"
-
-#: src/adw-flap.c:1342
-msgid "Reveal Flap"
-msgstr "Revelar aba"
-
-#: src/adw-flap.c:1343
-msgid "Whether the flap is revealed"
-msgstr "Se a aba é revelada"
-
-#: src/adw-flap.c:1356
-msgid "Reveal Duration"
-msgstr "Revelar duração"
-
-#: src/adw-flap.c:1357
-msgid "The reveal transition animation duration, in milliseconds"
-msgstr "A duração da animação da transição de revelação, em milissegundos"
-
-#: src/adw-flap.c:1372
-msgid "Reveal Progress"
-msgstr "Revelar progresso"
-
-#: src/adw-flap.c:1373
-msgid "The current reveal transition progress"
-msgstr "O progresso atual da transição de revelação"
-
-#: src/adw-flap.c:1387
-msgid "Fold Policy"
-msgstr "Política de dobra"
-
-#: src/adw-flap.c:1388
-msgid "The current fold policy"
-msgstr "A política atual de dobra"
-
-#: src/adw-flap.c:1402
-msgid "Fold Duration"
-msgstr "Duração da dobra"
-
-#: src/adw-flap.c:1403
-msgid "The fold transition animation duration, in milliseconds"
-msgstr "A duração da animação da transição de dobra, em milissegundos"
-
-#: src/adw-flap.c:1419 src/adw-leaflet.c:2292
-msgid "Folded"
-msgstr "Dobrado"
-
-#: src/adw-flap.c:1420
-msgid "Whether the flap is currently folded"
-msgstr "Se a aba está atualmente dobrada"
-
-#: src/adw-flap.c:1437
-msgid "Locked"
-msgstr "Bloqueado"
-
-#: src/adw-flap.c:1438
-msgid "Whether the flap is locked"
-msgstr "Se a aba está bloqueada"
-
-#: src/adw-flap.c:1456
-msgid "Transition Type"
-msgstr "Tipo de transição"
-
-#: src/adw-flap.c:1457
-msgid "The type of animation used for reveal and fold transitions"
-msgstr "O tipo de animação usada para revelar e dobrar transições"
-
-#: src/adw-flap.c:1475
-msgid "Modal"
-msgstr "Modal"
-
-#: src/adw-flap.c:1476
-msgid "Whether the flap is modal"
-msgstr "Se a aba é modal"
-
-#: src/adw-flap.c:1491
-msgid "Swipe to Open"
-msgstr "Deslize para abrir"
-
-#: src/adw-flap.c:1492
-msgid "Whether the flap can be opened with a swipe gesture"
-msgstr "Se a aba pode ser aberta com um gesto de deslize"
-
-#: src/adw-flap.c:1507
-msgid "Swipe to Close"
-msgstr "Deslize para fechar"
-
-#: src/adw-flap.c:1508
-msgid "Whether the flap can be closed with a swipe gesture"
-msgstr "Se a aba pode ser fechada com um gesto de deslize"
-
-#: src/adw-header-bar.c:369
-msgid "Title Widget"
-msgstr "Widget de título"
-
-#: src/adw-header-bar.c:370
-msgid "Title widget to display"
-msgstr "Componente de título a ser exibido"
-
-#: src/adw-header-bar.c:388
-msgid "Show start title buttons"
-msgstr "Mostrar botões iniciais de título"
-
-#: src/adw-header-bar.c:389
-msgid "Whether to show start title buttons"
-msgstr "Se deve mostrar botões iniciais de títulos"
-
-#: src/adw-header-bar.c:407
-msgid "Show end title buttons"
-msgstr "Mostrar botões finais de título"
-
-#: src/adw-header-bar.c:408
-msgid "Whether to show end title buttons"
-msgstr "Se deve mostrar botões finais de títulos"
-
-#: src/adw-header-bar.c:426
-msgid "Decoration Layout"
-msgstr "Disposição de decoração"
-
-#: src/adw-header-bar.c:427
-msgid "The layout for window decorations"
-msgstr "A disposição de decorações da janela"
-
-#: src/adw-header-bar.c:433
-msgid "Centering policy"
-msgstr "Política de centralização"
-
-#: src/adw-header-bar.c:434
-msgid "The policy to horizontally align the center widget"
-msgstr "A política para alinhar horizontalmente o widget central"
-
-#: src/adw-leaflet.c:285 src/adw-squeezer.c:204
-msgid "The child of the page"
-msgstr "O filho da página"
-
-#: src/adw-leaflet.c:292
-msgid "The name of the child page"
-msgstr "O nome da página filha"
-
-#: src/adw-leaflet.c:309
-msgid "Navigatable"
-msgstr "Navegável"
-
-#: src/adw-leaflet.c:310
-msgid "Whether the child can be navigated to"
-msgstr "Se o filho pode ser navegado"
-
-#: src/adw-leaflet.c:2293
-msgid "Whether the widget is folded"
-msgstr "Se o widget está dobrado"
-
-#: src/adw-leaflet.c:2306
-msgid "Horizontally homogeneous folded"
-msgstr "Dobrado horizontalmente homogêneo"
-
-#: src/adw-leaflet.c:2307
-msgid "Horizontally homogeneous sizing when the leaflet is folded"
-msgstr ""
-"Dimensionamento horizontalmente homogêneo quando o folheto está dobrado"
-
-#: src/adw-leaflet.c:2320
-msgid "Vertically homogeneous folded"
-msgstr "Dobrado verticalmente homogêneo"
-
-#: src/adw-leaflet.c:2321
-msgid "Vertically homogeneous sizing when the leaflet is folded"
-msgstr "Dimensionamento verticalmente homogêneo quando o folheto está dobrado"
-
-#: src/adw-leaflet.c:2334
-msgid "Box horizontally homogeneous"
-msgstr "Caixa horizontalmente homogênea"
-
-#: src/adw-leaflet.c:2335
-msgid "Horizontally homogeneous sizing when the leaflet is unfolded"
-msgstr ""
-"Dimensionamento horizontalmente homogêneo quando o folheto está desdobrado"
-
-#: src/adw-leaflet.c:2348
-msgid "Box vertically homogeneous"
-msgstr "Caixa verticalmente homogênea"
-
-#: src/adw-leaflet.c:2349
-msgid "Vertically homogeneous sizing when the leaflet is unfolded"
-msgstr ""
-"Dimensionamento verticalmente homogêneo quando o folheto está desdobrado"
-
-#: src/adw-leaflet.c:2355 src/adw-squeezer.c:1054
-msgid "Visible child"
-msgstr "Filho visível"
-
-#: src/adw-leaflet.c:2356
-msgid "The widget currently visible when the leaflet is folded"
-msgstr "O widget atualmente visível quando o folheto está dobrado"
-
-#: src/adw-leaflet.c:2362
-msgid "Name of visible child"
-msgstr "Nome do filho visível"
-
-#: src/adw-leaflet.c:2363
-msgid "The name of the widget currently visible when the children are stacked"
-msgstr "O nome do widget atualmente visível quando os filhos estão empilhados"
-
-#: src/adw-leaflet.c:2381 src/adw-squeezer.c:1068
-msgid "Transition type"
-msgstr "Tipo de transição"
-
-#: src/adw-leaflet.c:2382
-msgid "The type of animation used to transition between modes and children"
-msgstr "O tipo da animação usada para transicionar entre modos e filhos"
-
-#: src/adw-leaflet.c:2388
-msgid "Mode transition duration"
-msgstr "Duração da transição de modo"
-
-#: src/adw-leaflet.c:2389
-msgid "The mode transition animation duration, in milliseconds"
-msgstr "A duração da animação da transição de modo, em milissegundos"
-
-#: src/adw-leaflet.c:2395
-msgid "Child transition duration"
-msgstr "Duração da transição de filho"
-
-#: src/adw-leaflet.c:2396
-msgid "The child transition animation duration, in milliseconds"
-msgstr "A duração da animação de transição de filho, em milissegundos"
-
-#: src/adw-leaflet.c:2402
-msgid "Child transition running"
-msgstr "Execução da transição de filho"
-
-#: src/adw-leaflet.c:2403
-msgid "Whether or not the child transition is currently running"
-msgstr "Se a transição de filho está ou não atualmente em execução"
-
-#: src/adw-leaflet.c:2409 src/adw-squeezer.c:1083
-msgid "Interpolate size"
-msgstr "Tamanho da interpolação"
-
-#: src/adw-leaflet.c:2410 src/adw-squeezer.c:1084
-msgid ""
-"Whether or not the size should smoothly change when changing between "
-"differently sized children"
-msgstr ""
-"Se o tamanho deve ou não ser suavemente alterado ao alterar entre filhos de "
-"tamanhos diferentes"
-
-#: src/adw-leaflet.c:2424 src/adw-preferences-window.c:452
-msgid "Can swipe back"
-msgstr "Pode deslizar para trás"
-
-#: src/adw-leaflet.c:2425
-msgid ""
-"Whether or not swipe gesture can be used to switch to the previous child"
-msgstr ""
-"Se o gesto de deslize pode ou não ser usado para alternar para o filho "
-"anterior"
-
-#: src/adw-leaflet.c:2439
-msgid "Can swipe forward"
-msgstr "Pode deslizar para frente"
-
-#: src/adw-leaflet.c:2440
-msgid "Whether or not swipe gesture can be used to switch to the next child"
-msgstr ""
-"Se o gesto de deslize pode ou não ser usado para alternar para o próximo "
-"filho"
-
-#: src/adw-leaflet.c:2446
-msgid "Can unfold"
-msgstr "Pode desdobrar"
-
-#: src/adw-leaflet.c:2447
-msgid "Whether or not the leaflet can unfold"
-msgstr "Se o folheto pode desdobrar ou não"
-
-#: src/adw-leaflet.c:2453 src/adw-squeezer.c:1134
-msgid "Pages"
-msgstr "Páginas"
-
-#: src/adw-leaflet.c:2454
-msgid "A selection model with the leaflet's pages"
-msgstr "Um modelo de seleção com as páginas do folheto"
-
-#: src/adw-preferences-group.c:183 src/adw-preferences-group.c:184
-#: src/adw-status-page.c:206
-msgid "Description"
-msgstr "Descrição"
-
-#: src/adw-preferences-group.c:197 src/adw-preferences-group.c:198
-#: src/adw-preferences-page.c:162 src/adw-preferences-page.c:163
-#: src/adw-preferences-row.c:115 src/adw-status-page.c:192
-#: src/adw-view-switcher-title.c:256 src/adw-window-title.c:129
-msgid "Title"
-msgstr "Título"
-
-#: src/adw-preferences-page.c:177
-msgid ""
-"Whether an embedded underline in the text of the title label indicates a "
-"mnemonic"
-msgstr ""
-"Se um sublinhado incorporado no texto do rótulo do título indica um mnemônico"
-
-#: src/adw-preferences-row.c:116
-msgid "The title of the preference"
-msgstr "O título da preferência"
-
-#: src/adw-preferences-window.c:202
+#: src/adw-preferences-window.c:210
 msgid "Untitled page"
 msgstr "Página sem título"
-
-#: src/adw-preferences-window.c:438
-msgid "Search enabled"
-msgstr "Pesquisa habilitada"
-
-#: src/adw-preferences-window.c:439
-msgid "Whether search is enabled"
-msgstr "Se a pesquisa está habilitada"
-
-#: src/adw-preferences-window.c:453
-msgid ""
-"Whether or not swipe gesture can be used to switch from a subpage to the "
-"preferences"
-msgstr ""
-"Se o gesto de deslize pode ou não ser usado para alternar de uma subpágina "
-"para as preferências"
 
 #: src/adw-preferences-window.ui:8
 msgid "Preferences"
 msgstr "Preferências"
 
-#: src/adw-preferences-window.ui:65
+#: src/adw-preferences-window.ui:68
 msgid "Search"
 msgstr "Pesquisa"
 
-#: src/adw-preferences-window.ui:144
+#: src/adw-preferences-window.ui:146
 msgid "No Results Found"
 msgstr "Nenhum resultado encontrado"
 
-#: src/adw-preferences-window.ui:145
+#: src/adw-preferences-window.ui:147
 msgid "Try a different search."
 msgstr "Tente uma pesquisa diferente."
 
-#: src/adw-shadow-helper.c:144
-msgid "Widget"
-msgstr "Widget"
+#: src/inspector/adw-inspector-page.c:75
+msgid "No Preference"
+msgstr "Sem preferência"
 
-#: src/adw-shadow-helper.c:145
-msgid "The widget the shadow will be drawn for"
-msgstr "O widget para a qual a sombra será desenhada"
+#: src/inspector/adw-inspector-page.c:77
+msgid "Prefer Dark"
+msgstr "Preferir tema Escuro"
 
-#: src/adw-squeezer.c:210 src/adw-swipe-tracker.c:1054
-msgid "Enabled"
-msgstr "Habilitado"
+#: src/inspector/adw-inspector-page.c:79
+msgid "Prefer Light"
+msgstr "Preferir tema Claro"
 
-#: src/adw-squeezer.c:211
+#: src/inspector/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Aparência do sistema"
+
+#: src/inspector/adw-inspector-page.ui:11
 msgid ""
-"Whether the child can be picked or should be ignored when looking for the "
-"child fitting the available size best"
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
 msgstr ""
-"Se o filho pode ser escolhido ou deve ser ignorado ao procurar pelo filho "
-"que caiba no melhor tamanho disponível"
+"Sobrescreve ajustes para este aplicativo. Eles serão reiniciados ao fechar o "
+"inspetor."
 
-#: src/adw-squeezer.c:1047
-msgid "Homogeneous"
-msgstr "Homogêneo"
+#: src/inspector/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Sistema têm suporte a esquemas de cores"
 
-#: src/adw-squeezer.c:1048
-msgid "Homogeneous sizing"
-msgstr "Dimensionamento homogêneo"
+#: src/inspector/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Esquema de cor preferido"
 
-#: src/adw-squeezer.c:1055
-msgid "The widget currently visible in the squeezer"
-msgstr "O widget atualmente visível na prensa"
+#: src/inspector/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Alto contraste"
 
-#: src/adw-squeezer.c:1061
-msgid "Transition duration"
-msgstr "Duração de transição"
+#~ msgid "Icon name"
+#~ msgstr "Nome do ícone"
 
-#: src/adw-squeezer.c:1062
-msgid "The animation duration, in milliseconds"
-msgstr "A duração da animação, em milissegundos"
+#~ msgid "Activatable widget"
+#~ msgstr "Widget ativável"
 
-#: src/adw-squeezer.c:1069
-msgid "The type of animation used to transition"
-msgstr "O tipo de animação usada para a transição"
+#~ msgid "The widget to be activated when the row is activated"
+#~ msgstr "O widget para ser ativado quando a linha está ativada"
 
-#: src/adw-squeezer.c:1076
-msgid "Transition running"
-msgstr "Execução de transição"
+#~ msgid "Subtitle"
+#~ msgstr "Subtítulo"
 
-#: src/adw-squeezer.c:1077
-msgid "Whether or not the transition is currently running"
-msgstr "Se a transição está atualmente em execução"
+#~ msgid "Use underline"
+#~ msgstr "Usar sublinhado"
 
-#: src/adw-squeezer.c:1104
-msgid "X align"
-msgstr "Alinh. X"
+#~ msgid ""
+#~ "If set, an underline in the text indicates the next character should be "
+#~ "used for the mnemonic accelerator key"
+#~ msgstr ""
+#~ "Se definir, um sublinhado no texto indica a próprio caractere deve ser "
+#~ "usado para uma tecla aceleradora mnemônica"
 
-#: src/adw-squeezer.c:1105
-msgid "The horizontal alignment, from 0 (start) to 1 (end)"
-msgstr "O alinhamento horizontal, de 0 (início) até 1 (fim)"
+#~ msgid "Number of title lines"
+#~ msgstr "Número de linhas de título"
 
-#: src/adw-squeezer.c:1126
-msgid "Y align"
-msgstr "Alinh. Y"
+#~ msgid "The desired number of title lines"
+#~ msgstr "O número desejado de linhas no título"
 
-#: src/adw-squeezer.c:1127
-msgid "The vertical alignment, from 0 (top) to 1 (bottom)"
-msgstr "O alinhamento vertical, de 0 (topo) até 1 (base)"
+#~ msgid "Number of subtitle lines"
+#~ msgstr "Número de linhas de subtítulo"
 
-#: src/adw-squeezer.c:1135
-msgid "A selection model with the squeezer's pages"
-msgstr "Um modelo de seleção com as páginas da prensa"
+#~ msgid "The desired number of subtitle lines"
+#~ msgstr "O número desejado de linhas no subtítulo"
 
-#: src/adw-status-page.c:179
-msgid "The name of the icon to be used"
-msgstr "O nome do ícone a ser usado"
+#~ msgid "Child"
+#~ msgstr "Filho"
 
-#: src/adw-status-page.c:193
-msgid "The title to be displayed below the icon"
-msgstr "O título para ser exibido abaixo do ícone"
+#~ msgid "The child widget"
+#~ msgstr "O widget filho"
 
-#: src/adw-status-page.c:207
-msgid "The description to be displayed below the title"
-msgstr "A descrição a ser exibida abaixo do título"
+#~ msgid "Number of pages"
+#~ msgstr "Número de páginas"
 
-#: src/adw-swipe-tracker.c:1039
-msgid "Swipeable"
-msgstr "Deslizável"
+#~ msgid "Position"
+#~ msgstr "Posição"
 
-#: src/adw-swipe-tracker.c:1040
-msgid "The swipeable the swipe tracker is attached to"
-msgstr "O deslizável ao qual o rastreador de deslize está anexado"
+#~ msgid "Current scrolling position"
+#~ msgstr "Posição de rolagem atual"
 
-#: src/adw-swipe-tracker.c:1055
-msgid "Whether the swipe tracker processes events"
-msgstr "Se o rastreador de deslize processa eventos"
+#~ msgid "Spacing"
+#~ msgstr "Espaçamento"
 
-#: src/adw-swipe-tracker.c:1069
-msgid "Reversed"
-msgstr "Invertida"
+#~ msgid "Spacing between pages"
+#~ msgstr "Espaçamento entre páginas"
 
-#: src/adw-swipe-tracker.c:1070
-msgid "Whether swipe direction is reversed"
-msgstr "Se a direção de deslize é revertida"
+#~ msgid "Reveal duration"
+#~ msgstr "Revelar duração"
 
-#: src/adw-swipe-tracker.c:1100
-msgid "Whether to allow swiping for more than one snap point at a time"
-msgstr ""
-"Se deve permitir deslizar por mais de um ponto de alinhamento de cada vez"
+#~ msgid "Page reveal duration"
+#~ msgstr "Duração de revelação de página"
 
-#: src/adw-value-object.c:195
-msgctxt "AdwValueObjectClass"
-msgid "Value"
-msgstr "Valor"
+#~ msgid "Interactive"
+#~ msgstr "Interativa"
 
-#: src/adw-value-object.c:196
-msgctxt "AdwValueObjectClass"
-msgid "The contained value"
-msgstr "O valor contido"
+#~ msgid "Whether the widget can be swiped"
+#~ msgstr "Se é possível deslizar pelo widget"
 
-#: src/adw-view-switcher-bar.c:195 src/adw-view-switcher.c:507
-#: src/adw-view-switcher-title.c:228
-msgid "Policy"
-msgstr "Política"
+#~ msgid "Animation duration"
+#~ msgstr "Duração da animação"
 
-#: src/adw-view-switcher-bar.c:196 src/adw-view-switcher.c:508
-#: src/adw-view-switcher-title.c:229
-msgid "The policy to determine the mode to use"
-msgstr "A política para determinar o modo para usar"
+#~ msgid "Default animation duration"
+#~ msgstr "Duração padrão da animação"
 
-#: src/adw-view-switcher-bar.c:209 src/adw-view-switcher-bar.c:210
-#: src/adw-view-switcher.c:542 src/adw-view-switcher.c:543
-#: src/adw-view-switcher-title.c:242 src/adw-view-switcher-title.c:243
-msgid "Stack"
-msgstr "Pilha"
+#~ msgid "Allow mouse drag"
+#~ msgstr "Permitir arrastar com mouse"
 
-#: src/adw-view-switcher-bar.c:223
-msgid "Reveal"
-msgstr "Revelar"
+#~ msgid "Whether to allow dragging with mouse pointer"
+#~ msgstr "Se deve-se permitir arrastar com ponteiro do mouse"
 
-#: src/adw-view-switcher-bar.c:224
-msgid "Whether the view switcher is revealed"
-msgstr "Se o alternador de visão é revelado"
+#~ msgid "Allow long swipes"
+#~ msgstr "Permitir deslizamentos longos"
 
-#: src/adw-view-switcher-button.c:238
-msgid "Icon Name"
-msgstr "Nome do ícone"
+#~ msgid "Whether to allow swiping for more than one page at a time"
+#~ msgstr "Se deve permitir deslizar por mais de uma página de cada vez"
 
-#: src/adw-view-switcher-button.c:239
-msgid "Icon name for image"
-msgstr "Nome do ícone para a imagem"
+#~ msgid "Carousel"
+#~ msgstr "Carrossel"
 
-#: src/adw-view-switcher-button.c:255
-msgid "Needs attention"
-msgstr "Precisa de atenção"
+#~ msgid "Maximum size"
+#~ msgstr "Tamanho máximo"
 
-#: src/adw-view-switcher-button.c:256
-msgid "Hint the view needs attention"
-msgstr "Sugere que a visão precisa de atenção"
+#~ msgid "The maximum size allocated to the child"
+#~ msgstr "O tamanho máximo alocado para o filho"
 
-#: src/adw-view-switcher.c:527
-msgid "Narrow ellipsize"
-msgstr "Reticência estreita"
+#~ msgid "Tightening threshold"
+#~ msgstr "Limiar de aperto"
 
-#: src/adw-view-switcher.c:528
-msgid ""
-"The preferred place to ellipsize the string, if the narrow mode label does "
-"not have enough room to display the entire string"
-msgstr ""
-"O lugar preferido para colocar reticências na string, se o rótulo do modo "
-"estreito não tiver espaço suficiente para exibir a string inteira"
+#~ msgid "The size from which the clamp will tighten its grip on the child"
+#~ msgstr ""
+#~ "O tamanho a partir do qual a operação de clamping vai apertar o tamanho "
+#~ "do filho"
 
-#: src/adw-view-switcher-title.c:257 src/adw-window-title.c:130
-msgid "The title to display"
-msgstr "O título para a ser exibido"
+#~ msgid "Model"
+#~ msgstr "Modelo"
 
-#: src/adw-view-switcher-title.c:271 src/adw-window-title.c:146
-msgid "The subtitle to display"
-msgstr "Subtítulo a ser exibido"
+#~ msgid "Model for the displayed items"
+#~ msgstr "Modelo para os itens exibidos"
 
-#: src/adw-view-switcher-title.c:284
-msgid "View switcher enabled"
-msgstr "Alternador de visão habilitado"
+#~ msgid "Selected"
+#~ msgstr "Selecionado"
 
-#: src/adw-view-switcher-title.c:285
-msgid "Whether the view switcher is enabled"
-msgstr "Se o alternador de visão está habilitado"
+#~ msgid "Position of the selected item"
+#~ msgstr "Posição dos itens selecionados"
 
-#: src/adw-view-switcher-title.c:298
-msgid "Title visible"
-msgstr "Título visível"
+#~ msgid "Selected Item"
+#~ msgstr "Item selecionado"
 
-#: src/adw-view-switcher-title.c:299
-msgid "Whether the title label is visible"
-msgstr "Se o rótulo do título está visível"
+#~ msgid "The selected item"
+#~ msgstr "O item selecionado"
+
+#~ msgid "Factory"
+#~ msgstr "Fábrica"
+
+#~ msgid "Factory for populating list items"
+#~ msgstr "Fábrica para popular lista de itens"
+
+#~ msgid "List Factory"
+#~ msgstr "Listar fábrica"
+
+#~ msgid "Expression"
+#~ msgstr "Expressão"
+
+#~ msgid "Expression to determine strings to search for"
+#~ msgstr "Expressão para determinar strings a serem procuradas"
+
+#~ msgid "Use subtitle"
+#~ msgstr "Usar subtítulo"
+
+#~ msgid "Set the current value as the subtitle"
+#~ msgstr "Define o valor atual como o subtítulo"
+
+#~ msgid "Enum type"
+#~ msgstr "Tipo enum"
+
+#~ msgid "The type of the enum to construct the model from"
+#~ msgstr "O tipo de enum para construir o modelo"
+
+#~ msgid "Value"
+#~ msgstr "Valor"
+
+#~ msgid "The enum object value"
+#~ msgstr "Valor do objeto do enum"
+
+#~ msgid "Name"
+#~ msgstr "Nome"
+
+#~ msgid "The enum object name"
+#~ msgstr "Nome do objeto do enum"
+
+#~ msgid "Nick"
+#~ msgstr "Apelido"
+
+#~ msgid "The enum object nick"
+#~ msgstr "Apelido do objeto do enum"
+
+#~ msgid "The subtitle for this row"
+#~ msgstr "O subtítulo para esta linha"
+
+#~ msgid "Expanded"
+#~ msgstr "Expandido"
+
+#~ msgid "Whether the row is expanded"
+#~ msgstr "Se a linha é expandida"
+
+#~ msgid "Enable expansion"
+#~ msgstr "Habilitar expansão"
+
+#~ msgid "Whether the expansion is enabled"
+#~ msgstr "Se a expansão está habilitada"
+
+#~ msgid "Show enable switch"
+#~ msgstr "Mostrar alternador de habilitação"
+
+#~ msgid "Whether the switch enabling the expansion is visible"
+#~ msgstr "Se o alternador que habilita a expansão é visível"
+
+#~ msgid "Content"
+#~ msgstr "Conteúdo"
+
+#~ msgid "The content Widget"
+#~ msgstr "O widget de conteúdo"
+
+#~ msgid "Flap"
+#~ msgstr "Aba"
+
+#~ msgid "The flap widget"
+#~ msgstr "O widget da aba"
+
+#~ msgid "Separator"
+#~ msgstr "Separador"
+
+#~ msgid "The separator widget"
+#~ msgstr "O widget do separador"
+
+#~ msgid "Flap Position"
+#~ msgstr "Posição da aba"
+
+#~ msgid "The flap position"
+#~ msgstr "A posição da aba"
+
+#~ msgid "Reveal Flap"
+#~ msgstr "Revelar aba"
+
+#~ msgid "Whether the flap is revealed"
+#~ msgstr "Se a aba é revelada"
+
+#~ msgid "Reveal Duration"
+#~ msgstr "Revelar duração"
+
+#~ msgid "The reveal transition animation duration, in milliseconds"
+#~ msgstr "A duração da animação da transição de revelação, em milissegundos"
+
+#~ msgid "Reveal Progress"
+#~ msgstr "Revelar progresso"
+
+#~ msgid "The current reveal transition progress"
+#~ msgstr "O progresso atual da transição de revelação"
+
+#~ msgid "Fold Policy"
+#~ msgstr "Política de dobra"
+
+#~ msgid "The current fold policy"
+#~ msgstr "A política atual de dobra"
+
+#~ msgid "Fold Duration"
+#~ msgstr "Duração da dobra"
+
+#~ msgid "The fold transition animation duration, in milliseconds"
+#~ msgstr "A duração da animação da transição de dobra, em milissegundos"
+
+#~ msgid "Folded"
+#~ msgstr "Dobrado"
+
+#~ msgid "Whether the flap is currently folded"
+#~ msgstr "Se a aba está atualmente dobrada"
+
+#~ msgid "Locked"
+#~ msgstr "Bloqueado"
+
+#~ msgid "Whether the flap is locked"
+#~ msgstr "Se a aba está bloqueada"
+
+#~ msgid "Transition Type"
+#~ msgstr "Tipo de transição"
+
+#~ msgid "The type of animation used for reveal and fold transitions"
+#~ msgstr "O tipo de animação usada para revelar e dobrar transições"
+
+#~ msgid "Modal"
+#~ msgstr "Modal"
+
+#~ msgid "Whether the flap is modal"
+#~ msgstr "Se a aba é modal"
+
+#~ msgid "Swipe to Open"
+#~ msgstr "Deslize para abrir"
+
+#~ msgid "Whether the flap can be opened with a swipe gesture"
+#~ msgstr "Se a aba pode ser aberta com um gesto de deslize"
+
+#~ msgid "Swipe to Close"
+#~ msgstr "Deslize para fechar"
+
+#~ msgid "Whether the flap can be closed with a swipe gesture"
+#~ msgstr "Se a aba pode ser fechada com um gesto de deslize"
+
+#~ msgid "Title Widget"
+#~ msgstr "Widget de título"
+
+#~ msgid "Title widget to display"
+#~ msgstr "Componente de título a ser exibido"
+
+#~ msgid "Show start title buttons"
+#~ msgstr "Mostrar botões iniciais de título"
+
+#~ msgid "Whether to show start title buttons"
+#~ msgstr "Se deve mostrar botões iniciais de títulos"
+
+#~ msgid "Show end title buttons"
+#~ msgstr "Mostrar botões finais de título"
+
+#~ msgid "Whether to show end title buttons"
+#~ msgstr "Se deve mostrar botões finais de títulos"
+
+#~ msgid "Decoration Layout"
+#~ msgstr "Disposição de decoração"
+
+#~ msgid "The layout for window decorations"
+#~ msgstr "A disposição de decorações da janela"
+
+#~ msgid "Centering policy"
+#~ msgstr "Política de centralização"
+
+#~ msgid "The policy to horizontally align the center widget"
+#~ msgstr "A política para alinhar horizontalmente o widget central"
+
+#~ msgid "The child of the page"
+#~ msgstr "O filho da página"
+
+#~ msgid "The name of the child page"
+#~ msgstr "O nome da página filha"
+
+#~ msgid "Navigatable"
+#~ msgstr "Navegável"
+
+#~ msgid "Whether the child can be navigated to"
+#~ msgstr "Se o filho pode ser navegado"
+
+#~ msgid "Whether the widget is folded"
+#~ msgstr "Se o widget está dobrado"
+
+#~ msgid "Horizontally homogeneous folded"
+#~ msgstr "Dobrado horizontalmente homogêneo"
+
+#~ msgid "Horizontally homogeneous sizing when the leaflet is folded"
+#~ msgstr ""
+#~ "Dimensionamento horizontalmente homogêneo quando o folheto está dobrado"
+
+#~ msgid "Vertically homogeneous folded"
+#~ msgstr "Dobrado verticalmente homogêneo"
+
+#~ msgid "Vertically homogeneous sizing when the leaflet is folded"
+#~ msgstr ""
+#~ "Dimensionamento verticalmente homogêneo quando o folheto está dobrado"
+
+#~ msgid "Box horizontally homogeneous"
+#~ msgstr "Caixa horizontalmente homogênea"
+
+#~ msgid "Horizontally homogeneous sizing when the leaflet is unfolded"
+#~ msgstr ""
+#~ "Dimensionamento horizontalmente homogêneo quando o folheto está desdobrado"
+
+#~ msgid "Box vertically homogeneous"
+#~ msgstr "Caixa verticalmente homogênea"
+
+#~ msgid "Vertically homogeneous sizing when the leaflet is unfolded"
+#~ msgstr ""
+#~ "Dimensionamento verticalmente homogêneo quando o folheto está desdobrado"
+
+#~ msgid "Visible child"
+#~ msgstr "Filho visível"
+
+#~ msgid "The widget currently visible when the leaflet is folded"
+#~ msgstr "O widget atualmente visível quando o folheto está dobrado"
+
+#~ msgid "Name of visible child"
+#~ msgstr "Nome do filho visível"
+
+#~ msgid ""
+#~ "The name of the widget currently visible when the children are stacked"
+#~ msgstr ""
+#~ "O nome do widget atualmente visível quando os filhos estão empilhados"
+
+#~ msgid "Transition type"
+#~ msgstr "Tipo de transição"
+
+#~ msgid "The type of animation used to transition between modes and children"
+#~ msgstr "O tipo da animação usada para transicionar entre modos e filhos"
+
+#~ msgid "Mode transition duration"
+#~ msgstr "Duração da transição de modo"
+
+#~ msgid "The mode transition animation duration, in milliseconds"
+#~ msgstr "A duração da animação da transição de modo, em milissegundos"
+
+#~ msgid "Child transition duration"
+#~ msgstr "Duração da transição de filho"
+
+#~ msgid "The child transition animation duration, in milliseconds"
+#~ msgstr "A duração da animação de transição de filho, em milissegundos"
+
+#~ msgid "Child transition running"
+#~ msgstr "Execução da transição de filho"
+
+#~ msgid "Whether or not the child transition is currently running"
+#~ msgstr "Se a transição de filho está ou não atualmente em execução"
+
+#~ msgid "Interpolate size"
+#~ msgstr "Tamanho da interpolação"
+
+#~ msgid ""
+#~ "Whether or not the size should smoothly change when changing between "
+#~ "differently sized children"
+#~ msgstr ""
+#~ "Se o tamanho deve ou não ser suavemente alterado ao alterar entre filhos "
+#~ "de tamanhos diferentes"
+
+#~ msgid "Can swipe back"
+#~ msgstr "Pode deslizar para trás"
+
+#~ msgid ""
+#~ "Whether or not swipe gesture can be used to switch to the previous child"
+#~ msgstr ""
+#~ "Se o gesto de deslize pode ou não ser usado para alternar para o filho "
+#~ "anterior"
+
+#~ msgid "Can swipe forward"
+#~ msgstr "Pode deslizar para frente"
+
+#~ msgid "Whether or not swipe gesture can be used to switch to the next child"
+#~ msgstr ""
+#~ "Se o gesto de deslize pode ou não ser usado para alternar para o próximo "
+#~ "filho"
+
+#~ msgid "Can unfold"
+#~ msgstr "Pode desdobrar"
+
+#~ msgid "Whether or not the leaflet can unfold"
+#~ msgstr "Se o folheto pode desdobrar ou não"
+
+#~ msgid "Pages"
+#~ msgstr "Páginas"
+
+#~ msgid "A selection model with the leaflet's pages"
+#~ msgstr "Um modelo de seleção com as páginas do folheto"
+
+#~ msgid "Description"
+#~ msgstr "Descrição"
+
+#~ msgid "Title"
+#~ msgstr "Título"
+
+#~ msgid ""
+#~ "Whether an embedded underline in the text of the title label indicates a "
+#~ "mnemonic"
+#~ msgstr ""
+#~ "Se um sublinhado incorporado no texto do rótulo do título indica um "
+#~ "mnemônico"
+
+#~ msgid "The title of the preference"
+#~ msgstr "O título da preferência"
+
+#~ msgid "Search enabled"
+#~ msgstr "Pesquisa habilitada"
+
+#~ msgid "Whether search is enabled"
+#~ msgstr "Se a pesquisa está habilitada"
+
+#~ msgid ""
+#~ "Whether or not swipe gesture can be used to switch from a subpage to the "
+#~ "preferences"
+#~ msgstr ""
+#~ "Se o gesto de deslize pode ou não ser usado para alternar de uma "
+#~ "subpágina para as preferências"
+
+#~ msgid "Widget"
+#~ msgstr "Widget"
+
+#~ msgid "The widget the shadow will be drawn for"
+#~ msgstr "O widget para a qual a sombra será desenhada"
+
+#~ msgid "Enabled"
+#~ msgstr "Habilitado"
+
+#~ msgid ""
+#~ "Whether the child can be picked or should be ignored when looking for the "
+#~ "child fitting the available size best"
+#~ msgstr ""
+#~ "Se o filho pode ser escolhido ou deve ser ignorado ao procurar pelo filho "
+#~ "que caiba no melhor tamanho disponível"
+
+#~ msgid "Homogeneous"
+#~ msgstr "Homogêneo"
+
+#~ msgid "Homogeneous sizing"
+#~ msgstr "Dimensionamento homogêneo"
+
+#~ msgid "The widget currently visible in the squeezer"
+#~ msgstr "O widget atualmente visível na prensa"
+
+#~ msgid "Transition duration"
+#~ msgstr "Duração de transição"
+
+#~ msgid "The animation duration, in milliseconds"
+#~ msgstr "A duração da animação, em milissegundos"
+
+#~ msgid "The type of animation used to transition"
+#~ msgstr "O tipo de animação usada para a transição"
+
+#~ msgid "Transition running"
+#~ msgstr "Execução de transição"
+
+#~ msgid "Whether or not the transition is currently running"
+#~ msgstr "Se a transição está atualmente em execução"
+
+#~ msgid "X align"
+#~ msgstr "Alinh. X"
+
+#~ msgid "The horizontal alignment, from 0 (start) to 1 (end)"
+#~ msgstr "O alinhamento horizontal, de 0 (início) até 1 (fim)"
+
+#~ msgid "Y align"
+#~ msgstr "Alinh. Y"
+
+#~ msgid "The vertical alignment, from 0 (top) to 1 (bottom)"
+#~ msgstr "O alinhamento vertical, de 0 (topo) até 1 (base)"
+
+#~ msgid "A selection model with the squeezer's pages"
+#~ msgstr "Um modelo de seleção com as páginas da prensa"
+
+#~ msgid "The name of the icon to be used"
+#~ msgstr "O nome do ícone a ser usado"
+
+#~ msgid "The title to be displayed below the icon"
+#~ msgstr "O título para ser exibido abaixo do ícone"
+
+#~ msgid "The description to be displayed below the title"
+#~ msgstr "A descrição a ser exibida abaixo do título"
+
+#~ msgid "Swipeable"
+#~ msgstr "Deslizável"
+
+#~ msgid "The swipeable the swipe tracker is attached to"
+#~ msgstr "O deslizável ao qual o rastreador de deslize está anexado"
+
+#~ msgid "Whether the swipe tracker processes events"
+#~ msgstr "Se o rastreador de deslize processa eventos"
+
+#~ msgid "Reversed"
+#~ msgstr "Invertida"
+
+#~ msgid "Whether swipe direction is reversed"
+#~ msgstr "Se a direção de deslize é revertida"
+
+#~ msgid "Whether to allow swiping for more than one snap point at a time"
+#~ msgstr ""
+#~ "Se deve permitir deslizar por mais de um ponto de alinhamento de cada vez"
+
+#~ msgctxt "AdwValueObjectClass"
+#~ msgid "Value"
+#~ msgstr "Valor"
+
+#~ msgctxt "AdwValueObjectClass"
+#~ msgid "The contained value"
+#~ msgstr "O valor contido"
+
+#~ msgid "Policy"
+#~ msgstr "Política"
+
+#~ msgid "The policy to determine the mode to use"
+#~ msgstr "A política para determinar o modo para usar"
+
+#~ msgid "Stack"
+#~ msgstr "Pilha"
+
+#~ msgid "Reveal"
+#~ msgstr "Revelar"
+
+#~ msgid "Whether the view switcher is revealed"
+#~ msgstr "Se o alternador de visão é revelado"
+
+#~ msgid "Icon Name"
+#~ msgstr "Nome do ícone"
+
+#~ msgid "Icon name for image"
+#~ msgstr "Nome do ícone para a imagem"
+
+#~ msgid "Needs attention"
+#~ msgstr "Precisa de atenção"
+
+#~ msgid "Hint the view needs attention"
+#~ msgstr "Sugere que a visão precisa de atenção"
+
+#~ msgid "Narrow ellipsize"
+#~ msgstr "Reticência estreita"
+
+#~ msgid ""
+#~ "The preferred place to ellipsize the string, if the narrow mode label "
+#~ "does not have enough room to display the entire string"
+#~ msgstr ""
+#~ "O lugar preferido para colocar reticências na string, se o rótulo do modo "
+#~ "estreito não tiver espaço suficiente para exibir a string inteira"
+
+#~ msgid "The title to display"
+#~ msgstr "O título para a ser exibido"
+
+#~ msgid "The subtitle to display"
+#~ msgstr "Subtítulo a ser exibido"
+
+#~ msgid "View switcher enabled"
+#~ msgstr "Alternador de visão habilitado"
+
+#~ msgid "Whether the view switcher is enabled"
+#~ msgstr "Se o alternador de visão está habilitado"
+
+#~ msgid "Title visible"
+#~ msgstr "Título visível"
+
+#~ msgid "Whether the title label is visible"
+#~ msgstr "Se o rótulo do título está visível"
