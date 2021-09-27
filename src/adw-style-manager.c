@@ -83,8 +83,7 @@ warn_prefer_dark_theme (void)
 {
   g_warning ("Using GtkSettings:gtk-application-prefer-dark-theme with "
              "libadwaita is unsupported. Please use "
-             "AdwStyleManager:color-scheme or AdwApplication:color-scheme "
-             "instead.");
+             "AdwStyleManager:color-scheme instead.");
 }
 
 static void
