@@ -81,10 +81,14 @@ replacement and you can instead create your own objects to store those values.
 
 If your application is setting [property@Gtk.Settings:gtk-application-prefer-dark-theme]
 to `TRUE` to request dark appearance, consider setting `HdyStyleManager:color-scheme`
-to `HDY_COLOR_SCHEME_DARK_FORCE_LIGHT` or `HDY_COLOR_SCHEME_FORCE_DARK` instead,
-as needed.
+to `HDY_COLOR_SCHEME_PREFER_DARK` and making sure the application can work with
+light appearance as well. If that's not possible, set it to 
+`HDY_COLOR_SCHEME_FORCE_DARK` instead.
 
-In libadwaita this will be the only way to request dark appearance.
+If your application is using light appearance, consider setting the color scheme
+to `HDY_COLOR_SCHEME_PREFER_LIGHT` and support dark appearance.
+
+In libadwaita color schemes will be the only way to request dark appearance.
 
 ## Changes that Need to Be Done at the Time of the Switch
 
@@ -272,17 +276,17 @@ The `auto` view switcher policy has been removed. [class@Adw.ViewSwitcher] only
 has narrow and wide policies; if you had used the `auto` policy, use an
 [class@Adw.Squeezer] with two view switchers inside.
 
-### Adapt to [class@Adw.ViewSwitcher] API Changes
+#### Adapt to [class@Adw.ViewSwitcher] API Changes
 
 The "narrow-ellipsize" property has been removed. Narrow view switchers always
 ellipsize their labels, wide switchers never do.
 
-### Adapt to [class@Adw.ViewSwitcherBar] API Changes
+#### Adapt to [class@Adw.ViewSwitcherBar] API Changes
 
 The "policy" property has been removed. If you had used it, use a plain
 [class@Adw.ViewSwitcher] in a [class@Gtk.ActionBar] instead.
 
-### Adapt to [class@Adw.ViewSwitcherTitle] API Changes
+#### Adapt to [class@Adw.ViewSwitcherTitle] API Changes
 
 The "policy" property has been removed, the behavior is similar to the removed
 `auto` policy. If you had used `wide` or `narrow` policies, use an
@@ -297,7 +301,7 @@ and setter. It can be replaced by [property@Adw.Avatar:custom-image].
 The `hdy_avatar_draw_to_pixbuf()` and `hdy_avatar_draw_to_pixbuf_async()`
 functions have been removed, use the newly added
 [method@Adw.Avatar.draw_to_texture] instead. [class@Gdk.Texture] implements
-`[iface@Gio.Icon], so it should just work for that case.
+[iface@Gio.Icon], so it should just work for that case.
 
 [method@Adw.Avatar.draw_to_texture] does not have the `size` parameter. Instead,
 it uses the avatar's current size, with no replacement.
@@ -310,7 +314,7 @@ equivalent to `ADW_COLOR_SCHEME_PREFER_LIGHT` instead of
 default. Make sure your application works with it, or otherwise set the
 `ADW_COLOR_SCHEME_FORCE_LIGHT` color scheme manually.
 
-## Adapt to Stylesheet Changes
+### Adapt to Stylesheet Changes
 
 Most widgets don't have a backdrop state anymore, and the following public
 colors have been removed:
@@ -334,7 +338,7 @@ If you were using `@theme_selected_bg_color` as a text color, use
 `@accent_color` instead to make sure the text is readable. You can also use the
 `.accent` style class to apply the correct color.
 
-### Adapt to Header Bar, Action Bar and Toolbar Style Changes
+#### Adapt to Header Bar, Action Bar and Toolbar Style Changes
 
 When possible, buttons in [class@Gtk.HeaderBar] and [class@Gtk.ActionBar] will
 use flat appearance by default.
@@ -357,8 +361,6 @@ The following buttons keep default appearance:
 * Buttons with the `.suggested-action` or `.destructive-action` style classes.
 * Buttons with the `.raised` style class.
 
-The following adjustments can be done to ensure consistent button appearance.
-
 It's important to avoid ambiguous layouts, for example text-only buttons with
 no icon, since such a button would be indistinguishable from the window title
 without hovering it.
@@ -369,13 +371,13 @@ style.
 The same rules are also used for the `.toolbar` style class now, instead of
 making every button appear flat.
 
-### Adjusting Icon+Arrow Menu Buttons
+#### Adjusting Icon+Arrow Menu Buttons
 
 If you had menu buttons containing an icon and a dropdown arrow, switch to
 [property@Gtk.MenuButton:icon-name] and set the
 [property@Gtk.MenuButton:always-show-arrow] property to `TRUE`.
 
-### Adjusting Text-only Buttons
+#### Adjusting Text-only Buttons
 
 If you had text-only buttons, consider using [class@Adw.ButtonContent]. For
 example, the following button:
@@ -404,7 +406,7 @@ can be changed into:
 One exception are the two primary buttons in a dialog, for example, "Cancel" and
 "Open". Those buttons should retain their default appearance.
 
-### Adjusting Split Buttons
+#### Adjusting Split Buttons
 
 If you had split buttons implemented via a `GtkBox` with the `.linked` style
 class and two buttons packed inside, use `AdwSplitButton` as follows:
@@ -416,7 +418,7 @@ class and two buttons packed inside, use `AdwSplitButton` as follows:
 </object>
 ```
 
-### Adjusting Linked Buttons
+#### Adjusting Linked Buttons
 
 For other linked together buttons, simply stop linking them.
 
@@ -431,7 +433,7 @@ insert extra spacing as follows:
 </object>
 ```
 
-### Custom adjustments
+#### Custom adjustments
 
 The `.flat` and `.raised` style classes can always be used to override the
 default appearance.
