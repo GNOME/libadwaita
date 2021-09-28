@@ -118,6 +118,13 @@ read_portal_setting (AdwSettings  *self,
       return FALSE;
     }
 
+    if (error->domain == G_DBUS_ERROR &&
+        error->code == G_DBUS_ERROR_UNKNOWN_METHOD) {
+      g_debug ("Portal doesn't provide settings: %s", error->message);
+
+      return FALSE;
+    }
+
     if (g_dbus_error_is_remote_error (error)) {
       g_autofree char *remote_error = g_dbus_error_get_remote_error (error);
 
