@@ -13,10 +13,9 @@ if get_option('inspector')
     'adw-inspector-page.c',
   ]
 
-  shared_library(
+  shared_module(
     'adwaita-inspector-module' + apiversion,
     libadwaita_inspector_sources,
-              soversion: soversion,
            dependencies: libadwaita_dep,
                 install: true,
             install_dir: module_libdir,
