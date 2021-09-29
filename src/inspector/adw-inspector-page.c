@@ -186,11 +186,11 @@ adw_inspector_page_init (AdwInspectorPage *self)
 
   adw_settings_start_override (self->settings);
 
-  supports = adw_settings_get_system_supports_color_schemes (self->settings);
-  gtk_switch_set_active (self->support_color_schemes_switch, supports);
-
   color_scheme = adw_settings_get_color_scheme (self->settings);
   adw_combo_row_set_selected (self->color_scheme_row, color_scheme);
+
+  supports = adw_settings_get_system_supports_color_schemes (self->settings);
+  gtk_switch_set_active (self->support_color_schemes_switch, supports);
 
   hc = adw_settings_get_high_contrast (self->settings);
   gtk_switch_set_active (self->high_contrast_switch, hc);
