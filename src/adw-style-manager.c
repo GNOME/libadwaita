@@ -248,7 +248,7 @@ adw_style_manager_constructed (GObject *object)
 
     if (!g_getenv ("GTK_THEME")) {
       g_object_set (gtk_settings_get_for_display (self->display),
-                    "gtk-theme-name", "Empty",
+                    "gtk-theme-name", "Adwaita-empty",
                     NULL);
 
       self->provider = gtk_css_provider_new ();
