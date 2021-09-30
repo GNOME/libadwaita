@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-04-02 10:30+0000\n"
-"PO-Revision-Date: 2021-04-30 19:22+0300\n"
+"POT-Creation-Date: 2021-09-27 14:23+0000\n"
+"PO-Revision-Date: 2021-09-30 19:43+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 
-#: src/adw-preferences-window.c:202
+#: src/adw-preferences-window.c:210
 msgid "Untitled page"
 msgstr "Nimetön sivu"
 
@@ -26,17 +26,51 @@ msgstr "Nimetön sivu"
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: src/adw-preferences-window.ui:65
+#: src/adw-preferences-window.ui:68
 msgid "Search"
 msgstr "Etsi"
 
-#: src/adw-preferences-window.ui:144
+#: src/adw-preferences-window.ui:146
 msgid "No Results Found"
 msgstr "Tuloksia ei löytynyt"
 
-#: src/adw-preferences-window.ui:145
+#: src/adw-preferences-window.ui:147
 msgid "Try a different search."
 msgstr "Kokeile eri hakuehtoja."
+
+#: src/inspector/adw-inspector-page.c:75
+msgid "No Preference"
+msgstr "Ei suosimista"
+
+#: src/inspector/adw-inspector-page.c:77
+msgid "Prefer Dark"
+msgstr "Suosi tummaa"
+
+#: src/inspector/adw-inspector-page.c:79
+msgid "Prefer Light"
+msgstr "Suosi vaaleaa"
+
+#: src/inspector/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Järjestelmän ulkoasu"
+
+#: src/inspector/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+
+#: src/inspector/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Järjestelmä tukee väriteemoja"
+
+#: src/inspector/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Suosittu väriteema"
+
+#: src/inspector/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Suuri kontrasti"
 
 #~ msgid "Insert placeholder to %s"
 #~ msgstr "Lisää paikkavaraus %s:lle"
@@ -47,11 +81,16 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgid "This property does not apply when a custom title is set"
 #~ msgstr "Tämä ominaisuus ei ole käytössä, kun itse valittu nimi on asetettu"
 
-#~ msgid "The decoration layout does not apply to header bars which do no show window controls"
-#~ msgstr "Koristeluasettelu ei päde otsikkopalkkeihin, jotka eivät näytä ikkunanhallinnan nappeja"
+#~ msgid ""
+#~ "The decoration layout does not apply to header bars which do no show "
+#~ "window controls"
+#~ msgstr ""
+#~ "Koristeluasettelu ei päde otsikkopalkkeihin, jotka eivät näytä "
+#~ "ikkunanhallinnan nappeja"
 
 #~ msgid "This property only applies when the leaflet is folded"
-#~ msgstr "Tämä ominaisuus on käytössä vain, kun sivulehdykkä on kokoon taitettuna"
+#~ msgstr ""
+#~ "Tämä ominaisuus on käytössä vain, kun sivulehdykkä on kokoon taitettuna"
 
 #~ msgid "Add group to %s"
 #~ msgstr "Lisää ryhmä %s:ään"
@@ -63,7 +102,9 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgstr "Etsintärivi on jo täynnä"
 
 #~ msgid "Only objects of type %s can be added to objects of type %s."
-#~ msgstr "Vain %s tyypin objekteja voidaan lisätä objekteihin, jotka ovat tyyppiä %s."
+#~ msgstr ""
+#~ "Vain %s tyypin objekteja voidaan lisätä objekteihin, jotka ovat tyyppiä "
+#~ "%s."
 
 #~ msgid "Icon name"
 #~ msgstr "Kuvakkeen nimi"
@@ -82,8 +123,12 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgstr "Käytä alleviivausta"
 
 #, fuzzy
-#~ msgid "If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key"
-#~ msgstr "Mikäli asetettu, alleviivaus tekstissä tarkoittaa että, seuraavaa merkkiä tulisi käyttää muistisäännön kiihdytyksen avaimena"
+#~ msgid ""
+#~ "If set, an underline in the text indicates the next character should be "
+#~ "used for the mnemonic accelerator key"
+#~ msgstr ""
+#~ "Mikäli asetettu, alleviivaus tekstissä tarkoittaa että, seuraavaa merkkiä "
+#~ "tulisi käyttää muistisäännön kiihdytyksen avaimena"
 
 #~ msgid "Number of pages"
 #~ msgstr "Sivujen määrä"
@@ -200,13 +245,17 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgid "Interpolate size"
 #~ msgstr "Päättele koko"
 
-#~ msgid "Whether or not the size should smoothly change when changing between differently sized children"
-#~ msgstr "Tulisiko koon vaihtua sulavasti vaihdettaessa erikokoisten lasten välillä"
+#~ msgid ""
+#~ "Whether or not the size should smoothly change when changing between "
+#~ "differently sized children"
+#~ msgstr ""
+#~ "Tulisiko koon vaihtua sulavasti vaihdettaessa erikokoisten lasten välillä"
 
 #~ msgid "Can swipe back"
 #~ msgstr "Voi hipaista takaisin"
 
-#~ msgid "Whether or not swipe gesture can be used to switch to the previous child"
+#~ msgid ""
+#~ "Whether or not swipe gesture can be used to switch to the previous child"
 #~ msgstr "Voidaanko hipaisua käyttää vaihtamaan edelliseen lapsiobjektiin"
 
 #~ msgid "Can swipe forward"
@@ -265,8 +314,12 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgstr "Pakkauksen tyyppi"
 
 # Sisältö ei ihan aukea
-#~ msgid "A GtkPackType indicating whether the child is packed with reference to the start or end of the parent"
-#~ msgstr "GtkPackType, joka kertoo mikäli lapsiobjektilla on yhteystieto emoprosessin alkuun tai loppuun"
+#~ msgid ""
+#~ "A GtkPackType indicating whether the child is packed with reference to "
+#~ "the start or end of the parent"
+#~ msgstr ""
+#~ "GtkPackType, joka kertoo mikäli lapsiobjektilla on yhteystieto "
+#~ "emoprosessin alkuun tai loppuun"
 
 #~ msgid "The index of the child in the parent"
 #~ msgstr "Lapsiobjektin indeksitunnus isännässä"
@@ -328,7 +381,8 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgid "Decorate all"
 #~ msgstr "Korista kaikki"
 
-#~ msgid "Whether the elements of the group should all receive the full decoration"
+#~ msgid ""
+#~ "Whether the elements of the group should all receive the full decoration"
 #~ msgstr "Kuuluuko joukon kaikkien elementtien saada täysi koristelu"
 
 # Merkki vai numero?
@@ -341,8 +395,10 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgid "Symbols"
 #~ msgstr "Symbolit"
 
-#~ msgid "The keypad symbols of the button. The first symbol is used as the digit"
-#~ msgstr "Näppäimistön painikkeen symbolit. Ensimmäistä symbolia käytetään merkkinä"
+#~ msgid ""
+#~ "The keypad symbols of the button. The first symbol is used as the digit"
+#~ msgstr ""
+#~ "Näppäimistön painikkeen symbolit. Ensimmäistä symbolia käytetään merkkinä"
 
 #~ msgid "Show symbols"
 #~ msgstr "Näytä symbolit"
@@ -425,10 +481,13 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgstr "Pystysuuntaan yhtenevät koot, kun sivulehdykkä on avattuna esiin"
 
 #~ msgid "The widget currently visible when the leaflet is folded"
-#~ msgstr "Nyt näkyvissä oleva pienohjelma, kun sivulehdykkä on kokoon taitettuna"
+#~ msgstr ""
+#~ "Nyt näkyvissä oleva pienohjelma, kun sivulehdykkä on kokoon taitettuna"
 
-#~ msgid "The name of the widget currently visible when the children are stacked"
-#~ msgstr "Nyt näkyvissä olevan pienohjelman nimi, kun lapsiobjektit on kasattu"
+#~ msgid ""
+#~ "The name of the widget currently visible when the children are stacked"
+#~ msgstr ""
+#~ "Nyt näkyvissä olevan pienohjelman nimi, kun lapsiobjektit on kasattu"
 
 #~ msgid "The type of animation used to transition between modes and children"
 #~ msgstr "Animaation tyyppi siirryttäessä tilojen ja lapsiobjektien välillä"
@@ -470,7 +529,9 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgid "Whether search is enabled"
 #~ msgstr "Onko haku sallittu"
 
-#~ msgid "Whether or not swipe gesture can be used to switch from a subpage to the preferences"
+#~ msgid ""
+#~ "Whether or not swipe gesture can be used to switch from a subpage to the "
+#~ "preferences"
 #~ msgstr "Voidaanko hipaisua käyttää vaihtamaan alisivulta asetuksiin"
 
 #~ msgid "Search Mode Enabled"
@@ -513,13 +574,18 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgstr "Y tasaus"
 
 #~ msgid "The vertical alignment, from 0 (top) to 1 (bottom)"
-#~ msgstr "Pystysuuntainen sijoittuminen, alkaen 0:sta (ylin) loppuen 1:een (alin)"
+#~ msgstr ""
+#~ "Pystysuuntainen sijoittuminen, alkaen 0:sta (ylin) loppuen 1:een (alin)"
 
 #~ msgid "Enabled"
 #~ msgstr "Sallittu"
 
-#~ msgid "Whether the child can be picked or should be ignored when looking for the child fitting the available size best"
-#~ msgstr "Voiko lapsiobjektin valita vai pitäisikö se sivuuttaa, kun etsitään saatavilla olevaan kokoon sopivaa lapsiobjektia"
+#~ msgid ""
+#~ "Whether the child can be picked or should be ignored when looking for the "
+#~ "child fitting the available size best"
+#~ msgstr ""
+#~ "Voiko lapsiobjektin valita vai pitäisikö se sivuuttaa, kun etsitään "
+#~ "saatavilla olevaan kokoon sopivaa lapsiobjektia"
 
 #~ msgid "Horizontally homogeneous sizing when the widget is folded"
 #~ msgstr "Vaakatasossa yhtenevät koot, kun pienohjelma on kokoontaitettuna"
@@ -534,7 +600,8 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgstr "Pystysuuntaan yhtenevät koot, kun pienohjelma on avattuna esiin"
 
 #~ msgid "The widget currently visible when the widget is folded"
-#~ msgstr "Nyt näkyvissä oleva pienohjelma, kun pienohjelma on kokoon taitettuna"
+#~ msgstr ""
+#~ "Nyt näkyvissä oleva pienohjelma, kun pienohjelma on kokoon taitettuna"
 
 #~ msgid "Orientation"
 #~ msgstr "Suunta"
@@ -604,8 +671,12 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgid "Narrow ellipsize"
 #~ msgstr "Merkkijonon lyhennys pisteillä"
 
-#~ msgid "The preferred place to ellipsize the string, if the narrow mode label does not have enough room to display the entire string"
-#~ msgstr "Haluttu kohta, jossa merkkijonoa kavennetaan pisteillä, mikäli kapean tilan otsakkeella ei ole tarpeeksi tilaa esittää koko merkkijonoa"
+#~ msgid ""
+#~ "The preferred place to ellipsize the string, if the narrow mode label "
+#~ "does not have enough room to display the entire string"
+#~ msgstr ""
+#~ "Haluttu kohta, jossa merkkijonoa kavennetaan pisteillä, mikäli kapean "
+#~ "tilan otsakkeella ei ole tarpeeksi tilaa esittää koko merkkijonoa"
 
 #~ msgid "View switcher enabled"
 #~ msgstr "Näkymänyhdistäjä käytössä"
