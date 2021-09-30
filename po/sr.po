@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-09-16 10:29+0000\n"
-"PO-Revision-Date: 2021-09-18 13:54+0200\n"
+"POT-Creation-Date: 2021-09-27 14:23+0000\n"
+"PO-Revision-Date: 2021-09-30 05:11+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
@@ -36,3 +36,40 @@ msgstr "Нисам пронашао резултате"
 #: src/adw-preferences-window.ui:147
 msgid "Try a different search."
 msgstr "Покушајте другачију претрагу."
+
+#: src/inspector/adw-inspector-page.c:75
+#| msgid "Preferences"
+msgid "No Preference"
+msgstr "Нема поставки"
+
+#: src/inspector/adw-inspector-page.c:77
+msgid "Prefer Dark"
+msgstr "Предност тамној"
+
+#: src/inspector/adw-inspector-page.c:79
+msgid "Prefer Light"
+msgstr "Предност светлој"
+
+#: src/inspector/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Изглед система"
+
+#: src/inspector/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Превазиђите подешавања за овај програм. Биће враћена након затварања "
+"инспектора."
+
+#: src/inspector/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Систем подржава шеме боја"
+
+#: src/inspector/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Жељена шема боја"
+
+#: src/inspector/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Велики контраст"
