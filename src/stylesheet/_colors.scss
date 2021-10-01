@@ -23,14 +23,15 @@ $text_color: if($variant == 'light', black, white);
 $bg_color: if($variant == 'light', $light_bg, $dark_bg);
 $fg_color: if($variant == 'light', $light_fg, $dark_fg);
 
-$borders_color: gtkalpha(currentColor, .15);
+$border_opacity: if($contrast == 'high', .5, .15);
+$borders_color: gtkalpha(currentColor, $border_opacity);
 $thin_borders_color: gtkalpha(currentColor, .05);
 $link_color: $accent_color;
 $link_visited_color: gtkmix($accent_color, $text_color, 80%);
 $dark_fill: if($variant == 'light', darken($bg_color, 9%), darken($bg_color, 5%));
 $headerbar_bg_color: darken($bg_color, if($variant == 'dark', 5%, 10%));
 $headerbar_fg_color: $fg_color;
-$headerbar_border_color: $fg_color;
+$headerbar_border_color: gtkalpha($fg_color, $border_opacity);
 $headerbar_backdrop_color: $bg_color;
 
 $popover_bg_color: $base_color;
@@ -73,7 +74,6 @@ $dim_label_opacity: 0.55;
 
   $fg_color: if($variant == 'light', darken($fg_color, 3%), lighten($fg_color, 2%));
   $bg_color: if($variant == 'light', lighten($bg_color, 3%), darken($bg_color, 2%));
-  $borders_color: gtkalpha(currentColor, .5);
   $thin_borders_color: gtkalpha(currentColor, .25);
 
   //focus rings
