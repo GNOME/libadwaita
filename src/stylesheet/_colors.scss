@@ -33,6 +33,9 @@ $headerbar_bg_color: darken($bg_color, if($variant == 'dark', 5%, 10%));
 $headerbar_fg_color: $fg_color;
 $headerbar_border_color: gtkalpha($fg_color, $border_opacity);
 $headerbar_backdrop_color: $bg_color;
+$card_bg_color: $base_color;
+$card_fg_color: $text_color;
+$card_border_color: $borders_color;
 
 $popover_bg_color: $base_color;
 $popover_fg_color: $text_color;
