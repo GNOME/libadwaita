@@ -54,8 +54,6 @@ treeview.view {
   }
 
   &.progressbar { // progress bar in treeviews
-    @if $variant == light { color: $base_color; }
-
     &, &:selected {
       background-color: $accent_bg_color;
       color: $accent_fg_color;
