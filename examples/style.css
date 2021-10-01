@@ -2,7 +2,7 @@ carousel.vertical .carousel-icon {
   -gtk-icon-transform: rotate(90deg);
 }
 
-/* Mimick the status page. */
+/* Mimic the status page. */
 box.avatar-page { margin: 36px 12px; }
 box.avatar-page > box > avatar { margin-bottom: 36px; }
 box.avatar-page > box > label.title { margin-bottom: 12px; }
