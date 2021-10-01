@@ -343,10 +343,10 @@ If you were using `@theme_selected_bg_color` as a text color, use
 The `.sidebar` style class doesn't provide a border by default. Instead, use a
 [class@Gtk.Separator] with the style class `.sidebar` manually.
 
-#### Adapt to Header Bar, Action Bar and Toolbar Style Changes
+#### Adapt to Header Bar, Action Bar, Search Bar and Toolbar Style Changes
 
-When possible, buttons in [class@Gtk.HeaderBar] and [class@Gtk.ActionBar] will
-use flat appearance by default.
+When possible, buttons in [class@Gtk.HeaderBar], [class@Gtk.ActionBar] and
+[class@Gtk.SearchBar] will use flat appearance by default.
 
 The following rules are used when deciding when to make buttons flat or not:
 
