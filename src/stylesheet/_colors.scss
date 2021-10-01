@@ -31,7 +31,9 @@ $dark_fill: if($variant == 'light', darken($bg_color, 9%), darken($bg_color, 5%)
 $headerbar_bg_color: darken($bg_color, if($variant == 'dark', 5%, 10%));
 $headerbar_fg_color: $fg_color;
 $headerbar_border_color: $fg_color;
-$menu_color: $base_color;
+
+$popover_bg_color: $base_color;
+$popover_fg_color: $text_color;
 
 $view_hover_color: gtkalpha(currentColor, .07);
 $view_active_color: gtkalpha(currentColor, .16);
