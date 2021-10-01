@@ -15,8 +15,8 @@ window.dialog.print {
     padding: 0;
 
     paper {
-      background: white;
-      color: $light_fg;
+      background-color: white;
+      color: transparentize(black, .2);
       background-clip: padding-box;
       border: 1px solid $borders_color;
     }
