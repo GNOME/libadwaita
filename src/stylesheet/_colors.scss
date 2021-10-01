@@ -1,11 +1,6 @@
 // When color definition differs for dark and light variant
 // it gets @if ed depending on $variant
 
-$light_fg: #2e3436;
-$dark_fg: #eeeeec;
-$light_bg: $light_2;
-$dark_bg: darken(desaturate($dark_3, 100%), 4%);
-
 $accent_bg_color: gtkcolor(accent_bg_color);
 $accent_fg_color: gtkcolor(accent_fg_color);
 $accent_color: gtkcolor(accent_color);
@@ -18,27 +13,27 @@ $success_color: gtkcolor(success_color);
 $warning_color: gtkcolor(warning_color);
 $error_color: gtkcolor(error_color);
 
-$base_color: if($variant == 'light', $light_1, lighten(desaturate($dark_4, 100%), 2%));
+$base_color: if($variant == 'light', white, #1e1e1e);
 $text_color: if($variant == 'light', black, white);
-$bg_color: if($variant == 'light', $light_bg, $dark_bg);
-$fg_color: if($variant == 'light', $light_fg, $dark_fg);
+$bg_color: if($variant == 'light', #fafafa, #242424);
+$fg_color: if($variant == 'light', transparentize(black, .2), white);
 
 $border_opacity: if($contrast == 'high', .5, .15);
 $borders_color: gtkalpha(currentColor, $border_opacity);
 $thin_borders_color: gtkalpha(currentColor, .05);
 $link_color: $accent_color;
 $link_visited_color: gtkmix($accent_color, $text_color, 80%);
-$dark_fill: darken($bg_color, if($variant == 'dark', 5%, 10%));
+$dark_fill: if($variant == 'light', #ebebeb, #303030);
 $headerbar_bg_color: $dark_fill;
 $headerbar_fg_color: $fg_color;
 $headerbar_border_color: gtkalpha($fg_color, $border_opacity);
 $headerbar_backdrop_color: $bg_color;
-$card_bg_color: $base_color;
-$card_fg_color: $text_color;
-$card_border_color: $borders_color;
+$card_bg_color: if($variant == 'light', #ffffff, transparentize(white, .945));
+$card_fg_color: $fg_color;
+$card_border_color: if($variant == 'light', gtkalpha(currentColor, .18), gtkalpha(currentColor, .18));
 
-$popover_bg_color: $base_color;
-$popover_fg_color: $text_color;
+$popover_bg_color: if($variant == 'light', #ffffff, #383838);
+$popover_fg_color: $fg_color;
 
 $view_hover_color: gtkalpha(currentColor, .07);
 $view_active_color: gtkalpha(currentColor, .16);
@@ -74,10 +69,8 @@ $dim_label_opacity: 0.55;
 
 // High Contrast color overrides
 @if $contrast == 'high' {
-
-  $fg_color: if($variant == 'light', darken($fg_color, 3%), lighten($fg_color, 2%));
-  $bg_color: if($variant == 'light', lighten($bg_color, 3%), darken($bg_color, 2%));
   $thin_borders_color: gtkalpha(currentColor, .25);
+  $card_border_color: $borders_color;
 
   //focus rings
   $focus_border_color: gtkalpha($accent_bg_color, 0.8);
