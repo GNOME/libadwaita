@@ -31,16 +31,15 @@ window.assistant {
   .sidebar {
     padding: $menu-margin;
     background-clip: padding-box;
-    border-top: 1px solid $borders_color;
-  }
 
-  &.csd .sidebar { border-top-style: none; }
+    > label {
+      padding: 6px 12px;
+      border-radius: $menu-margin;
 
-  .sidebar > label { padding: 6px 12px; }
-
-  .sidebar > label.highlight {
-    background-color: $view_selected_color;
-    border-radius: $menu-margin;
+      &.highlight {
+        background-color: $view_selected_color;
+      }
+    }
   }
 }
 
