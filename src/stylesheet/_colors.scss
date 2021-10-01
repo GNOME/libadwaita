@@ -1,5 +1,9 @@
-// When color definition differs for dark and light variant
-// it gets @if ed depending on $variant
+$border_opacity: if($contrast == 'high', .5, .15);
+$thin_border_opacity: if($contrast == 'high', .25, .05);
+$card_border_opacity: if($contrast == 'high', .5, .18);
+$window_outline_opacity: if($contrast == 'high', .3, .1);
+
+// Colors from _defaults.scss
 
 $accent_bg_color: gtkcolor(accent_bg_color);
 $accent_fg_color: gtkcolor(accent_fg_color);
@@ -13,37 +17,37 @@ $success_color: gtkcolor(success_color);
 $warning_color: gtkcolor(warning_color);
 $error_color: gtkcolor(error_color);
 
-$window_bg_color: if($variant == 'light', #fafafa, #242424);
-$window_fg_color: if($variant == 'light', transparentize(black, .2), white);
+$window_bg_color: gtkcolor(window_bg_color);
+$window_fg_color: gtkcolor(window_fg_color);
 
-$view_bg_color: if($variant == 'light', white, #1e1e1e);
-$view_fg_color: if($variant == 'light', black, white);
+$view_bg_color: gtkcolor(view_bg_color);
+$view_fg_color: gtkcolor(view_fg_color);
 
-$border_opacity: if($contrast == 'high', .5, .15);
-$window_outline_opacity: if($contrast == 'high', .3, .1);
+$headerbar_bg_color: gtkcolor(headerbar_bg_color);
+$headerbar_fg_color: gtkcolor(headerbar_fg_color);
+$headerbar_border_color: gtkalpha(gtkcolor(headerbar_border_color), $border_opacity);
+$headerbar_backdrop_color: gtkcolor(headerbar_backdrop_color);
+$headerbar_shade_color: gtkcolor(headerbar_shade_color);
+
+$card_bg_color: gtkcolor(card_bg_color);
+$card_fg_color: gtkcolor(card_fg_color);
+$card_border_color: gtkalpha(gtkcolor(card_border_color), $card_border_opacity);
+
+$popover_bg_color: gtkcolor(popover_bg_color);
+$popover_fg_color: gtkcolor(popover_fg_color);
+
+$shade_color: gtkcolor(shade_color);
+$scrollbar_outline_color: gtkcolor(scrollbar_outline_color);
+$window_outline_color: gtkalpha(gtkcolor(window_outline_color), $window_outline_opacity);
+$window_border_color: gtkcolor(window_border_color);
+$window_border_backdrop_color: gtkcolor(window_border_backdrop_color);
+
+// Other colors
 
 $border_color: gtkalpha(currentColor, $border_opacity);
-$thin_border_color: gtkalpha(currentColor, .05);
+$thin_border_color: gtkalpha(currentColor, $thin_border_opacity);
 $link_color: $accent_color;
 $link_visited_color: gtkmix($accent_color, $view_fg_color, 80%);
-$headerbar_bg_color: if($variant == 'light', #ebebeb, #303030);
-$headerbar_fg_color: $window_fg_color;
-$headerbar_border_color: gtkalpha($window_fg_color, $border_opacity);
-$headerbar_backdrop_color: $window_bg_color;
-$card_bg_color: if($variant == 'light', #ffffff, transparentize(white, .945));
-$card_fg_color: $window_fg_color;
-$card_border_color: if($variant == 'light', gtkalpha(currentColor, .18), gtkalpha(currentColor, .18));
-$scrollbar_outline_color: if($variant == 'light', white, transparentize(black, .5));
-
-$shade_color: if($variant == 'light', transparentize(black, .93), transparentize(black, .64));
-$headerbar_shade_color: $shade_color;
-
-$popover_bg_color: if($variant == 'light', #ffffff, #383838);
-$popover_fg_color: $window_fg_color;
-
-$window_outline_color: gtkalpha(if($variant == 'light', transparent, white), $window_outline_opacity);
-$window_border_color: if($variant == 'light', transparentize(black, 0.77), transparentize(black, 0.25));
-$window_border_backdrop_color: if($variant == 'light', transparentize(black, 0.82), transparentize(black, 0.25));
 
 $view_hover_color: gtkalpha(currentColor, .07);
 $view_active_color: gtkalpha(currentColor, .16);
@@ -78,9 +82,6 @@ $dim_label_opacity: 0.55;
 
 // High Contrast color overrides
 @if $contrast == 'high' {
-  $thin_border_color: gtkalpha(currentColor, .25);
-  $card_border_color: $border_color;
-
   //focus rings
   $focus_border_color: gtkalpha($accent_bg_color, 0.8);
 
