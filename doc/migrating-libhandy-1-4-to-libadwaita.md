@@ -338,6 +338,11 @@ If you were using `@theme_selected_bg_color` as a text color, use
 `@accent_color` instead to make sure the text is readable. You can also use the
 `.accent` style class to apply the correct color.
 
+#### Make sure your sidebars have borders
+
+The `.sidebar` style class doesn't provide a border by default. Instead, use a
+[class@Gtk.Separator] with the style class `.sidebar` manually.
+
 #### Adapt to Header Bar, Action Bar and Toolbar Style Changes
 
 When possible, buttons in [class@Gtk.HeaderBar] and [class@Gtk.ActionBar] will
