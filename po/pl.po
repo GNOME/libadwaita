@@ -1,15 +1,15 @@
-# Polish translation for libhandy.
-# Copyright © 2020 the libhandy authors.
-# This file is distributed under the same license as the libhandy package.
-# Piotr Drąg <piotrdrag@gmail.com>, 2020.
-# Aviary.pl <community-poland@mozilla.org>, 2020.
+# Polish translation for libadwaita.
+# Copyright © 2020-2021 the libadwaita authors.
+# This file is distributed under the same license as the libadwaita package.
+# Piotr Drąg <piotrdrag@gmail.com>, 2020-2021.
+# Aviary.pl <community-poland@mozilla.org>, 2020-2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libhandy\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
-"POT-Creation-Date: 2020-12-19 10:35+0000\n"
-"PO-Revision-Date: 2020-12-20 12:50+0100\n"
+"Project-Id-Version: libadwaita\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2021-09-27 14:23+0000\n"
+"PO-Revision-Date: 2021-10-02 12:44+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -19,58 +19,58 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: src/hdy-header-bar.c:485
-msgid "Application menu"
-msgstr "Menu programu"
-
-#: src/hdy-header-bar.c:507 src/hdy-window-handle-controller.c:275
-msgid "Minimize"
-msgstr "Zminimalizuj"
-
-#: src/hdy-header-bar.c:529 src/hdy-window-handle-controller.c:241
-msgid "Restore"
-msgstr "Przywróć"
-
-#: src/hdy-header-bar.c:529 src/hdy-window-handle-controller.c:284
-msgid "Maximize"
-msgstr "Zmaksymalizuj"
-
-#: src/hdy-header-bar.c:547 src/hdy-window-handle-controller.c:311
-msgid "Close"
-msgstr "Zamknij"
-
-#: src/hdy-header-bar.c:563
-msgid "Back"
-msgstr "Wstecz"
-
-#: src/hdy-preferences-window.c:192
+#: src/adw-preferences-window.c:210
 msgid "Untitled page"
 msgstr "Strona bez tytułu"
 
-#: src/hdy-preferences-window.ui:9
+#: src/adw-preferences-window.ui:8
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: src/hdy-preferences-window.ui:81
+#: src/adw-preferences-window.ui:68
 msgid "Search"
 msgstr "Wyszukiwanie"
 
-#: src/hdy-preferences-window.ui:168
+#: src/adw-preferences-window.ui:146
 msgid "No Results Found"
 msgstr "Brak wyników"
 
-#: src/hdy-preferences-window.ui:169
+#: src/adw-preferences-window.ui:147
 msgid "Try a different search."
 msgstr "Proszę spróbować innych słów."
 
-#: src/hdy-window-handle-controller.c:259
-msgid "Move"
-msgstr "Przenieś"
+#: src/inspector/adw-inspector-page.c:75
+msgid "No Preference"
+msgstr "Bez preferencji"
 
-#: src/hdy-window-handle-controller.c:267
-msgid "Resize"
-msgstr "Zmień rozmiar"
+#: src/inspector/adw-inspector-page.c:77
+msgid "Prefer Dark"
+msgstr "Preferowanie ciemnego"
 
-#: src/hdy-window-handle-controller.c:298
-msgid "Always on Top"
-msgstr "Zawsze na wierzchu"
+#: src/inspector/adw-inspector-page.c:79
+msgid "Prefer Light"
+msgstr "Preferowanie jasnego"
+
+#: src/inspector/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Wygląd systemowy"
+
+#: src/inspector/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Zastępuje ustawienia tego programu. Zastaną przywrócone po zamknięciu "
+"inspektora."
+
+#: src/inspector/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "System obsługuje schematy kolorów"
+
+#: src/inspector/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Preferowany schemat kolorów"
+
+#: src/inspector/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Wysoki kontrast"
