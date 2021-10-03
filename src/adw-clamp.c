@@ -221,6 +221,7 @@ adw_clamp_class_init (AdwClampClass *klass)
 
   gtk_widget_class_set_layout_manager_type (widget_class, ADW_TYPE_CLAMP_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "clamp");
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_GROUP);
 }
 
 static void
