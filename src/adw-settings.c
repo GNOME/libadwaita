@@ -304,7 +304,8 @@ static void
 init_gsettings (AdwSettings *self)
 {
   GSettingsSchemaSource *source;
-  GSettingsSchema *schema;
+  g_autoptr (GSettingsSchema) schema = NULL;
+  g_autoptr (GSettingsSchema) a11y_schema = NULL;
 
   /* While we can access gsettings in flatpak, we can't do anything useful with
    * them as they aren't propagated from the system. */
@@ -327,10 +328,10 @@ init_gsettings (AdwSettings *self)
                               self);
   }
 
-  schema = g_settings_schema_source_lookup (source, "org.gnome.desktop.a11y.interface", TRUE);
-  if (schema &&
+  a11y_schema = g_settings_schema_source_lookup (source, "org.gnome.desktop.a11y.interface", TRUE);
+  if (a11y_schema &&
       !self->has_high_contrast &&
-      g_settings_schema_has_key (schema, "high-contrast")) {
+      g_settings_schema_has_key (a11y_schema, "high-contrast")) {
     self->has_high_contrast = TRUE;
     self->a11y_settings = g_settings_new ("org.gnome.desktop.a11y.interface");
     self->high_contrast = g_settings_get_boolean (self->a11y_settings, "high-contrast");
