@@ -16,7 +16,7 @@ tab_size = 2
 indent_style = space
 max_line_length = 80
 
-[*.css]
+[*.{css,scss}]
 indent_size = 2
 tab_size = 2
 indent_style = space
