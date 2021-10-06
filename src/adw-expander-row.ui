@@ -35,6 +35,7 @@
                      work as expected. -->
                 <property name="can-focus">True</property>
                 <property name="title" bind-source="AdwExpanderRow" bind-property="title" bind-flags="sync-create"/>
+                <property name="use-underline" bind-source="AdwExpanderRow" bind-property="use-underline" bind-flags="sync-create"/>
                 <style>
                   <class name="header"/>
                 </style>

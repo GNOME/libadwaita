@@ -188,6 +188,11 @@ now.
 longer be manually created. It's only intended to be used with
 [class@Adw.EnumListModel].
 
+### Adapt to [class@Adw.ExpanderRow] API Changes
+
+The "use-underline" property and its accessors have been removed. Use
+[property@Adw.PreferencesRow:use-underline] and its accessors instead.
+
 ### Stop Using `HdyValueObject`
 
 `HdyValueObject` has been removed. The typical use for storing strings in

@@ -67,7 +67,6 @@ static GtkBuildableIface *parent_buildable_iface;
 enum {
   PROP_0,
   PROP_SUBTITLE,
-  PROP_USE_UNDERLINE,
   PROP_ICON_NAME,
   PROP_EXPANDED,
   PROP_ENABLE_EXPANSION,
@@ -88,9 +87,6 @@ adw_expander_row_get_property (GObject    *object,
   switch (prop_id) {
   case PROP_SUBTITLE:
     g_value_set_string (value, adw_expander_row_get_subtitle (self));
-    break;
-  case PROP_USE_UNDERLINE:
-    g_value_set_boolean (value, adw_expander_row_get_use_underline (self));
     break;
   case PROP_ICON_NAME:
     g_value_set_string (value, adw_expander_row_get_icon_name (self));
@@ -120,9 +116,6 @@ adw_expander_row_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_SUBTITLE:
     adw_expander_row_set_subtitle (self, g_value_get_string (value));
-    break;
-  case PROP_USE_UNDERLINE:
-    adw_expander_row_set_use_underline (self, g_value_get_boolean (value));
     break;
   case PROP_ICON_NAME:
     adw_expander_row_set_icon_name (self, g_value_get_string (value));
@@ -171,20 +164,6 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                          "The subtitle for this row",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwExpanderRow:use-underline: (attributes org.gtk.Property.get=adw_expander_row_get_use_underline org.gtk.Property.set=adw_expander_row_set_use_underline)
-   *
-   * Whether underlines in title or subtitle are interpreted as mnemonics.
-   *
-   * Since: 1.0
-   */
-  props[PROP_USE_UNDERLINE] =
-    g_param_spec_boolean ("use-underline",
-                          "Use underline",
-                          "Whether underlines in title or subtitle are interpreted as mnemonics",
-                          FALSE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwExpanderRow:icon-name: (attributes org.gtk.Property.get=adw_expander_row_get_icon_name org.gtk.Property.set=adw_expander_row_set_icon_name)
@@ -262,7 +241,6 @@ func (gpointer this) { \
 } \
 
 NOTIFY (notify_subtitle_cb, PROP_SUBTITLE);
-NOTIFY (notify_use_underline_cb, PROP_USE_UNDERLINE);
 NOTIFY (notify_icon_name_cb, PROP_ICON_NAME);
 
 static void
@@ -278,7 +256,6 @@ adw_expander_row_init (AdwExpanderRow *self)
   adw_expander_row_set_expanded (self, FALSE);
 
   g_signal_connect_object (priv->action_row, "notify::subtitle", G_CALLBACK (notify_subtitle_cb), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (priv->action_row, "notify::use-underline", G_CALLBACK (notify_use_underline_cb), self, G_CONNECT_SWAPPED);
   g_signal_connect_object (priv->action_row, "notify::icon-name", G_CALLBACK (notify_icon_name_cb), self, G_CONNECT_SWAPPED);
 }
 
@@ -368,50 +345,6 @@ adw_expander_row_set_subtitle (AdwExpanderRow *self,
   priv = adw_expander_row_get_instance_private (self);
 
   adw_action_row_set_subtitle (priv->action_row, subtitle);
-}
-
-/**
- * adw_expander_row_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
- * @self: a `AdwExpanderRow`
- *
- * Gets whether underlines in title or subtitle are interpreted as mnemonics.
- *
- * Returns: `TRUE` if underlines are interpreted as mnemonics
- *
- * Since: 1.0
- */
-gboolean
-adw_expander_row_get_use_underline (AdwExpanderRow *self)
-{
-  AdwExpanderRowPrivate *priv;
-
-  g_return_val_if_fail (ADW_IS_EXPANDER_ROW (self), FALSE);
-
-  priv = adw_expander_row_get_instance_private (self);
-
-  return adw_preferences_row_get_use_underline (ADW_PREFERENCES_ROW (priv->action_row));
-}
-
-/**
- * adw_expander_row_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
- * @self: a `AdwExpanderRow`
- * @use_underline: whether underlines are interpreted as mnemonics
- *
- * Sets whether underlines in title or subtitle are interpreted as mnemonics.
- *
- * Since: 1.0
- */
-void
-adw_expander_row_set_use_underline (AdwExpanderRow *self,
-                                    gboolean        use_underline)
-{
-  AdwExpanderRowPrivate *priv;
-
-  g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
-
-  priv = adw_expander_row_get_instance_private (self);
-
-  adw_preferences_row_set_use_underline (ADW_PREFERENCES_ROW (priv->action_row), use_underline);
 }
 
 /**

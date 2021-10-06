@@ -219,3 +219,8 @@ instead.
 
 The "use-underline" property and its accessors have been removed. Use
 [property@Adw.PreferencesRow:use-underline] and its accessors instead.
+
+### Adapt to [class@Adw.ExpanderRow] API Changes
+
+The "use-underline" property and its accessors have been removed. Use
+[property@Adw.PreferencesRow:use-underline] and its accessors instead.
