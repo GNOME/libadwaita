@@ -58,12 +58,6 @@ void       adw_action_row_set_activatable_widget (AdwActionRow *self,
                                                   GtkWidget    *widget);
 
 ADW_AVAILABLE_IN_ALL
-gboolean adw_action_row_get_use_underline (AdwActionRow *self);
-ADW_AVAILABLE_IN_ALL
-void     adw_action_row_set_use_underline (AdwActionRow *self,
-                                           gboolean      use_underline);
-
-ADW_AVAILABLE_IN_ALL
 int  adw_action_row_get_title_lines (AdwActionRow *self);
 ADW_AVAILABLE_IN_ALL
 void adw_action_row_set_title_lines (AdwActionRow *self,

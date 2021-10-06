@@ -69,24 +69,6 @@ test_adw_action_row_icon_name (void)
 
 
 static void
-test_adw_action_row_use_underline (void)
-{
-  g_autoptr (AdwActionRow) row = NULL;
-
-  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
-  g_assert_nonnull (row);
-
-  g_assert_false (adw_action_row_get_use_underline (row));
-
-  adw_action_row_set_use_underline (row, TRUE);
-  g_assert_true (adw_action_row_get_use_underline (row));
-
-  adw_action_row_set_use_underline (row, FALSE);
-  g_assert_false (adw_action_row_get_use_underline (row));
-}
-
-
-static void
 test_adw_action_row_title_lines (void)
 {
   g_autoptr (AdwActionRow) row = NULL;
@@ -154,7 +136,6 @@ main (int   argc,
   g_test_add_func("/Adwaita/ActionRow/add_remove", test_adw_action_row_add_remove);
   g_test_add_func("/Adwaita/ActionRow/subtitle", test_adw_action_row_subtitle);
   g_test_add_func("/Adwaita/ActionRow/icon_name", test_adw_action_row_icon_name);
-  g_test_add_func("/Adwaita/ActionRow/use_underline", test_adw_action_row_use_underline);
   g_test_add_func("/Adwaita/ActionRow/title_lines", test_adw_action_row_title_lines);
   g_test_add_func("/Adwaita/ActionRow/subtitle_lines", test_adw_action_row_subtitle_lines);
   g_test_add_func("/Adwaita/ActionRow/activate", test_adw_action_row_activate);

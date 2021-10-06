@@ -389,7 +389,7 @@ adw_expander_row_get_use_underline (AdwExpanderRow *self)
 
   priv = adw_expander_row_get_instance_private (self);
 
-  return adw_action_row_get_use_underline (priv->action_row);
+  return adw_preferences_row_get_use_underline (ADW_PREFERENCES_ROW (priv->action_row));
 }
 
 /**
@@ -411,7 +411,7 @@ adw_expander_row_set_use_underline (AdwExpanderRow *self,
 
   priv = adw_expander_row_get_instance_private (self);
 
-  adw_action_row_set_use_underline (priv->action_row, use_underline);
+  adw_preferences_row_set_use_underline (ADW_PREFERENCES_ROW (priv->action_row), use_underline);
 }
 
 /**

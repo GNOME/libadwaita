@@ -133,6 +133,11 @@ Adding children in a UI file still works.
 
 `HdyWindowHandle` has been removed, use [class@Gtk.WindowHandle] instead.
 
+### Adapt to [class@Adw.ActionRow] API Changes
+
+The "use-underline" property and its accessors have been removed. Use
+[property@Adw.PreferencesRow:use-underline] and its accessors instead.
+
 ### Adapt to [class@Adw.Clamp] API Changes
 
 `HdyClamp` previously had `.small`, `.medium` or `.large` style classes

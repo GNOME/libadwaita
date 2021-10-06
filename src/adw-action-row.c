@@ -57,7 +57,6 @@ typedef struct
 
   GtkWidget *previous_parent;
 
-  gboolean use_underline;
   int title_lines;
   int subtitle_lines;
   GtkWidget *activatable_widget;
@@ -77,7 +76,6 @@ enum {
   PROP_ICON_NAME,
   PROP_ACTIVATABLE_WIDGET,
   PROP_SUBTITLE,
-  PROP_USE_UNDERLINE,
   PROP_TITLE_LINES,
   PROP_SUBTITLE_LINES,
   LAST_PROP,
@@ -153,9 +151,6 @@ adw_action_row_get_property (GObject    *object,
   case PROP_TITLE_LINES:
     g_value_set_int (value, adw_action_row_get_title_lines (self));
     break;
-  case PROP_USE_UNDERLINE:
-    g_value_set_boolean (value, adw_action_row_get_use_underline (self));
-    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -184,9 +179,6 @@ adw_action_row_set_property (GObject      *object,
     break;
   case PROP_TITLE_LINES:
     adw_action_row_set_title_lines (self, g_value_get_int (value));
-    break;
-  case PROP_USE_UNDERLINE:
-    adw_action_row_set_use_underline (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -253,7 +245,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    *
    * The row can be activated either by clicking on it, calling
    * [method@Adw.ActionRow.activate], or via mnemonics in the title or the
-   * subtitle. See the [property@Adw.ActionRow:use-underline] property to
+   * subtitle. See the [property@Adw.PreferencesRow:use-underline] property to
    * enable mnemonics.
    *
    * The target widget will be activated by emitting the
@@ -281,20 +273,6 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                          "The subtitle for this row",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwActionRow:use-underline: (attributes org.gtk.Property.get=adw_action_row_get_use_underline org.gtk.Property.set=adw_action_row_set_use_underline)
-   *
-   * Whether underlines in title or subtitle are interpreted as mnemonics.
-   *
-   * Since: 1.0
-   */
-  props[PROP_USE_UNDERLINE] =
-    g_param_spec_boolean ("use-underline",
-                          "Use underline",
-                          "Whether underlines in title or subtitle are interpreted as mnemonics",
-                          FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwActionRow:title-lines: (attributes org.gtk.Property.get=adw_action_row_get_title_lines org.gtk.Property.set=adw_action_row_set_title_lines)
@@ -609,62 +587,6 @@ adw_action_row_set_activatable_widget (AdwActionRow *self,
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTIVATABLE_WIDGET]);
-}
-
-/**
- * adw_action_row_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
- * @self: a `AdwActionRow`
- *
- * Gets whether underlines in title or subtitle are interpreted as mnemonics.
- *
- * Returns: `TRUE` if underlines are interpreted as mnemonics
- *
- * Since: 1.0
- */
-gboolean
-adw_action_row_get_use_underline (AdwActionRow *self)
-{
-  AdwActionRowPrivate *priv;
-
-  g_return_val_if_fail (ADW_IS_ACTION_ROW (self), FALSE);
-
-  priv = adw_action_row_get_instance_private (self);
-
-  return priv->use_underline;
-}
-
-/**
- * adw_action_row_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
- * @self: a `AdwActionRow`
- * @use_underline: whether underlines are interpreted as mnemonics
- *
- * Sets whether underlines in title or subtitle are interpreted as mnemonics.
- *
- * Since: 1.0
- */
-void
-adw_action_row_set_use_underline (AdwActionRow *self,
-                                  gboolean      use_underline)
-{
-  AdwActionRowPrivate *priv;
-
-  g_return_if_fail (ADW_IS_ACTION_ROW (self));
-
-  priv = adw_action_row_get_instance_private (self);
-
-  use_underline = !!use_underline;
-
-  if (priv->use_underline == use_underline)
-    return;
-
-  priv->use_underline = use_underline;
-  adw_preferences_row_set_use_underline (ADW_PREFERENCES_ROW (self), priv->use_underline);
-  gtk_label_set_use_underline (priv->title, priv->use_underline);
-  gtk_label_set_use_underline (priv->subtitle, priv->use_underline);
-  gtk_label_set_mnemonic_widget (priv->title, GTK_WIDGET (self));
-  gtk_label_set_mnemonic_widget (priv->subtitle, GTK_WIDGET (self));
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_UNDERLINE]);
 }
 
 /**

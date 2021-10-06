@@ -212,3 +212,10 @@ Important: the [property@Gtk.Button:has-frame] property will **not** be set to
 `FALSE` when a button gets the flat appearance automatically. It also cannot be
 set to `TRUE` to make a button raised, the style class should be used directly
 instead.
+
+## Migrating from alpha 3 to alpha 4
+
+### Adapt to [class@Adw.ActionRow] API Changes
+
+The "use-underline" property and its accessors have been removed. Use
+[property@Adw.PreferencesRow:use-underline] and its accessors instead.
