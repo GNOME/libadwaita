@@ -248,9 +248,7 @@ unbind_item (GtkSignalListItemFactory *factory,
 static void
 set_default_factory (AdwComboRow *self)
 {
-  g_autoptr (GtkListItemFactory) factory;
-
-  factory = gtk_signal_list_item_factory_new ();
+  g_autoptr (GtkListItemFactory) factory = gtk_signal_list_item_factory_new ();
 
   g_signal_connect (factory, "setup", G_CALLBACK (setup_item), self);
   g_signal_connect (factory, "bind", G_CALLBACK (bind_item), self);
