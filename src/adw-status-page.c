@@ -294,6 +294,8 @@ adw_status_page_new (void)
 const char *
 adw_status_page_get_icon_name (AdwStatusPage *self)
 {
+  g_return_val_if_fail (ADW_IS_STATUS_PAGE (self), NULL);
+
   return self->icon_name;
 }
 
