@@ -75,8 +75,8 @@ void adw_expander_row_add_prefix (AdwExpanderRow *self,
                                   GtkWidget      *widget);
 
 ADW_AVAILABLE_IN_ALL
-void adw_expander_row_add    (AdwExpanderRow *self,
-                              GtkWidget      *child);
+void adw_expander_row_add_row    (AdwExpanderRow *self,
+                                  GtkWidget      *child);
 ADW_AVAILABLE_IN_ALL
 void adw_expander_row_remove (AdwExpanderRow *self,
                               GtkWidget      *child);

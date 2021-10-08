@@ -275,7 +275,7 @@ adw_expander_row_buildable_add_child (GtkBuildable *buildable,
   else if (type && strcmp (type, "prefix") == 0)
     adw_expander_row_add_prefix (self, GTK_WIDGET (child));
   else if (!type && GTK_IS_WIDGET (child))
-    adw_expander_row_add (self, GTK_WIDGET (child));
+    adw_expander_row_add_row (self, GTK_WIDGET (child));
   else
     parent_buildable_iface->add_child (buildable, builder, child, type);
 }
@@ -603,7 +603,7 @@ adw_expander_row_add_prefix (AdwExpanderRow *self,
 }
 
 /**
- * adw_expander_row_add:
+ * adw_expander_row_add_row:
  * @self: a `AdwExpanderRow`
  * @child: a widget
  *
@@ -614,8 +614,8 @@ adw_expander_row_add_prefix (AdwExpanderRow *self,
  * Since: 1.0
  */
 void
-adw_expander_row_add (AdwExpanderRow *self,
-                      GtkWidget      *child)
+adw_expander_row_add_row (AdwExpanderRow *self,
+                          GtkWidget      *child)
 {
   AdwExpanderRowPrivate *priv;
 

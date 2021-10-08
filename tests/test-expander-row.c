@@ -19,7 +19,7 @@ test_adw_expander_row_add_remove (void)
   child = gtk_list_box_row_new ();
   g_assert_nonnull (child);
 
-  adw_expander_row_add (row, child);
+  adw_expander_row_add_row (row, child);
   adw_expander_row_remove (row, child);
 }
 

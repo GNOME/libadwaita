@@ -224,3 +224,5 @@ The "use-underline" property and its accessors have been removed. Use
 
 The "use-underline" property and its accessors have been removed. Use
 [property@Adw.PreferencesRow:use-underline] and its accessors instead.
+
+The `adw_expander_row_add ()` function has been renamed to `adw_expander_row_add_row ()`.

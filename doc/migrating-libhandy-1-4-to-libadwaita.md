@@ -117,7 +117,7 @@ Widget                        | `gtk_container_add()` replacement  | `gtk_contai
 ----------------------------- | ---------------------------------- | ------------------------------------
 [class@Adw.ActionRow]         | [method@Adw.ActionRow.add_suffix]  | [method@Adw.ActionRow.remove]
 [class@Adw.Carousel]          | [method@Adw.Carousel.append]       | [method@Adw.Carousel.remove]
-[class@Adw.ExpanderRow]       | [method@Adw.ExpanderRow.add]       | [method@Adw.ExpanderRow.remove]
+[class@Adw.ExpanderRow]       | [method@Adw.ExpanderRow.add_row]   | [method@Adw.ExpanderRow.remove]
 [class@Adw.Leaflet]           | [method@Adw.Leaflet.append]        | [method@Adw.Leaflet.remove]
 [class@Adw.PreferencesGroup]  | [method@Adw.PreferencesGroup.add]  | [method@Adw.PreferencesGroup.remove]
 [class@Adw.PreferencesPage]   | [method@Adw.PreferencesPage.add]   | [method@Adw.PreferencesPage.remove]
