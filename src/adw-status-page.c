@@ -31,6 +31,7 @@
 enum {
   PROP_0,
   PROP_ICON_NAME,
+  PROP_PAINTABLE,
   PROP_TITLE,
   PROP_DESCRIPTION,
   PROP_CHILD,
@@ -47,6 +48,7 @@ struct _AdwStatusPage
   GtkBox *toplevel_box;
   GtkImage *image;
   char *icon_name;
+  GdkPaintable *paintable;
   GtkLabel *title_label;
   GtkLabel *description_label;
 
@@ -59,6 +61,14 @@ G_DEFINE_TYPE_WITH_CODE (AdwStatusPage, adw_status_page, GTK_TYPE_WIDGET,
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_status_page_buildable_init))
 
 static GtkBuildableIface *parent_buildable_iface;
+
+static gboolean
+has_image (AdwStatusPage *self,
+           const char    *icon_name,
+           GdkPaintable  *paintable)
+{
+  return paintable || (icon_name && icon_name[0]);
+}
 
 static gboolean
 string_is_not_empty (AdwStatusPage *self,
@@ -78,6 +88,10 @@ adw_status_page_get_property (GObject    *object,
   switch (prop_id) {
   case PROP_ICON_NAME:
     g_value_set_string (value, adw_status_page_get_icon_name (self));
+    break;
+
+  case PROP_PAINTABLE:
+    g_value_set_object (value, adw_status_page_get_paintable (self));
     break;
 
   case PROP_TITLE:
@@ -108,6 +122,10 @@ adw_status_page_set_property (GObject      *object,
   switch (prop_id) {
   case PROP_ICON_NAME:
     adw_status_page_set_icon_name (self, g_value_get_string (value));
+    break;
+
+  case PROP_PAINTABLE:
+    adw_status_page_set_paintable (self, g_value_get_object (value));
     break;
 
   case PROP_TITLE:
@@ -146,6 +164,7 @@ adw_status_page_finalize (GObject *object)
   AdwStatusPage *self = ADW_STATUS_PAGE (object);
 
   g_clear_pointer (&self->icon_name, g_free);
+  g_clear_object (&self->paintable);
 
   G_OBJECT_CLASS (adw_status_page_parent_class)->finalize (object);
 }
@@ -168,6 +187,8 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    *
    * The name of the icon to be used.
    *
+   * Changing this will clear [property@Adw.StatusPage:paintable] out.
+   *
    * Since: 1.0
    */
   props[PROP_ICON_NAME] =
@@ -175,6 +196,22 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          "Icon name",
                          "The name of the icon to be used",
                          NULL,
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwStatusPage:paintable: (attributes org.gtk.Property.get=adw_status_page_get_paintable org.gtk.Property.set=adw_status_page_set_paintable)
+   *
+   * The @GdkPaintable to be used.
+   *
+   * Changing this will clear [property@Adw.StatusPage:icon-name] out.
+   *
+   * Since: 1.0
+   */
+  props[PROP_PAINTABLE] =
+    g_param_spec_object ("paintable",
+                         "Paintable",
+                         "The GdkPaintable to be used",
+                         GDK_TYPE_PAINTABLE,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -228,6 +265,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwStatusPage, image);
   gtk_widget_class_bind_template_child (widget_class, AdwStatusPage, title_label);
   gtk_widget_class_bind_template_child (widget_class, AdwStatusPage, description_label);
+  gtk_widget_class_bind_template_callback (widget_class, has_image);
   gtk_widget_class_bind_template_callback (widget_class, string_is_not_empty);
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
@@ -317,12 +355,70 @@ adw_status_page_set_icon_name (AdwStatusPage *self,
   if (g_strcmp0 (self->icon_name, icon_name) == 0)
     return;
 
+  g_object_freeze_notify (G_OBJECT (self));
+
+  if (self->paintable) {
+    g_clear_object (&self->paintable);
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_PAINTABLE]);
+  }
+
   g_free (self->icon_name);
   self->icon_name = g_strdup (icon_name);
-
-  gtk_image_set_from_icon_name (self->image, icon_name);
-
+  gtk_image_set_from_icon_name (self->image, self->icon_name);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
+
+  g_object_thaw_notify (G_OBJECT (self));
+}
+
+/**
+ * adw_status_page_get_paintable: (attributes org.gtk.Method.get_property=paintable)
+ * @self: a `AdwStatusPage`
+ *
+ * Gets the paintable for @self.
+ *
+ * Returns: (nullable) (transfer none): the paintable
+ *
+ * Since: 1.0
+ */
+GdkPaintable *
+adw_status_page_get_paintable (AdwStatusPage *self)
+{
+  g_return_val_if_fail (ADW_IS_STATUS_PAGE (self), NULL);
+
+  return self->paintable;
+}
+
+/**
+ * adw_status_page_set_paintable: (attributes org.gtk.Method.set_property=paintable)
+ * @self: a `AdwStatusPage`
+ * @icon: (nullable): the icon
+ *
+ * Sets the paintable for @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_status_page_set_paintable (AdwStatusPage *self,
+                               GdkPaintable  *paintable)
+{
+  g_return_if_fail (ADW_IS_STATUS_PAGE (self));
+  g_return_if_fail (paintable == NULL || GDK_IS_PAINTABLE (paintable));
+
+  if (self->paintable == paintable)
+    return;
+
+  g_object_freeze_notify (G_OBJECT (self));
+
+  if (self->icon_name) {
+    g_clear_pointer (&self->icon_name, g_free);
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
+  }
+
+  g_set_object (&self->paintable, paintable);
+  gtk_image_set_from_paintable (self->image, self->paintable);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_PAINTABLE]);
+
+  g_object_thaw_notify (G_OBJECT (self));
 }
 
 /**

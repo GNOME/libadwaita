@@ -22,8 +22,9 @@
                         <child>
                           <object class="GtkImage" id="image">
                             <binding name="visible">
-                              <closure function="string_is_not_empty" type="gboolean">
+                              <closure function="has_image" type="gboolean">
                                 <lookup name="icon-name">image</lookup>
+                                <lookup name="paintable">image</lookup>
                               </closure>
                             </binding>
                             <style>

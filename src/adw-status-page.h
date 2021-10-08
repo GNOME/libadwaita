@@ -31,6 +31,12 @@ void        adw_status_page_set_icon_name (AdwStatusPage *self,
                                            const char    *icon_name);
 
 ADW_AVAILABLE_IN_ALL
+GdkPaintable *adw_status_page_get_paintable (AdwStatusPage *self);
+ADW_AVAILABLE_IN_ALL
+void          adw_status_page_set_paintable (AdwStatusPage *self,
+                                             GdkPaintable  *paintable);
+
+ADW_AVAILABLE_IN_ALL
 const char *adw_status_page_get_title (AdwStatusPage *self);
 ADW_AVAILABLE_IN_ALL
 void        adw_status_page_set_title (AdwStatusPage *self,
