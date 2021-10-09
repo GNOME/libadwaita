@@ -215,14 +215,14 @@ instead.
 
 ## Migrating from alpha 3 to alpha 4
 
-### Adapt to [class@Adw.ActionRow] API Changes
+### Adapt to [class@Adw.ActionRow] and [class@Adw.ExpanderRow] API Changes
 
 The "use-underline" property and its accessors have been removed. Use
 [property@Adw.PreferencesRow:use-underline] and its accessors instead.
+
+The title and subtitle have markup enabled, make sure to escape it with
+[func@GLib.markup_escape_text] if this is unwanted.
 
 ### Adapt to [class@Adw.ExpanderRow] API Changes
-
-The "use-underline" property and its accessors have been removed. Use
-[property@Adw.PreferencesRow:use-underline] and its accessors instead.
 
 The `adw_expander_row_add ()` function has been renamed to `adw_expander_row_add_row ()`.

@@ -133,10 +133,13 @@ Adding children in a UI file still works.
 
 `HdyWindowHandle` has been removed, use [class@Gtk.WindowHandle] instead.
 
-### Adapt to [class@Adw.ActionRow] API Changes
+### Adapt to [class@Adw.ActionRow] and [class@Adw.ExpanderRow] API Changes
 
 The "use-underline" property and its accessors have been removed. Use
 [property@Adw.PreferencesRow:use-underline] and its accessors instead.
+
+The title and subtitle have markup enabled, make sure to escape it with
+[func@GLib.markup_escape_text] if this is unwanted.
 
 ### Adapt to [class@Adw.Clamp] API Changes
 
@@ -187,11 +190,6 @@ now.
 `HdyEnumValueObject` has been renamed to [class@Adw.EnumListItem] and can no
 longer be manually created. It's only intended to be used with
 [class@Adw.EnumListModel].
-
-### Adapt to [class@Adw.ExpanderRow] API Changes
-
-The "use-underline" property and its accessors have been removed. Use
-[property@Adw.PreferencesRow:use-underline] and its accessors instead.
 
 ### Stop Using `HdyValueObject`
 
