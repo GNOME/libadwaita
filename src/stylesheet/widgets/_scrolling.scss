@@ -18,7 +18,6 @@ scrollbar {
     margin: 7px;
     transition: $_scrollbar_transition;
     border-radius: 10px;
-    outline: 1px solid transparent;
 
     > slider {
       min-width: $_slider_width;
@@ -27,15 +26,23 @@ scrollbar {
       border: 6px solid transparent;
       border-radius: 10px;
       background-clip: padding-box;
-      background-color: currentColor;
-      opacity: .2;
       transition: $_scrollbar_transition;
 
-      &:hover { opacity: .4; }
+      @if $contrast == 'high' {
+        background-color: gtkalpha(currentColor, .4);
 
-      &:hover:active { opacity: .6; }
+        &:hover { background-color: gtkalpha(currentColor, .6); }
 
-      &:disabled { opacity: .0; }
+        &:hover:active { background-color: currentColor; }
+      } @else {
+        background-color: gtkalpha(currentColor, .2);
+
+        &:hover { background-color: gtkalpha(currentColor, .4); }
+
+        &:hover:active { background-color: gtkalpha(currentColor, .6); }
+      }
+
+      &:disabled { opacity: 0; }
     }
   }
 
@@ -49,31 +56,45 @@ scrollbar {
     margin-right: 6px;
   }
 
-  > range.fine-tune > trough > slider {
-    &, &:hover, &:hover:active {
-      background-color: $accent_color;
-    }
-  }
-
   &.overlay-indicator {
     background: none;
     color: inherit;
     box-shadow: none;
     padding: 0;
 
-    > range > trough > slider {
-      outline: 1px solid $scrollbar_outline_color;
-      outline-offset: -6px;
+    > range > trough {
+      outline: 1px solid transparent;
+
+      > slider {
+        @if $contrast == 'high' {
+          outline: 1px solid $scrollbar_outline_color;
+        } @else {
+          outline: 1px solid gtkalpha($scrollbar_outline_color, .4);
+        }
+
+        outline-offset: -6px;
+      }
     }
 
     &:not(.hovering) > range > trough > slider {
       min-width: 3px;
       min-height: 3px;
+
+      @if $contrast == 'high' {
+        outline-color: gtkalpha($scrollbar_outline_color, .6);
+      } @else {
+        outline-color: gtkalpha($scrollbar_outline_color, .35);
+      }
     }
 
     &.hovering > range > trough {
-      outline-color: gtkalpha($scrollbar_outline_color, .25);
-      background-color: gtkalpha(currentColor, .1);
+      @if $contrast == 'high' {
+        outline-color: gtkalpha($scrollbar_outline_color, .6);
+        background-color: gtkalpha(currentColor, .25);
+      } @else {
+        outline-color: gtkalpha($scrollbar_outline_color, .35);
+        background-color: gtkalpha(currentColor, .1);
+      }
     }
 
     &.horizontal {
@@ -82,7 +103,7 @@ scrollbar {
       }
 
       &.hovering > range > trough > slider {
-        min-height: 8px;
+        min-height: $_slider_width;
       }
 
       &:not(.hovering) > range > trough {
@@ -97,7 +118,7 @@ scrollbar {
       }
 
       &.hovering > range > trough > slider {
-        min-width: 8px;
+        min-width: $_slider_width;
       }
 
       &:not(.hovering) > range > trough {
@@ -109,6 +130,12 @@ scrollbar {
 
   &.horizontal > range > trough > slider { min-width: $_slider_min_length; }
   &.vertical > range > trough > slider { min-height: $_slider_min_length; }
+
+  > range.fine-tune > trough > slider {
+    &, &:hover, &:hover:active {
+      background-color: if($contrast == 'high', $accent_color, gtkalpha($accent_color, .6));
+    }
+  }
 }
 
 scrolledwindow {
