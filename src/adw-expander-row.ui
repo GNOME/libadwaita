@@ -2,15 +2,7 @@
 <interface domain="libadwaita">
   <requires lib="gtk" version="4.0"/>
   <template class="AdwExpanderRow" parent="AdwPreferencesRow">
-    <!-- The row must not be activatable, to be sure it doesn't conflict with
-         clicking nested rows. -->
     <property name="activatable">False</property>
-    <!-- The row must be focusable for keyboard navigation to work as
-         expected. -->
-    <property name="can-focus">True</property>
-    <!-- The row is focusable and can still be activated via keyboard, despite
-         being marked as inactivatable. Activating the row should toggle its
-         expansion. -->
     <signal name="activate" handler="activate_cb" after="yes"/>
     <style>
       <class name="empty"/>
