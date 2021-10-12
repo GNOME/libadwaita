@@ -37,7 +37,7 @@ main (int    argc,
     { "preferences", show_preferences, NULL, NULL, NULL },
   };
 
-  app = adw_application_new ("org.gnome.Adwaita.Demo", G_APPLICATION_FLAGS_NONE);
+  app = adw_application_new ("org.gnome.Adwaita.Demo", G_APPLICATION_NON_UNIQUE);
   g_action_map_add_action_entries (G_ACTION_MAP (app),
                                    app_entries, G_N_ELEMENTS (app_entries),
                                    app);
