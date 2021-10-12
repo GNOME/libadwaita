@@ -118,16 +118,6 @@ parent_cb (AdwActionRow *self)
 }
 
 static void
-update_subtitle_visibility (AdwActionRow *self)
-{
-  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
-
-  gtk_widget_set_visible (GTK_WIDGET (priv->subtitle),
-                          gtk_label_get_text (priv->subtitle) != NULL &&
-                          g_strcmp0 (gtk_label_get_text (priv->subtitle), "") != 0);
-}
-
-static void
 adw_action_row_get_property (GObject    *object,
                              guint       prop_id,
                              GValue     *value,
@@ -361,8 +351,6 @@ adw_action_row_init (AdwActionRow *self)
 
   g_object_bind_property_full (self, "title", priv->title, "visible", G_BINDING_SYNC_CREATE,
                                string_is_not_empty, NULL, NULL, NULL);
-
-  update_subtitle_visibility (self);
 
   g_signal_connect (self, "notify::parent", G_CALLBACK (parent_cb), NULL);
 
