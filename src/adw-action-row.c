@@ -90,6 +90,13 @@ enum {
 
 static guint signals[SIGNAL_LAST_SIGNAL];
 
+static gboolean
+string_is_not_empty (AdwActionRow *self,
+                     const char   *string)
+{
+  return string && string[0];
+}
+
 static void
 row_activated_cb (AdwActionRow  *self,
                   GtkListBoxRow *row)
@@ -327,30 +334,13 @@ adw_action_row_class_init (AdwActionRowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, suffixes);
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, title);
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, title_box);
-}
-
-static gboolean
-string_is_not_empty (GBinding     *binding,
-                     const GValue *from_value,
-                     GValue       *to_value,
-                     gpointer      user_data)
-{
-  const char *string = g_value_get_string (from_value);
-
-  g_value_set_boolean (to_value, string != NULL && g_strcmp0 (string, "") != 0);
-
-  return TRUE;
+  gtk_widget_class_bind_template_callback (widget_class, string_is_not_empty);
 }
 
 static void
 adw_action_row_init (AdwActionRow *self)
 {
-  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
-
   gtk_widget_init_template (GTK_WIDGET (self));
-
-  g_object_bind_property_full (self, "title", priv->title, "visible", G_BINDING_SYNC_CREATE,
-                               string_is_not_empty, NULL, NULL, NULL);
 
   g_signal_connect (self, "notify::parent", G_CALLBACK (parent_cb), NULL);
 
@@ -444,8 +434,6 @@ adw_action_row_set_subtitle (AdwActionRow *self,
     return;
 
   gtk_label_set_label (priv->subtitle, subtitle);
-  gtk_widget_set_visible (GTK_WIDGET (priv->subtitle),
-                          subtitle != NULL && g_strcmp0 (subtitle, "") != 0);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUBTITLE]);
 }
@@ -497,8 +485,6 @@ adw_action_row_set_icon_name (AdwActionRow *self,
     return;
 
   gtk_image_set_from_icon_name (priv->image, icon_name);
-  gtk_widget_set_visible (GTK_WIDGET (priv->image),
-                          icon_name != NULL && g_strcmp0 (icon_name, "") != 0);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ICON_NAME]);
 }

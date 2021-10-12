@@ -21,7 +21,11 @@
         </child>
         <child>
           <object class="GtkImage" id="image">
-            <property name="visible">False</property>
+            <binding name="visible">
+              <closure function="string_is_not_empty" type="gboolean">
+                <lookup name="icon-name">image</lookup>
+              </closure>
+            </binding>
             <property name="valign">center</property>
             <style>
               <class name="icon"/>
@@ -39,6 +43,11 @@
             </style>
             <child>
               <object class="GtkLabel" id="title">
+                <binding name="visible">
+                  <closure function="string_is_not_empty" type="gboolean">
+                    <lookup name="label">title</lookup>
+                  </closure>
+                </binding>
                 <property name="ellipsize">none</property>
                 <property name="halign">start</property>
                 <property name="label" bind-source="AdwActionRow" bind-property="title" bind-flags="sync-create"/>
@@ -56,7 +65,11 @@
             </child>
             <child>
               <object class="GtkLabel" id="subtitle">
-                <property name="visible">False</property>
+                <binding name="visible">
+                  <closure function="string_is_not_empty" type="gboolean">
+                    <lookup name="label">subtitle</lookup>
+                  </closure>
+                </binding>
                 <property name="ellipsize">none</property>
                 <property name="halign">start</property>
                 <property name="lines">0</property>
