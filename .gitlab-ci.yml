@@ -3,7 +3,7 @@ include:
     file: 'flatpak/flatpak_ci_initiative.yml'
 
 variables:
-  MANIFEST_PATH: 'examples/org.gnome.Adwaita.Demo.json'
+  MANIFEST_PATH: 'examples/org.gnome.Adwaita1.Demo.json'
   FLATPAK_MODULE: 'libadwaita'
   FLATPAK_BUILD_DIR: build
   ABI_CHECKER_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/abi-checker:v2"
@@ -43,8 +43,8 @@ build-flatpak:
   before_script: []
   variables:
     RUNTIME_REPO: 'https://nightly.gnome.org/gnome-nightly.flatpakrepo'
-    APP_ID: 'org.gnome.Adwaita.Demo'
-    BUNDLE: 'org.gnome.Adwaita.Demo.flatpak'
+    APP_ID: 'org.gnome.Adwaita1.Demo'
+    BUNDLE: 'org.gnome.Adwaita1.Demo.flatpak'
 
 abi-check:
   image: $ABI_CHECKER_IMAGE

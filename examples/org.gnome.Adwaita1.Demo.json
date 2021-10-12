@@ -1,5 +1,5 @@
 {
-  "app-id": "org.gnome.Adwaita.Demo",
+  "app-id": "org.gnome.Adwaita1.Demo",
   "runtime": "org.gnome.Platform",
   "runtime-version": "master",
   "sdk": "org.gnome.Sdk",
