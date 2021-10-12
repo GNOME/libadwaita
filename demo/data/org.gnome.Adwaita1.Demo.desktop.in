@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Adwaita Demo
+Exec=adwaita-1-demo
+Icon=org.gnome.Adwaita1.Demo
+Keywords=libadwaita;
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true
+NoDisplay=true
