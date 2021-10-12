@@ -3,7 +3,7 @@ include:
     file: 'flatpak/flatpak_ci_initiative.yml'
 
 variables:
-  MANIFEST_PATH: 'examples/org.gnome.Adwaita1.Demo.json'
+  MANIFEST_PATH: 'demo/org.gnome.Adwaita1.Demo.json'
   FLATPAK_MODULE: 'libadwaita'
   FLATPAK_BUILD_DIR: build
   ABI_CHECKER_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/abi-checker:v2"
