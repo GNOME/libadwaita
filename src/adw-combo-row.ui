@@ -2,7 +2,6 @@
 <interface domain="libadwaita">
   <requires lib="gtk" version="4.0"/>
   <template class="AdwComboRow" parent="AdwActionRow">
-    <property name="activatable">False</property>
     <style>
       <class name="combo"/>
     </style>
