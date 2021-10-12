@@ -84,6 +84,7 @@ set_high_contrast (AdwSettings *self,
 
 /* Settings portal */
 
+#ifndef G_OS_WIN32
 static gboolean
 get_disable_portal (void)
 {
@@ -281,6 +282,7 @@ init_portal (AdwSettings *self)
   g_signal_connect (self->settings_portal, "g-signal",
                     G_CALLBACK (settings_portal_changed_cb), self);
 }
+#endif
 
 /* GSettings */
 
@@ -396,7 +398,9 @@ adw_settings_constructed (GObject *object)
 
   G_OBJECT_CLASS (adw_settings_parent_class)->constructed (object);
 
+#ifndef G_OS_WIN32
   init_portal (self);
+#endif
 
   if (!self->has_color_scheme || !self->has_high_contrast)
     init_gsettings (self);
