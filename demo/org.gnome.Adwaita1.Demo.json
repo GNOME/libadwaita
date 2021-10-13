@@ -39,6 +39,9 @@
       "name": "libadwaita",
       "buildsystem": "meson",
       "builddir": true,
+      "post-install" : [
+          "desktop-file-edit --remove-key=NoDisplay ${FLATPAK_DEST}/share/applications/org.gnome.Adwaita1.Demo.desktop"
+      ],
       "sources": [
         {
           "type": "git",
