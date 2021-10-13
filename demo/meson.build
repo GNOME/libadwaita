@@ -1,5 +1,7 @@
 if get_option('examples')
 
+subdir('data')
+
 adwaita_demo_resources = gnome.compile_resources(
    'adwaita-demo-resources',
    'adwaita-demo.gresources.xml',

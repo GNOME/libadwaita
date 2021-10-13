@@ -1,3 +1,4 @@
+#include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <adwaita.h>
 
@@ -18,6 +19,54 @@ show_preferences (GSimpleAction *action,
 }
 
 static void
+show_about (GSimpleAction *action,
+            GVariant      *state,
+            gpointer       user_data)
+{
+  const char *authors[] = {
+    "Adrien Plazas",
+    "Alexander Mikhaylenko",
+    "Andrei Lișiță",
+    "Guido Günther",
+    "Julian Sparber",
+    "Zander Brown",
+    NULL
+  };
+
+  const char *artists[] = {
+    "GNOME Design Team",
+    NULL
+  };
+
+  GtkApplication *app = GTK_APPLICATION (user_data);
+  GtkWindow *window = gtk_application_get_active_window (app);
+  g_autofree char *version;
+
+  version = g_strdup_printf ("%s\nRunning against libadwaita %d.%d.%d, GTK %d.%d.%d",
+                             ADW_VERSION_S,
+                             adw_get_major_version (),
+                             adw_get_minor_version (),
+                             adw_get_micro_version (),
+                             gtk_get_major_version (),
+                             gtk_get_minor_version (),
+                             gtk_get_micro_version ());
+
+  gtk_show_about_dialog (window,
+                         "program-name", _("Adwaita Demo"),
+                         "title", _("About Adwaita Demo"),
+                         "logo-icon-name", "org.gnome.Adwaita1.Demo",
+                         "version", version,
+                         "copyright", "Copyright © 2017–2021 Purism SPC",
+                         "comments", _("Tour of the features in Libadwaita"),
+                         "website", "https://gitlab.gnome.org/GNOME/libadwaita",
+                         "license-type", GTK_LICENSE_LGPL_2_1,
+                         "authors", authors,
+                         "artists", artists,
+                         "translator-credits", _("translator-credits"),
+                         NULL);
+}
+
+static void
 show_window (GtkApplication *app)
 {
   AdwDemoWindow *window;
@@ -35,6 +84,7 @@ main (int    argc,
   int status;
   static GActionEntry app_entries[] = {
     { "preferences", show_preferences, NULL, NULL, NULL },
+    { "about", show_about, NULL, NULL, NULL },
   };
 
   app = adw_application_new ("org.gnome.Adwaita1.Demo", G_APPLICATION_NON_UNIQUE);
