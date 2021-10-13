@@ -926,6 +926,7 @@
             </child>
             <child>
               <object class="AdwStatusPage">
+                <property name="vexpand">True</property>
                 <property name="title" translatable="yes">Go back</property>
                 <property name="child">
                   <object class="GtkBox">
