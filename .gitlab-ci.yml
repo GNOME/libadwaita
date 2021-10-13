@@ -12,6 +12,7 @@ variables:
 stages:
   - build
   - publish
+  - deploy
 
 api-visibility:
   stage: build
@@ -61,3 +62,8 @@ refresh-doc:
     - 'main'
   script:
     - "curl -X POST -F token=${PAGES_TRIGGER_TOKEN} -F ref=pages https://gitlab.gnome.org/api/v4/projects/14079/trigger/pipeline"
+
+nightly:
+  extends: '.publish_nightly'
+  dependencies: ['build-flatpak']
+  needs: ['build-flatpak']
