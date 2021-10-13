@@ -243,95 +243,30 @@
                                 <property name="maximum-size">400</property>
                                 <property name="tightening-threshold">300</property>
                                 <property name="child">
-                                  <object class="AdwPreferencesGroup">
+                                  <object class="GtkBox">
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">12</property>
                                     <child>
-                                      <object class="AdwActionRow">
-                                        <property name="icon-name">row-preferences-symbolic</property>
-                                        <property name="subtitle" translatable="yes">They also have a subtitle and an icon</property>
-                                        <property name="title" translatable="yes">Rows have a title</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="AdwActionRow">
-                                        <property name="activatable_widget">frobnicate</property>
-                                        <property name="title" translatable="yes">Rows can have action widgets</property>
+                                      <object class="AdwPreferencesGroup">
                                         <child>
-                                          <object class="GtkButton" id="frobnicate">
-                                            <property name="halign">end</property>
-                                            <property name="label" translatable="yes">Frobnicate</property>
-                                            <property name="valign">center</property>
-                                            <style>
-                                              <class name="outline"/>
-                                            </style>
+                                          <object class="AdwActionRow">
+                                            <property name="icon-name">row-preferences-symbolic</property>
+                                            <property name="subtitle" translatable="yes">They also have a subtitle and an icon</property>
+                                            <property name="title" translatable="yes">Rows have a title</property>
                                           </object>
                                         </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="AdwActionRow">
-                                        <property name="activatable_widget">radio_button_1</property>
-                                        <property name="title" translatable="yes">Rows can have prefix widgets</property>
-                                        <child type="prefix">
-                                          <object class="GtkCheckButton" id="radio_button_1">
-                                            <property name="valign">center</property>
-                                            <property name="active">True</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="AdwActionRow">
-                                        <property name="activatable_widget">radio_button_2</property>
-                                        <property name="title" translatable="yes">Rows can have prefix widgets</property>
-                                        <child type="prefix">
-                                          <object class="GtkCheckButton" id="radio_button_2">
-                                            <property name="group">radio_button_1</property>
-                                            <property name="valign">center</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="AdwComboRow" id="combo_row">
-                                        <property name="title" translatable="yes">Combo row</property>
-                                        <property name="model">
-                                          <object class="GtkStringList">
-                                            <items>
-                                              <item>Foo</item>
-                                              <item>Bar</item>
-                                              <item>Baz</item>
-                                            </items>
-                                          </object>
-                                        </property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="AdwComboRow" id="enum_combo_row">
-                                        <property name="subtitle" translatable="yes">This combo row was created from an enumeration</property>
-                                        <property name="title" translatable="yes">Enumeration combo row</property>
-                                        <property name="model">
-                                          <object class="AdwEnumListModel">
-                                            <property name="enum-type">GtkLicense</property>
-                                          </object>
-                                        </property>
-                                        <property name="expression">
-                                          <lookup type="AdwEnumListItem" name="nick"/>
-                                        </property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="AdwExpanderRow" id="expander_row">
-                                        <property name="title" translatable="yes">Expander row</property>
                                         <child>
-                                          <object class="GtkListBoxRow">
-                                            <property name="activatable">False</property>
+                                          <object class="AdwActionRow">
+                                            <property name="activatable_widget">frobnicate</property>
+                                            <property name="title" translatable="yes">Rows can have suffix widgets</property>
                                             <child>
-                                              <object class="GtkLabel">
-                                                <property name="label" translatable="yes">Hello, world!</property>
-                                                <property name="margin-top">12</property>
-                                                <property name="margin-bottom">12</property>
-                                                <property name="margin-start">12</property>
-                                                <property name="margin-end">12</property>
+                                              <object class="GtkButton" id="frobnicate">
+                                                <property name="halign">end</property>
+                                                <property name="label" translatable="yes">Frobnicate</property>
+                                                <property name="valign">center</property>
+                                                <style>
+                                                  <class name="outline"/>
+                                                </style>
                                               </object>
                                             </child>
                                           </object>
@@ -339,115 +274,122 @@
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="AdwExpanderRow" id="action_expander_row">
-                                        <property name="title" translatable="yes">Expander row with an action</property>
-                                        <child type="action">
-                                          <object class="GtkButton">
-                                            <property name="valign">center</property>
-                                            <property name="icon-name">row-copy-symbolic</property>
-                                            <style>
-                                              <class name="outline"/>
-                                            </style>
+                                      <object class="AdwPreferencesGroup">
+                                        <child>
+                                          <object class="AdwActionRow">
+                                            <property name="activatable_widget">radio_button_1</property>
+                                            <property name="title" translatable="yes">Rows can have prefix widgets</property>
+                                            <child type="prefix">
+                                              <object class="GtkCheckButton" id="radio_button_1">
+                                                <property name="valign">center</property>
+                                                <property name="active">True</property>
+                                              </object>
+                                            </child>
                                           </object>
                                         </child>
                                         <child>
                                           <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">A nested row</property>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Another nested row</property>
+                                            <property name="activatable_widget">radio_button_2</property>
+                                            <property name="title" translatable="yes">Rows can have prefix widgets</property>
+                                            <child type="prefix">
+                                              <object class="GtkCheckButton" id="radio_button_2">
+                                                <property name="group">radio_button_1</property>
+                                                <property name="valign">center</property>
+                                              </object>
+                                            </child>
                                           </object>
                                         </child>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="AdwExpanderRow">
-                                        <property name="title" translatable="yes">Expander row with a prefix</property>
-                                        <child type="prefix">
-                                          <object class="GtkButton">
-                                            <property name="valign">center</property>
-                                            <property name="icon-name">row-shutdown-symbolic</property>
-                                            <style>
-                                              <class name="outline"/>
-                                            </style>
+                                      <object class="AdwPreferencesGroup">
+                                        <property name="title" translatable="yes">Combo Rows</property>
+                                        <child>
+                                          <object class="AdwComboRow" id="combo_row">
+                                            <property name="title" translatable="yes">Combo row</property>
+                                            <property name="model">
+                                              <object class="GtkStringList">
+                                                <items>
+                                                  <item>Foo</item>
+                                                  <item>Bar</item>
+                                                  <item>Baz</item>
+                                                </items>
+                                              </object>
+                                            </property>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">A nested row</property>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Another nested row</property>
+                                          <object class="AdwComboRow" id="enum_combo_row">
+                                            <property name="subtitle" translatable="yes">This combo row was created from an enumeration</property>
+                                            <property name="title" translatable="yes">Enumeration combo row</property>
+                                            <property name="model">
+                                              <object class="AdwEnumListModel">
+                                                <property name="enum-type">GtkLicense</property>
+                                              </object>
+                                            </property>
+                                            <property name="expression">
+                                              <lookup type="AdwEnumListItem" name="nick"/>
+                                            </property>
                                           </object>
                                         </child>
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="AdwExpanderRow">
-                                        <property name="title" translatable="yes">Expander row with a prefix and icon</property>
-                                        <property name="icon-name">row-forbidden-symbolic</property>
-                                        <child type="prefix">
-                                          <object class="GtkButton">
-                                            <property name="valign">center</property>
-                                            <property name="icon-name">row-shutdown-symbolic</property>
-                                            <style>
-                                              <class name="outline"/>
-                                            </style>
+                                      <object class="AdwPreferencesGroup">
+                                        <property name="title" translatable="yes">Expander Rows</property>
+                                        <child>
+                                          <object class="AdwExpanderRow" id="expander_row">
+                                            <property name="title" translatable="yes">Expander row</property>
+                                            <child>
+                                              <object class="AdwActionRow">
+                                                <property name="title" translatable="yes">A nested row</property>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="AdwActionRow">
+                                                <property name="title" translatable="yes">Another nested row</property>
+                                              </object>
+                                            </child>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">A nested row</property>
+                                          <object class="AdwExpanderRow" id="action_expander_row">
+                                            <property name="title" translatable="yes">Expander row with an action</property>
+                                            <child type="action">
+                                              <object class="GtkButton">
+                                                <property name="valign">center</property>
+                                                <property name="icon-name">row-copy-symbolic</property>
+                                                <style>
+                                                  <class name="outline"/>
+                                                </style>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="AdwActionRow">
+                                                <property name="title" translatable="yes">A nested row</property>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="AdwActionRow">
+                                                <property name="title" translatable="yes">Another nested row</property>
+                                              </object>
+                                            </child>
                                           </object>
                                         </child>
                                         <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Another nested row</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="AdwExpanderRow" id="enable_expander_row">
-                                        <property name="show_enable_switch">True</property>
-                                        <property name="title" translatable="yes">Toggleable expander row</property>
-                                        <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">A nested row</property>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Another nested row</property>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="AdwExpanderRow" id="action_switch_expander_row">
-                                        <property name="show_enable_switch">True</property>
-                                        <property name="title" translatable="yes">Toggleable expander row with an action</property>
-                                        <child type="action">
-                                          <object class="GtkButton">
-                                            <property name="valign">center</property>
-                                            <property name="icon-name">row-copy-symbolic</property>
-                                            <style>
-                                              <class name="outline"/>
-                                            </style>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">A nested row</property>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Another nested row</property>
+                                          <object class="AdwExpanderRow" id="enable_expander_row">
+                                            <property name="show_enable_switch">True</property>
+                                            <property name="title" translatable="yes">Toggleable expander row</property>
+                                            <child>
+                                              <object class="AdwActionRow">
+                                                <property name="title" translatable="yes">A nested row</property>
+                                              </object>
+                                            </child>
+                                            <child>
+                                              <object class="AdwActionRow">
+                                                <property name="title" translatable="yes">Another nested row</property>
+                                              </object>
+                                            </child>
                                           </object>
                                         </child>
                                       </object>
