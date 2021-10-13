@@ -6,6 +6,14 @@
 #include "adw-demo-window.h"
 
 static void
+show_inspector (GSimpleAction *action,
+                GVariant      *state,
+                gpointer       user_data)
+{
+  gtk_window_set_interactive_debugging (TRUE);
+}
+
+static void
 show_preferences (GSimpleAction *action,
                   GVariant      *state,
                   gpointer       user_data)
@@ -83,6 +91,7 @@ main (int    argc,
   AdwApplication *app;
   int status;
   static GActionEntry app_entries[] = {
+    { "inspector", show_inspector, NULL, NULL, NULL },
     { "preferences", show_preferences, NULL, NULL, NULL },
     { "about", show_about, NULL, NULL, NULL },
   };
