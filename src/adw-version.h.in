@@ -10,6 +10,10 @@
 #error "Only <adwaita.h> can be included directly."
 #endif
 
+#include <glib.h>
+
+G_BEGIN_DECLS
+
 /**
  * ADW_MAJOR_VERSION:
  *
@@ -84,3 +88,12 @@
 #define ADW_UNAVAILABLE(major, minor) G_UNAVAILABLE(major, minor) _ADW_EXTERN
 
 #define ADW_AVAILABLE_IN_ALL _ADW_EXTERN
+
+ADW_AVAILABLE_IN_ALL
+guint adw_get_major_version (void) G_GNUC_CONST;
+ADW_AVAILABLE_IN_ALL
+guint adw_get_minor_version (void) G_GNUC_CONST;
+ADW_AVAILABLE_IN_ALL
+guint adw_get_micro_version (void) G_GNUC_CONST;
+
+G_END_DECLS
