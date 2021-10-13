@@ -11,7 +11,6 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchpad-swipe-back-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchscreen-swipe-back-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/gesture-touchscreen-swipe-back-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">icons/scalable/actions/gnome-smartphone-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/preferences-window-layout-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/preferences-window-search-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/row-copy-symbolic.svg</file>

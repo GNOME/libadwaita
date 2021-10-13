@@ -122,7 +122,7 @@
                         <property name="title" translatable="yes">Welcome</property>
                         <property name="child">
                           <object class="AdwStatusPage">
-                            <property name="icon-name">gnome-smartphone-symbolic</property>
+                            <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
                             <property name="title" translatable="yes">Welcome to Adwaita Demo</property>
                             <property name="description" translatable="yes">This is a tour of the features the library has to offer.</property>
                           </object>
