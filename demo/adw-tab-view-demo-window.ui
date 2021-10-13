@@ -18,9 +18,9 @@
               </object>
             </child>
             <child type="end">
-              <object class="GtkMenuButton">
-                <property name="menu-model">primary_menu</property>
-                <property name="icon-name">open-menu-symbolic</property>
+              <object class="GtkButton">
+                <property name="action-name">win.window-new</property>
+                <property name="icon-name">window-new-symbolic</property>
               </object>
             </child>
           </object>
@@ -45,14 +45,6 @@
       </object>
     </child>
   </template>
-  <menu id="primary_menu">
-    <section>
-      <item>
-        <attribute name="label" translatable="yes">_New Window</attribute>
-        <attribute name="action">win.window-new</attribute>
-      </item>
-    </section>
-  </menu>
   <menu id="tab_menu">
     <section>
       <item>
