@@ -16,10 +16,8 @@ struct _AdwDemoWindow
   GtkStack *stack;
   AdwComboRow *leaflet_transition_row;
   AdwLeaflet *subpage_leaflet;
-  GtkListBox *lists_listbox;
   AdwCarousel *carousel;
   GtkBox *carousel_box;
-  GtkListBox *carousel_listbox;
   GtkStack *carousel_indicators_stack;
   AdwAvatar *avatar;
   GtkEntry *avatar_text;
@@ -406,10 +404,8 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, leaflet_transition_row);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, subpage_leaflet);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, lists_listbox);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, carousel);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, carousel_box);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, carousel_listbox);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, carousel_indicators_stack);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar_text);
