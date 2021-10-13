@@ -5,11 +5,10 @@
   "sdk": "org.gnome.Sdk",
   "command": "adwaita-1-demo",
   "finish-args": [
-    "--device=all",
+    "--device=dri",
     "--share=ipc",
     "--socket=wayland",
-    "--socket=x11",
-    "--talk-name=org.a11y.Bus",
+    "--socket=fallback-x11",
     "--env=GTK_PATH=/app/lib/gtk-4.0"
   ],
   "modules": [
