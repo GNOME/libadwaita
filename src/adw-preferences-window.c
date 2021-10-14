@@ -455,6 +455,17 @@ adw_preferences_window_set_property (GObject      *object,
   }
 }
 
+static void
+adw_preferences_window_dispose (GObject *object)
+{
+  AdwPreferencesWindow *self = ADW_PREFERENCES_WINDOW (object);
+  AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
+
+  g_clear_object (&priv->filter_model);
+
+  G_OBJECT_CLASS (adw_preferences_window_parent_class)->dispose (object);
+}
+
 static gboolean
 search_open_cb (GtkWidget *widget,
                 GVariant  *args,
@@ -501,6 +512,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
 
   object_class->get_property = adw_preferences_window_get_property;
   object_class->set_property = adw_preferences_window_set_property;
+  object_class->dispose = adw_preferences_window_dispose;
 
   /**
    * AdwViewStack:visible-page: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page org.gtk.Property.set=adw_preferences_window_set_visible_page)
