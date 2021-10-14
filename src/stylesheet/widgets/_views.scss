@@ -54,28 +54,14 @@ rubberband {
   background-color: gtkalpha($accent_bg_color, 0.2);
 }
 
-flowbox {
-  > flowboxchild {
-    padding: 3px;
-    transition: $focus_transition;
+flowbox > flowboxchild,
+gridview > child {
+  padding: 3px;
+  transition: $focus_transition;
 
-    @include focus-ring();
+  @include focus-ring();
 
-    &:selected {
-      background-color: $view_selected_color;
-    }
-  }
-}
-
-gridview {
-  > child {
-    padding: 3px;
-    transition: $focus_transition;
-
-    @include focus-ring();
-
-    &:selected {
-      background-color: $view_selected_color;
-    }
+  &:selected {
+    background-color: $view_selected_color;
   }
 }
