@@ -458,6 +458,12 @@ style.
 The same rules are also used for the [`.toolbar`](style-classes.html#toolbars)
 style class now, instead of making every button appear flat.
 
+The `.selection-mode` style class no longer recolors headerbars. Instead
+of using the old styling, rework your selection modes to follow
+[the new pattern for selection modes](https://developer.gnome.org/hig/patterns/containers/selection-mode.html)
+and the [`.selection-mode`](style-classes.html#selection-mode-check-buttons)
+style class on [class@Gtk.CheckButton].
+
 #### Adapt to List Style Changes
 
 For boxed lists we now have the
