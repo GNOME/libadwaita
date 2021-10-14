@@ -30,9 +30,10 @@ progressbar {
     > progress {
       @extend %scale_highlight; /* share most of scales' */
 
-      border-radius: 1.5px;
-
       $_progress-radius: 5px;
+
+      border-radius: $_progress-radius;
+
       &.left {
         border-top-left-radius: $_progress-radius;
         border-bottom-left-radius: $_progress-radius;

@@ -238,7 +238,7 @@ listview.content {
   background-color: $card_bg_color;
   color: $card_fg_color;
   border: 1px solid $card_border_color;
-  border-radius: 8px;
+  border-radius: $card_radius;
 
   > row {
     // Regular rows and expander header rows background
