@@ -77,10 +77,5 @@ gridview {
     &:selected {
       background-color: $view_selected_color;
     }
-
-    box { //cells
-      border-spacing: 8px; //label separation
-      margin: 12px;
-    }
   }
 }
