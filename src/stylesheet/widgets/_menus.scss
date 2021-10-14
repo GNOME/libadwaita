@@ -45,7 +45,7 @@ popover.menu {
 
     &, > scrolledwindow > viewport {
       > stack > box {
-        padding: $menu-margin;
+        padding: $menu_margin;
       }
     }
   }
@@ -110,7 +110,7 @@ popover.menu {
     min-height: 30px;
     min-width: 40px;
     padding: 0 $menu_padding;
-    border-radius: $menu-margin;
+    border-radius: $menu_radius;
 
     @extend %undecorated_button;
 
