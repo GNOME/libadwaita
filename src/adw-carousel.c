@@ -379,8 +379,12 @@ scroll_to (AdwCarousel *self,
   if (self->animation)
     adw_animation_stop (self->animation);
 
-  self->animation_source_position = self->position;
   self->animation_target_child = find_child_info (self, widget);
+
+  if (self->animation_target_child == NULL)
+    return;
+
+  self->animation_source_position = self->position;
 
   self->animation =
     adw_animation_new (GTK_WIDGET (self), 0, 1, duration,
