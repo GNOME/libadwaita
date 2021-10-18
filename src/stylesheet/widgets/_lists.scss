@@ -30,16 +30,19 @@ row {
   background-clip: padding-box;
 
   &.activatable {
-    &.has-open-popup, // this is for indicathing which row generated a popover see https://bugzilla.gnome.org/show_bug.cgi?id=754411
     &:hover { background-color: $view_hover_color; }
 
     &:active { background-color: $view_active_color; }
 
+    // this is for indicathing which row generated a popover see https://bugzilla.gnome.org/show_bug.cgi?id=754411
+    &.has-open-popup { background-color: $view_hover_color; }
+
     &:selected {
-      &.has-open-popup,
       &:hover { background-color: $view_selected_hover_color; }
 
       &:active { background-color: $view_selected_active_color; }
+
+      &.has-open-popup { background-color: $view_selected_hover_color; }
     }
   }
 
@@ -166,13 +169,16 @@ row.combo {
   border-bottom: 1px solid $borders_color;
 
   &:not(:selected).activatable {
-    &.has-open-popup,
     &:hover {
       background-color: gtkalpha(currentColor, .03);
     }
 
     &:active {
       background-color: gtkalpha(currentColor, .08);
+    }
+
+    &.has-open-popup {
+      background-color: gtkalpha(currentColor, .03);
     }
   }
 }
