@@ -146,6 +146,10 @@ row.combo {
       color: inherit;
     }
   }
+
+  popover > contents {
+    min-width: 120px;
+  }
 }
 
 /******************

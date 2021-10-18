@@ -180,7 +180,7 @@ setup_item (GtkSignalListItemFactory *factory,
   GtkWidget *label;
   GtkWidget *icon;
 
-  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
+  box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 0);
 
   label = gtk_label_new (NULL);
   gtk_label_set_xalign (GTK_LABEL (label), 0.0);
