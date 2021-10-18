@@ -148,17 +148,11 @@ dnd tab {
     background-image: $tab_needs_attention_gradient;
   }
 
-  $_wm_border: if($variant=='light', transparentize(black, 0.77), transparentize(black, 0.25));
-
   box-shadow: 0 3px 9px 1px transparentize(black, 0.75),
-              0 0 0 1px $_wm_border;
+              0 0 0 1px $window_border_color;
 
-  @if $variant == 'dark' {
-    $_wm_outline: if($contrast=='high', transparentize(white, .7), transparentize(white, .9));
-
-    outline: 1px solid $_wm_outline;
-    outline-offset: -1px;
-  }
+  outline: 1px solid $window_outline_color;
+  outline-offset: -1px;
 
   margin: 25px;
 }

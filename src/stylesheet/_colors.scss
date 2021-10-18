@@ -19,6 +19,8 @@ $bg_color: if($variant == 'light', #fafafa, #242424);
 $fg_color: if($variant == 'light', transparentize(black, .2), white);
 
 $border_opacity: if($contrast == 'high', .5, .15);
+$window_outline_opacity: if($contrast == 'high', .3, .1);
+
 $borders_color: gtkalpha(currentColor, $border_opacity);
 $thin_borders_color: gtkalpha(currentColor, .05);
 $link_color: $accent_color;
@@ -35,6 +37,10 @@ $scrollbar_outline_color: if($variant == 'light', white, transparentize(black, .
 
 $popover_bg_color: if($variant == 'light', #ffffff, #383838);
 $popover_fg_color: $fg_color;
+
+$window_outline_color: gtkalpha(if($variant == 'light', transparent, white), $window_outline_opacity);
+$window_border_color: if($variant == 'light', transparentize(black, 0.77), transparentize(black, 0.25));
+$window_border_backdrop_color: if($variant == 'light', transparentize(black, 0.82), transparentize(black, 0.25));
 
 $view_hover_color: gtkalpha(currentColor, .07);
 $view_active_color: gtkalpha(currentColor, .16);
