@@ -309,10 +309,8 @@ button.color {
       filter: none;
     }
 
-    @if $variant == 'light' {
-      &.light > overlay {
-        border-color: transparentize(black, .8);
-      }
+    &.light > overlay {
+      border-color: gtkalpha($text_color, 0.1);
     }
   }
 }
