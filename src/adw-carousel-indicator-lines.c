@@ -49,8 +49,8 @@ struct _AdwCarouselIndicatorLines
   AdwAnimation *animation;
 };
 
-G_DEFINE_TYPE_WITH_CODE (AdwCarouselIndicatorLines, adw_carousel_indicator_lines, GTK_TYPE_WIDGET,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwCarouselIndicatorLines, adw_carousel_indicator_lines, GTK_TYPE_WIDGET,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
 
 enum {
   PROP_0,

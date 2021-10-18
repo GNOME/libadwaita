@@ -21,7 +21,7 @@ struct _AdwShadowHelper
   GtkWidget *outline;
 };
 
-G_DEFINE_TYPE (AdwShadowHelper, adw_shadow_helper, G_TYPE_OBJECT);
+G_DEFINE_FINAL_TYPE (AdwShadowHelper, adw_shadow_helper, G_TYPE_OBJECT);
 
 enum {
   PROP_0,

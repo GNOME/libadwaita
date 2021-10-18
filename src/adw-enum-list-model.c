@@ -40,8 +40,8 @@ static GParamSpec *props[LAST_PROP];
 
 static void adw_enum_list_model_list_model_init (GListModelInterface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (AdwEnumListModel, adw_enum_list_model, G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_enum_list_model_list_model_init))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwEnumListModel, adw_enum_list_model, G_TYPE_OBJECT,
+                               G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_enum_list_model_list_model_init))
 
 /**
  * AdwEnumListItem:
@@ -68,7 +68,7 @@ enum {
 
 static GParamSpec *value_props[LAST_VALUE_PROP];
 
-G_DEFINE_TYPE (AdwEnumListItem, adw_enum_list_item, G_TYPE_OBJECT)
+G_DEFINE_FINAL_TYPE (AdwEnumListItem, adw_enum_list_item, G_TYPE_OBJECT)
 
 static void
 adw_enum_list_item_get_property (GObject    *object,

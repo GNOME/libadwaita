@@ -59,7 +59,7 @@ struct _AdwAvatar
   int size;
 };
 
-G_DEFINE_TYPE (AdwAvatar, adw_avatar, GTK_TYPE_WIDGET);
+G_DEFINE_FINAL_TYPE (AdwAvatar, adw_avatar, GTK_TYPE_WIDGET);
 
 enum {
   PROP_0,

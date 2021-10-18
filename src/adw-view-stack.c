@@ -117,7 +117,7 @@ struct _AdwViewStackPage {
   bool use_underline;
 };
 
-G_DEFINE_TYPE (AdwViewStackPage, adw_view_stack_page, G_TYPE_OBJECT)
+G_DEFINE_FINAL_TYPE (AdwViewStackPage, adw_view_stack_page, G_TYPE_OBJECT)
 
 enum {
   PAGE_PROP_0,
@@ -161,8 +161,8 @@ static GParamSpec *props[LAST_PROP];
 
 static void adw_view_stack_buildable_init (GtkBuildableIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (AdwViewStack, adw_view_stack, GTK_TYPE_WIDGET,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_view_stack_buildable_init))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwViewStack, adw_view_stack, GTK_TYPE_WIDGET,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_view_stack_buildable_init))
 
 static GtkBuildableIface *parent_buildable_iface;
 
@@ -482,9 +482,9 @@ adw_view_stack_pages_selection_model_init (GtkSelectionModelInterface *iface)
   iface->select_item = adw_view_stack_pages_select_item;
 }
 
-G_DEFINE_TYPE_WITH_CODE (AdwViewStackPages, adw_view_stack_pages, G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_view_stack_pages_list_model_init)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_view_stack_pages_selection_model_init))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwViewStackPages, adw_view_stack_pages, G_TYPE_OBJECT,
+                               G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_view_stack_pages_list_model_init)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_view_stack_pages_selection_model_init))
 
 static void
 adw_view_stack_pages_init (AdwViewStackPages *pages)

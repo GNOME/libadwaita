@@ -59,9 +59,8 @@ struct _AdwTabBar
 
 static void adw_tab_bar_buildable_init (GtkBuildableIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (AdwTabBar, adw_tab_bar, GTK_TYPE_WIDGET,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
-                         adw_tab_bar_buildable_init))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwTabBar, adw_tab_bar, GTK_TYPE_WIDGET,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_tab_bar_buildable_init))
 
 enum {
   PROP_0,

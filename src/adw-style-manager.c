@@ -62,7 +62,7 @@ struct _AdwStyleManager
   guint animation_timeout_id;
 };
 
-G_DEFINE_TYPE (AdwStyleManager, adw_style_manager, G_TYPE_OBJECT);
+G_DEFINE_FINAL_TYPE (AdwStyleManager, adw_style_manager, G_TYPE_OBJECT);
 
 enum {
   PROP_0,

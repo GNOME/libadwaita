@@ -57,8 +57,8 @@ struct _AdwClampLayout
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE_WITH_CODE (AdwClampLayout, adw_clamp_layout, GTK_TYPE_LAYOUT_MANAGER,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwClampLayout, adw_clamp_layout, GTK_TYPE_LAYOUT_MANAGER,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
 
 static void
 set_orientation (AdwClampLayout *self,

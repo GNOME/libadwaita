@@ -156,7 +156,7 @@ enum {
 
 static guint signals[SIGNAL_LAST_SIGNAL];
 
-G_DEFINE_TYPE (AdwToast, adw_toast, G_TYPE_OBJECT)
+G_DEFINE_FINAL_TYPE (AdwToast, adw_toast, G_TYPE_OBJECT)
 
 static void
 dismissed_cb (AdwToast *self)

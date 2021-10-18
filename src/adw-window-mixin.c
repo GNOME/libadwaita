@@ -23,7 +23,7 @@ struct _AdwWindowMixin
   GtkWidget *content;
 };
 
-G_DEFINE_TYPE (AdwWindowMixin, adw_window_mixin, G_TYPE_OBJECT)
+G_DEFINE_FINAL_TYPE (AdwWindowMixin, adw_window_mixin, G_TYPE_OBJECT)
 
 void
 adw_window_mixin_size_allocate (AdwWindowMixin *self,

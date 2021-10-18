@@ -608,7 +608,7 @@ struct _AdwAnimationTarget
   gpointer user_data;
 };
 
-G_DEFINE_TYPE (AdwAnimationTarget, adw_animation_target, G_TYPE_OBJECT);
+G_DEFINE_FINAL_TYPE (AdwAnimationTarget, adw_animation_target, G_TYPE_OBJECT);
 
 static void
 adw_animation_target_class_init (AdwAnimationTargetClass *klass)

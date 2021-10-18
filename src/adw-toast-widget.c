@@ -27,7 +27,7 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE (AdwToastWidget, adw_toast_widget, GTK_TYPE_WIDGET)
+G_DEFINE_FINAL_TYPE (AdwToastWidget, adw_toast_widget, GTK_TYPE_WIDGET)
 
 static gboolean
 string_is_not_empty (gpointer    user_data,

@@ -58,10 +58,9 @@ static GParamSpec *props[LAST_PROP];
 
 static void adw_clamp_buildable_init (GtkBuildableIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (AdwClamp, adw_clamp, GTK_TYPE_WIDGET,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
-                         adw_clamp_buildable_init))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwClamp, adw_clamp, GTK_TYPE_WIDGET,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_clamp_buildable_init))
 
 static GtkBuildableIface *parent_buildable_iface;
 

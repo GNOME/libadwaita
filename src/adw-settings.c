@@ -40,7 +40,7 @@ struct _AdwSettings
   gboolean high_contrast_override;
 };
 
-G_DEFINE_TYPE (AdwSettings, adw_settings, G_TYPE_OBJECT);
+G_DEFINE_FINAL_TYPE (AdwSettings, adw_settings, G_TYPE_OBJECT);
 
 enum {
   PROP_0,

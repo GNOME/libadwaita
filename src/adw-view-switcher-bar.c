@@ -84,7 +84,7 @@ struct _AdwViewSwitcherBar
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE (AdwViewSwitcherBar, adw_view_switcher_bar, GTK_TYPE_WIDGET)
+G_DEFINE_FINAL_TYPE (AdwViewSwitcherBar, adw_view_switcher_bar, GTK_TYPE_WIDGET)
 
 static void
 update_bar_revealed (AdwViewSwitcherBar *self)

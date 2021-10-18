@@ -23,7 +23,7 @@ struct _AdwGizmo
   AdwGizmoGrabFocusFunc grab_focus_func;
 };
 
-G_DEFINE_TYPE (AdwGizmo, adw_gizmo, GTK_TYPE_WIDGET)
+G_DEFINE_FINAL_TYPE (AdwGizmo, adw_gizmo, GTK_TYPE_WIDGET)
 
 static void
 adw_gizmo_measure (GtkWidget      *widget,

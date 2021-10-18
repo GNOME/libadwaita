@@ -71,7 +71,7 @@ struct _AdwTabPage
   gboolean closing;
 };
 
-G_DEFINE_TYPE (AdwTabPage, adw_tab_page, G_TYPE_OBJECT)
+G_DEFINE_FINAL_TYPE (AdwTabPage, adw_tab_page, G_TYPE_OBJECT)
 
 enum {
   PAGE_PROP_0,
@@ -112,7 +112,7 @@ struct _AdwTabView
   GtkSelectionModel *pages;
 };
 
-G_DEFINE_TYPE (AdwTabView, adw_tab_view, GTK_TYPE_WIDGET)
+G_DEFINE_FINAL_TYPE (AdwTabView, adw_tab_view, GTK_TYPE_WIDGET)
 
 enum {
   PROP_0,
@@ -646,9 +646,9 @@ adw_tab_pages_selection_model_init (GtkSelectionModelInterface *iface)
   iface->select_item = adw_tab_pages_select_item;
 }
 
-G_DEFINE_TYPE_WITH_CODE (AdwTabPages, adw_tab_pages, G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_tab_pages_list_model_init)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_tab_pages_selection_model_init))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwTabPages, adw_tab_pages, G_TYPE_OBJECT,
+                               G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_tab_pages_list_model_init)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_tab_pages_selection_model_init))
 
 static void
 adw_tab_pages_init (AdwTabPages *self)

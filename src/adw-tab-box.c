@@ -159,8 +159,8 @@ struct _AdwTabBox
   gsize extra_drag_n_types;
 };
 
-G_DEFINE_TYPE_WITH_CODE (AdwTabBox, adw_tab_box, GTK_TYPE_WIDGET,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SCROLLABLE, NULL))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwTabBox, adw_tab_box, GTK_TYPE_WIDGET,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_SCROLLABLE, NULL))
 
 enum {
   PROP_0,
@@ -1807,7 +1807,7 @@ struct _AdwTabBoxRootContent
   AdwTabBox *tab_box;
 };
 
-G_DEFINE_TYPE (AdwTabBoxRootContent, adw_tab_box_root_content, GDK_TYPE_CONTENT_PROVIDER)
+G_DEFINE_FINAL_TYPE (AdwTabBoxRootContent, adw_tab_box_root_content, GDK_TYPE_CONTENT_PROVIDER)
 
 static GdkContentFormats *
 adw_tab_box_root_content_ref_formats (GdkContentProvider *provider)

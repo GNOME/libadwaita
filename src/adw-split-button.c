@@ -87,9 +87,9 @@ struct _AdwSplitButton
 static void adw_split_button_actionable_init (GtkActionableInterface *iface);
 static void adw_split_button_buildable_init (GtkBuildableIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (AdwSplitButton, adw_split_button, GTK_TYPE_WIDGET,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ACTIONABLE, adw_split_button_actionable_init)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_split_button_buildable_init))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwSplitButton, adw_split_button, GTK_TYPE_WIDGET,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ACTIONABLE, adw_split_button_actionable_init)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_split_button_buildable_init))
 
 static GtkBuildableIface *parent_buildable_iface;
 

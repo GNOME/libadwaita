@@ -108,7 +108,7 @@ struct _AdwLeafletPage {
   GtkWidget *last_focus;
 };
 
-G_DEFINE_TYPE (AdwLeafletPage, adw_leaflet_page, G_TYPE_OBJECT)
+G_DEFINE_FINAL_TYPE (AdwLeafletPage, adw_leaflet_page, G_TYPE_OBJECT)
 
 enum {
   PAGE_PROP_0,
@@ -192,10 +192,10 @@ static GParamSpec *props[LAST_PROP];
 static void adw_leaflet_buildable_init (GtkBuildableIface *iface);
 static void adw_leaflet_swipeable_init (AdwSwipeableInterface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (AdwLeaflet, adw_leaflet, GTK_TYPE_WIDGET,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_leaflet_buildable_init)
-                         G_IMPLEMENT_INTERFACE (ADW_TYPE_SWIPEABLE, adw_leaflet_swipeable_init))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwLeaflet, adw_leaflet, GTK_TYPE_WIDGET,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_leaflet_buildable_init)
+                               G_IMPLEMENT_INTERFACE (ADW_TYPE_SWIPEABLE, adw_leaflet_swipeable_init))
 
 static GtkBuildableIface *parent_buildable_iface;
 
@@ -409,9 +409,9 @@ adw_leaflet_pages_selection_model_init (GtkSelectionModelInterface *iface)
   iface->select_item = adw_leaflet_pages_select_item;
 }
 
-G_DEFINE_TYPE_WITH_CODE (AdwLeafletPages, adw_leaflet_pages, G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_leaflet_pages_list_model_init)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_leaflet_pages_selection_model_init))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwLeafletPages, adw_leaflet_pages, G_TYPE_OBJECT,
+                               G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_leaflet_pages_list_model_init)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_leaflet_pages_selection_model_init))
 
 static void
 adw_leaflet_pages_init (AdwLeafletPages *pages)

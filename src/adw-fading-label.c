@@ -25,7 +25,7 @@ struct _AdwFadingLabel
   gboolean shader_compiled;
 };
 
-G_DEFINE_TYPE (AdwFadingLabel, adw_fading_label, GTK_TYPE_WIDGET)
+G_DEFINE_FINAL_TYPE (AdwFadingLabel, adw_fading_label, GTK_TYPE_WIDGET)
 
 enum {
   PROP_0,

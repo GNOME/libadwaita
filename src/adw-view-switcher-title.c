@@ -92,7 +92,7 @@ struct _AdwViewSwitcherTitle
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE (AdwViewSwitcherTitle, adw_view_switcher_title, GTK_TYPE_WIDGET)
+G_DEFINE_FINAL_TYPE (AdwViewSwitcherTitle, adw_view_switcher_title, GTK_TYPE_WIDGET)
 
 static void
 update_view_switcher_visible (AdwViewSwitcherTitle *self)

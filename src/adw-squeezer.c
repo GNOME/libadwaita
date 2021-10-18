@@ -67,7 +67,7 @@ struct _AdwSqueezerPage {
   gboolean enabled;
 };
 
-G_DEFINE_TYPE (AdwSqueezerPage, adw_squeezer_page, G_TYPE_OBJECT)
+G_DEFINE_FINAL_TYPE (AdwSqueezerPage, adw_squeezer_page, G_TYPE_OBJECT)
 
 enum {
   PAGE_PROP_0,
@@ -138,9 +138,9 @@ static GParamSpec *props[LAST_PROP];
 
 static void adw_squeezer_buildable_init (GtkBuildableIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (AdwSqueezer, adw_squeezer, GTK_TYPE_WIDGET,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_squeezer_buildable_init))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwSqueezer, adw_squeezer, GTK_TYPE_WIDGET,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_squeezer_buildable_init))
 
 static GtkBuildableIface *parent_buildable_iface;
 
@@ -320,9 +320,9 @@ adw_squeezer_pages_selection_model_init (GtkSelectionModelInterface *iface)
   iface->is_selected = adw_squeezer_pages_is_selected;
 }
 
-G_DEFINE_TYPE_WITH_CODE (AdwSqueezerPages, adw_squeezer_pages, G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_squeezer_pages_list_model_init)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_squeezer_pages_selection_model_init))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwSqueezerPages, adw_squeezer_pages, G_TYPE_OBJECT,
+                               G_IMPLEMENT_INTERFACE (G_TYPE_LIST_MODEL, adw_squeezer_pages_list_model_init)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_SELECTION_MODEL, adw_squeezer_pages_selection_model_init))
 
 static void
 adw_squeezer_pages_init (AdwSqueezerPages *pages)

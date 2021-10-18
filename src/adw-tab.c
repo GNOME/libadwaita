@@ -53,7 +53,7 @@ struct _AdwTab
   gboolean shader_compiled;
 };
 
-G_DEFINE_TYPE (AdwTab, adw_tab, GTK_TYPE_WIDGET)
+G_DEFINE_FINAL_TYPE (AdwTab, adw_tab, GTK_TYPE_WIDGET)
 
 enum {
   PROP_0,

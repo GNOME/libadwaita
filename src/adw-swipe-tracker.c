@@ -90,8 +90,8 @@ struct _AdwSwipeTracker
   GtkGesture *touch_gesture_capture;
 };
 
-G_DEFINE_TYPE_WITH_CODE (AdwSwipeTracker, adw_swipe_tracker, G_TYPE_OBJECT,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL));
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwSwipeTracker, adw_swipe_tracker, G_TYPE_OBJECT,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL));
 
 enum {
   PROP_0,

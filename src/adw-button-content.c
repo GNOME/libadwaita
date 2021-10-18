@@ -70,7 +70,7 @@ struct _AdwButtonContent {
   GtkWidget *button;
 };
 
-G_DEFINE_TYPE (AdwButtonContent, adw_button_content, GTK_TYPE_WIDGET)
+G_DEFINE_FINAL_TYPE (AdwButtonContent, adw_button_content, GTK_TYPE_WIDGET)
 
 enum {
   PROP_0,

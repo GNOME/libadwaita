@@ -55,8 +55,8 @@ struct _AdwViewSwitcherButton
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE_WITH_CODE (AdwViewSwitcherButton, adw_view_switcher_button, GTK_TYPE_TOGGLE_BUTTON,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwViewSwitcherButton, adw_view_switcher_button, GTK_TYPE_TOGGLE_BUTTON,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL))
 
 static gboolean
 adw_view_switcher_button_switch_timeout (AdwViewSwitcherButton *self)

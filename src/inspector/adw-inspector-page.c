@@ -27,7 +27,7 @@ struct _AdwInspectorPage
   GObject *object;
 };
 
-G_DEFINE_TYPE (AdwInspectorPage, adw_inspector_page, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwInspectorPage, adw_inspector_page, ADW_TYPE_BIN)
 
 enum {
   PROP_0,

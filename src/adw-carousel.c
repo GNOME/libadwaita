@@ -79,10 +79,10 @@ struct _AdwCarousel
 static void adw_carousel_buildable_init (GtkBuildableIface *iface);
 static void adw_carousel_swipeable_init (AdwSwipeableInterface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (AdwCarousel, adw_carousel, GTK_TYPE_WIDGET,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_carousel_buildable_init)
-                         G_IMPLEMENT_INTERFACE (ADW_TYPE_SWIPEABLE, adw_carousel_swipeable_init))
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwCarousel, adw_carousel, GTK_TYPE_WIDGET,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_carousel_buildable_init)
+                               G_IMPLEMENT_INTERFACE (ADW_TYPE_SWIPEABLE, adw_carousel_swipeable_init))
 
 static GtkBuildableIface *parent_buildable_iface;
 

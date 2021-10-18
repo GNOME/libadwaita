@@ -162,9 +162,8 @@ static GParamSpec *props[LAST_PROP] = { NULL, };
 
 static void adw_header_bar_buildable_init (GtkBuildableIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE (AdwHeaderBar, adw_header_bar, GTK_TYPE_WIDGET,
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE,
-                                                adw_header_bar_buildable_init));
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwHeaderBar, adw_header_bar, GTK_TYPE_WIDGET,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_header_bar_buildable_init));
 
 static GtkBuildableIface *parent_buildable_iface;
 

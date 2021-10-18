@@ -68,7 +68,7 @@ struct _AdwViewSwitcher
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE (AdwViewSwitcher, adw_view_switcher, GTK_TYPE_WIDGET)
+G_DEFINE_FINAL_TYPE (AdwViewSwitcher, adw_view_switcher, GTK_TYPE_WIDGET)
 
 static void
 on_button_toggled (GtkWidget       *button,

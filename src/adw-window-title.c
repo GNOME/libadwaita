@@ -41,7 +41,7 @@ struct _AdwWindowTitle
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE (AdwWindowTitle, adw_window_title, GTK_TYPE_WIDGET)
+G_DEFINE_FINAL_TYPE (AdwWindowTitle, adw_window_title, GTK_TYPE_WIDGET)
 
 static void
 adw_window_title_init (AdwWindowTitle *self)
