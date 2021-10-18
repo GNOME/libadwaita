@@ -29,6 +29,7 @@
         </child>
         <child>
           <object class="GtkPopover" id="popover">
+            <signal name="notify::visible" handler="notify_popover_visible_cb" swapped="true"/>
             <style>
               <class name="combo"/>
             </style>

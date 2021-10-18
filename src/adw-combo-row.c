@@ -151,6 +151,17 @@ row_activated_cb (AdwComboRow *self)
 }
 
 static void
+notify_popover_visible_cb (AdwComboRow *self)
+{
+  AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
+
+  if (gtk_widget_get_visible (GTK_WIDGET (priv->popover)))
+    gtk_widget_add_css_class (GTK_WIDGET (self), "has-open-popup");
+  else
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "has-open-popup");
+}
+
+static void
 adw_combo_row_activate (AdwActionRow *row)
 {
   AdwComboRow *self = ADW_COMBO_ROW (row);
@@ -517,6 +528,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, list);
   gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, popover);
   gtk_widget_class_bind_template_callback (widget_class, row_activated_cb);
+  gtk_widget_class_bind_template_callback (widget_class, notify_popover_visible_cb);
 
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_COMBO_BOX);
 }
