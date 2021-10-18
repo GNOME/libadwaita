@@ -147,6 +147,60 @@ popover.menu {
     font-weight: bold;
     padding: 4px ($menu_padding + 20px); //this will fall apart with font sizing
   }
+
+  list, listview {
+    background: none;
+    color: inherit;
+
+    > row {
+      border-radius: $menu_radius;
+      padding: 0 $menu_padding;
+      min-height: 30px;
+      min-width: 40px;
+
+      &:selected {
+        background: none;
+      }
+
+      &:hover {
+        &, &:selected.activatable {
+          background-color: $view_selected_color;
+        }
+      }
+
+      &:active {
+        &, &:selected.activatable {
+          background-color: $view_selected_active_color;
+        }
+      }
+
+      &.has-open-popup {
+        &, &:selected.activatable {
+          background-color: $view_selected_color;
+        }
+      }
+
+      > box {
+        border-spacing: 6px;
+      }
+    }
+  }
+
+  // Standalone lists should have same margins as menu sections,
+  // but we don't want that on lists inside sections themselves
+  contents > list,
+  contents > listview,
+  scrolledwindow > viewport > list,
+  scrolledwindow > listview {
+    padding: $menu_margin 0; //only vertical padding. horizontal row size would clip
+
+    > row {
+      margin: 0 $menu_margin;
+
+      padding: 8px;
+      min-height: 0;
+    }
+  }
 }
 
 menubar {
