@@ -7,16 +7,9 @@ $tab_needs_attention_gradient: radial-gradient(ellipse at bottom,
 
 
 @mixin undershoot-gradient($dir) {
-  @if $variant == 'dark' {
-    background: linear-gradient(to #{$dir},
-                                transparentize(black, .6),
-                                transparentize(black, 1) 20px);
-  }
-  @else {
-    background: linear-gradient(to #{$dir},
-                                transparentize(black, .93),
-                                transparentize(black, 1) 20px);
-  }
+  background: linear-gradient(to #{$dir},
+                              $shade_color,
+                              transparentize(black, 1) 20px);
 }
 
 @mixin need-attention-gradient($dir) {
