@@ -71,7 +71,6 @@ $drop_target_color: $accent_bg_color;
 
 //special cased widget colors
 $focus_border_color:  gtkalpha($accent_bg_color, 0.5);
-$alt_focus_border_color: if($variant == 'light', transparentize(white, 0.2), transparentize(white,0.7));
 $dim_label_opacity: 0.55;
 
 // High Contrast color overrides
@@ -81,7 +80,6 @@ $dim_label_opacity: 0.55;
 
   //focus rings
   $focus_border_color: gtkalpha($accent_bg_color, 0.8);
-  $alt_focus_border_color: if($variant == 'light', white, transparentize(white,0.4));
 
   $dim_label_opacity: 0.9;
 
