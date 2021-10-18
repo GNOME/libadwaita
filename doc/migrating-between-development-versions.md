@@ -226,3 +226,11 @@ The title and subtitle have markup enabled, make sure to escape it with
 ### Adapt to [class@Adw.ExpanderRow] API Changes
 
 The `adw_expander_row_add ()` function has been renamed to `adw_expander_row_add_row ()`.
+
+### Adapt to Stylesheet Changes
+
+#### Adapt to the `popover.combo` style removal
+
+The `.combo` popover style class has been removed. Use `.menu` instead. You may
+need to remove manually added margins, padding or minimum height from the list
+items inside while doing it.

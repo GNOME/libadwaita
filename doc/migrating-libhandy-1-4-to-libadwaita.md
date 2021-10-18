@@ -351,6 +351,12 @@ If you were using `@theme_selected_bg_color` as a text color, use
 The `.sidebar` style class doesn't provide a border by default. Instead, use a
 [class@Gtk.Separator] with the style class `.sidebar` manually.
 
+### Adapt to the `popover.combo` style removal
+
+The `.combo` popover style class has been removed. Use `.menu` instead. You may
+need to remove manually added margins, padding or minimum height from the list
+items inside while doing it.
+
 #### Adapt to Header Bar, Action Bar, Search Bar and Toolbar Style Changes
 
 When possible, buttons in [class@Gtk.HeaderBar], [class@Gtk.ActionBar] and
