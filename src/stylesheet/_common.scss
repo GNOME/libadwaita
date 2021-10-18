@@ -91,17 +91,13 @@ expander-widget {
   animation: needs_attention 150ms ease-in;
 
   background-image: radial-gradient(farthest-side, $accent_bg_color 96%, transparent);
-  background-size: 6px 6px, 6px 6px;
+  background-size: 6px 6px;
   background-repeat: no-repeat;
 
-  @if $variant == 'light' { background-position: right 3px, right 4px; }
-
-  @else { background-position: right 3px, right 2px; }
+  background-position: right 3px;
 
   &:dir(rtl) {
-    @if $variant == 'light' { background-position: left 3px, left 4px; }
-
-    @else { background-position: left 3px, left 2px; }
+    background-position: left 3px;
   }
 }
 
