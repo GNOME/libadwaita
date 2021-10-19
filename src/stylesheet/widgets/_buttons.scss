@@ -5,6 +5,8 @@ $button_checked_color: gtkalpha(currentColor, .2);
 $button_checked_hover_color: gtkalpha(currentColor, .25);
 $button_checked_active_color: gtkalpha(currentColor, .35);
 
+$opaque_button_default_bg: gtkmix($window_bg_color, $window_fg_color, 85%);
+
 %button,
 button {
   @at-root %button_basic, & {
@@ -145,7 +147,7 @@ button {
     }
   }
 
-  @at-root %filled_button {
+  @at-root %opaque_button {
     box-shadow: none;
 
     @include focus-ring($outer: true, $offset: 1px);
@@ -174,8 +176,15 @@ button {
     }
   }
 
+  &.opaque {
+    @extend %opaque_button;
+
+    background-color: $opaque_button_default_bg;
+    color: $window_fg_color;
+  }
+
   &.destructive-action {
-    @extend %filled_button;
+    @extend %opaque_button;
 
     color: $destructive_fg_color;
 
@@ -185,7 +194,7 @@ button {
   }
 
   &.suggested-action {
-    @extend %filled_button;
+    @extend %opaque_button;
 
     color: $accent_fg_color;
 
@@ -470,7 +479,7 @@ splitbutton {
 
   &.suggested-action {
     > button, > menubutton > button {
-      @extend %filled_button;
+      @extend %opaque_button;
 
       color: $accent_fg_color;
 
@@ -482,7 +491,7 @@ splitbutton {
 
   &.destructive-action {
     > button, > menubutton > button {
-      @extend %filled_button;
+      @extend %opaque_button;
 
       color: $destructive_fg_color;
 
