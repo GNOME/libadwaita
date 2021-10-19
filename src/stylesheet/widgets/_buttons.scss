@@ -363,6 +363,40 @@ menubutton {
   &.flat > button { @extend %button_basic_flat; }
   &.outline > button { @extend %outline_button; }
 
+  &.suggested-action {
+    background-color: $accent_bg_color;
+    color: $accent_fg_color;
+  }
+
+  &.destructive-action {
+    background-color: $destructive_bg_color;
+    color: $destructive_fg_color;
+  }
+
+  &.opaque {
+    background-color: $opaque_button_default_bg;
+    color: $window_fg_color;
+  }
+
+  &.suggested-action,
+  &.destructive-action,
+  &.opaque {
+    border-radius: $button_radius;
+
+    &.circular {
+      border-radius: 9999px;
+    }
+
+    > button {
+      @extend %opaque_button;
+
+      &, &:checked {
+        background-color: transparent;
+        color: inherit;
+      }
+    }
+  }
+
   &.image-button > button {
     min-width: 24px;
     padding-left: 5px;
@@ -478,31 +512,32 @@ splitbutton {
   }
 
   &.suggested-action {
-    > button, > menubutton > button {
-      @extend %opaque_button;
-
-      color: $accent_fg_color;
-
-      &, &:checked {
-        background-color: $accent_bg_color;
-      }
-    }
+    background-color: $accent_bg_color;
+    color: $accent_fg_color;
   }
 
   &.destructive-action {
-    > button, > menubutton > button {
-      @extend %opaque_button;
+    background-color: $destructive_bg_color;
+    color: $destructive_fg_color;
+  }
 
-      color: $destructive_fg_color;
-
-      &, &:checked {
-        background-color: $destructive_bg_color;
-      }
-    }
+  &.opaque {
+    background-color: $opaque_button_default_bg;
+    color: $window_fg_color;
   }
 
   &.suggested-action,
-  &.destructive-action {
+  &.destructive-action,
+  &.opaque {
+    > button, > menubutton > button {
+      @extend %opaque_button;
+
+      &, &:checked {
+        color: inherit;
+        background-color: transparent;
+      }
+    }
+
     $_separator_color: gtkalpha(currentColor, if($contrast == 'high', .6, .3));
     > menubutton > button {
       &:dir(ltr) { box-shadow: inset 1px 0 $_separator_color; }

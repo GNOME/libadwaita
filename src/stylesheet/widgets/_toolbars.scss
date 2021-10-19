@@ -1,5 +1,5 @@
 %toolbar {
-  button:not(.raised):not(.suggested-action):not(.destructive-action) {
+  button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
     &.arrow-button,
     &.image-button,
     &.image-text-button {
@@ -7,13 +7,13 @@
     }
   }
 
-  menubutton:not(.raised):not(.suggested-action):not(.destructive-action) {
+  menubutton:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
     &.image-button > button {
       @extend %button_basic_flat;
     }
   }
 
-  .linked button:not(.raised):not(.suggested-action):not(.destructive-action) {
+  .linked button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
     &.arrow-button,
     &.image-button,
     &.image-text-button {
@@ -21,11 +21,22 @@
     }
   }
 
-  menubutton.raised > button:not(.raised):not(.suggested-action):not(.destructive-action) {
+  menubutton.raised > button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
     &.arrow-button,
     &.image-button,
     &.image-text-button {
       @extend %button_basic_raised;
+    }
+  }
+
+  menubutton.suggested-action,
+  menubutton.destructive-action,
+  menubutton.opaque {
+    > button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+      @extend %opaque_button;
+
+      color: inherit;
+      background-color: transparent;
     }
   }
 
@@ -36,7 +47,7 @@
       margin-bottom: 6px;
     }
 
-    &:not(.raised):not(.suggested-action):not(.destructive-action) {
+    &:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
       @extend %flat_split_button;
     }
   }
@@ -68,7 +79,7 @@
 
   // Reset styles for popovers
   popover {
-    button:not(.raised):not(.suggested-action):not(.destructive-action) {
+    button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
       &.arrow-button,
       &.image-button,
       &.image-text-button {
@@ -76,7 +87,7 @@
       }
     }
 
-    menubutton:not(.raised):not(.suggested-action):not(.destructive-action) {
+    menubutton:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
       &.image-button > button {
         @extend %button_basic_raised;
       }
