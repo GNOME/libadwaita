@@ -2,6 +2,7 @@
 
 #include <glib/gi18n.h>
 #include "adw-flap-demo-window.h"
+#include "adw-style-demo-window.h"
 #include "adw-tab-view-demo-window.h"
 #include "adw-view-switcher-demo-window.h"
 
@@ -390,6 +391,16 @@ tab_view_demo_clicked_cb (GtkButton     *btn,
 }
 
 static void
+style_classes_demo_clicked_cb (GtkButton     *btn,
+                               AdwDemoWindow *self)
+{
+  AdwStyleDemoWindow *window = adw_style_demo_window_new ();
+
+  gtk_window_set_transient_for (GTK_WINDOW (window), GTK_WINDOW (self));
+  gtk_window_present (GTK_WINDOW (window));
+}
+
+static void
 adw_demo_window_class_init (AdwDemoWindowClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -431,6 +442,7 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, avatar_save_to_file_cb);
   gtk_widget_class_bind_template_callback (widget_class, flap_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, tab_view_demo_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, style_classes_demo_clicked_cb);
 }
 
 static void

@@ -17,6 +17,7 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/row-forbidden-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/row-preferences-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/row-shutdown-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/style-classes-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/tab-new-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/view-sidebar-start-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/view-sidebar-start-symbolic-rtl.svg</file>
@@ -29,16 +30,19 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-list-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-tab-view-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-view-switcher-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Boxes.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/dark-mode-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/light-mode-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-playing-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/tab-audio-muted-symbolic.svg</file>
     <file compressed="true">style.css</file>
+    <file compressed="true">style-dark.css</file>
   </gresource>
   <gresource prefix="/org/gnome/Adwaita1/Demo/ui">
     <file preprocess="xml-stripblanks">adw-demo-preferences-window.ui</file>
     <file preprocess="xml-stripblanks">adw-demo-window.ui</file>
     <file preprocess="xml-stripblanks">adw-flap-demo-window.ui</file>
+    <file preprocess="xml-stripblanks">adw-style-demo-window.ui</file>
     <file preprocess="xml-stripblanks">adw-tab-view-demo-window.ui</file>
     <file preprocess="xml-stripblanks">adw-view-switcher-demo-window.ui</file>
   </gresource>

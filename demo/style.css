@@ -16,3 +16,27 @@ box.avatar-page { margin: 36px 12px; }
 box.avatar-page > box > avatar { margin-bottom: 36px; }
 box.avatar-page > box > label.title { margin-bottom: 12px; }
 box.avatar-page > box > label.description { margin-bottom: 36px; }
+
+flowbox.inline flowboxchild {
+  padding: 0;
+  background: none;
+  color: inherit;
+}
+
+#custom-button-1 {
+  color: @red_3;
+}
+
+#custom-button-2 {
+  color: @purple_3;
+}
+
+#custom-button-3 {
+  color: white;
+  background-color: @green_5;
+}
+
+#custom-button-4 {
+  color: white;
+  background-color: @orange_4;
+}
