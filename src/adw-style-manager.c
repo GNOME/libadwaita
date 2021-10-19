@@ -54,6 +54,7 @@ struct _AdwStyleManager
   GdkDisplay *display;
   AdwSettings *settings;
   GtkCssProvider *provider;
+  GtkCssProvider *colors_provider;
 
   AdwColorScheme color_scheme;
   gboolean dark;
@@ -129,8 +130,6 @@ enable_animations_cb (AdwStyleManager *self)
 static void
 update_stylesheet (AdwStyleManager *self)
 {
-  const char *variant;
-  g_autofree char *stylesheet_path = NULL;
   GtkSettings *gtk_settings;
   gboolean enable_animations;
 
@@ -138,13 +137,6 @@ update_stylesheet (AdwStyleManager *self)
     return;
 
   gtk_settings = gtk_settings_get_for_display (self->display);
-
-  if (adw_settings_get_high_contrast (self->settings))
-    variant = self->dark ? "hc-dark" : "hc";
-  else
-    variant = self->dark ? "dark" : "light";
-
-  stylesheet_path = g_strdup_printf ("/org/gnome/Adwaita/styles/Adwaita-%s.css", variant);
 
   if (self->animation_timeout_id) {
     g_clear_handle_id (&self->animation_timeout_id, g_source_remove);
@@ -159,8 +151,23 @@ update_stylesheet (AdwStyleManager *self)
                 "gtk-enable-animations", FALSE,
                 NULL);
 
-  if (self->provider)
-    gtk_css_provider_load_from_resource (self->provider, stylesheet_path);
+  if (self->provider) {
+    if (adw_settings_get_high_contrast (self->settings))
+      gtk_css_provider_load_from_resource (self->provider,
+                                           "/org/gnome/Adwaita/styles/base-hc.css");
+    else
+      gtk_css_provider_load_from_resource (self->provider,
+                                           "/org/gnome/Adwaita/styles/base.css");
+  }
+
+  if (self->colors_provider) {
+    if (self->dark)
+      gtk_css_provider_load_from_resource (self->colors_provider,
+                                           "/org/gnome/Adwaita/styles/defaults-dark.css");
+    else
+      gtk_css_provider_load_from_resource (self->colors_provider,
+                                           "/org/gnome/Adwaita/styles/defaults-light.css");
+  }
 
   if (enable_animations) {
     self->animation_timeout_id =
@@ -255,6 +262,11 @@ adw_style_manager_constructed (GObject *object)
       gtk_style_context_add_provider_for_display (self->display,
                                                   GTK_STYLE_PROVIDER (self->provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_THEME);
+
+      self->colors_provider = gtk_css_provider_new ();
+      gtk_style_context_add_provider_for_display (self->display,
+                                                  GTK_STYLE_PROVIDER (self->colors_provider),
+                                                  GTK_STYLE_PROVIDER_PRIORITY_THEME);
     }
   }
 
@@ -287,6 +299,7 @@ adw_style_manager_dispose (GObject *object)
 
   g_clear_handle_id (&self->animation_timeout_id, g_source_remove);
   g_clear_object (&self->provider);
+  g_clear_object (&self->colors_provider);
 
   G_OBJECT_CLASS (adw_style_manager_parent_class)->dispose (object);
 }
