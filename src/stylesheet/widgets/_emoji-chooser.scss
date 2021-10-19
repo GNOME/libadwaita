@@ -60,7 +60,7 @@ emoji-completion-row {
   &:focus,
   &:hover {
     background-color: $view_selected_color;
-    color: $text-color;
+    color: $view_fg_color;
 
     &:active {
       background-color: $view_active_color; // matching buttons

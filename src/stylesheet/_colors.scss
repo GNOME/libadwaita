@@ -13,10 +13,11 @@ $success_color: gtkcolor(success_color);
 $warning_color: gtkcolor(warning_color);
 $error_color: gtkcolor(error_color);
 
-$base_color: if($variant == 'light', white, #1e1e1e);
-$text_color: if($variant == 'light', black, white);
-$bg_color: if($variant == 'light', #fafafa, #242424);
-$fg_color: if($variant == 'light', transparentize(black, .2), white);
+$window_bg_color: if($variant == 'light', #fafafa, #242424);
+$window_fg_color: if($variant == 'light', transparentize(black, .2), white);
+
+$view_bg_color: if($variant == 'light', white, #1e1e1e);
+$view_fg_color: if($variant == 'light', black, white);
 
 $border_opacity: if($contrast == 'high', .5, .15);
 $window_outline_opacity: if($contrast == 'high', .3, .1);
@@ -24,13 +25,13 @@ $window_outline_opacity: if($contrast == 'high', .3, .1);
 $border_color: gtkalpha(currentColor, $border_opacity);
 $thin_border_color: gtkalpha(currentColor, .05);
 $link_color: $accent_color;
-$link_visited_color: gtkmix($accent_color, $text_color, 80%);
+$link_visited_color: gtkmix($accent_color, $view_fg_color, 80%);
 $headerbar_bg_color: if($variant == 'light', #ebebeb, #303030);
-$headerbar_fg_color: $fg_color;
-$headerbar_border_color: gtkalpha($fg_color, $border_opacity);
-$headerbar_backdrop_color: $bg_color;
+$headerbar_fg_color: $window_fg_color;
+$headerbar_border_color: gtkalpha($window_fg_color, $border_opacity);
+$headerbar_backdrop_color: $window_bg_color;
 $card_bg_color: if($variant == 'light', #ffffff, transparentize(white, .945));
-$card_fg_color: $fg_color;
+$card_fg_color: $window_fg_color;
 $card_border_color: if($variant == 'light', gtkalpha(currentColor, .18), gtkalpha(currentColor, .18));
 $scrollbar_outline_color: if($variant == 'light', white, transparentize(black, .5));
 
@@ -38,7 +39,7 @@ $shade_color: if($variant == 'light', transparentize(black, .93), transparentize
 $headerbar_shade_color: $shade_color;
 
 $popover_bg_color: if($variant == 'light', #ffffff, #383838);
-$popover_fg_color: $fg_color;
+$popover_fg_color: $window_fg_color;
 
 $window_outline_color: gtkalpha(if($variant == 'light', transparent, white), $window_outline_opacity);
 $window_border_color: if($variant == 'light', transparentize(black, 0.77), transparentize(black, 0.25));
@@ -59,7 +60,7 @@ $fill_text_color: $accent_fg_color;
 $fill_hover_color: gtkmix($accent_bg_color, currentColor, 90%);
 $fill_active_color: gtkmix($accent_bg_color, black, 80%);
 
-$slider_color: mix(white, $base_color, 80%);
+$slider_color: gtkmix(white, $view_bg_color, 80%);
 $slider_hover_color: white;
 
 $osd_fg_color: transparentize(white, .1);

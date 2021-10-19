@@ -193,7 +193,7 @@ infobar {
                              (warning, $warning_color),
                              (error, $error_color) {
     &.#{$i_type} > revealer > box {
-      background-color: gtkmix($i_color, $bg_color, 30%);
+      background-color: gtkmix($i_color, $window_bg_color, 30%);
     }
   }
 

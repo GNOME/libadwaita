@@ -5,8 +5,8 @@ scrollbar {
   $_slider_width: 8px;
   $_scrollbar_transition: all 200ms linear;
 
-  background-color: $base_color;
-  color: $text_color;
+  background-color: $view_bg_color;
+  color: $view_fg_color;
 
   // scrollbar border
   &.top    { box-shadow: inset 0 -1px $border_color; padding-bottom: 1px; }
@@ -163,10 +163,10 @@ scrolledwindow {
     // Only color the top-left (or top right in RTL) pixel, to visually connect
     // the borders of the two scrollbars.
 
-    background: linear-gradient(to bottom right, $border_color 1px, $base_color 1px);
+    background: linear-gradient(to bottom right, $border_color 1px, $view_bg_color 1px);
 
     &:dir(rtl) {
-      background: linear-gradient(to bottom left, $border_color 1px, $base_color 1px);
+      background: linear-gradient(to bottom left, $border_color 1px, $view_bg_color 1px);
     }
   }
 }

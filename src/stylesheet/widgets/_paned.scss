@@ -14,7 +14,7 @@ paned {
     &.wide {
       min-width: 5px;
       min-height: 5px;
-      background-color: $bg_color;
+      background-color: $window_bg_color;
       background-image: image($border_color), image($border_color);
       background-size: 1px 1px, 1px 1px;
     }
