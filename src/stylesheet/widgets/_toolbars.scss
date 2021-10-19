@@ -103,7 +103,6 @@
 .toolbar {
   padding: 0 6px;
   border-spacing: 6px;
-  background-color: $bg_color;
 
   // on OSD
   .osd & { background-color: transparent; }
@@ -115,7 +114,6 @@
     padding: 8px 14px;
     border: none;
     border-radius: $card_radius;
-    background-color: $osd_bg_color;
 
     &.left,
     &.right,
