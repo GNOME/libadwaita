@@ -17,7 +17,7 @@
 
 @define-color insensitive_base_color #{$base_color};
 
-@define-color borders #{$borders_color};
+@define-color borders #{$border_color};
 
 @define-color theme_unfocused_bg_color #{$bg_color};
 @define-color theme_unfocused_fg_color #{$fg_color};
@@ -30,4 +30,4 @@
 
 @define-color unfocused_insensitive_color #{gtkcolor(insensitive_bg_color)};
 
-@define-color unfocused_borders #{$borders_color};
+@define-color unfocused_borders #{$border_color};

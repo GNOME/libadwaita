@@ -19,7 +19,7 @@ treeview.view {
 
   &.separator {
     min-height: 2px;
-    color: $borders_color;
+    color: $border_color;
   }
 
   &:drop(active) {
@@ -149,7 +149,7 @@ columnview {
 
   // make column separators visible when :show-column-separators is true
   &.column-separators > listview > row > cell {
-    border-left-color: $borders_color;
+    border-left-color: $border_color;
   }
 
   // shrink vertically for .data-table

@@ -21,8 +21,8 @@ $fg_color: if($variant == 'light', transparentize(black, .2), white);
 $border_opacity: if($contrast == 'high', .5, .15);
 $window_outline_opacity: if($contrast == 'high', .3, .1);
 
-$borders_color: gtkalpha(currentColor, $border_opacity);
-$thin_borders_color: gtkalpha(currentColor, .05);
+$border_color: gtkalpha(currentColor, $border_opacity);
+$thin_border_color: gtkalpha(currentColor, .05);
 $link_color: $accent_color;
 $link_visited_color: gtkmix($accent_color, $text_color, 80%);
 $headerbar_bg_color: if($variant == 'light', #ebebeb, #303030);
@@ -66,7 +66,7 @@ $osd_fg_color: transparentize(white, .1);
 $osd_text_color: white;
 $osd_bg_color: transparentize(black, 0.3);
 
-$tooltip_borders_color: transparentize(white, 0.9);
+$tooltip_border_color: transparentize(white, 0.9);
 $shadow_color: transparentize(black, 0.9);
 
 $drop_target_color: $accent_bg_color;
@@ -77,8 +77,8 @@ $dim_label_opacity: 0.55;
 
 // High Contrast color overrides
 @if $contrast == 'high' {
-  $thin_borders_color: gtkalpha(currentColor, .25);
-  $card_border_color: $borders_color;
+  $thin_border_color: gtkalpha(currentColor, .25);
+  $card_border_color: $border_color;
 
   //focus rings
   $focus_border_color: gtkalpha($accent_bg_color, 0.8);
