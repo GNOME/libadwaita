@@ -246,14 +246,6 @@ button {
       filter: opacity($strong_disabled_opacity);
     }
 
-    &.suggested-action {
-      color: $accent_color;
-    }
-
-    &.destructive-action {
-      color: $destructive_color;
-    }
-
     // Specificity bump
     &:drop(active) {
       @extend %button_basic_drop_active;
