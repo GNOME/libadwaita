@@ -5,9 +5,7 @@ notebook {
     padding: 1px;
     border-color: $borders_color;
     border-width: 1px;
-    background-color: $dark_fill;
     background-clip: padding-box;
-    color: $fg_color;
 
     > tabs { margin: -1px; }
 
