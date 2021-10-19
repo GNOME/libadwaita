@@ -278,6 +278,8 @@ libadwaita_dep = declare_dependency(
   include_directories: include_directories('.'),
 )
 
+meson.override_dependency(package_api_name, libadwaita_dep)
+
 if introspection
 
    libadwaita_gir_extra_args = [
