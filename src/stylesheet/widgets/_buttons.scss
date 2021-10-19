@@ -298,6 +298,7 @@ button {
     label { padding: 0; }
   }
 
+  @at-root %pill_button,
   &.pill {
     padding: 10px 32px;
     border-radius: 9999px;
@@ -362,6 +363,7 @@ menubutton {
   &.circular > button { @extend %circular_button; }
   &.flat > button { @extend %button_basic_flat; }
   &.outline > button { @extend %outline_button; }
+  &.pill > button { @extend %pill_button; }
 
   &.suggested-action {
     background-color: $accent_bg_color;
@@ -383,7 +385,7 @@ menubutton {
   &.opaque {
     border-radius: $button_radius;
 
-    &.circular {
+    &.circular, &.pill {
       border-radius: 9999px;
     }
 
