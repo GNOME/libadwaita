@@ -79,7 +79,7 @@ headerbar {
 }
 
 .titlebar:not(headerbar) {
-  separator { background-color: $borders_color; }  // FIXME: use darker border?
+  separator { background-color: $headerbar_border_color; }
 }
 
 /*********************
