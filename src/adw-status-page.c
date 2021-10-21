@@ -391,7 +391,7 @@ adw_status_page_get_paintable (AdwStatusPage *self)
 /**
  * adw_status_page_set_paintable: (attributes org.gtk.Method.set_property=paintable)
  * @self: a `AdwStatusPage`
- * @icon: (nullable): the icon
+ * @paintable: (nullable): the paintable
  *
  * Sets the paintable for @self.
  *
