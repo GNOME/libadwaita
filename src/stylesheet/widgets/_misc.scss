@@ -90,7 +90,7 @@ statuspage {
         }
 
         &:disabled {
-          opacity: .5;
+          opacity: $disabled_opacity;
         }
 
         &:not(:last-child) {

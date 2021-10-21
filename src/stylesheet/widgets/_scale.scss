@@ -67,7 +67,7 @@ scale {
   }
 
   &:disabled {
-    filter: opacity(.5);
+    filter: opacity($disabled_opacity);
 
     > trough > slider {
       box-shadow: 0 2px 4px transparent;

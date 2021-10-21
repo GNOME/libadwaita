@@ -134,7 +134,7 @@ popover.menu {
       &:hover { background: none; }
 
       &:disabled {
-        filter: opacity(0.5);
+        filter: opacity($disabled_opacity);
       }
 
       &.left { -gtk-icon-source: -gtk-icontheme("go-previous-symbolic"); }
