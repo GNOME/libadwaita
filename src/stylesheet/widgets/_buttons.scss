@@ -129,7 +129,7 @@ button {
     }
 
     &:checked {
-      background-color: gtkalpha(gtkmix(black, currentColor, 8%), .65);
+      background-color: gtkalpha(gtkmix(black, currentColor, 80%), .65);
 
       &:hover {
         background-color: gtkalpha(gtkmix(black, currentColor, 75%), .65);
