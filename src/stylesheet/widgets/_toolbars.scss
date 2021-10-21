@@ -115,21 +115,12 @@
   padding: 0 6px;
   border-spacing: 6px;
 
-  // on OSD
-  .osd & { background-color: transparent; }
-
   @extend %toolbar;
 
   // stand-alone OSD toolbars
   &.osd {
     padding: 8px 14px;
-    border: none;
     border-radius: $card_radius;
-
-    &.left,
-    &.right,
-    &.top,
-    &.bottom { border-radius: 0; } // positional classes for `attached` osd toolbars
   }
 }
 
