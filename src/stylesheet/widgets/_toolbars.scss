@@ -59,7 +59,8 @@
   splitbutton,
   separator:not(.sidebar),
   button,
-  menubutton {
+  menubutton,
+  scalebutton {
     margin-top: 6px;
     margin-bottom: 6px;
   }
@@ -67,7 +68,8 @@
   // Reset margins for buttons inside menubutton
   menubutton > button,
   splitbutton > button,
-  splitbutton > menubutton {
+  splitbutton > menubutton,
+  scalebutton > button {
     margin-top: 0px;
     margin-bottom: 0px;
   }
@@ -99,6 +101,7 @@
     separator:not(.sidebar),
     button,
     menubutton,
+    scalebutton,
     switch {
       margin-top: 0;
       margin-bottom: 0;
