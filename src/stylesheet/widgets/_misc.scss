@@ -85,9 +85,7 @@ statuspage {
       > .icon {
         -gtk-icon-size: 128px;
 
-        @if $contrast == 'normal' {
-          color: gtkalpha(currentColor, 0.5);
-        }
+        color: gtkalpha(currentColor, $dim_label_opacity);
 
         &:disabled {
           opacity: $disabled_opacity;

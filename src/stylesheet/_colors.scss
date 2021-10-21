@@ -79,6 +79,7 @@ $drop_target_color: $accent_bg_color;
 //special cased widget colors
 $focus_border_color:  gtkalpha($accent_bg_color, 0.5);
 $dim_label_opacity: 0.55;
+$dimmer_opacity: 0.3;
 $disabled_opacity: 0.5;
 
 // High Contrast color overrides
@@ -87,6 +88,7 @@ $disabled_opacity: 0.5;
   $focus_border_color: gtkalpha($accent_bg_color, 0.8);
 
   $dim_label_opacity: 0.9;
+  $dimmer_opacity: 0.8;
   $disabled_opacity: 0.4;
 
   $trough_color: gtkalpha(currentColor, .3);

@@ -119,7 +119,7 @@ scale {
 
   &.horizontal {
     > marks {
-      color: gtkalpha(currentColor, 0.55);
+      color: gtkalpha(currentColor, $dim_label_opacity);
       &.top    { margin-bottom: $_marks_distance; }
       &.bottom { margin-top: $_marks_distance; }
 
@@ -155,7 +155,7 @@ scale {
 
   &.vertical {
     > marks {
-      color: gtkalpha(currentColor, 0.55);
+      color: gtkalpha(currentColor, $dim_label_opacity);
       &.top    { margin-right: $_marks_distance; }
       &.bottom { margin-left: $_marks_distance; }
 

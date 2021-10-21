@@ -55,7 +55,7 @@ entry {
     }
 
     > image { // icons inside the entry
-      opacity: 0.6;
+      opacity: $dim_label_opacity;
 
       &:hover { opacity: 1; }
 
@@ -66,7 +66,7 @@ entry {
     }
 
     &.password image.caps-lock-indicator {
-      opacity: 0.3;
+      opacity: $dimmer_opacity;
     }
 
     &:drop(active) {
