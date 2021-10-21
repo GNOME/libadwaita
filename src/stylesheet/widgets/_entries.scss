@@ -44,7 +44,7 @@ entry {
       &.#{$e_type} {
         color: gtkmix($e_color, $view_fg_color, 70%);
 
-        @include focus-ring($focus-state: ':focus-within', $fc: gtkalpha($e_color, 0.5));
+        @include focus-ring($focus-state: ':focus-within', $fc: gtkalpha($e_color, $focus_border_opacity));
 
         > text {
           > selection:focus-within { background-color: gtkalpha($e_color, .2); }
