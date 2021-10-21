@@ -23,6 +23,10 @@ spinbutton {
     &:active {
       background-color: $view_active_color;
     }
+
+    &:disabled {
+      filter: none;
+    }
   }
 
   &:not(.vertical) {
