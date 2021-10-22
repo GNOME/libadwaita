@@ -127,7 +127,7 @@ statuspage {
   border: 1px solid $card_border_color;
   border-radius: $card_radius;
 
-  @include focus-ring($offset: -1px);
+  @include focus-ring($offset: -2px);
 
   &.activatable {
     transition: $button_transition;

@@ -295,6 +295,42 @@ button {
     padding: 10px 32px;
     border-radius: 9999px;
   }
+
+  &.card {
+    background-color: $card_bg_color;
+    background-clip: padding-box;
+    font-weight: inherit;
+    box-shadow: none;
+    padding: 0;
+
+    transition: $button_transition;
+
+    &:hover {
+      background-image: image(gtkalpha(currentColor, .03));
+    }
+
+    &.keyboard-activating,
+    &:active {
+      background-image: image(gtkalpha(currentColor, .08));
+    }
+
+    &:checked {
+      background-color: $card_bg_color;
+      background-image: image($view_selected_color);
+
+      &:hover { background-image: image($view_selected_hover_color); }
+
+      &.keyboard-activating,
+      &:active { background-image: image($view_selected_active_color); }
+
+      &.has-open-popup { background-image: image($view_selected_hover_color); }
+    }
+
+    &:drop(active) {
+      color: $drop_target_color;
+      box-shadow: inset 0 0 0 1px $drop_target_color;
+    }
+  }
 }
 
 %undecorated_button {
