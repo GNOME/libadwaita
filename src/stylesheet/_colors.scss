@@ -82,6 +82,7 @@ $focus_border_color:  gtkalpha($accent_bg_color, $focus_border_opacity);
 $dim_label_opacity: 0.55;
 $dimmer_opacity: 0.3;
 $disabled_opacity: 0.5;
+$strong_disabled_opacity: 0.3;
 
 // High Contrast color overrides
 @if $contrast == 'high' {

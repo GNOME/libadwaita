@@ -233,6 +233,10 @@ button {
       }
     }
 
+    &:disabled:not(:checked) {
+      filter: opacity($strong_disabled_opacity);
+    }
+
     &.suggested-action {
       color: $accent_color;
     }
