@@ -1,3 +1,12 @@
+stacksidebar {
+  border-left-width: 0px;
+  border-right-width: 0px;
+}
+
+stacksidebar.background list {
+  background: @theme_bg_color;
+}
+
 carousel.vertical .carousel-icon {
   -gtk-icon-transform: rotate(90deg);
 }
