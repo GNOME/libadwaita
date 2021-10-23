@@ -110,10 +110,7 @@ update_state (AdwTab *self)
   gboolean show_close;
 
   new_state = gtk_widget_get_state_flags (GTK_WIDGET (self)) &
-    ~(GTK_STATE_FLAG_PRELIGHT | GTK_STATE_FLAG_CHECKED);
-
-  if (self->dragging)
-    new_state |= GTK_STATE_FLAG_PRELIGHT;
+    ~GTK_STATE_FLAG_CHECKED;
 
   if (self->selected || self->dragging)
     new_state |= GTK_STATE_FLAG_CHECKED;
