@@ -6,6 +6,7 @@
     <property name="overflow">hidden</property>
     <child>
       <object class="GtkEventControllerMotion">
+        <signal name="enter" handler="enter_cb" swapped="true"/>
         <signal name="motion" handler="motion_cb" swapped="true"/>
         <signal name="leave" handler="leave_cb" swapped="true"/>
       </object>

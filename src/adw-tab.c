@@ -276,6 +276,17 @@ indicator_clicked_cb (AdwTab *self)
 }
 
 static void
+enter_cb (AdwTab             *self,
+          double              x,
+          double              y,
+          GtkEventController *controller)
+{
+  self->hovering = TRUE;
+
+  update_state (self);
+}
+
+static void
 motion_cb (AdwTab             *self,
            double              x,
            double              y,
@@ -824,6 +835,7 @@ adw_tab_class_init (AdwTabClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwTab, drop_target);
   gtk_widget_class_bind_template_callback (widget_class, close_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, indicator_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, enter_cb);
   gtk_widget_class_bind_template_callback (widget_class, motion_cb);
   gtk_widget_class_bind_template_callback (widget_class, leave_cb);
   gtk_widget_class_bind_template_callback (widget_class, drop_cb);
