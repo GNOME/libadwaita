@@ -2767,12 +2767,8 @@ pressed_cb (AdwTabBox  *self,
 
   button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
-  if (button == GDK_BUTTON_MIDDLE) {
-    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
-    adw_tab_view_close_page (self->view, info->page);
-
+  if (button == GDK_BUTTON_MIDDLE)
     return;
-  }
 
   if (button != GDK_BUTTON_PRIMARY) {
     gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
@@ -2791,11 +2787,15 @@ released_cb (AdwTabBox  *self,
              GtkGesture *gesture)
 {
   TabInfo *info;
-
-  if (!is_touchscreen (gesture))
-    return;
+  guint button;
 
   x += gtk_adjustment_get_value (self->adjustment);
+
+  if (y < 0 || y > gtk_widget_get_height (GTK_WIDGET (self))) {
+    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
+
+    return;
+  }
 
   info = find_tab_info_at (self, x);
 
@@ -2805,7 +2805,17 @@ released_cb (AdwTabBox  *self,
     return;
   }
 
-  handle_click (self, info, gesture);
+  button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
+
+  if (button == GDK_BUTTON_MIDDLE) {
+    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
+    adw_tab_view_close_page (self->view, info->page);
+
+    return;
+  }
+
+  if (is_touchscreen (gesture))
+    handle_click (self, info, gesture);
 }
 
 /* Overrides */
