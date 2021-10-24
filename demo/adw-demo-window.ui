@@ -88,11 +88,7 @@
               <object class="AdwLeafletPage">
                 <property name="navigatable">False</property>
                 <property name="child">
-                  <object class="GtkSeparator">
-                    <style>
-                      <class name="sidebar"/>
-                    </style>
-                  </object>
+                  <object class="GtkSeparator"/>
                 </property>
               </object>
             </child>

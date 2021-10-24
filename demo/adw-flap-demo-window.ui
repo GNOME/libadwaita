@@ -44,11 +44,7 @@
               </object>
             </property>
             <property name="separator">
-              <object class="GtkSeparator">
-                <style>
-                  <class name="sidebar"/>
-                </style>
-              </object>
+              <object class="GtkSeparator"/>
             </property>
             <property name="content">
               <object class="GtkStack" id="stack">
