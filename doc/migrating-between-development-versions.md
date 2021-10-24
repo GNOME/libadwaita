@@ -229,6 +229,15 @@ The `adw_expander_row_add ()` function has been renamed to `adw_expander_row_add
 
 ### Adapt to Stylesheet Changes
 
+### Stop using the `.sidebar` style class
+
+The `.sidebar` style class is now deprecated, although still works for
+compatibility reasons. The main use case - adjusting the background color of
+[class@Gtk.ListBox] and [class@Gtk.ListView] - can now be done with the
+`.navigation-sidebar` style class on those widgets instead, along with adjusting
+the item selection style. The border can be replicated by manually adding a
+[class@Gtk.Separator].
+
 #### Adapt to the `popover.combo` style removal
 
 The `.combo` popover style class has been removed. Use `.menu` instead. You may
