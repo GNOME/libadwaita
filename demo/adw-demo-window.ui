@@ -442,6 +442,7 @@
                                     <property name="icon-name">widget-carousel-symbolic</property>
                                     <property name="title" translatable="yes">Carousel</property>
                                     <property name="description" translatable="yes">A widget for paginated scrolling.</property>
+                                    <property name="vexpand">True</property>
                                   </object>
                                 </child>
                                 <child>
