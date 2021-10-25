@@ -509,16 +509,20 @@ splitbutton {
   @at-root %flat_split_button,
   &.flat {
     > separator {
-      background: gtkalpha(currentColor, .3);
+      background: gtkalpha(currentColor, $dimmer_opacity);
     }
 
     &:hover,
     &:active,
     &:checked {
-      background: gtkalpha(currentColor, .05);
+      background: $view_hover_color;
 
       > separator {
         background: none;
+      }
+
+      @if $contrast == 'high' {
+        box-shadow: inset 0 0 0 1px $thin_border_color;
       }
     }
 
@@ -568,7 +572,7 @@ splitbutton {
       }
     }
 
-    $_separator_color: gtkalpha(currentColor, if($contrast == 'high', .6, .3));
+    $_separator_color: gtkalpha(currentColor, $dimmer_opacity);
     > menubutton > button {
       &:dir(ltr) { box-shadow: inset 1px 0 $_separator_color; }
       &:dir(rtl) { box-shadow: inset -1px 0 $_separator_color; }
