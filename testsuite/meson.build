@@ -1,6 +1,6 @@
 if get_option('tests')
 
-test_env = [
+testsuite_env = [
   'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
   'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir()),
   'G_DEBUG=gc-friendly,fatal-warnings',
@@ -10,20 +10,20 @@ test_env = [
   'GTK_A11Y=none',
 ]
 
-test_cflags = [
+testsuite_cflags = [
   '-DADW_LOG_DOMAIN="Adwaita"',
   '-DTEST_DATA_DIR="@0@/data"'.format(meson.current_source_dir()),
 ]
 
-test_link_args = []
+testsuite_link_args = []
 use_pie = false
 
 if cc.get_argument_syntax() != 'msvc'
-  test_link_args += '-fPIC'
+  testsuite_link_args += '-fPIC'
   use_pie = true
 endif
 
-test_names = [
+testsuite_names = [
   'test-about-window',
   'test-action-row',
   'test-animation',
@@ -65,14 +65,14 @@ test_names = [
   'test-window-title',
 ]
 
-foreach test_name : test_names
-  t = executable(test_name, [test_name + '.c'] + libadwaita_generated_headers,
-                       c_args: test_cflags,
-                    link_args: test_link_args,
+foreach testsuite_name : testsuite_names
+  t = executable(testsuite_name, [testsuite_name + '.c'] + libadwaita_generated_headers,
+                       c_args: testsuite_cflags,
+                    link_args: testsuite_link_args,
                  dependencies: libadwaita_deps + [libadwaita_dep],
                           pie: use_pie,
                 )
-  test(test_name, t, env: test_env)
+  test(testsuite_name, t, env: testsuite_env)
 endforeach
 
 endif

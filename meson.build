@@ -134,7 +134,7 @@ subdir('src')
 subdir('po')
 subdir('demo')
 subdir('examples')
-subdir('tests')
+subdir('testsuite')
 subdir('doc')
 
 run_data = configuration_data()
