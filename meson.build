@@ -134,6 +134,7 @@ subdir('src')
 subdir('po')
 subdir('demo')
 subdir('examples')
+subdir('tests')
 subdir('testsuite')
 subdir('doc')
 
