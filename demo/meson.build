@@ -24,7 +24,6 @@ adwaita_demo_sources = [
 adwaita_demo = executable('adwaita-@0@-demo'.format(apiversion),
   adwaita_demo_sources,
   dependencies: libadwaita_dep,
-  gui_app: true,
   install: true,
 )
 
