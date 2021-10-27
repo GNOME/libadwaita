@@ -254,7 +254,7 @@ else
   adwaita_libdir = libdir
 endif
 
-libadwaita = shared_library(
+libadwaita = library(
   'adwaita-' + apiversion,
   libadwaita_sources,
 
