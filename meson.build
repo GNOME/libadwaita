@@ -28,7 +28,7 @@ libversion = '@0@.@1@.@2@'.format(soversion, current, revision)
 add_project_arguments([
   '-DHAVE_CONFIG_H',
   '-DADWAITA_COMPILATION',
-  '-I' + meson.build_root(),
+  '-I' + meson.project_build_root(),
 ], language: 'c')
 
 root_inc = include_directories('.')
