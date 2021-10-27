@@ -1,7 +1,7 @@
 project('libadwaita', 'c',
           version: '1.0.0.alpha.3',
           license: 'LGPL-2.1-or-later',
-    meson_version: '>= 0.53.0',
+    meson_version: '>= 0.59.0',
   default_options: [ 'warning_level=1', 'buildtype=debugoptimized', 'c_std=gnu11' ],
 )
 
@@ -140,4 +140,3 @@ summary(
     'Introspection': introspection,
     'Vapi': get_option('vapi'),
   }, section: 'Options')
-
