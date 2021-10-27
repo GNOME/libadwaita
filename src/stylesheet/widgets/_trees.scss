@@ -70,15 +70,13 @@ treeview.view {
     > button {
       @extend %undecorated_button;
       padding: 0 6px;
-      border: 1px solid gtkalpha($view_fg_color, .15);
-      border-width: 0 0 1px 1px;
+      border: 0px solid gtkalpha($view_fg_color, .15);
+      border-bottom-width: 1px;
       border-radius: 0;
 
       &:disabled {
         border-color: $window_bg_color;
       }
-
-      &:last-child { border-right-width: 0; }
 
       color: gtkalpha($view_fg_color, .4);
       font-weight: bold;
@@ -123,6 +121,24 @@ treeview.view {
   acceleditor > label {
     // see tests/testaccel in GTK to test
     background-color: $treeview_selection_opaque;
+  }
+}
+
+// Buttons slightly differ between treeviews and columnviews
+treeview.view > header > button {
+  border-right-width: 1px;
+
+  &:last-child:dir(ltr),
+  &:first-child:dir(rtl) {
+    border-right-width: 0;
+  }
+}
+
+columnview.view > header > button {
+  border-left-width: 1px;
+
+  &:first-child {
+    border-left-width: 0;
   }
 }
 
