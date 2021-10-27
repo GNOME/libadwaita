@@ -228,12 +228,8 @@ config_h.set_quoted('LOCALEDIR', get_option('prefix') / get_option('localedir'))
 if target_system == 'windows'
   config_h.set('DLL_EXPORT', true)
   config_h.set('_ADW_EXTERN', '__declspec(dllexport) extern')
-  if cc.get_id() != 'msvc'
-    libadwaita_c_args += ['-fvisibility=hidden']
-  endif
 else
   config_h.set('_ADW_EXTERN', '__attribute__((visibility("default"))) extern')
-  libadwaita_c_args += ['-fvisibility=hidden']
 endif
 
 configure_file(
@@ -262,13 +258,14 @@ libadwaita = shared_library(
   'adwaita-' + apiversion,
   libadwaita_sources,
 
-            soversion: soversion,
-               c_args: libadwaita_c_args,
-         dependencies: libadwaita_deps,
-  include_directories: [ root_inc, src_inc ],
-              install: true,
-            link_args: libadwaita_link_args,
-          install_dir: adwaita_libdir,
+              soversion: soversion,
+                 c_args: libadwaita_c_args,
+           dependencies: libadwaita_deps,
+    include_directories: [ root_inc, src_inc ],
+                install: true,
+              link_args: libadwaita_link_args,
+            install_dir: adwaita_libdir,
+  gnu_symbol_visibility: 'hidden',
 )
 
 libadwaita_dep = declare_dependency(
