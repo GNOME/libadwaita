@@ -69,6 +69,35 @@ adw_view_switcher_button_switch_timeout (AdwViewSwitcherButton *self)
 }
 
 static void
+update_mnemonic (AdwViewSwitcherButton *self)
+{
+  GtkLabel *label;
+
+  g_assert (ADW_IS_VIEW_SWITCHER_BUTTON (self));
+
+  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self))) {
+    if (self->orientation == GTK_ORIENTATION_VERTICAL)
+      label = self->vertical_label_active;
+    else
+      label = self->horizontal_label_active;
+  } else {
+    if (self->orientation == GTK_ORIENTATION_VERTICAL)
+      label = self->vertical_label_inactive;
+    else
+      label = self->horizontal_label_inactive;
+  }
+
+  gtk_label_set_mnemonic_widget (self->horizontal_label_active,
+                                 (label == self->horizontal_label_active) ? GTK_WIDGET (self) : NULL);
+  gtk_label_set_mnemonic_widget (self->horizontal_label_inactive,
+                                 (label == self->horizontal_label_inactive) ? GTK_WIDGET (self) : NULL);
+  gtk_label_set_mnemonic_widget (self->vertical_label_active,
+                                 (label == self->vertical_label_active) ? GTK_WIDGET (self) : NULL);
+  gtk_label_set_mnemonic_widget (self->vertical_label_inactive,
+                                 (label == self->vertical_label_inactive) ? GTK_WIDGET (self) : NULL);
+}
+
+static void
 active_changed_cb (AdwViewSwitcherButton *self)
 {
   g_assert (ADW_IS_VIEW_SWITCHER_BUTTON (self));
@@ -80,6 +109,8 @@ active_changed_cb (AdwViewSwitcherButton *self)
     gtk_stack_set_visible_child (self->horizontal_label_stack, GTK_WIDGET (self->horizontal_label_inactive));
     gtk_stack_set_visible_child (self->vertical_label_stack, GTK_WIDGET (self->vertical_label_inactive));
   }
+
+  update_mnemonic (self);
 }
 
 static void
@@ -123,6 +154,8 @@ set_orientation (AdwViewSwitcherButton *self,
                                GTK_WIDGET (self->orientation == GTK_ORIENTATION_VERTICAL ?
                                              self->vertical_box :
                                              self->horizontal_box));
+
+  update_mnemonic (self);
 }
 
 static gchar *
@@ -367,11 +400,6 @@ adw_view_switcher_button_init (AdwViewSwitcherButton *self)
   gtk_stack_set_visible_child (GTK_STACK (self->stack), GTK_WIDGET (self->horizontal_box));
 
   gtk_widget_set_focus_on_click (GTK_WIDGET (self), FALSE);
-
-  gtk_label_set_mnemonic_widget (self->horizontal_label_active, GTK_WIDGET (self));
-  gtk_label_set_mnemonic_widget (self->horizontal_label_inactive, GTK_WIDGET (self));
-  gtk_label_set_mnemonic_widget (self->vertical_label_active, GTK_WIDGET (self));
-  gtk_label_set_mnemonic_widget (self->vertical_label_inactive, GTK_WIDGET (self));
 
   active_changed_cb (self);
 }
