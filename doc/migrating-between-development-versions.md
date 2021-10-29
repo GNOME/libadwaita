@@ -227,6 +227,11 @@ The title and subtitle have markup enabled, make sure to escape it with
 
 The `adw_expander_row_add ()` function has been renamed to `adw_expander_row_add_row ()`.
 
+### Adjusting Header Bar Icons
+
+If you're using the `object-select-symbolic` icon in a header bar button
+(typically for selection mode), use `selection-mode-symbolic` instead.
+
 ### Adapt to Stylesheet Changes
 
 ### Stop using the `.sidebar` style class

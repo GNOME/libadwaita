@@ -394,6 +394,15 @@ style.
 The same rules are also used for the `.toolbar` style class now, instead of
 making every button appear flat.
 
+#### Adjusting Icons
+
+If you're bundling icons from the icon library with your application, make sure
+to update them. Many icons have been redrawn to be larger to work better without
+button frames.
+
+If you're using the `object-select-symbolic` icon in a header bar button
+(typically for selection mode), use `selection-mode-symbolic` instead.
+
 #### Adjusting Icon+Arrow Menu Buttons
 
 If you had menu buttons containing an icon and a dropdown arrow, switch to
