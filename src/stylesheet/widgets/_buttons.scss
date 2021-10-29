@@ -1,4 +1,5 @@
 $button_color: gtkalpha(currentColor, .1);
+$button_chin_color: rgba(0,0,0,0.03); /* hardcode. can't get $variant context from here to invert for dark */
 $button_hover_color: gtkalpha(currentColor, .15);
 $button_active_color: gtkalpha(currentColor, .25);
 $button_checked_color: gtkalpha(currentColor, .2);
@@ -15,6 +16,7 @@ button {
     padding: 5px 10px;
     border-radius: $button_radius;
     font-weight: bold;
+    box-shadow: inset 0 -2px 0 1px $button_chin_color;
 
     @include focus-ring();
     transition: $button_transition;
@@ -23,7 +25,8 @@ button {
       background-color: $button_color;
 
       @if $contrast == 'high' {
-        box-shadow: inset 0 0 0 1px $border_color;
+        box-shadow: inset 0 -2px 0 1px $button_chin_color,
+        inset 0 0 0 1px $border_color;
       }
 
       &:hover {
