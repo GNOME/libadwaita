@@ -711,7 +711,7 @@ The "card" style class can be used to achieve the same style with GtkBox or simi
                         <property name="selection-mode">none</property>
                         <property name="tooltip-text">content</property>
                         <style>
-                          <class name="content"/>
+                          <class name="boxed-list"/>
                         </style>
                         <child>
                           <object class="AdwActionRow">

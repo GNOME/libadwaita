@@ -394,6 +394,14 @@ style.
 The same rules are also used for the `.toolbar` style class now, instead of
 making every button appear flat.
 
+#### Adapt to List Style Changes
+
+For boxed lists we now have the `.boxed-list` style class that matches
+the name of the design pattern. If you were using the `.content` style
+class, you should use `.boxed-list` instead.
+
+The `.content` style class currently remains for compatibility purposes.
+
 #### Adjusting Icons
 
 If you're bundling icons from the icon library with your application, make sure
