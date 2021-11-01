@@ -50,6 +50,7 @@ struct _AdwAvatar
   GtkLabel *label;
   GtkImage *icon;
   GtkImage *custom_image;
+  GdkPaintable *custom_image_source;
 
   char *icon_name;
   char *text;
@@ -286,6 +287,7 @@ adw_avatar_finalize (GObject *object)
 
   g_clear_pointer (&self->icon_name, g_free);
   g_clear_pointer (&self->text, g_free);
+  g_clear_object (&self->custom_image_source);
 
   G_OBJECT_CLASS (adw_avatar_parent_class)->finalize (object);
 }
@@ -592,7 +594,7 @@ adw_avatar_get_custom_image (AdwAvatar *self)
 {
   g_return_val_if_fail (ADW_IS_AVATAR (self), NULL);
 
-  return gtk_image_get_paintable (self->custom_image);
+  return self->custom_image_source;
 }
 
 /**
@@ -611,15 +613,34 @@ adw_avatar_set_custom_image (AdwAvatar    *self,
   g_return_if_fail (ADW_IS_AVATAR (self));
   g_return_if_fail (custom_image == NULL || GDK_IS_PAINTABLE (custom_image));
 
-  if (gtk_image_get_paintable (self->custom_image) == custom_image)
+  if (self->custom_image_source == custom_image)
     return;
 
-  gtk_image_set_from_paintable (self->custom_image, custom_image);
+  g_set_object (&self->custom_image_source, custom_image);
 
-  if (custom_image)
+  if (custom_image) {
+    int height = gdk_paintable_get_intrinsic_height (custom_image);
+    int width = gdk_paintable_get_intrinsic_width (custom_image);
+
+    if (height == width) {
+      gtk_image_set_from_paintable (self->custom_image, custom_image);
+    } else {
+      GtkSnapshot *snapshot = gtk_snapshot_new ();
+      g_autoptr (GdkPaintable) square_image = NULL;
+      int size = MIN (width, height);
+
+      gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT ((size - width) / 2.f, (size - height) / 2.f));
+      gdk_paintable_snapshot (custom_image, snapshot, width, height);
+
+      square_image = gtk_snapshot_free_to_paintable (snapshot, &GRAPHENE_SIZE_INIT (size, size));
+      gtk_image_set_from_paintable (self->custom_image, square_image);
+    }
+
     gtk_widget_add_css_class (self->gizmo, "image");
-  else
+  } else {
+    gtk_image_set_from_paintable (self->custom_image, NULL);
     gtk_widget_remove_css_class (self->gizmo, "image");
+  }
 
   update_visibility (self);
 
