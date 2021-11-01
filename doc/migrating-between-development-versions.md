@@ -256,3 +256,7 @@ the name of the design pattern. If you were using the `.content` style
 class, you should use `.boxed-list` instead.
 
 The `.content` style class currently remains for compatibility purposes.
+
+Neither the `.content` style class nor the `.boxed-list` style class work
+for [class@Gtk.ListView], as the widget cannot currently be used for the
+boxed list pattern.
