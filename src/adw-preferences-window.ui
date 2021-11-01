@@ -123,7 +123,7 @@
                                             <signal name="map" handler="search_results_map" swapped="yes"/>
                                             <signal name="unmap" handler="search_results_unmap" swapped="yes"/>
                                             <style>
-                                              <class name="content"/>
+                                              <class name="boxed-list"/>
                                             </style>
                                           </object>
                                         </child>

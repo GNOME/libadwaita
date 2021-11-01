@@ -248,3 +248,11 @@ the item selection style. The border can be replicated by manually adding a
 The `.combo` popover style class has been removed. Use `.menu` instead. You may
 need to remove manually added margins, padding or minimum height from the list
 items inside while doing it.
+
+#### Adapt to List Style Changes
+
+For boxed lists we now have the `.boxed-list` style class that matches
+the name of the design pattern. If you were using the `.content` style
+class, you should use `.boxed-list` instead.
+
+The `.content` style class currently remains for compatibility purposes.
