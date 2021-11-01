@@ -3,6 +3,8 @@
   color: $view_fg_color;
   background-color: $view_bg_color;
 
+  button { @extend %view_checked_button; }
+
   &:disabled {
     color: gtkalpha(currentColor, .5);
     background-color: gtkmix($window_bg_color, $view_bg_color, 60%);

@@ -127,6 +127,8 @@ statuspage {
   border: 1px solid $card_border_color;
   border-radius: $card_radius;
 
+  button { @extend %card_checked_button; }
+
   @include focus-ring($offset: -2px);
 
   &.activatable {

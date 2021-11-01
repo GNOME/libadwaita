@@ -137,9 +137,13 @@ searchbar {
     color: $headerbar_fg_color;
     box-shadow: inset 0 -1px $headerbar_border_color;
 
+    button { @extend %headerbar_checked_button; }
+
     &:backdrop {
       background-color: $headerbar_backdrop_color;
       transition: $backdrop_transition;
+
+      button { @extend %headerbar_backdrop_checked_button; }
     }
   }
 

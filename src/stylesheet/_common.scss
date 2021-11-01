@@ -33,6 +33,8 @@ dnd {
   border: none;
   background-color: $osd_bg_color;
   background-clip: padding-box;
+
+  button { @extend %osd_checked_button; }
 }
 
 /* Text selection */

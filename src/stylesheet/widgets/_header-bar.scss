@@ -11,6 +11,8 @@ headerbar {
 
   @extend %toolbar;
 
+  &:not(.flat) button { @extend %headerbar_checked_button; }
+
   > windowhandle > box {
     padding: 0 7px 1px 7px;
 
@@ -23,6 +25,8 @@ headerbar {
 
   &:backdrop {
     background-color: $headerbar_backdrop_color;
+
+    &:not(.flat) button { @extend %headerbar_backdrop_checked_button; }
 
     transition: $backdrop_transition;
 

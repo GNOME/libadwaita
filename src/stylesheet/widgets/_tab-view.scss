@@ -127,6 +127,8 @@ tabbar {
       background-color: $headerbar_bg_color;
       color: $headerbar_fg_color;
       border-color: $headerbar_border_color;
+
+      button { @extend %headerbar_checked_button; }
     }
 
     scrolledwindow.pinned {
@@ -177,6 +179,8 @@ tabbar {
     &:backdrop .box {
       background-color: $headerbar_backdrop_color;
       transition: $backdrop_transition;
+
+      button { @extend %headerbar_backdrop_checked_button; }
     }
   }
 }

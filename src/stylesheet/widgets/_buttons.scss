@@ -36,17 +36,50 @@ button {
       }
 
       &:checked {
-        background-color: $button_checked_color;
+        background-color: gtkalpha(currentColor, .8);
+
+        @include focus-ring($outer: true, $offset: 1px);
+        transition: $button_transition;
+
+        @extend %checked_button;
 
         &:hover {
-          background-color: $button_checked_hover_color;
+          background-color: gtkalpha(gtkmix(currentColor, white, 80%), .9);
         }
 
         &.keyboard-activating,
         &:active {
-          background-color: $button_checked_active_color;
+          background-color: gtkalpha(gtkmix(currentColor, black, 90%), .9);
         }
       }
+    }
+
+    @at-root %checked_button:checked > * {
+      color: $window_bg_color;
+    }
+
+    @at-root %osd_checked_button:checked > * {
+      color: transparentize(black, .2);
+    }
+
+    @at-root %view_checked_button:checked > * {
+      color: $view_bg_color;
+    }
+
+    @at-root %headerbar_checked_button:checked > * {
+      color: $headerbar_bg_color;
+    }
+
+    @at-root %headerbar_backdrop_checked_button:checked > * {
+      color: $headerbar_backdrop_color;
+    }
+
+    @at-root %popover_checked_button:checked > * {
+      color: $popover_bg_color;
+    }
+
+    @at-root %card_checked_button:checked > * {
+      color: $card_bg_color;
     }
 
     &:disabled {
@@ -129,15 +162,20 @@ button {
     }
 
     &:checked {
-      background-color: gtkalpha(gtkmix(black, currentColor, 80%), .65);
+      background-color: gtkalpha(currentColor, .9);
+      color: white;
+
+      > * {
+        color: black;
+      }
 
       &:hover {
-        background-color: gtkalpha(gtkmix(black, currentColor, 75%), .65);
+        background-color: currentColor;
       }
 
       &.keyboard-activating,
       &:active {
-        background-color: gtkalpha(gtkmix(black, currentColor, 65%), .65);
+        background-color: gtkalpha(currentColor, .8);
       }
     }
 
@@ -164,6 +202,10 @@ button {
 
     &:checked {
       background-image: image(transparentize(black, .85));
+
+      > * {
+        color: inherit;
+      }
 
       &:hover {
         background-image: image(transparentize(black, .95));
@@ -231,6 +273,10 @@ button {
 
     &:checked {
       background: $view_selected_color;
+
+      > * {
+        color: inherit;
+      }
 
       &:hover {
         background: $view_selected_hover_color;
@@ -317,6 +363,10 @@ button {
     &:checked {
       background-color: $card_bg_color;
       background-image: image($view_selected_color);
+
+      > * {
+        color: inherit;
+      }
 
       &:hover { background-image: image($view_selected_hover_color); }
 

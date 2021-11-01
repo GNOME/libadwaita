@@ -5,6 +5,8 @@ list {
   background-clip: padding-box;
   border-color: $border_color;
 
+  button { @extend %view_checked_button; }
+
   > row {
     padding: 2px;
     background-clip: padding-box;
@@ -218,6 +220,8 @@ list.boxed-list {
   color: $card_fg_color;
   border: 1px solid $card_border_color;
   border-radius: $card_radius;
+
+  button { @extend %card_checked_button; }
 
   > row {
     // Regular rows and expander header rows background
