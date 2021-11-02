@@ -10,12 +10,12 @@
 
 G_BEGIN_DECLS
 
-#if !GTK_CHECK_VERSION(4, 0, 0)
-# error "libadwaita requires gtk4 >= 4.0.0"
+#if !GTK_CHECK_VERSION(4, 4, 0)
+# error "libadwaita requires gtk4 >= 4.4.0"
 #endif
 
-#if !GLIB_CHECK_VERSION(2, 50, 0)
-# error "libadwaita requires glib-2.0 >= 2.50.0"
+#if !GLIB_CHECK_VERSION(2, 66, 0)
+# error "libadwaita requires glib-2.0 >= 2.66.0"
 #endif
 
 #define _ADWAITA_INSIDE
