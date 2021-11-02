@@ -53,10 +53,6 @@ test_adw_carousel_add_remove (void)
   g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 1);
   g_assert_cmpint (notified, ==, 5);
 
-  adw_carousel_remove (carousel, child3);
-  g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 0);
-  g_assert_cmpint (notified, ==, 6);
-
   g_assert_finalize_object (carousel);
 }
 
