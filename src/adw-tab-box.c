@@ -2930,6 +2930,9 @@ adw_tab_box_size_allocate (GtkWidget *widget,
                             width * 0.9,
                             width);
 
+  /* The value may have been changed during gtk_adjustment_configure() */
+  value = gtk_adjustment_get_value (self->adjustment);
+
   if (self->context_menu)
     gtk_popover_present (self->context_menu);
 
