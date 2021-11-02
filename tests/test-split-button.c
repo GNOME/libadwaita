@@ -19,10 +19,9 @@ notify_cb (GtkWidget *widget, gpointer data)
 static void
 test_adw_split_button_icon_name (void)
 {
-  g_autoptr (AdwSplitButton) button = NULL;
+  AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   const char *icon_name;
 
-  button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   g_assert_nonnull (button);
 
   notified = 0;
@@ -53,15 +52,16 @@ test_adw_split_button_icon_name (void)
   adw_split_button_set_child (button, gtk_button_new ());
   g_assert_null (adw_split_button_get_icon_name (button));
   g_assert_cmpint (notified, ==, 5);
+
+  g_assert_finalize_object (button);
 }
 
 static void
 test_adw_split_button_label (void)
 {
-  g_autoptr (AdwSplitButton) button = NULL;
+  AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   const char *label;
 
-  button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   g_assert_nonnull (button);
 
   notified = 0;
@@ -92,15 +92,16 @@ test_adw_split_button_label (void)
   adw_split_button_set_child (button, gtk_button_new ());
   g_assert_null (adw_split_button_get_label (button));
   g_assert_cmpint (notified, ==, 5);
+
+  g_assert_finalize_object (button);
 }
 
 static void
 test_adw_split_button_use_underline (void)
 {
-  g_autoptr (AdwSplitButton) button = NULL;
+  AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   gboolean use_underline;
 
-  button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   g_assert_nonnull (button);
 
   notified = 0;
@@ -119,15 +120,16 @@ test_adw_split_button_use_underline (void)
   g_object_set (button, "use-underline", FALSE, NULL);
   g_assert_false (adw_split_button_get_use_underline (button));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (button);
 }
 
 static void
 test_adw_split_button_child (void)
 {
-  g_autoptr (AdwSplitButton) button = NULL;
+  AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   GtkWidget *child1, *child2, *child3, *child;
 
-  button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   g_assert_nonnull (button);
 
   child1 = gtk_button_new ();
@@ -165,17 +167,18 @@ test_adw_split_button_child (void)
   adw_split_button_set_icon_name (button, "document-open-symbolic");
   g_assert_false (adw_split_button_get_child (button) == child3);
   g_assert_cmpint (notified, ==, 5);
+
+  g_assert_finalize_object (button);
 }
 
 static void
 test_adw_split_button_menu_model (void)
 {
-  g_autoptr (AdwSplitButton) button = NULL;
-  GMenuModel *model = NULL;
-  g_autoptr (GMenuModel) model1 = G_MENU_MODEL (g_menu_new ());
-  g_autoptr (GMenuModel) model2 = G_MENU_MODEL (g_menu_new ());
+  AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
+  GMenuModel *model;
+  GMenuModel *model1 = G_MENU_MODEL (g_menu_new ());
+  GMenuModel *model2 = G_MENU_MODEL (g_menu_new ());
 
-  button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   g_assert_nonnull (button);
 
   notified = 0;
@@ -186,8 +189,7 @@ test_adw_split_button_menu_model (void)
   g_assert_cmpint (notified, ==, 0);
 
   adw_split_button_set_menu_model (button, model1);
-  g_object_get (button, "menu-model", &model, NULL);
-  g_assert_true (model == model1);
+  g_assert_true (adw_split_button_get_menu_model (button) == model1);
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (button, "menu-model", model2, NULL);
@@ -197,16 +199,19 @@ test_adw_split_button_menu_model (void)
   adw_split_button_set_popover (button, GTK_POPOVER (gtk_popover_new ()));
   g_assert_null (adw_split_button_get_menu_model (button));
   g_assert_cmpint (notified, ==, 3);
+
+  g_assert_finalize_object (button);
+  g_assert_finalize_object (model1);
+  g_assert_finalize_object (model2);
 }
 
 static void
 test_adw_split_button_popover (void)
 {
-  g_autoptr (AdwSplitButton) button = NULL;
+  AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   GtkPopover *popover, *popover1, *popover2;
-  g_autoptr (GMenuModel) model = NULL;
+  GMenuModel *model;
 
-  button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   g_assert_nonnull (button);
 
   popover1 = GTK_POPOVER (gtk_popover_new ());
@@ -220,8 +225,7 @@ test_adw_split_button_popover (void)
   g_assert_cmpint (notified, ==, 0);
 
   adw_split_button_set_popover (button, popover1);
-  g_object_get (button, "popover", &popover, NULL);
-  g_assert_true (popover == popover1);
+  g_assert_true (adw_split_button_get_popover (button) == popover1);
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (button, "popover", popover2, NULL);
@@ -235,15 +239,17 @@ test_adw_split_button_popover (void)
    * sure is it's not the same one as we had just set */
   g_assert_false (adw_split_button_get_popover (button) == popover2);
   g_assert_cmpint (notified, ==, 3);
+
+  g_assert_finalize_object (button);
+  g_assert_finalize_object (model);
 }
 
 static void
 test_adw_split_button_direction (void)
 {
-  g_autoptr (AdwSplitButton) button = NULL;
+  AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   GtkArrowType direction;
 
-  button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
   g_assert_nonnull (button);
 
   notified = 0;
@@ -262,6 +268,8 @@ test_adw_split_button_direction (void)
   g_object_set (button, "direction", GTK_ARROW_DOWN, NULL);
   g_assert_cmpint (adw_split_button_get_direction (button), ==, GTK_ARROW_DOWN);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (button);
 }
 
 int

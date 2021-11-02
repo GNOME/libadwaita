@@ -19,10 +19,9 @@ notify_cb (GtkWidget *widget, gpointer data)
 static void
 test_adw_flap_flap (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   GtkWidget *widget = NULL;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   notified = 0;
@@ -42,15 +41,16 @@ test_adw_flap_flap (void)
   g_object_set (flap, "flap", NULL, NULL);
   g_assert_null (adw_flap_get_flap (flap));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_separator (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   GtkWidget *widget = NULL;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   notified = 0;
@@ -70,15 +70,16 @@ test_adw_flap_separator (void)
   g_object_set (flap, "separator", NULL, NULL);
   g_assert_null (adw_flap_get_separator (flap));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_flap_position (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   GtkPackType position;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   notified = 0;
@@ -97,15 +98,16 @@ test_adw_flap_flap_position (void)
   g_object_set (flap, "flap-position", GTK_PACK_START, NULL);
   g_assert_cmpint (adw_flap_get_flap_position (flap), ==, GTK_PACK_START);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_reveal_flap (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean reveal;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   adw_flap_set_flap (flap, gtk_button_new ());
@@ -126,15 +128,16 @@ test_adw_flap_reveal_flap (void)
   g_object_set (flap, "reveal-flap", TRUE, NULL);
   g_assert_true (adw_flap_get_reveal_flap (flap));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_reveal_duration (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   guint duration;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   notified = 0;
@@ -153,15 +156,16 @@ test_adw_flap_reveal_duration (void)
   g_object_set (flap, "reveal-duration", 100, NULL);
   g_assert_cmpint (adw_flap_get_reveal_duration (flap), ==, 100);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_reveal_progress (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   double progress;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   notified = 0;
@@ -177,15 +181,16 @@ test_adw_flap_reveal_progress (void)
   adw_flap_set_reveal_flap (flap, TRUE);
   g_assert_cmpint (adw_flap_get_reveal_progress (flap), ==, 1.0);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_fold_policy (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   AdwFlapFoldPolicy policy;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   notified = 0;
@@ -204,15 +209,16 @@ test_adw_flap_fold_policy (void)
   g_object_set (flap, "fold-policy", ADW_FLAP_FOLD_POLICY_ALWAYS, NULL);
   g_assert_cmpint (adw_flap_get_fold_policy (flap), ==, ADW_FLAP_FOLD_POLICY_ALWAYS);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_fold_duration (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   guint duration;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   notified = 0;
@@ -231,15 +237,16 @@ test_adw_flap_fold_duration (void)
   g_object_set (flap, "fold-duration", 100, NULL);
   g_assert_cmpint (adw_flap_get_fold_duration (flap), ==, 100);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_folded (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean folded;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   adw_flap_set_flap (flap, gtk_button_new ());
@@ -254,15 +261,16 @@ test_adw_flap_folded (void)
   adw_flap_set_fold_policy (flap, ADW_FLAP_FOLD_POLICY_ALWAYS);
   g_assert_true (adw_flap_get_folded (flap));
   g_assert_cmpint (notified, ==, 1);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_locked (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean locked;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   adw_flap_set_flap (flap, gtk_button_new ());
@@ -283,15 +291,16 @@ test_adw_flap_locked (void)
   g_object_set (flap, "locked", FALSE, NULL);
   g_assert_false (adw_flap_get_locked (flap));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_transition_type (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   AdwFlapTransitionType policy;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   notified = 0;
@@ -310,15 +319,16 @@ test_adw_flap_transition_type (void)
   g_object_set (flap, "transition-type", ADW_FLAP_TRANSITION_TYPE_UNDER, NULL);
   g_assert_cmpint (adw_flap_get_transition_type (flap), ==, ADW_FLAP_TRANSITION_TYPE_UNDER);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_modal (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean modal;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   adw_flap_set_flap (flap, gtk_button_new ());
@@ -339,15 +349,16 @@ test_adw_flap_modal (void)
   g_object_set (flap, "modal", TRUE, NULL);
   g_assert_true (adw_flap_get_modal (flap));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_swipe_to_open (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean swipe_to_open;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   adw_flap_set_flap (flap, gtk_button_new ());
@@ -368,15 +379,16 @@ test_adw_flap_swipe_to_open (void)
   g_object_set (flap, "swipe-to-open", TRUE, NULL);
   g_assert_true (adw_flap_get_swipe_to_open (flap));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 static void
 test_adw_flap_swipe_to_close (void)
 {
-  g_autoptr (AdwFlap) flap = NULL;
+  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   gboolean swipe_to_close;
 
-  flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
   g_assert_nonnull (flap);
 
   adw_flap_set_flap (flap, gtk_button_new ());
@@ -397,6 +409,8 @@ test_adw_flap_swipe_to_close (void)
   g_object_set (flap, "swipe-to-close", TRUE, NULL);
   g_assert_true (adw_flap_get_swipe_to_close (flap));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (flap);
 }
 
 int

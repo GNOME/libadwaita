@@ -17,14 +17,12 @@ notify_cb (GtkWidget *widget, gpointer data)
 static void
 test_adw_combo_row_set_for_enum (void)
 {
-  g_autoptr (AdwComboRow) row = NULL;
+  AdwComboRow *row = g_object_ref_sink (ADW_COMBO_ROW (adw_combo_row_new ()));
   GtkExpression *expr = NULL;
   GListModel *model;
   AdwEnumListItem *item;
 
-  row = g_object_ref_sink (ADW_COMBO_ROW (adw_combo_row_new ()));
   g_assert_nonnull (row);
-
   g_assert_null (adw_combo_row_get_model (row));
 
   expr = gtk_property_expression_new (ADW_TYPE_ENUM_LIST_ITEM, NULL, "nick");
@@ -47,16 +45,17 @@ test_adw_combo_row_set_for_enum (void)
   item = g_list_model_get_item (model, 1);
   g_assert_true (ADW_IS_ENUM_LIST_ITEM (item));
   g_assert_cmpstr (adw_enum_list_item_get_nick (item), ==, "vertical");
+
+  g_assert_finalize_object (row);
 }
 
 static void
 test_adw_combo_row_selected (void)
 {
-  g_autoptr (AdwComboRow) row = NULL;
-  g_autoptr (GListModel) model = NULL;
+  AdwComboRow *row = g_object_ref_sink (ADW_COMBO_ROW (adw_combo_row_new ()));
+  GListModel *model;
   int selected = 0;
 
-  row = ADW_COMBO_ROW (g_object_ref_sink (adw_combo_row_new ()));
   g_assert_nonnull (row);
 
   notified = 0;
@@ -82,15 +81,17 @@ test_adw_combo_row_selected (void)
   g_object_set (row, "selected", 1, NULL);
   g_assert_cmpint (adw_combo_row_get_selected (row), ==, 1);
   g_assert_cmpint (notified, ==, 3);
+
+  g_assert_finalize_object (row);
+  g_assert_finalize_object (model);
 }
 
 static void
 test_adw_combo_row_use_subtitle (void)
 {
-  g_autoptr (AdwComboRow) row = NULL;
+  AdwComboRow *row = g_object_ref_sink (ADW_COMBO_ROW (adw_combo_row_new ()));
   gboolean use_subtitle = FALSE;
 
-  row = g_object_ref_sink (ADW_COMBO_ROW (adw_combo_row_new ()));
   g_assert_nonnull (row);
 
   notified = 0;
@@ -109,6 +110,8 @@ test_adw_combo_row_use_subtitle (void)
   g_object_get (row, "use-subtitle", &use_subtitle, NULL);
   g_assert_false (use_subtitle);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (row);
 }
 
 

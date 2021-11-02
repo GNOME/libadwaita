@@ -23,12 +23,11 @@ assert_page_position (GtkSelectionModel *pages,
 static void
 test_adw_leaflet_adjacent_child (void)
 {
-  g_autoptr (AdwLeaflet) leaflet = NULL;
+  AdwLeaflet *leaflet = g_object_ref_sink (ADW_LEAFLET (adw_leaflet_new ()));
   GtkWidget *children[3];
   int i;
   GtkWidget *result;
 
-  leaflet = ADW_LEAFLET (adw_leaflet_new ());
   g_assert_nonnull (leaflet);
 
   for (i = 0; i < 3; i++) {
@@ -66,18 +65,19 @@ test_adw_leaflet_adjacent_child (void)
 
   result = adw_leaflet_get_adjacent_child (leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
   g_assert_null (result);
+
+  g_assert_finalize_object (leaflet);
 }
 
 
 static void
 test_adw_leaflet_navigate (void)
 {
-  g_autoptr (AdwLeaflet) leaflet = NULL;
+  AdwLeaflet *leaflet = g_object_ref_sink (ADW_LEAFLET (adw_leaflet_new ()));
   GtkWidget *children[3];
   int i;
   gboolean result;
 
-  leaflet = ADW_LEAFLET (adw_leaflet_new ());
   g_assert_nonnull (leaflet);
 
   result = adw_leaflet_navigate (leaflet, ADW_NAVIGATION_DIRECTION_BACK);
@@ -113,18 +113,19 @@ test_adw_leaflet_navigate (void)
   result = adw_leaflet_navigate (leaflet, ADW_NAVIGATION_DIRECTION_BACK);
   g_assert_true (result);
   g_assert_true (adw_leaflet_get_visible_child (leaflet) == children[0]);
+
+  g_assert_finalize_object (leaflet);
 }
 
 
 static void
 test_adw_leaflet_prepend (void)
 {
-  g_autoptr (AdwLeaflet) leaflet = NULL;
+  AdwLeaflet *leaflet = g_object_ref_sink (ADW_LEAFLET (adw_leaflet_new ()));
   GtkWidget *labels[2];
   int i;
-  g_autoptr (GtkSelectionModel) pages = NULL;
+  GtkSelectionModel *pages;
 
-  leaflet = ADW_LEAFLET (adw_leaflet_new ());
   g_assert_nonnull (leaflet);
 
   for (i = 0; i < 2; i++) {
@@ -140,18 +141,20 @@ test_adw_leaflet_prepend (void)
   adw_leaflet_prepend (leaflet, labels[0]);
   assert_page_position (pages, labels[0], 0);
   assert_page_position (pages, labels[1], 1);
+
+  g_assert_finalize_object (leaflet);
+  g_assert_finalize_object (pages);
 }
 
 
 static void
 test_adw_leaflet_insert_child_after (void)
 {
-  g_autoptr (AdwLeaflet) leaflet = NULL;
+  AdwLeaflet *leaflet = g_object_ref_sink (ADW_LEAFLET (adw_leaflet_new ()));
   GtkWidget *labels[3];
   int i;
-  g_autoptr (GtkSelectionModel) pages = NULL;
+  GtkSelectionModel *pages;
 
-  leaflet = ADW_LEAFLET (adw_leaflet_new ());
   g_assert_nonnull (leaflet);
 
   for (i = 0; i < 3; i++) {
@@ -165,8 +168,6 @@ test_adw_leaflet_insert_child_after (void)
 
   assert_page_position (pages, labels[2], 0);
 
-  pages = adw_leaflet_get_pages (leaflet);
-
   adw_leaflet_insert_child_after (leaflet, labels[0], NULL);
   assert_page_position (pages, labels[0], 0);
   assert_page_position (pages, labels[2], 1);
@@ -175,18 +176,20 @@ test_adw_leaflet_insert_child_after (void)
   assert_page_position (pages, labels[0], 0);
   assert_page_position (pages, labels[1], 1);
   assert_page_position (pages, labels[2], 2);
+
+  g_assert_finalize_object (leaflet);
+  g_assert_finalize_object (pages);
 }
 
 
 static void
 test_adw_leaflet_reorder_child_after (void)
 {
-  g_autoptr (AdwLeaflet) leaflet = NULL;
+  AdwLeaflet *leaflet = g_object_ref_sink (ADW_LEAFLET (adw_leaflet_new ()));
   GtkWidget *labels[3];
   int i;
-  g_autoptr (GtkSelectionModel) pages = NULL;
+  GtkSelectionModel *pages;
 
-  leaflet = ADW_LEAFLET (adw_leaflet_new ());
   g_assert_nonnull (leaflet);
 
   for (i = 0; i < 3; i++) {
@@ -211,6 +214,9 @@ test_adw_leaflet_reorder_child_after (void)
   assert_page_position (pages, labels[2], 0);
   assert_page_position (pages, labels[1], 1);
   assert_page_position (pages, labels[0], 2);
+
+  g_assert_finalize_object (leaflet);
+  g_assert_finalize_object (pages);
 }
 
 

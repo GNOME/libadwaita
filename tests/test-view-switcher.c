@@ -10,9 +10,8 @@
 static void
 test_adw_view_switcher_policy (void)
 {
-  g_autoptr (AdwViewSwitcher) view_switcher = NULL;
+  AdwViewSwitcher *view_switcher = g_object_ref_sink (ADW_VIEW_SWITCHER (adw_view_switcher_new ()));
 
-  view_switcher = g_object_ref_sink (ADW_VIEW_SWITCHER (adw_view_switcher_new ()));
   g_assert_nonnull (view_switcher);
 
   g_assert_cmpint (adw_view_switcher_get_policy (view_switcher), ==, ADW_VIEW_SWITCHER_POLICY_NARROW);
@@ -22,16 +21,17 @@ test_adw_view_switcher_policy (void)
 
   adw_view_switcher_set_policy (view_switcher, ADW_VIEW_SWITCHER_POLICY_NARROW);
   g_assert_cmpint (adw_view_switcher_get_policy (view_switcher), ==, ADW_VIEW_SWITCHER_POLICY_NARROW);
+
+  g_assert_finalize_object (view_switcher);
 }
 
 
 static void
 test_adw_view_switcher_stack (void)
 {
-  g_autoptr (AdwViewSwitcher) view_switcher = NULL;
+  AdwViewSwitcher *view_switcher = g_object_ref_sink (ADW_VIEW_SWITCHER (adw_view_switcher_new ()));
   AdwViewStack *stack;
 
-  view_switcher = g_object_ref_sink (ADW_VIEW_SWITCHER (adw_view_switcher_new ()));
   g_assert_nonnull (view_switcher);
 
   stack = ADW_VIEW_STACK (adw_view_stack_new ());
@@ -44,6 +44,8 @@ test_adw_view_switcher_stack (void)
 
   adw_view_switcher_set_stack (view_switcher, NULL);
   g_assert_null (adw_view_switcher_get_stack (view_switcher));
+
+  g_assert_finalize_object (view_switcher);
 }
 
 

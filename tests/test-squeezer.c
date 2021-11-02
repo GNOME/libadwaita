@@ -10,9 +10,8 @@
 static void
 test_adw_squeezer_homogeneous (void)
 {
-  g_autoptr (AdwSqueezer) squeezer = NULL;
+  AdwSqueezer *squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
 
-  squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
   g_assert_nonnull (squeezer);
 
   g_assert_true (adw_squeezer_get_homogeneous (squeezer));
@@ -22,15 +21,16 @@ test_adw_squeezer_homogeneous (void)
 
   adw_squeezer_set_homogeneous (squeezer, TRUE);
   g_assert_true (adw_squeezer_get_homogeneous (squeezer));
+
+  g_assert_finalize_object (squeezer);
 }
 
 
 static void
 test_adw_squeezer_allow_none (void)
 {
-  g_autoptr (AdwSqueezer) squeezer = NULL;
+  AdwSqueezer *squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
 
-  squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
   g_assert_nonnull (squeezer);
 
   g_assert_false (adw_squeezer_get_allow_none (squeezer));
@@ -40,15 +40,16 @@ test_adw_squeezer_allow_none (void)
 
   adw_squeezer_set_allow_none (squeezer, FALSE);
   g_assert_false (adw_squeezer_get_allow_none (squeezer));
+
+  g_assert_finalize_object (squeezer);
 }
 
 
 static void
 test_adw_squeezer_transition_duration (void)
 {
-  g_autoptr (AdwSqueezer) squeezer = NULL;
+  AdwSqueezer *squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
 
-  squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
   g_assert_nonnull (squeezer);
 
   g_assert_cmpuint (adw_squeezer_get_transition_duration (squeezer), ==, 200);
@@ -58,15 +59,16 @@ test_adw_squeezer_transition_duration (void)
 
   adw_squeezer_set_transition_duration (squeezer, -1);
   g_assert_cmpuint (adw_squeezer_get_transition_duration (squeezer), ==, G_MAXUINT);
+
+  g_assert_finalize_object (squeezer);
 }
 
 
 static void
 test_adw_squeezer_transition_type (void)
 {
-  g_autoptr (AdwSqueezer) squeezer = NULL;
+  AdwSqueezer *squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
 
-  squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
   g_assert_nonnull (squeezer);
 
   g_assert_cmpuint (adw_squeezer_get_transition_type (squeezer), ==, ADW_SQUEEZER_TRANSITION_TYPE_NONE);
@@ -76,28 +78,30 @@ test_adw_squeezer_transition_type (void)
 
   adw_squeezer_set_transition_type (squeezer, ADW_SQUEEZER_TRANSITION_TYPE_NONE);
   g_assert_cmpuint (adw_squeezer_get_transition_type (squeezer), ==, ADW_SQUEEZER_TRANSITION_TYPE_NONE);
+
+  g_assert_finalize_object (squeezer);
 }
 
 
 static void
 test_adw_squeezer_transition_running (void)
 {
-  g_autoptr (AdwSqueezer) squeezer = NULL;
+  AdwSqueezer *squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
 
-  squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
   g_assert_nonnull (squeezer);
 
   g_assert_false (adw_squeezer_get_transition_running (squeezer));
+
+  g_assert_finalize_object (squeezer);
 }
 
 
 static void
 test_adw_squeezer_show_hide_child (void)
 {
-  g_autoptr (AdwSqueezer) squeezer = NULL;
+  AdwSqueezer *squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
   GtkWidget *child;
 
-  squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
   g_assert_nonnull (squeezer);
 
   g_assert_null (adw_squeezer_get_visible_child (squeezer));
@@ -114,15 +118,16 @@ test_adw_squeezer_show_hide_child (void)
 
   adw_squeezer_remove (squeezer, child);
   g_assert_null (adw_squeezer_get_visible_child (squeezer));
+
+  g_assert_finalize_object (squeezer);
 }
 
 
 static void
 test_adw_squeezer_interpolate_size (void)
 {
-  g_autoptr (AdwSqueezer) squeezer = NULL;
+  AdwSqueezer *squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
 
-  squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
   g_assert_nonnull (squeezer);
 
   g_assert_false (adw_squeezer_get_interpolate_size (squeezer));
@@ -132,17 +137,18 @@ test_adw_squeezer_interpolate_size (void)
 
   adw_squeezer_set_interpolate_size (squeezer, FALSE);
   g_assert_false (adw_squeezer_get_interpolate_size (squeezer));
+
+  g_assert_finalize_object (squeezer);
 }
 
 
 static void
 test_adw_squeezer_page_enabled (void)
 {
-  g_autoptr (AdwSqueezer) squeezer = NULL;
+  AdwSqueezer *squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
   GtkWidget *child;
   AdwSqueezerPage *page;
 
-  squeezer = g_object_ref_sink (ADW_SQUEEZER (adw_squeezer_new ()));
   g_assert_nonnull (squeezer);
 
   child = gtk_label_new ("");
@@ -154,6 +160,8 @@ test_adw_squeezer_page_enabled (void)
 
   adw_squeezer_page_set_enabled (page, TRUE);
   g_assert_true (adw_squeezer_page_get_enabled (page));
+
+  g_assert_finalize_object (squeezer);
 }
 
 

@@ -10,9 +10,8 @@
 static void
 test_adw_preferences_row_title (void)
 {
-  g_autoptr (AdwPreferencesRow) row = NULL;
+  AdwPreferencesRow *row = g_object_ref_sink (ADW_PREFERENCES_ROW (adw_preferences_row_new ()));
 
-  row = g_object_ref_sink (ADW_PREFERENCES_ROW (adw_preferences_row_new ()));
   g_assert_nonnull (row);
 
   g_assert_cmpstr (adw_preferences_row_get_title (row), ==, "");
@@ -22,15 +21,16 @@ test_adw_preferences_row_title (void)
 
   adw_preferences_row_set_title (row, NULL);
   g_assert_cmpstr (adw_preferences_row_get_title (row), ==, "");
+
+  g_assert_finalize_object (row);
 }
 
 
 static void
 test_adw_preferences_row_use_undeline (void)
 {
-  g_autoptr (AdwPreferencesRow) row = NULL;
+  AdwPreferencesRow *row = g_object_ref_sink (ADW_PREFERENCES_ROW (adw_preferences_row_new ()));
 
-  row = g_object_ref_sink (ADW_PREFERENCES_ROW (adw_preferences_row_new ()));
   g_assert_nonnull (row);
 
   g_assert_false (adw_preferences_row_get_use_underline (row));
@@ -40,6 +40,8 @@ test_adw_preferences_row_use_undeline (void)
 
   adw_preferences_row_set_use_underline (row, FALSE);
   g_assert_false (adw_preferences_row_get_use_underline (row));
+
+  g_assert_finalize_object (row);
 }
 
 

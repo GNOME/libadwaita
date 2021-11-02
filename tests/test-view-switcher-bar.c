@@ -10,10 +10,9 @@
 static void
 test_adw_view_switcher_bar_stack (void)
 {
-  g_autoptr (AdwViewSwitcherBar) bar = NULL;
+  AdwViewSwitcherBar *bar = g_object_ref_sink (ADW_VIEW_SWITCHER_BAR (adw_view_switcher_bar_new ()));
   AdwViewStack *stack;
 
-  bar = g_object_ref_sink (ADW_VIEW_SWITCHER_BAR (adw_view_switcher_bar_new ()));
   g_assert_nonnull (bar);
 
   stack = ADW_VIEW_STACK (adw_view_stack_new ());
@@ -26,15 +25,16 @@ test_adw_view_switcher_bar_stack (void)
 
   adw_view_switcher_bar_set_stack (bar, NULL);
   g_assert_null (adw_view_switcher_bar_get_stack (bar));
+
+  g_assert_finalize_object (bar);
 }
 
 
 static void
 test_adw_view_switcher_bar_reveal (void)
 {
-  g_autoptr (AdwViewSwitcherBar) bar = NULL;
+  AdwViewSwitcherBar *bar = g_object_ref_sink (ADW_VIEW_SWITCHER_BAR (adw_view_switcher_bar_new ()));
 
-  bar = g_object_ref_sink (ADW_VIEW_SWITCHER_BAR (adw_view_switcher_bar_new ()));
   g_assert_nonnull (bar);
 
   g_assert_false (adw_view_switcher_bar_get_reveal (bar));
@@ -44,6 +44,8 @@ test_adw_view_switcher_bar_reveal (void)
 
   adw_view_switcher_bar_set_reveal (bar, FALSE);
   g_assert_false (adw_view_switcher_bar_get_reveal (bar));
+
+  g_assert_finalize_object (bar);
 }
 
 

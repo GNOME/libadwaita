@@ -19,10 +19,9 @@ notify_cb (GtkWidget *widget, gpointer data)
 static void
 test_adw_button_content_icon_name (void)
 {
-  g_autoptr (AdwButtonContent) content = NULL;
-  const char *icon_name;
+  AdwButtonContent *content = g_object_ref_sink (ADW_BUTTON_CONTENT (adw_button_content_new ()));
+  g_autofree char *icon_name = NULL;
 
-  content = g_object_ref_sink (ADW_BUTTON_CONTENT (adw_button_content_new ()));
   g_assert_nonnull (content);
 
   notified = 0;
@@ -34,7 +33,6 @@ test_adw_button_content_icon_name (void)
   adw_button_content_set_icon_name (content, "");
   g_assert_cmpint (notified, ==, 0);
 
-
   adw_button_content_set_icon_name (content, "document-open-symbolic");
   g_assert_cmpstr (adw_button_content_get_icon_name (content), ==, "document-open-symbolic");
   g_assert_cmpint (notified, ==, 1);
@@ -42,15 +40,16 @@ test_adw_button_content_icon_name (void)
   g_object_set (content, "icon-name", "", NULL);
   g_assert_cmpstr (adw_button_content_get_icon_name (content), ==, "");
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (content);
 }
 
 static void
 test_adw_button_content_label (void)
 {
-  g_autoptr (AdwButtonContent) content = NULL;
-  const char *label;
+  AdwButtonContent *content = g_object_ref_sink (ADW_BUTTON_CONTENT (adw_button_content_new ()));
+  g_autofree char *label = NULL;
 
-  content = g_object_ref_sink (ADW_BUTTON_CONTENT (adw_button_content_new ()));
   g_assert_nonnull (content);
 
   notified = 0;
@@ -62,7 +61,6 @@ test_adw_button_content_label (void)
   adw_button_content_set_label (content, "");
   g_assert_cmpint (notified, ==, 0);
 
-
   adw_button_content_set_label (content, "Open");
   g_assert_cmpstr (adw_button_content_get_label (content), ==, "Open");
   g_assert_cmpint (notified, ==, 1);
@@ -70,15 +68,16 @@ test_adw_button_content_label (void)
   g_object_set (content, "label", "", NULL);
   g_assert_cmpstr (adw_button_content_get_label (content), ==, "");
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (content);
 }
 
 static void
 test_adw_button_content_use_underline (void)
 {
-  g_autoptr (AdwButtonContent) content = NULL;
+  AdwButtonContent *content = g_object_ref_sink (ADW_BUTTON_CONTENT (adw_button_content_new ()));
   gboolean use_underline;
 
-  content = g_object_ref_sink (ADW_BUTTON_CONTENT (adw_button_content_new ()));
   g_assert_nonnull (content);
 
   notified = 0;
@@ -90,7 +89,6 @@ test_adw_button_content_use_underline (void)
   adw_button_content_set_use_underline (content, FALSE);
   g_assert_cmpint (notified, ==, 0);
 
-
   adw_button_content_set_use_underline (content, TRUE);
   g_assert_true (adw_button_content_get_use_underline (content));
   g_assert_cmpint (notified, ==, 1);
@@ -98,54 +96,50 @@ test_adw_button_content_use_underline (void)
   g_object_set (content, "use-underline", FALSE, NULL);
   g_assert_false (adw_button_content_get_use_underline (content));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (content);
 }
 
 static void
 test_adw_button_content_style_class_button (void)
 {
-  g_autoptr (GtkWidget) window = NULL;
-  GtkWidget *button;
-  AdwButtonContent *content;
+  GtkWidget *window = gtk_window_new ();
+  GtkWidget *button = gtk_button_new ();
+  AdwButtonContent *content = ADW_BUTTON_CONTENT (adw_button_content_new ());
 
-  window = g_object_ref_sink (gtk_window_new ());
-
-  button = gtk_button_new ();
-  gtk_window_set_child (GTK_WINDOW (window), button);
-
-  gtk_window_present (GTK_WINDOW (window));
-
-  content = ADW_BUTTON_CONTENT (adw_button_content_new ());
   g_assert_nonnull (content);
+
+  gtk_window_set_child (GTK_WINDOW (window), button);
+  gtk_window_present (GTK_WINDOW (window));
 
   gtk_button_set_child (GTK_BUTTON (button), GTK_WIDGET (content));
   g_assert_true (gtk_widget_has_css_class (button, "image-text-button"));
 
   gtk_button_set_child (GTK_BUTTON (button), NULL);
   g_assert_false (gtk_widget_has_css_class (button, "image-text-button"));
+
+  g_assert_finalize_object (window);
 }
 
 static void
 test_adw_button_content_style_class_split_button (void)
 {
-  g_autoptr (GtkWidget) window = NULL;
-  GtkWidget *button;
-  AdwButtonContent *content;
+  GtkWidget *window = gtk_window_new ();
+  GtkWidget *button = adw_split_button_new ();
+  AdwButtonContent *content = ADW_BUTTON_CONTENT (adw_button_content_new ());
 
-  window = g_object_ref_sink (gtk_window_new ());
-
-  button = adw_split_button_new ();
-  gtk_window_set_child (GTK_WINDOW (window), button);
-
-  gtk_window_present (GTK_WINDOW (window));
-
-  content = ADW_BUTTON_CONTENT (adw_button_content_new ());
   g_assert_nonnull (content);
+
+  gtk_window_set_child (GTK_WINDOW (window), button);
+  gtk_window_present (GTK_WINDOW (window));
 
   adw_split_button_set_child (ADW_SPLIT_BUTTON (button), GTK_WIDGET (content));
   g_assert_true (gtk_widget_has_css_class (button, "image-text-button"));
 
   adw_split_button_set_child (ADW_SPLIT_BUTTON (button), NULL);
   g_assert_false (gtk_widget_has_css_class (button, "image-text-button"));
+
+  g_assert_finalize_object (window);
 }
 
 int

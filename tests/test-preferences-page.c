@@ -10,10 +10,9 @@
 static void
 test_adw_preferences_page_add_remove (void)
 {
-  g_autoptr (AdwPreferencesPage) page = NULL;
+  AdwPreferencesPage *page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
   AdwPreferencesGroup *group;
 
-  page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
   g_assert_nonnull (page);
 
   group = ADW_PREFERENCES_GROUP (adw_preferences_group_new ());
@@ -21,15 +20,16 @@ test_adw_preferences_page_add_remove (void)
   adw_preferences_page_add (page, group);
 
   adw_preferences_page_remove (page, group);
+
+  g_assert_finalize_object (page);
 }
 
 
 static void
 test_adw_preferences_page_title (void)
 {
-  g_autoptr (AdwPreferencesPage) page = NULL;
+  AdwPreferencesPage *page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
 
-  page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
   g_assert_nonnull (page);
 
   g_assert_cmpstr (adw_preferences_page_get_title (page), ==, "");
@@ -39,15 +39,16 @@ test_adw_preferences_page_title (void)
 
   adw_preferences_page_set_title (page, NULL);
   g_assert_cmpstr (adw_preferences_page_get_title (page), ==, "");
+
+  g_assert_finalize_object (page);
 }
 
 
 static void
 test_adw_preferences_page_icon_name (void)
 {
-  g_autoptr (AdwPreferencesPage) page = NULL;
+  AdwPreferencesPage *page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
 
-  page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
   g_assert_nonnull (page);
 
   g_assert_null (adw_preferences_page_get_icon_name (page));
@@ -57,15 +58,16 @@ test_adw_preferences_page_icon_name (void)
 
   adw_preferences_page_set_icon_name (page, NULL);
   g_assert_null (adw_preferences_page_get_icon_name (page));
+
+  g_assert_finalize_object (page);
 }
 
 
 static void
 test_adw_preferences_page_use_underline (void)
 {
-  g_autoptr (AdwPreferencesPage) page = NULL;
+  AdwPreferencesPage *page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
 
-  page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
   g_assert_nonnull (page);
 
   g_assert_false (adw_preferences_page_get_use_underline (page));
@@ -75,6 +77,8 @@ test_adw_preferences_page_use_underline (void)
 
   adw_preferences_page_set_use_underline (page, FALSE);
   g_assert_false (adw_preferences_page_get_use_underline (page));
+
+  g_assert_finalize_object (page);
 }
 
 

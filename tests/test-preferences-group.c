@@ -10,11 +10,10 @@
 static void
 test_adw_preferences_group_add_remove (void)
 {
-  g_autoptr (AdwPreferencesGroup) group = NULL;
+  AdwPreferencesGroup *group = g_object_ref_sink (ADW_PREFERENCES_GROUP (adw_preferences_group_new ()));
   AdwPreferencesRow *row;
   GtkWidget *widget;
 
-  group = g_object_ref_sink (ADW_PREFERENCES_GROUP (adw_preferences_group_new ()));
   g_assert_nonnull (group);
 
   row = ADW_PREFERENCES_ROW (adw_preferences_row_new ());
@@ -30,15 +29,16 @@ test_adw_preferences_group_add_remove (void)
 
   adw_preferences_group_remove (group, GTK_WIDGET (row));
   adw_preferences_group_remove (group, widget);
+
+  g_assert_finalize_object (group);
 }
 
 
 static void
 test_adw_preferences_group_title (void)
 {
-  g_autoptr (AdwPreferencesGroup) group = NULL;
+  AdwPreferencesGroup *group = g_object_ref_sink (ADW_PREFERENCES_GROUP (adw_preferences_group_new ()));
 
-  group = g_object_ref_sink (ADW_PREFERENCES_GROUP (adw_preferences_group_new ()));
   g_assert_nonnull (group);
 
   g_assert_cmpstr (adw_preferences_group_get_title (group), ==, "");
@@ -48,15 +48,16 @@ test_adw_preferences_group_title (void)
 
   adw_preferences_group_set_title (group, NULL);
   g_assert_cmpstr (adw_preferences_group_get_title (group), ==, "");
+
+  g_assert_finalize_object (group);
 }
 
 
 static void
 test_adw_preferences_group_description (void)
 {
-  g_autoptr (AdwPreferencesGroup) group = NULL;
+  AdwPreferencesGroup *group = g_object_ref_sink (ADW_PREFERENCES_GROUP (adw_preferences_group_new ()));
 
-  group = g_object_ref_sink (ADW_PREFERENCES_GROUP (adw_preferences_group_new ()));
   g_assert_nonnull (group);
 
   g_assert_cmpstr (adw_preferences_group_get_description (group), ==, "");
@@ -66,6 +67,8 @@ test_adw_preferences_group_description (void)
 
   adw_preferences_group_set_description (group, NULL);
   g_assert_cmpstr (adw_preferences_group_get_description (group), ==, "");
+
+  g_assert_finalize_object (group);
 }
 
 

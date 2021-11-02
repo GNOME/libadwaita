@@ -14,31 +14,37 @@
 static void
 test_adw_avatar_icon_name (void)
 {
-  AdwAvatar *avatar = ADW_AVATAR (adw_avatar_new (128, NULL, TRUE));
+  AdwAvatar *avatar = g_object_ref_sink (ADW_AVATAR (adw_avatar_new (128, NULL, TRUE)));
 
   g_assert_null (adw_avatar_get_icon_name (avatar));
   adw_avatar_set_icon_name (avatar, TEST_ICON_NAME);
   g_assert_cmpstr (adw_avatar_get_icon_name (avatar), ==, TEST_ICON_NAME);
+
+  g_assert_finalize_object (avatar);
 }
 
 static void
 test_adw_avatar_text (void)
 {
-  AdwAvatar *avatar = ADW_AVATAR (adw_avatar_new (128, NULL, TRUE));
+  AdwAvatar *avatar = g_object_ref_sink (ADW_AVATAR (adw_avatar_new (128, NULL, TRUE)));
 
   g_assert_cmpstr (adw_avatar_get_text (avatar), ==, "");
   adw_avatar_set_text (avatar, TEST_STRING);
   g_assert_cmpstr (adw_avatar_get_text (avatar), ==, TEST_STRING);
+
+  g_assert_finalize_object (avatar);
 }
 
 static void
 test_adw_avatar_size (void)
 {
-  AdwAvatar *avatar = ADW_AVATAR (adw_avatar_new (TEST_SIZE, NULL, TRUE));
+  AdwAvatar *avatar = g_object_ref_sink (ADW_AVATAR (adw_avatar_new (TEST_SIZE, NULL, TRUE)));
 
   g_assert_cmpint (adw_avatar_get_size (avatar), ==, TEST_SIZE);
   adw_avatar_set_size (avatar, TEST_SIZE / 2);
   g_assert_cmpint (adw_avatar_get_size (avatar), ==, TEST_SIZE / 2);
+
+  g_assert_finalize_object (avatar);
 }
 
 int

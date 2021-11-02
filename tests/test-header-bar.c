@@ -10,10 +10,9 @@
 static void
 test_adw_header_bar_pack (void)
 {
-  g_autoptr (AdwHeaderBar) bar = NULL;
+  AdwHeaderBar *bar = g_object_ref_sink (ADW_HEADER_BAR (adw_header_bar_new ()));
   GtkWidget *widget;
 
-  bar = g_object_ref_sink (ADW_HEADER_BAR (adw_header_bar_new ()));
   g_assert_nonnull (bar);
 
   widget = gtk_switch_new ();
@@ -25,16 +24,17 @@ test_adw_header_bar_pack (void)
   g_assert_nonnull (widget);
 
   adw_header_bar_pack_end (bar, widget);
+
+  g_assert_finalize_object (bar);
 }
 
 
 static void
 test_adw_header_bar_title_widget (void)
 {
-  g_autoptr (AdwHeaderBar) bar = NULL;
+  AdwHeaderBar *bar = g_object_ref_sink (ADW_HEADER_BAR (adw_header_bar_new ()));
   GtkWidget *widget;
 
-  bar = g_object_ref_sink (ADW_HEADER_BAR (adw_header_bar_new ()));
   g_assert_nonnull (bar);
 
   g_assert_null (adw_header_bar_get_title_widget (bar));
@@ -46,15 +46,16 @@ test_adw_header_bar_title_widget (void)
 
   adw_header_bar_set_title_widget (bar, NULL);
   g_assert_null (adw_header_bar_get_title_widget (bar));
+
+  g_assert_finalize_object (bar);
 }
 
 
 static void
 test_adw_header_bar_show_start_title_buttons (void)
 {
-  g_autoptr (AdwHeaderBar) bar = NULL;
+  AdwHeaderBar *bar = g_object_ref_sink (ADW_HEADER_BAR (adw_header_bar_new ()));
 
-  bar = g_object_ref_sink (ADW_HEADER_BAR (adw_header_bar_new ()));
   g_assert_nonnull (bar);
 
   g_assert_true (adw_header_bar_get_show_start_title_buttons (bar));
@@ -64,15 +65,16 @@ test_adw_header_bar_show_start_title_buttons (void)
 
   adw_header_bar_set_show_start_title_buttons (bar, TRUE);
   g_assert_true (adw_header_bar_get_show_start_title_buttons (bar));
+
+  g_assert_finalize_object (bar);
 }
 
 
 static void
 test_adw_header_bar_show_end_title_buttons (void)
 {
-  g_autoptr (AdwHeaderBar) bar = NULL;
+  AdwHeaderBar *bar = g_object_ref_sink (ADW_HEADER_BAR (adw_header_bar_new ()));
 
-  bar = g_object_ref_sink (ADW_HEADER_BAR (adw_header_bar_new ()));
   g_assert_nonnull (bar);
 
   g_assert_true (adw_header_bar_get_show_end_title_buttons (bar));
@@ -82,15 +84,16 @@ test_adw_header_bar_show_end_title_buttons (void)
 
   adw_header_bar_set_show_end_title_buttons (bar, TRUE);
   g_assert_true (adw_header_bar_get_show_end_title_buttons (bar));
+
+  g_assert_finalize_object (bar);
 }
 
 
 static void
 test_adw_header_bar_decoration_layout (void)
 {
-  g_autoptr (AdwHeaderBar) bar = NULL;
+  AdwHeaderBar *bar = g_object_ref_sink (ADW_HEADER_BAR (adw_header_bar_new ()));
 
-  bar = g_object_ref_sink (ADW_HEADER_BAR (adw_header_bar_new ()));
   g_assert_nonnull (bar);
 
   g_assert_null (adw_header_bar_get_decoration_layout (bar));
@@ -100,15 +103,16 @@ test_adw_header_bar_decoration_layout (void)
 
   adw_header_bar_set_decoration_layout (bar, NULL);
   g_assert_null (adw_header_bar_get_decoration_layout (bar));
+
+  g_assert_finalize_object (bar);
 }
 
 
 static void
 test_adw_header_bar_centering_policy (void)
 {
-  g_autoptr (AdwHeaderBar) bar = NULL;
+  AdwHeaderBar *bar = g_object_ref_sink (ADW_HEADER_BAR (adw_header_bar_new ()));
 
-  bar = g_object_ref_sink (ADW_HEADER_BAR (adw_header_bar_new ()));
   g_assert_nonnull (bar);
 
   g_assert_cmpint (adw_header_bar_get_centering_policy (bar), ==, ADW_CENTERING_POLICY_LOOSE);
@@ -118,6 +122,8 @@ test_adw_header_bar_centering_policy (void)
 
   adw_header_bar_set_centering_policy (bar, ADW_CENTERING_POLICY_LOOSE);
   g_assert_cmpint (adw_header_bar_get_centering_policy (bar), ==, ADW_CENTERING_POLICY_LOOSE);
+
+  g_assert_finalize_object (bar);
 }
 
 

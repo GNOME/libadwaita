@@ -77,11 +77,10 @@ check_selection_null (AdwTabView *view)
 static void
 test_adw_tab_view_n_pages (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   int n_pages;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   notified = 0;
@@ -111,16 +110,17 @@ test_adw_tab_view_n_pages (void)
   adw_tab_view_close_page (view, page);
   g_assert_cmpint (adw_tab_view_get_n_pages (view), ==, 2);
   g_assert_cmpint (notified, ==, 4);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_n_pinned_pages (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   int n_pages;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   notified = 0;
@@ -150,47 +150,48 @@ test_adw_tab_view_n_pinned_pages (void)
   adw_tab_view_set_page_pinned (view, page, FALSE);
   g_assert_cmpint (adw_tab_view_get_n_pinned_pages (view), ==, 1);
   g_assert_cmpint (notified, ==, 3);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_default_icon (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
-  GIcon *icon = NULL;
-  g_autoptr (GIcon) icon1 = g_themed_icon_new ("go-previous-symbolic");
-  g_autoptr (GIcon) icon2 = g_themed_icon_new ("go-next-symbolic");
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  GIcon *icon1 = g_themed_icon_new ("go-previous-symbolic");
+  GIcon *icon2 = g_themed_icon_new ("go-next-symbolic");
   g_autofree char *icon_str = NULL;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   notified = 0;
   g_signal_connect (view, "notify::default-icon", G_CALLBACK (notify_cb), NULL);
 
-  g_object_get (view, "default-icon", &icon, NULL);
-  icon_str = g_icon_to_string (icon);
+  icon_str = g_icon_to_string (adw_tab_view_get_default_icon (view));
   g_assert_cmpstr (icon_str, ==, "adw-tab-icon-missing-symbolic");
   g_assert_cmpint (notified, ==, 0);
 
   adw_tab_view_set_default_icon (view, icon1);
-  g_object_get (view, "default-icon", &icon, NULL);
-  g_assert_true (icon == icon1);
+  g_assert_true (adw_tab_view_get_default_icon (view) == icon1);
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (view, "default-icon", icon2, NULL);
   g_assert_true (adw_tab_view_get_default_icon (view) == icon2);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
+  g_assert_finalize_object (icon1);
+  g_assert_finalize_object (icon2);
 }
 
 static void
 test_adw_tab_view_menu_model (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
-  GMenuModel *model = NULL;
-  g_autoptr (GMenuModel) model1 = G_MENU_MODEL (g_menu_new ());
-  g_autoptr (GMenuModel) model2 = G_MENU_MODEL (g_menu_new ());
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  GMenuModel *model;
+  GMenuModel *model1 = G_MENU_MODEL (g_menu_new ());
+  GMenuModel *model2 = G_MENU_MODEL (g_menu_new ());
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   notified = 0;
@@ -201,24 +202,26 @@ test_adw_tab_view_menu_model (void)
   g_assert_cmpint (notified, ==, 0);
 
   adw_tab_view_set_menu_model (view, model1);
-  g_object_get (view, "menu-model", &model, NULL);
-  g_assert_true (model == model1);
+  g_assert_true (adw_tab_view_get_menu_model (view) == model1);
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (view, "menu-model", model2, NULL);
   g_assert_true (adw_tab_view_get_menu_model (view) == model2);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
+  g_assert_finalize_object (model1);
+  g_assert_finalize_object (model2);
 }
 
 static void
 test_adw_tab_view_shortcut_widget (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
-  GtkWidget *widget = NULL;
-  g_autoptr (GtkWidget) widget1 = g_object_ref_sink (gtk_button_new ());
-  g_autoptr (GtkWidget) widget2 = g_object_ref_sink (gtk_button_new ());
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  GtkWidget *widget;
+  GtkWidget *widget1 = g_object_ref_sink (gtk_button_new ());
+  GtkWidget *widget2 = g_object_ref_sink (gtk_button_new ());
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   notified = 0;
@@ -229,23 +232,25 @@ test_adw_tab_view_shortcut_widget (void)
   g_assert_cmpint (notified, ==, 0);
 
   adw_tab_view_set_shortcut_widget (view, widget1);
-  g_object_get (view, "shortcut-widget", &widget, NULL);
-  g_assert_true (widget == widget1);
+  g_assert_true (adw_tab_view_get_shortcut_widget (view) == widget1);
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (view, "shortcut-widget", widget2, NULL);
   g_assert_true (adw_tab_view_get_shortcut_widget (view) == widget2);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
+  g_assert_finalize_object (widget1);
+  g_assert_finalize_object (widget2);
 }
 
 static void
 test_adw_tab_view_get_page (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   GtkWidget *child1, *child2, *child3;
   AdwTabPage *page1, *page2, *page3;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   child1 = gtk_button_new ();
@@ -271,16 +276,17 @@ test_adw_tab_view_get_page (void)
   g_assert_true (adw_tab_page_get_child (page1) == child1);
   g_assert_true (adw_tab_page_get_child (page2) == child2);
   g_assert_true (adw_tab_page_get_child (page3) == child3);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_select (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page1, *page2, *selected_page;
   gboolean ret;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   notified = 0;
@@ -290,8 +296,6 @@ test_adw_tab_view_select (void)
   g_assert_null (selected_page);
 
   page1 = adw_tab_view_append (view, gtk_button_new ());
-  g_object_get (view, "selected-page", &selected_page, NULL);
-  g_assert_true (selected_page == page1);
   g_assert_true (adw_tab_view_get_selected_page (view) == page1);
   g_assert_true (adw_tab_page_get_selected (page1));
   g_assert_cmpint (notified, ==, 1);
@@ -329,15 +333,16 @@ test_adw_tab_view_select (void)
   g_assert_true (adw_tab_view_get_selected_page (view) == page1);
   g_assert_true (ret);
   g_assert_cmpint (notified, ==, 5);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_add_basic (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *pages[6];
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   pages[0] = adw_tab_view_append (view, gtk_button_new ());
@@ -363,15 +368,16 @@ test_adw_tab_view_add_basic (void)
   pages[5] = adw_tab_view_insert_pinned (view, gtk_button_new (), 1);
   assert_page_positions (view, pages, 6, 3,
                          3, 5, 4, 1, 2, 0);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_add_auto (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *pages[17];
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   add_pages (view, pages, 3, 3);
@@ -455,16 +461,17 @@ test_adw_tab_view_add_auto (void)
   g_assert_true (adw_tab_page_get_parent (pages[16]) == pages[5]);
   assert_page_positions (view, pages, 17, 3,
                          0, 1, 2, 15, 14, 11, 12, 13, 3, 4, 6, 8, 9, 7, 10, 5, 16);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_reorder (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *pages[6];
   gboolean ret;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   add_pages (view, pages, 6, 3);
@@ -501,16 +508,17 @@ test_adw_tab_view_reorder (void)
   g_assert_true (ret);
   assert_page_positions (view, pages, 6, 3,
                          0, 1, 2, 3, 4, 5);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_reorder_first_last (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *pages[6];
   gboolean ret;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   add_pages (view, pages, 6, 3);
@@ -557,16 +565,17 @@ test_adw_tab_view_reorder_first_last (void)
   g_assert_true (ret);
   assert_page_positions (view, pages, 6, 3,
                          0, 1, 2, 3, 4, 5);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_reorder_forward_backward (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *pages[6];
   gboolean ret;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   add_pages (view, pages, 6, 3);
@@ -613,15 +622,16 @@ test_adw_tab_view_reorder_forward_backward (void)
   g_assert_true (ret);
   assert_page_positions (view, pages, 6, 3,
                          1, 2, 0, 4, 5, 3);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_pin (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *pages[4];
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   /* Test specifically pinning with only 1 page */
@@ -661,15 +671,16 @@ test_adw_tab_view_pin (void)
   adw_tab_view_set_page_pinned (view, pages[1], FALSE);
   assert_page_positions (view, pages, 4, 2,
                          2, 0, 1, 3);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_close (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *pages[3];
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   add_pages (view, pages, 3, 0);
@@ -692,15 +703,16 @@ test_adw_tab_view_close (void)
   adw_tab_view_close_page (view, pages[0]);
   assert_page_positions (view, pages, 0, 0);
   g_assert_null (adw_tab_view_get_selected_page (view));
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_close_other (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *pages[6];
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   add_pages (view, pages, 6, 3);
@@ -714,15 +726,16 @@ test_adw_tab_view_close_other (void)
   adw_tab_view_close_other_pages (view, pages[2]);
   assert_page_positions (view, pages, 3, 3,
                          0, 1, 2);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_close_before_after (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *pages[10];
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   add_pages (view, pages, 10, 3);
@@ -744,6 +757,8 @@ test_adw_tab_view_close_before_after (void)
   adw_tab_view_close_pages_after (view, pages[0]);
   assert_page_positions (view, pages, 3, 3,
                          0, 1, 2);
+
+  g_assert_finalize_object (view);
 }
 
 static gboolean
@@ -760,11 +775,10 @@ close_page_position_cb (AdwTabView *view,
 static void
 test_adw_tab_view_close_signal (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *pages[10];
   gulong handler;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   /* Allow closing pages with odd positions, including pinned */
@@ -800,16 +814,15 @@ test_adw_tab_view_close_signal (void)
   assert_page_positions (view, pages, 5, 1,
                          2, 4, 5, 6, 8);
 
-  g_signal_handler_disconnect (view, handler);
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_close_select (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *pages[14];
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   add_pages (view, pages, 9, 3);
@@ -873,19 +886,18 @@ test_adw_tab_view_close_select (void)
 
   adw_tab_view_close_page (view, pages[12]);
   g_assert_true (adw_tab_view_get_selected_page (view) == pages[1]);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_view_transfer (void)
 {
-  g_autoptr (AdwTabView) view1 = NULL;
-  g_autoptr (AdwTabView) view2 = NULL;
+  AdwTabView *view1 = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  AdwTabView *view2 = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *pages1[4], *pages2[4];
 
-  view1 = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view1);
-
-  view2 = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view2);
 
   add_pages (view1, pages1, 4, 2);
@@ -909,16 +921,18 @@ test_adw_tab_view_transfer (void)
   assert_page_positions (view2, pages2, 4, 3,
                          0, -1, 1, 2);
   g_assert_true (adw_tab_view_get_nth_page (view1, 2) == pages2[3]);
+
+  g_assert_finalize_object (view1);
+  g_assert_finalize_object (view2);
 }
 
 static void
 test_adw_tab_view_pages (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
-  g_autoptr (GtkSelectionModel) model = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  GtkSelectionModel* model;
   AdwTabPage *pages[2];
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   model = adw_tab_view_get_pages (view);
@@ -939,17 +953,17 @@ test_adw_tab_view_pages (void)
 
   adw_tab_view_close_page (view, pages[1]);
 
-  g_signal_handlers_disconnect_by_func (model, G_CALLBACK (check_selection_null), view);
+  g_assert_finalize_object (view);
+  g_assert_finalize_object (model);
 }
 
 static void
 test_adw_tab_page_title (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
-  const char *title;
+  g_autofree char *title = NULL;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
@@ -963,23 +977,23 @@ test_adw_tab_page_title (void)
   g_assert_cmpint (notified, ==, 0);
 
   adw_tab_page_set_title (page, "Some title");
-  g_object_get (page, "title", &title, NULL);
-  g_assert_cmpstr (title, ==, "Some title");
+  g_assert_cmpstr (adw_tab_page_get_title (page), ==, "Some title");
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (page, "title", "Some other title", NULL);
   g_assert_cmpstr (adw_tab_page_get_title (page), ==, "Some other title");
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_page_tooltip (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
-  const char *tooltip;
+  g_autofree char *tooltip = NULL;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
@@ -993,25 +1007,25 @@ test_adw_tab_page_tooltip (void)
   g_assert_cmpint (notified, ==, 0);
 
   adw_tab_page_set_tooltip (page, "Some tooltip");
-  g_object_get (page, "tooltip", &tooltip, NULL);
-  g_assert_cmpstr (tooltip, ==, "Some tooltip");
+  g_assert_cmpstr (adw_tab_page_get_tooltip (page), ==, "Some tooltip");
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (page, "tooltip", "Some other tooltip", NULL);
   g_assert_cmpstr (adw_tab_page_get_tooltip (page), ==, "Some other tooltip");
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_page_icon (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
-  GIcon *icon = NULL;
-  g_autoptr (GIcon) icon1 = g_themed_icon_new ("go-previous-symbolic");
-  g_autoptr (GIcon) icon2 = g_themed_icon_new ("go-next-symbolic");
+  GIcon *icon;
+  GIcon *icon1 = g_themed_icon_new ("go-previous-symbolic");
+  GIcon *icon2 = g_themed_icon_new ("go-next-symbolic");
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
@@ -1025,23 +1039,25 @@ test_adw_tab_page_icon (void)
   g_assert_cmpint (notified, ==, 0);
 
   adw_tab_page_set_icon (page, icon1);
-  g_object_get (page, "icon", &icon, NULL);
-  g_assert_true (icon == icon1);
+  g_assert_true (adw_tab_page_get_icon (page) == icon1);
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (page, "icon", icon2, NULL);
   g_assert_true (adw_tab_page_get_icon (page) == icon2);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
+  g_assert_finalize_object (icon1);
+  g_assert_finalize_object (icon2);
 }
 
 static void
 test_adw_tab_page_loading (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   gboolean loading;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
@@ -1062,18 +1078,19 @@ test_adw_tab_page_loading (void)
   g_object_set (page, "loading", FALSE, NULL);
   g_assert_false (adw_tab_page_get_loading (page));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_page_indicator_icon (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
-  GIcon *icon = NULL;
-  g_autoptr (GIcon) icon1 = g_themed_icon_new ("go-previous-symbolic");
-  g_autoptr (GIcon) icon2 = g_themed_icon_new ("go-next-symbolic");
+  GIcon *icon;
+  GIcon *icon1 = g_themed_icon_new ("go-previous-symbolic");
+  GIcon *icon2 = g_themed_icon_new ("go-next-symbolic");
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
@@ -1087,23 +1104,25 @@ test_adw_tab_page_indicator_icon (void)
   g_assert_cmpint (notified, ==, 0);
 
   adw_tab_page_set_indicator_icon (page, icon1);
-  g_object_get (page, "indicator-icon", &icon, NULL);
-  g_assert_true (icon == icon1);
+  g_assert_true (adw_tab_page_get_indicator_icon (page) == icon1);
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (page, "indicator-icon", icon2, NULL);
   g_assert_true (adw_tab_page_get_indicator_icon (page) == icon2);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
+  g_assert_finalize_object (icon1);
+  g_assert_finalize_object (icon2);
 }
 
 static void
 test_adw_tab_page_indicator_activatable (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   gboolean activatable;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
@@ -1124,16 +1143,17 @@ test_adw_tab_page_indicator_activatable (void)
   g_object_set (page, "indicator-activatable", FALSE, NULL);
   g_assert_false (adw_tab_page_get_indicator_activatable (page));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_page_needs_attention (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   AdwTabPage *page;
   gboolean needs_attention;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
 
   page = adw_tab_view_append (view, gtk_button_new ());
@@ -1154,6 +1174,8 @@ test_adw_tab_page_needs_attention (void)
   g_object_set (page, "needs-attention", FALSE, NULL);
   g_assert_false (adw_tab_page_get_needs_attention (page));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
 }
 
 static void
@@ -1193,16 +1215,13 @@ test_adw_tab_view_pages_to_list_view_unbind (GtkSignalListItemFactory *factory,
 static void
 test_adw_tab_view_pages_to_list_view (void)
 {
-  g_autoptr (AdwTabView) view = NULL;
-  g_autoptr (GtkSelectionModel) pages = NULL;
-  g_autoptr (GtkListView) list_view = NULL;
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  GtkListView *list_view = g_object_ref_sink (GTK_LIST_VIEW (gtk_list_view_new (NULL, NULL)));
+  GtkSelectionModel *pages;
   GtkListItemFactory *factory;
   GtkLabel *label;
 
-  view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
   g_assert_nonnull (view);
-
-  list_view = g_object_ref_sink (GTK_LIST_VIEW (gtk_list_view_new (NULL, NULL)));
   g_assert_nonnull (list_view);
 
   pages = adw_tab_view_get_pages (view);
@@ -1221,6 +1240,10 @@ test_adw_tab_view_pages_to_list_view (void)
   adw_tab_view_append (view, GTK_WIDGET (label));
 
   g_clear_object (&factory);
+
+  g_assert_finalize_object (list_view);
+  g_assert_finalize_object (view);
+  g_assert_finalize_object (pages);
 }
 
 int

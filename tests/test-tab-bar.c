@@ -19,10 +19,9 @@ notify_cb (GtkWidget *widget, gpointer data)
 static void
 test_adw_tab_bar_view (void)
 {
-  g_autoptr (AdwTabBar) bar = NULL;
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
+  AdwTabView *view;
 
-  bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   g_assert_nonnull (bar);
 
   notified = 0;
@@ -42,15 +41,17 @@ test_adw_tab_bar_view (void)
   g_object_set (bar, "view", NULL, NULL);
   g_assert_null (adw_tab_bar_get_view (bar));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (bar);
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_bar_start_action_widget (void)
 {
-  g_autoptr (AdwTabBar) bar = NULL;
+  AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   GtkWidget *widget = NULL;
 
-  bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   g_assert_nonnull (bar);
 
   notified = 0;
@@ -70,15 +71,16 @@ test_adw_tab_bar_start_action_widget (void)
   g_object_set (bar, "start-action-widget", NULL, NULL);
   g_assert_null (adw_tab_bar_get_start_action_widget (bar));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (bar);
 }
 
 static void
 test_adw_tab_bar_end_action_widget (void)
 {
-  g_autoptr (AdwTabBar) bar = NULL;
+  AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   GtkWidget *widget = NULL;
 
-  bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   g_assert_nonnull (bar);
 
   notified = 0;
@@ -98,15 +100,16 @@ test_adw_tab_bar_end_action_widget (void)
   g_object_set (bar, "end-action-widget", NULL, NULL);
   g_assert_null (adw_tab_bar_get_end_action_widget (bar));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (bar);
 }
 
 static void
 test_adw_tab_bar_autohide (void)
 {
-  g_autoptr (AdwTabBar) bar = NULL;
+  AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   gboolean autohide = FALSE;
 
-  bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   g_assert_nonnull (bar);
 
   notified = 0;
@@ -125,17 +128,18 @@ test_adw_tab_bar_autohide (void)
   g_object_set (bar, "autohide", TRUE, NULL);
   g_assert_true (adw_tab_bar_get_autohide (bar));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (bar);
 }
 
 static void
 test_adw_tab_bar_tabs_revealed (void)
 {
-  g_autoptr (AdwTabBar) bar = NULL;
-  g_autoptr (AdwTabView) view = NULL;
+  AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
+  AdwTabView *view;
   gboolean tabs_revealed = FALSE;
   AdwTabPage *page;
 
-  bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   g_assert_nonnull (bar);
 
   notified = 0;
@@ -178,15 +182,17 @@ test_adw_tab_bar_tabs_revealed (void)
   adw_tab_bar_set_autohide (bar, FALSE);
   g_assert_true (adw_tab_bar_get_tabs_revealed (bar));
   g_assert_cmpint (notified, ==, 7);
+
+  g_assert_finalize_object (bar);
+  g_assert_finalize_object (view);
 }
 
 static void
 test_adw_tab_bar_expand_tabs (void)
 {
-  g_autoptr (AdwTabBar) bar = NULL;
+  AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   gboolean expand_tabs = FALSE;
 
-  bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   g_assert_nonnull (bar);
 
   notified = 0;
@@ -205,15 +211,16 @@ test_adw_tab_bar_expand_tabs (void)
   g_object_set (bar, "expand-tabs", TRUE, NULL);
   g_assert_true (adw_tab_bar_get_expand_tabs (bar));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (bar);
 }
 
 static void
 test_adw_tab_bar_inverted (void)
 {
-  g_autoptr (AdwTabBar) bar = NULL;
+  AdwTabBar *bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   gboolean inverted = FALSE;
 
-  bar = g_object_ref_sink (ADW_TAB_BAR (adw_tab_bar_new ()));
   g_assert_nonnull (bar);
 
   notified = 0;
@@ -232,6 +239,8 @@ test_adw_tab_bar_inverted (void)
   g_object_set (bar, "inverted", FALSE, NULL);
   g_assert_false (adw_tab_bar_get_inverted (bar));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (bar);
 }
 
 int

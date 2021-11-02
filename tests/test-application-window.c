@@ -10,10 +10,10 @@
 static void
 test_adw_application_window_new (void)
 {
-  g_autoptr (GtkWidget) window = NULL;
-
-  window = g_object_ref_sink (adw_application_window_new (NULL));
+  GtkWidget *window = adw_application_window_new (NULL);
   g_assert_nonnull (window);
+
+  g_assert_finalize_object (window);
 }
 
 

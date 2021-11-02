@@ -19,10 +19,9 @@ notify_cb (GtkWidget *widget, gpointer data)
 static void
 test_adw_window_title_title (void)
 {
-  g_autoptr (AdwWindowTitle) window_title = NULL;
-  const char *title;
+  AdwWindowTitle *window_title = g_object_ref_sink (ADW_WINDOW_TITLE (adw_window_title_new ("Some title", NULL)));
+  g_autofree char *title = NULL;
 
-  window_title = g_object_ref_sink (ADW_WINDOW_TITLE (adw_window_title_new ("Some title", NULL)));
   g_assert_nonnull (window_title);
 
   notified = 0;
@@ -41,15 +40,16 @@ test_adw_window_title_title (void)
   g_object_set (window_title, "title", "Yet another title", NULL);
   g_assert_cmpstr (adw_window_title_get_title (window_title), ==, "Yet another title");
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (window_title);
 }
 
 static void
 test_adw_window_title_subtitle (void)
 {
-  g_autoptr (AdwWindowTitle) window_title = NULL;
-  const char *subtitle;
+  AdwWindowTitle *window_title = g_object_ref_sink (ADW_WINDOW_TITLE (adw_window_title_new (NULL, "Some subtitle")));
+  g_autofree char *subtitle = NULL;
 
-  window_title = g_object_ref_sink (ADW_WINDOW_TITLE (adw_window_title_new (NULL, "Some subtitle")));
   g_assert_nonnull (window_title);
 
   notified = 0;
@@ -68,6 +68,8 @@ test_adw_window_title_subtitle (void)
   g_object_set (window_title, "subtitle", "Yet another subtitle", NULL);
   g_assert_cmpstr (adw_window_title_get_subtitle (window_title), ==, "Yet another subtitle");
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (window_title);
 }
 
 int

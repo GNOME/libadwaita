@@ -18,10 +18,9 @@ activated_cb (GtkWidget *widget, gpointer data)
 static void
 test_adw_action_row_add_remove (void)
 {
-  g_autoptr (AdwActionRow) row = NULL;
+  AdwActionRow *row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   GtkWidget *prefix, *suffix;
 
-  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
   prefix = gtk_check_button_new ();
@@ -35,45 +34,44 @@ test_adw_action_row_add_remove (void)
 
   adw_action_row_remove (row, prefix);
   adw_action_row_remove (row, suffix);
+
+  g_assert_finalize_object (row);
 }
 
 
 static void
 test_adw_action_row_subtitle (void)
 {
-  g_autoptr (AdwActionRow) row = NULL;
-
-  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
+  AdwActionRow *row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
   g_assert_cmpstr (adw_action_row_get_subtitle (row), ==, "");
 
   adw_action_row_set_subtitle (row, "Dummy subtitle");
   g_assert_cmpstr (adw_action_row_get_subtitle (row), ==, "Dummy subtitle");
-}
 
+  g_assert_finalize_object (row);
+}
 
 static void
 test_adw_action_row_icon_name (void)
 {
-  g_autoptr (AdwActionRow) row = NULL;
-
-  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
+  AdwActionRow *row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
   g_assert_null (adw_action_row_get_icon_name (row));
 
   adw_action_row_set_icon_name (row, "dummy-icon-name");
   g_assert_cmpstr (adw_action_row_get_icon_name (row), ==, "dummy-icon-name");
+
+  g_assert_finalize_object (row);
 }
 
 
 static void
 test_adw_action_row_title_lines (void)
 {
-  g_autoptr (AdwActionRow) row = NULL;
-
-  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
+  AdwActionRow *row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
   g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 0);
@@ -86,15 +84,15 @@ test_adw_action_row_title_lines (void)
 
   adw_action_row_set_title_lines (row, 1);
   g_assert_cmpint (adw_action_row_get_title_lines (row), ==, 1);
+
+  g_assert_finalize_object (row);
 }
 
 
 static void
 test_adw_action_row_subtitle_lines (void)
 {
-  g_autoptr (AdwActionRow) row = NULL;
-
-  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
+  AdwActionRow *row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
   g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 0);
@@ -107,15 +105,15 @@ test_adw_action_row_subtitle_lines (void)
 
   adw_action_row_set_subtitle_lines (row, 1);
   g_assert_cmpint (adw_action_row_get_subtitle_lines (row), ==, 1);
+
+  g_assert_finalize_object (row);
 }
 
 
 static void
 test_adw_action_row_activate (void)
 {
-  g_autoptr (AdwActionRow) row = NULL;
-
-  row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
+  AdwActionRow *row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
   g_assert_nonnull (row);
 
   activated = 0;
@@ -123,6 +121,8 @@ test_adw_action_row_activate (void)
 
   adw_action_row_activate (row);
   g_assert_cmpint (activated, ==, 1);
+
+  g_assert_finalize_object (row);
 }
 
 

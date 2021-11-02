@@ -19,10 +19,9 @@ notify_cb (GtkWidget *widget, gpointer data)
 static void
 test_adw_bin_child (void)
 {
-  g_autoptr (AdwBin) bin = NULL;
+  AdwBin *bin = g_object_ref_sink (ADW_BIN (adw_bin_new ()));
   GtkWidget *widget = NULL;
 
-  bin = g_object_ref_sink (ADW_BIN (adw_bin_new ()));
   g_assert_nonnull (bin);
 
   notified = 0;
@@ -42,6 +41,8 @@ test_adw_bin_child (void)
   g_object_set (bin, "child", NULL, NULL);
   g_assert_null (adw_bin_get_child (bin));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (bin);
 }
 
 int

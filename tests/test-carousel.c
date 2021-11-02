@@ -17,10 +17,8 @@ notify_cb (GtkWidget *widget, gpointer data)
 static void
 test_adw_carousel_add_remove (void)
 {
-  AdwCarousel *carousel;
+  AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   GtkWidget *child1, *child2, *child3;
-
-  carousel = ADW_CAROUSEL (adw_carousel_new ());
 
   child1 = gtk_label_new ("");
   child2 = gtk_label_new ("");
@@ -59,13 +57,13 @@ test_adw_carousel_add_remove (void)
   g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 0);
   g_assert_cmpint (notified, ==, 6);
 
-  g_object_unref (carousel);
+  g_assert_finalize_object (carousel);
 }
 
 static void
 test_adw_carousel_interactive (void)
 {
-  AdwCarousel *carousel = ADW_CAROUSEL (adw_carousel_new ());
+  AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   gboolean interactive;
 
   notified = 0;
@@ -86,12 +84,14 @@ test_adw_carousel_interactive (void)
   /* Setting the same value should not notify */
   adw_carousel_set_interactive (carousel, TRUE);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (carousel);
 }
 
 static void
 test_adw_carousel_spacing (void)
 {
-  AdwCarousel *carousel = ADW_CAROUSEL (adw_carousel_new ());
+  AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   guint spacing;
 
   notified = 0;
@@ -112,12 +112,14 @@ test_adw_carousel_spacing (void)
   /* Setting the same value should not notify */
   adw_carousel_set_spacing (carousel, 6);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (carousel);
 }
 
 static void
 test_adw_carousel_animation_duration (void)
 {
-  AdwCarousel *carousel = ADW_CAROUSEL (adw_carousel_new ());
+  AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   guint duration;
 
   notified = 0;
@@ -138,12 +140,14 @@ test_adw_carousel_animation_duration (void)
   /* Setting the same value should not notify */
   adw_carousel_set_animation_duration (carousel, 500);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (carousel);
 }
 
 static void
 test_adw_carousel_allow_mouse_drag (void)
 {
-  AdwCarousel *carousel = ADW_CAROUSEL (adw_carousel_new ());
+  AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   gboolean allow_mouse_drag;
 
   notified = 0;
@@ -164,12 +168,14 @@ test_adw_carousel_allow_mouse_drag (void)
   /* Setting the same value should not notify */
   adw_carousel_set_allow_mouse_drag (carousel, TRUE);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (carousel);
 }
 
 static void
 test_adw_carousel_allow_long_swipes (void)
 {
-  AdwCarousel *carousel = ADW_CAROUSEL (adw_carousel_new ());
+  AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   gboolean allow_long_swipes;
 
   notified = 0;
@@ -190,12 +196,14 @@ test_adw_carousel_allow_long_swipes (void)
   /* Setting the same value should not notify */
   adw_carousel_set_allow_long_swipes (carousel, FALSE);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (carousel);
 }
 
 static void
 test_adw_carousel_reveal_duration (void)
 {
-  AdwCarousel *carousel = ADW_CAROUSEL (adw_carousel_new ());
+  AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   guint duration;
 
   notified = 0;
@@ -216,6 +224,8 @@ test_adw_carousel_reveal_duration (void)
   /* Setting the same value should not notify */
   adw_carousel_set_reveal_duration (carousel, 500);
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (carousel);
 }
 
 int

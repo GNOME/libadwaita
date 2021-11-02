@@ -10,10 +10,9 @@
 static void
 test_adw_preferences_window_add_remove (void)
 {
-  g_autoptr (AdwPreferencesWindow) window = NULL;
+  AdwPreferencesWindow *window = ADW_PREFERENCES_WINDOW (adw_preferences_window_new ());
   AdwPreferencesPage *page;
 
-  window = g_object_ref_sink (ADW_PREFERENCES_WINDOW (adw_preferences_window_new ()));
   g_assert_nonnull (window);
 
   page = ADW_PREFERENCES_PAGE (adw_preferences_page_new ());
@@ -21,6 +20,8 @@ test_adw_preferences_window_add_remove (void)
   adw_preferences_window_add (window, page);
 
   adw_preferences_window_remove (window, page);
+
+  g_assert_finalize_object (window);
 }
 
 

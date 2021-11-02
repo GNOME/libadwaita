@@ -17,16 +17,15 @@ notify_cb (GtkWidget *widget, gpointer data)
 static void
 test_adw_carousel_indicator_lines_carousel (void)
 {
-  g_autoptr (AdwCarouselIndicatorLines) lines = NULL;
+  AdwCarouselIndicatorLines *lines = g_object_ref_sink (ADW_CAROUSEL_INDICATOR_LINES (adw_carousel_indicator_lines_new ()));
   AdwCarousel *carousel;
 
-  lines = g_object_ref_sink (ADW_CAROUSEL_INDICATOR_LINES (adw_carousel_indicator_lines_new ()));
   g_assert_nonnull (lines);
 
   notified = 0;
   g_signal_connect (lines, "notify::carousel", G_CALLBACK (notify_cb), NULL);
 
-  carousel = ADW_CAROUSEL (adw_carousel_new ());
+  carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
   g_assert_nonnull (carousel);
 
   g_assert_null (adw_carousel_indicator_lines_get_carousel (lines));
@@ -39,6 +38,9 @@ test_adw_carousel_indicator_lines_carousel (void)
   adw_carousel_indicator_lines_set_carousel (lines, NULL);
   g_assert_null (adw_carousel_indicator_lines_get_carousel (lines));
   g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (lines);
+  g_assert_finalize_object (carousel);
 }
 
 int
