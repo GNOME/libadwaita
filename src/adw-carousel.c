@@ -72,7 +72,7 @@ struct _AdwCarousel
 
   double position_shift;
 
-  gulong scroll_timeout_id;
+  guint scroll_timeout_id;
   gboolean can_scroll;
 };
 
@@ -541,7 +541,8 @@ scroll_cb (AdwCarousel              *self,
   duration = MIN (self->animation_duration, DEFAULT_DURATION);
 
   self->can_scroll = FALSE;
-  g_timeout_add (duration, (GSourceFunc) scroll_timeout_cb, self);
+  self->scroll_timeout_id =
+   g_timeout_add (duration, (GSourceFunc) scroll_timeout_cb, self);
 
   return GDK_EVENT_STOP;
 }
@@ -735,11 +736,7 @@ adw_carousel_dispose (GObject *object)
   AdwCarousel *self = ADW_CAROUSEL (object);
 
   g_clear_object (&self->tracker);
-
-  if (self->scroll_timeout_id != 0) {
-    g_source_remove (self->scroll_timeout_id);
-    self->scroll_timeout_id = 0;
-  }
+  g_clear_handle_id (&self->scroll_timeout_id, g_source_remove);
 
   G_OBJECT_CLASS (adw_carousel_parent_class)->dispose (object);
 }
