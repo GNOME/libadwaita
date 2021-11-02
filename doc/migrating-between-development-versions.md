@@ -225,7 +225,8 @@ The title and subtitle have markup enabled, make sure to escape it with
 
 ### Adapt to [class@Adw.ExpanderRow] API Changes
 
-The `adw_expander_row_add ()` function has been renamed to `adw_expander_row_add_row ()`.
+The `adw_expander_row_add()` function has been renamed to
+[method@Adw.ExpanderRow.add_row].
 
 ### Adjusting Header Bar Icons
 
