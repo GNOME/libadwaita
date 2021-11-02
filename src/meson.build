@@ -195,7 +195,7 @@ libadwaita_sources = [
   libadwaita_init_public_types,
 ]
 
-glib_min_version = '>= 2.44'
+glib_min_version = '>= 2.66'
 gtk_min_version = '>= 4.4.0'
 
 gio_dep = dependency('gio-2.0', version: glib_min_version)
