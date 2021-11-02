@@ -1,3 +1,120 @@
+=====================
+Version 1.0.0.alpha.4
+=====================
+
+- Depend on meson 0.59.0.
+- Action Row
+  - Drop use-underline property.
+  - Stop supporting mnemonics on subtitles.
+  - Support markup on the title and subtitle.
+  - Fix layout with empty title and subtitle.
+  - Don't expand horizontally by default.
+  - Fix row titles inside GtkMessageDialog.
+- Avatar
+  - Crop non-square custom images to fill the avatar.
+- Carousel
+  - Fix a crash when scrolling in an empty carousel.
+- Clamp
+  - Set the proper accessible role.
+- Combo Row
+  - Fix row colors while the popover is open.
+- Demo
+  - Add a style classes demo.
+  - Add about dialog.
+  - Add an inspector item to the primary menu.
+  - Change appid to org.gnome.Adwaita1.Demo to version it.
+  - Add an icon, metainfo and desktop file.
+    - Make the desktop file visible for nightly flatpaks.
+  - Make non-unique.
+  - Tighten flatpak permissions.
+  - Various polish.
+- Expander Row
+  - Drop use-underline property.
+  - Rename adw_expander_row_add() to adw_expander_row_add_row().
+- Inspector
+  - Fix color scheme resetting when opening inspector.
+- Preferences Window:
+  - Fix a memory leak.
+- Status Page
+  - Allow setting the icon from a paintable and not just icon name.
+  - Set the proper accessible role.
+  - Reduce margins with the .compact style class.
+- Style Manager
+  - Fix styles breaking when setting gtk-application-prefer-dark-theme.
+  - Fix crash on systems with xdg-desktop-portal but no settings portal.
+  - Fix a memory leak.
+- Stylesheet
+  - New style classes:
+    - .card to have a style similar to a boxed list for a standalone
+      widget. Can be combined with .activatable to have hover and active
+      states, or can be added to GtkButton to have them automatically.
+    - button.opaque to allow custom colored buttons in the style of that
+      look like .suggested-action or .destructive-action.
+    - tabbar.inline and searchbar.inline - to opt out from using header
+      bar colors for AdwTabBar and GtkSearchBar.
+  - Boxed lists
+    - Rename .content to .boxed-list to match HIG, keep .content as an
+      alias.
+    - Stop supporting .content with GtkListView as it was broken anyway.
+    - Fix focus ring offsets.
+  - Sidebars
+    - Use the same background as the window.
+    - Make .navigation-sidebar handle background, so it's sufficient to
+      achieve the proper style.
+    - Deprecate the .sidebar style class.
+  - Buttons
+    - Stop supporting button.flat.suggested-acton and
+      button.flat.destructive-action. Special case those styles for
+      GtkMessageDialog buttons instead.
+    - Support .pill on GtkMenuButton
+    - Support .suggested-action and .destructive-action on GtkMenuButton
+      and AdwSplitButton.
+    - Use toolbar-style buttons for GtkSearchBar.
+    - Fix AdwSplitButton styles in high contrast mode.
+    - Reduce disabled flat button opacity to make them easier to tell
+      apart from the regular state.
+  - Popovers
+    - Drop popover.combo, make popover.menu handle this case instead.
+    - Unify GtkDropDown and AdwComboRow popup styles with menus.
+    - Fix a double border with menu radios in high contrast mode.
+  - Refresh UI colors.
+  - Refresh scrollbar style.
+  - Unify progress bar and level bar sizes and styles.
+  - Make checks and radios larger.
+  - Refresh border radii across the board.
+  - Refresh scroll overshoot effect.
+  - Remove notebook header background.
+  - Export all UI colors and allow overriding them.
+  - Use accent color for active drop styles.
+  - Ensure proper opacity for the high contrast mode.
+  - Simplify recoloring for GtkScale, GtkCheckButton, GtkSwitch,
+    GtkColumnView and AdwTabBar.
+  - Various toolbar button fixes.
+  - Make entry.error and .warning style icons and progress bar too.
+  - Fix disabled state on GtkScale, GtkNotebook and GtkSpinButton.
+  - Fix GtkMessageDialog paddings.
+  - Fix margins on GtkWindowControls icon.
+  - Stop removing toolbar.osd rounding in overlays.
+  - Remove a GtkGridView override specific to gtk4-icon-browser.
+- Tab Bar
+  - Fix artifacts when maximizing the window.
+  - Fix hover.
+  - Handle middle click on button release and not press.
+  - Show close button correctly when raising the window and the pointer
+    is already over a tab.
+- View Switcher
+  - Fix screen readers reading page titles 4 times.
+- Add API to allow checking libadwaita version in runtime.
+- Various fixes and cleanups.
+- Translation updates:
+  - Finnish
+  - Indonesian
+  - Occitan
+  - Persian
+  - Polish
+  - Serbian
+  - Swedish
+
 ===================
 Version 1.0.0.alpha.3
 ===================
