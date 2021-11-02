@@ -170,11 +170,26 @@ adw_animation_constructed (GObject *object)
 }
 
 static void
+adw_animation_dispose (GObject *object)
+{
+  AdwAnimation *self = ADW_ANIMATION (object);
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+
+  adw_animation_stop (self);
+
+  g_clear_object (&priv->target);
+  g_clear_object (&priv->widget);
+
+  G_OBJECT_CLASS (adw_animation_parent_class)->dispose (object);
+}
+
+static void
 adw_animation_class_init (AdwAnimationClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
   object_class->constructed = adw_animation_constructed;
+  object_class->dispose = adw_animation_dispose;
   object_class->set_property = adw_animation_set_property;
   object_class->get_property = adw_animation_get_property;
 
@@ -333,7 +348,8 @@ adw_animation_new (GtkWidget                 *widget,
   g_return_val_if_fail (GTK_IS_WIDGET (widget), NULL);
   g_return_val_if_fail (target_func != NULL, NULL);
 
-  target = adw_animation_target_new(target_func, user_data);
+  target = adw_animation_target_new (target_func, user_data);
+
   return g_object_new (ADW_TYPE_ANIMATION,
                        "widget", widget,
                        "value-from", from,
