@@ -2144,14 +2144,14 @@ adw_leaflet_dispose (GObject *object)
   AdwLeaflet *self = ADW_LEAFLET (object);
   GtkWidget *child;
 
+  g_clear_object (&self->shadow_helper);
+
   if (self->pages)
     g_list_model_items_changed (G_LIST_MODEL (self->pages), 0,
                                 g_list_length (self->children), 0);
 
   while ((child = gtk_widget_get_first_child (GTK_WIDGET (self))))
     leaflet_remove (self, child, TRUE);
-
-  g_clear_object (&self->shadow_helper);
 
   G_OBJECT_CLASS (adw_leaflet_parent_class)->dispose (object);
 }
