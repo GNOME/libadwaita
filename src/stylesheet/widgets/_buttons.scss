@@ -34,16 +34,14 @@ button {
       &.keyboard-activating,
       &:active {
         background-color: $button_active_color;
-        box-shadow: none;
         box-shadow:inset 0 2px 0 rgba(0,0,0,.1);
-        > label,
-        > image {
-          transform: translateY(1px);
-        }
+        > * {transform: translateY(1px);}
       }
 
       &:checked {
         background-color: $button_checked_color;
+        box-shadow:inset 0 2px 0 rgba(0,0,0,.1);
+        > * {transform: translateY(1px);}
 
         &:hover {
           background-color: $button_checked_hover_color;
@@ -516,7 +514,6 @@ splitbutton {
     border-bottom-left-radius: 0;
     margin-left: -1px;
   }
-
   @at-root %flat_split_button,
   &.flat {
     > separator {
@@ -546,6 +543,12 @@ splitbutton {
       @extend %button_basic_flat;
 
       border-radius: $button_radius;
+
+      &:active,
+      &:checked {
+        box-shadow:inset 0 2px 0 rgba(0,0,0,.1);
+        > * {transform: translateY(1px);}
+      }
     }
   }
 
