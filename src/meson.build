@@ -241,7 +241,7 @@ libadwaita_link_args = []
 libadwaita_symbols_file = 'libadwaita.syms'
 
 # Check linker flags
-ld_version_script_arg = '-Wl,--version-script,@0@/@1@'.format(meson.project_source_root(),
+ld_version_script_arg = '-Wl,--version-script,@0@/@1@'.format(meson.source_root(),
                                                               libadwaita_symbols_file)
 if cc.links('int main() { return 0; }', args : ld_version_script_arg, name : 'ld_supports_version_script')
   libadwaita_link_args += [ld_version_script_arg]
