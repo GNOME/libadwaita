@@ -3494,9 +3494,7 @@ adw_tab_box_set_view (AdwTabBox  *self,
       self->view_drop_target = NULL;
     }
 
-    g_list_free_full (self->tabs, (GDestroyNotify) remove_and_free_tab_info);
-
-    self->tabs = NULL;
+    g_clear_list (&self->tabs, (GDestroyNotify) remove_and_free_tab_info);
     self->n_tabs = 0;
   }
 
