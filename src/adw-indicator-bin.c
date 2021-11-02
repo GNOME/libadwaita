@@ -124,13 +124,17 @@ adw_indicator_bin_size_allocate (GtkWidget *widget,
                                  int        baseline)
 {
   AdwIndicatorBin *self = ADW_INDICATOR_BIN (widget);
-  GtkRequisition size;
+  GtkRequisition mask_size, indicator_size, size;
   float x, y;
 
   if (self->child)
     gtk_widget_allocate (self->child, width, height, baseline, NULL);
 
-  gtk_widget_get_preferred_size (self->indicator, NULL, &size);
+  gtk_widget_get_preferred_size (self->mask, NULL, &mask_size);
+  gtk_widget_get_preferred_size (self->indicator, NULL, &indicator_size);
+
+  size.width = MAX (mask_size.width, indicator_size.width);
+  size.height = MAX (mask_size.height, indicator_size.height);
 
   if (size.width > width * 2)
     x = (width - size.width) / 2.0f;
