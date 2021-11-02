@@ -118,6 +118,36 @@ enum {
 static guint signals[SIGNAL_LAST_SIGNAL];
 
 static void
+swipeable_notify_cb (AdwSwipeTracker *self)
+{
+  self->motion_controller = NULL;
+  self->scroll_controller = NULL;
+  self->touch_gesture = NULL;
+  self->touch_gesture_capture = NULL;
+  self->swipeable = NULL;
+}
+
+static void
+set_swipeable (AdwSwipeTracker *self,
+               AdwSwipeable    *swipeable)
+{
+  if (self->swipeable == swipeable)
+    return;
+
+  if (self->swipeable)
+    g_object_weak_unref (G_OBJECT (self->swipeable),
+                         (GWeakNotify) swipeable_notify_cb,
+                         self);
+
+  self->swipeable = swipeable;
+
+  if (self->swipeable)
+    g_object_weak_ref (G_OBJECT (self->swipeable),
+                       (GWeakNotify) swipeable_notify_cb,
+                       self);
+}
+
+static void
 reset (AdwSwipeTracker *self)
 {
   self->state = ADW_SWIPE_TRACKER_STATE_NONE;
@@ -860,20 +890,26 @@ adw_swipe_tracker_dispose (GObject *object)
   if (self->touch_gesture) {
     gtk_widget_remove_controller (GTK_WIDGET (self->swipeable),
                                   GTK_EVENT_CONTROLLER (self->touch_gesture));
-    g_clear_object (&self->touch_gesture);
+    self->touch_gesture = NULL;
+  }
+
+  if (self->touch_gesture_capture) {
+    gtk_widget_remove_controller (GTK_WIDGET (self->swipeable),
+                                  GTK_EVENT_CONTROLLER (self->touch_gesture_capture));
+    self->touch_gesture_capture = NULL;
   }
 
   if (self->motion_controller) {
     gtk_widget_remove_controller (GTK_WIDGET (self->swipeable), self->motion_controller);
-    g_clear_object (&self->motion_controller);
+    self->motion_controller = NULL;
   }
 
   if (self->scroll_controller) {
     gtk_widget_remove_controller (GTK_WIDGET (self->swipeable), self->scroll_controller);
-    g_clear_object (&self->scroll_controller);
+    self->scroll_controller = NULL;
   }
 
-  g_clear_object (&self->swipeable);
+  set_swipeable (self, NULL);
 
   G_OBJECT_CLASS (adw_swipe_tracker_parent_class)->dispose (object);
 }
@@ -926,7 +962,7 @@ adw_swipe_tracker_set_property (GObject      *object,
 
   switch (prop_id) {
   case PROP_SWIPEABLE:
-    self->swipeable = ADW_SWIPEABLE (g_object_ref (g_value_get_object (value)));
+    set_swipeable (self, g_value_get_object (value));
     break;
 
   case PROP_ENABLED:
