@@ -68,7 +68,7 @@ adw_shadow_helper_dispose (GObject *object)
   g_clear_pointer (&self->shadow, gtk_widget_unparent);
   g_clear_pointer (&self->border, gtk_widget_unparent);
   g_clear_pointer (&self->outline, gtk_widget_unparent);
-  g_clear_object (&self->widget);
+  self->widget = NULL;
 
   G_OBJECT_CLASS (adw_shadow_helper_parent_class)->dispose (object);
 }
@@ -101,7 +101,7 @@ adw_shadow_helper_set_property (GObject      *object,
 
   switch (prop_id) {
   case PROP_WIDGET:
-    self->widget = GTK_WIDGET (g_object_ref (g_value_get_object (value)));
+    self->widget = g_value_get_object (value);
     break;
 
   default:
