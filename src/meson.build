@@ -203,12 +203,10 @@ gtk_dep = dependency('gtk4', version: gtk_min_version)
 
 libadwaita_deps = [
   dependency('glib-2.0', version: glib_min_version),
-  dependency('gmodule-2.0', version: glib_min_version),
   dependency('fribidi'),
   gio_dep,
   gtk_dep,
   cc.find_library('m', required: false),
-  cc.find_library('rt', required: false),
 ]
 
 libadwaita_public_deps = [
