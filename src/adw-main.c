@@ -18,9 +18,8 @@ static int adw_initialized = FALSE;
  *
  * Initializes Libadwaita.
  *
- * Call this function just after initializing GTK, if you are using
- * [class@Gtk.Application] it means it must be called when the
- * [signal@Gio.Application::startup] signal is emitted.
+ * This function can be used instead of [func@Gtk.init] as it initializes GTK
+ * implicitly.
  *
  * There's no need to call this function if you're using [class@Adw.Application].
  *
@@ -36,6 +35,8 @@ adw_init (void)
 {
   if (adw_initialized)
     return;
+
+  gtk_init ();
 
   bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
