@@ -15,6 +15,7 @@ button {
     padding: 5px 10px;
     border-radius: $button_radius;
     font-weight: bold;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.1);
 
     @include focus-ring();
     transition: $button_transition;
@@ -37,6 +38,7 @@ button {
 
       &:checked {
         background-color: $button_checked_color;
+        box-shadow: none;
 
         &:hover {
           background-color: $button_checked_hover_color;
@@ -45,6 +47,7 @@ button {
         &.keyboard-activating,
         &:active {
           background-color: $button_checked_active_color;
+          box-shadow: none;
         }
       }
     }
@@ -109,6 +112,7 @@ button {
     min-height: 32px;
     @include focus-ring($outer: true, $offset: 1px);
     transition: $button_transition;
+    box-shadow: none;
 
     color: $osd_fg_color;
     background-color: transparentize(black, .35);
@@ -148,7 +152,7 @@ button {
   }
 
   @at-root %opaque_button {
-    box-shadow: none;
+    box-shadow: none; /* dark bg with dropshadow looks odd */
 
     @include focus-ring($outer: true, $offset: 1px);
     transition: $button_transition;
