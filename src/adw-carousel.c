@@ -735,6 +735,12 @@ adw_carousel_dispose (GObject *object)
 {
   AdwCarousel *self = ADW_CAROUSEL (object);
 
+  while (self->children) {
+    ChildInfo *info = self->children->data;
+
+    adw_carousel_remove (self, info->widget);
+  }
+
   g_clear_object (&self->tracker);
   g_clear_handle_id (&self->scroll_timeout_id, g_source_remove);
 
