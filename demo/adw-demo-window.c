@@ -271,9 +271,7 @@ file_chooser_response_cb (AdwDemoWindow  *self,
       adw_avatar_draw_to_texture (self->avatar,
                                   gtk_widget_get_scale_factor (GTK_WIDGET (self)));
 
-    g_autofree char *path = g_file_get_path (file);
-
-    gdk_texture_save_to_png (texture, path);
+    gdk_texture_save_to_png (texture, g_file_peek_path (file));
   }
 
   g_object_unref (chooser);
