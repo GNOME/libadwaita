@@ -33,6 +33,12 @@ viewswitcher {
         font-weight: bold;
       }
     }
+    
+    &:active,
+    &:checked {
+      box-shadow:none;
+      > * {transform:none;}
+    }
   }
 }
 

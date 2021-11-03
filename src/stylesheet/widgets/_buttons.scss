@@ -7,6 +7,8 @@ $button_checked_active_color: gtkalpha(currentColor, .35);
 
 $opaque_button_default_bg: gtkmix($window_bg_color, $window_fg_color, 85%);
 
+
+
 %button,
 button {
   @at-root %button_basic, & {
@@ -34,14 +36,10 @@ button {
       &.keyboard-activating,
       &:active {
         background-color: $button_active_color;
-        box-shadow:inset 0 2px 0 rgba(0,0,0,.1);
-        > * {transform: translateY(1px);}
       }
 
       &:checked {
         background-color: $button_checked_color;
-        box-shadow:inset 0 2px 0 rgba(0,0,0,.1);
-        > * {transform: translateY(1px);}
 
         &:hover {
           background-color: $button_checked_hover_color;
@@ -53,7 +51,14 @@ button {
           box-shadow: none;
         }
       }
+
+      &:active,
+      &:checked {
+        box-shadow:inset 0 2px 0 rgba(0,0,0,.1);
+        > * {transform: translateY(1px);}
+      }
     }
+
 
     &:disabled {
       filter: opacity($disabled_opacity);
@@ -147,6 +152,12 @@ button {
       &:active {
         background-color: gtkalpha(gtkmix(black, currentColor, 65%), .65);
       }
+    }
+
+    &:active,
+    &:checked {
+      box-shadow:none;
+      > * {transform: none;}
     }
 
     // Specificity bump
@@ -251,6 +262,12 @@ button {
       }
     }
 
+    &:active,
+    &:checked {
+      box-shadow:inset 0 2px 0 rgba(0,0,0,.1);
+      > * {transform: translateY(1px);}
+    }
+    
     &:disabled:not(:checked) {
       filter: opacity($strong_disabled_opacity);
     }
@@ -543,7 +560,7 @@ splitbutton {
       @extend %button_basic_flat;
 
       border-radius: $button_radius;
-
+      
       &:active,
       &:checked {
         box-shadow:inset 0 2px 0 rgba(0,0,0,.1);
