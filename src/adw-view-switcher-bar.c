@@ -156,6 +156,7 @@ adw_view_switcher_bar_dispose (GObject *object)
 {
   AdwViewSwitcherBar *self = ADW_VIEW_SWITCHER_BAR (object);
 
+  adw_view_switcher_bar_set_stack (self, NULL);
   gtk_widget_unparent (self->action_bar);
   self->revealer = NULL;
 
