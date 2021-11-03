@@ -30,11 +30,9 @@ static void
 test_adw_view_switcher_stack (void)
 {
   AdwViewSwitcher *view_switcher = g_object_ref_sink (ADW_VIEW_SWITCHER (adw_view_switcher_new ()));
-  AdwViewStack *stack;
+  AdwViewStack *stack = g_object_ref_sink (ADW_VIEW_STACK (adw_view_stack_new ()));
 
   g_assert_nonnull (view_switcher);
-
-  stack = ADW_VIEW_STACK (adw_view_stack_new ());
   g_assert_nonnull (stack);
 
   g_assert_null (adw_view_switcher_get_stack (view_switcher));
@@ -46,6 +44,7 @@ test_adw_view_switcher_stack (void)
   g_assert_null (adw_view_switcher_get_stack (view_switcher));
 
   g_assert_finalize_object (view_switcher);
+  g_assert_finalize_object (stack);
 }
 
 
