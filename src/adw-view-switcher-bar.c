@@ -76,7 +76,6 @@ struct _AdwViewSwitcherBar
   GtkWidget parent_instance;
 
   GtkWidget *action_bar;
-  GtkRevealer *revealer;
   AdwViewSwitcher *view_switcher;
 
   GtkSelectionModel *pages;
@@ -88,10 +87,11 @@ static GParamSpec *props[LAST_PROP];
 G_DEFINE_TYPE (AdwViewSwitcherBar, adw_view_switcher_bar, GTK_TYPE_WIDGET)
 
 static void
-update_bar_revealed (AdwViewSwitcherBar *self) {
+update_bar_revealed (AdwViewSwitcherBar *self)
+{
   int count = 0;
 
-  if (!self->revealer)
+  if (!self->action_bar)
     return;
 
   if (self->reveal && self->pages) {
@@ -106,7 +106,7 @@ update_bar_revealed (AdwViewSwitcherBar *self) {
     }
   }
 
-  gtk_revealer_set_reveal_child (self->revealer, count > 1);
+  gtk_action_bar_set_revealed (GTK_ACTION_BAR (self->action_bar), count > 1);
 }
 
 static void
@@ -158,7 +158,6 @@ adw_view_switcher_bar_dispose (GObject *object)
 
   adw_view_switcher_bar_set_stack (self, NULL);
   gtk_widget_unparent (self->action_bar);
-  self->revealer = NULL;
 
   G_OBJECT_CLASS (adw_view_switcher_bar_parent_class)->dispose (object);
 }
@@ -217,9 +216,7 @@ adw_view_switcher_bar_init (AdwViewSwitcherBar *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  self->revealer = GTK_REVEALER (gtk_widget_get_first_child (GTK_WIDGET (self->action_bar)));
   update_bar_revealed (self);
-  gtk_revealer_set_transition_type (self->revealer, GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP);
 }
 
 /**
