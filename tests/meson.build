@@ -44,6 +44,7 @@ test_names = [
   'test-tab-bar',
   'test-tab-view',
   'test-toast',
+  'test-toast-overlay',
   'test-view-switcher',
   'test-view-switcher-bar',
   'test-window',
