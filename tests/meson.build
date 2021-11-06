@@ -43,6 +43,7 @@ test_names = [
   'test-style-manager',
   'test-tab-bar',
   'test-tab-view',
+  'test-toast',
   'test-view-switcher',
   'test-view-switcher-bar',
   'test-window',
