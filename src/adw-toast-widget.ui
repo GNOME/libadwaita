@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="AdwToastWidget">
+    <property name="hexpand">False</property>
+    <child>
+      <object class="GtkEventControllerFocus">
+        <signal name="enter" handler="inhibit_hide" swapped="yes"/>
+        <signal name="leave" handler="uninhibit_hide" swapped="yes"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkEventControllerMotion">
+        <signal name="enter" handler="inhibit_hide" swapped="yes"/>
+        <signal name="leave" handler="uninhibit_hide" swapped="yes"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkGestureClick">
+        <signal name="pressed" handler="inhibit_hide" swapped="yes"/>
+        <signal name="released" handler="uninhibit_hide" swapped="yes"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="title">
+        <property name="ellipsize">end</property>
+        <property name="xalign">0</property>
+        <property name="hexpand">True</property>
+        <property name="use-markup">True</property>
+        <binding name="label">
+          <lookup name="title" type="AdwToast">
+            <lookup name="toast">AdwToastWidget</lookup>
+          </lookup>
+        </binding>
+        <style>
+          <class name="heading"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="action_button">
+        <property name="valign">center</property>
+        <binding name="visible">
+          <closure type="gboolean" function="string_is_not_empty">
+            <lookup name="button-label" type="AdwToast">
+              <lookup name="toast">AdwToastWidget</lookup>
+            </lookup>
+          </closure>
+        </binding>
+        <binding name="label">
+          <lookup name="button-label" type="AdwToast">
+            <lookup name="toast">AdwToastWidget</lookup>
+          </lookup>
+        </binding>
+        <binding name="action-name">
+          <lookup name="action-name" type="AdwToast">
+            <lookup name="toast">AdwToastWidget</lookup>
+          </lookup>
+        </binding>
+        <binding name="action-target">
+          <lookup name="action-target" type="AdwToast">
+            <lookup name="toast">AdwToastWidget</lookup>
+          </lookup>
+        </binding>
+        <signal name="clicked" handler="action_clicked_cb" swapped="yes"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="close_button">
+        <property name="valign">center</property>
+        <property name="icon-name">window-close-symbolic</property>
+        <signal name="clicked" handler="dismiss" swapped="yes"/>
+        <style>
+          <class name="circular"/>
+          <class name="flat"/>
+        </style>
+      </object>
+    </child>
+  </template>
+</interface>
