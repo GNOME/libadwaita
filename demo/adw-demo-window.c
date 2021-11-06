@@ -11,6 +11,7 @@ struct _AdwDemoWindow
   AdwApplicationWindow parent_instance;
 
   AdwLeaflet *content_box;
+  AdwToastOverlay *toast_overlay;
   GtkBox *right_box;
   GtkWidget *color_scheme_button;
   GtkStackSidebar *sidebar;
@@ -26,6 +27,8 @@ struct _AdwDemoWindow
   GtkButton *avatar_remove_button;
   GtkFileChooserNative *avatar_file_chooser;
   GtkListBox *avatar_contacts;
+  int toast_undo_items;
+  AdwToast *undo_toast;
 };
 
 G_DEFINE_TYPE (AdwDemoWindow, adw_demo_window, ADW_TYPE_APPLICATION_WINDOW)
@@ -399,11 +402,95 @@ style_classes_demo_clicked_cb (GtkButton     *btn,
 }
 
 static void
+add_toast_cb (AdwDemoWindow *self)
+{
+  adw_toast_overlay_add_toast (self->toast_overlay,
+                               adw_toast_new (_("Simple toast")));
+}
+
+static void
+dismissed_cb (AdwDemoWindow *self)
+{
+  self->undo_toast = NULL;
+  self->toast_undo_items = 0;
+
+  gtk_widget_action_set_enabled (GTK_WIDGET (self), "toast.dismiss", FALSE);
+}
+
+static void
+add_toast_with_button_cb (AdwDemoWindow *self)
+{
+  g_autofree char *title = NULL;
+
+  self->toast_undo_items++;
+
+  if (!self->undo_toast) {
+    title = g_strdup_printf (_("‘%s’ deleted"), "Lorem ipsum");
+
+    self->undo_toast = adw_toast_new (title);
+
+    adw_toast_set_priority (self->undo_toast, ADW_TOAST_PRIORITY_HIGH);
+    adw_toast_set_button_label (self->undo_toast, _("Undo"));
+    adw_toast_set_action_name (self->undo_toast, "toast.undo");
+
+    g_signal_connect_swapped (self->undo_toast, "dismissed", G_CALLBACK (dismissed_cb), self);
+
+    adw_toast_overlay_add_toast (self->toast_overlay, self->undo_toast);
+
+    gtk_widget_action_set_enabled (GTK_WIDGET (self), "toast.dismiss", TRUE);
+
+    return;
+  }
+
+  title =
+    g_strdup_printf (ngettext ("<span font_features='tnum=1'>%d</span> item deleted",
+                               "<span font_features='tnum=1'>%d</span> items deleted",
+                               self->toast_undo_items), self->toast_undo_items);
+
+  adw_toast_set_title (self->undo_toast, title);
+}
+
+static void
+add_toast_with_long_title_cb (AdwDemoWindow *self)
+{
+  adw_toast_overlay_add_toast (self->toast_overlay,
+                               adw_toast_new (_("Lorem ipsum dolor sit amet, "
+                                                "consectetur adipiscing elit, "
+                                                "sed do eiusmod tempor incididunt "
+                                                "ut labore et dolore magnam aliquam "
+                                                "quaerat voluptatem.")));
+}
+
+static void
+toast_undo_cb (AdwDemoWindow *self)
+{
+  g_autofree char *title =
+    g_strdup_printf (ngettext ("Undoing deleting <span font_features='tnum=1'>%d</span> item…",
+                               "Undoing deleting <span font_features='tnum=1'>%d</span> items…",
+                               self->toast_undo_items), self->toast_undo_items);
+  AdwToast *toast = adw_toast_new (title);
+
+  adw_toast_set_priority (toast, ADW_TOAST_PRIORITY_HIGH);
+
+  adw_toast_overlay_add_toast (self->toast_overlay, toast);
+}
+
+static void
+toast_dismiss_cb (AdwDemoWindow *self)
+{
+  if (self->undo_toast)
+    adw_toast_dismiss (self->undo_toast);
+}
+
+static void
 adw_demo_window_class_init (AdwDemoWindowClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   gtk_widget_class_add_binding_action (widget_class, GDK_KEY_q, GDK_CONTROL_MASK, "window.close", NULL);
+
+  gtk_widget_class_install_action (widget_class, "toast.undo", NULL, (GtkWidgetActionActivateFunc) toast_undo_cb);
+  gtk_widget_class_install_action (widget_class, "toast.dismiss", NULL, (GtkWidgetActionActivateFunc) toast_dismiss_cb);
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/adw-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, content_box);
@@ -421,6 +508,7 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar_file_chooser_label);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar_remove_button);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar_contacts);
+  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, toast_overlay);
   gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, back_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, leaflet_back_clicked_cb);
@@ -441,6 +529,9 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, flap_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, tab_view_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, style_classes_demo_clicked_cb);
+  gtk_widget_class_bind_template_callback (widget_class, add_toast_cb);
+  gtk_widget_class_bind_template_callback (widget_class, add_toast_with_button_cb);
+  gtk_widget_class_bind_template_callback (widget_class, add_toast_with_long_title_cb);
 }
 
 static void
@@ -485,4 +576,6 @@ adw_demo_window_init (AdwDemoWindow *self)
   avatar_page_init (self);
 
   adw_leaflet_set_visible_child (self->content_box, GTK_WIDGET (self->right_box));
+
+  gtk_widget_action_set_enabled (GTK_WIDGET (self), "toast.dismiss", FALSE);
 }
