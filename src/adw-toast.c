@@ -46,7 +46,7 @@
  * ```c
  * AdwToast *toast = adw_toast_new (_("Toast with Action"));
  *
- * adw_toast_set_button_label (toast, _("Example"));
+ * adw_toast_set_button_label (toast, _("_Example"));
  * adw_toast_set_action_name (toast, "win.example");
  *
  * adw_toast_overlay_add_toast (overlay, toast);
@@ -94,7 +94,7 @@
  *     self->undo_toast = adw_toast_new (title);
  *
  *     adw_toast_set_priority (self->undo_toast, ADW_TOAST_PRIORITY_HIGH);
- *     adw_toast_set_button_label (self->undo_toast, _("Undo"));
+ *     adw_toast_set_button_label (self->undo_toast, _("_Undo"));
  *     adw_toast_set_action_name (self->undo_toast, "toast.undo");
  *
  *     g_signal_connect_swapped (self->undo_toast, "dismissed",
@@ -264,6 +264,8 @@ adw_toast_class_init (AdwToastClass *klass)
    * AdwToast:button-label: (attributes org.gtk.Property.get=adw_toast_get_button_label org.gtk.Property.set=adw_toast_set_button_label)
    *
    * The label to show on the button.
+   *
+   * Underlines in the button text can be used to indicate a mnemonic.
    *
    * If set to `NULL`, the button won't be shown.
    *

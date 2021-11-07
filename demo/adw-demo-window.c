@@ -430,7 +430,7 @@ add_toast_with_button_cb (AdwDemoWindow *self)
     self->undo_toast = adw_toast_new (title);
 
     adw_toast_set_priority (self->undo_toast, ADW_TOAST_PRIORITY_HIGH);
-    adw_toast_set_button_label (self->undo_toast, _("Undo"));
+    adw_toast_set_button_label (self->undo_toast, _("_Undo"));
     adw_toast_set_action_name (self->undo_toast, "toast.undo");
 
     g_signal_connect_swapped (self->undo_toast, "dismissed", G_CALLBACK (dismissed_cb), self);
