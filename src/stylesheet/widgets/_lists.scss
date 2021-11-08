@@ -229,8 +229,8 @@ list.boxed-list {
     // Rounded top
     &:first-child {
       &, &.expander row.header {
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
+        border-top-left-radius: $card_radius;
+        border-top-right-radius: $card_radius;
       }
     }
 
@@ -241,8 +241,8 @@ list.boxed-list {
       &.expander:not(:checked) row.header,
       &.expander:checked list.nested,
       &.expander:checked list.nested > row:last-child {
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: $card_radius;
+        border-bottom-right-radius: $card_radius;
         border-bottom-width: 0;
       }
     }
