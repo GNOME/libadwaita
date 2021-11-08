@@ -322,6 +322,13 @@ equivalent to `ADW_COLOR_SCHEME_PREFER_LIGHT` instead of
 default. Make sure your application works with it, or otherwise set the
 `ADW_COLOR_SCHEME_FORCE_LIGHT` color scheme manually.
 
+### Adapt to [class@Adw.SwipeTracker] API changes
+
+The [signal@Adw.SwipeTracker::begin-swipe] signal is now emitted immediately
+before the swipe starts, after the drag threshold has been reached, and it has
+lost its `direction` parameter. The new [signal@Adw.SwipeTracker::prepare]
+signal behaves exactly like `begin-swipe` was, and can be used instead of it.
+
 ### Adapt to Stylesheet Changes
 
 Most widgets don't have a backdrop state anymore, and the following public

@@ -110,6 +110,7 @@ enum {
 static GParamSpec *props[LAST_PROP];
 
 enum {
+  SIGNAL_PREPARE,
   SIGNAL_BEGIN_SWIPE,
   SIGNAL_UPDATE_SWIPE,
   SIGNAL_END_SWIPE,
@@ -184,7 +185,7 @@ gesture_prepare (AdwSwipeTracker        *self,
   if (self->state != ADW_SWIPE_TRACKER_STATE_NONE)
     return;
 
-  g_signal_emit (self, signals[SIGNAL_BEGIN_SWIPE], 0, direction);
+  g_signal_emit (self, signals[SIGNAL_PREPARE], 0, direction);
 
   self->initial_progress = adw_swipeable_get_progress (self->swipeable);
   self->progress = self->initial_progress;
@@ -257,6 +258,8 @@ gesture_begin (AdwSwipeTracker *self)
     return;
 
   self->state = ADW_SWIPE_TRACKER_STATE_SCROLLING;
+
+  g_signal_emit (self, signals[SIGNAL_BEGIN_SWIPE], 0);
 }
 
 static int
@@ -1087,7 +1090,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   /**
-   * AdwSwipeTracker::begin-swipe:
+   * AdwSwipeTracker::prepare:
    * @self: the `AdwSwipeTracker` instance
    * @direction: the direction of the swipe
    *
@@ -1098,8 +1101,8 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    *
    * Since: 1.0
    */
-  signals[SIGNAL_BEGIN_SWIPE] =
-    g_signal_new ("begin-swipe",
+  signals[SIGNAL_PREPARE] =
+    g_signal_new ("prepare",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
                   0,
@@ -1107,6 +1110,24 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                   G_TYPE_NONE,
                   1,
                   ADW_TYPE_NAVIGATION_DIRECTION);
+
+  /**
+   * AdwSwipeTracker::begin-swipe:
+   * @self: the `AdwSwipeTracker` instance
+   *
+   * This signal is emitted right before a swipe will be started, after the
+   * drag threshold has been passed.
+   *
+   * Since: 1.0
+   */
+  signals[SIGNAL_BEGIN_SWIPE] =
+    g_signal_new ("begin-swipe",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  0);
 
   /**
    * AdwSwipeTracker::update-swipe:

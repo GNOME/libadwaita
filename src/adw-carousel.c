@@ -410,9 +410,8 @@ get_closest_snap_point (AdwCarousel *self)
 }
 
 static void
-begin_swipe_cb (AdwSwipeTracker        *tracker,
-                AdwNavigationDirection  direction,
-                AdwCarousel            *self)
+begin_swipe_cb (AdwSwipeTracker *tracker,
+                AdwCarousel     *self)
 {
   if (self->animation)
     adw_animation_stop (self->animation);

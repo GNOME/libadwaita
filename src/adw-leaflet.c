@@ -1513,9 +1513,9 @@ set_orientation (AdwLeaflet     *self,
 }
 
 static void
-begin_swipe_cb (AdwSwipeTracker        *tracker,
-                AdwNavigationDirection  direction,
-                AdwLeaflet             *self)
+prepare_cb (AdwSwipeTracker        *tracker,
+            AdwNavigationDirection  direction,
+            AdwLeaflet             *self)
 {
   self->child_transition.swipe_direction = direction;
 
@@ -2442,7 +2442,7 @@ adw_leaflet_init (AdwLeaflet *self)
 
   g_object_set (self->tracker, "orientation", self->orientation, "enabled", FALSE, NULL);
 
-  g_signal_connect_object (self->tracker, "begin-swipe", G_CALLBACK (begin_swipe_cb), self, 0);
+  g_signal_connect_object (self->tracker, "prepare", G_CALLBACK (prepare_cb), self, 0);
   g_signal_connect_object (self->tracker, "update-swipe", G_CALLBACK (update_swipe_cb), self, 0);
   g_signal_connect_object (self->tracker, "end-swipe", G_CALLBACK (end_swipe_cb), self, 0);
 

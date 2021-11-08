@@ -420,19 +420,26 @@ get_start_or_end (AdwFlap *self)
 }
 
 static void
+begin_swipe_cb (AdwSwipeTracker *tracker,
+                AdwFlap         *self)
+{
+  if (self->reveal_progress <= 0 && !self->swipe_to_open)
+    return;
+
+  if (self->reveal_progress >= 1 && !self->swipe_to_close)
+    return;
+
+  if (self->reveal_animation)
+    adw_animation_stop (self->reveal_animation);
+
+  self->swipe_active = TRUE;
+}
+
+static void
 update_swipe_cb (AdwSwipeTracker *tracker,
                  double           progress,
                  AdwFlap         *self)
 {
-  if (!self->swipe_active &&
-      (self->reveal_progress > 0 || self->swipe_to_open) &&
-      (self->reveal_progress < 1 || self->swipe_to_close)) {
-    if (self->reveal_animation)
-      adw_animation_stop (self->reveal_animation);
-
-    self->swipe_active = TRUE;
-  }
-
   set_reveal_progress (self, progress);
 }
 
@@ -1587,6 +1594,7 @@ adw_flap_init (AdwFlap *self)
   self->tracker = adw_swipe_tracker_new (ADW_SWIPEABLE (self));
   adw_swipe_tracker_set_enabled (self->tracker, FALSE);
 
+  g_signal_connect_object (self->tracker, "begin-swipe", G_CALLBACK (begin_swipe_cb), self, 0);
   g_signal_connect_object (self->tracker, "update-swipe", G_CALLBACK (update_swipe_cb), self, 0);
   g_signal_connect_object (self->tracker, "end-swipe", G_CALLBACK (end_swipe_cb), self, 0);
 

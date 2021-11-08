@@ -261,3 +261,12 @@ The `.content` style class currently remains for compatibility purposes.
 Neither the `.content` style class nor the `.boxed-list` style class work
 for [class@Gtk.ListView], as the widget cannot currently be used for the
 boxed list pattern.
+
+## Migrating from alpha 4 to alpha 5
+
+#### Adapt to [class@Adw.SwipeTracker] API changes
+
+The [signal@Adw.SwipeTracker::begin-swipe] signal is now emitted immediately
+before the swipe starts, after the drag threshold has been reached, and it has
+lost its `direction` parameter. The new [signal@Adw.SwipeTracker::prepare]
+signal behaves exactly like `begin-swipe` was, and can be used instead of it.
