@@ -8,6 +8,7 @@
 
 #include "adw-swipe-tracker-private.h"
 #include "adw-navigation-direction.h"
+#include "adw-macros-private.h"
 
 #include <math.h>
 

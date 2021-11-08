@@ -10,6 +10,7 @@
 
 #include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
+#include "adw-macros-private.h"
 #include "adw-navigation-direction.h"
 #include "adw-swipe-tracker.h"
 #include "adw-swipeable.h"

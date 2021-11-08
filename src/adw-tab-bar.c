@@ -11,6 +11,7 @@
 #include "adw-tab-bar-private.h"
 
 #include "adw-bin.h"
+#include "adw-macros-private.h"
 #include "adw-tab-box-private.h"
 #include "adw-widget-utils-private.h"
 

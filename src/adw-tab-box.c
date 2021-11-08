@@ -12,6 +12,7 @@
 #include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
 #include "adw-gizmo-private.h"
+#include "adw-macros-private.h"
 #include "adw-tab-private.h"
 #include "adw-tab-bar-private.h"
 #include "adw-tab-view-private.h"

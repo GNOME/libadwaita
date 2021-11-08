@@ -10,6 +10,7 @@
 
 #include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
+#include "adw-macros-private.h"
 #include "adw-swipeable.h"
 
 #include <math.h>

@@ -8,6 +8,8 @@
 
 #include "adw-toast-widget-private.h"
 
+#include "adw-macros-private.h"
+
 #define TOAST_DURATION 5000
 
 struct _AdwToastWidget {

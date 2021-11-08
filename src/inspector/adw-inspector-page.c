@@ -12,6 +12,7 @@
 #include "adw-inspector-page-private.h"
 
 #include <adwaita.h>
+#include "adw-macros-private.h"
 #include "adw-settings-private.h"
 
 struct _AdwInspectorPage

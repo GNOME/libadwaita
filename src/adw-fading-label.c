@@ -11,6 +11,7 @@
 
 #include <glib/gi18n-lib.h>
 #include "adw-bidi-private.h"
+#include "adw-macros-private.h"
 
 #define FADE_WIDTH 18
 

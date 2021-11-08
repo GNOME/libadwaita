@@ -8,6 +8,8 @@
 
 #include "adw-toast-private.h"
 
+#include "adw-macros-private.h"
+
 /**
  * AdwToastPriority:
  * @ADW_TOAST_PRIORITY_NORMAL: the toast will be queued if another toast is

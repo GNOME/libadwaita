@@ -8,6 +8,7 @@
 #include "adw-clamp.h"
 
 #include "adw-clamp-layout.h"
+#include "adw-macros-private.h"
 #include "adw-widget-utils-private.h"
 
 /**

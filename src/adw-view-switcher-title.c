@@ -7,6 +7,7 @@
 
 #include "config.h"
 
+#include "adw-macros-private.h"
 #include "adw-view-switcher-title.h"
 #include "adw-squeezer.h"
 #include "adw-window-title.h"

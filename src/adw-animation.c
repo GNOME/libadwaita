@@ -9,7 +9,7 @@
 
 #include "adw-animation-util-private.h"
 #include "adw-animation-private.h"
-
+#include "adw-macros-private.h"
 
 typedef struct
 {

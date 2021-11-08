@@ -11,6 +11,7 @@
 #include "adw-tab-view-private.h"
 
 #include "adw-gizmo-private.h"
+#include "adw-macros-private.h"
 #include "adw-widget-utils-private.h"
 
 /* FIXME replace with groups */

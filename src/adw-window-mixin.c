@@ -7,6 +7,7 @@
 #include "config.h"
 
 #include "adw-gizmo-private.h"
+#include "adw-macros-private.h"
 #include "adw-widget-utils-private.h"
 #include "adw-window-mixin-private.h"
 

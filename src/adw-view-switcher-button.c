@@ -8,6 +8,7 @@
 #include "config.h"
 
 #include "adw-indicator-bin-private.h"
+#include "adw-macros-private.h"
 #include "adw-view-switcher-button-private.h"
 
 #define TIMEOUT_EXPAND 500

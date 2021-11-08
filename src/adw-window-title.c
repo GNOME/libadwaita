@@ -5,8 +5,9 @@
  */
 
 #include "config.h"
-
 #include "adw-window-title.h"
+
+#include "adw-macros-private.h"
 
 /**
  * AdwWindowTitle:

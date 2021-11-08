@@ -13,6 +13,7 @@
 #include "adw-animation-private.h"
 #include "adw-bidi-private.h"
 #include "adw-fading-label-private.h"
+#include "adw-macros-private.h"
 
 #define FADE_WIDTH 18
 #define CLOSE_BTN_ANIMATION_DURATION 150

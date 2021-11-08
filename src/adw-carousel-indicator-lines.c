@@ -9,6 +9,7 @@
 #include "adw-carousel-indicator-lines.h"
 
 #include "adw-animation-private.h"
+#include "adw-macros-private.h"
 #include "adw-swipeable.h"
 
 #include <math.h>

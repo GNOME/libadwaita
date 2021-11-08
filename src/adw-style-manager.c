@@ -10,6 +10,7 @@
 
 #include "adw-style-manager-private.h"
 
+#include "adw-macros-private.h"
 #include "adw-settings-private.h"
 #include <gtk/gtk.h>
 
