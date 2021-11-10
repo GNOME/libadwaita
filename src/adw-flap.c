@@ -31,7 +31,7 @@
  * `AdwFlap` has at most three children: [property@Adw.Flap:content],
  * [property@Adw.Flap:flap] and [property@Adw.Flap:separator]. Content is the
  * primary child, flap is displayed next to it when unfolded, or overlays it
- * when folded. Flap can be shown or hidden by changing th
+ * when folded. Flap can be shown or hidden by changing the
  * [property@Adw.Flap:reveal-flap] value, as well as via swipe gestures if
  * [property@Adw.Flap:swipe-to-open] and/or [property@Adw.Flap:swipe-to-close] are
  * set to `TRUE`.
