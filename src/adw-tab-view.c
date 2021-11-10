@@ -40,6 +40,21 @@ static GSList *tab_view_list;
  * As such, it does not support disabling page reordering or detaching, or
  * adding children via [class@Gtk.Builder].
  *
+ * `AdwTabView` adds the following shortcuts in the managed scope:
+ *
+ * * Ctrl+Page Up - switch to the previous page
+ * * Ctrl+Page Down - switch to the next page
+ * * Ctrl+Home - switch to the first page
+ * * Ctrl+End - switch to the last page
+ * * Ctrl+Shift+Page Up - move the current page backward
+ * * Ctrl+Shift+Page Down - move the current page forward
+ * * Ctrl+Shift+Home - move the current page at the start
+ * * Ctrl+Shift+End - move the current page at the end
+ * * Ctrl+Tab - switch to the next page, with looping
+ * * Ctrl+Shift+Tab - switch to the previous page, with looping
+ * * Alt+1-9 - switch to pages 1-9
+ * * Alt+0 - switch to page 10
+ *
  * ## CSS nodes
  *
  * `AdwTabView` has a main CSS node with the name `tabview`.
@@ -107,9 +122,6 @@ struct _AdwTabView
 
   int transfer_count;
 
-  GtkWidget *shortcut_widget;
-  GtkEventController *shortcut_controller;
-
   GtkSelectionModel *pages;
 };
 
@@ -123,7 +135,6 @@ enum {
   PROP_SELECTED_PAGE,
   PROP_DEFAULT_ICON,
   PROP_MENU_MODEL,
-  PROP_SHORTCUT_WIDGET,
   PROP_PAGES,
   LAST_PROP
 };
@@ -1260,21 +1271,9 @@ init_shortcuts (AdwTabView         *self,
 }
 
 static void
-shortcut_widget_notify_cb (AdwTabView *self)
-{
-  gtk_widget_remove_controller (self->shortcut_widget, self->shortcut_controller);
-  self->shortcut_controller = NULL;
-  self->shortcut_widget = NULL;
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHORTCUT_WIDGET]);
-}
-
-static void
 adw_tab_view_dispose (GObject *object)
 {
   AdwTabView *self = ADW_TAB_VIEW (object);
-
-  adw_tab_view_set_shortcut_widget (self, NULL);
 
   if (self->pages)
     g_list_model_items_changed (G_LIST_MODEL (self->pages), 0, self->n_pages, 0);
@@ -1342,10 +1341,6 @@ adw_tab_view_get_property (GObject    *object,
     g_value_set_object (value, adw_tab_view_get_menu_model (self));
     break;
 
-  case PROP_SHORTCUT_WIDGET:
-    g_value_set_object (value, adw_tab_view_get_shortcut_widget (self));
-    break;
-
   case PROP_PAGES:
     g_value_take_object (value, adw_tab_view_get_pages (self));
     break;
@@ -1374,10 +1369,6 @@ adw_tab_view_set_property (GObject      *object,
 
   case PROP_MENU_MODEL:
     adw_tab_view_set_menu_model (self, g_value_get_object (value));
-    break;
-
-  case PROP_SHORTCUT_WIDGET:
-    adw_tab_view_set_shortcut_widget (self, g_value_get_object (value));
     break;
 
   default:
@@ -1502,37 +1493,6 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                          "Menu model",
                          "Tab context menu model",
                          G_TYPE_MENU_MODEL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwTabView:shortcut-widget: (attributes org.gtk.Property.get=adw_tab_view_get_shortcut_widget org.gtk.Property.set=adw_tab_view_set_shortcut_widget)
-   *
-   * The shortcut widget.
-   *
-   * It has the following shortcuts:
-   * * Ctrl+Page Up - switch to the previous page
-   * * Ctrl+Page Down - switch to the next page
-   * * Ctrl+Home - switch to the first page
-   * * Ctrl+End - switch to the last page
-   * * Ctrl+Shift+Page Up - move the current page backward
-   * * Ctrl+Shift+Page Down - move the current page forward
-   * * Ctrl+Shift+Home - move the current page at the start
-   * * Ctrl+Shift+End - move the current page at the end
-   * * Ctrl+Tab - switch to the next page, with looping
-   * * Ctrl+Shift+Tab - switch to the previous page, with looping
-   * * Alt+1-9 - switch to pages 1-9
-   * * Alt+0 - switch to page 10
-   *
-   * These shortcuts are always available on the tab view itself, this property
-   * is useful if they should be available globally.
-   *
-   * Since: 1.0
-   */
-  props[PROP_SHORTCUT_WIDGET] =
-    g_param_spec_object ("shortcut-widget",
-                         "Shortcut widget",
-                         "Tab shortcut widget",
-                         GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -1770,6 +1730,8 @@ adw_tab_view_init (AdwTabView *self)
   tab_view_list = g_slist_prepend (tab_view_list, self);
 
   controller = gtk_shortcut_controller_new ();
+  gtk_shortcut_controller_set_scope (GTK_SHORTCUT_CONTROLLER (controller),
+                                     GTK_SHORTCUT_SCOPE_MANAGED);
 
   init_shortcuts (self, controller);
 
@@ -2468,69 +2430,6 @@ adw_tab_view_set_menu_model (AdwTabView *self,
   g_set_object (&self->menu_model, menu_model);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_MENU_MODEL]);
-}
-
-/**
- * adw_tab_view_get_shortcut_widget: (attributes org.gtk.Method.get_property=shortcut-widget)
- * @self: a `AdwTabView`
- *
- * Gets the shortcut widget for @self.
- *
- * Returns: (transfer none) (nullable): the shortcut widget for @self
- *
- * Since: 1.0
- */
-GtkWidget *
-adw_tab_view_get_shortcut_widget (AdwTabView *self)
-{
-  g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
-
-  return self->shortcut_widget;
-}
-
-/**
- * adw_tab_view_set_shortcut_widget: (attributes org.gtk.Method.set_property=shortcut-widget)
- * @self: a `AdwTabView`
- * @widget: (nullable): a shortcut widget
- *
- * Sets the shortcut widget for @self.
- *
- * Since: 1.0
- */
-void
-adw_tab_view_set_shortcut_widget (AdwTabView *self,
-                                  GtkWidget  *widget)
-{
-  g_return_if_fail (ADW_IS_TAB_VIEW (self));
-  g_return_if_fail (widget == NULL || GTK_IS_WIDGET (widget));
-
-  if (widget == self->shortcut_widget)
-    return;
-
-  if (self->shortcut_widget) {
-    gtk_widget_remove_controller (self->shortcut_widget, self->shortcut_controller);
-    self->shortcut_controller = NULL;
-
-    g_object_weak_unref (G_OBJECT (self->shortcut_widget),
-                         (GWeakNotify) shortcut_widget_notify_cb,
-                         self);
-  }
-
-  self->shortcut_widget = widget;
-
-  if (self->shortcut_widget) {
-    g_object_weak_ref (G_OBJECT (self->shortcut_widget),
-                       (GWeakNotify) shortcut_widget_notify_cb,
-                       self);
-
-    self->shortcut_controller = gtk_shortcut_controller_new ();
-
-    init_shortcuts (self, self->shortcut_controller);
-
-    gtk_widget_add_controller (self->shortcut_widget, self->shortcut_controller);
-  }
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHORTCUT_WIDGET]);
 }
 
 /**

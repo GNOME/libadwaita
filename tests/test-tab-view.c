@@ -215,36 +215,6 @@ test_adw_tab_view_menu_model (void)
 }
 
 static void
-test_adw_tab_view_shortcut_widget (void)
-{
-  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
-  GtkWidget *widget;
-  GtkWidget *widget1 = g_object_ref_sink (gtk_button_new ());
-  GtkWidget *widget2 = g_object_ref_sink (gtk_button_new ());
-
-  g_assert_nonnull (view);
-
-  notified = 0;
-  g_signal_connect (view, "notify::shortcut-widget", G_CALLBACK (notify_cb), NULL);
-
-  g_object_get (view, "shortcut-widget", &widget, NULL);
-  g_assert_null (widget);
-  g_assert_cmpint (notified, ==, 0);
-
-  adw_tab_view_set_shortcut_widget (view, widget1);
-  g_assert_true (adw_tab_view_get_shortcut_widget (view) == widget1);
-  g_assert_cmpint (notified, ==, 1);
-
-  g_object_set (view, "shortcut-widget", widget2, NULL);
-  g_assert_true (adw_tab_view_get_shortcut_widget (view) == widget2);
-  g_assert_cmpint (notified, ==, 2);
-
-  g_assert_finalize_object (view);
-  g_assert_finalize_object (widget1);
-  g_assert_finalize_object (widget2);
-}
-
-static void
 test_adw_tab_view_get_page (void)
 {
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
@@ -1257,7 +1227,6 @@ main (int   argc,
   g_test_add_func ("/Adwaita/TabView/n_pinned_pages", test_adw_tab_view_n_pinned_pages);
   g_test_add_func ("/Adwaita/TabView/default_icon", test_adw_tab_view_default_icon);
   g_test_add_func ("/Adwaita/TabView/menu_model", test_adw_tab_view_menu_model);
-  g_test_add_func ("/Adwaita/TabView/shortcut_widget", test_adw_tab_view_shortcut_widget);
   g_test_add_func ("/Adwaita/TabView/get_page", test_adw_tab_view_get_page);
   g_test_add_func ("/Adwaita/TabView/select", test_adw_tab_view_select);
   g_test_add_func ("/Adwaita/TabView/add_basic", test_adw_tab_view_add_basic);

@@ -35,7 +35,6 @@
           <object class="AdwTabView" id="view">
             <property name="vexpand">True</property>
             <property name="menu-model">tab_menu</property>
-            <property name="shortcut-widget">AdwTabViewDemoWindow</property>
             <signal name="page-detached" handler="page_detached_cb" swapped="true"/>
             <signal name="setup-menu" handler="setup_menu_cb" swapped="true"/>
             <signal name="create-window" handler="create_window_cb" swapped="true"/>

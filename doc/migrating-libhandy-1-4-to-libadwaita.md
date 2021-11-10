@@ -329,6 +329,17 @@ before the swipe starts, after the drag threshold has been reached, and it has
 lost its `direction` parameter. The new [signal@Adw.SwipeTracker::prepare]
 signal behaves exactly like `begin-swipe` was, and can be used instead of it.
 
+### Adapt to [class@Adw.TabView] API changes
+
+The `HdyTabVoew:shortcut-widget` property has been removed with no replacement;
+[class@AdwTabView] automatically installs shortcuts with the
+`GTK_SHORTCUT_SCOPE_MANAGED` scope, so they are automatically available
+throughout the window without the need to set shortcut widget.
+
+If some of these shortcuts conflict with another widget, the latter has
+priority, and it should work automatically if the widget correctly stops event
+propagation.
+
 ### Adapt to Stylesheet Changes
 
 Most widgets don't have a backdrop state anymore, and the following public

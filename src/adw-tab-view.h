@@ -117,12 +117,6 @@ void        adw_tab_view_set_menu_model (AdwTabView *self,
                                          GMenuModel *menu_model);
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_tab_view_get_shortcut_widget (AdwTabView *self);
-ADW_AVAILABLE_IN_ALL
-void       adw_tab_view_set_shortcut_widget (AdwTabView *self,
-                                             GtkWidget  *widget);
-
-ADW_AVAILABLE_IN_ALL
 void adw_tab_view_set_page_pinned (AdwTabView *self,
                                    AdwTabPage *page,
                                    gboolean    pinned);
