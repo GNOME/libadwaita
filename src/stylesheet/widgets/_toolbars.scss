@@ -7,31 +7,6 @@
     }
   }
 
-  menubutton:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
-    &.image-button > button {
-      @extend %button_basic_flat;
-    }
-  }
-
-  menubutton.raised > button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
-    &.arrow-button,
-    &.image-button,
-    &.image-text-button {
-      @extend %button_basic_raised;
-    }
-  }
-
-  menubutton.suggested-action,
-  menubutton.destructive-action,
-  menubutton.opaque {
-    > button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
-      @extend %opaque_button;
-
-      color: inherit;
-      background-color: transparent;
-    }
-  }
-
   splitbutton {
     // Specificity bump
     > separator.vertical {
@@ -87,12 +62,6 @@ popover {
     &.arrow-button,
     &.image-button,
     &.image-text-button {
-      @extend %button_basic_raised;
-    }
-  }
-
-  menubutton:not(.flat):not(.outline):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
-    &.image-button > button {
       @extend %button_basic_raised;
     }
   }

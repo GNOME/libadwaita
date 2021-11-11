@@ -384,58 +384,12 @@ menubutton {
   &.osd {
     background: none;
     color: inherit;
-
-    > button { @extend %osd_button; }
-  }
-
-  &.circular > button { @extend %circular_button; }
-  &.flat > button { @extend %button_basic_flat; }
-  &.outline > button { @extend %outline_button; }
-  &.pill > button { @extend %pill_button; }
-
-  &.suggested-action {
-    background-color: $accent_bg_color;
-    color: $accent_fg_color;
-  }
-
-  &.destructive-action {
-    background-color: $destructive_bg_color;
-    color: $destructive_fg_color;
-  }
-
-  &.opaque {
-    background-color: $opaque_button_default_bg;
-    color: $window_fg_color;
-  }
-
-  &.suggested-action,
-  &.destructive-action,
-  &.opaque {
-    border-radius: $button_radius;
-
-    &.circular, &.pill {
-      border-radius: 9999px;
-    }
-
-    > button {
-      @extend %opaque_button;
-
-      &, &:checked {
-        background-color: transparent;
-        color: inherit;
-      }
-    }
-  }
-
-  &.image-button > button {
-    min-width: 24px;
-    padding-left: 5px;
-    padding-right: 5px;
   }
 
   arrow {
     min-height: 16px;
     min-width: 16px;
+
     &.none {
       -gtk-icon-source: -gtk-icontheme('open-menu-symbolic');
     }
