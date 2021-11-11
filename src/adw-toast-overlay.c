@@ -18,7 +18,7 @@
 #define SHOW_DURATION 300
 #define HIDE_DURATION 300
 #define REPLACE_DURATION 500
-#define FINAL_SIZE 0.7
+#define SCALE_AMOUNT 0.05
 #define NATURAL_WIDTH 450
 
 /**
@@ -321,7 +321,7 @@ allocate_toast (AdwToastOverlay *self,
     x = size.width / 2.0f;
     y = size.height / 2.0f;
 
-    value = adw_lerp (FINAL_SIZE, 1.0f, value);
+    value = adw_lerp (1 - SCALE_AMOUNT, 1, value);
     transform = gsk_transform_translate (transform,
                                          &GRAPHENE_POINT_INIT (x, y));
     transform = gsk_transform_scale (transform, value, value);
