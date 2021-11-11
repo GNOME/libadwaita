@@ -35,6 +35,12 @@ subpage2_activated_cb (AdwDemoPreferencesWindow *self)
 }
 
 static void
+toast_show_cb (AdwPreferencesWindow *window)
+{
+  adw_preferences_window_add_toast (window, adw_toast_new ("Example toast"));
+}
+
+static void
 adw_demo_preferences_window_class_init (AdwDemoPreferencesWindowClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -47,6 +53,8 @@ adw_demo_preferences_window_class_init (AdwDemoPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, return_to_preferences_cb);
   gtk_widget_class_bind_template_callback (widget_class, subpage1_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, subpage2_activated_cb);
+
+  gtk_widget_class_install_action (widget_class, "toast.show", NULL, (GtkWidgetActionActivateFunc) toast_show_cb);
 }
 
 static void

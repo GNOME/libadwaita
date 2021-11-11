@@ -83,6 +83,23 @@
         </child>
         <child>
           <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Toasts</property>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">Show a toast</property>
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">Show</property>
+                    <property name="action-name">toast.show</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
             <property name="description" translatable="yes">Preferences windows can have subpages.</property>
             <property name="title" translatable="yes">Subpages</property>
             <child>
