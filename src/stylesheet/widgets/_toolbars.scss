@@ -13,14 +13,6 @@
     }
   }
 
-  .linked button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
-    &.arrow-button,
-    &.image-button,
-    &.image-text-button {
-      @extend %button_basic_raised;
-    }
-  }
-
   menubutton.raised > button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
     &.arrow-button,
     &.image-button,
@@ -77,6 +69,15 @@
   switch {
     margin-top: 10px;
     margin-bottom: 10px;
+  }
+}
+
+// Reset styles for men
+.linked button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+  &.arrow-button,
+  &.image-button,
+  &.image-text-button {
+    @extend %button_basic_raised;
   }
 }
 
