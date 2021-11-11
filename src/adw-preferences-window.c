@@ -15,6 +15,7 @@
 #include "adw-macros-private.h"
 #include "adw-preferences-group-private.h"
 #include "adw-preferences-page-private.h"
+#include "adw-toast-overlay.h"
 #include "adw-view-switcher.h"
 #include "adw-view-switcher-bar.h"
 #include "adw-view-switcher-title.h"
@@ -37,6 +38,7 @@
 
 typedef struct
 {
+  AdwToastOverlay *toast_overlay;
   AdwLeaflet *subpages_leaflet;
   GtkWidget *preferences;
   GtkStack *content_stack;
@@ -579,6 +581,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-preferences-window.ui");
+  gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, toast_overlay);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, subpages_leaflet);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, preferences);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, content_stack);
@@ -989,4 +992,28 @@ adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
   priv = adw_preferences_window_get_instance_private (self);
 
   adw_view_stack_set_visible_child_name (priv->pages_stack, name);
+}
+
+/**
+ * adw_preferences_window_add_toast:
+ * @self: a `AdwPreferencesWindow`
+ * @toast: (transfer full): a toast
+ *
+ * Displays @toast.
+ *
+ * See [method@Adw.ToastOverlay:add_toast].
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_window_add_toast (AdwPreferencesWindow *self,
+                                  AdwToast             *toast)
+{
+  AdwPreferencesWindowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  adw_toast_overlay_add_toast (priv->toast_overlay, toast);
 }

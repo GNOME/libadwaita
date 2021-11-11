@@ -6,7 +6,6 @@
 
 #include <adwaita.h>
 
-
 static void
 test_adw_preferences_window_add_remove (void)
 {
@@ -24,6 +23,20 @@ test_adw_preferences_window_add_remove (void)
   g_assert_finalize_object (window);
 }
 
+static void
+test_adw_preferences_window_add_toast (void)
+{
+  AdwPreferencesWindow *window = ADW_PREFERENCES_WINDOW (adw_preferences_window_new ());
+  AdwToast *toast = adw_toast_new ("Test notification");
+
+  g_assert_nonnull (window);
+  g_assert_nonnull (toast);
+
+  adw_preferences_window_add_toast (window, g_object_ref (toast));
+
+  g_assert_finalize_object (window);
+  g_assert_finalize_object (toast);
+}
 
 int
 main (int   argc,
@@ -33,6 +46,7 @@ main (int   argc,
   adw_init ();
 
   g_test_add_func("/Adwaita/PreferencesWindow/add_remove", test_adw_preferences_window_add_remove);
+  g_test_add_func("/Adwaita/PreferencesWindow/add_toast", test_adw_preferences_window_add_toast);
 
   return g_test_run();
 }

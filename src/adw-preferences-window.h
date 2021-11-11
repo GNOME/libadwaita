@@ -14,6 +14,7 @@
 
 #include <gtk/gtk.h>
 #include "adw-preferences-page.h"
+#include "adw-toast.h"
 #include "adw-window.h"
 
 G_BEGIN_DECLS
@@ -74,5 +75,9 @@ const char *adw_preferences_window_get_visible_page_name (AdwPreferencesWindow *
 ADW_AVAILABLE_IN_ALL
 void        adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
                                                           const char           *name);
+
+ADW_AVAILABLE_IN_ALL
+void adw_preferences_window_add_toast (AdwPreferencesWindow *self,
+                                       AdwToast             *toast);
 
 G_END_DECLS
