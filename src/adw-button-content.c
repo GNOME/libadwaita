@@ -49,9 +49,8 @@
  * `AdwSplitButton`'s CSS node is called `buttoncontent`. It contains the
  * subnodes `image` and `label`.
  *
- * When inside a `GtkButton` or `AdwSplitButton`, the button will receive the
- * `.image-text-button` style class. When inside a `GtkMenuButton`, the
- * internal `GtkButton` will receive it instead.
+ * When inside a `GtkButton`, `GtkMenuButton` or `AdwSplitButton`, the button
+ * will receive the `.image-text-button` style class.
  *
  * ## Accessibility
  *
@@ -101,9 +100,8 @@ adw_button_content_root (GtkWidget *widget)
 
   self->button = gtk_widget_get_ancestor (GTK_WIDGET (self), GTK_TYPE_BUTTON);
 
-  /* For AdwSplitButton we want to style the split button widget and not the
-   * button inside. */
-  if (ADW_IS_SPLIT_BUTTON (gtk_widget_get_parent (self->button)))
+  if (GTK_IS_MENU_BUTTON (gtk_widget_get_parent (self->button)) ||
+      ADW_IS_SPLIT_BUTTON (gtk_widget_get_parent (self->button)))
     self->button = gtk_widget_get_parent (self->button);
 
   gtk_widget_add_css_class (self->button, "image-text-button");
