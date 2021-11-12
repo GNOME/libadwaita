@@ -29,7 +29,7 @@ ninja -C _build
 There's a C example:
 
 ```sh
-_build/run _build/examples/adwaita-1-demo
+_build/run _build/demo/adwaita-1-demo
 ```
 
 ## Documentation
