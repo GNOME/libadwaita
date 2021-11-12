@@ -286,9 +286,12 @@ propagation.
 
 The `can-swipe-back` and `can-swipe-forward` properties have been renamed to
 [property@AdwLeaflet:can-navigate-back] and
-[property@AdwLeaflet:can-navigate-forward], along with their accessors.
+[property@AdwLeaflet:can-navigate-forward], along with their accessors. The new
+properties also handle keyboard and mouse shortcuts in addition to swipes.
 
 ### Adapt to [class@Adw.PreferencesWindow] API changes
 
 The `can-swipe-back` property have been renamed to
 [property@AdwPreferencesWindow:can-navigate-back], along with its accessors.
+The new properties also handle keyboard and mouse shortcuts in addition to
+swipes.
