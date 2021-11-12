@@ -78,8 +78,8 @@ enum {
   PROP_MODE_TRANSITION_DURATION,
   PROP_CHILD_TRANSITION_DURATION,
   PROP_CHILD_TRANSITION_RUNNING,
-  PROP_CAN_SWIPE_BACK,
-  PROP_CAN_SWIPE_FORWARD,
+  PROP_CAN_NAVIGATE_BACK,
+  PROP_CAN_NAVIGATE_FORWARD,
   PROP_CAN_UNFOLD,
   PROP_PAGES,
 
@@ -175,8 +175,8 @@ struct _AdwLeaflet {
     int last_visible_widget_width;
     int last_visible_widget_height;
 
-    gboolean can_swipe_back;
-    gboolean can_swipe_forward;
+    gboolean can_navigate_back;
+    gboolean can_navigate_forward;
 
     GtkPanDirection active_direction;
     int swipe_direction;
@@ -1486,14 +1486,14 @@ leaflet_child_visibility_notify_cb (GObject    *obj,
 }
 
 static gboolean
-can_swipe_in_direction (AdwLeaflet             *self,
-                        AdwNavigationDirection  direction)
+can_navigate_in_direction (AdwLeaflet             *self,
+                           AdwNavigationDirection  direction)
 {
   switch (direction) {
   case ADW_NAVIGATION_DIRECTION_BACK:
-    return self->child_transition.can_swipe_back;
+    return self->child_transition.can_navigate_back;
   case ADW_NAVIGATION_DIRECTION_FORWARD:
-    return self->child_transition.can_swipe_forward;
+    return self->child_transition.can_navigate_forward;
   default:
     g_assert_not_reached ();
   }
@@ -1528,7 +1528,7 @@ prepare_cb (AdwSwipeTracker        *tracker,
   } else {
     AdwLeafletPage *page = NULL;
 
-    if (can_swipe_in_direction (self, direction) && self->folded)
+    if (can_navigate_in_direction (self, direction) && self->folded)
       page = find_swipeable_page (self, direction);
 
     if (page) {
@@ -2072,11 +2072,11 @@ adw_leaflet_get_property (GObject    *object,
   case PROP_CHILD_TRANSITION_RUNNING:
     g_value_set_boolean (value, adw_leaflet_get_child_transition_running (self));
     break;
-  case PROP_CAN_SWIPE_BACK:
-    g_value_set_boolean (value, adw_leaflet_get_can_swipe_back (self));
+  case PROP_CAN_NAVIGATE_BACK:
+    g_value_set_boolean (value, adw_leaflet_get_can_navigate_back (self));
     break;
-  case PROP_CAN_SWIPE_FORWARD:
-    g_value_set_boolean (value, adw_leaflet_get_can_swipe_forward (self));
+  case PROP_CAN_NAVIGATE_FORWARD:
+    g_value_set_boolean (value, adw_leaflet_get_can_navigate_forward (self));
     break;
   case PROP_CAN_UNFOLD:
     g_value_set_boolean (value, adw_leaflet_get_can_unfold (self));
@@ -2122,11 +2122,11 @@ adw_leaflet_set_property (GObject      *object,
   case PROP_CHILD_TRANSITION_DURATION:
     adw_leaflet_set_child_transition_duration (self, g_value_get_uint (value));
     break;
-  case PROP_CAN_SWIPE_BACK:
-    adw_leaflet_set_can_swipe_back (self, g_value_get_boolean (value));
+  case PROP_CAN_NAVIGATE_BACK:
+    adw_leaflet_set_can_navigate_back (self, g_value_get_boolean (value));
     break;
-  case PROP_CAN_SWIPE_FORWARD:
-    adw_leaflet_set_can_swipe_forward (self, g_value_get_boolean (value));
+  case PROP_CAN_NAVIGATE_FORWARD:
+    adw_leaflet_set_can_navigate_forward (self, g_value_get_boolean (value));
     break;
   case PROP_CAN_UNFOLD:
     adw_leaflet_set_can_unfold (self, g_value_get_boolean (value));
@@ -2347,36 +2347,44 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                             G_PARAM_READABLE);
 
   /**
-   * AdwLeaflet:can-swipe-back: (attributes org.gtk.Property.get=adw_leaflet_get_can_swipe_back org.gtk.Property.set=adw_leaflet_set_can_swipe_back)
+   * AdwLeaflet:can-navigate-back: (attributes org.gtk.Property.get=adw_leaflet_get_can_navigate_back org.gtk.Property.set=adw_leaflet_set_can_navigate_back)
    *
-   * Whether a swipe gesture can be used to navigate to the previous child.
+   * Whether gestures and shortcuts for navigating backward are enabled.
+   *
+   * The supported gestures are:
+   * - One-finger swipe on touchscreens
+   * - Horizontal scrolling on touchpads (usually two-finger swipe)
    *
    * Only children that have [property@Adw.LeafletPage:navigatable] set to
    * `TRUE` can be navigated to.
    *
    * Since: 1.0
    */
-  props[PROP_CAN_SWIPE_BACK] =
-      g_param_spec_boolean ("can-swipe-back",
-                            "Can swipe back",
-                            "Whether a swipe gesture can be used to navigate to the previous child",
+  props[PROP_CAN_NAVIGATE_BACK] =
+      g_param_spec_boolean ("can-navigate-back",
+                            "Can navigate back",
+                            "Whether gestures and shortcuts for navigating backward are enabled",
                             FALSE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwLeaflet:can-swipe-forward: (attributes org.gtk.Property.get=adw_leaflet_get_can_swipe_forward org.gtk.Property.set=adw_leaflet_set_can_swipe_forward)
+   * AdwLeaflet:can-navigate-forward: (attributes org.gtk.Property.get=adw_leaflet_get_can_navigate_forward org.gtk.Property.set=adw_leaflet_set_can_navigate_forward)
    *
-   * Whether a swipe gesture can be used to navigate to the next child.
+   * Whether gestures and shortcuts for navigating forward are enabled.
+   *
+   * The supported gestures are:
+   * - One-finger swipe on touchscreens
+   * - Horizontal scrolling on touchpads (usually two-finger swipe)
    *
    * Only children that have [property@Adw.LeafletPage:navigatable] set to
    * `TRUE` can be navigated to.
    *
    * Since: 1.0
    */
-  props[PROP_CAN_SWIPE_FORWARD] =
-      g_param_spec_boolean ("can-swipe-forward",
-                            "Can swipe forward",
-                            "Whether a swipe gesture can be used to navigate to the next child",
+  props[PROP_CAN_NAVIGATE_FORWARD] =
+      g_param_spec_boolean ("can-navigate-forward",
+                            "Can navigate forward",
+                            "Whether gestures and shortcuts for navigating forward are enabled",
                             FALSE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2522,7 +2530,7 @@ adw_leaflet_get_snap_points (AdwSwipeable *swipeable,
   } else {
     AdwLeafletPage *page = NULL;
 
-    if (can_swipe_in_direction (self, self->child_transition.swipe_direction) && self->folded)
+    if (can_navigate_in_direction (self, self->child_transition.swipe_direction) && self->folded)
       page = find_swipeable_page (self, self->child_transition.swipe_direction);
 
     lower = MIN (0, page ? self->child_transition.swipe_direction : 0);
@@ -3316,91 +3324,91 @@ adw_leaflet_get_child_transition_running (AdwLeaflet *self)
 }
 
 /**
- * adw_leaflet_set_can_swipe_back: (attributes org.gtk.Method.set_property=can-swipe-back)
+ * adw_leaflet_set_can_navigate_back: (attributes org.gtk.Method.set_property=can-navigate-back)
  * @self: a `AdwLeaflet`
- * @can_swipe_back: the new value
+ * @can_navigate_back: the new value
  *
- * Sets whether a swipe gesture can be used to navigate to the previous child.
+ * Sets whether gestures and shortcuts for navigating backward are enabled.
  *
  * Since: 1.0
  */
 void
-adw_leaflet_set_can_swipe_back (AdwLeaflet *self,
-                                gboolean    can_swipe_back)
+adw_leaflet_set_can_navigate_back (AdwLeaflet *self,
+                                   gboolean    can_navigate_back)
 {
   g_return_if_fail (ADW_IS_LEAFLET (self));
 
-  can_swipe_back = !!can_swipe_back;
+  can_navigate_back = !!can_navigate_back;
 
-  if (self->child_transition.can_swipe_back == can_swipe_back)
+  if (self->child_transition.can_navigate_back == can_navigate_back)
     return;
 
-  self->child_transition.can_swipe_back = can_swipe_back;
-  adw_swipe_tracker_set_enabled (self->tracker, can_swipe_back || self->child_transition.can_swipe_forward);
+  self->child_transition.can_navigate_back = can_navigate_back;
+  adw_swipe_tracker_set_enabled (self->tracker, can_navigate_back || self->child_transition.can_navigate_forward);
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_SWIPE_BACK]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_NAVIGATE_BACK]);
 }
 
 /**
- * adw_leaflet_get_can_swipe_back: (attributes org.gtk.Method.get_property=can-swipe-back)
+ * adw_leaflet_get_can_navigate_back: (attributes org.gtk.Method.get_property=can-navigate-back)
  * @self: a `AdwLeaflet`
  *
- * Gets whether a swipe gesture can be used to navigate to the previous child.
+ * Gets whether gestures and shortcuts for navigating backward are enabled.
  *
- * Returns: whether back swipe is enabled.
+ * Returns: Whether gestures and shortcuts are enabled.
  *
  * Since: 1.0
  */
 gboolean
-adw_leaflet_get_can_swipe_back (AdwLeaflet *self)
+adw_leaflet_get_can_navigate_back (AdwLeaflet *self)
 {
   g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
 
-  return self->child_transition.can_swipe_back;
+  return self->child_transition.can_navigate_back;
 }
 
 /**
- * adw_leaflet_set_can_swipe_forward: (attributes org.gtk.Method.set_property=can-swipe-forward)
+ * adw_leaflet_set_can_navigate_forward: (attributes org.gtk.Method.set_property=can-navigate-forward)
  * @self: a `AdwLeaflet`
- * @can_swipe_forward: the new value
+ * @can_navigate_forward: the new value
  *
- * Sets whether a swipe gesture can be used to navigate to the next child.
+ * Sets whether gestures and shortcuts for navigating forward are enabled.
  *
  * Since: 1.0
  */
 void
-adw_leaflet_set_can_swipe_forward (AdwLeaflet *self,
-                                   gboolean    can_swipe_forward)
+adw_leaflet_set_can_navigate_forward (AdwLeaflet *self,
+                                      gboolean    can_navigate_forward)
 {
   g_return_if_fail (ADW_IS_LEAFLET (self));
 
-  can_swipe_forward = !!can_swipe_forward;
+  can_navigate_forward = !!can_navigate_forward;
 
-  if (self->child_transition.can_swipe_forward == can_swipe_forward)
+  if (self->child_transition.can_navigate_forward == can_navigate_forward)
     return;
 
-  self->child_transition.can_swipe_forward = can_swipe_forward;
-  adw_swipe_tracker_set_enabled (self->tracker, self->child_transition.can_swipe_back || can_swipe_forward);
+  self->child_transition.can_navigate_forward = can_navigate_forward;
+  adw_swipe_tracker_set_enabled (self->tracker, self->child_transition.can_navigate_back || can_navigate_forward);
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_SWIPE_FORWARD]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_NAVIGATE_FORWARD]);
 }
 
 /**
- * adw_leaflet_get_can_swipe_forward: (attributes org.gtk.Method.get_property=can-swipe-forward)
+ * adw_leaflet_get_can_navigate_forward: (attributes org.gtk.Method.get_property=can-navigate-forward)
  * @self: a `AdwLeaflet`
  *
- * Gets whether a swipe gesture can be used to navigate to the next child.
+ * Gets whether gestures and shortcuts for navigating forward are enabled.
  *
- * Returns: Whether forward swipe is enabled.
+ * Returns: Whether gestures and shortcuts are enabled.
  *
  * Since: 1.0
  */
 gboolean
-adw_leaflet_get_can_swipe_forward (AdwLeaflet *self)
+adw_leaflet_get_can_navigate_forward (AdwLeaflet *self)
 {
   g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
 
-  return self->child_transition.can_swipe_forward;
+  return self->child_transition.can_navigate_forward;
 }
 
 /**

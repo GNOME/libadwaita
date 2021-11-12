@@ -1184,7 +1184,7 @@ The "raised" style class can be used to make a button inside a toolbar use defau
     <property name="default-height">480</property>
     <property name="content">
       <object class="AdwLeaflet" id="sidebar_leaflet">
-        <property name="can-swipe-back">True</property>
+        <property name="can-navigate-back">True</property>
         <child>
           <object class="GtkBox">
             <property name="orientation">vertical</property>

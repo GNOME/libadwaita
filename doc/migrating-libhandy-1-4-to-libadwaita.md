@@ -259,6 +259,10 @@ page objects, similarly to [class@Gtk.Stack]. For example,
 [method@Adw.SqueezerPage.set_enabled] should be used to replace
 `hdy_squeezer_set_child_enabled()`.
 
+The `can-swipe-back` and `can-swipe-forward` properties have been renamed to
+[property@AdwLeaflet:can-navigate-back] and
+[property@AdwLeaflet:can-navigate-forward], along with their accessors.
+
 The `hhomogeneous-folded`, `vhomogeneous-folded`, `hhomogeneous-unfolded`,
 and `vhomogeneous-unfolded` properties have been replaced by a single
 [property@Adw.Leaflet:homogeneous] property, set to `TRUE` by default,

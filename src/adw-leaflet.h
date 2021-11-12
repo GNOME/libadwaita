@@ -120,16 +120,16 @@ ADW_AVAILABLE_IN_ALL
 gboolean adw_leaflet_get_child_transition_running (AdwLeaflet *self);
 
 ADW_AVAILABLE_IN_ALL
-gboolean adw_leaflet_get_can_swipe_back (AdwLeaflet *self);
+gboolean adw_leaflet_get_can_navigate_back (AdwLeaflet *self);
 ADW_AVAILABLE_IN_ALL
-void     adw_leaflet_set_can_swipe_back (AdwLeaflet *self,
-                                         gboolean    can_swipe_back);
+void     adw_leaflet_set_can_navigate_back (AdwLeaflet *self,
+                                            gboolean    can_navigate_back);
 
 ADW_AVAILABLE_IN_ALL
-gboolean adw_leaflet_get_can_swipe_forward (AdwLeaflet *self);
+gboolean adw_leaflet_get_can_navigate_forward (AdwLeaflet *self);
 ADW_AVAILABLE_IN_ALL
-void     adw_leaflet_set_can_swipe_forward (AdwLeaflet *self,
-                                            gboolean    can_swipe_forward);
+void     adw_leaflet_set_can_navigate_forward (AdwLeaflet *self,
+                                               gboolean    can_navigate_forward);
 
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_leaflet_get_adjacent_child (AdwLeaflet             *self,

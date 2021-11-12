@@ -281,3 +281,9 @@ throughout the window without the need to set shortcut widget.
 If some of these shortcuts conflict with another widget, the latter has
 priority, and it should work automatically if the widget correctly stops event
 propagation.
+
+### Adapt to [class@Adw.Leaflet] API changes
+
+The `can-swipe-back` and `can-swipe-forward` properties have been renamed to
+[property@AdwLeaflet:can-navigate-back] and
+[property@AdwLeaflet:can-navigate-forward], along with their accessors.

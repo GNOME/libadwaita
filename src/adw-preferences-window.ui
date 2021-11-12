@@ -15,7 +15,7 @@
       <object class="AdwToastOverlay" id="toast_overlay">
         <child>
           <object class="AdwLeaflet" id="subpages_leaflet">
-            <property name="can-swipe-back" bind-source="AdwPreferencesWindow" bind-property="can-swipe-back" bind-flags="sync-create"/>
+            <property name="can-navigate-back" bind-source="AdwPreferencesWindow" bind-property="can-swipe-back" bind-flags="sync-create"/>
             <property name="can-unfold">False</property>
             <property name="width-request">360</property>
             <signal name="notify::child-transition-running" handler="subpages_leaflet_child_transition_running_cb" swapped="yes"/>
