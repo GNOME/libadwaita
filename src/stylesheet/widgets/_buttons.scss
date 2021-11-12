@@ -129,6 +129,7 @@ button {
 
     @if $contrast == 'high' {
       box-shadow: 0 0 0 1px currentColor;
+      > * {transform: none;}
     }
 
     &:hover {
@@ -535,6 +536,7 @@ splitbutton {
     border-bottom-left-radius: 0;
     margin-left: -1px;
   }
+
   @at-root %flat_split_button,
   &.flat {
     > separator {
@@ -552,6 +554,7 @@ splitbutton {
 
       @if $contrast == 'high' {
         box-shadow: inset 0 0 0 1px $thin_border_color;
+        > * {transform: none;}
       }
     }
 
@@ -571,7 +574,7 @@ splitbutton {
         > * {transform: translateY(1px);}
       }
     }
-    
+
     // Reimplementing linked so we don't blow up css
     > button:dir(ltr),
     > menubutton > button:dir(rtl) {
