@@ -27,6 +27,7 @@ button {
 
       @if $contrast == 'high' {
         box-shadow: inset 0 0 0 1px $border_color;
+        > * {transform: none;}
       }
 
       &:hover {
@@ -397,6 +398,7 @@ button.outline {
 
     &:hover, &:active, &:checked {
       box-shadow: none;
+      > * {transform: none;}
     }
   }
 
