@@ -1061,9 +1061,6 @@ The "raised" style class can be used to make a button inside a toolbar use defau
                             <property name="action-name">style.app-notification</property>
                             <property name="action-target">true</property>
                             <property name="valign">center</property>
-                            <style>
-                              <class name="outline"/>
-                            </style>
                           </object>
                         </child>
                       </object>
