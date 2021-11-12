@@ -52,7 +52,7 @@ typedef struct
   AdwViewSwitcherTitle *view_switcher_title;
 
   gboolean search_enabled;
-  gboolean can_swipe_back;
+  gboolean can_navigate_back;
 
   GtkFilter *filter;
   GtkFilterListModel *filter_model;
@@ -74,7 +74,7 @@ enum {
   PROP_VISIBLE_PAGE,
   PROP_VISIBLE_PAGE_NAME,
   PROP_SEARCH_ENABLED,
-  PROP_CAN_SWIPE_BACK,
+  PROP_CAN_NAVIGATE_BACK,
   LAST_PROP,
 };
 
@@ -423,8 +423,8 @@ adw_preferences_window_get_property (GObject    *object,
   case PROP_SEARCH_ENABLED:
     g_value_set_boolean (value, adw_preferences_window_get_search_enabled (self));
     break;
-  case PROP_CAN_SWIPE_BACK:
-    g_value_set_boolean (value, adw_preferences_window_get_can_swipe_back (self));
+  case PROP_CAN_NAVIGATE_BACK:
+    g_value_set_boolean (value, adw_preferences_window_get_can_navigate_back (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -449,8 +449,8 @@ adw_preferences_window_set_property (GObject      *object,
   case PROP_SEARCH_ENABLED:
     adw_preferences_window_set_search_enabled (self, g_value_get_boolean (value));
     break;
-  case PROP_CAN_SWIPE_BACK:
-    adw_preferences_window_set_can_swipe_back (self, g_value_get_boolean (value));
+  case PROP_CAN_NAVIGATE_BACK:
+    adw_preferences_window_set_can_navigate_back (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -493,7 +493,7 @@ close_cb (GtkWidget *widget,
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
 
   if (priv->subpage) {
-    if (!adw_preferences_window_get_can_swipe_back (self))
+    if (!adw_preferences_window_get_can_navigate_back (self))
       return GDK_EVENT_PROPAGATE;
 
     adw_preferences_window_close_subpage (self);
@@ -561,16 +561,20 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesWindow:can-swipe-back: (attributes org.gtk.Property.get=adw_preferences_window_get_can_swipe_back org.gtk.Property.set=adw_preferences_window_set_can_swipe_back)
+   * AdwPreferencesWindow:can-navigate-back: (attributes org.gtk.Property.get=adw_preferences_window_get_can_navigate_back org.gtk.Property.set=adw_preferences_window_set_can_navigate_back)
    *
-   * Whether or not the window allows closing subpages via a swipe gesture.
+   * Whether gestures and shortcuts for closing subpages are enabled.
+   *
+   * The supported gestures are:
+   * - One-finger swipe on touchscreens
+   * - Horizontal scrolling on touchpads (usually two-finger swipe)
    *
    * Since: 1.0
    */
-  props[PROP_CAN_SWIPE_BACK] =
-      g_param_spec_boolean ("can-swipe-back",
-                            "Can swipe back",
-                            "Whether or not the window allows closing subpages via a swipe gesture",
+  props[PROP_CAN_NAVIGATE_BACK] =
+      g_param_spec_boolean ("can-navigate-back",
+                            "Can navigate back",
+                            "Whether gestures and shortcuts for closing subpages are enabled",
                             FALSE,
                             G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -736,17 +740,17 @@ adw_preferences_window_set_search_enabled (AdwPreferencesWindow *self,
 }
 
 /**
- * adw_preferences_window_set_can_swipe_back: (attributes org.gtk.Method.set_property=can-swipe-back)
+ * adw_preferences_window_set_can_navigate_back: (attributes org.gtk.Method.set_property=can-navigate-back)
  * @self: a `AdwPreferencesWindow`
- * @can_swipe_back: the new value
+ * @can_navigate_back: the new value
  *
- * Sets whether or not @self allows closing subpages via a swipe gesture.
+ * Sets whether gestures and shortcuts for closing subpages are enabled.
  *
  * Since: 1.0
  */
 void
-adw_preferences_window_set_can_swipe_back (AdwPreferencesWindow *self,
-                                           gboolean              can_swipe_back)
+adw_preferences_window_set_can_navigate_back (AdwPreferencesWindow *self,
+                                              gboolean              can_navigate_back)
 {
   AdwPreferencesWindowPrivate *priv;
 
@@ -754,28 +758,28 @@ adw_preferences_window_set_can_swipe_back (AdwPreferencesWindow *self,
 
   priv = adw_preferences_window_get_instance_private (self);
 
-  can_swipe_back = !!can_swipe_back;
+  can_navigate_back = !!can_navigate_back;
 
-  if (priv->can_swipe_back == can_swipe_back)
+  if (priv->can_navigate_back == can_navigate_back)
     return;
 
-  priv->can_swipe_back = can_swipe_back;
+  priv->can_navigate_back = can_navigate_back;
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_SWIPE_BACK]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_NAVIGATE_BACK]);
 }
 
 /**
- * adw_preferences_window_get_can_swipe_back: (attributes org.gtk.Method.get_property=can-swipe-back)
+ * adw_preferences_window_get_can_navigate_back: (attributes org.gtk.Method.get_property=can-navigate-back)
  * @self: a `AdwPreferencesWindow`
  *
- * Gets whether or not @self allows closing subpages via a swipe gesture.
+ * Gets whether gestures and shortcuts for closing subpages are enabled.
  *
- * Returns: whether back swipe is enabled.
+ * Returns: whether gestures and shortcuts are enabled.
  *
  * Since: 1.0
  */
 gboolean
-adw_preferences_window_get_can_swipe_back (AdwPreferencesWindow *self)
+adw_preferences_window_get_can_navigate_back (AdwPreferencesWindow *self)
 {
   AdwPreferencesWindowPrivate *priv;
 
@@ -783,7 +787,7 @@ adw_preferences_window_get_can_swipe_back (AdwPreferencesWindow *self)
 
   priv = adw_preferences_window_get_instance_private (self);
 
-  return priv->can_swipe_back;
+  return priv->can_navigate_back;
 }
 
 /**

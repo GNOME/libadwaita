@@ -344,6 +344,11 @@ If some of these shortcuts conflict with another widget, the latter has
 priority, and it should work automatically if the widget correctly stops event
 propagation.
 
+### Adapt to [class@Adw.PreferencesWindow] API changes
+
+The `can-swipe-back` property have been renamed to
+[property@AdwPreferencesWindow:can-navigate-back], along with its accessors.
+
 ### Adapt to Stylesheet Changes
 
 Most widgets don't have a backdrop state anymore, and the following public

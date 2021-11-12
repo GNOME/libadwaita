@@ -46,10 +46,10 @@ void     adw_preferences_window_set_search_enabled (AdwPreferencesWindow *self,
                                                     gboolean              search_enabled);
 
 ADW_AVAILABLE_IN_ALL
-gboolean adw_preferences_window_get_can_swipe_back (AdwPreferencesWindow *self);
+gboolean adw_preferences_window_get_can_navigate_back (AdwPreferencesWindow *self);
 ADW_AVAILABLE_IN_ALL
-void     adw_preferences_window_set_can_swipe_back (AdwPreferencesWindow *self,
-                                                    gboolean              can_swipe_back);
+void     adw_preferences_window_set_can_navigate_back (AdwPreferencesWindow *self,
+                                                       gboolean              can_navigate_back);
 
 ADW_AVAILABLE_IN_ALL
 void adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
