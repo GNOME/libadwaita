@@ -1010,7 +1010,7 @@ adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
  *
  * Displays @toast.
  *
- * See [method@Adw.ToastOverlay:add_toast].
+ * See [method@Adw.ToastOverlay.add_toast].
  *
  * Since: 1.0
  */
