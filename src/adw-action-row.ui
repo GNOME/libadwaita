@@ -38,7 +38,6 @@
             <property name="halign">start</property>
             <property name="orientation">vertical</property>
             <property name="valign">center</property>
-            <property name="hexpand">True</property>
             <style>
               <class name="title"/>
             </style>
@@ -86,9 +85,14 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox" id="suffixes">
+          <object class="AdwGizmo" id="suffixes_bin">
             <property name="visible">False</property>
-            <property name="spacing">12</property>
+            <property name="hexpand">True</property>
+            <child>
+              <object class="GtkBox" id="suffixes">
+                <property name="spacing">12</property>
+              </object>
+            </child>
           </object>
         </child>
       </object>
