@@ -50,23 +50,32 @@ libadwaita_public_headers = []
 libadwaita_public_sources = []
 libadwaita_private_sources = []
 
-adw_public_enums = gnome.mkenums('adw-enums',
-      h_template: 'adw-enums.h.in',
-      c_template: 'adw-enums.c.in',
+adw_public_enums = gnome.mkenums_simple('adw-enums',
          sources: adw_public_enum_headers,
+     body_prefix: '#include "config.h"',
+   header_prefix: '#if !defined(_ADWAITA_INSIDE) && !defined(ADWAITA_COMPILATION)\n' +
+                  '#error "Only <adwaita.h> can be included directly."\n' +
+                  '#endif\n' +
+                  '\n' +
+                  '#include "adw-version.h"\n',
+       decorator: 'ADW_AVAILABLE_IN_ALL',
   install_header: true,
      install_dir: libadwaita_header_dir,
 )
 
-adw_private_enums = gnome.mkenums('adw-enums-private',
-      h_template: 'adw-enums-private.h.in',
-      c_template: 'adw-enums-private.c.in',
+adw_private_enums = gnome.mkenums_simple('adw-enums-private',
          sources: adw_private_enum_headers,
+     body_prefix: '#include "config.h"',
+   header_prefix: '#if !defined(_ADWAITA_INSIDE) && !defined(ADWAITA_COMPILATION)\n' +
+                  '#error "Only <adwaita.h> can be included directly."\n' +
+                  '#endif\n' +
+                  '\n' +
+                  '#include "adw-enums.h"\n',
   install_header: false,
 )
 
 libadwaita_public_sources += [adw_public_enums[0]]
-libadwaita_private_sources += [adw_private_enums[0]]
+libadwaita_private_sources += adw_private_enums
 libadwaita_generated_headers += [adw_public_enums[1]]
 
 src_headers = [
