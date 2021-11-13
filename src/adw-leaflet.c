@@ -1739,6 +1739,37 @@ leaflet_remove (AdwLeaflet *self,
     gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
+static gboolean
+back_forward_shortcut_cb (AdwLeaflet *self,
+                          GVariant   *args)
+{
+  AdwNavigationDirection direction;
+
+  g_variant_get (args, "h", &direction);
+
+  direction = adjust_direction_for_rtl (self, direction);
+
+  return can_navigate_in_direction (self, direction) &&
+         adw_leaflet_navigate (self, direction);
+}
+
+static gboolean
+alt_arrows_shortcut_cb (AdwLeaflet *self,
+                        GVariant   *args)
+{
+  AdwNavigationDirection direction;
+  GtkOrientation orientation;
+  g_variant_get (args, "(hh)", &direction, &orientation);
+
+  if (self->orientation != orientation)
+    return GDK_EVENT_PROPAGATE;
+
+  direction = adjust_direction_for_rtl (self, direction);
+
+  return can_navigate_in_direction (self, direction) &&
+         adw_leaflet_navigate (self, direction);
+}
+
 static void
 adw_leaflet_measure (GtkWidget      *widget,
                      GtkOrientation  orientation,
@@ -2226,20 +2257,6 @@ adw_leaflet_finalize (GObject *object)
   G_OBJECT_CLASS (adw_leaflet_parent_class)->finalize (object);
 }
 
-static gboolean
-back_forward_shortcut_cb (AdwLeaflet *self,
-                          GVariant   *args)
-{
-  AdwNavigationDirection direction;
-
-  g_variant_get (args, "h", &direction);
-
-  direction = adjust_direction_for_rtl (self, direction);
-
-  return can_navigate_in_direction (self, direction) &&
-         adw_leaflet_navigate (self, direction);
-}
-
 static void
 adw_leaflet_class_init (AdwLeafletClass *klass)
 {
@@ -2424,9 +2441,11 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * - Back/forward mouse buttons
    *
    * The keyboard back/forward keys are also supported, as well as the Alt+←
-   * and Alt+→ shortcuts.
+   * shortcut for horizontal orientation, or Alt+↑ for vertical
+   * orientation.
    *
-   * For right-to-left locales, gestures and shortcuts are reversed.
+   * If the orientation is horizontal, for right-to-left locales, gestures and
+   * shortcuts are reversed.
    *
    * Only children that have [property@Adw.LeafletPage:navigatable] set to
    * `TRUE` can be navigated to.
@@ -2450,10 +2469,12 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * - Horizontal scrolling on touchpads (usually two-finger swipe)
    * - Back/forward mouse buttons
    *
-   * The keyboard back/forward keys are also supported, as well as the Alt+←
-   * and Alt+→ shortcuts.
+   * The keyboard back/forward keys are also supported, as well as the Alt+→
+   * shortcut for horizontal orientation, or Alt+↓ for vertical
+   * orientation.
    *
-   * For right-to-left locales, gestures and shortcuts are reversed.
+   * If the orientation is horizontal, for right-to-left locales, gestures and
+   * shortcuts are reversed.
    *
    * Only children that have [property@Adw.LeafletPage:navigatable] set to
    * `TRUE` can be navigated to.
@@ -2511,12 +2532,23 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                                 "h", ADW_NAVIGATION_DIRECTION_FORWARD);
 
   gtk_widget_class_add_binding (widget_class, GDK_KEY_Left, GDK_ALT_MASK,
-                                (GtkShortcutFunc) back_forward_shortcut_cb,
-                                "h", ADW_NAVIGATION_DIRECTION_BACK);
+                                (GtkShortcutFunc) alt_arrows_shortcut_cb,
+                                "(hh)", ADW_NAVIGATION_DIRECTION_BACK,
+                                GTK_ORIENTATION_HORIZONTAL);
   gtk_widget_class_add_binding (widget_class,  GDK_KEY_Right, GDK_ALT_MASK,
-                                (GtkShortcutFunc) back_forward_shortcut_cb,
-                                "h", ADW_NAVIGATION_DIRECTION_FORWARD);}
+                                (GtkShortcutFunc) alt_arrows_shortcut_cb,
+                                "(hh)", ADW_NAVIGATION_DIRECTION_FORWARD,
+                                GTK_ORIENTATION_HORIZONTAL);
 
+  gtk_widget_class_add_binding (widget_class, GDK_KEY_Up, GDK_ALT_MASK,
+                                (GtkShortcutFunc) alt_arrows_shortcut_cb,
+                                "(hh)", ADW_NAVIGATION_DIRECTION_BACK,
+                                GTK_ORIENTATION_VERTICAL);
+  gtk_widget_class_add_binding (widget_class,  GDK_KEY_Down, GDK_ALT_MASK,
+                                (GtkShortcutFunc) alt_arrows_shortcut_cb,
+                                "(hh)", ADW_NAVIGATION_DIRECTION_FORWARD,
+                                GTK_ORIENTATION_VERTICAL);
+}
 
 static void
 adw_leaflet_init (AdwLeaflet *self)
