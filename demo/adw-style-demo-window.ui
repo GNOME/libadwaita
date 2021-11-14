@@ -1028,9 +1028,6 @@ The "raised" style class can be used to make a button inside a toolbar use defau
                           <object class="GtkSwitch" id="devel_switch">
                             <property name="action-name">style.devel</property>
                             <property name="valign">center</property>
-                            <style>
-                              <class name="outline"/>
-                            </style>
                           </object>
                         </child>
                       </object>
@@ -1044,9 +1041,6 @@ The "raised" style class can be used to make a button inside a toolbar use defau
                           <object class="GtkSwitch" id="progress_switch">
                             <property name="action-name">style.progress</property>
                             <property name="valign">center</property>
-                            <style>
-                              <class name="outline"/>
-                            </style>
                           </object>
                         </child>
                       </object>
