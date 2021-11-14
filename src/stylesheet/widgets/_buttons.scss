@@ -1,9 +1,9 @@
 $button_color: gtkalpha(currentColor, .1);
 $button_hover_color: gtkalpha(currentColor, .15);
-$button_active_color: gtkalpha(currentColor, .25);
-$button_checked_color: gtkalpha(currentColor, .2);
-$button_checked_hover_color: gtkalpha(currentColor, .25);
-$button_checked_active_color: gtkalpha(currentColor, .35);
+$button_active_color: gtkalpha(currentColor, .3);
+$button_checked_color: gtkalpha(currentColor, .3);
+$button_checked_hover_color: gtkalpha(currentColor, .35);
+$button_checked_active_color: gtkalpha(currentColor, .4);
 
 $opaque_button_default_bg: gtkmix($window_bg_color, $window_fg_color, 85%);
 
