@@ -47,7 +47,7 @@ popover.menu {
     }
   }
 
-  &.background > contents {
+  > contents {
     padding: 0;
 
     &, > scrolledwindow > viewport {
@@ -57,11 +57,11 @@ popover.menu {
     }
   }
 
-  &.background separator {
+  separator {
     margin: 6px 0;
   }
 
-  &.background list separator {
+  list separator {
     margin: 0;
   }
 
@@ -227,7 +227,7 @@ menubar {
       padding: 0 0 4px 0;
     }
 
-    popover.menu.background popover.menu.background > contents {
+    popover.menu popover.menu > contents {
       margin: 0;
       border-radius: $popover_radius; //including top
     }
