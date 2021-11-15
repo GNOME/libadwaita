@@ -57,6 +57,102 @@ enum {
 static guint signals[SIGNAL_LAST_SIGNAL];
 
 static void
+set_value (AdwAnimation *self,
+           double        value)
+{
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+
+  priv->value = value;
+  adw_animation_target_set_value (priv->target, value);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE]);
+}
+
+static void
+done (AdwAnimation *self)
+{
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+
+  if (priv->status == ADW_ANIMATION_STATUS_COMPLETED)
+    return;
+
+  priv->status = ADW_ANIMATION_STATUS_COMPLETED;
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATUS]);
+
+  g_signal_emit (self, signals[SIGNAL_DONE], 0);
+}
+
+static gboolean
+tick_cb (GtkWidget     *widget,
+         GdkFrameClock *frame_clock,
+         AdwAnimation  *self)
+{
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+
+  gint64 frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000; /* ms */
+  double t = (double) (frame_time - priv->start_time) / priv->duration;
+  double value;
+
+  if (t >= 1) {
+    priv->tick_cb_id = 0;
+
+    set_value (self, priv->value_to);
+
+    if (priv->unmap_cb_id) {
+      g_signal_handler_disconnect (priv->widget, priv->unmap_cb_id);
+      priv->unmap_cb_id = 0;
+    }
+
+    done (self);
+
+    return G_SOURCE_REMOVE;
+  }
+
+  switch (priv->interpolator) {
+    case ADW_ANIMATION_INTERPOLATOR_EASE_IN:
+      value = adw_ease_in_cubic (t);
+      break;
+    case ADW_ANIMATION_INTERPOLATOR_EASE_OUT:
+      value = adw_ease_out_cubic (t);
+      break;
+    case ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT:
+      value = adw_ease_in_out_cubic (t);
+      break;
+    default:
+      g_assert_not_reached ();
+  }
+
+  set_value (self, adw_lerp (priv->value_from, priv->value_to, value));
+
+  return G_SOURCE_CONTINUE;
+}
+
+static void
+adw_animation_constructed (GObject *object)
+{
+  AdwAnimation *self = ADW_ANIMATION (object);
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+
+  G_OBJECT_CLASS (adw_animation_parent_class)->constructed (object);
+
+  priv->value = priv->value_from;
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE]);
+}
+
+static void
+adw_animation_dispose (GObject *object)
+{
+  AdwAnimation *self = ADW_ANIMATION (object);
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+
+  adw_animation_stop (self);
+
+  g_clear_object (&priv->target);
+  g_clear_object (&priv->widget);
+
+  G_OBJECT_CLASS (adw_animation_parent_class)->dispose (object);
+}
+
+static void
 adw_animation_get_property (GObject    *object,
                             guint       prop_id,
                             GValue     *value,
@@ -143,43 +239,6 @@ adw_animation_set_property (GObject      *object,
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
-}
-
-static void
-set_value (AdwAnimation *self,
-           double        value)
-{
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
-
-  priv->value = value;
-  adw_animation_target_set_value (priv->target, value);
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE]);
-}
-
-static void
-adw_animation_constructed (GObject *object)
-{
-  AdwAnimation *self = ADW_ANIMATION (object);
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
-
-  priv->value = priv->value_from;
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE]);
-
-  G_OBJECT_CLASS (adw_animation_parent_class)->constructed (object);
-}
-
-static void
-adw_animation_dispose (GObject *object)
-{
-  AdwAnimation *self = ADW_ANIMATION (object);
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
-
-  adw_animation_stop (self);
-
-  g_clear_object (&priv->target);
-  g_clear_object (&priv->widget);
-
-  G_OBJECT_CLASS (adw_animation_parent_class)->dispose (object);
 }
 
 static void
@@ -275,65 +334,6 @@ adw_animation_init (AdwAnimation *self)
 {
 }
 
-static void
-done (AdwAnimation *self)
-{
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
-
-  if (priv->status == ADW_ANIMATION_STATUS_COMPLETED)
-    return;
-
-  priv->status = ADW_ANIMATION_STATUS_COMPLETED;
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATUS]);
-
-  g_signal_emit (self, signals[SIGNAL_DONE], 0);
-}
-
-static gboolean
-tick_cb (GtkWidget     *widget,
-         GdkFrameClock *frame_clock,
-         AdwAnimation  *self)
-{
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
-
-  gint64 frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000; /* ms */
-  double t = (double) (frame_time - priv->start_time) / priv->duration;
-  double value;
-
-  if (t >= 1) {
-    priv->tick_cb_id = 0;
-
-    set_value (self, priv->value_to);
-
-    if (priv->unmap_cb_id) {
-      g_signal_handler_disconnect (priv->widget, priv->unmap_cb_id);
-      priv->unmap_cb_id = 0;
-    }
-
-    done (self);
-
-    return G_SOURCE_REMOVE;
-  }
-
-  switch (priv->interpolator) {
-    case ADW_ANIMATION_INTERPOLATOR_EASE_IN:
-      value = adw_ease_in_cubic (t);
-      break;
-    case ADW_ANIMATION_INTERPOLATOR_EASE_OUT:
-      value = adw_ease_out_cubic (t);
-      break;
-    case ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT:
-      value = adw_ease_in_out_cubic (t);
-      break;
-    default:
-      g_assert_not_reached ();
-  }
-
-  set_value (self, adw_lerp (priv->value_from, priv->value_to, value));
-
-  return G_SOURCE_CONTINUE;
-}
-
 AdwAnimation *
 adw_animation_new (GtkWidget          *widget,
                    double              from,
@@ -357,6 +357,73 @@ adw_animation_new (GtkWidget          *widget,
   g_object_unref (target);
 
   return animation;
+}
+
+GtkWidget *
+adw_animation_get_widget (AdwAnimation *self)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ANIMATION (self), NULL);
+
+  priv = adw_animation_get_instance_private (self);
+
+  return priv->widget;
+}
+
+AdwAnimationTarget *
+adw_animation_get_target (AdwAnimation *self)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ANIMATION (self), NULL);
+
+  priv = adw_animation_get_instance_private (self);
+
+  return priv->target;
+}
+
+double
+adw_animation_get_value (AdwAnimation *self)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ANIMATION (self), 0.0);
+
+  priv = adw_animation_get_instance_private (self);
+
+  return priv->value;
+}
+
+AdwAnimationStatus
+adw_animation_get_status (AdwAnimation *self)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ANIMATION (self), ADW_ANIMATION_STATUS_NONE);
+
+  priv = adw_animation_get_instance_private (self);
+
+  return priv->status;
+}
+
+void
+adw_animation_set_status (AdwAnimation       *self,
+                          AdwAnimationStatus  status)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ANIMATION (self));
+  g_return_if_fail (status <= ADW_ANIMATION_STATUS_CANCELED);
+
+  priv = adw_animation_get_instance_private (self);
+
+  if (priv->status == status)
+    return;
+
+  priv->status = status;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATUS]);
 }
 
 void
@@ -409,30 +476,6 @@ adw_animation_stop (AdwAnimation *self)
   }
 
   done (self);
-}
-
-double
-adw_animation_get_value (AdwAnimation *self)
-{
-  AdwAnimationPrivate *priv;
-
-  g_return_val_if_fail (ADW_IS_ANIMATION (self), 0.0);
-
-  priv = adw_animation_get_instance_private (self);
-
-  return priv->value;
-}
-
-GtkWidget *
-adw_animation_get_widget (AdwAnimation *self)
-{
-  AdwAnimationPrivate *priv;
-
-  g_return_val_if_fail (ADW_IS_ANIMATION (self), NULL);
-
-  priv = adw_animation_get_instance_private (self);
-
-  return priv->widget;
 }
 
 double
@@ -554,47 +597,4 @@ adw_animation_set_interpolator (AdwAnimation             *self,
   priv->interpolator = interpolator;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INTERPOLATOR]);
-}
-
-AdwAnimationTarget *
-adw_animation_get_target (AdwAnimation *self)
-{
-  AdwAnimationPrivate *priv;
-
-  g_return_val_if_fail (ADW_IS_ANIMATION (self), NULL);
-
-  priv = adw_animation_get_instance_private (self);
-
-  return priv->target;
-}
-
-AdwAnimationStatus
-adw_animation_get_status (AdwAnimation *self)
-{
-  AdwAnimationPrivate *priv;
-
-  g_return_val_if_fail (ADW_IS_ANIMATION (self), ADW_ANIMATION_STATUS_NONE);
-
-  priv = adw_animation_get_instance_private (self);
-
-  return priv->status;
-}
-
-void
-adw_animation_set_status (AdwAnimation       *self,
-                          AdwAnimationStatus  status)
-{
-  AdwAnimationPrivate *priv;
-
-  g_return_if_fail (ADW_IS_ANIMATION (self));
-  g_return_if_fail (status <= ADW_ANIMATION_STATUS_CANCELED);
-
-  priv = adw_animation_get_instance_private (self);
-
-  if (priv->status == status)
-    return;
-
-  priv->status = status;
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATUS]);
 }

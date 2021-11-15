@@ -59,11 +59,18 @@ AdwAnimation *adw_animation_new (GtkWidget          *widget,
                                  gint64              duration,
                                  AdwAnimationTarget *target) G_GNUC_WARN_UNUSED_RESULT;
 
+GtkWidget *adw_animation_get_widget (AdwAnimation *self);
+
+AdwAnimationTarget *adw_animation_get_target (AdwAnimation *self);
+
+double adw_animation_get_value (AdwAnimation *self);
+
+AdwAnimationStatus adw_animation_get_status (AdwAnimation       *self);
+void               adw_animation_set_status (AdwAnimation       *self,
+                                             AdwAnimationStatus  status);
+
 void adw_animation_start (AdwAnimation *self);
 void adw_animation_stop  (AdwAnimation *self);
-
-GtkWidget *adw_animation_get_widget (AdwAnimation *self);
-double     adw_animation_get_value  (AdwAnimation *self);
 
 double adw_animation_get_value_from (AdwAnimation *self);
 void   adw_animation_set_value_from (AdwAnimation *self,
@@ -80,11 +87,5 @@ void   adw_animation_set_duration (AdwAnimation *self,
 AdwAnimationInterpolator adw_animation_get_interpolator (AdwAnimation             *self);
 void                     adw_animation_set_interpolator (AdwAnimation             *self,
                                                          AdwAnimationInterpolator  interpolator);
-
-AdwAnimationTarget *adw_animation_get_target (AdwAnimation *self);
-
-AdwAnimationStatus adw_animation_get_status (AdwAnimation       *self);
-void               adw_animation_set_status (AdwAnimation       *self,
-                                             AdwAnimationStatus  status);
 
 G_END_DECLS
