@@ -366,9 +366,6 @@ colors have been removed:
 * `@unfocused_insensitive_color`
 * `@unfocused_borders`
 
-The `.list-button` style class has been renamed to the more accurate name
-`.outline`.
-
 The public colors `@theme_selected_bg_color` and `@theme_selected_fg_color` have
 been renamed to `@accent_bg_color` and `@accent_fg_color`.
 
@@ -390,6 +387,11 @@ the item selection style. The border can be replicated by manually adding a
 The `.combo` popover style class has been removed. Use `.menu` instead. You may
 need to remove manually added margins, padding or minimum height from the list
 items inside while doing it.
+
+### Adapt to the `button.outline` style removal
+
+The `.list-button` style class has been removed with no replacement. The regular
+button style should be used instead.
 
 #### Adapt to Header Bar, Action Bar, Search Bar and Toolbar Style Changes
 

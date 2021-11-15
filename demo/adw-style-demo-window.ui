@@ -88,7 +88,7 @@
                 <child>
                   <object class="AdwPreferencesGroup">
                     <property name="title" translatable="yes">Buttons</property>
-                    <property name="description" translatable="yes">The "flat", "outline", "suggested-action" and "destructive" style classes action can be used together with "pill" or "circular".
+                    <property name="description" translatable="yes">The "flat", "suggested-action" and "destructive" style classes action can be used together with "pill" or "circular".
 
 The "opaque" style class allows to create buttons with custom colors that look similar to "suggested-action".</property>
                     <child>
@@ -112,15 +112,6 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                 <child>
                                   <object class="GtkButton">
                                     <property name="label" translatable="yes">Regular</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkButton">
-                                    <property name="label" translatable="yes">Outline</property>
-                                    <property name="tooltip-text">outline</property>
-                                    <style>
-                                      <class name="outline"/>
-                                    </style>
                                   </object>
                                 </child>
                                 <child>

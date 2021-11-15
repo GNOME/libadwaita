@@ -295,3 +295,10 @@ The `can-swipe-back` property have been renamed to
 [property@AdwPreferencesWindow:can-navigate-back], along with its accessors.
 The new properties also handle keyboard and mouse shortcuts in addition to
 swipes.
+
+### Adapt to Stylesheet Changes
+
+### Adapt to the `button.outline` style removal
+
+The `.outline` style class has been removed with no replacement. The regular
+button style should be used instead.

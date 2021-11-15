@@ -81,7 +81,7 @@
 
   // Reset styles for popovers
   popover {
-    button:not(.flat):not(.outline):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+    button:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
       &.arrow-button,
       &.image-button,
       &.image-text-button {
@@ -89,7 +89,7 @@
       }
     }
 
-    menubutton:not(.flat):not(.outline):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+    menubutton:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
       &.image-button > button {
         @extend %button_basic_raised;
       }
