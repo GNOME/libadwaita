@@ -95,9 +95,10 @@ windowcontrols {
 
   > button {
     min-width: 24px;
-    padding: 5px;
+    padding: 4px;
     margin: 0;
     box-shadow: none;
+    border-color: transparent;
 
     > image {
       background-color: $button_color;
@@ -111,6 +112,7 @@ windowcontrols {
 
     &, &:hover, &:active {
       background: none;
+      border-color: transparent;
     }
 
     &:hover > image { background-color: $button_hover_color; }
