@@ -169,6 +169,7 @@ static void
 hide_current_toast (AdwToastOverlay *self)
 {
   ToastInfo *info = self->current_toast;
+  AdwAnimationTarget *target;
 
   self->hiding_toasts = g_list_append (self->hiding_toasts, info);
   self->current_toast = NULL;
@@ -176,9 +177,11 @@ hide_current_toast (AdwToastOverlay *self)
   gtk_widget_set_can_target (GTK_WIDGET (info->widget), FALSE);
   gtk_widget_set_can_focus (GTK_WIDGET (info->widget), FALSE);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              hide_value_cb,
+                                              info, NULL);
   info->hide_animation =
-    adw_animation_new (GTK_WIDGET (self), 1, 0, HIDE_DURATION,
-                       (AdwAnimationTargetFunc) hide_value_cb, info);
+    adw_animation_new (GTK_WIDGET (self), 1, 0, HIDE_DURATION, target);
 
   g_signal_connect_swapped (info->hide_animation, "done",
                             G_CALLBACK (hide_done_cb), info);
@@ -221,6 +224,8 @@ static void
 show_toast (AdwToastOverlay *self,
             ToastInfo       *info)
 {
+  AdwAnimationTarget *target;
+
   g_assert (!info->widget);
 
   self->current_toast = info;
@@ -228,10 +233,13 @@ show_toast (AdwToastOverlay *self,
   info->widget = adw_toast_widget_new (info->toast);
   gtk_widget_insert_before (info->widget, GTK_WIDGET (self), NULL);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              show_value_cb,
+                                              info, NULL);
   info->show_animation =
     adw_animation_new (GTK_WIDGET (self), 0, 1,
                        self->hiding_toasts ? REPLACE_DURATION : SHOW_DURATION,
-                       (AdwAnimationTargetFunc) show_value_cb, info);
+                       target);
 
   g_signal_connect_swapped (info->show_animation, "done",
                             G_CALLBACK (show_done_cb), info);

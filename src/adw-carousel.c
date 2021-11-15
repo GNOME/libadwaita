@@ -318,6 +318,7 @@ animate_child_resize (AdwCarousel *self,
                       double       value,
                       gint64       duration)
 {
+  AdwAnimationTarget *target;
   double old_size = child->size;
 
   update_shift_position_flag (self, child);
@@ -325,10 +326,11 @@ animate_child_resize (AdwCarousel *self,
   if (child->resize_animation)
     adw_animation_stop (child->resize_animation);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              resize_animation_value_cb,
+                                              child, NULL);
   child->resize_animation =
-    adw_animation_new (GTK_WIDGET (self), old_size, value, duration,
-                       (AdwAnimationTargetFunc) resize_animation_value_cb,
-                       child);
+    adw_animation_new (GTK_WIDGET (self), old_size, value, duration, target);
 
   g_signal_connect_swapped (child->resize_animation, "done", G_CALLBACK (resize_animation_done_cb), child);
 
@@ -377,6 +379,8 @@ scroll_to (AdwCarousel *self,
            GtkWidget   *widget,
            gint64       duration)
 {
+  AdwAnimationTarget *target;
+
   if (self->animation)
     adw_animation_stop (self->animation);
 
@@ -387,10 +391,11 @@ scroll_to (AdwCarousel *self,
 
   self->animation_source_position = self->position;
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              scroll_animation_value_cb,
+                                              self, NULL);
   self->animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1, duration,
-                       (AdwAnimationTargetFunc) scroll_animation_value_cb,
-                       self);
+    adw_animation_new (GTK_WIDGET (self), 0, 1, duration, target);
 
   g_signal_connect_swapped (self->animation, "done", G_CALLBACK (scroll_animation_done_cb), self);
 

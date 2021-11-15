@@ -81,13 +81,16 @@ static void
 animate (AdwCarouselIndicatorLines *self,
          gint64                     duration)
 {
+  AdwAnimationTarget *target;
+
   if (self->animation)
     adw_animation_stop (self->animation);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              value_cb,
+                                              self, NULL);
   self->animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1, duration,
-                       (AdwAnimationTargetFunc) value_cb,
-                       self);
+    adw_animation_new (GTK_WIDGET (self), 0, 1, duration, target);
 
   g_signal_connect_swapped (self->animation, "done", G_CALLBACK (done_cb), self);
 

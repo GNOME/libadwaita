@@ -400,10 +400,9 @@ is_touchscreen (GtkGesture *gesture)
 /* Tab resize delay */
 
 static void
-resize_animation_value_cb (double   value,
-                           gpointer user_data)
+resize_animation_value_cb (double     value,
+                           AdwTabBox *self)
 {
-  AdwTabBox *self = ADW_TAB_BOX (user_data);
   double target_end_padding = 0;
 
   if (!self->expand_tabs) {
@@ -427,10 +426,8 @@ resize_animation_value_cb (double   value,
 }
 
 static void
-resize_animation_done_cb (gpointer user_data)
+resize_animation_done_cb (AdwTabBox *self)
 {
-  AdwTabBox *self = ADW_TAB_BOX (user_data);
-
   self->end_padding = 0;
   gtk_widget_queue_resize (GTK_WIDGET (self));
 
@@ -441,6 +438,7 @@ static void
 set_tab_resize_mode (AdwTabBox     *self,
                      TabResizeMode  mode)
 {
+  AdwAnimationTarget *target;
   gboolean notify;
 
   if (self->tab_resize_mode == mode)
@@ -466,11 +464,12 @@ set_tab_resize_mode (AdwTabBox     *self,
   if (mode == TAB_RESIZE_NORMAL) {
     self->initial_end_padding = self->end_padding;
 
+    target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                                resize_animation_value_cb,
+                                                self, NULL);
     self->resize_animation =
       adw_animation_new (GTK_WIDGET (self), 0, 1,
-                         RESIZE_ANIMATION_DURATION,
-                         resize_animation_value_cb,
-                         self);
+                         RESIZE_ANIMATION_DURATION, target);
 
     g_signal_connect_swapped (self->resize_animation, "done", G_CALLBACK (resize_animation_done_cb), self);
 
@@ -772,17 +771,15 @@ adjustment_value_changed_cb (AdwTabBox *self)
 }
 
 static void
-scroll_animation_value_cb (double   value,
-                           gpointer user_data)
+scroll_animation_value_cb (double     value,
+                           GtkWidget *widget)
 {
-  gtk_widget_queue_resize (GTK_WIDGET (user_data));
+  gtk_widget_queue_resize (widget);
 }
 
 static void
-scroll_animation_done_cb (gpointer user_data)
+scroll_animation_done_cb (AdwTabBox *self)
 {
-  AdwTabBox *self = ADW_TAB_BOX (user_data);
-
   self->scroll_animation_done = TRUE;
   gtk_widget_queue_resize (GTK_WIDGET (self));
 }
@@ -793,6 +790,8 @@ animate_scroll (AdwTabBox *self,
                 double     offset,
                 gint64     duration)
 {
+  AdwAnimationTarget *target;
+
   if (!self->adjustment)
     return;
 
@@ -812,10 +811,11 @@ animate_scroll (AdwTabBox *self,
    * well after one last update, so that we don't miss the last frame.
    */
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              scroll_animation_value_cb,
+                                              self, NULL);
   self->scroll_animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1, duration,
-                       scroll_animation_value_cb,
-                       self);
+    adw_animation_new (GTK_WIDGET (self), 0, 1, duration, target);
 
   g_signal_connect_swapped (self->scroll_animation, "done", G_CALLBACK (scroll_animation_done_cb), self);
 
@@ -1007,9 +1007,8 @@ get_reorder_position (AdwTabBox *self)
 
 static void
 reorder_animation_value_cb (double   value,
-                            gpointer user_data)
+                            TabInfo *dest_tab)
 {
-  TabInfo *dest_tab = user_data;
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (dest_tab->tab));
   AdwTabBox *self = ADW_TAB_BOX (parent);
   gboolean is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
@@ -1027,9 +1026,8 @@ reorder_animation_value_cb (double   value,
 }
 
 static void
-reorder_animation_done_cb (gpointer user_data)
+reorder_animation_done_cb (TabInfo *dest_tab)
 {
-  TabInfo *dest_tab = user_data;
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (dest_tab->tab));
   AdwTabBox *self = ADW_TAB_BOX (parent);
 
@@ -1041,14 +1039,17 @@ static void
 animate_reordering (AdwTabBox *self,
                     TabInfo   *dest_tab)
 {
+  AdwAnimationTarget *target;
+
   if (self->reorder_animation)
     adw_animation_stop (self->reorder_animation);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              reorder_animation_value_cb,
+                                              dest_tab, NULL);
   self->reorder_animation =
     adw_animation_new (GTK_WIDGET (self), 0, 1,
-                       REORDER_ANIMATION_DURATION,
-                       reorder_animation_value_cb,
-                       dest_tab);
+                       REORDER_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (self->reorder_animation, "done", G_CALLBACK (reorder_animation_done_cb), dest_tab);
 
@@ -1059,9 +1060,8 @@ animate_reordering (AdwTabBox *self,
 
 static void
 reorder_offset_animation_value_cb (double   value,
-                                   gpointer user_data)
+                                   TabInfo *info)
 {
-  TabInfo *info = user_data;
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
 
   info->reorder_offset = value;
@@ -1069,9 +1069,8 @@ reorder_offset_animation_value_cb (double   value,
 }
 
 static void
-reorder_offset_animation_done_cb (gpointer user_data)
+reorder_offset_animation_done_cb (TabInfo *info)
 {
-  TabInfo *info = user_data;
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
   AdwTabBox *self = ADW_TAB_BOX (parent);
 
@@ -1085,6 +1084,7 @@ animate_reorder_offset (AdwTabBox *self,
                         double     offset)
 {
   gboolean is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
+  AdwAnimationTarget *target;
 
   offset *= (is_rtl ? -1 : 1);
 
@@ -1096,11 +1096,12 @@ animate_reorder_offset (AdwTabBox *self,
   if (info->reorder_animation)
     adw_animation_stop (info->reorder_animation);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              reorder_offset_animation_value_cb,
+                                              info, NULL);
   info->reorder_animation =
     adw_animation_new (GTK_WIDGET (self), info->reorder_offset, offset,
-                       REORDER_ANIMATION_DURATION,
-                       reorder_offset_animation_value_cb,
-                       info);
+                       REORDER_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->reorder_animation, "done", G_CALLBACK (reorder_offset_animation_done_cb), info);
 
@@ -1607,10 +1608,8 @@ extra_drag_drop_cb (AdwTab    *tab,
 
 static void
 appear_animation_value_cb (double   value,
-                           gpointer user_data)
+                           TabInfo *info)
 {
-  TabInfo *info = user_data;
-
   info->appear_progress = value;
 
   if (GTK_IS_WIDGET (info->tab))
@@ -1618,10 +1617,8 @@ appear_animation_value_cb (double   value,
 }
 
 static void
-open_animation_done_cb (gpointer user_data)
+open_animation_done_cb (TabInfo *info)
 {
-  TabInfo *info = user_data;
-
   g_clear_object (&info->appear_animation);
 }
 
@@ -1656,6 +1653,7 @@ page_attached_cb (AdwTabBox  *self,
                   AdwTabPage *page,
                   int         position)
 {
+  AdwAnimationTarget *target;
   TabInfo *info;
   GList *l;
 
@@ -1677,11 +1675,12 @@ page_attached_cb (AdwTabBox  *self,
                              self,
                              G_CONNECT_SWAPPED);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              appear_animation_value_cb,
+                                              info, NULL);
   info->appear_animation =
     adw_animation_new (GTK_WIDGET (self), 0, 1,
-                       OPEN_ANIMATION_DURATION,
-                       appear_animation_value_cb,
-                       info);
+                       OPEN_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (open_animation_done_cb), info);
 
@@ -1701,9 +1700,8 @@ page_attached_cb (AdwTabBox  *self,
 /* Closing */
 
 static void
-close_animation_done_cb (gpointer user_data)
+close_animation_done_cb (TabInfo *info)
 {
-  TabInfo *info = user_data;
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
   AdwTabBox *self = ADW_TAB_BOX (parent);
 
@@ -1732,6 +1730,7 @@ static void
 page_detached_cb (AdwTabBox  *self,
                   AdwTabPage *page)
 {
+  AdwAnimationTarget *target;
   TabInfo *info;
   GList *page_link;
 
@@ -1784,11 +1783,12 @@ page_detached_cb (AdwTabBox  *self,
   if (info->appear_animation)
     adw_animation_stop (info->appear_animation);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              appear_animation_value_cb,
+                                              info, NULL);
   info->appear_animation =
     adw_animation_new (GTK_WIDGET (self), info->appear_progress, 0,
-                       CLOSE_ANIMATION_DURATION,
-                       appear_animation_value_cb,
-                       info);
+                       CLOSE_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (close_animation_done_cb), info);
 
@@ -1917,9 +1917,8 @@ calculate_placeholder_index (AdwTabBox *self,
 
 static void
 insert_animation_value_cb (double   value,
-                           gpointer user_data)
+                           TabInfo *info)
 {
-  TabInfo *info = user_data;
   AdwTabBox *self = ADW_TAB_BOX (gtk_widget_get_parent (GTK_WIDGET (info->tab)));
 
   appear_animation_value_cb (value, info);
@@ -1934,6 +1933,7 @@ insert_placeholder (AdwTabBox  *self,
 {
   TabInfo *info = self->reorder_placeholder;
   double initial_progress = 0;
+  AdwAnimationTarget *target;
 
   if (info) {
     initial_progress = info->appear_progress;
@@ -1977,11 +1977,12 @@ insert_placeholder (AdwTabBox  *self,
     animate_scroll_relative (self, self->placeholder_scroll_offset, OPEN_ANIMATION_DURATION);
   }
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              insert_animation_value_cb,
+                                              info, NULL);
   info->appear_animation =
     adw_animation_new (GTK_WIDGET (self), initial_progress, 1,
-                       OPEN_ANIMATION_DURATION,
-                       insert_animation_value_cb,
-                       info);
+                       OPEN_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (open_animation_done_cb), info);
 
@@ -1989,9 +1990,8 @@ insert_placeholder (AdwTabBox  *self,
 }
 
 static void
-replace_animation_done_cb (gpointer user_data)
+replace_animation_done_cb (TabInfo *info)
 {
-  TabInfo *info = user_data;
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
   AdwTabBox *self = ADW_TAB_BOX (parent);
 
@@ -2006,6 +2006,7 @@ replace_placeholder (AdwTabBox  *self,
 {
   TabInfo *info = self->reorder_placeholder;
   double initial_progress;
+  AdwAnimationTarget *target;
 
   self->placeholder_scroll_offset = 0;
   gtk_widget_set_opacity (GTK_WIDGET (self->reorder_placeholder->tab), 1);
@@ -2026,11 +2027,12 @@ replace_placeholder (AdwTabBox  *self,
 
   adw_animation_stop (info->appear_animation);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              appear_animation_value_cb,
+                                              info, NULL);
   info->appear_animation =
     adw_animation_new (GTK_WIDGET (self), initial_progress, 1,
-                       OPEN_ANIMATION_DURATION,
-                       appear_animation_value_cb,
-                       info);
+                       OPEN_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (replace_animation_done_cb), info);
 
@@ -2038,9 +2040,8 @@ replace_placeholder (AdwTabBox  *self,
 }
 
 static void
-remove_animation_done_cb (gpointer user_data)
+remove_animation_done_cb (TabInfo *info)
 {
-  TabInfo *info = user_data;
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
   AdwTabBox *self = ADW_TAB_BOX (parent);
 
@@ -2087,6 +2088,7 @@ static void
 remove_placeholder (AdwTabBox *self)
 {
   TabInfo *info = self->reorder_placeholder;
+  AdwAnimationTarget *target;
 
   if (!info || !info->page)
     return;
@@ -2099,11 +2101,12 @@ remove_placeholder (AdwTabBox *self)
 
   g_idle_add ((GSourceFunc) remove_placeholder_scroll_cb, self);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              appear_animation_value_cb,
+                                              info, NULL);
   info->appear_animation =
     adw_animation_new (GTK_WIDGET (self), info->appear_progress, 0,
-                       CLOSE_ANIMATION_DURATION,
-                       appear_animation_value_cb,
-                       info);
+                       CLOSE_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (remove_animation_done_cb), info);
 
@@ -2276,10 +2279,9 @@ create_drag_icon (AdwTabBox *self,
 }
 
 static void
-icon_resize_animation_value_cb (double   value,
-                                gpointer user_data)
+icon_resize_animation_value_cb (double    value,
+                                DragIcon *icon)
 {
-  DragIcon *icon = user_data;
   double relative_pos;
 
   relative_pos = (double) icon->hotspot_x / icon->width;
@@ -2301,10 +2303,8 @@ icon_resize_animation_value_cb (double   value,
 }
 
 static void
-icon_resize_animation_done_cb (gpointer user_data)
+icon_resize_animation_done_cb (DragIcon *icon)
 {
-  DragIcon *icon = user_data;
-
   g_clear_object (&icon->resize_animation);
 }
 
@@ -2313,6 +2313,7 @@ resize_drag_icon (AdwTabBox *self,
                   int        width)
 {
   DragIcon *icon = self->drag_icon;
+  AdwAnimationTarget *target;
 
   if (width == icon->target_width)
     return;
@@ -2322,11 +2323,12 @@ resize_drag_icon (AdwTabBox *self,
 
   icon->target_width = width;
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              icon_resize_animation_value_cb,
+                                              icon, NULL);
   icon->resize_animation =
     adw_animation_new (GTK_WIDGET (icon->tab), icon->width, width,
-                       ICON_RESIZE_ANIMATION_DURATION,
-                       icon_resize_animation_value_cb,
-                       icon);
+                       ICON_RESIZE_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (icon->resize_animation, "done", G_CALLBACK (icon_resize_animation_done_cb), icon);
 

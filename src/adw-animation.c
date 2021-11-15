@@ -335,29 +335,29 @@ tick_cb (GtkWidget     *widget,
 }
 
 AdwAnimation *
-adw_animation_new (GtkWidget                 *widget,
-                   double                     from,
-                   double                     to,
-                   gint64                     duration,
-                   AdwAnimationTargetFunc     target_func,
-                   gpointer                   user_data)
+adw_animation_new (GtkWidget          *widget,
+                   double              from,
+                   double              to,
+                   gint64              duration,
+                   AdwAnimationTarget *target)
 {
-  AdwAnimationTarget *target;
+  AdwAnimation *animation;
 
   g_return_val_if_fail (GTK_IS_WIDGET (widget), NULL);
-  g_return_val_if_fail (target_func != NULL, NULL);
+  g_return_val_if_fail (ADW_IS_ANIMATION_TARGET (target), NULL);
 
-  target = adw_callback_animation_target_new (target_func, user_data, NULL);
+  animation = g_object_new (ADW_TYPE_ANIMATION,
+                            "widget", widget,
+                            "value-from", from,
+                            "value-to", to,
+                            "duration", duration,
+                            "target", target,
+                            NULL);
 
-  return g_object_new (ADW_TYPE_ANIMATION,
-                       "widget", widget,
-                       "value-from", from,
-                       "value-to", to,
-                       "duration", duration,
-                       "target", target,
-                       NULL);
+  g_object_unref (target);
+
+  return animation;
 }
-
 
 void
 adw_animation_start (AdwAnimation *self)

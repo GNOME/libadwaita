@@ -109,6 +109,7 @@ update_state (AdwTab *self)
 {
   GtkStateFlags new_state;
   gboolean show_close;
+  AdwAnimationTarget *target;
 
   new_state = gtk_widget_get_state_flags (GTK_WIDGET (self)) &
     ~GTK_STATE_FLAG_CHECKED;
@@ -128,13 +129,15 @@ update_state (AdwTab *self)
 
     self->show_close = show_close;
 
+    target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                                close_btn_animation_value_cb,
+                                                self, NULL);
     self->close_btn_animation =
       adw_animation_new (GTK_WIDGET (self),
                          opacity,
                          self->show_close ? 1 : 0,
                          CLOSE_BTN_ANIMATION_DURATION,
-                         (AdwAnimationTargetFunc) close_btn_animation_value_cb,
-                         self);
+                         target);
 
     adw_animation_set_interpolator (self->close_btn_animation,
                                     ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT);

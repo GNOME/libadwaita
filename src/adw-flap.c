@@ -294,17 +294,21 @@ fold_animation_done_cb (AdwFlap *self)
 static void
 animate_fold (AdwFlap *self)
 {
+  AdwAnimationTarget *target;
+
   if (self->fold_animation)
     adw_animation_stop (self->fold_animation);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              fold_animation_value_cb,
+                                              self, NULL);
   self->fold_animation =
     adw_animation_new (GTK_WIDGET (self),
                        self->fold_progress,
                        self->folded ? 1 : 0,
                        /* When the flap is completely hidden, we can skip animation */
                        (self->reveal_progress > 0) ? self->fold_duration : 0,
-                       (AdwAnimationTargetFunc) fold_animation_value_cb,
-                       self);
+                       target);
 
   g_signal_connect_swapped (self->fold_animation, "done", G_CALLBACK (fold_animation_done_cb), self);
 
@@ -337,15 +341,17 @@ animate_reveal (AdwFlap *self,
                 double   to,
                 gint64   duration)
 {
+  AdwAnimationTarget *target;
+
   if (self->reveal_animation)
     adw_animation_stop (self->reveal_animation);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              reveal_animation_value_cb,
+                                              self, NULL);
   self->reveal_animation =
-    adw_animation_new (GTK_WIDGET (self),
-                       self->reveal_progress,
-                       to, duration,
-                       (AdwAnimationTargetFunc) reveal_animation_value_cb,
-                       self);
+    adw_animation_new (GTK_WIDGET (self), self->reveal_progress,
+                       to, duration, target);
 
   g_signal_connect_swapped (self->reveal_animation, "done", G_CALLBACK (reveal_animation_done_cb), self);
 

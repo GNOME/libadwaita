@@ -53,12 +53,11 @@ struct _AdwAnimationClass
   gpointer padding[4];
 };
 
-AdwAnimation *adw_animation_new (GtkWidget              *widget,
-                                 double                  from,
-                                 double                  to,
-                                 gint64                  duration,
-                                 AdwAnimationTargetFunc  value_cb,
-                                 gpointer                user_data) G_GNUC_WARN_UNUSED_RESULT;
+AdwAnimation *adw_animation_new (GtkWidget          *widget,
+                                 double              from,
+                                 double              to,
+                                 gint64              duration,
+                                 AdwAnimationTarget *target) G_GNUC_WARN_UNUSED_RESULT;
 
 void adw_animation_start (AdwAnimation *self);
 void adw_animation_stop  (AdwAnimation *self);
