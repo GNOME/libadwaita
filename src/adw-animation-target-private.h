@@ -12,21 +12,27 @@
 
 #include "adw-version.h"
 
-#include <glib-object.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
+
+#define ADW_TYPE_ANIMATION_TARGET (adw_animation_target_get_type())
+
+GDK_DECLARE_INTERNAL_TYPE (AdwAnimationTarget, adw_animation_target, ADW, ANIMATION_TARGET, GObject)
+
+void adw_animation_target_set_value (AdwAnimationTarget *self,
+                                     double              value);
+
+
 
 typedef void (*AdwAnimationTargetFunc) (double   value,
                                         gpointer user_data);
 
-#define ADW_TYPE_ANIMATION_TARGET (adw_animation_target_get_type())
+#define ADW_TYPE_CALLBACK_ANIMATION_TARGET (adw_callback_animation_target_get_type())
 
-G_DECLARE_FINAL_TYPE (AdwAnimationTarget, adw_animation_target, ADW, ANIMATION_TARGET, GObject)
+GDK_DECLARE_INTERNAL_TYPE (AdwCallbackAnimationTarget, adw_callback_animation_target, ADW, CALLBACK_ANIMATION_TARGET, AdwAnimationTarget)
 
-AdwAnimationTarget *adw_animation_target_new (AdwAnimationTargetFunc callback,
-                                              gpointer               user_data);
-
-void adw_animation_target_set_value (AdwAnimationTarget *self,
-                                     double              value);
+AdwAnimationTarget *adw_callback_animation_target_new (AdwAnimationTargetFunc callback,
+                                                       gpointer               user_data);
 
 G_END_DECLS

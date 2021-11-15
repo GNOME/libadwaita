@@ -347,7 +347,7 @@ adw_animation_new (GtkWidget                 *widget,
   g_return_val_if_fail (GTK_IS_WIDGET (widget), NULL);
   g_return_val_if_fail (target_func != NULL, NULL);
 
-  target = adw_animation_target_new (target_func, user_data);
+  target = adw_callback_animation_target_new (target_func, user_data);
 
   return g_object_new (ADW_TYPE_ANIMATION,
                        "widget", widget,
