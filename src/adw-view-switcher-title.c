@@ -88,6 +88,8 @@ struct _AdwViewSwitcherTitle
   AdwViewSwitcher *narrow_view_switcher;
 
   gboolean view_switcher_enabled;
+  gboolean is_window_narrow;
+
   GtkSelectionModel *pages;
 };
 
@@ -104,7 +106,7 @@ update_view_switcher_visible (AdwViewSwitcherTitle *self)
   if (!self->squeezer)
     return;
 
-  if (self->view_switcher_enabled && self->pages) {
+  if (!self->is_window_narrow && self->view_switcher_enabled && self->pages) {
     guint i, n;
 
     n = g_list_model_get_n_items (G_LIST_MODEL (self->pages));
@@ -187,8 +189,9 @@ adw_view_switcher_title_set_property (GObject      *object,
 }
 
 static void
-adw_view_switcher_title_dispose (GObject *object) {
-  AdwViewSwitcherTitle *self = (AdwViewSwitcherTitle *)object;
+adw_view_switcher_title_dispose (GObject *object)
+{
+  AdwViewSwitcherTitle *self = ADW_VIEW_SWITCHER_TITLE (object);
 
   if (self->pages)
     g_signal_handlers_disconnect_by_func (self->pages, G_CALLBACK (update_view_switcher_visible), self);
@@ -197,6 +200,52 @@ adw_view_switcher_title_dispose (GObject *object) {
     gtk_widget_unparent (GTK_WIDGET (self->squeezer));
 
   G_OBJECT_CLASS (adw_view_switcher_title_parent_class)->dispose (object);
+}
+
+static gboolean
+check_window_width (AdwViewSwitcherTitle *self)
+{
+  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
+  int width = gtk_widget_get_width (GTK_WIDGET (root));
+
+  self->is_window_narrow = width <= 360;
+  update_view_switcher_visible (self);
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+notify_surface_width_cb (AdwViewSwitcherTitle *self)
+{
+  g_idle_add (G_SOURCE_FUNC (check_window_width), self);
+}
+
+static void
+adw_view_switcher_title_realize (GtkWidget *widget)
+{
+  AdwViewSwitcherTitle *self = ADW_VIEW_SWITCHER_TITLE (widget);
+  GdkSurface *surface;
+
+  GTK_WIDGET_CLASS (adw_view_switcher_title_parent_class)->realize (widget);
+
+  surface = gtk_native_get_surface (gtk_widget_get_native (widget));
+
+  g_signal_connect_swapped (surface, "notify::width", G_CALLBACK (notify_surface_width_cb), self);
+
+  notify_surface_width_cb (self);
+}
+
+static void
+adw_view_switcher_title_unrealize (GtkWidget *widget)
+{
+  AdwViewSwitcherTitle *self = ADW_VIEW_SWITCHER_TITLE (widget);
+  GdkSurface *surface;
+
+  surface = gtk_native_get_surface (gtk_widget_get_native (widget));
+
+  g_signal_handlers_disconnect_by_func (surface, notify_surface_width_cb, self);
+
+  GTK_WIDGET_CLASS (adw_view_switcher_title_parent_class)->unrealize (widget);
 }
 
 static void
@@ -208,6 +257,9 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
   object_class->dispose = adw_view_switcher_title_dispose;
   object_class->get_property = adw_view_switcher_title_get_property;
   object_class->set_property = adw_view_switcher_title_set_property;
+
+  widget_class->realize = adw_view_switcher_title_realize;
+  widget_class->unrealize = adw_view_switcher_title_unrealize;
 
   /**
    * AdwViewSwitcherTitle:stack: (attributes org.gtk.Property.get=adw_view_switcher_title_get_stack org.gtk.Property.set=adw_view_switcher_title_set_stack)
