@@ -20,7 +20,7 @@
  * `AdwButtonContent` is a box-like widget with an icon and a label.
  *
  * It's intended to be used as a direct child of [class@Gtk.Button],
- * [class@Gtk.MenuButton] or [class@Adw.SplitButton], when they need to habe
+ * [class@Gtk.MenuButton] or [class@Adw.SplitButton], when they need to have
  * both an icon and a label, as follows:
  *
  * ```xml
