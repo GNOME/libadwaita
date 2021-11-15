@@ -11,23 +11,14 @@
 #error "Only <adwaita.h> can be included directly."
 #endif
 
-#include <gtk/gtk.h>
 #include "adw-version.h"
+
+#include <gtk/gtk.h>
+
 #include "adw-enums-private.h"
+#include "adw-animation-target-private.h"
 
 G_BEGIN_DECLS
-typedef void   (*AdwAnimationTargetFunc) (double   value,
-                                          gpointer user_data);
-
-#define ADW_TYPE_ANIMATION_TARGET (adw_animation_target_get_type())
-
-G_DECLARE_FINAL_TYPE (AdwAnimationTarget, adw_animation_target, ADW, ANIMATION_TARGET, GObject)
-
-AdwAnimationTarget *adw_animation_target_new (AdwAnimationTargetFunc callback,
-                                              gpointer               data);
-
-void adw_animation_target_set_value (AdwAnimationTarget *target,
-                                     double              value);
 
 #define ADW_TYPE_ANIMATION (adw_animation_get_type())
 

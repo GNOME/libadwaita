@@ -138,6 +138,7 @@ src_sources = [
   'gtkprogresstracker.c',
   'adw-action-row.c',
   'adw-animation.c',
+  'adw-animation-target.c',
   'adw-animation-util.c',
   'adw-application.c',
   'adw-application-window.c',
