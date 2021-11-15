@@ -35,6 +35,17 @@
       ]
     },
     {
+      "name": "pango",
+      "buildsystem": "meson",
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://gitlab.gnome.org/GNOME/pango.git",
+          "commit" : "0c80c6d0b80cce4443e9a18fad2b4bccabaf4325"
+        }
+      ]
+    },
+    {
       "name": "gtk",
       "buildsystem": "meson",
       "sources": [
