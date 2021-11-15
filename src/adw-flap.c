@@ -297,7 +297,7 @@ animate_fold (AdwFlap *self)
   AdwAnimationTarget *target;
 
   if (self->fold_animation)
-    adw_animation_stop (self->fold_animation);
+    adw_animation_skip (self->fold_animation);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               fold_animation_value_cb,
@@ -312,7 +312,7 @@ animate_fold (AdwFlap *self)
 
   g_signal_connect_swapped (self->fold_animation, "done", G_CALLBACK (fold_animation_done_cb), self);
 
-  adw_animation_start (self->fold_animation);
+  adw_animation_play (self->fold_animation);
 }
 
 static void
@@ -337,7 +337,7 @@ animate_reveal (AdwFlap *self,
   AdwAnimationTarget *target;
 
   if (self->reveal_animation)
-    adw_animation_stop (self->reveal_animation);
+    adw_animation_skip (self->reveal_animation);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               set_reveal_progress,
@@ -348,7 +348,7 @@ animate_reveal (AdwFlap *self,
 
   g_signal_connect_swapped (self->reveal_animation, "done", G_CALLBACK (reveal_animation_done_cb), self);
 
-  adw_animation_start (self->reveal_animation);
+  adw_animation_play (self->reveal_animation);
 }
 
 static void
@@ -429,7 +429,7 @@ begin_swipe_cb (AdwSwipeTracker *tracker,
     return;
 
   if (self->reveal_animation)
-    adw_animation_stop (self->reveal_animation);
+    adw_animation_skip (self->reveal_animation);
 
   self->swipe_active = TRUE;
 }

@@ -77,7 +77,7 @@ animate (AdwCarouselIndicatorLines *self,
   AdwAnimationTarget *target;
 
   if (self->animation)
-    adw_animation_stop (self->animation);
+    adw_animation_skip (self->animation);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               gtk_widget_queue_draw,
@@ -87,7 +87,7 @@ animate (AdwCarouselIndicatorLines *self,
 
   g_signal_connect_swapped (self->animation, "done", G_CALLBACK (done_cb), self);
 
-  adw_animation_start (self->animation);
+  adw_animation_play (self->animation);
 }
 
 static GdkRGBA
@@ -406,7 +406,7 @@ adw_carousel_indicator_lines_set_carousel (AdwCarouselIndicatorLines *self,
     return;
 
   if (self->animation)
-    adw_animation_stop (self->animation);
+    adw_animation_skip (self->animation);
 
   if (self->carousel) {
     g_signal_handlers_disconnect_by_func (self->carousel, gtk_widget_queue_draw, self);

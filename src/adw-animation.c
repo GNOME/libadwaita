@@ -21,6 +21,7 @@ typedef struct
   gint64 duration; /* ms */
 
   gint64 start_time; /* ms */
+  gint64 paused_time;
   guint tick_cb_id;
   gulong unmap_cb_id;
 
@@ -86,6 +87,34 @@ set_widget (AdwAnimation *self,
                        self);
 }
 
+static double
+calculate_value (AdwAnimation *self,
+                 gint64        t)
+{
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+  double value;
+
+  if (priv->duration > 0) {
+    switch (priv->interpolator) {
+      case ADW_ANIMATION_INTERPOLATOR_EASE_IN:
+        value = adw_ease_in_cubic ((double) t / priv->duration);
+        break;
+      case ADW_ANIMATION_INTERPOLATOR_EASE_OUT:
+        value = adw_ease_out_cubic ((double) t / priv->duration);
+        break;
+      case ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT:
+        value = adw_ease_in_out_cubic ((double) t / priv->duration);
+        break;
+      default:
+        g_assert_not_reached ();
+    }
+  } else {
+    value = 1;
+  }
+
+  return adw_lerp (priv->value_from, priv->value_to, value);
+}
+
 static void
 set_value (AdwAnimation *self,
            double        value)
@@ -98,17 +127,19 @@ set_value (AdwAnimation *self,
 }
 
 static void
-done (AdwAnimation *self)
+stop_animation (AdwAnimation *self)
 {
   AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
 
-  if (priv->state == ADW_ANIMATION_COMPLETED)
-    return;
+  if (priv->tick_cb_id) {
+    gtk_widget_remove_tick_callback (priv->widget, priv->tick_cb_id);
+    priv->tick_cb_id = 0;
+  }
 
-  priv->state = ADW_ANIMATION_COMPLETED;
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATE]);
-
-  g_signal_emit (self, signals[SIGNAL_DONE], 0);
+  if (priv->unmap_cb_id) {
+    g_signal_handler_disconnect (priv->widget, priv->unmap_cb_id);
+    priv->unmap_cb_id = 0;
+  }
 }
 
 static gboolean
@@ -119,41 +150,53 @@ tick_cb (GtkWidget     *widget,
   AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
 
   gint64 frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000; /* ms */
-  double t = (double) (frame_time - priv->start_time) / priv->duration;
-  double value;
+  gint64 t = (gint64) (frame_time - priv->start_time);
 
-  if (t >= 1) {
-    priv->tick_cb_id = 0;
-
-    set_value (self, priv->value_to);
-
-    if (priv->unmap_cb_id) {
-      g_signal_handler_disconnect (priv->widget, priv->unmap_cb_id);
-      priv->unmap_cb_id = 0;
-    }
-
-    done (self);
+  if (t >= priv->duration && priv->duration != ADW_DURATION_INFINITE) {
+    adw_animation_skip (self);
 
     return G_SOURCE_REMOVE;
   }
 
-  switch (priv->interpolator) {
-    case ADW_ANIMATION_INTERPOLATOR_EASE_IN:
-      value = adw_ease_in_cubic (t);
-      break;
-    case ADW_ANIMATION_INTERPOLATOR_EASE_OUT:
-      value = adw_ease_out_cubic (t);
-      break;
-    case ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT:
-      value = adw_ease_in_out_cubic (t);
-      break;
-    default:
-      g_assert_not_reached ();
-  }
-
-  set_value (self, adw_lerp (priv->value_from, priv->value_to, value));
+  set_value (self, calculate_value (self, t));
 
   return G_SOURCE_CONTINUE;
+}
+
+static void
+play (AdwAnimation *self)
+{
+
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+
+  if (priv->state == ADW_ANIMATION_PLAYING) {
+    g_critical ("Trying to play animation %p, but it's already playing", self);
+
+    return;
+  }
+
+  priv->state = ADW_ANIMATION_PLAYING;
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATE]);
+
+  if (!adw_get_enable_animations (priv->widget) ||
+      !gtk_widget_get_mapped (priv->widget)) {
+    adw_animation_skip (g_object_ref (self));
+
+    return;
+  }
+
+  priv->start_time += gdk_frame_clock_get_frame_time (gtk_widget_get_frame_clock (priv->widget)) / 1000;
+  priv->start_time -= priv->paused_time;
+
+  if (priv->tick_cb_id)
+    return;
+
+  priv->unmap_cb_id =
+    g_signal_connect_swapped (priv->widget, "unmap",
+                              G_CALLBACK (adw_animation_skip), self);
+  priv->tick_cb_id = gtk_widget_add_tick_callback (priv->widget, (GtkTickCallback) tick_cb, self, NULL);
+
+  g_object_ref (self);
 }
 
 static void
@@ -174,7 +217,8 @@ adw_animation_dispose (GObject *object)
   AdwAnimation *self = ADW_ANIMATION (object);
   AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
 
-  adw_animation_stop (self);
+  if (priv->state == ADW_ANIMATION_PLAYING)
+    adw_animation_skip (self);
 
   g_clear_object (&priv->target);
 
@@ -341,7 +385,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
                        "State",
                        "State of the animation",
                        ADW_TYPE_ANIMATION_STATE,
-                       ADW_ANIMATION_NONE,
+                       ADW_ANIMATION_IDLE,
                        G_PARAM_READABLE);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -359,6 +403,9 @@ adw_animation_class_init (AdwAnimationClass *klass)
 static void
 adw_animation_init (AdwAnimation *self)
 {
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+
+  priv->state = ADW_ANIMATION_IDLE;
 }
 
 AdwAnimation *
@@ -427,7 +474,7 @@ adw_animation_get_state (AdwAnimation *self)
 {
   AdwAnimationPrivate *priv;
 
-  g_return_val_if_fail (ADW_IS_ANIMATION (self), ADW_ANIMATION_NONE);
+  g_return_val_if_fail (ADW_IS_ANIMATION (self), ADW_ANIMATION_IDLE);
 
   priv = adw_animation_get_instance_private (self);
 
@@ -435,7 +482,7 @@ adw_animation_get_state (AdwAnimation *self)
 }
 
 void
-adw_animation_start (AdwAnimation *self)
+adw_animation_play (AdwAnimation *self)
 {
   AdwAnimationPrivate *priv;
 
@@ -443,29 +490,17 @@ adw_animation_start (AdwAnimation *self)
 
   priv = adw_animation_get_instance_private (self);
 
-  if (!adw_get_enable_animations (priv->widget) ||
-      !gtk_widget_get_mapped (priv->widget) ||
-      priv->duration <= 0) {
-    set_value (self, priv->value_to);
-
-    done (self);
-
-    return;
+  if (priv->state != ADW_ANIMATION_IDLE) {
+    priv->state = ADW_ANIMATION_IDLE;
+    priv->start_time = 0;
+    priv->paused_time = 0;
   }
 
-  priv->start_time = gdk_frame_clock_get_frame_time (gtk_widget_get_frame_clock (priv->widget)) / 1000;
-
-  if (priv->tick_cb_id)
-    return;
-
-  priv->unmap_cb_id =
-    g_signal_connect_swapped (priv->widget, "unmap",
-                              G_CALLBACK (adw_animation_stop), self);
-  priv->tick_cb_id = gtk_widget_add_tick_callback (priv->widget, (GtkTickCallback) tick_cb, self, NULL);
+  play (self);
 }
 
 void
-adw_animation_stop (AdwAnimation *self)
+adw_animation_pause (AdwAnimation *self)
 {
   AdwAnimationPrivate *priv;
 
@@ -473,17 +508,106 @@ adw_animation_stop (AdwAnimation *self)
 
   priv = adw_animation_get_instance_private (self);
 
-  if (priv->tick_cb_id) {
-    gtk_widget_remove_tick_callback (priv->widget, priv->tick_cb_id);
-    priv->tick_cb_id = 0;
+  if (priv->state != ADW_ANIMATION_PLAYING)
+    return;
+
+  g_object_freeze_notify (G_OBJECT (self));
+
+  priv->state = ADW_ANIMATION_PAUSED;
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATE]);
+
+  stop_animation (self);
+
+  priv->paused_time = gdk_frame_clock_get_frame_time (gtk_widget_get_frame_clock (priv->widget)) / 1000;
+
+  g_object_thaw_notify (G_OBJECT (self));
+
+  g_object_unref (self);
+}
+
+void
+adw_animation_resume (AdwAnimation *self)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ANIMATION (self));
+
+  priv = adw_animation_get_instance_private (self);
+
+  if (priv->state != ADW_ANIMATION_PAUSED) {
+    g_critical ("Trying to resume animation %p, but it's not paused", self);
+
+    return;
   }
 
-  if (priv->unmap_cb_id) {
-    g_signal_handler_disconnect (priv->widget, priv->unmap_cb_id);
-    priv->unmap_cb_id = 0;
-  }
+  play (self);
+}
 
-  done (self);
+void
+adw_animation_skip (AdwAnimation *self)
+{
+  AdwAnimationPrivate *priv;
+  gboolean was_playing;
+
+  g_return_if_fail (ADW_IS_ANIMATION (self));
+
+  priv = adw_animation_get_instance_private (self);
+
+  if (priv->state == ADW_ANIMATION_FINISHED)
+    return;
+
+  g_object_freeze_notify (G_OBJECT (self));
+
+  was_playing = priv->state == ADW_ANIMATION_PLAYING;
+
+  priv->state = ADW_ANIMATION_FINISHED;
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATE]);
+
+  stop_animation (self);
+
+  set_value (self, calculate_value (self, priv->duration));
+
+  priv->start_time = 0;
+  priv->paused_time = 0;
+
+  g_object_thaw_notify (G_OBJECT (self));
+
+  g_signal_emit (self, signals[SIGNAL_DONE], 0);
+
+  if (was_playing)
+    g_object_unref (self);
+}
+
+void
+adw_animation_reset (AdwAnimation *self)
+{
+  AdwAnimationPrivate *priv;
+  gboolean was_playing;
+
+  g_return_if_fail (ADW_IS_ANIMATION (self));
+
+  priv = adw_animation_get_instance_private (self);
+
+  if (priv->state == ADW_ANIMATION_IDLE)
+    return;
+
+  g_object_freeze_notify (G_OBJECT (self));
+
+  was_playing = priv->state == ADW_ANIMATION_PLAYING;
+
+  priv->state = ADW_ANIMATION_IDLE;
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATE]);
+
+  stop_animation (self);
+
+  set_value (self, calculate_value (self, 0));
+  priv->start_time = 0;
+  priv->paused_time = 0;
+
+  g_object_thaw_notify (G_OBJECT (self));
+
+  if (was_playing)
+    g_object_unref (self);
 }
 
 double

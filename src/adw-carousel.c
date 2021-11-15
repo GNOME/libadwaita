@@ -324,7 +324,7 @@ animate_child_resize (AdwCarousel *self,
   update_shift_position_flag (self, child);
 
   if (child->resize_animation)
-    adw_animation_stop (child->resize_animation);
+    adw_animation_skip (child->resize_animation);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               resize_animation_value_cb,
@@ -334,7 +334,7 @@ animate_child_resize (AdwCarousel *self,
 
   g_signal_connect_swapped (child->resize_animation, "done", G_CALLBACK (resize_animation_done_cb), child);
 
-  adw_animation_start (child->resize_animation);
+  adw_animation_play (child->resize_animation);
 }
 
 static void
@@ -382,7 +382,7 @@ scroll_to (AdwCarousel *self,
   AdwAnimationTarget *target;
 
   if (self->animation)
-    adw_animation_stop (self->animation);
+    adw_animation_skip (self->animation);
 
   self->animation_target_child = find_child_info (self, widget);
 
@@ -399,7 +399,7 @@ scroll_to (AdwCarousel *self,
 
   g_signal_connect_swapped (self->animation, "done", G_CALLBACK (scroll_animation_done_cb), self);
 
-  adw_animation_start (self->animation);
+  adw_animation_play (self->animation);
 }
 
 static inline double
@@ -419,7 +419,7 @@ begin_swipe_cb (AdwSwipeTracker *tracker,
                 AdwCarousel     *self)
 {
   if (self->animation)
-    adw_animation_stop (self->animation);
+    adw_animation_skip (self->animation);
 }
 
 static void

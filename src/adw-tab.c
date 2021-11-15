@@ -125,7 +125,7 @@ update_state (AdwTab *self)
     double opacity = gtk_widget_get_opacity (self->close_btn);
 
     if (self->close_btn_animation)
-      adw_animation_stop (self->close_btn_animation);
+      adw_animation_skip (self->close_btn_animation);
 
     self->show_close = show_close;
 
@@ -144,7 +144,7 @@ update_state (AdwTab *self)
 
     g_signal_connect_swapped (self->close_btn_animation, "done", G_CALLBACK (close_btn_animation_done_cb), self);
 
-    adw_animation_start (self->close_btn_animation);
+    adw_animation_play (self->close_btn_animation);
   }
 }
 

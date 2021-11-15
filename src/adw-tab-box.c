@@ -473,7 +473,7 @@ set_tab_resize_mode (AdwTabBox     *self,
 
     g_signal_connect_swapped (self->resize_animation, "done", G_CALLBACK (resize_animation_done_cb), self);
 
-    adw_animation_start (self->resize_animation);
+    adw_animation_play (self->resize_animation);
   }
 
   notify = (self->tab_resize_mode == TAB_RESIZE_NORMAL) !=
@@ -765,7 +765,7 @@ adjustment_value_changed_cb (AdwTabBox *self)
       return;
 
   if (self->scroll_animation)
-    adw_animation_stop (self->scroll_animation);
+    adw_animation_skip (self->scroll_animation);
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 }
@@ -791,7 +791,7 @@ animate_scroll (AdwTabBox *self,
   g_signal_emit (self, signals[SIGNAL_STOP_KINETIC_SCROLLING], 0);
 
   if (self->scroll_animation)
-    adw_animation_stop (self->scroll_animation);
+    adw_animation_skip (self->scroll_animation);
 
   g_clear_object (&self->scroll_animation);
   self->scroll_animation_done = FALSE;
@@ -812,7 +812,7 @@ animate_scroll (AdwTabBox *self,
 
   g_signal_connect_swapped (self->scroll_animation, "done", G_CALLBACK (scroll_animation_done_cb), self);
 
-  adw_animation_start (self->scroll_animation);
+  adw_animation_play (self->scroll_animation);
 }
 
 static void
@@ -927,13 +927,13 @@ force_end_reordering (AdwTabBox *self)
     return;
 
   if (self->reorder_animation)
-    adw_animation_stop (self->reorder_animation);
+    adw_animation_skip (self->reorder_animation);
 
   for (l = self->tabs; l; l = l->next) {
     TabInfo *info = l->data;
 
     if (info->reorder_animation)
-      adw_animation_stop (info->reorder_animation);
+      adw_animation_skip (info->reorder_animation);
   }
 }
 
@@ -1035,7 +1035,7 @@ animate_reordering (AdwTabBox *self,
   AdwAnimationTarget *target;
 
   if (self->reorder_animation)
-    adw_animation_stop (self->reorder_animation);
+    adw_animation_skip (self->reorder_animation);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               reorder_animation_value_cb,
@@ -1046,7 +1046,7 @@ animate_reordering (AdwTabBox *self,
 
   g_signal_connect_swapped (self->reorder_animation, "done", G_CALLBACK (reorder_animation_done_cb), dest_tab);
 
-  adw_animation_start (self->reorder_animation);
+  adw_animation_play (self->reorder_animation);
 
   check_end_reordering (self);
 }
@@ -1087,7 +1087,7 @@ animate_reorder_offset (AdwTabBox *self,
   info->end_reorder_offset = offset;
 
   if (info->reorder_animation)
-    adw_animation_stop (info->reorder_animation);
+    adw_animation_skip (info->reorder_animation);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               reorder_offset_animation_value_cb,
@@ -1098,7 +1098,7 @@ animate_reorder_offset (AdwTabBox *self,
 
   g_signal_connect_swapped (info->reorder_animation, "done", G_CALLBACK (reorder_offset_animation_done_cb), info);
 
-  adw_animation_start (info->reorder_animation);
+  adw_animation_play (info->reorder_animation);
 }
 
 static void
@@ -1361,7 +1361,7 @@ start_drag_reodering (AdwTabBox *self,
 
   if (self->continue_reorder) {
     if (self->reorder_animation)
-      adw_animation_stop (self->reorder_animation);
+      adw_animation_skip (self->reorder_animation);
 
     reset_reorder_animations (self);
 
@@ -1682,7 +1682,7 @@ page_attached_cb (AdwTabBox  *self,
 
   self->n_tabs++;
 
-  adw_animation_start (info->appear_animation);
+  adw_animation_play (info->appear_animation);
 
   if (page == adw_tab_view_get_selected_page (self->view))
     adw_tab_box_select_page (self, page);
@@ -1703,10 +1703,10 @@ close_animation_done_cb (TabInfo *info)
   self->tabs = g_list_remove (self->tabs, info);
 
   if (info->reorder_animation)
-    adw_animation_stop (info->reorder_animation);
+    adw_animation_skip (info->reorder_animation);
 
   if (self->reorder_animation)
-    adw_animation_stop (self->reorder_animation);
+    adw_animation_skip (self->reorder_animation);
 
   if (self->pressed_tab == info)
     self->pressed_tab = NULL;
@@ -1774,7 +1774,7 @@ page_detached_cb (AdwTabBox  *self,
   info->page = NULL;
 
   if (info->appear_animation)
-    adw_animation_stop (info->appear_animation);
+    adw_animation_skip (info->appear_animation);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               appear_animation_value_cb,
@@ -1785,7 +1785,7 @@ page_detached_cb (AdwTabBox  *self,
 
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (close_animation_done_cb), info);
 
-  adw_animation_start (info->appear_animation);
+  adw_animation_play (info->appear_animation);
 }
 
 /* Tab DND */
@@ -1932,7 +1932,7 @@ insert_placeholder (AdwTabBox  *self,
     initial_progress = info->appear_progress;
 
     if (info->appear_animation)
-      adw_animation_stop (info->appear_animation);
+      adw_animation_skip (info->appear_animation);
   } else {
     int index;
 
@@ -1979,7 +1979,7 @@ insert_placeholder (AdwTabBox  *self,
 
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (open_animation_done_cb), info);
 
-  adw_animation_start (info->appear_animation);
+  adw_animation_play (info->appear_animation);
 }
 
 static void
@@ -2018,7 +2018,7 @@ replace_placeholder (AdwTabBox  *self,
   adw_tab_set_page (info->tab, page);
   info->page = page;
 
-  adw_animation_stop (info->appear_animation);
+  adw_animation_skip (info->appear_animation);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               appear_animation_value_cb,
@@ -2029,7 +2029,7 @@ replace_placeholder (AdwTabBox  *self,
 
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (replace_animation_done_cb), info);
 
-  adw_animation_start (info->appear_animation);
+  adw_animation_play (info->appear_animation);
 }
 
 static void
@@ -2051,7 +2051,7 @@ remove_animation_done_cb (TabInfo *info)
     force_end_reordering (self);
 
     if (self->reorder_animation)
-      adw_animation_stop (info->reorder_animation);
+      adw_animation_skip (info->reorder_animation);
 
     self->reordered_tab = NULL;
   }
@@ -2090,7 +2090,7 @@ remove_placeholder (AdwTabBox *self)
   info->page = NULL;
 
   if (info->appear_animation)
-    adw_animation_stop (info->appear_animation);
+    adw_animation_skip (info->appear_animation);
 
   g_idle_add ((GSourceFunc) remove_placeholder_scroll_cb, self);
 
@@ -2103,7 +2103,7 @@ remove_placeholder (AdwTabBox *self)
 
   g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (remove_animation_done_cb), info);
 
-  adw_animation_start (info->appear_animation);
+  adw_animation_play (info->appear_animation);
 }
 
 static inline AdwTabBox *
@@ -2312,7 +2312,7 @@ resize_drag_icon (AdwTabBox *self,
     return;
 
   if (icon->resize_animation)
-    adw_animation_stop (icon->resize_animation);
+    adw_animation_skip (icon->resize_animation);
 
   icon->target_width = width;
 
@@ -2325,7 +2325,7 @@ resize_drag_icon (AdwTabBox *self,
 
   g_signal_connect_swapped (icon->resize_animation, "done", G_CALLBACK (icon_resize_animation_done_cb), icon);
 
-  adw_animation_start (icon->resize_animation);
+  adw_animation_play (icon->resize_animation);
 }
 
 static void

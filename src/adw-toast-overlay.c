@@ -179,7 +179,7 @@ hide_current_toast (AdwToastOverlay *self)
   g_signal_connect_swapped (info->hide_animation, "done",
                             G_CALLBACK (hide_done_cb), info);
 
-  adw_animation_start (info->hide_animation);
+  adw_animation_play (info->hide_animation);
 }
 
 static void
@@ -237,7 +237,7 @@ show_toast (AdwToastOverlay *self,
   g_signal_connect_swapped (info->show_animation, "done",
                             G_CALLBACK (show_done_cb), info);
 
-  adw_animation_start (info->show_animation);
+  adw_animation_play (info->show_animation);
 }
 
 static gboolean

@@ -20,6 +20,8 @@
 
 G_BEGIN_DECLS
 
+#define ADW_DURATION_INFINITE G_MAXUINT
+
 #define ADW_TYPE_ANIMATION (adw_animation_get_type())
 
 G_DECLARE_DERIVABLE_TYPE (AdwAnimation, adw_animation, ADW, ANIMATION, GObject)
@@ -34,12 +36,10 @@ typedef enum {
 } AdwAnimationInterpolator;
 
 typedef enum {
-  ADW_ANIMATION_NONE,
-  ADW_ANIMATION_RUNNING,
+  ADW_ANIMATION_IDLE,
   ADW_ANIMATION_PAUSED,
-  ADW_ANIMATION_COMPLETED,
-  ADW_ANIMATION_CANCELED,
-  ADW_ANIMATION_STOPPED,
+  ADW_ANIMATION_PLAYING,
+  ADW_ANIMATION_FINISHED,
 } AdwAnimationState;
 
 /**
@@ -68,8 +68,11 @@ double adw_animation_get_value (AdwAnimation *self);
 
 AdwAnimationState adw_animation_get_state (AdwAnimation *self);
 
-void adw_animation_start (AdwAnimation *self);
-void adw_animation_stop  (AdwAnimation *self);
+void adw_animation_play   (AdwAnimation *self);
+void adw_animation_pause  (AdwAnimation *self);
+void adw_animation_resume (AdwAnimation *self);
+void adw_animation_reset  (AdwAnimation *self);
+void adw_animation_skip   (AdwAnimation *self);
 
 double adw_animation_get_value_from (AdwAnimation *self);
 void   adw_animation_set_value_from (AdwAnimation *self,
