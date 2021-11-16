@@ -25,8 +25,8 @@ void adw_animation_target_set_value (AdwAnimationTarget *self,
 
 
 
-typedef void (*AdwAnimationTargetFunc) (double   value,
-                                        gpointer user_data);
+typedef void (*AdwAnimationTargetFunc) (gpointer user_data,
+                                        double   value);
 
 #define ADW_TYPE_CALLBACK_ANIMATION_TARGET (adw_callback_animation_target_get_type())
 

@@ -275,8 +275,8 @@ set_reveal_progress (AdwFlap *self,
 }
 
 static void
-fold_animation_value_cb (double   value,
-                         AdwFlap *self)
+fold_animation_value_cb (AdwFlap *self,
+                         double   value)
 {
   self->fold_progress = value;
 
@@ -316,13 +316,6 @@ animate_fold (AdwFlap *self)
 }
 
 static void
-reveal_animation_value_cb (double   value,
-                           AdwFlap *self)
-{
-  set_reveal_progress (self, value);
-}
-
-static void
 reveal_animation_done_cb (AdwFlap *self)
 {
   g_clear_object (&self->reveal_animation);
@@ -347,7 +340,7 @@ animate_reveal (AdwFlap *self,
     adw_animation_stop (self->reveal_animation);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                              reveal_animation_value_cb,
+                                              set_reveal_progress,
                                               self, NULL);
   self->reveal_animation =
     adw_animation_new (GTK_WIDGET (self), self->reveal_progress,

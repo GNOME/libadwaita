@@ -67,13 +67,6 @@ enum {
 static GParamSpec *props[LAST_PROP];
 
 static void
-value_cb (double     value,
-          GtkWidget *widget)
-{
-  gtk_widget_queue_draw (widget);
-}
-
-static void
 done_cb (AdwCarouselIndicatorDots *self)
 {
   g_clear_object (&self->animation);
@@ -89,7 +82,7 @@ animate (AdwCarouselIndicatorDots *self,
     adw_animation_stop (self->animation);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                              value_cb,
+                                              gtk_widget_queue_draw,
                                               self, NULL);
   self->animation =
     adw_animation_new (GTK_WIDGET (self), 0, 1, duration, target);

@@ -88,8 +88,8 @@ set_style_class (GtkWidget  *widget,
 }
 
 static void
-close_btn_animation_value_cb (double  value,
-                              AdwTab *self)
+close_btn_animation_value_cb (AdwTab *self,
+                              double  value)
 {
   gtk_widget_set_opacity (self->close_btn, value);
   gtk_widget_set_can_target (self->close_btn, value > 0);

@@ -279,8 +279,8 @@ set_position (AdwCarousel *self,
 }
 
 static void
-resize_animation_value_cb (double     value,
-                           ChildInfo *child)
+resize_animation_value_cb (ChildInfo *child,
+                           double     value)
 {
   AdwCarousel *self = ADW_CAROUSEL (adw_animation_get_widget (child->resize_animation));
   double delta = value - child->size;
@@ -346,8 +346,8 @@ shift_position (AdwCarousel *self,
 }
 
 static void
-scroll_animation_value_cb (double       value,
-                           AdwCarousel *self)
+scroll_animation_value_cb (AdwCarousel *self,
+                           double       value)
 {
   double position = adw_lerp (self->animation_source_position,
                               self->animation_target_child->snap_point,

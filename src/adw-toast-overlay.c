@@ -120,8 +120,8 @@ dismiss_and_free_toast_info (ToastInfo *info)
 }
 
 static void
-hide_value_cb (double     value,
-               ToastInfo *info)
+hide_value_cb (ToastInfo *info,
+               double     value)
 {
   gtk_widget_set_opacity (info->widget, adw_ease_out_cubic (value));
 
@@ -147,13 +147,6 @@ hide_done_cb (ToastInfo *info)
   }
 
   free_toast_info (info);
-}
-
-static void
-show_value_cb (double     value,
-               ToastInfo *info)
-{
-  gtk_widget_queue_allocate (GTK_WIDGET (info->overlay));
 }
 
 static void
@@ -234,8 +227,8 @@ show_toast (AdwToastOverlay *self,
   gtk_widget_insert_before (info->widget, GTK_WIDGET (self), NULL);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                              show_value_cb,
-                                              info, NULL);
+                                              gtk_widget_queue_allocate,
+                                              self, NULL);
   info->show_animation =
     adw_animation_new (GTK_WIDGET (self), 0, 1,
                        self->hiding_toasts ? REPLACE_DURATION : SHOW_DURATION,

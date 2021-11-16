@@ -771,13 +771,6 @@ adjustment_value_changed_cb (AdwTabBox *self)
 }
 
 static void
-scroll_animation_value_cb (double     value,
-                           GtkWidget *widget)
-{
-  gtk_widget_queue_resize (widget);
-}
-
-static void
 scroll_animation_done_cb (AdwTabBox *self)
 {
   self->scroll_animation_done = TRUE;
@@ -812,7 +805,7 @@ animate_scroll (AdwTabBox *self,
    */
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                              scroll_animation_value_cb,
+                                              gtk_widget_queue_resize,
                                               self, NULL);
   self->scroll_animation =
     adw_animation_new (GTK_WIDGET (self), 0, 1, duration, target);
@@ -1006,8 +999,8 @@ get_reorder_position (AdwTabBox *self)
 }
 
 static void
-reorder_animation_value_cb (double   value,
-                            TabInfo *dest_tab)
+reorder_animation_value_cb (TabInfo *dest_tab,
+                            double   value)
 {
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (dest_tab->tab));
   AdwTabBox *self = ADW_TAB_BOX (parent);
@@ -1059,8 +1052,8 @@ animate_reordering (AdwTabBox *self,
 }
 
 static void
-reorder_offset_animation_value_cb (double   value,
-                                   TabInfo *info)
+reorder_offset_animation_value_cb (TabInfo *info,
+                                   double   value)
 {
   GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
 
@@ -1607,8 +1600,8 @@ extra_drag_drop_cb (AdwTab    *tab,
 }
 
 static void
-appear_animation_value_cb (double   value,
-                           TabInfo *info)
+appear_animation_value_cb (TabInfo *info,
+                           double   value)
 {
   info->appear_progress = value;
 
@@ -1916,12 +1909,12 @@ calculate_placeholder_index (AdwTabBox *self,
 }
 
 static void
-insert_animation_value_cb (double   value,
-                           TabInfo *info)
+insert_animation_value_cb (TabInfo *info,
+                           double   value)
 {
   AdwTabBox *self = ADW_TAB_BOX (gtk_widget_get_parent (GTK_WIDGET (info->tab)));
 
-  appear_animation_value_cb (value, info);
+  appear_animation_value_cb (info, value);
 
   update_drag_reodering (self);
 }
@@ -2279,8 +2272,8 @@ create_drag_icon (AdwTabBox *self,
 }
 
 static void
-icon_resize_animation_value_cb (double    value,
-                                DragIcon *icon)
+icon_resize_animation_value_cb (DragIcon *icon,
+                                double    value)
 {
   double relative_pos;
 
