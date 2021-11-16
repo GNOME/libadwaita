@@ -10,10 +10,10 @@
 #include "adw-tab-private.h"
 
 #include "adw-animation-util-private.h"
-#include "adw-animation-private.h"
 #include "adw-bidi-private.h"
 #include "adw-fading-label-private.h"
 #include "adw-macros-private.h"
+#include "adw-timed-animation-private.h"
 
 #define FADE_WIDTH 18
 #define CLOSE_BTN_ANIMATION_DURATION 150
@@ -115,10 +115,10 @@ update_state (AdwTab *self)
   if (self->show_close != show_close) {
     self->show_close = show_close;
 
-    adw_animation_set_value_from (self->close_btn_animation,
-                                  gtk_widget_get_opacity (self->close_btn));
-    adw_animation_set_value_to (self->close_btn_animation,
-                                self->show_close ? 1 : 0);
+    adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->close_btn_animation),
+                                        gtk_widget_get_opacity (self->close_btn));
+    adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->close_btn_animation),
+                                      self->show_close ? 1 : 0);
     adw_animation_play (self->close_btn_animation);
   }
 }
@@ -842,11 +842,11 @@ adw_tab_init (AdwTab *self)
                                               close_btn_animation_value_cb,
                                               self, NULL);
   self->close_btn_animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 0,
-                       CLOSE_BTN_ANIMATION_DURATION, target);
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 0,
+                             CLOSE_BTN_ANIMATION_DURATION, target);
 
-  adw_animation_set_interpolator (self->close_btn_animation,
-                                  ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT);
+  adw_timed_animation_set_interpolator (ADW_TIMED_ANIMATION (self->close_btn_animation),
+                                        ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT);
 }
 
 AdwTab *

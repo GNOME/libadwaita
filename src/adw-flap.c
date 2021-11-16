@@ -11,12 +11,12 @@
 #include <math.h>
 
 #include "adw-animation-util-private.h"
-#include "adw-animation-private.h"
 #include "adw-gizmo-private.h"
 #include "adw-macros-private.h"
 #include "adw-shadow-helper-private.h"
 #include "adw-swipeable.h"
 #include "adw-swipe-tracker-private.h"
+#include "adw-timed-animation-private.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -288,11 +288,13 @@ fold_animation_value_cb (AdwFlap *self,
 static void
 animate_fold (AdwFlap *self)
 {
-  adw_animation_set_value_from (self->fold_animation, self->fold_progress);
-  adw_animation_set_value_to (self->fold_animation, self->folded ? 1 : 0);
+  adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->fold_animation),
+                                      self->fold_progress);
+  adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->fold_animation),
+                                    self->folded ? 1 : 0);
 
   /* When the flap is completely hidden, we can skip animation */
-  adw_animation_set_duration (self->fold_animation,
+  adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->fold_animation),
                              (self->reveal_progress > 0) ? self->fold_duration : 0);
 
   adw_animation_play (self->fold_animation);
@@ -315,9 +317,12 @@ animate_reveal (AdwFlap *self,
                 double   to,
                 guint    duration)
 {
-  adw_animation_set_value_from (self->reveal_animation, self->reveal_progress);
-  adw_animation_set_value_to (self->reveal_animation, to);
-  adw_animation_set_duration (self->reveal_animation, duration);
+  adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->reveal_animation),
+                                      self->reveal_progress);
+  adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->reveal_animation),
+                                    to);
+  adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->reveal_animation),
+                                    duration);
 
   adw_animation_play (self->reveal_animation);
 }
@@ -1598,13 +1603,13 @@ adw_flap_init (AdwFlap *self)
                                               fold_animation_value_cb,
                                               self, NULL);
   self->fold_animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 0, 0, target);
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 0, 0, target);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               set_reveal_progress,
                                               self, NULL);
   self->reveal_animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 0, 0, target);
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 0, 0, target);
 
   g_signal_connect_swapped (self->reveal_animation, "done",
                             G_CALLBACK (reveal_animation_done_cb), self);

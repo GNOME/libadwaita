@@ -8,9 +8,9 @@
 
 #include "adw-toast-overlay.h"
 
-#include "adw-animation-private.h"
 #include "adw-animation-util-private.h"
 #include "adw-macros-private.h"
+#include "adw-timed-animation-private.h"
 #include "adw-toast-private.h"
 #include "adw-toast-widget-private.h"
 #include "adw-widget-utils-private.h"
@@ -174,7 +174,7 @@ hide_current_toast (AdwToastOverlay *self)
                                               hide_value_cb,
                                               info, NULL);
   info->hide_animation =
-    adw_animation_new (GTK_WIDGET (self), 1, 0, HIDE_DURATION, target);
+    adw_timed_animation_new (GTK_WIDGET (self), 1, 0, HIDE_DURATION, target);
 
   g_signal_connect_swapped (info->hide_animation, "done",
                             G_CALLBACK (hide_done_cb), info);
@@ -230,9 +230,9 @@ show_toast (AdwToastOverlay *self,
                                               gtk_widget_queue_allocate,
                                               self, NULL);
   info->show_animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1,
-                       self->hiding_toasts ? REPLACE_DURATION : SHOW_DURATION,
-                       target);
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
+                             self->hiding_toasts ? REPLACE_DURATION : SHOW_DURATION,
+                             target);
 
   g_signal_connect_swapped (info->show_animation, "done",
                             G_CALLBACK (show_done_cb), info);

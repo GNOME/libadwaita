@@ -10,12 +10,12 @@
 
 #include "adw-tab-box-private.h"
 #include "adw-animation-util-private.h"
-#include "adw-animation-private.h"
 #include "adw-gizmo-private.h"
 #include "adw-macros-private.h"
 #include "adw-tab-private.h"
 #include "adw-tab-bar-private.h"
 #include "adw-tab-view-private.h"
+#include "adw-timed-animation-private.h"
 #include <math.h>
 
 /* Border collapsing without glitches */
@@ -772,7 +772,8 @@ animate_scroll (AdwTabBox *self,
   self->scroll_animation_tab = info;
   self->scroll_animation_offset = offset;
 
-  adw_animation_set_duration (self->scroll_animation, duration);
+  adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->scroll_animation),
+                                    duration);
   adw_animation_play (self->scroll_animation);
 }
 
@@ -999,8 +1000,8 @@ animate_reordering (AdwTabBox *self,
                                               reorder_animation_value_cb,
                                               dest_tab, NULL);
   self->reorder_animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1,
-                       REORDER_ANIMATION_DURATION, target);
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
+                             REORDER_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (self->reorder_animation, "done",
                             G_CALLBACK (reorder_animation_done_cb), self);
@@ -1052,8 +1053,8 @@ animate_reorder_offset (AdwTabBox *self,
                                               reorder_offset_animation_value_cb,
                                               info, NULL);
   info->reorder_animation =
-    adw_animation_new (GTK_WIDGET (self), info->reorder_offset, offset,
-                       REORDER_ANIMATION_DURATION, target);
+    adw_timed_animation_new (GTK_WIDGET (self), info->reorder_offset, offset,
+                             REORDER_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->reorder_animation, "done",
                             G_CALLBACK (reorder_offset_animation_done_cb), info);
@@ -1632,8 +1633,8 @@ page_attached_cb (AdwTabBox  *self,
                                               appear_animation_value_cb,
                                               info, NULL);
   info->appear_animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1,
-                       OPEN_ANIMATION_DURATION, target);
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
+                             OPEN_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->appear_animation, "done",
                             G_CALLBACK (open_animation_done_cb), info);
@@ -1741,8 +1742,8 @@ page_detached_cb (AdwTabBox  *self,
                                               appear_animation_value_cb,
                                               info, NULL);
   info->appear_animation =
-    adw_animation_new (GTK_WIDGET (self), info->appear_progress, 0,
-                       CLOSE_ANIMATION_DURATION, target);
+    adw_timed_animation_new (GTK_WIDGET (self), info->appear_progress, 0,
+                             CLOSE_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->appear_animation, "done",
                             G_CALLBACK (close_animation_done_cb), info);
@@ -1936,8 +1937,8 @@ insert_placeholder (AdwTabBox  *self,
                                               insert_animation_value_cb,
                                               info, NULL);
   info->appear_animation =
-    adw_animation_new (GTK_WIDGET (self), initial_progress, 1,
-                       OPEN_ANIMATION_DURATION, target);
+    adw_timed_animation_new (GTK_WIDGET (self), initial_progress, 1,
+                             OPEN_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->appear_animation, "done",
                             G_CALLBACK (open_animation_done_cb), info);
@@ -1987,8 +1988,8 @@ replace_placeholder (AdwTabBox  *self,
                                               appear_animation_value_cb,
                                               info, NULL);
   info->appear_animation =
-    adw_animation_new (GTK_WIDGET (self), initial_progress, 1,
-                       OPEN_ANIMATION_DURATION, target);
+    adw_timed_animation_new (GTK_WIDGET (self), initial_progress, 1,
+                             OPEN_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->appear_animation, "done",
                             G_CALLBACK (replace_animation_done_cb), info);
@@ -2062,8 +2063,8 @@ remove_placeholder (AdwTabBox *self)
                                               appear_animation_value_cb,
                                               info, NULL);
   info->appear_animation =
-    adw_animation_new (GTK_WIDGET (self), info->appear_progress, 0,
-                       CLOSE_ANIMATION_DURATION, target);
+    adw_timed_animation_new (GTK_WIDGET (self), info->appear_progress, 0,
+                             CLOSE_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->appear_animation, "done",
                             G_CALLBACK (remove_animation_done_cb), info);
@@ -2264,8 +2265,8 @@ create_drag_icon (AdwTabBox *self,
                                               icon_resize_animation_value_cb,
                                               icon, NULL);
   icon->resize_animation =
-    adw_animation_new (GTK_WIDGET (icon->tab), 0, 0,
-                       ICON_RESIZE_ANIMATION_DURATION, target);
+    adw_timed_animation_new (GTK_WIDGET (icon->tab), 0, 0,
+                             ICON_RESIZE_ANIMATION_DURATION, target);
 
   self->drag_icon = icon;
 }
@@ -2281,8 +2282,10 @@ resize_drag_icon (AdwTabBox *self,
 
   icon->target_width = width;
 
-  adw_animation_set_value_from (icon->resize_animation, icon->width);
-  adw_animation_set_value_to (icon->resize_animation, width);
+  adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (icon->resize_animation),
+                                      icon->width);
+  adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (icon->resize_animation),
+                                    width);
   adw_animation_play (icon->resize_animation);
 }
 
@@ -3434,8 +3437,8 @@ adw_tab_box_init (AdwTabBox *self)
                                               resize_animation_value_cb,
                                               self, NULL);
   self->resize_animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1,
-                       RESIZE_ANIMATION_DURATION, target);
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
+                             RESIZE_ANIMATION_DURATION, target);
 
   /* The actual update will be done in size_allocate(). After the animation
    * finishes, don't remove it right away, it will be done in size-allocate as
@@ -3445,8 +3448,8 @@ adw_tab_box_init (AdwTabBox *self)
                                               gtk_widget_queue_resize,
                                               self, NULL);
   self->scroll_animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1,
-                       SCROLL_ANIMATION_DURATION, target);
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
+                             SCROLL_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (self->scroll_animation, "done",
                             G_CALLBACK (scroll_animation_done_cb), self);

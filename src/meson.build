@@ -24,6 +24,7 @@ adw_public_enum_headers = [
 adw_private_enum_headers = [
   'adw-animation-private.h',
   'adw-settings-private.h',
+  'adw-timed-animation-private.h',
 ]
 
 version_data = configuration_data()
@@ -180,6 +181,7 @@ src_sources = [
   'adw-tab-bar.c',
   'adw-tab-box.c',
   'adw-tab-view.c',
+  'adw-timed-animation.c',
   'adw-toast.c',
   'adw-toast-overlay.c',
   'adw-toast-widget.c',

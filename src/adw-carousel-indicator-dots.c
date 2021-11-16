@@ -9,9 +9,9 @@
 #include "adw-carousel-indicator-dots.h"
 
 #include "adw-animation-util-private.h"
-#include "adw-animation-private.h"
 #include "adw-macros-private.h"
 #include "adw-swipeable.h"
+#include "adw-timed-animation-private.h"
 
 #include <math.h>
 
@@ -343,7 +343,7 @@ adw_carousel_indicator_dots_init (AdwCarouselIndicatorDots *self)
                                          self, NULL);
 
   self->animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1, 0, target);
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 1, 0, target);
 }
 
 /**

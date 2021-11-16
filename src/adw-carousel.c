@@ -9,11 +9,11 @@
 #include "adw-carousel.h"
 
 #include "adw-animation-util-private.h"
-#include "adw-animation-private.h"
 #include "adw-macros-private.h"
 #include "adw-navigation-direction.h"
 #include "adw-swipe-tracker.h"
 #include "adw-swipeable.h"
+#include "adw-timed-animation-private.h"
 #include "adw-widget-utils-private.h"
 
 #include <math.h>
@@ -330,7 +330,8 @@ animate_child_resize (AdwCarousel *self,
                                               resize_animation_value_cb,
                                               child, NULL);
   child->resize_animation =
-    adw_animation_new (GTK_WIDGET (self), old_size, value, duration, target);
+    adw_timed_animation_new (GTK_WIDGET (self), old_size,
+                             value, duration, target);
 
   g_signal_connect_swapped (child->resize_animation, "done",
                             G_CALLBACK (resize_animation_done_cb), child);
@@ -386,7 +387,8 @@ scroll_to (AdwCarousel *self,
 
   self->animation_source_position = self->position;
 
-  adw_animation_set_duration (self->animation, duration);
+  adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->animation),
+                                    duration);
   adw_animation_play (self->animation);
 }
 
@@ -1082,7 +1084,7 @@ adw_carousel_init (AdwCarousel *self)
                                               scroll_animation_value_cb,
                                               self, NULL);
   self->animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1, 0, target);
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 1, 0, target);
 
   g_signal_connect_swapped (self->animation, "done",
                             G_CALLBACK (scroll_animation_done_cb), self);
