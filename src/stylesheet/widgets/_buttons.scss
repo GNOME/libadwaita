@@ -127,7 +127,7 @@ button {
     background-color: transparentize(black, .35);
 
     @if $contrast == 'high' {
-      box-shadow: 0 0 0 1px currentColor;
+      border-color: currentColor;
     }
 
     &:hover {
