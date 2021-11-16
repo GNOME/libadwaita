@@ -18,6 +18,7 @@ struct _AdwTimedAnimation
   double value_from;
   double value_to;
   guint duration; /* ms */
+  guint repeat_count;
 
   AdwAnimationInterpolator interpolator;
 };
@@ -35,6 +36,7 @@ enum {
   PROP_VALUE_TO,
   PROP_DURATION,
   PROP_INTERPOLATOR,
+  PROP_REPEAT_COUNT,
   LAST_PROP,
 };
 
@@ -45,7 +47,10 @@ adw_timed_animation_estimate_duration (AdwAnimation *animation)
 {
   AdwTimedAnimation *self = ADW_TIMED_ANIMATION (animation);
 
-  return self->duration;
+  if (self->repeat_count == 0)
+    return ADW_DURATION_INFINITE;
+
+  return self->duration * self->repeat_count;
 }
 
 static double
@@ -54,19 +59,28 @@ adw_timed_animation_calculate_value (AdwAnimation *animation,
 {
   AdwTimedAnimation *self = ADW_TIMED_ANIMATION (animation);
   double value;
+  double iteration, progress;
 
   if (self->duration == 0)
     return self->value_to;
 
+  progress = modf (((double) t / self->duration), &iteration);
+
+  /* When the animation ends, return the exact final value, which depends on the
+     direction the animation is going at that moment, having into account that at the
+     time of this check we're already on the next iteration. */
+  if (t >= adw_timed_animation_estimate_duration (animation))
+    return self->value_to;
+
   switch (self->interpolator) {
     case ADW_ANIMATION_INTERPOLATOR_EASE_IN:
-      value = adw_ease_in_cubic ((double) t / self->duration);
+      value = adw_ease_in_cubic (progress);
       break;
     case ADW_ANIMATION_INTERPOLATOR_EASE_OUT:
-      value = adw_ease_out_cubic ((double) t / self->duration);
+      value = adw_ease_out_cubic (progress);
       break;
     case ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT:
-      value = adw_ease_in_out_cubic ((double) t / self->duration);
+      value = adw_ease_in_out_cubic (progress);
       break;
     default:
       g_assert_not_reached ();
@@ -100,6 +114,10 @@ adw_timed_animation_get_property (GObject    *object,
     g_value_set_enum (value, adw_timed_animation_get_interpolator (self));
     break;
 
+  case PROP_REPEAT_COUNT:
+    g_value_set_uint (value, adw_timed_animation_get_repeat_count (self));
+    break;
+
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -128,6 +146,10 @@ adw_timed_animation_set_property (GObject      *object,
 
   case PROP_INTERPOLATOR:
     adw_timed_animation_set_interpolator (self, g_value_get_enum (value));
+    break;
+
+  case PROP_REPEAT_COUNT:
+    adw_timed_animation_set_repeat_count (self, g_value_get_uint (value));
     break;
 
   default:
@@ -180,6 +202,15 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
                        "Easing function used in the animation",
                        ADW_TYPE_ANIMATION_INTERPOLATOR,
                        ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+
+  props[PROP_REPEAT_COUNT] =
+    g_param_spec_uint ("repeat-count",
+                       "Repeat count",
+                       "Number of times the animation should play",
+                       0,
+                       G_MAXUINT,
+                       1,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -303,4 +334,26 @@ adw_timed_animation_set_interpolator (AdwTimedAnimation        *self,
   self->interpolator = interpolator;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INTERPOLATOR]);
+}
+
+guint
+adw_timed_animation_get_repeat_count (AdwTimedAnimation *self)
+{
+  g_return_val_if_fail (ADW_IS_TIMED_ANIMATION (self), 0);
+
+  return self->repeat_count;
+}
+
+void
+adw_timed_animation_set_repeat_count (AdwTimedAnimation *self,
+                                      guint              repeat_count)
+{
+  g_return_if_fail (ADW_IS_TIMED_ANIMATION (self));
+
+  if (self->repeat_count == repeat_count)
+    return;
+
+  self->repeat_count = repeat_count;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REPEAT_COUNT]);
 }

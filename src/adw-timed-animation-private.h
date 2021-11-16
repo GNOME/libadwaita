@@ -51,4 +51,8 @@ AdwAnimationInterpolator adw_timed_animation_get_interpolator (AdwTimedAnimation
 void                     adw_timed_animation_set_interpolator (AdwTimedAnimation        *self,
                                                                AdwAnimationInterpolator  interpolator);
 
+guint adw_timed_animation_get_repeat_count (AdwTimedAnimation *self);
+void  adw_timed_animation_set_repeat_count (AdwTimedAnimation *self,
+                                            guint              repeat_count);
+
 G_END_DECLS
