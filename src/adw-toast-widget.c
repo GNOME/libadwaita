@@ -10,8 +10,6 @@
 
 #include "adw-macros-private.h"
 
-#define TOAST_DURATION 5000
-
 struct _AdwToastWidget {
   GtkWidget parent_instance;
 
@@ -51,11 +49,11 @@ timeout_cb (AdwToastWidget *self)
 static void
 start_timeout (AdwToastWidget *self)
 {
-  if (!self->hide_timeout_id)
+  guint timeout = adw_toast_get_timeout (self->toast);
+
+  if (!self->hide_timeout_id && timeout)
     self->hide_timeout_id =
-      g_timeout_add (TOAST_DURATION,
-                     G_SOURCE_FUNC (timeout_cb),
-                     self);
+      g_timeout_add (timeout * 1000, G_SOURCE_FUNC (timeout_cb), self);
 }
 
 static void

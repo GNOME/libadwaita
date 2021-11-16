@@ -171,6 +171,31 @@ test_adw_toast_priority (void)
 }
 
 static void
+test_adw_toast_timeout (void)
+{
+  AdwToast *toast = adw_toast_new ("Title");
+  guint timeout;
+
+  g_assert_nonnull (toast);
+
+  notified = 0;
+  g_signal_connect (toast, "notify::timeout", G_CALLBACK (notify_cb), NULL);
+
+  g_object_get (toast, "timeout", &timeout, NULL);
+  g_assert_cmpint (timeout, ==, 5);
+
+  adw_toast_set_timeout (toast, 10);
+  g_assert_cmpint (adw_toast_get_timeout (toast), ==, 10);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (toast, "timeout", 5, NULL);
+  g_assert_cmpint (adw_toast_get_timeout (toast), ==, 5);
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (toast);
+}
+
+static void
 test_adw_toast_dismiss (void)
 {
   AdwToast *toast = adw_toast_new ("Title");
@@ -199,6 +224,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/Toast/action_target", test_adw_toast_action_target);
   g_test_add_func ("/Adwaita/Toast/detailed_action_name", test_adw_toast_detailed_action_name);
   g_test_add_func ("/Adwaita/Toast/priority", test_adw_toast_priority);
+  g_test_add_func ("/Adwaita/Toast/timeout", test_adw_toast_timeout);
   g_test_add_func ("/Adwaita/Toast/dismiss", test_adw_toast_dismiss);
 
   return g_test_run ();

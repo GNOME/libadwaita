@@ -68,6 +68,12 @@ void             adw_toast_set_priority (AdwToast         *self,
                                          AdwToastPriority  priority);
 
 ADW_AVAILABLE_IN_ALL
+guint adw_toast_get_timeout (AdwToast *self);
+ADW_AVAILABLE_IN_ALL
+void  adw_toast_set_timeout (AdwToast *self,
+                             guint     timeout);
+
+ADW_AVAILABLE_IN_ALL
 void adw_toast_dismiss (AdwToast *self);
 
 G_END_DECLS

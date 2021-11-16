@@ -34,10 +34,11 @@
  * adw_toast_overlay_add_toast (overlay, adw_toast_new (_("Simple Toast"));
  * ```
  *
- * Toasts always have a close button and a timeout. In both cases, they emit the
+ * Toasts always have a close button. They emit the
  * [signal@Adw.Toast::dismissed] signal when disappearing.
  *
- * [property@Adw.Toast:priority] determines how the toast behaves if another
+ * [property@Adw.Toast:timeout] determines how long the toast stays on screen,
+ * while  [property@Adw.Toast:priority] determines how it behaves if another
  * toast is already being displayed.
  *
  * ## Actions
@@ -135,6 +136,7 @@ struct _AdwToast {
   char *action_name;
   GVariant *action_target;
   AdwToastPriority priority;
+  guint timeout;
 
   gboolean added;
 };
@@ -146,6 +148,7 @@ enum {
   PROP_ACTION_NAME,
   PROP_ACTION_TARGET,
   PROP_PRIORITY,
+  PROP_TIMEOUT,
   LAST_PROP,
 };
 
@@ -203,6 +206,9 @@ adw_toast_get_property (GObject    *object,
   case PROP_PRIORITY:
     g_value_set_enum (value, adw_toast_get_priority (self));
     break;
+  case PROP_TIMEOUT:
+    g_value_set_uint (value, adw_toast_get_timeout (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -231,6 +237,9 @@ adw_toast_set_property (GObject      *object,
     break;
   case PROP_PRIORITY:
     adw_toast_set_priority (self, g_value_get_enum (value));
+    break;
+  case PROP_TIMEOUT:
+    adw_toast_set_timeout (self, g_value_get_uint (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -340,6 +349,26 @@ adw_toast_class_init (AdwToastClass *klass)
                        ADW_TOAST_PRIORITY_NORMAL,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwToast:timeout: (attributes org.gtk.Property.get=adw_toast_get_timeout org.gtk.Property.set=adw_toast_set_timeout)
+   *
+   * The timeout of the toast, in seconds.
+   *
+   * If timeout is 0, the toast is displayed indefinitely until manually
+   * dismissed.
+   *
+   * Toasts cannot disappear while being hovered, pressed (on touchscreen), or
+   * have keyboard focus inside them.
+   *
+   * Since: 1.0
+   */
+  props[PROP_TIMEOUT] =
+    g_param_spec_uint ("timeout",
+                       "Timeout",
+                       "The timeout of the toast, in seconds",
+                       0, G_MAXUINT, 5,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   /**
@@ -363,6 +392,7 @@ adw_toast_init (AdwToast *self)
 {
   self->title = g_strdup ("");
   self->priority = ADW_TOAST_PRIORITY_NORMAL;
+  self->timeout = 5;
 
   g_signal_connect (self, "dismissed", G_CALLBACK (dismissed_cb), self);
 }
@@ -641,7 +671,7 @@ adw_toast_set_detailed_action_name (AdwToast   *self,
  * adw_toast_get_priority: (attributes org.gtk.Method.get_property=priority)
  * @self: a `AdwToast`
  *
- * Gets the toast priority.
+ * Gets priority for @self.
  *
  * Returns: the priority
  *
@@ -660,7 +690,7 @@ adw_toast_get_priority (AdwToast *self)
  * @self: a `AdwToast`
  * @priority: the priority
  *
- * Sets the toast priority.
+ * Sets priority for @self.
  *
  * Priority controls how the toast behaves when another toast is already
  * being displayed.
@@ -686,6 +716,53 @@ adw_toast_set_priority (AdwToast         *self,
   self->priority = priority;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_PRIORITY]);
+}
+
+/**
+ * adw_toast_get_timeout: (attributes org.gtk.Method.get_property=timeout)
+ * @self: a `AdwToast`
+ *
+ * Gets timeout for @self.
+ *
+ * Returns: the timeout
+ *
+ * Since: 1.0
+ */
+guint
+adw_toast_get_timeout (AdwToast *self)
+{
+  g_return_val_if_fail (ADW_IS_TOAST (self), 0);
+
+  return self->timeout;
+}
+
+/**
+ * adw_toast_set_timeout: (attributes org.gtk.Method.set_property=timeout)
+ * @self: a `AdwToast`
+ * @timeout: the timeout
+ *
+ * Sets timeout for @self.
+ *
+ * If @timeout is 0, the toast is displayed indefinitely until manually
+ * dismissed.
+ *
+ * Toasts cannot disappear while being hovered, pressed (on touchscreen), or
+ * have keyboard focus inside them.
+ *
+ * Since: 1.0
+ */
+void
+adw_toast_set_timeout (AdwToast *self,
+                       guint     timeout)
+{
+  g_return_if_fail (ADW_IS_TOAST (self));
+
+  if (self->timeout == timeout)
+    return;
+
+  self->timeout = timeout;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TIMEOUT]);
 }
 
 /**
