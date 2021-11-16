@@ -55,4 +55,12 @@ guint adw_timed_animation_get_repeat_count (AdwTimedAnimation *self);
 void  adw_timed_animation_set_repeat_count (AdwTimedAnimation *self,
                                             guint              repeat_count);
 
+gboolean adw_timed_animation_get_reverse (AdwTimedAnimation *self);
+void     adw_timed_animation_set_reverse (AdwTimedAnimation *self,
+                                          gboolean           reverse);
+
+gboolean adw_timed_animation_get_alternate (AdwTimedAnimation *self);
+void     adw_timed_animation_set_alternate (AdwTimedAnimation *self,
+                                            gboolean           alternate);
+
 G_END_DECLS

@@ -19,6 +19,8 @@ struct _AdwTimedAnimation
   double value_to;
   guint duration; /* ms */
   guint repeat_count;
+  gboolean reverse;
+  gboolean alternate;
 
   AdwAnimationInterpolator interpolator;
 };
@@ -37,6 +39,8 @@ enum {
   PROP_DURATION,
   PROP_INTERPOLATOR,
   PROP_REPEAT_COUNT,
+  PROP_REVERSE,
+  PROP_ALTERNATE,
   LAST_PROP,
 };
 
@@ -58,19 +62,29 @@ adw_timed_animation_calculate_value (AdwAnimation *animation,
                                      guint         t)
 {
   AdwTimedAnimation *self = ADW_TIMED_ANIMATION (animation);
+
   double value;
   double iteration, progress;
+  gboolean reverse = false;
 
   if (self->duration == 0)
     return self->value_to;
 
   progress = modf (((double) t / self->duration), &iteration);
 
+  if (self->alternate)
+    reverse = ((int) iteration % 2);
+
+  if (self->reverse)
+    reverse = !reverse;
+
   /* When the animation ends, return the exact final value, which depends on the
      direction the animation is going at that moment, having into account that at the
      time of this check we're already on the next iteration. */
   if (t >= adw_timed_animation_estimate_duration (animation))
-    return self->value_to;
+    return self->alternate == reverse ? self->value_to : self->value_from;
+
+  progress = reverse ? (1 - progress) : progress;
 
   switch (self->interpolator) {
     case ADW_ANIMATION_INTERPOLATOR_EASE_IN:
@@ -118,6 +132,14 @@ adw_timed_animation_get_property (GObject    *object,
     g_value_set_uint (value, adw_timed_animation_get_repeat_count (self));
     break;
 
+  case PROP_REVERSE:
+    g_value_set_boolean (value, adw_timed_animation_get_reverse (self));
+    break;
+
+  case PROP_ALTERNATE:
+    g_value_set_boolean (value, adw_timed_animation_get_alternate (self));
+    break;
+
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -150,6 +172,14 @@ adw_timed_animation_set_property (GObject      *object,
 
   case PROP_REPEAT_COUNT:
     adw_timed_animation_set_repeat_count (self, g_value_get_uint (value));
+    break;
+
+  case PROP_REVERSE:
+    adw_timed_animation_set_reverse (self, g_value_get_boolean (value));
+    break;
+
+  case PROP_ALTERNATE:
+    adw_timed_animation_set_alternate (self, g_value_get_boolean (value));
     break;
 
   default:
@@ -212,6 +242,20 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
                        G_MAXUINT,
                        1,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+
+  props[PROP_REVERSE] =
+    g_param_spec_boolean ("reverse",
+                          "Reverse",
+                          "Wheter the animation should play backwards",
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+
+  props[PROP_ALTERNATE] =
+    g_param_spec_boolean ("alternate",
+                          "Alternate",
+                          "Whether the animation should change direction each time",
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
@@ -356,4 +400,48 @@ adw_timed_animation_set_repeat_count (AdwTimedAnimation *self,
   self->repeat_count = repeat_count;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REPEAT_COUNT]);
+}
+
+gboolean
+adw_timed_animation_get_reverse (AdwTimedAnimation *self)
+{
+  g_return_val_if_fail (ADW_IS_TIMED_ANIMATION (self), FALSE);
+
+  return self->reverse;
+}
+
+void
+adw_timed_animation_set_reverse (AdwTimedAnimation *self,
+                                 gboolean           reverse)
+{
+  g_return_if_fail (ADW_IS_TIMED_ANIMATION (self));
+
+  if (self->reverse == reverse)
+    return;
+
+  self->reverse = reverse;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVERSE]);
+}
+
+gboolean
+adw_timed_animation_get_alternate (AdwTimedAnimation *self)
+{
+  g_return_val_if_fail (ADW_IS_TIMED_ANIMATION (self), FALSE);
+
+  return self->alternate;
+}
+
+void
+adw_timed_animation_set_alternate (AdwTimedAnimation *self,
+                                   gboolean           alternate)
+{
+  g_return_if_fail (ADW_IS_TIMED_ANIMATION (self));
+
+  if (self->alternate == alternate)
+    return;
+
+  self->alternate = alternate;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ALTERNATE]);
 }
