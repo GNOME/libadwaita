@@ -33,6 +33,7 @@ typedef void (*AdwAnimationTargetFunc) (double   value,
 GDK_DECLARE_INTERNAL_TYPE (AdwCallbackAnimationTarget, adw_callback_animation_target, ADW, CALLBACK_ANIMATION_TARGET, AdwAnimationTarget)
 
 AdwAnimationTarget *adw_callback_animation_target_new (AdwAnimationTargetFunc callback,
-                                                       gpointer               user_data);
+                                                       gpointer               user_data,
+                                                       GDestroyNotify         destroy);
 
 G_END_DECLS

@@ -48,6 +48,7 @@ struct _AdwCallbackAnimationTarget
 
   AdwAnimationTargetFunc callback;
   gpointer user_data;
+  GDestroyNotify destroy_notify;
 };
 
 struct _AdwCallbackAnimationTargetClass
@@ -67,9 +68,23 @@ adw_callback_animation_target_set_value (AdwAnimationTarget *target,
 }
 
 static void
+adw_callback_animation_finalize (GObject *object)
+{
+  AdwCallbackAnimationTarget *self = ADW_CALLBACK_ANIMATION_TARGET (object);
+
+  if (self->destroy_notify)
+    self->destroy_notify (self->user_data);
+
+  G_OBJECT_CLASS (adw_callback_animation_target_parent_class)->finalize (object);
+}
+
+static void
 adw_callback_animation_target_class_init (AdwCallbackAnimationTargetClass *klass)
 {
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
   AdwAnimationTargetClass *target_class = ADW_ANIMATION_TARGET_CLASS (klass);
+
+  object_class->finalize = adw_callback_animation_finalize;
 
   target_class->set_value = adw_callback_animation_target_set_value;
 }
@@ -81,7 +96,8 @@ adw_callback_animation_target_init (AdwCallbackAnimationTarget *self)
 
 AdwAnimationTarget *
 adw_callback_animation_target_new (AdwAnimationTargetFunc callback,
-                                   gpointer               user_data)
+                                   gpointer               user_data,
+                                   GDestroyNotify         destroy)
 {
   AdwCallbackAnimationTarget *self;
 
@@ -91,6 +107,7 @@ adw_callback_animation_target_new (AdwAnimationTargetFunc callback,
 
   self->callback = callback;
   self->user_data = user_data;
+  self->destroy_notify = destroy;
 
   return ADW_ANIMATION_TARGET (self);
 }
