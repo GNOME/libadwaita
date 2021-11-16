@@ -42,16 +42,14 @@ typedef enum {
   ADW_ANIMATION_FINISHED,
 } AdwAnimationState;
 
-/**
- * AdwAnimation
- * @parent_class: The parent class
- */
 struct _AdwAnimationClass
 {
   GObjectClass parent_class;
 
-  /*< private >*/
-  gpointer padding[4];
+  gint64 (*estimate_duration) (AdwAnimation *self);
+
+  double (*calculate_value) (AdwAnimation *self,
+                             gint64        t);
 };
 
 AdwAnimation *adw_animation_new (GtkWidget          *widget,

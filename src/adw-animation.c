@@ -87,42 +87,16 @@ set_widget (AdwAnimation *self,
                        self);
 }
 
-static double
-calculate_value (AdwAnimation *self,
-                 gint64        t)
-{
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
-  double value;
-
-  if (priv->duration > 0) {
-    switch (priv->interpolator) {
-      case ADW_ANIMATION_INTERPOLATOR_EASE_IN:
-        value = adw_ease_in_cubic ((double) t / priv->duration);
-        break;
-      case ADW_ANIMATION_INTERPOLATOR_EASE_OUT:
-        value = adw_ease_out_cubic ((double) t / priv->duration);
-        break;
-      case ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT:
-        value = adw_ease_in_out_cubic ((double) t / priv->duration);
-        break;
-      default:
-        g_assert_not_reached ();
-    }
-  } else {
-    value = 1;
-  }
-
-  return adw_lerp (priv->value_from, priv->value_to, value);
-}
-
 static void
 set_value (AdwAnimation *self,
-           double        value)
+           gint64        t)
 {
   AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
 
-  priv->value = value;
-  adw_animation_target_set_value (priv->target, value);
+  priv->value = ADW_ANIMATION_GET_CLASS (self)->calculate_value (self, t);
+
+  adw_animation_target_set_value (priv->target, priv->value);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE]);
 }
 
@@ -150,17 +124,54 @@ tick_cb (GtkWidget     *widget,
   AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
 
   gint64 frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000; /* ms */
+  gint64 duration = ADW_ANIMATION_GET_CLASS (self)->estimate_duration (self);
   gint64 t = (gint64) (frame_time - priv->start_time);
 
-  if (t >= priv->duration && priv->duration != ADW_DURATION_INFINITE) {
+  if (t >= duration && duration != ADW_DURATION_INFINITE) {
     adw_animation_skip (self);
 
     return G_SOURCE_REMOVE;
   }
 
-  set_value (self, calculate_value (self, t));
+  set_value (self, t);
 
   return G_SOURCE_CONTINUE;
+}
+
+static gint64
+adw_animation_estimate_duration (AdwAnimation *animation)
+{
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (animation);
+
+  return priv->duration;
+}
+
+static double
+adw_animation_calculate_value (AdwAnimation *animation,
+                               gint64        t)
+{
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (animation);
+  double value;
+
+  if (priv->duration > 0) {
+    switch (priv->interpolator) {
+      case ADW_ANIMATION_INTERPOLATOR_EASE_IN:
+        value = adw_ease_in_cubic ((double) t / priv->duration);
+        break;
+      case ADW_ANIMATION_INTERPOLATOR_EASE_OUT:
+        value = adw_ease_out_cubic ((double) t / priv->duration);
+        break;
+      case ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT:
+        value = adw_ease_in_out_cubic ((double) t / priv->duration);
+        break;
+      default:
+        g_assert_not_reached ();
+  }
+  } else {
+    value = 1;
+  }
+
+  return adw_lerp (priv->value_from, priv->value_to, value);
 }
 
 static void
@@ -207,7 +218,7 @@ adw_animation_constructed (GObject *object)
 
   G_OBJECT_CLASS (adw_animation_parent_class)->constructed (object);
 
-  priv->value = priv->value_from;
+  priv->value = ADW_ANIMATION_GET_CLASS (self)->calculate_value (self, 0);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE]);
 }
 
@@ -321,6 +332,9 @@ adw_animation_class_init (AdwAnimationClass *klass)
   object_class->dispose = adw_animation_dispose;
   object_class->set_property = adw_animation_set_property;
   object_class->get_property = adw_animation_get_property;
+
+  klass->estimate_duration = adw_animation_estimate_duration;
+  klass->calculate_value = adw_animation_calculate_value;
 
   props[PROP_VALUE] =
     g_param_spec_double ("value",
@@ -565,7 +579,7 @@ adw_animation_skip (AdwAnimation *self)
 
   stop_animation (self);
 
-  set_value (self, calculate_value (self, priv->duration));
+  set_value (self, ADW_ANIMATION_GET_CLASS (self)->estimate_duration (self));
 
   priv->start_time = 0;
   priv->paused_time = 0;
@@ -600,7 +614,7 @@ adw_animation_reset (AdwAnimation *self)
 
   stop_animation (self);
 
-  set_value (self, calculate_value (self, 0));
+  set_value (self, 0);
   priv->start_time = 0;
   priv->paused_time = 0;
 
