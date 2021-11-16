@@ -46,16 +46,16 @@ struct _AdwAnimationClass
 {
   GObjectClass parent_class;
 
-  gint64 (*estimate_duration) (AdwAnimation *self);
+  guint (*estimate_duration) (AdwAnimation *self);
 
   double (*calculate_value) (AdwAnimation *self,
-                             gint64        t);
+                             guint         t);
 };
 
 AdwAnimation *adw_animation_new (GtkWidget          *widget,
                                  double              from,
                                  double              to,
-                                 gint64              duration,
+                                 guint               duration,
                                  AdwAnimationTarget *target) G_GNUC_WARN_UNUSED_RESULT;
 
 GtkWidget *adw_animation_get_widget (AdwAnimation *self);
@@ -80,9 +80,9 @@ double adw_animation_get_value_to (AdwAnimation *self);
 void   adw_animation_set_value_to (AdwAnimation *self,
                                    double        value);
 
-gint64 adw_animation_get_duration (AdwAnimation *self);
-void   adw_animation_set_duration (AdwAnimation *self,
-                                   gint64        duration);
+guint adw_animation_get_duration (AdwAnimation *self);
+void  adw_animation_set_duration (AdwAnimation *self,
+                                  guint         duration);
 
 AdwAnimationInterpolator adw_animation_get_interpolator (AdwAnimation             *self);
 void                     adw_animation_set_interpolator (AdwAnimation             *self,

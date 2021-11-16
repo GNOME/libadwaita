@@ -1604,7 +1604,7 @@ update_swipe_cb (AdwSwipeTracker *tracker,
 
 static void
 end_swipe_cb (AdwSwipeTracker *tracker,
-              gint64           duration,
+              guint            duration,
               double           to,
               AdwLeaflet      *self)
 {

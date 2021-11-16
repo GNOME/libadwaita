@@ -313,7 +313,7 @@ reveal_animation_done_cb (AdwFlap *self)
 static void
 animate_reveal (AdwFlap *self,
                 double   to,
-                gint64   duration)
+                guint    duration)
 {
   adw_animation_set_value_from (self->reveal_animation, self->reveal_progress);
   adw_animation_set_value_to (self->reveal_animation, to);
@@ -325,7 +325,7 @@ animate_reveal (AdwFlap *self,
 static void
 set_reveal_flap (AdwFlap  *self,
                  gboolean  reveal_flap,
-                 guint64   duration)
+                 guint     duration)
 {
   reveal_flap = !!reveal_flap;
 
@@ -414,7 +414,7 @@ update_swipe_cb (AdwSwipeTracker *tracker,
 
 static void
 end_swipe_cb (AdwSwipeTracker *tracker,
-              gint64           duration,
+              guint            duration,
               double           to,
               AdwFlap         *self)
 {

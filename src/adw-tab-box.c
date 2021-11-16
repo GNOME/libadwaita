@@ -143,7 +143,7 @@ struct _AdwTabBox
   struct {
     TabInfo *info;
     int pos;
-    gint64 duration;
+    guint duration;
     gboolean keep_selected_visible;
   } scheduled_scroll;
 
@@ -760,7 +760,7 @@ static void
 animate_scroll (AdwTabBox *self,
                 TabInfo   *info,
                 double     offset,
-                gint64     duration)
+                guint      duration)
 {
   if (!self->adjustment)
     return;
@@ -779,7 +779,7 @@ animate_scroll (AdwTabBox *self,
 static void
 animate_scroll_relative (AdwTabBox *self,
                          double     delta,
-                         gint64     duration)
+                         guint      duration)
 {
   double current_value = gtk_adjustment_get_value (self->adjustment);
 
@@ -797,7 +797,7 @@ static void
 scroll_to_tab_full (AdwTabBox *self,
                     TabInfo   *info,
                     int        pos,
-                    gint64     duration,
+                    guint      duration,
                     gboolean   keep_selected_visible)
 {
   int tab_width;
@@ -839,7 +839,7 @@ scroll_to_tab_full (AdwTabBox *self,
 static void
 scroll_to_tab (AdwTabBox *self,
                TabInfo   *info,
-               gint64     duration)
+               guint      duration)
 {
   scroll_to_tab_full (self, info, -1, duration, FALSE);
 }

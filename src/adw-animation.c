@@ -18,7 +18,7 @@ typedef struct
 
   double value_from;
   double value_to;
-  gint64 duration; /* ms */
+  guint duration; /* ms */
 
   gint64 start_time; /* ms */
   gint64 paused_time;
@@ -89,7 +89,7 @@ set_widget (AdwAnimation *self,
 
 static void
 set_value (AdwAnimation *self,
-           gint64        t)
+           guint         t)
 {
   AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
 
@@ -124,8 +124,8 @@ tick_cb (GtkWidget     *widget,
   AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
 
   gint64 frame_time = gdk_frame_clock_get_frame_time (frame_clock) / 1000; /* ms */
-  gint64 duration = ADW_ANIMATION_GET_CLASS (self)->estimate_duration (self);
-  gint64 t = (gint64) (frame_time - priv->start_time);
+  guint duration = ADW_ANIMATION_GET_CLASS (self)->estimate_duration (self);
+  guint t = (guint) (frame_time - priv->start_time);
 
   if (t >= duration && duration != ADW_DURATION_INFINITE) {
     adw_animation_skip (self);
@@ -138,7 +138,7 @@ tick_cb (GtkWidget     *widget,
   return G_SOURCE_CONTINUE;
 }
 
-static gint64
+static guint
 adw_animation_estimate_duration (AdwAnimation *animation)
 {
   AdwAnimationPrivate *priv = adw_animation_get_instance_private (animation);
@@ -148,7 +148,7 @@ adw_animation_estimate_duration (AdwAnimation *animation)
 
 static double
 adw_animation_calculate_value (AdwAnimation *animation,
-                               gint64        t)
+                               guint         t)
 {
   AdwAnimationPrivate *priv = adw_animation_get_instance_private (animation);
   double value;
@@ -264,7 +264,7 @@ adw_animation_get_property (GObject    *object,
     break;
 
   case PROP_DURATION:
-    g_value_set_int64 (value, adw_animation_get_duration (self));
+    g_value_set_uint (value, adw_animation_get_duration (self));
     break;
 
   case PROP_INTERPOLATOR:
@@ -307,7 +307,7 @@ adw_animation_set_property (GObject      *object,
     break;
 
   case PROP_DURATION:
-    adw_animation_set_duration (self, g_value_get_int64 (value));
+    adw_animation_set_duration (self, g_value_get_uint (value));
     break;
 
   case PROP_INTERPOLATOR:
@@ -371,13 +371,13 @@ adw_animation_class_init (AdwAnimationClass *klass)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
   props[PROP_DURATION] =
-    g_param_spec_int64 ("duration",
-                        "Duration",
-                        "Duration of the animation",
-                        0,
-                        G_MAXINT64,
-                        0,
-                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+    g_param_spec_uint ("duration",
+                       "Duration",
+                       "Duration of the animation",
+                       0,
+                       G_MAXUINT,
+                       0,
+                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
   props[PROP_INTERPOLATOR] =
     g_param_spec_enum ("interpolator",
@@ -426,7 +426,7 @@ AdwAnimation *
 adw_animation_new (GtkWidget          *widget,
                    double              from,
                    double              to,
-                   gint64              duration,
+                   guint               duration,
                    AdwAnimationTarget *target)
 {
   AdwAnimation *animation;
@@ -684,7 +684,7 @@ adw_animation_set_value_to (AdwAnimation *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE_TO]);
 }
 
-gint64
+guint
 adw_animation_get_duration (AdwAnimation *self)
 {
   AdwAnimationPrivate *priv;
@@ -698,7 +698,7 @@ adw_animation_get_duration (AdwAnimation *self)
 
 void
 adw_animation_set_duration (AdwAnimation *self,
-                            gint64        duration)
+                            guint         duration)
 {
   AdwAnimationPrivate *priv;
 

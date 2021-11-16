@@ -316,7 +316,7 @@ static void
 animate_child_resize (AdwCarousel *self,
                       ChildInfo   *child,
                       double       value,
-                      gint64       duration)
+                      guint        duration)
 {
   AdwAnimationTarget *target;
   double old_size = child->size;
@@ -377,7 +377,7 @@ scroll_animation_done_cb (AdwCarousel *self)
 static void
 scroll_to (AdwCarousel *self,
            GtkWidget   *widget,
-           gint64       duration)
+           guint        duration)
 {
   self->animation_target_child = find_child_info (self, widget);
 
@@ -419,7 +419,7 @@ update_swipe_cb (AdwSwipeTracker *tracker,
 
 static void
 end_swipe_cb (AdwSwipeTracker *tracker,
-              gint64           duration,
+              guint            duration,
               double           to,
               AdwCarousel     *self)
 {
@@ -1391,11 +1391,10 @@ adw_carousel_scroll_to (AdwCarousel *self,
 void
 adw_carousel_scroll_to_full (AdwCarousel *self,
                              GtkWidget   *widget,
-                             gint64       duration)
+                             guint        duration)
 {
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
-  g_return_if_fail (duration >= 0);
   g_return_if_fail (gtk_widget_get_parent (widget) == GTK_WIDGET (self));
 
   scroll_to (self, widget, duration);

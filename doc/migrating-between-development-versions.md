@@ -271,6 +271,9 @@ before the swipe starts, after the drag threshold has been reached, and it has
 lost its `direction` parameter. The new [signal@Adw.SwipeTracker::prepare]
 signal behaves exactly like `begin-swipe` was, and can be used instead of it.
 
+The type of the `duration` parameter in [signal@Adw.SwipeTracker::end-swipe] has
+changed from `gint64` to `guint`.
+
 ### Adapt to [class@Adw.TabView] API changes
 
 The `HdyTabVoew:shortcut-widget` property has been removed with no replacement;
@@ -295,6 +298,11 @@ The `can-swipe-back` property have been renamed to
 [property@AdwPreferencesWindow:can-navigate-back], along with its accessors.
 The new properties also handle keyboard and mouse shortcuts in addition to
 swipes.
+
+### Adapt to [class@Adw.Carousel] API changes
+
+The type of the `duration` parameter in [method@Adw.Carousel.scroll_to_full] has
+changed from `gint64` to `guint`.
 
 ### Adapt to Stylesheet Changes
 

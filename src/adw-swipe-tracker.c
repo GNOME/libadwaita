@@ -426,7 +426,7 @@ gesture_end (AdwSwipeTracker *self,
              gboolean         is_touchpad)
 {
   double end_progress, velocity;
-  gint64 duration, max_duration;
+  guint duration, max_duration;
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_NONE)
     return;
@@ -1150,7 +1150,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
 
   /**
    * AdwSwipeTracker::end-swipe:
-   * @self: t`he `AdwSwipeTracker` instance
+   * @self: the `AdwSwipeTracker` instance
    * @duration: snap-back animation duration in milliseconds
    * @to: the progress value to animate to
    *
@@ -1166,7 +1166,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                   NULL, NULL, NULL,
                   G_TYPE_NONE,
                   2,
-                  G_TYPE_INT64, G_TYPE_DOUBLE);
+                  G_TYPE_UINT, G_TYPE_DOUBLE);
 }
 
 static void

@@ -50,7 +50,7 @@ void adw_carousel_scroll_to      (AdwCarousel *self,
 ADW_AVAILABLE_IN_ALL
 void adw_carousel_scroll_to_full (AdwCarousel *self,
                                   GtkWidget   *widget,
-                                  gint64       duration);
+                                  guint        duration);
 
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_carousel_get_nth_page (AdwCarousel *self,
