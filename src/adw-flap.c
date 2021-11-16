@@ -16,7 +16,7 @@
 #include "adw-shadow-helper-private.h"
 #include "adw-swipeable.h"
 #include "adw-swipe-tracker-private.h"
-#include "adw-timed-animation-private.h"
+#include "adw-timed-animation.h"
 #include "adw-widget-utils-private.h"
 
 /**

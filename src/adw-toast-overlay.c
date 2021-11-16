@@ -10,7 +10,7 @@
 
 #include "adw-animation-util-private.h"
 #include "adw-macros-private.h"
-#include "adw-timed-animation-private.h"
+#include "adw-timed-animation.h"
 #include "adw-toast-private.h"
 #include "adw-toast-widget-private.h"
 #include "adw-widget-utils-private.h"

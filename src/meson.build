@@ -10,6 +10,7 @@ libadwaita_resources = gnome.compile_resources(
 )
 
 adw_public_enum_headers = [
+  'adw-animation.h',
   'adw-flap.h',
   'adw-fold-threshold-policy.h',
   'adw-header-bar.h',
@@ -17,14 +18,13 @@ adw_public_enum_headers = [
   'adw-navigation-direction.h',
   'adw-style-manager.h',
   'adw-squeezer.h',
+  'adw-timed-animation.h',
   'adw-toast.h',
   'adw-view-switcher.h',
 ]
 
 adw_private_enum_headers = [
-  'adw-animation-private.h',
   'adw-settings-private.h',
-  'adw-timed-animation-private.h',
 ]
 
 version_data = configuration_data()
@@ -81,6 +81,8 @@ libadwaita_generated_headers += [adw_public_enums[1]]
 
 src_headers = [
   'adw-action-row.h',
+  'adw-animation.h',
+  'adw-animation-target.h',
   'adw-animation-util.h',
   'adw-application.h',
   'adw-application-window.h',
@@ -115,6 +117,7 @@ src_headers = [
   'adw-swipeable.h',
   'adw-tab-bar.h',
   'adw-tab-view.h',
+  'adw-timed-animation.h',
   'adw-toast.h',
   'adw-toast-overlay.h',
   'adw-view-stack.h',

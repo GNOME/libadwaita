@@ -13,7 +13,7 @@
 #include "adw-navigation-direction.h"
 #include "adw-swipe-tracker.h"
 #include "adw-swipeable.h"
-#include "adw-timed-animation-private.h"
+#include "adw-timed-animation.h"
 #include "adw-widget-utils-private.h"
 
 #include <math.h>

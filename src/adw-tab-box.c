@@ -15,7 +15,7 @@
 #include "adw-tab-private.h"
 #include "adw-tab-bar-private.h"
 #include "adw-tab-view-private.h"
-#include "adw-timed-animation-private.h"
+#include "adw-timed-animation.h"
 #include <math.h>
 
 /* Border collapsing without glitches */

@@ -22,6 +22,8 @@ G_BEGIN_DECLS
 
 #include "adw-version.h"
 #include "adw-action-row.h"
+#include "adw-animation.h"
+#include "adw-animation-target.h"
 #include "adw-animation-util.h"
 #include "adw-application.h"
 #include "adw-application-window.h"
@@ -56,6 +58,7 @@ G_BEGIN_DECLS
 #include "adw-swipeable.h"
 #include "adw-tab-bar.h"
 #include "adw-tab-view.h"
+#include "adw-timed-animation.h"
 #include "adw-toast-overlay.h"
 #include "adw-toast.h"
 #include "adw-view-stack.h"

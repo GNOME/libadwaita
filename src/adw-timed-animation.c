@@ -6,7 +6,7 @@
 
 #include "config.h"
 
-#include "adw-timed-animation-private.h"
+#include "adw-timed-animation.h"
 
 #include "adw-animation-private.h"
 #include "adw-animation-util-private.h"
