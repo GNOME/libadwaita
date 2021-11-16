@@ -18,11 +18,10 @@ struct _AdwTimedAnimation
   double value_from;
   double value_to;
   guint duration; /* ms */
+  AdwEasing easing;
   guint repeat_count;
   gboolean reverse;
   gboolean alternate;
-
-  AdwAnimationInterpolator interpolator;
 };
 
 struct _AdwTimedAnimationClass
@@ -37,7 +36,7 @@ enum {
   PROP_VALUE_FROM,
   PROP_VALUE_TO,
   PROP_DURATION,
-  PROP_INTERPOLATOR,
+  PROP_EASING,
   PROP_REPEAT_COUNT,
   PROP_REVERSE,
   PROP_ALTERNATE,
@@ -86,14 +85,14 @@ adw_timed_animation_calculate_value (AdwAnimation *animation,
 
   progress = reverse ? (1 - progress) : progress;
 
-  switch (self->interpolator) {
-    case ADW_ANIMATION_INTERPOLATOR_EASE_IN:
+  switch (self->easing) {
+    case ADW_EASING_EASE_IN_CUBIC:
       value = adw_ease_in_cubic (progress);
       break;
-    case ADW_ANIMATION_INTERPOLATOR_EASE_OUT:
+    case ADW_EASING_EASE_OUT_CUBIC:
       value = adw_ease_out_cubic (progress);
       break;
-    case ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT:
+    case ADW_EASING_EASE_IN_OUT_CUBIC:
       value = adw_ease_in_out_cubic (progress);
       break;
     default:
@@ -124,8 +123,8 @@ adw_timed_animation_get_property (GObject    *object,
     g_value_set_uint (value, adw_timed_animation_get_duration (self));
     break;
 
-  case PROP_INTERPOLATOR:
-    g_value_set_enum (value, adw_timed_animation_get_interpolator (self));
+  case PROP_EASING:
+    g_value_set_enum (value, adw_timed_animation_get_easing (self));
     break;
 
   case PROP_REPEAT_COUNT:
@@ -166,8 +165,8 @@ adw_timed_animation_set_property (GObject      *object,
     adw_timed_animation_set_duration (self, g_value_get_uint (value));
     break;
 
-  case PROP_INTERPOLATOR:
-    adw_timed_animation_set_interpolator (self, g_value_get_enum (value));
+  case PROP_EASING:
+    adw_timed_animation_set_easing (self, g_value_get_enum (value));
     break;
 
   case PROP_REPEAT_COUNT:
@@ -226,12 +225,12 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
                        0,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
-  props[PROP_INTERPOLATOR] =
-    g_param_spec_enum ("interpolator",
-                       "Interpolator",
+  props[PROP_EASING] =
+    g_param_spec_enum ("easing",
+                       "Easing",
                        "Easing function used in the animation",
-                       ADW_TYPE_ANIMATION_INTERPOLATOR,
-                       ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
+                       ADW_TYPE_EASING,
+                       ADW_EASING_EASE_OUT_CUBIC,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
   props[PROP_REPEAT_COUNT] =
@@ -356,28 +355,28 @@ adw_timed_animation_set_duration (AdwTimedAnimation *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DURATION]);
 }
 
-AdwAnimationInterpolator
-adw_timed_animation_get_interpolator (AdwTimedAnimation *self)
+AdwEasing
+adw_timed_animation_get_easing (AdwTimedAnimation *self)
 {
   g_return_val_if_fail (ADW_IS_TIMED_ANIMATION (self),
-                        ADW_ANIMATION_INTERPOLATOR_EASE_IN);
+                        ADW_EASING_EASE_IN_CUBIC);
 
-  return self->interpolator;
+  return self->easing;
 }
 
 void
-adw_timed_animation_set_interpolator (AdwTimedAnimation        *self,
-                                      AdwAnimationInterpolator  interpolator)
+adw_timed_animation_set_easing (AdwTimedAnimation *self,
+                                AdwEasing          easing)
 {
   g_return_if_fail (ADW_IS_TIMED_ANIMATION (self));
-  g_return_if_fail (interpolator <= ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT);
+  g_return_if_fail (easing <= ADW_EASING_EASE_IN_OUT_CUBIC);
 
-  if (self->interpolator == interpolator)
+  if (self->easing == easing)
     return;
 
-  self->interpolator = interpolator;
+  self->easing = easing;
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INTERPOLATOR]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EASING]);
 }
 
 guint

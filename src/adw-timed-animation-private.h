@@ -24,10 +24,10 @@ G_BEGIN_DECLS
 GDK_DECLARE_INTERNAL_TYPE (AdwTimedAnimation, adw_timed_animation, ADW, TIMED_ANIMATION, AdwAnimation)
 
 typedef enum {
-  ADW_ANIMATION_INTERPOLATOR_EASE_IN,
-  ADW_ANIMATION_INTERPOLATOR_EASE_OUT,
-  ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT,
-} AdwAnimationInterpolator;
+  ADW_EASING_EASE_IN_CUBIC,
+  ADW_EASING_EASE_OUT_CUBIC,
+  ADW_EASING_EASE_IN_OUT_CUBIC,
+} AdwEasing;
 
 AdwAnimation *adw_timed_animation_new (GtkWidget          *widget,
                                        double              from,
@@ -47,9 +47,9 @@ guint adw_timed_animation_get_duration (AdwTimedAnimation *self);
 void  adw_timed_animation_set_duration (AdwTimedAnimation *self,
                                         guint              duration);
 
-AdwAnimationInterpolator adw_timed_animation_get_interpolator (AdwTimedAnimation        *self);
-void                     adw_timed_animation_set_interpolator (AdwTimedAnimation        *self,
-                                                               AdwAnimationInterpolator  interpolator);
+AdwEasing adw_timed_animation_get_easing (AdwTimedAnimation *self);
+void      adw_timed_animation_set_easing (AdwTimedAnimation *self,
+                                          AdwEasing          easing);
 
 guint adw_timed_animation_get_repeat_count (AdwTimedAnimation *self);
 void  adw_timed_animation_set_repeat_count (AdwTimedAnimation *self,

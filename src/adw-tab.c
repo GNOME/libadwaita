@@ -845,8 +845,8 @@ adw_tab_init (AdwTab *self)
     adw_timed_animation_new (GTK_WIDGET (self), 0, 0,
                              CLOSE_BTN_ANIMATION_DURATION, target);
 
-  adw_timed_animation_set_interpolator (ADW_TIMED_ANIMATION (self->close_btn_animation),
-                                        ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT);
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->close_btn_animation),
+                                  ADW_EASING_EASE_IN_OUT_CUBIC);
 }
 
 AdwTab *
