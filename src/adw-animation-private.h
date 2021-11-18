@@ -65,9 +65,7 @@ AdwAnimationTarget *adw_animation_get_target (AdwAnimation *self);
 
 double adw_animation_get_value (AdwAnimation *self);
 
-AdwAnimationStatus adw_animation_get_status (AdwAnimation       *self);
-void               adw_animation_set_status (AdwAnimation       *self,
-                                             AdwAnimationStatus  status);
+AdwAnimationStatus adw_animation_get_status (AdwAnimation *self);
 
 void adw_animation_start (AdwAnimation *self);
 void adw_animation_stop  (AdwAnimation *self);

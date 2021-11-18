@@ -232,10 +232,6 @@ adw_animation_set_property (GObject      *object,
     g_set_object (&priv->target, g_value_get_object (value));
     break;
 
-  case PROP_STATUS:
-    adw_animation_set_status (self, g_value_get_enum (value));
-    break;
-
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -405,25 +401,6 @@ adw_animation_get_status (AdwAnimation *self)
   priv = adw_animation_get_instance_private (self);
 
   return priv->status;
-}
-
-void
-adw_animation_set_status (AdwAnimation       *self,
-                          AdwAnimationStatus  status)
-{
-  AdwAnimationPrivate *priv;
-
-  g_return_if_fail (ADW_IS_ANIMATION (self));
-  g_return_if_fail (status <= ADW_ANIMATION_STATUS_CANCELED);
-
-  priv = adw_animation_get_instance_private (self);
-
-  if (priv->status == status)
-    return;
-
-  priv->status = status;
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATUS]);
 }
 
 void
