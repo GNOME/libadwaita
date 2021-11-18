@@ -29,7 +29,7 @@ typedef struct
   AdwAnimationTarget *target;
   gpointer user_data;
 
-  AdwAnimationStatus status;
+  AdwAnimationState state;
 } AdwAnimationPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AdwAnimation, adw_animation, G_TYPE_OBJECT)
@@ -43,7 +43,7 @@ enum {
   PROP_DURATION,
   PROP_INTERPOLATOR,
   PROP_TARGET,
-  PROP_STATUS,
+  PROP_STATE,
   LAST_PROP,
 };
 
@@ -72,11 +72,11 @@ done (AdwAnimation *self)
 {
   AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
 
-  if (priv->status == ADW_ANIMATION_STATUS_COMPLETED)
+  if (priv->state == ADW_ANIMATION_COMPLETED)
     return;
 
-  priv->status = ADW_ANIMATION_STATUS_COMPLETED;
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATUS]);
+  priv->state = ADW_ANIMATION_COMPLETED;
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATE]);
 
   g_signal_emit (self, signals[SIGNAL_DONE], 0);
 }
@@ -189,8 +189,8 @@ adw_animation_get_property (GObject    *object,
     g_value_set_object (value, adw_animation_get_target (self));
     break;
 
-  case PROP_STATUS:
-    g_value_set_enum (value, adw_animation_get_status (self));
+  case PROP_STATE:
+    g_value_set_enum (value, adw_animation_get_state (self));
     break;
 
   default:
@@ -305,12 +305,12 @@ adw_animation_class_init (AdwAnimationClass *klass)
                          ADW_TYPE_ANIMATION_TARGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
-  props[PROP_STATUS] =
-    g_param_spec_enum ("status",
-                       "Status",
-                       "Status of the animation",
-                       ADW_TYPE_ANIMATION_STATUS,
-                       ADW_ANIMATION_STATUS_NONE,
+  props[PROP_STATE] =
+    g_param_spec_enum ("state",
+                       "State",
+                       "State of the animation",
+                       ADW_TYPE_ANIMATION_STATE,
+                       ADW_ANIMATION_NONE,
                        G_PARAM_READABLE);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -391,16 +391,16 @@ adw_animation_get_value (AdwAnimation *self)
   return priv->value;
 }
 
-AdwAnimationStatus
-adw_animation_get_status (AdwAnimation *self)
+AdwAnimationState
+adw_animation_get_state (AdwAnimation *self)
 {
   AdwAnimationPrivate *priv;
 
-  g_return_val_if_fail (ADW_IS_ANIMATION (self), ADW_ANIMATION_STATUS_NONE);
+  g_return_val_if_fail (ADW_IS_ANIMATION (self), ADW_ANIMATION_NONE);
 
   priv = adw_animation_get_instance_private (self);
 
-  return priv->status;
+  return priv->state;
 }
 
 void
