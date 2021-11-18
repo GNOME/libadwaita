@@ -57,6 +57,36 @@ enum {
 static guint signals[SIGNAL_LAST_SIGNAL];
 
 static void
+widget_notify_cb (AdwAnimation *self)
+{
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+
+  priv->widget = NULL;
+}
+
+static void
+set_widget (AdwAnimation *self,
+            GtkWidget    *widget)
+{
+  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
+
+  if (priv->widget == widget)
+    return;
+
+  if (priv->widget)
+    g_object_weak_unref (G_OBJECT (priv->widget),
+                         (GWeakNotify) widget_notify_cb,
+                         self);
+
+  priv->widget = widget;
+
+  if (priv->widget)
+    g_object_weak_ref (G_OBJECT (priv->widget),
+                       (GWeakNotify) widget_notify_cb,
+                       self);
+}
+
+static void
 set_value (AdwAnimation *self,
            double        value)
 {
@@ -147,7 +177,8 @@ adw_animation_dispose (GObject *object)
   adw_animation_stop (self);
 
   g_clear_object (&priv->target);
-  g_clear_object (&priv->widget);
+
+  set_widget (self, NULL);
 
   G_OBJECT_CLASS (adw_animation_parent_class)->dispose (object);
 }
@@ -209,7 +240,7 @@ adw_animation_set_property (GObject      *object,
 
   switch (prop_id) {
   case PROP_WIDGET:
-    g_set_object (&priv->widget, g_value_get_object (value));
+    set_widget (self, g_value_get_object (value));
     break;
 
   case PROP_VALUE_FROM:
