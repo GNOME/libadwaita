@@ -332,7 +332,8 @@ animate_child_resize (AdwCarousel *self,
   child->resize_animation =
     adw_animation_new (GTK_WIDGET (self), old_size, value, duration, target);
 
-  g_signal_connect_swapped (child->resize_animation, "done", G_CALLBACK (resize_animation_done_cb), child);
+  g_signal_connect_swapped (child->resize_animation, "done",
+                            G_CALLBACK (resize_animation_done_cb), child);
 
   adw_animation_play (child->resize_animation);
 }
@@ -364,7 +365,6 @@ scroll_animation_done_cb (AdwCarousel *self)
   GtkWidget *child;
   int index;
 
-  g_clear_object (&self->animation);
   self->animation_source_position = 0;
   self->animation_target_child = NULL;
 
@@ -379,11 +379,6 @@ scroll_to (AdwCarousel *self,
            GtkWidget   *widget,
            gint64       duration)
 {
-  AdwAnimationTarget *target;
-
-  if (self->animation)
-    adw_animation_skip (self->animation);
-
   self->animation_target_child = find_child_info (self, widget);
 
   if (self->animation_target_child == NULL)
@@ -391,14 +386,7 @@ scroll_to (AdwCarousel *self,
 
   self->animation_source_position = self->position;
 
-  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                              scroll_animation_value_cb,
-                                              self, NULL);
-  self->animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1, duration, target);
-
-  g_signal_connect_swapped (self->animation, "done", G_CALLBACK (scroll_animation_done_cb), self);
-
+  adw_animation_set_duration (self->animation, duration);
   adw_animation_play (self->animation);
 }
 
@@ -418,8 +406,7 @@ static void
 begin_swipe_cb (AdwSwipeTracker *tracker,
                 AdwCarousel     *self)
 {
-  if (self->animation)
-    adw_animation_skip (self->animation);
+  adw_animation_pause (self->animation);
 }
 
 static void
@@ -747,6 +734,7 @@ adw_carousel_dispose (GObject *object)
   }
 
   g_clear_object (&self->tracker);
+  g_clear_object (&self->animation);
   g_clear_handle_id (&self->scroll_timeout_id, g_source_remove);
 
   G_OBJECT_CLASS (adw_carousel_parent_class)->dispose (object);
@@ -1068,6 +1056,8 @@ static void
 adw_carousel_init (AdwCarousel *self)
 {
   GtkEventController *controller;
+  AdwAnimationTarget *target;
+
   self->allow_scroll_wheel = TRUE;
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
@@ -1087,6 +1077,15 @@ adw_carousel_init (AdwCarousel *self)
   controller = gtk_event_controller_scroll_new (GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES);
   g_signal_connect_swapped (controller, "scroll", G_CALLBACK (scroll_cb), self);
   gtk_widget_add_controller (GTK_WIDGET (self), controller);
+
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              scroll_animation_value_cb,
+                                              self, NULL);
+  self->animation =
+    adw_animation_new (GTK_WIDGET (self), 0, 1, 0, target);
+
+  g_signal_connect_swapped (self->animation, "done",
+                            G_CALLBACK (scroll_animation_done_cb), self);
 }
 
 static void
