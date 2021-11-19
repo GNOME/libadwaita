@@ -286,31 +286,14 @@ fold_animation_value_cb (AdwFlap *self,
 }
 
 static void
-fold_animation_done_cb (AdwFlap *self)
-{
-  g_clear_object (&self->fold_animation);
-}
-
-static void
 animate_fold (AdwFlap *self)
 {
-  AdwAnimationTarget *target;
+  adw_animation_set_value_from (self->fold_animation, self->fold_progress);
+  adw_animation_set_value_to (self->fold_animation, self->folded ? 1 : 0);
 
-  if (self->fold_animation)
-    adw_animation_skip (self->fold_animation);
-
-  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                              fold_animation_value_cb,
-                                              self, NULL);
-  self->fold_animation =
-    adw_animation_new (GTK_WIDGET (self),
-                       self->fold_progress,
-                       self->folded ? 1 : 0,
-                       /* When the flap is completely hidden, we can skip animation */
-                       (self->reveal_progress > 0) ? self->fold_duration : 0,
-                       target);
-
-  g_signal_connect_swapped (self->fold_animation, "done", G_CALLBACK (fold_animation_done_cb), self);
+  /* When the flap is completely hidden, we can skip animation */
+  adw_animation_set_duration (self->fold_animation,
+                             (self->reveal_progress > 0) ? self->fold_duration : 0);
 
   adw_animation_play (self->fold_animation);
 }
@@ -318,8 +301,6 @@ animate_fold (AdwFlap *self)
 static void
 reveal_animation_done_cb (AdwFlap *self)
 {
-  g_clear_object (&self->reveal_animation);
-
   if (self->schedule_fold) {
     self->schedule_fold = FALSE;
 
@@ -334,19 +315,9 @@ animate_reveal (AdwFlap *self,
                 double   to,
                 gint64   duration)
 {
-  AdwAnimationTarget *target;
-
-  if (self->reveal_animation)
-    adw_animation_skip (self->reveal_animation);
-
-  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                              set_reveal_progress,
-                                              self, NULL);
-  self->reveal_animation =
-    adw_animation_new (GTK_WIDGET (self), self->reveal_progress,
-                       to, duration, target);
-
-  g_signal_connect_swapped (self->reveal_animation, "done", G_CALLBACK (reveal_animation_done_cb), self);
+  adw_animation_set_value_from (self->reveal_animation, self->reveal_progress);
+  adw_animation_set_value_to (self->reveal_animation, to);
+  adw_animation_set_duration (self->reveal_animation, duration);
 
   adw_animation_play (self->reveal_animation);
 }
@@ -428,8 +399,7 @@ begin_swipe_cb (AdwSwipeTracker *tracker,
   if (self->reveal_progress >= 1 && !self->swipe_to_close)
     return;
 
-  if (self->reveal_animation)
-    adw_animation_skip (self->reveal_animation);
+  adw_animation_pause (self->reveal_animation);
 
   self->swipe_active = TRUE;
 }
@@ -1249,6 +1219,8 @@ adw_flap_dispose (GObject *object)
 
   g_clear_object (&self->shadow_helper);
   g_clear_object (&self->tracker);
+  g_clear_object (&self->fold_animation);
+  g_clear_object (&self->reveal_animation);
 
   self->shortcut_controller = NULL;
 
@@ -1572,6 +1544,7 @@ adw_flap_init (AdwFlap *self)
   GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
   GtkEventController *gesture;
   GtkShortcut *shortcut;
+  AdwAnimationTarget *target;
 
   self->orientation = GTK_ORIENTATION_HORIZONTAL;
   self->flap_position = GTK_PACK_START;
@@ -1620,6 +1593,21 @@ adw_flap_init (AdwFlap *self)
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
   gtk_style_context_add_class (context, "unfolded");
+
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              fold_animation_value_cb,
+                                              self, NULL);
+  self->fold_animation =
+    adw_animation_new (GTK_WIDGET (self), 0, 0, 0, target);
+
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              set_reveal_progress,
+                                              self, NULL);
+  self->reveal_animation =
+    adw_animation_new (GTK_WIDGET (self), 0, 0, 0, target);
+
+  g_signal_connect_swapped (self->reveal_animation, "done",
+                            G_CALLBACK (reveal_animation_done_cb), self);
 
   update_shortcuts (self);
   update_shield (self);
