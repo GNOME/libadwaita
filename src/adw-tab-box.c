@@ -980,11 +980,8 @@ reorder_animation_value_cb (TabInfo *dest_tab,
 }
 
 static void
-reorder_animation_done_cb (TabInfo *dest_tab)
+reorder_animation_done_cb (AdwTabBox *self)
 {
-  GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (dest_tab->tab));
-  AdwTabBox *self = ADW_TAB_BOX (parent);
-
   g_clear_object (&self->reorder_animation);
   check_end_reordering (self);
 }
@@ -1005,7 +1002,8 @@ animate_reordering (AdwTabBox *self,
     adw_animation_new (GTK_WIDGET (self), 0, 1,
                        REORDER_ANIMATION_DURATION, target);
 
-  g_signal_connect_swapped (self->reorder_animation, "done", G_CALLBACK (reorder_animation_done_cb), dest_tab);
+  g_signal_connect_swapped (self->reorder_animation, "done",
+                            G_CALLBACK (reorder_animation_done_cb), self);
 
   adw_animation_play (self->reorder_animation);
 
@@ -1057,7 +1055,8 @@ animate_reorder_offset (AdwTabBox *self,
     adw_animation_new (GTK_WIDGET (self), info->reorder_offset, offset,
                        REORDER_ANIMATION_DURATION, target);
 
-  g_signal_connect_swapped (info->reorder_animation, "done", G_CALLBACK (reorder_offset_animation_done_cb), info);
+  g_signal_connect_swapped (info->reorder_animation, "done",
+                            G_CALLBACK (reorder_offset_animation_done_cb), info);
 
   adw_animation_play (info->reorder_animation);
 }
@@ -1636,7 +1635,8 @@ page_attached_cb (AdwTabBox  *self,
     adw_animation_new (GTK_WIDGET (self), 0, 1,
                        OPEN_ANIMATION_DURATION, target);
 
-  g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (open_animation_done_cb), info);
+  g_signal_connect_swapped (info->appear_animation, "done",
+                            G_CALLBACK (open_animation_done_cb), info);
 
   l = find_nth_alive_tab (self, position);
   self->tabs = g_list_insert_before (self->tabs, l, info);
@@ -1744,7 +1744,8 @@ page_detached_cb (AdwTabBox  *self,
     adw_animation_new (GTK_WIDGET (self), info->appear_progress, 0,
                        CLOSE_ANIMATION_DURATION, target);
 
-  g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (close_animation_done_cb), info);
+  g_signal_connect_swapped (info->appear_animation, "done",
+                            G_CALLBACK (close_animation_done_cb), info);
 
   adw_animation_play (info->appear_animation);
 }
@@ -1938,7 +1939,8 @@ insert_placeholder (AdwTabBox  *self,
     adw_animation_new (GTK_WIDGET (self), initial_progress, 1,
                        OPEN_ANIMATION_DURATION, target);
 
-  g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (open_animation_done_cb), info);
+  g_signal_connect_swapped (info->appear_animation, "done",
+                            G_CALLBACK (open_animation_done_cb), info);
 
   adw_animation_play (info->appear_animation);
 }
@@ -1988,7 +1990,8 @@ replace_placeholder (AdwTabBox  *self,
     adw_animation_new (GTK_WIDGET (self), initial_progress, 1,
                        OPEN_ANIMATION_DURATION, target);
 
-  g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (replace_animation_done_cb), info);
+  g_signal_connect_swapped (info->appear_animation, "done",
+                            G_CALLBACK (replace_animation_done_cb), info);
 
   adw_animation_play (info->appear_animation);
 }
@@ -2011,7 +2014,7 @@ remove_animation_done_cb (TabInfo *info)
   if (self->reordered_tab == info) {
     force_end_reordering (self);
 
-    if (self->reorder_animation)
+    if (info->reorder_animation)
       adw_animation_skip (info->reorder_animation);
 
     self->reordered_tab = NULL;
@@ -2062,7 +2065,8 @@ remove_placeholder (AdwTabBox *self)
     adw_animation_new (GTK_WIDGET (self), info->appear_progress, 0,
                        CLOSE_ANIMATION_DURATION, target);
 
-  g_signal_connect_swapped (info->appear_animation, "done", G_CALLBACK (remove_animation_done_cb), info);
+  g_signal_connect_swapped (info->appear_animation, "done",
+                            G_CALLBACK (remove_animation_done_cb), info);
 
   adw_animation_play (info->appear_animation);
 }
