@@ -97,19 +97,10 @@ close_btn_animation_value_cb (AdwTab *self,
 }
 
 static void
-close_btn_animation_done_cb (AdwTab *self)
-{
-  gtk_widget_set_opacity (self->close_btn, self->show_close ? 1 : 0);
-  gtk_widget_set_can_target (self->close_btn, self->show_close);
-  g_clear_object (&self->close_btn_animation);
-}
-
-static void
 update_state (AdwTab *self)
 {
   GtkStateFlags new_state;
   gboolean show_close;
-  AdwAnimationTarget *target;
 
   new_state = gtk_widget_get_state_flags (GTK_WIDGET (self)) &
     ~GTK_STATE_FLAG_CHECKED;
@@ -122,28 +113,12 @@ update_state (AdwTab *self)
   show_close = (self->hovering && self->fully_visible) || self->selected || self->dragging;
 
   if (self->show_close != show_close) {
-    double opacity = gtk_widget_get_opacity (self->close_btn);
-
-    if (self->close_btn_animation)
-      adw_animation_skip (self->close_btn_animation);
-
     self->show_close = show_close;
 
-    target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                                close_btn_animation_value_cb,
-                                                self, NULL);
-    self->close_btn_animation =
-      adw_animation_new (GTK_WIDGET (self),
-                         opacity,
-                         self->show_close ? 1 : 0,
-                         CLOSE_BTN_ANIMATION_DURATION,
-                         target);
-
-    adw_animation_set_interpolator (self->close_btn_animation,
-                                    ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT);
-
-    g_signal_connect_swapped (self->close_btn_animation, "done", G_CALLBACK (close_btn_animation_done_cb), self);
-
+    adw_animation_set_value_from (self->close_btn_animation,
+                                  gtk_widget_get_opacity (self->close_btn));
+    adw_animation_set_value_to (self->close_btn_animation,
+                                self->show_close ? 1 : 0);
     adw_animation_play (self->close_btn_animation);
   }
 }
@@ -746,6 +721,7 @@ adw_tab_dispose (GObject *object)
   adw_tab_set_page (self, NULL);
 
   g_clear_object (&self->shader);
+  g_clear_object (&self->close_btn_animation);
   gtk_widget_unparent (self->indicator_btn);
   gtk_widget_unparent (self->icon_stack);
   gtk_widget_unparent (self->title);
@@ -856,9 +832,21 @@ adw_tab_class_init (AdwTabClass *klass)
 static void
 adw_tab_init (AdwTab *self)
 {
+  AdwAnimationTarget *target;
+
   g_type_ensure (ADW_TYPE_FADING_LABEL);
 
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              close_btn_animation_value_cb,
+                                              self, NULL);
+  self->close_btn_animation =
+    adw_animation_new (GTK_WIDGET (self), 0, 0,
+                       CLOSE_BTN_ANIMATION_DURATION, target);
+
+  adw_animation_set_interpolator (self->close_btn_animation,
+                                  ADW_ANIMATION_INTERPOLATOR_EASE_IN_OUT);
 }
 
 AdwTab *
