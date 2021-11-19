@@ -21,6 +21,7 @@ test_link_args = [
 
 test_names = [
   'test-action-row',
+  'test-animation',
   'test-application-window',
   'test-avatar',
   'test-bin',
@@ -43,6 +44,7 @@ test_names = [
   'test-style-manager',
   'test-tab-bar',
   'test-tab-view',
+  'test-timed-animation',
   'test-toast',
   'test-toast-overlay',
   'test-view-switcher',
