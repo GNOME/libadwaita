@@ -426,19 +426,9 @@ resize_animation_value_cb (double     value,
 }
 
 static void
-resize_animation_done_cb (AdwTabBox *self)
-{
-  self->end_padding = 0;
-  gtk_widget_queue_resize (GTK_WIDGET (self));
-
-  g_clear_object (&self->resize_animation);
-}
-
-static void
 set_tab_resize_mode (AdwTabBox     *self,
                      TabResizeMode  mode)
 {
-  AdwAnimationTarget *target;
   gboolean notify;
 
   if (self->tab_resize_mode == mode)
@@ -463,15 +453,6 @@ set_tab_resize_mode (AdwTabBox     *self,
 
   if (mode == TAB_RESIZE_NORMAL) {
     self->initial_end_padding = self->end_padding;
-
-    target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                                resize_animation_value_cb,
-                                                self, NULL);
-    self->resize_animation =
-      adw_animation_new (GTK_WIDGET (self), 0, 1,
-                         RESIZE_ANIMATION_DURATION, target);
-
-    g_signal_connect_swapped (self->resize_animation, "done", G_CALLBACK (resize_animation_done_cb), self);
 
     adw_animation_play (self->resize_animation);
   }
@@ -3197,6 +3178,8 @@ adw_tab_box_dispose (GObject *object)
   adw_tab_box_set_view (self, NULL);
   adw_tab_box_set_adjustment (self, NULL);
 
+  g_clear_object (&self->resize_animation);
+
   G_OBJECT_CLASS (adw_tab_box_parent_class)->dispose (object);
 }
 
@@ -3404,6 +3387,7 @@ static void
 adw_tab_box_init (AdwTabBox *self)
 {
   GtkEventController *controller;
+  AdwAnimationTarget *target;
 
   self->can_remove_placeholder = TRUE;
   self->expand_tabs = TRUE;
@@ -3460,6 +3444,13 @@ adw_tab_box_init (AdwTabBox *self)
   g_signal_connect_swapped (controller, "leave", G_CALLBACK (tab_drag_leave_cb), self);
   g_signal_connect_swapped (controller, "drop", G_CALLBACK (tab_drag_drop_cb), self);
   gtk_widget_add_controller (GTK_WIDGET (self), controller);
+
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              resize_animation_value_cb,
+                                              self, NULL);
+  self->resize_animation =
+    adw_animation_new (GTK_WIDGET (self), 0, 1,
+                       RESIZE_ANIMATION_DURATION, target);
 }
 
 void
