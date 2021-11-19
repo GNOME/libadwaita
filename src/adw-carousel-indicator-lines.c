@@ -48,6 +48,7 @@ struct _AdwCarouselIndicatorLines
   GtkOrientation orientation;
 
   AdwAnimation *animation;
+  GBinding *duration_binding;
 };
 
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwCarouselIndicatorLines, adw_carousel_indicator_lines, GTK_TYPE_WIDGET,
@@ -63,32 +64,6 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
-
-static void
-done_cb (AdwCarouselIndicatorLines *self)
-{
-  g_clear_object (&self->animation);
-}
-
-static void
-animate (AdwCarouselIndicatorLines *self,
-         gint64                     duration)
-{
-  AdwAnimationTarget *target;
-
-  if (self->animation)
-    adw_animation_skip (self->animation);
-
-  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                              gtk_widget_queue_draw,
-                                              self, NULL);
-  self->animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1, duration, target);
-
-  g_signal_connect_swapped (self->animation, "done", G_CALLBACK (done_cb), self);
-
-  adw_animation_play (self->animation);
-}
 
 static GdkRGBA
 get_color (GtkWidget *widget)
@@ -177,12 +152,6 @@ snapshot_lines (GtkWidget      *widget,
 }
 
 static void
-n_pages_changed_cb (AdwCarouselIndicatorLines *self)
-{
-  animate (self, adw_carousel_get_reveal_duration (self->carousel));
-}
-
-static void
 adw_carousel_indicator_lines_measure (GtkWidget      *widget,
                                       GtkOrientation  orientation,
                                       int             for_size,
@@ -257,6 +226,8 @@ adw_carousel_dispose (GObject *object)
   AdwCarouselIndicatorLines *self = ADW_CAROUSEL_INDICATOR_LINES (object);
 
   adw_carousel_indicator_lines_set_carousel (self, NULL);
+
+  g_clear_object (&self->animation);
 
   G_OBJECT_CLASS (adw_carousel_indicator_lines_parent_class)->dispose (object);
 }
@@ -351,6 +322,13 @@ adw_carousel_indicator_lines_class_init (AdwCarouselIndicatorLinesClass *klass)
 static void
 adw_carousel_indicator_lines_init (AdwCarouselIndicatorLines *self)
 {
+  AdwAnimationTarget *target
+    = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                         gtk_widget_queue_resize,
+                                         self, NULL);
+
+  self->animation =
+    adw_animation_new (GTK_WIDGET (self), 0, 1, 0, target);
 }
 
 /**
@@ -405,12 +383,14 @@ adw_carousel_indicator_lines_set_carousel (AdwCarouselIndicatorLines *self,
   if (self->carousel == carousel)
     return;
 
-  if (self->animation)
-    adw_animation_skip (self->animation);
+  adw_animation_reset (self->animation);
 
   if (self->carousel) {
-    g_signal_handlers_disconnect_by_func (self->carousel, gtk_widget_queue_draw, self);
-    g_signal_handlers_disconnect_by_func (self->carousel, n_pages_changed_cb, self);
+    g_signal_handlers_disconnect_by_func (self->carousel,
+                                          gtk_widget_queue_draw, self);
+    g_signal_handlers_disconnect_by_func (self->carousel,
+                                          adw_animation_play, self->animation);
+    g_clear_object (&self->duration_binding);
   }
 
   g_set_object (&self->carousel, carousel);
@@ -420,8 +400,12 @@ adw_carousel_indicator_lines_set_carousel (AdwCarouselIndicatorLines *self,
                              G_CALLBACK (gtk_widget_queue_draw), self,
                              G_CONNECT_SWAPPED);
     g_signal_connect_object (self->carousel, "notify::n-pages",
-                             G_CALLBACK (n_pages_changed_cb), self,
+                             G_CALLBACK (adw_animation_play), self->animation,
                              G_CONNECT_SWAPPED);
+    self->duration_binding =
+      g_object_bind_property (self->carousel, "reveal-duration",
+                              self->animation, "duration",
+                              G_BINDING_SYNC_CREATE);
   }
 
   gtk_widget_queue_draw (GTK_WIDGET (self));
