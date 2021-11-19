@@ -2190,8 +2190,10 @@ drag_end (AdwTabBox *self,
 
   self->detached_page = NULL;
 
-  if (self->drag_icon)
+  if (self->drag_icon) {
+    g_clear_object (&self->drag_icon->resize_animation);
     g_clear_pointer (&self->drag_icon, g_free);
+  }
 
   g_object_unref (drag);
 }
@@ -2232,10 +2234,35 @@ tab_drag_cancel_cb (AdwTabBox           *self,
 }
 
 static void
+icon_resize_animation_value_cb (DragIcon *icon,
+                                double    value)
+{
+  double relative_pos;
+
+  relative_pos = (double) icon->hotspot_x / icon->width;
+
+  icon->width = (int) round (value);
+
+  adw_tab_set_display_width (icon->tab, icon->width);
+  gtk_widget_set_size_request (GTK_WIDGET (icon->tab),
+                               icon->width + icon->tab_margin.left + icon->tab_margin.right,
+                               -1);
+
+  icon->hotspot_x = (int) round (icon->width * relative_pos);
+
+  gdk_drag_set_hotspot (icon->drag,
+                        icon->hotspot_x + icon->tab_margin.left,
+                        icon->hotspot_y + icon->tab_margin.top);
+
+  gtk_widget_queue_resize (GTK_WIDGET (icon->tab));
+}
+
+static void
 create_drag_icon (AdwTabBox *self,
                   GdkDrag   *drag)
 {
   DragIcon *icon;
+  AdwAnimationTarget *target;
 
   icon = g_new0 (DragIcon, 1);
 
@@ -2268,37 +2295,14 @@ create_drag_icon (AdwTabBox *self,
                         icon->hotspot_x + icon->tab_margin.left,
                         icon->hotspot_y + icon->tab_margin.top);
 
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              icon_resize_animation_value_cb,
+                                              icon, NULL);
+  icon->resize_animation =
+    adw_animation_new (GTK_WIDGET (icon->tab), 0, 0,
+                       ICON_RESIZE_ANIMATION_DURATION, target);
+
   self->drag_icon = icon;
-}
-
-static void
-icon_resize_animation_value_cb (DragIcon *icon,
-                                double    value)
-{
-  double relative_pos;
-
-  relative_pos = (double) icon->hotspot_x / icon->width;
-
-  icon->width = (int) round (value);
-
-  adw_tab_set_display_width (icon->tab, icon->width);
-  gtk_widget_set_size_request (GTK_WIDGET (icon->tab),
-                               icon->width + icon->tab_margin.left + icon->tab_margin.right,
-                               -1);
-
-  icon->hotspot_x = (int) round (icon->width * relative_pos);
-
-  gdk_drag_set_hotspot (icon->drag,
-                        icon->hotspot_x + icon->tab_margin.left,
-                        icon->hotspot_y + icon->tab_margin.top);
-
-  gtk_widget_queue_resize (GTK_WIDGET (icon->tab));
-}
-
-static void
-icon_resize_animation_done_cb (DragIcon *icon)
-{
-  g_clear_object (&icon->resize_animation);
 }
 
 static void
@@ -2306,25 +2310,14 @@ resize_drag_icon (AdwTabBox *self,
                   int        width)
 {
   DragIcon *icon = self->drag_icon;
-  AdwAnimationTarget *target;
 
   if (width == icon->target_width)
     return;
 
-  if (icon->resize_animation)
-    adw_animation_skip (icon->resize_animation);
-
   icon->target_width = width;
 
-  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                              icon_resize_animation_value_cb,
-                                              icon, NULL);
-  icon->resize_animation =
-    adw_animation_new (GTK_WIDGET (icon->tab), icon->width, width,
-                       ICON_RESIZE_ANIMATION_DURATION, target);
-
-  g_signal_connect_swapped (icon->resize_animation, "done", G_CALLBACK (icon_resize_animation_done_cb), icon);
-
+  adw_animation_set_value_from (icon->resize_animation, icon->width);
+  adw_animation_set_value_to (icon->resize_animation, width);
   adw_animation_play (icon->resize_animation);
 }
 
