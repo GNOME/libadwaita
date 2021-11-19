@@ -745,8 +745,7 @@ adjustment_value_changed_cb (AdwTabBox *self)
   if (self->block_scrolling)
       return;
 
-  if (self->scroll_animation)
-    adw_animation_skip (self->scroll_animation);
+  adw_animation_pause (self->scroll_animation);
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 }
@@ -755,7 +754,6 @@ static void
 scroll_animation_done_cb (AdwTabBox *self)
 {
   self->scroll_animation_done = TRUE;
-  gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
 static void
@@ -764,35 +762,17 @@ animate_scroll (AdwTabBox *self,
                 double     offset,
                 gint64     duration)
 {
-  AdwAnimationTarget *target;
-
   if (!self->adjustment)
     return;
 
   g_signal_emit (self, signals[SIGNAL_STOP_KINETIC_SCROLLING], 0);
 
-  if (self->scroll_animation)
-    adw_animation_skip (self->scroll_animation);
-
-  g_clear_object (&self->scroll_animation);
   self->scroll_animation_done = FALSE;
   self->scroll_animation_from = gtk_adjustment_get_value (self->adjustment);
   self->scroll_animation_tab = info;
   self->scroll_animation_offset = offset;
 
-  /* The actual update will be done in size_allocate(). After the animation
-   * finishes, don't remove it right away, it will be done in size-allocate as
-   * well after one last update, so that we don't miss the last frame.
-   */
-
-  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                              gtk_widget_queue_resize,
-                                              self, NULL);
-  self->scroll_animation =
-    adw_animation_new (GTK_WIDGET (self), 0, 1, duration, target);
-
-  g_signal_connect_swapped (self->scroll_animation, "done", G_CALLBACK (scroll_animation_done_cb), self);
-
+  adw_animation_set_duration (self->scroll_animation, duration);
   adw_animation_play (self->scroll_animation);
 }
 
@@ -803,7 +783,7 @@ animate_scroll_relative (AdwTabBox *self,
 {
   double current_value = gtk_adjustment_get_value (self->adjustment);
 
-  if (self->scroll_animation) {
+  if (adw_animation_get_state (self->scroll_animation) == ADW_ANIMATION_PLAYING) {
     current_value = self->scroll_animation_offset;
 
     if (self->scroll_animation_tab)
@@ -2987,7 +2967,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
     self->scheduled_scroll.info = NULL;
   }
 
-  if (self->scroll_animation) {
+  if (adw_animation_get_state (self->scroll_animation) == ADW_ANIMATION_PLAYING) {
     self->block_scrolling = TRUE;
     gtk_adjustment_set_value (self->adjustment,
                               get_scroll_animation_value (self));
@@ -2996,7 +2976,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
     if (self->scroll_animation_done) {
         self->scroll_animation_done = FALSE;
         self->scroll_animation_tab = NULL;
-        g_clear_object (&self->scroll_animation);
+        adw_animation_reset (self->scroll_animation);
     }
   }
 
@@ -3179,6 +3159,7 @@ adw_tab_box_dispose (GObject *object)
   adw_tab_box_set_adjustment (self, NULL);
 
   g_clear_object (&self->resize_animation);
+  g_clear_object (&self->scroll_animation);
 
   G_OBJECT_CLASS (adw_tab_box_parent_class)->dispose (object);
 }
@@ -3451,6 +3432,20 @@ adw_tab_box_init (AdwTabBox *self)
   self->resize_animation =
     adw_animation_new (GTK_WIDGET (self), 0, 1,
                        RESIZE_ANIMATION_DURATION, target);
+
+  /* The actual update will be done in size_allocate(). After the animation
+   * finishes, don't remove it right away, it will be done in size-allocate as
+   * well after one last update, so that we don't miss the last frame.
+   */
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              gtk_widget_queue_resize,
+                                              self, NULL);
+  self->scroll_animation =
+    adw_animation_new (GTK_WIDGET (self), 0, 1,
+                       SCROLL_ANIMATION_DURATION, target);
+
+  g_signal_connect_swapped (self->scroll_animation, "done",
+                            G_CALLBACK (scroll_animation_done_cb), self);
 }
 
 void
