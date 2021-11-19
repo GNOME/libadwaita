@@ -2332,9 +2332,9 @@ static void
 begin_drag (AdwTabBox *self,
             GdkDevice *device)
 {
+  g_autoptr (GdkContentProvider) content = NULL;
   GtkNative *native;
   GdkSurface *surface;
-  GdkContentProvider *content;
   GdkDrag *drag;
   TabInfo *detached_info;
   AdwTab *detached_tab;
