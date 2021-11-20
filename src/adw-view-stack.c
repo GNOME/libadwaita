@@ -141,8 +141,7 @@ struct _AdwViewStack {
 
   AdwViewStackPage *visible_child;
 
-  gboolean hhomogeneous;
-  gboolean vhomogeneous;
+  gboolean homogeneous[2];
 
   AdwViewStackPage *last_visible_child;
   guint tick_id;
@@ -544,7 +543,7 @@ find_page_for_name (AdwViewStack *self,
 static void
 progress_updated (AdwViewStack *self)
 {
-  if (!self->vhomogeneous || !self->hhomogeneous)
+  if (!self->homogeneous[GTK_ORIENTATION_VERTICAL] || !self->homogeneous[GTK_ORIENTATION_HORIZONTAL])
     gtk_widget_queue_resize (GTK_WIDGET (self));
   else
     gtk_widget_queue_draw (GTK_WIDGET (self));
@@ -724,7 +723,7 @@ set_visible_child (AdwViewStack     *self,
     }
   }
 
-  if (self->hhomogeneous && self->vhomogeneous)
+  if (self->homogeneous[GTK_ORIENTATION_HORIZONTAL] && self->homogeneous[GTK_ORIENTATION_VERTICAL])
     gtk_widget_queue_allocate (widget);
   else
     gtk_widget_queue_resize (widget);
@@ -815,7 +814,7 @@ add_page (AdwViewStack     *self,
       gtk_widget_get_visible (page->widget))
     set_visible_child (self, page);
 
-  if (self->hhomogeneous || self->vhomogeneous || self->visible_child == page)
+  if (self->homogeneous[GTK_ORIENTATION_HORIZONTAL] || self->homogeneous[GTK_ORIENTATION_VERTICAL] || self->visible_child == page)
     gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
@@ -877,7 +876,7 @@ stack_remove (AdwViewStack  *self,
   g_object_unref (page);
 
   if (!in_dispose &&
-      (self->hhomogeneous || self->vhomogeneous) &&
+      (self->homogeneous[GTK_ORIENTATION_HORIZONTAL] || self->homogeneous[GTK_ORIENTATION_VERTICAL]) &&
       was_visible)
     gtk_widget_queue_resize (GTK_WIDGET (self));
 }
@@ -967,8 +966,8 @@ adw_view_stack_measure (GtkWidget      *widget,
     AdwViewStackPage *page = l->data;
     GtkWidget *child = page->widget;
 
-    if (((orientation == GTK_ORIENTATION_VERTICAL && !self->vhomogeneous) ||
-         (orientation == GTK_ORIENTATION_HORIZONTAL && !self->hhomogeneous)) &&
+    if (((orientation == GTK_ORIENTATION_VERTICAL && !self->homogeneous[GTK_ORIENTATION_VERTICAL]) ||
+         (orientation == GTK_ORIENTATION_HORIZONTAL && !self->homogeneous[GTK_ORIENTATION_HORIZONTAL])) &&
          self->visible_child != page)
       continue;
 
@@ -981,13 +980,13 @@ adw_view_stack_measure (GtkWidget      *widget,
   }
 
   if (self->last_visible_child) {
-    if (orientation == GTK_ORIENTATION_VERTICAL && !self->vhomogeneous) {
+    if (orientation == GTK_ORIENTATION_VERTICAL && !self->homogeneous[GTK_ORIENTATION_VERTICAL]) {
       double t = self->interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE) : 0.0;
       *minimum = adw_lerp (*minimum, self->last_visible_widget_height, 1.0 - t);
       *natural = adw_lerp (*natural, self->last_visible_widget_height, 1.0 - t);
     }
 
-    if (orientation == GTK_ORIENTATION_HORIZONTAL && !self->hhomogeneous) {
+    if (orientation == GTK_ORIENTATION_HORIZONTAL && !self->homogeneous[GTK_ORIENTATION_HORIZONTAL]) {
       double t = self->interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE) : 0.0;
       *minimum = adw_lerp (*minimum, self->last_visible_widget_width, 1.0 - t);
       *natural = adw_lerp (*natural, self->last_visible_widget_width, 1.0 - t);
@@ -1267,8 +1266,8 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
 static void
 adw_view_stack_init (AdwViewStack *self)
 {
-  self->vhomogeneous = TRUE;
-  self->hhomogeneous = TRUE;
+  self->homogeneous[GTK_ORIENTATION_VERTICAL] = TRUE;
+  self->homogeneous[GTK_ORIENTATION_HORIZONTAL] = TRUE;
 }
 
 static void
@@ -1920,10 +1919,10 @@ adw_view_stack_set_hhomogeneous (AdwViewStack *self,
 
   hhomogeneous = !!hhomogeneous;
 
-  if (self->hhomogeneous == hhomogeneous)
+  if (self->homogeneous[GTK_ORIENTATION_HORIZONTAL] == hhomogeneous)
     return;
 
-  self->hhomogeneous = hhomogeneous;
+  self->homogeneous[GTK_ORIENTATION_HORIZONTAL] = hhomogeneous;
 
   if (gtk_widget_get_visible (GTK_WIDGET (self)))
     gtk_widget_queue_resize (GTK_WIDGET (self));
@@ -1946,7 +1945,7 @@ adw_view_stack_get_hhomogeneous (AdwViewStack *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_STACK (self), FALSE);
 
-  return self->hhomogeneous;
+  return self->homogeneous[GTK_ORIENTATION_HORIZONTAL];
 }
 
 /**
@@ -1966,10 +1965,10 @@ adw_view_stack_set_vhomogeneous (AdwViewStack *self,
 
   vhomogeneous = !!vhomogeneous;
 
-  if (self->vhomogeneous == vhomogeneous)
+  if (self->homogeneous[GTK_ORIENTATION_VERTICAL] == vhomogeneous)
     return;
 
-  self->vhomogeneous = vhomogeneous;
+  self->homogeneous[GTK_ORIENTATION_VERTICAL] = vhomogeneous;
 
   if (gtk_widget_get_visible (GTK_WIDGET (self)))
     gtk_widget_queue_resize (GTK_WIDGET (self));
@@ -1992,7 +1991,7 @@ adw_view_stack_get_vhomogeneous (AdwViewStack *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_STACK (self), FALSE);
 
-  return self->vhomogeneous;
+  return self->homogeneous[GTK_ORIENTATION_VERTICAL];
 }
 
 /**
