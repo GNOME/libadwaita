@@ -148,8 +148,7 @@ struct _AdwViewStack {
   GtkProgressTracker tracker;
   gboolean first_frame_skipped;
 
-  int last_visible_widget_width;
-  int last_visible_widget_height;
+  int last_visible_widget_size[2];
 
   gboolean interpolate_size;
 
@@ -703,8 +702,8 @@ set_visible_child (AdwViewStack     *self,
   if (self->visible_child && self->visible_child->widget) {
     if (gtk_widget_is_visible (widget)) {
       self->last_visible_child = self->visible_child;
-      self->last_visible_widget_width = gtk_widget_get_width (widget);
-      self->last_visible_widget_height = gtk_widget_get_height (widget);
+      self->last_visible_widget_size[GTK_ORIENTATION_HORIZONTAL] = gtk_widget_get_width (widget);
+      self->last_visible_widget_size[GTK_ORIENTATION_VERTICAL] = gtk_widget_get_height (widget);
     } else {
       gtk_widget_set_child_visible (self->visible_child->widget, FALSE);
     }
@@ -982,14 +981,14 @@ adw_view_stack_measure (GtkWidget      *widget,
   if (self->last_visible_child) {
     if (orientation == GTK_ORIENTATION_VERTICAL && !self->homogeneous[GTK_ORIENTATION_VERTICAL]) {
       double t = self->interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE) : 0.0;
-      *minimum = adw_lerp (*minimum, self->last_visible_widget_height, 1.0 - t);
-      *natural = adw_lerp (*natural, self->last_visible_widget_height, 1.0 - t);
+      *minimum = adw_lerp (*minimum, self->last_visible_widget_size[GTK_ORIENTATION_VERTICAL], 1.0 - t);
+      *natural = adw_lerp (*natural, self->last_visible_widget_size[GTK_ORIENTATION_VERTICAL], 1.0 - t);
     }
 
     if (orientation == GTK_ORIENTATION_HORIZONTAL && !self->homogeneous[GTK_ORIENTATION_HORIZONTAL]) {
       double t = self->interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE) : 0.0;
-      *minimum = adw_lerp (*minimum, self->last_visible_widget_width, 1.0 - t);
-      *natural = adw_lerp (*natural, self->last_visible_widget_width, 1.0 - t);
+      *minimum = adw_lerp (*minimum, self->last_visible_widget_size[GTK_ORIENTATION_HORIZONTAL], 1.0 - t);
+      *natural = adw_lerp (*natural, self->last_visible_widget_size[GTK_ORIENTATION_HORIZONTAL], 1.0 - t);
     }
   }
 }
