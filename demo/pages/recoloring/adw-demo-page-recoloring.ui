@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwDemoPageRecoloring" parent="AdwBin">
+    <property name="child">
+      <object class="AdwStatusPage">
+        <property name="icon-name">color-select-symbolic</property>
+        <property name="title" translatable="yes">Recoloring</property>
+        <property name="description" translatable="yes">Globally change the colors of your app.</property>
+        <property name="child">
+          <object class="AdwClamp">
+            <property name="maximum-size">400</property>
+            <property name="tightening-threshold">300</property>
+            <property name="child">
+              <object class="GtkListBox" id="colors_list">
+                <property name="selection-mode">none</property>
+                <style>
+                  <class name="boxed-list"/>
+                </style>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+</interface>

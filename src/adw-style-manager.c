@@ -8,6 +8,7 @@
 
 #include "config.h"
 
+#include "adw-color-theme-private.h"
 #include "adw-style-manager-private.h"
 
 #include "adw-settings-private.h"
@@ -51,6 +52,8 @@ struct _AdwStyleManager
   AdwSettings *settings;
   GtkCssProvider *provider;
   GtkCssProvider *colors_provider;
+  AdwColorTheme *light_colors;
+  AdwColorTheme *dark_colors;
 
   AdwColorScheme color_scheme;
   gboolean dark;
@@ -69,6 +72,8 @@ enum {
   PROP_SYSTEM_SUPPORTS_COLOR_SCHEMES,
   PROP_DARK,
   PROP_HIGH_CONTRAST,
+  PROP_LIGHT_COLORS,
+  PROP_DARK_COLORS,
   LAST_PROP,
 };
 
@@ -162,12 +167,13 @@ update_stylesheet (AdwStyleManager *self)
   }
 
   if (self->colors_provider) {
-    if (self->dark)
-      gtk_css_provider_load_from_resource (self->colors_provider,
-                                           "/org/gnome/Adwaita/styles/defaults-dark.css");
-    else
-      gtk_css_provider_load_from_resource (self->colors_provider,
-                                           "/org/gnome/Adwaita/styles/defaults-light.css");
+    if (self->dark) {
+      gtk_css_provider_load_from_data (self->colors_provider,
+                                       adw_color_theme_get_css (self->dark_colors), -1);
+    } else {
+      gtk_css_provider_load_from_data (self->colors_provider,
+                                       adw_color_theme_get_css (self->light_colors), -1);
+    }
   }
 
   self->animation_timeout_id =
@@ -265,7 +271,7 @@ adw_style_manager_constructed (GObject *object)
       self->colors_provider = gtk_css_provider_new ();
       gtk_style_context_add_provider_for_display (self->display,
                                                   GTK_STYLE_PROVIDER (self->colors_provider),
-                                                  GTK_STYLE_PROVIDER_PRIORITY_THEME);
+                                                  GTK_STYLE_PROVIDER_PRIORITY_THEME + 1);
     }
 
     self->animations_provider = gtk_css_provider_new ();
@@ -289,6 +295,16 @@ adw_style_manager_constructed (GObject *object)
   g_signal_connect_object (self->settings,
                            "notify::high-contrast",
                            G_CALLBACK (notify_high_contrast_cb),
+                           self,
+                           G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->light_colors,
+                           "colors-changed",
+                           G_CALLBACK (update_stylesheet),
+                           self,
+                           G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->dark_colors,
+                           "colors-changed",
+                           G_CALLBACK (update_stylesheet),
                            self,
                            G_CONNECT_SWAPPED);
 
@@ -338,6 +354,14 @@ adw_style_manager_get_property (GObject    *object,
     g_value_set_boolean (value, adw_style_manager_get_high_contrast (self));
     break;
 
+  case PROP_LIGHT_COLORS:
+    g_value_set_object (value, adw_style_manager_get_light_colors (self));
+    break;
+
+  case PROP_DARK_COLORS:
+    g_value_set_object (value, adw_style_manager_get_dark_colors (self));
+    break;
+
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -358,6 +382,14 @@ adw_style_manager_set_property (GObject      *object,
 
   case PROP_COLOR_SCHEME:
     adw_style_manager_set_color_scheme (self, g_value_get_enum (value));
+    break;
+
+  case PROP_LIGHT_COLORS:
+    adw_style_manager_set_light_colors (self, g_value_get_object (value));
+    break;
+
+  case PROP_DARK_COLORS:
+    adw_style_manager_set_dark_colors (self, g_value_get_object (value));
     break;
 
   default:
@@ -470,6 +502,34 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
+  /**
+   * AdwStyleManager:light-colors: (attributes org.gtk.Property.get=adw_style_manager_get_light_colors org.gtk.Property.set=adw_style_manager_set_light_colors)
+   *
+   * The color theme to use when the app is using the light style preference.
+   *
+   * Since: 1.0
+   */
+  props[PROP_LIGHT_COLORS] =
+    g_param_spec_object ("light-colors",
+                         "Light Colors",
+                         "The color theme to use when the app is using the light style preference",
+                         ADW_TYPE_COLOR_THEME,
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwStyleManager:dark-colors: (attributes org.gtk.Property.get=adw_style_manager_get_dark_colors org.gtk.Property.set=adw_style_manager_set_dark_colors)
+   *
+   * The color theme to use when the app is using the dark style preference.
+   *
+   * Since: 1.0
+   */
+  props[PROP_DARK_COLORS] =
+    g_param_spec_object ("dark-colors",
+                         "Dark Colors",
+                         "The color theme to use when the app is using the dark style preference",
+                         ADW_TYPE_COLOR_THEME,
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
 
@@ -477,6 +537,8 @@ static void
 adw_style_manager_init (AdwStyleManager *self)
 {
   self->color_scheme = ADW_COLOR_SCHEME_DEFAULT;
+  adw_style_manager_set_light_colors (self, adw_color_theme_new_light ());
+  adw_style_manager_set_dark_colors (self, adw_color_theme_new_dark ());
 }
 
 void
@@ -713,4 +775,147 @@ adw_style_manager_get_high_contrast (AdwStyleManager *self)
   g_return_val_if_fail (ADW_IS_STYLE_MANAGER (self), FALSE);
 
   return adw_settings_get_high_contrast (self->settings);
+}
+
+/**
+ * adw_style_manager_get_light_colors: (attributes org.gtk.Method.get_property=light-colors)
+ * @self: a `AdwStyleManager`
+ *
+ * Gets the color theme to use when the app is using the light style preference.
+ *
+ * Returns: (transfer none): the color theme to use when the app is using the
+ * light style preference.
+ *
+ * Since: 1.0
+ */
+AdwColorTheme *
+adw_style_manager_get_light_colors (AdwStyleManager *self)
+{
+  g_return_val_if_fail (ADW_IS_STYLE_MANAGER (self), NULL);
+
+  return self->light_colors;
+}
+
+/**
+ * adw_style_manager_set_light_colors: (attributes org.gtk.Method.set_property=light-colors)
+ * @self: a `AdwStyleManager`
+ * @colors: the color theme
+ *
+ * Sets the color theme to use when the app is using the light style preference.
+ *
+ * Since: 1.0
+ */
+void
+adw_style_manager_set_light_colors (AdwStyleManager *self,
+                                    AdwColorTheme   *colors)
+{
+  gboolean is_initializing = TRUE;
+
+  g_return_if_fail (ADW_IS_STYLE_MANAGER (self));
+  g_return_if_fail (ADW_IS_COLOR_THEME (colors));
+
+  if (self->light_colors == colors)
+    return;
+
+  if (self->light_colors) {
+    is_initializing = FALSE;
+    g_signal_handlers_disconnect_by_func (self->light_colors,
+                                          G_CALLBACK (update_stylesheet),
+                                          self);
+  }
+
+  g_set_object (&self->light_colors, colors);
+
+  g_signal_connect_object (self->light_colors,
+                           "colors-changed",
+                           G_CALLBACK (update_stylesheet),
+                           self,
+                           G_CONNECT_SWAPPED);
+
+  if (!is_initializing) {
+    update_stylesheet (self);
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_LIGHT_COLORS]);
+  }
+}
+
+/**
+ * adw_style_manager_get_dark_colors: (attributes org.gtk.Method.get_property=dark-colors)
+ * @self: a `AdwStyleManager`
+ *
+ * Gets the color theme to use when the app is using the dark style preference.
+ *
+ * Returns: (transfer none): the color theme to use when the app is using the
+ * dark style preference.
+ *
+ * Since: 1.0
+ */
+AdwColorTheme *
+adw_style_manager_get_dark_colors (AdwStyleManager *self)
+{
+  g_return_val_if_fail (ADW_IS_STYLE_MANAGER (self), NULL);
+
+  return self->dark_colors;
+}
+
+/**
+ * adw_style_manager_set_dark_colors: (attributes org.gtk.Method.set_property=dark-colors)
+ * @self: a `AdwStyleManager`
+ * @colors: the color theme
+ *
+ * Sets the color theme to use when the app is using the dark style preference.
+ *
+ * Since: 1.0
+ */
+void
+adw_style_manager_set_dark_colors (AdwStyleManager *self,
+                                   AdwColorTheme   *colors)
+{
+  gboolean is_initializing = TRUE;
+
+  g_return_if_fail (ADW_IS_STYLE_MANAGER (self));
+  g_return_if_fail (ADW_IS_COLOR_THEME (colors));
+
+  if (self->dark_colors == colors)
+    return;
+
+  if (self->dark_colors) {
+    is_initializing = FALSE;
+    g_signal_handlers_disconnect_by_func (self->dark_colors,
+                                          G_CALLBACK (update_stylesheet),
+                                          self);
+  }
+
+  g_set_object (&self->dark_colors, colors);
+
+  g_signal_connect_object (self->dark_colors,
+                           "colors-changed",
+                           G_CALLBACK (update_stylesheet),
+                           self,
+                           G_CONNECT_SWAPPED);
+
+  if (!is_initializing) {
+    update_stylesheet (self);
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DARK_COLORS]);
+  }
+}
+
+/**
+ * adw_style_manager_set_color_from_rgba:
+ * @self: a `AdwStyleManager`
+ * @color: which color to set
+ * @rgba: A [struct@GdkRGBA] color value
+ *
+ * Sets the `color` to `rgba` for both light and dark styles.
+ *
+ * Since: 1.0
+ */
+void
+adw_style_manager_set_color_from_rgba (AdwStyleManager *self,
+                                       AdwColor         color,
+                                       GdkRGBA         *rgba)
+{
+  g_return_if_fail (ADW_IS_STYLE_MANAGER (self));
+
+  adw_color_theme_set_color_from_rgba (self->light_colors, color, rgba);
+  adw_color_theme_set_color_from_rgba (self->dark_colors, color, rgba);
 }

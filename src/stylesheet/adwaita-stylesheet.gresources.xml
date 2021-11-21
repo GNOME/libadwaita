@@ -3,8 +3,6 @@
   <gresource prefix="/org/gnome/Adwaita/styles">
     <file>base.css</file>
     <file>base-hc.css</file>
-    <file>defaults-light.css</file>
-    <file>defaults-dark.css</file>
 
     <file>assets/bullet-symbolic.symbolic.png</file>
     <file>assets/bullet@2-symbolic.symbolic.png</file>

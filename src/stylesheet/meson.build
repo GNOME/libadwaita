@@ -17,7 +17,6 @@ if not fs.exists('base.css')
       '_colors.scss',
       '_common.scss',
       '_compat-colors.scss',
-      '_defaults.scss',
       '_drawing.scss',
       '_functions.scss',
       '_widgets.scss',
@@ -68,8 +67,6 @@ if not fs.exists('base.css')
     scss_files = [
       'base',
       'base-hc',
-      'defaults-light',
-      'defaults-dark',
     ]
 
     foreach scss: scss_files

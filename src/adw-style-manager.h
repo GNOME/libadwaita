@@ -15,6 +15,7 @@
 #include "adw-version.h"
 
 #include <gtk/gtk.h>
+#include "adw-color-theme.h"
 #include "adw-enums.h"
 
 G_BEGIN_DECLS
@@ -54,4 +55,18 @@ gboolean adw_style_manager_get_dark          (AdwStyleManager *self);
 ADW_AVAILABLE_IN_ALL
 gboolean adw_style_manager_get_high_contrast (AdwStyleManager *self);
 
+ADW_AVAILABLE_IN_ALL
+AdwColorTheme *adw_style_manager_get_light_colors (AdwStyleManager *self);
+ADW_AVAILABLE_IN_ALL
+void           adw_style_manager_set_light_colors (AdwStyleManager *self,
+                                                   AdwColorTheme   *colors);
+ADW_AVAILABLE_IN_ALL
+AdwColorTheme *adw_style_manager_get_dark_colors  (AdwStyleManager *self);
+ADW_AVAILABLE_IN_ALL
+void           adw_style_manager_set_dark_colors  (AdwStyleManager *self,
+                                                   AdwColorTheme   *colors);
+ADW_AVAILABLE_IN_ALL
+void adw_style_manager_set_color_from_rgba (AdwStyleManager *self,
+                                            AdwColor         color,
+                                            GdkRGBA         *rgba);
 G_END_DECLS

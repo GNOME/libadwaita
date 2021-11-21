@@ -37,6 +37,7 @@ G_BEGIN_DECLS
 #include "adw-clamp.h"
 #include "adw-clamp-layout.h"
 #include "adw-clamp-scrollable.h"
+#include "adw-color-theme.h"
 #include "adw-combo-row.h"
 #include "adw-easing.h"
 #include "adw-entry-row.h"

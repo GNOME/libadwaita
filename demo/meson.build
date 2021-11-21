@@ -34,6 +34,8 @@ adwaita_demo_sources = [
   'pages/flap/adw-flap-demo-window.c',
   'pages/leaflet/adw-demo-page-leaflet.c',
   'pages/lists/adw-demo-page-lists.c',
+  'pages/recoloring/adw-demo-color-row.c',
+  'pages/recoloring/adw-demo-page-recoloring.c',
   'pages/styles/adw-demo-page-styles.c',
   'pages/styles/adw-style-demo-window.c',
   'pages/tab-view/adw-demo-page-tab-view.c',
