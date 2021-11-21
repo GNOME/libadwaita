@@ -965,9 +965,8 @@ adw_view_stack_measure (GtkWidget      *widget,
     AdwViewStackPage *page = l->data;
     GtkWidget *child = page->widget;
 
-    if (((orientation == GTK_ORIENTATION_VERTICAL && !self->homogeneous[GTK_ORIENTATION_VERTICAL]) ||
-         (orientation == GTK_ORIENTATION_HORIZONTAL && !self->homogeneous[GTK_ORIENTATION_HORIZONTAL])) &&
-         self->visible_child != page)
+    if (!self->homogeneous[orientation] &&
+        self->visible_child != page)
       continue;
 
     if (gtk_widget_get_visible (child)) {
@@ -978,18 +977,10 @@ adw_view_stack_measure (GtkWidget      *widget,
     }
   }
 
-  if (self->last_visible_child) {
-    if (orientation == GTK_ORIENTATION_VERTICAL && !self->homogeneous[GTK_ORIENTATION_VERTICAL]) {
-      double t = self->interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE) : 0.0;
-      *minimum = adw_lerp (*minimum, self->last_visible_widget_size[GTK_ORIENTATION_VERTICAL], 1.0 - t);
-      *natural = adw_lerp (*natural, self->last_visible_widget_size[GTK_ORIENTATION_VERTICAL], 1.0 - t);
-    }
-
-    if (orientation == GTK_ORIENTATION_HORIZONTAL && !self->homogeneous[GTK_ORIENTATION_HORIZONTAL]) {
-      double t = self->interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE) : 0.0;
-      *minimum = adw_lerp (*minimum, self->last_visible_widget_size[GTK_ORIENTATION_HORIZONTAL], 1.0 - t);
-      *natural = adw_lerp (*natural, self->last_visible_widget_size[GTK_ORIENTATION_HORIZONTAL], 1.0 - t);
-    }
+  if (self->last_visible_child && !self->homogeneous[orientation]) {
+    double t = self->interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE) : 0.0;
+    *minimum = adw_lerp (*minimum, self->last_visible_widget_size[orientation], 1.0 - t);
+    *natural = adw_lerp (*natural, self->last_visible_widget_size[orientation], 1.0 - t);
   }
 }
 
