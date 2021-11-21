@@ -90,6 +90,8 @@
 
 #define TRANSITION_DURATION 200
 
+#define OPPOSITE_ORIENTATION(_orientation) (1 - (_orientation))
+
 enum {
   PROP_0,
   PROP_HHOMOGENEOUS,
@@ -970,7 +972,14 @@ adw_view_stack_measure (GtkWidget      *widget,
       continue;
 
     if (gtk_widget_get_visible (child)) {
-      gtk_widget_measure (child, orientation, for_size, &child_min, &child_nat, NULL, NULL);
+      if (!self->homogeneous[OPPOSITE_ORIENTATION(orientation)] && self->visible_child != page) {
+        int min_for_size;
+
+        gtk_widget_measure (child, OPPOSITE_ORIENTATION (orientation), -1, &min_for_size, NULL, NULL, NULL);
+        gtk_widget_measure (child, orientation, MAX (min_for_size, for_size), &child_min, &child_nat, NULL, NULL);
+      } else {
+        gtk_widget_measure (child, orientation, for_size, &child_min, &child_nat, NULL, NULL);
+      }
 
       *minimum = MAX (*minimum, child_min);
       *natural = MAX (*natural, child_nat);
