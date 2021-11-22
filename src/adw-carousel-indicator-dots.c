@@ -8,7 +8,7 @@
 
 #include "adw-carousel-indicator-dots.h"
 
-#include "adw-animation-util-private.h"
+#include "adw-animation-util.h"
 #include "adw-macros-private.h"
 #include "adw-swipeable.h"
 #include "adw-timed-animation.h"

@@ -8,7 +8,7 @@
 #include "config.h"
 
 #include "gtkprogresstrackerprivate.h"
-#include "adw-animation-util-private.h"
+#include "adw-animation-util.h"
 #include "adw-enums-private.h"
 #include "adw-fold-threshold-policy.h"
 #include "adw-macros-private.h"

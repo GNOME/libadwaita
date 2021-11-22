@@ -7,7 +7,7 @@
 
 #include "config.h"
 
-#include "adw-animation-util-private.h"
+#include "adw-animation-util.h"
 
 /**
  * adw_lerp:
@@ -17,7 +17,7 @@
  *
  * Computes the linear interpolation between @a and @b for @t.
  *
- * Returns: the linear interpolation between @a and @b for @t
+ * Returns: the computed value
  *
  * Since: 1.0
  */

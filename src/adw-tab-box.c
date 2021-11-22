@@ -10,7 +10,7 @@
 
 #include "adw-tab-box-private.h"
 
-#include "adw-animation-util-private.h"
+#include "adw-animation-util.h"
 #include "adw-easing.h"
 #include "adw-gizmo-private.h"
 #include "adw-macros-private.h"

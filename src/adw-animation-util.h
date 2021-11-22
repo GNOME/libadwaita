@@ -18,6 +18,11 @@
 G_BEGIN_DECLS
 
 ADW_AVAILABLE_IN_ALL
+double adw_lerp (double a,
+                 double b,
+                 double t);
+
+ADW_AVAILABLE_IN_ALL
 gboolean adw_get_enable_animations (GtkWidget *widget);
 
 G_END_DECLS

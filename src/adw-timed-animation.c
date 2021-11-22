@@ -9,7 +9,7 @@
 #include "adw-timed-animation.h"
 
 #include "adw-animation-private.h"
-#include "adw-animation-util-private.h"
+#include "adw-animation-util.h"
 
 /**
  * AdwTimedAnimation:

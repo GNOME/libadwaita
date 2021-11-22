@@ -8,8 +8,9 @@
 #include "config.h"
 
 #include "adw-animation-private.h"
+
 #include "adw-animation-target-private.h"
-#include "adw-animation-util-private.h"
+#include "adw-animation-util.h"
 
 /**
  * AdwAnimation:
