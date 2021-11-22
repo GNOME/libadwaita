@@ -360,6 +360,12 @@ swipes.
 The type of the `duration` parameter in [method@Adw.Carousel.scroll_to_full] has
 changed from `gint64` to `guint`.
 
+### Adapt to Miscellaneous Changes
+
+The `hdy_ease_out_cubic()` function has been removed. Instead,
+[func@Adw.Easing.ease] can be used with the `ADW_EASING_EASE_OUT_CUBIC`
+parameter.
+
 ### Adapt to Stylesheet Changes
 
 Most widgets don't have a backdrop state anymore, and the following public

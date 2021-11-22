@@ -16,9 +16,6 @@
 
 G_BEGIN_DECLS
 
-double adw_ease_in_cubic     (double t);
-double adw_ease_in_out_cubic (double t);
-
 double adw_lerp (double a,
                  double b,
                  double t);

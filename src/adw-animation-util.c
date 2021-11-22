@@ -27,47 +27,6 @@ adw_lerp (double a, double b, double t)
   return a * (1.0 - t) + b * t;
 }
 
-/* From clutter-easing.c, based on Robert Penner's
- * infamous easing equations, MIT license.
- */
-
-/**
- * adw_ease_out_cubic:
- * @t: the term
- *
- * Computes the ease out for @t.
- *
- * Returns: the ease out for @t
- *
- * Since: 1.0
- */
-
-double
-adw_ease_out_cubic (double t)
-{
-  double p = t - 1;
-  return p * p * p + 1;
-}
-
-double
-adw_ease_in_cubic (gdouble t)
-{
-  return t * t * t;
-}
-
-double
-adw_ease_in_out_cubic (double t)
-{
-  double p = t * 2;
-
-  if (p < 1)
-    return 0.5 * p * p * p;
-
-  p -= 2;
-
-  return 0.5 * (p * p * p + 2);
-}
-
 /**
  * adw_get_enable_animations:
  * @widget: a `GtkWidget`

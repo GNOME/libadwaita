@@ -8,8 +8,6 @@
 
 #include "adw-easing.h"
 
-#include "adw-animation-util-private.h"
-
 /**
  * AdwEasing:
  * @ADW_EASING_EASE_IN_CUBIC: Starts slowly and accelerates, cubic curve.
@@ -26,6 +24,36 @@
  *
  * Since: 1.0
  */
+
+/* From clutter-easing.c, based on Robert Penner's
+ * infamous easing equations, MIT license.
+ */
+
+static inline double
+ease_out_cubic (double t)
+{
+  double p = t - 1;
+  return p * p * p + 1;
+}
+
+static inline double
+ease_in_cubic (gdouble t)
+{
+  return t * t * t;
+}
+
+static inline double
+ease_in_out_cubic (double t)
+{
+  double p = t * 2;
+
+  if (p < 1)
+    return 0.5 * p * p * p;
+
+  p -= 2;
+
+  return 0.5 * (p * p * p + 2);
+}
 
 /**
  * adw_easing_ease:
@@ -46,11 +74,11 @@ adw_easing_ease (AdwEasing self,
 {
   switch (self) {
     case ADW_EASING_EASE_IN_CUBIC:
-      return adw_ease_in_cubic (value);
+      return ease_in_cubic (value);
     case ADW_EASING_EASE_OUT_CUBIC:
-      return adw_ease_out_cubic (value);
+      return ease_out_cubic (value);
     case ADW_EASING_EASE_IN_OUT_CUBIC:
-      return adw_ease_in_out_cubic (value);
+      return ease_in_out_cubic (value);
     default:
       g_assert_not_reached ();
   }

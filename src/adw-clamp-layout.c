@@ -9,8 +9,7 @@
 
 #include <math.h>
 
-#include "adw-animation-util.h"
-#include "adw-animation-private.h"
+#include "adw-easing.h"
 #include "adw-macros-private.h"
 
 /**
@@ -161,7 +160,7 @@ get_child_size (AdwClampLayout *self,
 
   progress = (double) (for_size - lower) / (double) (upper - lower);
 
-  return adw_ease_out_cubic (progress) * amplitude + lower;
+  return adw_easing_ease (ADW_EASING_EASE_OUT_CUBIC, progress) * amplitude + lower;
 }
 
 static GtkSizeRequestMode

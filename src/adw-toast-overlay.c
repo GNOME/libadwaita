@@ -9,6 +9,7 @@
 #include "adw-toast-overlay.h"
 
 #include "adw-animation-util-private.h"
+#include "adw-easing.h"
 #include "adw-macros-private.h"
 #include "adw-timed-animation.h"
 #include "adw-toast-private.h"
@@ -123,7 +124,8 @@ static void
 hide_value_cb (ToastInfo *info,
                double     value)
 {
-  gtk_widget_set_opacity (info->widget, adw_ease_out_cubic (value));
+  value = adw_easing_ease (ADW_EASING_EASE_OUT_CUBIC, value);
+  gtk_widget_set_opacity (info->widget, value);
 
   gtk_widget_queue_allocate (GTK_WIDGET (info->overlay));
 }

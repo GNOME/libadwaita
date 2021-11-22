@@ -9,7 +9,9 @@
 #include "config.h"
 
 #include "adw-tab-box-private.h"
+
 #include "adw-animation-util-private.h"
+#include "adw-easing.h"
 #include "adw-gizmo-private.h"
 #include "adw-macros-private.h"
 #include "adw-tab-private.h"
@@ -1258,7 +1260,8 @@ drag_autoscroll_cb (GtkWidget     *widget,
     autoscroll_factor = (x - end_threshold) / autoscroll_area;
 
   autoscroll_factor = CLAMP (autoscroll_factor, -1, 1);
-  autoscroll_factor = adw_ease_in_cubic (autoscroll_factor);
+  autoscroll_factor = adw_easing_ease (ADW_EASING_EASE_IN_CUBIC,
+                                       autoscroll_factor);
   self->drag_autoscroll_prev_time = time;
 
   if (autoscroll_factor == 0)
