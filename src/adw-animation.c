@@ -11,6 +11,74 @@
 #include "adw-animation-target-private.h"
 #include "adw-animation-util-private.h"
 
+/**
+ * AdwAnimation:
+ *
+ * A base class for animations.
+ *
+ * `AdwAnimation` represents an animation on a widget. It has a target that
+ * provides a value to animate, and a state indicating whether the
+ * animation hasn't been started yet, is playing, paused or finished.
+ *
+ * Currently there's only one concrete animation type:
+ * [class@Adw.TimedAnimation].
+ *
+ * `AdwAnimation` will automatically skip the animation if
+ * [property@Adw.Animation:widget] is unmapped, or if
+ * [property@Gtk.Settings:gtk-enable-animations] is `FALSE`.
+ *
+ * The [signal@Adw.Animation::done] signal can be used to perform an action
+ * after the animation ends, for example hiding a widget after animating its
+ * [property@Gtk.Widget:opacity] to 0.
+ *
+ * `AdwAnimation` will be kept alive while the animation is playing. As such,
+ * it's safe to create an animation, start it and immediately unref it:
+ * A fire-and-forget animation:
+ *
+ * ```c
+ * static void
+ * animation_cb (MyObject *self,
+ *               double    value)
+ * {
+ *   // Do something with @value
+ * }
+ *
+ * static void
+ * my_object_animate (MyObject *self)
+ * {
+ *   AdwAnimationTarget *target =
+ *     adw_callback_animation_target_new ((AdwAnimationTargetFunc) animation_cb,
+ *                                        self, NULL);
+ *   g_autoptr (AdwAnimation) animation =
+ *     adw_timed_animation_new (widget, 0, 1, 250, target);
+ *
+ *   adw_animation_play (animation);
+ * }
+ * ```
+ *
+ * If there's a chance the previous animation for the same target hasn't yet
+ * finished, the previous animation should be stopped first, or the existing
+ * `AdwAnimation` object can be reused.
+ *
+ * Since: 1.0
+ */
+
+/**
+ * AdwAnimationState:
+ * @ADW_ANIMATION_IDLE: The animation hasn't started yet.
+ * @ADW_ANIMATION_PAUSED: The animation has been paused.
+ * @ADW_ANIMATION_PLAYING: The animation is currently playing.
+ * @ADW_ANIMATION_FINISHED: The animation has finished.
+ *
+ * Describes the possible states of an [class@Adw.Animation].
+ *
+ * The state can be controlled with [method@Adw.Animation.play],
+ * [method@Adw.Animation.pause], [method@Adw.Animation.resume],
+ * [method@Adw.Animation.reset] and [method@Adw.Animation.skip].
+ *
+ * Since: 1.0
+ */
+
 typedef struct
 {
   GtkWidget *widget;
@@ -272,6 +340,13 @@ adw_animation_class_init (AdwAnimationClass *klass)
   klass->estimate_duration = adw_animation_estimate_duration;
   klass->calculate_value = adw_animation_calculate_value;
 
+  /**
+   * AdwAnimation:value: (attributes org.gtk.Property.get=adw_animation_get_value)
+   *
+   * The current value of the animation.
+   *
+   * Since: 1.0
+   */
   props[PROP_VALUE] =
     g_param_spec_double ("value",
                          "Value",
@@ -281,30 +356,69 @@ adw_animation_class_init (AdwAnimationClass *klass)
                          0,
                          G_PARAM_READABLE);
 
+  /**
+   * AdwAnimation:widget: (attributes org.gtk.Property.get=adw_animation_get_widget)
+   *
+   * The animation widget.
+   *
+   * It provides the frame clock for the animation. It's not strictly necessary
+   * for this widget to be same as the one being animated.
+   *
+   * The widget must be mapped in order for the animation to work. If it's not
+   * mapped, or if it gets unmapped during an ongoing animation, the animation
+   * will be automatically skipped.
+   *
+   * Since: 1.0
+   */
   props[PROP_WIDGET] =
     g_param_spec_object ("widget",
                          "Widget",
-                         "The target widget whose property will be animated",
+                         "The animation widget",
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
+  /**
+   * AdwAnimation:target: (attributes org.gtk.Property.get=adw_animation_get_target)
+   *
+   * The target to animate.
+   *
+   * Since: 1.0
+   */
   props[PROP_TARGET] =
     g_param_spec_object ("target",
                          "Target",
-                         "Target",
+                         "The target to animate",
                          ADW_TYPE_ANIMATION_TARGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
+  /**
+   * AdwAnimation:state: (attributes org.gtk.Property.get=adw_animation_get_state)
+   *
+   * The animation state.
+   *
+   * The state indicates whether the animation is currently playing, paused,
+   * finished or hasn't been started yet.
+   *
+   * Since: 1.0
+   */
   props[PROP_STATE] =
     g_param_spec_enum ("state",
                        "State",
-                       "State of the animation",
+                       "The animation state",
                        ADW_TYPE_ANIMATION_STATE,
                        ADW_ANIMATION_IDLE,
                        G_PARAM_READABLE);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
+  /**
+   * AdwAnimation::done:
+   *
+   * This signal is emitted when the animation has been completed, either on its
+   * own or via calling [method@Adw.Animation.skip].
+   *
+   * Since: 1.0
+   */
   signals[SIGNAL_DONE] =
     g_signal_new ("done",
                   G_TYPE_FROM_CLASS (klass),
@@ -323,6 +437,16 @@ adw_animation_init (AdwAnimation *self)
   priv->state = ADW_ANIMATION_IDLE;
 }
 
+/**
+ * adw_animation_get_widget: (attributes org.gtk.Method.get_property=widget)
+ * @self: a `AdwAnimation`
+ *
+ * Gets the widget @self was created for.
+ *
+ * Returns: (transfer none): the animation widget
+ *
+ * Since: 1.0
+ */
 GtkWidget *
 adw_animation_get_widget (AdwAnimation *self)
 {
@@ -335,6 +459,16 @@ adw_animation_get_widget (AdwAnimation *self)
   return priv->widget;
 }
 
+/**
+ * adw_animation_get_target: (attributes org.gtk.Method.get_property=target)
+ * @self: a `AdwAnimation`
+ *
+ * Gets the target @self animates.
+ *
+ * Returns: (transfer none): the animation target
+ *
+ * Since: 1.0
+ */
 AdwAnimationTarget *
 adw_animation_get_target (AdwAnimation *self)
 {
@@ -347,6 +481,16 @@ adw_animation_get_target (AdwAnimation *self)
   return priv->target;
 }
 
+/**
+ * adw_animation_get_value: (attributes org.gtk.Method.get_property=value)
+ * @self: a `AdwAnimation`
+ *
+ * Gets the current value of @self.
+ *
+ * Returns: the current value
+ *
+ * Since: 1.0
+ */
 double
 adw_animation_get_value (AdwAnimation *self)
 {
@@ -359,6 +503,19 @@ adw_animation_get_value (AdwAnimation *self)
   return priv->value;
 }
 
+/**
+ * adw_animation_get_state: (attributes org.gtk.Method.get_property=state)
+ * @self: a `AdwAnimation`
+ *
+ * Gets the current value of @self.
+ *
+ * The state indicates whether @self is currently playing, paused, finished or
+ * hasn't been started yet.
+ *
+ * Returns: the animation value
+ *
+ * Since: 1.0
+ */
 AdwAnimationState
 adw_animation_get_state (AdwAnimation *self)
 {
@@ -371,6 +528,29 @@ adw_animation_get_state (AdwAnimation *self)
   return priv->state;
 }
 
+/**
+ * adw_animation_play:
+ * @self: a `AdwAnimation`
+ *
+ * Starts the animation for @self.
+ *
+ * If the animation is playing, paused or has been completed, restarts it from
+ * the beginning. This allows to easily play an animation regardless of whether
+ * it's already playing or not.
+ *
+ * Sets [property@Adw.Animation:state] to `ADW_ANIMATION_PLAYING`.
+ *
+ * The animation will be automatically skipped if
+ * [property@Adw.Animation:widget] is unmapped, or if
+ * [property@Gtk.Settings:gtk-enable-animations] is `FALSE`.
+ *
+ * As such, it's not guaranteed that the animation will actually run. For
+ * example, when using [func@GLib.idle_add] and starting an animation
+ * immediately afterwards, it's entirely possible that the idle callback will
+ * run after the animation has already finished, and not while it's playing.
+ *
+ * Since: 1.0
+ */
 void
 adw_animation_play (AdwAnimation *self)
 {
@@ -389,6 +569,18 @@ adw_animation_play (AdwAnimation *self)
   play (self);
 }
 
+/**
+ * adw_animation_pause:
+ * @self: a `AdwAnimation`
+ *
+ * Pauses a playing animation for @self.
+ *
+ * Does nothing if the current state of @self isn't `ADW_ANIMATION_PLAYING`.
+ *
+ * Sets [property@Adw.Animation:state] to `ADW_ANIMATION_PAUSED`.
+ *
+ * Since: 1.0
+ */
 void
 adw_animation_pause (AdwAnimation *self)
 {
@@ -415,6 +607,19 @@ adw_animation_pause (AdwAnimation *self)
   g_object_unref (self);
 }
 
+/**
+ * adw_animation_resume:
+ * @self: a `AdwAnimation`
+ *
+ * Resumes a paused animation for @self.
+ *
+ * This function must only be used if the animation has been paused with
+ * [method@Adw.Animation.pause].
+ *
+ * Sets [property@Adw.Animation:state] to `ADW_ANIMATION_PLAYING`.
+ *
+ * Since: 1.0
+ */
 void
 adw_animation_resume (AdwAnimation *self)
 {
@@ -433,6 +638,20 @@ adw_animation_resume (AdwAnimation *self)
   play (self);
 }
 
+/**
+ * adw_animation_skip:
+ * @self: a `AdwAnimation`
+ *
+ * Skips the animation for @self.
+ *
+ * If the animation hasn't been started yet, is playing, or is paused, instantly
+ * skips the animation to the end and causes [signal@Adw.Animation::done] to be
+ * emitted.
+ *
+ * Sets [property@Adw.Animation:state] to `ADW_ANIMATION_FINISHED`.
+ *
+ * Since: 1.0
+ */
 void
 adw_animation_skip (AdwAnimation *self)
 {
@@ -468,6 +687,16 @@ adw_animation_skip (AdwAnimation *self)
     g_object_unref (self);
 }
 
+/**
+ * adw_animation_reset:
+ * @self: a `AdwAnimation`
+ *
+ * Resets the animation for @self.
+ *
+ * Sets [property@Adw.Animation:state] to `ADW_ANIMATION_IDLE`.
+ *
+ * Since: 1.0
+ */
 void
 adw_animation_reset (AdwAnimation *self)
 {
