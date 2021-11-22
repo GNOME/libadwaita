@@ -51,7 +51,7 @@ abi-check:
   image: $ABI_CHECKER_IMAGE
   stage: build
   variables:
-    LAST_ABI_BREAK: "5c0dbc7eec9c3a70d59c458967748caaa7fc4215"
+    LAST_ABI_BREAK: "c8e7a5708a93a1783e83e619be76c8b05c346678"
   script:
     - ./.gitlab-ci/check-abi ${LAST_ABI_BREAK} $(git rev-parse HEAD)
 
