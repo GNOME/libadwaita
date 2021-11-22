@@ -11,6 +11,48 @@
 #include "adw-animation-private.h"
 #include "adw-animation-util-private.h"
 
+/**
+ * AdwTimedAnimation:
+ *
+ * A time-based [class@Adw.Animation].
+ *
+ * `AdwTimedAnimation` implements a simple animation interpolating the given
+ * value from [property@Adw.TimedAnimation:value-from] to
+ * [property@Adw.TimedAnimation:value-to] over
+ * [property@Adw.TimedAnimation:duration] milliseconds using the curve described
+ * by [property@Adw.TimedAnimation:easing].
+ *
+ * If [property@Adw.TimedAnimation:reverse] is set to `TRUE`,
+ * `AdwTimedAnimation` will instead animate from
+ * [property@Adw.TimedAnimation:value-to] to
+ * [property@Adw.TimedAnimation:value-from], and the easing curve will be
+ * inverted.
+ *
+ * The animation can repeat a certain amount of times, or endlessly, depending
+ * on the [property@Adw.TimedAnimation:repeat-count] value. If
+ * [property@Adw.TimedAnimation:alternate] is set to `TRUE`, it will also
+ * change the direction every other iteration.
+ *
+ * Since: 1.0
+ */
+
+/**
+ * AdwEasing:
+ * @ADW_EASING_EASE_IN_CUBIC: Starts slowly and accelerates, cubic curve.
+ * @ADW_EASING_EASE_OUT_CUBIC: Starts quickly and decelerates, cubic curve.
+ *   This is an inverse of `ADW_EASING_EASE_IN_CUBIC`.
+ * @ADW_EASING_EASE_IN_OUT_CUBIC: Starts slowly, accelerates, decelerates and
+ *   ends slowly again, combines `ADW_EASING_EASE_IN_CUBIC` and
+ *   `ADW_EASING_EASE_OUT_CUBIC`.
+ *
+ * Describes the available easing functions for use with
+ * [class@Adw.TimedAnimation].
+ *
+ * New values may be added to this enumeration over time.
+ *
+ * Since: 1.0
+ */
+
 struct _AdwTimedAnimation
 {
   AdwAnimation parent_instance;
@@ -198,33 +240,83 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
   animation_class->estimate_duration = adw_timed_animation_estimate_duration;
   animation_class->calculate_value = adw_timed_animation_calculate_value;
 
+  /**
+   * AdwTimedAnimation:value-from: (attributes org.gtk.Property.get=adw_timed_animation_get_value_from org.gtk.Property.set=adw_timed_animation_set_value_from)
+   *
+   * The value to animate from.
+   *
+   * The animation will start at this value and end at
+   * [property@Adw.TimedAnimation:value-to].
+   *
+   * If [property@Adw.TimedAnimation:reverse] is `TRUE`, the animation will end
+   * at this value instead.
+   *
+   * Since: 1.0
+   */
   props[PROP_VALUE_FROM] =
     g_param_spec_double ("value-from",
                          "Initial value",
-                         "Initial value of the animation",
+                         "The value to animate from",
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
+  /**
+   * AdwTimedAnimation:value-to: (attributes org.gtk.Property.get=adw_timed_animation_get_value_to org.gtk.Property.set=adw_timed_animation_set_value_to)
+   *
+   * The value to animate to.
+   *
+   * The animation will start at [property@Adw.TimedAnimation:value-from] and
+   * end at this value.
+   *
+   * If [property@Adw.TimedAnimation:reverse] is `TRUE`, the animation will
+   * start at this value instead.
+   *
+   * Since: 1.0
+   */
   props[PROP_VALUE_TO] =
     g_param_spec_double ("value-to",
                          "Final value",
-                         "Final value of the animation",
+                         "The value to animate to",
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
+  /**
+   * AdwTimedAnimation:duration: (attributes org.gtk.Property.get=adw_timed_animation_get_duration org.gtk.Property.set=adw_timed_animation_set_duration)
+   *
+   * Duration of the animation in milliseconds.
+   *
+   * Describes how much time the animation will take.
+   *
+   * If the animation repeats more than once, describes the duration of one
+   * iteration.
+   *
+   * Since: 1.0
+   */
   props[PROP_DURATION] =
     g_param_spec_uint ("duration",
                        "Duration",
-                       "Duration of the animation in ms",
+                       "Duration of the animation in milliseconds",
                        0,
                        ADW_DURATION_INFINITE,
                        0,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
+  /**
+   * AdwTimedAnimation:easing: (attributes org.gtk.Property.get=adw_timed_animation_get_easing org.gtk.Property.set=adw_timed_animation_set_easing)
+   *
+   * Easing function used in the animation.
+   *
+   * Describes the curve the value is interpolated on.
+   *
+   * See [enum@Adw.Easing] for the description of specific easing
+   * functions.
+   *
+   * Since: 1.0
+   */
   props[PROP_EASING] =
     g_param_spec_enum ("easing",
                        "Easing",
@@ -233,26 +325,49 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
                        ADW_EASING_EASE_OUT_CUBIC,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
+  /**
+   * AdwTimedAnimation:repeat-count: (attributes org.gtk.Property.get=adw_timed_animation_get_repeat_count org.gtk.Property.set=adw_timed_animation_set_repeat_count)
+   *
+   * Number of times the animation will play.
+   *
+   * If set to 0, the animation will repeat endlessly.
+   *
+   * Since: 1.0
+   */
   props[PROP_REPEAT_COUNT] =
     g_param_spec_uint ("repeat-count",
                        "Repeat count",
-                       "Number of times the animation should play",
+                       "Number of times the animation will play",
                        0,
                        G_MAXUINT,
                        1,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
+  /**
+   * AdwTimedAnimation:reverse: (attributes org.gtk.Property.get=adw_timed_animation_get_reverse org.gtk.Property.set=adw_timed_animation_set_reverse)
+   *
+   * Whether the animation plays backwards.
+   *
+   * Since: 1.0
+   */
   props[PROP_REVERSE] =
     g_param_spec_boolean ("reverse",
                           "Reverse",
-                          "Wheter the animation should play backwards",
+                          "Whether the animation plays backwards",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
+  /**
+   * AdwTimedAnimation:alternate: (attributes org.gtk.Property.get=adw_timed_animation_get_alternate org.gtk.Property.set=adw_timed_animation_set_alternate)
+   *
+   * Whether the animation changes direction on every iteration.
+   *
+   * Since: 1.0
+   */
   props[PROP_ALTERNATE] =
     g_param_spec_boolean ("alternate",
                           "Alternate",
-                          "Whether the animation should change direction each time",
+                          "Whether the animation changes direction on every iteration",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
@@ -264,6 +379,21 @@ adw_timed_animation_init (AdwTimedAnimation *self)
 {
 }
 
+/**
+ * adw_timed_animation_new:
+ * @widget: a widget to create animation on
+ * @from: a value to animate from
+ * @to: a value to animate to
+ * @duration: a duration for the animation
+ * @target: (transfer full): a target value to animate
+ *
+ * Creates a new `AdwTimedAnimation` on @widget to animate @target from @from
+ * to @to.
+ *
+ * Returns: (transfer none): the newly created animation
+ *
+ * Since: 1.0
+ */
 AdwAnimation *
 adw_timed_animation_new (GtkWidget          *widget,
                          double              from,
@@ -289,6 +419,16 @@ adw_timed_animation_new (GtkWidget          *widget,
   return animation;
 }
 
+/**
+ * adw_timed_animation_get_value_from: (attributes org.gtk.Method.get_property=value-from)
+ * @self: a `AdwAnimation`
+ *
+ * Gets the value @self will animate from.
+ *
+ * Returns: the value to animate from
+ *
+ * Since: 1.0
+ */
 double
 adw_timed_animation_get_value_from (AdwTimedAnimation *self)
 {
@@ -297,6 +437,15 @@ adw_timed_animation_get_value_from (AdwTimedAnimation *self)
   return self->value_from;
 }
 
+/**
+ * adw_timed_animation_set_value_from: (attributes org.gtk.Method.set_property=value-from)
+ * @self: a `AdwAnimation`
+ * @value: the value to animate from
+ *
+ * Sets the value @self will animate from.
+ *
+ * Since: 1.0
+ */
 void
 adw_timed_animation_set_value_from (AdwTimedAnimation *self,
                                     double             value)
@@ -311,6 +460,16 @@ adw_timed_animation_set_value_from (AdwTimedAnimation *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE_FROM]);
 }
 
+/**
+ * adw_timed_animation_get_value_to: (attributes org.gtk.Method.get_property=value-to)
+ * @self: a `AdwAnimation`
+ *
+ * Gets the value @self will animate to.
+ *
+ * Returns: the value to animate to
+ *
+ * Since: 1.0
+ */
 double
 adw_timed_animation_get_value_to (AdwTimedAnimation *self)
 {
@@ -319,6 +478,15 @@ adw_timed_animation_get_value_to (AdwTimedAnimation *self)
   return self->value_to;
 }
 
+/**
+ * adw_timed_animation_set_value_to: (attributes org.gtk.Method.set_property=value-to)
+ * @self: a `AdwAnimation`
+ * @value: the value to animate to
+ *
+ * Sets the value @self will animate to.
+ *
+ * Since: 1.0
+ */
 void
 adw_timed_animation_set_value_to (AdwTimedAnimation *self,
                                   double             value)
@@ -333,6 +501,16 @@ adw_timed_animation_set_value_to (AdwTimedAnimation *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VALUE_TO]);
 }
 
+/**
+ * adw_timed_animation_get_duration: (attributes org.gtk.Method.get_property=duration)
+ * @self: a `AdwAnimation`
+ *
+ * Gets the duration of @self in milliseconds.
+ *
+ * Returns: the duration of @self
+ *
+ * Since: 1.0
+ */
 guint
 adw_timed_animation_get_duration (AdwTimedAnimation *self)
 {
@@ -341,6 +519,17 @@ adw_timed_animation_get_duration (AdwTimedAnimation *self)
   return self->duration;
 }
 
+/**
+ * adw_timed_animation_set_duration: (attributes org.gtk.Method.set_property=duration)
+ * @self: a `AdwAnimation`
+ * @duration: the duration to use
+ *
+ * Sets the duration of @self in milliseconds.
+ *
+ * If the animation repeats more than once, sets the duration of one iteration.
+ *
+ * Since: 1.0
+ */
 void
 adw_timed_animation_set_duration (AdwTimedAnimation *self,
                                   guint              duration)
@@ -355,6 +544,16 @@ adw_timed_animation_set_duration (AdwTimedAnimation *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DURATION]);
 }
 
+/**
+ * adw_timed_animation_get_easing: (attributes org.gtk.Method.get_property=easing)
+ * @self: a `AdwAnimation`
+ *
+ * Gets the easing function @self uses.
+ *
+ * Returns: the easing function @self uses
+ *
+ * Since: 1.0
+ */
 AdwEasing
 adw_timed_animation_get_easing (AdwTimedAnimation *self)
 {
@@ -364,6 +563,18 @@ adw_timed_animation_get_easing (AdwTimedAnimation *self)
   return self->easing;
 }
 
+/**
+ * adw_timed_animation_set_easing: (attributes org.gtk.Method.set_property=easing)
+ * @self: a `AdwAnimation`
+ * @easing: the easing function to use
+ *
+ * Sets the easing function @self will use.
+ *
+ * See [enum@Adw.Easing] for the description of specific easing
+ * functions.
+ *
+ * Since: 1.0
+ */
 void
 adw_timed_animation_set_easing (AdwTimedAnimation *self,
                                 AdwEasing          easing)
@@ -379,6 +590,16 @@ adw_timed_animation_set_easing (AdwTimedAnimation *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EASING]);
 }
 
+/**
+ * adw_timed_animation_get_repeat_count: (attributes org.gtk.Method.get_property=repeat-count)
+ * @self: a `AdwAnimation`
+ *
+ * Gets the number of times @self will play.
+ *
+ * Returns: the number of times @self will play
+ *
+ * Since: 1.0
+ */
 guint
 adw_timed_animation_get_repeat_count (AdwTimedAnimation *self)
 {
@@ -387,6 +608,17 @@ adw_timed_animation_get_repeat_count (AdwTimedAnimation *self)
   return self->repeat_count;
 }
 
+/**
+ * adw_timed_animation_set_repeat_count: (attributes org.gtk.Method.set_property=repeat-count)
+ * @self: a `AdwAnimation`
+ * @repeat_count: the number of times @self will play
+ *
+ * Sets the number of times @self will play.
+ *
+ * If set to 0, @self will repeat endlessly.
+ *
+ * Since: 1.0
+ */
 void
 adw_timed_animation_set_repeat_count (AdwTimedAnimation *self,
                                       guint              repeat_count)
@@ -401,6 +633,16 @@ adw_timed_animation_set_repeat_count (AdwTimedAnimation *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REPEAT_COUNT]);
 }
 
+/**
+ * adw_timed_animation_get_reverse: (attributes org.gtk.Method.get_property=reverse)
+ * @self: a `AdwAnimation`
+ *
+ * Gets whether @self plays backwards.
+ *
+ * Returns: whether @self plays backwards
+ *
+ * Since: 1.0
+ */
 gboolean
 adw_timed_animation_get_reverse (AdwTimedAnimation *self)
 {
@@ -409,6 +651,15 @@ adw_timed_animation_get_reverse (AdwTimedAnimation *self)
   return self->reverse;
 }
 
+/**
+ * adw_timed_animation_set_reverse: (attributes org.gtk.Method.set_property=reverse)
+ * @self: a `AdwAnimation`
+ * @reverse: whether @self plays backwards
+ *
+ * Sets whether @self plays backwards.
+ *
+ * Since: 1.0
+ */
 void
 adw_timed_animation_set_reverse (AdwTimedAnimation *self,
                                  gboolean           reverse)
@@ -423,6 +674,16 @@ adw_timed_animation_set_reverse (AdwTimedAnimation *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVERSE]);
 }
 
+/**
+ * adw_timed_animation_get_alternate: (attributes org.gtk.Method.get_property=alternate)
+ * @self: a `AdwAnimation`
+ *
+ * Gets whether @self changes direction on every iteration.
+ *
+ * Returns: whether @self alternates
+ *
+ * Since: 1.0
+ */
 gboolean
 adw_timed_animation_get_alternate (AdwTimedAnimation *self)
 {
@@ -431,6 +692,15 @@ adw_timed_animation_get_alternate (AdwTimedAnimation *self)
   return self->alternate;
 }
 
+/**
+ * adw_timed_animation_set_alternate: (attributes org.gtk.Method.set_property=alternate)
+ * @self: a `AdwAnimation`
+ * @alternate: whether @self alternates
+ *
+ * Sets whether @self changes direction on every iteration.
+ *
+ * Since: 1.0
+ */
 void
 adw_timed_animation_set_alternate (AdwTimedAnimation *self,
                                    gboolean           alternate)
