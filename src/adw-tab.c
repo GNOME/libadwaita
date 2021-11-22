@@ -845,7 +845,7 @@ adw_tab_init (AdwTab *self)
                              CLOSE_BTN_ANIMATION_DURATION, target);
 
   adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->close_btn_animation),
-                                  ADW_EASING_EASE_IN_OUT_CUBIC);
+                                  ADW_EASE_IN_OUT_CUBIC);
 }
 
 AdwTab *

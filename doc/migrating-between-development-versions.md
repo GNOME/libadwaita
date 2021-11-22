@@ -307,8 +307,7 @@ changed from `gint64` to `guint`.
 ### Adapt to Miscellaneous Changes
 
 The `adw_ease_out_cubic()` function has been removed. Instead,
-[func@Adw.Easing.ease] can be used with the `ADW_EASING_EASE_OUT_CUBIC`
-parameter.
+[func@Adw.Easing.ease] can be used with the `ADW_EASE_OUT_CUBIC` parameter.
 
 ### Adapt to Stylesheet Changes
 

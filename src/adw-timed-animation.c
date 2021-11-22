@@ -293,7 +293,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
                        "Easing",
                        "Easing function used in the animation",
                        ADW_TYPE_EASING,
-                       ADW_EASING_EASE_OUT_CUBIC,
+                       ADW_EASE_OUT_CUBIC,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
 
   /**
@@ -529,7 +529,7 @@ AdwEasing
 adw_timed_animation_get_easing (AdwTimedAnimation *self)
 {
   g_return_val_if_fail (ADW_IS_TIMED_ANIMATION (self),
-                        ADW_EASING_LINEAR);
+                        ADW_LINEAR);
 
   return self->easing;
 }
@@ -551,7 +551,7 @@ adw_timed_animation_set_easing (AdwTimedAnimation *self,
                                 AdwEasing          easing)
 {
   g_return_if_fail (ADW_IS_TIMED_ANIMATION (self));
-  g_return_if_fail (easing <= ADW_EASING_EASE_IN_OUT_BOUNCE);
+  g_return_if_fail (easing <= ADW_EASE_IN_OUT_BOUNCE);
 
   if (self->easing == easing)
     return;

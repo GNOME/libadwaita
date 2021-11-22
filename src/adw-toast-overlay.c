@@ -124,7 +124,7 @@ static void
 hide_value_cb (ToastInfo *info,
                double     value)
 {
-  value = adw_easing_ease (ADW_EASING_EASE_OUT_CUBIC, value);
+  value = adw_easing_ease (ADW_EASE_OUT_CUBIC, value);
   gtk_widget_set_opacity (info->widget, value);
 
   gtk_widget_queue_allocate (GTK_WIDGET (info->overlay));

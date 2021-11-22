@@ -147,16 +147,16 @@ test_adw_animation_easing (void)
   g_signal_connect (animation, "notify::easing", G_CALLBACK (notify_cb), NULL);
 
   g_object_get (animation, "easing", &easing, NULL);
-  g_assert_cmpint (easing, ==, ADW_EASING_EASE_OUT_CUBIC);
+  g_assert_cmpint (easing, ==, ADW_EASE_OUT_CUBIC);
   g_assert_cmpint (notified, ==, 0);
 
-  adw_timed_animation_set_easing (animation, ADW_EASING_EASE_IN_CUBIC);
+  adw_timed_animation_set_easing (animation, ADW_EASE_IN_CUBIC);
   g_object_get (animation, "easing", &easing, NULL);
-  g_assert_cmpint (easing, ==, ADW_EASING_EASE_IN_CUBIC);
+  g_assert_cmpint (easing, ==, ADW_EASE_IN_CUBIC);
   g_assert_cmpint (notified, ==, 1);
 
-  g_object_set (animation, "easing", ADW_EASING_EASE_IN_OUT_CUBIC, NULL);
-  g_assert_cmpint (adw_timed_animation_get_easing (animation), ==, ADW_EASING_EASE_IN_OUT_CUBIC);
+  g_object_set (animation, "easing", ADW_EASE_IN_OUT_CUBIC, NULL);
+  g_assert_cmpint (adw_timed_animation_get_easing (animation), ==, ADW_EASE_IN_OUT_CUBIC);
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (animation);

@@ -1260,7 +1260,7 @@ drag_autoscroll_cb (GtkWidget     *widget,
     autoscroll_factor = (x - end_threshold) / autoscroll_area;
 
   autoscroll_factor = CLAMP (autoscroll_factor, -1, 1);
-  autoscroll_factor = adw_easing_ease (ADW_EASING_EASE_IN_CUBIC,
+  autoscroll_factor = adw_easing_ease (ADW_EASE_IN_CUBIC,
                                        autoscroll_factor);
   self->drag_autoscroll_prev_time = time;
 

@@ -450,68 +450,67 @@ animations_easing_name (AdwEnumListItem *value,
   g_return_val_if_fail (ADW_IS_ENUM_LIST_ITEM (value), NULL);
 
   switch (adw_enum_list_item_get_value (value)) {
-  case ADW_EASING_LINEAR:
+  case ADW_LINEAR:
     return g_strdup (_("Linear"));
-
-  case ADW_EASING_EASE_IN_QUAD:
+  case ADW_EASE_IN_QUAD:
     return g_strdup (_("Ease-in (Quadratic)"));
-  case ADW_EASING_EASE_OUT_QUAD:
+  case ADW_EASE_OUT_QUAD:
     return g_strdup (_("Ease-out (Quadratic)"));
-  case ADW_EASING_EASE_IN_OUT_QUAD:
+  case ADW_EASE_IN_OUT_QUAD:
     return g_strdup (_("Ease-in-out (Quadratic)"));
-  case ADW_EASING_EASE_IN_CUBIC:
+  case ADW_EASE_IN_CUBIC:
     return g_strdup (_("Ease-in (Cubic)"));
-  case ADW_EASING_EASE_OUT_CUBIC:
+  case ADW_EASE_OUT_CUBIC:
     return g_strdup (_("Ease-out (Cubic)"));
-  case ADW_EASING_EASE_IN_OUT_CUBIC:
+  case ADW_EASE_IN_OUT_CUBIC:
     return g_strdup (_("Ease-in-out (Cubic)"));
-  case ADW_EASING_EASE_IN_QUART:
+  case ADW_EASE_IN_QUART:
     return g_strdup (_("Ease-in (Quartic)"));
-  case ADW_EASING_EASE_OUT_QUART:
+  case ADW_EASE_OUT_QUART:
     return g_strdup (_("Ease-out (Quartic)"));
-  case ADW_EASING_EASE_IN_OUT_QUART:
+  case ADW_EASE_IN_OUT_QUART:
     return g_strdup (_("Ease-in-out (Quartic)"));
-  case ADW_EASING_EASE_IN_QUINT:
+  case ADW_EASE_IN_QUINT:
     return g_strdup (_("Ease-in (Quintic)"));
-  case ADW_EASING_EASE_OUT_QUINT:
+  case ADW_EASE_OUT_QUINT:
     return g_strdup (_("Ease-out (Quintic)"));
-  case ADW_EASING_EASE_IN_OUT_QUINT:
+  case ADW_EASE_IN_OUT_QUINT:
     return g_strdup (_("Ease-in-out (Quintic)"));
-  case ADW_EASING_EASE_IN_SINE:
+  case ADW_EASE_IN_SINE:
     return g_strdup (_("Ease-in (Sine)"));
-  case ADW_EASING_EASE_OUT_SINE:
+  case ADW_EASE_OUT_SINE:
     return g_strdup (_("Ease-out (Sine)"));
-  case ADW_EASING_EASE_IN_OUT_SINE:
+  case ADW_EASE_IN_OUT_SINE:
     return g_strdup (_("Ease-in-out (Sine)"));
-  case ADW_EASING_EASE_IN_EXPO:
+  case ADW_EASE_IN_EXPO:
     return g_strdup (_("Ease-in (Exponential)"));
-  case ADW_EASING_EASE_OUT_EXPO:
+  case ADW_EASE_OUT_EXPO:
     return g_strdup (_("Ease-out (Exponential)"));
-  case ADW_EASING_EASE_IN_OUT_EXPO:
+  case ADW_EASE_IN_OUT_EXPO:
     return g_strdup (_("Ease-in-out (Exponential)"));
-  case ADW_EASING_EASE_IN_CIRC:
+  case ADW_EASE_IN_CIRC:
     return g_strdup (_("Ease-in (Circular)"));
-  case ADW_EASING_EASE_OUT_CIRC:
+  case ADW_EASE_OUT_CIRC:
     return g_strdup (_("Ease-out (Circular)"));
-  case ADW_EASING_EASE_IN_OUT_CIRC:
+  case ADW_EASE_IN_OUT_CIRC:
     return g_strdup (_("Ease-in-out (Circular)"));
-  case ADW_EASING_EASE_IN_ELASTIC:
+  case ADW_EASE_IN_ELASTIC:
     return g_strdup (_("Ease-in (Elastic)"));
-  case ADW_EASING_EASE_OUT_ELASTIC:
+  case ADW_EASE_OUT_ELASTIC:
     return g_strdup (_("Ease-out (Elastic)"));
-  case ADW_EASING_EASE_IN_OUT_ELASTIC:
+  case ADW_EASE_IN_OUT_ELASTIC:
     return g_strdup (_("Ease-in-out (Elastic)"));
-  case ADW_EASING_EASE_IN_BACK:
+  case ADW_EASE_IN_BACK:
     return g_strdup (_("Ease-in (Back)"));
-  case ADW_EASING_EASE_OUT_BACK:
+  case ADW_EASE_OUT_BACK:
     return g_strdup (_("Ease-out (Back)"));
-  case ADW_EASING_EASE_IN_OUT_BACK:
+  case ADW_EASE_IN_OUT_BACK:
     return g_strdup (_("Ease-in-out (Back)"));
-  case ADW_EASING_EASE_IN_BOUNCE:
+  case ADW_EASE_IN_BOUNCE:
     return g_strdup (_("Ease-in (Bounce)"));
-  case ADW_EASING_EASE_OUT_BOUNCE:
+  case ADW_EASE_OUT_BOUNCE:
     return g_strdup (_("Ease-out (Bounce)"));
-  case ADW_EASING_EASE_IN_OUT_BOUNCE:
+  case ADW_EASE_IN_OUT_BOUNCE:
     return g_strdup (_("Ease-in-out (Bounce)"));
   default:
     return NULL;
@@ -841,7 +840,7 @@ animation_page_init (AdwDemoWindow *self)
                           G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
 
   adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->timed_animation),
-                                  ADW_EASING_EASE_IN_OUT_CUBIC);
+                                  ADW_EASE_IN_OUT_CUBIC);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TIMED_ANIMATION]);
 

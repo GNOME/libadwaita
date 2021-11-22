@@ -244,5 +244,5 @@ gtk_progress_tracker_get_ease_out_cubic (GtkProgressTracker *tracker,
                                          gboolean reversed)
 {
   double progress = gtk_progress_tracker_get_progress (tracker, reversed);
-  return adw_easing_ease (ADW_EASING_EASE_OUT_CUBIC, progress);
+  return adw_easing_ease (ADW_EASE_OUT_CUBIC, progress);
 }
