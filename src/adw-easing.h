@@ -24,4 +24,8 @@ typedef enum {
   ADW_EASING_EASE_IN_OUT_CUBIC,
 } AdwEasing;
 
+ADW_AVAILABLE_IN_ALL
+double adw_easing_ease (AdwEasing self,
+                        double    value);
+
 G_END_DECLS

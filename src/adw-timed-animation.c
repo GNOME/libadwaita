@@ -110,19 +110,7 @@ adw_timed_animation_calculate_value (AdwAnimation *animation,
 
   progress = reverse ? (1 - progress) : progress;
 
-  switch (self->easing) {
-    case ADW_EASING_EASE_IN_CUBIC:
-      value = adw_ease_in_cubic (progress);
-      break;
-    case ADW_EASING_EASE_OUT_CUBIC:
-      value = adw_ease_out_cubic (progress);
-      break;
-    case ADW_EASING_EASE_IN_OUT_CUBIC:
-      value = adw_ease_in_out_cubic (progress);
-      break;
-    default:
-      g_assert_not_reached ();
-  }
+  value = adw_easing_ease (self->easing, progress);
 
   return adw_lerp (self->value_from, self->value_to, value);
 }

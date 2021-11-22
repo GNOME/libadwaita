@@ -8,6 +8,8 @@
 
 #include "adw-easing.h"
 
+#include "adw-animation-util-private.h"
+
 /**
  * AdwEasing:
  * @ADW_EASING_EASE_IN_CUBIC: Starts slowly and accelerates, cubic curve.
@@ -24,3 +26,32 @@
  *
  * Since: 1.0
  */
+
+/**
+ * adw_easing_ease:
+ * @self: a `AdwEasing`
+ * @value: a value to ease
+ *
+ * Computes easing with @easing for @value.
+ *
+ * @value should generally be in the [0, 1] range.
+ *
+ * Returns: the easing for @value
+ *
+ * Since: 1.0
+ */
+double
+adw_easing_ease (AdwEasing self,
+                 double    value)
+{
+  switch (self) {
+    case ADW_EASING_EASE_IN_CUBIC:
+      return adw_ease_in_cubic (value);
+    case ADW_EASING_EASE_OUT_CUBIC:
+      return adw_ease_out_cubic (value);
+    case ADW_EASING_EASE_IN_OUT_CUBIC:
+      return adw_ease_in_out_cubic (value);
+    default:
+      g_assert_not_reached ();
+  }
+}
