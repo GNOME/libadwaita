@@ -15,7 +15,7 @@
 #include <gtk/gtk.h>
 
 #include "adw-animation.h"
-#include "adw-enums.h"
+#include "adw-easing.h"
 
 G_BEGIN_DECLS
 
@@ -23,12 +23,6 @@ G_BEGIN_DECLS
 
 ADW_AVAILABLE_IN_ALL
 GDK_DECLARE_INTERNAL_TYPE (AdwTimedAnimation, adw_timed_animation, ADW, TIMED_ANIMATION, AdwAnimation)
-
-typedef enum {
-  ADW_EASING_EASE_IN_CUBIC,
-  ADW_EASING_EASE_OUT_CUBIC,
-  ADW_EASING_EASE_IN_OUT_CUBIC,
-} AdwEasing;
 
 ADW_AVAILABLE_IN_ALL
 AdwAnimation *adw_timed_animation_new (GtkWidget          *widget,
