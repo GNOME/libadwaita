@@ -281,8 +281,10 @@ always enabled when [property@Adw.Leaflet:homogeneous] is set to `FALSE`.
 [class@Adw.ViewSwitcherTitle] now use [class@Adw.ViewStack] instead of
 [class@Gtk.Stack].
 
-You should stop using [property@Gtk.Stack:transition-type] and
-[property@Gtk.Stack:transition-duration] properties before switching to
+You should stop using [property@Gtk.Stack:transition-type],
+[property@Gtk.Stack:transition-duration],
+[property@Gtk.Stack:transition-running] and
+[property@Gtk.Stack:interpolate-size] properties before switching to
 [class@Adw.ViewStack].
 
 The `auto` view switcher policy has been removed. [class@Adw.ViewSwitcher] only

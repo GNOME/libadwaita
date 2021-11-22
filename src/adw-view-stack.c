@@ -40,9 +40,7 @@
  * [property@Adw.ViewStackPage:needs-attention], and
  * [property@Adw.ViewStackPage:badge-number] properties.
  *
- * Transitions between views are animated by crossfading.
- * These animations respect the [property@Gtk.Settings:gtk-enable-animations]
- * setting.
+ * Unlike [class@Gtk.Stack], transitions between views are not animated.
  *
  * `AdwViewStack` maintains a [class@Adw.ViewStackPage] object for each added
  * child, which holds additional per-child properties.
@@ -87,8 +85,6 @@
  * Since: 1.0
  */
 
-#define TRANSITION_DURATION 200
-
 #define OPPOSITE_ORIENTATION(_orientation) (1 - (_orientation))
 
 enum {
@@ -97,8 +93,6 @@ enum {
   PROP_VHOMOGENEOUS,
   PROP_VISIBLE_CHILD,
   PROP_VISIBLE_CHILD_NAME,
-  PROP_TRANSITION_RUNNING,
-  PROP_INTERPOLATE_SIZE,
   PROP_PAGES,
   LAST_PROP
 };
@@ -143,15 +137,6 @@ struct _AdwViewStack {
   AdwViewStackPage *visible_child;
 
   gboolean homogeneous[2];
-
-  AdwViewStackPage *last_visible_child;
-  guint tick_id;
-  GtkProgressTracker tracker;
-  gboolean first_frame_skipped;
-
-  int last_visible_widget_size[2];
-
-  gboolean interpolate_size;
 
   GtkSelectionModel *pages;
 };
@@ -541,94 +526,6 @@ find_page_for_name (AdwViewStack *self,
 }
 
 static void
-progress_updated (AdwViewStack *self)
-{
-  if (!self->homogeneous[GTK_ORIENTATION_VERTICAL] || !self->homogeneous[GTK_ORIENTATION_HORIZONTAL])
-    gtk_widget_queue_resize (GTK_WIDGET (self));
-  else
-    gtk_widget_queue_draw (GTK_WIDGET (self));
-
-  if (gtk_progress_tracker_get_state (&self->tracker) == GTK_PROGRESS_STATE_AFTER &&
-      self->last_visible_child != NULL) {
-    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
-    self->last_visible_child = NULL;
-  }
-}
-
-static gboolean
-transition_cb (GtkWidget     *widget,
-               GdkFrameClock *frame_clock,
-               gpointer       user_data)
-{
-  AdwViewStack *self = ADW_VIEW_STACK (widget);
-
-  if (self->first_frame_skipped)
-    gtk_progress_tracker_advance_frame (&self->tracker,
-                                        gdk_frame_clock_get_frame_time (frame_clock));
-  else
-    self->first_frame_skipped = TRUE;
-
-  /* Finish animation early if not mapped anymore */
-  if (!gtk_widget_get_mapped (widget))
-    gtk_progress_tracker_finish (&self->tracker);
-
-  progress_updated (self);
-
-  if (gtk_progress_tracker_get_state (&self->tracker) == GTK_PROGRESS_STATE_AFTER) {
-    self->tick_id = 0;
-    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSITION_RUNNING]);
-
-    return FALSE;
-  }
-
-  return TRUE;
-}
-
-static void
-schedule_ticks (AdwViewStack *self)
-{
-  if (self->tick_id == 0) {
-    self->tick_id =
-      gtk_widget_add_tick_callback (GTK_WIDGET (self),
-                                    transition_cb,
-                                    self, NULL);
-    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSITION_RUNNING]);
-  }
-}
-
-static void
-unschedule_ticks (AdwViewStack *self)
-{
-  if (self->tick_id != 0) {
-    gtk_widget_remove_tick_callback (GTK_WIDGET (self), self->tick_id);
-    self->tick_id = 0;
-    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSITION_RUNNING]);
-  }
-}
-
-static void
-start_transition (AdwViewStack *self)
-{
-  GtkWidget *widget = GTK_WIDGET (self);
-
-  if (gtk_widget_get_mapped (widget) &&
-      adw_get_enable_animations (widget) &&
-      self->last_visible_child != NULL) {
-    self->first_frame_skipped = FALSE;
-    schedule_ticks (self);
-    gtk_progress_tracker_start (&self->tracker,
-                                TRANSITION_DURATION * 1000,
-                                0,
-                                1.0);
-  } else {
-    unschedule_ticks (self);
-    gtk_progress_tracker_finish (&self->tracker);
-  }
-
-  progress_updated (self);
-}
-
-static void
 set_visible_child (AdwViewStack     *self,
                    AdwViewStackPage *page)
 {
@@ -696,19 +593,8 @@ set_visible_child (AdwViewStack     *self,
                                (gpointer *)&self->visible_child->last_focus);
   }
 
-  if (self->last_visible_child)
-    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
-  self->last_visible_child = NULL;
-
-  if (self->visible_child && self->visible_child->widget) {
-    if (gtk_widget_is_visible (widget)) {
-      self->last_visible_child = self->visible_child;
-      self->last_visible_widget_size[GTK_ORIENTATION_HORIZONTAL] = gtk_widget_get_width (widget);
-      self->last_visible_widget_size[GTK_ORIENTATION_VERTICAL] = gtk_widget_get_height (widget);
-    } else {
-      gtk_widget_set_child_visible (self->visible_child->widget, FALSE);
-    }
-  }
+  if (self->visible_child && self->visible_child->widget)
+    gtk_widget_set_child_visible (self->visible_child->widget, FALSE);
 
   self->visible_child = page;
 
@@ -743,8 +629,6 @@ set_visible_child (AdwViewStack     *self,
                                              MIN (old_pos, new_pos),
                                              MAX (old_pos, new_pos) - MIN (old_pos, new_pos) + 1);
   }
-
-  start_transition (self);
 }
 
 static void
@@ -759,11 +643,6 @@ update_child_visible (AdwViewStack     *self,
     set_visible_child (self, page);
   else if (self->visible_child == page && !visible)
     set_visible_child (self, NULL);
-
-  if (page == self->last_visible_child) {
-    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
-    self->last_visible_child = NULL;
-  }
 }
 
 static void
@@ -864,9 +743,6 @@ stack_remove (AdwViewStack  *self,
   if (self->visible_child == page)
     self->visible_child = NULL;
 
-  if (self->last_visible_child == page)
-    self->last_visible_child = NULL;
-
   gtk_widget_unparent (child);
 
   g_clear_object (&page->widget);
@@ -888,62 +764,11 @@ adw_view_stack_size_allocate (GtkWidget *widget,
                               int        baseline)
 {
   AdwViewStack *self = ADW_VIEW_STACK (widget);
-  GtkAllocation child_allocation;
 
-  if (self->last_visible_child) {
-    int child_width, child_height;
-    int min, nat;
+  if (!self->visible_child)
+    return;
 
-    gtk_widget_measure (self->last_visible_child->widget,
-                        GTK_ORIENTATION_HORIZONTAL, -1,
-                        &min, &nat, NULL, NULL);
-    child_width = MAX (min, width);
-    gtk_widget_measure (self->last_visible_child->widget,
-                        GTK_ORIENTATION_VERTICAL, child_width,
-                        &min, &nat, NULL, NULL);
-    child_height = MAX (min, height);
-
-    gtk_widget_allocate (self->last_visible_child->widget,
-                         child_width, child_height, -1, NULL);
-  }
-
-  child_allocation.x = 0;
-  child_allocation.y = 0;
-  child_allocation.width = width;
-  child_allocation.height = height;
-
-  if (self->visible_child) {
-    int min_width;
-    int min_height;
-
-    gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_HORIZONTAL,
-                        height, &min_width, NULL, NULL, NULL);
-    child_allocation.width = MAX (child_allocation.width, min_width);
-
-    gtk_widget_measure (self->visible_child->widget, GTK_ORIENTATION_VERTICAL,
-                        child_allocation.width, &min_height, NULL, NULL, NULL);
-    child_allocation.height = MAX (child_allocation.height, min_height);
-
-    if (child_allocation.width > width) {
-      GtkAlign halign = gtk_widget_get_halign (self->visible_child->widget);
-
-      if (halign == GTK_ALIGN_CENTER || halign == GTK_ALIGN_FILL)
-        child_allocation.x = (width - child_allocation.width) / 2;
-      else if (halign == GTK_ALIGN_END)
-        child_allocation.x = (width - child_allocation.width);
-    }
-
-    if (child_allocation.height > height) {
-      GtkAlign valign = gtk_widget_get_valign (self->visible_child->widget);
-
-      if (valign == GTK_ALIGN_CENTER || valign == GTK_ALIGN_FILL)
-        child_allocation.y = (height - child_allocation.height) / 2;
-      else if (valign == GTK_ALIGN_END)
-        child_allocation.y = (height - child_allocation.height);
-    }
-
-    gtk_widget_size_allocate (self->visible_child->widget, &child_allocation, -1);
-  }
+  gtk_widget_allocate (self->visible_child->widget, width, height, baseline, NULL);
 }
 
 static void
@@ -984,54 +809,6 @@ adw_view_stack_measure (GtkWidget      *widget,
       *natural = MAX (*natural, child_nat);
     }
   }
-
-  if (self->last_visible_child && !self->homogeneous[orientation]) {
-    double t = self->interpolate_size ? gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE) : 0.0;
-    *minimum = adw_lerp (*minimum, self->last_visible_widget_size[orientation], 1.0 - t);
-    *natural = adw_lerp (*natural, self->last_visible_widget_size[orientation], 1.0 - t);
-  }
-}
-
-static void
-adw_view_stack_snapshot (GtkWidget   *widget,
-                         GtkSnapshot *snapshot)
-{
-  AdwViewStack *self = ADW_VIEW_STACK (widget);
-  double progress;
-
-  if (!self->visible_child)
-    return;
-
-  if (gtk_progress_tracker_get_state (&self->tracker) == GTK_PROGRESS_STATE_AFTER) {
-    gtk_widget_snapshot_child (widget,
-                               self->visible_child->widget,
-                               snapshot);
-
-    return;
-  }
-
-  progress = gtk_progress_tracker_get_progress (&self->tracker, FALSE);
-
-  gtk_snapshot_push_clip (snapshot,
-                          &GRAPHENE_RECT_INIT(
-                              0, 0,
-                              gtk_widget_get_width (widget),
-                              gtk_widget_get_height (widget)
-                          ));
-  gtk_snapshot_push_cross_fade (snapshot, progress);
-
-  if (self->last_visible_child)
-    gtk_widget_snapshot_child (widget,
-                               self->last_visible_child->widget,
-                               snapshot);
-  gtk_snapshot_pop (snapshot);
-
-  gtk_widget_snapshot_child (widget,
-                             self->visible_child->widget,
-                             snapshot);
-  gtk_snapshot_pop (snapshot);
-
-  gtk_snapshot_pop (snapshot);
 }
 
 static void
@@ -1054,12 +831,6 @@ adw_view_stack_get_property (GObject    *object,
     break;
   case PROP_VISIBLE_CHILD_NAME:
     g_value_set_string (value, adw_view_stack_get_visible_child_name (self));
-    break;
-  case PROP_TRANSITION_RUNNING:
-    g_value_set_boolean (value, adw_view_stack_get_transition_running (self));
-    break;
-  case PROP_INTERPOLATE_SIZE:
-    g_value_set_boolean (value, adw_view_stack_get_interpolate_size (self));
     break;
   case PROP_PAGES:
     g_value_take_object (value, adw_view_stack_get_pages (self));
@@ -1090,9 +861,6 @@ adw_view_stack_set_property (GObject      *object,
     break;
   case PROP_VISIBLE_CHILD_NAME:
     adw_view_stack_set_visible_child_name (self, g_value_get_string (value));
-    break;
-  case PROP_INTERPOLATE_SIZE:
-    adw_view_stack_set_interpolate_size (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -1125,8 +893,6 @@ adw_view_stack_finalize (GObject *object)
     g_object_remove_weak_pointer (G_OBJECT (self->pages),
                                   (gpointer *) &self->pages);
 
-  unschedule_ticks (self);
-
   G_OBJECT_CLASS (adw_view_stack_parent_class)->finalize (object);
 }
 
@@ -1142,7 +908,6 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
   object_class->finalize = adw_view_stack_finalize;
 
   widget_class->size_allocate = adw_view_stack_size_allocate;
-  widget_class->snapshot = adw_view_stack_snapshot;
   widget_class->measure = adw_view_stack_measure;
   widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
@@ -1210,34 +975,6 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
                            "The name of the widget currently visible in the stack",
                            NULL,
                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwViewStack:transition-running: (attributes org.gtk.Property.get=adw_view_stack_get_transition_running)
-   *
-   * Whether a transition is currently running.
-   *
-   * Since: 1.0
-   */
-  props[PROP_TRANSITION_RUNNING] =
-      g_param_spec_boolean ("transition-running",
-                            "Transition running",
-                            "Whether a transition is currently running",
-                            FALSE,
-                            G_PARAM_READABLE);
-
-  /**
-   * AdwViewStack:interpolate-size: (attributes org.gtk.Property.get=adw_view_stack_get_interpolate_size org.gtk.Property.set=adw_view_stack_set_interpolate_size)
-   *
-   * Whether the stack interpolates its size when changing the visible child.
-   *
-   * Since: 1.0
-   */
-  props[PROP_INTERPOLATE_SIZE] =
-      g_param_spec_boolean ("interpolate-size",
-                            "Interpolate size",
-                            "Whether the stack interpolates its size when changing the visible child",
-                            FALSE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStack:pages: (attributes org.gtk.Property.get=adw_view_stack_get_pages)
@@ -1990,67 +1727,6 @@ adw_view_stack_get_vhomogeneous (AdwViewStack *self)
   g_return_val_if_fail (ADW_IS_VIEW_STACK (self), FALSE);
 
   return self->homogeneous[GTK_ORIENTATION_VERTICAL];
-}
-
-/**
- * adw_view_stack_get_transition_running: (attributes org.gtk.Method.get_property=transition-running)
- * @self: a `AdwViewStack`
- *
- * Gets whether the @self is currently in a transition from one page to another.
- *
- * Returns: whether a transition is currently running
- *
- * Since: 1.0
- */
-gboolean
-adw_view_stack_get_transition_running (AdwViewStack *self)
-{
-  g_return_val_if_fail (ADW_IS_VIEW_STACK (self), FALSE);
-
-  return (self->tick_id != 0);
-}
-
-/**
- * adw_view_stack_set_interpolate_size: (attributes org.gtk.Method.set_property=interpolate-size)
- * @self: A `AdwViewStack`
- * @interpolate_size: the new value
- *
- * Sets whether @self will interpolate its size when changing the visible child.
- *
- * Since: 1.0
- */
-void
-adw_view_stack_set_interpolate_size (AdwViewStack *self,
-                                     gboolean      interpolate_size)
-{
-  g_return_if_fail (ADW_IS_VIEW_STACK (self));
-
-  interpolate_size = !!interpolate_size;
-
-  if (self->interpolate_size == interpolate_size)
-    return;
-
-  self->interpolate_size = interpolate_size;
-  g_object_notify_by_pspec (G_OBJECT (self),
-                            props[PROP_INTERPOLATE_SIZE]);
-}
-
-/**
- * adw_view_stack_get_interpolate_size: (attributes org.gtk.Method.get_property=interpolate-size)
- * @self: A `AdwViewStack`
- *
- * Gets whether @self will interpolate its size when changing the visible child.
- *
- * Returns: whether child sizes are interpolated
- *
- * Since: 1.0
- */
-gboolean
-adw_view_stack_get_interpolate_size (AdwViewStack *self)
-{
-  g_return_val_if_fail (ADW_IS_VIEW_STACK (self), FALSE);
-
-  return self->interpolate_size;
 }
 
 /**

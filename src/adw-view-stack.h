@@ -129,15 +129,6 @@ ADW_AVAILABLE_IN_ALL
 gboolean adw_view_stack_get_vhomogeneous (AdwViewStack *self);
 
 ADW_AVAILABLE_IN_ALL
-gboolean adw_view_stack_get_transition_running (AdwViewStack *self);
-
-ADW_AVAILABLE_IN_ALL
-void     adw_view_stack_set_interpolate_size (AdwViewStack *self,
-                                              gboolean      interpolate_size);
-ADW_AVAILABLE_IN_ALL
-gboolean adw_view_stack_get_interpolate_size (AdwViewStack *self);
-
-ADW_AVAILABLE_IN_ALL
 GtkSelectionModel *adw_view_stack_get_pages (AdwViewStack *self);
 
 G_END_DECLS

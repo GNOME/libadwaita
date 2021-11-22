@@ -304,6 +304,12 @@ swipes.
 The type of the `duration` parameter in [method@Adw.Carousel.scroll_to_full] has
 changed from `gint64` to `guint`.
 
+### Adapt to [class@Adw.ViewStack] API changes
+
+[class@Adw.ViewStack] has stopped supporting transitions. As such, the
+`interpolate-size` and `transition-running` properties have been removed with
+no replacement.
+
 ### Adapt to Miscellaneous Changes
 
 The `adw_ease_out_cubic()` function has been removed. Instead,
