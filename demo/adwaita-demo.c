@@ -37,6 +37,7 @@ show_about (GSimpleAction *action,
     "Andrei Lișiță",
     "Guido Günther",
     "Julian Sparber",
+    "Manuel Genovés",
     "Zander Brown",
     NULL
   };
