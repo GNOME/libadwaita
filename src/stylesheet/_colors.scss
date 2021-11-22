@@ -1,5 +1,5 @@
-$border_strength: if($contrast == 'high', 5%, 15%);
-$thin_border_strength: if($contrast == 'high', 25%, 5%);
+$border_opacity: if($contrast == 'high', .5, .15);
+$thin_border_opacity: if($contrast == 'high', .25, .05);
 $focus_border_opacity: if($contrast == 'high', 0.8, 0.5);
 $window_outline_opacity: if($contrast == 'high', .3, .1);
 
@@ -25,7 +25,7 @@ $view_fg_color: gtkcolor(view_fg_color);
 
 $headerbar_bg_color: gtkcolor(headerbar_bg_color);
 $headerbar_fg_color: gtkcolor(headerbar_fg_color);
-$headerbar_border_color: gtkmix(gtkcolor(headerbar_border_color), $headerbar_bg_color, $border_strength);
+$headerbar_border_color: gtkalpha(gtkcolor(headerbar_border_color), $border_opacity);
 $headerbar_backdrop_color: gtkcolor(headerbar_backdrop_color);
 $headerbar_shade_color: gtkcolor(headerbar_shade_color);
 
@@ -44,8 +44,8 @@ $window_border_backdrop_color: gtkcolor(window_border_backdrop_color);
 
 // Other colors
 
-$border_color: gtkmix(currentColor, $window_bg_color, $border_strength);
-$thin_border_color: gtkmix(currentColor, $window_bg_color, $thin_border_strength);
+$border_color: gtkalpha(currentColor, $border_opacity);
+$thin_border_color: gtkalpha(currentColor, $thin_border_opacity);
 $link_color: $accent_color;
 $link_visited_color: gtkmix($accent_color, $view_fg_color, 80%);
 
