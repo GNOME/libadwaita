@@ -42,6 +42,6 @@ GDK_DECLARE_INTERNAL_TYPE (AdwCallbackAnimationTarget, adw_callback_animation_ta
 ADW_AVAILABLE_IN_ALL
 AdwAnimationTarget *adw_callback_animation_target_new (AdwAnimationTargetFunc callback,
                                                        gpointer               user_data,
-                                                       GDestroyNotify         destroy);
+                                                       GDestroyNotify         destroy) G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS
