@@ -8,6 +8,25 @@
 
 #include "adw-animation-target-private.h"
 
+/**
+ * AdwAnimationTarget:
+ *
+ * Represents a value [class@Adw.Animation] can animate.
+ *
+ * Currently the only implementation is [class@Adw.CallbackAnimationTarget].
+ *
+ * Since: 1.0
+ */
+
+/**
+ * AdwCallbackAnimationTarget:
+ *
+ * An [class@Adw.AnimationTarget] that calls a given callback during the
+ * animation.
+ *
+ * Since: 1.0
+ */
+
 struct _AdwAnimationTarget
 {
   GObject parent_instance;
@@ -94,6 +113,20 @@ adw_callback_animation_target_init (AdwCallbackAnimationTarget *self)
 {
 }
 
+/**
+ * adw_callback_animation_target_new:
+ * @callback: (scope notified): the callback to call
+ * @user_data: (closure callback): the data to be passed to @callback
+ * @destroy: (destroy user_data): the function to be called when the
+ *   callback action is finalized
+ *
+ * Creates a new `AdwAnimationTarget` that calls the given @callback during
+ * the animation.
+ *
+ * Returns: the newly created callback target
+ *
+ * Since: 1.0
+ */
 AdwAnimationTarget *
 adw_callback_animation_target_new (AdwAnimationTargetFunc callback,
                                    gpointer               user_data,

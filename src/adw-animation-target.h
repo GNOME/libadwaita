@@ -22,6 +22,15 @@ ADW_AVAILABLE_IN_ALL
 GDK_DECLARE_INTERNAL_TYPE (AdwAnimationTarget, adw_animation_target, ADW, ANIMATION_TARGET, GObject)
 
 
+/**
+ * AdwAnimationTargetFunc:
+ * @user_data: (nullable): The user data provided when creating the target
+ * @value: The animation value
+ *
+ * Prototype for animation targets based on user callbacks.
+ *
+ * Since: 1.0
+ */
 typedef void (*AdwAnimationTargetFunc) (gpointer user_data,
                                         double   value);
 
