@@ -529,7 +529,7 @@ AdwEasing
 adw_timed_animation_get_easing (AdwTimedAnimation *self)
 {
   g_return_val_if_fail (ADW_IS_TIMED_ANIMATION (self),
-                        ADW_EASING_EASE_IN_CUBIC);
+                        ADW_EASING_LINEAR);
 
   return self->easing;
 }
@@ -551,7 +551,7 @@ adw_timed_animation_set_easing (AdwTimedAnimation *self,
                                 AdwEasing          easing)
 {
   g_return_if_fail (ADW_IS_TIMED_ANIMATION (self));
-  g_return_if_fail (easing <= ADW_EASING_EASE_IN_OUT_CUBIC);
+  g_return_if_fail (easing <= ADW_EASING_EASE_IN_OUT_BOUNCE);
 
   if (self->easing == easing)
     return;
