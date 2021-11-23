@@ -59,6 +59,7 @@ struct _AdwStyleManager
 
   AdwColorScheme color_scheme;
   gboolean dark;
+  gboolean setting_dark;
 
   guint animation_timeout_id;
 };
@@ -81,8 +82,11 @@ static GHashTable *display_style_managers = NULL;
 static AdwStyleManager *default_instance = NULL;
 
 static void
-warn_prefer_dark_theme (void)
+warn_prefer_dark_theme (AdwStyleManager *self)
 {
+  if (self->setting_dark)
+    return;
+
   g_warning ("Using GtkSettings:gtk-application-prefer-dark-theme with "
              "libadwaita is unsupported. Please use "
              "AdwStyleManager:color-scheme instead.");
@@ -148,9 +152,14 @@ update_stylesheet (AdwStyleManager *self)
                   NULL);
   }
 
+  self->setting_dark = TRUE;
+
   g_object_set (gtk_settings,
                 "gtk-enable-animations", FALSE,
+                "gtk-application-prefer-dark-theme", self->dark,
                 NULL);
+
+  self->setting_dark = FALSE;
 
   if (self->provider) {
     if (adw_settings_get_high_contrast (self->settings))
@@ -246,13 +255,13 @@ adw_style_manager_constructed (GObject *object)
                   NULL);
 
     if (prefer_dark_theme)
-      warn_prefer_dark_theme ();
+      warn_prefer_dark_theme (self);
 
     g_signal_connect_object (settings,
                              "notify::gtk-application-prefer-dark-theme",
                              G_CALLBACK (warn_prefer_dark_theme),
                              self,
-                             0);
+                             G_CONNECT_SWAPPED);
 
     if (!g_getenv ("GTK_THEME")) {
       g_object_set (gtk_settings_get_for_display (self->display),
