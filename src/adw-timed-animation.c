@@ -10,6 +10,7 @@
 
 #include "adw-animation-private.h"
 #include "adw-animation-util.h"
+#include "adw-macros-private.h"
 
 /**
  * AdwTimedAnimation:
@@ -54,7 +55,7 @@ struct _AdwTimedAnimationClass
   AdwAnimationClass parent_class;
 };
 
-G_DEFINE_TYPE (AdwTimedAnimation, adw_timed_animation, ADW_TYPE_ANIMATION)
+G_DEFINE_FINAL_TYPE (AdwTimedAnimation, adw_timed_animation, ADW_TYPE_ANIMATION)
 
 enum {
   PROP_0,
