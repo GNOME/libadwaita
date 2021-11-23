@@ -35,7 +35,6 @@
         </child>
         <child>
           <object class="GtkBox" id="title_box">
-            <property name="halign">start</property>
             <property name="orientation">vertical</property>
             <property name="valign">center</property>
             <property name="hexpand">True</property>
@@ -50,7 +49,6 @@
                   </closure>
                 </binding>
                 <property name="ellipsize">none</property>
-                <property name="halign">start</property>
                 <property name="label" bind-source="AdwActionRow" bind-property="title" bind-flags="sync-create"/>
                 <property name="lines">0</property>
                 <property name="mnemonic-widget">AdwActionRow</property>
@@ -72,7 +70,6 @@
                   </closure>
                 </binding>
                 <property name="ellipsize">none</property>
-                <property name="halign">start</property>
                 <property name="lines">0</property>
                 <property name="wrap">True</property>
                 <property name="wrap-mode">word-char</property>
