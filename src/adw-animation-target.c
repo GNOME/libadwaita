@@ -8,6 +8,8 @@
 
 #include "adw-animation-target-private.h"
 
+#include "adw-macros-private.h"
+
 /**
  * AdwAnimationTarget:
  *
@@ -75,7 +77,7 @@ struct _AdwCallbackAnimationTargetClass
   AdwAnimationTargetClass parent_class;
 };
 
-G_DEFINE_TYPE (AdwCallbackAnimationTarget, adw_callback_animation_target, ADW_TYPE_ANIMATION_TARGET)
+G_DEFINE_FINAL_TYPE (AdwCallbackAnimationTarget, adw_callback_animation_target, ADW_TYPE_ANIMATION_TARGET)
 
 static void
 adw_callback_animation_target_set_value (AdwAnimationTarget *target,
