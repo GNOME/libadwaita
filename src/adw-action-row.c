@@ -7,7 +7,6 @@
 #include "config.h"
 #include "adw-action-row.h"
 
-#include "adw-gizmo-private.h"
 #include "adw-macros-private.h"
 
 /**
@@ -52,7 +51,6 @@ typedef struct
   GtkImage *image;
   GtkBox *prefixes;
   GtkLabel *subtitle;
-  GtkWidget *suffixes_bin;
   GtkBox *suffixes;
   GtkLabel *title;
   GtkBox *title_box;
@@ -124,38 +122,6 @@ parent_cb (AdwActionRow *self)
 
   priv->previous_parent = parent;
   g_signal_connect_swapped (parent, "row-activated", G_CALLBACK (row_activated_cb), self);
-}
-
-static void
-suffixes_measure (GtkWidget      *widget,
-                  GtkOrientation  orientation,
-                  int             for_size,
-                  int            *minimum,
-                  int            *natural,
-                  int            *minimum_baseline,
-                  int            *natural_baseline)
-{
-  GtkWidget *child = gtk_widget_get_first_child (widget);
-
-  gtk_widget_measure (child, orientation, for_size, minimum, natural,
-                      minimum_baseline, natural_baseline);
-}
-
-
-static void
-suffixes_allocate (GtkWidget *widget,
-                   int        width,
-                   int        height,
-                   int        baseline)
-{
-  GtkWidget *child = gtk_widget_get_first_child (widget);
-
-  if (gtk_widget_compute_expand (child, GTK_ORIENTATION_HORIZONTAL)) {
-    gtk_widget_set_halign (child, GTK_ALIGN_FILL);
-  } else
-    gtk_widget_set_halign (child, GTK_ALIGN_END);
-
-  gtk_widget_allocate (child, width, height, baseline, NULL);
 }
 
 static void
@@ -365,7 +331,6 @@ adw_action_row_class_init (AdwActionRowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, image);
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, prefixes);
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, subtitle);
-  gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, suffixes_bin);
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, suffixes);
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, title);
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, title_box);
@@ -375,18 +340,10 @@ adw_action_row_class_init (AdwActionRowClass *klass)
 static void
 adw_action_row_init (AdwActionRow *self)
 {
-  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
-
-  g_type_ensure (ADW_TYPE_GIZMO);
-
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  gtk_widget_set_layout_manager (priv->suffixes_bin,
-                                 gtk_custom_layout_new (NULL,
-                                                        suffixes_measure,
-                                                        suffixes_allocate));
-
   g_signal_connect (self, "notify::parent", G_CALLBACK (parent_cb), NULL);
+
 }
 
 static void
@@ -771,7 +728,7 @@ adw_action_row_add_suffix (AdwActionRow *self,
   priv = adw_action_row_get_instance_private (self);
 
   gtk_box_append (priv->suffixes, widget);
-  gtk_widget_show (GTK_WIDGET (priv->suffixes_bin));
+  gtk_widget_show (GTK_WIDGET (priv->suffixes));
 }
 
 /**
