@@ -403,7 +403,7 @@ The `.combo` popover style class has been removed. Use `.menu` instead. You may
 need to remove manually added margins, padding or minimum height from the list
 items inside while doing it.
 
-### Adapt to the `button.outline` style removal
+### Adapt to the `button.list-button` style removal
 
 The `.list-button` style class has been removed with no replacement. The regular
 button style should be used instead.
