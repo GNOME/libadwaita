@@ -79,7 +79,10 @@ popover.menu {
     -gtk-icon-size: 14px;
     padding: 2px;
 
-    &, &:hover, &:hover:active, &:checked, &:disabled {
+    &,
+    &:hover:checked,
+    &:hover:indeterminate,
+    &:hover:not(:checked):not(:indeterminate) {
       background: none;
       color: inherit;
     }
