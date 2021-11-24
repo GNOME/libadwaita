@@ -549,7 +549,7 @@ set_visible_child (AdwViewStack     *self,
     for (l = self->children; l; l = l->next) {
       AdwViewStackPage *p = l->data;
 
-      if (gtk_widget_get_visible (page->widget)) {
+      if (gtk_widget_get_visible (p->widget)) {
         page = p;
 
         break;
