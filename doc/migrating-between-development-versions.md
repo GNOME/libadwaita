@@ -321,3 +321,9 @@ The `adw_ease_out_cubic()` function has been removed. Instead,
 
 The `.outline` style class has been removed with no replacement. The regular
 button style should be used instead.
+
+### Adapt to the `content-view` check button style removal
+
+The selection mode [class@Gtk.CheckButton] style, used inside views with the
+`.content-view` has been changed into a separate style class `.selection-mode`
+that can be applied directly onto check buttons.
