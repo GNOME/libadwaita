@@ -21,8 +21,7 @@ viewswitcher {
   }
 
   button.toggle {
-    font-size: 1rem;
-    font-weight: inherit;
+    font-weight: bold;
     padding: 0;
 
     > stack > box {
@@ -41,10 +40,6 @@ viewswitcher {
       &.wide {
         padding: 2px 12px;
         border-spacing: 6px;
-      }
-
-      label.active {
-        font-weight: bold;
       }
     }
   }

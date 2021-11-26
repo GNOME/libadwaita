@@ -35,15 +35,11 @@ struct _AdwViewSwitcherButton
 
   GtkBox *horizontal_box;
   GtkImage *horizontal_image;
-  GtkLabel *horizontal_label_active;
-  GtkLabel *horizontal_label_inactive;
-  GtkStack *horizontal_label_stack;
+  GtkLabel *horizontal_label;
   GtkStack *stack;
   GtkBox *vertical_box;
   GtkImage *vertical_image;
-  GtkLabel *vertical_label_active;
-  GtkLabel *vertical_label_inactive;
-  GtkStack *vertical_label_stack;
+  GtkLabel *vertical_label;
 
   char *icon_name;
   char *label;
@@ -72,46 +68,14 @@ adw_view_switcher_button_switch_timeout (AdwViewSwitcherButton *self)
 static void
 update_mnemonic (AdwViewSwitcherButton *self)
 {
-  GtkLabel *label;
-
   g_assert (ADW_IS_VIEW_SWITCHER_BUTTON (self));
 
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self))) {
-    if (self->orientation == GTK_ORIENTATION_VERTICAL)
-      label = self->vertical_label_active;
-    else
-      label = self->horizontal_label_active;
-  } else {
-    if (self->orientation == GTK_ORIENTATION_VERTICAL)
-      label = self->vertical_label_inactive;
-    else
-      label = self->horizontal_label_inactive;
-  }
-
-  gtk_label_set_mnemonic_widget (self->horizontal_label_active,
-                                 (label == self->horizontal_label_active) ? GTK_WIDGET (self) : NULL);
-  gtk_label_set_mnemonic_widget (self->horizontal_label_inactive,
-                                 (label == self->horizontal_label_inactive) ? GTK_WIDGET (self) : NULL);
-  gtk_label_set_mnemonic_widget (self->vertical_label_active,
-                                 (label == self->vertical_label_active) ? GTK_WIDGET (self) : NULL);
-  gtk_label_set_mnemonic_widget (self->vertical_label_inactive,
-                                 (label == self->vertical_label_inactive) ? GTK_WIDGET (self) : NULL);
-}
-
-static void
-active_changed_cb (AdwViewSwitcherButton *self)
-{
-  g_assert (ADW_IS_VIEW_SWITCHER_BUTTON (self));
-
-  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (self))) {
-    gtk_stack_set_visible_child (self->horizontal_label_stack, GTK_WIDGET (self->horizontal_label_active));
-    gtk_stack_set_visible_child (self->vertical_label_stack, GTK_WIDGET (self->vertical_label_active));
-  } else {
-    gtk_stack_set_visible_child (self->horizontal_label_stack, GTK_WIDGET (self->horizontal_label_inactive));
-    gtk_stack_set_visible_child (self->vertical_label_stack, GTK_WIDGET (self->vertical_label_inactive));
-  }
-
-  update_mnemonic (self);
+  gtk_label_set_mnemonic_widget (self->horizontal_label,
+                                 (self->orientation == GTK_ORIENTATION_HORIZONTAL)
+                                 ? GTK_WIDGET (self) : NULL);
+  gtk_label_set_mnemonic_widget (self->vertical_label,
+                                 (self->orientation == GTK_ORIENTATION_VERTICAL)
+                                 ? GTK_WIDGET (self) : NULL);
 }
 
 static void
@@ -370,16 +334,11 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
                                                "/org/gnome/Adwaita/ui/adw-view-switcher-button.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, horizontal_box);
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, horizontal_image);
-  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, horizontal_label_active);
-  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, horizontal_label_inactive);
-  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, horizontal_label_stack);
+  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, horizontal_label);
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, stack);
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, vertical_box);
   gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, vertical_image);
-  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, vertical_label_active);
-  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, vertical_label_inactive);
-  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, vertical_label_stack);
-  gtk_widget_class_bind_template_callback (widget_class, active_changed_cb);
+  gtk_widget_class_bind_template_child (widget_class, AdwViewSwitcherButton, vertical_label);
   gtk_widget_class_bind_template_callback (widget_class, drag_enter_cb);
   gtk_widget_class_bind_template_callback (widget_class, drag_leave_cb);
   gtk_widget_class_bind_template_callback (widget_class, get_badge_text);
@@ -401,8 +360,6 @@ adw_view_switcher_button_init (AdwViewSwitcherButton *self)
   gtk_stack_set_visible_child (GTK_STACK (self->stack), GTK_WIDGET (self->horizontal_box));
 
   gtk_widget_set_focus_on_click (GTK_WIDGET (self), FALSE);
-
-  active_changed_cb (self);
 }
 
 /**

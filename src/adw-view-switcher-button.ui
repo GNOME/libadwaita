@@ -2,7 +2,6 @@
 <interface domain="libadwaita">
   <requires lib="gtk" version="4.0"/>
   <template class="AdwViewSwitcherButton" parent="GtkToggleButton">
-    <signal name="notify::active" handler="active_changed_cb" after="yes"/>
     <style>
       <class name="flat"/>
     </style>
@@ -37,22 +36,9 @@
               </object>
             </child>
             <child>
-              <object class="GtkStack" id="horizontal_label_stack">
-                <child>
-                  <object class="GtkLabel" id="horizontal_label_inactive">
-                    <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
-                    <property name="use-underline" bind-source="AdwViewSwitcherButton" bind-property="use-underline" bind-flags="sync-create|bidirectional" />
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="horizontal_label_active">
-                    <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
-                    <property name="use-underline" bind-source="AdwViewSwitcherButton" bind-property="use-underline" bind-flags="sync-create|bidirectional" />
-                    <style>
-                      <class name="active"/>
-                    </style>
-                  </object>
-                </child>
+              <object class="GtkLabel" id="horizontal_label">
+                <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                <property name="use-underline" bind-source="AdwViewSwitcherButton" bind-property="use-underline" bind-flags="sync-create|bidirectional" />
               </object>
             </child>
           </object>
@@ -85,24 +71,10 @@
               </object>
             </child>
             <child>
-              <object class="GtkStack" id="vertical_label_stack">
-                <child>
-                  <object class="GtkLabel" id="vertical_label_inactive">
-                    <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
-                    <property name="use-underline" bind-source="AdwViewSwitcherButton" bind-property="use-underline" bind-flags="sync-create|bidirectional" />
-                    <property name="ellipsize">end</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="vertical_label_active">
-                    <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
-                    <property name="use-underline" bind-source="AdwViewSwitcherButton" bind-property="use-underline" bind-flags="sync-create|bidirectional" />
-                    <property name="ellipsize">end</property>
-                    <style>
-                      <class name="active"/>
-                    </style>
-                  </object>
-                </child>
+              <object class="GtkLabel" id="vertical_label">
+                <property name="label" bind-source="AdwViewSwitcherButton" bind-property="label" bind-flags="sync-create|bidirectional" />
+                <property name="use-underline" bind-source="AdwViewSwitcherButton" bind-property="use-underline" bind-flags="sync-create|bidirectional" />
+                <property name="ellipsize">end</property>
               </object>
             </child>
           </object>
