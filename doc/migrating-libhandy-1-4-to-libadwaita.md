@@ -412,8 +412,11 @@ button style should be used instead.
 
 ### Adapt to the `content-view` style removal
 
-The `.content-view` style class doesn't change background color anymore. The
-default background should be used instead.
+The `.content-view` style class has been removed. The selection mode
+[class@Gtk.CheckButton] style had inside content views has been split out into a
+separate style class `.selection-mode` that can be applied directly onto check
+buttons instead of the view. The unique background color has no replacement and
+the default background should be used instead.
 
 #### Adapt to Header Bar, Action Bar, Search Bar and Toolbar Style Changes
 
