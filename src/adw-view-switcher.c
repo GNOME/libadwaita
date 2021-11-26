@@ -31,7 +31,8 @@
  *
  * ## CSS nodes
  *
- * `AdwViewSwitcher` has a single CSS node with name `viewswitcher`.
+ * `AdwViewSwitcher` has a single CSS node with name `viewswitcher`. It can have
+ * the style classes `.wide` and `.narrow`, matching its policy.
  *
  * ## Accessibility
  *
@@ -381,6 +382,8 @@ adw_view_switcher_init (AdwViewSwitcher *self)
 
   gtk_box_layout_set_homogeneous (GTK_BOX_LAYOUT (layout), TRUE);
 
+  gtk_widget_add_css_class (GTK_WIDGET (self), "narrow");
+
   self->buttons = g_hash_table_new_full (g_direct_hash, g_direct_equal, g_object_unref, NULL);
 }
 
@@ -443,11 +446,19 @@ adw_view_switcher_set_policy (AdwViewSwitcher       *self,
   g_hash_table_iter_init (&iter, self->buttons);
   while (g_hash_table_iter_next (&iter, NULL, (gpointer *) &button))
     gtk_orientable_set_orientation (GTK_ORIENTABLE (button),
-                                    self->policy == ADW_VIEW_SWITCHER_POLICY_WIDE ? GTK_ORIENTATION_HORIZONTAL : GTK_ORIENTATION_VERTICAL);
+                                    self->policy == ADW_VIEW_SWITCHER_POLICY_WIDE ?
+                                      GTK_ORIENTATION_HORIZONTAL :
+                                      GTK_ORIENTATION_VERTICAL);
+
+  if (self->policy == ADW_VIEW_SWITCHER_POLICY_WIDE) {
+    gtk_widget_add_css_class (GTK_WIDGET (self), "wide");
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "narrow");
+  } else {
+    gtk_widget_add_css_class (GTK_WIDGET (self), "narrow");
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "wide");
+  }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_POLICY]);
-
-  gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
 /**
