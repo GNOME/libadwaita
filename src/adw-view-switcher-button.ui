@@ -9,8 +9,7 @@
     <child>
       <object class="GtkStack" id="stack">
         <property name="hhomogeneous">False</property>
-        <property name="transition-type">crossfade</property>
-        <property name="vhomogeneous">True</property>
+        <property name="vhomogeneous">False</property>
         <child>
           <object class="GtkBox" id="horizontal_box">
             <property name="halign">center</property>
