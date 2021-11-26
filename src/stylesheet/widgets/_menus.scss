@@ -5,8 +5,8 @@ popover.menu {
     button.image-button.model {
       @extend %button_basic_flat;
 
-      min-height: 30px;
-      min-width: 30px;
+      min-height: 32px;
+      min-width: 32px;
       padding: 0;
       border: none;
       outline: none;
@@ -118,7 +118,7 @@ popover.menu {
   }
 
   modelbutton {
-    min-height: 30px;
+    min-height: 32px;
     min-width: 40px;
     padding: 0 $menu_padding;
     border-radius: $menu_radius;
@@ -164,7 +164,7 @@ popover.menu {
     > row {
       border-radius: $menu_radius;
       padding: 0 $menu_padding;
-      min-height: 30px;
+      min-height: 32px;
       min-width: 40px;
 
       &:selected {
@@ -206,7 +206,7 @@ popover.menu {
     > row {
       margin: 0 $menu_margin;
 
-      padding: 8px;
+      padding: 9px $menu_padding;
       min-height: 0;
     }
   }
