@@ -20,7 +20,6 @@
       <object class="GtkButton" id="indicator_btn">
         <property name="can-focus">False</property>
         <property name="valign">center</property>
-        <property name="halign">start</property>
         <signal name="clicked" handler="indicator_clicked_cb" swapped="true"/>
         <style>
           <class name="flat"/>
