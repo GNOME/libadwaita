@@ -5,12 +5,10 @@
     <child>
       <object class="GtkBox" id="box">
         <property name="orientation">vertical</property>
-        <property name="halign">center</property>
         <property name="valign">center</property>
         <child>
           <object class="GtkLabel" id="title_label">
             <property name="ellipsize">end</property>
-            <property name="halign">center</property>
             <property name="wrap">False</property>
             <property name="single-line-mode">True</property>
             <property name="width-chars">5</property>
@@ -22,7 +20,6 @@
         <child>
           <object class="GtkLabel" id="subtitle_label">
             <property name="ellipsize">end</property>
-            <property name="halign">center</property>
             <property name="wrap">False</property>
             <property name="single-line-mode">True</property>
             <property name="visible">False</property>
