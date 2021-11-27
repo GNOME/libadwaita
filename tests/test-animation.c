@@ -12,8 +12,8 @@ static double last_value;
 static int done_count;
 
 static void
-value_cb (gpointer user_data,
-          double   value)
+value_cb (double   value,
+          gpointer user_data)
 {
   last_value = value;
 }

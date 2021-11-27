@@ -616,8 +616,8 @@ set_child_transition_running (AdwLeaflet *self,
 }
 
 static void
-child_transition_cb (AdwLeaflet *self,
-                     double      value)
+child_transition_cb (double      value,
+                     AdwLeaflet *self)
 {
   self->child_transition.progress = value;
 
@@ -820,8 +820,8 @@ set_visible_child (AdwLeaflet               *self,
 }
 
 static void
-mode_transition_cb (AdwLeaflet *self,
-                    double      value)
+mode_transition_cb (double      value,
+                    AdwLeaflet *self)
 {
   self->mode_transition.current_pos = value;
 
@@ -1461,7 +1461,7 @@ update_swipe_cb (AdwSwipeTracker *tracker,
                  double           progress,
                  AdwLeaflet      *self)
 {
-  child_transition_cb (self, ABS (progress));
+  child_transition_cb (ABS (progress), self);
 }
 
 static void

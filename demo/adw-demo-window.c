@@ -613,6 +613,13 @@ timed_animation_can_skip (gpointer          user_data,
 }
 
 static void
+timed_animation_cb (double     value,
+                    GtkWidget *self)
+{
+  gtk_widget_queue_allocate (self);
+}
+
+static void
 style_classes_demo_clicked_cb (GtkButton     *btn,
                                AdwDemoWindow *self)
 {
@@ -812,7 +819,7 @@ animation_page_init (AdwDemoWindow *self)
   GtkLayoutManager *manager;
   AdwAnimationTarget *target =
     adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                       gtk_widget_queue_allocate,
+                                       timed_animation_cb,
                                        self->timed_animation_sample, NULL);
 
   self->timed_animation =

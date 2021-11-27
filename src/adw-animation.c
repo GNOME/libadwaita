@@ -38,8 +38,8 @@
  *
  * ```c
  * static void
- * animation_cb (MyObject *self,
- *               double    value)
+ * animation_cb (double    value,
+ *               MyObject *self)
  * {
  *   // Do something with @value
  * }

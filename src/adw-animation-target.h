@@ -24,15 +24,15 @@ GDK_DECLARE_INTERNAL_TYPE (AdwAnimationTarget, adw_animation_target, ADW, ANIMAT
 
 /**
  * AdwAnimationTargetFunc:
- * @user_data: (nullable): The user data provided when creating the target
  * @value: The animation value
+ * @user_data: (nullable): The user data provided when creating the target
  *
  * Prototype for animation targets based on user callbacks.
  *
  * Since: 1.0
  */
-typedef void (*AdwAnimationTargetFunc) (gpointer user_data,
-                                        double   value);
+typedef void (*AdwAnimationTargetFunc) (double   value,
+                                        gpointer user_data);
 
 #define ADW_TYPE_CALLBACK_ANIMATION_TARGET (adw_callback_animation_target_get_type())
 

@@ -85,7 +85,7 @@ adw_callback_animation_target_set_value (AdwAnimationTarget *target,
 {
   AdwCallbackAnimationTarget *self = ADW_CALLBACK_ANIMATION_TARGET (target);
 
-  self->callback (self->user_data, value);
+  self->callback (value, self->user_data);
 }
 
 static void

@@ -167,6 +167,13 @@ snapshot_dots (GtkWidget      *widget,
 }
 
 static void
+animation_cb (double     value,
+              GtkWidget *self)
+{
+  gtk_widget_queue_resize (self);
+}
+
+static void
 adw_carousel_indicator_dots_measure (GtkWidget      *widget,
                                      GtkOrientation  orientation,
                                      int             for_size,
@@ -338,8 +345,7 @@ static void
 adw_carousel_indicator_dots_init (AdwCarouselIndicatorDots *self)
 {
   AdwAnimationTarget *target
-    = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
-                                         gtk_widget_queue_resize,
+    = adw_callback_animation_target_new ((AdwAnimationTargetFunc) animation_cb,
                                          self, NULL);
 
   self->animation =

@@ -378,8 +378,8 @@ find_page_for_widget (AdwSqueezer *self,
 }
 
 static void
-transition_cb (AdwSqueezer *self,
-               double       value)
+transition_cb (double       value,
+               AdwSqueezer *self)
 {
   if (!self->homogeneous)
     gtk_widget_queue_resize (GTK_WIDGET (self));

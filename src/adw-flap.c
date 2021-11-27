@@ -263,8 +263,8 @@ update_shortcuts (AdwFlap *self)
 }
 
 static void
-set_reveal_progress (AdwFlap *self,
-                     double   progress)
+set_reveal_progress (double   progress,
+                     AdwFlap *self)
 {
   self->reveal_progress = progress;
 
@@ -275,8 +275,8 @@ set_reveal_progress (AdwFlap *self,
 }
 
 static void
-fold_animation_value_cb (AdwFlap *self,
-                         double   value)
+fold_animation_value_cb (double   value,
+                         AdwFlap *self)
 {
   self->fold_progress = value;
 
@@ -414,7 +414,7 @@ update_swipe_cb (AdwSwipeTracker *tracker,
                  double           progress,
                  AdwFlap         *self)
 {
-  set_reveal_progress (self, progress);
+  set_reveal_progress (progress, self);
 }
 
 static void

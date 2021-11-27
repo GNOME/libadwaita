@@ -11,8 +11,8 @@
 int notified;
 
 static void
-value_cb (gpointer user_data,
-          double   value)
+value_cb (double   value,
+          gpointer user_data)
 {
 }
 
