@@ -601,7 +601,7 @@
                                                 <property name="justify">center</property>
                                                 <style>
                                                   <class name="title"/>
-                                                  <class name="large-title"/>
+                                                  <class name="title-1"/>
                                                 </style>
                                               </object>
                                             </child>
@@ -1035,7 +1035,7 @@
                                                 <property name="justify">center</property>
                                                 <style>
                                                   <class name="title"/>
-                                                  <class name="large-title"/>
+                                                  <class name="title-1"/>
                                                 </style>
                                               </object>
                                             </child>
