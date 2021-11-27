@@ -37,7 +37,6 @@
                             <property name="name">pages</property>
                             <property name="child">
                               <object class="AdwViewSwitcherTitle" id="view_switcher_title">
-                                <property name="halign">center</property>
                                 <property name="stack">pages_stack</property>
                                 <property name="title" bind-source="AdwPreferencesWindow" bind-property="title" bind-flags="sync-create"/>
                               </object>
