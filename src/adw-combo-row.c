@@ -187,7 +187,6 @@ setup_item (GtkSignalListItemFactory *factory,
   gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
   gtk_label_set_max_width_chars (GTK_LABEL (label), 20);
   gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-  gtk_widget_set_halign (label, GTK_ALIGN_START);
   gtk_box_append (GTK_BOX (box), label);
 
   icon = gtk_image_new_from_icon_name ("object-select-symbolic");
