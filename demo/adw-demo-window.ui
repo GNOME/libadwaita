@@ -591,6 +591,7 @@
                                                 <property name="size" bind-source="avatar_size" bind-property="value" bind-flags="sync-create"></property>
                                                 <property name="show-initials" bind-source="avatar_show_initials" bind-property="state" bind-flags="sync-create"/>
                                                 <property name="text" bind-source="avatar_text" bind-property="text" bind-flags="sync-create"/>
+                                                <property name="margin-bottom">36</property>
                                               </object>
                                             </child>
                                             <child>
