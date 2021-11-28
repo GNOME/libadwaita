@@ -123,9 +123,8 @@ register_display (GdkDisplayManager *display_manager,
 static gboolean
 enable_animations_cb (AdwStyleManager *self)
 {
-  g_object_set (gtk_settings_get_for_display (self->display),
-                "gtk-enable-animations", TRUE,
-                NULL);
+  gtk_settings_reset_property (gtk_settings_get_for_display (self->display),
+                               "gtk-enable-animations");
 
   self->animation_timeout_id = 0;
 
@@ -152,10 +151,12 @@ update_stylesheet (AdwStyleManager *self)
                   NULL);
   }
 
+  if (enable_animations)
+    g_object_set (gtk_settings, "gtk-enable-animations", FALSE, NULL);
+
   self->setting_dark = TRUE;
 
   g_object_set (gtk_settings,
-                "gtk-enable-animations", FALSE,
                 "gtk-application-prefer-dark-theme", self->dark,
                 NULL);
 
