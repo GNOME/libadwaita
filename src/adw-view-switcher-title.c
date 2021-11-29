@@ -508,7 +508,7 @@ adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self)
 }
 
 /**
- * adw_view_switcher_title_set_subtitle: (attributes org.gtk.Method.get_property=subtitle)
+ * adw_view_switcher_title_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
  * @self: a `AdwViewSwitcherTitle`
  * @subtitle: a subtitle
  *

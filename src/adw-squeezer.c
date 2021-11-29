@@ -225,7 +225,7 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
   /**
-   * AdwSqueezerPage:enabled: (attributes org.gtk.Property.get=adw_squeezer_page_get_enabled org.gtk.Property.get=adw_squeezer_page_set_enabled)
+   * AdwSqueezerPage:enabled: (attributes org.gtk.Property.get=adw_squeezer_page_get_enabled org.gtk.Property.set=adw_squeezer_page_set_enabled)
    *
    * Whether the child is enabled.
    *

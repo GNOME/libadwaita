@@ -531,7 +531,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStack:visible-page-name: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page_name org.gtk.Poperty.set=adw_preferences_window_set_visible_page_name)
+   * AdwViewStack:visible-page-name: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page_name org.gtk.Property.set=adw_preferences_window_set_visible_page_name)
    *
    * The name of the currently visible page.
    *

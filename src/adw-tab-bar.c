@@ -907,7 +907,7 @@ adw_tab_bar_get_autohide (AdwTabBar *self)
 }
 
 /**
- * adw_tab_bar_set_autohide: (attributes org.gtk.Method.get_property=autohide)
+ * adw_tab_bar_set_autohide: (attributes org.gtk.Method.set_property=autohide)
  * @self: a `AdwTabBar`
  * @autohide: whether the tabs automatically hide
  *

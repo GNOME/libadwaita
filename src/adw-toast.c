@@ -569,7 +569,7 @@ adw_toast_get_action_target_value (AdwToast *self)
 }
 
 /**
- * adw_toast_set_action_target_value: (attributes org.gtk.Method.get_property=action-target)
+ * adw_toast_set_action_target_value: (attributes org.gtk.Method.set_property=action-target)
  * @self: a `AdwToast`
  * @action_target: (nullable): the action target
  *

@@ -961,7 +961,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwViewStack:visible-child-name: (attributes org.gtk.Property.get=adw_view_stack_get_visible_child_name org.gtk.Poperty.set=adw_view_stack_set_visible_child_name)
+   * AdwViewStack:visible-child-name: (attributes org.gtk.Property.get=adw_view_stack_get_visible_child_name org.gtk.Property.set=adw_view_stack_set_visible_child_name)
    *
    * The name of the widget currently visible in the stack.
    *

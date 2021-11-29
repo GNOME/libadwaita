@@ -635,7 +635,7 @@ adw_split_button_set_label (AdwSplitButton *self,
 }
 
 /**
- * adw_split_button_get_use_underline: (attributes org.gtk.Method.set_property=use-underline)
+ * adw_split_button_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
  * @self: a `AdwSplitButton`
  *
  * Gets whether an underline in the text indicates a mnemonic.
