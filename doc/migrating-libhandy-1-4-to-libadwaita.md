@@ -46,6 +46,8 @@ copy it in tree instead.
 The following named colors have been removed from the stylesheet in
 Libadwaita:
 
+* `@content_view_bg`
+* `@text_view_bg`
 * `@wm_title`
 * `@wm_unfocused_title`
 * `@wm_highlight`
@@ -407,6 +409,11 @@ items inside while doing it.
 
 The `.list-button` style class has been removed with no replacement. The regular
 button style should be used instead.
+
+### Adapt to the `content-view` style removal
+
+The `.content-view` style class doesn't change background color anymore. The
+default background should be used instead.
 
 #### Adapt to Header Bar, Action Bar, Search Bar and Toolbar Style Changes
 
