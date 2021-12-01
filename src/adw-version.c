@@ -55,7 +55,7 @@ adw_get_minor_version (void)
  *
  * Returns the micro version number of the Adwaita library.
  *
- * For example, in libadwaita version 1.2.3 this is 2.
+ * For example, in libadwaita version 1.2.3 this is 3.
  *
  * This function is in the library, so it represents the libadwaita library
  * your code is running against. Contrast with the %ADW_MAJOR_VERSION macro,
