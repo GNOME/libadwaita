@@ -5,6 +5,10 @@ checkbutton {
 
   @include focus-ring();
 
+  .osd &:focus:focus-visible {
+    outline-color: $osd_focus_color;
+  }
+
   &.text-button {
     // this is for a nice focus on check and radios text
     padding: 4px;
@@ -46,6 +50,14 @@ radio {
 
   &:disabled {
     filter: opacity($disabled_opacity);
+  }
+
+  .osd & {
+    &:checked,
+    &:indeterminate {
+      background-color: $osd_fill_bg_color;
+      color: $osd_fill_fg_color;
+    }
   }
 }
 

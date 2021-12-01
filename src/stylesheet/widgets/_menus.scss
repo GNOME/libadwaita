@@ -88,6 +88,13 @@ popover.menu {
     }
   }
 
+  .osd & {
+    check, radio {
+      background: none;
+      color: inherit;
+    }
+  }
+
   check:checked { -gtk-icon-source: -gtk-scaled(-gtk-recolor(url("assets/check-small-symbolic.symbolic.png")),
                                                 -gtk-recolor(url("assets/check-small@2-symbolic.symbolic.png"))); }
 
