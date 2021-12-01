@@ -808,6 +808,95 @@ The "card" style class can be used to achieve the same style with GtkBox or simi
                 </child>
                 <child>
                   <object class="AdwPreferencesGroup">
+                    <property name="title" translatable="yes">Check Buttons</property>
+                    <property name="description" translatable="yes">The "selection-mode" style class makes can be used with GtkCheckButton to make them large and round.</property>
+                    <child>
+                      <object class="GtkGrid">
+                        <property name="row-spacing">6</property>
+                        <property name="column-spacing">12</property>
+                        <property name="halign">start</property>
+                        <child>
+                          <object class="GtkCheckButton">
+                            <property name="halign">end</property>
+                            <property name="valign">end</property>
+                            <property name="active">True</property>
+                            <layout>
+                              <property name="column">0</property>
+                              <property name="row">0</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton">
+                            <property name="halign">start</property>
+                            <property name="valign">end</property>
+                            <layout>
+                              <property name="column">1</property>
+                              <property name="row">0</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label">Regular</property>
+                            <property name="xalign">0.5</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">12</property>
+                            <layout>
+                              <property name="column">0</property>
+                              <property name="row">1</property>
+                              <property name="column-span">2</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton">
+                            <property name="halign">end</property>
+                            <property name="valign">end</property>
+                            <property name="active">True</property>
+                            <property name="tooltip-text">selection-mode</property>
+                            <style>
+                              <class name="selection-mode"/>
+                            </style>
+                            <layout>
+                              <property name="column">2</property>
+                              <property name="row">0</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton">
+                            <property name="halign">start</property>
+                            <property name="valign">end</property>
+                            <property name="tooltip-text">selection-mode</property>
+                            <style>
+                              <class name="selection-mode"/>
+                            </style>
+                            <layout>
+                              <property name="column">3</property>
+                              <property name="row">0</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label">Selection Mode</property>
+                            <property name="xalign">0.5</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">12</property>
+                            <layout>
+                              <property name="column">2</property>
+                              <property name="row">1</property>
+                              <property name="column-span">2</property>
+                            </layout>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwPreferencesGroup">
                     <property name="title" translatable="yes">Toolbars</property>
                     <property name="description" translatable="yes">The "toolbar" style class on GtkBox and similar containers gives the same padding, spacing and button appearance as GtkHeaderBar and GtkActionBar have. A toolbar can additionally have the "osd" style class, useful for floating media controls.
 
