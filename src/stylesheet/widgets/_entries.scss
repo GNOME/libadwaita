@@ -34,7 +34,6 @@ entry {
       }
     }
 
-    &:active,
     &:focus-within {
       background-color: $view_bg_color;
       color: $view_fg_color;
