@@ -17,8 +17,11 @@ entry {
 
     @include focus-ring($focus-state: ':focus-within');
 
+    .osd &:active,
     .osd &:focus-within {
       outline-color: $osd_focus_color;
+      background-color: $osd_bg_color;
+      color: $osd_fg_color;
     }
 
     > text {
@@ -32,6 +35,12 @@ entry {
       }
     }
 
+    &:active,
+    &:focus-within {
+      background-color: $view_bg_color;
+      color: $view_fg_color;
+    }
+
     &.flat {
       &:focus-within, &:disabled, & {
         min-height: 0;
@@ -40,11 +49,6 @@ entry {
         box-shadow: none;
         border-radius: 0;
       }
-    }
-
-    &:active,
-    &:focus-within {
-      background-color: $view_bg_color;
     }
 
     &:disabled { filter: opacity($disabled_opacity); }
