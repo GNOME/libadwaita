@@ -42,6 +42,11 @@ entry {
       }
     }
 
+    &:active,
+    &:focus-within {
+      background-color: $view_bg_color;
+    }
+
     &:disabled { filter: opacity($disabled_opacity); }
 
     // entry error and warning style
