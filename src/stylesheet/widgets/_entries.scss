@@ -17,7 +17,6 @@ entry {
 
     @include focus-ring($focus-state: ':focus-within');
 
-    .osd &:active,
     .osd &:focus-within {
       outline-color: $osd_focus_color;
       background-color: $osd_bg_color;
