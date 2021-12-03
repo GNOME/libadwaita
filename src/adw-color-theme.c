@@ -135,9 +135,9 @@ adw_hsla_to_rgba (AdwHSLA *hsla,
 static void
 set_color (AdwColorTheme *self,
            const char    *color,
-           GdkRGBA       rgba)
+           GdkRGBA       *rgba)
 {
-  g_hash_table_replace (self->colors, g_strdup (color), gdk_rgba_copy (&rgba));
+  g_hash_table_replace (self->colors, g_strdup (color), gdk_rgba_copy (rgba));
 }
 
 static GdkRGBA
@@ -242,9 +242,11 @@ adw_color_theme_constructed (GObject *object)
   AdwColorTheme *self = ADW_COLOR_THEME (object);
   GdkRGBA black = BLACK;
   GdkRGBA white = WHITE;
-  GdkRGBA color;
   GdkRGBA default_shade;
   GdkRGBA default_fg;
+  GdkRGBA color;
+  GdkRGBA fg;
+  GdkRGBA accent;
 
   G_OBJECT_CLASS (adw_color_theme_parent_class)->constructed (object);
 
@@ -252,41 +254,56 @@ adw_color_theme_constructed (GObject *object)
   default_fg = self->dark ? white : transparent_black (0.2);
 
   color = GDK_RGBA ("3584e4");
-  set_color (self, "accent_bg_color", color);
-  set_color (self, "accent_fg_color", calculate_accent_fg (&color));
-  set_color (self, "accent_color", hueshift_accent (self, &color));
+  fg = calculate_accent_fg (&color);
+  accent = hueshift_accent (self, &color);
+  set_color (self, "accent_bg_color", &color);
+  set_color (self, "accent_fg_color", &fg);
+  set_color (self, "accent_color", &accent);
 
   color = GDK_RGBA ("e01b24");
-  set_color (self, "destructive_bg_color", color);
-  set_color (self, "destructive_fg_color", calculate_accent_fg (&color));
-  set_color (self, "destructive_color", hueshift_accent (self, &color));
+  fg = calculate_accent_fg (&color);
+  accent = hueshift_accent (self, &color);
+  set_color (self, "destructive_bg_color", &color);
+  set_color (self, "destructive_fg_color", &fg);
+  set_color (self, "destructive_color", &accent);
 
-  set_color (self, "success_color", GDK_RGBA ("33d17a"));
-  set_color (self, "warning_color", GDK_RGBA ("e5a50a"));
-  set_color (self, "error_color", GDK_RGBA ("e01b24"));
+  color = GDK_RGBA ("33d17a");
+  set_color (self, "success_color", &color);
 
-  set_color (self, "view_bg_color", self->dark ? GDK_RGBA ("1e1e1e") : white);
-  set_color (self, "view_fg_color", self->dark ? white : black);
+  color = GDK_RGBA ("e5a50a");
+  set_color (self, "warning_color", &color);
+
+  color = GDK_RGBA ("e01b24");
+  set_color (self, "error_color", &color);
+
+  color = self->dark ? GDK_RGBA ("1e1e1e") : white;
+  fg = self->dark ? white : black;
+  set_color (self, "view_bg_color", &color);
+  set_color (self, "view_fg_color", &fg);
 
   color = self->dark ? GDK_RGBA ("303030") : GDK_RGBA ("ebebeb");
-  set_color (self, "headerbar_bg_color", color);
-  set_color (self, "headerbar_fg_color", default_fg);
-  set_color (self, "headerbar_border_color", default_fg);
-  set_color (self, "headerbar_backdrop_color", calculate_backdrop (&color));
-  set_color (self, "headerbar_shade_color", default_shade);
+  set_color (self, "headerbar_bg_color", &color);
+  set_color (self, "headerbar_fg_color", &default_fg);
+  set_color (self, "headerbar_border_color", &default_fg);
+  color = calculate_backdrop (&color);
+  set_color (self, "headerbar_backdrop_color", &color);
+  set_color (self, "headerbar_shade_color", &default_shade);
 
-  set_color (self, "card_bg_color", self->dark ? transparent_white (0.92) : white);
-  set_color (self, "card_fg_color", default_fg);
-  set_color (self, "card_shade_color", default_shade);
+  color = self->dark ? transparent_white (0.92) : white;
+  set_color (self, "card_bg_color", &color);
+  set_color (self, "card_fg_color", &default_fg);
+  set_color (self, "card_shade_color", &default_shade);
 
-  set_color (self, "popover_bg_color", self->dark ? GDK_RGBA ("383838") : white);
-  set_color (self, "popover_fg_color", default_fg);
+  color = self->dark ? GDK_RGBA ("383838") : white;
+  set_color (self, "popover_bg_color", &color);
+  set_color (self, "popover_fg_color", &default_fg);
 
   color = self->dark ? GDK_RGBA ("242424") : GDK_RGBA ("fafafa");
-  set_color (self, "window_bg_color", color);
-  set_color (self, "window_fg_color", default_fg);
-  set_color (self, "shade_color", default_shade);
-  set_color (self, "scrollbar_outline_color", calculate_scrollbar_outline (&color));
+  set_color (self, "window_bg_color", &color);
+  set_color (self, "window_fg_color", &default_fg);
+  set_color (self, "shade_color", &default_shade);
+  color = calculate_scrollbar_outline (&color);
+  set_color (self, "scrollbar_outline_color", &color);
 }
 
 static void
@@ -434,34 +451,53 @@ adw_color_theme_set_color_from_rgba (AdwColorTheme *self,
                                      AdwColor       color,
                                      GdkRGBA       *rgba)
 {
+  GdkRGBA fg;
+  GdkRGBA accent;
+  GdkRGBA shade;
+  GdkRGBA outline;
+  GdkRGBA backdrop;
   g_autofree char *color_key = color_to_string (color);
 
   g_return_if_fail (ADW_IS_COLOR_THEME (self));
 
   switch (color) {
   case ADW_COLOR_ACCENT_BG_COLOR:
-    set_color (self, "accent_bg_color", *rgba);
-    set_color (self, "accent_fg_color", calculate_accent_fg (rgba));
-    set_color (self, "accent_color", hueshift_accent (self, rgba));
+    fg = calculate_accent_fg (rgba);
+    accent = hueshift_accent (self, rgba);
+
+    set_color (self, "accent_bg_color", rgba);
+    set_color (self, "accent_fg_color", &fg);
+    set_color (self, "accent_color", &accent);
     break;
   case ADW_COLOR_DESTRUCTIVE_BG_COLOR:
-    set_color (self, "destructive_bg_color", *rgba);
-    set_color (self, "destructive_fg_color", calculate_accent_fg (rgba));
-    set_color (self, "destructive_color", hueshift_accent (self, rgba));
+    fg = calculate_accent_fg (rgba);
+    accent = hueshift_accent (self, rgba);
+
+    set_color (self, "destructive_bg_color", rgba);
+    set_color (self, "destructive_fg_color", &fg);
+    set_color (self, "destructive_color", &accent);
     break;
   case ADW_COLOR_WINDOW_BG_COLOR:
-    set_color (self, color_key, *rgba);
-    set_color (self, "shade_color", calculate_shade (rgba));
-    set_color (self, "scrollbar_outline_color", calculate_scrollbar_outline (rgba));
+    shade = calculate_shade (rgba);
+    outline = calculate_scrollbar_outline (rgba);
+
+    set_color (self, color_key, rgba);
+    set_color (self, "shade_color", &shade);
+    set_color (self, "scrollbar_outline_color", &outline);
     break;
   case ADW_COLOR_HEADERBAR_BG_COLOR:
-    set_color (self, color_key, *rgba);
-    set_color (self, "headerbar_shade_color", calculate_shade (rgba));
-    set_color (self, "headerbar_backdrop_color", calculate_backdrop (rgba));
+    shade = calculate_shade (rgba);
+    backdrop = calculate_backdrop (rgba);
+
+    set_color (self, color_key, rgba);
+    set_color (self, "headerbar_shade_color", &shade);
+    set_color (self, "headerbar_backdrop_color", &backdrop);
     break;
   case ADW_COLOR_CARD_BG_COLOR:
-    set_color (self, color_key, *rgba);
-    set_color (self, "card_shade_color", calculate_shade (rgba));
+    shade = calculate_shade (rgba);
+
+    set_color (self, color_key, rgba);
+    set_color (self, "card_shade_color", &shade);
     break;
   case ADW_COLOR_SUCCESS_COLOR:
   case ADW_COLOR_WARNING_COLOR:
@@ -474,7 +510,7 @@ adw_color_theme_set_color_from_rgba (AdwColorTheme *self,
   case ADW_COLOR_CARD_FG_COLOR:
   case ADW_COLOR_POPOVER_FG_COLOR:
   case ADW_COLOR_POPOVER_BG_COLOR:
-    set_color (self, color_key, *rgba);
+    set_color (self, color_key, rgba);
     break;
   default:
     g_assert_not_reached ();
