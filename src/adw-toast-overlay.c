@@ -453,6 +453,8 @@ static void
 adw_toast_overlay_init (AdwToastOverlay *self)
 {
   self->queue = g_queue_new ();
+
+  gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 }
 
 static void
