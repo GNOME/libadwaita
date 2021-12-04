@@ -351,11 +351,7 @@ static void
 scroll_animation_value_cb (AdwCarousel *self,
                            double       value)
 {
-  double position = adw_lerp (self->animation_source_position,
-                              self->animation_target_child->snap_point,
-                              value);
-
-  set_position (self, position);
+  set_position (self, value);
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 }
@@ -387,6 +383,10 @@ scroll_to (AdwCarousel *self,
 
   self->animation_source_position = self->position;
 
+  adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->animation),
+                                      self->animation_source_position);
+  adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->animation),
+                                    self->animation_target_child->snap_point);
   adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->animation),
                                     duration);
   adw_animation_play (self->animation);
@@ -649,6 +649,10 @@ adw_carousel_size_allocate (GtkWidget *widget,
     child_info->snap_point = snap_point + child_info->size - 1;
 
     snap_point += child_info->size;
+
+    if (child_info == self->animation_target_child)
+      adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->animation),
+                                        child_info->snap_point);
   }
 
   if (!gtk_widget_get_realized (GTK_WIDGET (self)))
@@ -1084,7 +1088,7 @@ adw_carousel_init (AdwCarousel *self)
                                               scroll_animation_value_cb,
                                               self, NULL);
   self->animation =
-    adw_timed_animation_new (GTK_WIDGET (self), 0, 1, 0, target);
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 0, 0, target);
 
   g_signal_connect_swapped (self->animation, "done",
                             G_CALLBACK (scroll_animation_done_cb), self);
