@@ -641,7 +641,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                 <child>
                   <object class="AdwPreferencesGroup">
                     <property name="title" translatable="yes">Cards and Boxed Lists</property>
-                    <property name="description" translatable="yes">The "content" style class can be used with GtkListBox to create boxed lists.
+                    <property name="description" translatable="yes">The "boxed-list" style class can be used with GtkListBox to create boxed lists.
 
 The "card" style class can be used to achieve the same style with GtkBox or similar containers, and with GtkButton. If used together with "activatable" style class, or on a GtkButton, the card will also have hover and press styles.
                     </property>
@@ -700,7 +700,7 @@ The "card" style class can be used to achieve the same style with GtkBox or simi
                     <child>
                       <object class="GtkListBox">
                         <property name="selection-mode">none</property>
-                        <property name="tooltip-text">content</property>
+                        <property name="tooltip-text">boxed-list</property>
                         <style>
                           <class name="boxed-list"/>
                         </style>
