@@ -18,10 +18,10 @@
 
 #include "adw-squeezer.h"
 
-#include "gtkprogresstrackerprivate.h"
 #include "adw-animation-util.h"
-#include "adw-animation-private.h"
+#include "adw-easing.h"
 #include "adw-macros-private.h"
+#include "adw-timed-animation.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -96,14 +96,11 @@ struct _AdwSqueezer
   guint transition_duration;
 
   AdwSqueezerPage *last_visible_child;
-  guint tick_id;
-  GtkProgressTracker tracker;
-  gboolean first_frame_skipped;
+  gboolean transition_running;
+  AdwAnimation *animation;
 
   int last_visible_widget_width;
   int last_visible_widget_height;
-
-  AdwSqueezerTransitionType active_transition_type;
 
   gboolean interpolate_size;
 
@@ -381,96 +378,37 @@ find_page_for_widget (AdwSqueezer *self,
 }
 
 static void
-adw_squeezer_progress_updated (AdwSqueezer *self)
+transition_cb (AdwSqueezer *self,
+               double       value)
 {
   if (!self->homogeneous)
     gtk_widget_queue_resize (GTK_WIDGET (self));
   else
     gtk_widget_queue_draw (GTK_WIDGET (self));
+}
 
-  if (gtk_progress_tracker_get_state (&self->tracker) == GTK_PROGRESS_STATE_AFTER &&
-      self->last_visible_child != NULL) {
+static void
+set_transition_running (AdwSqueezer *self,
+                        gboolean     running)
+{
+  if (self->transition_running == running)
+    return;
+
+  self->transition_running = running;
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSITION_RUNNING]);
+}
+
+static void
+transition_done_cb (AdwSqueezer *self)
+{
+  if (self->last_visible_child) {
     gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
     self->last_visible_child = NULL;
   }
-}
 
-static gboolean
-adw_squeezer_transition_cb (GtkWidget     *widget,
-                            GdkFrameClock *frame_clock,
-                            gpointer       user_data)
-{
-  AdwSqueezer *self = ADW_SQUEEZER (widget);
+  adw_animation_reset (self->animation);
 
-  if (self->first_frame_skipped) {
-    gtk_progress_tracker_advance_frame (&self->tracker,
-                                        gdk_frame_clock_get_frame_time (frame_clock));
-  } else {
-    self->first_frame_skipped = TRUE;
-  }
-
-  /* Finish the animation early if the widget isn't mapped anymore. */
-  if (!gtk_widget_get_mapped (widget))
-    gtk_progress_tracker_finish (&self->tracker);
-
-  adw_squeezer_progress_updated (ADW_SQUEEZER (widget));
-
-  if (gtk_progress_tracker_get_state (&self->tracker) == GTK_PROGRESS_STATE_AFTER) {
-    self->tick_id = 0;
-    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSITION_RUNNING]);
-
-    return FALSE;
-  }
-
-  return TRUE;
-}
-
-static void
-adw_squeezer_schedule_ticks (AdwSqueezer *self)
-{
-  if (self->tick_id == 0) {
-    self->tick_id =
-      gtk_widget_add_tick_callback (GTK_WIDGET (self), adw_squeezer_transition_cb, self, NULL);
-    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSITION_RUNNING]);
-  }
-}
-
-static void
-adw_squeezer_unschedule_ticks (AdwSqueezer *self)
-{
-  if (self->tick_id != 0) {
-    gtk_widget_remove_tick_callback (GTK_WIDGET (self), self->tick_id);
-    self->tick_id = 0;
-    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSITION_RUNNING]);
-  }
-}
-
-static void
-adw_squeezer_start_transition (AdwSqueezer               *self,
-                               AdwSqueezerTransitionType  transition_type,
-                               guint                      transition_duration)
-{
-  GtkWidget *widget = GTK_WIDGET (self);
-
-  if (gtk_widget_get_mapped (widget) &&
-      adw_get_enable_animations (widget) &&
-      transition_type != ADW_SQUEEZER_TRANSITION_TYPE_NONE &&
-      transition_duration != 0 &&
-      (self->last_visible_child != NULL || self->allow_none)) {
-    self->active_transition_type = transition_type;
-    self->first_frame_skipped = FALSE;
-    adw_squeezer_schedule_ticks (self);
-    gtk_progress_tracker_start (&self->tracker,
-                                self->transition_duration * 1000,
-                                0,
-                                1.0);
-  } else {
-    adw_squeezer_unschedule_ticks (self);
-    self->active_transition_type = ADW_SQUEEZER_TRANSITION_TYPE_NONE;
-    gtk_progress_tracker_finish (&self->tracker);
-  }
-
-  adw_squeezer_progress_updated (ADW_SQUEEZER (widget));
+  set_transition_running (self, FALSE);
 }
 
 static void
@@ -541,9 +479,8 @@ set_visible_child (AdwSqueezer               *self,
                                (gpointer *)&self->visible_child->last_focus);
   }
 
-  if (self->last_visible_child != NULL)
-    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
-  self->last_visible_child = NULL;
+  if (self->transition_running)
+    adw_animation_skip (self->animation);
 
   if (self->visible_child && self->visible_child->widget) {
     if (gtk_widget_is_visible (widget)) {
@@ -588,7 +525,15 @@ set_visible_child (AdwSqueezer               *self,
                                              MAX (old_pos, new_pos) - MIN (old_pos, new_pos) + 1);
   }
 
-  adw_squeezer_start_transition (self, transition_type, transition_duration);
+  if (self->transition_type == ADW_SQUEEZER_TRANSITION_TYPE_NONE ||
+      (self->last_visible_child == NULL && !self->allow_none))
+    adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->animation), 0);
+  else
+    adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->animation),
+                                      self->transition_duration);
+
+  set_transition_running (self, TRUE);
+  adw_animation_play (self->animation);
 }
 
 static void
@@ -789,7 +734,7 @@ adw_squeezer_snapshot_crossfade (GtkWidget   *widget,
                                  GtkSnapshot *snapshot)
 {
   AdwSqueezer *self = ADW_SQUEEZER (widget);
-  double progress = gtk_progress_tracker_get_progress (&self->tracker, FALSE);
+  double progress = adw_animation_get_value (self->animation);
 
   gtk_snapshot_push_cross_fade (snapshot, progress);
 
@@ -815,7 +760,8 @@ adw_squeezer_snapshot (GtkWidget   *widget,
   AdwSqueezer *self = ADW_SQUEEZER (widget);
 
   if (self->visible_child || self->allow_none) {
-    if (gtk_progress_tracker_get_state (&self->tracker) != GTK_PROGRESS_STATE_AFTER) {
+    if (self->transition_running &&
+        self->transition_type != ADW_SQUEEZER_TRANSITION_TYPE_NONE) {
       gtk_snapshot_push_clip (snapshot,
                               &GRAPHENE_RECT_INIT(
                                   0, 0,
@@ -823,7 +769,7 @@ adw_squeezer_snapshot (GtkWidget   *widget,
                                   gtk_widget_get_height (widget)
                               ));
 
-      switch (self->active_transition_type)
+      switch (self->transition_type)
         {
         case ADW_SQUEEZER_TRANSITION_TYPE_CROSSFADE:
           adw_squeezer_snapshot_crossfade (widget, snapshot);
@@ -1024,7 +970,8 @@ adw_squeezer_measure (GtkWidget      *widget,
   if (self->orientation != orientation && !self->homogeneous &&
       self->interpolate_size &&
       (self->last_visible_child != NULL || self->allow_none)) {
-    double t = gtk_progress_tracker_get_ease_out_cubic (&self->tracker, FALSE);
+    double t = adw_animation_get_value (self->animation);
+    t = adw_easing_ease (ADW_EASE_OUT_CUBIC, t);
 
     if (orientation == GTK_ORIENTATION_VERTICAL) {
       min = adw_lerp (self->last_visible_widget_height, min, t);
@@ -1058,6 +1005,8 @@ adw_squeezer_dispose (GObject *object)
   while ((child = gtk_widget_get_first_child (GTK_WIDGET (self))))
     squeezer_remove (self, child, TRUE);
 
+  g_clear_object (&self->animation);
+
   G_OBJECT_CLASS (adw_squeezer_parent_class)->dispose (object);
 }
 
@@ -1069,8 +1018,6 @@ adw_squeezer_finalize (GObject *object)
   if (self->pages)
     g_object_remove_weak_pointer (G_OBJECT (self->pages),
                                   (gpointer *) &self->pages);
-
-  adw_squeezer_unschedule_ticks (self);
 
   G_OBJECT_CLASS (adw_squeezer_parent_class)->finalize (object);
 }
@@ -1203,6 +1150,10 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    *
    * Whether a transition is currently running.
    *
+   * If a transition is impossible, the property value will be set to `TRUE` and
+   * then immediately to `FALSE`, so it's possible to rely on its notifications
+   * to know that a transition has happened.
+   *
    * Since: 1.0
    */
   props[PROP_TRANSITION_RUNNING] =
@@ -1298,11 +1249,23 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
 static void
 adw_squeezer_init (AdwSqueezer *self)
 {
+  AdwAnimationTarget *target;
+
   self->homogeneous = TRUE;
   self->transition_duration = 200;
   self->transition_type = ADW_SQUEEZER_TRANSITION_TYPE_NONE;
   self->xalign = 0.5;
   self->yalign = 0.5;
+
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc) transition_cb,
+                                              self, NULL);
+  self->animation = adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
+                                             self->transition_duration,
+                                             target);
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->animation),
+                                  ADW_LINEAR);
+  g_signal_connect_swapped (self->animation, "done",
+                            G_CALLBACK (transition_done_cb), self);
 }
 
 static void
@@ -1665,6 +1628,7 @@ adw_squeezer_set_transition_duration (AdwSqueezer *self,
     return;
 
   self->transition_duration = duration;
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TRANSITION_DURATION]);
 }
 
@@ -1723,7 +1687,7 @@ adw_squeezer_get_transition_running (AdwSqueezer *self)
 {
   g_return_val_if_fail (ADW_IS_SQUEEZER (self), FALSE);
 
-  return (self->tick_id != 0);
+  return self->transition_running;
 }
 
 /**
