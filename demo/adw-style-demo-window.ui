@@ -307,33 +307,74 @@ The "opaque" style class allows to create buttons with custom colors that look s
                   <object class="AdwPreferencesGroup">
                     <property name="title" translatable="yes">Entries</property>
                     <child>
-                      <object class="GtkBox">
-                        <property name="spacing">6</property>
-                        <property name="homogeneous">True</property>
+                      <object class="GtkFlowBox">
+                        <property name="min-children-per-line">1</property>
+                        <property name="max-children-per-line">3</property>
+                        <property name="column-spacing">6</property>
+                        <property name="row-spacing">6</property>
+                        <property name="selection-mode">none</property>
+                        <property name="margin-top">12</property>
+                        <style>
+                          <class name="inline"/>
+                        </style>
                         <child>
-                          <object class="GtkEntry">
-                            <property name="placeholder-text" translatable="yes">Regular</property>
-                            <property name="text" translatable="yes">Regular</property>
+                          <object class="GtkFlowBoxChild">
+                            <property name="focusable">False</property>
+                            <child>
+                              <object class="GtkEntry">
+                                <property name="placeholder-text" translatable="yes">Regular</property>
+                                <property name="text" translatable="yes">Regular</property>
+                                <property name="secondary-icon-name">edit-copy-symbolic</property>
+                              </object>
+                            </child>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkEntry">
-                            <property name="placeholder-text" translatable="yes">Warning</property>
-                            <property name="text" translatable="yes">Warning</property>
-                            <property name="tooltip-text">warning</property>
-                            <style>
-                              <class name="warning"/>
-                            </style>
+                          <object class="GtkFlowBoxChild">
+                            <property name="focusable">False</property>
+                            <child>
+                              <object class="GtkEntry">
+                                <property name="placeholder-text" translatable="yes">Success</property>
+                                <property name="text" translatable="yes">Success</property>
+                                <property name="tooltip-text">success</property>
+                                <property name="secondary-icon-name">edit-copy-symbolic</property>
+                                <style>
+                                  <class name="success"/>
+                                </style>
+                              </object>
+                            </child>
                           </object>
                         </child>
                         <child>
-                          <object class="GtkEntry">
-                            <property name="placeholder-text" translatable="yes">Error</property>
-                            <property name="text" translatable="yes">Error</property>
-                            <property name="tooltip-text">error</property>
-                            <style>
-                              <class name="error"/>
-                            </style>
+                          <object class="GtkFlowBoxChild">
+                            <property name="focusable">False</property>
+                            <child>
+                              <object class="GtkEntry">
+                                <property name="placeholder-text" translatable="yes">Warning</property>
+                                <property name="text" translatable="yes">Warning</property>
+                                <property name="tooltip-text">warning</property>
+                                <property name="secondary-icon-name">edit-copy-symbolic</property>
+                                <style>
+                                  <class name="warning"/>
+                                </style>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkFlowBoxChild">
+                            <property name="focusable">False</property>
+                            <child>
+                              <object class="GtkEntry">
+                                <property name="placeholder-text" translatable="yes">Error</property>
+                                <property name="text" translatable="yes">Error</property>
+                                <property name="tooltip-text">error</property>
+                                <property name="secondary-icon-name">edit-copy-symbolic</property>
+                                <style>
+                                  <class name="error"/>
+                                </style>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
@@ -556,6 +597,28 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                     <property name="tooltip-text">accent</property>
                                     <style>
                                       <class name="accent"/>
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="label" translatable="yes">Success</property>
+                                    <property name="xalign">0</property>
+                                    <property name="ellipsize">end</property>
+                                    <property name="tooltip-text">success</property>
+                                    <style>
+                                      <class name="success"/>
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="label" translatable="yes">Warning</property>
+                                    <property name="xalign">0</property>
+                                    <property name="ellipsize">end</property>
+                                    <property name="tooltip-text">warning</property>
+                                    <style>
+                                      <class name="warning"/>
                                     </style>
                                   </object>
                                 </child>
