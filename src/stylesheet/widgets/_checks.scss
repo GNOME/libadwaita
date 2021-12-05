@@ -21,26 +21,35 @@ radio {
   min-height: 20px;
   min-width: 20px;
   -gtk-icon-size: 20px;
-  background-color: $trough_color;
 
-  @if $contrast == "high" {
-    box-shadow: inset 0 0 0 1px $border_color;
+  @if $contrast == 'high' {
+    box-shadow: inset 0 0 0 2px $border_color;
+  } @else {
+    box-shadow: inset 0 0 0 2px $trough_color;
   }
 
-  &:hover:not(:checked):not(:indeterminate) {
-    background-color: $trough_hover_color;
+  &:not(:checked):not(:indeterminate):hover {
+    @if $contrast == 'high' {
+      box-shadow: inset 0 0 0 2px gtkalpha(currentColor, .6);
+    } @else {
+      box-shadow: inset 0 0 0 2px $trough_hover_color;
+    }
 
-    &:active { background-color: $trough_active_color; }
+    &:active {
+      @if $contrast == 'high' {
+        background-color: gtkalpha(currentColor, .6);
+      } @else {
+        background-color: $trough_active_color;
+      }
+      box-shadow: none;
+    }
   }
 
   &:checked,
   &:indeterminate {
     background-color: $fill_color;
     color: $fill_text_color;
-
-    @if $contrast == "high" {
-      box-shadow: none;
-    }
+    box-shadow: none;
 
     &:hover {
       background-image: image(gtkalpha(currentColor, .1));
@@ -90,22 +99,6 @@ checkbutton.selection-mode {
     min-height: 14px;
     -gtk-icon-size: 14px;
     border-radius: 100px;
-  }
-
-  check:not(:checked):not(:indeterminate),
-  radio:not(:checked):not(:indeterminate) {
-    background: none;
-    box-shadow: inset 0 0 0 2px $trough_color;
-    -gtk-icon-source: none;
-
-    &:hover {
-      box-shadow: inset 0 0 0 2px $trough_hover_color;
-
-      &:active {
-        background: none;
-        box-shadow: inset 0 0 0 2px $trough_active_color;
-      }
-    }
   }
 
   check:checked  { -gtk-icon-source: -gtk-scaled(-gtk-recolor(url("assets/check-small-symbolic.symbolic.png")),
