@@ -2487,9 +2487,9 @@ adw_leaflet_get_distance (AdwSwipeable *swipeable)
   AdwLeaflet *self = ADW_LEAFLET (swipeable);
 
   if (self->orientation == GTK_ORIENTATION_HORIZONTAL)
-    return gtk_widget_get_allocated_width (GTK_WIDGET (self));
+    return gtk_widget_get_width (GTK_WIDGET (self));
   else
-    return gtk_widget_get_allocated_height (GTK_WIDGET (self));
+    return gtk_widget_get_height (GTK_WIDGET (self));
 }
 
 static double *
@@ -2581,8 +2581,8 @@ adw_leaflet_get_swipe_area (AdwSwipeable           *swipeable,
                             GdkRectangle           *rect)
 {
   AdwLeaflet *self = ADW_LEAFLET (swipeable);
-  int width = gtk_widget_get_allocated_width (GTK_WIDGET (self));
-  int height = gtk_widget_get_allocated_height (GTK_WIDGET (self));
+  int width = gtk_widget_get_width (GTK_WIDGET (self));
+  int height = gtk_widget_get_height (GTK_WIDGET (self));
   double progress = 0;
 
   rect->x = 0;
