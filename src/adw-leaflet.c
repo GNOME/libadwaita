@@ -13,6 +13,7 @@
 #include "adw-fold-threshold-policy.h"
 #include "adw-macros-private.h"
 #include "adw-leaflet.h"
+#include "adw-timed-animation.h"
 #include "adw-shadow-helper-private.h"
 #include "adw-swipeable.h"
 #include "adw-swipe-tracker-private.h"
@@ -147,13 +148,11 @@ struct _AdwLeaflet {
     guint duration;
 
     double current_pos;
-    double source_pos;
-    double target_pos;
 
     double start_progress;
     double end_progress;
-    guint tick_id;
-    GtkProgressTracker tracker;
+
+    AdwAnimation *animation;
   } mode_transition;
 
   /* Child transition variables. */
@@ -735,7 +734,7 @@ start_child_transition (AdwLeaflet      *self,
        self->child_transition.is_gesture_active) &&
       self->last_visible_child != NULL &&
       /* Don't animate child transition when a mode transition is ongoing. */
-      self->mode_transition.tick_id == 0) {
+      adw_animation_get_state (self->mode_transition.animation) != ADW_ANIMATION_PLAYING) {
     self->child_transition.active_direction = transition_direction;
     self->child_transition.first_frame_skipped = FALSE;
     self->child_transition.start_progress = 0;
@@ -905,10 +904,10 @@ set_visible_child (AdwLeaflet               *self,
 }
 
 static void
-set_mode_transition_progress (AdwLeaflet *self,
-                              double      pos)
+mode_transition_cb (AdwLeaflet *self,
+                    double      value)
 {
-  self->mode_transition.current_pos = pos;
+  self->mode_transition.current_pos = value;
 
   if (self->homogeneous)
     gtk_widget_queue_allocate (GTK_WIDGET (self));
@@ -916,75 +915,25 @@ set_mode_transition_progress (AdwLeaflet *self,
     gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
-static gboolean
-mode_transition_cb (GtkWidget     *widget,
-                    GdkFrameClock *frame_clock,
-                    gpointer       user_data)
-{
-  AdwLeaflet *self = ADW_LEAFLET (user_data);
-  double ease;
-
-  gtk_progress_tracker_advance_frame (&self->mode_transition.tracker,
-                                      gdk_frame_clock_get_frame_time (frame_clock));
-  ease = gtk_progress_tracker_get_ease_out_cubic (&self->mode_transition.tracker, FALSE);
-  set_mode_transition_progress (self,
-                                self->mode_transition.source_pos + (ease * (self->mode_transition.target_pos - self->mode_transition.source_pos)));
-
-  if (gtk_progress_tracker_get_state (&self->mode_transition.tracker) == GTK_PROGRESS_STATE_AFTER) {
-    self->mode_transition.tick_id = 0;
-    return FALSE;
-  }
-
-  return TRUE;
-}
-
 static void
 start_mode_transition (AdwLeaflet *self,
                        double      target)
 {
-  GtkWidget *widget = GTK_WIDGET (self);
-
-  if (self->mode_transition.target_pos == target)
+  if (adw_timed_animation_get_value_to (ADW_TIMED_ANIMATION (self->mode_transition.animation)) == target)
     return;
-
-  self->mode_transition.target_pos = target;
-  /* FIXME PROP_REVEAL_CHILD needs to be implemented. */
-  /* g_object_notify_by_pspec (G_OBJECT (revealer), props[PROP_REVEAL_CHILD]); */
 
   stop_child_transition (self);
 
-  if (gtk_widget_get_mapped (widget) &&
-      self->mode_transition.duration != 0 &&
-      adw_get_enable_animations (widget) &&
-      self->can_unfold) {
-    self->mode_transition.source_pos = self->mode_transition.current_pos;
-    if (self->mode_transition.tick_id == 0)
-      self->mode_transition.tick_id = gtk_widget_add_tick_callback (widget, mode_transition_cb, self, NULL);
-    gtk_progress_tracker_start (&self->mode_transition.tracker,
-                                self->mode_transition.duration * 1000,
-                                0,
-                                1.0);
-  }
+  adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->mode_transition.animation),
+                                      self->mode_transition.current_pos);
+  adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->mode_transition.animation),
+                                    target);
+
+  if (self->can_unfold)
+    adw_animation_play (self->mode_transition.animation);
   else
-    set_mode_transition_progress (self, target);
+    adw_animation_skip (self->mode_transition.animation);
 }
-
-
-/* FIXME Use this to stop the mode transition animation when it makes sense (see *
- * GtkRevealer for exmples).
- */
-/* static void */
-/* stop_mode_animation (AdwLeaflet *self) */
-/* { */
-/*   if (self->mode_transition.current_pos != self->mode_transition.target_pos) { */
-/*     self->mode_transition.current_pos = self->mode_transition.target_pos; */
-    /* g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_REVEALED]); */
-/*   } */
-/*   if (self->mode_transition.tick_id != 0) { */
-/*     gtk_widget_remove_tick_callback (GTK_WIDGET (self), self->mode_transition.tick_id); */
-/*     self->mode_transition.tick_id = 0; */
-/*   } */
-/* } */
 
 static void
 set_folded (AdwLeaflet *self,
@@ -1856,7 +1805,7 @@ allocate_shadow (AdwLeaflet *self,
 
   is_transition = self->child_transition.is_gesture_active ||
                   gtk_progress_tracker_get_state (&self->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER ||
-                  gtk_progress_tracker_get_state (&self->mode_transition.tracker) != GTK_PROGRESS_STATE_AFTER;
+                  adw_animation_get_state (self->mode_transition.animation) == ADW_ANIMATION_PLAYING;
 
   overlap_child = get_top_overlap_child (self);
 
@@ -1906,7 +1855,7 @@ allocate_shadow (AdwLeaflet *self,
       }
     }
 
-    if (gtk_progress_tracker_get_state (&self->mode_transition.tracker) != GTK_PROGRESS_STATE_AFTER) {
+    if (adw_animation_get_state (self->mode_transition.animation) == ADW_ANIMATION_PLAYING) {
       shadow_progress = mode_progress;
     } else {
       GtkPanDirection direction = self->child_transition.active_direction;
@@ -2056,7 +2005,7 @@ adw_leaflet_snapshot (GtkWidget   *widget,
 
   is_transition = self->child_transition.is_gesture_active ||
                   gtk_progress_tracker_get_state (&self->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER ||
-                  gtk_progress_tracker_get_state (&self->mode_transition.tracker) != GTK_PROGRESS_STATE_AFTER;
+                  adw_animation_get_state (self->mode_transition.animation) == ADW_ANIMATION_PLAYING;
 
   if (!is_transition ||
       self->transition_type == ADW_LEAFLET_TRANSITION_TYPE_SLIDE ||
@@ -2236,6 +2185,8 @@ adw_leaflet_dispose (GObject *object)
 
   while ((child = gtk_widget_get_first_child (GTK_WIDGET (self))))
     leaflet_remove (self, child, TRUE);
+
+  g_clear_object (&self->mode_transition.animation);
 
   G_OBJECT_CLASS (adw_leaflet_parent_class)->dispose (object);
 }
@@ -2554,6 +2505,7 @@ adw_leaflet_init (AdwLeaflet *self)
 {
   GtkWidget *widget = GTK_WIDGET (self);
   GtkEventController *controller;
+  AdwAnimationTarget *target;
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
@@ -2567,7 +2519,6 @@ adw_leaflet_init (AdwLeaflet *self)
   self->mode_transition.duration = 250;
   self->child_transition.duration = 200;
   self->mode_transition.current_pos = 1.0;
-  self->mode_transition.target_pos = 1.0;
   self->can_unfold = TRUE;
 
   controller = GTK_EVENT_CONTROLLER (gtk_gesture_click_new ());
@@ -2586,6 +2537,12 @@ adw_leaflet_init (AdwLeaflet *self)
   self->shadow_helper = adw_shadow_helper_new (widget);
 
   gtk_widget_add_css_class (widget, "unfolded");
+
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc) mode_transition_cb,
+                                              self, NULL);
+  self->mode_transition.animation =
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
+                             self->mode_transition.duration, target);
 }
 
 static void
@@ -3289,6 +3246,10 @@ adw_leaflet_set_mode_transition_duration (AdwLeaflet *self,
     return;
 
   self->mode_transition.duration = duration;
+
+  adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->mode_transition.animation),
+                                    duration);
+
   g_object_notify_by_pspec (G_OBJECT (self),
                             props[PROP_MODE_TRANSITION_DURATION]);
 }
