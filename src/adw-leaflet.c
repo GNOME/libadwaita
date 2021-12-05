@@ -7,7 +7,6 @@
 
 #include "config.h"
 
-#include "gtkprogresstrackerprivate.h"
 #include "adw-animation-util.h"
 #include "adw-enums-private.h"
 #include "adw-fold-threshold-policy.h"
@@ -160,15 +159,12 @@ struct _AdwLeaflet {
     guint duration;
 
     double progress;
-    double start_progress;
-    double end_progress;
 
     gboolean is_gesture_active;
     gboolean is_cancelled;
 
-    guint tick_id;
-    GtkProgressTracker tracker;
-    gboolean first_frame_skipped;
+    gboolean transition_running;
+    AdwAnimation *animation;
 
     int last_visible_widget_width;
     int last_visible_widget_height;
@@ -536,8 +532,7 @@ get_child_window_x (AdwLeaflet     *self,
   gboolean is_rtl;
   int rtl_multiplier;
 
-  if (!self->child_transition.is_gesture_active &&
-      gtk_progress_tracker_get_state (&self->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER)
+  if (!self->child_transition.transition_running)
     return 0;
 
   if (self->child_transition.active_direction != GTK_PAN_DIRECTION_LEFT &&
@@ -577,8 +572,7 @@ get_child_window_y (AdwLeaflet     *self,
                     AdwLeafletPage *page,
                     int             height)
 {
-  if (!self->child_transition.is_gesture_active &&
-      gtk_progress_tracker_get_state (&self->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER)
+  if (!self->child_transition.transition_running)
     return 0;
 
   if (self->child_transition.active_direction != GTK_PAN_DIRECTION_UP &&
@@ -611,151 +605,60 @@ get_child_window_y (AdwLeaflet     *self,
 }
 
 static void
-child_progress_updated (AdwLeaflet *self)
+set_child_transition_running (AdwLeaflet *self,
+                              gboolean    running)
 {
-  gtk_widget_queue_draw (GTK_WIDGET (self));
+  if (self->child_transition.transition_running == running)
+    return;
+
+  self->child_transition.transition_running = running;
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_TRANSITION_RUNNING]);
+}
+
+static void
+child_transition_cb (AdwLeaflet *self,
+                     double      value)
+{
+  self->child_transition.progress = value;
 
   if (!self->homogeneous)
     gtk_widget_queue_resize (GTK_WIDGET (self));
   else
     gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
 
-  if (!self->child_transition.is_gesture_active &&
-      gtk_progress_tracker_get_state (&self->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER) {
-    if (self->child_transition.is_cancelled) {
-      if (self->last_visible_child != NULL) {
-        if (self->folded) {
-          gtk_widget_set_child_visible (self->last_visible_child->widget, TRUE);
-          gtk_widget_set_child_visible (self->visible_child->widget, FALSE);
-        }
-        self->visible_child = self->last_visible_child;
-        self->last_visible_child = NULL;
+static void
+child_transition_done_cb (AdwLeaflet *self)
+{
+  if (self->child_transition.is_cancelled) {
+    if (self->last_visible_child != NULL) {
+      if (self->folded) {
+        gtk_widget_set_child_visible (self->last_visible_child->widget, TRUE);
+        gtk_widget_set_child_visible (self->visible_child->widget, FALSE);
       }
-
-      self->child_transition.is_cancelled = FALSE;
-
-      g_object_freeze_notify (G_OBJECT (self));
-      g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD]);
-      g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD_NAME]);
-      g_object_thaw_notify (G_OBJECT (self));
-    } else {
-      if (self->last_visible_child != NULL) {
-        if (self->folded)
-          gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
-        self->last_visible_child = NULL;
-      }
+      self->visible_child = self->last_visible_child;
+      self->last_visible_child = NULL;
     }
 
-    gtk_widget_queue_allocate (GTK_WIDGET (self));
-    self->child_transition.swipe_direction = 0;
-  }
-}
-
-static gboolean
-child_transition_cb (GtkWidget     *widget,
-                     GdkFrameClock *frame_clock,
-                     gpointer       user_data)
-{
-  AdwLeaflet *self = ADW_LEAFLET (user_data);
-  double progress;
-
-  if (self->child_transition.first_frame_skipped) {
-    gtk_progress_tracker_advance_frame (&self->child_transition.tracker,
-                                        gdk_frame_clock_get_frame_time (frame_clock));
-    progress = gtk_progress_tracker_get_ease_out_cubic (&self->child_transition.tracker, FALSE);
-    self->child_transition.progress =
-      adw_lerp (self->child_transition.start_progress,
-                self->child_transition.end_progress, progress);
-  } else
-    self->child_transition.first_frame_skipped = TRUE;
-
-  /* Finish animation early if not mapped anymore */
-  if (!gtk_widget_get_mapped (widget))
-    gtk_progress_tracker_finish (&self->child_transition.tracker);
-
-  child_progress_updated (self);
-
-  if (gtk_progress_tracker_get_state (&self->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER) {
-    self->child_transition.tick_id = 0;
-    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_TRANSITION_RUNNING]);
-
-    return FALSE;
-  }
-
-  return TRUE;
-}
-
-static void
-schedule_child_ticks (AdwLeaflet *self)
-{
-  if (self->child_transition.tick_id == 0) {
-    self->child_transition.tick_id =
-      gtk_widget_add_tick_callback (GTK_WIDGET (self),
-                                    child_transition_cb,
-                                    self, NULL);
-    if (!self->child_transition.is_gesture_active)
-      g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_TRANSITION_RUNNING]);
-  }
-}
-
-static void
-unschedule_child_ticks (AdwLeaflet *self)
-{
-  if (self->child_transition.tick_id != 0) {
-    gtk_widget_remove_tick_callback (GTK_WIDGET (self), self->child_transition.tick_id);
-    self->child_transition.tick_id = 0;
-    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_TRANSITION_RUNNING]);
-  }
-}
-
-static void
-stop_child_transition (AdwLeaflet *self)
-{
-  unschedule_child_ticks (self);
-  gtk_progress_tracker_finish (&self->child_transition.tracker);
-  if (self->last_visible_child != NULL) {
-    gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
-    self->last_visible_child = NULL;
-  }
-
-  self->child_transition.swipe_direction = 0;
-}
-
-static void
-start_child_transition (AdwLeaflet      *self,
-                        guint            transition_duration,
-                        GtkPanDirection  transition_direction)
-{
-  GtkWidget *widget = GTK_WIDGET (self);
-
-  if (gtk_widget_get_mapped (widget) &&
-      ((adw_get_enable_animations (widget) &&
-        transition_duration != 0) ||
-       self->child_transition.is_gesture_active) &&
-      self->last_visible_child != NULL &&
-      /* Don't animate child transition when a mode transition is ongoing. */
-      adw_animation_get_state (self->mode_transition.animation) != ADW_ANIMATION_PLAYING) {
-    self->child_transition.active_direction = transition_direction;
-    self->child_transition.first_frame_skipped = FALSE;
-    self->child_transition.start_progress = 0;
-    self->child_transition.end_progress = 1;
-    self->child_transition.progress = 0;
     self->child_transition.is_cancelled = FALSE;
 
-    if (!self->child_transition.is_gesture_active) {
-      schedule_child_ticks (self);
-      gtk_progress_tracker_start (&self->child_transition.tracker,
-                                  transition_duration * 1000,
-                                  0,
-                                  1.0);
+    g_object_freeze_notify (G_OBJECT (self));
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD]);
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VISIBLE_CHILD_NAME]);
+    g_object_thaw_notify (G_OBJECT (self));
+  } else {
+    if (self->last_visible_child != NULL) {
+      if (self->folded)
+        gtk_widget_set_child_visible (self->last_visible_child->widget, FALSE);
+      self->last_visible_child = NULL;
     }
   }
-  else {
-    unschedule_child_ticks (self);
-    gtk_progress_tracker_finish (&self->child_transition.tracker);
-  }
 
-  child_progress_updated (self);
+  adw_animation_reset (self->child_transition.animation);
+
+  set_child_transition_running (self, FALSE);
+
+  self->child_transition.swipe_direction = 0;
 }
 
 static void
@@ -829,9 +732,8 @@ set_visible_child (AdwLeaflet               *self,
                                (gpointer *)&self->visible_child->last_focus);
   }
 
-  if (self->last_visible_child)
-    gtk_widget_set_child_visible (self->last_visible_child->widget, !self->folded);
-  self->last_visible_child = NULL;
+  if (self->child_transition.transition_running)
+    adw_animation_skip (self->child_transition.animation);
 
   if (self->visible_child && self->visible_child->widget) {
     if (gtk_widget_is_visible (widget)) {
@@ -881,7 +783,21 @@ set_visible_child (AdwLeaflet               *self,
     else
       gtk_widget_queue_resize (widget);
 
-    start_child_transition (self, transition_duration, transition_direction);
+    self->child_transition.active_direction = transition_direction;
+    self->child_transition.progress = 0;
+    self->child_transition.is_cancelled = FALSE;
+
+    if (!self->child_transition.is_gesture_active) {
+      adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->child_transition.animation),
+                                          0);
+      adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->child_transition.animation),
+                                        1);
+      adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->child_transition.animation),
+                                        transition_duration);
+
+      set_child_transition_running (self, TRUE);
+      adw_animation_play (self->child_transition.animation);
+    }
   }
 
   if (self->pages) {
@@ -922,7 +838,7 @@ start_mode_transition (AdwLeaflet *self,
   if (adw_timed_animation_get_value_to (ADW_TIMED_ANIMATION (self->mode_transition.animation)) == target)
     return;
 
-  stop_child_transition (self);
+  adw_animation_skip (self->child_transition.animation);
 
   adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->mode_transition.animation),
                                       self->mode_transition.current_pos);
@@ -1520,10 +1436,8 @@ prepare_cb (AdwSwipeTracker        *tracker,
 {
   self->child_transition.swipe_direction = direction;
 
-  if (self->child_transition.tick_id > 0) {
-    gtk_widget_remove_tick_callback (GTK_WIDGET (self),
-                                     self->child_transition.tick_id);
-    self->child_transition.tick_id = 0;
+  if (self->child_transition.transition_running) {
+    adw_animation_pause (self->child_transition.animation);
     self->child_transition.is_gesture_active = TRUE;
     self->child_transition.is_cancelled = FALSE;
   } else {
@@ -1537,7 +1451,7 @@ prepare_cb (AdwSwipeTracker        *tracker,
       set_visible_child (self, page, self->transition_type,
                          self->child_transition.duration);
 
-      g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_TRANSITION_RUNNING]);
+      set_child_transition_running (self, TRUE);
     }
   }
 }
@@ -1547,8 +1461,7 @@ update_swipe_cb (AdwSwipeTracker *tracker,
                  double           progress,
                  AdwLeaflet      *self)
 {
-  self->child_transition.progress = ABS (progress);
-  child_progress_updated (self);
+  child_transition_cb (self, ABS (progress));
 }
 
 static void
@@ -1560,24 +1473,17 @@ end_swipe_cb (AdwSwipeTracker *tracker,
  if (!self->child_transition.is_gesture_active)
     return;
 
-  self->child_transition.start_progress = self->child_transition.progress;
-  self->child_transition.end_progress = ABS (to);
+  adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->child_transition.animation),
+                                      self->child_transition.progress);
+  adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->child_transition.animation),
+                                    ABS (to));
   self->child_transition.is_cancelled = (to == 0);
-  self->child_transition.first_frame_skipped = TRUE;
 
-  schedule_child_ticks (self);
-  if (adw_get_enable_animations (GTK_WIDGET (self)) && duration != 0) {
-    gtk_progress_tracker_start (&self->child_transition.tracker,
-                                duration * 1000,
-                                0,
-                                1.0);
-  } else {
-    self->child_transition.progress = self->child_transition.end_progress;
-    gtk_progress_tracker_finish (&self->child_transition.tracker);
-  }
+  adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->child_transition.animation),
+                                    duration);
+  adw_animation_play (self->child_transition.animation);
 
   self->child_transition.is_gesture_active = FALSE;
-  child_progress_updated (self);
 
   gtk_widget_queue_draw (GTK_WIDGET (self));
 }
@@ -1803,8 +1709,7 @@ allocate_shadow (AdwLeaflet *self,
   double shadow_progress, mode_progress;
   GtkPanDirection shadow_direction;
 
-  is_transition = self->child_transition.is_gesture_active ||
-                  gtk_progress_tracker_get_state (&self->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER ||
+  is_transition = self->child_transition.transition_running ||
                   adw_animation_get_state (self->mode_transition.animation) == ADW_ANIMATION_PLAYING;
 
   overlap_child = get_top_overlap_child (self);
@@ -2003,8 +1908,7 @@ adw_leaflet_snapshot (GtkWidget   *widget,
 
   overlap_child = get_top_overlap_child (self);
 
-  is_transition = self->child_transition.is_gesture_active ||
-                  gtk_progress_tracker_get_state (&self->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER ||
+  is_transition = self->child_transition.transition_running ||
                   adw_animation_get_state (self->mode_transition.animation) == ADW_ANIMATION_PLAYING;
 
   if (!is_transition ||
@@ -2187,6 +2091,7 @@ adw_leaflet_dispose (GObject *object)
     leaflet_remove (self, child, TRUE);
 
   g_clear_object (&self->mode_transition.animation);
+  g_clear_object (&self->child_transition.animation);
 
   G_OBJECT_CLASS (adw_leaflet_parent_class)->dispose (object);
 }
@@ -2201,8 +2106,6 @@ adw_leaflet_finalize (GObject *object)
   if (self->pages)
     g_object_remove_weak_pointer (G_OBJECT (self->pages),
                                   (gpointer *) &self->pages);
-
-  unschedule_child_ticks (self);
 
   G_OBJECT_CLASS (adw_leaflet_parent_class)->finalize (object);
 }
@@ -2543,6 +2446,14 @@ adw_leaflet_init (AdwLeaflet *self)
   self->mode_transition.animation =
     adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
                              self->mode_transition.duration, target);
+
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc) child_transition_cb,
+                                              self, NULL);
+  self->child_transition.animation =
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
+                             self->child_transition.duration, target);
+  g_signal_connect_swapped (self->child_transition.animation, "done",
+                            G_CALLBACK (child_transition_done_cb), self);
 }
 
 static void
@@ -2589,8 +2500,7 @@ adw_leaflet_get_snap_points (AdwSwipeable *swipeable,
   int n;
   double *points, lower, upper;
 
-  if (self->child_transition.tick_id > 0 ||
-      self->child_transition.is_gesture_active) {
+  if (self->child_transition.transition_running) {
     int current_direction;
     gboolean is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
 
@@ -2642,8 +2552,7 @@ adw_leaflet_get_progress (AdwSwipeable *swipeable)
   gboolean new_first = FALSE;
   GList *children;
 
-  if (!self->child_transition.is_gesture_active &&
-      gtk_progress_tracker_get_state (&self->child_transition.tracker) == GTK_PROGRESS_STATE_AFTER)
+  if (!self->child_transition.transition_running)
     return 0;
 
   for (children = self->children; children; children = children->next) {
@@ -2687,8 +2596,7 @@ adw_leaflet_get_swipe_area (AdwSwipeable           *swipeable,
   if (self->transition_type == ADW_LEAFLET_TRANSITION_TYPE_SLIDE)
     return;
 
-  if (self->child_transition.is_gesture_active ||
-      gtk_progress_tracker_get_state (&self->child_transition.tracker) != GTK_PROGRESS_STATE_AFTER)
+  if (self->child_transition.transition_running)
     progress = self->child_transition.progress;
 
   if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
@@ -3291,6 +3199,10 @@ adw_leaflet_set_child_transition_duration (AdwLeaflet *self,
     return;
 
   self->child_transition.duration = duration;
+
+  adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->child_transition.animation),
+                                    duration);
+
   g_object_notify_by_pspec (G_OBJECT (self),
                             props[PROP_CHILD_TRANSITION_DURATION]);
 }
@@ -3409,8 +3321,7 @@ adw_leaflet_get_child_transition_running (AdwLeaflet *self)
 {
   g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
 
-  return (self->child_transition.tick_id != 0 ||
-          self->child_transition.is_gesture_active);
+  return self->child_transition.transition_running;
 }
 
 /**
