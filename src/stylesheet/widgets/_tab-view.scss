@@ -155,6 +155,14 @@ tabbar {
       }
     }
 
+    .needs-attention-left undershoot.left {
+      @include need-attention-gradient("right");
+    }
+
+    .needs-attention-right undershoot.right {
+      @include need-attention-gradient("left");
+    }
+
     tabbox > background {
       background-color: $headerbar_shade_color;
     }
