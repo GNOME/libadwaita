@@ -140,7 +140,6 @@ libadwaita_init_public_types = custom_target('adw-public-types.c',
 )
 
 src_sources = [
-  'gtkprogresstracker.c',
   'adw-action-row.c',
   'adw-animation.c',
   'adw-animation-target.c',
