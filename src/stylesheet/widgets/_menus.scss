@@ -95,22 +95,11 @@ popover.menu {
     }
   }
 
-  check:checked { -gtk-icon-source: -gtk-scaled(-gtk-recolor(url("assets/check-small-symbolic.symbolic.png")),
-                                                -gtk-recolor(url("assets/check-small@2-symbolic.symbolic.png"))); }
-
   //only menu radios have a border
   radio {
     padding: 1px;
     border: 1px solid gtkalpha(currentColor, $dimmer_opacity);
     box-shadow: none;
-
-    &:checked { -gtk-icon-source: -gtk-scaled(-gtk-recolor(url("assets/bullet-small-symbolic.symbolic.png")),
-                                              -gtk-recolor(url("assets/bullet-small@2-symbolic.symbolic.png"))); }
-  }
-
-  check, radio {
-    &:indeterminate { -gtk-icon-source: -gtk-scaled(-gtk-recolor(url("assets/dash-small-symbolic.symbolic.png")),
-                                                    -gtk-recolor(url("assets/dash-small@2-symbolic.symbolic.png"))); }
   }
 
   check,
