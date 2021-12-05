@@ -165,6 +165,6 @@ adw_swipeable_get_swipe_area (AdwSwipeable           *self,
 
   rect->x = 0;
   rect->y = 0;
-  rect->width = gtk_widget_get_allocated_width (GTK_WIDGET (self));
-  rect->height = gtk_widget_get_allocated_height (GTK_WIDGET (self));
+  rect->width = gtk_widget_get_width (GTK_WIDGET (self));
+  rect->height = gtk_widget_get_height (GTK_WIDGET (self));
 }
