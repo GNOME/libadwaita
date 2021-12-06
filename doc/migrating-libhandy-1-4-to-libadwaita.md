@@ -277,6 +277,31 @@ to make them homogeneous if needed.
 The `interpolate-size` property has been removed with no replacement, it's
 always enabled when [property@Adw.Leaflet:homogeneous] is set to `FALSE`.
 
+`AdwLeaflet` now uses spring animations instead of timed animations for child
+transitions. As such, the `child-transition-duration` property has been replaced
+with [property@Adw.Leaflet:child-transition-params], allowing to customize the
+animation. Unlike the duration, spring parameters are also used for animation
+triggered by swipe gestures.
+
+### Adapt to [class@Adw.Flap] API Changes
+
+`AdwFlap` now uses spring animations instead of timed animations for reveal
+animations. As such, the `reveal-duration` property has been replaced with
+[property@Adw.Flap:reveal-params], allowing to customize the animation. Unlike
+the duration, spring parameters are also used for transitions triggered by swipe
+gestures.
+
+### Adapt to [class@Adw.Carousel] API changes
+
+`AdwCarousel` now uses spring animations instead of timed animations for
+scrolling. As such, the `animation-duration` property has been replaced with
+[property@Adw.Carousel:scroll-params], allowing to customize the animation.
+Unlike the duration, spring parameters are also used for animation triggered
+by swipe gestures.
+
+The `adw_carousel_scroll_to_full()` method has been removed. Instead,
+[method@Adw.Carousel.scroll_to] has got an additional parameter `animate`.
+
 ### Adapt to view switcher API Changes
 
 [class@Adw.ViewSwitcher], [class@Adw.ViewSwitcherBar] and
@@ -358,11 +383,6 @@ The `can-swipe-back` property have been renamed to
 [property@AdwPreferencesWindow:can-navigate-back], along with its accessors.
 The new properties also handle keyboard and mouse shortcuts in addition to
 swipes.
-
-### Adapt to [class@Adw.Carousel] API changes
-
-The type of the `duration` parameter in [method@Adw.Carousel.scroll_to_full] has
-changed from `gint64` to `guint`.
 
 ### Adapt to Miscellaneous Changes
 
