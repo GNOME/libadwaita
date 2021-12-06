@@ -48,8 +48,9 @@
  * my_object_animate (MyObject *self)
  * {
  *   AdwAnimationTarget *target =
- *     adw_callback_animation_target_new ((AdwAnimationTargetFunc) animation_cb,
- *                                        self, NULL);
+ *     adw_callback_animation_target_new (self,
+ *                                        (AdwAnimationTargetFunc) animation_cb,
+ *                                        NULL);
  *   g_autoptr (AdwAnimation) animation =
  *     adw_timed_animation_new (widget, 0, 1, 250, target);
  *
