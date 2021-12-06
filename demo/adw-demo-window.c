@@ -271,7 +271,8 @@ carousel_return_clicked_cb (GtkButton     *btn,
                             AdwDemoWindow *self)
 {
   adw_carousel_scroll_to (self->carousel,
-                          adw_carousel_get_nth_page (self->carousel, 0));
+                          adw_carousel_get_nth_page (self->carousel, 0),
+                          TRUE);
 }
 
 AdwDemoWindow *

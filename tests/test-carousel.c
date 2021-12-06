@@ -113,34 +113,6 @@ test_adw_carousel_spacing (void)
 }
 
 static void
-test_adw_carousel_animation_duration (void)
-{
-  AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
-  guint duration;
-
-  notified = 0;
-  g_signal_connect (carousel, "notify::animation-duration", G_CALLBACK (notify_cb), NULL);
-
-  /* Accessors */
-  g_assert_cmpuint (adw_carousel_get_animation_duration (carousel), ==, 250);
-  adw_carousel_set_animation_duration (carousel, 200);
-  g_assert_cmpuint (adw_carousel_get_animation_duration (carousel), ==, 200);
-  g_assert_cmpint (notified, ==, 1);
-
-  /* Property */
-  g_object_set (carousel, "animation-duration", 500, NULL);
-  g_object_get (carousel, "animation-duration", &duration, NULL);
-  g_assert_cmpuint (duration, ==, 500);
-  g_assert_cmpint (notified, ==, 2);
-
-  /* Setting the same value should not notify */
-  adw_carousel_set_animation_duration (carousel, 500);
-  g_assert_cmpint (notified, ==, 2);
-
-  g_assert_finalize_object (carousel);
-}
-
-static void
 test_adw_carousel_allow_mouse_drag (void)
 {
   AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
@@ -234,7 +206,6 @@ main (int   argc,
   g_test_add_func("/Adwaita/Carousel/add_remove", test_adw_carousel_add_remove);
   g_test_add_func("/Adwaita/Carousel/interactive", test_adw_carousel_interactive);
   g_test_add_func("/Adwaita/Carousel/spacing", test_adw_carousel_spacing);
-  g_test_add_func("/Adwaita/Carousel/animation_duration", test_adw_carousel_animation_duration);
   g_test_add_func("/Adwaita/Carousel/allow_mouse_drag", test_adw_carousel_allow_mouse_drag);
   g_test_add_func("/Adwaita/Carousel/allow_long_swipes", test_adw_carousel_allow_long_swipes);
   g_test_add_func("/Adwaita/Carousel/reveal_duration", test_adw_carousel_reveal_duration);

@@ -11,6 +11,7 @@
 #include "adw-animation-util.h"
 #include "adw-macros-private.h"
 #include "adw-navigation-direction.h"
+#include "adw-spring-animation.h"
 #include "adw-swipe-tracker.h"
 #include "adw-swipeable.h"
 #include "adw-timed-animation.h"
@@ -18,7 +19,7 @@
 
 #include <math.h>
 
-#define DEFAULT_DURATION 250
+#define SCROLL_TIMEOUT_DURATION 150
 
 /**
  * AdwCarousel:
@@ -60,7 +61,6 @@ struct _AdwCarousel
   double position;
   guint spacing;
   GtkOrientation orientation;
-  guint animation_duration;
   guint reveal_duration;
 
   double animation_source_position;
@@ -93,7 +93,7 @@ enum {
   PROP_POSITION,
   PROP_INTERACTIVE,
   PROP_SPACING,
-  PROP_ANIMATION_DURATION,
+  PROP_SCROLL_PARAMS,
   PROP_ALLOW_MOUSE_DRAG,
   PROP_ALLOW_SCROLL_WHEEL,
   PROP_ALLOW_LONG_SWIPES,
@@ -374,7 +374,7 @@ scroll_animation_done_cb (AdwCarousel *self)
 static void
 scroll_to (AdwCarousel *self,
            GtkWidget   *widget,
-           guint        duration)
+           double       velocity)
 {
   self->animation_target_child = find_child_info (self, widget);
 
@@ -383,12 +383,12 @@ scroll_to (AdwCarousel *self,
 
   self->animation_source_position = self->position;
 
-  adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->animation),
-                                      self->animation_source_position);
-  adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->animation),
-                                    self->animation_target_child->snap_point);
-  adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->animation),
-                                    duration);
+  adw_spring_animation_set_value_from (ADW_SPRING_ANIMATION (self->animation),
+                                       self->animation_source_position);
+  adw_spring_animation_set_value_to (ADW_SPRING_ANIMATION (self->animation),
+                                     self->animation_target_child->snap_point);
+  adw_spring_animation_set_initial_velocity (ADW_SPRING_ANIMATION (self->animation),
+                                             velocity);
   adw_animation_play (self->animation);
 }
 
@@ -428,7 +428,7 @@ end_swipe_cb (AdwSwipeTracker *tracker,
 {
   GtkWidget *child = get_page_at_position (self, to);
 
-  scroll_to (self, child, duration);
+  scroll_to (self, child, velocity);
 }
 
 /* Copied from GtkOrientable. Orientable widgets are supposed
@@ -481,7 +481,6 @@ scroll_cb (AdwCarousel              *self,
   int index;
   gboolean allow_vertical;
   GtkOrientation orientation;
-  guint duration;
   GtkWidget *child;
 
   if (!self->allow_scroll_wheel)
@@ -530,14 +529,11 @@ scroll_cb (AdwCarousel              *self,
   index += find_child_index (self, child, FALSE);
   index = CLAMP (index, 0, (int) adw_carousel_get_n_pages (self) - 1);
 
-  scroll_to (self, adw_carousel_get_nth_page (self, index), self->animation_duration);
-
-  /* Don't allow the delay to go lower than 250ms */
-  duration = MIN (self->animation_duration, DEFAULT_DURATION);
+  scroll_to (self, adw_carousel_get_nth_page (self, index), 0);
 
   self->can_scroll = FALSE;
   self->scroll_timeout_id =
-   g_timeout_add (duration, (GSourceFunc) scroll_timeout_cb, self);
+   g_timeout_add (SCROLL_TIMEOUT_DURATION, (GSourceFunc) scroll_timeout_cb, self);
 
   return GDK_EVENT_STOP;
 }
@@ -652,8 +648,8 @@ adw_carousel_size_allocate (GtkWidget *widget,
     snap_point += child_info->size;
 
     if (child_info == self->animation_target_child)
-      adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->animation),
-                                        child_info->snap_point);
+      adw_spring_animation_set_value_to (ADW_SPRING_ANIMATION (self->animation),
+                                         child_info->snap_point);
   }
 
   if (!gtk_widget_get_realized (GTK_WIDGET (self)))
@@ -802,8 +798,8 @@ adw_carousel_get_property (GObject    *object,
     g_value_set_enum (value, self->orientation);
     break;
 
-  case PROP_ANIMATION_DURATION:
-    g_value_set_uint (value, adw_carousel_get_animation_duration (self));
+  case PROP_SCROLL_PARAMS:
+    g_value_set_boxed (value, adw_carousel_get_scroll_params (self));
     break;
 
   default:
@@ -828,8 +824,8 @@ adw_carousel_set_property (GObject      *object,
     adw_carousel_set_spacing (self, g_value_get_uint (value));
     break;
 
-  case PROP_ANIMATION_DURATION:
-    adw_carousel_set_animation_duration (self, g_value_get_uint (value));
+  case PROP_SCROLL_PARAMS:
+    adw_carousel_set_scroll_params (self, g_value_get_boxed (value));
     break;
 
   case PROP_REVEAL_DURATION:
@@ -951,18 +947,24 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwCarousel:animation-duration: (attributes org.gtk.Property.get=adw_carousel_get_animation_duration org.gtk.Property.set=adw_carousel_set_animation_duration)
+   * AdwCarousel:scroll-params: (attributes org.gtk.Property.get=adw_carousel_get_scroll_params org.gtk.Property.set=adw_carousel_set_scroll_params)
    *
-   * Animation duration in milliseconds, used by [method@Adw.Carousel.scroll_to].
+   * Scroll animation spring parameters.
+   *
+   * The default value is equivalent to:
+   *
+   * ```c
+   * adw_spring_params_new (1, 0.5, 500)
+   * ```
    *
    * Since: 1.0
    */
-  props[PROP_ANIMATION_DURATION] =
-    g_param_spec_uint ("animation-duration",
-                       "Animation duration",
-                       "Default animation duration",
-                       0, G_MAXUINT, DEFAULT_DURATION,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+  props[PROP_SCROLL_PARAMS] =
+    g_param_spec_boxed ("scroll-params",
+                        "Scroll Parameters",
+                        "Scroll animation spring parameters",
+                        ADW_TYPE_SPRING_PARAMS,
+                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwCarousel:allow-mouse-drag: (attributes org.gtk.Property.get=adw_carousel_get_allow_mouse_drag org.gtk.Property.set=adw_carousel_set_allow_mouse_drag)
@@ -1071,7 +1073,6 @@ adw_carousel_init (AdwCarousel *self)
 
   self->orientation = GTK_ORIENTATION_HORIZONTAL;
   self->reveal_duration = 0;
-  self->animation_duration = DEFAULT_DURATION;
   self->can_scroll = TRUE;
 
   self->tracker = adw_swipe_tracker_new (ADW_SWIPEABLE (self));
@@ -1089,7 +1090,10 @@ adw_carousel_init (AdwCarousel *self)
                                               scroll_animation_value_cb,
                                               self, NULL);
   self->animation =
-    adw_timed_animation_new (GTK_WIDGET (self), 0, 0, 0, target);
+    adw_spring_animation_new (GTK_WIDGET (self), 0, 0,
+                              adw_spring_params_new (1, 0.5, 500),
+                              target);
+  adw_spring_animation_set_clamp (ADW_SPRING_ANIMATION (self->animation), TRUE);
 
   g_signal_connect_swapped (self->animation, "done",
                             G_CALLBACK (scroll_animation_done_cb), self);
@@ -1367,44 +1371,27 @@ adw_carousel_remove (AdwCarousel *self,
  * adw_carousel_scroll_to:
  * @self: a `AdwCarousel`
  * @widget: a child of @self
+ * @animate: whether to animate the transition
  *
- * Scrolls to @widget with an animation.
+ * Scrolls to @widget.
  *
- * The [property@Adw.Carousel:animation-duration] property can be used to
- * control the duration.
+ * If @animate is `TRUE`, the transition will be animated.
  *
  * Since: 1.0
  */
 void
 adw_carousel_scroll_to (AdwCarousel *self,
-                        GtkWidget   *widget)
-{
-  g_return_if_fail (ADW_IS_CAROUSEL (self));
-  g_return_if_fail (GTK_IS_WIDGET (widget));
-
-  adw_carousel_scroll_to_full (self, widget, self->animation_duration);
-}
-
-/**
- * adw_carousel_scroll_to_full:
- * @self: a `AdwCarousel`
- * @widget: a child of @self
- * @duration: animation duration in milliseconds
- *
- * Scrolls to @widget with an animation.
- *
- * Since: 1.0
- */
-void
-adw_carousel_scroll_to_full (AdwCarousel *self,
-                             GtkWidget   *widget,
-                             guint        duration)
+                        GtkWidget   *widget,
+                        gboolean     animate)
 {
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
   g_return_if_fail (gtk_widget_get_parent (widget) == GTK_WIDGET (self));
 
-  scroll_to (self, widget, duration);
+  scroll_to (self, widget, 0);
+
+  if (!animate)
+    adw_animation_skip (self->animation);
 }
 
 /**
@@ -1567,44 +1554,45 @@ adw_carousel_set_spacing (AdwCarousel *self,
 }
 
 /**
- * adw_carousel_get_animation_duration: (attributes org.gtk.Method.get_property=animation-duration)
+ * adw_carousel_get_scroll_params: (attributes org.gtk.Method.get_property=scroll-params)
  * @self: a `AdwCarousel`
  *
- * Gets the animation duration used by [method@Adw.Carousel.scroll_to].
+ * Gets the scroll animation spring parameters for @self.
  *
- * Returns: animation duration in milliseconds
+ * Returns: the animation parameters
  *
  * Since: 1.0
  */
-guint
-adw_carousel_get_animation_duration (AdwCarousel *self)
+AdwSpringParams *
+adw_carousel_get_scroll_params (AdwCarousel *self)
 {
-  g_return_val_if_fail (ADW_IS_CAROUSEL (self), 0);
+  g_return_val_if_fail (ADW_IS_CAROUSEL (self), NULL);
 
-  return self->animation_duration;
+  return adw_spring_animation_get_spring_params (ADW_SPRING_ANIMATION (self->animation));
 }
 
 /**
- * adw_carousel_set_animation_duration: (attributes org.gtk.Method.set_property=animation-duration)
+ * adw_carousel_set_scroll_params: (attributes org.gtk.Method.set_property=scroll-params)
  * @self: a `AdwCarousel`
- * @duration: animation duration in milliseconds
+ * @params: the new parameters
  *
- * Sets the animation duration used by [method@Adw.Carousel.scroll_to].
+ * Sets the scroll animation spring parameters for @self.
  *
  * Since: 1.0
  */
 void
-adw_carousel_set_animation_duration (AdwCarousel *self,
-                                     guint        duration)
+adw_carousel_set_scroll_params (AdwCarousel     *self,
+                                AdwSpringParams *params)
 {
   g_return_if_fail (ADW_IS_CAROUSEL (self));
+  g_return_if_fail (params != NULL);
 
-  if (self->animation_duration == duration)
+  if (adw_carousel_get_scroll_params (self) == params)
     return;
 
-  self->animation_duration = duration;
+  adw_spring_animation_set_spring_params (ADW_SPRING_ANIMATION (self->animation), params);
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ANIMATION_DURATION]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SCROLL_PARAMS]);
 }
 
 /**

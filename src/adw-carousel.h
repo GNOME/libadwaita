@@ -14,6 +14,8 @@
 
 #include <gtk/gtk.h>
 
+#include "adw-spring-params.h"
+
 G_BEGIN_DECLS
 
 #define ADW_TYPE_CAROUSEL (adw_carousel_get_type())
@@ -45,12 +47,9 @@ void adw_carousel_remove (AdwCarousel *self,
                           GtkWidget   *child);
 
 ADW_AVAILABLE_IN_ALL
-void adw_carousel_scroll_to      (AdwCarousel *self,
-                                  GtkWidget   *widget);
-ADW_AVAILABLE_IN_ALL
-void adw_carousel_scroll_to_full (AdwCarousel *self,
-                                  GtkWidget   *widget,
-                                  guint        duration);
+void adw_carousel_scroll_to (AdwCarousel *self,
+                             GtkWidget   *widget,
+                             gboolean     animate);
 
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_carousel_get_nth_page (AdwCarousel *self,
@@ -73,10 +72,10 @@ void adw_carousel_set_spacing  (AdwCarousel *self,
                                 guint        spacing);
 
 ADW_AVAILABLE_IN_ALL
-guint adw_carousel_get_animation_duration (AdwCarousel *self);
+AdwSpringParams *adw_carousel_get_scroll_params (AdwCarousel     *self);
 ADW_AVAILABLE_IN_ALL
-void  adw_carousel_set_animation_duration (AdwCarousel *self,
-                                           guint        duration);
+void             adw_carousel_set_scroll_params (AdwCarousel     *self,
+                                                 AdwSpringParams *params);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_carousel_get_allow_mouse_drag (AdwCarousel *self);
