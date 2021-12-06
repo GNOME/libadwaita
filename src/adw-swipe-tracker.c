@@ -426,7 +426,6 @@ gesture_end (AdwSwipeTracker *self,
              gboolean         is_touchpad)
 {
   double end_progress, velocity;
-  guint duration, max_duration;
 
   if (self->state == ADW_SWIPE_TRACKER_STATE_NONE)
     return;
@@ -434,21 +433,9 @@ gesture_end (AdwSwipeTracker *self,
   trim_history (self, time);
 
   velocity = calculate_velocity (self);
-
   end_progress = get_end_progress (self, velocity, is_touchpad);
 
-  velocity /= distance;
-
-  if ((end_progress - self->progress) * velocity <= 0)
-    velocity = ANIMATION_BASE_VELOCITY;
-
-  max_duration = MAX_ANIMATION_DURATION * log2 (1 + MAX (1, ceil (ABS (self->progress - end_progress))));
-
-  duration = ABS ((self->progress - end_progress) / velocity * DURATION_MULTIPLIER);
-  if (self->progress != end_progress)
-    duration = CLAMP (duration, MIN_ANIMATION_DURATION, max_duration);
-
-  g_signal_emit (self, signals[SIGNAL_END_SWIPE], 0, duration, calculate_velocity (self), end_progress);
+  g_signal_emit (self, signals[SIGNAL_END_SWIPE], 0, velocity, end_progress);
 
   if (!self->cancelled)
     self->state = ADW_SWIPE_TRACKER_STATE_FINISHING;
@@ -1151,11 +1138,15 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
   /**
    * AdwSwipeTracker::end-swipe:
    * @self: the `AdwSwipeTracker` instance
-   * @duration: snap-back animation duration in milliseconds
    * @velocity: the velocity of the swipe
    * @to: the progress value to animate to
    *
    * This signal is emitted as soon as the gesture has stopped.
+   *
+   * The user is expected to animate the deceleration from the current progress
+   * value to @to with an animation using @velocity as the initial velocity,
+   * provided in pixels per second. [class@Adw.SpringAnimation] is usually a
+   * good fit for this.
    *
    * Since: 1.0
    */
@@ -1166,8 +1157,8 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                   0,
                   NULL, NULL, NULL,
                   G_TYPE_NONE,
-                  3,
-                  G_TYPE_UINT, G_TYPE_DOUBLE, G_TYPE_DOUBLE);
+                  2,
+                  G_TYPE_DOUBLE, G_TYPE_DOUBLE);
 }
 
 static void
