@@ -155,16 +155,13 @@ get_first_zero (AdwSpringAnimation *self)
    * for in-place animations. */
   guint i = 1;
   double y = oscillate (self, i, NULL);
-  gboolean in_place = G_APPROX_VALUE (self->value_to, self->value_from, FLT_EPSILON);
 
   while ((self->value_to - self->value_from > FLT_EPSILON && self->value_to - y > self->epsilon) ||
-         (self->value_from - self->value_to > FLT_EPSILON && y - self->value_to > self->epsilon) ||
-         (in_place && (self->initial_velocity < 0.0) && (self->value_to - y > self->epsilon)) ||
-         (in_place && (self->initial_velocity > 0.0) && (y -self->value_to > self->epsilon))) {
+         (self->value_from - self->value_to > FLT_EPSILON && y - self->value_to > self->epsilon)) {
     if (i > MAX_ITERATIONS)
       return 0;
 
-    y = oscillate (self, i++, NULL);
+    y = oscillate (self, ++i, NULL);
   }
 
   return i;
@@ -188,8 +185,12 @@ calculate_duration (AdwSpringAnimation *self)
   if (beta <= 0)
     return ADW_DURATION_INFINITE;
 
-  if (self->clamp)
+  if (self->clamp) {
+    if (G_APPROX_VALUE (self->value_to, self->value_from, FLT_EPSILON))
+      return 0;
+
     return get_first_zero (self);
+  }
 
   omega0 = sqrt (stiffness / mass);
 
