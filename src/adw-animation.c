@@ -21,8 +21,8 @@
  * provides a value to animate, and a state indicating whether the
  * animation hasn't been started yet, is playing, paused or finished.
  *
- * Currently there's only one concrete animation type:
- * [class@Adw.TimedAnimation].
+ * Currently there are two concrete animation types:
+ * [class@Adw.TimedAnimation] and [class@Adw.SpringAnimation].
  *
  * `AdwAnimation` will automatically skip the animation if
  * [property@Adw.Animation:widget] is unmapped, or if
