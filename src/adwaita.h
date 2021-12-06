@@ -52,6 +52,8 @@ G_BEGIN_DECLS
 #include "adw-preferences-row.h"
 #include "adw-preferences-window.h"
 #include "adw-split-button.h"
+#include "adw-spring-animation.h"
+#include "adw-spring-params.h"
 #include "adw-squeezer.h"
 #include "adw-status-page.h"
 #include "adw-style-manager.h"
