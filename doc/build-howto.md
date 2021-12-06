@@ -31,7 +31,6 @@ libadwaita_dep = dependency('libadwaita-1', version: '>= 1.0.0', required: false
 if not libadwaita_dep.found()
 libadwaita = subproject(
   'libadwaita',
-  install: false,
   default_options: [
     'examples=false',
     'package_subdir=my-project-name',
