@@ -15,6 +15,7 @@
 #include <gtk/gtk.h>
 #include "adw-enums.h"
 #include "adw-fold-threshold-policy.h"
+#include "adw-spring-params.h"
 
 G_BEGIN_DECLS
 
@@ -69,10 +70,10 @@ void     adw_flap_set_reveal_flap (AdwFlap  *self,
                                    gboolean  reveal_flap);
 
 ADW_AVAILABLE_IN_ALL
-guint adw_flap_get_reveal_duration (AdwFlap *self);
+AdwSpringParams *adw_flap_get_reveal_params (AdwFlap         *self);
 ADW_AVAILABLE_IN_ALL
-void  adw_flap_set_reveal_duration (AdwFlap *self,
-                                    guint    duration);
+void             adw_flap_set_reveal_params (AdwFlap         *self,
+                                             AdwSpringParams *params);
 
 ADW_AVAILABLE_IN_ALL
 double adw_flap_get_reveal_progress (AdwFlap *self);

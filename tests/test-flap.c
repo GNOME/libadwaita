@@ -133,34 +133,6 @@ test_adw_flap_reveal_flap (void)
 }
 
 static void
-test_adw_flap_reveal_duration (void)
-{
-  AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
-  guint duration;
-
-  g_assert_nonnull (flap);
-
-  notified = 0;
-  g_signal_connect (flap, "notify::reveal-duration", G_CALLBACK (notify_cb), NULL);
-
-  g_object_get (flap, "reveal-duration", &duration, NULL);
-  g_assert_cmpint (duration, ==, 250);
-
-  adw_flap_set_reveal_duration (flap, 250);
-  g_assert_cmpint (notified, ==, 0);
-
-  adw_flap_set_reveal_duration (flap, 500);
-  g_assert_cmpint (adw_flap_get_reveal_duration (flap), ==, 500);
-  g_assert_cmpint (notified, ==, 1);
-
-  g_object_set (flap, "reveal-duration", 100, NULL);
-  g_assert_cmpint (adw_flap_get_reveal_duration (flap), ==, 100);
-  g_assert_cmpint (notified, ==, 2);
-
-  g_assert_finalize_object (flap);
-}
-
-static void
 test_adw_flap_reveal_progress (void)
 {
   AdwFlap *flap = g_object_ref_sink (ADW_FLAP (adw_flap_new ()));
@@ -424,7 +396,6 @@ main (int   argc,
   g_test_add_func ("/Adwaita/Flap/separator", test_adw_flap_separator);
   g_test_add_func ("/Adwaita/Flap/flap_position", test_adw_flap_flap_position);
   g_test_add_func ("/Adwaita/Flap/reveal_flap", test_adw_flap_reveal_flap);
-  g_test_add_func ("/Adwaita/Flap/reveal_duration", test_adw_flap_reveal_duration);
   g_test_add_func ("/Adwaita/Flap/reveal_progress", test_adw_flap_reveal_progress);
   g_test_add_func ("/Adwaita/Flap/fold_policy", test_adw_flap_fold_policy);
   g_test_add_func ("/Adwaita/Flap/fold_duration", test_adw_flap_fold_duration);

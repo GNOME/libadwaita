@@ -14,6 +14,7 @@
 #include "adw-gizmo-private.h"
 #include "adw-macros-private.h"
 #include "adw-shadow-helper-private.h"
+#include "adw-spring-animation.h"
 #include "adw-swipeable.h"
 #include "adw-swipe-tracker-private.h"
 #include "adw-timed-animation.h"
@@ -133,7 +134,6 @@ struct _AdwFlap
   double fold_progress;
   AdwAnimation *fold_animation;
 
-  guint reveal_duration;
   double reveal_progress;
   AdwAnimation *reveal_animation;
 
@@ -169,7 +169,7 @@ enum {
   PROP_SEPARATOR,
   PROP_FLAP_POSITION,
   PROP_REVEAL_FLAP,
-  PROP_REVEAL_DURATION,
+  PROP_REVEAL_PARAMS,
   PROP_REVEAL_PROGRESS,
   PROP_FOLD_POLICY,
   PROP_FOLD_THRESHOLD_POLICY,
@@ -295,7 +295,7 @@ animate_fold (AdwFlap *self)
 
   /* When the flap is completely hidden, we can skip animation */
   adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->fold_animation),
-                             (self->reveal_progress > 0) ? self->fold_duration : 0);
+                                    (self->reveal_progress > 0) ? self->fold_duration : 0);
 
   adw_animation_play (self->fold_animation);
 }
@@ -315,14 +315,18 @@ reveal_animation_done_cb (AdwFlap *self)
 static void
 animate_reveal (AdwFlap *self,
                 double   to,
-                guint    duration)
+                double   velocity)
 {
-  adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->reveal_animation),
-                                      self->reveal_progress);
-  adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->reveal_animation),
-                                    to);
-  adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->reveal_animation),
-                                    duration);
+  adw_spring_animation_set_value_from (ADW_SPRING_ANIMATION (self->reveal_animation),
+                                       self->reveal_progress);
+  adw_spring_animation_set_value_to (ADW_SPRING_ANIMATION (self->reveal_animation), to);
+
+  if (!G_APPROX_VALUE (self->reveal_progress, to, FLT_EPSILON))
+    adw_spring_animation_set_initial_velocity (ADW_SPRING_ANIMATION (self->reveal_animation),
+                                               velocity / adw_swipeable_get_distance (ADW_SWIPEABLE (self)));
+  else
+    adw_spring_animation_set_initial_velocity (ADW_SPRING_ANIMATION (self->reveal_animation),
+                                               velocity);
 
   adw_animation_play (self->reveal_animation);
 }
@@ -330,7 +334,7 @@ animate_reveal (AdwFlap *self,
 static void
 set_reveal_flap (AdwFlap  *self,
                  gboolean  reveal_flap,
-                 guint     duration)
+                 double    velocity)
 {
   reveal_flap = !!reveal_flap;
 
@@ -340,7 +344,7 @@ set_reveal_flap (AdwFlap  *self,
   self->reveal_flap = reveal_flap;
 
   if (!self->swipe_active)
-    animate_reveal (self, reveal_flap ? 1 : 0, duration);
+    animate_reveal (self, reveal_flap ? 1 : 0, velocity);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVEAL_FLAP]);
 }
@@ -370,7 +374,7 @@ set_folded (AdwFlap  *self,
     animate_fold (self);
 
   if (!self->locked)
-    set_reveal_flap (self, !self->folded, self->fold_duration);
+    set_reveal_flap (self, !self->folded, 0);
 
   context = gtk_widget_get_style_context (GTK_WIDGET (self));
   if (folded) {
@@ -430,9 +434,9 @@ end_swipe_cb (AdwSwipeTracker *tracker,
   self->swipe_active = FALSE;
 
   if ((to > 0) == self->reveal_flap)
-    animate_reveal (self, to, duration);
+    animate_reveal (self, to, velocity);
   else
-    set_reveal_flap (self, to > 0, duration);
+    set_reveal_flap (self, to > 0, velocity);
 }
 
 static void
@@ -1112,8 +1116,8 @@ adw_flap_get_property (GObject    *object,
   case PROP_REVEAL_FLAP:
     g_value_set_boolean (value, adw_flap_get_reveal_flap (self));
     break;
-  case PROP_REVEAL_DURATION:
-    g_value_set_uint (value, adw_flap_get_reveal_duration (self));
+  case PROP_REVEAL_PARAMS:
+    g_value_set_boxed (value, adw_flap_get_reveal_params (self));
     break;
   case PROP_REVEAL_PROGRESS:
     g_value_set_double (value, adw_flap_get_reveal_progress (self));
@@ -1177,8 +1181,8 @@ adw_flap_set_property (GObject      *object,
   case PROP_REVEAL_FLAP:
     adw_flap_set_reveal_flap (self, g_value_get_boolean (value));
     break;
-  case PROP_REVEAL_DURATION:
-    adw_flap_set_reveal_duration (self, g_value_get_uint (value));
+  case PROP_REVEAL_PARAMS:
+    adw_flap_set_reveal_params (self, g_value_get_boxed (value));
     break;
   case PROP_FOLD_POLICY:
     adw_flap_set_fold_policy (self, g_value_get_enum (value));
@@ -1335,19 +1339,24 @@ adw_flap_class_init (AdwFlapClass *klass)
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwFlap:reveal-duration: (attributes org.gtk.Property.get=adw_flap_get_reveal_duration org.gtk.Property.set=adw_flap_set_reveal_duration)
+   * AdwFlap:reveal-params: (attributes org.gtk.Property.get=adw_flap_get_reveal_params org.gtk.Property.set=adw_flap_set_reveal_params)
    *
-   * The reveal transition animation duration, in milliseconds.
+   * The reveal animation spring parameters.
+   *
+   * The default value is equivalent to:
+   *
+   * ```c
+   * adw_spring_params_new (1, 0.5, 500)
+   * ```
    *
    * Since: 1.0
    */
-  props[PROP_REVEAL_DURATION] =
-    g_param_spec_uint ("reveal-duration",
-                       "Reveal Duration",
-                       "The reveal transition animation duration, in milliseconds",
-                       0, G_MAXINT,
-                       250,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+  props[PROP_REVEAL_PARAMS] =
+    g_param_spec_boxed ("reveal-params",
+                        "Reveal Parameters",
+                        "The reveal animation spring parameters",
+                        ADW_TYPE_SPRING_PARAMS,
+                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:reveal-progress: (attributes org.gtk.Property.get=adw_flap_get_reveal_progress)
@@ -1563,7 +1572,6 @@ adw_flap_init (AdwFlap *self)
   self->folded = FALSE;
   self->fold_progress = 0;
   self->fold_duration = 250;
-  self->reveal_duration = 250;
   self->modal = TRUE;
   self->swipe_to_open = TRUE;
   self->swipe_to_close = TRUE;
@@ -1610,7 +1618,10 @@ adw_flap_init (AdwFlap *self)
                                               set_reveal_progress,
                                               self, NULL);
   self->reveal_animation =
-    adw_timed_animation_new (GTK_WIDGET (self), 0, 0, 0, target);
+    adw_spring_animation_new (GTK_WIDGET (self), 0, 0,
+                             adw_spring_params_new (1, 0.5, 500), target);
+  adw_spring_animation_set_clamp (ADW_SPRING_ANIMATION (self->reveal_animation),
+                                  TRUE);
 
   g_signal_connect_swapped (self->reveal_animation, "done",
                             G_CALLBACK (reveal_animation_done_cb), self);
@@ -2044,48 +2055,50 @@ adw_flap_set_reveal_flap (AdwFlap  *self,
 {
   g_return_if_fail (ADW_IS_FLAP (self));
 
-  set_reveal_flap (self, reveal_flap, self->reveal_duration);
+  set_reveal_flap (self, reveal_flap, 0);
 }
 
 /**
- * adw_flap_get_reveal_duration: (attributes org.gtk.Method.get_property=reveal-progress)
+ * adw_flap_get_reveal_params: (attributes org.gtk.Method.get_property=reveal-params)
  * @self: a `AdwFlap`
  *
- * Returns the duration that reveal transitions in @self will take.
+ * Gets the reveal animation spring parameters for @self.
  *
- * Returns: the reveal transition duration
+ * Returns: the reveal animation parameters
  *
  * Since: 1.0
  */
-guint
-adw_flap_get_reveal_duration (AdwFlap *self)
+AdwSpringParams *
+adw_flap_get_reveal_params (AdwFlap *self)
 {
-  g_return_val_if_fail (ADW_IS_FLAP (self), 0);
+  g_return_val_if_fail (ADW_IS_FLAP (self), NULL);
 
-  return self->reveal_duration;
+  return adw_spring_animation_get_spring_params (ADW_SPRING_ANIMATION (self->reveal_animation));
 }
 
 /**
- * adw_flap_set_reveal_duration: (attributes org.gtk.Method.set_property=reveal-progress)
+ * adw_flap_set_reveal_params: (attributes org.gtk.Method.set_property=reveal-params)
  * @self: a `AdwFlap`
- * @duration: the new duration, in milliseconds
+ * @params: the new parameters
  *
- * Sets the duration that reveal transitions in @self will take.
+ * Sets the reveal animation spring parameters for @self.
  *
  * Since: 1.0
  */
 void
-adw_flap_set_reveal_duration (AdwFlap *self,
-                              guint    duration)
+adw_flap_set_reveal_params (AdwFlap         *self,
+                            AdwSpringParams *params)
 {
   g_return_if_fail (ADW_IS_FLAP (self));
+  g_return_if_fail (params != NULL);
 
-  if (self->reveal_duration == duration)
+  if (adw_flap_get_reveal_params (self) == params)
     return;
 
-  self->reveal_duration = duration;
+  adw_spring_animation_set_spring_params (ADW_SPRING_ANIMATION (self->reveal_animation),
+                                          params);
 
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVEAL_DURATION]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_REVEAL_PARAMS]);
 }
 
 /**
@@ -2467,7 +2480,6 @@ adw_flap_get_fold_threshold_policy (AdwFlap *self)
 
   return self->fold_threshold_policy;
 }
-
 
 /**
  * adw_flap_set_fold_threshold_policy: (attributes org.gtk.Method.set_property=fold-threshold-policy)
