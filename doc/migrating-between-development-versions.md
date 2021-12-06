@@ -262,7 +262,7 @@ Neither the `.content` style class nor the `.boxed-list` style class work
 for [class@Gtk.ListView], as the widget cannot currently be used for the
 boxed list pattern.
 
-## Migrating from alpha 4 to alpha 5
+## Migrating from alpha 4 to beta 1
 
 #### Adapt to [class@Adw.SwipeTracker] API changes
 

@@ -1,3 +1,95 @@
+====================
+Version 1.0.0.beta.1
+====================
+
+- Build
+  - Depend on GTK 4.5.0.
+  - Depend on GLib 2.66.
+  - Fix building as a subproject.
+  - Remove unused dependencies.
+- Introduce AdwToastOverlay for showing in-app notifications
+- Introduce AdwAnimation - a basic animation API
+  - AdwTimedAnimation provides simple time-based animations.
+  - AdwSpringAnimation provides flexible animations based on spring
+    physics.
+  - Replace adw_ease_out_cubic() with adw_easing_ease().
+  - Make adw_lerp() public.
+- adw_init() now automatically calls gtk_init().
+- Use G_DEFINE_FINAL_TYPE if available.
+- Action Row
+  - Increase spacing between title and subtitle.
+- Carousel
+  - Use spring animations for scrolling, replace animation-duration with
+    scroll-params.
+  - Remove adw_carousel_scroll_to_full(), add 'animate' parameter to
+    adw_carousel_scroll_to() instead.
+- Flap
+  - Use spring animations for reveal, replace reveal-duration with
+    reveal-params.
+- Leaflet
+  - Rename can-swipe-back/forward to can-navigate-back/forward, make
+    them handle mouse back/forward buttons, back/forward keys, as well
+    as Alt+arrow shortcuts.
+  - Make child transitions use spring animations, replace
+    child-transition-duration with child-transition-params.
+- Preferences Page
+  - Remove adaptive margins - they never worked properly.
+- Preferences Window
+  - Rename can-swipe-back to can-navigate-back, following the equivalent
+    AdwLeaflet change.
+  - Add API to show toasts.
+- Swipe Tracker
+  - Move 'begin-swipe' signal to when the swipe actually starts instead
+    of when it's detected; add 'prepare' to replace it.
+  - Replace duration with velocity in the 'end-swipe' signal.
+- Status Page
+  - Update title label style.
+- Style Manager
+  - Set GtkSettings:gtk-application-prefer-dark-theme=true for dark.
+  - Properly reset enable-animations.
+- Stylesheet
+  - New style classes
+    - entry.success to match entry.warning and entry.error
+    - Generic .success to match .warning and .error.
+    - checkbutton.selection-mode
+  - Tweak accent color in dark variant, use accent_color/accent_bg_color
+    more consistently.
+  - Consistently support regular/bg/fg variants for success, warning
+    and error colors.
+  - Make menu items taller.
+  - Make checked buttons more visible.
+  - Update entry style.
+  - Update GtkTreeView and GtkColumnView header style.
+  - Tweak check button style.
+  - Update window and popover shadows.
+  - Make boxed lists use shadows as well.
+  - Use white accent color for .osd.
+  - Use tabular figures for GtkCalendar.
+  - Support .navigation-sidebar in combination with .background.
+  - Remove the GtkButton .outline class.
+  - Remove .content-view check buttons.
+  - Fix check hover styles in menus.
+- Tab Bar
+  - Fix needs-attention indicators.
+- Tab View
+  - Remove shortcut-widget, use managed shortcuts instead.
+- View Stack
+  - Layout fixes
+  - Remove crossfade transition.
+- View Switcher
+  - Update styles.
+  - Fix measure() criticals.
+  - Fix a crash when hiding the visible child.
+  - Fix outlines in high contrast mode.
+- View Switcher Title:
+  - Always hide switcher in mobile.
+- Various fixes and cleanups.
+- Translation updates:
+  - Russian
+  - Spanish
+  - Swedish
+  - Ukrainian
+
 =====================
 Version 1.0.0.alpha.4
 =====================
