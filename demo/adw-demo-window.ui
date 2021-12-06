@@ -1042,7 +1042,7 @@
                                             </child>
                                             <child>
                                               <object class="GtkLabel">
-                                                <property name="label" translatable="yes">Simple timed transitions.</property>
+                                                <property name="label" translatable="yes">Simple transitions.</property>
                                                 <property name="justify">center</property>
                                                 <property name="use_markup">true</property>
                                                 <property name="wrap">True</property>
@@ -1070,6 +1070,9 @@
                                                     <lookup name="state" type="AdwAnimation">
                                                       <lookup name="timed-animation">AdwDemoWindow</lookup>
                                                     </lookup>
+                                                    <lookup name="state" type="AdwAnimation">
+                                                      <lookup name="spring-animation">AdwDemoWindow</lookup>
+                                                    </lookup>
                                                   </closure>
                                                 </binding>
                                                 <signal name="clicked" handler="timed_animation_reset" swapped="true"/>
@@ -1085,6 +1088,9 @@
                                                   <closure type="gchararray" function="get_play_pause_icon_name">
                                                     <lookup name="state" type="AdwAnimation">
                                                       <lookup name="timed-animation">AdwDemoWindow</lookup>
+                                                    </lookup>
+                                                    <lookup name="state" type="AdwAnimation">
+                                                      <lookup name="spring-animation">AdwDemoWindow</lookup>
                                                     </lookup>
                                                   </closure>
                                                 </binding>
@@ -1118,86 +1124,233 @@
                                           </object>
                                         </child>
                                         <child>
+                                          <object class="AdwPreferencesGroup">
+                                            <child>
+                                              <object class="GtkStackSwitcher">
+                                                <property name="stack">animation_preferences_stack</property>
+                                                <property name="margin-bottom">32</property>
+                                                <property name="halign">center</property>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
+                                        <child>
                                           <object class="AdwClamp">
                                             <property name="maximum-size">400</property>
                                             <property name="tightening-threshold">300</property>
                                             <property name="child">
-                                              <object class="AdwPreferencesGroup">
+                                              <object class="GtkStack" id="animation_preferences_stack">
+                                                <signal name="notify::visible-child-name" handler="timed_animation_reset" swapped="true"/>
                                                 <child>
-                                                  <object class="AdwComboRow" id="timed_animation_easing">
-                                                    <property name="title" translatable="yes">Easing</property>
-                                                    <property name="model">
-                                                      <object class="AdwEnumListModel">
-                                                        <property name="enum-type">AdwEasing</property>
+                                                  <object class="GtkStackPage">
+                                                    <property name="title" translatable="yes">Timed</property>
+                                                    <property name="name">Timed</property>
+                                                    <property name="child">
+                                                      <object class="AdwPreferencesGroup">
+                                                        <child>
+                                                          <object class="AdwComboRow" id="timed_animation_easing">
+                                                            <property name="title" translatable="yes">Easing</property>
+                                                            <property name="model">
+                                                              <object class="AdwEnumListModel">
+                                                                <property name="enum-type">AdwEasing</property>
+                                                              </object>
+                                                            </property>
+                                                            <property name="expression">
+                                                              <closure type="gchararray" function="animations_easing_name"/>
+                                                            </property>
+                                                          </object>
+                                                        </child>
+                                                        <child>
+                                                          <object class="AdwActionRow">
+                                                            <property name="title" translatable="yes">Duration</property>
+                                                            <child>
+                                                              <object class="GtkSpinButton" id="timed_animation_duration">
+                                                                <property name="valign">center</property>
+                                                                <property name="numeric">True</property>
+                                                                <property name="adjustment">
+                                                                  <object class="GtkAdjustment">
+                                                                    <property name="lower">100</property>
+                                                                    <property name="upper">4000</property>
+                                                                    <property name="value">500</property>
+                                                                    <property name="page-increment">100</property>
+                                                                    <property name="step-increment">50</property>
+                                                                  </object>
+                                                                </property>
+                                                              </object>
+                                                            </child>
+                                                          </object>
+                                                        </child>
+                                                        <child>
+                                                          <object class="AdwActionRow">
+                                                            <property name="title" translatable="yes">Repeat count</property>
+                                                            <child>
+                                                              <object class="GtkSpinButton" id="timed_animation_repeat_count">
+                                                                <property name="valign">center</property>
+                                                                <property name="numeric">True</property>
+                                                                <property name="adjustment">
+                                                                  <object class="GtkAdjustment">
+                                                                    <property name="lower">0</property>
+                                                                    <property name="upper">10</property>
+                                                                    <property name="value">1</property>
+                                                                    <property name="page-increment">1</property>
+                                                                    <property name="step-increment">1</property>
+                                                                  </object>
+                                                                </property>
+                                                              </object>
+                                                            </child>
+                                                          </object>
+                                                        </child>
+                                                        <child>
+                                                          <object class="AdwActionRow">
+                                                            <property name="title" translatable="yes">Reverse</property>
+                                                            <property name="activatable_widget">timed_animation_reverse</property>
+                                                            <child>
+                                                              <object class="GtkSwitch" id="timed_animation_reverse">
+                                                                <property name="valign">center</property>
+                                                                <property name="state">False</property>
+                                                              </object>
+                                                            </child>
+                                                          </object>
+                                                        </child>
+                                                        <child>
+                                                          <object class="AdwActionRow">
+                                                            <property name="title" translatable="yes">Alternate</property>
+                                                            <property name="activatable_widget">timed_animation_alternate</property>
+                                                            <child>
+                                                              <object class="GtkSwitch" id="timed_animation_alternate">
+                                                                <property name="valign">center</property>
+                                                                <property name="state">False</property>
+                                                              </object>
+                                                            </child>
+                                                          </object>
+                                                        </child>
                                                       </object>
                                                     </property>
-                                                    <property name="expression">
-                                                      <closure type="gchararray" function="animations_easing_name"/>
+                                                  </object>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkStackPage">
+                                                    <property name="title" translatable="yes">Spring</property>
+                                                    <property name="name">Spring</property>
+                                                    <property name="child">
+                                                      <object class="AdwPreferencesGroup">
+                                                        <child>
+                                                          <object class="AdwActionRow">
+                                                            <property name="title" translatable="yes">Initial velocity</property>
+                                                            <child>
+                                                              <object class="GtkSpinButton" id="spring_animation_velocity">
+                                                                <property name="valign">center</property>
+                                                                <property name="numeric">True</property>
+                                                                <property name="adjustment">
+                                                                  <object class="GtkAdjustment">
+                                                                    <property name="lower">-1000</property>
+                                                                    <property name="upper">1000</property>
+                                                                    <property name="value">0</property>
+                                                                    <property name="page-increment">10</property>
+                                                                    <property name="step-increment">1</property>
+                                                                  </object>
+                                                                </property>
+                                                              </object>
+                                                            </child>
+                                                          </object>
+                                                        </child>
+                                                        <child>
+                                                          <object class="AdwActionRow">
+                                                            <property name="title" translatable="yes">Damping</property>
+                                                            <child>
+                                                              <object class="GtkSpinButton" id="spring_animation_damping">
+                                                                <property name="valign">center</property>
+                                                                <property name="numeric">True</property>
+                                                                <property name="adjustment">
+                                                                  <object class="GtkAdjustment">
+                                                                    <property name="lower">0</property>
+                                                                    <property name="upper">1000</property>
+                                                                    <property name="value">10</property>
+                                                                    <property name="page-increment">10</property>
+                                                                    <property name="step-increment">1</property>
+                                                                  </object>
+                                                                </property>
+                                                                <signal name="value-changed" handler="notify_spring_params_change" swapped="yes"/>
+                                                              </object>
+                                                            </child>
+                                                          </object>
+                                                        </child>
+                                                        <child>
+                                                          <object class="AdwActionRow">
+                                                            <property name="title" translatable="yes">Mass</property>
+                                                            <child>
+                                                              <object class="GtkSpinButton" id="spring_animation_mass">
+                                                                <property name="valign">center</property>
+                                                                <property name="numeric">True</property>
+                                                                <property name="adjustment">
+                                                                  <object class="GtkAdjustment">
+                                                                    <property name="lower">0</property>
+                                                                    <property name="upper">100</property>
+                                                                    <property name="value">1</property>
+                                                                    <property name="page-increment">10</property>
+                                                                    <property name="step-increment">1</property>
+                                                                  </object>
+                                                                </property>
+                                                                <signal name="value-changed" handler="notify_spring_params_change" swapped="yes"/>
+                                                              </object>
+                                                            </child>
+                                                          </object>
+                                                        </child>
+                                                        <child>
+                                                          <object class="AdwActionRow">
+                                                            <property name="title" translatable="yes">Stiffness</property>
+                                                            <child>
+                                                              <object class="GtkSpinButton" id="spring_animation_stiffness">
+                                                                <property name="valign">center</property>
+                                                                <property name="numeric">True</property>
+                                                                <property name="adjustment">
+                                                                  <object class="GtkAdjustment">
+                                                                    <property name="lower">0</property>
+                                                                    <property name="upper">1000</property>
+                                                                    <property name="value">100</property>
+                                                                    <property name="page-increment">10</property>
+                                                                    <property name="step-increment">1</property>
+                                                                  </object>
+                                                                </property>
+                                                                <signal name="value-changed" handler="notify_spring_params_change" swapped="yes"/>
+                                                              </object>
+                                                            </child>
+                                                          </object>
+                                                        </child>
+                                                        <child>
+                                                          <object class="AdwActionRow">
+                                                            <property name="title" translatable="yes">Precision</property>
+                                                            <child>
+                                                              <object class="GtkSpinButton" id="spring_animation_precision">
+                                                                <property name="valign">center</property>
+                                                                <property name="numeric">True</property>
+                                                                <property name="digits">5</property>
+                                                                <property name="adjustment">
+                                                                  <object class="GtkAdjustment">
+                                                                    <property name="lower">0.0001</property>
+                                                                    <property name="upper">0.01</property>
+                                                                    <property name="value">0.001</property>
+                                                                    <property name="page-increment">0.001</property>
+                                                                    <property name="step-increment">0.001</property>
+                                                                  </object>
+                                                                </property>
+                                                              </object>
+                                                            </child>
+                                                          </object>
+                                                        </child>
+                                                        <child>
+                                                          <object class="AdwActionRow">
+                                                            <property name="title" translatable="yes">Clamp</property>
+                                                            <property name="activatable-widget">spring_animation_clamp_switch</property>
+                                                            <child>
+                                                              <object class="GtkSwitch" id="spring_animation_clamp_switch">
+                                                                <property name="valign">center</property>
+                                                              </object>
+                                                            </child>
+                                                          </object>
+                                                        </child>
+                                                      </object>
                                                     </property>
-                                                  </object>
-                                                </child>
-                                                <child>
-                                                  <object class="AdwActionRow">
-                                                    <property name="title" translatable="yes">Duration</property>
-                                                    <child>
-                                                      <object class="GtkSpinButton" id="timed_animation_duration">
-                                                        <property name="valign">center</property>
-                                                        <property name="numeric">True</property>
-                                                        <property name="adjustment">
-                                                          <object class="GtkAdjustment">
-                                                            <property name="lower">100</property>
-                                                            <property name="upper">4000</property>
-                                                            <property name="value">500</property>
-                                                            <property name="page-increment">100</property>
-                                                            <property name="step-increment">50</property>
-                                                          </object>
-                                                        </property>
-                                                      </object>
-                                                    </child>
-                                                  </object>
-                                                </child>
-                                                <child>
-                                                  <object class="AdwActionRow">
-                                                    <property name="title" translatable="yes">Repeat count</property>
-                                                    <child>
-                                                      <object class="GtkSpinButton" id="timed_animation_repeat_count">
-                                                        <property name="valign">center</property>
-                                                        <property name="numeric">True</property>
-                                                        <property name="adjustment">
-                                                          <object class="GtkAdjustment">
-                                                            <property name="lower">0</property>
-                                                            <property name="upper">10</property>
-                                                            <property name="value">1</property>
-                                                            <property name="page-increment">1</property>
-                                                            <property name="step-increment">1</property>
-                                                          </object>
-                                                        </property>
-                                                      </object>
-                                                    </child>
-                                                  </object>
-                                                </child>
-                                                <child>
-                                                  <object class="AdwActionRow">
-                                                    <property name="title" translatable="yes">Reverse</property>
-                                                    <property name="activatable_widget">timed_animation_reverse</property>
-                                                    <child>
-                                                      <object class="GtkSwitch" id="timed_animation_reverse">
-                                                        <property name="valign">center</property>
-                                                        <property name="state">False</property>
-                                                      </object>
-                                                    </child>
-                                                  </object>
-                                                </child>
-                                                <child>
-                                                  <object class="AdwActionRow">
-                                                    <property name="title" translatable="yes">Alternate</property>
-                                                    <property name="activatable_widget">timed_animation_alternate</property>
-                                                    <child>
-                                                      <object class="GtkSwitch" id="timed_animation_alternate">
-                                                        <property name="valign">center</property>
-                                                        <property name="state">False</property>
-                                                      </object>
-                                                    </child>
                                                   </object>
                                                 </child>
                                               </object>
