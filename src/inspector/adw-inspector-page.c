@@ -94,7 +94,8 @@ adw_inspector_page_get_property (GObject    *object,
 
   switch (prop_id) {
   case PROP_TITLE:
-    g_value_set_string (value, "Libadwaita");
+    /* Translators: The name of the library, not the stylesheet */
+    g_value_set_string (value, _("Adwaita"));
     break;
   case PROP_OBJECT:
     g_value_set_object (value, self->object);
