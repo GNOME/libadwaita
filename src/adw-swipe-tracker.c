@@ -448,7 +448,7 @@ gesture_end (AdwSwipeTracker *self,
   if (self->progress != end_progress)
     duration = CLAMP (duration, MIN_ANIMATION_DURATION, max_duration);
 
-  g_signal_emit (self, signals[SIGNAL_END_SWIPE], 0, duration, end_progress);
+  g_signal_emit (self, signals[SIGNAL_END_SWIPE], 0, duration, calculate_velocity (self), end_progress);
 
   if (!self->cancelled)
     self->state = ADW_SWIPE_TRACKER_STATE_FINISHING;
@@ -1152,6 +1152,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    * AdwSwipeTracker::end-swipe:
    * @self: the `AdwSwipeTracker` instance
    * @duration: snap-back animation duration in milliseconds
+   * @velocity: the velocity of the swipe
    * @to: the progress value to animate to
    *
    * This signal is emitted as soon as the gesture has stopped.
@@ -1165,8 +1166,8 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                   0,
                   NULL, NULL, NULL,
                   G_TYPE_NONE,
-                  2,
-                  G_TYPE_UINT, G_TYPE_DOUBLE);
+                  3,
+                  G_TYPE_UINT, G_TYPE_DOUBLE, G_TYPE_DOUBLE);
 }
 
 static void
