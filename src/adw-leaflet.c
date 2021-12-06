@@ -12,10 +12,11 @@
 #include "adw-fold-threshold-policy.h"
 #include "adw-macros-private.h"
 #include "adw-leaflet.h"
-#include "adw-timed-animation.h"
 #include "adw-shadow-helper-private.h"
+#include "adw-spring-animation.h"
 #include "adw-swipeable.h"
 #include "adw-swipe-tracker-private.h"
+#include "adw-timed-animation.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -75,7 +76,7 @@ enum {
   PROP_VISIBLE_CHILD_NAME,
   PROP_TRANSITION_TYPE,
   PROP_MODE_TRANSITION_DURATION,
-  PROP_CHILD_TRANSITION_DURATION,
+  PROP_CHILD_TRANSITION_PARAMS,
   PROP_CHILD_TRANSITION_RUNNING,
   PROP_CAN_NAVIGATE_BACK,
   PROP_CAN_NAVIGATE_FORWARD,
@@ -156,8 +157,6 @@ struct _AdwLeaflet {
 
   /* Child transition variables. */
   struct {
-    guint duration;
-
     double progress;
 
     gboolean is_gesture_active;
@@ -672,7 +671,7 @@ set_visible_child (AdwLeaflet     *self,
   GtkPanDirection transition_direction = GTK_PAN_DIRECTION_LEFT;
   guint old_pos = GTK_INVALID_LIST_POSITION;
   guint new_pos = GTK_INVALID_LIST_POSITION;
-  guint transition_duration = self->child_transition.duration;
+  gboolean skip_transition = FALSE;
 
   /* If we are being destroyed, do not bother with transitions and
    * notifications.
@@ -758,7 +757,7 @@ set_visible_child (AdwLeaflet     *self,
   }
 
   if (page == NULL || self->last_visible_child == NULL)
-    transition_duration = 0;
+    skip_transition = TRUE;
   else {
     gboolean new_first = FALSE;
     GList *l;
@@ -787,15 +786,16 @@ set_visible_child (AdwLeaflet     *self,
     self->child_transition.is_cancelled = FALSE;
 
     if (!self->child_transition.is_gesture_active) {
-      adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->child_transition.animation),
-                                          0);
-      adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->child_transition.animation),
-                                        1);
-      adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->child_transition.animation),
-                                        transition_duration);
+      adw_spring_animation_set_value_from (ADW_SPRING_ANIMATION (self->child_transition.animation), 0);
+      adw_spring_animation_set_value_to (ADW_SPRING_ANIMATION (self->child_transition.animation), 1);
+      adw_spring_animation_set_initial_velocity (ADW_SPRING_ANIMATION (self->child_transition.animation), 0);
 
       set_child_transition_running (self, TRUE);
-      adw_animation_play (self->child_transition.animation);
+
+      if (skip_transition)
+        adw_animation_skip (self->child_transition.animation);
+      else
+        adw_animation_play (self->child_transition.animation);
     }
   }
 
@@ -1472,14 +1472,19 @@ end_swipe_cb (AdwSwipeTracker *tracker,
  if (!self->child_transition.is_gesture_active)
     return;
 
-  adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->child_transition.animation),
+  adw_spring_animation_set_value_from (ADW_SPRING_ANIMATION (self->child_transition.animation),
                                       self->child_transition.progress);
-  adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->child_transition.animation),
+  adw_spring_animation_set_value_to (ADW_SPRING_ANIMATION (self->child_transition.animation),
                                     ABS (to));
   self->child_transition.is_cancelled = (to == 0);
 
-  adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->child_transition.animation),
-                                    duration);
+  if (!G_APPROX_VALUE (self->child_transition.progress, ABS (to), FLT_EPSILON))
+    adw_spring_animation_set_initial_velocity (ADW_SPRING_ANIMATION (self->child_transition.animation),
+                                               -velocity / adw_swipeable_get_distance (ADW_SWIPEABLE (self)));
+  else
+    adw_spring_animation_set_initial_velocity (ADW_SPRING_ANIMATION (self->child_transition.animation),
+                                               -velocity);
+
   adw_animation_play (self->child_transition.animation);
 
   self->child_transition.is_gesture_active = FALSE;
@@ -2000,8 +2005,8 @@ adw_leaflet_get_property (GObject    *object,
   case PROP_MODE_TRANSITION_DURATION:
     g_value_set_uint (value, adw_leaflet_get_mode_transition_duration (self));
     break;
-  case PROP_CHILD_TRANSITION_DURATION:
-    g_value_set_uint (value, adw_leaflet_get_child_transition_duration (self));
+  case PROP_CHILD_TRANSITION_PARAMS:
+    g_value_set_boxed (value, adw_leaflet_get_child_transition_params (self));
     break;
   case PROP_CHILD_TRANSITION_RUNNING:
     g_value_set_boolean (value, adw_leaflet_get_child_transition_running (self));
@@ -2053,8 +2058,8 @@ adw_leaflet_set_property (GObject      *object,
   case PROP_MODE_TRANSITION_DURATION:
     adw_leaflet_set_mode_transition_duration (self, g_value_get_uint (value));
     break;
-  case PROP_CHILD_TRANSITION_DURATION:
-    adw_leaflet_set_child_transition_duration (self, g_value_get_uint (value));
+  case PROP_CHILD_TRANSITION_PARAMS:
+    adw_leaflet_set_child_transition_params (self, g_value_get_boxed (value));
     break;
   case PROP_CAN_NAVIGATE_BACK:
     adw_leaflet_set_can_navigate_back (self, g_value_get_boolean (value));
@@ -2254,18 +2259,24 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwLeaflet:child-transition-duration: (attributes org.gtk.Property.get=adw_leaflet_get_child_transition_duration org.gtk.Property.set=adw_leaflet_set_child_transition_duration)
+   * AdwLeaflet:child-transition-params: (attributes org.gtk.Property.get=adw_leaflet_get_child_transition_params org.gtk.Property.set=adw_leaflet_set_child_transition_params)
    *
-   * The child transition animation duration, in milliseconds.
+   * The child transition spring parameters.
+   *
+   * The default value is equivalent to:
+   *
+   * ```c
+   * adw_spring_params_new (1, 0.5, 500)
+   * ```
    *
    * Since: 1.0
    */
-  props[PROP_CHILD_TRANSITION_DURATION] =
-    g_param_spec_uint ("child-transition-duration",
-                       "Child transition duration",
-                       "The child transition animation duration, in milliseconds",
-                       0, G_MAXUINT, 200,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+  props[PROP_CHILD_TRANSITION_PARAMS] =
+    g_param_spec_boxed ("child-transition-params",
+                        "Child transition parameters",
+                        "The child transition spring parameters",
+                        ADW_TYPE_SPRING_PARAMS,
+                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:child-transition-running: (attributes org.gtk.Property.get=adw_leaflet_get_child_transition_running)
@@ -2418,7 +2429,6 @@ adw_leaflet_init (AdwLeaflet *self)
   self->homogeneous = TRUE;
   self->transition_type = ADW_LEAFLET_TRANSITION_TYPE_OVER;
   self->mode_transition.duration = 250;
-  self->child_transition.duration = 200;
   self->mode_transition.current_pos = 1.0;
   self->can_unfold = TRUE;
 
@@ -2448,8 +2458,10 @@ adw_leaflet_init (AdwLeaflet *self)
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc) child_transition_cb,
                                               self, NULL);
   self->child_transition.animation =
-    adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
-                             self->child_transition.duration, target);
+    adw_spring_animation_new (GTK_WIDGET (self), 0, 1,
+                              adw_spring_params_new (1, 0.5, 500), target);
+  adw_spring_animation_set_clamp (ADW_SPRING_ANIMATION (self->child_transition.animation),
+                                  TRUE);
   g_signal_connect_swapped (self->child_transition.animation, "done",
                             G_CALLBACK (child_transition_done_cb), self);
 }
@@ -3160,48 +3172,46 @@ adw_leaflet_set_mode_transition_duration (AdwLeaflet *self,
 }
 
 /**
- * adw_leaflet_get_child_transition_duration: (attributes org.gtk.Method.get_property=child-transition-duration)
+ * adw_leaflet_get_child_transition_params: (attributes org.gtk.Method.get_property=child-transition-params)
  * @self: a `AdwLeaflet`
  *
- * Gets the child transition animation duration for @self.
+ * Gets the child transition spring parameters for @self.
  *
- * Returns: the child transition duration, in milliseconds
+ * Returns: the child transition parameters
  *
  * Since: 1.0
  */
-guint
-adw_leaflet_get_child_transition_duration (AdwLeaflet *self)
+AdwSpringParams *
+adw_leaflet_get_child_transition_params (AdwLeaflet *self)
 {
-  g_return_val_if_fail (ADW_IS_LEAFLET (self), 0);
+  g_return_val_if_fail (ADW_IS_LEAFLET (self), NULL);
 
-  return self->child_transition.duration;
+  return adw_spring_animation_get_spring_params (ADW_SPRING_ANIMATION (self->child_transition.animation));
 }
 
 /**
- * adw_leaflet_set_child_transition_duration: (attributes org.gtk.Method.set_property=child-transition-duration)
+ * adw_leaflet_set_child_transition_params: (attributes org.gtk.Method.set_property=child-transition-params)
  * @self: a `AdwLeaflet`
- * @duration: the new duration, in milliseconds
+ * @params: the new parameters
  *
- * Sets the child transition animation duration for @self.
+ * Sets the child transition spring parameters for @self.
  *
  * Since: 1.0
  */
 void
-adw_leaflet_set_child_transition_duration (AdwLeaflet *self,
-                                           guint       duration)
+adw_leaflet_set_child_transition_params (AdwLeaflet      *self,
+                                         AdwSpringParams *params)
 {
   g_return_if_fail (ADW_IS_LEAFLET (self));
+  g_return_if_fail (params != NULL);
 
-  if (self->child_transition.duration == duration)
+  if (adw_leaflet_get_child_transition_params (self) == params)
     return;
 
-  self->child_transition.duration = duration;
+  adw_spring_animation_set_spring_params (ADW_SPRING_ANIMATION (self->child_transition.animation),
+                                          params);
 
-  adw_timed_animation_set_duration (ADW_TIMED_ANIMATION (self->child_transition.animation),
-                                    duration);
-
-  g_object_notify_by_pspec (G_OBJECT (self),
-                            props[PROP_CHILD_TRANSITION_DURATION]);
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD_TRANSITION_PARAMS]);
 }
 
 /**

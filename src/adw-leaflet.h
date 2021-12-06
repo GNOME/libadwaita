@@ -16,6 +16,7 @@
 #include "adw-enums.h"
 #include "adw-fold-threshold-policy.h"
 #include "adw-navigation-direction.h"
+#include "adw-spring-params.h"
 
 G_BEGIN_DECLS
 
@@ -111,10 +112,10 @@ void  adw_leaflet_set_mode_transition_duration (AdwLeaflet *self,
                                                 guint       duration);
 
 ADW_AVAILABLE_IN_ALL
-guint adw_leaflet_get_child_transition_duration (AdwLeaflet *self);
+AdwSpringParams *adw_leaflet_get_child_transition_params (AdwLeaflet      *self);
 ADW_AVAILABLE_IN_ALL
-void  adw_leaflet_set_child_transition_duration (AdwLeaflet *self,
-                                                 guint       duration);
+void             adw_leaflet_set_child_transition_params (AdwLeaflet      *self,
+                                                          AdwSpringParams *params);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_leaflet_get_child_transition_running (AdwLeaflet *self);
