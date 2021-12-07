@@ -60,7 +60,7 @@
                           <object class="AdwPreferencesGroup">
                             <child>
                               <object class="AdwComboRow">
-                                <property name="title" translatable="yes">Fold policy</property>
+                                <property name="title" translatable="yes">Fold Policy</property>
                                 <property name="selected" bind-source="flap" bind-property="fold-policy" bind-flags="sync-create|bidirectional"/>
                                 <property name="model">
                                   <object class="AdwEnumListModel">
@@ -99,7 +99,7 @@
                           <object class="AdwPreferencesGroup">
                             <child>
                               <object class="AdwActionRow">
-                                <property name="title" translatable="yes">Flap position</property>
+                                <property name="title" translatable="yes">Flap Position</property>
                                 <child>
                                   <object class="GtkBox">
                                     <property name="valign">center</property>
@@ -125,7 +125,7 @@
                             </child>
                             <child>
                               <object class="AdwComboRow">
-                                <property name="title" translatable="yes">Transition type</property>
+                                <property name="title" translatable="yes">Transition Type</property>
                                 <property name="selected" bind-source="flap" bind-property="transition-type" bind-flags="sync-create|bidirectional"/>
                                 <property name="model">
                                   <object class="AdwEnumListModel">

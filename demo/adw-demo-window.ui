@@ -149,7 +149,7 @@
                                         <child>
                                           <object class="AdwComboRow" id="leaflet_transition_row">
                                             <property name="subtitle" translatable="yes">The type of transition to use when the leaflet adapts its size or when changing the visible child</property>
-                                            <property name="title" translatable="yes">Transition type</property>
+                                            <property name="title" translatable="yes">Transition Type</property>
                                             <signal name="notify::selected" handler="notify_leaflet_transition_cb" swapped="no"/>
                                             <property name="model">
                                               <object class="AdwEnumListModel">
@@ -199,7 +199,7 @@
                                       <object class="AdwPreferencesGroup">
                                         <child>
                                           <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Maximum width</property>
+                                            <property name="title" translatable="yes">Maximum Width</property>
                                             <child>
                                               <object class="GtkSpinButton">
                                                 <property name="adjustment">clamp_maximum_size_adjustment</property>
@@ -210,7 +210,7 @@
                                         </child>
                                         <child>
                                           <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Tightening threshold</property>
+                                            <property name="title" translatable="yes">Tightening Threshold</property>
                                             <child>
                                               <object class="GtkSpinButton">
                                                 <property name="adjustment">clamp_tightening_threshold_adjustment</property>
@@ -299,7 +299,7 @@
                                             <property name="title" translatable="yes">Combo Rows</property>
                                             <child>
                                               <object class="AdwComboRow" id="combo_row">
-                                                <property name="title" translatable="yes">Combo row</property>
+                                                <property name="title" translatable="yes">Combo Row</property>
                                                 <property name="model">
                                                   <object class="GtkStringList">
                                                     <items>
@@ -314,7 +314,7 @@
                                             <child>
                                               <object class="AdwComboRow" id="enum_combo_row">
                                                 <property name="subtitle" translatable="yes">This combo row was created from an enumeration</property>
-                                                <property name="title" translatable="yes">Enumeration combo row</property>
+                                                <property name="title" translatable="yes">Enumeration Combo Row</property>
                                                 <property name="model">
                                                   <object class="AdwEnumListModel">
                                                     <property name="enum-type">GtkLicense</property>
@@ -332,22 +332,22 @@
                                             <property name="title" translatable="yes">Expander Rows</property>
                                             <child>
                                               <object class="AdwExpanderRow" id="expander_row">
-                                                <property name="title" translatable="yes">Expander row</property>
+                                                <property name="title" translatable="yes">Expander Row</property>
                                                 <child>
                                                   <object class="AdwActionRow">
-                                                    <property name="title" translatable="yes">A nested row</property>
+                                                    <property name="title" translatable="yes">A Nested Row</property>
                                                   </object>
                                                 </child>
                                                 <child>
                                                   <object class="AdwActionRow">
-                                                    <property name="title" translatable="yes">Another nested row</property>
+                                                    <property name="title" translatable="yes">Another Nested Row</property>
                                                   </object>
                                                 </child>
                                               </object>
                                             </child>
                                             <child>
                                               <object class="AdwExpanderRow" id="action_expander_row">
-                                                <property name="title" translatable="yes">Expander row with an action</property>
+                                                <property name="title" translatable="yes">Expander Row With an Action</property>
                                                 <child type="action">
                                                   <object class="GtkButton">
                                                     <property name="valign">center</property>
@@ -359,12 +359,12 @@
                                                 </child>
                                                 <child>
                                                   <object class="AdwActionRow">
-                                                    <property name="title" translatable="yes">A nested row</property>
+                                                    <property name="title" translatable="yes">A Nested Row</property>
                                                   </object>
                                                 </child>
                                                 <child>
                                                   <object class="AdwActionRow">
-                                                    <property name="title" translatable="yes">Another nested row</property>
+                                                    <property name="title" translatable="yes">Another Nested Row</property>
                                                   </object>
                                                 </child>
                                               </object>
@@ -372,15 +372,15 @@
                                             <child>
                                               <object class="AdwExpanderRow" id="enable_expander_row">
                                                 <property name="show_enable_switch">True</property>
-                                                <property name="title" translatable="yes">Toggleable expander row</property>
+                                                <property name="title" translatable="yes">Toggleable Expander Row</property>
                                                 <child>
                                                   <object class="AdwActionRow">
-                                                    <property name="title" translatable="yes">A nested row</property>
+                                                    <property name="title" translatable="yes">A Nested Row</property>
                                                   </object>
                                                 </child>
                                                 <child>
                                                   <object class="AdwActionRow">
-                                                    <property name="title" translatable="yes">Another nested row</property>
+                                                    <property name="title" translatable="yes">Another Nested Row</property>
                                                   </object>
                                                 </child>
                                               </object>
@@ -406,7 +406,7 @@
                                 <property name="description" translatable="yes">Widgets to switch the window's view.</property>
                                 <child>
                                   <object class="GtkButton">
-                                    <property name="label" translatable="yes">Run the demo</property>
+                                    <property name="label" translatable="yes">Run the Demo</property>
                                     <property name="halign">center</property>
                                     <signal name="clicked" handler="view_switcher_demo_clicked_cb" swapped="no"/>
                                     <style>
@@ -485,7 +485,7 @@
                                             </child>
                                             <child>
                                               <object class="AdwActionRow">
-                                                <property name="title" translatable="yes">Scroll wheel</property>
+                                                <property name="title" translatable="yes">Scroll Wheel</property>
                                                 <property name="activatable_widget">carousel_scroll_wheel</property>
                                                 <child>
                                                   <object class="GtkSwitch" id="carousel_scroll_wheel">
@@ -497,7 +497,7 @@
                                             </child>
                                             <child>
                                               <object class="AdwActionRow">
-                                                <property name="title" translatable="yes">Long swipes</property>
+                                                <property name="title" translatable="yes">Long Swipes</property>
                                                 <property name="activatable_widget">carousel_long_swipes</property>
                                                 <child>
                                                   <object class="GtkSwitch" id="carousel_long_swipes">
@@ -512,11 +512,11 @@
                                     </child>
                                     <child>
                                       <object class="AdwStatusPage">
-                                        <property name="title" translatable="yes">Another page</property>
+                                        <property name="title" translatable="yes">Another Page</property>
                                         <property name="hexpand">True</property>
                                         <property name="child">
                                           <object class="GtkButton">
-                                            <property name="label" translatable="yes">_Return to the first page</property>
+                                            <property name="label" translatable="yes">_Return to the First Page</property>
                                             <property name="use-underline">True</property>
                                             <property name="halign">center</property>
                                             <signal name="clicked" handler="carousel_return_clicked_cb" swapped="no"/>
@@ -643,7 +643,7 @@
                                                     </child>
                                                     <child>
                                                       <object class="AdwActionRow">
-                                                        <property name="title" translatable="yes">Show initials</property>
+                                                        <property name="title" translatable="yes">Show Initials</property>
                                                         <property name="activatable_widget">avatar_show_initials</property>
                                                         <child>
                                                           <object class="GtkSwitch" id="avatar_show_initials">
@@ -703,7 +703,7 @@
                                                     </child>
                                                     <child>
                                                       <object class="AdwActionRow">
-                                                        <property name="title" translatable="yes">Export to file</property>
+                                                        <property name="title" translatable="yes">Export to File</property>
                                                         <child>
                                                           <object class="GtkButton" id="avatar_save_file">
                                                             <property name="valign">center</property>
@@ -749,7 +749,7 @@
                                 <property name="description" translatable="yes">A widget showing a flap next to or above the content.</property>
                                 <property name="child">
                                   <object class="GtkButton">
-                                    <property name="label" translatable="yes">Run the demo</property>
+                                    <property name="label" translatable="yes">Run the Demo</property>
                                     <property name="halign">center</property>
                                     <signal name="clicked" handler="flap_demo_clicked_cb" swapped="no"/>
                                     <style>
@@ -772,7 +772,7 @@
                                 <property name="description" translatable="yes">A modern tab widget.</property>
                                 <property name="child">
                                   <object class="GtkButton">
-                                    <property name="label" translatable="yes">Run the demo</property>
+                                    <property name="label" translatable="yes">Run the Demo</property>
                                     <property name="halign">center</property>
                                     <signal name="clicked" handler="tab_view_demo_clicked_cb" swapped="no"/>
                                     <style>
@@ -908,7 +908,7 @@
                                 <property name="description" translatable="yes">Various widget styles available for use.</property>
                                 <property name="child">
                                   <object class="GtkButton">
-                                    <property name="label" translatable="yes">Run the demo</property>
+                                    <property name="label" translatable="yes">Run the Demo</property>
                                     <property name="halign">center</property>
                                     <signal name="clicked" handler="style_classes_demo_clicked_cb" swapped="no"/>
                                     <style>
@@ -937,7 +937,7 @@
                                       <object class="AdwPreferencesGroup">
                                         <child>
                                           <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Simple toast</property>
+                                            <property name="title" translatable="yes">Simple Toast</property>
                                             <child>
                                               <object class="GtkButton">
                                                 <property name="valign">center</property>
@@ -949,7 +949,7 @@
                                         </child>
                                         <child>
                                           <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Toast with an action</property>
+                                            <property name="title" translatable="yes">Toast With an Action</property>
                                             <child>
                                               <object class="GtkButton">
                                                 <property name="valign">center</property>
@@ -971,7 +971,7 @@
                                         </child>
                                         <child>
                                           <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Toast with a long title</property>
+                                            <property name="title" translatable="yes">Toast With a Long Title</property>
                                             <child>
                                               <object class="GtkButton">
                                                 <property name="valign">center</property>
@@ -1182,7 +1182,7 @@
                                                         </child>
                                                         <child>
                                                           <object class="AdwActionRow">
-                                                            <property name="title" translatable="yes">Repeat count</property>
+                                                            <property name="title" translatable="yes">Repeat Count</property>
                                                             <child>
                                                               <object class="GtkSpinButton" id="timed_animation_repeat_count">
                                                                 <property name="valign">center</property>
@@ -1236,7 +1236,7 @@
                                                       <object class="AdwPreferencesGroup">
                                                         <child>
                                                           <object class="AdwActionRow">
-                                                            <property name="title" translatable="yes">Initial velocity</property>
+                                                            <property name="title" translatable="yes">Initial Velocity</property>
                                                             <child>
                                                               <object class="GtkSpinButton" id="spring_animation_velocity">
                                                                 <property name="valign">center</property>
@@ -1392,7 +1392,7 @@
                 <child>
                   <object class="AdwStatusPage">
                     <property name="vexpand">True</property>
-                    <property name="title" translatable="yes">Go back</property>
+                    <property name="title" translatable="yes">Go Back</property>
                     <property name="child">
                       <object class="GtkBox">
                         <property name="orientation">vertical</property>

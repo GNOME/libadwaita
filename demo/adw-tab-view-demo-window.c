@@ -61,7 +61,7 @@ text_to_tooltip (GBinding     *binding,
                  gpointer      user_data)
 {
   const char *title = g_value_get_string (input);
-  char *tooltip = g_markup_printf_escaped (_("An elaborate tooltip for <b>%s</b>"), title);
+  char *tooltip = g_markup_printf_escaped (_("Elaborate tooltip for <b>%s</b>"), title);
 
   g_value_take_string (output, tooltip);
 
