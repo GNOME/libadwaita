@@ -36,9 +36,9 @@ G_BEGIN_DECLS
 #define ADW_MICRO_VERSION              (@ADW_MICRO_VERSION@)
 
 /**
- * ADW_VERSION
+ * ADW_VERSION:
  *
- * Adw version.
+ * Adwaita version (e.g. 1.2.3).
  */
 #define ADW_VERSION                    (@ADW_VERSION@)
 
