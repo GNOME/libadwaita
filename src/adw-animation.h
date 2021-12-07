@@ -20,7 +20,7 @@
 
 G_BEGIN_DECLS
 
-#define ADW_DURATION_INFINITE G_MAXUINT
+#define ADW_DURATION_INFINITE (0xffffffffU)
 
 #define ADW_TYPE_ANIMATION (adw_animation_get_type())
 
