@@ -512,6 +512,8 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
    *
    * Estimated duration of the animation in milliseconds.
    *
+   * Can be [const@Adw.DURATION_INFINITE] if the spring damping is set to 0.
+   *
    * Since: 1.0
    */
   props[PROP_ESTIMATED_DURATION] =

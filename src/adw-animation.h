@@ -20,6 +20,14 @@
 
 G_BEGIN_DECLS
 
+/**
+ * ADW_DURATION_INFINITE:
+ *
+ * Indicates an [class@Adw.Animation] with an infinite duration.
+ *
+ * This value is mostly used internally.
+ */
+
 #define ADW_DURATION_INFINITE (0xffffffffU)
 
 #define ADW_TYPE_ANIMATION (adw_animation_get_type())
