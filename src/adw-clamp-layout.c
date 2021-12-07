@@ -9,6 +9,7 @@
 
 #include <math.h>
 
+#include "adw-animation-util.h"
 #include "adw-easing.h"
 #include "adw-macros-private.h"
 
@@ -120,37 +121,62 @@ adw_clamp_layout_set_property (GObject      *object,
   }
 }
 
-static int
-get_child_size (AdwClampLayout *self,
-                GtkWidget      *child,
-                int             for_size,
-                int            *child_minimum,
-                int            *child_maximum,
-                int            *lower_threshold,
-                int            *upper_threshold)
+static inline double
+inverse_lerp (double a,
+              double b,
+              double t)
 {
-  int min = 0, nat = 0, max = 0, lower = 0, upper = 0;
-  double amplitude, progress;
+  return (t - a) / (b - a);
+}
 
-  if (gtk_widget_get_visible (child))
-    gtk_widget_measure (child, self->orientation, -1, &min, &nat, NULL, NULL);
-
-  if (for_size < 0)
-    return nat;
+static int
+clamp_size_from_child (AdwClampLayout *self,
+                       int             min,
+                       int             nat)
+{
+  int max = 0, lower = 0, upper = 0;
+  double progress;
 
   lower = MAX (MIN (self->tightening_threshold, self->maximum_size), min);
   max = MAX (lower, self->maximum_size);
-  amplitude = max - lower;
-  upper = ADW_EASE_OUT_TAN_CUBIC * amplitude + lower;
+  upper = lower + ADW_EASE_OUT_TAN_CUBIC * (max - lower);
 
-  if (child_minimum)
-    *child_minimum = min;
+  if (nat <= lower)
+    progress = 0;
+  else if (nat >= max)
+    progress = 1;
+  else {
+    double ease = inverse_lerp (lower, max, nat);
+
+    progress = 1 + cbrt (ease - 1); // inverse ease out cubic
+  }
+
+  return ceil (adw_lerp (lower, upper, progress));
+}
+
+static int
+child_size_from_clamp (AdwClampLayout *self,
+                       GtkWidget      *child,
+                       int             for_size,
+                       int            *child_maximum,
+                       int            *lower_threshold)
+{
+  int min = 0, nat = 0, max = 0, lower = 0, upper = 0;
+  double progress;
+
+  gtk_widget_measure (child, self->orientation, -1, &min, &nat, NULL, NULL);
+
+  lower = MAX (MIN (self->tightening_threshold, self->maximum_size), min);
+  max = MAX (lower, self->maximum_size);
+  upper = lower + ADW_EASE_OUT_TAN_CUBIC * (max - lower);
+
   if (child_maximum)
     *child_maximum = max;
   if (lower_threshold)
     *lower_threshold = lower;
-  if (upper_threshold)
-    *upper_threshold = upper;
+
+  if (for_size < 0)
+    return MIN (nat, max);
 
   if (for_size <= lower)
     return for_size;
@@ -158,9 +184,9 @@ get_child_size (AdwClampLayout *self,
   if (for_size >= upper)
     return max;
 
-  progress = (double) (for_size - lower) / (double) (upper - lower);
+  progress = inverse_lerp (lower, upper, for_size);
 
-  return adw_easing_ease (ADW_EASE_OUT_CUBIC, progress) * amplitude + lower;
+  return adw_lerp (lower, max, adw_easing_ease (ADW_EASE_OUT_CUBIC, progress));
 }
 
 static GtkSizeRequestMode
@@ -190,7 +216,6 @@ adw_clamp_layout_measure (GtkLayoutManager *manager,
   for (child = gtk_widget_get_first_child (widget);
        child != NULL;
        child = gtk_widget_get_next_sibling (child)) {
-    int child_size = -1;
     int child_min = 0;
     int child_nat = 0;
     int child_min_baseline = -1;
@@ -199,13 +224,19 @@ adw_clamp_layout_measure (GtkLayoutManager *manager,
     if (!gtk_widget_should_layout (child))
       continue;
 
-    if (self->orientation != orientation)
-      child_size = get_child_size (self, child, for_size,
-                                   NULL, NULL, NULL, NULL);
+    if (self->orientation == orientation) {
+      gtk_widget_measure (child, orientation, -1,
+                          &child_min, &child_nat,
+                          &child_min_baseline, &child_nat_baseline);
 
-    gtk_widget_measure (child, orientation, child_size,
-                        &child_min, &child_nat,
-                        &child_min_baseline, &child_nat_baseline);
+      child_nat = clamp_size_from_child (self, child_min, child_nat);
+    } else {
+      int child_size = child_size_from_clamp (self, child, for_size, NULL, NULL);
+
+      gtk_widget_measure (child, orientation, child_size,
+                          &child_min, &child_nat,
+                          &child_min_baseline, &child_nat_baseline);
+    }
 
     *minimum = MAX (*minimum, child_min);
     *natural = MAX (*natural, child_nat);
@@ -243,18 +274,17 @@ adw_clamp_layout_allocate (GtkLayoutManager *manager,
     }
 
     if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
-      child_allocation.width = get_child_size (self, child, width,
-                                               NULL, &child_maximum,
-                                               &lower_threshold, NULL);
+      child_allocation.width = child_size_from_clamp (self, child, width,
+                                                      &child_maximum,
+                                                      &lower_threshold);
       child_allocation.height = height;
 
       child_clamped_size = child_allocation.width;
-    }
-    else {
+    } else {
       child_allocation.width = width;
-      child_allocation.height = get_child_size (self, child, height,
-                                                NULL, &child_maximum,
-                                                &lower_threshold, NULL);
+      child_allocation.height = child_size_from_clamp (self, child, height,
+                                                       &child_maximum,
+                                                       &lower_threshold);
 
       child_clamped_size = child_allocation.height;
     }
