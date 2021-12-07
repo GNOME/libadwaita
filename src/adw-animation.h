@@ -28,7 +28,7 @@ G_BEGIN_DECLS
  * This value is mostly used internally.
  */
 
-#define ADW_DURATION_INFINITE (0xffffffffU)
+#define ADW_DURATION_INFINITE ((guint) 0xffffffff)
 
 #define ADW_TYPE_ANIMATION (adw_animation_get_type())
 
