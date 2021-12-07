@@ -79,12 +79,12 @@ where it's storing strings in GTK3, as the preferred replacement only exists in
 4, it can also be used with any other [struct@GObject.Value]. That use has no
 replacement and you can instead create your own objects to store those values.
 
-### Use `HdyStyleManager` instead of [property@Gtk.Settings:gtk-application-prefer-dark-theme]
+### Use `HdyStyleManager` Instead of [property@Gtk.Settings:gtk-application-prefer-dark-theme]
 
 If your application is setting [property@Gtk.Settings:gtk-application-prefer-dark-theme]
 to `TRUE` to request dark appearance, consider setting `HdyStyleManager:color-scheme`
 to `HDY_COLOR_SCHEME_PREFER_DARK` and making sure the application can work with
-light appearance as well. If that's not possible, set it to 
+light appearance as well. If that's not possible, set it to
 `HDY_COLOR_SCHEME_FORCE_DARK` instead.
 
 If your application is using light appearance, consider setting the color scheme
@@ -302,7 +302,7 @@ by swipe gestures.
 The `adw_carousel_scroll_to_full()` method has been removed. Instead,
 [method@Adw.Carousel.scroll_to] has got an additional parameter `animate`.
 
-### Adapt to view switcher API Changes
+### Adapt to View Switcher API Changes
 
 [class@Adw.ViewSwitcher], [class@Adw.ViewSwitcherBar] and
 [class@Adw.ViewSwitcherTitle] now use [class@Adw.ViewStack] instead of
@@ -356,7 +356,7 @@ equivalent to `ADW_COLOR_SCHEME_PREFER_LIGHT` instead of
 default. Make sure your application works with it, or otherwise set the
 `ADW_COLOR_SCHEME_FORCE_LIGHT` color scheme manually.
 
-### Adapt to [class@Adw.SwipeTracker] API changes
+### Adapt to [class@Adw.SwipeTracker] API Changes
 
 The [signal@Adw.SwipeTracker::begin-swipe] signal is now emitted immediately
 before the swipe starts, after the drag threshold has been reached, and it has
@@ -366,7 +366,7 @@ signal behaves exactly like `begin-swipe` was, and can be used instead of it.
 The type of the `duration` parameter in [signal@Adw.SwipeTracker::end-swipe] has
 changed from `gint64` to `guint`.
 
-### Adapt to [class@Adw.TabView] API changes
+### Adapt to [class@Adw.TabView] API Changes
 
 The `HdyTabVoew:shortcut-widget` property has been removed with no replacement;
 [class@AdwTabView] automatically installs shortcuts with the
@@ -377,7 +377,7 @@ If some of these shortcuts conflict with another widget, the latter has
 priority, and it should work automatically if the widget correctly stops event
 propagation.
 
-### Adapt to [class@Adw.PreferencesWindow] API changes
+### Adapt to [class@Adw.PreferencesWindow] API Changes
 
 The `can-swipe-back` property have been renamed to
 [property@AdwPreferencesWindow:can-navigate-back], along with its accessors.
@@ -410,7 +410,7 @@ If you were using `@theme_selected_bg_color` as a text color, use
 `@accent_color` instead to make sure the text is readable. You can also use the
 `.accent` style class to apply the correct color.
 
-### Stop using the `.sidebar` style class
+### Stop Using the `.sidebar` Style Class
 
 The `.sidebar` style class is now deprecated, although still works for
 compatibility reasons. The main use case - adjusting the background color of
@@ -419,18 +419,18 @@ compatibility reasons. The main use case - adjusting the background color of
 the item selection style. The border can be replicated by manually adding a
 [class@Gtk.Separator].
 
-### Adapt to the `popover.combo` style removal
+### Adapt to the `popover.combo` Style Removal
 
 The `.combo` popover style class has been removed. Use `.menu` instead. You may
 need to remove manually added margins, padding or minimum height from the list
 items inside while doing it.
 
-### Adapt to the `button.list-button` style removal
+### Adapt to the `button.list-button` Style Removal
 
 The `.list-button` style class has been removed with no replacement. The regular
 button style should be used instead.
 
-### Adapt to the `content-view` style removal
+### Adapt to the `content-view` Style Removal
 
 The `.content-view` style class has been removed. The selection mode
 [class@Gtk.CheckButton] style had inside content views has been split out into a
@@ -550,7 +550,7 @@ insert extra spacing as follows:
 </object>
 ```
 
-#### Custom adjustments
+#### Custom Adjustments
 
 The `.flat` and `.raised` style classes can always be used to override the
 default appearance.

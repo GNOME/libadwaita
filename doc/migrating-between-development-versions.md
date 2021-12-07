@@ -1,7 +1,7 @@
 Title: Migrating between development versions
 Slug: migrating-between-development-versions
 
-# Migrating between development versions
+# Migrating Between Development Versions
 
 This guide outlines the differences between Libadwaita development releases.
 It assumes you've already migrated from Libhandy 1.4 to Libadwaita, or you
@@ -10,7 +10,7 @@ created a new project using a development release of Libadwaita.
 If you want to migrate from Libhandy 1.4 to the latest Libadwaita release,
 [follow this guide](migrating-libhandy-1-4-to-libadwaita.html).
 
-## Migrating from alpha 1 to alpha 2
+## Migrating From alpha 1 to alpha 2
 
 ### Adapt to view switcher API Changes
 
@@ -31,9 +31,9 @@ If you were using `@theme_selected_bg_color` as a text color, use
 `@accent_color` instead to make sure the text is readable. You can also use the
 `.accent` style class to apply the correct color.
 
-## Migrating from alpha 2 to alpha 3
+## Migrating From alpha 2 to alpha 3
 
-### Stop Using `AdwValueObject` with non-string values
+### Stop Using `AdwValueObject` With Non-string Values
 
 `AdwValueObject` has been removed. The typical use for storing strings in
 combination with [class@Gio.ListStore] can be replaced by using
@@ -44,12 +44,12 @@ objects to store those values .
 
 `AdwEnumValueObject` has been renamed to [class@Adw.EnumListItem].
 
-### Adapt to window API changes
+### Adapt to Window API Changes
 
 The `child` property in [class@Adw.Window] and [class@Adw.ApplicationWindow] has
 been renamed to `content`.
 
-### Adapt to [class@Adw.Leaflet] API changes
+### Adapt to [class@Adw.Leaflet] API Changes
 
 The `hhomogeneous-folded`, `vhomogeneous-folded`, `hhomogeneous-unfolded`,
 and `vhomogeneous-unfolded` properties have been replaced by a single
@@ -62,7 +62,7 @@ to make them homogeneous if needed.
 The `interpolate-size` property has been removed with no replacement, it's
 always enabled when [property@Adw.Leaflet:homogeneous] is set to `FALSE`.
 
-### Adapt to view switcher API changes
+### Adapt to View Switcher API Changes
 
 The `auto` view switcher policy has been removed. [class@Adw.ViewSwitcher] only
 has narrow and wide policies; if you had used the `auto` policy, use an
@@ -94,7 +94,7 @@ implements [iface@Gio.Icon], so it should just work for that case.
 [method@Adw.Avatar.draw_to_texture] does not have the `size` parameter. Instead,
 it uses the avatar's current size, with no replacement.
 
-### Use [class@Adw.StyleManager] instead of [property@Gtk.Settings:gtk-application-prefer-dark-theme]
+### Use [class@Adw.StyleManager] Instead of [property@Gtk.Settings:gtk-application-prefer-dark-theme]
 
 Using [property@Gtk.Settings:gtk-application-prefer-dark-theme] to control dark
 appearance is not supported anymore, set [property@Adw.StyleManager:color-scheme]
@@ -203,7 +203,7 @@ insert extra spacing as follows:
 </object>
 ```
 
-#### Custom adjustments
+#### Custom Adjustments
 
 The `.flat` and `.raised` style classes can always be used to override the
 default appearance.
@@ -213,7 +213,7 @@ Important: the [property@Gtk.Button:has-frame] property will **not** be set to
 set to `TRUE` to make a button raised, the style class should be used directly
 instead.
 
-## Migrating from alpha 3 to alpha 4
+## Migrating From alpha 3 to alpha 4
 
 ### Adapt to [class@Adw.ActionRow] and [class@Adw.ExpanderRow] API Changes
 
@@ -235,7 +235,7 @@ If you're using the `object-select-symbolic` icon in a header bar button
 
 ### Adapt to Stylesheet Changes
 
-### Stop using the `.sidebar` style class
+### Stop Using the `.sidebar` Style Class
 
 The `.sidebar` style class is now deprecated, although still works for
 compatibility reasons. The main use case - adjusting the background color of
@@ -244,7 +244,7 @@ compatibility reasons. The main use case - adjusting the background color of
 the item selection style. The border can be replicated by manually adding a
 [class@Gtk.Separator].
 
-#### Adapt to the `popover.combo` style removal
+#### Adapt to the `popover.combo` Style Removal
 
 The `.combo` popover style class has been removed. Use `.menu` instead. You may
 need to remove manually added margins, padding or minimum height from the list
@@ -262,9 +262,9 @@ Neither the `.content` style class nor the `.boxed-list` style class work
 for [class@Gtk.ListView], as the widget cannot currently be used for the
 boxed list pattern.
 
-## Migrating from alpha 4 to beta 1
+## Migrating From alpha 4 to beta 1
 
-#### Adapt to [class@Adw.SwipeTracker] API changes
+#### Adapt to [class@Adw.SwipeTracker] API Changes
 
 The [signal@Adw.SwipeTracker::begin-swipe] signal is now emitted immediately
 before the swipe starts, after the drag threshold has been reached, and it has
@@ -274,7 +274,7 @@ signal behaves exactly like `begin-swipe` was, and can be used instead of it.
 The type of the `duration` parameter in [signal@Adw.SwipeTracker::end-swipe] has
 changed from `gint64` to `guint`.
 
-### Adapt to [class@Adw.TabView] API changes
+### Adapt to [class@Adw.TabView] API Changes
 
 The `HdyTabVoew:shortcut-widget` property has been removed with no replacement;
 [class@AdwTabView] automatically installs shortcuts with the
@@ -285,7 +285,7 @@ If some of these shortcuts conflict with another widget, the latter has
 priority, and it should work automatically if the widget correctly stops event
 propagation.
 
-### Adapt to [class@Adw.Leaflet] API changes
+### Adapt to [class@Adw.Leaflet] API Changes
 
 The `can-swipe-back` and `can-swipe-forward` properties have been renamed to
 [property@AdwLeaflet:can-navigate-back] and
@@ -306,7 +306,7 @@ animations. As such, the `reveal-duration` property has been replaced with
 the duration, spring parameters are also used for transitions triggered by swipe
 gestures.
 
-### Adapt to [class@Adw.Carousel] API changes
+### Adapt to [class@Adw.Carousel] API Changes
 
 `AdwCarousel` now uses spring animations instead of timed animations for
 scrolling. As such, the `animation-duration` property has been replaced with
@@ -317,14 +317,14 @@ by swipe gestures.
 The `adw_carousel_scroll_to_full()` method has been removed. Instead,
 [method@Adw.Carousel.scroll_to] has got an additional parameter `animate`.
 
-### Adapt to [class@Adw.PreferencesWindow] API changes
+### Adapt to [class@Adw.PreferencesWindow] API Changes
 
 The `can-swipe-back` property have been renamed to
 [property@AdwPreferencesWindow:can-navigate-back], along with its accessors.
 The new properties also handle keyboard and mouse shortcuts in addition to
 swipes.
 
-### Adapt to [class@Adw.ViewStack] API changes
+### Adapt to [class@Adw.ViewStack] API Changes
 
 [class@Adw.ViewStack] has stopped supporting transitions. As such, the
 `interpolate-size` and `transition-running` properties have been removed with
@@ -337,12 +337,12 @@ The `adw_ease_out_cubic()` function has been removed. Instead,
 
 ### Adapt to Stylesheet Changes
 
-### Adapt to the `button.outline` style removal
+### Adapt to the `button.outline` Style Removal
 
 The `.outline` style class has been removed with no replacement. The regular
 button style should be used instead.
 
-### Adapt to the `content-view` check button style removal
+### Adapt to the `content-view` Check Button Style Removal
 
 The selection mode [class@Gtk.CheckButton] style, used inside views with the
 `.content-view` has been changed into a separate style class `.selection-mode`
