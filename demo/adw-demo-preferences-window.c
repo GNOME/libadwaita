@@ -37,7 +37,7 @@ subpage2_activated_cb (AdwDemoPreferencesWindow *self)
 static void
 toast_show_cb (AdwPreferencesWindow *window)
 {
-  adw_preferences_window_add_toast (window, adw_toast_new ("Example toast"));
+  adw_preferences_window_add_toast (window, adw_toast_new ("Example Toast"));
 }
 
 static void

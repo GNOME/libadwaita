@@ -692,7 +692,7 @@ static void
 add_toast_cb (AdwDemoWindow *self)
 {
   adw_toast_overlay_add_toast (self->toast_overlay,
-                               adw_toast_new (_("Simple toast")));
+                               adw_toast_new (_("Simple Toast")));
 }
 
 static void
@@ -712,7 +712,7 @@ add_toast_with_button_cb (AdwDemoWindow *self)
   self->toast_undo_items++;
 
   if (!self->undo_toast) {
-    title = g_strdup_printf (_("‘%s’ deleted"), "Lorem ipsum");
+    title = g_strdup_printf (_("‘%s’ deleted"), "Lorem Ipsum");
 
     self->undo_toast = adw_toast_new (title);
 

@@ -47,7 +47,7 @@ static void
 test_adw_toast_overlay_add_toast (void)
 {
   AdwToastOverlay *toast_overlay = g_object_ref_sink (ADW_TOAST_OVERLAY (adw_toast_overlay_new ()));
-  AdwToast *toast = adw_toast_new ("Test notification");
+  AdwToast *toast = adw_toast_new ("Test Notification");
 
   g_assert_nonnull (toast_overlay);
   g_assert_nonnull (toast);

@@ -27,7 +27,7 @@ static void
 test_adw_preferences_window_add_toast (void)
 {
   AdwPreferencesWindow *window = ADW_PREFERENCES_WINDOW (adw_preferences_window_new ());
-  AdwToast *toast = adw_toast_new ("Test notification");
+  AdwToast *toast = adw_toast_new ("Test Notification");
 
   g_assert_nonnull (window);
   g_assert_nonnull (toast);
