@@ -95,6 +95,12 @@ popover.menu {
     }
   }
 
+  check {
+    &, &:not(:checked):not(:indeterminate):hover {
+      box-shadow: none;
+    }
+  }
+
   //only menu radios have a border
   radio {
     padding: 1px;
