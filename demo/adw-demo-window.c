@@ -656,7 +656,7 @@ timed_animation_can_skip (gpointer          user_data,
                           AdwAnimationState timed_state,
                           AdwAnimationState spring_state)
 {
-  return timed_state  != ADW_ANIMATION_FINISHED ||
+  return timed_state  != ADW_ANIMATION_FINISHED &&
          spring_state != ADW_ANIMATION_FINISHED;
 }
 
