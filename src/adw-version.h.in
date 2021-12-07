@@ -17,21 +17,21 @@ G_BEGIN_DECLS
 /**
  * ADW_MAJOR_VERSION:
  *
- * Adw major version component (e.g. 1 if %ADW_VERSION is 1.2.3).
+ * Adw major version component (e.g. 1 if the version is 1.2.3).
  */
 #define ADW_MAJOR_VERSION              (@ADW_MAJOR_VERSION@)
 
 /**
  * ADW_MINOR_VERSION:
  *
- * Adw minor version component (e.g. 2 if %ADW_VERSION is 1.2.3).
+ * Adw minor version component (e.g. 2 if the version is 1.2.3).
  */
 #define ADW_MINOR_VERSION              (@ADW_MINOR_VERSION@)
 
 /**
  * ADW_MICRO_VERSION:
  *
- * Adw micro version component (e.g. 3 if %ADW_VERSION is 1.2.3).
+ * Adw micro version component (e.g. 3 if the version is 1.2.3).
  */
 #define ADW_MICRO_VERSION              (@ADW_MICRO_VERSION@)
 
