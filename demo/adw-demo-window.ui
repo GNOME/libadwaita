@@ -1112,6 +1112,9 @@
                                                     <lookup name="state" type="AdwAnimation">
                                                       <lookup name="timed-animation">AdwDemoWindow</lookup>
                                                     </lookup>
+                                                    <lookup name="state" type="AdwAnimation">
+                                                      <lookup name="spring-animation">AdwDemoWindow</lookup>
+                                                    </lookup>
                                                   </closure>
                                                 </binding>
                                                 <signal name="clicked" handler="timed_animation_skip" swapped="true"/>
