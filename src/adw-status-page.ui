@@ -6,6 +6,7 @@
       <object class="GtkScrolledWindow" id="scrolled_window">
         <property name="hscrollbar-policy">never</property>
         <property name="propagate-natural-height">True</property>
+        <property name="propagate-natural-width">True</property>
         <property name="child">
           <object class="GtkViewport">
             <property name="scroll-to-focus">True</property>
