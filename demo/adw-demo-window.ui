@@ -1322,9 +1322,9 @@
                                                         </child>
                                                         <child>
                                                           <object class="AdwActionRow">
-                                                            <property name="title" translatable="yes">Precision</property>
+                                                            <property name="title" translatable="yes">Epsilon</property>
                                                             <child>
-                                                              <object class="GtkSpinButton" id="spring_animation_precision">
+                                                              <object class="GtkSpinButton" id="spring_animation_epsilon">
                                                                 <property name="valign">center</property>
                                                                 <property name="numeric">True</property>
                                                                 <property name="digits">5</property>

@@ -43,7 +43,7 @@ struct _AdwDemoWindow
   GtkSpinButton *spring_animation_damping;
   GtkSpinButton *spring_animation_mass;
   GtkSpinButton *spring_animation_stiffness;
-  GtkSpinButton *spring_animation_precision;
+  GtkSpinButton *spring_animation_epsilon;
   GtkSwitch *spring_animation_clamp_switch;
 };
 
@@ -812,7 +812,7 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, spring_animation_damping);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, spring_animation_mass);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, spring_animation_stiffness);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, spring_animation_precision);
+  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, spring_animation_epsilon);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, spring_animation_clamp_switch);
   gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, back_clicked_cb);
@@ -928,7 +928,7 @@ animation_page_init (AdwDemoWindow *self)
   g_object_bind_property (self->spring_animation_velocity, "value",
                           self->spring_animation, "initial_velocity",
                           G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
-  g_object_bind_property (self->spring_animation_precision, "value",
+  g_object_bind_property (self->spring_animation_epsilon, "value",
                           self->spring_animation, "epsilon",
                           G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
   g_object_bind_property (self->spring_animation_clamp_switch, "active",
