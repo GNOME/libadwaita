@@ -12,6 +12,7 @@ adwaita_demo_resources = gnome.compile_resources(
 adwaita_demo_sources = [
   adwaita_demo_resources,
 
+  'pages/animations/adw-demo-page-animations.c',
   'pages/avatar/adw-demo-page-avatar.c',
   'pages/buttons/adw-demo-page-buttons.c',
   'pages/carousel/adw-demo-page-carousel.c',
