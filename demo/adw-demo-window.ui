@@ -58,7 +58,7 @@
                           </object>
                         </child>
                         <child type="end">
-                          <object class="GtkMenuButton" id="menu_button">
+                          <object class="GtkMenuButton">
                             <property name="menu-model">primary_menu</property>
                             <property name="icon-name">open-menu-symbolic</property>
                           </object>
@@ -66,7 +66,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkStackSidebar" id="sidebar">
+                      <object class="GtkStackSidebar">
                         <property name="width_request">270</property>
                         <property name="vexpand">True</property>
                         <property name="stack">stack</property>
@@ -83,7 +83,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkBox" id="right_box">
+                  <object class="GtkBox">
                     <property name="orientation">vertical</property>
                     <property name="hexpand">True</property>
                     <child>
@@ -93,7 +93,7 @@
                           <object class="GtkBox"/>
                         </property>
                         <child type="start">
-                          <object class="GtkButton" id="back">
+                          <object class="GtkButton">
                             <property name="valign">center</property>
                             <property name="tooltip-text" translatable="yes">Back</property>
                             <property name="icon-name">go-previous-symbolic</property>
