@@ -1,6 +1,7 @@
 #include "adw-demo-window.h"
 
 #include <glib/gi18n.h>
+#include "pages/leaflet/adw-demo-page-leaflet.h"
 #include "pages/welcome/adw-demo-page-welcome.h"
 #include "adw-flap-demo-window.h"
 #include "adw-style-demo-window.h"
@@ -17,7 +18,6 @@ struct _AdwDemoWindow
   GtkWidget *color_scheme_button;
   GtkStackSidebar *sidebar;
   GtkStack *stack;
-  AdwComboRow *leaflet_transition_row;
   AdwLeaflet *subpage_leaflet;
   AdwCarousel *carousel;
   GtkBox *carousel_box;
@@ -155,40 +155,9 @@ leaflet_back_clicked_cb (GtkWidget     *sender,
   adw_leaflet_navigate (self->subpage_leaflet, ADW_NAVIGATION_DIRECTION_BACK);
 }
 
-static char *
-leaflet_transition_name (AdwEnumListItem *item,
-                         gpointer         user_data)
-{
-  switch (adw_enum_list_item_get_value (item)) {
-  case ADW_LEAFLET_TRANSITION_TYPE_OVER:
-    return g_strdup (_("Over"));
-  case ADW_LEAFLET_TRANSITION_TYPE_UNDER:
-    return g_strdup (_("Under"));
-  case ADW_LEAFLET_TRANSITION_TYPE_SLIDE:
-    return g_strdup (_("Slide"));
-  default:
-    return NULL;
-  }
-}
-
 static void
-notify_leaflet_transition_cb (GObject       *sender,
-                              GParamSpec    *pspec,
-                              AdwDemoWindow *self)
+leaflet_next_page_cb (AdwDemoWindow *self)
 {
-  AdwComboRow *row = ADW_COMBO_ROW (sender);
-
-  g_assert (ADW_IS_COMBO_ROW (row));
-  g_assert (ADW_IS_DEMO_WINDOW (self));
-
-  adw_leaflet_set_transition_type (ADW_LEAFLET (self->content_box), adw_combo_row_get_selected (row));
-}
-
-static void
-leaflet_go_next_row_activated_cb (AdwDemoWindow *self)
-{
-  g_assert (ADW_IS_DEMO_WINDOW (self));
-
   adw_leaflet_navigate (self->subpage_leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
 }
 
@@ -790,7 +759,6 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, color_scheme_button);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, stack);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, leaflet_transition_row);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, subpage_leaflet);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, carousel);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, carousel_box);
@@ -818,9 +786,7 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, back_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, leaflet_back_clicked_cb);
-  gtk_widget_class_bind_template_callback (widget_class, leaflet_transition_name);
-  gtk_widget_class_bind_template_callback (widget_class, notify_leaflet_transition_cb);
-  gtk_widget_class_bind_template_callback (widget_class, leaflet_go_next_row_activated_cb);
+  gtk_widget_class_bind_template_callback (widget_class, leaflet_next_page_cb);
   gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
   gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, view_switcher_demo_clicked_cb);
@@ -955,6 +921,7 @@ adw_demo_window_init (AdwDemoWindow *self)
 {
   AdwStyleManager *manager = adw_style_manager_get_default ();
 
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_LEAFLET);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_WELCOME);
 
   gtk_widget_init_template (GTK_WIDGET (self));
