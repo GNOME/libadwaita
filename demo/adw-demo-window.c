@@ -1,6 +1,7 @@
 #include "adw-demo-window.h"
 
 #include <glib/gi18n.h>
+
 #include "pages/animations/adw-demo-page-animations.h"
 #include "pages/avatar/adw-demo-page-avatar.h"
 #include "pages/buttons/adw-demo-page-buttons.h"
@@ -19,11 +20,8 @@ struct _AdwDemoWindow
 {
   AdwApplicationWindow parent_instance;
 
-  AdwLeaflet *content_box;
-  GtkBox *right_box;
   GtkWidget *color_scheme_button;
-  GtkStackSidebar *sidebar;
-  GtkStack *stack;
+  AdwLeaflet *content_box;
   AdwLeaflet *subpage_leaflet;
   AdwDemoPageToasts *toasts_page;
 };
@@ -88,12 +86,6 @@ leaflet_next_page_cb (AdwDemoWindow *self)
   adw_leaflet_navigate (self->subpage_leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
 }
 
-AdwDemoWindow *
-adw_demo_window_new (GtkApplication *application)
-{
-  return g_object_new (ADW_TYPE_DEMO_WINDOW, "application", application, NULL);
-}
-
 static void
 toast_undo_cb (AdwDemoWindow *self)
 {
@@ -108,19 +100,16 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_add_binding_action (widget_class, GDK_KEY_q, GDK_CONTROL_MASK, "window.close", NULL);
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/adw-demo-window.ui");
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, content_box);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, right_box);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, color_scheme_button);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, sidebar);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, stack);
+  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, content_box);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, subpage_leaflet);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, toasts_page);
+  gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
+  gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, back_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, leaflet_back_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, leaflet_next_page_cb);
-  gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
-  gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
 
   gtk_widget_class_install_action (widget_class, "toast.undo", NULL, (GtkWidgetActionActivateFunc) toast_undo_cb);
 }
@@ -154,5 +143,11 @@ adw_demo_window_init (AdwDemoWindow *self)
 
   notify_system_supports_color_schemes_cb (self);
 
-  adw_leaflet_set_visible_child (self->content_box, GTK_WIDGET (self->right_box));
+  adw_leaflet_navigate (self->content_box, ADW_NAVIGATION_DIRECTION_FORWARD);
+}
+
+AdwDemoWindow *
+adw_demo_window_new (GtkApplication *application)
+{
+  return g_object_new (ADW_TYPE_DEMO_WINDOW, "application", application, NULL);
 }
