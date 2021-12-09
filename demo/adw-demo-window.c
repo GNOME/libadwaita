@@ -1,6 +1,7 @@
 #include "adw-demo-window.h"
 
 #include <glib/gi18n.h>
+#include "pages/clamp/adw-demo-page-clamp.h"
 #include "pages/leaflet/adw-demo-page-leaflet.h"
 #include "pages/welcome/adw-demo-page-welcome.h"
 #include "adw-flap-demo-window.h"
@@ -921,6 +922,7 @@ adw_demo_window_init (AdwDemoWindow *self)
 {
   AdwStyleManager *manager = adw_style_manager_get_default ();
 
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_CLAMP);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LEAFLET);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_WELCOME);
 

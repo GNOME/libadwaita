@@ -12,6 +12,7 @@ adwaita_demo_resources = gnome.compile_resources(
 adwaita_demo_sources = [
   adwaita_demo_resources,
 
+  'pages/clamp/adw-demo-page-clamp.c',
   'pages/leaflet/adw-demo-page-leaflet.c',
   'pages/welcome/adw-demo-page-welcome.c',
 

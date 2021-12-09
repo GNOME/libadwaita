@@ -141,46 +141,9 @@
                         </child>
                         <child>
                           <object class="GtkStackPage">
-                            <property name="name">clamp</property>
                             <property name="title" translatable="yes">Clamp</property>
                             <property name="child">
-                              <object class="AdwStatusPage">
-                                <property name="icon-name">widget-clamp-symbolic</property>
-                                <property name="title" translatable="yes">Clamp</property>
-                                <property name="description" translatable="yes">This page is clamped to smoothly grow up to a maximum width.</property>
-                                <property name="child">
-                                  <object class="AdwClamp">
-                                    <property name="maximum-size" bind-source="clamp_maximum_size_adjustment" bind-property="value" bind-flags="sync-create"/>
-                                    <property name="tightening-threshold" bind-source="clamp_tightening_threshold_adjustment" bind-property="value" bind-flags="sync-create"/>
-                                    <property name="child">
-                                      <object class="AdwPreferencesGroup">
-                                        <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Maximum Width</property>
-                                            <child>
-                                              <object class="GtkSpinButton">
-                                                <property name="adjustment">clamp_maximum_size_adjustment</property>
-                                                <property name="valign">center</property>
-                                              </object>
-                                            </child>
-                                          </object>
-                                        </child>
-                                        <child>
-                                          <object class="AdwActionRow">
-                                            <property name="title" translatable="yes">Tightening Threshold</property>
-                                            <child>
-                                              <object class="GtkSpinButton">
-                                                <property name="adjustment">clamp_tightening_threshold_adjustment</property>
-                                                <property name="valign">center</property>
-                                              </object>
-                                            </child>
-                                          </object>
-                                        </child>
-                                      </object>
-                                    </property>
-                                  </object>
-                                </property>
-                              </object>
+                              <object class="AdwDemoPageClamp"/>
                             </property>
                           </object>
                         </child>
@@ -1386,20 +1349,6 @@
       </object>
     </child>
   </template>
-  <object class="GtkAdjustment" id="clamp_maximum_size_adjustment">
-    <property name="lower">0</property>
-    <property name="upper">10000</property>
-    <property name="value">600</property>
-    <property name="page-increment">100</property>
-    <property name="step-increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="clamp_tightening_threshold_adjustment">
-    <property name="lower">0</property>
-    <property name="upper">10000</property>
-    <property name="value">500</property>
-    <property name="page-increment">100</property>
-    <property name="step-increment">10</property>
-  </object>
   <object class="GtkSizeGroup">
     <property name="mode">both</property>
     <widgets>
