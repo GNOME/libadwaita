@@ -34,7 +34,7 @@
             <property name="can-unfold">False</property>
             <property name="transition-type" bind-source="leaflet_page" bind-property="transition-type" bind-flags="sync-create|bidirectional"/>
             <child>
-              <object class="AdwLeaflet" id="content_box">
+              <object class="AdwLeaflet" id="main_leaflet">
                 <property name="can-navigate-back">True</property>
                 <property name="transition-type" bind-source="leaflet_page" bind-property="transition-type" bind-flags="sync-create|bidirectional"/>
                 <child>
@@ -42,7 +42,7 @@
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="AdwHeaderBar">
-                        <property name="show-end-title-buttons" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
+                        <property name="show-end-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
                         <child type="start">
                           <object class="GtkButton" id="color_scheme_button">
                             <binding name="icon-name">
@@ -88,7 +88,7 @@
                     <property name="hexpand">True</property>
                     <child>
                       <object class="AdwHeaderBar">
-                        <property name="show-start-title-buttons" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
+                        <property name="show-start-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
                         <property name="title-widget">
                           <object class="GtkBox"/>
                         </property>
@@ -97,7 +97,7 @@
                             <property name="valign">center</property>
                             <property name="tooltip-text" translatable="yes">Back</property>
                             <property name="icon-name">go-previous-symbolic</property>
-                            <property name="visible" bind-source="content_box" bind-property="folded" bind-flags="sync-create"/>
+                            <property name="visible" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
                             <signal name="clicked" handler="back_clicked_cb"/>
                           </object>
                         </child>
