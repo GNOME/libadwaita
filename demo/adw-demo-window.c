@@ -59,23 +59,19 @@ notify_system_supports_color_schemes_cb (AdwDemoWindow *self)
 }
 
 static void
-notify_visible_child_cb (GObject       *sender,
-                         GParamSpec    *pspec,
-                         AdwDemoWindow *self)
+notify_visible_child_cb (AdwDemoWindow *self)
 {
   adw_leaflet_navigate (self->main_leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
 }
 
 static void
-back_clicked_cb (GtkWidget     *sender,
-                 AdwDemoWindow *self)
+back_clicked_cb (AdwDemoWindow *self)
 {
   adw_leaflet_navigate (self->main_leaflet, ADW_NAVIGATION_DIRECTION_BACK);
 }
 
 static void
-leaflet_back_clicked_cb (GtkWidget     *sender,
-                         AdwDemoWindow *self)
+leaflet_back_clicked_cb (AdwDemoWindow *self)
 {
   adw_leaflet_navigate (self->subpage_leaflet, ADW_NAVIGATION_DIRECTION_BACK);
 }

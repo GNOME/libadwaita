@@ -98,7 +98,7 @@
                             <property name="tooltip-text" translatable="yes">Back</property>
                             <property name="icon-name">go-previous-symbolic</property>
                             <property name="visible" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
-                            <signal name="clicked" handler="back_clicked_cb"/>
+                            <signal name="clicked" handler="back_clicked_cb" swapped="yes"/>
                           </object>
                         </child>
                       </object>
@@ -107,7 +107,7 @@
                       <object class="GtkStack" id="stack">
                         <property name="vexpand">True</property>
                         <property name="vhomogeneous">False</property>
-                        <signal name="notify::visible-child" handler="notify_visible_child_cb" after="yes" swapped="no"/>
+                        <signal name="notify::visible-child" handler="notify_visible_child_cb" after="yes" swapped="yes"/>
                         <child>
                           <object class="GtkStackPage">
                             <property name="title" translatable="yes">Welcome</property>
@@ -203,7 +203,7 @@
                             <property name="title" translatable="yes">Toasts</property>
                             <property name="child">
                               <object class="AdwDemoPageToasts" id="toasts_page">
-                                <signal name="add-toast" handler="adw_toast_overlay_add_toast" object="toast_overlay" swapped="true"/>
+                                <signal name="add-toast" handler="adw_toast_overlay_add_toast" object="toast_overlay" swapped="yes"/>
                               </object>
                             </property>
                           </object>
@@ -235,7 +235,7 @@
                         <property name="valign">center</property>
                         <property name="tooltip-text" translatable="yes">Back</property>
                         <property name="icon-name">go-previous-symbolic</property>
-                        <signal name="clicked" handler="leaflet_back_clicked_cb"/>
+                        <signal name="clicked" handler="leaflet_back_clicked_cb" swapped="yes"/>
                       </object>
                     </child>
                   </object>
