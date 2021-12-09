@@ -13,6 +13,7 @@ adwaita_demo_sources = [
   adwaita_demo_resources,
 
   'pages/avatar/adw-demo-page-avatar.c',
+  'pages/buttons/adw-demo-page-buttons.c',
   'pages/carousel/adw-demo-page-carousel.c',
   'pages/clamp/adw-demo-page-clamp.c',
   'pages/flap/adw-demo-page-flap.c',
