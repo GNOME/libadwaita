@@ -122,14 +122,9 @@
                         <signal name="notify::visible-child" handler="notify_visible_child_cb" after="yes" swapped="no"/>
                         <child>
                           <object class="GtkStackPage">
-                            <property name="name">welcome</property>
                             <property name="title" translatable="yes">Welcome</property>
                             <property name="child">
-                              <object class="AdwStatusPage">
-                                <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
-                                <property name="title" translatable="yes">Welcome to Adwaita Demo</property>
-                                <property name="description" translatable="yes">This is a tour of the features the library has to offer.</property>
-                              </object>
+                              <object class="AdwDemoPageWelcome"/>
                             </property>
                           </object>
                         </child>

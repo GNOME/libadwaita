@@ -1,6 +1,7 @@
 #include "adw-demo-window.h"
 
 #include <glib/gi18n.h>
+#include "pages/welcome/adw-demo-page-welcome.h"
 #include "adw-flap-demo-window.h"
 #include "adw-style-demo-window.h"
 #include "adw-tab-view-demo-window.h"
@@ -953,6 +954,8 @@ static void
 adw_demo_window_init (AdwDemoWindow *self)
 {
   AdwStyleManager *manager = adw_style_manager_get_default ();
+
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_WELCOME);
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
