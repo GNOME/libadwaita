@@ -4,11 +4,11 @@
 #include "pages/clamp/adw-demo-page-clamp.h"
 #include "pages/leaflet/adw-demo-page-leaflet.h"
 #include "pages/lists/adw-demo-page-lists.h"
+#include "pages/view-switcher/adw-demo-page-view-switcher.h"
 #include "pages/welcome/adw-demo-page-welcome.h"
 #include "adw-flap-demo-window.h"
 #include "adw-style-demo-window.h"
 #include "adw-tab-view-demo-window.h"
-#include "adw-view-switcher-demo-window.h"
 
 struct _AdwDemoWindow
 {
@@ -161,16 +161,6 @@ static void
 leaflet_next_page_cb (AdwDemoWindow *self)
 {
   adw_leaflet_navigate (self->subpage_leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
-}
-
-static void
-view_switcher_demo_clicked_cb (GtkButton     *btn,
-                               AdwDemoWindow *self)
-{
-  AdwViewSwitcherDemoWindow *window = adw_view_switcher_demo_window_new ();
-
-  gtk_window_set_transient_for (GTK_WINDOW (window), GTK_WINDOW (self));
-  gtk_window_present (GTK_WINDOW (window));
 }
 
 static char *
@@ -791,7 +781,6 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, leaflet_next_page_cb);
   gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
   gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
-  gtk_widget_class_bind_template_callback (widget_class, view_switcher_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_carousel_orientation_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_carousel_indicators_cb);
   gtk_widget_class_bind_template_callback (widget_class, carousel_indicators_name);
@@ -926,6 +915,7 @@ adw_demo_window_init (AdwDemoWindow *self)
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CLAMP);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LEAFLET);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LISTS);
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_VIEW_SWITCHER);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_WELCOME);
 
   gtk_widget_init_template (GTK_WIDGET (self));
