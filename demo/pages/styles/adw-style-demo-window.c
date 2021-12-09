@@ -191,7 +191,7 @@ adw_style_demo_window_class_init (AdwStyleDemoWindowClass *klass)
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/adw-style-demo-window.ui");
+  gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/pages/styles/adw-style-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, header_bar_window);
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, status_page_window);
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, sidebar_window);

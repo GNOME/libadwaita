@@ -192,24 +192,9 @@
                         </child>
                         <child>
                           <object class="GtkStackPage">
-                            <property name="name">style-classes</property>
                             <property name="title" translatable="yes">Style Classes</property>
                             <property name="child">
-                              <object class="AdwStatusPage">
-                                <property name="icon-name">style-classes-symbolic</property>
-                                <property name="title" translatable="yes">Style Classes</property>
-                                <property name="description" translatable="yes">Various widget styles available for use.</property>
-                                <property name="child">
-                                  <object class="GtkButton">
-                                    <property name="label" translatable="yes">Run the Demo</property>
-                                    <property name="halign">center</property>
-                                    <signal name="clicked" handler="style_classes_demo_clicked_cb" swapped="no"/>
-                                    <style>
-                                      <class name="pill"/>
-                                    </style>
-                                  </object>
-                                </property>
-                              </object>
+                              <object class="AdwDemoPageStyles"/>
                             </property>
                           </object>
                         </child>

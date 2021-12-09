@@ -8,10 +8,10 @@
 #include "pages/flap/adw-demo-page-flap.h"
 #include "pages/leaflet/adw-demo-page-leaflet.h"
 #include "pages/lists/adw-demo-page-lists.h"
+#include "pages/styles/adw-demo-page-styles.h"
 #include "pages/tab-view/adw-demo-page-tab-view.h"
 #include "pages/view-switcher/adw-demo-page-view-switcher.h"
 #include "pages/welcome/adw-demo-page-welcome.h"
-#include "adw-style-demo-window.h"
 
 struct _AdwDemoWindow
 {
@@ -381,16 +381,6 @@ notify_spring_params_change (AdwDemoWindow *self)
 }
 
 static void
-style_classes_demo_clicked_cb (GtkButton     *btn,
-                               AdwDemoWindow *self)
-{
-  AdwStyleDemoWindow *window = adw_style_demo_window_new ();
-
-  gtk_window_set_transient_for (GTK_WINDOW (window), GTK_WINDOW (self));
-  gtk_window_present (GTK_WINDOW (window));
-}
-
-static void
 add_toast_cb (AdwDemoWindow *self)
 {
   adw_toast_overlay_add_toast (self->toast_overlay,
@@ -513,7 +503,6 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, leaflet_next_page_cb);
   gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
   gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
-  gtk_widget_class_bind_template_callback (widget_class, style_classes_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, add_toast_cb);
   gtk_widget_class_bind_template_callback (widget_class, add_toast_with_button_cb);
   gtk_widget_class_bind_template_callback (widget_class, add_toast_with_long_title_cb);
@@ -617,6 +606,7 @@ adw_demo_window_init (AdwDemoWindow *self)
   g_type_ensure (ADW_TYPE_DEMO_PAGE_FLAP);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LEAFLET);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LISTS);
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_STYLES);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_TAB_VIEW);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_VIEW_SWITCHER);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_WELCOME);

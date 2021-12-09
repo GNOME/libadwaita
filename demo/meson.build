@@ -20,6 +20,8 @@ adwaita_demo_sources = [
   'pages/flap/adw-flap-demo-window.c',
   'pages/leaflet/adw-demo-page-leaflet.c',
   'pages/lists/adw-demo-page-lists.c',
+  'pages/styles/adw-demo-page-styles.c',
+  'pages/styles/adw-style-demo-window.c',
   'pages/tab-view/adw-demo-page-tab-view.c',
   'pages/tab-view/adw-tab-view-demo-window.c',
   'pages/view-switcher/adw-demo-page-view-switcher.c',
@@ -29,7 +31,6 @@ adwaita_demo_sources = [
   'adwaita-demo.c',
   'adw-demo-preferences-window.c',
   'adw-demo-window.c',
-  'adw-style-demo-window.c',
   libadwaita_generated_headers,
 ]
 
