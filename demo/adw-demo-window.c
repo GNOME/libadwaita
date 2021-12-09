@@ -1,6 +1,7 @@
 #include "adw-demo-window.h"
 
 #include <glib/gi18n.h>
+#include "pages/carousel/adw-demo-page-carousel.h"
 #include "pages/clamp/adw-demo-page-clamp.h"
 #include "pages/leaflet/adw-demo-page-leaflet.h"
 #include "pages/lists/adw-demo-page-lists.h"
@@ -21,9 +22,6 @@ struct _AdwDemoWindow
   GtkStackSidebar *sidebar;
   GtkStack *stack;
   AdwLeaflet *subpage_leaflet;
-  AdwCarousel *carousel;
-  GtkBox *carousel_box;
-  GtkStack *carousel_indicators_stack;
   AdwAvatar *avatar;
   GtkEntry *avatar_text;
   GtkLabel *avatar_file_chooser_label;
@@ -161,80 +159,6 @@ static void
 leaflet_next_page_cb (AdwDemoWindow *self)
 {
   adw_leaflet_navigate (self->subpage_leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
-}
-
-static char *
-carousel_orientation_name (AdwEnumListItem *item,
-                           gpointer         user_data)
-{
-  switch (adw_enum_list_item_get_value (item)) {
-  case GTK_ORIENTATION_HORIZONTAL:
-    return g_strdup (_("Horizontal"));
-  case GTK_ORIENTATION_VERTICAL:
-    return g_strdup (_("Vertical"));
-  default:
-    return NULL;
-  }
-}
-
-static void
-notify_carousel_orientation_cb (GObject       *sender,
-                                GParamSpec    *pspec,
-                                AdwDemoWindow *self)
-{
-  AdwComboRow *row = ADW_COMBO_ROW (sender);
-
-  g_assert (ADW_IS_COMBO_ROW (row));
-  g_assert (ADW_IS_DEMO_WINDOW (self));
-
-  gtk_orientable_set_orientation (GTK_ORIENTABLE (self->carousel_box),
-                                  1 - adw_combo_row_get_selected (row));
-  gtk_orientable_set_orientation (GTK_ORIENTABLE (self->carousel),
-                                  adw_combo_row_get_selected (row));
-}
-
-static char *
-carousel_indicators_name (GtkStringObject *value)
-{
-  const char *style;
-
-  g_assert (GTK_IS_STRING_OBJECT (value));
-
-  style = gtk_string_object_get_string (value);
-
-  if (!g_strcmp0 (style, "dots"))
-    return g_strdup (_("Dots"));
-
-  if (!g_strcmp0 (style, "lines"))
-    return g_strdup (_("Lines"));
-
-  return NULL;
-}
-
-static void
-notify_carousel_indicators_cb (GObject       *sender,
-                               GParamSpec    *pspec,
-                               AdwDemoWindow *self)
-{
-  AdwComboRow *row = ADW_COMBO_ROW (sender);
-  GtkStringObject *obj;
-
-  g_assert (ADW_IS_COMBO_ROW (row));
-  g_assert (ADW_IS_DEMO_WINDOW (self));
-
-  obj = adw_combo_row_get_selected_item (row);
-
-  gtk_stack_set_visible_child_name (self->carousel_indicators_stack,
-                                    gtk_string_object_get_string (obj));
-}
-
-static void
-carousel_return_clicked_cb (GtkButton     *btn,
-                            AdwDemoWindow *self)
-{
-  adw_carousel_scroll_to (self->carousel,
-                          adw_carousel_get_nth_page (self->carousel, 0),
-                          TRUE);
 }
 
 AdwDemoWindow *
@@ -752,9 +676,6 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, subpage_leaflet);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, carousel);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, carousel_box);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, carousel_indicators_stack);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar_text);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar_file_chooser_label);
@@ -781,11 +702,6 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, leaflet_next_page_cb);
   gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
   gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
-  gtk_widget_class_bind_template_callback (widget_class, notify_carousel_orientation_cb);
-  gtk_widget_class_bind_template_callback (widget_class, notify_carousel_indicators_cb);
-  gtk_widget_class_bind_template_callback (widget_class, carousel_indicators_name);
-  gtk_widget_class_bind_template_callback (widget_class, carousel_orientation_name);
-  gtk_widget_class_bind_template_callback (widget_class, carousel_return_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, avatar_file_remove_cb);
   gtk_widget_class_bind_template_callback (widget_class, avatar_file_chooser_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, avatar_save_to_file_cb);
@@ -912,6 +828,7 @@ adw_demo_window_init (AdwDemoWindow *self)
 {
   AdwStyleManager *manager = adw_style_manager_get_default ();
 
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_CAROUSEL);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CLAMP);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LEAFLET);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LISTS);
