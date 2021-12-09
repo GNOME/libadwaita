@@ -1,6 +1,7 @@
 #include "adw-demo-window.h"
 
 #include <glib/gi18n.h>
+#include "pages/avatar/adw-demo-page-avatar.h"
 #include "pages/carousel/adw-demo-page-carousel.h"
 #include "pages/clamp/adw-demo-page-clamp.h"
 #include "pages/leaflet/adw-demo-page-leaflet.h"
@@ -22,12 +23,6 @@ struct _AdwDemoWindow
   GtkStackSidebar *sidebar;
   GtkStack *stack;
   AdwLeaflet *subpage_leaflet;
-  AdwAvatar *avatar;
-  GtkEntry *avatar_text;
-  GtkLabel *avatar_file_chooser_label;
-  GtkButton *avatar_remove_button;
-  GtkFileChooserNative *avatar_file_chooser;
-  GtkListBox *avatar_contacts;
   int toast_undo_items;
   AdwToast *undo_toast;
   GtkStack *animation_preferences_stack;
@@ -165,165 +160,6 @@ AdwDemoWindow *
 adw_demo_window_new (GtkApplication *application)
 {
   return g_object_new (ADW_TYPE_DEMO_WINDOW, "application", application, NULL);
-}
-
-static void
-avatar_file_remove_cb (AdwDemoWindow *self)
-{
-  g_assert (ADW_IS_DEMO_WINDOW (self));
-
-  g_signal_handlers_disconnect_by_data (self->avatar, self);
-
-  gtk_label_set_label (self->avatar_file_chooser_label, _("(None)"));
-  gtk_widget_set_sensitive (GTK_WIDGET (self->avatar_remove_button), FALSE);
-  adw_avatar_set_custom_image (self->avatar, NULL);
-}
-
-static void
-avatar_file_chooser_response_cb (AdwDemoWindow *self,
-                                 int            response)
-{
-  g_autoptr (GFile) file = NULL;
-  g_autoptr (GFileInfo) info = NULL;
-  g_autoptr (GdkTexture) texture = NULL;
-  g_autoptr (GError) error = NULL;
-
-  g_assert (ADW_IS_DEMO_WINDOW (self));
-
-  if (response != GTK_RESPONSE_ACCEPT)
-    return;
-
-  file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (self->avatar_file_chooser));
-  info = g_file_query_info (file,
-                            G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,
-                            G_FILE_QUERY_INFO_NONE,
-                            NULL,
-                            NULL);
-
-  if (info)
-    gtk_label_set_label (self->avatar_file_chooser_label,
-                         g_file_info_get_display_name (info));
-
-  gtk_widget_set_sensitive (GTK_WIDGET (self->avatar_remove_button), TRUE);
-
-  texture = gdk_texture_new_from_file (file, &error);
-  if (error)
-    g_critical ("Failed to create texture from file: %s", error->message);
-
-  adw_avatar_set_custom_image (self->avatar, texture ? GDK_PAINTABLE (texture) : NULL);
-}
-
-static void
-avatar_file_chooser_clicked_cb (AdwDemoWindow *self)
-{
-  gtk_native_dialog_show (GTK_NATIVE_DIALOG (self->avatar_file_chooser));
-}
-
-static void
-file_chooser_response_cb (AdwDemoWindow  *self,
-                          int             response_id,
-                          GtkFileChooser *chooser)
-{
-  if (response_id == GTK_RESPONSE_ACCEPT) {
-    g_autoptr (GFile) file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (chooser));
-    g_autoptr (GdkTexture) texture =
-      adw_avatar_draw_to_texture (self->avatar,
-                                  gtk_widget_get_scale_factor (GTK_WIDGET (self)));
-
-    gdk_texture_save_to_png (texture, g_file_peek_path (file));
-  }
-
-  g_object_unref (chooser);
-}
-
-static void
-avatar_save_to_file_cb (AdwDemoWindow *self)
-{
-  GtkFileChooserNative *chooser = NULL;
-
-  g_assert (ADW_IS_DEMO_WINDOW (self));
-
-  chooser = gtk_file_chooser_native_new (_("Save Avatar"),
-                                         GTK_WINDOW (self),
-                                         GTK_FILE_CHOOSER_ACTION_SAVE,
-                                         _("_Save"),
-                                         _("_Cancel"));
-
-  g_signal_connect_swapped (chooser, "response", G_CALLBACK (file_chooser_response_cb), self);
-
-  gtk_native_dialog_show (GTK_NATIVE_DIALOG (chooser));
-}
-
-static char *
-avatar_new_random_name (void)
-{
-  static const char *first_names[] = {
-    "Adam",
-    "Adrian",
-    "Anna",
-    "Charlotte",
-    "Frédérique",
-    "Ilaria",
-    "Jakub",
-    "Jennyfer",
-    "Julia",
-    "Justin",
-    "Mario",
-    "Miriam",
-    "Mohamed",
-    "Nourimane",
-    "Owen",
-    "Peter",
-    "Petra",
-    "Rachid",
-    "Rebecca",
-    "Sarah",
-    "Thibault",
-    "Wolfgang",
-  };
-  static const char *last_names[] = {
-    "Bailey",
-    "Berat",
-    "Chen",
-    "Farquharson",
-    "Ferber",
-    "Franco",
-    "Galinier",
-    "Han",
-    "Lawrence",
-    "Lepied",
-    "Lopez",
-    "Mariotti",
-    "Rossi",
-    "Urasawa",
-    "Zwickelman",
-  };
-
-  return g_strdup_printf ("%s %s",
-                          first_names[g_random_int_range (0, G_N_ELEMENTS (first_names))],
-                          last_names[g_random_int_range (0, G_N_ELEMENTS (last_names))]);
-}
-
-static void
-avatar_update_contacts (AdwDemoWindow *self)
-{
-  GtkWidget *row;
-
-  while ((row = gtk_widget_get_first_child (GTK_WIDGET (self->avatar_contacts))))
-    gtk_list_box_remove (self->avatar_contacts, row);
-
-  for (int i = 0; i < 30; i++) {
-    g_autofree char *name = avatar_new_random_name ();
-    GtkWidget *contact = adw_action_row_new ();
-    GtkWidget *avatar = adw_avatar_new (40, name, TRUE);
-
-    gtk_widget_set_margin_top (avatar, 12);
-    gtk_widget_set_margin_bottom (avatar, 12);
-
-    adw_preferences_row_set_title (ADW_PREFERENCES_ROW (contact), name);
-    adw_action_row_add_prefix (ADW_ACTION_ROW (contact), avatar);
-    gtk_list_box_append (self->avatar_contacts, contact);
-  }
 }
 
 static void
@@ -676,11 +512,6 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, sidebar);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, stack);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, subpage_leaflet);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar_text);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar_file_chooser_label);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar_remove_button);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, avatar_contacts);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, toast_overlay);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, animation_preferences_stack);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, timed_animation_sample);
@@ -702,9 +533,6 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, leaflet_next_page_cb);
   gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
   gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
-  gtk_widget_class_bind_template_callback (widget_class, avatar_file_remove_cb);
-  gtk_widget_class_bind_template_callback (widget_class, avatar_file_chooser_clicked_cb);
-  gtk_widget_class_bind_template_callback (widget_class, avatar_save_to_file_cb);
   gtk_widget_class_bind_template_callback (widget_class, flap_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, tab_view_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, style_classes_demo_clicked_cb);
@@ -735,30 +563,6 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
                          G_PARAM_READWRITE);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
-}
-
-static void
-avatar_page_init (AdwDemoWindow *self)
-{
-  g_autofree char *name = avatar_new_random_name ();
-
-  gtk_editable_set_text (GTK_EDITABLE (self->avatar_text), name);
-
-  avatar_update_contacts (self);
-
-  self->avatar_file_chooser =
-    gtk_file_chooser_native_new (_("Select an Avatar"),
-                                 GTK_WINDOW (self),
-                                 GTK_FILE_CHOOSER_ACTION_OPEN,
-                                 _("_Select"),
-                                 _("_Cancel"));
-
-  gtk_native_dialog_set_modal (GTK_NATIVE_DIALOG (self->avatar_file_chooser), TRUE);
-  g_signal_connect_object (self->avatar_file_chooser, "response",
-                           G_CALLBACK (avatar_file_chooser_response_cb), self,
-                           G_CONNECT_SWAPPED);
-
-  avatar_file_remove_cb (self);
 }
 
 static void
@@ -828,6 +632,7 @@ adw_demo_window_init (AdwDemoWindow *self)
 {
   AdwStyleManager *manager = adw_style_manager_get_default ();
 
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_AVATAR);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CAROUSEL);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CLAMP);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LEAFLET);
@@ -844,8 +649,6 @@ adw_demo_window_init (AdwDemoWindow *self)
                            G_CONNECT_SWAPPED);
 
   notify_system_supports_color_schemes_cb (self);
-
-  avatar_page_init (self);
 
   adw_leaflet_set_visible_child (self->content_box, GTK_WIDGET (self->right_box));
 

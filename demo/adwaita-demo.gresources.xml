@@ -41,6 +41,7 @@
     <file compressed="true">style-dark.css</file>
   </gresource>
   <gresource prefix="/org/gnome/Adwaita1/Demo/ui">
+    <file preprocess="xml-stripblanks">pages/avatar/adw-demo-page-avatar.ui</file>
     <file preprocess="xml-stripblanks">pages/carousel/adw-demo-page-carousel.ui</file>
     <file preprocess="xml-stripblanks">pages/clamp/adw-demo-page-clamp.ui</file>
     <file preprocess="xml-stripblanks">pages/leaflet/adw-demo-page-leaflet.ui</file>
