@@ -24,6 +24,7 @@ adwaita_demo_sources = [
   'pages/styles/adw-style-demo-window.c',
   'pages/tab-view/adw-demo-page-tab-view.c',
   'pages/tab-view/adw-tab-view-demo-window.c',
+  'pages/toasts/adw-demo-page-toasts.c',
   'pages/view-switcher/adw-demo-page-view-switcher.c',
   'pages/view-switcher/adw-view-switcher-demo-window.c',
   'pages/welcome/adw-demo-page-welcome.c',
