@@ -200,12 +200,11 @@
                         </child>
                         <child>
                           <object class="GtkStackPage">
-                            <property name="name">toast</property>
-                            <property name="title" translatable="yes">Toast</property>
+                            <property name="title" translatable="yes">Toasts</property>
                             <property name="child">
                               <object class="AdwStatusPage">
                                 <property name="icon-name">preferences-system-notifications-symbolic</property>
-                                <property name="title" translatable="yes">Toast</property>
+                                <property name="title" translatable="yes">Toasts</property>
                                 <property name="description" translatable="yes">Transient in-app notifications.</property>
                                 <property name="child">
                                   <object class="AdwClamp">
