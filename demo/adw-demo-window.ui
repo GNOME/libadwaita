@@ -1015,13 +1015,12 @@
                                                 <property name="tightening-threshold">300</property>
                                                 <property name="child">
                                                   <object class="AdwBin" id="timed_animation_sample">
+                                                    <property name="margin-bottom">36</property>
                                                     <property name="child">
                                                       <object class="AdwBin" id="timed_animation_widget">
                                                         <property name="halign">center</property>
                                                         <property name="valign">center</property>
-                                                        <style>
-                                                          <class name="htranslate"/>
-                                                        </style>
+                                                        <property name="name">animation-sample</property>
                                                       </object>
                                                     </property>
                                                   </object>
