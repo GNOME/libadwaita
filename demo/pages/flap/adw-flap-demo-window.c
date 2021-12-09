@@ -72,7 +72,7 @@ adw_flap_demo_window_class_init (AdwFlapDemoWindowClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-  gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/adw-flap-demo-window.ui");
+  gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/pages/flap/adw-flap-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwFlapDemoWindow, flap);
   gtk_widget_class_bind_template_child (widget_class, AdwFlapDemoWindow, reveal_btn_start);
   gtk_widget_class_bind_template_child (widget_class, AdwFlapDemoWindow, reveal_btn_end);

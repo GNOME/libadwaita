@@ -44,6 +44,8 @@
     <file preprocess="xml-stripblanks">pages/avatar/adw-demo-page-avatar.ui</file>
     <file preprocess="xml-stripblanks">pages/carousel/adw-demo-page-carousel.ui</file>
     <file preprocess="xml-stripblanks">pages/clamp/adw-demo-page-clamp.ui</file>
+    <file preprocess="xml-stripblanks">pages/flap/adw-demo-page-flap.ui</file>
+    <file preprocess="xml-stripblanks">pages/flap/adw-flap-demo-window.ui</file>
     <file preprocess="xml-stripblanks">pages/leaflet/adw-demo-page-leaflet.ui</file>
     <file preprocess="xml-stripblanks">pages/lists/adw-demo-page-lists.ui</file>
     <file preprocess="xml-stripblanks">pages/view-switcher/adw-demo-page-view-switcher.ui</file>
@@ -51,7 +53,6 @@
     <file preprocess="xml-stripblanks">pages/welcome/adw-demo-page-welcome.ui</file>
     <file preprocess="xml-stripblanks">adw-demo-preferences-window.ui</file>
     <file preprocess="xml-stripblanks">adw-demo-window.ui</file>
-    <file preprocess="xml-stripblanks">adw-flap-demo-window.ui</file>
     <file preprocess="xml-stripblanks">adw-style-demo-window.ui</file>
     <file preprocess="xml-stripblanks">adw-tab-view-demo-window.ui</file>
   </gresource>

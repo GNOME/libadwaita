@@ -4,11 +4,11 @@
 #include "pages/avatar/adw-demo-page-avatar.h"
 #include "pages/carousel/adw-demo-page-carousel.h"
 #include "pages/clamp/adw-demo-page-clamp.h"
+#include "pages/flap/adw-demo-page-flap.h"
 #include "pages/leaflet/adw-demo-page-leaflet.h"
 #include "pages/lists/adw-demo-page-lists.h"
 #include "pages/view-switcher/adw-demo-page-view-switcher.h"
 #include "pages/welcome/adw-demo-page-welcome.h"
-#include "adw-flap-demo-window.h"
 #include "adw-style-demo-window.h"
 #include "adw-tab-view-demo-window.h"
 
@@ -160,16 +160,6 @@ AdwDemoWindow *
 adw_demo_window_new (GtkApplication *application)
 {
   return g_object_new (ADW_TYPE_DEMO_WINDOW, "application", application, NULL);
-}
-
-static void
-flap_demo_clicked_cb (GtkButton     *btn,
-                      AdwDemoWindow *self)
-{
-  AdwFlapDemoWindow *window = adw_flap_demo_window_new ();
-
-  gtk_window_set_transient_for (GTK_WINDOW (window), GTK_WINDOW (self));
-  gtk_window_present (GTK_WINDOW (window));
 }
 
 static void
@@ -533,7 +523,6 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, leaflet_next_page_cb);
   gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
   gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
-  gtk_widget_class_bind_template_callback (widget_class, flap_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, tab_view_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, style_classes_demo_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, add_toast_cb);
@@ -635,6 +624,7 @@ adw_demo_window_init (AdwDemoWindow *self)
   g_type_ensure (ADW_TYPE_DEMO_PAGE_AVATAR);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CAROUSEL);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CLAMP);
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_FLAP);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LEAFLET);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LISTS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_VIEW_SWITCHER);
