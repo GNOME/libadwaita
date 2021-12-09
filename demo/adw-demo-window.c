@@ -3,6 +3,7 @@
 #include <glib/gi18n.h>
 #include "pages/clamp/adw-demo-page-clamp.h"
 #include "pages/leaflet/adw-demo-page-leaflet.h"
+#include "pages/lists/adw-demo-page-lists.h"
 #include "pages/welcome/adw-demo-page-welcome.h"
 #include "adw-flap-demo-window.h"
 #include "adw-style-demo-window.h"
@@ -924,6 +925,7 @@ adw_demo_window_init (AdwDemoWindow *self)
 
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CLAMP);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LEAFLET);
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_LISTS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_WELCOME);
 
   gtk_widget_init_template (GTK_WIDGET (self));

@@ -14,6 +14,7 @@ adwaita_demo_sources = [
 
   'pages/clamp/adw-demo-page-clamp.c',
   'pages/leaflet/adw-demo-page-leaflet.c',
+  'pages/lists/adw-demo-page-lists.c',
   'pages/welcome/adw-demo-page-welcome.c',
 
   'adwaita-demo.c',
