@@ -24,7 +24,7 @@
 @define-color success_color #{if($variant == 'dark', "@green_1", "@green_5")};
 
 @define-color warning_bg_color #{if($variant == 'dark', #cd9309, "@yellow_5")};
-@define-color warning_fg_color @light_1;
+@define-color warning_fg_color #{transparentize(black, .2)};
 @define-color warning_color #{if($variant == 'dark', "@yellow_2", #ae7b03)};
 
 @define-color error_bg_color #{if($variant == 'dark', "@red_4", "@red_3")};
