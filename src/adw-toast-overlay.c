@@ -474,6 +474,8 @@ adw_toast_overlay_buildable_add_child (GtkBuildable *buildable,
 
   if (!type && GTK_IS_WIDGET (child))
     adw_toast_overlay_set_child (self, GTK_WIDGET (child));
+  else if (!type && ADW_IS_TOAST (child))
+    adw_toast_overlay_add_toast (self, g_object_ref (ADW_TOAST (child)));
   else
     parent_buildable_iface->add_child (buildable, builder, child, type);
 }
