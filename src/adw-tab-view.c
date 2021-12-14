@@ -37,8 +37,7 @@ static GSList *tab_view_list;
  * editors or terminals. It does not aim to replace [class@Gtk.Notebook] for use
  * cases such as tabbed dialogs.
  *
- * As such, it does not support disabling page reordering or detaching, or
- * adding children via [class@Gtk.Builder].
+ * As such, it does not support disabling page reordering or detaching.
  *
  * `AdwTabView` adds the following shortcuts in the managed scope:
  *
@@ -125,7 +124,12 @@ struct _AdwTabView
   GtkSelectionModel *pages;
 };
 
-G_DEFINE_FINAL_TYPE (AdwTabView, adw_tab_view, GTK_TYPE_WIDGET)
+static void adw_tab_view_buildable_init (GtkBuildableIface *iface);
+
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwTabView, adw_tab_view, GTK_TYPE_WIDGET,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_tab_view_buildable_init))
+
+static GtkBuildableIface *parent_buildable_iface;
 
 enum {
   PROP_0,
@@ -927,21 +931,11 @@ detach_page (AdwTabView *self,
   g_object_unref (page);
 }
 
-static AdwTabPage *
+static void
 insert_page (AdwTabView *self,
-             GtkWidget  *child,
-             AdwTabPage *parent,
-             int         position,
-             gboolean    pinned)
+             AdwTabPage *page,
+             int         position)
 {
-  g_autoptr (AdwTabPage) page =
-    g_object_new (ADW_TYPE_TAB_PAGE,
-                  "child", child,
-                  "parent", parent,
-                  NULL);
-
-  set_page_pinned (page, pinned);
-
   attach_page (self, page, position);
 
   g_object_freeze_notify (G_OBJECT (self));
@@ -953,6 +947,24 @@ insert_page (AdwTabView *self,
     g_list_model_items_changed (G_LIST_MODEL (self->pages), position, 0, 1);
 
   g_object_thaw_notify (G_OBJECT (self));
+}
+
+static AdwTabPage *
+create_and_insert_page (AdwTabView *self,
+                        GtkWidget  *child,
+                        AdwTabPage *parent,
+                        int         position,
+                        gboolean    pinned)
+{
+  g_autoptr (AdwTabPage) page =
+    g_object_new (ADW_TYPE_TAB_PAGE,
+                  "child", child,
+                  "parent", parent,
+                  NULL);
+
+  set_page_pinned (page, pinned);
+
+  insert_page (self, page, position);
 
   return page;
 }
@@ -1739,6 +1751,30 @@ adw_tab_view_init (AdwTabView *self)
   init_shortcuts (self, controller);
 
   gtk_widget_add_controller (GTK_WIDGET (self), controller);
+}
+
+static void
+adw_tab_view_buildable_add_child (GtkBuildable *buildable,
+                                  GtkBuilder   *builder,
+                                  GObject      *child,
+                                  const char   *type)
+{
+  AdwTabView *self = ADW_TAB_VIEW (buildable);
+
+  if (!type && GTK_IS_WIDGET (child))
+    adw_tab_view_append (self, GTK_WIDGET (child));
+  else if (!type && ADW_IS_TAB_PAGE (child))
+    insert_page (self, ADW_TAB_PAGE (child), self->n_pages);
+  else
+    parent_buildable_iface->add_child (buildable, builder, child, type);
+}
+
+static void
+adw_tab_view_buildable_init (GtkBuildableIface *iface)
+{
+  parent_buildable_iface = g_type_interface_peek_parent (iface);
+
+  iface->add_child = adw_tab_view_buildable_add_child;
 }
 
 /**
@@ -2651,7 +2687,7 @@ adw_tab_view_add_page (AdwTabView *self,
     position = self->n_pages;
   }
 
-  return insert_page (self, child, parent, position, FALSE);
+  return create_and_insert_page (self, child, parent, position, FALSE);
 }
 
 /**
@@ -2679,7 +2715,7 @@ adw_tab_view_insert (AdwTabView *self,
   g_return_val_if_fail (position >= self->n_pinned_pages, NULL);
   g_return_val_if_fail (position <= self->n_pages, NULL);
 
-  return insert_page (self, child, NULL, position, FALSE);
+  return create_and_insert_page (self, child, NULL, position, FALSE);
 }
 
 /**
@@ -2700,7 +2736,7 @@ adw_tab_view_prepend (AdwTabView *self,
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
 
-  return insert_page (self, child, NULL, self->n_pinned_pages, FALSE);
+  return create_and_insert_page (self, child, NULL, self->n_pinned_pages, FALSE);
 }
 
 /**
@@ -2721,7 +2757,7 @@ adw_tab_view_append (AdwTabView *self,
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
 
-  return insert_page (self, child, NULL, self->n_pages, FALSE);
+  return create_and_insert_page (self, child, NULL, self->n_pages, FALSE);
 }
 
 /**
@@ -2749,7 +2785,7 @@ adw_tab_view_insert_pinned (AdwTabView *self,
   g_return_val_if_fail (position >= 0, NULL);
   g_return_val_if_fail (position <= self->n_pinned_pages, NULL);
 
-  return insert_page (self, child, NULL, position, TRUE);
+  return create_and_insert_page (self, child, NULL, position, TRUE);
 }
 
 /**
@@ -2770,7 +2806,7 @@ adw_tab_view_prepend_pinned (AdwTabView *self,
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
 
-  return insert_page (self, child, NULL, 0, TRUE);
+  return create_and_insert_page (self, child, NULL, 0, TRUE);
 }
 
 /**
@@ -2791,7 +2827,7 @@ adw_tab_view_append_pinned (AdwTabView *self,
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
 
-  return insert_page (self, child, NULL, self->n_pinned_pages, TRUE);
+  return create_and_insert_page (self, child, NULL, self->n_pinned_pages, TRUE);
 }
 
 /**
