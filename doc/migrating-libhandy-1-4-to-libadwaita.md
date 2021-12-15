@@ -472,6 +472,10 @@ the name of the design pattern. If you were using the
 
 The `.content` style class currently remains for compatibility purposes.
 
+Neither the `.content` style class nor the `.boxed-list` style class work
+for [class@Gtk.ListView], as the widget cannot currently be used for the
+boxed list pattern.
+
 #### Adjusting Icons
 
 If you're bundling icons from the icon library with your application, make sure
