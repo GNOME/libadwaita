@@ -24,9 +24,6 @@ You should stop using [property@Gtk.Stack:transition-type] and
 
 ### Adapt to Stylesheet Changes
 
-The public colors `@theme_selected_bg_color` and `@theme_selected_fg_color` have
-been renamed to `@accent_bg_color` and `@accent_fg_color`.
-
 If you were using `@theme_selected_bg_color` as a text color, use
 `@accent_color` instead to make sure the text is readable. You can also use the
 `.accent` style class to apply the correct color.

@@ -391,21 +391,6 @@ The `hdy_ease_out_cubic()` function has been removed. Instead,
 
 ### Adapt to Stylesheet Changes
 
-Most widgets don't have a backdrop state anymore, and the following public
-colors have been removed:
-
-* `@theme_unfocused_fg_color`
-* `@theme_unfocused_text_color`
-* `@theme_unfocused_bg_color`
-* `@theme_unfocused_base_color`
-* `@theme_unfocused_selected_bg_color`
-* `@theme_unfocused_selected_fg_color`
-* `@unfocused_insensitive_color`
-* `@unfocused_borders`
-
-The public colors `@theme_selected_bg_color` and `@theme_selected_fg_color` have
-been renamed to `@accent_bg_color` and `@accent_fg_color`.
-
 If you were using `@theme_selected_bg_color` as a text color, use
 `@accent_color` instead to make sure the text is readable. You can also use the
 `.accent` style class to apply the correct color.
