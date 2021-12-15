@@ -423,7 +423,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * The position of the selected item.
    *
    * If no item is selected, the property has the value
-   * `GTK_INVALID_LIST_POSITION`.
+   * [const@Gtk.INVALID_LIST_POSITION]
    *
    * Since: 1.0
    */
@@ -559,7 +559,8 @@ adw_combo_row_new (void)
 /**
  * adw_combo_row_set_selected: (attributes org.gtk.Method.set_property=selected)
  * @self: a `AdwComboRow`
- * @position: the position of the item to select, or `GTK_INVALID_LIST_POSITION`
+ * @position: the position of the item to select, or
+ *   [const@Gtk.INVALID_LIST_POSITION]
  *
  * Selects the item at the given position.
  *
@@ -590,8 +591,8 @@ adw_combo_row_set_selected (AdwComboRow *self,
  *
  * Gets the position of the selected item.
  *
- * Returns: the position of the selected item, or `GTK_INVALID_LIST_POSITION`
- *   if no item is selected
+ * Returns: the position of the selected item, or
+ *   [const@Gtk.INVALID_LIST_POSITION] if no item is selected
  *
  * Since: 1.0
  */
