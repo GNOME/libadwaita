@@ -23,8 +23,9 @@
  *
  * `AdwStatusPage` has a main CSS node with name `statuspage`.
  *
- * `AdwStatusPage` can use the `.compact` style class for when it needs to fit
- * into a small space such a sidebar or a popover.
+ * `AdwStatusPage` can use the
+ * [`.compact`](style-classes.html#compact-status-page) style class for when it
+ * needs to fit into a small space such a sidebar or a popover.
  *
  * Since: 1.0
  */

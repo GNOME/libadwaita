@@ -391,24 +391,27 @@ The `hdy_ease_out_cubic()` function has been removed. Instead,
 
 ### Adapt to Stylesheet Changes
 
-If you were using `@theme_selected_bg_color` as a text color, use
-`@accent_color` instead to make sure the text is readable. You can also use the
-`.accent` style class to apply the correct color.
+If you were using
+[`@theme_selected_bg_color`](named-colors.html#compatibility-colors) as a text
+color, use [`@accent_color`](named-colors.html#accent-colors) instead to make
+sure the text is readable. You can also use the
+[`.accent`](style-classes.html#colors) style class to apply the correct color.
 
 ### Stop Using the `.sidebar` Style Class
 
-The `.sidebar` style class is now deprecated, although still works for
-compatibility reasons. The main use case - adjusting the background color of
-[class@Gtk.ListBox] and [class@Gtk.ListView] - can now be done with the
-`.navigation-sidebar` style class on those widgets instead, along with adjusting
-the item selection style. The border can be replicated by manually adding a
-[class@Gtk.Separator].
+The [`.sidebar`](style-classes.html#sidebar) style class is now deprecated,
+although still works for compatibility reasons. The main use case - adjusting
+the background color of [class@Gtk.ListBox] and [class@Gtk.ListView] - can now
+be done with the [`.navigation-sidebar`](style-classes.html#sidebars) style
+class on those widgets instead, along with adjusting the item selection style.
+The border can be replicated by manually adding a [class@Gtk.Separator].
 
 ### Adapt to the `popover.combo` Style Removal
 
-The `.combo` popover style class has been removed. Use `.menu` instead. You may
-need to remove manually added margins, padding or minimum height from the list
-items inside while doing it.
+The `.combo` popover style class has been removed. Use
+[`.menu`](style-classes.html#menu-popovers) instead. You may need to remove
+manually added margins, padding or minimum height from the list items inside
+while doing it.
 
 ### Adapt to the `button.list-button` Style Removal
 
@@ -419,9 +422,10 @@ button style should be used instead.
 
 The `.content-view` style class has been removed. The selection mode
 [class@Gtk.CheckButton] style had inside content views has been split out into a
-separate style class `.selection-mode` that can be applied directly onto check
-buttons instead of the view. The unique background color has no replacement and
-the default background should be used instead.
+separate style class
+[`.selection-mode`](style-classes.html#selection-mode-check-buttons) that can be
+applied directly onto check buttons instead of the view. The unique background
+color has no replacement and the default background should be used instead.
 
 #### Adapt to Header Bar, Action Bar, Search Bar and Toolbar Style Changes
 
@@ -436,15 +440,17 @@ The following buttons get flat appearance:
 * Buttons with an icon and a label (using [class@Adw.ButtonContent]);
 * Menu buttons containing an arrow;
 * [class@Adw.SplitButton];
-* Any other button with the `.flat` style class.
+* Any other button with the [`.flat`](style-classes.html#flat) style class.
 
 The following buttons keep default appearance:
 
 * Text-only buttons;
 * Buttons with other content;
-* Buttons within widgets containing the `.linked` style class;
-* Buttons with the `.suggested-action` or `.destructive-action` style classes.
-* Buttons with the `.raised` style class.
+* Buttons within widgets containing the
+  [`.linked`](style-classes.html#linked-controls) class;
+* Buttons with the [`.suggested-action`](style-classes.html#suggested-action) or
+  [`.destructive-action`](style-classes.html#destructive-action) style classes.
+* Buttons with the [`.raised`](style-classes.html#raised) style class.
 
 It's important to avoid ambiguous layouts, for example text-only buttons with
 no icon, since such a button would be indistinguishable from the window title
@@ -453,14 +459,16 @@ without hovering it.
 In rare cases, the existing layout may need a redesign to work with the new
 style.
 
-The same rules are also used for the `.toolbar` style class now, instead of
-making every button appear flat.
+The same rules are also used for the [`.toolbar`](style-classes.html#toolbars)
+style class now, instead of making every button appear flat.
 
 #### Adapt to List Style Changes
 
-For boxed lists we now have the `.boxed-list` style class that matches
-the name of the design pattern. If you were using the `.content` style
-class, you should use `.boxed-list` instead.
+For boxed lists we now have the
+[`.boxed-list`](style-classes.html#boxed-lists-cards) style class that matches
+the name of the design pattern. If you were using the
+[`.content`](style-classes.html#content) style class, you should use
+`.boxed-list` instead.
 
 The `.content` style class currently remains for compatibility purposes.
 
@@ -510,8 +518,9 @@ One exception are the two primary buttons in a dialog, for example, "Cancel" and
 
 #### Adjusting Split Buttons
 
-If you had split buttons implemented via a `GtkBox` with the `.linked` style
-class and two buttons packed inside, use `AdwSplitButton` as follows:
+If you had split buttons implemented via a `GtkBox` with the
+[`.linked`](style-classes.html#linked-controls) style class and two buttons
+packed inside, use [class@Adw.SplitButton] as follows:
 
 ```xml
 <object class="AdwSplitButton">
@@ -537,8 +546,9 @@ insert extra spacing as follows:
 
 #### Custom Adjustments
 
-The `.flat` and `.raised` style classes can always be used to override the
-default appearance.
+The [`.flat`](style-classes.html#flat) and
+[`.raised`](style-classes.html#raised) style classes can always be used to
+override the default appearance.
 
 Important: the [property@Gtk.Button:has-frame] property will **not** be set to
 `FALSE` when a button gets the flat appearance automatically. It also cannot be

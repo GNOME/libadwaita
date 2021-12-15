@@ -41,8 +41,9 @@
  * the content and the flap when there's no shadow to separate them, depending
  * on the transition type.
  *
- * [property@Adw.Flap:flap] is transparent by default; add the `.background`
- * style class to it if this is unwanted.
+ * [property@Adw.Flap:flap] is transparent by default; add the
+ * [`.background`](style-classes.html#background) style class to it if this is
+ * unwanted.
  *
  * If [property@Adw.Flap:modal] is set to `TRUE`, content becomes completely
  * inaccessible when the flap is revealed while folded.
@@ -1468,7 +1469,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * [property@Adw.Flap:flap] is transparent by default, which means the content
    * will be seen through it with `ADW_FLAP_TRANSITION_TYPE_OVER` transitions;
-   * add the `.background` style class to it if this is unwanted.
+   * add the [`.background`](style-classes.html#background) style class to it if
+   * this is unwanted.
    *
    * Since: 1.0
    */
