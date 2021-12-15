@@ -4,6 +4,8 @@ expand_content_md_files = [
   'build-howto.md',
   'migrating-between-development-versions.md',
   'migrating-libhandy-1-4-to-libadwaita.md',
+  'named-colors.md',
+  'style-classes.md',
   'visual-index.md',
 ]
 
