@@ -46,21 +46,21 @@ copy it in tree instead.
 The following named colors have been removed from the stylesheet in
 Libadwaita:
 
-* `@content_view_bg`
-* `@text_view_bg`
-* `@wm_title`
-* `@wm_unfocused_title`
-* `@wm_highlight`
-* `@wm_borders_edge`
-* `@wm_bg_a`
-* `@wm_bg_b`
-* `@wm_shadow`
-* `@wm_border`
-* `@wm_button_hover_color_a`
-* `@wm_button_hover_color_b`
-* `@wm_button_active_color_a`
-* `@wm_button_active_color_b`
-* `@wm_button_active_color_c`
+* <code>&#64;content_view_bg</code>
+* <code>&#64;text_view_bg</code>
+* <code>&#64;wm_title</code>
+* <code>&#64;wm_unfocused_title</code>
+* <code>&#64;wm_highlight</code>
+* <code>&#64;wm_borders_edge</code>
+* <code>&#64;wm_bg_a</code>
+* <code>&#64;wm_bg_b</code>
+* <code>&#64;wm_shadow</code>
+* <code>&#64;wm_border</code>
+* <code>&#64;wm_button_hover_color_a</code>
+* <code>&#64;wm_button_hover_color_b</code>
+* <code>&#64;wm_button_active_color_a</code>
+* <code>&#64;wm_button_active_color_b</code>
+* <code>&#64;wm_button_active_color_c</code>
 
 Applications should not use them.
 
@@ -392,9 +392,10 @@ The `hdy_ease_out_cubic()` function has been removed. Instead,
 ### Adapt to Stylesheet Changes
 
 If you were using
-[`@theme_selected_bg_color`](named-colors.html#compatibility-colors) as a text
-color, use [`@accent_color`](named-colors.html#accent-colors) instead to make
-sure the text is readable. You can also use the
+[<code>&#64;theme_selected_bg_color</code>](named-colors.html#compatibility-colors)
+as a text color, use
+[<code>&#64;accent_color</code>](named-colors.html#accent-colors) instead to
+make sure the text is readable. You can also use the
 [`.accent`](style-classes.html#colors) style class to apply the correct color.
 
 ### Stop Using the `.sidebar` Style Class

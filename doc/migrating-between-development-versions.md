@@ -25,8 +25,9 @@ You should stop using [property@Gtk.Stack:transition-type] and
 ### Adapt to Stylesheet Changes
 
 If you were using
-[`@theme_selected_bg_color`](named-colors.html#compatibility-colors) as a text
-color, use [`@accent_color`](named-colors.html#accent-colors) instead to make
+[<code>&#64;theme_selected_bg_color</code>](named-colors.html#compatibility-colors)
+as a text color, use
+code>&#64;accent_color</code>](named-colors.html#accent-colors) instead to make
 sure the text is readable. You can also use the
 [`.accent`](style-classes.html#colors) style class to apply the correct color.
 
