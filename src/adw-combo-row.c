@@ -31,7 +31,7 @@
  * `AdwComboRow` has a main CSS node with name `row` and the `.combo` style
  * class.
  *
- * Its popover has the node named `popover` with the `.combo` style class, it
+ * Its popover has the node named `popover` with the `.menu` style class, it
  * contains a [class@Gtk.ScrolledWindow], which in turn contains a
  * [class@Gtk.ListView], both are accessible via their regular nodes.
  *
