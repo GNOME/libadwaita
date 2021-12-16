@@ -1,5 +1,7 @@
 if get_option('gtk_doc')
 
+subdir('tools')
+
 expand_content_md_files = [
   'build-howto.md',
   'migrating-between-development-versions.md',
