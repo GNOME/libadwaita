@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <menu id="demo_menu"/>
+  <object class="AdwBin" id="widget">
+    <style>
+      <class name="toolbar-sample"/>
+    </style>
+    <property name="child">
+      <object class="GtkBox">
+        <style>
+          <class name="toolbar"/>
+        </style>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">list-add-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkMenuButton">
+            <property name="icon-name">list-add-symbolic</property>
+            <property name="menu-model">demo_menu</property>
+            <property name="always-show-arrow">True</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSplitButton">
+            <property name="icon-name">list-add-symbolic</property>
+            <property name="menu-model">demo_menu</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="child">
+              <object class="AdwButtonContent">
+                <property name="icon-name">list-add-symbolic</property>
+                <property name="label">Add</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkMenuButton">
+            <property name="label">Add</property>
+            <property name="menu-model">demo_menu</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwSplitButton">
+            <property name="label">Add</property>
+            <property name="menu-model">demo_menu</property>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+</interface>

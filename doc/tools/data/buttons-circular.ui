@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkBox" id="widget">
+    <property name="spacing">6</property>
+    <child>
+      <object class="GtkButton">
+        <property name="icon-name">list-add-symbolic</property>
+        <style>
+          <class name="circular"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="icon-name">list-remove-symbolic</property>
+        <style>
+          <class name="circular"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="label">1</property>
+        <style>
+          <class name="circular"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="label">2</property>
+        <style>
+          <class name="circular"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="label">3</property>
+        <style>
+          <class name="circular"/>
+        </style>
+      </object>
+    </child>
+  </object>
+</interface>

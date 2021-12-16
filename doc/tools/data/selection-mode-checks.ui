@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkBox" id="widget">
+    <property name="spacing">6</property>
+    <child>
+      <object class="GtkCheckButton">
+        <property name="active">True</property>
+        <style>
+          <class name="selection-mode"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkCheckButton">
+        <style>
+          <class name="selection-mode"/>
+        </style>
+      </object>
+    </child>
+  </object>
+</interface>

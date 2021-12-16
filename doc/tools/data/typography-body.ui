@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwBin" id="widget">
+    <style>
+      <class name="text-sample"/>
+    </style>
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="label" translatable="yes">This is a paragraph of a body copy. You would use this style for most text in interfaces. It can also include &lt;b&gt;styling&lt;/b&gt; or &lt;a href="https://os.gnome.org/">links&lt;/a&gt;.</property>
+        <property name="use-markup">True</property>
+        <property name="wrap">True</property>
+        <property name="max-width-chars">35</property>
+        <style>
+          <class name="body"/>
+        </style>
+      </object>
+    </property>
+  </object>
+</interface>

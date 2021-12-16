@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <menu id="demo_menu"/>
+  <object class="GtkBox" id="widget">
+    <property name="spacing">6</property>
+    <child>
+      <object class="GtkButton">
+        <property name="label">Button</property>
+        <style>
+          <class name="flat"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="icon-name">view-more-symbolic</property>
+        <style>
+          <class name="flat"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuButton">
+        <property name="label">Open</property>
+        <property name="menu-model">demo_menu</property>
+        <style>
+          <class name="flat"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="AdwSplitButton">
+        <property name="label">Open</property>
+        <property name="menu-model">demo_menu</property>
+        <style>
+          <class name="flat"/>
+        </style>
+      </object>
+    </child>
+  </object>
+</interface>

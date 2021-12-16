@@ -1,0 +1,20 @@
+.toolbar-sample {
+  background: alpha(currentColor, .05);
+  border-radius: 12px;
+}
+
+.text-sample {
+  background: alpha(currentColor, .05);
+  padding: 12px;
+  border-radius: 12px;
+}
+
+#opaque-button-1 {
+  color: @success_fg_color;
+  background-color: @success_bg_color;
+}
+
+#opaque-button-2 {
+  color: @warning_fg_color;
+  background-color: @warning_bg_color;
+}

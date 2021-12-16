@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkBox" id="widget">
+    <property name="spacing">12</property>
+    <property name="margin-top">6</property>
+    <property name="margin-bottom">6</property>
+    <property name="margin-start">6</property>
+    <property name="margin-end">6</property>
+    <child>
+      <object class="GtkImage">
+        <property name="icon-name">org.gnome.Boxes</property>
+        <property name="pixel-size">128</property>
+        <property name="valign">end</property>
+        <style>
+          <class name="icon-dropshadow"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImage">
+        <property name="icon-name">org.gnome.Boxes</property>
+        <property name="pixel-size">32</property>
+        <property name="valign">end</property>
+        <style>
+          <class name="lowres-icon"/>
+        </style>
+      </object>
+    </child>
+  </object>
+</interface>

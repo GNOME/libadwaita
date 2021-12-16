@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <menu id="demo_menu"/>
+  <object class="AdwBin" id="widget">
+    <style>
+      <class name="toolbar-sample"/>
+    </style>
+    <property name="child">
+      <object class="GtkBox">
+        <property name="width-request">400</property>
+        <style>
+          <class name="toolbar"/>
+        </style>
+        <child>
+          <object class="GtkMenuButton">
+            <property name="label" translatable="yes">Open</property>
+            <property name="menu-model">demo_menu</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">tab-new-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="hexpand">True</property>
+            <style>
+              <class name="spacer"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">edit-undo-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">edit-redo-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <style>
+              <class name="spacer"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">view-more-symbolic</property>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+</interface>

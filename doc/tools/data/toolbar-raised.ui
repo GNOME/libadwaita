@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <menu id="demo_menu"/>
+  <object class="GtkBox" id="widget">
+    <style>
+      <class name="toolbar"/>
+    </style>
+    <child>
+      <object class="GtkButton">
+        <property name="label">Add</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkColorButton">
+        <property name="rgba">#9141ac</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkBox">
+        <style>
+          <class name="linked"/>
+        </style>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">go-up-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">go-down-symbolic</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="icon-name">list-add-symbolic</property>
+        <style>
+          <class name="suggested-action"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="icon-name">list-add-symbolic</property>
+        <style>
+          <class name="destructive-action"/>
+        </style>
+      </object>
+    </child>
+  </object>
+</interface>

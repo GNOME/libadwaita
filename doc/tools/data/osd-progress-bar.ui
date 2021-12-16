@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkWindow" id="widget">
+    <property name="default-width">400</property>
+    <property name="default-height">100</property>
+    <property name="titlebar">
+      <object class="GtkHeaderBar">
+        <property name="title-widget">
+          <object class="AdwWindowTitle"/>
+        </property>
+      </object>
+    </property>
+    <property name="child">
+      <object class="GtkProgressBar">
+        <property name="fraction">0.5</property>
+        <property name="valign">start</property>
+        <style>
+          <class name="osd"/>
+        </style>
+      </object>
+    </property>
+  </object>
+</interface>

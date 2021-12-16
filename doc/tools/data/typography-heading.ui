@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwBin" id="widget">
+    <style>
+      <class name="text-sample"/>
+    </style>
+    <property name="child">
+      <object class="GtkLabel">
+        <property name="label">Heading</property>
+        <style>
+          <class name="heading"/>
+        </style>
+      </object>
+    </property>
+  </object>
+</interface>

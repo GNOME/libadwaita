@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkBox" id="widget">
+    <property name="spacing">6</property>
+    <child>
+      <object class="GtkButton">
+        <property name="label">Button</property>
+        <style>
+          <class name="opaque"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="label">Button</property>
+        <property name="name">opaque-button-1</property>
+        <style>
+          <class name="opaque"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton">
+        <property name="label">Button</property>
+        <property name="name">opaque-button-2</property>
+        <style>
+          <class name="opaque"/>
+        </style>
+      </object>
+    </child>
+  </object>
+</interface>

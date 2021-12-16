@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <menu id="demo_menu"/>
+  <object class="AdwBin" id="widget">
+    <style>
+      <class name="toolbar-sample"/>
+    </style>
+    <property name="child">
+      <object class="GtkBox">
+        <style>
+          <class name="toolbar"/>
+        </style>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">go-previous-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">go-next-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <style>
+              <class name="spacer"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">edit-undo-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">edit-redo-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <style>
+              <class name="spacer"/>
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">media-skip-backward-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">media-playback-pause-symbolic</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="icon-name">media-skip-forward-symbolic</property>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+</interface>
