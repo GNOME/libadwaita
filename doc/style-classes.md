@@ -214,8 +214,9 @@ The following buttons keep default appearance:
 * Buttons with other content;
 * Buttons within widgets with the [`.linked`](#linked-controls) style
   class;
-* Buttons with the [`.suggested-action`](#suggested-action) or
-  [`.destructive-action`](#destructive-action) style classes.
+* Buttons with the [`.suggested-action`](#suggested-action),
+  [`.destructive-action`](#destructive-action) or [`.opaque`](#opaque) style
+  classes.
 * Buttons with the [`.raised`](#raised) style class.
 
 It also ensures 6px margins and spacing between widgets. The
