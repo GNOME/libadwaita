@@ -1,6 +1,6 @@
 # Adding a screenshot to the docs
 
-1. Create an `image.ui` file in the `data/` directory.
+1. Create an `IMAGE.ui` file in the `data/` directory.
 2. Put the widget to screenshot inside with the `widget` id. For example:
 
 ```xml
@@ -25,17 +25,17 @@ should be special-cased in `screenshot.c` based on its type.
 
 ```
 ninja doc/tools/screenshot
-./doc/tools/screenshot ../doc/images/
+./doc/tools/screenshot ../doc/images/ -i IMAGE
 ```
 
-5. The generator will create `image.png` and `image-dark.png` images. Add them
+5. The generator will create `IMAGE.png` and `IMAGE-dark.png` images. Add them
 to `libadwaita.toml.in`.
 6. Use them in the docs as follows:
 
 ```html
 <picture>
-  <source srcset="image-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="image.png" alt="image">
+  <source srcset="IMAGE-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="IMAGE.png" alt="IMAGE">
 </picture>
 ```
 
