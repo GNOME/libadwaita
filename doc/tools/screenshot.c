@@ -236,6 +236,16 @@ init_libadwaita (void)
                 NULL);
 }
 
+static int
+compare_images (gconstpointer a,
+                gconstpointer b)
+{
+  char **ap = (char **) a;
+  char **bp = (char **) b;
+
+  return g_ascii_strcasecmp (*ap, *bp);
+}
+
 static char **
 list_images (void)
 {
@@ -244,9 +254,13 @@ list_images (void)
     g_resources_enumerate_children (RESOURCE_PATH "data",
                                     G_RESOURCE_LOOKUP_FLAGS_NONE,
                                     &error);
+  guint length;
 
   if (error)
     g_critical ("Couldn't enumerate children: %s", error->message);
+
+  length = g_strv_length (children);
+  qsort (children, length, sizeof (char *), compare_images);
 
   return children;
 }
