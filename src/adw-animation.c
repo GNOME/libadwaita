@@ -97,7 +97,7 @@ typedef struct
   AdwAnimationState state;
 } AdwAnimationPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (AdwAnimation, adw_animation, G_TYPE_OBJECT)
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (AdwAnimation, adw_animation, G_TYPE_OBJECT)
 
 enum {
   PROP_0,
