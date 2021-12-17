@@ -13,5 +13,5 @@ screenshot_sources = [
 
 screenshot = executable('screenshot'.format(apiversion),
   screenshot_sources,
-  dependencies: libadwaita_dep,
+  dependencies: libadwaita_deps + [libadwaita_dep],
 )
