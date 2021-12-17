@@ -3,6 +3,15 @@
 #define RESOURCE_PATH "/org/gnome/Adwaita/Screenshot/"
 
 static GMainLoop *loop;
+static char *option_image = NULL;
+static gboolean option_list = FALSE;
+
+static GOptionEntry entries[] =
+{
+  { "image", 'i', 0, G_OPTION_ARG_STRING,&option_image, "Generate only one image", "NAME" },
+  { "list",  'l', 0, G_OPTION_ARG_NONE,   &option_list,  "List images",             NULL   },
+  { NULL }
+};
 
 typedef struct {
   GtkWidget *widget;
@@ -227,28 +236,76 @@ init_libadwaita (void)
                 NULL);
 }
 
-static void
-run_screenshot (GFile *output_dir)
+static char **
+list_images (void)
 {
   g_autoptr (GError) error = NULL;
-  g_auto (GStrv) children = NULL;
-  int i = -1;
-
-  children =
+  char **children =
     g_resources_enumerate_children (RESOURCE_PATH "data",
                                     G_RESOURCE_LOOKUP_FLAGS_NONE,
                                     &error);
-  if (error) {
+
+  if (error)
     g_critical ("Couldn't enumerate children: %s", error->message);
+
+  return children;
+}
+
+static void
+process_image (const char *name,
+               GFile      *output_dir)
+{
+  g_print ("Processing %s\n", name);
+
+  take_screenshot (name, FALSE, output_dir);
+  take_screenshot (name, TRUE, output_dir);
+}
+
+static void
+run_screenshot (GFile *output_dir)
+{
+  g_auto (GStrv) children = NULL;
+  int i = -1;
+
+  if (option_image) {
+    g_autofree char *path = g_strdup_printf (RESOURCE_PATH "data/%s.ui", option_image);
+
+    if (!g_resources_get_info (path, G_RESOURCE_LOOKUP_FLAGS_NONE, NULL, NULL, NULL)) {
+      g_printerr ("No such image: %s\n", option_image);
+
+      return;
+    }
+
+    process_image (option_image, output_dir);
+
     return;
   }
+
+  children = list_images ();
+
+  if (!children)
+    return;
 
   while (children[++i]) {
     g_autofree char *shortname = get_shortname (children[i]);
 
-    g_print ("Processing %s\n", shortname);
-    take_screenshot (shortname, FALSE, output_dir);
-    take_screenshot (shortname, TRUE, output_dir);
+    process_image (shortname, output_dir);
+  }
+}
+
+static void
+run_list_images (void)
+{
+  g_auto (GStrv) children = list_images ();
+  int i = -1;
+
+  if (!children)
+    return;
+
+  while (children[++i]) {
+    g_autofree char *shortname = get_shortname (children[i]);
+
+    g_print ("%s\n", shortname);
   }
 }
 
@@ -260,7 +317,18 @@ main (int    argc,
   g_autoptr (GFile) output_dir = NULL;
   g_autoptr (GError) error = NULL;
 
-  g_option_context_parse (context, &argc, &argv, NULL);
+  g_option_context_add_main_entries (context, entries, NULL);
+  if (!g_option_context_parse (context, &argc, &argv, NULL)) {
+    g_printerr ("%s\n", g_option_context_get_help (context, FALSE, NULL));
+
+    return 1;
+  }
+
+  if (option_list) {
+    run_list_images ();
+
+    return 0;
+  }
 
   if (argc < 2 || !argv[1]) {
     g_printerr ("%s\n", g_option_context_get_help (context, FALSE, NULL));
