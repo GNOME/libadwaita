@@ -8,18 +8,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-08-17 10:48+0000\n"
-"PO-Revision-Date: 2021-08-31 10:52+0100\n"
+"POT-Creation-Date: 2021-12-06 17:25+0000\n"
+"PO-Revision-Date: 2021-12-18 14:19+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
-"Language-Team: Portuguese <>\n"
+"Language-Team: Portuguese <https://l10n.gnome.org/teams/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: src/adw-preferences-window.c:210
+#: src/adw-preferences-window.c:212
 msgid "Untitled page"
 msgstr "Página sem título"
 
@@ -27,23 +27,70 @@ msgstr "Página sem título"
 msgid "Preferences"
 msgstr "Preferências"
 
-#: src/adw-preferences-window.ui:68
+#: src/adw-preferences-window.ui:69
 msgid "Search"
 msgstr "Pesquisar"
 
-#: src/adw-preferences-window.ui:146
+#: src/adw-preferences-window.ui:139
 msgid "No Results Found"
 msgstr "Nenhum resultado encontrado"
 
-#: src/adw-preferences-window.ui:147
+#: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Tente uma pesquisa diferente."
 
-#~ msgid "This property does not apply when a custom title is set"
-#~ msgstr "Esta propriedade não se aplica quando está definido um título personalizado"
+#: src/inspector/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "Sem preferência"
 
-#~ msgid "The decoration layout does not apply to header bars which do no show window controls"
-#~ msgstr "A disposição da decoração não se aplica a barras de cabeçalho que não mostrem controlos de janela"
+#: src/inspector/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "Preferir escuro"
+
+#: src/inspector/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "Preferir claro"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/inspector/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/inspector/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Aparência do sistema"
+
+#: src/inspector/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Substituir definições para esta aplicação. Serão reiniciadas ao fechar o "
+"inspector."
+
+#: src/inspector/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "O sistema suporta esquemas de cores"
+
+#: src/inspector/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Esquema de cores preferido"
+
+#: src/inspector/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Alto contraste"
+
+#~ msgid "This property does not apply when a custom title is set"
+#~ msgstr ""
+#~ "Esta propriedade não se aplica quando está definido um título "
+#~ "personalizado"
+
+#~ msgid ""
+#~ "The decoration layout does not apply to header bars which do no show "
+#~ "window controls"
+#~ msgstr ""
+#~ "A disposição da decoração não se aplica a barras de cabeçalho que não "
+#~ "mostrem controlos de janela"
 
 #~ msgid "Add group to %s"
 #~ msgstr "Adicionar grupo a %s"
@@ -63,8 +110,12 @@ msgstr "Tente uma pesquisa diferente."
 #~ msgid "Use underline"
 #~ msgstr "Utilizar sublinhado"
 
-#~ msgid "If set, an underline in the text indicates the next character should be used for the mnemonic accelerator key"
-#~ msgstr "Se definido, um sublinhado no texto indica que o carácter seguinte deverá ser utilizado como tecla de atalho"
+#~ msgid ""
+#~ "If set, an underline in the text indicates the next character should be "
+#~ "used for the mnemonic accelerator key"
+#~ msgstr ""
+#~ "Se definido, um sublinhado no texto indica que o carácter seguinte deverá "
+#~ "ser utilizado como tecla de atalho"
 
 #~ msgid "Number of pages"
 #~ msgstr "Número de páginas"
@@ -108,8 +159,12 @@ msgstr "Tente uma pesquisa diferente."
 #~ msgid "Interpolate size"
 #~ msgstr "Interpolar tamanho"
 
-#~ msgid "Whether or not the size should smoothly change when changing between differently sized children"
-#~ msgstr "Se o tamanho deve ou não mudar suavemente ao mudar entre filhos de diferentes tamanhos"
+#~ msgid ""
+#~ "Whether or not the size should smoothly change when changing between "
+#~ "differently sized children"
+#~ msgstr ""
+#~ "Se o tamanho deve ou não mudar suavemente ao mudar entre filhos de "
+#~ "diferentes tamanhos"
 
 #~ msgid "Name"
 #~ msgstr "Nome"
@@ -141,8 +196,12 @@ msgstr "Tente uma pesquisa diferente."
 #~ msgid "Pack type"
 #~ msgstr "Tipo de arrumação"
 
-#~ msgid "A GtkPackType indicating whether the child is packed with reference to the start or end of the parent"
-#~ msgstr "Um GtkPackType indicando se o filho é arrumado com referência ao início ou fim do pai"
+#~ msgid ""
+#~ "A GtkPackType indicating whether the child is packed with reference to "
+#~ "the start or end of the parent"
+#~ msgstr ""
+#~ "Um GtkPackType indicando se o filho é arrumado com referência ao início "
+#~ "ou fim do pai"
 
 #~ msgid "The index of the child in the parent"
 #~ msgstr "O índice do filho no pai"
@@ -217,7 +276,8 @@ msgstr "Tente uma pesquisa diferente."
 #~ msgstr "Modo de Procura Ativo"
 
 #~ msgid "Whether the search mode is on and the search bar shown"
-#~ msgstr "Se o modo de procura está ou não ativo e a barra de procura mostrada"
+#~ msgstr ""
+#~ "Se o modo de procura está ou não ativo e a barra de procura mostrada"
 
 #~ msgid "Show Close Button"
 #~ msgstr "Mostrar botão Fechar"
