@@ -344,6 +344,8 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, get_badge_text);
 
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TAB);
+
+  g_type_ensure (ADW_TYPE_INDICATOR_BIN);
 }
 
 static void
@@ -352,8 +354,6 @@ adw_view_switcher_button_init (AdwViewSwitcherButton *self)
   gtk_widget_set_layout_manager (GTK_WIDGET (self), NULL);
 
   self->icon_name = g_strdup ("image-missing");
-
-  g_type_ensure (ADW_TYPE_INDICATOR_BIN);
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
