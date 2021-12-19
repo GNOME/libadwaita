@@ -612,6 +612,8 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "tabbar");
+
+  g_type_ensure (ADW_TYPE_TAB_BOX);
 }
 
 static void
@@ -620,8 +622,6 @@ adw_tab_bar_init (AdwTabBar *self)
   GtkAdjustment *adj;
 
   self->autohide = TRUE;
-
-  g_type_ensure (ADW_TYPE_TAB_BOX);
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
