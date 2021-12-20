@@ -185,7 +185,9 @@ take_screenshot (const char *name,
     gtk_window_set_child (GTK_WINDOW (window), button);
 
     wait = TRUE;
- } else {
+  } else if (gtk_widget_get_root (GTK_WIDGET (widget))) {
+    window = GTK_WIDGET (gtk_widget_get_root (GTK_WIDGET (widget)));
+  } else {
     window = gtk_window_new ();
     gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
     gtk_window_set_child (GTK_WINDOW (window), data->widget);
