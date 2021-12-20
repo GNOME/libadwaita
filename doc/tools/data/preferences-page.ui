@@ -6,7 +6,7 @@
   <object class="AdwPreferencesPage" id="widget">
     <property name="width-request">400</property>
     <style>
-      <class name="toolbar-sample"/>
+      <class name="docs-background"/>
     </style>
     <child>
       <object class="AdwPreferencesGroup">

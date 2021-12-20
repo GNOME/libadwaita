@@ -6,7 +6,7 @@
     <property name="width-request">150</property>
     <property name="height-request">150</property>
     <style>
-      <class name="toolbar-sample"/>
+      <class name="docs-background"/>
     </style>
   </object>
 </interface>

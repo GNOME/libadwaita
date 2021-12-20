@@ -7,7 +7,7 @@
     <property name="width-request">400</property>
     <property name="spacing">12</property>
     <style>
-      <class name="toolbar-sample"/>
+      <class name="docs-background"/>
     </style>
     <child>
       <object class="GtkLabel">

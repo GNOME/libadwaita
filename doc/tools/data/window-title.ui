@@ -14,7 +14,7 @@
       </object>
     </property>
     <style>
-      <class name="toolbar-sample"/>
+      <class name="docs-background"/>
     </style>
   </object>
 </interface>

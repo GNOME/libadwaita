@@ -1,11 +1,5 @@
-.toolbar-sample {
+.docs-background {
   background: alpha(currentColor, .05);
-  border-radius: 12px;
-}
-
-.text-sample {
-  background: alpha(currentColor, .05);
-  padding: 12px;
   border-radius: 12px;
 }
 

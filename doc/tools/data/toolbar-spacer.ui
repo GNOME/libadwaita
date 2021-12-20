@@ -5,7 +5,7 @@
   <menu id="demo_menu"/>
   <object class="AdwBin" id="widget">
     <style>
-      <class name="toolbar-sample"/>
+      <class name="docs-background"/>
     </style>
     <property name="child">
       <object class="GtkBox">

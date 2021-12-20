@@ -8,7 +8,7 @@
     <property name="description">Try a different search</property>
     <property name="width-request">300</property>
     <style>
-      <class name="toolbar-sample"/>
+      <class name="docs-background"/>
     </style>
   </object>
 </interface>
