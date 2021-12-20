@@ -9,6 +9,7 @@
     <property name="width-request">250</property>
     <style>
       <class name="compact"/>
+      <class name="toolbar-sample"/>
     </style>
   </object>
 </interface>
