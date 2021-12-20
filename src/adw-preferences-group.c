@@ -17,6 +17,11 @@
  *
  * A group of preference rows.
  *
+ * <picture>
+ *   <source srcset="preferences-group-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="preferences-group.png" alt="preferences-group">
+ * </picture>
+ *
  * An `AdwPreferencesGroup` represents a group or tightly related preferences,
  * which in turn are represented by [class@Adw.PreferencesRow].
  *

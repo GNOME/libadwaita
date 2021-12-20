@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkWindow" id="widget">
+    <property name="title">View Switcher Bar</property>
+    <property name="default-height">150</property>
+    <property name="titlebar">
+      <object class="GtkHeaderBar"/>
+    </property>
+    <property name="child">
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="AdwViewStack" id="stack">
+            <property name="vexpand">True</property>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="title">Page 1</property>
+                <property name="icon-name">preferences-other-symbolic</property>
+                <property name="child">
+                  <object class="AdwBin"/>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="title">Page 2</property>
+                <property name="icon-name">preferences-other-symbolic</property>
+                <property name="child">
+                  <object class="AdwBin"/>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="AdwViewStackPage">
+                <property name="title">Page 3</property>
+                <property name="icon-name">preferences-other-symbolic</property>
+                <property name="child">
+                  <object class="AdwBin"/>
+                </property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwViewSwitcherBar">
+            <property name="stack">stack</property>
+            <property name="reveal">True</property>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+</interface>

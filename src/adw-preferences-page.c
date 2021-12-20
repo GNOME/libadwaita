@@ -17,6 +17,11 @@
  *
  * A page from [class@Adw.PreferencesWindow].
  *
+ * <picture>
+ *   <source srcset="preferences-page-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="preferences-page.png" alt="preferences-page">
+ * </picture>
+ *
  * The `AdwPreferencesPage` widget gathers preferences groups into a single page
  * of a preferences window.
  *

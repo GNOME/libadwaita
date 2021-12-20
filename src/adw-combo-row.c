@@ -18,6 +18,11 @@
  *
  * A [class@Gtk.ListBoxRow] used to choose from a list of items.
  *
+ * <picture>
+ *   <source srcset="combo-row-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="combo-row.png" alt="combo-row">
+ * </picture>
+ *
  * The `AdwComboRow` widget allows the user to choose from a list of valid
  * choices. The row displays the selected choice. When activated, the row
  * displays a popover which allows the user to make a new choice.

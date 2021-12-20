@@ -18,6 +18,15 @@
  *
  * A layout manager constraining its children to a given size.
  *
+ * <picture>
+ *   <source srcset="clamp-wide-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="clamp-wide.png" alt="clamp-wide">
+ * </picture>
+ * <picture>
+ *   <source srcset="clamp-narrow-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="clamp-narrow.png" alt="clamp-narrow">
+ * </picture>
+ *
  * `AdwClampLayout` constraints the size of the widgets it contains to a given
  * maximum size. It will constrain the width if it is horizontal, or the height
  * if it is vertical. The expansion of the children from their minimum to their

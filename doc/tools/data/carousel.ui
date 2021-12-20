@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwCarousel" id="widget">
+    <property name="height-request">200</property>
+    <property name="width-request">400</property>
+    <property name="spacing">12</property>
+    <style>
+      <class name="toolbar-sample"/>
+    </style>
+    <child>
+      <object class="GtkLabel">
+        <property name="label">Carousel</property>
+        <property name="width-request">250</property>
+        <property name="margin-top">12</property>
+        <property name="margin-bottom">12</property>
+        <style>
+          <class name="card"/>
+          <class name="title-1"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="label">Carousel</property>
+        <property name="margin-top">12</property>
+        <property name="margin-bottom">12</property>
+        <style>
+          <class name="card"/>
+          <class name="title-1"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="label">Carousel</property>
+        <property name="margin-top">12</property>
+        <property name="margin-bottom">12</property>
+        <style>
+          <class name="card"/>
+          <class name="title-1"/>
+        </style>
+      </object>
+    </child>
+  </object>
+</interface>

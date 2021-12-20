@@ -25,6 +25,11 @@
  *
  * A window to present an application's preferences.
  *
+ * <picture>
+ *   <source srcset="preferences-window-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="preferences-window.png" alt="preferences-window">
+ * </picture>
+ *
  * The `AdwPreferencesWindow` widget presents an application's preferences
  * gathered into pages and groups. The preferences are searchable by the user.
  *

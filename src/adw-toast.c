@@ -34,6 +34,11 @@
  * adw_toast_overlay_add_toast (overlay, adw_toast_new (_("Simple Toast"));
  * ```
  *
+ * <picture>
+ *   <source srcset="toast-simple-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="toast-simple.png" alt="toast-simple">
+ * </picture>
+ *
  * Toasts always have a close button. They emit the
  * [signal@Adw.Toast::dismissed] signal when disappearing.
  *
@@ -54,6 +59,11 @@
  *
  * adw_toast_overlay_add_toast (overlay, toast);
  * ```
+ *
+ * <picture>
+ *   <source srcset="toast-action-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="toast-action.png" alt="toast-action">
+ * </picture>
  *
  * ## Modifying toasts
  *
@@ -124,6 +134,11 @@
  *   gtk_widget_class_install_action (widget_class, "toast.undo", NULL, toast_undo_cb);
  * }
  * ```
+ *
+ * <picture>
+ *   <source srcset="toast-undo-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="toast-undo.png" alt="toast-undo">
+ * </picture>
  *
  * Since: 1.0
  */

@@ -24,6 +24,15 @@
  *
  * An adaptive container acting like a box or a stack.
  *
+ * <picture>
+ *   <source srcset="leaflet-wide-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="leaflet-wide.png" alt="leaflet-wide">
+ * </picture>
+ * <picture>
+ *   <source srcset="leaflet-narrow-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="leaflet-narrow.png" alt="leaflet-narrow">
+ * </picture>
+ *
  * The `AdwLeaflet` widget can display its children like a [class@Gtk.Box] does
  * or like a [class@Gtk.Stack] does, adapting to size changes by switching
  * between the two modes.

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwBin" id="widget">
+    <property name="width-request">150</property>
+    <property name="height-request">150</property>
+    <style>
+      <class name="toolbar-sample"/>
+    </style>
+  </object>
+</interface>

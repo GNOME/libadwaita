@@ -16,6 +16,11 @@
  *
  * A combined button and dropdown widget.
  *
+ * <picture>
+ *   <source srcset="split-button-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="split-button.png" alt="split-button">
+ * </picture>
+ *
  * `AdwSplitButton` is typically used to present a set of actions in a menu,
  * but allow access to one of them with a single click.
  *

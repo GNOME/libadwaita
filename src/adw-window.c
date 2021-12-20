@@ -14,6 +14,11 @@
  *
  * A freeform window.
  *
+ * <picture>
+ *   <source srcset="window-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="window.png" alt="window">
+ * </picture>
+ *
  * The `AdwWindow` widget is a subclass of [class@Gtk.Window] which has no
  * titlebar area. It means [class@Gtk.HeaderBar] can be used as follows:
  *

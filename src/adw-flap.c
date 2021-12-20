@@ -25,6 +25,15 @@
  *
  * An adaptive container acting like a box or an overlay.
  *
+ * <picture>
+ *   <source srcset="flap-wide-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="flap-wide.png" alt="flap-wide">
+ * </picture>
+ * <picture>
+ *   <source srcset="flap-narrow-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="flap-narrow.png" alt="flap-narrow">
+ * </picture>
+ *
  * The `AdwFlap` widget can display its children like a [class@Gtk.Box] does or
  * like a [class@Gtk.Overlay] does, according to the
  * [property@Adw.Flap:fold-policy] value.

@@ -15,6 +15,11 @@
  *
  * A [class@Gtk.ListBoxRow] used to reveal widgets.
  *
+ * <picture>
+ *   <source srcset="expander-row-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="expander-row.png" alt="expander-row">
+ * </picture>
+ *
  * The `AdwExpanderRow` widget allows the user to reveal or hide widgets below
  * it. It also allows the user to enable the expansion of the row, allowing to
  * disable all that the row contains.

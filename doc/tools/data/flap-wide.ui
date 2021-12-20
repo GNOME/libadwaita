@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwWindow" id="widget">
+    <property name="default-width">420</property>
+    <property name="default-height">150</property>
+    <property name="content">
+      <object class="AdwFlap">
+        <property name="locked">True</property>
+        <property name="flap">
+          <object class="GtkLabel">
+            <property name="label">Flap</property>
+            <property name="width-request">200</property>
+            <style>
+              <class name="background"/>
+              <class name="title-1"/>
+            </style>
+          </object>
+        </property>
+        <property name="separator">
+          <object class="GtkSeparator"/>
+        </property>
+        <property name="content">
+          <object class="GtkLabel">
+            <property name="label">Content</property>
+            <property name="width-request">200</property>
+            <style>
+              <class name="title-1"/>
+            </style>
+          </object>
+        </property>
+      </object>
+    </property>
+  </object>
+</interface>

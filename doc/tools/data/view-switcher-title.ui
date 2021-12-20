@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkWindow" id="widget">
+    <property name="default-height">100</property>
+    <property name="titlebar">
+      <object class="AdwHeaderBar">
+        <property name="centering-policy">strict</property>
+        <property name="title-widget">
+          <object class="AdwViewSwitcherTitle">
+            <property name="stack">stack</property>
+            <property name="title">View Switcher Bar</property>
+          </object>
+        </property>
+      </object>
+    </property>
+    <property name="child">
+      <object class="AdwViewStack" id="stack">
+        <child>
+          <object class="AdwViewStackPage">
+            <property name="title">Page 1</property>
+            <property name="icon-name">preferences-other-symbolic</property>
+            <property name="child">
+              <object class="AdwBin"/>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwViewStackPage">
+            <property name="title">Page 2</property>
+            <property name="icon-name">preferences-other-symbolic</property>
+            <property name="child">
+              <object class="AdwBin"/>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwViewStackPage">
+            <property name="title">Page 3</property>
+            <property name="icon-name">preferences-other-symbolic</property>
+            <property name="child">
+              <object class="AdwBin"/>
+            </property>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+</interface>

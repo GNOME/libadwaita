@@ -16,6 +16,11 @@
  *
  * A view switcher action bar.
  *
+ * <picture>
+ *   <source srcset="view-switcher-bar-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="view-switcher-bar.png" alt="view-switcher-bar">
+ * </picture>
+ *
  * An action bar letting you switch between multiple views contained in a
  * [class@Adw.ViewStack], via an [class@Adw.ViewSwitcher]. It is designed to be put
  * at the bottom of a window and to be revealed only on really narrow windows,

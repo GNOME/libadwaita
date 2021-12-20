@@ -20,6 +20,11 @@
  *
  * A tab bar for [class@Adw.TabView].
  *
+ * <picture>
+ *   <source srcset="tab-bar-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="tab-bar.png" alt="tab-bar">
+ * </picture>
+ *
  * The `AdwTabBar` widget is a tab bar that can be used with conjunction with
  * `AdwTabView`.
  *

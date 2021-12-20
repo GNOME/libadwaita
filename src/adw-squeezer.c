@@ -29,6 +29,15 @@
  *
  * A best fit container.
  *
+ * <picture>
+ *   <source srcset="squeezer-wide-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="squeezer-wide.png" alt="squeezer-wide">
+ * </picture>
+ * <picture>
+ *   <source srcset="squeezer-narrow-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="squeezer-narrow.png" alt="squeezer-narrow">
+ * </picture>
+ *
  * The `AdwSqueezer` widget is a container which only shows the first of its
  * children that fits in the available size. It is convenient to offer different
  * widgets to represent the same data with different levels of detail, making

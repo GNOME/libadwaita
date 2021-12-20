@@ -33,6 +33,11 @@
  *
  * A title bar widget.
  *
+ * <picture>
+ *   <source srcset="header-bar-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="header-bar.png" alt="header-bar">
+ * </picture>
+ *
  * `AdwHeaderBar` is similar to [class@Gtk.HeaderBar], but provides additional
  * features compared to it. Refer to `GtkHeaderBar` for details.
  *
@@ -62,6 +67,7 @@
  *   <child>
  *     <object class="GtkBox">
  *       <property name="orientation">vertical</property>
+ *       <property name="hexpand">True</property>
  *       <child>
  *         <object class="AdwHeaderBar">
  *           <binding name="show-start-title-buttons">
@@ -74,6 +80,11 @@
  *   </child>
  * </object>
  * ```
+ *
+ * <picture>
+ *   <source srcset="header-bar-split-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="header-bar-split.png" alt="header-bar-split">
+ * </picture>
  *
  * ## CSS nodes
  *

@@ -27,6 +27,11 @@
  *
  * A dots indicator for [class@Adw.Carousel].
  *
+ * <picture>
+ *   <source srcset="carousel-indicator-dots-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="carousel-indicator-dots.png" alt="carousel-indicator-dots">
+ * </picture>
+ *
  * The `AdwCarouselIndicatorDots` widget shows a set of dots for each page of a
  * given [class@Adw.Carousel]. The dot representing the carousel's active page
  * is larger and more opaque than the others, the transition to the active and

@@ -16,6 +16,11 @@
  *
  * A page used for empty/error states and similar use-cases.
  *
+ * <picture>
+ *   <source srcset="status-page-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="status-page.png" alt="status-page">
+ * </picture>
+ *
  * The `AdwStatusPage` widget can have an icon, a title, a description and a
  * custom widget which is displayed below them.
  *

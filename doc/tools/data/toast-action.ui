@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwToastOverlay" id="widget">
+    <property name="width-request">400</property>
+    <child>
+      <object class="AdwToast">
+        <property name="title">Toast with Action</property>
+        <property name="button-label">Example</property>
+      </object>
+    </child>
+  </object>
+</interface>

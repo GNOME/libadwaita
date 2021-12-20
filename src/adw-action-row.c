@@ -14,6 +14,11 @@
  *
  * A [class@Gtk.ListBoxRow] used to present actions.
  *
+ * <picture>
+ *   <source srcset="action-row-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="action-row.png" alt="action-row">
+ * </picture>
+ *
  * The `AdwActionRow` widget can have a title, a subtitle and an icon. The row
  * can receive additional widgets at its end, or prefix widgets at its start.
  *

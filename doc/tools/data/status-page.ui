@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwStatusPage" id="widget">
+    <property name="icon-name">edit-find-symbolic</property>
+    <property name="title">No Results Found</property>
+    <property name="description">Try a different search</property>
+    <property name="width-request">300</property>
+    <style>
+      <class name="toolbar-sample"/>
+    </style>
+  </object>
+</interface>

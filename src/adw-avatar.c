@@ -24,6 +24,11 @@
  *
  * A widget displaying an image, with a generated fallback.
  *
+ * <picture>
+ *   <source srcset="avatar-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="avatar.png" alt="avatar">
+ * </picture>
+ *
  * `AdwAvatar` is a widget that shows a round avatar.
  *
  * `AdwAvatar` generates an avatar with the initials of  the

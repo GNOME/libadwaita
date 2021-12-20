@@ -17,6 +17,11 @@
  *
  * A view switcher title.
  *
+ * <picture>
+ *   <source srcset="view-switcher-title-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="view-switcher-title.png" alt="view-switcher-title">
+ * </picture>
+ *
  * A widget letting you switch between multiple views contained by a
  * [class@Adw.ViewStack] via an [class@Adw.ViewSwitcher].
  *

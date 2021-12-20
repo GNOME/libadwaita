@@ -27,6 +27,11 @@
  *
  * A widget showing toasts above its content.
  *
+ * <picture>
+ *   <source srcset="toast-overlay-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="toast-overlay.png" alt="toast-overlay">
+ * </picture>
+ *
  * Toasts can be shown with [method@Adw.ToastOverlay.add_toast].
  *
  * See [class@Adw.Toast] for details.

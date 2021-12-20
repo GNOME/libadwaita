@@ -14,6 +14,11 @@
  *
  * A freeform application window.
  *
+ * <picture>
+ *   <source srcset="application-window-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="application-window.png" alt="application-window">
+ * </picture>
+ *
  * `AdwApplicationWindow` is a [class@Gtk.ApplicationWindow] subclass providing
  * the same features as [class@Adw.Window].
  *

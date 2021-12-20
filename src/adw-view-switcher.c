@@ -20,6 +20,11 @@
  *
  * An adaptive view switcher.
  *
+ * <picture>
+ *   <source srcset="view-switcher-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="view-switcher.png" alt="view-switcher">
+ * </picture>
+ *
  * An adaptive view switcher designed to switch between multiple views
  * contained in a [class@Adw.ViewStack] in a similar fashion to
  * [class@Gtk.StackSwitcher].
