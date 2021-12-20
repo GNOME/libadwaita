@@ -562,6 +562,16 @@ This style class is typically used to indicate unstable or nightly applications.
 
 ## Inline Tab Bars & Search Bars
 
+<picture>
+  <source srcset="search-bar-inline-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="search-bar-inline.png" alt="search-bar-inline">
+</picture>
+
+<picture>
+  <source srcset="tab-bar-inline-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="tab-bar-inline.png" alt="tab-bar-inline">
+</picture>
+
 By default [class@Gtk.SearchBar] and [class@Adw.TabBar] look like a part of a
 [class@Gtk.HeaderBar] and are intended to be used directly attached to one. With
 the `.inline` style class they have neutral backgrounds and can be used in

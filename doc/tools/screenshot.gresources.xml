@@ -46,6 +46,7 @@
     <file preprocess="xml-stripblanks">data/preferences-group.ui</file>
     <file preprocess="xml-stripblanks">data/preferences-page.ui</file>
     <file preprocess="xml-stripblanks">data/preferences-window.ui</file>
+    <file preprocess="xml-stripblanks">data/search-bar-inline.ui</file>
     <file preprocess="xml-stripblanks">data/selection-mode-checks.ui</file>
     <file preprocess="xml-stripblanks">data/split-button.ui</file>
     <file preprocess="xml-stripblanks">data/squeezer-narrow.ui</file>
@@ -57,6 +58,7 @@
     <file preprocess="xml-stripblanks">data/style-frame.ui</file>
     <file preprocess="xml-stripblanks">data/style-view.ui</file>
     <file preprocess="xml-stripblanks">data/tab-bar.ui</file>
+    <file preprocess="xml-stripblanks">data/tab-bar-inline.ui</file>
     <file preprocess="xml-stripblanks">data/toast-action.ui</file>
     <file preprocess="xml-stripblanks">data/toast-overlay.ui</file>
     <file preprocess="xml-stripblanks">data/toast-simple.ui</file>
