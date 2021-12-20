@@ -48,11 +48,13 @@
  *   <child>
  *     <object class="GtkBox">
  *       <property name="orientation">vertical</property>
- *       <object class="AdwHeaderBar">
- *         <binding name="show-end-title-buttons">
- *           <lookup name="folded">leaflet</lookup>
- *         </binding>
- *       </object>
+ *       <child>
+ *         <object class="AdwHeaderBar">
+ *           <binding name="show-end-title-buttons">
+ *             <lookup name="folded">leaflet</lookup>
+ *           </binding>
+ *         </object>
+ *       </child>
  *       ...
  *     </object>
  *   </child>
@@ -60,11 +62,13 @@
  *   <child>
  *     <object class="GtkBox">
  *       <property name="orientation">vertical</property>
- *       <object class="AdwHeaderBar">
- *         <binding name="show-start-title-buttons">
- *           <lookup name="folded">leaflet</lookup>
- *         </binding>
- *       </object>
+ *       <child>
+ *         <object class="AdwHeaderBar">
+ *           <binding name="show-start-title-buttons">
+ *             <lookup name="folded">leaflet</lookup>
+ *           </binding>
+ *         </object>
+ *       </child>
  *       ...
  *     </object>
  *   </child>
