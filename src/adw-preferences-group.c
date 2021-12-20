@@ -32,8 +32,12 @@
  * ## AdwPreferencesGroup as GtkBuildable
  *
  * The `AdwPreferencesGroup` implementation of the [iface@Gtk.Buildable] interface
- * will add [class@PreferencesRow]s to the group's list. If a child is not a
- * [class@PreferencesRow] the child is added to a box below the list.
+ * supports adding [class@PreferencesRow]s to the list by omitting "type". If "type"
+ * is omitted and the widget isn't a [class@PreferencesRow] the child is added to
+ * a box below the list.
+ *
+ * When the "type" attribute of a child is `header-suffix`, the child
+ * is set as the suffix on the end of the title and description.
  *
  * ## CSS nodes
  *
@@ -53,6 +57,8 @@ typedef struct
   GtkListBox *listbox;
   GtkBox *listbox_box;
   GtkLabel *title;
+  GtkBox *header_box;
+  GtkWidget *header_suffix;
 
   GListModel *rows;
 } AdwPreferencesGroupPrivate;
@@ -70,6 +76,7 @@ enum {
   PROP_0,
   PROP_DESCRIPTION,
   PROP_TITLE,
+  PROP_HEADER_SUFFIX,
   LAST_PROP,
 };
 
@@ -110,6 +117,39 @@ update_listbox_visibility (AdwPreferencesGroup *self)
 }
 
 static gboolean
+is_single_line (AdwPreferencesGroup *self)
+{
+  AdwPreferencesGroupPrivate *priv = adw_preferences_group_get_instance_private (self);
+
+  if (gtk_widget_get_visible (GTK_WIDGET (priv->description)))
+    return FALSE;
+
+  if (priv->header_suffix)
+    return TRUE;
+
+  if (gtk_widget_get_visible (GTK_WIDGET (priv->title)))
+    return TRUE;
+
+  return FALSE;
+}
+
+static void
+update_header_visibility (AdwPreferencesGroup *self)
+{
+  AdwPreferencesGroupPrivate *priv = adw_preferences_group_get_instance_private (self);
+
+  gtk_widget_set_visible (GTK_WIDGET (priv->header_box),
+                          gtk_widget_get_visible (GTK_WIDGET (priv->title)) ||
+                          gtk_widget_get_visible (GTK_WIDGET (priv->description)) ||
+                          priv->header_suffix != NULL);
+
+  if (is_single_line (self))
+    gtk_widget_add_css_class (GTK_WIDGET (priv->header_box), "single-line");
+  else
+    gtk_widget_remove_css_class (GTK_WIDGET (priv->header_box), "single-line");
+}
+
+static gboolean
 listbox_keynav_failed_cb (AdwPreferencesGroup *self,
                           GtkDirectionType     direction)
 {
@@ -140,6 +180,9 @@ adw_preferences_group_get_property (GObject    *object,
   case PROP_TITLE:
     g_value_set_string (value, adw_preferences_group_get_title (self));
     break;
+  case PROP_HEADER_SUFFIX:
+    g_value_set_object (value, adw_preferences_group_get_header_suffix (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -159,6 +202,9 @@ adw_preferences_group_set_property (GObject      *object,
     break;
   case PROP_TITLE:
     adw_preferences_group_set_title (self, g_value_get_string (value));
+    break;
+  case PROP_HEADER_SUFFIX:
+    adw_preferences_group_set_header_suffix (self, g_value_get_object (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -216,6 +262,21 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
                          "The title for this group of preferences",
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+  /**
+   * AdwPreferencesGroup:header-suffix: (attributes org.gtk.Property.get=adw_preferences_group_get_header_suffix org.gtk.Property.set=adw_preferences_group_set_header_suffix)
+   *
+   * The header suffix widget.
+   *
+   * Displayed above the list, next to the title and description. Suffixes are commonly used to show a button or a spinner for the whole group.
+   *
+   * Since: 1.1
+   */
+  props[PROP_HEADER_SUFFIX] =
+    g_param_spec_object ("header-suffix",
+                         "Header Suffix",
+                         "The suffix for this group's header",
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
@@ -226,6 +287,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesGroup, listbox);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesGroup, listbox_box);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesGroup, title);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesGroup, header_box);
   gtk_widget_class_bind_template_callback (widget_class, listbox_keynav_failed_cb);
 
   gtk_widget_class_set_css_name (widget_class, "preferencesgroup");
@@ -243,6 +305,7 @@ adw_preferences_group_init (AdwPreferencesGroup *self)
   update_description_visibility (self);
   update_title_visibility (self);
   update_listbox_visibility (self);
+  update_header_visibility (self);
 
   priv->rows = gtk_widget_observe_children (GTK_WIDGET (priv->listbox));
 
@@ -260,7 +323,9 @@ adw_preferences_group_buildable_add_child (GtkBuildable *buildable,
   AdwPreferencesGroup *self = ADW_PREFERENCES_GROUP (buildable);
   AdwPreferencesGroupPrivate *priv = adw_preferences_group_get_instance_private (self);
 
-  if (priv->box && GTK_IS_WIDGET (child))
+  if (g_strcmp0 (type, "header-suffix") == 0 && GTK_IS_WIDGET (child))
+    adw_preferences_group_set_header_suffix (self, GTK_WIDGET (child));
+  else if (priv->box && GTK_IS_WIDGET (child))
     adw_preferences_group_add (self, GTK_WIDGET (child));
   else
     parent_buildable_iface->add_child (buildable, builder, child, type);
@@ -334,6 +399,7 @@ adw_preferences_group_set_title (AdwPreferencesGroup *self,
 
   gtk_label_set_label (priv->title, title);
   update_title_visibility (self);
+  update_header_visibility (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
 }
@@ -384,6 +450,7 @@ adw_preferences_group_set_description (AdwPreferencesGroup *self,
 
   gtk_label_set_label (priv->description, description);
   update_description_visibility (self);
+  update_header_visibility (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DESCRIPTION]);
 }
@@ -489,4 +556,60 @@ adw_preferences_group_remove (AdwPreferencesGroup *self,
     gtk_box_remove (priv->listbox_box, child);
   else
     ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
+}
+
+/**
+ * adw_preferences_group_get_header_suffix:
+ * @self: a `AdwPreferencesGroup`
+ *
+ * Gets the suffix for @self's header.
+ *
+ * Returns: (nullable) (transfer none): the suffix for @self's header.
+ *
+ * Since: 1.1
+ */
+GtkWidget *
+adw_preferences_group_get_header_suffix (AdwPreferencesGroup *self)
+{
+  AdwPreferencesGroupPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_GROUP (self), NULL);
+
+  priv = adw_preferences_group_get_instance_private (self);
+
+  return priv->header_suffix;
+}
+
+/**
+ * adw_preferences_group_set_header_suffix:
+ * @self: a `AdwPreferencesGroup`
+ * @suffix (nullable): the suffix to set
+ *
+ * Sets the suffix for @self's header.
+ *
+ * Since: 1.1
+ */
+void
+adw_preferences_group_set_header_suffix (AdwPreferencesGroup *self,
+                                         GtkWidget           *suffix)
+{
+  AdwPreferencesGroupPrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_GROUP (self));
+  g_return_if_fail (suffix == NULL || GTK_IS_WIDGET (suffix));
+
+  priv = adw_preferences_group_get_instance_private (self);
+
+  if (suffix == priv->header_suffix)
+    return;
+
+  if (priv->header_suffix)
+    gtk_box_remove (priv->header_box, priv->header_suffix);
+
+  priv->header_suffix = suffix;
+
+  if (priv->header_suffix)
+    gtk_box_append (priv->header_box, priv->header_suffix);
+
+  update_header_visibility (self);
 }

@@ -6,29 +6,44 @@
       <object class="GtkBox" id="box">
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkLabel" id="title">
-            <property name="visible">False</property>
-            <property name="can_focus">False</property>
-            <property name="ellipsize">end</property>
-            <property name="use-markup">True</property>
-            <property name="xalign">0</property>
+          <object class="GtkBox" id="header_box">
+            <child>
+              <object class="GtkBox">
+                <property name="hexpand">True</property>
+                <property name="valign">center</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkLabel" id="title">
+                    <property name="visible">False</property>
+                    <property name="ellipsize">end</property>
+                    <property name="use-markup">True</property>
+                    <property name="xalign">0</property>
+                    <style>
+                      <class name="heading"/>
+                      <!-- Matching elementary class. -->
+                      <class name="h4"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="description">
+                    <property name="visible">False</property>
+                    <property name="use-markup">True</property>
+                    <property name="wrap">True</property>
+                    <property name="wrap-mode">word-char</property>
+                    <property name="xalign">0</property>
+                    <style>
+                      <class name="dim-label"/>
+                    </style>
+                  </object>
+                </child>
+                <style>
+                  <class name="labels"/>
+                </style>
+              </object>
+            </child>
             <style>
-              <class name="heading"/>
-              <!-- Matching elementary class. -->
-              <class name="h4"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="description">
-            <property name="visible">False</property>
-            <property name="can_focus">False</property>
-            <property name="use-markup">True</property>
-            <property name="wrap">True</property>
-            <property name="wrap-mode">word-char</property>
-            <property name="xalign">0</property>
-            <style>
-              <class name="dim-label"/>
+              <class name="header"/>
             </style>
           </object>
         </child>

@@ -159,6 +159,29 @@
                     </child>
                   </object>
                 </child>
+                <child>
+                  <object class="AdwPreferencesGroup">
+                    <property name="title" translatable="yes">Groups with Suffix</property>
+                    <property name="header-suffix">
+                      <object class="GtkButton">
+                        <property name="child">
+                          <object class="AdwButtonContent">
+                            <property name="icon-name">list-add-symbolic</property>
+                            <property name="label" translatable="yes">Suffix</property>
+                          </object>
+                        </property>
+                        <style>
+                          <class name="flat"/>
+                        </style>
+                      </object>
+                    </property>
+                    <child>
+                      <object class="AdwActionRow">
+                        <property name="title" translatable="yes">Groups can have a header suffix.</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </property>
           </object>
