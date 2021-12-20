@@ -4,7 +4,6 @@
   <requires lib="libadwaita" version="1.0"/>
   <object class="GtkBox" id="widget">
     <property name="spacing">12</property>
-    <property name="margin-start">12</property>
     <property name="width-request">300</property>
     <style>
       <class name="app-notification"/>
@@ -15,6 +14,7 @@
         <property name="ellipsize">end</property>
         <property name="xalign">0</property>
         <property name="hexpand">True</property>
+        <property name="margin-start">12</property>
       </object>
     </child>
     <child>
