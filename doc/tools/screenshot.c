@@ -31,8 +31,8 @@ screenshot_data_free (ScreenshotData *data)
   g_free (data);
 }
 
-static void
-draw_paintable (ScreenshotData *data)
+static gboolean
+draw_paintable_cb (ScreenshotData *data)
 {
   GtkSnapshot *snapshot;
   GskRenderer *renderer;
@@ -40,10 +40,6 @@ draw_paintable (ScreenshotData *data)
   g_autoptr (GskRenderNode) node = NULL;
   int x, y, width, height;
   int widget_width, widget_height;
-
-  g_signal_handlers_disconnect_by_func (data->paintable,
-                                        G_CALLBACK (draw_paintable),
-                                        data);
 
   widget_width = gtk_widget_get_allocated_width (data->widget);
   widget_height = gtk_widget_get_allocated_height (data->widget);
@@ -90,6 +86,19 @@ draw_paintable (ScreenshotData *data)
   screenshot_data_free (data);
 
   g_main_loop_quit (loop);
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+draw_paintable (ScreenshotData *data)
+{
+  g_signal_handlers_disconnect_by_func (data->paintable,
+                                        G_CALLBACK (draw_paintable),
+                                        data);
+
+  /* Handle the case where something immediately invalidates allocation. */
+  g_timeout_add (50, G_SOURCE_FUNC (draw_paintable_cb), data);
 }
 
 static GtkCssProvider *
