@@ -114,7 +114,6 @@ content_images = [
   "images/leaflet-wide-dark.png",
   "images/linked-controls.png",
   "images/linked-controls-dark.png",
-  "images/list.png",
   "images/navigation-sidebar.png",
   "images/navigation-sidebar-dark.png",
   "images/osd.png",
