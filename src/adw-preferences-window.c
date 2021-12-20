@@ -660,6 +660,8 @@ adw_preferences_window_buildable_add_child (GtkBuildable *buildable,
 
   if (priv->content_stack && ADW_IS_PREFERENCES_PAGE (child))
     adw_preferences_window_add (self, ADW_PREFERENCES_PAGE (child));
+  else if (ADW_IS_TOAST (child))
+    adw_preferences_window_add_toast (self, g_object_ref (ADW_TOAST (child)));
   else
     parent_buildable_iface->add_child (buildable, builder, child, type);
 }
