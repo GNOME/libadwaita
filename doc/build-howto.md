@@ -23,50 +23,92 @@ of the package name.
 
 ## Bundling the Library
 
-As Libadwaita uses the Meson build system, bundling it as a subproject when it
-is not installed is easy. Add this to your `meson.build`:
+### Using Flatpak
 
-```meson
-libadwaita_dep = dependency('libadwaita-1', version: '>= 1.0.0', required: false)
-if not libadwaita_dep.found()
-libadwaita = subproject(
-  'libadwaita',
-  default_options: [
-    'examples=false',
-    'package_subdir=my-project-name',
-    'tests=false',
-  ]
-)
-libadwaita_dep = libadwaita.get_variable('libadwaita_dep')
-endif
-```
+If you're using the GNOME SDK of the version 42 or later, Libadwaita is already
+included and there's no need to do anything.
 
-Then add Libadwaita as a git submodule:
-
-```bash
-git submodule add https://gitlab.gnome.org/GNOME/libadwaita.git subprojects/libadwaita
-```
-
-To bundle the library with your Flatpak application, add the following module to
-your manifest:
+If you're using an older version of a different SDK, add the following modules
+to your manifest:
 
 ```json
 {
-  "name" : "libadwaita",
-  "buildsystem" : "meson",
-  "config-opts": [
-    "-Dexamples=false",
-    "-Dtests=false"
-  ],
-  "sources" : [
-    {
-      "type" : "git",
-      "url" : "https://gitlab.gnome.org/GNOME/libadwaita.git",
-      "branch" : "main"
-    }
-  ]
+    "name" : "libadwaita",
+    "buildsystem" : "meson",
+    "config-opts" : [
+        "-Dexamples=false",
+        "-Dtests=false"
+    ],
+    "sources" : [
+        {
+            "type" : "git",
+            "url" : "https://gitlab.gnome.org/GNOME/libadwaita.git",
+            "branch" : "main"
+        }
+    ],
+    "modules" : [
+        {
+            "name" : "libsass",
+            "buildsystem" : "meson",
+            "cleanup" : [
+                "*"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/lazka/libsass.git",
+                    "branch" : "meson"
+                }
+            ]
+        },
+        {
+            "name" : "sassc",
+            "buildsystem" : "meson",
+            "cleanup" : [
+                "*"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/lazka/sassc.git",
+                    "branch" : "meson"
+                }
+            ]
+        }
+    ]
 }
 ```
+
+### Using a Subproject
+
+If you're not using Flatpak, Libadwaita can be used as a Meson subproject.
+Create a `subprojects/libadwaita.wrap` file with the following contents:
+
+```ini
+[wrap-git]
+directory=libadwaita
+url=https://gitlab.gnome.org/GNOME/libadwaita.git
+revision=main
+depth=1
+```
+
+Add this to your `meson.build`:
+
+```meson
+libadwaita = dependency(
+  'libadwaita-1',
+  version: '>= 1.0.0',
+  fallback: ['libadwaita', 'libadwaita_dep'],
+  default_options: [
+    'examples=false',
+    'introspection=disabled',
+    'tests=false',
+    'vapi=false',
+  ]
+)
+```
+
+Then the `libadwaita` variable can be used as a dependency.
 
 ## Building on macOS
 
