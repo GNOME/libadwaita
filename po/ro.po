@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-04-02 10:30+0000\n"
-"PO-Revision-Date: 2021-05-05 14:04+0200\n"
+"POT-Creation-Date: 2021-12-06 17:25+0000\n"
+"PO-Revision-Date: 2021-12-21 13:10+0100\n"
 "Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);;\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: src/adw-preferences-window.c:202
+#: src/adw-preferences-window.c:212
 msgid "Untitled page"
 msgstr "Pagină fără titlu"
 
@@ -27,17 +27,58 @@ msgstr "Pagină fără titlu"
 msgid "Preferences"
 msgstr "Preferințe"
 
-#: src/adw-preferences-window.ui:65
+#: src/adw-preferences-window.ui:69
 msgid "Search"
 msgstr "Caută"
 
-#: src/adw-preferences-window.ui:144
+#: src/adw-preferences-window.ui:139
 msgid "No Results Found"
 msgstr "Nu s-au găsit rezultate"
 
-#: src/adw-preferences-window.ui:145
+#: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Încercați o căutare diferită."
+
+#: src/inspector/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "Nicio preferință"
+
+#: src/inspector/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "Preferă întunecat"
+
+#: src/inspector/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "Preferă luminat"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/inspector/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/inspector/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Aspectul sistemului"
+
+#: src/inspector/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Suprascrie configurările acestei aplicații. Vor fi restabilite la închiderea "
+"inspectorului."
+
+#: src/inspector/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Sistemul suportă scheme de culoare"
+
+#: src/inspector/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Schemă de culoare preferată"
+
+#: src/inspector/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Contrast ridicat"
 
 #~ msgid "This property does not apply unless Show Indicators is set."
 #~ msgstr ""
