@@ -28,7 +28,7 @@ of the package name.
 If you're using the GNOME SDK of the version 42 or later, Libadwaita is already
 included and there's no need to do anything.
 
-If you're using an older version of a different SDK, add the following modules
+If you're using an older version or a different SDK, add the following modules
 to your manifest:
 
 ```json
