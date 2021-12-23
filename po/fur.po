@@ -6,863 +6,623 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libhandy/issues\n"
-"POT-Creation-Date: 2020-10-25 20:28+0000\n"
-"PO-Revision-Date: 2020-10-26 19:36+0100\n"
-"Last-Translator: \n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2021-12-06 17:25+0000\n"
+"PO-Revision-Date: 2021-12-23 08:10+0100\n"
+"Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: glade/glade-hdy-carousel.c:160 glade/glade-hdy-header-bar.c:118
-#: glade/glade-hdy-leaflet.c:184
-#, c-format
-msgid "Insert placeholder to %s"
-msgstr "Inserìs segnepuest a %s"
-
-#: glade/glade-hdy-carousel.c:189 glade/glade-hdy-header-bar.c:144
-#: glade/glade-hdy-leaflet.c:214
-#, c-format
-msgid "Remove placeholder from %s"
-msgstr "Gjave segnepuest di %s"
-
-#: glade/glade-hdy-header-bar.c:18
-msgid "This property does not apply when a custom title is set"
-msgstr ""
-"Cuant che si stabilìs un titul personalizât, cheste proprietât no si apliche"
-
-#: glade/glade-hdy-header-bar.c:289
-msgid ""
-"The decoration layout does not apply to header bars which do no show window "
-"controls"
-msgstr ""
-"La disposizion de decorazion no si apliche aes sbaris di intestazion che no "
-"mostrin i controi dal barcon"
-
-#: glade/glade-hdy-leaflet.c:19
-msgid "This property only applies when the leaflet is folded"
-msgstr "Cheste proprietât si apliche dome cuant che il sfueut al è pleât"
-
-#: glade/glade-hdy-preferences-page.c:160
-#, c-format
-msgid "Add group to %s"
-msgstr "Zonte grup a %s"
-
-#: glade/glade-hdy-preferences-window.c:228
-#, c-format
-msgid "Add page to %s"
-msgstr "Zonte pagjine a %s"
-
-#: glade/glade-hdy-search-bar.c:101
-msgid "Search bar is already full"
-msgstr "La sbare di ricercje e je za plene"
-
-#: glade/glade-hdy-utils.h:13
-#, c-format
-msgid "Only objects of type %s can be added to objects of type %s."
-msgstr ""
-"Dome i ogjets di gjenar %s a puedin jessi zontâts ai ogjets di gjenar %s."
-
-#: src/hdy-action-row.c:354 src/hdy-action-row.c:355 src/hdy-expander-row.c:314
-#: src/hdy-expander-row.c:315 src/hdy-preferences-page.c:179
-#: src/hdy-preferences-page.c:180
-msgid "Icon name"
-msgstr "Non icone"
-
-#: src/hdy-action-row.c:368
-msgid "Activatable widget"
-msgstr "Widget ativabil"
-
-#: src/hdy-action-row.c:369
-msgid "The widget to be activated when the row is activated"
-msgstr "Il widget che si à di ativâ cuant che la rie e ven ativade"
-
-#: src/hdy-action-row.c:382 src/hdy-action-row.c:383 src/hdy-expander-row.c:285
-#: src/hdy-header-bar.c:2107 src/hdy-view-switcher-title.c:272
-msgid "Subtitle"
-msgstr "Sottitul"
-
-#: src/hdy-action-row.c:397 src/hdy-expander-row.c:300
-#: src/hdy-preferences-row.c:130
-msgid "Use underline"
-msgstr "Dopre sotlineât"
-
-#: src/hdy-action-row.c:398 src/hdy-expander-row.c:301
-#: src/hdy-preferences-row.c:131
-msgid ""
-"If set, an underline in the text indicates the next character should be used "
-"for the mnemonic accelerator key"
-msgstr ""
-"Se stabilide, une sotlinie intal test e indiche il prossim caratar che si à "
-"di doprâ pal tast aceleradôr mnemonic"
-
-#: src/hdy-carousel-box.c:1087 src/hdy-carousel-box.c:1088
-#: src/hdy-carousel.c:575 src/hdy-carousel.c:576
-msgid "Number of pages"
-msgstr "Numar di pagjinis"
-
-#: src/hdy-carousel-box.c:1103 src/hdy-carousel.c:592 src/hdy-header-bar.c:2093
-msgid "Position"
-msgstr "Posizion"
-
-#: src/hdy-carousel-box.c:1104 src/hdy-carousel.c:593
-msgid "Current scrolling position"
-msgstr "Posizion di scoriment atuâl"
-
-#: src/hdy-carousel-box.c:1119 src/hdy-carousel.c:623 src/hdy-header-bar.c:2121
-msgid "Spacing"
-msgstr "Spaziadure"
-
-#: src/hdy-carousel-box.c:1120 src/hdy-carousel.c:624
-msgid "Spacing between pages"
-msgstr "Spaziadure tra lis pagjinis"
-
-#: src/hdy-carousel-box.c:1136 src/hdy-carousel.c:668
-msgid "Reveal duration"
-msgstr "Durade rivelazion"
-
-#: src/hdy-carousel-box.c:1137 src/hdy-carousel.c:669
-msgid "Page reveal duration"
-msgstr "Durade de rivelazion de pagjine"
-
-#: src/hdy-carousel.c:609
-msgid "Interactive"
-msgstr "Interatîf"
-
-#: src/hdy-carousel.c:610
-msgid "Whether the widget can be swiped"
-msgstr "Indiche se si pues scori il widget"
-
-#: src/hdy-carousel.c:639
-msgid "Animation duration"
-msgstr "Durade animazion"
-
-#: src/hdy-carousel.c:640
-msgid "Default animation duration"
-msgstr "Durade predefinide de animazion"
-
-#: src/hdy-carousel.c:654 src/hdy-swipe-tracker.c:865
-msgid "Allow mouse drag"
-msgstr "Permet strissinament mouse"
-
-#: src/hdy-carousel.c:655 src/hdy-swipe-tracker.c:866
-msgid "Whether to allow dragging with mouse pointer"
-msgstr "Indiche se permeti il strissinament cul pontadôr dal mouse"
-
-#: src/hdy-carousel-indicator-dots.c:392 src/hdy-carousel-indicator-dots.c:393
-#: src/hdy-carousel-indicator-lines.c:391
-#: src/hdy-carousel-indicator-lines.c:392
-msgid "Carousel"
-msgstr "Gjostre"
-
-#: src/hdy-clamp.c:417
-msgid "Maximum size"
-msgstr "Dimension massime"
-
-#: src/hdy-clamp.c:418
-msgid "The maximum size allocated to the child"
-msgstr "Dimension massime assegnade al fi"
-
-#: src/hdy-clamp.c:442
-msgid "Tightening threshold"
-msgstr "Soiâr di strenziment"
-
-#: src/hdy-clamp.c:443
-msgid "The size from which the clamp will tighten its grip on the child"
-msgstr "La dimension che di chê il smuarset al strenzarà la prese sul fi"
-
-#: src/hdy-combo-row.c:416
-msgid "Selected index"
-msgstr ""
-
-#: src/hdy-combo-row.c:417
-msgid "The index of the selected item"
-msgstr ""
-
-#: src/hdy-combo-row.c:435
-msgid "Use subtitle"
-msgstr "Dopre sottitul"
-
-#: src/hdy-combo-row.c:436
-msgid "Set the current value as the subtitle"
-msgstr "Met come sottitul il valôr atuâl"
-
-#: src/hdy-deck.c:888
-msgid "Horizontally homogeneous"
-msgstr "Omogjenei in maniere orizontâl"
-
-#: src/hdy-deck.c:889
-msgid "Horizontally homogeneous sizing"
-msgstr "Dimensionament omogjenei in orizontâl"
-
-#: src/hdy-deck.c:902
-msgid "Vertically homogeneous"
-msgstr "Omogjenei in maniere verticâl"
-
-#: src/hdy-deck.c:903
-msgid "Vertically homogeneous sizing"
-msgstr "Dimensionament omogjenei in verticâl"
-
-#: src/hdy-deck.c:916 src/hdy-leaflet.c:1018 src/hdy-squeezer.c:1098
-#: src/hdy-stackable-box.c:2993
-msgid "Visible child"
-msgstr "Fi visibil"
-
-#: src/hdy-deck.c:917
-msgid "The widget currently visible"
-msgstr "Il widget cumò visibil"
-
-#: src/hdy-deck.c:930 src/hdy-leaflet.c:1025 src/hdy-stackable-box.c:3000
-msgid "Name of visible child"
-msgstr "Non dal fi visibil"
-
-#: src/hdy-deck.c:931
-msgid "The name of the widget currently visible"
-msgstr "Il non dal widget cumò visibil"
-
-#: src/hdy-deck.c:949 src/hdy-leaflet.c:1044 src/hdy-squeezer.c:1112
-#: src/hdy-stackable-box.c:3019
-msgid "Transition type"
-msgstr "Gjenar di transizion"
-
-#: src/hdy-deck.c:950
-msgid "The type of animation used to transition between children"
-msgstr "Il gjenar di animazion doprade pe transizion tra i fîs"
-
-#: src/hdy-deck.c:963 src/hdy-header-bar.c:2203 src/hdy-squeezer.c:1105
-msgid "Transition duration"
-msgstr "Durade transizion"
-
-#: src/hdy-deck.c:964
-msgid "The transition animation duration, in milliseconds"
-msgstr "La durade de animazion pe transizion, in miliseconts"
-
-#: src/hdy-deck.c:977 src/hdy-header-bar.c:2210 src/hdy-squeezer.c:1120
-msgid "Transition running"
-msgstr "Transizion in esecuzion"
-
-#: src/hdy-deck.c:978 src/hdy-header-bar.c:2211 src/hdy-squeezer.c:1121
-msgid "Whether or not the transition is currently running"
-msgstr "Indiche se (o mancul) la transizion e je cumò in esecuzion"
-
-#: src/hdy-deck.c:992 src/hdy-header-bar.c:2217 src/hdy-leaflet.c:1072
-#: src/hdy-squeezer.c:1127 src/hdy-stackable-box.c:3047
-msgid "Interpolate size"
-msgstr ""
-
-#: src/hdy-deck.c:993 src/hdy-header-bar.c:2218 src/hdy-leaflet.c:1073
-#: src/hdy-squeezer.c:1128 src/hdy-stackable-box.c:3048
-msgid ""
-"Whether or not the size should smoothly change when changing between "
-"differently sized children"
-msgstr ""
-"Indiche se (o mancul) la dimension e à di cambiâ in maniere dolce cuant che "
-"si cambie tra i fîs di dimension diferente"
-
-#: src/hdy-deck.c:1007 src/hdy-leaflet.c:1087 src/hdy-preferences-window.c:520
-#: src/hdy-stackable-box.c:3062
-msgid "Can swipe back"
-msgstr "Al pues scori indaûr"
-
-#: src/hdy-deck.c:1008 src/hdy-leaflet.c:1088 src/hdy-stackable-box.c:3063
-msgid ""
-"Whether or not swipe gesture can be used to switch to the previous child"
-msgstr ""
-"Indiche se (o mancul) il moviment di scoriment al pues jessi doprât par "
-"passâ al fi precedent"
-
-#: src/hdy-deck.c:1022 src/hdy-leaflet.c:1102 src/hdy-stackable-box.c:3077
-msgid "Can swipe forward"
-msgstr "Al pues scori indenant"
-
-#: src/hdy-deck.c:1023 src/hdy-leaflet.c:1103 src/hdy-stackable-box.c:3078
-msgid "Whether or not swipe gesture can be used to switch to the next child"
-msgstr ""
-"Indiche se (o mancul) il moviment di scoriment al pues jessi doprât par "
-"passâ al fi sucessîf"
-
-#: src/hdy-deck.c:1031 src/hdy-leaflet.c:1111
-msgid "Name"
-msgstr "Non"
-
-#: src/hdy-deck.c:1032 src/hdy-leaflet.c:1112
-msgid "The name of the child page"
-msgstr "Il non de pagjine dal fi"
-
-#: src/hdy-expander-row.c:286
-msgid "The subtitle for this row"
-msgstr "Il sottitul par cheste rie"
-
-#: src/hdy-expander-row.c:326
-msgid "Expanded"
-msgstr "Pandût"
-
-#: src/hdy-expander-row.c:327
-msgid "Whether the row is expanded"
-msgstr "Indiche se la rie e je pandude"
-
-#: src/hdy-expander-row.c:338
-msgid "Enable expansion"
-msgstr "Abilite espansion"
-
-#: src/hdy-expander-row.c:339
-msgid "Whether the expansion is enabled"
-msgstr "Indiche se la espansion e je abilitade"
-
-#: src/hdy-expander-row.c:350
-msgid "Show enable switch"
-msgstr ""
-
-#: src/hdy-expander-row.c:351
-msgid "Whether the switch enabling the expansion is visible"
-msgstr ""
-
-#: src/hdy-header-bar.c:485
-msgid "Application menu"
-msgstr "Menù aplicazion"
-
-#: src/hdy-header-bar.c:507 src/hdy-window-handle-controller.c:275
-msgid "Minimize"
-msgstr "Minimize"
-
-#: src/hdy-header-bar.c:529 src/hdy-window-handle-controller.c:241
-msgid "Restore"
-msgstr "Ripristine"
-
-#: src/hdy-header-bar.c:529 src/hdy-window-handle-controller.c:284
-msgid "Maximize"
-msgstr "Slargje"
-
-#: src/hdy-header-bar.c:547 src/hdy-window-handle-controller.c:311
-msgid "Close"
-msgstr "Siere"
-
-#: src/hdy-header-bar.c:563
-msgid "Back"
-msgstr "Indaûr"
-
-#: src/hdy-header-bar.c:2086
-msgid "Pack type"
-msgstr "Gjenar di pachet"
-
-#: src/hdy-header-bar.c:2087
-msgid ""
-"A GtkPackType indicating whether the child is packed with reference to the "
-"start or end of the parent"
-msgstr ""
-"Un GtkPackType che al indiche se il fi al è impachetât cul riferiment al "
-"inizi o ae fin dal gjenitôr"
-
-#: src/hdy-header-bar.c:2094
-msgid "The index of the child in the parent"
-msgstr ""
-
-#: src/hdy-header-bar.c:2100 src/hdy-preferences-group.c:265
-#: src/hdy-preferences-group.c:266 src/hdy-preferences-page.c:193
-#: src/hdy-preferences-page.c:194 src/hdy-preferences-row.c:115
-#: src/hdy-view-switcher-title.c:258
-msgid "Title"
-msgstr "Titul"
-
-#: src/hdy-header-bar.c:2101 src/hdy-view-switcher-title.c:259
-msgid "The title to display"
-msgstr "Il titul di visualizâ"
-
-#: src/hdy-header-bar.c:2108 src/hdy-view-switcher-title.c:273
-msgid "The subtitle to display"
-msgstr "Il sottitul di visualizâ"
-
-#: src/hdy-header-bar.c:2114
-msgid "Custom Title"
-msgstr "Titul personalizât"
-
-#: src/hdy-header-bar.c:2115
-msgid "Custom title widget to display"
-msgstr "Il widget dal titul personalizât di visualizâ"
-
-#: src/hdy-header-bar.c:2122
-msgid "The amount of space between children"
-msgstr "La cuantitât di spazi tra i fîs"
-
-#: src/hdy-header-bar.c:2141
-msgid "Show decorations"
-msgstr "Mostre decorazions"
-
-#: src/hdy-header-bar.c:2142
-msgid "Whether to show window decorations"
-msgstr "Indiche se mostrâ lis decorazions dai barcons"
-
-#: src/hdy-header-bar.c:2160
-msgid "Decoration Layout"
-msgstr "Disposizion de decorazion"
-
-#: src/hdy-header-bar.c:2161
-msgid "The layout for window decorations"
-msgstr "La disposizion pes decorazions dal barcon"
-
-#: src/hdy-header-bar.c:2174
-msgid "Decoration Layout Set"
-msgstr "Disposizion de decorazion stabilide"
-
-#: src/hdy-header-bar.c:2175
-msgid "Whether the decoration-layout property has been set"
-msgstr ""
-"Indiche se la proprietât de disposizion de decorazion e je stade stabilide"
-
-#: src/hdy-header-bar.c:2189
-msgid "Has Subtitle"
-msgstr "Al à sottitul"
-
-#: src/hdy-header-bar.c:2190
-msgid "Whether to reserve space for a subtitle"
-msgstr "Indiche se riservâ spazi par un sottitul"
-
-#: src/hdy-header-bar.c:2196
-msgid "Centering policy"
-msgstr "Politiche di centradure"
-
-#: src/hdy-header-bar.c:2197
-#, fuzzy
-msgid "The policy to horizontally align the center widget"
-msgstr "La politiche par inlineâ in orizontâl il centri dal widget"
-
-#: src/hdy-header-bar.c:2204 src/hdy-squeezer.c:1106
-msgid "The animation duration, in milliseconds"
-msgstr "La durade de animazion, in miliseconts"
-
-#: src/hdy-header-group.c:827
-msgid "Decorate all"
-msgstr "Decore dut"
-
-#: src/hdy-header-group.c:828
-msgid ""
-"Whether the elements of the group should all receive the full decoration"
-msgstr ""
-"Indiche se i elements dal grup a àn di ricevi ducj la decorazion complete"
-
-#: src/hdy-keypad-button.c:225
-msgid "Digit"
-msgstr "Numar"
-
-#: src/hdy-keypad-button.c:226
-msgid "The keypad digit of the button"
-msgstr "La cifre dal boton de tastierute numeriche"
-
-#: src/hdy-keypad-button.c:232
-msgid "Symbols"
-msgstr "Simbui"
-
-#: src/hdy-keypad-button.c:233
-msgid "The keypad symbols of the button. The first symbol is used as the digit"
-msgstr ""
-"I simbui dal boton de tastierute numeriche. Il prin simbul al ven doprât "
-"come cifre"
-
-#: src/hdy-keypad-button.c:239
-msgid "Show symbols"
-msgstr "Mostre simbui"
-
-#: src/hdy-keypad-button.c:240
-msgid "Whether the second line of symbols should be shown or not"
-msgstr "Indiche se si à di mostrâ o mancul la seconde rie dai simbui"
-
-#: src/hdy-keypad.c:247
-msgid "Row spacing"
-msgstr "Spaziadure riis"
-
-#: src/hdy-keypad.c:248
-msgid "The amount of space between two consecutive rows"
-msgstr "La cuantitât di spazi tra dôs riis consecutivis"
-
-#: src/hdy-keypad.c:261
-msgid "Column spacing"
-msgstr "Spaziadure colonis"
-
-#: src/hdy-keypad.c:262
-msgid "The amount of space between two consecutive columns"
-msgstr "La cuantitât di spazi tra dôs colonis consecutivis"
-
-#: src/hdy-keypad.c:276
-msgid "Letters visible"
-msgstr "Letaris visibilis"
-
-#: src/hdy-keypad.c:277
-msgid "Whether the letters below the digits should be visible"
-msgstr "Indiche se si à di rindi visibilis lis letaris sot dai numars"
-
-#: src/hdy-keypad.c:291
-msgid "Symbols visible"
-msgstr "Simbui visibii"
-
-#: src/hdy-keypad.c:292
-msgid "Whether the hash, plus, and asterisk symbols should be visible"
-msgstr "Indiche se i simbui cancelut, plui e asterisc a àn di jessi visibii"
-
-#: src/hdy-keypad.c:306
-msgid "Entry"
-msgstr "Vôs"
-
-#: src/hdy-keypad.c:307
-msgid "The entry widget connected to the keypad"
-msgstr "Il widget de vôs conetût ae tastierute numeriche"
-
-#: src/hdy-keypad.c:320
-msgid "End action"
-msgstr "Azion di fin"
-
-#: src/hdy-keypad.c:321
-msgid "The end action widget"
-msgstr "Il widget de azion di fin"
-
-#: src/hdy-keypad.c:334
-msgid "Start action"
-msgstr "Azion di inizi"
-
-#: src/hdy-keypad.c:335
-msgid "The start action widget"
-msgstr "Il widget de azion di inizi"
-
-#: src/hdy-leaflet.c:963 src/hdy-stackable-box.c:2938
-msgid "Folded"
-msgstr "Pleât"
-
-#: src/hdy-leaflet.c:964 src/hdy-stackable-box.c:2939
-msgid "Whether the widget is folded"
-msgstr "Indiche se il widget al è pleât"
-
-#: src/hdy-leaflet.c:975 src/hdy-stackable-box.c:2950
-msgid "Horizontally homogeneous folded"
-msgstr "Omogjenei in orizontâl pleât"
-
-#: src/hdy-leaflet.c:976
-msgid "Horizontally homogeneous sizing when the leaflet is folded"
-msgstr "Dimensionament omogjenei in orizontâl cuant che il sfueut al è pleât"
-
-#: src/hdy-leaflet.c:987 src/hdy-stackable-box.c:2962
-msgid "Vertically homogeneous folded"
-msgstr "Omogjenei in verticâl pleât"
-
-#: src/hdy-leaflet.c:988
-msgid "Vertically homogeneous sizing when the leaflet is folded"
-msgstr "Dimensionament omogjenei in verticâl cuant che il sfueut al è pleât"
-
-#: src/hdy-leaflet.c:999 src/hdy-stackable-box.c:2974
-msgid "Box horizontally homogeneous"
-msgstr ""
-
-#: src/hdy-leaflet.c:1000
-msgid "Horizontally homogeneous sizing when the leaflet is unfolded"
-msgstr "Dimensionament omogjenei in orizontâl cuant che il sfueut nol è pleât"
-
-#: src/hdy-leaflet.c:1011 src/hdy-stackable-box.c:2986
-msgid "Box vertically homogeneous"
-msgstr ""
-
-#: src/hdy-leaflet.c:1012
-msgid "Vertically homogeneous sizing when the leaflet is unfolded"
-msgstr "Dimensionament omogjenei in verticâl cuant che il sfueut nol è pleât"
-
-#: src/hdy-leaflet.c:1019
-msgid "The widget currently visible when the leaflet is folded"
-msgstr "Il widget cumò visibil cuant che il sfueut al è pleât"
-
-#: src/hdy-leaflet.c:1026 src/hdy-stackable-box.c:3001
-msgid "The name of the widget currently visible when the children are stacked"
-msgstr "Il non dal ogjet cumò visibil cuant che i fîs a son intassâts"
-
-#: src/hdy-leaflet.c:1045 src/hdy-stackable-box.c:3020
-msgid "The type of animation used to transition between modes and children"
-msgstr "Il gjenar di animazion doprade par passâ tra modalitâts e fîs"
-
-#: src/hdy-leaflet.c:1051 src/hdy-stackable-box.c:3026
-msgid "Mode transition duration"
-msgstr "Durade transizion modalitât"
-
-#: src/hdy-leaflet.c:1052 src/hdy-stackable-box.c:3027
-msgid "The mode transition animation duration, in milliseconds"
-msgstr "La durade de animazion pe transizion de modalitât, in miliseconts"
-
-#: src/hdy-leaflet.c:1058 src/hdy-stackable-box.c:3033
-msgid "Child transition duration"
-msgstr "Durade transizion fi"
-
-#: src/hdy-leaflet.c:1059 src/hdy-stackable-box.c:3034
-msgid "The child transition animation duration, in milliseconds"
-msgstr "La durade de animazion pe transizion dal fi, in miliseconts"
-
-#: src/hdy-leaflet.c:1065 src/hdy-stackable-box.c:3040
-msgid "Child transition running"
-msgstr "Transizion fi in esecuzion"
-
-#: src/hdy-leaflet.c:1066 src/hdy-stackable-box.c:3041
-msgid "Whether or not the child transition is currently running"
-msgstr "Indiche se (o mancul) la transizion dal fi e je cumò in esecuzion"
-
-#: src/hdy-leaflet.c:1129
-msgid "Navigatable"
-msgstr ""
-
-#: src/hdy-leaflet.c:1130
-msgid "Whether the child can be navigated to"
-msgstr ""
-
-#: src/hdy-preferences-group.c:251 src/hdy-preferences-group.c:252
-msgid "Description"
-msgstr "Descrizion"
-
-#: src/hdy-preferences-row.c:116
-msgid "The title of the preference"
-msgstr "Il titul de preference"
-
-#: src/hdy-preferences-window.c:141
+#: src/adw-preferences-window.c:212
 msgid "Untitled page"
 msgstr "Pagjine cence titul"
 
-#: src/hdy-preferences-window.c:506
-msgid "Search enabled"
-msgstr "Ricercje abilitade"
-
-#: src/hdy-preferences-window.c:507
-msgid "Whether search is enabled"
-msgstr "Indiche se la ricercje e je abilitade"
-
-#: src/hdy-preferences-window.c:521
-msgid ""
-"Whether or not swipe gesture can be used to switch from a subpage to the "
-"preferences"
-msgstr ""
-
-#: src/hdy-preferences-window.ui:9
+#: src/adw-preferences-window.ui:8
 msgid "Preferences"
 msgstr "Preferencis"
 
-#: src/hdy-preferences-window.ui:81
+#: src/adw-preferences-window.ui:69
 msgid "Search"
 msgstr "Cîr"
 
-#: src/hdy-preferences-window.ui:204
+#: src/adw-preferences-window.ui:139
 msgid "No Results Found"
 msgstr "Nissun risultât cjatât"
 
-#: src/hdy-preferences-window.ui:219
-msgid "Try a different search"
-msgstr "Prove cuntune ricercje diferente"
+#: src/adw-preferences-window.ui:140
+msgid "Try a different search."
+msgstr "Prove cuntune ricercje diferente."
 
-#: src/hdy-search-bar.c:451
-msgid "Search Mode Enabled"
-msgstr "Modalitât ricercje abilitade"
+#: src/inspector/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "Nissune preference"
 
-#: src/hdy-search-bar.c:452
-msgid "Whether the search mode is on and the search bar shown"
-msgstr ""
-"Indiche se la modalitât di ricercje e je ative e la sbare di ricercje "
-"mostrade"
+#: src/inspector/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "Preferìs scûr"
 
-#: src/hdy-search-bar.c:463
-msgid "Show Close Button"
-msgstr "Mostre boton par sierâ"
+#: src/inspector/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "Preferìs clâr"
 
-#: src/hdy-search-bar.c:464
-msgid "Whether to show the close button in the toolbar"
-msgstr "Indiche se mostrâ il boton par sierâ inte sbare dai struments"
+#. Translators: The name of the library, not the stylesheet
+#: src/inspector/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
 
-#: src/hdy-shadow-helper.c:254
-msgid "Widget"
-msgstr "Widget"
+#: src/inspector/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Aspiet dal sisteme"
 
-#: src/hdy-shadow-helper.c:255
-msgid "The widget the shadow will be drawn for"
-msgstr "Il widget che par chel e vignarà dissegnade la ombrene"
-
-#: src/hdy-squeezer.c:1091
-msgid "Homogeneous"
-msgstr "Omogjenei"
-
-#: src/hdy-squeezer.c:1092
-msgid "Homogeneous sizing"
-msgstr "Dimensionament omogjenei"
-
-#: src/hdy-squeezer.c:1099
-msgid "The widget currently visible in the squeezer"
-msgstr ""
-
-#: src/hdy-squeezer.c:1113
-msgid "The type of animation used to transition"
-msgstr "Il gjenar di animazion doprade pe transizion"
-
-#: src/hdy-squeezer.c:1148
-msgid "X align"
-msgstr "Inlineament X"
-
-#: src/hdy-squeezer.c:1149
-msgid "The horizontal alignment, from 0 (start) to 1 (end)"
-msgstr "L'inlineament orizontâl, di 0 (inizi) a 1 (fin)"
-
-#: src/hdy-squeezer.c:1170
-msgid "Y align"
-msgstr "Inlineament Y"
-
-#: src/hdy-squeezer.c:1171
-msgid "The vertical alignment, from 0 (top) to 1 (bottom)"
-msgstr "L'inlineament verticâl, di 0 (parsore) a 1 (in bas)"
-
-#: src/hdy-squeezer.c:1180 src/hdy-swipe-tracker.c:835
-msgid "Enabled"
-msgstr "Abilitât"
-
-#: src/hdy-squeezer.c:1181
+#: src/inspector/adw-inspector-page.ui:11
 msgid ""
-"Whether the child can be picked or should be ignored when looking for the "
-"child fitting the available size best"
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
 msgstr ""
+"Passe sore aes impostazions par cheste aplicazion. A vignaran ripristinadis "
+"ae sieradure dal ispetôr."
 
-#: src/hdy-stackable-box.c:2951
-msgid "Horizontally homogeneous sizing when the widget is folded"
-msgstr "Dimensionament omogjenei in orizontâl cuant che il widget al è pleât"
+#: src/inspector/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Il sisteme al supuarte i schemis di colôr"
 
-#: src/hdy-stackable-box.c:2963
-msgid "Vertically homogeneous sizing when the widget is folded"
-msgstr "Dimensionament omogjenei in verticâl cuant che il widget al è pleât"
+#: src/inspector/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Scheme di colôr preferît"
 
-#: src/hdy-stackable-box.c:2975
-msgid "Horizontally homogeneous sizing when the widget is unfolded"
-msgstr "Dimensionament omogjenei in orizontâl cuant che il widget nol è pleât"
+#: src/inspector/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Contrast elevât"
 
-#: src/hdy-stackable-box.c:2987
-msgid "Vertically homogeneous sizing when the widget is unfolded"
-msgstr "Dimensionament omogjenei in verticâl cuant che il widget nol è pleât"
+#~ msgid "Insert placeholder to %s"
+#~ msgstr "Inserìs segnepuest a %s"
 
-#: src/hdy-stackable-box.c:2994
-msgid "The widget currently visible when the widget is folded"
-msgstr ""
+#~ msgid "Remove placeholder from %s"
+#~ msgstr "Gjave segnepuest di %s"
 
-#: src/hdy-stackable-box.c:3084 src/hdy-stackable-box.c:3085
-msgid "Orientation"
-msgstr "Orientament"
+#~ msgid "This property does not apply when a custom title is set"
+#~ msgstr ""
+#~ "Cuant che si stabilìs un titul personalizât, cheste proprietât no si "
+#~ "apliche"
 
-#: src/hdy-swipe-tracker.c:820
-msgid "Swipeable"
-msgstr ""
+#~ msgid ""
+#~ "The decoration layout does not apply to header bars which do no show "
+#~ "window controls"
+#~ msgstr ""
+#~ "La disposizion de decorazion no si apliche aes sbaris di intestazion che "
+#~ "no mostrin i controi dal barcon"
 
-#: src/hdy-swipe-tracker.c:821
-msgid "The swipeable the swipe tracker is attached to"
-msgstr ""
+#~ msgid "This property only applies when the leaflet is folded"
+#~ msgstr "Cheste proprietât si apliche dome cuant che il sfueut al è pleât"
 
-#: src/hdy-swipe-tracker.c:836
-msgid "Whether the swipe tracker processes events"
-msgstr ""
+#~ msgid "Add group to %s"
+#~ msgstr "Zonte grup a %s"
 
-#: src/hdy-swipe-tracker.c:850
-msgid "Reversed"
-msgstr "Invertît"
+#~ msgid "Add page to %s"
+#~ msgstr "Zonte pagjine a %s"
 
-#: src/hdy-swipe-tracker.c:851
-msgid "Whether swipe direction is reversed"
-msgstr "Indiche se la direzion dal scoriment e je invertide"
+#~ msgid "Search bar is already full"
+#~ msgstr "La sbare di ricercje e je za plene"
 
-#: src/hdy-title-bar.c:308
-msgid "Selection mode"
-msgstr "Modalitât di selezion"
+#~ msgid "Only objects of type %s can be added to objects of type %s."
+#~ msgstr ""
+#~ "Dome i ogjets di gjenar %s a puedin jessi zontâts ai ogjets di gjenar %s."
 
-#: src/hdy-title-bar.c:309
-msgid "Whether or not the title bar is in selection mode"
-msgstr "Indiche se (o mancul) la sbare dal titul e je in modalitât selezion"
+#~ msgid "Icon name"
+#~ msgstr "Non icone"
 
-#: src/hdy-value-object.c:191
-msgctxt "HdyValueObjectClass"
-msgid "Value"
-msgstr "Valôr"
+#~ msgid "Activatable widget"
+#~ msgstr "Widget ativabil"
 
-#: src/hdy-value-object.c:192
-msgctxt "HdyValueObjectClass"
-msgid "The contained value"
-msgstr "Il valôr contignût"
+#~ msgid "The widget to be activated when the row is activated"
+#~ msgstr "Il widget che si à di ativâ cuant che la rie e ven ativade"
 
-#: src/hdy-view-switcher-bar.c:178 src/hdy-view-switcher.c:509
-#: src/hdy-view-switcher-title.c:230
-msgid "Policy"
-msgstr "Politiche"
+#~ msgid "Subtitle"
+#~ msgstr "Sottitul"
 
-#: src/hdy-view-switcher-bar.c:179 src/hdy-view-switcher.c:510
-#: src/hdy-view-switcher-title.c:231
-msgid "The policy to determine the mode to use"
-msgstr "La politiche par determinâ la modalitât di doprâ"
+#~ msgid "Use underline"
+#~ msgstr "Dopre sotlineât"
 
-#: src/hdy-view-switcher-bar.c:192 src/hdy-view-switcher-bar.c:193
-#: src/hdy-view-switcher.c:544 src/hdy-view-switcher.c:545
-#: src/hdy-view-switcher-title.c:244 src/hdy-view-switcher-title.c:245
-msgid "Stack"
-msgstr "Tasse"
+#~ msgid ""
+#~ "If set, an underline in the text indicates the next character should be "
+#~ "used for the mnemonic accelerator key"
+#~ msgstr ""
+#~ "Se stabilide, une sotlinie intal test e indiche il prossim caratar che si "
+#~ "à di doprâ pal tast aceleradôr mnemonic"
 
-#: src/hdy-view-switcher-bar.c:206
-msgid "Reveal"
-msgstr "Mostre"
+#~ msgid "Number of pages"
+#~ msgstr "Numar di pagjinis"
 
-#: src/hdy-view-switcher-bar.c:207
-msgid "Whether the view switcher is revealed"
-msgstr ""
+#~ msgid "Position"
+#~ msgstr "Posizion"
 
-#: src/hdy-view-switcher-button.c:203
-msgid "Icon Name"
-msgstr "Non icone"
+#~ msgid "Current scrolling position"
+#~ msgstr "Posizion di scoriment atuâl"
 
-#: src/hdy-view-switcher-button.c:204
-msgid "Icon name for image"
-msgstr "Non de icone pe imagjin"
+#~ msgid "Spacing"
+#~ msgstr "Spaziadure"
 
-#: src/hdy-view-switcher-button.c:217
-msgid "Icon Size"
-msgstr "Dimension icone"
+#~ msgid "Spacing between pages"
+#~ msgstr "Spaziadure tra lis pagjinis"
 
-#: src/hdy-view-switcher-button.c:218
-msgid "Symbolic size to use for named icon"
-msgstr "Dimension simboliche di doprâ pe icone nomenade"
+#~ msgid "Reveal duration"
+#~ msgstr "Durade rivelazion"
 
-#: src/hdy-view-switcher-button.c:234
-msgid "Needs attention"
-msgstr "Al clame atenzion"
+#~ msgid "Page reveal duration"
+#~ msgstr "Durade de rivelazion de pagjine"
 
-#: src/hdy-view-switcher-button.c:235
-msgid "Hint the view needs attention"
-msgstr "Sugjeriment che la viodude e domande atenzion"
+#~ msgid "Interactive"
+#~ msgstr "Interatîf"
 
-#: src/hdy-view-switcher.c:529
-msgid "Narrow ellipsize"
-msgstr ""
+#~ msgid "Whether the widget can be swiped"
+#~ msgstr "Indiche se si pues scori il widget"
 
-#: src/hdy-view-switcher.c:530
-msgid ""
-"The preferred place to ellipsize the string, if the narrow mode label does "
-"not have enough room to display the entire string"
-msgstr ""
+#~ msgid "Animation duration"
+#~ msgstr "Durade animazion"
 
-#: src/hdy-view-switcher-title.c:286
-msgid "View switcher enabled"
-msgstr ""
+#~ msgid "Default animation duration"
+#~ msgstr "Durade predefinide de animazion"
 
-#: src/hdy-view-switcher-title.c:287
-msgid "Whether the view switcher is enabled"
-msgstr ""
+#~ msgid "Allow mouse drag"
+#~ msgstr "Permet strissinament mouse"
 
-#: src/hdy-view-switcher-title.c:300
-msgid "Title visible"
-msgstr "Titul visibil"
+#~ msgid "Whether to allow dragging with mouse pointer"
+#~ msgstr "Indiche se permeti il strissinament cul pontadôr dal mouse"
 
-#: src/hdy-view-switcher-title.c:301
-msgid "Whether the title label is visible"
-msgstr "Indiche se la etichete dal titul e je visibile"
+#~ msgid "Carousel"
+#~ msgstr "Gjostre"
 
-#: src/hdy-window-handle-controller.c:259
-msgid "Move"
-msgstr "Sposte"
+#~ msgid "Maximum size"
+#~ msgstr "Dimension massime"
 
-#: src/hdy-window-handle-controller.c:267
-msgid "Resize"
-msgstr "Ridimensione"
+#~ msgid "The maximum size allocated to the child"
+#~ msgstr "Dimension massime assegnade al fi"
 
-#: src/hdy-window-handle-controller.c:298
-msgid "Always on Top"
-msgstr "Simpri Denant"
+#~ msgid "Tightening threshold"
+#~ msgstr "Soiâr di strenziment"
+
+#~ msgid "The size from which the clamp will tighten its grip on the child"
+#~ msgstr "La dimension che di chê il smuarset al strenzarà la prese sul fi"
+
+#~ msgid "Use subtitle"
+#~ msgstr "Dopre sottitul"
+
+#~ msgid "Set the current value as the subtitle"
+#~ msgstr "Met come sottitul il valôr atuâl"
+
+#~ msgid "Horizontally homogeneous"
+#~ msgstr "Omogjenei in maniere orizontâl"
+
+#~ msgid "Horizontally homogeneous sizing"
+#~ msgstr "Dimensionament omogjenei in orizontâl"
+
+#~ msgid "Vertically homogeneous"
+#~ msgstr "Omogjenei in maniere verticâl"
+
+#~ msgid "Vertically homogeneous sizing"
+#~ msgstr "Dimensionament omogjenei in verticâl"
+
+#~ msgid "Visible child"
+#~ msgstr "Fi visibil"
+
+#~ msgid "The widget currently visible"
+#~ msgstr "Il widget cumò visibil"
+
+#~ msgid "Name of visible child"
+#~ msgstr "Non dal fi visibil"
+
+#~ msgid "The name of the widget currently visible"
+#~ msgstr "Il non dal widget cumò visibil"
+
+#~ msgid "Transition type"
+#~ msgstr "Gjenar di transizion"
+
+#~ msgid "The type of animation used to transition between children"
+#~ msgstr "Il gjenar di animazion doprade pe transizion tra i fîs"
+
+#~ msgid "Transition duration"
+#~ msgstr "Durade transizion"
+
+#~ msgid "The transition animation duration, in milliseconds"
+#~ msgstr "La durade de animazion pe transizion, in miliseconts"
+
+#~ msgid "Transition running"
+#~ msgstr "Transizion in esecuzion"
+
+#~ msgid "Whether or not the transition is currently running"
+#~ msgstr "Indiche se (o mancul) la transizion e je cumò in esecuzion"
+
+#~ msgid ""
+#~ "Whether or not the size should smoothly change when changing between "
+#~ "differently sized children"
+#~ msgstr ""
+#~ "Indiche se (o mancul) la dimension e à di cambiâ in maniere dolce cuant "
+#~ "che si cambie tra i fîs di dimension diferente"
+
+#~ msgid "Can swipe back"
+#~ msgstr "Al pues scori indaûr"
+
+#~ msgid ""
+#~ "Whether or not swipe gesture can be used to switch to the previous child"
+#~ msgstr ""
+#~ "Indiche se (o mancul) il moviment di scoriment al pues jessi doprât par "
+#~ "passâ al fi precedent"
+
+#~ msgid "Can swipe forward"
+#~ msgstr "Al pues scori indenant"
+
+#~ msgid "Whether or not swipe gesture can be used to switch to the next child"
+#~ msgstr ""
+#~ "Indiche se (o mancul) il moviment di scoriment al pues jessi doprât par "
+#~ "passâ al fi sucessîf"
+
+#~ msgid "Name"
+#~ msgstr "Non"
+
+#~ msgid "The name of the child page"
+#~ msgstr "Il non de pagjine dal fi"
+
+#~ msgid "The subtitle for this row"
+#~ msgstr "Il sottitul par cheste rie"
+
+#~ msgid "Expanded"
+#~ msgstr "Pandût"
+
+#~ msgid "Whether the row is expanded"
+#~ msgstr "Indiche se la rie e je pandude"
+
+#~ msgid "Enable expansion"
+#~ msgstr "Abilite espansion"
+
+#~ msgid "Whether the expansion is enabled"
+#~ msgstr "Indiche se la espansion e je abilitade"
+
+#~ msgid "Application menu"
+#~ msgstr "Menù aplicazion"
+
+#~ msgid "Minimize"
+#~ msgstr "Minimize"
+
+#~ msgid "Restore"
+#~ msgstr "Ripristine"
+
+#~ msgid "Maximize"
+#~ msgstr "Slargje"
+
+#~ msgid "Close"
+#~ msgstr "Siere"
+
+#~ msgid "Back"
+#~ msgstr "Indaûr"
+
+#~ msgid "Pack type"
+#~ msgstr "Gjenar di pachet"
+
+#~ msgid ""
+#~ "A GtkPackType indicating whether the child is packed with reference to "
+#~ "the start or end of the parent"
+#~ msgstr ""
+#~ "Un GtkPackType che al indiche se il fi al è impachetât cul riferiment al "
+#~ "inizi o ae fin dal gjenitôr"
+
+#~ msgid "Title"
+#~ msgstr "Titul"
+
+#~ msgid "The title to display"
+#~ msgstr "Il titul di visualizâ"
+
+#~ msgid "The subtitle to display"
+#~ msgstr "Il sottitul di visualizâ"
+
+#~ msgid "Custom Title"
+#~ msgstr "Titul personalizât"
+
+#~ msgid "Custom title widget to display"
+#~ msgstr "Il widget dal titul personalizât di visualizâ"
+
+#~ msgid "The amount of space between children"
+#~ msgstr "La cuantitât di spazi tra i fîs"
+
+#~ msgid "Show decorations"
+#~ msgstr "Mostre decorazions"
+
+#~ msgid "Whether to show window decorations"
+#~ msgstr "Indiche se mostrâ lis decorazions dai barcons"
+
+#~ msgid "Decoration Layout"
+#~ msgstr "Disposizion de decorazion"
+
+#~ msgid "The layout for window decorations"
+#~ msgstr "La disposizion pes decorazions dal barcon"
+
+#~ msgid "Decoration Layout Set"
+#~ msgstr "Disposizion de decorazion stabilide"
+
+#~ msgid "Whether the decoration-layout property has been set"
+#~ msgstr ""
+#~ "Indiche se la proprietât de disposizion de decorazion e je stade stabilide"
+
+#~ msgid "Has Subtitle"
+#~ msgstr "Al à sottitul"
+
+#~ msgid "Whether to reserve space for a subtitle"
+#~ msgstr "Indiche se riservâ spazi par un sottitul"
+
+#~ msgid "Centering policy"
+#~ msgstr "Politiche di centradure"
+
+#, fuzzy
+#~ msgid "The policy to horizontally align the center widget"
+#~ msgstr "La politiche par inlineâ in orizontâl il centri dal widget"
+
+#~ msgid "The animation duration, in milliseconds"
+#~ msgstr "La durade de animazion, in miliseconts"
+
+#~ msgid "Decorate all"
+#~ msgstr "Decore dut"
+
+#~ msgid ""
+#~ "Whether the elements of the group should all receive the full decoration"
+#~ msgstr ""
+#~ "Indiche se i elements dal grup a àn di ricevi ducj la decorazion complete"
+
+#~ msgid "Digit"
+#~ msgstr "Numar"
+
+#~ msgid "The keypad digit of the button"
+#~ msgstr "La cifre dal boton de tastierute numeriche"
+
+#~ msgid "Symbols"
+#~ msgstr "Simbui"
+
+#~ msgid ""
+#~ "The keypad symbols of the button. The first symbol is used as the digit"
+#~ msgstr ""
+#~ "I simbui dal boton de tastierute numeriche. Il prin simbul al ven doprât "
+#~ "come cifre"
+
+#~ msgid "Show symbols"
+#~ msgstr "Mostre simbui"
+
+#~ msgid "Whether the second line of symbols should be shown or not"
+#~ msgstr "Indiche se si à di mostrâ o mancul la seconde rie dai simbui"
+
+#~ msgid "Row spacing"
+#~ msgstr "Spaziadure riis"
+
+#~ msgid "The amount of space between two consecutive rows"
+#~ msgstr "La cuantitât di spazi tra dôs riis consecutivis"
+
+#~ msgid "Column spacing"
+#~ msgstr "Spaziadure colonis"
+
+#~ msgid "The amount of space between two consecutive columns"
+#~ msgstr "La cuantitât di spazi tra dôs colonis consecutivis"
+
+#~ msgid "Letters visible"
+#~ msgstr "Letaris visibilis"
+
+#~ msgid "Whether the letters below the digits should be visible"
+#~ msgstr "Indiche se si à di rindi visibilis lis letaris sot dai numars"
+
+#~ msgid "Symbols visible"
+#~ msgstr "Simbui visibii"
+
+#~ msgid "Whether the hash, plus, and asterisk symbols should be visible"
+#~ msgstr "Indiche se i simbui cancelut, plui e asterisc a àn di jessi visibii"
+
+#~ msgid "Entry"
+#~ msgstr "Vôs"
+
+#~ msgid "The entry widget connected to the keypad"
+#~ msgstr "Il widget de vôs conetût ae tastierute numeriche"
+
+#~ msgid "End action"
+#~ msgstr "Azion di fin"
+
+#~ msgid "The end action widget"
+#~ msgstr "Il widget de azion di fin"
+
+#~ msgid "Start action"
+#~ msgstr "Azion di inizi"
+
+#~ msgid "The start action widget"
+#~ msgstr "Il widget de azion di inizi"
+
+#~ msgid "Folded"
+#~ msgstr "Pleât"
+
+#~ msgid "Whether the widget is folded"
+#~ msgstr "Indiche se il widget al è pleât"
+
+#~ msgid "Horizontally homogeneous folded"
+#~ msgstr "Omogjenei in orizontâl pleât"
+
+#~ msgid "Horizontally homogeneous sizing when the leaflet is folded"
+#~ msgstr ""
+#~ "Dimensionament omogjenei in orizontâl cuant che il sfueut al è pleât"
+
+#~ msgid "Vertically homogeneous folded"
+#~ msgstr "Omogjenei in verticâl pleât"
+
+#~ msgid "Vertically homogeneous sizing when the leaflet is folded"
+#~ msgstr "Dimensionament omogjenei in verticâl cuant che il sfueut al è pleât"
+
+#~ msgid "Horizontally homogeneous sizing when the leaflet is unfolded"
+#~ msgstr ""
+#~ "Dimensionament omogjenei in orizontâl cuant che il sfueut nol è pleât"
+
+#~ msgid "Vertically homogeneous sizing when the leaflet is unfolded"
+#~ msgstr ""
+#~ "Dimensionament omogjenei in verticâl cuant che il sfueut nol è pleât"
+
+#~ msgid "The widget currently visible when the leaflet is folded"
+#~ msgstr "Il widget cumò visibil cuant che il sfueut al è pleât"
+
+#~ msgid ""
+#~ "The name of the widget currently visible when the children are stacked"
+#~ msgstr "Il non dal ogjet cumò visibil cuant che i fîs a son intassâts"
+
+#~ msgid "The type of animation used to transition between modes and children"
+#~ msgstr "Il gjenar di animazion doprade par passâ tra modalitâts e fîs"
+
+#~ msgid "Mode transition duration"
+#~ msgstr "Durade transizion modalitât"
+
+#~ msgid "The mode transition animation duration, in milliseconds"
+#~ msgstr "La durade de animazion pe transizion de modalitât, in miliseconts"
+
+#~ msgid "Child transition duration"
+#~ msgstr "Durade transizion fi"
+
+#~ msgid "The child transition animation duration, in milliseconds"
+#~ msgstr "La durade de animazion pe transizion dal fi, in miliseconts"
+
+#~ msgid "Child transition running"
+#~ msgstr "Transizion fi in esecuzion"
+
+#~ msgid "Whether or not the child transition is currently running"
+#~ msgstr "Indiche se (o mancul) la transizion dal fi e je cumò in esecuzion"
+
+#~ msgid "Description"
+#~ msgstr "Descrizion"
+
+#~ msgid "The title of the preference"
+#~ msgstr "Il titul de preference"
+
+#~ msgid "Search enabled"
+#~ msgstr "Ricercje abilitade"
+
+#~ msgid "Whether search is enabled"
+#~ msgstr "Indiche se la ricercje e je abilitade"
+
+#~ msgid "Search Mode Enabled"
+#~ msgstr "Modalitât ricercje abilitade"
+
+#~ msgid "Whether the search mode is on and the search bar shown"
+#~ msgstr ""
+#~ "Indiche se la modalitât di ricercje e je ative e la sbare di ricercje "
+#~ "mostrade"
+
+#~ msgid "Show Close Button"
+#~ msgstr "Mostre boton par sierâ"
+
+#~ msgid "Whether to show the close button in the toolbar"
+#~ msgstr "Indiche se mostrâ il boton par sierâ inte sbare dai struments"
+
+#~ msgid "Widget"
+#~ msgstr "Widget"
+
+#~ msgid "The widget the shadow will be drawn for"
+#~ msgstr "Il widget che par chel e vignarà dissegnade la ombrene"
+
+#~ msgid "Homogeneous"
+#~ msgstr "Omogjenei"
+
+#~ msgid "Homogeneous sizing"
+#~ msgstr "Dimensionament omogjenei"
+
+#~ msgid "The type of animation used to transition"
+#~ msgstr "Il gjenar di animazion doprade pe transizion"
+
+#~ msgid "X align"
+#~ msgstr "Inlineament X"
+
+#~ msgid "The horizontal alignment, from 0 (start) to 1 (end)"
+#~ msgstr "L'inlineament orizontâl, di 0 (inizi) a 1 (fin)"
+
+#~ msgid "Y align"
+#~ msgstr "Inlineament Y"
+
+#~ msgid "The vertical alignment, from 0 (top) to 1 (bottom)"
+#~ msgstr "L'inlineament verticâl, di 0 (parsore) a 1 (in bas)"
+
+#~ msgid "Enabled"
+#~ msgstr "Abilitât"
+
+#~ msgid "Horizontally homogeneous sizing when the widget is folded"
+#~ msgstr ""
+#~ "Dimensionament omogjenei in orizontâl cuant che il widget al è pleât"
+
+#~ msgid "Vertically homogeneous sizing when the widget is folded"
+#~ msgstr "Dimensionament omogjenei in verticâl cuant che il widget al è pleât"
+
+#~ msgid "Horizontally homogeneous sizing when the widget is unfolded"
+#~ msgstr ""
+#~ "Dimensionament omogjenei in orizontâl cuant che il widget nol è pleât"
+
+#~ msgid "Vertically homogeneous sizing when the widget is unfolded"
+#~ msgstr ""
+#~ "Dimensionament omogjenei in verticâl cuant che il widget nol è pleât"
+
+#~ msgid "Orientation"
+#~ msgstr "Orientament"
+
+#~ msgid "Reversed"
+#~ msgstr "Invertît"
+
+#~ msgid "Whether swipe direction is reversed"
+#~ msgstr "Indiche se la direzion dal scoriment e je invertide"
+
+#~ msgid "Selection mode"
+#~ msgstr "Modalitât di selezion"
+
+#~ msgid "Whether or not the title bar is in selection mode"
+#~ msgstr "Indiche se (o mancul) la sbare dal titul e je in modalitât selezion"
+
+#~ msgctxt "HdyValueObjectClass"
+#~ msgid "Value"
+#~ msgstr "Valôr"
+
+#~ msgctxt "HdyValueObjectClass"
+#~ msgid "The contained value"
+#~ msgstr "Il valôr contignût"
+
+#~ msgid "Policy"
+#~ msgstr "Politiche"
+
+#~ msgid "The policy to determine the mode to use"
+#~ msgstr "La politiche par determinâ la modalitât di doprâ"
+
+#~ msgid "Stack"
+#~ msgstr "Tasse"
+
+#~ msgid "Reveal"
+#~ msgstr "Mostre"
+
+#~ msgid "Icon Name"
+#~ msgstr "Non icone"
+
+#~ msgid "Icon name for image"
+#~ msgstr "Non de icone pe imagjin"
+
+#~ msgid "Icon Size"
+#~ msgstr "Dimension icone"
+
+#~ msgid "Symbolic size to use for named icon"
+#~ msgstr "Dimension simboliche di doprâ pe icone nomenade"
+
+#~ msgid "Needs attention"
+#~ msgstr "Al clame atenzion"
+
+#~ msgid "Hint the view needs attention"
+#~ msgstr "Sugjeriment che la viodude e domande atenzion"
+
+#~ msgid "Title visible"
+#~ msgstr "Titul visibil"
+
+#~ msgid "Whether the title label is visible"
+#~ msgstr "Indiche se la etichete dal titul e je visibile"
+
+#~ msgid "Move"
+#~ msgstr "Sposte"
+
+#~ msgid "Resize"
+#~ msgstr "Ridimensione"
+
+#~ msgid "Always on Top"
+#~ msgstr "Simpri Denant"
