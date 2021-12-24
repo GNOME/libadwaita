@@ -29,6 +29,12 @@
  * title and a description. The title will be used by
  * [class@Adw.PreferencesWindow] to let the user look for a preference.
  *
+ * ## AdwPreferencesGroup as GtkBuildable
+ *
+ * The `AdwPreferencesGroup` implementation of the [iface@Gtk.Buildable] interface
+ * will add [class@PreferencesRow]s to the group's list. If a child is not a
+ * [class@PreferencesRow] the child is added to a box below the list.
+ *
  * ## CSS nodes
  *
  * `AdwPreferencesGroup` has a single CSS node with name `preferencesgroup`.
