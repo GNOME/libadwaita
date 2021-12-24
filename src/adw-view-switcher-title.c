@@ -29,12 +29,17 @@
  * will display the window's title when the window is too narrow to fit the view
  * switcher e.g. on mobile phones, or if there are less than two views.
  *
- * You can conveniently bind the [property@Adw.ViewSwitcherBar:reveal] property
- * to [property@Adw.ViewSwitcherTitle:title-visible] to automatically reveal the
- * view switcher bar when the title label is displayed in place of the view
- * switcher.
+ * In order to center the title in narrow windows, the header bar should have
+ * [property@Adw.HeaderBar:centering-policy] set to
+ * `ADW_CENTERING_POLICY_STRICT`.
  *
- * An example of the UI definition for a common use case:
+ * `Adw.ViewSwitcherTitle` is intended to be used together with
+ * [class@Adw.ViewSwitcherBar].
+ *
+ * A common use case is to bind the [property@Adw.ViewSwitcherBar:reveal]
+ * property to [property@Adw.ViewSwitcherTitle:title-visible] to automatically
+ * reveal the view switcher bar when the title label is displayed in place of
+ * the view switcher, as follows:
  *
  * ```xml
  * <object class="GtkWindow">

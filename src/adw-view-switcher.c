@@ -29,10 +29,12 @@
  * contained in a [class@Adw.ViewStack] in a similar fashion to
  * [class@Gtk.StackSwitcher].
  *
- * Depending on the available width, the view switcher can adapt from a wide
- * mode showing the view's icon and title side by side, to a narrow mode showing
- * the view's icon and title one on top of the other, in a more compact way.
- * This can be controlled via the [property@Adw.ViewSwitcher:policy] property.
+ * `AdwViewSwitcher` buttons always have an icon and a label. They can be
+ * displayed side by side, or icon on top of the label. This can be controlled
+ * via the [property@Adw.ViewSwitcher:policy] property.
+ *
+ * Most applications should be using [class@Adw.ViewSwitcherBar] and
+ * [class@Adw.ViewSwitcherTitle].
  *
  * ## CSS nodes
  *

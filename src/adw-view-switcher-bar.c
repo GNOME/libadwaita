@@ -26,12 +26,13 @@
  * at the bottom of a window and to be revealed only on really narrow windows,
  * e.g. on mobile phones. It can't be revealed if there are less than two pages.
  *
- * You can conveniently bind the [property@Adw.ViewSwitcherBar:reveal] property
- * to [property@Adw.ViewSwitcherTitle:title-visible] to automatically reveal the
- * view switcher bar when the title label is displayed in place of the view
- * switcher.
+ * `Adw.ViewSwitcherBar` is intended to be used together with
+ * [class@Adw.ViewSwitcherTitle].
  *
- * An example of the UI definition for a common use case:
+ * A common use case is to bind the [property@Adw.ViewSwitcherBar:reveal]
+ * property to [property@Adw.ViewSwitcherTitle:title-visible] to automatically
+ * reveal the view switcher bar when the title label is displayed in place of
+ * the view switcher, as follows:
  *
  * ```xml
  * <object class="GtkWindow">
