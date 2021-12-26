@@ -4,6 +4,15 @@
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Boxes.svg</file>
 
     <file preprocess="xml-stripblanks">data/action-row.ui</file>
+    <file preprocess="xml-stripblanks">data/adaptive-boxed-lists-narrow.ui</file>
+    <file preprocess="xml-stripblanks">data/adaptive-boxed-lists-wide.ui</file>
+    <file preprocess="xml-stripblanks">data/adaptive-split-headers-narrow-1.ui</file>
+    <file preprocess="xml-stripblanks">data/adaptive-split-headers-narrow-2.ui</file>
+    <file preprocess="xml-stripblanks">data/adaptive-split-headers-wide.ui</file>
+    <file preprocess="xml-stripblanks">data/adaptive-utility-pane-narrow.ui</file>
+    <file preprocess="xml-stripblanks">data/adaptive-utility-pane-wide.ui</file>
+    <file preprocess="xml-stripblanks">data/adaptive-view-switcher-narrow.ui</file>
+    <file preprocess="xml-stripblanks">data/adaptive-view-switcher-wide.ui</file>
     <file preprocess="xml-stripblanks">data/app-icons.ui</file>
     <file preprocess="xml-stripblanks">data/application-window.ui</file>
     <file preprocess="xml-stripblanks">data/avatar.ui</file>

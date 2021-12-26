@@ -3,6 +3,7 @@ if get_option('gtk_doc')
 subdir('tools')
 
 expand_content_md_files = [
+  'adaptive-layouts.md',
   'boxed-lists.md',
   'build-howto.md',
   'migrating-between-development-versions.md',
