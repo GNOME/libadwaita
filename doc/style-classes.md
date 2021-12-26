@@ -348,8 +348,8 @@ state.
 </picture>
 
 The `.boxed-list` style class can be applied to a [class@Gtk.ListBox] to make it
-a boxed list. The list box should have [property@Gtk.ListBox:selection-mode] set
-to `GTK_SELECTION_NONE`.
+a [boxed list](boxed-lists.html). The list box should have
+[property@Gtk.ListBox:selection-mode] set to `GTK_SELECTION_NONE`.
 
 <picture>
   <source srcset="cards-dark.png" media="(prefers-color-scheme: dark)">

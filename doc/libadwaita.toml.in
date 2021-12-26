@@ -40,6 +40,8 @@ urlmap_file = "urlmap.js"
 content_files = [
   "build-howto.md",
 
+  "boxed-lists.md",
+
   "styles-and-appearance.md",
   "named-colors.md",
   "style-classes.md",
