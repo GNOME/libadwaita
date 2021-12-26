@@ -60,10 +60,10 @@
  *           </binding>
  *         </object>
  *       </child>
- *       ...
+ *       <!-- ... -->
  *     </object>
  *   </child>
- *   ...
+ *   <!-- ... -->
  *   <child>
  *     <object class="GtkBox">
  *       <property name="orientation">vertical</property>
@@ -75,7 +75,7 @@
  *           </binding>
  *         </object>
  *       </child>
- *       ...
+ *       <!-- ... -->
  *     </object>
  *   </child>
  * </object>
