@@ -7,6 +7,7 @@ expand_content_md_files = [
   'migrating-between-development-versions.md',
   'migrating-libhandy-1-4-to-libadwaita.md',
   'named-colors.md',
+  'styles-and-appearance.md',
   'style-classes.md',
   'visual-index.md',
 ]
