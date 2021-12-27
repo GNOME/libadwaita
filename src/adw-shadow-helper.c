@@ -37,10 +37,14 @@ adw_shadow_helper_constructed (GObject *object)
 {
   AdwShadowHelper *self = ADW_SHADOW_HELPER (object);
 
-  self->dimming = adw_gizmo_new ("dimming", NULL, NULL, NULL, NULL, NULL, NULL);
-  self->shadow = adw_gizmo_new ("shadow", NULL, NULL, NULL, NULL, NULL, NULL);
-  self->border = adw_gizmo_new ("border", NULL, NULL, NULL, NULL, NULL, NULL);
-  self->outline = adw_gizmo_new ("outline", NULL, NULL, NULL, NULL, NULL, NULL);
+  self->dimming = adw_gizmo_new_with_role ("dimming", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                                           NULL, NULL, NULL, NULL, NULL, NULL);
+  self->shadow = adw_gizmo_new_with_role ("shadow", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                                          NULL, NULL, NULL, NULL, NULL, NULL);
+  self->border = adw_gizmo_new_with_role ("border", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                                          NULL, NULL, NULL, NULL, NULL, NULL);
+  self->outline = adw_gizmo_new_with_role ("outline", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                                           NULL, NULL, NULL, NULL, NULL, NULL);
 
   gtk_widget_set_child_visible (self->dimming, FALSE);
   gtk_widget_set_child_visible (self->shadow, FALSE);
