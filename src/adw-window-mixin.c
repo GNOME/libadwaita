@@ -70,13 +70,15 @@ adw_window_mixin_new (GtkWindow      *window,
   self->window = window;
   self->klass = klass;
 
-  self->titlebar = adw_gizmo_new ("nothing", NULL, NULL, NULL, NULL, NULL, NULL);
+  self->titlebar = adw_gizmo_new_with_role ("nothing", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                                            NULL, NULL, NULL, NULL, NULL, NULL);
   gtk_widget_hide (self->titlebar);
   gtk_window_set_titlebar (self->window, self->titlebar);
 
-  self->child = adw_gizmo_new ("contents", NULL, NULL, NULL, NULL,
-                               (AdwGizmoFocusFunc) adw_widget_focus_child,
-                               (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
+  self->child = adw_gizmo_new_with_role ("contents", GTK_ACCESSIBLE_ROLE_GROUP,
+                                         NULL, NULL, NULL, NULL,
+                                         (AdwGizmoFocusFunc) adw_widget_focus_child,
+                                         (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
   gtk_widget_set_layout_manager (self->child, gtk_bin_layout_new ());
   gtk_window_set_child (window, self->child);
 
