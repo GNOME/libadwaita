@@ -135,3 +135,8 @@ it, use `pkg-config`:
 ```bash
 gcc $(pkg-config --cflags --libs gtk4) $(pkg-config --cflags --libs libadwaita-1) main.c -o main
 ```
+
+# Next Steps
+
+Once libadwaita has been compiled and included into your project, it needs to be
+initialized. See [Initialization](initialization.html).
