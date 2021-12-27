@@ -360,6 +360,7 @@ adw_view_switcher_button_init (AdwViewSwitcherButton *self)
   gtk_stack_set_visible_child (GTK_STACK (self->stack), GTK_WIDGET (self->horizontal_box));
 
   gtk_widget_set_focus_on_click (GTK_WIDGET (self), FALSE);
+  update_mnemonic (self);
 }
 
 /**
