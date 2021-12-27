@@ -141,8 +141,8 @@ the content page, as well as handle the relevant keyboard shortcuts and mouse
 buttons.
 
 The application needs to provide a back button and to switch leaflet's visible
-child to content appropriate (for example, show content after a sidebar row has
-been clicked, show sidebar after the back button has been clicked). The
+child to content as appropriate (for example, show content after a sidebar row
+has been clicked, show sidebar after the back button has been clicked). The
 [method@Leaflet.navigate] method is convenient for this.
 
 Split header bars are typically used with [class@Window] or
