@@ -58,6 +58,7 @@ typedef struct {
 } DragIcon;
 
 typedef struct {
+  AdwTabBox *box;
   AdwTabPage *page;
   AdwTab *tab;
 
@@ -973,8 +974,7 @@ static void
 reorder_animation_value_cb (double   value,
                             TabInfo *dest_tab)
 {
-  GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (dest_tab->tab));
-  AdwTabBox *self = ADW_TAB_BOX (parent);
+  AdwTabBox *self = dest_tab->box;
   gboolean is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
   double x1, x2;
 
@@ -1024,17 +1024,16 @@ static void
 reorder_offset_animation_value_cb (double   value,
                                    TabInfo *info)
 {
-  GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
+  AdwTabBox *self = info->box;
 
   info->reorder_offset = value;
-  gtk_widget_queue_allocate (parent);
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
 }
 
 static void
 reorder_offset_animation_done_cb (TabInfo *info)
 {
-  GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
-  AdwTabBox *self = ADW_TAB_BOX (parent);
+  AdwTabBox *self = info->box;
 
   g_clear_object (&info->reorder_animation);
   check_end_reordering (self);
@@ -1593,6 +1592,7 @@ create_tab_info (AdwTabBox  *self,
   TabInfo *info;
 
   info = g_new0 (TabInfo, 1);
+  info->box = self;
   info->page = page;
   info->pos = -1;
   info->width = -1;
@@ -1667,8 +1667,7 @@ page_attached_cb (AdwTabBox  *self,
 static void
 close_animation_done_cb (TabInfo *info)
 {
-  GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
-  AdwTabBox *self = ADW_TAB_BOX (parent);
+  AdwTabBox *self = info->box;
 
   g_clear_object (&info->appear_animation);
 
@@ -1885,7 +1884,7 @@ static void
 insert_animation_value_cb (double   value,
                            TabInfo *info)
 {
-  AdwTabBox *self = ADW_TAB_BOX (gtk_widget_get_parent (GTK_WIDGET (info->tab)));
+  AdwTabBox *self = info->box;
 
   appear_animation_value_cb (value, info);
 
@@ -1959,8 +1958,7 @@ insert_placeholder (AdwTabBox  *self,
 static void
 replace_animation_done_cb (TabInfo *info)
 {
-  GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
-  AdwTabBox *self = ADW_TAB_BOX (parent);
+  AdwTabBox *self = info->box;
 
   g_clear_object (&info->appear_animation);
   self->reorder_placeholder = NULL;
@@ -2010,8 +2008,7 @@ replace_placeholder (AdwTabBox  *self,
 static void
 remove_animation_done_cb (TabInfo *info)
 {
-  GtkWidget *parent = gtk_widget_get_parent (GTK_WIDGET (info->tab));
-  AdwTabBox *self = ADW_TAB_BOX (parent);
+  AdwTabBox *self = info->box;
 
   g_clear_object (&info->appear_animation);
 
