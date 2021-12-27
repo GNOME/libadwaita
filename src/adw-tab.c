@@ -37,7 +37,6 @@ struct _AdwTab
   AdwTabPage *page;
   gboolean pinned;
   gboolean dragging;
-  int display_width;
 
   gboolean hovering;
   gboolean selected;
@@ -61,7 +60,6 @@ enum {
   PROP_PINNED,
   PROP_DRAGGING,
   PROP_PAGE,
-  PROP_DISPLAY_WIDTH,
   PROP_INVERTED,
   LAST_PROP
 };
@@ -405,92 +403,25 @@ measure_child (GtkWidget *child,
 }
 
 static inline void
-allocate_child (GtkWidget     *child,
-                GtkAllocation *alloc,
-                int            x,
-                int            width,
-                int            baseline)
+allocate_child (GtkWidget *child,
+                int        parent_width,
+                int        parent_height,
+                int        x,
+                int        width,
+                int        baseline)
 {
-  GtkAllocation child_alloc = *alloc;
+  GtkAllocation child_alloc = {};
 
   if (gtk_widget_get_direction (child) == GTK_TEXT_DIR_RTL)
-    child_alloc.x += alloc->width - width - x;
+    child_alloc.x = parent_width - width - x;
   else
-    child_alloc.x += x;
+    child_alloc.x = x;
 
+  child_alloc.y = 0;
   child_alloc.width = width;
+  child_alloc.height = parent_height;
 
   gtk_widget_size_allocate (child, &child_alloc, baseline);
-}
-
-static void
-allocate_contents (AdwTab        *self,
-                   GtkAllocation *alloc,
-                   int            baseline)
-{
-  int indicator_width, close_width, icon_width, title_width;
-  int center_x, center_width = 0;
-  int start_width = 0, end_width = 0;
-
-  measure_child (self->icon_stack, alloc->height, &icon_width);
-  measure_child (self->title, alloc->height, &title_width);
-  measure_child (self->indicator_btn, alloc->height, &indicator_width);
-  measure_child (self->close_btn, alloc->height, &close_width);
-
-  if (gtk_widget_get_visible (self->indicator_btn)) {
-    if (self->pinned) {
-      /* Center it in a pinned tab */
-      allocate_child (self->indicator_btn, alloc,
-                      (alloc->width - indicator_width) / 2, indicator_width,
-                      baseline);
-    } else if (self->inverted) {
-      allocate_child (self->indicator_btn, alloc,
-                      alloc->width - indicator_width, indicator_width,
-                      baseline);
-
-      end_width = indicator_width;
-    } else {
-      allocate_child (self->indicator_btn, alloc, 0, indicator_width, baseline);
-
-      start_width = indicator_width;
-    }
-  }
-
-  if (gtk_widget_get_visible (self->close_btn)) {
-    if (self->inverted) {
-      allocate_child (self->close_btn, alloc, 0, close_width, baseline);
-
-      start_width = close_width;
-    } else {
-      allocate_child (self->close_btn, alloc,
-                      alloc->width - close_width, close_width, baseline);
-
-      if (self->title_inverted)
-        end_width = close_width;
-    }
-  }
-
-  center_width = MIN (alloc->width - start_width - end_width,
-                      icon_width + title_width);
-  center_x = CLAMP ((alloc->width - center_width) / 2,
-                    start_width,
-                    alloc->width - center_width - end_width);
-
-  self->close_overlap = !self->inverted &&
-                        !self->title_inverted &&
-                        gtk_widget_get_visible (self->title) &&
-                        gtk_widget_get_visible (self->close_btn) &&
-                        center_x + center_width > alloc->width - close_width;
-
-  if (gtk_widget_get_visible (self->icon_stack)) {
-    allocate_child (self->icon_stack, alloc, center_x, icon_width, baseline);
-
-    center_x += icon_width;
-    center_width -= icon_width;
-  }
-
-  if (gtk_widget_get_visible (self->title))
-    allocate_child (self->title, alloc, center_x, center_width, baseline);
 }
 
 static void
@@ -500,24 +431,73 @@ adw_tab_size_allocate (GtkWidget *widget,
                        int        baseline)
 {
   AdwTab *self = ADW_TAB (widget);
-  GtkAllocation child_alloc;
-  int allocated_width, width_diff;
+  int indicator_width, close_width, icon_width, title_width;
+  int center_x, center_width = 0;
+  int start_width = 0, end_width = 0;
 
-  if (!self->icon_stack ||
-      !self->indicator_btn ||
-      !self->title ||
-      !self->close_btn)
-    return;
+  measure_child (self->icon_stack, height, &icon_width);
+  measure_child (self->title, height, &title_width);
+  measure_child (self->indicator_btn, height, &indicator_width);
+  measure_child (self->close_btn, height, &close_width);
 
-  allocated_width = gtk_widget_get_allocated_width (widget);
-  width_diff = MAX (0, self->display_width - allocated_width);
+  if (gtk_widget_get_visible (self->indicator_btn)) {
+    if (self->pinned) {
+      /* Center it in a pinned tab */
+      allocate_child (self->indicator_btn, width, height,
+                      (width - indicator_width) / 2, indicator_width,
+                      baseline);
+    } else if (self->inverted) {
+      allocate_child (self->indicator_btn, width, height,
+                      width - indicator_width, indicator_width,
+                      baseline);
 
-  child_alloc.x = -width_diff / 2;
-  child_alloc.y = 0;
-  child_alloc.height = height;
-  child_alloc.width = width + width_diff;
+      end_width = indicator_width;
+    } else {
+      allocate_child (self->indicator_btn, width, height,
+                      0, indicator_width, baseline);
 
-  allocate_contents (self, &child_alloc, baseline);
+      start_width = indicator_width;
+    }
+  }
+
+  if (gtk_widget_get_visible (self->close_btn)) {
+    if (self->inverted) {
+      allocate_child (self->close_btn, width, height,
+                      0, close_width, baseline);
+
+      start_width = close_width;
+    } else {
+      allocate_child (self->close_btn, width, height,
+                      width - close_width, close_width, baseline);
+
+      if (self->title_inverted)
+        end_width = close_width;
+    }
+  }
+
+  center_width = MIN (width - start_width - end_width,
+                      icon_width + title_width);
+  center_x = CLAMP ((width - center_width) / 2,
+                    start_width,
+                    width - center_width - end_width);
+
+  self->close_overlap = !self->inverted &&
+                        !self->title_inverted &&
+                        gtk_widget_get_visible (self->title) &&
+                        gtk_widget_get_visible (self->close_btn) &&
+                        center_x + center_width > width - close_width;
+
+  if (gtk_widget_get_visible (self->icon_stack)) {
+    allocate_child (self->icon_stack, width, height,
+                    center_x, icon_width, baseline);
+
+    center_x += icon_width;
+    center_width -= icon_width;
+  }
+
+  if (gtk_widget_get_visible (self->title))
+    allocate_child (self->title, width, height,
+                    center_x, center_width, baseline);
 }
 
 static void
@@ -661,10 +641,6 @@ adw_tab_get_property (GObject    *object,
     g_value_set_boolean (value, adw_tab_get_dragging (self));
     break;
 
-  case PROP_DISPLAY_WIDTH:
-    g_value_set_int (value, adw_tab_get_display_width (self));
-    break;
-
   case PROP_INVERTED:
     g_value_set_boolean (value, adw_tab_get_inverted (self));
     break;
@@ -697,10 +673,6 @@ adw_tab_set_property (GObject      *object,
 
   case PROP_DRAGGING:
     adw_tab_set_dragging (self, g_value_get_boolean (value));
-    break;
-
-  case PROP_DISPLAY_WIDTH:
-    adw_tab_set_display_width (self, g_value_get_int (value));
     break;
 
   case PROP_INVERTED:
@@ -775,13 +747,6 @@ adw_tab_class_init (AdwTabClass *klass)
                          "Page",
                          ADW_TYPE_TAB_PAGE,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
-  props[PROP_DISPLAY_WIDTH] =
-    g_param_spec_int ("display-width",
-                      "Display Width",
-                      "Display Width",
-                      0, G_MAXINT, 0,
-                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_INVERTED] =
     g_param_spec_boolean ("inverted",
@@ -928,31 +893,6 @@ adw_tab_set_page (AdwTab     *self,
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_PAGE]);
-}
-
-int
-adw_tab_get_display_width (AdwTab *self)
-{
-  g_return_val_if_fail (ADW_IS_TAB (self), 0);
-
-  return self->display_width;
-}
-
-void
-adw_tab_set_display_width (AdwTab *self,
-                           int     width)
-{
-  g_return_if_fail (ADW_IS_TAB (self));
-  g_return_if_fail (width >= 0);
-
-  if (self->display_width == width)
-    return;
-
-  self->display_width = width;
-
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DISPLAY_WIDTH]);
 }
 
 gboolean

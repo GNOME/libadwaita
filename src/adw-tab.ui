@@ -2,8 +2,6 @@
 <interface domain="libadwaita">
   <requires lib="gtk" version="4.0"/>
   <template class="AdwTab" parent="GtkWidget">
-    <property name="focusable">True</property>
-    <property name="overflow">hidden</property>
     <child>
       <object class="GtkEventControllerMotion">
         <signal name="enter" handler="enter_cb" swapped="true"/>

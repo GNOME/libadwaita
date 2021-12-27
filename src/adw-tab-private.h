@@ -28,10 +28,6 @@ AdwTabPage *adw_tab_get_page (AdwTab     *self);
 void        adw_tab_set_page (AdwTab     *self,
                               AdwTabPage *page);
 
-int  adw_tab_get_display_width (AdwTab *self);
-void adw_tab_set_display_width (AdwTab *self,
-                                int     width);
-
 gboolean adw_tab_get_hovering (AdwTab   *self);
 void     adw_tab_set_hovering (AdwTab   *self,
                                gboolean  hovering);
