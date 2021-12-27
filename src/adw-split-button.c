@@ -49,7 +49,7 @@
  *
  * ## Accessibility
  *
- * `AdwSplitButton` uses the `GTK_ACCESSIBLE_ROLE_BUTTON` role.
+ * `AdwSplitButton` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
  *
  * Since: 1.0
  */
