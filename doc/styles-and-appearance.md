@@ -87,7 +87,7 @@ remains legible in both appearances:
 ## High Contrast
 
 The system can provide a high contrast preference. Libadwaita applications
-automatically sepport it; applications cannot disable it.
+automatically support it; applications cannot disable it.
 
 High contrast appearance can be combined with the [dark style](#dark-style) and
 is independent from it.
@@ -113,8 +113,6 @@ it manually.
 [class@Application] provides a simple way to load additional styles from
 [struct@Gio.Resource], relative to the application's base path (see
 [method@Gio.Application.set_resource_base_path]).
-
-When using custom styles, applications should be careful to 
 
 The following resources will automatically be loaded if present:
 
