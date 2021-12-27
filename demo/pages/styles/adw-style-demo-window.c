@@ -11,7 +11,6 @@ struct _AdwStyleDemoWindow
   GtkWindow *header_bar_window;
   GtkWindow *status_page_window;
   GtkWindow *sidebar_window;
-  GtkRevealer *app_notification_revealer;
   AdwLeaflet *sidebar_leaflet;
 };
 
@@ -54,17 +53,6 @@ sidebar_cb (GtkWidget  *sender,
   AdwStyleDemoWindow *self = ADW_STYLE_DEMO_WINDOW (sender);
 
   gtk_window_present (self->sidebar_window);
-}
-
-static void
-app_notification_cb (GtkWidget  *sender,
-                     const char *name,
-                     GVariant   *param)
-{
-  AdwStyleDemoWindow *self = ADW_STYLE_DEMO_WINDOW (sender);
-  gboolean show = g_variant_get_boolean (param);
-
-  gtk_revealer_set_reveal_child (self->app_notification_revealer, show);
 }
 
 static void
@@ -195,7 +183,6 @@ adw_style_demo_window_class_init (AdwStyleDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, header_bar_window);
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, status_page_window);
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, sidebar_window);
-  gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, app_notification_revealer);
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, sidebar_leaflet);
   gtk_widget_class_bind_template_callback (widget_class, selection_mode_for_folded);
   gtk_widget_class_bind_template_callback (widget_class, sidebar_back_cb);
@@ -206,7 +193,6 @@ adw_style_demo_window_class_init (AdwStyleDemoWindowClass *klass)
   gtk_widget_class_install_action (widget_class, "style.header-bar", NULL, header_bar_cb);
   gtk_widget_class_install_action (widget_class, "style.status-page", NULL, status_page_cb);
   gtk_widget_class_install_action (widget_class, "style.sidebar", NULL, sidebar_cb);
-  gtk_widget_class_install_action (widget_class, "style.app-notification", "b", app_notification_cb);
   gtk_widget_class_install_action (widget_class, "style.dummy", NULL, dummy_cb);
 }
 

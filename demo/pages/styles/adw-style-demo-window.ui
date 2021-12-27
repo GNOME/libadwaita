@@ -16,54 +16,6 @@
         <child>
           <object class="GtkOverlay">
             <child type="overlay">
-              <object class="GtkRevealer" id="app_notification_revealer">
-                <property name="valign">start</property>
-                <property name="halign">center</property>
-                <property name="can-focus">False</property>
-                <property name="child">
-                  <object class="GtkFrame">
-                    <property name="tooltip-text">app-notification</property>
-                    <style>
-                      <class name="app-notification"/>
-                    </style>
-                    <property name="child">
-                      <object class="GtkBox">
-                        <property name="spacing">12</property>
-                        <property name="margin-start">12</property>
-                        <property name="width-request">300</property>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="label" translatable="yes">In-App Notification</property>
-                            <property name="ellipsize">end</property>
-                            <property name="xalign">0</property>
-                            <property name="hexpand">True</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">Action</property>
-                            <property name="action-name">style.app-notification</property>
-                            <property name="action-target">false</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="icon-name">window-close-symbolic</property>
-                            <property name="action-name">style.app-notification</property>
-                            <property name="action-target">false</property>
-                            <style>
-                              <class name="flat"/>
-                              <class name="circular"/>
-                            </style>
-                          </object>
-                        </child>
-                      </object>
-                    </property>
-                  </object>
-                </property>
-              </object>
-            </child>
-            <child type="overlay">
               <object class="GtkProgressBar">
                 <property name="valign">start</property>
                 <property name="fraction">0.5</property>
@@ -1180,20 +1132,6 @@ The "raised" style class can be used to make a button inside a toolbar use defau
                         <child>
                           <object class="GtkSwitch" id="progress_switch">
                             <property name="action-name">style.progress</property>
-                            <property name="valign">center</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwActionRow">
-                        <property name="title" translatable="yes">In-App Notification</property>
-                        <property name="subtitle" translatable="yes">"app-notification" style class on GtkFrame</property>
-                        <child>
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes">Show</property>
-                            <property name="action-name">style.app-notification</property>
-                            <property name="action-target">true</property>
                             <property name="valign">center</property>
                           </object>
                         </child>
