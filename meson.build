@@ -120,6 +120,7 @@ gnome = import('gnome')
 subdir('src')
 subdir('po')
 subdir('demo')
+subdir('examples')
 subdir('tests')
 subdir('doc')
 
