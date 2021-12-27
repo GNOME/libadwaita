@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="example2">
+  <schema id="org.example.Tasks" path="/org/example/Tasks/">
+    <key name="tasks" type="a(sa(sb))">
+      <default>[]</default>
+      <summary>Tasks</summary>
+      <description>Saved tasks.</description>
+    </key>
+    <key name="show-completed" type="b">
+      <default>true</default>
+      <summary>Show Completed</summary>
+      <description>Whether to show completed tasks.</description>
+    </key>
+  </schema>
+</schemalist>

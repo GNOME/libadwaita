@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <menu id="primary_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Preferences</attribute>
+        <attribute name="action">win.preferences</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_About Tasks</attribute>
+        <attribute name="action">win.about</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="list_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Rename</attribute>
+        <attribute name="action">list.rename</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Delete</attribute>
+        <attribute name="action">list.delete</attribute>
+      </item>
+    </section>
+  </menu>
+  <template class="TasksWindow" parent="AdwApplicationWindow">
+    <property name="default-width">800</property>
+    <property name="default-height">600</property>
+    <binding name="title">
+      <lookup name="title">
+        <lookup name="current-list">TasksWindow</lookup>
+      </lookup>
+    </binding>
+    <property name="content">
+      <object class="GtkStack" id="empty_stack">
+        <property name="transition-type">crossfade</property>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">empty</property>
+            <property name="child">
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkHeaderBar">
+                    <property name="title-widget">
+                      <object class="AdwWindowTitle"/>
+                    </property>
+                    <style>
+                      <class name="flat"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkWindowHandle">
+                    <property name="vexpand">True</property>
+                    <property name="child">
+                      <object class="AdwStatusPage">
+                        <property name="icon-name">checkbox-checked-symbolic</property>
+                        <property name="title" translatable="yes">No Tasks</property>
+                        <property name="description" translatable="yes">Create some tasks to start using the app.</property>
+                        <property name="child">
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">_New List</property>
+                            <property name="use-underline">True</property>
+                            <property name="halign">center</property>
+                            <property name="action-name">list.new</property>
+                            <style>
+                              <class name="pill"/>
+                              <class name="suggested-action"/>
+                            </style>
+                          </object>
+                        </property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">main</property>
+            <property name="child">
+              <object class="AdwLeaflet" id="leaflet">
+                <property name="can-navigate-back">True</property>
+                <property name="fold-threshold-policy">natural</property>
+                <signal name="notify::folded" handler="notify_leaflet_folded_cb" swapped="yes"/>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="width-request">200</property>
+                    <child>
+                      <object class="AdwHeaderBar">
+                        <binding name="show-end-title-buttons">
+                          <lookup name="folded">leaflet</lookup>
+                        </binding>
+                        <property name="title-widget">
+                          <object class="AdwWindowTitle"/>
+                        </property>
+                        <child type="start">
+                          <object class="GtkToggleButton">
+                            <property name="icon-name">list-add-symbolic</property>
+                            <property name="tooltip-text" translatable="yes">New List</property>
+                            <property name="action-name">list.new</property>
+                          </object>
+                        </child>
+                        <child type="end">
+                          <object class="GtkMenuButton">
+                            <property name="direction">none</property>
+                            <property name="menu-model">primary_menu</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkScrolledWindow">
+                        <property name="vexpand">True</property>
+                        <property name="child">
+                          <object class="GtkViewport">
+                            <property name="scroll-to-focus">True</property>
+                            <property name="child">
+                              <object class="GtkListBox" id="list">
+                                <style>
+                                  <class name="navigation-sidebar"/>
+                                </style>
+                                <signal name="row-activated" handler="row_activated_cb" swapped="true"/>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="label">List 1</property>
+                                    <property name="xalign">0</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="label">List 2</property>
+                                    <property name="xalign">0</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="label">List 3</property>
+                                    <property name="xalign">0</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </property>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwLeafletPage">
+                    <property name="navigatable">False</property>
+                    <property name="child">
+                      <object class="GtkSeparator"/>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="hexpand">True</property>
+                    <child>
+                      <object class="AdwHeaderBar">
+                        <binding name="show-start-title-buttons">
+                          <lookup name="folded">leaflet</lookup>
+                        </binding>
+                        <property name="title-widget">
+                          <object class="AdwWindowTitle">
+                            <property name="title" bind-source="TasksWindow" bind-property="title" bind-flags="sync-create"/>
+                          </object>
+                        </property>
+                        <child type="start">
+                          <object class="GtkButton">
+                            <binding name="visible">
+                              <lookup name="folded">leaflet</lookup>
+                            </binding>
+                            <property name="icon-name">go-previous-symbolic</property>
+                            <property name="tooltip-text" translatable="yes">Back</property>
+                            <property name="action-name">view.back</property>
+                          </object>
+                        </child>
+                        <child type="end">
+                          <object class="GtkMenuButton">
+                            <property name="icon-name">view-more-symbolic</property>
+                            <property name="menu-model">list_menu</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="TasksView" id="view">
+                        <binding name="list">
+                          <lookup name="current-list">TasksWindow</lookup>
+                        </binding>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+</interface>

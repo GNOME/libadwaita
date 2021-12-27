@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <menu id="task_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Rename</attribute>
+        <attribute name="action">task.rename</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Delete</attribute>
+        <attribute name="action">task.delete</attribute>
+      </item>
+    </section>
+  </menu>
+  <template class="TasksView" parent="AdwBin">
+    <property name="child">
+      <object class="GtkScrolledWindow">
+        <property name="vexpand">True</property>
+        <property name="child">
+          <object class="GtkViewport">
+            <property name="scroll-to-focus">True</property>
+            <property name="child">
+              <object class="AdwClamp">
+                <property name="child">
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">18</property>
+                    <property name="margin-top">24</property>
+                    <property name="margin-bottom">24</property>
+                    <property name="margin-start">12</property>
+                    <property name="margin-end">12</property>
+                    <child>
+                      <object class="GtkListBox" id="tasks_list">
+                        <property name="visible">False</property>
+                        <property name="selection-mode">none</property>
+                        <style>
+                          <class name="boxed-list"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkEntry" id="new_task_entry">
+                        <property name="placeholder-text" translatable="yes">Enter a Task…</property>
+                        <property name="secondary-icon-name">list-add-symbolic</property>
+                        <signal name="activate" handler="new_task_activate_cb" swapped="yes"/>
+                        <signal name="icon-release" handler="new_task_activate_cb" swapped="yes"/>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+</interface>
