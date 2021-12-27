@@ -25,6 +25,7 @@
                         <property name="valign">center</property>
                         <child>
                           <object class="GtkImage" id="image">
+                            <property name="accessible-role">presentation</property>
                             <binding name="visible">
                               <closure function="has_image" type="gboolean">
                                 <lookup name="icon-name">image</lookup>
