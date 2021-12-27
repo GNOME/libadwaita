@@ -5,6 +5,7 @@
     <property name="activatable">False</property>
     <accessibility>
       <relation name="labelled-by">title</relation>
+      <relation name="described-by">subtitle</relation>
     </accessibility>
     <child>
       <object class="GtkBox" id="header">
