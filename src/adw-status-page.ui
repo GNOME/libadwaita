@@ -2,6 +2,10 @@
 <interface domain="libadwaita">
   <requires lib="gtk" version="4.0"/>
   <template class="AdwStatusPage" parent="GtkWidget">
+    <accessibility>
+      <relation name="labelled-by">title_label</relation>
+      <relation name="described-by">description_label</relation>
+    </accessibility>
     <child>
       <object class="GtkScrolledWindow" id="scrolled_window">
         <property name="hscrollbar-policy">never</property>
