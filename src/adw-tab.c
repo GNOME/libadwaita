@@ -950,7 +950,7 @@ adw_tab_set_display_width (AdwTab *self,
 
   self->display_width = width;
 
-  gtk_widget_queue_resize (GTK_WIDGET (self));
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DISPLAY_WIDTH]);
 }
