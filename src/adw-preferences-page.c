@@ -29,6 +29,10 @@
  *
  * `AdwPreferencesPage` has a single CSS node with name `preferencespage`.
  *
+ * ## Accessibility
+ *
+ * `AdwPreferencesPage` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
+ *
  * Since: 1.0
  */
 
@@ -214,11 +218,12 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-preferences-page.ui");
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesPage, box);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesPage, scrolled_window);
 
   gtk_widget_class_set_css_name (widget_class, "preferencespage");
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_GROUP);
+  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
 }
 
 static void
