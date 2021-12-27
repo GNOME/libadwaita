@@ -1456,9 +1456,11 @@ prepare_cb (AdwSwipeTracker        *tracker,
 
     if (page) {
       self->child_transition.is_gesture_active = TRUE;
-      set_visible_child (self, page);
 
+      g_object_freeze_notify (G_OBJECT (self));
+      set_visible_child (self, page);
       set_child_transition_running (self, TRUE);
+      g_object_thaw_notify (G_OBJECT (self));
     }
   }
 }
