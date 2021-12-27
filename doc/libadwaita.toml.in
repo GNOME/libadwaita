@@ -39,6 +39,7 @@ file_format = "{filename}#L{line}"
 urlmap_file = "urlmap.js"
 content_files = [
   "build-howto.md",
+  "initialization.md",
 
   "boxed-lists.md",
   "adaptive-layouts.md",
@@ -133,6 +134,8 @@ content_images = [
   "images/header-bar-dark.png",
   "images/header-bar-split.png",
   "images/header-bar-split-dark.png",
+  "images/hello-world.png",
+  "images/hello-world-dark.png",
   "images/leaflet-narrow.png",
   "images/leaflet-narrow-dark.png",
   "images/leaflet-wide.png",

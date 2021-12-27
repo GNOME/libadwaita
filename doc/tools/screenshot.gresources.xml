@@ -43,6 +43,7 @@
     <file preprocess="xml-stripblanks">data/flat-header-bar.ui</file>
     <file preprocess="xml-stripblanks">data/header-bar.ui</file>
     <file preprocess="xml-stripblanks">data/header-bar-split.ui</file>
+    <file preprocess="xml-stripblanks">data/hello-world.ui</file>
     <file preprocess="xml-stripblanks">data/leaflet-narrow.ui</file>
     <file preprocess="xml-stripblanks">data/leaflet-wide.ui</file>
     <file preprocess="xml-stripblanks">data/linked-controls.ui</file>
