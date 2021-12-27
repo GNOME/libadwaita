@@ -164,3 +164,28 @@ adw_gizmo_new (const char            *css_name,
 
   return GTK_WIDGET (gizmo);
 }
+
+GtkWidget *
+adw_gizmo_new_with_role (const char            *css_name,
+                         GtkAccessibleRole      role,
+                         AdwGizmoMeasureFunc    measure_func,
+                         AdwGizmoAllocateFunc   allocate_func,
+                         AdwGizmoSnapshotFunc   snapshot_func,
+                         AdwGizmoContainsFunc   contains_func,
+                         AdwGizmoFocusFunc      focus_func,
+                         AdwGizmoGrabFocusFunc  grab_focus_func)
+{
+  AdwGizmo *gizmo = ADW_GIZMO (g_object_new (ADW_TYPE_GIZMO,
+                                             "css-name", css_name,
+                                             "accessible-role", role,
+                                             NULL));
+
+  gizmo->measure_func  = measure_func;
+  gizmo->allocate_func = allocate_func;
+  gizmo->snapshot_func = snapshot_func;
+  gizmo->contains_func = contains_func;
+  gizmo->focus_func = focus_func;
+  gizmo->grab_focus_func = grab_focus_func;
+
+  return GTK_WIDGET (gizmo);
+}
