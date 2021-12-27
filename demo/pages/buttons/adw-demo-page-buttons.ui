@@ -36,6 +36,7 @@
                       <object class="AdwSplitButton">
                         <property name="icon-name">document-open-symbolic</property>
                         <property name="menu-model">sample_menu</property>
+                        <property name="tooltip-text" translatable="yes">Open</property>
                         <layout>
                           <property name="column">0</property>
                           <property name="row">0</property>
@@ -46,6 +47,7 @@
                       <object class="AdwSplitButton">
                         <property name="icon-name">document-open-symbolic</property>
                         <property name="menu-model">sample_menu</property>
+                        <property name="tooltip-text" translatable="yes">Open</property>
                         <style>
                           <class name="flat"/>
                         </style>
