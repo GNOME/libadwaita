@@ -2799,12 +2799,15 @@ adw_tab_box_measure (GtkWidget      *widget,
   AdwTabBox *self = ADW_TAB_BOX (widget);
   int min, nat;
 
+  gtk_widget_measure (self->background, orientation, -1,
+                      &min, &nat, NULL, NULL);
+
   if (self->n_tabs == 0) {
     if (minimum)
-      *minimum = 0;
+      *minimum = min;
 
     if (natural)
-      *natural = 0;
+      *natural = nat;
 
     if (minimum_baseline)
       *minimum_baseline = -1;
@@ -2832,7 +2835,10 @@ adw_tab_box_measure (GtkWidget      *widget,
     if (!self->pinned)
       width -= OVERLAP;
 
-    min = nat = MAX (self->last_width, width);
+    width = MAX (self->last_width, width);
+
+    min = MAX (min, width);
+    nat = MAX (nat, width);
   } else {
     GList *l;
 
@@ -2879,8 +2885,6 @@ adw_tab_box_size_allocate (GtkWidget *widget,
   int pos;
   double value;
 
-  gtk_widget_measure (self->background, GTK_ORIENTATION_HORIZONTAL, -1,
-                      NULL, NULL, NULL, NULL);
   gtk_widget_allocate (self->background, width, height, baseline, NULL);
 
   adw_tab_box_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
