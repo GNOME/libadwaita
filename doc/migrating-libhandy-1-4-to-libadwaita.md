@@ -363,7 +363,7 @@ changed from `gint64` to `guint`.
 
 ### Adapt to [class@TabView] API Changes
 
-The `HdyTabVoew:shortcut-widget` property has been removed with no replacement;
+The `HdyTabView:shortcut-widget` property has been removed with no replacement;
 [class@TabView] automatically installs shortcuts with the
 `GTK_SHORTCUT_SCOPE_MANAGED` scope, so they are automatically available
 throughout the window without the need to set shortcut widget.
