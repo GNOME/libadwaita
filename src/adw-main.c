@@ -7,6 +7,7 @@
 
 #include "adw-main-private.h"
 
+#include "adw-inspector-page-private.h"
 #include "adw-style-manager-private.h"
 #include <glib/gi18n-lib.h>
 #include <gtk/gtk.h>
@@ -46,6 +47,12 @@ adw_init (void)
                                     "/org/gnome/Adwaita/icons");
 
   adw_style_manager_ensure ();
+
+  if (g_io_extension_point_lookup ("gtk-inspector-page"))
+    g_io_extension_point_implement ("gtk-inspector-page",
+                                    ADW_TYPE_INSPECTOR_PAGE,
+                                    "libadwaita",
+                                    10);
 
   adw_initialized = TRUE;
 }

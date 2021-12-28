@@ -164,7 +164,7 @@ adw_inspector_page_class_init (AdwInspectorPageClass *klass)
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
-                                               "/org/gnome/Adwaita/inspector/ui/adw-inspector-page.ui");
+                                               "/org/gnome/Adwaita/ui/adw-inspector-page.ui");
 
   gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, support_color_schemes_switch);
   gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, color_scheme_row);

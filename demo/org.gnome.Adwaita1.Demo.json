@@ -8,8 +8,7 @@
     "--device=dri",
     "--share=ipc",
     "--socket=wayland",
-    "--socket=fallback-x11",
-    "--env=GTK_PATH=/app/lib/gtk-4.0"
+    "--socket=fallback-x11"
   ],
   "modules": [
     {

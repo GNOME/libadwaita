@@ -168,6 +168,7 @@ src_sources = [
   'adw-gizmo.c',
   'adw-header-bar.c',
   'adw-indicator-bin.c',
+  'adw-inspector-page.c',
   'adw-leaflet.c',
   'adw-main.c',
   'adw-navigation-direction.c',
@@ -348,5 +349,3 @@ pkgg.generate(
      requires: 'gtk4',
   install_dir: libdir / 'pkgconfig',
 )
-
-subdir('inspector')

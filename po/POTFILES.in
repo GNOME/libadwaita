@@ -1,6 +1,6 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
+src/adw-inspector-page.c
+src/adw-inspector-page.ui
 src/adw-preferences-window.c
 src/adw-preferences-window.ui
-src/inspector/adw-inspector-page.c
-src/inspector/adw-inspector-page.ui
