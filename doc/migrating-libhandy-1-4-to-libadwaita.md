@@ -66,7 +66,7 @@ Applications should not use them.
 
 ### Use `HdyFlap` Properties for Adding Children Instead of `gtk_container_add()`
 
-`HdyFlap` provides the "content", "flap" and "separator" properties that can be
+`HdyFlap` provides the `content`, `flap` and `separator` properties that can be
 used for managing children instead of `GtkContainer` API. In Libadwaita
 [property@Flap:content], [property@Flap:flap] and [property@Flap:separator] are
 the only way to manage [class@Flap] children.
@@ -103,13 +103,13 @@ impractical.
 Same as GTK itself, all widgets that have children have a new API to replace
 `gtk_container_add()` and `gtk_container_remove()`.
 
-The following widgets that formerly subclassed `GtkBin` have a "child" property
+The following widgets that formerly subclassed `GtkBin` have a `child` property
 now:
 
 * [class@Clamp]
 * [class@StatusPage]
 
-[class@Window] and [class@ApplicationWindow] have a "content" property
+[class@Window] and [class@ApplicationWindow] have a `content` property
 instead.
 
 For other widgets use the following replacements:
@@ -136,7 +136,7 @@ Adding children in a UI file still works.
 
 ### Adapt to [class@ActionRow] and [class@ExpanderRow] API Changes
 
-The "use-underline" property and its accessors have been removed. Use
+The `use-underline` property and its accessors have been removed. Use
 [property@PreferencesRow:use-underline] and its accessors instead.
 
 The title and subtitle have markup enabled, make sure to escape it with
@@ -315,17 +315,17 @@ narrow and wide policies; if you had used the `auto` policy, use an
 
 #### Adapt to [class@ViewSwitcher] API Changes
 
-The "narrow-ellipsize property has been removed. Narrow view switchers always
+The `narrow-ellipsize` property has been removed. Narrow view switchers always
 ellipsize their labels, wide switchers never do.
 
 #### Adapt to [class@ViewSwitcherBar] API Changes
 
-The "policy" property has been removed. If you had used it, use a plain
+The `policy` property has been removed. If you had used it, use a plain
 [class@ViewSwitcher] in a [class@Gtk.ActionBar] instead.
 
 #### Adapt to [class@ViewSwitcherTitle] API Changes
 
-The "policy" property has been removed, the behavior is similar to the removed
+The `policy` property has been removed, the behavior is similar to the removed
 `auto` policy. If you had used `wide` or `narrow` policies, use an
 [class@Squeezer] with an [class@ViewSwitcher] and an [class@WindowTitle] inside,
 with the switcher having the desired policy.

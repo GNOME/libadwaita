@@ -69,17 +69,17 @@ narrow and wide policies; if you had used the `auto` policy, use an
 
 #### Adapt to [class@ViewSwitcher] API Changes
 
-The "narrow-ellipsize" property has been removed. Narrow view switchers always
+The `narrow-ellipsize` property has been removed. Narrow view switchers always
 ellipsize their labels, wide switchers never do.
 
 #### Adapt to [class@ViewSwitcherBar] API Changes
 
-The "policy" property has been removed. If you had used it, use a plain
+The `policy` property has been removed. If you had used it, use a plain
 [class@ViewSwitcher] in a [class@Gtk.ActionBar] instead.
 
 #### Adapt to [class@ViewSwitcherTitle] API Changes
 
-The "policy" property has been removed, the behavior is similar to the removed
+The `policy` property has been removed, the behavior is similar to the removed
 `auto` policy. If you had used `wide` or `narrow` policies, use an
 [class@Squeezer] with an [class@ViewSwitcher] and an [class@WindowTitle] inside,
 with the switcher having the desired policy.
@@ -221,7 +221,7 @@ instead.
 
 ### Adapt to [class@ActionRow] and [class@ExpanderRow] API Changes
 
-The "use-underline" property and its accessors have been removed. Use
+The `use-underline` property and its accessors have been removed. Use
 [property@PreferencesRow:use-underline] and its accessors instead.
 
 The title and subtitle have markup enabled, make sure to escape it with
