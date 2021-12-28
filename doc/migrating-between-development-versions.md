@@ -180,7 +180,7 @@ One exception are the two primary buttons in a dialog, for example, "Cancel" and
 
 #### Adjusting Split Buttons
 
-If you had split buttons implemented via a `GtkBox` with the
+If you had split buttons implemented via a [class@Gtk.Box] with the
 [`.linked`](style-classes.html#linked-controls) style class and two buttons
 packed inside, use [class@SplitButton] as follows:
 

@@ -33,8 +33,8 @@ of all deprecated symbols.
 
 Following GTK4's emphasis on composition and delegation over subclassing,
 [class@Leaflet] and [class@HeaderBar] are no longer derivable. As a replacement,
-you can subclass `GtkBin` or `GtkBox` and include a leaflet or a header bar as a
-child widget.
+you can subclass `GtkBin` or [class@Gtk.Box] and include a leaflet or a header
+bar as a child widget.
 
 ### Stop Using `HdyKeypad`
 
@@ -518,7 +518,7 @@ One exception are the two primary buttons in a dialog, for example, "Cancel" and
 
 #### Adjusting Split Buttons
 
-If you had split buttons implemented via a `GtkBox` with the
+If you had split buttons implemented via a [class@Gtk.Box] with the
 [`.linked`](style-classes.html#linked-controls) style class and two buttons
 packed inside, use [class@SplitButton] as follows:
 
