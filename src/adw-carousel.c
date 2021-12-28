@@ -218,7 +218,7 @@ get_range (AdwCarousel *self,
     *lower = 0;
 
   if (upper)
-    *upper = child ? child->snap_point : 0;
+    *upper = MAX (0, self->position_shift + (child ? child->snap_point : 0));
 }
 
 static GtkWidget *
