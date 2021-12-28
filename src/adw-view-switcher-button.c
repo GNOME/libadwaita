@@ -299,11 +299,11 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    * Since: 1.0
    */
   props[PROP_NEEDS_ATTENTION] =
-  g_param_spec_boolean ("needs-attention",
-                        "Needs attention",
-                        "Hint the view needs attention",
-                        FALSE,
-                        G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE);
+    g_param_spec_boolean ("needs-attention",
+                          "Needs attention",
+                          "Hint the view needs attention",
+                          FALSE,
+                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE);
 
   /**
    * AdwViewSwitcherButton:badge-number:
