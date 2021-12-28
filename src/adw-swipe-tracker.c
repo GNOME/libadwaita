@@ -34,7 +34,7 @@
 /**
  * AdwSwipeTracker:
  *
- * A swipe tracker used in [class@Carousel] and [class@Leaflet].
+ * A swipe tracker used in [class@Carousel], [class@Flap] and [class@Leaflet].
  *
  * The `AdwSwipeTracker` object can be used for implementing widgets with swipe
  * gestures. It supports touch-based swipes, pointer dragging, and touchpad
