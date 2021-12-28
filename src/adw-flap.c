@@ -36,34 +36,34 @@
  *
  * The `AdwFlap` widget can display its children like a [class@Gtk.Box] does or
  * like a [class@Gtk.Overlay] does, according to the
- * [property@Adw.Flap:fold-policy] value.
+ * [property@Flap:fold-policy] value.
  *
- * `AdwFlap` has at most three children: [property@Adw.Flap:content],
- * [property@Adw.Flap:flap] and [property@Adw.Flap:separator]. Content is the
- * primary child, flap is displayed next to it when unfolded, or overlays it
- * when folded. Flap can be shown or hidden by changing the
- * [property@Adw.Flap:reveal-flap] value, as well as via swipe gestures if
- * [property@Adw.Flap:swipe-to-open] and/or [property@Adw.Flap:swipe-to-close] are
- * set to `TRUE`.
+ * `AdwFlap` has at most three children: [property@Flap:content],
+ * [property@Flap:flap] and [property@Flap:separator]. Content is the primary
+ * child, flap is displayed next to it when unfolded, or overlays it when
+ * folded. Flap can be shown or hidden by changing the
+ * [property@Flap:reveal-flap] value, as well as via swipe gestures if
+ * [property@Flap:swipe-to-open] and/or [property@Flap:swipe-to-close] are set
+ * to `TRUE`.
  *
  * Optionally, a separator can be provided, which would be displayed between
  * the content and the flap when there's no shadow to separate them, depending
  * on the transition type.
  *
- * [property@Adw.Flap:flap] is transparent by default; add the
+ * [property@Flap:flap] is transparent by default; add the
  * [`.background`](style-classes.html#background) style class to it if this is
  * unwanted.
  *
- * If [property@Adw.Flap:modal] is set to `TRUE`, content becomes completely
+ * If [property@Flap:modal] is set to `TRUE`, content becomes completely
  * inaccessible when the flap is revealed while folded.
  *
  * The position of the flap and separator children relative to the content is
- * determined by orientation, as well as the [property@Adw.Flap:flap-position]
+ * determined by orientation, as well as the [property@Flap:flap-position]
  * value.
  *
  * Folding the flap will automatically hide the flap widget, and unfolding it
  * will automatically reveal it. If this behavior is not desired, the
- * [property@Adw.Flap:locked] property can be used to override it.
+ * [property@Flap:locked] property can be used to override it.
  *
  * Common use cases include sidebars, header bars that need to be able to
  * overlap the window content (for example, in fullscreen mode) and bottom
@@ -92,7 +92,7 @@
  * @ADW_FLAP_FOLD_POLICY_AUTO: Fold and unfold the flap based on available
  *   space.
  *
- * Describes the possible folding behavior of a [class@Adw.Flap] widget.
+ * Describes the possible folding behavior of a [class@Flap] widget.
  *
  * Since: 1.0
  */
@@ -107,11 +107,11 @@
  *   neither the flap nor content overlap each other. Both widgets can be
  *   swiped.
  *
- * Describes transitions types of a [class@Adw.Flap] widget.
+ * Describes transitions types of a [class@Flap] widget.
  *
  * It determines the type of animation when transitioning between children in a
- * [class@Adw.Flap] widget, as well as which areas can be swiped via
- * [property@Adw.Flap:swipe-to-open] and [property@Adw.Flap:swipe-to-close].
+ * [class@Flap] widget, as well as which areas can be swiped via
+ * [property@Flap:swipe-to-open] and [property@Flap:swipe-to-close].
  *
  * New values may be added to this enum over time.
  *
@@ -1285,8 +1285,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * The flap widget.
    *
-   * It's only visible when [property@Adw.Flap:reveal-progress] is greater than
-   * 0.
+   * It's only visible when [property@Flap:reveal-progress] is greater than 0.
    *
    * Since: 1.0
    */
@@ -1303,8 +1302,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    * The separator widget.
    *
    * It's displayed between content and flap when there's no shadow to display.
-   * When exactly it's visible depends on the
-   * [property@Adw.Flap:transition-type] value.
+   * When exactly it's visible depends on the [property@Flap:transition-type]
+   * value.
    *
    * Since: 1.0
    */
@@ -1374,7 +1373,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * 0 means fully hidden, 1 means fully revealed.
    *
-   * See [property@Adw.Flap:reveal-flap].
+   * See [property@Flap:reveal-flap].
    *
    * Since: 1.0
    */
@@ -1442,7 +1441,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * Whether the flap is currently folded.
    *
-   * See [property@Adw.Flap:fold-policy].
+   * See [property@Flap:fold-policy].
    *
    * Since: 1.0
    */
@@ -1460,7 +1459,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * If `FALSE`, folding when the flap is revealed automatically closes it, and
    * unfolding it when the flap is not revealed opens it. If `TRUE`,
-   * [property@Adw.Flap:reveal-flap] value never changes on its own.
+   * [property@Flap:reveal-flap] value never changes on its own.
    *
    * Since: 1.0
    */
@@ -1476,7 +1475,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * the type of animation used for reveal and fold transitions.
    *
-   * [property@Adw.Flap:flap] is transparent by default, which means the content
+   * [property@Flap:flap] is transparent by default, which means the content
    * will be seen through it with `ADW_FLAP_TRANSITION_TYPE_OVER` transitions;
    * add the [`.background`](style-classes.html#background) style class to it if
    * this is unwanted.
@@ -1514,8 +1513,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * Whether the flap can be opened with a swipe gesture.
    *
-   * The area that can be swiped depends on the
-   * [property@Adw.Flap:transition-type] value.
+   * The area that can be swiped depends on the [property@Flap:transition-type]
+   * value.
    *
    * Since: 1.0
    */
@@ -1531,8 +1530,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * Whether the flap can be closed with a swipe gesture.
    *
-   * The area that can be swiped depends on the
-   * [property@Adw.Flap:transition-type] value.
+   * The area that can be swiped depends on the [property@Flap:transition-type]
+   * value.
    *
    * Since: 1.0
    */

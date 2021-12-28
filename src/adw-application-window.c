@@ -20,9 +20,9 @@
  * </picture>
  *
  * `AdwApplicationWindow` is a [class@Gtk.ApplicationWindow] subclass providing
- * the same features as [class@Adw.Window].
+ * the same features as [class@Window].
  *
- * See [class@Adw.Window] for details.
+ * See [class@Window] for details.
  *
  * Using [property@Gtk.Application:menubar] is not supported and may result in
  * visual glitches.

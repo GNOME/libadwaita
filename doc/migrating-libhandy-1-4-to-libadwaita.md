@@ -32,9 +32,9 @@ of all deprecated symbols.
 ### Subclassing
 
 Following GTK4's emphasis on composition and delegation over subclassing,
-[class@Adw.Leaflet] and [class@Adw.HeaderBar] are no longer derivable. As a
-replacement, you can subclass `GtkBin` or `GtkBox` and include a leaflet or a
-header bar as a child widget.
+[class@Leaflet] and [class@HeaderBar] are no longer derivable. As a replacement,
+you can subclass `GtkBin` or `GtkBox` and include a leaflet or a header bar as a
+child widget.
 
 ### Stop Using `HdyKeypad`
 
@@ -68,9 +68,8 @@ Applications should not use them.
 
 `HdyFlap` provides the "content", "flap" and "separator" properties that can be
 used for managing children instead of `GtkContainer` API. In Libadwaita
-[property@Adw.Flap:content], [property@Adw.Flap:flap] and
-[property@Adw.Flap:separator] are the only way to manage [class@Adw.Flap]
-children.
+[property@Flap:content], [property@Flap:flap] and [property@Flap:separator] are
+the only way to manage [class@Flap] children.
 
 ### Stop Using `HdyValueObject` with non-string values
 
@@ -107,23 +106,23 @@ Same as GTK itself, all widgets that have children have a new API to replace
 The following widgets that formerly subclassed `GtkBin` have a "child" property
 now:
 
-* [class@Adw.Clamp]
-* [class@Adw.StatusPage]
+* [class@Clamp]
+* [class@StatusPage]
 
-[class@Adw.Window] and [class@Adw.ApplicationWindow] have a "content" property
+[class@Window] and [class@ApplicationWindow] have a "content" property
 instead.
 
 For other widgets use the following replacements:
 
-Widget                        | `gtk_container_add()` replacement  | `gtk_container_remove()` replacement
------------------------------ | ---------------------------------- | ------------------------------------
-[class@Adw.ActionRow]         | [method@Adw.ActionRow.add_suffix]  | [method@Adw.ActionRow.remove]
-[class@Adw.Carousel]          | [method@Adw.Carousel.append]       | [method@Adw.Carousel.remove]
-[class@Adw.ExpanderRow]       | [method@Adw.ExpanderRow.add_row]   | [method@Adw.ExpanderRow.remove]
-[class@Adw.Leaflet]           | [method@Adw.Leaflet.append]        | [method@Adw.Leaflet.remove]
-[class@Adw.PreferencesGroup]  | [method@Adw.PreferencesGroup.add]  | [method@Adw.PreferencesGroup.remove]
-[class@Adw.PreferencesPage]   | [method@Adw.PreferencesPage.add]   | [method@Adw.PreferencesPage.remove]
-[class@Adw.PreferencesWindow] | [method@Adw.PreferencesWindow.add] | [method@Adw.PreferencesWindow.remove]
+Widget                    | `gtk_container_add()` replacement | `gtk_container_remove()` replacement
+------------------------- | --------------------------------- | ------------------------------------
+[class@ActionRow]         | [method@ActionRow.add_suffix]     | [method@ActionRow.remove]
+[class@Carousel]          | [method@Carousel.append]          | [method@Carousel.remove]
+[class@ExpanderRow]       | [method@ExpanderRow.add_row]      | [method@ExpanderRow.remove]
+[class@Leaflet]           | [method@Leaflet.append]           | [method@Leaflet.remove]
+[class@PreferencesGroup]  | [method@PreferencesGroup.add]     | [method@PreferencesGroup.remove]
+[class@PreferencesPage]   | [method@PreferencesPage.add]      | [method@PreferencesPage.remove]
+[class@PreferencesWindow] | [method@PreferencesWindow.add]    | [method@PreferencesWindow.remove]
 
 Adding children in a UI file still works.
 
@@ -135,37 +134,36 @@ Adding children in a UI file still works.
 
 `HdyWindowHandle` has been removed, use [class@Gtk.WindowHandle] instead.
 
-### Adapt to [class@Adw.ActionRow] and [class@Adw.ExpanderRow] API Changes
+### Adapt to [class@ActionRow] and [class@ExpanderRow] API Changes
 
 The "use-underline" property and its accessors have been removed. Use
-[property@Adw.PreferencesRow:use-underline] and its accessors instead.
+[property@PreferencesRow:use-underline] and its accessors instead.
 
 The title and subtitle have markup enabled, make sure to escape it with
 [func@GLib.markup_escape_text] if this is unwanted.
 
-### Adapt to [class@Adw.Clamp] API Changes
+### Adapt to [class@Clamp] API Changes
 
 `HdyClamp` previously had `.small`, `.medium` or `.large` style classes
 depending on the current size of its child. These style classes are now
 added to the child instead of the clamp itself.
 
-### Adapt to [class@Adw.ComboRow] API Changes
+### Adapt to [class@ComboRow] API Changes
 
-[class@Adw.ComboRow] API has been completely overhauled compared to
-`HdyComboRow` and closely mirrors [class@Gtk.DropDown].
-Refer to [class@Gtk.DropDown]'s documentation for details.
+[class@ComboRow] API has been completely overhauled compared to `HdyComboRow`
+and closely mirrors [class@Gtk.DropDown]. Refer to [class@Gtk.DropDown]'s
+documentation for details.
 
 `hdy_combo_row_bind_name_model()` can be replaced with using the
-[property@Adw.ComboRow:model] property in conjunction with
-[property@Adw.ComboRow:expression].
+[property@ComboRow:model] property in conjunction with
+[property@ComboRow:expression].
 
 `hdy_combo_row_bind_model()` can be replaced with using the
-[property@Adw.ComboRow:model] property in conjunction with
-[property@Adw.ComboRow:factory] and/or [property@Adw.ComboRow:list-factory].
+[property@ComboRow:model] property in conjunction with
+[property@ComboRow:factory] and/or [property@ComboRow:list-factory].
 
-`hdy_combo_row_set_for_enum()` can be replaced with an [class@Adw.EnumListModel]
-in conjunction with the [property@Adw.ComboRow:expression] property, for
-example:
+`hdy_combo_row_set_for_enum()` can be replaced with an [class@EnumListModel]
+in conjunction with the [property@ComboRow:expression] property, for example:
 
 ```c
 expr = gtk_property_expression_new (ADW_TYPE_ENUM_LIST_ITEM, NULL, "nick");
@@ -180,18 +178,17 @@ model items can be converted into human-readable strings automatically without
 requiring an expression.
 
 The `HdyComboRow:selected-index` property has been renamed to
-[property@Adw.ComboRow:selected], matching [class@Gtk.DropDown].
+[property@ComboRow:selected], matching [class@Gtk.DropDown].
 
-### Adapt to [class@Adw.PreferencesGroup] API Changes
+### Adapt to [class@PreferencesGroup] API Changes
 
 `HdyPreferencesGroup:use-markup` has been removed, the labels always use markup
 now.
 
 ### Adapt to `HdyEnumValueObject` API Changes
 
-`HdyEnumValueObject` has been renamed to [class@Adw.EnumListItem] and can no
-longer be manually created. It's only intended to be used with
-[class@Adw.EnumListModel].
+`HdyEnumValueObject` has been renamed to [class@EnumListItem] and can no longer
+be manually created. It's only intended to be used with [class@EnumListModel].
 
 ### Stop Using `HdyValueObject`
 
@@ -199,27 +196,26 @@ longer be manually created. It's only intended to be used with
 combination with [class@Gio.ListStore] can be replaced by using
 [class@Gtk.StringList].
 
-### Adapt to [class@Adw.HeaderBar] API Changes
+### Adapt to [class@HeaderBar] API Changes
 
-[class@Adw.HeaderBar] API mostly mirrors [class@Gtk.HeaderBar], refer to the
+[class@HeaderBar] API mostly mirrors [class@Gtk.HeaderBar], refer to the
 [GTK 3 to 4 migration guide](https://docs.gtk.org/gtk4/migrating-3to4.html#adapt-to-gtkheaderbar-and-gtkactionbar-api-changes)
 for details
 
 The [property@Gtk.HeaderBar:show-title-buttons] property has been split into
-[property@Adw.HeaderBar:show-start-title-buttons] and
-[property@Adw.HeaderBar:show-end-title-buttons] to simplify creating multi-pane
+[property@HeaderBar:show-start-title-buttons] and
+[property@HeaderBar:show-end-title-buttons] to simplify creating multi-pane
 layouts. The corresponding getter and the setter have been split as well.
 
-The [class@Adw.WindowTitle] widget may be useful for replacing the title and
+The [class@WindowTitle] widget may be useful for replacing the title and
 subtitle.
 
 ### Adapt to `HdyHeaderGroup` Removal
 
 `HdyHeaderGroup` has been removed. Its behavior can be replicated by changing
-the [property@Adw.HeaderBar:show-start-title-buttons] and
-[property@Adw.HeaderBar:show-end-title-buttons] properties depending on the
-layout, for example binding them to the [property@Adw.Leaflet:folded] property
-as follows:
+the [property@HeaderBar:show-start-title-buttons] and
+[property@HeaderBar:show-end-title-buttons] properties depending on the layout,
+for example binding them to the [property@Leaflet:folded] property as follows:
 
 ```xml
 <object class="AdwLeaflet" id="leaflet">
@@ -251,104 +247,103 @@ as follows:
 
 ### Adapt to `HdyDeck` Removal
 
-`HdyDeck` has been removed. Instead, an [class@Adw.Leaflet] can be used the same
-way by setting the [property@Adw.Leaflet:can-unfold] property to `FALSE`.
+`HdyDeck` has been removed. Instead, an [class@Leaflet] can be used the same way
+by setting the [property@Leaflet:can-unfold] property to `FALSE`.
 
-### Adapt to [class@Adw.Leaflet] and [class@Adw.Squeezer] API Changes
+### Adapt to [class@Leaflet] and [class@Squeezer] API Changes
 
 The child properties of `HdyLeaflet` and `HdySqueezer` have been converted into
 page objects, similarly to [class@Gtk.Stack]. For example,
-[method@Adw.SqueezerPage.set_enabled] should be used to replace
+[method@SqueezerPage.set_enabled] should be used to replace
 `hdy_squeezer_set_child_enabled()`.
 
 The `can-swipe-back` and `can-swipe-forward` properties have been renamed to
-[property@AdwLeaflet:can-navigate-back] and
-[property@AdwLeaflet:can-navigate-forward], along with their accessors. The new
+[property@Leaflet:can-navigate-back] and
+[property@Leaflet:can-navigate-forward], along with their accessors. The new
 properties also handle keyboard and mouse shortcuts in addition to swipes.
 
-The `hhomogeneous-folded`, `vhomogeneous-folded`, `hhomogeneous-unfolded`,
-and `vhomogeneous-unfolded` properties have been replaced by a single
-[property@Adw.Leaflet:homogeneous] property, set to `TRUE` by default,
-applied when the leaflet is folded for the opposite orientation.
+The `hhomogeneous-folded`, `vhomogeneous-folded`, `hhomogeneous-unfolded`, and
+`vhomogeneous-unfolded` properties have been replaced by a single
+[property@Leaflet:homogeneous] property, set to `TRUE` by default, applied when
+the leaflet is folded for the opposite orientation.
 
 When unfolded, children are never homogeneous. Use [class@Gtk.SizeGroup]
 to make them homogeneous if needed.
 
 The `interpolate-size` property has been removed with no replacement, it's
-always enabled when [property@Adw.Leaflet:homogeneous] is set to `FALSE`.
+always enabled when [property@Leaflet:homogeneous] is set to `FALSE`.
 
 `AdwLeaflet` now uses spring animations instead of timed animations for child
 transitions. As such, the `child-transition-duration` property has been replaced
-with [property@Adw.Leaflet:child-transition-params], allowing to customize the
+with [property@Leaflet:child-transition-params], allowing to customize the
 animation. Unlike the duration, spring parameters are also used for animation
 triggered by swipe gestures.
 
-### Adapt to [class@Adw.Flap] API Changes
+### Adapt to [class@Flap] API Changes
 
 `AdwFlap` now uses spring animations instead of timed animations for reveal
 animations. As such, the `reveal-duration` property has been replaced with
-[property@Adw.Flap:reveal-params], allowing to customize the animation. Unlike
+[property@Flap:reveal-params], allowing to customize the animation. Unlike
 the duration, spring parameters are also used for transitions triggered by swipe
 gestures.
 
-### Adapt to [class@Adw.Carousel] API changes
+### Adapt to [class@Carousel] API changes
 
 `AdwCarousel` now uses spring animations instead of timed animations for
 scrolling. As such, the `animation-duration` property has been replaced with
-[property@Adw.Carousel:scroll-params], allowing to customize the animation.
-Unlike the duration, spring parameters are also used for animation triggered
-by swipe gestures.
+[property@Carousel:scroll-params], allowing to customize the animation. Unlike
+the duration, spring parameters are also used for animation triggered by swipe
+gestures.
 
 The `adw_carousel_scroll_to_full()` method has been removed. Instead,
-[method@Adw.Carousel.scroll_to] has got an additional parameter `animate`.
+[method@Carousel.scroll_to] has got an additional parameter `animate`.
 
 ### Adapt to View Switcher API Changes
 
-[class@Adw.ViewSwitcher], [class@Adw.ViewSwitcherBar] and
-[class@Adw.ViewSwitcherTitle] now use [class@Adw.ViewStack] instead of
-[class@Gtk.Stack].
+[class@ViewSwitcher], [class@ViewSwitcherBar] and [class@ViewSwitcherTitle] now
+use [class@ViewStack] instead of [class@Gtk.Stack].
 
 You should stop using [property@Gtk.Stack:transition-type],
 [property@Gtk.Stack:transition-duration],
 [property@Gtk.Stack:transition-running] and
 [property@Gtk.Stack:interpolate-size] properties before switching to
-[class@Adw.ViewStack].
+[class@ViewStack].
 
-The `auto` view switcher policy has been removed. [class@Adw.ViewSwitcher] only
-has narrow and wide policies; if you had used the `auto` policy, use an
-[class@Adw.Squeezer] with two view switchers inside.
+The `auto` view switcher policy has been removed. [class@ViewSwitcher] only has
+narrow and wide policies; if you had used the `auto` policy, use an
+[class@Squeezer] with two view switchers inside.
 
-#### Adapt to [class@Adw.ViewSwitcher] API Changes
+#### Adapt to [class@ViewSwitcher] API Changes
 
-The "narrow-ellipsize" property has been removed. Narrow view switchers always
+The "narrow-ellipsize property has been removed. Narrow view switchers always
 ellipsize their labels, wide switchers never do.
 
-#### Adapt to [class@Adw.ViewSwitcherBar] API Changes
+#### Adapt to [class@ViewSwitcherBar] API Changes
 
 The "policy" property has been removed. If you had used it, use a plain
-[class@Adw.ViewSwitcher] in a [class@Gtk.ActionBar] instead.
+[class@ViewSwitcher] in a [class@Gtk.ActionBar] instead.
 
-#### Adapt to [class@Adw.ViewSwitcherTitle] API Changes
+#### Adapt to [class@ViewSwitcherTitle] API Changes
 
 The "policy" property has been removed, the behavior is similar to the removed
 `auto` policy. If you had used `wide` or `narrow` policies, use an
-[class@Adw.Squeezer] with an [class@Adw.ViewSwitcher] and an
-[class@Adw.WindowTitle] inside, with the switcher having the desired policy.
+[class@Squeezer] with an [class@ViewSwitcher] and an [class@WindowTitle] inside,
+with the switcher having the desired policy.
 
-### Adapt to [class@Adw.Avatar] API Changes
+### Adapt to [class@Avatar] API Changes
 
 The `HdyAvatar:loadable-icon` property has been removed along with its getter
-and setter. It can be replaced by [property@Adw.Avatar:custom-image].
+and setter. It can be replaced by [property@Avatar:custom-image].
 
 The `hdy_avatar_draw_to_pixbuf()` and `hdy_avatar_draw_to_pixbuf_async()`
-functions have been removed, use the newly added
-[method@Adw.Avatar.draw_to_texture] instead. [class@Gdk.Texture] implements
-[iface@Gio.Icon], so it should just work for that case.
+functions have been removed, use the newly added [method@Avatar.draw_to_texture]
+instead. [class@Gdk.Texture] implements [iface@Gio.Icon], so it should just work
+for that case.
 
-[method@Adw.Avatar.draw_to_texture] does not have the `size` parameter. Instead,
-it uses the avatar's current size, with no replacement.
+[method@Avatar.draw_to_texture] does not have the `size` parameter. Instead, it
+uses the avatar's current size, with no replacement.
 
-### Adapt to [class@Adw.StyleManager] API Changes
+### Adapt to [class@StyleManager] API Changes
 
 When used with the default style manager, `ADW_COLOR_SCHEME_DEFAULT` is now
 equivalent to `ADW_COLOR_SCHEME_PREFER_LIGHT` instead of
@@ -356,20 +351,20 @@ equivalent to `ADW_COLOR_SCHEME_PREFER_LIGHT` instead of
 default. Make sure your application works with it, or otherwise set the
 `ADW_COLOR_SCHEME_FORCE_LIGHT` color scheme manually.
 
-### Adapt to [class@Adw.SwipeTracker] API Changes
+### Adapt to [class@SwipeTracker] API Changes
 
-The [signal@Adw.SwipeTracker::begin-swipe] signal is now emitted immediately
-before the swipe starts, after the drag threshold has been reached, and it has
-lost its `direction` parameter. The new [signal@Adw.SwipeTracker::prepare]
-signal behaves exactly like `begin-swipe` was, and can be used instead of it.
+The [signal@SwipeTracker::begin-swipe] signal is now emitted immediately before
+the swipe starts, after the drag threshold has been reached, and it has lost its
+`direction` parameter. The new [signal@SwipeTracker::prepare] signal behaves
+exactly like `begin-swipe` did, and can be used instead of it.
 
-The type of the `duration` parameter in [signal@Adw.SwipeTracker::end-swipe] has
+The type of the `duration` parameter in [signal@SwipeTracker::end-swipe] has
 changed from `gint64` to `guint`.
 
-### Adapt to [class@Adw.TabView] API Changes
+### Adapt to [class@TabView] API Changes
 
 The `HdyTabVoew:shortcut-widget` property has been removed with no replacement;
-[class@AdwTabView] automatically installs shortcuts with the
+[class@TabView] automatically installs shortcuts with the
 `GTK_SHORTCUT_SCOPE_MANAGED` scope, so they are automatically available
 throughout the window without the need to set shortcut widget.
 
@@ -377,17 +372,16 @@ If some of these shortcuts conflict with another widget, the latter has
 priority, and it should work automatically if the widget correctly stops event
 propagation.
 
-### Adapt to [class@Adw.PreferencesWindow] API Changes
+### Adapt to [class@PreferencesWindow] API Changes
 
 The `can-swipe-back` property have been renamed to
-[property@AdwPreferencesWindow:can-navigate-back], along with its accessors.
-The new properties also handle keyboard and mouse shortcuts in addition to
-swipes.
+[property@PreferencesWindow:can-navigate-back], along with its accessors. The
+new properties also handle keyboard and mouse shortcuts in addition to swipes.
 
 ### Adapt to Miscellaneous Changes
 
 The `hdy_ease_out_cubic()` function has been removed. Instead,
-[func@Adw.Easing.ease] can be used with the `ADW_EASE_OUT_CUBIC` parameter.
+[func@Easing.ease] can be used with the `ADW_EASE_OUT_CUBIC` parameter.
 
 ### Adapt to Stylesheet Changes
 
@@ -438,9 +432,9 @@ The following rules are used when deciding when to make buttons flat or not:
 The following buttons get flat appearance:
 
 * Icon-only buttons;
-* Buttons with an icon and a label (using [class@Adw.ButtonContent]);
+* Buttons with an icon and a label (using [class@ButtonContent]);
 * Menu buttons containing an arrow;
-* [class@Adw.SplitButton];
+* [class@SplitButton];
 * Any other button with the [`.flat`](style-classes.html#flat) style class.
 
 The following buttons keep default appearance:
@@ -495,8 +489,8 @@ If you had menu buttons containing an icon and a dropdown arrow, switch to
 
 #### Adjusting Text-only Buttons
 
-If you had text-only buttons, consider using [class@Adw.ButtonContent]. For
-example, the following button:
+If you had text-only buttons, consider using [class@ButtonContent]. For example,
+the following button:
 
 ```xml
 <object class="GtkButton">
@@ -526,7 +520,7 @@ One exception are the two primary buttons in a dialog, for example, "Cancel" and
 
 If you had split buttons implemented via a `GtkBox` with the
 [`.linked`](style-classes.html#linked-controls) style class and two buttons
-packed inside, use [class@Adw.SplitButton] as follows:
+packed inside, use [class@SplitButton] as follows:
 
 ```xml
 <object class="AdwSplitButton">

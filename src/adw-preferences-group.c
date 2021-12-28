@@ -23,11 +23,11 @@
  * </picture>
  *
  * An `AdwPreferencesGroup` represents a group or tightly related preferences,
- * which in turn are represented by [class@Adw.PreferencesRow].
+ * which in turn are represented by [class@PreferencesRow].
  *
  * To summarize the role of the preferences it gathers, a group can have both a
- * title and a description. The title will be used by
- * [class@Adw.PreferencesWindow] to let the user look for a preference.
+ * title and a description. The title will be used by [class@PreferencesWindow]
+ * to let the user look for a preference.
  *
  * ## AdwPreferencesGroup as GtkBuildable
  *

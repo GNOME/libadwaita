@@ -292,9 +292,9 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    *
    * Sets a flag specifying whether the view requires the user attention.
    *
-   * This is used by the [class@Adw.ViewSwitcher] to change the appearance of
-   * the corresponding button when a view needs attention and it is not the
-   * current one.
+   * This is used by the [class@ViewSwitcher] to change the appearance of the
+   * corresponding button when a view needs attention and it is not the current
+   * one.
    *
    * Since: 1.0
    */

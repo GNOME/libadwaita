@@ -272,8 +272,8 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * The label for the button.
    *
-   * Setting the label will set [property@Adw.SplitButton:icon-name] and
-   * [property@Adw.SplitButton:child] to `NULL`.
+   * Setting the label will set [property@SplitButton:icon-name] and
+   * [property@SplitButton:child] to `NULL`.
    *
    * Since: 1.0
    */
@@ -289,7 +289,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * Whether an underline in the text indicates a mnemonic.
    *
-   * See [property@Adw.SplitButton:label].
+   * See [property@SplitButton:label].
    *
    * Since: 1.0
    */
@@ -305,8 +305,8 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * The name of the icon used to automatically populate the button.
    *
-   * Setting the icon name will set [property@Adw.SplitButton:label] and
-   * [property@Adw.SplitButton:child] to `NULL`.
+   * Setting the icon name will set [property@SplitButton:label] and
+   * [property@SplitButton:child] to `NULL`.
    *
    * Since: 1.0
    */
@@ -322,8 +322,8 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * The child widget.
    *
-   * Setting the child widget will set [property@Adw.SplitButton:label] and
-   * [property@Adw.SplitButton:icon-name] to `NULL`.
+   * Setting the child widget will set [property@SplitButton:label] and
+   * [property@SplitButton:icon-name] to `NULL`.
    *
    * Since: 1.0
    */
@@ -345,8 +345,8 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * [ctor@Gtk.PopoverMenu.new_from_model]. Actions will be connected
    * as documented for this function.
    *
-   * If [property@Adw.SplitButton:popover] is already set, it will be
-   * dissociated from the button, and the property is set to `NULL`.
+   * If [property@SplitButton:popover] is already set, it will be dissociated
+   * from the button, and the property is set to `NULL`.
    *
    * Since: 1.0
    */
@@ -364,8 +364,8 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * If the popover is `NULL`, the dropdown is disabled.
    *
-   * If [property@Adw.SplitButton:menu-model] is set, the menu model is
-   * dissociated from the button, and the property is set to `NULL`.
+   * If [property@SplitButton:menu-model] is set, the menu model is dissociated
+   * from the button, and the property is set to `NULL`.
    *
    * Since: 1.0
    */
@@ -423,8 +423,8 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * Emitted to animate press then release.
    *
-   * This is an action signal. Applications should never connect
-   * to this signal, but use the [signal@Adw.SplitButton::clicked] signal.
+   * This is an action signal. Applications should never connect to this signal,
+   * but use the [signal@SplitButton::clicked] signal.
    *
    * Since: 1.0
    */
@@ -686,7 +686,7 @@ adw_split_button_set_use_underline (AdwSplitButton *self,
  *
  * Gets the name of the icon used to automatically populate the button.
  *
- * If the icon name has not been set with [method@Adw.SplitButton.set_icon_name]
+ * If the icon name has not been set with [method@SplitButton.set_icon_name]
  * the return value will be `NULL`.
  *
  * Returns: (nullable): the icon name

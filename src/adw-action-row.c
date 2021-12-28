@@ -246,9 +246,9 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * The widget to activate when the row is activated.
    *
    * The row can be activated either by clicking on it, calling
-   * [method@Adw.ActionRow.activate], or via mnemonics in the title or the
-   * subtitle. See the [property@Adw.PreferencesRow:use-underline] property to
-   * enable mnemonics.
+   * [method@ActionRow.activate], or via mnemonics in the title or the subtitle.
+   * See the [property@PreferencesRow:use-underline] property to enable
+   * mnemonics.
    *
    * The target widget will be activated by emitting the
    * [signal@Gtk.Widget::mnemonic-activate] signal on it.

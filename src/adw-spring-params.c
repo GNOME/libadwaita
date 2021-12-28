@@ -16,7 +16,7 @@ G_DEFINE_BOXED_TYPE (AdwSpringParams, adw_spring_params,
 /**
  * AdwSpringParams:
  *
- * Physical parameters of a spring for [class@Adw.SpringAnimation].
+ * Physical parameters of a spring for [class@SpringAnimation].
  *
  * Any spring can be described by three parameters: mass, stiffness and damping.
  *
@@ -79,7 +79,7 @@ struct _AdwSpringParams
  * * If @damping_ratio is larger than 1, the spring is overdamped and will reach
  *   its resting position faster than it can complete an oscillation.
  *
- * [ctor@Adw.SpringParams.new_full] allows to pass a raw damping value instead.
+ * [ctor@SpringParams.new_full] allows to pass a raw damping value instead.
  *
  * Returns: (transfer full): the newly created spring parameters
  *
@@ -108,8 +108,8 @@ adw_spring_params_new (double damping_ratio,
  *
  * Creates a new `AdwSpringParams` from @mass, @stiffness and @damping.
  *
- * See [ctor@Adw.SpringParams.new] for a simplified constructor using damping
- * ratio instead of @damping.
+ * See [ctor@SpringParams.new] for a simplified constructor using damping ratio
+ * instead of @damping.
  *
  * Returns: (transfer full): the newly created spring parameters
  *

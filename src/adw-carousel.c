@@ -34,8 +34,8 @@
  * The `AdwCarousel` widget can be used to display a set of pages with
  * swipe-based navigation between them.
  *
- * [class@Adw.CarouselIndicatorDots] and [class@Adw.CarouselIndicatorLines] can
- * be used to provide page indicators for `AdwCarousel`.
+ * [class@CarouselIndicatorDots] and [class@CarouselIndicatorLines] can be used
+ * to provide page indicators for `AdwCarousel`.
  *
  * ## CSS nodes
  *
@@ -904,7 +904,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    *
    * Current scrolling position, unitless.
    *
-   * 1 matches 1 page. Use [method@Adw.Carousel.scroll_to] for changing it.
+   * 1 matches 1 page. Use [method@Carousel.scroll_to] for changing it.
    *
    * Since: 1.0
    */

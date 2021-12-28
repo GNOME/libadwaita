@@ -44,7 +44,7 @@
  * the widget seem to squeeze itself to fit in the available space.
  *
  * Transitions between children can be animated as fades. This can be controlled
- * with [property@Adw.Squeezer:transition-type].
+ * with [property@Squeezer:transition-type].
  *
  * ## CSS nodes
  *
@@ -56,7 +56,7 @@
 /**
  * AdwSqueezerPage:
  *
- * An auxiliary class used by [class@Adw.Squeezer].
+ * An auxiliary class used by [class@Squeezer].
  */
 
 /**
@@ -64,7 +64,7 @@
  * @ADW_SQUEEZER_TRANSITION_TYPE_NONE: No transition
  * @ADW_SQUEEZER_TRANSITION_TYPE_CROSSFADE: A cross-fade
  *
- * Describes the possible transitions in a [class@Adw.Squeezer] widget.
+ * Describes the possible transitions in a [class@Squeezer] widget.
  *
  * Since: 1.0
  */
@@ -1389,7 +1389,7 @@ adw_squeezer_new (void)
  *
  * Adds a child to @self.
  *
- * Returns: (transfer none): the [class@Adw.SqueezerPage] for @child
+ * Returns: (transfer none): the [class@SqueezerPage] for @child
  *
  * Since: 1.0
  */
@@ -1450,7 +1450,7 @@ adw_squeezer_remove (AdwSqueezer *self,
  * @self: a `AdwSqueezer`
  * @child: a child of @self
  *
- * Returns the [class@Adw.SqueezerPage] object for @child.
+ * Returns the [class@SqueezerPage] object for @child.
  *
  * Returns: (transfer none): the page object for @child
  *

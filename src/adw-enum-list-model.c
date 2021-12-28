@@ -17,7 +17,7 @@
  *
  * A [iface@Gio.ListModel] representing values of a given enum.
  *
- * `AdwEnumListModel` contains objects of type [class@AdwEnumListItem].
+ * `AdwEnumListModel` contains objects of type [class@EnumListItem].
  *
  * Since: 1.0
  */
@@ -48,7 +48,7 @@ G_DEFINE_FINAL_TYPE_WITH_CODE (AdwEnumListModel, adw_enum_list_model, G_TYPE_OBJ
 /**
  * AdwEnumListItem:
  *
- * `AdwEnumListItem` is the type of items in a [class@Adw.EnumListModel].
+ * `AdwEnumListItem` is the type of items in a [class@EnumListModel].
  *
  * Since: 1.0
  */

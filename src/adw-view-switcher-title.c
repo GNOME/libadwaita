@@ -23,23 +23,23 @@
  * </picture>
  *
  * A widget letting you switch between multiple views contained by a
- * [class@Adw.ViewStack] via an [class@Adw.ViewSwitcher].
+ * [class@ViewStack] via an [class@ViewSwitcher].
  *
- * It is designed to be used as the title widget of a [class@Adw.HeaderBar], and
+ * It is designed to be used as the title widget of a [class@HeaderBar], and
  * will display the window's title when the window is too narrow to fit the view
  * switcher e.g. on mobile phones, or if there are less than two views.
  *
  * In order to center the title in narrow windows, the header bar should have
- * [property@Adw.HeaderBar:centering-policy] set to
+ * [property@HeaderBar:centering-policy] set to
  * `ADW_CENTERING_POLICY_STRICT`.
  *
- * `Adw.ViewSwitcherTitle` is intended to be used together with
- * [class@Adw.ViewSwitcherBar].
+ * `AdwViewSwitcherTitle` is intended to be used together with
+ * [class@ViewSwitcherBar].
  *
- * A common use case is to bind the [property@Adw.ViewSwitcherBar:reveal]
- * property to [property@Adw.ViewSwitcherTitle:title-visible] to automatically
- * reveal the view switcher bar when the title label is displayed in place of
- * the view switcher, as follows:
+ * A common use case is to bind the [property@ViewSwitcherBar:reveal] property
+ * to [property@ViewSwitcherTitle:title-visible] to automatically reveal the
+ * view switcher bar when the title label is displayed in place of the view
+ * switcher, as follows:
  *
  * ```xml
  * <object class="GtkWindow">
@@ -345,7 +345,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    * Whether the title is currently visible.
    *
    * If the title is visible, it means the view switcher is hidden an it may be
-   * wanted to show an alternative switcher, e.g. a [class@Adw.ViewSwitcherBar].
+   * wanted to show an alternative switcher, e.g. a [class@ViewSwitcherBar].
    *
    * Since: 1.0
    */

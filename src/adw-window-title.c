@@ -20,7 +20,7 @@
  * </picture>
  *
  * `AdwWindowTitle` shows a title and subtitle. It's intended to be used as the
- * title child of [class@Gtk.HeaderBar] or [class@Adw.HeaderBar].
+ * title child of [class@Gtk.HeaderBar] or [class@HeaderBar].
  *
  * ## CSS nodes
  *

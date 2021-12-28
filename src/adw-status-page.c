@@ -194,7 +194,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    *
    * The name of the icon to be used.
    *
-   * Changing this will clear [property@Adw.StatusPage:paintable] out.
+   * Changing this will clear [property@StatusPage:paintable] out.
    *
    * Since: 1.0
    */
@@ -210,7 +210,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    *
    * The @GdkPaintable to be used.
    *
-   * Changing this will clear [property@Adw.StatusPage:icon-name] out.
+   * Changing this will clear [property@StatusPage:icon-name] out.
    *
    * Since: 1.0
    */

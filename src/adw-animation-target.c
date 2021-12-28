@@ -13,9 +13,9 @@
 /**
  * AdwAnimationTarget:
  *
- * Represents a value [class@Adw.Animation] can animate.
+ * Represents a value [class@Animation] can animate.
  *
- * Currently the only implementation is [class@Adw.CallbackAnimationTarget].
+ * Currently the only implementation is [class@CallbackAnimationTarget].
  *
  * Since: 1.0
  */
@@ -23,7 +23,7 @@
 /**
  * AdwCallbackAnimationTarget:
  *
- * An [class@Adw.AnimationTarget] that calls a given callback during the
+ * An [class@AnimationTarget] that calls a given callback during the
  * animation.
  *
  * Since: 1.0

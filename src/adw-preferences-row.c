@@ -13,11 +13,11 @@
  *
  * A [class@Gtk.ListBoxRow] used to present preferences.
  *
- * The `AdwPreferencesRow` widget has a title that [class@Adw.PreferencesWindow]
+ * The `AdwPreferencesRow` widget has a title that [class@PreferencesWindow]
  * will use to let the user look for a preference. It doesn't present the title
  * in any way and lets you present the preference as you please.
  *
- * [class@Adw.ActionRow] and its derivatives are convenient to use as preference
+ * [class@ActionRow] and its derivatives are convenient to use as preference
  * rows as they take care of presenting the preference's title while letting you
  * compose the inputs of the preference around it.
  *

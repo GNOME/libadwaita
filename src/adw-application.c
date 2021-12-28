@@ -13,10 +13,10 @@
  *
  * A base class for Adwaita applications.
  *
- * `AdwApplication` handles library initialization by calling [func@Adw.init] in
- * the default [signal@Gio.Application::startup] signal handler, in turn
- * chaining up as required by [class@Gtk.Application]. Therefore, any subclass
- * of `AdwApplication` should always chain up its `startup` handler before using
+ * `AdwApplication` handles library initialization by calling [func@init] in the
+ * default [signal@Gio.Application::startup] signal handler, in turn chaining up
+ * as required by [class@Gtk.Application]. Therefore, any subclass of
+ * `AdwApplication` should always chain up its `startup` handler before using
  * any Adwaita or GTK API.
  *
  * ## Automatic Resources
@@ -30,13 +30,13 @@
  * - `style.css` contains styles that are always present.
  *
  * - `style-dark.css` contains styles only used when
- *   [property@Adw.StyleManager:dark] is `TRUE`.
+ * [property@StyleManager:dark] is `TRUE`.
  *
  * - `style-hc.css` contains styles used when the system high contrast
  *   preference is enabled.
  *
  * - `style-hc-dark.css` contains styles used when the system high contrast
- *   preference is enabled and [property@Adw.StyleManager:dark] is `TRUE`.
+ *   preference is enabled and [property@StyleManager:dark] is `TRUE`.
  *
  * Since: 1.0
  */

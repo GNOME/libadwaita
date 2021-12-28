@@ -26,15 +26,15 @@
  * </picture>
  *
  * An adaptive view switcher designed to switch between multiple views
- * contained in a [class@Adw.ViewStack] in a similar fashion to
+ * contained in a [class@ViewStack] in a similar fashion to
  * [class@Gtk.StackSwitcher].
  *
  * `AdwViewSwitcher` buttons always have an icon and a label. They can be
  * displayed side by side, or icon on top of the label. This can be controlled
- * via the [property@Adw.ViewSwitcher:policy] property.
+ * via the [property@ViewSwitcher:policy] property.
  *
- * Most applications should be using [class@Adw.ViewSwitcherBar] and
- * [class@Adw.ViewSwitcherTitle].
+ * Most applications should be using [class@ViewSwitcherBar] and
+ * [class@ViewSwitcherTitle].
  *
  * ## CSS nodes
  *
@@ -54,7 +54,7 @@
  * @ADW_VIEW_SWITCHER_POLICY_NARROW: Force the narrow mode
  * @ADW_VIEW_SWITCHER_POLICY_WIDE: Force the wide mode
  *
- * Describes the adaptive modes of [class@Adw.ViewSwitcher].
+ * Describes the adaptive modes of [class@ViewSwitcher].
  */
 
 enum {

@@ -32,9 +32,9 @@
  *   <img src="toast-overlay.png" alt="toast-overlay">
  * </picture>
  *
- * Toasts can be shown with [method@Adw.ToastOverlay.add_toast].
+ * Toasts can be shown with [method@ToastOverlay.add_toast].
  *
- * See [class@Adw.Toast] for details.
+ * See [class@Toast] for details.
  *
  * ## CSS nodes
  *
@@ -565,7 +565,7 @@ adw_toast_overlay_set_child (AdwToastOverlay *self,
  *
  * Only one toast can be shown at a time; if a toast is already being displayed,
  * either @toast or the original toast will be placed in a queue, depending on
- * the priority of @toast. See [property@Adw.Toast:priority].
+ * the priority of @toast. See [property@Toast:priority].
  *
  * Since: 1.0
  */

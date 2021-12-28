@@ -123,7 +123,7 @@ Slug: visual-index
   <img src="clamp-narrow.png" alt="clamp-narrow">
 </picture>](class.Clamp.html)
 
-See also: [class@Adw.ClampLayout], [class@Adw.ClampScrollable]
+See also: [class@ClampLayout], [class@ClampScrollable]
 
 ### Leaflet
 
@@ -181,7 +181,7 @@ See also: [class@Adw.ClampLayout], [class@Adw.ClampScrollable]
   <img src="window.png" alt="window">
 </picture>](class.Window.html)
 
-See also: [class@Adw.ApplicationWindow]
+See also: [class@ApplicationWindow]
 
 ### Split Button
 

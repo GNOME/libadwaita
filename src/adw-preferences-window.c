@@ -540,7 +540,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    *
    * The name of the currently visible page.
    *
-   * See [property@Adw.ViewStack:visible-child].
+   * See [property@ViewStack:visible-child].
    *
    * Since: 1.0
    */
@@ -847,7 +847,7 @@ adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
  *
  * If there is no presented subpage, this does nothing.
  *
- * See [method@Adw.PreferencesWindow.close_subpage].
+ * See [method@PreferencesWindow.close_subpage].
  *
  * Since: 1.0
  */
@@ -1017,7 +1017,7 @@ adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
  *
  * Displays @toast.
  *
- * See [method@Adw.ToastOverlay.add_toast].
+ * See [method@ToastOverlay.add_toast].
  *
  * Since: 1.0
  */

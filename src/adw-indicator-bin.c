@@ -16,7 +16,7 @@
 /**
  * AdwIndicatorBin:
  *
- * A helper object for [class@Adw.ViewSwitcherButton].
+ * A helper object for [class@ViewSwitcherButton].
  *
  * The `AdwIndicatorBin` widget shows an unread indicator over the child widget
  * masking it if they overlap.

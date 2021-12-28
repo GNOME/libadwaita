@@ -34,16 +34,16 @@
 /**
  * AdwSwipeTracker:
  *
- * A swipe tracker used in [class@Adw.Carousel] and [class@Adw.Leaflet].
+ * A swipe tracker used in [class@Carousel] and [class@Leaflet].
  *
  * The `AdwSwipeTracker` object can be used for implementing widgets with swipe
  * gestures. It supports touch-based swipes, pointer dragging, and touchpad
  * scrolling.
  *
- * The widgets will probably want to expose the
- * [property@Adw.SwipeTracker:enabled] property. If they expect to use
- * horizontal orientation, [property@Adw.SwipeTracker:reversed] can be used for
- * supporting RTL text direction.
+ * The widgets will probably want to expose the [property@SwipeTracker:enabled]
+ * property. If they expect to use horizontal orientation,
+ * [property@SwipeTracker:reversed] can be used for supporting RTL text
+ * direction.
  *
  * Since: 1.0
  */
@@ -1145,8 +1145,8 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    *
    * The user is expected to animate the deceleration from the current progress
    * value to @to with an animation using @velocity as the initial velocity,
-   * provided in pixels per second. [class@Adw.SpringAnimation] is usually a
-   * good fit for this.
+   * provided in pixels per second. [class@SpringAnimation] is usually a good
+   * fit for this.
    *
    * Since: 1.0
    */

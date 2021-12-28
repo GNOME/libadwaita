@@ -69,7 +69,7 @@
  *   `ADW_EASE_OUT_BOUNCE`.
  *
  * Describes the available easing functions for use with
- * [class@Adw.TimedAnimation].
+ * [class@TimedAnimation].
  *
  * New values may be added to this enumeration over time.
  *

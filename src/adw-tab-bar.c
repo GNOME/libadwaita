@@ -18,7 +18,7 @@
 /**
  * AdwTabBar:
  *
- * A tab bar for [class@Adw.TabView].
+ * A tab bar for [class@TabView].
  *
  * <picture>
  *   <source srcset="tab-bar-dark.png" media="(prefers-color-scheme: dark)">
@@ -490,10 +490,10 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    *
    * Whether the tabs automatically hide.
    *
-   * If set to `TRUE`, the tab bar disappears when [property@Adw.TabBar:view]
-   * has 0 or 1 tab, no pinned tabs, and no tab is being transferred.
+   * If set to `TRUE`, the tab bar disappears when [property@TabBar:view] has 0
+   * or 1 tab, no pinned tabs, and no tab is being transferred.
    *
-   * See [property@Adw.TabBar:tabs-revealed].
+   * See [property@TabBar:tabs-revealed].
    *
    * Since: 1.0
    */
@@ -509,7 +509,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    *
    * Whether the tabs are currently revealed.
    *
-   * See [property@Adw.TabBar:autohide].
+   * See [property@TabBar:autohide].
    *
    * Since: 1.0
    */
@@ -581,7 +581,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * This signal is emitted when content is dropped onto a tab.
    *
    * The content must be of one of the types set up via
-   * [method@Adw.TabBar.setup_extra_drop_target].
+   * [method@TabBar.setup_extra_drop_target].
    *
    * See [signal@Gtk.DropTarget::drop].
    *
@@ -1060,8 +1060,7 @@ adw_tab_bar_set_inverted (AdwTabBar *self,
  * If a tab is hovered for a certain period of time while dragging the content,
  * it will be automatically selected.
  *
- * The [signal@Adw.TabBar::extra-drag-drop] signal can be used to handle the
- * drop.
+ * The [signal@TabBar::extra-drag-drop] signal can be used to handle the drop.
  *
  * Since: 1.0
  */

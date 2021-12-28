@@ -22,14 +22,14 @@
  * animation hasn't been started yet, is playing, paused or finished.
  *
  * Currently there are two concrete animation types:
- * [class@Adw.TimedAnimation] and [class@Adw.SpringAnimation].
+ * [class@TimedAnimation] and [class@SpringAnimation].
  *
  * `AdwAnimation` will automatically skip the animation if
- * [property@Adw.Animation:widget] is unmapped, or if
+ * [property@Animation:widget] is unmapped, or if
  * [property@Gtk.Settings:gtk-enable-animations] is `FALSE`.
  *
- * The [signal@Adw.Animation::done] signal can be used to perform an action
- * after the animation ends, for example hiding a widget after animating its
+ * The [signal@Animation::done] signal can be used to perform an action after
+ * the animation ends, for example hiding a widget after animating its
  * [property@Gtk.Widget:opacity] to 0.
  *
  * `AdwAnimation` will be kept alive while the animation is playing. As such,
@@ -71,11 +71,11 @@
  * @ADW_ANIMATION_PLAYING: The animation is currently playing.
  * @ADW_ANIMATION_FINISHED: The animation has finished.
  *
- * Describes the possible states of an [class@Adw.Animation].
+ * Describes the possible states of an [class@Animation].
  *
- * The state can be controlled with [method@Adw.Animation.play],
- * [method@Adw.Animation.pause], [method@Adw.Animation.resume],
- * [method@Adw.Animation.reset] and [method@Adw.Animation.skip].
+ * The state can be controlled with [method@Animation.play],
+ * [method@Animation.pause], [method@Animation.resume],
+ * [method@Animation.reset] and [method@Animation.skip].
  *
  * Since: 1.0
  */
@@ -416,7 +416,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
    * AdwAnimation::done:
    *
    * This signal is emitted when the animation has been completed, either on its
-   * own or via calling [method@Adw.Animation.skip].
+   * own or via calling [method@Animation.skip].
    *
    * Since: 1.0
    */
@@ -539,11 +539,10 @@ adw_animation_get_state (AdwAnimation *self)
  * the beginning. This allows to easily play an animation regardless of whether
  * it's already playing or not.
  *
- * Sets [property@Adw.Animation:state] to `ADW_ANIMATION_PLAYING`.
+ * Sets [property@Animation:state] to `ADW_ANIMATION_PLAYING`.
  *
- * The animation will be automatically skipped if
- * [property@Adw.Animation:widget] is unmapped, or if
- * [property@Gtk.Settings:gtk-enable-animations] is `FALSE`.
+ * The animation will be automatically skipped if [property@Animation:widget] is
+ * unmapped, or if [property@Gtk.Settings:gtk-enable-animations] is `FALSE`.
  *
  * As such, it's not guaranteed that the animation will actually run. For
  * example, when using [func@GLib.idle_add] and starting an animation
@@ -578,7 +577,7 @@ adw_animation_play (AdwAnimation *self)
  *
  * Does nothing if the current state of @self isn't `ADW_ANIMATION_PLAYING`.
  *
- * Sets [property@Adw.Animation:state] to `ADW_ANIMATION_PAUSED`.
+ * Sets [property@Animation:state] to `ADW_ANIMATION_PAUSED`.
  *
  * Since: 1.0
  */
@@ -615,9 +614,9 @@ adw_animation_pause (AdwAnimation *self)
  * Resumes a paused animation for @self.
  *
  * This function must only be used if the animation has been paused with
- * [method@Adw.Animation.pause].
+ * [method@Animation.pause].
  *
- * Sets [property@Adw.Animation:state] to `ADW_ANIMATION_PLAYING`.
+ * Sets [property@Animation:state] to `ADW_ANIMATION_PLAYING`.
  *
  * Since: 1.0
  */
@@ -646,10 +645,10 @@ adw_animation_resume (AdwAnimation *self)
  * Skips the animation for @self.
  *
  * If the animation hasn't been started yet, is playing, or is paused, instantly
- * skips the animation to the end and causes [signal@Adw.Animation::done] to be
+ * skips the animation to the end and causes [signal@Animation::done] to be
  * emitted.
  *
- * Sets [property@Adw.Animation:state] to `ADW_ANIMATION_FINISHED`.
+ * Sets [property@Animation:state] to `ADW_ANIMATION_FINISHED`.
  *
  * Since: 1.0
  */
@@ -694,7 +693,7 @@ adw_animation_skip (AdwAnimation *self)
  *
  * Resets the animation for @self.
  *
- * Sets [property@Adw.Animation:state] to `ADW_ANIMATION_IDLE`.
+ * Sets [property@Animation:state] to `ADW_ANIMATION_IDLE`.
  *
  * Since: 1.0
  */

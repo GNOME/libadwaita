@@ -60,7 +60,7 @@
 /**
  * AdwLeafletPage:
  *
- * An auxiliary class used by [class@Adw.Leaflet].
+ * An auxiliary class used by [class@Leaflet].
  */
 
 /**
@@ -69,7 +69,7 @@
  * @ADW_LEAFLET_TRANSITION_TYPE_UNDER: Uncover the new page or cover the old page, sliding from or towards the start according to orientation, text direction and children order
  * @ADW_LEAFLET_TRANSITION_TYPE_SLIDE: Slide from left, right, up or down according to the orientation, text direction and the children order
  *
- * Describes the possible transitions in a [class@Adw.Leaflet] widget.
+ * Describes the possible transitions in a [class@Leaflet] widget.
  *
  * New values may be added to this enumeration over time.
  *
@@ -308,8 +308,8 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
    * Whether the child can be navigated to when folded.
    *
    * If `FALSE`, the child will be ignored by
-   * [method@Adw.Leaflet.get_adjacent_child], [method@Adw.Leaflet.navigate], and
-   * swipe gestures.
+   * [method@Leaflet.get_adjacent_child], [method@Leaflet.navigate], and swipe
+   * gestures.
    *
    * This can be used used to prevent switching to widgets like separators.
    *
@@ -2206,9 +2206,9 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    *
    * The widget currently visible when the leaflet is folded.
    *
-   * The transition is determined by [property@Adw.Leaflet:transition-type] and
-   * [Adw.Leaflet:child-transition-duration]. The transition can be cancelled by
-   * the user, in which case visible child will change back to the previously
+   * The transition is determined by [property@Leaflet:transition-type] and
+   * [Leaflet:child-transition-duration]. The transition can be cancelled by the
+   * user, in which case visible child will change back to the previously
    * visible child.
    *
    * Since: 1.0
@@ -2225,7 +2225,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    *
    * The name of the widget currently visible when the leaflet is folded.
    *
-   * See [property@Adw.Leaflet:visible-child].
+   * See [property@Leaflet:visible-child].
    *
    * Since: 1.0
    */
@@ -2319,8 +2319,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * If the orientation is horizontal, for right-to-left locales, gestures and
    * shortcuts are reversed.
    *
-   * Only children that have [property@Adw.LeafletPage:navigatable] set to
-   * `TRUE` can be navigated to.
+   * Only children that have [property@LeafletPage:navigatable] set to `TRUE`
+   * can be navigated to.
    *
    * Since: 1.0
    */
@@ -2348,8 +2348,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * If the orientation is horizontal, for right-to-left locales, gestures and
    * shortcuts are reversed.
    *
-   * Only children that have [property@Adw.LeafletPage:navigatable] set to
-   * `TRUE` can be navigated to.
+   * Only children that have [property@LeafletPage:navigatable] set to `TRUE`
+   * can be navigated to.
    *
    * Since: 1.0
    */
@@ -2811,7 +2811,7 @@ adw_leaflet_new (void)
  *
  * Adds a child to @self.
  *
- * Returns: (transfer none): the [class@Adw.LeafletPage] for @child
+ * Returns: (transfer none): the [class@LeafletPage] for @child
  *
  * Since: 1.0
  */
@@ -2840,7 +2840,7 @@ adw_leaflet_append (AdwLeaflet *self,
  *
  * Inserts @child at the first position in @self.
  *
- * Returns: (transfer none): the [class@Adw.LeafletPage] for @child
+ * Returns: (transfer none): the [class@LeafletPage] for @child
  *
  * Since: 1.0
  */
@@ -2865,7 +2865,7 @@ adw_leaflet_prepend (AdwLeaflet *self,
  *
  * If @sibling is `NULL`, inserts @child at the first position.
  *
- * Returns: (transfer none): the [class@Adw.LeafletPage] for @child
+ * Returns: (transfer none): the [class@LeafletPage] for @child
  *
  * Since: 1.0
  */
@@ -3002,7 +3002,7 @@ adw_leaflet_remove (AdwLeaflet *self,
  * @self: a `AdwLeaflet`
  * @child: a child of @self
  *
- * Returns the [class@Adw.LeafletPage] object for @child.
+ * Returns the [class@LeafletPage] object for @child.
  *
  * Returns: (transfer none): the page object for @child
  *
@@ -3436,12 +3436,12 @@ adw_leaflet_get_can_navigate_forward (AdwLeaflet *self)
  *
  * Finds the previous or next navigatable child.
  *
- * This will be the same child [method@Adw.Leaflet.navigate] or swipe gestures
- * will navigate to.
+ * This will be the same child [method@Leaflet.navigate] or swipe gestures will
+ * navigate to.
  *
  * If there's no child to navigate to, `NULL` will be returned instead.
  *
- * See [property@Adw.LeafletPage:navigatable].
+ * See [property@LeafletPage:navigatable].
  *
  * Returns: (nullable) (transfer none): the previous or next child
  *
@@ -3467,11 +3467,11 @@ adw_leaflet_get_adjacent_child (AdwLeaflet             *self,
  *
  * Navigates to the previous or next child.
  *
- * The child must have the [property@Adw.LeafletPage:navigatable] property set
- * to `TRUE`, otherwise it will be skipped.
+ * The child must have the [property@LeafletPage:navigatable] property set to
+ * `TRUE`, otherwise it will be skipped.
  *
  * This will be the same child as returned by
- * [method@Adw.Leaflet.get_adjacent_child] or navigated to via swipe gestures.
+ * [method@Leaflet.get_adjacent_child] or navigated to via swipe gestures.
  *
  * Returns: whether the visible child was changed
  *
@@ -3504,7 +3504,7 @@ adw_leaflet_navigate (AdwLeaflet             *self,
  *
  * Returns `NULL` if there is no child with this name.
  *
- * See [property@Adw.LeafletPage:name].
+ * See [property@LeafletPage:name].
  *
  * Returns: (transfer none) (nullable): the requested child of @self
  *

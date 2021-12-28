@@ -15,7 +15,7 @@
  *
  * The `AdwSwipeable` interface is implemented by all swipeable widgets.
  *
- * See [class@Adw.SwipeTracker] for details about implementing it.
+ * See [class@SwipeTracker] for details about implementing it.
  *
  * Since: 1.0
  */

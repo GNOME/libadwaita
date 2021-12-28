@@ -19,7 +19,7 @@
 /**
  * AdwColorScheme:
  * @ADW_COLOR_SCHEME_DEFAULT: Inherit the parent color-scheme. When set on the
- *   `AdwStyleManager` returned by [func@Adw.StyleManager.get_default], it's
+ *   `AdwStyleManager` returned by [func@StyleManager.get_default], it's
  *   equivalent to `ADW_COLOR_SCHEME_PREFER_LIGHT`.
  * @ADW_COLOR_SCHEME_FORCE_LIGHT: Always use light appearance.
  * @ADW_COLOR_SCHEME_PREFER_LIGHT: Use light appearance unless the system
@@ -28,7 +28,7 @@
  *   prefers light colors.
  * @ADW_COLOR_SCHEME_FORCE_DARK: Always use dark appearance.
  *
- * Application color schemes for [property@Adw.StyleManager:color-scheme].
+ * Application color schemes for [property@StyleManager:color-scheme].
  *
  * Since: 1.0
  */
@@ -42,7 +42,7 @@
  * styles, such as whether to use dark or high contrast appearance.
  *
  * It allows to set the color scheme via the
- * [property@Adw.StyleManager:color-scheme] property, and to query the current
+ * [property@StyleManager:color-scheme] property, and to query the current
  * appearance, as well as whether a system-wide color scheme preference exists.
  *
  * Since: 1.0
@@ -387,7 +387,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * The display the style manager is associated with.
    *
    * The display will be `NULL` for the style manager returned by
-   * [func@Adw.StyleManager.get_default].
+   * [func@StyleManager.get_default].
    *
    * Since: 1.0
    */
@@ -405,8 +405,8 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    *
    * The effective appearance will be decided based on the application color
    * scheme and the system preferred color scheme. The
-   * [property@Adw.StyleManager:dark] property can be used to query the
-   * current effective appearance.
+   * [property@StyleManager:dark] property can be used to query the current
+   * effective appearance.
    *
    * The `ADW_COLOR_SCHEME_PREFER_LIGHT` color scheme results in the application
    * using light appearance unless the system prefers dark colors. This is the
@@ -429,8 +429,8 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * For the default style manager, `ADW_COLOR_SCHEME_DEFAULT` is equivalent to
    * `ADW_COLOR_SCHEME_PREFER_LIGHT`.
    *
-   * The [property@Adw.StyleManager:system-supports-color-schemes] property can
-   * be used to check if the current environment provides a color scheme
+   * The [property@StyleManager:system-supports-color-schemes] property can be
+   * used to check if the current environment provides a color scheme
    * preference.
    *
    * Since: 1.0
@@ -452,7 +452,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * color scheme preference. For example, applications might want to show a
    * separate appearance switcher if it's set to `FALSE`.
    *
-   * See [property@Adw.StyleManager:color-scheme].
+   * See [property@StyleManager:color-scheme].
    *
    * Since: 1.0
    */
@@ -469,7 +469,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * Whether the application is using dark appearance.
    *
    * This property can be used to query the current appearance, as requested via
-   * [property@Adw.StyleManager:color-scheme].
+   * [property@StyleManager:color-scheme].
    *
    * Since: 1.0
    */
@@ -540,7 +540,7 @@ adw_style_manager_ensure (void)
  * It manages all [class@Gdk.Display] instances unless the style manager for
  * that display has an override.
  *
- * See [func@Adw.StyleManager.get_for_display].
+ * See [func@StyleManager.get_for_display].
  *
  * Returns: (transfer none): the default style manager
  *
@@ -564,7 +564,7 @@ adw_style_manager_get_default (void)
  * It can be used to override styles for that specific display instead of the
  * whole application.
  *
- * Most applications should use [func@Adw.StyleManager.get_default] instead.
+ * Most applications should use [func@StyleManager.get_default] instead.
  *
  * Returns: (transfer none): the style manager for @display
  *
@@ -590,7 +590,7 @@ adw_style_manager_get_for_display (GdkDisplay *display)
  * Gets the display the style manager is associated with.
  *
  * The display will be `NULL` for the style manager returned by
- * [func@Adw.StyleManager.get_default].
+ * [func@StyleManager.get_default].
  *
  * Returns: (transfer none): (nullable): the display
  *
@@ -631,8 +631,8 @@ adw_style_manager_get_color_scheme (AdwStyleManager *self)
  *
  * The effective appearance will be decided based on the application color
  * scheme and the system preferred color scheme. The
- * [property@Adw.StyleManager:dark] property can be used to query the
- * current effective appearance.
+ * [property@StyleManager:dark] property can be used to query the current
+ * effective appearance.
  *
  * Since: 1.0
  */

@@ -41,12 +41,12 @@
  * `AdwHeaderBar` is similar to [class@Gtk.HeaderBar], but provides additional
  * features compared to it. Refer to `GtkHeaderBar` for details.
  *
- * [property@Adw.HeaderBar:centering-policy] allows to enforce strict centering
- * of the title widget, this is useful for [class@Adw.ViewSwitcherTitle].
+ * [property.HeaderBar:centering-policy] allows to enforce strict centering of
+ * the title widget, this is useful for [class@ViewSwitcherTitle].
  *
- * [property@Adw.HeaderBar:show-start-title-buttons] and
- * [property@Adw.HeaderBar:show-end-title-buttons] allow to easily create split
- * header bar layouts using [class@Adw.Leaflet], as follows:
+ * [property@HeaderBar:show-start-title-buttons] and
+ * [property@HeaderBar:show-end-title-buttons] allow to easily create split
+ * header bar layouts using [class@Leaflet], as follows:
  *
  * ```xml
  * <object class="AdwLeaflet" id="leaflet">
@@ -124,7 +124,7 @@
  * @ADW_CENTERING_POLICY_LOOSE: Keep the title centered when possible
  * @ADW_CENTERING_POLICY_STRICT: Keep the title centered at all cost
  *
- * Describes title centering behavior of a [class@Adw.HeaderBar] widget.
+ * Describes title centering behavior of a [class@HeaderBar] widget.
  *
  * Since: 1.0
  */
@@ -391,7 +391,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * When set to `NULL`, the header bar will display the title of the window it
    * is contained in.
    *
-   * To use a different title, use [class@Adw.WindowTitle]:
+   * To use a different title, use [class@WindowTitle]:
    *
    * ```xml
    * <object class="AdwHeaderBar">
@@ -417,11 +417,11 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    *
    * Whether to show title buttons at the start of the header bar.
    *
-   * See [property@Adw.HeaderBar:show-end-title-buttons] for the other side.
+   * See [property@HeaderBar:show-end-title-buttons] for the other side.
    *
    * Which buttons are actually shown and where is determined by the
-   * [property@Adw.HeaderBar:decoration-layout] property, and by the state of
-   * the window (e.g. a close button will not be shown if the window can't be
+   * [property@HeaderBar:decoration-layout] property, and by the state of the
+   * window (e.g. a close button will not be shown if the window can't be
    * closed).
    *
    * Since: 1.0
@@ -438,11 +438,11 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    *
    * Whether to show title buttons at the end of the header bar.
    *
-   * See [property@Adw.HeaderBar:show-start-title-buttons] for the other side.
+   * See [property@HeaderBar:show-start-title-buttons] for the other side.
    *
    * Which buttons are actually shown and where is determined by the
-   * [property@Adw.HeaderBar:decoration-layout] property, and by the state of
-   * the window (e.g. a close button will not be shown if the window can't be
+   * [property@HeaderBar:decoration-layout] property, and by the state of the
+   * window (e.g. a close button will not be shown if the window can't be
    * closed).
    *
    * Since: 1.0
@@ -679,8 +679,8 @@ adw_header_bar_get_title_widget (AdwHeaderBar *self)
  *
  * Removes a child from @self.
  *
- * The child must have been added with [method@Adw.HeaderBar.pack_start],
- * [method@Adw.HeaderBar.pack_end] or [property@Adw.HeaderBar:title-widget].
+ * The child must have been added with [method@HeaderBar.pack_start],
+ * [method@HeaderBar.pack_end] or [property@HeaderBar:title-widget].
  *
  * Since: 1.0
  */

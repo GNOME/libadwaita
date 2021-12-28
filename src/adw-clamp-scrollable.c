@@ -14,9 +14,9 @@
 /**
  * AdwClampScrollable:
  *
- * A scrollable [class@Adw.Clamp].
+ * A scrollable [class@Clamp].
  *
- * `AdwClampScrollable` is a variant of [class@Adw.Clamp] that implements the
+ * `AdwClampScrollable` is a variant of [class@Clamp] that implements the
  * [iface@Gtk.Scrollable] interface.
  *
  * The primary use case for `AdwClampScrollable` is clamping

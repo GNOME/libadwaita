@@ -32,15 +32,15 @@
  * `AdwAvatar` is a widget that shows a round avatar.
  *
  * `AdwAvatar` generates an avatar with the initials of  the
- * [property@Adw.Avatar:text] on top of a colored background.
+ * [property@Avatar:text] on top of a colored background.
  *
- * The color is picked based on the hash of the [property@Adw.Avatar:text].
+ * The color is picked based on the hash of the [property@Avatar:text].
  *
- * If [property@Adw.Avatar:show-initials] is set to `FALSE`,
- * [property@Adw.Avatar:icon-name] or `avatar-default-symbolic` is shown instead
- * of the initials.
+ * If [property@Avatar:show-initials] is set to `FALSE`,
+ * [property@Avatar:icon-name] or `avatar-default-symbolic` is shown instead of
+ * the initials.
  *
- * Use [property@Adw.Avatar:custom-image] to set a custom image.
+ * Use [property@Avatar:custom-image] to set a custom image.
  *
  * ## CSS nodes
  *
@@ -331,8 +331,8 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    *
    * Sets the text used to generate the fallback initials and color.
    *
-   * It's only used to generate the color if [property@Adw.Avatar:show-initials]
-   * is `FALSE`.
+   * It's only used to generate the color if [property@Avatar:show-initials] is
+   * `FALSE`.
    *
    * Since: 1.0
    */
@@ -348,7 +348,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    *
    * Whether initials are used instead of an icon on the fallback avatar.
    *
-   * See [property@Adw.Avatar:icon-name] for how to change the fallback icon.
+   * See [property@Avatar:icon-name] for how to change the fallback icon.
    *
    * Since: 1.0
    */

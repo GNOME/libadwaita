@@ -23,7 +23,7 @@ G_BEGIN_DECLS
 /**
  * ADW_DURATION_INFINITE:
  *
- * Indicates an [class@Adw.Animation] with an infinite duration.
+ * Indicates an [class@Animation] with an infinite duration.
  *
  * This value is mostly used internally.
  */

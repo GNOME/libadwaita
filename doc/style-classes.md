@@ -24,7 +24,7 @@ action dialog.
 
 It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
-Can also be used with [class@Gtk.MenuButton] or [class@Adw.SplitButton].
+Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 
 ### Destructive Action
 
@@ -39,7 +39,7 @@ using a button. This style acts as a warning to the user.
 
 It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
-Can also be used with [class@Gtk.MenuButton] or [class@Adw.SplitButton].
+Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 
 ### Flat
 
@@ -55,7 +55,7 @@ Button inside [toolbars and similar widgets](#toolbars) appear flat by default.
 
 It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
-Can also be used with [class@Gtk.MenuButton] or [class@Adw.SplitButton].
+Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 
 Can be set via [property@Gtk.Button:has-frame] and
 [property@Gtk.MenuButton:has-frame].
@@ -74,7 +74,7 @@ This style class is only useful inside [toolbars and similar widgets](#toolbars)
 
 It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
-Can also be used with [class@Gtk.MenuButton] or [class@Adw.SplitButton].
+Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 
 ### Opaque
 
@@ -107,7 +107,7 @@ class with the following CSS:
 
 It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
-Can also be used with [class@Gtk.MenuButton] or [class@Adw.SplitButton].
+Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 
 ### Circular
 
@@ -133,7 +133,7 @@ Can also be used with [class@Gtk.MenuButton].
 </picture>
 
 The `.pill` style class makes the button appear as a pill. It's often used for
-important standalone buttons, for example, inside a [class@Adw.StatusPage].
+important standalone buttons, for example, inside a [class@StatusPage].
 
 It can be used in combination with [`.suggested-action`](#suggested-action),
 [`.destructive-action`](#destructive-action), [`.flat`](#flat),
@@ -198,9 +198,9 @@ The following buttons get flat appearance:
 </picture>
 
 * Icon-only buttons;
-* Buttons with an icon and a label (using [class@Adw.ButtonContent]);
+* Buttons with an icon and a label (using [class@ButtonContent]);
 * Menu buttons containing an arrow;
-* [class@Adw.SplitButton];
+* [class@SplitButton];
 * Any other button with the [`.flat`](#flat) style class.
 
 The following buttons keep default appearance:
@@ -377,8 +377,8 @@ The `.navigation-sidebar` style class can be applied to a [class@Gtk.ListBox]
 or [class@Gtk.ListView] to make it look like a sidebar: it makes the
 items rounded and padded and removes the default list background.
 
-When using it on a flap child in an [class@Adw.Flap], the lack of background can
-be problematic. In that case, it can be used together with the
+When using it on a flap child in an [class@Flap], the lack of background can be
+problematic. In that case, it can be used together with the
 [`.background`](#background) style class.
 
 ## App Icons
@@ -469,7 +469,7 @@ The `.background` style class can be used with any widget to give it the default
 [window](named-colors.html#window-colors) background and foreground colors.
 
 This can be useful when a widget needs an opaque background - for example, a
-flap child inside an [class@Adw.Flap].
+flap child inside an [class@Flap].
 
 It's equivalent to using the following CSS:
 
@@ -534,8 +534,8 @@ flat appearance.
   <img src="status-page-compact.png" alt="status-page-compact">
 </picture>
 
-The `.compact` style class can be used with a [class@Adw.StatusPage] to make it
-take less space. This is usually used with sidebars or popovers.
+The `.compact` style class can be used with a [class@StatusPage] to make it take
+less space. This is usually used with sidebars or popovers.
 
 ## Menu Popovers
 
@@ -572,7 +572,7 @@ This style class is typically used to indicate unstable or nightly applications.
   <img src="tab-bar-inline.png" alt="tab-bar-inline">
 </picture>
 
-By default [class@Gtk.SearchBar] and [class@Adw.TabBar] look like a part of a
+By default [class@Gtk.SearchBar] and [class@TabBar] look like a part of a
 [class@Gtk.HeaderBar] and are intended to be used directly attached to one. With
 the `.inline` style class they have neutral backgrounds and can be used in
 different contexts instead.
@@ -619,4 +619,4 @@ It adds [`.osd`](#osd) appearance to the widget and makes its bottom corners
 round. When used together with a [class@Gtk.Overlay] and a [class@Gtk.Revealer],
 it allows creating in-app notifications.
 
-[class@Adw.ToastOverlay] can be used to replace it.
+[class@ToastOverlay] can be used to replace it.

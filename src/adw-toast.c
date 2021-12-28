@@ -17,7 +17,7 @@
  * @ADW_TOAST_PRIORITY_HIGH: the toast will be displayed immediately, pushing
  *   the previous toast into the queue instead.
  *
- * [class@Adw.Toast] behavior when another toast is already displayed.
+ * [class@Toast] behavior when another toast is already displayed.
  *
  * Since: 1.0
  */
@@ -25,9 +25,9 @@
 /**
  * AdwToast:
  *
- * A helper object for [class@Adw.ToastOverlay].
+ * A helper object for [class@ToastOverlay].
  *
- * Toasts are meant to be passed into [method@Adw.ToastOverlay.add_toast] as
+ * Toasts are meant to be passed into [method@ToastOverlay.add_toast] as
  * follows:
  *
  * ```c
@@ -39,12 +39,12 @@
  *   <img src="toast-simple.png" alt="toast-simple">
  * </picture>
  *
- * Toasts always have a close button. They emit the
- * [signal@Adw.Toast::dismissed] signal when disappearing.
+ * Toasts always have a close button. They emit the [signal@Toast::dismissed]
+ * signal when disappearing.
  *
- * [property@Adw.Toast:timeout] determines how long the toast stays on screen,
- * while  [property@Adw.Toast:priority] determines how it behaves if another
- * toast is already being displayed.
+ * [property@Toast:timeout] determines how long the toast stays on screen, while
+ * [property@Toast:priority] determines how it behaves if another toast is
+ * already being displayed.
  *
  * ## Actions
  *
@@ -295,7 +295,7 @@ adw_toast_class_init (AdwToastClass *klass)
    *
    * If set to `NULL`, the button won't be shown.
    *
-   * See [property@Adw.Toast:action-name].
+   * See [property@Toast:action-name].
    *
    * Since: 1.0
    */
@@ -313,7 +313,7 @@ adw_toast_class_init (AdwToastClass *klass)
    *
    * It will be activated when clicking the button.
    *
-   * See [property@Adw.Toast:action-target].
+   * See [property@Toast:action-target].
    *
    * Since: 1.0
    */
@@ -329,7 +329,7 @@ adw_toast_class_init (AdwToastClass *klass)
    *
    * The parameter for action invocations.
    *
-   * See [property@Adw.Toast:action-name].
+   * See [property@Toast:action-name].
    *
    * Since: 1.0
    */
@@ -621,11 +621,11 @@ adw_toast_set_action_target_value (AdwToast *self,
  *
  * This is a convenience function that calls [ctor@GLib.Variant.new] for
  * @format_string and uses the result to call
- * [method@Adw.Toast.set_action_target_value].
+ * [method@Toast.set_action_target_value].
  *
  * If you are setting a string-valued target and want to set
  * the action name at the same time, you can use
- * [method@Adw.Toast.set_detailed_action_name].
+ * [method@Toast.set_detailed_action_name].
 
  * Since: 1.0
  */

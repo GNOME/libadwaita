@@ -22,17 +22,17 @@
  * </picture>
  *
  * An action bar letting you switch between multiple views contained in a
- * [class@Adw.ViewStack], via an [class@Adw.ViewSwitcher]. It is designed to be put
- * at the bottom of a window and to be revealed only on really narrow windows,
- * e.g. on mobile phones. It can't be revealed if there are less than two pages.
+ * [class@ViewStack], via an [class@ViewSwitcher]. It is designed to be put at
+ * the bottom of a window and to be revealed only on really narrow windows, e.g.
+ * on mobile phones. It can't be revealed if there are less than two pages.
  *
- * `Adw.ViewSwitcherBar` is intended to be used together with
- * [class@Adw.ViewSwitcherTitle].
+ * `AdwViewSwitcherBar` is intended to be used together with
+ * [class@ViewSwitcherTitle].
  *
- * A common use case is to bind the [property@Adw.ViewSwitcherBar:reveal]
- * property to [property@Adw.ViewSwitcherTitle:title-visible] to automatically
- * reveal the view switcher bar when the title label is displayed in place of
- * the view switcher, as follows:
+ * A common use case is to bind the [property@ViewSwitcherBar:reveal] property
+ * to [property@ViewSwitcherTitle:title-visible] to automatically reveal the
+ * view switcher bar when the title label is displayed in place of the view
+ * switcher, as follows:
  *
  * ```xml
  * <object class="GtkWindow">

@@ -459,7 +459,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * Factory for populating list items.
    *
    * This factory is always used for the item in the row. It is also used for
-   * items in the popup unless [property@Adw.ComboRow:list-factory] is set.
+   * items in the popup unless [property@ComboRow:list-factory] is set.
    *
    * Since: 1.0
    */
@@ -475,7 +475,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    *
    * The factory for populating list items in the popup.
    *
-   * If this is not set, [property@Adw.ComboRow:factory] is used.
+   * If this is not set, [property@ComboRow:factory] is used.
    *
    * Since: 1.0
    */
@@ -493,8 +493,8 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    *
    * It's used to bind strings to labels produced by the default factory.
    *
-   * If [property@Adw.ComboRow:factory] is not set, the expression is also
-   * used to bind strings to labels produced by a default factory.
+   * If [property@ComboRow:factory] is not set, the expression is also used to
+   * bind strings to labels produced by a default factory.
    *
    * Since: 1.0
    */
@@ -510,9 +510,9 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * Whether to use the current value as the subtitle.
    *
    * If you use a custom list item factory, you will need to give the row a
-   * name conversion expression with [property@Adw.ComboRow:expression].
+   * name conversion expression with [property@ComboRow:expression].
    *
-   * If `TRUE`, you should not access [property@Adw.ActionRow:subtitle].
+   * If `TRUE`, you should not access [property@ActionRow:subtitle].
    *
    * Since: 1.0
    */

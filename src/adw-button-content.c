@@ -25,8 +25,8 @@
  * `AdwButtonContent` is a box-like widget with an icon and a label.
  *
  * It's intended to be used as a direct child of [class@Gtk.Button],
- * [class@Gtk.MenuButton] or [class@Adw.SplitButton], when they need to have
- * both an icon and a label, as follows:
+ * [class@Gtk.MenuButton] or [class@SplitButton], when they need to have both an
+ * icon and a label, as follows:
  *
  * ```xml
  * <object class="GtkButton">
@@ -248,7 +248,7 @@ adw_button_content_class_init (AdwButtonContentClass *klass)
    *
    * The mnemonic can be used to activate the parent button.
    *
-   * See [property@Adw.ButtonContent:label].
+   * See [property@ButtonContent:label].
    *
    * Since: 1.0
    */

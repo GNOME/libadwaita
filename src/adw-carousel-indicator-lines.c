@@ -24,7 +24,7 @@
 /**
  * AdwCarouselIndicatorLines:
  *
- * A lines indicator for [class@Adw.Carousel].
+ * A lines indicator for [class@Carousel].
  *
  * <picture>
  *   <source srcset="carousel-indicator-dots-lines.png" media="(prefers-color-scheme: dark)">
@@ -32,10 +32,10 @@
  * </picture>
  *
  * The `AdwCarouselIndicatorLines` widget shows a set of lines for each page of
- * a given [class@Adw.Carousel]. The carousel's active page is shown as another
- * line that moves between them to match the carousel's position.
+ * a given [class@Carousel]. The carousel's active page is shown as another line
+ * that moves between them to match the carousel's position.
  *
- * See also [class@Adw.CarouselIndicatorDots].
+ * See also [class@CarouselIndicatorDots].
  *
  * ## CSS nodes
  *

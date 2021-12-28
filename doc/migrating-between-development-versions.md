@@ -14,13 +14,12 @@ If you want to migrate from Libhandy 1.4 to the latest Libadwaita release,
 
 ### Adapt to view switcher API Changes
 
-[class@Adw.ViewSwitcher], [class@Adw.ViewSwitcherBar] and
-[class@Adw.ViewSwitcherTitle] now use [class@Adw.ViewStack] instead of
-[class@Gtk.Stack].
+[class@ViewSwitcher], [class@ViewSwitcherBar] and [class@ViewSwitcherTitle] now
+use [class@ViewStack] instead of [class@Gtk.Stack].
 
 You should stop using [property@Gtk.Stack:transition-type] and
 [property@Gtk.Stack:transition-duration] properties before switching to
-[class@Adw.ViewStack].
+[class@ViewStack].
 
 ### Adapt to Stylesheet Changes
 
@@ -42,64 +41,64 @@ objects to store those values .
 
 ### Adapt to `AdwEnumValueObject` API Changes
 
-`AdwEnumValueObject` has been renamed to [class@Adw.EnumListItem].
+`AdwEnumValueObject` has been renamed to [class@EnumListItem].
 
 ### Adapt to Window API Changes
 
-The `child` property in [class@Adw.Window] and [class@Adw.ApplicationWindow] has
+The `child` property in [class@Window] and [class@ApplicationWindow] has
 been renamed to `content`.
 
-### Adapt to [class@Adw.Leaflet] API Changes
+### Adapt to [class@Leaflet] API Changes
 
-The `hhomogeneous-folded`, `vhomogeneous-folded`, `hhomogeneous-unfolded`,
-and `vhomogeneous-unfolded` properties have been replaced by a single
-[property@Adw.Leaflet:homogeneous] property, set to `TRUE` by default,
-applied when the leaflet is folded for the opposite orientation.
+The `hhomogeneous-folded`, `vhomogeneous-folded`, `hhomogeneous-unfolded`, and
+`vhomogeneous-unfolded` properties have been replaced by a single
+[property@Leaflet:homogeneous] property, set to `TRUE` by default, applied when
+the leaflet is folded for the opposite orientation.
 
-When unfolded, children are never homogeneous. Use [class@Gtk.SizeGroup]
-to make them homogeneous if needed.
+When unfolded, children are never homogeneous. Use [class@Gtk.SizeGroup] to make
+them homogeneous if needed.
 
 The `interpolate-size` property has been removed with no replacement, it's
-always enabled when [property@Adw.Leaflet:homogeneous] is set to `FALSE`.
+always enabled when [property@Leaflet:homogeneous] is set to `FALSE`.
 
 ### Adapt to View Switcher API Changes
 
-The `auto` view switcher policy has been removed. [class@Adw.ViewSwitcher] only
-has narrow and wide policies; if you had used the `auto` policy, use an
-[class@Adw.Squeezer] with two view switchers inside.
+The `auto` view switcher policy has been removed. [class@ViewSwitcher] only has
+narrow and wide policies; if you had used the `auto` policy, use an
+[class@Squeezer] with two view switchers inside.
 
-#### Adapt to [class@Adw.ViewSwitcher] API Changes
+#### Adapt to [class@ViewSwitcher] API Changes
 
 The "narrow-ellipsize" property has been removed. Narrow view switchers always
 ellipsize their labels, wide switchers never do.
 
-#### Adapt to [class@Adw.ViewSwitcherBar] API Changes
+#### Adapt to [class@ViewSwitcherBar] API Changes
 
 The "policy" property has been removed. If you had used it, use a plain
-[class@Adw.ViewSwitcher] in a [class@Gtk.ActionBar] instead.
+[class@ViewSwitcher] in a [class@Gtk.ActionBar] instead.
 
-#### Adapt to [class@Adw.ViewSwitcherTitle] API Changes
+#### Adapt to [class@ViewSwitcherTitle] API Changes
 
 The "policy" property has been removed, the behavior is similar to the removed
 `auto` policy. If you had used `wide` or `narrow` policies, use an
-[class@Adw.Squeezer] with an [class@Adw.ViewSwitcher] and an
-[class@Adw.WindowTitle] inside, with the switcher having the desired policy.
+[class@Squeezer] with an [class@ViewSwitcher] and an [class@WindowTitle] inside,
+with the switcher having the desired policy.
 
-### Adapt to [class@Adw.Avatar] API Changes
+### Adapt to [class@Avatar] API Changes
 
 The `adw_avatar_draw_to_pixbuf()` function have been removed, use the newly
-added [method@Adw.Avatar.draw_to_texture] instead. [class@Gdk.Texture]
-implements [iface@Gio.Icon], so it should just work for that case.
+added [method@Avatar.draw_to_texture] instead. [class@Gdk.Texture] implements
+[iface@Gio.Icon], so it should just work for that case.
 
-[method@Adw.Avatar.draw_to_texture] does not have the `size` parameter. Instead,
-it uses the avatar's current size, with no replacement.
+[method@Avatar.draw_to_texture] does not have the `size` parameter. Instead, it
+uses the avatar's current size, with no replacement.
 
-### Use [class@Adw.StyleManager] Instead of [property@Gtk.Settings:gtk-application-prefer-dark-theme]
+### Use [class@StyleManager] Instead of [property@Gtk.Settings:gtk-application-prefer-dark-theme]
 
 Using [property@Gtk.Settings:gtk-application-prefer-dark-theme] to control dark
-appearance is not supported anymore, set [property@Adw.StyleManager:color-scheme]
-to `ADW_COLOR_SCHEME_PREFER_DARK` and make sure the application can work with
-light appearance as well. If that's not possible, set it to or
+appearance is not supported anymore, set [property@StyleManager:color-scheme] to
+`ADW_COLOR_SCHEME_PREFER_DARK` and make sure the application can work with light
+appearance as well. If that's not possible, set it to or
 `ADW_COLOR_SCHEME_FORCE_DARK` instead.
 
 If your application is using light appearance, make sure it works wit dark
@@ -118,9 +117,9 @@ The following rules are used when deciding when to make buttons flat or not:
 The following buttons get flat appearance:
 
 * Icon-only buttons;
-* Buttons with an icon and a label (using [class@Adw.ButtonContent]);
+* Buttons with an icon and a label (using [class@ButtonContent]);
 * Menu buttons containing an arrow;
-* [class@Adw.SplitButton];
+* [class@SplitButton];
 * Any other button with the [`.flat`](style-classes.html#flat) style class.
 
 The following buttons keep default appearance:
@@ -152,8 +151,8 @@ If you had menu buttons containing an icon and a dropdown arrow, switch to
 
 #### Adjusting Text-only Buttons
 
-If you had text-only buttons, consider using [class@Adw.ButtonContent]. For
-example, the following button:
+If you had text-only buttons, consider using [class@ButtonContent]. For example,
+the following button:
 
 ```xml
 <object class="GtkButton">
@@ -183,7 +182,7 @@ One exception are the two primary buttons in a dialog, for example, "Cancel" and
 
 If you had split buttons implemented via a `GtkBox` with the
 [`.linked`](style-classes.html#linked-controls) style class and two buttons
-packed inside, use [class@Adw.SplitButton] as follows:
+packed inside, use [class@SplitButton] as follows:
 
 ```xml
 <object class="AdwSplitButton">
@@ -220,18 +219,18 @@ instead.
 
 ## Migrating From alpha 3 to alpha 4
 
-### Adapt to [class@Adw.ActionRow] and [class@Adw.ExpanderRow] API Changes
+### Adapt to [class@ActionRow] and [class@ExpanderRow] API Changes
 
 The "use-underline" property and its accessors have been removed. Use
-[property@Adw.PreferencesRow:use-underline] and its accessors instead.
+[property@PreferencesRow:use-underline] and its accessors instead.
 
 The title and subtitle have markup enabled, make sure to escape it with
 [func@GLib.markup_escape_text] if this is unwanted.
 
-### Adapt to [class@Adw.ExpanderRow] API Changes
+### Adapt to [class@ExpanderRow] API Changes
 
 The `adw_expander_row_add()` function has been renamed to
-[method@Adw.ExpanderRow.add_row].
+[method@ExpanderRow.add_row].
 
 ### Adjusting Header Bar Icons
 
@@ -272,20 +271,20 @@ boxed list pattern.
 
 ## Migrating From alpha 4 to beta 1
 
-#### Adapt to [class@Adw.SwipeTracker] API Changes
+#### Adapt to [class@SwipeTracker] API Changes
 
-The [signal@Adw.SwipeTracker::begin-swipe] signal is now emitted immediately
-before the swipe starts, after the drag threshold has been reached, and it has
-lost its `direction` parameter. The new [signal@Adw.SwipeTracker::prepare]
-signal behaves exactly like `begin-swipe` was, and can be used instead of it.
+The [signal@SwipeTracker::begin-swipe] signal is now emitted immediately before
+the swipe starts, after the drag threshold has been reached, and it has lost its
+`direction` parameter. The new [signal@SwipeTracker::prepare] signal behaves
+exactly like `begin-swipe` did, and can be used instead of it.
 
-The type of the `duration` parameter in [signal@Adw.SwipeTracker::end-swipe] has
+The type of the `duration` parameter in [signal@SwipeTracker::end-swipe] has
 changed from `gint64` to `guint`.
 
-### Adapt to [class@Adw.TabView] API Changes
+### Adapt to [class@TabView] API Changes
 
 The `HdyTabVoew:shortcut-widget` property has been removed with no replacement;
-[class@AdwTabView] automatically installs shortcuts with the
+[class@TabView] automatically installs shortcuts with the
 `GTK_SHORTCUT_SCOPE_MANAGED` scope, so they are automatically available
 throughout the window without the need to set shortcut widget.
 
@@ -293,55 +292,54 @@ If some of these shortcuts conflict with another widget, the latter has
 priority, and it should work automatically if the widget correctly stops event
 propagation.
 
-### Adapt to [class@Adw.Leaflet] API Changes
+### Adapt to [class@Leaflet] API Changes
 
 The `can-swipe-back` and `can-swipe-forward` properties have been renamed to
-[property@AdwLeaflet:can-navigate-back] and
-[property@AdwLeaflet:can-navigate-forward], along with their accessors. The new
+[property@Leaflet:can-navigate-back] and
+[property@Leaflet:can-navigate-forward], along with their accessors. The new
 properties also handle keyboard and mouse shortcuts in addition to swipes.
 
 `AdwLeaflet` now uses spring animations instead of timed animations for child
 transitions. As such, the `child-transition-duration` property has been replaced
-with [property@Adw.Leaflet:child-transition-params], allowing to customize the
+with [property@Leaflet:child-transition-params], allowing to customize the
 animation. Unlike the duration, spring parameters are also used for animation
 triggered by swipe gestures.
 
-### Adapt to [class@Adw.Flap] API Changes
+### Adapt to [class@Flap] API Changes
 
 `AdwFlap` now uses spring animations instead of timed animations for reveal
 animations. As such, the `reveal-duration` property has been replaced with
-[property@Adw.Flap:reveal-params], allowing to customize the animation. Unlike
-the duration, spring parameters are also used for transitions triggered by swipe
+[property@Flap:reveal-params], allowing to customize the animation. Unlike the
+duration, spring parameters are also used for transitions triggered by swipe
 gestures.
 
-### Adapt to [class@Adw.Carousel] API Changes
+### Adapt to [class@Carousel] API Changes
 
 `AdwCarousel` now uses spring animations instead of timed animations for
 scrolling. As such, the `animation-duration` property has been replaced with
-[property@Adw.Carousel:scroll-params], allowing to customize the animation.
-Unlike the duration, spring parameters are also used for animation triggered
-by swipe gestures.
+[property@Carousel:scroll-params], allowing to customize the animation. Unlike
+the duration, spring parameters are also used for animation triggered by swipe
+gestures.
 
 The `adw_carousel_scroll_to_full()` method has been removed. Instead,
-[method@Adw.Carousel.scroll_to] has got an additional parameter `animate`.
+[method@Carousel.scroll_to] has got an additional parameter `animate`.
 
-### Adapt to [class@Adw.PreferencesWindow] API Changes
+### Adapt to [class@PreferencesWindow] API Changes
 
 The `can-swipe-back` property have been renamed to
-[property@AdwPreferencesWindow:can-navigate-back], along with its accessors.
-The new properties also handle keyboard and mouse shortcuts in addition to
-swipes.
+[property@PreferencesWindow:can-navigate-back], along with its accessors. The
+new properties also handle keyboard and mouse shortcuts in addition to swipes.
 
-### Adapt to [class@Adw.ViewStack] API Changes
+### Adapt to [class@ViewStack] API Changes
 
-[class@Adw.ViewStack] has stopped supporting transitions. As such, the
+[class@ViewStack] has stopped supporting transitions. As such, the
 `interpolate-size` and `transition-running` properties have been removed with
 no replacement.
 
 ### Adapt to Miscellaneous Changes
 
 The `adw_ease_out_cubic()` function has been removed. Instead,
-[func@Adw.Easing.ease] can be used with the `ADW_EASE_OUT_CUBIC` parameter.
+[func@Easing.ease] can be used with the `ADW_EASE_OUT_CUBIC` parameter.
 
 ### Adapt to Stylesheet Changes
 

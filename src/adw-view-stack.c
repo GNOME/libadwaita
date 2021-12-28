@@ -22,36 +22,34 @@
 /**
  * AdwViewStack:
  *
- * A view container for [class@Adw.ViewSwitcher].
+ * A view container for [class@ViewSwitcher].
  *
  * `AdwViewStack` is a container which only shows one page at a time.
  * It is typically used to hold an application's main views.
  *
  * It doesn't provide a way to transition between pages.
- * Instead, a separate widget such as [class@Adw.ViewSwitcher] can be used with
+ * Instead, a separate widget such as [class@ViewSwitcher] can be used with
  * `AdwViewStack` to provide this functionality.
  *
  * `AdwViewStack` pages can have a title, an icon, an attention request, and a
- * numbered badge that [class@Adw.ViewSwitcher] will use to let users identify
- * which page is which.
- * Set them using the [property@Adw.ViewStackPage:title],
- * [property@Adw.ViewStackPage:icon-name],
- * [property@Adw.ViewStackPage:needs-attention], and
- * [property@Adw.ViewStackPage:badge-number] properties.
+ * numbered badge that [class@ViewSwitcher] will use to let users identify which
+ * page is which. Set them using the [property@ViewStackPage:title],
+ * [property@ViewStackPage:icon-name],
+ * [property@ViewStackPage:needs-attention], and
+ * [property@ViewStackPage:badge-number] properties.
  *
  * Unlike [class@Gtk.Stack], transitions between views are not animated.
  *
- * `AdwViewStack` maintains a [class@Adw.ViewStackPage] object for each added
- * child, which holds additional per-child properties.
- * You obtain the [class@Adw.ViewStackPage] for a child with
- * [method@Adw.ViewStack.get_page] and you can obtain a
- * [iface@Gtk.SelectionModel] containing all the pages with
- * [method@Adw.ViewStack.get_pages].
+ * `AdwViewStack` maintains a [class@ViewStackPage] object for each added child,
+ * which holds additional per-child properties. You obtain the
+ * [class@ViewStackPage] for a child with [method@ViewStack.get_page] and you
+ * can obtain a [iface@Gtk.SelectionModel] containing all the pages with
+ * [method@ViewStack.get_pages].
  *
  * ## AdwViewStack as GtkBuildable
  *
  * To set child-specific properties in a .ui file, create
- * [class@Adw.ViewStackPage] objects explicitly, and set the child widget as a
+ * [class@ViewStackPage] objects explicitly, and set the child widget as a
  * property on it:
  *
  * ```xml
@@ -79,7 +77,7 @@
 /**
  * AdwViewStackPage:
  *
- * An auxiliary class used by [class@Adw.ViewStack].
+ * An auxiliary class used by [class@ViewStack].
  *
  * Since: 1.0
  */
@@ -314,7 +312,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    *
    * Whether the page requires the user attention.
    *
-   * [class@Adw.ViewSwitcher] will display it as a dot next to the page icon.
+   * [class@ViewSwitcher] will display it as a dot next to the page icon.
    *
    * Since: 1.0
    */
@@ -330,10 +328,10 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    *
    * A number associated with the page.
    *
-   * [class@Adw.ViewSwitcher] can display it as a badge next to the page icon.
-   * It is commonly used to display a number of unread items within the page.
+   * [class@ViewSwitcher] can display it as a badge next to the page icon. It is
+   * commonly used to display a number of unread items within the page.
    *
-   * It can be used together with [property@Adw.ViewStack{age}:needs-attention].
+   * It can be used together with [property@ViewStack{age}:needs-attention].
    *
    * Since: 1.0
    */
@@ -350,7 +348,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * Whether this page is visible.
    *
    * This is independent from the [property@Gtk.Widget:visible] property of
-   * [property@Adw.ViewStackPage:child].
+   * [property@ViewStackPage:child].
    *
    * Since: 1.0
    */
@@ -964,7 +962,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    *
    * The name of the widget currently visible in the stack.
    *
-   * See [property@Adw.ViewStack:visible-child].
+   * See [property@ViewStack:visible-child].
    *
    * Since: 1.0
    */
@@ -1392,7 +1390,7 @@ adw_view_stack_new (void)
  *
  * Adds a child to @self.
  *
- * Returns: (transfer none): the [class@Adw.ViewStackPage] for @child
+ * Returns: (transfer none): the [class@ViewStackPage] for @child
  *
  * Since: 1.0
  */
@@ -1441,7 +1439,7 @@ adw_view_stack_add_named (AdwViewStack   *self,
  * Adds a child to @self.
  *
  * The child is identified by the @name. The @title will be used by
- * [class@Adw.ViewSwitcher] to represent @child, so it should be short.
+ * [class@ViewSwitcher] to represent @child, so it should be short.
  *
  * Returns: (transfer none): the `AdwViewStackPage` for @child
  *
@@ -1497,7 +1495,7 @@ adw_view_stack_remove (AdwViewStack  *self,
  * @self: a `AdwViewStack`
  * @child: a child of @self
  *
- * Gets the [class@Adw.ViewStackPage] object for @child.
+ * Gets the [class@ViewStackPage] object for @child.
  *
  * Returns: (transfer none): the page object for @child
  *

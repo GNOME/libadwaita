@@ -15,24 +15,22 @@
 /**
  * AdwTimedAnimation:
  *
- * A time-based [class@Adw.Animation].
+ * A time-based [class@Animation].
  *
  * `AdwTimedAnimation` implements a simple animation interpolating the given
- * value from [property@Adw.TimedAnimation:value-from] to
- * [property@Adw.TimedAnimation:value-to] over
- * [property@Adw.TimedAnimation:duration] milliseconds using the curve described
- * by [property@Adw.TimedAnimation:easing].
+ * value from [property@TimedAnimation:value-from] to
+ * [property@TimedAnimation:value-to] over
+ * [property@TimedAnimation:duration] milliseconds using the curve described by
+ * [property@TimedAnimation:easing].
  *
- * If [property@Adw.TimedAnimation:reverse] is set to `TRUE`,
- * `AdwTimedAnimation` will instead animate from
- * [property@Adw.TimedAnimation:value-to] to
- * [property@Adw.TimedAnimation:value-from], and the easing curve will be
- * inverted.
+ * If [property@TimedAnimation:reverse] is set to `TRUE`, `AdwTimedAnimation`
+ * will instead animate from [property@TimedAnimation:value-to] to
+ * [property@TimedAnimation:value-from], and the easing curve will be inverted.
  *
  * The animation can repeat a certain amount of times, or endlessly, depending
- * on the [property@Adw.TimedAnimation:repeat-count] value. If
- * [property@Adw.TimedAnimation:alternate] is set to `TRUE`, it will also
- * change the direction every other iteration.
+ * on the [property@TimedAnimation:repeat-count] value. If
+ * [property@TimedAnimation:alternate] is set to `TRUE`, it will also change the
+ * direction every other iteration.
  *
  * Since: 1.0
  */
@@ -218,10 +216,10 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    * The value to animate from.
    *
    * The animation will start at this value and end at
-   * [property@Adw.TimedAnimation:value-to].
+   * [property@TimedAnimation:value-to].
    *
-   * If [property@Adw.TimedAnimation:reverse] is `TRUE`, the animation will end
-   * at this value instead.
+   * If [property@TimedAnimation:reverse] is `TRUE`, the animation will end at
+   * this value instead.
    *
    * Since: 1.0
    */
@@ -239,11 +237,11 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    *
    * The value to animate to.
    *
-   * The animation will start at [property@Adw.TimedAnimation:value-from] and
-   * end at this value.
+   * The animation will start at [property@TimedAnimation:value-from] and end at
+   * this value.
    *
-   * If [property@Adw.TimedAnimation:reverse] is `TRUE`, the animation will
-   * start at this value instead.
+   * If [property@TimedAnimation:reverse] is `TRUE`, the animation will start
+   * at this value instead.
    *
    * Since: 1.0
    */
@@ -284,8 +282,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    *
    * Describes the curve the value is interpolated on.
    *
-   * See [enum@Adw.Easing] for the description of specific easing
-   * functions.
+   * See [enum@Easing] for the description of specific easing functions.
    *
    * Since: 1.0
    */
@@ -542,8 +539,7 @@ adw_timed_animation_get_easing (AdwTimedAnimation *self)
  *
  * Sets the easing function @self will use.
  *
- * See [enum@Adw.Easing] for the description of specific easing
- * functions.
+ * See [enum@Easing] for the description of specific easing functions.
  *
  * Since: 1.0
  */

@@ -21,7 +21,7 @@ static int adw_initialized = FALSE;
  * This function can be used instead of [func@Gtk.init] as it initializes GTK
  * implicitly.
  *
- * There's no need to call this function if you're using [class@Adw.Application].
+ * There's no need to call this function if you're using [class@Application].
  *
  * If Libadwaita has already been initialized, the function will simply return.
  *
