@@ -458,7 +458,7 @@ adw_avatar_new (int         size,
 
 /**
  * adw_avatar_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
- * @self: a `AdwAvatar`
+ * @self: an avatar
  *
  * Gets the name of an icon to use as a fallback.
  *
@@ -476,7 +476,7 @@ adw_avatar_get_icon_name (AdwAvatar *self)
 
 /**
  * adw_avatar_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
- * @self: a `AdwAvatar`
+ * @self: an avatar
  * @icon_name: (nullable): the icon name
  *
  * Sets the name of an icon to use as a fallback.
@@ -504,7 +504,7 @@ adw_avatar_set_icon_name (AdwAvatar  *self,
 
 /**
  * adw_avatar_get_text: (attributes org.gtk.Method.get_property=text)
- * @self: a `AdwAvatar`
+ * @self: an avatar
  *
  * Gets the text used to generate the fallback initials and color.
  *
@@ -523,7 +523,7 @@ adw_avatar_get_text (AdwAvatar *self)
 
 /**
  * adw_avatar_set_text: (attributes org.gtk.Method.set_property=text)
- * @self: a `AdwAvatar`
+ * @self: an avatar
  * @text: (nullable): the text used to get the initials and color
  *
  * Sets the text used to generate the fallback initials and color.
@@ -553,7 +553,7 @@ adw_avatar_set_text (AdwAvatar  *self,
 
 /**
  * adw_avatar_get_show_initials: (attributes org.gtk.Method.get_property=show-initials)
- * @self: a `AdwAvatar`
+ * @self: an avatar
  *
  * Gets whether initials are used instead of an icon on the fallback avatar.
  *
@@ -571,7 +571,7 @@ adw_avatar_get_show_initials (AdwAvatar *self)
 
 /**
  * adw_avatar_set_show_initials: (attributes org.gtk.Method.set_property=show-initials)
- * @self: a `AdwAvatar`
+ * @self: an avatar
  * @show_initials: whether to use initials instead of an icon as fallback
  *
  * Sets whether to use initials instead of an icon on the fallback avatar.
@@ -598,7 +598,7 @@ adw_avatar_set_show_initials (AdwAvatar *self,
 
 /**
  * adw_avatar_get_custom_image: (attributes org.gtk.Method.get_property=custom-image)
- * @self: a `AdwAvatar`
+ * @self: an avatar
  *
  * Gets the custom image paintable.
  *
@@ -616,7 +616,7 @@ adw_avatar_get_custom_image (AdwAvatar *self)
 
 /**
  * adw_avatar_set_custom_image: (attributes org.gtk.Method.set_property=custom-image)
- * @self: a `AdwAvatar`
+ * @self: an avatar
  * @custom_image: (nullable) (transfer none): a custom image
  *
  * Sets the custom image paintable.
@@ -668,7 +668,7 @@ adw_avatar_set_custom_image (AdwAvatar    *self,
 
 /**
  * adw_avatar_get_size: (attributes org.gtk.Method.get_property=size)
- * @self: a `AdwAvatar`
+ * @self: an avatar
  *
  * Gets the size of the avatar.
  *
@@ -686,7 +686,7 @@ adw_avatar_get_size (AdwAvatar *self)
 
 /**
  * adw_avatar_set_size: (attributes org.gtk.Method.set_property=size)
- * @self: a `AdwAvatar`
+ * @self: an avatar
  * @size: The size of the avatar
  *
  * Sets the size of the avatar.
@@ -721,7 +721,7 @@ adw_avatar_set_size (AdwAvatar *self,
 
 /**
  * adw_avatar_draw_to_texture:
- * @self: a `AdwAvatar`
+ * @self: an avatar
  * @scale_factor: The scale factor
  *
  * Renders @self into a [class@Gdk.Texture] at @scale_factor.

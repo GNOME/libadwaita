@@ -315,7 +315,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
 
   /**
    * AdwActionRow::activated:
-   * @self: the `AdwActionRow` instance
+   * @self: an action row
    *
    * This signal is emitted after the row has been activated.
    *
@@ -396,7 +396,7 @@ adw_action_row_new (void)
 
 /**
  * adw_action_row_get_subtitle: (attributes org.gtk.Method.get_property=subtitle)
- * @self: a `AdwActionRow`
+ * @self: an action row
  *
  * Gets the subtitle for @self.
  *
@@ -418,7 +418,7 @@ adw_action_row_get_subtitle (AdwActionRow *self)
 
 /**
  * adw_action_row_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
- * @self: a `AdwActionRow`
+ * @self: an action row
  * @subtitle: the subtitle
  *
  * Sets the subtitle for @self.
@@ -445,7 +445,7 @@ adw_action_row_set_subtitle (AdwActionRow *self,
 
 /**
  * adw_action_row_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
- * @self: a `AdwActionRow`
+ * @self: an action row
  *
  * Gets the icon name for @self.
  *
@@ -467,7 +467,7 @@ adw_action_row_get_icon_name (AdwActionRow *self)
 
 /**
  * adw_action_row_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
- * @self: a `AdwActionRow`
+ * @self: an action row
  * @icon_name: (nullable): the icon name
  *
  * Sets the icon name for @self.
@@ -496,7 +496,7 @@ adw_action_row_set_icon_name (AdwActionRow *self,
 
 /**
  * adw_action_row_get_activatable_widget: (attributes org.gtk.Method.get_property=activatable-widget)
- * @self: a `AdwActionRow`
+ * @self: an action row
  *
  * Gets the widget activated when @self is activated.
  *
@@ -530,7 +530,7 @@ activatable_widget_weak_notify (gpointer  data,
 
 /**
  * adw_action_row_set_activatable_widget: (attributes org.gtk.Method.set_property=activatable-widget)
- * @self: a `AdwActionRow`
+ * @self: an action row
  * @widget: (nullable): the target widget
  *
  * Sets the widget to activate when @self is activated.
@@ -570,7 +570,7 @@ adw_action_row_set_activatable_widget (AdwActionRow *self,
 
 /**
  * adw_action_row_get_title_lines: (attributes org.gtk.Method.get_property=title-lines)
- * @self: a `AdwActionRow`
+ * @self: an action row
  *
  * Gets the number of lines at the end of which the title label will be
  * ellipsized.
@@ -596,7 +596,7 @@ adw_action_row_get_title_lines (AdwActionRow *self)
 
 /**
  * adw_action_row_set_title_lines: (attributes org.gtk.Method.set_property=title-lines)
- * @self: a `AdwActionRow`
+ * @self: an action row
  * @title_lines: the number of lines at the end of which the title label will be ellipsized
  *
  * Sets the number of lines at the end of which the title label will be
@@ -630,7 +630,7 @@ adw_action_row_set_title_lines (AdwActionRow *self,
 
 /**
  * adw_action_row_get_subtitle_lines: (attributes org.gtk.Method.get_property=subtitle-lines)
- * @self: a `AdwActionRow`
+ * @self: an action row
  *
  * Gets the number of lines at the end of which the subtitle label will be
  * ellipsized.
@@ -656,7 +656,7 @@ adw_action_row_get_subtitle_lines (AdwActionRow *self)
 
 /**
  * adw_action_row_set_subtitle_lines: (attributes org.gtk.Method.set_property=subtitle-lines)
- * @self: a `AdwActionRow`
+ * @self: an action row
  * @subtitle_lines: the number of lines at the end of which the subtitle label will be ellipsized
  *
  * Sets the number of lines at the end of which the subtitle label will be
@@ -690,7 +690,7 @@ adw_action_row_set_subtitle_lines (AdwActionRow *self,
 
 /**
  * adw_action_row_add_prefix:
- * @self: a `AdwActionRow`
+ * @self: an action row
  * @widget: a widget
  *
  * Adds a prefix widget to @self.
@@ -714,7 +714,7 @@ adw_action_row_add_prefix (AdwActionRow *self,
 
 /**
  * adw_action_row_add_suffix:
- * @self: a `AdwActionRow`
+ * @self: an action row
  * @widget: a widget
  *
  * Adds a suffix widget to @self.
@@ -738,7 +738,7 @@ adw_action_row_add_suffix (AdwActionRow *self,
 
 /**
  * adw_action_row_remove:
- * @self: a `AdwActionRow`
+ * @self: an action row
  * @widget: the child to be removed
  *
  * Removes a child from @self.
@@ -769,7 +769,7 @@ adw_action_row_remove (AdwActionRow *self,
 
 /**
  * adw_action_row_activate:
- * @self: a `AdwActionRow`
+ * @self: an action row
  *
  * Activates @self.
  *

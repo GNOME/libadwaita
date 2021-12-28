@@ -331,7 +331,7 @@ adw_expander_row_new (void)
 
 /**
  * adw_expander_row_get_subtitle: (attributes org.gtk.Method.get_property=subtitle)
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  *
  * Gets the subtitle for @self.
  *
@@ -353,7 +353,7 @@ adw_expander_row_get_subtitle (AdwExpanderRow *self)
 
 /**
  * adw_expander_row_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  * @subtitle: the subtitle
  *
  * Sets the subtitle for @self.
@@ -375,7 +375,7 @@ adw_expander_row_set_subtitle (AdwExpanderRow *self,
 
 /**
  * adw_expander_row_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  *
  * Gets the icon name for @self.
  *
@@ -397,7 +397,7 @@ adw_expander_row_get_icon_name (AdwExpanderRow *self)
 
 /**
  * adw_expander_row_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  * @icon_name: (nullable): the icon name
  *
  * Sets the icon name for @self.
@@ -419,7 +419,7 @@ adw_expander_row_set_icon_name (AdwExpanderRow *self,
 
 /**
  * adw_expander_row_get_expanded: (attributes org.gtk.Method.get_property=expanded)
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  *
  * Gets whether @self is expanded.
  *
@@ -441,7 +441,7 @@ adw_expander_row_get_expanded (AdwExpanderRow *self)
 
 /**
  * adw_expander_row_set_expanded: (attributes org.gtk.Method.set_property=expanded)
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  * @expanded: whether to expand the row
  *
  * Sets whether @self is expanded.
@@ -475,7 +475,7 @@ adw_expander_row_set_expanded (AdwExpanderRow *self,
 
 /**
  * adw_expander_row_get_enable_expansion: (attributes org.gtk.Method.get_property=enable-expansion)
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  *
  * Gets whether the expansion of @self is enabled.
  *
@@ -497,7 +497,7 @@ adw_expander_row_get_enable_expansion (AdwExpanderRow *self)
 
 /**
  * adw_expander_row_set_enable_expansion: (attributes org.gtk.Method.set_property=enable-expansion)
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  * @enable_expansion: whether to enable the expansion
  *
  * Sets whether the expansion of @self is enabled.
@@ -528,7 +528,7 @@ adw_expander_row_set_enable_expansion (AdwExpanderRow *self,
 
 /**
  * adw_expander_row_get_show_enable_switch: (attributes org.gtk.Method.get_property=show-enable-switch)
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  *
  * Gets whether the switch enabling the expansion of @self is visible.
  *
@@ -550,7 +550,7 @@ adw_expander_row_get_show_enable_switch (AdwExpanderRow *self)
 
 /**
  * adw_expander_row_set_show_enable_switch: (attributes org.gtk.Method.set_property=show-enable-switch)
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  * @show_enable_switch: whether to show the switch enabling the expansion
  *
  * Sets whether the switch enabling the expansion of @self is visible.
@@ -579,7 +579,7 @@ adw_expander_row_set_show_enable_switch (AdwExpanderRow *self,
 
 /**
  * adw_expander_row_add_action:
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  * @widget: a widget
  *
  * Adds an action widget to @self.
@@ -603,7 +603,7 @@ adw_expander_row_add_action (AdwExpanderRow *self,
 
 /**
  * adw_expander_row_add_prefix:
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  * @widget: a widget
  *
  * Adds a prefix widget to @self.
@@ -630,7 +630,7 @@ adw_expander_row_add_prefix (AdwExpanderRow *self,
 
 /**
  * adw_expander_row_add_row:
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  * @child: a widget
  *
  * Adds a widget to @self.
@@ -660,7 +660,7 @@ adw_expander_row_add_row (AdwExpanderRow *self,
 
 /**
  * adw_action_row_expander:
- * @self: a `AdwExpanderRow`
+ * @self: an expander row
  * @widget: the child to be removed
  *
  * Removes a child from @self.

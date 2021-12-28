@@ -390,7 +390,7 @@ adw_timed_animation_new (GtkWidget          *widget,
 
 /**
  * adw_timed_animation_get_value_from: (attributes org.gtk.Method.get_property=value-from)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  *
  * Gets the value @self will animate from.
  *
@@ -408,7 +408,7 @@ adw_timed_animation_get_value_from (AdwTimedAnimation *self)
 
 /**
  * adw_timed_animation_set_value_from: (attributes org.gtk.Method.set_property=value-from)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  * @value: the value to animate from
  *
  * Sets the value @self will animate from.
@@ -431,7 +431,7 @@ adw_timed_animation_set_value_from (AdwTimedAnimation *self,
 
 /**
  * adw_timed_animation_get_value_to: (attributes org.gtk.Method.get_property=value-to)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  *
  * Gets the value @self will animate to.
  *
@@ -449,7 +449,7 @@ adw_timed_animation_get_value_to (AdwTimedAnimation *self)
 
 /**
  * adw_timed_animation_set_value_to: (attributes org.gtk.Method.set_property=value-to)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  * @value: the value to animate to
  *
  * Sets the value @self will animate to.
@@ -472,7 +472,7 @@ adw_timed_animation_set_value_to (AdwTimedAnimation *self,
 
 /**
  * adw_timed_animation_get_duration: (attributes org.gtk.Method.get_property=duration)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  *
  * Gets the duration of @self in milliseconds.
  *
@@ -490,7 +490,7 @@ adw_timed_animation_get_duration (AdwTimedAnimation *self)
 
 /**
  * adw_timed_animation_set_duration: (attributes org.gtk.Method.set_property=duration)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  * @duration: the duration to use
  *
  * Sets the duration of @self in milliseconds.
@@ -515,7 +515,7 @@ adw_timed_animation_set_duration (AdwTimedAnimation *self,
 
 /**
  * adw_timed_animation_get_easing: (attributes org.gtk.Method.get_property=easing)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  *
  * Gets the easing function @self uses.
  *
@@ -534,7 +534,7 @@ adw_timed_animation_get_easing (AdwTimedAnimation *self)
 
 /**
  * adw_timed_animation_set_easing: (attributes org.gtk.Method.set_property=easing)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  * @easing: the easing function to use
  *
  * Sets the easing function @self will use.
@@ -560,7 +560,7 @@ adw_timed_animation_set_easing (AdwTimedAnimation *self,
 
 /**
  * adw_timed_animation_get_repeat_count: (attributes org.gtk.Method.get_property=repeat-count)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  *
  * Gets the number of times @self will play.
  *
@@ -578,7 +578,7 @@ adw_timed_animation_get_repeat_count (AdwTimedAnimation *self)
 
 /**
  * adw_timed_animation_set_repeat_count: (attributes org.gtk.Method.set_property=repeat-count)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  * @repeat_count: the number of times @self will play
  *
  * Sets the number of times @self will play.
@@ -603,7 +603,7 @@ adw_timed_animation_set_repeat_count (AdwTimedAnimation *self,
 
 /**
  * adw_timed_animation_get_reverse: (attributes org.gtk.Method.get_property=reverse)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  *
  * Gets whether @self plays backwards.
  *
@@ -621,7 +621,7 @@ adw_timed_animation_get_reverse (AdwTimedAnimation *self)
 
 /**
  * adw_timed_animation_set_reverse: (attributes org.gtk.Method.set_property=reverse)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  * @reverse: whether @self plays backwards
  *
  * Sets whether @self plays backwards.
@@ -644,7 +644,7 @@ adw_timed_animation_set_reverse (AdwTimedAnimation *self,
 
 /**
  * adw_timed_animation_get_alternate: (attributes org.gtk.Method.get_property=alternate)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  *
  * Gets whether @self changes direction on every iteration.
  *
@@ -662,7 +662,7 @@ adw_timed_animation_get_alternate (AdwTimedAnimation *self)
 
 /**
  * adw_timed_animation_set_alternate: (attributes org.gtk.Method.set_property=alternate)
- * @self: a `AdwAnimation`
+ * @self: a timed animation
  * @alternate: whether @self alternates
  *
  * Sets whether @self changes direction on every iteration.

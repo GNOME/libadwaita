@@ -587,7 +587,7 @@ adw_style_manager_get_for_display (GdkDisplay *display)
 
 /**
  * adw_style_manager_get_display: (attributes org.gtk.Method.get_property=display)
- * @self: a `AdwStyleManager`
+ * @self: a style manager
  *
  * Gets the display the style manager is associated with.
  *
@@ -608,7 +608,7 @@ adw_style_manager_get_display (AdwStyleManager *self)
 
 /**
  * adw_style_manager_get_color_scheme: (attributes org.gtk.Method.get_property=color-scheme)
- * @self: a `AdwStyleManager`
+ * @self: a style manager
  *
  * Gets the requested application color scheme.
  *
@@ -626,7 +626,7 @@ adw_style_manager_get_color_scheme (AdwStyleManager *self)
 
 /**
  * adw_style_manager_set_color_scheme: (attributes org.gtk.Method.set_property=color-scheme)
- * @self: a `AdwStyleManager`
+ * @self: a style manager
  * @color_scheme: the color scheme
  *
  * Sets the requested application color scheme.
@@ -671,7 +671,7 @@ adw_style_manager_set_color_scheme (AdwStyleManager *self,
 
 /**
  * adw_style_manager_get_system_supports_color_schemes: (attributes org.gtk.Method.get_property=system-supports-color-schemes)
- * @self: a `AdwStyleManager`
+ * @self: a style manager
  *
  * Gets whether the system supports color schemes.
  *
@@ -689,7 +689,7 @@ adw_style_manager_get_system_supports_color_schemes (AdwStyleManager *self)
 
 /**
  * adw_style_manager_get_dark: (attributes org.gtk.Method.get_property=dark)
- * @self: a `AdwStyleManager`
+ * @self: a style manager
  *
  * Gets whether the application is using dark appearance.
  *
@@ -707,7 +707,7 @@ adw_style_manager_get_dark (AdwStyleManager *self)
 
 /**
  * adw_style_manager_get_high_contrast: (attributes org.gtk.Method.get_property=high-contrast)
- * @self: a `AdwStyleManager`
+ * @self: a style manager
  *
  * Gets whether the application is using high contrast appearance.
  *

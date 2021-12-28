@@ -596,7 +596,7 @@ adw_spring_animation_new (GtkWidget         *widget,
 
 /**
  * adw_spring_animation_get_value_from: (attributes org.gtk.Method.get_property=value-from)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  *
  * Gets the value @self will animate from.
  *
@@ -614,7 +614,7 @@ adw_spring_animation_get_value_from (AdwSpringAnimation *self)
 
 /**
  * adw_spring_animation_set_value_from: (attributes org.gtk.Method.set_property=value-from)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  * @value: the value to animate from
  *
  * Sets the value @self will animate from.
@@ -639,7 +639,7 @@ adw_spring_animation_set_value_from (AdwSpringAnimation *self,
 
 /**
  * adw_spring_animation_get_value_to: (attributes org.gtk.Method.get_property=value-to)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  *
  * Gets the value @self will animate to.
  *
@@ -657,7 +657,7 @@ adw_spring_animation_get_value_to (AdwSpringAnimation *self)
 
 /**
  * adw_spring_animation_set_value_to: (attributes org.gtk.Method.set_property=value-to)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  * @value: the value to animate to
  *
  * Sets the value @self will animate to.
@@ -682,7 +682,7 @@ adw_spring_animation_set_value_to (AdwSpringAnimation *self,
 
 /**
  * adw_spring_animation_get_spring_params: (attributes org.gtk.Method.get_property=spring-params)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  *
  * Gets the physical parameters of the spring of @self.
  *
@@ -700,7 +700,7 @@ adw_spring_animation_get_spring_params (AdwSpringAnimation *self)
 
 /**
  * adw_spring_animation_set_spring_params: (attributes org.gtk.Method.set_property=spring-params)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  * @spring_params: the new spring parameters
  *
  * Sets the physical parameters of the spring of @self.
@@ -727,7 +727,7 @@ adw_spring_animation_set_spring_params (AdwSpringAnimation *self,
 
 /**
  * adw_spring_animation_get_initial_velocity: (attributes org.gtk.Method.get_property=initial-velocity)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  *
  * Gets the initial velocity of @self.
  *
@@ -745,7 +745,7 @@ adw_spring_animation_get_initial_velocity (AdwSpringAnimation *self)
 
 /**
  * adw_spring_animation_set_initial_velocity: (attributes org.gtk.Method.set_property=initial-velocity)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  * @velocity: the initial velocity
  *
  * Sets the initial velocity of @self.
@@ -770,7 +770,7 @@ adw_spring_animation_set_initial_velocity (AdwSpringAnimation *self,
 
 /**
  * adw_spring_animation_get_epsilon: (attributes org.gtk.Method.get_property=epsilon)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  *
  * Gets the precision used to determine the duration of @self.
  *
@@ -788,7 +788,7 @@ adw_spring_animation_get_epsilon (AdwSpringAnimation *self)
 
 /**
  * adw_spring_animation_set_epsilon: (attributes org.gtk.Method.set_property=epsilon)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  * @epsilon: the new value
  *
  * Sets the precision used to determine the duration of @self.
@@ -814,7 +814,7 @@ adw_spring_animation_set_epsilon (AdwSpringAnimation *self,
 
 /**
  * adw_spring_animation_get_clamp: (attributes org.gtk.Method.get_property=clamp)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  *
  * Gets whether @self should be clamped.
  *
@@ -832,7 +832,7 @@ adw_spring_animation_get_clamp (AdwSpringAnimation *self)
 
 /**
  * adw_spring_animation_set_clamp: (attributes org.gtk.Method.set_property=clamp)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  * @clamp: the new value
  *
  * Sets whether @self should be clamped.
@@ -857,7 +857,7 @@ adw_spring_animation_set_clamp (AdwSpringAnimation *self,
 
 /**
  * adw_spring_animation_get_estimated_duration: (attributes org.gtk.Method.get_property=estimated-duration)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  *
  * Gets the estimated duration of @self.
  *
@@ -875,7 +875,7 @@ adw_spring_animation_get_estimated_duration (AdwSpringAnimation *self)
 
 /**
  * adw_spring_animation_get_velocity: (attributes org.gtk.Method.get_property=velocity)
- * @self: a `AdwSpringAnimation`
+ * @self: a spring animation
  *
  * Gets the current velocity of @self.
  *

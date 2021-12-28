@@ -29,7 +29,7 @@ adw_swipeable_default_init (AdwSwipeableInterface *iface)
 
 /**
  * adw_swipeable_get_distance:
- * @self: a `AdwSwipeable`
+ * @self: a swipeable
  *
  * Gets the swipe distance of @self.
  *
@@ -54,7 +54,7 @@ adw_swipeable_get_distance (AdwSwipeable *self)
 
 /**
  * adw_swipeable_get_snap_points: (virtual get_snap_points)
- * @self: a `AdwSwipeable`
+ * @self: a swipeable
  * @n_snap_points: (out): location to return the number of the snap points
  *
  * Gets the snap points of @self.
@@ -82,7 +82,7 @@ adw_swipeable_get_snap_points (AdwSwipeable *self,
 
 /**
  * adw_swipeable_get_progress:
- * @self: a `AdwSwipeable`
+ * @self: a swipeable
  *
  * Gets the current progress of @self.
  *
@@ -105,7 +105,7 @@ adw_swipeable_get_progress (AdwSwipeable *self)
 
 /**
  * adw_swipeable_get_cancel_progress:
- * @self: a `AdwSwipeable`
+ * @self: a swipeable
  *
  * Gets the progress @self will snap back to after the gesture is canceled.
  *
@@ -128,7 +128,7 @@ adw_swipeable_get_cancel_progress (AdwSwipeable *self)
 
 /**
  * adw_swipeable_get_swipe_area:
- * @self: a `AdwSwipeable`
+ * @self: a swipeable
  * @navigation_direction: the direction of the swipe
  * @is_drag: whether the swipe is caused by a dragging gesture
  * @rect: (out): a pointer to a rectangle to store the swipe area

@@ -358,7 +358,7 @@ adw_clamp_scrollable_new (void)
 
 /**
  * adw_clamp_scrollable_get_child: (attributes org.gtk.Method.get_property=child)
- * @self: a `AdwClampScrollable`
+ * @self: a clamp scrollable
  *
  * Gets the child widget of @self.
  *
@@ -376,7 +376,7 @@ adw_clamp_scrollable_get_child (AdwClampScrollable *self)
 
 /**
  * adw_clamp_scrollable_set_child: (attributes org.gtk.Method.set_property=child)
- * @self: a `AdwClampScrollable`
+ * @self: a clamp scrollable
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
@@ -430,7 +430,7 @@ adw_clamp_scrollable_set_child (AdwClampScrollable *self,
 
 /**
  * adw_clamp_scrollable_get_maximum_size: (attributes org.gtk.Method.get_property=maximum-size)
- * @self: a `AdwClampScrollable`
+ * @self: a clamp scrollable
  *
  * Gets the maximum size allocated to the child.
  *
@@ -452,7 +452,7 @@ adw_clamp_scrollable_get_maximum_size (AdwClampScrollable *self)
 
 /**
  * adw_clamp_scrollable_set_maximum_size: (attributes org.gtk.Method.set_property=maximum-size)
- * @self: a `AdwClampScrollable`
+ * @self: a clamp scrollable
  * @maximum_size: the maximum size
  *
  * Sets the maximum size allocated to the child.
@@ -479,7 +479,7 @@ adw_clamp_scrollable_set_maximum_size (AdwClampScrollable *self,
 
 /**
  * adw_clamp_scrollable_get_tightening_threshold: (attributes org.gtk.Method.get_property=tightening-threshold)
- * @self: a `AdwClampScrollable`
+ * @self: a clamp scrollable
  *
  * Gets the size above which the child is clamped.
  *
@@ -501,7 +501,7 @@ adw_clamp_scrollable_get_tightening_threshold (AdwClampScrollable *self)
 
 /**
  * adw_clamp_scrollable_set_tightening_threshold: (attributes org.gtk.Method.set_property=tightening-threshold)
- * @self: a `AdwClampScrollable`
+ * @self: a clamp scrollable
  * @tightening_threshold: the tightening threshold
  *
  * Sets the size above which the child is clamped.

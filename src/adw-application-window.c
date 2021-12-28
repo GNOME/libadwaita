@@ -190,7 +190,7 @@ adw_application_window_new (GtkApplication *app)
 
 /**
  * adw_application_window_set_content: (attributes org.gtk.Method.set_property=content)
- * @self: a `AdwApplicationWindow`
+ * @self: an application window
  * @content: (nullable): the content widget
  *
  * Sets the content widget of @self.
@@ -213,7 +213,7 @@ adw_application_window_set_content (AdwApplicationWindow *self,
 
 /**
  * adw_application_window_get_content: (attributes org.gtk.Method.get_property=content)
- * @self: a `AdwApplicationWindow`
+ * @self: an application window
  *
  * Gets the content widget of @self.
  *

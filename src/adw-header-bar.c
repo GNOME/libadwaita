@@ -587,7 +587,7 @@ adw_header_bar_new (void)
 
 /**
  * adw_header_bar_pack_start:
- * @self: A `AdwHeaderBar`
+ * @self: a header bar
  * @child: the widget to be added to @self
  *
  * Adds @child to @self, packed with reference to the start of the @self.
@@ -603,7 +603,7 @@ adw_header_bar_pack_start (AdwHeaderBar *self,
 
 /**
  * adw_header_bar_pack_end:
- * @self: A `AdwHeaderBar`
+ * @self: a header bar
  * @child: the widget to be added to @self
  *
  * Adds @child to @self, packed with reference to the end of @self.
@@ -619,7 +619,7 @@ adw_header_bar_pack_end (AdwHeaderBar *self,
 
 /**
  * adw_header_bar_set_title_widget: (attributes org.gtk.Method.set_property=title-widget)
- * @self: a `AdwHeaderBar`
+ * @self: a header bar
  * @title_widget: (nullable): a widget to use for a title
  *
  * Sets the title widget for @self.
@@ -656,7 +656,7 @@ adw_header_bar_set_title_widget (AdwHeaderBar *self,
 
 /**
  * adw_header_bar_get_title_widget: (attributes org.gtk.Method.get_property=title-widget)
- * @self: a `AdwHeaderBar`
+ * @self: a header bar
  *
  * Gets the title widget widget of @self.
  *
@@ -674,7 +674,7 @@ adw_header_bar_get_title_widget (AdwHeaderBar *self)
 
 /**
  * adw_header_bar_remove:
- * @self: a `AdwHeaderBar`
+ * @self: a header bar
  * @child: the child to remove
  *
  * Removes a child from @self.
@@ -707,7 +707,7 @@ adw_header_bar_remove (AdwHeaderBar *self,
 
 /**
  * adw_header_bar_get_show_start_title_buttons: (attributes org.gtk.Method.get_property=show-start-title-buttons)
- * @self: a `AdwHeaderBar`
+ * @self: a header bar
  *
  * Gets whether to show title buttons at the start of @self.
  *
@@ -725,7 +725,7 @@ adw_header_bar_get_show_start_title_buttons (AdwHeaderBar *self)
 
 /**
  * adw_header_bar_set_show_start_title_buttons: (attributes org.gtk.Method.set_property=show-start-title-buttons)
- * @self: a `AdwHeaderBar`
+ * @self: a header bar
  * @setting: `TRUE` to show standard title buttons
  *
  * Sets whether to show title buttons at the start of @self.
@@ -759,7 +759,7 @@ adw_header_bar_set_show_start_title_buttons (AdwHeaderBar *self,
 
 /**
  * adw_header_bar_get_show_end_title_buttons: (attributes org.gtk.Method.get_property=show-end-title-buttons)
- * @self: a `AdwHeaderBar`
+ * @self: a header bar
  *
  * Gets whether to show title buttons at the end of @self.
  *
@@ -777,7 +777,7 @@ adw_header_bar_get_show_end_title_buttons (AdwHeaderBar *self)
 
 /**
  * adw_header_bar_set_show_end_title_buttons: (attributes org.gtk.Method.set_property=show-end-title-buttons)
- * @self: a `AdwHeaderBar`
+ * @self: a header bar
  * @setting: `TRUE` to show standard title buttons
  *
  * Sets whether to show title buttons at the end of @self.
@@ -811,7 +811,7 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
 
 /**
  * adw_header_bar_set_decoration_layout: (attributes org.gtk.Method.set_property=decoration-layout)
- * @self: a `AdwHeaderBar`
+ * @self: a header bar
  * @layout: (nullable): a decoration layout, or `NULL` to unset the layout
  *
  * Sets the decoration layout for @self.
@@ -832,7 +832,7 @@ adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
 
 /**
  * adw_header_bar_get_decoration_layout: (attributes org.gtk.Method.get_property=decoration-layout)
- * @self: a `AdwHeaderBar`
+ * @self: a header bar
  *
  * Gets the decoration layout for @self.
  *
@@ -850,7 +850,7 @@ adw_header_bar_get_decoration_layout (AdwHeaderBar *self)
 
 /**
  * adw_header_bar_get_centering_policy: (attributes org.gtk.Method.get_property=centering-policy)
- * @self: a `AdwHeaderBar`
+ * @self: a header bar
  *
  * Gets the policy for aligning the center widget.
  *
@@ -868,7 +868,7 @@ adw_header_bar_get_centering_policy (AdwHeaderBar *self)
 
 /**
  * adw_header_bar_set_centering_policy: (attributes org.gtk.Method.set_property=centering-policy)
- * @self: a `AdwHeaderBar`
+ * @self: a header bar
  * @centering_policy: the centering policy
  *
  * Sets the policy for aligning the center widget.

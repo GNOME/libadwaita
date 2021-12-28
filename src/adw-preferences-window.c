@@ -709,7 +709,7 @@ adw_preferences_window_new (void)
 
 /**
  * adw_preferences_window_get_search_enabled: (attributes org.gtk.Method.get_property=search-enabled)
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  *
  * Gets whether search is enabled for @self.
  *
@@ -731,7 +731,7 @@ adw_preferences_window_get_search_enabled (AdwPreferencesWindow *self)
 
 /**
  * adw_preferences_window_set_search_enabled: (attributes org.gtk.Method.set_property=search-enabled)
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  * @search_enabled: whether search is enabled
  *
  * Sets whether search is enabled for @self.
@@ -767,7 +767,7 @@ adw_preferences_window_set_search_enabled (AdwPreferencesWindow *self,
 
 /**
  * adw_preferences_window_set_can_navigate_back: (attributes org.gtk.Method.set_property=can-navigate-back)
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  * @can_navigate_back: the new value
  *
  * Sets whether gestures and shortcuts for closing subpages are enabled.
@@ -796,7 +796,7 @@ adw_preferences_window_set_can_navigate_back (AdwPreferencesWindow *self,
 
 /**
  * adw_preferences_window_get_can_navigate_back: (attributes org.gtk.Method.get_property=can-navigate-back)
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  *
  * Gets whether gestures and shortcuts for closing subpages are enabled.
  *
@@ -818,7 +818,7 @@ adw_preferences_window_get_can_navigate_back (AdwPreferencesWindow *self)
 
 /**
  * adw_preferences_window_present_subpage:
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  * @subpage: the subpage
  *
  * Sets @subpage as the window's subpage and opens it.
@@ -855,7 +855,7 @@ adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
 
 /**
  * adw_preferences_window_close_subpage:
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  *
  * Closes the current subpage.
  *
@@ -882,7 +882,7 @@ adw_preferences_window_close_subpage (AdwPreferencesWindow *self)
 
 /**
  * adw_preferences_window_add:
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  * @page: the page to add
  *
  * Adds a preferences page to @self.
@@ -911,7 +911,7 @@ adw_preferences_window_add (AdwPreferencesWindow *self,
 
 /**
  * adw_preferences_window_remove:
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  * @page: the page to remove
  *
  * Removes a page from @self.
@@ -937,7 +937,7 @@ adw_preferences_window_remove (AdwPreferencesWindow *self,
 
 /**
  * adw_preferences_window_get_visible_page:
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  *
  * Gets the currently visible page of @self.
  *
@@ -959,7 +959,7 @@ adw_preferences_window_get_visible_page (AdwPreferencesWindow *self)
 
 /**
  * adw_preferences_window_set_visible_page:
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  * @page: a page of @self
  *
  * Makes @page the visible page of @self.
@@ -982,7 +982,7 @@ adw_preferences_window_set_visible_page (AdwPreferencesWindow *self,
 
 /**
  * adw_preferences_window_get_visible_page_name:
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  *
  * Gets the name of currently visible page of @self.
  *
@@ -1004,7 +1004,7 @@ adw_preferences_window_get_visible_page_name (AdwPreferencesWindow *self)
 
 /**
  * adw_preferences_window_set_visible_page_name:
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  * @name: the name of the page to make visible
  *
  * Makes the page with the given name visible.
@@ -1026,7 +1026,7 @@ adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
 
 /**
  * adw_preferences_window_add_toast:
- * @self: a `AdwPreferencesWindow`
+ * @self: a preferences window
  * @toast: (transfer full): a toast
  *
  * Displays @toast.

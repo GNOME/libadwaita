@@ -1087,7 +1087,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
 
   /**
    * AdwSwipeTracker::prepare:
-   * @self: the `AdwSwipeTracker` instance
+   * @self: a swipe tracker
    * @direction: the direction of the swipe
    *
    * This signal is emitted when a possible swipe is detected.
@@ -1109,7 +1109,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
 
   /**
    * AdwSwipeTracker::begin-swipe:
-   * @self: the `AdwSwipeTracker` instance
+   * @self: a swipe tracker
    *
    * This signal is emitted right before a swipe will be started, after the
    * drag threshold has been passed.
@@ -1127,7 +1127,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
 
   /**
    * AdwSwipeTracker::update-swipe:
-   * @self: the `AdwSwipeTracker` instance
+   * @self: a swipe tracker
    * @progress: the current animation progress value
    *
    * This signal is emitted every time the progress value changes.
@@ -1146,7 +1146,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
 
   /**
    * AdwSwipeTracker::end-swipe:
-   * @self: the `AdwSwipeTracker` instance
+   * @self: a swipe tracker
    * @velocity: the velocity of the swipe
    * @to: the progress value to animate to
    *
@@ -1202,7 +1202,7 @@ adw_swipe_tracker_new (AdwSwipeable *swipeable)
 
 /**
  * adw_swipe_tracker_get_swipeable: (attributes org.gtk.Method.get_property=swipeable)
- * @self: a `AdwSwipeTracker`
+ * @self: a swipe tracker
  *
  * Get the widget @self is attached to.
  *
@@ -1220,7 +1220,7 @@ adw_swipe_tracker_get_swipeable (AdwSwipeTracker *self)
 
 /**
  * adw_swipe_tracker_get_enabled: (attributes org.gtk.Method.get_property=enabled)
- * @self: a `AdwSwipeTracker`
+ * @self: a swipe tracker
  *
  * Gets whether @self is enabled.
  *
@@ -1238,7 +1238,7 @@ adw_swipe_tracker_get_enabled (AdwSwipeTracker *self)
 
 /**
  * adw_swipe_tracker_set_enabled: (attributes org.gtk.Method.set_property=enabled)
- * @self: a `AdwSwipeTracker`
+ * @self: a swipe tracker
  * @enabled: whether @self is enabled
  *
  * Sets whether @self is enabled.
@@ -1268,7 +1268,7 @@ adw_swipe_tracker_set_enabled (AdwSwipeTracker *self,
 
 /**
  * adw_swipe_tracker_get_reversed: (attributes org.gtk.Method.get_property=reversed)
- * @self: a `AdwSwipeTracker`
+ * @self: a swipe tracker
  *
  * Gets whether @self is reversing the swipe direction.
  *
@@ -1286,7 +1286,7 @@ adw_swipe_tracker_get_reversed (AdwSwipeTracker *self)
 
 /**
  * adw_swipe_tracker_set_reversed: (attributes org.gtk.Method.set_property=reversed)
- * @self: a `AdwSwipeTracker`
+ * @self: a swipe tracker
  * @reversed: whether to reverse the swipe direction
  *
  * Sets whether to reverse the swipe direction.
@@ -1310,7 +1310,7 @@ adw_swipe_tracker_set_reversed (AdwSwipeTracker *self,
 
 /**
  * adw_swipe_tracker_get_allow_mouse_drag: (attributes org.gtk.Method.get_property=allow-mouse-drag)
- * @self: a `AdwSwipeTracker`
+ * @self: a swipe tracker
  *
  * Gets whether @self can be dragged with mouse pointer.
  *
@@ -1328,7 +1328,7 @@ adw_swipe_tracker_get_allow_mouse_drag (AdwSwipeTracker *self)
 
 /**
  * adw_swipe_tracker_set_allow_mouse_drag: (attributes org.gtk.Method.set_property=allow-mouse-drag)
- * @self: a `AdwSwipeTracker`
+ * @self: a swipe tracker
  * @allow_mouse_drag: whether to allow mouse dragging
  *
  * Sets whether @self can be dragged with mouse pointer.
@@ -1355,7 +1355,7 @@ adw_swipe_tracker_set_allow_mouse_drag (AdwSwipeTracker *self,
 
 /**
  * adw_swipe_tracker_get_allow_long_swipes: (attributes org.gtk.Method.get_property=allow-long-swipes)
- * @self: a `AdwSwipeTracker`
+ * @self: a swipe tracker
  *
  * Gets whether to allow swiping for more than one snap point at a time.
  *
@@ -1373,7 +1373,7 @@ adw_swipe_tracker_get_allow_long_swipes (AdwSwipeTracker *self)
 
 /**
  * adw_swipe_tracker_set_allow_long_swipes: (attributes org.gtk.Method.set_property=allow-long-swipes)
- * @self: a `AdwSwipeTracker`
+ * @self: a swipe tracker
  * @allow_long_swipes: whether to allow long swipes
  *
  * Sets whether to allow swiping for more than one snap point at a time.
@@ -1398,7 +1398,7 @@ adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
 
 /**
  * adw_swipe_tracker_shift_position:
- * @self: a `AdwSwipeTracker`
+ * @self: a swipe tracker
  * @delta: the position delta
  *
  * Moves the current progress value by @delta.

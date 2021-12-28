@@ -429,7 +429,7 @@ ease_in_out_bounce (double t,
 
 /**
  * adw_easing_ease:
- * @self: a `AdwEasing`
+ * @self: an easing value
  * @value: a value to ease
  *
  * Computes easing with @easing for @value.

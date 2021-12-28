@@ -395,7 +395,7 @@ adw_indicator_bin_new (void)
 
 /**
  * adw_indicator_bin_get_child:
- * @self: an `AdwIndicatorBin`
+ * @self: an indicator bin
  *
  * Gets the child widget of @self.
  *
@@ -413,7 +413,7 @@ adw_indicator_bin_get_child (AdwIndicatorBin *self)
 
 /**
  * adw_indicator_bin_set_child:
- * @self: an `AdwIndicatorBin`
+ * @self: an indicator bin
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.

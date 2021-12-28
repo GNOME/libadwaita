@@ -364,7 +364,7 @@ adw_carousel_indicator_lines_new (void)
 
 /**
  * adw_carousel_indicator_lines_get_carousel: (attributes org.gtk.Method.get_property=carousel)
- * @self: a `AdwCarouselIndicatorLines`
+ * @self: an indicator
  *
  * Gets the displayed carousel.
  *
@@ -382,7 +382,7 @@ adw_carousel_indicator_lines_get_carousel (AdwCarouselIndicatorLines *self)
 
 /**
  * adw_carousel_indicator_lines_set_carousel: (attributes org.gtk.Method.set_property=carousel)
- * @self: a `AdwCarouselIndicatorLines`
+ * @self: an indicator
  * @carousel: (nullable): a carousel
  *
  * Sets the displayed carousel.

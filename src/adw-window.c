@@ -200,7 +200,7 @@ adw_window_new (void)
 
 /**
  * adw_window_set_content: (attributes org.gtk.Method.set_property=content)
- * @self: a `AdwWindow`
+ * @self: a window
  * @content: (nullable): the content widget
  *
  * Sets the content widget of @self.
@@ -223,7 +223,7 @@ adw_window_set_content (AdwWindow *self,
 
 /**
  * adw_window_get_content: (attributes org.gtk.Method.get_property=content)
- * @self: a `AdwWindow`
+ * @self: a window
  *
  * Gets the content widget of @self.
  *

@@ -157,7 +157,7 @@ adw_preferences_row_new (void)
 
 /**
  * adw_preferences_row_get_title: (attributes org.gtk.Method.get_property=title)
- * @self: a `AdwPreferencesRow`
+ * @self: a preferences row
  *
  * Gets the title of the preference represented by @self.
  *
@@ -179,7 +179,7 @@ adw_preferences_row_get_title (AdwPreferencesRow *self)
 
 /**
  * adw_preferences_row_set_title: (attributes org.gtk.Method.set_property=title)
- * @self: a `AdwPreferencesRow`
+ * @self: a preferences row
  * @title: the title
  *
  * Sets the title of the preference represented by @self.
@@ -207,7 +207,7 @@ adw_preferences_row_set_title (AdwPreferencesRow *self,
 
 /**
  * adw_preferences_row_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
- * @self: a `AdwPreferencesRow`
+ * @self: a preferences row
  *
  * Gets whether an embedded underline in the title indicates a mnemonic.
  *
@@ -229,7 +229,7 @@ adw_preferences_row_get_use_underline (AdwPreferencesRow *self)
 
 /**
  * adw_preferences_row_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
- * @self: a `AdwPreferencesRow`
+ * @self: a preferences row
  * @use_underline: `TRUE` if underlines in the text indicate mnemonics
  *
  * Sets whether an embedded underline in the title indicates a mnemonic.

@@ -274,7 +274,7 @@ adw_preferences_page_new (void)
 
 /**
  * adw_preferences_page_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
- * @self: a `AdwPreferencesPage`
+ * @self: a preferences page
  *
  * Gets the icon name for @self.
  *
@@ -296,7 +296,7 @@ adw_preferences_page_get_icon_name (AdwPreferencesPage *self)
 
 /**
  * adw_preferences_page_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
- * @self: a `AdwPreferencesPage`
+ * @self: a preferences page
  * @icon_name: (nullable): the icon name
  *
  * Sets the icon name for @self.
@@ -324,7 +324,7 @@ adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
 
 /**
  * adw_preferences_page_get_title: (attributes org.gtk.Method.get_property=title)
- * @self: a `AdwPreferencesPage`
+ * @self: a preferences page
  *
  * Gets the title of @self.
  *
@@ -346,7 +346,7 @@ adw_preferences_page_get_title (AdwPreferencesPage *self)
 
 /**
  * adw_preferences_page_set_title: (attributes org.gtk.Method.set_property=title)
- * @self: a `AdwPreferencesPage`
+ * @self: a preferences page
  * @title: the title
  *
  * Sets the title of @self.
@@ -374,7 +374,7 @@ adw_preferences_page_set_title (AdwPreferencesPage *self,
 
 /**
  * adw_preferences_page_get_name: (attributes org.gtk.Method.get_property=name)
- * @self: a `AdwPreferencesPage`
+ * @self: a preferences page
  *
  * Gets the name of @self.
  *
@@ -396,7 +396,7 @@ adw_preferences_page_get_name (AdwPreferencesPage *self)
 
 /**
  * adw_preferences_page_set_name: (attributes org.gtk.Method.set_property=name)
- * @self: a `AdwPreferencesPage`
+ * @self: a preferences page
  * @name: (nullable): the name
  *
  * Sets the name of @self.
@@ -424,7 +424,7 @@ adw_preferences_page_set_name (AdwPreferencesPage *self,
 
 /**
  * adw_preferences_page_get_rows:
- * @self: a `AdwPreferencesPage`
+ * @self: a preferences page
  *
  * Gets a [iface@Gio.ListModel] that contains the rows of the page.
  *
@@ -459,7 +459,7 @@ adw_preferences_page_get_rows (AdwPreferencesPage *self)
 
 /**
  * adw_preferences_page_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
- * @self: a `AdwPreferencesPage`
+ * @self: a preferences page
  *
  * Gets whether an embedded underline in the title indicates a mnemonic.
  *
@@ -481,7 +481,7 @@ adw_preferences_page_get_use_underline (AdwPreferencesPage *self)
 
 /**
  * adw_preferences_page_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
- * @self: a `AdwPreferencesPage`
+ * @self: a preferences page
  * @use_underline: `TRUE` if underlines in the text indicate mnemonics
  *
  * Sets whether an embedded underline in the title indicates a mnemonic.
@@ -510,7 +510,7 @@ adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
 
 /**
  * adw_preferences_page_add:
- * @self: a `AdwPreferencesPage`
+ * @self: a preferences page
  * @group: the group to add
  *
  * Adds a preferences group to @self.
@@ -533,7 +533,7 @@ adw_preferences_page_add (AdwPreferencesPage  *self,
 
 /**
  * adw_preferences_page_remove:
- * @self: a `AdwPreferencesPage`
+ * @self: a preferences page
  * @group: the group to remove
  *
  * Removes a group from @self.

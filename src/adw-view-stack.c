@@ -1029,7 +1029,7 @@ adw_view_stack_buildable_init (GtkBuildableIface *iface)
 
 /**
  * adw_view_stack_page_get_child: (attributes org.gtk.Method.get_property=child)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  *
  * Gets the stack child to which @self belongs.
  *
@@ -1047,7 +1047,7 @@ adw_view_stack_page_get_child (AdwViewStackPage *self)
 
 /**
  * adw_view_stack_page_get_visible: (attributes org.gtk.Method.get_property=visible)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  *
  * Gets whether @self is visible in its `AdwViewStack`.
  *
@@ -1068,7 +1068,7 @@ adw_view_stack_page_get_visible (AdwViewStackPage *self)
 
 /**
  * adw_view_stack_page_set_visible: (attributes org.gtk.Method.set_property=visible)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  * @visible: whether @self is visible
  *
  * Sets whether @page is visible in its `AdwViewStack`.
@@ -1096,7 +1096,7 @@ adw_view_stack_page_set_visible (AdwViewStackPage *self,
 
 /**
  * adw_view_stack_page_get_needs_attention: (attributes org.gtk.Method.get_property=needs-attention)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  *
  * Gets whether the page is marked as “needs attention”.
  *
@@ -1114,7 +1114,7 @@ adw_view_stack_page_get_needs_attention (AdwViewStackPage *self)
 
 /**
  * adw_view_stack_page_set_needs_attention: (attributes org.gtk.Method.set_property=needs-attention)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  * @needs_attention: the new value to set
  *
  * Sets whether the page is marked as “needs attention”.
@@ -1139,7 +1139,7 @@ adw_view_stack_page_set_needs_attention (AdwViewStackPage *self,
 
 /**
  * adw_view_stack_page_get_badge_number: (attributes org.gtk.Method.get_property=badge-number)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  *
  * Gets the badge number for this page.
  *
@@ -1157,7 +1157,7 @@ adw_view_stack_page_get_badge_number (AdwViewStackPage *self)
 
 /**
  * adw_view_stack_page_set_badge_number: (attributes org.gtk.Method.set_property=badge-number)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  * @badge_number: the new value to set
  *
  * Sets the badge number for this page.
@@ -1180,7 +1180,7 @@ adw_view_stack_page_set_badge_number (AdwViewStackPage *self,
 
 /**
  * adw_view_stack_page_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  *
  * Gets whether underlines in the page title indicate mnemonics.
  *
@@ -1196,7 +1196,7 @@ adw_view_stack_page_get_use_underline (AdwViewStackPage *self)
 
 /**
  * adw_view_stack_page_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  * @use_underline: the new value to set
  *
  * Sets whether underlines in the page title indicate mnemonics.
@@ -1219,7 +1219,7 @@ adw_view_stack_page_set_use_underline (AdwViewStackPage *self,
 
 /**
  * adw_view_stack_page_get_name: (attributes org.gtk.Method.get_property=name)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  *
  * Gets the name of the page.
  *
@@ -1237,7 +1237,7 @@ adw_view_stack_page_get_name (AdwViewStackPage *self)
 
 /**
  * adw_view_stack_page_set_name: (attributes org.gtk.Method.set_property=name)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  * @name: (nullable): the page name
  *
  * Sets the name of the page.
@@ -1287,7 +1287,7 @@ adw_view_stack_page_set_name (AdwViewStackPage *self,
 
 /**
  * adw_view_stack_page_get_title: (attributes org.gtk.Method.get_property=title)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  *
  * Gets the page title.
  *
@@ -1305,7 +1305,7 @@ adw_view_stack_page_get_title (AdwViewStackPage *self)
 
 /**
  * adw_view_stack_page_set_title: (attributes org.gtk.Method.set_property=title)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  * @title: (nullable): the page title
  *
  * Sets the page title.
@@ -1329,7 +1329,7 @@ adw_view_stack_page_set_title (AdwViewStackPage *self,
 
 /**
  * adw_view_stack_page_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  *
  * Gets the icon name of the page.
  *
@@ -1347,7 +1347,7 @@ adw_view_stack_page_get_icon_name (AdwViewStackPage *self)
 
 /**
  * adw_view_stack_page_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
- * @self: a `AdwViewStackPage`
+ * @self: a view stack page
  * @icon_name: (nullable): the icon name
  *
  * Sets the icon name of the page.
@@ -1386,7 +1386,7 @@ adw_view_stack_new (void)
 
 /**
  * adw_view_stack_add:
- * @self: a `AdwViewStack`
+ * @self: a view stack
  * @child: the widget to add
  *
  * Adds a child to @self.
@@ -1407,7 +1407,7 @@ adw_view_stack_add (AdwViewStack   *self,
 
 /**
  * adw_view_stack_add_named:
- * @self: a `AdwViewStack`
+ * @self: a view stack
  * @child: the widget to add
  * @name: (nullable): the name for @child
  *
@@ -1432,7 +1432,7 @@ adw_view_stack_add_named (AdwViewStack   *self,
 
 /**
  * adw_view_stack_add_titled:
- * @self: a `AdwViewStack`
+ * @self: a view stack
  * @child: the widget to add
  * @name: (nullable): the name for @child
  * @title: a human-readable title for @child
@@ -1460,7 +1460,7 @@ adw_view_stack_add_titled (AdwViewStack   *self,
 
 /**
  * adw_view_stack_remove:
- * @self: a `AdwViewStack`
+ * @self: a view stack
  * @child: the child to remove
  *
  * Removes a child widget from @self.
@@ -1493,7 +1493,7 @@ adw_view_stack_remove (AdwViewStack  *self,
 
 /**
  * adw_view_stack_get_page:
- * @self: a `AdwViewStack`
+ * @self: a view stack
  * @child: a child of @self
  *
  * Gets the [class@ViewStackPage] object for @child.
@@ -1514,7 +1514,7 @@ adw_view_stack_get_page (AdwViewStack  *self,
 
 /**
  * adw_view_stack_get_child_by_name:
- * @self: a `AdwViewStack`
+ * @self: a view stack
  * @name: the name of the child to find
  *
  * Finds the child with @name in @self.
@@ -1539,7 +1539,7 @@ adw_view_stack_get_child_by_name (AdwViewStack *self,
 
 /**
  * adw_view_stack_get_visible_child: (attributes org.gtk.Method.get_property=visible-child)
- * @self: a `AdwViewStack`
+ * @self: a view stack
  *
  * Gets the currently visible child of @self, .
  *
@@ -1557,7 +1557,7 @@ adw_view_stack_get_visible_child (AdwViewStack *self)
 
 /**
  * adw_view_stack_set_visible_child: (attributes org.gtk.Method.set_property=visible-child)
- * @self: a `AdwViewStack`
+ * @self: a view stack
  * @child: a child of @self
  *
  * Makes @child the visible child of @self.
@@ -1587,7 +1587,7 @@ adw_view_stack_set_visible_child (AdwViewStack *self,
 
 /**
  * adw_view_stack_get_visible_child_name: (attributes org.gtk.Method.get_property=visible-child-name)
- * @self: a `AdwViewStack`
+ * @self: a view stack
  *
  * Returns the name of the currently visible child of @self.
  *
@@ -1605,7 +1605,7 @@ adw_view_stack_get_visible_child_name (AdwViewStack *self)
 
 /**
  * adw_view_stack_set_visible_child_name: (attributes org.gtk.Method.set_property=visible-child-name)
- * @self: a `AdwViewStack`
+ * @self: a view stack
  * @name: the name of the child
  *
  * Makes the child with @name visible.
@@ -1637,7 +1637,7 @@ adw_view_stack_set_visible_child_name (AdwViewStack *self,
 
 /**
  * adw_view_stack_set_hhomogeneous: (attributes org.gtk.Method.set_property=hhomogeneous)
- * @self: a `AdwViewStack`
+ * @self: a view stack
  * @hhomogeneous: whether to make @self horizontally homogeneous
  *
  * Sets @self to be horizontally homogeneous or not.
@@ -1665,7 +1665,7 @@ adw_view_stack_set_hhomogeneous (AdwViewStack *self,
 
 /**
  * adw_view_stack_get_hhomogeneous: (attributes org.gtk.Method.get_property=hhomogeneous)
- * @self: a `AdwViewStack`
+ * @self: a view stack
  *
  * Gets whether @self is horizontally homogeneous.
  *
@@ -1683,7 +1683,7 @@ adw_view_stack_get_hhomogeneous (AdwViewStack *self)
 
 /**
  * adw_view_stack_set_vhomogeneous: (attributes org.gtk.Method.set_property=vhomogeneous)
- * @self: a `AdwViewStack`
+ * @self: a view stack
  * @vhomogeneous: whether to make @self vertically homogeneous
  *
  * Sets @self to be vertically homogeneous or not.
@@ -1711,7 +1711,7 @@ adw_view_stack_set_vhomogeneous (AdwViewStack *self,
 
 /**
  * adw_view_stack_get_vhomogeneous: (attributes org.gtk.Method.get_property=vhomogeneous)
- * @self: a `AdwViewStack`
+ * @self: a view stack
  *
  * Gets whether @self is vertically homogeneous.
  *
@@ -1729,7 +1729,7 @@ adw_view_stack_get_vhomogeneous (AdwViewStack *self)
 
 /**
  * adw_view_stack_get_pages: (attributes org.gtk.Method.get_property=pages)
- * @self: a `AdwViewStack`
+ * @self: a view stack
  *
  * Returns a [iface@Gio.ListModel] that contains the pages of the stack.
  *

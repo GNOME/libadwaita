@@ -591,7 +591,7 @@ adw_split_button_new (void)
 
 /**
  * adw_split_button_get_label: (attributes org.gtk.Method.get_property=label)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  *
  * Gets the label for @self.
  *
@@ -609,7 +609,7 @@ adw_split_button_get_label (AdwSplitButton *self)
 
 /**
  * adw_split_button_set_label: (attributes org.gtk.Method.set_property=label)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  * @label: the label to set
  *
  * Sets the label for @self.
@@ -641,7 +641,7 @@ adw_split_button_set_label (AdwSplitButton *self,
 
 /**
  * adw_split_button_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  *
  * Gets whether an underline in the text indicates a mnemonic.
  *
@@ -659,7 +659,7 @@ adw_split_button_get_use_underline (AdwSplitButton *self)
 
 /**
  * adw_split_button_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  * @use_underline: whether an underline in the text indicates a mnemonic
  *
  * Sets whether an underline in the text indicates a mnemonic.
@@ -682,7 +682,7 @@ adw_split_button_set_use_underline (AdwSplitButton *self,
 
 /**
  * adw_split_button_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  *
  * Gets the name of the icon used to automatically populate the button.
  *
@@ -703,7 +703,7 @@ adw_split_button_get_icon_name (AdwSplitButton *self)
 
 /**
  * adw_split_button_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  * @icon_name: the icon name to set
  *
  * Sets the name of the icon used to automatically populate the button.
@@ -736,7 +736,7 @@ adw_split_button_set_icon_name (AdwSplitButton *self,
 
 /**
  * adw_split_button_get_child: (attributes org.gtk.Method.get_property=child)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  *
  * Gets the child widget.
  *
@@ -754,7 +754,7 @@ adw_split_button_get_child (AdwSplitButton *self)
 
 /**
  * adw_split_button_set_child: (attributes org.gtk.Method.set_property=child)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  * @child: (nullable): the new child widget
  *
  * Sets the child widget.
@@ -786,7 +786,7 @@ adw_split_button_set_child (AdwSplitButton *self,
 
 /**
  * adw_split_button_get_menu_model: (attributes org.gtk.Method.get_property=menu-model)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  *
  * Gets the menu model from which the popup will be created.
  *
@@ -804,7 +804,7 @@ adw_split_button_get_menu_model (AdwSplitButton *self)
 
 /**
  * adw_split_button_set_menu_model: (attributes org.gtk.Method.set_property=menu-model)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  * @menu_model: (nullable): the menu model
  *
  * Sets the menu model from which the popup will be created.
@@ -825,7 +825,7 @@ adw_split_button_set_menu_model (AdwSplitButton *self,
 
 /**
  * adw_split_button_get_popover: (attributes org.gtk.Method.get_property=popover)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  *
  * Gets the popover that will be popped up when the dropdown is clicked.
  *
@@ -843,7 +843,7 @@ adw_split_button_get_popover (AdwSplitButton *self)
 
 /**
  * adw_split_button_set_popover: (attributes org.gtk.Method.set_property=popover)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  * @popover: (nullable): the popover
  *
  * Sets the popover that will be popped up when the dropdown is clicked.
@@ -864,7 +864,7 @@ adw_split_button_set_popover (AdwSplitButton *self,
 
 /**
  * adw_split_button_get_direction: (attributes org.gtk.Method.get_property=direction)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  *
  * Gets the direction in which the popup will be popped up.
  *
@@ -882,7 +882,7 @@ adw_split_button_get_direction (AdwSplitButton *self)
 
 /**
  * adw_split_button_set_direction: (attributes org.gtk.Method.set_property=direction)
- * @self: a `AdwSplitButton`
+ * @self: a split button
  * @direction: the direction
  *
  * Sets the direction in which the popup will be popped up.
@@ -905,7 +905,7 @@ adw_split_button_set_direction (AdwSplitButton *self,
 
 /**
  * adw_split_button_popup:
- * @self: a `AdwSplitButton`
+ * @self: a split button
  *
  * Pops up the menu.
  *
@@ -921,7 +921,7 @@ adw_split_button_popup (AdwSplitButton *self)
 
 /**
  * adw_split_button_popdown:
- * @self: a `AdwSplitButton`
+ * @self: a split button
  *
  * Dismisses the menu.
  *

@@ -1035,7 +1035,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
 
   /**
    * AdwCarousel::page-changed:
-   * @self: a `AdwCarousel`
+   * @self: a carousel
    * @index: current page
    *
    * This signal is emitted after a page has been changed.
@@ -1191,7 +1191,7 @@ adw_carousel_new (void)
 
 /**
  * adw_carousel_prepend:
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @child: a widget to add
  *
  * Prepends @child to @self.
@@ -1210,7 +1210,7 @@ adw_carousel_prepend (AdwCarousel *self,
 
 /**
  * adw_carousel_append:
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @child: a widget to add
  *
  * Appends @child to @self.
@@ -1229,7 +1229,7 @@ adw_carousel_append (AdwCarousel *self,
 
 /**
  * adw_carousel_insert:
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @child: a widget to add
  * @position: the position to insert @child at
  *
@@ -1278,7 +1278,7 @@ adw_carousel_insert (AdwCarousel *self,
 }
 /**
  * adw_carousel_reorder:
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @child: a widget to add
  * @position: the position to move @child to
  *
@@ -1370,7 +1370,7 @@ adw_carousel_reorder (AdwCarousel *self,
 
 /**
  * adw_carousel_remove:
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @child: a widget to remove
  *
  * Removes @child from @self.
@@ -1405,7 +1405,7 @@ adw_carousel_remove (AdwCarousel *self,
 
 /**
  * adw_carousel_scroll_to:
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @widget: a child of @self
  * @animate: whether to animate the transition
  *
@@ -1432,7 +1432,7 @@ adw_carousel_scroll_to (AdwCarousel *self,
 
 /**
  * adw_carousel_get_nth_page:
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @n: index of the page
  *
  * Gets the page at position @n.
@@ -1457,7 +1457,7 @@ adw_carousel_get_nth_page (AdwCarousel *self,
 
 /**
  * adw_carousel_get_n_pages: (attributes org.gtk.Method.get_property=n-pages)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  *
  * Gets the number of pages in @self.
  *
@@ -1486,7 +1486,7 @@ adw_carousel_get_n_pages (AdwCarousel *self)
 
 /**
  * adw_carousel_get_position: (attributes org.gtk.Method.get_property=position)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  *
  * Gets current scroll position in @self.
  *
@@ -1506,7 +1506,7 @@ adw_carousel_get_position (AdwCarousel *self)
 
 /**
  * adw_carousel_get_interactive: (attributes org.gtk.Method.get_property=interactive)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  *
  * Gets whether @self can be navigated.
  *
@@ -1524,7 +1524,7 @@ adw_carousel_get_interactive (AdwCarousel *self)
 
 /**
  * adw_carousel_set_interactive: (attributes org.gtk.Method.set_property=interactive)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @interactive: whether @self can be navigated
  *
  * Sets whether @self can be navigated.
@@ -1549,7 +1549,7 @@ adw_carousel_set_interactive (AdwCarousel *self,
 
 /**
  * adw_carousel_get_spacing: (attributes org.gtk.Method.get_property=spacing)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  *
  * Gets spacing between pages in pixels.
  *
@@ -1567,7 +1567,7 @@ adw_carousel_get_spacing (AdwCarousel *self)
 
 /**
  * adw_carousel_set_spacing: (attributes org.gtk.Method.set_property=spacing)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @spacing: the new spacing value
  *
  * Sets spacing between pages in pixels.
@@ -1591,7 +1591,7 @@ adw_carousel_set_spacing (AdwCarousel *self,
 
 /**
  * adw_carousel_get_scroll_params: (attributes org.gtk.Method.get_property=scroll-params)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  *
  * Gets the scroll animation spring parameters for @self.
  *
@@ -1609,7 +1609,7 @@ adw_carousel_get_scroll_params (AdwCarousel *self)
 
 /**
  * adw_carousel_set_scroll_params: (attributes org.gtk.Method.set_property=scroll-params)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @params: the new parameters
  *
  * Sets the scroll animation spring parameters for @self.
@@ -1633,7 +1633,7 @@ adw_carousel_set_scroll_params (AdwCarousel     *self,
 
 /**
  * adw_carousel_get_allow_mouse_drag: (attributes org.gtk.Method.get_property=allow-mouse-drag)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  *
  * Sets whether @self can be dragged with mouse pointer.
  *
@@ -1651,7 +1651,7 @@ adw_carousel_get_allow_mouse_drag (AdwCarousel *self)
 
 /**
  * adw_carousel_set_allow_mouse_drag: (attributes org.gtk.Method.set_property=allow-mouse-drag)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @allow_mouse_drag: whether @self can be dragged with mouse pointer
  *
  * Sets whether @self can be dragged with mouse pointer.
@@ -1676,7 +1676,7 @@ adw_carousel_set_allow_mouse_drag (AdwCarousel *self,
 
 /**
  * adw_carousel_get_allow_scroll_wheel: (attributes org.gtk.Method.get_property=allow-scroll-wheel)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  *
  * Gets whether @self will respond to scroll wheel events.
  *
@@ -1694,7 +1694,7 @@ adw_carousel_get_allow_scroll_wheel (AdwCarousel *self)
 
 /**
  * adw_carousel_set_allow_scroll_wheel: (attributes org.gtk.Method.set_property=allow-scroll-wheel)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @allow_scroll_wheel: whether @self will respond to scroll wheel events
  *
  * Sets whether @self will respond to scroll wheel events.
@@ -1719,7 +1719,7 @@ adw_carousel_set_allow_scroll_wheel (AdwCarousel *self,
 
 /**
  * adw_carousel_get_allow_long_swipes: (attributes org.gtk.Method.get_property=allow-long-swipes)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  *
  * Gets whether to allow swiping for more than one page at a time.
  *
@@ -1737,7 +1737,7 @@ adw_carousel_get_allow_long_swipes (AdwCarousel *self)
 
 /**
  * adw_carousel_set_allow_long_swipes: (attributes org.gtk.Method.set_property=allow-long-swipes)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @allow_long_swipes: whether to allow long swipes
  *
  * Sets whether to allow swiping for more than one page at a time.
@@ -1762,7 +1762,7 @@ adw_carousel_set_allow_long_swipes (AdwCarousel *self,
 
 /**
  * adw_carousel_get_reveal_duration: (attributes org.gtk.Method.get_property=reveal-duration)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  *
  * Gets duration of the animation used when adding or removing pages.
  *
@@ -1780,7 +1780,7 @@ adw_carousel_get_reveal_duration (AdwCarousel *self)
 
 /**
  * adw_carousel_set_reveal_duration: (attributes org.gtk.Method.set_property=reveal-duration)
- * @self: a `AdwCarousel`
+ * @self: a carousel
  * @reveal_duration: the new reveal duration value
  *
  * Sets duration of the animation used when adding or removing pages.

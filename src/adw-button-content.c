@@ -305,7 +305,7 @@ adw_button_content_new (void)
 
 /**
  * adw_button_content_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
- * @self: a `AdwButtonContent`
+ * @self: a button content
  *
  * Gets the name of the displayed icon.
  *
@@ -323,7 +323,7 @@ adw_button_content_get_icon_name (AdwButtonContent *self)
 
 /**
  * adw_button_content_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
- * @self: a `AdwButtonContent`
+ * @self: a button content
  * @icon_name: the new icon name
  *
  * Sets the name of the displayed icon.
@@ -353,7 +353,7 @@ adw_button_content_set_icon_name (AdwButtonContent *self,
 
 /**
  * adw_button_content_get_label: (attributes org.gtk.Method.get_property=label)
- * @self: a `AdwButtonContent`
+ * @self: a button content
  *
  * Gets the displayed label.
  *
@@ -371,7 +371,7 @@ adw_button_content_get_label (AdwButtonContent *self)
 
 /**
  * adw_button_content_set_label: (attributes org.gtk.Method.set_property=label)
- * @self: a `AdwButtonContent`
+ * @self: a button content
  * @label: the new label
  *
  * Sets the displayed label.
@@ -398,7 +398,7 @@ adw_button_content_set_label (AdwButtonContent *self,
 
 /**
  * adw_button_content_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
- * @self: a `AdwButtonContent`
+ * @self: a button content
  *
  * Gets whether an underline in the text indicates a mnemonic.
  *
@@ -416,7 +416,7 @@ adw_button_content_get_use_underline (AdwButtonContent *self)
 
 /**
  * adw_button_content_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
- * @self: a `AdwButtonContent`
+ * @self: a button content
  * @use_underline: whether an underline in the text indicates a mnemonic
  *
  * Sets whether an underline in the text indicates a mnemonic.

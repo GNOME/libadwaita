@@ -440,7 +440,7 @@ adw_animation_init (AdwAnimation *self)
 
 /**
  * adw_animation_get_widget: (attributes org.gtk.Method.get_property=widget)
- * @self: a `AdwAnimation`
+ * @self: an animation
  *
  * Gets the widget @self was created for.
  *
@@ -462,7 +462,7 @@ adw_animation_get_widget (AdwAnimation *self)
 
 /**
  * adw_animation_get_target: (attributes org.gtk.Method.get_property=target)
- * @self: a `AdwAnimation`
+ * @self: an animation
  *
  * Gets the target @self animates.
  *
@@ -484,7 +484,7 @@ adw_animation_get_target (AdwAnimation *self)
 
 /**
  * adw_animation_get_value: (attributes org.gtk.Method.get_property=value)
- * @self: a `AdwAnimation`
+ * @self: an animation
  *
  * Gets the current value of @self.
  *
@@ -506,7 +506,7 @@ adw_animation_get_value (AdwAnimation *self)
 
 /**
  * adw_animation_get_state: (attributes org.gtk.Method.get_property=state)
- * @self: a `AdwAnimation`
+ * @self: an animation
  *
  * Gets the current value of @self.
  *
@@ -531,7 +531,7 @@ adw_animation_get_state (AdwAnimation *self)
 
 /**
  * adw_animation_play:
- * @self: a `AdwAnimation`
+ * @self: an animation
  *
  * Starts the animation for @self.
  *
@@ -571,7 +571,7 @@ adw_animation_play (AdwAnimation *self)
 
 /**
  * adw_animation_pause:
- * @self: a `AdwAnimation`
+ * @self: an animation
  *
  * Pauses a playing animation for @self.
  *
@@ -609,7 +609,7 @@ adw_animation_pause (AdwAnimation *self)
 
 /**
  * adw_animation_resume:
- * @self: a `AdwAnimation`
+ * @self: an animation
  *
  * Resumes a paused animation for @self.
  *
@@ -640,7 +640,7 @@ adw_animation_resume (AdwAnimation *self)
 
 /**
  * adw_animation_skip:
- * @self: a `AdwAnimation`
+ * @self: an animation
  *
  * Skips the animation for @self.
  *
@@ -689,7 +689,7 @@ adw_animation_skip (AdwAnimation *self)
 
 /**
  * adw_animation_reset:
- * @self: a `AdwAnimation`
+ * @self: an animation
  *
  * Resets the animation for @self.
  *

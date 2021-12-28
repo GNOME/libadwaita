@@ -438,7 +438,7 @@ adw_toast_new (const char *title)
 
 /**
  * adw_toast_get_title: (attributes org.gtk.Method.get_property=title)
- * @self: a `AdwToast`
+ * @self: a toast
  *
  * Gets the title that will be displayed on the toast.
  *
@@ -456,7 +456,7 @@ adw_toast_get_title (AdwToast *self)
 
 /**
  * adw_toast_set_title: (attributes org.gtk.Method.set_property=title)
- * @self: a `AdwToast`
+ * @self: a toast
  * @title: a title
  *
  * Sets the title that will be displayed on the toast.
@@ -481,7 +481,7 @@ adw_toast_set_title (AdwToast   *self,
 
 /**
  * adw_toast_get_button_label: (attributes org.gtk.Method.get_property=button-label)
- * @self: a `AdwToast`
+ * @self: a toast
  *
  * Gets the label to show on the button.
  *
@@ -499,7 +499,7 @@ adw_toast_get_button_label (AdwToast *self)
 
 /**
  * adw_toast_set_button_label: (attributes org.gtk.Method.set_property=button-label)
- * @self: a `AdwToast`
+ * @self: a toast
  * @button_label: (nullable): a button label
  *
  * Sets the label to show on the button.
@@ -525,7 +525,7 @@ adw_toast_set_button_label (AdwToast   *self,
 
 /**
  * adw_toast_get_action_name: (attributes org.gtk.Method.get_property=action-name)
- * @self: a `AdwToast`
+ * @self: a toast
  *
  * Gets the name of the associated action.
  *
@@ -543,7 +543,7 @@ adw_toast_get_action_name (AdwToast *self)
 
 /**
  * adw_toast_set_action_name: (attributes org.gtk.Method.set_property=action-name)
- * @self: a `AdwToast`
+ * @self: a toast
  * @action_name: (nullable): the action name
  *
  * Sets the name of the associated action.
@@ -567,7 +567,7 @@ adw_toast_set_action_name (AdwToast   *self,
 
 /**
  * adw_toast_get_action_target_value: (attributes org.gtk.Method.get_property=action-target)
- * @self: a `AdwToast`
+ * @self: a toast
  *
  * Gets the parameter for action invocations.
  *
@@ -585,7 +585,7 @@ adw_toast_get_action_target_value (AdwToast *self)
 
 /**
  * adw_toast_set_action_target_value: (attributes org.gtk.Method.set_property=action-target)
- * @self: a `AdwToast`
+ * @self: a toast
  * @action_target: (nullable): the action target
  *
  * Sets the parameter for action invocations.
@@ -613,7 +613,7 @@ adw_toast_set_action_target_value (AdwToast *self,
 
 /**
  * adw_toast_set_action_target: (skip)
- * @self: a `AdwToast`
+ * @self: a toast
  * @format_string: (nullable): a [struct@GLib.Variant] format string
  * @...: arguments appropriate for @target_format
  *
@@ -645,7 +645,7 @@ adw_toast_set_action_target (AdwToast   *self,
 
 /**
  * adw_toast_set_detailed_action_name:
- * @self: a `AdwToast`
+ * @self: a toast
  * @detailed_action_name: (nullable): the detailed action name
  *
  * Sets the action name and its parameter.
@@ -686,7 +686,7 @@ adw_toast_set_detailed_action_name (AdwToast   *self,
 
 /**
  * adw_toast_get_priority: (attributes org.gtk.Method.get_property=priority)
- * @self: a `AdwToast`
+ * @self: a toast
  *
  * Gets priority for @self.
  *
@@ -704,7 +704,7 @@ adw_toast_get_priority (AdwToast *self)
 
 /**
  * adw_toast_set_priority: (attributes org.gtk.Method.set_property=priority)
- * @self: a `AdwToast`
+ * @self: a toast
  * @priority: the priority
  *
  * Sets priority for @self.
@@ -737,7 +737,7 @@ adw_toast_set_priority (AdwToast         *self,
 
 /**
  * adw_toast_get_timeout: (attributes org.gtk.Method.get_property=timeout)
- * @self: a `AdwToast`
+ * @self: a toast
  *
  * Gets timeout for @self.
  *
@@ -755,7 +755,7 @@ adw_toast_get_timeout (AdwToast *self)
 
 /**
  * adw_toast_set_timeout: (attributes org.gtk.Method.set_property=timeout)
- * @self: a `AdwToast`
+ * @self: a toast
  * @timeout: the timeout
  *
  * Sets timeout for @self.
@@ -784,7 +784,7 @@ adw_toast_set_timeout (AdwToast *self,
 
 /**
  * adw_toast_dismiss:
- * @self: a `AdwToast`
+ * @self: a toast
  *
  * Dismisses @self.
  *

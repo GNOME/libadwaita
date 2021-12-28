@@ -275,7 +275,7 @@ adw_clamp_new (void)
 
 /**
  * adw_clamp_get_child: (attributes org.gtk.Method.get_property=child)
- * @self: a `AdwClamp`
+ * @self: a clamp
  *
  * Gets the child widget of @self.
  *
@@ -293,7 +293,7 @@ adw_clamp_get_child (AdwClamp  *self)
 
 /**
  * adw_clamp_set_child: (attributes org.gtk.Method.set_property=child)
- * @self: a `AdwClamp`
+ * @self: a clamp
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
@@ -322,7 +322,7 @@ adw_clamp_set_child (AdwClamp  *self,
 
 /**
  * adw_clamp_get_maximum_size: (attributes org.gtk.Method.get_property=maximum-size)
- * @self: a `AdwClamp`
+ * @self: a clamp
  *
  * Gets the maximum size allocated to the child.
  *
@@ -344,7 +344,7 @@ adw_clamp_get_maximum_size (AdwClamp *self)
 
 /**
  * adw_clamp_set_maximum_size: (attributes org.gtk.Method.set_property=maximum-size)
- * @self: a `AdwClamp`
+ * @self: a clamp
  * @maximum_size: the maximum size
  *
  * Sets the maximum size allocated to the child.
@@ -371,7 +371,7 @@ adw_clamp_set_maximum_size (AdwClamp *self,
 
 /**
  * adw_clamp_get_tightening_threshold: (attributes org.gtk.Method.get_property=tightening-threshold)
- * @self: a `AdwClamp`
+ * @self: a clamp
  *
  * Gets the size above which the child is clamped.
  *
@@ -393,7 +393,7 @@ adw_clamp_get_tightening_threshold (AdwClamp *self)
 
 /**
  * adw_clamp_set_tightening_threshold: (attributes org.gtk.Method.set_property=tightening-threshold)
- * @self: a `AdwClamp`
+ * @self: a clamp
  * @tightening_threshold: the tightening threshold
  *
  * Sets the size above which the child is clamped.

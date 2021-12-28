@@ -380,7 +380,7 @@ adw_view_switcher_button_new (void)
 
 /**
  * adw_view_switcher_button_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
- * @self: a `AdwViewSwitcherButton`
+ * @self: a view switcher button
  *
  * Gets the icon name representing the view.
  *
@@ -398,7 +398,7 @@ adw_view_switcher_button_get_icon_name (AdwViewSwitcherButton *self)
 
 /**
  * adw_view_switcher_button_set_icon_name: (attributes org.gtk.Method.set_property=icon-name)
- * @self: a `AdwViewSwitcherButton`
+ * @self: a view switcher button
  * @icon_name: (nullable): an icon name
  *
  * Sets the icon name representing the view.
@@ -426,7 +426,7 @@ adw_view_switcher_button_set_icon_name (AdwViewSwitcherButton *self,
 
 /**
  * adw_view_switcher_button_get_needs_attention: (attributes org.gtk.Method.get_property=needs-attention)
- * @self: a `AdwViewSwitcherButton`
+ * @self: a view switcher button
  *
  * Gets whether the view represented by @self requires the user attention.
  *
@@ -444,7 +444,7 @@ adw_view_switcher_button_get_needs_attention (AdwViewSwitcherButton *self)
 
 /**
  * adw_view_switcher_button_set_needs_attention: (attributes org.gtk.Method.set_property=needs-attention)
- * @self: a `AdwViewSwitcherButton`
+ * @self: a view switcher button
  * @needs_attention: whether the view needs attention
  *
  * Sets whether the view represented by @self requires the user attention.
@@ -469,7 +469,7 @@ adw_view_switcher_button_set_needs_attention (AdwViewSwitcherButton *self,
 
 /**
  * adw_view_switcher_button_get_badge_number:
- * @self: a `AdwViewSwitcherButton`
+ * @self: a view switcher button
  *
  * Gets the badge number.
  *
@@ -487,7 +487,7 @@ adw_view_switcher_button_get_badge_number (AdwViewSwitcherButton *self)
 
 /**
  * adw_view_switcher_button_set_badge_number:
- * @self: a `AdwViewSwitcherButton`
+ * @self: a view switcher button
  * @badge_number: the new value
  *
  * Sets the badge number.
@@ -510,7 +510,7 @@ adw_view_switcher_button_set_badge_number (AdwViewSwitcherButton *self,
 
 /**
  * adw_view_switcher_button_get_label:
- * @self: a `AdwViewSwitcherButton`
+ * @self: a view switcher button
  *
  * Gets the label representing the view.
  *
@@ -528,7 +528,7 @@ adw_view_switcher_button_get_label (AdwViewSwitcherButton *self)
 
 /**
  * adw_view_switcher_button_set_label:
- * @self: a `AdwViewSwitcherButton`
+ * @self: a view switcher button
  * @label: (nullable): a label
  *
  * Sets the label representing the view.

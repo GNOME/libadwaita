@@ -355,7 +355,7 @@ adw_preferences_group_new (void)
 
 /**
  * adw_preferences_group_get_title: (attributes org.gtk.Method.get_property=title)
- * @self: a `AdwPreferencesGroup`
+ * @self: a preferences group
  *
  * Gets the title of @self.
  *
@@ -377,7 +377,7 @@ adw_preferences_group_get_title (AdwPreferencesGroup *self)
 
 /**
  * adw_preferences_group_set_title: (attributes org.gtk.Method.set_property=title)
- * @self: a `AdwPreferencesGroup`
+ * @self: a preferences group
  * @title: the title
  *
  * Sets the title for @self.
@@ -406,7 +406,7 @@ adw_preferences_group_set_title (AdwPreferencesGroup *self,
 
 /**
  * adw_preferences_group_get_description: (attributes org.gtk.Method.get_property=description)
- * @self: a `AdwPreferencesGroup`
+ * @self: a preferences group
  *
  * Gets the description of @self.
  *
@@ -428,7 +428,7 @@ adw_preferences_group_get_description (AdwPreferencesGroup *self)
 
 /**
  * adw_preferences_group_set_description: (attributes org.gtk.Method.set_property=description)
- * @self: a `AdwPreferencesGroup`
+ * @self: a preferences group
  * @description: (nullable): the description
  *
  * Sets the description for @self.
@@ -473,7 +473,7 @@ row_has_title (AdwPreferencesRow *row,
 
 /**
  * adw_preferences_group_get_rows:
- * @self: a `AdwPreferencesGroup`
+ * @self: a preferences group
  *
  * Gets a [iface@Gio.ListModel] that contains the rows of the group.
  *
@@ -503,7 +503,7 @@ adw_preferences_group_get_rows (AdwPreferencesGroup *self)
 
 /**
  * adw_preferences_group_add:
- * @self: a `AdwPreferencesGroup`
+ * @self: a preferences group
  * @child: the widget to add
  *
  * Adds a child to @self.
@@ -529,7 +529,7 @@ adw_preferences_group_add (AdwPreferencesGroup *self,
 
 /**
  * adw_preferences_group_remove:
- * @self: a `AdwPreferencesGroup`
+ * @self: a preferences group
  * @child: the child to remove
  *
  * Removes a child from @self.

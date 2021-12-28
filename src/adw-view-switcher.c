@@ -414,7 +414,7 @@ adw_view_switcher_new (void)
 
 /**
  * adw_view_switcher_get_policy: (attributes org.gtk.Method.get_property=policy)
- * @self: a `AdwViewSwitcher`
+ * @self: a view switcher
  *
  * Gets the policy of @self.
  *
@@ -432,7 +432,7 @@ adw_view_switcher_get_policy (AdwViewSwitcher *self)
 
 /**
  * adw_view_switcher_set_policy: (attributes org.gtk.Method.set_property=policy)
- * @self: a `AdwViewSwitcher`
+ * @self: a view switcher
  * @policy: the new policy
  *
  * Sets the policy of @self.
@@ -473,7 +473,7 @@ adw_view_switcher_set_policy (AdwViewSwitcher       *self,
 
 /**
  * adw_view_switcher_get_stack: (attributes org.gtk.Method.get_property=stack)
- * @self: a `AdwViewSwitcher`
+ * @self: a view switcher
  *
  * Gets the stack controlled by @self.
  *
@@ -491,7 +491,7 @@ adw_view_switcher_get_stack (AdwViewSwitcher *self)
 
 /**
  * adw_view_switcher_set_stack: (attributes org.gtk.Method.set_property=stack)
- * @self: a `AdwViewSwitcher`
+ * @self: a view switcher
  * @stack: (nullable): a stack
  *
  * Sets the stack controlled by @self.

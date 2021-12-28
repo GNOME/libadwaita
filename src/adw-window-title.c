@@ -186,7 +186,7 @@ adw_window_title_new (const char *title,
 
 /**
  * adw_window_title_get_title: (attributes org.gtk.Method.get_property=title)
- * @self: a `AdwWindowTitle`
+ * @self: a window title
  *
  * Gets the title of @self.
  *
@@ -204,7 +204,7 @@ adw_window_title_get_title (AdwWindowTitle *self)
 
 /**
  * adw_window_title_set_title: (attributes org.gtk.Method.set_property=title)
- * @self: a `AdwWindowTitle`
+ * @self: a window title
  * @title: a title
  *
  * Sets the title of @self.
@@ -229,7 +229,7 @@ adw_window_title_set_title (AdwWindowTitle *self,
 
 /**
  * adw_window_title_get_subtitle: (attributes org.gtk.Method.get_property=subtitle)
- * @self: a `AdwWindowTitle`
+ * @self: a window title
  *
  * Gets the subtitle of @self.
  *
@@ -247,7 +247,7 @@ adw_window_title_get_subtitle (AdwWindowTitle *self)
 
 /**
  * adw_window_title_set_subtitle: (attributes org.gtk.Method.set_property=subtitle)
- * @self: a `AdwWindowTitle`
+ * @self: a window title
  * @subtitle: a subtitle
  *
  * Sets the subtitle of @self.

@@ -1536,7 +1536,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::page-attached:
-   * @self: a `AdwTabView`
+   * @self: a tab view
    * @page: a page of @self
    * @position: the position of the page, starting from 0
    *
@@ -1559,7 +1559,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::page-detached:
-   * @self: a `AdwTabView`
+   * @self: a tab view
    * @page: a page of @self
    * @position: the position of the removed page, starting from 0
    *
@@ -1587,7 +1587,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::page-reordered:
-   * @self: a `AdwTabView`
+   * @self: a tab view
    * @page: a page of @self
    * @position: the position @page was moved to, starting at 0
    *
@@ -1607,7 +1607,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::close-page:
-   * @self: a `AdwTabView`
+   * @self: a tab view
    * @page: a page of @self
    *
    * Emitted after [method@TabView.close_page] has been called for @page.
@@ -1652,7 +1652,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::setup-menu:
-   * @self: a `AdwTabView`
+   * @self: a tab view
    * @page: (nullable): a page of @self
    *
    * Emitted when a context menu is opened or closed for @page.
@@ -1676,7 +1676,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::create-window:
-   * @self: a `AdwTabView`
+   * @self: a tab view
    *
    * Emitted when a tab should be transferred into a new window.
    *
@@ -1701,7 +1701,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   /**
    * AdwTabView::indicator-activated:
-   * @self: a `AdwTabView`
+   * @self: a tab view
    * @page: a page of @self
    *
    * Emitted after the indicator icon on @page has been activated.
@@ -1782,7 +1782,7 @@ adw_tab_view_buildable_init (GtkBuildableIface *iface)
 
 /**
  * adw_tab_page_get_child: (attributes org.gtk.Method.get_property=child)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  *
  * Gets the child of @self.
  *
@@ -1800,7 +1800,7 @@ adw_tab_page_get_child (AdwTabPage *self)
 
 /**
  * adw_tab_page_get_parent: (attributes org.gtk.Method.get_property=parent)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  *
  * Gets the parent page of @self.
  *
@@ -1818,7 +1818,7 @@ adw_tab_page_get_parent (AdwTabPage *self)
 
 /**
  * adw_tab_page_get_selected: (attributes org.gtk.Method.get_property=selected)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  *
  * Gets whether @self is selected.
  *
@@ -1836,7 +1836,7 @@ adw_tab_page_get_selected (AdwTabPage *self)
 
 /**
  * adw_tab_page_get_pinned: (attributes org.gtk.Method.get_property=pinned)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  *
  * Gets whether @self is pinned.
  *
@@ -1854,7 +1854,7 @@ adw_tab_page_get_pinned (AdwTabPage *self)
 
 /**
  * adw_tab_page_get_title: (attributes org.gtk.Method.get_property=title)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  *
  * Gets the title of @self.
  *
@@ -1872,7 +1872,7 @@ adw_tab_page_get_title (AdwTabPage *self)
 
 /**
  * adw_tab_page_set_title: (attributes org.gtk.Method.set_property=title)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  * @title: the title of @self
  *
  * Sets the title of @self.
@@ -1896,7 +1896,7 @@ adw_tab_page_set_title (AdwTabPage *self,
 
 /**
  * adw_tab_page_get_tooltip: (attributes org.gtk.Method.get_property=tooltip)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  *
  * Gets the tooltip of @self.
  *
@@ -1914,7 +1914,7 @@ adw_tab_page_get_tooltip (AdwTabPage *self)
 
 /**
  * adw_tab_page_set_tooltip: (attributes org.gtk.Method.set_property=tooltip)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  * @tooltip: the tooltip of @self
  *
  * Sets the tooltip of @self.
@@ -1938,7 +1938,7 @@ adw_tab_page_set_tooltip (AdwTabPage *self,
 
 /**
  * adw_tab_page_get_icon: (attributes org.gtk.Method.get_property=icon)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  *
  * Gets the icon of @self.
  *
@@ -1956,7 +1956,7 @@ adw_tab_page_get_icon (AdwTabPage *self)
 
 /**
  * adw_tab_page_set_icon: (attributes org.gtk.Method.set_property=icon)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  * @icon: (nullable): the icon of @self
  *
  * Sets the icon of @self.
@@ -1980,7 +1980,7 @@ adw_tab_page_set_icon (AdwTabPage *self,
 
 /**
  * adw_tab_page_get_loading: (attributes org.gtk.Method.get_property=loading)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  *
  * Gets whether @self is loading.
  *
@@ -1998,7 +1998,7 @@ adw_tab_page_get_loading (AdwTabPage *self)
 
 /**
  * adw_tab_page_set_loading: (attributes org.gtk.Method.set_property=loading)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  * @loading: whether @self is loading
  *
  * Sets wether @self is loading.
@@ -2023,7 +2023,7 @@ adw_tab_page_set_loading (AdwTabPage *self,
 
 /**
  * adw_tab_page_get_indicator_icon: (attributes org.gtk.Method.get_property=indicator-icon)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  *
  * Gets the indicator icon of @self.
  *
@@ -2041,7 +2041,7 @@ adw_tab_page_get_indicator_icon (AdwTabPage *self)
 
 /**
  * adw_tab_page_set_indicator_icon: (attributes org.gtk.Method.set_property=indicator-icon)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  * @indicator_icon: (nullable): the indicator icon of @self
  *
  * Sets the indicator icon of @self.
@@ -2065,7 +2065,7 @@ adw_tab_page_set_indicator_icon (AdwTabPage *self,
 
 /**
  * adw_tab_page_get_indicator_activatable: (attributes org.gtk.Method.get_property=indicator-activatable)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  *
  *
  * Gets whether the indicator of @self is activatable.
@@ -2084,7 +2084,7 @@ adw_tab_page_get_indicator_activatable (AdwTabPage *self)
 
 /**
  * adw_tab_page_set_indicator_activatable: (attributes org.gtk.Method.set_property=indicator-activatable)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  * @activatable: whether the indicator is activatable
  *
  * Sets whether the indicator of @self is activatable.
@@ -2109,7 +2109,7 @@ adw_tab_page_set_indicator_activatable (AdwTabPage *self,
 
 /**
  * adw_tab_page_get_needs_attention: (attributes org.gtk.Method.get_property=needs-attention)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  *
  * Gets whether @self needs attention.
  *
@@ -2127,7 +2127,7 @@ adw_tab_page_get_needs_attention (AdwTabPage *self)
 
 /**
  * adw_tab_page_set_needs_attention: (attributes org.gtk.Method.set_property=needs-attention)
- * @self: a `AdwTabPage`
+ * @self: a tab page
  * @needs_attention: whether @self needs attention
  *
  * Sets whether @self needs attention.
@@ -2167,7 +2167,7 @@ adw_tab_view_new (void)
 
 /**
  * adw_tab_view_get_n_pages: (attributes org.gtk.Method.get_property=n-pages)
- * @self: a `AdwTabView`
+ * @self: a tab view
  *
  * Gets the number of pages in @self.
  *
@@ -2185,7 +2185,7 @@ adw_tab_view_get_n_pages (AdwTabView *self)
 
 /**
  * adw_tab_view_get_n_pinned_pages: (attributes org.gtk.Method.get_property=n-pinned-pages)
- * @self: a `AdwTabView`
+ * @self: a tab view
  *
  * Gets the number of pinned pages in @self.
  *
@@ -2203,7 +2203,7 @@ adw_tab_view_get_n_pinned_pages (AdwTabView *self)
 
 /**
  * adw_tab_view_get_is_transferring_page: (attributes org.gtk.Method.get_property=is-transferring-page)
- * @self: a `AdwTabView`
+ * @self: a tab view
  *
  * Whether a page is being transferred.
  *
@@ -2221,7 +2221,7 @@ adw_tab_view_get_is_transferring_page (AdwTabView *self)
 
 /**
  * adw_tab_view_get_selected_page: (attributes org.gtk.Method.get_property=selected-page)
- * @self: a `AdwTabView`
+ * @self: a tab view
  *
  * Gets the currently selected page in @self.
  *
@@ -2239,7 +2239,7 @@ adw_tab_view_get_selected_page (AdwTabView *self)
 
 /**
  * adw_tab_view_set_selected_page: (attributes org.gtk.Method.set_property=selected-page)
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @selected_page: a page in @self
  *
  * Sets the currently selected page in @self.
@@ -2264,7 +2264,7 @@ adw_tab_view_set_selected_page (AdwTabView *self,
 
 /**
  * adw_tab_view_select_previous_page:
- * @self: a `AdwTabView`
+ * @self: a tab view
  *
  * Selects the page before the currently selected page.
  *
@@ -2299,7 +2299,7 @@ adw_tab_view_select_previous_page (AdwTabView *self)
 
 /**
  * adw_tab_view_select_next_page:
- * @self: a `AdwTabView`
+ * @self: a tab view
  *
  * Selects the page after the currently selected page.
  *
@@ -2392,7 +2392,7 @@ adw_tab_view_select_last_page (AdwTabView *self)
 
 /**
  * adw_tab_view_get_default_icon: (attributes org.gtk.Method.get_property=default-icon)
- * @self: a `AdwTabView`
+ * @self: a tab view
  *
  * Gets the default icon of @self.
  *
@@ -2410,7 +2410,7 @@ adw_tab_view_get_default_icon (AdwTabView *self)
 
 /**
  * adw_tab_view_set_default_icon: (attributes org.gtk.Method.set_property=default-icon)
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @default_icon: the default icon
  *
  * Sets the default page icon for @self.
@@ -2434,7 +2434,7 @@ adw_tab_view_set_default_icon (AdwTabView *self,
 
 /**
  * adw_tab_view_get_menu_model: (attributes org.gtk.Method.get_property=menu-model)
- * @self: a `AdwTabView`
+ * @self: a tab view
  *
  * Gets the tab context menu model for @self.
  *
@@ -2452,7 +2452,7 @@ adw_tab_view_get_menu_model (AdwTabView *self)
 
 /**
  * adw_tab_view_set_menu_model: (attributes org.gtk.Method.set_property=menu-model)
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @menu_model: (nullable): a menu model
  *
  * Sets the tab context menu model for @self.
@@ -2476,7 +2476,7 @@ adw_tab_view_set_menu_model (AdwTabView *self,
 
 /**
  * adw_tab_view_set_page_pinned:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  * @pinned: whether @page should be pinned
  *
@@ -2552,7 +2552,7 @@ adw_tab_view_set_page_pinned (AdwTabView *self,
 
 /**
  * adw_tab_view_get_page:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @child: a child in @self
  *
  * Gets the [class@TabPage] object representing @child.
@@ -2583,7 +2583,7 @@ adw_tab_view_get_page (AdwTabView *self,
 
 /**
  * adw_tab_view_get_nth_page:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @position: the index of the page in @self, starting from 0
  *
  * Gets the [class@TabPage] representing the child at @position.
@@ -2611,7 +2611,7 @@ adw_tab_view_get_nth_page (AdwTabView *self,
 
 /**
  * adw_tab_view_get_page_position:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  *
  * Finds the position of @page in @self, starting from 0.
@@ -2642,7 +2642,7 @@ adw_tab_view_get_page_position (AdwTabView *self,
 
 /**
  * adw_tab_view_add_page:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @child: a widget to add
  * @parent: (nullable): a parent page for @child
  *
@@ -2696,7 +2696,7 @@ adw_tab_view_add_page (AdwTabView *self,
 
 /**
  * adw_tab_view_insert:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @child: a widget to add
  * @position: the position to add @child at, starting from 0
  *
@@ -2724,7 +2724,7 @@ adw_tab_view_insert (AdwTabView *self,
 
 /**
  * adw_tab_view_prepend:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @child: a widget to add
  *
  * Inserts @child as the first non-pinned page.
@@ -2745,7 +2745,7 @@ adw_tab_view_prepend (AdwTabView *self,
 
 /**
  * adw_tab_view_append:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @child: a widget to add
  *
  * Inserts @child as the last non-pinned page.
@@ -2766,7 +2766,7 @@ adw_tab_view_append (AdwTabView *self,
 
 /**
  * adw_tab_view_insert_pinned:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @child: a widget to add
  * @position: the position to add @child at, starting from 0
  *
@@ -2794,7 +2794,7 @@ adw_tab_view_insert_pinned (AdwTabView *self,
 
 /**
  * adw_tab_view_prepend_pinned:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @child: a widget to add
  *
  * Inserts @child as the first pinned page.
@@ -2815,7 +2815,7 @@ adw_tab_view_prepend_pinned (AdwTabView *self,
 
 /**
  * adw_tab_view_append_pinned:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @child: a widget to add
  *
  * Inserts @child as the last pinned page.
@@ -2836,7 +2836,7 @@ adw_tab_view_append_pinned (AdwTabView *self,
 
 /**
  * adw_tab_view_close_page:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  *
  * Requests to close @page.
@@ -2883,7 +2883,7 @@ adw_tab_view_close_page (AdwTabView *self,
 
 /**
  * adw_tab_view_close_page_finish:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  * @confirm: whether to confirm or deny closing @page
  *
@@ -2916,7 +2916,7 @@ adw_tab_view_close_page_finish (AdwTabView *self,
 
 /**
  * adw_tab_view_close_other_pages:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  *
  * Requests to close all pages other than @page.
@@ -2945,7 +2945,7 @@ adw_tab_view_close_other_pages (AdwTabView *self,
 
 /**
  * adw_tab_view_close_pages_before:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  *
  * Requests to close all pages before @page.
@@ -2973,7 +2973,7 @@ adw_tab_view_close_pages_before (AdwTabView *self,
 
 /**
  * adw_tab_view_close_pages_after:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  *
  * Requests to close all pages after @page.
@@ -3001,7 +3001,7 @@ adw_tab_view_close_pages_after (AdwTabView *self,
 
 /**
  * adw_tab_view_reorder_page:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  * @position: the position to insert the page at, starting at 0
  *
@@ -3059,7 +3059,7 @@ adw_tab_view_reorder_page (AdwTabView *self,
 
 /**
  * adw_tab_view_reorder_backward:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  *
  * Reorders @page to before its previous page if possible.
@@ -3092,7 +3092,7 @@ adw_tab_view_reorder_backward (AdwTabView *self,
 
 /**
  * adw_tab_view_reorder_forward:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  *
  * Reorders @page to after its next page if possible.
@@ -3125,7 +3125,7 @@ adw_tab_view_reorder_forward (AdwTabView *self,
 
 /**
  * adw_tab_view_reorder_first:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  *
  * Reorders @page to the first possible position.
@@ -3153,7 +3153,7 @@ adw_tab_view_reorder_first (AdwTabView *self,
 
 /**
  * adw_tab_view_reorder_last:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  *
  * Reorders @page to the last possible position.
@@ -3219,7 +3219,7 @@ adw_tab_view_attach_page (AdwTabView *self,
 
 /**
  * adw_tab_view_transfer_page:
- * @self: a `AdwTabView`
+ * @self: a tab view
  * @page: a page of @self
  * @other_view: the tab view to transfer the page to
  * @position: the position to insert the page at, starting at 0
@@ -3259,7 +3259,7 @@ adw_tab_view_transfer_page (AdwTabView *self,
 
 /**
  * adw_tab_view_get_pages: (attributes org.gtk.Method.get_property=pages)
- * @self: a `AdwTabView`
+ * @self: a tab view
  *
  * Returns a [iface@Gio.ListModel] that contains the pages of @self.
  *

@@ -139,7 +139,7 @@ adw_spring_params_new_full (double damping,
 
 /**
  * adw_spring_params_ref:
- * @self: a `AdwSpringParams`
+ * @self: spring params
  *
  * Increases the reference count of @self.
  *
@@ -159,7 +159,7 @@ adw_spring_params_ref (AdwSpringParams *self)
 
 /**
  * adw_spring_params_unref:
- * @self: a `AdwSpringParams`
+ * @self: spring params
  *
  * Decreases the reference count of @self.
  *
@@ -178,7 +178,7 @@ adw_spring_params_unref (AdwSpringParams *self)
 
 /**
  * adw_spring_params_get_damping:
- * @self: a `AdwSpringParams`
+ * @self: spring params
  *
  * Gets the damping of @self.
  *
@@ -196,7 +196,7 @@ adw_spring_params_get_damping (AdwSpringParams *self)
 
 /**
  * adw_spring_params_get_damping_ratio:
- * @self: a `AdwSpringParams`
+ * @self: spring params
  *
  * Gets the damping ratio of @self.
  *
@@ -218,7 +218,7 @@ adw_spring_params_get_damping_ratio (AdwSpringParams *self)
 
 /**
  * adw_spring_params_get_mass:
- * @self: a `AdwSpringParams`
+ * @self: spring params
  *
  * Gets the mass of @self.
  *
@@ -236,7 +236,7 @@ adw_spring_params_get_mass (AdwSpringParams *self)
 
 /**
  * adw_spring_params_get_stiffness:
- * @self: a `AdwSpringParams`
+ * @self: spring params
  *
  * Gets the stiffness of @self.
  *
