@@ -68,7 +68,7 @@ void     adw_carousel_set_interactive (AdwCarousel *self,
 ADW_AVAILABLE_IN_ALL
 guint adw_carousel_get_spacing (AdwCarousel *self);
 ADW_AVAILABLE_IN_ALL
-void adw_carousel_set_spacing  (AdwCarousel *self,
+void  adw_carousel_set_spacing (AdwCarousel *self,
                                 guint        spacing);
 
 ADW_AVAILABLE_IN_ALL
