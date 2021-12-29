@@ -1246,7 +1246,7 @@ adw_carousel_insert (AdwCarousel *self,
                      int          position)
 {
   ChildInfo *info;
-  GList *prev_link = NULL;
+  GList *next_link = NULL;
 
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
@@ -1258,11 +1258,17 @@ adw_carousel_insert (AdwCarousel *self,
   info->adding = TRUE;
 
   if (position >= 0)
-    prev_link = get_nth_link (self, position);
+    next_link = get_nth_link (self, position);
 
-  self->children = g_list_insert_before (self->children, prev_link, info);
+  self->children = g_list_insert_before (self->children, next_link, info);
 
-  gtk_widget_set_parent (widget, GTK_WIDGET (self));
+  if (next_link) {
+    ChildInfo *next_sibling = next_link->data;
+
+    gtk_widget_insert_before (widget, GTK_WIDGET (self), next_sibling->widget);
+  } else {
+    gtk_widget_set_parent (widget, GTK_WIDGET (self));
+  }
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 
