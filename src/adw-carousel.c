@@ -345,14 +345,6 @@ animate_child_resize (AdwCarousel *self,
 }
 
 static void
-shift_position (AdwCarousel *self,
-                double       delta)
-{
-  set_position (self, self->position + delta);
-  adw_swipe_tracker_shift_position (self->tracker, delta);
-}
-
-static void
 scroll_animation_value_cb (double       value,
                            AdwCarousel *self)
 {
@@ -599,7 +591,8 @@ adw_carousel_size_allocate (GtkWidget *widget,
   double snap_point;
 
   if (self->position_shift != 0) {
-    shift_position (self, self->position_shift);
+    set_position (self, self->position + self->position_shift);
+    adw_swipe_tracker_shift_position (self->tracker, self->position_shift);
     self->position_shift = 0;
   }
 
@@ -1295,9 +1288,9 @@ adw_carousel_reorder (AdwCarousel *self,
                       GtkWidget   *child,
                       int          position)
 {
-  ChildInfo *info, *prev_info;
-  GList *link, *prev_link;
-  int old_position;
+  ChildInfo *info, *next_info;
+  GList *link, *next_link;
+  int old_position, n_pages;
   double closest_point, old_point, new_point;
 
   g_return_if_fail (ADW_IS_CAROUSEL (self));
@@ -1313,27 +1306,60 @@ adw_carousel_reorder (AdwCarousel *self,
   if (position == old_position)
     return;
 
-  old_point = ((ChildInfo *) link->data)->snap_point;
+  old_point = info->snap_point;
+  n_pages = adw_carousel_get_n_pages (self);
 
-  if (position < 0 || position >= adw_carousel_get_n_pages (self))
-    prev_link = g_list_last (self->children);
+  if (position < 0 || position > n_pages)
+    position = n_pages;
+
+  if (old_position == n_pages - 1 && position == n_pages)
+    return;
+
+  if (position == n_pages)
+    next_link = NULL;
+  else if (position > old_position)
+    next_link = get_nth_link (self, position + 1);
   else
-    prev_link = get_nth_link (self, position);
+    next_link = get_nth_link (self, position);
 
-  prev_info = prev_link->data;
-  new_point = prev_info->snap_point;
-  if (new_point > old_point)
-    new_point -= prev_info->size;
+  if (next_link) {
+    next_info = next_link->data;
+    new_point = next_info->snap_point;
+
+    /* Since we know position > old_position, it's not 0 so prev_info exists */
+    if (position > old_position) {
+      ChildInfo *prev_info = next_link->prev->data;
+
+      new_point = prev_info->snap_point;
+    }
+  } else {
+    GList *last_link = g_list_last (self->children);
+    ChildInfo *last_info = last_link->data;
+
+    new_point = last_info->snap_point;
+  }
 
   self->children = g_list_remove_link (self->children, link);
-  self->children = g_list_insert_before (self->children, prev_link, link->data);
+
+  if (next_link) {
+    self->children = g_list_insert_before_link (self->children, next_link, link);
+
+    gtk_widget_insert_before (child, GTK_WIDGET (self), next_info->widget);
+  } else {
+    self->children = g_list_append (self->children, info);
+    g_list_free (link);
+
+    gtk_widget_insert_before (child, GTK_WIDGET (self), NULL);
+  }
 
   if (closest_point == old_point)
-    shift_position (self, new_point - old_point);
-  else if (old_point > closest_point && closest_point >= new_point)
-    shift_position (self, info->size);
-  else if (new_point >= closest_point && closest_point > old_point)
-    shift_position (self, -info->size);
+    self->position_shift += new_point - old_point;
+  else if (old_point >= closest_point && closest_point >= new_point)
+    self->position_shift += info->size;
+  else if (new_point >= closest_point && closest_point >= old_point)
+    self->position_shift -= info->size;
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
 }
 
 /**

@@ -41,10 +41,6 @@ test_adw_carousel_add_remove (void)
   g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 3);
   g_assert_cmpint (notified, ==, 3);
 
-  adw_carousel_reorder (carousel, child3, 0);
-  g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 3);
-  g_assert_cmpint (notified, ==, 3);
-
   adw_carousel_remove (carousel, child1);
   g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 2);
   g_assert_cmpint (notified, ==, 4);
@@ -52,6 +48,100 @@ test_adw_carousel_add_remove (void)
   adw_carousel_remove (carousel, child2);
   g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 1);
   g_assert_cmpint (notified, ==, 5);
+
+  g_assert_finalize_object (carousel);
+}
+
+static void
+allocate_carousel (AdwCarousel *carousel)
+{
+  int width, height;
+
+  gtk_widget_measure (GTK_WIDGET (carousel), GTK_ORIENTATION_HORIZONTAL, -1,
+                      NULL, &width, NULL, NULL);
+  gtk_widget_measure (GTK_WIDGET (carousel), GTK_ORIENTATION_VERTICAL, -1,
+                      NULL, &height, NULL, NULL);
+  gtk_widget_allocate (GTK_WIDGET (carousel), width, height, 0, NULL);
+}
+
+static void
+assert_carousel_positions (AdwCarousel *carousel,
+                           GtkWidget   *child1,
+                           GtkWidget   *child2,
+                           GtkWidget   *child3,
+                           GtkWidget   *child4,
+                           double       position)
+{
+  allocate_carousel (carousel);
+  g_assert_true (adw_carousel_get_nth_page (carousel, 0) == child1);
+  g_assert_true (adw_carousel_get_nth_page (carousel, 1) == child2);
+  g_assert_true (adw_carousel_get_nth_page (carousel, 2) == child3);
+  g_assert_true (adw_carousel_get_nth_page (carousel, 3) == child4);
+  g_assert_cmpfloat (adw_carousel_get_position (carousel), ==, position);
+}
+
+static void
+test_adw_carousel_reorder (void)
+{
+  AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
+  GtkWidget *child1, *child2, *child3, *child4;
+
+  child1 = gtk_label_new ("");
+  child2 = gtk_label_new ("");
+  child3 = gtk_label_new ("");
+  child4 = gtk_label_new ("");
+
+  adw_carousel_append (carousel, child1);
+  adw_carousel_append (carousel, child2);
+  adw_carousel_append (carousel, child3);
+  adw_carousel_append (carousel, child4);
+  allocate_carousel (carousel);
+
+  g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 4);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 0);
+
+  /* No-op */
+  adw_carousel_reorder (carousel, child1, 0);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 0);
+  adw_carousel_reorder (carousel, child2, 1);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 0);
+  adw_carousel_reorder (carousel, child3, 2);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 0);
+  adw_carousel_reorder (carousel, child4, 3);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 0);
+
+  adw_carousel_reorder (carousel, child4, 4);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 0);
+  adw_carousel_reorder (carousel, child4, -1);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 0);
+
+  adw_carousel_scroll_to (carousel, child1, FALSE);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 0);
+  adw_carousel_reorder (carousel, child2, 2);
+  assert_carousel_positions (carousel, child1, child3, child2, child4, 0);
+  adw_carousel_reorder (carousel, child2, 1);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 0);
+
+  adw_carousel_scroll_to (carousel, child2, FALSE);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 1);
+  adw_carousel_reorder (carousel, child2, 2);
+  assert_carousel_positions (carousel, child1, child3, child2, child4, 2);
+  adw_carousel_reorder (carousel, child2, 1);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 1);
+
+  adw_carousel_scroll_to (carousel, child3, FALSE);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 2);
+  adw_carousel_reorder (carousel, child2, 2);
+  assert_carousel_positions (carousel, child1, child3, child2, child4, 1);
+  adw_carousel_reorder (carousel, child2, 1);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 2);
+
+  adw_carousel_scroll_to (carousel, child4, FALSE);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 3);
+  adw_carousel_reorder (carousel, child2, 2);
+  assert_carousel_positions (carousel, child1, child3, child2, child4, 3);
+  adw_carousel_reorder (carousel, child2, 1);
+  assert_carousel_positions (carousel, child1, child2, child3, child4, 3);
 
   g_assert_finalize_object (carousel);
 }
@@ -204,6 +294,7 @@ main (int   argc,
   adw_init ();
 
   g_test_add_func("/Adwaita/Carousel/add_remove", test_adw_carousel_add_remove);
+  g_test_add_func("/Adwaita/Carousel/reorder", test_adw_carousel_reorder);
   g_test_add_func("/Adwaita/Carousel/interactive", test_adw_carousel_interactive);
   g_test_add_func("/Adwaita/Carousel/spacing", test_adw_carousel_spacing);
   g_test_add_func("/Adwaita/Carousel/allow_mouse_drag", test_adw_carousel_allow_mouse_drag);
