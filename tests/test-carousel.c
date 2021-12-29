@@ -15,6 +15,18 @@ notify_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
+allocate_carousel (AdwCarousel *carousel)
+{
+  int width, height;
+
+  gtk_widget_measure (GTK_WIDGET (carousel), GTK_ORIENTATION_HORIZONTAL, -1,
+                      NULL, &width, NULL, NULL);
+  gtk_widget_measure (GTK_WIDGET (carousel), GTK_ORIENTATION_VERTICAL, -1,
+                      NULL, &height, NULL, NULL);
+  gtk_widget_allocate (GTK_WIDGET (carousel), width, height, 0, NULL);
+}
+
+static void
 test_adw_carousel_add_remove (void)
 {
   AdwCarousel *carousel = g_object_ref_sink (ADW_CAROUSEL (adw_carousel_new ()));
@@ -34,34 +46,34 @@ test_adw_carousel_add_remove (void)
   g_assert_cmpint (notified, ==, 1);
 
   adw_carousel_prepend (carousel, child2);
+  allocate_carousel (carousel);
   g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 2);
+  g_assert_true (adw_carousel_get_nth_page (carousel, 0) == child2);
+  g_assert_true (adw_carousel_get_nth_page (carousel, 1) == child1);
+  g_assert_cmpfloat (adw_carousel_get_position (carousel), ==, 1);
   g_assert_cmpint (notified, ==, 2);
 
   adw_carousel_insert (carousel, child3, 1);
+  allocate_carousel (carousel);
   g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 3);
+  g_assert_true (adw_carousel_get_nth_page (carousel, 0) == child2);
+  g_assert_true (adw_carousel_get_nth_page (carousel, 1) == child3);
+  g_assert_true (adw_carousel_get_nth_page (carousel, 2) == child1);
+  g_assert_cmpfloat (adw_carousel_get_position (carousel), ==, 2);
   g_assert_cmpint (notified, ==, 3);
 
-  adw_carousel_remove (carousel, child1);
+  adw_carousel_scroll_to (carousel, child3, FALSE);
+  adw_carousel_remove (carousel, child2);
+  allocate_carousel (carousel);
   g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 2);
+  g_assert_cmpfloat (adw_carousel_get_position (carousel), ==, 0);
   g_assert_cmpint (notified, ==, 4);
 
-  adw_carousel_remove (carousel, child2);
+  adw_carousel_remove (carousel, child1);
   g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 1);
   g_assert_cmpint (notified, ==, 5);
 
   g_assert_finalize_object (carousel);
-}
-
-static void
-allocate_carousel (AdwCarousel *carousel)
-{
-  int width, height;
-
-  gtk_widget_measure (GTK_WIDGET (carousel), GTK_ORIENTATION_HORIZONTAL, -1,
-                      NULL, &width, NULL, NULL);
-  gtk_widget_measure (GTK_WIDGET (carousel), GTK_ORIENTATION_VERTICAL, -1,
-                      NULL, &height, NULL, NULL);
-  gtk_widget_allocate (GTK_WIDGET (carousel), width, height, 0, NULL);
 }
 
 static void
