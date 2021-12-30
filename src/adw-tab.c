@@ -410,7 +410,7 @@ allocate_child (GtkWidget *child,
                 int        width,
                 int        baseline)
 {
-  GtkAllocation child_alloc = {};
+  GtkAllocation child_alloc;
 
   if (gtk_widget_get_direction (child) == GTK_TEXT_DIR_RTL)
     child_alloc.x = parent_width - width - x;
