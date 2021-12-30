@@ -315,7 +315,6 @@ adw_action_row_class_init (AdwActionRowClass *klass)
 
   /**
    * AdwActionRow::activated:
-   * @self: an action row
    *
    * This signal is emitted after the row has been activated.
    *

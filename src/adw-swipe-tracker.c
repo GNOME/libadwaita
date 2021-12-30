@@ -1109,7 +1109,6 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
 
   /**
    * AdwSwipeTracker::begin-swipe:
-   * @self: a swipe tracker
    *
    * This signal is emitted right before a swipe will be started, after the
    * drag threshold has been passed.
