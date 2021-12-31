@@ -1,3 +1,66 @@
+=============
+Version 1.0.0
+=============
+
+- Rework GtkInspector page to not require a module, remove -Dinspector
+- Accessibility fixes in action row, flap, leaflet, preferences group,
+  preferences page, status page, view switcher, window
+- Animation
+  - Properly mark AdwAnimation as abstract
+  - Make ADW_DURATION_INFINITE introspectable
+- Carousel
+  - Fix reorder(), prepend() and insert() behavior
+- Clamp Layout
+  - Fix measure() behavior
+- Demo
+  - Split every page into separate files
+  - Remove .app-notification demo
+  - Fix the animation skip button sensitivity
+  - Fix capitalization
+  - Various cleanups
+- Add a hello world example
+- Documentation
+  - Add a screenshot generator, update all screenshots
+  - Add widget screenshots
+  - Update build instructions
+  - Update visual index
+  - New pages:
+    - Initialization
+    - Adaptive Layouts
+    - Boxed Lists
+    - Styles and Appearance
+    - Named Colors
+    - Style Classes
+  - Various small updates
+- Leaflet
+  - Fix property notification ordering when starting a swipe
+- Stylesheet
+  - Improve emoji chooser styles
+  - Add hover style to .activatable GtkGridView children
+  - Fix menu checks
+  - Fix @warning_fg_color to be legible against @warning_bg_color
+- Tab Bar
+  - Fix various layout warnings
+- Tab View
+  - Implement adding pages from ui files
+  - Propagate Alt-[0-9] if selected tab doesn't change
+- Toast Overlay
+  - Implement adding toasts from ui files
+- Translation updates:
+  - Basque
+  - Brazilian Portuguese
+  - Chinese (China)
+  - Friulian
+  - Galician
+  - Hebrew
+  - Lithuanian
+  - Polish
+  - Portuguese
+  - Romanian
+  - Russian
+  - Slovenian
+  - Spanish
+
 ====================
 Version 1.0.0.beta.1
 ====================
