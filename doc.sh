@@ -5,7 +5,7 @@ REFS="
 main
 "
 
-# LATEST_STABLE_1=1.0
+LATEST_STABLE_1=1.0.0
 
 IFS='
 '
@@ -21,4 +21,4 @@ for REF in $REFS; do
   rm -rf "$REF"
 done
 
-# cp -r $DOC_DIR/$LATEST_STABLE_1 $DOC_DIR/1-latest
+cp -r $DOC_DIR/$LATEST_STABLE_1 $DOC_DIR/1-latest

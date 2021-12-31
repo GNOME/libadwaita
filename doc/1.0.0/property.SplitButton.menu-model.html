@@ -1,0 +1,206 @@
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Adw.SplitButton:menu-model</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta charset="utf-8" />
+
+  
+  <meta property="og:type" content="website"/>
+
+  
+  <meta property="og:image:width" content="256"/>
+  <meta property="og:image:height" content="256"/>
+  <meta property="og:image:secure_url" content="libadwaita.svg"/>
+  <meta property="og:image:alt" content="Adw-1"/>
+  
+
+  
+  <meta property="og:title" content="Adw.SplitButton:menu-model"/>
+  <meta property="og:description" content="Reference for property Adw.SplitButton:menu-model"/>
+  <meta name="twitter:title" content="Adw.SplitButton:menu-model"/>
+  <meta name="twitter:description" content="Reference for property Adw.SplitButton:menu-model"/>
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+
+  
+
+  <link rel="stylesheet" href="style.css" type="text/css" />
+
+  
+
+  
+  <script src="urlmap.js"></script>
+  
+  
+  <script src="fzy.js"></script>
+  <script src="search.js"></script>
+  
+  <script src="main.js"></script>
+  <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+<body>
+  <div id="body-wrapper" tabindex="-1">
+
+    <nav class="sidebar devhelp-hidden">
+      
+      <div class="section">
+        <img src="libadwaita.svg" class="logo"/>
+      </div>
+      
+      
+      <div class="search section">
+        <form id="search-form" autocomplete="off">
+          <input id="search-input" type="text" name="do-not-autocomplete" placeholder="Click, or press 's' to search" autocomplete="off"/>
+        </form>
+      </div>
+      
+      <div class="section namespace">
+        <h3><a href="index.html">Adw</a></h3>
+        <p>API Version: 1</p>
+        
+        <p>Library Version: 1.0.0</p>
+        
+      </div>
+      
+<div class="section">
+  <h5>Type</h5>
+  <div class="links">
+    <a href="class.SplitButton.html">SplitButton</a>
+  </div>
+</div>
+<div class="section">
+  <h5>Properties</h5>
+  <div class="links">
+  
+    <a class="property"href="property.SplitButton.child.html">child</a>
+  
+    <a class="property"href="property.SplitButton.direction.html">direction</a>
+  
+    <a class="property"href="property.SplitButton.icon-name.html">icon-name</a>
+  
+    <a class="property"href="property.SplitButton.label.html">label</a>
+  
+    <a class="property current"href="property.SplitButton.menu-model.html">menu-model</a>
+  
+    <a class="property"href="property.SplitButton.popover.html">popover</a>
+  
+    <a class="property"href="property.SplitButton.use-underline.html">use-underline</a>
+  
+  </div>
+</div>
+
+    </nav>
+    
+    <button id="btn-to-top" class="hidden"><span class="up-arrow"></span></button>
+
+    
+<section id="main" class="content">
+  <header>
+    <h3>Property</h3>
+    <h1><a href="index.html">Adw</a><span class="sep"></span><a href="class.SplitButton.html">SplitButton</a>:menu-model</h1>
+  </header>
+
+  <section>
+    <div class="declaration toggle-wrapper">
+      <h4 id="declaration">
+        Declaration
+        <a href="#declaration" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+        <pre><code>property menu-model: Gio.MenuModel [ read, write ]</code></pre>
+      </div>
+    </div>
+
+    <div class="description toggle-wrapper">
+      <h4 id="description">
+        Description
+        <a href="#description" class="anchor"></a>
+        
+        <a class="srclink" title="go to source location" href="https://gitlab.gnome.org/GNOME/libadwaita/-/blob/main/src/adw-split-button.c#L337">[src]</a>
+        
+      </h4>
+
+      <div class="docblock">
+        <p>The <code>GMenuModel</code> from which the popup will be&nbsp;created.</p>
+<p>If the menu model is <code>NULL</code>, the dropdown is&nbsp;disabled.</p>
+<p>A <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.Popover.html" class="external"><code>GtkPopover</code></a> will be created from the menu model with
+<a href="javascript:void(0)" data-namespace="Gtk" data-link="ctor.PopoverMenu.new_from_model.html" class="external"><code>gtk_popover_menu_new_from_model()</code></a>. Actions will be connected
+as documented for this&nbsp;function.</p>
+<p>If <a href="property.SplitButton.popover.html"><code>AdwSplitButton:popover</code></a> is already set, it will be dissociated
+from the button, and the property is set to <code>NULL</code>.</p>
+      </div>
+
+      <div class="docblock">
+        <table>
+          <tr><td>Type:</td>
+            <td><code>GMenuModel*</code></td>
+          </tr>
+          
+          
+          <tr><td>Available since:</td><td>1.0</td></tr>
+          
+          
+        </table>
+      </div>
+
+      
+      <div class="docblock">
+        <table>
+        
+          <tr><td>Getter method</td><td><a href="method.SplitButton.get_menu_model.html"><code>adw_split_button_get_menu_model</code></a></td></tr>
+        
+          <tr><td>Setter method</td><td><a href="method.SplitButton.set_menu_model.html"><code>adw_split_button_set_menu_model</code></a></td></tr>
+        
+        </table>
+      </div>
+      
+    </div>
+
+    <div class="flags toggle-wrapper">
+      <h4 id="flags">
+        Flags
+        <a href="#flags" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      <table>
+        <tr><td>Readable</td><td><b>yes</b></td></tr>
+        <tr><td>Writable</td><td><b>yes</b></td></tr>
+        <tr><td>Construct</td><td><b>no</b></td></tr>
+        <tr><td>Construct only</td><td><b>no</b></td></tr>
+      </table>
+      </div>
+    </div>
+
+  </section>
+</section>
+
+
+    
+
+    <section id="search" class="content hidden"></section>
+
+    <footer>
+    
+    </footer>
+  </div>
+</body>
+</html>

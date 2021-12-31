@@ -1,0 +1,585 @@
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Adw.Avatar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta charset="utf-8" />
+
+  
+  <meta property="og:type" content="website"/>
+
+  
+  <meta property="og:image:width" content="256"/>
+  <meta property="og:image:height" content="256"/>
+  <meta property="og:image:secure_url" content="libadwaita.svg"/>
+  <meta property="og:image:alt" content="Adw-1"/>
+  
+
+  
+  <meta property="og:title" content="Adw.Avatar"/>
+  <meta property="og:description" content="Reference for Adw.Avatar"/>
+  <meta name="twitter:title" content="Adw.Avatar"/>
+  <meta name="twitter:description" content="Reference for Adw.Avatar"/>
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+
+  
+
+  <link rel="stylesheet" href="style.css" type="text/css" />
+
+  
+
+  
+  <script src="urlmap.js"></script>
+  
+  
+  <script src="fzy.js"></script>
+  <script src="search.js"></script>
+  
+  <script src="main.js"></script>
+  <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+<body>
+  <div id="body-wrapper" tabindex="-1">
+
+    <nav class="sidebar devhelp-hidden">
+      
+      <div class="section">
+        <img src="libadwaita.svg" class="logo"/>
+      </div>
+      
+      
+      <div class="search section">
+        <form id="search-form" autocomplete="off">
+          <input id="search-input" type="text" name="do-not-autocomplete" placeholder="Click, or press 's' to search" autocomplete="off"/>
+        </form>
+      </div>
+      
+      <div class="section namespace">
+        <h3><a href="index.html">Adw</a></h3>
+        <p>API Version: 1</p>
+        
+        <p>Library Version: 1.0.0</p>
+        
+      </div>
+      
+<div class="section">
+  <h5>Type</h5>
+  <div class="links">
+    <a class="current" href="class.Avatar.html#description">Avatar</a>
+  </div>
+</div>
+
+
+<div class="section">
+  <h5>Constructors</h5>
+  <div class="links">
+  
+    <a class="ctor" href="ctor.Avatar.new.html">new</a>
+  
+  </div>
+</div>
+
+
+
+<div class="section">
+  <h5>Instance methods</h5>
+  <div class="links">
+  
+    <a class="method" href="method.Avatar.draw_to_texture.html">draw_to_texture</a>
+  
+    <a class="method" href="method.Avatar.get_custom_image.html">get_custom_image</a>
+  
+    <a class="method" href="method.Avatar.get_icon_name.html">get_icon_name</a>
+  
+    <a class="method" href="method.Avatar.get_show_initials.html">get_show_initials</a>
+  
+    <a class="method" href="method.Avatar.get_size.html">get_size</a>
+  
+    <a class="method" href="method.Avatar.get_text.html">get_text</a>
+  
+    <a class="method" href="method.Avatar.set_custom_image.html">set_custom_image</a>
+  
+    <a class="method" href="method.Avatar.set_icon_name.html">set_icon_name</a>
+  
+    <a class="method" href="method.Avatar.set_show_initials.html">set_show_initials</a>
+  
+    <a class="method" href="method.Avatar.set_size.html">set_size</a>
+  
+    <a class="method" href="method.Avatar.set_text.html">set_text</a>
+  
+  </div>
+</div>
+
+
+
+<div class="section">
+  <h5>Properties</h5>
+  <div class="links">
+  
+    <a class="property" href="property.Avatar.custom-image.html">custom-image</a>
+  
+    <a class="property" href="property.Avatar.icon-name.html">icon-name</a>
+  
+    <a class="property" href="property.Avatar.show-initials.html">show-initials</a>
+  
+    <a class="property" href="property.Avatar.size.html">size</a>
+  
+    <a class="property" href="property.Avatar.text.html">text</a>
+  
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    </nav>
+    
+    <button id="btn-to-top" class="hidden"><span class="up-arrow"></span></button>
+
+    
+<section id="main" class="content">
+  <header>
+    <h3>Class</h3>
+    <h1 aria-label="Name"><a href="index.html">Adw</a><span class="sep" role="presentation"></span>Avatar</h1>
+  </header>
+
+  <section>
+    <summary>
+      <div class="toggle-wrapper">
+        <h4 id="description" style="display:flex;">
+          Description
+          <a href="#description" class="anchor"></a>
+          
+          <a class="srclink" title="go to source location" href="https://gitlab.gnome.org/GNOME/libadwaita/-/blob/main/src/adw-avatar.c#L22">[src]</a>
+          
+        </h4>
+
+        <pre><code>final class Adw.Avatar : Gtk.Widget {
+  /* No available fields */
+}</pre></code>
+
+        <div class="docblock">
+          <p>A widget displaying an image, with a generated&nbsp;fallback.</p>
+<p><picture>
+  <source srcset="avatar-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="avatar.png" alt="avatar">
+</picture></p>
+<p><code>AdwAvatar</code> is a widget that shows a round&nbsp;avatar.</p>
+<p><code>AdwAvatar</code> generates an avatar with the initials of  the
+<a href="property.Avatar.text.html"><code>AdwAvatar:text</code></a> on top of a colored&nbsp;background.</p>
+<p>The color is picked based on the hash of the <a href="property.Avatar.text.html"><code>AdwAvatar:text</code></a>.</p>
+<p>If <a href="property.Avatar.show-initials.html"><code>AdwAvatar:show-initials</code></a> is set to <code>FALSE</code>,
+<a href="property.Avatar.icon-name.html"><code>AdwAvatar:icon-name</code></a> or <code>avatar-default-symbolic</code> is shown instead of
+the&nbsp;initials.</p>
+<p>Use <a href="property.Avatar.custom-image.html"><code>AdwAvatar:custom-image</code></a> to set a custom&nbsp;image.</p>
+<h2 id="css-nodes">CSS nodes<a class="md-anchor" href="#css-nodes" title="Permanent link"></a></h2>
+<p><code>AdwAvatar</code> has a single <span class="caps">CSS</span> node with name <code>avatar</code>.</p>
+        </div>
+
+        <div class="docblock">
+          <table class="attributes">
+            
+            
+            <tr><td>Available since:</td><td>1.0</td></tr>
+            
+            
+          </table>
+        </div>
+
+        
+      </div>
+    </summary>
+
+    
+
+    
+    <div class="toggle-wrapper ancestors">
+      <h4 id="ancestors">
+        Ancestors
+        <a href="#ancestors" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+        <ul>
+        
+          
+          <li class="class">GtkWidget</a></li>
+          
+        
+          
+          <li class="class">GInitiallyUnowned</a></li>
+          
+        
+          
+          <li class="class">GObject</a></li>
+          
+        
+        </ul>
+      </div>
+    </div>
+    
+
+    
+    <div class="toggle-wrapper implements">
+      <h4 id="implements">
+        Implements
+        <a href="#implements" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+        <ul>
+        
+          
+          <li class="interface">GtkAccessible</a></li>
+          
+        
+          
+          <li class="interface">GtkBuildable</a></li>
+          
+        
+          
+          <li class="interface">GtkConstraintTarget</a></li>
+          
+        
+        </ul>
+      </div>
+    </div>
+    
+
+    
+    <div class="toggle-wrapper constructors">
+      <h4 id="constructors">
+        Constructors
+        <a href="#constructors" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="ctor.Avatar.new.html">adw_avatar_new</a></h6>
+
+          <div class="docblock">
+            <p>Creates a new <code>AdwAvatar</code>.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+    </div>
+    
+
+    
+    <div class="toggle-wrapper methods">
+      <h4 id="methods">
+        Instance methods
+        <a href="#methods" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="method.Avatar.draw_to_texture.html">adw_avatar_draw_to_texture</a></h6>
+          <div class="docblock">
+            <p>Renders <code>self</code> into a <code>GdkTexture</code> at <code>scale_factor</code>.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.Avatar.get_custom_image.html">adw_avatar_get_custom_image</a></h6>
+          <div class="docblock">
+            <p>Gets the custom image&nbsp;paintable.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.Avatar.get_icon_name.html">adw_avatar_get_icon_name</a></h6>
+          <div class="docblock">
+            <p>Gets the name of an icon to use as a&nbsp;fallback.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.Avatar.get_show_initials.html">adw_avatar_get_show_initials</a></h6>
+          <div class="docblock">
+            <p>Gets whether initials are used instead of an icon on the fallback&nbsp;avatar.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.Avatar.get_size.html">adw_avatar_get_size</a></h6>
+          <div class="docblock">
+            <p>Gets the size of the&nbsp;avatar.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.Avatar.get_text.html">adw_avatar_get_text</a></h6>
+          <div class="docblock">
+            <p>Gets the text used to generate the fallback initials and&nbsp;color.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.Avatar.set_custom_image.html">adw_avatar_set_custom_image</a></h6>
+          <div class="docblock">
+            <p>Sets the custom image&nbsp;paintable.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.Avatar.set_icon_name.html">adw_avatar_set_icon_name</a></h6>
+          <div class="docblock">
+            <p>Sets the name of an icon to use as a&nbsp;fallback.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.Avatar.set_show_initials.html">adw_avatar_set_show_initials</a></h6>
+          <div class="docblock">
+            <p>Sets whether to use initials instead of an icon on the fallback&nbsp;avatar.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.Avatar.set_size.html">adw_avatar_set_size</a></h6>
+          <div class="docblock">
+            <p>Sets the size of the&nbsp;avatar.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.Avatar.set_text.html">adw_avatar_set_text</a></h6>
+          <div class="docblock">
+            <p>Sets the text used to generate the fallback initials and&nbsp;color.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+
+      
+        
+      
+        
+      
+        
+      
+
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    
+
+    
+    <div class="toggle-wrapper properties">
+      <h4 id="properties">
+        Properties
+        <a href="#properties" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="property.Avatar.custom-image.html">Adw.Avatar:custom-image</a></h6>
+
+          <div class="docblock">
+            <p>A custom image to use instead of initials or&nbsp;icon.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.Avatar.icon-name.html">Adw.Avatar:icon-name</a></h6>
+
+          <div class="docblock">
+            <p>The name of an icon to use as a&nbsp;fallback.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.Avatar.show-initials.html">Adw.Avatar:show-initials</a></h6>
+
+          <div class="docblock">
+            <p>Whether initials are used instead of an icon on the fallback&nbsp;avatar.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.Avatar.size.html">Adw.Avatar:size</a></h6>
+
+          <div class="docblock">
+            <p>The size of the&nbsp;avatar.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.Avatar.text.html">Adw.Avatar:text</a></h6>
+
+          <div class="docblock">
+            <p>Sets the text used to generate the fallback initials and&nbsp;color.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+
+      
+        
+      
+        
+      
+        
+      
+
+      
+        
+      
+        
+      
+        
+      
+
+    </div>
+    
+
+    
+
+    
+    <div class="class toggle-wrapper default-hide">
+      <h4 id="class-struct">
+        Class structure
+        <a href="#class-struct" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+        <pre><code>struct AdwAvatarClass {
+  GtkWidgetClass parent_class;
+  
+}</code></pre>
+      </div>
+
+      
+      <div class="docblock">
+        <h6>Class members</h6>
+
+        <table class="members">
+        
+        <tr>
+          <td style="vertical-align:top"><code>parent_class</code></td>
+          <td style="vertical-align:top"><pre><code>GtkWidgetClass</code></pre></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td style="vertical-align:top">No description available.</td>
+        </td>
+        
+        </table>
+      </div>
+      
+    </div>
+    
+
+    
+
+     
+
+    
+
+  </section>
+</section>
+
+
+    
+<div class="toc">
+  <nav aria-labelledby="toc-title">
+    <p id="toc-title">Content</p>
+    <ul class="toc-list">
+      <li class="toc-list-item"><a href="#description"><span class="link-text">Description</span></a></li>
+      
+      
+      <li class="toc-list-item"><a href="#ancestors"><span class="link-text">Ancestors</span></a></li>
+      
+      
+      <li class="toc-list-item"><a href="#implements"><span class="link-text">Implements</span></a></li>
+      
+      
+<li class="toc-list-item"><a href="#constructors"><span class="link-text">Constructors</span></a></li>
+
+
+      
+<li class="toc-list-item"><a href="#methods"><span class="link-text">Methods</span></a></li>
+
+
+      
+<li class="toc-list-item"><a href="#properties"><span class="link-text">Properties</span></a></li>
+
+
+      
+
+      
+
+      
+
+      
+
+    </ul>
+  </nav>
+</div>
+
+
+    <section id="search" class="content hidden"></section>
+
+    <footer>
+    
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,624 @@
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Adw.TabPage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta charset="utf-8" />
+
+  
+  <meta property="og:type" content="website"/>
+
+  
+  <meta property="og:image:width" content="256"/>
+  <meta property="og:image:height" content="256"/>
+  <meta property="og:image:secure_url" content="libadwaita.svg"/>
+  <meta property="og:image:alt" content="Adw-1"/>
+  
+
+  
+  <meta property="og:title" content="Adw.TabPage"/>
+  <meta property="og:description" content="Reference for Adw.TabPage"/>
+  <meta name="twitter:title" content="Adw.TabPage"/>
+  <meta name="twitter:description" content="Reference for Adw.TabPage"/>
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+
+  
+
+  <link rel="stylesheet" href="style.css" type="text/css" />
+
+  
+
+  
+  <script src="urlmap.js"></script>
+  
+  
+  <script src="fzy.js"></script>
+  <script src="search.js"></script>
+  
+  <script src="main.js"></script>
+  <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+<body>
+  <div id="body-wrapper" tabindex="-1">
+
+    <nav class="sidebar devhelp-hidden">
+      
+      <div class="section">
+        <img src="libadwaita.svg" class="logo"/>
+      </div>
+      
+      
+      <div class="search section">
+        <form id="search-form" autocomplete="off">
+          <input id="search-input" type="text" name="do-not-autocomplete" placeholder="Click, or press 's' to search" autocomplete="off"/>
+        </form>
+      </div>
+      
+      <div class="section namespace">
+        <h3><a href="index.html">Adw</a></h3>
+        <p>API Version: 1</p>
+        
+        <p>Library Version: 1.0.0</p>
+        
+      </div>
+      
+<div class="section">
+  <h5>Type</h5>
+  <div class="links">
+    <a class="current" href="class.TabPage.html#description">TabPage</a>
+  </div>
+</div>
+
+
+
+
+<div class="section">
+  <h5>Instance methods</h5>
+  <div class="links">
+  
+    <a class="method" href="method.TabPage.get_child.html">get_child</a>
+  
+    <a class="method" href="method.TabPage.get_icon.html">get_icon</a>
+  
+    <a class="method" href="method.TabPage.get_indicator_activatable.html">get_indicator_activatable</a>
+  
+    <a class="method" href="method.TabPage.get_indicator_icon.html">get_indicator_icon</a>
+  
+    <a class="method" href="method.TabPage.get_loading.html">get_loading</a>
+  
+    <a class="method" href="method.TabPage.get_needs_attention.html">get_needs_attention</a>
+  
+    <a class="method" href="method.TabPage.get_parent.html">get_parent</a>
+  
+    <a class="method" href="method.TabPage.get_pinned.html">get_pinned</a>
+  
+    <a class="method" href="method.TabPage.get_selected.html">get_selected</a>
+  
+    <a class="method" href="method.TabPage.get_title.html">get_title</a>
+  
+    <a class="method" href="method.TabPage.get_tooltip.html">get_tooltip</a>
+  
+    <a class="method" href="method.TabPage.set_icon.html">set_icon</a>
+  
+    <a class="method" href="method.TabPage.set_indicator_activatable.html">set_indicator_activatable</a>
+  
+    <a class="method" href="method.TabPage.set_indicator_icon.html">set_indicator_icon</a>
+  
+    <a class="method" href="method.TabPage.set_loading.html">set_loading</a>
+  
+    <a class="method" href="method.TabPage.set_needs_attention.html">set_needs_attention</a>
+  
+    <a class="method" href="method.TabPage.set_title.html">set_title</a>
+  
+    <a class="method" href="method.TabPage.set_tooltip.html">set_tooltip</a>
+  
+  </div>
+</div>
+
+
+
+<div class="section">
+  <h5>Properties</h5>
+  <div class="links">
+  
+    <a class="property" href="property.TabPage.child.html">child</a>
+  
+    <a class="property" href="property.TabPage.icon.html">icon</a>
+  
+    <a class="property" href="property.TabPage.indicator-activatable.html">indicator-activatable</a>
+  
+    <a class="property" href="property.TabPage.indicator-icon.html">indicator-icon</a>
+  
+    <a class="property" href="property.TabPage.loading.html">loading</a>
+  
+    <a class="property" href="property.TabPage.needs-attention.html">needs-attention</a>
+  
+    <a class="property" href="property.TabPage.parent.html">parent</a>
+  
+    <a class="property" href="property.TabPage.pinned.html">pinned</a>
+  
+    <a class="property" href="property.TabPage.selected.html">selected</a>
+  
+    <a class="property" href="property.TabPage.title.html">title</a>
+  
+    <a class="property" href="property.TabPage.tooltip.html">tooltip</a>
+  
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    </nav>
+    
+    <button id="btn-to-top" class="hidden"><span class="up-arrow"></span></button>
+
+    
+<section id="main" class="content">
+  <header>
+    <h3>Class</h3>
+    <h1 aria-label="Name"><a href="index.html">Adw</a><span class="sep" role="presentation"></span>TabPage</h1>
+  </header>
+
+  <section>
+    <summary>
+      <div class="toggle-wrapper">
+        <h4 id="description" style="display:flex;">
+          Description
+          <a href="#description" class="anchor"></a>
+          
+          <a class="srclink" title="go to source location" href="https://gitlab.gnome.org/GNOME/libadwaita/-/blob/main/src/adw-tab-view.c#L64">[src]</a>
+          
+        </h4>
+
+        <pre><code>final class Adw.TabPage : GObject.Object {
+  /* No available fields */
+}</pre></code>
+
+        <div class="docblock">
+          <p>An auxiliary class used by <a href="class.TabView.html"><code>AdwTabView</code></a>.</p>
+        </div>
+
+        <div class="docblock">
+          <table class="attributes">
+            
+            
+            
+          </table>
+        </div>
+
+        
+      </div>
+    </summary>
+
+    
+
+    
+    <div class="toggle-wrapper ancestors">
+      <h4 id="ancestors">
+        Ancestors
+        <a href="#ancestors" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+        <ul>
+        
+          
+          <li class="class">GObject</a></li>
+          
+        
+        </ul>
+      </div>
+    </div>
+    
+
+    
+
+    
+
+    
+    <div class="toggle-wrapper methods">
+      <h4 id="methods">
+        Instance methods
+        <a href="#methods" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="method.TabPage.get_child.html">adw_tab_page_get_child</a></h6>
+          <div class="docblock">
+            <p>Gets the child of <code>self</code>.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.get_icon.html">adw_tab_page_get_icon</a></h6>
+          <div class="docblock">
+            <p>Gets the icon of <code>self</code>.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.get_indicator_activatable.html">adw_tab_page_get_indicator_activatable</a></h6>
+          <div class="docblock">
+            <p>Gets whether the indicator of <code>self</code> is&nbsp;activatable.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.get_indicator_icon.html">adw_tab_page_get_indicator_icon</a></h6>
+          <div class="docblock">
+            <p>Gets the indicator icon of <code>self</code>.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.get_loading.html">adw_tab_page_get_loading</a></h6>
+          <div class="docblock">
+            <p>Gets whether <code>self</code> is&nbsp;loading.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.get_needs_attention.html">adw_tab_page_get_needs_attention</a></h6>
+          <div class="docblock">
+            <p>Gets whether <code>self</code> needs&nbsp;attention.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.get_parent.html">adw_tab_page_get_parent</a></h6>
+          <div class="docblock">
+            <p>Gets the parent page of <code>self</code>.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.get_pinned.html">adw_tab_page_get_pinned</a></h6>
+          <div class="docblock">
+            <p>Gets whether <code>self</code> is&nbsp;pinned.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.get_selected.html">adw_tab_page_get_selected</a></h6>
+          <div class="docblock">
+            <p>Gets whether <code>self</code> is&nbsp;selected.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.get_title.html">adw_tab_page_get_title</a></h6>
+          <div class="docblock">
+            <p>Gets the title of <code>self</code>.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.get_tooltip.html">adw_tab_page_get_tooltip</a></h6>
+          <div class="docblock">
+            <p>Gets the tooltip of <code>self</code>.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.set_icon.html">adw_tab_page_set_icon</a></h6>
+          <div class="docblock">
+            <p>Sets the icon of <code>self</code>.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.set_indicator_activatable.html">adw_tab_page_set_indicator_activatable</a></h6>
+          <div class="docblock">
+            <p>Sets whether the indicator of <code>self</code> is&nbsp;activatable.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.set_indicator_icon.html">adw_tab_page_set_indicator_icon</a></h6>
+          <div class="docblock">
+            <p>Sets the indicator icon of <code>self</code>.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.set_loading.html">adw_tab_page_set_loading</a></h6>
+          <div class="docblock">
+            <p>Sets wether <code>self</code> is&nbsp;loading.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.set_needs_attention.html">adw_tab_page_set_needs_attention</a></h6>
+          <div class="docblock">
+            <p>Sets whether <code>self</code> needs&nbsp;attention.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.set_title.html">adw_tab_page_set_title</a></h6>
+          <div class="docblock">
+            <p>Sets the title of <code>self</code>.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabPage.set_tooltip.html">adw_tab_page_set_tooltip</a></h6>
+          <div class="docblock">
+            <p>Sets the tooltip of <code>self</code>.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+
+      
+        
+      
+
+      
+    </div>
+    
+
+    
+    <div class="toggle-wrapper properties">
+      <h4 id="properties">
+        Properties
+        <a href="#properties" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="property.TabPage.child.html">Adw.TabPage:child</a></h6>
+
+          <div class="docblock">
+            <p>The child of the&nbsp;page.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabPage.icon.html">Adw.TabPage:icon</a></h6>
+
+          <div class="docblock">
+            <p>The icon of the&nbsp;page.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabPage.indicator-activatable.html">Adw.TabPage:indicator-activatable</a></h6>
+
+          <div class="docblock">
+            <p>Whether the indicator icon is&nbsp;activatable.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabPage.indicator-icon.html">Adw.TabPage:indicator-icon</a></h6>
+
+          <div class="docblock">
+            <p>An indicator icon for the&nbsp;page.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabPage.loading.html">Adw.TabPage:loading</a></h6>
+
+          <div class="docblock">
+            <p>Whether the page is&nbsp;loading.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabPage.needs-attention.html">Adw.TabPage:needs-attention</a></h6>
+
+          <div class="docblock">
+            <p>Whether the page needs&nbsp;attention.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabPage.parent.html">Adw.TabPage:parent</a></h6>
+
+          <div class="docblock">
+            <p>The parent page of the&nbsp;page.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabPage.pinned.html">Adw.TabPage:pinned</a></h6>
+
+          <div class="docblock">
+            <p>Whether the page is&nbsp;pinned.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabPage.selected.html">Adw.TabPage:selected</a></h6>
+
+          <div class="docblock">
+            <p>Whether the page is&nbsp;selected.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabPage.title.html">Adw.TabPage:title</a></h6>
+
+          <div class="docblock">
+            <p>The title of the&nbsp;page.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabPage.tooltip.html">Adw.TabPage:tooltip</a></h6>
+
+          <div class="docblock">
+            <p>The tooltip of the&nbsp;page.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+
+      
+        
+      
+
+      
+
+    </div>
+    
+
+    
+
+    
+    <div class="class toggle-wrapper default-hide">
+      <h4 id="class-struct">
+        Class structure
+        <a href="#class-struct" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+        <pre><code>struct AdwTabPageClass {
+  GObjectClass parent_class;
+  
+}</code></pre>
+      </div>
+
+      
+      <div class="docblock">
+        <h6>Class members</h6>
+
+        <table class="members">
+        
+        <tr>
+          <td style="vertical-align:top"><code>parent_class</code></td>
+          <td style="vertical-align:top"><pre><code>GObjectClass</code></pre></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td style="vertical-align:top">No description available.</td>
+        </td>
+        
+        </table>
+      </div>
+      
+    </div>
+    
+
+    
+
+     
+
+    
+
+  </section>
+</section>
+
+
+    
+<div class="toc">
+  <nav aria-labelledby="toc-title">
+    <p id="toc-title">Content</p>
+    <ul class="toc-list">
+      <li class="toc-list-item"><a href="#description"><span class="link-text">Description</span></a></li>
+      
+      
+      <li class="toc-list-item"><a href="#ancestors"><span class="link-text">Ancestors</span></a></li>
+      
+      
+      
+
+      
+<li class="toc-list-item"><a href="#methods"><span class="link-text">Methods</span></a></li>
+
+
+      
+<li class="toc-list-item"><a href="#properties"><span class="link-text">Properties</span></a></li>
+
+
+      
+
+      
+
+      
+
+      
+
+    </ul>
+  </nav>
+</div>
+
+
+    <section id="search" class="content hidden"></section>
+
+    <footer>
+    
+    </footer>
+  </div>
+</body>
+</html>

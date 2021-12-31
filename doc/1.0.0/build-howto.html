@@ -1,0 +1,218 @@
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Adw &ndash; 1: Compiling with Libadwaita</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta charset="utf-8" />
+
+  
+  <meta property="og:type" content="website"/>
+
+  
+  <meta property="og:image:width" content="256"/>
+  <meta property="og:image:height" content="256"/>
+  <meta property="og:image:secure_url" content="libadwaita.svg"/>
+  <meta property="og:image:alt" content="Adw-1"/>
+  
+
+  
+  <meta property="og:title" content="Adw: Compiling with Libadwaita"/>
+  <meta property="og:description" content="Reference for Adw-1: Compiling with Libadwaita"/>
+  <meta name="twitter:title" content="Adw: Compiling with Libadwaita"/>
+  <meta name="twitter:description" content="Reference for Adw-1: Compiling with Libadwaita"/>
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+
+  
+
+  <link rel="stylesheet" href="style.css" type="text/css" />
+
+  
+
+  
+  <script src="urlmap.js"></script>
+  
+  
+  <script src="fzy.js"></script>
+  <script src="search.js"></script>
+  
+  <script src="main.js"></script>
+  <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+<body>
+  <div id="body-wrapper" tabindex="-1">
+
+    <nav class="sidebar devhelp-hidden">
+      
+      <div class="section">
+        <img src="libadwaita.svg" class="logo"/>
+      </div>
+      
+      
+      <div class="search section">
+        <form id="search-form" autocomplete="off">
+          <input id="search-input" type="text" name="do-not-autocomplete" placeholder="Click, or press 's' to search" autocomplete="off"/>
+        </form>
+      </div>
+      
+      <div class="section namespace">
+        <h3><a href="index.html">Adw</a></h3>
+        <p>API Version: 1</p>
+        
+        <p>Library Version: 1.0.0</p>
+        
+      </div>
+      
+      
+    </nav>
+    
+    <button id="btn-to-top" class="hidden"><span class="up-arrow"></span></button>
+
+    
+<section id="main" class="content">
+  <section>
+    <div class="docblock">
+    <h1 id="compiling-with-libadwaita">Compiling with Libadwaita<a class="md-anchor" href="#compiling-with-libadwaita" title="Permanent link"></a></h1>
+<p>If you need to build Libadwaita, get the source from
+<a href="https://gitlab.gnome.org/GNOME/libadwaita/">here</a> and see the <code>README.md</code> file.</p>
+<h2 id="using-pkg-config">Using <code>pkg-config</code><a class="md-anchor" href="#using-pkg-config" title="Permanent link"></a></h2>
+<p>Like other <span class="caps">GNOME</span> libraries, Libadwaita uses <code>pkg-config</code> to provide compiler
+options. The package name is <code>libadwaita-1</code>.</p>
+<p>When using the Meson build system you can declare a dependency&nbsp;like:</p>
+<div class="codehilite"><pre><span></span><code>dependency(&#39;libadwaita-1&#39;)
+</code></pre></div>
+
+<p>The <code>1</code> in the package name is the &#8220;<span class="caps">API</span> version&#8221; (indicating &#8220;the version of the
+Libadwaita <span class="caps">API</span> that first appeared in version 1&#8221;) and is essentially just part
+of the package&nbsp;name.</p>
+<h2 id="bundling-the-library">Bundling the Library<a class="md-anchor" href="#bundling-the-library" title="Permanent link"></a></h2>
+<h3 id="using-flatpak">Using Flatpak<a class="md-anchor" href="#using-flatpak" title="Permanent link"></a></h3>
+<p>If you&#8217;re using the <span class="caps">GNOME</span> <span class="caps">SDK</span> of the version 42 or later, Libadwaita is already
+included and there&#8217;s no need to do&nbsp;anything.</p>
+<p>If you&#8217;re using an older version or a different <span class="caps">SDK</span>, add the following modules
+to your&nbsp;manifest:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;libadwaita&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;buildsystem&quot;</span> <span class="p">:</span> <span class="s2">&quot;meson&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;config-opts&quot;</span> <span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;-Dexamples=false&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-Dtests=false&quot;</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;sources&quot;</span> <span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;https://gitlab.gnome.org/GNOME/libadwaita.git&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;branch&quot;</span> <span class="p">:</span> <span class="s2">&quot;main&quot;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;modules&quot;</span> <span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;libsass&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;buildsystem&quot;</span> <span class="p">:</span> <span class="s2">&quot;meson&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;cleanup&quot;</span> <span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;*&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;sources&quot;</span> <span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;https://github.com/lazka/libsass.git&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;branch&quot;</span> <span class="p">:</span> <span class="s2">&quot;meson&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;sassc&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;buildsystem&quot;</span> <span class="p">:</span> <span class="s2">&quot;meson&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;cleanup&quot;</span> <span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;*&quot;</span>
+            <span class="p">],</span>
+            <span class="nt">&quot;sources&quot;</span> <span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nt">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;url&quot;</span> <span class="p">:</span> <span class="s2">&quot;https://github.com/lazka/sassc.git&quot;</span><span class="p">,</span>
+                    <span class="nt">&quot;branch&quot;</span> <span class="p">:</span> <span class="s2">&quot;meson&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="using-a-subproject">Using a Subproject<a class="md-anchor" href="#using-a-subproject" title="Permanent link"></a></h3>
+<p>If you&#8217;re not using Flatpak, Libadwaita can be used as a Meson subproject.
+Create a <code>subprojects/libadwaita.wrap</code> file with the following&nbsp;contents:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[wrap-git]</span>
+<span class="na">directory</span><span class="o">=</span><span class="s">libadwaita</span>
+<span class="na">url</span><span class="o">=</span><span class="s">https://gitlab.gnome.org/GNOME/libadwaita.git</span>
+<span class="na">revision</span><span class="o">=</span><span class="s">main</span>
+<span class="na">depth</span><span class="o">=</span><span class="s">1</span>
+</code></pre></div>
+
+<p>Add this to your <code>meson.build</code>:</p>
+<div class="codehilite"><pre><span></span><code>libadwaita = dependency(
+  &#39;libadwaita-1&#39;,
+  version: &#39;&gt;= 1.0.0&#39;,
+  fallback: [&#39;libadwaita&#39;, &#39;libadwaita_dep&#39;],
+  default_options: [
+    &#39;examples=false&#39;,
+    &#39;introspection=disabled&#39;,
+    &#39;tests=false&#39;,
+    &#39;vapi=false&#39;,
+  ]
+)
+</code></pre></div>
+
+<p>Then the <code>libadwaita</code> variable can be used as a&nbsp;dependency.</p>
+<h2 id="building-on-macos">Building on macOS<a class="md-anchor" href="#building-on-macos" title="Permanent link"></a></h2>
+<p>To build on macOS you need to install the build-dependencies first. This can
+e.g. be done via <a href="https://brew.sh"><code>brew</code></a>:</p>
+<div class="codehilite"><pre><span></span><code>brew install pkg-config gtk4 meson gobject-introspection vala
+</code></pre></div>
+
+<p>After running the command above, one may now build the&nbsp;library:</p>
+<div class="codehilite"><pre><span></span><code>git clone https://gitlab.gnome.org/GNOME/libadwaita.git
+<span class="nb">cd</span> libadwaita
+meson _build
+ninja -C _build
+ninja -C _build install
+</code></pre></div>
+
+<p>Working with the library on macOS is pretty much the same as on Linux. To link
+it, use <code>pkg-config</code>:</p>
+<div class="codehilite"><pre><span></span><code>gcc <span class="k">$(</span>pkg-config --cflags --libs gtk4<span class="k">)</span> <span class="k">$(</span>pkg-config --cflags --libs libadwaita-1<span class="k">)</span> main.c -o main
+</code></pre></div>
+
+<h1 id="next-steps">Next Steps<a class="md-anchor" href="#next-steps" title="Permanent link"></a></h1>
+<p>Once libadwaita has been compiled and included into your project, it needs to be
+initialized. See <a href="initialization.html">Initialization</a>.</p>
+    </div>
+  </section>
+</section>
+
+
+    
+
+    <section id="search" class="content hidden"></section>
+
+    <footer>
+    
+    </footer>
+  </div>
+</body>
+</html>

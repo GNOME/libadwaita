@@ -1,0 +1,544 @@
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Adw &ndash; 1: Migrating from Libhandy 1.4 to Libadwaita</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta charset="utf-8" />
+
+  
+  <meta property="og:type" content="website"/>
+
+  
+  <meta property="og:image:width" content="256"/>
+  <meta property="og:image:height" content="256"/>
+  <meta property="og:image:secure_url" content="libadwaita.svg"/>
+  <meta property="og:image:alt" content="Adw-1"/>
+  
+
+  
+  <meta property="og:title" content="Adw: Migrating from Libhandy 1.4 to Libadwaita"/>
+  <meta property="og:description" content="Reference for Adw-1: Migrating from Libhandy 1.4 to Libadwaita"/>
+  <meta name="twitter:title" content="Adw: Migrating from Libhandy 1.4 to Libadwaita"/>
+  <meta name="twitter:description" content="Reference for Adw-1: Migrating from Libhandy 1.4 to Libadwaita"/>
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+
+  
+
+  <link rel="stylesheet" href="style.css" type="text/css" />
+
+  
+
+  
+  <script src="urlmap.js"></script>
+  
+  
+  <script src="fzy.js"></script>
+  <script src="search.js"></script>
+  
+  <script src="main.js"></script>
+  <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+<body>
+  <div id="body-wrapper" tabindex="-1">
+
+    <nav class="sidebar devhelp-hidden">
+      
+      <div class="section">
+        <img src="libadwaita.svg" class="logo"/>
+      </div>
+      
+      
+      <div class="search section">
+        <form id="search-form" autocomplete="off">
+          <input id="search-input" type="text" name="do-not-autocomplete" placeholder="Click, or press 's' to search" autocomplete="off"/>
+        </form>
+      </div>
+      
+      <div class="section namespace">
+        <h3><a href="index.html">Adw</a></h3>
+        <p>API Version: 1</p>
+        
+        <p>Library Version: 1.0.0</p>
+        
+      </div>
+      
+      
+    </nav>
+    
+    <button id="btn-to-top" class="hidden"><span class="up-arrow"></span></button>
+
+    
+<section id="main" class="content">
+  <section>
+    <div class="docblock">
+    <h1 id="migrating-from-libhandy-14-to-libadwaita">Migrating from Libhandy 1.4 to Libadwaita<a class="md-anchor" href="#migrating-from-libhandy-14-to-libadwaita" title="Permanent link"></a></h1>
+<p>Libadwaita is being developed as a successor to Libhandy 1.4. As such, it
+offers to <span class="caps">GTK</span> 4 many features Libhandy was offering to <span class="caps">GTK</span>&nbsp;3.</p>
+<p>Migrating from Libhandy 1.4 to Libadwaita implies migrating from <span class="caps">GTK</span> 3 to 4.
+This guide only focuses on on Libhandy and Libadwaita, and is designed to be
+used together with the <a href="https://docs.gtk.org/gtk4/migrating-3to4.html"><span class="caps">GTK</span> 3 to 4 migration guide</a>.</p>
+<p>If you notice that some differences between Libhandy and Libadwaita are missing
+in this guide, <a href="https://gitlab.gnome.org/GNOME/libadwaita/-/issues/new">please report them</a>.</p>
+<h2 id="preparation-in-libhandy-14">Preparation in Libhandy 1.4<a class="md-anchor" href="#preparation-in-libhandy-14" title="Permanent link"></a></h2>
+<p>The steps outlined in the following sections assume that your software is
+working with Libhandy 1.4, which is the latest stable release of Libhandy 1.x.
+It includes all the necessary APIs and tools to help you port your software to
+Libadwaita. If you are using an older version of Libhandy, you should first get
+your software to build and work with Libhandy&nbsp;1.4.</p>
+<h3 id="do-not-use-deprecated-symbols">Do not Use Deprecated Symbols<a class="md-anchor" href="#do-not-use-deprecated-symbols" title="Permanent link"></a></h3>
+<p>Over the years, a number of functions, and in some cases, entire widgets have
+been deprecated. These deprecations are clearly spelled out in the <span class="caps">API</span>
+reference, with hints about the recommended replacements. The <span class="caps">API</span> reference for
+Libhandy 1.4 also includes an <a href="https://gnome.pages.gitlab.gnome.org/libhandy/doc/1-latest/deprecated-api-index.html">index</a>
+of all deprecated&nbsp;symbols.</p>
+<h3 id="subclassing">Subclassing<a class="md-anchor" href="#subclassing" title="Permanent link"></a></h3>
+<p>Following <span class="caps">GTK4</span>&#8217;s emphasis on composition and delegation over subclassing,
+<a href="class.Leaflet.html"><code>AdwLeaflet</code></a> and <a href="class.HeaderBar.html"><code>AdwHeaderBar</code></a> are no longer derivable. As a replacement,
+you can subclass <code>GtkBin</code> or <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.Box.html" class="external"><code>GtkBox</code></a> and include a leaflet or a header
+bar as a child&nbsp;widget.</p>
+<h3 id="stop-using-hdykeypad">Stop Using <code>HdyKeypad</code><a class="md-anchor" href="#stop-using-hdykeypad" title="Permanent link"></a></h3>
+<p><code>HdyKeypad</code> has been removed from Libadwaita. Applications that had used it can
+copy it in tree&nbsp;instead.</p>
+<h3 id="stop-using-named-wm-colors">Stop Using Named WM Colors<a class="md-anchor" href="#stop-using-named-wm-colors" title="Permanent link"></a></h3>
+<p>The following named colors have been removed from the stylesheet in&nbsp;Libadwaita:</p>
+<ul>
+<li><code>&#64;content_view_bg</code></li>
+<li><code>&#64;text_view_bg</code></li>
+<li><code>&#64;wm_title</code></li>
+<li><code>&#64;wm_unfocused_title</code></li>
+<li><code>&#64;wm_highlight</code></li>
+<li><code>&#64;wm_borders_edge</code></li>
+<li><code>&#64;wm_bg_a</code></li>
+<li><code>&#64;wm_bg_b</code></li>
+<li><code>&#64;wm_shadow</code></li>
+<li><code>&#64;wm_border</code></li>
+<li><code>&#64;wm_button_hover_color_a</code></li>
+<li><code>&#64;wm_button_hover_color_b</code></li>
+<li><code>&#64;wm_button_active_color_a</code></li>
+<li><code>&#64;wm_button_active_color_b</code></li>
+<li><code>&#64;wm_button_active_color_c</code></li>
+</ul>
+<p>Applications should not use&nbsp;them.</p>
+<h3 id="use-hdyflap-properties-for-adding-children-instead-of-gtk_container_add">Use <code>HdyFlap</code> Properties for Adding Children Instead of <code>gtk_container_add()</code><a class="md-anchor" href="#use-hdyflap-properties-for-adding-children-instead-of-gtk_container_add" title="Permanent link"></a></h3>
+<p><code>HdyFlap</code> provides the <code>content</code>, <code>flap</code> and <code>separator</code> properties that can be
+used for managing children instead of <code>GtkContainer</code> <span class="caps">API</span>. In Libadwaita
+<a href="property.Flap.content.html"><code>AdwFlap:content</code></a>, <a href="property.Flap.flap.html"><code>AdwFlap:flap</code></a> and <a href="property.Flap.separator.html"><code>AdwFlap:separator</code></a> are
+the only way to manage <a href="class.Flap.html"><code>AdwFlap</code></a>&nbsp;children.</p>
+<h3 id="stop-using-hdyvalueobject-with-non-string-values">Stop Using <code>HdyValueObject</code> with non-string values<a class="md-anchor" href="#stop-using-hdyvalueobject-with-non-string-values" title="Permanent link"></a></h3>
+<p><code>HdyValueObject</code> has been removed. While it&#8217;s not practical to replace the cases
+where it&#8217;s storing strings in <span class="caps">GTK3</span>, as the preferred replacement only exists in
+4, it can also be used with any other <a href="javascript:void(0)" data-namespace="GObject" data-link="struct.Value.html" class="external"><code>GValue</code></a>. That use has no
+replacement and you can instead create your own objects to store those&nbsp;values.</p>
+<h3 id="use-hdystylemanager-instead-of-gtksettingsgtk-application-prefer-dark-theme">Use <code>HdyStyleManager</code> Instead of <a href="javascript:void(0)" data-namespace="Gtk" data-link="property.Settings.gtk-application-prefer-dark-theme.html" class="external"><code>GtkSettings:gtk-application-prefer-dark-theme</code></a><a class="md-anchor" href="#use-hdystylemanager-instead-of-gtksettingsgtk-application-prefer-dark-theme" title="Permanent link"></a></h3>
+<p>If your application is setting <a href="javascript:void(0)" data-namespace="Gtk" data-link="property.Settings.gtk-application-prefer-dark-theme.html" class="external"><code>GtkSettings:gtk-application-prefer-dark-theme</code></a>
+to <code>TRUE</code> to request dark appearance, consider setting <code>HdyStyleManager:color-scheme</code>
+to <code>HDY_COLOR_SCHEME_PREFER_DARK</code> and making sure the application can work with
+light appearance as well. If that&#8217;s not possible, set it to
+<code>HDY_COLOR_SCHEME_FORCE_DARK</code> instead.</p>
+<p>If your application is using light appearance, consider setting the color scheme
+to <code>HDY_COLOR_SCHEME_PREFER_LIGHT</code> and support dark&nbsp;appearance.</p>
+<p>In libadwaita color schemes will be the only way to request dark&nbsp;appearance.</p>
+<h2 id="changes-that-need-to-be-done-at-the-time-of-the-switch">Changes that Need to Be Done at the Time of the Switch<a class="md-anchor" href="#changes-that-need-to-be-done-at-the-time-of-the-switch" title="Permanent link"></a></h2>
+<p>This section outlines porting tasks that you need to tackle when you get to the
+point that you actually build your application against Libadwaita 1. Making it
+possible to prepare for these in <span class="caps">GTK</span> 3 would have been either impossible or&nbsp;impractical.</p>
+<h3 id="adapt-to-gtkcontainer-removal">Adapt to <code>GtkContainer</code> Removal<a class="md-anchor" href="#adapt-to-gtkcontainer-removal" title="Permanent link"></a></h3>
+<p>Same as <span class="caps">GTK</span> itself, all widgets that have children have a new <span class="caps">API</span> to replace
+<code>gtk_container_add()</code> and <code>gtk_container_remove()</code>.</p>
+<p>The following widgets that formerly subclassed <code>GtkBin</code> have a <code>child</code> property&nbsp;now:</p>
+<ul>
+<li><a href="class.Clamp.html"><code>AdwClamp</code></a></li>
+<li><a href="class.StatusPage.html"><code>AdwStatusPage</code></a></li>
+</ul>
+<p><a href="class.Window.html"><code>AdwWindow</code></a> and <a href="class.ApplicationWindow.html"><code>AdwApplicationWindow</code></a> have a <code>content</code> property&nbsp;instead.</p>
+<p>For other widgets use the following&nbsp;replacements:</p>
+<table>
+<thead>
+<tr>
+<th>Widget</th>
+<th><code>gtk_container_add()</code> replacement</th>
+<th><code>gtk_container_remove()</code> replacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="class.ActionRow.html"><code>AdwActionRow</code></a></td>
+<td><a href="method.ActionRow.add_suffix.html"><code>adw_action_row_add_suffix()</code></a></td>
+<td><a href="method.ActionRow.remove.html"><code>adw_action_row_remove()</code></a></td>
+</tr>
+<tr>
+<td><a href="class.Carousel.html"><code>AdwCarousel</code></a></td>
+<td><a href="method.Carousel.append.html"><code>adw_carousel_append()</code></a></td>
+<td><a href="method.Carousel.remove.html"><code>adw_carousel_remove()</code></a></td>
+</tr>
+<tr>
+<td><a href="class.ExpanderRow.html"><code>AdwExpanderRow</code></a></td>
+<td><a href="method.ExpanderRow.add_row.html"><code>adw_expander_row_add_row()</code></a></td>
+<td><a href="method.ExpanderRow.remove.html"><code>adw_expander_row_remove()</code></a></td>
+</tr>
+<tr>
+<td><a href="class.Leaflet.html"><code>AdwLeaflet</code></a></td>
+<td><a href="method.Leaflet.append.html"><code>adw_leaflet_append()</code></a></td>
+<td><a href="method.Leaflet.remove.html"><code>adw_leaflet_remove()</code></a></td>
+</tr>
+<tr>
+<td><a href="class.PreferencesGroup.html"><code>AdwPreferencesGroup</code></a></td>
+<td><a href="method.PreferencesGroup.add.html"><code>adw_preferences_group_add()</code></a></td>
+<td><a href="method.PreferencesGroup.remove.html"><code>adw_preferences_group_remove()</code></a></td>
+</tr>
+<tr>
+<td><a href="class.PreferencesPage.html"><code>AdwPreferencesPage</code></a></td>
+<td><a href="method.PreferencesPage.add.html"><code>adw_preferences_page_add()</code></a></td>
+<td><a href="method.PreferencesPage.remove.html"><code>adw_preferences_page_remove()</code></a></td>
+</tr>
+<tr>
+<td><a href="class.PreferencesWindow.html"><code>AdwPreferencesWindow</code></a></td>
+<td><a href="method.PreferencesWindow.add.html"><code>adw_preferences_window_add()</code></a></td>
+<td><a href="method.PreferencesWindow.remove.html"><code>adw_preferences_window_remove()</code></a></td>
+</tr>
+</tbody>
+</table>
+<p>Adding children in a <span class="caps">UI</span> file still&nbsp;works.</p>
+<h3 id="adapt-to-hdysearchbar-removal">Adapt to <code>HdySearchBar</code> Removal<a class="md-anchor" href="#adapt-to-hdysearchbar-removal" title="Permanent link"></a></h3>
+<p><code>HdySearchBar</code> has been removed, use <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.SearchBar.html" class="external"><code>GtkSearchBar</code></a>&nbsp;instead.</p>
+<h3 id="adapt-to-hdywindowhandle-removal">Adapt to <code>HdyWindowHandle</code> Removal<a class="md-anchor" href="#adapt-to-hdywindowhandle-removal" title="Permanent link"></a></h3>
+<p><code>HdyWindowHandle</code> has been removed, use <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.WindowHandle.html" class="external"><code>GtkWindowHandle</code></a>&nbsp;instead.</p>
+<h3 id="adapt-to-adwactionrow-and-adwexpanderrow-api-changes">Adapt to <a href="class.ActionRow.html"><code>AdwActionRow</code></a> and <a href="class.ExpanderRow.html"><code>AdwExpanderRow</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwactionrow-and-adwexpanderrow-api-changes" title="Permanent link"></a></h3>
+<p>The <code>use-underline</code> property and its accessors have been removed. Use
+<a href="property.PreferencesRow.use-underline.html"><code>AdwPreferencesRow:use-underline</code></a> and its accessors&nbsp;instead.</p>
+<p>The title and subtitle have markup enabled, make sure to escape it with
+<a href="javascript:void(0)" data-namespace="GLib" data-link="func.markup_escape_text.html" class="external"><code>g_markup_escape_text()</code></a> if this is&nbsp;unwanted.</p>
+<h3 id="adapt-to-adwclamp-api-changes">Adapt to <a href="class.Clamp.html"><code>AdwClamp</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwclamp-api-changes" title="Permanent link"></a></h3>
+<p><code>HdyClamp</code> previously had <code>.small</code>, <code>.medium</code> or <code>.large</code> style classes
+depending on the current size of its child. These style classes are now
+added to the child instead of the clamp&nbsp;itself.</p>
+<h3 id="adapt-to-adwcomborow-api-changes">Adapt to <a href="class.ComboRow.html"><code>AdwComboRow</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwcomborow-api-changes" title="Permanent link"></a></h3>
+<p><a href="class.ComboRow.html"><code>AdwComboRow</code></a> <span class="caps">API</span> has been completely overhauled compared to <code>HdyComboRow</code>
+and closely mirrors <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.DropDown.html" class="external"><code>GtkDropDown</code></a>. Refer to <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.DropDown.html" class="external"><code>GtkDropDown</code></a>&#8216;s
+documentation for&nbsp;details.</p>
+<p><code>hdy_combo_row_bind_name_model()</code> can be replaced with using the
+<a href="property.ComboRow.model.html"><code>AdwComboRow:model</code></a> property in conjunction with
+<a href="property.ComboRow.expression.html"><code>AdwComboRow:expression</code></a>.</p>
+<p><code>hdy_combo_row_bind_model()</code> can be replaced with using the
+<a href="property.ComboRow.model.html"><code>AdwComboRow:model</code></a> property in conjunction with
+<a href="property.ComboRow.factory.html"><code>AdwComboRow:factory</code></a> and/or <a href="property.ComboRow.list-factory.html"><code>AdwComboRow:list-factory</code></a>.</p>
+<p><code>hdy_combo_row_set_for_enum()</code> can be replaced with an <a href="class.EnumListModel.html"><code>AdwEnumListModel</code></a>
+in conjunction with the <a href="property.ComboRow.expression.html"><code>AdwComboRow:expression</code></a> property, for&nbsp;example:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">expr</span> <span class="o">=</span> <span class="n">gtk_property_expression_new</span> <span class="p">(</span><span class="n">ADW_TYPE_ENUM_LIST_ITEM</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="s">&quot;nick&quot;</span><span class="p">);</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">G_LIST_MODEL</span> <span class="p">(</span><span class="n">adw_enum_list_model_new</span> <span class="p">(</span><span class="n">GTK_TYPE_ORIENTATION</span><span class="p">));</span>
+
+<span class="n">adw_combo_row_set_expression</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">expr</span><span class="p">);</span>
+<span class="n">adw_combo_row_set_model</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">model</span><span class="p">);</span>
+</code></pre></div>
+
+<p>As with <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.DropDown.html" class="external"><code>GtkDropDown</code></a>, if the model is a <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.StringList.html" class="external"><code>GtkStringList</code></a>, the
+model items can be converted into human-readable strings automatically without
+requiring an&nbsp;expression.</p>
+<p>The <code>HdyComboRow:selected-index</code> property has been renamed to
+<a href="property.ComboRow.selected.html"><code>AdwComboRow:selected</code></a>, matching <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.DropDown.html" class="external"><code>GtkDropDown</code></a>.</p>
+<h3 id="adapt-to-adwpreferencesgroup-api-changes">Adapt to <a href="class.PreferencesGroup.html"><code>AdwPreferencesGroup</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwpreferencesgroup-api-changes" title="Permanent link"></a></h3>
+<p><code>HdyPreferencesGroup:use-markup</code> has been removed, the labels always use markup&nbsp;now.</p>
+<h3 id="adapt-to-hdyenumvalueobject-api-changes">Adapt to <code>HdyEnumValueObject</code> API Changes<a class="md-anchor" href="#adapt-to-hdyenumvalueobject-api-changes" title="Permanent link"></a></h3>
+<p><code>HdyEnumValueObject</code> has been renamed to <a href="class.EnumListItem.html"><code>AdwEnumListItem</code></a> and can no longer
+be manually created. It&#8217;s only intended to be used with <a href="class.EnumListModel.html"><code>AdwEnumListModel</code></a>.</p>
+<h3 id="stop-using-hdyvalueobject">Stop Using <code>HdyValueObject</code><a class="md-anchor" href="#stop-using-hdyvalueobject" title="Permanent link"></a></h3>
+<p><code>HdyValueObject</code> has been removed. The typical use for storing strings in
+combination with <a href="javascript:void(0)" data-namespace="Gio" data-link="class.ListStore.html" class="external"><code>GListStore</code></a> can be replaced by using
+<a href="javascript:void(0)" data-namespace="Gtk" data-link="class.StringList.html" class="external"><code>GtkStringList</code></a>.</p>
+<h3 id="adapt-to-adwheaderbar-api-changes">Adapt to <a href="class.HeaderBar.html"><code>AdwHeaderBar</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwheaderbar-api-changes" title="Permanent link"></a></h3>
+<p><a href="class.HeaderBar.html"><code>AdwHeaderBar</code></a> <span class="caps">API</span> mostly mirrors <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.HeaderBar.html" class="external"><code>GtkHeaderBar</code></a>, refer to the
+<a href="https://docs.gtk.org/gtk4/migrating-3to4.html#adapt-to-gtkheaderbar-and-gtkactionbar-api-changes"><span class="caps">GTK</span> 3 to 4 migration guide</a>
+for&nbsp;details</p>
+<p>The <a href="javascript:void(0)" data-namespace="Gtk" data-link="property.HeaderBar.show-title-buttons.html" class="external"><code>GtkHeaderBar:show-title-buttons</code></a> property has been split into
+<a href="property.HeaderBar.show-start-title-buttons.html"><code>AdwHeaderBar:show-start-title-buttons</code></a> and
+<a href="property.HeaderBar.show-end-title-buttons.html"><code>AdwHeaderBar:show-end-title-buttons</code></a> to simplify creating multi-pane
+layouts. The corresponding getter and the setter have been split as&nbsp;well.</p>
+<p>The <a href="class.WindowTitle.html"><code>AdwWindowTitle</code></a> widget may be useful for replacing the title and&nbsp;subtitle.</p>
+<h3 id="adapt-to-hdyheadergroup-removal">Adapt to <code>HdyHeaderGroup</code> Removal<a class="md-anchor" href="#adapt-to-hdyheadergroup-removal" title="Permanent link"></a></h3>
+<p><code>HdyHeaderGroup</code> has been removed. Its behavior can be replicated by changing
+the <a href="property.HeaderBar.show-start-title-buttons.html"><code>AdwHeaderBar:show-start-title-buttons</code></a> and
+<a href="property.HeaderBar.show-end-title-buttons.html"><code>AdwHeaderBar:show-end-title-buttons</code></a> properties depending on the layout,
+for example binding them to the <a href="property.Leaflet.folded.html"><code>AdwLeaflet:folded</code></a> property as&nbsp;follows:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;object</span> <span class="na">class=</span><span class="s">&quot;AdwLeaflet&quot;</span> <span class="na">id=</span><span class="s">&quot;leaflet&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;child&gt;</span>
+    <span class="nt">&lt;object</span> <span class="na">class=</span><span class="s">&quot;GtkBox&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;orientation&quot;</span><span class="nt">&gt;</span>vertical<span class="nt">&lt;/property&gt;</span>
+      <span class="nt">&lt;object</span> <span class="na">class=</span><span class="s">&quot;AdwHeaderBar&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;binding</span> <span class="na">name=</span><span class="s">&quot;show-end-title-buttons&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;lookup</span> <span class="na">name=</span><span class="s">&quot;folded&quot;</span><span class="nt">&gt;</span>leaflet<span class="nt">&lt;/lookup&gt;</span>
+        <span class="nt">&lt;/binding&gt;</span>
+      <span class="nt">&lt;/object&gt;</span>
+      ...
+    <span class="nt">&lt;/object&gt;</span>
+  <span class="nt">&lt;/child&gt;</span>
+  ...
+  <span class="nt">&lt;child&gt;</span>
+    <span class="nt">&lt;object</span> <span class="na">class=</span><span class="s">&quot;GtkBox&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;orientation&quot;</span><span class="nt">&gt;</span>vertical<span class="nt">&lt;/property&gt;</span>
+      <span class="nt">&lt;object</span> <span class="na">class=</span><span class="s">&quot;AdwHeaderBar&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;binding</span> <span class="na">name=</span><span class="s">&quot;show-start-title-buttons&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;lookup</span> <span class="na">name=</span><span class="s">&quot;folded&quot;</span><span class="nt">&gt;</span>leaflet<span class="nt">&lt;/lookup&gt;</span>
+        <span class="nt">&lt;/binding&gt;</span>
+      <span class="nt">&lt;/object&gt;</span>
+      ...
+    <span class="nt">&lt;/object&gt;</span>
+  <span class="nt">&lt;/child&gt;</span>
+<span class="nt">&lt;/object&gt;</span>
+</code></pre></div>
+
+<h3 id="adapt-to-hdydeck-removal">Adapt to <code>HdyDeck</code> Removal<a class="md-anchor" href="#adapt-to-hdydeck-removal" title="Permanent link"></a></h3>
+<p><code>HdyDeck</code> has been removed. Instead, an <a href="class.Leaflet.html"><code>AdwLeaflet</code></a> can be used the same way
+by setting the <a href="property.Leaflet.can-unfold.html"><code>AdwLeaflet:can-unfold</code></a> property to <code>FALSE</code>.</p>
+<h3 id="adapt-to-adwleaflet-and-adwsqueezer-api-changes">Adapt to <a href="class.Leaflet.html"><code>AdwLeaflet</code></a> and <a href="class.Squeezer.html"><code>AdwSqueezer</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwleaflet-and-adwsqueezer-api-changes" title="Permanent link"></a></h3>
+<p>The child properties of <code>HdyLeaflet</code> and <code>HdySqueezer</code> have been converted into
+page objects, similarly to <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.Stack.html" class="external"><code>GtkStack</code></a>. For example,
+<a href="method.SqueezerPage.set_enabled.html"><code>adw_squeezer_page_set_enabled()</code></a> should be used to replace
+<code>hdy_squeezer_set_child_enabled()</code>.</p>
+<p>The <code>can-swipe-back</code> and <code>can-swipe-forward</code> properties have been renamed to
+<a href="property.Leaflet.can-navigate-back.html"><code>AdwLeaflet:can-navigate-back</code></a> and
+<a href="property.Leaflet.can-navigate-forward.html"><code>AdwLeaflet:can-navigate-forward</code></a>, along with their accessors. The new
+properties also handle keyboard and mouse shortcuts in addition to&nbsp;swipes.</p>
+<p>The <code>hhomogeneous-folded</code>, <code>vhomogeneous-folded</code>, <code>hhomogeneous-unfolded</code>, and
+<code>vhomogeneous-unfolded</code> properties have been replaced by a single
+<a href="property.Leaflet.homogeneous.html"><code>AdwLeaflet:homogeneous</code></a> property, set to <code>TRUE</code> by default, applied when
+the leaflet is folded for the opposite&nbsp;orientation.</p>
+<p>When unfolded, children are never homogeneous. Use <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.SizeGroup.html" class="external"><code>GtkSizeGroup</code></a>
+to make them homogeneous if&nbsp;needed.</p>
+<p>The <code>interpolate-size</code> property has been removed with no replacement, it&#8217;s
+always enabled when <a href="property.Leaflet.homogeneous.html"><code>AdwLeaflet:homogeneous</code></a> is set to <code>FALSE</code>.</p>
+<p><code>AdwLeaflet</code> now uses spring animations instead of timed animations for child
+transitions. As such, the <code>child-transition-duration</code> property has been replaced
+with <a href="property.Leaflet.child-transition-params.html"><code>AdwLeaflet:child-transition-params</code></a>, allowing to customize the
+animation. Unlike the duration, spring parameters are also used for animation
+triggered by swipe&nbsp;gestures.</p>
+<h3 id="adapt-to-adwflap-api-changes">Adapt to <a href="class.Flap.html"><code>AdwFlap</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwflap-api-changes" title="Permanent link"></a></h3>
+<p><code>AdwFlap</code> now uses spring animations instead of timed animations for reveal
+animations. As such, the <code>reveal-duration</code> property has been replaced with
+<a href="property.Flap.reveal-params.html"><code>AdwFlap:reveal-params</code></a>, allowing to customize the animation. Unlike
+the duration, spring parameters are also used for transitions triggered by swipe&nbsp;gestures.</p>
+<h3 id="adapt-to-adwcarousel-api-changes">Adapt to <a href="class.Carousel.html"><code>AdwCarousel</code></a> API changes<a class="md-anchor" href="#adapt-to-adwcarousel-api-changes" title="Permanent link"></a></h3>
+<p><code>AdwCarousel</code> now uses spring animations instead of timed animations for
+scrolling. As such, the <code>animation-duration</code> property has been replaced with
+<a href="property.Carousel.scroll-params.html"><code>AdwCarousel:scroll-params</code></a>, allowing to customize the animation. Unlike
+the duration, spring parameters are also used for animation triggered by swipe&nbsp;gestures.</p>
+<p>The <code>adw_carousel_scroll_to_full()</code> method has been removed. Instead,
+<a href="method.Carousel.scroll_to.html"><code>adw_carousel_scroll_to()</code></a> has got an additional parameter <code>animate</code>.</p>
+<h3 id="adapt-to-view-switcher-api-changes">Adapt to View Switcher API Changes<a class="md-anchor" href="#adapt-to-view-switcher-api-changes" title="Permanent link"></a></h3>
+<p><a href="class.ViewSwitcher.html"><code>AdwViewSwitcher</code></a>, <a href="class.ViewSwitcherBar.html"><code>AdwViewSwitcherBar</code></a> and <a href="class.ViewSwitcherTitle.html"><code>AdwViewSwitcherTitle</code></a> now
+use <a href="class.ViewStack.html"><code>AdwViewStack</code></a> instead of <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.Stack.html" class="external"><code>GtkStack</code></a>.</p>
+<p>You should stop using <a href="javascript:void(0)" data-namespace="Gtk" data-link="property.Stack.transition-type.html" class="external"><code>GtkStack:transition-type</code></a>,
+<a href="javascript:void(0)" data-namespace="Gtk" data-link="property.Stack.transition-duration.html" class="external"><code>GtkStack:transition-duration</code></a>,
+<a href="javascript:void(0)" data-namespace="Gtk" data-link="property.Stack.transition-running.html" class="external"><code>GtkStack:transition-running</code></a> and
+<a href="javascript:void(0)" data-namespace="Gtk" data-link="property.Stack.interpolate-size.html" class="external"><code>GtkStack:interpolate-size</code></a> properties before switching to
+<a href="class.ViewStack.html"><code>AdwViewStack</code></a>.</p>
+<p>The <code>auto</code> view switcher policy has been removed. <a href="class.ViewSwitcher.html"><code>AdwViewSwitcher</code></a> only has
+narrow and wide policies; if you had used the <code>auto</code> policy, use an
+<a href="class.Squeezer.html"><code>AdwSqueezer</code></a> with two view switchers&nbsp;inside.</p>
+<h4 id="adapt-to-adwviewswitcher-api-changes">Adapt to <a href="class.ViewSwitcher.html"><code>AdwViewSwitcher</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwviewswitcher-api-changes" title="Permanent link"></a></h4>
+<p>The <code>narrow-ellipsize</code> property has been removed. Narrow view switchers always
+ellipsize their labels, wide switchers never&nbsp;do.</p>
+<h4 id="adapt-to-adwviewswitcherbar-api-changes">Adapt to <a href="class.ViewSwitcherBar.html"><code>AdwViewSwitcherBar</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwviewswitcherbar-api-changes" title="Permanent link"></a></h4>
+<p>The <code>policy</code> property has been removed. If you had used it, use a plain
+<a href="class.ViewSwitcher.html"><code>AdwViewSwitcher</code></a> in a <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.ActionBar.html" class="external"><code>GtkActionBar</code></a>&nbsp;instead.</p>
+<h4 id="adapt-to-adwviewswitchertitle-api-changes">Adapt to <a href="class.ViewSwitcherTitle.html"><code>AdwViewSwitcherTitle</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwviewswitchertitle-api-changes" title="Permanent link"></a></h4>
+<p>The <code>policy</code> property has been removed, the behavior is similar to the removed
+<code>auto</code> policy. If you had used <code>wide</code> or <code>narrow</code> policies, use an
+<a href="class.Squeezer.html"><code>AdwSqueezer</code></a> with an <a href="class.ViewSwitcher.html"><code>AdwViewSwitcher</code></a> and an <a href="class.WindowTitle.html"><code>AdwWindowTitle</code></a> inside,
+with the switcher having the desired&nbsp;policy.</p>
+<h3 id="adapt-to-adwavatar-api-changes">Adapt to <a href="class.Avatar.html"><code>AdwAvatar</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwavatar-api-changes" title="Permanent link"></a></h3>
+<p>The <code>HdyAvatar:loadable-icon</code> property has been removed along with its getter
+and setter. It can be replaced by <a href="property.Avatar.custom-image.html"><code>AdwAvatar:custom-image</code></a>.</p>
+<p>The <code>hdy_avatar_draw_to_pixbuf()</code> and <code>hdy_avatar_draw_to_pixbuf_async()</code>
+functions have been removed, use the newly added <a href="method.Avatar.draw_to_texture.html"><code>adw_avatar_draw_to_texture()</code></a>
+instead. <a href="javascript:void(0)" data-namespace="Gdk" data-link="class.Texture.html" class="external"><code>GdkTexture</code></a> implements <a href="javascript:void(0)" data-namespace="Gio" data-link="iface.Icon.html" class="external"><code>GIcon</code></a>, so it should just work
+for that&nbsp;case.</p>
+<p><a href="method.Avatar.draw_to_texture.html"><code>adw_avatar_draw_to_texture()</code></a> does not have the <code>size</code> parameter. Instead, it
+uses the avatar&#8217;s current size, with no&nbsp;replacement.</p>
+<h3 id="adapt-to-adwstylemanager-api-changes">Adapt to <a href="class.StyleManager.html"><code>AdwStyleManager</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwstylemanager-api-changes" title="Permanent link"></a></h3>
+<p>When used with the default style manager, <code>ADW_COLOR_SCHEME_DEFAULT</code> is now
+equivalent to <code>ADW_COLOR_SCHEME_PREFER_LIGHT</code> instead of
+<code>HDY_COLOR_SCHEME_FORCE_LIGHT</code>, following the system dark style preference by
+default. Make sure your application works with it, or otherwise set the
+<code>ADW_COLOR_SCHEME_FORCE_LIGHT</code> color scheme&nbsp;manually.</p>
+<h3 id="adapt-to-adwswipetracker-api-changes">Adapt to <a href="class.SwipeTracker.html"><code>AdwSwipeTracker</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwswipetracker-api-changes" title="Permanent link"></a></h3>
+<p>The <a href="signal.SwipeTracker.begin-swipe.html"><code>AdwSwipeTracker::begin-swipe</code></a> signal is now emitted immediately before
+the swipe starts, after the drag threshold has been reached, and it has lost its
+<code>direction</code> parameter. The new <a href="signal.SwipeTracker.prepare.html"><code>AdwSwipeTracker::prepare</code></a> signal behaves
+exactly like <code>begin-swipe</code> did, and can be used instead of&nbsp;it.</p>
+<p>The type of the <code>duration</code> parameter in <a href="signal.SwipeTracker.end-swipe.html"><code>AdwSwipeTracker::end-swipe</code></a> has
+changed from <code>gint64</code> to <code>guint</code>.</p>
+<h3 id="adapt-to-adwtabview-api-changes">Adapt to <a href="class.TabView.html"><code>AdwTabView</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwtabview-api-changes" title="Permanent link"></a></h3>
+<p>The <code>HdyTabView:shortcut-widget</code> property has been removed with no replacement;
+<a href="class.TabView.html"><code>AdwTabView</code></a> automatically installs shortcuts with the
+<code>GTK_SHORTCUT_SCOPE_MANAGED</code> scope, so they are automatically available
+throughout the window without the need to set shortcut&nbsp;widget.</p>
+<p>If some of these shortcuts conflict with another widget, the latter has
+priority, and it should work automatically if the widget correctly stops event&nbsp;propagation.</p>
+<h3 id="adapt-to-adwpreferenceswindow-api-changes">Adapt to <a href="class.PreferencesWindow.html"><code>AdwPreferencesWindow</code></a> API Changes<a class="md-anchor" href="#adapt-to-adwpreferenceswindow-api-changes" title="Permanent link"></a></h3>
+<p>The <code>can-swipe-back</code> property have been renamed to
+<a href="property.PreferencesWindow.can-navigate-back.html"><code>AdwPreferencesWindow:can-navigate-back</code></a>, along with its accessors. The
+new properties also handle keyboard and mouse shortcuts in addition to&nbsp;swipes.</p>
+<h3 id="adapt-to-miscellaneous-changes">Adapt to Miscellaneous Changes<a class="md-anchor" href="#adapt-to-miscellaneous-changes" title="Permanent link"></a></h3>
+<p>The <code>hdy_ease_out_cubic()</code> function has been removed. Instead,
+<a href="type_func.Easing.ease.html"><code>adw_easing_ease()</code></a> can be used with the <code>ADW_EASE_OUT_CUBIC</code> parameter.</p>
+<h3 id="adapt-to-stylesheet-changes">Adapt to Stylesheet Changes<a class="md-anchor" href="#adapt-to-stylesheet-changes" title="Permanent link"></a></h3>
+<p>If you were using
+<a href="named-colors.html#compatibility-colors"><code>&#64;theme_selected_bg_color</code></a>
+as a text color, use
+<a href="named-colors.html#accent-colors"><code>&#64;accent_color</code></a> instead to
+make sure the text is readable. You can also use the
+<a href="style-classes.html#colors"><code>.accent</code></a> style class to apply the correct&nbsp;color.</p>
+<h3 id="stop-using-the-sidebar-style-class">Stop Using the <code>.sidebar</code> Style Class<a class="md-anchor" href="#stop-using-the-sidebar-style-class" title="Permanent link"></a></h3>
+<p>The <a href="style-classes.html#sidebar"><code>.sidebar</code></a> style class is now deprecated,
+although still works for compatibility reasons. The main use case - adjusting
+the background color of <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.ListBox.html" class="external"><code>GtkListBox</code></a> and <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.ListView.html" class="external"><code>GtkListView</code></a> - can now
+be done with the <a href="style-classes.html#sidebars"><code>.navigation-sidebar</code></a> style
+class on those widgets instead, along with adjusting the item selection style.
+The border can be replicated by manually adding a <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.Separator.html" class="external"><code>GtkSeparator</code></a>.</p>
+<h3 id="adapt-to-the-popovercombo-style-removal">Adapt to the <code>popover.combo</code> Style Removal<a class="md-anchor" href="#adapt-to-the-popovercombo-style-removal" title="Permanent link"></a></h3>
+<p>The <code>.combo</code> popover style class has been removed. Use
+<a href="style-classes.html#menu-popovers"><code>.menu</code></a> instead. You may need to remove
+manually added margins, padding or minimum height from the list items inside
+while doing&nbsp;it.</p>
+<h3 id="adapt-to-the-buttonlist-button-style-removal">Adapt to the <code>button.list-button</code> Style Removal<a class="md-anchor" href="#adapt-to-the-buttonlist-button-style-removal" title="Permanent link"></a></h3>
+<p>The <code>.list-button</code> style class has been removed with no replacement. The regular
+button style should be used&nbsp;instead.</p>
+<h3 id="adapt-to-the-content-view-style-removal">Adapt to the <code>content-view</code> Style Removal<a class="md-anchor" href="#adapt-to-the-content-view-style-removal" title="Permanent link"></a></h3>
+<p>The <code>.content-view</code> style class has been removed. The selection mode
+<a href="javascript:void(0)" data-namespace="Gtk" data-link="class.CheckButton.html" class="external"><code>GtkCheckButton</code></a> style had inside content views has been split out into a
+separate style class
+<a href="style-classes.html#selection-mode-check-buttons"><code>.selection-mode</code></a> that can be
+applied directly onto check buttons instead of the view. The unique background
+color has no replacement and the default background should be used&nbsp;instead.</p>
+<h4 id="adapt-to-header-bar-action-bar-search-bar-and-toolbar-style-changes">Adapt to Header Bar, Action Bar, Search Bar and Toolbar Style Changes<a class="md-anchor" href="#adapt-to-header-bar-action-bar-search-bar-and-toolbar-style-changes" title="Permanent link"></a></h4>
+<p>When possible, buttons in <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.HeaderBar.html" class="external"><code>GtkHeaderBar</code></a>, <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.ActionBar.html" class="external"><code>GtkActionBar</code></a> and
+<a href="javascript:void(0)" data-namespace="Gtk" data-link="class.SearchBar.html" class="external"><code>GtkSearchBar</code></a> will use flat appearance by&nbsp;default.</p>
+<p>The following rules are used when deciding when to make buttons flat or&nbsp;not:</p>
+<p>The following buttons get flat&nbsp;appearance:</p>
+<ul>
+<li>Icon-only&nbsp;buttons;</li>
+<li>Buttons with an icon and a label (using <a href="class.ButtonContent.html"><code>AdwButtonContent</code></a>);</li>
+<li>Menu buttons containing an&nbsp;arrow;</li>
+<li><a href="class.SplitButton.html"><code>AdwSplitButton</code></a>;</li>
+<li>Any other button with the <a href="style-classes.html#flat"><code>.flat</code></a> style&nbsp;class.</li>
+</ul>
+<p>The following buttons keep default&nbsp;appearance:</p>
+<ul>
+<li>Text-only&nbsp;buttons;</li>
+<li>Buttons with other&nbsp;content;</li>
+<li>Buttons within widgets containing the
+  <a href="style-classes.html#linked-controls"><code>.linked</code></a>&nbsp;class;</li>
+<li>Buttons with the <a href="style-classes.html#suggested-action"><code>.suggested-action</code></a>,
+  <a href="style-classes.html#destructive-action"><code>.destructive-action</code></a> or
+  <a href="style-classes.html#opaque"><code>.opaque</code></a> style&nbsp;classes.</li>
+<li>Buttons with the <a href="style-classes.html#raised"><code>.raised</code></a> style&nbsp;class.</li>
+</ul>
+<p>It&#8217;s important to avoid ambiguous layouts, for example text-only buttons with
+no icon, since such a button would be indistinguishable from the window title
+without hovering&nbsp;it.</p>
+<p>In rare cases, the existing layout may need a redesign to work with the new&nbsp;style.</p>
+<p>The same rules are also used for the <a href="style-classes.html#toolbars"><code>.toolbar</code></a>
+style class now, instead of making every button appear&nbsp;flat.</p>
+<h4 id="adapt-to-list-style-changes">Adapt to List Style Changes<a class="md-anchor" href="#adapt-to-list-style-changes" title="Permanent link"></a></h4>
+<p>For boxed lists we now have the
+<a href="style-classes.html#boxed-lists-cards"><code>.boxed-list</code></a> style class that matches
+the name of the design pattern. If you were using the
+<a href="style-classes.html#content"><code>.content</code></a> style class, you should use
+<code>.boxed-list</code> instead.</p>
+<p>The <code>.content</code> style class currently remains for compatibility&nbsp;purposes.</p>
+<p>Neither the <code>.content</code> style class nor the <code>.boxed-list</code> style class work
+for <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.ListView.html" class="external"><code>GtkListView</code></a>, as the widget cannot currently be used for the
+boxed list&nbsp;pattern.</p>
+<h4 id="adjusting-icons">Adjusting Icons<a class="md-anchor" href="#adjusting-icons" title="Permanent link"></a></h4>
+<p>If you&#8217;re bundling icons from the icon library with your application, make sure
+to update them. Many icons have been redrawn to be larger to work better without
+button&nbsp;frames.</p>
+<p>If you&#8217;re using the <code>object-select-symbolic</code> icon in a header bar button
+(typically for selection mode), use <code>selection-mode-symbolic</code> instead.</p>
+<h4 id="adjusting-iconarrow-menu-buttons">Adjusting Icon+Arrow Menu Buttons<a class="md-anchor" href="#adjusting-iconarrow-menu-buttons" title="Permanent link"></a></h4>
+<p>If you had menu buttons containing an icon and a dropdown arrow, switch to
+<a href="javascript:void(0)" data-namespace="Gtk" data-link="property.MenuButton.icon-name.html" class="external"><code>GtkMenuButton:icon-name</code></a> and set the
+<a href="javascript:void(0)" data-namespace="Gtk" data-link="property.MenuButton.always-show-arrow.html" class="external"><code>GtkMenuButton:always-show-arrow</code></a> property to <code>TRUE</code>.</p>
+<h4 id="adjusting-text-only-buttons">Adjusting Text-only Buttons<a class="md-anchor" href="#adjusting-text-only-buttons" title="Permanent link"></a></h4>
+<p>If you had text-only buttons, consider using <a href="class.ButtonContent.html"><code>AdwButtonContent</code></a>. For example,
+the following&nbsp;button:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;object</span> <span class="na">class=</span><span class="s">&quot;GtkButton&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;label&quot;</span> <span class="na">translatable=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>_Open<span class="nt">&lt;/property&gt;</span>
+  <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;use-underline&quot;</span><span class="nt">&gt;</span>True<span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/object&gt;</span>
+</code></pre></div>
+
+<p>can be changed&nbsp;into:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;object</span> <span class="na">class=</span><span class="s">&quot;GtkButton&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;object</span> <span class="na">class=</span><span class="s">&quot;AdwButtonContent&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;icon-name&quot;</span><span class="nt">&gt;</span>document-open-symbolic<span class="nt">&lt;/property&gt;</span>
+      <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;label&quot;</span> <span class="na">translatable=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>_Open<span class="nt">&lt;/property&gt;</span>
+      <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;use-underline&quot;</span><span class="nt">&gt;</span>True<span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;/object&gt;</span>
+  <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/object&gt;</span>
+</code></pre></div>
+
+<p>One exception are the two primary buttons in a dialog, for example, &#8220;Cancel&#8221; and
+&#8220;Open&#8221;. Those buttons should retain their default&nbsp;appearance.</p>
+<h4 id="adjusting-split-buttons">Adjusting Split Buttons<a class="md-anchor" href="#adjusting-split-buttons" title="Permanent link"></a></h4>
+<p>If you had split buttons implemented via a <a href="javascript:void(0)" data-namespace="Gtk" data-link="class.Box.html" class="external"><code>GtkBox</code></a> with the
+<a href="style-classes.html#linked-controls"><code>.linked</code></a> style class and two buttons
+packed inside, use <a href="class.SplitButton.html"><code>AdwSplitButton</code></a> as&nbsp;follows:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;object</span> <span class="na">class=</span><span class="s">&quot;AdwSplitButton&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;menu-model&quot;</span><span class="nt">&gt;</span>some_menu<span class="nt">&lt;/property&gt;</span>
+  <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;icon-name&quot;</span><span class="nt">&gt;</span>view-list-symbolic<span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/object&gt;</span>
+</code></pre></div>
+
+<h4 id="adjusting-linked-buttons">Adjusting Linked Buttons<a class="md-anchor" href="#adjusting-linked-buttons" title="Permanent link"></a></h4>
+<p>For other linked together buttons, simply stop linking&nbsp;them.</p>
+<p>If multiple linked groups were used to separate different groups of actions,
+insert extra spacing as&nbsp;follows:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">&lt;object</span> <span class="na">class=</span><span class="s">&quot;GtkSeparator&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;style&gt;</span>
+    <span class="nt">&lt;class</span> <span class="na">name=</span><span class="s">&quot;spacer&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/object&gt;</span>
+</code></pre></div>
+
+<h4 id="custom-adjustments">Custom Adjustments<a class="md-anchor" href="#custom-adjustments" title="Permanent link"></a></h4>
+<p>The <a href="style-classes.html#flat"><code>.flat</code></a> and
+<a href="style-classes.html#raised"><code>.raised</code></a> style classes can always be used to
+override the default&nbsp;appearance.</p>
+<p>Important: the <a href="javascript:void(0)" data-namespace="Gtk" data-link="property.Button.has-frame.html" class="external"><code>GtkButton:has-frame</code></a> property will <strong>not</strong> be set to
+<code>FALSE</code> when a button gets the flat appearance automatically. It also cannot be
+set to <code>TRUE</code> to make a button raised, the style class should be used directly&nbsp;instead.</p>
+    </div>
+  </section>
+</section>
+
+
+    
+
+    <section id="search" class="content hidden"></section>
+
+    <footer>
+    
+    </footer>
+  </div>
+</body>
+</html>

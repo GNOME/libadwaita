@@ -1,0 +1,706 @@
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Adw.TabBar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta charset="utf-8" />
+
+  
+  <meta property="og:type" content="website"/>
+
+  
+  <meta property="og:image:width" content="256"/>
+  <meta property="og:image:height" content="256"/>
+  <meta property="og:image:secure_url" content="libadwaita.svg"/>
+  <meta property="og:image:alt" content="Adw-1"/>
+  
+
+  
+  <meta property="og:title" content="Adw.TabBar"/>
+  <meta property="og:description" content="Reference for Adw.TabBar"/>
+  <meta name="twitter:title" content="Adw.TabBar"/>
+  <meta name="twitter:description" content="Reference for Adw.TabBar"/>
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+
+  
+
+  <link rel="stylesheet" href="style.css" type="text/css" />
+
+  
+
+  
+  <script src="urlmap.js"></script>
+  
+  
+  <script src="fzy.js"></script>
+  <script src="search.js"></script>
+  
+  <script src="main.js"></script>
+  <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+<body>
+  <div id="body-wrapper" tabindex="-1">
+
+    <nav class="sidebar devhelp-hidden">
+      
+      <div class="section">
+        <img src="libadwaita.svg" class="logo"/>
+      </div>
+      
+      
+      <div class="search section">
+        <form id="search-form" autocomplete="off">
+          <input id="search-input" type="text" name="do-not-autocomplete" placeholder="Click, or press 's' to search" autocomplete="off"/>
+        </form>
+      </div>
+      
+      <div class="section namespace">
+        <h3><a href="index.html">Adw</a></h3>
+        <p>API Version: 1</p>
+        
+        <p>Library Version: 1.0.0</p>
+        
+      </div>
+      
+<div class="section">
+  <h5>Type</h5>
+  <div class="links">
+    <a class="current" href="class.TabBar.html#description">TabBar</a>
+  </div>
+</div>
+
+
+<div class="section">
+  <h5>Constructors</h5>
+  <div class="links">
+  
+    <a class="ctor" href="ctor.TabBar.new.html">new</a>
+  
+  </div>
+</div>
+
+
+
+<div class="section">
+  <h5>Instance methods</h5>
+  <div class="links">
+  
+    <a class="method" href="method.TabBar.get_autohide.html">get_autohide</a>
+  
+    <a class="method" href="method.TabBar.get_end_action_widget.html">get_end_action_widget</a>
+  
+    <a class="method" href="method.TabBar.get_expand_tabs.html">get_expand_tabs</a>
+  
+    <a class="method" href="method.TabBar.get_inverted.html">get_inverted</a>
+  
+    <a class="method" href="method.TabBar.get_is_overflowing.html">get_is_overflowing</a>
+  
+    <a class="method" href="method.TabBar.get_start_action_widget.html">get_start_action_widget</a>
+  
+    <a class="method" href="method.TabBar.get_tabs_revealed.html">get_tabs_revealed</a>
+  
+    <a class="method" href="method.TabBar.get_view.html">get_view</a>
+  
+    <a class="method" href="method.TabBar.set_autohide.html">set_autohide</a>
+  
+    <a class="method" href="method.TabBar.set_end_action_widget.html">set_end_action_widget</a>
+  
+    <a class="method" href="method.TabBar.set_expand_tabs.html">set_expand_tabs</a>
+  
+    <a class="method" href="method.TabBar.set_inverted.html">set_inverted</a>
+  
+    <a class="method" href="method.TabBar.set_start_action_widget.html">set_start_action_widget</a>
+  
+    <a class="method" href="method.TabBar.set_view.html">set_view</a>
+  
+    <a class="method" href="method.TabBar.setup_extra_drop_target.html">setup_extra_drop_target</a>
+  
+  </div>
+</div>
+
+
+
+<div class="section">
+  <h5>Properties</h5>
+  <div class="links">
+  
+    <a class="property" href="property.TabBar.autohide.html">autohide</a>
+  
+    <a class="property" href="property.TabBar.end-action-widget.html">end-action-widget</a>
+  
+    <a class="property" href="property.TabBar.expand-tabs.html">expand-tabs</a>
+  
+    <a class="property" href="property.TabBar.inverted.html">inverted</a>
+  
+    <a class="property" href="property.TabBar.is-overflowing.html">is-overflowing</a>
+  
+    <a class="property" href="property.TabBar.start-action-widget.html">start-action-widget</a>
+  
+    <a class="property" href="property.TabBar.tabs-revealed.html">tabs-revealed</a>
+  
+    <a class="property" href="property.TabBar.view.html">view</a>
+  
+  </div>
+</div>
+
+
+
+<div class="section">
+  <h5>Signals</h5>
+  <div class="links">
+  
+    <a class="signal" href="signal.TabBar.extra-drag-drop.html">extra-drag-drop</a>
+  
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+    </nav>
+    
+    <button id="btn-to-top" class="hidden"><span class="up-arrow"></span></button>
+
+    
+<section id="main" class="content">
+  <header>
+    <h3>Class</h3>
+    <h1 aria-label="Name"><a href="index.html">Adw</a><span class="sep" role="presentation"></span>TabBar</h1>
+  </header>
+
+  <section>
+    <summary>
+      <div class="toggle-wrapper">
+        <h4 id="description" style="display:flex;">
+          Description
+          <a href="#description" class="anchor"></a>
+          
+          <a class="srclink" title="go to source location" href="https://gitlab.gnome.org/GNOME/libadwaita/-/blob/main/src/adw-tab-bar.c#L18">[src]</a>
+          
+        </h4>
+
+        <pre><code>final class Adw.TabBar : Gtk.Widget {
+  /* No available fields */
+}</pre></code>
+
+        <div class="docblock">
+          <p>A tab bar for <a href="class.TabView.html"><code>AdwTabView</code></a>.</p>
+<p><picture>
+  <source srcset="tab-bar-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="tab-bar.png" alt="tab-bar">
+</picture></p>
+<p>The <code>AdwTabBar</code> widget is a tab bar that can be used with conjunction with
+<code>AdwTabView</code>.</p>
+<p><code>AdwTabBar</code> can autohide and can optionally contain action widgets on both
+sides of the&nbsp;tabs.</p>
+<p>When there&#8217;s not enough space to show all the tabs, <code>AdwTabBar</code> will scroll
+them. Pinned tabs always stay visible and aren&#8217;t a part of the scrollable&nbsp;area.</p>
+<h2 id="css-nodes">CSS nodes<a class="md-anchor" href="#css-nodes" title="Permanent link"></a></h2>
+<p><code>AdwTabBar</code> has a single <span class="caps">CSS</span> node with name <code>tabbar</code>.</p>
+        </div>
+
+        <div class="docblock">
+          <table class="attributes">
+            
+            
+            <tr><td>Available since:</td><td>1.0</td></tr>
+            
+            
+          </table>
+        </div>
+
+        
+      </div>
+    </summary>
+
+    
+
+    
+    <div class="toggle-wrapper ancestors">
+      <h4 id="ancestors">
+        Ancestors
+        <a href="#ancestors" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+        <ul>
+        
+          
+          <li class="class">GtkWidget</a></li>
+          
+        
+          
+          <li class="class">GInitiallyUnowned</a></li>
+          
+        
+          
+          <li class="class">GObject</a></li>
+          
+        
+        </ul>
+      </div>
+    </div>
+    
+
+    
+    <div class="toggle-wrapper implements">
+      <h4 id="implements">
+        Implements
+        <a href="#implements" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+        <ul>
+        
+          
+          <li class="interface">GtkAccessible</a></li>
+          
+        
+          
+          <li class="interface">GtkBuildable</a></li>
+          
+        
+          
+          <li class="interface">GtkConstraintTarget</a></li>
+          
+        
+        </ul>
+      </div>
+    </div>
+    
+
+    
+    <div class="toggle-wrapper constructors">
+      <h4 id="constructors">
+        Constructors
+        <a href="#constructors" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="ctor.TabBar.new.html">adw_tab_bar_new</a></h6>
+
+          <div class="docblock">
+            <p>Creates a new <code>AdwTabBar</code>.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+    </div>
+    
+
+    
+    <div class="toggle-wrapper methods">
+      <h4 id="methods">
+        Instance methods
+        <a href="#methods" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="method.TabBar.get_autohide.html">adw_tab_bar_get_autohide</a></h6>
+          <div class="docblock">
+            <p>Gets whether the tabs automatically&nbsp;hide.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.get_end_action_widget.html">adw_tab_bar_get_end_action_widget</a></h6>
+          <div class="docblock">
+            <p>Gets the widget shown after the&nbsp;tabs.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.get_expand_tabs.html">adw_tab_bar_get_expand_tabs</a></h6>
+          <div class="docblock">
+            <p>Gets whether tabs expand to full&nbsp;width.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.get_inverted.html">adw_tab_bar_get_inverted</a></h6>
+          <div class="docblock">
+            <p>Gets whether tabs use inverted&nbsp;layout.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.get_is_overflowing.html">adw_tab_bar_get_is_overflowing</a></h6>
+          <div class="docblock">
+            <p>Gets whether <code>self</code> is&nbsp;overflowing.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.get_start_action_widget.html">adw_tab_bar_get_start_action_widget</a></h6>
+          <div class="docblock">
+            <p>Gets the widget shown before the&nbsp;tabs.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.get_tabs_revealed.html">adw_tab_bar_get_tabs_revealed</a></h6>
+          <div class="docblock">
+            <p>Gets whether the tabs are currently&nbsp;revealed.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.get_view.html">adw_tab_bar_get_view</a></h6>
+          <div class="docblock">
+            <p>Gets the tab view <code>self</code> controls.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.set_autohide.html">adw_tab_bar_set_autohide</a></h6>
+          <div class="docblock">
+            <p>Sets whether the tabs automatically&nbsp;hide.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.set_end_action_widget.html">adw_tab_bar_set_end_action_widget</a></h6>
+          <div class="docblock">
+            <p>Sets the widget to show after the&nbsp;tabs.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.set_expand_tabs.html">adw_tab_bar_set_expand_tabs</a></h6>
+          <div class="docblock">
+            <p>Sets whether tabs expand to full&nbsp;width.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.set_inverted.html">adw_tab_bar_set_inverted</a></h6>
+          <div class="docblock">
+            <p>Sets whether tabs tabs use inverted&nbsp;layout.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.set_start_action_widget.html">adw_tab_bar_set_start_action_widget</a></h6>
+          <div class="docblock">
+            <p>Sets the widget to show before the&nbsp;tabs.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.set_view.html">adw_tab_bar_set_view</a></h6>
+          <div class="docblock">
+            <p>Sets the tab view <code>self</code> controls.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="method.TabBar.setup_extra_drop_target.html">adw_tab_bar_setup_extra_drop_target</a></h6>
+          <div class="docblock">
+            <p>Sets the supported types for this drop&nbsp;target.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+
+      
+        
+      
+        
+      
+        
+      
+
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    
+
+    
+    <div class="toggle-wrapper properties">
+      <h4 id="properties">
+        Properties
+        <a href="#properties" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="property.TabBar.autohide.html">Adw.TabBar:autohide</a></h6>
+
+          <div class="docblock">
+            <p>Whether the tabs automatically&nbsp;hide.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabBar.end-action-widget.html">Adw.TabBar:end-action-widget</a></h6>
+
+          <div class="docblock">
+            <p>The widget shown after the&nbsp;tabs.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabBar.expand-tabs.html">Adw.TabBar:expand-tabs</a></h6>
+
+          <div class="docblock">
+            <p>Whether tabs expand to full&nbsp;width.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabBar.inverted.html">Adw.TabBar:inverted</a></h6>
+
+          <div class="docblock">
+            <p>Whether tabs use inverted&nbsp;layout.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabBar.is-overflowing.html">Adw.TabBar:is-overflowing</a></h6>
+
+          <div class="docblock">
+            <p>Whether the tab bar is&nbsp;overflowing.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabBar.start-action-widget.html">Adw.TabBar:start-action-widget</a></h6>
+
+          <div class="docblock">
+            <p>The widget shown before the&nbsp;tabs.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabBar.tabs-revealed.html">Adw.TabBar:tabs-revealed</a></h6>
+
+          <div class="docblock">
+            <p>Whether the tabs are currently&nbsp;revealed.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+        <div class="">
+          <h6><a href="property.TabBar.view.html">Adw.TabBar:view</a></h6>
+
+          <div class="docblock">
+            <p>The tab view the tab bar&nbsp;controls.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+
+      
+        
+      
+        
+      
+        
+      
+
+      
+        
+      
+        
+      
+        
+      
+
+    </div>
+    
+
+    
+    <div class="signals toggle-wrapper">
+      <h4 id="signals">
+        Signals
+        <a href="#signals" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="signal.TabBar.extra-drag-drop.html">Adw.TabBar::extra-drag-drop</a></h6>
+          <div class="docblock">
+            <p>This signal is emitted when content is dropped onto a&nbsp;tab.</p>
+          </div>
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+      </div>
+
+      
+        
+      
+        
+      
+        
+      
+
+      
+        
+      
+        
+      
+        
+      
+
+    </div>
+    
+
+    
+    <div class="class toggle-wrapper default-hide">
+      <h4 id="class-struct">
+        Class structure
+        <a href="#class-struct" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+        <pre><code>struct AdwTabBarClass {
+  GtkWidgetClass parent_class;
+  
+}</code></pre>
+      </div>
+
+      
+      <div class="docblock">
+        <h6>Class members</h6>
+
+        <table class="members">
+        
+        <tr>
+          <td style="vertical-align:top"><code>parent_class</code></td>
+          <td style="vertical-align:top"><pre><code>GtkWidgetClass</code></pre></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td style="vertical-align:top">No description available.</td>
+        </td>
+        
+        </table>
+      </div>
+      
+    </div>
+    
+
+    
+
+     
+
+    
+
+  </section>
+</section>
+
+
+    
+<div class="toc">
+  <nav aria-labelledby="toc-title">
+    <p id="toc-title">Content</p>
+    <ul class="toc-list">
+      <li class="toc-list-item"><a href="#description"><span class="link-text">Description</span></a></li>
+      
+      
+      <li class="toc-list-item"><a href="#ancestors"><span class="link-text">Ancestors</span></a></li>
+      
+      
+      <li class="toc-list-item"><a href="#implements"><span class="link-text">Implements</span></a></li>
+      
+      
+<li class="toc-list-item"><a href="#constructors"><span class="link-text">Constructors</span></a></li>
+
+
+      
+<li class="toc-list-item"><a href="#methods"><span class="link-text">Methods</span></a></li>
+
+
+      
+<li class="toc-list-item"><a href="#properties"><span class="link-text">Properties</span></a></li>
+
+
+      
+<li class="toc-list-item"><a href="#signals"><span class="link-text">Signals</span></a></li>
+
+
+      
+
+      
+
+      
+
+    </ul>
+  </nav>
+</div>
+
+
+    <section id="search" class="content hidden"></section>
+
+    <footer>
+    
+    </footer>
+  </div>
+</body>
+</html>

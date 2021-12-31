@@ -1,0 +1,377 @@
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!--
+SPDX-FileCopyrightText: 2021 GNOME Foundation
+
+SPDX-License-Identifier: Apache-2.0 OR GPL-3.0-or-later
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Adw.Easing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta charset="utf-8" />
+
+  
+  <meta property="og:type" content="website"/>
+
+  
+  <meta property="og:image:width" content="256"/>
+  <meta property="og:image:height" content="256"/>
+  <meta property="og:image:secure_url" content="libadwaita.svg"/>
+  <meta property="og:image:alt" content="Adw-1"/>
+  
+
+  
+  <meta property="og:title" content="Adw.Easing"/>
+  <meta property="og:description" content="Reference for Adw.Easing"/>
+  <meta name="twitter:title" content="Adw.Easing"/>
+  <meta name="twitter:description" content="Reference for Adw.Easing"/>
+
+
+  
+  <meta name="twitter:card" content="summary"/>
+
+  
+
+  <link rel="stylesheet" href="style.css" type="text/css" />
+
+  
+
+  
+  <script src="urlmap.js"></script>
+  
+  
+  <script src="fzy.js"></script>
+  <script src="search.js"></script>
+  
+  <script src="main.js"></script>
+  <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+
+<body>
+  <div id="body-wrapper" tabindex="-1">
+
+    <nav class="sidebar devhelp-hidden">
+      
+      <div class="section">
+        <img src="libadwaita.svg" class="logo"/>
+      </div>
+      
+      
+      <div class="search section">
+        <form id="search-form" autocomplete="off">
+          <input id="search-input" type="text" name="do-not-autocomplete" placeholder="Click, or press 's' to search" autocomplete="off"/>
+        </form>
+      </div>
+      
+      <div class="section namespace">
+        <h3><a href="index.html">Adw</a></h3>
+        <p>API Version: 1</p>
+        
+        <p>Library Version: 1.0.0</p>
+        
+      </div>
+      
+<div class="section">
+  <h5>Type</h5>
+  <div class="links">
+    <a class="current" href="enum.Easing.html">Easing</a>
+  </div>
+</div>
+
+
+<div class="section">
+  <h5>Type functions</h5>
+  <div class="links">
+  
+    <a class="func" href="type_func.Easing.ease.html">ease</a>
+  
+  </div>
+</div>
+
+
+
+    </nav>
+    
+    <button id="btn-to-top" class="hidden"><span class="up-arrow"></span></button>
+
+    
+<section id="main" class="content">
+  <header>
+    <h3>Enumeration</h3>
+    <h1><a href="index.html">Adw</a><span class="sep"></span>Easing</h1>
+  </header>
+
+  <section>
+    <div class="declaration toggle-wrapper">
+      <h4 style="display:flex;" id="declaration">
+        Declaration
+        <a href="#declaration" class="anchor"></a>
+        
+      </h4>
+
+      <div class="docblock">
+        <pre><code>enum Adw.Easing</code></pre>
+      </div>
+    </div>
+
+    <div class="description toggle-wrapper">
+      <h4 style="display:flex;" id="description">
+        Description
+        <a href="#description" class="anchor"></a>
+        
+        <a class="srclink" title="go to source location" href="https://gitlab.gnome.org/GNOME/libadwaita/-/blob/main/src/adw-easing.c#L22">[src]</a>
+        
+      </h4>
+
+      <div class="docblock">
+      <p>Describes the available easing functions for use with
+<a href="class.TimedAnimation.html"><code>AdwTimedAnimation</code></a>.</p>
+<p>New values may be added to this enumeration over&nbsp;time.</p>
+      </div>
+
+      <div class="docblock">
+        <table class="attributes">
+          
+          
+          <tr><td>Available since:</td><td>1.0</td></tr>
+          
+          
+        </table>
+      </div>
+
+      
+    </div>
+
+    <div class="members toggle-wrapper">
+      <h4 id="members">
+        Members
+        <a href="#members" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      <table class="enum-members">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 0">ADW_LINEAR</code></td>
+          <td><p>Linear&nbsp;tweening.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 1">ADW_EASE_IN_QUAD</code></td>
+          <td><p>Quadratic&nbsp;tweening.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 2">ADW_EASE_OUT_QUAD</code></td>
+          <td><p>Quadratic tweening, inverse of <code>ADW_EASE_IN_QUAD</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 3">ADW_EASE_IN_OUT_QUAD</code></td>
+          <td><p>Quadratic tweening, combining <code>ADW_EASE_IN_QUAD</code> and
+  <code>ADW_EASE_OUT_QUAD</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 4">ADW_EASE_IN_CUBIC</code></td>
+          <td><p>Cubic&nbsp;tweening.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 5">ADW_EASE_OUT_CUBIC</code></td>
+          <td><p>Cubic tweening, inverse of <code>ADW_EASE_IN_CUBIC</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 6">ADW_EASE_IN_OUT_CUBIC</code></td>
+          <td><p>Cubic tweening, combining <code>ADW_EASE_IN_CUBIC</code> and
+  <code>ADW_EASE_OUT_CUBIC</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 7">ADW_EASE_IN_QUART</code></td>
+          <td><p>Quartic&nbsp;tweening.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 8">ADW_EASE_OUT_QUART</code></td>
+          <td><p>Quartic tweening, inverse of <code>ADW_EASE_IN_QUART</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 9">ADW_EASE_IN_OUT_QUART</code></td>
+          <td><p>Quartic tweening, combining <code>ADW_EASE_IN_QUART</code> and
+  <code>ADW_EASE_OUT_QUART</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 10">ADW_EASE_IN_QUINT</code></td>
+          <td><p>Quintic&nbsp;tweening.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 11">ADW_EASE_OUT_QUINT</code></td>
+          <td><p>Quintic tweening, inverse of <code>ADW_EASE_IN_QUINT</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 12">ADW_EASE_IN_OUT_QUINT</code></td>
+          <td><p>Quintic tweening, combining <code>ADW_EASE_IN_QUINT</code> and
+  <code>ADW_EASE_OUT_QUINT</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 13">ADW_EASE_IN_SINE</code></td>
+          <td><p>Sine wave&nbsp;tweening.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 14">ADW_EASE_OUT_SINE</code></td>
+          <td><p>Sine wave tweening, inverse of <code>ADW_EASE_IN_SINE</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 15">ADW_EASE_IN_OUT_SINE</code></td>
+          <td><p>Sine wave tweening, combining <code>ADW_EASE_IN_SINE</code> and
+  <code>ADW_EASE_OUT_SINE</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 16">ADW_EASE_IN_EXPO</code></td>
+          <td><p>Exponential&nbsp;tweening.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 17">ADW_EASE_OUT_EXPO</code></td>
+          <td><p>Exponential tweening, inverse of <code>ADW_EASE_IN_EXPO</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 18">ADW_EASE_IN_OUT_EXPO</code></td>
+          <td><p>Exponential tweening, combining <code>ADW_EASE_IN_EXPO</code> and
+  <code>ADW_EASE_OUT_EXPO</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 19">ADW_EASE_IN_CIRC</code></td>
+          <td><p>Circular&nbsp;tweening.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 20">ADW_EASE_OUT_CIRC</code></td>
+          <td><p>Circular tweening, inverse of <code>ADW_EASE_IN_CIRC</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 21">ADW_EASE_IN_OUT_CIRC</code></td>
+          <td><p>Circular tweening, combining <code>ADW_EASE_IN_CIRC</code> and
+  <code>ADW_EASE_OUT_CIRC</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 22">ADW_EASE_IN_ELASTIC</code></td>
+          <td><p>Elastic tweening, with offshoot on&nbsp;start.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 23">ADW_EASE_OUT_ELASTIC</code></td>
+          <td><p>Elastic tweening, with offshoot on end, inverse of
+  <code>ADW_EASE_IN_ELASTIC</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 24">ADW_EASE_IN_OUT_ELASTIC</code></td>
+          <td><p>Elastic tweening, with offshoot on both ends,
+  combining <code>ADW_EASE_IN_ELASTIC</code> and <code>ADW_EASE_OUT_ELASTIC</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 25">ADW_EASE_IN_BACK</code></td>
+          <td><p>Overshooting cubic tweening, with backtracking on&nbsp;start.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 26">ADW_EASE_OUT_BACK</code></td>
+          <td><p>Overshooting cubic tweening, with backtracking on end,
+  inverse of <code>ADW_EASE_IN_BACK</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 27">ADW_EASE_IN_OUT_BACK</code></td>
+          <td><p>Overshooting cubic tweening, with backtracking on both
+  ends, combining <code>ADW_EASE_IN_BACK</code> and <code>ADW_EASE_OUT_BACK</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 28">ADW_EASE_IN_BOUNCE</code></td>
+          <td><p>Exponentially decaying parabolic (bounce) tweening,
+  on&nbsp;start.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 29">ADW_EASE_OUT_BOUNCE</code></td>
+          <td><p>Exponentially decaying parabolic (bounce) tweening,
+  with bounce on end, inverse of <code>ADW_EASE_IN_BOUNCE</code>.</p></td>
+        </tr>
+      
+        <tr>
+          <td><code title="Value: 30">ADW_EASE_IN_OUT_BOUNCE</code></td>
+          <td><p>Exponentially decaying parabolic (bounce) tweening,
+  with bounce on both ends, combining <code>ADW_EASE_IN_BOUNCE</code> and
+  <code>ADW_EASE_OUT_BOUNCE</code>.</p></td>
+        </tr>
+      
+      </table>
+      </div>
+    </div>
+
+    
+
+    
+    <div class="type-funcs toggle-wrapper">
+      <h4 id="type-functions">
+        Type functions
+        <a href="#type-functions" class="anchor"></a>
+      </h4>
+
+      <div class="docblock">
+      
+        <div class="">
+          <h6><a href="type_func.Easing.ease.html">adw_easing_ease</a></h6>
+
+          <div class="docblock">
+            <p>Computes easing with <code>easing</code> for <code>value</code>.</p>
+          </div>
+
+          <div class="docblock"><p>Available since: 1.0</p></div>
+        </div>
+      
+    </div>
+    
+
+  </section>
+</section>
+
+
+    
+
+    <section id="search" class="content hidden"></section>
+
+    <footer>
+    
+    </footer>
+  </div>
+</body>
+</html>
