@@ -2308,6 +2308,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Whether gestures and shortcuts for navigating backward are enabled.
    *
    * The supported gestures are:
+   *
    * - One-finger swipe on touchscreens
    * - Horizontal scrolling on touchpads (usually two-finger swipe)
    * - Back/forward mouse buttons
@@ -2337,6 +2338,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Whether gestures and shortcuts for navigating forward are enabled.
    *
    * The supported gestures are:
+   *
    * - One-finger swipe on touchscreens
    * - Horizontal scrolling on touchpads (usually two-finger swipe)
    * - Back/forward mouse buttons
