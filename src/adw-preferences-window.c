@@ -571,6 +571,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    * Whether gestures and shortcuts for closing subpages are enabled.
    *
    * The supported gestures are:
+   *
    * - One-finger swipe on touchscreens
    * - Horizontal scrolling on touchpads (usually two-finger swipe)
    * - Back mouse button
