@@ -1496,8 +1496,8 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Whether the flap is modal.
    *
    * If `TRUE`, clicking the content widget while flap is revealed, as well as
-   * pressing Escape key, will close the flap. If `FALSE`, clicks are passed
-   * through to the content widget.
+   * pressing the <kbd>Esc</kbd> key, will close the flap. If `FALSE`, clicks
+   * are passed through to the content widget.
    *
    * Since: 1.0
    */
