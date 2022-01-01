@@ -2312,9 +2312,9 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * - Horizontal scrolling on touchpads (usually two-finger swipe)
    * - Back/forward mouse buttons
    *
-   * The keyboard back/forward keys are also supported, as well as the Alt+←
-   * shortcut for horizontal orientation, or Alt+↑ for vertical
-   * orientation.
+   * The keyboard back/forward keys are also supported, as well as the
+   * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut for horizontal orientation, or
+   * <kbd>Alt</kbd>+<kbd>↑</kbd> for vertical orientation.
    *
    * If the orientation is horizontal, for right-to-left locales, gestures and
    * shortcuts are reversed.
@@ -2341,9 +2341,9 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * - Horizontal scrolling on touchpads (usually two-finger swipe)
    * - Back/forward mouse buttons
    *
-   * The keyboard back/forward keys are also supported, as well as the Alt+→
-   * shortcut for horizontal orientation, or Alt+↓ for vertical
-   * orientation.
+   * The keyboard back/forward keys are also supported, as well as the
+   * <kbd>Alt</kbd>+<kbd>→</kbd> shortcut for horizontal orientation, or
+   * <kbd>Alt</kbd>+<kbd>↓</kbd> for vertical orientation.
    *
    * If the orientation is horizontal, for right-to-left locales, gestures and
    * shortcuts are reversed.
