@@ -3,28 +3,29 @@
 # This file is distributed under the same license as the libhandy package.
 # Andika Triwidada <atriwidada@gnome.org>, 2020.
 # Rofiquzzaki <babisayabundar@gmail.com>, 2021.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-09-27 14:23+0000\n"
-"PO-Revision-Date: 2021-09-28 14:05+0700\n"
-"Last-Translator: Rofiquzzaki <babisayabundar@gmail.com>\n"
+"POT-Creation-Date: 2021-12-06 17:25+0000\n"
+"PO-Revision-Date: 2022-01-05 10:25+0700\n"
+"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 40.0\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Poedit 3.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-DL-Team: id\n"
 "X-DL-Module: libadwaita\n"
 "X-DL-Branch: main\n"
 "X-DL-Domain: po\n"
 "X-DL-State: Translating\n"
 
-#: src/adw-preferences-window.c:210
+#: src/adw-preferences-window.c:212
 msgid "Untitled page"
 msgstr "Halaman tanpa judul"
 
@@ -32,30 +33,34 @@ msgstr "Halaman tanpa judul"
 msgid "Preferences"
 msgstr "Preferensi"
 
-#: src/adw-preferences-window.ui:68
+#: src/adw-preferences-window.ui:69
 msgid "Search"
 msgstr "Cari"
 
-#: src/adw-preferences-window.ui:146
+#: src/adw-preferences-window.ui:139
 msgid "No Results Found"
 msgstr "Tak Ada Hasil yang Ditemukan"
 
-#: src/adw-preferences-window.ui:147
+#: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Cobalah pencarian lain."
 
-#: src/inspector/adw-inspector-page.c:75
-#| msgid "Preferences"
+#: src/inspector/adw-inspector-page.c:76
 msgid "No Preference"
 msgstr "Tiada Preferensi"
 
-#: src/inspector/adw-inspector-page.c:77
+#: src/inspector/adw-inspector-page.c:78
 msgid "Prefer Dark"
 msgstr "Lebih Suka Gelap"
 
-#: src/inspector/adw-inspector-page.c:79
+#: src/inspector/adw-inspector-page.c:80
 msgid "Prefer Light"
 msgstr "Lebih Suka Terang"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/inspector/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
 
 #: src/inspector/adw-inspector-page.ui:10
 msgid "System Appearance"
