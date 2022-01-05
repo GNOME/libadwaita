@@ -31,7 +31,7 @@
  *         <object class="GtkHeaderBar"/>
  *       </child>
  *       <child>
- *         ...
+ *         <!-- ... -->
  *       </child>
  *     </object>
  *   </property>
