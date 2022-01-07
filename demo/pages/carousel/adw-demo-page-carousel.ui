@@ -36,7 +36,7 @@
                     <child>
                       <object class="AdwComboRow" id="orientation_row">
                         <property name="title" translatable="yes">Orientation</property>
-                        <signal name="notify::selected" handler="notify_orientation_cb" swapped="no"/>
+                        <signal name="notify::selected" handler="notify_orientation_cb" swapped="yes"/>
                         <property name="model">
                           <object class="AdwEnumListModel">
                             <property name="enum-type">GtkOrientation</property>
@@ -50,7 +50,7 @@
                     <child>
                       <object class="AdwComboRow" id="indicators_row">
                         <property name="title" translatable="yes">Page Indicators</property>
-                        <signal name="notify::selected" handler="notify_indicators_cb" swapped="no"/>
+                        <signal name="notify::selected" handler="notify_indicators_cb" swapped="yes"/>
                         <property name="model">
                           <object class="GtkStringList">
                             <items>
