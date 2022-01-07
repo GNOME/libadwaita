@@ -9,7 +9,7 @@ Libadwaita applications can use a light or a dark appearance. This can be used
 to request a darker UI, or to support a system-wide dark style preference if one
 exists.
 
-By default applications use light appearance unless the system prefers dark
+By default, applications use light appearance unless the system prefers dark
 appearance, matching the `ADW_COLOR_SCHEME_PREFER_LIGHT` color scheme. The
 [property@StyleManager:color-scheme] property allows to change this behavior
 when set to:
@@ -81,7 +81,7 @@ remains legible in both appearances:
 * If that's not possible, use the [property@StyleManager:dark] property to check
   the current appearance and vary the drawing accordingly.
 
-* [class@Application] allows to load additional styles for dark appearance via
+* [class@Application] allows loading additional styles for dark appearance via
   the `style-dark.css` resource.
 
 ## High Contrast
@@ -105,7 +105,7 @@ it manually.
 * The [property@StyleManager:high-contrast] property can be used to check the
   current appearance.
 
-* [class@Application] allows to load additional styles for high contrast
+* [class@Application] allows loading additional styles for high contrast
   appearance via the `style-hc.css` and `style-hc-dark.css` resources.
 
 ## Custom Styles
