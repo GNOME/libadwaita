@@ -9,7 +9,7 @@ desktop and mobile devices.
 
 ## Clamp
 
-[class@Clamp] has one child and constrains its maximum size, while still
+[class@Clamp] has one child and constrains its maximum size while still
 allowing it to shrink. In other words, it allows the child to have padding when
 there's enough space, and to remove them otherwise.
 
@@ -58,7 +58,7 @@ one child otherwise. In other words, it behaves like a [class@Gtk.Box] or
 [class@Gtk.Stack].
 
 A common use for a leaflet is implementing a split header bar layout, with a
-sidebar, a content view and a separator between them:
+sidebar, a content view, and a separator between them:
 
 <picture>
   <source srcset="adaptive-split-headers-wide-dark.png" media="(prefers-color-scheme: dark)">
@@ -132,7 +132,7 @@ sidebar, a content view and a separator between them:
   </object>
 ```
 
-When the window is wide, the leaflet shows the sidebar, separator and content
+When the window is wide, the leaflet shows the sidebar, separator, and content
 side by side. When it's narrow, the leaflet shows either sidebar or content,
 using the [browsing](https://developer.gnome.org/hig/patterns/nav/browsing.html)
 pattern to navigate between them. If [property@Leaflet:can-navigate-back] is set
@@ -277,7 +277,7 @@ view switcher in a bottom bar otherwise.
 ```
 
 View switcher is also available separately as [class@ViewSwitcher]. This can be
-useful if the higher level widgets cannot work for some reason.
+useful if the higher-level widgets cannot work for some reason.
 
 ## Squeezer
 
