@@ -140,9 +140,12 @@ take_screenshot_cb (ScreenshotData *data)
 static void
 take_screenshot (const char *name,
                  gboolean    dark,
+                 GFile      *input_dir,
                  GFile      *output_dir)
 {
-  g_autofree char *ui_path = NULL;
+  g_autofree char *input_name = NULL;
+  g_autoptr (GFile) input_file = NULL;
+  g_autofree char *input_path = NULL;
   g_autofree char *output_name = NULL;
   g_autoptr (GtkBuilder) builder = NULL;
   g_autoptr (GFile) output_file = NULL;
@@ -152,7 +155,9 @@ take_screenshot (const char *name,
   GtkWidget *window;
   gboolean wait = FALSE;
 
-  ui_path = g_strdup_printf (RESOURCE_PATH "data/%s.ui", name);
+  input_name = g_strconcat (name, ".ui", NULL);
+  input_file = g_file_get_child (input_dir, input_name);
+  input_path = g_file_get_path (input_file);
 
   if (dark)
     output_name = g_strdup_printf ("%s-dark.png", name);
@@ -170,7 +175,7 @@ take_screenshot (const char *name,
     adw_style_manager_set_color_scheme (adw_style_manager_get_default (),
                                         ADW_COLOR_SCHEME_FORCE_LIGHT);
 
-  builder = gtk_builder_new_from_resource (ui_path);
+  builder = gtk_builder_new_from_file (input_path);
   widget = gtk_builder_get_object (builder, "widget");
   hover_widget = gtk_builder_get_object (builder, "hover");
 
@@ -247,88 +252,99 @@ init_libadwaita (void)
                 NULL);
 }
 
-static int
-compare_images (gconstpointer a,
-                gconstpointer b)
+static GList *
+list_images (GFile *input_dir)
 {
-  char **ap = (char **) a;
-  char **bp = (char **) b;
-
-  return g_ascii_strcasecmp (*ap, *bp);
-}
-
-static char **
-list_images (void)
-{
+  g_autoptr (GFileEnumerator) enumerator = NULL;
   g_autoptr (GError) error = NULL;
-  char **children =
-    g_resources_enumerate_children (RESOURCE_PATH "data",
-                                    G_RESOURCE_LOOKUP_FLAGS_NONE,
-                                    &error);
-  guint length;
+  GList *children = NULL;
+  GFileInfo *info;
 
-  if (error)
-    g_critical ("Couldn't enumerate children: %s", error->message);
+  enumerator =
+    g_file_enumerate_children (input_dir,
+                               G_FILE_ATTRIBUTE_STANDARD_NAME,
+                               G_FILE_QUERY_INFO_NONE,
+                               NULL,
+                               &error);
+  if (error) {
+    g_critical ("Couldn't enumerate images: %s", error->message);
 
-  length = g_strv_length (children);
-  qsort (children, length, sizeof (char *), compare_images);
+    return NULL;
+  }
 
-  return children;
+  while ((info = g_file_enumerator_next_file (enumerator, NULL, &error))) {
+    const char *name = NULL;
+    char *shortname;
+
+    if (error) {
+      g_critical ("Couldn't enumerate image: %s", error->message);
+
+      continue;
+    }
+
+    name = g_file_info_get_name (info);
+
+    if (!g_str_has_suffix (name, ".ui"))
+      continue;
+
+    shortname = get_shortname (name);
+
+    children = g_list_prepend (children, shortname);
+  }
+
+  return g_list_sort (children, (GCompareFunc) g_ascii_strcasecmp);
 }
 
 static void
 process_image (const char *name,
+               GFile      *input_dir,
                GFile      *output_dir)
 {
   g_print ("Processing %s\n", name);
 
-  take_screenshot (name, FALSE, output_dir);
-  take_screenshot (name, TRUE, output_dir);
+  take_screenshot (name, FALSE, input_dir, output_dir);
+  take_screenshot (name, TRUE,  input_dir, output_dir);
 }
 
 static void
-run_screenshot (GFile *output_dir)
+run_screenshot (GFile *input_dir,
+                GFile *output_dir)
 {
-  g_auto (GStrv) children = NULL;
-  int i = -1;
+  g_autoptr (GList) children = NULL;
+  GList *l;
 
   if (option_image) {
-    g_autofree char *path = g_strdup_printf (RESOURCE_PATH "data/%s.ui", option_image);
+    g_autofree char *input_name = g_strconcat (option_image, ".ui", NULL);
+    g_autoptr (GFile) input_file = g_file_get_child (input_dir, input_name);
 
-    if (!g_resources_get_info (path, G_RESOURCE_LOOKUP_FLAGS_NONE, NULL, NULL, NULL)) {
+    if (!g_file_query_exists (input_file, NULL)) {
       g_printerr ("No such image: %s\n", option_image);
 
       return;
     }
 
-    process_image (option_image, output_dir);
+    process_image (option_image, input_dir, output_dir);
 
     return;
   }
 
-  children = list_images ();
+  children = list_images (input_dir);
 
-  if (!children)
-    return;
+  for (l = children; l; l = l->next) {
+    g_autofree char *shortname = l->data;
 
-  while (children[++i]) {
-    g_autofree char *shortname = get_shortname (children[i]);
-
-    process_image (shortname, output_dir);
+    process_image (shortname, input_dir, output_dir);
   }
 }
 
 static void
-run_list_images (void)
+run_list_images (GFile *input_dir)
 {
-  g_auto (GStrv) children = list_images ();
-  int i = -1;
+  g_autoptr (GList) children = list_images (input_dir);
+  GList *l;
 
-  if (!children)
-    return;
-
-  while (children[++i]) {
-    g_autofree char *shortname = get_shortname (children[i]);
+  for (l = children; l; l = l->next) {
+    g_autofree char *shortname = l->data;
 
     g_print ("%s\n", shortname);
   }
@@ -338,7 +354,8 @@ int
 main (int    argc,
       char **argv)
 {
-  GOptionContext *context = g_option_context_new ("PATH");
+  GOptionContext *context = g_option_context_new ("INPUT_DIR OUTPUT_DIR");
+  g_autoptr (GFile) input_dir = NULL;
   g_autoptr (GFile) output_dir = NULL;
   g_autoptr (GError) error = NULL;
 
@@ -350,18 +367,38 @@ main (int    argc,
   }
 
   if (option_list) {
-    run_list_images ();
+    if (argc < 2 || !argv[1]) {
+      g_printerr ("Input directory must be set to list images\n");
+
+      return 1;
+    }
+
+    input_dir = g_file_new_for_path (argv[1]);
+    if (!g_file_query_exists (input_dir, NULL)) {
+      g_critical ("Input directory does not exist");
+
+      return 1;
+    }
+
+    run_list_images (input_dir);
 
     return 0;
   }
 
-  if (argc < 2 || !argv[1]) {
+  if (argc < 3 || !argv[1] || !argv[2]) {
     g_printerr ("%s\n", g_option_context_get_help (context, FALSE, NULL));
 
     return 1;
   }
 
-  output_dir = g_file_new_for_path (argv[1]);
+  input_dir = g_file_new_for_path (argv[1]);
+  if (!g_file_query_exists (input_dir, NULL)) {
+    g_critical ("Input directory does not exist");
+
+    return 1;
+  }
+
+  output_dir = g_file_new_for_path (argv[2]);
 
   if (!g_file_query_exists (output_dir, NULL)) {
     g_file_make_directory_with_parents (output_dir, NULL, &error);
@@ -373,7 +410,7 @@ main (int    argc,
   }
 
   init_libadwaita ();
-  run_screenshot (output_dir);
+  run_screenshot (input_dir, output_dir);
 
   return 0;
 }

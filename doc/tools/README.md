@@ -20,17 +20,15 @@ onto it.
 If the widget needs special treatment - for example, it's a `GtkPopover` - it
 should be special-cased in `screenshot.c` based on its type.
 
-3. Add it to `screenshot.gresources.xml`
-4. From the build directory, run:
+3. From the build directory, run:
 
 ```
-ninja doc/tools/screenshot
-./doc/tools/screenshot ../doc/images/ -i IMAGE
+./doc/tools/screenshot ../doc/tools/data/ ../doc/images/ -i IMAGE
 ```
 
-5. The generator will create `IMAGE.png` and `IMAGE-dark.png` images. Add them
+4. The generator will create `IMAGE.png` and `IMAGE-dark.png` images. Add them
 to `libadwaita.toml.in`.
-6. Use them in the docs as follows:
+5. Use them in the docs as follows:
 
 ```html
 <picture>
@@ -44,7 +42,7 @@ to `libadwaita.toml.in`.
 To regenerate all screenshots, run:
 
 ```c
-./doc/tools/screenshot ../doc/images/
+./doc/tools/screenshot ../doc/tools/data/ ../doc/images/
 ```
 
 from the build directory.
