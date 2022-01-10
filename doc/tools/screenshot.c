@@ -8,7 +8,7 @@ static gboolean option_list = FALSE;
 
 static GOptionEntry entries[] =
 {
-  { "image", 'i', 0, G_OPTION_ARG_STRING,&option_image, "Generate only one image", "NAME" },
+  { "image", 'i', 0, G_OPTION_ARG_STRING, &option_image, "Generate only one image", "NAME" },
   { "list",  'l', 0, G_OPTION_ARG_NONE,   &option_list,  "List images",             NULL   },
   { NULL }
 };
