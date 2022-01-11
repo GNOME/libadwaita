@@ -131,8 +131,7 @@ src_headers = [
   'adw-window-title.h',
 ]
 
-sed = find_program('sed', required: true)
-gen_public_types = find_program('gen-public-types.sh', required: true)
+gen_public_types = find_program('gen-public-types.py', required: true)
 
 libadwaita_init_public_types = custom_target('adw-public-types.c',
    output: 'adw-public-types.c',
