@@ -29,6 +29,7 @@ typedef struct
   char *title;
 
   gboolean use_underline;
+  gboolean title_selectable;
 } AdwPreferencesRowPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AdwPreferencesRow, adw_preferences_row, GTK_TYPE_LIST_BOX_ROW)
@@ -37,6 +38,7 @@ enum {
   PROP_0,
   PROP_TITLE,
   PROP_USE_UNDERLINE,
+  PROP_TITLE_SELECTABLE,
   LAST_PROP,
 };
 
@@ -57,6 +59,9 @@ adw_preferences_row_get_property (GObject    *object,
   case PROP_USE_UNDERLINE:
     g_value_set_boolean (value, adw_preferences_row_get_use_underline (self));
     break;
+  case PROP_TITLE_SELECTABLE:
+    g_value_set_boolean (value, adw_preferences_row_get_title_selectable (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -76,6 +81,9 @@ adw_preferences_row_set_property (GObject      *object,
     break;
   case PROP_USE_UNDERLINE:
     adw_preferences_row_set_use_underline (self, g_value_get_boolean (value));
+    break;
+  case PROP_TITLE_SELECTABLE:
+    adw_preferences_row_set_title_selectable (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -129,6 +137,22 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
                           "Whether an embedded underline in the title indicates a mnemonic",
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwPreferencesRow:title-selectable: (attributes org.gtk.Property.get=adw_preferences_row_get_title_selectable org.gtk.Property.set=adw_preferences_row_set_title_selectable)
+   *
+   * Whether the user can copy the title from the label.
+   *
+   * See also [property@Gtk.Label:selectable].
+   *
+   * Since: 1.0
+   */
+  props[PROP_TITLE_SELECTABLE] =
+    g_param_spec_boolean ("title-selectable",
+                          "Title selectable",
+                          "Whether the title should be selectable (i.e. the user can copy it)",
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
@@ -254,4 +278,51 @@ adw_preferences_row_set_use_underline (AdwPreferencesRow *self,
   priv->use_underline = use_underline;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_UNDERLINE]);
+}
+
+/**
+ * adw_preferences_row_get_title_selectable: (attributes org.gtk.Method.get_property=title-selectable)
+ * @self: a `AdwPreferencesRow`
+ *
+ * Gets whether the user can copy the title from the label
+ *
+ * Returns: whether the user can copy the title from the label
+ *
+ * Since: 1.0
+ */
+gboolean
+adw_preferences_row_get_title_selectable (AdwPreferencesRow *self)
+{
+  AdwPreferencesRowPrivate *priv = adw_preferences_row_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_ROW (self), FALSE);
+
+  return priv->title_selectable;
+}
+
+/**
+ * adw_preferences_row_set_title_selectable: (attributes org.gtk.Method.set_property=title-selectable)
+ * @self: a `AdwPreferencesRow`
+ * @title_selectable: `TRUE` if the user can copy the title from the label
+ *
+ * Sets whether the user can copy the title from the label
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_row_set_title_selectable (AdwPreferencesRow *self,
+                                          gboolean           title_selectable)
+{
+  AdwPreferencesRowPrivate *priv = adw_preferences_row_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_PREFERENCES_ROW (self));
+
+  title_selectable = !!title_selectable;
+
+  if (priv->title_selectable == title_selectable)
+    return;
+
+  priv->title_selectable = title_selectable;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE_SELECTABLE]);
 }

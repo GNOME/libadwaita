@@ -48,4 +48,10 @@ ADW_AVAILABLE_IN_ALL
 void     adw_preferences_row_set_use_underline (AdwPreferencesRow *self,
                                                 gboolean           use_underline);
 
+ADW_AVAILABLE_IN_ALL
+gboolean adw_preferences_row_get_title_selectable (AdwPreferencesRow *self);
+ADW_AVAILABLE_IN_ALL
+void     adw_preferences_row_set_title_selectable (AdwPreferencesRow *self,
+                                                   gboolean           title_selectable);
+
 G_END_DECLS
