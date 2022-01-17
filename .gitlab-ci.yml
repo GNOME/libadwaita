@@ -63,6 +63,28 @@ refresh-doc:
   script:
     - "curl -X POST -F token=${PAGES_TRIGGER_TOKEN} -F ref=pages https://gitlab.gnome.org/api/v4/projects/14079/trigger/pipeline"
 
+asan:
+  image: registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master
+  stage: build
+  tags:
+    - flatpak
+  variables:
+    MESON_ARGS: >-
+      -Dintrospection=disabled
+      -Db_sanitize=address
+      --werror
+    ASAN_OPTIONS: fast_unwind_on_malloc=0
+    LSAN_OPTIONS: suppressions=../data/leak-suppress.txt
+    TEST_RUN_ARGS: -t10
+  script:
+    - flatpak-builder --user --disable-rofiles-fuse --build-only flatpak_app ${MANIFEST_PATH} --stop-at=${FLATPAK_MODULE}
+    - flatpak build flatpak_app meson --prefix=/app ${MESON_ARGS} _build
+    - flatpak build flatpak_app ninja -C _build
+    - flatpak-builder --user --disable-rofiles-fuse --finish-only flatpak_app ${MANIFEST_PATH}
+    - xvfb-run -a -s "-screen 0 1024x768x24"
+      flatpak-builder --user --disable-rofiles-fuse --run flatpak_app ${MANIFEST_PATH} \
+      meson test -C _build --no-stdsplit --print-errorlogs ${TEST_RUN_ARGS}
+
 nightly:
   extends: '.publish_nightly'
   dependencies: ['build-flatpak']
