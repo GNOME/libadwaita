@@ -4,10 +4,11 @@ avatar {
 
   // The list of colors to generate avatars.
   // Each avatar color is represented by a font color, a gradient start color and a gradient stop color.
-  // There are 8 different colors for avtars in the list if you change the number of them you
-  // need to update the NUMBER_OF_COLORS in src/adw-avatar.c.
+  // There are 14 different colors for avtars in the list
+  // If you change the number of them, you need to update NUMBER_OF_COLORS in
+  // src/adw-avatar.c.
   // The 2D list has this form: ((font-color, gradient-top-color, gradient-bottom-color)).
-  $avatarcolorlist: (
+  $_colors: (
    (#cfe1f5, #83b6ec, #337fdc), // blue
    (#caeaf2, #7ad9f1, #0f9ac8), // cyan
    (#cef8d8, #8de6b1, #29ae74), // green
@@ -24,11 +25,11 @@ avatar {
    (#d8d7d3, #c0bfbc, #6e6d71), // gray
   );
 
-  @for $i from 1 through length($avatarcolorlist) {
+  @for $i from 1 through length($_colors) {
     &.color#{$i} {
-      $avatarcolor: nth($avatarcolorlist, $i);
-      background-image: linear-gradient(nth($avatarcolor, 2), nth($avatarcolor, 3));
-      color: nth($avatarcolor, 1);
+      $_color: nth($_colors, $i);
+      background-image: linear-gradient(nth($_color, 2), nth($_color, 3));
+      color: nth($_color, 1);
     }
   }
 
