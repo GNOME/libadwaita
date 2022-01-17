@@ -11,6 +11,7 @@ libadwaita_resources = gnome.compile_resources(
 
 adw_public_enum_headers = [
   'adw-animation.h',
+  'adw-avatar.h',
   'adw-flap.h',
   'adw-fold-threshold-policy.h',
   'adw-easing.h',

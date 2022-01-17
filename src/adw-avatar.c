@@ -16,6 +16,7 @@
 #include "adw-avatar.h"
 #include "adw-gizmo-private.h"
 #include "adw-macros-private.h"
+#include "adw-style-manager.h"
 
 #define NUMBER_OF_COLORS 14
 
@@ -64,6 +65,9 @@ struct _AdwAvatar
   gboolean show_initials;
   guint color_class;
   int size;
+  AdwAvatarAppearance appearance;
+
+  AdwStyleManager *style_manager;
 };
 
 G_DEFINE_FINAL_TYPE (AdwAvatar, adw_avatar, GTK_TYPE_WIDGET);
@@ -75,6 +79,7 @@ enum {
   PROP_SHOW_INITIALS,
   PROP_CUSTOM_IMAGE,
   PROP_SIZE,
+  PROP_APPEARANCE,
   PROP_LAST_PROP,
 };
 static GParamSpec *props[PROP_LAST_PROP];
@@ -204,6 +209,69 @@ update_font_size (AdwAvatar *self)
 }
 
 static void
+notify_dark_cb (AdwAvatar *self)
+{
+  if (adw_style_manager_get_dark (self->style_manager))
+    gtk_widget_add_css_class (self->gizmo, "dark");
+  else
+    gtk_widget_remove_css_class (self->gizmo, "dark");
+}
+
+static void
+connect_style_manager (AdwAvatar *self)
+{
+  GdkDisplay *display;
+  AdwStyleManager *manager;
+
+  if (self->style_manager)
+    return;
+
+  display = gtk_widget_get_display (GTK_WIDGET (self));
+  manager = adw_style_manager_get_for_display (display);
+
+  self->style_manager = manager;
+  g_signal_connect_swapped (manager, "notify::dark",
+                            G_CALLBACK (notify_dark_cb), self);
+
+  notify_dark_cb (self);
+}
+
+static void
+disconnect_style_manager (AdwAvatar *self)
+{
+  if (!self->style_manager)
+    return;
+
+  g_signal_handlers_disconnect_by_func (self->style_manager,
+                                        G_CALLBACK (notify_dark_cb), self);
+  self->style_manager = NULL;
+
+  gtk_widget_remove_css_class (self->gizmo, "dark");
+}
+
+static void
+adw_avatar_realize (GtkWidget *widget)
+{
+  AdwAvatar *self = ADW_AVATAR (widget);
+
+  GTK_WIDGET_CLASS (adw_avatar_parent_class)->realize (widget);
+
+  if (self->appearance == ADW_AVATAR_AUTO)
+    connect_style_manager (self);
+}
+
+static void
+adw_avatar_unrealize (GtkWidget *widget)
+{
+  AdwAvatar *self = ADW_AVATAR (widget);
+
+  if (self->appearance == ADW_AVATAR_AUTO)
+    disconnect_style_manager (self);
+
+  GTK_WIDGET_CLASS (adw_avatar_parent_class)->unrealize (widget);
+}
+
+static void
 adw_avatar_get_property (GObject    *object,
                          guint       property_id,
                          GValue     *value,
@@ -230,6 +298,10 @@ adw_avatar_get_property (GObject    *object,
 
   case PROP_SIZE:
     g_value_set_int (value, adw_avatar_get_size (self));
+    break;
+
+  case PROP_APPEARANCE:
+    g_value_set_enum (value, adw_avatar_get_appearance (self));
     break;
 
   default:
@@ -265,6 +337,10 @@ adw_avatar_set_property (GObject      *object,
 
   case PROP_SIZE:
     adw_avatar_set_size (self, g_value_get_int (value));
+    break;
+
+  case PROP_APPEARANCE:
+    adw_avatar_set_appearance (self, g_value_get_enum (value));
     break;
 
   default:
@@ -309,6 +385,9 @@ adw_avatar_class_init (AdwAvatarClass *klass)
   object_class->finalize = adw_avatar_finalize;
   object_class->set_property = adw_avatar_set_property;
   object_class->get_property = adw_avatar_get_property;
+
+  widget_class->realize = adw_avatar_realize;
+  widget_class->unrealize = adw_avatar_unrealize;
 
   /**
    * AdwAvatar:icon-name: (attributes org.gtk.Property.get=adw_avatar_get_icon_name org.gtk.Property.set=adw_avatar_set_icon_name)
@@ -387,6 +466,29 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                       -1, INT_MAX, -1,
                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwAvatar:appearance: (attributes org.gtk.Property.get=adw_avatar_get_appearance org.gtk.Property.set=adw_avatar_set_appearance)
+   *
+   * The appearance of the avatar.
+   *
+   * Can be used to determine whether the avatar should be light or dark.
+   *
+   * If `ADW_AVATAR_AUTO` appearance is used, the avatar will follow the
+   * application appearance. Use `ADW_AVATAR_LIGHT` or `ADW_AVATAR_DARK` to
+   * override that.
+   *
+   * The default value is `ADW_AVATAR_AUTO`.
+   *
+   * Since: 1.1
+   */
+  props[PROP_APPEARANCE] =
+    g_param_spec_enum ("appearance",
+                       "Appearance",
+                       "The appearance of the avatar",
+                       ADW_TYPE_AVATAR_APPEARANCE,
+                       ADW_AVATAR_AUTO,
+                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
@@ -412,6 +514,7 @@ adw_avatar_init (AdwAvatar *self)
   gtk_widget_set_parent (GTK_WIDGET (self->custom_image), self->gizmo);
 
   self->text = g_strdup ("");
+  self->appearance = ADW_AVATAR_AUTO;
 
   set_class_color (self);
   update_initials (self);
@@ -705,6 +808,65 @@ adw_avatar_set_size (AdwAvatar *self,
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SIZE]);
+}
+
+/**
+ * adw_avatar_get_appearance: (attributes org.gtk.Method.get_property=appearance)
+ * @self: a `AdwAvatar`
+ *
+ * Gets the appearance of the avatar.
+ *
+ * Returns: the appearance of the avatar
+ *
+ * Since: 1.1
+ */
+AdwAvatarAppearance
+adw_avatar_get_appearance (AdwAvatar *self)
+{
+  g_return_val_if_fail (ADW_IS_AVATAR (self), ADW_AVATAR_AUTO);
+
+  return self->appearance;
+}
+
+/**
+ * adw_avatar_set_appearance: (attributes org.gtk.Method.set_property=appearance)
+ * @self: a `AdwAvatar`
+ * @appearance: The appearance of the avatar
+ *
+ * Sets the appearance of the avatar.
+ *
+ * Since: 1.1
+ */
+void
+adw_avatar_set_appearance (AdwAvatar           *self,
+                           AdwAvatarAppearance  appearance)
+{
+  g_return_if_fail (ADW_IS_AVATAR (self));
+  g_return_if_fail (appearance <= ADW_AVATAR_DARK);
+
+  if (self->appearance == appearance)
+    return;
+
+  self->appearance = appearance;
+
+  switch (self->appearance) {
+  case ADW_AVATAR_AUTO:
+    gtk_widget_remove_css_class (self->gizmo, "dark");
+    connect_style_manager (self);
+    break;
+  case ADW_AVATAR_LIGHT:
+    disconnect_style_manager (self);
+    gtk_widget_remove_css_class (self->gizmo, "dark");
+    break;
+  case ADW_AVATAR_DARK:
+    disconnect_style_manager (self);
+    gtk_widget_add_css_class (self->gizmo, "dark");
+    break;
+  default:
+    g_assert_not_reached ();
+  }
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_APPEARANCE]);
 }
 
 /**

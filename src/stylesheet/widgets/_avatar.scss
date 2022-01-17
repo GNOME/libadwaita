@@ -24,10 +24,32 @@ avatar {
    (#e5d6ca, #be916d, #785336), // brown
    (#d8d7d3, #c0bfbc, #6e6d71), // gray
   );
+  $_colors_dark: (
+   (#8bb6e7, #3b87e3, #154e93), // blue
+   (#86cfe1, #26adcf, #096381), // cyan
+   (#8ae5a0, #2db978, #1a6b45), // green
+   (#bfed9c, #87c662, #268423), // lime
+   (#e4d18b, #e0ae10, #996900), // yellow
+   (#ecc479, #de9612, #995c00), // gold
+   (#fab258, #ed6503, #b23600), // orange
+   (#f0948b, #e8262f, #8f1927), // raspberry
+   (#f689ba, #e75098, #991f63), // magenta
+   (#ce8ad0, #9545b0, #593078), // purple
+   (#b1a8eb, #775ed9, #443a97), // violet
+   (#c7ab80, #a48547, #5e4a27), // beige
+   (#b99274, #805b3d, #563b25), // brown
+   (#b4b2aa, #77767b, #4d4c52), // gray
+  );
 
   @for $i from 1 through length($_colors) {
     &.color#{$i} {
       $_color: nth($_colors, $i);
+      background-image: linear-gradient(nth($_color, 2), nth($_color, 3));
+      color: nth($_color, 1);
+    }
+
+    &.dark.color#{$i} {
+      $_color: nth($_colors_dark, $i);
       background-image: linear-gradient(nth($_color, 2), nth($_color, 3));
       color: nth($_color, 1);
     }

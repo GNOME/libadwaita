@@ -14,9 +14,17 @@
 
 #include <gtk/gtk.h>
 
+#include "adw-enums.h"
+
 G_BEGIN_DECLS
 
 #define ADW_TYPE_AVATAR (adw_avatar_get_type())
+
+typedef enum {
+  ADW_AVATAR_AUTO,
+  ADW_AVATAR_LIGHT,
+  ADW_AVATAR_DARK,
+} AdwAvatarAppearance;
 
 ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwAvatar, adw_avatar, ADW, AVATAR, GtkWidget)
@@ -55,6 +63,12 @@ int  adw_avatar_get_size (AdwAvatar *self);
 ADW_AVAILABLE_IN_ALL
 void adw_avatar_set_size (AdwAvatar *self,
                           int        size);
+
+ADW_AVAILABLE_IN_ALL
+AdwAvatarAppearance adw_avatar_get_appearance (AdwAvatar           *self);
+ADW_AVAILABLE_IN_ALL
+void                adw_avatar_set_appearance (AdwAvatar           *self,
+                                               AdwAvatarAppearance  appearance);
 
 ADW_AVAILABLE_IN_ALL
 GdkTexture *adw_avatar_draw_to_texture (AdwAvatar *self,

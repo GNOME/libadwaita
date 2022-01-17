@@ -47,6 +47,18 @@ test_adw_avatar_size (void)
   g_assert_finalize_object (avatar);
 }
 
+static void
+test_adw_avatar_appearance (void)
+{
+  AdwAvatar *avatar = g_object_ref_sink (ADW_AVATAR (adw_avatar_new (128, NULL, TRUE)));
+
+  g_assert_cmpint (adw_avatar_get_appearance (avatar), ==, ADW_AVATAR_AUTO);
+  adw_avatar_set_appearance (avatar, ADW_AVATAR_DARK);
+  g_assert_cmpint (adw_avatar_get_appearance (avatar), ==, ADW_AVATAR_DARK);
+
+  g_assert_finalize_object (avatar);
+}
+
 int
 main (int   argc,
       char *argv[])
@@ -57,6 +69,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/Avatar/icon_name", test_adw_avatar_icon_name);
   g_test_add_func ("/Adwaita/Avatar/text", test_adw_avatar_text);
   g_test_add_func ("/Adwaita/Avatar/size", test_adw_avatar_size);
+  g_test_add_func ("/Adwaita/Avatar/appearance", test_adw_avatar_appearance);
 
   return g_test_run ();
 }
