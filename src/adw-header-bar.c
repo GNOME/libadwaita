@@ -41,7 +41,7 @@
  * `AdwHeaderBar` is similar to [class@Gtk.HeaderBar], but provides additional
  * features compared to it. Refer to `GtkHeaderBar` for details.
  *
- * [property.HeaderBar:centering-policy] allows to enforce strict centering of
+ * [property@HeaderBar:centering-policy] allows to enforce strict centering of
  * the title widget, this is useful for [class@ViewSwitcherTitle].
  *
  * [property@HeaderBar:show-start-title-buttons] and
