@@ -18,6 +18,7 @@
                  by clicking it or via keyboard. Activating the row should
                  toggle its expansion. -->
             <signal name="row-activated" handler="activate_cb" after="yes" swapped="yes"/>
+            <signal name="keynav-failed" handler="keynav_failed_cb" swapped="yes"/>
             <child>
               <object class="AdwActionRow" id="action_row">
                 <!-- The header row must be activatable to toggle expansion by
@@ -64,6 +65,7 @@
             <child>
               <object class="GtkListBox" id="list">
                 <property name="selection-mode">none</property>
+                <signal name="keynav-failed" handler="keynav_failed_cb" swapped="yes"/>
                 <style>
                   <class name="nested"/>
                 </style>
