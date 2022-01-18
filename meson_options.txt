@@ -19,4 +19,4 @@ option('tests',
 
 option('examples',
        type: 'boolean', value: true,
-       description: 'Build and install the examples and demo applications')
+       description: 'Build and install the examples and demo applications (currently not built for MSVC builds)')
