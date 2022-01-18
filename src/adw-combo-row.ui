@@ -17,10 +17,10 @@
       </object>
     </child>
     <child>
-      <object class="GtkBox">
+      <object class="GtkBox" id="arrow_box">
         <property name="valign">center</property>
         <child>
-          <object class="GtkImage" id="image">
+          <object class="GtkImage">
             <property name="icon_name">pan-down-symbolic</property>
             <style>
               <class name="dropdown-arrow"/>

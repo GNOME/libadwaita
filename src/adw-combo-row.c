@@ -53,7 +53,7 @@
 
 typedef struct
 {
-  GtkImage *image;
+  GtkWidget *arrow_box;
   GtkListView *current;
   GtkListView *list;
   GtkPopover *popover;
@@ -141,7 +141,7 @@ model_changed (AdwComboRow *self)
   guint n_items = priv->model ? g_list_model_get_n_items (priv->model) : 0;
 
   gtk_widget_set_sensitive (GTK_WIDGET (self), n_items > 0);
-  gtk_widget_set_visible (GTK_WIDGET (priv->image), n_items > 1);
+  gtk_widget_set_visible (priv->arrow_box, n_items > 1);
   gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (self), n_items > 1);
 }
 
@@ -172,7 +172,7 @@ adw_combo_row_activate (AdwActionRow *row)
   AdwComboRow *self = ADW_COMBO_ROW (row);
   AdwComboRowPrivate *priv = adw_combo_row_get_instance_private (self);
 
-  if (gtk_widget_get_visible (GTK_WIDGET (priv->image)))
+  if (gtk_widget_get_visible (priv->arrow_box))
     gtk_popover_popup (priv->popover);
 }
 
@@ -528,7 +528,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-combo-row.ui");
   gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, current);
-  gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, image);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, arrow_box);
   gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, list);
   gtk_widget_class_bind_template_child_private (widget_class, AdwComboRow, popover);
   gtk_widget_class_bind_template_callback (widget_class, row_activated_cb);
