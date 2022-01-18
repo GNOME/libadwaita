@@ -9,6 +9,7 @@
 
 #include "adw-action-row.h"
 #include "adw-macros-private.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwExpanderRow:
@@ -82,6 +83,30 @@ enum {
 static GParamSpec *props[LAST_PROP];
 
 static void
+activate_cb (AdwExpanderRow *self)
+{
+  AdwExpanderRowPrivate *priv = adw_expander_row_get_instance_private (self);
+
+  adw_expander_row_set_expanded (self, !priv->expanded);
+}
+
+static gboolean
+keynav_failed_cb (AdwExpanderRow   *self,
+                  GtkDirectionType  direction)
+{
+  GtkWidget *toplevel = GTK_WIDGET (gtk_widget_get_root (GTK_WIDGET (self)));
+
+  if (!toplevel)
+    return FALSE;
+
+  if (direction != GTK_DIR_UP && direction != GTK_DIR_DOWN)
+    return FALSE;
+
+  return gtk_widget_child_focus (toplevel, direction == GTK_DIR_UP ?
+                                 GTK_DIR_TAB_BACKWARD : GTK_DIR_TAB_FORWARD);
+}
+
+static void
 adw_expander_row_get_property (GObject    *object,
                                guint       prop_id,
                                GValue     *value,
@@ -140,14 +165,6 @@ adw_expander_row_set_property (GObject      *object,
 }
 
 static void
-activate_cb (AdwExpanderRow *self)
-{
-  AdwExpanderRowPrivate *priv = adw_expander_row_get_instance_private (self);
-
-  adw_expander_row_set_expanded (self, !priv->expanded);
-}
-
-static void
 adw_expander_row_class_init (AdwExpanderRowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -155,6 +172,9 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
 
   object_class->get_property = adw_expander_row_get_property;
   object_class->set_property = adw_expander_row_set_property;
+
+  widget_class->focus = adw_widget_focus_child;
+  widget_class->grab_focus = adw_widget_grab_focus_child;
 
   /**
    * AdwExpanderRow:subtitle: (attributes org.gtk.Property.get=adw_expander_row_get_subtitle org.gtk.Property.set=adw_expander_row_set_subtitle)
@@ -237,6 +257,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwExpanderRow, image);
   gtk_widget_class_bind_template_child_private (widget_class, AdwExpanderRow, enable_switch);
   gtk_widget_class_bind_template_callback (widget_class, activate_cb);
+  gtk_widget_class_bind_template_callback (widget_class, keynav_failed_cb);
 }
 
 #define NOTIFY(func, prop) \
