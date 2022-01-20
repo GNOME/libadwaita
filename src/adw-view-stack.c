@@ -65,6 +65,7 @@
  *         </property>
  *       </object>
  *     </child>
+ *   </object>
  * ```
  *
  * ## CSS nodes
