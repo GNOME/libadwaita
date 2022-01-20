@@ -21,4 +21,4 @@ for REF in $REFS; do
   rm -rf "$REF"
 done
 
-cp -r $DOC_DIR/$LATEST_STABLE_1 $DOC_DIR/1-latest
+ln -s $LATEST_STABLE_1 $DOC_DIR/1-latest
