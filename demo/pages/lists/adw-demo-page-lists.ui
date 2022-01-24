@@ -30,7 +30,7 @@
                         <property name="title" translatable="yes">Rows can have suffix widgets</property>
                         <child>
                           <object class="GtkButton">
-                            <property name="label" translatable="yes">Frobnicate</property>
+                            <property name="label" translatable="yes">Action</property>
                             <property name="valign">center</property>
                           </object>
                         </child>
