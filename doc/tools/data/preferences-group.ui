@@ -13,6 +13,20 @@
         <property name="margin-bottom">12</property>
         <property name="margin-start">12</property>
         <property name="margin-end">12</property>
+        <property name="header-suffix">
+          <object class="GtkButton">
+            <property name="valign">center</property>
+            <property name="child">
+              <object class="AdwButtonContent">
+                <property name="icon-name">list-add-symbolic</property>
+                <property name="label" translatable="yes">Suffix</property>
+              </object>
+            </property>
+            <style>
+              <class name="flat"/>
+            </style>
+          </object>
+        </property>
         <child>
           <object class="AdwActionRow">
             <property name="title">Row Title</property>
