@@ -48,6 +48,7 @@
  *   </child>
  *   <child>
  *     <object class="GtkBox">
+ *       <property name="orientation">vertical</property>
  *       <child>
  *         <object class="AdwViewStack" id="stack"/>
  *       </child>
