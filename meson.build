@@ -1,5 +1,5 @@
 project('libadwaita', 'c',
-          version: '1.0.1',
+          version: '1.1.alpha.0',
           license: 'LGPL-2.1-or-later',
     meson_version: '>= 0.59.0',
   default_options: [ 'warning_level=1', 'buildtype=debugoptimized', 'c_std=gnu11' ],
@@ -8,22 +8,30 @@ project('libadwaita', 'c',
 version_arr = meson.project_version().split('-')[0].split('.')
 adwaita_version_major = version_arr[0].to_int()
 adwaita_version_minor = version_arr[1].to_int()
-adwaita_version_micro = version_arr[2].to_int()
+
+if version_arr[2].startswith('alpha') or version_arr[2].startswith('beta')
+  adwaita_version_micro = 0
+else
+  adwaita_version_micro = version_arr[2].to_int()
+endif
 
 # The major api version as encoded in the libraries name
 apiversion = adwaita_version_major.to_string()
-# The so major version of the library
-soversion = 0
 package_api_name = '@0@-@1@'.format(meson.project_name(), apiversion)
 
-adwaita_interface_age = adwaita_version_micro
-
-# maintaining compatibility with libtool versioning
-# current = minor * 100 + micro - interface
-# revision = interface
-current = adwaita_version_minor * 100 + adwaita_version_micro - adwaita_interface_age
-revision = adwaita_interface_age
-libversion = '@0@.@1@.@2@'.format(soversion, current, revision)
+# Before making a release, the libversion string should be modified.
+#
+#  * Bump the first component if binary compatibility has been broken; or
+#  * Bump the second component if new APIs are added; or
+#  * Bump the third component otherwise.
+#
+# When bumping the first component version, set the second and third components
+# to 0. When bumping the second version, set the third one to zero.
+#
+# A lot easier than libtool, right?
+libversion = '0.1.0'
+# The so major version of the library
+soversion = 0
 
 add_project_arguments([
   '-DHAVE_CONFIG_H',
