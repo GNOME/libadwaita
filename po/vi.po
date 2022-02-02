@@ -1,0 +1,79 @@
+# Vietnamese translation for libadwaita.
+# This file is distributed under the same license as the libadwaita package.
+# th1nhhdk <th1nhhdk@tutanota.com>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2022-02-01 18:47+0000\n"
+"PO-Revision-Date: 2022-02-02 09:49+0700\n"
+"Last-Translator: th1nhhdk <th1nhhdk@tutanota.com>\n"
+"Language-Team: Vietnamese <gnome-vi-list@gnome.org>\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "Không có tùy chọn"
+
+#: src/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "Ưu tiên tối"
+
+#: src/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "Ưu tiên sáng"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Vẻ ngoài hệ thống"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Ghi đè cài đặt cho ứng dụng này. Chúng sẽ được đặt lại sau khi đóng trình "
+"thanh tra(inspector)."
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Hệ thống hỗ trợ phối màu"
+
+#: src/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Phối màu ưa thích"
+
+#: src/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Độ tương phản cao"
+
+#: src/adw-preferences-window.c:226
+msgid "Untitled page"
+msgstr "Trang không có tiêu đề"
+
+#: src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "Tùy chọn"
+
+#: src/adw-preferences-window.ui:69
+msgid "Search"
+msgstr "Tìm kiếm"
+
+#: src/adw-preferences-window.ui:139
+msgid "No Results Found"
+msgstr "Không tìm thấy kết quả nào"
+
+#: src/adw-preferences-window.ui:140
+msgid "Try a different search."
+msgstr "Hãy thử tìm kiếm khác."
