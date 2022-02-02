@@ -234,7 +234,7 @@ adw_clamp_layout_measure (GtkLayoutManager *manager,
       continue;
 
     if (self->orientation == orientation) {
-      gtk_widget_measure (child, orientation, -1,
+      gtk_widget_measure (child, orientation, for_size,
                           &child_min, &child_nat,
                           &child_min_baseline, &child_nat_baseline);
 
