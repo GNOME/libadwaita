@@ -345,8 +345,10 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
   /**
    * AdwClampLayout:maximum-size: (attributes org.gtk.Property.get=adw_clamp_layout_get_maximum_size org.gtk.Property.set=adw_clamp_layout_set_maximum_size)
    *
-   * The maximum size to allocate to the children. It is the width if the
-   * layout is horizontal, or the height if it is vertical.
+   * The maximum size to allocate to the children.
+   *
+   * It is the width if the layout is horizontal, or the height if it is
+   * vertical.
    *
    * Since: 1.0
    */

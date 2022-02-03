@@ -614,7 +614,7 @@ adw_toast_set_action_target_value (AdwToast *self,
 /**
  * adw_toast_set_action_target: (skip)
  * @self: a toast
- * @format_string: (nullable): a [struct@GLib.Variant] format string
+ * @format_string: (nullable): a variant format string
  * @...: arguments appropriate for @target_format
  *
  * Sets the parameter for action invocations.

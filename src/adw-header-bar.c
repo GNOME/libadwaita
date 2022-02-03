@@ -459,12 +459,12 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    *
    * The decoration layout for buttons.
    *
-   * Ithis property is not set, the
+   * If this property is not set, the
    * [property@Gtk.Settings:gtk-decoration-layout] setting is used.
    *
    * The format of the string is button names, separated by commas. A colon
    * separates the buttons that should appear at the start from those at the
-   * ebd. Recognized button names are minimize, maximize, close and icon (the
+   * end. Recognized button names are minimize, maximize, close and icon (the
    * window icon).
    *
    * For example, “icon:minimize,maximize,close” specifies an icon at the start,
@@ -812,7 +812,7 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
 /**
  * adw_header_bar_set_decoration_layout: (attributes org.gtk.Method.set_property=decoration-layout)
  * @self: a header bar
- * @layout: (nullable): a decoration layout, or `NULL` to unset the layout
+ * @layout: (nullable): a decoration layout
  *
  * Sets the decoration layout for @self.
  *

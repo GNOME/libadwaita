@@ -3044,6 +3044,8 @@ adw_leaflet_get_folded (AdwLeaflet *self)
  *
  * Gets whether @self is homogeneous.
  *
+ * Returns: whether @self is homogeneous
+ *
  * Since: 1.0
  */
 gboolean

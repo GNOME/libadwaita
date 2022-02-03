@@ -861,8 +861,6 @@ adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
  *
  * If there is no presented subpage, this does nothing.
  *
- * See [method@PreferencesWindow.close_subpage].
- *
  * Since: 1.0
  */
 void
