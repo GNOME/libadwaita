@@ -1014,7 +1014,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
   /**
    * AdwCarousel:reveal-duration:
    *
-   * Page reveal duration in milliseconds.
+   * Page reveal duration, in milliseconds.
    *
    * Since: 1.0
    */

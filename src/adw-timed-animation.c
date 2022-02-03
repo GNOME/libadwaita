@@ -257,7 +257,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
   /**
    * AdwTimedAnimation:duration: (attributes org.gtk.Property.get=adw_timed_animation_get_duration org.gtk.Property.set=adw_timed_animation_set_duration)
    *
-   * Duration of the animation in milliseconds.
+   * Duration of the animation, in milliseconds.
    *
    * Describes how much time the animation will take.
    *
@@ -474,9 +474,9 @@ adw_timed_animation_set_value_to (AdwTimedAnimation *self,
  * adw_timed_animation_get_duration: (attributes org.gtk.Method.get_property=duration)
  * @self: a timed animation
  *
- * Gets the duration of @self in milliseconds.
+ * Gets the duration of @self.
  *
- * Returns: the duration of @self
+ * Returns: the duration of @self, in milliseconds
  *
  * Since: 1.0
  */
@@ -491,9 +491,9 @@ adw_timed_animation_get_duration (AdwTimedAnimation *self)
 /**
  * adw_timed_animation_set_duration: (attributes org.gtk.Method.set_property=duration)
  * @self: a timed animation
- * @duration: the duration to use
+ * @duration: the duration to use, in milliseconds
  *
- * Sets the duration of @self in milliseconds.
+ * Sets the duration of @self.
  *
  * If the animation repeats more than once, sets the duration of one iteration.
  *

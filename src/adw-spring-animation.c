@@ -510,7 +510,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
   /**
    * AdwSpringAnimation:estimated-duration: (attributes org.gtk.Property.get=adw_spring_animation_get_estimated_duration)
    *
-   * Estimated duration of the animation in milliseconds.
+   * Estimated duration of the animation, in milliseconds.
    *
    * Can be [const@DURATION_INFINITE] if the spring damping is set to 0.
    *
