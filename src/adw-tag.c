@@ -1,3 +1,10 @@
+/* adw-tag.c
+ *
+ * SPDX-FileCopyrightText: 2022 Emmanuele Bassi
+ *
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ */
+
 #include "config.h"
 
 #include "adw-tag-private.h"
@@ -149,10 +156,10 @@ adw_tag_class_init (AdwTagClass *klass)
   /**
    * AdwTag:gicon:
    *
-   * The icon of the tag.
+   * The icon of the tag as a `GIcon`.
    *
-   * Setting this property will also set the [property@Tag:has-icon] as a
-   * side effect.
+   * Setting this property will also set the [property@Tag:has-icon] property
+   * as a side effect.
    *
    * Since: 1.2
    */
@@ -162,6 +169,16 @@ adw_tag_class_init (AdwTagClass *klass)
                          G_PARAM_READWRITE |
                          G_PARAM_STATIC_STRINGS |
                          G_PARAM_EXPLICIT_NOTIFY);
+  /**
+   * AdwTag:paintable:
+   *
+   * The icon of the tag, as a `GdkPaintable`.
+   *
+   * Setting this property will also set the [property@Tag:has-icon] property
+   * as a side effect.
+   *
+   * Since: 1.2
+   */
   tag_props[PROP_TAG_PAINTABLE] =
     g_param_spec_object ("paintable", NULL, NULL,
                          GDK_TYPE_PAINTABLE,
@@ -228,7 +245,6 @@ adw_tag_class_init (AdwTagClass *klass)
                           G_VARIANT_TYPE_ANY,
                           NULL,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
-
   /**
    * AdwTag:has-icon:
    *
@@ -252,6 +268,15 @@ adw_tag_init (AdwTag *self)
   self->show_close = TRUE;
 }
 
+/**
+ * adw_tag_new:
+ *
+ * Creates a new tag object.
+ *
+ * Returns: (transfer full): the newly created tag
+ *
+ * Since: 1.2
+ */
 AdwTag *
 adw_tag_new (void)
 {
@@ -265,6 +290,8 @@ adw_tag_new (void)
  * Retrieves the user readable label of the tag.
  *
  * Returns: (transfer none): the label of the tag
+ *
+ * Since: 1.2
  */
 const char *
 adw_tag_get_label (AdwTag *self)
@@ -280,6 +307,8 @@ adw_tag_get_label (AdwTag *self)
  * @label: (not nullable): the label of the tag
  *
  * Sets the user readable label of the tag.
+ *
+ * Since: 1.2
  */
 void
 adw_tag_set_label (AdwTag     *self,
@@ -304,6 +333,8 @@ adw_tag_set_label (AdwTag     *self,
  * Checks whether the tag should show a close button or not.
  *
  * Returns: true if the tag has a visible close button
+ *
+ * Since: 1.2
  */
 gboolean
 adw_tag_get_show_close (AdwTag *self)
@@ -318,6 +349,8 @@ adw_tag_get_show_close (AdwTag *self)
  * @self: the tag we want to update
  *
  * Sets whether the tag should show a close button or not.
+ *
+ * Since: 1.2
  */
 void
 adw_tag_set_show_close (AdwTag   *self,
@@ -334,14 +367,6 @@ adw_tag_set_show_close (AdwTag   *self,
   }
 }
 
-GIcon *
-adw_tag_get_gicon (AdwTag *self)
-{
-  g_return_val_if_fail (ADW_IS_TAG (self), NULL);
-
-  return self->gicon;
-}
-
 static void
 update_icon_type (AdwTag *self)
 {
@@ -353,6 +378,33 @@ update_icon_type (AdwTag *self)
     self->icon_type = ADW_TAG_ICON_NONE;
 }
 
+/**
+ * adw_tag_get_gicon:
+ * @self: the tag
+ *
+ * Retrieves the icon of the tag set using [method@Tag.set_gicon].
+ *
+ * Returns: (transfer none): the icon of the tag
+ *
+ * Since: 1.2
+ */
+GIcon *
+adw_tag_get_gicon (AdwTag *self)
+{
+  g_return_val_if_fail (ADW_IS_TAG (self), NULL);
+
+  return self->gicon;
+}
+
+/**
+ * adw_tag_set_gicon:
+ * @self: the tag
+ * @icon: (nullable): the icon to set
+ *
+ * Sets the icon of the tag using the given `GIcon`.
+ *
+ * Since: 1.2
+ */
 void
 adw_tag_set_gicon (AdwTag *self,
                    GIcon  *icon)
@@ -367,14 +419,33 @@ adw_tag_set_gicon (AdwTag *self,
   }
 }
 
+/**
+ * adw_tag_get_paintable:
+ * @self: the tag
+ *
+ * Retrieves the icon of the tag set using [method@Tag.set_paintable].
+ *
+ * Returns: (transfer none): the icon of the tag
+ *
+ * Since: 1.2
+ */
 GdkPaintable *
-adw_tag_get_paintable (AdwTag       *self)
+adw_tag_get_paintable (AdwTag *self)
 {
   g_return_val_if_fail (ADW_IS_TAG (self), NULL);
 
   return self->paintable;
 }
 
+/**
+ * adw_tag_set_paintable:
+ * @self: a tag
+ * @paintable: (nullable): the icon of the tag
+ *
+ * Sets the icon of the tag using the given `GdkPaintable`.
+ *
+ * Since: 1.2
+ */
 void
 adw_tag_set_paintable (AdwTag       *self,
                        GdkPaintable *paintable)
@@ -389,6 +460,16 @@ adw_tag_set_paintable (AdwTag       *self,
   }
 }
 
+/**
+ * adw_tag_has_icon:
+ * @self: a tag
+ *
+ * Checks whether the tag should display an icon.
+ *
+ * Returns: true if the tag has an icon
+ *
+ * Since: 1.2
+ */
 gboolean
 adw_tag_has_icon (AdwTag *self)
 {
@@ -397,12 +478,30 @@ adw_tag_has_icon (AdwTag *self)
   return self->icon_type != ADW_TAG_ICON_NONE;
 }
 
+/*< private >
+ * adw_tag_get_icon_type:
+ * @self: a tag
+ *
+ * Retrieves the type of icon used by the tag.
+ *
+ * Returns: the type of the icon
+ */
 AdwTagIconType
 adw_tag_get_icon_type (AdwTag *self)
 {
   return self->icon_type;
 }
 
+/**
+ * adw_tag_get_action_name:
+ * @self: a tag
+ *
+ * Retrieves the name of the action set using [method@Tag.set_action_name].
+ *
+ * Returns: (transfer none): the name of the action
+ *
+ * Since: 1.2
+ */
 const char *
 adw_tag_get_action_name (AdwTag *self)
 {
@@ -411,6 +510,16 @@ adw_tag_get_action_name (AdwTag *self)
   return self->action_name;
 }
 
+/**
+ * adw_tag_set_action_name:
+ * @self: a tag
+ * @action_name: the name of the action for the tag
+ *
+ * Sets the name of the action to be activated when the tag is
+ * activated.
+ *
+ * Since: 1.2
+ */
 void
 adw_tag_set_action_name (AdwTag     *self,
                          const char *action_name)
@@ -426,6 +535,17 @@ adw_tag_set_action_name (AdwTag     *self,
   g_object_notify_by_pspec (G_OBJECT (self), tag_props[PROP_TAG_ACTION_NAME]);
 }
 
+/**
+ * adw_tag_get_action_target_value:
+ * @self: a tag
+ *
+ * Retrieves the target value for the tag's action set using
+ * [method@Tag.set_action_target_value].
+ *
+ * Returns: (transfer none): the action's target value
+ *
+ * Since: 1.2
+ */
 GVariant *
 adw_tag_get_action_target_value (AdwTag *self)
 {
@@ -434,6 +554,20 @@ adw_tag_get_action_target_value (AdwTag *self)
   return self->action_target;
 }
 
+/**
+ * adw_tag_set_action_target_value:
+ * @self: a tag
+ * @action_target: (nullable): the target value for the tag's action
+ *
+ * Sets the target value for the tag's action.
+ *
+ * The value will be used when activating the action bound to the
+ * tag.
+ *
+ * If @action_target has a floating reference, it will be sunk.
+ *
+ * Since: 1.2
+ */
 void
 adw_tag_set_action_target_value (AdwTag   *self,
                                  GVariant *action_target)
@@ -453,6 +587,18 @@ adw_tag_set_action_target_value (AdwTag   *self,
   g_object_notify_by_pspec (G_OBJECT (self), tag_props[PROP_TAG_ACTION_TARGET]);
 }
 
+/**
+ * adw_tag_set_action_target:
+ * @self: a tag
+ * @format_string: the `GVariant` format string for the data
+ * @...: the target value for the action
+ *
+ * Sets the target value for the tag's action.
+ *
+ * See also: [method@Tag.set_action_target_value].
+ *
+ * Since: 1.2
+ */
 void
 adw_tag_set_action_target (AdwTag     *self,
                            const char *format_string,
@@ -468,12 +614,23 @@ adw_tag_set_action_target (AdwTag     *self,
   va_end (args);
 }
 
+/**
+ * adw_tag_set_detailed_action_name:
+ * @self: a tag
+ * @detailed_action_name: (nullable): a detailed action name and target
+ *
+ * Sets the tag's action and target value.
+ *
+ * See also: [func@Gio.Action.parse_detailed_name]
+ *
+ * Since: 1.2
+ */
 void
 adw_tag_set_detailed_action_name (AdwTag     *self,
                                   const char *detailed_action_name)
 {
   char *name;
-  GVariant *target;
+  GVariant *target = NULL;
   GError *error = NULL;
 
   g_return_if_fail (ADW_IS_TAG (self));

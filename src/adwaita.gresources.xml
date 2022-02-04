@@ -18,6 +18,8 @@
     <file preprocess="xml-stripblanks">adw-status-page.ui</file>
     <file preprocess="xml-stripblanks">adw-tab.ui</file>
     <file preprocess="xml-stripblanks">adw-tab-bar.ui</file>
+    <file preprocess="xml-stripblanks">adw-tag-widget.ui</file>
+    <file preprocess="xml-stripblanks">adw-tagged-entry.ui</file>
     <file preprocess="xml-stripblanks">adw-toast-widget.ui</file>
     <file preprocess="xml-stripblanks">adw-view-switcher-bar.ui</file>
     <file preprocess="xml-stripblanks">adw-view-switcher-button.ui</file>

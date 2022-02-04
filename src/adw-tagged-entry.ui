@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="libadwaita">
+  <requires lib="gtk" version="4.0"/>
+  <template class="AdwTaggedEntry">
+    <child>
+      <object class="GtkFlowBox" id="tags_box">
+        <property name="min-children-per-line">4</property>
+        <style>
+          <class name="tags"/>
+        </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkText" id="text">
+        <property name="hexpand">true</property>
+        <property name="max-width-chars">12</property>
+        <property name="width-chars">12</property>
+        <signal name="insert-text" handler="on_text_insert_text" object="AdwTaggedEntry" swapped="no"/>
+        <signal name="delete-text" handler="on_text_delete_text" object="AdwTaggedEntry" swapped="no"/>
+        <child>
+          <object class="GtkEventControllerKey">
+            <property name="name">adw-tagged-entry-key</property>
+            <signal name="key-pressed" handler="adw_tagged_entry__key_pressed" object="AdwTaggedEntry" swapped="yes"/>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkPopover" id="popover">
+        <property name="position">bottom</property>
+        <property name="autohide">false</property>
+        <property name="has-arrow">false</property>
+        <property name="halign">start</property>
+        <property name="child">
+          <object class="GtkScrolledWindow">
+            <property name="hscrollbar-policy">never</property>
+            <property name="vscrollbar-policy">automatic</property>
+            <property name="max-content-height">400</property>
+            <property name="propagate-natural-height">true</property>
+            <property name="child">
+              <object class="GtkListView" id="list_view">
+                <property name="single-click-activate">true</property>
+                <signal name="activate" handler="on_list_row_activate" object="AdwTaggedEntry" swapped="no"/>
+              </object>
+            </property>
+          </object>
+        </property>
+        <style>
+          <class name="menu"/>
+        </style>
+      </object>
+    </child>
+
+  </template>
+</interface>
