@@ -52,7 +52,6 @@ if cc.get_id() != 'msvc'
   test_c_args += [
     '-Wcast-align',
     '-Wdate-time',
-    '-Wdeclaration-after-statement',
     ['-Werror=format-security', '-Werror=format=2'],
     '-Wendif-labels',
     '-Werror=incompatible-pointer-types',
