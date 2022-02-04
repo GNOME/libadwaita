@@ -12,6 +12,7 @@
 #include "pages/lists/adw-demo-page-lists.h"
 #include "pages/styles/adw-demo-page-styles.h"
 #include "pages/tab-view/adw-demo-page-tab-view.h"
+#include "pages/tagged-entry/adw-demo-page-tagged-entry.h"
 #include "pages/toasts/adw-demo-page-toasts.h"
 #include "pages/view-switcher/adw-demo-page-view-switcher.h"
 #include "pages/welcome/adw-demo-page-welcome.h"
@@ -125,6 +126,7 @@ adw_demo_window_init (AdwDemoWindow *self)
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LISTS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_STYLES);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_TAB_VIEW);
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_TAGGED_ENTRY);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_TOASTS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_VIEW_SWITCHER);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_WELCOME);

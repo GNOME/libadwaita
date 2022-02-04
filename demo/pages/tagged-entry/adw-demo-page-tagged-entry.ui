@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwDemoPageTaggedEntry" parent="AdwBin">
+    <property name="child">
+      <object class="AdwStatusPage">
+        <property name="title" translatable="yes">Tagged Entries</property>
+        <property name="description" translatable="yes">Entries with tags.</property>
+        <property name="child">
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="spacing">18</property>
+            <child>
+
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label">Manual Tags</property>
+                    <style>
+                      <class name="heading"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwTaggedEntry" id="manual_tagged_entry">
+                    <property name="placeholder-text" translatable="yes">Enter text here...</property>
+                    <property name="delimiter-chars"></property>
+                    <child>
+                      <object class="AdwTag">
+                        <property name="gicon">
+                          <object class="GThemedIcon">
+                            <property name="names">emoji-body-symbolic</property>
+                          </object>
+                        </property>
+                        <property name="label">First</property>
+                        <property name="show-close">0</property>
+                        <property name="action-name">tags.clicked</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="add_tag_button">
+                    <property name="label" translatable="yes">Add tag</property>
+                    <signal name="clicked" handler="on_add_tag_clicked" object="AdwDemoPageTaggedEntry" swapped="no"/>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="remove_all_button">
+                    <property name="label" translatable="yes">Remove all tags</property>
+                    <signal name="clicked" handler="on_remove_all_clicked" object="AdwDemoPageTaggedEntry" swapped="no"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label">Automatic Tags</property>
+                    <style>
+                      <class name="heading"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwTaggedEntry" id="automatic_tagged_entry">
+                    <property name="placeholder-text" translatable="yes">Enter a comma after each tag</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label">Tag Completion</property>
+                    <style>
+                      <class name="heading"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwTaggedEntry" id="completion_tagged_entry">
+                    <property name="placeholder-text" translatable="yes">Enter text here...</property>
+                    <property name="match-model">
+                      <object class="GtkStringList">
+                        <items>
+                          <item>foo</item>
+                          <item>bar</item>
+                          <item>baz</item>
+                          <item>quux</item>
+                          <item>GNOME</item>
+                          <item>GTK</item>
+                        </items>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+</interface>
