@@ -372,6 +372,7 @@ is_theme_high_contrast (GdkDisplay *display)
 {
   GValue value = G_VALUE_INIT;
   const char *theme_name;
+  gboolean ret;
 
   g_value_init (&value, G_TYPE_STRING);
   if (!gdk_display_get_setting (display, "gtk-theme-name", &value))
@@ -379,10 +380,12 @@ is_theme_high_contrast (GdkDisplay *display)
 
   theme_name = g_value_get_string (&value);
 
+  ret = !g_strcmp0 (theme_name, "HighContrast") ||
+        !g_strcmp0 (theme_name, "HighContrastInverse");
+
   g_value_unset (&value);
 
-  return !g_strcmp0 (theme_name, "HighContrast") ||
-         !g_strcmp0 (theme_name, "HighContrastInverse");
+  return ret;
 }
 
 static void
