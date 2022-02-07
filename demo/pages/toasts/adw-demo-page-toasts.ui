@@ -5,7 +5,7 @@
   <template class="AdwDemoPageToasts" parent="AdwBin">
     <property name="child">
       <object class="AdwStatusPage">
-        <property name="icon-name">preferences-system-notifications-symbolic</property>
+        <property name="icon-name">widget-toast-symbolic</property>
         <property name="title" translatable="yes">Toasts</property>
         <property name="description" translatable="yes">Transient in-app notifications.</property>
         <property name="child">

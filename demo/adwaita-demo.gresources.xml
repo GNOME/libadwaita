@@ -31,6 +31,7 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-leaflet-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-list-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-tab-view-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-toast-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-view-switcher-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/apps/org.gnome.Boxes.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/dark-mode-symbolic.svg</file>
