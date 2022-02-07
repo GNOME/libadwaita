@@ -80,33 +80,100 @@ enum {
 static GParamSpec *props[PROP_LAST_PROP];
 
 static char *
-extract_initials_from_text (const char *text)
+extract_initials_from_text (AdwAvatar  *self,
+                            const char *text)
 {
+  char *normalized = g_utf8_normalize (text, -1, G_NORMALIZE_DEFAULT_COMPOSE);
+  char *upper = g_utf8_strup (normalized, -1);
+  PangoContext *ctx = gtk_widget_get_pango_context (GTK_WIDGET (self->label));
+  PangoLayout *layout = pango_layout_new (ctx);
+  const PangoLogAttr *attrs = NULL;
   GString *initials;
-  char *p = g_utf8_strup (text, -1);
-  char *normalized = g_utf8_normalize (g_strstrip (p), -1, G_NORMALIZE_DEFAULT_COMPOSE);
-  gunichar unichar;
-  char *q = NULL;
+  PangoLayoutIter *iter, *first_word = NULL, *last_word = NULL;
+  int i, n_attrs, from, to;
 
-  g_clear_pointer (&p, g_free);
+  pango_layout_set_text (layout, upper, -1);
+  pango_layout_set_single_paragraph_mode (layout, TRUE);
+  iter = pango_layout_get_iter (layout);
+  attrs = pango_layout_get_log_attrs_readonly (layout, &n_attrs);
 
-  if (normalized == NULL)
-    return NULL;
+  for (i = 0; i < n_attrs; i++) {
+    PangoDirection direction_before, direction_after;
+    PangoLayoutIter *iter2;
+
+    if (!attrs[i].is_word_start) {
+      pango_layout_iter_next_char (iter);
+
+      continue;
+    }
+
+    iter2 = pango_layout_iter_copy (iter);
+    from = pango_layout_iter_get_index (iter2);
+    pango_layout_iter_next_char (iter2);
+    to = pango_layout_iter_get_index (iter2);
+    pango_layout_iter_free (iter2);
+
+    if (from == to) {
+      pango_layout_iter_next_char (iter);
+
+      continue;
+    }
+
+    direction_before = pango_layout_get_direction (layout, from);
+    direction_after = pango_layout_get_direction (layout, to);
+
+    if (direction_before != direction_after) {
+      pango_layout_iter_next_char (iter);
+
+      continue;
+    }
+
+    if (!first_word)
+      first_word = pango_layout_iter_copy (iter);
+
+    if (last_word)
+      pango_layout_iter_free (last_word);
+
+    last_word = pango_layout_iter_copy (iter);
+
+    pango_layout_iter_next_char (iter);
+  }
+
+  if (!first_word) {
+    g_free (normalized);
+    g_free (upper);
+
+    return g_strdup ("");
+  }
 
   initials = g_string_new ("");
 
-  unichar = g_utf8_get_char (normalized);
-  g_string_append_unichar (initials, unichar);
+  from = pango_layout_iter_get_index (first_word);
+  pango_layout_iter_next_cluster (first_word);
+  to = pango_layout_iter_get_index (first_word);
 
-  q = g_utf8_strrchr (normalized, -1, ' ');
-  if (q != NULL) {
-    unichar = g_utf8_get_char (g_utf8_next_char (q));
+  if (pango_layout_get_direction (layout, from) == PANGO_DIRECTION_RTL)
+    g_string_prepend_len (initials, upper + to, from - to);
+  else
+    g_string_append_len (initials, upper + from, to - from);
 
-    if (unichar != 0)
-      g_string_append_unichar (initials, unichar);
+  if (from != pango_layout_iter_get_index (last_word)) {
+    from = pango_layout_iter_get_index (last_word);
+    pango_layout_iter_next_cluster (last_word);
+    to = pango_layout_iter_get_index (last_word);
+
+    if (pango_layout_get_direction (layout, from) == PANGO_DIRECTION_RTL)
+      g_string_prepend_len (initials, upper + to, from - to);
+    else
+      g_string_append_len (initials, upper + from, to - from);
   }
 
+  pango_layout_iter_free (iter);
+  pango_layout_iter_free (first_word);
+  pango_layout_iter_free (last_word);
+  g_object_unref (layout);
   g_free (normalized);
+  g_free (upper);
 
   return g_string_free (initials, FALSE);
 }
@@ -115,7 +182,8 @@ static void
 update_visibility (AdwAvatar *self)
 {
   gboolean has_custom_image = gtk_image_get_paintable (self->custom_image) != NULL;
-  gboolean has_initials = self->show_initials && self->text && strlen (self->text);
+  const char *initials = gtk_label_get_label (self->label);
+  gboolean has_initials = self->show_initials && initials && initials[0];
 
   gtk_widget_set_visible (GTK_WIDGET (self->label), !has_custom_image && has_initials);
   gtk_widget_set_visible (GTK_WIDGET (self->icon), !has_custom_image && !has_initials);
@@ -153,17 +221,19 @@ update_initials (AdwAvatar *self)
 {
   char *initials;
 
-  if (gtk_image_get_paintable (self->custom_image) != NULL ||
-      !self->show_initials ||
-      self->text == NULL ||
-      strlen (self->text) == 0)
-    return;
+  if (self->custom_image_source || !self->show_initials) {
+    update_visibility (self);
 
-  initials = extract_initials_from_text (self->text);
+    return;
+  }
+
+  initials = extract_initials_from_text (self, self->text);
 
   gtk_label_set_label (self->label, initials);
 
   g_free (initials);
+
+  update_visibility (self);
 }
 
 static void
@@ -419,7 +489,6 @@ adw_avatar_init (AdwAvatar *self)
   update_initials (self);
   update_font_size (self);
   update_icon (self);
-  update_visibility (self);
 
   g_signal_connect (self, "notify::root", G_CALLBACK (update_font_size), NULL);
 }
@@ -541,7 +610,6 @@ adw_avatar_set_text (AdwAvatar  *self,
 
   update_initials (self);
   update_font_size (self);
-  update_visibility (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TEXT]);
 }
@@ -588,7 +656,6 @@ adw_avatar_set_show_initials (AdwAvatar *self,
 
   update_initials (self);
   update_font_size (self);
-  update_visibility (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_INITIALS]);
 }
