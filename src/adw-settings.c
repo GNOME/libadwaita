@@ -131,6 +131,8 @@ read_portal_setting (AdwSettings  *self,
       g_critical ("Couldn't read the %s setting: %s", name, error->message);
     }
 
+    g_clear_error (&error);
+
     return FALSE;
   }
 
