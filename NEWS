@@ -1,4 +1,20 @@
 =============
+Version 1.0.2
+=============
+
+- Fix AdwExpanderRow focus handling
+- Fix combo rows in AdwCarousel demo
+- Fix radio hover state in GtkPopoverMenu
+- Docs
+  - Fix AdwViewSwitcherBar and AdwViewStack examples
+  - Fix typos
+- Translation updates:
+  - French
+  - Indonesian
+  - Occitan
+  - Persian
+
+=============
 Version 1.0.1
 =============
 
