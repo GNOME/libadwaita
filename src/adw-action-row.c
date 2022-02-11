@@ -65,7 +65,7 @@ typedef struct
   int title_lines;
   int subtitle_lines;
   GtkWidget *activatable_widget;
-  GBinding  *activatable_binding;
+  GBinding *activatable_binding;
 } AdwActionRowPrivate;
 
 static void adw_action_row_buildable_init (GtkBuildableIface *iface);
@@ -524,6 +524,7 @@ activatable_widget_weak_notify (gpointer  data,
   AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
 
   priv->activatable_widget = NULL;
+  priv->activatable_binding = NULL;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTIVATABLE_WIDGET]);
 }
@@ -553,13 +554,6 @@ adw_action_row_set_activatable_widget (AdwActionRow *self,
 
   g_clear_pointer (&priv->activatable_binding, g_binding_unbind);
 
-  if (widget) {
-    priv->activatable_binding = g_object_bind_property (widget, "sensitive",
-                                                        self, "activatable",
-                                                        G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
-    g_object_ref (priv->activatable_binding);
-  }
-
   if (priv->activatable_widget)
     g_object_weak_unref (G_OBJECT (priv->activatable_widget),
                          activatable_widget_weak_notify,
@@ -571,7 +565,11 @@ adw_action_row_set_activatable_widget (AdwActionRow *self,
     g_object_weak_ref (G_OBJECT (priv->activatable_widget),
                        activatable_widget_weak_notify,
                        self);
-    gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (self), TRUE);
+
+    priv->activatable_binding =
+      g_object_bind_property (widget, "sensitive",
+                              self, "activatable",
+                              G_BINDING_SYNC_CREATE);
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTIVATABLE_WIDGET]);
