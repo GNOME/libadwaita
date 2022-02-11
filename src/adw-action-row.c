@@ -65,6 +65,7 @@ typedef struct
   int title_lines;
   int subtitle_lines;
   GtkWidget *activatable_widget;
+  GBinding  *activatable_binding;
 } AdwActionRowPrivate;
 
 static void adw_action_row_buildable_init (GtkBuildableIface *iface);
@@ -549,6 +550,15 @@ adw_action_row_set_activatable_widget (AdwActionRow *self,
 
   if (priv->activatable_widget == widget)
     return;
+
+  g_clear_pointer (&priv->activatable_binding, g_binding_unbind);
+
+  if (widget) {
+    priv->activatable_binding = g_object_bind_property (widget, "sensitive",
+                                                        self, "activatable",
+                                                        G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
+    g_object_ref (priv->activatable_binding);
+  }
 
   if (priv->activatable_widget)
     g_object_weak_unref (G_OBJECT (priv->activatable_widget),
