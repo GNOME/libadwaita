@@ -1,3 +1,38 @@
+================
+Version 1.1.beta
+================
+
+- Fix building with MSVC
+- AdwActionRow
+  - Don't make activatable if the activatable widget is insensitive
+- AdwClamp
+  - Fix measure() with height-for-width children
+- AdwComboRow
+  - Fix end padding when the dropdown arrow is hidden
+- AdwExpanderRow
+  - Fix focus handling
+- AdwPreferencesGroup
+  - Add support for header suffixes
+- AdwPreferencesRow
+  - Add 'title-selectable' property
+- Demo
+  - Fix combo rows in AdwCarousel demo
+  - Remove the "Frobnicate" button
+- Docs
+  - Fix AdwViewSwitcherBar and AdwViewStack examples
+  - Fix typos
+  - Better wording for @self parameters
+- Stylesheet
+  - Fix radio hover state in GtkPopoverMenu
+  - Don't draw textview background 2 times
+- Translation updates:
+  - Abkhazian
+  - French
+  - Indonesian
+  - Occitan
+  - Persian
+  - Vietnamese
+
 =============
 Version 1.0.1
 =============
