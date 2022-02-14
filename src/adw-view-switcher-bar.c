@@ -111,6 +111,8 @@ update_bar_revealed (AdwViewSwitcherBar *self)
 
       if (adw_view_stack_page_get_visible (page))
         count++;
+
+      g_object_unref (page);
     }
   }
 
