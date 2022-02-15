@@ -129,6 +129,33 @@ strip_mnemonic (const char *src)
   return new_str;
 }
 
+static char *
+make_comparable (const char        *src,
+                 AdwPreferencesRow *row,
+                 gboolean          allow_underline)
+{
+  char* plaintext = g_utf8_casefold (src, -1);
+  GError *error = NULL;
+
+  if (adw_preferences_row_get_use_markup (row)) {
+    pango_parse_markup (
+      plaintext,
+      -1,
+      0,
+      NULL,
+      &plaintext,
+      NULL,
+      &error
+    );
+  }
+
+  if (adw_preferences_row_get_use_underline (row) && allow_underline) {
+    plaintext = strip_mnemonic (plaintext);
+  }
+
+  return plaintext;
+}
+
 static gboolean
 filter_search_results (AdwPreferencesRow    *row,
                        AdwPreferencesWindow *self)
@@ -140,24 +167,12 @@ filter_search_results (AdwPreferencesRow    *row,
   g_assert (ADW_IS_PREFERENCES_ROW (row));
 
   terms = g_utf8_casefold (gtk_editable_get_text (GTK_EDITABLE (priv->search_entry)), -1);
-  title = g_utf8_casefold (adw_preferences_row_get_title (row), -1);
-
-  if (adw_preferences_row_get_use_underline (ADW_PREFERENCES_ROW (row))) {
-    char *stripped_title = strip_mnemonic (title);
-
-    if (stripped_title) {
-      g_free (title);
-
-      title = stripped_title;
-    }
-  }
-
-  // TODO: Looks like a bug, that markup is not removed here?
+  title = make_comparable (adw_preferences_row_get_title (row), row, TRUE);
 
   if (!!strstr (title, terms)) {
     result = TRUE;
   } else if (ADW_IS_ACTION_ROW (row)) {
-    char *subtitle = g_utf8_casefold (adw_action_row_get_subtitle (ADW_ACTION_ROW (row)), -1);
+    char *subtitle = make_comparable (adw_action_row_get_subtitle (ADW_ACTION_ROW(row)), row, FALSE);
 
     if (!!strstr (subtitle, terms))
       result = TRUE;

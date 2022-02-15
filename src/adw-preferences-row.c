@@ -163,7 +163,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
-   * AdwPreferencesRow:use-markup (attributes org.gtk.Property.get=adw_preferences_row_get_use_markup org.gtk.Property.set=adw_preferences_row_set_use_markup)
+   * AdwPreferencesRow:use-markup: (attributes org.gtk.Property.get=adw_preferences_row_get_use_markup org.gtk.Property.set=adw_preferences_row_set_use_markup)
    *
    * Whether to use markup syntax for all elements.
    *
