@@ -184,7 +184,7 @@ adw_preferences_row_init (AdwPreferencesRow *self)
 {
     AdwPreferencesRowPrivate *priv = adw_preferences_row_get_instance_private (self);
     priv->title = g_strdup ("");
-    priv->use_markup = true;
+    priv->use_markup = TRUE;
 }
 
 /**
