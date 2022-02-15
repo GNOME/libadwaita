@@ -152,6 +152,8 @@ filter_search_results (AdwPreferencesRow    *row,
     }
   }
 
+  // TODO: Looks like a bug, that markup is not removed here?
+
   if (!!strstr (title, terms)) {
     result = TRUE;
   } else if (ADW_IS_ACTION_ROW (row)) {

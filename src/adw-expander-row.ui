@@ -30,6 +30,7 @@
                 <property name="title" bind-source="AdwExpanderRow" bind-property="title" bind-flags="sync-create"/>
                 <property name="use-underline" bind-source="AdwExpanderRow" bind-property="use-underline" bind-flags="sync-create"/>
                 <property name="selectable" bind-source="AdwExpanderRow" bind-property="title-selectable" bind-flags="sync-create"/>
+                <property name="use-markup" bind-source="AdwExpanderRow" bind-property="use-markup" bind-flags="sync-create"/>
                 <style>
                   <class name="header"/>
                 </style>

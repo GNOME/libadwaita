@@ -30,6 +30,7 @@ typedef struct
 
   gboolean use_underline;
   gboolean title_selectable;
+  gboolean use_markup;
 } AdwPreferencesRowPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AdwPreferencesRow, adw_preferences_row, GTK_TYPE_LIST_BOX_ROW)
@@ -39,6 +40,7 @@ enum {
   PROP_TITLE,
   PROP_USE_UNDERLINE,
   PROP_TITLE_SELECTABLE,
+  PROP_USE_MARKUP,
   LAST_PROP,
 };
 
@@ -62,6 +64,9 @@ adw_preferences_row_get_property (GObject    *object,
   case PROP_TITLE_SELECTABLE:
     g_value_set_boolean (value, adw_preferences_row_get_title_selectable (self));
     break;
+  case PROP_USE_MARKUP:
+    g_value_set_boolean (value, adw_preferences_row_get_use_markup (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -84,6 +89,9 @@ adw_preferences_row_set_property (GObject      *object,
     break;
   case PROP_TITLE_SELECTABLE:
     adw_preferences_row_set_title_selectable (self, g_value_get_boolean (value));
+    break;
+  case PROP_USE_MARKUP:
+    adw_preferences_row_set_use_markup (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -154,6 +162,20 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwPreferencesRow:use-markup (attributes org.gtk.Property.get=adw_preferences_row_get_use_markup org.gtk.Property.set=adw_preferences_row_set_use_markup)
+   *
+   * Whether to use markup syntax for all elements.
+   *
+   * Since: 1.2
+   */
+  props[PROP_USE_MARKUP] =
+    g_param_spec_boolean ("use-markup",
+                          "Use markup",
+                          "Whether to use markup syntax for all elements",
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
 
@@ -162,6 +184,7 @@ adw_preferences_row_init (AdwPreferencesRow *self)
 {
     AdwPreferencesRowPrivate *priv = adw_preferences_row_get_instance_private (self);
     priv->title = g_strdup ("");
+    priv->use_markup = true;
 }
 
 /**
@@ -325,4 +348,55 @@ adw_preferences_row_set_title_selectable (AdwPreferencesRow *self,
   priv->title_selectable = title_selectable;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE_SELECTABLE]);
+}
+
+/**
+ * adw_preferences_row_get_use_markup: (attributes org.gtk.Method.get_property=use-markup)
+ * @self: a preferences row
+ *
+ * Gets whether elements use markup.
+ *
+ * Returns: whether elements use markup.
+ *
+ * Since: 1.2
+ */
+gboolean
+adw_preferences_row_get_use_markup (AdwPreferencesRow *self)
+{
+  AdwPreferencesRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_ROW (self), FALSE);
+
+  priv = adw_preferences_row_get_instance_private (self);
+
+  return priv->use_markup;
+}
+
+/**
+ * adw_preferences_row_set_use_markup: (attributes org.gtk.Method.set_property=use-markup)
+ * @self: a preferences row
+ * @use_underline: `TRUE` if elements use markup
+ *
+ * Sets whether elements use markup.
+ *
+ * Since: 1.2
+ */
+void
+adw_preferences_row_set_use_markup (AdwPreferencesRow *self,
+                                       gboolean           use_markup)
+{
+  AdwPreferencesRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_ROW (self));
+
+  priv = adw_preferences_row_get_instance_private (self);
+
+  use_markup = !!use_markup;
+
+  if (priv->use_markup == use_markup)
+    return;
+
+  priv->use_markup = use_markup;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_MARKUP]);
 }
