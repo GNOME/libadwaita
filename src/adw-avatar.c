@@ -99,11 +99,11 @@ extract_initials_from_text (const char *text)
   g_string_append_unichar (initials, unichar);
 
   q = g_utf8_strrchr (normalized, -1, ' ');
-  if (q != NULL && g_utf8_next_char (q) != NULL) {
-    q = g_utf8_next_char (q);
+  if (q != NULL) {
+    unichar = g_utf8_get_char (g_utf8_next_char (q));
 
-    unichar = g_utf8_get_char (q);
-    g_string_append_unichar (initials, unichar);
+    if (unichar != 0)
+      g_string_append_unichar (initials, unichar);
   }
 
   g_free (normalized);
