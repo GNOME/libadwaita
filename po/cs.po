@@ -2,14 +2,14 @@
 # Copyright (C) 2021 libadwaita's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libadwaita package.
 #
-# Marek Černocký <marek@manet.cz>, 2021.
+# Marek Černocký <marek@manet.cz>, 2021, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-09-27 14:23+0000\n"
-"PO-Revision-Date: 2021-09-27 22:56+0200\n"
+"POT-Creation-Date: 2021-12-06 17:25+0000\n"
+"PO-Revision-Date: 2022-02-16 10:02+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
 "X-Generator: Gtranslator 3.38.0\n"
 
-#: src/adw-preferences-window.c:210
+#: src/adw-preferences-window.c:212
 msgid "Untitled page"
 msgstr "Stránka bez názvu"
 
@@ -27,29 +27,34 @@ msgstr "Stránka bez názvu"
 msgid "Preferences"
 msgstr "Předvolby"
 
-#: src/adw-preferences-window.ui:68
+#: src/adw-preferences-window.ui:69
 msgid "Search"
 msgstr "Hledat"
 
-#: src/adw-preferences-window.ui:146
+#: src/adw-preferences-window.ui:139
 msgid "No Results Found"
 msgstr "Nic nenalezeno"
 
-#: src/adw-preferences-window.ui:147
+#: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Zkuste hledat něco jiného."
 
-#: src/inspector/adw-inspector-page.c:75
+#: src/inspector/adw-inspector-page.c:76
 msgid "No Preference"
 msgstr "žádné preference"
 
-#: src/inspector/adw-inspector-page.c:77
+#: src/inspector/adw-inspector-page.c:78
 msgid "Prefer Dark"
 msgstr "upřednostnit tmavé"
 
-#: src/inspector/adw-inspector-page.c:79
+#: src/inspector/adw-inspector-page.c:80
 msgid "Prefer Light"
 msgstr "upřednostnit světlé"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/inspector/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
 
 #: src/inspector/adw-inspector-page.ui:10
 msgid "System Appearance"
