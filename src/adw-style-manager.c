@@ -61,6 +61,7 @@ struct _AdwStyleManager
   gboolean dark;
   gboolean setting_dark;
 
+  GtkCssProvider *animations_provider;
   guint animation_timeout_id;
 };
 
@@ -123,8 +124,8 @@ register_display (GdkDisplayManager *display_manager,
 static gboolean
 enable_animations_cb (AdwStyleManager *self)
 {
-  gtk_settings_reset_property (gtk_settings_get_for_display (self->display),
-                               "gtk-enable-animations");
+  gtk_style_context_remove_provider_for_display (self->display,
+                                                 GTK_STYLE_PROVIDER (self->animations_provider));
 
   self->animation_timeout_id = 0;
 
@@ -135,24 +136,18 @@ static void
 update_stylesheet (AdwStyleManager *self)
 {
   GtkSettings *gtk_settings;
-  gboolean enable_animations;
 
   if (!self->display)
     return;
 
   gtk_settings = gtk_settings_get_for_display (self->display);
 
-  if (self->animation_timeout_id) {
+  if (self->animation_timeout_id)
     g_clear_handle_id (&self->animation_timeout_id, g_source_remove);
-    enable_animations = TRUE;
-  } else {
-    g_object_get (gtk_settings,
-                  "gtk-enable-animations", &enable_animations,
-                  NULL);
-  }
 
-  if (enable_animations)
-    g_object_set (gtk_settings, "gtk-enable-animations", FALSE, NULL);
+  gtk_style_context_add_provider_for_display (self->display,
+                                              GTK_STYLE_PROVIDER (self->animations_provider),
+                                              10000);
 
   self->setting_dark = TRUE;
 
@@ -180,12 +175,10 @@ update_stylesheet (AdwStyleManager *self)
                                            "/org/gnome/Adwaita/styles/defaults-light.css");
   }
 
-  if (enable_animations) {
-    self->animation_timeout_id =
-      g_timeout_add (SWITCH_DURATION,
-                     G_SOURCE_FUNC (enable_animations_cb),
-                     self);
-  }
+  self->animation_timeout_id =
+    g_timeout_add (SWITCH_DURATION,
+                   G_SOURCE_FUNC (enable_animations_cb),
+                   self);
 }
 
 static gboolean
@@ -279,6 +272,11 @@ adw_style_manager_constructed (GObject *object)
                                                   GTK_STYLE_PROVIDER (self->colors_provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_THEME);
     }
+
+    self->animations_provider = gtk_css_provider_new ();
+    gtk_css_provider_load_from_data (self->animations_provider,
+                                     "* { transition: none; }",
+                                     -1);
   }
 
   self->settings = adw_settings_get_default ();
@@ -311,6 +309,7 @@ adw_style_manager_dispose (GObject *object)
   g_clear_handle_id (&self->animation_timeout_id, g_source_remove);
   g_clear_object (&self->provider);
   g_clear_object (&self->colors_provider);
+  g_clear_object (&self->animations_provider);
 
   G_OBJECT_CLASS (adw_style_manager_parent_class)->dispose (object);
 }
