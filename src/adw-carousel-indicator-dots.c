@@ -191,11 +191,29 @@ adw_carousel_indicator_dots_measure (GtkWidget      *widget,
   int size = 0;
 
   if (orientation == self->orientation) {
-    int n_pages = 0;
-    if (self->carousel)
-      n_pages = adw_carousel_get_n_pages (self->carousel);
+    int i, n_points = 0;
+    double indicator_length, dot_size;
+    double *points, *sizes;
 
-    size = MAX (0, (2 * DOTS_RADIUS_SELECTED + DOTS_SPACING) * n_pages - DOTS_SPACING);
+    if (self->carousel)
+      points = adw_swipeable_get_snap_points (ADW_SWIPEABLE (self->carousel), &n_points);
+
+    sizes = g_new0 (double, n_points);
+
+    if (n_points > 0)
+      sizes[0] = points[0] + 1;
+    for (i = 1; i < n_points; i++)
+      sizes[i] = points[i] - points[i - 1];
+
+    dot_size = 2 * DOTS_RADIUS_SELECTED + DOTS_SPACING;
+    indicator_length = 0;
+    for (i = 0; i < n_points; i++)
+      indicator_length += dot_size * sizes[i];
+
+    size = ceil (indicator_length);
+
+    g_free (points);
+    g_free (sizes);
   } else {
     size = 2 * DOTS_RADIUS_SELECTED;
   }

@@ -176,11 +176,29 @@ adw_carousel_indicator_lines_measure (GtkWidget      *widget,
   int size = 0;
 
   if (orientation == self->orientation) {
-    int n_pages = 0;
-    if (self->carousel)
-      n_pages = adw_carousel_get_n_pages (self->carousel);
+    int i, n_points = 0;
+    double indicator_length, line_size;
+    double *points = NULL, *sizes;
 
-    size = MAX (0, (LINE_LENGTH + LINE_SPACING) * n_pages - LINE_SPACING);
+    if (self->carousel)
+      points = adw_swipeable_get_snap_points (ADW_SWIPEABLE (self->carousel), &n_points);
+
+    sizes = g_new0 (double, n_points);
+
+    if (n_points > 0)
+      sizes[0] = points[0] + 1;
+    for (i = 1; i < n_points; i++)
+      sizes[i] = points[i] - points[i - 1];
+
+    line_size = LINE_LENGTH + LINE_SPACING;
+    indicator_length = 0;
+    for (i = 0; i < n_points; i++)
+      indicator_length += line_size * sizes[i];
+
+    size = ceil (indicator_length);
+
+    g_free (points);
+    g_free (sizes);
   } else {
     size = LINE_WIDTH;
   }
