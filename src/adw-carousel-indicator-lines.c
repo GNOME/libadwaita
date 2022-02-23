@@ -419,7 +419,7 @@ adw_carousel_indicator_lines_set_carousel (AdwCarouselIndicatorLines *self,
                               G_BINDING_SYNC_CREATE);
   }
 
-  gtk_widget_queue_draw (GTK_WIDGET (self));
+  gtk_widget_queue_resize (GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAROUSEL]);
 }
