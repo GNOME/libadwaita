@@ -74,6 +74,12 @@ void  adw_toast_set_timeout (AdwToast *self,
                              guint     timeout);
 
 ADW_AVAILABLE_IN_ALL
+GtkWidget *adw_toast_get_custom_title (AdwToast *self);
+ADW_AVAILABLE_IN_ALL
+void       adw_toast_set_custom_title (AdwToast  *self,
+                                       GtkWidget *widget);
+
+ADW_AVAILABLE_IN_ALL
 void adw_toast_dismiss (AdwToast *self);
 
 G_END_DECLS

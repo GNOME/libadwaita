@@ -42,7 +42,9 @@
  * toastoverlay
  * ├── [child]
  * ├── toast
- * ┊   ├── label.heading
+ * ┊   ├── widget
+ * ┊   │   ├── [label.heading]
+ *     │   ╰── [custom title]
  *     ├── [button]
  *     ╰── button.circular.flat
  * ```
@@ -50,9 +52,12 @@
  * `AdwToastOverlay`'s CSS node is called `toastoverlay`. It contains the child,
  * as well as zero or more `toast` subnodes.
  *
- * Each of the `toast` nodes contains a `label` subnode with the `.heading`
- * style class, optionally a `button` subnode, and another `button` subnode with
- * `.circular` and `.flat` style classes.
+ * Each of the `toast` nodes contains a `widget` subnode, optionally a `button`
+ * subnode, and another `button` subnode with `.circular` and `.flat` style
+ * classes.
+ *
+ * The `widget` subnode contains a `label` subnode with the `.heading` style
+ * class, or a custom widget provided by the application.
  *
  * ## Accessibility
  *

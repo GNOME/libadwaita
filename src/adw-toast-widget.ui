@@ -22,19 +22,9 @@
       </object>
     </child>
     <child>
-      <object class="GtkLabel" id="title">
-        <property name="ellipsize">end</property>
-        <property name="xalign">0</property>
+      <object class="AdwBin" id="title_bin">
         <property name="hexpand">True</property>
-        <property name="use-markup">True</property>
-        <binding name="label">
-          <lookup name="title" type="AdwToast">
-            <lookup name="toast">AdwToastWidget</lookup>
-          </lookup>
-        </binding>
-        <style>
-          <class name="heading"/>
-        </style>
+        <property name="halign">start</property>
       </object>
     </child>
     <child>

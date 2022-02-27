@@ -8,10 +8,13 @@
 
 #include "adw-toast-widget-private.h"
 
+#include "adw-bin.h"
 #include "adw-macros-private.h"
 
 struct _AdwToastWidget {
   GtkWidget parent_instance;
+
+  AdwBin *title_bin;
 
   AdwToast *toast;
 
@@ -106,6 +109,64 @@ action_clicked_cb (AdwToastWidget *self)
 }
 
 static void
+update_title_widget (AdwToastWidget *self)
+{
+  GtkWidget *custom_title;
+
+  if (!self->toast) {
+    adw_bin_set_child (self->title_bin, NULL);
+    return;
+  }
+
+  custom_title = adw_toast_get_custom_title (self->toast);
+
+  if (custom_title) {
+    adw_bin_set_child (self->title_bin, custom_title);
+  } else {
+    GtkWidget *title = gtk_label_new (NULL);
+
+    gtk_label_set_ellipsize (GTK_LABEL (title), PANGO_ELLIPSIZE_END);
+    gtk_label_set_xalign (GTK_LABEL (title), 0.0);
+    gtk_label_set_use_markup (GTK_LABEL (title), TRUE);
+    gtk_widget_add_css_class (title, "heading");
+
+    g_object_bind_property (self->toast, "title",
+                            title, "label",
+                            G_BINDING_SYNC_CREATE);
+
+    adw_bin_set_child (self->title_bin, title);
+  }
+}
+
+static void
+set_toast (AdwToastWidget *self,
+           AdwToast       *toast)
+{
+  g_assert (ADW_IS_TOAST_WIDGET (self));
+  g_assert (toast == NULL || ADW_IS_TOAST (toast));
+
+  if (self->toast) {
+    end_timeout (self);
+
+    g_signal_handlers_disconnect_by_func (self->toast,
+                                          update_title_widget,
+                                          self);
+  }
+
+  g_set_object (&self->toast, toast);
+  update_title_widget (self);
+
+  if (self->toast) {
+    g_signal_connect_swapped (toast,
+                              "notify::custom-title",
+                              G_CALLBACK (update_title_widget),
+                              self);
+
+    start_timeout (self);
+  }
+}
+
+static void
 adw_toast_widget_dispose (GObject *object)
 {
   AdwToastWidget *self = ADW_TOAST_WIDGET (object);
@@ -113,10 +174,10 @@ adw_toast_widget_dispose (GObject *object)
 
   end_timeout (self);
 
+  set_toast (self, NULL);
+
   while ((child = gtk_widget_get_first_child (GTK_WIDGET (self))))
     gtk_widget_unparent (child);
-
-  g_clear_pointer (&self->toast, g_object_unref);
 
   G_OBJECT_CLASS (adw_toast_widget_parent_class)->dispose (object);
 }
@@ -148,9 +209,7 @@ adw_toast_widget_set_property (GObject      *object,
 
   switch (prop_id) {
   case PROP_TOAST:
-    g_set_object (&self->toast, g_value_get_object (value));
-    end_timeout (self);
-    start_timeout (self);
+    set_toast (self, g_value_get_object (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -178,6 +237,8 @@ adw_toast_widget_class_init (AdwToastWidgetClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-toast-widget.ui");
+
+  gtk_widget_class_bind_template_child (widget_class, AdwToastWidget, title_bin);
 
   gtk_widget_class_bind_template_callback (widget_class, string_is_not_empty);
   gtk_widget_class_bind_template_callback (widget_class, action_clicked_cb);

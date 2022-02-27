@@ -216,6 +216,66 @@ test_adw_toast_dismiss (void)
   g_assert_finalize_object (toast);
 }
 
+static void
+test_adw_toast_custom_title (void)
+{
+  AdwToast *toast = adw_toast_new ("Title");
+  GtkWidget *widget = NULL;
+  char *title;
+
+  g_assert_nonnull (toast);
+
+  notified = 0;
+  g_signal_connect (toast, "notify::custom-title", G_CALLBACK (notify_cb), NULL);
+
+  g_object_get (toast, "title", &title, NULL);
+  g_assert_cmpstr (title, ==, "Title");
+  g_object_get (toast, "custom-title", &widget, NULL);
+  g_assert_null (widget);
+
+  adw_toast_set_title (toast, "Another title");
+  g_assert_cmpint (notified, ==, 0);
+
+  widget = g_object_ref_sink (gtk_label_new ("Custom title"));
+  adw_toast_set_custom_title (toast, widget);
+  g_assert_true (adw_toast_get_custom_title (toast) == widget);
+  g_assert_null (adw_toast_get_title (toast));
+  g_assert_cmpint (notified, ==, 1);
+
+  adw_toast_set_title (toast, "Final title");
+  g_assert_null (adw_toast_get_custom_title (toast));
+  g_assert_cmpstr (adw_toast_get_title (toast), ==, "Final title");
+  g_assert_cmpint (notified, ==, 2);
+
+  g_free (title);
+  g_assert_finalize_object (toast);
+  g_assert_finalize_object (widget);
+}
+
+static void
+test_adw_toast_custom_title_overlay (void)
+{
+  AdwToastOverlay *first_overlay = g_object_ref_sink (ADW_TOAST_OVERLAY (adw_toast_overlay_new ()));
+  AdwToastOverlay *second_overlay = g_object_ref_sink (ADW_TOAST_OVERLAY (adw_toast_overlay_new ()));
+  AdwToast *toast = adw_toast_new ("");
+  GtkWidget *widget = gtk_label_new ("Custom title");
+
+  g_assert_nonnull (first_overlay);
+  g_assert_nonnull (second_overlay);
+  g_assert_nonnull (toast);
+
+  adw_toast_set_custom_title (toast, g_object_ref (widget));
+
+  adw_toast_overlay_add_toast (first_overlay, g_object_ref (toast));
+  adw_toast_dismiss (toast);
+  adw_toast_overlay_add_toast (second_overlay, g_object_ref (toast));
+
+  g_assert_finalize_object (first_overlay);
+  g_assert_finalize_object (second_overlay);
+  g_assert_finalize_object (toast);
+  g_assert_finalize_object (widget);
+}
+
 int
 main (int   argc,
       char *argv[])
@@ -231,6 +291,8 @@ main (int   argc,
   g_test_add_func ("/Adwaita/Toast/priority", test_adw_toast_priority);
   g_test_add_func ("/Adwaita/Toast/timeout", test_adw_toast_timeout);
   g_test_add_func ("/Adwaita/Toast/dismiss", test_adw_toast_dismiss);
+  g_test_add_func ("/Adwaita/Toast/custom_title", test_adw_toast_custom_title);
+  g_test_add_func ("/Adwaita/Toast/custom_title_overlay", test_adw_toast_custom_title_overlay);
 
   return g_test_run ();
 }

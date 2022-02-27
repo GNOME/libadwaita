@@ -46,6 +46,9 @@
  * [property@Toast:priority] determines how it behaves if another toast is
  * already being displayed.
  *
+ * [property@Toast:custom-title] can be used to replace the title label with a
+ * custom widget.
+ *
  * ## Actions
  *
  * Toasts can have one button on them, with a label and an attached
@@ -152,6 +155,7 @@ struct _AdwToast {
   GVariant *action_target;
   AdwToastPriority priority;
   guint timeout;
+  GtkWidget *custom_title;
 
   gboolean added;
 };
@@ -164,6 +168,7 @@ enum {
   PROP_ACTION_TARGET,
   PROP_PRIORITY,
   PROP_TIMEOUT,
+  PROP_CUSTOM_TITLE,
   LAST_PROP,
 };
 
@@ -182,6 +187,16 @@ static void
 dismissed_cb (AdwToast *self)
 {
   self->added = FALSE;
+}
+
+static void
+adw_toast_dispose (GObject *object)
+{
+  AdwToast *self = ADW_TOAST (object);
+
+  g_clear_object (&self->custom_title);
+
+  G_OBJECT_CLASS (adw_toast_parent_class)->dispose (object);
 }
 
 static void
@@ -224,6 +239,9 @@ adw_toast_get_property (GObject    *object,
   case PROP_TIMEOUT:
     g_value_set_uint (value, adw_toast_get_timeout (self));
     break;
+  case PROP_CUSTOM_TITLE:
+    g_value_set_object (value, adw_toast_get_custom_title (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -256,6 +274,9 @@ adw_toast_set_property (GObject      *object,
   case PROP_TIMEOUT:
     adw_toast_set_timeout (self, g_value_get_uint (value));
     break;
+  case PROP_CUSTOM_TITLE:
+    adw_toast_set_custom_title (self, g_value_get_object (value));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -266,6 +287,7 @@ adw_toast_class_init (AdwToastClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+  object_class->dispose = adw_toast_dispose;
   object_class->finalize = adw_toast_finalize;
   object_class->get_property = adw_toast_get_property;
   object_class->set_property = adw_toast_set_property;
@@ -276,6 +298,10 @@ adw_toast_class_init (AdwToastClass *klass)
    * The title of the toast.
    *
    * The title can be marked up with the Pango text markup language.
+   *
+   * Setting a title will unset [property@Toast:custom-title].
+   *
+   * If [property@Toast:custom-title] is set, it will be used instead.
    *
    * Since: 1.0
    */
@@ -384,6 +410,25 @@ adw_toast_class_init (AdwToastClass *klass)
                        0, G_MAXUINT, 5,
                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwToast:custom-title: (attributes org.gtk.Property.get=adw_toast_get_custom_title org.gtk.Property.set=adw_toast_set_custom_title)
+   *
+   * The custom title widget.
+   *
+   * It will be displayed instead of the title if set. In this case,
+   * [property@Toast:title] is ignored.
+   *
+   * Setting a custom title will unset [property@Toast:title].
+   *
+   * Since: 1.2
+   */
+  props[PROP_CUSTOM_TITLE] =
+    g_param_spec_object ("custom-title",
+                         "Custom Title",
+                         "The custom title widget",
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   /**
@@ -408,6 +453,7 @@ adw_toast_init (AdwToast *self)
   self->title = g_strdup ("");
   self->priority = ADW_TOAST_PRIORITY_NORMAL;
   self->timeout = 5;
+  self->custom_title = NULL;
 
   g_signal_connect (self, "dismissed", G_CALLBACK (dismissed_cb), self);
 }
@@ -442,7 +488,10 @@ adw_toast_new (const char *title)
  *
  * Gets the title that will be displayed on the toast.
  *
- * Returns: the title
+ * If a custom title has been set with [method@Adw.Toast.set_custom_title]
+ * the return value will be %NULL.
+ *
+ * Returns: (nullable): the title
  *
  * Since: 1.0
  */
@@ -451,7 +500,10 @@ adw_toast_get_title (AdwToast *self)
 {
   g_return_val_if_fail (ADW_IS_TOAST (self), NULL);
 
-  return self->title;
+  if (self->custom_title == NULL)
+    return self->title;
+
+  return NULL;
 }
 
 /**
@@ -473,10 +525,16 @@ adw_toast_set_title (AdwToast   *self,
   if (!g_strcmp0 (self->title, title))
     return;
 
+  g_object_freeze_notify (G_OBJECT (self));
+
+  adw_toast_set_custom_title (self, NULL);
+
   g_clear_pointer (&self->title, g_free);
   self->title = g_strdup (title);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE]);
+
+  g_object_thaw_notify (G_OBJECT (self));
 }
 
 /**
@@ -801,7 +859,7 @@ adw_toast_dismiss (AdwToast *self)
 
   if (!self->added) {
     g_critical ("Trying to dismiss the toast '%s', but it isn't in an "
-                "AdwToastOverlay yet", self->title);
+                "AdwToastOverlay yet", adw_toast_get_title (self));
 
     return;
   }
@@ -824,4 +882,52 @@ adw_toast_set_added (AdwToast *self,
   g_return_if_fail (ADW_IS_TOAST (self));
 
   self->added = !!added;
+}
+
+/**
+ * adw_toast_set_custom_title: (attributes org.gtk.Method.set_property=custom-title)
+ * @self: a toast
+ * @widget: (nullable): the custom title widget
+ *
+ * Sets the custom title widget of @self.
+ *
+ * Since: 1.2
+ */
+void
+adw_toast_set_custom_title (AdwToast  *self,
+                            GtkWidget *widget)
+{
+  g_return_if_fail (ADW_IS_TOAST (self));
+  g_return_if_fail (widget == NULL || GTK_IS_WIDGET (widget));
+
+  if (self->custom_title == widget)
+    return;
+
+  g_object_freeze_notify (G_OBJECT (self));
+
+  adw_toast_set_title (self, "");
+
+  g_set_object (&self->custom_title, widget);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CUSTOM_TITLE]);
+
+  g_object_thaw_notify (G_OBJECT (self));
+}
+
+/**
+ * adw_toast_get_custom_title: (attributes org.gtk.Method.get_property=custom-title)
+ * @self: a toast
+ *
+ * Gets the custom title widget of @self.
+ *
+ * Returns: (nullable) (transfer none): the custom title widget
+ *
+ * Since: 1.2
+ */
+GtkWidget *
+adw_toast_get_custom_title (AdwToast *self)
+{
+  g_return_val_if_fail (ADW_IS_TOAST (self), NULL);
+
+  return self->custom_title;
 }
