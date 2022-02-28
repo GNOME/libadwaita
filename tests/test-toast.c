@@ -43,6 +43,24 @@ test_adw_toast_title (void)
 }
 
 static void
+test_adw_toast_title_format (void)
+{
+  AdwToast *toast;
+  const int n_value = 42;
+  char *title;
+
+  toast = adw_toast_new_format ("Title %d", n_value);
+
+  g_assert_nonnull (toast);
+
+  g_object_get (toast, "title", &title, NULL);
+  g_assert_cmpstr (title, ==, "Title 42");
+
+  g_free (title);
+  g_assert_finalize_object (toast);
+}
+
+static void
 test_adw_toast_button_label (void)
 {
   AdwToast *toast = adw_toast_new ("Title");
@@ -284,6 +302,7 @@ main (int   argc,
   adw_init ();
 
   g_test_add_func ("/Adwaita/Toast/title", test_adw_toast_title);
+  g_test_add_func ("/Adwaita/Toast/title_format", test_adw_toast_title_format);
   g_test_add_func ("/Adwaita/Toast/button_label", test_adw_toast_button_label);
   g_test_add_func ("/Adwaita/Toast/action_name", test_adw_toast_action_name);
   g_test_add_func ("/Adwaita/Toast/action_target", test_adw_toast_action_target);
