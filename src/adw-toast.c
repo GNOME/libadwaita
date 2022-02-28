@@ -12,6 +12,8 @@
 
 #include <stdarg.h>
 
+#include <gio/gio.h>
+
 /**
  * AdwToastPriority:
  * @ADW_TOAST_PRIORITY_NORMAL: the toast will be queued if another toast is

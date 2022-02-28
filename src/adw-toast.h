@@ -12,7 +12,7 @@
 
 #include "adw-version.h"
 
-#include <gtk/gtk.h>
+#include <glib-object.h>
 #include "adw-enums.h"
 
 G_BEGIN_DECLS
@@ -46,7 +46,7 @@ void        adw_toast_set_button_label (AdwToast   *self,
                                         const char *button_label);
 
 ADW_AVAILABLE_IN_ALL
-const char *adw_toast_get_action_name (AdwToast *self);
+const char *adw_toast_get_action_name (AdwToast   *self);
 ADW_AVAILABLE_IN_ALL
 void        adw_toast_set_action_name (AdwToast   *self,
                                        const char *action_name);
