@@ -10,6 +10,8 @@
 
 #include "adw-macros-private.h"
 
+#include <stdarg.h>
+
 /**
  * AdwToastPriority:
  * @ADW_TOAST_PRIORITY_NORMAL: the toast will be queued if another toast is
@@ -105,9 +107,7 @@
  *   n_items = ... // The number of waiting items
  *
  *   if (!self->undo_toast) {
- *     title = g_strdup_printf (_("‘%s’ deleted"), ...);
- *
- *     self->undo_toast = adw_toast_new (title);
+ *     self->undo_toast = adw_toast_new_format (_("‘%s’ deleted"), ...);
  *
  *     adw_toast_set_priority (self->undo_toast, ADW_TOAST_PRIORITY_HIGH);
  *     adw_toast_set_button_label (self->undo_toast, _("_Undo"));
@@ -480,6 +480,42 @@ adw_toast_new (const char *title)
   return g_object_new (ADW_TYPE_TOAST,
                        "title", title,
                        NULL);
+}
+
+/**
+ * adw_toast_new_format:
+ * @format: the formatted string for the toast title
+ * @...: the parameters to insert into the format string
+ *
+ * Creates a new `AdwToast`.
+ *
+ * The toast will use the format string as its title.
+ *
+ * See also: [ctor@Toast.new]
+ *
+ * Returns: the newly created toast object
+ *
+ * Since: 1.2
+ */
+AdwToast *
+adw_toast_new_format (const char *format,
+                      ...)
+{
+  AdwToast *res;
+  va_list args;
+  char *title;
+
+  va_start (args, format);
+  title = g_strdup_vprintf (format, args);
+  va_end (args);
+
+  res = g_object_new (ADW_TYPE_TOAST,
+                      "title", title,
+                      NULL);
+
+  g_free (title);
+
+  return res;
 }
 
 /**

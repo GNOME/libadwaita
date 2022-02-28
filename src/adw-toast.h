@@ -28,7 +28,10 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwToast, adw_toast, ADW, TOAST, GObject)
 
 ADW_AVAILABLE_IN_ALL
-AdwToast *adw_toast_new (const char *title) G_GNUC_WARN_UNUSED_RESULT;
+AdwToast *adw_toast_new        (const char *title) G_GNUC_WARN_UNUSED_RESULT;
+ADW_AVAILABLE_IN_ALL
+AdwToast *adw_toast_new_format (const char *format,
+                                ...) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 const char *adw_toast_get_title (AdwToast   *self);
