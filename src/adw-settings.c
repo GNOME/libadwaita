@@ -15,6 +15,10 @@
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 
+#ifdef __APPLE__
+# include <AppKit/AppKit.h>
+#endif
+
 #define PORTAL_BUS_NAME "org.freedesktop.portal.Desktop"
 #define PORTAL_OBJECT_PATH "/org/freedesktop/portal/desktop"
 #define PORTAL_SETTINGS_INTERFACE "org.freedesktop.portal.Settings"
@@ -84,7 +88,7 @@ set_high_contrast (AdwSettings *self,
 
 /* Settings portal */
 
-#ifndef G_OS_WIN32
+#if defined(G_OS_UNIX) && !defined(__APPLE__)
 static gboolean
 get_disable_portal (void)
 {
@@ -297,6 +301,85 @@ init_portal (AdwSettings *self)
 }
 #endif
 
+#ifdef __APPLE__
+@interface ThemeChangedObserver : NSObject
+{
+  AdwSettings *settings;
+}
+@end
+
+@implementation ThemeChangedObserver
+
+-(instancetype)initWithSettings:(AdwSettings *)_settings
+{
+  [self init];
+  g_set_weak_pointer (&self->settings, _settings);
+  return self;
+}
+
+-(void)dealloc
+{
+  g_clear_weak_pointer (&self->settings);
+  [super dealloc];
+}
+
+static AdwSystemColorScheme
+get_ns_color_scheme (void)
+{
+  if (@available(*, macOS 10.14)) {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *style = [userDefaults stringForKey:@"AppleInterfaceStyle"];
+    BOOL isDark = [style isEqualToString:@"Dark"];
+#if 0
+    BOOL isAuto = [userDefaults boolForKey:@"AppleInterfaceStyleSwitchesAutomatically"];
+    BOOL isHighContrast = NO;
+
+    /* We can get HighContrast using [NSAppearance currentAppearance] and
+     * checking for the variants with HighContrast in their name, however
+     * those do not update when the notifications come in (or ever it
+     * seems unless a NSView changes them while drawing. If we can monitor
+     * a NSView, we could watch for effectiveAppearance changes.
+     */
+#endif
+
+    [style release];
+
+    return isDark ?
+      ADW_SYSTEM_COLOR_SCHEME_PREFER_DARK :
+      ADW_SYSTEM_COLOR_SCHEME_DEFAULT;
+  }
+
+  return ADW_SYSTEM_COLOR_SCHEME_DEFAULT;
+}
+
+-(void)appDidChangeTheme:(NSNotification *)notification
+{
+  if (self->settings != NULL)
+    set_color_scheme (self->settings, get_ns_color_scheme ());
+}
+@end
+
+static void
+init_nsapp_observer (AdwSettings *settings)
+{
+  static ThemeChangedObserver *observer;
+
+  if (@available(*, macOS 10.14)) {
+    settings->has_color_scheme = TRUE;
+  }
+
+  observer = [[ThemeChangedObserver alloc] initWithSettings:settings];
+
+  [[NSDistributedNotificationCenter defaultCenter]
+    addObserver:observer
+       selector:@selector(appDidChangeTheme:)
+           name:@"AppleInterfaceThemeChangedNotification"
+         object:nil];
+
+  [observer appDidChangeTheme:nil];
+}
+#endif
+
 /* GSettings */
 
 #ifndef G_OS_WIN32
@@ -423,7 +506,9 @@ adw_settings_constructed (GObject *object)
 
   G_OBJECT_CLASS (adw_settings_parent_class)->constructed (object);
 
-#ifndef G_OS_WIN32
+#ifdef __APPLE__
+  init_nsapp_observer (self);
+#elif defined(G_OS_UNIX)
   init_portal (self);
 #endif
 

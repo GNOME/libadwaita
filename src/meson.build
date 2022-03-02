@@ -255,6 +255,17 @@ else
   config_h.set('_ADW_EXTERN', '__attribute__((visibility("default"))) extern')
 endif
 
+if target_system == 'darwin'
+  appleframework_modules = [
+    'AppKit',
+    'Foundation',
+  ]
+  libadwaita_deps += [
+    dependency('appleframeworks', modules: appleframework_modules),
+  ]
+  libadwaita_c_args += ['-xobjective-c']
+endif
+
 configure_file(
          output: 'config.h',
   configuration: config_h,
