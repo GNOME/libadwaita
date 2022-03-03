@@ -429,9 +429,9 @@ init_gsettings (AdwSettings *self)
                               "changed::color-scheme",
                               G_CALLBACK (gsettings_color_scheme_changed_cb),
                               self);
-
-    g_settings_schema_unref (schema);
   }
+
+  g_clear_pointer (&schema, g_settings_schema_unref);
 
   schema = g_settings_schema_source_lookup (source, "org.gnome.desktop.a11y.interface", TRUE);
   if (schema &&
@@ -445,9 +445,9 @@ init_gsettings (AdwSettings *self)
                               "changed::high-contrast",
                               G_CALLBACK (gsettings_high_contrast_changed_cb),
                               self);
-
-    g_settings_schema_unref (schema);
   }
+
+  g_clear_pointer (&schema, g_settings_schema_unref);
 }
 
 /* Legacy */
