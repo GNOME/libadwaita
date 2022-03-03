@@ -590,6 +590,9 @@ adw_toast_get_action_target_value (AdwToast *self)
  *
  * Sets the parameter for action invocations.
  *
+ * If the @action_target variant has a floating reference this function
+ * will sink it.
+ *
  * Since: 1.0
  */
 void
@@ -606,7 +609,8 @@ adw_toast_set_action_target_value (AdwToast *self,
     return;
 
   g_clear_pointer (&self->action_target, g_variant_unref);
-  self->action_target = g_variant_ref (action_target);
+  if (action_target != NULL)
+    self->action_target = g_variant_ref_sink (action_target);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTION_TARGET]);
 }
