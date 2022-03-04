@@ -182,6 +182,7 @@ src_sources = [
   'adw-tab-bar.c',
   'adw-tab-view.c',
   'adw-tag.c',
+  'adw-tag-widget.c',
   'adw-timed-animation.c',
   'adw-toast.c',
   'adw-toast-overlay.c',

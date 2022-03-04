@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="libadwaita">
+  <requires lib="gtk" version="4.0"/>
+  <template class="AdwTagWidget">
+    <child>
+      <object class="GtkGestureClick">
+        <signal name="released" handler="adw_tag_widget__click_released" swapped="yes"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImage" id="icon">
+      </object>
+    </child>
+    <child>
+      <object class="GtkLabel" id="label">
+        <property name="ellipsize">end</property>
+        <property name="max-width-chars">12</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="close_button">
+        <property name="icon-name">window-close-symbolic</property>
+        <signal name="clicked" handler="adw_tag_widget__close_clicked" swapped="yes"/>
+        <style>
+          <class name="flat"/>
+          <class name="circular"/>
+        </style>
+      </object>
+    </child>
+  </template>
+</interface>
