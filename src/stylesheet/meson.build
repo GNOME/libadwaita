@@ -55,6 +55,7 @@ if not fs.exists('base.css')
       'widgets/_spin-button.scss',
       'widgets/_switch.scss',
       'widgets/_tab-view.scss',
+      'widgets/_tag.scss',
       'widgets/_text-selection.scss',
       'widgets/_toolbars.scss',
       'widgets/_tooltip.scss',

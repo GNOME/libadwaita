@@ -1,0 +1,41 @@
+$tag_color: gtkalpha(currentColor, .1);
+$tag_hover_color: gtkalpha(currentColor, .15);
+
+tag {
+  &:dir(ltr) {
+    padding: 0 0 0 6px;
+  }
+
+  &:dir(rtl) {
+    padding: 0 6px 0 0;
+  }
+
+  font-size: .8em;
+  border-radius: 9999px;
+
+  background-color: $tag_color;
+
+  &:hover {
+    background-color: $tag_hover_color;
+  }
+
+  box-shadow: none;
+
+  transition: background 150ms ease-in-out;
+
+  image {
+    min-width: 12px;
+    min-height: 12px;
+  }
+
+  button {
+    min-width: 12px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  label {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+}

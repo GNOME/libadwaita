@@ -105,6 +105,12 @@ entry {
   .osd & > progress > trough > progress {
     border-color: $osd_fill_bg_color;
   }
+
+  &.tagged > flowbox.tags > flowboxchild:selected {
+    background-color: transparent;
+    background-image: none;
+    border-radius: 0;
+  }
 }
 
 treeview entry {
