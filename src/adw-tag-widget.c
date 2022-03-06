@@ -93,6 +93,14 @@ adw_tag_widget_set_tag (AdwTagWidget *self,
                               self->label, "label",
                               G_BINDING_DEFAULT | G_BINDING_SYNC_CREATE);
 
+      /* We cannot use a simple property binding, because AdwTag has
+       * multiple ways to provide an icon for the widget to display
+       */
+      g_signal_connect_swapped (self->tag,
+                                "notify::has-icon",
+                                G_CALLBACK (update_tag_icon),
+                                self);
+
       update_tag_icon (self);
     }
 
