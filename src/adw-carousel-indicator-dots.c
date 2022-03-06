@@ -193,7 +193,7 @@ adw_carousel_indicator_dots_measure (GtkWidget      *widget,
   if (orientation == self->orientation) {
     int i, n_points = 0;
     double indicator_length, dot_size;
-    double *points, *sizes;
+    double *points = NULL, *sizes;
 
     if (self->carousel)
       points = adw_swipeable_get_snap_points (ADW_SWIPEABLE (self->carousel), &n_points);
