@@ -9,7 +9,7 @@ version_arr = meson.project_version().split('-')[0].split('.')
 adwaita_version_major = version_arr[0].to_int()
 adwaita_version_minor = version_arr[1].to_int()
 
-if version_arr[2].startswith('alpha') or version_arr[2].startswith('beta')
+if version_arr[2].startswith('alpha') or version_arr[2].startswith('beta') or version_arr[2].startswith('rc')
   adwaita_version_micro = 0
 else
   adwaita_version_micro = version_arr[2].to_int()
