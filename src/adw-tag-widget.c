@@ -189,7 +189,7 @@ adw_tag_widget_class_init (AdwTagWidgetClass *klass)
   obj_props[PROP_TAG] =
     g_param_spec_object ("tag", NULL, NULL, ADW_TYPE_TAG,
                          G_PARAM_READWRITE |
-                         G_PARAM_CONSTRUCT |
+                         G_PARAM_CONSTRUCT_ONLY |
                          G_PARAM_STATIC_STRINGS |
                          G_PARAM_EXPLICIT_NOTIFY);
 
