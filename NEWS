@@ -1,3 +1,28 @@
+==============
+Version 1.1.rc
+==============
+
+- AdwAvatar
+  - Fix invalid UTF-8 handling
+- AdwStyleManager
+  - Follow color-scheme on macOS
+  - Don't disable non-CSS animations during style changes
+- AdwToast
+  - Fix GVariant handling
+- Stylesheet
+  - Fix scrollbars inside .osd widgets
+- Fix carousel indicator sizing
+- Memory leak fixes
+- Translation updates:
+  - Czech
+  - Croatian
+  - Danish
+  - German
+  - Japanese
+  - Korean
+  - Slovak
+  - Turkish
+
 ================
 Version 1.1.beta
 ================
