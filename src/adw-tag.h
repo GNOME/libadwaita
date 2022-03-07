@@ -19,7 +19,9 @@ ADW_AVAILABLE_IN_ALL
 G_DECLARE_FINAL_TYPE (AdwTag, adw_tag, ADW, TAG, GObject)
 
 ADW_AVAILABLE_IN_ALL
-AdwTag *adw_tag_new (void);
+AdwTag *adw_tag_new           (void);
+ADW_AVAILABLE_IN_ALL
+AdwTag *adw_tag_new_with_name (const char *name);
 
 ADW_AVAILABLE_IN_ALL
 const char *adw_tag_get_label (AdwTag     *self);
@@ -45,6 +47,9 @@ void          adw_tag_set_paintable (AdwTag       *self,
                                      GdkPaintable *paintable);
 ADW_AVAILABLE_IN_ALL
 gboolean      adw_tag_has_icon      (AdwTag       *self);
+
+ADW_AVAILABLE_IN_ALL
+const char *adw_tag_get_name (AdwTag     *self);
 
 ADW_AVAILABLE_IN_ALL
 const char *adw_tag_get_action_name (AdwTag *self);

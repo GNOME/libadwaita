@@ -20,6 +20,8 @@ struct _AdwTag
 {
   GObject parent_instance;
 
+  char *name;
+
   char *action_name;
   GVariant *action_target;
 
@@ -41,6 +43,7 @@ enum
   PROP_TAG_ACTION_NAME,
   PROP_TAG_ACTION_TARGET,
   PROP_TAG_HAS_ICON,
+  PROP_TAG_NAME,
 
   N_TAG_PROPS
 };
@@ -54,6 +57,7 @@ adw_tag_dispose (GObject *gobject)
 {
   AdwTag *self = ADW_TAG (gobject);
 
+  g_clear_pointer (&self->name, g_free);
   g_clear_pointer (&self->action_name, g_free);
   g_clear_pointer (&self->action_target, g_variant_unref);
 
@@ -97,6 +101,11 @@ adw_tag_set_property (GObject      *gobject,
     adw_tag_set_action_target_value (self, g_value_get_variant (value));
     break;
 
+  case PROP_TAG_NAME:
+    g_free (self->name);
+    self->name = g_value_dup_string (value);
+    break;
+
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (gobject, prop_id, pspec);
   }
@@ -137,6 +146,10 @@ adw_tag_get_property (GObject    *gobject,
 
   case PROP_TAG_HAS_ICON:
     g_value_set_boolean (value, adw_tag_has_icon (self));
+    break;
+
+  case PROP_TAG_NAME:
+    g_value_set_string (value, self->name);
     break;
 
   default:
@@ -258,6 +271,24 @@ adw_tag_class_init (AdwTagClass *klass)
                           G_PARAM_READABLE |
                           G_PARAM_STATIC_STRINGS |
                           G_PARAM_EXPLICIT_NOTIFY);
+  /**
+   * AdwTag:name:
+   *
+   * The name of the tag.
+   *
+   * The name is used for debugging purposes, and for styling.
+   *
+   * There is no duplicate check for tags with the same name.
+   *
+   * Since: 1.2
+   */
+  tag_props[PROP_TAG_NAME] =
+    g_param_spec_string ("name", NULL, NULL,
+                         NULL,
+                         G_PARAM_READWRITE |
+                         G_PARAM_CONSTRUCT_ONLY |
+                         G_PARAM_STATIC_STRINGS |
+                         G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (gobject_class, N_TAG_PROPS, tag_props);
 }
@@ -281,6 +312,22 @@ AdwTag *
 adw_tag_new (void)
 {
   return g_object_new (ADW_TYPE_TAG, NULL);
+}
+
+/**
+ * adw_tag_new_with_name:
+ * @name: the name of the tag
+ *
+ * Creates a new tag object with the given @name.
+ *
+ * Returns: (transfer full): the newly created tag
+ *
+ * Since: 1.2
+ */
+AdwTag *
+adw_tag_new_with_name (const char *name)
+{
+  return g_object_new (ADW_TYPE_TAG, "name", name, NULL);
 }
 
 /**
@@ -651,6 +698,24 @@ adw_tag_set_detailed_action_name (AdwTag     *self,
   g_clear_error (&error);
   g_clear_pointer (&target, g_variant_unref);
   g_clear_pointer (&name, g_free);
+}
+
+/**
+ * adw_tag_get_name:
+ * @self: a tag
+ *
+ * Retrieves the name of the tag set using [method@Tag.set_name].
+ *
+ * Returns: (transfer none) (nullable): the name of the tag
+ *
+ * Since: 1.2
+ */
+const char *
+adw_tag_get_name (AdwTag *self)
+{
+  g_return_val_if_fail (ADW_IS_TAG (self), NULL);
+
+  return self->name;
 }
 
 /* }}} */
