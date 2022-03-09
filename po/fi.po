@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-09-27 14:23+0000\n"
-"PO-Revision-Date: 2021-09-30 19:43+0300\n"
+"POT-Creation-Date: 2022-02-07 11:18+0000\n"
+"PO-Revision-Date: 2022-03-09 20:43+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -16,9 +16,50 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: src/adw-preferences-window.c:210
+#: src/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "Ei suosimista"
+
+#: src/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "Suosi tummaa"
+
+#: src/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "Suosi vaaleaa"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Järjestelmän ulkoasu"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Ohita asetukset tämän sovelluksen kohdalla. Asetukset nollataan tarkistimen "
+"sulkemisen jälkeen."
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Järjestelmä tukee väriteemoja"
+
+#: src/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Suosittu väriteema"
+
+#: src/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Suuri kontrasti"
+
+#: src/adw-preferences-window.c:217
 msgid "Untitled page"
 msgstr "Nimetön sivu"
 
@@ -26,51 +67,17 @@ msgstr "Nimetön sivu"
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: src/adw-preferences-window.ui:68
+#: src/adw-preferences-window.ui:69
 msgid "Search"
 msgstr "Etsi"
 
-#: src/adw-preferences-window.ui:146
+#: src/adw-preferences-window.ui:139
 msgid "No Results Found"
 msgstr "Tuloksia ei löytynyt"
 
-#: src/adw-preferences-window.ui:147
+#: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Kokeile eri hakuehtoja."
-
-#: src/inspector/adw-inspector-page.c:75
-msgid "No Preference"
-msgstr "Ei suosimista"
-
-#: src/inspector/adw-inspector-page.c:77
-msgid "Prefer Dark"
-msgstr "Suosi tummaa"
-
-#: src/inspector/adw-inspector-page.c:79
-msgid "Prefer Light"
-msgstr "Suosi vaaleaa"
-
-#: src/inspector/adw-inspector-page.ui:10
-msgid "System Appearance"
-msgstr "Järjestelmän ulkoasu"
-
-#: src/inspector/adw-inspector-page.ui:11
-msgid ""
-"Override settings for this application. They will be reset upon closing the "
-"inspector."
-msgstr ""
-
-#: src/inspector/adw-inspector-page.ui:14
-msgid "System Supports Color Schemes"
-msgstr "Järjestelmä tukee väriteemoja"
-
-#: src/inspector/adw-inspector-page.ui:26
-msgid "Preferred Color Scheme"
-msgstr "Suosittu väriteema"
-
-#: src/inspector/adw-inspector-page.ui:43
-msgid "High Contrast"
-msgstr "Suuri kontrasti"
 
 #~ msgid "Insert placeholder to %s"
 #~ msgstr "Lisää paikkavaraus %s:lle"
