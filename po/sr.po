@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-09-27 14:23+0000\n"
-"PO-Revision-Date: 2021-09-30 05:11+0200\n"
-"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"POT-Creation-Date: 2022-02-07 11:18+0000\n"
+"PO-Revision-Date: 2022-03-11 07:16+0100\n"
+"Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: српски <gnome-sr@googlegroups.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -16,45 +16,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: src/adw-preferences-window.c:210
-msgid "Untitled page"
-msgstr "Неименована страница"
-
-#: src/adw-preferences-window.ui:8
-msgid "Preferences"
-msgstr "Поставке"
-
-#: src/adw-preferences-window.ui:68
-msgid "Search"
-msgstr "Тражи"
-
-#: src/adw-preferences-window.ui:146
-msgid "No Results Found"
-msgstr "Нисам пронашао резултате"
-
-#: src/adw-preferences-window.ui:147
-msgid "Try a different search."
-msgstr "Покушајте другачију претрагу."
-
-#: src/inspector/adw-inspector-page.c:75
-#| msgid "Preferences"
+#: src/adw-inspector-page.c:76
 msgid "No Preference"
 msgstr "Нема поставки"
 
-#: src/inspector/adw-inspector-page.c:77
+#: src/adw-inspector-page.c:78
 msgid "Prefer Dark"
 msgstr "Предност тамној"
 
-#: src/inspector/adw-inspector-page.c:79
+#: src/adw-inspector-page.c:80
 msgid "Prefer Light"
 msgstr "Предност светлој"
 
-#: src/inspector/adw-inspector-page.ui:10
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Адвајта"
+
+#: src/adw-inspector-page.ui:10
 msgid "System Appearance"
 msgstr "Изглед система"
 
-#: src/inspector/adw-inspector-page.ui:11
+#: src/adw-inspector-page.ui:11
 msgid ""
 "Override settings for this application. They will be reset upon closing the "
 "inspector."
@@ -62,14 +47,34 @@ msgstr ""
 "Превазиђите подешавања за овај програм. Биће враћена након затварања "
 "инспектора."
 
-#: src/inspector/adw-inspector-page.ui:14
+#: src/adw-inspector-page.ui:14
 msgid "System Supports Color Schemes"
 msgstr "Систем подржава шеме боја"
 
-#: src/inspector/adw-inspector-page.ui:26
+#: src/adw-inspector-page.ui:26
 msgid "Preferred Color Scheme"
 msgstr "Жељена шема боја"
 
-#: src/inspector/adw-inspector-page.ui:43
+#: src/adw-inspector-page.ui:43
 msgid "High Contrast"
 msgstr "Велики контраст"
+
+#: src/adw-preferences-window.c:217
+msgid "Untitled page"
+msgstr "Неименована страница"
+
+#: src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "Поставке"
+
+#: src/adw-preferences-window.ui:69
+msgid "Search"
+msgstr "Тражи"
+
+#: src/adw-preferences-window.ui:139
+msgid "No Results Found"
+msgstr "Нисам пронашао резултате"
+
+#: src/adw-preferences-window.ui:140
+msgid "Try a different search."
+msgstr "Покушајте другачију претрагу."
