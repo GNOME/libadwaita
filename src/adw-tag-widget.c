@@ -102,6 +102,10 @@ adw_tag_widget_set_tag (AdwTagWidget *self,
                                 self);
 
       update_tag_icon (self);
+
+      const char *tag_name = adw_tag_get_name (self->tag);
+      if (tag_name != NULL)
+        gtk_widget_add_css_class (GTK_WIDGET (self), tag_name);
     }
 
     g_object_notify_by_pspec (G_OBJECT (self), obj_props[PROP_TAG]);
