@@ -1,3 +1,15 @@
+=============
+Version 1.1.0
+=============
+
+- Fix introspection-related build warnings
+- Translation updates:
+  - Finnish
+  - Hungarian
+  - Italian
+  - Kazakh
+  - Serbian
+
 ==============
 Version 1.1.rc
 ==============
