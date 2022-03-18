@@ -3,9 +3,11 @@
 DOC_DIR=public/doc
 REFS="
 main
+libadwaita-1-0
+libadwaita-1-1
 "
 
-LATEST_STABLE_1=1.0.0
+LATEST_STABLE_1=1.1
 
 IFS='
 '
