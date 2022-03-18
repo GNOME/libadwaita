@@ -1,4 +1,34 @@
 =============
+Version 1.0.3
+=============
+
+- AdwAvatar
+  - Fix invalid UTF-8 handling
+- AdwToast
+  - Fix GVariant handling
+- Stylesheet
+  - Fix scrollbars inside .osd widgets
+- Fix carousel indicator sizing
+- Memory leak fixes
+- Translation updates:
+  - Abkhazian
+  - Bulgarian
+  - Catalan
+  - Croatian
+  - Czech
+  - Danish
+  - Finnish
+  - German
+  - Hungarian
+  - Italian
+  - Japanese
+  - Kazakh
+  - Korean
+  - Serbian
+  - Slovak
+  - Turkish
+
+=============
 Version 1.0.2
 =============
 
