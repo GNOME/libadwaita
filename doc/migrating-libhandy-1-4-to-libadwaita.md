@@ -178,7 +178,7 @@ model items can be converted into human-readable strings automatically without
 requiring an expression.
 
 The `HdyComboRow:selected-index` property has been renamed to
-[property@ComboRow:selected], matching [class@Gtk.DropDown].
+[property@ComboRow:selected] and its type changed from `gint` to `guint`, matching [class@Gtk.DropDown].
 
 ### Adapt to [class@PreferencesGroup] API Changes
 
