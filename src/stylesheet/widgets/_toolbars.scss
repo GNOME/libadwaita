@@ -1,9 +1,13 @@
 %toolbar {
-  button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+  button:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
     &.arrow-button,
     &.image-button,
     &.image-text-button {
       @extend %button_basic_flat;
+
+      @if $contrast == 'high' {
+        box-shadow: inset 0 0 0 1px $thin_border_color;
+      }
     }
   }
 
@@ -13,13 +17,17 @@
     }
   }
 
-  menubutton:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+  menubutton:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
     &.image-button > button {
       @extend %button_basic_flat;
+
+      @if $contrast == 'high' {
+        box-shadow: inset 0 0 0 1px $thin_border_color;
+      }
     }
   }
 
-  .linked button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+  .linked button:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
     &.arrow-button,
     &.image-button,
     &.image-text-button {
@@ -27,7 +35,7 @@
     }
   }
 
-  menubutton.raised > button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+  menubutton.raised > button:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
     &.arrow-button,
     &.image-button,
     &.image-text-button {
@@ -38,7 +46,7 @@
   menubutton.suggested-action,
   menubutton.destructive-action,
   menubutton.opaque {
-    > button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+    > button:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
       @extend %opaque_button;
 
       color: inherit;
@@ -53,8 +61,12 @@
       margin-bottom: 6px;
     }
 
-    &:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+    &:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
       @extend %flat_split_button;
+
+      @if $contrast == 'high' {
+        box-shadow: inset 0 0 0 1px $thin_border_color;
+      }
     }
   }
 
@@ -98,6 +110,16 @@
     menubutton:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
       &.image-button > button {
         @extend %button_basic_raised;
+      }
+    }
+
+    @if $contrast == 'high' {
+      button:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+        &.arrow-button,
+        &.image-button,
+        &.image-text-button {
+          box-shadow: none;
+        }
       }
     }
 
