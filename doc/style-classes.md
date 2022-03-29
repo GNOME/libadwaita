@@ -257,15 +257,6 @@ These style classes can be applied to any widgets, but are mostly used for
 [class@Gtk.Label] or other widgets that contain them.
 
 <picture>
-  <source srcset="typography-large-title-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="typography-large-title.png" alt="typography-large-title">
-</picture>
-
-The `.large-title` style class makes text large and thin. It's the largest
-style, infrequently used for display headings in greeters or assistants. It
-should only be used in conjunction with large amounts of whitespace.
-
-<picture>
   <source srcset="typography-titles-dark.png" media="(prefers-color-scheme: dark)">
   <img src="typography-titles.png" alt="typography-titles">
 </picture>
@@ -620,3 +611,16 @@ round. When used together with a [class@Gtk.Overlay] and a [class@Gtk.Revealer],
 it allows creating in-app notifications.
 
 [class@ToastOverlay] can be used to replace it.
+
+## `.large-title`
+
+<picture>
+  <source srcset="typography-large-title-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="typography-large-title.png" alt="typography-large-title">
+</picture>
+
+The `.large-title` style class makes text large and thin. It's the largest
+style, infrequently used for display headings in greeters or assistants. It
+should only be used in conjunction with large amounts of whitespace.
+
+The [`.title-1`](#typography-styles) style class should be used instead.
