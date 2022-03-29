@@ -1969,11 +1969,38 @@ adw_leaflet_snapshot (GtkWidget   *widget,
   for (l = stacked_children; l; l = l->next) {
     AdwLeafletPage *page = l->data;
 
-    if (page == overlap_child)
+    if (page == overlap_child) {
       gtk_snapshot_pop (snapshot);
+
+      if (is_vertical) {
+        if (!is_over) {
+          shadow_rect.height = shadow_rect.y;
+          shadow_rect.y = 0;
+        } else {
+          shadow_rect.y = shadow_rect.height;
+          shadow_rect.height = overlap_child->alloc.height - shadow_rect.height;
+        }
+      } else {
+        if (is_over == is_rtl) {
+          shadow_rect.width = shadow_rect.x;
+          shadow_rect.x = 0;
+        } else {
+          shadow_rect.x = shadow_rect.width;
+          shadow_rect.width = overlap_child->alloc.width - shadow_rect.width;
+        }
+      }
+
+      gtk_snapshot_push_clip (snapshot,
+                              &GRAPHENE_RECT_INIT (shadow_rect.x,
+                                                   shadow_rect.y,
+                                                   shadow_rect.width,
+                                                   shadow_rect.height));
+    }
 
     gtk_widget_snapshot_child (widget, page->widget, snapshot);
   }
+
+  gtk_snapshot_pop (snapshot);
 
   adw_shadow_helper_snapshot (self->shadow_helper, snapshot);
 }
