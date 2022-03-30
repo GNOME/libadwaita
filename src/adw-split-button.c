@@ -88,6 +88,8 @@ struct _AdwSplitButton
   GtkWidget *menu_button;
   GtkWidget *arrow_button;
   GtkWidget *separator;
+
+  guint disposed : 1;
 };
 
 static void adw_split_button_actionable_init (GtkActionableInterface *iface);
@@ -104,6 +106,9 @@ update_state (AdwSplitButton *self)
 {
   GtkStateFlags flags;
   gboolean keyboard_activating;
+
+  if (self->disposed)
+    return;
 
   flags = gtk_widget_get_state_flags (self->button) |
           gtk_widget_get_state_flags (self->arrow_button);
@@ -245,6 +250,8 @@ static void
 adw_split_button_dispose (GObject *object)
 {
   AdwSplitButton *self = ADW_SPLIT_BUTTON (object);
+
+  self->disposed = TRUE;
 
   g_clear_pointer (&self->button, gtk_widget_unparent);
   g_clear_pointer (&self->menu_button, gtk_widget_unparent);
