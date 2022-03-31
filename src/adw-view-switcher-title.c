@@ -102,6 +102,8 @@ struct _AdwViewSwitcherTitle
   gboolean is_window_narrow;
 
   GtkSelectionModel *pages;
+
+  guint check_window_width_id;
 };
 
 static GParamSpec *props[LAST_PROP];
@@ -224,13 +226,15 @@ check_window_width (AdwViewSwitcherTitle *self)
   self->is_window_narrow = width <= 360;
   update_view_switcher_visible (self);
 
+  self->check_window_width_id = 0;
   return G_SOURCE_REMOVE;
 }
 
 static void
 notify_surface_width_cb (AdwViewSwitcherTitle *self)
 {
-  g_idle_add (G_SOURCE_FUNC (check_window_width), self);
+  if (self->check_window_width_id == 0)
+    self->check_window_width_id = g_idle_add (G_SOURCE_FUNC (check_window_width), self);
 }
 
 static void
@@ -257,6 +261,8 @@ adw_view_switcher_title_unrealize (GtkWidget *widget)
   surface = gtk_native_get_surface (gtk_widget_get_native (widget));
 
   g_signal_handlers_disconnect_by_func (surface, notify_surface_width_cb, self);
+
+  g_clear_handle_id (&self->check_window_width_id, g_source_remove);
 
   GTK_WIDGET_CLASS (adw_view_switcher_title_parent_class)->unrealize (widget);
 }
