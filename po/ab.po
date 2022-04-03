@@ -1,15 +1,15 @@
 # Abkhazian translation for libadwaita.
 # Copyright (C) 2022 libadwaita's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libadwaita package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Наала Нанба <naala-nanba@rambler.ru>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-01-30 22:34+0000\n"
+"POT-Creation-Date: 2022-03-23 09:50+0000\n"
 "PO-Revision-Date: 2022-01-30 22:34+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Наала Нанба <naala-nanba@rambler.ru>\n"
 "Language-Team: Abkhazian <ab@li.org>\n"
 "Language: ab\n"
 "MIME-Version: 1.0\n"
@@ -41,8 +41,9 @@ msgstr "Асистема адәахьтәи аҿанԥшылара"
 msgid ""
 "Override settings for this application. They will be reset upon closing the "
 "inspector."
-msgstr "Еиҭашьақәшәыргыл архиарақәа ари аԥшьы азы.Урҭ алырыҩроит агәаҭара"
-"анаркхалак ашьҭахь"
+msgstr ""
+"Еиҭашьақәшәыргыл архиарақәа ари аԥшьы азы.Урҭ алырыҩроит агәаҭараанаркхалак "
+"ашьҭахь"
 
 #: src/adw-inspector-page.ui:14
 msgid "System Supports Color Schemes"
