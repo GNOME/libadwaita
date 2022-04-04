@@ -44,21 +44,19 @@ toast_add_cb (AdwDemoPageToasts *self)
 static void
 toast_add_with_button_cb (AdwDemoPageToasts *self)
 {
-  char *title;
-
   self->toast_undo_items++;
 
   if (self->undo_toast) {
-    title =
+    char *title =
       g_strdup_printf (ngettext ("<span font_features='tnum=1'>%d</span> item deleted",
                                  "<span font_features='tnum=1'>%d</span> items deleted",
                                  self->toast_undo_items), self->toast_undo_items);
 
     adw_toast_set_title (self->undo_toast, title);
-  } else {
-    title = g_strdup_printf (_("‘%s’ deleted"), "Lorem Ipsum");
 
-    self->undo_toast = adw_toast_new (title);
+    g_free (title);
+  } else {
+    self->undo_toast = adw_toast_new_format (_("‘%s’ deleted"), "Lorem Ipsum");
 
     adw_toast_set_priority (self->undo_toast, ADW_TOAST_PRIORITY_HIGH);
     adw_toast_set_button_label (self->undo_toast, _("_Undo"));
@@ -70,8 +68,6 @@ toast_add_with_button_cb (AdwDemoPageToasts *self)
 
     gtk_widget_action_set_enabled (GTK_WIDGET (self), "toast.dismiss", TRUE);
   }
-
-  g_free (title);
 }
 
 static void
