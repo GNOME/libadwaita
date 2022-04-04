@@ -521,6 +521,9 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    *
    * If `TRUE`, you should not access [property@ActionRow:subtitle].
    *
+   * The subtitle is interpreted as Pango markup if
+   * [property@PreferencesRow:use-markup] is set to `TRUE`.
+   *
    * Since: 1.0
    */
   props[PROP_USE_SUBTITLE] =
@@ -549,6 +552,7 @@ adw_combo_row_init (AdwComboRow *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
 
+  adw_preferences_row_set_use_markup (ADW_PREFERENCES_ROW (self), FALSE);
   set_default_factory (self);
   model_changed (self);
 }

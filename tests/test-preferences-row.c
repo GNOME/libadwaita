@@ -22,6 +22,10 @@ test_adw_preferences_row_title (void)
   adw_preferences_row_set_title (row, NULL);
   g_assert_cmpstr (adw_preferences_row_get_title (row), ==, "");
 
+  adw_preferences_row_set_use_markup (row, FALSE);
+  adw_preferences_row_set_title (row, "Invalid <b>markup");
+  g_assert_cmpstr (adw_preferences_row_get_title (row), ==, "Invalid <b>markup");
+
   g_assert_finalize_object (row);
 }
 
