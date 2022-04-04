@@ -237,7 +237,6 @@ adw_preferences_row_get_title (AdwPreferencesRow *self)
  * The title is interpreted as Pango markup unless
  * [property@PreferencesRow:use-markup] is set to `FALSE`.
  *
- *
  * Since: 1.0
  */
 void
