@@ -583,7 +583,7 @@ adw_preferences_group_get_header_suffix (AdwPreferencesGroup *self)
 /**
  * adw_preferences_group_set_header_suffix:
  * @self: a `AdwPreferencesGroup`
- * @suffix (nullable): the suffix to set
+ * @suffix: (nullable): the suffix to set
  *
  * Sets the suffix for @self's header.
  *
