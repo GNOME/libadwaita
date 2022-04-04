@@ -234,7 +234,7 @@ adw_preferences_row_get_title (AdwPreferencesRow *self)
  *
  * Sets the title of the preference represented by @self.
  *
- * The title is interpreted as [pango markup](func@Pango.parse_markup) unless
+ * The title is interpreted as Pango markup unless
  * [property@PreferencesRow:use-markup] is set to `FALSE`.
  *
  *
