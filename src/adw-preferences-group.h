@@ -59,6 +59,6 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_preferences_group_get_header_suffix (AdwPreferencesGroup *self);
 ADW_AVAILABLE_IN_ALL
 void       adw_preferences_group_set_header_suffix (AdwPreferencesGroup *self,
-                                                    GtkWidget           *child);
+                                                    GtkWidget           *suffix);
 
 G_END_DECLS
