@@ -135,7 +135,6 @@ make_comparable (const char        *src,
                  gboolean           allow_underline)
 {
   char *plaintext = g_utf8_casefold (src, -1);
-  char *comparable;
   GError *error = NULL;
 
   if (adw_preferences_row_get_use_markup (row)) {
@@ -147,14 +146,13 @@ make_comparable (const char        *src,
     }
   }
 
-  if (adw_preferences_row_get_use_underline (row) && allow_underline) {
-    comparable = strip_mnemonic (plaintext);
+  if (allow_underline && adw_preferences_row_get_use_underline (row)) {
+    char *comparable = strip_mnemonic (plaintext);
     g_free (plaintext);
-  } else {
-    comparable = plaintext;
+    return comparable;
   }
 
-  return comparable;
+  return plaintext;
 }
 
 static gboolean
