@@ -134,7 +134,7 @@ make_comparable (const char        *src,
                  AdwPreferencesRow *row,
                  gboolean           allow_underline)
 {
-  char* plaintext = g_utf8_casefold (src, -1);
+  char *plaintext = g_utf8_casefold (src, -1);
   char *comparable;
   GError *error = NULL;
 

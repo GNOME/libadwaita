@@ -164,14 +164,18 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
   /**
    * AdwPreferencesRow:use-markup: (attributes org.gtk.Property.get=adw_preferences_row_get_use_markup org.gtk.Property.set=adw_preferences_row_set_use_markup)
    *
-   * Whether to use markup syntax for all texts.
+   * Whether to use Pango markup for the title label.
+   *
+   * Subclasses may also use it for other labels, such as subtitle.
+   *
+   * See also [func@Pango.parse_markup].
    *
    * Since: 1.2
    */
   props[PROP_USE_MARKUP] =
     g_param_spec_boolean ("use-markup",
                           "Use markup",
-                          "Whether to use markup syntax for all texts",
+                          "Whether to use Pango markup for the title label",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -357,9 +361,9 @@ adw_preferences_row_set_title_selectable (AdwPreferencesRow *self,
  * adw_preferences_row_get_use_markup: (attributes org.gtk.Method.get_property=use-markup)
  * @self: a preferences row
  *
- * Gets whether texts inside the row use markup.
+ * Gets whether to use Pango markup for the title label.
  *
- * Returns: whether texts inside the row use markup.
+ * Returns: whether to use markup
  *
  * Since: 1.2
  */
@@ -378,9 +382,9 @@ adw_preferences_row_get_use_markup (AdwPreferencesRow *self)
 /**
  * adw_preferences_row_set_use_markup: (attributes org.gtk.Method.set_property=use-markup)
  * @self: a preferences row
- * @use_markup: `TRUE` if texts inside the row use markup
+ * @use_markup: whether to use markup
  *
- * Sets whether texts inside the row use markup.
+ * Sets whether to use Pango markup for the title label.
  *
  * Since: 1.2
  */
