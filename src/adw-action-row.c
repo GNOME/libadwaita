@@ -423,6 +423,9 @@ adw_action_row_get_subtitle (AdwActionRow *self)
  *
  * Sets the subtitle for @self.
  *
+ * The subtitle is interpreted as [pango markup](func@Pango.parse_markup) unless
+ * [property@PreferencesRow:use-markup] is set to `FALSE`.
+ *
  * Since: 1.0
  */
 void

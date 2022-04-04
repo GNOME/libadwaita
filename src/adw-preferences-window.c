@@ -129,6 +129,7 @@ strip_mnemonic (const char *src)
   return new_str;
 }
 
+// Make lowercase, remove mnemonic and markup if applicable
 static char *
 make_comparable (const char        *src,
                  AdwPreferencesRow *row,
