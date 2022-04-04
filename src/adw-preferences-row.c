@@ -165,14 +165,14 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
   /**
    * AdwPreferencesRow:use-markup: (attributes org.gtk.Property.get=adw_preferences_row_get_use_markup org.gtk.Property.set=adw_preferences_row_set_use_markup)
    *
-   * Whether to use markup syntax for all elements.
+   * Whether to use markup syntax for all texts.
    *
    * Since: 1.2
    */
   props[PROP_USE_MARKUP] =
     g_param_spec_boolean ("use-markup",
                           "Use markup",
-                          "Whether to use markup syntax for all elements",
+                          "Whether to use markup syntax for all texts",
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -354,9 +354,9 @@ adw_preferences_row_set_title_selectable (AdwPreferencesRow *self,
  * adw_preferences_row_get_use_markup: (attributes org.gtk.Method.get_property=use-markup)
  * @self: a preferences row
  *
- * Gets whether elements use markup.
+ * Gets whether texts inside the row use markup.
  *
- * Returns: whether elements use markup.
+ * Returns: whether texts inside the row use markup.
  *
  * Since: 1.2
  */
@@ -375,9 +375,9 @@ adw_preferences_row_get_use_markup (AdwPreferencesRow *self)
 /**
  * adw_preferences_row_set_use_markup: (attributes org.gtk.Method.set_property=use-markup)
  * @self: a preferences row
- * @use_underline: `TRUE` if elements use markup
+ * @use_markup: `TRUE` if texts inside the row use markup
  *
- * Sets whether elements use markup.
+ * Sets whether texts inside the row use markup.
  *
  * Since: 1.2
  */

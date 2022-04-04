@@ -135,25 +135,29 @@ make_comparable (const char        *src,
                  gboolean          allow_underline)
 {
   char* plaintext = g_utf8_casefold (src, -1);
+  char* comparable;
   GError *error = NULL;
 
   if (adw_preferences_row_get_use_markup (row)) {
-    pango_parse_markup (
-      plaintext,
-      -1,
-      0,
-      NULL,
-      &plaintext,
-      NULL,
-      &error
-    );
+    comparable = g_strdup (plaintext);
+    pango_parse_markup (comparable, -1, 0, NULL, &plaintext, NULL, &error);
+    free (comparable);
+
+    g_assert_nonnull (error);
+    if (error) {
+      free (error);
+    }
   }
 
   if (adw_preferences_row_get_use_underline (row) && allow_underline) {
-    plaintext = strip_mnemonic (plaintext);
+    comparable = strip_mnemonic (plaintext);
+  } else {
+    comparable = plaintext;
   }
 
-  return plaintext;
+  free (plaintext);
+
+  return comparable;
 }
 
 static gboolean
