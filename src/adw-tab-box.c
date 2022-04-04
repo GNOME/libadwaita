@@ -22,7 +22,7 @@
 #include <math.h>
 
 /* Border collapsing without glitches */
-#define OVERLAP 1
+#define SPACING -1
 #define DND_THRESHOLD_MULTIPLIER 4
 #define DROP_SWITCH_TIMEOUT 500
 
@@ -286,7 +286,7 @@ static inline int
 calculate_tab_width (TabInfo *info,
                      int      base_width)
 {
-  return OVERLAP + (int) floor ((base_width - OVERLAP) * info->appear_progress);
+  return (int) floor ((base_width + SPACING) * info->appear_progress) - SPACING;
 }
 
 static int
@@ -306,12 +306,12 @@ get_base_tab_width (AdwTabBox *self,
     n += info->appear_progress;
   }
 
-  used_width = (self->allocated_width + (n + 1) * OVERLAP - (target ? 0 : self->end_padding)) * max_progress;
+  used_width = (self->allocated_width - (n + 1) * SPACING - (target ? 0 : self->end_padding)) * max_progress;
 
   ret = (int) ceil (used_width / n);
 
   if (!self->expand_tabs)
-    ret = MIN (ret, MAX_TAB_WIDTH_NON_EXPAND + OVERLAP);
+    ret = MIN (ret, MAX_TAB_WIDTH_NON_EXPAND - SPACING);
 
   return ret;
 }
@@ -333,7 +333,7 @@ predict_tab_width (AdwTabBox *self,
   if (assume_placeholder)
       n++;
 
-  width += OVERLAP * (n + 1) - self->end_padding;
+  width -= SPACING * (n + 1) + self->end_padding;
 
   /* Tabs have 0 minimum width, we need natural width instead */
   gtk_widget_measure (GTK_WIDGET (info->container), GTK_ORIENTATION_HORIZONTAL, -1,
@@ -355,7 +355,7 @@ calculate_tab_offset (AdwTabBox *self,
   if (!self->reordered_tab)
       return 0;
 
-  width = (target ? self->reordered_tab->display_width : self->reordered_tab->width) - OVERLAP;
+  width = (target ? self->reordered_tab->display_width : self->reordered_tab->width) + SPACING;
 
   if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
       width = -width;
@@ -368,22 +368,22 @@ get_visible_range (AdwTabBox *self,
                    int       *lower,
                    int       *upper)
 {
-  int min = -OVERLAP;
-  int max = self->allocated_width + OVERLAP;
+  int min = SPACING;
+  int max = self->allocated_width - SPACING;
 
   if (self->pinned) {
     if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
-      min += OVERLAP;
+      min -= SPACING;
     else
-      max -= OVERLAP;
+      max += SPACING;
   }
 
   if (self->adjustment) {
     double value = gtk_adjustment_get_value (self->adjustment);
     double page_size = gtk_adjustment_get_page_size (self->adjustment);
 
-    min = MAX (min, (int) floor (value) - OVERLAP);
-    max = MIN (max, (int) ceil (value + page_size) + OVERLAP);
+    min = MAX (min, (int) floor (value) + SPACING);
+    max = MIN (max, (int) ceil (value + page_size) - SPACING);
   }
 
   if (lower)
@@ -415,12 +415,12 @@ resize_animation_value_cb (double     value,
     int predicted_tab_width = get_base_tab_width (self, TRUE);
     GList *l;
 
-    target_end_padding = self->allocated_width + OVERLAP;
+    target_end_padding = self->allocated_width - SPACING;
 
     for (l = self->tabs; l; l = l->next) {
       TabInfo *info = l->data;
 
-      target_end_padding -= calculate_tab_width (info, predicted_tab_width) - OVERLAP;
+      target_end_padding -= calculate_tab_width (info, predicted_tab_width) + SPACING;
     }
 
     target_end_padding = MAX (target_end_padding, 0);
@@ -659,8 +659,8 @@ update_visible (AdwTabBox *self)
     pos = get_tab_position (self, info);
 
     adw_tab_set_fully_visible (info->tab,
-                               pos + OVERLAP >= value &&
-                               pos + info->width - OVERLAP <= value + page_size);
+                               pos - SPACING >= value &&
+                               pos + info->width + SPACING <= value + page_size);
 
     if (!adw_tab_page_get_needs_attention (info->page))
       continue;
@@ -837,9 +837,9 @@ scroll_to_tab_full (AdwTabBox *self,
   if (pos < 0)
     pos = get_tab_position (self, info);
 
-  if (pos + OVERLAP < value)
+  if (pos - SPACING < value)
     animate_scroll (self, info, -padding, duration);
-  else if (pos + tab_width - OVERLAP > value + page_size)
+  else if (pos + tab_width + SPACING > value + page_size)
     animate_scroll (self, info, tab_width + padding - page_size, duration);
 }
 
@@ -1236,14 +1236,14 @@ drag_autoscroll_cb (GtkWidget     *widget,
     gtk_widget_measure (self->reordered_tab->container,
                         GTK_ORIENTATION_HORIZONTAL, -1,
                         NULL, &tab_width, NULL, NULL);
-    tab_width -= 2 * OVERLAP;
-    x = (double) self->reorder_x + OVERLAP;
+    tab_width += 2 * SPACING;
+    x = (double) self->reorder_x - SPACING;
   } else if (self->drop_target_tab) {
     gtk_widget_measure (self->drop_target_tab->container,
                         GTK_ORIENTATION_HORIZONTAL, -1,
                         NULL, &tab_width, NULL, NULL);
-    tab_width -= 2 * OVERLAP;
-    x = (double) self->drop_target_x + OVERLAP - tab_width / 2;
+    tab_width += 2 * SPACING;
+    x = (double) self->drop_target_x - SPACING - tab_width / 2;
   } else {
     return G_SOURCE_CONTINUE;
   }
@@ -1909,7 +1909,7 @@ calculate_placeholder_index (AdwTabBox *self,
 
   is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
 
-  pos = (is_rtl ? self->allocated_width + OVERLAP : -OVERLAP);
+  pos = (is_rtl ? self->allocated_width - SPACING : SPACING);
   i = 0;
 
   for (l = self->tabs; l; l = l->next) {
@@ -1921,7 +1921,7 @@ calculate_placeholder_index (AdwTabBox *self,
     if ((x <= end && !is_rtl) || (x >= end && is_rtl))
       break;
 
-    pos += tab_width + (is_rtl ? OVERLAP : -OVERLAP);
+    pos += tab_width + (is_rtl ? -SPACING : SPACING);
     i++;
   }
 
@@ -2716,8 +2716,8 @@ handle_click (AdwTabBox  *self,
     double value = gtk_adjustment_get_value (self->adjustment);
     double page_size = gtk_adjustment_get_page_size (self->adjustment);
 
-    if (pos + OVERLAP < value ||
-        pos + info->width - OVERLAP > value + page_size) {
+    if (pos - SPACING < value ||
+        pos + info->width + SPACING > value + page_size) {
       gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
 
       scroll_to_tab (self, info, SCROLL_ANIMATION_DURATION);
@@ -2872,11 +2872,11 @@ adw_tab_box_measure (GtkWidget      *widget,
       gtk_widget_measure (info->container, orientation, -1,
                           NULL, &child_width, NULL, NULL);
 
-      width += calculate_tab_width (info, child_width) - OVERLAP;
+      width += calculate_tab_width (info, child_width) + SPACING;
     }
 
     if (!self->pinned)
-      width -= OVERLAP;
+      width += SPACING;
 
     width = MAX (self->last_width, width);
 
@@ -2966,23 +2966,23 @@ adw_tab_box_size_allocate (GtkWidget *widget,
       info->width = calculate_tab_width (info, child_width);
     }
   } else if (self->tab_resize_mode == TAB_RESIZE_FIXED_TAB_WIDTH) {
-    self->end_padding = self->allocated_width + OVERLAP;
+    self->end_padding = self->allocated_width - SPACING;
 
     for (l = self->tabs; l; l = l->next) {
       TabInfo *info = l->data;
 
       info->width = calculate_tab_width (info, info->last_width);
-      self->end_padding -= info->width - OVERLAP;
+      self->end_padding -= info->width + SPACING;
     }
   } else {
     int tab_width = get_base_tab_width (self, FALSE);
-    int excess = self->allocated_width + OVERLAP - self->end_padding;
+    int excess = self->allocated_width - SPACING - self->end_padding;
 
     for (l = self->tabs; l; l = l->next) {
       TabInfo *info = l->data;
 
       info->width = calculate_tab_width (info, tab_width);
-      excess -= info->width - OVERLAP;
+      excess -= info->width + SPACING;
     }
 
     /* Now spread excess width across the tabs */
@@ -2997,7 +2997,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
     }
   }
 
-  pos = is_rtl ? self->allocated_width + OVERLAP : -OVERLAP;
+  pos = is_rtl ? self->allocated_width - SPACING : SPACING;
 
   for (l = self->tabs; l; l = l->next) {
     TabInfo *info = l->data;
@@ -3019,7 +3019,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
 
     gtk_widget_size_allocate (info->container, &child_allocation, baseline);
 
-    pos += (is_rtl ? -1 : 1) * (info->width - OVERLAP);
+    pos += (is_rtl ? -1 : 1) * (info->width + SPACING);
   }
 
   if (self->scheduled_scroll.info) {
