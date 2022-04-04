@@ -37,6 +37,10 @@ test_adw_expander_row_subtitle (void)
   adw_expander_row_set_subtitle (row, "Dummy subtitle");
   g_assert_cmpstr (adw_expander_row_get_subtitle (row), ==, "Dummy subtitle");
 
+  adw_preferences_row_set_use_markup(ADW_PREFERENCES_ROW (row), FALSE);
+  adw_expander_row_set_subtitle (row, "Invalid <b>markup");
+  g_assert_cmpstr (adw_expander_row_get_subtitle (row), ==, "Invalid <b>markup");
+
   g_assert_finalize_object (row);
 }
 
