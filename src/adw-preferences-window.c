@@ -139,23 +139,22 @@ make_comparable (const char        *src,
   GError *error = NULL;
 
   if (adw_preferences_row_get_use_markup (row)) {
-    comparable = g_strdup (plaintext);
-    pango_parse_markup (comparable, -1, 0, NULL, &plaintext, NULL, &error);
-    free (comparable);
+    char* unparsed = g_strdup (plaintext);
+    pango_parse_markup (unparsed, -1, 0, NULL, &plaintext, NULL, &error);
+    free (unparsed);
 
-    g_assert_nonnull (error);
     if (error) {
-      free (error);
+      g_critical ("Couldn't parse markup: %s", error->message);
+      g_clear_error (&error);
     }
   }
 
   if (adw_preferences_row_get_use_underline (row) && allow_underline) {
     comparable = strip_mnemonic (plaintext);
+    free (plaintext);
   } else {
     comparable = plaintext;
   }
-
-  free (plaintext);
 
   return comparable;
 }
