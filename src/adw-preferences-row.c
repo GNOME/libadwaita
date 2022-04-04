@@ -53,7 +53,6 @@ adw_preferences_row_get_property (GObject    *object,
                                   GParamSpec *pspec)
 {
   AdwPreferencesRow *self = ADW_PREFERENCES_ROW (object);
-
   switch (prop_id) {
   case PROP_TITLE:
     g_value_set_string (value, adw_preferences_row_get_title (self));
@@ -387,7 +386,7 @@ adw_preferences_row_get_use_markup (AdwPreferencesRow *self)
  */
 void
 adw_preferences_row_set_use_markup (AdwPreferencesRow *self,
-                                       gboolean           use_markup)
+                                    gboolean           use_markup)
 {
   AdwPreferencesRowPrivate *priv;
 

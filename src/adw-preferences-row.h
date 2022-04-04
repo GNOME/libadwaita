@@ -59,6 +59,6 @@ ADW_AVAILABLE_IN_ALL
 gboolean adw_preferences_row_get_use_markup (AdwPreferencesRow *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_preferences_row_set_use_markup (AdwPreferencesRow *self,
-                                                gboolean           use_markup);
+                                             gboolean           use_markup);
 
 G_END_DECLS

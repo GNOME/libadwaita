@@ -129,21 +129,17 @@ strip_mnemonic (const char *src)
   return new_str;
 }
 
-// Make lowercase, remove mnemonic and markup if applicable
 static char *
 make_comparable (const char        *src,
                  AdwPreferencesRow *row,
-                 gboolean          allow_underline)
+                 gboolean           allow_underline)
 {
   char* plaintext = g_utf8_casefold (src, -1);
-  char *plaintext = g_utf8_casefold (src, -1);
   char *comparable;
   GError *error = NULL;
 
   if (adw_preferences_row_get_use_markup (row)) {
-    char* unparsed = g_strdup (plaintext);
-    pango_parse_markup (unparsed, -1, 0, NULL, &plaintext, NULL, &error);
-    free (unparsed);
+    pango_parse_markup (plaintext, -1, 0, NULL, &plaintext, NULL, &error);
 
     if (error) {
       g_critical ("Couldn't parse markup: %s", error->message);
@@ -153,7 +149,7 @@ make_comparable (const char        *src,
 
   if (adw_preferences_row_get_use_underline (row) && allow_underline) {
     comparable = strip_mnemonic (plaintext);
-    free (plaintext);
+    g_free (plaintext);
   } else {
     comparable = plaintext;
   }
