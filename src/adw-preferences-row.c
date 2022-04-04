@@ -145,7 +145,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
    *
    * See also [property@Gtk.Label:selectable].
    *
-   * Since: 1.0
+   * Since: 1.1
    */
   props[PROP_TITLE_SELECTABLE] =
     g_param_spec_boolean ("title-selectable",
@@ -288,7 +288,7 @@ adw_preferences_row_set_use_underline (AdwPreferencesRow *self,
  *
  * Returns: whether the user can copy the title from the label
  *
- * Since: 1.0
+ * Since: 1.1
  */
 gboolean
 adw_preferences_row_get_title_selectable (AdwPreferencesRow *self)
@@ -307,7 +307,7 @@ adw_preferences_row_get_title_selectable (AdwPreferencesRow *self)
  *
  * Sets whether the user can copy the title from the label
  *
- * Since: 1.0
+ * Since: 1.1
  */
 void
 adw_preferences_row_set_title_selectable (AdwPreferencesRow *self,
