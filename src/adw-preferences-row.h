@@ -48,9 +48,9 @@ ADW_AVAILABLE_IN_ALL
 void     adw_preferences_row_set_use_underline (AdwPreferencesRow *self,
                                                 gboolean           use_underline);
 
-ADW_AVAILABLE_IN_ALL
+ADW_AVAILABLE_IN_1_1
 gboolean adw_preferences_row_get_title_selectable (AdwPreferencesRow *self);
-ADW_AVAILABLE_IN_ALL
+ADW_AVAILABLE_IN_1_1
 void     adw_preferences_row_set_title_selectable (AdwPreferencesRow *self,
                                                    gboolean           title_selectable);
 
