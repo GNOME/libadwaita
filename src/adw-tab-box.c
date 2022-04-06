@@ -414,7 +414,7 @@ update_separators (AdwTabBox *self)
   GList *l;
   GtkStateFlags mask = GTK_STATE_FLAG_PRELIGHT |
                        GTK_STATE_FLAG_ACTIVE |
-                       GTK_STATE_FLAG_CHECKED;
+                       GTK_STATE_FLAG_SELECTED;
   TabInfo *last_pinned_tab = NULL;
 
   /* We have a separator between pinned and non-pinned tabs, and we need to
@@ -1725,7 +1725,7 @@ state_flags_changed_cb (GtkWidget     *tab,
   GtkStateFlags flags = gtk_widget_get_state_flags (tab);
   GtkStateFlags mask = GTK_STATE_FLAG_PRELIGHT |
                        GTK_STATE_FLAG_ACTIVE |
-                       GTK_STATE_FLAG_CHECKED;
+                       GTK_STATE_FLAG_SELECTED;
 
   if ((flags ^ previous) & mask)
     update_separators (self);
