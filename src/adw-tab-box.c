@@ -524,6 +524,13 @@ resize_animation_value_cb (double     value,
 }
 
 static void
+resize_animation_done_cb (AdwTabBox *self)
+{
+  self->end_padding = 0;
+  gtk_widget_queue_resize (GTK_WIDGET (self));
+}
+
+static void
 set_tab_resize_mode (AdwTabBox     *self,
                      TabResizeMode  mode)
 {
@@ -3699,6 +3706,9 @@ adw_tab_box_init (AdwTabBox *self)
   self->resize_animation =
     adw_timed_animation_new (GTK_WIDGET (self), 0, 1,
                              RESIZE_ANIMATION_DURATION, target);
+
+  g_signal_connect_swapped (self->resize_animation, "done",
+                            G_CALLBACK (resize_animation_done_cb), self);
 
   /* The actual update will be done in size_allocate(). After the animation
    * finishes, don't remove it right away, it will be done in size-allocate as
