@@ -31,7 +31,7 @@ ADW_AVAILABLE_IN_ALL
 AdwToast *adw_toast_new        (const char *title) G_GNUC_WARN_UNUSED_RESULT;
 ADW_AVAILABLE_IN_ALL
 AdwToast *adw_toast_new_format (const char *format,
-                                ...) G_GNUC_WARN_UNUSED_RESULT;
+                                ...) G_GNUC_PRINTF (1, 2) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
 const char *adw_toast_get_title (AdwToast   *self);
