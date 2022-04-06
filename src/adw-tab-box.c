@@ -1742,7 +1742,7 @@ create_tab_info (AdwTabBox  *self,
   info->page = page;
   info->pos = -1;
   info->width = -1;
-  info->container = adw_gizmo_new ("widget", measure_tab, allocate_tab,
+  info->container = adw_gizmo_new ("tabboxchild", measure_tab, allocate_tab,
                                    NULL, NULL,
                                    (AdwGizmoFocusFunc) adw_widget_focus_child,
                                    (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_self);
