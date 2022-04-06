@@ -15,27 +15,6 @@
       </object>
     </child>
     <child>
-      <object class="GtkButton" id="indicator_btn">
-        <property name="can-focus">False</property>
-        <property name="valign">center</property>
-        <signal name="clicked" handler="indicator_clicked_cb" swapped="true"/>
-        <style>
-          <class name="flat"/>
-          <class name="tab-indicator"/>
-          <class name="image-button"/>
-        </style>
-        <property name="child">
-          <object class="GtkImage" id="indicator_icon">
-            <binding name="gicon">
-              <lookup name="indicator-icon" type="AdwTabPage">
-                <lookup name="page">AdwTab</lookup>
-              </lookup>
-            </binding>
-          </object>
-        </property>
-      </object>
-    </child>
-    <child>
       <object class="GtkStack" id="icon_stack">
         <property name="margin-start">4</property>
         <property name="margin-end">2</property>
@@ -73,6 +52,27 @@
         <style>
           <class name="tab-title"/>
         </style>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="indicator_btn">
+        <property name="can-focus">False</property>
+        <property name="valign">center</property>
+        <signal name="clicked" handler="indicator_clicked_cb" swapped="true"/>
+        <style>
+          <class name="flat"/>
+          <class name="tab-indicator"/>
+          <class name="image-button"/>
+        </style>
+        <property name="child">
+          <object class="GtkImage" id="indicator_icon">
+            <binding name="gicon">
+              <lookup name="indicator-icon" type="AdwTabPage">
+                <lookup name="page">AdwTab</lookup>
+              </lookup>
+            </binding>
+          </object>
+        </property>
       </object>
     </child>
     <child>
