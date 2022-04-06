@@ -2714,10 +2714,11 @@ handle_click (AdwTabBox  *self,
   if (self->adjustment) {
     int pos = get_tab_position (self, info);
     double value = gtk_adjustment_get_value (self->adjustment);
+    double upper = gtk_adjustment_get_upper (self->adjustment);
     double page_size = gtk_adjustment_get_page_size (self->adjustment);
 
-    if (pos - SPACING < value ||
-        pos + info->width + SPACING > value + page_size) {
+    if (value + page_size < upper &&
+        (pos - SPACING < value || pos + SPACING + info->width > value + page_size)) {
       gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
 
       scroll_to_tab (self, info, SCROLL_ANIMATION_DURATION);
