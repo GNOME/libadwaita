@@ -14,8 +14,13 @@
 
 #include "adw-tab-bar.h"
 
+#include "adw-tab-box-private.h"
+
 G_BEGIN_DECLS
 
 gboolean adw_tab_bar_tabs_have_visible_focus (AdwTabBar *self);
+
+AdwTabBox *adw_tab_bar_get_tab_box        (AdwTabBar *self);
+AdwTabBox *adw_tab_bar_get_pinned_tab_box (AdwTabBar *self);
 
 G_END_DECLS

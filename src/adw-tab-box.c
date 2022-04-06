@@ -21,8 +21,7 @@
 #include "adw-widget-utils-private.h"
 #include <math.h>
 
-/* Border collapsing without glitches */
-#define SPACING -1
+#define SPACING 5
 #define DND_THRESHOLD_MULTIPLIER 4
 #define DROP_SWITCH_TIMEOUT 500
 
@@ -37,6 +36,9 @@
 #define ICON_RESIZE_ANIMATION_DURATION 200
 
 #define MAX_TAB_WIDTH_NON_EXPAND 220
+
+#define FADE_OFFSET 6.0f
+#define FADE_WIDTH 36.0f
 
 typedef enum {
   TAB_RESIZE_NORMAL,
@@ -63,6 +65,7 @@ typedef struct {
   AdwTabPage *page;
   AdwTab *tab;
   GtkWidget *container;
+  GtkWidget *separator;
 
   int pos;
   int width;
@@ -89,8 +92,6 @@ struct _AdwTabBox
   AdwTabBar *tab_bar;
   AdwTabView *view;
   GtkAdjustment *adjustment;
-  gboolean needs_attention_left;
-  gboolean needs_attention_right;
   gboolean expand_tabs;
   gboolean inverted;
 
@@ -101,7 +102,6 @@ struct _AdwTabBox
   int n_tabs;
 
   GtkPopover *context_menu;
-  GtkWidget *background;
 
   int allocated_width;
   int last_width;
@@ -164,6 +164,12 @@ struct _AdwTabBox
   GdkDragAction extra_drag_actions;
   GType *extra_drag_types;
   gsize extra_drag_n_types;
+
+  GskGLShader *shader;
+  gboolean shader_compiled;
+
+  GtkWidget *needs_attention_left;
+  GtkWidget *needs_attention_right;
 };
 
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwTabBox, adw_tab_box, GTK_TYPE_WIDGET,
@@ -174,8 +180,6 @@ enum {
   PROP_PINNED,
   PROP_TAB_BAR,
   PROP_VIEW,
-  PROP_NEEDS_ATTENTION_LEFT,
-  PROP_NEEDS_ATTENTION_RIGHT,
   PROP_RESIZE_FROZEN,
   PROP_HADJUSTMENT,
   PROP_VADJUSTMENT,
@@ -200,6 +204,7 @@ static void
 remove_and_free_tab_info (TabInfo *info)
 {
   gtk_widget_unparent (GTK_WIDGET (info->container));
+  gtk_widget_unparent (GTK_WIDGET (info->separator));
 
   g_free (info);
 }
@@ -401,6 +406,93 @@ is_touchscreen (GtkGesture *gesture)
   GdkInputSource input_source = gdk_device_get_source (device);
 
   return input_source == GDK_SOURCE_TOUCHSCREEN;
+}
+
+static void
+update_separators (AdwTabBox *self)
+{
+  GList *l;
+  GtkStateFlags mask = GTK_STATE_FLAG_PRELIGHT |
+                       GTK_STATE_FLAG_ACTIVE |
+                       GTK_STATE_FLAG_CHECKED;
+  TabInfo *last_pinned_tab = NULL;
+
+  /* We have a separator between pinned and non-pinned tabs, and we need to
+   * sync it same as the ones within each tab box */
+  if (!self->pinned) {
+    AdwTabBox *box = adw_tab_bar_get_pinned_tab_box (self->tab_bar);
+
+    l = g_list_last (box->tabs);
+
+    if (l) {
+      last_pinned_tab = l->data;
+
+      if (last_pinned_tab->end_reorder_offset < 0) {
+        last_pinned_tab = box->reordered_tab;
+      } else if (l->prev && last_pinned_tab == box->reordered_tab) {
+        TabInfo *prev = l->prev->data;
+
+        if (prev->end_reorder_offset > 0)
+          last_pinned_tab = prev;
+      }
+    }
+  }
+
+  for (l = self->tabs; l; l = l->next) {
+    TabInfo *info = l->data;
+    TabInfo *prev = NULL;
+    TabInfo *prev_prev = NULL;
+    TabInfo *visually_prev = NULL;
+    GtkStateFlags flags;
+
+    if (l->prev)
+      prev = l->prev->data;
+    else if (!self->pinned)
+      prev = last_pinned_tab;
+
+    if (l->prev && l->prev->prev)
+      prev_prev = l->prev->prev->data;
+    else if (!self->pinned)
+      prev_prev = last_pinned_tab;
+
+    if (prev && prev_prev) {
+      /* Since the reordered tab has been moved away, the 2 tabs around it are
+       * now adjacent. Treat them as such for the separator purposes. */
+      if (prev == self->reordered_tab && prev_prev->end_reorder_offset > 0)
+        visually_prev = prev_prev;
+
+      if (prev == self->reordered_tab && info->end_reorder_offset < 0)
+        visually_prev = prev_prev;
+    }
+
+    if (prev && self->reordered_tab) {
+      /* There's a gap between the current and the previous tab. This means the
+       * reordered tab is between them, so treat is as the previous tab. */
+      if (info->end_reorder_offset - prev->end_reorder_offset > 0)
+        visually_prev = self->reordered_tab;
+    }
+
+    if (!visually_prev)
+      visually_prev = prev;
+
+    flags = gtk_widget_get_state_flags (GTK_WIDGET (info->tab));
+
+    if (visually_prev)
+      flags |= gtk_widget_get_state_flags (GTK_WIDGET (visually_prev->tab));
+
+    if ((flags & mask) || !visually_prev)
+      gtk_widget_add_css_class (info->separator, "hidden");
+    else
+      gtk_widget_remove_css_class (info->separator, "hidden");
+  }
+
+  /* Since the first non-pinned separator depends on pinned tabs, we need to
+   * notify the non-pinned box. We don't need to do the opposite though. */
+  if (self->pinned) {
+    AdwTabBox *box = adw_tab_bar_get_tab_box (self->tab_bar);
+
+    update_separators (box);
+  }
 }
 
 /* Tab resize delay */
@@ -672,15 +764,8 @@ update_visible (AdwTabBox *self)
       right = TRUE;
   }
 
-  if (self->needs_attention_left != left) {
-    self->needs_attention_left = left;
-    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NEEDS_ATTENTION_LEFT]);
-  }
-
-  if (self->needs_attention_right != right) {
-    self->needs_attention_right = right;
-    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NEEDS_ATTENTION_RIGHT]);
-  }
+  gtk_revealer_set_reveal_child (GTK_REVEALER (self->needs_attention_left), left);
+  gtk_revealer_set_reveal_child (GTK_REVEALER (self->needs_attention_right), right);
 }
 
 static double
@@ -945,6 +1030,8 @@ check_end_reordering (AdwTabBox *self)
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 
   self->reordered_tab = NULL;
+
+  update_separators (self);
 }
 
 static void
@@ -955,7 +1042,9 @@ start_reordering (AdwTabBox *self,
 
   /* The reordered tab should be displayed above everything else */
   gtk_widget_insert_before (GTK_WIDGET (self->reordered_tab->container),
-                            GTK_WIDGET (self), NULL);
+                            GTK_WIDGET (self), self->needs_attention_left);
+  gtk_widget_insert_before (GTK_WIDGET (self->reordered_tab->separator),
+                            GTK_WIDGET (self), self->needs_attention_left);
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 }
@@ -1096,6 +1185,8 @@ reset_reorder_animations (AdwTabBox *self)
       l = l->prev;
       animate_reorder_offset (self, l->data, 0);
     }
+
+  update_separators (self);
 }
 
 static void
@@ -1167,6 +1258,8 @@ page_reordered_cb (AdwTabBox  *self,
   }
 
   self->continue_reorder = FALSE;
+
+  update_separators (self);
 }
 
 static void
@@ -1218,6 +1311,8 @@ update_drag_reodering (AdwTabBox *self)
 
     animate_reorder_offset (self, info, offset);
   }
+
+  update_separators (self);
 }
 
 static gboolean
@@ -1622,6 +1717,20 @@ allocate_tab (AdwGizmo *widget,
                        gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (-width_diff / 2, 0)));
 }
 
+static void
+state_flags_changed_cb (GtkWidget     *tab,
+                        GtkStateFlags  previous,
+                        AdwTabBox     *self)
+{
+  GtkStateFlags flags = gtk_widget_get_state_flags (tab);
+  GtkStateFlags mask = GTK_STATE_FLAG_PRELIGHT |
+                       GTK_STATE_FLAG_ACTIVE |
+                       GTK_STATE_FLAG_CHECKED;
+
+  if ((flags ^ previous) & mask)
+    update_separators (self);
+}
+
 static TabInfo *
 create_tab_info (AdwTabBox  *self,
                  AdwTabPage *page)
@@ -1650,10 +1759,15 @@ create_tab_info (AdwTabBox  *self,
                                    self->extra_drag_types,
                                    self->extra_drag_n_types);
 
+  info->separator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
+  gtk_widget_set_can_target (info->separator, FALSE);
+
   gtk_widget_set_parent (GTK_WIDGET (info->tab), info->container);
-  gtk_widget_set_parent (info->container, GTK_WIDGET (self));
+  gtk_widget_insert_before (info->separator, GTK_WIDGET (self), self->needs_attention_left);
+  gtk_widget_insert_before (info->container, GTK_WIDGET (self), self->needs_attention_left);
 
   g_signal_connect_object (info->tab, "extra-drag-drop", G_CALLBACK (extra_drag_drop_cb), self, 0);
+  g_signal_connect_object (info->tab, "state-flags-changed", G_CALLBACK (state_flags_changed_cb), self, 0);
 
   return info;
 }
@@ -1706,6 +1820,8 @@ page_attached_cb (AdwTabBox  *self,
     adw_tab_box_select_page (self, page);
   else
     scroll_to_tab_full (self, info, -1, FOCUS_ANIMATION_DURATION, TRUE);
+
+  update_separators (self);
 }
 
 /* Closing */
@@ -1734,6 +1850,8 @@ close_animation_done_cb (TabInfo *info)
   remove_and_free_tab_info (info);
 
   self->n_tabs--;
+
+  update_separators (self);
 }
 
 static void
@@ -2001,6 +2119,8 @@ insert_placeholder (AdwTabBox  *self,
                             G_CALLBACK (open_animation_done_cb), info);
 
   adw_animation_play (info->appear_animation);
+
+  update_separators (self);
 }
 
 static void
@@ -2086,6 +2206,8 @@ remove_animation_done_cb (TabInfo *info)
   self->n_tabs--;
 
   self->reorder_placeholder = NULL;
+
+  update_separators (self);
 }
 
 static gboolean
@@ -2843,15 +2965,12 @@ adw_tab_box_measure (GtkWidget      *widget,
   AdwTabBox *self = ADW_TAB_BOX (widget);
   int min, nat;
 
-  gtk_widget_measure (self->background, orientation, -1,
-                      &min, &nat, NULL, NULL);
-
   if (self->n_tabs == 0) {
     if (minimum)
-      *minimum = min;
+      *minimum = 0;
 
     if (natural)
-      *natural = nat;
+      *natural = 0;
 
     if (minimum_baseline)
       *minimum_baseline = -1;
@@ -2877,30 +2996,41 @@ adw_tab_box_measure (GtkWidget      *widget,
     }
 
     if (!self->pinned)
-      width += SPACING;
+     width += SPACING;
 
     width = MAX (self->last_width, width);
 
-    min = MAX (min, width);
-    nat = MAX (nat, width);
+    min = nat = width;
   } else {
     GList *l;
+    int child_min, child_nat;
 
     min = nat = 0;
 
     for (l = self->tabs; l; l = l->next) {
       TabInfo *info = l->data;
-      int child_min, child_nat;
 
       gtk_widget_measure (info->container, orientation, -1,
                           &child_min, &child_nat, NULL, NULL);
 
-      if (child_min > min)
-        min = child_min;
+      min = MAX (min, child_min);
+      nat = MAX (nat, child_nat);
 
-      if (child_nat > nat)
-        nat = child_nat;
+      gtk_widget_measure (info->separator, orientation, -1,
+                          &child_min, NULL, NULL, NULL);
+
+      min = MAX (min, child_min);
     }
+
+    gtk_widget_measure (self->needs_attention_left, orientation, -1,
+                        &child_min, NULL, NULL, NULL);
+
+    min = MAX (min, child_min);
+
+    gtk_widget_measure (self->needs_attention_right, orientation, -1,
+                        &child_min, NULL, NULL, NULL);
+
+    min = MAX (min, child_min);
   }
 
   if (minimum)
@@ -2928,8 +3058,8 @@ adw_tab_box_size_allocate (GtkWidget *widget,
   GtkAllocation child_allocation;
   int pos;
   double value;
-
-  gtk_widget_allocate (self->background, width, height, baseline, NULL);
+  int indicator_size;
+  GskTransform *transform;
 
   adw_tab_box_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
                        &self->allocated_width, NULL, NULL, NULL);
@@ -3002,6 +3132,8 @@ adw_tab_box_size_allocate (GtkWidget *widget,
 
   for (l = self->tabs; l; l = l->next) {
     TabInfo *info = l->data;
+    GtkAllocation separator_allocation;
+    int separator_width;
 
     if (!info->appear_animation)
       info->display_width = info->width;
@@ -3015,10 +3147,25 @@ adw_tab_box_size_allocate (GtkWidget *widget,
 
     child_allocation.x = ((info == self->reordered_tab) ? self->reorder_window_x : info->pos) - (int) floor (value);
     child_allocation.y = 0;
-    child_allocation.width = info->width;
+    child_allocation.width = MAX (0, info->width);
     child_allocation.height = height;
 
+    gtk_widget_measure (info->separator, GTK_ORIENTATION_HORIZONTAL, -1,
+                        &separator_width, NULL, NULL, NULL);
+    separator_allocation.x = child_allocation.x + child_allocation.width;
+    if (is_rtl) {
+      separator_allocation.x = child_allocation.x + child_allocation.width;
+      separator_allocation.x += (SPACING - separator_width) / 2;
+    } else {
+      separator_allocation.x = child_allocation.x;
+      separator_allocation.x -= (SPACING + separator_width) / 2;
+    }
+    separator_allocation.y = 0;
+    separator_allocation.width = separator_width;
+    separator_allocation.height = height;
+
     gtk_widget_size_allocate (info->container, &child_allocation, baseline);
+    gtk_widget_size_allocate (info->separator, &separator_allocation, baseline);
 
     pos += (is_rtl ? -1 : 1) * (info->width + SPACING);
   }
@@ -3045,58 +3192,124 @@ adw_tab_box_size_allocate (GtkWidget *widget,
     }
   }
 
+  gtk_widget_measure (self->needs_attention_left, GTK_ORIENTATION_HORIZONTAL, -1,
+                      &indicator_size, NULL, NULL, NULL);
+  gtk_widget_allocate (self->needs_attention_left, indicator_size, height, baseline, NULL);
+
+  gtk_widget_measure (self->needs_attention_right, GTK_ORIENTATION_HORIZONTAL, -1,
+                      &indicator_size, NULL, NULL, NULL);
+  transform = gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (width - indicator_size, 0));
+  gtk_widget_allocate (self->needs_attention_right, indicator_size, height, baseline, transform);
+
   update_visible (self);
 }
 
 static void
-snapshot_tab (AdwTabBox      *self,
-              GtkSnapshot    *snapshot,
-              TabInfo        *info,
-              cairo_region_t *clip_region)
+ensure_shader (AdwTabBox *self)
 {
-  cairo_rectangle_int_t rect = { 0, 0, 0, 0 };
-  gboolean clip = FALSE;
-  int pos, width, scroll_pos;
-  int i, n;
+  GtkNative *native;
+  GskRenderer *renderer;
+  GError *error = NULL;
 
-  if (gtk_widget_get_opacity (info->container) <= 0)
+  if (self->shader)
     return;
 
-  rect.height = gtk_widget_get_height (GTK_WIDGET (self));
-  scroll_pos = (int) floor (gtk_adjustment_get_value (self->adjustment));
+  self->shader = gsk_gl_shader_new_from_resource ("/org/gnome/Adwaita/glsl/fade.glsl");
 
-  pos = get_tab_position (self, info);
-  width = info->width;
+  native = gtk_widget_get_native (GTK_WIDGET (self));
+  renderer = gtk_native_get_renderer (native);
 
-  n = cairo_region_num_rectangles (clip_region);
-  for (i = 0; i < n; i++) {
-    cairo_rectangle_int_t clip_rect;
-    int x1, x2;
+  self->shader_compiled = gsk_gl_shader_compile (self->shader, renderer, &error);
 
-    cairo_region_get_rectangle (clip_region, i, &clip_rect);
-    x1 = clip_rect.x + scroll_pos;
-    x2 = x1 + clip_rect.width;
-
-    if (x1 < pos && x2 > pos + width) {
-      clip = FALSE;
-      break;
-    }
-
-    if (x2 < pos || x1 > pos + width)
-      continue;
-
-    gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (clip_rect.x, clip_rect.y, clip_rect.width, clip_rect.height));
-    gtk_widget_snapshot_child (GTK_WIDGET (self), info->container, snapshot);
-    gtk_snapshot_pop (snapshot);
-    clip = TRUE;
+  if (error) {
+    /* If shaders aren't supported, the error doesn't matter and we just
+     * silently fall back */
+    if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
+      g_critical ("Couldn't compile shader: %s\n", error->message);
   }
 
-  if (!clip)
-    gtk_widget_snapshot_child (GTK_WIDGET (self), info->container, snapshot);
+  g_clear_error (&error);
+}
 
-  rect.x = pos - scroll_pos;
-  rect.width = width;
-  cairo_region_subtract_rectangle (clip_region, &rect);
+static void
+snapshot_tabs (AdwTabBox   *self,
+               GtkSnapshot *snapshot)
+{
+  int w = gtk_widget_get_width (GTK_WIDGET (self));
+  int h = gtk_widget_get_height (GTK_WIDGET (self));
+  int scroll_start, scroll_end;
+  int reordered_pos = -1, reordered_width = -1;
+  GList *l;
+  gboolean is_rtl, is_clipping = FALSE;
+
+  scroll_start = (int) floor (gtk_adjustment_get_value (self->adjustment));
+  scroll_end = scroll_start + (int) ceil (gtk_adjustment_get_page_size (self->adjustment));
+  is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
+
+  if (self->reordered_tab && gtk_widget_get_opacity (self->reordered_tab->container) > 0) {
+    int clip_x, clip_width;
+
+    reordered_pos = get_tab_position (self, self->reordered_tab);
+    reordered_width = gtk_widget_get_allocated_width (self->reordered_tab->container);
+
+    if (is_rtl) {
+      clip_x = reordered_pos + reordered_width - scroll_start;
+      clip_width = w - clip_x;
+    } else {
+      clip_x = 0;
+      clip_width = reordered_pos - scroll_start;
+    }
+
+    gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (clip_x, 0, clip_width, h));
+    is_clipping = TRUE;
+  }
+
+  for (l = self->tabs; l; l = l->next) {
+    TabInfo *info = l->data;
+    int pos, width;
+
+    pos = get_tab_position (self, info);
+    width = gtk_widget_get_allocated_width (info->container);
+
+    if (pos + width < scroll_start)
+      continue;
+
+    if (pos > scroll_end)
+      continue;
+
+    if (info == self->reordered_tab)
+      continue;
+
+    if (is_clipping &&
+        reordered_pos > 0 && reordered_width > 0 &&
+        ((is_rtl && pos < reordered_pos) ||
+        (!is_rtl && pos + width > reordered_pos + reordered_width))) {
+      int clip_x, clip_width;
+
+      if (is_rtl) {
+        clip_x = 0;
+        clip_width = reordered_pos - scroll_start;
+      } else {
+        clip_x = reordered_pos + reordered_width - scroll_start;
+        clip_width = w - clip_x;
+      }
+
+      reordered_pos = reordered_width = -1;
+
+      gtk_snapshot_pop (snapshot);
+      gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (clip_x, 0, clip_width, h));
+    }
+
+    gtk_widget_snapshot_child (GTK_WIDGET (self), info->container, snapshot);
+    gtk_widget_snapshot_child (GTK_WIDGET (self), info->separator, snapshot);
+  }
+
+  if (is_clipping) {
+    gtk_snapshot_pop (snapshot);
+
+    gtk_widget_snapshot_child (GTK_WIDGET (self), self->reordered_tab->container, snapshot);
+    gtk_widget_snapshot_child (GTK_WIDGET (self), self->reordered_tab->separator, snapshot);
+  }
 }
 
 static void
@@ -3104,42 +3317,54 @@ adw_tab_box_snapshot (GtkWidget   *widget,
                       GtkSnapshot *snapshot)
 {
   AdwTabBox *self = ADW_TAB_BOX (widget);
-  int w = gtk_widget_get_width (widget);
-  int h = gtk_widget_get_height (widget);
-  cairo_rectangle_int_t rect = { 0, 0, 0, 0 };
-  cairo_region_t *region;
-  int i, n;
-  GList *l;
+  double value = gtk_adjustment_get_value (self->adjustment);
+  double page_size = gtk_adjustment_get_page_size (self->adjustment);
+  double upper = gtk_adjustment_get_upper (self->adjustment);
+  gboolean draw_fade = value > 0 || value + page_size < upper;
 
-  rect.width = w;
-  rect.height = h;
-  region = cairo_region_create_rectangle (&rect);
+  if (!self->n_tabs)
+    return;
 
-  if (self->reordered_tab)
-    snapshot_tab (self, snapshot, self->reordered_tab, region);
+  if (draw_fade) {
+    int width, height;
+    graphene_rect_t bounds;
 
-  if (self->selected_tab)
-    snapshot_tab (self, snapshot, self->selected_tab, region);
+    ensure_shader (self);
 
-  for (l = self->tabs; l; l = l->next) {
-    TabInfo *info = l->data;
+    width = gtk_widget_get_width (widget);
+    height = gtk_widget_get_height (widget);
 
-    if (info == self->reordered_tab || info == self->selected_tab)
-      continue;
+    graphene_rect_init (&bounds, 0, 0, width, height);
 
-    snapshot_tab (self, snapshot, info, region);
+    if (self->shader_compiled) {
+      gboolean fadeLeft = value > 0;
+      gboolean fadeRight = value + page_size < upper;
+
+      gtk_snapshot_push_gl_shader (snapshot, self->shader, &bounds,
+                                   gsk_gl_shader_format_args (self->shader,
+                                                              "offsetLeft", FADE_OFFSET,
+                                                              "offsetRight", FADE_OFFSET,
+                                                              "strengthLeft", fadeLeft ? 1.0f : 0.0f,
+                                                              "strengthRight", fadeRight ? 1.0f : 0.0f,
+                                                              "widthLeft", FADE_WIDTH,
+                                                              "widthRight", FADE_WIDTH,
+                                                              NULL));
+    } else {
+      gtk_snapshot_push_clip (snapshot, &bounds);
+    }
   }
 
-  n = cairo_region_num_rectangles (region);
-  for (i = 0; i < n; i++) {
-    cairo_region_get_rectangle (region, i, &rect);
+  snapshot_tabs (self, snapshot);
 
-    gtk_snapshot_push_clip (snapshot, &GRAPHENE_RECT_INIT (rect.x, rect.y, rect.width, rect.height));
-    gtk_widget_snapshot_child (widget, self->background, snapshot);
+  if (draw_fade) {
+    if (self->shader_compiled)
+      gtk_snapshot_gl_shader_pop_texture (snapshot);
+
     gtk_snapshot_pop (snapshot);
   }
 
-  cairo_region_destroy (region);
+  gtk_widget_snapshot_child (GTK_WIDGET (self), self->needs_attention_left, snapshot);
+  gtk_widget_snapshot_child (GTK_WIDGET (self), self->needs_attention_right, snapshot);
 }
 
 static gboolean
@@ -3162,6 +3387,8 @@ adw_tab_box_unrealize (GtkWidget *widget)
   g_clear_pointer ((GtkWidget **) &self->context_menu, gtk_widget_unparent);
 
   GTK_WIDGET_CLASS (adw_tab_box_parent_class)->unrealize (widget);
+
+  g_clear_object (&self->shader);
 }
 
 static void
@@ -3216,8 +3443,6 @@ adw_tab_box_dispose (GObject *object)
 
   g_clear_handle_id (&self->drop_switch_timeout_id, g_source_remove);
 
-  g_clear_pointer (&self->background, gtk_widget_unparent);
-
   self->drag_gesture = NULL;
   self->tab_bar = NULL;
   adw_tab_box_set_view (self, NULL);
@@ -3225,6 +3450,9 @@ adw_tab_box_dispose (GObject *object)
 
   g_clear_object (&self->resize_animation);
   g_clear_object (&self->scroll_animation);
+
+  g_clear_pointer (&self->needs_attention_left, gtk_widget_unparent);
+  g_clear_pointer (&self->needs_attention_right, gtk_widget_unparent);
 
   G_OBJECT_CLASS (adw_tab_box_parent_class)->dispose (object);
 }
@@ -3258,14 +3486,6 @@ adw_tab_box_get_property (GObject    *object,
 
   case PROP_VIEW:
     g_value_set_object (value, self->view);
-    break;
-
-  case PROP_NEEDS_ATTENTION_LEFT:
-    g_value_set_boolean (value, self->needs_attention_left);
-    break;
-
-  case PROP_NEEDS_ATTENTION_RIGHT:
-    g_value_set_boolean (value, self->needs_attention_right);
     break;
 
   case PROP_RESIZE_FROZEN:
@@ -3361,20 +3581,6 @@ adw_tab_box_class_init (AdwTabBoxClass *klass)
                          ADW_TYPE_TAB_VIEW,
                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
-  props[PROP_NEEDS_ATTENTION_LEFT] =
-    g_param_spec_boolean ("needs-attention-left",
-                          "Needs Attention Left",
-                          "Needs Attention Left",
-                          FALSE,
-                          G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
-
-  props[PROP_NEEDS_ATTENTION_RIGHT] =
-    g_param_spec_boolean ("needs-attention-right",
-                          "Needs Attention Right",
-                          "Needs Attention Right",
-                          FALSE,
-                          G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
-
   props[PROP_RESIZE_FROZEN] =
     g_param_spec_boolean ("resize-frozen",
                           "Resize Frozen",
@@ -3434,16 +3640,12 @@ adw_tab_box_init (AdwTabBox *self)
 {
   GtkEventController *controller;
   AdwAnimationTarget *target;
+  GtkWidget *widget;
 
   self->can_remove_placeholder = TRUE;
   self->expand_tabs = TRUE;
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
-
-  self->background = adw_gizmo_new ("background", NULL, NULL, NULL, NULL, NULL, NULL);
-  gtk_widget_set_can_target (self->background, FALSE);
-  gtk_widget_set_can_focus (self->background, FALSE);
-  gtk_widget_set_parent (self->background, GTK_WIDGET (self));
 
   controller = gtk_event_controller_motion_new ();
   g_signal_connect_swapped (controller, "motion", G_CALLBACK (motion_cb), self);
@@ -3511,6 +3713,28 @@ adw_tab_box_init (AdwTabBox *self)
 
   g_signal_connect_swapped (self->scroll_animation, "done",
                             G_CALLBACK (scroll_animation_done_cb), self);
+
+  self->needs_attention_left = gtk_revealer_new ();
+  gtk_revealer_set_transition_type (GTK_REVEALER (self->needs_attention_left),
+                                    GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
+  gtk_widget_set_can_target (self->needs_attention_left, FALSE);
+  gtk_widget_set_can_focus (self->needs_attention_left, FALSE);
+  gtk_widget_set_parent (self->needs_attention_left, GTK_WIDGET (self));
+
+  widget = adw_gizmo_new ("indicator", NULL, NULL, NULL, NULL, NULL, NULL);
+  gtk_widget_add_css_class (widget, "left");
+  gtk_revealer_set_child (GTK_REVEALER (self->needs_attention_left), widget);
+
+  self->needs_attention_right = gtk_revealer_new ();
+  gtk_revealer_set_transition_type (GTK_REVEALER (self->needs_attention_right),
+                                    GTK_REVEALER_TRANSITION_TYPE_CROSSFADE);
+  gtk_widget_set_can_target (self->needs_attention_right, FALSE);
+  gtk_widget_set_can_focus (self->needs_attention_right, FALSE);
+  gtk_widget_set_parent (self->needs_attention_right, GTK_WIDGET (self));
+
+  widget = adw_gizmo_new ("indicator", NULL, NULL, NULL, NULL, NULL, NULL);
+  gtk_widget_add_css_class (widget, "right");
+  gtk_revealer_set_child (GTK_REVEALER (self->needs_attention_right), widget);
 }
 
 void

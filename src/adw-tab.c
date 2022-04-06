@@ -18,7 +18,13 @@
 #define CLOSE_BTN_ANIMATION_DURATION 150
 
 #define BASE_WIDTH 118
-#define BASE_WIDTH_PINNED 28
+#define BASE_WIDTH_PINNED 26
+
+#define ATTENTION_INDICATOR_PINNED_WIDTH 14
+#define ATTENTION_INDICATOR_WIDTH_MULTIPLIER 0.6
+#define ATTENTION_INDICATOR_MIN_WIDTH 20
+#define ATTENTION_INDICATOR_MAX_WIDTH 180
+#define ATTENTION_INDICATOR_ANIMATION_DURATION 250
 
 struct _AdwTab
 {
@@ -31,6 +37,7 @@ struct _AdwTab
   GtkImage *indicator_icon;
   GtkWidget *indicator_btn;
   GtkWidget *close_btn;
+  GtkWidget *needs_attention_indicator;
   GtkDropTarget *drop_target;
 
   AdwTabView *view;
@@ -47,6 +54,7 @@ struct _AdwTab
   gboolean fully_visible;
 
   AdwAnimation *close_btn_animation;
+  AdwAnimation *needs_attention_animation;
 
   GskGLShader *shader;
   gboolean shader_compiled;
@@ -91,6 +99,13 @@ close_btn_animation_value_cb (double  value,
   gtk_widget_set_opacity (self->close_btn, value);
   gtk_widget_set_can_target (self->close_btn, value > 0);
   gtk_widget_queue_draw (GTK_WIDGET (self));
+}
+
+static void
+attention_indicator_animation_value_cb (double  value,
+                                        AdwTab *self)
+{
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
 }
 
 static void
@@ -197,8 +212,15 @@ update_indicator (AdwTab *self)
 static void
 update_needs_attention (AdwTab *self)
 {
-  set_style_class (GTK_WIDGET (self), "needs-attention",
-                   adw_tab_page_get_needs_attention (self->page));
+  gboolean needs_attention = adw_tab_page_get_needs_attention (self->page);
+
+  adw_timed_animation_set_value_from (ADW_TIMED_ANIMATION (self->needs_attention_animation),
+                                      adw_animation_get_value (self->needs_attention_animation));
+  adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->needs_attention_animation),
+                                    needs_attention ? 1 : 0);
+  adw_animation_play (self->needs_attention_animation);
+
+  set_style_class (GTK_WIDGET (self), "needs-attention", needs_attention);
 }
 
 static void
@@ -381,6 +403,11 @@ adw_tab_measure (GtkWidget      *widget,
                         &child_min, &child_nat, NULL, NULL);
     min = MAX (min, child_min);
     nat = MAX (nat, child_nat);
+
+    gtk_widget_measure (self->needs_attention_indicator, orientation, for_size,
+                        &child_min, &child_nat, NULL, NULL);
+    min = MAX (min, child_min);
+    nat = MAX (nat, child_nat);
   }
 
   if (minimum)
@@ -426,6 +453,22 @@ allocate_child (GtkWidget *child,
   gtk_widget_size_allocate (child, &child_alloc, baseline);
 }
 
+static int
+get_attention_indicator_width (AdwTab *self,
+                               int     center_width)
+{
+  double base_width;
+
+  if (self->pinned) {
+    base_width = ATTENTION_INDICATOR_PINNED_WIDTH;
+  } else {
+    base_width = center_width * ATTENTION_INDICATOR_WIDTH_MULTIPLIER;
+    base_width = CLAMP (base_width, ATTENTION_INDICATOR_MIN_WIDTH, ATTENTION_INDICATOR_MAX_WIDTH);
+  }
+
+  return base_width * adw_animation_get_value (self->needs_attention_animation);
+}
+
 static void
 adw_tab_size_allocate (GtkWidget *widget,
                        int        width,
@@ -433,14 +476,16 @@ adw_tab_size_allocate (GtkWidget *widget,
                        int        baseline)
 {
   AdwTab *self = ADW_TAB (widget);
-  int indicator_width, close_width, icon_width, title_width;
+  int indicator_width, close_width, icon_width, title_width, needs_attention_width;
   int center_x, center_width = 0;
   int start_width = 0, end_width = 0;
+  int needs_attention_x;
 
   measure_child (self->icon_stack, height, &icon_width);
   measure_child (self->title, height, &title_width);
   measure_child (self->indicator_btn, height, &indicator_width);
   measure_child (self->close_btn, height, &close_width);
+  measure_child (self->needs_attention_indicator, height, &needs_attention_width);
 
   if (gtk_widget_get_visible (self->indicator_btn)) {
     if (self->pinned) {
@@ -489,6 +534,13 @@ adw_tab_size_allocate (GtkWidget *widget,
                         gtk_widget_get_visible (self->close_btn) &&
                         center_x + center_width > width - close_width;
 
+  needs_attention_width = MAX (needs_attention_width,
+                               get_attention_indicator_width (self, center_width));
+  needs_attention_x = (width - needs_attention_width) / 2;
+
+  allocate_child (self->needs_attention_indicator, width, height,
+                  needs_attention_x, needs_attention_width, baseline);
+
   if (gtk_widget_get_visible (self->icon_stack)) {
     allocate_child (self->icon_stack, width, height,
                     center_x, icon_width, baseline);
@@ -530,6 +582,7 @@ adw_tab_snapshot (GtkWidget   *widget,
   float opacity = gtk_widget_get_opacity (self->close_btn);
   gboolean draw_fade = self->close_overlap && opacity > 0;
 
+  gtk_widget_snapshot_child (widget, self->needs_attention_indicator, snapshot);
   gtk_widget_snapshot_child (widget, self->indicator_btn, snapshot);
   gtk_widget_snapshot_child (widget, self->icon_stack, snapshot);
 
@@ -697,10 +750,12 @@ adw_tab_dispose (GObject *object)
 
   g_clear_object (&self->shader);
   g_clear_object (&self->close_btn_animation);
+  g_clear_object (&self->needs_attention_animation);
   gtk_widget_unparent (self->indicator_btn);
   gtk_widget_unparent (self->icon_stack);
   gtk_widget_unparent (self->title);
   gtk_widget_unparent (self->close_btn);
+  gtk_widget_unparent (self->needs_attention_indicator);
 
   G_OBJECT_CLASS (adw_tab_parent_class)->dispose (object);
 }
@@ -780,6 +835,7 @@ adw_tab_class_init (AdwTabClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwTab, indicator_icon);
   gtk_widget_class_bind_template_child (widget_class, AdwTab, indicator_btn);
   gtk_widget_class_bind_template_child (widget_class, AdwTab, close_btn);
+  gtk_widget_class_bind_template_child (widget_class, AdwTab, needs_attention_indicator);
   gtk_widget_class_bind_template_child (widget_class, AdwTab, drop_target);
   gtk_widget_class_bind_template_callback (widget_class, close_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, indicator_clicked_cb);
@@ -814,6 +870,16 @@ adw_tab_init (AdwTab *self)
                              CLOSE_BTN_ANIMATION_DURATION, target);
 
   adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->close_btn_animation),
+                                  ADW_EASE_IN_OUT_CUBIC);
+
+  target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
+                                              attention_indicator_animation_value_cb,
+                                              self, NULL);
+  self->needs_attention_animation =
+    adw_timed_animation_new (GTK_WIDGET (self), 0, 0,
+                             ATTENTION_INDICATOR_ANIMATION_DURATION, target);
+
+  adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->needs_attention_animation),
                                   ADW_EASE_IN_OUT_CUBIC);
 }
 

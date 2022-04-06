@@ -187,46 +187,6 @@ page_detached_cb (AdwTabBar  *self,
   g_signal_handlers_disconnect_by_func (page, notify_pinned_cb, self);
 }
 
-static void
-update_needs_attention (AdwTabBar *self,
-                        gboolean   pinned)
-{
-  GtkStyleContext *context;
-  gboolean left, right;
-
-  g_object_get (pinned ? self->pinned_box : self->box,
-                "needs-attention-left", &left,
-                "needs-attention-right", &right,
-                NULL);
-
-  if (pinned)
-    context = gtk_widget_get_style_context (GTK_WIDGET (self->pinned_scrolled_window));
-  else
-    context = gtk_widget_get_style_context (GTK_WIDGET (self->scrolled_window));
-
-  if (left)
-    gtk_style_context_add_class (context, "needs-attention-left");
-  else
-    gtk_style_context_remove_class (context, "needs-attention-left");
-
-  if (right)
-    gtk_style_context_add_class (context, "needs-attention-right");
-  else
-    gtk_style_context_remove_class (context, "needs-attention-right");
-}
-
-static void
-notify_needs_attention_cb (AdwTabBar *self)
-{
-  update_needs_attention (self, FALSE);
-}
-
-static void
-notify_needs_attention_pinned_cb (AdwTabBar *self)
-{
-  update_needs_attention (self, TRUE);
-}
-
 static inline gboolean
 is_overflowing (GtkAdjustment *adj)
 {
@@ -609,8 +569,6 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwTabBar, pinned_scrolled_window);
   gtk_widget_class_bind_template_child (widget_class, AdwTabBar, start_action_bin);
   gtk_widget_class_bind_template_child (widget_class, AdwTabBar, end_action_bin);
-  gtk_widget_class_bind_template_callback (widget_class, notify_needs_attention_cb);
-  gtk_widget_class_bind_template_callback (widget_class, notify_needs_attention_pinned_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_resize_frozen_cb);
   gtk_widget_class_bind_template_callback (widget_class, stop_kinetic_scrolling_cb);
   gtk_widget_class_bind_template_callback (widget_class, extra_drag_drop_cb);
@@ -1093,4 +1051,20 @@ adw_tab_bar_get_is_overflowing (AdwTabBar *self)
   g_return_val_if_fail (ADW_IS_TAB_BAR (self), FALSE);
 
   return self->is_overflowing;
+}
+
+AdwTabBox *
+adw_tab_bar_get_tab_box (AdwTabBar *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_BAR (self), NULL);
+
+  return self->box;
+}
+
+AdwTabBox *
+adw_tab_bar_get_pinned_tab_box (AdwTabBar *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_BAR (self), NULL);
+
+  return self->pinned_box;
 }

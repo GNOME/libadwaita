@@ -88,5 +88,11 @@
         </style>
       </object>
     </child>
+    <child>
+      <object class="AdwGizmo" id="needs_attention_indicator">
+        <property name="css-name">indicator</property>
+        <property name="valign">end</property>
+      </object>
+    </child>
   </template>
 </interface>

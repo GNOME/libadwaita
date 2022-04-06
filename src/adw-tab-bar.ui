@@ -33,8 +33,6 @@
                   <object class="AdwTabBox" id="pinned_box">
                     <property name="pinned">True</property>
                     <property name="tab-bar">AdwTabBar</property>
-                    <signal name="notify::needs-attention-left" handler="notify_needs_attention_pinned_cb" swapped="true"/>
-                    <signal name="notify::needs-attention-right" handler="notify_needs_attention_pinned_cb" swapped="true"/>
                     <signal name="notify::resize-frozen" handler="notify_resize_frozen_cb" swapped="true"/>
                     <signal name="stop-kinetic-scrolling" handler="stop_kinetic_scrolling_cb" object="pinned_scrolled_window" swapped="true"/>
                     <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
@@ -52,8 +50,6 @@
                 <child>
                   <object class="AdwTabBox" id="box">
                     <property name="tab-bar">AdwTabBar</property>
-                    <signal name="notify::needs-attention-left" handler="notify_needs_attention_cb" swapped="true"/>
-                    <signal name="notify::needs-attention-right" handler="notify_needs_attention_cb" swapped="true"/>
                     <signal name="notify::resize-frozen" handler="notify_resize_frozen_cb" swapped="true"/>
                     <signal name="stop-kinetic-scrolling" handler="stop_kinetic_scrolling_cb" object="scrolled_window" swapped="true"/>
                     <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
