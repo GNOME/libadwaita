@@ -29,7 +29,7 @@ G_DECLARE_FINAL_TYPE (AdwToast, adw_toast, ADW, TOAST, GObject)
 
 ADW_AVAILABLE_IN_ALL
 AdwToast *adw_toast_new        (const char *title) G_GNUC_WARN_UNUSED_RESULT;
-ADW_AVAILABLE_IN_ALL
+ADW_AVAILABLE_IN_1_2
 AdwToast *adw_toast_new_format (const char *format,
                                 ...) G_GNUC_PRINTF (1, 2) G_GNUC_WARN_UNUSED_RESULT;
 
@@ -76,9 +76,9 @@ ADW_AVAILABLE_IN_ALL
 void  adw_toast_set_timeout (AdwToast *self,
                              guint     timeout);
 
-ADW_AVAILABLE_IN_ALL
+ADW_AVAILABLE_IN_1_2
 GtkWidget *adw_toast_get_custom_title (AdwToast *self);
-ADW_AVAILABLE_IN_ALL
+ADW_AVAILABLE_IN_1_2
 void       adw_toast_set_custom_title (AdwToast  *self,
                                        GtkWidget *widget);
 
