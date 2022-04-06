@@ -13,7 +13,7 @@
 #include "adw-bidi-private.h"
 #include "adw-macros-private.h"
 
-#define FADE_WIDTH 18
+#define FADE_WIDTH 18.0f
 
 struct _AdwFadingLabel
 {
@@ -161,6 +161,8 @@ adw_fading_label_snapshot (GtkWidget   *widget,
                                                             "offsetRight", 0.0f,
                                                             "strengthLeft", align > 0 ? 1.0f : 0.0f,
                                                             "strengthRight", align < 1 ? 1.0f : 0.0f,
+                                                            "widthLeft", FADE_WIDTH,
+                                                            "widthRight", FADE_WIDTH,
                                                             NULL));
   } else {
     gtk_snapshot_push_clip (snapshot, &bounds);

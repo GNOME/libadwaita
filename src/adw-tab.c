@@ -14,7 +14,7 @@
 #include "adw-macros-private.h"
 #include "adw-timed-animation.h"
 
-#define FADE_WIDTH 18
+#define FADE_WIDTH 18.0f
 #define CLOSE_BTN_ANIMATION_DURATION 150
 
 #define BASE_WIDTH 118
@@ -553,6 +553,8 @@ adw_tab_snapshot (GtkWidget   *widget,
                                                               "offsetRight", is_rtl ? 0.0f : offset,
                                                               "strengthLeft", is_rtl ? opacity : 0.0f,
                                                               "strengthRight", is_rtl ? 0.0f : opacity,
+                                                              "widthLeft", FADE_WIDTH,
+                                                              "widthRight", FADE_WIDTH,
                                                               NULL));
     } else {
       bounds.size.width -= offset;
