@@ -56,7 +56,17 @@ tabbar {
 
   .start-action,
   .end-action {
-    padding: 3px;
+    padding: 5px;
+  }
+
+  .start-action:dir(ltr),
+  .end-action:dir(rtl) {
+    padding-right: 0;
+  }
+
+  .start-action:dir(rtl),
+  .end-action:dir(ltr) {
+    padding-left: 0;
   }
 
   &:not(.inline) {
