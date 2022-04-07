@@ -1978,7 +1978,7 @@ adw_leaflet_snapshot (GtkWidget   *widget,
           shadow_rect.y = 0;
         } else {
           shadow_rect.y = shadow_rect.height;
-          shadow_rect.height = overlap_child->alloc.height - shadow_rect.height;
+          shadow_rect.height = overlap_child->alloc.height;
         }
       } else {
         if (is_over == is_rtl) {
@@ -1986,7 +1986,7 @@ adw_leaflet_snapshot (GtkWidget   *widget,
           shadow_rect.x = 0;
         } else {
           shadow_rect.x = shadow_rect.width;
-          shadow_rect.width = overlap_child->alloc.width - shadow_rect.width;
+          shadow_rect.width = overlap_child->alloc.width;
         }
       }
 
