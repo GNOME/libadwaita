@@ -84,6 +84,7 @@ tabbar {
       > .start-action,
       > .end-action {
         filter: opacity(0.5);
+        transition: $backdrop_transition;
       }
     }
   }
