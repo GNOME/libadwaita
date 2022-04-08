@@ -1338,13 +1338,11 @@ drag_autoscroll_cb (GtkWidget     *widget,
     gtk_widget_measure (self->reordered_tab->container,
                         GTK_ORIENTATION_HORIZONTAL, -1,
                         NULL, &tab_width, NULL, NULL);
-    tab_width += 2 * SPACING;
     x = (double) self->reorder_x - SPACING;
   } else if (self->drop_target_tab) {
     gtk_widget_measure (self->drop_target_tab->container,
                         GTK_ORIENTATION_HORIZONTAL, -1,
                         NULL, &tab_width, NULL, NULL);
-    tab_width += 2 * SPACING;
     x = (double) self->drop_target_x - SPACING - tab_width / 2;
   } else {
     return G_SOURCE_CONTINUE;
