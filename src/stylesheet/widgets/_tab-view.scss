@@ -20,6 +20,13 @@ tabbar {
         opacity: 0;
       }
     }
+
+    > revealer > indicator {
+      min-width: 2px;
+      border-radius: 2px;
+      margin: 9px 6px;
+      background: if($contrast == 'high', $accent_color, gtkalpha($accent_color, 0.5));
+    }
   }
 
   tab {
