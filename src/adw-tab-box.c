@@ -886,7 +886,7 @@ animate_scroll_relative (AdwTabBox *self,
   animate_scroll (self, NULL, current_value + delta, duration);
 }
 
-static void
+static gboolean
 scroll_to_tab_full (AdwTabBox *self,
                     TabInfo   *info,
                     int        pos,
@@ -897,7 +897,7 @@ scroll_to_tab_full (AdwTabBox *self,
   double padding, value, page_size;
 
   if (!self->adjustment)
-    return;
+    return FALSE;
 
   tab_width = info->width;
 
@@ -909,7 +909,7 @@ scroll_to_tab_full (AdwTabBox *self,
 
     gtk_widget_queue_allocate (GTK_WIDGET (self));
 
-    return;
+    return FALSE;
   }
 
   if (info->appear_animation)
@@ -927,14 +927,16 @@ scroll_to_tab_full (AdwTabBox *self,
     animate_scroll (self, info, -padding, duration);
   else if (pos + tab_width + SPACING > value + page_size)
     animate_scroll (self, info, tab_width + padding - page_size, duration);
+
+  return TRUE;
 }
 
-static void
+static gboolean
 scroll_to_tab (AdwTabBox *self,
                TabInfo   *info,
                guint      duration)
 {
-  scroll_to_tab_full (self, info, -1, duration, FALSE);
+  return scroll_to_tab_full (self, info, -1, duration, FALSE);
 }
 
 static gboolean
@@ -3175,12 +3177,12 @@ adw_tab_box_size_allocate (GtkWidget *widget,
     pos += (is_rtl ? -1 : 1) * (info->width + SPACING);
   }
 
-  if (self->scheduled_scroll.info) {
-    scroll_to_tab_full (self,
-                        self->scheduled_scroll.info,
-                        self->scheduled_scroll.pos,
-                        self->scheduled_scroll.duration,
-                        self->scheduled_scroll.keep_selected_visible);
+  if (self->scheduled_scroll.info &&
+      scroll_to_tab_full (self,
+                          self->scheduled_scroll.info,
+                          self->scheduled_scroll.pos,
+                          self->scheduled_scroll.duration,
+                          self->scheduled_scroll.keep_selected_visible)) {
     self->scheduled_scroll.info = NULL;
   }
 
