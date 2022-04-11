@@ -67,6 +67,7 @@ typedef struct {
   GtkWidget *container;
   GtkWidget *separator;
 
+  int unshifted_pos;
   int pos;
   int width;
   int last_width;
@@ -117,7 +118,6 @@ struct _AdwTabBox
   TabInfo *reordered_tab;
   AdwAnimation *reorder_animation;
 
-  int reorder_start_pos;
   int reorder_x;
   int reorder_y;
   int reorder_index;
@@ -1274,7 +1274,8 @@ page_reordered_cb (AdwTabBox  *self,
 static void
 update_drag_reodering (AdwTabBox *self)
 {
-  gboolean is_rtl, after_selected, found_index;
+  gboolean is_rtl;
+  int old_index = -1, new_index = -1;
   int x;
   int i = 0;
   int width;
@@ -1292,34 +1293,44 @@ update_drag_reodering (AdwTabBox *self)
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 
   is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
-  after_selected = FALSE;
-  found_index = FALSE;
 
   for (l = self->tabs; l; l = l->next) {
     TabInfo *info = l->data;
-    int center = info->pos - calculate_tab_offset (self, info, FALSE) + info->width / 2;
+    int center = info->unshifted_pos + info->width / 2;
+
+    if (info == self->reordered_tab)
+      old_index = i;
+
+    if (x + width + SPACING > center && center > x - SPACING && new_index < 0)
+      new_index = i;
+
+    if (old_index >= 0 && new_index >= 0)
+      break;
+
+    i++;
+  }
+
+  if (new_index < 0)
+    new_index = g_list_length (self->tabs) - 1;
+
+  i = 0;
+
+  for (l = self->tabs; l; l = l->next) {
+    TabInfo *info = l->data;
     double offset = 0;
 
-    if (x + width > center && center > x &&
-        (!found_index || after_selected)) {
-      self->reorder_index = i;
-      found_index = TRUE;
-    }
+    if (i > old_index && i <= new_index)
+      offset = is_rtl ? 1 : -1;
+
+    if (i < old_index && i >= new_index)
+      offset = is_rtl ? -1 : 1;
 
     i++;
 
-    if (info == self->reordered_tab) {
-      after_selected = TRUE;
-      continue;
-    }
-
-    if (after_selected != is_rtl && x + width > center)
-      offset = -1;
-    else if (after_selected == is_rtl && x < center)
-      offset = 1;
-
     animate_reorder_offset (self, info, offset);
   }
+
+  self->reorder_index = new_index;
 
   update_separators (self);
 }
@@ -1345,7 +1356,7 @@ drag_autoscroll_cb (GtkWidget     *widget,
     gtk_widget_measure (self->drop_target_tab->container,
                         GTK_ORIENTATION_HORIZONTAL, -1,
                         NULL, &tab_width, NULL, NULL);
-    x = (double) self->drop_target_x - SPACING - tab_width / 2;
+    x = (double) self->drop_target_x - tab_width / 2;
   } else {
     return G_SOURCE_CONTINUE;
   }
@@ -1491,9 +1502,7 @@ reorder_begin_cb (AdwTabBox  *self,
                   double      start_y,
                   GtkGesture *gesture)
 {
-  self->reorder_start_pos = gtk_adjustment_get_value (self->adjustment);
-
-  start_x += self->reorder_start_pos;
+  start_x += gtk_adjustment_get_value (self->adjustment);
 
   self->pressed_tab = find_tab_info_at (self, start_x);
 
@@ -1747,6 +1756,7 @@ create_tab_info (AdwTabBox  *self,
   info = g_new0 (TabInfo, 1);
   info->box = self;
   info->page = page;
+  info->unshifted_pos = -1;
   info->pos = -1;
   info->width = -1;
   info->container = adw_gizmo_new ("tabboxchild", measure_tab, allocate_tab,
@@ -3148,6 +3158,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
     else if (info->page && info != self->reorder_placeholder)
       info->display_width = predict_tab_width (self, info, FALSE);
 
+    info->unshifted_pos = pos;
     info->pos = pos + calculate_tab_offset (self, info, FALSE);
 
     if (is_rtl)
