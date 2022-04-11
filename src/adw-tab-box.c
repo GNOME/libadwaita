@@ -1826,7 +1826,7 @@ page_attached_cb (AdwTabBox  *self,
   if (page == adw_tab_view_get_selected_page (self->view))
     adw_tab_box_select_page (self, page);
   else
-    scroll_to_tab_full (self, info, -1, FOCUS_ANIMATION_DURATION, TRUE);
+    scroll_to_tab_full (self, info, -1, OPEN_ANIMATION_DURATION, TRUE);
 
   update_separators (self);
 }
