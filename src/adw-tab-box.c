@@ -2929,6 +2929,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
                            int        baseline)
 {
   AdwTabBox *self = ADW_TAB_BOX (widget);
+  AdwAnimationState state;
   gboolean is_rtl;
   GList *l;
   GtkAllocation child_allocation;
@@ -3038,7 +3039,8 @@ adw_tab_box_size_allocate (GtkWidget *widget,
     self->scheduled_scroll.info = NULL;
   }
 
-  if (adw_animation_get_state (self->scroll_animation) != ADW_ANIMATION_IDLE) {
+  state = adw_animation_get_state (self->scroll_animation);
+  if (state == ADW_ANIMATION_PLAYING || state == ADW_ANIMATION_FINISHED) {
     self->block_scrolling = TRUE;
     gtk_adjustment_set_value (self->adjustment,
                               get_scroll_animation_value (self));
