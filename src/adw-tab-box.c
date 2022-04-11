@@ -3313,12 +3313,8 @@ snapshot_tabs (AdwTabBox   *self,
     gtk_widget_snapshot_child (GTK_WIDGET (self), info->separator, snapshot);
   }
 
-  if (is_clipping) {
+  if (is_clipping)
     gtk_snapshot_pop (snapshot);
-
-    gtk_widget_snapshot_child (GTK_WIDGET (self), self->reordered_tab->container, snapshot);
-    gtk_widget_snapshot_child (GTK_WIDGET (self), self->reordered_tab->separator, snapshot);
-  }
 }
 
 static void
@@ -3370,6 +3366,11 @@ adw_tab_box_snapshot (GtkWidget   *widget,
       gtk_snapshot_gl_shader_pop_texture (snapshot);
 
     gtk_snapshot_pop (snapshot);
+  }
+
+  if (self->reordered_tab && gtk_widget_get_opacity (self->reordered_tab->container) > 0) {
+    gtk_widget_snapshot_child (GTK_WIDGET (self), self->reordered_tab->container, snapshot);
+    gtk_widget_snapshot_child (GTK_WIDGET (self), self->reordered_tab->separator, snapshot);
   }
 
   gtk_widget_snapshot_child (GTK_WIDGET (self), self->needs_attention_left, snapshot);
