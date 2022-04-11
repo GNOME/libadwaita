@@ -849,12 +849,6 @@ adjustment_value_changed_cb (AdwTabBox *self)
 }
 
 static void
-scroll_animation_done_cb (AdwTabBox *self)
-{
-  self->scroll_animation_done = TRUE;
-}
-
-static void
 animate_scroll (AdwTabBox *self,
                 TabInfo   *info,
                 double     offset,
@@ -981,6 +975,12 @@ scroll_animation_cb (double     value,
                      GtkWidget *self)
 {
   gtk_widget_queue_resize (self);
+}
+
+static void
+scroll_animation_done_cb (AdwTabBox *self)
+{
+  self->scroll_animation_done = TRUE;
 }
 
 /* Reordering */
