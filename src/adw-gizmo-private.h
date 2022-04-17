@@ -56,6 +56,6 @@ GtkWidget *adw_gizmo_new_with_role (const char            *css_name,
                                     AdwGizmoSnapshotFunc   snapshot_func,
                                     AdwGizmoContainsFunc   contains_func,
                                     AdwGizmoFocusFunc      focus_func,
-                                    AdwGizmoGrabFocusFunc  grab_focus_func);
+                                    AdwGizmoGrabFocusFunc  grab_focus_func) G_GNUC_WARN_UNUSED_RESULT;
 
 G_END_DECLS
