@@ -649,6 +649,7 @@ adw_avatar_set_custom_image (AdwAvatar    *self,
     gtk_widget_remove_css_class (self->gizmo, "image");
   }
 
+  update_initials (self);
   update_visibility (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CUSTOM_IMAGE]);
