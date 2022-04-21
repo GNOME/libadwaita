@@ -189,3 +189,53 @@ adw_gizmo_new_with_role (const char            *css_name,
 
   return GTK_WIDGET (gizmo);
 }
+
+void
+adw_gizmo_set_measure_func (AdwGizmo            *self,
+                            AdwGizmoMeasureFunc  measure_func)
+{
+  self->measure_func = measure_func;
+
+  gtk_widget_queue_resize (GTK_WIDGET (self));
+}
+
+void
+adw_gizmo_set_allocate_func (AdwGizmo             *self,
+                             AdwGizmoAllocateFunc  allocate_func)
+{
+  self->allocate_func = allocate_func;
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+}
+
+void
+adw_gizmo_set_snapshot_func (AdwGizmo             *self,
+                             AdwGizmoSnapshotFunc  snapshot_func)
+{
+  self->snapshot_func = snapshot_func;
+
+  gtk_widget_queue_draw (GTK_WIDGET (self));
+}
+
+void
+adw_gizmo_set_contains_func (AdwGizmo             *self,
+                             AdwGizmoContainsFunc  contains_func)
+{
+  self->contains_func = contains_func;
+
+  gtk_widget_queue_resize (GTK_WIDGET (self));
+}
+
+void
+adw_gizmo_set_focus_func (AdwGizmo          *self,
+                          AdwGizmoFocusFunc  focus_func)
+{
+  self->focus_func = focus_func;
+}
+
+void
+adw_gizmo_set_grab_focus_func (AdwGizmo              *self,
+                               AdwGizmoGrabFocusFunc  grab_focus_func)
+{
+  self->grab_focus_func = grab_focus_func;
+}
