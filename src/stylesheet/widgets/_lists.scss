@@ -85,6 +85,7 @@ row {
   > box.header {
     margin-left: 12px;
     margin-right: 12px;
+    border-spacing: 12px;
     min-height: 50px;
 
     > .icon:disabled {
@@ -95,6 +96,11 @@ row {
       margin-top: 6px;
       margin-bottom: 6px;
       border-spacing: 3px;
+    }
+
+    > .prefixes,
+    > .suffixes {
+      border-spacing: 12px;
     }
   }
 }
