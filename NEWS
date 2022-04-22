@@ -1,4 +1,22 @@
 =============
+Version 1.0.4
+=============
+
+- AdwAvatar
+  - Fix initials not updating after setting custom-image
+- AdwSplitButton:
+  - Avoid state changes during dispose
+- AdwViewSwitcherTitle
+  - Clear pending idle callback on unrealize
+- AdwTabBar
+  - Ensure indicators are clickable with inverted=true
+  - Fix resize deferring with non-expanded tabs
+  - Fix scroll animation stopping too early
+- Mention AdwComboRow:selected type in migration guide
+- Fix a build warning in AdwCarouselIndicatorDots
+- Fix a Meson error when using as a subproject
+
+=============
 Version 1.0.3
 =============
 
