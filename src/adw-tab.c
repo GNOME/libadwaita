@@ -11,6 +11,7 @@
 
 #include "adw-bidi-private.h"
 #include "adw-fading-label-private.h"
+#include "adw-gizmo-private.h"
 #include "adw-macros-private.h"
 #include "adw-timed-animation.h"
 
@@ -853,6 +854,7 @@ adw_tab_class_init (AdwTabClass *klass)
   gtk_widget_class_set_css_name (widget_class, "tab");
 
   g_type_ensure (ADW_TYPE_FADING_LABEL);
+  g_type_ensure (ADW_TYPE_GIZMO);
 }
 
 static void
