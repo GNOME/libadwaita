@@ -85,7 +85,7 @@ row {
   > box.header {
     margin-left: 12px;
     margin-right: 12px;
-    border-spacing: 12px;
+    border-spacing: 6px;
     min-height: 50px;
 
     > .icon:disabled {
@@ -100,7 +100,13 @@ row {
 
     > .prefixes,
     > .suffixes {
-      border-spacing: 12px;
+      border-spacing: 6px;
+    }
+
+    > .icon,
+    > .prefixes {
+      &:dir(ltr) { margin-right: 6px; }
+      &:dir(rtl) { margin-left: 6px; }
     }
   }
 }
