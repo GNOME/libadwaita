@@ -1,4 +1,31 @@
 =============
+Version 1.1.1
+=============
+
+- AdwAvatar
+  - Fix initials not updating after setting custom-image
+- AdwSplitButton:
+  - Avoid state changes during dispose
+- AdwViewSwitcherTitle
+  - Clear pending idle callback on unrealize
+- AdwPreferencesGroup
+  - Annotation fixes
+- AdwPreferencesGroup
+  - Annotation fixes
+- AdwTabBar
+  - Ensure indicators are clickable with inverted=true
+  - Fix resize deferring with non-expanded tabs
+  - Fix scroll animation stopping too early
+- Mention AdwComboRow:selected type in migration guide
+- Fix a Meson error when using as a subproject
+- Translation updates:
+  - Abkhazian
+  - British English
+  - Bulgarian
+  - Catalan
+  - Dutch
+
+=============
 Version 1.1.0
 =============
 
