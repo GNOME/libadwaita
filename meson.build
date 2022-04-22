@@ -132,7 +132,9 @@ configure_file(
          output: 'run',
   configuration: run_data)
 
-meson.add_dist_script('build-aux'/ 'meson'/ 'dist-data.py')
+if not meson.is_subproject()
+    meson.add_dist_script('build-aux'/ 'meson'/ 'dist-data.py')
+endif
 
 summary(
   {
