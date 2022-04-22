@@ -29,7 +29,7 @@ package_api_name = '@0@-@1@'.format(meson.project_name(), apiversion)
 # to 0. When bumping the second version, set the third one to zero.
 #
 # A lot easier than libtool, right?
-libversion = '0.1.2'
+libversion = '0.2.0'
 # The so major version of the library
 soversion = 0
 
