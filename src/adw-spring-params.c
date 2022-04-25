@@ -126,7 +126,7 @@ adw_spring_params_new_full (double damping,
   g_return_val_if_fail (mass > 0.0, NULL);
   g_return_val_if_fail (stiffness > 0.0, NULL);
 
-  self = g_slice_new0 (AdwSpringParams);
+  self = g_new0 (AdwSpringParams, 1);
 
   g_atomic_ref_count_init (&self->ref_count);
 
@@ -173,7 +173,7 @@ adw_spring_params_unref (AdwSpringParams *self)
   g_return_if_fail (self != NULL);
 
   if (g_atomic_ref_count_dec (&self->ref_count))
-    g_slice_free (AdwSpringParams, self);
+    g_free (self);
 }
 
 /**
