@@ -1116,16 +1116,17 @@ adw_leaflet_size_allocate_unfolded (AdwLeaflet *self,
 {
   GtkWidget *widget = GTK_WIDGET (self);
   GtkOrientation orientation = gtk_orientable_get_orientation (GTK_ORIENTABLE (widget));
-  GtkAllocation remaining_alloc;
   GList *directed_children, *children;
   AdwLeafletPage *page, *visible_child;
   int min_size, extra_size;
-  int per_child_extra, n_extra_widgets;
+  int per_child_extra = 0, n_extra_widgets = 0;
   int n_visible_children, n_expand_children;
   int start_pad = 0, end_pad = 0;
+  int i = 0, position = 0;
   AdwLeafletTransitionType mode_transition_type;
   GtkTextDirection direction;
   gboolean under;
+  GtkRequestedSize *sizes;
 
   visible_child = self->visible_child;
   if (!visible_child)
@@ -1150,6 +1151,8 @@ adw_leaflet_size_allocate_unfolded (AdwLeaflet *self,
     }
   }
 
+  sizes = g_newa (GtkRequestedSize, n_visible_children);
+
   /* Compute repartition of extra space. */
 
   min_size = 0;
@@ -1157,70 +1160,84 @@ adw_leaflet_size_allocate_unfolded (AdwLeaflet *self,
     for (children = directed_children; children; children = children->next) {
       page = children->data;
 
-      min_size += page->nat.width;
+      if (!page->visible)
+        continue;
+
+      min_size += page->min.width;
+
+      sizes[i].minimum_size = page->min.width;
+      sizes[i].natural_size = page->nat.width;
+      i++;
     }
-  }
-  else {
+
+    extra_size = MAX (min_size, width);
+  } else {
     for (children = directed_children; children; children = children->next) {
       page = children->data;
 
-      min_size += page->nat.height;
+      if (!page->visible)
+        continue;
+
+      min_size += page->min.height;
+
+      sizes[i].minimum_size = page->min.height;
+      sizes[i].natural_size = page->nat.height;
+      i++;
     }
+
+    extra_size = MAX (min_size, height);
   }
 
-  remaining_alloc.x = 0;
-  remaining_alloc.y = 0;
-  remaining_alloc.width = width;
-  remaining_alloc.height = height;
+  g_assert (extra_size >= 0);
 
-  extra_size = orientation == GTK_ORIENTATION_HORIZONTAL ?
-    remaining_alloc.width - min_size :
-    remaining_alloc.height - min_size;
+  /* Bring children up to size */
+  extra_size -= min_size;
+  extra_size = MAX (0, extra_size);
+  extra_size = gtk_distribute_natural_allocation (extra_size, n_visible_children, sizes);
 
-  per_child_extra = 0, n_extra_widgets = 0;
+  /* Calculate space which hasn't been distributed yet,
+   * and is available for expanding children.
+   */
   if (n_expand_children > 0) {
     per_child_extra = extra_size / n_expand_children;
     n_extra_widgets = extra_size % n_expand_children;
   }
 
-  /* Compute children allocation */
+  /* Allocate sizes */
+  i = 0;
   for (children = directed_children; children; children = children->next) {
+    int allocated_size;
+
     page = children->data;
 
     if (!page->visible)
       continue;
 
-    page->alloc.x = remaining_alloc.x;
-    page->alloc.y = remaining_alloc.y;
+    allocated_size = sizes[i].minimum_size;
+
+    if (gtk_widget_compute_expand (page->widget, orientation)) {
+      allocated_size += per_child_extra;
+
+      if (n_extra_widgets > 0) {
+        allocated_size++;
+        n_extra_widgets--;
+      }
+    }
 
     if (orientation == GTK_ORIENTATION_HORIZONTAL) {
-      page->alloc.width = page->nat.width;
-      if (gtk_widget_compute_expand (page->widget, orientation)) {
-        page->alloc.width += per_child_extra;
-        if (n_extra_widgets > 0) {
-          page->alloc.width++;
-          n_extra_widgets--;
-        }
-      }
-      page->alloc.height = remaining_alloc.height;
-
-      remaining_alloc.x += page->alloc.width;
-      remaining_alloc.width -= page->alloc.width;
+      page->alloc.x = position;
+      page->alloc.y = 0;
+      page->alloc.width = allocated_size;
+      page->alloc.height = height;
+    } else {
+      page->alloc.x = 0;
+      page->alloc.y = position;
+      page->alloc.width = width;
+      page->alloc.height = allocated_size;
     }
-    else {
-      page->alloc.height = page->nat.height;
-      if (gtk_widget_compute_expand (page->widget, orientation)) {
-        page->alloc.height += per_child_extra;
-        if (n_extra_widgets > 0) {
-          page->alloc.height++;
-          n_extra_widgets--;
-        }
-      }
-      page->alloc.width = remaining_alloc.width;
 
-      remaining_alloc.y += page->alloc.height;
-      remaining_alloc.height -= page->alloc.height;
-    }
+    position += allocated_size;
+    i++;
   }
 
   /* Apply animations. */
