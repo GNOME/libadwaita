@@ -298,6 +298,10 @@ the regular body style.
 The `.monospace` style class makes the widget use a monospace font. This can be
 useful when displaying code, logs or shell commands.
 
+For [class@EntryRow], it only makes the editable part monospace, but not title
+or any extra widgets. To make everything in the row monospace, apply
+`.monospace` to the [class@Gtk.ListBox] around the row.
+
 <picture>
   <source srcset="typography-numeric-dark.png" media="(prefers-color-scheme: dark)">
   <img src="typography-numeric.png" alt="typography-numeric">

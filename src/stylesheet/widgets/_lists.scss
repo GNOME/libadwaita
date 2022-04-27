@@ -136,6 +136,14 @@ row.entry {
   .indicator {
     opacity: $dimmer_opacity;
   }
+
+  &.monospace {
+    font-family: inherit;
+
+    text {
+      font-family: monospace;
+    }
+  }
 }
 
 /***************
