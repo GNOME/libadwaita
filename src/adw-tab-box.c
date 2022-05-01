@@ -2917,8 +2917,11 @@ pressed_cb (AdwTabBox  *self,
 
   button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
-  if (button == GDK_BUTTON_MIDDLE)
+  if (button == GDK_BUTTON_MIDDLE) {
+    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
+
     return;
+  }
 
   if (button != GDK_BUTTON_PRIMARY) {
     gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
@@ -2958,7 +2961,6 @@ released_cb (AdwTabBox  *self,
   button = gtk_gesture_single_get_current_button (GTK_GESTURE_SINGLE (gesture));
 
   if (button == GDK_BUTTON_MIDDLE) {
-    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
     adw_tab_view_close_page (self->view, info->page);
 
     return;
