@@ -230,6 +230,12 @@ test_adw_toast_dismiss (void)
   adw_toast_overlay_add_toast (overlay, g_object_ref (toast));
   adw_toast_dismiss (toast);
 
+  /* Repeat dismiss() calls should no-op */
+  adw_toast_overlay_add_toast (overlay, g_object_ref (toast));
+  adw_toast_dismiss (toast);
+  adw_toast_dismiss (toast);
+  adw_toast_dismiss (toast);
+
   g_assert_finalize_object (overlay);
   g_assert_finalize_object (toast);
 }

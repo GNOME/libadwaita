@@ -886,6 +886,9 @@ adw_toast_set_timeout (AdwToast *self,
  *
  * Dismisses @self.
  *
+ * Does nothing if @self has already been dismissed, or hasn't been added to an
+ * [class@ToastOverlay].
+ *
  * Since: 1.0
  */
 void
@@ -893,12 +896,8 @@ adw_toast_dismiss (AdwToast *self)
 {
   g_return_if_fail (ADW_IS_TOAST (self));
 
-  if (!self->added) {
-    g_critical ("Trying to dismiss the toast '%s', but it isn't in an "
-                "AdwToastOverlay yet", adw_toast_get_title (self));
-
+  if (!self->added)
     return;
-  }
 
   g_signal_emit (self, signals[SIGNAL_DISMISSED], 0, NULL);
 }
