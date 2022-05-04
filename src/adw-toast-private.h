@@ -13,11 +13,12 @@
 #endif
 
 #include "adw-toast.h"
+#include "adw-toast-overlay.h"
 
 G_BEGIN_DECLS
 
-gboolean adw_toast_get_added (AdwToast *self);
-void     adw_toast_set_added (AdwToast *self,
-                              gboolean  added);
+AdwToastOverlay *adw_toast_get_overlay (AdwToast        *self);
+void             adw_toast_set_overlay (AdwToast        *self,
+                                        AdwToastOverlay *overlay);
 
 G_END_DECLS

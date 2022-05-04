@@ -220,6 +220,7 @@ dismissed_cb (ToastInfo *info)
   } else {
     g_queue_remove (self->queue, info);
 
+    adw_toast_set_overlay (ADW_TOAST (info->toast), NULL);
     if (!info->hide_animation)
       free_toast_info (info);
   }
@@ -257,6 +258,51 @@ show_toast (AdwToastOverlay *self,
                             G_CALLBACK (show_done_cb), info);
 
   adw_animation_play (info->show_animation);
+}
+
+static int
+bump_sort_func (ToastInfo *compare,
+                AdwToast  *toast,
+                gpointer   user_data)
+{
+  if (adw_toast_get_priority (compare->toast) == ADW_TOAST_PRIORITY_HIGH)
+    return -1;
+
+  return 1;
+}
+
+static int
+find_toast_func (ToastInfo *info,
+                 AdwToast  *toast)
+{
+  if (info && info->toast == toast)
+    return 0;
+
+  return 1;
+}
+
+static void
+bump_toast (AdwToastOverlay *self,
+            AdwToast        *toast)
+{
+  GList *link;
+  ToastInfo *info;
+
+  /* Remove it from the queue, then reinsert in the right location */
+  link = g_queue_find_custom (self->queue, toast,
+                              (GCompareFunc) find_toast_func);
+
+  g_assert (link);
+
+  info = link->data;
+  g_queue_remove (self->queue, info);
+
+  if (adw_toast_get_priority (toast) == ADW_TOAST_PRIORITY_HIGH)
+    g_queue_push_head (self->queue, info);
+  else
+    g_queue_insert_sorted (self->queue, info,
+                           (GCompareDataFunc) bump_sort_func,
+                           NULL);
 }
 
 static gboolean
@@ -570,6 +616,11 @@ adw_toast_overlay_set_child (AdwToastOverlay *self,
  * either @toast or the original toast will be placed in a queue, depending on
  * the priority of @toast. See [property@Toast:priority].
  *
+ * If called on a toast that's already displayed, its timeout will be reset.
+ *
+ * If called on a toast currently in the queue, the toast will be bumped
+ * forward to be shown as soon as possible.
+ *
  * Since: 1.0
  */
 void
@@ -577,18 +628,35 @@ adw_toast_overlay_add_toast (AdwToastOverlay *self,
                              AdwToast        *toast)
 {
   ToastInfo *info;
+  AdwToastOverlay *overlay;
 
   g_return_if_fail (ADW_IS_TOAST_OVERLAY (self));
   g_return_if_fail (ADW_IS_TOAST (toast));
 
-  if (adw_toast_get_added (toast)) {
-    g_critical ("Adding toast '%s', but it has already been added to an "
-                "AdwToastOverlay", adw_toast_get_title (toast));
+  overlay = adw_toast_get_overlay (toast);
 
+  /* If the toast has been added already and is being shown, reset its
+   * timeout. Otherwise, bump it forward in the queue. */
+  if (overlay == self) {
+    if (self->current_toast && self->current_toast->toast == toast)
+      adw_toast_widget_reset_timeout (ADW_TOAST_WIDGET (self->current_toast->widget));
+    else
+      bump_toast (self, toast);
+
+    /* Unref, as we don't actually take the ownership */
+    g_object_unref (toast);
     return;
   }
 
-  adw_toast_set_added (toast, TRUE);
+  if (overlay) {
+    g_critical ("Adding toast '%s', but it has already been added to a "
+                "different AdwToastOverlay", adw_toast_get_title (toast));
+
+    g_object_unref (toast);
+    return;
+  }
+
+  adw_toast_set_overlay (toast, self);
 
   info = g_new0 (ToastInfo, 1);
   info->overlay = self;

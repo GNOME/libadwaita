@@ -263,3 +263,12 @@ adw_toast_widget_new (AdwToast *toast)
                        "toast", toast,
                        NULL);
 }
+
+void
+adw_toast_widget_reset_timeout (AdwToastWidget *self)
+{
+  g_assert (ADW_IS_TOAST_WIDGET (self));
+
+  end_timeout (self);
+  start_timeout (self);
+}

@@ -53,6 +53,8 @@ test_adw_toast_overlay_add_toast (void)
   g_assert_nonnull (toast);
 
   adw_toast_overlay_add_toast (toast_overlay, g_object_ref (toast));
+  adw_toast_overlay_add_toast (toast_overlay, g_object_ref (toast));
+  adw_toast_overlay_add_toast (toast_overlay, g_object_ref (toast));
 
   g_assert_finalize_object (toast_overlay);
   g_assert_finalize_object (toast);

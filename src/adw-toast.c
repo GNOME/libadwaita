@@ -127,6 +127,9 @@
  *                                n_items), n_items);
  *
  *   adw_toast_set_title (self->undo_toast, title);
+ *
+ *   // Bump the toast timeout
+ *   adw_toast_overlay_add_toast (self->toast_overlay, g_object_ref (self->undo_toast));
  * }
  *
  * static void
@@ -157,7 +160,7 @@ struct _AdwToast {
   guint timeout;
   GtkWidget *custom_title;
 
-  gboolean added;
+  AdwToastOverlay *overlay;
 };
 
 enum {
@@ -186,7 +189,7 @@ G_DEFINE_FINAL_TYPE (AdwToast, adw_toast, G_TYPE_OBJECT)
 static void
 dismissed_cb (AdwToast *self)
 {
-  self->added = FALSE;
+  adw_toast_set_overlay (self, NULL);
 }
 
 static void
@@ -882,27 +885,10 @@ adw_toast_dismiss (AdwToast *self)
 {
   g_return_if_fail (ADW_IS_TOAST (self));
 
-  if (!self->added)
+  if (!self->overlay)
     return;
 
   g_signal_emit (self, signals[SIGNAL_DISMISSED], 0, NULL);
-}
-
-gboolean
-adw_toast_get_added (AdwToast *self)
-{
-  g_return_val_if_fail (ADW_IS_TOAST (self), FALSE);
-
-  return self->added;
-}
-
-void
-adw_toast_set_added (AdwToast *self,
-                     gboolean  added)
-{
-  g_return_if_fail (ADW_IS_TOAST (self));
-
-  self->added = !!added;
 }
 
 /**
@@ -951,4 +937,22 @@ adw_toast_get_custom_title (AdwToast *self)
   g_return_val_if_fail (ADW_IS_TOAST (self), NULL);
 
   return self->custom_title;
+}
+
+AdwToastOverlay *
+adw_toast_get_overlay (AdwToast *self)
+{
+  g_return_val_if_fail (ADW_IS_TOAST (self), NULL);
+
+  return self->overlay;
+}
+
+void
+adw_toast_set_overlay (AdwToast        *self,
+                       AdwToastOverlay *overlay)
+{
+  g_return_if_fail (ADW_IS_TOAST (self));
+  g_return_if_fail (overlay == NULL || ADW_IS_TOAST_OVERLAY (overlay));
+
+  self->overlay = overlay;
 }

@@ -54,6 +54,9 @@ toast_add_with_button_cb (AdwDemoPageToasts *self)
 
     adw_toast_set_title (self->undo_toast, title);
 
+    /* Bump the toast timeout */
+    add_toast (self, g_object_ref (self->undo_toast));
+
     g_free (title);
   } else {
     self->undo_toast = adw_toast_new_format (_("‘%s’ deleted"), "Lorem Ipsum");

@@ -23,4 +23,6 @@ G_DECLARE_FINAL_TYPE (AdwToastWidget, adw_toast_widget, ADW, TOAST_WIDGET, GtkWi
 
 GtkWidget *adw_toast_widget_new (AdwToast *toast) G_GNUC_WARN_UNUSED_RESULT;
 
+void adw_toast_widget_reset_timeout (AdwToastWidget *self);
+
 G_END_DECLS
