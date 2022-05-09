@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Gnome Nepali Translation Project\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2022-05-02 11:16+0000\n"
+"PO-Revision-Date: 2022-05-09 10:37+0545\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ne\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: src/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "प्राथमिकता छैन"
+
+#: src/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "अध्यारो लाई प्राथमिकता दिनुहोस"
+
+#: src/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "प्रकाश प्राथमिकता"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "अडवैत"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "प्रणाली देखावट"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"यस अनुप्रयोगका लागि सेटिङ अधिरोहण गर्नुहोस् । निरीक्षक बन्द गर्दा तिनीहरू रिसेट हुनेछन्।"
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "प्रणालीले रङ योजना समर्थन गर्दछ"
+
+#: src/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "रूचाइएका रङ योजना"
+
+#: src/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "उच्च व्यतिरेक"
+
+#: src/adw-preferences-window.c:226
+msgid "Untitled page"
+msgstr "शीर्षक विहिन पृष्ठ"
+
+#: src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "अभिरुचीहरू"
+
+#: src/adw-preferences-window.ui:69
+msgid "Search"
+msgstr "खोज्नुहोस्"
+
+#: src/adw-preferences-window.ui:139
+msgid "No Results Found"
+msgstr "नतिजा भेटिएन"
+
+#: src/adw-preferences-window.ui:140
+msgid "Try a different search."
+msgstr "फरक खोज कोशिश गर्नुहोस् ।."
