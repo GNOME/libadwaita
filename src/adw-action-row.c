@@ -557,10 +557,16 @@ adw_action_row_set_activatable_widget (AdwActionRow *self,
 
   g_clear_pointer (&priv->activatable_binding, g_binding_unbind);
 
-  if (priv->activatable_widget)
+  if (priv->activatable_widget) {
+    gtk_accessible_reset_relation (GTK_ACCESSIBLE (priv->activatable_widget),
+                                   GTK_ACCESSIBLE_RELATION_LABELLED_BY);
+    gtk_accessible_reset_relation (GTK_ACCESSIBLE (priv->activatable_widget),
+                                   GTK_ACCESSIBLE_RELATION_DESCRIBED_BY);
+
     g_object_weak_unref (G_OBJECT (priv->activatable_widget),
                          activatable_widget_weak_notify,
                          self);
+  }
 
   priv->activatable_widget = widget;
 
@@ -573,6 +579,11 @@ adw_action_row_set_activatable_widget (AdwActionRow *self,
       g_object_bind_property (widget, "sensitive",
                               self, "activatable",
                               G_BINDING_SYNC_CREATE);
+
+    gtk_accessible_update_relation (GTK_ACCESSIBLE (priv->activatable_widget),
+                                    GTK_ACCESSIBLE_RELATION_LABELLED_BY, priv->title, NULL,
+                                    GTK_ACCESSIBLE_RELATION_DESCRIBED_BY, priv->subtitle, NULL,
+                                    -1);
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTIVATABLE_WIDGET]);
