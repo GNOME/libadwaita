@@ -1,0 +1,77 @@
+# Chinese (Taiwan) translation for libadwaita.
+# Copyright (C) 2022 libadwaita's COPYRIGHT HOLDER
+# This file is distributed under the same license as the libadwaita package.
+# Cheng-Chia Tseng <pswo10680@gmail.com>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libadwaita libadwaita-1-1\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2022-05-09 04:57+0000\n"
+"PO-Revision-Date: 2022-05-11 23:39+0800\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) <chinese-l10n@googlegroups.com>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: src/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "沒有偏好"
+
+#: src/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "偏好黑暗"
+
+#: src/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "偏好明亮"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "系統外觀"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr "凌駕此應用程式的設定。關閉檢查器時這些設定都會被重設。"
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "系統支持配色方案"
+
+#: src/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "偏好的配色方案"
+
+#: src/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "高對比"
+
+#: src/adw-preferences-window.c:226
+msgid "Untitled page"
+msgstr "未命名頁面"
+
+#: src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "偏好設定"
+
+#: src/adw-preferences-window.ui:69
+msgid "Search"
+msgstr "搜尋"
+
+#: src/adw-preferences-window.ui:139
+msgid "No Results Found"
+msgstr "找不到結果"
+
+#: src/adw-preferences-window.ui:140
+msgid "Try a different search."
+msgstr "試試搜尋其他內容。"
