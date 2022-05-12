@@ -95,7 +95,7 @@ warn_prefer_dark_theme (AdwStyleManager *self)
 static void
 unregister_display (GdkDisplay *display)
 {
-  g_assert (!g_hash_table_contains (display_style_managers, display));
+  g_assert (g_hash_table_contains (display_style_managers, display));
 
   g_hash_table_remove (display_style_managers, display);
 }
