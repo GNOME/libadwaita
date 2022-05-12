@@ -44,4 +44,23 @@ AdwAnimationTarget *adw_callback_animation_target_new (AdwAnimationTargetFunc ca
                                                        gpointer               user_data,
                                                        GDestroyNotify         destroy) G_GNUC_WARN_UNUSED_RESULT;
 
+#define ADW_TYPE_PROPERTY_ANIMATION_TARGET (adw_property_animation_target_get_type())
+
+ADW_AVAILABLE_IN_1_2
+GDK_DECLARE_INTERNAL_TYPE (AdwPropertyAnimationTarget, adw_property_animation_target, ADW, PROPERTY_ANIMATION_TARGET, AdwAnimationTarget)
+
+ADW_AVAILABLE_IN_1_2
+AdwAnimationTarget *adw_property_animation_target_new           (GObject    *object,
+                                                                 const char *property_name) G_GNUC_WARN_UNUSED_RESULT;
+ADW_AVAILABLE_IN_1_2
+AdwAnimationTarget *adw_property_animation_target_new_for_pspec (GObject    *object,
+                                                                 GParamSpec *pspec) G_GNUC_WARN_UNUSED_RESULT;
+
+ADW_AVAILABLE_IN_1_2
+GObject    *adw_property_animation_target_get_object        (AdwPropertyAnimationTarget *self);
+ADW_AVAILABLE_IN_1_2
+const char *adw_property_animation_target_get_property_name (AdwPropertyAnimationTarget *self);
+ADW_AVAILABLE_IN_1_2
+GParamSpec *adw_property_animation_target_get_pspec         (AdwPropertyAnimationTarget *self);
+
 G_END_DECLS
