@@ -915,6 +915,16 @@ adw_swipe_tracker_dispose (GObject *object)
 }
 
 static void
+adw_swipe_tracker_finalize (GObject *object)
+{
+  AdwSwipeTracker *self = ADW_SWIPE_TRACKER (object);
+
+  g_array_free (self->event_history, TRUE);
+
+  G_OBJECT_CLASS (adw_swipe_tracker_parent_class)->finalize (object);
+}
+
+static void
 adw_swipe_tracker_get_property (GObject    *object,
                                 guint       prop_id,
                                 GValue     *value,
@@ -997,6 +1007,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
 
   object_class->constructed = adw_swipe_tracker_constructed;
   object_class->dispose = adw_swipe_tracker_dispose;
+  object_class->finalize = adw_swipe_tracker_finalize;
   object_class->get_property = adw_swipe_tracker_get_property;
   object_class->set_property = adw_swipe_tracker_set_property;
 
