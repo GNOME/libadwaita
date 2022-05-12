@@ -194,117 +194,25 @@ scale {
   }
 
   &.color {
-    min-height: 0;
-    min-width: 0;
+    padding: 0;
+    @include focus-ring("> trough", $offset: 1px);
 
     > trough {
-      background-image: image($border_color);
-      background-repeat: no-repeat;
-    }
+      border: none;
+      background: none;
+      border-radius: 10px;
 
-    &.horizontal {
-      padding: 0 0 15px 0;
-
-      > trough {
-        padding-bottom: 4px;
-        background-position: 0 -3px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-
-        > slider {
-          &:dir(ltr), &:dir(rtl) { // specificity bump
-            &:hover, &:disabled, & {
-              margin-bottom: -15px;
-              margin-top: 6px;
-            }
-          }
-        }
-      }
-    }
-
-    &.vertical {
-      &:dir(ltr) {
-        padding: 0 0 0 15px;
-
-        > trough {
-          padding-left: 4px;
-          background-position: 3px 0;
-          border-bottom-right-radius: 0;
-          border-top-right-radius: 0;
-
-          > slider {
-            &:hover, &:disabled, & {
-              margin-left: -15px;
-              margin-right: 6px;
-            }
-          }
-        }
-      }
-
-      &:dir(rtl) {
-        padding: 0 15px 0 0;
-
-        > trough {
-          padding-right: 4px;
-          background-position: -3px 0;
-          border-bottom-left-radius: 0;
-          border-top-left-radius: 0;
-
-          > slider {
-            &:hover, &:disabled, & {
-              margin-right: -15px;
-              margin-left: 6px;
-            }
-          }
-        }
+      > slider {
+        margin: 0;
+        opacity: .8;
       }
     }
 
     &.fine-tune {
-      &.horizontal {
-        &:dir(ltr), &:dir(rtl) { // specificity bump
-          padding: 0 0 12px 0;
+      padding: 2px;
 
-          > trough {
-            padding-bottom: 7px;
-            background-position: 0 -6px;
-
-            > slider {
-              margin-bottom: -15px;
-              margin-top: 6px;
-            }
-          }
-        }
-      }
-
-      &.vertical {
-        &:dir(ltr) {
-          padding: 0 0 0 12px;
-
-          > trough {
-            padding-left: 7px;
-            background-position: 6px 0;
-
-            > slider {
-              margin-left: -15px;
-              margin-right: 6px;
-            }
-          }
-        }
-
-        &:dir(rtl) {
-          padding: 0 12px 0 0;
-
-          > trough {
-            padding-right: 7px;
-            background-position: -6px 0;
-
-            > slider {
-              margin-right: -15px;
-              margin-left: 6px;
-            }
-          }
-        }
+      > trough > slider {
+        margin: -2px;
       }
     }
   }
