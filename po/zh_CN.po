@@ -4,24 +4,83 @@
 #
 # Translators:
 # Silence Zhou <silence_zhou@126.com>, 2021
-# lumingzh <lumingzh@qq.com>, 2021.
+# lumingzh <lumingzh@qq.com>, 2021-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-12-06 17:25+0000\n"
-"PO-Revision-Date: 2021-12-21 19:19+0800\n"
+"POT-Creation-Date: 2022-05-04 16:49+0000\n"
+"PO-Revision-Date: 2022-05-22 09:02+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 41.0\n"
+"X-Generator: Gtranslator 42.0\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: src/adw-preferences-window.c:212
+#: src/adw-entry-row.ui:93
+msgid "Apply"
+msgstr "应用"
+
+#: src/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "无首选项"
+
+#: src/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "首选暗色"
+
+#: src/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "首选亮色"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "系统外观"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr "覆盖该应用的设置。它们会在关闭该检查器时被重置。"
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "系统支持颜色方案"
+
+#: src/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "首选的颜色方案"
+
+#: src/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "高对比度"
+
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "隐藏文本"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "显示文本"
+
+#: src/adw-password-entry-row.c:168
+msgid "Caps Lock is on"
+msgstr "大写锁定已开启"
+
+#: src/adw-password-entry-row.c:176
+msgid "_Show Text"
+msgstr "显示文本(_S)"
+
+#: src/adw-preferences-window.c:242
 msgid "Untitled page"
 msgstr "无标题页面"
 
@@ -40,43 +99,3 @@ msgstr "没有找到结果"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "尝试搜索其它内容。"
-
-#: src/inspector/adw-inspector-page.c:76
-#| msgid "Preferences"
-msgid "No Preference"
-msgstr "无首选项"
-
-#: src/inspector/adw-inspector-page.c:78
-msgid "Prefer Dark"
-msgstr "首选暗色"
-
-#: src/inspector/adw-inspector-page.c:80
-msgid "Prefer Light"
-msgstr "首选亮色"
-
-#. Translators: The name of the library, not the stylesheet
-#: src/inspector/adw-inspector-page.c:98
-msgid "Adwaita"
-msgstr "Adwaita"
-
-#: src/inspector/adw-inspector-page.ui:10
-msgid "System Appearance"
-msgstr "系统外观"
-
-#: src/inspector/adw-inspector-page.ui:11
-msgid ""
-"Override settings for this application. They will be reset upon closing the "
-"inspector."
-msgstr "覆盖该应用的设置。它们会在关闭该检查器时被重置。"
-
-#: src/inspector/adw-inspector-page.ui:14
-msgid "System Supports Color Schemes"
-msgstr "系统支持颜色方案"
-
-#: src/inspector/adw-inspector-page.ui:26
-msgid "Preferred Color Scheme"
-msgstr "首选的颜色方案"
-
-#: src/inspector/adw-inspector-page.ui:43
-msgid "High Contrast"
-msgstr "高对比度"
