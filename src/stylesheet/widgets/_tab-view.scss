@@ -88,14 +88,14 @@ tabbar {
       background-color: transparent;
     }
 
-    &:hover {
+    &:hover, &:active {
       background-image: image(gtkalpha(currentColor, .03));
     }
 
     &.needs-attention {
       background-image: $tab_needs_attention_gradient;
 
-      &:hover {
+      &:hover, &:active {
         background-image: image(gtkalpha(currentColor, .03)), $tab_needs_attention_gradient;
       }
     }
