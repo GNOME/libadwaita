@@ -274,7 +274,7 @@ settings_portal_changed_cb (GDBusProxy  *proxy,
     return;
   }
 
-  if (!g_strcmp0 (namespace, "org.gnome.desktop.interface.a11y") &&
+  if (!g_strcmp0 (namespace, "org.gnome.desktop.a11y.interface") &&
       !g_strcmp0 (name, "high-contrast") &&
       self->high_contrast_portal_state == HIGH_CONTRAST_STATE_GNOME) {
     set_high_contrast (self, g_variant_get_boolean (value));
@@ -331,7 +331,7 @@ init_portal (AdwSettings *self)
   }
 
   if (!self->has_high_contrast &&
-      read_portal_setting (self, "org.gnome.desktop.interface.a11y",
+      read_portal_setting (self, "org.gnome.desktop.a11y.interface",
                            "high-contrast", "b", &variant)) {
     self->has_high_contrast = TRUE;
     self->high_contrast_portal_state = HIGH_CONTRAST_STATE_GNOME;
