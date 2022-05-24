@@ -20,7 +20,8 @@ expander-widget {
       opacity: .7;
     }
 
-    &:hover > expander {
+    &:hover > expander,
+    &:active > expander {
       opacity: 1;
     }
   }
