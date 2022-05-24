@@ -195,7 +195,7 @@ infobar {
     background-image: image(gtkalpha(currentColor, .05));
   }
 
-  &.action:hover:active > revealer > box {
+  &.action:active > revealer > box {
     background-image: image(gtkalpha(currentColor, .1));
   }
 
