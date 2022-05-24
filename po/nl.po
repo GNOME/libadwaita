@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-03-23 09:50+0000\n"
-"PO-Revision-Date: 2022-03-25 12:50+0100\n"
-"Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
+"POT-Creation-Date: 2022-05-19 15:16+0000\n"
+"PO-Revision-Date: 2022-05-20 17:20+0200\n"
+"Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
+
+#: src/adw-entry-row.ui:93
+msgid "Apply"
+msgstr "Toepassen"
 
 #: src/adw-inspector-page.c:76
 msgid "No Preference"
@@ -59,7 +63,23 @@ msgstr "Voorkeurskleurenschema"
 msgid "High Contrast"
 msgstr "Hoog contrast"
 
-#: src/adw-preferences-window.c:226
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "Tekst verbergen"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "Tekst tonen"
+
+#: src/adw-password-entry-row.c:168
+msgid "Caps Lock is on"
+msgstr "Caps lock is ingeschakeld"
+
+#: src/adw-password-entry-row.c:176
+msgid "_Show Text"
+msgstr "Tekst _tonen"
+
+#: src/adw-preferences-window.c:242
 msgid "Untitled page"
 msgstr "Naamloze pagina"
 
