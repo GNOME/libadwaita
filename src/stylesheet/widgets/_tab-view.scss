@@ -43,22 +43,12 @@ tabbar {
     &:selected {
       background-color: $view_selected_color;
 
-      &:hover {
-        background-color: $view_selected_hover_color;
-
-        &:active {
-          background-color: $view_selected_active_color;
-        }
-      }
+      &:hover { background-color: $view_selected_hover_color; }
+      &:active { background-color: $view_selected_active_color; }
     }
 
-    &:hover {
-      background-color: $view_hover_color;
-
-      &:active {
-        background-color: $view_active_color;
-      }
-    }
+    &:hover { background-color: $view_hover_color; }
+    &:active { background-color: $view_active_color; }
   }
 
   .start-action,

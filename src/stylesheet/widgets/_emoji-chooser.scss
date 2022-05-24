@@ -28,10 +28,10 @@ popover.emoji-picker emoji {
   &:focus,
   &:hover {
     background: $view_selected_color;
+  }
 
-    &:active {
-      background: $view_active_color;
-    }
+  &:active {
+    background: $view_active_color;
   }
 }
 
@@ -72,9 +72,9 @@ emoji-completion-row {
   &:hover {
     background-color: $view_selected_color;
     color: $view_fg_color;
+  }
 
-    &:active {
-      background-color: $view_active_color; // matching buttons
-    }
+  &:active {
+    background-color: $view_active_color; // matching buttons
   }
 }

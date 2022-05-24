@@ -114,7 +114,7 @@ windowcontrols {
     }
 
     &:hover > image { background-color: $button_hover_color; }
-    &:hover:active > image { background-color: $button_active_color; }
+    &:active > image { background-color: $button_active_color; }
   }
 
   > .icon {

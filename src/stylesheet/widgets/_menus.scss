@@ -82,7 +82,10 @@ popover.menu {
     &,
     &:hover:checked,
     &:hover:indeterminate,
-    &:hover:not(:checked):not(:indeterminate) {
+    &:hover:not(:checked):not(:indeterminate),
+    &:active:checked,
+    &:active:indeterminate,
+    &:active:not(:checked):not(:indeterminate), {
       background: none;
       box-shadow: none;
       color: inherit;
@@ -127,10 +130,10 @@ popover.menu {
     &:hover,
     &:selected {
       background-color: $view_selected_color;
+    }
 
-      &:active {
-        background-color: $view_selected_active_color; // matching buttons
-      }
+    &:active {
+      background-color: $view_selected_active_color; // matching buttons
     }
 
     arrow {
