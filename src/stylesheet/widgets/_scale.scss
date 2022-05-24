@@ -53,7 +53,7 @@ scale {
     }
   }
 
-  &:hover {
+  &:hover, &:active {
     > trough {
       background-color: $trough_hover_color;
 

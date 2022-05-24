@@ -30,7 +30,8 @@ switch {
     }
   }
 
-  &:hover > slider {
+  &:hover > slider,
+  &:active > slider {
     background: $slider_hover_color;
   }
 
