@@ -3,8 +3,8 @@ dropdown > popover.menu > contents { padding: 0; }
 dropdown > button > box {
   border-spacing: 6px;
 
-  > stack > row.activatable:hover {
-    background: none;
+  > stack > row.activatable {
+    &:hover, &:active { background: none; }
   }
 }
 
