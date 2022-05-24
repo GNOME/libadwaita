@@ -223,7 +223,7 @@ settings_portal_changed_cb (GDBusProxy  *proxy,
     return;
   }
 
-  if (!g_strcmp0 (namespace, "org.gnome.desktop.interface.a11y") &&
+  if (!g_strcmp0 (namespace, "org.gnome.desktop.a11y.interface") &&
       !g_strcmp0 (name, "high-contrast")) {
     set_high_contrast (self, g_variant_get_boolean (value));
 
@@ -269,7 +269,7 @@ init_portal (AdwSettings *self)
     self->color_scheme = get_gnome_color_scheme (color_scheme_variant);
   }
 
-  if (read_portal_setting (self, "org.gnome.desktop.interface.a11y",
+  if (read_portal_setting (self, "org.gnome.desktop.a11y.interface",
                            "high-contrast", "b", &high_contrast_variant)) {
     self->has_high_contrast = TRUE;
     self->high_contrast = g_variant_get_boolean (high_contrast_variant);
