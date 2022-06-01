@@ -82,6 +82,18 @@ struct _AdwCarousel
   gboolean can_scroll;
 };
 
+typedef struct {
+  ChildInfo *child;
+  AdwCarousel *carousel;
+} AnimationData;
+
+static void
+animation_data_free (AnimationData *data)
+{
+  g_object_unref (data->child);
+  g_object_unref (data->carousel);
+}
+
 static void adw_carousel_buildable_init (GtkBuildableIface *iface);
 static void adw_carousel_swipeable_init (AdwSwipeableInterface *iface);
 
@@ -284,10 +296,11 @@ set_position (AdwCarousel *self,
 }
 
 static void
-resize_animation_value_cb (double     value,
-                           ChildInfo *child)
+resize_animation_value_cb (double         value,
+                           AnimationData *data)
 {
-  AdwCarousel *self = ADW_CAROUSEL (adw_animation_get_widget (child->resize_animation));
+  AdwCarousel *self = data->carousel;
+  ChildInfo *child = data->child;
   double delta = value - child->size;
 
   child->size = value;
@@ -325,15 +338,21 @@ animate_child_resize (AdwCarousel *self,
 {
   AdwAnimationTarget *target;
   double old_size = child->size;
+  AnimationData *data;
 
   update_shift_position_flag (self, child);
 
   if (child->resize_animation)
     adw_animation_skip (child->resize_animation);
 
+  data = g_new (AnimationData, 1);
+  data->child = child;
+  data->carousel = self;
+
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               resize_animation_value_cb,
-                                              child, NULL);
+                                              data,
+                                              (GDestroyNotify) animation_data_free);
   child->resize_animation =
     adw_timed_animation_new (GTK_WIDGET (self), old_size,
                              value, duration, target);
