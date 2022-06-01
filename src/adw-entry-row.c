@@ -472,6 +472,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, text_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, apply_button_clicked_cb);
 
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TEXT_BOX);
   g_type_ensure (ADW_TYPE_GIZMO);
 }
 
