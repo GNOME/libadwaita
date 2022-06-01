@@ -153,6 +153,20 @@ row.entry {
       font-family: monospace;
     }
   }
+
+  @each $e_type, $e_color in (error,   $error_color),
+                             (warning, $warning_color),
+                             (success, $success_color) {
+    &.#{$e_type} {
+      @include focus-ring($focus-state: '.focused', $offset: -1px, $fc: gtkalpha(currentColor, $focus_border_opacity));
+
+      text {
+        > selection:focus-within { background-color: gtkalpha($e_color, .2); }
+
+        > cursor-handle > contents { background-color: currentColor; }
+      }
+    }
+  }
 }
 
 /***************
