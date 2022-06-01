@@ -124,7 +124,7 @@ adw_callback_animation_target_init (AdwCallbackAnimationTarget *self)
 
 /**
  * adw_callback_animation_target_new:
- * @callback: (scope notified): the callback to call
+ * @callback: (scope notified) (not nullable): the callback to call
  * @user_data: (closure callback): the data to be passed to @callback
  * @destroy: (destroy user_data): the function to be called when the
  *   callback action is finalized
