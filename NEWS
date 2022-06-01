@@ -1,4 +1,21 @@
 =============
+Version 1.0.5
+=============
+
+- AdwLeaflet
+  - Fix child sizing with fold-threshold-policy=natural
+- AdwStyleManager
+  - Correctly handle removing a GdkDisplay
+  - Fix high contrast setting name when using a portal
+- AdwSwipeTracker
+  - Fix a memory leak
+- AdwTabBar
+  - Fix middle click when inside GtkWindowHandle
+- Stylesheet
+  - Fix action row title and subtitle inside GtkHeaderBar
+  - Fix progressbar.osd overriding text color
+
+=============
 Version 1.0.4
 =============
 
