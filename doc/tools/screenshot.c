@@ -36,8 +36,8 @@ draw_paintable_cb (ScreenshotData *data)
 {
   GtkSnapshot *snapshot;
   GskRenderer *renderer;
-  g_autoptr (GdkTexture) texture = NULL;
-  g_autoptr (GskRenderNode) node = NULL;
+  GdkTexture *texture;
+  GskRenderNode *node;
   int x, y, width, height;
   int widget_width, widget_height;
 
@@ -71,9 +71,11 @@ draw_paintable_cb (ScreenshotData *data)
 
   if (gsk_render_node_get_node_type (node) == GSK_CLIP_NODE &&
       (x > 0 || y > 0 || widget_width < width || widget_height < height)) {
-    g_autoptr (GskRenderNode) original_node = g_steal_pointer (&node);
+    GskRenderNode *original_node = g_steal_pointer (&node);
 
     node = gsk_render_node_ref (gsk_clip_node_get_child (original_node));
+
+    gsk_render_node_unref (original_node);
   }
 
   renderer = gtk_native_get_renderer (gtk_widget_get_native (data->widget));
@@ -86,6 +88,9 @@ draw_paintable_cb (ScreenshotData *data)
   screenshot_data_free (data);
 
   g_main_loop_quit (loop);
+
+  g_object_unref (texture);
+  gsk_render_node_unref (node);
 
   return G_SOURCE_REMOVE;
 }
@@ -105,7 +110,7 @@ static GtkCssProvider *
 load_css (const char *name)
 {
   GtkCssProvider *provider = gtk_css_provider_new ();
-  g_autofree char *path = g_strdup_printf (RESOURCE_PATH "%s.css", name);
+  char *path = g_strdup_printf (RESOURCE_PATH "%s.css", name);
 
   gtk_css_provider_load_from_resource (provider, path);
 
@@ -113,6 +118,7 @@ load_css (const char *name)
                                               GTK_STYLE_PROVIDER (provider),
                                               GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
+  g_free (path);
   return provider;
 }
 
@@ -143,12 +149,12 @@ take_screenshot (const char *name,
                  GFile      *input_dir,
                  GFile      *output_dir)
 {
-  g_autofree char *input_name = NULL;
-  g_autoptr (GFile) input_file = NULL;
-  g_autofree char *input_path = NULL;
-  g_autofree char *output_name = NULL;
-  g_autoptr (GtkBuilder) builder = NULL;
-  g_autoptr (GFile) output_file = NULL;
+  char *input_name;
+  GFile *input_file;
+  char *input_path;
+  char *output_name;
+  GtkBuilder *builder;
+  GFile *output_file;
   ScreenshotData *data;
   GObject *widget;
   GObject *hover_widget;
@@ -223,6 +229,13 @@ take_screenshot (const char *name,
 
   g_main_loop_run (loop);
   g_main_loop_unref (loop);
+
+  g_object_unref (builder);
+  g_object_unref (output_file);
+  g_free (output_name);
+  g_free (input_path);
+  g_object_unref (input_file);
+  g_free (input_name);
 }
 
 static inline char *
@@ -255,8 +268,8 @@ init_libadwaita (void)
 static GList *
 list_images (GFile *input_dir)
 {
-  g_autoptr (GFileEnumerator) enumerator = NULL;
-  g_autoptr (GError) error = NULL;
+  GFileEnumerator *enumerator;
+  GError *error = NULL;
   GList *children = NULL;
   GFileInfo *info;
 
@@ -269,6 +282,8 @@ list_images (GFile *input_dir)
   if (error) {
     g_critical ("Couldn't enumerate images: %s", error->message);
 
+    g_clear_error (&error);
+
     return NULL;
   }
 
@@ -278,6 +293,8 @@ list_images (GFile *input_dir)
 
     if (error) {
       g_critical ("Couldn't enumerate image: %s", error->message);
+
+      g_clear_error (&error);
 
       continue;
     }
@@ -291,6 +308,8 @@ list_images (GFile *input_dir)
 
     children = g_list_prepend (children, shortname);
   }
+
+  g_object_unref (enumerator);
 
   return g_list_sort (children, (GCompareFunc) g_ascii_strcasecmp);
 }
@@ -310,20 +329,20 @@ static void
 run_screenshot (GFile *input_dir,
                 GFile *output_dir)
 {
-  g_autoptr (GList) children = NULL;
+  GList *children = NULL;
   GList *l;
 
   if (option_image) {
-    g_autofree char *input_name = g_strconcat (option_image, ".ui", NULL);
-    g_autoptr (GFile) input_file = g_file_get_child (input_dir, input_name);
+    char *input_name = g_strconcat (option_image, ".ui", NULL);
+    GFile *input_file = g_file_get_child (input_dir, input_name);
 
-    if (!g_file_query_exists (input_file, NULL)) {
+    if (g_file_query_exists (input_file, NULL))
+      process_image (option_image, input_dir, output_dir);
+    else
       g_printerr ("No such image: %s\n", option_image);
 
-      return;
-    }
-
-    process_image (option_image, input_dir, output_dir);
+    g_object_unref (input_file);
+    g_free (input_name);
 
     return;
   }
@@ -331,23 +350,30 @@ run_screenshot (GFile *input_dir,
   children = list_images (input_dir);
 
   for (l = children; l; l = l->next) {
-    g_autofree char *shortname = l->data;
+    char *shortname = l->data;
 
     process_image (shortname, input_dir, output_dir);
+	g_free (shortname);
   }
+
+  g_list_free (children);
 }
 
 static void
 run_list_images (GFile *input_dir)
 {
-  g_autoptr (GList) children = list_images (input_dir);
+  GList *children = list_images (input_dir);
   GList *l;
 
   for (l = children; l; l = l->next) {
-    g_autofree char *shortname = l->data;
+    char *shortname = l->data;
 
     g_print ("%s\n", shortname);
+
+    g_free (shortname);
   }
+
+  g_list_free (children);
 }
 
 int
@@ -355,9 +381,10 @@ main (int    argc,
       char **argv)
 {
   GOptionContext *context = g_option_context_new ("INPUT_DIR OUTPUT_DIR");
-  g_autoptr (GFile) input_dir = NULL;
-  g_autoptr (GFile) output_dir = NULL;
-  g_autoptr (GError) error = NULL;
+  GFile *input_dir;
+  GFile *output_dir = NULL;
+  GError *error = NULL;
+  gboolean result;
 
   g_option_context_add_main_entries (context, entries, NULL);
   if (!g_option_context_parse (context, &argc, &argv, NULL)) {
@@ -374,15 +401,17 @@ main (int    argc,
     }
 
     input_dir = g_file_new_for_path (argv[1]);
-    if (!g_file_query_exists (input_dir, NULL)) {
+
+    result = g_file_query_exists (input_dir, NULL);
+
+    if (result)
+      run_list_images (input_dir);
+    else
       g_critical ("Input directory does not exist");
 
-      return 1;
-    }
+    g_object_unref (input_dir);
 
-    run_list_images (input_dir);
-
-    return 0;
+    return (!result);
   }
 
   if (argc < 3 || !argv[1] || !argv[2]) {
@@ -392,25 +421,33 @@ main (int    argc,
   }
 
   input_dir = g_file_new_for_path (argv[1]);
-  if (!g_file_query_exists (input_dir, NULL)) {
+
+  result = g_file_query_exists (input_dir, NULL);
+
+  if (result)
+    output_dir = g_file_new_for_path (argv[2]);
+  else
     g_critical ("Input directory does not exist");
 
-    return 1;
-  }
-
-  output_dir = g_file_new_for_path (argv[2]);
-
-  if (!g_file_query_exists (output_dir, NULL)) {
+  if (result && !g_file_query_exists (output_dir, NULL))
     g_file_make_directory_with_parents (output_dir, NULL, &error);
-    if (G_UNLIKELY (error != NULL)) {
-      g_critical ("Failed to create output directory: %s", error->message);
 
-      return 1;
-    }
+  if (G_UNLIKELY (error != NULL)) {
+    g_critical ("Failed to create output directory: %s", error->message);
+
+    g_clear_error (&error);
+    result = FALSE;
   }
 
-  init_libadwaita ();
-  run_screenshot (input_dir, output_dir);
+  if (result) {
+    init_libadwaita ();
+    run_screenshot (input_dir, output_dir);
+  }
 
-  return 0;
+  if (output_dir != NULL)
+    g_object_unref (output_dir);
+
+  g_object_unref (input_dir);
+
+  return (!result);
 }
