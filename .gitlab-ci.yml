@@ -56,6 +56,7 @@ abi-check:
     - ./.gitlab-ci/check-abi ${LAST_ABI_BREAK} $(git rev-parse HEAD)
 
 refresh-doc:
+  image: fedora
   stage: publish
   only:
     refs:
