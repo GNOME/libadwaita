@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-03-23 09:50+0000\n"
-"PO-Revision-Date: 2020-11-12 08:57+0100\n"
+"POT-Creation-Date: 2022-06-01 11:18+0000\n"
+"PO-Revision-Date: 2022-06-01 08:57+0100\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/ca/)\n"
 "Language: ca\n"
@@ -22,6 +22,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.1\n"
+
+#: src/adw-entry-row.ui:93
+msgid "Apply"
+msgstr "Aplica"
 
 #: src/adw-inspector-page.c:76
 msgid "No Preference"
@@ -64,7 +68,23 @@ msgstr "Esquema de color preferit"
 msgid "High Contrast"
 msgstr "Contrast alt"
 
-#: src/adw-preferences-window.c:226
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "Oculta el text"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "Mostra el text"
+
+#: src/adw-password-entry-row.c:168
+msgid "Caps Lock is on"
+msgstr "Bloq Maj està activat"
+
+#: src/adw-password-entry-row.c:176
+msgid "_Show Text"
+msgstr "_Mostra el text"
+
+#: src/adw-preferences-window.c:242
 msgid "Untitled page"
 msgstr "Pàgina sense títol"
 
@@ -83,4 +103,3 @@ msgstr "No s'ha trobat cap resultat"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Proveu una cerca diferent."
-
