@@ -31,7 +31,7 @@
  * follows:
  *
  * ```c
- * adw_toast_overlay_add_toast (overlay, adw_toast_new (_("Simple Toast"));
+ * adw_toast_overlay_add_toast (overlay, adw_toast_new (_("Simple Toast")));
  * ```
  *
  * <picture>
