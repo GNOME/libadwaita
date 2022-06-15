@@ -2224,9 +2224,9 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * The widget currently visible when the leaflet is folded.
    *
    * The transition is determined by [property@Leaflet:transition-type] and
-   * [Leaflet:child-transition-duration]. The transition can be cancelled by the
-   * user, in which case visible child will change back to the previously
-   * visible child.
+   * [property@Leaflet:child-transition-params]. The transition can be
+   * cancelled by the user, in which case visible child will change back to the
+   * previously visible child.
    *
    * Since: 1.0
    */
