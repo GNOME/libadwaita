@@ -50,13 +50,13 @@
         <child>
           <object class="GtkBox" id="listbox_box">
             <property name="orientation">vertical</property>
-            <accessibility>
-              <relation name="labelled-by">title</relation>
-            </accessibility>
             <child>
               <object class="GtkListBox" id="listbox">
                 <property name="visible">False</property>
                 <property name="selection_mode">none</property>
+                <accessibility>
+                  <relation name="labelled-by">title</relation>
+                </accessibility>
                 <signal name="keynav-failed" handler="listbox_keynav_failed_cb" swapped="yes"/>
                 <style>
                   <class name="boxed-list"/>
