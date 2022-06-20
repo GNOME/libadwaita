@@ -30,6 +30,8 @@ test_adw_animation_general (void)
   GtkWidget *widget = g_object_ref_sink (gtk_button_new ());
   AdwAnimationTarget *target =
     adw_callback_animation_target_new (value_cb, NULL, NULL);
+  AdwAnimationTarget *target2 =
+    adw_callback_animation_target_new (value_cb, NULL, NULL);
   AdwAnimation *animation =
     adw_timed_animation_new (widget, 10, 20, 100, g_object_ref (target));
 
@@ -69,8 +71,12 @@ test_adw_animation_general (void)
   g_assert_cmpfloat (last_value, ==, 20);
   g_assert_cmpint (done_count, ==, 2);
 
+  adw_animation_set_target (animation, target2);
+  g_assert_true (adw_animation_get_target (animation) == target2);
+
   g_assert_finalize_object (animation);
   g_assert_finalize_object (target);
+  g_assert_finalize_object (target2);
   g_assert_finalize_object (widget);
 
   g_assert_cmpfloat (last_value, ==, 20);

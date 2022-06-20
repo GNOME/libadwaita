@@ -46,7 +46,10 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_animation_get_widget (AdwAnimation *self);
 
 ADW_AVAILABLE_IN_ALL
-AdwAnimationTarget *adw_animation_get_target (AdwAnimation *self);
+AdwAnimationTarget *adw_animation_get_target (AdwAnimation       *self);
+ADW_AVAILABLE_IN_ALL
+void                adw_animation_set_target (AdwAnimation       *self,
+                                              AdwAnimationTarget *target);
 
 ADW_AVAILABLE_IN_ALL
 double adw_animation_get_value (AdwAnimation *self);

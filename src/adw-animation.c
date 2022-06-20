@@ -312,7 +312,6 @@ adw_animation_set_property (GObject      *object,
                             GParamSpec   *pspec)
 {
   AdwAnimation *self = ADW_ANIMATION (object);
-  AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
 
   switch (prop_id) {
   case PROP_WIDGET:
@@ -320,7 +319,7 @@ adw_animation_set_property (GObject      *object,
     break;
 
   case PROP_TARGET:
-    g_set_object (&priv->target, g_value_get_object (value));
+    adw_animation_set_target (ADW_ANIMATION (self), g_value_get_object (value));
     break;
 
   default:
@@ -379,7 +378,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
-   * AdwAnimation:target: (attributes org.gtk.Property.get=adw_animation_get_target)
+   * AdwAnimation:target: (attributes org.gtk.Property.get=adw_animation_get_target org.gtk.Property.set=adw_animation_set_target)
    *
    * The target to animate.
    *
@@ -390,7 +389,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
                          "Target",
                          "The target to animate",
                          ADW_TYPE_ANIMATION_TARGET,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwAnimation:state: (attributes org.gtk.Property.get=adw_animation_get_state)
@@ -480,6 +479,34 @@ adw_animation_get_target (AdwAnimation *self)
   priv = adw_animation_get_instance_private (self);
 
   return priv->target;
+}
+
+/**
+ * adw_animation_set_target: (attributes org.gtk.Method.set_property=target)
+ * @self: an animation
+ * @target: an animation target
+ *
+ * Sets the target @self animates to @target.
+ *
+ * Since: 1.0
+ */
+void
+adw_animation_set_target (AdwAnimation       *self,
+                          AdwAnimationTarget *target)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ANIMATION (self));
+  g_return_if_fail (ADW_IS_ANIMATION_TARGET (target));
+
+  priv = adw_animation_get_instance_private (self);
+
+  if (target == priv->target)
+    return;
+
+  g_set_object (&priv->target, target);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TARGET]);
 }
 
 /**
