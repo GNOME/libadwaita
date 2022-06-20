@@ -199,9 +199,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    * Since: 1.0
    */
   props[PROP_ICON_NAME] =
-    g_param_spec_string ("icon-name",
-                         "Icon name",
-                         "The name of the icon to be used",
+    g_param_spec_string ("icon-name", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -215,9 +213,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    * Since: 1.0
    */
   props[PROP_PAINTABLE] =
-    g_param_spec_object ("paintable",
-                         "Paintable",
-                         "The GdkPaintable to be used",
+    g_param_spec_object ("paintable", NULL, NULL,
                          GDK_TYPE_PAINTABLE,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -229,9 +225,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    * Since: 1.0
    */
   props[PROP_TITLE] =
-    g_param_spec_string ("title",
-                         "Title",
-                         "The title to be displayed below the icon",
+    g_param_spec_string ("title", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -243,9 +237,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    * Since: 1.0
    */
   props[PROP_DESCRIPTION] =
-    g_param_spec_string ("description",
-                         "Description",
-                         "The description to be displayed below the title",
+    g_param_spec_string ("description", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -257,9 +249,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    * Since: 1.0
    */
   props[PROP_CHILD] =
-    g_param_spec_object ("child",
-                         "Child",
-                         "The child widget",
+    g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

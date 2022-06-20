@@ -285,9 +285,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * Since: 1.0
    */
   props[PROP_LABEL] =
-    g_param_spec_string ("label",
-                         "Label",
-                         "The label for the button",
+    g_param_spec_string ("label", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -301,9 +299,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
-    g_param_spec_boolean ("use-underline",
-                          "Use underline",
-                          "Whether an underline in the text indicates a mnemonic",
+    g_param_spec_boolean ("use-underline", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -318,9 +314,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * Since: 1.0
    */
   props[PROP_ICON_NAME] =
-    g_param_spec_string ("icon-name",
-                         "Icon Name",
-                         "The name of the icon used to automatically populate the button",
+    g_param_spec_string ("icon-name", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -335,9 +329,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * Since: 1.0
    */
   props[PROP_CHILD] =
-    g_param_spec_object ("child",
-                         "Child",
-                         "The child widget",
+    g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -358,9 +350,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * Since: 1.0
    */
   props[PROP_MENU_MODEL] =
-    g_param_spec_object ("menu-model",
-                         "Menu model",
-                         "The model from which the popup is made",
+    g_param_spec_object ("menu-model", NULL, NULL,
                          G_TYPE_MENU_MODEL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -377,9 +367,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * Since: 1.0
    */
   props[PROP_POPOVER] =
-    g_param_spec_object ("popover",
-                         "Popover",
-                         "The popover that will be popped up when the dropdown is clicked",
+    g_param_spec_object ("popover", NULL, NULL,
                          GTK_TYPE_POPOVER,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -398,9 +386,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * Since: 1.0
    */
   props[PROP_DIRECTION] =
-    g_param_spec_enum ("direction",
-                       "Direction",
-                       "The direction in which the popup will be popped up",
+    g_param_spec_enum ("direction", NULL, NULL,
                        GTK_TYPE_ARROW_TYPE,
                        GTK_ARROW_DOWN,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);

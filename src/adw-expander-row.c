@@ -184,9 +184,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    * Since: 1.0
    */
   props[PROP_SUBTITLE] =
-    g_param_spec_string ("subtitle",
-                         "Subtitle",
-                         "The subtitle for this row",
+    g_param_spec_string ("subtitle", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -198,9 +196,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    * Since: 1.0
    */
   props[PROP_ICON_NAME] =
-    g_param_spec_string ("icon-name",
-                         "Icon name",
-                         "The icon name for this row",
+    g_param_spec_string ("icon-name", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -212,9 +208,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    * Since: 1.0
    */
   props[PROP_EXPANDED] =
-    g_param_spec_boolean ("expanded",
-                          "Expanded",
-                          "Whether the row is expanded",
+    g_param_spec_boolean ("expanded", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -226,9 +220,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    * Since: 1.0
    */
   props[PROP_ENABLE_EXPANSION] =
-    g_param_spec_boolean ("enable-expansion",
-                          "Enable expansion",
-                          "Whether expansion is enabled",
+    g_param_spec_boolean ("enable-expansion", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -240,9 +232,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    * Since: 1.0
    */
   props[PROP_SHOW_ENABLE_SWITCH] =
-    g_param_spec_boolean ("show-enable-switch",
-                          "Show enable switch",
-                          "Whether the switch enabling the expansion is visible",
+    g_param_spec_boolean ("show-enable-switch", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

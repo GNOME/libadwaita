@@ -282,9 +282,7 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_CHILD] =
-    g_param_spec_object ("child",
-                         "Child",
-                         "The child of the page",
+    g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
@@ -296,9 +294,7 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_NAME] =
-    g_param_spec_string ("name",
-                         "Name",
-                         "The name of the child page",
+    g_param_spec_string ("name", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -316,9 +312,7 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_NAVIGATABLE] =
-    g_param_spec_boolean ("navigatable",
-                          "Navigatable",
-                          "Whether the child can be navigated to",
+    g_param_spec_boolean ("navigatable", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2200,9 +2194,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_FOLDED] =
-    g_param_spec_boolean ("folded",
-                          "Folded",
-                          "Whether the leaflet is folded",
+    g_param_spec_boolean ("folded", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -2221,9 +2213,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_FOLD_THRESHOLD_POLICY] =
-    g_param_spec_enum ("fold-threshold-policy",
-                       "Fold Threshold Policy",
-                       "Determines when the leaflet will fold",
+    g_param_spec_enum ("fold-threshold-policy", NULL, NULL,
                        ADW_TYPE_FOLD_THRESHOLD_POLICY,
                        ADW_FOLD_THRESHOLD_POLICY_MINIMUM,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -2239,9 +2229,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_HOMOGENEOUS] =
-    g_param_spec_boolean ("homogeneous",
-                          "Homogeneous",
-                          "Whether the leaflet allocates the same size for all children when folded",
+    g_param_spec_boolean ("homogeneous", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2258,9 +2246,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_VISIBLE_CHILD] =
-    g_param_spec_object ("visible-child",
-                         "Visible child",
-                         "The widget currently visible when the leaflet is folded",
+    g_param_spec_object ("visible-child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2274,9 +2260,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_VISIBLE_CHILD_NAME] =
-    g_param_spec_string ("visible-child-name",
-                         "Name of visible child",
-                         "The name of the widget currently visible when the leaflet is folded",
+    g_param_spec_string ("visible-child-name", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2292,9 +2276,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_TRANSITION_TYPE] =
-    g_param_spec_enum ("transition-type",
-                       "Transition type",
-                       "The type of animation used for transitions between modes and children",
+    g_param_spec_enum ("transition-type", NULL, NULL,
                        ADW_TYPE_LEAFLET_TRANSITION_TYPE, ADW_LEAFLET_TRANSITION_TYPE_OVER,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2306,9 +2288,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_MODE_TRANSITION_DURATION] =
-    g_param_spec_uint ("mode-transition-duration",
-                       "Mode transition duration",
-                       "The mode transition animation duration, in milliseconds",
+    g_param_spec_uint ("mode-transition-duration", NULL, NULL,
                        0, G_MAXUINT, 250,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2326,9 +2306,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_CHILD_TRANSITION_PARAMS] =
-    g_param_spec_boxed ("child-transition-params",
-                        "Child transition parameters",
-                        "The child transition spring parameters",
+    g_param_spec_boxed ("child-transition-params", NULL, NULL,
                         ADW_TYPE_SPRING_PARAMS,
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2340,9 +2318,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_CHILD_TRANSITION_RUNNING] =
-    g_param_spec_boolean ("child-transition-running",
-                          "Child transition running",
-                          "Whether a child transition is currently running",
+    g_param_spec_boolean ("child-transition-running", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -2370,9 +2346,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_CAN_NAVIGATE_BACK] =
-    g_param_spec_boolean ("can-navigate-back",
-                          "Can navigate back",
-                          "Whether gestures and shortcuts for navigating backward are enabled",
+    g_param_spec_boolean ("can-navigate-back", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2400,9 +2374,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_CAN_NAVIGATE_FORWARD] =
-    g_param_spec_boolean ("can-navigate-forward",
-                          "Can navigate forward",
-                          "Whether gestures and shortcuts for navigating forward are enabled",
+    g_param_spec_boolean ("can-navigate-forward", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2414,9 +2386,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_CAN_UNFOLD] =
-    g_param_spec_boolean ("can-unfold",
-                          "Can unfold",
-                          "Whether or not the leaflet can unfold",
+    g_param_spec_boolean ("can-unfold", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -2432,9 +2402,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
  props[PROP_PAGES] =
-    g_param_spec_object ("pages",
-                         "Pages",
-                         "A selection model with the leaflet's pages",
+    g_param_spec_object ("pages", NULL, NULL,
                          GTK_TYPE_SELECTION_MODEL,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 

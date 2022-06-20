@@ -177,9 +177,7 @@ adw_clamp_class_init (AdwClampClass *klass)
    * Since: 1.0
    */
   props[PROP_CHILD] =
-    g_param_spec_object ("child",
-                         "Child",
-                         "The child widget",
+    g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -193,9 +191,7 @@ adw_clamp_class_init (AdwClampClass *klass)
    * Since: 1.0
    */
   props[PROP_MAXIMUM_SIZE] =
-    g_param_spec_int ("maximum-size",
-                      "Maximum size",
-                      "The maximum size allocated to the child",
+    g_param_spec_int ("maximum-size", NULL, NULL,
                       0, G_MAXINT, 600,
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -220,9 +216,7 @@ adw_clamp_class_init (AdwClampClass *klass)
    * Since: 1.0
    */
   props[PROP_TIGHTENING_THRESHOLD] =
-    g_param_spec_int ("tightening-threshold",
-                      "Tightening threshold",
-                      "The size above which the child is clamped",
+    g_param_spec_int ("tightening-threshold", NULL, NULL,
                       0, G_MAXINT, 400,
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

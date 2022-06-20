@@ -557,9 +557,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    * Since: 1.0
    */
   props[PROP_VISIBLE_PAGE] =
-    g_param_spec_object ("visible-page",
-                         "Visible page",
-                         "The currently visible page",
+    g_param_spec_object ("visible-page", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -573,9 +571,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    * Since: 1.0
    */
   props[PROP_VISIBLE_PAGE_NAME] =
-    g_param_spec_string ("visible-page-name",
-                         "Name of visible page",
-                         "The name of the currently visible page",
+    g_param_spec_string ("visible-page-name", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -587,9 +583,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    * Since: 1.0
    */
   props[PROP_SEARCH_ENABLED] =
-    g_param_spec_boolean ("search-enabled",
-                          "Search enabled",
-                          "Whether search is enabled",
+    g_param_spec_boolean ("search-enabled", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -612,9 +606,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    * Since: 1.0
    */
   props[PROP_CAN_NAVIGATE_BACK] =
-    g_param_spec_boolean ("can-navigate-back",
-                          "Can navigate back",
-                          "Whether gestures and shortcuts for closing subpages are enabled",
+    g_param_spec_boolean ("can-navigate-back", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

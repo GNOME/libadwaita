@@ -281,9 +281,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    * Since: 1.0
    */
   props[PROP_ICON_NAME] =
-    g_param_spec_string ("icon-name",
-                         "Icon Name",
-                         "Icon name for image",
+    g_param_spec_string ("icon-name", NULL, NULL,
                          "text-x-generic-symbolic",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -299,9 +297,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    * Since: 1.0
    */
   props[PROP_NEEDS_ATTENTION] =
-    g_param_spec_boolean ("needs-attention",
-                          "Needs attention",
-                          "Hint the view needs attention",
+    g_param_spec_boolean ("needs-attention", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -313,9 +309,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    * Since: 1.0
    */
   props[PROP_BADGE_NUMBER] =
-    g_param_spec_uint ("badge-number",
-                       "Badge number",
-                       "A number to display as a badge on the button",
+    g_param_spec_uint ("badge-number", NULL, NULL,
                        0,
                        G_MAXUINT,
                        0,

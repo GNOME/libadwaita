@@ -224,9 +224,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_VALUE_FROM] =
-    g_param_spec_double ("value-from",
-                         "Initial value",
-                         "The value to animate from",
+    g_param_spec_double ("value-from", NULL, NULL,
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
@@ -246,9 +244,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_VALUE_TO] =
-    g_param_spec_double ("value-to",
-                         "Final value",
-                         "The value to animate to",
+    g_param_spec_double ("value-to", NULL, NULL,
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
@@ -267,9 +263,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_DURATION] =
-    g_param_spec_uint ("duration",
-                       "Duration",
-                       "Duration of the animation in milliseconds",
+    g_param_spec_uint ("duration", NULL, NULL,
                        0,
                        ADW_DURATION_INFINITE,
                        0,
@@ -287,9 +281,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_EASING] =
-    g_param_spec_enum ("easing",
-                       "Easing",
-                       "Easing function used in the animation",
+    g_param_spec_enum ("easing", NULL, NULL,
                        ADW_TYPE_EASING,
                        ADW_EASE_OUT_CUBIC,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -304,9 +296,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_REPEAT_COUNT] =
-    g_param_spec_uint ("repeat-count",
-                       "Repeat count",
-                       "Number of times the animation will play",
+    g_param_spec_uint ("repeat-count", NULL, NULL,
                        0,
                        G_MAXUINT,
                        1,
@@ -320,9 +310,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_REVERSE] =
-    g_param_spec_boolean ("reverse",
-                          "Reverse",
-                          "Whether the animation plays backwards",
+    g_param_spec_boolean ("reverse", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -334,9 +322,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_ALTERNATE] =
-    g_param_spec_boolean ("alternate",
-                          "Alternate",
-                          "Whether the animation changes direction on every iteration",
+    g_param_spec_boolean ("alternate", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

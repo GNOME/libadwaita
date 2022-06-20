@@ -243,9 +243,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
    * Since: 1.0
    */
   props[PROP_DESCRIPTION] =
-    g_param_spec_string ("description",
-                         "Description",
-                         "The description for this group of preferences",
+    g_param_spec_string ("description", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -257,9 +255,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
    * Since: 1.0
    */
   props[PROP_TITLE] =
-    g_param_spec_string ("title",
-                         "Title",
-                         "The title for this group of preferences",
+    g_param_spec_string ("title", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
   /**
@@ -272,9 +268,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
    * Since: 1.1
    */
   props[PROP_HEADER_SUFFIX] =
-    g_param_spec_object ("header-suffix",
-                         "Header Suffix",
-                         "The suffix for this group's header",
+    g_param_spec_object ("header-suffix", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

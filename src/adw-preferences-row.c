@@ -125,9 +125,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
    * Since: 1.0
    */
   props[PROP_TITLE] =
-    g_param_spec_string ("title",
-                         "Title",
-                         "The title of the preference represented by this row",
+    g_param_spec_string ("title", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -139,9 +137,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
    * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
-    g_param_spec_boolean ("use-underline",
-                          "Use underline",
-                          "Whether an embedded underline in the title indicates a mnemonic",
+    g_param_spec_boolean ("use-underline", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -155,9 +151,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
    * Since: 1.1
    */
   props[PROP_TITLE_SELECTABLE] =
-    g_param_spec_boolean ("title-selectable",
-                          "Title selectable",
-                          "Whether the title should be selectable (i.e. the user can copy it)",
+    g_param_spec_boolean ("title-selectable", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -173,9 +167,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
    * Since: 1.2
    */
   props[PROP_USE_MARKUP] =
-    g_param_spec_boolean ("use-markup",
-                          "Use markup",
-                          "Whether to use Pango markup for the title label",
+    g_param_spec_boolean ("use-markup", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

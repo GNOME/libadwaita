@@ -221,9 +221,7 @@ adw_button_content_class_init (AdwButtonContentClass *klass)
    * Since: 1.0
    */
   props[PROP_ICON_NAME] =
-    g_param_spec_string ("icon-name",
-                         "Icon name",
-                         "The name of the displayed icon",
+    g_param_spec_string ("icon-name", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -235,9 +233,7 @@ adw_button_content_class_init (AdwButtonContentClass *klass)
    * Since: 1.0
    */
   props[PROP_LABEL] =
-    g_param_spec_string ("label",
-                         "Label",
-                         "The displayed label",
+    g_param_spec_string ("label", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -253,9 +249,7 @@ adw_button_content_class_init (AdwButtonContentClass *klass)
    * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
-    g_param_spec_boolean ("use-underline",
-                          "Use underline",
-                          "Whether an underline in the text indicates a mnemonic",
+    g_param_spec_boolean ("use-underline", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

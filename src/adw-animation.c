@@ -348,9 +348,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_VALUE] =
-    g_param_spec_double ("value",
-                         "Value",
-                         "The current value of the animation",
+    g_param_spec_double ("value", NULL, NULL,
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
@@ -371,9 +369,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_WIDGET] =
-    g_param_spec_object ("widget",
-                         "Widget",
-                         "The animation widget",
+    g_param_spec_object ("widget", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
@@ -385,9 +381,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_TARGET] =
-    g_param_spec_object ("target",
-                         "Target",
-                         "The target to animate",
+    g_param_spec_object ("target", NULL, NULL,
                          ADW_TYPE_ANIMATION_TARGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -402,9 +396,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_STATE] =
-    g_param_spec_enum ("state",
-                       "State",
-                       "The animation state",
+    g_param_spec_enum ("state", NULL, NULL,
                        ADW_TYPE_ANIMATION_STATE,
                        ADW_ANIMATION_IDLE,
                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);

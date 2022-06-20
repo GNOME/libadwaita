@@ -166,9 +166,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    * Since: 1.0
    */
   props[PROP_ICON_NAME] =
-    g_param_spec_string ("icon-name",
-                         "Icon name",
-                         "The icon name for this page",
+    g_param_spec_string ("icon-name", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -180,9 +178,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    * Since: 1.0
    */
   props[PROP_TITLE] =
-    g_param_spec_string ("title",
-                         "Title",
-                         "The title for this page",
+    g_param_spec_string ("title", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -194,9 +190,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    * Since: 1.0
    */
   props[PROP_NAME] =
-    g_param_spec_string ("name",
-                         "Name",
-                         "The name of this page",
+    g_param_spec_string ("name", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -208,9 +202,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
-    g_param_spec_boolean ("use-underline",
-                          "Use underline",
-                          " Whether an embedded underline in the title label indicates a mnemonic",
+    g_param_spec_boolean ("use-underline", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

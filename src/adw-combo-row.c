@@ -423,9 +423,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * Since: 1.0
    */
   props[PROP_MODEL] =
-    g_param_spec_object ("model",
-                         "Model",
-                         "Model for the displayed items",
+    g_param_spec_object ("model", NULL, NULL,
                          G_TYPE_LIST_MODEL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -440,9 +438,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * Since: 1.0
    */
   props[PROP_SELECTED] =
-    g_param_spec_uint ("selected",
-                       "Selected",
-                       "Position of the selected item",
+    g_param_spec_uint ("selected", NULL, NULL,
                        0, G_MAXUINT, GTK_INVALID_LIST_POSITION,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -454,9 +450,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * Since: 1.0
    */
   props[PROP_SELECTED_ITEM] =
-    g_param_spec_object ("selected-item",
-                         "Selected Item",
-                         "The selected item",
+    g_param_spec_object ("selected-item", NULL, NULL,
                          G_TYPE_OBJECT,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -471,9 +465,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * Since: 1.0
    */
   props[PROP_FACTORY] =
-    g_param_spec_object ("factory",
-                         "Factory",
-                         "Factory for populating list items",
+    g_param_spec_object ("factory", NULL, NULL,
                          GTK_TYPE_LIST_ITEM_FACTORY,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -487,9 +479,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * Since: 1.0
    */
   props[PROP_LIST_FACTORY] =
-    g_param_spec_object ("list-factory",
-                         "List Factory",
-                         "Factory for populating list items",
+    g_param_spec_object ("list-factory", NULL, NULL,
                          GTK_TYPE_LIST_ITEM_FACTORY,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -527,9 +517,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * Since: 1.0
    */
   props[PROP_USE_SUBTITLE] =
-    g_param_spec_boolean ("use-subtitle",
-                          "Use subtitle",
-                          "Whether to use the current value as the subtitle",
+    g_param_spec_boolean ("use-subtitle", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

@@ -386,9 +386,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_CHILD] =
-    g_param_spec_object ("child",
-                         "Child",
-                         "The child of the page",
+    g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
@@ -402,9 +400,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_PARENT] =
-    g_param_spec_object ("parent",
-                         "Parent",
-                         "The parent page of the page",
+    g_param_spec_object ("parent", NULL, NULL,
                          ADW_TYPE_TAB_PAGE,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -416,9 +412,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_SELECTED] =
-    g_param_spec_boolean ("selected",
-                          "Selected",
-                          "Whether the page is selected",
+    g_param_spec_boolean ("selected", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -432,9 +426,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_PINNED] =
-    g_param_spec_boolean ("pinned",
-                          "Pinned",
-                          "Whether the page is pinned",
+    g_param_spec_boolean ("pinned", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -449,9 +441,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_TITLE] =
-    g_param_spec_string ("title",
-                         "Title",
-                         "The title of the page",
+    g_param_spec_string ("title", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -468,9 +458,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_TOOLTIP] =
-    g_param_spec_string ("tooltip",
-                         "Tooltip",
-                         "The tooltip of the page",
+    g_param_spec_string ("tooltip", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -487,9 +475,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_ICON] =
-    g_param_spec_object ("icon",
-                         "Icon",
-                         "The icon of the page",
+    g_param_spec_object ("icon", NULL, NULL,
                          G_TYPE_ICON,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -506,9 +492,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_LOADING] =
-    g_param_spec_boolean ("loading",
-                          "Loading",
-                          "Whether the page is loading",
+    g_param_spec_boolean ("loading", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -531,9 +515,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_INDICATOR_ICON] =
-    g_param_spec_object ("indicator-icon",
-                         "Indicator icon",
-                         "An indicator icon for the page",
+    g_param_spec_object ("indicator-icon", NULL, NULL,
                          G_TYPE_ICON,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -550,9 +532,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_INDICATOR_ACTIVATABLE] =
-    g_param_spec_boolean ("indicator-activatable",
-                          "Indicator activatable",
-                          "Whether the indicator icon is activatable",
+    g_param_spec_boolean ("indicator-activatable", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -568,9 +548,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_NEEDS_ATTENTION] =
-    g_param_spec_boolean ("needs-attention",
-                          "Needs attention",
-                          "Whether the page needs attention",
+    g_param_spec_boolean ("needs-attention", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1416,9 +1394,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
    * Since: 1.0
    */
   props[PROP_N_PAGES] =
-    g_param_spec_int ("n-pages",
-                      "Number of pages",
-                      "The number of pages in the tab view",
+    g_param_spec_int ("n-pages", NULL, NULL,
                       0, G_MAXINT, 0,
                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -1432,9 +1408,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
    * Since: 1.0
    */
   props[PROP_N_PINNED_PAGES] =
-    g_param_spec_int ("n-pinned-pages",
-                      "Number of pinned pages",
-                      "The number of pinned pages in the tab view",
+    g_param_spec_int ("n-pinned-pages", NULL, NULL,
                       0, G_MAXINT, 0,
                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -1452,9 +1426,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
    * Since: 1.0
    */
   props[PROP_IS_TRANSFERRING_PAGE] =
-    g_param_spec_boolean ("is-transferring-page",
-                          "Is transferring page",
-                          "Whether a page is being transferred",
+    g_param_spec_boolean ("is-transferring-page", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -1466,9 +1438,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
    * Since: 1.0
    */
   props[PROP_SELECTED_PAGE] =
-    g_param_spec_object ("selected-page",
-                         "Selected page",
-                         "The currently selected page",
+    g_param_spec_object ("selected-page", NULL, NULL,
                          ADW_TYPE_TAB_PAGE,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1490,9 +1460,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
    * Since: 1.0
    */
   props[PROP_DEFAULT_ICON] =
-    g_param_spec_object ("default-icon",
-                         "Default icon",
-                         "Default page icon",
+    g_param_spec_object ("default-icon", NULL, NULL,
                          G_TYPE_ICON,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1508,9 +1476,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
    * Since: 1.0
    */
   props[PROP_MENU_MODEL] =
-    g_param_spec_object ("menu-model",
-                         "Menu model",
-                         "Tab context menu model",
+    g_param_spec_object ("menu-model", NULL, NULL,
                          G_TYPE_MENU_MODEL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1526,9 +1492,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
    * Since: 1.0
    */
   props[PROP_PAGES] =
-    g_param_spec_object ("pages",
-                         "Pages",
-                         "A selection model with the tab view's pages",
+    g_param_spec_object ("pages", NULL, NULL,
                          GTK_TYPE_SELECTION_MODEL,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 

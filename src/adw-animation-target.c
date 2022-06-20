@@ -405,9 +405,7 @@ adw_property_animation_target_class_init (AdwPropertyAnimationTargetClass *klass
    * Since: 1.2
    */
   property_props[PROPERTY_PROP_OBJECT] =
-    g_param_spec_object ("object",
-                         "Object",
-                         "The object whose property will be animated",
+    g_param_spec_object ("object", NULL, NULL,
                          G_TYPE_OBJECT,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
@@ -422,9 +420,7 @@ adw_property_animation_target_class_init (AdwPropertyAnimationTargetClass *klass
    * Since: 1.2
    */
   property_props[PROPERTY_PROP_PROPERTY_NAME] =
-    g_param_spec_string ("property-name",
-                         "Property name",
-                         "The name of the property to be animated",
+    g_param_spec_string ("property-name", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
@@ -439,9 +435,7 @@ adw_property_animation_target_class_init (AdwPropertyAnimationTargetClass *klass
    * Since: 1.2
    */
   property_props[PROPERTY_PROP_PSPEC] =
-    g_param_spec_param ("pspec",
-                        "Param spec",
-                        "The param spec of the property to be animated",
+    g_param_spec_param ("pspec", NULL, NULL,
                         G_TYPE_PARAM,
                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 

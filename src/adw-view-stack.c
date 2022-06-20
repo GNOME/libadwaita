@@ -260,9 +260,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * Since: 1.0
    */
   page_props[PAGE_PROP_CHILD] =
-    g_param_spec_object ("child",
-                         "Child",
-                         "The child of the page",
+    g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
@@ -274,9 +272,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * Since: 1.0
    */
   page_props[PAGE_PROP_NAME] =
-    g_param_spec_string ("name",
-                         "Name",
-                         "The name of the child page",
+    g_param_spec_string ("name", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -288,9 +284,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * Since: 1.0
    */
   page_props[PAGE_PROP_TITLE] =
-    g_param_spec_string ("title",
-                         "Title",
-                         "The title of the child page",
+    g_param_spec_string ("title", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -302,9 +296,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * Since: 1.0
    */
   page_props[PAGE_PROP_ICON_NAME] =
-    g_param_spec_string ("icon-name",
-                         "Icon name",
-                         "The icon name of the child page",
+    g_param_spec_string ("icon-name", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -318,9 +310,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * Since: 1.0
    */
   page_props[PAGE_PROP_NEEDS_ATTENTION] =
-    g_param_spec_boolean ("needs-attention",
-                          "Needs Attention",
-                          "Whether the page requires the user attention",
+    g_param_spec_boolean ("needs-attention", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -337,9 +327,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * Since: 1.0
    */
   page_props[PAGE_PROP_BADGE_NUMBER] =
-    g_param_spec_uint ("badge-number",
-                       "Badge_number",
-                       "A number associated with the page",
+    g_param_spec_uint ("badge-number", NULL, NULL,
                        0, G_MAXUINT, 0,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -354,9 +342,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * Since: 1.0
    */
   page_props[PAGE_PROP_VISIBLE] =
-    g_param_spec_boolean ("visible",
-                          "Visible",
-                          "Whether this page is visible",
+    g_param_spec_boolean ("visible", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -368,9 +354,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * Since: 1.0
    */
   page_props[PAGE_PROP_USE_UNDERLINE] =
-    g_param_spec_boolean ("use-underline",
-                          "Use underline",
-                          "Whether an embedded underline in the title label indicates a mnemonic",
+    g_param_spec_boolean ("use-underline", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -921,9 +905,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    * Since: 1.0
    */
   props[PROP_HHOMOGENEOUS] =
-    g_param_spec_boolean ("hhomogeneous",
-                          "Horizontally homogeneous",
-                          "Whether the stack allocates the same width for all children",
+    g_param_spec_boolean ("hhomogeneous", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -938,9 +920,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    * Since: 1.0
    */
   props[PROP_VHOMOGENEOUS] =
-    g_param_spec_boolean ("vhomogeneous",
-                          "Vertically homogeneous",
-                          "Whether the stack allocates the same height for all children",
+    g_param_spec_boolean ("vhomogeneous", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -952,9 +932,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    * Since: 1.0
    */
   props[PROP_VISIBLE_CHILD] =
-    g_param_spec_object ("visible-child",
-                         "Visible child",
-                         "The widget currently visible in the stack",
+    g_param_spec_object ("visible-child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -968,9 +946,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    * Since: 1.0
    */
   props[PROP_VISIBLE_CHILD_NAME] =
-    g_param_spec_string ("visible-child-name",
-                         "Name of visible child",
-                         "The name of the widget currently visible in the stack",
+    g_param_spec_string ("visible-child-name", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -984,9 +960,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    * page.
    */
   props[PROP_PAGES] =
-    g_param_spec_object ("pages",
-                         "Pages",
-                         "A selection model with the stack's pages",
+    g_param_spec_object ("pages", NULL, NULL,
                          GTK_TYPE_SELECTION_MODEL,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 

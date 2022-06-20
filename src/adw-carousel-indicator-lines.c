@@ -339,9 +339,7 @@ adw_carousel_indicator_lines_class_init (AdwCarouselIndicatorLinesClass *klass)
    * Since: 1.0
    */
   props[PROP_CAROUSEL] =
-    g_param_spec_object ("carousel",
-                         "Carousel",
-                         "The displayed carousel",
+    g_param_spec_object ("carousel", NULL, NULL,
                          ADW_TYPE_CAROUSEL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

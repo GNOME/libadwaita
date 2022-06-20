@@ -884,9 +884,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    * Since: 1.0
    */
   props[PROP_N_PAGES] =
-    g_param_spec_uint ("n-pages",
-                       "Number of pages",
-                       "Number of pages",
+    g_param_spec_uint ("n-pages", NULL, NULL,
                        0,
                        G_MAXUINT,
                        0,
@@ -902,9 +900,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    * Since: 1.0
    */
   props[PROP_POSITION] =
-    g_param_spec_double ("position",
-                         "Position",
-                         "Current scrolling position",
+    g_param_spec_double ("position", NULL, NULL,
                          0,
                          G_MAXDOUBLE,
                          0,
@@ -921,9 +917,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    * Since: 1.0
    */
   props[PROP_INTERACTIVE] =
-    g_param_spec_boolean ("interactive",
-                          "Interactive",
-                          "Whether the widget can be swiped",
+    g_param_spec_boolean ("interactive", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -935,9 +929,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    * Since: 1.0
    */
   props[PROP_SPACING] =
-    g_param_spec_uint ("spacing",
-                       "Spacing",
-                       "Spacing between pages",
+    g_param_spec_uint ("spacing", NULL, NULL,
                        0,
                        G_MAXUINT,
                        0,
@@ -957,9 +949,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    * Since: 1.0
    */
   props[PROP_SCROLL_PARAMS] =
-    g_param_spec_boxed ("scroll-params",
-                        "Scroll Parameters",
-                        "Scroll animation spring parameters",
+    g_param_spec_boxed ("scroll-params", NULL, NULL,
                         ADW_TYPE_SPRING_PARAMS,
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -973,9 +963,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    * Since: 1.0
    */
   props[PROP_ALLOW_MOUSE_DRAG] =
-    g_param_spec_boolean ("allow-mouse-drag",
-                          "Allow mouse drag",
-                          "Whether to allow dragging with mouse pointer",
+    g_param_spec_boolean ("allow-mouse-drag", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -989,9 +977,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    * Since: 1.0
    */
   props[PROP_ALLOW_SCROLL_WHEEL] =
-    g_param_spec_boolean ("allow-scroll-wheel",
-                          "Allow scroll wheel",
-                          "Whether the widget will respond to scroll wheel events",
+    g_param_spec_boolean ("allow-scroll-wheel", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1005,9 +991,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    * Since: 1.0
    */
   props[PROP_ALLOW_LONG_SWIPES] =
-    g_param_spec_boolean ("allow-long-swipes",
-                          "Allow long swipes",
-                          "Whether to allow swiping for more than one page at a time",
+    g_param_spec_boolean ("allow-long-swipes", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1019,9 +1003,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    * Since: 1.0
    */
   props[PROP_REVEAL_DURATION] =
-    g_param_spec_uint ("reveal-duration",
-                       "Reveal duration",
-                       "Page reveal duration",
+    g_param_spec_uint ("reveal-duration", NULL, NULL,
                        0,
                        G_MAXUINT,
                        0,

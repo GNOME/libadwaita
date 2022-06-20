@@ -129,9 +129,7 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
    * Since: 1.0
    */
   props[PROP_TITLE] =
-    g_param_spec_string ("title",
-                         "Title",
-                         "The title to display",
+    g_param_spec_string ("title", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -145,9 +143,7 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
    * Since: 1.0
    */
   props[PROP_SUBTITLE] =
-    g_param_spec_string ("subtitle",
-                         "Subtitle",
-                         "The subtitle to display",
+    g_param_spec_string ("subtitle", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

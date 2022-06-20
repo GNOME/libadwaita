@@ -235,9 +235,7 @@ adw_application_class_init (AdwApplicationClass *klass)
    * Since: 1.0
    */
   props[PROP_STYLE_MANAGER] =
-    g_param_spec_object ("style-manager",
-                         "Style Manager",
-                         "The default style manager",
+    g_param_spec_object ("style-manager", NULL, NULL,
                          ADW_TYPE_STYLE_MANAGER,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 

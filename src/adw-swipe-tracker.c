@@ -1019,9 +1019,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    * Since: 1.0
    */
   props[PROP_SWIPEABLE] =
-    g_param_spec_object ("swipeable",
-                         "Swipeable",
-                         "The widget the swipe tracker is attached to",
+    g_param_spec_object ("swipeable", NULL, NULL,
                          ADW_TYPE_SWIPEABLE,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
@@ -1036,9 +1034,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    * Since: 1.0
    */
   props[PROP_ENABLED] =
-    g_param_spec_boolean ("enabled",
-                          "Enabled",
-                          "Whether the swipe tracker is enabled",
+    g_param_spec_boolean ("enabled", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1053,9 +1049,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    * Since: 1.0
    */
   props[PROP_REVERSED] =
-    g_param_spec_boolean ("reversed",
-                          "Reversed",
-                          "Whether to reverse the swipe direction",
+    g_param_spec_boolean ("reversed", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1067,9 +1061,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    * Since: 1.0
    */
   props[PROP_ALLOW_MOUSE_DRAG] =
-    g_param_spec_boolean ("allow-mouse-drag",
-                          "Allow mouse drag",
-                          "Whether to allow dragging with mouse pointer",
+    g_param_spec_boolean ("allow-mouse-drag", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1084,9 +1076,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    * Since: 1.0
    */
   props[PROP_ALLOW_LONG_SWIPES] =
-    g_param_spec_boolean ("allow-long-swipes",
-                          "Allow long swipes",
-                          "Whether to allow swiping for more than one snap point at a time",
+    g_param_spec_boolean ("allow-long-swipes", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

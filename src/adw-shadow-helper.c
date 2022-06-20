@@ -132,9 +132,7 @@ adw_shadow_helper_class_init (AdwShadowHelperClass *klass)
    * Since: 1.0
    */
   props[PROP_WIDGET] =
-    g_param_spec_object ("widget",
-                         "Widget",
-                         "The widget the shadow will be drawn for",
+    g_param_spec_object ("widget", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 

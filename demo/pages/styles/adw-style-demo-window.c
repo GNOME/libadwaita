@@ -164,16 +164,12 @@ adw_style_demo_window_class_init (AdwStyleDemoWindowClass *klass)
   object_class->dispose = adw_style_demo_window_dispose;
 
   props[PROP_DEVEL] =
-    g_param_spec_boolean ("devel",
-                          "Development style",
-                          "Development style",
+    g_param_spec_boolean ("devel", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   props[PROP_PROGRESS] =
-    g_param_spec_boolean ("progress",
-                          "Progress",
-                          "Progress",
+    g_param_spec_boolean ("progress", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 

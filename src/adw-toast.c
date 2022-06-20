@@ -306,9 +306,7 @@ adw_toast_class_init (AdwToastClass *klass)
    * Since: 1.0
    */
   props[PROP_TITLE] =
-    g_param_spec_string ("title",
-                         "Title",
-                         "The title of the toast",
+    g_param_spec_string ("title", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -326,9 +324,7 @@ adw_toast_class_init (AdwToastClass *klass)
    * Since: 1.0
    */
   props[PROP_BUTTON_LABEL] =
-    g_param_spec_string ("button-label",
-                         "Button Label",
-                         "The label to show on the button",
+    g_param_spec_string ("button-label", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -344,9 +340,7 @@ adw_toast_class_init (AdwToastClass *klass)
    * Since: 1.0
    */
   props[PROP_ACTION_NAME] =
-    g_param_spec_string ("action-name",
-                         "Action Name",
-                         "The name of the associated action",
+    g_param_spec_string ("action-name", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -360,9 +354,7 @@ adw_toast_class_init (AdwToastClass *klass)
    * Since: 1.0
    */
   props[PROP_ACTION_TARGET] =
-    g_param_spec_variant ("action-target",
-                          "Action Target Value",
-                          "The parameter for action invocations",
+    g_param_spec_variant ("action-target", NULL, NULL,
                           G_VARIANT_TYPE_ANY,
                           NULL,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -383,9 +375,7 @@ adw_toast_class_init (AdwToastClass *klass)
    * Since: 1.0
    */
   props[PROP_PRIORITY] =
-    g_param_spec_enum ("priority",
-                       "Priority",
-                       "The priority of the toast",
+    g_param_spec_enum ("priority", NULL, NULL,
                        ADW_TYPE_TOAST_PRIORITY,
                        ADW_TOAST_PRIORITY_NORMAL,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -404,9 +394,7 @@ adw_toast_class_init (AdwToastClass *klass)
    * Since: 1.0
    */
   props[PROP_TIMEOUT] =
-    g_param_spec_uint ("timeout",
-                       "Timeout",
-                       "The timeout of the toast, in seconds",
+    g_param_spec_uint ("timeout", NULL, NULL,
                        0, G_MAXUINT, 5,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -423,9 +411,7 @@ adw_toast_class_init (AdwToastClass *klass)
    * Since: 1.2
    */
   props[PROP_CUSTOM_TITLE] =
-    g_param_spec_object ("custom-title",
-                         "Custom Title",
-                         "The custom title widget",
+    g_param_spec_object ("custom-title", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

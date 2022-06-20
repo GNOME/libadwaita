@@ -301,9 +301,7 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
    * Since: 1.0
    */
   props[PROP_CHILD] =
-    g_param_spec_object ("child",
-                         "Child",
-                         "The child widget",
+    g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -315,9 +313,7 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
    * Since: 1.0
    */
   props[PROP_NEEDS_ATTENTION] =
-    g_param_spec_boolean ("needs-attention",
-                          "Needs Attention",
-                          "Whether the indicator requires attention of the user",
+    g_param_spec_boolean ("needs-attention", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -329,9 +325,7 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
    * Since: 1.0
    */
   props[PROP_BADGE] =
-    g_param_spec_string ("badge",
-                         "Badge",
-                         "Additional information for the user",
+    g_param_spec_string ("badge", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

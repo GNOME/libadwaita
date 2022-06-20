@@ -401,9 +401,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_VALUE_FROM] =
-    g_param_spec_double ("value-from",
-                         "Initial value",
-                         "The value to animate from",
+    g_param_spec_double ("value-from", NULL, NULL,
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
@@ -420,9 +418,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_VALUE_TO] =
-    g_param_spec_double ("value-to",
-                         "Final value",
-                         "The value to animate to",
+    g_param_spec_double ("value-to", NULL, NULL,
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
@@ -436,9 +432,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_SPRING_PARAMS] =
-    g_param_spec_boxed ("spring-params",
-                        "Spring parameters",
-                        "Physical parameters describing the spring",
+    g_param_spec_boxed ("spring-params", NULL, NULL,
                         ADW_TYPE_SPRING_PARAMS,
                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -452,9 +446,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_INITIAL_VELOCITY] =
-    g_param_spec_double ("initial-velocity",
-                         "Initial velocity",
-                         "The initial velocity to start the animation with",
+    g_param_spec_double ("initial-velocity", NULL, NULL,
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
@@ -479,9 +471,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_EPSILON] =
-    g_param_spec_double ("epsilon",
-                         "Epsilon",
-                         "Precision of the spring",
+    g_param_spec_double ("epsilon", NULL, NULL,
                          0,
                          G_MAXDOUBLE,
                          0.001,
@@ -501,9 +491,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_CLAMP] =
-    g_param_spec_boolean ("clamp",
-                          "Clamp",
-                          "Whether the animation should be clamped",
+    g_param_spec_boolean ("clamp", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -517,9 +505,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_ESTIMATED_DURATION] =
-    g_param_spec_uint ("estimated-duration",
-                       "Estimated duration",
-                       "Estimated duration of the animation in milliseconds",
+    g_param_spec_uint ("estimated-duration", NULL, NULL,
                        0,
                        ADW_DURATION_INFINITE,
                        0,
@@ -533,9 +519,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
    * Since: 1.0
    */
   props[PROP_VELOCITY] =
-    g_param_spec_double ("velocity",
-                         "Velocity",
-                         "The current velocity of the animation",
+    g_param_spec_double ("velocity", NULL, NULL,
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,

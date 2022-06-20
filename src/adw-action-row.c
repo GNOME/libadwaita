@@ -235,9 +235,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * Since: 1.0
    */
   props[PROP_ICON_NAME] =
-    g_param_spec_string ("icon-name",
-                         "Icon name",
-                         "The icon name for this row",
+    g_param_spec_string ("icon-name", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -257,9 +255,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * Since: 1.0
    */
   props[PROP_ACTIVATABLE_WIDGET] =
-    g_param_spec_object ("activatable-widget",
-                         "Activatable widget",
-                         "The widget to be activated when the row is activated",
+    g_param_spec_object ("activatable-widget", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -271,9 +267,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * Since: 1.0
    */
   props[PROP_SUBTITLE] =
-    g_param_spec_string ("subtitle",
-                         "Subtitle",
-                         "The subtitle for this row",
+    g_param_spec_string ("subtitle", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -287,9 +281,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * Since: 1.0
    */
   props[PROP_TITLE_LINES] =
-    g_param_spec_int ("title-lines",
-                      "Number of title lines",
-                      "The desired number of title lines",
+    g_param_spec_int ("title-lines", NULL, NULL,
                       0, G_MAXINT,
                       0,
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -305,9 +297,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * Since: 1.0
    */
   props[PROP_SUBTITLE_LINES] =
-    g_param_spec_int ("subtitle-lines",
-                      "Number of subtitle lines",
-                      "The desired number of subtitle lines",
+    g_param_spec_int ("subtitle-lines", NULL, NULL,
                       0, G_MAXINT,
                       0,
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);

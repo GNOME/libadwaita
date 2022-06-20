@@ -190,9 +190,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
    * Since: 1.0
    */
   props[PROP_STACK] =
-    g_param_spec_object ("stack",
-                         "Stack",
-                         "The stack the view switcher controls",
+    g_param_spec_object ("stack", NULL, NULL,
                          ADW_TYPE_VIEW_STACK,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -204,9 +202,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
    * Since: 1.0
    */
   props[PROP_REVEAL] =
-    g_param_spec_boolean ("reveal",
-                         "Reveal",
-                         "Whether the bar should be revealed or hidden",
+    g_param_spec_boolean ("reveal", NULL, NULL,
                          FALSE,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

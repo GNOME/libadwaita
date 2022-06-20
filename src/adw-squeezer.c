@@ -224,9 +224,7 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_CHILD] =
-    g_param_spec_object ("child",
-                         "Child",
-                         "The child of the page",
+    g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
@@ -247,9 +245,7 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
    * Since: 1.0
    */
   page_props[PAGE_PROP_ENABLED] =
-    g_param_spec_boolean ("enabled",
-                          "Enabled",
-                          "Whether the child is enabled",
+    g_param_spec_boolean ("enabled", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1064,9 +1060,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * Since: 1.0
    */
   props[PROP_HOMOGENEOUS] =
-    g_param_spec_boolean ("homogeneous",
-                          "Homogeneous",
-                          "Whether all children have the same size for the opposite orientation",
+    g_param_spec_boolean ("homogeneous", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1086,9 +1080,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * Since: 1.0
    */
   props[PROP_SWITCH_THRESHOLD_POLICY] =
-    g_param_spec_enum ("switch-threshold-policy",
-                       "Switch Threshold Policy",
-                       "Determines when the leaflet will fold",
+    g_param_spec_enum ("switch-threshold-policy", NULL, NULL,
                        ADW_TYPE_FOLD_THRESHOLD_POLICY,
                        ADW_FOLD_THRESHOLD_POLICY_NATURAL,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -1101,9 +1093,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * Since: 1.0
    */
   props[PROP_VISIBLE_CHILD] =
-    g_param_spec_object ("visible-child",
-                         "Visible child",
-                         "The currently visible child",
+    g_param_spec_object ("visible-child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -1119,9 +1109,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * Since: 1.0
    */
   props[PROP_ALLOW_NONE] =
-    g_param_spec_boolean ("allow-none",
-                          "Allow none",
-                          "Whether to allow squeezing beyond the last child's minimum size",
+    g_param_spec_boolean ("allow-none", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1133,9 +1121,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * Since: 1.0
    */
   props[PROP_TRANSITION_DURATION] =
-    g_param_spec_uint ("transition-duration",
-                       "Transition duration",
-                       "The animation duration, in milliseconds",
+    g_param_spec_uint ("transition-duration", NULL, NULL,
                        0, G_MAXUINT, 200,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1147,9 +1133,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * Since: 1.0
    */
   props[PROP_TRANSITION_TYPE] =
-    g_param_spec_enum ("transition-type",
-                       "Transition type",
-                       "The type of animation used for transitions between children",
+    g_param_spec_enum ("transition-type", NULL, NULL,
                        ADW_TYPE_SQUEEZER_TRANSITION_TYPE,
                        ADW_SQUEEZER_TRANSITION_TYPE_NONE,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -1166,9 +1150,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * Since: 1.0
    */
   props[PROP_TRANSITION_RUNNING] =
-    g_param_spec_boolean ("transition-running",
-                          "Transition running",
-                          "Whether a transition is currently running",
+    g_param_spec_boolean ("transition-running", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -1185,9 +1167,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * Since: 1.0
    */
   props[PROP_INTERPOLATE_SIZE] =
-    g_param_spec_boolean ("interpolate-size",
-                          "Interpolate size",
-                          "Whether the squeezer interpolates its size when changing the visible child",
+    g_param_spec_boolean ("interpolate-size", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1205,9 +1185,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * Since: 1.0
    */
   props[PROP_XALIGN] =
-    g_param_spec_float ("xalign",
-                        "X align",
-                        "The horizontal alignment, from 0 (start) to 1 (end)",
+    g_param_spec_float ("xalign", NULL, NULL,
                         0.0, 1.0,
                         0.5,
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -1226,9 +1204,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * Since: 1.0
    */
   props[PROP_YALIGN] =
-    g_param_spec_float ("yalign",
-                        "Y align",
-                        "The vertical alignment, from 0 (top) to 1 (bottom)",
+    g_param_spec_float ("yalign", NULL, NULL,
                         0.0, 1.0,
                         0.5,
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -1244,9 +1220,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * Since: 1.0
    */
   props[PROP_PAGES] =
-    g_param_spec_object ("pages",
-                         "Pages",
-                         "A selection model with the squeezer's pages",
+    g_param_spec_object ("pages", NULL, NULL,
                          GTK_TYPE_SELECTION_MODEL,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 

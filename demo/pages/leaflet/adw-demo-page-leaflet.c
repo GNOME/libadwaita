@@ -92,9 +92,7 @@ adw_demo_page_leaflet_class_init (AdwDemoPageLeafletClass *klass)
   object_class->set_property = adw_demo_page_leaflet_set_property;
 
   props[PROP_TRANSITION_TYPE] =
-    g_param_spec_enum ("transition-type",
-                       "Transition type",
-                       "Transition type",
+    g_param_spec_enum ("transition-type", NULL, NULL,
                        ADW_TYPE_LEAFLET_TRANSITION_TYPE,
                        ADW_LEAFLET_TRANSITION_TYPE_OVER,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);

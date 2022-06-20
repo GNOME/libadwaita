@@ -411,9 +411,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * Since: 1.0
    */
   props[PROP_VIEW] =
-    g_param_spec_object ("view",
-                         "View",
-                         "The tab view the tab bar controls.",
+    g_param_spec_object ("view", NULL, NULL,
                          ADW_TYPE_TAB_VIEW,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -425,9 +423,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * Since: 1.0
    */
   props[PROP_START_ACTION_WIDGET] =
-    g_param_spec_object ("start-action-widget",
-                         "Start action widget",
-                         "The widget shown before the tabs",
+    g_param_spec_object ("start-action-widget", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -439,9 +435,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * Since: 1.0
    */
   props[PROP_END_ACTION_WIDGET] =
-    g_param_spec_object ("end-action-widget",
-                         "End action widget",
-                         "The widget shown after the tabs",
+    g_param_spec_object ("end-action-widget", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -458,9 +452,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * Since: 1.0
    */
   props[PROP_AUTOHIDE] =
-    g_param_spec_boolean ("autohide",
-                          "Autohide",
-                          "Whether the tabs automatically hide",
+    g_param_spec_boolean ("autohide", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -474,9 +466,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * Since: 1.0
    */
   props[PROP_TABS_REVEALED] =
-    g_param_spec_boolean ("tabs-revealed",
-                          "Tabs revealed",
-                          "Whether the tabs are currently revealed",
+    g_param_spec_boolean ("tabs-revealed", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -491,9 +481,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * Since: 1.0
    */
   props[PROP_EXPAND_TABS] =
-    g_param_spec_boolean ("expand-tabs",
-                          "Expand tabs",
-                          "Whether tabs expand to full width",
+    g_param_spec_boolean ("expand-tabs", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -508,9 +496,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * Since: 1.0
    */
   props[PROP_INVERTED] =
-    g_param_spec_boolean ("inverted",
-                          "Inverted",
-                          "Whether tabs use inverted layout",
+    g_param_spec_boolean ("inverted", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -524,9 +510,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * Since: 1.0
    */
   props[PROP_IS_OVERFLOWING] =
-    g_param_spec_boolean ("is-overflowing",
-                          "Is overflowing",
-                          "Whether the tab bar is overflowing",
+    g_param_spec_boolean ("is-overflowing", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 

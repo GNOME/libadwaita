@@ -406,9 +406,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * Since: 1.0
    */
   props[PROP_TITLE_WIDGET] =
-    g_param_spec_object ("title-widget",
-                         "Title Widget",
-                         "The title widget to display",
+    g_param_spec_object ("title-widget", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -427,9 +425,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * Since: 1.0
    */
   props[PROP_SHOW_START_TITLE_BUTTONS] =
-    g_param_spec_boolean ("show-start-title-buttons",
-                          "Show start title buttons",
-                          "Whether to show title buttons at the start of the header bar",
+    g_param_spec_boolean ("show-start-title-buttons", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -448,9 +444,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * Since: 1.0
    */
   props[PROP_SHOW_END_TITLE_BUTTONS] =
-    g_param_spec_boolean ("show-end-title-buttons",
-                          "Show end title buttons",
-                          "Whether to show title buttons at the end of the header bar",
+    g_param_spec_boolean ("show-end-title-buttons", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -473,9 +467,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * Since: 1.0
    */
   props[PROP_DECORATION_LAYOUT] =
-    g_param_spec_string ("decoration-layout",
-                         "Decoration Layout",
-                         "The layout for window decorations",
+    g_param_spec_string ("decoration-layout", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -487,9 +479,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * Since: 1.0
    */
   props[PROP_CENTERING_POLICY] =
-    g_param_spec_enum ("centering-policy",
-                       "Centering policy",
-                       "The policy for aligning the center widget",
+    g_param_spec_enum ("centering-policy", NULL, NULL,
                        ADW_TYPE_CENTERING_POLICY,
                        ADW_CENTERING_POLICY_LOOSE,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);

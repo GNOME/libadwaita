@@ -391,9 +391,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * Since: 1.0
    */
   props[PROP_DISPLAY] =
-    g_param_spec_object ("display",
-                         "Display",
-                         "The display the style manager is associated with",
+    g_param_spec_object ("display", NULL, NULL,
                          GDK_TYPE_DISPLAY,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
@@ -435,9 +433,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * Since: 1.0
    */
   props[PROP_COLOR_SCHEME] =
-    g_param_spec_enum ("color-scheme",
-                       "Color Scheme",
-                       "The current color scheme",
+    g_param_spec_enum ("color-scheme", NULL, NULL,
                        ADW_TYPE_COLOR_SCHEME,
                        ADW_COLOR_SCHEME_DEFAULT,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -456,9 +452,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * Since: 1.0
    */
   props[PROP_SYSTEM_SUPPORTS_COLOR_SCHEMES] =
-    g_param_spec_boolean ("system-supports-color-schemes",
-                          "System supports color schemes",
-                          "Whether the system supports color schemes",
+    g_param_spec_boolean ("system-supports-color-schemes", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -473,9 +467,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * Since: 1.0
    */
   props[PROP_DARK] =
-    g_param_spec_boolean ("dark",
-                          "Dark",
-                          "Whether the application is using dark appearance",
+    g_param_spec_boolean ("dark", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -489,9 +481,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * Since: 1.0
    */
   props[PROP_HIGH_CONTRAST] =
-    g_param_spec_boolean ("high-contrast",
-                          "High Contrast",
-                          "Whether the application is using high contrast appearance",
+    g_param_spec_boolean ("high-contrast", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 

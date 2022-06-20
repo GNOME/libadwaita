@@ -227,9 +227,7 @@ adw_toast_widget_class_init (AdwToastWidgetClass *klass)
   object_class->set_property = adw_toast_widget_set_property;
 
   props[PROP_TOAST] =
-    g_param_spec_object ("toast",
-                         "Toast",
-                         "The displayed toast",
+    g_param_spec_object ("toast", NULL, NULL,
                          ADW_TYPE_TOAST,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 

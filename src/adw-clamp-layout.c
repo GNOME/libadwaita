@@ -353,9 +353,7 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
    * Since: 1.0
    */
   props[PROP_MAXIMUM_SIZE] =
-    g_param_spec_int ("maximum-size",
-                      "Maximum size",
-                      "The maximum size allocated to the child",
+    g_param_spec_int ("maximum-size", NULL, NULL,
                       0, G_MAXINT, 600,
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -380,9 +378,7 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
    * Since: 1.0
    */
   props[PROP_TIGHTENING_THRESHOLD] =
-    g_param_spec_int ("tightening-threshold",
-                      "Tightening threshold",
-                      "The size above which the children are clamped",
+    g_param_spec_int ("tightening-threshold", NULL, NULL,
                       0, G_MAXINT, 400,
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

@@ -110,9 +110,7 @@ adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
    * Since: 1.0
    */
   value_props[VALUE_PROP_VALUE] =
-    g_param_spec_int ("value",
-                      "Value",
-                      "The enum value",
+    g_param_spec_int ("value", NULL, NULL,
                       G_MININT, G_MAXINT, 0,
                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -124,9 +122,7 @@ adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
    * Since: 1.0
    */
   value_props[VALUE_PROP_NAME] =
-    g_param_spec_string ("name",
-                         "Name",
-                         "The enum value name",
+    g_param_spec_string ("name", NULL, NULL,
                          NULL,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -138,9 +134,7 @@ adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
    * Since: 1.0
    */
   value_props[VALUE_PROP_NICK] =
-    g_param_spec_string ("nick",
-                         "Nick",
-                         "The enum value nick",
+    g_param_spec_string ("nick", NULL, NULL,
                          NULL,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -292,9 +286,7 @@ adw_enum_list_model_class_init (AdwEnumListModelClass *klass)
    * Since: 1.0
    */
   props[PROP_ENUM_TYPE] =
-    g_param_spec_gtype ("enum-type",
-                        "Enum type",
-                        "The type of the enum represented by the model",
+    g_param_spec_gtype ("enum-type", NULL, NULL,
                         G_TYPE_ENUM,
                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 

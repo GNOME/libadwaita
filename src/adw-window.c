@@ -143,9 +143,7 @@ adw_window_class_init (AdwWindowClass *klass)
    * Since: 1.0
    */
   props[PROP_CONTENT] =
-    g_param_spec_object ("content",
-                         "Content",
-                         "The content widget",
+    g_param_spec_object ("content", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

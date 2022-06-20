@@ -1274,9 +1274,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_CONTENT] =
-    g_param_spec_object ("content",
-                         "Content",
-                         "The content widget",
+    g_param_spec_object ("content", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1290,9 +1288,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_FLAP] =
-    g_param_spec_object ("flap",
-                         "Flap",
-                         "The flap widget",
+    g_param_spec_object ("flap", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1308,9 +1304,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_SEPARATOR] =
-    g_param_spec_object ("separator",
-                         "Separator",
-                         "The separator widget",
+    g_param_spec_object ("separator", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1325,9 +1319,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_FLAP_POSITION] =
-    g_param_spec_enum ("flap-position",
-                       "Flap Position",
-                       "The flap position",
+    g_param_spec_enum ("flap-position", NULL, NULL,
                        GTK_TYPE_PACK_TYPE,
                        GTK_PACK_START,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -1340,9 +1332,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_REVEAL_FLAP] =
-    g_param_spec_boolean ("reveal-flap",
-                          "Reveal Flap",
-                          "Whether the flap is revealed",
+    g_param_spec_boolean ("reveal-flap", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1360,9 +1350,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_REVEAL_PARAMS] =
-    g_param_spec_boxed ("reveal-params",
-                        "Reveal Parameters",
-                        "The reveal animation spring parameters",
+    g_param_spec_boxed ("reveal-params", NULL, NULL,
                         ADW_TYPE_SPRING_PARAMS,
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1378,9 +1366,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_REVEAL_PROGRESS] =
-    g_param_spec_double ("reveal-progress",
-                          "Reveal Progress",
-                          "The current reveal transition progress",
+    g_param_spec_double ("reveal-progress", NULL, NULL,
                           0.0, 1.0, 1.0,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -1392,9 +1378,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_FOLD_POLICY] =
-    g_param_spec_enum ("fold-policy",
-                       "Fold Policy",
-                       "The fold policy for the flap",
+    g_param_spec_enum ("fold-policy", NULL, NULL,
                        ADW_TYPE_FLAP_FOLD_POLICY,
                        ADW_FLAP_FOLD_POLICY_AUTO,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -1414,9 +1398,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_FOLD_THRESHOLD_POLICY] =
-    g_param_spec_enum ("fold-threshold-policy",
-                       "Fold Threshold Policy",
-                       "Determines when the flap will fold",
+    g_param_spec_enum ("fold-threshold-policy", NULL, NULL,
                        ADW_TYPE_FOLD_THRESHOLD_POLICY,
                        ADW_FOLD_THRESHOLD_POLICY_MINIMUM,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -1429,9 +1411,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_FOLD_DURATION] =
-    g_param_spec_uint ("fold-duration",
-                       "Fold Duration",
-                       "The fold transition animation duration, in milliseconds",
+    g_param_spec_uint ("fold-duration", NULL, NULL,
                        0, G_MAXINT,
                        250,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -1446,9 +1426,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_FOLDED] =
-    g_param_spec_boolean ("folded",
-                          "Folded",
-                          "Whether the flap is currently folded",
+    g_param_spec_boolean ("folded", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
@@ -1464,9 +1442,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_LOCKED] =
-    g_param_spec_boolean ("locked",
-                          "Locked",
-                          "Whether the flap is locked",
+    g_param_spec_boolean ("locked", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1483,9 +1459,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_TRANSITION_TYPE] =
-    g_param_spec_enum ("transition-type",
-                       "Transition Type",
-                       "The type of animation used for reveal and fold transitions",
+    g_param_spec_enum ("transition-type", NULL, NULL,
                        ADW_TYPE_FLAP_TRANSITION_TYPE,
                        ADW_FLAP_TRANSITION_TYPE_OVER,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -1502,9 +1476,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_MODAL] =
-    g_param_spec_boolean ("modal",
-                          "Modal",
-                          "Whether the flap is modal",
+    g_param_spec_boolean ("modal", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1519,9 +1491,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_SWIPE_TO_OPEN] =
-    g_param_spec_boolean ("swipe-to-open",
-                          "Swipe to Open",
-                          "Whether the flap can be opened with a swipe gesture",
+    g_param_spec_boolean ("swipe-to-open", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1536,9 +1506,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    * Since: 1.0
    */
   props[PROP_SWIPE_TO_CLOSE] =
-    g_param_spec_boolean ("swipe-to-close",
-                          "Swipe to Close",
-                          "Whether the flap can be closed with a swipe gesture",
+    g_param_spec_boolean ("swipe-to-close", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

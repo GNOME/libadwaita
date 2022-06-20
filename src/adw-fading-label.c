@@ -258,16 +258,12 @@ adw_fading_label_class_init (AdwFadingLabelClass *klass)
   widget_class->unrealize = adw_fading_label_unrealize;
 
   props[PROP_LABEL] =
-    g_param_spec_string ("label",
-                         "Label",
-                         "Label",
+    g_param_spec_string ("label", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_ALIGN] =
-    g_param_spec_float ("align",
-                        "Align",
-                        "Align",
+    g_param_spec_float ("align", NULL, NULL,
                         0.0, 1.0, 0.0,
                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

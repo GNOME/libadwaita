@@ -330,9 +330,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    * Since: 1.0
    */
   props[PROP_ICON_NAME] =
-    g_param_spec_string ("icon-name",
-                         "Icon name",
-                         "The name of an icon to use as a fallback",
+    g_param_spec_string ("icon-name", NULL, NULL,
                          NULL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -347,9 +345,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    * Since: 1.0
    */
   props[PROP_TEXT] =
-    g_param_spec_string ("text",
-                         "Text",
-                         "The text used to generate the color and the initials",
+    g_param_spec_string ("text", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -363,9 +359,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    * Since: 1.0
    */
   props[PROP_SHOW_INITIALS] =
-    g_param_spec_boolean ("show-initials",
-                          "Show initials",
-                          "Whether initials are used instead of an icon on the fallback avatar",
+    g_param_spec_boolean ("show-initials", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -377,9 +371,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    * Since: 1.0
    */
   props[PROP_CUSTOM_IMAGE] =
-    g_param_spec_object ("custom-image",
-                         "Custom image",
-                         "A custom image to use instead of initials or icon",
+    g_param_spec_object ("custom-image", NULL, NULL,
                          GDK_TYPE_PAINTABLE,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -391,9 +383,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    * Since: 1.0
    */
   props[PROP_SIZE] =
-    g_param_spec_int ("size",
-                      "Size",
-                      "The size of the avatar",
+    g_param_spec_int ("size", NULL, NULL,
                       -1, INT_MAX, -1,
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

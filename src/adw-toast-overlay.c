@@ -452,9 +452,7 @@ adw_toast_overlay_class_init (AdwToastOverlayClass *klass)
    * Since: 1.0
    */
   props[PROP_CHILD] =
-    g_param_spec_object ("child",
-                         "Child",
-                         "The child widget",
+    g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

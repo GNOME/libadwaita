@@ -306,16 +306,12 @@ adw_demo_page_animations_class_init (AdwDemoPageAnimationsClass *klass)
   object_class->get_property = adw_demo_page_animations_get_property;
 
   props[PROP_TIMED_ANIMATION] =
-    g_param_spec_object ("timed-animation",
-                         "Timed animation",
-                         "Timed animation",
+    g_param_spec_object ("timed-animation", NULL, NULL,
                          ADW_TYPE_ANIMATION,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   props[PROP_SPRING_ANIMATION] =
-    g_param_spec_object ("spring-animation",
-                         "Spring animation",
-                         "Spring animation",
+    g_param_spec_object ("spring-animation", NULL, NULL,
                          ADW_TYPE_ANIMATION,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 

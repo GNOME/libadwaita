@@ -148,16 +148,12 @@ adw_inspector_page_class_init (AdwInspectorPageClass *klass)
   object_class->dispose = adw_inspector_page_dispose;
 
   props[PROP_TITLE] =
-    g_param_spec_string ("title",
-                         "Title",
-                         "Title",
+    g_param_spec_string ("title", NULL, NULL,
                          "Libadwaita",
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   props[PROP_OBJECT] =
-    g_param_spec_object ("object",
-                         "Object",
-                         "Object",
+    g_param_spec_object ("object", NULL, NULL,
                          G_TYPE_OBJECT,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 

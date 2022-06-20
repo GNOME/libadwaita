@@ -357,9 +357,7 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
    * Since: 1.0
    */
   props[PROP_POLICY] =
-    g_param_spec_enum ("policy",
-                       "Policy",
-                       "The policy to determine the mode to use",
+    g_param_spec_enum ("policy", NULL, NULL,
                        ADW_TYPE_VIEW_SWITCHER_POLICY,
                        ADW_VIEW_SWITCHER_POLICY_NARROW,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
@@ -372,9 +370,7 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
    * Since: 1.0
    */
   props[PROP_STACK] =
-    g_param_spec_object ("stack",
-                         "Stack",
-                         "The stack the view switcher controls",
+    g_param_spec_object ("stack", NULL, NULL,
                          ADW_TYPE_VIEW_STACK,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

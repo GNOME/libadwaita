@@ -288,9 +288,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    * Since: 1.0
    */
   props[PROP_STACK] =
-    g_param_spec_object ("stack",
-                         "Stack",
-                         "The stack the view switcher controls",
+    g_param_spec_object ("stack", NULL, NULL,
                          ADW_TYPE_VIEW_STACK,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -305,9 +303,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    * Since: 1.0
    */
   props[PROP_TITLE] =
-    g_param_spec_string ("title",
-                         "Title",
-                         "The title to display",
+    g_param_spec_string ("title", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -321,9 +317,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    * Since: 1.0
    */
   props[PROP_SUBTITLE] =
-    g_param_spec_string ("subtitle",
-                         "Subtitle",
-                         "The subtitle to display",
+    g_param_spec_string ("subtitle", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -342,9 +336,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    * Since: 1.0
    */
   props[PROP_VIEW_SWITCHER_ENABLED] =
-    g_param_spec_boolean ("view-switcher-enabled",
-                         "View switcher enabled",
-                         "Whether the view switcher is enabled",
+    g_param_spec_boolean ("view-switcher-enabled", NULL, NULL,
                          TRUE,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -359,9 +351,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    * Since: 1.0
    */
   props[PROP_TITLE_VISIBLE] =
-    g_param_spec_boolean ("title-visible",
-                         "Title visible",
-                         "Whether the title is currently visible",
+    g_param_spec_boolean ("title-visible", NULL, NULL,
                          TRUE,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 

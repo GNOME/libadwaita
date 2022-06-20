@@ -423,9 +423,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
    * Since: 1.2
    */
   props[PROP_SHOW_APPLY_BUTTON] =
-    g_param_spec_boolean ("show-apply-button",
-                          "Show Apply Button",
-                          "Whether to show the apply button",
+    g_param_spec_boolean ("show-apply-button", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 

@@ -3584,30 +3584,22 @@ adw_tab_box_class_init (AdwTabBoxClass *klass)
   widget_class->direction_changed = adw_tab_box_direction_changed;
 
   props[PROP_PINNED] =
-    g_param_spec_boolean ("pinned",
-                          "Pinned",
-                          "Pinned",
+    g_param_spec_boolean ("pinned", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   props[PROP_TAB_BAR] =
-    g_param_spec_object ("tab-bar",
-                         "Tab Bar",
-                         "Tab Bar",
+    g_param_spec_object ("tab-bar", NULL, NULL,
                          ADW_TYPE_TAB_BAR,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   props[PROP_VIEW] =
-    g_param_spec_object ("view",
-                         "View",
-                         "View",
+    g_param_spec_object ("view", NULL, NULL,
                          ADW_TYPE_TAB_VIEW,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_RESIZE_FROZEN] =
-    g_param_spec_boolean ("resize-frozen",
-                          "Resize Frozen",
-                          "Resize Frozen",
+    g_param_spec_boolean ("resize-frozen", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 

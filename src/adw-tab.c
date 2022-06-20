@@ -781,37 +781,27 @@ adw_tab_class_init (AdwTabClass *klass)
   widget_class->unrealize = adw_tab_unrealize;
 
   props[PROP_VIEW] =
-    g_param_spec_object ("view",
-                         "View",
-                         "View",
+    g_param_spec_object ("view", NULL, NULL,
                          ADW_TYPE_TAB_VIEW,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   props[PROP_PINNED] =
-    g_param_spec_boolean ("pinned",
-                          "Pinned",
-                          "Pinned",
+    g_param_spec_boolean ("pinned", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   props[PROP_DRAGGING] =
-    g_param_spec_boolean ("dragging",
-                          "Dragging",
-                          "Dragging",
+    g_param_spec_boolean ("dragging", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_PAGE] =
-    g_param_spec_object ("page",
-                         "Page",
-                         "Page",
+    g_param_spec_object ("page", NULL, NULL,
                          ADW_TYPE_TAB_PAGE,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_INVERTED] =
-    g_param_spec_boolean ("inverted",
-                          "Inverted",
-                          "Inverted",
+    g_param_spec_boolean ("inverted", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
