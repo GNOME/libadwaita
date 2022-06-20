@@ -1,25 +1,85 @@
 # Lithuanian translation for libadwaita.
 # Copyright (C) 2021 libadwaita's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libadwaita package.
-# Aurimas Černius <aurisc4@gmail.com>, 2021.
+# Aurimas Černius <aurisc4@gmail.com>, 2021-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-12-06 17:25+0000\n"
-"PO-Revision-Date: 2021-12-11 21:22+0200\n"
+"POT-Creation-Date: 2022-05-04 16:49+0000\n"
+"PO-Revision-Date: 2022-06-20 22:30+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2)\n"
 "X-Generator: Gtranslator 40.0\n"
 
-#: src/adw-preferences-window.c:212
+#: src/adw-entry-row.ui:93
+msgid "Apply"
+msgstr "Pritaikyti"
+
+#: src/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "Nesvarbu"
+
+#: src/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "Pageidauti tamsios"
+
+#: src/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "Pageidauti šviesios"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Sistemos išvaizda"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Pakeisti šios programos nuostatas. Jos bus atstatytos užvėrus inspektorių."
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Sistema palaiko spalvų schemas"
+
+#: src/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Pageidaujama spalvų schema"
+
+#: src/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Didelio kontrasto"
+
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "Slėpti tekstą"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "Rodyti tekstą"
+
+#: src/adw-password-entry-row.c:168
+msgid "Caps Lock is on"
+msgstr "Įjungto didžiosios raidės"
+
+#: src/adw-password-entry-row.c:176
+msgid "_Show Text"
+msgstr "_Rodyti tekstą"
+
+#: src/adw-preferences-window.c:242
 msgid "Untitled page"
 msgstr "Nepavadintas puslapis"
 
@@ -38,44 +98,3 @@ msgstr "Nerasta rezultatų"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Bandykite kitą paiešką."
-
-#: src/inspector/adw-inspector-page.c:76
-#| msgid "Preferences"
-msgid "No Preference"
-msgstr "Nesvarbu"
-
-#: src/inspector/adw-inspector-page.c:78
-msgid "Prefer Dark"
-msgstr "Pageidauti tamsios"
-
-#: src/inspector/adw-inspector-page.c:80
-msgid "Prefer Light"
-msgstr "Pageidauti šviesios"
-
-#. Translators: The name of the library, not the stylesheet
-#: src/inspector/adw-inspector-page.c:98
-msgid "Adwaita"
-msgstr "Adwaita"
-
-#: src/inspector/adw-inspector-page.ui:10
-msgid "System Appearance"
-msgstr "Sistemos išvaizda"
-
-#: src/inspector/adw-inspector-page.ui:11
-msgid ""
-"Override settings for this application. They will be reset upon closing the "
-"inspector."
-msgstr ""
-"Pakeisti šios programos nuostatas. Jos bus atstatytos užvėrus inspektorių."
-
-#: src/inspector/adw-inspector-page.ui:14
-msgid "System Supports Color Schemes"
-msgstr "Sistema palaiko spalvų schemas"
-
-#: src/inspector/adw-inspector-page.ui:26
-msgid "Preferred Color Scheme"
-msgstr "Pageidaujama spalvų schema"
-
-#: src/inspector/adw-inspector-page.ui:43
-msgid "High Contrast"
-msgstr "Didelio kontrasto"
