@@ -2340,11 +2340,11 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_CHILD_TRANSITION_RUNNING] =
-      g_param_spec_boolean ("child-transition-running",
-                            "Child transition running",
-                            "Whether a child transition is currently running",
-                            FALSE,
-                            G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+    g_param_spec_boolean ("child-transition-running",
+                          "Child transition running",
+                          "Whether a child transition is currently running",
+                          FALSE,
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwLeaflet:can-navigate-back: (attributes org.gtk.Property.get=adw_leaflet_get_can_navigate_back org.gtk.Property.set=adw_leaflet_set_can_navigate_back)
@@ -2370,11 +2370,11 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_CAN_NAVIGATE_BACK] =
-      g_param_spec_boolean ("can-navigate-back",
-                            "Can navigate back",
-                            "Whether gestures and shortcuts for navigating backward are enabled",
-                            FALSE,
-                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_boolean ("can-navigate-back",
+                          "Can navigate back",
+                          "Whether gestures and shortcuts for navigating backward are enabled",
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:can-navigate-forward: (attributes org.gtk.Property.get=adw_leaflet_get_can_navigate_forward org.gtk.Property.set=adw_leaflet_set_can_navigate_forward)
@@ -2400,11 +2400,11 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_CAN_NAVIGATE_FORWARD] =
-      g_param_spec_boolean ("can-navigate-forward",
-                            "Can navigate forward",
-                            "Whether gestures and shortcuts for navigating forward are enabled",
-                            FALSE,
-                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_boolean ("can-navigate-forward",
+                          "Can navigate forward",
+                          "Whether gestures and shortcuts for navigating forward are enabled",
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:can-unfold: (attributes org.gtk.Property.get=adw_leaflet_get_can_unfold org.gtk.Property.set=adw_leaflet_set_can_unfold)
@@ -2414,11 +2414,11 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Since: 1.0
    */
   props[PROP_CAN_UNFOLD] =
-      g_param_spec_boolean ("can-unfold",
-                            "Can unfold",
-                            "Whether or not the leaflet can unfold",
-                            TRUE,
-                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_boolean ("can-unfold",
+                          "Can unfold",
+                          "Whether or not the leaflet can unfold",
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:pages: (attributes org.gtk.Property.get=adw_leaflet_get_pages)

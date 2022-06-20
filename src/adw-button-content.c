@@ -221,11 +221,11 @@ adw_button_content_class_init (AdwButtonContentClass *klass)
    * Since: 1.0
    */
   props[PROP_ICON_NAME] =
-      g_param_spec_string ("icon-name",
-                           "Icon name",
-                           "The name of the displayed icon",
-                           "",
-                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_string ("icon-name",
+                         "Icon name",
+                         "The name of the displayed icon",
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwButtonContent:label: (attributes org.gtk.Property.get=adw_button_content_get_label org.gtk.Property.set=adw_button_content_set_label)
@@ -235,11 +235,11 @@ adw_button_content_class_init (AdwButtonContentClass *klass)
    * Since: 1.0
    */
   props[PROP_LABEL] =
-      g_param_spec_string ("label",
-                           "Label",
-                           "The displayed label",
-                           "",
-                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_string ("label",
+                         "Label",
+                         "The displayed label",
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwButtonContent:use-underline: (attributes org.gtk.Property.get=adw_button_content_get_use_underline org.gtk.Property.set=adw_button_content_set_use_underline)

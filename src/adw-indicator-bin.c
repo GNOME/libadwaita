@@ -301,11 +301,11 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
    * Since: 1.0
    */
   props[PROP_CHILD] =
-      g_param_spec_object ("child",
-                           "Child",
-                           "The child widget",
-                           GTK_TYPE_WIDGET,
-                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_object ("child",
+                         "Child",
+                         "The child widget",
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwIndicatorBin:needs-attention:

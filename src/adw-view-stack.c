@@ -921,11 +921,11 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    * Since: 1.0
    */
   props[PROP_HHOMOGENEOUS] =
-      g_param_spec_boolean ("hhomogeneous",
-                            "Horizontally homogeneous",
-                            "Whether the stack allocates the same width for all children",
-                            TRUE,
-                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_boolean ("hhomogeneous",
+                          "Horizontally homogeneous",
+                          "Whether the stack allocates the same width for all children",
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStack:vhomogeneous: (attributes org.gtk.Property.get=adw_view_stack_get_vhomogeneous org.gtk.Property.set=adw_view_stack_set_vhomogeneous)
@@ -938,11 +938,11 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    * Since: 1.0
    */
   props[PROP_VHOMOGENEOUS] =
-      g_param_spec_boolean ("vhomogeneous",
-                            "Vertically homogeneous",
-                            "Whether the stack allocates the same height for all children",
-                            TRUE,
-                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_boolean ("vhomogeneous",
+                          "Vertically homogeneous",
+                          "Whether the stack allocates the same height for all children",
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStack:visible-child: (attributes org.gtk.Property.get=adw_view_stack_get_visible_child org.gtk.Property.set=adw_view_stack_set_visible_child)
@@ -952,11 +952,11 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    * Since: 1.0
    */
   props[PROP_VISIBLE_CHILD] =
-      g_param_spec_object ("visible-child",
-                           "Visible child",
-                           "The widget currently visible in the stack",
-                           GTK_TYPE_WIDGET,
-                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_object ("visible-child",
+                         "Visible child",
+                         "The widget currently visible in the stack",
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStack:visible-child-name: (attributes org.gtk.Property.get=adw_view_stack_get_visible_child_name org.gtk.Property.set=adw_view_stack_set_visible_child_name)
@@ -968,11 +968,11 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    * Since: 1.0
    */
   props[PROP_VISIBLE_CHILD_NAME] =
-      g_param_spec_string ("visible-child-name",
-                           "Name of visible child",
-                           "The name of the widget currently visible in the stack",
-                           NULL,
-                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_string ("visible-child-name",
+                         "Name of visible child",
+                         "The name of the widget currently visible in the stack",
+                         NULL,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStack:pages: (attributes org.gtk.Property.get=adw_view_stack_get_pages)
@@ -984,11 +984,11 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    * page.
    */
   props[PROP_PAGES] =
-      g_param_spec_object ("pages",
-                           "Pages",
-                           "A selection model with the stack's pages",
-                           GTK_TYPE_SELECTION_MODEL,
-                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+    g_param_spec_object ("pages",
+                         "Pages",
+                         "A selection model with the stack's pages",
+                         GTK_TYPE_SELECTION_MODEL,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

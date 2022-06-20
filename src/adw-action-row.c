@@ -257,11 +257,11 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * Since: 1.0
    */
   props[PROP_ACTIVATABLE_WIDGET] =
-      g_param_spec_object ("activatable-widget",
-                           "Activatable widget",
-                           "The widget to be activated when the row is activated",
-                           GTK_TYPE_WIDGET,
-                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_object ("activatable-widget",
+                         "Activatable widget",
+                         "The widget to be activated when the row is activated",
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwActionRow:subtitle: (attributes org.gtk.Property.get=adw_action_row_get_subtitle org.gtk.Property.set=adw_action_row_set_subtitle)

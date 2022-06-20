@@ -177,11 +177,11 @@ adw_clamp_class_init (AdwClampClass *klass)
    * Since: 1.0
    */
   props[PROP_CHILD] =
-      g_param_spec_object ("child",
-                           "Child",
-                           "The child widget",
-                           GTK_TYPE_WIDGET,
-                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_object ("child",
+                         "Child",
+                         "The child widget",
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwClamp:maximum-size: (attributes org.gtk.Property.get=adw_clamp_get_maximum_size org.gtk.Property.set=adw_clamp_set_maximum_size)
@@ -193,11 +193,11 @@ adw_clamp_class_init (AdwClampClass *klass)
    * Since: 1.0
    */
   props[PROP_MAXIMUM_SIZE] =
-      g_param_spec_int ("maximum-size",
-                        "Maximum size",
-                        "The maximum size allocated to the child",
-                        0, G_MAXINT, 600,
-                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_int ("maximum-size",
+                      "Maximum size",
+                      "The maximum size allocated to the child",
+                      0, G_MAXINT, 600,
+                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwClamp:tightening-threshold: (attributes org.gtk.Property.get=adw_clamp_get_tightening_threshold org.gtk.Property.set=adw_clamp_set_tightening_threshold)
@@ -220,11 +220,11 @@ adw_clamp_class_init (AdwClampClass *klass)
    * Since: 1.0
    */
   props[PROP_TIGHTENING_THRESHOLD] =
-      g_param_spec_int ("tightening-threshold",
-                        "Tightening threshold",
-                        "The size above which the child is clamped",
-                        0, G_MAXINT, 400,
-                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_int ("tightening-threshold",
+                      "Tightening threshold",
+                      "The size above which the child is clamped",
+                      0, G_MAXINT, 400,
+                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
