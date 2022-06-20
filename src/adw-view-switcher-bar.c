@@ -194,7 +194,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
                          "Stack",
                          "The stack the view switcher controls",
                          ADW_TYPE_VIEW_STACK,
-                         G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewSwitcherBar:reveal: (attributes org.gtk.Property.get=adw_view_switcher_bar_get_reveal org.gtk.Property.set=adw_view_switcher_bar_set_reveal)
@@ -208,7 +208,7 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
                          "Reveal",
                          "Whether the bar should be revealed or hidden",
                          FALSE,
-                         G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

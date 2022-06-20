@@ -395,7 +395,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
                          "Display",
                          "The display the style manager is associated with",
                          GDK_TYPE_DISPLAY,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwStyleManager:color-scheme: (attributes org.gtk.Property.get=adw_style_manager_get_color_scheme org.gtk.Property.set=adw_style_manager_set_color_scheme)
@@ -440,7 +440,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
                        "The current color scheme",
                        ADW_TYPE_COLOR_SCHEME,
                        ADW_COLOR_SCHEME_DEFAULT,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwStyleManager:system-supports-color-schemes: (attributes org.gtk.Property.get=adw_style_manager_get_system_supports_color_schemes)
@@ -460,7 +460,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
                           "System supports color schemes",
                           "Whether the system supports color schemes",
                           FALSE,
-                          G_PARAM_READABLE);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwStyleManager:dark: (attributes org.gtk.Property.get=adw_style_manager_get_dark)
@@ -477,7 +477,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
                           "Dark",
                           "Whether the application is using dark appearance",
                           FALSE,
-                          G_PARAM_READABLE);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwStyleManager:high-contrast: (attributes org.gtk.Property.get=adw_style_manager_get_high_contrast)
@@ -493,7 +493,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
                           "High Contrast",
                           "Whether the application is using high contrast appearance",
                           FALSE,
-                          G_PARAM_READABLE);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }

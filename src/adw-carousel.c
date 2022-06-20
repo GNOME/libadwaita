@@ -890,7 +890,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                        0,
                        G_MAXUINT,
                        0,
-                       G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwCarousel:position: (attributes org.gtk.Property.get=adw_carousel_get_position)
@@ -908,7 +908,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                          0,
                          G_MAXDOUBLE,
                          0,
-                         G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwCarousel:interactive: (attributes org.gtk.Property.get=adw_carousel_get_interactive org.gtk.Property.set=adw_carousel_set_interactive)
@@ -925,7 +925,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                           "Interactive",
                           "Whether the widget can be swiped",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwCarousel:spacing: (attributes org.gtk.Property.get=adw_carousel_get_spacing org.gtk.Property.set=adw_carousel_set_spacing)
@@ -941,7 +941,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                        0,
                        G_MAXUINT,
                        0,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwCarousel:scroll-params: (attributes org.gtk.Property.get=adw_carousel_get_scroll_params org.gtk.Property.set=adw_carousel_set_scroll_params)
@@ -961,7 +961,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                         "Scroll Parameters",
                         "Scroll animation spring parameters",
                         ADW_TYPE_SPRING_PARAMS,
-                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwCarousel:allow-mouse-drag: (attributes org.gtk.Property.get=adw_carousel_get_allow_mouse_drag org.gtk.Property.set=adw_carousel_set_allow_mouse_drag)
@@ -977,7 +977,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                           "Allow mouse drag",
                           "Whether to allow dragging with mouse pointer",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwCarousel:allow-scroll-wheel: (attributes org.gtk.Property.get=adw_carousel_get_allow_scroll_wheel org.gtk.Property.set=adw_carousel_set_allow_scroll_wheel)
@@ -993,7 +993,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                           "Allow scroll wheel",
                           "Whether the widget will respond to scroll wheel events",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwCarousel:allow-long-swipes: (attributes org.gtk.Property.get=adw_carousel_get_allow_long_swipes org.gtk.Property.set=adw_carousel_set_allow_long_swipes)
@@ -1009,7 +1009,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                           "Allow long swipes",
                           "Whether to allow swiping for more than one page at a time",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwCarousel:reveal-duration:
@@ -1025,7 +1025,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                        0,
                        G_MAXUINT,
                        0,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,

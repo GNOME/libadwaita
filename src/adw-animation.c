@@ -355,7 +355,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
-                         G_PARAM_READABLE);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwAnimation:widget: (attributes org.gtk.Property.get=adw_animation_get_widget)
@@ -376,7 +376,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
                          "Widget",
                          "The animation widget",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwAnimation:target: (attributes org.gtk.Property.get=adw_animation_get_target)
@@ -390,7 +390,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
                          "Target",
                          "The target to animate",
                          ADW_TYPE_ANIMATION_TARGET,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwAnimation:state: (attributes org.gtk.Property.get=adw_animation_get_state)
@@ -408,7 +408,7 @@ adw_animation_class_init (AdwAnimationClass *klass)
                        "The animation state",
                        ADW_TYPE_ANIMATION_STATE,
                        ADW_ANIMATION_IDLE,
-                       G_PARAM_READABLE);
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

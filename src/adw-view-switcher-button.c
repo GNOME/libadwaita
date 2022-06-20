@@ -285,7 +285,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
                          "Icon Name",
                          "Icon name for image",
                          "text-x-generic-symbolic",
-                         G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewSwitcherButton:needs-attention: (attributes org.gtk.Property.get=adw_view_switcher_button_get_needs_attention org.gtk.Property.set=adw_view_switcher_button_set_needs_attention)
@@ -303,7 +303,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
                           "Needs attention",
                           "Hint the view needs attention",
                           FALSE,
-                          G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewSwitcherButton:badge-number:
@@ -319,7 +319,7 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
                        0,
                        G_MAXUINT,
                        0,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

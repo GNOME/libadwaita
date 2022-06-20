@@ -136,7 +136,7 @@ adw_shadow_helper_class_init (AdwShadowHelperClass *klass)
                          "Widget",
                          "The widget the shadow will be drawn for",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }

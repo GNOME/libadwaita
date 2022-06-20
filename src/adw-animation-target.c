@@ -409,7 +409,7 @@ adw_property_animation_target_class_init (AdwPropertyAnimationTargetClass *klass
                          "Object",
                          "The object whose property will be animated",
                          G_TYPE_OBJECT,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwPropertyAnimationTarget:property-name: (attributes org.gtk.Property.get=adw_property_animation_target_get_property_name)
@@ -426,7 +426,7 @@ adw_property_animation_target_class_init (AdwPropertyAnimationTargetClass *klass
                          "Property name",
                          "The name of the property to be animated",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwPropertyAnimationTarget:pspec: (attributes org.gtk.Property.get=adw_property_animation_target_get_pspec)
@@ -443,7 +443,7 @@ adw_property_animation_target_class_init (AdwPropertyAnimationTargetClass *klass
                         "Param spec",
                         "The param spec of the property to be animated",
                         G_TYPE_PARAM,
-                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class,
                                      LAST_PROPERTY_PROP,

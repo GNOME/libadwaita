@@ -212,7 +212,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
                           "Use underline",
                           " Whether an embedded underline in the title label indicates a mnemonic",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

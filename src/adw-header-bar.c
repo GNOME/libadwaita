@@ -410,7 +410,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                          "Title Widget",
                          "The title widget to display",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE|G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwHeaderBar:show-start-title-buttons: (attributes org.gtk.Property.get=adw_header_bar_get_show_start_title_buttons org.gtk.Property.set=adw_header_bar_set_show_start_title_buttons)
@@ -431,7 +431,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                           "Show start title buttons",
                           "Whether to show title buttons at the start of the header bar",
                           TRUE,
-                          G_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwHeaderBar:show-end-title-buttons: (attributes org.gtk.Property.get=adw_header_bar_get_show_end_title_buttons org.gtk.Property.set=adw_header_bar_set_show_end_title_buttons)
@@ -452,7 +452,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                           "Show end title buttons",
                           "Whether to show title buttons at the end of the header bar",
                           TRUE,
-                          G_PARAM_READWRITE|G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwHeaderBar:decoration-layout: (attributes org.gtk.Property.get=adw_header_bar_get_decoration_layout org.gtk.Property.set=adw_header_bar_set_decoration_layout)
@@ -477,7 +477,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                          "Decoration Layout",
                          "The layout for window decorations",
                          NULL,
-                         G_PARAM_READWRITE);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwHeaderBar:centering-policy: (attributes org.gtk.Property.get=adw_header_bar_get_centering_policy org.gtk.Property.set=adw_header_bar_set_centering_policy)
@@ -492,7 +492,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                        "The policy for aligning the center widget",
                        ADW_TYPE_CENTERING_POLICY,
                        ADW_CENTERING_POLICY_LOOSE,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

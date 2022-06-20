@@ -261,7 +261,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                            "Activatable widget",
                            "The widget to be activated when the row is activated",
                            GTK_TYPE_WIDGET,
-                           G_PARAM_READWRITE);
+                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwActionRow:subtitle: (attributes org.gtk.Property.get=adw_action_row_get_subtitle org.gtk.Property.set=adw_action_row_set_subtitle)
@@ -292,7 +292,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                       "The desired number of title lines",
                       0, G_MAXINT,
                       0,
-                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwActionRow:subtitle-lines: (attributes org.gtk.Property.get=adw_action_row_get_subtitle_lines org.gtk.Property.set=adw_action_row_set_subtitle_lines)
@@ -310,7 +310,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                       "The desired number of subtitle lines",
                       0, G_MAXINT,
                       0,
-                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

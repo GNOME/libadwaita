@@ -286,7 +286,7 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
                          "Child",
                          "The child of the page",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwLeafletPage:name: (attributes org.gtk.Property.get=adw_leaflet_page_get_name org.gtk.Property.set=adw_leaflet_page_set_name)
@@ -300,7 +300,7 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
                          "Name",
                          "The name of the child page",
                          NULL,
-                         G_PARAM_READWRITE);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeafletPage:navigatable: (attributes org.gtk.Property.get=adw_leaflet_page_get_navigatable org.gtk.Property.set=adw_leaflet_page_set_navigatable)
@@ -320,7 +320,7 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
                           "Navigatable",
                           "Whether the child can be navigated to",
                           TRUE,
-                          G_PARAM_READWRITE);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PAGE_PROP, page_props);
 }
@@ -2204,7 +2204,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                           "Folded",
                           "Whether the leaflet is folded",
                           FALSE,
-                          G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwLeaflet:fold-threshold-policy: (attributes org.gtk.Property.get=adw_leaflet_get_fold_threshold_policy org.gtk.Property.set=adw_leaflet_set_fold_threshold_policy)
@@ -2226,7 +2226,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                        "Determines when the leaflet will fold",
                        ADW_TYPE_FOLD_THRESHOLD_POLICY,
                        ADW_FOLD_THRESHOLD_POLICY_MINIMUM,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:homogeneous: (attributes org.gtk.Property.get=adw_leaflet_get_homogeneous org.gtk.Property.set=adw_leaflet_set_homogeneous)
@@ -2243,7 +2243,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                           "Homogeneous",
                           "Whether the leaflet allocates the same size for all children when folded",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:visible-child: (attributes org.gtk.Property.get=adw_leaflet_get_visible_child org.gtk.Property.set=adw_leaflet_set_visible_child)
@@ -2262,7 +2262,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                          "Visible child",
                          "The widget currently visible when the leaflet is folded",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:visible-child-name: (attributes org.gtk.Property.get=adw_leaflet_get_visible_child_name org.gtk.Property.set=adw_leaflet_set_visible_child_name)
@@ -2278,7 +2278,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                          "Name of visible child",
                          "The name of the widget currently visible when the leaflet is folded",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:transition-type: (attributes org.gtk.Property.get=adw_leaflet_get_transition_type org.gtk.Property.set=adw_leaflet_set_transition_type)
@@ -2296,7 +2296,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                        "Transition type",
                        "The type of animation used for transitions between modes and children",
                        ADW_TYPE_LEAFLET_TRANSITION_TYPE, ADW_LEAFLET_TRANSITION_TYPE_OVER,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:mode-transition-duration: (attributes org.gtk.Property.get=adw_leaflet_get_mode_transition_duration org.gtk.Property.set=adw_leaflet_set_mode_transition_duration)
@@ -2310,7 +2310,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                        "Mode transition duration",
                        "The mode transition animation duration, in milliseconds",
                        0, G_MAXUINT, 250,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:child-transition-params: (attributes org.gtk.Property.get=adw_leaflet_get_child_transition_params org.gtk.Property.set=adw_leaflet_set_child_transition_params)
@@ -2330,7 +2330,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                         "Child transition parameters",
                         "The child transition spring parameters",
                         ADW_TYPE_SPRING_PARAMS,
-                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:child-transition-running: (attributes org.gtk.Property.get=adw_leaflet_get_child_transition_running)
@@ -2344,7 +2344,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                             "Child transition running",
                             "Whether a child transition is currently running",
                             FALSE,
-                            G_PARAM_READABLE);
+                            G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwLeaflet:can-navigate-back: (attributes org.gtk.Property.get=adw_leaflet_get_can_navigate_back org.gtk.Property.set=adw_leaflet_set_can_navigate_back)
@@ -2374,7 +2374,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                             "Can navigate back",
                             "Whether gestures and shortcuts for navigating backward are enabled",
                             FALSE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:can-navigate-forward: (attributes org.gtk.Property.get=adw_leaflet_get_can_navigate_forward org.gtk.Property.set=adw_leaflet_set_can_navigate_forward)
@@ -2404,7 +2404,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                             "Can navigate forward",
                             "Whether gestures and shortcuts for navigating forward are enabled",
                             FALSE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:can-unfold: (attributes org.gtk.Property.get=adw_leaflet_get_can_unfold org.gtk.Property.set=adw_leaflet_set_can_unfold)
@@ -2418,7 +2418,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                             "Can unfold",
                             "Whether or not the leaflet can unfold",
                             TRUE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:pages: (attributes org.gtk.Property.get=adw_leaflet_get_pages)
@@ -2436,7 +2436,7 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
                          "Pages",
                          "A selection model with the leaflet's pages",
                          GTK_TYPE_SELECTION_MODEL,
-                         G_PARAM_READABLE);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

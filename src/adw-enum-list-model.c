@@ -114,7 +114,7 @@ adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
                       "Value",
                       "The enum value",
                       G_MININT, G_MAXINT, 0,
-                      G_PARAM_READABLE);
+                      G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwEnumListItem:name: (attributes org.gtk.Property.get=adw_enum_list_item_get_name)
@@ -128,7 +128,7 @@ adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
                          "Name",
                          "The enum value name",
                          NULL,
-                         G_PARAM_READABLE);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwEnumListItem:nick: (attributes org.gtk.Property.get=adw_enum_list_item_get_nick)
@@ -142,7 +142,7 @@ adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
                          "Nick",
                          "The enum value nick",
                          NULL,
-                         G_PARAM_READABLE);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_VALUE_PROP, value_props);
 }
@@ -296,7 +296,7 @@ adw_enum_list_model_class_init (AdwEnumListModelClass *klass)
                         "Enum type",
                         "The type of the enum represented by the model",
                         G_TYPE_ENUM,
-                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }

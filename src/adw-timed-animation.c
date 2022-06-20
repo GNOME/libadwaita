@@ -230,7 +230,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwTimedAnimation:value-to: (attributes org.gtk.Property.get=adw_timed_animation_get_value_to org.gtk.Property.set=adw_timed_animation_set_value_to)
@@ -252,7 +252,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwTimedAnimation:duration: (attributes org.gtk.Property.get=adw_timed_animation_get_duration org.gtk.Property.set=adw_timed_animation_set_duration)
@@ -273,7 +273,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
                        0,
                        ADW_DURATION_INFINITE,
                        0,
-                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwTimedAnimation:easing: (attributes org.gtk.Property.get=adw_timed_animation_get_easing org.gtk.Property.set=adw_timed_animation_set_easing)
@@ -292,7 +292,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
                        "Easing function used in the animation",
                        ADW_TYPE_EASING,
                        ADW_EASE_OUT_CUBIC,
-                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwTimedAnimation:repeat-count: (attributes org.gtk.Property.get=adw_timed_animation_get_repeat_count org.gtk.Property.set=adw_timed_animation_set_repeat_count)
@@ -310,7 +310,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
                        0,
                        G_MAXUINT,
                        1,
-                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwTimedAnimation:reverse: (attributes org.gtk.Property.get=adw_timed_animation_get_reverse org.gtk.Property.set=adw_timed_animation_set_reverse)
@@ -324,7 +324,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
                           "Reverse",
                           "Whether the animation plays backwards",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwTimedAnimation:alternate: (attributes org.gtk.Property.get=adw_timed_animation_get_alternate org.gtk.Property.set=adw_timed_animation_set_alternate)
@@ -338,7 +338,7 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
                           "Alternate",
                           "Whether the animation changes direction on every iteration",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }

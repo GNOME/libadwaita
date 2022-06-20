@@ -310,7 +310,7 @@ adw_toast_class_init (AdwToastClass *klass)
                          "Title",
                          "The title of the toast",
                          "",
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwToast:button-label: (attributes org.gtk.Property.get=adw_toast_get_button_label org.gtk.Property.set=adw_toast_set_button_label)
@@ -330,7 +330,7 @@ adw_toast_class_init (AdwToastClass *klass)
                          "Button Label",
                          "The label to show on the button",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwToast:action-name: (attributes org.gtk.Property.get=adw_toast_get_action_name org.gtk.Property.set=adw_toast_set_action_name)
@@ -348,7 +348,7 @@ adw_toast_class_init (AdwToastClass *klass)
                          "Action Name",
                          "The name of the associated action",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwToast:action-target: (attributes org.gtk.Property.get=adw_toast_get_action_target_value org.gtk.Property.set=adw_toast_set_action_target_value)
@@ -365,7 +365,7 @@ adw_toast_class_init (AdwToastClass *klass)
                           "The parameter for action invocations",
                           G_VARIANT_TYPE_ANY,
                           NULL,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwToast:priority: (attributes org.gtk.Property.get=adw_toast_get_priority org.gtk.Property.set=adw_toast_set_priority)
@@ -388,7 +388,7 @@ adw_toast_class_init (AdwToastClass *klass)
                        "The priority of the toast",
                        ADW_TYPE_TOAST_PRIORITY,
                        ADW_TOAST_PRIORITY_NORMAL,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwToast:timeout: (attributes org.gtk.Property.get=adw_toast_get_timeout org.gtk.Property.set=adw_toast_set_timeout)
@@ -408,7 +408,7 @@ adw_toast_class_init (AdwToastClass *klass)
                        "Timeout",
                        "The timeout of the toast, in seconds",
                        0, G_MAXUINT, 5,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwToast:custom-title: (attributes org.gtk.Property.get=adw_toast_get_custom_title org.gtk.Property.set=adw_toast_set_custom_title)
@@ -427,7 +427,7 @@ adw_toast_class_init (AdwToastClass *klass)
                          "Custom Title",
                          "The custom title widget",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

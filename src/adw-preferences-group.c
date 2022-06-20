@@ -247,7 +247,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
                          "Description",
                          "The description for this group of preferences",
                          "",
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwPreferencesGroup:title: (attributes org.gtk.Property.get=adw_preferences_group_get_title org.gtk.Property.set=adw_preferences_group_set_title)
@@ -261,7 +261,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
                          "Title",
                          "The title for this group of preferences",
                          "",
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
   /**
    * AdwPreferencesGroup:header-suffix: (attributes org.gtk.Property.get=adw_preferences_group_get_header_suffix org.gtk.Property.set=adw_preferences_group_set_header_suffix)
    *
@@ -276,7 +276,7 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
                          "Header Suffix",
                          "The suffix for this group's header",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

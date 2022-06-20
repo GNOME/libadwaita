@@ -561,7 +561,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
                            "Visible page",
                            "The currently visible page",
                            GTK_TYPE_WIDGET,
-                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStack:visible-page-name: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page_name org.gtk.Property.set=adw_preferences_window_set_visible_page_name)
@@ -577,7 +577,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
                            "Name of visible page",
                            "The name of the currently visible page",
                            NULL,
-                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwPreferencesWindow:search-enabled: (attributes org.gtk.Property.get=adw_preferences_window_get_search_enabled org.gtk.Property.set=adw_preferences_window_set_search_enabled)
@@ -616,7 +616,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
                             "Can navigate back",
                             "Whether gestures and shortcuts for closing subpages are enabled",
                             FALSE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

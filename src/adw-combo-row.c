@@ -427,7 +427,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          "Model",
                          "Model for the displayed items",
                          G_TYPE_LIST_MODEL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwComboRow:selected: (attributes org.gtk.Property.get=adw_combo_row_get_selected org.gtk.Property.set=adw_combo_row_set_selected)
@@ -444,7 +444,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                        "Selected",
                        "Position of the selected item",
                        0, G_MAXUINT, GTK_INVALID_LIST_POSITION,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwComboRow:selected-item: (attributes org.gtk.Property.get=adw_combo_row_get_selected_item)
@@ -458,7 +458,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          "Selected Item",
                          "The selected item",
                          G_TYPE_OBJECT,
-                         G_PARAM_READABLE);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwComboRow:factory: (attributes org.gtk.Property.get=adw_combo_row_get_factory org.gtk.Property.set=adw_combo_row_set_factory)
@@ -475,7 +475,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          "Factory",
                          "Factory for populating list items",
                          GTK_TYPE_LIST_ITEM_FACTORY,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwComboRow:list-factory: (attributes org.gtk.Property.get=adw_combo_row_get_list_factory org.gtk.Property.set=adw_combo_row_set_list_factory)
@@ -491,7 +491,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                          "List Factory",
                          "Factory for populating list items",
                          GTK_TYPE_LIST_ITEM_FACTORY,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwComboRow:expression: (type GtkExpression) (attributes org.gtk.Property.get=adw_combo_row_get_expression org.gtk.Property.set=adw_combo_row_set_expression)
@@ -509,7 +509,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
     gtk_param_spec_expression ("expression",
                                "Expression",
                                "Expression to determine strings to search for",
-                               G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                               G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwComboRow:use-subtitle: (attributes org.gtk.Property.get=adw_combo_row_get_use_subtitle org.gtk.Property.set=adw_combo_row_set_use_subtitle)
@@ -531,7 +531,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
                           "Use subtitle",
                           "Whether to use the current value as the subtitle",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

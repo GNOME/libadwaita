@@ -357,7 +357,7 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
                         "Maximum size",
                         "The maximum size allocated to the child",
                         0, G_MAXINT, 600,
-                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwClampLayout:tightening-threshold: (attributes org.gtk.Property.get=adw_clamp_layout_get_tightening_threshold org.gtk.Property.set=adw_clamp_layout_set_tightening_threshold)
@@ -384,7 +384,7 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
                         "Tightening threshold",
                         "The size above which the children are clamped",
                         0, G_MAXINT, 400,
-                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }

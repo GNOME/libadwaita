@@ -1278,7 +1278,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                          "Content",
                          "The content widget",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:flap: (attributes org.gtk.Property.get=adw_flap_get_flap org.gtk.Property.set=adw_flap_set_flap)
@@ -1294,7 +1294,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                          "Flap",
                          "The flap widget",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:separator: (attributes org.gtk.Property.get=adw_flap_get_separator org.gtk.Property.set=adw_flap_set_separator)
@@ -1312,7 +1312,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                          "Separator",
                          "The separator widget",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:flap-position: (attributes org.gtk.Property.get=adw_flap_get_flap_position org.gtk.Property.set=adw_flap_set_flap_position)
@@ -1330,7 +1330,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                        "The flap position",
                        GTK_TYPE_PACK_TYPE,
                        GTK_PACK_START,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:reveal-flap: (attributes org.gtk.Property.get=adw_flap_get_reveal_flap org.gtk.Property.set=adw_flap_set_reveal_flap)
@@ -1344,7 +1344,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           "Reveal Flap",
                           "Whether the flap is revealed",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:reveal-params: (attributes org.gtk.Property.get=adw_flap_get_reveal_params org.gtk.Property.set=adw_flap_set_reveal_params)
@@ -1364,7 +1364,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                         "Reveal Parameters",
                         "The reveal animation spring parameters",
                         ADW_TYPE_SPRING_PARAMS,
-                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:reveal-progress: (attributes org.gtk.Property.get=adw_flap_get_reveal_progress)
@@ -1382,7 +1382,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           "Reveal Progress",
                           "The current reveal transition progress",
                           0.0, 1.0, 1.0,
-                          G_PARAM_READABLE);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwFlap:fold-policy: (attributes org.gtk.Property.get=adw_flap_get_fold_policy)
@@ -1397,7 +1397,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                        "The fold policy for the flap",
                        ADW_TYPE_FLAP_FOLD_POLICY,
                        ADW_FLAP_FOLD_POLICY_AUTO,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:fold-threshold-policy: (attributes org.gtk.Property.get=adw_flap_get_fold_threshold_policy org.gtk.Property.set=adw_flap_set_fold_threshold_policy)
@@ -1419,7 +1419,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                        "Determines when the flap will fold",
                        ADW_TYPE_FOLD_THRESHOLD_POLICY,
                        ADW_FOLD_THRESHOLD_POLICY_MINIMUM,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:fold-duration: (attributes org.gtk.Property.get=adw_flap_get_fold_duration org.gtk.Property.set=adw_flap_set_fold_duration)
@@ -1434,7 +1434,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                        "The fold transition animation duration, in milliseconds",
                        0, G_MAXINT,
                        250,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:folded: (attributes org.gtk.Property.get=adw_flap_get_folded)
@@ -1450,7 +1450,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           "Folded",
                           "Whether the flap is currently folded",
                           FALSE,
-                          G_PARAM_READABLE);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwFlap:locked: (attributes org.gtk.Property.get=adw_flap_get_locked org.gtk.Property.set=adw_flap_set_locked)
@@ -1468,7 +1468,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           "Locked",
                           "Whether the flap is locked",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:transition-type: (attributes org.gtk.Property.get=adw_flap_get_transition_type org.gtk.Property.set=adw_flap_set_transition_type)
@@ -1488,7 +1488,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                        "The type of animation used for reveal and fold transitions",
                        ADW_TYPE_FLAP_TRANSITION_TYPE,
                        ADW_FLAP_TRANSITION_TYPE_OVER,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:modal: (attributes org.gtk.Property.get=adw_flap_get_modal org.gtk.Property.set=adw_flap_set_modal)
@@ -1506,7 +1506,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           "Modal",
                           "Whether the flap is modal",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:swipe-to-open: (attributes org.gtk.Property.get=adw_flap_get_swipe_to_open org.gtk.Property.set=adw_flap_set_swipe_to_open)
@@ -1523,7 +1523,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           "Swipe to Open",
                           "Whether the flap can be opened with a swipe gesture",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwFlap:swipe-to-close: (attributes org.gtk.Property.get=adw_flap_get_swipe_to_close org.gtk.Property.set=adw_flap_set_swipe_to_close)
@@ -1540,7 +1540,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           "Swipe to Close",
                           "Whether the flap can be closed with a swipe gesture",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

@@ -143,7 +143,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
                           "Use underline",
                           "Whether an embedded underline in the title indicates a mnemonic",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwPreferencesRow:title-selectable: (attributes org.gtk.Property.get=adw_preferences_row_get_title_selectable org.gtk.Property.set=adw_preferences_row_set_title_selectable)
@@ -177,7 +177,7 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
                           "Use markup",
                           "Whether to use Pango markup for the title label",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }

@@ -785,35 +785,35 @@ adw_tab_class_init (AdwTabClass *klass)
                          "View",
                          "View",
                          ADW_TYPE_TAB_VIEW,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   props[PROP_PINNED] =
     g_param_spec_boolean ("pinned",
                           "Pinned",
                           "Pinned",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   props[PROP_DRAGGING] =
     g_param_spec_boolean ("dragging",
                           "Dragging",
                           "Dragging",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_PAGE] =
     g_param_spec_object ("page",
                          "Page",
                          "Page",
                          ADW_TYPE_TAB_PAGE,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_INVERTED] =
     g_param_spec_boolean ("inverted",
                           "Inverted",
                           "Inverted",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   signals[SIGNAL_EXTRA_DRAG_DROP] =
     g_signal_new ("extra-drag-drop",

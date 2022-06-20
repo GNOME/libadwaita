@@ -133,7 +133,7 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
                          "Title",
                          "The title to display",
                          "",
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwWindowTitle:subtitle: (attributes org.gtk.Property.get=adw_window_title_get_subtitle org.gtk.Property.set=adw_window_title_set_subtitle)
@@ -149,7 +149,7 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
                          "Subtitle",
                          "The subtitle to display",
                          "",
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

@@ -305,7 +305,7 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
                            "Child",
                            "The child widget",
                            GTK_TYPE_WIDGET,
-                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwIndicatorBin:needs-attention:
@@ -319,7 +319,7 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
                           "Needs Attention",
                           "Whether the indicator requires attention of the user",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwIndicatorBin:badge:
@@ -333,7 +333,7 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
                          "Badge",
                          "Additional information for the user",
                          "",
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

@@ -265,7 +265,7 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
                            "Child",
                            "The child widget",
                            GTK_TYPE_WIDGET,
-                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwClampScrollable:maximum-size: (attributes org.gtk.Property.get=adw_clamp_scrollable_get_maximum_size org.gtk.Property.set=adw_clamp_scrollable_set_maximum_size)
@@ -281,7 +281,7 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
                         "Maximum size",
                         "The maximum size allocated to the child",
                         0, G_MAXINT, 600,
-                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwClampScrollable:tightening-threshold: (attributes org.gtk.Property.get=adw_clamp_scrollable_get_tightening_threshold org.gtk.Property.set=adw_clamp_scrollable_set_tightening_threshold)
@@ -308,7 +308,7 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
                         "Tightening threshold",
                         "The size from which the clamp will tighten its grip on the child",
                         0, G_MAXINT, 400,
-                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

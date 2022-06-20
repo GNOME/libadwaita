@@ -456,7 +456,7 @@ adw_toast_overlay_class_init (AdwToastOverlayClass *klass)
                            "Child",
                            "The child widget",
                            GTK_TYPE_WIDGET,
-                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

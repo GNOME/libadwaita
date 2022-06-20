@@ -407,7 +407,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSpringAnimation:value-to: (attributes org.gtk.Property.get=adw_spring_animation_get_value_to org.gtk.Property.set=adw_spring_animation_set_value_to)
@@ -426,7 +426,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSpringAnimation:spring-params: (attributes org.gtk.Property.get=adw_spring_animation_get_spring_params org.gtk.Property.set=adw_spring_animation_set_spring_params)
@@ -440,7 +440,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
                         "Spring parameters",
                         "Physical parameters describing the spring",
                         ADW_TYPE_SPRING_PARAMS,
-                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT);
+                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSpringAnimation:initial-velocity: (attributes org.gtk.Property.get=adw_spring_animation_get_initial_velocity org.gtk.Property.set=adw_spring_animation_set_initial_velocity)
@@ -458,7 +458,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
-                         G_PARAM_READWRITE);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSpringAnimation:epsilon: (attributes org.gtk.Property.get=adw_spring_animation_get_epsilon org.gtk.Property.set=adw_spring_animation_set_epsilon)
@@ -485,7 +485,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
                          0,
                          G_MAXDOUBLE,
                          0.001,
-                         G_PARAM_READWRITE);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSpringAnimation:clamp: (attributes org.gtk.Property.get=adw_spring_animation_get_clamp org.gtk.Property.set=adw_spring_animation_set_clamp)
@@ -505,7 +505,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
                           "Clamp",
                           "Whether the animation should be clamped",
                           FALSE,
-                          G_PARAM_READWRITE);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSpringAnimation:estimated-duration: (attributes org.gtk.Property.get=adw_spring_animation_get_estimated_duration)
@@ -523,7 +523,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
                        0,
                        ADW_DURATION_INFINITE,
                        0,
-                       G_PARAM_READABLE);
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwSpringAnimation:velocity: (attributes org.gtk.Property.get=adw_spring_animation_get_velocity)
@@ -539,7 +539,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
                          -G_MAXDOUBLE,
                          G_MAXDOUBLE,
                          0,
-                         G_PARAM_READABLE);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }

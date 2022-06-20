@@ -1023,7 +1023,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                          "Swipeable",
                          "The widget the swipe tracker is attached to",
                          ADW_TYPE_SWIPEABLE,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwSwipeTracker:enabled: (attributes org.gtk.Property.get=adw_swipe_tracker_get_enabled org.gtk.Property.set=adw_swipe_tracker_set_enabled)
@@ -1040,7 +1040,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                           "Enabled",
                           "Whether the swipe tracker is enabled",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSwipeTracker:reversed: (attributes org.gtk.Property.get=adw_swipe_tracker_get_reversed org.gtk.Property.set=adw_swipe_tracker_set_reversed)
@@ -1057,7 +1057,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                           "Reversed",
                           "Whether to reverse the swipe direction",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSwipeTracker:allow-mouse-drag: (attributes org.gtk.Property.get=adw_swipe_tracker_get_allow_mouse_drag org.gtk.Property.set=adw_swipe_tracker_set_allow_mouse_drag)
@@ -1071,7 +1071,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                           "Allow mouse drag",
                           "Whether to allow dragging with mouse pointer",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSwipeTracker:allow-long-swipes: (attributes org.gtk.Property.get=adw_swipe_tracker_get_allow_long_swipes org.gtk.Property.set=adw_swipe_tracker_set_allow_long_swipes)
@@ -1088,7 +1088,7 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                           "Allow long swipes",
                           "Whether to allow swiping for more than one snap point at a time",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,

@@ -264,7 +264,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          "Child",
                          "The child of the page",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwViewStackPage:name: (attributes org.gtk.Property.get=adw_view_stack_page_get_name org.gtk.Property.set=adw_view_stack_page_set_name)
@@ -278,7 +278,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          "Name",
                          "The name of the child page",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStackPage:title: (attributes org.gtk.Property.get=adw_view_stack_page_get_title org.gtk.Property.set=adw_view_stack_page_set_title)
@@ -292,7 +292,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          "Title",
                          "The title of the child page",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStackPage:icon-name: (attributes org.gtk.Property.get=adw_view_stack_page_get_icon_name org.gtk.Property.set=adw_view_stack_page_set_icon_name)
@@ -306,7 +306,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          "Icon name",
                          "The icon name of the child page",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStackPage:needs-attention: (attributes org.gtk.Property.get=adw_view_stack_page_get_needs_attention org.gtk.Property.set=adw_view_stack_page_set_needs_attention)
@@ -322,7 +322,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                           "Needs Attention",
                           "Whether the page requires the user attention",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStackPage:badge-number: (attributes org.gtk.Property.get=adw_view_stack_page_get_badge_number org.gtk.Property.set=adw_view_stack_page_set_badge_number)
@@ -341,7 +341,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                        "Badge_number",
                        "A number associated with the page",
                        0, G_MAXUINT, 0,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStackPage:visible: (attributes org.gtk.Property.get=adw_view_stack_page_get_visible org.gtk.Property.set=adw_view_stack_page_set_visible)
@@ -358,7 +358,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                           "Visible",
                           "Whether this page is visible",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStackPage:use-underline: (attributes org.gtk.Property.get=adw_view_stack_page_get_use_underline org.gtk.Property.set=adw_view_stack_page_set_use_underline)
@@ -372,7 +372,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                           "Use underline",
                           "Whether an embedded underline in the title label indicates a mnemonic",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PAGE_PROP, page_props);
 }
@@ -925,7 +925,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
                             "Horizontally homogeneous",
                             "Whether the stack allocates the same width for all children",
                             TRUE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStack:vhomogeneous: (attributes org.gtk.Property.get=adw_view_stack_get_vhomogeneous org.gtk.Property.set=adw_view_stack_set_vhomogeneous)
@@ -942,7 +942,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
                             "Vertically homogeneous",
                             "Whether the stack allocates the same height for all children",
                             TRUE,
-                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStack:visible-child: (attributes org.gtk.Property.get=adw_view_stack_get_visible_child org.gtk.Property.set=adw_view_stack_set_visible_child)
@@ -956,7 +956,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
                            "Visible child",
                            "The widget currently visible in the stack",
                            GTK_TYPE_WIDGET,
-                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStack:visible-child-name: (attributes org.gtk.Property.get=adw_view_stack_get_visible_child_name org.gtk.Property.set=adw_view_stack_set_visible_child_name)
@@ -972,7 +972,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
                            "Name of visible child",
                            "The name of the widget currently visible in the stack",
                            NULL,
-                           G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewStack:pages: (attributes org.gtk.Property.get=adw_view_stack_get_pages)
@@ -988,7 +988,7 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
                            "Pages",
                            "A selection model with the stack's pages",
                            GTK_TYPE_SELECTION_MODEL,
-                           G_PARAM_READABLE);
+                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

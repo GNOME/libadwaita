@@ -239,7 +239,7 @@ adw_application_class_init (AdwApplicationClass *klass)
                          "Style Manager",
                          "The default style manager",
                          ADW_TYPE_STYLE_MANAGER,
-                         G_PARAM_READABLE);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }

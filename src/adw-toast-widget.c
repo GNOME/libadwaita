@@ -231,7 +231,7 @@ adw_toast_widget_class_init (AdwToastWidgetClass *klass)
                            "Toast",
                            "The displayed toast",
                            ADW_TYPE_TOAST,
-                           G_PARAM_READWRITE);
+                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

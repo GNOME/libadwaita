@@ -216,7 +216,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                           "Expanded",
                           "Whether the row is expanded",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwExpanderRow:enable-expansion: (attributes org.gtk.Property.get=adw_expander_row_get_enable_expansion org.gtk.Property.set=adw_expander_row_set_enable_expansion)
@@ -230,7 +230,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                           "Enable expansion",
                           "Whether expansion is enabled",
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwExpanderRow:show-enable-switch: (attributes org.gtk.Property.get=adw_expander_row_get_show_enable_switch org.gtk.Property.set=adw_expander_row_set_show_enable_switch)
@@ -244,7 +244,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                           "Show enable switch",
                           "Whether the switch enabling the expansion is visible",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

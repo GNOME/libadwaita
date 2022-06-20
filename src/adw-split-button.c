@@ -289,7 +289,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                          "Label",
                          "The label for the button",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSplitButton:use-underline: (attributes org.gtk.Property.get=adw_split_button_get_use_underline org.gtk.Property.set=adw_split_button_set_use_underline)
@@ -305,7 +305,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                           "Use underline",
                           "Whether an underline in the text indicates a mnemonic",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSplitButton:icon-name: (attributes org.gtk.Property.get=adw_split_button_get_icon_name org.gtk.Property.set=adw_split_button_set_icon_name)
@@ -322,7 +322,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                          "Icon Name",
                          "The name of the icon used to automatically populate the button",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSplitButton:child: (attributes org.gtk.Property.get=adw_split_button_get_child org.gtk.Property.set=adw_split_button_set_child)
@@ -339,7 +339,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                          "Child",
                          "The child widget",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSplitButton:menu-model: (attributes org.gtk.Property.get=adw_split_button_get_menu_model org.gtk.Property.set=adw_split_button_set_menu_model)
@@ -362,7 +362,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                          "Menu model",
                          "The model from which the popup is made",
                          G_TYPE_MENU_MODEL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSplitButton:popover: (attributes org.gtk.Property.get=adw_split_button_get_popover org.gtk.Property.set=adw_split_button_set_popover)
@@ -381,7 +381,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                          "Popover",
                          "The popover that will be popped up when the dropdown is clicked",
                          GTK_TYPE_POPOVER,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSplitButton:direction: (attributes org.gtk.Property.get=adw_split_button_get_direction org.gtk.Property.set=adw_split_button_set_direction)
@@ -403,7 +403,7 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                        "The direction in which the popup will be popped up",
                        GTK_TYPE_ARROW_TYPE,
                        GTK_ARROW_DOWN,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

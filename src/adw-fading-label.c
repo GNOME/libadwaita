@@ -262,14 +262,14 @@ adw_fading_label_class_init (AdwFadingLabelClass *klass)
                          "Label",
                          "Label",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_ALIGN] =
     g_param_spec_float ("align",
                         "Align",
                         "Align",
                         0.0, 1.0, 0.0,
-                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }

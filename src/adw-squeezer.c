@@ -228,7 +228,7 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
                          "Child",
                          "The child of the page",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwSqueezerPage:enabled: (attributes org.gtk.Property.get=adw_squeezer_page_get_enabled org.gtk.Property.set=adw_squeezer_page_set_enabled)
@@ -251,7 +251,7 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
                           "Enabled",
                           "Whether the child is enabled",
                           TRUE,
-                          G_PARAM_READWRITE);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PAGE_PROP, page_props);
 }
@@ -1068,7 +1068,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                           "Homogeneous",
                           "Whether all children have the same size for the opposite orientation",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSqueezer:switch-threshold-policy: (attributes org.gtk.Property.get=adw_squeezer_get_switch_threshold_policy org.gtk.Property.set=adw_squeezer_set_switch_threshold_policy)
@@ -1091,7 +1091,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                        "Determines when the leaflet will fold",
                        ADW_TYPE_FOLD_THRESHOLD_POLICY,
                        ADW_FOLD_THRESHOLD_POLICY_NATURAL,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSqueezer:visible-child: (attributes org.gtk.Property.get=adw_squeezer_get_visible_child)
@@ -1105,7 +1105,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                          "Visible child",
                          "The currently visible child",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwSqueezer:allow-none: (attributes org.gtk.Property.get=adw_squeezer_get_allow_none org.gtk.Property.set=adw_squeezer_set_allow_none)
@@ -1123,7 +1123,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                           "Allow none",
                           "Whether to allow squeezing beyond the last child's minimum size",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSqueezer:transition-duration: (attributes org.gtk.Property.get=adw_squeezer_get_transition_duration org.gtk.Property.set=adw_squeezer_set_transition_duration)
@@ -1137,7 +1137,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                        "Transition duration",
                        "The animation duration, in milliseconds",
                        0, G_MAXUINT, 200,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSqueezer:transition-type: (attributes org.gtk.Property.get=adw_squeezer_get_transition_type org.gtk.Property.set=adw_squeezer_set_transition_type)
@@ -1152,7 +1152,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                        "The type of animation used for transitions between children",
                        ADW_TYPE_SQUEEZER_TRANSITION_TYPE,
                        ADW_SQUEEZER_TRANSITION_TYPE_NONE,
-                       G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSqueezer:transition-running: (attributes org.gtk.Property.get=adw_squeezer_get_transition_running)
@@ -1170,7 +1170,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                           "Transition running",
                           "Whether a transition is currently running",
                           FALSE,
-                          G_PARAM_READABLE);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwSqueezer:interpolate-size: (attributes org.gtk.Property.get=adw_squeezer_get_interpolate_size org.gtk.Property.set=adw_squeezer_set_interpolate_size)
@@ -1189,7 +1189,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                           "Interpolate size",
                           "Whether the squeezer interpolates its size when changing the visible child",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSqueezer:xalign: (attributes org.gtk.Property.get=adw_squeezer_get_xalign org.gtk.Property.set=adw_squeezer_set_xalign)
@@ -1210,7 +1210,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                         "The horizontal alignment, from 0 (start) to 1 (end)",
                         0.0, 1.0,
                         0.5,
-                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSqueezer:yalign: (attributes org.gtk.Property.get=adw_squeezer_get_yalign org.gtk.Property.set=adw_squeezer_set_yalign)
@@ -1231,7 +1231,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                         "The vertical alignment, from 0 (top) to 1 (bottom)",
                         0.0, 1.0,
                         0.5,
-                        G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSqueezer:pages: (attributes org.gtk.Property.get=adw_squeezer_get_pages)
@@ -1248,7 +1248,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                          "Pages",
                          "A selection model with the squeezer's pages",
                          GTK_TYPE_SELECTION_MODEL,
-                         G_PARAM_READABLE);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

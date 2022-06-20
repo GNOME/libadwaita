@@ -334,7 +334,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                          "Icon name",
                          "The name of an icon to use as a fallback",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwAvatar:text: (attributes org.gtk.Property.get=adw_avatar_get_text org.gtk.Property.set=adw_avatar_set_text)
@@ -351,7 +351,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                          "Text",
                          "The text used to generate the color and the initials",
                          "",
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwAvatar:show-initials: (attributes org.gtk.Property.get=adw_avatar_get_show_initials org.gtk.Property.set=adw_avatar_set_show_initials)
@@ -367,7 +367,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                           "Show initials",
                           "Whether initials are used instead of an icon on the fallback avatar",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwAvatar:custom-image: (attributes org.gtk.Property.get=adw_avatar_get_custom_image org.gtk.Property.set=adw_avatar_set_custom_image)
@@ -381,7 +381,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                          "Custom image",
                          "A custom image to use instead of initials or icon",
                          GDK_TYPE_PAINTABLE,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwAvatar:size: (attributes org.gtk.Property.get=adw_avatar_get_size org.gtk.Property.set=adw_avatar_set_size)
@@ -395,7 +395,7 @@ adw_avatar_class_init (AdwAvatarClass *klass)
                       "Size",
                       "The size of the avatar",
                       -1, INT_MAX, -1,
-                      G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 

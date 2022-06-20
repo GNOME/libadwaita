@@ -358,7 +358,7 @@ adw_carousel_indicator_dots_class_init (AdwCarouselIndicatorDotsClass *klass)
                          "Carousel",
                          "The displayed carousel",
                          ADW_TYPE_CAROUSEL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,

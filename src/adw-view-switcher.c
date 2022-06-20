@@ -362,7 +362,7 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
                        "The policy to determine the mode to use",
                        ADW_TYPE_VIEW_SWITCHER_POLICY,
                        ADW_VIEW_SWITCHER_POLICY_NARROW,
-                       G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewSwitcher:stack: (attributes org.gtk.Property.get=adw_view_switcher_get_stack org.gtk.Property.set=adw_view_switcher_set_stack)
@@ -376,7 +376,7 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
                          "Stack",
                          "The stack the view switcher controls",
                          ADW_TYPE_VIEW_STACK,
-                         G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

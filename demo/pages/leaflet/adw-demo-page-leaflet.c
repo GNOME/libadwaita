@@ -97,7 +97,7 @@ adw_demo_page_leaflet_class_init (AdwDemoPageLeafletClass *klass)
                        "Transition type",
                        ADW_TYPE_LEAFLET_TRANSITION_TYPE,
                        ADW_LEAFLET_TRANSITION_TYPE_OVER,
-                       G_PARAM_READWRITE);
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

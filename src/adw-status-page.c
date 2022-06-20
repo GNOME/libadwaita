@@ -203,7 +203,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          "Icon name",
                          "The name of the icon to be used",
                          NULL,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwStatusPage:paintable: (attributes org.gtk.Property.get=adw_status_page_get_paintable org.gtk.Property.set=adw_status_page_set_paintable)
@@ -219,7 +219,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          "Paintable",
                          "The GdkPaintable to be used",
                          GDK_TYPE_PAINTABLE,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwStatusPage:title: (attributes org.gtk.Property.get=adw_status_page_get_title org.gtk.Property.set=adw_status_page_set_title)
@@ -233,7 +233,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          "Title",
                          "The title to be displayed below the icon",
                          "",
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwStatusPage:description: (attributes org.gtk.Property.get=adw_status_page_get_description org.gtk.Property.set=adw_status_page_set_description)
@@ -247,7 +247,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          "Description",
                          "The description to be displayed below the title",
                          "",
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwStatusPage:child: (attributes org.gtk.Property.get=adw_status_page_get_child org.gtk.Property.set=adw_status_page_set_child)
@@ -261,7 +261,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
                          "Child",
                          "The child widget",
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

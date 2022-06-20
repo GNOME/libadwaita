@@ -292,7 +292,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                          "Stack",
                          "The stack the view switcher controls",
                          ADW_TYPE_VIEW_STACK,
-                         G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewSwitcherTitle:title: (attributes org.gtk.Property.get=adw_view_switcher_title_get_title org.gtk.Property.set=adw_view_switcher_title_set_title)
@@ -309,7 +309,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                          "Title",
                          "The title to display",
                          "",
-                         G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewSwitcherTitle:subtitle: (attributes org.gtk.Property.get=adw_view_switcher_title_get_subtitle org.gtk.Property.set=adw_view_switcher_title_set_subtitle)
@@ -325,7 +325,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                          "Subtitle",
                          "The subtitle to display",
                          "",
-                         G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewSwitcherTitle:view-switcher-enabled: (attributes org.gtk.Property.get=adw_view_switcher_title_get_view_switcher_enabled org.gtk.Property.set=adw_view_switcher_title_set_view_switcher_enabled)
@@ -346,7 +346,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                          "View switcher enabled",
                          "Whether the view switcher is enabled",
                          TRUE,
-                         G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwViewSwitcherTitle:title-visible: (attributes org.gtk.Property.get=adw_view_switcher_title_get_title_visible)
@@ -363,7 +363,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
                          "Title visible",
                          "Whether the title is currently visible",
                          TRUE,
-                         G_PARAM_EXPLICIT_NOTIFY | G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 

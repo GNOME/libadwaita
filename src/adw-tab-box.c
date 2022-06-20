@@ -3588,28 +3588,28 @@ adw_tab_box_class_init (AdwTabBoxClass *klass)
                           "Pinned",
                           "Pinned",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   props[PROP_TAB_BAR] =
     g_param_spec_object ("tab-bar",
                          "Tab Bar",
                          "Tab Bar",
                          ADW_TYPE_TAB_BAR,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
+                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   props[PROP_VIEW] =
     g_param_spec_object ("view",
                          "View",
                          "View",
                          ADW_TYPE_TAB_VIEW,
-                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   props[PROP_RESIZE_FROZEN] =
     g_param_spec_boolean ("resize-frozen",
                           "Resize Frozen",
                           "Resize Frozen",
                           FALSE,
-                          G_PARAM_READABLE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
@@ -3977,3 +3977,4 @@ adw_tab_box_set_inverted (AdwTabBox *self,
     adw_tab_set_inverted (info->tab, inverted);
   }
 }
+

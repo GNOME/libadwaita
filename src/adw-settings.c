@@ -624,7 +624,7 @@ adw_settings_class_init (AdwSettingsClass *klass)
                           "System supports color schemes",
                           "Whether the system supports color schemes",
                           FALSE,
-                          G_PARAM_READABLE);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   props[PROP_COLOR_SCHEME] =
     g_param_spec_enum ("color-scheme",
@@ -632,14 +632,14 @@ adw_settings_class_init (AdwSettingsClass *klass)
                        "Color Scheme",
                        ADW_TYPE_SYSTEM_COLOR_SCHEME,
                        ADW_SYSTEM_COLOR_SCHEME_DEFAULT,
-                       G_PARAM_READABLE);
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   props[PROP_HIGH_CONTRAST] =
     g_param_spec_boolean ("high-contrast",
                           "High Contrast",
                           "High Contrast",
                           FALSE,
-                          G_PARAM_READABLE);
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }

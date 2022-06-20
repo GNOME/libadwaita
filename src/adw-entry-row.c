@@ -427,7 +427,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
                           "Show Apply Button",
                           "Whether to show the apply button",
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
