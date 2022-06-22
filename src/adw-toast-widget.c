@@ -15,6 +15,7 @@ struct _AdwToastWidget {
   GtkWidget parent_instance;
 
   AdwBin *title_bin;
+  GtkWidget *action_button;
 
   AdwToast *toast;
 
@@ -237,6 +238,7 @@ adw_toast_widget_class_init (AdwToastWidgetClass *klass)
                                                "/org/gnome/Adwaita/ui/adw-toast-widget.ui");
 
   gtk_widget_class_bind_template_child (widget_class, AdwToastWidget, title_bin);
+  gtk_widget_class_bind_template_child (widget_class, AdwToastWidget, action_button);
 
   gtk_widget_class_bind_template_callback (widget_class, string_is_not_empty);
   gtk_widget_class_bind_template_callback (widget_class, action_clicked_cb);
@@ -271,4 +273,12 @@ adw_toast_widget_reset_timeout (AdwToastWidget *self)
 
   end_timeout (self);
   start_timeout (self);
+}
+
+gboolean
+adw_toast_widget_get_button_visible (AdwToastWidget *self)
+{
+  g_assert (ADW_IS_TOAST_WIDGET (self));
+
+  return gtk_widget_get_visible (self->action_button);
 }

@@ -25,4 +25,6 @@ GtkWidget *adw_toast_widget_new (AdwToast *toast) G_GNUC_WARN_UNUSED_RESULT;
 
 void adw_toast_widget_reset_timeout (AdwToastWidget *self);
 
+gboolean adw_toast_widget_get_button_visible (AdwToastWidget *self);
+
 G_END_DECLS

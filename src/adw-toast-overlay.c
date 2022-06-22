@@ -366,7 +366,11 @@ allocate_toast (AdwToastOverlay *self,
 
   gtk_widget_get_preferred_size (info->widget, NULL, &size);
 
-  size.width = MIN (MAX (size.width, NATURAL_WIDTH), width);
+  if (adw_toast_widget_get_button_visible (ADW_TOAST_WIDGET (info->widget)))
+    size.width = MIN (MAX (size.width, NATURAL_WIDTH), width);
+  else
+    size.width = MIN (size.width, width);
+
   size.height = MIN (size.height, height);
 
   x = (width - size.width) / 2;
