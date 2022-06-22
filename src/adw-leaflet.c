@@ -3500,6 +3500,8 @@ adw_leaflet_navigate (AdwLeaflet             *self,
   AdwLeafletPage *page;
 
   g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
+  g_return_val_if_fail (direction == ADW_NAVIGATION_DIRECTION_BACK ||
+                        direction == ADW_NAVIGATION_DIRECTION_FORWARD, FALSE);
 
   page = find_swipeable_page (self, direction);
 
