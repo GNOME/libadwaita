@@ -414,6 +414,36 @@ The card styles use a shadow to separate the card from the window background.
 always be partially transparent black, with the opacity tuned to be well visible
 on top of [<code>&#64;window_bg_color</code>](#window-colors).
 
+### Dialog Colors
+
+These colors are used for [class@MessageDialog].
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th/>
+    <th>Light</th>
+    <th/>
+    <th>Dark</th>
+  </tr>
+  <tr>
+    <td><tt>&#64;dialog_bg_color</tt></td>
+    <td><div class="color-pill light" style="background-color: #fafafa"/></td>
+    <td><tt>#fafafa</tt></td>
+    <td><div class="color-pill" style="background-color: #383838"/></td>
+    <td><tt>#383838</tt></td>
+  </tr>
+  <tr>
+    <td><tt>&#64;dialog_fg_color</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+  </tr>
+</table>
+
+Since: 1.2
+
 ### Popover Colors
 
 These colors are used for [class@Gtk.Popover].

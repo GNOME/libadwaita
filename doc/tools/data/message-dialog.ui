@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwMessageDialog" id="widget">
+    <property name="heading" translatable="yes">Replace File?</property>
+    <property name="body" translatable="yes">A file named “example.png” already exists. Do you want to replace it?</property>
+    <property name="default-response">cancel</property>
+    <property name="close-response">cancel</property>
+    <responses>
+      <response id="cancel" translatable="yes">_Cancel</response>
+      <response id="replace" translatable="yes" appearance="destructive">_Replace</response>
+    </responses>
+  </object>
+</interface>

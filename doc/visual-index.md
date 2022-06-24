@@ -26,6 +26,15 @@ Slug: visual-index
   <img src="avatar.png" alt="avatar">
 </picture>](class.Avatar.html)
 
+## Dialogs
+
+### Message Dialog
+
+[<picture>
+  <source srcset="message-dialog-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="message-dialog.png" alt="message-dialog">
+</picture>](class.MessageDialog.html)
+
 ## Boxed Lists
 
 ### Action Row

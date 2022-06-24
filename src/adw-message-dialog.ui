@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="libadwaita">
+  <requires lib="gtk" version="4.0"/>
+  <template class="AdwMessageDialog" parent="GtkWindow">
+    <style>
+      <class name="messagedialog"/>
+    </style>
+    <property name="titlebar">
+      <object class="GtkBox">
+        <property name="visible">False</property>
+      </object>
+    </property>
+    <property name="child">
+      <object class="GtkWindowHandle">
+        <property name="child">
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkBox" id="message_area">
+                <property name="orientation">vertical</property>
+                <style>
+                  <class name="message-area"/>
+                </style>
+                <child>
+                  <object class="GtkLabel" id="heading_label">
+                    <property name="wrap">True</property>
+                    <property name="wrap-mode">word-char</property>
+                    <property name="max-width-chars">20</property>
+                    <property name="justify">center</property>
+                    <property name="xalign">0.5</property>
+                    <property name="visible">False</property>
+                    <style>
+                      <class name="title-2"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="body_label">
+                    <property name="vexpand">True</property>
+                    <property name="wrap">True</property>
+                    <property name="wrap-mode">word-char</property>
+                    <property name="max-width-chars">40</property>
+                    <property name="justify">center</property>
+                    <property name="xalign">0.5</property>
+                    <property name="visible">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparator"/>
+            </child>
+            <child>
+              <object class="AdwSqueezer" id="squeezer">
+                <property name="homogeneous">False</property>
+                <signal name="notify::visible-child" handler="update_default_response" swapped="yes"/>
+                <style>
+                  <class name="response-area"/>
+                </style>
+                <child>
+                  <object class="GtkBox" id="wide_response_box">
+                    <property name="hexpand">1</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="valign">end</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="narrow_response_box">
+                    <property name="hexpand">1</property>
+                    <property name="orientation">vertical</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+  <object class="GtkSizeGroup" id="wide_size_group"/>
+  <object class="GtkSizeGroup" id="narrow_size_group"/>
+</interface>
