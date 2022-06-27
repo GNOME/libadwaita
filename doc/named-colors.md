@@ -360,7 +360,9 @@ meant to be visually attached to it, such as [class@Gtk.SearchBar] or
 <code>&#64;headerbar_border_color</code> has the same default value as
 <code>&#64;headerbar_fg_color</code>, but doesn't change along with it. This can
 be useful if a light window has a dark header bar with light text; in this case
-it may be desirable to keep the border dark.
+it may be desirable to keep the border dark. This variable is only used for
+vertical borders - for example, separators between the 2 header bars in a split
+header bar layout.
 
 <code>&#64;headerbar_backdrop_color</code> is used instead of
 <code>&#64;headerbar_bg_color</code> when the window is not focused. By default
@@ -368,10 +370,9 @@ it's an alias of [<code>&#64;window_bg_color</code>](#window-colors) and changes
 together with it. When overriding header bar colors, make sure to set it to a
 value matching your <code>&#64;headerbar_bg_color</code>.
 
-<code>&#64;headerbar_shade_color</code> is used by [class@TabBar] to provide a
-visible darkening for inactive tabs and an overflow shadow. This color should
-always be partially transparent black, with the opacity adjusted to be well
-visible on top of <code>&#64;headerbar_bg_color</code>.
+<code>&#64;headerbar_shade_color</code> is used by to provide a dark border for
+header bars and similar widgets. This color should always be partially
+transparent black.
 
 ### Card Colors
 
@@ -500,9 +501,9 @@ These colors are used for [class@Gtk.Popover].
 
 <code>&#64;shade_color</code> is used by [class@TabBar] with the
 [`.inline`](style-classes.html#inline-tab-bars-search-bars) style class, as well
-as the transitions in [class@Leaflet] and [class@Flap]. This color should always
-be partially transparent black, with the opacity tuned to be well visible on top
-of <code>&#64;window_bg_color</code>.
+as the transitions in [class@Leaflet] and [class@Flap] and [class@Gtk.InfoBar]
+borders. This color should always be partially transparent black, with the
+opacity tuned to be well visible on top of <code>&#64;window_bg_color</code>.
 
 <code>&#64;scrollbar_outline_color</code> is used by [class@Gtk.Scrollbar] to
 ensure that overlay scrollbars are visible regardless of the content color. It
