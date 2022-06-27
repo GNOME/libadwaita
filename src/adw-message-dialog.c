@@ -124,6 +124,8 @@
  */
 
 #define DIALOG_MARGIN 30
+#define DIALOG_MAX_WIDTH 550
+#define DIALOG_MIN_WIDTH 300
 
 typedef struct {
   AdwMessageDialog *dialog;
@@ -490,12 +492,7 @@ adw_message_dialog_measure (GtkWidget      *widget,
 {
   AdwMessageDialog *self = ADW_MESSAGE_DIALOG (widget);
   AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
-  int parent_size, max_size, base_min, base_nat;
-
-  if (min_baseline)
-    *min_baseline = -1;
-  if (nat_baseline)
-    *nat_baseline = -1;
+  int max_size, base_min, base_nat;
 
   GTK_WIDGET_CLASS (adw_message_dialog_parent_class)->measure (widget,
                                                                orientation,
@@ -504,26 +501,37 @@ adw_message_dialog_measure (GtkWidget      *widget,
                                                                &base_nat,
                                                                NULL, NULL);
 
-  if (min)
-    *min = base_min;
+  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+    int wide_min, narrow_nat;
 
-  if (orientation == GTK_ORIENTATION_HORIZONTAL)
-    parent_size = priv->parent_width;
-  else
-    parent_size = priv->parent_height;
+    max_size = priv->parent_width - DIALOG_MARGIN * 2;
+    max_size = CLAMP (max_size, DIALOG_MIN_WIDTH, DIALOG_MAX_WIDTH);
 
-  if (parent_size < 0) {
-    if (nat)
-      *nat = base_nat;
+    gtk_widget_measure (GTK_WIDGET (priv->wide_response_box),
+                        GTK_ORIENTATION_HORIZONTAL, -1,
+                        &wide_min, NULL, NULL, NULL);
+    gtk_widget_measure (GTK_WIDGET (priv->narrow_response_box),
+                        GTK_ORIENTATION_HORIZONTAL, -1,
+                        NULL, &narrow_nat, NULL, NULL);
 
-    return;
+    narrow_nat = MAX (narrow_nat, DIALOG_MIN_WIDTH);
+
+    if (max_size < wide_min)
+      max_size = MIN (max_size, narrow_nat);
+  } else {
+    max_size = priv->parent_height - DIALOG_MARGIN * 2;
   }
 
-  max_size = parent_size - DIALOG_MARGIN * 2;
   max_size = MAX (base_min, max_size);
 
+  if (min)
+    *min = base_min;
   if (nat)
     *nat = CLAMP (base_nat, base_min, max_size);
+  if (min_baseline)
+    *min_baseline = -1;
+  if (nat_baseline)
+    *nat_baseline = -1;
 }
 
 static void
