@@ -71,7 +71,7 @@ tabbar {
       background-color: $headerbar_bg_color;
       color: $headerbar_fg_color;
       padding-bottom: 1px;
-      box-shadow: inset 0 -1px $headerbar_border_color;
+      box-shadow: inset 0 -1px if($contrast == 'high', $headerbar_border_color, $headerbar_shade_color);
     }
 
     &:backdrop .box {
