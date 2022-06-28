@@ -617,7 +617,10 @@ adw_message_dialog_dispose (GObject *object)
     priv->child = NULL;
   }
 
-  g_list_free_full (priv->responses, (GDestroyNotify) response_info_free);
+  if (priv->responses) {
+    g_list_free_full (priv->responses, (GDestroyNotify) response_info_free);
+    priv->responses = NULL;
+  }
 
   G_OBJECT_CLASS (adw_message_dialog_parent_class)->dispose (object);
 }
