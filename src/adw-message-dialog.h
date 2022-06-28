@@ -146,4 +146,8 @@ ADW_AVAILABLE_IN_1_2
 void adw_message_dialog_response (AdwMessageDialog *self,
                                   const char       *response);
 
+ADW_AVAILABLE_IN_1_2
+gboolean adw_message_dialog_has_response (AdwMessageDialog *self,
+                                          const char       *response);
+
 G_END_DECLS

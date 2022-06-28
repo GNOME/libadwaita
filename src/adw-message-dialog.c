@@ -156,6 +156,7 @@ typedef struct
   GtkWidget *child;
 
   GList *responses;
+  GHashTable *id_to_response;
   GQuark default_response;
   GQuark close_response;
 
@@ -201,28 +202,13 @@ response_info_free (ResponseInfo *info)
   g_free (info);
 }
 
-static ResponseInfo *
-find_response_by_quark (AdwMessageDialog *self,
-                        GQuark            id)
-{
-  AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
-  GList *l;
-
-  for (l = priv->responses; l; l = l->next) {
-    ResponseInfo *info = l->data;
-
-    if (info->id == id)
-      return info;
-  }
-
-  return NULL;
-}
-
 static inline ResponseInfo *
 find_response (AdwMessageDialog *self,
                const char       *id)
 {
-  return find_response_by_quark (self, g_quark_try_string (id));
+  AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
+
+  return g_hash_table_lookup (priv->id_to_response, id);
 }
 
 static void
@@ -372,7 +358,7 @@ update_default_response (AdwMessageDialog *self)
   if (!priv->default_response)
     return;
 
-  info = find_response_by_quark (self, priv->default_response);
+  info = find_response (self, g_quark_to_string (priv->default_response));
 
   if (!info)
     return;
@@ -622,6 +608,8 @@ adw_message_dialog_dispose (GObject *object)
     priv->responses = NULL;
   }
 
+  g_clear_pointer (&priv->id_to_response, g_hash_table_unref);
+
   G_OBJECT_CLASS (adw_message_dialog_parent_class)->dispose (object);
 }
 
@@ -818,6 +806,7 @@ adw_message_dialog_init (AdwMessageDialog *self)
   priv->body = g_strdup ("");
   priv->parent_width = -1;
   priv->parent_height = -1;
+  priv->id_to_response = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
@@ -1639,6 +1628,7 @@ adw_message_dialog_add_response (AdwMessageDialog *self,
   gtk_size_group_add_widget (priv->narrow_size_group, info->narrow_button);
 
   priv->responses = g_list_append (priv->responses, info);
+  g_hash_table_insert (priv->id_to_response, g_strdup (id), info);
 
   if (priv->default_response == info->id &&
       gtk_widget_get_mapped (GTK_WIDGET (self)))
@@ -1721,12 +1711,9 @@ adw_message_dialog_get_response_label (AdwMessageDialog *self,
 
   g_return_val_if_fail (ADW_IS_MESSAGE_DIALOG (self), NULL);
   g_return_val_if_fail (response != NULL, NULL);
+  g_return_val_if_fail (adw_message_dialog_has_response (self, response), NULL);
 
   info = find_response (self, response);
-  if (!info) {
-    g_critical ("AdwMessageDialog does not have a response with ID '%s'", response);
-    return NULL;
-  }
 
   return info->label;
 }
@@ -1754,12 +1741,9 @@ adw_message_dialog_set_response_label (AdwMessageDialog *self,
   g_return_if_fail (ADW_IS_MESSAGE_DIALOG (self));
   g_return_if_fail (response != NULL);
   g_return_if_fail (label != NULL);
+  g_return_if_fail (adw_message_dialog_has_response (self, response));
 
   info = find_response (self, response);
-  if (!info) {
-    g_critical ("AdwMessageDialog does not have a response with ID '%s'", response);
-    return;
-  }
 
   g_free (info->label);
   info->label = g_strdup (label);
@@ -1789,12 +1773,9 @@ adw_message_dialog_get_response_appearance (AdwMessageDialog *self,
 
   g_return_val_if_fail (ADW_IS_MESSAGE_DIALOG (self), FALSE);
   g_return_val_if_fail (response != NULL, FALSE);
+  g_return_val_if_fail (adw_message_dialog_has_response (self, response), FALSE);
 
   info = find_response (self, response);
-  if (!info) {
-    g_critical ("AdwMessageDialog does not have a response with ID '%s'", response);
-    return FALSE;
-  }
 
   return info->appearance;
 }
@@ -1836,12 +1817,9 @@ adw_message_dialog_set_response_appearance (AdwMessageDialog      *self,
   g_return_if_fail (response != NULL);
   g_return_if_fail (appearance >= ADW_RESPONSE_DEFAULT &&
                     appearance <= ADW_RESPONSE_DESTRUCTIVE);
+  g_return_if_fail (adw_message_dialog_has_response (self, response));
 
   info = find_response (self, response);
-  if (!info) {
-    g_critical ("AdwMessageDialog does not have a response with ID '%s'", response);
-    return;
-  }
 
   if (appearance == info->appearance)
     return;
@@ -1886,12 +1864,9 @@ adw_message_dialog_get_response_enabled (AdwMessageDialog *self,
 
   g_return_val_if_fail (ADW_IS_MESSAGE_DIALOG (self), FALSE);
   g_return_val_if_fail (response != NULL, FALSE);
+  g_return_val_if_fail (adw_message_dialog_has_response (self, response), FALSE);
 
   info = find_response (self, response);
-  if (!info) {
-    g_critical ("AdwMessageDialog does not have a response with ID '%s'", response);
-    return FALSE;
-  }
 
   return info->enabled;
 }
@@ -1924,12 +1899,9 @@ adw_message_dialog_set_response_enabled (AdwMessageDialog *self,
 
   g_return_if_fail (ADW_IS_MESSAGE_DIALOG (self));
   g_return_if_fail (response != NULL);
+  g_return_if_fail (adw_message_dialog_has_response (self, response));
 
   info = find_response (self, response);
-  if (!info) {
-    g_critical ("AdwMessageDialog does not have a response with ID '%s'", response);
-    return;
-  }
 
   enabled = !!enabled;
 
@@ -2013,7 +1985,8 @@ adw_message_dialog_set_default_response (AdwMessageDialog *self,
  * Returns: the close response ID
  *
  * Since: 1.2
- */const char *
+ */
+const char *
 adw_message_dialog_get_close_response (AdwMessageDialog *self)
 {
   AdwMessageDialogPrivate *priv;
@@ -2082,4 +2055,25 @@ adw_message_dialog_response (AdwMessageDialog *self,
 
   g_signal_emit (self, signals[SIGNAL_RESPONSE],
                  g_quark_from_string (response), response);
+}
+
+/**
+ * adw_message_dialog_has_response:
+ * @self: a message dialog
+ * @response: response ID
+ *
+ * Gets whether @self has a response with the ID @response.
+ *
+ * Returns: whether @self has a response with the ID @response.
+ *
+ * Since: 1.2
+ */
+gboolean
+adw_message_dialog_has_response (AdwMessageDialog *self,
+                                 const char       *response)
+{
+  g_return_val_if_fail (ADW_IS_MESSAGE_DIALOG (self), FALSE);
+  g_return_val_if_fail (response != NULL, FALSE);
+
+  return find_response (self, response) != NULL;
 }
