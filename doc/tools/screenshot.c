@@ -258,6 +258,7 @@ init_libadwaita (void)
                                     RESOURCE_PATH "icons/");
 
   g_object_set (gtk_settings_get_default (),
+                "gtk-enable-animations", FALSE,
                 "gtk-font-name", "Cantarell 11",
                 "gtk-icon-theme-name", "Adwaita",
                 "gtk-decoration-layout", ":close",
