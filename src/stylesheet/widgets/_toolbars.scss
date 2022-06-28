@@ -176,12 +176,25 @@ searchbar {
  ****************/
 
 actionbar > revealer > box {
+  background-color: $headerbar_bg_color;
+  color: $headerbar_fg_color;
+  box-shadow: inset 0 1px if($contrast == 'high', $headerbar_border_color, $headerbar_shade_color);
   padding: 1px 6px 0px 6px;
-  box-shadow: inset 0 1px $border_color;
+
   @extend %toolbar;
 
   &, > box.start, > box.end {
     border-spacing: 6px;
+  }
+
+  &:backdrop {
+    background-color: $headerbar_backdrop_color;
+    transition: $backdrop_transition;
+
+    > * {
+      filter: opacity(.5);
+      transition: $backdrop_transition;
+    }
   }
 }
 
