@@ -45,6 +45,15 @@ viewswitcher {
   }
 }
 
+/**********************
+ * AdwViewSwitcherBar *
+ **********************/
+
+viewswitcherbar actionbar > revealer > box {
+  padding: 0;
+  padding-top: 1px;
+}
+
 /************************
  * AdwViewSwitcherTitle *
  ************************/
