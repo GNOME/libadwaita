@@ -1645,7 +1645,7 @@ adw_message_dialog_add_response (AdwMessageDialog *self,
  *
  * Adds multiple responses to @self.
  *
- * This is the same as calling [[method@MessageDialog.add_response] repeatedly.
+ * This is the same as calling [method@MessageDialog.add_response] repeatedly.
  * The variable argument list should be `NULL`-terminated list of response IDs
  * and labels.
  *
