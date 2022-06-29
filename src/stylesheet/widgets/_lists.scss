@@ -217,7 +217,7 @@ row.combo {
   }
 
   transition: 200ms $ease-out-quad;
-  border-bottom: 1px solid $border_color;
+  border-bottom: 1px solid if($contrast == 'high', $border_color, $card_shade_color);
 
   &:not(:selected).activatable {
     &:hover {
