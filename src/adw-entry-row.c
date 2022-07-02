@@ -687,6 +687,11 @@ adw_entry_row_set_show_apply_button (AdwEntryRow *self,
 
   priv->show_apply_button = show_apply_button;
 
+  if (!priv->show_apply_button && priv->text_changed) {
+    priv->text_changed = FALSE;
+    update_empty (self);
+  }
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_APPLY_BUTTON]);
 }
 
