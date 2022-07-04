@@ -257,16 +257,10 @@ row.expander {
   // AdwExpanderRow arrow rotation
 
   image.expander-row-arrow {
+    @extend .dim-label;
+
     transition: 200ms $ease-out-quad;
     @include margin-start(6px);
-  }
-
-  &:checked image.expander-row-arrow {
-    -gtk-icon-transform: rotate(0turn);
-  }
-
-  &:not(:checked) image.expander-row-arrow {
-    @extend .dim-label;
 
     &:dir(ltr) {
       -gtk-icon-transform: rotate(-0.5turn);
@@ -275,18 +269,23 @@ row.expander {
     &:dir(rtl) {
       -gtk-icon-transform: rotate(0.5turn);
     }
+
+    &:disabled {
+      filter: opacity($disabled_opacity);
+    }
   }
 
-  &:checked image.expander-row-arrow:not(:disabled) {
-    color: $accent_color;
+  &:checked image.expander-row-arrow {
+    -gtk-icon-transform: rotate(0turn);
+    opacity: 1;
+
+    &:not(:disabled) {
+      color: $accent_color;
+    }
   }
 
   .osd &:checked image.expander-row-arrow:not(:disabled) {
     color: inherit;
-  }
-
-  image.expander-row-arrow:disabled {
-    filter: opacity($disabled_opacity);
   }
 }
 
