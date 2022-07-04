@@ -57,10 +57,8 @@ AdwAnimationTarget *adw_property_animation_target_new_for_pspec (GObject    *obj
                                                                  GParamSpec *pspec) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_1_2
-GObject    *adw_property_animation_target_get_object        (AdwPropertyAnimationTarget *self);
+GObject    *adw_property_animation_target_get_object (AdwPropertyAnimationTarget *self);
 ADW_AVAILABLE_IN_1_2
-const char *adw_property_animation_target_get_property_name (AdwPropertyAnimationTarget *self);
-ADW_AVAILABLE_IN_1_2
-GParamSpec *adw_property_animation_target_get_pspec         (AdwPropertyAnimationTarget *self);
+GParamSpec *adw_property_animation_target_get_pspec  (AdwPropertyAnimationTarget *self);
 
 G_END_DECLS

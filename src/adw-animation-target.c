@@ -159,10 +159,6 @@ struct _AdwPropertyAnimationTarget
   AdwAnimationTarget parent_instance;
 
   GObject *object;
-
-  /* `property_name` should only be set during construction; if set, `pspec`
-     should be unset, and vice-versa. */
-  char *property_name;
   GParamSpec *pspec;
 };
 
@@ -176,7 +172,6 @@ G_DEFINE_FINAL_TYPE (AdwPropertyAnimationTarget, adw_property_animation_target, 
 enum {
   PROPERTY_PROP_0,
   PROPERTY_PROP_OBJECT,
-  PROPERTY_PROP_PROPERTY_NAME,
   PROPERTY_PROP_PSPEC,
   LAST_PROPERTY_PROP
 };
@@ -203,40 +198,6 @@ set_object (AdwPropertyAnimationTarget *self,
 }
 
 static void
-set_property_name (AdwPropertyAnimationTarget *self,
-                   const char                 *property_name)
-{
-  if (self->pspec) {
-    g_critical ("Attempt to set property 'property-name' to '%s' on "
-                "AdwPropertyAnimationTarget with property 'pspec' already set "
-                "to '%s:%s'. Using 'property-name' instead",
-                property_name,
-                g_type_name (self->pspec->owner_type), self->pspec->name);
-    g_clear_pointer (&self->pspec, g_param_spec_unref);
-  }
-
-  g_clear_pointer (&self->property_name, g_free);
-  self->property_name = g_strdup (property_name);
-}
-
-static void
-set_pspec (AdwPropertyAnimationTarget *self,
-           GParamSpec                 *pspec)
-{
-  if (self->property_name) {
-    g_critical ("Attempt to set property 'pspec' to '%s:%s' on "
-                "AdwPropertyAnimationTarget with property 'property-name' "
-                "already set to '%s'. Using 'pspec' instead",
-                g_type_name (pspec->owner_type), pspec->name,
-                self->property_name);
-    g_clear_pointer (&self->property_name, g_free);
-  }
-
-  g_clear_pointer (&self->pspec, g_param_spec_unref);
-  self->pspec = g_param_spec_ref (pspec);
-}
-
-static void
 adw_property_animation_target_set_value (AdwAnimationTarget *target,
                                          double              value)
 {
@@ -258,46 +219,20 @@ adw_property_animation_target_constructed (GObject *object)
 
   G_OBJECT_CLASS (adw_property_animation_target_parent_class)->constructed (object);
 
-  if (!self->object) {
+  if (!self->object)
     g_error ("AdwPropertyAnimationTarget constructed without specifying a value "
              "for the 'object' property");
-    return;
-  }
 
-  if (!self->property_name && !self->pspec) {
+  if (!self->pspec)
     g_error ("AdwPropertyAnimationTarget constructed without specifying a value "
-             "for either the 'property-name' or 'pspec' properties");
-    return;
-  }
+             "for the 'pspec' property");
 
-  /* Only one of these should be set. */
-  g_assert (!(self->property_name && self->pspec));
-
-  if (self->property_name) {
-    GParamSpec *pspec =
-      g_object_class_find_property (G_OBJECT_GET_CLASS (self->object),
-                                    self->property_name);
-
-    if (pspec) {
-      self->pspec = g_param_spec_ref (pspec);
-
-    } else {
-      g_error ("Type '%s' does not have a property named '%s'",
-               G_OBJECT_TYPE_NAME (self->object),
-               self->property_name);
-    }
-
-    g_clear_pointer (&self->property_name, g_free);
-  } else if (self->pspec) {
-    if (!g_type_is_a (G_OBJECT_TYPE (self->object), self->pspec->owner_type)) {
-      g_error ("Cannot create AdwPropertyAnimationTarget: %s doesn't have the "
-               "%s:%s property",
-               G_OBJECT_TYPE_NAME (self->object),
-               g_type_name (self->pspec->owner_type),
-               self->pspec->name);
-      g_clear_pointer (&self->pspec, g_param_spec_unref);
-    }
-  }
+  if (!g_type_is_a (G_OBJECT_TYPE (self->object), self->pspec->owner_type))
+    g_error ("Cannot create AdwPropertyAnimationTarget: %s doesn't have the "
+             "%s:%s property",
+             G_OBJECT_TYPE_NAME (self->object),
+             g_type_name (self->pspec->owner_type),
+             self->pspec->name);
 }
 
 static void
@@ -317,7 +252,6 @@ adw_property_animation_target_finalize (GObject *object)
 {
   AdwPropertyAnimationTarget *self = ADW_PROPERTY_ANIMATION_TARGET (object);
 
-  g_free (self->property_name);
   g_clear_pointer (&self->pspec, g_param_spec_unref);
 
   G_OBJECT_CLASS (adw_property_animation_target_parent_class)->finalize (object);
@@ -334,11 +268,6 @@ adw_property_animation_target_get_property (GObject    *object,
   switch (prop_id) {
   case PROPERTY_PROP_OBJECT:
     g_value_set_object (value, adw_property_animation_target_get_object (self));
-    break;
-
-  case PROPERTY_PROP_PROPERTY_NAME:
-    g_value_set_string (value,
-                        adw_property_animation_target_get_property_name (self));
     break;
 
   case PROPERTY_PROP_PSPEC:
@@ -360,18 +289,12 @@ adw_property_animation_target_set_property (GObject      *object,
 
   switch (prop_id) {
   case PROPERTY_PROP_OBJECT:
-    if (g_value_get_object (value) != NULL)
-      set_object (self, g_value_get_object (value));
-    break;
-
-  case PROPERTY_PROP_PROPERTY_NAME:
-    if (g_value_get_string (value) != NULL)
-      set_property_name (self, g_value_get_string (value));
+    set_object (self, g_value_get_object (value));
     break;
 
   case PROPERTY_PROP_PSPEC:
-    if (g_value_get_param (value) != NULL)
-      set_pspec (self, g_value_get_param (value));
+    g_clear_pointer (&self->pspec, g_param_spec_unref);
+    self->pspec = g_param_spec_ref (g_value_get_param (value));
     break;
 
   default:
@@ -407,21 +330,6 @@ adw_property_animation_target_class_init (AdwPropertyAnimationTargetClass *klass
   property_props[PROPERTY_PROP_OBJECT] =
     g_param_spec_object ("object", NULL, NULL,
                          G_TYPE_OBJECT,
-                         G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
-
-  /**
-   * AdwPropertyAnimationTarget:property-name: (attributes org.gtk.Property.get=adw_property_animation_target_get_property_name)
-   *
-   * The name of the property to be animated.
-   *
-   * Only one of `property-name` or [property@PropertyAnimationTarget:pspec]
-   * should be set.
-   *
-   * Since: 1.2
-   */
-  property_props[PROPERTY_PROP_PROPERTY_NAME] =
-    g_param_spec_string ("property-name", NULL, NULL,
-                         NULL,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS);
 
   /**
@@ -465,13 +373,18 @@ AdwAnimationTarget *
 adw_property_animation_target_new (GObject    *object,
                                    const char *property_name)
 {
+  GParamSpec *pspec;
+
   g_return_val_if_fail (G_IS_OBJECT (object), NULL);
   g_return_val_if_fail (property_name != NULL, NULL);
 
-  return g_object_new (ADW_TYPE_PROPERTY_ANIMATION_TARGET,
-                       "object", object,
-                       "property-name", property_name,
-                       NULL);
+  pspec = g_object_class_find_property (G_OBJECT_GET_CLASS (object), property_name);
+
+  if (!pspec)
+    g_error ("Type '%s' does not have a property named '%s'",
+             G_OBJECT_TYPE_NAME (object), property_name);
+
+  return adw_property_animation_target_new_for_pspec (object, pspec);
 }
 
 /**
@@ -515,27 +428,6 @@ adw_property_animation_target_get_object (AdwPropertyAnimationTarget *self)
   g_return_val_if_fail (ADW_IS_PROPERTY_ANIMATION_TARGET (self), NULL);
 
   return self->object;
-}
-
-/**
- * adw_property_animation_target_get_property_name: (attributes org.gtk.Method.get_property=property-name)
- * @self: a property animation target
- *
- * Gets the name of the property animated by @self.
- *
- * Returns: the animated property name
- *
- * Since: 1.2
- */
-const char *
-adw_property_animation_target_get_property_name (AdwPropertyAnimationTarget *self)
-{
-  g_return_val_if_fail (ADW_IS_PROPERTY_ANIMATION_TARGET (self), NULL);
-
-  if (self->pspec)
-    return self->pspec->name;
-  else
-    return self->property_name;
 }
 
 /**

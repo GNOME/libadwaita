@@ -12,8 +12,8 @@ test_adw_property_animation_target_construct (void)
   GObject *widget = g_object_ref_sink (G_OBJECT (gtk_button_new ()));
   AdwPropertyAnimationTarget *named_target, *pspec_target;
   GParamSpec *target_pspec;
-  const char *target_prop_name;
 
+  g_print ("1\n");
   named_target =
     ADW_PROPERTY_ANIMATION_TARGET (adw_property_animation_target_new (widget, "opacity"));
 
@@ -21,20 +21,15 @@ test_adw_property_animation_target_construct (void)
   g_assert_nonnull (target_pspec);
   g_assert_cmpstr (target_pspec->name, ==, "opacity");
 
-  target_prop_name =
-    adw_property_animation_target_get_property_name (named_target);
-  g_assert_nonnull (target_prop_name);
-  g_assert_cmpstr (target_prop_name, ==, "opacity");
-
+  g_print ("2\n");
   pspec_target =
     ADW_PROPERTY_ANIMATION_TARGET (adw_property_animation_target_new_for_pspec (widget, target_pspec));
 
   g_assert_true (adw_property_animation_target_get_pspec (pspec_target) == target_pspec);
 
-  target_prop_name =
-    adw_property_animation_target_get_property_name (pspec_target);
-  g_assert_nonnull (target_prop_name);
-  g_assert_cmpstr (target_prop_name, ==, "opacity");
+  target_pspec = adw_property_animation_target_get_pspec (named_target);
+  g_assert_nonnull (target_pspec);
+  g_assert_cmpstr (target_pspec->name, ==, "opacity");
 
   g_assert_finalize_object (named_target);
   g_assert_finalize_object (pspec_target);
