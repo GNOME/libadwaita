@@ -27,6 +27,26 @@
  * choices. The row displays the selected choice. When activated, the row
  * displays a popover which allows the user to make a new choice.
  *
+ * Example of an `AdwComboRow` UI definition:
+ * ```xml
+ * <object class="AdwComboRow">
+ *   <property name="title" translatable="yes">Combo Row</property>
+ *   <property name="model">
+ *     <object class="GtkStringList">
+ *       <items>
+ *         <item translatable="yes">Foo</item>
+ *         <item translatable="yes">Bar</item>
+ *         <item translatable="yes">Baz</item>
+ *       </items>
+ *     </object>
+ *   </property>
+ * </object>
+ * ```
+ * 
+ * The [property@ComboRow:selected] and [property@ComboRow:selected-item]
+ * properties can be used to keep track of the selected item and react to their
+ * changes.
+ *
  * `AdwComboRow` mirrors [class@Gtk.DropDown], see that widget for details.
  *
  * `AdwComboRow` is [property@Gtk.ListBoxRow:activatable] if a model is set.
