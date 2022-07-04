@@ -337,9 +337,6 @@ adw_property_animation_target_class_init (AdwPropertyAnimationTargetClass *klass
    *
    * The `GParamSpec` of the property to be animated.
    *
-   * Only one of `pspec` or [property@PropertyAnimationTarget:property-name]
-   * should be set.
-   *
    * Since: 1.2
    */
   property_props[PROPERTY_PROP_PSPEC] =
