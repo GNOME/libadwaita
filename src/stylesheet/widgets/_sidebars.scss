@@ -85,11 +85,21 @@ separator.sidebar {
  * GtkPlacesSidebar *
  ********************/
 
-$_placesidebar_icons_opacity: 0.7;
+row {
+  image.sidebar-icon {
+    opacity: 0.7; // see bug #786613 for details on this oddity
+  }
 
-row image.sidebar-icon { opacity: $_placesidebar_icons_opacity; } // dim the sidebar icons
-                                                                  // see bug #786613 for details
-                                                                  // on this oddity
+  .sidebar-button {
+    opacity: 0.7;
+
+    &:hover,
+    &:active,
+    &.keyboard-activating {
+      opacity: 1;
+    }
+  }
+}
 
 /* this should be more generic, only using .navigation-sidebar
    https://gitlab.gnome.org/GNOME/gtk/-/issues/2929
