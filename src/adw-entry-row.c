@@ -95,6 +95,9 @@ static GtkBuildableIface *parent_buildable_iface;
 enum {
   PROP_0,
   PROP_SHOW_APPLY_BUTTON,
+  PROP_INPUT_HINTS,
+  PROP_INPUT_PURPOSE,
+  PROP_ENABLE_EMOJI_COMPLETION,
   PROP_LAST_PROP,
 };
 
@@ -347,6 +350,15 @@ adw_entry_row_get_property (GObject     *object,
   case PROP_SHOW_APPLY_BUTTON:
     g_value_set_boolean (value, adw_entry_row_get_show_apply_button (self));
     break;
+  case PROP_INPUT_HINTS:
+    g_value_set_flags (value, adw_entry_row_get_input_hints (self));
+    break;
+  case PROP_INPUT_PURPOSE:
+    g_value_set_enum (value, adw_entry_row_get_input_purpose (self));
+    break;
+  case PROP_ENABLE_EMOJI_COMPLETION:
+    g_value_set_boolean (value, adw_entry_row_get_enable_emoji_completion (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -374,6 +386,15 @@ adw_entry_row_set_property (GObject       *object,
   switch (prop_id) {
   case PROP_SHOW_APPLY_BUTTON:
     adw_entry_row_set_show_apply_button (self, g_value_get_boolean (value));
+    break;
+  case PROP_INPUT_HINTS:
+    adw_entry_row_set_input_hints (self, g_value_get_flags (value));
+    break;
+  case PROP_INPUT_PURPOSE:
+    adw_entry_row_set_input_purpose (self, g_value_get_enum (value));
+    break;
+  case PROP_ENABLE_EMOJI_COMPLETION:
+    adw_entry_row_set_enable_emoji_completion (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -426,6 +447,53 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
     g_param_spec_boolean ("show-apply-button", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwEntryRow:input-hints: (attributes org.gtk.Property.get=adw_entry_row_get_input_hints org.gtk.Property.set=adw_entry_row_set_input_hints)
+   *
+   * Additional input hints for the entry row.
+   *
+   * Input hints allow input methods to fine-tune their behavior.
+   *
+   * See also: [property@Adw.EntryRow:input-purpose]
+   *
+   * Since: 1.2
+   */
+  props[PROP_INPUT_HINTS] =
+      g_param_spec_flags ("input-hints", NULL, NULL,
+                          GTK_TYPE_INPUT_HINTS,
+                          GTK_INPUT_HINT_NONE,
+                          G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwEntryRow:input-purpose: (attributes org.gtk.Property.get=adw_entry_row_get_input_purpose org.gtk.Property.set=adw_entry_row_set_input_purpose)
+   *
+   * The input purpose of the entry row.
+   *
+   * The input purpose can be used by input methods to adjust their behavior.
+   *
+   * Since: 1.2
+   */
+  props[PROP_INPUT_PURPOSE] =
+      g_param_spec_enum ("input-purpose", NULL, NULL,
+                         GTK_TYPE_INPUT_PURPOSE,
+                         GTK_INPUT_PURPOSE_FREE_FORM,
+                         G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwEntryRow:enable-emoji-completion: (attributes org.gtk.Property.get=adw_entry_row_get_enable_emoji_completion org.gtk.Property.set=adw_entry_row_set_enable_emoji_completion)
+   *
+   * Whether to suggest emoji replacements on the entry row.
+   *
+   * Emoji replacement is done with :-delimited names,
+   * like `:heart:`.
+   *
+   * Since: 1.2
+   */
+  props[PROP_ENABLE_EMOJI_COMPLETION] =
+      g_param_spec_boolean ("enable-emoji-completion", NULL, NULL,
+                            FALSE,
+                            G_PARAM_READWRITE | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
@@ -693,6 +761,156 @@ adw_entry_row_set_show_apply_button (AdwEntryRow *self,
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_APPLY_BUTTON]);
+}
+
+/**
+ * adw_entry_row_get_input_hints: (attributes org.gtk.Method.get_property=input-hints)
+ * @self: an entry row
+ *
+ * Gets the additional input hints of @self.
+ *
+ * Returns: The input hints
+ *
+ * Since: 1.2
+ */
+GtkInputHints
+adw_entry_row_get_input_hints (AdwEntryRow *self)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ENTRY_ROW (self), GTK_INPUT_HINT_NONE);
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  return gtk_text_get_input_hints (GTK_TEXT (priv->text));
+}
+
+/**
+ * adw_entry_row_set_input_hints: (attributes org.gtk.Method.set_property=input-hints)
+ * @self: an entry row
+ * @hints: the hints
+ *
+ * Set additional input hints for @self.
+ *
+ * Input hints allow input methods to fine-tune their behavior.
+ *
+ * See also: [property@AdwEntryRow:input-purpose]
+ *
+ * Since: 1.2
+ */
+void
+adw_entry_row_set_input_hints (AdwEntryRow   *self,
+                               GtkInputHints  hints)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ENTRY_ROW (self));
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  gtk_text_set_input_hints (GTK_TEXT (priv->text), hints);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INPUT_HINTS]);
+}
+
+/**
+ * adw_entry_row_get_input_purpose: (attributes org.gtk.Method.get_property=input-purpose)
+ * @self: an entry row
+ *
+ * Gets the input purpose of @self.
+ *
+ * Returns: the input purpose
+ *
+ * Since: 1.2
+ */
+GtkInputPurpose
+adw_entry_row_get_input_purpose (AdwEntryRow *self)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ENTRY_ROW (self), GTK_INPUT_PURPOSE_FREE_FORM);
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  return gtk_text_get_input_purpose (GTK_TEXT (priv->text));
+}
+
+/**
+ * adw_entry_row_set_input_purpose: (attributes org.gtk.Method.set_property=input-purpose)
+ * @self: an entry row
+ * @purpose: the purpose
+ *
+ * Sets the input purpose of @self.
+ *
+ * The input purpose can be used by input methods to adjust their behavior.
+ *
+ * Since: 1.2
+ */
+void
+adw_entry_row_set_input_purpose (AdwEntryRow     *self,
+                                 GtkInputPurpose  purpose)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ENTRY_ROW (self));
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  gtk_text_set_input_purpose (GTK_TEXT (priv->text), purpose);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INPUT_PURPOSE]);
+}
+
+/**
+ * adw_entry_row_get_enable_emoji_completion: (attributes org.gtk.Method.get_property=enable-emoji-completion)
+ * @self: an entry row
+ *
+ * Gets whether to suggest emoji replacements on @self.
+ *
+ * Emoji replacement is done with :-delimited names,
+ * like `:heart:`.
+ *
+ * Returns: whether or not emoji completion is enabled
+ *
+ * Since: 1.2
+ */
+gboolean
+adw_entry_row_get_enable_emoji_completion (AdwEntryRow *self)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ENTRY_ROW (self), FALSE);
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  return gtk_text_get_enable_emoji_completion (GTK_TEXT (priv->text));
+}
+
+/**
+ * adw_entry_row_set_enable_emoji_completion: (attributes org.gtk.Method.get_property=enable-emoji-completion)
+ * @self: an entry row
+ * @enable_emoji_completion: Whether emoji completion should be enabled or not
+ *
+ * Sets whether to suggest emoji replacements on @self.
+ *
+ * Emoji replacement is done with :-delimited names,
+ * like `:heart:`.
+ *
+ * Since: 1.2
+ */
+void
+adw_entry_row_set_enable_emoji_completion (AdwEntryRow *self,
+                                           gboolean     enable_emoji_completion)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ENTRY_ROW (self));
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  gtk_text_set_enable_emoji_completion (GTK_TEXT (priv->text), enable_emoji_completion);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ENABLE_EMOJI_COMPLETION]);
 }
 
 void
