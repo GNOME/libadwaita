@@ -156,6 +156,7 @@ adw_password_entry_row_init (AdwPasswordEntryRow *self)
 
   gtk_text_set_visibility (GTK_TEXT (delegate), FALSE);
   gtk_text_set_buffer (GTK_TEXT (delegate), gtk_password_entry_buffer_new ());
+  gtk_text_set_input_purpose (GTK_TEXT (delegate), GTK_INPUT_PURPOSE_PASSWORD);
 
   g_signal_connect_swapped (delegate, "notify::has-focus",
                             G_CALLBACK (notify_has_focus_cb), self);
