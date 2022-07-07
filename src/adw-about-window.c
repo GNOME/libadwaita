@@ -1794,7 +1794,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
    *
    * Returns: `TRUE` if the link has been activated
    *
-   * Since: 1.0
+   * Since: 1.2
    */
   signals[SIGNAL_ACTIVATE_LINK] =
     g_signal_new ("activate-link",
