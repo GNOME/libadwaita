@@ -2,21 +2,258 @@
 # Copyright (C) 2021 libadwaita's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libadwaita package.
 # Nathan Follens <nfollens@gnome.org>, 2022.
+# Philip Goto, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-05-19 15:16+0000\n"
-"PO-Revision-Date: 2022-05-20 17:20+0200\n"
-"Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
+"POT-Creation-Date: 2022-07-07 15:38+0000\n"
+"PO-Revision-Date: 2022-07-07 18:31+0200\n"
+"Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
+
+#: src/adw-about-window.c:205
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU General Public License, versie 2 of later"
+
+#: src/adw-about-window.c:206
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU General Public License, versie 3 of later"
+
+#: src/adw-about-window.c:207
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU General Public License, versie 2.1 of later"
+
+#: src/adw-about-window.c:208
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU Lesser General Public License, versie 3 of later"
+
+#: src/adw-about-window.c:209
+msgid "BSD 2-Clause License"
+msgstr "2-clausule BSD-licentie"
+
+#: src/adw-about-window.c:210
+msgid "The MIT License (MIT)"
+msgstr "De MIT-licentie (MIT)"
+
+#: src/adw-about-window.c:211
+msgid "Artistic License 2.0"
+msgstr "Artistic License 2.0"
+
+#: src/adw-about-window.c:212
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU General Public License, alleen versie 2"
+
+#: src/adw-about-window.c:213
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU General Public License, alleen versie 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU Lesser General Public License, alleen versie 2.1"
+
+#: src/adw-about-window.c:215
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU Lesser General Public License, alleen versie 3"
+
+#: src/adw-about-window.c:216
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero General Public License, versie 3 of later"
+
+#: src/adw-about-window.c:217
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero General Public License, alleen versie 3"
+
+#: src/adw-about-window.c:218
+msgid "BSD 3-Clause License"
+msgstr "BSD-licentie (3-clausule"
+
+#: src/adw-about-window.c:219
+msgid "Apache License, Version 2.0"
+msgstr "Apache-licentie, versie 2.0"
+
+#: src/adw-about-window.c:220
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla Public License 2.0"
+
+#: src/adw-about-window.c:527
+msgid "Code by"
+msgstr "Code door"
+
+#: src/adw-about-window.c:528
+msgid "Design by"
+msgstr "Ontwerp door"
+
+#: src/adw-about-window.c:529
+msgid "Artwork by"
+msgstr "Grafisch werk door"
+
+#: src/adw-about-window.c:530
+msgid "Documentation by"
+msgstr "Documentatie door"
+
+#: src/adw-about-window.c:531
+msgid "Translated by"
+msgstr "Vertaald door"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:558
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
+msgstr ""
+"Deze toepassing wordt geleverd zonder enige vorm van garantie. Zie de <a "
+"href=\"%s\">%s</a> voor details."
+
+#: src/adw-about-window.c:636
+msgid "This Application"
+msgstr "Deze toepassing"
+
+#: src/adw-about-window.c:933
+#, c-format
+msgid "Version %s"
+msgstr "Versie %s"
+
+#: src/adw-about-window.c:959
+msgid "Unable to parse release notes:"
+msgstr "Kon uitgaveopmerkingen niet verwerken:"
+
+#: src/adw-about-window.c:965
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Regel: %d, teken: %d"
+
+#: src/adw-about-window.c:1234
+msgid "Copied to clipboard"
+msgstr "Gekopieerd naar klembord"
+
+#: src/adw-about-window.c:1269
+msgid "Unable to save debugging information"
+msgstr "Kan foutopsporingsinformatie niet opslaan"
+
+#: src/adw-about-window.c:1274
+msgid "Close"
+msgstr "Sluiten"
+
+#: src/adw-about-window.c:1292
+msgid "Save debugging information"
+msgstr "Foutopsporingsinformatie opslaan"
+
+#: src/adw-about-window.c:1295
+msgid "_Save"
+msgstr "Op_slaan"
+
+#: src/adw-about-window.c:1296
+msgid "_Cancel"
+msgstr "_Annuleren"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Over"
+
+#: src/adw-about-window.ui:121
+msgid "_What’s New"
+msgstr "_Wat is er nieuw"
+
+#: src/adw-about-window.ui:140
+msgid "_Details"
+msgstr "_Details"
+
+#: src/adw-about-window.ui:162 src/adw-about-window.ui:487
+msgid "_Website"
+msgstr "_Website"
+
+#: src/adw-about-window.ui:193
+msgid "_Support Questions"
+msgstr "Ondersteuning_svragen"
+
+#: src/adw-about-window.ui:215
+msgid "_Report an Issue"
+msgstr "Een p_robleem melden"
+
+#: src/adw-about-window.ui:236
+msgid "_Troubleshooting"
+msgstr "_Probleemoplossing"
+
+#: src/adw-about-window.ui:267
+msgid "_Credits"
+msgstr "M_et dank aan"
+
+#: src/adw-about-window.ui:284
+msgid "_Legal"
+msgstr "_Juridisch"
+
+#: src/adw-about-window.ui:301
+msgid "_Acknowledgements"
+msgstr "D_ankbetuigingen"
+
+#: src/adw-about-window.ui:381
+msgid "What’s New"
+msgstr "Wat is er nieuw"
+
+#: src/adw-about-window.ui:386 src/adw-about-window.ui:442
+#: src/adw-about-window.ui:531 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653 src/adw-about-window.ui:700
+#: src/adw-about-window.ui:747
+msgid "Back"
+msgstr "Terug"
+
+#: src/adw-about-window.ui:437
+msgid "Details"
+msgstr "Details"
+
+#: src/adw-about-window.ui:526
+msgid "Troubleshooting"
+msgstr "Probleemoplossing"
+
+#: src/adw-about-window.ui:555
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Om te helpen bij het oplossen van problemen, kunt u uw "
+"foutopsporingsinformatie bekijken. Deze informatie kan de "
+"toepassingsontwikkelaars helpen bij het diagnosticeren van eventuele "
+"problemen die u tegenkomt."
+
+#: src/adw-about-window.ui:566
+msgid "_Debugging Information"
+msgstr "_Foutopsporingsinformatie"
+
+#: src/adw-about-window.ui:601
+msgid "Credits"
+msgstr "Met dank aan"
+
+#: src/adw-about-window.ui:648
+msgid "Legal"
+msgstr "Juridisch"
+
+#: src/adw-about-window.ui:695
+msgid "Acknowledgements"
+msgstr "Dankbetuigingen"
+
+#: src/adw-about-window.ui:742
+msgid "Debugging Information"
+msgstr "Foutopsporingsinformatie"
+
+#: src/adw-about-window.ui:790
+msgid "_Copy Text"
+msgstr "Tekst _kopiëren"
+
+#: src/adw-about-window.ui:797
+msgid "_Save as…"
+msgstr "Op_slaan als…"
 
 #: src/adw-entry-row.ui:93
 msgid "Apply"
@@ -71,11 +308,11 @@ msgstr "Tekst verbergen"
 msgid "Show Text"
 msgstr "Tekst tonen"
 
-#: src/adw-password-entry-row.c:168
+#: src/adw-password-entry-row.c:169
 msgid "Caps Lock is on"
 msgstr "Caps lock is ingeschakeld"
 
-#: src/adw-password-entry-row.c:176
+#: src/adw-password-entry-row.c:177
 msgid "_Show Text"
 msgstr "Tekst _tonen"
 
