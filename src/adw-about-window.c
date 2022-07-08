@@ -724,12 +724,12 @@ start_element_handler (GMarkupParseContext  *context,
     if (!g_strcmp0 (element_name, "li")) {
       char *bullet;
 
-      if (pdata->n_item > 1)
+      if (pdata->n_item > 0)
         gtk_text_buffer_insert (pdata->buffer, &pdata->iter, "\n", -1);
 
       if (pdata->state == STATE_ORDERED_LIST) {
         pdata->state = STATE_ORDERED_ITEM;
-        bullet = g_strdup_printf ("%d. ", pdata->n_item);
+        bullet = g_strdup_printf ("%d. ", pdata->n_item + 1);
       } else {
         pdata->state = STATE_UNORDERED_ITEM;
         bullet = g_strdup ("• ");
@@ -802,7 +802,7 @@ end_element_handler (GMarkupParseContext  *context,
     pdata->state = STATE_NONE;
     pdata->section_start = -1;
     pdata->paragraph_start = -1;
-    pdata->n_item = 1;
+    pdata->n_item = 0;
     return;
   }
 
@@ -814,7 +814,7 @@ end_element_handler (GMarkupParseContext  *context,
     else
       g_assert_not_reached ();
 
-    if (pdata->section_start > 0 && pdata->n_item == 1) {
+    if (pdata->section_start > 0 && pdata->n_item == 0) {
        GtkTextIter start_iter;
        gtk_text_buffer_get_iter_at_offset (pdata->buffer, &start_iter,
                                            pdata->section_start);
