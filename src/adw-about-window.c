@@ -972,7 +972,8 @@ update_release_notes (AdwAboutWindow *self)
     return;
   }
 
-  gtk_text_iter_backward_chars (&pdata.iter, 2);
+  /* Remove the trailing newline */
+  gtk_text_iter_backward_chars (&pdata.iter, 1);
   gtk_text_buffer_get_end_iter (self->release_notes_buffer, &end_iter);
   gtk_text_buffer_delete (self->release_notes_buffer, &pdata.iter, &end_iter);
 
