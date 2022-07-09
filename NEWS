@@ -1,3 +1,118 @@
+=================
+Version 1.2.alpha
+=================
+
+- Introduce AdwAboutWindow
+- Introduce AdwEntryRow and AdwPasswordEntryRow
+- Introduce AdwMessageDialog
+- Introduce AdwPropertyAnimationTarget
+- AdwAnimation
+  - Add adw_animation_set_target()
+- AdwCallbackAnimationTarget
+  - Fix callback annotations
+- AdwActionRow
+  - Set a11y relations for the activatable widget
+  - Tweak spacing to match toolbars and AdwEntryRow
+- AdwAvatar
+  - Fix initials not updating after setting custom-image
+- AdwComboRow
+  - Add an example to docs
+- AdwExpanderRow
+  - Change arrow orientation to make it look less similar
+    to action rows that open subpages
+- AdwLeaflet
+  - Fix child sizing with fold-threshold-policy=natural
+  - Clip child during transitions, preventing glitchy header bar borders
+  - Check direction argument in navigate()
+  - Fix a broken link in docs
+- AdwPreferencesGroup
+  - Fix accessibility labels
+  - Annotation fixes
+- AdwPreferencesRow
+  - Add use-markup property
+  - Annotation fixes
+- AdwSplitButton
+  - Avoid state changes during dispose
+- AdwStyleManager
+  - Fix high contrast setting name when using a portal
+  - Correctly handle removing a GdkDisplay
+  - Add environment variables to control styles from Builder
+- AdwSwipeTracker
+  - Fix a memory leak
+- AdwTabBar
+  - Ensure indicators are clickable with inverted=true
+  - Fix resize deferring with non-expanded tabs
+  - Fix scroll animation stopping too early
+  - Fix middle click when inside GtkWindowHandle
+  - Refresh style
+    - Use a button-like style for tabs, ensure visibility in dark variant
+    - Add spacing between and around tabs and action widgets
+    - Use real widgets for separators instead of borders
+    - Replace shade gradients with opacity fading
+    - Replace needs-attention glow with a line
+    - Add backdrop style matching header bars
+    - Use :selected state for selected tab instead of :checked
+- AdwToast
+  - Add custom-title property
+  - Add adw_toast_new_format()
+  - Allow dismiss() to be called multiple times
+  - Fix the example in docs
+- AdwToastOverlay
+  - Allow add_toast() to be called multiple times to extend the timeout
+  - Make toasts without button narrower
+- AdwViewSwitcherTitle
+  - Clear pending idle callback on unrealize
+- Stylesheet
+  - Deprecate the .large-title style class
+  - Add @dialog_bg_color and @dialog_fg_color for AdwMessageDialog
+  - Add backdrop styles for GtkSearchBar and GtkActionBar
+  - Update GtkColorScale style, following GTK
+  - Add missing borders in high contrast version
+  - Style GtkActionBar like header bars and similar widgets
+  - Use shade colors as borders for header bars and similar widgets
+  - Use shade colors as boxed list rows borders
+  - Remove border from leaflet/flap transition shadow
+  - Slightly tone down window outline
+  - Dim GtkPlacesSidebar unmount buttons to match icons
+  - Ensure active states consistently work with touchscreens
+  - Make GtkComboBox and GtkDropDown less likely to stretch vertically
+  - Fix GtkDropDown visual glitch when pressed on touchscreen
+  - Fix progressbar.osd overriding text color
+  - Fix action row title and subtitle inside GtkHeaderBar
+- Docs
+  - Mention AdwComboRow:selected type in migration guide
+  - Update *_shade color descriptions
+  - Make screenshot tool buildable with MSVC
+  - Disable animations before taking screenshots
+- Remove property nicks and blurbs
+- Make property flags consistent
+- Fix symbols added in 1.1 being erroneously marked as 1.0
+- Fix a Meson error when using as a subproject
+- Various internal changes and cleanups
+Translation updates:
+  - Basque
+  - Brazilian Portuguese
+  - British English
+  - Bulgarian
+  - Catalan
+  - Chinese (China)
+  - Chinese (Taiwan)
+  - Dutch
+  - French
+  - Galician
+  - Georgian
+  - German
+  - Hebrew
+  - Lithuanian
+  - Nepali
+  - Persian
+  - Portuguese
+  - Russian
+  - Spanish
+  - Swedish
+  - Turkish
+  - Ukrainian
+
 =============
 Version 1.1.0
 =============
