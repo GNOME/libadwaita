@@ -354,7 +354,6 @@ string_is_not_empty (AdwAboutWindow *self,
   return string && string[0];
 }
 
-/* WARNING: Don't copy into your app. This is a hack which hardcodes pixels. */
 static char *
 get_headerbar_name (AdwAboutWindow *self,
                     double          value)
