@@ -16,8 +16,6 @@
 #include "adw-preferences-group.h"
 #include "adw-toast-overlay.h"
 
-#define HEADERBAR_STYLE_THRESHOLD 190
-
 /**
  * AdwAboutWindow:
  *
@@ -361,13 +359,7 @@ static char *
 get_headerbar_name (AdwAboutWindow *self,
                     double          value)
 {
-  double threshold = 0;
-
-  if (self->application_icon && *self->application_icon &&
-      self->application_name && *self->application_name)
-    threshold = HEADERBAR_STYLE_THRESHOLD;
-
-  return g_strdup (value > threshold ? "regular" : "top");
+  return g_strdup (value > 0 ? "regular" : "top");
 }
 
 static inline void

@@ -102,17 +102,8 @@ statusbar {
 
 window.about {
   .main-page {
-    scrollbar.vertical {
-      // Keep in sync with header bar height
-      // WARNING: Don't copy into your app. This is a hack which hardcodes pixels. 
-      margin-top: 47px;
-      background: none;
-      box-shadow: none;
-    }
-
     > viewport > clamp > box {
       margin: 12px;
-      margin-top: 59px; // 12px + 47px
       border-spacing: 6px;
 
       > box {
