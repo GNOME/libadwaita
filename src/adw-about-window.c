@@ -274,7 +274,7 @@ struct _AdwAboutWindow {
   gboolean has_custom_links;
 };
 
-G_DEFINE_TYPE (AdwAboutWindow, adw_about_window, ADW_TYPE_WINDOW)
+G_DEFINE_FINAL_TYPE (AdwAboutWindow, adw_about_window, ADW_TYPE_WINDOW)
 
 enum {
   PROP_0,
