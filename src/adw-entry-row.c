@@ -808,6 +808,9 @@ adw_entry_row_set_input_hints (AdwEntryRow   *self,
 
   priv = adw_entry_row_get_instance_private (self);
 
+  if (hints == adw_entry_row_set_input_hints (self))
+    return;
+
   gtk_text_set_input_hints (GTK_TEXT (priv->text), hints);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INPUT_HINTS]);
@@ -855,6 +858,9 @@ adw_entry_row_set_input_purpose (AdwEntryRow     *self,
   g_return_if_fail (ADW_IS_ENTRY_ROW (self));
 
   priv = adw_entry_row_get_instance_private (self);
+
+  if (purpose == adw_entry_row_get_input_purpose (self))
+    return;
 
   gtk_text_set_input_purpose (GTK_TEXT (priv->text), purpose);
 
@@ -907,6 +913,11 @@ adw_entry_row_set_enable_emoji_completion (AdwEntryRow *self,
   g_return_if_fail (ADW_IS_ENTRY_ROW (self));
 
   priv = adw_entry_row_get_instance_private (self);
+
+  enable_emoji_completion = !!enable_emoji_completion;
+
+  if (enale_emoji_completion == adw_entry_row_get_enable_emoji_completion (self))
+    return;
 
   gtk_text_set_enable_emoji_completion (GTK_TEXT (priv->text), enable_emoji_completion);
 
