@@ -127,30 +127,76 @@ row {
 row.entry {
   @include focus-ring($focus-state: '.focused', $offset: -1px);
 
-  &:not(:selected).activatable.focused:hover,
-  &:not(:selected).activatable.focused:active {
-    background-color: transparent;
+  @at-root %entry_row & {
+    &:not(:selected).activatable.focused:hover,
+    &:not(:selected).activatable.focused:active {
+      background-color: transparent;
+    }
+
+    .edit-icon, .indicator {
+      min-width: 24px;
+      min-height: 24px;
+      padding: 5px;
+    }
+
+    .edit-icon:disabled {
+      opacity: $strong_disabled_opacity;
+    }
+
+    .indicator {
+      opacity: $dimmer_opacity;
+    }
+
+    &.monospace {
+      font-family: inherit;
+
+      text {
+        font-family: monospace;
+      }
+    }
   }
 
-  .edit-icon, .indicator {
-    min-width: 24px;
-    min-height: 24px;
-    padding: 5px;
+  @each $e_type, $e_color in (error,   $error_color),
+                             (warning, $warning_color),
+                             (success, $success_color) {
+    &.#{$e_type} {
+      @include focus-ring($focus-state: '.focused', $offset: -1px, $fc: gtkalpha(currentColor, $focus_border_opacity));
+
+      text {
+        > selection:focus-within { background-color: gtkalpha($e_color, .2); }
+
+        > cursor-handle > contents { background-color: currentColor; }
+      }
+    }
   }
+}
 
-  .edit-icon:disabled {
-    opacity: $strong_disabled_opacity;
-  }
+/***************
+ * AdwSpinRow *
+ ***************/
 
-  .indicator {
-    opacity: $dimmer_opacity;
-  }
+row.spin {
+  @include focus-ring($focus-state: '.focused', $offset: -1px);
 
-  &.monospace {
-    font-family: inherit;
+  @extend %entry_row;
 
-    text {
-      font-family: monospace;
+  spinbutton {
+    background: none;
+    border-spacing: 6px;
+    box-shadow: none;
+
+    &, &:focus {
+      outline: none;
+    }
+
+    > button.image-button.up:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque):last-child,
+    > button.image-button.down:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+      &, &:dir(ltr):last-child, &:dir(rtl):first-child {
+        @extend %button_basic;
+        @extend %circular_button;
+
+        border: none;
+      }
     }
   }
 

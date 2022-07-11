@@ -105,6 +105,20 @@
                         <property name="title" translatable="yes">Password Entry</property>
                       </object>
                     </child>
+                    <child>
+                      <object class="AdwSpinRow">
+                        <property name="title" translatable="yes">Spin Row</property>
+                        <property name="adjustment">
+                          <object class="GtkAdjustment">
+                            <property name="lower">1998</property>
+                            <property name="upper">2022</property>
+                            <property name="value">1998</property>
+                            <property name="page-increment">10</property>
+                            <property name="step-increment">1</property>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
                   </object>
                 </child>
                 <child>
