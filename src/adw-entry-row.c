@@ -460,10 +460,10 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
    * Since: 1.2
    */
   props[PROP_INPUT_HINTS] =
-      g_param_spec_flags ("input-hints", NULL, NULL,
-                          GTK_TYPE_INPUT_HINTS,
-                          GTK_INPUT_HINT_NONE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_flags ("input-hints", NULL, NULL,
+                        GTK_TYPE_INPUT_HINTS,
+                        GTK_INPUT_HINT_NONE,
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwEntryRow:input-purpose: (attributes org.gtk.Property.get=adw_entry_row_get_input_purpose org.gtk.Property.set=adw_entry_row_set_input_purpose)
@@ -475,10 +475,10 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
    * Since: 1.2
    */
   props[PROP_INPUT_PURPOSE] =
-      g_param_spec_enum ("input-purpose", NULL, NULL,
-                         GTK_TYPE_INPUT_PURPOSE,
-                         GTK_INPUT_PURPOSE_FREE_FORM,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_enum ("input-purpose", NULL, NULL,
+                       GTK_TYPE_INPUT_PURPOSE,
+                       GTK_INPUT_PURPOSE_FREE_FORM,
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwEntryRow:enable-emoji-completion: (attributes org.gtk.Property.get=adw_entry_row_get_enable_emoji_completion org.gtk.Property.set=adw_entry_row_set_enable_emoji_completion)
@@ -491,9 +491,9 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
    * Since: 1.2
    */
   props[PROP_ENABLE_EMOJI_COMPLETION] =
-      g_param_spec_boolean ("enable-emoji-completion", NULL, NULL,
-                            FALSE,
-                            G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+    g_param_spec_boolean ("enable-emoji-completion", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, PROP_LAST_PROP, props);
 
