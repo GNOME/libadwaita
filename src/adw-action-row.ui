@@ -96,5 +96,10 @@
         </child>
       </object>
     </property>
+    <child>
+      <object class="GtkGestureClick">
+        <signal name="pressed" handler="pressed_cb" swapped="yes"/>
+      </object>
+    </child>
   </template>
 </interface>

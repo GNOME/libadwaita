@@ -109,6 +109,16 @@ secrets. It conceals the text and provides a button to show it, along with a
   <img src="password-entry-row.png" alt="password-entry-row">
 </picture>
 
+## Spin Rows
+
+[class@SpinRow] is a [class@ActionRow] with an embedded
+[class@Gtk.SpinButton].
+
+<picture>
+  <source srcset="spin-row-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="spin-row.png" alt="spin-row">
+</picture>
+
 ## Property Rows
 
 When used together with the [`.property`](style-classes.html#property-rows)

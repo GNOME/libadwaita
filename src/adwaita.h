@@ -55,6 +55,7 @@ G_BEGIN_DECLS
 #include "adw-preferences-page.h"
 #include "adw-preferences-row.h"
 #include "adw-preferences-window.h"
+#include "adw-spin-row.h"
 #include "adw-split-button.h"
 #include "adw-spring-animation.h"
 #include "adw-spring-params.h"

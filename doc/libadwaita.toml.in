@@ -180,6 +180,8 @@ content_images = [
   "images/search-bar-inline-dark.png",
   "images/selection-mode-checks.png",
   "images/selection-mode-checks-dark.png",
+  "images/spin-row.png",
+  "images/spin-row-dark.png",
   "images/split-button.png",
   "images/split-button-dark.png",
   "images/squeezer-narrow.png",
@@ -264,3 +266,4 @@ content_images = [
   "images/window-title-dark.png",
   "libadwaita.svg",
 ]
+

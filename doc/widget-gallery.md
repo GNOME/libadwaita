@@ -86,6 +86,13 @@ Slug: widget-gallery
   <img src="password-entry-row.png" alt="password-entry-row">
 </picture>](class.PasswordEntryRow.html)
 
+### Spin Row
+
+[<picture>
+  <source srcset="spin-row-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="spin-row.png" alt="switch-row">
+</picture>](class.SpinRow.html)
+
 ## Preferences
 
 ### Preferences Group

@@ -5,7 +5,7 @@
  */
 
 #include "config.h"
-#include "adw-action-row.h"
+#include "adw-action-row-private.h"
 
 #include "adw-marshalers.h"
 #include "adw-widget-utils-private.h"
@@ -102,6 +102,47 @@ string_is_not_empty (AdwActionRow *self,
                      const char   *string)
 {
   return string && string[0];
+}
+
+static void
+pressed_cb (AdwActionRow *self,
+            int           n_press,
+            double        x,
+            double        y,
+            GtkGesture   *gesture)
+{
+  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
+  GtkWidget *picked;
+  GtkEditable *delegate;
+
+  picked = gtk_widget_pick (GTK_WIDGET (self), x, y, GTK_PICK_DEFAULT);
+
+  if (picked != GTK_WIDGET (self) &&
+      picked != priv->header &&
+      picked != GTK_WIDGET (priv->prefixes) &&
+      picked != GTK_WIDGET (priv->suffixes)) {
+    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
+
+    return;
+  }
+
+  if (!GTK_IS_EDITABLE (self)) {
+    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
+  delegate = gtk_editable_get_delegate (GTK_EDITABLE (self));
+
+  while (delegate && !GTK_IS_TEXT (delegate))
+    delegate = gtk_editable_get_delegate (delegate);
+
+  if (!delegate || !GTK_IS_TEXT (delegate)) {
+    gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
+    return;
+  }
+
+  gtk_text_grab_focus_without_selecting (GTK_TEXT (delegate));
+  gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
 }
 
 static void
@@ -348,6 +389,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, title);
   gtk_widget_class_bind_template_child_private (widget_class, AdwActionRow, title_box);
   gtk_widget_class_bind_template_callback (widget_class, string_is_not_empty);
+  gtk_widget_class_bind_template_callback (widget_class, pressed_cb);
 }
 
 static void
@@ -838,4 +880,25 @@ adw_action_row_activate (AdwActionRow *self)
   g_return_if_fail (ADW_IS_ACTION_ROW (self));
 
   ADW_ACTION_ROW_GET_CLASS (self)->activate (self);
+}
+
+void
+adw_action_row_set_expand_suffixes (AdwActionRow *self,
+                                    gboolean      expand)
+{
+  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_ACTION_ROW (self));
+
+  expand = !!expand;
+
+  if (expand) {
+    gtk_widget_set_hexpand (GTK_WIDGET (priv->title_box), FALSE);
+    gtk_label_set_natural_wrap_mode (priv->title, GTK_NATURAL_WRAP_NONE);
+    gtk_label_set_natural_wrap_mode (priv->subtitle, GTK_NATURAL_WRAP_NONE);
+  } else {
+    gtk_widget_set_hexpand (GTK_WIDGET (priv->title_box), TRUE);
+    gtk_label_set_natural_wrap_mode (priv->title, GTK_NATURAL_WRAP_INHERIT);
+    gtk_label_set_natural_wrap_mode (priv->subtitle, GTK_NATURAL_WRAP_INHERIT);
+  }
 }

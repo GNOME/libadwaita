@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="libadwaita">
+  <requires lib="gtk" version="4.0"/>
+  <template class="AdwSpinRow" parent="AdwActionRow">
+    <property name="activatable">True</property>
+    <child type="suffix">
+      <object class="GtkSpinButton" id="spin_button">
+        <property name="valign">center</property>
+        <property name="hexpand">True</property>
+        <property name="xalign">1</property>
+        <signal name="state-flags-changed" handler="spin_button_state_flags_changed_cb" swapped="yes"/>
+        <signal name="keynav-failed" handler="spin_button_keynav_failed_cb" swapped="yes"/>
+        <signal name="input" handler="spin_button_input_cb" swapped="yes"/>
+        <signal name="output" handler="spin_button_output_cb" swapped="yes"/>
+        <signal name="wrapped" handler="spin_button_wrapped_cb" swapped="yes"/>
+        <signal name="notify::value" handler="spin_button_notify_value_cb" swapped="yes"/>
+      </object>
+    </child>
+    <style>
+      <class name="spin"/>
+    </style>
+  </template>
+</interface>

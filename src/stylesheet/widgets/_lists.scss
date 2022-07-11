@@ -158,13 +158,11 @@ row {
   }
 }
 
-/***************
- * AdwEntryRow *
- ***************/
+/******************************
+ * AdwEntryRow and AdwSpinRow *
+ ******************************/
 
 row.entry {
-  @include focus-ring($focus-state: '.focused', $offset: -1px, $transition: $row_transition);
-
   &:not(:selected).activatable.focused:hover,
   &:not(:selected).activatable.focused:active {
     background-color: transparent;
@@ -200,6 +198,56 @@ row.entry {
     text {
       font-family: monospace;
     }
+  }
+}
+
+row.spin {
+  &:not(:selected).activatable.focused:hover,
+  &:not(:selected).activatable.focused:active {
+    background-color: transparent;
+  }
+
+  spinbutton {
+    background: none;
+    border-spacing: 6px;
+    box-shadow: none;
+
+    &, &:focus {
+      outline: none;
+    }
+
+    > button.image-button.up:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque):last-child,
+    > button.image-button.down:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+      &, &:dir(ltr):last-child, &:dir(rtl):first-child {
+        @extend %button_basic;
+        @extend %circular_button;
+        min-width: 30px;
+        min-height: 30px;
+        margin: 10px 2px;
+        border: none;
+      }
+    }
+  }
+
+  &:disabled spinbutton {
+    > button.image-button.up:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque):last-child,
+    > button.image-button.down:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+      &, &:dir(ltr):last-child, &:dir(rtl):first-child {
+        &:disabled {
+          filter: none;
+        }
+      }
+    }
+  }
+}
+
+row.entry,
+row.spin {
+  @include focus-ring($focus-state: '.focused', $offset: -1px, $transition: $row_transition);
+
+  &:not(:selected).activatable.focused:hover,
+  &:not(:selected).activatable.focused:active {
+    background-color: transparent;
   }
 
   @each $e_type, $e_color, $e_bg_color, $e_fg_color in (error,   $error_color,   $error_bg_color,   $error_fg_color),
