@@ -3,6 +3,9 @@ include:
     file: 'flatpak/flatpak_ci_initiative.yml'
 
 variables:
+  APP_ID: 'org.gnome.Adwaita1.Demo'
+  BUNDLE: 'org.gnome.Adwaita1.Demo.flatpak'
+  RUNTIME_REPO: 'https://nightly.gnome.org/gnome-nightly.flatpakrepo'
   MANIFEST_PATH: 'demo/org.gnome.Adwaita1.Demo.json'
   FLATPAK_MODULE: 'libadwaita'
   FLATPAK_BUILD_DIR: build
@@ -39,13 +42,14 @@ doc:
       - _doc
 
 build-flatpak:
-  extends: '.flatpak'
+  extends: '.flatpak@x86_64'
   stage: build
   before_script: []
-  variables:
-    RUNTIME_REPO: 'https://nightly.gnome.org/gnome-nightly.flatpakrepo'
-    APP_ID: 'org.gnome.Adwaita1.Demo'
-    BUNDLE: 'org.gnome.Adwaita1.Demo.flatpak'
+
+build-flatpak-aarch64:
+  extends: '.flatpak@aarch64'
+  stage: build
+  before_script: []
 
 abi-check:
   image: $ABI_CHECKER_IMAGE
@@ -66,5 +70,8 @@ refresh-doc:
 
 nightly:
   extends: '.publish_nightly'
-  dependencies: ['build-flatpak']
   needs: ['build-flatpak']
+
+nightly-aarch64:
+  extends: '.publish_nightly'
+  needs: ['build-flatpak-aarch64']
