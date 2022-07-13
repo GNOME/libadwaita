@@ -106,6 +106,7 @@ static GParamSpec *props[PROP_LAST_PROP];
 
 enum {
   SIGNAL_APPLY,
+  SIGNAL_ENTRY_ACTIVATED,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -242,8 +243,11 @@ text_activated_cb (AdwEntryRow *self)
 {
   AdwEntryRowPrivate *priv = adw_entry_row_get_instance_private (self);
 
-  if (gtk_widget_get_visible (priv->apply_button))
+  if (gtk_widget_get_visible (priv->apply_button)) {
     apply_button_clicked_cb (self);
+  } else {
+    g_signal_emit (self, signals[SIGNAL_ENTRY_ACTIVATED], 0);
+  }
 }
 
 static void
@@ -532,6 +536,22 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
    */
   signals[SIGNAL_APPLY] =
     g_signal_new ("apply",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  0);
+
+  /**
+   * AdwEntryRow::entry-activated:
+   *
+   * Emitted when the embedded entry is activated.
+   *
+   * Since: 1.2
+   */
+  signals[SIGNAL_ENTRY_ACTIVATED] =
+    g_signal_new ("entry-activated",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
