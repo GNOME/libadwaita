@@ -80,6 +80,7 @@ typedef struct
   gboolean show_apply_button;
   gboolean text_changed;
   gboolean show_indicator;
+  gboolean activates_default;
 } AdwEntryRowPrivate;
 
 static void adw_entry_row_editable_init (GtkEditableInterface *iface);
@@ -99,6 +100,7 @@ enum {
   PROP_INPUT_PURPOSE,
   PROP_ATTRIBUTES,
   PROP_ENABLE_EMOJI_COMPLETION,
+  PROP_ACTIVATES_DEFAULT,
   PROP_LAST_PROP,
 };
 
@@ -246,6 +248,9 @@ text_activated_cb (AdwEntryRow *self)
   if (gtk_widget_get_visible (priv->apply_button)) {
     apply_button_clicked_cb (self);
   } else {
+    if (priv->activates_default)
+      gtk_widget_activate_default (GTK_WIDGET (self));
+
     g_signal_emit (self, signals[SIGNAL_ENTRY_ACTIVATED], 0);
   }
 }
@@ -367,6 +372,9 @@ adw_entry_row_get_property (GObject     *object,
   case PROP_ENABLE_EMOJI_COMPLETION:
     g_value_set_boolean (value, adw_entry_row_get_enable_emoji_completion (self));
     break;
+  case PROP_ACTIVATES_DEFAULT:
+    g_value_set_boolean (value, adw_entry_row_get_activates_default (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -406,6 +414,9 @@ adw_entry_row_set_property (GObject       *object,
     break;
   case PROP_ENABLE_EMOJI_COMPLETION:
     adw_entry_row_set_enable_emoji_completion (self, g_value_get_boolean (value));
+    break;
+  case PROP_ACTIVATES_DEFAULT:
+    adw_entry_row_set_activates_default (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -518,6 +529,18 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
    */
   props[PROP_ENABLE_EMOJI_COMPLETION] =
     g_param_spec_boolean ("enable-emoji-completion", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwEntryRow:activates-default: (attributes org.gtk.Property.get=adw_entry_row_get_activates_default org.gtk.Property.set=adw_entry_row_set_activates_default)
+   *
+   * Whether activating the embedded entry can activate the default widget.
+   *
+   * Since: 1.2
+   */
+  props[PROP_ACTIVATES_DEFAULT] =
+    g_param_spec_boolean ("activates-default", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -1016,6 +1039,53 @@ adw_entry_row_set_enable_emoji_completion (AdwEntryRow *self,
   gtk_text_set_enable_emoji_completion (GTK_TEXT (priv->text), enable_emoji_completion);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ENABLE_EMOJI_COMPLETION]);
+}
+
+/**
+ * adw_entry_row_get_activates_default: (attributes org.gtk.Method.get_property=activates-default)
+ * @self: an entry row
+ *
+ * Gets whether activating the embedded entry can activate the default widget.
+ *
+ * Returns: whether to activate the default widget
+ */
+gboolean
+adw_entry_row_get_activates_default (AdwEntryRow *self)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ENTRY_ROW (self), FALSE);
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  return priv->activates_default;
+}
+
+/**
+ * adw_entry_row_set_activates_default: (attributes org.gtk.Method.set_property=activates-default)
+ * @self: an entry row
+ * @activates: whether to activate the default widget
+ *
+ * Sets whether activating the embedded entry can activate the default widget.
+ *
+ * Since: 1.2
+ */
+void
+adw_entry_row_set_activates_default (AdwEntryRow *self,
+                                     gboolean     activates)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ENTRY_ROW (self));
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  if (priv->activates_default == activates)
+    return;
+
+  priv->activates_default = activates;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ACTIVATES_DEFAULT]);
 }
 
 void

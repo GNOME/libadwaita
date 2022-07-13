@@ -74,4 +74,10 @@ ADW_AVAILABLE_IN_1_2
 void           adw_entry_row_set_attributes (AdwEntryRow   *self,
                                              PangoAttrList *attributes);
 
+ADW_AVAILABLE_IN_1_2
+gboolean adw_entry_row_get_activates_default (AdwEntryRow *self);
+ADW_AVAILABLE_IN_1_2
+void     adw_entry_row_set_activates_default (AdwEntryRow *self,
+                                              gboolean     activates);
+
 G_END_DECLS
