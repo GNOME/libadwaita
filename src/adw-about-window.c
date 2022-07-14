@@ -842,7 +842,7 @@ text_handler (GMarkupParseContext  *context,
   if (!regex) {
     GError *regex_error = NULL;
 
-    regex = g_regex_new ("\\s+", G_REGEX_OPTIMIZE, 0, &regex_error);
+    regex = g_regex_new ("\\s+", 0, 0, &regex_error);
 
     if (regex_error) {
       g_error ("Couldn't compile regex: %s", regex_error->message);
