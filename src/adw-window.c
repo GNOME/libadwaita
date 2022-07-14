@@ -214,6 +214,9 @@ adw_window_set_content (AdwWindow *self,
   g_return_if_fail (ADW_IS_WINDOW (self));
   g_return_if_fail (content == NULL || GTK_IS_WIDGET (content));
 
+  if (adw_window_get_content (self) == content)
+    return;
+
   adw_window_mixin_set_content (ADW_GET_WINDOW_MIXIN (self), content);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CONTENT]);
