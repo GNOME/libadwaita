@@ -1,23 +1,261 @@
 # Turkish translation for libadwaita.
+#
 # Copyright (C) 2021 libadwaita's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libadwaita package.
+#
 # Muhammet Kara <muhammetk@gmail.com>, 2021.
 # Emin Tufan Çetin <etcetin@gmail.com>, 2022.
+# Sabri Ünal <libreajans@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-04-24 07:08+0000\n"
-"PO-Revision-Date: 2022-04-27 00:30+0300\n"
+"POT-Creation-Date: 2022-07-10 21:59+0000\n"
+"PO-Revision-Date: 2022-07-16 01:19+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <gnometurk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Gtranslator 40.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.1\n"
+
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU Genel Kamu Lisansı, sürüm 2 ya da sonrası"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU Genel Kamu Lisansı, sürüm 3 ya da sonrası"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "Kısıtlı GNU Genel Kamu Lisansı, sürüm 2.1 ya da sonrası"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "Kısıtlı GNU Genel Kamu Lisansı, sürüm 3 ya da sonrası"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "BSD 2-Clause Lisansı"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "MIT Lisansı (MIT)"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Sanatsal Lisans 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU Genel Kamu Lisansı, yalnızca sürüm 2"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU Genel Kamu Lisansı, yalnızca sürüm 3"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU Kısıtlı Genel Kamu Lisansı, yalnızca sürüm 2.1"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU Kısıtlı Genel Kamu Lisansı, yalnızca sürüm 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero Genel Kamu Lisansı, sürüm 3 ya da sonrası"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero Genel Kamu Lisansı, yalnızca sürüm 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "BSD 3-Clause Lisansı"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Apache Lisansı, Sürüm 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla Kamu Lisansı 2.0"
+
+#: src/adw-about-window.c:519
+msgid "Code by"
+msgstr "Kodlayan"
+
+#: src/adw-about-window.c:520
+msgid "Design by"
+msgstr "Tasarlayan"
+
+#: src/adw-about-window.c:521
+msgid "Artwork by"
+msgstr "Grafikler"
+
+#: src/adw-about-window.c:522
+msgid "Documentation by"
+msgstr "Belgelendiren"
+
+#: src/adw-about-window.c:523
+msgid "Translated by"
+msgstr "Çeviren"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:550
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
+msgstr ""
+"Bu program kesinlikle hiçbir garanti vermiyor. Ayrıntılar için <a href=\"%s\">"
+"%s</a> bağlantısına bakın."
+
+#: src/adw-about-window.c:628
+msgid "This Application"
+msgstr "Uygulama"
+
+#: src/adw-about-window.c:925
+#, c-format
+msgid "Version %s"
+msgstr "Sürüm %s"
+
+#: src/adw-about-window.c:951
+msgid "Unable to parse release notes:"
+msgstr "Sürüm notları ayrıştırılamadı:"
+
+#: src/adw-about-window.c:957
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Satır: %d, karakter: %d"
+
+#: src/adw-about-window.c:1227
+msgid "Copied to clipboard"
+msgstr "Panoya kopyalandı"
+
+#: src/adw-about-window.c:1262
+msgid "Unable to save debugging information"
+msgstr "Hata ayıklama bilgisi kaydedilemedi"
+
+#: src/adw-about-window.c:1267
+msgid "Close"
+msgstr "Kapat"
+
+#: src/adw-about-window.c:1285
+msgid "Save debugging information"
+msgstr "Hata ayıklama bilgisini kaydet"
+
+#: src/adw-about-window.c:1288
+msgid "_Save"
+msgstr "_Kaydet"
+
+#: src/adw-about-window.c:1289
+msgid "_Cancel"
+msgstr "İptal _Et"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Hakkında"
+
+#: src/adw-about-window.ui:160
+msgid "_What’s New"
+msgstr "Ye_nilikler"
+
+#: src/adw-about-window.ui:179
+msgid "_Details"
+msgstr "_Ayrıntılar"
+
+#: src/adw-about-window.ui:201 src/adw-about-window.ui:487
+msgid "_Website"
+msgstr "_Web Sitesi"
+
+#: src/adw-about-window.ui:232
+msgid "_Support Questions"
+msgstr "_Destek Soruları"
+
+#: src/adw-about-window.ui:254
+msgid "_Report an Issue"
+msgstr "Sorun _Bildir"
+
+#: src/adw-about-window.ui:275
+msgid "_Troubleshooting"
+msgstr "_Sorun Giderme"
+
+#: src/adw-about-window.ui:306
+msgid "_Credits"
+msgstr "_Oluşturanlar"
+
+#: src/adw-about-window.ui:323
+msgid "_Legal"
+msgstr "_Yasal"
+
+#: src/adw-about-window.ui:340
+msgid "_Acknowledgements"
+msgstr "_Teşekkürler"
+
+#: src/adw-about-window.ui:381
+msgid "What’s New"
+msgstr "Yenilikler"
+
+#: src/adw-about-window.ui:386 src/adw-about-window.ui:442
+#: src/adw-about-window.ui:531 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653 src/adw-about-window.ui:700
+#: src/adw-about-window.ui:747
+msgid "Back"
+msgstr "Geri"
+
+#: src/adw-about-window.ui:437
+msgid "Details"
+msgstr "Ayrıntılar"
+
+#: src/adw-about-window.ui:526
+msgid "Troubleshooting"
+msgstr "Sorun Giderme"
+
+#: src/adw-about-window.ui:555
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Sorun gidermeye yardımcı olmak için hata ayıklama bilginizi görüntüleyebilirsiniz. "
+"Bu bilgiyi sorun bildirirken uygulama geliştiricilerine vermeniz durumunda "
+"sorunların saptanmasına yardımcı olursunuz."
+
+#: src/adw-about-window.ui:566
+msgid "_Debugging Information"
+msgstr "_Hata Ayıklama Bilgisi"
+
+#: src/adw-about-window.ui:601
+msgid "Credits"
+msgstr "Oluşturanlar"
+
+#: src/adw-about-window.ui:648
+msgid "Legal"
+msgstr "Yasal"
+
+#: src/adw-about-window.ui:695
+msgid "Acknowledgements"
+msgstr "Teşekkürler"
+
+#: src/adw-about-window.ui:742
+msgid "Debugging Information"
+msgstr "Hata Ayıklama Bilgisi"
+
+#: src/adw-about-window.ui:790
+msgid "_Copy Text"
+msgstr "_Metni Kopyala"
+
+#: src/adw-about-window.ui:797
+msgid "_Save as…"
+msgstr "Farklı K_aydet"
 
 #: src/adw-entry-row.ui:93
 msgid "Apply"
@@ -25,7 +263,7 @@ msgstr "Uygula"
 
 #: src/adw-inspector-page.c:76
 msgid "No Preference"
-msgstr "Tercih Yok"
+msgstr "Yeğsiz"
 
 #: src/adw-inspector-page.c:78
 msgid "Prefer Dark"
@@ -71,11 +309,11 @@ msgstr "Yazıyı Gizle"
 msgid "Show Text"
 msgstr "Yazıyı Göster"
 
-#: src/adw-password-entry-row.c:168
+#: src/adw-password-entry-row.c:169
 msgid "Caps Lock is on"
 msgstr "Caps Lock açık"
 
-#: src/adw-password-entry-row.c:176
+#: src/adw-password-entry-row.c:177
 msgid "_Show Text"
 msgstr "Yazıyı _Göster"
 
