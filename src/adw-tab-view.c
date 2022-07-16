@@ -1223,7 +1223,8 @@ add_switch_nth_page_shortcut (AdwTabView         *self,
 
 static void
 init_shortcuts (AdwTabView         *self,
-                GtkEventController *controller)
+                GtkEventController *controller,
+                GtkEventController *capture_controller)
 {
   int i;
 
@@ -1233,10 +1234,10 @@ init_shortcuts (AdwTabView         *self,
   add_switch_shortcut (self, controller,
                        GDK_KEY_Tab, GDK_KEY_KP_Tab, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                        GTK_DIR_TAB_BACKWARD, FALSE, TRUE);
-  add_switch_shortcut (self, controller,
+  add_switch_shortcut (self, capture_controller,
                        GDK_KEY_Page_Up, GDK_KEY_KP_Page_Up, GDK_CONTROL_MASK,
                        GTK_DIR_TAB_BACKWARD, FALSE, FALSE);
-  add_switch_shortcut (self, controller,
+  add_switch_shortcut (self, capture_controller,
                        GDK_KEY_Page_Down, GDK_KEY_KP_Page_Down, GDK_CONTROL_MASK,
                        GTK_DIR_TAB_FORWARD, FALSE, FALSE);
   add_switch_shortcut (self, controller,
@@ -1696,7 +1697,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 static void
 adw_tab_view_init (AdwTabView *self)
 {
-  GtkEventController *controller;
+  GtkEventController *controller, *capture_controller;
 
   self->children = g_list_store_new (ADW_TYPE_TAB_PAGE);
   self->default_icon = G_ICON (g_themed_icon_new ("adw-tab-icon-missing-symbolic"));
@@ -1714,10 +1715,17 @@ adw_tab_view_init (AdwTabView *self)
   controller = gtk_shortcut_controller_new ();
   gtk_shortcut_controller_set_scope (GTK_SHORTCUT_CONTROLLER (controller),
                                      GTK_SHORTCUT_SCOPE_GLOBAL);
+  /* This is used for cases where we need to override shortcuts inside the view */
+  capture_controller = gtk_shortcut_controller_new ();
+  gtk_shortcut_controller_set_scope (GTK_SHORTCUT_CONTROLLER (capture_controller),
+                                     GTK_SHORTCUT_SCOPE_GLOBAL);
+  gtk_event_controller_set_propagation_phase (GTK_EVENT_CONTROLLER (capture_controller),
+                                              GTK_PHASE_CAPTURE);
 
-  init_shortcuts (self, controller);
+  init_shortcuts (self, controller, capture_controller);
 
   gtk_widget_add_controller (GTK_WIDGET (self), controller);
+  gtk_widget_add_controller (GTK_WIDGET (self), capture_controller);
 }
 
 static void
