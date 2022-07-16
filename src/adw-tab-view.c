@@ -1713,7 +1713,7 @@ adw_tab_view_init (AdwTabView *self)
 
   controller = gtk_shortcut_controller_new ();
   gtk_shortcut_controller_set_scope (GTK_SHORTCUT_CONTROLLER (controller),
-                                     GTK_SHORTCUT_SCOPE_MANAGED);
+                                     GTK_SHORTCUT_SCOPE_GLOBAL);
 
   init_shortcuts (self, controller);
 
