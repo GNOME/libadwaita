@@ -265,7 +265,6 @@ The "opaque" style class allows to create buttons with custom colors that look s
                         <property name="column-spacing">6</property>
                         <property name="row-spacing">6</property>
                         <property name="selection-mode">none</property>
-                        <property name="margin-top">12</property>
                         <style>
                           <class name="inline"/>
                         </style>
