@@ -1014,6 +1014,9 @@ select_page_cb (GtkWidget  *widget,
   if (!adw_tab_view_get_selected_page (self))
     return GDK_EVENT_PROPAGATE;
 
+  if (self->n_pages <= 1)
+    return GDK_EVENT_PROPAGATE;
+
   g_variant_get (args, "(hhbb)", &mask, &direction, &last, &loop);
 
   if (!(self->shortcuts & mask))
@@ -1089,6 +1092,9 @@ reorder_page_cb (GtkWidget  *widget,
   AdwTabPage *page = adw_tab_view_get_selected_page (self);
 
   if (!page)
+    return GDK_EVENT_PROPAGATE;
+
+  if (self->n_pages <= 1)
     return GDK_EVENT_PROPAGATE;
 
   g_variant_get (args, "(hhb)", &mask, &direction, &last);
