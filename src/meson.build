@@ -20,6 +20,7 @@ adw_public_enum_headers = [
   'adw-navigation-direction.h',
   'adw-style-manager.h',
   'adw-squeezer.h',
+  'adw-tab-view.h',
   'adw-toast.h',
   'adw-view-switcher.h',
 ]

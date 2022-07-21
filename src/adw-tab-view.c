@@ -39,25 +39,19 @@ static GSList *tab_view_list;
  *
  * As such, it does not support disabling page reordering or detaching.
  *
- * `AdwTabView` adds the following shortcuts in the managed scope:
+ * `AdwTabView` adds a number of global page switching and reordering shortcuts.
+ * The [property@TabView:shortcuts] property can be used to manage them.
  *
- * * <kbd>Ctrl</kbd>+<kbd>Page Up</kbd> - switch to the previous page
- * * <kbd>Ctrl</kbd>+<kbd>Page Down</kbd> - switch to the next page
- * * <kbd>Ctrl</kbd>+<kbd>Home</kbd> - switch to the first page
- * * <kbd>Ctrl</kbd>+<kbd>End</kbd> - switch to the last page
- * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Page Up</kbd> - move the current page
- *     backward
- * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Page Down</kbd> - move the current
- *     page forward
- * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Home</kbd> - move the current page at
- *     the start
- * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>End</kbd> - move the current page at
- *      the end
- * * <kbd>Ctrl</kbd>+<kbd>Tab</kbd> - switch to the next page, with looping
- * * <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Tab</kbd> - switch to the previous
- *     page, with looping
- * * <kbd>Alt</kbd>+<kbd>1</kbd>⋯<kbd>9</kbd> - switch to pages 1-9
- * * <kbd>Alt</kbd>+<kbd>0</kbd> - switch to page 10
+ * See [flags@TabViewShortcuts] for the list of the available shortcuts. All of
+ * the shortcuts are enabled by default.
+ *
+ * [method@TabView.add_shortcuts] and [method@TabView.remove_shortcuts] can be
+ * used to manage shortcuts in a convenient way, for example:
+ *
+ * ```c
+ * adw_tab_view_remove_shortcuts (view, ADW_TAB_VIEW_SHORTCUT_CONTROL_HOME |
+ *                                      ADW_TAB_VIEW_SHORTCUT_CONTROL_END);
+ * ```
  *
  * ## CSS nodes
  *
@@ -70,6 +64,51 @@ static GSList *tab_view_list;
  * AdwTabPage:
  *
  * An auxiliary class used by [class@TabView].
+ */
+
+/**
+ * AdwTabViewShortcuts:
+ * @ADW_TAB_VIEW_SHORTCUT_NONE: No shortcuts
+ * @ADW_TAB_VIEW_SHORTCUT_CONTROL_TAB:
+ *   <kbd>Ctrl</kbd>+<kbd>Tab</kbd> - switch to the next page, with looping
+ * @ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_TAB:
+ *   <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>Tab</kbd> - switch to the previous
+ *   page, with looping
+ * @ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_UP:
+ *   <kbd>Ctrl</kbd>+<kbd>Page Up</kbd> - switch to the previous page
+ * @ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_DOWN:
+ *   <kbd>Ctrl</kbd>+<kbd>Page Down</kbd> - switch to the next page
+ * @ADW_TAB_VIEW_SHORTCUT_CONTROL_HOME:
+ *   <kbd>Ctrl</kbd>+<kbd>Home</kbd> - switch to the first page
+ * @ADW_TAB_VIEW_SHORTCUT_CONTROL_END:
+ *   <kbd>Ctrl</kbd>+<kbd>End</kbd> - switch to the last page
+ * @ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_PAGE_UP:
+ *   <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Page Up</kbd> - move the selected
+ *   page backward
+ * @ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_PAGE_DOWN:
+ *   <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Page Down</kbd> - move the selected
+ *   page forward
+ * @ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_HOME:
+ *   <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Home</kbd> - move the selected page
+ *   at the start
+ * @ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_END:
+ *   <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>End</kbd> - move the current page at
+ *   the end
+ * @ADW_TAB_VIEW_SHORTCUT_ALT_DIGITS:
+ *  <kbd>Alt</kbd>+<kbd>1</kbd>⋯<kbd>9</kbd> - switch to pages 1-9
+ * @ADW_TAB_VIEW_SHORTCUT_ALT_ZERO:
+ *  <kbd>Alt</kbd>+<kbd>0</kbd> - switch to page 10
+ * @ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS: All of the shortcuts
+ *
+ * Describes available shortcuts in an [class@TabView].
+ *
+ * Shortcuts can be set with [property@TabView:shortcuts], or added/removed
+ * individually with [method@TabView.add_shortcuts] and
+ * [method@TabView.remove_shortcuts].
+ *
+ * New values may be added to this enumeration over time.
+ *
+ * Since: 1.2
  */
 
 struct _AdwTabPage
@@ -123,6 +162,7 @@ struct _AdwTabView
   AdwTabPage *selected_page;
   GIcon *default_icon;
   GMenuModel *menu_model;
+  AdwTabViewShortcuts shortcuts;
 
   int transfer_count;
 
@@ -144,6 +184,7 @@ enum {
   PROP_SELECTED_PAGE,
   PROP_DEFAULT_ICON,
   PROP_MENU_MODEL,
+  PROP_SHORTCUTS,
   PROP_PAGES,
   LAST_PROP
 };
@@ -1060,13 +1101,17 @@ select_page_cb (GtkWidget  *widget,
                 GVariant   *args,
                 AdwTabView *self)
 {
+  AdwTabViewShortcuts mask;
   GtkDirectionType direction;
   gboolean last, loop, success = FALSE;
 
   if (!adw_tab_view_get_selected_page (self))
     return GDK_EVENT_PROPAGATE;
 
-  g_variant_get (args, "(hbb)", &direction, &last, &loop);
+  g_variant_get (args, "(hhbb)", &mask, &direction, &last, &loop);
+
+  if (!(self->shortcuts & mask))
+    return GDK_EVENT_PROPAGATE;
 
   if (direction == GTK_DIR_TAB_BACKWARD) {
     if (last)
@@ -1103,14 +1148,15 @@ select_page_cb (GtkWidget  *widget,
 }
 
 static inline void
-add_switch_shortcut (AdwTabView         *self,
-                     GtkEventController *controller,
-                     guint               keysym,
-                     guint               keypad_keysym,
-                     GdkModifierType     modifiers,
-                     GtkDirectionType    direction,
-                     gboolean            last,
-                     gboolean            loop)
+add_switch_shortcut (AdwTabView          *self,
+                     GtkEventController  *controller,
+                     AdwTabViewShortcuts  mask,
+                     guint                keysym,
+                     guint                keypad_keysym,
+                     GdkModifierType      modifiers,
+                     GtkDirectionType     direction,
+                     gboolean             last,
+                     gboolean             loop)
 {
   GtkShortcutTrigger *trigger;
   GtkShortcutAction *action;
@@ -1121,7 +1167,7 @@ add_switch_shortcut (AdwTabView         *self,
   action = gtk_callback_action_new ((GtkShortcutFunc) select_page_cb, self, NULL);
   shortcut = gtk_shortcut_new (trigger, action);
 
-  gtk_shortcut_set_arguments (shortcut, g_variant_new ("(hbb)", direction, last, loop));
+  gtk_shortcut_set_arguments (shortcut, g_variant_new ("(hhbb)", mask, direction, last, loop));
   gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (controller),
                                         shortcut);
 }
@@ -1131,6 +1177,7 @@ reorder_page_cb (GtkWidget  *widget,
                  GVariant   *args,
                  AdwTabView *self)
 {
+  AdwTabViewShortcuts mask;
   GtkDirectionType direction;
   gboolean last, success = FALSE;
   AdwTabPage *page = adw_tab_view_get_selected_page (self);
@@ -1138,7 +1185,10 @@ reorder_page_cb (GtkWidget  *widget,
   if (!page)
     return GDK_EVENT_PROPAGATE;
 
-  g_variant_get (args, "(hb)", &direction, &last);
+  g_variant_get (args, "(hhb)", &mask, &direction, &last);
+
+  if (!(self->shortcuts & mask))
+    return GDK_EVENT_PROPAGATE;
 
   if (direction == GTK_DIR_TAB_BACKWARD) {
     if (last)
@@ -1159,12 +1209,13 @@ reorder_page_cb (GtkWidget  *widget,
 }
 
 static inline void
-add_reorder_shortcut (AdwTabView         *self,
-                      GtkEventController *controller,
-                      guint               keysym,
-                      guint               keypad_keysym,
-                      GtkDirectionType    direction,
-                      gboolean            last)
+add_reorder_shortcut (AdwTabView          *self,
+                      GtkEventController  *controller,
+                      AdwTabViewShortcuts  mask,
+                      guint                keysym,
+                      guint                keypad_keysym,
+                      GtkDirectionType     direction,
+                      gboolean             last)
 {
   GtkShortcutTrigger *trigger;
   GtkShortcutAction *action;
@@ -1175,7 +1226,7 @@ add_reorder_shortcut (AdwTabView         *self,
   action = gtk_callback_action_new ((GtkShortcutFunc) reorder_page_cb, self, NULL);
   shortcut = gtk_shortcut_new (trigger, action);
 
-  gtk_shortcut_set_arguments (shortcut, g_variant_new ("(hb)", direction, last));
+  gtk_shortcut_set_arguments (shortcut, g_variant_new ("(hhb)", mask, direction, last));
   gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (controller),
                                         shortcut);
 }
@@ -1186,9 +1237,19 @@ select_nth_page_cb (GtkWidget  *widget,
                     AdwTabView *self)
 {
   gint8 n_page = g_variant_get_byte (args);
+  AdwTabViewShortcuts mask;
   AdwTabPage *page;
 
   if (n_page >= self->n_pages)
+    return GDK_EVENT_PROPAGATE;
+
+  /* Pages are counted from 0, so page 9 represents Alt+0 */
+  if (n_page == 9)
+    mask = ADW_TAB_VIEW_SHORTCUT_ALT_ZERO;
+  else
+    mask = ADW_TAB_VIEW_SHORTCUT_ALT_DIGITS;
+
+  if (!(self->shortcuts & mask))
     return GDK_EVENT_PROPAGATE;
 
   page = adw_tab_view_get_nth_page (self, n_page);
@@ -1228,34 +1289,44 @@ init_shortcuts (AdwTabView         *self,
   int i;
 
   add_switch_shortcut (self, controller,
+                       ADW_TAB_VIEW_SHORTCUT_CONTROL_TAB,
                        GDK_KEY_Tab, GDK_KEY_KP_Tab, GDK_CONTROL_MASK,
                        GTK_DIR_TAB_FORWARD, FALSE, TRUE);
   add_switch_shortcut (self, controller,
+                       ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_TAB,
                        GDK_KEY_Tab, GDK_KEY_KP_Tab, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
                        GTK_DIR_TAB_BACKWARD, FALSE, TRUE);
   add_switch_shortcut (self, controller,
+                       ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_UP,
                        GDK_KEY_Page_Up, GDK_KEY_KP_Page_Up, GDK_CONTROL_MASK,
                        GTK_DIR_TAB_BACKWARD, FALSE, FALSE);
   add_switch_shortcut (self, controller,
+                       ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_DOWN,
                        GDK_KEY_Page_Down, GDK_KEY_KP_Page_Down, GDK_CONTROL_MASK,
                        GTK_DIR_TAB_FORWARD, FALSE, FALSE);
   add_switch_shortcut (self, controller,
+                       ADW_TAB_VIEW_SHORTCUT_CONTROL_HOME,
                        GDK_KEY_Home, GDK_KEY_KP_Home, GDK_CONTROL_MASK,
                        GTK_DIR_TAB_BACKWARD, TRUE, FALSE);
   add_switch_shortcut (self, controller,
+                       ADW_TAB_VIEW_SHORTCUT_CONTROL_END,
                        GDK_KEY_End, GDK_KEY_KP_End, GDK_CONTROL_MASK,
                        GTK_DIR_TAB_FORWARD, TRUE, FALSE);
 
   add_reorder_shortcut (self, controller,
+                        ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_PAGE_UP,
                         GDK_KEY_Page_Up, GDK_KEY_KP_Page_Up,
                         GTK_DIR_TAB_BACKWARD, FALSE);
   add_reorder_shortcut (self, controller,
+                        ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_PAGE_DOWN,
                         GDK_KEY_Page_Down, GDK_KEY_KP_Page_Down,
                         GTK_DIR_TAB_FORWARD, FALSE);
   add_reorder_shortcut (self, controller,
+                        ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_HOME,
                         GDK_KEY_Home, GDK_KEY_KP_Home,
                         GTK_DIR_TAB_BACKWARD, TRUE);
   add_reorder_shortcut (self, controller,
+                        ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_END,
                         GDK_KEY_End, GDK_KEY_KP_End,
                         GTK_DIR_TAB_FORWARD,  TRUE);
 
@@ -1338,6 +1409,10 @@ adw_tab_view_get_property (GObject    *object,
     g_value_set_object (value, adw_tab_view_get_menu_model (self));
     break;
 
+  case PROP_SHORTCUTS:
+    g_value_set_flags (value, adw_tab_view_get_shortcuts (self));
+    break;
+
   case PROP_PAGES:
     g_value_take_object (value, adw_tab_view_get_pages (self));
     break;
@@ -1366,6 +1441,10 @@ adw_tab_view_set_property (GObject      *object,
 
   case PROP_MENU_MODEL:
     adw_tab_view_set_menu_model (self, g_value_get_object (value));
+    break;
+
+  case PROP_SHORTCUTS:
+    adw_tab_view_set_shortcuts (self, g_value_get_flags (value));
     break;
 
   default:
@@ -1479,6 +1558,25 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
     g_param_spec_object ("menu-model", NULL, NULL,
                          G_TYPE_MENU_MODEL,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwTabView:shortcuts: (attributes org.gtk.Property.get=adw_tab_view_get_shortcuts org.gtk.Property.set=adw_tab_view_set_shortcuts)
+   *
+   * The enabled shortcuts.
+   *
+   * See [flags@TabViewShortcuts] for the list of the available shortcuts. All
+   * of the shortcuts are enabled by default.
+   *
+   * [method@TabView.add_shortcuts] and [method@TabView.remove_shortcuts]
+   * provide a convenient way to manage individual shortcuts.
+   *
+   * Since: 1.2
+   */
+  props[PROP_SHORTCUTS] =
+    g_param_spec_flags ("shortcuts", NULL, NULL,
+                        ADW_TYPE_TAB_VIEW_SHORTCUTS,
+                        ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS,
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwTabView:pages: (attributes org.gtk.Property.get=adw_tab_view_get_pages)
@@ -1700,6 +1798,7 @@ adw_tab_view_init (AdwTabView *self)
 
   self->children = g_list_store_new (ADW_TYPE_TAB_PAGE);
   self->default_icon = G_ICON (g_themed_icon_new ("adw-tab-icon-missing-symbolic"));
+  self->shortcuts = ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS;
 
   self->stack = GTK_STACK (gtk_stack_new ());
   gtk_widget_show (GTK_WIDGET (self->stack));
@@ -1712,8 +1811,9 @@ adw_tab_view_init (AdwTabView *self)
   tab_view_list = g_slist_prepend (tab_view_list, self);
 
   controller = gtk_shortcut_controller_new ();
+  gtk_event_controller_set_propagation_phase (controller, GTK_PHASE_CAPTURE);
   gtk_shortcut_controller_set_scope (GTK_SHORTCUT_CONTROLLER (controller),
-                                     GTK_SHORTCUT_SCOPE_MANAGED);
+                                     GTK_SHORTCUT_SCOPE_GLOBAL);
 
   init_shortcuts (self, controller);
 
@@ -2436,6 +2536,96 @@ adw_tab_view_set_menu_model (AdwTabView *self,
   g_set_object (&self->menu_model, menu_model);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_MENU_MODEL]);
+}
+
+/**
+ * adw_tab_view_get_shortcuts: (attributes org.gtk.Method.get_property=shortcuts)
+ * @self: a tab view
+ *
+ * Gets the enabled shortcuts for @self.
+ *
+ * Returns: the shortcut mask
+ *
+ * Since: 1.2
+ */
+AdwTabViewShortcuts
+adw_tab_view_get_shortcuts (AdwTabView *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_VIEW (self), 0);
+
+  return self->shortcuts;
+}
+
+/**
+ * adw_tab_view_set_shortcuts: (attributes org.gtk.Method.set_property=shortcuts)
+ * @self: a tab view
+ * @shortcuts: the new shortcuts
+ *
+ * Sets the enabled shortcuts for @self.
+ *
+ * See [flags@TabViewShortcuts] for the list of the available shortcuts. All of
+ * the shortcuts are enabled by default.
+ *
+ * [method@TabView.add_shortcuts] and [method@TabView.remove_shortcuts] provide
+ * a convenient way to manage individual shortcuts.
+ *
+ * Since: 1.2
+ */
+void
+adw_tab_view_set_shortcuts (AdwTabView          *self,
+                            AdwTabViewShortcuts  shortcuts)
+{
+  g_return_if_fail (ADW_IS_TAB_VIEW (self));
+  g_return_if_fail (shortcuts <= ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS);
+
+  if (self->shortcuts == shortcuts)
+    return;
+
+  self->shortcuts = shortcuts;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHORTCUTS]);
+}
+
+/**
+ * adw_tab_view_add_shortcuts:
+ * @self: a tab view
+ * @shortcuts: the shortcuts to add
+ *
+ * Adds @shortcuts for @self.
+ *
+ * See [property@TabView:shortcuts] for details.
+ *
+ * Since: 1.2
+ */
+void
+adw_tab_view_add_shortcuts (AdwTabView          *self,
+                            AdwTabViewShortcuts  shortcuts)
+{
+  g_return_if_fail (ADW_IS_TAB_VIEW (self));
+  g_return_if_fail (shortcuts <= ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS);
+
+  adw_tab_view_set_shortcuts (self, self->shortcuts | shortcuts);
+}
+
+/**
+ * adw_tab_view_remove_shortcuts:
+ * @self: a tab view
+ * @shortcuts: the shortcuts to reomve
+ *
+ * Removes @shortcuts from @self.
+ *
+ * See [property@TabView:shortcuts] for details.
+ *
+ * Since: 1.2
+ */
+void
+adw_tab_view_remove_shortcuts (AdwTabView          *self,
+                               AdwTabViewShortcuts  shortcuts)
+{
+  g_return_if_fail (ADW_IS_TAB_VIEW (self));
+  g_return_if_fail (shortcuts <= ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS);
+
+  adw_tab_view_set_shortcuts (self, self->shortcuts & ~shortcuts);
 }
 
 /**

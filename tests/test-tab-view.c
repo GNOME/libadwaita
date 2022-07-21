@@ -216,6 +216,41 @@ test_adw_tab_view_menu_model (void)
 }
 
 static void
+test_adw_tab_view_shortcuts (void)
+{
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  AdwTabViewShortcuts shortcuts;
+
+  g_assert_nonnull (view);
+
+  notified = 0;
+  g_signal_connect (view, "notify::shortcuts", G_CALLBACK (notify_cb), NULL);
+
+  g_object_get (view, "shortcuts", &shortcuts, NULL);
+  g_assert_cmpint (shortcuts, ==, ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS);
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_tab_view_set_shortcuts (view, ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_UP);
+  g_assert_cmpint (adw_tab_view_get_shortcuts (view), ==, ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_UP);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (view, "shortcuts", ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_DOWN, NULL);
+  g_assert_cmpint (adw_tab_view_get_shortcuts (view), ==, ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_DOWN);
+  g_assert_cmpint (notified, ==, 2);
+
+  adw_tab_view_add_shortcuts (view, ADW_TAB_VIEW_SHORTCUT_CONTROL_HOME);
+  g_assert_cmpint (adw_tab_view_get_shortcuts (view), ==, ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_DOWN |
+                                                          ADW_TAB_VIEW_SHORTCUT_CONTROL_HOME);
+  g_assert_cmpint (notified, ==, 3);
+
+  adw_tab_view_remove_shortcuts (view, ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_DOWN);
+  g_assert_cmpint (adw_tab_view_get_shortcuts (view), ==, ADW_TAB_VIEW_SHORTCUT_CONTROL_HOME);
+  g_assert_cmpint (notified, ==, 4);
+
+  g_assert_finalize_object (view);
+}
+
+static void
 test_adw_tab_view_get_page (void)
 {
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
@@ -1230,6 +1265,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/TabView/n_pinned_pages", test_adw_tab_view_n_pinned_pages);
   g_test_add_func ("/Adwaita/TabView/default_icon", test_adw_tab_view_default_icon);
   g_test_add_func ("/Adwaita/TabView/menu_model", test_adw_tab_view_menu_model);
+  g_test_add_func ("/Adwaita/TabView/shortcuts", test_adw_tab_view_shortcuts);
   g_test_add_func ("/Adwaita/TabView/get_page", test_adw_tab_view_get_page);
   g_test_add_func ("/Adwaita/TabView/select", test_adw_tab_view_select);
   g_test_add_func ("/Adwaita/TabView/add_basic", test_adw_tab_view_add_basic);

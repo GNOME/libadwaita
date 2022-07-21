@@ -15,8 +15,26 @@
 #include "adw-version.h"
 
 #include <gtk/gtk.h>
+#include "adw-enums.h"
 
 G_BEGIN_DECLS
+
+typedef enum /*< flags >*/ {
+  ADW_TAB_VIEW_SHORTCUT_NONE                    = 0,
+  ADW_TAB_VIEW_SHORTCUT_CONTROL_TAB             = 1 << 0,
+  ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_TAB       = 1 << 1,
+  ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_UP         = 1 << 2,
+  ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_DOWN       = 1 << 3,
+  ADW_TAB_VIEW_SHORTCUT_CONTROL_HOME            = 1 << 4,
+  ADW_TAB_VIEW_SHORTCUT_CONTROL_END             = 1 << 5,
+  ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_PAGE_UP   = 1 << 6,
+  ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_PAGE_DOWN = 1 << 7,
+  ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_HOME      = 1 << 8,
+  ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_END       = 1 << 9,
+  ADW_TAB_VIEW_SHORTCUT_ALT_DIGITS              = 1 << 10,
+  ADW_TAB_VIEW_SHORTCUT_ALT_ZERO                = 1 << 11,
+  ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS           = 0xFFF
+} AdwTabViewShortcuts;
 
 #define ADW_TYPE_TAB_PAGE (adw_tab_page_get_type())
 
@@ -115,6 +133,18 @@ GMenuModel *adw_tab_view_get_menu_model (AdwTabView *self);
 ADW_AVAILABLE_IN_ALL
 void        adw_tab_view_set_menu_model (AdwTabView *self,
                                          GMenuModel *menu_model);
+
+ADW_AVAILABLE_IN_1_2
+AdwTabViewShortcuts adw_tab_view_get_shortcuts    (AdwTabView          *self);
+ADW_AVAILABLE_IN_1_2
+void                adw_tab_view_set_shortcuts    (AdwTabView          *self,
+                                                   AdwTabViewShortcuts  shortcuts);
+ADW_AVAILABLE_IN_1_2
+void                adw_tab_view_add_shortcuts    (AdwTabView          *self,
+                                                   AdwTabViewShortcuts  shortcuts);
+ADW_AVAILABLE_IN_1_2
+void                adw_tab_view_remove_shortcuts (AdwTabView          *self,
+                                                   AdwTabViewShortcuts  shortcuts);
 
 ADW_AVAILABLE_IN_ALL
 void adw_tab_view_set_page_pinned (AdwTabView *self,
