@@ -1053,7 +1053,7 @@ select_page_cb (GtkWidget  *widget,
   if (!success)
     gtk_widget_error_bell (GTK_WIDGET (self));
 
-  return success;
+  return GDK_EVENT_STOP;
 }
 
 static inline void
@@ -1117,7 +1117,7 @@ reorder_page_cb (GtkWidget  *widget,
   if (!success)
     gtk_widget_error_bell (GTK_WIDGET (self));
 
-  return success;
+  return GDK_EVENT_STOP;
 }
 
 static inline void
