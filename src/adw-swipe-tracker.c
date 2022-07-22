@@ -675,6 +675,9 @@ handle_scroll_event (AdwSwipeTracker *self,
   is_vertical = (self->orientation == GTK_ORIENTATION_VERTICAL);
   distance = is_vertical ? TOUCHPAD_BASE_DISTANCE_V : TOUCHPAD_BASE_DISTANCE_H;
 
+  if (!event || gdk_event_get_event_type (event) != GDK_SCROLL)
+    return GDK_EVENT_PROPAGATE;
+
   if (gdk_scroll_event_get_direction (event) != GDK_SCROLL_SMOOTH)
     return GDK_EVENT_PROPAGATE;
 
