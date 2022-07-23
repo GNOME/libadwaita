@@ -15,41 +15,31 @@
             <property name="child">
               <object class="AdwPreferencesGroup">
                 <child>
-                  <object class="AdwActionRow">
+                  <object class="AdwSpinRow">
                     <property name="title" translatable="yes">Maximum Width</property>
-                    <child>
-                      <object class="GtkSpinButton">
-                        <property name="valign">center</property>
-                        <property name="adjustment">
-                          <object class="GtkAdjustment" id="maximum_size_adjustment">
-                            <property name="lower">0</property>
-                            <property name="upper">10000</property>
-                            <property name="value">600</property>
-                            <property name="page-increment">100</property>
-                            <property name="step-increment">10</property>
-                          </object>
-                        </property>
+                    <property name="adjustment">
+                      <object class="GtkAdjustment" id="maximum_size_adjustment">
+                        <property name="lower">0</property>
+                        <property name="upper">10000</property>
+                        <property name="value">600</property>
+                        <property name="page-increment">100</property>
+                        <property name="step-increment">10</property>
                       </object>
-                    </child>
+                    </property>
                   </object>
                 </child>
                 <child>
-                  <object class="AdwActionRow">
+                  <object class="AdwSpinRow">
                     <property name="title" translatable="yes">Tightening Threshold</property>
-                    <child>
-                      <object class="GtkSpinButton">
-                        <property name="valign">center</property>
-                        <property name="adjustment">
-                          <object class="GtkAdjustment" id="tightening_threshold_adjustment">
-                            <property name="lower">0</property>
-                            <property name="upper">10000</property>
-                            <property name="value">500</property>
-                            <property name="page-increment">100</property>
-                            <property name="step-increment">10</property>
-                          </object>
-                        </property>
+                    <property name="adjustment">
+                      <object class="GtkAdjustment" id="tightening_threshold_adjustment">
+                        <property name="lower">0</property>
+                        <property name="upper">10000</property>
+                        <property name="value">500</property>
+                        <property name="page-increment">100</property>
+                        <property name="step-increment">10</property>
                       </object>
-                    </child>
+                    </property>
                   </object>
                 </child>
               </object>

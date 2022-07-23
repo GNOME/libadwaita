@@ -10,17 +10,17 @@ struct _AdwDemoPageAnimations
   AdwAnimation *timed_animation;
   GtkWidget *timed_animation_sample;
   GtkWidget *timed_animation_button_box;
-  GtkSpinButton *timed_animation_repeat_count;
+  AdwSpinRow *timed_animation_repeat_count;
   AdwSwitchRow *timed_animation_reverse;
   AdwSwitchRow *timed_animation_alternate;
-  GtkSpinButton *timed_animation_duration;
+  AdwSpinRow *timed_animation_duration;
   AdwComboRow *timed_animation_easing;
   AdwAnimation *spring_animation;
-  GtkSpinButton *spring_animation_velocity;
-  GtkSpinButton *spring_animation_damping;
-  GtkSpinButton *spring_animation_mass;
-  GtkSpinButton *spring_animation_stiffness;
-  GtkSpinButton *spring_animation_epsilon;
+  AdwSpinRow *spring_animation_velocity;
+  AdwSpinRow *spring_animation_damping;
+  AdwSpinRow *spring_animation_mass;
+  AdwSpinRow *spring_animation_stiffness;
+  AdwSpinRow *spring_animation_epsilon;
   AdwSwitchRow *spring_animation_clamp_switch;
 };
 
@@ -243,9 +243,9 @@ static void
 notify_spring_params_change (AdwDemoPageAnimations *self)
 {
   AdwSpringParams *spring_params =
-    adw_spring_params_new_full (gtk_spin_button_get_value (self->spring_animation_damping),
-                                gtk_spin_button_get_value (self->spring_animation_mass),
-                                gtk_spin_button_get_value (self->spring_animation_stiffness));
+    adw_spring_params_new_full (adw_spin_row_get_value (self->spring_animation_damping),
+                                adw_spin_row_get_value (self->spring_animation_mass),
+                                adw_spin_row_get_value (self->spring_animation_stiffness));
 
   adw_spring_animation_set_spring_params (ADW_SPRING_ANIMATION (self->spring_animation), spring_params);
 

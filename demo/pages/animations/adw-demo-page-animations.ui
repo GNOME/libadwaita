@@ -170,43 +170,33 @@
                               </object>
                             </child>
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSpinRow" id="timed_animation_duration">
                                 <property name="title" translatable="yes">Duration</property>
-                                <child>
-                                  <object class="GtkSpinButton" id="timed_animation_duration">
-                                    <property name="valign">center</property>
-                                    <property name="numeric">True</property>
-                                    <property name="adjustment">
-                                      <object class="GtkAdjustment">
-                                        <property name="lower">100</property>
-                                        <property name="upper">4000</property>
-                                        <property name="value">500</property>
-                                        <property name="page-increment">100</property>
-                                        <property name="step-increment">50</property>
-                                      </object>
-                                    </property>
+                                <property name="numeric">True</property>
+                                <property name="adjustment">
+                                  <object class="GtkAdjustment">
+                                    <property name="lower">100</property>
+                                    <property name="upper">4000</property>
+                                    <property name="value">500</property>
+                                    <property name="page-increment">100</property>
+                                    <property name="step-increment">50</property>
                                   </object>
-                                </child>
+                                </property>
                               </object>
                             </child>
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSpinRow" id="timed_animation_repeat_count">
                                 <property name="title" translatable="yes">Repeat Count</property>
-                                <child>
-                                  <object class="GtkSpinButton" id="timed_animation_repeat_count">
-                                    <property name="valign">center</property>
-                                    <property name="numeric">True</property>
-                                    <property name="adjustment">
-                                      <object class="GtkAdjustment">
-                                        <property name="lower">0</property>
-                                        <property name="upper">10</property>
-                                        <property name="value">1</property>
-                                        <property name="page-increment">1</property>
-                                        <property name="step-increment">1</property>
-                                      </object>
-                                    </property>
+                                <property name="numeric">True</property>
+                                <property name="adjustment">
+                                  <object class="GtkAdjustment">
+                                    <property name="lower">0</property>
+                                    <property name="upper">10</property>
+                                    <property name="value">1</property>
+                                    <property name="page-increment">1</property>
+                                    <property name="step-increment">1</property>
                                   </object>
-                                </child>
+                                </property>
                               </object>
                             </child>
                             <child>
@@ -230,107 +220,81 @@
                         <property name="child">
                           <object class="AdwPreferencesGroup">
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSpinRow" id="spring_animation_velocity">
                                 <property name="title" translatable="yes">Initial Velocity</property>
-                                <child>
-                                  <object class="GtkSpinButton" id="spring_animation_velocity">
-                                    <property name="valign">center</property>
-                                    <property name="numeric">True</property>
-                                    <property name="adjustment">
-                                      <object class="GtkAdjustment">
-                                        <property name="lower">-1000</property>
-                                        <property name="upper">1000</property>
-                                        <property name="value">0</property>
-                                        <property name="page-increment">10</property>
-                                        <property name="step-increment">1</property>
-                                      </object>
-                                    </property>
+                                <property name="numeric">True</property>
+                                <property name="adjustment">
+                                  <object class="GtkAdjustment">
+                                    <property name="lower">-1000</property>
+                                    <property name="upper">1000</property>
+                                    <property name="value">0</property>
+                                    <property name="page-increment">10</property>
+                                    <property name="step-increment">1</property>
                                   </object>
-                                </child>
+                                </property>
                               </object>
                             </child>
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSpinRow" id="spring_animation_damping">
                                 <property name="title" translatable="yes">Damping</property>
-                                <child>
-                                  <object class="GtkSpinButton" id="spring_animation_damping">
-                                    <property name="valign">center</property>
-                                    <property name="numeric">True</property>
-                                    <property name="adjustment">
-                                      <object class="GtkAdjustment">
-                                        <property name="lower">0</property>
-                                        <property name="upper">1000</property>
-                                        <property name="value">10</property>
-                                        <property name="page-increment">10</property>
-                                        <property name="step-increment">1</property>
-                                      </object>
-                                    </property>
-                                    <signal name="value-changed" handler="notify_spring_params_change" swapped="yes"/>
+                                <property name="numeric">True</property>
+                                <property name="adjustment">
+                                  <object class="GtkAdjustment">
+                                    <property name="lower">0</property>
+                                    <property name="upper">1000</property>
+                                    <property name="value">10</property>
+                                    <property name="page-increment">10</property>
+                                    <property name="step-increment">1</property>
                                   </object>
-                                </child>
+                                </property>
                               </object>
                             </child>
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSpinRow" id="spring_animation_mass">
                                 <property name="title" translatable="yes">Mass</property>
-                                <child>
-                                  <object class="GtkSpinButton" id="spring_animation_mass">
-                                    <property name="valign">center</property>
-                                    <property name="numeric">True</property>
-                                    <property name="adjustment">
-                                      <object class="GtkAdjustment">
-                                        <property name="lower">0</property>
-                                        <property name="upper">100</property>
-                                        <property name="value">1</property>
-                                        <property name="page-increment">10</property>
-                                        <property name="step-increment">1</property>
-                                      </object>
-                                    </property>
-                                    <signal name="value-changed" handler="notify_spring_params_change" swapped="yes"/>
+                                <property name="numeric">True</property>
+                                <property name="adjustment">
+                                  <object class="GtkAdjustment">
+                                    <property name="lower">0</property>
+                                    <property name="upper">100</property>
+                                    <property name="value">1</property>
+                                    <property name="page-increment">10</property>
+                                    <property name="step-increment">1</property>
                                   </object>
-                                </child>
+                                </property>
+                                <signal name="notify::value" handler="notify_spring_params_change" swapped="yes"/>
                               </object>
                             </child>
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSpinRow" id="spring_animation_stiffness">
                                 <property name="title" translatable="yes">Stiffness</property>
-                                <child>
-                                  <object class="GtkSpinButton" id="spring_animation_stiffness">
-                                    <property name="valign">center</property>
-                                    <property name="numeric">True</property>
-                                    <property name="adjustment">
-                                      <object class="GtkAdjustment">
-                                        <property name="lower">0</property>
-                                        <property name="upper">1000</property>
-                                        <property name="value">100</property>
-                                        <property name="page-increment">10</property>
-                                        <property name="step-increment">1</property>
-                                      </object>
-                                    </property>
-                                    <signal name="value-changed" handler="notify_spring_params_change" swapped="yes"/>
+                                <property name="numeric">True</property>
+                                <property name="adjustment">
+                                  <object class="GtkAdjustment">
+                                    <property name="lower">0</property>
+                                    <property name="upper">1000</property>
+                                    <property name="value">100</property>
+                                    <property name="page-increment">10</property>
+                                    <property name="step-increment">1</property>
                                   </object>
-                                </child>
+                                </property>
+                                <signal name="notify::value" handler="notify_spring_params_change" swapped="yes"/>
                               </object>
                             </child>
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSpinRow" id="spring_animation_epsilon">
                                 <property name="title" translatable="yes">Epsilon</property>
-                                <child>
-                                  <object class="GtkSpinButton" id="spring_animation_epsilon">
-                                    <property name="valign">center</property>
-                                    <property name="numeric">True</property>
-                                    <property name="digits">5</property>
-                                    <property name="adjustment">
-                                      <object class="GtkAdjustment">
-                                        <property name="lower">0.0001</property>
-                                        <property name="upper">0.01</property>
-                                        <property name="value">0.001</property>
-                                        <property name="page-increment">0.001</property>
-                                        <property name="step-increment">0.001</property>
-                                      </object>
-                                    </property>
+                                <property name="numeric">True</property>
+                                <property name="digits">5</property>
+                                <property name="adjustment">
+                                  <object class="GtkAdjustment">
+                                    <property name="lower">0.0001</property>
+                                    <property name="upper">0.01</property>
+                                    <property name="value">0.001</property>
+                                    <property name="page-increment">0.001</property>
+                                    <property name="step-increment">0.001</property>
                                   </object>
-                                </child>
+                                </property>
                               </object>
                             </child>
                             <child>
