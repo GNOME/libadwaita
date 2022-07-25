@@ -217,7 +217,7 @@ pressed_cb (GtkGesture  *gesture,
     return;
   }
 
-  gtk_widget_grab_focus (GTK_WIDGET (priv->text));
+  gtk_text_grab_focus_without_selecting (GTK_TEXT (priv->text));
 
   gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
 }
