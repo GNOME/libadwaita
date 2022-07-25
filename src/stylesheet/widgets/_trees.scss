@@ -126,6 +126,10 @@ treeview.view > header > button {
   border-bottom: 1px solid $border_color;
 }
 
+treeview.navigation-sidebar {
+  padding: 0;
+}
+
 /********************************************************
  * Data Tables                                          *
  * treeview like tables with individual focusable cells *
