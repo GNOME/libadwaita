@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-04-22 21:43+0000\n"
-"PO-Revision-Date: 2022-04-24 09:01+0200\n"
+"POT-Creation-Date: 2022-07-25 04:13+0000\n"
+"PO-Revision-Date: 2022-07-25 18:08+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: \n"
 "Language: ka\n"
@@ -16,7 +16,237 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU Lesser General Public License Version 2"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU Lesser General Public License Version 3"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU Lesser General Public License Version 2.1"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU Lesser General Public License Version 3"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "BSD 2-Clause License"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "The MIT License (MIT)"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "ხელოვანების ლიცენზია"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU Lesser General Public License Version 2"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU Lesser General Public License Version 3"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU Lesser General Public License Version 2.1"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU Lesser General Public License Version 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Lesser General Public License Version 3"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU General Public License Version 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "BSD 3-Clause License"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Apache License, Version 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla Public License 2.0"
+
+#: src/adw-about-window.c:519
+msgid "Code by"
+msgstr "კოდის ავტორი"
+
+#: src/adw-about-window.c:520
+msgid "Design by"
+msgstr "დიზაინი"
+
+#: src/adw-about-window.c:521
+msgid "Artwork by"
+msgstr "დიზაინის ავტორი"
+
+#: src/adw-about-window.c:522
+msgid "Documentation by"
+msgstr "დოკუმენტაციის ავტორი"
+
+#: src/adw-about-window.c:523
+msgid "Translated by"
+msgstr "თარგმნა"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:550
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
+msgstr ""
+
+#: src/adw-about-window.c:628
+msgid "This Application"
+msgstr "ეს აპლიკაცია"
+
+#: src/adw-about-window.c:925
+#, c-format
+msgid "Version %s"
+msgstr "ვერისა %s"
+
+#: src/adw-about-window.c:951
+msgid "Unable to parse release notes:"
+msgstr ""
+
+#: src/adw-about-window.c:957
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "ხაზი: %d, სიმბოლო: %d"
+
+#: src/adw-about-window.c:1227
+msgid "Copied to clipboard"
+msgstr "დაკოპირდა გაცვლის ბაფერში"
+
+#: src/adw-about-window.c:1262
+msgid "Unable to save debugging information"
+msgstr "გამართვის ინფორმაციის შენახვის შეცდომა"
+
+#: src/adw-about-window.c:1267
+msgid "Close"
+msgstr "დახურვა"
+
+#: src/adw-about-window.c:1285
+msgid "Save debugging information"
+msgstr "გამართვის ინფორმაციის შენახვა"
+
+#: src/adw-about-window.c:1288
+msgid "_Save"
+msgstr "_შენახვა"
+
+#: src/adw-about-window.c:1289
+msgid "_Cancel"
+msgstr "_გაუქმება"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "შესახებ"
+
+#: src/adw-about-window.ui:160
+msgid "_What’s New"
+msgstr "_რა არის ახალი"
+
+#: src/adw-about-window.ui:179
+msgid "_Details"
+msgstr "_დეტალები"
+
+#: src/adw-about-window.ui:201 src/adw-about-window.ui:487
+msgid "_Website"
+msgstr "_ვებსაიტი"
+
+#: src/adw-about-window.ui:232
+msgid "_Support Questions"
+msgstr "მხარდაჭერის _კითხვები"
+
+#: src/adw-about-window.ui:254
+msgid "_Report an Issue"
+msgstr "_პრობლემის რეპორტი"
+
+#: src/adw-about-window.ui:275
+msgid "_Troubleshooting"
+msgstr "_პრობლემების გადაჭრა"
+
+#: src/adw-about-window.ui:306
+msgid "_Credits"
+msgstr "_კრედიტები"
+
+#: src/adw-about-window.ui:323
+msgid "_Legal"
+msgstr "_იურიდიული"
+
+#: src/adw-about-window.ui:340
+msgid "_Acknowledgements"
+msgstr "_სხვა გამოყენებული პროექტები"
+
+#: src/adw-about-window.ui:381
+msgid "What’s New"
+msgstr "რა არის ახალი"
+
+#: src/adw-about-window.ui:386 src/adw-about-window.ui:442
+#: src/adw-about-window.ui:531 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653 src/adw-about-window.ui:700
+#: src/adw-about-window.ui:747
+msgid "Back"
+msgstr "უკან"
+
+#: src/adw-about-window.ui:437
+msgid "Details"
+msgstr "დეტალები"
+
+#: src/adw-about-window.ui:526
+msgid "Troubleshooting"
+msgstr "პრობლემების გადაჭრა"
+
+#: src/adw-about-window.ui:555
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+
+#: src/adw-about-window.ui:566
+msgid "_Debugging Information"
+msgstr "_გამართვის ინფორმაცია"
+
+#: src/adw-about-window.ui:601
+msgid "Credits"
+msgstr "კრედიტები"
+
+#: src/adw-about-window.ui:648
+msgid "Legal"
+msgstr "იურიდიული"
+
+#: src/adw-about-window.ui:695
+msgid "Acknowledgements"
+msgstr "სხვა გამოყენებული პროექტები"
+
+#: src/adw-about-window.ui:742
+msgid "Debugging Information"
+msgstr "გამართვის ინფორმაცია"
+
+#: src/adw-about-window.ui:790
+msgid "_Copy Text"
+msgstr "ტექსტის _კოპირება"
+
+#: src/adw-about-window.ui:797
+msgid "_Save as…"
+msgstr "_შენახვა, როგორც…"
 
 #: src/adw-entry-row.ui:93
 msgid "Apply"
@@ -71,11 +301,11 @@ msgstr "ტექსტის დამალვა"
 msgid "Show Text"
 msgstr "ტექსტის ჩვენება"
 
-#: src/adw-password-entry-row.c:168
+#: src/adw-password-entry-row.c:169
 msgid "Caps Lock is on"
 msgstr "CapsLock ჩართულია"
 
-#: src/adw-password-entry-row.c:176
+#: src/adw-password-entry-row.c:177
 msgid "_Show Text"
 msgstr "ტექსტის ჩვენება"
 
