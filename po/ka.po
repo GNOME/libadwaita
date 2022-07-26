@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2022-07-25 04:13+0000\n"
-"PO-Revision-Date: 2022-07-25 18:08+0200\n"
+"PO-Revision-Date: 2022-07-26 08:20+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: \n"
 "Language: ka\n"
@@ -111,6 +111,8 @@ msgid ""
 "This application comes with absolutely no warranty. See the <a href=\"%s\">"
 "%s</a> for details."
 msgstr ""
+"პროგრამას ყოველგვარი გარანტიების გარეშე იღებთ. მეტი დეტალებისთვის იხილეთ <a "
+"href=\"%s\">%s</a>."
 
 #: src/adw-about-window.c:628
 msgid "This Application"
@@ -123,7 +125,7 @@ msgstr "ვერისა %s"
 
 #: src/adw-about-window.c:951
 msgid "Unable to parse release notes:"
-msgstr ""
+msgstr "რელიზის შენიშვნების დამუშავების შეცდომა:"
 
 #: src/adw-about-window.c:957
 #, c-format
@@ -219,6 +221,9 @@ msgid ""
 "Providing this information to the application developers can help diagnose "
 "any problems you encounter when you report an issue."
 msgstr ""
+"პრობლემის გადაწყვეტაში დასახმარებლად შეგიძლიათ გადახედოთ გამართვის "
+"ინფორმაციას. პროგრამისტებისთვის ამ ინფორმაციის გაგზავნით შეგიძლიათ "
+"ნებისმიერი პრობლემა გადაჭრათ."
 
 #: src/adw-about-window.ui:566
 msgid "_Debugging Information"
