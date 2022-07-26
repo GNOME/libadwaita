@@ -495,6 +495,24 @@ update_separators (AdwTabBox *self)
   }
 }
 
+/* Single tab style */
+
+static void
+update_single_tab_style (AdwTabBox *self)
+{
+  if (self->pinned)
+    return;
+
+  if (self->view &&
+      adw_tab_view_get_n_pages (self->view) <= 1 &&
+      adw_tab_view_get_n_pinned_pages (self->view) == 0 &&
+      self->expand_tabs &&
+      self->tab_resize_mode == TAB_RESIZE_NORMAL)
+    gtk_widget_add_css_class (GTK_WIDGET (self), "single-tab");
+  else
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "single-tab");
+}
+
 /* Tab resize delay */
 
 static void
@@ -566,6 +584,8 @@ set_tab_resize_mode (AdwTabBox     *self,
            (mode == TAB_RESIZE_NORMAL);
 
   self->tab_resize_mode = mode;
+
+  update_single_tab_style (self);
 
   if (notify)
     g_object_notify_by_pspec (G_OBJECT (self), props[PROP_RESIZE_FROZEN]);
@@ -3793,6 +3813,11 @@ adw_tab_box_set_view (AdwTabBox  *self,
     g_signal_connect_object (self->view, "page-reordered", G_CALLBACK (page_reordered_cb), self, G_CONNECT_SWAPPED);
 
     if (!self->pinned) {
+      g_signal_connect_object (self->view, "notify::n-pages", G_CALLBACK (update_single_tab_style), self, G_CONNECT_SWAPPED);
+      g_signal_connect_object (self->view, "notify::n-pinned-pages", G_CALLBACK (update_single_tab_style), self, G_CONNECT_SWAPPED);
+
+      update_single_tab_style (self);
+
       self->view_drop_target = GTK_EVENT_CONTROLLER (gtk_drop_target_new (ADW_TYPE_TAB_PAGE, GDK_ACTION_MOVE));
 
       g_signal_connect_object (self->view_drop_target, "drop", G_CALLBACK (view_drag_drop_cb), self, G_CONNECT_SWAPPED);
@@ -3936,6 +3961,8 @@ adw_tab_box_set_expand_tabs (AdwTabBox *self,
     return;
 
   self->expand_tabs = expand_tabs;
+
+  update_single_tab_style (self);
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
 }

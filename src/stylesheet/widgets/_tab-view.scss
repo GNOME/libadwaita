@@ -51,6 +51,16 @@ tabbar {
     &:active { background-color: $view_active_color; }
   }
 
+  tabbox.single-tab tab {
+    &, &:hover, &:active {
+      background: none;
+
+      @if $contrast == 'high' {
+        box-shadow: none;
+      }
+    }
+  }
+
   .start-action,
   .end-action {
     padding: 5px;
