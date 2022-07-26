@@ -99,4 +99,12 @@
   --success-color: oklab(from var(--success-bg-color) var(--standalone-color-oklab));
   --warning-color: oklab(from var(--warning-bg-color) var(--standalone-color-oklab));
   --error-color: oklab(from var(--error-bg-color) var(--standalone-color-oklab));
+
+  @if $variant == 'light' {
+    --active-toggle-bg-color: #ffffff;
+    --active-toggle-fg-color: rgb(0 0 0 / 80%);
+  } @else {
+    --active-toggle-bg-color: rgb(255 255 255 / 20%);
+    --active-toggle-fg-color: #ffffff;
+  }
 }

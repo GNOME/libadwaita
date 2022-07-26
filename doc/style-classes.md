@@ -119,6 +119,33 @@ It can be used in combination with [`.suggested-action`](#suggested-action),
 [`.destructive-action`](#destructive-action), [`.flat`](#flat),
 [`.raised`](#raised), [`.opaque`](#opaque) or [`.osd`](#overlay-buttons).
 
+# Toggle Groups
+
+The following style classes can be applied to [class@ToggleGroup] to change its
+appearance.
+
+## Flat
+
+<picture>
+  <source srcset="toggle-group-flat-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="toggle-group-flat.png" alt="toggle-group-flat">
+</picture>
+
+The `.flat` style class makes the group look like a series of flat buttons.
+
+It can be used in combination with [`.round`](#round).
+
+## Round
+
+<picture>
+  <source srcset="toggle-group-round-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="toggle-group-round.png" alt="toggle-group-round">
+</picture>
+
+The `.round` style class makes the group, as well as toggles inside it rounded.
+
+It can be used in combination with [`.flat`](#flat_1).
+
 # Linked Controls
 
 <picture>

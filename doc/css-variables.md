@@ -796,6 +796,36 @@ These colors are used for [class@TabOverview] thumbnails.
 
 Since: 1.3
 
+## Active Toggle Colors
+
+These colors are used for the active toggle in [class@ToggleGroup].
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th/>
+    <th>Light</th>
+    <th/>
+    <th>Dark</th>
+  </tr>
+  <tr>
+    <td><tt>--active-toggle-bg-color</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+    <td><div class="color-pill" style="background-color: rgb(255 255 255 / 20%)"/></td>
+    <td><tt>rgb(255 255 255 / 20%)</tt></td>
+  </tr>
+  <tr>
+    <td><tt>--active-toggle-fg-color</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgb(0 0 0 / 80%)"/></td>
+    <td><tt>rgb(0 0 0 / 80%)</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+  </tr>
+</table>
+
+Since: 1.7
+
 ## Dialog Colors
 
 These colors are used for [class@AlertDialog].

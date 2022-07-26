@@ -40,6 +40,15 @@ Slug: widget-gallery
   <img src="avatar.png" alt="avatar">
 </picture>](class.Avatar.html)
 
+# Controls
+
+## Toggle Group
+
+[<picture>
+  <source srcset="toggle-group-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="toggle-group.png" alt="toggle-group">
+</picture>](class.ToggleGroup.html)
+
 # Dialogs
 
 ## Dialog

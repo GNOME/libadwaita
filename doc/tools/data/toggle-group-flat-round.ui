@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkBox" id="widget">
+    <property name="spacing">6</property>
+    <property name="orientation">horizontal</property>
+    <child>
+      <object class="AdwToggleGroup">
+        <style>
+          <class name="flat"/>
+          <class name="round"/>
+        </style>
+        <child>
+          <object class="AdwToggle">
+            <property name="label" translatable="yes">Toggle</property>
+            <property name="name">toggle-1</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwToggle">
+            <property name="label" translatable="yes">Toggle</property>
+            <property name="name">toggle-2</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwToggle">
+            <property name="label" translatable="yes">Toggle</property>
+            <property name="name">toggle-3</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwToggleGroup">
+        <style>
+          <class name="flat"/>
+          <class name="round"/>
+        </style>
+        <child>
+          <object class="AdwToggle">
+            <property name="icon-name">camera-photo-symbolic</property>
+            <property name="tooltip" translatable="yes">Picture Mode</property>
+            <property name="name">picture</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwToggle">
+            <property name="icon-name">camera-video-symbolic</property>
+            <property name="tooltip" translatable="yes">Recording Mode</property>
+            <property name="name">recording</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
