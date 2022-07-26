@@ -102,7 +102,7 @@ struct _AdwTabBox
   GList *tabs;
   int n_tabs;
 
-  GtkPopover *context_menu;
+  GtkWidget *context_menu;
 
   int allocated_width;
   int last_width;
@@ -2770,7 +2770,7 @@ reset_setup_menu_cb (AdwTabBox *self)
 static void
 touch_menu_notify_visible_cb (AdwTabBox *self)
 {
-  if (!self->context_menu || gtk_widget_get_visible (GTK_WIDGET (self->context_menu)))
+  if (!self->context_menu || gtk_widget_get_visible (self->context_menu))
     return;
 
   self->hovering = FALSE;
@@ -2794,15 +2794,15 @@ do_popup (AdwTabBox *self,
   g_signal_emit_by_name (self->view, "setup-menu", info->page);
 
   if (!self->context_menu) {
-    self->context_menu = GTK_POPOVER (gtk_popover_menu_new_from_model (model));
-    gtk_widget_set_parent (GTK_WIDGET (self->context_menu), GTK_WIDGET (self));
-    gtk_popover_set_position (self->context_menu, GTK_POS_BOTTOM);
-    gtk_popover_set_has_arrow (self->context_menu, FALSE);
+    self->context_menu = gtk_popover_menu_new_from_model (model);
+    gtk_widget_set_parent (self->context_menu, GTK_WIDGET (self));
+    gtk_popover_set_position (GTK_POPOVER (self->context_menu), GTK_POS_BOTTOM);
+    gtk_popover_set_has_arrow (GTK_POPOVER (self->context_menu), FALSE);
 
     if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
-      gtk_widget_set_halign (GTK_WIDGET (self->context_menu), GTK_ALIGN_END);
+      gtk_widget_set_halign (self->context_menu, GTK_ALIGN_END);
     else
-      gtk_widget_set_halign (GTK_WIDGET (self->context_menu), GTK_ALIGN_START);
+      gtk_widget_set_halign (self->context_menu, GTK_ALIGN_START);
 
     g_signal_connect_object (self->context_menu, "notify::visible",
                              G_CALLBACK (touch_menu_notify_visible_cb), self,
@@ -2824,9 +2824,9 @@ do_popup (AdwTabBox *self,
   rect.width = 0;
   rect.height = 0;
 
-  gtk_popover_set_pointing_to (self->context_menu, &rect);
+  gtk_popover_set_pointing_to (GTK_POPOVER (self->context_menu), &rect);
 
-  gtk_popover_popup (self->context_menu);
+  gtk_popover_popup (GTK_POPOVER (self->context_menu));
 }
 
 static void
@@ -3119,7 +3119,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
   value = gtk_adjustment_get_value (self->adjustment);
 
   if (self->context_menu)
-    gtk_popover_present (self->context_menu);
+    gtk_popover_present (GTK_POPOVER (self->context_menu));
 
   if (!self->n_tabs)
     return;
@@ -3427,7 +3427,7 @@ adw_tab_box_unrealize (GtkWidget *widget)
 {
   AdwTabBox *self = ADW_TAB_BOX (widget);
 
-  g_clear_pointer ((GtkWidget **) &self->context_menu, gtk_widget_unparent);
+  g_clear_pointer (&self->context_menu, gtk_widget_unparent);
 
   GTK_WIDGET_CLASS (adw_tab_box_parent_class)->unrealize (widget);
 
@@ -3473,9 +3473,9 @@ adw_tab_box_direction_changed (GtkWidget        *widget,
 
   if (self->context_menu) {
     if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
-      gtk_widget_set_halign (GTK_WIDGET (self->context_menu), GTK_ALIGN_END);
+      gtk_widget_set_halign (self->context_menu, GTK_ALIGN_END);
     else
-      gtk_widget_set_halign (GTK_WIDGET (self->context_menu), GTK_ALIGN_START);
+      gtk_widget_set_halign (self->context_menu, GTK_ALIGN_START);
   }
 }
 
