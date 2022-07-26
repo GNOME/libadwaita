@@ -154,7 +154,7 @@ struct _AdwTabView
 {
   GtkWidget parent_instance;
 
-  GtkStack *stack;
+  GtkWidget *stack;
   GListStore *children;
 
   int n_pages;
@@ -782,7 +782,7 @@ page_belongs_to_this_view (AdwTabView *self,
   if (!page)
     return FALSE;
 
-  return gtk_widget_get_parent (page->child) == GTK_WIDGET (self->stack);
+  return gtk_widget_get_parent (page->child) == self->stack;
 }
 
 static inline gboolean
@@ -805,7 +805,7 @@ attach_page (AdwTabView *self,
 
   g_list_store_insert (self->children, position, page);
 
-  gtk_stack_add_child (self->stack, child);
+  gtk_stack_add_child (GTK_STACK (self->stack), child);
 
   g_object_freeze_notify (G_OBJECT (self));
 
@@ -848,7 +848,7 @@ set_selected_page (AdwTabView *self,
     if (notify_pages && self->pages)
       new_position = adw_tab_view_get_page_position (self, self->selected_page);
 
-    gtk_stack_set_visible_child (self->stack,
+    gtk_stack_set_visible_child (GTK_STACK (self->stack),
                                  adw_tab_page_get_child (selected_page));
     set_page_selected (self->selected_page, TRUE);
   }
@@ -941,7 +941,7 @@ detach_page (AdwTabView *self,
 
   g_object_thaw_notify (G_OBJECT (self));
 
-  gtk_stack_remove (self->stack, child);
+  gtk_stack_remove (GTK_STACK (self->stack), child);
 
   g_signal_emit (self, signals[SIGNAL_PAGE_DETACHED], 0, page, pos);
 
@@ -1266,7 +1266,7 @@ adw_tab_view_dispose (GObject *object)
 
   g_clear_object (&self->children);
 
-  g_clear_pointer ((GtkWidget **) &self->stack, gtk_widget_unparent);
+  g_clear_pointer (&self->stack, gtk_widget_unparent);
 
   G_OBJECT_CLASS (adw_tab_view_parent_class)->dispose (object);
 }
@@ -1712,9 +1712,9 @@ adw_tab_view_init (AdwTabView *self)
   self->default_icon = G_ICON (g_themed_icon_new ("adw-tab-icon-missing-symbolic"));
   self->shortcuts = ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS;
 
-  self->stack = GTK_STACK (gtk_stack_new ());
-  gtk_widget_show (GTK_WIDGET (self->stack));
-  gtk_widget_set_parent (GTK_WIDGET (self->stack), GTK_WIDGET (self));
+  self->stack = gtk_stack_new ();
+  gtk_widget_show (self->stack);
+  gtk_widget_set_parent (self->stack, GTK_WIDGET (self));
 
   g_object_bind_property (self, "is-transferring-page",
                           self->stack, "can-target",
@@ -2635,7 +2635,7 @@ adw_tab_view_get_page (AdwTabView *self,
 
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
-  g_return_val_if_fail (gtk_widget_get_parent (child) == GTK_WIDGET (self->stack), NULL);
+  g_return_val_if_fail (gtk_widget_get_parent (child) == self->stack, NULL);
 
   for (i = 0; i < self->n_pages; i++) {
     AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
