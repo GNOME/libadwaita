@@ -33,6 +33,13 @@ Slug: widget-gallery
   <img src="avatar.png" alt="avatar">
 </picture>](class.Avatar.html)
 
+### ToggleGroup
+
+[<picture>
+  <source srcset="toggle-group-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="toggle-group.png" alt="toggle-group">
+</picture>](class.ToggleGroup.html)
+
 ## Dialogs
 
 ### Message Dialog

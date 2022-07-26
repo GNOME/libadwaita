@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwToggleGroup" id="widget">
+    <property name="margin-top">6</property>
+    <property name="margin-bottom">6</property>
+    <property name="margin-start">6</property>
+    <property name="margin-end">6</property>
+    <toggles>
+      <toggle id="auto">Auto</toggle>
+      <toggle id="light">Light</toggle>
+      <toggle id="dark">Dark</toggle>
+    </toggles>
+  </object>
+</interface>

@@ -72,6 +72,7 @@ G_BEGIN_DECLS
 #include "adw-timed-animation.h"
 #include "adw-toast-overlay.h"
 #include "adw-toast.h"
+#include "adw-toggle-group.h"
 #include "adw-toolbar-view.h"
 #include "adw-view-stack.h"
 #include "adw-view-switcher.h"

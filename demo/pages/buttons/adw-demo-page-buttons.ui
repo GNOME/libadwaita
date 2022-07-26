@@ -27,6 +27,7 @@
             <property name="child">
               <object class="GtkBox">
                 <property name="orientation">vertical</property>
+                <property name="spacing">24</property>
                 <child>
                   <object class="GtkGrid">
                     <property name="halign">center</property>
@@ -117,6 +118,39 @@
                         </layout>
                       </object>
                     </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwPreferencesGroup">
+                    <property name="title" translatable="yes">Toggle Groups</property>
+                    <child>
+                      <object class="AdwComboRow">
+                        <property name="title" translatable="yes">Display Mode</property>
+                        <property name="selected" bind-source="toggle_group" bind-property="display-mode" bind-flags="bidirectional|sync-create"/>
+                        <property name="model">
+                          <object class="AdwEnumListModel">
+                            <property name="enum-type">AdwToggleDisplayMode</property>
+                          </object>
+                        </property>
+                        <property name="expression">
+                          <lookup type="AdwEnumListItem" name="nick"/>
+                          <closure type="gchararray" function="get_display_mode_name"/>
+                        </property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwToggleGroup" id="toggle_group">
+                    <property name="display-mode">both</property>
+                    <property name="halign">center</property>
+                    <property name="active">first</property>
+                    <toggles>
+                      <toggle id="first" use-underline="yes" icon-name="view-grid-symbolic" translatable="yes">_First</toggle>
+                      <toggle id="second" icon-name="view-grid-symbolic" translatable="yes">Second</toggle>
+                      <toggle id="third" icon-name="view-grid-symbolic" translatable="yes">Third</toggle>
+                      <toggle id="fourth" icon-name="view-grid-symbolic" translatable="yes">Fourth</toggle>
+                    </toggles>
                   </object>
                 </child>
               </object>

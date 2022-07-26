@@ -70,6 +70,7 @@ test_names = [
   'test-timed-animation',
   'test-toast',
   'test-toast-overlay',
+  'test-toggle-group',
   'test-toolbar-view',
   'test-view-switcher',
   'test-view-switcher-bar',

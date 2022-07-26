@@ -218,6 +218,8 @@ content_images = [
   "images/toast-simple-dark.png",
   "images/toast-undo.png",
   "images/toast-undo-dark.png",
+  "images/toggle-group.png",
+  "images/toggle-group-dark.png",
   "images/toolbar.png",
   "images/toolbar-dark.png",
   "images/toolbar-flat.png",

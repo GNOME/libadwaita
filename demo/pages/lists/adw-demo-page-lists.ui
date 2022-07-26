@@ -35,6 +35,20 @@
                         </child>
                       </object>
                     </child>
+                    <child>
+                      <object class="AdwActionRow">
+                        <property name="title" translatable="yes">Inline Options</property>
+                        <child>
+                          <object class="AdwToggleGroup">
+                            <property name="valign">center</property>
+                            <toggles>
+                              <toggle id="one" translatable="yes">One</toggle>
+                              <toggle id="two" translatable="yes">Two</toggle>
+                            </toggles>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                 </child>
                 <child>
