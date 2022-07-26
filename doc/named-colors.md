@@ -298,8 +298,8 @@ well as with the [`.view`](style-classes.html#view) style class.
   </tr>
   <tr>
     <td><tt>&#64;view_fg_color</tt></td>
-    <td><div class="color-pill dark" style="background-color: #000000"/></td>
-    <td><tt>#000000</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
