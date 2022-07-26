@@ -265,6 +265,16 @@ parent_unrealize_cb (AdwMessageDialog *self)
 }
 
 static void
+parent_window_notify_cb (AdwMessageDialog *self)
+{
+  AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
+
+  priv->parent_window = NULL;
+  priv->parent_width = -1;
+  priv->parent_height = -1;
+}
+
+static void
 set_parent (AdwMessageDialog *self,
             GtkWindow        *parent)
 {
@@ -283,11 +293,19 @@ set_parent (AdwMessageDialog *self,
 
     if (gtk_widget_get_realized (GTK_WIDGET (priv->parent_window)))
       parent_unrealize_cb (self);
+
+    g_object_weak_unref (G_OBJECT (priv->parent_window),
+                         (GWeakNotify) parent_window_notify_cb,
+                         self);
   }
 
   priv->parent_window = parent;
 
   if (priv->parent_window) {
+    g_object_weak_ref (G_OBJECT (priv->parent_window),
+                       (GWeakNotify) parent_window_notify_cb,
+                       self);
+
     if (gtk_widget_get_realized (GTK_WIDGET (priv->parent_window)))
       parent_realize_cb (self);
 
