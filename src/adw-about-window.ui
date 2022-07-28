@@ -23,13 +23,6 @@
                   <object class="GtkStack" id="headerbar_stack">
                     <property name="transition-type">crossfade</property>
                     <property name="transition-duration">150</property>
-                    <binding name="visible-child-name">
-                      <closure function="get_headerbar_name" type="gchararray">
-                        <lookup name="value" type="GtkAdjustment">
-                          <lookup name="vadjustment">main_scrolled_window</lookup>
-                        </lookup>
-                      </closure>
-                    </binding>
                     <child>
                       <object class="GtkStackPage">
                         <property name="name">top</property>
@@ -73,70 +66,46 @@
                             <property name="orientation">vertical</property>
                             <property name="vexpand">True</property>
                             <child>
-                              <object class="GtkImage">
-                                <binding name="visible">
-                                  <closure function="string_is_not_empty" type="gboolean">
-                                    <lookup name="application-icon">AdwAboutWindow</lookup>
-                                  </closure>
-                                </binding>
-                                <binding name="icon-name">
-                                  <lookup name="application-icon">AdwAboutWindow</lookup>
-                                </binding>
+                              <object class="GtkImage" id="app_icon_image">
+                                <property name="visible">False</property>
                                 <property name="pixel-size">128</property>
+                                <property name="icon-name" bind-source="AdwAboutWindow" bind-property="application-icon" bind-flags="sync-create"/>
                                 <style>
                                   <class name="icon-dropshadow"/>
                                 </style>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="GtkLabel" id="app_name_label">
+                                <property name="visible">False</property>
                                 <property name="wrap">True</property>
                                 <property name="justify">center</property>
-                                <binding name="visible">
-                                  <closure function="string_is_not_empty" type="gboolean">
-                                    <lookup name="application-name">AdwAboutWindow</lookup>
-                                  </closure>
-                                </binding>
-                                <binding name="label">
-                                  <lookup name="application-name">AdwAboutWindow</lookup>
-                                </binding>
+                                <property name="label" bind-source="AdwAboutWindow" bind-property="application-name" bind-flags="sync-create"/>
                                 <style>
                                   <class name="title-1"/>
                                 </style>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="GtkLabel" id="developer_name_label">
+                                <property name="visible">False</property>
                                 <property name="wrap">True</property>
                                 <property name="justify">center</property>
-                                <binding name="visible">
-                                  <closure function="string_is_not_empty" type="gboolean">
-                                    <lookup name="developer-name">AdwAboutWindow</lookup>
-                                  </closure>
-                                </binding>
-                                <binding name="label">
-                                  <lookup name="developer-name">AdwAboutWindow</lookup>
-                                </binding>
+                                <property name="label" bind-source="AdwAboutWindow" bind-property="developer-name" bind-flags="sync-create"/>
                               </object>
                             </child>
                             <child>
-                              <object class="GtkButton">
+                              <object class="GtkButton" id="version_button">
+                                <property name="visible">False</property>
                                 <property name="halign">center</property>
                                 <property name="action-name">about.copy-property</property>
                                 <property name="action-target">"version"</property>
                                 <property name="child">
                                   <object class="GtkLabel">
                                     <property name="ellipsize">end</property>
-                                    <binding name="label">
-                                      <lookup name="version">AdwAboutWindow</lookup>
-                                    </binding>
+                                    <property name="label" bind-source="AdwAboutWindow" bind-property="version" bind-flags="sync-create"/>
                                   </object>
                                 </property>
-                                <binding name="visible">
-                                  <closure function="string_is_not_empty" type="gboolean">
-                                    <lookup name="version">AdwAboutWindow</lookup>
-                                  </closure>
-                                </binding>
                                 <style>
                                   <class name="app-version"/>
                                 </style>
@@ -146,27 +115,16 @@
                               <object class="GtkBox">
                                 <property name="orientation">vertical</property>
                                 <child>
-                                  <object class="AdwPreferencesGroup">
-                                    <binding name="visible">
-                                      <closure function="boolean_or" type="gboolean">
-                                        <constant type="gint">3</constant>
-                                        <lookup name="visible">whats_new_row</lookup>
-                                        <lookup name="visible">details_row</lookup>
-                                        <lookup name="visible">website_row</lookup>
-                                      </closure>
-                                    </binding>
+                                  <object class="AdwPreferencesGroup" id="details_group">
+                                    <property name="visible">False</property>
                                     <child>
                                       <object class="AdwActionRow" id="whats_new_row">
+                                        <property name="visible">False</property>
                                         <property name="title" translatable="yes">_What’s New</property>
                                         <property name="use-underline">True</property>
                                         <property name="activatable">True</property>
                                         <property name="action-name">about.subpage</property>
                                         <property name="action-target">"whatsnew"</property>
-                                        <binding name="visible">
-                                          <closure function="string_is_not_empty" type="gboolean">
-                                            <lookup name="text">release_notes_buffer</lookup>
-                                          </closure>
-                                        </binding>
                                         <child>
                                           <object class="GtkImage">
                                             <property name="icon-name">go-next-symbolic</property>
@@ -176,18 +134,12 @@
                                     </child>
                                     <child>
                                       <object class="AdwActionRow" id="details_row">
+                                        <property name="visible">False</property>
                                         <property name="title" translatable="yes">_Details</property>
                                         <property name="use-underline">True</property>
                                         <property name="activatable">True</property>
                                         <property name="action-name">about.subpage</property>
                                         <property name="action-target">"details"</property>
-                                        <binding name="visible">
-                                          <closure function="boolean_or" type="gboolean">
-                                            <constant type="gint">2</constant>
-                                            <lookup name="visible">comments</lookup>
-                                            <lookup name="visible">links_group</lookup>
-                                          </closure>
-                                        </binding>
                                         <child>
                                           <object class="GtkImage">
                                             <property name="icon-name">go-next-symbolic</property>
@@ -203,9 +155,7 @@
                                         <property name="activatable">True</property>
                                         <property name="action-name">about.show-url-property</property>
                                         <property name="action-target">"website"</property>
-                                        <binding name="tooltip-text">
-                                          <lookup name="website">AdwAboutWindow</lookup>
-                                        </binding>
+                                        <property name="tooltip-text" bind-source="AdwAboutWindow" bind-property="website" bind-flags="sync-create"/>
                                         <child>
                                           <object class="GtkImage">
                                             <property name="icon-name">adw-external-link-symbolic</property>
@@ -217,30 +167,17 @@
                                 </child>
 
                                 <child>
-                                  <object class="AdwPreferencesGroup">
-                                    <binding name="visible">
-                                      <closure function="boolean_or" type="gboolean">
-                                        <constant type="gint">3</constant>
-                                        <lookup name="visible">support_row</lookup>
-                                        <lookup name="visible">issue_row</lookup>
-                                        <lookup name="visible">troubleshooting_row</lookup>
-                                      </closure>
-                                    </binding>
+                                  <object class="AdwPreferencesGroup" id="support_group">
+                                    <property name="visible">False</property>
                                     <child>
                                       <object class="AdwActionRow" id="support_row">
+                                        <property name="visible">False</property>
                                         <property name="activatable">True</property>
                                         <property name="title" translatable="yes">_Support Questions</property>
                                         <property name="use-underline">True</property>
                                         <property name="action-name">about.show-url-property</property>
                                         <property name="action-target">"support-url"</property>
-                                        <binding name="tooltip-text">
-                                          <lookup name="support-url">AdwAboutWindow</lookup>
-                                        </binding>
-                                        <binding name="visible">
-                                          <closure function="string_is_not_empty" type="gboolean">
-                                            <lookup name="support-url">AdwAboutWindow</lookup>
-                                          </closure>
-                                        </binding>
+                                        <property name="tooltip-text" bind-source="AdwAboutWindow" bind-property="support-url" bind-flags="sync-create"/>
                                         <child>
                                           <object class="GtkImage">
                                             <property name="icon-name">adw-external-link-symbolic</property>
@@ -250,19 +187,13 @@
                                     </child>
                                     <child>
                                       <object class="AdwActionRow" id="issue_row">
+                                        <property name="visible">False</property>
                                         <property name="activatable">True</property>
                                         <property name="title" translatable="yes">_Report an Issue</property>
                                         <property name="use-underline">True</property>
                                         <property name="action-name">about.show-url-property</property>
                                         <property name="action-target">"issue-url"</property>
-                                        <binding name="tooltip-text">
-                                          <lookup name="issue-url">AdwAboutWindow</lookup>
-                                        </binding>
-                                        <binding name="visible">
-                                          <closure function="string_is_not_empty" type="gboolean">
-                                            <lookup name="issue-url">AdwAboutWindow</lookup>
-                                          </closure>
-                                        </binding>
+                                        <property name="tooltip-text" bind-source="AdwAboutWindow" bind-property="issue-url" bind-flags="sync-create"/>
                                         <child>
                                           <object class="GtkImage">
                                             <property name="icon-name">adw-external-link-symbolic</property>
@@ -272,16 +203,12 @@
                                     </child>
                                     <child>
                                       <object class="AdwActionRow" id="troubleshooting_row">
+                                        <property name="visible">False</property>
                                         <property name="title" translatable="yes">_Troubleshooting</property>
                                         <property name="use-underline">True</property>
                                         <property name="activatable">True</property>
                                         <property name="action-name">about.subpage</property>
                                         <property name="action-target">"troubleshooting"</property>
-                                        <binding name="visible">
-                                          <closure function="string_is_not_empty" type="gboolean">
-                                            <lookup name="debug-info">AdwAboutWindow</lookup>
-                                          </closure>
-                                        </binding>
                                         <child>
                                           <object class="GtkImage">
                                             <property name="icon-name">go-next-symbolic</property>
@@ -292,15 +219,8 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="AdwPreferencesGroup">
-                                    <binding name="visible">
-                                      <closure function="boolean_or" type="gboolean">
-                                        <constant type="gint">3</constant>
-                                        <lookup name="visible">credits_box</lookup>
-                                        <lookup name="visible">legal_box</lookup>
-                                        <lookup name="visible">acknowledgements_box</lookup>
-                                      </closure>
-                                    </binding>
+                                  <object class="AdwPreferencesGroup" id="credits_legal_group">
+                                    <property name="visible">False</property>
                                     <child>
                                       <object class="AdwActionRow">
                                         <property name="title" translatable="yes">_Credits</property>
@@ -308,9 +228,7 @@
                                         <property name="activatable">True</property>
                                         <property name="action-name">about.subpage</property>
                                         <property name="action-target">"credits"</property>
-                                        <binding name="visible">
-                                          <lookup name="visible">credits_box</lookup>
-                                        </binding>
+                                        <property name="visible" bind-source="credits_box" bind-property="visible" bind-flags="sync-create"/>
                                         <child>
                                           <object class="GtkImage">
                                             <property name="icon-name">go-next-symbolic</property>
@@ -325,9 +243,7 @@
                                         <property name="activatable">True</property>
                                         <property name="action-name">about.subpage</property>
                                         <property name="action-target">"legal"</property>
-                                        <binding name="visible">
-                                          <lookup name="visible">legal_box</lookup>
-                                        </binding>
+                                        <property name="visible" bind-source="legal_box" bind-property="visible" bind-flags="sync-create"/>
                                         <child>
                                           <object class="GtkImage">
                                             <property name="icon-name">go-next-symbolic</property>
@@ -342,9 +258,7 @@
                                         <property name="activatable">True</property>
                                         <property name="action-name">about.subpage</property>
                                         <property name="action-target">"acknowledgements"</property>
-                                        <binding name="visible">
-                                          <lookup name="visible">acknowledgements_box</lookup>
-                                        </binding>
+                                        <property name="visible" bind-source="acknowledgements_box" bind-property="visible" bind-flags="sync-create"/>
                                         <child>
                                           <object class="GtkImage">
                                             <property name="icon-name">go-next-symbolic</property>
@@ -459,20 +373,14 @@
                                   <object class="GtkBox">
                                     <property name="orientation">vertical</property>
                                     <child>
-                                      <object class="GtkLabel" id="comments">
+                                      <object class="GtkLabel" id="comments_label">
+                                        <property name="visible">False</property>
                                         <property name="use-markup">True</property>
                                         <property name="wrap">True</property>
                                         <property name="wrap-mode">word-char</property>
                                         <property name="xalign">0</property>
-                                        <binding name="label">
-                                          <lookup name="comments">AdwAboutWindow</lookup>
-                                        </binding>
+                                        <property name="label" bind-source="AdwAboutWindow" bind-property="comments" bind-flags="sync-create"/>
                                         <signal name="activate-link" handler="activate_link_cb" swapped="yes"/>
-                                        <binding name="visible">
-                                          <closure function="string_is_not_empty" type="gboolean">
-                                            <lookup name="comments">AdwAboutWindow</lookup>
-                                          </closure>
-                                        </binding>
                                         <style>
                                           <class name="body"/>
                                         </style>
@@ -489,9 +397,7 @@
                                             <property name="activatable">True</property>
                                             <property name="action-name">about.show-url-property</property>
                                             <property name="action-target">"website"</property>
-                                            <binding name="tooltip-text">
-                                              <lookup name="website">AdwAboutWindow</lookup>
-                                            </binding>
+                                            <property name="tooltip-text" bind-source="AdwAboutWindow" bind-property="website" bind-flags="sync-create"/>
                                             <child>
                                               <object class="GtkImage">
                                                 <property name="icon-name">adw-external-link-symbolic</property>

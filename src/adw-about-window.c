@@ -240,14 +240,33 @@ struct _AdwAboutWindow {
   GtkWidget *leaflet;
   GtkWidget *subpage_stack;
   GtkWidget *toast_overlay;
+  GtkWidget *main_scrolled_window;
+  GtkWidget *headerbar_stack;
+
+  GtkWidget *app_icon_image;
+  GtkWidget *app_name_label;
+  GtkWidget *developer_name_label;
+  GtkWidget *version_button;
+
+  GtkWidget *details_group;
+  GtkWidget *whats_new_row;
+  GtkWidget *comments_label;
   GtkWidget *website_row;
   GtkWidget *links_group;
   GtkWidget *details_website_row;
+  GtkWidget *details_row;
+  GtkTextBuffer *release_notes_buffer;
+
+  GtkWidget *support_group;
+  GtkWidget *support_row;
+  GtkWidget *issue_row;
+  GtkWidget *troubleshooting_row;
+  GtkWidget *debug_info_page;
+
+  GtkWidget *credits_legal_group;
   GtkWidget *credits_box;
   GtkWidget *legal_box;
   GtkWidget *acknowledgements_box;
-  GtkWidget *debug_info_page;
-  GtkTextBuffer *release_notes_buffer;
 
   char *application_icon;
   char *application_name;
@@ -326,39 +345,18 @@ free_legal_section (LegalSection *section)
   g_free (section);
 }
 
-static gboolean
-boolean_or (AdwAboutWindow *self,
-            int             number,
-            ...)
+static void
+update_headerbar_cb (AdwAboutWindow *self)
 {
-  va_list args;
+  GtkAdjustment *adj;
+  double value;
+  const char *name;
 
-  va_start (args, number);
+  adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (self->main_scrolled_window));
+  value = gtk_adjustment_get_value (adj);
+  name = g_strdup (value > 0 ? "regular" : "top");
 
-  for (gsize i = 0; i < number; i++)
-    if (va_arg (args, gboolean)) {
-      va_end (args);
-
-      return TRUE;
-    }
-
-  va_end (args);
-
-  return FALSE;
-}
-
-static gboolean
-string_is_not_empty (AdwAboutWindow *self,
-                     const char     *string)
-{
-  return string && string[0];
-}
-
-static char *
-get_headerbar_name (AdwAboutWindow *self,
-                    double          value)
-{
-  return g_strdup (value > 0 ? "regular" : "top");
+  gtk_stack_set_visible_child_name (GTK_STACK (self->headerbar_stack), name);
 }
 
 static inline void
@@ -386,6 +384,15 @@ activate_link_default_cb (AdwAboutWindow *self,
   gtk_show_uri (GTK_WINDOW (self), uri, GDK_CURRENT_TIME);
 
   return GDK_EVENT_STOP;
+}
+
+static void
+update_credits_legal_group (AdwAboutWindow *self)
+{
+  gtk_widget_set_visible (self->credits_legal_group,
+                          gtk_widget_get_visible (self->credits_box) ||
+                          gtk_widget_get_visible (self->legal_box) ||
+                          gtk_widget_get_visible (self->acknowledgements_box));
 }
 
 /* Adapted from text_buffer_new() in gtkaboutdialog.c */
@@ -532,6 +539,8 @@ update_credits (AdwAboutWindow *self)
 
   gtk_widget_set_visible (self->credits_box,
                           !!gtk_widget_get_first_child (self->credits_box));
+
+  update_credits_legal_group (self);
 }
 
 static char *
@@ -639,6 +648,8 @@ update_legal (AdwAboutWindow *self)
 
   gtk_widget_set_visible (self->legal_box,
                           !!gtk_widget_get_first_child (self->legal_box));
+
+  update_credits_legal_group (self);
 }
 
 typedef enum {
@@ -910,8 +921,11 @@ update_release_notes (AdwAboutWindow *self)
 
   gtk_text_buffer_set_text (self->release_notes_buffer, "", -1);
 
-  if (!self->release_notes || !*self->release_notes)
+  if (!self->release_notes || !*self->release_notes) {
+    gtk_widget_hide (self->whats_new_row);
+
     return;
+  }
 
   pdata.buffer = self->release_notes_buffer;
   gtk_text_buffer_get_start_iter (self->release_notes_buffer, &pdata.iter);
@@ -961,6 +975,8 @@ update_release_notes (AdwAboutWindow *self)
     g_error_free (error);
     g_free (position);
 
+    gtk_widget_show (self->whats_new_row);
+
     return;
   }
 
@@ -970,20 +986,41 @@ update_release_notes (AdwAboutWindow *self)
   gtk_text_buffer_delete (self->release_notes_buffer, &pdata.iter, &end_iter);
 
   g_markup_parse_context_free (context);
+
+  gtk_widget_show (self->whats_new_row);
 }
 
 static void
-update_links (AdwAboutWindow *self)
+update_details (AdwAboutWindow *self)
 {
   gboolean has_website = self->website && *self->website;
   gboolean has_comments = self->comments && *self->comments;
+  gboolean has_release_notes = gtk_widget_get_visible (self->whats_new_row);
   gboolean show_details = has_comments || self->has_custom_links;
+  gboolean show_links = (has_website && has_comments) || self->has_custom_links;
 
+  gtk_widget_set_visible (self->comments_label, has_comments);
   gtk_widget_set_visible (self->website_row, has_website && !show_details);
-
   gtk_widget_set_visible (self->details_website_row, has_website && show_details);
-  gtk_widget_set_visible (self->links_group,
-                          (has_website && has_comments) || self->has_custom_links);
+  gtk_widget_set_visible (self->links_group, show_links);
+  gtk_widget_set_visible (self->details_row, has_comments || show_links);
+  gtk_widget_set_visible (self->details_group,
+                          has_website || has_comments ||
+                          show_links || has_release_notes);
+}
+
+static void
+update_support (AdwAboutWindow *self)
+{
+  gboolean has_support_url = self->support_url && *self->support_url;
+  gboolean has_issue_url = self->issue_url && *self->issue_url;
+  gboolean has_debug_info = self->debug_info && *self->debug_info;
+
+  gtk_widget_set_visible (self->support_row, has_support_url);
+  gtk_widget_set_visible (self->issue_row, has_issue_url);
+  gtk_widget_set_visible (self->troubleshooting_row, has_debug_info);
+  gtk_widget_set_visible (self->support_group,
+                          has_support_url || has_issue_url || has_debug_info);
 }
 
 static void
@@ -1809,18 +1846,34 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, leaflet);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, subpage_stack);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, toast_overlay);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, main_scrolled_window);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, headerbar_stack);
+
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, app_icon_image);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, app_name_label);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, developer_name_label);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, version_button);
+
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, details_group);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, whats_new_row);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, comments_label);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, website_row);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, links_group);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, details_website_row);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, details_row);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, release_notes_buffer);
+
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, support_group);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, support_row);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, issue_row);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, troubleshooting_row);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, debug_info_page);
+
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, credits_legal_group);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, credits_box);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, legal_box);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, acknowledgements_box);
-  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, debug_info_page);
-  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, release_notes_buffer);
 
-  gtk_widget_class_bind_template_callback (widget_class, boolean_or);
-  gtk_widget_class_bind_template_callback (widget_class, string_is_not_empty);
-  gtk_widget_class_bind_template_callback (widget_class, get_headerbar_name);
   gtk_widget_class_bind_template_callback (widget_class, activate_link_cb);
 
   gtk_widget_class_install_action (widget_class, "about.back", NULL,
@@ -1846,6 +1899,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
 static void
 adw_about_window_init (AdwAboutWindow *self)
 {
+  GtkAdjustment *adj;
   self->application_icon = g_strdup ("");
   self->application_name = g_strdup ("");
   self->developer_name = g_strdup ("");
@@ -1880,6 +1934,10 @@ adw_about_window_init (AdwAboutWindow *self)
   gtk_text_buffer_create_tag (self->release_notes_buffer, "heading",
                               "weight", PANGO_WEIGHT_BOLD,
                               NULL);
+
+  adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (self->main_scrolled_window));
+
+  g_signal_connect_swapped (adj, "value-changed", G_CALLBACK (update_headerbar_cb), self);
 }
 
 /**
@@ -1939,6 +1997,9 @@ adw_about_window_set_application_icon (AdwAboutWindow *self,
   g_free (self->application_icon);
   self->application_icon = g_strdup (application_icon);
 
+  gtk_widget_set_visible (self->app_icon_image,
+                          application_icon && *application_icon);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_APPLICATION_ICON]);
 }
 
@@ -1983,6 +2044,9 @@ adw_about_window_set_application_name (AdwAboutWindow *self,
 
   g_free (self->application_name);
   self->application_name = g_strdup (application_name);
+
+  gtk_widget_set_visible (self->app_name_label,
+                          application_name && *application_name);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_APPLICATION_NAME]);
 }
@@ -2034,6 +2098,9 @@ adw_about_window_set_developer_name (AdwAboutWindow *self,
   g_free (self->developer_name);
   self->developer_name = g_strdup (developer_name);
 
+  gtk_widget_set_visible (self->developer_name_label,
+                          developer_name && *developer_name);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DEVELOPER_NAME]);
 }
 
@@ -2081,6 +2148,8 @@ adw_about_window_set_version (AdwAboutWindow *self,
 
   g_free (self->version);
   self->version = g_strdup (version);
+
+  gtk_widget_set_visible (self->version_button, version && *version);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VERSION]);
 }
@@ -2137,6 +2206,7 @@ adw_about_window_set_release_notes_version (AdwAboutWindow *self,
   self->release_notes_version = g_strdup (version);
 
   update_release_notes (self);
+  update_details (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_RELEASE_NOTES_VERSION]);
 }
@@ -2205,6 +2275,7 @@ adw_about_window_set_release_notes (AdwAboutWindow *self,
   self->release_notes = g_strdup (release_notes);
 
   update_release_notes (self);
+  update_details (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_RELEASE_NOTES]);
 }
@@ -2254,7 +2325,7 @@ adw_about_window_set_comments (AdwAboutWindow *self,
   g_free (self->comments);
   self->comments = g_strdup (comments);
 
-  update_links (self);
+  update_details (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_COMMENTS]);
 }
@@ -2304,7 +2375,7 @@ adw_about_window_set_website (AdwAboutWindow *self,
   g_free (self->website);
   self->website = g_strdup (website);
 
-  update_links (self);
+  update_details (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_WEBSITE]);
 }
@@ -2351,6 +2422,8 @@ adw_about_window_set_support_url (AdwAboutWindow *self,
   g_free (self->support_url);
   self->support_url = g_strdup (support_url);
 
+  update_support (self);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUPPORT_URL]);
 }
 
@@ -2395,6 +2468,8 @@ adw_about_window_set_issue_url (AdwAboutWindow *self,
 
   g_free (self->issue_url);
   self->issue_url = g_strdup (issue_url);
+
+  update_support (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ISSUE_URL]);
 }
@@ -2443,8 +2518,7 @@ adw_about_window_add_link (AdwAboutWindow *self,
 
   self->has_custom_links = TRUE;
 
-  update_links (self);
-
+  update_details (self);
 }
 
 /**
@@ -2496,6 +2570,8 @@ adw_about_window_set_debug_info (AdwAboutWindow *self,
 
   g_free (self->debug_info);
   self->debug_info = g_strdup (debug_info);
+
+  update_support (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DEBUG_INFO]);
 }
@@ -2922,6 +2998,8 @@ adw_about_window_add_acknowledgement_section (AdwAboutWindow  *self,
   add_credits_section (self->acknowledgements_box, name, (char **) people);
 
   gtk_widget_show (self->acknowledgements_box);
+
+  update_credits_legal_group (self);
 }
 
 /**
