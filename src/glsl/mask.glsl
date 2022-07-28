@@ -10,5 +10,5 @@ mainImage (out vec4 fragColor,
   vec4 source = GskTexture (u_texture1, uv);
   vec4 mask = GskTexture (u_texture2, uv);
 
-  fragColor = source * (1 - mask.w);
+  fragColor = source * (1.0 - mask.a);
 }

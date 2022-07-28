@@ -18,10 +18,10 @@ mainImage (out vec4 fragColor,
   fragColor = GskTexture (u_texture1, uv);
 
   progress = fragCoord.x - offsetLeft;
-  progress = min (max (progress / widthLeft, 0), 1);
-  fragColor *= (1 + strengthLeft * (progress - 1));
+  progress = min (max (progress / widthLeft, 0.0), 1.0);
+  fragColor *= (1.0 + strengthLeft * (progress - 1.0));
 
   progress = resolution.x - offsetRight - fragCoord.x;
-  progress = min (max (progress / widthRight, 0), 1);
-  fragColor *= (1 + strengthRight * (progress - 1));
+  progress = min (max (progress / widthRight, 0.0), 1.0);
+  fragColor *= (1.0 + strengthRight * (progress - 1.0));
 }
