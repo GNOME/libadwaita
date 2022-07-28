@@ -274,7 +274,7 @@ adw_shadow_helper_size_allocate (AdwShadowHelper *self,
                          gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y + height - shadow_size)));
     gtk_widget_allocate (self->border, MAX (width, border_size), border_size, baseline,
                          gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y + height - border_size)));
-    gtk_widget_allocate (self->border, MAX (width, outline_size), outline_size, baseline,
+    gtk_widget_allocate (self->outline, MAX (width, outline_size), outline_size, baseline,
                          gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (x, y + height)));
     break;
   default:
