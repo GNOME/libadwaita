@@ -3267,7 +3267,7 @@ ensure_shader (AdwTabBox *self)
     /* If shaders aren't supported, the error doesn't matter and we just
      * silently fall back */
     if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
-      g_critical ("Couldn't compile shader: %s\n", error->message);
+      g_warning ("Couldn't compile shader: %s\n", error->message);
   }
 
   g_clear_error (&error);
