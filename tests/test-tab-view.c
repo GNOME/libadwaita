@@ -1125,6 +1125,37 @@ test_adw_tab_page_indicator_icon (void)
 }
 
 static void
+test_adw_tab_page_indicator_tooltip (void)
+{
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  AdwTabPage *page;
+  char *tooltip;
+
+  g_assert_nonnull (view);
+
+  page = adw_tab_view_append (view, gtk_button_new ());
+  g_assert_nonnull (page);
+
+  notified = 0;
+  g_signal_connect (page, "notify::indicator-tooltip", G_CALLBACK (notify_cb), NULL);
+
+  g_object_get (page, "indicator-tooltip", &tooltip, NULL);
+  g_assert_cmpstr (tooltip, ==, "");
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_tab_page_set_indicator_tooltip (page, "Some tooltip");
+  g_assert_cmpstr (adw_tab_page_get_indicator_tooltip (page), ==, "Some tooltip");
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (page, "indicator-tooltip", "Some other tooltip", NULL);
+  g_assert_cmpstr (adw_tab_page_get_indicator_tooltip (page), ==, "Some other tooltip");
+  g_assert_cmpint (notified, ==, 2);
+
+  g_free (tooltip);
+  g_assert_finalize_object (view);
+}
+
+static void
 test_adw_tab_page_indicator_activatable (void)
 {
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
@@ -1287,6 +1318,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/TabPage/icon", test_adw_tab_page_icon);
   g_test_add_func ("/Adwaita/TabPage/loading", test_adw_tab_page_loading);
   g_test_add_func ("/Adwaita/TabPage/indicator_icon", test_adw_tab_page_indicator_icon);
+  g_test_add_func ("/Adwaita/TabPage/indicator_tooltip", test_adw_tab_page_indicator_tooltip);
   g_test_add_func ("/Adwaita/TabPage/indicator_activatable", test_adw_tab_page_indicator_activatable);
   g_test_add_func ("/Adwaita/TabPage/needs_attention", test_adw_tab_page_needs_attention);
 

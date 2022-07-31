@@ -124,6 +124,7 @@ struct _AdwTabPage
   GIcon *icon;
   gboolean loading;
   GIcon *indicator_icon;
+  char *indicator_tooltip;
   gboolean indicator_activatable;
   gboolean needs_attention;
 
@@ -143,6 +144,7 @@ enum {
   PAGE_PROP_ICON,
   PAGE_PROP_LOADING,
   PAGE_PROP_INDICATOR_ICON,
+  PAGE_PROP_INDICATOR_TOOLTIP,
   PAGE_PROP_INDICATOR_ACTIVATABLE,
   PAGE_PROP_NEEDS_ATTENTION,
   LAST_PAGE_PROP
@@ -297,6 +299,7 @@ adw_tab_page_finalize (GObject *object)
   g_clear_pointer (&self->tooltip, g_free);
   g_clear_object (&self->icon);
   g_clear_object (&self->indicator_icon);
+  g_clear_pointer (&self->indicator_tooltip, g_free);
 
   G_OBJECT_CLASS (adw_tab_page_parent_class)->finalize (object);
 }
@@ -344,6 +347,10 @@ adw_tab_page_get_property (GObject    *object,
 
   case PAGE_PROP_INDICATOR_ICON:
     g_value_set_object (value, adw_tab_page_get_indicator_icon (self));
+    break;
+
+  case PAGE_PROP_INDICATOR_TOOLTIP:
+    g_value_set_string (value, adw_tab_page_get_indicator_tooltip (self));
     break;
 
   case PAGE_PROP_INDICATOR_ACTIVATABLE:
@@ -394,6 +401,10 @@ adw_tab_page_set_property (GObject      *object,
 
   case PAGE_PROP_INDICATOR_ICON:
     adw_tab_page_set_indicator_icon (self, g_value_get_object (value));
+    break;
+
+  case PAGE_PROP_INDICATOR_TOOLTIP:
+    adw_tab_page_set_indicator_tooltip (self, g_value_get_string (value));
     break;
 
   case PAGE_PROP_INDICATOR_ACTIVATABLE:
@@ -550,6 +561,9 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * If the page is pinned, the indicator will be shown instead of icon or
    * spinner.
    *
+   * [property@TabPage:indicator-tooltip] can be used to set the tooltip on the
+   * indicator icon.
+   *
    * If [property@TabPage:indicator-activatable] is set to `TRUE`, the
    * indicator icon can act as a button.
    *
@@ -558,6 +572,22 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
   page_props[PAGE_PROP_INDICATOR_ICON] =
     g_param_spec_object ("indicator-icon", NULL, NULL,
                          G_TYPE_ICON,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwTabPage:indicator-tooltip: (attributes org.gtk.Property.get=adw_tab_page_get_indicator_tooltip org.gtk.Property.set=adw_tab_page_set_indicator_tooltip)
+   *
+   * The tooltip of the indicator icon.
+   *
+   * The tooltip can be marked up with the Pango text markup language.
+   *
+   * See [property@TabPage:indicator-icon].
+   *
+   * Since: 1.2
+   */
+  page_props[PAGE_PROP_INDICATOR_TOOLTIP] =
+    g_param_spec_string ("indicator-tooltip", NULL, NULL,
+                         "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -601,6 +631,7 @@ adw_tab_page_init (AdwTabPage *self)
 {
   self->title = g_strdup ("");
   self->tooltip = g_strdup ("");
+  self->indicator_tooltip = g_strdup ("");
 }
 
 #define ADW_TYPE_TAB_PAGES (adw_tab_pages_get_type ())
@@ -2037,6 +2068,53 @@ adw_tab_page_set_indicator_icon (AdwTabPage *self,
   g_set_object (&self->indicator_icon, indicator_icon);
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_INDICATOR_ICON]);
+}
+
+/**
+ * adw_tab_page_get_indicator_tooltip: (attributes org.gtk.Method.get_property=indicator-tooltip)
+ * @self: a tab page
+ *
+ * Gets the tooltip of the indicator icon of @self.
+ *
+ * Returns: (transfer none): the indicator tooltip of @self
+ *
+ * Since: 1.2
+ */
+const char *
+adw_tab_page_get_indicator_tooltip (AdwTabPage *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_PAGE (self), NULL);
+
+  return self->indicator_tooltip;
+}
+
+/**
+ * adw_tab_page_set_indicator_tooltip: (attributes org.gtk.Method.set_property=indicator-tooltip)
+ * @self: a tab page
+ * @tooltip: the indicator tooltip of @self
+ *
+ * Sets the tooltip of the indicator icon of @self.
+ *
+ * The tooltip can be marked up with the Pango text markup language.
+ *
+ * See [property@TabPage:indicator-icon].
+ *
+ * Since: 1.2
+ */
+void
+adw_tab_page_set_indicator_tooltip (AdwTabPage *self,
+                                    const char *tooltip)
+{
+  g_return_if_fail (ADW_IS_TAB_PAGE (self));
+  g_return_if_fail (tooltip != NULL);
+
+  if (!g_strcmp0 (tooltip, self->indicator_tooltip))
+    return;
+
+  g_clear_pointer (&self->indicator_tooltip, g_free);
+  self->indicator_tooltip = g_strdup (tooltip ? tooltip : "");
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_INDICATOR_TOOLTIP]);
 }
 
 /**

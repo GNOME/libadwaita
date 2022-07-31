@@ -83,6 +83,12 @@ ADW_AVAILABLE_IN_ALL
 void   adw_tab_page_set_indicator_icon (AdwTabPage *self,
                                         GIcon      *indicator_icon);
 
+ADW_AVAILABLE_IN_1_2
+const char *adw_tab_page_get_indicator_tooltip (AdwTabPage *self);
+ADW_AVAILABLE_IN_1_2
+void        adw_tab_page_set_indicator_tooltip (AdwTabPage *self,
+                                                const char *tooltip);
+
 ADW_AVAILABLE_IN_ALL
 gboolean adw_tab_page_get_indicator_activatable (AdwTabPage *self);
 ADW_AVAILABLE_IN_ALL

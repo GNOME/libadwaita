@@ -251,6 +251,20 @@ get_indicator_icon (AdwTabPage *page)
     return g_themed_icon_new ("tab-audio-playing-symbolic");
 }
 
+static char *
+get_indicator_tooltip (AdwTabPage *page)
+{
+  gboolean muted;
+
+  muted = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (page),
+                                              "adw-tab-view-demo-muted"));
+
+  if (muted)
+    return g_strdup (_("Unmute Tab"));
+  else
+    return g_strdup (_("Mute Tab"));
+}
+
 static void
 tab_change_indicator (GSimpleAction *action,
                       GVariant      *parameter,
@@ -259,13 +273,18 @@ tab_change_indicator (GSimpleAction *action,
   AdwTabViewDemoWindow *self = ADW_TAB_VIEW_DEMO_WINDOW (user_data);
   gboolean indicator = g_variant_get_boolean (parameter);
   GIcon *icon = NULL;
+  char *tooltip = NULL;
 
-  if (indicator)
+  if (indicator) {
     icon = get_indicator_icon (get_current_page (self));
+    tooltip = get_indicator_tooltip (get_current_page (self));
+  }
 
   adw_tab_page_set_indicator_icon (get_current_page (self), icon);
+  adw_tab_page_set_indicator_tooltip (get_current_page (self), tooltip);
   g_simple_action_set_state (action, g_variant_new_boolean (indicator));
 
+  g_clear_pointer (&tooltip, g_free);
   g_clear_object (&icon);
 }
 
@@ -317,6 +336,7 @@ tab_duplicate (GSimpleAction *action,
                    adw_tab_page_get_icon (parent));
 
   adw_tab_page_set_indicator_icon (page, adw_tab_page_get_indicator_icon (parent));
+  adw_tab_page_set_indicator_tooltip (page, adw_tab_page_get_indicator_tooltip (parent));
   adw_tab_page_set_loading (page, adw_tab_page_get_loading (parent));
   adw_tab_page_set_needs_attention (page, adw_tab_page_get_needs_attention (parent));
 
@@ -445,6 +465,7 @@ indicator_activated_cb (AdwTabViewDemoWindow *self,
                         AdwTabPage           *page)
 {
   GIcon *icon;
+  char *tooltip;
   gboolean muted;
 
   muted = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (page),
@@ -455,10 +476,13 @@ indicator_activated_cb (AdwTabViewDemoWindow *self,
                      GINT_TO_POINTER (!muted));
 
   icon = get_indicator_icon (page);
+  tooltip = get_indicator_tooltip (page);
 
   adw_tab_page_set_indicator_icon (page, icon);
+  adw_tab_page_set_indicator_tooltip (page, tooltip);
 
   g_object_unref (icon);
+  g_free (tooltip);
 }
 
 static gboolean
