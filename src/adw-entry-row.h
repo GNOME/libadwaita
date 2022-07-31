@@ -68,4 +68,10 @@ ADW_AVAILABLE_IN_1_2
 void     adw_entry_row_set_enable_emoji_completion (AdwEntryRow *self,
                                                     gboolean     enable_emoji_completion);
 
+ADW_AVAILABLE_IN_1_2
+PangoAttrList *adw_entry_row_get_attributes (AdwEntryRow   *self);
+ADW_AVAILABLE_IN_1_2
+void           adw_entry_row_set_attributes (AdwEntryRow   *self,
+                                             PangoAttrList *attributes);
+
 G_END_DECLS

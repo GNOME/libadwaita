@@ -97,6 +97,7 @@ enum {
   PROP_SHOW_APPLY_BUTTON,
   PROP_INPUT_HINTS,
   PROP_INPUT_PURPOSE,
+  PROP_ATTRIBUTES,
   PROP_ENABLE_EMOJI_COMPLETION,
   PROP_LAST_PROP,
 };
@@ -356,6 +357,9 @@ adw_entry_row_get_property (GObject     *object,
   case PROP_INPUT_PURPOSE:
     g_value_set_enum (value, adw_entry_row_get_input_purpose (self));
     break;
+  case PROP_ATTRIBUTES:
+    g_value_set_boxed (value, adw_entry_row_get_attributes (self));
+    break;
   case PROP_ENABLE_EMOJI_COMPLETION:
     g_value_set_boolean (value, adw_entry_row_get_enable_emoji_completion (self));
     break;
@@ -392,6 +396,9 @@ adw_entry_row_set_property (GObject       *object,
     break;
   case PROP_INPUT_PURPOSE:
     adw_entry_row_set_input_purpose (self, g_value_get_enum (value));
+    break;
+  case PROP_ATTRIBUTES:
+    adw_entry_row_set_attributes (self, g_value_get_boxed (value));
     break;
   case PROP_ENABLE_EMOJI_COMPLETION:
     adw_entry_row_set_enable_emoji_completion (self, g_value_get_boolean (value));
@@ -479,6 +486,21 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
                        GTK_TYPE_INPUT_PURPOSE,
                        GTK_INPUT_PURPOSE_FREE_FORM,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwEntryRow:attributes: (attributes org.gtk.Property.get=adw_entry_row_get_attributes org.gtk.Property.set=adw_entry_row_set_attributes)
+   *
+   * A list of Pango attributes to apply to the text of the embedded entry.
+   *
+   * The [struct@Pango.Attribute]'s `start_index` and `end_index` must refer to
+   * the [class@Gtk.EntryBuffer] text, i.e. without the preedit string.
+   *
+   * Since: 1.2
+   */
+  props[PROP_ATTRIBUTES] =
+    g_param_spec_boxed ("attributes", NULL, NULL,
+                        PANGO_TYPE_ATTR_LIST,
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwEntryRow:enable-emoji-completion: (attributes org.gtk.Property.get=adw_entry_row_get_enable_emoji_completion org.gtk.Property.set=adw_entry_row_set_enable_emoji_completion)
@@ -865,6 +887,58 @@ adw_entry_row_set_input_purpose (AdwEntryRow     *self,
   gtk_text_set_input_purpose (GTK_TEXT (priv->text), purpose);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INPUT_PURPOSE]);
+}
+
+/**
+ * adw_entry_row_get_attributes: (attributes org.gtk.Method.get_property=attributes)
+ * @self: an entry row
+ *
+ * Gets Pango attributes applied to the text of the embedded entry.
+ *
+ * Returns: (nullable): the list of attributes
+ *
+ * Since: 1.2
+ */
+PangoAttrList *
+adw_entry_row_get_attributes (AdwEntryRow *self)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ENTRY_ROW (self), NULL);
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  return gtk_text_get_attributes (GTK_TEXT (priv->text));
+}
+
+/**
+ * adw_entry_row_set_attributes: (attributes org.gtk.Method.set_property=attributes)
+ * @self: an entry row
+ * @attributes: (nullable): a list of attributes
+ *
+ * Sets Pango attributes to apply to the text of the embedded entry.
+ *
+ * The [struct@Pango.Attribute]'s `start_index` and `end_index` must refer to
+ * the [class@Gtk.EntryBuffer] text, i.e. without the preedit string.
+ *
+ * Since: 1.2
+ */
+void
+adw_entry_row_set_attributes (AdwEntryRow   *self,
+                              PangoAttrList *attributes)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ENTRY_ROW (self));
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  if (attributes == adw_entry_row_get_attributes (self))
+    return;
+
+  gtk_text_set_attributes (GTK_TEXT (priv->text), attributes);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_ATTRIBUTES]);
 }
 
 /**
