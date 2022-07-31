@@ -66,6 +66,12 @@ ADW_AVAILABLE_IN_ALL
 void         adw_split_button_set_direction (AdwSplitButton *self,
                                              GtkArrowType    direction);
 
+ADW_AVAILABLE_IN_1_2
+const char *adw_split_button_get_dropdown_tooltip (AdwSplitButton *self);
+ADW_AVAILABLE_IN_1_2
+void        adw_split_button_set_dropdown_tooltip (AdwSplitButton *self,
+                                                   const char     *tooltip);
+
 ADW_AVAILABLE_IN_ALL
 void adw_split_button_popup (AdwSplitButton *self);
 ADW_AVAILABLE_IN_ALL

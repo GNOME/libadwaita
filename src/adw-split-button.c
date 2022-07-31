@@ -63,6 +63,7 @@ enum {
   PROP_MENU_MODEL,
   PROP_POPOVER,
   PROP_DIRECTION,
+  PROP_DROPDOWN_TOOLTIP,
 
   /* actionable properties */
   PROP_ACTION_NAME,
@@ -192,6 +193,9 @@ adw_split_button_get_property (GObject    *object,
   case PROP_DIRECTION:
     g_value_set_enum (value, adw_split_button_get_direction (self));
     break;
+  case PROP_DROPDOWN_TOOLTIP:
+    g_value_set_string (value, adw_split_button_get_dropdown_tooltip (self));
+    break;
   case PROP_ACTION_NAME:
     g_value_set_string (value, gtk_actionable_get_action_name (GTK_ACTIONABLE (self)));
     break;
@@ -233,6 +237,9 @@ adw_split_button_set_property (GObject      *object,
     break;
   case PROP_DIRECTION:
     adw_split_button_set_direction (self, g_value_get_enum (value));
+    break;
+  case PROP_DROPDOWN_TOOLTIP:
+    adw_split_button_set_dropdown_tooltip (self, g_value_get_string (value));
     break;
   case PROP_ACTION_NAME:
     gtk_actionable_set_action_name (GTK_ACTIONABLE (self), g_value_get_string (value));
@@ -390,6 +397,20 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                        GTK_TYPE_ARROW_TYPE,
                        GTK_ARROW_DOWN,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwSplitButton:dropdown-tooltip: (attributes org.gtk.Property.get=adw_split_button_get_dropdown_tooltip org.gtk.Property.set=adw_split_button_set_dropdown_tooltip)
+   *
+   * The tooltip of the dropdown button.
+   *
+   * The tooltip can be marked up with the Pango text markup language.
+   *
+   * Since: 1.2
+   */
+  props[PROP_DROPDOWN_TOOLTIP] =
+    g_param_spec_string ("dropdown-tooltip", NULL, NULL,
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
@@ -894,6 +915,54 @@ adw_split_button_set_direction (AdwSplitButton *self,
   gtk_menu_button_set_direction (GTK_MENU_BUTTON (self->menu_button), direction);
 
   update_style_classes (self);
+}
+
+/**
+ * adw_split_button_get_dropdown_tooltip: (attributes org.gtk.Method.get_property=dropdown-tooltip)
+ * @self: a split button
+ *
+ * Gets the tooltip of the dropdown button of @self.
+ *
+ * Returns: (transfer none): the dropdown tooltip of @self
+ *
+ * Since: 1.2
+ */
+const char *
+adw_split_button_get_dropdown_tooltip (AdwSplitButton *self)
+{
+  const char *tooltip;
+
+  g_return_val_if_fail (ADW_IS_SPLIT_BUTTON (self), NULL);
+
+  tooltip = gtk_widget_get_tooltip_markup (self->menu_button);
+
+  return tooltip ? tooltip : "";
+}
+
+/**
+ * adw_split_button_set_dropdown_tooltip: (attributes org.gtk.Method.set_property=dropdown-tooltip)
+ * @self: a split button
+ * @tooltip: the dropdown tooltip of @self
+ *
+ * Sets the tooltip of the dropdown button of @self.
+ *
+ * The tooltip can be marked up with the Pango text markup language.
+ *
+ * Since: 1.2
+ */
+void
+adw_split_button_set_dropdown_tooltip (AdwSplitButton *self,
+                                       const char     *tooltip)
+{
+  g_return_if_fail (ADW_IS_SPLIT_BUTTON (self));
+  g_return_if_fail (tooltip != NULL);
+
+  if (!g_strcmp0 (tooltip, adw_split_button_get_dropdown_tooltip (self)))
+    return;
+
+  gtk_widget_set_tooltip_markup (self->menu_button, tooltip);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DROPDOWN_TOOLTIP]);
 }
 
 /**

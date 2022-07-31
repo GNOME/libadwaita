@@ -272,6 +272,33 @@ test_adw_split_button_direction (void)
   g_assert_finalize_object (button);
 }
 
+static void
+test_adw_split_button_dropdown_tooltip (void)
+{
+  AdwSplitButton *button = g_object_ref_sink (ADW_SPLIT_BUTTON (adw_split_button_new ()));
+  char *tooltip;
+
+  g_assert_nonnull (button);
+
+  notified = 0;
+  g_signal_connect (button, "notify::dropdown-tooltip", G_CALLBACK (notify_cb), NULL);
+
+  g_object_get (button, "dropdown-tooltip", &tooltip, NULL);
+  g_assert_cmpstr (tooltip, ==, "");
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_split_button_set_dropdown_tooltip (button, "Some tooltip");
+  g_assert_cmpstr (adw_split_button_get_dropdown_tooltip (button), ==, "Some tooltip");
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (button, "dropdown-tooltip", "Some other tooltip", NULL);
+  g_assert_cmpstr (adw_split_button_get_dropdown_tooltip (button), ==, "Some other tooltip");
+  g_assert_cmpint (notified, ==, 2);
+
+  g_free (tooltip);
+  g_assert_finalize_object (button);
+}
+
 int
 main (int   argc,
       char *argv[])
@@ -286,6 +313,7 @@ main (int   argc,
   g_test_add_func ("/Adwaita/SplitButton/menu_model", test_adw_split_button_menu_model);
   g_test_add_func ("/Adwaita/SplitButton/popover", test_adw_split_button_popover);
   g_test_add_func ("/Adwaita/SplitButton/direction", test_adw_split_button_direction);
+  g_test_add_func ("/Adwaita/SplitButton/dropdown_tooltip", test_adw_split_button_dropdown_tooltip);
 
   return g_test_run ();
 }
