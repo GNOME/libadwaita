@@ -733,14 +733,20 @@ adw_avatar_draw_to_texture (AdwAvatar *self,
   GtkNative *native;
   GskRenderer *renderer;
   int size;
+  graphene_matrix_t transform;
 
   g_return_val_if_fail (ADW_IS_AVATAR (self), NULL);
   g_return_val_if_fail (scale_factor > 0, NULL);
 
   size = self->size * scale_factor;
 
+  g_assert (gtk_widget_compute_transform (GTK_WIDGET (self),
+                                          self->gizmo,
+                                          &transform));
+
   snapshot = gtk_snapshot_new ();
   gtk_snapshot_scale (snapshot, scale_factor, scale_factor);
+  gtk_snapshot_transform_matrix (snapshot, &transform);
   GTK_WIDGET_GET_CLASS (self)->snapshot (GTK_WIDGET (self), snapshot);
 
   node = gtk_snapshot_free_to_node (snapshot);
