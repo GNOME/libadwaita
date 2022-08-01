@@ -1,5 +1,6 @@
 pages:
   script:
+    - sudo dnf install -y curl unzip
     - mkdir public
     - mv index.html public/
     - mv doc public/
