@@ -1,6 +1,7 @@
 pages:
+  image: fedora:latest
   script:
-    - sudo dnf install -y curl unzip
+    - sudo dnf install -y unzip
     - mkdir public
     - mv index.html public/
     - mv doc public/
