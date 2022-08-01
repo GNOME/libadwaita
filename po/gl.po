@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-05-04 16:49+0000\n"
-"PO-Revision-Date: 2022-05-16 09:09+0200\n"
+"POT-Creation-Date: 2022-07-31 04:40+0000\n"
+"PO-Revision-Date: 2022-08-01 08:40+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <Proxecto Trasno <proxecto@trasno.gal>>\n"
 "Language: gl\n"
@@ -23,6 +23,243 @@ msgstr ""
 "X-DL-State: Translating\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Gtranslator 40.0\n"
+
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "Licenza Pública Xeral de GNU, versión 2 ou posterior"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "Licenza Pública Xeral de GNU, versión 3 ou posterior"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "Licenza Pública Xeral Menor de GNU, versión 2.1 ou posterior"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "Licenza Pública Xeral Menor de GNU, versión 3 ou posterior"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "Licenza BSD cláusula 2"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "Licenza MIT"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Licenza artística 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "Licenza Pública Xeral de GNU, versión 2 só"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "Licenza Pública Xeral de GNU, versión 3 só"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "Licenza Pública Xeral Menor de GNU, versión 2.1 só"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "Licenza Pública Xeral Menor de GNU, versión 3 só"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "Licenza Pública Xeral de GNU Affero, versión 3 ou posterior"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "Licenza Pública Xeral Affero de GNU, só versión 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "Licenza BSD cláusula 3"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Licencia Apache, versión 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Licenza Pública de Mozilla 2.0"
+
+#: src/adw-about-window.c:526
+msgid "Code by"
+msgstr "Programado por"
+
+#: src/adw-about-window.c:527
+msgid "Design by"
+msgstr "Deseñado por"
+
+#: src/adw-about-window.c:528
+msgid "Artwork by"
+msgstr "Deseñado por"
+
+#: src/adw-about-window.c:529
+msgid "Documentation by"
+msgstr "Documentado por"
+
+#: src/adw-about-window.c:530
+msgid "Translated by"
+msgstr "Traducido por"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:559
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
+msgstr ""
+"Este programa non fornece ningunha garantía, para máis información visite <a "
+"href=\"%s\">%s</a>."
+
+#: src/adw-about-window.c:637
+msgid "This Application"
+msgstr "Esta aplicación"
+
+#: src/adw-about-window.c:939
+#, c-format
+msgid "Version %s"
+msgstr "Versión %s"
+
+#: src/adw-about-window.c:965
+msgid "Unable to parse release notes:"
+msgstr "Non foi posíbel analizar as notas de publicación:"
+
+#: src/adw-about-window.c:971
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Liña: %d, caracter: %d"
+
+#: src/adw-about-window.c:1264
+msgid "Copied to clipboard"
+msgstr "Copiado ao portapapeis"
+
+#: src/adw-about-window.c:1299
+msgid "Unable to save debugging information"
+msgstr "Non é posíbel gardar o ficheiro de depuración"
+
+#: src/adw-about-window.c:1304
+msgid "Close"
+msgstr "Pechar"
+
+#: src/adw-about-window.c:1322
+msgid "Save debugging information"
+msgstr "Gardar información de depuración"
+
+#: src/adw-about-window.c:1325
+msgid "_Save"
+msgstr "_Gardar"
+
+#: src/adw-about-window.c:1326
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Sobre"
+
+#: src/adw-about-window.ui:123
+msgid "_What’s New"
+msgstr "Que hai de _novo?"
+
+#: src/adw-about-window.ui:138
+msgid "_Details"
+msgstr "_Detalles"
+
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+msgid "_Website"
+msgstr "_Sitio web"
+
+#: src/adw-about-window.ui:176
+msgid "_Support Questions"
+msgstr "Preguntas de _asistencia"
+
+#: src/adw-about-window.ui:192
+msgid "_Report an Issue"
+msgstr "_Informar dun erro"
+
+#: src/adw-about-window.ui:207
+msgid "_Troubleshooting"
+msgstr "Resolución de _problemas"
+
+#: src/adw-about-window.ui:226
+msgid "_Credits"
+msgstr "_Créditos"
+
+#: src/adw-about-window.ui:241
+msgid "_Legal"
+msgstr "Aviso _Legal"
+
+#: src/adw-about-window.ui:256
+msgid "_Acknowledgements"
+msgstr "_Recoñecementos"
+
+#: src/adw-about-window.ui:295
+msgid "What’s New"
+msgstr "Que hai de novo"
+
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
+msgid "Back"
+msgstr "Atrás"
+
+#: src/adw-about-window.ui:351
+msgid "Details"
+msgstr "Detalles"
+
+#: src/adw-about-window.ui:432
+msgid "Troubleshooting"
+msgstr "Resolución de problemas"
+
+#: src/adw-about-window.ui:461
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Para axudar na resolución de problemas, pode ver a información de "
+"depuración. Se fornece esta información aos desenvolvedores da aplicación "
+"pode axudarlles a diagnosticar calquera problema que atope cando reporta un "
+"erro."
+
+#: src/adw-about-window.ui:472
+msgid "_Debugging Information"
+msgstr "Información de _depuración"
+
+#: src/adw-about-window.ui:507
+msgid "Credits"
+msgstr "Créditos"
+
+#: src/adw-about-window.ui:554
+msgid "Legal"
+msgstr "Aviso legal"
+
+#: src/adw-about-window.ui:601
+msgid "Acknowledgements"
+msgstr "Recoñecementos"
+
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "Información de depuración"
+
+#: src/adw-about-window.ui:696
+#| msgid "_Show Text"
+msgid "_Copy Text"
+msgstr "_Copiar texto"
+
+#: src/adw-about-window.ui:703
+msgid "_Save as…"
+msgstr "_Gardar como…"
 
 #: src/adw-entry-row.ui:93
 msgid "Apply"
@@ -77,11 +314,11 @@ msgstr "Ocultar texto"
 msgid "Show Text"
 msgstr "Mostrar texto"
 
-#: src/adw-password-entry-row.c:168
+#: src/adw-password-entry-row.c:169
 msgid "Caps Lock is on"
 msgstr "Bloq Maiús está activo"
 
-#: src/adw-password-entry-row.c:176
+#: src/adw-password-entry-row.c:177
 msgid "_Show Text"
 msgstr "_Mostrar texto"
 
