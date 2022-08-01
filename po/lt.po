@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-05-04 16:49+0000\n"
-"PO-Revision-Date: 2022-06-20 22:30+0300\n"
+"POT-Creation-Date: 2022-08-01 14:50+0000\n"
+"PO-Revision-Date: 2022-08-01 22:40+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -18,6 +18,242 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "(n%100<10 || n%100>=20) ? 1 : 2)\n"
 "X-Generator: Gtranslator 40.0\n"
+
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU bendroji vieša licencija, 2 arba vėlesnė versija"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU bendroji vieša licencija, 3 arba vėlesnė versija"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU sumažinta bendroji vieša licencija, 2.1 arba vėlesnė versija"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU sumažinta bendroji vieša licencija, 3 arba vėlesnė versija"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "BSD 2 dalių licencija"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "MIT licencija (MIT)"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Artistic licencija 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU bendroji vieša licencija, tik 2 versija"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU bendroji vieša licencija, tik 3 versija"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU sumažinta bendroji vieša licencija, tik 2.1 versija"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU sumažinta bendroji vieša licencija, tik 3 versija"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU affero bendroji vieša licencija, 3 arba vėlesnė versija"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU affero bendroji vieša licencija, tik 3 versija"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "BSD 3 dalių licencija"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Apache licencija, 2.0 versija"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla viešoji licencija 2.0"
+
+#: src/adw-about-window.c:526
+msgid "Code by"
+msgstr "Kodas"
+
+#: src/adw-about-window.c:527
+msgid "Design by"
+msgstr "Dizainas"
+
+#: src/adw-about-window.c:528
+msgid "Artwork by"
+msgstr "Menas"
+
+#: src/adw-about-window.c:529
+msgid "Documentation by"
+msgstr "Dokumentacija"
+
+#: src/adw-about-window.c:530
+msgid "Translated by"
+msgstr "Vertimas"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:559
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
+msgstr ""
+"Ši programa pateikiama be jokios garantijos. Daugiau informacijos adresu <a "
+"href=\"%s\">%s</a>."
+
+#: src/adw-about-window.c:637
+msgid "This Application"
+msgstr "Ši programa"
+
+#: src/adw-about-window.c:939
+#, c-format
+msgid "Version %s"
+msgstr "Versija %s"
+
+#: src/adw-about-window.c:965
+msgid "Unable to parse release notes:"
+msgstr "Nepavyko išanalizuoti leidimo naujienų:"
+
+#: src/adw-about-window.c:971
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Eilutė %d, simbolis: %d"
+
+#: src/adw-about-window.c:1264
+msgid "Copied to clipboard"
+msgstr "Nukopijuota į iškarpinę"
+
+#: src/adw-about-window.c:1299
+msgid "Unable to save debugging information"
+msgstr "Nepavyko įrašyti derinimo informacijos"
+
+#: src/adw-about-window.c:1304
+msgid "Close"
+msgstr "Užverti"
+
+#: src/adw-about-window.c:1322
+msgid "Save debugging information"
+msgstr "Įrašyti derinimo informaciją"
+
+#: src/adw-about-window.c:1325
+msgid "_Save"
+msgstr "Į_rašyti"
+
+#: src/adw-about-window.c:1326
+msgid "_Cancel"
+msgstr "_Atsisakyti"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Apie"
+
+#: src/adw-about-window.ui:123
+msgid "_What’s New"
+msgstr "_Naujienos"
+
+#: src/adw-about-window.ui:138
+msgid "_Details"
+msgstr "_Detali informacija"
+
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+msgid "_Website"
+msgstr "_Tinklalapis"
+
+#: src/adw-about-window.ui:176
+msgid "_Support Questions"
+msgstr "_Pagalbos klausimai"
+
+#: src/adw-about-window.ui:192
+msgid "_Report an Issue"
+msgstr "P_ranešti apie problemą"
+
+#: src/adw-about-window.ui:207
+msgid "_Troubleshooting"
+msgstr "_Problemų sprendimas"
+
+#: src/adw-about-window.ui:226
+msgid "_Credits"
+msgstr "_Autoriai"
+
+#: src/adw-about-window.ui:241
+msgid "_Legal"
+msgstr "_Teisinė informacija"
+
+#: src/adw-about-window.ui:256
+msgid "_Acknowledgements"
+msgstr "Pa_dėkos"
+
+#: src/adw-about-window.ui:295
+msgid "What’s New"
+msgstr "Naujienos"
+
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
+msgid "Back"
+msgstr "Grįžti"
+
+#: src/adw-about-window.ui:351
+msgid "Details"
+msgstr "Detali informacija"
+
+#: src/adw-about-window.ui:432
+msgid "Troubleshooting"
+msgstr "Problemų sprendimas"
+
+#: src/adw-about-window.ui:461
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Ieškodami problemų sprendimo galite peržiūrėti derinimo informaciją. Šios "
+"informacijos pateikimas programos kūrėjams gali padėti diagnozuoti jūsų "
+"problemas, kai apie jas pranešate."
+
+#: src/adw-about-window.ui:472
+msgid "_Debugging Information"
+msgstr "_Derinimo informacija"
+
+#: src/adw-about-window.ui:507
+msgid "Credits"
+msgstr "Autoriai"
+
+#: src/adw-about-window.ui:554
+msgid "Legal"
+msgstr "Teisinė informacija"
+
+#: src/adw-about-window.ui:601
+msgid "Acknowledgements"
+msgstr "Padėkos"
+
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "Derinimo informacija"
+
+#: src/adw-about-window.ui:696
+#| msgid "_Show Text"
+msgid "_Copy Text"
+msgstr "_Kopijuoti tekstą"
+
+#: src/adw-about-window.ui:703
+msgid "_Save as…"
+msgstr "Į_rašyti taip…"
 
 #: src/adw-entry-row.ui:93
 msgid "Apply"
@@ -71,11 +307,11 @@ msgstr "Slėpti tekstą"
 msgid "Show Text"
 msgstr "Rodyti tekstą"
 
-#: src/adw-password-entry-row.c:168
+#: src/adw-password-entry-row.c:169
 msgid "Caps Lock is on"
 msgstr "Įjungto didžiosios raidės"
 
-#: src/adw-password-entry-row.c:176
+#: src/adw-password-entry-row.c:177
 msgid "_Show Text"
 msgstr "_Rodyti tekstą"
 
@@ -98,3 +334,7 @@ msgstr "Nerasta rezultatų"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Bandykite kitą paiešką."
+
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "Užverti kortelę"
