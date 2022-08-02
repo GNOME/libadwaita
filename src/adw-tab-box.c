@@ -1172,6 +1172,7 @@ animate_reorder_offset (AdwTabBox *self,
 {
   gboolean is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
   AdwAnimationTarget *target;
+  double start_offset;
 
   offset *= (is_rtl ? -1 : 1);
 
@@ -1179,6 +1180,7 @@ animate_reorder_offset (AdwTabBox *self,
     return;
 
   info->end_reorder_offset = offset;
+  start_offset = info->reorder_offset;
 
   if (info->reorder_animation)
     adw_animation_skip (info->reorder_animation);
@@ -1187,7 +1189,7 @@ animate_reorder_offset (AdwTabBox *self,
                                               reorder_offset_animation_value_cb,
                                               info, NULL);
   info->reorder_animation =
-    adw_timed_animation_new (GTK_WIDGET (self), info->reorder_offset, offset,
+    adw_timed_animation_new (GTK_WIDGET (self), start_offset, offset,
                              REORDER_ANIMATION_DURATION, target);
 
   g_signal_connect_swapped (info->reorder_animation, "done",
