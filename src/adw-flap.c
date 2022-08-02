@@ -73,7 +73,7 @@
  *
  * The `AdwFlap` implementation of the [iface@Gtk.Buildable] interface supports
  * setting the flap child by specifying “flap” as the “type” attribute of a
- * <child> element, and separator by specifying “separator”. Specifying
+ * `<child>` element, and separator by specifying “separator”. Specifying
  * “content” child type or omitting it results in setting the content child.
  *
  * ## CSS nodes
