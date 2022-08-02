@@ -149,13 +149,6 @@ struct _AdwTabBox
   guint reset_drop_target_tab_id;
   double drop_target_x;
 
-  struct {
-    TabInfo *info;
-    int pos;
-    guint duration;
-    gboolean keep_selected_visible;
-  } scheduled_scroll;
-
   AdwAnimation *scroll_animation;
   gboolean scroll_animation_done;
   double scroll_animation_from;
@@ -938,17 +931,6 @@ scroll_to_tab_full (AdwTabBox *self,
     return FALSE;
 
   tab_width = info->width;
-
-  if (tab_width < 0) {
-    self->scheduled_scroll.info = info;
-    self->scheduled_scroll.pos = pos;
-    self->scheduled_scroll.duration = duration;
-    self->scheduled_scroll.keep_selected_visible = keep_selected_visible;
-
-    gtk_widget_queue_allocate (GTK_WIDGET (self));
-
-    return FALSE;
-  }
 
   if (info->appear_animation)
     tab_width = info->final_width;
@@ -3251,15 +3233,6 @@ adw_tab_box_size_allocate (GtkWidget *widget,
 
     pos += (is_rtl ? -1 : 1) * (info->width + SPACING);
     final_pos += (is_rtl ? -1 : 1) * (info->final_width + SPACING);
-  }
-
-  if (self->scheduled_scroll.info &&
-      scroll_to_tab_full (self,
-                          self->scheduled_scroll.info,
-                          self->scheduled_scroll.pos,
-                          self->scheduled_scroll.duration,
-                          self->scheduled_scroll.keep_selected_visible)) {
-    self->scheduled_scroll.info = NULL;
   }
 
   state = adw_animation_get_state (self->scroll_animation);
