@@ -1321,7 +1321,7 @@ update_drag_reodering (AdwTabBox *self)
 
   for (l = self->tabs; l; l = l->next) {
     TabInfo *info = l->data;
-    int center = info->unshifted_pos + info->width / 2;
+    int center = info->unshifted_pos + info->final_width / 2;
 
     if (info == self->reordered_tab)
       old_index = i;
@@ -3189,7 +3189,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
   for (l = self->tabs; l; l = l->next) {
     TabInfo *info = l->data;
 
-    info->unshifted_pos = pos;
+    info->unshifted_pos = final_pos;
     info->pos = pos + calculate_tab_offset (self, info, FALSE);
     info->final_pos = final_pos + calculate_tab_offset (self, info, TRUE);
 
