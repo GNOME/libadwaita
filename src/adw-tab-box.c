@@ -386,19 +386,19 @@ get_visible_range (AdwTabBox *self,
   int min = SPACING;
   int max = self->allocated_width - SPACING;
 
-  if (self->pinned) {
-    if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
-      min -= SPACING;
-    else
-      max += SPACING;
-  }
-
   if (self->adjustment) {
     double value = gtk_adjustment_get_value (self->adjustment);
     double page_size = gtk_adjustment_get_page_size (self->adjustment);
 
     min = MAX (min, (int) floor (value) + SPACING);
     max = MIN (max, (int) ceil (value + page_size) - SPACING);
+  }
+
+  if (self->pinned) {
+    if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
+      min -= SPACING;
+    else
+      max += SPACING;
   }
 
   if (lower)
