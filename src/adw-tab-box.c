@@ -4013,4 +4013,3 @@ adw_tab_box_set_inverted (AdwTabBox *self,
     adw_tab_set_inverted (info->tab, inverted);
   }
 }
-
