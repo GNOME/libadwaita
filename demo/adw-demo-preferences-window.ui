@@ -62,21 +62,15 @@
               </object>
             </child>
             <child>
-              <object class="GtkBox">
+              <object class="GtkLabel">
+                <property name="ellipsize">end</property>
+                <property name="label" translatable="yes">Other widgets are appended after the list box</property>
+                <property name="margin-top">12</property>
+                <property name="margin-bottom">12</property>
+                <property name="xalign">0</property>
                 <style>
-                  <class name="inline-toolbar"/>
+                  <class name="dim-label"/>
                 </style>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="ellipsize">end</property>
-                    <property name="label" translatable="yes">Other widgets are appended after the list box</property>
-                    <property name="margin-top">12</property>
-                    <property name="margin-bottom">12</property>
-                    <property name="margin-start">12</property>
-                    <property name="margin-end">12</property>
-                    <property name="xalign">0</property>
-                  </object>
-                </child>
               </object>
             </child>
           </object>
