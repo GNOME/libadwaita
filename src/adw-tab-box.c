@@ -67,11 +67,13 @@ typedef struct {
   GtkWidget *container;
   GtkWidget *separator;
 
+  int final_pos;
+  int final_width;
+
   int unshifted_pos;
   int pos;
   int width;
   int last_width;
-  int display_width;
 
   double end_reorder_offset;
   double reorder_offset;
@@ -108,6 +110,7 @@ struct _AdwTabBox
   int last_width;
   int end_padding;
   int initial_end_padding;
+  int final_end_padding;
   TabResizeMode tab_resize_mode;
   AdwAnimation *resize_animation;
 
@@ -211,12 +214,13 @@ remove_and_free_tab_info (TabInfo *info)
 
 static inline int
 get_tab_position (AdwTabBox *self,
-                  TabInfo   *info)
+                  TabInfo   *info,
+                  gboolean   final)
 {
   if (info == self->reordered_tab)
     return self->reorder_window_x;
 
-  return info->pos;
+  return final ? info->final_pos : info->pos;
 }
 
 static inline TabInfo *
@@ -226,7 +230,7 @@ find_tab_info_at (AdwTabBox *self,
   GList *l;
 
   if (self->reordered_tab) {
-    int pos = get_tab_position (self, self->reordered_tab);
+    int pos = get_tab_position (self, self->reordered_tab, FALSE);
 
     if (pos <= x && x < pos + self->reordered_tab->width)
       return self->reordered_tab;
@@ -288,30 +292,43 @@ find_nth_alive_tab (AdwTabBox *self,
 }
 
 static inline int
-calculate_tab_width (TabInfo *info,
-                     int      base_width)
+calculate_tab_width (TabInfo  *info,
+                     int       base_width)
 {
   return (int) floor ((base_width + SPACING) * info->appear_progress) - SPACING;
 }
 
 static int
 get_base_tab_width (AdwTabBox *self,
-                    gboolean   target)
+                    gboolean   target_end_padding,
+                    gboolean   target_animations)
 {
   double max_progress = 0;
   double n = 0;
   double used_width;
   GList *l;
   int ret;
+  int end_padding = 0;
 
-  for (l = self->tabs; l; l = l->next) {
-    TabInfo *info = l->data;
+  if (target_animations) {
+    max_progress = 1;
+    n = self->n_tabs;
 
-    max_progress = MAX (max_progress, info->appear_progress);
-    n += info->appear_progress;
+    if (!target_end_padding)
+      end_padding = self->final_end_padding;
+  } else {
+    for (l = self->tabs; l; l = l->next) {
+      TabInfo *info = l->data;
+
+      max_progress = MAX (max_progress, info->appear_progress);
+      n += info->appear_progress;
+    }
+
+    if (!target_end_padding)
+      end_padding = self->end_padding;
   }
 
-  used_width = (self->allocated_width - (n + 1) * SPACING - (target ? 0 : self->end_padding)) * max_progress;
+  used_width = (self->allocated_width - (n + 1) * SPACING - end_padding) * max_progress;
 
   ret = (int) ceil (used_width / n);
 
@@ -360,7 +377,7 @@ calculate_tab_offset (AdwTabBox *self,
   if (!self->reordered_tab)
       return 0;
 
-  width = (target ? self->reordered_tab->display_width : self->reordered_tab->width) + SPACING;
+  width = (target ? self->reordered_tab->final_width : self->reordered_tab->width) + SPACING;
 
   if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
       width = -width;
@@ -522,7 +539,7 @@ resize_animation_value_cb (double     value,
   double target_end_padding = 0;
 
   if (!self->expand_tabs) {
-    int predicted_tab_width = get_base_tab_width (self, TRUE);
+    int predicted_tab_width = get_base_tab_width (self, TRUE, FALSE);
     GList *l;
 
     target_end_padding = self->allocated_width - SPACING;
@@ -545,6 +562,7 @@ static void
 resize_animation_done_cb (AdwTabBox *self)
 {
   self->end_padding = 0;
+  self->final_end_padding = 0;
   gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
@@ -566,7 +584,7 @@ set_tab_resize_mode (AdwTabBox     *self,
       TabInfo *info = l->data;
 
       if (info->appear_animation)
-        info->last_width = info->display_width;
+        info->last_width = info->final_width;
       else
         info->last_width = info->width;
     }
@@ -775,7 +793,7 @@ update_visible (AdwTabBox *self)
     if (!info->page)
       continue;
 
-    pos = get_tab_position (self, info);
+    pos = get_tab_position (self, info, FALSE);
 
     adw_tab_set_fully_visible (info->tab,
                                pos - SPACING >= value &&
@@ -807,7 +825,7 @@ get_scroll_animation_value (AdwTabBox *self)
   if (self->scroll_animation_tab) {
     double page_size = gtk_adjustment_get_page_size (self->adjustment);
 
-    to += get_tab_position (self, self->scroll_animation_tab);
+    to += get_tab_position (self, self->scroll_animation_tab, TRUE);
     to = CLAMP (to, 0, self->allocated_width - page_size);
   }
 
@@ -900,7 +918,7 @@ animate_scroll_relative (AdwTabBox *self,
     current_value = self->scroll_animation_offset;
 
     if (self->scroll_animation_tab)
-      current_value += get_tab_position (self, self->scroll_animation_tab);
+      current_value += get_tab_position (self, self->scroll_animation_tab, TRUE);
   }
 
   animate_scroll (self, NULL, current_value + delta, duration);
@@ -933,7 +951,7 @@ scroll_to_tab_full (AdwTabBox *self,
   }
 
   if (info->appear_animation)
-    tab_width = info->display_width;
+    tab_width = info->final_width;
 
   value = gtk_adjustment_get_value (self->adjustment);
   page_size = gtk_adjustment_get_page_size (self->adjustment);
@@ -941,7 +959,7 @@ scroll_to_tab_full (AdwTabBox *self,
   padding = MIN (tab_width, page_size - tab_width) / 2.0;
 
   if (pos < 0)
-    pos = get_tab_position (self, info);
+    pos = get_tab_position (self, info, TRUE);
 
   if (pos - SPACING < value)
     animate_scroll (self, info, -padding, duration);
@@ -1258,7 +1276,7 @@ page_reordered_cb (AdwTabBox  *self,
   dest_tab = g_list_nth_data (self->tabs, self->reorder_index);
 
   if (info == self->selected_tab)
-    scroll_to_tab_full (self, self->selected_tab, dest_tab->pos, REORDER_ANIMATION_DURATION, FALSE);
+    scroll_to_tab_full (self, self->selected_tab, dest_tab->final_pos, REORDER_ANIMATION_DURATION, FALSE);
 
   animate_reordering (self, dest_tab);
 
@@ -1306,7 +1324,7 @@ update_drag_reodering (AdwTabBox *self)
 
   x = get_reorder_position (self);
 
-  width = self->reordered_tab->display_width;
+  width = self->reordered_tab->final_width;
 
   self->reorder_window_x = x;
 
@@ -1526,7 +1544,7 @@ reorder_begin_cb (AdwTabBox  *self,
 
   self->pressed_tab = find_tab_info_at (self, start_x);
 
-  self->drag_offset_x = start_x - get_tab_position (self, self->pressed_tab);
+  self->drag_offset_x = start_x - get_tab_position (self, self->pressed_tab, FALSE);
   self->drag_offset_y = start_y;
 
   if (!self->reorder_animation) {
@@ -1747,7 +1765,7 @@ allocate_tab (AdwGizmo *widget,
   TabInfo *info = g_object_get_data (G_OBJECT (widget), "info");
   GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (widget));
   int allocated_width = gtk_widget_get_allocated_width (GTK_WIDGET (widget));
-  int width_diff = MAX (0, info->display_width - allocated_width);
+  int width_diff = MAX (0, info->final_width - allocated_width);
 
   gtk_widget_allocate (child, width + width_diff, height, baseline,
                        gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (-width_diff / 2, 0)));
@@ -2595,7 +2613,6 @@ tab_drag_enter_motion_cb (AdwTabBox     *self,
     self->indirect_reordering = TRUE;
 
     resize_drag_icon (source_tab_box, predict_tab_width (self, self->reorder_placeholder, TRUE));
-    self->reorder_placeholder->display_width = source_tab_box->drag_icon->target_width;
     adw_tab_set_inverted (source_tab_box->drag_icon->tab, self->inverted);
 
     self->drag_offset_x = source_tab_box->drag_icon->hotspot_x;
@@ -2871,7 +2888,7 @@ handle_click (AdwTabBox  *self,
   gboolean can_grab_focus;
 
   if (self->adjustment) {
-    int pos = get_tab_position (self, info);
+    int pos = get_tab_position (self, info, FALSE);
     double value = gtk_adjustment_get_value (self->adjustment);
     double upper = gtk_adjustment_get_upper (self->adjustment);
     double page_size = gtk_adjustment_get_page_size (self->adjustment);
@@ -2993,15 +3010,12 @@ released_cb (AdwTabBox  *self,
 /* Overrides */
 
 static void
-adw_tab_box_measure (GtkWidget      *widget,
-                     GtkOrientation  orientation,
-                     int             for_size,
-                     int            *minimum,
-                     int            *natural,
-                     int            *minimum_baseline,
-                     int            *natural_baseline)
+measure_tab_box (AdwTabBox      *self,
+                 GtkOrientation  orientation,
+                 int            *minimum,
+                 int            *natural,
+                 gboolean        animated)
 {
-  AdwTabBox *self = ADW_TAB_BOX (widget);
   int min, nat;
 
   if (self->n_tabs == 0) {
@@ -3010,12 +3024,6 @@ adw_tab_box_measure (GtkWidget      *widget,
 
     if (natural)
       *natural = 0;
-
-    if (minimum_baseline)
-      *minimum_baseline = -1;
-
-    if (natural_baseline)
-      *natural_baseline = -1;
 
     return;
   }
@@ -3031,7 +3039,10 @@ adw_tab_box_measure (GtkWidget      *widget,
       gtk_widget_measure (info->container, orientation, -1,
                           NULL, &child_width, NULL, NULL);
 
-      width += calculate_tab_width (info, child_width) + SPACING;
+      if (animated)
+        width += calculate_tab_width (info, child_width) + SPACING;
+      else
+        width += child_width + SPACING;
     }
 
     if (!self->pinned)
@@ -3077,6 +3088,20 @@ adw_tab_box_measure (GtkWidget      *widget,
 
   if (natural)
     *natural = nat;
+}
+
+static void
+adw_tab_box_measure (GtkWidget      *widget,
+                     GtkOrientation  orientation,
+                     int             for_size,
+                     int            *minimum,
+                     int            *natural,
+                     int            *minimum_baseline,
+                     int            *natural_baseline)
+{
+  AdwTabBox *self = ADW_TAB_BOX (widget);
+
+  measure_tab_box (self, orientation, minimum, natural, TRUE);
 
   if (minimum_baseline)
     *minimum_baseline = -1;
@@ -3096,7 +3121,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
   gboolean is_rtl;
   GList *l;
   GtkAllocation child_allocation;
-  int pos;
+  int pos, final_pos;
   double value;
   int indicator_size;
   GskTransform *transform;
@@ -3135,56 +3160,72 @@ adw_tab_box_size_allocate (GtkWidget *widget,
                           NULL, &child_width, NULL, NULL);
 
       info->width = calculate_tab_width (info, child_width);
+      info->final_width = child_width;
     }
   } else if (self->tab_resize_mode == TAB_RESIZE_FIXED_TAB_WIDTH) {
     self->end_padding = self->allocated_width - SPACING;
+    self->final_end_padding = self->end_padding;
 
     for (l = self->tabs; l; l = l->next) {
       TabInfo *info = l->data;
 
       info->width = calculate_tab_width (info, info->last_width);
       self->end_padding -= info->width + SPACING;
+
+      info->final_width = info->last_width;
+      self->final_end_padding -= info->final_width + SPACING;
     }
   } else {
-    int tab_width = get_base_tab_width (self, FALSE);
+    int tab_width = get_base_tab_width (self, FALSE, FALSE);
+    int final_tab_width = get_base_tab_width (self, FALSE, TRUE);
     int excess = self->allocated_width - SPACING - self->end_padding;
+    int final_excess = excess;
 
     for (l = self->tabs; l; l = l->next) {
       TabInfo *info = l->data;
 
       info->width = calculate_tab_width (info, tab_width);
+      info->final_width = final_tab_width;
+
       excess -= info->width + SPACING;
+      final_excess -= info->final_width + SPACING;
     }
 
     /* Now spread excess width across the tabs */
     for (l = self->tabs; l; l = l->next) {
       TabInfo *info = l->data;
 
-      if (excess >= 0)
-          break;
+      if (excess >= 0 && final_excess >= 0)
+        break;
 
-      info->width--;
-      excess++;
+      if (excess < 0) {
+        info->width--;
+        excess++;
+      }
+
+      if (final_excess < 0) {
+        info->final_width--;
+        final_excess++;
+      }
     }
   }
 
   pos = is_rtl ? self->allocated_width - SPACING : SPACING;
+  final_pos = pos;
 
   for (l = self->tabs; l; l = l->next) {
     TabInfo *info = l->data;
     GtkAllocation separator_allocation;
     int separator_width;
 
-    if (!info->appear_animation)
-      info->display_width = info->width;
-    else if (info->page && info != self->reorder_placeholder)
-      info->display_width = predict_tab_width (self, info, FALSE);
-
     info->unshifted_pos = pos;
     info->pos = pos + calculate_tab_offset (self, info, FALSE);
+    info->final_pos = final_pos + calculate_tab_offset (self, info, TRUE);
 
-    if (is_rtl)
+    if (is_rtl) {
       info->pos -= info->width;
+      info->final_pos -= info->final_width;
+    }
 
     child_allocation.x = ((info == self->reordered_tab) ? self->reorder_window_x : info->pos) - (int) floor (value);
     child_allocation.y = 0;
@@ -3209,6 +3250,7 @@ adw_tab_box_size_allocate (GtkWidget *widget,
     gtk_widget_size_allocate (info->separator, &separator_allocation, baseline);
 
     pos += (is_rtl ? -1 : 1) * (info->width + SPACING);
+    final_pos += (is_rtl ? -1 : 1) * (info->final_width + SPACING);
   }
 
   if (self->scheduled_scroll.info &&
@@ -3291,7 +3333,7 @@ snapshot_tabs (AdwTabBox   *self,
   if (self->reordered_tab && gtk_widget_get_opacity (self->reordered_tab->container) > 0) {
     int clip_x, clip_width;
 
-    reordered_pos = get_tab_position (self, self->reordered_tab);
+    reordered_pos = get_tab_position (self, self->reordered_tab, FALSE);
     reordered_width = gtk_widget_get_allocated_width (self->reordered_tab->container);
 
     if (is_rtl) {
@@ -3310,7 +3352,7 @@ snapshot_tabs (AdwTabBox   *self,
     TabInfo *info = l->data;
     int pos, width;
 
-    pos = get_tab_position (self, info);
+    pos = get_tab_position (self, info, FALSE);
     width = gtk_widget_get_allocated_width (info->container);
 
     if (pos + width < scroll_start)
