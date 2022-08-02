@@ -813,6 +813,10 @@ get_scroll_animation_value (AdwTabBox *self)
 
   g_assert (self->scroll_animation);
 
+  if (adw_animation_get_state (self->scroll_animation) != ADW_ANIMATION_PLAYING &&
+      adw_animation_get_state (self->scroll_animation) != ADW_ANIMATION_FINISHED)
+    return gtk_adjustment_get_value (self->adjustment);
+
   to = self->scroll_animation_offset;
 
   if (self->scroll_animation_tab) {
@@ -994,15 +998,16 @@ scroll_cb (AdwTabBox          *self,
 
 static void
 scroll_animation_cb (double     value,
-                     GtkWidget *self)
+                     AdwTabBox *self)
 {
-  gtk_widget_queue_resize (self);
+  gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
 static void
 scroll_animation_done_cb (AdwTabBox *self)
 {
   self->scroll_animation_done = TRUE;
+  gtk_widget_queue_resize (GTK_WIDGET (self));
 }
 
 /* Reordering */
@@ -3099,7 +3104,6 @@ adw_tab_box_size_allocate (GtkWidget *widget,
                            int        baseline)
 {
   AdwTabBox *self = ADW_TAB_BOX (widget);
-  AdwAnimationState state;
   gboolean is_rtl;
   GList *l;
   GtkAllocation child_allocation;
@@ -3111,19 +3115,6 @@ adw_tab_box_size_allocate (GtkWidget *widget,
   adw_tab_box_measure (widget, GTK_ORIENTATION_HORIZONTAL, -1,
                        &self->allocated_width, NULL, NULL, NULL);
   self->allocated_width = MAX (self->allocated_width, width);
-
-  value = gtk_adjustment_get_value (self->adjustment);
-
-  gtk_adjustment_configure (self->adjustment,
-                            value,
-                            0,
-                            self->allocated_width,
-                            width * 0.1,
-                            width * 0.9,
-                            width);
-
-  /* The value may have been changed during gtk_adjustment_configure() */
-  value = gtk_adjustment_get_value (self->adjustment);
 
   if (self->context_menu)
     gtk_popover_present (GTK_POPOVER (self->context_menu));
@@ -3197,8 +3188,6 @@ adw_tab_box_size_allocate (GtkWidget *widget,
 
   for (l = self->tabs; l; l = l->next) {
     TabInfo *info = l->data;
-    GtkAllocation separator_allocation;
-    int separator_width;
 
     info->unshifted_pos = pos;
     info->pos = pos + calculate_tab_offset (self, info, FALSE);
@@ -3208,6 +3197,36 @@ adw_tab_box_size_allocate (GtkWidget *widget,
       info->pos -= info->width;
       info->final_pos -= info->final_width;
     }
+
+    pos += (is_rtl ? -1 : 1) * (info->width + SPACING);
+    final_pos += (is_rtl ? -1 : 1) * (info->final_width + SPACING);
+  }
+
+  value = get_scroll_animation_value (self);
+
+  self->block_scrolling = TRUE;
+  gtk_adjustment_configure (self->adjustment,
+                            value,
+                            0,
+                            self->allocated_width,
+                            width * 0.1,
+                            width * 0.9,
+                            width);
+  self->block_scrolling = FALSE;
+
+  /* The value may have been changed during gtk_adjustment_configure() */
+  value = gtk_adjustment_get_value (self->adjustment);
+
+  if (self->scroll_animation_done) {
+    self->scroll_animation_tab = NULL;
+    self->scroll_animation_done = FALSE;
+    adw_animation_reset (self->scroll_animation);
+  }
+
+  for (l = self->tabs; l; l = l->next) {
+    TabInfo *info = l->data;
+    GtkAllocation separator_allocation;
+    int separator_width;
 
     child_allocation.x = ((info == self->reordered_tab) ? self->reorder_window_x : info->pos) - (int) floor (value);
     child_allocation.y = 0;
@@ -3230,23 +3249,6 @@ adw_tab_box_size_allocate (GtkWidget *widget,
 
     gtk_widget_size_allocate (info->container, &child_allocation, baseline);
     gtk_widget_size_allocate (info->separator, &separator_allocation, baseline);
-
-    pos += (is_rtl ? -1 : 1) * (info->width + SPACING);
-    final_pos += (is_rtl ? -1 : 1) * (info->final_width + SPACING);
-  }
-
-  state = adw_animation_get_state (self->scroll_animation);
-  if (state == ADW_ANIMATION_PLAYING || state == ADW_ANIMATION_FINISHED) {
-    self->block_scrolling = TRUE;
-    gtk_adjustment_set_value (self->adjustment,
-                              get_scroll_animation_value (self));
-    self->block_scrolling = FALSE;
-
-    if (self->scroll_animation_done) {
-        self->scroll_animation_done = FALSE;
-        self->scroll_animation_tab = NULL;
-        adw_animation_reset (self->scroll_animation);
-    }
   }
 
   gtk_widget_measure (self->needs_attention_left, GTK_ORIENTATION_HORIZONTAL, -1,
