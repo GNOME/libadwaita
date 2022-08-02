@@ -1321,7 +1321,12 @@ update_drag_reodering (AdwTabBox *self)
 
   for (l = self->tabs; l; l = l->next) {
     TabInfo *info = l->data;
-    int center = info->unshifted_pos + info->final_width / 2;
+    int center;
+
+    if (is_rtl)
+      center = info->unshifted_pos - info->final_width / 2;
+    else
+      center = info->unshifted_pos + info->final_width / 2;
 
     if (info == self->reordered_tab)
       old_index = i;
