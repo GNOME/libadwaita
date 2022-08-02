@@ -11,12 +11,12 @@
         <property name="width-request">100</property>
         <child>
           <object class="GtkListBoxRow" id="hover">
-            <child>
+            <property name="child">
               <object class="GtkLabel">
                 <property name="label">Item 1</property>
                 <property name="xalign">0</property>
               </object>
-            </child>
+            </property>
           </object>
         </child>
         <child>

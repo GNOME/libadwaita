@@ -6,7 +6,7 @@
       <object class="GtkRevealer" id="revealer">
         <property name="transition-duration">200</property>
         <property name="transition-type">slide-down</property>
-        <child>
+        <property name="child">
           <object class="GtkBox">
             <style>
               <class name="box"/>
@@ -29,7 +29,7 @@
                 <style>
                   <class name="pinned"/>
                 </style>
-                <child>
+                <property name="child">
                   <object class="AdwTabBox" id="pinned_box">
                     <property name="pinned">True</property>
                     <property name="tab-bar">AdwTabBar</property>
@@ -37,7 +37,7 @@
                     <signal name="stop-kinetic-scrolling" handler="stop_kinetic_scrolling_cb" object="pinned_scrolled_window" swapped="true"/>
                     <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
                   </object>
-                </child>
+                </property>
               </object>
             </child>
             <child>
@@ -47,14 +47,14 @@
                 <property name="overlay-scrolling">False</property>
                 <property name="hexpand">True</property>
                 <property name="min-content-width">100</property>
-                <child>
+                <property name="child">
                   <object class="AdwTabBox" id="box">
                     <property name="tab-bar">AdwTabBar</property>
                     <signal name="notify::resize-frozen" handler="notify_resize_frozen_cb" swapped="true"/>
                     <signal name="stop-kinetic-scrolling" handler="stop_kinetic_scrolling_cb" object="scrolled_window" swapped="true"/>
                     <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
                   </object>
-                </child>
+                </property>
               </object>
             </child>
             <child>
@@ -66,7 +66,7 @@
               </object>
             </child>
           </object>
-        </child>
+        </property>
       </object>
     </child>
   </template>

@@ -33,20 +33,20 @@
             <style>
               <class name="menu"/>
             </style>
-            <child>
+            <property name="child">
               <object class="GtkScrolledWindow">
                 <property name="hscrollbar_policy">never</property>
                 <property name="max_content_height">400</property>
                 <property name="propagate_natural_width">True</property>
                 <property name="propagate_natural_height">True</property>
-                <child>
+                <property name="child">
                   <object class="GtkListView" id="list">
                     <property name="single-click-activate">True</property>
                     <signal name="activate" handler="row_activated_cb" swapped="true"/>
                   </object>
-                </child>
+                </property>
               </object>
-            </child>
+            </property>
           </object>
         </child>
       </object>

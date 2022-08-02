@@ -6,7 +6,7 @@
     <property name="title" translatable="yes">Tab View Demo</property>
     <property name="default-width">800</property>
     <property name="default-height">600</property>
-    <child>
+    <property name="content">
       <object class="GtkBox">
         <property name="orientation">vertical</property>
         <child>
@@ -42,7 +42,7 @@
           </object>
         </child>
       </object>
-    </child>
+    </property>
   </template>
   <menu id="tab_menu">
     <section>

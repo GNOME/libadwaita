@@ -8,7 +8,7 @@
       <class name="empty"/>
       <class name="expander"/>
     </style>
-    <child>
+    <property name="child">
       <object class="GtkBox" id="box">
         <property name="orientation">vertical</property>
         <child>
@@ -64,7 +64,7 @@
           <object class="GtkRevealer">
             <property name="reveal-child" bind-source="AdwExpanderRow" bind-property="expanded" bind-flags="sync-create"/>
             <property name="transition-type">slide-up</property>
-            <child>
+            <property name="child">
               <object class="GtkListBox" id="list">
                 <property name="selection-mode">none</property>
                 <signal name="keynav-failed" handler="keynav_failed_cb" swapped="yes"/>
@@ -72,10 +72,10 @@
                   <class name="nested"/>
                 </style>
               </object>
-            </child>
+            </property>
           </object>
         </child>
       </object>
-    </child>
+    </property>
   </template>
 </interface>

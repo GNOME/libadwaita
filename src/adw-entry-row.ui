@@ -11,7 +11,7 @@
         <signal name="pressed" handler="pressed_cb"/>
       </object>
     </child>
-    <child>
+    <property name="child">
       <object class="GtkBox" id="header">
         <property name="valign">center</property>
         <style>
@@ -118,7 +118,7 @@
           </object>
         </child>
      </object>
-    </child>
+    </property>
     <style>
       <class name="entry"/>
     </style>

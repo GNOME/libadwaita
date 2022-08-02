@@ -7,7 +7,7 @@
     <property name="modal">True</property>
     <property name="width-request">360</property>
     <property name="title" translatable="yes">AdwViewSwitcher Demo</property>
-    <child>
+    <property name="content">
       <object class="GtkBox">
         <property name="orientation">vertical</property>
         <child>
@@ -103,6 +103,6 @@
           </object>
         </child>
       </object>
-    </child>
+    </property>
   </template>
 </interface>

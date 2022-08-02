@@ -5,7 +5,7 @@
     <style>
       <class name="flat"/>
     </style>
-    <child>
+    <property name="child">
       <object class="GtkStack" id="stack">
         <property name="hhomogeneous">False</property>
         <property name="vhomogeneous">False</property>
@@ -80,7 +80,7 @@
           </object>
         </child>
       </object>
-    </child>
+    </property>
     <child>
       <object class="GtkDropControllerMotion">
         <signal name="enter" handler="drag_enter_cb" swapped="yes"/>

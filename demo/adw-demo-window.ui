@@ -25,7 +25,7 @@
     <property name="title" translatable="yes">Adwaita Demo</property>
     <property name="default_width">800</property>
     <property name="default_height">576</property>
-    <child>
+    <property name="content">
       <object class="AdwToastOverlay" id="toast_overlay">
         <property name="child">
           <object class="AdwLeaflet" id="subpage_leaflet">
@@ -296,6 +296,6 @@
           </object>
         </property>
       </object>
-    </child>
+    </property>
   </template>
 </interface>

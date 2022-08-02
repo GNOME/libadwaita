@@ -11,11 +11,11 @@
             <property name="scroll-to-focus">True</property>
             <property name="child">
               <object class="AdwClamp">
-                <child>
+                <property name="child">
                   <object class="GtkBox" id="box">
                     <property name="orientation">vertical</property>
                   </object>
-                </child>
+                </property>
               </object>
             </property>
           </object>

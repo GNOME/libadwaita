@@ -7,7 +7,7 @@
     <property name="title" translatable="yes">AdwFlap Demo</property>
     <property name="default-width">640</property>
     <property name="default-height">480</property>
-    <child>
+    <property name="content">
       <object class="GtkBox">
         <property name="orientation">vertical</property>
         <child>
@@ -199,6 +199,6 @@
           </object>
         </child>
       </object>
-    </child>
+    </property>
   </template>
 </interface>

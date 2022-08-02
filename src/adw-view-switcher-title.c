@@ -43,17 +43,17 @@
  *
  * ```xml
  * <object class="GtkWindow">
- *   <child type="titlebar">
+ *   <property name="titlebar">
  *     <object class="AdwHeaderBar">
  *       <property name="centering-policy">strict</property>
- *       <child type="title">
+ *       <property name="title-widget">
  *         <object class="AdwViewSwitcherTitle" id="title">
  *           <property name="stack">stack</property>
  *         </object>
  *       </child>
  *     </object>
- *   </child>
- *   <child>
+ *   </property>
+ *   <property>
  *     <object class="GtkBox">
  *       <property name="orientation">vertical</property>
  *       <child>
@@ -68,7 +68,7 @@
  *         </object>
  *       </child>
  *     </object>
- *   </child>
+ *   </property>
  * </object>
  * ```
  *
