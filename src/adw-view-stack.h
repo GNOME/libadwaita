@@ -91,6 +91,12 @@ AdwViewStackPage *adw_view_stack_add_titled (AdwViewStack *self,
                                              GtkWidget    *child,
                                              const char   *name,
                                              const char   *title);
+ADW_AVAILABLE_IN_1_2
+AdwViewStackPage *adw_view_stack_add_titled_with_icon (AdwViewStack *self,
+                                                       GtkWidget    *child,
+                                                       const char   *name,
+                                                       const char   *title,
+                                                       const char   *icon_name);
 
 ADW_AVAILABLE_IN_ALL
 void adw_view_stack_remove (AdwViewStack *self,

@@ -683,7 +683,8 @@ static AdwViewStackPage *
 add_internal (AdwViewStack *self,
               GtkWidget    *child,
               const char   *name,
-              const char   *title)
+              const char   *title,
+              const char   *icon_name)
 {
   AdwViewStackPage *page;
 
@@ -693,7 +694,7 @@ add_internal (AdwViewStack *self,
   page->widget = g_object_ref (child);
   page->name = g_strdup (name);
   page->title = g_strdup (title);
-  page->icon_name = NULL;
+  page->icon_name = g_strdup (icon_name);
   page->needs_attention = FALSE;
   page->last_focus = NULL;
 
@@ -988,7 +989,7 @@ adw_view_stack_buildable_add_child (GtkBuildable *buildable,
   if (ADW_IS_VIEW_STACK_PAGE (child))
     add_page (self, ADW_VIEW_STACK_PAGE (child));
   else if (GTK_IS_WIDGET (child))
-    add_internal (self, GTK_WIDGET (child), NULL, NULL);
+    add_internal (self, GTK_WIDGET (child), NULL, NULL, NULL);
   else
     parent_buildable_iface->add_child (buildable, builder, child, type);
 }
@@ -1376,7 +1377,7 @@ adw_view_stack_add (AdwViewStack   *self,
   g_return_val_if_fail (ADW_IS_VIEW_STACK (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
 
-  return add_internal (self, child, NULL, NULL);
+  return add_internal (self, child, NULL, NULL, NULL);
 }
 
 /**
@@ -1401,7 +1402,7 @@ adw_view_stack_add_named (AdwViewStack   *self,
   g_return_val_if_fail (ADW_IS_VIEW_STACK (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
 
-  return add_internal (self, child, name, NULL);
+  return add_internal (self, child, name, NULL, NULL);
 }
 
 /**
@@ -1429,7 +1430,37 @@ adw_view_stack_add_titled (AdwViewStack   *self,
   g_return_val_if_fail (ADW_IS_VIEW_STACK (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
 
-  return add_internal (self, child, name, title);
+  return add_internal (self, child, name, title, NULL);
+}
+
+/**
+ * adw_view_stack_add_titled_with_icon:
+ * @self: a view stack
+ * @child: the widget to add
+ * @name: (nullable): the name for @child
+ * @title: a human-readable title for @child
+ * @icon_name: an icon name for @child
+ *
+ * Adds a child to @self.
+ *
+ * The child is identified by the @name. The @title and @icon_name will be used
+ * by [class@ViewSwitcher] to represent @child.
+ *
+ * Returns: (transfer none): the `AdwViewStackPage` for @child
+ *
+ * Since: 1.2
+ */
+AdwViewStackPage *
+adw_view_stack_add_titled_with_icon (AdwViewStack *self,
+                                     GtkWidget    *child,
+                                     const char   *name,
+                                     const char   *title,
+                                     const char   *icon_name)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_STACK (self), NULL);
+  g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
+
+  return add_internal (self, child, name, title, icon_name);
 }
 
 /**
