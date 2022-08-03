@@ -23,14 +23,13 @@ headerbar {
 
   &:backdrop {
     background-color: $headerbar_backdrop_color;
-
-    transition: $backdrop_transition;
+    transition: background-color $backdrop_transition;
 
     > windowhandle {
       // opacity looks weird with GtkSwitch, but filter works fine
       filter: opacity(0.5);
 
-      transition: $backdrop_transition;
+      transition: filter $backdrop_transition;
     }
   }
 

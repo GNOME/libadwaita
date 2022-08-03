@@ -8,7 +8,6 @@ entry {
     border-spacing: 6px;
     background-color: $button_color;
     background-clip: padding-box;
-    transition: all 200ms $ease-out-quad;
     caret-color: currentColor;
 
     @if $contrast == 'high' {
@@ -16,6 +15,7 @@ entry {
     }
 
     @include focus-ring($focus-state: ':focus-within');
+    transition: $focus-transition;
 
     .osd &:focus-within {
       outline-color: $osd_focus_color;

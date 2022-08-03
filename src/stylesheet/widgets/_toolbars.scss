@@ -146,11 +146,11 @@ searchbar {
 
     &:backdrop {
       background-color: $headerbar_backdrop_color;
-      transition: $backdrop_transition;
+      transition: background-color $backdrop_transition;
 
       > * {
         filter: opacity(.5);
-        transition: $backdrop_transition;
+        transition: filter $backdrop_transition;
       }
     }
   }
@@ -189,11 +189,11 @@ actionbar > revealer > box {
 
   &:backdrop {
     background-color: $headerbar_backdrop_color;
-    transition: $backdrop_transition;
+    transition: background-color $backdrop_transition;
 
     > * {
       filter: opacity(.5);
-      transition: $backdrop_transition;
+      transition: filter $backdrop_transition;
     }
   }
 }

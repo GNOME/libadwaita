@@ -86,13 +86,13 @@ tabbar {
 
     &:backdrop .box {
       background-color: $headerbar_backdrop_color;
-      transition: $backdrop_transition;
+      transition: background-color $backdrop_transition;
 
       > scrolledwindow,
       > .start-action,
       > .end-action {
         filter: opacity(0.5);
-        transition: $backdrop_transition;
+        transition: filter $backdrop_transition;
       }
     }
   }

@@ -216,7 +216,9 @@ row.combo {
     outline-color: $osd_focus_color;
   }
 
-  transition: 200ms $ease-out-quad;
+  transition: $focus_transition,
+              background-color 200ms $ease-out-quad,
+              border-radius 200ms $ease-out-quad;
   border-bottom: 1px solid if($contrast == 'high', $border_color, $card_shade_color);
 
   &:not(:selected).activatable {
@@ -259,7 +261,7 @@ row.expander {
   image.expander-row-arrow {
     @extend .dim-label;
 
-    transition: 200ms $ease-out-quad;
+    transition: -gtk-icon-transform 200ms $ease-out-quad;
     @include margin-start(6px);
 
     &:dir(ltr) {
