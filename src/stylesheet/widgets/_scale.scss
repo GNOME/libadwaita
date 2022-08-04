@@ -147,12 +147,20 @@ scale {
       indicator { min-height: ($_marks_length - 3px); }
     }
 
-    &.marks-before > trough > slider {
-      border-top-left-radius: 0;
+    &.marks-before {
+      padding-top: 0;
+
+       > trough > slider {
+        border-top-left-radius: 0;
+      }
     }
 
-    &.marks-after > trough > slider {
-      border-bottom-right-radius: 0;
+    &.marks-after {
+      padding-bottom: 0;
+
+      > trough > slider {
+        border-bottom-right-radius: 0;
+      }
     }
 
     &.marks-before.marks-after > trough > slider {
@@ -183,12 +191,20 @@ scale {
       indicator { min-height: ($_marks_length - 3px); }
     }
 
-    &.marks-before > trough > slider {
-      border-bottom-left-radius: 0;
+    &.marks-before {
+      padding-left: 0;
+
+      > trough > slider {
+        border-bottom-left-radius: 0;
+      }
     }
 
-    &.marks-after > trough > slider {
-      border-top-right-radius: 0;
+    &.marks-after {
+      padding-right: 0;
+
+      > trough > slider {
+        border-top-right-radius: 0;
+      }
     }
   }
 
