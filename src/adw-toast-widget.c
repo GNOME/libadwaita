@@ -104,6 +104,8 @@ action_clicked_cb (AdwToastWidget *self)
 {
   end_timeout (self);
 
+  g_signal_emit_by_name (self->toast, "button-clicked");
+
   /* Keep the widget alive through the idle. Otherwise it may be immediately
    * destroyed if animations are disabled */
   g_idle_add (G_SOURCE_FUNC (close_idle_cb), g_object_ref (self));

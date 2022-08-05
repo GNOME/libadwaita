@@ -179,6 +179,7 @@ static GParamSpec *props[LAST_PROP];
 
 enum {
   SIGNAL_DISMISSED,
+  SIGNAL_BUTTON_CLICKED,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -431,6 +432,23 @@ adw_toast_class_init (AdwToastClass *klass)
     g_signal_new ("dismissed",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE, 0);
+
+  /**
+   * AdwToast::button-clicked:
+   *
+   * Emitted after the button has been clicked.
+   *
+   * It can be used as an alternative to setting an action.
+   *
+   * Since: 1.2
+   */
+  signals[SIGNAL_BUTTON_CLICKED] =
+    g_signal_new ("button-clicked",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
                   0,
                   NULL, NULL, NULL,
                   G_TYPE_NONE, 0);
