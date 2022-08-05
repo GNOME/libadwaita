@@ -1,4 +1,22 @@
 =============
+Version 1.0.6
+=============
+
+- AdwAvatar
+  - Fix draw_to_texture() with rectangular avatars
+- AdwLeaflet
+  - Fix a broken link in docs
+- AdwPreferencesGroup
+  - Fix accessibility labels
+- AdwTabBar
+  - Fix squished or clipped text with gtk-hint-font-metrics=0
+- AdwShadowHelper
+  - Fix warnings when drawing vertical shadow
+- AdwSwipeTracker
+  - Fix swipe speed on GTK 4.7.x
+  - Fix criticals with GTK 4.7.x
+
+=============
 Version 1.0.5
 =============
 
