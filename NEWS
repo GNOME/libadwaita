@@ -1,3 +1,73 @@
+================
+Version 1.2.beta
+================
+
+- Fix deprecations with newer GLib
+- Fix strict aliasing warnings
+- Fix GLSL shader compile errors on certain systems
+- AdwAboutWindow
+  - Fix a random crash when closing
+  - Rework the flat header bar layout
+  - Properly mark as final class
+- AdwAvatar
+  - Fix draw_to_texture() with rectangular avatars
+- AdwEntryRow
+  - Add entry-activated signal
+  - Add attributes property
+  - Add activates-default property
+  - Don't select text when clicking the row
+- AdwMessageDialog
+  - Fix crash when destroying the parent before the dialog
+- AdwShadowHelper
+  - Fix warnings when drawing vertical shadow
+- AdwSplitButton
+  - Add dropdown-tooltip property
+- AdwSwipeTracker
+  - Fix swipe speed on GTK 4.7.x
+  - Fix criticals with GTK 4.7.x
+- AdwTabBar
+  - Remove tab background when there's only one tab
+  - Add a tooltip for close buttons
+  - Fix squished or clipped text with gtk-hint-font-metrics=0
+  - Fix scrolling to a tab with disabled animations
+  - Fix assorted tab reordering issues
+- AdwTabView
+  - Add shortcut management API
+  - Add AdwTabPage:indicator-tooltip property
+  - Handle shortcuts on CAPTURE phase
+  - Shortcut propagation and bell fixes
+- AdwToast
+  - Add button-clicked signal
+- AdwViewStack
+  - Add adw_view_stack_add_titled_with_icon()
+- Demo
+  - Prefer properties over <child> in UI files
+  - Don't explicilty add GtkViewport to GtkScrolledWindow
+  - Stop using .inline-toolbar
+  - Fix build on Windows
+- Stylesheet
+  - Unify @view_fg_color with other foreground colors
+  - Improve contrast of @success_color and @warning_color
+  - Fix infobar margins and spacing
+  - Partially support .navigation-sidebar with GtkTreeView
+  - Move GtkScale focus onto its slider
+  - Ensure consistant GtkScale size when using marks
+  - Remove unnecessary transitions
+- Translation updates
+  - Abkhazian
+  - Basque
+  - Catalan
+  - Galician
+  - Georgian
+  - Hebrew
+  - Indonesian
+  - Lithuanian
+  - Occitan
+  - Portuguese
+  - Russian
+  - Turkish
+  - Ukrainian
+
 =================
 Version 1.2.alpha
 =================
