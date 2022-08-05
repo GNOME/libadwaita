@@ -3,6 +3,7 @@
 import os
 import shutil
 import subprocess
+import sys
 
 from pathlib import PurePath
 
@@ -32,3 +33,5 @@ for reference in references:
     if os.path.isdir(src_path):
         dst_path = os.path.join(distroot, reference)
         shutil.copytree(src_path, dst_path)
+    else:
+        sys.exit("Documentation not found. Please pass -Dgtk_doc=true and to Meson and run ninja once.")
