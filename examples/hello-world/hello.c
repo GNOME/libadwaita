@@ -18,7 +18,7 @@ main (int   argc,
 {
   g_autoptr (AdwApplication) app = NULL;
 
-  app = adw_application_new ("org.example.Hello", G_APPLICATION_FLAGS_NONE);
+  app = adw_application_new ("org.example.Hello", 0);
 
   g_signal_connect (app, "activate", G_CALLBACK (activate_cb), NULL);
 
