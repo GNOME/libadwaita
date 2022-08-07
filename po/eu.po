@@ -6,8 +6,8 @@
 msgid ""
 msgstr "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-07-09 18:02+0000\n"
-"PO-Revision-Date: 2022-07-16 10:00+0100\n"
+"POT-Creation-Date: 2022-08-05 19:13+0000\n"
+"PO-Revision-Date: 2022-07-08 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asier.sarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -15,139 +15,139 @@ msgstr "Project-Id-Version: libhandy master\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:203
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNUren Lizentzia Publiko Orokorra, 2 bertsioa edo berriagoa"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:204
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNUren Lizentzia Publiko Orokorra, 3 bertsioa edo berriagoa"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:205
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU Hedadura Txikiagoko Lizentzia Publiko Orokorra, 2.1. bertsioa edo berriagoa"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:206
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU Hedadura Txikiagoko Lizentzia Publiko Orokorra, 3. bertsioa edo berriagoa"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:207
 msgid "BSD 2-Clause License"
 msgstr "BSD 2-klausula Lizentzia"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:208
 msgid "The MIT License (MIT)"
 msgstr "MIT Lizentzia (MIT)"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:209
 msgid "Artistic License 2.0"
 msgstr "Lizentzia Artistikoa 2.0"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:210
 msgid "GNU General Public License, version 2 only"
 msgstr "GNUren Lizentzia Publiko Orokorra, 2. bertsioa soilik"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:211
 msgid "GNU General Public License, version 3 only"
 msgstr "GNUren Lizentzia Publiko Orokorra, 3. bertsioa soilik"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU Hedadura Txikiagoko Lizentzia Publiko Orokorra, 2.1. bertsioa soilik"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:213
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU Hedadura Txikiagoko Lizentzia Publiko Orokorra, 3. bertsioa soilik"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:214
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNUren Affero Lizentzia Publiko Orokorra, 3 bertsioa edo berriagoa"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:215
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNUren Affero Lizentzia Publiko Orokorra, 3. bertsioa soilik"
 
-#: src/adw-about-window.c:218
+#: src/adw-about-window.c:216
 msgid "BSD 3-Clause License"
 msgstr "BSD 3-klausula Lizentzia"
 
-#: src/adw-about-window.c:219
+#: src/adw-about-window.c:217
 msgid "Apache License, Version 2.0"
 msgstr "Apache lizentzia, 2.0 bertsioa"
 
-#: src/adw-about-window.c:220
+#: src/adw-about-window.c:218
 msgid "Mozilla Public License 2.0"
 msgstr "Mozillaren lizentzia publikoa 2.0"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:526
 msgid "Code by"
 msgstr "Kodea:"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:527
 msgid "Design by"
 msgstr "Diseinua:"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:528
 msgid "Artwork by"
 msgstr "Artelana:"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:529
 msgid "Documentation by"
 msgstr "Dokumentazioa:"
 
-#: src/adw-about-window.c:531
+#: src/adw-about-window.c:530
 msgid "Translated by"
 msgstr "Itzulpena:"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:558
+#: src/adw-about-window.c:559
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a href=\"%s\">"
 "%s</a> for details."
 msgstr "Aplikazio honek ez du inolako bermerik. Xehetasun gehiagorako, ikusi <a href=\"%s\">%s</a>."
 
-#: src/adw-about-window.c:636
+#: src/adw-about-window.c:637
 msgid "This Application"
 msgstr "Aplikazio hau"
 
-#: src/adw-about-window.c:933
+#: src/adw-about-window.c:939
 #, c-format
 msgid "Version %s"
 msgstr "%s bertsioa"
 
-#: src/adw-about-window.c:959
+#: src/adw-about-window.c:965
 msgid "Unable to parse release notes:"
 msgstr "Ezin dira argitalpen-oharrak analizatu:"
 
-#: src/adw-about-window.c:965
+#: src/adw-about-window.c:971
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Lerroa: %d, karakterea: %d"
 
-#: src/adw-about-window.c:1235
+#: src/adw-about-window.c:1264
 msgid "Copied to clipboard"
 msgstr "Arbelean kopiatu da"
 
-#: src/adw-about-window.c:1270
+#: src/adw-about-window.c:1299
 msgid "Unable to save debugging information"
 msgstr "Ezin da arazketa-informazioa gorde"
 
-#: src/adw-about-window.c:1275
+#: src/adw-about-window.c:1304
 msgid "Close"
 msgstr "Itxi"
 
-#: src/adw-about-window.c:1293
+#: src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "Gorde arazketa-informazioa"
 
-#: src/adw-about-window.c:1296
+#: src/adw-about-window.c:1325
 msgid "_Save"
 msgstr "_Gorde"
 
-#: src/adw-about-window.c:1297
+#: src/adw-about-window.c:1326
 msgid "_Cancel"
 msgstr "_Utzi"
 
@@ -155,93 +155,93 @@ msgstr "_Utzi"
 msgid "About"
 msgstr "Honi buruz"
 
-#: src/adw-about-window.ui:121
+#: src/adw-about-window.ui:123
 msgid "_What’s New"
 msgstr "_Zer berri"
 
-#: src/adw-about-window.ui:140
+#: src/adw-about-window.ui:138
 msgid "_Details"
 msgstr "_Xehetasunak"
 
-#: src/adw-about-window.ui:162 src/adw-about-window.ui:487
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
 msgid "_Website"
 msgstr "_Webgunea"
 
-#: src/adw-about-window.ui:193
+#: src/adw-about-window.ui:176
 msgid "_Support Questions"
 msgstr "_Laguntza-galderak"
 
-#: src/adw-about-window.ui:215
+#: src/adw-about-window.ui:192
 msgid "_Report an Issue"
 msgstr "_Jakinarazi akatsa"
 
-#: src/adw-about-window.ui:236
+#: src/adw-about-window.ui:207
 msgid "_Troubleshooting"
 msgstr "_Arazoen ebazpena"
 
-#: src/adw-about-window.ui:267
+#: src/adw-about-window.ui:226
 msgid "_Credits"
 msgstr "_Kredituak"
 
-#: src/adw-about-window.ui:284
+#: src/adw-about-window.ui:241
 msgid "_Legal"
 msgstr "_Legea"
 
-#: src/adw-about-window.ui:301
+#: src/adw-about-window.ui:256
 msgid "_Acknowledgements"
 msgstr "A_itortzak"
 
-#: src/adw-about-window.ui:381
+#: src/adw-about-window.ui:295
 msgid "What’s New"
 msgstr "Zer berri"
 
-#: src/adw-about-window.ui:386 src/adw-about-window.ui:442
-#: src/adw-about-window.ui:531 src/adw-about-window.ui:606
-#: src/adw-about-window.ui:653 src/adw-about-window.ui:700
-#: src/adw-about-window.ui:747
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
 msgid "Back"
 msgstr "Atzera"
 
-#: src/adw-about-window.ui:437
+#: src/adw-about-window.ui:351
 msgid "Details"
 msgstr "Xehetasunak"
 
-#: src/adw-about-window.ui:526
+#: src/adw-about-window.ui:432
 msgid "Troubleshooting"
 msgstr "Arazoen ebazpena"
 
-#: src/adw-about-window.ui:555
+#: src/adw-about-window.ui:461
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
 "any problems you encounter when you report an issue."
 msgstr "Arazoak ebazten laguntzeko, arazketa-informazioa begiratu dezakezu. Informazio hori aplikazioaren garatzaileei ematen badiezu, aurkitutako edozein arazoren diagnostikoa egiten lagundu dezakezu."
 
-#: src/adw-about-window.ui:566
+#: src/adw-about-window.ui:472
 msgid "_Debugging Information"
 msgstr "_Arazketa-informazioa"
 
-#: src/adw-about-window.ui:601
+#: src/adw-about-window.ui:507
 msgid "Credits"
 msgstr "Kredituak"
 
-#: src/adw-about-window.ui:648
+#: src/adw-about-window.ui:554
 msgid "Legal"
 msgstr "Legea"
 
-#: src/adw-about-window.ui:695
+#: src/adw-about-window.ui:601
 msgid "Acknowledgements"
 msgstr "Aitortzak"
 
-#: src/adw-about-window.ui:742
+#: src/adw-about-window.ui:648
 msgid "Debugging Information"
 msgstr "Arazketa-informazioa"
 
-#: src/adw-about-window.ui:790
+#: src/adw-about-window.ui:696
 msgid "_Copy Text"
 msgstr "_Kopiatu testua"
 
-#: src/adw-about-window.ui:797
+#: src/adw-about-window.ui:703
 msgid "_Save as…"
 msgstr "Gorde _honela…"
 
@@ -323,6 +323,10 @@ msgstr "Ez da emaitzarik aurkitu"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Saiatu bestelako bilaketa batekin."
+
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "Itxi fitxa"
 
 #~ msgid "This property does not apply when a custom title is set"
 #~ msgstr ""
