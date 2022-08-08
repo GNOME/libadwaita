@@ -951,8 +951,12 @@ adw_squeezer_measure (GtkWidget      *widget,
      * appearant size and position of a child to changes suddenly when a larger
      * child gets enabled/disabled.
      */
-    gtk_widget_measure (child, orientation, for_size,
-                        &child_min, &child_nat, NULL, NULL);
+    if (self->orientation == orientation)
+      gtk_widget_measure (child, orientation, -1,
+                          &child_min, &child_nat, NULL, NULL);
+    else
+      gtk_widget_measure (child, orientation, for_size,
+                          &child_min, &child_nat, NULL, NULL);
 
     if (self->orientation == orientation) {
       if (self->allow_none)
