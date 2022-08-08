@@ -5,6 +5,7 @@
 #include "pages/about/adw-demo-page-about.h"
 #include "pages/animations/adw-demo-page-animations.h"
 #include "pages/avatar/adw-demo-page-avatar.h"
+#include "pages/banners/adw-demo-page-banners.h"
 #include "pages/buttons/adw-demo-page-buttons.h"
 #include "pages/carousel/adw-demo-page-carousel.h"
 #include "pages/clamp/adw-demo-page-clamp.h"
@@ -119,6 +120,7 @@ adw_demo_window_init (AdwDemoWindow *self)
 
   g_type_ensure (ADW_TYPE_DEMO_PAGE_ABOUT);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_ANIMATIONS);
+  g_type_ensure (ADW_TYPE_DEMO_PAGE_BANNERS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_AVATAR);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_BUTTONS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CAROUSEL);

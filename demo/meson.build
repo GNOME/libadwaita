@@ -26,6 +26,7 @@ adwaita_demo_sources = [
   'pages/about/adw-demo-page-about.c',
   'pages/animations/adw-demo-page-animations.c',
   'pages/avatar/adw-demo-page-avatar.c',
+  'pages/banners/adw-demo-page-banners.c',
   'pages/buttons/adw-demo-page-buttons.c',
   'pages/carousel/adw-demo-page-carousel.c',
   'pages/clamp/adw-demo-page-clamp.c',

@@ -29,6 +29,7 @@ G_BEGIN_DECLS
 #include "adw-application.h"
 #include "adw-application-window.h"
 #include "adw-avatar.h"
+#include "adw-banner.h"
 #include "adw-bin.h"
 #include "adw-button-content.h"
 #include "adw-carousel.h"

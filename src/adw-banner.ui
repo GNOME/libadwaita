@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="libadwaita">
+  <requires lib="gtk" version="4.0" />
+  <template class="AdwBanner" parent="GtkWidget">
+    <accessibility>
+      <relation name="labelled-by">title</relation>
+    </accessibility>
+    <child>
+      <object class="GtkRevealer" id="revealer">
+        <property name="transition-type">slide-down</property>
+        <property name="child">
+          <object class="AdwGizmo" id="gizmo">
+            <property name="hexpand">True</property>
+            <child>
+              <object class="GtkLabel" id="title">
+                <property name="hexpand">True</property>
+                <property name="justify">center</property>
+                <property name="ellipsize">end</property>
+                <property name="lines">3</property>
+                <property name="use-underline">False</property>
+                <property name="selectable">False</property>
+                <property name="wrap">True</property>
+                <property name="wrap-mode">word-char</property>
+                <style>
+                  <class name="heading"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="button">
+                <property name="valign">center</property>
+                <property name="focus-on-click">False</property>
+                <property name="use-underline">True</property>
+                <signal name="clicked" handler="button_clicked" swapped="yes" />
+              </object>
+            </child>
+          </object>
+        </property>
+      </object>
+    </child>
+  </template>
+</interface>

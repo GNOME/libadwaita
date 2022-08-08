@@ -19,6 +19,13 @@ Slug: widget-gallery
   <img src="toast-overlay.png" alt="toast-overlay">
 </picture>](class.ToastOverlay.html)
 
+### Banner
+
+[<picture>
+  <source srcset="banner-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="banner.png" alt="banner">
+</picture>](class.Banner.html)
+
 ### Avatar
 
 [<picture>
