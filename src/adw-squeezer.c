@@ -807,7 +807,6 @@ adw_squeezer_size_allocate (GtkWidget *widget,
   for (l = self->children; l; l = l->next) {
     GtkWidget *child = NULL;
     int child_min, child_nat;
-    int for_size = -1;
     int compare_size;
 
     page = l->data;
@@ -822,29 +821,20 @@ adw_squeezer_size_allocate (GtkWidget *widget,
     if (self->orientation == GTK_ORIENTATION_VERTICAL) {
       compare_size = height;
 
-      if (gtk_widget_get_request_mode (child) == GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH)
-        for_size = width;
-
-      gtk_widget_measure (child, self->orientation, for_size,
-                          &child_min, NULL, NULL, NULL);
-
-      if (child_min <= height)
-        break;
+      gtk_widget_measure (child, self->orientation, -1,
+                          &child_min, &child_nat, NULL, NULL);
     } else {
       compare_size = width;
 
-      if (gtk_widget_get_request_mode (child) == GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT)
-        for_size = height;
-
-      gtk_widget_measure (child, self->orientation, for_size,
+      gtk_widget_measure (child, self->orientation, -1,
                           &child_min, &child_nat, NULL, NULL);
-
-      if (child_min <= compare_size && self->switch_threshold_policy == ADW_FOLD_THRESHOLD_POLICY_MINIMUM)
-        break;
-
-      if (child_nat <= compare_size && self->switch_threshold_policy == ADW_FOLD_THRESHOLD_POLICY_NATURAL)
-        break;
     }
+
+    if (child_min <= compare_size && self->switch_threshold_policy == ADW_FOLD_THRESHOLD_POLICY_MINIMUM)
+      break;
+
+    if (child_nat <= compare_size && self->switch_threshold_policy == ADW_FOLD_THRESHOLD_POLICY_NATURAL)
+      break;
   }
 
   if (l == NULL && self->allow_none)
