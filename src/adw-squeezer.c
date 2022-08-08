@@ -818,17 +818,13 @@ adw_squeezer_size_allocate (GtkWidget *widget,
     if (!page->enabled)
       continue;
 
-    if (self->orientation == GTK_ORIENTATION_VERTICAL) {
+    if (self->orientation == GTK_ORIENTATION_VERTICAL)
       compare_size = height;
-
-      gtk_widget_measure (child, self->orientation, -1,
-                          &child_min, &child_nat, NULL, NULL);
-    } else {
+    else
       compare_size = width;
 
-      gtk_widget_measure (child, self->orientation, -1,
-                          &child_min, &child_nat, NULL, NULL);
-    }
+    gtk_widget_measure (child, self->orientation, -1,
+                        &child_min, &child_nat, NULL, NULL);
 
     if (child_min <= compare_size && self->switch_threshold_policy == ADW_FOLD_THRESHOLD_POLICY_MINIMUM)
       break;
