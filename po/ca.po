@@ -11,10 +11,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-07-09 18:02+0000\n"
-"PO-Revision-Date: 2022-06-01 08:57+0100\n"
+"POT-Creation-Date: 2022-08-08 09:09+0000\n"
+"PO-Revision-Date: 2022-08-09 08:57+0100\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
-"Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/ca/)\n"
+"Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/"
+"ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,140 +23,141 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.1\n"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:203
 msgid "GNU General Public License, version 2 or later"
 msgstr "Llicència pública general de GNU, versió 2 o posterior"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:204
 msgid "GNU General Public License, version 3 or later"
 msgstr "Llicència pública general de GNU, versió 3 o posterior"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:205
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "Llicència pública general reduïda de GNU, versió 2.1 o posterior"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:206
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "Llicència pública general reduïda de GNU, versió 3 o posterior"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:207
 msgid "BSD 2-Clause License"
 msgstr "Llicència BSD de 2 clàusules"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:208
 msgid "The MIT License (MIT)"
 msgstr "Llicència MIT (MIT)"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:209
 msgid "Artistic License 2.0"
 msgstr "Llicència artística 2.0"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:210
 msgid "GNU General Public License, version 2 only"
 msgstr "Llicència Pública General GNU, només versió 2"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:211
 msgid "GNU General Public License, version 3 only"
 msgstr "Llicència Pública General GNU, només versió 3"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "Llicència pública general reduïda de GNU, només versió 2.1"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:213
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "Llicència pública general reduïda de GNU, només la versió 3"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:214
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "Llicència pública general GNU Affero, versió 3 o posterior"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:215
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "Llicència Pública General GNU Affero, només versió 3"
 
-#: src/adw-about-window.c:218
+#: src/adw-about-window.c:216
 msgid "BSD 3-Clause License"
 msgstr "Llicència BSD de 3 clàusules"
 
-#: src/adw-about-window.c:219
+#: src/adw-about-window.c:217
 msgid "Apache License, Version 2.0"
 msgstr "Llicència Apache, versió 2.0"
 
-#: src/adw-about-window.c:220
+#: src/adw-about-window.c:218
 msgid "Mozilla Public License 2.0"
 msgstr "Llicència pública de Mozilla 2.0"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:526
 msgid "Code by"
 msgstr "Codi per"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:527
 msgid "Design by"
 msgstr "Dissenyat per"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:528
 msgid "Artwork by"
 msgstr "Treball artístic per"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:529
 msgid "Documentation by"
 msgstr "Documentació per"
 
-#: src/adw-about-window.c:531
+#: src/adw-about-window.c:530
 msgid "Translated by"
 msgstr "Traduït per"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
-#: src/adw-about-window.c:558
+#.
+#: src/adw-about-window.c:559
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a "
-"href=\"%s\">%s</a> for details."
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
 msgstr ""
-"Aquesta aplicació no té absolutament cap garantia. Vegeu el <a "
-"href=\"%s\">%s</a> per a més detalls."
+"Aquesta aplicació no té absolutament cap garantia. Vegeu el <a href=\"%s\">"
+"%s</a> per a més detalls."
 
-#: src/adw-about-window.c:636
+#: src/adw-about-window.c:637
 msgid "This Application"
 msgstr "Aquesta aplicació"
 
-#: src/adw-about-window.c:933
+#: src/adw-about-window.c:939
 #, c-format
 msgid "Version %s"
 msgstr "Versió %s"
 
-#: src/adw-about-window.c:959
+#: src/adw-about-window.c:965
 msgid "Unable to parse release notes:"
 msgstr "No s'han pogut analitzar les notes de publicació:"
 
-#: src/adw-about-window.c:965
+#: src/adw-about-window.c:971
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Línia: %d, caràcter: %d"
 
-#: src/adw-about-window.c:1235
+#: src/adw-about-window.c:1264
 msgid "Copied to clipboard"
 msgstr "Copiat al porta-retalls"
 
-#: src/adw-about-window.c:1270
+#: src/adw-about-window.c:1299
 msgid "Unable to save debugging information"
 msgstr "No s'ha pogut desar la informació de depuració"
 
-#: src/adw-about-window.c:1275
+#: src/adw-about-window.c:1304
 msgid "Close"
 msgstr "Tanca"
 
-#: src/adw-about-window.c:1293
+#: src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "Desa la informació de depuració"
 
-#: src/adw-about-window.c:1296
+#: src/adw-about-window.c:1325
 msgid "_Save"
 msgstr "_Desa"
 
-#: src/adw-about-window.c:1297
+#: src/adw-about-window.c:1326
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
@@ -163,62 +165,62 @@ msgstr "_Cancel·la"
 msgid "About"
 msgstr "Quant a"
 
-#: src/adw-about-window.ui:121
+#: src/adw-about-window.ui:123
 msgid "_What’s New"
 msgstr "_Novetats"
 
-#: src/adw-about-window.ui:140
+#: src/adw-about-window.ui:138
 msgid "_Details"
 msgstr "_Detalls"
 
-#: src/adw-about-window.ui:162 src/adw-about-window.ui:487
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
 msgid "_Website"
 msgstr "_Lloc web"
 
-#: src/adw-about-window.ui:193
+#: src/adw-about-window.ui:176
 msgid "_Support Questions"
 msgstr "_Preguntes de suport"
 
-#: src/adw-about-window.ui:215
+#: src/adw-about-window.ui:192
 msgid "_Report an Issue"
 msgstr "_Informa d'un problema"
 
-#: src/adw-about-window.ui:236
+#: src/adw-about-window.ui:207
 msgid "_Troubleshooting"
 msgstr "_Solució de problemes"
 
-#: src/adw-about-window.ui:267
+#: src/adw-about-window.ui:226
 msgid "_Credits"
 msgstr "_Crèdits"
 
-#: src/adw-about-window.ui:284
+#: src/adw-about-window.ui:241
 msgid "_Legal"
 msgstr "_Legal"
 
-#: src/adw-about-window.ui:301
+#: src/adw-about-window.ui:256
 msgid "_Acknowledgements"
 msgstr "_Reconeixements"
 
-#: src/adw-about-window.ui:381
+#: src/adw-about-window.ui:295
 msgid "What’s New"
 msgstr "Novetats"
 
-#: src/adw-about-window.ui:386 src/adw-about-window.ui:442
-#: src/adw-about-window.ui:531 src/adw-about-window.ui:606
-#: src/adw-about-window.ui:653 src/adw-about-window.ui:700
-#: src/adw-about-window.ui:747
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
 msgid "Back"
 msgstr "Enrere"
 
-#: src/adw-about-window.ui:437
+#: src/adw-about-window.ui:351
 msgid "Details"
 msgstr "Detalls"
 
-#: src/adw-about-window.ui:526
+#: src/adw-about-window.ui:432
 msgid "Troubleshooting"
 msgstr "Solució de problemes"
 
-#: src/adw-about-window.ui:555
+#: src/adw-about-window.ui:461
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -229,27 +231,31 @@ msgstr ""
 "l'aplicació pot ajudar a diagnosticar qualsevol problema que trobeu quan "
 "informeu d'un problema."
 
-#: src/adw-about-window.ui:566
+#: src/adw-about-window.ui:472
 msgid "_Debugging Information"
 msgstr "_Informació de depuració"
 
-#: src/adw-about-window.ui:601
+#: src/adw-about-window.ui:507
 msgid "Credits"
 msgstr "Crèdits"
 
-#: src/adw-about-window.ui:648
+#: src/adw-about-window.ui:554
 msgid "Legal"
 msgstr "Legal"
 
-#: src/adw-about-window.ui:695
+#: src/adw-about-window.ui:601
 msgid "Acknowledgements"
 msgstr "Reconeixements"
 
-#: src/adw-about-window.ui:790
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "Informació de depuració"
+
+#: src/adw-about-window.ui:696
 msgid "_Copy Text"
 msgstr "_Copia el text"
 
-#: src/adw-about-window.ui:797
+#: src/adw-about-window.ui:703
 msgid "_Save as…"
 msgstr "_Anomena i desa…"
 
@@ -267,7 +273,7 @@ msgstr "Prefereix fosc"
 
 #: src/adw-inspector-page.c:80
 msgid "Prefer Light"
-msgstr "Preferix clar"
+msgstr "Prefereix clar"
 
 #. Translators: The name of the library, not the stylesheet
 #: src/adw-inspector-page.c:98
@@ -333,3 +339,7 @@ msgstr "No s'ha trobat cap resultat"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Proveu una cerca diferent."
+
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "Tanca la pestanya"
