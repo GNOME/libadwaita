@@ -24,9 +24,6 @@ G_DECLARE_FINAL_TYPE (AdwTabBox, adw_tab_box, ADW, TAB_BOX, GtkWidget)
 void adw_tab_box_set_view (AdwTabBox  *self,
                            AdwTabView *view);
 
-void adw_tab_box_set_adjustment (AdwTabBox     *self,
-                                 GtkAdjustment *adjustment);
-
 void adw_tab_box_attach_page (AdwTabBox  *self,
                               AdwTabPage *page,
                               int         position);
