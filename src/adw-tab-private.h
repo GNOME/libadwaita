@@ -28,10 +28,6 @@ AdwTabPage *adw_tab_get_page (AdwTab     *self);
 void        adw_tab_set_page (AdwTab     *self,
                               AdwTabPage *page);
 
-gboolean adw_tab_get_hovering (AdwTab   *self);
-void     adw_tab_set_hovering (AdwTab   *self,
-                               gboolean  hovering);
-
 gboolean adw_tab_get_dragging (AdwTab   *self);
 void     adw_tab_set_dragging (AdwTab   *self,
                                gboolean  dragging);
