@@ -126,6 +126,8 @@ adw_application_window_class_init (AdwApplicationWindowClass *klass)
    *
    * The content widget.
    *
+   * This property should always be used instead of [property@Gtk.Window:child].
+   *
    * Since: 1.0
    */
   props[PROP_CONTENT] =

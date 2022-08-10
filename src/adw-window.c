@@ -38,8 +38,9 @@
  * </object>
  * ```
  *
- * Using [method@Gtk.Window.get_titlebar] and [method@Gtk.Window.set_titlebar]
- * is not supported and will result in a crash.
+ * Using [property@Gtk.Window:titlebar] or [property@Gtk.Window:child]
+ * is not supported and will result in a crash. Use [property@Window:content]
+ * instead.
  *
  * Since: 1.0
  */
@@ -139,6 +140,8 @@ adw_window_class_init (AdwWindowClass *klass)
    * AdwWindow:content: (attributes org.gtk.Property.get=adw_window_get_content org.gtk.Property.set=adw_window_set_content)
    *
    * The content widget.
+   *
+   * This property should always be used instead of [property@Gtk.Window:child].
    *
    * Since: 1.0
    */
