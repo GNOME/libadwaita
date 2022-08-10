@@ -341,7 +341,6 @@ adw_action_row_init (AdwActionRow *self)
   gtk_widget_init_template (GTK_WIDGET (self));
 
   g_signal_connect (self, "notify::parent", G_CALLBACK (parent_cb), NULL);
-
 }
 
 static void
