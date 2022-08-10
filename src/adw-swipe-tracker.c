@@ -1251,6 +1251,9 @@ adw_swipe_tracker_get_enabled (AdwSwipeTracker *self)
  *
  * Sets whether @self is enabled.
  *
+ * When it's not enabled, no events will be processed. Usually widgets will want
+ * to expose this via a property.
+ *
  * Since: 1.0
  */
 void
@@ -1298,6 +1301,9 @@ adw_swipe_tracker_get_reversed (AdwSwipeTracker *self)
  * @reversed: whether to reverse the swipe direction
  *
  * Sets whether to reverse the swipe direction.
+ *
+ * If the swipe tracker is horizontal, it can be used for supporting RTL text
+ * direction.
  *
  * Since: 1.0
  */
@@ -1385,6 +1391,9 @@ adw_swipe_tracker_get_allow_long_swipes (AdwSwipeTracker *self)
  * @allow_long_swipes: whether to allow long swipes
  *
  * Sets whether to allow swiping for more than one snap point at a time.
+ *
+ * If the value is `FALSE`, each swipe can only move to the adjacent snap
+ * points.
  *
  * Since: 1.0
  */

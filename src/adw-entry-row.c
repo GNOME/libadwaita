@@ -522,8 +522,7 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
    *
    * Whether to suggest emoji replacements on the entry row.
    *
-   * Emoji replacement is done with :-delimited names,
-   * like `:heart:`.
+   * Emoji replacement is done with :-delimited names, like `:heart:`.
    *
    * Since: 1.2
    */
@@ -801,6 +800,14 @@ adw_entry_row_get_show_apply_button (AdwEntryRow *self)
  *
  * Sets whether @self can show the apply button.
  *
+ * When set to `TRUE`, typing text in the entry will reveal an apply button.
+ * Clicking it or pressing the <kbd>Enter</kbd> key will hide the button and
+ * emit the [signal@EntryRow::apply] signal.
+ *
+ * This is useful if changing the entry contents can trigger an expensive
+ * operation, e.g. network activity, to avoid triggering it after typing every
+ * character.
+ *
  * Since: 1.2
  */
 void
@@ -990,9 +997,6 @@ adw_entry_row_set_attributes (AdwEntryRow   *self,
  *
  * Gets whether to suggest emoji replacements on @self.
  *
- * Emoji replacement is done with :-delimited names,
- * like `:heart:`.
- *
  * Returns: whether or not emoji completion is enabled
  *
  * Since: 1.2
@@ -1016,8 +1020,7 @@ adw_entry_row_get_enable_emoji_completion (AdwEntryRow *self)
  *
  * Sets whether to suggest emoji replacements on @self.
  *
- * Emoji replacement is done with :-delimited names,
- * like `:heart:`.
+ * Emoji replacement is done with :-delimited names, like `:heart:`.
  *
  * Since: 1.2
  */

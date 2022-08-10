@@ -858,6 +858,11 @@ adw_tab_bar_get_autohide (AdwTabBar *self)
  *
  * Sets whether the tabs automatically hide.
  *
+ * If set to `TRUE`, the tab bar disappears when [property@TabBar:view] has 0
+ * or 1 tab, no pinned tabs, and no tab is being transferred.
+ *
+ * See [property@TabBar:tabs-revealed].
+ *
  * Since: 1.0
  */
 void
@@ -883,6 +888,8 @@ adw_tab_bar_set_autohide (AdwTabBar *self,
  * @self: a tab bar
  *
  * Gets whether the tabs are currently revealed.
+ *
+ * See [property@TabBar:autohide].
  *
  * Returns: whether the tabs are currently revealed
  *
@@ -920,6 +927,9 @@ adw_tab_bar_get_expand_tabs (AdwTabBar *self)
  * @expand_tabs: whether to expand tabs
  *
  * Sets whether tabs expand to full width.
+ *
+ * If set to `TRUE`, the tabs will always vary width filling the whole width
+ * when possible, otherwise tabs will always have the minimum possible size.
  *
  * Since: 1.0
  */
@@ -963,6 +973,9 @@ adw_tab_bar_get_inverted (AdwTabBar *self)
  * @inverted: whether tabs use inverted layout
  *
  * Sets whether tabs tabs use inverted layout.
+ *
+ * If set to `TRUE`, non-pinned tabs will have the close button at the beginning
+ * and the indicator at the end rather than the opposite.
  *
  * Since: 1.0
  */
@@ -1022,6 +1035,8 @@ adw_tab_bar_setup_extra_drop_target (AdwTabBar     *self,
  * @self: a tab bar
  *
  * Gets whether @self is overflowing.
+ *
+ * If `TRUE`, all tabs cannot be displayed at once and require scrolling.
  *
  * Returns: whether @self is overflowing
  *

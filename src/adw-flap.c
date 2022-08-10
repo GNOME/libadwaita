@@ -1268,8 +1268,7 @@ adw_flap_class_init (AdwFlapClass *klass)
    *
    * The content widget.
    *
-   * It's always displayed when unfolded, and partially visible
-   * when folded.
+   * It's always displayed when unfolded, and partially visible when folded.
    *
    * Since: 1.0
    */
@@ -1828,6 +1827,8 @@ adw_flap_get_content (AdwFlap *self)
  *
  * Sets the content widget for @self.
  *
+ * It's always displayed when unfolded, and partially visible when folded.
+ *
  * Since: 1.0
  */
 void
@@ -1877,6 +1878,8 @@ adw_flap_get_flap (AdwFlap *self)
  * @flap: (nullable): the flap widget
  *
  * Sets the flap widget for @self.
+ *
+ * It's only visible when [property@Flap:reveal-progress] is greater than 0.
  *
  * Since: 1.0
  */
@@ -1929,6 +1932,10 @@ adw_flap_get_separator (AdwFlap *self)
  *
  * Sets the separator widget for @self.
  *
+ * It's displayed between content and flap when there's no shadow to display.
+ * When exactly it's visible depends on the [property@Flap:transition-type]
+ * value.
+ *
  * Since: 1.0
  */
 void
@@ -1978,6 +1985,9 @@ adw_flap_get_flap_position (AdwFlap *self)
  * @position: the new value
  *
  * Sets the flap position for @self.
+ *
+ * If it's set to `GTK_PACK_START`, the flap is displayed before the content,
+ * if `GTK_PACK_END`, it's displayed after the content.
  *
  * Since: 1.0
  */
@@ -2060,6 +2070,12 @@ adw_flap_get_reveal_params (AdwFlap *self)
  *
  * Sets the reveal animation spring parameters for @self.
  *
+ * The default value is equivalent to:
+ *
+ * ```c
+ * adw_spring_params_new (1, 0.5, 500)
+ * ```
+ *
  * Since: 1.0
  */
 void
@@ -2083,6 +2099,10 @@ adw_flap_set_reveal_params (AdwFlap         *self,
  * @self: a flap
  *
  * Gets the current reveal progress for @self.
+ *
+ * 0 means fully hidden, 1 means fully revealed.
+ *
+ * See [property@Flap:reveal-flap].
  *
  * Returns: the current reveal progress for @self
  *
@@ -2159,7 +2179,7 @@ adw_flap_set_fold_policy (AdwFlap           *self,
  * adw_flap_get_fold_duration: (attributes org.gtk.Method.get_property=fold-duration)
  * @self: a flap
  *
- * Gets the duration that fold transitions in @self will take.
+ * Gets the fold transition animation duration for @self, in milliseconds.
  *
  * Returns: the fold transition duration
  *
@@ -2178,7 +2198,7 @@ adw_flap_get_fold_duration (AdwFlap *self)
  * @self: a flap
  * @duration: the new duration, in milliseconds
  *
- * Sets the duration that fold transitions in @self will take.
+ * Sets the fold transition animation duration for @self, in milliseconds.
  *
  * Since: 1.0
  */
@@ -2201,6 +2221,8 @@ adw_flap_set_fold_duration (AdwFlap *self,
  * @self: a flap
  *
  * Gets whether @self is currently folded.
+ *
+ * See [property@Flap:fold-policy].
  *
  * Returns: `TRUE` if @self is currently folded
  *
@@ -2238,6 +2260,10 @@ adw_flap_get_locked (AdwFlap *self)
  * @locked: the new value
  *
  * Sets whether @self is locked.
+ *
+ * If `FALSE`, folding when the flap is revealed automatically closes it, and
+ * unfolding it when the flap is not revealed opens it. If `TRUE`,
+ * [property@Flap:reveal-flap] value never changes on its own.
  *
  * Since: 1.0
  */
@@ -2281,6 +2307,11 @@ adw_flap_get_transition_type (AdwFlap *self)
  * @transition_type: the new transition type
  *
  * Sets the type of animation used for reveal and fold transitions in @self.
+ *
+ * [property@Flap:flap] is transparent by default, which means the content will
+ * be seen through it with `ADW_FLAP_TRANSITION_TYPE_OVER` transitions; add the
+ * [`.background`](style-classes.html#background) style class to it if this is
+ * unwanted.
  *
  * Since: 1.0
  */
@@ -2328,6 +2359,10 @@ adw_flap_get_modal (AdwFlap *self)
  * @modal: whether @self is modal
  *
  * Sets whether @self is modal.
+ *
+ * If `TRUE`, clicking the content widget while flap is revealed, as well as
+ * pressing the <kbd>Esc</kbd> key, will close the flap. If `FALSE`, clicks are
+ * passed through to the content widget.
  *
  * Since: 1.0
  */
@@ -2377,6 +2412,9 @@ adw_flap_get_swipe_to_open (AdwFlap *self)
  *
  * Sets whether @self can be opened with a swipe gesture.
  *
+ * The area that can be swiped depends on the [property@Flap:transition-type]
+ * value.
+ *
  * Since: 1.0
  */
 void
@@ -2422,6 +2460,9 @@ adw_flap_get_swipe_to_close (AdwFlap *self)
  *
  * Sets whether @self can be closed with a swipe gesture.
  *
+ * The area that can be swiped depends on the [property@Flap:transition-type]
+ * value.
+ *
  * Since: 1.0
  */
 void
@@ -2464,6 +2505,13 @@ adw_flap_get_fold_threshold_policy (AdwFlap *self)
  * @policy: the policy to use
  *
  * Sets the fold threshold policy for @self.
+ *
+ * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, flap will only fold when the
+ * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
+ * will fold as soon as children don't get their natural size.
+ *
+ * This can be useful if you have a long ellipsizing label and want to let it
+ * ellipsize instead of immediately folding.
  *
  * Since: 1.0
  */

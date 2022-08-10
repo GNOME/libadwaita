@@ -280,6 +280,9 @@ adw_application_new (const char        *application_id,
  *
  * Gets the style manager for @self.
  *
+ * This is a convenience property allowing to access `AdwStyleManager` through
+ * property bindings or expressions.
+ *
  * Returns: (transfer none): the style manager
  *
  * Since: 1.0

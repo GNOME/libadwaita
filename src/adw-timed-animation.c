@@ -399,6 +399,12 @@ adw_timed_animation_get_value_from (AdwTimedAnimation *self)
  *
  * Sets the value @self will animate from.
  *
+ * The animation will start at this value and end at
+ * [property@TimedAnimation:value-to].
+ *
+ * If [property@TimedAnimation:reverse] is `TRUE`, the animation will end at
+ * this value instead.
+ *
  * Since: 1.0
  */
 void
@@ -439,6 +445,12 @@ adw_timed_animation_get_value_to (AdwTimedAnimation *self)
  * @value: the value to animate to
  *
  * Sets the value @self will animate to.
+ *
+ * The animation will start at [property@TimedAnimation:value-from] and end at
+ * this value.
+ *
+ * If [property@TimedAnimation:reverse] is `TRUE`, the animation will start
+ * at this value instead.
  *
  * Since: 1.0
  */

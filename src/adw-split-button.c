@@ -348,8 +348,8 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * If the menu model is `NULL`, the dropdown is disabled.
    *
    * A [class@Gtk.Popover] will be created from the menu model with
-   * [ctor@Gtk.PopoverMenu.new_from_model]. Actions will be connected
-   * as documented for this function.
+   * [ctor@Gtk.PopoverMenu.new_from_model]. Actions will be connected as
+   * documented for this function.
    *
    * If [property@SplitButton:popover] is already set, it will be dissociated
    * from the button, and the property is set to `NULL`.
@@ -385,8 +385,8 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * The dropdown arrow icon will point at the same direction.
    *
-   * If the does not fit in the available space in the given direction,
-   * GTK will its best to keep it inside the screen and fully visible.
+   * If the does not fit in the available space in the given direction, GTK will
+   * try its best to keep it inside the screen and fully visible.
    *
    * If you pass `GTK_ARROW_NONE`, it's equivalent to `GTK_ARROW_DOWN`.
    *
@@ -628,6 +628,9 @@ adw_split_button_get_label (AdwSplitButton *self)
  *
  * Sets the label for @self.
  *
+ * Setting the label will set [property@SplitButton:icon-name] and
+ * [property@SplitButton:child] to `NULL`.
+ *
  * Since: 1.0
  */
 void
@@ -678,6 +681,8 @@ adw_split_button_get_use_underline (AdwSplitButton *self)
  *
  * Sets whether an underline in the text indicates a mnemonic.
  *
+ * See [property@SplitButton:label].
+ *
  * Since: 1.0
  */
 void
@@ -700,9 +705,6 @@ adw_split_button_set_use_underline (AdwSplitButton *self,
  *
  * Gets the name of the icon used to automatically populate the button.
  *
- * If the icon name has not been set with [method@SplitButton.set_icon_name]
- * the return value will be `NULL`.
- *
  * Returns: (nullable): the icon name
  *
  * Since: 1.0
@@ -721,6 +723,9 @@ adw_split_button_get_icon_name (AdwSplitButton *self)
  * @icon_name: the icon name to set
  *
  * Sets the name of the icon used to automatically populate the button.
+ *
+ * Setting the icon name will set [property@SplitButton:label] and
+ * [property@SplitButton:child] to `NULL`.
  *
  * Since: 1.0
  */
@@ -773,6 +778,9 @@ adw_split_button_get_child (AdwSplitButton *self)
  *
  * Sets the child widget.
  *
+ * Setting the child widget will set [property@SplitButton:label] and
+ * [property@SplitButton:icon-name] to `NULL`.
+ *
  * Since: 1.0
  */
 void
@@ -823,6 +831,15 @@ adw_split_button_get_menu_model (AdwSplitButton *self)
  *
  * Sets the menu model from which the popup will be created.
  *
+ * If the menu model is `NULL`, the dropdown is disabled.
+ *
+ * A [class@Gtk.Popover] will be created from the menu model with
+ * [ctor@Gtk.PopoverMenu.new_from_model]. Actions will be connected as
+ * documented for this function.
+ *
+ * If [property@SplitButton:popover] is already set, it will be dissociated from
+ * the button, and the property is set to `NULL`.
+ *
  * Since: 1.0
  */
 void
@@ -862,6 +879,11 @@ adw_split_button_get_popover (AdwSplitButton *self)
  *
  * Sets the popover that will be popped up when the dropdown is clicked.
  *
+ * If the popover is `NULL`, the dropdown is disabled.
+ *
+ * If [property@SplitButton:menu-model] is set, the menu model is dissociated
+ * from the button, and the property is set to `NULL`.
+ *
  * Since: 1.0
  */
 void
@@ -900,6 +922,13 @@ adw_split_button_get_direction (AdwSplitButton *self)
  * @direction: the direction
  *
  * Sets the direction in which the popup will be popped up.
+ *
+ * The dropdown arrow icon will point at the same direction.
+ *
+ * If the does not fit in the available space in the given direction, GTK will
+ * try its best to keep it inside the screen and fully visible.
+ *
+ * If you pass `GTK_ARROW_NONE`, it's equivalent to `GTK_ARROW_DOWN`.
  *
  * Since: 1.0
  */

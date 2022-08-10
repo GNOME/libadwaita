@@ -435,6 +435,13 @@ adw_animation_init (AdwAnimation *self)
  *
  * Gets the widget @self was created for.
  *
+ * It provides the frame clock for the animation. It's not strictly necessary
+ * for this widget to be same as the one being animated.
+ *
+ * The widget must be mapped in order for the animation to work. If it's not
+ * mapped, or if it gets unmapped during an ongoing animation, the animation
+ * will be automatically skipped.
+ *
  * Returns: (transfer none): the animation widget
  *
  * Since: 1.0

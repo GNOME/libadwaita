@@ -264,6 +264,9 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    *
    * The subtitle for this row.
    *
+   * The subtitle is interpreted as Pango markup unless
+   * [property@PreferencesRow:use-markup] is set to `FALSE`.
+   *
    * Since: 1.0
    */
   props[PROP_SUBTITLE] =
@@ -529,6 +532,13 @@ activatable_widget_weak_notify (gpointer  data,
  *
  * Sets the widget to activate when @self is activated.
  *
+ * The row can be activated either by clicking on it, calling
+ * [method@ActionRow.activate], or via mnemonics in the title or the subtitle.
+ * See the [property@PreferencesRow:use-underline] property to enable mnemonics.
+ *
+ * The target widget will be activated by emitting the
+ * [signal@Gtk.Widget::mnemonic-activate] signal on it.
+ *
  * Since: 1.0
  */
 void
@@ -585,8 +595,6 @@ adw_action_row_set_activatable_widget (AdwActionRow *self,
  *
  * Gets the number of lines at the end of which the title label will be
  * ellipsized.
- *
- * If the value is 0, the number of lines won't be limited.
  *
  * Returns: the number of lines at the end of which the title label will be
  *   ellipsized
@@ -645,8 +653,6 @@ adw_action_row_set_title_lines (AdwActionRow *self,
  *
  * Gets the number of lines at the end of which the subtitle label will be
  * ellipsized.
- *
- * If the value is 0, the number of lines won't be limited.
  *
  * Returns: the number of lines at the end of which the subtitle label will be
  *   ellipsized

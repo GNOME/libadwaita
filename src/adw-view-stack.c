@@ -255,7 +255,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
   /**
    * AdwViewStackPage:child: (attributes org.gtk.Property.get=adw_view_stack_page_get_child)
    *
-   * The child of the page.
+   * The stack child to which the page belongs.
    *
    * Since: 1.0
    */
@@ -317,7 +317,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
   /**
    * AdwViewStackPage:badge-number: (attributes org.gtk.Property.get=adw_view_stack_page_get_badge_number org.gtk.Property.set=adw_view_stack_page_set_badge_number)
    *
-   * A number associated with the page.
+   * The badge number for this page.
    *
    * [class@ViewSwitcher] can display it as a badge next to the page icon. It is
    * commonly used to display a number of unread items within the page.
@@ -898,7 +898,10 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
   /**
    * AdwViewStack:hhomogeneous: (attributes org.gtk.Property.get=adw_view_stack_get_hhomogeneous org.gtk.Property.set=adw_view_stack_set_hhomogeneous)
    *
-   * Whether the stack allocates the same width for all children.
+   * Whether the stack is horizontally homogeneous.
+   *
+   * If the stack is horizontally homogeneous, it allocates the same width for
+   * all children.
    *
    * If it's `FALSE`, the stack may change width when a different child becomes
    * visible.
@@ -913,7 +916,10 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
   /**
    * AdwViewStack:vhomogeneous: (attributes org.gtk.Property.get=adw_view_stack_get_vhomogeneous org.gtk.Property.set=adw_view_stack_set_vhomogeneous)
    *
-   * Whether the stack allocates the same height for all children.
+   * Whether the stack is vertically homogeneous.
+   *
+   * If the stack is vertically homogeneous, it allocates the same height for
+   * all children.
    *
    * If it's `FALSE`, the stack may change height when a different child becomes
    * visible.
@@ -1048,6 +1054,9 @@ adw_view_stack_page_get_visible (AdwViewStackPage *self)
  *
  * Sets whether @page is visible in its `AdwViewStack`.
  *
+ * This is independent from the [property@Gtk.Widget:visible] property of
+ * [property@ViewStackPage:child].
+ *
  * Since: 1.0
  */
 void
@@ -1073,7 +1082,7 @@ adw_view_stack_page_set_visible (AdwViewStackPage *self,
  * adw_view_stack_page_get_needs_attention: (attributes org.gtk.Method.get_property=needs-attention)
  * @self: a view stack page
  *
- * Gets whether the page is marked as “needs attention”.
+ * Gets whether the page requires the user attention.
  *
  * Returns: whether the page needs attention
  *
@@ -1092,7 +1101,9 @@ adw_view_stack_page_get_needs_attention (AdwViewStackPage *self)
  * @self: a view stack page
  * @needs_attention: the new value to set
  *
- * Sets whether the page is marked as “needs attention”.
+ * Sets whether the page requires the user attention.
+ *
+ * [class@ViewSwitcher] will display it as a dot next to the page icon.
  *
  * Since: 1.0
  */
@@ -1136,6 +1147,11 @@ adw_view_stack_page_get_badge_number (AdwViewStackPage *self)
  * @badge_number: the new value to set
  *
  * Sets the badge number for this page.
+ *
+ * [class@ViewSwitcher] can display it as a badge next to the page icon. It is
+ * commonly used to display a number of unread items within the page.
+ *
+ * It can be used together with [property@ViewStack{age}:needs-attention].
  *
  * Since: 1.0
  */
@@ -1615,6 +1631,8 @@ adw_view_stack_get_visible_child_name (AdwViewStack *self)
  *
  * Makes the child with @name visible.
  *
+ * See [property@ViewStack:visible-child].
+ *
  * Since: 1.0
  */
 void
@@ -1646,6 +1664,12 @@ adw_view_stack_set_visible_child_name (AdwViewStack *self,
  * @hhomogeneous: whether to make @self horizontally homogeneous
  *
  * Sets @self to be horizontally homogeneous or not.
+ *
+ * If the stack is horizontally homogeneous, it allocates the same width for
+ * all children.
+ *
+ * If it's `FALSE`, the stack may change width when a different child becomes
+ * visible.
  *
  * Since: 1.0
  */
@@ -1692,6 +1716,12 @@ adw_view_stack_get_hhomogeneous (AdwViewStack *self)
  * @vhomogeneous: whether to make @self vertically homogeneous
  *
  * Sets @self to be vertically homogeneous or not.
+ *
+ * If the stack is vertically homogeneous, it allocates the same height for
+ * all children.
+ *
+ * If it's `FALSE`, the stack may change height when a different child becomes
+ * visible.
  *
  * Since: 1.0
  */

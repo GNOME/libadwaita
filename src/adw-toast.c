@@ -353,8 +353,6 @@ adw_toast_class_init (AdwToastClass *klass)
    *
    * The parameter for action invocations.
    *
-   * See [property@Toast:action-name].
-   *
    * Since: 1.0
    */
   props[PROP_ACTION_TARGET] =
@@ -556,6 +554,12 @@ adw_toast_get_title (AdwToast *self)
  *
  * Sets the title that will be displayed on the toast.
  *
+ * The title can be marked up with the Pango text markup language.
+ *
+ * Setting a title will unset [property@Toast:custom-title].
+ *
+ * If [property@Toast:custom-title] is set, it will be used instead.
+ *
  * Since: 1.0
  */
 void
@@ -605,7 +609,11 @@ adw_toast_get_button_label (AdwToast *self)
  *
  * Sets the label to show on the button.
  *
- * It set to `NULL`, the button won't be shown.
+ * Underlines in the button text can be used to indicate a mnemonic.
+ *
+ * If set to `NULL`, the button won't be shown.
+ *
+ * See [property@Toast:action-name].
  *
  * Since: 1.0
  */
@@ -648,6 +656,10 @@ adw_toast_get_action_name (AdwToast *self)
  * @action_name: (nullable): the action name
  *
  * Sets the name of the associated action.
+ *
+ * It will be activated when clicking the button.
+ *
+ * See [property@Toast:action-target].
  *
  * Since: 1.0
  */
@@ -819,8 +831,8 @@ adw_toast_get_priority (AdwToast *self)
  *
  * If @priority is `ADW_TOAST_PRIORITY_NORMAL`, the toast will be queued.
  *
- * If @priority is `ADW_TOAST_PRIORITY_HIGH`, the toast will be displayed immediately,
- * pushing the previous toast into the queue instead.
+ * If @priority is `ADW_TOAST_PRIORITY_HIGH`, the toast will be displayed
+ * immediately, pushing the previous toast into the queue instead.
  *
  * Since: 1.0
  */
@@ -915,6 +927,11 @@ adw_toast_dismiss (AdwToast *self)
  * @widget: (nullable): the custom title widget
  *
  * Sets the custom title widget of @self.
+ *
+ * It will be displayed instead of the title if set. In this case,
+ * [property@Toast:title] is ignored.
+ *
+ * Setting a custom title will unset [property@Toast:title].
  *
  * Since: 1.2
  */

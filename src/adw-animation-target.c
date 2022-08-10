@@ -415,6 +415,10 @@ adw_property_animation_target_new_for_pspec (GObject    *object,
  *
  * Gets the object animated by @self.
  *
+ * The `AdwPropertyAnimationTarget` instance does not hold a strong reference on
+ * the object; make sure the object is kept alive throughout the target's
+ * lifetime.
+ *
  * Returns: (transfer none): the animated object
  *
  * Since: 1.2

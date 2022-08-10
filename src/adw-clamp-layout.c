@@ -360,7 +360,7 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
   /**
    * AdwClampLayout:tightening-threshold: (attributes org.gtk.Property.get=adw_clamp_layout_get_tightening_threshold org.gtk.Property.set=adw_clamp_layout_set_tightening_threshold)
    *
-   * The size above which the child is clamped.
+   * The size above which the children are clamped.
    *
    * Starting from this size, the layout will tighten its grip on the children,
    * slowly allocating less and less of the available size up to the maximum
@@ -432,6 +432,8 @@ adw_clamp_layout_get_maximum_size (AdwClampLayout *self)
  *
  * Sets the maximum size allocated to the children.
  *
+ * It is the width if the layout is horizontal, or the height if it is vertical.
+ *
  * Since: 1.0
  */
 void
@@ -474,6 +476,19 @@ adw_clamp_layout_get_tightening_threshold (AdwClampLayout *self)
  * @tightening_threshold: the tightening threshold
  *
  * Sets the size above which the children are clamped.
+ *
+ * Starting from this size, the layout will tighten its grip on the children,
+ * slowly allocating less and less of the available size up to the maximum
+ * allocated size. Below that threshold and below the maximum size, the children
+ * will be allocated all the available size.
+ *
+ * If the threshold is greater than the maximum size to allocate to the
+ * children, they will be allocated the whole size up to the maximum. If the
+ * threshold is lower than the minimum size to allocate to the children, that
+ * size will be used as the tightening threshold.
+ *
+ * Effectively, tightening the grip on a child before it reaches its maximum
+ * size makes transitions to and from the maximum size smoother when resizing.
  *
  * Since: 1.0
  */

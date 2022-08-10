@@ -451,6 +451,8 @@ adw_clamp_scrollable_get_maximum_size (AdwClampScrollable *self)
  *
  * Sets the maximum size allocated to the child.
  *
+ * It is the width if the clamp is horizontal, or the height if it is vertical.
+ *
  * Since: 1.0
  */
 void
@@ -499,6 +501,19 @@ adw_clamp_scrollable_get_tightening_threshold (AdwClampScrollable *self)
  * @tightening_threshold: the tightening threshold
  *
  * Sets the size above which the child is clamped.
+ *
+ * Starting from this size, the clamp will tighten its grip on the child, slowly
+ * allocating less and less of the available size up to the maximum allocated
+ * size. Below that threshold and below the maximum width, the child will be
+ * allocated all the available size.
+ *
+ * If the threshold is greater than the maximum size to allocate to the child,
+ * the child will be allocated all the width up to the maximum. If the threshold
+ * is lower than the minimum size to allocate to the child, that size will be
+ * used as the tightening threshold.
+ *
+ * Effectively, tightening the grip on the child before it reaches its maximum
+ * size makes transitions to and from the maximum size smoother when resizing.
  *
  * Since: 1.0
  */

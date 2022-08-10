@@ -277,7 +277,7 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
   /**
    * AdwLeafletPage:child: (attributes org.gtk.Property.get=adw_leaflet_page_get_child)
    *
-   * The child of the page.
+   * The leaflet child to which the page belongs.
    *
    * Since: 1.0
    */
@@ -2189,7 +2189,8 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * Whether the leaflet is folded.
    *
    * The leaflet will be folded if the size allocated to it is smaller than the
-   * sum of the fold threshold policy, it will be unfolded otherwise.
+   * sum of the minimum or natural sizes of the children (see
+   * [property@Leaflet:fold-threshold-policy]), it will be unfolded otherwise.
    *
    * Since: 1.0
    */
@@ -2203,9 +2204,9 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    *
    * Determines when the leaflet will fold.
    *
-   * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when
-   * the children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`,
-   * it will fold as soon as children don't get their natural size.
+   * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when the
+   * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
+   * will fold as soon as children don't get their natural size.
    *
    * This can be useful if you have a long ellipsizing label and want to let it
    * ellipsize instead of immediately folding.
@@ -2239,9 +2240,9 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * The widget currently visible when the leaflet is folded.
    *
    * The transition is determined by [property@Leaflet:transition-type] and
-   * [property@Leaflet:child-transition-params]. The transition can be
-   * cancelled by the user, in which case visible child will change back to the
-   * previously visible child.
+   * [property@Leaflet:child-transition-params]. The transition can be cancelled
+   * by the user, in which case visible child will change back to the previously
+   * visible child.
    *
    * Since: 1.0
    */
@@ -2672,7 +2673,7 @@ adw_leaflet_swipeable_init (AdwSwipeableInterface *iface)
  * adw_leaflet_page_get_child: (attributes org.gtk.Method.get_property=child)
  * @self: a leaflet page
  *
- * Gets the leaflet child th which @self belongs.
+ * Gets the leaflet child to which @self belongs.
  *
  * Returns: (transfer none): the child to which @self belongs
  *
@@ -2777,6 +2778,11 @@ adw_leaflet_page_get_navigatable (AdwLeafletPage *self)
  * @navigatable: whether @self can be navigated to when folded
  *
  * Sets whether @self can be navigated to when folded.
+ *
+ * If `FALSE`, the child will be ignored by [method@Leaflet.get_adjacent_child],
+ * [method@Leaflet.navigate], and swipe gestures.
+ *
+ * This can be used used to prevent switching to widgets like separators.
  *
  * Since: 1.0
  */
@@ -3038,6 +3044,10 @@ adw_leaflet_get_page (AdwLeaflet *self,
  *
  * Gets whether @self is folded.
  *
+ * The leaflet will be folded if the size allocated to it is smaller than the
+ * sum of the minimum or natural sizes of the children (see
+ * [property@Leaflet:fold-threshold-policy]), it will be unfolded otherwise.
+ *
  * Returns: whether @self is folded.
  *
  * Since: 1.0
@@ -3122,6 +3132,10 @@ adw_leaflet_get_transition_type (AdwLeaflet *self)
  * @transition: the new transition type
  *
  * Sets the type of animation used for transitions between modes and children.
+ *
+ * The transition type can be changed without problems at runtime, so it is
+ * possible to change the animation based on the mode or child that is about to
+ * become current.
  *
  * Since: 1.0
  */
@@ -3222,6 +3236,12 @@ adw_leaflet_get_child_transition_params (AdwLeaflet *self)
  *
  * Sets the child transition spring parameters for @self.
  *
+ * The default value is equivalent to:
+ *
+ * ```c
+ * adw_spring_params_new (1, 0.5, 500)
+ * ```
+ *
  * Since: 1.0
  */
 void
@@ -3267,6 +3287,11 @@ adw_leaflet_get_visible_child (AdwLeaflet *self)
  * @visible_child: the new child
  *
  * Sets the widget currently visible when the leaflet is folded.
+ *
+ * The transition is determined by [property@Leaflet:transition-type] and
+ * [property@Leaflet:child-transition-params]. The transition can be cancelled
+ * by the user, in which case visible child will change back to the previously
+ * visible child.
  *
  * Since: 1.0
  */
@@ -3317,7 +3342,7 @@ adw_leaflet_get_visible_child_name (AdwLeaflet *self)
  *
  * Makes the child with the name @name visible.
  *
- * See adw_leaflet_set_visible_child() for more details.
+ * See [property@Leaflet:visible-child].
  *
  * Since: 1.0
  */
@@ -3364,6 +3389,22 @@ adw_leaflet_get_child_transition_running (AdwLeaflet *self)
  *
  * Sets whether gestures and shortcuts for navigating backward are enabled.
  *
+ * The supported gestures are:
+ *
+ * - One-finger swipe on touchscreens
+ * - Horizontal scrolling on touchpads (usually two-finger swipe)
+ * - Back/forward mouse buttons
+ *
+ * The keyboard back/forward keys are also supported, as well as the
+ * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut for horizontal orientation, or
+ * <kbd>Alt</kbd>+<kbd>↑</kbd> for vertical orientation.
+ *
+ * If the orientation is horizontal, for right-to-left locales, gestures and
+ * shortcuts are reversed.
+ *
+ * Only children that have [property@LeafletPage:navigatable] set to `TRUE` can
+ * be navigated to.
+ *
  * Since: 1.0
  */
 void
@@ -3407,6 +3448,22 @@ adw_leaflet_get_can_navigate_back (AdwLeaflet *self)
  * @can_navigate_forward: the new value
  *
  * Sets whether gestures and shortcuts for navigating forward are enabled.
+ *
+ * The supported gestures are:
+ *
+ * - One-finger swipe on touchscreens
+ * - Horizontal scrolling on touchpads (usually two-finger swipe)
+ * - Back/forward mouse buttons
+ *
+ * The keyboard back/forward keys are also supported, as well as the
+ * <kbd>Alt</kbd>+<kbd>→</kbd> shortcut for horizontal orientation, or
+ * <kbd>Alt</kbd>+<kbd>↓</kbd> for vertical orientation.
+ *
+ * If the orientation is horizontal, for right-to-left locales, gestures and
+ * shortcuts are reversed.
+ *
+ * Only children that have [property@LeafletPage:navigatable] set to `TRUE` can
+ * be navigated to.
  *
  * Since: 1.0
  */
@@ -3638,6 +3695,13 @@ adw_leaflet_get_fold_threshold_policy (AdwLeaflet *self)
  * @policy: the policy to use
  *
  * Sets the fold threshold policy for @self.
+ *
+ * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when the
+ * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
+ * will fold as soon as children don't get their natural size.
+ *
+ * This can be useful if you have a long ellipsizing label and want to let it
+ * ellipsize instead of immediately folding.
  *
  * Since: 1.0
  */

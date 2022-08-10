@@ -603,6 +603,9 @@ adw_spring_animation_get_value_from (AdwSpringAnimation *self)
  *
  * Sets the value @self will animate from.
  *
+ * The animation will start at this value and end at
+ * [property@SpringAnimation:value-to].
+ *
  * Since: 1.0
  */
 void
@@ -645,6 +648,9 @@ adw_spring_animation_get_value_to (AdwSpringAnimation *self)
  * @value: the value to animate to
  *
  * Sets the value @self will animate to.
+ *
+ * The animation will start at [property@SpringAnimation:value-from] and end at
+ * this value.
  *
  * Since: 1.0
  */
@@ -734,6 +740,8 @@ adw_spring_animation_get_initial_velocity (AdwSpringAnimation *self)
  *
  * Sets the initial velocity of @self.
  *
+ * Initial velocity affects only the animation curve, but not its duration.
+ *
  * Since: 1.0
  */
 void
@@ -756,7 +764,7 @@ adw_spring_animation_set_initial_velocity (AdwSpringAnimation *self,
  * adw_spring_animation_get_epsilon: (attributes org.gtk.Method.get_property=epsilon)
  * @self: a spring animation
  *
- * Gets the precision used to determine the duration of @self.
+ * Gets the precision of the spring.
  *
  * Returns: the epsilon value
  *
@@ -775,7 +783,18 @@ adw_spring_animation_get_epsilon (AdwSpringAnimation *self)
  * @self: a spring animation
  * @epsilon: the new value
  *
- * Sets the precision used to determine the duration of @self.
+ * Sets the precision of the spring.
+ *
+ * The level of precision used to determine when the animation has come to a
+ * rest, that is, when the amplitude of the oscillations becomes smaller than
+ * this value.
+ *
+ * If the epsilon value is too small, the animation will take a long time to
+ * stop after the animated value has stopped visibly changing.
+ *
+ * If the epsilon value is too large, the animation will end prematurely.
+ *
+ * The default value is 0.001.
  *
  * Since: 1.0
  */
@@ -821,6 +840,12 @@ adw_spring_animation_get_clamp (AdwSpringAnimation *self)
  *
  * Sets whether @self should be clamped.
  *
+ * If set to `TRUE`, the animation will abruptly end as soon as it reaches the
+ * final value, preventing overshooting.
+ *
+ * It won't prevent overshooting [property@SpringAnimation:value-from] if a
+ * relative negative [property@SpringAnimation:initial-velocity] is set.
+ *
  * Since: 1.0
  */
 void
@@ -844,6 +869,8 @@ adw_spring_animation_set_clamp (AdwSpringAnimation *self,
  * @self: a spring animation
  *
  * Gets the estimated duration of @self.
+ *
+ * Can be [const@DURATION_INFINITE] if the spring damping is set to 0.
  *
  * Returns: the estimated duration
  *

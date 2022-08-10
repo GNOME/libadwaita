@@ -122,6 +122,9 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
    *
    * The title of the preference represented by this row.
    *
+   * The title is interpreted as Pango markup unless
+   * [property@PreferencesRow:use-markup] is set to `FALSE`.
+   *
    * Since: 1.0
    */
   props[PROP_TITLE] =
@@ -328,6 +331,8 @@ adw_preferences_row_get_title_selectable (AdwPreferencesRow *self)
  *
  * Sets whether the user can copy the title from the label
  *
+ * See also [property@Gtk.Label:selectable].
+ *
  * Since: 1.1
  */
 void
@@ -376,6 +381,10 @@ adw_preferences_row_get_use_markup (AdwPreferencesRow *self)
  * @use_markup: whether to use markup
  *
  * Sets whether to use Pango markup for the title label.
+ *
+ * Subclasses may also use it for other labels, such as subtitle.
+ *
+ * See also [func@Pango.parse_markup].
  *
  * Since: 1.2
  */

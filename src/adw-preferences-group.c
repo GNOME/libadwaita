@@ -258,12 +258,16 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
     g_param_spec_string ("title", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   /**
    * AdwPreferencesGroup:header-suffix: (attributes org.gtk.Property.get=adw_preferences_group_get_header_suffix org.gtk.Property.set=adw_preferences_group_set_header_suffix)
    *
    * The header suffix widget.
    *
-   * Displayed above the list, next to the title and description. Suffixes are commonly used to show a button or a spinner for the whole group.
+   * Displayed above the list, next to the title and description.
+   *
+   * Suffixes are commonly used to show a button or a spinner for the whole
+   * group.
    *
    * Since: 1.1
    */
@@ -580,6 +584,10 @@ adw_preferences_group_get_header_suffix (AdwPreferencesGroup *self)
  * @suffix: (nullable): the suffix to set
  *
  * Sets the suffix for @self's header.
+ *
+ * Displayed above the list, next to the title and description.
+ *
+ * Suffixes are commonly used to show a button or a spinner for the whole group.
  *
  * Since: 1.1
  */

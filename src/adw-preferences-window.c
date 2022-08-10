@@ -780,6 +780,17 @@ adw_preferences_window_set_search_enabled (AdwPreferencesWindow *self,
  *
  * Sets whether gestures and shortcuts for closing subpages are enabled.
  *
+ * The supported gestures are:
+ *
+ * - One-finger swipe on touchscreens
+ * - Horizontal scrolling on touchpads (usually two-finger swipe)
+ * - Back mouse button
+ *
+ * The keyboard back key is also supported, as well as the
+ * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut.
+ *
+ * For right-to-left locales, gestures and shortcuts are reversed.
+ *
  * Since: 1.0
  */
 void
@@ -1014,6 +1025,8 @@ adw_preferences_window_get_visible_page_name (AdwPreferencesWindow *self)
  * @name: the name of the page to make visible
  *
  * Makes the page with the given name visible.
+ *
+ * See [property@ViewStack:visible-child].
  *
  * Since: 1.0
  */

@@ -138,7 +138,7 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
    *
    * The subtitle to display.
    *
-   * The subtitle should give a user additional details.
+   * The subtitle should give the user additional details.
    *
    * Since: 1.0
    */
@@ -205,6 +205,9 @@ adw_window_title_get_title (AdwWindowTitle *self)
  *
  * Sets the title of @self.
  *
+ * The title typically identifies the current view or content item, and
+ * generally does not use the application name.
+ *
  * Since: 1.0
  */
 void
@@ -247,6 +250,8 @@ adw_window_title_get_subtitle (AdwWindowTitle *self)
  * @subtitle: a subtitle
  *
  * Sets the subtitle of @self.
+ *
+ * The subtitle should give the user additional details.
  *
  * Since: 1.0
  */

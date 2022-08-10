@@ -366,7 +366,9 @@ adw_avatar_class_init (AdwAvatarClass *klass)
   /**
    * AdwAvatar:custom-image: (attributes org.gtk.Property.get=adw_avatar_get_custom_image org.gtk.Property.set=adw_avatar_set_custom_image)
    *
-   * A custom image to use instead of initials or icon.
+   * A custom image paintable.
+   *
+   * Custom image is displayed instead of initials or icon.
    *
    * Since: 1.0
    */
@@ -518,6 +520,9 @@ adw_avatar_get_text (AdwAvatar *self)
  *
  * Sets the text used to generate the fallback initials and color.
  *
+ * It's only used to generate the color if [property@Avatar:show-initials] is
+ * `FALSE`.
+ *
  * Since: 1.0
  */
 void
@@ -566,6 +571,8 @@ adw_avatar_get_show_initials (AdwAvatar *self)
  *
  * Sets whether to use initials instead of an icon on the fallback avatar.
  *
+ * See [property@Avatar:icon-name] for how to change the fallback icon.
+ *
  * Since: 1.0
  */
 void
@@ -610,6 +617,8 @@ adw_avatar_get_custom_image (AdwAvatar *self)
  * @custom_image: (nullable) (transfer none): a custom image
  *
  * Sets the custom image paintable.
+ *
+ * Custom image is displayed instead of initials or icon.
  *
  * Since: 1.0
  */

@@ -322,6 +322,8 @@ adw_button_content_get_icon_name (AdwButtonContent *self)
  *
  * Sets the name of the displayed icon.
  *
+ * If empty, the icon is not shown.
+ *
  * Since: 1.0
  */
 void
@@ -414,6 +416,10 @@ adw_button_content_get_use_underline (AdwButtonContent *self)
  * @use_underline: whether an underline in the text indicates a mnemonic
  *
  * Sets whether an underline in the text indicates a mnemonic.
+ *
+ * The mnemonic can be used to activate the parent button.
+ *
+ * See [property@ButtonContent:label].
  *
  * Since: 1.0
  */

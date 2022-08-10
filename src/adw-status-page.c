@@ -194,7 +194,7 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    *
    * The name of the icon to be used.
    *
-   * Changing this will clear [property@StatusPage:paintable] out.
+   * Changing this will set [property@StatusPage:paintable] to `NULL`.
    *
    * Since: 1.0
    */
@@ -206,9 +206,9 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
   /**
    * AdwStatusPage:paintable: (attributes org.gtk.Property.get=adw_status_page_get_paintable org.gtk.Property.set=adw_status_page_set_paintable)
    *
-   * The @GdkPaintable to be used.
+   * The paintable to be used.
    *
-   * Changing this will clear [property@StatusPage:icon-name] out.
+   * Changing this will set [property@StatusPage:icon-name] to `NULL`.
    *
    * Since: 1.0
    */
@@ -341,6 +341,8 @@ adw_status_page_get_icon_name (AdwStatusPage *self)
  *
  * Sets the icon name for @self.
  *
+ * Changing this will set [property@StatusPage:paintable] to `NULL`.
+ *
  * Since: 1.0
  */
 void
@@ -391,6 +393,8 @@ adw_status_page_get_paintable (AdwStatusPage *self)
  * @paintable: (nullable): the paintable
  *
  * Sets the paintable for @self.
+ *
+ * Changing this will set [property@StatusPage:icon-name] to `NULL`.
  *
  * Since: 1.0
  */
@@ -443,6 +447,8 @@ adw_status_page_get_title (AdwStatusPage *self)
  *
  * Sets the title for @self.
  *
+ * The title is displayed below the icon.
+ *
  * Since: 1.0
  */
 void
@@ -483,6 +489,8 @@ adw_status_page_get_description (AdwStatusPage *self)
  * @description: (nullable): the description
  *
  * Sets the description for @self.
+ *
+ * The description is displayed below the title.
  *
  * Since: 1.0
  */

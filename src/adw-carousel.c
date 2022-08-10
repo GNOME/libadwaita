@@ -911,7 +911,7 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    *
    * Whether the carousel can be navigated.
    *
-   * This can be used to temporarily disable a `AdwCarousel` to only allow
+   * This can be used to temporarily disable the carousel to only allow
    * navigating it in a certain state.
    *
    * Since: 1.0
@@ -999,6 +999,8 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    * AdwCarousel:reveal-duration:
    *
    * Page reveal duration, in milliseconds.
+   *
+   * Reveal duration is used when animating adding or removing pages.
    *
    * Since: 1.0
    */
@@ -1470,9 +1472,9 @@ adw_carousel_get_n_pages (AdwCarousel *self)
  * adw_carousel_get_position: (attributes org.gtk.Method.get_property=position)
  * @self: a carousel
  *
- * Gets current scroll position in @self.
+ * Gets current scroll position in @self, unitless.
  *
- * It's unitless, 1 matches 1 page.
+ * 1 matches 1 page. Use [method@Carousel.scroll_to] for changing it.
  *
  * Returns: the scroll position
  *
@@ -1510,6 +1512,9 @@ adw_carousel_get_interactive (AdwCarousel *self)
  * @interactive: whether @self can be navigated
  *
  * Sets whether @self can be navigated.
+ *
+ * This can be used to temporarily disable the carousel to only allow navigating
+ * it in a certain state.
  *
  * Since: 1.0
  */
@@ -1596,6 +1601,12 @@ adw_carousel_get_scroll_params (AdwCarousel *self)
  *
  * Sets the scroll animation spring parameters for @self.
  *
+ * The default value is equivalent to:
+ *
+ * ```c
+ * adw_spring_params_new (1, 0.5, 500)
+ * ```
+ *
  * Since: 1.0
  */
 void
@@ -1637,6 +1648,8 @@ adw_carousel_get_allow_mouse_drag (AdwCarousel *self)
  * @allow_mouse_drag: whether @self can be dragged with mouse pointer
  *
  * Sets whether @self can be dragged with mouse pointer.
+ *
+ * If @allow_mouse_drag is `FALSE`, dragging is only available on touch.
  *
  * Since: 1.0
  */
@@ -1681,6 +1694,8 @@ adw_carousel_get_allow_scroll_wheel (AdwCarousel *self)
  *
  * Sets whether @self will respond to scroll wheel events.
  *
+ * If @allow_scroll_wheel is `FALSE`, wheel events will be ignored.
+ *
  * Since: 1.0
  */
 void
@@ -1724,6 +1739,9 @@ adw_carousel_get_allow_long_swipes (AdwCarousel *self)
  *
  * Sets whether to allow swiping for more than one page at a time.
  *
+ * If @allow_long_swipes is `FALSE`, each swipe can only move to the adjacent
+ * pages.
+ *
  * Since: 1.0
  */
 void
@@ -1746,7 +1764,7 @@ adw_carousel_set_allow_long_swipes (AdwCarousel *self,
  * adw_carousel_get_reveal_duration: (attributes org.gtk.Method.get_property=reveal-duration)
  * @self: a carousel
  *
- * Gets duration of the animation used when adding or removing pages.
+ * Gets the page reveal duration, in milliseconds.
  *
  * Returns: the duration
  *
@@ -1765,7 +1783,9 @@ adw_carousel_get_reveal_duration (AdwCarousel *self)
  * @self: a carousel
  * @reveal_duration: the new reveal duration value
  *
- * Sets duration of the animation used when adding or removing pages.
+ * Sets the page reveal duration, in milliseconds.
+ *
+ * Reveal duration is used when animating adding or removing pages.
  *
  * Since: 1.0
  */

@@ -219,7 +219,7 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
   /**
    * AdwSqueezerPage:child: (attributes org.gtk.Property.get=adw_squeezer_page_get_child)
    *
-   * The child of the page.
+   * The the squeezer child to which the page belongs.
    *
    * Since: 1.0
    */
@@ -1043,9 +1043,9 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    *
    * Whether all children have the same size for the opposite orientation.
    *
-   * For example, if a squeezer is horizontal and is homogeneous, it will request
-   * the same height for all its children. If it isn't, the squeezer may change
-   * size when a different child becomes visible.
+   * For example, if a squeezer is horizontal and is homogeneous, it will
+   * request the same height for all its children. If it isn't, the squeezer may
+   * change size when a different child becomes visible.
    *
    * Since: 1.0
    */
@@ -1057,12 +1057,13 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
   /**
    * AdwSqueezer:switch-threshold-policy: (attributes org.gtk.Property.get=adw_squeezer_get_switch_threshold_policy org.gtk.Property.set=adw_squeezer_set_switch_threshold_policy)
    *
+   * The switch threshold policy.
+   *
    * Determines when the squeezer will switch children.
    *
-   * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only switch when
-   * the visible child cannot fit anymore. With
-   * `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it will switch as soon as the visible
-   * child doesn't get their natural size.
+   * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only switch when the
+   * visible child cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`,
+   * it will switch as soon as the visible child doesn't get their natural size.
    *
    * This can be useful if you have a long ellipsizing label and want to let it
    * ellipsize instead of immediately switching.
@@ -1093,7 +1094,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * Whether to allow squeezing beyond the last child's minimum size.
    *
    * If set to `TRUE`, the squeezer can shrink to the point where no child can
-   * be shown. This is functionally equivalent to appending a widget with 0x0
+   * be shown. This is functionally equivalent to appending a widget with 0×0
    * minimum size.
    *
    * Since: 1.0
@@ -1106,7 +1107,7 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
   /**
    * AdwSqueezer:transition-duration: (attributes org.gtk.Property.get=adw_squeezer_get_transition_duration org.gtk.Property.set=adw_squeezer_set_transition_duration)
    *
-   * The animation duration, in milliseconds.
+   * The transition animation duration, in milliseconds.
    *
    * Since: 1.0
    */
@@ -1306,6 +1307,15 @@ adw_squeezer_page_get_enabled (AdwSqueezerPage *self)
  *
  * Sets whether @self is enabled.
  *
+ * If a child is disabled, it will be ignored when looking for the child
+ * fitting the available size best.
+ *
+ * This allows to programmatically and prematurely hide a child even if it fits
+ * in the available space.
+ *
+ * This can be used e.g. to ensure a certain child is hidden below a certain
+ * window width, or any other constraint you find suitable.
+ *
  * Since: 1.0
  */
 void
@@ -1455,6 +1465,10 @@ adw_squeezer_get_homogeneous (AdwSqueezer *self)
  *
  * Sets whether all children have the same size for the opposite orientation.
  *
+ * For example, if a squeezer is horizontal and is homogeneous, it will request
+ * the same height for all its children. If it isn't, the squeezer may change
+ * size when a different child becomes visible.
+ *
  * Since: 1.0
  */
 void
@@ -1480,7 +1494,7 @@ adw_squeezer_set_homogeneous (AdwSqueezer *self,
  * adw_squeezer_get_switch_threshold_policy: (attributes org.gtk.Method.get_property=switch-threshold-policy)
  * @self: a squeezer
  *
- * Gets the fold threshold policy for @self.
+ * Gets the switch threshold policy for @self.
  *
  * Since: 1.0
  */
@@ -1498,7 +1512,16 @@ adw_squeezer_get_switch_threshold_policy (AdwSqueezer *self)
  * @self: a squeezer
  * @policy: the policy to use
  *
- * Sets the fold threshold policy for @self.
+ * Sets the switch threshold policy for @self.
+ *
+ * Determines when the squeezer will switch children.
+ *
+ * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only switch when the
+ * visible child cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`,
+ * it will switch as soon as the visible child doesn't get their natural size.
+ *
+ * This can be useful if you have a long ellipsizing label and want to let it
+ * ellipsize instead of immediately switching.
  *
  * Since: 1.0
  */
@@ -1543,6 +1566,10 @@ adw_squeezer_get_allow_none (AdwSqueezer *self)
  * @allow_none: whether @self allows squeezing beyond the last child
  *
  * Sets whether to allow squeezing beyond the last child's minimum size.
+ *
+ * If set to `TRUE`, the squeezer can shrink to the point where no child can be
+ * shown. This is functionally equivalent to appending a widget with 0×0 minimum
+ * size.
  *
  * Since: 1.0
  */
@@ -1651,6 +1678,10 @@ adw_squeezer_set_transition_type (AdwSqueezer               *self,
  *
  * Gets whether a transition is currently running for @self.
  *
+ * If a transition is impossible, the property value will be set to `TRUE` and
+ * then immediately to `FALSE`, so it's possible to rely on its notifications
+ * to know that a transition has happened.
+ *
  * Returns: whether a transition is currently running
  *
  * Since: 1.0
@@ -1687,6 +1718,11 @@ adw_squeezer_get_interpolate_size (AdwSqueezer *self)
  * @interpolate_size: whether to interpolate the size
  *
  * Sets whether @self interpolates its size when changing the visible child.
+ *
+ * If `TRUE`, the squeezer will interpolate its size between the one of the
+ * previous visible child and the one of the new visible child, according to the
+ * set transition duration and the orientation, e.g. if the squeezer is
+ * horizontal, it will interpolate the its height.
  *
  * Since: 1.0
  */
@@ -1748,6 +1784,12 @@ adw_squeezer_get_xalign (AdwSqueezer *self)
  *
  * Sets the horizontal alignment, from 0 (start) to 1 (end).
  *
+ * This affects the children allocation during transitions, when they exceed the
+ * size of the squeezer.
+ *
+ * For example, 0.5 means the child will be centered, 0 means it will keep the
+ * start side aligned and overflow the end side, and 1 means the opposite.
+ *
  * Since: 1.0
  */
 void
@@ -1790,6 +1832,12 @@ adw_squeezer_get_yalign (AdwSqueezer *self)
  * @yalign: the new alignment value
  *
  * Sets the vertical alignment, from 0 (top) to 1 (bottom).
+ *
+ * This affects the children allocation during transitions, when they exceed the
+ * size of the squeezer.
+ *
+ * For example, 0.5 means the child will be centered, 0 means it will keep the
+ * top side aligned and overflow the bottom side, and 1 means the opposite.
  *
  * Since: 1.0
  */

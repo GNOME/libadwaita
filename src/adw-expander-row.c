@@ -181,6 +181,9 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    *
    * The subtitle for this row.
    *
+   * The subtitle is interpreted as Pango markup unless
+   * [property@PreferencesRow:use-markup] is set to `FALSE`.
+   *
    * Since: 1.0
    */
   props[PROP_SUBTITLE] =

@@ -614,6 +614,21 @@ adw_header_bar_pack_end (AdwHeaderBar *self,
  *
  * Sets the title widget for @self.
  *
+ * When set to `NULL`, the header bar will display the title of the window it
+ * is contained in.
+ *
+ * To use a different title, use [class@WindowTitle]:
+ *
+ * ```xml
+ * <object class="AdwHeaderBar">
+ *   <property name="title-widget">
+ *     <object class="AdwWindowTitle">
+ *       <property name="title" translatable="yes">Title</property>
+ *     </object>
+ *   </property>
+ * </object>
+ * ```
+ *
  * Since: 1.0
  */
 void
@@ -720,6 +735,12 @@ adw_header_bar_get_show_start_title_buttons (AdwHeaderBar *self)
  *
  * Sets whether to show title buttons at the start of @self.
  *
+ * See [property@HeaderBar:show-end-title-buttons] for the other side.
+ *
+ * Which buttons are actually shown and where is determined by the
+ * [property@HeaderBar:decoration-layout] property, and by the state of the
+ * window (e.g. a close button will not be shown if the window can't be closed).
+ *
  * Since: 1.0
  */
 void
@@ -772,6 +793,12 @@ adw_header_bar_get_show_end_title_buttons (AdwHeaderBar *self)
  *
  * Sets whether to show title buttons at the end of @self.
  *
+ * See [property@HeaderBar:show-start-title-buttons] for the other side.
+ *
+ * Which buttons are actually shown and where is determined by the
+ * [property@HeaderBar:decoration-layout] property, and by the state of the
+ * window (e.g. a close button will not be shown if the window can't be closed).
+ *
  * Since: 1.0
  */
 void
@@ -805,6 +832,17 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
  * @layout: (nullable): a decoration layout
  *
  * Sets the decoration layout for @self.
+ *
+ * If this property is not set, the
+ * [property@Gtk.Settings:gtk-decoration-layout] setting is used.
+ *
+ * The format of the string is button names, separated by commas. A colon
+ * separates the buttons that should appear at the start from those at the end.
+ * Recognized button names are minimize, maximize, close and icon (the window
+ * icon).
+ *
+ * For example, “icon:minimize,maximize,close” specifies an icon at the start,
+ * and minimize, maximize and close buttons at the end.
  *
  * Since: 1.0
  */

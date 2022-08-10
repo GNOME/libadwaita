@@ -1811,6 +1811,8 @@ adw_tab_page_get_child (AdwTabPage *self)
  *
  * Gets the parent page of @self.
  *
+ * See [method@TabView.add_page] and [method@TabView.close_page].
+ *
  * Returns: (transfer none) (nullable): the parent page
  *
  * Since: 1.0
@@ -1847,6 +1849,8 @@ adw_tab_page_get_selected (AdwTabPage *self)
  *
  * Gets whether @self is pinned.
  *
+ * See [method@TabView.set_page_pinned].
+ *
  * Returns: whether @self is pinned
  *
  * Since: 1.0
@@ -1881,6 +1885,9 @@ adw_tab_page_get_title (AdwTabPage *self)
  * adw_tab_page_set_title: (attributes org.gtk.Method.set_property=title)
  * @self: a tab page
  * @title: the title of @self
+ *
+ * [class@TabBar] will display it in the center of the tab unless it's pinned,
+ * and will use it as a tooltip unless [property@TabPage:tooltip] is set.
  *
  * Sets the title of @self.
  *
@@ -1926,6 +1933,11 @@ adw_tab_page_get_tooltip (AdwTabPage *self)
  *
  * Sets the tooltip of @self.
  *
+ * The tooltip can be marked up with the Pango text markup language.
+ *
+ * If not set, [class@TabBar] will use [property@TabPage:title] as a tooltip
+ * instead.
+ *
  * Since: 1.0
  */
 void
@@ -1967,6 +1979,11 @@ adw_tab_page_get_icon (AdwTabPage *self)
  * @icon: (nullable): the icon of @self
  *
  * Sets the icon of @self.
+ *
+ * [class@TabBar] displays the icon next to the title.
+ *
+ * It will not show the icon if [property@TabPage:loading] is set to `TRUE`,
+ * or if the page is pinned and [propertyTabPage:indicator-icon] is set.
  *
  * Since: 1.0
  */
@@ -2010,6 +2027,11 @@ adw_tab_page_get_loading (AdwTabPage *self)
  *
  * Sets wether @self is loading.
  *
+ * If set to `TRUE`, [class@TabBar] will display a spinner in place of icon.
+ *
+ * If the page is pinned and [property@TabPage:indicator-icon] is set, the
+ * loading status will not be visible.
+ *
  * Since: 1.0
  */
 void
@@ -2052,7 +2074,21 @@ adw_tab_page_get_indicator_icon (AdwTabPage *self)
  * @indicator_icon: (nullable): the indicator icon of @self
  *
  * Sets the indicator icon of @self.
-
+ *
+ * A common use case is an audio or camera indicator in a web browser.
+ *
+ * [class@TabBar] will show it at the beginning of the tab, alongside icon
+ * representing [property@TabPage:icon] or loading spinner.
+ *
+ * If the page is pinned, the indicator will be shown instead of icon or
+ * spinner.
+ *
+ * [property@TabPage:indicator-tooltip] can be used to set the tooltip on the
+ * indicator icon.
+ *
+ * If [property@TabPage:indicator-activatable] is set to `TRUE`, the
+ * indicator icon can act as a button.
+ *
  * Since: 1.0
  */
 void
@@ -2143,6 +2179,11 @@ adw_tab_page_get_indicator_activatable (AdwTabPage *self)
  *
  * Sets whether the indicator of @self is activatable.
  *
+ * If set to `TRUE`, [signal@TabView::indicator-activated] will be emitted
+ * when the indicator icon is clicked.
+ *
+ * If [property@TabPage:indicator-icon] is not set, does nothing.
+ *
  * Since: 1.0
  */
 void
@@ -2185,6 +2226,10 @@ adw_tab_page_get_needs_attention (AdwTabPage *self)
  * @needs_attention: whether @self needs attention
  *
  * Sets whether @self needs attention.
+ *
+ * [class@TabBar] will display a glow under the tab representing the page if
+ * set to `TRUE`. If the tab is not visible, the corresponding edge of the tab
+ * bar will be highlighted.
  *
  * Since: 1.0
  */
@@ -2243,6 +2288,8 @@ adw_tab_view_get_n_pages (AdwTabView *self)
  *
  * Gets the number of pinned pages in @self.
  *
+ * See [method@TabView.set_page_pinned].
+ *
  * Returns: the number of pinned pages in @self
  *
  * Since: 1.0
@@ -2260,6 +2307,12 @@ adw_tab_view_get_n_pinned_pages (AdwTabView *self)
  * @self: a tab view
  *
  * Whether a page is being transferred.
+ *
+ * The corresponding property will be set to `TRUE` when a drag-n-drop tab
+ * transfer starts on any `AdwTabView`, and to `FALSE` after it ends.
+ *
+ * During the transfer, children cannot receive pointer input and a tab can
+ * be safely dropped on the tab view.
  *
  * Returns: whether a page is being transferred
  *
@@ -2469,6 +2522,15 @@ adw_tab_view_get_default_icon (AdwTabView *self)
  *
  * Sets the default page icon for @self.
  *
+ * If a page doesn't provide its own icon via [property@TabPage:icon], a default
+ * icon may be used instead for contexts where having an icon is necessary.
+ *
+ * [class@TabBar] will use default icon for pinned tabs in case the page is not
+ * loading, doesn't have an icon and an indicator. Default icon is never used
+ * for tabs that aren't pinned.
+ *
+ * By default, the `adw-tab-icon-missing-symbolic` icon is used.
+ *
  * Since: 1.0
  */
 void
@@ -2510,6 +2572,10 @@ adw_tab_view_get_menu_model (AdwTabView *self)
  * @menu_model: (nullable): a menu model
  *
  * Sets the tab context menu model for @self.
+ *
+ * When a context menu is shown for a tab, it will be constructed from the
+ * provided menu model. Use the [signal@TabView::setup-menu] signal to set up
+ * the menu actions for the particular tab.
  *
  * Since: 1.0
  */

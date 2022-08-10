@@ -625,6 +625,31 @@ adw_style_manager_get_color_scheme (AdwStyleManager *self)
  * [property@StyleManager:dark] property can be used to query the current
  * effective appearance.
  *
+ * The `ADW_COLOR_SCHEME_PREFER_LIGHT` color scheme results in the application
+ * using light appearance unless the system prefers dark colors. This is the
+ * default value.
+ *
+ * The `ADW_COLOR_SCHEME_PREFER_DARK` color scheme results in the application
+ * using dark appearance, but can still switch to the light appearance if the
+ * system can prefers it, for example, when the high contrast preference is
+ * enabled.
+ *
+ * The `ADW_COLOR_SCHEME_FORCE_LIGHT` and `ADW_COLOR_SCHEME_FORCE_DARK` values
+ * ignore the system preference entirely. They are useful if the application
+ * wants to match its UI to its content or to provide a separate color scheme
+ * switcher.
+ *
+ * If a per-[class@Gdk.Display] style manager has its color scheme set to
+ * `ADW_COLOR_SCHEME_DEFAULT`, it will inherit the color scheme from the
+ * default style manager.
+ *
+ * For the default style manager, `ADW_COLOR_SCHEME_DEFAULT` is equivalent to
+ * `ADW_COLOR_SCHEME_PREFER_LIGHT`.
+ *
+ * The [property@StyleManager:system-supports-color-schemes] property can be
+ * used to check if the current environment provides a color scheme
+ * preference.
+ *
  * Since: 1.0
  */
 void
@@ -664,6 +689,10 @@ adw_style_manager_set_color_scheme (AdwStyleManager *self,
  *
  * Gets whether the system supports color schemes.
  *
+ * This can be used to check if the current environment provides a color scheme
+ * preference. For example, applications might want to show a separate
+ * appearance switcher if it's set to `FALSE`.
+ *
  * Returns: whether the system supports color schemes
  *
  * Since: 1.0
@@ -682,6 +711,9 @@ adw_style_manager_get_system_supports_color_schemes (AdwStyleManager *self)
  *
  * Gets whether the application is using dark appearance.
  *
+ * This can be used to query the current appearance, as requested via
+ * [property@StyleManager:color-scheme].
+ *
  * Returns: whether the application is using dark appearance
  *
  * Since: 1.0
@@ -699,6 +731,8 @@ adw_style_manager_get_dark (AdwStyleManager *self)
  * @self: a style manager
  *
  * Gets whether the application is using high contrast appearance.
+ *
+ * This cannot be overridden by applications.
  *
  * Returns: whether the application is using high contrast appearance
  *

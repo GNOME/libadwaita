@@ -438,7 +438,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
   /**
    * AdwComboRow:model: (attributes org.gtk.Property.get=adw_combo_row_get_model org.gtk.Property.set=adw_combo_row_set_model)
    *
-   * Model for the displayed items.
+   * The model that provides the displayed items.
    *
    * Since: 1.0
    */
@@ -508,10 +508,11 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    *
    * An expression used to obtain strings from items.
    *
-   * It's used to bind strings to labels produced by the default factory.
+   * The expression must have a value type of `G_TYPE_STRING`.
    *
-   * If [property@ComboRow:factory] is not set, the expression is also used to
-   * bind strings to labels produced by a default factory.
+   * It's used to bind strings to labels produced by the default factory if
+   * [property@ComboRow:factory] is not set, or when
+   * [property@ComboRow:use-subtitle] is set to `TRUE`.
    *
    * Since: 1.0
    */
@@ -529,7 +530,7 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * If you use a custom list item factory, you will need to give the row a
    * name conversion expression with [property@ComboRow:expression].
    *
-   * If `TRUE`, you should not access [property@ActionRow:subtitle].
+   * If set to `TRUE`, you should not access [property@ActionRow:subtitle].
    *
    * The subtitle is interpreted as Pango markup if
    * [property@PreferencesRow:use-markup] is set to `TRUE`.
@@ -687,7 +688,7 @@ adw_combo_row_get_model (AdwComboRow *self)
  * @self: a combo row
  * @model: (nullable) (transfer none): the model to use
  *
- * Sets the [iface@Gio.ListModel] to use.
+ * Sets the model that provides the displayed items.
  *
  * Since: 1.0
  */
@@ -750,7 +751,7 @@ adw_combo_row_set_model (AdwComboRow *self,
  * adw_combo_row_get_factory: (attributes org.gtk.Method.get_property=factory)
  * @self: a combo row
  *
- * Gets the factory that's currently used to populate list items.
+ * Gets the factory for populating list items.
  *
  * Returns: (nullable) (transfer none): the factory in use
  *
@@ -773,7 +774,10 @@ adw_combo_row_get_factory (AdwComboRow *self)
  * @self: a combo row
  * @factory: (nullable) (transfer none): the factory to use
  *
- * Sets the `GtkListItemFactory` to use for populating list items.
+ * Sets the factory for populating list items.
+ *
+ * This factory is always used for the item in the row. It is also used for
+ * items in the popup unless [property@ComboRow:list-factory] is set.
  *
  * Since: 1.0
  */
@@ -803,7 +807,7 @@ adw_combo_row_set_factory (AdwComboRow        *self,
  * adw_combo_row_get_list_factory: (attributes org.gtk.Method.get_property=list-factory)
  * @self: a combo row
  *
- * Gets the factory that's currently used to populate list items in the popup.
+ * Gets the factory for populating list items in the popup.
  *
  * Returns: (nullable) (transfer none): the factory in use
  *
@@ -826,7 +830,9 @@ adw_combo_row_get_list_factory (AdwComboRow *self)
  * @self: a combo row
  * @factory: (nullable) (transfer none): the factory to use
  *
- * Sets the `GtkListItemFactory` to use for populating list items in the popup.
+ * Sets the factory for populating list items in the popup.
+ *
+ * If this is not set, [property@ComboRow:factory] is used.
  *
  * Since: 1.0
  */
@@ -882,6 +888,10 @@ adw_combo_row_get_expression (AdwComboRow *self)
  * Sets the expression used to obtain strings from items.
  *
  * The expression must have a value type of `G_TYPE_STRING`.
+ *
+ * It's used to bind strings to labels produced by the default factory if
+ * [property@ComboRow:factory] is not set, or when
+ * [property@ComboRow:use-subtitle] is set to `TRUE`.
  *
  * Since: 1.0
  */
@@ -939,6 +949,14 @@ adw_combo_row_get_use_subtitle (AdwComboRow *self)
  * @use_subtitle: whether to use the current value as the subtitle
  *
  * Sets whether to use the current value as the subtitle.
+ *
+ * If you use a custom list item factory, you will need to give the row a
+ * name conversion expression with [property@ComboRow:expression].
+ *
+ * If set to `TRUE`, you should not access [property@ActionRow:subtitle].
+ *
+ * The subtitle is interpreted as Pango markup if
+ * [property@PreferencesRow:use-markup] is set to `TRUE`.
  *
  * Since: 1.0
  */

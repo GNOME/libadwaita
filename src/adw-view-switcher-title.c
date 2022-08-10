@@ -297,8 +297,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    *
    * The title to display.
    *
-   * The title should give a user additional details. A good title should not
-   * include the application name.
+   * The title typically identifies the current view or content item, and
+   * generally does not use the application name.
    *
    * Since: 1.0
    */
@@ -312,7 +312,7 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    *
    * The subtitle to display.
    *
-   * The subtitle should give a user additional details.
+   * The subtitle should give the user additional details.
    *
    * Since: 1.0
    */
@@ -482,6 +482,9 @@ adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self)
  *
  * Sets the title of @self.
  *
+ * The title typically identifies the current view or content item, and
+ * generally does not use the application name.
+ *
  * Since: 1.0
  */
 void
@@ -522,6 +525,8 @@ adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self)
  * @subtitle: a subtitle
  *
  * Sets the subtitle of @self.
+ *
+ * The subtitle should give the user additional details.
  *
  * Since: 1.0
  */
@@ -564,6 +569,13 @@ adw_view_switcher_title_get_view_switcher_enabled (AdwViewSwitcherTitle *self)
  *
  * Sets whether @self's view switcher is enabled.
  *
+ * If it is disabled, the title will be displayed instead. This allows to
+ * programmatically hide the view switcher even if it fits in the available
+ * space.
+ *
+ * This can be used e.g. to ensure the view switcher is hidden below a certain
+ * window width, or any other constraint you find suitable.
+ *
  * Since: 1.0
  */
 void
@@ -588,6 +600,9 @@ adw_view_switcher_title_set_view_switcher_enabled (AdwViewSwitcherTitle *self,
  * @self: a view switcher title
  *
  * Gets whether the title of @self is currently visible.
+ *
+ * If the title is visible, it means the view switcher is hidden an it may be
+ * wanted to show an alternative switcher, e.g. a [class@ViewSwitcherBar].
  *
  * Returns: whether the title of @self is currently visible
  *
