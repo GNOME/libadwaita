@@ -900,25 +900,21 @@ adw_toast_set_timeout (AdwToast *self,
 }
 
 /**
- * adw_toast_dismiss:
+ * adw_toast_get_custom_title: (attributes org.gtk.Method.get_property=custom-title)
  * @self: a toast
  *
- * Dismisses @self.
+ * Gets the custom title widget of @self.
  *
- * Does nothing if @self has already been dismissed, or hasn't been added to an
- * [class@ToastOverlay].
+ * Returns: (nullable) (transfer none): the custom title widget
  *
- * Since: 1.0
+ * Since: 1.2
  */
-void
-adw_toast_dismiss (AdwToast *self)
+GtkWidget *
+adw_toast_get_custom_title (AdwToast *self)
 {
-  g_return_if_fail (ADW_IS_TOAST (self));
+  g_return_val_if_fail (ADW_IS_TOAST (self), NULL);
 
-  if (!self->overlay)
-    return;
-
-  g_signal_emit (self, signals[SIGNAL_DISMISSED], 0, NULL);
+  return self->custom_title;
 }
 
 /**
@@ -957,21 +953,25 @@ adw_toast_set_custom_title (AdwToast  *self,
 }
 
 /**
- * adw_toast_get_custom_title: (attributes org.gtk.Method.get_property=custom-title)
+ * adw_toast_dismiss:
  * @self: a toast
  *
- * Gets the custom title widget of @self.
+ * Dismisses @self.
  *
- * Returns: (nullable) (transfer none): the custom title widget
+ * Does nothing if @self has already been dismissed, or hasn't been added to an
+ * [class@ToastOverlay].
  *
- * Since: 1.2
+ * Since: 1.0
  */
-GtkWidget *
-adw_toast_get_custom_title (AdwToast *self)
+void
+adw_toast_dismiss (AdwToast *self)
 {
-  g_return_val_if_fail (ADW_IS_TOAST (self), NULL);
+  g_return_if_fail (ADW_IS_TOAST (self));
 
-  return self->custom_title;
+  if (!self->overlay)
+    return;
+
+  g_signal_emit (self, signals[SIGNAL_DISMISSED], 0, NULL);
 }
 
 AdwToastOverlay *

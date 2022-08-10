@@ -716,6 +716,152 @@ adw_preferences_window_new (void)
 }
 
 /**
+ * adw_preferences_window_add:
+ * @self: a preferences window
+ * @page: the page to add
+ *
+ * Adds a preferences page to @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_window_add (AdwPreferencesWindow *self,
+                            AdwPreferencesPage   *page)
+{
+  AdwPreferencesWindowPrivate *priv;
+  AdwViewStackPage *stack_page;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (page));
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  stack_page = adw_view_stack_add_named (priv->pages_stack, GTK_WIDGET (page), adw_preferences_page_get_name (page));
+
+  g_object_bind_property (page, "icon-name", stack_page, "icon-name", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (page, "title", stack_page, "title", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (page, "use-underline", stack_page, "use-underline", G_BINDING_SYNC_CREATE);
+  g_object_bind_property (page, "name", stack_page, "name", G_BINDING_SYNC_CREATE);
+}
+
+/**
+ * adw_preferences_window_remove:
+ * @self: a preferences window
+ * @page: the page to remove
+ *
+ * Removes a page from @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_window_remove (AdwPreferencesWindow *self,
+                               AdwPreferencesPage   *page)
+{
+  AdwPreferencesWindowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (page));
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  if (gtk_widget_get_parent (GTK_WIDGET (page)) == GTK_WIDGET (priv->pages_stack))
+    adw_view_stack_remove (priv->pages_stack, GTK_WIDGET (page));
+  else
+    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, page);
+}
+
+/**
+ * adw_preferences_window_get_visible_page:
+ * @self: a preferences window
+ *
+ * Gets the currently visible page of @self.
+ *
+ * Returns: (transfer none) (nullable): the visible page
+ *
+ * Since: 1.0
+ */
+AdwPreferencesPage *
+adw_preferences_window_get_visible_page (AdwPreferencesWindow *self)
+{
+  AdwPreferencesWindowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_WINDOW (self), NULL);
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  return ADW_PREFERENCES_PAGE (adw_view_stack_get_visible_child (priv->pages_stack));
+}
+
+/**
+ * adw_preferences_window_set_visible_page:
+ * @self: a preferences window
+ * @page: a page of @self
+ *
+ * Makes @page the visible page of @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_window_set_visible_page (AdwPreferencesWindow *self,
+                                         AdwPreferencesPage   *page)
+{
+  AdwPreferencesWindowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (page));
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  adw_view_stack_set_visible_child (priv->pages_stack, GTK_WIDGET (page));
+}
+
+/**
+ * adw_preferences_window_get_visible_page_name:
+ * @self: a preferences window
+ *
+ * Gets the name of currently visible page of @self.
+ *
+ * Returns: (transfer none) (nullable): the name of the visible page
+ *
+ * Since: 1.0
+ */
+const char *
+adw_preferences_window_get_visible_page_name (AdwPreferencesWindow *self)
+{
+  AdwPreferencesWindowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_WINDOW (self), NULL);
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  return adw_view_stack_get_visible_child_name (priv->pages_stack);
+}
+
+/**
+ * adw_preferences_window_set_visible_page_name:
+ * @self: a preferences window
+ * @name: the name of the page to make visible
+ *
+ * Makes the page with the given name visible.
+ *
+ * See [property@ViewStack:visible-child].
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
+                                              const char           *name)
+{
+  AdwPreferencesWindowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  adw_view_stack_set_visible_child_name (priv->pages_stack, name);
+}
+
+/**
  * adw_preferences_window_get_search_enabled: (attributes org.gtk.Method.get_property=search-enabled)
  * @self: a preferences window
  *
@@ -895,152 +1041,6 @@ adw_preferences_window_close_subpage (AdwPreferencesWindow *self)
     return;
 
   adw_leaflet_set_visible_child (priv->subpages_leaflet, priv->preferences);
-}
-
-/**
- * adw_preferences_window_add:
- * @self: a preferences window
- * @page: the page to add
- *
- * Adds a preferences page to @self.
- *
- * Since: 1.0
- */
-void
-adw_preferences_window_add (AdwPreferencesWindow *self,
-                            AdwPreferencesPage   *page)
-{
-  AdwPreferencesWindowPrivate *priv;
-  AdwViewStackPage *stack_page;
-
-  g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
-  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (page));
-
-  priv = adw_preferences_window_get_instance_private (self);
-
-  stack_page = adw_view_stack_add_named (priv->pages_stack, GTK_WIDGET (page), adw_preferences_page_get_name (page));
-
-  g_object_bind_property (page, "icon-name", stack_page, "icon-name", G_BINDING_SYNC_CREATE);
-  g_object_bind_property (page, "title", stack_page, "title", G_BINDING_SYNC_CREATE);
-  g_object_bind_property (page, "use-underline", stack_page, "use-underline", G_BINDING_SYNC_CREATE);
-  g_object_bind_property (page, "name", stack_page, "name", G_BINDING_SYNC_CREATE);
-}
-
-/**
- * adw_preferences_window_remove:
- * @self: a preferences window
- * @page: the page to remove
- *
- * Removes a page from @self.
- *
- * Since: 1.0
- */
-void
-adw_preferences_window_remove (AdwPreferencesWindow *self,
-                               AdwPreferencesPage   *page)
-{
-  AdwPreferencesWindowPrivate *priv;
-
-  g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
-  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (page));
-
-  priv = adw_preferences_window_get_instance_private (self);
-
-  if (gtk_widget_get_parent (GTK_WIDGET (page)) == GTK_WIDGET (priv->pages_stack))
-    adw_view_stack_remove (priv->pages_stack, GTK_WIDGET (page));
-  else
-    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, page);
-}
-
-/**
- * adw_preferences_window_get_visible_page:
- * @self: a preferences window
- *
- * Gets the currently visible page of @self.
- *
- * Returns: (transfer none) (nullable): the visible page
- *
- * Since: 1.0
- */
-AdwPreferencesPage *
-adw_preferences_window_get_visible_page (AdwPreferencesWindow *self)
-{
-  AdwPreferencesWindowPrivate *priv;
-
-  g_return_val_if_fail (ADW_IS_PREFERENCES_WINDOW (self), NULL);
-
-  priv = adw_preferences_window_get_instance_private (self);
-
-  return ADW_PREFERENCES_PAGE (adw_view_stack_get_visible_child (priv->pages_stack));
-}
-
-/**
- * adw_preferences_window_set_visible_page:
- * @self: a preferences window
- * @page: a page of @self
- *
- * Makes @page the visible page of @self.
- *
- * Since: 1.0
- */
-void
-adw_preferences_window_set_visible_page (AdwPreferencesWindow *self,
-                                         AdwPreferencesPage   *page)
-{
-  AdwPreferencesWindowPrivate *priv;
-
-  g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
-  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (page));
-
-  priv = adw_preferences_window_get_instance_private (self);
-
-  adw_view_stack_set_visible_child (priv->pages_stack, GTK_WIDGET (page));
-}
-
-/**
- * adw_preferences_window_get_visible_page_name:
- * @self: a preferences window
- *
- * Gets the name of currently visible page of @self.
- *
- * Returns: (transfer none) (nullable): the name of the visible page
- *
- * Since: 1.0
- */
-const char *
-adw_preferences_window_get_visible_page_name (AdwPreferencesWindow *self)
-{
-  AdwPreferencesWindowPrivate *priv;
-
-  g_return_val_if_fail (ADW_IS_PREFERENCES_WINDOW (self), NULL);
-
-  priv = adw_preferences_window_get_instance_private (self);
-
-  return adw_view_stack_get_visible_child_name (priv->pages_stack);
-}
-
-/**
- * adw_preferences_window_set_visible_page_name:
- * @self: a preferences window
- * @name: the name of the page to make visible
- *
- * Makes the page with the given name visible.
- *
- * See [property@ViewStack:visible-child].
- *
- * Since: 1.0
- */
-void
-adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
-                                              const char           *name)
-{
-  AdwPreferencesWindowPrivate *priv;
-
-  g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
-
-  priv = adw_preferences_window_get_instance_private (self);
-
-  adw_view_stack_set_visible_child_name (priv->pages_stack, name);
 }
 
 /**

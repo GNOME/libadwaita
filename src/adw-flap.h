@@ -85,6 +85,12 @@ void              adw_flap_set_fold_policy (AdwFlap           *self,
                                             AdwFlapFoldPolicy  policy);
 
 ADW_AVAILABLE_IN_ALL
+AdwFoldThresholdPolicy adw_flap_get_fold_threshold_policy (AdwFlap                *self);
+ADW_AVAILABLE_IN_ALL
+void                   adw_flap_set_fold_threshold_policy (AdwFlap                *self,
+                                                           AdwFoldThresholdPolicy  policy);
+
+ADW_AVAILABLE_IN_ALL
 guint adw_flap_get_fold_duration (AdwFlap *self);
 ADW_AVAILABLE_IN_ALL
 void  adw_flap_set_fold_duration (AdwFlap *self,
@@ -122,11 +128,5 @@ gboolean adw_flap_get_swipe_to_close (AdwFlap  *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_flap_set_swipe_to_close (AdwFlap  *self,
                                       gboolean  swipe_to_close);
-
-ADW_AVAILABLE_IN_ALL
-AdwFoldThresholdPolicy adw_flap_get_fold_threshold_policy (AdwFlap                *self);
-ADW_AVAILABLE_IN_ALL
-void                   adw_flap_set_fold_threshold_policy (AdwFlap                *self,
-                                                           AdwFoldThresholdPolicy  policy);
 
 G_END_DECLS

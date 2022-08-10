@@ -93,9 +93,9 @@ G_DEFINE_TYPE_WITH_PRIVATE (AdwComboRow, adw_combo_row, ADW_TYPE_ACTION_ROW)
 
 enum {
   PROP_0,
-  PROP_MODEL,
   PROP_SELECTED,
   PROP_SELECTED_ITEM,
+  PROP_MODEL,
   PROP_FACTORY,
   PROP_LIST_FACTORY,
   PROP_EXPRESSION,
@@ -308,14 +308,14 @@ adw_combo_row_get_property (GObject    *object,
   AdwComboRow *self = ADW_COMBO_ROW (object);
 
   switch (prop_id) {
-  case PROP_MODEL:
-    g_value_set_object (value, adw_combo_row_get_model (self));
-    break;
   case PROP_SELECTED:
     g_value_set_uint (value, adw_combo_row_get_selected (self));
     break;
   case PROP_SELECTED_ITEM:
     g_value_set_object (value, adw_combo_row_get_selected_item (self));
+    break;
+  case PROP_MODEL:
+    g_value_set_object (value, adw_combo_row_get_model (self));
     break;
   case PROP_FACTORY:
     g_value_set_object (value, adw_combo_row_get_factory (self));
@@ -343,11 +343,11 @@ adw_combo_row_set_property (GObject      *object,
   AdwComboRow *self = ADW_COMBO_ROW (object);
 
   switch (prop_id) {
-  case PROP_MODEL:
-    adw_combo_row_set_model (self, g_value_get_object (value));
-    break;
   case PROP_SELECTED:
     adw_combo_row_set_selected (self, g_value_get_uint (value));
+    break;
+  case PROP_MODEL:
+    adw_combo_row_set_model (self, g_value_get_object (value));
     break;
   case PROP_FACTORY:
     adw_combo_row_set_factory (self, g_value_get_object (value));
@@ -436,18 +436,6 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
   row_class->activate = adw_combo_row_activate;
 
   /**
-   * AdwComboRow:model: (attributes org.gtk.Property.get=adw_combo_row_get_model org.gtk.Property.set=adw_combo_row_set_model)
-   *
-   * The model that provides the displayed items.
-   *
-   * Since: 1.0
-   */
-  props[PROP_MODEL] =
-    g_param_spec_object ("model", NULL, NULL,
-                         G_TYPE_LIST_MODEL,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
    * AdwComboRow:selected: (attributes org.gtk.Property.get=adw_combo_row_get_selected org.gtk.Property.set=adw_combo_row_set_selected)
    *
    * The position of the selected item.
@@ -473,6 +461,18 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
     g_param_spec_object ("selected-item", NULL, NULL,
                          G_TYPE_OBJECT,
                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwComboRow:model: (attributes org.gtk.Property.get=adw_combo_row_get_model org.gtk.Property.set=adw_combo_row_set_model)
+   *
+   * The model that provides the displayed items.
+   *
+   * Since: 1.0
+   */
+  props[PROP_MODEL] =
+    g_param_spec_object ("model", NULL, NULL,
+                         G_TYPE_LIST_MODEL,
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwComboRow:factory: (attributes org.gtk.Property.get=adw_combo_row_get_factory org.gtk.Property.set=adw_combo_row_set_factory)

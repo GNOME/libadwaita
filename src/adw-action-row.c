@@ -79,9 +79,9 @@ static GtkBuildableIface *parent_buildable_iface;
 
 enum {
   PROP_0,
+  PROP_SUBTITLE,
   PROP_ICON_NAME,
   PROP_ACTIVATABLE_WIDGET,
-  PROP_SUBTITLE,
   PROP_TITLE_LINES,
   PROP_SUBTITLE_LINES,
   LAST_PROP,
@@ -139,14 +139,14 @@ adw_action_row_get_property (GObject    *object,
   AdwActionRow *self = ADW_ACTION_ROW (object);
 
   switch (prop_id) {
+  case PROP_SUBTITLE:
+    g_value_set_string (value, adw_action_row_get_subtitle (self));
+    break;
   case PROP_ICON_NAME:
     g_value_set_string (value, adw_action_row_get_icon_name (self));
     break;
   case PROP_ACTIVATABLE_WIDGET:
     g_value_set_object (value, (GObject *) adw_action_row_get_activatable_widget (self));
-    break;
-  case PROP_SUBTITLE:
-    g_value_set_string (value, adw_action_row_get_subtitle (self));
     break;
   case PROP_SUBTITLE_LINES:
     g_value_set_int (value, adw_action_row_get_subtitle_lines (self));
@@ -168,14 +168,14 @@ adw_action_row_set_property (GObject      *object,
   AdwActionRow *self = ADW_ACTION_ROW (object);
 
   switch (prop_id) {
+  case PROP_SUBTITLE:
+    adw_action_row_set_subtitle (self, g_value_get_string (value));
+    break;
   case PROP_ICON_NAME:
     adw_action_row_set_icon_name (self, g_value_get_string (value));
     break;
   case PROP_ACTIVATABLE_WIDGET:
     adw_action_row_set_activatable_widget (self, (GtkWidget*) g_value_get_object (value));
-    break;
-  case PROP_SUBTITLE:
-    adw_action_row_set_subtitle (self, g_value_get_string (value));
     break;
   case PROP_SUBTITLE_LINES:
     adw_action_row_set_subtitle_lines (self, g_value_get_int (value));
@@ -228,6 +228,21 @@ adw_action_row_class_init (AdwActionRowClass *klass)
   klass->activate = adw_action_row_activate_real;
 
   /**
+   * AdwActionRow:subtitle: (attributes org.gtk.Property.get=adw_action_row_get_subtitle org.gtk.Property.set=adw_action_row_set_subtitle)
+   *
+   * The subtitle for this row.
+   *
+   * The subtitle is interpreted as Pango markup unless
+   * [property@PreferencesRow:use-markup] is set to `FALSE`.
+   *
+   * Since: 1.0
+   */
+  props[PROP_SUBTITLE] =
+    g_param_spec_string ("subtitle", NULL, NULL,
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
    * AdwActionRow:icon-name: (attributes org.gtk.Property.get=adw_action_row_get_icon_name org.gtk.Property.set=adw_action_row_set_icon_name)
    *
    * The icon name for this row.
@@ -257,21 +272,6 @@ adw_action_row_class_init (AdwActionRowClass *klass)
   props[PROP_ACTIVATABLE_WIDGET] =
     g_param_spec_object ("activatable-widget", NULL, NULL,
                          GTK_TYPE_WIDGET,
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwActionRow:subtitle: (attributes org.gtk.Property.get=adw_action_row_get_subtitle org.gtk.Property.set=adw_action_row_set_subtitle)
-   *
-   * The subtitle for this row.
-   *
-   * The subtitle is interpreted as Pango markup unless
-   * [property@PreferencesRow:use-markup] is set to `FALSE`.
-   *
-   * Since: 1.0
-   */
-  props[PROP_SUBTITLE] =
-    g_param_spec_string ("subtitle", NULL, NULL,
-                         "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -384,6 +384,85 @@ GtkWidget *
 adw_action_row_new (void)
 {
   return g_object_new (ADW_TYPE_ACTION_ROW, NULL);
+}
+
+/**
+ * adw_action_row_add_prefix:
+ * @self: an action row
+ * @widget: a widget
+ *
+ * Adds a prefix widget to @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_action_row_add_prefix (AdwActionRow *self,
+                           GtkWidget    *widget)
+{
+  AdwActionRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ACTION_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
+
+  priv = adw_action_row_get_instance_private (self);
+
+  gtk_box_prepend (priv->prefixes, widget);
+  gtk_widget_show (GTK_WIDGET (priv->prefixes));
+}
+
+/**
+ * adw_action_row_add_suffix:
+ * @self: an action row
+ * @widget: a widget
+ *
+ * Adds a suffix widget to @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_action_row_add_suffix (AdwActionRow *self,
+                           GtkWidget    *widget)
+{
+  AdwActionRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ACTION_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
+
+  priv = adw_action_row_get_instance_private (self);
+
+  gtk_box_append (priv->suffixes, widget);
+  gtk_widget_show (GTK_WIDGET (priv->suffixes));
+}
+
+/**
+ * adw_action_row_remove:
+ * @self: an action row
+ * @widget: the child to be removed
+ *
+ * Removes a child from @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_action_row_remove (AdwActionRow *self,
+                       GtkWidget    *child)
+{
+  AdwActionRowPrivate *priv;
+  GtkWidget *parent;
+
+  g_return_if_fail (ADW_IS_ACTION_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+
+  priv = adw_action_row_get_instance_private (self);
+
+  parent = gtk_widget_get_parent (child);
+
+  if (parent == GTK_WIDGET (priv->prefixes))
+    gtk_box_remove (priv->prefixes, child);
+  else if (parent == GTK_WIDGET (priv->suffixes))
+    gtk_box_remove (priv->suffixes, child);
+  else
+    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
 }
 
 /**
@@ -702,85 +781,6 @@ adw_action_row_set_subtitle_lines (AdwActionRow *self,
   gtk_label_set_ellipsize (priv->subtitle, subtitle_lines == 0 ? PANGO_ELLIPSIZE_NONE : PANGO_ELLIPSIZE_END);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUBTITLE_LINES]);
-}
-
-/**
- * adw_action_row_add_prefix:
- * @self: an action row
- * @widget: a widget
- *
- * Adds a prefix widget to @self.
- *
- * Since: 1.0
- */
-void
-adw_action_row_add_prefix (AdwActionRow *self,
-                           GtkWidget    *widget)
-{
-  AdwActionRowPrivate *priv;
-
-  g_return_if_fail (ADW_IS_ACTION_ROW (self));
-  g_return_if_fail (GTK_IS_WIDGET (widget));
-
-  priv = adw_action_row_get_instance_private (self);
-
-  gtk_box_prepend (priv->prefixes, widget);
-  gtk_widget_show (GTK_WIDGET (priv->prefixes));
-}
-
-/**
- * adw_action_row_add_suffix:
- * @self: an action row
- * @widget: a widget
- *
- * Adds a suffix widget to @self.
- *
- * Since: 1.0
- */
-void
-adw_action_row_add_suffix (AdwActionRow *self,
-                           GtkWidget    *widget)
-{
-  AdwActionRowPrivate *priv;
-
-  g_return_if_fail (ADW_IS_ACTION_ROW (self));
-  g_return_if_fail (GTK_IS_WIDGET (widget));
-
-  priv = adw_action_row_get_instance_private (self);
-
-  gtk_box_append (priv->suffixes, widget);
-  gtk_widget_show (GTK_WIDGET (priv->suffixes));
-}
-
-/**
- * adw_action_row_remove:
- * @self: an action row
- * @widget: the child to be removed
- *
- * Removes a child from @self.
- *
- * Since: 1.0
- */
-void
-adw_action_row_remove (AdwActionRow *self,
-                       GtkWidget    *child)
-{
-  AdwActionRowPrivate *priv;
-  GtkWidget *parent;
-
-  g_return_if_fail (ADW_IS_ACTION_ROW (self));
-  g_return_if_fail (GTK_IS_WIDGET (child));
-
-  priv = adw_action_row_get_instance_private (self);
-
-  parent = gtk_widget_get_parent (child);
-
-  if (parent == GTK_WIDGET (priv->prefixes))
-    gtk_box_remove (priv->prefixes, child);
-  else if (parent == GTK_WIDGET (priv->suffixes))
-    gtk_box_remove (priv->suffixes, child);
-  else
-    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
 }
 
 /**

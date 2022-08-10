@@ -40,24 +40,6 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_preferences_window_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
-gboolean adw_preferences_window_get_search_enabled (AdwPreferencesWindow *self);
-ADW_AVAILABLE_IN_ALL
-void     adw_preferences_window_set_search_enabled (AdwPreferencesWindow *self,
-                                                    gboolean              search_enabled);
-
-ADW_AVAILABLE_IN_ALL
-gboolean adw_preferences_window_get_can_navigate_back (AdwPreferencesWindow *self);
-ADW_AVAILABLE_IN_ALL
-void     adw_preferences_window_set_can_navigate_back (AdwPreferencesWindow *self,
-                                                       gboolean              can_navigate_back);
-
-ADW_AVAILABLE_IN_ALL
-void adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
-                                             GtkWidget            *subpage);
-ADW_AVAILABLE_IN_ALL
-void adw_preferences_window_close_subpage   (AdwPreferencesWindow *self);
-
-ADW_AVAILABLE_IN_ALL
 void adw_preferences_window_add    (AdwPreferencesWindow *self,
                                     AdwPreferencesPage   *page);
 ADW_AVAILABLE_IN_ALL
@@ -75,6 +57,24 @@ const char *adw_preferences_window_get_visible_page_name (AdwPreferencesWindow *
 ADW_AVAILABLE_IN_ALL
 void        adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
                                                           const char           *name);
+
+ADW_AVAILABLE_IN_ALL
+gboolean adw_preferences_window_get_search_enabled (AdwPreferencesWindow *self);
+ADW_AVAILABLE_IN_ALL
+void     adw_preferences_window_set_search_enabled (AdwPreferencesWindow *self,
+                                                    gboolean              search_enabled);
+
+ADW_AVAILABLE_IN_ALL
+gboolean adw_preferences_window_get_can_navigate_back (AdwPreferencesWindow *self);
+ADW_AVAILABLE_IN_ALL
+void     adw_preferences_window_set_can_navigate_back (AdwPreferencesWindow *self,
+                                                       gboolean              can_navigate_back);
+
+ADW_AVAILABLE_IN_ALL
+void adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
+                                             GtkWidget            *subpage);
+ADW_AVAILABLE_IN_ALL
+void adw_preferences_window_close_subpage   (AdwPreferencesWindow *self);
 
 ADW_AVAILABLE_IN_ALL
 void adw_preferences_window_add_toast (AdwPreferencesWindow *self,

@@ -74,8 +74,8 @@ static GtkBuildableIface *parent_buildable_iface;
 
 enum {
   PROP_0,
-  PROP_DESCRIPTION,
   PROP_TITLE,
+  PROP_DESCRIPTION,
   PROP_HEADER_SUFFIX,
   LAST_PROP,
 };
@@ -165,6 +165,22 @@ listbox_keynav_failed_cb (AdwPreferencesGroup *self,
                                  GTK_DIR_TAB_BACKWARD : GTK_DIR_TAB_FORWARD);
 }
 
+static gboolean
+row_has_title (AdwPreferencesRow *row,
+               gpointer           user_data)
+{
+  const char *title;
+
+  g_assert (ADW_IS_PREFERENCES_ROW (row));
+
+  if (!gtk_widget_get_visible (GTK_WIDGET (row)))
+    return FALSE;
+
+  title = adw_preferences_row_get_title (row);
+
+  return title && *title;
+}
+
 static void
 adw_preferences_group_get_property (GObject    *object,
                                     guint       prop_id,
@@ -174,11 +190,11 @@ adw_preferences_group_get_property (GObject    *object,
   AdwPreferencesGroup *self = ADW_PREFERENCES_GROUP (object);
 
   switch (prop_id) {
-  case PROP_DESCRIPTION:
-    g_value_set_string (value, adw_preferences_group_get_description (self));
-    break;
   case PROP_TITLE:
     g_value_set_string (value, adw_preferences_group_get_title (self));
+    break;
+  case PROP_DESCRIPTION:
+    g_value_set_string (value, adw_preferences_group_get_description (self));
     break;
   case PROP_HEADER_SUFFIX:
     g_value_set_object (value, adw_preferences_group_get_header_suffix (self));
@@ -197,11 +213,11 @@ adw_preferences_group_set_property (GObject      *object,
   AdwPreferencesGroup *self = ADW_PREFERENCES_GROUP (object);
 
   switch (prop_id) {
-  case PROP_DESCRIPTION:
-    adw_preferences_group_set_description (self, g_value_get_string (value));
-    break;
   case PROP_TITLE:
     adw_preferences_group_set_title (self, g_value_get_string (value));
+    break;
+  case PROP_DESCRIPTION:
+    adw_preferences_group_set_description (self, g_value_get_string (value));
     break;
   case PROP_HEADER_SUFFIX:
     adw_preferences_group_set_header_suffix (self, g_value_get_object (value));
@@ -236,18 +252,6 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
-   * AdwPreferencesGroup:description: (attributes org.gtk.Property.get=adw_preferences_group_get_description org.gtk.Property.set=adw_preferences_group_set_description)
-   *
-   * The description for this group of preferences.
-   *
-   * Since: 1.0
-   */
-  props[PROP_DESCRIPTION] =
-    g_param_spec_string ("description", NULL, NULL,
-                         "",
-                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
    * AdwPreferencesGroup:title: (attributes org.gtk.Property.get=adw_preferences_group_get_title org.gtk.Property.set=adw_preferences_group_set_title)
    *
    * The title for this group of preferences.
@@ -256,6 +260,18 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwPreferencesGroup:description: (attributes org.gtk.Property.get=adw_preferences_group_get_description org.gtk.Property.set=adw_preferences_group_set_description)
+   *
+   * The description for this group of preferences.
+   *
+   * Since: 1.0
+   */
+  props[PROP_DESCRIPTION] =
+    g_param_spec_string ("description", NULL, NULL,
                          "",
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -349,6 +365,63 @@ GtkWidget *
 adw_preferences_group_new (void)
 {
   return g_object_new (ADW_TYPE_PREFERENCES_GROUP, NULL);
+}
+
+/**
+ * adw_preferences_group_add:
+ * @self: a preferences group
+ * @child: the widget to add
+ *
+ * Adds a child to @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_group_add (AdwPreferencesGroup *self,
+                           GtkWidget           *child)
+{
+  AdwPreferencesGroupPrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_GROUP (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+
+  priv = adw_preferences_group_get_instance_private (self);
+
+  if (ADW_IS_PREFERENCES_ROW (child))
+    gtk_list_box_append (priv->listbox, child);
+  else
+    gtk_box_append (priv->listbox_box, child);
+}
+
+/**
+ * adw_preferences_group_remove:
+ * @self: a preferences group
+ * @child: the child to remove
+ *
+ * Removes a child from @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_group_remove (AdwPreferencesGroup *self,
+                              GtkWidget           *child)
+{
+  AdwPreferencesGroupPrivate *priv;
+  GtkWidget *parent;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_GROUP (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+
+  priv = adw_preferences_group_get_instance_private (self);
+
+  parent = gtk_widget_get_parent (child);
+
+  if (parent == GTK_WIDGET (priv->listbox))
+    gtk_list_box_remove (priv->listbox, child);
+  else if (parent == GTK_WIDGET (priv->listbox_box))
+    gtk_box_remove (priv->listbox_box, child);
+  else
+    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
 }
 
 /**
@@ -453,109 +526,6 @@ adw_preferences_group_set_description (AdwPreferencesGroup *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DESCRIPTION]);
 }
 
-static gboolean
-row_has_title (AdwPreferencesRow *row,
-               gpointer           user_data)
-{
-  const char *title;
-
-  g_assert (ADW_IS_PREFERENCES_ROW (row));
-
-  if (!gtk_widget_get_visible (GTK_WIDGET (row)))
-    return FALSE;
-
-  title = adw_preferences_row_get_title (row);
-
-  return title && *title;
-}
-
-/**
- * adw_preferences_group_get_rows:
- * @self: a preferences group
- *
- * Gets a [iface@Gio.ListModel] that contains the rows of the group.
- *
- * This can be used to keep an up-to-date view.
- *
- * Returns: (transfer full): a list model for the group's rows
- *
- * Since: 1.0
- */
-GListModel *
-adw_preferences_group_get_rows (AdwPreferencesGroup *self)
-{
-  AdwPreferencesGroupPrivate *priv;
-  GtkCustomFilter *filter;
-  GListModel *model;
-
-  g_return_val_if_fail (ADW_IS_PREFERENCES_GROUP (self), NULL);
-
-  priv = adw_preferences_group_get_instance_private (self);
-
-  filter = gtk_custom_filter_new ((GtkCustomFilterFunc) row_has_title, NULL, NULL);
-  model = gtk_widget_observe_children (GTK_WIDGET (priv->listbox));
-  model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (filter)));
-
-  return model;
-}
-
-/**
- * adw_preferences_group_add:
- * @self: a preferences group
- * @child: the widget to add
- *
- * Adds a child to @self.
- *
- * Since: 1.0
- */
-void
-adw_preferences_group_add (AdwPreferencesGroup *self,
-                           GtkWidget           *child)
-{
-  AdwPreferencesGroupPrivate *priv;
-
-  g_return_if_fail (ADW_IS_PREFERENCES_GROUP (self));
-  g_return_if_fail (GTK_IS_WIDGET (child));
-
-  priv = adw_preferences_group_get_instance_private (self);
-
-  if (ADW_IS_PREFERENCES_ROW (child))
-    gtk_list_box_append (priv->listbox, child);
-  else
-    gtk_box_append (priv->listbox_box, child);
-}
-
-/**
- * adw_preferences_group_remove:
- * @self: a preferences group
- * @child: the child to remove
- *
- * Removes a child from @self.
- *
- * Since: 1.0
- */
-void
-adw_preferences_group_remove (AdwPreferencesGroup *self,
-                              GtkWidget           *child)
-{
-  AdwPreferencesGroupPrivate *priv;
-  GtkWidget *parent;
-
-  g_return_if_fail (ADW_IS_PREFERENCES_GROUP (self));
-  g_return_if_fail (GTK_IS_WIDGET (child));
-
-  priv = adw_preferences_group_get_instance_private (self);
-
-  parent = gtk_widget_get_parent (child);
-
-  if (parent == GTK_WIDGET (priv->listbox))
-    gtk_list_box_remove (priv->listbox, child);
-  else if (parent == GTK_WIDGET (priv->listbox_box))
-    gtk_box_remove (priv->listbox_box, child);
-  else
-    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
-}
-
 /**
  * adw_preferences_group_get_header_suffix:
  * @self: a `AdwPreferencesGroup`
@@ -614,4 +584,34 @@ adw_preferences_group_set_header_suffix (AdwPreferencesGroup *self,
     gtk_box_append (priv->header_box, priv->header_suffix);
 
   update_header_visibility (self);
+}
+
+/**
+ * adw_preferences_group_get_rows:
+ * @self: a preferences group
+ *
+ * Gets a [iface@Gio.ListModel] that contains the rows of the group.
+ *
+ * This can be used to keep an up-to-date view.
+ *
+ * Returns: (transfer full): a list model for the group's rows
+ *
+ * Since: 1.0
+ */
+GListModel *
+adw_preferences_group_get_rows (AdwPreferencesGroup *self)
+{
+  AdwPreferencesGroupPrivate *priv;
+  GtkCustomFilter *filter;
+  GListModel *model;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_GROUP (self), NULL);
+
+  priv = adw_preferences_group_get_instance_private (self);
+
+  filter = gtk_custom_filter_new ((GtkCustomFilterFunc) row_has_title, NULL, NULL);
+  model = gtk_widget_observe_children (GTK_WIDGET (priv->listbox));
+  model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (filter)));
+
+  return model;
 }

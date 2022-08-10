@@ -38,6 +38,13 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_preferences_page_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
+void adw_preferences_page_add    (AdwPreferencesPage  *self,
+                                  AdwPreferencesGroup *group);
+ADW_AVAILABLE_IN_ALL
+void adw_preferences_page_remove (AdwPreferencesPage  *self,
+                                  AdwPreferencesGroup *group);
+
+ADW_AVAILABLE_IN_ALL
 const char *adw_preferences_page_get_icon_name (AdwPreferencesPage *self);
 ADW_AVAILABLE_IN_ALL
 void        adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
@@ -60,12 +67,5 @@ gboolean adw_preferences_page_get_use_underline (AdwPreferencesPage *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
                                                  gboolean            use_underline);
-
-ADW_AVAILABLE_IN_ALL
-void adw_preferences_page_add    (AdwPreferencesPage  *self,
-                                  AdwPreferencesGroup *group);
-ADW_AVAILABLE_IN_ALL
-void adw_preferences_page_remove (AdwPreferencesPage  *self,
-                                  AdwPreferencesGroup *group);
 
 G_END_DECLS

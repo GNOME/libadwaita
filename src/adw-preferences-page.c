@@ -265,6 +265,55 @@ adw_preferences_page_new (void)
 }
 
 /**
+ * adw_preferences_page_add:
+ * @self: a preferences page
+ * @group: the group to add
+ *
+ * Adds a preferences group to @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_page_add (AdwPreferencesPage  *self,
+                          AdwPreferencesGroup *group)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
+  g_return_if_fail (ADW_IS_PREFERENCES_GROUP (group));
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  gtk_box_append (priv->box, GTK_WIDGET (group));
+}
+
+/**
+ * adw_preferences_page_remove:
+ * @self: a preferences page
+ * @group: the group to remove
+ *
+ * Removes a group from @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_preferences_page_remove (AdwPreferencesPage  *self,
+                             AdwPreferencesGroup *group)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
+  g_return_if_fail (ADW_IS_PREFERENCES_GROUP (group));
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  if (gtk_widget_get_parent (GTK_WIDGET (group)) == GTK_WIDGET (priv->box))
+    gtk_box_remove (priv->box, GTK_WIDGET (group));
+  else
+    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, group);
+}
+
+/**
  * adw_preferences_page_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
  * @self: a preferences page
  *
@@ -415,41 +464,6 @@ adw_preferences_page_set_name (AdwPreferencesPage *self,
 }
 
 /**
- * adw_preferences_page_get_rows:
- * @self: a preferences page
- *
- * Gets a [iface@Gio.ListModel] that contains the rows of the page.
- *
- * This can be used to keep an up-to-date view.
- *
- * Returns: (transfer full): a list model for the page's rows
- *
- * Since: 1.0
- */
-GListModel *
-adw_preferences_page_get_rows (AdwPreferencesPage *self)
-{
-  AdwPreferencesPagePrivate *priv;
-  GListModel *model;
-  GtkExpression *expr;
-
-  g_return_val_if_fail (ADW_IS_PREFERENCES_PAGE (self), NULL);
-
-  priv = adw_preferences_page_get_instance_private (self);
-
-  expr = gtk_property_expression_new (GTK_TYPE_WIDGET, NULL, "visible");
-
-  model = gtk_widget_observe_children (GTK_WIDGET (priv->box));
-  model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (gtk_bool_filter_new (expr))));
-  model = G_LIST_MODEL (gtk_map_list_model_new (model,
-                                                (GtkMapListModelMapFunc) adw_preferences_group_get_rows,
-                                                NULL,
-                                                NULL));
-
-  return G_LIST_MODEL (gtk_flatten_list_model_new (model));
-}
-
-/**
  * adw_preferences_page_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
  * @self: a preferences page
  *
@@ -501,50 +515,36 @@ adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
 }
 
 /**
- * adw_preferences_page_add:
+ * adw_preferences_page_get_rows:
  * @self: a preferences page
- * @group: the group to add
  *
- * Adds a preferences group to @self.
+ * Gets a [iface@Gio.ListModel] that contains the rows of the page.
+ *
+ * This can be used to keep an up-to-date view.
+ *
+ * Returns: (transfer full): a list model for the page's rows
  *
  * Since: 1.0
  */
-void
-adw_preferences_page_add (AdwPreferencesPage  *self,
-                          AdwPreferencesGroup *group)
+GListModel *
+adw_preferences_page_get_rows (AdwPreferencesPage *self)
 {
   AdwPreferencesPagePrivate *priv;
+  GListModel *model;
+  GtkExpression *expr;
 
-  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
-  g_return_if_fail (ADW_IS_PREFERENCES_GROUP (group));
+  g_return_val_if_fail (ADW_IS_PREFERENCES_PAGE (self), NULL);
 
   priv = adw_preferences_page_get_instance_private (self);
 
-  gtk_box_append (priv->box, GTK_WIDGET (group));
-}
+  expr = gtk_property_expression_new (GTK_TYPE_WIDGET, NULL, "visible");
 
-/**
- * adw_preferences_page_remove:
- * @self: a preferences page
- * @group: the group to remove
- *
- * Removes a group from @self.
- *
- * Since: 1.0
- */
-void
-adw_preferences_page_remove (AdwPreferencesPage  *self,
-                             AdwPreferencesGroup *group)
-{
-  AdwPreferencesPagePrivate *priv;
+  model = gtk_widget_observe_children (GTK_WIDGET (priv->box));
+  model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (gtk_bool_filter_new (expr))));
+  model = G_LIST_MODEL (gtk_map_list_model_new (model,
+                                                (GtkMapListModelMapFunc) adw_preferences_group_get_rows,
+                                                NULL,
+                                                NULL));
 
-  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
-  g_return_if_fail (ADW_IS_PREFERENCES_GROUP (group));
-
-  priv = adw_preferences_page_get_instance_private (self);
-
-  if (gtk_widget_get_parent (GTK_WIDGET (group)) == GTK_WIDGET (priv->box))
-    gtk_box_remove (priv->box, GTK_WIDGET (group));
-  else
-    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, group);
+  return G_LIST_MODEL (gtk_flatten_list_model_new (model));
 }

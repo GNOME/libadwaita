@@ -117,11 +117,11 @@ enum {
   PAGE_PROP_CHILD,
   PAGE_PROP_NAME,
   PAGE_PROP_TITLE,
+  PAGE_PROP_USE_UNDERLINE,
   PAGE_PROP_ICON_NAME,
   PAGE_PROP_NEEDS_ATTENTION,
   PAGE_PROP_BADGE_NUMBER,
   PAGE_PROP_VISIBLE,
-  PAGE_PROP_USE_UNDERLINE,
   LAST_PAGE_PROP
 };
 
@@ -166,6 +166,9 @@ adw_view_stack_page_get_property (GObject      *object,
   case PAGE_PROP_TITLE:
     g_value_set_string (value, adw_view_stack_page_get_title (self));
     break;
+  case PAGE_PROP_USE_UNDERLINE:
+    g_value_set_boolean (value, adw_view_stack_page_get_use_underline (self));
+    break;
   case PAGE_PROP_ICON_NAME:
     g_value_set_string (value, adw_view_stack_page_get_icon_name (self));
     break;
@@ -177,9 +180,6 @@ adw_view_stack_page_get_property (GObject      *object,
     break;
   case PAGE_PROP_VISIBLE:
     g_value_set_boolean (value, adw_view_stack_page_get_visible (self));
-    break;
-  case PAGE_PROP_USE_UNDERLINE:
-    g_value_set_boolean (value, adw_view_stack_page_get_use_underline (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -205,6 +205,9 @@ adw_view_stack_page_set_property (GObject      *object,
   case PAGE_PROP_TITLE:
     adw_view_stack_page_set_title (self, g_value_get_string (value));
     break;
+  case PAGE_PROP_USE_UNDERLINE:
+    adw_view_stack_page_set_use_underline (self, g_value_get_boolean (value));
+    break;
   case PAGE_PROP_ICON_NAME:
     adw_view_stack_page_set_icon_name (self, g_value_get_string (value));
     break;
@@ -216,9 +219,6 @@ adw_view_stack_page_set_property (GObject      *object,
     break;
   case PAGE_PROP_VISIBLE:
     adw_view_stack_page_set_visible (self, g_value_get_boolean (value));
-    break;
-  case PAGE_PROP_USE_UNDERLINE:
-    adw_view_stack_page_set_use_underline (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -289,6 +289,18 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
+   * AdwViewStackPage:use-underline: (attributes org.gtk.Property.get=adw_view_stack_page_get_use_underline org.gtk.Property.set=adw_view_stack_page_set_use_underline)
+   *
+   * Whether an embedded underline in the title indicates a mnemonic.
+   *
+   * Since: 1.0
+   */
+  page_props[PAGE_PROP_USE_UNDERLINE] =
+    g_param_spec_boolean ("use-underline", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
    * AdwViewStackPage:icon-name: (attributes org.gtk.Property.get=adw_view_stack_page_get_icon_name org.gtk.Property.set=adw_view_stack_page_set_icon_name)
    *
    * The icon name of the child page.
@@ -344,18 +356,6 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
   page_props[PAGE_PROP_VISIBLE] =
     g_param_spec_boolean ("visible", NULL, NULL,
                           TRUE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwViewStackPage:use-underline: (attributes org.gtk.Property.get=adw_view_stack_page_get_use_underline org.gtk.Property.set=adw_view_stack_page_set_use_underline)
-   *
-   * Whether an embedded underline in the title indicates a mnemonic.
-   *
-   * Since: 1.0
-   */
-  page_props[PAGE_PROP_USE_UNDERLINE] =
-    g_param_spec_boolean ("use-underline", NULL, NULL,
-                          FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PAGE_PROP, page_props);
@@ -1027,188 +1027,6 @@ adw_view_stack_page_get_child (AdwViewStackPage *self)
 }
 
 /**
- * adw_view_stack_page_get_visible: (attributes org.gtk.Method.get_property=visible)
- * @self: a view stack page
- *
- * Gets whether @self is visible in its `AdwViewStack`.
- *
- * This is independent from the [property@Gtk.Widget:visible]
- * property of its widget.
- *
- * Returns: whether @self is visible
- *
- * Since: 1.0
- */
-gboolean
-adw_view_stack_page_get_visible (AdwViewStackPage *self)
-{
-  g_return_val_if_fail (ADW_IS_VIEW_STACK_PAGE (self), FALSE);
-
-  return self->visible;
-}
-
-/**
- * adw_view_stack_page_set_visible: (attributes org.gtk.Method.set_property=visible)
- * @self: a view stack page
- * @visible: whether @self is visible
- *
- * Sets whether @page is visible in its `AdwViewStack`.
- *
- * This is independent from the [property@Gtk.Widget:visible] property of
- * [property@ViewStackPage:child].
- *
- * Since: 1.0
- */
-void
-adw_view_stack_page_set_visible (AdwViewStackPage *self,
-                                 gboolean          visible)
-{
-  g_return_if_fail (ADW_IS_VIEW_STACK_PAGE (self));
-
-  visible = !!visible;
-
-  if (visible == self->visible)
-    return;
-
-  self->visible = visible;
-
-  if (self->widget && gtk_widget_get_parent (self->widget))
-    update_child_visible (ADW_VIEW_STACK (gtk_widget_get_parent (self->widget)), self);
-
-  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_VISIBLE]);
-}
-
-/**
- * adw_view_stack_page_get_needs_attention: (attributes org.gtk.Method.get_property=needs-attention)
- * @self: a view stack page
- *
- * Gets whether the page requires the user attention.
- *
- * Returns: whether the page needs attention
- *
- * Since: 1.0
- */
-gboolean
-adw_view_stack_page_get_needs_attention (AdwViewStackPage *self)
-{
-  g_return_val_if_fail (ADW_IS_VIEW_STACK_PAGE (self), FALSE);
-
-  return self->needs_attention;
-}
-
-/**
- * adw_view_stack_page_set_needs_attention: (attributes org.gtk.Method.set_property=needs-attention)
- * @self: a view stack page
- * @needs_attention: the new value to set
- *
- * Sets whether the page requires the user attention.
- *
- * [class@ViewSwitcher] will display it as a dot next to the page icon.
- *
- * Since: 1.0
- */
-void
-adw_view_stack_page_set_needs_attention (AdwViewStackPage *self,
-                                         gboolean          needs_attention)
-{
-  g_return_if_fail (ADW_IS_VIEW_STACK_PAGE (self));
-
-  needs_attention = !!needs_attention;
-
-  if (needs_attention == self->needs_attention)
-    return;
-
-  self->needs_attention = needs_attention;
-
-  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_NEEDS_ATTENTION]);
-}
-
-/**
- * adw_view_stack_page_get_badge_number: (attributes org.gtk.Method.get_property=badge-number)
- * @self: a view stack page
- *
- * Gets the badge number for this page.
- *
- * Returns: the badge number for this page
- *
- * Since: 1.0
- */
-guint
-adw_view_stack_page_get_badge_number (AdwViewStackPage *self)
-{
-  g_return_val_if_fail (ADW_IS_VIEW_STACK_PAGE (self), 0);
-
-  return self->badge_number;
-}
-
-/**
- * adw_view_stack_page_set_badge_number: (attributes org.gtk.Method.set_property=badge-number)
- * @self: a view stack page
- * @badge_number: the new value to set
- *
- * Sets the badge number for this page.
- *
- * [class@ViewSwitcher] can display it as a badge next to the page icon. It is
- * commonly used to display a number of unread items within the page.
- *
- * It can be used together with [property@ViewStack{age}:needs-attention].
- *
- * Since: 1.0
- */
-void
-adw_view_stack_page_set_badge_number (AdwViewStackPage *self,
-                                      guint             badge_number)
-{
-  g_return_if_fail (ADW_IS_VIEW_STACK_PAGE (self));
-
-  if (badge_number == self->badge_number)
-    return;
-
-  self->badge_number = badge_number;
-
-  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_BADGE_NUMBER]);
-}
-
-/**
- * adw_view_stack_page_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
- * @self: a view stack page
- *
- * Gets whether underlines in the page title indicate mnemonics.
- *
- * Returns: whether underlines in the page title indicate mnemonics
- *
- * Since: 1.0
- */
-gboolean
-adw_view_stack_page_get_use_underline (AdwViewStackPage *self)
-{
-  return self->use_underline;
-}
-
-/**
- * adw_view_stack_page_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
- * @self: a view stack page
- * @use_underline: the new value to set
- *
- * Sets whether underlines in the page title indicate mnemonics.
- *
- * Since: 1.0
- */
-void
-adw_view_stack_page_set_use_underline (AdwViewStackPage *self,
-                                       gboolean          use_underline)
-{
-  use_underline = !!use_underline;
-
-  if (use_underline == self->use_underline)
-    return;
-
-  self->use_underline = use_underline;
-
-  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_USE_UNDERLINE]);
-}
-
-/**
  * adw_view_stack_page_get_name: (attributes org.gtk.Method.get_property=name)
  * @self: a view stack page
  *
@@ -1319,6 +1137,45 @@ adw_view_stack_page_set_title (AdwViewStackPage *self,
 }
 
 /**
+ * adw_view_stack_page_get_use_underline: (attributes org.gtk.Method.get_property=use-underline)
+ * @self: a view stack page
+ *
+ * Gets whether underlines in the page title indicate mnemonics.
+ *
+ * Returns: whether underlines in the page title indicate mnemonics
+ *
+ * Since: 1.0
+ */
+gboolean
+adw_view_stack_page_get_use_underline (AdwViewStackPage *self)
+{
+  return self->use_underline;
+}
+
+/**
+ * adw_view_stack_page_set_use_underline: (attributes org.gtk.Method.set_property=use-underline)
+ * @self: a view stack page
+ * @use_underline: the new value to set
+ *
+ * Sets whether underlines in the page title indicate mnemonics.
+ *
+ * Since: 1.0
+ */
+void
+adw_view_stack_page_set_use_underline (AdwViewStackPage *self,
+                                       gboolean          use_underline)
+{
+  use_underline = !!use_underline;
+
+  if (use_underline == self->use_underline)
+    return;
+
+  self->use_underline = use_underline;
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_USE_UNDERLINE]);
+}
+
+/**
  * adw_view_stack_page_get_icon_name: (attributes org.gtk.Method.get_property=icon-name)
  * @self: a view stack page
  *
@@ -1358,6 +1215,149 @@ adw_view_stack_page_set_icon_name (AdwViewStackPage *self,
   self->icon_name = g_strdup (icon_name);
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_ICON_NAME]);
+}
+
+/**
+ * adw_view_stack_page_get_needs_attention: (attributes org.gtk.Method.get_property=needs-attention)
+ * @self: a view stack page
+ *
+ * Gets whether the page requires the user attention.
+ *
+ * Returns: whether the page needs attention
+ *
+ * Since: 1.0
+ */
+gboolean
+adw_view_stack_page_get_needs_attention (AdwViewStackPage *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_STACK_PAGE (self), FALSE);
+
+  return self->needs_attention;
+}
+
+/**
+ * adw_view_stack_page_set_needs_attention: (attributes org.gtk.Method.set_property=needs-attention)
+ * @self: a view stack page
+ * @needs_attention: the new value to set
+ *
+ * Sets whether the page requires the user attention.
+ *
+ * [class@ViewSwitcher] will display it as a dot next to the page icon.
+ *
+ * Since: 1.0
+ */
+void
+adw_view_stack_page_set_needs_attention (AdwViewStackPage *self,
+                                         gboolean          needs_attention)
+{
+  g_return_if_fail (ADW_IS_VIEW_STACK_PAGE (self));
+
+  needs_attention = !!needs_attention;
+
+  if (needs_attention == self->needs_attention)
+    return;
+
+  self->needs_attention = needs_attention;
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_NEEDS_ATTENTION]);
+}
+
+/**
+ * adw_view_stack_page_get_badge_number: (attributes org.gtk.Method.get_property=badge-number)
+ * @self: a view stack page
+ *
+ * Gets the badge number for this page.
+ *
+ * Returns: the badge number for this page
+ *
+ * Since: 1.0
+ */
+guint
+adw_view_stack_page_get_badge_number (AdwViewStackPage *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_STACK_PAGE (self), 0);
+
+  return self->badge_number;
+}
+
+/**
+ * adw_view_stack_page_set_badge_number: (attributes org.gtk.Method.set_property=badge-number)
+ * @self: a view stack page
+ * @badge_number: the new value to set
+ *
+ * Sets the badge number for this page.
+ *
+ * [class@ViewSwitcher] can display it as a badge next to the page icon. It is
+ * commonly used to display a number of unread items within the page.
+ *
+ * It can be used together with [property@ViewStack{age}:needs-attention].
+ *
+ * Since: 1.0
+ */
+void
+adw_view_stack_page_set_badge_number (AdwViewStackPage *self,
+                                      guint             badge_number)
+{
+  g_return_if_fail (ADW_IS_VIEW_STACK_PAGE (self));
+
+  if (badge_number == self->badge_number)
+    return;
+
+  self->badge_number = badge_number;
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_BADGE_NUMBER]);
+}
+
+/**
+ * adw_view_stack_page_get_visible: (attributes org.gtk.Method.get_property=visible)
+ * @self: a view stack page
+ *
+ * Gets whether @self is visible in its `AdwViewStack`.
+ *
+ * This is independent from the [property@Gtk.Widget:visible]
+ * property of its widget.
+ *
+ * Returns: whether @self is visible
+ *
+ * Since: 1.0
+ */
+gboolean
+adw_view_stack_page_get_visible (AdwViewStackPage *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_STACK_PAGE (self), FALSE);
+
+  return self->visible;
+}
+
+/**
+ * adw_view_stack_page_set_visible: (attributes org.gtk.Method.set_property=visible)
+ * @self: a view stack page
+ * @visible: whether @self is visible
+ *
+ * Sets whether @page is visible in its `AdwViewStack`.
+ *
+ * This is independent from the [property@Gtk.Widget:visible] property of
+ * [property@ViewStackPage:child].
+ *
+ * Since: 1.0
+ */
+void
+adw_view_stack_page_set_visible (AdwViewStackPage *self,
+                                 gboolean          visible)
+{
+  g_return_if_fail (ADW_IS_VIEW_STACK_PAGE (self));
+
+  visible = !!visible;
+
+  if (visible == self->visible)
+    return;
+
+  self->visible = visible;
+
+  if (self->widget && gtk_widget_get_parent (self->widget))
+    update_child_visible (ADW_VIEW_STACK (gtk_widget_get_parent (self->widget)), self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_VISIBLE]);
 }
 
 /**
@@ -1659,6 +1659,24 @@ adw_view_stack_set_visible_child_name (AdwViewStack *self,
 }
 
 /**
+ * adw_view_stack_get_hhomogeneous: (attributes org.gtk.Method.get_property=hhomogeneous)
+ * @self: a view stack
+ *
+ * Gets whether @self is horizontally homogeneous.
+ *
+ * Returns: whether @self is horizontally homogeneous
+ *
+ * Since: 1.0
+ */
+gboolean
+adw_view_stack_get_hhomogeneous (AdwViewStack *self)
+{
+  g_return_val_if_fail (ADW_IS_VIEW_STACK (self), FALSE);
+
+  return self->homogeneous[GTK_ORIENTATION_HORIZONTAL];
+}
+
+/**
  * adw_view_stack_set_hhomogeneous: (attributes org.gtk.Method.set_property=hhomogeneous)
  * @self: a view stack
  * @hhomogeneous: whether to make @self horizontally homogeneous
@@ -1693,21 +1711,21 @@ adw_view_stack_set_hhomogeneous (AdwViewStack *self,
 }
 
 /**
- * adw_view_stack_get_hhomogeneous: (attributes org.gtk.Method.get_property=hhomogeneous)
+ * adw_view_stack_get_vhomogeneous: (attributes org.gtk.Method.get_property=vhomogeneous)
  * @self: a view stack
  *
- * Gets whether @self is horizontally homogeneous.
+ * Gets whether @self is vertically homogeneous.
  *
- * Returns: whether @self is horizontally homogeneous
+ * Returns: whether @self is vertically homogeneous
  *
  * Since: 1.0
  */
 gboolean
-adw_view_stack_get_hhomogeneous (AdwViewStack *self)
+adw_view_stack_get_vhomogeneous (AdwViewStack *self)
 {
   g_return_val_if_fail (ADW_IS_VIEW_STACK (self), FALSE);
 
-  return self->homogeneous[GTK_ORIENTATION_HORIZONTAL];
+  return self->homogeneous[GTK_ORIENTATION_VERTICAL];
 }
 
 /**
@@ -1742,24 +1760,6 @@ adw_view_stack_set_vhomogeneous (AdwViewStack *self,
     gtk_widget_queue_resize (GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_VHOMOGENEOUS]);
-}
-
-/**
- * adw_view_stack_get_vhomogeneous: (attributes org.gtk.Method.get_property=vhomogeneous)
- * @self: a view stack
- *
- * Gets whether @self is vertically homogeneous.
- *
- * Returns: whether @self is vertically homogeneous
- *
- * Since: 1.0
- */
-gboolean
-adw_view_stack_get_vhomogeneous (AdwViewStack *self)
-{
-  g_return_val_if_fail (ADW_IS_VIEW_STACK (self), FALSE);
-
-  return self->homogeneous[GTK_ORIENTATION_VERTICAL];
 }
 
 /**

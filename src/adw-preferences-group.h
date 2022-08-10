@@ -37,6 +37,13 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_preferences_group_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
+void adw_preferences_group_add    (AdwPreferencesGroup *self,
+                                   GtkWidget           *child);
+ADW_AVAILABLE_IN_ALL
+void adw_preferences_group_remove (AdwPreferencesGroup *self,
+                                   GtkWidget           *child);
+
+ADW_AVAILABLE_IN_ALL
 const char *adw_preferences_group_get_title (AdwPreferencesGroup *self);
 ADW_AVAILABLE_IN_ALL
 void        adw_preferences_group_set_title (AdwPreferencesGroup *self,
@@ -47,13 +54,6 @@ const char *adw_preferences_group_get_description (AdwPreferencesGroup *self);
 ADW_AVAILABLE_IN_ALL
 void        adw_preferences_group_set_description (AdwPreferencesGroup *self,
                                                    const char          *description);
-
-ADW_AVAILABLE_IN_ALL
-void adw_preferences_group_add    (AdwPreferencesGroup *self,
-                                   GtkWidget           *child);
-ADW_AVAILABLE_IN_ALL
-void adw_preferences_group_remove (AdwPreferencesGroup *self,
-                                   GtkWidget           *child);
 
 ADW_AVAILABLE_IN_1_1
 GtkWidget *adw_preferences_group_get_header_suffix (AdwPreferencesGroup *self);

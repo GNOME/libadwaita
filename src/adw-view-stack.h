@@ -31,10 +31,28 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_view_stack_page_get_child (AdwViewStackPage *self);
 
 ADW_AVAILABLE_IN_ALL
-gboolean adw_view_stack_page_get_visible (AdwViewStackPage *self);
+const char *adw_view_stack_page_get_name (AdwViewStackPage *self);
 ADW_AVAILABLE_IN_ALL
-void     adw_view_stack_page_set_visible (AdwViewStackPage *self,
-                                          gboolean          visible);
+void        adw_view_stack_page_set_name (AdwViewStackPage *self,
+                                          const char       *name);
+
+ADW_AVAILABLE_IN_ALL
+const char *adw_view_stack_page_get_title (AdwViewStackPage *self);
+ADW_AVAILABLE_IN_ALL
+void        adw_view_stack_page_set_title (AdwViewStackPage *self,
+                                           const char       *title);
+
+ADW_AVAILABLE_IN_ALL
+gboolean adw_view_stack_page_get_use_underline (AdwViewStackPage *self);
+ADW_AVAILABLE_IN_ALL
+void     adw_view_stack_page_set_use_underline (AdwViewStackPage *self,
+                                                gboolean          use_underline);
+
+ADW_AVAILABLE_IN_ALL
+const char *adw_view_stack_page_get_icon_name (AdwViewStackPage *self);
+ADW_AVAILABLE_IN_ALL
+void        adw_view_stack_page_set_icon_name (AdwViewStackPage *self,
+                                               const char       *icon_name);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_view_stack_page_get_needs_attention (AdwViewStackPage *self);
@@ -49,27 +67,10 @@ void  adw_view_stack_page_set_badge_number (AdwViewStackPage *self,
                                             guint             badge_number);
 
 ADW_AVAILABLE_IN_ALL
-gboolean adw_view_stack_page_get_use_underline (AdwViewStackPage *self);
+gboolean adw_view_stack_page_get_visible (AdwViewStackPage *self);
 ADW_AVAILABLE_IN_ALL
-void     adw_view_stack_page_set_use_underline (AdwViewStackPage *self,
-                                                gboolean          use_underline);
-
-ADW_AVAILABLE_IN_ALL
-const char *adw_view_stack_page_get_name (AdwViewStackPage *self);
-ADW_AVAILABLE_IN_ALL
-void        adw_view_stack_page_set_name (AdwViewStackPage *self,
-                                          const char       *name);
-
-ADW_AVAILABLE_IN_ALL
-const char *adw_view_stack_page_get_title (AdwViewStackPage *self);
-ADW_AVAILABLE_IN_ALL
-void        adw_view_stack_page_set_title (AdwViewStackPage *self,
-                                           const char       *title);
-ADW_AVAILABLE_IN_ALL
-const char *adw_view_stack_page_get_icon_name (AdwViewStackPage *self);
-ADW_AVAILABLE_IN_ALL
-void        adw_view_stack_page_set_icon_name (AdwViewStackPage *self,
-                                               const char       *icon_name);
+void     adw_view_stack_page_set_visible (AdwViewStackPage *self,
+                                          gboolean          visible);
 
 #define ADW_TYPE_VIEW_STACK (adw_view_stack_get_type())
 
@@ -111,28 +112,28 @@ GtkWidget *adw_view_stack_get_child_by_name (AdwViewStack *self,
                                              const char   *name);
 
 ADW_AVAILABLE_IN_ALL
+GtkWidget *adw_view_stack_get_visible_child (AdwViewStack *self);
+ADW_AVAILABLE_IN_ALL
 void       adw_view_stack_set_visible_child (AdwViewStack *self,
                                              GtkWidget    *child);
-ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_view_stack_get_visible_child (AdwViewStack *self);
 
+ADW_AVAILABLE_IN_ALL
+const char *adw_view_stack_get_visible_child_name (AdwViewStack *self);
 ADW_AVAILABLE_IN_ALL
 void        adw_view_stack_set_visible_child_name (AdwViewStack *self,
                                                    const char   *name);
-ADW_AVAILABLE_IN_ALL
-const char *adw_view_stack_get_visible_child_name (AdwViewStack *self);
 
+ADW_AVAILABLE_IN_ALL
+gboolean adw_view_stack_get_hhomogeneous (AdwViewStack *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_view_stack_set_hhomogeneous (AdwViewStack *self,
                                           gboolean      hhomogeneous);
-ADW_AVAILABLE_IN_ALL
-gboolean adw_view_stack_get_hhomogeneous (AdwViewStack *self);
 
+ADW_AVAILABLE_IN_ALL
+gboolean adw_view_stack_get_vhomogeneous (AdwViewStack *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_view_stack_set_vhomogeneous (AdwViewStack *self,
                                           gboolean      vhomogeneous);
-ADW_AVAILABLE_IN_ALL
-gboolean adw_view_stack_get_vhomogeneous (AdwViewStack *self);
 
 ADW_AVAILABLE_IN_ALL
 GtkSelectionModel *adw_view_stack_get_pages (AdwViewStack *self);

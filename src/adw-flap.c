@@ -2176,6 +2176,55 @@ adw_flap_set_fold_policy (AdwFlap           *self,
 }
 
 /**
+ * adw_flap_get_fold_threshold_policy: (attributes org.gtk.Method.get_property=fold-threshold-policy)
+ * @self: a flap
+ *
+ * Gets the fold threshold policy for @self.
+ *
+ * Since: 1.0
+ */
+AdwFoldThresholdPolicy
+adw_flap_get_fold_threshold_policy (AdwFlap *self)
+{
+  g_return_val_if_fail (ADW_IS_FLAP (self), ADW_FOLD_THRESHOLD_POLICY_MINIMUM);
+
+  return self->fold_threshold_policy;
+}
+
+/**
+ * adw_flap_set_fold_threshold_policy: (attributes org.gtk.Method.set_property=fold-threshold-policy)
+ * @self: a flap
+ * @policy: the policy to use
+ *
+ * Sets the fold threshold policy for @self.
+ *
+ * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, flap will only fold when the
+ * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
+ * will fold as soon as children don't get their natural size.
+ *
+ * This can be useful if you have a long ellipsizing label and want to let it
+ * ellipsize instead of immediately folding.
+ *
+ * Since: 1.0
+ */
+void
+adw_flap_set_fold_threshold_policy (AdwFlap                *self,
+                                    AdwFoldThresholdPolicy  policy)
+{
+  g_return_if_fail (ADW_IS_FLAP (self));
+  g_return_if_fail (policy <= ADW_FOLD_THRESHOLD_POLICY_NATURAL);
+
+  if (self->fold_threshold_policy == policy)
+    return;
+
+  self->fold_threshold_policy = policy;
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FOLD_THRESHOLD_POLICY]);
+}
+
+/**
  * adw_flap_get_fold_duration: (attributes org.gtk.Method.get_property=fold-duration)
  * @self: a flap
  *
@@ -2481,53 +2530,4 @@ adw_flap_set_swipe_to_close (AdwFlap  *self,
   update_swipe_tracker (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SWIPE_TO_CLOSE]);
-}
-
-/**
- * adw_flap_get_fold_threshold_policy: (attributes org.gtk.Method.get_property=fold-threshold-policy)
- * @self: a flap
- *
- * Gets the fold threshold policy for @self.
- *
- * Since: 1.0
- */
-AdwFoldThresholdPolicy
-adw_flap_get_fold_threshold_policy (AdwFlap *self)
-{
-  g_return_val_if_fail (ADW_IS_FLAP (self), ADW_FOLD_THRESHOLD_POLICY_MINIMUM);
-
-  return self->fold_threshold_policy;
-}
-
-/**
- * adw_flap_set_fold_threshold_policy: (attributes org.gtk.Method.set_property=fold-threshold-policy)
- * @self: a flap
- * @policy: the policy to use
- *
- * Sets the fold threshold policy for @self.
- *
- * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, flap will only fold when the
- * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
- * will fold as soon as children don't get their natural size.
- *
- * This can be useful if you have a long ellipsizing label and want to let it
- * ellipsize instead of immediately folding.
- *
- * Since: 1.0
- */
-void
-adw_flap_set_fold_threshold_policy (AdwFlap                *self,
-                                    AdwFoldThresholdPolicy  policy)
-{
-  g_return_if_fail (ADW_IS_FLAP (self));
-  g_return_if_fail (policy <= ADW_FOLD_THRESHOLD_POLICY_NATURAL);
-
-  if (self->fold_threshold_policy == policy)
-    return;
-
-  self->fold_threshold_policy = policy;
-
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FOLD_THRESHOLD_POLICY]);
 }

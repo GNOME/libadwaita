@@ -79,7 +79,19 @@ AdwLeafletPage *adw_leaflet_get_page (AdwLeaflet *self,
                                       GtkWidget  *child);
 
 ADW_AVAILABLE_IN_ALL
+gboolean adw_leaflet_get_can_unfold (AdwLeaflet *self);
+ADW_AVAILABLE_IN_ALL
+void     adw_leaflet_set_can_unfold (AdwLeaflet *self,
+                                     gboolean    can_unfold);
+
+ADW_AVAILABLE_IN_ALL
 gboolean adw_leaflet_get_folded (AdwLeaflet *self);
+
+ADW_AVAILABLE_IN_ALL
+AdwFoldThresholdPolicy adw_leaflet_get_fold_threshold_policy (AdwLeaflet             *self);
+ADW_AVAILABLE_IN_ALL
+void                   adw_leaflet_set_fold_threshold_policy (AdwLeaflet             *self,
+                                                              AdwFoldThresholdPolicy  policy);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_leaflet_get_homogeneous (AdwLeaflet *self);
@@ -144,17 +156,6 @@ GtkWidget *adw_leaflet_get_child_by_name (AdwLeaflet *self,
                                           const char *name);
 
 ADW_AVAILABLE_IN_ALL
-gboolean adw_leaflet_get_can_unfold (AdwLeaflet *self);
-ADW_AVAILABLE_IN_ALL
-void     adw_leaflet_set_can_unfold (AdwLeaflet *self,
-                                     gboolean    can_unfold);
-
-ADW_AVAILABLE_IN_ALL
 GtkSelectionModel *adw_leaflet_get_pages (AdwLeaflet *self) G_GNUC_WARN_UNUSED_RESULT;
 
-ADW_AVAILABLE_IN_ALL
-AdwFoldThresholdPolicy adw_leaflet_get_fold_threshold_policy (AdwLeaflet             *self);
-ADW_AVAILABLE_IN_ALL
-void                   adw_leaflet_set_fold_threshold_policy (AdwLeaflet             *self,
-                                                              AdwFoldThresholdPolicy  policy);
 G_END_DECLS

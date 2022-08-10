@@ -38,6 +38,20 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_expander_row_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
+void adw_expander_row_add_action (AdwExpanderRow *self,
+                                  GtkWidget      *widget);
+ADW_AVAILABLE_IN_ALL
+void adw_expander_row_add_prefix (AdwExpanderRow *self,
+                                  GtkWidget      *widget);
+
+ADW_AVAILABLE_IN_ALL
+void adw_expander_row_add_row    (AdwExpanderRow *self,
+                                  GtkWidget      *child);
+ADW_AVAILABLE_IN_ALL
+void adw_expander_row_remove (AdwExpanderRow *self,
+                              GtkWidget      *child);
+
+ADW_AVAILABLE_IN_ALL
 const char *adw_expander_row_get_subtitle (AdwExpanderRow *self);
 ADW_AVAILABLE_IN_ALL
 void        adw_expander_row_set_subtitle (AdwExpanderRow *self,
@@ -66,19 +80,5 @@ gboolean adw_expander_row_get_show_enable_switch (AdwExpanderRow *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_expander_row_set_show_enable_switch (AdwExpanderRow *self,
                                                   gboolean        show_enable_switch);
-
-ADW_AVAILABLE_IN_ALL
-void adw_expander_row_add_action (AdwExpanderRow *self,
-                                  GtkWidget      *widget);
-ADW_AVAILABLE_IN_ALL
-void adw_expander_row_add_prefix (AdwExpanderRow *self,
-                                  GtkWidget      *widget);
-
-ADW_AVAILABLE_IN_ALL
-void adw_expander_row_add_row    (AdwExpanderRow *self,
-                                  GtkWidget      *child);
-ADW_AVAILABLE_IN_ALL
-void adw_expander_row_remove (AdwExpanderRow *self,
-                              GtkWidget      *child);
 
 G_END_DECLS

@@ -323,6 +323,125 @@ adw_expander_row_new (void)
 }
 
 /**
+ * adw_expander_row_add_action:
+ * @self: an expander row
+ * @widget: a widget
+ *
+ * Adds an action widget to @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_expander_row_add_action (AdwExpanderRow *self,
+                             GtkWidget      *widget)
+{
+  AdwExpanderRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (self));
+
+  priv = adw_expander_row_get_instance_private (self);
+
+  gtk_box_prepend (priv->actions, widget);
+  gtk_widget_show (GTK_WIDGET (priv->actions));
+}
+
+/**
+ * adw_expander_row_add_prefix:
+ * @self: an expander row
+ * @widget: a widget
+ *
+ * Adds a prefix widget to @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_expander_row_add_prefix (AdwExpanderRow *self,
+                             GtkWidget      *widget)
+{
+  AdwExpanderRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (widget));
+
+  priv = adw_expander_row_get_instance_private (self);
+
+  if (priv->prefixes == NULL) {
+    priv->prefixes = GTK_BOX (gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12));
+    adw_action_row_add_prefix (ADW_ACTION_ROW (priv->action_row), GTK_WIDGET (priv->prefixes));
+  }
+  gtk_box_append (priv->prefixes, widget);
+}
+
+/**
+ * adw_expander_row_add_row:
+ * @self: an expander row
+ * @child: a widget
+ *
+ * Adds a widget to @self.
+ *
+ * The widget will appear in the expanding list below @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_expander_row_add_row (AdwExpanderRow *self,
+                          GtkWidget      *child)
+{
+  AdwExpanderRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+
+  priv = adw_expander_row_get_instance_private (self);
+
+  /* When constructing the widget, we want the box to be added as the child of
+   * the GtkListBoxRow, as an implementation detail.
+   */
+  gtk_list_box_append (priv->list, child);
+
+  gtk_widget_remove_css_class (GTK_WIDGET (self), "empty");
+}
+
+/**
+ * adw_action_row_expander:
+ * @self: an expander row
+ * @widget: the child to be removed
+ *
+ * Removes a child from @self.
+ *
+ * Since: 1.0
+ */
+void
+adw_expander_row_remove (AdwExpanderRow *self,
+                         GtkWidget      *child)
+{
+  AdwExpanderRowPrivate *priv;
+  GtkWidget *parent;
+
+  g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+
+  priv = adw_expander_row_get_instance_private (self);
+
+  parent = gtk_widget_get_parent (child);
+
+  if (parent == GTK_WIDGET (priv->actions))
+    gtk_box_remove (priv->actions, child);
+  else if (parent == GTK_WIDGET (priv->prefixes))
+    gtk_box_remove (priv->prefixes, child);
+  else if (parent == GTK_WIDGET (priv->list) ||
+           (GTK_IS_WIDGET (parent) && (gtk_widget_get_parent (parent) == GTK_WIDGET (priv->list)))) {
+    gtk_list_box_remove (priv->list, child);
+
+    if (!gtk_widget_get_first_child (GTK_WIDGET (priv->list)))
+      gtk_widget_add_css_class (GTK_WIDGET (self), "empty");
+  }
+  else
+    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
+}
+
+/**
  * adw_expander_row_get_subtitle: (attributes org.gtk.Method.get_property=subtitle)
  * @self: an expander row
  *
@@ -571,123 +690,4 @@ adw_expander_row_set_show_enable_switch (AdwExpanderRow *self,
   priv->show_enable_switch = show_enable_switch;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_ENABLE_SWITCH]);
-}
-
-/**
- * adw_expander_row_add_action:
- * @self: an expander row
- * @widget: a widget
- *
- * Adds an action widget to @self.
- *
- * Since: 1.0
- */
-void
-adw_expander_row_add_action (AdwExpanderRow *self,
-                             GtkWidget      *widget)
-{
-  AdwExpanderRowPrivate *priv;
-
-  g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
-  g_return_if_fail (GTK_IS_WIDGET (self));
-
-  priv = adw_expander_row_get_instance_private (self);
-
-  gtk_box_prepend (priv->actions, widget);
-  gtk_widget_show (GTK_WIDGET (priv->actions));
-}
-
-/**
- * adw_expander_row_add_prefix:
- * @self: an expander row
- * @widget: a widget
- *
- * Adds a prefix widget to @self.
- *
- * Since: 1.0
- */
-void
-adw_expander_row_add_prefix (AdwExpanderRow *self,
-                             GtkWidget      *widget)
-{
-  AdwExpanderRowPrivate *priv;
-
-  g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
-  g_return_if_fail (GTK_IS_WIDGET (widget));
-
-  priv = adw_expander_row_get_instance_private (self);
-
-  if (priv->prefixes == NULL) {
-    priv->prefixes = GTK_BOX (gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 12));
-    adw_action_row_add_prefix (ADW_ACTION_ROW (priv->action_row), GTK_WIDGET (priv->prefixes));
-  }
-  gtk_box_append (priv->prefixes, widget);
-}
-
-/**
- * adw_expander_row_add_row:
- * @self: an expander row
- * @child: a widget
- *
- * Adds a widget to @self.
- *
- * The widget will appear in the expanding list below @self.
- *
- * Since: 1.0
- */
-void
-adw_expander_row_add_row (AdwExpanderRow *self,
-                          GtkWidget      *child)
-{
-  AdwExpanderRowPrivate *priv;
-
-  g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
-  g_return_if_fail (GTK_IS_WIDGET (child));
-
-  priv = adw_expander_row_get_instance_private (self);
-
-  /* When constructing the widget, we want the box to be added as the child of
-   * the GtkListBoxRow, as an implementation detail.
-   */
-  gtk_list_box_append (priv->list, child);
-
-  gtk_widget_remove_css_class (GTK_WIDGET (self), "empty");
-}
-
-/**
- * adw_action_row_expander:
- * @self: an expander row
- * @widget: the child to be removed
- *
- * Removes a child from @self.
- *
- * Since: 1.0
- */
-void
-adw_expander_row_remove (AdwExpanderRow *self,
-                         GtkWidget      *child)
-{
-  AdwExpanderRowPrivate *priv;
-  GtkWidget *parent;
-
-  g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
-  g_return_if_fail (GTK_IS_WIDGET (child));
-
-  priv = adw_expander_row_get_instance_private (self);
-
-  parent = gtk_widget_get_parent (child);
-
-  if (parent == GTK_WIDGET (priv->actions))
-    gtk_box_remove (priv->actions, child);
-  else if (parent == GTK_WIDGET (priv->prefixes))
-    gtk_box_remove (priv->prefixes, child);
-  else if (parent == GTK_WIDGET (priv->list) ||
-           (GTK_IS_WIDGET (parent) && (gtk_widget_get_parent (parent) == GTK_WIDGET (priv->list)))) {
-    gtk_list_box_remove (priv->list, child);
-
-    if (!gtk_widget_get_first_child (GTK_WIDGET (priv->list)))
-      gtk_widget_add_css_class (GTK_WIDGET (self), "empty");
-  }
-  else
-    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
 }

@@ -57,6 +57,9 @@ AdwSqueezerPage *adw_squeezer_get_page (AdwSqueezer *self,
                                         GtkWidget   *child);
 
 ADW_AVAILABLE_IN_ALL
+GtkWidget *adw_squeezer_get_visible_child (AdwSqueezer *self);
+
+ADW_AVAILABLE_IN_ALL
 gboolean adw_squeezer_get_homogeneous (AdwSqueezer *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_squeezer_set_homogeneous (AdwSqueezer *self,
@@ -94,9 +97,6 @@ gboolean adw_squeezer_get_interpolate_size (AdwSqueezer *self);
 ADW_AVAILABLE_IN_ALL
 void     adw_squeezer_set_interpolate_size (AdwSqueezer *self,
                                             gboolean     interpolate_size);
-
-ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_squeezer_get_visible_child (AdwSqueezer *self);
 
 ADW_AVAILABLE_IN_ALL
 float adw_squeezer_get_xalign (AdwSqueezer *self);

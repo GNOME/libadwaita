@@ -608,6 +608,57 @@ adw_header_bar_pack_end (AdwHeaderBar *self,
 }
 
 /**
+ * adw_header_bar_remove:
+ * @self: a header bar
+ * @child: the child to remove
+ *
+ * Removes a child from @self.
+ *
+ * The child must have been added with [method@HeaderBar.pack_start],
+ * [method@HeaderBar.pack_end] or [property@HeaderBar:title-widget].
+ *
+ * Since: 1.0
+ */
+void
+adw_header_bar_remove (AdwHeaderBar *self,
+                       GtkWidget    *child)
+{
+  GtkWidget *parent;
+
+  g_return_if_fail (ADW_IS_HEADER_BAR (self));
+  g_return_if_fail (GTK_IS_WIDGET (child));
+
+  parent = gtk_widget_get_parent (child);
+
+  if (parent == self->start_box)
+    gtk_box_remove (GTK_BOX (self->start_box), child);
+  else if (parent == self->end_box)
+    gtk_box_remove (GTK_BOX (self->end_box), child);
+  else if (parent == self->center_box)
+    gtk_center_box_set_center_widget (GTK_CENTER_BOX (self->center_box), NULL);
+  else
+    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
+}
+
+/**
+ * adw_header_bar_get_title_widget: (attributes org.gtk.Method.get_property=title-widget)
+ * @self: a header bar
+ *
+ * Gets the title widget widget of @self.
+ *
+ * Returns: (nullable) (transfer none): the title widget
+ *
+ * Since: 1.0
+ */
+GtkWidget *
+adw_header_bar_get_title_widget (AdwHeaderBar *self)
+{
+  g_return_val_if_fail (ADW_IS_HEADER_BAR (self), NULL);
+
+  return self->title_widget;
+}
+
+/**
  * adw_header_bar_set_title_widget: (attributes org.gtk.Method.set_property=title-widget)
  * @self: a header bar
  * @title_widget: (nullable): a widget to use for a title
@@ -657,57 +708,6 @@ adw_header_bar_set_title_widget (AdwHeaderBar *self,
     construct_title_label (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TITLE_WIDGET]);
-}
-
-/**
- * adw_header_bar_get_title_widget: (attributes org.gtk.Method.get_property=title-widget)
- * @self: a header bar
- *
- * Gets the title widget widget of @self.
- *
- * Returns: (nullable) (transfer none): the title widget
- *
- * Since: 1.0
- */
-GtkWidget *
-adw_header_bar_get_title_widget (AdwHeaderBar *self)
-{
-  g_return_val_if_fail (ADW_IS_HEADER_BAR (self), NULL);
-
-  return self->title_widget;
-}
-
-/**
- * adw_header_bar_remove:
- * @self: a header bar
- * @child: the child to remove
- *
- * Removes a child from @self.
- *
- * The child must have been added with [method@HeaderBar.pack_start],
- * [method@HeaderBar.pack_end] or [property@HeaderBar:title-widget].
- *
- * Since: 1.0
- */
-void
-adw_header_bar_remove (AdwHeaderBar *self,
-                       GtkWidget    *child)
-{
-  GtkWidget *parent;
-
-  g_return_if_fail (ADW_IS_HEADER_BAR (self));
-  g_return_if_fail (GTK_IS_WIDGET (child));
-
-  parent = gtk_widget_get_parent (child);
-
-  if (parent == self->start_box)
-    gtk_box_remove (GTK_BOX (self->start_box), child);
-  else if (parent == self->end_box)
-    gtk_box_remove (GTK_BOX (self->end_box), child);
-  else if (parent == self->center_box)
-    gtk_center_box_set_center_widget (GTK_CENTER_BOX (self->center_box), NULL);
-  else
-    ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
 }
 
 /**
@@ -827,6 +827,24 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
 }
 
 /**
+ * adw_header_bar_get_decoration_layout: (attributes org.gtk.Method.get_property=decoration-layout)
+ * @self: a header bar
+ *
+ * Gets the decoration layout for @self.
+ *
+ * Returns: (nullable): the decoration layout
+ *
+ * Since: 1.0
+ */
+const char *
+adw_header_bar_get_decoration_layout (AdwHeaderBar *self)
+{
+  g_return_val_if_fail (ADW_IS_HEADER_BAR (self), NULL);
+
+  return self->decoration_layout;
+}
+
+/**
  * adw_header_bar_set_decoration_layout: (attributes org.gtk.Method.set_property=decoration-layout)
  * @self: a header bar
  * @layout: (nullable): a decoration layout
@@ -856,24 +874,6 @@ adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
   self->decoration_layout = g_strdup (layout);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DECORATION_LAYOUT]);
-}
-
-/**
- * adw_header_bar_get_decoration_layout: (attributes org.gtk.Method.get_property=decoration-layout)
- * @self: a header bar
- *
- * Gets the decoration layout for @self.
- *
- * Returns: (nullable): the decoration layout
- *
- * Since: 1.0
- */
-const char *
-adw_header_bar_get_decoration_layout (AdwHeaderBar *self)
-{
-  g_return_val_if_fail (ADW_IS_HEADER_BAR (self), NULL);
-
-  return self->decoration_layout;
 }
 
 /**

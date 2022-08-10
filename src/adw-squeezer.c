@@ -123,9 +123,9 @@ struct _AdwSqueezer
 
 enum  {
   PROP_0,
+  PROP_VISIBLE_CHILD,
   PROP_HOMOGENEOUS,
   PROP_SWITCH_THRESHOLD_POLICY,
-  PROP_VISIBLE_CHILD,
   PROP_ALLOW_NONE,
   PROP_TRANSITION_DURATION,
   PROP_TRANSITION_TYPE,
@@ -650,14 +650,14 @@ adw_squeezer_get_property (GObject    *object,
   AdwSqueezer *self = ADW_SQUEEZER (object);
 
   switch (property_id) {
+  case PROP_VISIBLE_CHILD:
+    g_value_set_object (value, adw_squeezer_get_visible_child (self));
+    break;
   case PROP_HOMOGENEOUS:
     g_value_set_boolean (value, adw_squeezer_get_homogeneous (self));
     break;
   case PROP_SWITCH_THRESHOLD_POLICY:
     g_value_set_enum (value, adw_squeezer_get_switch_threshold_policy (self));
-    break;
-  case PROP_VISIBLE_CHILD:
-    g_value_set_object (value, adw_squeezer_get_visible_child (self));
     break;
   case PROP_ALLOW_NONE:
     g_value_set_boolean (value, adw_squeezer_get_allow_none (self));
@@ -1039,6 +1039,18 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                                     "orientation");
 
   /**
+   * AdwSqueezer:visible-child: (attributes org.gtk.Property.get=adw_squeezer_get_visible_child)
+   *
+   * The currently visible child.
+   *
+   * Since: 1.0
+   */
+  props[PROP_VISIBLE_CHILD] =
+    g_param_spec_object ("visible-child", NULL, NULL,
+                         GTK_TYPE_WIDGET,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
    * AdwSqueezer:homogeneous: (attributes org.gtk.Property.get=adw_squeezer_get_homogeneous org.gtk.Property.set=adw_squeezer_set_homogeneous)
    *
    * Whether all children have the same size for the opposite orientation.
@@ -1075,18 +1087,6 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
                        ADW_TYPE_FOLD_THRESHOLD_POLICY,
                        ADW_FOLD_THRESHOLD_POLICY_NATURAL,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwSqueezer:visible-child: (attributes org.gtk.Property.get=adw_squeezer_get_visible_child)
-   *
-   * The currently visible child.
-   *
-   * Since: 1.0
-   */
-  props[PROP_VISIBLE_CHILD] =
-    g_param_spec_object ("visible-child", NULL, NULL,
-                         GTK_TYPE_WIDGET,
-                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwSqueezer:allow-none: (attributes org.gtk.Property.get=adw_squeezer_get_allow_none org.gtk.Property.set=adw_squeezer_set_allow_none)
@@ -1441,6 +1441,24 @@ adw_squeezer_get_page (AdwSqueezer *self,
 }
 
 /**
+ * adw_squeezer_get_visible_child: (attributes org.gtk.Method.get_property=visible-child)
+ * @self: a squeezer
+ *
+ * Gets the currently visible child of @self.
+ *
+ * Returns: (transfer none) (nullable): the visible child
+ *
+ * Since: 1.0
+ */
+GtkWidget *
+adw_squeezer_get_visible_child (AdwSqueezer *self)
+{
+  g_return_val_if_fail (ADW_IS_SQUEEZER (self), NULL);
+
+  return self->visible_child ? self->visible_child->widget : NULL;
+}
+
+/**
  * adw_squeezer_get_homogeneous: (attributes org.gtk.Method.get_property=homogeneous)
  * @self: a squeezer
  *
@@ -1739,24 +1757,6 @@ adw_squeezer_set_interpolate_size (AdwSqueezer *self,
 
   self->interpolate_size = interpolate_size;
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_INTERPOLATE_SIZE]);
-}
-
-/**
- * adw_squeezer_get_visible_child: (attributes org.gtk.Method.get_property=visible-child)
- * @self: a squeezer
- *
- * Gets the currently visible child of @self.
- *
- * Returns: (transfer none) (nullable): the visible child
- *
- * Since: 1.0
- */
-GtkWidget *
-adw_squeezer_get_visible_child (AdwSqueezer *self)
-{
-  g_return_val_if_fail (ADW_IS_SQUEEZER (self), NULL);
-
-  return self->visible_child ? self->visible_child->widget : NULL;
 }
 
 /**

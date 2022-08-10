@@ -40,6 +40,16 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_action_row_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
+void adw_action_row_add_prefix (AdwActionRow *self,
+                                GtkWidget    *widget);
+ADW_AVAILABLE_IN_ALL
+void adw_action_row_add_suffix (AdwActionRow *self,
+                                GtkWidget    *widget);
+ADW_AVAILABLE_IN_ALL
+void adw_action_row_remove     (AdwActionRow *self,
+                                GtkWidget    *widget);
+
+ADW_AVAILABLE_IN_ALL
 const char  *adw_action_row_get_subtitle (AdwActionRow *self);
 ADW_AVAILABLE_IN_ALL
 void         adw_action_row_set_subtitle (AdwActionRow *self,
@@ -68,16 +78,6 @@ int  adw_action_row_get_subtitle_lines (AdwActionRow *self);
 ADW_AVAILABLE_IN_ALL
 void adw_action_row_set_subtitle_lines (AdwActionRow *self,
                                         int           subtitle_lines);
-
-ADW_AVAILABLE_IN_ALL
-void adw_action_row_add_prefix (AdwActionRow *self,
-                                GtkWidget    *widget);
-ADW_AVAILABLE_IN_ALL
-void adw_action_row_add_suffix (AdwActionRow *self,
-                                GtkWidget    *widget);
-ADW_AVAILABLE_IN_ALL
-void adw_action_row_remove     (AdwActionRow *self,
-                                GtkWidget    *widget);
 
 ADW_AVAILABLE_IN_ALL
 void adw_action_row_activate (AdwActionRow *self);

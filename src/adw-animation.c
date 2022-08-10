@@ -101,9 +101,9 @@ G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (AdwAnimation, adw_animation, G_TYPE_OBJECT)
 
 enum {
   PROP_0,
-  PROP_VALUE,
   PROP_WIDGET,
   PROP_TARGET,
+  PROP_VALUE,
   PROP_STATE,
   LAST_PROP,
 };
@@ -284,16 +284,16 @@ adw_animation_get_property (GObject    *object,
   AdwAnimation *self = ADW_ANIMATION (object);
 
   switch (prop_id) {
-  case PROP_VALUE:
-    g_value_set_double (value, adw_animation_get_value (self));
-    break;
-
   case PROP_WIDGET:
     g_value_set_object (value, adw_animation_get_widget (self));
     break;
 
   case PROP_TARGET:
     g_value_set_object (value, adw_animation_get_target (self));
+    break;
+
+  case PROP_VALUE:
+    g_value_set_double (value, adw_animation_get_value (self));
     break;
 
   case PROP_STATE:
@@ -341,20 +341,6 @@ adw_animation_class_init (AdwAnimationClass *klass)
   klass->calculate_value = adw_animation_calculate_value;
 
   /**
-   * AdwAnimation:value: (attributes org.gtk.Property.get=adw_animation_get_value)
-   *
-   * The current value of the animation.
-   *
-   * Since: 1.0
-   */
-  props[PROP_VALUE] =
-    g_param_spec_double ("value", NULL, NULL,
-                         -G_MAXDOUBLE,
-                         G_MAXDOUBLE,
-                         0,
-                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
-
-  /**
    * AdwAnimation:widget: (attributes org.gtk.Property.get=adw_animation_get_widget)
    *
    * The animation widget.
@@ -384,6 +370,20 @@ adw_animation_class_init (AdwAnimationClass *klass)
     g_param_spec_object ("target", NULL, NULL,
                          ADW_TYPE_ANIMATION_TARGET,
                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwAnimation:value: (attributes org.gtk.Property.get=adw_animation_get_value)
+   *
+   * The current value of the animation.
+   *
+   * Since: 1.0
+   */
+  props[PROP_VALUE] =
+    g_param_spec_double ("value", NULL, NULL,
+                         -G_MAXDOUBLE,
+                         G_MAXDOUBLE,
+                         0,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
   /**
    * AdwAnimation:state: (attributes org.gtk.Property.get=adw_animation_get_state)

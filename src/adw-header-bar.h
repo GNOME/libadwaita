@@ -45,12 +45,6 @@ ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_header_bar_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_ALL
-GtkWidget *adw_header_bar_get_title_widget (AdwHeaderBar *self);
-ADW_AVAILABLE_IN_ALL
-void       adw_header_bar_set_title_widget (AdwHeaderBar *self,
-                                            GtkWidget    *title_widget);
-
-ADW_AVAILABLE_IN_ALL
 void adw_header_bar_pack_start (AdwHeaderBar *self,
                                 GtkWidget    *child);
 ADW_AVAILABLE_IN_ALL
@@ -59,6 +53,12 @@ void adw_header_bar_pack_end   (AdwHeaderBar *self,
 ADW_AVAILABLE_IN_ALL
 void adw_header_bar_remove     (AdwHeaderBar *self,
                                 GtkWidget    *child);
+
+ADW_AVAILABLE_IN_ALL
+GtkWidget *adw_header_bar_get_title_widget (AdwHeaderBar *self);
+ADW_AVAILABLE_IN_ALL
+void       adw_header_bar_set_title_widget (AdwHeaderBar *self,
+                                            GtkWidget    *title_widget);
 
 ADW_AVAILABLE_IN_ALL
 gboolean adw_header_bar_get_show_start_title_buttons (AdwHeaderBar *self);

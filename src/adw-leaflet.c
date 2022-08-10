@@ -78,6 +78,7 @@
 
 enum {
   PROP_0,
+  PROP_CAN_UNFOLD,
   PROP_FOLDED,
   PROP_FOLD_THRESHOLD_POLICY,
   PROP_HOMOGENEOUS,
@@ -89,7 +90,6 @@ enum {
   PROP_CHILD_TRANSITION_RUNNING,
   PROP_CAN_NAVIGATE_BACK,
   PROP_CAN_NAVIGATE_FORWARD,
-  PROP_CAN_UNFOLD,
   PROP_PAGES,
 
   /* orientable */
@@ -2032,6 +2032,9 @@ adw_leaflet_get_property (GObject    *object,
   AdwLeaflet *self = ADW_LEAFLET (object);
 
   switch (prop_id) {
+  case PROP_CAN_UNFOLD:
+    g_value_set_boolean (value, adw_leaflet_get_can_unfold (self));
+    break;
   case PROP_FOLDED:
     g_value_set_boolean (value, adw_leaflet_get_folded (self));
     break;
@@ -2065,9 +2068,6 @@ adw_leaflet_get_property (GObject    *object,
   case PROP_CAN_NAVIGATE_FORWARD:
     g_value_set_boolean (value, adw_leaflet_get_can_navigate_forward (self));
     break;
-  case PROP_CAN_UNFOLD:
-    g_value_set_boolean (value, adw_leaflet_get_can_unfold (self));
-    break;
   case PROP_PAGES:
     g_value_take_object (value, adw_leaflet_get_pages (self));
     break;
@@ -2088,6 +2088,9 @@ adw_leaflet_set_property (GObject      *object,
   AdwLeaflet *self = ADW_LEAFLET (object);
 
   switch (prop_id) {
+  case PROP_CAN_UNFOLD:
+    adw_leaflet_set_can_unfold (self, g_value_get_boolean (value));
+    break;
   case PROP_FOLD_THRESHOLD_POLICY:
     adw_leaflet_set_fold_threshold_policy (self, g_value_get_enum (value));
     break;
@@ -2114,9 +2117,6 @@ adw_leaflet_set_property (GObject      *object,
     break;
   case PROP_CAN_NAVIGATE_FORWARD:
     adw_leaflet_set_can_navigate_forward (self, g_value_get_boolean (value));
-    break;
-  case PROP_CAN_UNFOLD:
-    adw_leaflet_set_can_unfold (self, g_value_get_boolean (value));
     break;
   case PROP_ORIENTATION:
     set_orientation (self, g_value_get_enum (value));
@@ -2182,6 +2182,18 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   g_object_class_override_property (object_class,
                                     PROP_ORIENTATION,
                                     "orientation");
+
+  /**
+   * AdwLeaflet:can-unfold: (attributes org.gtk.Property.get=adw_leaflet_get_can_unfold org.gtk.Property.set=adw_leaflet_set_can_unfold)
+   *
+   * Whether or not the leaflet can unfold.
+   *
+   * Since: 1.0
+   */
+  props[PROP_CAN_UNFOLD] =
+    g_param_spec_boolean ("can-unfold", NULL, NULL,
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwLeaflet:folded: (attributes org.gtk.Property.get=adw_leaflet_get_folded)
@@ -2377,18 +2389,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
   props[PROP_CAN_NAVIGATE_FORWARD] =
     g_param_spec_boolean ("can-navigate-forward", NULL, NULL,
                           FALSE,
-                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
-
-  /**
-   * AdwLeaflet:can-unfold: (attributes org.gtk.Property.get=adw_leaflet_get_can_unfold org.gtk.Property.set=adw_leaflet_set_can_unfold)
-   *
-   * Whether or not the leaflet can unfold.
-   *
-   * Since: 1.0
-   */
-  props[PROP_CAN_UNFOLD] =
-    g_param_spec_boolean ("can-unfold", NULL, NULL,
-                          TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -3039,6 +3039,51 @@ adw_leaflet_get_page (AdwLeaflet *self,
 }
 
 /**
+ * adw_leaflet_set_can_unfold: (attributes org.gtk.Method.set_property=can-unfold)
+ * @self: a leaflet
+ * @can_unfold: whether @self can unfold
+ *
+ * Sets whether @self can unfold.
+ *
+ * Since: 1.0
+ */
+void
+adw_leaflet_set_can_unfold (AdwLeaflet *self,
+                            gboolean    can_unfold)
+{
+  g_return_if_fail (ADW_IS_LEAFLET (self));
+
+  can_unfold = !!can_unfold;
+
+  if (self->can_unfold == can_unfold)
+    return;
+
+  self->can_unfold = can_unfold;
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_UNFOLD]);
+}
+
+/**
+ * adw_leaflet_get_can_unfold: (attributes org.gtk.Method.get_property=can-unfold)
+ * @self: a leaflet
+ *
+ * Gets whether @self can unfold.
+ *
+ * Returns: whether @self can unfold
+ *
+ * Since: 1.0
+ */
+gboolean
+adw_leaflet_get_can_unfold (AdwLeaflet *self)
+{
+  g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
+
+  return self->can_unfold;
+}
+
+/**
  * adw_leaflet_get_folded: (attributes org.gtk.Method.get_property=folded)
  * @self: a leaflet
  *
@@ -3058,6 +3103,56 @@ adw_leaflet_get_folded (AdwLeaflet *self)
   g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
 
   return self->folded;
+}
+
+/**
+ * adw_leaflet_get_fold_threshold_policy: (attributes org.gtk.Method.get_property=fold-threshold-policy)
+ * @self: a leaflet
+ *
+ * Gets the fold threshold policy for @self.
+ *
+ * Since: 1.0
+ */
+AdwFoldThresholdPolicy
+adw_leaflet_get_fold_threshold_policy (AdwLeaflet *self)
+{
+  g_return_val_if_fail (ADW_IS_LEAFLET (self), ADW_FOLD_THRESHOLD_POLICY_MINIMUM);
+
+  return self->fold_threshold_policy;
+}
+
+
+/**
+ * adw_leaflet_set_fold_threshold_policy: (attributes org.gtk.Method.set_property=fold-threshold-policy)
+ * @self: a leaflet
+ * @policy: the policy to use
+ *
+ * Sets the fold threshold policy for @self.
+ *
+ * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when the
+ * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
+ * will fold as soon as children don't get their natural size.
+ *
+ * This can be useful if you have a long ellipsizing label and want to let it
+ * ellipsize instead of immediately folding.
+ *
+ * Since: 1.0
+ */
+void
+adw_leaflet_set_fold_threshold_policy (AdwLeaflet             *self,
+                                       AdwFoldThresholdPolicy  policy)
+{
+  g_return_if_fail (ADW_IS_LEAFLET (self));
+  g_return_if_fail (policy <= ADW_FOLD_THRESHOLD_POLICY_NATURAL);
+
+  if (self->fold_threshold_policy == policy)
+    return;
+
+  self->fold_threshold_policy = policy;
+
+  gtk_widget_queue_allocate (GTK_WIDGET (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FOLD_THRESHOLD_POLICY]);
 }
 
 /**
@@ -3106,6 +3201,110 @@ adw_leaflet_set_homogeneous (AdwLeaflet *self,
   gtk_widget_queue_resize (GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HOMOGENEOUS]);
+}
+
+/**
+ * adw_leaflet_get_visible_child: (attributes org.gtk.Method.get_property=visible-child)
+ * @self: a leaflet
+ *
+ * Gets the widget currently visible when the leaflet is folded.
+ *
+ * Returns: (nullable) (transfer none): the visible child
+ *
+ * Since: 1.0
+ */
+GtkWidget *
+adw_leaflet_get_visible_child (AdwLeaflet *self)
+{
+  g_return_val_if_fail (ADW_IS_LEAFLET (self), NULL);
+
+  if (self->visible_child == NULL)
+    return NULL;
+
+  return self->visible_child->widget;
+}
+
+/**
+ * adw_leaflet_set_visible_child: (attributes org.gtk.Method.set_property=visible-child)
+ * @self: a leaflet
+ * @visible_child: the new child
+ *
+ * Sets the widget currently visible when the leaflet is folded.
+ *
+ * The transition is determined by [property@Leaflet:transition-type] and
+ * [property@Leaflet:child-transition-params]. The transition can be cancelled
+ * by the user, in which case visible child will change back to the previously
+ * visible child.
+ *
+ * Since: 1.0
+ */
+void
+adw_leaflet_set_visible_child (AdwLeaflet *self,
+                               GtkWidget  *visible_child)
+{
+  AdwLeafletPage *page;
+  gboolean contains_child;
+
+  g_return_if_fail (ADW_IS_LEAFLET (self));
+  g_return_if_fail (GTK_IS_WIDGET (visible_child));
+
+  page = find_page_for_widget (self, visible_child);
+
+  contains_child = page != NULL;
+
+  g_return_if_fail (contains_child);
+
+  set_visible_child (self, page);
+}
+
+/**
+ * adw_leaflet_get_visible_child_name: (attributes org.gtk.Method.get_property=visible-child-name)
+ * @self: a leaflet
+ *
+ * Gets the name of the currently visible child widget.
+ *
+ * Returns: (nullable) (transfer none): the name of the visible child
+ *
+ * Since: 1.0
+ */
+const char *
+adw_leaflet_get_visible_child_name (AdwLeaflet *self)
+{
+  g_return_val_if_fail (ADW_IS_LEAFLET (self), NULL);
+
+  if (self->visible_child == NULL)
+    return NULL;
+
+  return self->visible_child->name;
+}
+
+/**
+ * adw_leaflet_set_visible_child_name: (attributes org.gtk.Method.set_property=visible-child-name)
+ * @self: a leaflet
+ * @name: the name of a child
+ *
+ * Makes the child with the name @name visible.
+ *
+ * See [property@Leaflet:visible-child].
+ *
+ * Since: 1.0
+ */
+void
+adw_leaflet_set_visible_child_name (AdwLeaflet *self,
+                                    const char *name)
+{
+  AdwLeafletPage *page;
+  gboolean contains_child;
+
+  g_return_if_fail (ADW_IS_LEAFLET (self));
+  g_return_if_fail (name != NULL);
+
+  page = find_page_for_name (self, name);
+  contains_child = page != NULL;
+
+  g_return_if_fail (contains_child);
+
+  set_visible_child (self, page);
 }
 
 /**
@@ -3261,110 +3460,6 @@ adw_leaflet_set_child_transition_params (AdwLeaflet      *self,
 }
 
 /**
- * adw_leaflet_get_visible_child: (attributes org.gtk.Method.get_property=visible-child)
- * @self: a leaflet
- *
- * Gets the widget currently visible when the leaflet is folded.
- *
- * Returns: (nullable) (transfer none): the visible child
- *
- * Since: 1.0
- */
-GtkWidget *
-adw_leaflet_get_visible_child (AdwLeaflet *self)
-{
-  g_return_val_if_fail (ADW_IS_LEAFLET (self), NULL);
-
-  if (self->visible_child == NULL)
-    return NULL;
-
-  return self->visible_child->widget;
-}
-
-/**
- * adw_leaflet_set_visible_child: (attributes org.gtk.Method.set_property=visible-child)
- * @self: a leaflet
- * @visible_child: the new child
- *
- * Sets the widget currently visible when the leaflet is folded.
- *
- * The transition is determined by [property@Leaflet:transition-type] and
- * [property@Leaflet:child-transition-params]. The transition can be cancelled
- * by the user, in which case visible child will change back to the previously
- * visible child.
- *
- * Since: 1.0
- */
-void
-adw_leaflet_set_visible_child (AdwLeaflet *self,
-                               GtkWidget  *visible_child)
-{
-  AdwLeafletPage *page;
-  gboolean contains_child;
-
-  g_return_if_fail (ADW_IS_LEAFLET (self));
-  g_return_if_fail (GTK_IS_WIDGET (visible_child));
-
-  page = find_page_for_widget (self, visible_child);
-
-  contains_child = page != NULL;
-
-  g_return_if_fail (contains_child);
-
-  set_visible_child (self, page);
-}
-
-/**
- * adw_leaflet_get_visible_child_name: (attributes org.gtk.Method.get_property=visible-child-name)
- * @self: a leaflet
- *
- * Gets the name of the currently visible child widget.
- *
- * Returns: (nullable) (transfer none): the name of the visible child
- *
- * Since: 1.0
- */
-const char *
-adw_leaflet_get_visible_child_name (AdwLeaflet *self)
-{
-  g_return_val_if_fail (ADW_IS_LEAFLET (self), NULL);
-
-  if (self->visible_child == NULL)
-    return NULL;
-
-  return self->visible_child->name;
-}
-
-/**
- * adw_leaflet_set_visible_child_name: (attributes org.gtk.Method.set_property=visible-child-name)
- * @self: a leaflet
- * @name: the name of a child
- *
- * Makes the child with the name @name visible.
- *
- * See [property@Leaflet:visible-child].
- *
- * Since: 1.0
- */
-void
-adw_leaflet_set_visible_child_name (AdwLeaflet *self,
-                                    const char *name)
-{
-  AdwLeafletPage *page;
-  gboolean contains_child;
-
-  g_return_if_fail (ADW_IS_LEAFLET (self));
-  g_return_if_fail (name != NULL);
-
-  page = find_page_for_name (self, name);
-  contains_child = page != NULL;
-
-  g_return_if_fail (contains_child);
-
-  set_visible_child (self, page);
-}
-
-/**
  * adw_leaflet_get_child_transition_running: (attributes org.gtk.Method.get_property=child-transition-running)
  * @self: a leaflet
  *
@@ -3380,6 +3475,24 @@ adw_leaflet_get_child_transition_running (AdwLeaflet *self)
   g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
 
   return self->child_transition.transition_running;
+}
+
+/**
+ * adw_leaflet_get_can_navigate_back: (attributes org.gtk.Method.get_property=can-navigate-back)
+ * @self: a leaflet
+ *
+ * Gets whether gestures and shortcuts for navigating backward are enabled.
+ *
+ * Returns: Whether gestures and shortcuts are enabled.
+ *
+ * Since: 1.0
+ */
+gboolean
+adw_leaflet_get_can_navigate_back (AdwLeaflet *self)
+{
+  g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
+
+  return self->child_transition.can_navigate_back;
 }
 
 /**
@@ -3425,21 +3538,21 @@ adw_leaflet_set_can_navigate_back (AdwLeaflet *self,
 }
 
 /**
- * adw_leaflet_get_can_navigate_back: (attributes org.gtk.Method.get_property=can-navigate-back)
+ * adw_leaflet_get_can_navigate_forward: (attributes org.gtk.Method.get_property=can-navigate-forward)
  * @self: a leaflet
  *
- * Gets whether gestures and shortcuts for navigating backward are enabled.
+ * Gets whether gestures and shortcuts for navigating forward are enabled.
  *
  * Returns: Whether gestures and shortcuts are enabled.
  *
  * Since: 1.0
  */
 gboolean
-adw_leaflet_get_can_navigate_back (AdwLeaflet *self)
+adw_leaflet_get_can_navigate_forward (AdwLeaflet *self)
 {
   g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
 
-  return self->child_transition.can_navigate_back;
+  return self->child_transition.can_navigate_forward;
 }
 
 /**
@@ -3482,24 +3595,6 @@ adw_leaflet_set_can_navigate_forward (AdwLeaflet *self,
   adw_swipe_tracker_set_enabled (self->tracker, self->child_transition.can_navigate_back || can_navigate_forward);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_NAVIGATE_FORWARD]);
-}
-
-/**
- * adw_leaflet_get_can_navigate_forward: (attributes org.gtk.Method.get_property=can-navigate-forward)
- * @self: a leaflet
- *
- * Gets whether gestures and shortcuts for navigating forward are enabled.
- *
- * Returns: Whether gestures and shortcuts are enabled.
- *
- * Since: 1.0
- */
-gboolean
-adw_leaflet_get_can_navigate_forward (AdwLeaflet *self)
-{
-  g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
-
-  return self->child_transition.can_navigate_forward;
 }
 
 /**
@@ -3600,51 +3695,6 @@ adw_leaflet_get_child_by_name (AdwLeaflet  *self,
 }
 
 /**
- * adw_leaflet_set_can_unfold: (attributes org.gtk.Method.set_property=can-unfold)
- * @self: a leaflet
- * @can_unfold: whether @self can unfold
- *
- * Sets whether @self can unfold.
- *
- * Since: 1.0
- */
-void
-adw_leaflet_set_can_unfold (AdwLeaflet *self,
-                            gboolean    can_unfold)
-{
-  g_return_if_fail (ADW_IS_LEAFLET (self));
-
-  can_unfold = !!can_unfold;
-
-  if (self->can_unfold == can_unfold)
-    return;
-
-  self->can_unfold = can_unfold;
-
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_UNFOLD]);
-}
-
-/**
- * adw_leaflet_get_can_unfold: (attributes org.gtk.Method.get_property=can-unfold)
- * @self: a leaflet
- *
- * Gets whether @self can unfold.
- *
- * Returns: whether @self can unfold
- *
- * Since: 1.0
- */
-gboolean
-adw_leaflet_get_can_unfold (AdwLeaflet *self)
-{
-  g_return_val_if_fail (ADW_IS_LEAFLET (self), FALSE);
-
-  return self->can_unfold;
-}
-
-/**
  * adw_leaflet_get_pages: (attributes org.gtk.Method.get_property=pages)
  * @self: a leaflet
  *
@@ -3670,54 +3720,4 @@ adw_leaflet_get_pages (AdwLeaflet *self)
   g_object_add_weak_pointer (G_OBJECT (self->pages), (gpointer *) &self->pages);
 
   return self->pages;
-}
-
-/**
- * adw_leaflet_get_fold_threshold_policy: (attributes org.gtk.Method.get_property=fold-threshold-policy)
- * @self: a leaflet
- *
- * Gets the fold threshold policy for @self.
- *
- * Since: 1.0
- */
-AdwFoldThresholdPolicy
-adw_leaflet_get_fold_threshold_policy (AdwLeaflet *self)
-{
-  g_return_val_if_fail (ADW_IS_LEAFLET (self), ADW_FOLD_THRESHOLD_POLICY_MINIMUM);
-
-  return self->fold_threshold_policy;
-}
-
-
-/**
- * adw_leaflet_set_fold_threshold_policy: (attributes org.gtk.Method.set_property=fold-threshold-policy)
- * @self: a leaflet
- * @policy: the policy to use
- *
- * Sets the fold threshold policy for @self.
- *
- * If set to `ADW_FOLD_THRESHOLD_POLICY_MINIMUM`, it will only fold when the
- * children cannot fit anymore. With `ADW_FOLD_THRESHOLD_POLICY_NATURAL`, it
- * will fold as soon as children don't get their natural size.
- *
- * This can be useful if you have a long ellipsizing label and want to let it
- * ellipsize instead of immediately folding.
- *
- * Since: 1.0
- */
-void
-adw_leaflet_set_fold_threshold_policy (AdwLeaflet             *self,
-                                       AdwFoldThresholdPolicy  policy)
-{
-  g_return_if_fail (ADW_IS_LEAFLET (self));
-  g_return_if_fail (policy <= ADW_FOLD_THRESHOLD_POLICY_NATURAL);
-
-  if (self->fold_threshold_policy == policy)
-    return;
-
-  self->fold_threshold_policy = policy;
-
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
-
-  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FOLD_THRESHOLD_POLICY]);
 }
