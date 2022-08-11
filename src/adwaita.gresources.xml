@@ -11,6 +11,7 @@
     <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-counter-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-icon-missing-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-overflow-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/status/adw-tab-unpin-symbolic.svg</file>
   </gresource>
   <gresource prefix="/org/gnome/Adwaita/ui">
     <file preprocess="xml-stripblanks">adw-about-window.ui</file>
@@ -27,6 +28,8 @@
     <file preprocess="xml-stripblanks">adw-tab.ui</file>
     <file preprocess="xml-stripblanks">adw-tab-bar.ui</file>
     <file preprocess="xml-stripblanks">adw-tab-button.ui</file>
+    <file preprocess="xml-stripblanks">adw-tab-overview.ui</file>
+    <file preprocess="xml-stripblanks">adw-tab-thumbnail.ui</file>
     <file preprocess="xml-stripblanks">adw-toast-widget.ui</file>
     <file preprocess="xml-stripblanks">adw-view-switcher-bar.ui</file>
     <file preprocess="xml-stripblanks">adw-view-switcher-button.ui</file>

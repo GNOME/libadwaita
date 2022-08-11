@@ -12,3 +12,7 @@
   color: @warning_fg_color;
   background-color: @warning_bg_color;
 }
+
+.overview-tab-page {
+  background: linear-gradient(to bottom right, @blue_1 25%, @green_1);
+}

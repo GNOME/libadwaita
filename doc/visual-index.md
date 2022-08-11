@@ -141,6 +141,11 @@ Slug: visual-index
 </picture>](class.TabBar.html)
 
 [<picture>
+  <source srcset="tab-overview-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="tab-overview.png" alt="tab-overview">
+</picture>](class.TabOverview.html)
+
+[<picture>
   <source srcset="tab-button-dark.png" media="(prefers-color-scheme: dark)">
   <img src="tab-button.png" alt="tab-button">
 </picture>](class.TabButton.html)

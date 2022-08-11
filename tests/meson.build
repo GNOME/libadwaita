@@ -54,6 +54,7 @@ test_names = [
   'test-style-manager',
   'test-tab-bar',
   'test-tab-button',
+  'test-tab-overview',
   'test-tab-view',
   'test-timed-animation',
   'test-toast',

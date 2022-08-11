@@ -13,10 +13,16 @@
 #include "adw-bin.h"
 #include "adw-gizmo-private.h"
 #include "adw-macros-private.h"
+#include "adw-style-manager.h"
 #include "adw-widget-utils-private.h"
 
 /* FIXME replace with groups */
 static GSList *tab_view_list;
+
+#define MIN_ASPECT_RATIO 0.8
+#define MAX_ASPECT_RATIO 2.7
+#define DEFAULT_ICON_ALPHA_HC 0.3
+#define DEFAULT_ICON_ALPHA 0.15
 
 /**
  * AdwTabView:
@@ -26,7 +32,7 @@ static GSList *tab_view_list;
  * `AdwTabView` is a container which shows one child at a time. While it
  * provides keyboard shortcuts for switching between pages, it does not provide
  * a visible tab switcher and relies on external widgets for that, such as
- * [class@TabBar] and [class@TabButton].
+ * [class@TabBar], [class@TabOverview] and [class@TabButton].
  *
  * `AdwTabView` maintains a [class@TabPage] object for each page, which holds
  * additional per-page properties. You can obtain the `AdwTabPage` for a page
@@ -129,11 +135,18 @@ struct _AdwTabPage
   char *indicator_tooltip;
   gboolean indicator_activatable;
   gboolean needs_attention;
+  char *keyword;
+  float thumbnail_xalign;
+  float thumbnail_yalign;
 
   GtkWidget *last_focus;
   GBinding *transfer_binding;
 
   gboolean closing;
+  GdkPaintable *paintable;
+
+  gboolean live_thumbnail;
+  gboolean invalidated;
 };
 
 G_DEFINE_FINAL_TYPE (AdwTabPage, adw_tab_page, G_TYPE_OBJECT)
@@ -152,6 +165,10 @@ enum {
   PAGE_PROP_INDICATOR_TOOLTIP,
   PAGE_PROP_INDICATOR_ACTIVATABLE,
   PAGE_PROP_NEEDS_ATTENTION,
+  PAGE_PROP_KEYWORD,
+  PAGE_PROP_THUMBNAIL_XALIGN,
+  PAGE_PROP_THUMBNAIL_YALIGN,
+  PAGE_PROP_LIVE_THUMBNAIL,
   LAST_PAGE_PROP
 };
 
@@ -171,6 +188,8 @@ struct _AdwTabView
   AdwTabViewShortcuts shortcuts;
 
   int transfer_count;
+  int overview_count;
+  gulong unmap_extra_pages_cb;
 
   GtkSelectionModel *pages;
 };
@@ -209,6 +228,16 @@ enum {
 };
 
 static guint signals[SIGNAL_LAST_SIGNAL];
+
+static gboolean
+page_should_be_visible (AdwTabView *view,
+                        AdwTabPage *page)
+{
+  if (!view->overview_count)
+    return FALSE;
+
+  return page->live_thumbnail || page->invalidated;
+}
 
 static void
 set_page_selected (AdwTabPage *self,
@@ -284,6 +313,33 @@ set_page_parent (AdwTabPage *self,
 }
 
 static void
+map_or_unmap_page (AdwTabPage *self)
+{
+  GtkWidget *parent;
+  AdwTabView *view;
+  gboolean should_be_visible;
+
+  parent = gtk_widget_get_parent (self->bin);
+
+  if (!ADW_IS_TAB_VIEW (parent))
+    return;
+
+  view = ADW_TAB_VIEW (parent);
+
+  if (!view->overview_count)
+    return;
+
+  should_be_visible = self == view->selected_page ||
+  page_should_be_visible (view, self);
+
+  if (gtk_widget_get_child_visible (self->bin) == should_be_visible)
+    return;
+
+  gtk_widget_set_child_visible (self->bin, should_be_visible);
+  gtk_widget_queue_allocate (parent);
+}
+
+static void
 adw_tab_page_dispose (GObject *object)
 {
   AdwTabPage *self = ADW_TAB_PAGE (object);
@@ -291,6 +347,7 @@ adw_tab_page_dispose (GObject *object)
   set_page_parent (self, NULL);
 
   g_clear_object (&self->bin);
+  g_clear_object (&self->paintable);
 
   G_OBJECT_CLASS (adw_tab_page_parent_class)->dispose (object);
 }
@@ -306,6 +363,7 @@ adw_tab_page_finalize (GObject *object)
   g_clear_object (&self->icon);
   g_clear_object (&self->indicator_icon);
   g_clear_pointer (&self->indicator_tooltip, g_free);
+  g_clear_pointer (&self->keyword, g_free);
 
   if (self->last_focus)
     g_object_remove_weak_pointer (G_OBJECT (self->last_focus),
@@ -371,6 +429,22 @@ adw_tab_page_get_property (GObject    *object,
     g_value_set_boolean (value, adw_tab_page_get_needs_attention (self));
     break;
 
+  case PAGE_PROP_KEYWORD:
+    g_value_set_string (value, adw_tab_page_get_keyword (self));
+    break;
+
+  case PAGE_PROP_THUMBNAIL_XALIGN:
+    g_value_set_float (value, adw_tab_page_get_thumbnail_xalign (self));
+    break;
+
+  case PAGE_PROP_THUMBNAIL_YALIGN:
+    g_value_set_float (value, adw_tab_page_get_thumbnail_yalign (self));
+    break;
+
+  case PAGE_PROP_LIVE_THUMBNAIL:
+    g_value_set_boolean (value, adw_tab_page_get_live_thumbnail (self));
+    break;
+
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -424,6 +498,22 @@ adw_tab_page_set_property (GObject      *object,
 
   case PAGE_PROP_NEEDS_ATTENTION:
     adw_tab_page_set_needs_attention (self, g_value_get_boolean (value));
+    break;
+
+  case PAGE_PROP_KEYWORD:
+    adw_tab_page_set_keyword (self, g_value_get_string (value));
+    break;
+
+  case PAGE_PROP_THUMBNAIL_XALIGN:
+    adw_tab_page_set_thumbnail_xalign (self, g_value_get_float (value));
+    break;
+
+  case PAGE_PROP_THUMBNAIL_YALIGN:
+    adw_tab_page_set_thumbnail_yalign (self, g_value_get_float (value));
+    break;
+
+  case PAGE_PROP_LIVE_THUMBNAIL:
+    adw_tab_page_set_live_thumbnail (self, g_value_get_boolean (value));
     break;
 
   default:
@@ -501,6 +591,10 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * [class@TabBar] will display it in the center of the tab unless it's pinned,
    * and will use it as a tooltip unless [property@TabPage:tooltip] is set.
    *
+   * [class@TabOverview] will display it below the thumbnail unless it's pinned,
+   * or inside the card otherwise, and will use it as a tooltip unless
+   * [property@TabPage:tooltip] is set.
+   *
    * Since: 1.0
    */
   page_props[PAGE_PROP_TITLE] =
@@ -515,8 +609,8 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    *
    * The tooltip can be marked up with the Pango text markup language.
    *
-   * If not set, [class@TabBar] will use [property@TabPage:title] as a tooltip
-   * instead.
+   * If not set, [class@TabBar] and [class@TabOverview] will use
+   * [property@TabPage:title] as a tooltip instead.
    *
    * Since: 1.0
    */
@@ -530,10 +624,11 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    *
    * The icon of the page.
    *
-   * [class@TabBar] displays the icon next to the title.
+   * [class@TabBar] and [class@TabOverview] display the icon next to the title,
+   * unless [property@TabPage:loading] is set to `TRUE`.
    *
-   * It will not show the icon if [property@TabPage:loading] is set to `TRUE`,
-   * or if the page is pinned and [propertyTabPage:indicator-icon] is set.
+   * `AdwTabBar` also won't show the icon if the page is pinned and
+   * [propertyTabPage:indicator-icon] is set.
    *
    * Since: 1.0
    */
@@ -547,10 +642,11 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    *
    * Whether the page is loading.
    *
-   * If set to `TRUE`, [class@TabBar] will display a spinner in place of icon.
+   * If set to `TRUE`, [class@TabBar] and [class@TabOverview] will display a
+   * spinner in place of icon.
    *
-   * If the page is pinned and [property@TabPage:indicator-icon] is set, the
-   * loading status will not be visible.
+   * If the page is pinned and [property@TabPage:indicator-icon] is set,
+   * loading status will not be visible with `AdwTabBar`.
    *
    * Since: 1.0
    */
@@ -571,6 +667,8 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    *
    * If the page is pinned, the indicator will be shown instead of icon or
    * spinner.
+   *
+   * [class@TabOverview] will show it at the at the top part of the thumbnail.
    *
    * [property@TabPage:indicator-tooltip] can be used to set the tooltip on the
    * indicator icon.
@@ -627,6 +725,9 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    * set to `TRUE`. If the tab is not visible, the corresponding edge of the tab
    * bar will be highlighted.
    *
+   * [class@TabOverview] will display a dot in the corner of the thumbnail if set
+   * to `TRUE`.
+   *
    * [class@TabButton] will display a dot if any of the pages that aren't
    * selected have this property set to `TRUE`.
    *
@@ -634,6 +735,87 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    */
   page_props[PAGE_PROP_NEEDS_ATTENTION] =
     g_param_spec_boolean ("needs-attention", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwTabPage:keyword: (attributes org.gtk.Property.get=adw_tab_page_get_keyword org.gtk.Property.set=adw_tab_page_set_keyword)
+   *
+   * The search keyboard of the page.
+   *
+   * [class@TabOverview] can search pages by their keywords in addition to their
+   * titles and tooltips.
+   *
+   * Keywords allow to include e.g. page URLs into tab search in a web browser.
+   *
+   * Since: 1.3
+   */
+  page_props[PAGE_PROP_KEYWORD] =
+    g_param_spec_string ("keyword", NULL, NULL,
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwTabPage:thumbnail-xalign: (attributes org.gtk.Property.get=adw_tab_page_get_thumbnail_xalign org.gtk.Property.set=adw_tab_page_set_thumbnail_xalign)
+   *
+   * The horizontal alignment of the page thumbnail.
+   *
+   * If the page is so wide that [class@TabOverview] can't display it completely
+   * and has to crop it, horizontal alignment will determine which part of the
+   * page will be visible.
+   *
+   * For example, 0.5 means the center of the page will be visible, 0 means the
+   * start edge will be visible and 1 means the end edge will be visible.
+   *
+   * The default horizontal alignment is 0.
+   *
+   * Since: 1.3
+   */
+  page_props[PAGE_PROP_THUMBNAIL_XALIGN] =
+    g_param_spec_float ("thumbnail-xalign", NULL, NULL,
+                        0.0, 1.0,
+                        0.0,
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwTabPage:thumbnail-yalign: (attributes org.gtk.Property.get=adw_tab_page_get_thumbnail_yalign org.gtk.Property.set=adw_tab_page_set_thumbnail_yalign)
+   *
+   * The vertical alignment of the page thumbnail.
+   *
+   * If the page is so tall that [class@TabOverview] can't display it completely
+   * and has to crop it, vertical alignment will determine which part of the
+   * page will be visible.
+   *
+   * For example, 0.5 means the center of the page will be visible, 0 means the
+   * top edge will be visible and 1 means the bottom edge will be visible.
+   *
+   * The default vertical alignment is 0.
+   *
+   * Since: 1.3
+   */
+  page_props[PAGE_PROP_THUMBNAIL_YALIGN] =
+    g_param_spec_float ("thumbnail-yalign", NULL, NULL,
+                        0.0, 1.0,
+                        0.0,
+                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwTabPage:live-thumbnail: (attributes org.gtk.Property.get=adw_tab_page_get_live_thumbnail org.gtk.Property.set=adw_tab_page_set_live_thumbnail)
+   *
+   * Whether to enable live thumbnail for this page.
+   *
+   * When set to `TRUE`, the page's thumbnail in [class@TabOverview] will update
+   * immediately when the page is redrawn or resized.
+   *
+   * If it's set to `FALSE`, the thumbnail will only be live when the page is
+   * selected, and otherwise it will be static and will only update when
+   * [method@TabPage.invalidate_thumbnail] or
+   * [method@TabView.invalidate_thumbnails] is called.
+   *
+   * Since: 1.3
+   */
+  page_props[PAGE_PROP_LIVE_THUMBNAIL] =
+    g_param_spec_boolean ("live-thumbnail", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -646,7 +828,377 @@ adw_tab_page_init (AdwTabPage *self)
   self->title = g_strdup ("");
   self->tooltip = g_strdup ("");
   self->indicator_tooltip = g_strdup ("");
+  self->thumbnail_xalign = 0;
+  self->thumbnail_yalign = 0;
   self->bin = g_object_ref_sink (adw_bin_new ());
+}
+
+#define ADW_TYPE_TAB_PAINTABLE (adw_tab_paintable_get_type ())
+
+G_DECLARE_FINAL_TYPE (AdwTabPaintable, adw_tab_paintable, ADW, TAB_PAINTABLE, GObject)
+
+struct _AdwTabPaintable
+{
+  GObject parent_instance;
+
+  GtkWidget *view;
+  AdwTabPage *page;
+
+  GdkPaintable *view_paintable;
+  GdkPaintable *child_paintable;
+
+  GdkPaintable *cached_paintable;
+  double cached_aspect_ratio;
+
+  gboolean frozen;
+
+  double last_xalign;
+  double last_yalign;
+  GdkRGBA last_bg_color;
+};
+
+static void
+get_background_color (AdwTabPaintable *self,
+                      GdkRGBA         *rgba)
+{
+  GtkWidget *child = adw_tab_page_get_child (self->page);
+  GtkStyleContext *context = gtk_widget_get_style_context (child);
+
+  if (gtk_style_context_lookup_color (context, "thumbnail_bg_color", rgba))
+    return;
+
+  rgba->red = 1;
+  rgba->green = 1;
+  rgba->blue = 1;
+  rgba->alpha = 1;
+}
+
+static void
+invalidate_contents_and_clear_cache (AdwTabPaintable *self)
+{
+  gdk_paintable_invalidate_contents (GDK_PAINTABLE (self));
+
+  if (!self->frozen &&
+      self->page->bin &&
+      gtk_widget_get_mapped (self->page->bin))
+    g_clear_object (&self->cached_paintable);
+}
+
+static double
+get_unclamped_aspect_ratio (AdwTabPaintable *self)
+{
+  if (self->frozen || !self->view_paintable)
+    return self->cached_aspect_ratio;
+
+  return gdk_paintable_get_intrinsic_aspect_ratio (self->view_paintable);
+}
+
+static void
+child_unmap_cb (AdwTabPaintable *self)
+{
+  if (self->frozen)
+    return;
+
+  g_clear_object (&self->cached_paintable);
+  self->cached_paintable = gdk_paintable_get_current_image (self->child_paintable);
+  self->cached_aspect_ratio = get_unclamped_aspect_ratio (self);
+}
+
+static void
+connect_to_view (AdwTabPaintable *self)
+{
+  if (self->view || !gtk_widget_get_parent (self->page->bin))
+    return;
+
+  self->view = gtk_widget_get_parent (self->page->bin);
+  self->view_paintable = gtk_widget_paintable_new (self->view);
+
+  g_signal_connect_swapped (self->view_paintable, "invalidate-size",
+                            G_CALLBACK (gdk_paintable_invalidate_size), self);
+}
+
+static void
+disconnect_from_view (AdwTabPaintable *self)
+{
+  g_clear_object (&self->view_paintable);
+  self->view = NULL;
+}
+
+static void
+child_parent_changed (AdwTabPaintable *self)
+{
+  disconnect_from_view (self);
+  connect_to_view (self);
+}
+
+static double
+adw_tab_paintable_get_intrinsic_aspect_ratio (GdkPaintable *paintable)
+{
+  AdwTabPaintable *self = ADW_TAB_PAINTABLE (paintable);
+  double ratio = get_unclamped_aspect_ratio (self);
+
+  return CLAMP (ratio, MIN_ASPECT_RATIO, MAX_ASPECT_RATIO);
+}
+
+static void
+snapshot_default_icon (GtkSnapshot *snapshot,
+                       double       width,
+                       double       height,
+                       GtkWidget   *view)
+{
+  GdkDisplay *display;
+  GtkIconTheme *icon_theme;
+  GIcon *default_icon;
+  GtkIconPaintable *icon;
+  GtkStyleContext *context;
+  GdkRGBA colors[4];
+  double x, y;
+  double view_width, view_height;
+  double view_ratio, snapshot_ratio;
+  double icon_size;
+  gboolean hc;
+
+  view_width = gtk_widget_get_width (view);
+  view_height = gtk_widget_get_height (view);
+
+  view_ratio = view_width / view_height;
+  snapshot_ratio = width / height;
+
+  if (view_ratio > snapshot_ratio) {
+    double new_width = height * view_ratio;
+
+    gtk_snapshot_translate (snapshot,
+                            &GRAPHENE_POINT_INIT ((float) (width - new_width) / 2, 0));
+
+    width = new_width;
+  } else if (view_ratio < snapshot_ratio) {
+    double new_height = width / view_ratio;
+
+    gtk_snapshot_translate (snapshot,
+                            &GRAPHENE_POINT_INIT (0, (float) (height - new_height) / 2));
+
+    height = new_height;
+  }
+
+  icon_size = MIN (view_width / 4, view_height / 4);
+
+  display = gtk_widget_get_display (view);
+  icon_theme = gtk_icon_theme_get_for_display (display);
+  default_icon = adw_tab_view_get_default_icon (ADW_TAB_VIEW (view));
+  icon = gtk_icon_theme_lookup_by_gicon (icon_theme, default_icon, icon_size,
+                                         gtk_widget_get_scale_factor (view),
+                                         gtk_widget_get_direction (view),
+                                         GTK_ICON_LOOKUP_FORCE_SYMBOLIC);
+
+  context = gtk_widget_get_style_context (view);
+  gtk_style_context_get_color (context, &colors[GTK_SYMBOLIC_COLOR_FOREGROUND]);
+  gtk_style_context_lookup_color (context, "error-color", &colors[GTK_SYMBOLIC_COLOR_ERROR]);
+  gtk_style_context_lookup_color (context, "warning-color", &colors[GTK_SYMBOLIC_COLOR_WARNING]);
+  gtk_style_context_lookup_color (context, "success-color", &colors[GTK_SYMBOLIC_COLOR_SUCCESS]);
+
+  hc = adw_style_manager_get_high_contrast (adw_style_manager_get_for_display (display));
+
+  gtk_snapshot_push_opacity (snapshot, hc ? DEFAULT_ICON_ALPHA_HC : DEFAULT_ICON_ALPHA);
+
+  gtk_snapshot_scale (snapshot, width / view_width, height / view_height);
+
+  x = (view_width - icon_size) / 2;
+  y = (view_height - icon_size) / 2;
+  gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (x, y));
+
+  gtk_symbolic_paintable_snapshot_symbolic (GTK_SYMBOLIC_PAINTABLE (icon),
+                                            snapshot,
+                                            icon_size,
+                                            icon_size,
+                                            colors,
+                                            4);
+
+  gtk_snapshot_pop (snapshot);
+}
+
+static void
+snapshot_paintable (GtkSnapshot  *snapshot,
+                    double        width,
+                    double        height,
+                    GdkPaintable *paintable,
+                    double        paintable_ratio,
+                    double        xalign,
+                    double        yalign)
+{
+  double snapshot_ratio = width / height;
+
+  if (paintable_ratio > snapshot_ratio) {
+    double new_width = height * paintable_ratio;
+
+    gtk_snapshot_translate (snapshot,
+                            &GRAPHENE_POINT_INIT ((float) (width - new_width) * xalign, 0));
+
+    width = new_width;
+  } else if (paintable_ratio < snapshot_ratio) {
+    double new_height = width / paintable_ratio;
+
+    gtk_snapshot_translate (snapshot,
+                            &GRAPHENE_POINT_INIT (0, (float) (height - new_height) * yalign));
+
+    height = new_height;
+  }
+
+  gdk_paintable_snapshot (paintable, snapshot, width, height);
+}
+
+static GdkPaintable *
+adw_tab_paintable_get_current_image (GdkPaintable *paintable)
+{
+  AdwTabPaintable *self = ADW_TAB_PAINTABLE (paintable);
+  GtkSnapshot *snapshot = gtk_snapshot_new ();
+  int width, height;
+
+  if (!self->view)
+    return NULL;
+
+  width = gtk_widget_get_width (self->view);
+  height = gtk_widget_get_height (self->view);
+
+  gdk_paintable_snapshot (paintable, GDK_SNAPSHOT (snapshot), width, height);
+
+  return gtk_snapshot_free_to_paintable (snapshot,
+                                         &GRAPHENE_SIZE_INIT (width, height));
+}
+
+static void
+adw_tab_paintable_snapshot (GdkPaintable *paintable,
+                            GdkSnapshot  *snapshot,
+                            double        width,
+                            double        height)
+{
+  AdwTabPaintable *self = ADW_TAB_PAINTABLE (paintable);
+  GtkWidget *child;
+  GdkRGBA bg;
+  double xalign, yalign;
+
+  if (self->frozen) {
+    xalign = self->last_xalign;
+    yalign = self->last_yalign;
+    child = NULL;
+  } else {
+    xalign = adw_tab_page_get_thumbnail_xalign (self->page);
+    yalign = adw_tab_page_get_thumbnail_yalign (self->page);
+    child = self->page->bin;
+
+    if (gtk_widget_get_direction (child) == GTK_TEXT_DIR_RTL)
+      xalign = 1 - xalign;
+  }
+
+  if (self->cached_paintable) {
+    snapshot_paintable (GTK_SNAPSHOT (snapshot), width, height,
+                        self->cached_paintable, self->cached_aspect_ratio,
+                        xalign, yalign);
+    return;
+  }
+
+  if (child && gtk_widget_get_mapped (child)) {
+    double aspect_ratio = get_unclamped_aspect_ratio (self);
+
+    snapshot_paintable (GTK_SNAPSHOT (snapshot), width, height,
+                        self->child_paintable, aspect_ratio,
+                        xalign, yalign);
+    return;
+  }
+
+  if (self->frozen)
+    bg = self->last_bg_color;
+  else
+    get_background_color (self, &bg);
+
+  gtk_snapshot_append_color (GTK_SNAPSHOT (snapshot), &bg,
+                             &GRAPHENE_RECT_INIT (0, 0, width, height));
+
+  if (self->view)
+    snapshot_default_icon (snapshot, width, height, self->view);
+}
+
+static void
+adw_tab_paintable_iface_init (GdkPaintableInterface *iface)
+{
+  iface->get_intrinsic_aspect_ratio = adw_tab_paintable_get_intrinsic_aspect_ratio;
+  iface->get_current_image = adw_tab_paintable_get_current_image;
+  iface->snapshot = adw_tab_paintable_snapshot;
+}
+
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwTabPaintable, adw_tab_paintable, G_TYPE_OBJECT,
+                               G_IMPLEMENT_INTERFACE (GDK_TYPE_PAINTABLE, adw_tab_paintable_iface_init))
+
+static void
+adw_tab_paintable_dispose (GObject *object)
+{
+  AdwTabPaintable *self = ADW_TAB_PAINTABLE (object);
+
+  disconnect_from_view (self);
+
+  g_clear_object (&self->child_paintable);
+  g_clear_object (&self->cached_paintable);
+
+  G_OBJECT_CLASS (adw_tab_paintable_parent_class)->dispose (object);
+}
+
+static void
+adw_tab_paintable_class_init (AdwTabPaintableClass *klass)
+{
+  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+  object_class->dispose = adw_tab_paintable_dispose;
+}
+
+static void
+adw_tab_paintable_init (AdwTabPaintable *self)
+{
+}
+
+static GdkPaintable *
+adw_tab_paintable_new (AdwTabPage *page)
+{
+  AdwTabPaintable *self = g_object_new (ADW_TYPE_TAB_PAINTABLE, NULL);
+
+  self->page = page;
+
+  connect_to_view (self);
+
+  self->child_paintable = gtk_widget_paintable_new (page->bin);
+
+  g_signal_connect_swapped (self->child_paintable, "invalidate-contents",
+                            G_CALLBACK (invalidate_contents_and_clear_cache), self);
+
+  g_signal_connect_object (self->page, "notify::thumbnail-xalign",
+                           G_CALLBACK (gdk_paintable_invalidate_contents), self,
+                           G_CONNECT_SWAPPED);
+  g_signal_connect_object (self->page, "notify::thumbnail-yalign",
+                           G_CALLBACK (gdk_paintable_invalidate_contents), self,
+                           G_CONNECT_SWAPPED);
+
+  g_signal_connect_object (page->bin, "notify::parent",
+                           G_CALLBACK (child_parent_changed), self,
+                           G_CONNECT_SWAPPED);
+  g_signal_connect_object (page->bin, "unmap",
+                           G_CALLBACK (child_unmap_cb), self,
+                           G_CONNECT_SWAPPED);
+
+  return GDK_PAINTABLE (self);
+}
+
+static void
+adw_tab_paintable_freeze (AdwTabPaintable *self)
+{
+  child_unmap_cb (self);
+  self->last_xalign = adw_tab_page_get_thumbnail_xalign (self->page);
+  self->last_yalign = adw_tab_page_get_thumbnail_yalign (self->page);
+  get_background_color (self, &self->last_bg_color);
+
+  if (gtk_widget_get_direction (self->page->bin) == GTK_TEXT_DIR_RTL)
+    self->last_xalign = 1 - self->last_xalign;
+
+  self->frozen = TRUE;
+
+  g_clear_object (&self->child_paintable);
 }
 
 #define ADW_TYPE_TAB_PAGES (adw_tab_pages_get_type ())
@@ -867,7 +1419,8 @@ attach_page (AdwTabView *self,
 
   g_list_store_insert (self->children, position, page);
 
-  gtk_widget_set_child_visible (page->bin, FALSE);
+  gtk_widget_set_child_visible (page->bin,
+                                page_should_be_visible (self, page));
   gtk_widget_set_parent (page->bin, GTK_WIDGET (self));
   page->transfer_binding =
     g_object_bind_property (self, "is-transferring-page",
@@ -928,7 +1481,8 @@ set_selected_page (AdwTabView *self,
     }
 
     if (self->selected_page->bin)
-      gtk_widget_set_child_visible (self->selected_page->bin, FALSE);
+      gtk_widget_set_child_visible (self->selected_page->bin,
+                                    page_should_be_visible (self, self->selected_page));
 
     set_page_selected (self->selected_page, FALSE);
   }
@@ -1387,17 +1941,91 @@ adw_tab_view_size_allocate (GtkWidget *widget,
                             int        baseline)
 {
   AdwTabView *self = ADW_TAB_VIEW (widget);
+  int i;
 
-  if (!self->selected_page)
-    return;
+  for (i = 0; i < self->n_pages; i++) {
+    AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
 
-  gtk_widget_allocate (self->selected_page->bin, width, height, baseline, NULL);
+    if (gtk_widget_get_child_visible (page->bin))
+      gtk_widget_allocate (page->bin, width, height, baseline, NULL);
+  }
+}
+
+static gboolean
+unmap_extra_pages (AdwTabView *self)
+{
+  int i;
+
+  for (i = 0; i < self->n_pages; i++) {
+    AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
+
+    if (page == self->selected_page)
+      continue;
+
+    if (!gtk_widget_get_child_visible (page->bin))
+      continue;
+
+    if (page_should_be_visible (self, page))
+      continue;
+
+    gtk_widget_set_child_visible (page->bin, FALSE);
+  }
+
+  self->unmap_extra_pages_cb = 0;
+
+  return G_SOURCE_REMOVE;
+}
+
+static void
+adw_tab_view_snapshot (GtkWidget   *widget,
+                       GtkSnapshot *snapshot)
+{
+  AdwTabView *self = ADW_TAB_VIEW (widget);
+  int i;
+
+  if (self->selected_page)
+    gtk_widget_snapshot_child (widget, self->selected_page->bin, snapshot);
+
+  for (i = 0; i < self->n_pages; i++) {
+    AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
+
+    if (page == self->selected_page) {
+      page->invalidated = FALSE;
+      continue;
+    }
+
+    if (!gtk_widget_get_child_visible (page->bin))
+      continue;
+
+    if (page->paintable) {
+      /* We don't want to actually draw the child, but we do need it
+       * to redraw so that it can be displayed by its paintable */
+      GtkSnapshot *child_snapshot = gtk_snapshot_new ();
+
+      gtk_widget_snapshot_child (widget, page->bin, child_snapshot);
+
+      child_unmap_cb (ADW_TAB_PAINTABLE (page->paintable));
+
+      g_object_unref (child_snapshot);
+    }
+
+    page->invalidated = FALSE;
+
+    if (!self->unmap_extra_pages_cb)
+      self->unmap_extra_pages_cb =
+        g_idle_add ((GSourceFunc) unmap_extra_pages, self);
+  }
 }
 
 static void
 adw_tab_view_dispose (GObject *object)
 {
   AdwTabView *self = ADW_TAB_VIEW (object);
+
+  if (self->unmap_extra_pages_cb) {
+    g_source_remove (self->unmap_extra_pages_cb);
+    self->unmap_extra_pages_cb = 0;
+  }
 
   if (self->pages)
     g_list_model_items_changed (G_LIST_MODEL (self->pages), 0, self->n_pages, 0);
@@ -1519,6 +2147,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
 
   widget_class->measure = adw_tab_view_measure;
   widget_class->size_allocate = adw_tab_view_size_allocate;
+  widget_class->snapshot = adw_tab_view_snapshot;
   widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
 
@@ -1590,6 +2219,9 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
    * [class@TabBar] will use default icon for pinned tabs in case the page is
    * not loading, doesn't have an icon and an indicator. Default icon is never
    * used for tabs that aren't pinned.
+   *
+   * [class@TabOverview] will use default icon for pages with missing
+   * thumbnails.
    *
    * By default, the `adw-tab-icon-missing-symbolic` icon is used.
    *
@@ -1995,6 +2627,10 @@ adw_tab_page_get_title (AdwTabPage *self)
  * [class@TabBar] will display it in the center of the tab unless it's pinned,
  * and will use it as a tooltip unless [property@TabPage:tooltip] is set.
  *
+ * [class@TabOverview] will display it below the thumbnail unless it's pinned,
+ * or inside the card otherwise, and will use it as a tooltip unless
+ * [property@TabPage:tooltip] is set.
+ *
  * Sets the title of @self.
  *
  * Since: 1.0
@@ -2041,8 +2677,8 @@ adw_tab_page_get_tooltip (AdwTabPage *self)
  *
  * The tooltip can be marked up with the Pango text markup language.
  *
- * If not set, [class@TabBar] will use [property@TabPage:title] as a tooltip
- * instead.
+ * If not set, [class@TabBar] and [class@TabOverview] will use
+ * [property@TabPage:title] as a tooltip instead.
  *
  * Since: 1.0
  */
@@ -2086,10 +2722,11 @@ adw_tab_page_get_icon (AdwTabPage *self)
  *
  * Sets the icon of @self.
  *
- * [class@TabBar] displays the icon next to the title.
+ * [class@TabBar] and [class@TabOverview] display the icon next to the title,
+ * unless [property@TabPage:loading] is set to `TRUE`.
  *
- * It will not show the icon if [property@TabPage:loading] is set to `TRUE`,
- * or if the page is pinned and [propertyTabPage:indicator-icon] is set.
+ * `AdwTabBar` also won't show the icon if the page is pinned and
+ * [propertyTabPage:indicator-icon] is set.
  *
  * Since: 1.0
  */
@@ -2133,10 +2770,11 @@ adw_tab_page_get_loading (AdwTabPage *self)
  *
  * Sets whether @self is loading.
  *
- * If set to `TRUE`, [class@TabBar] will display a spinner in place of icon.
+ * If set to `TRUE`, [class@TabBar] and [class@TabOverview] will display a
+ * spinner in place of icon.
  *
- * If the page is pinned and [property@TabPage:indicator-icon] is set, the
- * loading status will not be visible.
+ * If the page is pinned and [property@TabPage:indicator-icon] is set, loading
+ * status will not be visible with `AdwTabBar`.
  *
  * Since: 1.0
  */
@@ -2188,6 +2826,8 @@ adw_tab_page_get_indicator_icon (AdwTabPage *self)
  *
  * If the page is pinned, the indicator will be shown instead of icon or
  * spinner.
+ *
+ * [class@TabOverview] will show it at the at the top part of the thumbnail.
  *
  * [property@TabPage:indicator-tooltip] can be used to set the tooltip on the
  * indicator icon.
@@ -2337,6 +2977,9 @@ adw_tab_page_get_needs_attention (AdwTabPage *self)
  * set to `TRUE`. If the tab is not visible, the corresponding edge of the tab
  * bar will be highlighted.
  *
+ * [class@TabOverview] will display a dot in the corner of the thumbnail if set
+ * to `TRUE`.
+ *
  * [class@TabButton] will display a dot if any of the pages that aren't
  * selected have [property@TabPage:needs-attention] set to `TRUE`.
  *
@@ -2356,6 +2999,247 @@ adw_tab_page_set_needs_attention (AdwTabPage *self,
   self->needs_attention = needs_attention;
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_NEEDS_ATTENTION]);
+}
+
+/**
+ * adw_tab_page_get_keyword: (attributes org.gtk.Method.get_property=keyword)
+ * @self: a tab page
+ *
+ * Gets the search keyword of @self.
+ *
+ * Returns: (nullable): the search keyword of @self
+ *
+ * Since: 1.3
+ */
+const char *
+adw_tab_page_get_keyword (AdwTabPage *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_PAGE (self), NULL);
+
+  return self->keyword;
+}
+
+/**
+ * adw_tab_page_set_keyword: (attributes org.gtk.Method.set_property=keyword)
+ * @self: a tab page
+ * @keyword: the search keyword
+ *
+ * Sets the search keyword for @self.
+ *
+ * [class@TabOverview] can search pages by their keywords in addition to their
+ * titles and tooltips.
+ *
+ * Keywords allow to include e.g. page URLs into tab search in a web browser.
+ *
+ * Since: 1.3
+ */
+void
+adw_tab_page_set_keyword (AdwTabPage *self,
+                          const char *keyword)
+{
+  g_return_if_fail (ADW_IS_TAB_PAGE (self));
+
+  if (!g_strcmp0 (keyword, self->keyword))
+    return;
+
+  g_clear_pointer (&self->keyword, g_free);
+  self->keyword = g_strdup (keyword);
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_KEYWORD]);
+}
+
+/**
+ * adw_tab_page_get_thumbnail_xalign: (attributes org.gtk.Method.get_property=thumbnail-xalign)
+ * @self: a tab page
+ *
+ * Gets the horizontal alignment of the thumbnail for @self.
+ *
+ * Returns: the horizontal alignment
+ *
+ * Since: 1.3
+ */
+float
+adw_tab_page_get_thumbnail_xalign (AdwTabPage *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_PAGE (self), 0.0f);
+
+  return self->thumbnail_xalign;
+}
+
+/**
+ * adw_tab_page_set_thumbnail_xalign: (attributes org.gtk.Method.set_property=thumbnail-xalign)
+ * @self: a tab page
+ * @xalign: the new value
+ *
+ * Sets the horizontal alignment of the thumbnail for @self.
+ *
+ * If the page is so wide that [class@TabOverview] can't display it completely
+ * and has to crop it, horizontal alignment will determine which part of the
+ * page will be visible.
+ *
+ * For example, 0.5 means the center of the page will be visible, 0 means the
+ * start edge will be visible and 1 means the end edge will be visible.
+ *
+ * The default horizontal alignment is 0.
+ *
+ * Since: 1.3
+ */
+void
+adw_tab_page_set_thumbnail_xalign (AdwTabPage *self,
+                                   float       xalign)
+{
+  g_return_if_fail (ADW_IS_TAB_PAGE (self));
+
+  xalign = CLAMP (xalign, 0.0, 1.0);
+
+  if (self->thumbnail_xalign == xalign)
+    return;
+
+  self->thumbnail_xalign = xalign;
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_THUMBNAIL_XALIGN]);
+}
+
+/**
+ * adw_tab_page_get_thumbnail_yalign: (attributes org.gtk.Method.get_property=thumbnail-yalign)
+ * @self: a tab overview
+ *
+ * Gets the vertical alignment of the thumbnail for @self.
+ *
+ * Returns: the vertical alignment
+ *
+ * Since: 1.3
+ */
+float
+adw_tab_page_get_thumbnail_yalign (AdwTabPage *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_PAGE (self), 0.0f);
+
+  return self->thumbnail_yalign;
+}
+
+/**
+ * adw_tab_page_set_thumbnail_yalign: (attributes org.gtk.Method.set_property=thumbnail-yalign)
+ * @self: a tab page
+ * @yalign: the new value
+ *
+ * Sets the vertical alignment of the thumbnail for @self.
+ *
+ * If the page is so tall that [class@TabOverview] can't display it completely
+ * and has to crop it, vertical alignment will determine which part of the page
+ * will be visible.
+ *
+ * For example, 0.5 means the center of the page will be visible, 0 means the
+ * top edge will be visible and 1 means the bottom edge will be visible.
+ *
+ * The default vertical alignment is 0.
+ *
+ * Since: 1.3
+ */
+void
+adw_tab_page_set_thumbnail_yalign (AdwTabPage *self,
+                                   float       yalign)
+{
+  g_return_if_fail (ADW_IS_TAB_PAGE (self));
+
+  yalign = CLAMP (yalign, 0.0, 1.0);
+
+  if (self->thumbnail_yalign == yalign)
+    return;
+
+  self->thumbnail_yalign = yalign;
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_THUMBNAIL_YALIGN]);
+}
+
+/**
+ * adw_tab_page_get_live_thumbnail: (attributes org.gtk.Method.get_property=live-thumbnail)
+ * @self: a tab overview
+ *
+ * Gets whether to live thumbnail is enabled @self.
+ *
+ * Returns: whether live thumbnail is enabled
+ *
+ * Since: 1.3
+ */
+gboolean
+adw_tab_page_get_live_thumbnail (AdwTabPage *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_PAGE (self), FALSE);
+
+  return self->live_thumbnail;
+}
+
+/**
+ * adw_tab_page_set_live_thumbnail: (attributes org.gtk.Method.set_property=live-thumbnail)
+ * @self: a tab page
+ * @live_thumbnail: whether to enable live thumbnail
+ *
+ * Sets whether to enable live thumbnail for @self.
+ *
+ * When set to `TRUE`, @self's thumbnail in [class@TabOverview] will update
+ * immediately when @self is redrawn or resized.
+ *
+ * If it's set to `FALSE`, the thumbnail will only be live when the @self is
+ * selected, and otherwise it will be static and will only update when
+ * [method@TabPage.invalidate_thumbnail] or
+ * [method@TabView.invalidate_thumbnails] is called.
+ *
+ * Since: 1.3
+ */
+void
+adw_tab_page_set_live_thumbnail (AdwTabPage *self,
+                                 gboolean    live_thumbnail)
+{
+  g_return_if_fail (ADW_IS_TAB_PAGE (self));
+
+  live_thumbnail = !!live_thumbnail;
+
+  if (self->live_thumbnail == live_thumbnail)
+    return;
+
+  self->live_thumbnail = live_thumbnail;
+
+  map_or_unmap_page (self);
+
+  g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_LIVE_THUMBNAIL]);
+}
+
+
+/**
+ * adw_tab_page_invalidate_thumbnail:
+ * @self: a tab page
+ *
+ * Invalidates thumbnail for @self.
+ *
+ * If an [class@TabOverview] is open, the thumbnail representing @self will be
+ * immediately updated. Otherwise it will be update when opening the overview.
+ *
+ * Does nothing if [property@TabPage:live-thumbnail] is set to `TRUE`.
+ *
+ * See also [method@TabView.invalidate_thumbnails].
+ *
+ * Since: 1.3
+ */
+void
+adw_tab_page_invalidate_thumbnail (AdwTabPage *self)
+{
+  g_return_if_fail (ADW_IS_TAB_PAGE (self));
+
+  self->invalidated = TRUE;
+
+  map_or_unmap_page (self);
+}
+
+GdkPaintable *
+adw_tab_page_get_paintable (AdwTabPage *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_PAGE (self), NULL);
+
+  if (!self->paintable)
+    self->paintable = adw_tab_paintable_new (self);
+
+  return self->paintable;
 }
 
 /**
@@ -2638,6 +3522,8 @@ adw_tab_view_get_default_icon (AdwTabView *self)
  * loading, doesn't have an icon and an indicator. Default icon is never used
  * for tabs that aren't pinned.
  *
+ * [class@TabOverview] will use default icon for pages with missing thumbnails.
+ *
  * By default, the `adw-tab-icon-missing-symbolic` icon is used.
  *
  * Since: 1.0
@@ -2648,11 +3534,19 @@ adw_tab_view_set_default_icon (AdwTabView *self,
 {
   g_return_if_fail (ADW_IS_TAB_VIEW (self));
   g_return_if_fail (G_IS_ICON (default_icon));
+  int i;
 
   if (self->default_icon == default_icon)
     return;
 
   g_set_object (&self->default_icon, default_icon);
+
+  for (i = 0; i < self->n_pages; i++) {
+    AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
+
+    if (page->paintable)
+      gdk_paintable_invalidate_contents (page->paintable);
+  }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DEFAULT_ICON]);
 }
@@ -2819,6 +3713,10 @@ adw_tab_view_remove_shortcuts (AdwTabView          *self,
  * 2. A spinner if [property@TabPage:loading] is `TRUE`
  * 3. [property@TabPage:icon]
  * 4. [property@TabView:default-icon]
+ *
+ * [class@TabOverview] will not show a thumbnail for pinned pages, and replace
+ * the close button with an unpin button. Unlike `AdwTabBar`, it will still
+ * display the page's title, icon and indicator separately.
  *
  * Pinned pages cannot be closed by default, see [signal@TabView::close-page]
  * for how to override that behavior.
@@ -3229,8 +4127,13 @@ adw_tab_view_close_page_finish (AdwTabView *self,
 
   page->closing = FALSE;
 
-  if (confirm)
-    detach_page (self, page, FALSE);
+  if (!confirm)
+    return;
+
+  if (page->paintable)
+    adw_tab_paintable_freeze (ADW_TAB_PAINTABLE (page->paintable));
+
+  detach_page (self, page, FALSE);
 }
 
 /**
@@ -3605,6 +4508,30 @@ adw_tab_view_get_pages (AdwTabView *self)
   return self->pages;
 }
 
+/**
+ * adw_tab_view_invalidate_thumbnails:
+ * @self: a tab view
+ *
+ * Invalidates thumbnails for all pages in @self.
+ *
+ * This is a convenience method, equivalent to calling
+ * [method@TabPage.invalidate_thumbnail] on each page.
+ *
+ * Since: 1.3
+ */
+void
+adw_tab_view_invalidate_thumbnails (AdwTabView *self)
+{
+  int i;
+  g_return_if_fail (ADW_IS_TAB_VIEW (self));
+
+  for (i = 0; i < self->n_pages; i++) {
+    AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
+
+    adw_tab_page_invalidate_thumbnail (page);
+  }
+}
+
 AdwTabView *
 adw_tab_view_create_window (AdwTabView *self)
 {
@@ -3621,4 +4548,49 @@ adw_tab_view_create_window (AdwTabView *self)
   new_view->transfer_count = self->transfer_count;
 
   return new_view;
+}
+
+void
+adw_tab_view_open_overview (AdwTabView *self)
+{
+  g_return_if_fail (ADW_IS_TAB_VIEW (self));
+
+  if (self->overview_count == 0) {
+    int i;
+
+    for (i = 0; i < self->n_pages; i++) {
+      AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
+
+      if (page->live_thumbnail || page->invalidated)
+        gtk_widget_set_child_visible (page->bin, TRUE);
+    }
+
+    gtk_widget_queue_allocate (GTK_WIDGET (self));
+  }
+
+  self->overview_count++;
+}
+
+void
+adw_tab_view_close_overview (AdwTabView *self)
+{
+  g_return_if_fail (ADW_IS_TAB_VIEW (self));
+
+  self->overview_count--;
+
+  if (self->overview_count == 0) {
+    int i;
+
+    for (i = 0; i < self->n_pages; i++) {
+      AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
+
+      if (page->live_thumbnail || page->invalidated)
+        gtk_widget_set_child_visible (page->bin,
+                                      page == self->selected_page);
+    }
+
+    gtk_widget_queue_allocate (GTK_WIDGET (self));
+  }
+
+  g_assert (self->overview_count >= 0);
 }

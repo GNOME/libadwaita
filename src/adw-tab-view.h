@@ -101,6 +101,33 @@ ADW_AVAILABLE_IN_ALL
 void     adw_tab_page_set_needs_attention (AdwTabPage *self,
                                            gboolean    needs_attention);
 
+ADW_AVAILABLE_IN_1_3
+const char *adw_tab_page_get_keyword (AdwTabPage *self);
+ADW_AVAILABLE_IN_1_3
+void        adw_tab_page_set_keyword (AdwTabPage *self,
+                                      const char *keyword);
+
+ADW_AVAILABLE_IN_1_3
+float adw_tab_page_get_thumbnail_xalign (AdwTabPage *self);
+ADW_AVAILABLE_IN_1_3
+void  adw_tab_page_set_thumbnail_xalign (AdwTabPage *self,
+                                         float       xalign);
+
+ADW_AVAILABLE_IN_1_3
+float adw_tab_page_get_thumbnail_yalign (AdwTabPage *self);
+ADW_AVAILABLE_IN_1_3
+void  adw_tab_page_set_thumbnail_yalign (AdwTabPage *self,
+                                         float       yalign);
+
+ADW_AVAILABLE_IN_1_3
+gboolean adw_tab_page_get_live_thumbnail (AdwTabPage *self);
+ADW_AVAILABLE_IN_1_3
+void     adw_tab_page_set_live_thumbnail (AdwTabPage *self,
+                                          gboolean    live_thumbnail);
+
+ADW_AVAILABLE_IN_1_3
+void adw_tab_page_invalidate_thumbnail (AdwTabPage *self);
+
 #define ADW_TYPE_TAB_VIEW (adw_tab_view_get_type())
 
 ADW_AVAILABLE_IN_ALL
@@ -239,5 +266,8 @@ void adw_tab_view_transfer_page (AdwTabView *self,
 
 ADW_AVAILABLE_IN_ALL
 GtkSelectionModel *adw_tab_view_get_pages (AdwTabView *self) G_GNUC_WARN_UNUSED_RESULT;
+
+ADW_AVAILABLE_IN_1_3
+void adw_tab_view_invalidate_thumbnails (AdwTabView *self);
 
 G_END_DECLS

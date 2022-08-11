@@ -1026,6 +1026,36 @@ test_adw_tab_page_tooltip (void)
 }
 
 static void
+test_adw_tab_page_keyword (void)
+{
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  AdwTabPage *page;
+  char *keyword;
+
+  g_assert_nonnull (view);
+
+  page = adw_tab_view_append (view, gtk_button_new ());
+  g_assert_nonnull (page);
+
+  notified = 0;
+  g_signal_connect (page, "notify::keyword", G_CALLBACK (notify_cb), NULL);
+
+  g_object_get (page, "keyword", &keyword, NULL);
+  g_assert_null (keyword);
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_tab_page_set_keyword (page, "Some keyword");
+  g_assert_cmpstr (adw_tab_page_get_keyword (page), ==, "Some keyword");
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (page, "keyword", "Some other keyword", NULL);
+  g_assert_cmpstr (adw_tab_page_get_keyword (page), ==, "Some other keyword");
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
+}
+
+static void
 test_adw_tab_page_icon (void)
 {
   AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
@@ -1218,6 +1248,99 @@ test_adw_tab_page_needs_attention (void)
 }
 
 static void
+test_adw_tab_page_thumbnail_xalign (void)
+{
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  AdwTabPage *page;
+  float xalign;
+
+  g_assert_nonnull (view);
+
+  page = adw_tab_view_append (view, gtk_button_new ());
+  g_assert_nonnull (page);
+
+  notified = 0;
+  g_signal_connect (page, "notify::thumbnail-xalign", G_CALLBACK (notify_cb), NULL);
+
+  g_object_get (page, "thumbnail_xalign", &xalign, NULL);
+  g_assert_cmpfloat (xalign, ==, 0);
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_tab_page_set_thumbnail_xalign (page, 1);
+  g_object_get (page, "thumbnail-xalign", &xalign, NULL);
+  g_assert_cmpfloat (xalign, ==, 1);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (page, "thumbnail-xalign", 0.5, NULL);
+  g_assert_cmpfloat (adw_tab_page_get_thumbnail_xalign (page), ==, 0.5);
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
+}
+
+static void
+test_adw_tab_page_thumbnail_yalign (void)
+{
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  AdwTabPage *page;
+  float yalign;
+
+  g_assert_nonnull (view);
+
+  page = adw_tab_view_append (view, gtk_button_new ());
+  g_assert_nonnull (page);
+
+  notified = 0;
+  g_signal_connect (page, "notify::thumbnail-yalign", G_CALLBACK (notify_cb), NULL);
+
+  g_object_get (page, "thumbnail_yalign", &yalign, NULL);
+  g_assert_cmpfloat (yalign, ==, 0);
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_tab_page_set_thumbnail_yalign (page, 1);
+  g_object_get (page, "thumbnail-yalign", &yalign, NULL);
+  g_assert_cmpfloat (yalign, ==, 1);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (page, "thumbnail-yalign", 0.5, NULL);
+  g_assert_cmpfloat (adw_tab_page_get_thumbnail_yalign (page), ==, 0.5);
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
+}
+
+static void
+test_adw_tab_page_live_thumbnail (void)
+{
+  AdwTabView *view = g_object_ref_sink (ADW_TAB_VIEW (adw_tab_view_new ()));
+  AdwTabPage *page;
+  gboolean live_thumbnail;
+
+  g_assert_nonnull (view);
+
+  page = adw_tab_view_append (view, gtk_button_new ());
+  g_assert_nonnull (page);
+
+  notified = 0;
+  g_signal_connect (page, "notify::live-thumbnail", G_CALLBACK (notify_cb), NULL);
+
+  g_object_get (page, "live-thumbnail", &live_thumbnail, NULL);
+  g_assert_false (live_thumbnail);
+  g_assert_cmpint (notified, ==, 0);
+
+  adw_tab_page_set_live_thumbnail (page, TRUE);
+  g_object_get (page, "live-thumbnail", &live_thumbnail, NULL);
+  g_assert_true (live_thumbnail);
+  g_assert_cmpint (notified, ==, 1);
+
+  g_object_set (page, "live-thumbnail", FALSE, NULL);
+  g_assert_false (adw_tab_page_get_live_thumbnail (page));
+  g_assert_cmpint (notified, ==, 2);
+
+  g_assert_finalize_object (view);
+}
+
+static void
 test_adw_tab_view_pages_to_list_view_setup (GtkSignalListItemFactory *factory,
                                             GtkListItem              *list_item,
                                             gpointer                  unused)
@@ -1315,12 +1438,16 @@ main (int   argc,
   g_test_add_func ("/Adwaita/TabView/pages_to_list_view", test_adw_tab_view_pages_to_list_view);
   g_test_add_func ("/Adwaita/TabPage/title", test_adw_tab_page_title);
   g_test_add_func ("/Adwaita/TabPage/tooltip", test_adw_tab_page_tooltip);
+  g_test_add_func ("/Adwaita/TabPage/keyword", test_adw_tab_page_keyword);
   g_test_add_func ("/Adwaita/TabPage/icon", test_adw_tab_page_icon);
   g_test_add_func ("/Adwaita/TabPage/loading", test_adw_tab_page_loading);
   g_test_add_func ("/Adwaita/TabPage/indicator_icon", test_adw_tab_page_indicator_icon);
   g_test_add_func ("/Adwaita/TabPage/indicator_tooltip", test_adw_tab_page_indicator_tooltip);
   g_test_add_func ("/Adwaita/TabPage/indicator_activatable", test_adw_tab_page_indicator_activatable);
   g_test_add_func ("/Adwaita/TabPage/needs_attention", test_adw_tab_page_needs_attention);
+  g_test_add_func ("/Adwaita/TabPage/thumbnail_xalign", test_adw_tab_page_thumbnail_xalign);
+  g_test_add_func ("/Adwaita/TabPage/thumbnail_yalign", test_adw_tab_page_thumbnail_yalign);
+  g_test_add_func ("/Adwaita/TabPage/live_thumbnail", test_adw_tab_page_live_thumbnail);
 
   return g_test_run ();
 }
