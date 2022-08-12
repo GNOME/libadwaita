@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-02-28 17:57+0000\n"
-"PO-Revision-Date: 2022-03-02 12:43+0100\n"
+"POT-Creation-Date: 2022-08-01 14:50+0000\n"
+"PO-Revision-Date: 2022-08-13 01:00+0200\n"
 "Last-Translator: \n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -17,7 +17,247 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU Opća Javna Licenca, inačice 2 ili novija"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU Opća Javna Licenca, inačice 3 ili novija"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU Sažeta Opća Javna Licenca, inačice 2.1 ili novija"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU Sažeta Opća Javna Licenca, inačice 3 ili novija"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "BSD 2-klauzula licence"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "MIT licenca (MIT)"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Umjetnička licenca 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU Opća Javna Licenca, samo inačica 2"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU Opća Javna Licenca, samo inačica 3"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU Sažeta Opća Javna Licenca, samo inačica 2.1"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU Sažeta Opća Javna Licenca, samo inačica 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero Opća Javna Licenca, inačica 3 ili novija"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero Opća Javna Licenca, samo inačica 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "BSD 3-klauzula licence"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Apache Licenca, inačica 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla javna licenca 2.0"
+
+#: src/adw-about-window.c:526
+msgid "Code by"
+msgstr "Kôdirali"
+
+#: src/adw-about-window.c:527
+msgid "Design by"
+msgstr "Dizajn"
+
+#: src/adw-about-window.c:528
+msgid "Artwork by"
+msgstr "Grafika"
+
+#: src/adw-about-window.c:529
+msgid "Documentation by"
+msgstr "Dokumentirali"
+
+#: src/adw-about-window.c:530
+msgid "Translated by"
+msgstr "Preveli"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:559
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
+msgstr ""
+"Ova aplikacija dolazi bez ikakvog jamstva. Pogledajte <a href=\"%s\">%s</a> "
+"za više pojedinosti."
+
+#: src/adw-about-window.c:637
+msgid "This Application"
+msgstr "Ova plikacija"
+
+#: src/adw-about-window.c:939
+#, c-format
+msgid "Version %s"
+msgstr "Inačica %s"
+
+#: src/adw-about-window.c:965
+msgid "Unable to parse release notes:"
+msgstr "Nemoguća obrada bilješki izdanja:"
+
+#: src/adw-about-window.c:971
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Redak %d, znak %d"
+
+#: src/adw-about-window.c:1264
+msgid "Copied to clipboard"
+msgstr "Kopirano u međuspremnik"
+
+#: src/adw-about-window.c:1299
+msgid "Unable to save debugging information"
+msgstr "Nemoguće spremanje informacija otklanjanja greške"
+
+#: src/adw-about-window.c:1304
+msgid "Close"
+msgstr "Zatvori"
+
+#: src/adw-about-window.c:1322
+msgid "Save debugging information"
+msgstr "Spremi informacije otklanjanja greške"
+
+#: src/adw-about-window.c:1325
+msgid "_Save"
+msgstr "_Spremi"
+
+#: src/adw-about-window.c:1326
+msgid "_Cancel"
+msgstr "_Odustani"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "_O programu"
+
+#: src/adw-about-window.ui:123
+msgid "_What’s New"
+msgstr "_Što je novo"
+
+#: src/adw-about-window.ui:138
+msgid "_Details"
+msgstr "_Pojedinosti"
+
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+msgid "_Website"
+msgstr "_Web stranica"
+
+#: src/adw-about-window.ui:176
+msgid "_Support Questions"
+msgstr "_Pitanja podrške"
+
+#: src/adw-about-window.ui:192
+msgid "_Report an Issue"
+msgstr "_Prijavite problem"
+
+#: src/adw-about-window.ui:207
+msgid "_Troubleshooting"
+msgstr "_Rješavanje problema"
+
+#: src/adw-about-window.ui:226
+msgid "_Credits"
+msgstr "_Zasluge"
+
+#: src/adw-about-window.ui:241
+msgid "_Legal"
+msgstr "_Pravne stvari"
+
+#: src/adw-about-window.ui:256
+msgid "_Acknowledgements"
+msgstr "_Zahvale"
+
+#: src/adw-about-window.ui:295
+msgid "What’s New"
+msgstr "Što je novo"
+
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
+msgid "Back"
+msgstr "Natrag"
+
+#: src/adw-about-window.ui:351
+msgid "Details"
+msgstr "Pojedinosti"
+
+#: src/adw-about-window.ui:432
+msgid "Troubleshooting"
+msgstr "Rješavanje problema"
+
+#: src/adw-about-window.ui:461
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Kako biste pomogli u rješavanju problema, možete pregledati svoje "
+"informacije otklanjanja grešaka. Pružanje ovih informacija razvijateljima "
+"aplikacije može pomoći u dijagnosticiranju problema na koje ste naišli pri "
+"prijavi problema."
+
+#: src/adw-about-window.ui:472
+msgid "_Debugging Information"
+msgstr "_Informacije otklanjanja greške"
+
+#: src/adw-about-window.ui:507
+msgid "Credits"
+msgstr "Zasluge"
+
+#: src/adw-about-window.ui:554
+msgid "Legal"
+msgstr "Pravne stvari"
+
+#: src/adw-about-window.ui:601
+msgid "Acknowledgements"
+msgstr "Zahvale"
+
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "Informacije otklanjanja greške"
+
+#: src/adw-about-window.ui:696
+msgid "_Copy Text"
+msgstr "_Kopiraj tekst"
+
+#: src/adw-about-window.ui:703
+msgid "_Save as…"
+msgstr "_Spremi kao…"
+
+#: src/adw-entry-row.ui:93
+msgid "Apply"
+msgstr "Primjeni"
 
 #: src/adw-inspector-page.c:76
 msgid "No Preference"
@@ -45,8 +285,7 @@ msgid ""
 "Override settings for this application. They will be reset upon closing the "
 "inspector."
 msgstr ""
-"Zaobiđi postavke za ovu aplikaciju. Poništit će se pri zatvaranju "
-"inspektora."
+"Zaobiđi postavke za ovu aplikaciju. Poništit će se pri zatvaranju inspektora."
 
 #: src/adw-inspector-page.ui:14
 msgid "System Supports Color Schemes"
@@ -60,7 +299,23 @@ msgstr "Željena shema boja"
 msgid "High Contrast"
 msgstr "Visok kontrast"
 
-#: src/adw-preferences-window.c:217
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "Sakrij tekst"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "Prikaži tekst"
+
+#: src/adw-password-entry-row.c:169
+msgid "Caps Lock is on"
+msgstr "Velika slova su uključena"
+
+#: src/adw-password-entry-row.c:177
+msgid "_Show Text"
+msgstr "_Prikaži tekst"
+
+#: src/adw-preferences-window.c:242
 msgid "Untitled page"
 msgstr "Bezimena stranica"
 
@@ -79,3 +334,7 @@ msgstr "Nema pronađenih rezultata"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Pokušajte drugačiju pretragu."
+
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "Zatvori karticu"
