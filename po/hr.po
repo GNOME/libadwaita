@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2022-08-01 14:50+0000\n"
-"PO-Revision-Date: 2022-08-13 01:00+0200\n"
+"PO-Revision-Date: 2022-08-13 01:03+0200\n"
 "Last-Translator: \n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -257,7 +257,7 @@ msgstr "_Spremi kao…"
 
 #: src/adw-entry-row.ui:93
 msgid "Apply"
-msgstr "Primjeni"
+msgstr "Primijeni"
 
 #: src/adw-inspector-page.c:76
 msgid "No Preference"
