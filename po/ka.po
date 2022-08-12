@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-07-25 04:13+0000\n"
-"PO-Revision-Date: 2022-07-26 08:20+0200\n"
+"POT-Creation-Date: 2022-08-11 00:06+0000\n"
+"PO-Revision-Date: 2022-08-12 05:41+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: \n"
 "Language: ka\n"
@@ -82,30 +82,30 @@ msgstr "Apache License, Version 2.0"
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
-#: src/adw-about-window.c:519
+#: src/adw-about-window.c:526
 msgid "Code by"
 msgstr "კოდის ავტორი"
 
-#: src/adw-about-window.c:520
+#: src/adw-about-window.c:527
 msgid "Design by"
 msgstr "დიზაინი"
 
-#: src/adw-about-window.c:521
+#: src/adw-about-window.c:528
 msgid "Artwork by"
 msgstr "დიზაინის ავტორი"
 
-#: src/adw-about-window.c:522
+#: src/adw-about-window.c:529
 msgid "Documentation by"
 msgstr "დოკუმენტაციის ავტორი"
 
-#: src/adw-about-window.c:523
+#: src/adw-about-window.c:530
 msgid "Translated by"
 msgstr "თარგმნა"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:550
+#: src/adw-about-window.c:559
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a href=\"%s\">"
@@ -114,45 +114,45 @@ msgstr ""
 "პროგრამას ყოველგვარი გარანტიების გარეშე იღებთ. მეტი დეტალებისთვის იხილეთ <a "
 "href=\"%s\">%s</a>."
 
-#: src/adw-about-window.c:628
+#: src/adw-about-window.c:637
 msgid "This Application"
 msgstr "ეს აპლიკაცია"
 
-#: src/adw-about-window.c:925
+#: src/adw-about-window.c:939
 #, c-format
 msgid "Version %s"
 msgstr "ვერისა %s"
 
-#: src/adw-about-window.c:951
+#: src/adw-about-window.c:965
 msgid "Unable to parse release notes:"
 msgstr "რელიზის შენიშვნების დამუშავების შეცდომა:"
 
-#: src/adw-about-window.c:957
+#: src/adw-about-window.c:971
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "ხაზი: %d, სიმბოლო: %d"
 
-#: src/adw-about-window.c:1227
+#: src/adw-about-window.c:1264
 msgid "Copied to clipboard"
 msgstr "დაკოპირდა გაცვლის ბაფერში"
 
-#: src/adw-about-window.c:1262
+#: src/adw-about-window.c:1299
 msgid "Unable to save debugging information"
 msgstr "გამართვის ინფორმაციის შენახვის შეცდომა"
 
-#: src/adw-about-window.c:1267
+#: src/adw-about-window.c:1304
 msgid "Close"
 msgstr "დახურვა"
 
-#: src/adw-about-window.c:1285
+#: src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "გამართვის ინფორმაციის შენახვა"
 
-#: src/adw-about-window.c:1288
+#: src/adw-about-window.c:1325
 msgid "_Save"
 msgstr "_შენახვა"
 
-#: src/adw-about-window.c:1289
+#: src/adw-about-window.c:1326
 msgid "_Cancel"
 msgstr "_გაუქმება"
 
@@ -160,62 +160,62 @@ msgstr "_გაუქმება"
 msgid "About"
 msgstr "შესახებ"
 
-#: src/adw-about-window.ui:160
+#: src/adw-about-window.ui:123
 msgid "_What’s New"
 msgstr "_რა არის ახალი"
 
-#: src/adw-about-window.ui:179
+#: src/adw-about-window.ui:138
 msgid "_Details"
 msgstr "_დეტალები"
 
-#: src/adw-about-window.ui:201 src/adw-about-window.ui:487
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
 msgid "_Website"
 msgstr "_ვებსაიტი"
 
-#: src/adw-about-window.ui:232
+#: src/adw-about-window.ui:176
 msgid "_Support Questions"
 msgstr "მხარდაჭერის _კითხვები"
 
-#: src/adw-about-window.ui:254
+#: src/adw-about-window.ui:192
 msgid "_Report an Issue"
 msgstr "_პრობლემის რეპორტი"
 
-#: src/adw-about-window.ui:275
+#: src/adw-about-window.ui:207
 msgid "_Troubleshooting"
 msgstr "_პრობლემების გადაჭრა"
 
-#: src/adw-about-window.ui:306
+#: src/adw-about-window.ui:226
 msgid "_Credits"
 msgstr "_კრედიტები"
 
-#: src/adw-about-window.ui:323
+#: src/adw-about-window.ui:241
 msgid "_Legal"
 msgstr "_იურიდიული"
 
-#: src/adw-about-window.ui:340
+#: src/adw-about-window.ui:256
 msgid "_Acknowledgements"
 msgstr "_სხვა გამოყენებული პროექტები"
 
-#: src/adw-about-window.ui:381
+#: src/adw-about-window.ui:295
 msgid "What’s New"
 msgstr "რა არის ახალი"
 
-#: src/adw-about-window.ui:386 src/adw-about-window.ui:442
-#: src/adw-about-window.ui:531 src/adw-about-window.ui:606
-#: src/adw-about-window.ui:653 src/adw-about-window.ui:700
-#: src/adw-about-window.ui:747
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
 msgid "Back"
 msgstr "უკან"
 
-#: src/adw-about-window.ui:437
+#: src/adw-about-window.ui:351
 msgid "Details"
 msgstr "დეტალები"
 
-#: src/adw-about-window.ui:526
+#: src/adw-about-window.ui:432
 msgid "Troubleshooting"
 msgstr "პრობლემების გადაჭრა"
 
-#: src/adw-about-window.ui:555
+#: src/adw-about-window.ui:461
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -225,31 +225,31 @@ msgstr ""
 "ინფორმაციას. პროგრამისტებისთვის ამ ინფორმაციის გაგზავნით შეგიძლიათ "
 "ნებისმიერი პრობლემა გადაჭრათ."
 
-#: src/adw-about-window.ui:566
+#: src/adw-about-window.ui:472
 msgid "_Debugging Information"
 msgstr "_გამართვის ინფორმაცია"
 
-#: src/adw-about-window.ui:601
+#: src/adw-about-window.ui:507
 msgid "Credits"
 msgstr "კრედიტები"
 
-#: src/adw-about-window.ui:648
+#: src/adw-about-window.ui:554
 msgid "Legal"
 msgstr "იურიდიული"
 
-#: src/adw-about-window.ui:695
+#: src/adw-about-window.ui:601
 msgid "Acknowledgements"
 msgstr "სხვა გამოყენებული პროექტები"
 
-#: src/adw-about-window.ui:742
+#: src/adw-about-window.ui:648
 msgid "Debugging Information"
 msgstr "გამართვის ინფორმაცია"
 
-#: src/adw-about-window.ui:790
+#: src/adw-about-window.ui:696
 msgid "_Copy Text"
 msgstr "ტექსტის _კოპირება"
 
-#: src/adw-about-window.ui:797
+#: src/adw-about-window.ui:703
 msgid "_Save as…"
 msgstr "_შენახვა, როგორც…"
 
@@ -333,3 +333,7 @@ msgstr "შედეგების გარეშე"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "სცადეთ სხვა ძებნა."
+
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "ჩანართის დახურვა"
