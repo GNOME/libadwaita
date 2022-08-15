@@ -241,6 +241,15 @@ gtk_min_version = '>= 4.5.0'
 gio_dep = dependency('gio-2.0', version: glib_min_version)
 gtk_dep = dependency('gtk4', version: gtk_min_version)
 
+# Vulkan may have been enabled for GTK but it may not have
+# been found via pkg-config, and we currently don't have a
+# way to query the GTK dep to see whether Vulkan support is
+# built-in in such scenarios, ending up in build failures
+# where the Vulkan headers are not found, as the GTK headers
+# do pull in the Vulkan headers in such cases.  For the pkg-config
+# case, the GTK pkg-config files will pull in Vulkan.
+vulkan_dep = dependency('vulkan', required: false)
+
 libadwaita_deps = [
   dependency('glib-2.0', version: glib_min_version),
   dependency('fribidi'),
@@ -253,6 +262,10 @@ libadwaita_public_deps = [
   gio_dep,
   gtk_dep,
 ]
+
+if vulkan_dep.found() and vulkan_dep.type_name() != 'pkgconfig'
+  libadwaita_deps += vulkan_dep
+endif
 
 libadwaita_c_args = [
   '-DG_LOG_DOMAIN="Adwaita"',
