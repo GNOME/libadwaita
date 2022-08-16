@@ -1402,6 +1402,9 @@ reorder_begin_cb (AdwTabBox  *self,
 
   self->pressed_tab = find_tab_info_at (self, start_x);
 
+  if (!self->pressed_tab)
+    return;
+
   self->drag_offset_x = start_x - get_tab_position (self, self->pressed_tab);
   self->drag_offset_y = start_y;
 
