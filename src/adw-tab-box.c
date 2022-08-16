@@ -3839,6 +3839,7 @@ adw_tab_box_set_view (AdwTabBox  *self,
     g_signal_handlers_disconnect_by_func (self->view, page_attached_cb, self);
     g_signal_handlers_disconnect_by_func (self->view, page_detached_cb, self);
     g_signal_handlers_disconnect_by_func (self->view, page_reordered_cb, self);
+    g_signal_handlers_disconnect_by_func (self->view, update_single_tab_style, self);
 
     if (!self->pinned) {
       gtk_widget_remove_controller (GTK_WIDGET (self->view), self->view_drop_target);
