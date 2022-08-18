@@ -328,8 +328,15 @@ animate_child_resize (AdwCarousel *self,
 
   update_shift_position_flag (self, child);
 
-  if (child->resize_animation)
+  if (child->resize_animation) {
+    gboolean been_removing = child->removing;
     adw_animation_skip (child->resize_animation);
+    /* It's because the skip finishes the animation, which triggers
+       the 'done' signal, which calls resize_animation_done_cb(),
+       which frees the 'child' immediately. */
+    if (been_removing)
+      return;
+  }
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               resize_animation_value_cb,
