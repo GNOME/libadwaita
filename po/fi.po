@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-02-07 11:18+0000\n"
-"PO-Revision-Date: 2022-03-09 20:43+0200\n"
+"POT-Creation-Date: 2022-08-01 14:50+0000\n"
+"PO-Revision-Date: 2022-08-19 09:02+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -16,7 +16,246 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU General Public -lisenssi (GPL), versio 2 tai myöhempi"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU General Public -lisenssi (GPL), versio 3 tai myöhempi"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU Lesser General Public -lisenssi (LGPL), versio 2.1 tai myöhempi"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU Lesser General Public -lisenssi (LGPL), versio 3 tai myöhempi"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "2-lausekkeinen BSD-lisenssi"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "MIT-lisenssi (MIT)"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Artistic-lisenssi 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU General Public -lisenssi (GPL), vain versio 2"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU General Public -lisenssi (GPL), vain versio 3"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU Lesser General Public -lisenssi (LGPL), vain versio 2.1"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU Lesser General Public -lisenssi (LGPL), vain versio 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero General Public -lisenssi (AGPL), versio 3 tai myöhempi"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero General Public -lisenssi (AGPL), vain versio 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "3-lausekkeinen BSD-lisenssi"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Apache-lisenssi, versio 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla Public -lisenssi 2.0"
+
+#: src/adw-about-window.c:526
+msgid "Code by"
+msgstr "Koodaus"
+
+#: src/adw-about-window.c:527
+msgid "Design by"
+msgstr "Suunnittelu"
+
+#: src/adw-about-window.c:528
+msgid "Artwork by"
+msgstr "Taiteellinen työ"
+
+#: src/adw-about-window.c:529
+msgid "Documentation by"
+msgstr "Dokumentaatio"
+
+#: src/adw-about-window.c:530
+msgid "Translated by"
+msgstr "Käännös"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:559
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
+msgstr ""
+"Tämä sovellus ei sisällä minkäänlaista takuuta. Lisätietoja <a href=\"%s\">"
+"%s</a>."
+
+#: src/adw-about-window.c:637
+msgid "This Application"
+msgstr "Tämä sovellus"
+
+#: src/adw-about-window.c:939
+#, c-format
+msgid "Version %s"
+msgstr "Versio %s"
+
+#: src/adw-about-window.c:965
+msgid "Unable to parse release notes:"
+msgstr "Julkaisutietoja ei voitu jäsentää:"
+
+#: src/adw-about-window.c:971
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Rivi: %d, merkki: %d"
+
+#: src/adw-about-window.c:1264
+msgid "Copied to clipboard"
+msgstr "Kopioitu leikepöydälle"
+
+#: src/adw-about-window.c:1299
+msgid "Unable to save debugging information"
+msgstr "Vianjäljitystietoja ei voitu tallentaa"
+
+#: src/adw-about-window.c:1304
+msgid "Close"
+msgstr "Sulje"
+
+#: src/adw-about-window.c:1322
+msgid "Save debugging information"
+msgstr "Tallenna vianjäljitystiedot"
+
+#: src/adw-about-window.c:1325
+msgid "_Save"
+msgstr "_Tallenna"
+
+#: src/adw-about-window.c:1326
+msgid "_Cancel"
+msgstr "_Peru"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Tietoja"
+
+#: src/adw-about-window.ui:123
+msgid "_What’s New"
+msgstr "_Mitä uutta"
+
+#: src/adw-about-window.ui:138
+msgid "_Details"
+msgstr "_Tiedot"
+
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+msgid "_Website"
+msgstr "_Verkkosivusto"
+
+#: src/adw-about-window.ui:176
+msgid "_Support Questions"
+msgstr "T_ukikysymykset"
+
+#: src/adw-about-window.ui:192
+msgid "_Report an Issue"
+msgstr "_Ilmoita ongelmasta"
+
+#: src/adw-about-window.ui:207
+msgid "_Troubleshooting"
+msgstr "_Ongelmanratkaisu"
+
+#: src/adw-about-window.ui:226
+msgid "_Credits"
+msgstr "_Tekijät"
+
+#: src/adw-about-window.ui:241
+msgid "_Legal"
+msgstr "_Lainopillinen"
+
+#: src/adw-about-window.ui:256
+msgid "_Acknowledgements"
+msgstr "Tu_nnustukset"
+
+#: src/adw-about-window.ui:295
+msgid "What’s New"
+msgstr "Mitä uutta"
+
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
+msgid "Back"
+msgstr "Takaisin"
+
+#: src/adw-about-window.ui:351
+msgid "Details"
+msgstr "Tiedot"
+
+#: src/adw-about-window.ui:432
+msgid "Troubleshooting"
+msgstr "Ongelmanratkaisu"
+
+#: src/adw-about-window.ui:461
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Voit katsoa ongelmanratkaisussa hyödyksi olevia vianjäljitystietoja. Näiden "
+"tietojen toimittaminen sovelluskehittäjille voi auttaa mahdollisten "
+"ongelmien selvittämisessä."
+
+#: src/adw-about-window.ui:472
+msgid "_Debugging Information"
+msgstr "_Vianjäljitystiedot"
+
+#: src/adw-about-window.ui:507
+msgid "Credits"
+msgstr "Tekijät"
+
+#: src/adw-about-window.ui:554
+msgid "Legal"
+msgstr "Lainopillinen"
+
+#: src/adw-about-window.ui:601
+msgid "Acknowledgements"
+msgstr "Tunnustukset"
+
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "Vianjäljitystiedot"
+
+#: src/adw-about-window.ui:696
+msgid "_Copy Text"
+msgstr "_Kopioi teksti"
+
+#: src/adw-about-window.ui:703
+msgid "_Save as…"
+msgstr "_Tallenna nimellä…"
+
+#: src/adw-entry-row.ui:93
+msgid "Apply"
+msgstr "Toteuta"
 
 #: src/adw-inspector-page.c:76
 msgid "No Preference"
@@ -59,7 +298,23 @@ msgstr "Suosittu väriteema"
 msgid "High Contrast"
 msgstr "Suuri kontrasti"
 
-#: src/adw-preferences-window.c:217
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "Piilota teksti"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "Näytä teksti"
+
+#: src/adw-password-entry-row.c:169
+msgid "Caps Lock is on"
+msgstr "Caps Lock on päällä"
+
+#: src/adw-password-entry-row.c:177
+msgid "_Show Text"
+msgstr "_Näytä teksti"
+
+#: src/adw-preferences-window.c:242
 msgid "Untitled page"
 msgstr "Nimetön sivu"
 
@@ -78,6 +333,10 @@ msgstr "Tuloksia ei löytynyt"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Kokeile eri hakuehtoja."
+
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "Sulje välilehti"
 
 #~ msgid "Insert placeholder to %s"
 #~ msgstr "Lisää paikkavaraus %s:lle"
@@ -299,9 +558,6 @@ msgstr "Kokeile eri hakuehtoja."
 #~ msgid "Whether the switch enabling the expansion is visible"
 #~ msgstr "Onko laajennuksen käytön salliva kytkin näkyvissä"
 
-#~ msgid "Application menu"
-#~ msgstr "Ohjelman valikko"
-
 #~ msgid "Minimize"
 #~ msgstr "Minimoi"
 
@@ -310,12 +566,6 @@ msgstr "Kokeile eri hakuehtoja."
 
 #~ msgid "Maximize"
 #~ msgstr "Maksimoi"
-
-#~ msgid "Close"
-#~ msgstr "Sulje"
-
-#~ msgid "Back"
-#~ msgstr "Takaisin"
 
 #~ msgid "Pack type"
 #~ msgstr "Pakkauksen tyyppi"
