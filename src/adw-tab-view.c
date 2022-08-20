@@ -2464,7 +2464,7 @@ adw_tab_view_set_menu_model (AdwTabView *self,
                              GMenuModel *menu_model)
 {
   g_return_if_fail (ADW_IS_TAB_VIEW (self));
-  g_return_if_fail (G_IS_MENU_MODEL (menu_model));
+  g_return_if_fail (menu_model == NULL || G_IS_MENU_MODEL (menu_model));
 
   if (self->menu_model == menu_model)
     return;
