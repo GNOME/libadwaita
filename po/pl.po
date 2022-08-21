@@ -1,15 +1,15 @@
 # Polish translation for libadwaita.
-# Copyright © 2020-2021 the libadwaita authors.
+# Copyright © 2020-2022 the libadwaita authors.
 # This file is distributed under the same license as the libadwaita package.
-# Piotr Drąg <piotrdrag@gmail.com>, 2020-2021.
-# Aviary.pl <community-poland@mozilla.org>, 2020-2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2020-2022.
+# Aviary.pl <community-poland@mozilla.org>, 2020-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-12-06 17:25+0000\n"
-"PO-Revision-Date: 2021-10-02 12:44+0200\n"
+"POT-Creation-Date: 2022-08-01 14:50+0000\n"
+"PO-Revision-Date: 2022-08-21 13:58+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -19,7 +19,304 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: src/adw-preferences-window.c:212
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "Powszechna licencja publiczna GNU, wersja 2 lub późniejsza"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "Powszechna licencja publiczna GNU, wersja 3 lub późniejsza"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr ""
+"Pomniejsza powszechna licencja publiczna GNU, wersja 2.1 lub późniejsza"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "Pomniejsza powszechna licencja publiczna GNU, wersja 3 lub późniejsza"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "2-klauzulowa licencja BSD"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "Licencja MIT"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Licencja twórcza 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "Powszechna licencja publiczna GNU, tylko w wersji 2"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "Powszechna licencja publiczna GNU, tylko w wersji 3"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "Pomniejsza powszechna licencja publiczna GNU, tylko w wersji 2.1"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "Pomniejsza powszechna licencja publiczna GNU, tylko w wersji 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "Powszechna licencja publiczna GNU Affero, wersja 3 lub późniejsza"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "Powszechna licencja publiczna GNU Affero, tylko w wersji 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "3-klauzulowa licencja BSD"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Licencja Apache w wersji 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Licencja publiczna Mozilli 2.0"
+
+#: src/adw-about-window.c:526
+msgid "Code by"
+msgstr "Program"
+
+#: src/adw-about-window.c:527
+msgid "Design by"
+msgstr "Projekt"
+
+#: src/adw-about-window.c:528
+msgid "Artwork by"
+msgstr "Grafika"
+
+#: src/adw-about-window.c:529
+msgid "Documentation by"
+msgstr "Dokumentacja"
+
+#: src/adw-about-window.c:530
+msgid "Translated by"
+msgstr "Tłumaczenie"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:559
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
+msgstr ""
+"Niniejszy program rozpowszechniany jest bez jakiejkolwiek gwarancji. Więcej "
+"informacji: <a href=\"%s\">%s</a>."
+
+#: src/adw-about-window.c:637
+msgid "This Application"
+msgstr "Ten program"
+
+#: src/adw-about-window.c:939
+#, c-format
+msgid "Version %s"
+msgstr "Wersja %s"
+
+#: src/adw-about-window.c:965
+msgid "Unable to parse release notes:"
+msgstr "Nie można przetworzyć informacji o wydaniu:"
+
+#: src/adw-about-window.c:971
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "%d. wiersz, %d. znak"
+
+#: src/adw-about-window.c:1264
+msgid "Copied to clipboard"
+msgstr "Skopiowano do schowka"
+
+#: src/adw-about-window.c:1299
+msgid "Unable to save debugging information"
+msgstr "Nie można zapisać informacji debugowania"
+
+#: src/adw-about-window.c:1304
+msgid "Close"
+msgstr "Zamknij"
+
+#: src/adw-about-window.c:1322
+msgid "Save debugging information"
+msgstr "Zapis informacji debugowania"
+
+#: src/adw-about-window.c:1325
+msgid "_Save"
+msgstr "_Zapisz"
+
+#: src/adw-about-window.c:1326
+msgid "_Cancel"
+msgstr "_Anuluj"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "O programie"
+
+#: src/adw-about-window.ui:123
+msgid "_What’s New"
+msgstr "Co _nowego"
+
+#: src/adw-about-window.ui:138
+msgid "_Details"
+msgstr "_Szczegóły"
+
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+msgid "_Website"
+msgstr "Str_ona programu"
+
+#: src/adw-about-window.ui:176
+msgid "_Support Questions"
+msgstr "Pomo_c"
+
+#: src/adw-about-window.ui:192
+msgid "_Report an Issue"
+msgstr "Zgłoś _błąd"
+
+#: src/adw-about-window.ui:207
+msgid "_Troubleshooting"
+msgstr "_Rozwiązywanie problemów"
+
+#: src/adw-about-window.ui:226
+msgid "_Credits"
+msgstr "_Zasługi"
+
+#: src/adw-about-window.ui:241
+msgid "_Legal"
+msgstr "_Kwestie prawne"
+
+#: src/adw-about-window.ui:256
+msgid "_Acknowledgements"
+msgstr "_Podziękowania"
+
+#: src/adw-about-window.ui:295
+msgid "What’s New"
+msgstr "Co nowego"
+
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
+msgid "Back"
+msgstr "Wstecz"
+
+#: src/adw-about-window.ui:351
+msgid "Details"
+msgstr "Szczegóły"
+
+#: src/adw-about-window.ui:432
+msgid "Troubleshooting"
+msgstr "Rozwiązywanie problemów"
+
+#: src/adw-about-window.ui:461
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Można wyświetlić informacje debugowania, aby wspomóc rozwiązywanie "
+"problemów. Dostarczenie tych informacji programistom może pomóc im "
+"zdiagnozować zgłaszany błąd."
+
+#: src/adw-about-window.ui:472
+msgid "_Debugging Information"
+msgstr "_Informacje debugowania"
+
+#: src/adw-about-window.ui:507
+msgid "Credits"
+msgstr "Zasługi"
+
+#: src/adw-about-window.ui:554
+msgid "Legal"
+msgstr "Kwestie prawne"
+
+#: src/adw-about-window.ui:601
+msgid "Acknowledgements"
+msgstr "Podziękowania"
+
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "Informacje debugowania"
+
+#: src/adw-about-window.ui:696
+msgid "_Copy Text"
+msgstr "S_kopiuj tekst"
+
+#: src/adw-about-window.ui:703
+msgid "_Save as…"
+msgstr "_Zapisz jako…"
+
+#: src/adw-entry-row.ui:93
+msgid "Apply"
+msgstr "Zastosowuje"
+
+#: src/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "Bez preferencji"
+
+#: src/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "Preferowanie ciemnego"
+
+#: src/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "Preferowanie jasnego"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Wygląd systemowy"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Zastępuje ustawienia tego programu. Zastaną przywrócone po zamknięciu "
+"inspektora."
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "System obsługuje schematy kolorów"
+
+#: src/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Preferowany schemat kolorów"
+
+#: src/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Wysoki kontrast"
+
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "Ukrywa tekst"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "Wyświetla tekst"
+
+#: src/adw-password-entry-row.c:169
+msgid "Caps Lock is on"
+msgstr "Klawisz Caps Lock jest włączony"
+
+#: src/adw-password-entry-row.c:177
+msgid "_Show Text"
+msgstr "_Wyświetlanie tekstu"
+
+#: src/adw-preferences-window.c:242
 msgid "Untitled page"
 msgstr "Strona bez tytułu"
 
@@ -39,43 +336,6 @@ msgstr "Brak wyników"
 msgid "Try a different search."
 msgstr "Proszę spróbować innych słów."
 
-#: src/inspector/adw-inspector-page.c:76
-msgid "No Preference"
-msgstr "Bez preferencji"
-
-#: src/inspector/adw-inspector-page.c:78
-msgid "Prefer Dark"
-msgstr "Preferowanie ciemnego"
-
-#: src/inspector/adw-inspector-page.c:80
-msgid "Prefer Light"
-msgstr "Preferowanie jasnego"
-
-#. Translators: The name of the library, not the stylesheet
-#: src/inspector/adw-inspector-page.c:98
-msgid "Adwaita"
-msgstr "Adwaita"
-
-#: src/inspector/adw-inspector-page.ui:10
-msgid "System Appearance"
-msgstr "Wygląd systemowy"
-
-#: src/inspector/adw-inspector-page.ui:11
-msgid ""
-"Override settings for this application. They will be reset upon closing the "
-"inspector."
-msgstr ""
-"Zastępuje ustawienia tego programu. Zastaną przywrócone po zamknięciu "
-"inspektora."
-
-#: src/inspector/adw-inspector-page.ui:14
-msgid "System Supports Color Schemes"
-msgstr "System obsługuje schematy kolorów"
-
-#: src/inspector/adw-inspector-page.ui:26
-msgid "Preferred Color Scheme"
-msgstr "Preferowany schemat kolorów"
-
-#: src/inspector/adw-inspector-page.ui:43
-msgid "High Contrast"
-msgstr "Wysoki kontrast"
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "Zamyka kartę"
