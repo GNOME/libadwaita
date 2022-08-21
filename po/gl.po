@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-07-31 04:40+0000\n"
-"PO-Revision-Date: 2022-08-01 08:40+0200\n"
+"POT-Creation-Date: 2022-08-19 06:04+0000\n"
+"PO-Revision-Date: 2022-08-21 17:27+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
-"Language-Team: Galician <Proxecto Trasno <proxecto@trasno.gal>>\n"
+"Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -253,7 +253,6 @@ msgid "Debugging Information"
 msgstr "Información de depuración"
 
 #: src/adw-about-window.ui:696
-#| msgid "_Show Text"
 msgid "_Copy Text"
 msgstr "_Copiar texto"
 
@@ -341,3 +340,8 @@ msgstr "Non se atoparon resultados"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Probe con outra busca."
+
+#: src/adw-tab.ui:88
+#| msgid "Close"
+msgid "Close Tab"
+msgstr "Pechar lapela"
