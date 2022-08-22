@@ -1,6 +1,6 @@
 # Turkish translation for libadwaita.
 #
-# Copyright (C) 2021 libadwaita's COPYRIGHT HOLDER
+# Copyright (C) 2021-2022 libadwaita's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libadwaita package.
 #
 # Muhammet Kara <muhammetk@gmail.com>, 2021.
@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-07-10 21:59+0000\n"
+"POT-Creation-Date: 2022-08-08 09:09+0000\n"
 "PO-Revision-Date: 2022-07-16 01:19+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <gnometurk@gnome.org>\n"
@@ -86,77 +86,77 @@ msgstr "Apache Lisansı, Sürüm 2.0"
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Kamu Lisansı 2.0"
 
-#: src/adw-about-window.c:519
+#: src/adw-about-window.c:526
 msgid "Code by"
 msgstr "Kodlayan"
 
-#: src/adw-about-window.c:520
+#: src/adw-about-window.c:527
 msgid "Design by"
 msgstr "Tasarlayan"
 
-#: src/adw-about-window.c:521
+#: src/adw-about-window.c:528
 msgid "Artwork by"
 msgstr "Grafikler"
 
-#: src/adw-about-window.c:522
+#: src/adw-about-window.c:529
 msgid "Documentation by"
 msgstr "Belgelendiren"
 
-#: src/adw-about-window.c:523
+#: src/adw-about-window.c:530
 msgid "Translated by"
 msgstr "Çeviren"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:550
+#: src/adw-about-window.c:559
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a href=\"%s\">"
 "%s</a> for details."
 msgstr ""
-"Bu program kesinlikle hiçbir garanti vermiyor. Ayrıntılar için <a href=\"%s\">"
-"%s</a> bağlantısına bakın."
+"Bu program kesinlikle hiçbir garanti vermiyor. Ayrıntılar için <a href=\"%s"
+"\">%s</a> bağlantısına bakın."
 
-#: src/adw-about-window.c:628
+#: src/adw-about-window.c:637
 msgid "This Application"
 msgstr "Uygulama"
 
-#: src/adw-about-window.c:925
+#: src/adw-about-window.c:939
 #, c-format
 msgid "Version %s"
 msgstr "Sürüm %s"
 
-#: src/adw-about-window.c:951
+#: src/adw-about-window.c:965
 msgid "Unable to parse release notes:"
 msgstr "Sürüm notları ayrıştırılamadı:"
 
-#: src/adw-about-window.c:957
+#: src/adw-about-window.c:971
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Satır: %d, karakter: %d"
 
-#: src/adw-about-window.c:1227
+#: src/adw-about-window.c:1264
 msgid "Copied to clipboard"
 msgstr "Panoya kopyalandı"
 
-#: src/adw-about-window.c:1262
+#: src/adw-about-window.c:1299
 msgid "Unable to save debugging information"
 msgstr "Hata ayıklama bilgisi kaydedilemedi"
 
-#: src/adw-about-window.c:1267
+#: src/adw-about-window.c:1304
 msgid "Close"
 msgstr "Kapat"
 
-#: src/adw-about-window.c:1285
+#: src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "Hata ayıklama bilgisini kaydet"
 
-#: src/adw-about-window.c:1288
+#: src/adw-about-window.c:1325
 msgid "_Save"
 msgstr "_Kaydet"
 
-#: src/adw-about-window.c:1289
+#: src/adw-about-window.c:1326
 msgid "_Cancel"
 msgstr "İptal _Et"
 
@@ -164,96 +164,97 @@ msgstr "İptal _Et"
 msgid "About"
 msgstr "Hakkında"
 
-#: src/adw-about-window.ui:160
+#: src/adw-about-window.ui:123
 msgid "_What’s New"
 msgstr "Ye_nilikler"
 
-#: src/adw-about-window.ui:179
+#: src/adw-about-window.ui:138
 msgid "_Details"
 msgstr "_Ayrıntılar"
 
-#: src/adw-about-window.ui:201 src/adw-about-window.ui:487
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
 msgid "_Website"
 msgstr "_Web Sitesi"
 
-#: src/adw-about-window.ui:232
+#: src/adw-about-window.ui:176
 msgid "_Support Questions"
 msgstr "_Destek Soruları"
 
-#: src/adw-about-window.ui:254
+#: src/adw-about-window.ui:192
 msgid "_Report an Issue"
 msgstr "Sorun _Bildir"
 
-#: src/adw-about-window.ui:275
+#: src/adw-about-window.ui:207
 msgid "_Troubleshooting"
 msgstr "_Sorun Giderme"
 
-#: src/adw-about-window.ui:306
+#: src/adw-about-window.ui:226
 msgid "_Credits"
 msgstr "_Oluşturanlar"
 
-#: src/adw-about-window.ui:323
+#: src/adw-about-window.ui:241
 msgid "_Legal"
 msgstr "_Yasal"
 
-#: src/adw-about-window.ui:340
+#: src/adw-about-window.ui:256
 msgid "_Acknowledgements"
 msgstr "_Teşekkürler"
 
-#: src/adw-about-window.ui:381
+#: src/adw-about-window.ui:295
 msgid "What’s New"
 msgstr "Yenilikler"
 
-#: src/adw-about-window.ui:386 src/adw-about-window.ui:442
-#: src/adw-about-window.ui:531 src/adw-about-window.ui:606
-#: src/adw-about-window.ui:653 src/adw-about-window.ui:700
-#: src/adw-about-window.ui:747
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
 msgid "Back"
 msgstr "Geri"
 
-#: src/adw-about-window.ui:437
+#: src/adw-about-window.ui:351
 msgid "Details"
 msgstr "Ayrıntılar"
 
-#: src/adw-about-window.ui:526
+#: src/adw-about-window.ui:432
 msgid "Troubleshooting"
 msgstr "Sorun Giderme"
 
-#: src/adw-about-window.ui:555
+#: src/adw-about-window.ui:461
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
 "any problems you encounter when you report an issue."
 msgstr ""
-"Sorun gidermeye yardımcı olmak için hata ayıklama bilginizi görüntüleyebilirsiniz. "
-"Bu bilgiyi sorun bildirirken uygulama geliştiricilerine vermeniz durumunda "
-"sorunların saptanmasına yardımcı olursunuz."
+"Sorun gidermeye yardımcı olmak için hata ayıklama bilginizi "
+"görüntüleyebilirsiniz. Bu bilgiyi sorun bildirirken uygulama "
+"geliştiricilerine vermeniz durumunda sorunların saptanmasına yardımcı "
+"olursunuz."
 
-#: src/adw-about-window.ui:566
+#: src/adw-about-window.ui:472
 msgid "_Debugging Information"
 msgstr "_Hata Ayıklama Bilgisi"
 
-#: src/adw-about-window.ui:601
+#: src/adw-about-window.ui:507
 msgid "Credits"
 msgstr "Oluşturanlar"
 
-#: src/adw-about-window.ui:648
+#: src/adw-about-window.ui:554
 msgid "Legal"
 msgstr "Yasal"
 
-#: src/adw-about-window.ui:695
+#: src/adw-about-window.ui:601
 msgid "Acknowledgements"
 msgstr "Teşekkürler"
 
-#: src/adw-about-window.ui:742
+#: src/adw-about-window.ui:648
 msgid "Debugging Information"
 msgstr "Hata Ayıklama Bilgisi"
 
-#: src/adw-about-window.ui:790
+#: src/adw-about-window.ui:696
 msgid "_Copy Text"
 msgstr "_Metni Kopyala"
 
-#: src/adw-about-window.ui:797
+#: src/adw-about-window.ui:703
 msgid "_Save as…"
 msgstr "Farklı K_aydet"
 
@@ -336,3 +337,7 @@ msgstr "Sonuç Bulunamadı"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Başka arama deneyin."
+
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "Sekmeyi Kapat"
