@@ -2686,19 +2686,21 @@ long_pressed_cb (AdwTabBox  *self,
                  double      y,
                  GtkGesture *gesture)
 {
-  TabInfo *info = find_tab_info_at (self, x);
+  TabInfo *info;
+
+  x += gtk_adjustment_get_value (self->adjustment);
 
   gtk_gesture_set_state (self->drag_gesture, GTK_EVENT_SEQUENCE_DENIED);
+
+  info = find_tab_info_at (self, x);
 
   if (!info || !info->page) {
     gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_DENIED);
     return;
   }
 
-  x += gtk_adjustment_get_value (self->adjustment);
-
   gtk_gesture_set_state (gesture, GTK_EVENT_SEQUENCE_CLAIMED);
-  do_popup (self, self->pressed_tab, x, y);
+  do_popup (self, info, x, y);
 }
 
 static void
