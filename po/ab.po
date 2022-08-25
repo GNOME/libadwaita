@@ -3,7 +3,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2022-07-09 18:02+0000\n"
 "Last-Translator: Нанба Наала <naala-nanba@rambler.ru>\n"
-"Language-Team: Abkhazian <ab@li.org>\n"
+"Language-Team: Abkhazian <daniel.abzakh@gmail.com>\n"
 "Language: ab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,19 +12,19 @@ msgstr ""
 
 #: src/adw-about-window.c:205
 msgid "GNU General Public License, version 2 or later"
-msgstr ""
+msgstr "GNU General Public License, аверсиа 2 мамзар еиҳа ихьшәоу"
 
 #: src/adw-about-window.c:206
 msgid "GNU General Public License, version 3 or later"
-msgstr ""
+msgstr "GNU General Public License, аверсиа 3 мамзар еиҳа ихьшәоу"
 
 #: src/adw-about-window.c:207
 msgid "GNU Lesser General Public License, version 2.1 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License, аверсиа 2.1 мамзар еиҳа ихьшәоу"
 
 #: src/adw-about-window.c:208
 msgid "GNU Lesser General Public License, version 3 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License, аверсиа 3 мамзар еиҳа ихьшәоу"
 
 #: src/adw-about-window.c:209
 msgid "BSD 2-Clause License"
@@ -56,7 +56,7 @@ msgstr ""
 
 #: src/adw-about-window.c:216
 msgid "GNU Affero General Public License, version 3 or later"
-msgstr ""
+msgstr "GNU Affero General Public License, аверсиа 3 мамзар еиҳа ихьшәоу"
 
 #: src/adw-about-window.c:217
 msgid "GNU Affero General Public License, version 3 only"
@@ -68,7 +68,7 @@ msgstr "BSD 3-Clause License"
 
 #: src/adw-about-window.c:219
 msgid "Apache License, Version 2.0"
-msgstr ""
+msgstr "Apache License, Аверсиа 2.1"
 
 #: src/adw-about-window.c:220
 msgid "Mozilla Public License 2.0"
@@ -111,7 +111,7 @@ msgstr ""
 #: src/adw-about-window.c:933
 #, c-format
 msgid "Version %s"
-msgstr ""
+msgstr "Аверсиа %s"
 
 #: src/adw-about-window.c:959
 msgid "Unable to parse release notes:"
@@ -246,7 +246,7 @@ msgstr ""
 
 #: src/adw-inspector-page.c:76
 msgid "No Preference"
-msgstr "Еиӷьашьарада"
+msgstr "Аиӷьашьарақәа рыда"
 
 #: src/adw-inspector-page.c:78
 msgid "Prefer Dark"
@@ -295,7 +295,7 @@ msgstr ""
 
 #: src/adw-password-entry-row.c:169
 msgid "Caps Lock is on"
-msgstr ""
+msgstr "Caps Lock аҿакуп"
 
 #: src/adw-password-entry-row.c:177
 msgid "_Show Text"
