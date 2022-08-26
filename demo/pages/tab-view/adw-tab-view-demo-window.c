@@ -278,6 +278,8 @@ tab_change_indicator (GSimpleAction *action,
   if (indicator) {
     icon = get_indicator_icon (get_current_page (self));
     tooltip = get_indicator_tooltip (get_current_page (self));
+  } else {
+    tooltip = g_strdup ("");
   }
 
   adw_tab_page_set_indicator_icon (get_current_page (self), icon);
