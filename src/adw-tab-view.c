@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Purism SPC
+ * Copyright (C) 2020-2022 Purism SPC
  *
  * SPDX-License-Identifier: LGPL-2.1-or-later
  *
@@ -10,6 +10,7 @@
 
 #include "adw-tab-view-private.h"
 
+#include "adw-bin.h"
 #include "adw-gizmo-private.h"
 #include "adw-macros-private.h"
 #include "adw-widget-utils-private.h"
@@ -115,6 +116,7 @@ struct _AdwTabPage
 {
   GObject parent_instance;
 
+  GtkWidget *bin;
   GtkWidget *child;
   AdwTabPage *parent;
   gboolean selected;
@@ -127,6 +129,9 @@ struct _AdwTabPage
   char *indicator_tooltip;
   gboolean indicator_activatable;
   gboolean needs_attention;
+
+  GtkWidget *last_focus;
+  GBinding *transfer_binding;
 
   gboolean closing;
 };
@@ -156,7 +161,6 @@ struct _AdwTabView
 {
   GtkWidget parent_instance;
 
-  GtkWidget *stack;
   GListStore *children;
 
   int n_pages;
@@ -286,6 +290,8 @@ adw_tab_page_dispose (GObject *object)
 
   set_page_parent (self, NULL);
 
+  g_clear_object (&self->bin);
+
   G_OBJECT_CLASS (adw_tab_page_parent_class)->dispose (object);
 }
 
@@ -300,6 +306,10 @@ adw_tab_page_finalize (GObject *object)
   g_clear_object (&self->icon);
   g_clear_object (&self->indicator_icon);
   g_clear_pointer (&self->indicator_tooltip, g_free);
+
+  if (self->last_focus)
+    g_object_remove_weak_pointer (G_OBJECT (self->last_focus),
+                                  (gpointer *) &self->last_focus);
 
   G_OBJECT_CLASS (adw_tab_page_parent_class)->finalize (object);
 }
@@ -377,6 +387,7 @@ adw_tab_page_set_property (GObject      *object,
   switch (prop_id) {
   case PAGE_PROP_CHILD:
     g_set_object (&self->child, g_value_get_object (value));
+    adw_bin_set_child (ADW_BIN (self->bin), g_value_get_object (value));
     break;
 
   case PAGE_PROP_PARENT:
@@ -632,6 +643,7 @@ adw_tab_page_init (AdwTabPage *self)
   self->title = g_strdup ("");
   self->tooltip = g_strdup ("");
   self->indicator_tooltip = g_strdup ("");
+  self->bin = g_object_ref_sink (adw_bin_new ());
 }
 
 #define ADW_TYPE_TAB_PAGES (adw_tab_pages_get_type ())
@@ -813,7 +825,24 @@ page_belongs_to_this_view (AdwTabView *self,
   if (!page)
     return FALSE;
 
-  return gtk_widget_get_parent (page->child) == self->stack;
+  return gtk_widget_get_parent (page->bin) == GTK_WIDGET (self);
+}
+
+static inline gboolean
+child_belongs_to_this_view (AdwTabView *self,
+                            GtkWidget  *child)
+{
+  GtkWidget *parent;
+
+  if (!child)
+    return FALSE;
+
+  parent = gtk_widget_get_parent (child);
+
+  if (!parent)
+    return FALSE;
+
+  return gtk_widget_get_parent (parent) == GTK_WIDGET (self);
 }
 
 static inline gboolean
@@ -831,12 +860,18 @@ attach_page (AdwTabView *self,
              AdwTabPage *page,
              int         position)
 {
-  GtkWidget *child = adw_tab_page_get_child (page);
   AdwTabPage *parent;
 
   g_list_store_insert (self->children, position, page);
 
-  gtk_stack_add_child (GTK_STACK (self->stack), child);
+  gtk_widget_set_child_visible (page->bin, FALSE);
+  gtk_widget_set_parent (page->bin, GTK_WIDGET (self));
+  page->transfer_binding =
+    g_object_bind_property (self, "is-transferring-page",
+                            page->bin, "can-target",
+                            G_BINDING_SYNC_CREATE |
+                            G_BINDING_INVERT_BOOLEAN);
+  gtk_widget_queue_resize (GTK_WIDGET (self));
 
   g_object_freeze_notify (G_OBJECT (self));
 
@@ -862,13 +897,35 @@ set_selected_page (AdwTabView *self,
 {
   guint old_position = GTK_INVALID_LIST_POSITION;
   guint new_position = GTK_INVALID_LIST_POSITION;
+  gboolean contains_focus = FALSE;
 
   if (self->selected_page == selected_page)
     return;
 
   if (self->selected_page) {
+    GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
+    GtkWidget *focus = root ? gtk_root_get_focus (root) : NULL;
+
     if (notify_pages && self->pages)
       old_position = adw_tab_view_get_page_position (self, self->selected_page);
+
+    if (!gtk_widget_in_destruction (GTK_WIDGET (self)) &&
+        focus &&
+        self->selected_page &&
+        self->selected_page->bin &&
+        gtk_widget_is_ancestor (focus, self->selected_page->bin)) {
+      contains_focus = TRUE;
+
+      if (self->selected_page->last_focus)
+        g_object_remove_weak_pointer (G_OBJECT (self->selected_page->last_focus),
+                                      (gpointer *) &self->selected_page->last_focus);
+      self->selected_page->last_focus = focus;
+      g_object_add_weak_pointer (G_OBJECT (self->selected_page->last_focus),
+                                 (gpointer *) &self->selected_page->last_focus);
+    }
+
+    if (self->selected_page->bin)
+      gtk_widget_set_child_visible (self->selected_page->bin, FALSE);
 
     set_page_selected (self->selected_page, FALSE);
   }
@@ -879,8 +936,19 @@ set_selected_page (AdwTabView *self,
     if (notify_pages && self->pages)
       new_position = adw_tab_view_get_page_position (self, self->selected_page);
 
-    gtk_stack_set_visible_child (GTK_STACK (self->stack),
-                                 adw_tab_page_get_child (selected_page));
+    if (!gtk_widget_in_destruction (GTK_WIDGET (self))) {
+      gtk_widget_set_child_visible (selected_page->bin, TRUE);
+
+      if (contains_focus) {
+        if (selected_page->last_focus)
+          gtk_widget_grab_focus (selected_page->last_focus);
+        else
+          gtk_widget_child_focus (selected_page->bin, GTK_DIR_TAB_FORWARD);
+      }
+
+      gtk_widget_queue_allocate (GTK_WIDGET (self));
+    }
+
     set_page_selected (self->selected_page, TRUE);
   }
 
@@ -949,14 +1017,11 @@ detach_page (AdwTabView *self,
              gboolean    in_dispose)
 {
   int pos = adw_tab_view_get_page_position (self, page);
-  GtkWidget *child;
 
   select_previous_page (self, page);
 
-  child = adw_tab_page_get_child (page);
-
   g_object_ref (page);
-  g_object_ref (child);
+  g_object_ref (page->bin);
 
   if (self->n_pages == 1)
     set_selected_page (self, NULL, !in_dispose);
@@ -972,14 +1037,18 @@ detach_page (AdwTabView *self,
 
   g_object_thaw_notify (G_OBJECT (self));
 
-  gtk_stack_remove (GTK_STACK (self->stack), child);
+  g_clear_pointer (&page->transfer_binding, g_binding_unbind);
+  gtk_widget_unparent (page->bin);
+
+  if (!in_dispose)
+    gtk_widget_queue_resize (GTK_WIDGET (self));
 
   g_signal_emit (self, signals[SIGNAL_PAGE_DETACHED], 0, page, pos);
 
   if (!in_dispose && self->pages)
     g_list_model_items_changed (G_LIST_MODEL (self->pages), pos, 1, 0);
 
-  g_object_unref (child);
+  g_object_unref (page->bin);
   g_object_unref (page);
 }
 
@@ -1282,6 +1351,47 @@ init_shortcuts (AdwTabView         *self,
 }
 
 static void
+adw_tab_view_measure (GtkWidget      *widget,
+                      GtkOrientation  orientation,
+                      int             for_size,
+                      int            *minimum,
+                      int            *natural,
+                      int            *minimum_baseline,
+                      int            *natural_baseline)
+{
+  AdwTabView *self = ADW_TAB_VIEW (widget);
+  int i;
+
+  *minimum = 0;
+  *natural = 0;
+
+  for (i = 0; i < self->n_pages; i++) {
+    AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
+    int child_min, child_nat;
+
+    gtk_widget_measure (page->bin, orientation, for_size,
+                        &child_min, &child_nat, NULL, NULL);
+
+    *minimum = MAX (*minimum, child_min);
+    *natural = MAX (*natural, child_nat);
+  }
+}
+
+static void
+adw_tab_view_size_allocate (GtkWidget *widget,
+                            int        width,
+                            int        height,
+                            int        baseline)
+{
+  AdwTabView *self = ADW_TAB_VIEW (widget);
+
+  if (!self->selected_page)
+    return;
+
+  gtk_widget_allocate (self->selected_page->bin, width, height, baseline, NULL);
+}
+
+static void
 adw_tab_view_dispose (GObject *object)
 {
   AdwTabView *self = ADW_TAB_VIEW (object);
@@ -1296,8 +1406,6 @@ adw_tab_view_dispose (GObject *object)
   }
 
   g_clear_object (&self->children);
-
-  g_clear_pointer (&self->stack, gtk_widget_unparent);
 
   G_OBJECT_CLASS (adw_tab_view_parent_class)->dispose (object);
 }
@@ -1406,6 +1514,9 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
   object_class->get_property = adw_tab_view_get_property;
   object_class->set_property = adw_tab_view_set_property;
 
+  widget_class->measure = adw_tab_view_measure;
+  widget_class->size_allocate = adw_tab_view_size_allocate;
+  widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
 
   /**
@@ -1731,7 +1842,7 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                                    G_CALLBACK (close_page_cb));
 
   gtk_widget_class_set_css_name (widget_class, "tabview");
-  gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
+  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_GROUP);
 }
 
 static void
@@ -1742,14 +1853,6 @@ adw_tab_view_init (AdwTabView *self)
   self->children = g_list_store_new (ADW_TYPE_TAB_PAGE);
   self->default_icon = G_ICON (g_themed_icon_new ("adw-tab-icon-missing-symbolic"));
   self->shortcuts = ADW_TAB_VIEW_SHORTCUT_ALL_SHORTCUTS;
-
-  self->stack = gtk_stack_new ();
-  gtk_widget_show (self->stack);
-  gtk_widget_set_parent (self->stack, GTK_WIDGET (self));
-
-  g_object_bind_property (self, "is-transferring-page",
-                          self->stack, "can-target",
-                          G_BINDING_INVERT_BOOLEAN);
 
   tab_view_list = g_slist_prepend (tab_view_list, self);
 
@@ -2779,7 +2882,7 @@ adw_tab_view_get_page (AdwTabView *self,
 
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
-  g_return_val_if_fail (gtk_widget_get_parent (child) == self->stack, NULL);
+  g_return_val_if_fail (child_belongs_to_this_view (self, child), NULL);
 
   for (i = 0; i < self->n_pages; i++) {
     AdwTabPage *page = adw_tab_view_get_nth_page (self, i);
