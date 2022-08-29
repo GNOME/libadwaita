@@ -946,7 +946,7 @@ select_previous_page (AdwTabView *self,
 static void
 detach_page (AdwTabView *self,
              AdwTabPage *page,
-             gboolean    notify_pages)
+             gboolean    in_dispose)
 {
   int pos = adw_tab_view_get_page_position (self, page);
   GtkWidget *child;
@@ -959,7 +959,7 @@ detach_page (AdwTabView *self,
   g_object_ref (child);
 
   if (self->n_pages == 1)
-    set_selected_page (self, NULL, notify_pages);
+    set_selected_page (self, NULL, !in_dispose);
 
   g_list_store_remove (self->children, pos);
 
@@ -976,7 +976,7 @@ detach_page (AdwTabView *self,
 
   g_signal_emit (self, signals[SIGNAL_PAGE_DETACHED], 0, page, pos);
 
-  if (notify_pages && self->pages)
+  if (!in_dispose && self->pages)
     g_list_model_items_changed (G_LIST_MODEL (self->pages), pos, 1, 0);
 
   g_object_unref (child);
@@ -1292,7 +1292,7 @@ adw_tab_view_dispose (GObject *object)
   while (self->n_pages) {
     AdwTabPage *page = adw_tab_view_get_nth_page (self, 0);
 
-    detach_page (self, page, FALSE);
+    detach_page (self, page, TRUE);
   }
 
   g_clear_object (&self->children);
@@ -3121,7 +3121,7 @@ adw_tab_view_close_page_finish (AdwTabView *self,
   page->closing = FALSE;
 
   if (confirm)
-    detach_page (self, page, TRUE);
+    detach_page (self, page, FALSE);
 }
 
 /**
@@ -3401,7 +3401,7 @@ adw_tab_view_detach_page (AdwTabView *self,
 
   begin_transfer_for_group (self);
 
-  detach_page (self, page, TRUE);
+  detach_page (self, page, FALSE);
 }
 
 void
