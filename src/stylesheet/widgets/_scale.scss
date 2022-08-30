@@ -210,7 +210,6 @@ scale {
 
   &.color {
     padding: 0;
-    @include focus-ring("> trough", $offset: 1px);
 
     > trough {
       border: none;
@@ -219,7 +218,7 @@ scale {
 
       > slider {
         margin: 0;
-        opacity: .8;
+        background-color: transparentize(white, .2);
       }
     }
 
