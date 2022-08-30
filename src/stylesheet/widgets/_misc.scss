@@ -214,7 +214,7 @@ statuspage {
   }
 
   &.activatable {
-    transition: $button_transition;
+    transition: $focus_transition, $button_transition;
 
     &:hover {
       background-image: image(gtkalpha(currentColor, .03));

@@ -1,7 +1,6 @@
 checkbutton {
   border-spacing: 4px;
   border-radius: $button_radius + 3px;
-  transition: $focus_transition;
   padding: 3px;
 
   @include focus-ring();

@@ -43,7 +43,6 @@ scale {
       box-shadow: 0 0 0 1px $_slider_border_color, 0 2px 4px transparentize(black, .8);
 
       border-radius: 100%;
-      transition: $focus_transition;
 
       // the slider is inside the trough, so to have make it bigger there's a negative margin
       min-width: 20px;

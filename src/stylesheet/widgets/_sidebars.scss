@@ -26,7 +26,6 @@
 
 stacksidebar row {
   padding: 10px 4px;
-  @include focus-ring();
 
   > label {
     padding-left: 6px;

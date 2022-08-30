@@ -1,3 +1,6 @@
+$row_transition: background-color 200ms $ease-out-quad,
+                 border-radius 200ms $ease-out-quad;
+
 listview,
 list {
   color: $view_fg_color;
@@ -125,7 +128,7 @@ row {
  ***************/
 
 row.entry {
-  @include focus-ring($focus-state: '.focused', $offset: -1px);
+  @include focus-ring($focus-state: '.focused', $offset: -1px, $transition: $row_transition);
 
   &:not(:selected).activatable.focused:hover,
   &:not(:selected).activatable.focused:active {
@@ -158,7 +161,7 @@ row.entry {
                              (warning, $warning_color),
                              (success, $success_color) {
     &.#{$e_type} {
-      @include focus-ring($focus-state: '.focused', $offset: -1px, $fc: gtkalpha(currentColor, $focus_border_opacity));
+      @include focus-ring($focus-state: '.focused', $offset: -1px, $fc: gtkalpha(currentColor, $focus_border_opacity), $transition: $row_transition);
 
       text {
         > selection:focus-within { background-color: gtkalpha($e_color, .2); }
@@ -210,15 +213,12 @@ row.combo {
 }
 
 %boxed_list_row {
-  @include focus-ring($offset: -1px);
+  @include focus-ring($offset: -1px, $transition: $row_transition);
 
   .osd &:focus:focus-visible {
     outline-color: $osd_focus_color;
   }
 
-  transition: $focus_transition,
-              background-color 200ms $ease-out-quad,
-              border-radius 200ms $ease-out-quad;
   border-bottom: 1px solid if($contrast == 'high', $border_color, $card_shade_color);
 
   &:not(:selected).activatable {

@@ -13,7 +13,6 @@ expander-widget {
   @include focus-ring("> box > title");
 
   > box > title {
-    transition: $focus_transition;
     border-radius: $button_radius;
 
     > expander {

@@ -3,8 +3,6 @@ switch {
   border-radius: 14px;
   padding: 2px;
 
-  transition: $focus_transition;
-
   background-color: $trough_color;
 
   &:hover { background-color: $trough_hover_color; }

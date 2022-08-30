@@ -3,7 +3,7 @@ $backdrop_transition: 200ms ease-out;
 $focus_transition: outline-color 200ms $ease-out-quad,
                    outline-width 200ms $ease-out-quad,
                    outline-offset 200ms $ease-out-quad;
-$button_transition: $focus_transition, background 200ms $ease-out-quad;
+$button_transition: background 200ms $ease-out-quad;
 $button_radius: 6px;
 $card_radius: $button_radius + 6;
 $menu_radius: 6px;
