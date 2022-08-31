@@ -13,7 +13,6 @@ test_adw_property_animation_target_construct (void)
   AdwPropertyAnimationTarget *named_target, *pspec_target;
   GParamSpec *target_pspec;
 
-  g_print ("1\n");
   named_target =
     ADW_PROPERTY_ANIMATION_TARGET (adw_property_animation_target_new (widget, "opacity"));
 
@@ -21,7 +20,6 @@ test_adw_property_animation_target_construct (void)
   g_assert_nonnull (target_pspec);
   g_assert_cmpstr (target_pspec->name, ==, "opacity");
 
-  g_print ("2\n");
   pspec_target =
     ADW_PROPERTY_ANIMATION_TARGET (adw_property_animation_target_new_for_pspec (widget, target_pspec));
 
