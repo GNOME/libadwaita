@@ -510,8 +510,12 @@ adw_message_dialog_measure (GtkWidget      *widget,
 
     min_size = MAX (min_size, DIALOG_MIN_WIDTH);
 
-    max_size = priv->parent_width - DIALOG_MARGIN * 2;
-    max_size = MIN (max_size, DIALOG_MAX_WIDTH);
+    if (priv->parent_window) {
+      max_size = priv->parent_width - DIALOG_MARGIN * 2;
+      max_size = MIN (max_size, DIALOG_MAX_WIDTH);
+    } else {
+      max_size = DIALOG_MAX_WIDTH;
+    }
 
     gtk_widget_measure (GTK_WIDGET (priv->wide_response_box),
                         GTK_ORIENTATION_HORIZONTAL, -1,
