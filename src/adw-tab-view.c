@@ -612,7 +612,7 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
    *
    * Whether the page needs attention.
    *
-   * [class@TabBar] will display a glow under the tab representing the page if
+   * [class@TabBar] will display a line under the tab representing the page if
    * set to `TRUE`. If the tab is not visible, the corresponding edge of the tab
    * bar will be highlighted.
    *
@@ -2227,7 +2227,7 @@ adw_tab_page_get_needs_attention (AdwTabPage *self)
  *
  * Sets whether @self needs attention.
  *
- * [class@TabBar] will display a glow under the tab representing the page if
+ * [class@TabBar] will display a line under the tab representing the page if
  * set to `TRUE`. If the tab is not visible, the corresponding edge of the tab
  * bar will be highlighted.
  *
