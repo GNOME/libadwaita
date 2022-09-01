@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-02-07 11:18+0000\n"
-"PO-Revision-Date: 2022-02-27 16:08+0100\n"
+"POT-Creation-Date: 2022-08-01 14:50+0000\n"
+"PO-Revision-Date: 2022-09-01 18:24+0200\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -18,6 +18,246 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
+
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU General Public License, version 2 eller senere"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU General Public License, version 3 eller senere"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU Lesser General Public License, version 2.1 eller senere"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU Lesser General Public License, version 3 eller senere"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "BSD 2-klausullicens"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "MIT-licensen (MIT)"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Artistic License 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU General Public License, kun version 2"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU General Public License, kun version 3"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU Lesser General Public License, kun version 2.1"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU Lesser General Public License, kun version 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero General Public License, version 3 eller senere"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero General Public License, kun version 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "BSD 3-klausullicens"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Apache-licens, version 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla Public License 2.0"
+
+#: src/adw-about-window.c:526
+msgid "Code by"
+msgstr "Kode af"
+
+#: src/adw-about-window.c:527
+msgid "Design by"
+msgstr "Design af"
+
+#: src/adw-about-window.c:528
+msgid "Artwork by"
+msgstr "Grafik af"
+
+#: src/adw-about-window.c:529
+msgid "Documentation by"
+msgstr "Dokumentation af"
+
+#: src/adw-about-window.c:530
+msgid "Translated by"
+msgstr "Oversat af"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:559
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
+msgstr ""
+"Med dette program følger absolut ingen garanti. Detaljer kan findes på <a "
+"href=\"%s\">%s</a>."
+
+#: src/adw-about-window.c:637
+msgid "This Application"
+msgstr "Dette program"
+
+#: src/adw-about-window.c:939
+#, c-format
+msgid "Version %s"
+msgstr "Version %s"
+
+#: src/adw-about-window.c:965
+msgid "Unable to parse release notes:"
+msgstr "Kan ikke fortolke udgivelsesnoter:"
+
+#: src/adw-about-window.c:971
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Linje: %d, tegn: %d"
+
+#: src/adw-about-window.c:1264
+msgid "Copied to clipboard"
+msgstr "Kopieret til udklipsholderen"
+
+#: src/adw-about-window.c:1299
+msgid "Unable to save debugging information"
+msgstr "Kan ikke gemme fejlsøgningsinformation"
+
+#: src/adw-about-window.c:1304
+msgid "Close"
+msgstr "Luk"
+
+#: src/adw-about-window.c:1322
+msgid "Save debugging information"
+msgstr "Gem fejlsøgningsinformation"
+
+#: src/adw-about-window.c:1325
+msgid "_Save"
+msgstr "_Gem"
+
+#: src/adw-about-window.c:1326
+msgid "_Cancel"
+msgstr "_Annullér"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Om"
+
+#: src/adw-about-window.ui:123
+msgid "_What’s New"
+msgstr "_Nyheder"
+
+#: src/adw-about-window.ui:138
+msgid "_Details"
+msgstr "_Detaljer"
+
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+msgid "_Website"
+msgstr "_Websted"
+
+#: src/adw-about-window.ui:176
+msgid "_Support Questions"
+msgstr "_Supportspørgsmål"
+
+#: src/adw-about-window.ui:192
+msgid "_Report an Issue"
+msgstr "_Rapportér et problem"
+
+#: src/adw-about-window.ui:207
+msgid "_Troubleshooting"
+msgstr "_Fejlfinding"
+
+#: src/adw-about-window.ui:226
+msgid "_Credits"
+msgstr "_Bidragydere"
+
+#: src/adw-about-window.ui:241
+msgid "_Legal"
+msgstr "_Juridisk"
+
+#: src/adw-about-window.ui:256
+msgid "_Acknowledgements"
+msgstr "_Taksigelser"
+
+#: src/adw-about-window.ui:295
+msgid "What’s New"
+msgstr "Nyheder"
+
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
+msgid "Back"
+msgstr "Tilbage"
+
+#: src/adw-about-window.ui:351
+msgid "Details"
+msgstr "Detaljer"
+
+#: src/adw-about-window.ui:432
+msgid "Troubleshooting"
+msgstr "Fejlfinding"
+
+#: src/adw-about-window.ui:461
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"For at hjælpe med fejlfinding kan du se dine fejlfindingsoplysninger. Hvis "
+"du giver disse oplysninger til programudviklerne, når du rapporterer en "
+"fejl, kan det hjælpe med at diagnosticere eventuelle problemer, du støder "
+"på."
+
+#: src/adw-about-window.ui:472
+msgid "_Debugging Information"
+msgstr "_Fejlsøgningsinformation"
+
+#: src/adw-about-window.ui:507
+msgid "Credits"
+msgstr "Bidragydere"
+
+#: src/adw-about-window.ui:554
+msgid "Legal"
+msgstr "Juridisk"
+
+#: src/adw-about-window.ui:601
+msgid "Acknowledgements"
+msgstr "Taksigelser"
+
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "Fejlsøgningsinformation"
+
+#: src/adw-about-window.ui:696
+msgid "_Copy Text"
+msgstr "_Kopiér tekst"
+
+#: src/adw-about-window.ui:703
+msgid "_Save as…"
+msgstr "_Gem som …"
+
+#: src/adw-entry-row.ui:93
+msgid "Apply"
+msgstr "Anvend"
 
 #: src/adw-inspector-page.c:76
 msgid "No Preference"
@@ -60,7 +300,23 @@ msgstr "Foretrukket farveskema"
 msgid "High Contrast"
 msgstr "Høj kontrast"
 
-#: src/adw-preferences-window.c:217
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "Skjul tekst"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "Vis tekst"
+
+#: src/adw-password-entry-row.c:169
+msgid "Caps Lock is on"
+msgstr "Caps Lock er slået til"
+
+#: src/adw-password-entry-row.c:177
+msgid "_Show Text"
+msgstr "_Vis tekst"
+
+#: src/adw-preferences-window.c:242
 msgid "Untitled page"
 msgstr "Unavngivet side"
 
@@ -79,3 +335,7 @@ msgstr "Ingen resultater fundet"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Prøv en anden søgning."
+
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "Luk faneblad"
