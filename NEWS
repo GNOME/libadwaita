@@ -1,3 +1,49 @@
+==============
+Version 1.2.rc
+==============
+
+- Ensure setter documentation is consistent with their properties
+- Demo
+  - Fix a critical when toggling tab indicators
+- AdwCarousel
+  - Fix a crash when removing a child while it's animating
+- AdwMessageDialog
+  - Use maximum width when no parent is set, instead of minimum
+- AdwSqueezer
+  - Sizing fixes
+- AdwTabBar
+  - Fix long press handling
+  - Fix a crash when clicking empty space while a tab is animating
+- AdwTabView
+  - Fix set_menu_model() input check
+- AdwWindow
+  - Clarify docs around child/content properties
+- Stylesheet
+  - Fix AdwSplitButton disabled state
+  - Fix focus transitions
+  - Fix GtkColorScale slider
+  - Fix AdwViewSwitcher needs-attention dot color
+- Translation updates
+  - Abkhazian
+  - Basque
+  - Brazilian Portuguese
+  - Catalan
+  - Chinese (China)
+  - Croatian
+  - Danish
+  - Dutch
+  - Finnish
+  - Galician
+  - Georgian
+  - Indonesian
+  - Korean
+  - Persian
+  - Polish
+  - Serbian
+  - Spanish
+  - Swedish
+  - Turkish
+
 ================
 Version 1.2.beta
 ================
