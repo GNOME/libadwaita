@@ -1,8 +1,9 @@
-FROM fedora:36
+FROM fedora:latest
 
 RUN dnf -y update \
  && dnf -y install \
     "dnf-command(builddep)" \
+    expat-devel \
     git \
     libabigail \
     libjpeg-turbo-devel \
