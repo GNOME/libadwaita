@@ -1,4 +1,18 @@
 =============
+Version 1.1.5
+=============
+
+- AdwCarousel
+  - Fix a crash when removing a child while it's animating
+- AdwSqueezer
+  - Sizing fixes
+- AdwTabBar
+  - Fix long press handling
+  - Fix a crash when clicking empty space while a tab is animating
+- AdwTabView
+  - Fix set_menu_model() input check
+
+=============
 Version 1.1.4
 =============
 

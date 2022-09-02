@@ -1,5 +1,5 @@
 project('libadwaita', 'c',
-          version: '1.1.4',
+          version: '1.1.5',
           license: 'LGPL-2.1-or-later',
     meson_version: '>= 0.59.0',
   default_options: [ 'warning_level=1', 'buildtype=debugoptimized', 'c_std=gnu11' ],
@@ -29,7 +29,7 @@ package_api_name = '@0@-@1@'.format(meson.project_name(), apiversion)
 # to 0. When bumping the second version, set the third one to zero.
 #
 # A lot easier than libtool, right?
-libversion = '0.1.6'
+libversion = '0.1.7'
 # The so major version of the library
 soversion = 0
 
