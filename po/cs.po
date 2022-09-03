@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-12-06 17:25+0000\n"
-"PO-Revision-Date: 2022-02-16 10:02+0100\n"
+"POT-Creation-Date: 2022-08-05 19:13+0000\n"
+"PO-Revision-Date: 2022-09-03 10:09+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -19,7 +19,303 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
 "X-Generator: Gtranslator 3.38.0\n"
 
-#: src/adw-preferences-window.c:212
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU General Public License, verze 2 nebo novější"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU General Public License, verze 3 nebo novější"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU Lesser General Public License, verze 2.1 nebo novější"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU Lesser General Public License, verze 3 nebo novější"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "BSD 2-Clause License"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "The MIT License (MIT)"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Artistic License 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU General Public License, výhradně verze 2"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU General Public License, výhradně verze 3"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU Lesser General Public License, výhradně verze 2.1"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU Lesser General Public License, výhradně verze 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero General Public License, verze 3 nebo novější"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero General Public License, výhradně verze 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "BSD 3-Clause License"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Apache License, verze 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla Public License 2.0"
+
+#: src/adw-about-window.c:526
+msgid "Code by"
+msgstr "Naprogramovali"
+
+#: src/adw-about-window.c:527
+msgid "Design by"
+msgstr "Navrhli"
+
+#: src/adw-about-window.c:528
+msgid "Artwork by"
+msgstr "Ztvárnili"
+
+#: src/adw-about-window.c:529
+msgid "Documentation by"
+msgstr "Zdokumentovali"
+
+#: src/adw-about-window.c:530
+msgid "Translated by"
+msgstr "Přeložili"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:559
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
+msgstr ""
+"Tato aplikace je šířena bez jakýchkoliv záruk. Podrobnosti viz <a href=\"%s\">"
+"%s</a>."
+
+#: src/adw-about-window.c:637
+msgid "This Application"
+msgstr "Tato aplikace"
+
+#: src/adw-about-window.c:939
+#, c-format
+msgid "Version %s"
+msgstr "Verze %s"
+
+#: src/adw-about-window.c:965
+msgid "Unable to parse release notes:"
+msgstr "Nezdařilo se zpracovat poznámky k vydání:"
+
+#: src/adw-about-window.c:971
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "řádek: %d, znak: %d"
+
+#: src/adw-about-window.c:1264
+msgid "Copied to clipboard"
+msgstr "Zkopírováno do schránky"
+
+#: src/adw-about-window.c:1299
+msgid "Unable to save debugging information"
+msgstr "Nezdařilo se uložit ladicí informace"
+
+#: src/adw-about-window.c:1304
+msgid "Close"
+msgstr "Zavřít"
+
+#: src/adw-about-window.c:1322
+msgid "Save debugging information"
+msgstr "Uložení ladicích informací"
+
+#: src/adw-about-window.c:1325
+msgid "_Save"
+msgstr "_Uložit"
+
+#: src/adw-about-window.c:1326
+msgid "_Cancel"
+msgstr "_Zrušit"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "O aplikaci"
+
+#: src/adw-about-window.ui:123
+msgid "_What’s New"
+msgstr "_Co je nového"
+
+#: src/adw-about-window.ui:138
+msgid "_Details"
+msgstr "Po_drobnosti"
+
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+msgid "_Website"
+msgstr "_Webové stránky"
+
+#: src/adw-about-window.ui:176
+msgid "_Support Questions"
+msgstr "_Dotazy na podporu"
+
+#: src/adw-about-window.ui:192
+msgid "_Report an Issue"
+msgstr "Nahlásit p_roblém"
+
+#: src/adw-about-window.ui:207
+msgid "_Troubleshooting"
+msgstr "Řešení pro_blémů"
+
+#: src/adw-about-window.ui:226
+msgid "_Credits"
+msgstr "Zá_sluhy"
+
+#: src/adw-about-window.ui:241
+msgid "_Legal"
+msgstr "_Právní ustanovení"
+
+#: src/adw-about-window.ui:256
+msgid "_Acknowledgements"
+msgstr "_Poděkování"
+
+#: src/adw-about-window.ui:295
+msgid "What’s New"
+msgstr "Co je nového"
+
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
+msgid "Back"
+msgstr "Zpět"
+
+#: src/adw-about-window.ui:351
+msgid "Details"
+msgstr "Podrobnosti"
+
+#: src/adw-about-window.ui:432
+msgid "Troubleshooting"
+msgstr "Řešení problémů"
+
+#: src/adw-about-window.ui:461
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Při řešení problémů můžete si zobrazit ladicí informace. Poskytnutí těchto "
+"informací vývojářům aplikace může výrazně pomoci odhalit příčiny problémů, na "
+"které jste narazili a nahlásili je."
+
+#: src/adw-about-window.ui:472
+msgid "_Debugging Information"
+msgstr "La_dicí informace"
+
+#: src/adw-about-window.ui:507
+msgid "Credits"
+msgstr "Zásluhy"
+
+#: src/adw-about-window.ui:554
+msgid "Legal"
+msgstr "Právní ustanovení"
+
+#: src/adw-about-window.ui:601
+msgid "Acknowledgements"
+msgstr "Poděkování"
+
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "Ladicí informace"
+
+#: src/adw-about-window.ui:696
+msgid "_Copy Text"
+msgstr "Z_kopírovat text"
+
+#: src/adw-about-window.ui:703
+msgid "_Save as…"
+msgstr "_Uložit jako…"
+
+#: src/adw-entry-row.ui:93
+msgid "Apply"
+msgstr "Použít"
+
+#: src/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "žádné preference"
+
+#: src/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "upřednostnit tmavé"
+
+#: src/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "upřednostnit světlé"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Vzhled systému"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Přepsat nastavení pro tuto aplikaci. Po zavření inspektora bude uvedeno do "
+"původního stavu."
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Systém podporuje schémata barev"
+
+#: src/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Upřednostňované schéma barev"
+
+#: src/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Vysoký kontrast"
+
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "Skrýt text"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "Zobrazit text"
+
+#: src/adw-password-entry-row.c:169
+msgid "Caps Lock is on"
+msgstr "Je zapnutý Caps Lock"
+
+#: src/adw-password-entry-row.c:177
+msgid "_Show Text"
+msgstr "_Zobrazit text"
+
+#: src/adw-preferences-window.c:242
 msgid "Untitled page"
 msgstr "Stránka bez názvu"
 
@@ -39,43 +335,6 @@ msgstr "Nic nenalezeno"
 msgid "Try a different search."
 msgstr "Zkuste hledat něco jiného."
 
-#: src/inspector/adw-inspector-page.c:76
-msgid "No Preference"
-msgstr "žádné preference"
-
-#: src/inspector/adw-inspector-page.c:78
-msgid "Prefer Dark"
-msgstr "upřednostnit tmavé"
-
-#: src/inspector/adw-inspector-page.c:80
-msgid "Prefer Light"
-msgstr "upřednostnit světlé"
-
-#. Translators: The name of the library, not the stylesheet
-#: src/inspector/adw-inspector-page.c:98
-msgid "Adwaita"
-msgstr "Adwaita"
-
-#: src/inspector/adw-inspector-page.ui:10
-msgid "System Appearance"
-msgstr "Vzhled systému"
-
-#: src/inspector/adw-inspector-page.ui:11
-msgid ""
-"Override settings for this application. They will be reset upon closing the "
-"inspector."
-msgstr ""
-"Přepsat nastavení pro tuto aplikaci. Po zavření inspektora bude uvedeno do "
-"původního stavu."
-
-#: src/inspector/adw-inspector-page.ui:14
-msgid "System Supports Color Schemes"
-msgstr "Systém podporuje schémata barev"
-
-#: src/inspector/adw-inspector-page.ui:26
-msgid "Preferred Color Scheme"
-msgstr "Upřednostňované schéma barev"
-
-#: src/inspector/adw-inspector-page.ui:43
-msgid "High Contrast"
-msgstr "Vysoký kontrast"
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "Zavřít kartu"
