@@ -19,6 +19,7 @@
             </child>
             <child type="end">
               <object class="GtkButton">
+                <property name="visible" bind-source="AdwTabViewDemoWindow" bind-property="narrow" bind-flags="invert-boolean"/>
                 <property name="action-name">win.tab-new</property>
                 <property name="icon-name">tab-new-symbolic</property>
               </object>
@@ -27,6 +28,7 @@
         </child>
         <child>
           <object class="AdwTabBar" id="tab_bar">
+            <property name="visible" bind-source="AdwTabViewDemoWindow" bind-property="narrow" bind-flags="invert-boolean"/>
             <property name="view">view</property>
             <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
           </object>

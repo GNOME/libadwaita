@@ -11,9 +11,18 @@ struct _AdwTabViewDemoWindow
   GActionMap *tab_action_group;
 
   AdwTabPage *menu_page;
+  gboolean narrow;
 };
 
 G_DEFINE_TYPE (AdwTabViewDemoWindow, adw_tab_view_demo_window, ADW_TYPE_WINDOW)
+
+enum {
+  PROP_0,
+  PROP_NARROW,
+  LAST_PROP,
+};
+
+static GParamSpec *props[LAST_PROP];
 
 char **icon_names = NULL;
 gsize n_icon_names = 0;
@@ -498,6 +507,26 @@ extra_drag_drop_cb (AdwTabViewDemoWindow *self,
 }
 
 static void
+adw_tab_view_demo_window_size_allocate (GtkWidget *widget,
+                                        int        width,
+                                        int        height,
+                                        int        baseline)
+{
+  AdwTabViewDemoWindow *self = ADW_TAB_VIEW_DEMO_WINDOW (widget);
+  gboolean narrow = width < 600;
+
+  if (self->narrow != narrow) {
+    self->narrow = narrow;
+    g_object_notify_by_pspec (G_OBJECT (self), props[PROP_NARROW]);
+  }
+
+  GTK_WIDGET_CLASS (adw_tab_view_demo_window_parent_class)->size_allocate (widget,
+                                                                           width,
+                                                                           height,
+                                                                           baseline);
+}
+
+static void
 adw_tab_view_demo_window_dispose (GObject *object)
 {
   AdwTabViewDemoWindow *self = ADW_TAB_VIEW_DEMO_WINDOW (object);
@@ -508,12 +537,39 @@ adw_tab_view_demo_window_dispose (GObject *object)
 }
 
 static void
+adw_tab_view_demo_window_get_property (GObject    *object,
+                                       guint       prop_id,
+                                       GValue     *value,
+                                       GParamSpec *pspec)
+{
+  AdwTabViewDemoWindow *self = ADW_TAB_VIEW_DEMO_WINDOW (object);
+
+  switch (prop_id) {
+  case PROP_NARROW:
+    g_value_set_boolean (value, self->narrow);
+    break;
+  default:
+    G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+  }
+}
+
+static void
 adw_tab_view_demo_window_class_init (AdwTabViewDemoWindowClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
   object_class->dispose = adw_tab_view_demo_window_dispose;
+  object_class->get_property = adw_tab_view_demo_window_get_property;
+
+  widget_class->size_allocate = adw_tab_view_demo_window_size_allocate;
+
+  props[PROP_NARROW] =
+    g_param_spec_boolean ("narrow", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/pages/tab-view/adw-tab-view-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwTabViewDemoWindow, view);
