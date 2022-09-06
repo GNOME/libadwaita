@@ -2025,7 +2025,7 @@ adw_tab_page_get_loading (AdwTabPage *self)
  * @self: a tab page
  * @loading: whether @self is loading
  *
- * Sets wether @self is loading.
+ * Sets whether @self is loading.
  *
  * If set to `TRUE`, [class@TabBar] will display a spinner in place of icon.
  *
