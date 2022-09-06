@@ -8,10 +8,14 @@ struct _AdwTabViewDemoPage
 
   char *title;
   GIcon *icon;
+  int color;
+
   GIcon *last_icon;
 };
 
 G_DEFINE_TYPE (AdwTabViewDemoPage, adw_tab_view_demo_page, ADW_TYPE_BIN)
+
+#define N_COLORS 8
 
 enum {
   PROP_0,
@@ -47,6 +51,38 @@ get_random_icon (void)
   index = g_random_int_range (0, n_icon_names);
 
   return g_themed_icon_new (icon_names[index]);
+}
+
+static int
+get_random_color (void)
+{
+  return g_random_int_range (0, N_COLORS) + 1;
+}
+
+static void
+set_color (AdwTabViewDemoPage *self,
+           int                 color)
+{
+  if (self->color == color)
+    return;
+
+  if (self->color > 0) {
+    char *klass = g_strdup_printf ("tab-page-color-%d", self->color);
+
+    gtk_widget_remove_css_class (GTK_WIDGET (self), klass);
+
+    g_free (klass);
+  }
+
+  if (color > 0) {
+    char *klass = g_strdup_printf ("tab-page-color-%d", color);
+
+    gtk_widget_add_css_class (GTK_WIDGET (self), klass);
+
+    g_free (klass);
+  }
+
+  self->color = color;
 }
 
 static void
@@ -132,6 +168,8 @@ static void
 adw_tab_view_demo_page_init (AdwTabViewDemoPage *self)
 {
   self->icon = get_random_icon ();
+
+  set_color (self, get_random_color ());
 
   gtk_widget_init_template (GTK_WIDGET (self));
 }
