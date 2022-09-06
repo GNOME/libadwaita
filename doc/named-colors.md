@@ -370,7 +370,7 @@ it's an alias of [<code>&#64;window_bg_color</code>](#window-colors) and changes
 together with it. When overriding header bar colors, make sure to set it to a
 value matching your <code>&#64;headerbar_bg_color</code>.
 
-<code>&#64;headerbar_shade_color</code> is used by to provide a dark border for
+<code>&#64;headerbar_shade_color</code> is used to provide a dark border for
 header bars and similar widgets. This color should always be partially
 transparent black.
 
@@ -410,10 +410,10 @@ These colors are used for
   </tr>
 </table>
 
-The card styles use a shadow to separate the card from the window background.
-<code>&#64;card_shade_color</code> is used by this shadow. This color should
-always be partially transparent black, with the opacity tuned to be well visible
-on top of [<code>&#64;window_bg_color</code>](#window-colors).
+<code>&#64;card_shade_color</code> is used to provide separators between
+boxed list rows and similar widgets. This color should always be partially
+transparent black, with the opacity tuned to be well visible on top of
+<code>&#64;card_bg_color</code>.
 
 ### Dialog Colors
 
