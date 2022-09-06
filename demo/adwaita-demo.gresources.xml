@@ -59,6 +59,7 @@
     <file preprocess="xml-stripblanks">pages/styles/adw-demo-page-styles.ui</file>
     <file preprocess="xml-stripblanks">pages/styles/adw-style-demo-window.ui</file>
     <file preprocess="xml-stripblanks">pages/tab-view/adw-demo-page-tab-view.ui</file>
+    <file preprocess="xml-stripblanks">pages/tab-view/adw-tab-view-demo-page.ui</file>
     <file preprocess="xml-stripblanks">pages/tab-view/adw-tab-view-demo-window.ui</file>
     <file preprocess="xml-stripblanks">pages/toasts/adw-demo-page-toasts.ui</file>
     <file preprocess="xml-stripblanks">pages/view-switcher/adw-demo-page-view-switcher.ui</file>
