@@ -91,7 +91,7 @@
  *   <property name="body" translatable="yes">Open documents contain unsaved changes. Changes which are not saved will be permanently lost.</property>
  *   <property name="default-response">save</property>
  *   <property name="close-response">cancel</property>
- *   <signal name="response" handler="response_id"/>
+ *   <signal name="response" handler="response_cb"/>
  *   <responses>
  *     <response id="cancel" translatable="yes">_Cancel</response>
  *     <response id="discard" translatable="yes" appearance="destructive">_Discard</response>
