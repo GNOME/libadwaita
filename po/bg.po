@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libadwaita master\n"
+"Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-03-12 15:03+0000\n"
-"PO-Revision-Date: 2022-03-12 16:06+0100\n"
+"POT-Creation-Date: 2022-09-09 20:15+0000\n"
+"PO-Revision-Date: 2022-09-14 14:53+0200\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -16,6 +16,245 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "Общ публичен лиценз на GNU (GNU GPL), версия 2 или по-нова"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "Общ публичен лиценз на GNU (GNU GPL), версия 3 или по-нова"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "По-малък общ публичен лиценз на GNU (GNU LGPL), версия 2.1 или по-нова"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "По-малък общ публичен лиценз на GNU (GNU LGPL), версия 3 или по-нова"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "Двуклаузов лиценз на BSD"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "Лиценз на MIT"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Артистичен лиценз 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "Общ публичен лиценз на GNU (GNU GPL), само версия 2"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "Общ публичен лиценз на GNU (GNU GPL), само версия 3"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "По-малък общ публичен лиценз на GNU (GNU LGPL), само версия 2.1"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "По-малък общ публичен лиценз на GNU (GNU LGPL), само версия 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "Общ публичен лиценз на GNU Affero (GNU GPL), версия 3 или по-нова"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "Общ публичен лиценз на GNU Affero (GNU GPL), само версия 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "Триклаузов лиценз на BSD"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Лиценз на Apache, версия 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Публичен лиценз на Mozilla, версия 2.0"
+
+#: src/adw-about-window.c:526
+msgid "Code by"
+msgstr "Код от"
+
+#: src/adw-about-window.c:527
+msgid "Design by"
+msgstr "Дизайн от"
+
+#: src/adw-about-window.c:528
+msgid "Artwork by"
+msgstr "Художествено оформление от"
+
+#: src/adw-about-window.c:529
+msgid "Documentation by"
+msgstr "Документирано от"
+
+#: src/adw-about-window.c:530
+msgid "Translated by"
+msgstr "Преведено от"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:559
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
+msgstr ""
+"Тази програма идва без всякаква гаранция. За повече информация вижте <a "
+"href='%s'>%s</a>."
+
+#: src/adw-about-window.c:637
+msgid "This Application"
+msgstr "Тази програма"
+
+#: src/adw-about-window.c:939
+#, c-format
+msgid "Version %s"
+msgstr "Версия %s"
+
+#: src/adw-about-window.c:965
+msgid "Unable to parse release notes:"
+msgstr "Бележките по изданието не може да се анализират:"
+
+#: src/adw-about-window.c:971
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Ред: %d, знак: %d"
+
+#: src/adw-about-window.c:1264
+msgid "Copied to clipboard"
+msgstr "Копирано в буфера за обмен"
+
+#: src/adw-about-window.c:1299
+msgid "Unable to save debugging information"
+msgstr "Информацията за изчистване на грешки не може да се запази"
+
+#: src/adw-about-window.c:1304
+msgid "Close"
+msgstr "Затваряне"
+
+#: src/adw-about-window.c:1322
+msgid "Save debugging information"
+msgstr "Запазване на информацията за изчистване на грешки"
+
+#: src/adw-about-window.c:1325
+msgid "_Save"
+msgstr "_Запазване"
+
+#: src/adw-about-window.c:1326
+msgid "_Cancel"
+msgstr "_Отказ"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Относно"
+
+#: src/adw-about-window.ui:123
+msgid "_What’s New"
+msgstr "Какво _ново"
+
+#: src/adw-about-window.ui:138
+msgid "_Details"
+msgstr "_Подробности"
+
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+msgid "_Website"
+msgstr "_Уеб сайт"
+
+#: src/adw-about-window.ui:176
+msgid "_Support Questions"
+msgstr "_Въпроси по поддръжката"
+
+#: src/adw-about-window.ui:192
+msgid "_Report an Issue"
+msgstr "_Докладване на грешка"
+
+#: src/adw-about-window.ui:207
+msgid "_Troubleshooting"
+msgstr "_Справяне с проблеми"
+
+#: src/adw-about-window.ui:226
+msgid "_Credits"
+msgstr "_Сътрудници"
+
+#: src/adw-about-window.ui:241
+msgid "_Legal"
+msgstr "_Правни въпроси"
+
+#: src/adw-about-window.ui:256
+msgid "_Acknowledgements"
+msgstr "_Признание"
+
+#: src/adw-about-window.ui:295
+msgid "What’s New"
+msgstr "Какво ново"
+
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
+msgid "Back"
+msgstr "Назад"
+
+#: src/adw-about-window.ui:351
+msgid "Details"
+msgstr "Подробности"
+
+#: src/adw-about-window.ui:432
+msgid "Troubleshooting"
+msgstr "Справяне с проблеми"
+
+#: src/adw-about-window.ui:461
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Може да прегледате информацията за изчистване на грешки за по-лесно справяне "
+"с проблем. Ако я предоставите на разработчиците на грешки заедно с доклада "
+"за грешка, увеличавате шансовете им да открият и отстранят проблема."
+
+#: src/adw-about-window.ui:472
+msgid "_Debugging Information"
+msgstr "_Информация за изчистване на грешки"
+
+#: src/adw-about-window.ui:507
+msgid "Credits"
+msgstr "Заслуги"
+
+#: src/adw-about-window.ui:554
+msgid "Legal"
+msgstr "Правна информация"
+
+#: src/adw-about-window.ui:601
+msgid "Acknowledgements"
+msgstr "Признание"
+
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "Информация за изчистване на грешки"
+
+#: src/adw-about-window.ui:696
+msgid "_Copy Text"
+msgstr "_Копиране на текста"
+
+#: src/adw-about-window.ui:703
+msgid "_Save as…"
+msgstr "_Запазване като…"
+
+#: src/adw-entry-row.ui:93
+msgid "Apply"
+msgstr "Прилагане"
 
 #: src/adw-inspector-page.c:76
 msgid "No Preference"
@@ -58,7 +297,23 @@ msgstr "Предпочитана цветова схема"
 msgid "High Contrast"
 msgstr "Висок контраст"
 
-#: src/adw-preferences-window.c:217
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "Скриване на текста"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "Показване на текста"
+
+#: src/adw-password-entry-row.c:169
+msgid "Caps Lock is on"
+msgstr "Клавишът „Caps Lock“ е натиснат"
+
+#: src/adw-password-entry-row.c:177
+msgid "_Show Text"
+msgstr "_Показване на _текста"
+
+#: src/adw-preferences-window.c:242
 msgid "Untitled page"
 msgstr "Страница без име"
 
@@ -77,3 +332,7 @@ msgstr "Няма резултати"
 #: src/adw-preferences-window.ui:140
 msgid "Try a different search."
 msgstr "Пробвайте различно търсене."
+
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "Затваряне на подпрозорец"
