@@ -1,3 +1,20 @@
+=============
+Version 1.2.0
+=============
+
+- Docs
+  - Fix @card_shade_color description
+  - Fix a typo in AdwTabView docs
+  - Fix AdwMessageDialog example
+- Translation updates
+  - Bulgarian
+  - Croatian
+  - Czech
+  - German
+  - Hungarian
+  - Occitan
+  - Slovenian
+
 ==============
 Version 1.2.rc
 ==============
