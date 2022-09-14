@@ -10,6 +10,8 @@ spinbutton {
   > button.image-button.down:not(.flat):not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
     @extend %button_basic_flat;
 
+    margin: 0;
+
     border-radius: 0;
     box-shadow: none;
 
