@@ -1440,7 +1440,15 @@ escape_cb (AdwTabOverview *self)
     return GDK_EVENT_STOP;
   }
 
+  if (!adw_tab_view_get_n_pages (self->view)) {
+    AdwTabPage *page = create_tab (self);
+
+    if (!page)
+      return GDK_EVENT_PROPAGATE;
+  }
+
   adw_tab_overview_set_open (self, FALSE);
+
   return GDK_EVENT_STOP;
 }
 
