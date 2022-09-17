@@ -77,6 +77,8 @@ enum {
   PROP_EXPANDED,
   PROP_ENABLE_EXPANSION,
   PROP_SHOW_ENABLE_SWITCH,
+  PROP_TITLE_LINES,
+  PROP_SUBTITLE_LINES,
   LAST_PROP,
 };
 
@@ -130,6 +132,12 @@ adw_expander_row_get_property (GObject    *object,
   case PROP_SHOW_ENABLE_SWITCH:
     g_value_set_boolean (value, adw_expander_row_get_show_enable_switch (self));
     break;
+  case PROP_TITLE_LINES:
+    g_value_set_int (value, adw_expander_row_get_title_lines (self));
+    break;
+  case PROP_SUBTITLE_LINES:
+    g_value_set_int (value, adw_expander_row_get_subtitle_lines (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -158,6 +166,12 @@ adw_expander_row_set_property (GObject      *object,
     break;
   case PROP_SHOW_ENABLE_SWITCH:
     adw_expander_row_set_show_enable_switch (self, g_value_get_boolean (value));
+    break;
+  case PROP_TITLE_LINES:
+    adw_expander_row_set_title_lines (self, g_value_get_int (value));
+    break;
+  case PROP_SUBTITLE_LINES:
+    adw_expander_row_set_subtitle_lines (self, g_value_get_int (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -239,6 +253,37 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwExpanderRow:title-lines: (attributes org.gtk.Property.get=adw_expander_row_get_title_lines org.gtk.Property.set=adw_expander_row_set_title_lines)
+   *
+   * The number of lines at the end of which the title label will be ellipsized.
+   *
+   * If the value is 0, the number of lines won't be limited.
+   *
+   * Since: 1.3
+   */
+  props[PROP_TITLE_LINES] =
+    g_param_spec_int ("title-lines", NULL, NULL,
+                      0, G_MAXINT,
+                      0,
+                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwExpanderRow:subtitle-lines: (attributes org.gtk.Property.get=adw_expander_row_get_subtitle_lines org.gtk.Property.set=adw_expander_row_set_subtitle_lines)
+   *
+   * The number of lines at the end of which the subtitle label will be
+   * ellipsized.
+   *
+   * If the value is 0, the number of lines won't be limited.
+   *
+   * Since: 1.3
+   */
+  props[PROP_SUBTITLE_LINES] =
+    g_param_spec_int ("subtitle-lines", NULL, NULL,
+                      0, G_MAXINT,
+                      0,
+                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
@@ -261,6 +306,8 @@ func (gpointer this) { \
 
 NOTIFY (notify_subtitle_cb, PROP_SUBTITLE);
 NOTIFY (notify_icon_name_cb, PROP_ICON_NAME);
+NOTIFY (notify_title_lines_cb, PROP_ICON_NAME);
+NOTIFY (notify_subtitle_lines_cb, PROP_ICON_NAME);
 
 static void
 adw_expander_row_init (AdwExpanderRow *self)
@@ -276,6 +323,8 @@ adw_expander_row_init (AdwExpanderRow *self)
 
   g_signal_connect_object (priv->action_row, "notify::subtitle", G_CALLBACK (notify_subtitle_cb), self, G_CONNECT_SWAPPED);
   g_signal_connect_object (priv->action_row, "notify::icon-name", G_CALLBACK (notify_icon_name_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (priv->action_row, "notify::title-lines", G_CALLBACK (notify_title_lines_cb), self, G_CONNECT_SWAPPED);
+  g_signal_connect_object (priv->action_row, "notify::subtitle-lines", G_CALLBACK (notify_subtitle_lines_cb), self, G_CONNECT_SWAPPED);
 }
 
 static void
@@ -690,4 +739,102 @@ adw_expander_row_set_show_enable_switch (AdwExpanderRow *self,
   priv->show_enable_switch = show_enable_switch;
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_ENABLE_SWITCH]);
+}
+
+/**
+ * adw_expander_row_get_title_lines: (attributes org.gtk.Method.get_property=title-lines)
+ * @self: an expander row
+ *
+ * Gets the number of lines at the end of which the title label will be
+ * ellipsized.
+ *
+ * Returns: the number of lines at the end of which the title label will be
+ *   ellipsized
+ *
+ * Since: 1.3
+ */
+int
+adw_expander_row_get_title_lines (AdwExpanderRow *self)
+{
+  AdwExpanderRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_EXPANDER_ROW (self), 0);
+
+  priv = adw_expander_row_get_instance_private (self);
+
+  return adw_action_row_get_title_lines (priv->action_row);
+}
+
+/**
+ * adw_expander_row_set_title_lines: (attributes org.gtk.Method.set_property=title-lines)
+ * @self: an expander row
+ * @title_lines: the number of lines at the end of which the title label will be ellipsized
+ *
+ * Sets the number of lines at the end of which the title label will be
+ * ellipsized.
+ *
+ * If the value is 0, the number of lines won't be limited.
+ *
+ * Since: 1.3
+ */
+void
+adw_expander_row_set_title_lines (AdwExpanderRow *self,
+                                  int             title_lines)
+{
+  AdwExpanderRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
+
+  priv = adw_expander_row_get_instance_private (self);
+
+  adw_action_row_set_title_lines (priv->action_row, title_lines);
+}
+
+/**
+ * adw_expander_row_get_subtitle_lines: (attributes org.gtk.Method.get_property=subtitle-lines)
+ * @self: an expander row
+ *
+ * Gets the number of lines at the end of which the subtitle label will be
+ * ellipsized.
+ *
+ * Returns: the number of lines at the end of which the subtitle label will be
+ *   ellipsized
+ *
+ * Since: 1.3
+ */
+int
+adw_expander_row_get_subtitle_lines (AdwExpanderRow *self)
+{
+  AdwExpanderRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_EXPANDER_ROW (self), 0);
+
+  priv = adw_expander_row_get_instance_private (self);
+
+  return adw_action_row_get_subtitle_lines (priv->action_row);
+}
+
+/**
+ * adw_expander_row_set_subtitle_lines: (attributes org.gtk.Method.set_property=subtitle-lines)
+ * @self: an expander row
+ * @subtitle_lines: the number of lines at the end of which the subtitle label will be ellipsized
+ *
+ * Sets the number of lines at the end of which the subtitle label will be
+ * ellipsized.
+ *
+ * If the value is 0, the number of lines won't be limited.
+ *
+ * Since: 1.3
+ */
+void
+adw_expander_row_set_subtitle_lines (AdwExpanderRow *self,
+                                     int             subtitle_lines)
+{
+  AdwExpanderRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
+
+  priv = adw_expander_row_get_instance_private (self);
+
+  adw_action_row_set_subtitle_lines (priv->action_row, subtitle_lines);
 }
