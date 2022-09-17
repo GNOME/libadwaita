@@ -306,8 +306,8 @@ func (gpointer this) { \
 
 NOTIFY (notify_subtitle_cb, PROP_SUBTITLE);
 NOTIFY (notify_icon_name_cb, PROP_ICON_NAME);
-NOTIFY (notify_title_lines_cb, PROP_ICON_NAME);
-NOTIFY (notify_subtitle_lines_cb, PROP_ICON_NAME);
+NOTIFY (notify_title_lines_cb, PROP_TITLE_LINES);
+NOTIFY (notify_subtitle_lines_cb, PROP_SUBTITLE_LINES);
 
 static void
 adw_expander_row_init (AdwExpanderRow *self)
