@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-08-03 12:29+0000\n"
-"PO-Revision-Date: 2022-08-05 09:53+0300\n"
+"POT-Creation-Date: 2022-09-15 14:07+0000\n"
+"PO-Revision-Date: 2022-09-18 02:18+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: Hebrew <>\n"
 "Language: he\n"
@@ -90,7 +90,7 @@ msgstr "קוד על ידי"
 
 #: src/adw-about-window.c:527
 msgid "Design by"
-msgstr "עוצב על ידי"
+msgstr "עיצוב על ידי"
 
 #: src/adw-about-window.c:528
 msgid "Artwork by"
@@ -102,7 +102,7 @@ msgstr "תיעוד על ידי"
 
 #: src/adw-about-window.c:530
 msgid "Translated by"
-msgstr "תורגם על ידי"
+msgstr "תרגום על ידי"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
@@ -195,7 +195,7 @@ msgstr "_משפטי"
 
 #: src/adw-about-window.ui:256
 msgid "_Acknowledgements"
-msgstr ""
+msgstr "ה_כרה"
 
 #: src/adw-about-window.ui:295
 msgid "What’s New"
@@ -237,7 +237,7 @@ msgstr "משפטי"
 
 #: src/adw-about-window.ui:601
 msgid "Acknowledgements"
-msgstr ""
+msgstr "הכרה"
 
 #: src/adw-about-window.ui:648
 msgid "Debugging Information"
@@ -331,6 +331,5 @@ msgid "Try a different search."
 msgstr "יש לנסות חיפוש שונה."
 
 #: src/adw-tab.ui:88
-#| msgid "Close"
 msgid "Close Tab"
 msgstr "סגירת לשונית"
