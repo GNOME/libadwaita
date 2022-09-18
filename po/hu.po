@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-08-01 14:50+0000\n"
-"PO-Revision-Date: 2022-09-07 01:53+0200\n"
+"POT-Creation-Date: 2022-09-17 13:15+0000\n"
+"PO-Revision-Date: 2022-09-18 08:37+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
@@ -112,8 +112,8 @@ msgid ""
 "This application comes with absolutely no warranty. See the <a href=\"%s\">"
 "%s</a> for details."
 msgstr ""
-"Erre az alkalmazásra egyáltalán nem vonatkozik garancia. További részletek"
-" a(z) <a href=\"%s\">%s</a> szövegében."
+"Erre az alkalmazásra egyáltalán nem vonatkozik garancia. További részletek "
+"a(z) <a href=\"%s\">%s</a> szövegében."
 
 #: src/adw-about-window.c:637
 msgid "This Application"
@@ -222,9 +222,9 @@ msgid ""
 "Providing this information to the application developers can help diagnose "
 "any problems you encounter when you report an issue."
 msgstr ""
-"A hibaelhárításban való segítséghez megtekintheti a hibakeresési"
-" információkat. Ezen információk megadása az alkalmazás fejlesztőinek"
-" segíthet a probléma bejelentésekor felmerülő problémák diagnosztizálásában."
+"A hibaelhárításban való segítséghez megtekintheti a hibakeresési "
+"információkat. Ezen információk megadása az alkalmazás fejlesztőinek "
+"segíthet a probléma bejelentésekor felmerülő problémák diagnosztizálásában."
 
 #: src/adw-about-window.ui:472
 msgid "_Debugging Information"
@@ -331,10 +331,37 @@ msgstr "Keresés"
 msgid "No Results Found"
 msgstr "Nincs találat"
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:111
 msgid "Try a different search."
 msgstr "Próbáljon másfajta keresést."
 
-#: src/adw-tab.ui:88
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "Nyitott lapok megtekintése"
+
+#: src/adw-tab-overview.ui:23
+#| msgid "Search"
+msgid "Search Tabs"
+msgstr "Lapok keresése"
+
+#: src/adw-tab-overview.ui:53
+#| msgid "Search"
+msgid "Search tabs"
+msgstr "Lapok keresése"
+
+#: src/adw-tab-overview.ui:97
+msgid "No Open Tabs"
+msgstr "Nincsenek nyitott lapok"
+
+#: src/adw-tab-overview.ui:110
+#| msgid "No Results Found"
+msgid "No Tabs Found"
+msgstr "Nem találhatók lapok"
+
+#: src/adw-tab-overview.ui:131
+msgid "New _Tab"
+msgstr "Új _lap"
+
+#: src/adw-tab-thumbnail.ui:36 src/adw-tab.ui:88
 msgid "Close Tab"
 msgstr "Lap bezárása"
