@@ -1707,12 +1707,7 @@ reorder_end_cb (AdwTabGrid *self,
 static void
 reset_focus (AdwTabGrid *self)
 {
-  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
-
   gtk_widget_set_focus_child (GTK_WIDGET (self), NULL);
-
-  if (root)
-    gtk_root_set_focus (root, NULL);
 }
 
 static void
