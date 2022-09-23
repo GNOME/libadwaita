@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-08-05 19:13+0000\n"
-"PO-Revision-Date: 2022-08-08 11:09+0700\n"
+"POT-Creation-Date: 2022-09-17 23:59+0000\n"
+"PO-Revision-Date: 2022-09-23 20:24+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
 "Language: id\n"
@@ -103,7 +103,7 @@ msgstr "Karya Seni oleh"
 
 #: src/adw-about-window.c:529
 msgid "Documentation by"
-msgstr "_Dokumentasi"
+msgstr "Dokumentasi oleh"
 
 #: src/adw-about-window.c:530
 msgid "Translated by"
@@ -197,7 +197,7 @@ msgstr "_Kredit"
 
 #: src/adw-about-window.ui:241
 msgid "_Legal"
-msgstr "_Hukum"
+msgstr "_Legal"
 
 #: src/adw-about-window.ui:256
 msgid "_Acknowledgements"
