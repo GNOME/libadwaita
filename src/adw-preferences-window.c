@@ -138,9 +138,12 @@ make_comparable (const char        *src,
   GError *error = NULL;
 
   if (adw_preferences_row_get_use_markup (row)) {
-    pango_parse_markup (plaintext, -1, 0, NULL, &plaintext, NULL, &error);
+    char *parsed = NULL;
 
-    if (error) {
+    if (pango_parse_markup (plaintext, -1, 0, NULL, &parsed, NULL, &error)) {
+      g_free (plaintext);
+      plaintext = parsed;
+    } else {
       g_critical ("Couldn't parse markup: %s", error->message);
       g_clear_error (&error);
     }
