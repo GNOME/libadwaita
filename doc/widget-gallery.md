@@ -1,7 +1,7 @@
-Title: Visual Index
-Slug: visual-index
+Title: Widget Gallery
+Slug: widget-gallery
 
-# Visual Index
+# Widget Gallery
 
 ## Display
 

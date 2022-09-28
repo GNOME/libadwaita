@@ -12,7 +12,7 @@ expand_content_md_files = [
   'named-colors.md',
   'styles-and-appearance.md',
   'style-classes.md',
-  'visual-index.md',
+  'widget-gallery.md',
 ]
 
 toml_data = configuration_data()
