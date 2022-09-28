@@ -34,3 +34,4 @@ ln -s $LATEST_STABLE_1 $DOC_DIR/1.0.0-alpha.2
 ln -s $LATEST_STABLE_1 $DOC_DIR/1.0.0.alpha.3
 ln -s $LATEST_STABLE_1 $DOC_DIR/1.0.0.beta.1
 ln -s $LATEST_STABLE_1 $DOC_DIR/1.0.0
+ln -s widget-gallery.html $DOC_DIR/main/visual-index.html
