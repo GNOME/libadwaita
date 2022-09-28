@@ -509,10 +509,6 @@ adw_split_button_init (AdwSplitButton *self)
   g_signal_connect_swapped (self->menu_button, "notify::popover", G_CALLBACK (notify_popover_cb), self);
   g_signal_connect_swapped (self->menu_button, "notify::direction", G_CALLBACK (notify_direction_cb), self);
 
-  g_object_bind_property (self->button, "sensitive",
-                          self, "sensitive",
-                          G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
-
   update_style_classes (self);
 }
 
