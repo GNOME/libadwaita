@@ -7,17 +7,314 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2021-12-06 17:25+0000\n"
-"PO-Revision-Date: 2021-12-23 08:10+0100\n"
+"POT-Creation-Date: 2022-09-15 14:07+0000\n"
+"PO-Revision-Date: 2022-09-28 12:05+0200\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
-#: src/adw-preferences-window.c:212
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "Licence Publiche Gjenerâl GNU GPL, version 2 o sucessive"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "Licence Publiche Gjenerâl GNU GPL, version 3 o sucessive"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "Licence Publiche Gjenerâl Minôr GNU LGPL, version 2.1 o sucessive"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "Licence Publiche Gjenerâl Minôr GNU LGPL, version 3 o sucessive"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "Licence BSD 2-Clausolis"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "La licence MIT (MIT)"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Licence Artistiche 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "Licence Publiche Gjenerâl GNU GPL, dome version 2"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "Licence Publiche Gjenerâl GNU GPL, dome version 3"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "Licence Publiche Gjenerâl Minôr GNU LGPL, dome version 2.1"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "Licence Publiche Gjenerâl Minôr GNU LGPL, dome version 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "Licence Publiche Gjenerâl GNU Affero AGPL, version 3 o sucessive"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "Licence Publiche Gjenerâl GNU Affero, dome version 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "Licence BSD 3-Clausolis"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Licence Apache, Version 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Licence Publiche di Mozilla 2.0"
+
+#: src/adw-about-window.c:526
+msgid "Code by"
+msgstr "Codiç di"
+
+#: src/adw-about-window.c:527
+msgid "Design by"
+msgstr "Design di"
+
+#: src/adw-about-window.c:528
+msgid "Artwork by"
+msgstr "Grafiche di"
+
+#: src/adw-about-window.c:529
+msgid "Documentation by"
+msgstr "Documentazion di"
+
+#: src/adw-about-window.c:530
+msgid "Translated by"
+msgstr "Tradot di"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:559
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
+msgstr ""
+"Chest program al rive cence nissune garanzie. Par vê plui detais consultâ <a "
+"href=\"%s\">%s</a>."
+
+#: src/adw-about-window.c:637
+msgid "This Application"
+msgstr "Cheste aplicazion"
+
+#: src/adw-about-window.c:939
+#, c-format
+msgid "Version %s"
+msgstr "Version %s"
+
+#: src/adw-about-window.c:965
+msgid "Unable to parse release notes:"
+msgstr "Impussibil analizâ lis notis di publicazion:"
+
+#: src/adw-about-window.c:971
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Rie: %d, caratar: %d"
+
+#: src/adw-about-window.c:1264
+msgid "Copied to clipboard"
+msgstr "Copiât tes notis"
+
+#: src/adw-about-window.c:1299
+msgid "Unable to save debugging information"
+msgstr "Impussibil salvâ lis informazion di debug"
+
+#: src/adw-about-window.c:1304
+msgid "Close"
+msgstr "Siere"
+
+#: src/adw-about-window.c:1322
+msgid "Save debugging information"
+msgstr "Salve informazions di debug"
+
+#: src/adw-about-window.c:1325
+msgid "_Save"
+msgstr "_Salve"
+
+#: src/adw-about-window.c:1326
+msgid "_Cancel"
+msgstr "_Anule"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Informazions"
+
+#: src/adw-about-window.ui:123
+msgid "_What’s New"
+msgstr "_Novitâts"
+
+#: src/adw-about-window.ui:138
+msgid "_Details"
+msgstr "_Detais"
+
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+msgid "_Website"
+msgstr "Sît _web"
+
+#: src/adw-about-window.ui:176
+msgid "_Support Questions"
+msgstr "Domandis di _supuart"
+
+#: src/adw-about-window.ui:192
+msgid "_Report an Issue"
+msgstr "_Segnale un probleme"
+
+#: src/adw-about-window.ui:207
+msgid "_Troubleshooting"
+msgstr "Soluzion _problemis"
+
+#: src/adw-about-window.ui:226
+msgid "_Credits"
+msgstr "Ri_cognossiments"
+
+#: src/adw-about-window.ui:241
+msgid "_Legal"
+msgstr "_Legâl"
+
+#: src/adw-about-window.ui:256
+msgid "_Acknowledgements"
+msgstr "Ringr_aciaments"
+
+#: src/adw-about-window.ui:295
+msgid "What’s New"
+msgstr "Novitâts"
+
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
+msgid "Back"
+msgstr "Indaûr"
+
+#: src/adw-about-window.ui:351
+msgid "Details"
+msgstr "Detais"
+
+#: src/adw-about-window.ui:432
+msgid "Troubleshooting"
+msgstr "Soluzion problemis"
+
+#: src/adw-about-window.ui:461
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Par assisti te risoluzion problemis, tu puedis visualizâ lis tôs "
+"informazions di debug. Furnint chestis informazion ai svilupadôrs de "
+"aplicazion tu puedis judâ a diagnosticâ cualsisei probleme che tu cjatis "
+"cuant che tu segnalis un probleme."
+
+#: src/adw-about-window.ui:472
+msgid "_Debugging Information"
+msgstr "Informazions di _debug"
+
+#: src/adw-about-window.ui:507
+msgid "Credits"
+msgstr "Ricognossiments"
+
+#: src/adw-about-window.ui:554
+msgid "Legal"
+msgstr "Legâl"
+
+#: src/adw-about-window.ui:601
+msgid "Acknowledgements"
+msgstr "Ringraciaments"
+
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "Informazions di debug"
+
+#: src/adw-about-window.ui:696
+msgid "_Copy Text"
+msgstr "_Copie test"
+
+#: src/adw-about-window.ui:703
+msgid "_Save as…"
+msgstr "_Salve come…"
+
+#: src/adw-entry-row.ui:93
+msgid "Apply"
+msgstr "Apliche"
+
+#: src/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "Nissune preference"
+
+#: src/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "Preferìs scûr"
+
+#: src/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "Preferìs clâr"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Aspiet dal sisteme"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Passe sore aes impostazions par cheste aplicazion. A vignaran ripristinadis "
+"ae sieradure dal ispetôr."
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Il sisteme al supuarte i schemis di colôr"
+
+#: src/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Scheme di colôr preferît"
+
+#: src/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Contrast elevât"
+
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "Plate Test"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "Mostre Test"
+
+#: src/adw-password-entry-row.c:169
+msgid "Caps Lock is on"
+msgstr "BlocMaiusc al è atîf"
+
+#: src/adw-password-entry-row.c:177
+msgid "_Show Text"
+msgstr "_Mostre Test"
+
+#: src/adw-preferences-window.c:242
 msgid "Untitled page"
 msgstr "Pagjine cence titul"
 
@@ -37,46 +334,9 @@ msgstr "Nissun risultât cjatât"
 msgid "Try a different search."
 msgstr "Prove cuntune ricercje diferente."
 
-#: src/inspector/adw-inspector-page.c:76
-msgid "No Preference"
-msgstr "Nissune preference"
-
-#: src/inspector/adw-inspector-page.c:78
-msgid "Prefer Dark"
-msgstr "Preferìs scûr"
-
-#: src/inspector/adw-inspector-page.c:80
-msgid "Prefer Light"
-msgstr "Preferìs clâr"
-
-#. Translators: The name of the library, not the stylesheet
-#: src/inspector/adw-inspector-page.c:98
-msgid "Adwaita"
-msgstr "Adwaita"
-
-#: src/inspector/adw-inspector-page.ui:10
-msgid "System Appearance"
-msgstr "Aspiet dal sisteme"
-
-#: src/inspector/adw-inspector-page.ui:11
-msgid ""
-"Override settings for this application. They will be reset upon closing the "
-"inspector."
-msgstr ""
-"Passe sore aes impostazions par cheste aplicazion. A vignaran ripristinadis "
-"ae sieradure dal ispetôr."
-
-#: src/inspector/adw-inspector-page.ui:14
-msgid "System Supports Color Schemes"
-msgstr "Il sisteme al supuarte i schemis di colôr"
-
-#: src/inspector/adw-inspector-page.ui:26
-msgid "Preferred Color Scheme"
-msgstr "Scheme di colôr preferît"
-
-#: src/inspector/adw-inspector-page.ui:43
-msgid "High Contrast"
-msgstr "Contrast elevât"
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "Siere schede"
 
 #~ msgid "Insert placeholder to %s"
 #~ msgstr "Inserìs segnepuest a %s"
@@ -281,9 +541,6 @@ msgstr "Contrast elevât"
 #~ msgid "Whether the expansion is enabled"
 #~ msgstr "Indiche se la espansion e je abilitade"
 
-#~ msgid "Application menu"
-#~ msgstr "Menù aplicazion"
-
 #~ msgid "Minimize"
 #~ msgstr "Minimize"
 
@@ -292,12 +549,6 @@ msgstr "Contrast elevât"
 
 #~ msgid "Maximize"
 #~ msgstr "Slargje"
-
-#~ msgid "Close"
-#~ msgstr "Siere"
-
-#~ msgid "Back"
-#~ msgstr "Indaûr"
 
 #~ msgid "Pack type"
 #~ msgstr "Gjenar di pachet"
