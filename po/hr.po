@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-09-02 16:21+0000\n"
-"PO-Revision-Date: 2022-09-06 12:07+0200\n"
+"POT-Creation-Date: 2022-09-17 23:59+0000\n"
+"PO-Revision-Date: 2022-10-01 23:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -191,7 +191,7 @@ msgstr "_Zasluge"
 
 #: src/adw-about-window.ui:241
 msgid "_Legal"
-msgstr "_Pravne stvari"
+msgstr "_Pravilnik"
 
 #: src/adw-about-window.ui:256
 msgid "_Acknowledgements"
