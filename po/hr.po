@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2022-10-02 13:34+0000\n"
-"PO-Revision-Date: 2022-10-02 15:50+0200\n"
+"PO-Revision-Date: 2022-10-02 16:31+0200\n"
 "Last-Translator: \n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -89,7 +89,7 @@ msgstr "Kôdirali"
 
 #: src/adw-about-window.c:527
 msgid "Design by"
-msgstr "Dizajn"
+msgstr "Dizajnirali"
 
 #: src/adw-about-window.c:528
 msgid "Artwork by"
