@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-10-01 21:28+0000\n"
-"PO-Revision-Date: 2022-10-02 15:21+0200\n"
+"POT-Creation-Date: 2022-10-02 13:34+0000\n"
+"PO-Revision-Date: 2022-10-02 15:50+0200\n"
 "Last-Translator: \n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -331,10 +331,34 @@ msgstr "Pretraga"
 msgid "No Results Found"
 msgstr "Nema pronađenih rezultata"
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:111
 msgid "Try a different search."
 msgstr "Pokušajte drugačiju pretragu."
 
-#: src/adw-tab.ui:88
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "Prikaz otvorenih kartica"
+
+#: src/adw-tab-overview.ui:23
+msgid "Search Tabs"
+msgstr "Pretraga kartica"
+
+#: src/adw-tab-overview.ui:53
+msgid "Search tabs"
+msgstr "Pretraži kartice"
+
+#: src/adw-tab-overview.ui:97
+msgid "No Open Tabs"
+msgstr "Nema otvorenih kartica"
+
+#: src/adw-tab-overview.ui:110
+msgid "No Tabs Found"
+msgstr "Nema pronađenih kartica"
+
+#: src/adw-tab-overview.ui:131
+msgid "New _Tab"
+msgstr "Nova _kartica"
+
+#: src/adw-tab-thumbnail.ui:36 src/adw-tab.ui:88
 msgid "Close Tab"
 msgstr "Zatvori karticu"
