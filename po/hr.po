@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-0\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-09-17 23:59+0000\n"
-"PO-Revision-Date: 2022-10-01 23:27+0200\n"
+"POT-Creation-Date: 2022-10-01 21:28+0000\n"
+"PO-Revision-Date: 2022-10-02 15:21+0200\n"
 "Last-Translator: \n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -77,7 +77,7 @@ msgstr "BSD 3-klauzula licence"
 
 #: src/adw-about-window.c:217
 msgid "Apache License, Version 2.0"
-msgstr "Apache Licenca, inačica 2.0"
+msgstr "Apache licenca, inačica 2.0"
 
 #: src/adw-about-window.c:218
 msgid "Mozilla Public License 2.0"
@@ -117,7 +117,7 @@ msgstr ""
 
 #: src/adw-about-window.c:637
 msgid "This Application"
-msgstr "Ova plikacija"
+msgstr "Ova aplikacija"
 
 #: src/adw-about-window.c:939
 #, c-format
@@ -163,7 +163,7 @@ msgstr "O programu"
 
 #: src/adw-about-window.ui:123
 msgid "_What’s New"
-msgstr "_Što je novo"
+msgstr "_Novosti"
 
 #: src/adw-about-window.ui:138
 msgid "_Details"
@@ -171,15 +171,15 @@ msgstr "_Pojedinosti"
 
 #: src/adw-about-window.ui:153 src/adw-about-window.ui:395
 msgid "_Website"
-msgstr "_Web stranica"
+msgstr "_Web naslovnica"
 
 #: src/adw-about-window.ui:176
 msgid "_Support Questions"
-msgstr "_Pitanja podrške"
+msgstr "_Podrška"
 
 #: src/adw-about-window.ui:192
 msgid "_Report an Issue"
-msgstr "_Prijavite problem"
+msgstr "_Prijava problema"
 
 #: src/adw-about-window.ui:207
 msgid "_Troubleshooting"
@@ -199,7 +199,7 @@ msgstr "_Zahvale"
 
 #: src/adw-about-window.ui:295
 msgid "What’s New"
-msgstr "Što je novo"
+msgstr "Novosti"
 
 #: src/adw-about-window.ui:300 src/adw-about-window.ui:356
 #: src/adw-about-window.ui:437 src/adw-about-window.ui:512
@@ -237,7 +237,7 @@ msgstr "Zasluge"
 
 #: src/adw-about-window.ui:554
 msgid "Legal"
-msgstr "Pravne stvari"
+msgstr "Pravilnik"
 
 #: src/adw-about-window.ui:601
 msgid "Acknowledgements"
@@ -315,7 +315,7 @@ msgstr "Velika slova su uključena"
 msgid "_Show Text"
 msgstr "_Prikaži tekst"
 
-#: src/adw-preferences-window.c:242
+#: src/adw-preferences-window.c:245
 msgid "Untitled page"
 msgstr "Bezimena stranica"
 
