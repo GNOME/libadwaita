@@ -7,6 +7,7 @@
     <property name="default-width">800</property>
     <property name="default-height">600</property>
     <property name="width-request">360</property>
+    <property name="height-request">150</property>
     <property name="content">
       <object class="AdwTabOverview" id="tab_overview">
         <property name="view">view</property>
@@ -25,23 +26,21 @@
                   </object>
                 </child>
                 <child type="end">
-                  <object class="AdwTabButton">
-                    <property name="visible" bind-source="AdwTabViewDemoWindow" bind-property="narrow" bind-flags="sync-create"/>
+                  <object class="AdwTabButton" id="narrow_overview_btn">
+                    <property name="visible">False</property>
                     <property name="view">view</property>
                     <property name="action-name">overview.open</property>
                   </object>
                 </child>
                 <child type="end">
-                  <object class="GtkButton">
-                    <property name="visible" bind-source="AdwTabViewDemoWindow" bind-property="narrow" bind-flags="invert-boolean"/>
+                  <object class="GtkButton" id="overview_btn">
                     <property name="icon-name">view-grid-symbolic</property>
                     <property name="tooltip-text" translatable="yes">View Open Tabs</property>
                     <property name="action-name">overview.open</property>
                   </object>
                 </child>
                 <child type="end">
-                  <object class="GtkButton">
-                    <property name="visible" bind-source="AdwTabViewDemoWindow" bind-property="narrow" bind-flags="invert-boolean"/>
+                  <object class="GtkButton" id="new_tab_btn">
                     <property name="action-name">win.tab-new</property>
                     <property name="icon-name">tab-new-symbolic</property>
                   </object>
@@ -50,7 +49,6 @@
             </child>
             <child type="top">
               <object class="AdwTabBar" id="tab_bar">
-                <property name="visible" bind-source="AdwTabViewDemoWindow" bind-property="narrow" bind-flags="invert-boolean"/>
                 <property name="view">view</property>
                 <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
               </object>
@@ -68,6 +66,15 @@
         </property>
       </object>
     </property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 600px</condition>
+        <setter object="narrow_overview_btn" property="visible">True</setter>
+        <setter object="overview_btn" property="visible">False</setter>
+        <setter object="new_tab_btn" property="visible">False</setter>
+        <setter object="tab_bar" property="visible">False</setter>
+      </object>
+    </child>
   </template>
   <menu id="tab_menu">
     <section>
@@ -138,3 +145,4 @@
     </section>
   </menu>
 </interface>
+
