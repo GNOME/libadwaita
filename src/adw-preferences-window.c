@@ -11,13 +11,12 @@
 
 #include "adw-animation-util.h"
 #include "adw-action-row.h"
+#include "adw-breakpoint-bin.h"
 #include "adw-leaflet.h"
 #include "adw-preferences-group-private.h"
 #include "adw-preferences-page-private.h"
 #include "adw-toast-overlay.h"
-#include "adw-view-switcher.h"
-#include "adw-view-switcher-bar.h"
-#include "adw-view-switcher-title.h"
+#include "adw-view-stack.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -51,8 +50,9 @@ typedef struct
   GtkListBox *search_results;
   GtkStack *search_stack;
   GtkStack *title_stack;
-  AdwViewSwitcherBar *view_switcher_bar;
-  AdwViewSwitcherTitle *view_switcher_title;
+  GtkWidget *view_switcher_stack;
+  GtkWidget *view_switcher;
+  GtkWidget *title;
 
   gboolean search_enabled;
   gboolean can_navigate_back;
@@ -61,6 +61,7 @@ typedef struct
   GtkFilterListModel *filter_model;
 
   GtkWidget *subpage;
+  int n_pages;
 } AdwPreferencesWindowPrivate;
 
 static void adw_preferences_window_buildable_init (GtkBuildableIface *iface);
@@ -356,12 +357,26 @@ subpages_leaflet_visible_child_cb (AdwPreferencesWindow *self)
 }
 
 static void
+update_view_switcher (AdwPreferencesWindow *self)
+{
+  AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
+  AdwBreakpoint *breakpoint;
+
+  breakpoint = adw_breakpoint_bin_get_current_breakpoint (ADW_BREAKPOINT_BIN (priv->preferences));
+
+  if (!breakpoint && priv->n_pages > 1)
+    gtk_stack_set_visible_child (GTK_STACK (priv->view_switcher_stack), priv->view_switcher);
+  else
+    gtk_stack_set_visible_child (GTK_STACK (priv->view_switcher_stack), priv->title);
+}
+
+static void
 title_stack_notify_transition_running_cb (AdwPreferencesWindow *self)
 {
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
 
   if (gtk_stack_get_transition_running (priv->title_stack) ||
-      gtk_stack_get_visible_child (priv->title_stack) != GTK_WIDGET (priv->view_switcher_title))
+      gtk_stack_get_visible_child (priv->title_stack) != priv->view_switcher_stack)
     return;
 
   gtk_editable_set_text (GTK_EDITABLE (priv->search_entry), "");
@@ -373,7 +388,7 @@ title_stack_notify_visible_child_cb (AdwPreferencesWindow *self)
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
 
   if (adw_get_enable_animations (GTK_WIDGET (priv->title_stack)) ||
-      gtk_stack_get_visible_child (priv->title_stack) != GTK_WIDGET (priv->view_switcher_title))
+      gtk_stack_get_visible_child (priv->title_stack) != priv->view_switcher_stack)
     return;
 
   gtk_editable_set_text (GTK_EDITABLE (priv->search_entry), "");
@@ -620,10 +635,12 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, search_results);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, search_stack);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, title_stack);
-  gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, view_switcher_bar);
-  gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, view_switcher_title);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, view_switcher_stack);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, view_switcher);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, title);
   gtk_widget_class_bind_template_callback (widget_class, subpages_leaflet_child_transition_running_cb);
   gtk_widget_class_bind_template_callback (widget_class, subpages_leaflet_visible_child_cb);
+  gtk_widget_class_bind_template_callback (widget_class, update_view_switcher);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_transition_running_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_visible_page_cb);
@@ -735,6 +752,9 @@ adw_preferences_window_add (AdwPreferencesWindow *self,
   g_object_bind_property (page, "title", stack_page, "title", G_BINDING_SYNC_CREATE);
   g_object_bind_property (page, "use-underline", stack_page, "use-underline", G_BINDING_SYNC_CREATE);
   g_object_bind_property (page, "name", stack_page, "name", G_BINDING_SYNC_CREATE);
+
+  priv->n_pages++;
+  update_view_switcher (self);
 }
 
 /**
@@ -759,6 +779,9 @@ adw_preferences_window_remove (AdwPreferencesWindow *self,
     adw_view_stack_remove (priv->pages_stack, GTK_WIDGET (page));
   else
     ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, page);
+
+  priv->n_pages--;
+  update_view_switcher (self);
 }
 
 /**
