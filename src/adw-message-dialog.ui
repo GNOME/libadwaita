@@ -51,25 +51,10 @@
               <object class="GtkSeparator"/>
             </child>
             <child>
-              <object class="AdwSqueezer" id="squeezer">
-                <property name="homogeneous">False</property>
-                <signal name="notify::visible-child" handler="update_default_response" swapped="yes"/>
+              <object class="AdwGizmo" id="response_area">
                 <style>
                   <class name="response-area"/>
                 </style>
-                <child>
-                  <object class="GtkBox" id="wide_response_box">
-                    <property name="hexpand">1</property>
-                    <property name="orientation">horizontal</property>
-                    <property name="valign">end</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox" id="narrow_response_box">
-                    <property name="hexpand">1</property>
-                    <property name="orientation">vertical</property>
-                  </object>
-                </child>
               </object>
             </child>
           </object>
@@ -77,6 +62,4 @@
       </object>
     </property>
   </template>
-  <object class="GtkSizeGroup" id="wide_size_group"/>
-  <object class="GtkSizeGroup" id="narrow_size_group"/>
 </interface>

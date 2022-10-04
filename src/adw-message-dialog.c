@@ -9,8 +9,9 @@
 #include "config.h"
 #include "adw-message-dialog.h"
 
+#include "adw-gizmo-private.h"
 #include "adw-gtkbuilder-utils-private.h"
-#include "adw-squeezer.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwMessageDialog:
@@ -134,8 +135,8 @@ typedef struct {
   AdwResponseAppearance appearance;
   gboolean enabled;
 
-  GtkWidget *wide_button;
-  GtkWidget *narrow_button;
+  GtkWidget *button;
+  GtkWidget *separator;
 } ResponseInfo;
 
 typedef struct
@@ -143,11 +144,7 @@ typedef struct
   GtkWidget *heading_label;
   GtkWidget *body_label;
   GtkBox *message_area;
-  GtkBox *wide_response_box;
-  GtkBox *narrow_response_box;
-  GtkSizeGroup *wide_size_group;
-  GtkSizeGroup *narrow_size_group;
-  AdwSqueezer *squeezer;
+  GtkWidget *response_area;
 
   char *heading;
   gboolean heading_use_markup;
@@ -368,26 +365,6 @@ create_response_button (AdwMessageDialog *self,
 }
 
 static void
-update_default_response (AdwMessageDialog *self)
-{
-  AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
-  ResponseInfo *info;
-
-  if (!priv->default_response)
-    return;
-
-  info = find_response (self, g_quark_to_string (priv->default_response));
-
-  if (!info)
-    return;
-
-  if (adw_squeezer_get_visible_child (priv->squeezer) == GTK_WIDGET (priv->narrow_response_box))
-    gtk_window_set_default_widget (GTK_WINDOW (self), info->narrow_button);
-  else
-    gtk_window_set_default_widget (GTK_WINDOW (self), info->wide_button);
-}
-
-static void
 update_window_title (AdwMessageDialog *self)
 {
   AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
@@ -439,8 +416,6 @@ adw_message_dialog_map (GtkWidget *widget)
 
   GTK_WIDGET_CLASS (adw_message_dialog_parent_class)->map (widget);
 
-  update_default_response (self);
-
   /* The rest of the function was copied from gtkdialog.c */
   focus = gtk_window_get_focus (GTK_WINDOW (self));
   if (!focus) {
@@ -468,19 +443,210 @@ adw_message_dialog_map (GtkWidget *widget)
     for (l = priv->responses; l; l = l->next) {
       ResponseInfo *response = l->data;
 
-      if ((focus == NULL || response->wide_button == focus) &&
-           response->wide_button != default_widget &&
+      if ((focus == NULL || response->button == focus) &&
+           response->button != default_widget &&
            default_widget) {
         gtk_widget_grab_focus (default_widget);
         break;
+      }
+    }
+  }
+}
+
+static void
+measure_responses_do (AdwMessageDialog *self,
+                      gboolean          compact,
+                      GtkOrientation    orientation,
+                      int              *minimum,
+                      int              *natural)
+{
+  AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
+  GList *l;
+  int min = 0, nat = 0;
+  int button_min = 0, button_nat = 0;
+  int n_buttons = 0;
+  gboolean horiz = (orientation == GTK_ORIENTATION_HORIZONTAL);
+
+  for (l = priv->responses; l; l = l->next) {
+    ResponseInfo *response = l->data;
+    int child_min, child_nat;
+
+    gtk_widget_measure (response->button, orientation, -1,
+                        &child_min, &child_nat, NULL, NULL);
+
+    if (horiz == compact) {
+      min = MAX (min, child_min);
+      nat = MAX (nat, child_min);
+    } else if (horiz) {
+      button_min = MAX (button_min, child_min);
+      button_nat = MAX (button_nat, child_min);
+      n_buttons++;
+    } else {
+      min += child_min;
+      nat += child_nat;
+    }
+
+    if (response->separator) {
+      gtk_widget_measure (response->separator, orientation, -1,
+                          &child_min, &child_nat, NULL, NULL);
+
+    if (horiz == compact) {
+        min = MAX (min, child_min);
+        nat = MAX (nat, child_min);
+      } else {
+        min += child_min;
+        nat += child_nat;
+      }
+    }
+  }
+
+  if (horiz && !compact) {
+    min += button_min * n_buttons;
+    nat += button_nat * n_buttons;
+  }
+
+  if (minimum)
+    *minimum = min;
+  if (natural)
+    *natural = nat;
+}
+
+static GtkSizeRequestMode
+get_responses_request_mode (GtkWidget *widget)
+{
+  return GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
+}
+
+static void
+measure_responses (GtkWidget      *widget,
+                   GtkOrientation  orientation,
+                   int             for_size,
+                   int            *minimum,
+                   int            *natural,
+                   int            *minimum_baseline,
+                   int            *natural_baseline)
+{
+  AdwMessageDialog *self = ADW_MESSAGE_DIALOG (gtk_widget_get_root (widget));
+
+  if (orientation == GTK_ORIENTATION_HORIZONTAL) {
+    measure_responses_do (self, TRUE, orientation, minimum, NULL);
+    measure_responses_do (self, FALSE, orientation, NULL, natural);
+  } else {
+    int wide_min = 0;
+
+    if (for_size >= 0)
+      measure_responses_do (self, FALSE, GTK_ORIENTATION_HORIZONTAL, &wide_min, NULL);
+
+    measure_responses_do (self, for_size >= 0 && for_size < wide_min,
+                          orientation, minimum, natural);
+  }
+
+  if (minimum_baseline)
+    *minimum_baseline = -1;
+  if (natural_baseline)
+    *natural_baseline = -1;
+}
+
+static void
+allocate_responses (GtkWidget *widget,
+                    int        width,
+                    int        height,
+                    int        baseline)
+{
+  AdwMessageDialog *self = ADW_MESSAGE_DIALOG (gtk_widget_get_root (widget));
+  AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
+  gboolean compact;
+  int wide_min;
+
+  measure_responses_do (self, FALSE, GTK_ORIENTATION_HORIZONTAL, &wide_min, NULL);
+
+  compact = wide_min > width;
+
+  if (compact)
+    gtk_widget_add_css_class (widget, "compact");
+  else
+    gtk_widget_remove_css_class (widget, "compact");
+
+  if (compact) {
+    int pos = height;
+    GList *l;
+
+    for (l = priv->responses; l; l = l->next) {
+      ResponseInfo *response = l->data;
+      int child_height;
+
+      if (response->separator) {
+        gtk_widget_measure (response->separator, GTK_ORIENTATION_VERTICAL, -1,
+                            &child_height, NULL, NULL, NULL);
+
+        pos -= child_height;
+
+        gtk_widget_allocate (response->separator, width, child_height, -1,
+                             gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, pos)));
       }
 
-      if ((focus == NULL || response->narrow_button == focus) &&
-           response->narrow_button != default_widget &&
-           default_widget) {
-        gtk_widget_grab_focus (default_widget);
-        break;
+      gtk_widget_measure (response->button, GTK_ORIENTATION_VERTICAL, -1,
+                          &child_height, NULL, NULL, NULL);
+
+      pos -= child_height;
+
+      gtk_widget_allocate (response->button, width, child_height, -1,
+                           gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, pos)));
+    }
+  } else {
+    gboolean is_rtl = gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL;
+    int pos = is_rtl ? width : 0;
+    int n_buttons = g_list_length (priv->responses);
+    int total_width = width;
+    int button_width;
+    GList *l;
+
+    for (l = priv->responses; l; l = l->next) {
+      ResponseInfo *response = l->data;
+      int separator_width;
+
+      if (!response->separator)
+        continue;
+
+      gtk_widget_measure (response->separator, GTK_ORIENTATION_HORIZONTAL, -1,
+                          &separator_width, NULL, NULL, NULL);
+
+      total_width -= separator_width;
+    }
+
+    button_width = (int) ceil ((double) total_width / n_buttons);
+
+    for (l = priv->responses; l; l = l->next) {
+      ResponseInfo *response = l->data;
+
+      if (response->separator) {
+        int separator_width;
+
+        gtk_widget_measure (response->separator, GTK_ORIENTATION_HORIZONTAL, -1,
+                            &separator_width, NULL, NULL, NULL);
+
+        if (is_rtl)
+          pos -= separator_width;
+
+        gtk_widget_allocate (response->separator, separator_width, height, -1,
+                             gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (pos, 0)));
+
+        if (!is_rtl)
+          pos += separator_width;
       }
+
+      button_width = MIN (button_width, total_width);
+
+      total_width -= button_width;
+
+      if (is_rtl)
+        pos -= button_width;
+
+      gtk_widget_allocate (response->button, button_width, height, -1,
+                           gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (pos, 0)));
+
+      if (!is_rtl)
+        pos += button_width;
     }
   }
 }
@@ -517,12 +683,8 @@ adw_message_dialog_measure (GtkWidget      *widget,
       max_size = DIALOG_MAX_WIDTH;
     }
 
-    gtk_widget_measure (GTK_WIDGET (priv->wide_response_box),
-                        GTK_ORIENTATION_HORIZONTAL, -1,
-                        &wide_min, NULL, NULL, NULL);
-    gtk_widget_measure (GTK_WIDGET (priv->narrow_response_box),
-                        GTK_ORIENTATION_HORIZONTAL, -1,
-                        NULL, &narrow_nat, NULL, NULL);
+    measure_responses_do (self, FALSE, GTK_ORIENTATION_HORIZONTAL, &wide_min, NULL);
+    measure_responses_do (self, TRUE, GTK_ORIENTATION_HORIZONTAL, NULL, &narrow_nat);
 
     narrow_nat = MAX (narrow_nat, DIALOG_MIN_WIDTH);
 
@@ -802,17 +964,13 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwMessageDialog, heading_label);
   gtk_widget_class_bind_template_child_private (widget_class, AdwMessageDialog, body_label);
   gtk_widget_class_bind_template_child_private (widget_class, AdwMessageDialog, message_area);
-  gtk_widget_class_bind_template_child_private (widget_class, AdwMessageDialog, squeezer);
-  gtk_widget_class_bind_template_child_private (widget_class, AdwMessageDialog, wide_response_box);
-  gtk_widget_class_bind_template_child_private (widget_class, AdwMessageDialog, narrow_response_box);
-  gtk_widget_class_bind_template_child_private (widget_class, AdwMessageDialog, wide_size_group);
-  gtk_widget_class_bind_template_child_private (widget_class, AdwMessageDialog, narrow_size_group);
-
-  gtk_widget_class_bind_template_callback (widget_class, update_default_response);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwMessageDialog, response_area);
 
   gtk_widget_class_add_binding_action (widget_class, GDK_KEY_Escape, 0, "window.close", NULL);
 
   gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_DIALOG);
+
+  g_type_ensure (ADW_TYPE_GIZMO);
 }
 
 static void
@@ -833,6 +991,16 @@ adw_message_dialog_init (AdwMessageDialog *self)
   priv->id_to_response = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  gtk_widget_set_layout_manager (priv->response_area,
+                                 gtk_custom_layout_new (get_responses_request_mode,
+                                                        measure_responses,
+                                                        allocate_responses));
+
+  adw_gizmo_set_focus_func (ADW_GIZMO (priv->response_area),
+                            (AdwGizmoFocusFunc) adw_widget_focus_child);
+  adw_gizmo_set_grab_focus_func (ADW_GIZMO (priv->response_area),
+                            (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
 
   parent_changed_cb (self);
   g_signal_connect (self, "notify::transient-for",
@@ -1633,30 +1801,18 @@ adw_message_dialog_add_response (AdwMessageDialog *self,
   info->enabled = TRUE;
 
   if (priv->responses) {
-    GtkWidget *separator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
-    gtk_box_append (priv->wide_response_box, separator);
+    info->separator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
+    gtk_widget_set_parent (info->separator, priv->response_area);
   }
 
-  info->wide_button = create_response_button (self, info);
-  gtk_widget_set_hexpand (info->wide_button, TRUE);
-  gtk_box_append (priv->wide_response_box, info->wide_button);
-  gtk_size_group_add_widget (priv->wide_size_group, info->wide_button);
-
-  if (priv->responses) {
-    GtkWidget *separator = gtk_separator_new (GTK_ORIENTATION_HORIZONTAL);
-    gtk_box_prepend (priv->narrow_response_box, separator);
-  }
-
-  info->narrow_button = create_response_button (self, info);
-  gtk_box_prepend (priv->narrow_response_box, info->narrow_button);
-  gtk_size_group_add_widget (priv->narrow_size_group, info->narrow_button);
+  info->button = create_response_button (self, info);
+  gtk_widget_set_parent (info->button, priv->response_area);
 
   priv->responses = g_list_append (priv->responses, info);
   g_hash_table_insert (priv->id_to_response, g_strdup (id), info);
 
-  if (priv->default_response == info->id &&
-      gtk_widget_get_mapped (GTK_WIDGET (self)))
-    update_default_response (self);
+  if (priv->default_response == info->id)
+    gtk_window_set_default_widget (GTK_WINDOW (self), info->button);
 }
 
 /**
@@ -1772,8 +1928,7 @@ adw_message_dialog_set_response_label (AdwMessageDialog *self,
   g_free (info->label);
   info->label = g_strdup (label);
 
-  gtk_button_set_label (GTK_BUTTON (info->wide_button), label);
-  gtk_button_set_label (GTK_BUTTON (info->narrow_button), label);
+  gtk_button_set_label (GTK_BUTTON (info->button), label);
 }
 
 /**
@@ -1850,21 +2005,15 @@ adw_message_dialog_set_response_appearance (AdwMessageDialog      *self,
 
   info->appearance = appearance;
 
-  if (info->appearance == ADW_RESPONSE_SUGGESTED) {
-    gtk_widget_add_css_class (info->wide_button, "suggested");
-    gtk_widget_add_css_class (info->narrow_button, "suggested");
-  } else {
-    gtk_widget_remove_css_class (info->wide_button, "suggested");
-    gtk_widget_remove_css_class (info->narrow_button, "suggested");
-  }
+  if (info->appearance == ADW_RESPONSE_SUGGESTED)
+    gtk_widget_add_css_class (info->button, "suggested");
+  else
+    gtk_widget_remove_css_class (info->button, "suggested");
 
-  if (info->appearance == ADW_RESPONSE_DESTRUCTIVE) {
-    gtk_widget_add_css_class (info->wide_button, "destructive");
-    gtk_widget_add_css_class (info->narrow_button, "destructive");
-  } else {
-    gtk_widget_remove_css_class (info->wide_button, "destructive");
-    gtk_widget_remove_css_class (info->narrow_button, "destructive");
-  }
+  if (info->appearance == ADW_RESPONSE_DESTRUCTIVE)
+    gtk_widget_add_css_class (info->button, "destructive");
+  else
+    gtk_widget_remove_css_class (info->button, "destructive");
 }
 
 /**
@@ -1934,8 +2083,7 @@ adw_message_dialog_set_response_enabled (AdwMessageDialog *self,
 
   info->enabled = enabled;
 
-  gtk_widget_set_sensitive (info->wide_button, info->enabled);
-  gtk_widget_set_sensitive (info->narrow_button, info->enabled);
+  gtk_widget_set_sensitive (info->button, info->enabled);
 }
 
 /**
@@ -1983,6 +2131,7 @@ adw_message_dialog_set_default_response (AdwMessageDialog *self,
 {
   AdwMessageDialogPrivate *priv;
   GQuark quark;
+  ResponseInfo *info;
 
   g_return_if_fail (ADW_IS_MESSAGE_DIALOG (self));
 
@@ -1994,8 +2143,10 @@ adw_message_dialog_set_default_response (AdwMessageDialog *self,
 
   priv->default_response = quark;
 
-  if (gtk_widget_get_mapped (GTK_WIDGET (self)))
-    update_default_response (self);
+  info = find_response (self, response);
+
+  if (info)
+    gtk_window_set_default_widget (GTK_WINDOW (self), info->button);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DEFAULT_RESPONSE]);
 }
