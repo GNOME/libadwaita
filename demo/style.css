@@ -18,12 +18,6 @@ stacksidebar {
   margin-bottom: 36px;
 }
 
-flowbox.inline flowboxchild {
-  padding: 0;
-  background: none;
-  color: inherit;
-}
-
 #custom-button-1 {
   color: @red_3;
 }
