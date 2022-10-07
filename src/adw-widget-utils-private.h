@@ -55,4 +55,7 @@ gboolean adw_widget_lookup_color (GtkWidget  *widget,
                                   const char *name,
                                   GdkRGBA    *rgba);
 
+GtkWidget *adw_widget_get_ancestor_same_native (GtkWidget *widget,
+                                                GType      widget_type);
+
 G_END_DECLS

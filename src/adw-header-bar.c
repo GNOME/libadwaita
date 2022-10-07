@@ -26,6 +26,7 @@
 #include "adw-bin.h"
 #include "adw-enums.h"
 #include "adw-gizmo-private.h"
+#include "adw-navigation-view.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -42,8 +43,17 @@
  * features compared to it. Refer to `GtkHeaderBar` for details. It is typically
  * used as a top bar within [class@ToolbarView].
  *
+ * ## Navigation View Integration
+ *
+ * When placed inside an [class@NavigationPage], `AdwHeaderBar` will display the
+ * page title instead of window title.
+ *
+ * ## Centering Policy
+ *
  * [property@HeaderBar:centering-policy] allows to enforce strict centering of
  * the title widget, this is useful for [class@ViewSwitcherTitle].
+ *
+ * ## Title Buttons
  *
  * [property@HeaderBar:show-start-title-buttons] and
  * [property@HeaderBar:show-end-title-buttons] allow to easily create split
@@ -159,6 +169,8 @@ struct _AdwHeaderBar {
   gboolean is_mobile_window;
 
   GtkSizeGroup *size_group;
+
+  GtkWidget *title_navigation_page;
 };
 
 enum {
@@ -212,16 +224,20 @@ create_end_window_controls (AdwHeaderBar *self)
 static void
 update_title (AdwHeaderBar *self)
 {
-  GtkRoot *root;
   const char *title = NULL;
 
   if (!self->title_label)
     return;
 
-  root = gtk_widget_get_root (GTK_WIDGET (self));
+  if (self->title_navigation_page)
+    title = adw_navigation_page_get_title (ADW_NAVIGATION_PAGE (self->title_navigation_page));
 
-  if (GTK_IS_WINDOW (root))
-    title = gtk_window_get_title (GTK_WINDOW (root));
+  if (!title) {
+    GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
+
+    if (GTK_IS_WINDOW (root))
+      title = gtk_window_get_title (GTK_WINDOW (root));
+  }
 
   if (!title)
     title = g_get_application_name ();
@@ -257,24 +273,41 @@ construct_title_label (AdwHeaderBar *self)
 static void
 adw_header_bar_root (GtkWidget *widget)
 {
-  GtkWidget *root;
+  AdwHeaderBar *self = ADW_HEADER_BAR (widget);
 
   GTK_WIDGET_CLASS (adw_header_bar_parent_class)->root (widget);
 
-  root = GTK_WIDGET (gtk_widget_get_root (widget));
+  self->title_navigation_page =
+    adw_widget_get_ancestor_same_native (widget, ADW_TYPE_NAVIGATION_PAGE);
 
-  if (GTK_IS_WINDOW (root))
-    g_signal_connect_swapped (root, "notify::title",
+  if (self->title_navigation_page) {
+    g_signal_connect_swapped (self->title_navigation_page, "notify::title",
                               G_CALLBACK (update_title), widget);
+  } else {
+    GtkRoot *root = gtk_widget_get_root (widget);
 
-  update_title (ADW_HEADER_BAR (widget));
+    if (GTK_IS_WINDOW (root))
+      g_signal_connect_swapped (root, "notify::title",
+                                G_CALLBACK (update_title), widget);
+  }
+
+  update_title (self);
 }
 
 static void
 adw_header_bar_unroot (GtkWidget *widget)
 {
-  g_signal_handlers_disconnect_by_func (gtk_widget_get_root (widget),
-                                        update_title, widget);
+  AdwHeaderBar *self = ADW_HEADER_BAR (widget);
+
+  if (self->title_navigation_page) {
+    g_signal_handlers_disconnect_by_func (self->title_navigation_page,
+                                          update_title, widget);
+
+    self->title_navigation_page = NULL;
+  } else {
+    g_signal_handlers_disconnect_by_func (gtk_widget_get_root (widget),
+                                          update_title, widget);
+  }
 
   GTK_WIDGET_CLASS (adw_header_bar_parent_class)->unroot (widget);
 }

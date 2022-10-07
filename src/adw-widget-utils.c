@@ -559,3 +559,16 @@ G_GNUC_BEGIN_IGNORE_DEPRECATIONS
 G_GNUC_END_IGNORE_DEPRECATIONS
 }
 
+GtkWidget *
+adw_widget_get_ancestor_same_native (GtkWidget *widget,
+                                     GType      widget_type)
+{
+  while (widget && !g_type_is_a (G_OBJECT_TYPE (widget), widget_type)) {
+    if (GTK_IS_NATIVE (widget))
+      return NULL;
+
+    widget = gtk_widget_get_parent (widget);
+  }
+
+  return widget;
+}
