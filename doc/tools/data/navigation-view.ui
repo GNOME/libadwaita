@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkBox" id="widget">
+    <property name="spacing">12</property>
+    <property name="homogeneous">True</property>
+    <property name="width-request">600</property>
+    <property name="height-request">200</property>
+    <child>
+      <object class="AdwNavigationView">
+        <style>
+          <class name="docs-background"/>
+        </style>
+        <child>
+          <object class="AdwNavigationPage">
+            <property name="title">Page 1</property>
+            <property name="child">
+              <object class="AdwToolbarView">
+                <child type="top">
+                  <object class="AdwHeaderBar">
+                    <property name="show-start-title-buttons">False</property>
+                    <property name="show-end-title-buttons">False</property>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwNavigationPage">
+            <property name="title">Page 2</property>
+            <property name="child">
+              <object class="AdwToolbarView">
+                <child type="top">
+                  <object class="AdwHeaderBar">
+                    <property name="show-start-title-buttons">False</property>
+                    <property name="show-end-title-buttons">False</property>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwNavigationView">
+        <style>
+          <class name="docs-background"/>
+        </style>
+        <child>
+          <object class="AdwNavigationPage">
+            <property name="title">Page 1</property>
+            <property name="child">
+              <object class="AdwToolbarView">
+                <child type="top">
+                  <object class="AdwHeaderBar">
+                    <property name="show-start-title-buttons">False</property>
+                    <property name="show-end-title-buttons">False</property>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwNavigationPage" id="nav-page">
+            <property name="title">Page 2</property>
+            <property name="child">
+              <object class="AdwToolbarView">
+                <child type="top">
+                  <object class="AdwHeaderBar">
+                    <property name="show-start-title-buttons">False</property>
+                    <property name="show-end-title-buttons">False</property>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -52,6 +52,7 @@ G_BEGIN_DECLS
 #include "adw-main.h"
 #include "adw-message-dialog.h"
 #include "adw-navigation-direction.h"
+#include "adw-navigation-view.h"
 #include "adw-password-entry-row.h"
 #include "adw-preferences-group.h"
 #include "adw-preferences-page.h"

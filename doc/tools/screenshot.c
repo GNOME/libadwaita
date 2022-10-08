@@ -18,6 +18,7 @@ typedef struct {
   GtkWidget *hover_widget;
   GtkWidget *hscroll_widget;
   GtkWidget *vscroll_widget;
+  GtkWidget *nav_view_child_widget;
   GdkPaintable *paintable;
   char *name;
   GtkCssProvider *provider;
@@ -265,6 +266,25 @@ take_screenshot_cb (ScreenshotData *data)
                                gtk_adjustment_get_page_size (adj)) / 2);
   }
 
+  if (data->nav_view_child_widget) {
+    AdwNavigationPage *visible_page;
+    GtkWidget *view;
+
+    g_assert (ADW_IS_NAVIGATION_PAGE (data->nav_view_child_widget));
+
+    view = gtk_widget_get_parent (data->nav_view_child_widget);
+
+    g_assert (ADW_IS_NAVIGATION_VIEW (view));
+
+    visible_page = adw_navigation_view_get_visible_page (ADW_NAVIGATION_VIEW (view));
+
+    adw_navigation_view_replace (ADW_NAVIGATION_VIEW (view),
+                                 (AdwNavigationPage *[2]) {
+                                   visible_page,
+                                   ADW_NAVIGATION_PAGE (data->nav_view_child_widget)
+                                 }, 2);
+  }
+
   g_signal_connect_swapped (data->paintable, "invalidate-contents",
                             G_CALLBACK (draw_paintable), data);
 
@@ -290,6 +310,7 @@ take_screenshot (const char *name,
   GObject *hover_widget;
   GObject *hscroll_widget;
   GObject *vscroll_widget;
+  GObject *nav_view_child_widget;
   GtkWidget *window;
   gboolean wait = FALSE;
 
@@ -318,6 +339,7 @@ take_screenshot (const char *name,
   hover_widget = gtk_builder_get_object (builder, "hover");
   hscroll_widget = gtk_builder_get_object (builder, "hscroll");
   vscroll_widget = gtk_builder_get_object (builder, "vscroll");
+  nav_view_child_widget = gtk_builder_get_object (builder, "nav-page");
 
   g_assert (GTK_IS_WIDGET (widget));
 
@@ -362,6 +384,9 @@ take_screenshot (const char *name,
 
   if (vscroll_widget)
     data->vscroll_widget = GTK_WIDGET (vscroll_widget);
+
+  if (nav_view_child_widget)
+    data->nav_view_child_widget = GTK_WIDGET (nav_view_child_widget);
 
   if (wait)
     g_timeout_add_seconds (1, G_SOURCE_FUNC (take_screenshot_cb), data);

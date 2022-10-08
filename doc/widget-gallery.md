@@ -125,6 +125,13 @@ Slug: widget-gallery
 
 ## Navigation
 
+### Navigation View
+
+[<picture>
+  <source srcset="navigation-view-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="navigation-view.png" alt="navigation-view">
+</picture>](class.NavigationView.html)
+
 ### Carousel
 
 [<picture>
