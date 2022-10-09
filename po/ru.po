@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-08-01 14:50+0000\n"
-"PO-Revision-Date: 2022-08-01 18:26+0300\n"
+"POT-Creation-Date: 2022-09-17 13:15+0000\n"
+"PO-Revision-Date: 2022-10-09 13:10+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: src/adw-about-window.c:203
 msgid "GNU General Public License, version 2 or later"
@@ -332,10 +332,34 @@ msgstr "Поиск"
 msgid "No Results Found"
 msgstr "Результатов не найдено"
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:111
 msgid "Try a different search."
 msgstr "Попробуйте другой поисковый запрос."
 
-#: src/adw-tab.ui:88
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "Просмотреть открытые вкладки"
+
+#: src/adw-tab-overview.ui:23
+msgid "Search Tabs"
+msgstr "Поиск вкладок"
+
+#: src/adw-tab-overview.ui:53
+msgid "Search tabs"
+msgstr "Поиск вкладок"
+
+#: src/adw-tab-overview.ui:97
+msgid "No Open Tabs"
+msgstr "Нет открытых вкладок"
+
+#: src/adw-tab-overview.ui:110
+msgid "No Tabs Found"
+msgstr "Вкладки не найдены"
+
+#: src/adw-tab-overview.ui:131
+msgid "New _Tab"
+msgstr "Новая _вкладка"
+
+#: src/adw-tab-thumbnail.ui:36 src/adw-tab.ui:88
 msgid "Close Tab"
 msgstr "Закрыть вкладку"
