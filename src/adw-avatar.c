@@ -214,6 +214,24 @@ update_font_size (AdwAvatar *self)
 }
 
 static void
+update_custom_image_snapshot (AdwAvatar *self)
+{
+  GtkSnapshot *snapshot = gtk_snapshot_new ();
+  GdkPaintable *square_image;
+  int height = gdk_paintable_get_intrinsic_height (self->custom_image_source);
+  int width = gdk_paintable_get_intrinsic_width (self->custom_image_source);
+  int size = MIN (width, height);
+
+  gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT ((size - width) / 2.f, (size - height) / 2.f));
+  gdk_paintable_snapshot (self->custom_image_source, snapshot, width, height);
+
+  square_image = gtk_snapshot_free_to_paintable (snapshot, &GRAPHENE_SIZE_INIT (size, size));
+  gtk_image_set_from_paintable (self->custom_image, square_image);
+
+  g_object_unref (square_image);
+}
+
+static void
 adw_avatar_get_property (GObject    *object,
                          guint       property_id,
                          GValue     *value,
@@ -632,6 +650,11 @@ adw_avatar_set_custom_image (AdwAvatar    *self,
   if (self->custom_image_source == custom_image)
     return;
 
+  if (self->custom_image_source) {
+    g_signal_handlers_disconnect_by_func (self->custom_image_source,
+                                          update_custom_image_snapshot, self);
+  }
+
   g_set_object (&self->custom_image_source, custom_image);
 
   if (custom_image) {
@@ -641,17 +664,10 @@ adw_avatar_set_custom_image (AdwAvatar    *self,
     if (height == width) {
       gtk_image_set_from_paintable (self->custom_image, custom_image);
     } else {
-      GtkSnapshot *snapshot = gtk_snapshot_new ();
-      GdkPaintable *square_image;
-      int size = MIN (width, height);
-
-      gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT ((size - width) / 2.f, (size - height) / 2.f));
-      gdk_paintable_snapshot (custom_image, snapshot, width, height);
-
-      square_image = gtk_snapshot_free_to_paintable (snapshot, &GRAPHENE_SIZE_INIT (size, size));
-      gtk_image_set_from_paintable (self->custom_image, square_image);
-
-      g_object_unref (square_image);
+      update_custom_image_snapshot (self);
+      g_signal_connect_swapped (custom_image, "invalidate-contents",
+                                G_CALLBACK (update_custom_image_snapshot),
+                                self);
     }
 
     gtk_widget_add_css_class (self->gizmo, "image");
