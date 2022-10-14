@@ -862,9 +862,8 @@ get_background_color (AdwTabPaintable *self,
                       GdkRGBA         *rgba)
 {
   GtkWidget *child = adw_tab_page_get_child (self->page);
-  GtkStyleContext *context = gtk_widget_get_style_context (child);
 
-  if (gtk_style_context_lookup_color (context, "thumbnail_bg_color", rgba))
+  if (adw_widget_lookup_color (child, "thumbnail_bg_color", rgba))
     return;
 
   rgba->red = 1;
@@ -950,7 +949,6 @@ snapshot_default_icon (GtkSnapshot *snapshot,
   GtkIconTheme *icon_theme;
   GIcon *default_icon;
   GtkIconPaintable *icon;
-  GtkStyleContext *context;
   GdkRGBA colors[4];
   double x, y;
   double view_width, view_height;
@@ -990,11 +988,10 @@ snapshot_default_icon (GtkSnapshot *snapshot,
                                          gtk_widget_get_direction (view),
                                          GTK_ICON_LOOKUP_FORCE_SYMBOLIC);
 
-  context = gtk_widget_get_style_context (view);
-  gtk_style_context_get_color (context, &colors[GTK_SYMBOLIC_COLOR_FOREGROUND]);
-  gtk_style_context_lookup_color (context, "error-color", &colors[GTK_SYMBOLIC_COLOR_ERROR]);
-  gtk_style_context_lookup_color (context, "warning-color", &colors[GTK_SYMBOLIC_COLOR_WARNING]);
-  gtk_style_context_lookup_color (context, "success-color", &colors[GTK_SYMBOLIC_COLOR_SUCCESS]);
+  adw_widget_get_style_color (view, &colors[GTK_SYMBOLIC_COLOR_FOREGROUND]);
+  adw_widget_lookup_color (view, "error-color", &colors[GTK_SYMBOLIC_COLOR_ERROR]);
+  adw_widget_lookup_color (view, "warning-color", &colors[GTK_SYMBOLIC_COLOR_WARNING]);
+  adw_widget_lookup_color (view, "success-color", &colors[GTK_SYMBOLIC_COLOR_SUCCESS]);
 
   hc = adw_style_manager_get_high_contrast (adw_style_manager_get_for_display (display));
 

@@ -1047,9 +1047,7 @@ should_round_corners (AdwTabOverview *self,
                       gboolean       *round_bottom_right)
 {
   GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
-  GtkBorder border, padding, window_border, window_padding;
   graphene_rect_t bounds;
-  GtkStyleContext *context;
   GdkSurface *surface;
   GdkToplevelState state;
   gboolean top_left = TRUE;
@@ -1077,40 +1075,29 @@ should_round_corners (AdwTabOverview *self,
                 GDK_TOPLEVEL_STATE_LEFT_TILED)) > 0)
     return;
 
-  context = gtk_widget_get_style_context (GTK_WIDGET (root));
-
-  if (!gtk_style_context_has_class (context, "csd") ||
-      gtk_style_context_has_class (context, "solid-csd"))
+  if (!gtk_widget_has_css_class (GTK_WIDGET (root), "csd") ||
+      gtk_widget_has_css_class (GTK_WIDGET (root), "solid-csd"))
     return;
 
-  gtk_style_context_get_border (context, &window_border);
-  gtk_style_context_get_padding (context, &window_padding);
-
-  context = gtk_widget_get_style_context (GTK_WIDGET (self));
-  gtk_style_context_get_border (context, &border);
-  gtk_style_context_get_padding (context, &padding);
-
-  if (!gtk_widget_compute_bounds (GTK_WIDGET (self), GTK_WIDGET (root), &bounds))
+  if (!gtk_widget_compute_bounds (GTK_WIDGET (self->child_bin), GTK_WIDGET (root), &bounds))
     return;
 
-  if (border.left + padding.left + window_border.left + window_padding.left + bounds.origin.x > 0) {
+  if (bounds.origin.x > 0) {
     top_left = FALSE;
     bottom_left = FALSE;
   }
 
-  if (border.right + padding.right + window_border.right + window_padding.right > 0 ||
-      bounds.origin.x + bounds.size.width < gtk_widget_get_width (GTK_WIDGET (root))) {
+  if (bounds.origin.x + bounds.size.width < gtk_widget_get_width (GTK_WIDGET (root))) {
     top_right = FALSE;
     bottom_right = FALSE;
   }
 
-  if (border.top + padding.top + window_border.top + window_padding.top + bounds.origin.y > 0) {
+  if (bounds.origin.y > 0) {
     top_left = FALSE;
     top_right = FALSE;
   }
 
-  if (border.bottom + padding.bottom + window_border.bottom + window_padding.bottom > 0 ||
-      bounds.origin.y + bounds.size.height < gtk_widget_get_height (GTK_WIDGET (root))) {
+  if (bounds.origin.y + bounds.size.height < gtk_widget_get_height (GTK_WIDGET (root))) {
     bottom_left = FALSE;
     bottom_right = FALSE;
   }
@@ -1184,8 +1171,7 @@ adw_tab_overview_snapshot (GtkWidget   *widget,
   gtk_widget_snapshot_child (widget, self->overview, snapshot);
 
   /* Draw dim layer */
-  if (!gtk_style_context_lookup_color (gtk_widget_get_style_context (widget),
-                                       "shade_color", &rgba))
+  if (!adw_widget_lookup_color (widget, "shade_color", &rgba))
     rgba.alpha = 0;
 
   rgba.alpha *= 1 - self->progress;
@@ -1207,9 +1193,8 @@ adw_tab_overview_snapshot (GtkWidget   *widget,
   gtk_widget_snapshot_child (widget, self->child_bin, snapshot);
 
   if (self->transition_pinned) {
-    GtkStyleContext *context = gtk_widget_get_style_context (self->transition_picture);
-
-    if (!gtk_style_context_lookup_color (context, "thumbnail_bg_color", &rgba))
+    if (!adw_widget_lookup_color (self->transition_picture,
+                                  "thumbnail_bg_color", &rgba))
       rgba.red = rgba.green = rgba.blue = rgba.alpha = 1;
 
     gtk_snapshot_pop (snapshot);
@@ -1224,8 +1209,7 @@ adw_tab_overview_snapshot (GtkWidget   *widget,
     rgba.red = rgba.green = rgba.blue = 0;
     rgba.alpha = 0.5;
   } else {
-    if (!gtk_style_context_lookup_color (gtk_widget_get_style_context (widget),
-                                         "shade_color", &rgba))
+    if (!adw_widget_lookup_color (widget, "shade_color", &rgba))
       rgba.alpha = 0;
   }
 

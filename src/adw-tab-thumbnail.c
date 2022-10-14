@@ -16,6 +16,7 @@
 #include "adw-timed-animation.h"
 
 #define FADE_TRANSITION_DURATION 250
+#define PINNED_MARGIN 10
 
 struct _AdwTabThumbnail
 {
@@ -292,7 +293,6 @@ allocate_pinned_tab (AdwGizmo *gizmo,
   int left_margin = 0, right_margin = 0;
   int box_pos, box_width;
   gboolean is_rtl;
-  GtkBorder margin;
 
   if (gtk_widget_should_layout (self->unpin_icon))
     gtk_widget_measure (self->unpin_icon, GTK_ORIENTATION_HORIZONTAL, -1,
@@ -304,8 +304,6 @@ allocate_pinned_tab (AdwGizmo *gizmo,
   gtk_widget_measure (self->icon_title_box, GTK_ORIENTATION_HORIZONTAL, -1,
                       NULL, &box_width, NULL, NULL);
 
-  gtk_style_context_get_margin (gtk_widget_get_style_context (GTK_WIDGET (gizmo)), &margin);
-
   is_rtl = gtk_widget_get_direction (GTK_WIDGET (gizmo)) == GTK_TEXT_DIR_RTL;
 
   if (is_rtl != self->inverted) {
@@ -314,8 +312,8 @@ allocate_pinned_tab (AdwGizmo *gizmo,
     right_margin = tmp;
   }
 
-  left_margin = MAX (left_margin - margin.left, 0);
-  right_margin = MAX (right_margin - margin.right, 0);
+  left_margin = MAX (left_margin, PINNED_MARGIN);
+  right_margin = MAX (right_margin, PINNED_MARGIN);
 
   box_width = MIN (width - right_margin - left_margin, box_width);
   box_pos = (width - box_width) / 2;

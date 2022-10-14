@@ -543,3 +543,29 @@ adw_widget_get_request_mode (GtkWidget *widget)
         GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT :
         GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH;
 }
+
+void
+adw_widget_get_style_color (GtkWidget *widget,
+                            GdkRGBA   *rgba)
+{
+#if GTK_CHECK_VERSION (4, 9, 1)
+  gtk_widget_get_style_color (widget, rgba);
+#else
+  GtkStyleContext *context = gtk_widget_get_style_context (widget);
+
+  gtk_style_context_get_color (context, rgba);
+#endif
+}
+
+/* FIXME: Replace this with public color API and make public */
+gboolean
+adw_widget_lookup_color (GtkWidget  *widget,
+                         const char *name,
+                         GdkRGBA    *rgba)
+{
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+  GtkStyleContext *context = gtk_widget_get_style_context (widget);
+
+  return gtk_style_context_lookup_color (context, name, rgba);
+G_GNUC_END_IGNORE_DEPRECATIONS
+}

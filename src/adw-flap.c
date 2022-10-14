@@ -363,8 +363,6 @@ static void
 set_folded (AdwFlap  *self,
             gboolean  folded)
 {
-  GtkStyleContext *context;
-
   folded = !!folded;
 
   if (self->folded == folded)
@@ -386,13 +384,12 @@ set_folded (AdwFlap  *self,
   if (!self->locked)
     set_reveal_flap (self, !self->folded, 0);
 
-  context = gtk_widget_get_style_context (GTK_WIDGET (self));
   if (folded) {
-    gtk_style_context_add_class (context, "folded");
-    gtk_style_context_remove_class (context, "unfolded");
+    gtk_widget_add_css_class (GTK_WIDGET (self), "folded");
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "unfolded");
   } else {
-    gtk_style_context_remove_class (context, "folded");
-    gtk_style_context_add_class (context, "unfolded");
+    gtk_widget_remove_css_class (GTK_WIDGET (self), "folded");
+    gtk_widget_add_css_class (GTK_WIDGET (self), "unfolded");
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FOLDED]);
@@ -1532,7 +1529,6 @@ flap_close_cb (AdwFlap *self)
 static void
 adw_flap_init (AdwFlap *self)
 {
-  GtkStyleContext *context = gtk_widget_get_style_context (GTK_WIDGET (self));
   GtkEventController *gesture;
   GtkShortcut *shortcut;
   AdwAnimationTarget *target;
@@ -1582,7 +1578,7 @@ adw_flap_init (AdwFlap *self)
 
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
-  gtk_style_context_add_class (context, "unfolded");
+  gtk_widget_add_css_class (GTK_WIDGET (self), "unfolded");
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               fold_animation_value_cb,

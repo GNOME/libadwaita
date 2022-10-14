@@ -11,6 +11,7 @@
 #include "adw-macros-private.h"
 #include "adw-swipeable.h"
 #include "adw-timed-animation.h"
+#include "adw-widget-utils-private.h"
 
 #include <math.h>
 
@@ -70,18 +71,6 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
-static GdkRGBA
-get_color (GtkWidget *widget)
-{
-  GtkStyleContext *context;
-  GdkRGBA color;
-
-  context = gtk_widget_get_style_context (widget);
-  gtk_style_context_get_color (context, &color);
-
-  return color;
-}
-
 static void
 snapshot_lines (GtkWidget      *widget,
                 GtkSnapshot    *snapshot,
@@ -95,7 +84,7 @@ snapshot_lines (GtkWidget      *widget,
   double indicator_length, full_size, line_size;
   double x = 0, y = 0, pos;
 
-  color = get_color (widget);
+  adw_widget_get_style_color (widget, &color);
   color.alpha *= LINE_OPACITY;
 
   line_size = LINE_LENGTH + LINE_SPACING;
@@ -143,7 +132,7 @@ snapshot_lines (GtkWidget      *widget,
     pos += (LINE_LENGTH + LINE_SPACING) * sizes[i];
   }
 
-  color = get_color (widget);
+  adw_widget_get_style_color (widget, &color);
   color.alpha *= LINE_OPACITY_ACTIVE;
 
   pos = position * (LINE_LENGTH + LINE_SPACING);

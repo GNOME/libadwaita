@@ -41,4 +41,11 @@ void adw_widget_compute_expand_horizontal_only (GtkWidget *widget,
 
 GtkSizeRequestMode adw_widget_get_request_mode (GtkWidget *widget);
 
+void adw_widget_get_style_color (GtkWidget *widget,
+                                 GdkRGBA   *rgba);
+
+gboolean adw_widget_lookup_color (GtkWidget  *widget,
+                                  const char *name,
+                                  GdkRGBA    *rgba);
+
 G_END_DECLS

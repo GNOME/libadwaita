@@ -50,7 +50,6 @@ typedef struct {
   GdkDrag *drag;
 
   AdwTab *tab;
-  GtkBorder tab_margin;
 
   int hotspot_x;
   int hotspot_y;
@@ -2455,15 +2454,11 @@ icon_resize_animation_value_cb (double    value,
 
   icon->width = (int) round (value);
 
-  gtk_widget_set_size_request (GTK_WIDGET (icon->tab),
-                               icon->width + icon->tab_margin.left + icon->tab_margin.right,
-                               -1);
+  gtk_widget_set_size_request (GTK_WIDGET (icon->tab),  icon->width, -1);
 
   icon->hotspot_x = (int) round (icon->width * relative_pos);
 
-  gdk_drag_set_hotspot (icon->drag,
-                        icon->hotspot_x + icon->tab_margin.left,
-                        icon->hotspot_y + icon->tab_margin.top);
+  gdk_drag_set_hotspot (icon->drag, icon->hotspot_x, icon->hotspot_y);
 
   gtk_widget_queue_resize (GTK_WIDGET (icon->tab));
 }
@@ -2491,19 +2486,12 @@ create_drag_icon (AdwTabBox *self,
   gtk_drag_icon_set_child (GTK_DRAG_ICON (gtk_drag_icon_get_for_drag (drag)),
                            GTK_WIDGET (icon->tab));
 
-  gtk_style_context_get_margin (gtk_widget_get_style_context (GTK_WIDGET (icon->tab)),
-                                &icon->tab_margin);
-
-  gtk_widget_set_size_request (GTK_WIDGET (icon->tab),
-                               icon->width + icon->tab_margin.left + icon->tab_margin.right,
-                               -1);
+  gtk_widget_set_size_request (GTK_WIDGET (icon->tab), icon->width, -1);
 
   icon->hotspot_x = (int) self->drag_offset_x;
   icon->hotspot_y = (int) self->drag_offset_y;
 
-  gdk_drag_set_hotspot (drag,
-                        icon->hotspot_x + icon->tab_margin.left,
-                        icon->hotspot_y + icon->tab_margin.top);
+  gdk_drag_set_hotspot (drag, icon->hotspot_x, icon->hotspot_y);
 
   target = adw_callback_animation_target_new ((AdwAnimationTargetFunc)
                                               icon_resize_animation_value_cb,
