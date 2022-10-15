@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-08-22 02:08+0000\n"
-"PO-Revision-Date: 2022-09-04 15:54+0200\n"
-"Last-Translator: Tim Sabsch <tim@sabsch.com>\n"
+"POT-Creation-Date: 2022-09-17 23:59+0000\n"
+"PO-Revision-Date: 2022-10-15 09:10+0200\n"
+"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: src/adw-about-window.c:203
 msgid "GNU General Public License, version 2 or later"
@@ -110,8 +110,8 @@ msgstr "Übersetzung von"
 #: src/adw-about-window.c:559
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a href=\"%s\">"
-"%s</a> for details."
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
 msgstr ""
 "Dieses Programm kommt OHNE JEDWEDE GARANTIE.\n"
 "Besuchen Sie <a href=\"%s\">%s</a> für weitere Informationen."
@@ -140,7 +140,7 @@ msgstr "In die Zwischenablage kopiert"
 
 #: src/adw-about-window.c:1299
 msgid "Unable to save debugging information"
-msgstr "Informationen zur Fehlerbehebung konnte nicht gespeichert werden"
+msgstr "Informationen zur Fehlerbehebung konnten nicht gespeichert werden"
 
 #: src/adw-about-window.c:1304
 msgid "Close"
