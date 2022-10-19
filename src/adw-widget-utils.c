@@ -549,7 +549,7 @@ adw_widget_get_style_color (GtkWidget *widget,
                             GdkRGBA   *rgba)
 {
 #if GTK_CHECK_VERSION (4, 9, 1)
-  gtk_widget_get_style_color (widget, rgba);
+  gtk_widget_get_color (widget, rgba);
 #else
   GtkStyleContext *context = gtk_widget_get_style_context (widget);
 
