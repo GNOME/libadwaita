@@ -7,6 +7,7 @@ test_cflags = [
 
 test_names = [
   'test-button-states',
+  'test-message-dialog',
 ]
 
 foreach test_name : test_names
