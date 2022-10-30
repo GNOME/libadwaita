@@ -110,12 +110,14 @@ window.messagedialog {
         margin-right: -1px;
         margin-left: -1px;
 
-        &:first-child {
+        &:first-child:dir(ltr),
+        &:last-child:dir(rtl) {
           border-bottom-left-radius: $window_radius+1;
           margin-left: 0;
         }
 
-        &:last-child {
+        &:last-child:dir(ltr),
+        &:first-child:dir(rtl) {
           border-bottom-right-radius: $window_radius+1;
           margin-right: 0;
         }
