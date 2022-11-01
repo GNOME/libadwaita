@@ -68,4 +68,7 @@ ADW_AVAILABLE_IN_ALL
 void     adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
                                                  gboolean            use_underline);
 
+ADW_AVAILABLE_IN_1_3
+void adw_preferences_page_scroll_to_top (AdwPreferencesPage *self);
+
 G_END_DECLS

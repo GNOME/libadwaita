@@ -548,3 +548,25 @@ adw_preferences_page_get_rows (AdwPreferencesPage *self)
 
   return G_LIST_MODEL (gtk_flatten_list_model_new (model));
 }
+
+/**
+ * adw_preferences_page_scroll_to_top:
+ * @self: a preferences page
+ *
+ * Scrolls the scrolled window of @self to the top.
+ *
+ * Since: 1.3
+ */
+void
+adw_preferences_page_scroll_to_top (AdwPreferencesPage *self)
+{
+  AdwPreferencesPagePrivate *priv;
+  GtkAdjustment *adjustment;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
+
+  priv = adw_preferences_page_get_instance_private (self);
+  adjustment = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (priv->scrolled_window));
+
+  gtk_adjustment_set_value (adjustment, gtk_adjustment_get_lower (adjustment));
+}
