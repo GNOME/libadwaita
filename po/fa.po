@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-08-05 19:13+0000\n"
-"PO-Revision-Date: 2022-08-07 03:22+0430\n"
-"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
+"POT-Creation-Date: 2022-09-17 23:59+0000\n"
+"PO-Revision-Date: 2022-10-13 19:59+0330\n"
+"Last-Translator: eshagh <eshagh094@gmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: src/adw-about-window.c:203
 msgid "GNU General Public License, version 2 or later"
@@ -128,7 +128,7 @@ msgstr "ناتوان در تجزیهٔ یادداشت انتشار:"
 #: src/adw-about-window.c:971
 #, c-format
 msgid "Line: %d, character: %d"
-msgstr "خط: %Id نویسه: %Id"
+msgstr "خط: %Id، نویسه: %Id"
 
 #: src/adw-about-window.c:1264
 msgid "Copied to clipboard"
@@ -184,7 +184,7 @@ msgstr "_رفع اشکال"
 
 #: src/adw-about-window.ui:226
 msgid "_Credits"
-msgstr "_اعتبارها"
+msgstr "_دست‌اندرکاران"
 
 #: src/adw-about-window.ui:241
 msgid "_Legal"
@@ -192,7 +192,7 @@ msgstr "_حقوقی"
 
 #: src/adw-about-window.ui:256
 msgid "_Acknowledgements"
-msgstr "_سپاسگذاری‌ها"
+msgstr "_سپاسگزاری‌ها"
 
 #: src/adw-about-window.ui:295
 msgid "What’s New"
@@ -229,7 +229,7 @@ msgstr "_اطّلاعات اشکال‌زدایی"
 
 #: src/adw-about-window.ui:507
 msgid "Credits"
-msgstr "اعتبارها"
+msgstr "دست‌اندرکاران"
 
 #: src/adw-about-window.ui:554
 msgid "Legal"
@@ -237,7 +237,7 @@ msgstr "حقوقی"
 
 #: src/adw-about-window.ui:601
 msgid "Acknowledgements"
-msgstr "سپاسگذاری‌ها"
+msgstr "سپاسگزاری‌ها"
 
 #: src/adw-about-window.ui:648
 msgid "Debugging Information"
@@ -249,7 +249,7 @@ msgstr "_رونوشت از متن"
 
 #: src/adw-about-window.ui:703
 msgid "_Save as…"
-msgstr "_ذخیره به شکل…"
+msgstr "_ذخیره به عنوان…"
 
 #: src/adw-entry-row.ui:93
 msgid "Apply"
