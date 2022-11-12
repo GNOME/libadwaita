@@ -1,0 +1,369 @@
+# Hindi translation for libadwaita.
+# Copyright (C) 2022 libadwaita's COPYRIGHT HOLDER
+# This file is distributed under the same license as the libadwaita package.
+# FIRST AUTHOR <hemish04082005@gmail.com>, 2022.
+# Hemish <hemish04082005@gmail.com>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libadwaita main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2022-11-07 23:44+0000\n"
+"PO-Revision-Date: 2022-11-09 01:00+0530\n"
+"Last-Translator: Hemish <hemish04082005@gmail.com>\n"
+"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-DL-Team: hi\n"
+"X-DL-Module: libadwaita\n"
+"X-DL-Branch: main\n"
+"X-DL-Domain: po\n"
+"X-DL-State: None\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU General Public License, संस्करण 2 या उसके बाद का"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU General Public License, संस्करण 3 या उसके बाद का"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU Lesser General Public License, संस्करण 2.1 या उसके बाद का"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU Lesser General Public License, संस्करण 3 या उसके बाद का"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "BSD 2-Clause License"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "The MIT License (MIT)"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Artistic License 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU General Public License, केवल संस्करण 2"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU General Public License, केवल संस्करण 3"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU Lesser General Public License, केवल संस्करण 2.1"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU Lesser General Public License, केवल संस्करण 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero General Public License, संस्करण 3 या उसके बाद का"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero General Public License, केवल संस्करण 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "BSD 3-Clause License"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Apache License, Version 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla Public License 2.0"
+
+#: src/adw-about-window.c:526
+msgid "Code by"
+msgstr "कोड लेखक"
+
+#: src/adw-about-window.c:527
+msgid "Design by"
+msgstr "बनावट निर्माता"
+
+#: src/adw-about-window.c:528
+msgid "Artwork by"
+msgstr "कलाकृति निर्माता"
+
+#: src/adw-about-window.c:529
+msgid "Documentation by"
+msgstr "दस्तावेज़कर्ता"
+
+#: src/adw-about-window.c:530
+msgid "Translated by"
+msgstr "अनुवादक"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:559
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
+msgstr ""
+"यह एप्लिकेशन बिल्कुल भी वारंटी के साथ नहीं आता है। विवरण के लिए <a href=\"%s\">%s</a> "
+"देखें।"
+
+#: src/adw-about-window.c:637
+msgid "This Application"
+msgstr "यह एप्लिकेशन"
+
+#: src/adw-about-window.c:939
+#, c-format
+msgid "Version %s"
+msgstr "संस्करण %s"
+
+#: src/adw-about-window.c:965
+msgid "Unable to parse release notes:"
+msgstr "रिलीज नोट्स को दिखाने में असमर्थ:"
+
+#: src/adw-about-window.c:971
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "पंक्ति: %d, अक्षर: %d"
+
+#: src/adw-about-window.c:1264
+msgid "Copied to clipboard"
+msgstr "कॉपी कर दिया गया है"
+
+#: src/adw-about-window.c:1299
+msgid "Unable to save debugging information"
+msgstr "डिबगिंग जानकारी सहेजने में असमर्थ"
+
+#: src/adw-about-window.c:1304
+msgid "Close"
+msgstr "बंद करें"
+
+#: src/adw-about-window.c:1322
+msgid "Save debugging information"
+msgstr "डिबगिंग जानकारी सहेजें"
+
+#: src/adw-about-window.c:1325
+msgid "_Save"
+msgstr "सहेजें (_S)"
+
+#: src/adw-about-window.c:1326
+msgid "_Cancel"
+msgstr "रद्द (_C)"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "बारे में"
+
+#: src/adw-about-window.ui:123
+msgid "_What’s New"
+msgstr "क्या नया है (_W)"
+
+#: src/adw-about-window.ui:138
+msgid "_Details"
+msgstr "विवरण (_D)"
+
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+msgid "_Website"
+msgstr "वेबसाइट (_W)"
+
+#: src/adw-about-window.ui:176
+msgid "_Support Questions"
+msgstr "सहायता प्रश्न (_S)"
+
+#: src/adw-about-window.ui:192
+msgid "_Report an Issue"
+msgstr "समस्या रिपोर्ट करें (_R)"
+
+#: src/adw-about-window.ui:207
+msgid "_Troubleshooting"
+msgstr "समस्या निवारण (_T)"
+
+#: src/adw-about-window.ui:226
+msgid "_Credits"
+msgstr "आभार (_C)"
+
+#: src/adw-about-window.ui:241
+msgid "_Legal"
+msgstr "कानूनी (_L)"
+
+#: src/adw-about-window.ui:256
+msgid "_Acknowledgements"
+msgstr "आभार (_A)"
+
+#: src/adw-about-window.ui:295
+msgid "What’s New"
+msgstr "क्या नया है"
+
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
+msgid "Back"
+msgstr "पीछे"
+
+#: src/adw-about-window.ui:351
+msgid "Details"
+msgstr "विवरण"
+
+#: src/adw-about-window.ui:432
+msgid "Troubleshooting"
+msgstr "समस्या निवारण"
+
+#: src/adw-about-window.ui:461
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"समस्या निवारण में सहायता के लिए, आप डिबगिंग जानकारी देख सकते हैं। एप्लिकेशन निर्माताओं को "
+"यह जानकारी प्रदान करने से समस्याओं को पहचानने में सहायता मिलेगी जब आप किसी समस्या की "
+"रिपोर्ट करते हैं।"
+
+#: src/adw-about-window.ui:472
+msgid "_Debugging Information"
+msgstr "डिबगिंग जानकारी (_D)"
+
+#: src/adw-about-window.ui:507
+msgid "Credits"
+msgstr "आभार"
+
+#: src/adw-about-window.ui:554
+msgid "Legal"
+msgstr "कानूनी"
+
+#: src/adw-about-window.ui:601
+msgid "Acknowledgements"
+msgstr "आभार"
+
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "डिबगिंग जानकारी"
+
+#: src/adw-about-window.ui:696
+msgid "_Copy Text"
+msgstr "कॉपी करें (_C)"
+
+#: src/adw-about-window.ui:703
+msgid "_Save as…"
+msgstr "अलग रूप या नाम में सहेजें... (_S)"
+
+#: src/adw-entry-row.ui:95
+msgid "Apply"
+msgstr "लागू करें"
+
+#: src/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "कोई प्राथमिकता नहीं"
+
+#: src/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "डार्क (Dark) को प्राथमिकता दें"
+
+#: src/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "लाईट (Light) को प्राथमिकता दें"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita (अद्वैत)"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "सिस्टम की दिखावट"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"इस एप्लिकेशन के लिए सेटिंग्स ओवरराइड करें। इन्सपेक्टर को बंद करने पर उन्हें रीसेट कर दिया "
+"जाएगा।"
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "सिस्टम रंग योजनाओं का समर्थन करता है"
+
+#: src/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "पसंदीदा रंग योजना"
+
+#: src/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "हाई कॉन्ट्रास्ट"
+
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "टेक्स्ट छुपाएँ"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "टेक्स्ट दिखाएँ"
+
+#: src/adw-password-entry-row.c:169
+msgid "Caps Lock is on"
+msgstr "कैप्स लॉक ऑन है"
+
+#: src/adw-password-entry-row.c:177
+msgid "_Show Text"
+msgstr "टेक्स्ट दिखाएँ (_S)"
+
+#: src/adw-preferences-window.c:245
+msgid "Untitled page"
+msgstr "बेनाम पृष्ठ"
+
+#: src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "सेटिंग्स (Preferences)"
+
+#: src/adw-preferences-window.ui:69
+msgid "Search"
+msgstr "खोजें"
+
+#: src/adw-preferences-window.ui:139
+msgid "No Results Found"
+msgstr "कोई परिणाम नहीं मिले"
+
+#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:111
+msgid "Try a different search."
+msgstr "एक अलग खोज का प्रयास करें।"
+
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "खुले टैब देखें"
+
+#: src/adw-tab-overview.ui:23
+msgid "Search Tabs"
+msgstr "टैब खोजें"
+
+#: src/adw-tab-overview.ui:53
+msgid "Search tabs"
+msgstr "टैब खोजें"
+
+#: src/adw-tab-overview.ui:97
+msgid "No Open Tabs"
+msgstr "कोई टैब नहीं खुला है"
+
+#: src/adw-tab-overview.ui:110
+msgid "No Tabs Found"
+msgstr "कोई टैब नहीं मिला"
+
+#: src/adw-tab-overview.ui:131
+msgid "New _Tab"
+msgstr "नया टैब (_T)"
+
+#: src/adw-tab-thumbnail.ui:36 src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "टैब बंद करें"
