@@ -28,12 +28,6 @@
 #define DRAG_THRESHOLD_DISTANCE 16
 #define EPSILON 0.005
 
-#if GTK_CHECK_VERSION (4, 7, 0)
-#define SCROLL_MULTIPLIER 1
-#else
-#define SCROLL_MULTIPLIER 10
-#endif
-
 #define SIGN(x) ((x) > 0.0 ? 1.0 : ((x) < 0.0 ? -1.0 : 0.0))
 
 /**
@@ -725,7 +719,7 @@ handle_scroll_event (AdwSwipeTracker *self,
     is_overshooting = (delta < 0 && self->progress <= first_point) ||
                       (delta > 0 && self->progress >= last_point);
 
-    append_to_history (self, delta * SCROLL_MULTIPLIER, time);
+    append_to_history (self, delta, time);
 
     if (!is_overshooting)
       gesture_begin (self);
@@ -737,9 +731,9 @@ handle_scroll_event (AdwSwipeTracker *self,
     if (gdk_scroll_event_is_stop (event)) {
       gesture_end (self, distance, time, TRUE);
     } else {
-      append_to_history (self, delta * SCROLL_MULTIPLIER, time);
+      append_to_history (self, delta, time);
 
-      gesture_update (self, delta / distance * SCROLL_MULTIPLIER, time);
+      gesture_update (self, delta / distance, time);
       return GDK_EVENT_STOP;
     }
   }

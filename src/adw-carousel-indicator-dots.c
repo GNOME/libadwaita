@@ -12,7 +12,6 @@
 #include "adw-macros-private.h"
 #include "adw-swipeable.h"
 #include "adw-timed-animation.h"
-#include "adw-widget-utils-private.h"
 
 #include <math.h>
 
@@ -87,7 +86,7 @@ snapshot_dots (GtkWidget      *widget,
   double current_position, remaining_progress;
   graphene_rect_t rect;
 
-  adw_widget_get_style_color (widget, &color);
+  gtk_widget_get_color (widget, &color);
   dot_size = 2 * DOTS_RADIUS_SELECTED + DOTS_SPACING;
 
   indicator_length = -DOTS_SPACING;

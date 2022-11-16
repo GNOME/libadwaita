@@ -988,7 +988,7 @@ snapshot_default_icon (GtkSnapshot *snapshot,
                                          gtk_widget_get_direction (view),
                                          GTK_ICON_LOOKUP_FORCE_SYMBOLIC);
 
-  adw_widget_get_style_color (view, &colors[GTK_SYMBOLIC_COLOR_FOREGROUND]);
+  gtk_widget_get_color (view, &colors[GTK_SYMBOLIC_COLOR_FOREGROUND]);
   adw_widget_lookup_color (view, "error-color", &colors[GTK_SYMBOLIC_COLOR_ERROR]);
   adw_widget_lookup_color (view, "warning-color", &colors[GTK_SYMBOLIC_COLOR_WARNING]);
   adw_widget_lookup_color (view, "success-color", &colors[GTK_SYMBOLIC_COLOR_SUCCESS]);

@@ -11,7 +11,6 @@
 #include "adw-macros-private.h"
 #include "adw-swipeable.h"
 #include "adw-timed-animation.h"
-#include "adw-widget-utils-private.h"
 
 #include <math.h>
 
@@ -84,7 +83,7 @@ snapshot_lines (GtkWidget      *widget,
   double indicator_length, full_size, line_size;
   double x = 0, y = 0, pos;
 
-  adw_widget_get_style_color (widget, &color);
+  gtk_widget_get_color (widget, &color);
   color.alpha *= LINE_OPACITY;
 
   line_size = LINE_LENGTH + LINE_SPACING;
@@ -132,7 +131,7 @@ snapshot_lines (GtkWidget      *widget,
     pos += (LINE_LENGTH + LINE_SPACING) * sizes[i];
   }
 
-  adw_widget_get_style_color (widget, &color);
+  gtk_widget_get_color (widget, &color);
   color.alpha *= LINE_OPACITY_ACTIVE;
 
   pos = position * (LINE_LENGTH + LINE_SPACING);

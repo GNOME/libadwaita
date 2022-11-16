@@ -242,7 +242,7 @@ libadwaita_sources = [
 ]
 
 glib_min_version = '>= 2.66'
-gtk_min_version = '>= 4.5.0'
+gtk_min_version = '>= 4.9.1'
 
 gio_dep = dependency('gio-2.0', version: glib_min_version)
 gtk_dep = dependency('gtk4', version: gtk_min_version)
