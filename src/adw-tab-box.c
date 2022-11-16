@@ -3934,11 +3934,7 @@ adw_tab_box_setup_extra_drop_target (AdwTabBox     *self,
   g_clear_pointer (&self->extra_drag_types, g_free);
 
   self->extra_drag_actions = actions;
-#if GLIB_CHECK_VERSION(2, 67, 3)
   self->extra_drag_types = g_memdup2 (types, sizeof (GType) * n_types);
-#else
-  self->extra_drag_types = g_memdup (types, sizeof (GType) * n_types);
-#endif
   self->extra_drag_n_types = n_types;
 
   for (l = self->tabs; l; l = l->next) {

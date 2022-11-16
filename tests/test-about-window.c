@@ -79,12 +79,10 @@ test_adw_about_window_create (void)
   g_assert_cmpstr (adw_about_window_get_support_url (window), ==, "https://example.org");
   g_assert_cmpstr (adw_about_window_get_debug_info (window), ==, "Debug");
   g_assert_cmpstr (adw_about_window_get_debug_info_filename (window), ==, "debug.txt");
-#if GLIB_CHECK_VERSION (2, 68, 0)
   g_assert_cmpstrv (adw_about_window_get_developers (window), developers);
   g_assert_cmpstrv (adw_about_window_get_designers (window), designers);
   g_assert_cmpstrv (adw_about_window_get_artists (window), artists);
   g_assert_cmpstrv (adw_about_window_get_documenters (window), documenters);
-#endif
   g_assert_cmpstr (adw_about_window_get_translator_credits (window), ==, "translator-credits");
   g_assert_cmpstr (adw_about_window_get_copyright (window), ==, "© 2022 Angela Avery");
   g_assert_cmpuint (adw_about_window_get_license_type (window), ==, GTK_LICENSE_GPL_3_0);
