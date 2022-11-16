@@ -1274,14 +1274,13 @@ debug_cb (AdwAboutWindow *self)
 }
 
 static void
-save_debug_info_response_cb (GtkFileChooser  *chooser,
-                             GtkResponseType  response,
-                             AdwAboutWindow  *self)
+save_debug_info_dialog_cb (GtkFileDialog  *dialog,
+                           GAsyncResult   *result,
+                           AdwAboutWindow *self)
 {
-  gtk_native_dialog_hide (GTK_NATIVE_DIALOG (chooser));
+  GFile *file = gtk_file_dialog_save_finish (dialog, result, NULL);
 
-  if (response == GTK_RESPONSE_ACCEPT) {
-    GFile *file = gtk_file_chooser_get_file (GTK_FILE_CHOOSER (chooser));
+  if (file) {
     GError *error = NULL;
 
     g_file_replace_contents (file,
@@ -1295,44 +1294,37 @@ save_debug_info_response_cb (GtkFileChooser  *chooser,
                              &error);
 
     if (error) {
-      GtkWidget *dialog = adw_message_dialog_new (GTK_WINDOW (self),
+      GtkWidget *message = adw_message_dialog_new (GTK_WINDOW (self),
                                                   _("Unable to save debugging information"),
                                                   NULL);
-      adw_message_dialog_format_body (ADW_MESSAGE_DIALOG (dialog),
+      adw_message_dialog_format_body (ADW_MESSAGE_DIALOG (message),
                                       "%s", error->message);
-      adw_message_dialog_add_response (ADW_MESSAGE_DIALOG (dialog),
+      adw_message_dialog_add_response (ADW_MESSAGE_DIALOG (message),
                                        "close", _("Close"));
 
-      gtk_window_present (GTK_WINDOW (dialog));
+      gtk_window_present (GTK_WINDOW (message));
 
       g_error_free (error);
     }
 
     g_object_unref (file);
   }
-
-  gtk_native_dialog_destroy (GTK_NATIVE_DIALOG (chooser));
 }
 
 static void
 save_debug_info_cb (AdwAboutWindow *self)
 {
-  GtkFileChooserNative *chooser;
+  GtkFileDialog *dialog = gtk_file_dialog_new ();
 
-  chooser = gtk_file_chooser_native_new (_("Save debugging information"),
-                                         GTK_WINDOW (self),
-                                         GTK_FILE_CHOOSER_ACTION_SAVE,
-                                         _("_Save"),
-                                         _("_Cancel"));
+  gtk_file_dialog_set_title (dialog, _("Save debugging information"));
 
-  if (self->debug_info_filename && *self->debug_info_filename)
-    gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (chooser), self->debug_info_filename);
-
-  gtk_native_dialog_set_modal (GTK_NATIVE_DIALOG (chooser), TRUE);
-
-  g_signal_connect (chooser, "response", G_CALLBACK (save_debug_info_response_cb), self);
-
-  gtk_native_dialog_show (GTK_NATIVE_DIALOG (chooser));
+  gtk_file_dialog_save (dialog,
+                        GTK_WINDOW (self),
+                        NULL,
+                        self->debug_info_filename,
+                        NULL,
+                        (GAsyncReadyCallback) save_debug_info_dialog_cb,
+                        self);
 }
 
 static gboolean
