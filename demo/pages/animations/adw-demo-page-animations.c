@@ -33,7 +33,7 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
-G_DEFINE_TYPE (AdwDemoPageAnimations, adw_demo_page_animations, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageAnimations, adw_demo_page_animations, ADW_TYPE_BIN)
 
 static AdwAnimation *
 get_current_animation (AdwDemoPageAnimations *self)

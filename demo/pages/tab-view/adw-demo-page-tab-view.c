@@ -9,7 +9,7 @@ struct _AdwDemoPageTabView
   AdwBin parent_instance;
 };
 
-G_DEFINE_TYPE (AdwDemoPageTabView, adw_demo_page_tab_view, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageTabView, adw_demo_page_tab_view, ADW_TYPE_BIN)
 
 static void
 demo_run_cb (AdwDemoPageTabView *self)

@@ -8,7 +8,7 @@ struct _AdwDemoPreferencesWindow
   GtkWidget *subpage2;
 };
 
-G_DEFINE_TYPE (AdwDemoPreferencesWindow, adw_demo_preferences_window, ADW_TYPE_PREFERENCES_WINDOW)
+G_DEFINE_FINAL_TYPE (AdwDemoPreferencesWindow, adw_demo_preferences_window, ADW_TYPE_PREFERENCES_WINDOW)
 
 AdwDemoPreferencesWindow *
 adw_demo_preferences_window_new (void)

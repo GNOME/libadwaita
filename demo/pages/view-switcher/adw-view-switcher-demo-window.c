@@ -7,7 +7,7 @@ struct _AdwViewSwitcherDemoWindow
   AdwWindow parent_instance;
 };
 
-G_DEFINE_TYPE (AdwViewSwitcherDemoWindow, adw_view_switcher_demo_window, ADW_TYPE_WINDOW)
+G_DEFINE_FINAL_TYPE (AdwViewSwitcherDemoWindow, adw_view_switcher_demo_window, ADW_TYPE_WINDOW)
 
 static void
 adw_view_switcher_demo_window_class_init (AdwViewSwitcherDemoWindowClass *klass)

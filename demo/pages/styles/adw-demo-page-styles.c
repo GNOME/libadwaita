@@ -9,7 +9,7 @@ struct _AdwDemoPageStyles
   AdwBin parent_instance;
 };
 
-G_DEFINE_TYPE (AdwDemoPageStyles, adw_demo_page_styles, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageStyles, adw_demo_page_styles, ADW_TYPE_BIN)
 
 static void
 demo_run_cb (AdwDemoPageStyles *self)

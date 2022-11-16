@@ -7,7 +7,7 @@ struct _AdwDemoPageDialogs
   AdwBin parent_instance;
 };
 
-G_DEFINE_TYPE (AdwDemoPageDialogs, adw_demo_page_dialogs, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageDialogs, adw_demo_page_dialogs, ADW_TYPE_BIN)
 
 enum {
   SIGNAL_ADD_TOAST,

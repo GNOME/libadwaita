@@ -28,7 +28,7 @@ struct _AdwDemoWindow
   AdwDemoPageToasts *toasts_page;
 };
 
-G_DEFINE_TYPE (AdwDemoWindow, adw_demo_window, ADW_TYPE_APPLICATION_WINDOW)
+G_DEFINE_FINAL_TYPE (AdwDemoWindow, adw_demo_window, ADW_TYPE_APPLICATION_WINDOW)
 
 static char *
 get_color_scheme_icon_name (gpointer user_data,

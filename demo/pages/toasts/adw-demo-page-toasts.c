@@ -17,7 +17,7 @@ enum {
 
 static guint signals[SIGNAL_LAST_SIGNAL];
 
-G_DEFINE_TYPE (AdwDemoPageToasts, adw_demo_page_toasts, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageToasts, adw_demo_page_toasts, ADW_TYPE_BIN)
 
 static void
 add_toast (AdwDemoPageToasts *self,

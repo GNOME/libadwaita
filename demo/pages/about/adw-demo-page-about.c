@@ -7,7 +7,7 @@ struct _AdwDemoPageAbout
   AdwBin parent_instance;
 };
 
-G_DEFINE_TYPE (AdwDemoPageAbout, adw_demo_page_about, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageAbout, adw_demo_page_about, ADW_TYPE_BIN)
 
 static void
 demo_run_cb (AdwDemoPageAbout *self)

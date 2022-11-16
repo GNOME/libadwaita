@@ -24,7 +24,7 @@ enum {
 
 static guint signals[SIGNAL_LAST_SIGNAL];
 
-G_DEFINE_TYPE (AdwDemoPageLeaflet, adw_demo_page_leaflet, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageLeaflet, adw_demo_page_leaflet, ADW_TYPE_BIN)
 
 static char *
 get_transition_name (AdwEnumListItem *item,

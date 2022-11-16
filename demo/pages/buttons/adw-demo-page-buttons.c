@@ -7,7 +7,7 @@ struct _AdwDemoPageButtons
   AdwBin parent_instance;
 };
 
-G_DEFINE_TYPE (AdwDemoPageButtons, adw_demo_page_buttons, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageButtons, adw_demo_page_buttons, ADW_TYPE_BIN)
 
 static void
 adw_demo_page_buttons_class_init (AdwDemoPageButtonsClass *klass)

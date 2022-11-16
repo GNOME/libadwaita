@@ -13,7 +13,7 @@ struct _AdwTabViewDemoPage
   GIcon *last_icon;
 };
 
-G_DEFINE_TYPE (AdwTabViewDemoPage, adw_tab_view_demo_page, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwTabViewDemoPage, adw_tab_view_demo_page, ADW_TYPE_BIN)
 
 #define N_COLORS 8
 

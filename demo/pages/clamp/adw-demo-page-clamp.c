@@ -7,7 +7,7 @@ struct _AdwDemoPageClamp
   AdwBin parent_instance;
 };
 
-G_DEFINE_TYPE (AdwDemoPageClamp, adw_demo_page_clamp, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageClamp, adw_demo_page_clamp, ADW_TYPE_BIN)
 
 static void
 adw_demo_page_clamp_class_init (AdwDemoPageClampClass *klass)

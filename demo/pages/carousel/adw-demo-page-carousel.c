@@ -13,7 +13,7 @@ struct _AdwDemoPageCarousel
   AdwComboRow *indicators_row;
 };
 
-G_DEFINE_TYPE (AdwDemoPageCarousel, adw_demo_page_carousel, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageCarousel, adw_demo_page_carousel, ADW_TYPE_BIN)
 
 static char *
 get_orientation_name (AdwEnumListItem *item,

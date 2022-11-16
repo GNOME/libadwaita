@@ -11,7 +11,7 @@ struct _AdwFlapDemoWindow
   GtkWidget *reveal_btn_end;
 };
 
-G_DEFINE_TYPE (AdwFlapDemoWindow, adw_flap_demo_window, ADW_TYPE_WINDOW)
+G_DEFINE_FINAL_TYPE (AdwFlapDemoWindow, adw_flap_demo_window, ADW_TYPE_WINDOW)
 
 static char *
 fold_policy_name (AdwEnumListItem *item,

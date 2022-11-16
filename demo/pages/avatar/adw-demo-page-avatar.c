@@ -12,7 +12,7 @@ struct _AdwDemoPageAvatar
   GtkListBox *contacts;
 };
 
-G_DEFINE_TYPE (AdwDemoPageAvatar, adw_demo_page_avatar, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageAvatar, adw_demo_page_avatar, ADW_TYPE_BIN)
 
 static char *
 create_random_name (void)

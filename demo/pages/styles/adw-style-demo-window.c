@@ -14,7 +14,7 @@ struct _AdwStyleDemoWindow
   AdwLeaflet *sidebar_leaflet;
 };
 
-G_DEFINE_TYPE (AdwStyleDemoWindow, adw_style_demo_window, ADW_TYPE_WINDOW)
+G_DEFINE_FINAL_TYPE (AdwStyleDemoWindow, adw_style_demo_window, ADW_TYPE_WINDOW)
 
 enum {
   PROP_0,

@@ -18,7 +18,7 @@ struct _AdwTabViewDemoWindow
   gboolean in_dispose;
 };
 
-G_DEFINE_TYPE (AdwTabViewDemoWindow, adw_tab_view_demo_window, ADW_TYPE_WINDOW)
+G_DEFINE_FINAL_TYPE (AdwTabViewDemoWindow, adw_tab_view_demo_window, ADW_TYPE_WINDOW)
 
 enum {
   PROP_0,

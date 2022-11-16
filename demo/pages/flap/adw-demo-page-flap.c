@@ -9,7 +9,7 @@ struct _AdwDemoPageFlap
   AdwBin parent_instance;
 };
 
-G_DEFINE_TYPE (AdwDemoPageFlap, adw_demo_page_flap, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageFlap, adw_demo_page_flap, ADW_TYPE_BIN)
 
 static void
 demo_run_cb (AdwDemoPageFlap *self)

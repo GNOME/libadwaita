@@ -9,7 +9,7 @@ struct _AdwDemoPageViewSwitcher
   AdwBin parent_instance;
 };
 
-G_DEFINE_TYPE (AdwDemoPageViewSwitcher, adw_demo_page_view_switcher, ADW_TYPE_BIN)
+G_DEFINE_FINAL_TYPE (AdwDemoPageViewSwitcher, adw_demo_page_view_switcher, ADW_TYPE_BIN)
 
 static void
 demo_run_cb (AdwDemoPageViewSwitcher *self)
