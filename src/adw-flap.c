@@ -12,7 +12,6 @@
 
 #include "adw-animation-util.h"
 #include "adw-gizmo-private.h"
-#include "adw-macros-private.h"
 #include "adw-shadow-helper-private.h"
 #include "adw-spring-animation.h"
 #include "adw-swipeable.h"

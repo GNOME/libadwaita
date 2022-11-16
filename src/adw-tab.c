@@ -12,7 +12,6 @@
 #include "adw-bidi-private.h"
 #include "adw-fading-label-private.h"
 #include "adw-gizmo-private.h"
-#include "adw-macros-private.h"
 #include "adw-timed-animation.h"
 
 #define FADE_WIDTH 18.0f

@@ -8,8 +8,6 @@
 
 #include "adw-animation-target-private.h"
 
-#include "adw-macros-private.h"
-
 /**
  * AdwAnimationTarget:
  *

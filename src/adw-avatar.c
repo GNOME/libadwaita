@@ -15,7 +15,6 @@
 
 #include "adw-avatar.h"
 #include "adw-gizmo-private.h"
-#include "adw-macros-private.h"
 
 #define NUMBER_OF_COLORS 14
 

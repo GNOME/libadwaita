@@ -8,7 +8,6 @@
 
 #include "adw-status-page.h"
 
-#include "adw-macros-private.h"
 #include "adw-widget-utils-private.h"
 
 /**

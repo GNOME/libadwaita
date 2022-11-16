@@ -13,7 +13,6 @@
 #include "adw-animation-util.h"
 #include "adw-easing.h"
 #include "adw-gizmo-private.h"
-#include "adw-macros-private.h"
 #include "adw-tab-overview-private.h"
 #include "adw-tab-view-private.h"
 #include "adw-timed-animation.h"

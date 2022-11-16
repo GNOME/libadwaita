@@ -9,7 +9,6 @@
 #include "adw-carousel.h"
 
 #include "adw-animation-util.h"
-#include "adw-macros-private.h"
 #include "adw-navigation-direction.h"
 #include "adw-spring-animation.h"
 #include "adw-swipe-tracker.h"

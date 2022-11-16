@@ -13,7 +13,6 @@
 #include "adw-tab-button.h"
 
 #include "adw-indicator-bin-private.h"
-#include "adw-macros-private.h"
 
 /* Copied from GtkInspector code */
 #define XFT_DPI_MULTIPLIER (96.0 * PANGO_SCALE)

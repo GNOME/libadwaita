@@ -9,7 +9,6 @@
 #include "config.h"
 #include "adw-button-content.h"
 
-#include "adw-macros-private.h"
 #include "adw-split-button.h"
 
 /**

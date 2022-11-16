@@ -9,7 +9,6 @@
 #include "adw-toast-widget-private.h"
 
 #include "adw-bin.h"
-#include "adw-macros-private.h"
 
 struct _AdwToastWidget {
   GtkWidget parent_instance;

@@ -14,7 +14,6 @@
 #include "adw-animation-util.h"
 #include "adw-bin.h"
 #include "adw-header-bar.h"
-#include "adw-macros-private.h"
 #include "adw-style-manager.h"
 #include "adw-tab-grid-private.h"
 #include "adw-tab-thumbnail-private.h"

@@ -10,7 +10,6 @@
 #include "adw-animation-util.h"
 #include "adw-enums-private.h"
 #include "adw-fold-threshold-policy.h"
-#include "adw-macros-private.h"
 #include "adw-leaflet.h"
 #include "adw-shadow-helper-private.h"
 #include "adw-spring-animation.h"

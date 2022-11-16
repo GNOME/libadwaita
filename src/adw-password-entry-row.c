@@ -11,7 +11,6 @@
 #include "adw-password-entry-row.h"
 
 #include "adw-entry-row-private.h"
-#include "adw-macros-private.h"
 
 /**
  * AdwPasswordEntryRow:

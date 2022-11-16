@@ -8,7 +8,6 @@
 #include "config.h"
 
 #include "adw-enums.h"
-#include "adw-macros-private.h"
 #include "adw-view-switcher-bar.h"
 
 /**

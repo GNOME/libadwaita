@@ -8,8 +8,6 @@
 
 #include "adw-toast-private.h"
 
-#include "adw-macros-private.h"
-
 #include <stdarg.h>
 
 /**

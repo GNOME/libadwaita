@@ -10,7 +10,6 @@
 
 #include "adw-animation-private.h"
 #include "adw-animation-util.h"
-#include "adw-macros-private.h"
 
 /**
  * AdwTimedAnimation:

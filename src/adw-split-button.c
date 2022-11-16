@@ -8,7 +8,6 @@
 
 #include "adw-split-button.h"
 
-#include "adw-macros-private.h"
 #include "adw-widget-utils-private.h"
 
 /**

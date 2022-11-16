@@ -11,7 +11,6 @@
 
 #include "adw-animation-util.h"
 #include "adw-easing.h"
-#include "adw-macros-private.h"
 
 /**
  * AdwClampLayout:

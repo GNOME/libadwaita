@@ -10,8 +10,6 @@
 
 #include "adw-settings-private.h"
 
-#include "adw-macros-private.h"
-
 #include <gio/gio.h>
 #include <gtk/gtk.h>
 

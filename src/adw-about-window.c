@@ -11,7 +11,6 @@
 
 #include "adw-action-row.h"
 #include "adw-leaflet.h"
-#include "adw-macros-private.h"
 #include "adw-message-dialog.h"
 #include "adw-preferences-group.h"
 #include "adw-toast-overlay.h"
