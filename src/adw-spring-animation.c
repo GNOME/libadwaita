@@ -75,7 +75,7 @@ struct _AdwSpringAnimationClass
   AdwAnimationClass parent_class;
 };
 
-G_DEFINE_TYPE (AdwSpringAnimation, adw_spring_animation, ADW_TYPE_ANIMATION)
+G_DEFINE_FINAL_TYPE (AdwSpringAnimation, adw_spring_animation, ADW_TYPE_ANIMATION)
 
 enum {
   PROP_0,
