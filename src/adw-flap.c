@@ -966,7 +966,7 @@ adw_flap_measure (GtkWidget      *widget,
     switch (self->fold_policy) {
     case ADW_FLAP_FOLD_POLICY_NEVER:
       min_progress = (1 - self->fold_progress) * self->reveal_progress;
-      nat_progress = 1;
+      nat_progress = min_progress;
       break;
 
     case ADW_FLAP_FOLD_POLICY_ALWAYS:
