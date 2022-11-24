@@ -62,6 +62,7 @@ typedef struct
 
   int title_lines;
   int subtitle_lines;
+  gboolean subtitle_selectable;
   GtkWidget *activatable_widget;
   GBinding *activatable_binding;
 } AdwActionRowPrivate;
@@ -82,6 +83,7 @@ enum {
   PROP_ACTIVATABLE_WIDGET,
   PROP_TITLE_LINES,
   PROP_SUBTITLE_LINES,
+  PROP_SUBTITLE_SELECTABLE,
   LAST_PROP,
 };
 
@@ -152,6 +154,9 @@ adw_action_row_get_property (GObject    *object,
   case PROP_TITLE_LINES:
     g_value_set_int (value, adw_action_row_get_title_lines (self));
     break;
+  case PROP_SUBTITLE_SELECTABLE:
+    g_value_set_boolean (value, adw_action_row_get_subtitle_selectable (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -180,6 +185,9 @@ adw_action_row_set_property (GObject      *object,
     break;
   case PROP_TITLE_LINES:
     adw_action_row_set_title_lines (self, g_value_get_int (value));
+    break;
+  case PROP_SUBTITLE_SELECTABLE:
+    adw_action_row_set_subtitle_selectable (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -294,6 +302,20 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                       0, G_MAXINT,
                       0,
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwActionRow:subtitle-selectable: (attributes org.gtk.Property.get=adw_action_row_get_subtitle_selectable org.gtk.Property.set=adw_action_row_set_subtitle_selectable)
+   *
+   * Whether the user can copy the title from the label.
+   *
+   * See also [property@Gtk.Label:selectable].
+   *
+   * Since: 1.3
+   */
+  props[PROP_SUBTITLE_SELECTABLE] =
+    g_param_spec_boolean ("subtitle-selectable", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
@@ -746,6 +768,55 @@ adw_action_row_set_subtitle_lines (AdwActionRow *self,
   gtk_label_set_ellipsize (priv->subtitle, subtitle_lines == 0 ? PANGO_ELLIPSIZE_NONE : PANGO_ELLIPSIZE_END);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUBTITLE_LINES]);
+}
+
+/**
+ * adw_action_row_get_subtitle_selectable: (attributes org.gtk.Method.get_property=subtitle-selectable)
+ * @self: a `AdwActionRow`
+ *
+ * Gets whether the user can copy the subtitle from the label
+ *
+ * Returns: whether the user can copy the subtitle from the label
+ *
+ * Since: 1.3
+ */
+gboolean
+adw_action_row_get_subtitle_selectable (AdwActionRow *self)
+{
+  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_ACTION_ROW (self), FALSE);
+
+  return priv->subtitle_selectable;
+}
+
+/**
+ * adw_action_row_set_subtitle_selectable: (attributes org.gtk.Method.set_property=subtitle-selectable)
+ * @self: a `AdwActionRow`
+ * @subtitle_selectable: `TRUE` if the user can copy the subtitle from the label
+ *
+ * Sets whether the user can copy the subtitle from the label
+ *
+ * See also [property@Gtk.Label:selectable].
+ *
+ * Since: 1.3
+ */
+void
+adw_action_row_set_subtitle_selectable (AdwActionRow *self,
+                                        gboolean      subtitle_selectable)
+{
+  AdwActionRowPrivate *priv = adw_action_row_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_ACTION_ROW (self));
+
+  subtitle_selectable = !!subtitle_selectable;
+
+  if (priv->subtitle_selectable == subtitle_selectable)
+    return;
+
+  priv->subtitle_selectable = subtitle_selectable;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SUBTITLE_SELECTABLE]);
 }
 
 /**

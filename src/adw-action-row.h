@@ -78,6 +78,13 @@ int  adw_action_row_get_subtitle_lines (AdwActionRow *self);
 ADW_AVAILABLE_IN_ALL
 void adw_action_row_set_subtitle_lines (AdwActionRow *self,
                                         int           subtitle_lines);
+ADW_AVAILABLE_IN_1_3
+gboolean
+adw_action_row_get_subtitle_selectable (AdwActionRow *self);
+ADW_AVAILABLE_IN_1_3
+void
+adw_action_row_set_subtitle_selectable (AdwActionRow *self,
+                                        gboolean      subtitle_selectable);
 
 ADW_AVAILABLE_IN_ALL
 void adw_action_row_activate (AdwActionRow *self);
