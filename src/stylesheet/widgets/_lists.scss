@@ -157,9 +157,9 @@ row.entry {
     }
   }
 
-  @each $e_type, $e_color in (error,   $error_color),
-                             (warning, $warning_color),
-                             (success, $success_color) {
+  @each $e_type, $e_color, $e_bg_color, $e_fg_color in (error,   $error_color,   $error_bg_color,   $error_fg_color),
+                                                       (warning, $warning_color, $warning_bg_color, $warning_fg_color),
+                                                       (success, $success_color, $success_bg_color, $success_fg_color) {
     &.#{$e_type} {
       @include focus-ring($focus-state: '.focused', $offset: -1px, $fc: gtkalpha(currentColor, $focus_border_opacity), $transition: $row_transition);
 
@@ -167,6 +167,15 @@ row.entry {
         > selection:focus-within { background-color: gtkalpha($e_color, .2); }
 
         > cursor-handle > contents { background-color: currentColor; }
+      }
+
+      .dim-label, .subtitle {
+        opacity: 1;
+      }
+
+      .suggested-action {
+        background-color: $e_bg_color;
+        color: $e_fg_color;
       }
     }
   }
