@@ -67,8 +67,6 @@
  * ## CSS nodes
  *
  * `AdwViewSwitcherBar` has a single CSS node with name` viewswitcherbar`.
- *
- * Since: 1.0
  */
 
 enum {
@@ -185,8 +183,6 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
    * AdwViewSwitcherBar:stack: (attributes org.gtk.Property.get=adw_view_switcher_bar_get_stack org.gtk.Property.set=adw_view_switcher_bar_set_stack)
    *
    * The stack the view switcher controls.
-   *
-   * Since: 1.0
    */
   props[PROP_STACK] =
     g_param_spec_object ("stack", NULL, NULL,
@@ -197,8 +193,6 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
    * AdwViewSwitcherBar:reveal: (attributes org.gtk.Property.get=adw_view_switcher_bar_get_reveal org.gtk.Property.set=adw_view_switcher_bar_set_reveal)
    *
    * Whether the bar should be revealed or hidden.
-   *
-   * Since: 1.0
    */
   props[PROP_REVEAL] =
     g_param_spec_boolean ("reveal", NULL, NULL,
@@ -230,8 +224,6 @@ adw_view_switcher_bar_init (AdwViewSwitcherBar *self)
  * Creates a new `AdwViewSwitcherBar`.
  *
  * Returns: the newly created `AdwViewSwitcherBar`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_view_switcher_bar_new (void)
@@ -246,8 +238,6 @@ adw_view_switcher_bar_new (void)
  * Gets the stack controlled by @self.
  *
  * Returns: (nullable) (transfer none): the stack
- *
- * Since: 1.0
  */
 AdwViewStack *
 adw_view_switcher_bar_get_stack (AdwViewSwitcherBar *self)
@@ -263,8 +253,6 @@ adw_view_switcher_bar_get_stack (AdwViewSwitcherBar *self)
  * @stack: (nullable): a stack
  *
  * Sets the stack controlled by @self.
- *
- * Since: 1.0
  */
 void
 adw_view_switcher_bar_set_stack (AdwViewSwitcherBar *self,
@@ -305,8 +293,6 @@ adw_view_switcher_bar_set_stack (AdwViewSwitcherBar *self,
  * Gets whether @self should be revealed or hidden.
  *
  * Returns: whether @self is revealed
- *
- * Since: 1.0
  */
 gboolean
 adw_view_switcher_bar_get_reveal (AdwViewSwitcherBar *self)
@@ -322,8 +308,6 @@ adw_view_switcher_bar_get_reveal (AdwViewSwitcherBar *self)
  * @reveal: whether to reveal @self
  *
  * Sets whether @self should be revealed or hidden.
- *
- * Since: 1.0
  */
 void
 adw_view_switcher_bar_set_reveal (AdwViewSwitcherBar *self,

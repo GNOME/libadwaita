@@ -44,8 +44,6 @@
  *
  * `AdwViewSwitcher` uses the `GTK_ACCESSIBLE_ROLE_TAB_LIST` role and uses the
  * `GTK_ACCESSIBLE_ROLE_TAB` for its buttons.
- *
- * Since: 1.0
  */
 
 /**
@@ -352,8 +350,6 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
    * AdwViewSwitcher:policy: (attributes org.gtk.Property.get=adw_view_switcher_get_policy org.gtk.Property.set=adw_view_switcher_set_policy)
    *
    * The policy to determine which mode to use.
-   *
-   * Since: 1.0
    */
   props[PROP_POLICY] =
     g_param_spec_enum ("policy", NULL, NULL,
@@ -365,8 +361,6 @@ adw_view_switcher_class_init (AdwViewSwitcherClass *klass)
    * AdwViewSwitcher:stack: (attributes org.gtk.Property.get=adw_view_switcher_get_stack org.gtk.Property.set=adw_view_switcher_set_stack)
    *
    * The stack the view switcher controls.
-   *
-   * Since: 1.0
    */
   props[PROP_STACK] =
     g_param_spec_object ("stack", NULL, NULL,
@@ -398,8 +392,6 @@ adw_view_switcher_init (AdwViewSwitcher *self)
  * Creates a new `AdwViewSwitcher`.
  *
  * Returns: the newly created `AdwViewSwitcher`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_view_switcher_new (void)
@@ -414,8 +406,6 @@ adw_view_switcher_new (void)
  * Gets the policy of @self.
  *
  * Returns: the policy of @self
- *
- * Since: 1.0
  */
 AdwViewSwitcherPolicy
 adw_view_switcher_get_policy (AdwViewSwitcher *self)
@@ -431,8 +421,6 @@ adw_view_switcher_get_policy (AdwViewSwitcher *self)
  * @policy: the new policy
  *
  * Sets the policy of @self.
- *
- * Since: 1.0
  */
 void
 adw_view_switcher_set_policy (AdwViewSwitcher       *self,
@@ -473,8 +461,6 @@ adw_view_switcher_set_policy (AdwViewSwitcher       *self,
  * Gets the stack controlled by @self.
  *
  * Returns: (nullable) (transfer none): the stack
- *
- * Since: 1.0
  */
 AdwViewStack *
 adw_view_switcher_get_stack (AdwViewSwitcher *self)
@@ -490,8 +476,6 @@ adw_view_switcher_get_stack (AdwViewSwitcher *self)
  * @stack: (nullable): a stack
  *
  * Sets the stack controlled by @self.
- *
- * Since: 1.0
  */
 void
 adw_view_switcher_set_stack (AdwViewSwitcher *self,

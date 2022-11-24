@@ -37,8 +37,6 @@
  * Each child will get the style  classes .large when it reached its maximum
  * size, .small when it's allocated the full size, .medium in-between, or none
  * if it hasn't been allocated yet.
- *
- * Since: 1.0
  */
 
 #define ADW_EASE_OUT_TAN_CUBIC 3
@@ -348,8 +346,6 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
    *
    * It is the width if the layout is horizontal, or the height if it is
    * vertical.
-   *
-   * Since: 1.0
    */
   props[PROP_MAXIMUM_SIZE] =
     g_param_spec_int ("maximum-size", NULL, NULL,
@@ -373,8 +369,6 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
    *
    * Effectively, tightening the grip on a child before it reaches its maximum
    * size makes transitions to and from the maximum size smoother when resizing.
-   *
-   * Since: 1.0
    */
   props[PROP_TIGHTENING_THRESHOLD] =
     g_param_spec_int ("tightening-threshold", NULL, NULL,
@@ -397,8 +391,6 @@ adw_clamp_layout_init (AdwClampLayout *self)
  * Creates a new `AdwClampLayout`.
  *
  * Returns: the newly created `AdwClampLayout`
- *
- * Since: 1.0
  */
 GtkLayoutManager *
 adw_clamp_layout_new (void)
@@ -413,8 +405,6 @@ adw_clamp_layout_new (void)
  * Gets the maximum size allocated to the children.
  *
  * Returns: the maximum size to allocate to the children
- *
- * Since: 1.0
  */
 int
 adw_clamp_layout_get_maximum_size (AdwClampLayout *self)
@@ -432,8 +422,6 @@ adw_clamp_layout_get_maximum_size (AdwClampLayout *self)
  * Sets the maximum size allocated to the children.
  *
  * It is the width if the layout is horizontal, or the height if it is vertical.
- *
- * Since: 1.0
  */
 void
 adw_clamp_layout_set_maximum_size (AdwClampLayout *self,
@@ -458,8 +446,6 @@ adw_clamp_layout_set_maximum_size (AdwClampLayout *self,
  * Gets the size above which the children are clamped.
  *
  * Returns: the size above which the children are clamped
- *
- * Since: 1.0
  */
 int
 adw_clamp_layout_get_tightening_threshold (AdwClampLayout *self)
@@ -488,8 +474,6 @@ adw_clamp_layout_get_tightening_threshold (AdwClampLayout *self)
  *
  * Effectively, tightening the grip on a child before it reaches its maximum
  * size makes transitions to and from the maximum size smoother when resizing.
- *
- * Since: 1.0
  */
 void
 adw_clamp_layout_set_tightening_threshold (AdwClampLayout *self,

@@ -26,8 +26,6 @@
  *
  * Using [property@Gtk.Application:menubar] is not supported and may result in
  * visual glitches.
- *
- * Since: 1.0
  */
 
 typedef struct
@@ -127,8 +125,6 @@ adw_application_window_class_init (AdwApplicationWindowClass *klass)
    * The content widget.
    *
    * This property should always be used instead of [property@Gtk.Window:child].
-   *
-   * Since: 1.0
    */
   props[PROP_CONTENT] =
     g_param_spec_object ("content", NULL, NULL,
@@ -177,8 +173,6 @@ adw_application_window_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwApplicationWindow` for @app.
  *
  * Returns: the newly created `AdwApplicationWindow`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_application_window_new (GtkApplication *app)
@@ -196,8 +190,6 @@ adw_application_window_new (GtkApplication *app)
  * Sets the content widget of @self.
  *
  * This method should always be used instead of [method@Gtk.Window.set_child].
- *
- * Since: 1.0
  */
 void
 adw_application_window_set_content (AdwApplicationWindow *self,
@@ -223,8 +215,6 @@ adw_application_window_set_content (AdwApplicationWindow *self,
  * This method should always be used instead of [method@Gtk.Window.get_child].
  *
  * Returns: (nullable) (transfer none): the content widget of @self
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_application_window_get_content (AdwApplicationWindow *self)

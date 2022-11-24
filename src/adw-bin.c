@@ -26,8 +26,6 @@
  *
  * It is useful for deriving subclasses, since it provides common code needed
  * for handling a single child widget.
- *
- * Since: 1.0
  */
 
 typedef struct
@@ -112,8 +110,6 @@ adw_bin_class_init (AdwBinClass *klass)
    * AdwBin:child: (attributes org.gtk.Property.get=adw_bin_get_child org.gtk.Property.set=adw_bin_set_child)
    *
    * The child widget of the `AdwBin`.
-   *
-   * Since: 1.0
    */
   props[PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
@@ -156,8 +152,6 @@ adw_bin_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwBin`.
  *
  * Returns: the new created `AdwBin`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_bin_new (void)
@@ -172,8 +166,6 @@ adw_bin_new (void)
  * Gets the child widget of @self.
  *
  * Returns: (nullable) (transfer none): the child widget of @self
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_bin_get_child (AdwBin *self)
@@ -193,8 +185,6 @@ adw_bin_get_child (AdwBin *self)
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
- *
- * Since: 1.0
  */
 void
 adw_bin_set_child (AdwBin    *self,

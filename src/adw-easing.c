@@ -72,8 +72,6 @@
  * [class@TimedAnimation].
  *
  * New values may be added to this enumeration over time.
- *
- * Since: 1.0
  */
 
 static inline double
@@ -437,8 +435,6 @@ ease_in_out_bounce (double t,
  * @value should generally be in the [0, 1] range.
  *
  * Returns: the easing for @value
- *
- * Since: 1.0
  */
 double
 adw_easing_ease (AdwEasing self,

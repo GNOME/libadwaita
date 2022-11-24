@@ -63,8 +63,6 @@
  * ## Accessibility
  *
  * `AdwComboRow` uses the `GTK_ACCESSIBLE_ROLE_COMBO_BOX` role.
- *
- * Since: 1.0
  */
 
 /*
@@ -442,8 +440,6 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    *
    * If no item is selected, the property has the value
    * [const@Gtk.INVALID_LIST_POSITION]
-   *
-   * Since: 1.0
    */
   props[PROP_SELECTED] =
     g_param_spec_uint ("selected", NULL, NULL,
@@ -454,8 +450,6 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * AdwComboRow:selected-item: (attributes org.gtk.Property.get=adw_combo_row_get_selected_item)
    *
    * The selected item.
-   *
-   * Since: 1.0
    */
   props[PROP_SELECTED_ITEM] =
     g_param_spec_object ("selected-item", NULL, NULL,
@@ -466,8 +460,6 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * AdwComboRow:model: (attributes org.gtk.Property.get=adw_combo_row_get_model org.gtk.Property.set=adw_combo_row_set_model)
    *
    * The model that provides the displayed items.
-   *
-   * Since: 1.0
    */
   props[PROP_MODEL] =
     g_param_spec_object ("model", NULL, NULL,
@@ -481,8 +473,6 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    *
    * This factory is always used for the item in the row. It is also used for
    * items in the popup unless [property@ComboRow:list-factory] is set.
-   *
-   * Since: 1.0
    */
   props[PROP_FACTORY] =
     g_param_spec_object ("factory", NULL, NULL,
@@ -495,8 +485,6 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * The factory for populating list items in the popup.
    *
    * If this is not set, [property@ComboRow:factory] is used.
-   *
-   * Since: 1.0
    */
   props[PROP_LIST_FACTORY] =
     g_param_spec_object ("list-factory", NULL, NULL,
@@ -513,8 +501,6 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    * It's used to bind strings to labels produced by the default factory if
    * [property@ComboRow:factory] is not set, or when
    * [property@ComboRow:use-subtitle] is set to `TRUE`.
-   *
-   * Since: 1.0
    */
   props[PROP_EXPRESSION] =
     gtk_param_spec_expression ("expression",
@@ -534,8 +520,6 @@ adw_combo_row_class_init (AdwComboRowClass *klass)
    *
    * The subtitle is interpreted as Pango markup if
    * [property@PreferencesRow:use-markup] is set to `TRUE`.
-   *
-   * Since: 1.0
    */
   props[PROP_USE_SUBTITLE] =
     g_param_spec_boolean ("use-subtitle", NULL, NULL,
@@ -572,8 +556,6 @@ adw_combo_row_init (AdwComboRow *self)
  * Creates a new `AdwComboRow`.
  *
  * Returns: the newly created `AdwComboRow`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_combo_row_new (void)
@@ -588,8 +570,6 @@ adw_combo_row_new (void)
  *   [const@Gtk.INVALID_LIST_POSITION]
  *
  * Selects the item at the given position.
- *
- * Since: 1.0
  */
 void
 adw_combo_row_set_selected (AdwComboRow *self,
@@ -618,8 +598,6 @@ adw_combo_row_set_selected (AdwComboRow *self,
  *
  * Returns: the position of the selected item, or
  *   [const@Gtk.INVALID_LIST_POSITION] if no item is selected
- *
- * Since: 1.0
  */
 guint
 adw_combo_row_get_selected (AdwComboRow *self)
@@ -643,8 +621,6 @@ adw_combo_row_get_selected (AdwComboRow *self)
  * Gets the selected item.
  *
  * Returns: (transfer none) (type GObject) (nullable): the selected item
- *
- * Since: 1.0
  */
 gpointer
 adw_combo_row_get_selected_item (AdwComboRow *self)
@@ -668,8 +644,6 @@ adw_combo_row_get_selected_item (AdwComboRow *self)
  * Gets the model that provides the displayed items.
  *
  * Returns: (nullable) (transfer none): The model in use
- *
- * Since: 1.0
  */
 GListModel *
 adw_combo_row_get_model (AdwComboRow *self)
@@ -689,8 +663,6 @@ adw_combo_row_get_model (AdwComboRow *self)
  * @model: (nullable) (transfer none): the model to use
  *
  * Sets the model that provides the displayed items.
- *
- * Since: 1.0
  */
 void
 adw_combo_row_set_model (AdwComboRow *self,
@@ -754,8 +726,6 @@ adw_combo_row_set_model (AdwComboRow *self,
  * Gets the factory for populating list items.
  *
  * Returns: (nullable) (transfer none): the factory in use
- *
- * Since: 1.0
  */
 GtkListItemFactory *
 adw_combo_row_get_factory (AdwComboRow *self)
@@ -778,8 +748,6 @@ adw_combo_row_get_factory (AdwComboRow *self)
  *
  * This factory is always used for the item in the row. It is also used for
  * items in the popup unless [property@ComboRow:list-factory] is set.
- *
- * Since: 1.0
  */
 void
 adw_combo_row_set_factory (AdwComboRow        *self,
@@ -810,8 +778,6 @@ adw_combo_row_set_factory (AdwComboRow        *self,
  * Gets the factory for populating list items in the popup.
  *
  * Returns: (nullable) (transfer none): the factory in use
- *
- * Since: 1.0
  */
 GtkListItemFactory *
 adw_combo_row_get_list_factory (AdwComboRow *self)
@@ -833,8 +799,6 @@ adw_combo_row_get_list_factory (AdwComboRow *self)
  * Sets the factory for populating list items in the popup.
  *
  * If this is not set, [property@ComboRow:factory] is used.
- *
- * Since: 1.0
  */
 void
 adw_combo_row_set_list_factory (AdwComboRow        *self,
@@ -865,8 +829,6 @@ adw_combo_row_set_list_factory (AdwComboRow        *self,
  * Gets the expression used to obtain strings from items.
  *
  * Returns: (nullable) (transfer none): the expression used to obtain strings from items
- *
- * Since: 1.0
  */
 GtkExpression *
 adw_combo_row_get_expression (AdwComboRow *self)
@@ -892,8 +854,6 @@ adw_combo_row_get_expression (AdwComboRow *self)
  * It's used to bind strings to labels produced by the default factory if
  * [property@ComboRow:factory] is not set, or when
  * [property@ComboRow:use-subtitle] is set to `TRUE`.
- *
- * Since: 1.0
  */
 void
 adw_combo_row_set_expression (AdwComboRow   *self,
@@ -928,8 +888,6 @@ adw_combo_row_set_expression (AdwComboRow   *self,
  * Gets whether to use the current value as the subtitle.
  *
  * Returns: whether to use the current value as the subtitle
- *
- * Since: 1.0
  */
 gboolean
 adw_combo_row_get_use_subtitle (AdwComboRow *self)
@@ -957,8 +915,6 @@ adw_combo_row_get_use_subtitle (AdwComboRow *self)
  *
  * The subtitle is interpreted as Pango markup if
  * [property@PreferencesRow:use-markup] is set to `TRUE`.
- *
- * Since: 1.0
  */
 void
 adw_combo_row_set_use_subtitle (AdwComboRow *self,

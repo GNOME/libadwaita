@@ -13,6 +13,4 @@
  * @ADW_NAVIGATION_DIRECTION_FORWARD: Corresponds to end or bottom, depending on orientation and text direction
  *
  * Describes the direction of a swipe navigation gesture.
- *
- * Since: 1.0
  */

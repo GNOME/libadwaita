@@ -42,8 +42,6 @@
  *
  * `AdwCarouselIndicatorDots` has a single CSS node with name
  * `carouselindicatordots`.
- *
- * Since: 1.0
  */
 
 struct _AdwCarouselIndicatorDots
@@ -337,8 +335,6 @@ adw_carousel_indicator_dots_class_init (AdwCarouselIndicatorDotsClass *klass)
    * AdwCarouselIndicatorDots:carousel: (attributes org.gtk.Property.get=adw_carousel_indicator_dots_get_carousel org.gtk.Property.set=adw_carousel_indicator_dots_set_carousel)
    *
    * The displayed carousel.
-   *
-   * Since: 1.0
    */
   props[PROP_CAROUSEL] =
     g_param_spec_object ("carousel", NULL, NULL,
@@ -371,8 +367,6 @@ adw_carousel_indicator_dots_init (AdwCarouselIndicatorDots *self)
  * Creates a new `AdwCarouselIndicatorDots`.
  *
  * Returns: the newly created `AdwCarouselIndicatorDots`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_carousel_indicator_dots_new (void)
@@ -387,8 +381,6 @@ adw_carousel_indicator_dots_new (void)
  * Gets the displayed carousel.
  *
  * Returns: (nullable) (transfer none): the displayed carousel
- *
- * Since: 1.0
  */
 AdwCarousel *
 adw_carousel_indicator_dots_get_carousel (AdwCarouselIndicatorDots *self)
@@ -404,8 +396,6 @@ adw_carousel_indicator_dots_get_carousel (AdwCarouselIndicatorDots *self)
  * @carousel: (nullable): a carousel
  *
  * Sets the displayed carousel.
- *
- * Since: 1.0
  */
 void
 adw_carousel_indicator_dots_set_carousel (AdwCarouselIndicatorDots *self,

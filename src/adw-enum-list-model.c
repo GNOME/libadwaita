@@ -16,8 +16,6 @@
  * A [iface@Gio.ListModel] representing values of a given enum.
  *
  * `AdwEnumListModel` contains objects of type [class@EnumListItem].
- *
- * Since: 1.0
  */
 
 struct _AdwEnumListModel
@@ -47,8 +45,6 @@ G_DEFINE_FINAL_TYPE_WITH_CODE (AdwEnumListModel, adw_enum_list_model, G_TYPE_OBJ
  * AdwEnumListItem:
  *
  * `AdwEnumListItem` is the type of items in a [class@EnumListModel].
- *
- * Since: 1.0
  */
 
 struct _AdwEnumListItem
@@ -104,8 +100,6 @@ adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
    * AdwEnumListItem:value: (attributes org.gtk.Property.get=adw_enum_list_item_get_value)
    *
    * The enum value.
-   *
-   * Since: 1.0
    */
   value_props[VALUE_PROP_VALUE] =
     g_param_spec_int ("value", NULL, NULL,
@@ -116,8 +110,6 @@ adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
    * AdwEnumListItem:name: (attributes org.gtk.Property.get=adw_enum_list_item_get_name)
    *
    * The enum value name.
-   *
-   * Since: 1.0
    */
   value_props[VALUE_PROP_NAME] =
     g_param_spec_string ("name", NULL, NULL,
@@ -128,8 +120,6 @@ adw_enum_list_item_class_init (AdwEnumListItemClass *klass)
    * AdwEnumListItem:nick: (attributes org.gtk.Property.get=adw_enum_list_item_get_nick)
    *
    * The enum value nick.
-   *
-   * Since: 1.0
    */
   value_props[VALUE_PROP_NICK] =
     g_param_spec_string ("nick", NULL, NULL,
@@ -160,8 +150,6 @@ adw_enum_list_item_new (GEnumValue *enum_value)
  * Gets the enum value.
  *
  * Returns: the enum value
- *
- * Since: 1.0
  */
 int
 adw_enum_list_item_get_value (AdwEnumListItem *self)
@@ -177,8 +165,6 @@ adw_enum_list_item_get_value (AdwEnumListItem *self)
  * Gets the enum value name.
  *
  * Returns: the enum value name
- *
- * Since: 1.0
  */
 const char *
 adw_enum_list_item_get_name (AdwEnumListItem *self)
@@ -194,8 +180,6 @@ adw_enum_list_item_get_name (AdwEnumListItem *self)
  * Gets the enum value nick.
  *
  * Returns: the enum value nick
- *
- * Since: 1.0
  */
 const char *
 adw_enum_list_item_get_nick (AdwEnumListItem *self)
@@ -280,8 +264,6 @@ adw_enum_list_model_class_init (AdwEnumListModelClass *klass)
    * AdwEnumListModel:enum-type: (attributes org.gtk.Property.get=adw_enum_list_model_get_enum_type)
    *
    * The type of the enum represented by the model.
-   *
-   * Since: 1.0
    */
   props[PROP_ENUM_TYPE] =
     g_param_spec_gtype ("enum-type", NULL, NULL,
@@ -337,8 +319,6 @@ adw_enum_list_model_list_model_init (GListModelInterface *iface)
  * Creates a new `AdwEnumListModel` for @enum_type.
  *
  * Returns: the newly created `AdwEnumListModel`
- *
- * Since: 1.0
  */
 AdwEnumListModel *
 adw_enum_list_model_new (GType enum_type)
@@ -354,8 +334,6 @@ adw_enum_list_model_new (GType enum_type)
  * Gets the type of the enum represented by @self.
  *
  * Returns: the enum type
- *
- * Since: 1.0
  */
 GType
 adw_enum_list_model_get_enum_type (AdwEnumListModel *self)
@@ -370,8 +348,6 @@ adw_enum_list_model_get_enum_type (AdwEnumListModel *self)
  * @value: an enum value
  *
  * Finds the position of a given enum value in @self.
- *
- * Since: 1.0
  */
 guint
 adw_enum_list_model_find_position (AdwEnumListModel *self,

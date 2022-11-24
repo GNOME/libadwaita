@@ -49,8 +49,6 @@
  * ## Accessibility
  *
  * `AdwSplitButton` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
- *
- * Since: 1.0
  */
 
 enum {
@@ -287,8 +285,6 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * Setting the label will set [property@SplitButton:icon-name] and
    * [property@SplitButton:child] to `NULL`.
-   *
-   * Since: 1.0
    */
   props[PROP_LABEL] =
     g_param_spec_string ("label", NULL, NULL,
@@ -301,8 +297,6 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * Whether an underline in the text indicates a mnemonic.
    *
    * See [property@SplitButton:label].
-   *
-   * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline", NULL, NULL,
@@ -316,8 +310,6 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * Setting the icon name will set [property@SplitButton:label] and
    * [property@SplitButton:child] to `NULL`.
-   *
-   * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
@@ -331,8 +323,6 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * Setting the child widget will set [property@SplitButton:label] and
    * [property@SplitButton:icon-name] to `NULL`.
-   *
-   * Since: 1.0
    */
   props[PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
@@ -352,8 +342,6 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * If [property@SplitButton:popover] is already set, it will be dissociated
    * from the button, and the property is set to `NULL`.
-   *
-   * Since: 1.0
    */
   props[PROP_MENU_MODEL] =
     g_param_spec_object ("menu-model", NULL, NULL,
@@ -369,8 +357,6 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * If [property@SplitButton:menu-model] is set, the menu model is dissociated
    * from the button, and the property is set to `NULL`.
-   *
-   * Since: 1.0
    */
   props[PROP_POPOVER] =
     g_param_spec_object ("popover", NULL, NULL,
@@ -388,8 +374,6 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * try its best to keep it inside the screen and fully visible.
    *
    * If you pass `GTK_ARROW_NONE`, it's equivalent to `GTK_ARROW_DOWN`.
-   *
-   * Since: 1.0
    */
   props[PROP_DIRECTION] =
     g_param_spec_enum ("direction", NULL, NULL,
@@ -420,8 +404,6 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    * AdwSplitButton::clicked:
    *
    * Emitted when the button has been activated (pressed and released).
-   *
-   * Since: 1.0
    */
   signals[SIGNAL_CLICKED] =
     g_signal_new ("clicked",
@@ -438,8 +420,6 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
    *
    * This is an action signal. Applications should never connect to this signal,
    * but use the [signal@SplitButton::clicked] signal.
-   *
-   * Since: 1.0
    */
   signals[SIGNAL_ACTIVATE] =
     g_signal_new ("activate",
@@ -589,8 +569,6 @@ adw_split_button_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwSplitButton`.
  *
  * Returns: the newly created `AdwSplitButton`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_split_button_new (void)
@@ -605,8 +583,6 @@ adw_split_button_new (void)
  * Gets the label for @self.
  *
  * Returns: (nullable): the label for @self
- *
- * Since: 1.0
  */
 const char *
 adw_split_button_get_label (AdwSplitButton *self)
@@ -625,8 +601,6 @@ adw_split_button_get_label (AdwSplitButton *self)
  *
  * Setting the label will set [property@SplitButton:icon-name] and
  * [property@SplitButton:child] to `NULL`.
- *
- * Since: 1.0
  */
 void
 adw_split_button_set_label (AdwSplitButton *self,
@@ -658,8 +632,6 @@ adw_split_button_set_label (AdwSplitButton *self,
  * Gets whether an underline in the text indicates a mnemonic.
  *
  * Returns: whether an underline in the text indicates a mnemonic
- *
- * Since: 1.0
  */
 gboolean
 adw_split_button_get_use_underline (AdwSplitButton *self)
@@ -677,8 +649,6 @@ adw_split_button_get_use_underline (AdwSplitButton *self)
  * Sets whether an underline in the text indicates a mnemonic.
  *
  * See [property@SplitButton:label].
- *
- * Since: 1.0
  */
 void
 adw_split_button_set_use_underline (AdwSplitButton *self,
@@ -701,8 +671,6 @@ adw_split_button_set_use_underline (AdwSplitButton *self,
  * Gets the name of the icon used to automatically populate the button.
  *
  * Returns: (nullable): the icon name
- *
- * Since: 1.0
  */
 const char *
 adw_split_button_get_icon_name (AdwSplitButton *self)
@@ -721,8 +689,6 @@ adw_split_button_get_icon_name (AdwSplitButton *self)
  *
  * Setting the icon name will set [property@SplitButton:label] and
  * [property@SplitButton:child] to `NULL`.
- *
- * Since: 1.0
  */
 void
 adw_split_button_set_icon_name (AdwSplitButton *self,
@@ -755,8 +721,6 @@ adw_split_button_set_icon_name (AdwSplitButton *self,
  * Gets the child widget.
  *
  * Returns: (transfer none) (nullable): the child widget
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_split_button_get_child (AdwSplitButton *self)
@@ -775,8 +739,6 @@ adw_split_button_get_child (AdwSplitButton *self)
  *
  * Setting the child widget will set [property@SplitButton:label] and
  * [property@SplitButton:icon-name] to `NULL`.
- *
- * Since: 1.0
  */
 void
 adw_split_button_set_child (AdwSplitButton *self,
@@ -808,8 +770,6 @@ adw_split_button_set_child (AdwSplitButton *self,
  * Gets the menu model from which the popup will be created.
  *
  * Returns: (transfer none) (nullable): the menu model
- *
- * Since: 1.0
  */
 GMenuModel *
 adw_split_button_get_menu_model (AdwSplitButton *self)
@@ -834,8 +794,6 @@ adw_split_button_get_menu_model (AdwSplitButton *self)
  *
  * If [property@SplitButton:popover] is already set, it will be dissociated from
  * the button, and the property is set to `NULL`.
- *
- * Since: 1.0
  */
 void
 adw_split_button_set_menu_model (AdwSplitButton *self,
@@ -856,8 +814,6 @@ adw_split_button_set_menu_model (AdwSplitButton *self,
  * Gets the popover that will be popped up when the dropdown is clicked.
  *
  * Returns: (transfer none) (nullable): the popover
- *
- * Since: 1.0
  */
 GtkPopover *
 adw_split_button_get_popover (AdwSplitButton *self)
@@ -878,8 +834,6 @@ adw_split_button_get_popover (AdwSplitButton *self)
  *
  * If [property@SplitButton:menu-model] is set, the menu model is dissociated
  * from the button, and the property is set to `NULL`.
- *
- * Since: 1.0
  */
 void
 adw_split_button_set_popover (AdwSplitButton *self,
@@ -900,8 +854,6 @@ adw_split_button_set_popover (AdwSplitButton *self,
  * Gets the direction in which the popup will be popped up.
  *
  * Returns: the direction
- *
- * Since: 1.0
  */
 GtkArrowType
 adw_split_button_get_direction (AdwSplitButton *self)
@@ -924,8 +876,6 @@ adw_split_button_get_direction (AdwSplitButton *self)
  * try its best to keep it inside the screen and fully visible.
  *
  * If you pass `GTK_ARROW_NONE`, it's equivalent to `GTK_ARROW_DOWN`.
- *
- * Since: 1.0
  */
 void
 adw_split_button_set_direction (AdwSplitButton *self,
@@ -994,8 +944,6 @@ adw_split_button_set_dropdown_tooltip (AdwSplitButton *self,
  * @self: a split button
  *
  * Pops up the menu.
- *
- * Since: 1.0
  */
 void
 adw_split_button_popup (AdwSplitButton *self)
@@ -1010,8 +958,6 @@ adw_split_button_popup (AdwSplitButton *self)
  * @self: a split button
  *
  * Dismisses the menu.
- *
- * Since: 1.0
  */
 void
 adw_split_button_popdown (AdwSplitButton *self)

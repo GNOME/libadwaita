@@ -24,8 +24,6 @@
  * ## CSS nodes
  *
  * `AdwWindowTitle` has a single CSS node with name `windowtitle`.
- *
- * Since: 1.0
  */
 
 enum {
@@ -124,8 +122,6 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
    *
    * The title typically identifies the current view or content item, and
    * generally does not use the application name.
-   *
-   * Since: 1.0
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
@@ -138,8 +134,6 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
    * The subtitle to display.
    *
    * The subtitle should give the user additional details.
-   *
-   * Since: 1.0
    */
   props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle", NULL, NULL,
@@ -166,8 +160,6 @@ adw_window_title_class_init (AdwWindowTitleClass *klass)
  * Creates a new `AdwWindowTitle`.
  *
  * Returns: the newly created `AdwWindowTitle`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_window_title_new (const char *title,
@@ -186,8 +178,6 @@ adw_window_title_new (const char *title,
  * Gets the title of @self.
  *
  * Returns: the title
- *
- * Since: 1.0
  */
 const char *
 adw_window_title_get_title (AdwWindowTitle *self)
@@ -206,8 +196,6 @@ adw_window_title_get_title (AdwWindowTitle *self)
  *
  * The title typically identifies the current view or content item, and
  * generally does not use the application name.
- *
- * Since: 1.0
  */
 void
 adw_window_title_set_title (AdwWindowTitle *self,
@@ -232,8 +220,6 @@ adw_window_title_set_title (AdwWindowTitle *self,
  * Gets the subtitle of @self.
  *
  * Returns: the subtitle
- *
- * Since: 1.0
  */
 const char *
 adw_window_title_get_subtitle (AdwWindowTitle *self)
@@ -251,8 +237,6 @@ adw_window_title_get_subtitle (AdwWindowTitle *self)
  * Sets the subtitle of @self.
  *
  * The subtitle should give the user additional details.
- *
- * Since: 1.0
  */
 void
 adw_window_title_set_subtitle (AdwWindowTitle *self,

@@ -115,8 +115,6 @@
  * ## Accessibility
  *
  * `AdwHeaderBar` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
- *
- * Since: 1.0
  */
 
 /**
@@ -125,8 +123,6 @@
  * @ADW_CENTERING_POLICY_STRICT: Keep the title centered at all cost
  *
  * Describes title centering behavior of a [class@HeaderBar] widget.
- *
- * Since: 1.0
  */
 
 #define MIN_TITLE_CHARS 5
@@ -402,8 +398,6 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    *   </property>
    * </object>
    * ```
-   *
-   * Since: 1.0
    */
   props[PROP_TITLE_WIDGET] =
     g_param_spec_object ("title-widget", NULL, NULL,
@@ -421,8 +415,6 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * [property@HeaderBar:decoration-layout] property, and by the state of the
    * window (e.g. a close button will not be shown if the window can't be
    * closed).
-   *
-   * Since: 1.0
    */
   props[PROP_SHOW_START_TITLE_BUTTONS] =
     g_param_spec_boolean ("show-start-title-buttons", NULL, NULL,
@@ -440,8 +432,6 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * [property@HeaderBar:decoration-layout] property, and by the state of the
    * window (e.g. a close button will not be shown if the window can't be
    * closed).
-   *
-   * Since: 1.0
    */
   props[PROP_SHOW_END_TITLE_BUTTONS] =
     g_param_spec_boolean ("show-end-title-buttons", NULL, NULL,
@@ -463,8 +453,6 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    *
    * For example, “icon:minimize,maximize,close” specifies an icon at the start,
    * and minimize, maximize and close buttons at the end.
-   *
-   * Since: 1.0
    */
   props[PROP_DECORATION_LAYOUT] =
     g_param_spec_string ("decoration-layout", NULL, NULL,
@@ -475,8 +463,6 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    * AdwHeaderBar:centering-policy: (attributes org.gtk.Property.get=adw_header_bar_get_centering_policy org.gtk.Property.set=adw_header_bar_set_centering_policy)
    *
    * The policy for aligning the center widget.
-   *
-   * Since: 1.0
    */
   props[PROP_CENTERING_POLICY] =
     g_param_spec_enum ("centering-policy", NULL, NULL,
@@ -566,8 +552,6 @@ adw_header_bar_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwHeaderBar`.
  *
  * Returns: the newly created `AdwHeaderBar`.
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_header_bar_new (void)
@@ -581,8 +565,6 @@ adw_header_bar_new (void)
  * @child: the widget to be added to @self
  *
  * Adds @child to @self, packed with reference to the start of the @self.
- *
- * Since: 1.0
  */
 void
 adw_header_bar_pack_start (AdwHeaderBar *self,
@@ -597,8 +579,6 @@ adw_header_bar_pack_start (AdwHeaderBar *self,
  * @child: the widget to be added to @self
  *
  * Adds @child to @self, packed with reference to the end of @self.
- *
- * Since: 1.0
  */
 void
 adw_header_bar_pack_end (AdwHeaderBar *self,
@@ -616,8 +596,6 @@ adw_header_bar_pack_end (AdwHeaderBar *self,
  *
  * The child must have been added with [method@HeaderBar.pack_start],
  * [method@HeaderBar.pack_end] or [property@HeaderBar:title-widget].
- *
- * Since: 1.0
  */
 void
 adw_header_bar_remove (AdwHeaderBar *self,
@@ -647,8 +625,6 @@ adw_header_bar_remove (AdwHeaderBar *self,
  * Gets the title widget widget of @self.
  *
  * Returns: (nullable) (transfer none): the title widget
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_header_bar_get_title_widget (AdwHeaderBar *self)
@@ -679,8 +655,6 @@ adw_header_bar_get_title_widget (AdwHeaderBar *self)
  *   </property>
  * </object>
  * ```
- *
- * Since: 1.0
  */
 void
 adw_header_bar_set_title_widget (AdwHeaderBar *self,
@@ -717,8 +691,6 @@ adw_header_bar_set_title_widget (AdwHeaderBar *self,
  * Gets whether to show title buttons at the start of @self.
  *
  * Returns: `TRUE` if title buttons at the start are shown
- *
- * Since: 1.0
  */
 gboolean
 adw_header_bar_get_show_start_title_buttons (AdwHeaderBar *self)
@@ -740,8 +712,6 @@ adw_header_bar_get_show_start_title_buttons (AdwHeaderBar *self)
  * Which buttons are actually shown and where is determined by the
  * [property@HeaderBar:decoration-layout] property, and by the state of the
  * window (e.g. a close button will not be shown if the window can't be closed).
- *
- * Since: 1.0
  */
 void
 adw_header_bar_set_show_start_title_buttons (AdwHeaderBar *self,
@@ -775,8 +745,6 @@ adw_header_bar_set_show_start_title_buttons (AdwHeaderBar *self,
  * Gets whether to show title buttons at the end of @self.
  *
  * Returns: `TRUE` if title buttons at the end are shown
- *
- * Since: 1.0
  */
 gboolean
 adw_header_bar_get_show_end_title_buttons (AdwHeaderBar *self)
@@ -798,8 +766,6 @@ adw_header_bar_get_show_end_title_buttons (AdwHeaderBar *self)
  * Which buttons are actually shown and where is determined by the
  * [property@HeaderBar:decoration-layout] property, and by the state of the
  * window (e.g. a close button will not be shown if the window can't be closed).
- *
- * Since: 1.0
  */
 void
 adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
@@ -833,8 +799,6 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
  * Gets the decoration layout for @self.
  *
  * Returns: (nullable): the decoration layout
- *
- * Since: 1.0
  */
 const char *
 adw_header_bar_get_decoration_layout (AdwHeaderBar *self)
@@ -861,8 +825,6 @@ adw_header_bar_get_decoration_layout (AdwHeaderBar *self)
  *
  * For example, “icon:minimize,maximize,close” specifies an icon at the start,
  * and minimize, maximize and close buttons at the end.
- *
- * Since: 1.0
  */
 void
 adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
@@ -883,8 +845,6 @@ adw_header_bar_set_decoration_layout (AdwHeaderBar *self,
  * Gets the policy for aligning the center widget.
  *
  * Returns: the centering policy
- *
- * Since: 1.0
  */
 AdwCenteringPolicy
 adw_header_bar_get_centering_policy (AdwHeaderBar *self)
@@ -900,8 +860,6 @@ adw_header_bar_get_centering_policy (AdwHeaderBar *self)
  * @centering_policy: the centering policy
  *
  * Sets the policy for aligning the center widget.
- *
- * Since: 1.0
  */
 void
 adw_header_bar_set_centering_policy (AdwHeaderBar       *self,

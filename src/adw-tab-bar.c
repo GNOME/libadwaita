@@ -37,8 +37,6 @@
  * ## CSS nodes
  *
  * `AdwTabBar` has a single CSS node with name `tabbar`.
- *
- * Since: 1.0
  */
 
 struct _AdwTabBar
@@ -406,8 +404,6 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * AdwTabBar:view: (attributes org.gtk.Property.get=adw_tab_bar_get_view org.gtk.Property.set=adw_tab_bar_set_view)
    *
    * The tab view the tab bar controls.
-   *
-   * Since: 1.0
    */
   props[PROP_VIEW] =
     g_param_spec_object ("view", NULL, NULL,
@@ -418,8 +414,6 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * AdwTabBar:start-action-widget: (attributes org.gtk.Property.get=adw_tab_bar_get_start_action_widget org.gtk.Property.set=adw_tab_bar_set_start_action_widget)
    *
    * The widget shown before the tabs.
-   *
-   * Since: 1.0
    */
   props[PROP_START_ACTION_WIDGET] =
     g_param_spec_object ("start-action-widget", NULL, NULL,
@@ -430,8 +424,6 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * AdwTabBar:end-action-widget: (attributes org.gtk.Property.get=adw_tab_bar_get_end_action_widget org.gtk.Property.set=adw_tab_bar_set_end_action_widget)
    *
    * The widget shown after the tabs.
-   *
-   * Since: 1.0
    */
   props[PROP_END_ACTION_WIDGET] =
     g_param_spec_object ("end-action-widget", NULL, NULL,
@@ -447,8 +439,6 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * or 1 tab, no pinned tabs, and no tab is being transferred.
    *
    * See [property@TabBar:tabs-revealed].
-   *
-   * Since: 1.0
    */
   props[PROP_AUTOHIDE] =
     g_param_spec_boolean ("autohide", NULL, NULL,
@@ -461,8 +451,6 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * Whether the tabs are currently revealed.
    *
    * See [property@TabBar:autohide].
-   *
-   * Since: 1.0
    */
   props[PROP_TABS_REVEALED] =
     g_param_spec_boolean ("tabs-revealed", NULL, NULL,
@@ -476,8 +464,6 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    *
    * If set to `TRUE`, the tabs will always vary width filling the whole width
    * when possible, otherwise tabs will always have the minimum possible size.
-   *
-   * Since: 1.0
    */
   props[PROP_EXPAND_TABS] =
     g_param_spec_boolean ("expand-tabs", NULL, NULL,
@@ -491,8 +477,6 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    *
    * If set to `TRUE`, non-pinned tabs will have the close button at the
    * beginning and the indicator at the end rather than the opposite.
-   *
-   * Since: 1.0
    */
   props[PROP_INVERTED] =
     g_param_spec_boolean ("inverted", NULL, NULL,
@@ -505,8 +489,6 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * Whether the tab bar is overflowing.
    *
    * If `TRUE`, all tabs cannot be displayed at once and require scrolling.
-   *
-   * Since: 1.0
    */
   props[PROP_IS_OVERFLOWING] =
     g_param_spec_boolean ("is-overflowing", NULL, NULL,
@@ -529,8 +511,6 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    * See [signal@Gtk.DropTarget::drop].
    *
    * Returns: whether the drop was accepted for @page
-   *
-   * Since: 1.0
    */
   signals[SIGNAL_EXTRA_DRAG_DROP] =
     g_signal_new ("extra-drag-drop",
@@ -633,8 +613,6 @@ adw_tab_bar_tabs_have_visible_focus (AdwTabBar *self)
  * Creates a new `AdwTabBar`.
  *
  * Returns: the newly created `AdwTabBar`
- *
- * Since: 1.0
  */
 AdwTabBar *
 adw_tab_bar_new (void)
@@ -649,8 +627,6 @@ adw_tab_bar_new (void)
  * Gets the tab view @self controls.
  *
  * Returns: (transfer none) (nullable): the view @self controls
- *
- * Since: 1.0
  */
 AdwTabView *
 adw_tab_bar_get_view (AdwTabBar *self)
@@ -666,8 +642,6 @@ adw_tab_bar_get_view (AdwTabBar *self)
  * @view: (nullable): a tab view
  *
  * Sets the tab view @self controls.
- *
- * Since: 1.0
  */
 void
 adw_tab_bar_set_view (AdwTabBar  *self,
@@ -745,8 +719,6 @@ adw_tab_bar_set_view (AdwTabBar  *self,
  * Gets the widget shown before the tabs.
  *
  * Returns: (transfer none) (nullable): the widget shown before the tabs
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_tab_bar_get_start_action_widget (AdwTabBar *self)
@@ -762,8 +734,6 @@ adw_tab_bar_get_start_action_widget (AdwTabBar *self)
  * @widget: (transfer none) (nullable): the widget to show before the tabs
  *
  * Sets the widget to show before the tabs.
- *
- * Since: 1.0
  */
 void
 adw_tab_bar_set_start_action_widget (AdwTabBar *self,
@@ -792,8 +762,6 @@ adw_tab_bar_set_start_action_widget (AdwTabBar *self,
  * Gets the widget shown after the tabs.
  *
  * Returns: (transfer none) (nullable): the widget shown after the tabs
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_tab_bar_get_end_action_widget (AdwTabBar *self)
@@ -809,8 +777,6 @@ adw_tab_bar_get_end_action_widget (AdwTabBar *self)
  * @widget: (transfer none) (nullable): the widget to show after the tabs
  *
  * Sets the widget to show after the tabs.
- *
- * Since: 1.0
  */
 void
 adw_tab_bar_set_end_action_widget (AdwTabBar *self,
@@ -839,8 +805,6 @@ adw_tab_bar_set_end_action_widget (AdwTabBar *self,
  * Gets whether the tabs automatically hide.
  *
  * Returns: whether the tabs automatically hide
- *
- * Since: 1.0
  */
 gboolean
 adw_tab_bar_get_autohide (AdwTabBar *self)
@@ -861,8 +825,6 @@ adw_tab_bar_get_autohide (AdwTabBar *self)
  * or 1 tab, no pinned tabs, and no tab is being transferred.
  *
  * See [property@TabBar:tabs-revealed].
- *
- * Since: 1.0
  */
 void
 adw_tab_bar_set_autohide (AdwTabBar *self,
@@ -891,8 +853,6 @@ adw_tab_bar_set_autohide (AdwTabBar *self,
  * See [property@TabBar:autohide].
  *
  * Returns: whether the tabs are currently revealed
- *
- * Since: 1.0
  */
 gboolean
 adw_tab_bar_get_tabs_revealed (AdwTabBar *self)
@@ -909,8 +869,6 @@ adw_tab_bar_get_tabs_revealed (AdwTabBar *self)
  * Gets whether tabs expand to full width.
  *
  * Returns: whether tabs expand to full width.
- *
- * Since: 1.0
  */
 gboolean
 adw_tab_bar_get_expand_tabs (AdwTabBar *self)
@@ -929,8 +887,6 @@ adw_tab_bar_get_expand_tabs (AdwTabBar *self)
  *
  * If set to `TRUE`, the tabs will always vary width filling the whole width
  * when possible, otherwise tabs will always have the minimum possible size.
- *
- * Since: 1.0
  */
 void
 adw_tab_bar_set_expand_tabs (AdwTabBar *self,
@@ -955,8 +911,6 @@ adw_tab_bar_set_expand_tabs (AdwTabBar *self,
  * Gets whether tabs use inverted layout.
  *
  * Returns: whether tabs use inverted layout
- *
- * Since: 1.0
  */
 gboolean
 adw_tab_bar_get_inverted (AdwTabBar *self)
@@ -975,8 +929,6 @@ adw_tab_bar_get_inverted (AdwTabBar *self)
  *
  * If set to `TRUE`, non-pinned tabs will have the close button at the beginning
  * and the indicator at the end rather than the opposite.
- *
- * Since: 1.0
  */
 void
 adw_tab_bar_set_inverted (AdwTabBar *self,
@@ -1013,8 +965,6 @@ adw_tab_bar_set_inverted (AdwTabBar *self,
  * it will be automatically selected.
  *
  * The [signal@TabBar::extra-drag-drop] signal can be used to handle the drop.
- *
- * Since: 1.0
  */
 void
 adw_tab_bar_setup_extra_drop_target (AdwTabBar     *self,
@@ -1038,8 +988,6 @@ adw_tab_bar_setup_extra_drop_target (AdwTabBar     *self,
  * If `TRUE`, all tabs cannot be displayed at once and require scrolling.
  *
  * Returns: whether @self is overflowing
- *
- * Since: 1.0
  */
 gboolean
 adw_tab_bar_get_is_overflowing (AdwTabBar *self)

@@ -52,8 +52,6 @@
  * `AdwLeaflet` has a single CSS node with name `leaflet`. The node will get the
  * style classes `.folded` when it is folded, `.unfolded` when it's not, or none
  * if it hasn't computed its fold yet.
- *
- * Since: 1.0
  */
 
 /**
@@ -71,8 +69,6 @@
  * Describes the possible transitions in a [class@Leaflet] widget.
  *
  * New values may be added to this enumeration over time.
- *
- * Since: 1.0
  */
 
 enum {
@@ -277,8 +273,6 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
    * AdwLeafletPage:child: (attributes org.gtk.Property.get=adw_leaflet_page_get_child)
    *
    * The leaflet child to which the page belongs.
-   *
-   * Since: 1.0
    */
   page_props[PAGE_PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
@@ -289,8 +283,6 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
    * AdwLeafletPage:name: (attributes org.gtk.Property.get=adw_leaflet_page_get_name org.gtk.Property.set=adw_leaflet_page_set_name)
    *
    * The name of the child page.
-   *
-   * Since: 1.0
    */
   page_props[PAGE_PROP_NAME] =
     g_param_spec_string ("name", NULL, NULL,
@@ -307,8 +299,6 @@ adw_leaflet_page_class_init (AdwLeafletPageClass *klass)
    * gestures.
    *
    * This can be used used to prevent switching to widgets like separators.
-   *
-   * Since: 1.0
    */
   page_props[PAGE_PROP_NAVIGATABLE] =
     g_param_spec_boolean ("navigatable", NULL, NULL,
@@ -2186,8 +2176,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * AdwLeaflet:can-unfold: (attributes org.gtk.Property.get=adw_leaflet_get_can_unfold org.gtk.Property.set=adw_leaflet_set_can_unfold)
    *
    * Whether or not the leaflet can unfold.
-   *
-   * Since: 1.0
    */
   props[PROP_CAN_UNFOLD] =
     g_param_spec_boolean ("can-unfold", NULL, NULL,
@@ -2202,8 +2190,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * The leaflet will be folded if the size allocated to it is smaller than the
    * sum of the minimum or natural sizes of the children (see
    * [property@Leaflet:fold-threshold-policy]), it will be unfolded otherwise.
-   *
-   * Since: 1.0
    */
   props[PROP_FOLDED] =
     g_param_spec_boolean ("folded", NULL, NULL,
@@ -2221,8 +2207,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    *
    * This can be useful if you have a long ellipsizing label and want to let it
    * ellipsize instead of immediately folding.
-   *
-   * Since: 1.0
    */
   props[PROP_FOLD_THRESHOLD_POLICY] =
     g_param_spec_enum ("fold-threshold-policy", NULL, NULL,
@@ -2237,8 +2221,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    *
    * If set to `FALSE`, different children can have different size along the
    * opposite orientation.
-   *
-   * Since: 1.0
    */
   props[PROP_HOMOGENEOUS] =
     g_param_spec_boolean ("homogeneous", NULL, NULL,
@@ -2254,8 +2236,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * [property@Leaflet:child-transition-params]. The transition can be cancelled
    * by the user, in which case visible child will change back to the previously
    * visible child.
-   *
-   * Since: 1.0
    */
   props[PROP_VISIBLE_CHILD] =
     g_param_spec_object ("visible-child", NULL, NULL,
@@ -2268,8 +2248,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * The name of the widget currently visible when the leaflet is folded.
    *
    * See [property@Leaflet:visible-child].
-   *
-   * Since: 1.0
    */
   props[PROP_VISIBLE_CHILD_NAME] =
     g_param_spec_string ("visible-child-name", NULL, NULL,
@@ -2284,8 +2262,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * The transition type can be changed without problems at runtime, so it is
    * possible to change the animation based on the mode or child that is about
    * to become current.
-   *
-   * Since: 1.0
    */
   props[PROP_TRANSITION_TYPE] =
     g_param_spec_enum ("transition-type", NULL, NULL,
@@ -2296,8 +2272,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * AdwLeaflet:mode-transition-duration: (attributes org.gtk.Property.get=adw_leaflet_get_mode_transition_duration org.gtk.Property.set=adw_leaflet_set_mode_transition_duration)
    *
    * The mode transition animation duration, in milliseconds.
-   *
-   * Since: 1.0
    */
   props[PROP_MODE_TRANSITION_DURATION] =
     g_param_spec_uint ("mode-transition-duration", NULL, NULL,
@@ -2314,8 +2288,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * ```c
    * adw_spring_params_new (1, 0.5, 500)
    * ```
-   *
-   * Since: 1.0
    */
   props[PROP_CHILD_TRANSITION_PARAMS] =
     g_param_spec_boxed ("child-transition-params", NULL, NULL,
@@ -2326,8 +2298,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * AdwLeaflet:child-transition-running: (attributes org.gtk.Property.get=adw_leaflet_get_child_transition_running)
    *
    * Whether a child transition is currently running.
-   *
-   * Since: 1.0
    */
   props[PROP_CHILD_TRANSITION_RUNNING] =
     g_param_spec_boolean ("child-transition-running", NULL, NULL,
@@ -2354,8 +2324,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    *
    * Only children that have [property@LeafletPage:navigatable] set to `TRUE`
    * can be navigated to.
-   *
-   * Since: 1.0
    */
   props[PROP_CAN_NAVIGATE_BACK] =
     g_param_spec_boolean ("can-navigate-back", NULL, NULL,
@@ -2382,8 +2350,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    *
    * Only children that have [property@LeafletPage:navigatable] set to `TRUE`
    * can be navigated to.
-   *
-   * Since: 1.0
    */
   props[PROP_CAN_NAVIGATE_FORWARD] =
     g_param_spec_boolean ("can-navigate-forward", NULL, NULL,
@@ -2398,8 +2364,6 @@ adw_leaflet_class_init (AdwLeafletClass *klass)
    * This can be used to keep an up-to-date view. The model also implements
    * [iface@Gtk.SelectionModel] and can be used to track and change the visible
    * page.
-   *
-   * Since: 1.0
    */
  props[PROP_PAGES] =
     g_param_spec_object ("pages", NULL, NULL,
@@ -2675,8 +2639,6 @@ adw_leaflet_swipeable_init (AdwSwipeableInterface *iface)
  * Gets the leaflet child to which @self belongs.
  *
  * Returns: (transfer none): the child to which @self belongs
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_leaflet_page_get_child (AdwLeafletPage *self)
@@ -2693,8 +2655,6 @@ adw_leaflet_page_get_child (AdwLeafletPage *self)
  * Gets the name of @self.
  *
  * Returns: (nullable): the name of @self.
- *
- * Since: 1.0
  */
 const char *
 adw_leaflet_page_get_name (AdwLeafletPage *self)
@@ -2710,8 +2670,6 @@ adw_leaflet_page_get_name (AdwLeafletPage *self)
  * @name: (nullable): the new value to set
  *
  * Sets the name of the @self.
- *
- * Since: 1.0
  */
 void
 adw_leaflet_page_set_name (AdwLeafletPage *self,
@@ -2760,8 +2718,6 @@ adw_leaflet_page_set_name (AdwLeafletPage *self,
  * Gets whether the child can be navigated to when folded.
  *
  * Returns: whether @self can be navigated to when folded
- *
- * Since: 1.0
  */
 gboolean
 adw_leaflet_page_get_navigatable (AdwLeafletPage *self)
@@ -2782,8 +2738,6 @@ adw_leaflet_page_get_navigatable (AdwLeafletPage *self)
  * [method@Leaflet.navigate], and swipe gestures.
  *
  * This can be used used to prevent switching to widgets like separators.
- *
- * Since: 1.0
  */
 void
 adw_leaflet_page_set_navigatable (AdwLeafletPage *self,
@@ -2814,8 +2768,6 @@ adw_leaflet_page_set_navigatable (AdwLeafletPage *self,
  * Creates a new `AdwLeaflet`.
  *
  * Returns: the new created `AdwLeaflet`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_leaflet_new (void)
@@ -2831,8 +2783,6 @@ adw_leaflet_new (void)
  * Adds a child to @self.
  *
  * Returns: (transfer none): the [class@LeafletPage] for @child
- *
- * Since: 1.0
  */
 AdwLeafletPage *
 adw_leaflet_append (AdwLeaflet *self,
@@ -2860,8 +2810,6 @@ adw_leaflet_append (AdwLeaflet *self,
  * Inserts @child at the first position in @self.
  *
  * Returns: (transfer none): the [class@LeafletPage] for @child
- *
- * Since: 1.0
  */
 AdwLeafletPage *
 adw_leaflet_prepend (AdwLeaflet *self,
@@ -2885,8 +2833,6 @@ adw_leaflet_prepend (AdwLeaflet *self,
  * If @sibling is `NULL`, inserts @child at the first position.
  *
  * Returns: (transfer none): the [class@LeafletPage] for @child
- *
- * Since: 1.0
  */
 AdwLeafletPage *
 adw_leaflet_insert_child_after (AdwLeaflet *self,
@@ -2922,8 +2868,6 @@ adw_leaflet_insert_child_after (AdwLeaflet *self,
  * Moves @child to the position after @sibling in the list of children.
  *
  * If @sibling is `NULL`, moves @child to the first position.
- *
- * Since: 1.0
  */
 void
 adw_leaflet_reorder_child_after (AdwLeaflet *self,
@@ -2989,8 +2933,6 @@ adw_leaflet_reorder_child_after (AdwLeaflet *self,
  * @child: the child to remove
  *
  * Removes a child widget from @self.
- *
- * Since: 1.0
  */
 void
 adw_leaflet_remove (AdwLeaflet *self,
@@ -3024,8 +2966,6 @@ adw_leaflet_remove (AdwLeaflet *self,
  * Returns the [class@LeafletPage] object for @child.
  *
  * Returns: (transfer none): the page object for @child
- *
- * Since: 1.0
  */
 AdwLeafletPage *
 adw_leaflet_get_page (AdwLeaflet *self,
@@ -3043,8 +2983,6 @@ adw_leaflet_get_page (AdwLeaflet *self,
  * @can_unfold: whether @self can unfold
  *
  * Sets whether @self can unfold.
- *
- * Since: 1.0
  */
 void
 adw_leaflet_set_can_unfold (AdwLeaflet *self,
@@ -3071,8 +3009,6 @@ adw_leaflet_set_can_unfold (AdwLeaflet *self,
  * Gets whether @self can unfold.
  *
  * Returns: whether @self can unfold
- *
- * Since: 1.0
  */
 gboolean
 adw_leaflet_get_can_unfold (AdwLeaflet *self)
@@ -3093,8 +3029,6 @@ adw_leaflet_get_can_unfold (AdwLeaflet *self)
  * [property@Leaflet:fold-threshold-policy]), it will be unfolded otherwise.
  *
  * Returns: whether @self is folded.
- *
- * Since: 1.0
  */
 gboolean
 adw_leaflet_get_folded (AdwLeaflet *self)
@@ -3109,8 +3043,6 @@ adw_leaflet_get_folded (AdwLeaflet *self)
  * @self: a leaflet
  *
  * Gets the fold threshold policy for @self.
- *
- * Since: 1.0
  */
 AdwFoldThresholdPolicy
 adw_leaflet_get_fold_threshold_policy (AdwLeaflet *self)
@@ -3134,8 +3066,6 @@ adw_leaflet_get_fold_threshold_policy (AdwLeaflet *self)
  *
  * This can be useful if you have a long ellipsizing label and want to let it
  * ellipsize instead of immediately folding.
- *
- * Since: 1.0
  */
 void
 adw_leaflet_set_fold_threshold_policy (AdwLeaflet             *self,
@@ -3161,8 +3091,6 @@ adw_leaflet_set_fold_threshold_policy (AdwLeaflet             *self,
  * Gets whether @self is homogeneous.
  *
  * Returns: whether @self is homogeneous
- *
- * Since: 1.0
  */
 gboolean
 adw_leaflet_get_homogeneous (AdwLeaflet *self)
@@ -3181,8 +3109,6 @@ adw_leaflet_get_homogeneous (AdwLeaflet *self)
  *
  * If set to `FALSE`, different children can have different size along the
  * opposite orientation.
- *
- * Since: 1.0
  */
 void
 adw_leaflet_set_homogeneous (AdwLeaflet *self,
@@ -3209,8 +3135,6 @@ adw_leaflet_set_homogeneous (AdwLeaflet *self,
  * Gets the widget currently visible when the leaflet is folded.
  *
  * Returns: (nullable) (transfer none): the visible child
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_leaflet_get_visible_child (AdwLeaflet *self)
@@ -3234,8 +3158,6 @@ adw_leaflet_get_visible_child (AdwLeaflet *self)
  * [property@Leaflet:child-transition-params]. The transition can be cancelled
  * by the user, in which case visible child will change back to the previously
  * visible child.
- *
- * Since: 1.0
  */
 void
 adw_leaflet_set_visible_child (AdwLeaflet *self,
@@ -3263,8 +3185,6 @@ adw_leaflet_set_visible_child (AdwLeaflet *self,
  * Gets the name of the currently visible child widget.
  *
  * Returns: (nullable) (transfer none): the name of the visible child
- *
- * Since: 1.0
  */
 const char *
 adw_leaflet_get_visible_child_name (AdwLeaflet *self)
@@ -3285,8 +3205,6 @@ adw_leaflet_get_visible_child_name (AdwLeaflet *self)
  * Makes the child with the name @name visible.
  *
  * See [property@Leaflet:visible-child].
- *
- * Since: 1.0
  */
 void
 adw_leaflet_set_visible_child_name (AdwLeaflet *self,
@@ -3313,8 +3231,6 @@ adw_leaflet_set_visible_child_name (AdwLeaflet *self,
  * Gets the type of animation used for transitions between modes and children.
  *
  * Returns: the current transition type of @self
- *
- * Since: 1.0
  */
 AdwLeafletTransitionType
 adw_leaflet_get_transition_type (AdwLeaflet *self)
@@ -3334,8 +3250,6 @@ adw_leaflet_get_transition_type (AdwLeaflet *self)
  * The transition type can be changed without problems at runtime, so it is
  * possible to change the animation based on the mode or child that is about to
  * become current.
- *
- * Since: 1.0
  */
 void
 adw_leaflet_set_transition_type (AdwLeaflet               *self,
@@ -3371,8 +3285,6 @@ adw_leaflet_set_transition_type (AdwLeaflet               *self,
  * Gets the mode transition animation duration for @self.
  *
  * Returns: the mode transition duration, in milliseconds.
- *
- * Since: 1.0
  */
 guint
 adw_leaflet_get_mode_transition_duration (AdwLeaflet *self)
@@ -3388,8 +3300,6 @@ adw_leaflet_get_mode_transition_duration (AdwLeaflet *self)
  * @duration: the new duration, in milliseconds
  *
  * Sets the mode transition animation duration for @self.
- *
- * Since: 1.0
  */
 void
 adw_leaflet_set_mode_transition_duration (AdwLeaflet *self,
@@ -3416,8 +3326,6 @@ adw_leaflet_set_mode_transition_duration (AdwLeaflet *self,
  * Gets the child transition spring parameters for @self.
  *
  * Returns: the child transition parameters
- *
- * Since: 1.0
  */
 AdwSpringParams *
 adw_leaflet_get_child_transition_params (AdwLeaflet *self)
@@ -3439,8 +3347,6 @@ adw_leaflet_get_child_transition_params (AdwLeaflet *self)
  * ```c
  * adw_spring_params_new (1, 0.5, 500)
  * ```
- *
- * Since: 1.0
  */
 void
 adw_leaflet_set_child_transition_params (AdwLeaflet      *self,
@@ -3465,8 +3371,6 @@ adw_leaflet_set_child_transition_params (AdwLeaflet      *self,
  * Gets whether a child transition is currently running for @self.
  *
  * Returns: whether a transition is currently running
- *
- * Since: 1.0
  */
 gboolean
 adw_leaflet_get_child_transition_running (AdwLeaflet *self)
@@ -3483,8 +3387,6 @@ adw_leaflet_get_child_transition_running (AdwLeaflet *self)
  * Gets whether gestures and shortcuts for navigating backward are enabled.
  *
  * Returns: Whether gestures and shortcuts are enabled.
- *
- * Since: 1.0
  */
 gboolean
 adw_leaflet_get_can_navigate_back (AdwLeaflet *self)
@@ -3516,8 +3418,6 @@ adw_leaflet_get_can_navigate_back (AdwLeaflet *self)
  *
  * Only children that have [property@LeafletPage:navigatable] set to `TRUE` can
  * be navigated to.
- *
- * Since: 1.0
  */
 void
 adw_leaflet_set_can_navigate_back (AdwLeaflet *self,
@@ -3543,8 +3443,6 @@ adw_leaflet_set_can_navigate_back (AdwLeaflet *self,
  * Gets whether gestures and shortcuts for navigating forward are enabled.
  *
  * Returns: Whether gestures and shortcuts are enabled.
- *
- * Since: 1.0
  */
 gboolean
 adw_leaflet_get_can_navigate_forward (AdwLeaflet *self)
@@ -3576,8 +3474,6 @@ adw_leaflet_get_can_navigate_forward (AdwLeaflet *self)
  *
  * Only children that have [property@LeafletPage:navigatable] set to `TRUE` can
  * be navigated to.
- *
- * Since: 1.0
  */
 void
 adw_leaflet_set_can_navigate_forward (AdwLeaflet *self,
@@ -3611,8 +3507,6 @@ adw_leaflet_set_can_navigate_forward (AdwLeaflet *self,
  * See [property@LeafletPage:navigatable].
  *
  * Returns: (nullable) (transfer none): the previous or next child
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_leaflet_get_adjacent_child (AdwLeaflet             *self,
@@ -3641,8 +3535,6 @@ adw_leaflet_get_adjacent_child (AdwLeaflet             *self,
  * [method@Leaflet.get_adjacent_child] or navigated to via swipe gestures.
  *
  * Returns: whether the visible child was changed
- *
- * Since: 1.0
  */
 gboolean
 adw_leaflet_navigate (AdwLeaflet             *self,
@@ -3676,8 +3568,6 @@ adw_leaflet_navigate (AdwLeaflet             *self,
  * See [property@LeafletPage:name].
  *
  * Returns: (transfer none) (nullable): the requested child of @self
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_leaflet_get_child_by_name (AdwLeaflet  *self,
@@ -3704,8 +3594,6 @@ adw_leaflet_get_child_by_name (AdwLeaflet  *self,
  * page.
  *
  * Returns: (transfer full): a `GtkSelectionModel` for the leaflet's children
- *
- * Since: 1.0
  */
 GtkSelectionModel *
 adw_leaflet_get_pages (AdwLeaflet *self)

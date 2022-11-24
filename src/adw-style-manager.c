@@ -28,8 +28,6 @@
  * @ADW_COLOR_SCHEME_FORCE_DARK: Always use dark appearance.
  *
  * Application color schemes for [property@StyleManager:color-scheme].
- *
- * Since: 1.0
  */
 
 /**
@@ -43,8 +41,6 @@
  * It allows to set the color scheme via the
  * [property@StyleManager:color-scheme] property, and to query the current
  * appearance, as well as whether a system-wide color scheme preference exists.
- *
- * Since: 1.0
  */
 
 struct _AdwStyleManager
@@ -386,8 +382,6 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    *
    * The display will be `NULL` for the style manager returned by
    * [func@StyleManager.get_default].
-   *
-   * Since: 1.0
    */
   props[PROP_DISPLAY] =
     g_param_spec_object ("display", NULL, NULL,
@@ -428,8 +422,6 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * The [property@StyleManager:system-supports-color-schemes] property can be
    * used to check if the current environment provides a color scheme
    * preference.
-   *
-   * Since: 1.0
    */
   props[PROP_COLOR_SCHEME] =
     g_param_spec_enum ("color-scheme", NULL, NULL,
@@ -447,8 +439,6 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * separate appearance switcher if it's set to `FALSE`.
    *
    * See [property@StyleManager:color-scheme].
-   *
-   * Since: 1.0
    */
   props[PROP_SYSTEM_SUPPORTS_COLOR_SCHEMES] =
     g_param_spec_boolean ("system-supports-color-schemes", NULL, NULL,
@@ -462,8 +452,6 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    *
    * This property can be used to query the current appearance, as requested via
    * [property@StyleManager:color-scheme].
-   *
-   * Since: 1.0
    */
   props[PROP_DARK] =
     g_param_spec_boolean ("dark", NULL, NULL,
@@ -476,8 +464,6 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    * Whether the application is using high contrast appearance.
    *
    * This cannot be overridden by applications.
-   *
-   * Since: 1.0
    */
   props[PROP_HIGH_CONTRAST] =
     g_param_spec_boolean ("high-contrast", NULL, NULL,
@@ -533,8 +519,6 @@ adw_style_manager_ensure (void)
  * See [func@StyleManager.get_for_display].
  *
  * Returns: (transfer none): the default style manager
- *
- * Since: 1.0
  */
 AdwStyleManager *
 adw_style_manager_get_default (void)
@@ -557,8 +541,6 @@ adw_style_manager_get_default (void)
  * Most applications should use [func@StyleManager.get_default] instead.
  *
  * Returns: (transfer none): the style manager for @display
- *
- * Since: 1.0
  */
 AdwStyleManager *
 adw_style_manager_get_for_display (GdkDisplay *display)
@@ -583,8 +565,6 @@ adw_style_manager_get_for_display (GdkDisplay *display)
  * [func@StyleManager.get_default].
  *
  * Returns: (transfer none): (nullable): the display
- *
- * Since: 1.0
  */
 GdkDisplay *
 adw_style_manager_get_display (AdwStyleManager *self)
@@ -601,8 +581,6 @@ adw_style_manager_get_display (AdwStyleManager *self)
  * Gets the requested application color scheme.
  *
  * Returns: the color scheme
- *
- * Since: 1.0
  */
 AdwColorScheme
 adw_style_manager_get_color_scheme (AdwStyleManager *self)
@@ -648,8 +626,6 @@ adw_style_manager_get_color_scheme (AdwStyleManager *self)
  * The [property@StyleManager:system-supports-color-schemes] property can be
  * used to check if the current environment provides a color scheme
  * preference.
- *
- * Since: 1.0
  */
 void
 adw_style_manager_set_color_scheme (AdwStyleManager *self,
@@ -693,8 +669,6 @@ adw_style_manager_set_color_scheme (AdwStyleManager *self,
  * appearance switcher if it's set to `FALSE`.
  *
  * Returns: whether the system supports color schemes
- *
- * Since: 1.0
  */
 gboolean
 adw_style_manager_get_system_supports_color_schemes (AdwStyleManager *self)
@@ -714,8 +688,6 @@ adw_style_manager_get_system_supports_color_schemes (AdwStyleManager *self)
  * [property@StyleManager:color-scheme].
  *
  * Returns: whether the application is using dark appearance
- *
- * Since: 1.0
  */
 gboolean
 adw_style_manager_get_dark (AdwStyleManager *self)
@@ -734,8 +706,6 @@ adw_style_manager_get_dark (AdwStyleManager *self)
  * This cannot be overridden by applications.
  *
  * Returns: whether the application is using high contrast appearance
- *
- * Since: 1.0
  */
 gboolean
 adw_style_manager_get_high_contrast (AdwStyleManager *self)

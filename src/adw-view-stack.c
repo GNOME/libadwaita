@@ -70,16 +70,12 @@
  * ## CSS nodes
  *
  * `AdwViewStack` has a single CSS node named `stack`.
- *
- * Since: 1.0
  */
 
 /**
  * AdwViewStackPage:
  *
  * An auxiliary class used by [class@ViewStack].
- *
- * Since: 1.0
  */
 
 #define OPPOSITE_ORIENTATION(_orientation) (1 - (_orientation))
@@ -255,8 +251,6 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * AdwViewStackPage:child: (attributes org.gtk.Property.get=adw_view_stack_page_get_child)
    *
    * The stack child to which the page belongs.
-   *
-   * Since: 1.0
    */
   page_props[PAGE_PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
@@ -267,8 +261,6 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * AdwViewStackPage:name: (attributes org.gtk.Property.get=adw_view_stack_page_get_name org.gtk.Property.set=adw_view_stack_page_set_name)
    *
    * The name of the child page.
-   *
-   * Since: 1.0
    */
   page_props[PAGE_PROP_NAME] =
     g_param_spec_string ("name", NULL, NULL,
@@ -279,8 +271,6 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * AdwViewStackPage:title: (attributes org.gtk.Property.get=adw_view_stack_page_get_title org.gtk.Property.set=adw_view_stack_page_set_title)
    *
    * The title of the child page.
-   *
-   * Since: 1.0
    */
   page_props[PAGE_PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
@@ -291,8 +281,6 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * AdwViewStackPage:use-underline: (attributes org.gtk.Property.get=adw_view_stack_page_get_use_underline org.gtk.Property.set=adw_view_stack_page_set_use_underline)
    *
    * Whether an embedded underline in the title indicates a mnemonic.
-   *
-   * Since: 1.0
    */
   page_props[PAGE_PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline", NULL, NULL,
@@ -303,8 +291,6 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * AdwViewStackPage:icon-name: (attributes org.gtk.Property.get=adw_view_stack_page_get_icon_name org.gtk.Property.set=adw_view_stack_page_set_icon_name)
    *
    * The icon name of the child page.
-   *
-   * Since: 1.0
    */
   page_props[PAGE_PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
@@ -317,8 +303,6 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * Whether the page requires the user attention.
    *
    * [class@ViewSwitcher] will display it as a dot next to the page icon.
-   *
-   * Since: 1.0
    */
   page_props[PAGE_PROP_NEEDS_ATTENTION] =
     g_param_spec_boolean ("needs-attention", NULL, NULL,
@@ -334,8 +318,6 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    * commonly used to display a number of unread items within the page.
    *
    * It can be used together with [property@ViewStack{age}:needs-attention].
-   *
-   * Since: 1.0
    */
   page_props[PAGE_PROP_BADGE_NUMBER] =
     g_param_spec_uint ("badge-number", NULL, NULL,
@@ -349,8 +331,6 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
    *
    * This is independent from the [property@Gtk.Widget:visible] property of
    * [property@ViewStackPage:child].
-   *
-   * Since: 1.0
    */
   page_props[PAGE_PROP_VISIBLE] =
     g_param_spec_boolean ("visible", NULL, NULL,
@@ -904,8 +884,6 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    *
    * If it's `FALSE`, the stack may change width when a different child becomes
    * visible.
-   *
-   * Since: 1.0
    */
   props[PROP_HHOMOGENEOUS] =
     g_param_spec_boolean ("hhomogeneous", NULL, NULL,
@@ -922,8 +900,6 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    *
    * If it's `FALSE`, the stack may change height when a different child becomes
    * visible.
-   *
-   * Since: 1.0
    */
   props[PROP_VHOMOGENEOUS] =
     g_param_spec_boolean ("vhomogeneous", NULL, NULL,
@@ -934,8 +910,6 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    * AdwViewStack:visible-child: (attributes org.gtk.Property.get=adw_view_stack_get_visible_child org.gtk.Property.set=adw_view_stack_set_visible_child)
    *
    * The widget currently visible in the stack.
-   *
-   * Since: 1.0
    */
   props[PROP_VISIBLE_CHILD] =
     g_param_spec_object ("visible-child", NULL, NULL,
@@ -948,8 +922,6 @@ adw_view_stack_class_init (AdwViewStackClass *klass)
    * The name of the widget currently visible in the stack.
    *
    * See [property@ViewStack:visible-child].
-   *
-   * Since: 1.0
    */
   props[PROP_VISIBLE_CHILD_NAME] =
     g_param_spec_string ("visible-child-name", NULL, NULL,
@@ -1014,8 +986,6 @@ adw_view_stack_buildable_init (GtkBuildableIface *iface)
  * Gets the stack child to which @self belongs.
  *
  * Returns: (transfer none): the child to which @self belongs
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_view_stack_page_get_child (AdwViewStackPage *self)
@@ -1032,8 +1002,6 @@ adw_view_stack_page_get_child (AdwViewStackPage *self)
  * Gets the name of the page.
  *
  * Returns: (nullable): the name of the page
- *
- * Since: 1.0
  */
 const char *
 adw_view_stack_page_get_name (AdwViewStackPage *self)
@@ -1049,8 +1017,6 @@ adw_view_stack_page_get_name (AdwViewStackPage *self)
  * @name: (nullable): the page name
  *
  * Sets the name of the page.
- *
- * Since: 1.0
  */
 void
 adw_view_stack_page_set_name (AdwViewStackPage *self,
@@ -1100,8 +1066,6 @@ adw_view_stack_page_set_name (AdwViewStackPage *self,
  * Gets the page title.
  *
  * Returns: (nullable): the page title
- *
- * Since: 1.0
  */
 const char *
 adw_view_stack_page_get_title (AdwViewStackPage *self)
@@ -1117,8 +1081,6 @@ adw_view_stack_page_get_title (AdwViewStackPage *self)
  * @title: (nullable): the page title
  *
  * Sets the page title.
- *
- * Since: 1.0
  */
 void
 adw_view_stack_page_set_title (AdwViewStackPage *self,
@@ -1142,8 +1104,6 @@ adw_view_stack_page_set_title (AdwViewStackPage *self,
  * Gets whether underlines in the page title indicate mnemonics.
  *
  * Returns: whether underlines in the page title indicate mnemonics
- *
- * Since: 1.0
  */
 gboolean
 adw_view_stack_page_get_use_underline (AdwViewStackPage *self)
@@ -1157,8 +1117,6 @@ adw_view_stack_page_get_use_underline (AdwViewStackPage *self)
  * @use_underline: the new value to set
  *
  * Sets whether underlines in the page title indicate mnemonics.
- *
- * Since: 1.0
  */
 void
 adw_view_stack_page_set_use_underline (AdwViewStackPage *self,
@@ -1181,8 +1139,6 @@ adw_view_stack_page_set_use_underline (AdwViewStackPage *self,
  * Gets the icon name of the page.
  *
  * Returns: (nullable): the icon name of the page
- *
- * Since: 1.0
  */
 const char *
 adw_view_stack_page_get_icon_name (AdwViewStackPage *self)
@@ -1198,8 +1154,6 @@ adw_view_stack_page_get_icon_name (AdwViewStackPage *self)
  * @icon_name: (nullable): the icon name
  *
  * Sets the icon name of the page.
- *
- * Since: 1.0
  */
 void
 adw_view_stack_page_set_icon_name (AdwViewStackPage *self,
@@ -1223,8 +1177,6 @@ adw_view_stack_page_set_icon_name (AdwViewStackPage *self,
  * Gets whether the page requires the user attention.
  *
  * Returns: whether the page needs attention
- *
- * Since: 1.0
  */
 gboolean
 adw_view_stack_page_get_needs_attention (AdwViewStackPage *self)
@@ -1242,8 +1194,6 @@ adw_view_stack_page_get_needs_attention (AdwViewStackPage *self)
  * Sets whether the page requires the user attention.
  *
  * [class@ViewSwitcher] will display it as a dot next to the page icon.
- *
- * Since: 1.0
  */
 void
 adw_view_stack_page_set_needs_attention (AdwViewStackPage *self,
@@ -1268,8 +1218,6 @@ adw_view_stack_page_set_needs_attention (AdwViewStackPage *self,
  * Gets the badge number for this page.
  *
  * Returns: the badge number for this page
- *
- * Since: 1.0
  */
 guint
 adw_view_stack_page_get_badge_number (AdwViewStackPage *self)
@@ -1290,8 +1238,6 @@ adw_view_stack_page_get_badge_number (AdwViewStackPage *self)
  * commonly used to display a number of unread items within the page.
  *
  * It can be used together with [property@ViewStack{age}:needs-attention].
- *
- * Since: 1.0
  */
 void
 adw_view_stack_page_set_badge_number (AdwViewStackPage *self,
@@ -1317,8 +1263,6 @@ adw_view_stack_page_set_badge_number (AdwViewStackPage *self,
  * property of its widget.
  *
  * Returns: whether @self is visible
- *
- * Since: 1.0
  */
 gboolean
 adw_view_stack_page_get_visible (AdwViewStackPage *self)
@@ -1337,8 +1281,6 @@ adw_view_stack_page_get_visible (AdwViewStackPage *self)
  *
  * This is independent from the [property@Gtk.Widget:visible] property of
  * [property@ViewStackPage:child].
- *
- * Since: 1.0
  */
 void
 adw_view_stack_page_set_visible (AdwViewStackPage *self,
@@ -1365,8 +1307,6 @@ adw_view_stack_page_set_visible (AdwViewStackPage *self,
  * Creates a new `AdwViewStack`.
  *
  * Returns: the newly created `AdwViewStack`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_view_stack_new (void)
@@ -1382,8 +1322,6 @@ adw_view_stack_new (void)
  * Adds a child to @self.
  *
  * Returns: (transfer none): the [class@ViewStackPage] for @child
- *
- * Since: 1.0
  */
 AdwViewStackPage *
 adw_view_stack_add (AdwViewStack   *self,
@@ -1406,8 +1344,6 @@ adw_view_stack_add (AdwViewStack   *self,
  * The child is identified by the @name.
  *
  * Returns: (transfer none): the `AdwViewStackPage` for @child
- *
- * Since: 1.0
  */
 AdwViewStackPage *
 adw_view_stack_add_named (AdwViewStack   *self,
@@ -1433,8 +1369,6 @@ adw_view_stack_add_named (AdwViewStack   *self,
  * [class@ViewSwitcher] to represent @child, so it should be short.
  *
  * Returns: (transfer none): the `AdwViewStackPage` for @child
- *
- * Since: 1.0
  */
 AdwViewStackPage *
 adw_view_stack_add_titled (AdwViewStack   *self,
@@ -1484,8 +1418,6 @@ adw_view_stack_add_titled_with_icon (AdwViewStack *self,
  * @child: the child to remove
  *
  * Removes a child widget from @self.
- *
- * Since: 1.0
  */
 void
 adw_view_stack_remove (AdwViewStack  *self,
@@ -1519,8 +1451,6 @@ adw_view_stack_remove (AdwViewStack  *self,
  * Gets the [class@ViewStackPage] object for @child.
  *
  * Returns: (transfer none): the page object for @child
- *
- * Since: 1.0
  */
 AdwViewStackPage *
 adw_view_stack_get_page (AdwViewStack  *self,
@@ -1540,8 +1470,6 @@ adw_view_stack_get_page (AdwViewStack  *self,
  * Finds the child with @name in @self.
  *
  * Returns: (transfer none) (nullable): the requested child
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_view_stack_get_child_by_name (AdwViewStack *self,
@@ -1564,8 +1492,6 @@ adw_view_stack_get_child_by_name (AdwViewStack *self,
  * Gets the currently visible child of @self, .
  *
  * Returns: (transfer none) (nullable): the visible child
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_view_stack_get_visible_child (AdwViewStack *self)
@@ -1581,8 +1507,6 @@ adw_view_stack_get_visible_child (AdwViewStack *self)
  * @child: a child of @self
  *
  * Makes @child the visible child of @self.
- *
- * Since: 1.0
  */
 void
 adw_view_stack_set_visible_child (AdwViewStack *self,
@@ -1612,8 +1536,6 @@ adw_view_stack_set_visible_child (AdwViewStack *self,
  * Returns the name of the currently visible child of @self.
  *
  * Returns: (transfer none) (nullable): the name of the visible child
- *
- * Since: 1.0
  */
 const char *
 adw_view_stack_get_visible_child_name (AdwViewStack *self)
@@ -1631,8 +1553,6 @@ adw_view_stack_get_visible_child_name (AdwViewStack *self)
  * Makes the child with @name visible.
  *
  * See [property@ViewStack:visible-child].
- *
- * Since: 1.0
  */
 void
 adw_view_stack_set_visible_child_name (AdwViewStack *self,
@@ -1664,8 +1584,6 @@ adw_view_stack_set_visible_child_name (AdwViewStack *self,
  * Gets whether @self is horizontally homogeneous.
  *
  * Returns: whether @self is horizontally homogeneous
- *
- * Since: 1.0
  */
 gboolean
 adw_view_stack_get_hhomogeneous (AdwViewStack *self)
@@ -1687,8 +1605,6 @@ adw_view_stack_get_hhomogeneous (AdwViewStack *self)
  *
  * If it's `FALSE`, the stack may change width when a different child becomes
  * visible.
- *
- * Since: 1.0
  */
 void
 adw_view_stack_set_hhomogeneous (AdwViewStack *self,
@@ -1716,8 +1632,6 @@ adw_view_stack_set_hhomogeneous (AdwViewStack *self,
  * Gets whether @self is vertically homogeneous.
  *
  * Returns: whether @self is vertically homogeneous
- *
- * Since: 1.0
  */
 gboolean
 adw_view_stack_get_vhomogeneous (AdwViewStack *self)
@@ -1739,8 +1653,6 @@ adw_view_stack_get_vhomogeneous (AdwViewStack *self)
  *
  * If it's `FALSE`, the stack may change height when a different child becomes
  * visible.
- *
- * Since: 1.0
  */
 void
 adw_view_stack_set_vhomogeneous (AdwViewStack *self,
@@ -1772,8 +1684,6 @@ adw_view_stack_set_vhomogeneous (AdwViewStack *self,
  * page.
  *
  * Returns: (transfer full): a `GtkSelectionModel` for the stack's children
- *
- * Since: 1.0
  */
 GtkSelectionModel *
 adw_view_stack_get_pages (AdwViewStack *self)

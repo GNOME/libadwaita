@@ -28,8 +28,6 @@ static int adw_initialized = FALSE;
  *
  * This makes sure translations, types, themes, and icons for the Adwaita
  * library are set up properly.
- *
- * Since: 1.0
  */
 void
 adw_init (void)

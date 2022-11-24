@@ -32,8 +32,6 @@ G_DECLARE_INTERFACE (AdwSwipeable, adw_swipeable, ADW, SWIPEABLE, GtkWidget)
  * @get_swipe_area: Gets the swipeable rectangle.
  *
  * An interface for swipeable widgets.
- *
- * Since: 1.0
  **/
 struct _AdwSwipeableInterface
 {

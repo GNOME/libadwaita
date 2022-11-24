@@ -20,8 +20,6 @@
  * [class@ActionRow] and its derivatives are convenient to use as preference
  * rows as they take care of presenting the preference's title while letting you
  * compose the inputs of the preference around it.
- *
- * Since: 1.0
  */
 
 typedef struct
@@ -124,8 +122,6 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
    *
    * The title is interpreted as Pango markup unless
    * [property@PreferencesRow:use-markup] is set to `FALSE`.
-   *
-   * Since: 1.0
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
@@ -136,8 +132,6 @@ adw_preferences_row_class_init (AdwPreferencesRowClass *klass)
    * AdwPreferencesRow:use-underline: (attributes org.gtk.Property.get=adw_preferences_row_get_use_underline org.gtk.Property.set=adw_preferences_row_set_use_underline)
    *
    * Whether an embedded underline in the title indicates a mnemonic.
-   *
-   * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline", NULL, NULL,
@@ -191,8 +185,6 @@ adw_preferences_row_init (AdwPreferencesRow *self)
  * Creates a new `AdwPreferencesRow`.
  *
  * Returns: the newly created `AdwPreferencesRow`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_preferences_row_new (void)
@@ -207,8 +199,6 @@ adw_preferences_row_new (void)
  * Gets the title of the preference represented by @self.
  *
  * Returns: the title
- *
- * Since: 1.0
  */
 const char *
 adw_preferences_row_get_title (AdwPreferencesRow *self)
@@ -231,8 +221,6 @@ adw_preferences_row_get_title (AdwPreferencesRow *self)
  *
  * The title is interpreted as Pango markup unless
  * [property@PreferencesRow:use-markup] is set to `FALSE`.
- *
- * Since: 1.0
  */
 void
 adw_preferences_row_set_title (AdwPreferencesRow *self,
@@ -260,8 +248,6 @@ adw_preferences_row_set_title (AdwPreferencesRow *self,
  * Gets whether an embedded underline in the title indicates a mnemonic.
  *
  * Returns: whether an embedded underline in the title indicates a mnemonic
- *
- * Since: 1.0
  */
 gboolean
 adw_preferences_row_get_use_underline (AdwPreferencesRow *self)
@@ -281,8 +267,6 @@ adw_preferences_row_get_use_underline (AdwPreferencesRow *self)
  * @use_underline: `TRUE` if underlines in the text indicate mnemonics
  *
  * Sets whether an embedded underline in the title indicates a mnemonic.
- *
- * Since: 1.0
  */
 void
 adw_preferences_row_set_use_underline (AdwPreferencesRow *self,

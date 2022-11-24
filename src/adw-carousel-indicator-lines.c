@@ -40,8 +40,6 @@
  *
  * `AdwCarouselIndicatorLines` has a single CSS node with name
  * `carouselindicatorlines`.
- *
- * Since: 1.0
  */
 
 struct _AdwCarouselIndicatorLines
@@ -322,8 +320,6 @@ adw_carousel_indicator_lines_class_init (AdwCarouselIndicatorLinesClass *klass)
    * AdwCarouselIndicatorLines:carousel: (attributes org.gtk.Property.get=adw_carousel_indicator_lines_get_carousel org.gtk.Property.set=adw_carousel_indicator_lines_set_carousel)
    *
    * The displayed carousel.
-   *
-   * Since: 1.0
    */
   props[PROP_CAROUSEL] =
     g_param_spec_object ("carousel", NULL, NULL,
@@ -356,8 +352,6 @@ adw_carousel_indicator_lines_init (AdwCarouselIndicatorLines *self)
  * Creates a new `AdwCarouselIndicatorLines`.
  *
  * Returns: the newly created `AdwCarouselIndicatorLines`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_carousel_indicator_lines_new (void)
@@ -372,8 +366,6 @@ adw_carousel_indicator_lines_new (void)
  * Gets the displayed carousel.
  *
  * Returns: (nullable) (transfer none): the displayed carousel
- *
- * Since: 1.0
  */
 AdwCarousel *
 adw_carousel_indicator_lines_get_carousel (AdwCarouselIndicatorLines *self)
@@ -389,8 +381,6 @@ adw_carousel_indicator_lines_get_carousel (AdwCarouselIndicatorLines *self)
  * @carousel: (nullable): a carousel
  *
  * Sets the displayed carousel.
- *
- * Since: 1.0
  */
 void
 adw_carousel_indicator_lines_set_carousel (AdwCarouselIndicatorLines *self,

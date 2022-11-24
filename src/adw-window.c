@@ -41,8 +41,6 @@
  * Using [property@Gtk.Window:titlebar] or [property@Gtk.Window:child]
  * is not supported and will result in a crash. Use [property@Window:content]
  * instead.
- *
- * Since: 1.0
  */
 
 typedef struct
@@ -142,8 +140,6 @@ adw_window_class_init (AdwWindowClass *klass)
    * The content widget.
    *
    * This property should always be used instead of [property@Gtk.Window:child].
-   *
-   * Since: 1.0
    */
   props[PROP_CONTENT] =
     g_param_spec_object ("content", NULL, NULL,
@@ -190,8 +186,6 @@ adw_window_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwWindow`.
  *
  * Returns: the newly created `AdwWindow`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_window_new (void)
@@ -207,8 +201,6 @@ adw_window_new (void)
  * Sets the content widget of @self.
  *
  * This method should always be used instead of [method@Gtk.Window.set_child].
- *
- * Since: 1.0
  */
 void
 adw_window_set_content (AdwWindow *self,
@@ -234,8 +226,6 @@ adw_window_set_content (AdwWindow *self,
  * This method should always be used instead of [method@Gtk.Window.get_child].
  *
  * Returns: (nullable) (transfer none): the content widget of @self
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_window_get_content (AdwWindow *self)

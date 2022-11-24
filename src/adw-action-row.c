@@ -46,8 +46,6 @@
  *
  * It contains subnodes `label.title` and `label.subtitle` representing
  * respectively the title label and subtitle label.
- *
- * Since: 1.0
  */
 
 typedef struct
@@ -234,8 +232,6 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    *
    * The subtitle is interpreted as Pango markup unless
    * [property@PreferencesRow:use-markup] is set to `FALSE`.
-   *
-   * Since: 1.0
    */
   props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle", NULL, NULL,
@@ -246,8 +242,6 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * AdwActionRow:icon-name: (attributes org.gtk.Property.get=adw_action_row_get_icon_name org.gtk.Property.set=adw_action_row_set_icon_name)
    *
    * The icon name for this row.
-   *
-   * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
@@ -266,8 +260,6 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    *
    * The target widget will be activated by emitting the
    * [signal@Gtk.Widget::mnemonic-activate] signal on it.
-   *
-   * Since: 1.0
    */
   props[PROP_ACTIVATABLE_WIDGET] =
     g_param_spec_object ("activatable-widget", NULL, NULL,
@@ -280,8 +272,6 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * The number of lines at the end of which the title label will be ellipsized.
    *
    * If the value is 0, the number of lines won't be limited.
-   *
-   * Since: 1.0
    */
   props[PROP_TITLE_LINES] =
     g_param_spec_int ("title-lines", NULL, NULL,
@@ -296,8 +286,6 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * ellipsized.
    *
    * If the value is 0, the number of lines won't be limited.
-   *
-   * Since: 1.0
    */
   props[PROP_SUBTITLE_LINES] =
     g_param_spec_int ("subtitle-lines", NULL, NULL,
@@ -311,8 +299,6 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * AdwActionRow::activated:
    *
    * This signal is emitted after the row has been activated.
-   *
-   * Since: 1.0
    */
   signals[SIGNAL_ACTIVATED] =
     g_signal_new ("activated",
@@ -377,8 +363,6 @@ adw_action_row_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwActionRow`.
  *
  * Returns: the newly created `AdwActionRow`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_action_row_new (void)
@@ -392,8 +376,6 @@ adw_action_row_new (void)
  * @widget: a widget
  *
  * Adds a prefix widget to @self.
- *
- * Since: 1.0
  */
 void
 adw_action_row_add_prefix (AdwActionRow *self,
@@ -416,8 +398,6 @@ adw_action_row_add_prefix (AdwActionRow *self,
  * @widget: a widget
  *
  * Adds a suffix widget to @self.
- *
- * Since: 1.0
  */
 void
 adw_action_row_add_suffix (AdwActionRow *self,
@@ -440,8 +420,6 @@ adw_action_row_add_suffix (AdwActionRow *self,
  * @widget: the child to be removed
  *
  * Removes a child from @self.
- *
- * Since: 1.0
  */
 void
 adw_action_row_remove (AdwActionRow *self,
@@ -473,8 +451,6 @@ adw_action_row_remove (AdwActionRow *self,
  * Gets the subtitle for @self.
  *
  * Returns: (nullable): the subtitle for @self
- *
- * Since: 1.0
  */
 const char *
 adw_action_row_get_subtitle (AdwActionRow *self)
@@ -497,8 +473,6 @@ adw_action_row_get_subtitle (AdwActionRow *self)
  *
  * The subtitle is interpreted as Pango markup unless
  * [property@PreferencesRow:use-markup] is set to `FALSE`.
- *
- * Since: 1.0
  */
 void
 adw_action_row_set_subtitle (AdwActionRow *self,
@@ -525,8 +499,6 @@ adw_action_row_set_subtitle (AdwActionRow *self,
  * Gets the icon name for @self.
  *
  * Returns: (nullable): the icon name for @self
- *
- * Since: 1.0
  */
 const char *
 adw_action_row_get_icon_name (AdwActionRow *self)
@@ -546,8 +518,6 @@ adw_action_row_get_icon_name (AdwActionRow *self)
  * @icon_name: (nullable): the icon name
  *
  * Sets the icon name for @self.
- *
- * Since: 1.0
  */
 void
 adw_action_row_set_icon_name (AdwActionRow *self,
@@ -576,8 +546,6 @@ adw_action_row_set_icon_name (AdwActionRow *self,
  * Gets the widget activated when @self is activated.
  *
  * Returns: (nullable) (transfer none): the activatable widget for @self
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_action_row_get_activatable_widget (AdwActionRow *self)
@@ -617,8 +585,6 @@ activatable_widget_weak_notify (gpointer  data,
  *
  * The target widget will be activated by emitting the
  * [signal@Gtk.Widget::mnemonic-activate] signal on it.
- *
- * Since: 1.0
  */
 void
 adw_action_row_set_activatable_widget (AdwActionRow *self,
@@ -677,8 +643,6 @@ adw_action_row_set_activatable_widget (AdwActionRow *self,
  *
  * Returns: the number of lines at the end of which the title label will be
  *   ellipsized
- *
- * Since: 1.0
  */
 int
 adw_action_row_get_title_lines (AdwActionRow *self)
@@ -701,8 +665,6 @@ adw_action_row_get_title_lines (AdwActionRow *self)
  * ellipsized.
  *
  * If the value is 0, the number of lines won't be limited.
- *
- * Since: 1.0
  */
 void
 adw_action_row_set_title_lines (AdwActionRow *self,
@@ -735,8 +697,6 @@ adw_action_row_set_title_lines (AdwActionRow *self,
  *
  * Returns: the number of lines at the end of which the subtitle label will be
  *   ellipsized
- *
- * Since: 1.0
  */
 int
 adw_action_row_get_subtitle_lines (AdwActionRow *self)
@@ -759,8 +719,6 @@ adw_action_row_get_subtitle_lines (AdwActionRow *self)
  * ellipsized.
  *
  * If the value is 0, the number of lines won't be limited.
- *
- * Since: 1.0
  */
 void
 adw_action_row_set_subtitle_lines (AdwActionRow *self,
@@ -789,8 +747,6 @@ adw_action_row_set_subtitle_lines (AdwActionRow *self,
  * @self: an action row
  *
  * Activates @self.
- *
- * Since: 1.0
  */
 void
 adw_action_row_activate (AdwActionRow *self)

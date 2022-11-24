@@ -32,8 +32,6 @@
  * ## Accessibility
  *
  * `AdwPreferencesPage` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
- *
- * Since: 1.0
  */
 
 typedef struct
@@ -162,8 +160,6 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    * AdwPreferencesPage:icon-name: (attributes org.gtk.Property.get=adw_preferences_page_get_icon_name org.gtk.Property.set=adw_preferences_page_set_icon_name)
    *
    * The icon name for this page.
-   *
-   * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
@@ -174,8 +170,6 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    * AdwPreferencesPage:title: (attributes org.gtk.Property.get=adw_preferences_page_get_title org.gtk.Property.set=adw_preferences_page_set_title)
    *
    * The title for this page.
-   *
-   * Since: 1.0
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
@@ -186,8 +180,6 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    * AdwPreferencesPage:name: (attributes org.gtk.Property.get=adw_preferences_page_get_name org.gtk.Property.set=adw_preferences_page_set_name)
    *
    * The name of this page.
-   *
-   * Since: 1.0
    */
   props[PROP_NAME] =
     g_param_spec_string ("name", NULL, NULL,
@@ -198,8 +190,6 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
    * AdwPreferencesPage:use-underline: (attributes org.gtk.Property.get=adw_preferences_page_get_use_underline org.gtk.Property.set=adw_preferences_page_set_use_underline)
    *
    * Whether an embedded underline in the title indicates a mnemonic.
-   *
-   * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline", NULL, NULL,
@@ -255,8 +245,6 @@ adw_preferences_page_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwPreferencesPage`.
  *
  * Returns: the newly created `AdwPreferencesPage`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_preferences_page_new (void)
@@ -270,8 +258,6 @@ adw_preferences_page_new (void)
  * @group: the group to add
  *
  * Adds a preferences group to @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_page_add (AdwPreferencesPage  *self,
@@ -293,8 +279,6 @@ adw_preferences_page_add (AdwPreferencesPage  *self,
  * @group: the group to remove
  *
  * Removes a group from @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_page_remove (AdwPreferencesPage  *self,
@@ -320,8 +304,6 @@ adw_preferences_page_remove (AdwPreferencesPage  *self,
  * Gets the icon name for @self.
  *
  * Returns: (nullable): the icon name for @self
- *
- * Since: 1.0
  */
 const char *
 adw_preferences_page_get_icon_name (AdwPreferencesPage *self)
@@ -341,8 +323,6 @@ adw_preferences_page_get_icon_name (AdwPreferencesPage *self)
  * @icon_name: (nullable): the icon name
  *
  * Sets the icon name for @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
@@ -370,8 +350,6 @@ adw_preferences_page_set_icon_name (AdwPreferencesPage *self,
  * Gets the title of @self.
  *
  * Returns: the title of @self.
- *
- * Since: 1.0
  */
 const char *
 adw_preferences_page_get_title (AdwPreferencesPage *self)
@@ -391,8 +369,6 @@ adw_preferences_page_get_title (AdwPreferencesPage *self)
  * @title: the title
  *
  * Sets the title of @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_page_set_title (AdwPreferencesPage *self,
@@ -420,8 +396,6 @@ adw_preferences_page_set_title (AdwPreferencesPage *self,
  * Gets the name of @self.
  *
  * Returns: (nullable): the name of @self
- *
- * Since: 1.0
  */
 const char *
 adw_preferences_page_get_name (AdwPreferencesPage *self)
@@ -441,8 +415,6 @@ adw_preferences_page_get_name (AdwPreferencesPage *self)
  * @name: (nullable): the name
  *
  * Sets the name of @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_page_set_name (AdwPreferencesPage *self,
@@ -470,8 +442,6 @@ adw_preferences_page_set_name (AdwPreferencesPage *self,
  * Gets whether an embedded underline in the title indicates a mnemonic.
  *
  * Returns: whether an embedded underline in the title indicates a mnemonic
- *
- * Since: 1.0
  */
 gboolean
 adw_preferences_page_get_use_underline (AdwPreferencesPage *self)
@@ -491,8 +461,6 @@ adw_preferences_page_get_use_underline (AdwPreferencesPage *self)
  * @use_underline: `TRUE` if underlines in the text indicate mnemonics
  *
  * Sets whether an embedded underline in the title indicates a mnemonic.
- *
- * Since: 1.0
  */
 void
 adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
@@ -523,8 +491,6 @@ adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
  * This can be used to keep an up-to-date view.
  *
  * Returns: (transfer full): a list model for the page's rows
- *
- * Since: 1.0
  */
 GListModel *
 adw_preferences_page_get_rows (AdwPreferencesPage *self)

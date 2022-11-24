@@ -46,8 +46,6 @@
  * ## Accessibility
  *
  * `AdwPreferencesGroup` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
- *
- * Since: 1.0
  */
 
 typedef struct
@@ -255,8 +253,6 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
    * AdwPreferencesGroup:title: (attributes org.gtk.Property.get=adw_preferences_group_get_title org.gtk.Property.set=adw_preferences_group_set_title)
    *
    * The title for this group of preferences.
-   *
-   * Since: 1.0
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
@@ -267,8 +263,6 @@ adw_preferences_group_class_init (AdwPreferencesGroupClass *klass)
    * AdwPreferencesGroup:description: (attributes org.gtk.Property.get=adw_preferences_group_get_description org.gtk.Property.set=adw_preferences_group_set_description)
    *
    * The description for this group of preferences.
-   *
-   * Since: 1.0
    */
   props[PROP_DESCRIPTION] =
     g_param_spec_string ("description", NULL, NULL,
@@ -358,8 +352,6 @@ adw_preferences_group_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwPreferencesGroup`.
  *
  * Returns: the newly created `AdwPreferencesGroup`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_preferences_group_new (void)
@@ -373,8 +365,6 @@ adw_preferences_group_new (void)
  * @child: the widget to add
  *
  * Adds a child to @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_group_add (AdwPreferencesGroup *self,
@@ -399,8 +389,6 @@ adw_preferences_group_add (AdwPreferencesGroup *self,
  * @child: the child to remove
  *
  * Removes a child from @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_group_remove (AdwPreferencesGroup *self,
@@ -431,8 +419,6 @@ adw_preferences_group_remove (AdwPreferencesGroup *self,
  * Gets the title of @self.
  *
  * Returns: the title of @self
- *
- * Since: 1.0
  */
 const char *
 adw_preferences_group_get_title (AdwPreferencesGroup *self)
@@ -452,8 +438,6 @@ adw_preferences_group_get_title (AdwPreferencesGroup *self)
  * @title: the title
  *
  * Sets the title for @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_group_set_title (AdwPreferencesGroup *self,
@@ -482,8 +466,6 @@ adw_preferences_group_set_title (AdwPreferencesGroup *self,
  * Gets the description of @self.
  *
  * Returns: (nullable): the description of @self
- *
- * Since: 1.0
  */
 const char *
 adw_preferences_group_get_description (AdwPreferencesGroup *self)
@@ -503,8 +485,6 @@ adw_preferences_group_get_description (AdwPreferencesGroup *self)
  * @description: (nullable): the description
  *
  * Sets the description for @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_group_set_description (AdwPreferencesGroup *self,
@@ -595,8 +575,6 @@ adw_preferences_group_set_header_suffix (AdwPreferencesGroup *self,
  * This can be used to keep an up-to-date view.
  *
  * Returns: (transfer full): a list model for the group's rows
- *
- * Since: 1.0
  */
 GListModel *
 adw_preferences_group_get_rows (AdwPreferencesGroup *self)

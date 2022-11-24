@@ -128,8 +128,6 @@ adw_shadow_helper_class_init (AdwShadowHelperClass *klass)
    * AdwShadowHelper:widget:
    *
    * The widget the shadow will be drawn for. Must not be `NULL`
-   *
-   * Since: 1.0
    */
   props[PROP_WIDGET] =
     g_param_spec_object ("widget", NULL, NULL,
@@ -150,8 +148,6 @@ adw_shadow_helper_init (AdwShadowHelper *self)
  * Creates a new `AdwShadowHelper`.
  *
  * Returns: the newly created `AdwShadowHelper`
- *
- * Since: 1.0
  */
 AdwShadowHelper *
 adw_shadow_helper_new (GtkWidget *widget)

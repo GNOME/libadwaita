@@ -19,8 +19,6 @@
  *
  * The `AdwIndicatorBin` widget shows an unread indicator over the child widget
  * masking it if they overlap.
- *
- * Since: 1.0
  */
 
 struct _AdwIndicatorBin
@@ -296,8 +294,6 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
    * AdwIndicatorBin:child:
    *
    * The child widget.
-   *
-   * Since: 1.0
    */
   props[PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
@@ -308,8 +304,6 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
    * AdwIndicatorBin:needs-attention:
    *
    * Whether the indicator requires attention of the user.
-   *
-   * Since: 1.0
    */
   props[PROP_NEEDS_ATTENTION] =
     g_param_spec_boolean ("needs-attention", NULL, NULL,
@@ -320,8 +314,6 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
    * AdwIndicatorBin:badge:
    *
    * Additional information for the user.
-   *
-   * Since: 1.0
    */
   props[PROP_BADGE] =
     g_param_spec_string ("badge", NULL, NULL,
@@ -377,8 +369,6 @@ adw_indicator_bin_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwIndicatorBin`.
  *
  * Returns: the newly created `AdwIndicatorBin`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_indicator_bin_new (void)
@@ -393,8 +383,6 @@ adw_indicator_bin_new (void)
  * Gets the child widget of @self.
  *
  * Returns: (nullable) (transfer none): the child widget of @self
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_indicator_bin_get_child (AdwIndicatorBin *self)
@@ -410,8 +398,6 @@ adw_indicator_bin_get_child (AdwIndicatorBin *self)
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
- *
- * Since: 1.0
  */
 void
 adw_indicator_bin_set_child (AdwIndicatorBin *self,

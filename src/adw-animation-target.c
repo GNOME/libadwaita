@@ -12,8 +12,6 @@
  * AdwAnimationTarget:
  *
  * Represents a value [class@Animation] can animate.
- *
- * Since: 1.0
  */
 
 /**
@@ -21,8 +19,6 @@
  *
  * An [class@AnimationTarget] that calls a given callback during the
  * animation.
- *
- * Since: 1.0
  */
 
 /**
@@ -131,8 +127,6 @@ adw_callback_animation_target_init (AdwCallbackAnimationTarget *self)
  * the animation.
  *
  * Returns: the newly created callback target
- *
- * Since: 1.0
  */
 AdwAnimationTarget *
 adw_callback_animation_target_new (AdwAnimationTargetFunc callback,

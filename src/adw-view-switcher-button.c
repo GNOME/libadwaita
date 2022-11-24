@@ -276,8 +276,6 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    * AdwViewSwitcherButton:icon-name: (attributes org.gtk.Property.get=adw_view_switcher_button_get_icon_name org.gtk.Property.set=adw_view_switcher_button_set_icon_name)
    *
    * The icon name representing the view, or `NULL` for no icon.
-   *
-   * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
@@ -292,8 +290,6 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    * This is used by the [class@ViewSwitcher] to change the appearance of the
    * corresponding button when a view needs attention and it is not the current
    * one.
-   *
-   * Since: 1.0
    */
   props[PROP_NEEDS_ATTENTION] =
     g_param_spec_boolean ("needs-attention", NULL, NULL,
@@ -304,8 +300,6 @@ adw_view_switcher_button_class_init (AdwViewSwitcherButtonClass *klass)
    * AdwViewSwitcherButton:badge-number:
    *
    * A number to display as a badge on the button.
-   *
-   * Since: 1.0
    */
   props[PROP_BADGE_NUMBER] =
     g_param_spec_uint ("badge-number", NULL, NULL,
@@ -362,8 +356,6 @@ adw_view_switcher_button_init (AdwViewSwitcherButton *self)
  * Creates a new `AdwViewSwitcherButton`.
  *
  * Returns: the newly created `AdwViewSwitcherButton`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_view_switcher_button_new (void)
@@ -378,8 +370,6 @@ adw_view_switcher_button_new (void)
  * Gets the icon name representing the view.
  *
  * Returns: (nullable): the icon name
- *
- * Since: 1.0
  **/
 const char *
 adw_view_switcher_button_get_icon_name (AdwViewSwitcherButton *self)
@@ -395,8 +385,6 @@ adw_view_switcher_button_get_icon_name (AdwViewSwitcherButton *self)
  * @icon_name: (nullable): an icon name
  *
  * Sets the icon name representing the view.
- *
- * Since: 1.0
  **/
 void
 adw_view_switcher_button_set_icon_name (AdwViewSwitcherButton *self,
@@ -424,8 +412,6 @@ adw_view_switcher_button_set_icon_name (AdwViewSwitcherButton *self,
  * Gets whether the view represented by @self requires the user attention.
  *
  * Returns: whether the view requires the user attention
- *
- * Since: 1.0
  **/
 gboolean
 adw_view_switcher_button_get_needs_attention (AdwViewSwitcherButton *self)
@@ -441,8 +427,6 @@ adw_view_switcher_button_get_needs_attention (AdwViewSwitcherButton *self)
  * @needs_attention: whether the view needs attention
  *
  * Sets whether the view represented by @self requires the user attention.
- *
- * Since: 1.0
  */
 void
 adw_view_switcher_button_set_needs_attention (AdwViewSwitcherButton *self,
@@ -467,8 +451,6 @@ adw_view_switcher_button_set_needs_attention (AdwViewSwitcherButton *self,
  * Gets the badge number.
  *
  * Returns: the badge number
- *
- * Since: 1.0
  */
 guint
 adw_view_switcher_button_get_badge_number (AdwViewSwitcherButton *self)
@@ -484,8 +466,6 @@ adw_view_switcher_button_get_badge_number (AdwViewSwitcherButton *self)
  * @badge_number: the new value
  *
  * Sets the badge number.
- *
- * Since: 1.0
  */
 void
 adw_view_switcher_button_set_badge_number (AdwViewSwitcherButton *self,
@@ -508,8 +488,6 @@ adw_view_switcher_button_set_badge_number (AdwViewSwitcherButton *self,
  * Gets the label representing the view.
  *
  * Returns: (nullable): the label
- *
- * Since: 1.0
  **/
 const char *
 adw_view_switcher_button_get_label (AdwViewSwitcherButton *self)
@@ -525,8 +503,6 @@ adw_view_switcher_button_get_label (AdwViewSwitcherButton *self)
  * @label: (nullable): a label
  *
  * Sets the label representing the view.
- *
- * Since: 1.0
  **/
 void
 adw_view_switcher_button_set_label (AdwViewSwitcherButton *self,

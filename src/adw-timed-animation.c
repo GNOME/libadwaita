@@ -30,8 +30,6 @@
  * on the [property@TimedAnimation:repeat-count] value. If
  * [property@TimedAnimation:alternate] is set to `TRUE`, it will also change the
  * direction every other iteration.
- *
- * Since: 1.0
  */
 
 struct _AdwTimedAnimation
@@ -219,8 +217,6 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    *
    * If [property@TimedAnimation:reverse] is `TRUE`, the animation will end at
    * this value instead.
-   *
-   * Since: 1.0
    */
   props[PROP_VALUE_FROM] =
     g_param_spec_double ("value-from", NULL, NULL,
@@ -239,8 +235,6 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    *
    * If [property@TimedAnimation:reverse] is `TRUE`, the animation will start
    * at this value instead.
-   *
-   * Since: 1.0
    */
   props[PROP_VALUE_TO] =
     g_param_spec_double ("value-to", NULL, NULL,
@@ -258,8 +252,6 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    *
    * If the animation repeats more than once, describes the duration of one
    * iteration.
-   *
-   * Since: 1.0
    */
   props[PROP_DURATION] =
     g_param_spec_uint ("duration", NULL, NULL,
@@ -276,8 +268,6 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    * Describes the curve the value is interpolated on.
    *
    * See [enum@Easing] for the description of specific easing functions.
-   *
-   * Since: 1.0
    */
   props[PROP_EASING] =
     g_param_spec_enum ("easing", NULL, NULL,
@@ -291,8 +281,6 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    * Number of times the animation will play.
    *
    * If set to 0, the animation will repeat endlessly.
-   *
-   * Since: 1.0
    */
   props[PROP_REPEAT_COUNT] =
     g_param_spec_uint ("repeat-count", NULL, NULL,
@@ -305,8 +293,6 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    * AdwTimedAnimation:reverse: (attributes org.gtk.Property.get=adw_timed_animation_get_reverse org.gtk.Property.set=adw_timed_animation_set_reverse)
    *
    * Whether the animation plays backwards.
-   *
-   * Since: 1.0
    */
   props[PROP_REVERSE] =
     g_param_spec_boolean ("reverse", NULL, NULL,
@@ -317,8 +303,6 @@ adw_timed_animation_class_init (AdwTimedAnimationClass *klass)
    * AdwTimedAnimation:alternate: (attributes org.gtk.Property.get=adw_timed_animation_get_alternate org.gtk.Property.set=adw_timed_animation_set_alternate)
    *
    * Whether the animation changes direction on every iteration.
-   *
-   * Since: 1.0
    */
   props[PROP_ALTERNATE] =
     g_param_spec_boolean ("alternate", NULL, NULL,
@@ -345,8 +329,6 @@ adw_timed_animation_init (AdwTimedAnimation *self)
  * to @to.
  *
  * Returns: (transfer none): the newly created animation
- *
- * Since: 1.0
  */
 AdwAnimation *
 adw_timed_animation_new (GtkWidget          *widget,
@@ -380,8 +362,6 @@ adw_timed_animation_new (GtkWidget          *widget,
  * Gets the value @self will animate from.
  *
  * Returns: the value to animate from
- *
- * Since: 1.0
  */
 double
 adw_timed_animation_get_value_from (AdwTimedAnimation *self)
@@ -403,8 +383,6 @@ adw_timed_animation_get_value_from (AdwTimedAnimation *self)
  *
  * If [property@TimedAnimation:reverse] is `TRUE`, the animation will end at
  * this value instead.
- *
- * Since: 1.0
  */
 void
 adw_timed_animation_set_value_from (AdwTimedAnimation *self,
@@ -427,8 +405,6 @@ adw_timed_animation_set_value_from (AdwTimedAnimation *self,
  * Gets the value @self will animate to.
  *
  * Returns: the value to animate to
- *
- * Since: 1.0
  */
 double
 adw_timed_animation_get_value_to (AdwTimedAnimation *self)
@@ -450,8 +426,6 @@ adw_timed_animation_get_value_to (AdwTimedAnimation *self)
  *
  * If [property@TimedAnimation:reverse] is `TRUE`, the animation will start
  * at this value instead.
- *
- * Since: 1.0
  */
 void
 adw_timed_animation_set_value_to (AdwTimedAnimation *self,
@@ -474,8 +448,6 @@ adw_timed_animation_set_value_to (AdwTimedAnimation *self,
  * Gets the duration of @self.
  *
  * Returns: the duration of @self, in milliseconds
- *
- * Since: 1.0
  */
 guint
 adw_timed_animation_get_duration (AdwTimedAnimation *self)
@@ -493,8 +465,6 @@ adw_timed_animation_get_duration (AdwTimedAnimation *self)
  * Sets the duration of @self.
  *
  * If the animation repeats more than once, sets the duration of one iteration.
- *
- * Since: 1.0
  */
 void
 adw_timed_animation_set_duration (AdwTimedAnimation *self,
@@ -517,8 +487,6 @@ adw_timed_animation_set_duration (AdwTimedAnimation *self,
  * Gets the easing function @self uses.
  *
  * Returns: the easing function @self uses
- *
- * Since: 1.0
  */
 AdwEasing
 adw_timed_animation_get_easing (AdwTimedAnimation *self)
@@ -537,8 +505,6 @@ adw_timed_animation_get_easing (AdwTimedAnimation *self)
  * Sets the easing function @self will use.
  *
  * See [enum@Easing] for the description of specific easing functions.
- *
- * Since: 1.0
  */
 void
 adw_timed_animation_set_easing (AdwTimedAnimation *self,
@@ -562,8 +528,6 @@ adw_timed_animation_set_easing (AdwTimedAnimation *self,
  * Gets the number of times @self will play.
  *
  * Returns: the number of times @self will play
- *
- * Since: 1.0
  */
 guint
 adw_timed_animation_get_repeat_count (AdwTimedAnimation *self)
@@ -581,8 +545,6 @@ adw_timed_animation_get_repeat_count (AdwTimedAnimation *self)
  * Sets the number of times @self will play.
  *
  * If set to 0, @self will repeat endlessly.
- *
- * Since: 1.0
  */
 void
 adw_timed_animation_set_repeat_count (AdwTimedAnimation *self,
@@ -605,8 +567,6 @@ adw_timed_animation_set_repeat_count (AdwTimedAnimation *self,
  * Gets whether @self plays backwards.
  *
  * Returns: whether @self plays backwards
- *
- * Since: 1.0
  */
 gboolean
 adw_timed_animation_get_reverse (AdwTimedAnimation *self)
@@ -622,8 +582,6 @@ adw_timed_animation_get_reverse (AdwTimedAnimation *self)
  * @reverse: whether @self plays backwards
  *
  * Sets whether @self plays backwards.
- *
- * Since: 1.0
  */
 void
 adw_timed_animation_set_reverse (AdwTimedAnimation *self,
@@ -646,8 +604,6 @@ adw_timed_animation_set_reverse (AdwTimedAnimation *self,
  * Gets whether @self changes direction on every iteration.
  *
  * Returns: whether @self alternates
- *
- * Since: 1.0
  */
 gboolean
 adw_timed_animation_get_alternate (AdwTimedAnimation *self)
@@ -663,8 +619,6 @@ adw_timed_animation_get_alternate (AdwTimedAnimation *self)
  * @alternate: whether @self alternates
  *
  * Sets whether @self changes direction on every iteration.
- *
- * Since: 1.0
  */
 void
 adw_timed_animation_set_alternate (AdwTimedAnimation *self,

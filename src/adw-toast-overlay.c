@@ -61,8 +61,6 @@
  * ## Accessibility
  *
  * `AdwToastOverlay` uses the `GTK_ACCESSIBLE_ROLE_TAB_GROUP` role.
- *
- * Since: 1.0
  */
 
 typedef struct {
@@ -497,8 +495,6 @@ adw_toast_overlay_class_init (AdwToastOverlayClass *klass)
    * AdwToastOverlay:child: (attributes org.gtk.Property.get=adw_toast_overlay_get_child org.gtk.Property.set=adw_toast_overlay_set_child)
    *
    * The child widget.
-   *
-   * Since: 1.0
    */
   props[PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
@@ -551,8 +547,6 @@ adw_toast_overlay_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwToastOverlay`.
  *
  * Returns: the new created `AdwToastOverlay`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_toast_overlay_new (void)
@@ -567,8 +561,6 @@ adw_toast_overlay_new (void)
  * Gets the child widget of @self.
  *
  * Returns: (nullable) (transfer none): the child widget of @self
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_toast_overlay_get_child (AdwToastOverlay *self)
@@ -584,8 +576,6 @@ adw_toast_overlay_get_child (AdwToastOverlay *self)
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
- *
- * Since: 1.0
  */
 void
 adw_toast_overlay_set_child (AdwToastOverlay *self,
@@ -623,8 +613,6 @@ adw_toast_overlay_set_child (AdwToastOverlay *self,
  *
  * If called on a toast currently in the queue, the toast will be bumped
  * forward to be shown as soon as possible.
- *
- * Since: 1.0
  */
 void
 adw_toast_overlay_add_toast (AdwToastOverlay *self,

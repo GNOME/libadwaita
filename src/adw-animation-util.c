@@ -18,8 +18,6 @@
  * Computes the linear interpolation between @a and @b for @t.
  *
  * Returns: the computed value
- *
- * Since: 1.0
  */
 double
 adw_lerp (double a, double b, double t)
@@ -37,8 +35,6 @@ adw_lerp (double a, double b, double t)
  * animate it or not.
  *
  * Returns: whether animations are enabled for @widget
- *
- * Since: 1.0
  */
 gboolean
 adw_get_enable_animations (GtkWidget *widget)

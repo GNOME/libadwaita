@@ -39,8 +39,6 @@
  * Its children will receive the style classes `.large` when the child reached
  * its maximum size, `.small` when the clamp allocates its full size to the
  * child, `.medium` in-between, or none if it hasn't computed its size yet.
- *
- * Since: 1.0
  */
 
 enum {
@@ -172,8 +170,6 @@ adw_clamp_class_init (AdwClampClass *klass)
    * AdwClamp:child: (attributes org.gtk.Property.get=adw_clamp_get_child org.gtk.Property.set=adw_clamp_set_child)
    *
    * The child widget of the `AdwClamp`.
-   *
-   * Since: 1.0
    */
   props[PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
@@ -186,8 +182,6 @@ adw_clamp_class_init (AdwClampClass *klass)
    * The maximum size allocated to the child.
    *
    * It is the width if the clamp is horizontal, or the height if it is vertical.
-   *
-   * Since: 1.0
    */
   props[PROP_MAXIMUM_SIZE] =
     g_param_spec_int ("maximum-size", NULL, NULL,
@@ -211,8 +205,6 @@ adw_clamp_class_init (AdwClampClass *klass)
    *
    * Effectively, tightening the grip on the child before it reaches its maximum
    * size makes transitions to and from the maximum size smoother when resizing.
-   *
-   * Since: 1.0
    */
   props[PROP_TIGHTENING_THRESHOLD] =
     g_param_spec_int ("tightening-threshold", NULL, NULL,
@@ -257,8 +249,6 @@ adw_clamp_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwClamp`.
  *
  * Returns: the newly created `AdwClamp`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_clamp_new (void)
@@ -273,8 +263,6 @@ adw_clamp_new (void)
  * Gets the child widget of @self.
  *
  * Returns: (nullable) (transfer none): the child widget of @self
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_clamp_get_child (AdwClamp  *self)
@@ -290,8 +278,6 @@ adw_clamp_get_child (AdwClamp  *self)
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
- *
- * Since: 1.0
  */
 void
 adw_clamp_set_child (AdwClamp  *self,
@@ -320,8 +306,6 @@ adw_clamp_set_child (AdwClamp  *self,
  * Gets the maximum size allocated to the child.
  *
  * Returns: the maximum size to allocate to the child
- *
- * Since: 1.0
  */
 int
 adw_clamp_get_maximum_size (AdwClamp *self)
@@ -343,8 +327,6 @@ adw_clamp_get_maximum_size (AdwClamp *self)
  * Sets the maximum size allocated to the child.
  *
  * It is the width if the clamp is horizontal, or the height if it is vertical.
- *
- * Since: 1.0
  */
 void
 adw_clamp_set_maximum_size (AdwClamp *self,
@@ -371,8 +353,6 @@ adw_clamp_set_maximum_size (AdwClamp *self,
  * Gets the size above which the child is clamped.
  *
  * Returns: the size above which the child is clamped
- *
- * Since: 1.0
  */
 int
 adw_clamp_get_tightening_threshold (AdwClamp *self)
@@ -405,8 +385,6 @@ adw_clamp_get_tightening_threshold (AdwClamp *self)
  *
  * Effectively, tightening the grip on the child before it reaches its maximum
  * size makes transitions to and from the maximum size smoother when resizing.
- *
- * Since: 1.0
  */
 void
 adw_clamp_set_tightening_threshold (AdwClamp *self,

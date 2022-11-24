@@ -60,8 +60,6 @@
  * ## Accessibility
  *
  * `AdwButtonContent` uses the `GTK_ACCESSIBLE_ROLE_GROUP` role.
- *
- * Since: 1.0
  */
 
 struct _AdwButtonContent {
@@ -216,8 +214,6 @@ adw_button_content_class_init (AdwButtonContentClass *klass)
    * The name of the displayed icon.
    *
    * If empty, the icon is not shown.
-   *
-   * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
@@ -228,8 +224,6 @@ adw_button_content_class_init (AdwButtonContentClass *klass)
    * AdwButtonContent:label: (attributes org.gtk.Property.get=adw_button_content_get_label org.gtk.Property.set=adw_button_content_set_label)
    *
    * The displayed label.
-   *
-   * Since: 1.0
    */
   props[PROP_LABEL] =
     g_param_spec_string ("label", NULL, NULL,
@@ -244,8 +238,6 @@ adw_button_content_class_init (AdwButtonContentClass *klass)
    * The mnemonic can be used to activate the parent button.
    *
    * See [property@ButtonContent:label].
-   *
-   * Since: 1.0
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline", NULL, NULL,
@@ -287,8 +279,6 @@ adw_button_content_init (AdwButtonContent *self)
  * Creates a new `AdwButtonContent`.
  *
  * Returns: the new created `AdwButtonContent`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_button_content_new (void)
@@ -303,8 +293,6 @@ adw_button_content_new (void)
  * Gets the name of the displayed icon.
  *
  * Returns: the icon name
- *
- * Since: 1.0
  */
 const char *
 adw_button_content_get_icon_name (AdwButtonContent *self)
@@ -322,8 +310,6 @@ adw_button_content_get_icon_name (AdwButtonContent *self)
  * Sets the name of the displayed icon.
  *
  * If empty, the icon is not shown.
- *
- * Since: 1.0
  */
 void
 adw_button_content_set_icon_name (AdwButtonContent *self,
@@ -353,8 +339,6 @@ adw_button_content_set_icon_name (AdwButtonContent *self,
  * Gets the displayed label.
  *
  * Returns: the label
- *
- * Since: 1.0
  */
 const char *
 adw_button_content_get_label (AdwButtonContent *self)
@@ -370,8 +354,6 @@ adw_button_content_get_label (AdwButtonContent *self)
  * @label: the new label
  *
  * Sets the displayed label.
- *
- * Since: 1.0
  */
 void
 adw_button_content_set_label (AdwButtonContent *self,
@@ -398,8 +380,6 @@ adw_button_content_set_label (AdwButtonContent *self,
  * Gets whether an underline in the text indicates a mnemonic.
  *
  * Returns: whether an underline in the text indicates a mnemonic
- *
- * Since: 1.0
  */
 gboolean
 adw_button_content_get_use_underline (AdwButtonContent *self)
@@ -419,8 +399,6 @@ adw_button_content_get_use_underline (AdwButtonContent *self)
  * The mnemonic can be used to activate the parent button.
  *
  * See [property@ButtonContent:label].
- *
- * Since: 1.0
  */
 void
 adw_button_content_set_use_underline (AdwButtonContent *self,

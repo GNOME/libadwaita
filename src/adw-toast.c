@@ -18,8 +18,6 @@
  *   the previous toast into the queue instead.
  *
  * [class@Toast] behavior when another toast is already displayed.
- *
- * Since: 1.0
  */
 
 /**
@@ -143,8 +141,6 @@
  *   <source srcset="toast-undo-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="toast-undo.png" alt="toast-undo">
  * </picture>
- *
- * Since: 1.0
  */
 
 struct _AdwToast {
@@ -304,8 +300,6 @@ adw_toast_class_init (AdwToastClass *klass)
    * Setting a title will unset [property@Toast:custom-title].
    *
    * If [property@Toast:custom-title] is set, it will be used instead.
-   *
-   * Since: 1.0
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
@@ -322,8 +316,6 @@ adw_toast_class_init (AdwToastClass *klass)
    * If set to `NULL`, the button won't be shown.
    *
    * See [property@Toast:action-name].
-   *
-   * Since: 1.0
    */
   props[PROP_BUTTON_LABEL] =
     g_param_spec_string ("button-label", NULL, NULL,
@@ -338,8 +330,6 @@ adw_toast_class_init (AdwToastClass *klass)
    * It will be activated when clicking the button.
    *
    * See [property@Toast:action-target].
-   *
-   * Since: 1.0
    */
   props[PROP_ACTION_NAME] =
     g_param_spec_string ("action-name", NULL, NULL,
@@ -350,8 +340,6 @@ adw_toast_class_init (AdwToastClass *klass)
    * AdwToast:action-target: (attributes org.gtk.Property.get=adw_toast_get_action_target_value org.gtk.Property.set=adw_toast_set_action_target_value)
    *
    * The parameter for action invocations.
-   *
-   * Since: 1.0
    */
   props[PROP_ACTION_TARGET] =
     g_param_spec_variant ("action-target", NULL, NULL,
@@ -371,8 +359,6 @@ adw_toast_class_init (AdwToastClass *klass)
    *
    * If the priority is `ADW_TOAST_PRIORITY_HIGH`, the toast will be displayed
    * immediately, pushing the previous toast into the queue instead.
-   *
-   * Since: 1.0
    */
   props[PROP_PRIORITY] =
     g_param_spec_enum ("priority", NULL, NULL,
@@ -390,8 +376,6 @@ adw_toast_class_init (AdwToastClass *klass)
    *
    * Toasts cannot disappear while being hovered, pressed (on touchscreen), or
    * have keyboard focus inside them.
-   *
-   * Since: 1.0
    */
   props[PROP_TIMEOUT] =
     g_param_spec_uint ("timeout", NULL, NULL,
@@ -421,8 +405,6 @@ adw_toast_class_init (AdwToastClass *klass)
    * AdwToast::dismissed:
    *
    * Emitted when the toast has been dismissed.
-   *
-   * Since: 1.0
    */
   signals[SIGNAL_DISMISSED] =
     g_signal_new ("dismissed",
@@ -472,8 +454,6 @@ adw_toast_init (AdwToast *self)
  * @title can be marked up with the Pango text markup language.
  *
  * Returns: the new created `AdwToast`
- *
- * Since: 1.0
  */
 AdwToast *
 adw_toast_new (const char *title)
@@ -531,8 +511,6 @@ adw_toast_new_format (const char *format,
  * the return value will be %NULL.
  *
  * Returns: (nullable): the title
- *
- * Since: 1.0
  */
 const char *
 adw_toast_get_title (AdwToast *self)
@@ -557,8 +535,6 @@ adw_toast_get_title (AdwToast *self)
  * Setting a title will unset [property@Toast:custom-title].
  *
  * If [property@Toast:custom-title] is set, it will be used instead.
- *
- * Since: 1.0
  */
 void
 adw_toast_set_title (AdwToast   *self,
@@ -589,8 +565,6 @@ adw_toast_set_title (AdwToast   *self,
  * Gets the label to show on the button.
  *
  * Returns: (nullable): the button label
- *
- * Since: 1.0
  */
 const char *
 adw_toast_get_button_label (AdwToast *self)
@@ -612,8 +586,6 @@ adw_toast_get_button_label (AdwToast *self)
  * If set to `NULL`, the button won't be shown.
  *
  * See [property@Toast:action-name].
- *
- * Since: 1.0
  */
 void
 adw_toast_set_button_label (AdwToast   *self,
@@ -637,8 +609,6 @@ adw_toast_set_button_label (AdwToast   *self,
  * Gets the name of the associated action.
  *
  * Returns: (nullable): the action name
- *
- * Since: 1.0
  */
 const char *
 adw_toast_get_action_name (AdwToast *self)
@@ -658,8 +628,6 @@ adw_toast_get_action_name (AdwToast *self)
  * It will be activated when clicking the button.
  *
  * See [property@Toast:action-target].
- *
- * Since: 1.0
  */
 void
 adw_toast_set_action_name (AdwToast   *self,
@@ -683,8 +651,6 @@ adw_toast_set_action_name (AdwToast   *self,
  * Gets the parameter for action invocations.
  *
  * Returns: (transfer none) (nullable): the action target
- *
- * Since: 1.0
  */
 GVariant *
 adw_toast_get_action_target_value (AdwToast *self)
@@ -703,8 +669,6 @@ adw_toast_get_action_target_value (AdwToast *self)
  *
  * If the @action_target variant has a floating reference this function
  * will sink it.
- *
- * Since: 1.0
  */
 void
 adw_toast_set_action_target_value (AdwToast *self,
@@ -741,8 +705,6 @@ adw_toast_set_action_target_value (AdwToast *self,
  * If you are setting a string-valued target and want to set
  * the action name at the same time, you can use
  * [method@Toast.set_detailed_action_name].
-
- * Since: 1.0
  */
 void
 adw_toast_set_action_target (AdwToast   *self,
@@ -767,8 +729,6 @@ adw_toast_set_action_target (AdwToast   *self,
  *
  * @detailed_action_name is a string in the format accepted by
  * [func@Gio.Action.parse_detailed_name].
- *
- * Since: 1.0
  */
 void
 adw_toast_set_detailed_action_name (AdwToast   *self,
@@ -806,8 +766,6 @@ adw_toast_set_detailed_action_name (AdwToast   *self,
  * Gets priority for @self.
  *
  * Returns: the priority
- *
- * Since: 1.0
  */
 AdwToastPriority
 adw_toast_get_priority (AdwToast *self)
@@ -831,8 +789,6 @@ adw_toast_get_priority (AdwToast *self)
  *
  * If @priority is `ADW_TOAST_PRIORITY_HIGH`, the toast will be displayed
  * immediately, pushing the previous toast into the queue instead.
- *
- * Since: 1.0
  */
 void
 adw_toast_set_priority (AdwToast         *self,
@@ -857,8 +813,6 @@ adw_toast_set_priority (AdwToast         *self,
  * Gets timeout for @self.
  *
  * Returns: the timeout
- *
- * Since: 1.0
  */
 guint
 adw_toast_get_timeout (AdwToast *self)
@@ -880,8 +834,6 @@ adw_toast_get_timeout (AdwToast *self)
  *
  * Toasts cannot disappear while being hovered, pressed (on touchscreen), or
  * have keyboard focus inside them.
- *
- * Since: 1.0
  */
 void
 adw_toast_set_timeout (AdwToast *self,
@@ -958,8 +910,6 @@ adw_toast_set_custom_title (AdwToast  *self,
  *
  * Does nothing if @self has already been dismissed, or hasn't been added to an
  * [class@ToastOverlay].
- *
- * Since: 1.0
  */
 void
 adw_toast_dismiss (AdwToast *self)

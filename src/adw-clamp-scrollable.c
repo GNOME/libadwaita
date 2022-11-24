@@ -20,8 +20,6 @@
  *
  * The primary use case for `AdwClampScrollable` is clamping
  * [class@Gtk.ListView].
- *
- * Since: 1.0
  */
 
 enum {
@@ -256,8 +254,6 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
    * AdwClampScrollable:child: (attributes org.gtk.Property.get=adw_clamp_scrollable_get_child org.gtk.Property.set=adw_clamp_scrollable_set_child)
    *
    * The child widget of the `AdwClampScrollable`.
-   *
-   * Since: 1.0
    */
   props[PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
@@ -270,8 +266,6 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
    * The maximum size allocated to the child.
    *
    * It is the width if the clamp is horizontal, or the height if it is vertical.
-   *
-   * Since: 1.0
    */
   props[PROP_MAXIMUM_SIZE] =
     g_param_spec_int ("maximum-size", NULL, NULL,
@@ -295,8 +289,6 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
    *
    * Effectively, tightening the grip on the child before it reaches its maximum
    * size makes transitions to and from the maximum size smoother when resizing.
-   *
-   * Since: 1.0
    */
   props[PROP_TIGHTENING_THRESHOLD] =
     g_param_spec_int ("tightening-threshold", NULL, NULL,
@@ -340,8 +332,6 @@ adw_clamp_scrollable_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwClampScrollable`.
  *
  * Returns: the newly created `AdwClampScrollable`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_clamp_scrollable_new (void)
@@ -356,8 +346,6 @@ adw_clamp_scrollable_new (void)
  * Gets the child widget of @self.
  *
  * Returns: (nullable) (transfer none): the child widget of @self
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_clamp_scrollable_get_child (AdwClampScrollable *self)
@@ -373,8 +361,6 @@ adw_clamp_scrollable_get_child (AdwClampScrollable *self)
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
- *
- * Since: 1.0
  */
 void
 adw_clamp_scrollable_set_child (AdwClampScrollable *self,
@@ -428,8 +414,6 @@ adw_clamp_scrollable_set_child (AdwClampScrollable *self,
  * Gets the maximum size allocated to the child.
  *
  * Returns: the maximum size to allocate to the child
- *
- * Since: 1.0
  */
 int
 adw_clamp_scrollable_get_maximum_size (AdwClampScrollable *self)
@@ -451,8 +435,6 @@ adw_clamp_scrollable_get_maximum_size (AdwClampScrollable *self)
  * Sets the maximum size allocated to the child.
  *
  * It is the width if the clamp is horizontal, or the height if it is vertical.
- *
- * Since: 1.0
  */
 void
 adw_clamp_scrollable_set_maximum_size (AdwClampScrollable *self,
@@ -479,8 +461,6 @@ adw_clamp_scrollable_set_maximum_size (AdwClampScrollable *self,
  * Gets the size above which the child is clamped.
  *
  * Returns: the size above which the child is clamped
- *
- * Since: 1.0
  */
 int
 adw_clamp_scrollable_get_tightening_threshold (AdwClampScrollable *self)
@@ -513,8 +493,6 @@ adw_clamp_scrollable_get_tightening_threshold (AdwClampScrollable *self)
  *
  * Effectively, tightening the grip on the child before it reaches its maximum
  * size makes transitions to and from the maximum size smoother when resizing.
- *
- * Since: 1.0
  */
 void
 adw_clamp_scrollable_set_tightening_threshold (AdwClampScrollable *self,

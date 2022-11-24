@@ -37,8 +37,6 @@
  *
  * `AdwPreferencesWindow` has a main CSS node with the name `window` and the
  * style class `.preferences`.
- *
- * Since: 1.0
  */
 
 typedef struct
@@ -556,8 +554,6 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    * AdwViewStack:visible-page: (attributes org.gtk.Property.get=adw_preferences_window_get_visible_page org.gtk.Property.set=adw_preferences_window_set_visible_page)
    *
    * The currently visible page.
-   *
-   * Since: 1.0
    */
   props[PROP_VISIBLE_PAGE] =
     g_param_spec_object ("visible-page", NULL, NULL,
@@ -570,8 +566,6 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    * The name of the currently visible page.
    *
    * See [property@ViewStack:visible-child].
-   *
-   * Since: 1.0
    */
   props[PROP_VISIBLE_PAGE_NAME] =
     g_param_spec_string ("visible-page-name", NULL, NULL,
@@ -582,8 +576,6 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    * AdwPreferencesWindow:search-enabled: (attributes org.gtk.Property.get=adw_preferences_window_get_search_enabled org.gtk.Property.set=adw_preferences_window_set_search_enabled)
    *
    * Whether search is enabled.
-   *
-   * Since: 1.0
    */
   props[PROP_SEARCH_ENABLED] =
     g_param_spec_boolean ("search-enabled", NULL, NULL,
@@ -605,8 +597,6 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut.
    *
    * For right-to-left locales, gestures and shortcuts are reversed.
-   *
-   * Since: 1.0
    */
   props[PROP_CAN_NAVIGATE_BACK] =
     g_param_spec_boolean ("can-navigate-back", NULL, NULL,
@@ -709,8 +699,6 @@ adw_preferences_window_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwPreferencesWindow`.
  *
  * Returns: the newly created `AdwPreferencesWindow`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_preferences_window_new (void)
@@ -724,8 +712,6 @@ adw_preferences_window_new (void)
  * @page: the page to add
  *
  * Adds a preferences page to @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_window_add (AdwPreferencesWindow *self,
@@ -753,8 +739,6 @@ adw_preferences_window_add (AdwPreferencesWindow *self,
  * @page: the page to remove
  *
  * Removes a page from @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_window_remove (AdwPreferencesWindow *self,
@@ -780,8 +764,6 @@ adw_preferences_window_remove (AdwPreferencesWindow *self,
  * Gets the currently visible page of @self.
  *
  * Returns: (transfer none) (nullable): the visible page
- *
- * Since: 1.0
  */
 AdwPreferencesPage *
 adw_preferences_window_get_visible_page (AdwPreferencesWindow *self)
@@ -801,8 +783,6 @@ adw_preferences_window_get_visible_page (AdwPreferencesWindow *self)
  * @page: a page of @self
  *
  * Makes @page the visible page of @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_window_set_visible_page (AdwPreferencesWindow *self,
@@ -825,8 +805,6 @@ adw_preferences_window_set_visible_page (AdwPreferencesWindow *self,
  * Gets the name of currently visible page of @self.
  *
  * Returns: (transfer none) (nullable): the name of the visible page
- *
- * Since: 1.0
  */
 const char *
 adw_preferences_window_get_visible_page_name (AdwPreferencesWindow *self)
@@ -848,8 +826,6 @@ adw_preferences_window_get_visible_page_name (AdwPreferencesWindow *self)
  * Makes the page with the given name visible.
  *
  * See [property@ViewStack:visible-child].
- *
- * Since: 1.0
  */
 void
 adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
@@ -871,8 +847,6 @@ adw_preferences_window_set_visible_page_name (AdwPreferencesWindow *self,
  * Gets whether search is enabled for @self.
  *
  * Returns: whether search is enabled for @self.
- *
- * Since: 1.0
  */
 gboolean
 adw_preferences_window_get_search_enabled (AdwPreferencesWindow *self)
@@ -892,8 +866,6 @@ adw_preferences_window_get_search_enabled (AdwPreferencesWindow *self)
  * @search_enabled: whether search is enabled
  *
  * Sets whether search is enabled for @self.
- *
- * Since: 1.0
  */
 void
 adw_preferences_window_set_search_enabled (AdwPreferencesWindow *self,
@@ -939,8 +911,6 @@ adw_preferences_window_set_search_enabled (AdwPreferencesWindow *self,
  * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut.
  *
  * For right-to-left locales, gestures and shortcuts are reversed.
- *
- * Since: 1.0
  */
 void
 adw_preferences_window_set_can_navigate_back (AdwPreferencesWindow *self,
@@ -969,8 +939,6 @@ adw_preferences_window_set_can_navigate_back (AdwPreferencesWindow *self,
  * Gets whether gestures and shortcuts for closing subpages are enabled.
  *
  * Returns: whether gestures and shortcuts are enabled.
- *
- * Since: 1.0
  */
 gboolean
 adw_preferences_window_get_can_navigate_back (AdwPreferencesWindow *self)
@@ -993,8 +961,6 @@ adw_preferences_window_get_can_navigate_back (AdwPreferencesWindow *self)
  *
  * The transition can be cancelled by the user, in which case visible child will
  * change back to the previously visible child.
- *
- * Since: 1.0
  */
 void
 adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
@@ -1028,8 +994,6 @@ adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
  * Closes the current subpage.
  *
  * If there is no presented subpage, this does nothing.
- *
- * Since: 1.0
  */
 void
 adw_preferences_window_close_subpage (AdwPreferencesWindow *self)
@@ -1054,8 +1018,6 @@ adw_preferences_window_close_subpage (AdwPreferencesWindow *self)
  * Displays @toast.
  *
  * See [method@ToastOverlay.add_toast].
- *
- * Since: 1.0
  */
 void
 adw_preferences_window_add_toast (AdwPreferencesWindow *self,

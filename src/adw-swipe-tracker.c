@@ -43,8 +43,6 @@
  * property. If they expect to use horizontal orientation,
  * [property@SwipeTracker:reversed] can be used for supporting RTL text
  * direction.
- *
- * Since: 1.0
  */
 
 typedef enum {
@@ -1017,8 +1015,6 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    * AdwSwipeTracker:swipeable: (attributes org.gtk.Property.get=adw_swipe_tracker_get_swipeable)
    *
    * The widget the swipe tracker is attached to.
-   *
-   * Since: 1.0
    */
   props[PROP_SWIPEABLE] =
     g_param_spec_object ("swipeable", NULL, NULL,
@@ -1032,8 +1028,6 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    *
    * When it's not enabled, no events will be processed. Usually widgets will
    * want to expose this via a property.
-   *
-   * Since: 1.0
    */
   props[PROP_ENABLED] =
     g_param_spec_boolean ("enabled", NULL, NULL,
@@ -1047,8 +1041,6 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    *
    * If the swipe tracker is horizontal, it can be used for supporting RTL text
    * direction.
-   *
-   * Since: 1.0
    */
   props[PROP_REVERSED] =
     g_param_spec_boolean ("reversed", NULL, NULL,
@@ -1059,8 +1051,6 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    * AdwSwipeTracker:allow-mouse-drag: (attributes org.gtk.Property.get=adw_swipe_tracker_get_allow_mouse_drag org.gtk.Property.set=adw_swipe_tracker_set_allow_mouse_drag)
    *
    * Whether to allow dragging with mouse pointer.
-   *
-   * Since: 1.0
    */
   props[PROP_ALLOW_MOUSE_DRAG] =
     g_param_spec_boolean ("allow-mouse-drag", NULL, NULL,
@@ -1074,8 +1064,6 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    *
    * If the value is `FALSE`, each swipe can only move to the adjacent snap
    * points.
-   *
-   * Since: 1.0
    */
   props[PROP_ALLOW_LONG_SWIPES] =
     g_param_spec_boolean ("allow-long-swipes", NULL, NULL,
@@ -1097,8 +1085,6 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    *
    * The @direction value can be used to restrict the swipe to a certain
    * direction.
-   *
-   * Since: 1.0
    */
   signals[SIGNAL_PREPARE] =
     g_signal_new ("prepare",
@@ -1115,8 +1101,6 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    *
    * This signal is emitted right before a swipe will be started, after the
    * drag threshold has been passed.
-   *
-   * Since: 1.0
    */
   signals[SIGNAL_BEGIN_SWIPE] =
     g_signal_new ("begin-swipe",
@@ -1133,8 +1117,6 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    * @progress: the current animation progress value
    *
    * This signal is emitted every time the progress value changes.
-   *
-   * Since: 1.0
    */
   signals[SIGNAL_UPDATE_SWIPE] =
     g_signal_new ("update-swipe",
@@ -1158,8 +1140,6 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
    * value to @to with an animation using @velocity as the initial velocity,
    * provided in pixels per second. [class@SpringAnimation] is usually a good
    * fit for this.
-   *
-   * Since: 1.0
    */
   signals[SIGNAL_END_SWIPE] =
     g_signal_new ("end-swipe",
@@ -1189,8 +1169,6 @@ adw_swipe_tracker_init (AdwSwipeTracker *self)
  * Creates a new `AdwSwipeTracker` for @widget.
  *
  * Returns: the newly created `AdwSwipeTracker`
- *
- * Since: 1.0
  */
 AdwSwipeTracker *
 adw_swipe_tracker_new (AdwSwipeable *swipeable)
@@ -1209,8 +1187,6 @@ adw_swipe_tracker_new (AdwSwipeable *swipeable)
  * Get the widget @self is attached to.
  *
  * Returns: (transfer none): the swipeable widget
- *
- * Since: 1.0
  */
 AdwSwipeable *
 adw_swipe_tracker_get_swipeable (AdwSwipeTracker *self)
@@ -1227,8 +1203,6 @@ adw_swipe_tracker_get_swipeable (AdwSwipeTracker *self)
  * Gets whether @self is enabled.
  *
  * Returns: whether @self is enabled
- *
- * Since: 1.0
  */
 gboolean
 adw_swipe_tracker_get_enabled (AdwSwipeTracker *self)
@@ -1247,8 +1221,6 @@ adw_swipe_tracker_get_enabled (AdwSwipeTracker *self)
  *
  * When it's not enabled, no events will be processed. Usually widgets will want
  * to expose this via a property.
- *
- * Since: 1.0
  */
 void
 adw_swipe_tracker_set_enabled (AdwSwipeTracker *self,
@@ -1278,8 +1250,6 @@ adw_swipe_tracker_set_enabled (AdwSwipeTracker *self,
  * Gets whether @self is reversing the swipe direction.
  *
  * Returns: whether the direction is reversed
- *
- * Since: 1.0
  */
 gboolean
 adw_swipe_tracker_get_reversed (AdwSwipeTracker *self)
@@ -1298,8 +1268,6 @@ adw_swipe_tracker_get_reversed (AdwSwipeTracker *self)
  *
  * If the swipe tracker is horizontal, it can be used for supporting RTL text
  * direction.
- *
- * Since: 1.0
  */
 void
 adw_swipe_tracker_set_reversed (AdwSwipeTracker *self,
@@ -1323,8 +1291,6 @@ adw_swipe_tracker_set_reversed (AdwSwipeTracker *self,
  * Gets whether @self can be dragged with mouse pointer.
  *
  * Returns: whether mouse dragging is allowed
- *
- * Since: 1.0
  */
 gboolean
 adw_swipe_tracker_get_allow_mouse_drag (AdwSwipeTracker *self)
@@ -1340,8 +1306,6 @@ adw_swipe_tracker_get_allow_mouse_drag (AdwSwipeTracker *self)
  * @allow_mouse_drag: whether to allow mouse dragging
  *
  * Sets whether @self can be dragged with mouse pointer.
- *
- * Since: 1.0
  */
 void
 adw_swipe_tracker_set_allow_mouse_drag (AdwSwipeTracker *self,
@@ -1368,8 +1332,6 @@ adw_swipe_tracker_set_allow_mouse_drag (AdwSwipeTracker *self,
  * Gets whether to allow swiping for more than one snap point at a time.
  *
  * Returns: whether long swipes are allowed
- *
- * Since: 1.0
  */
 gboolean
 adw_swipe_tracker_get_allow_long_swipes (AdwSwipeTracker *self)
@@ -1388,8 +1350,6 @@ adw_swipe_tracker_get_allow_long_swipes (AdwSwipeTracker *self)
  *
  * If the value is `FALSE`, each swipe can only move to the adjacent snap
  * points.
- *
- * Since: 1.0
  */
 void
 adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
@@ -1416,8 +1376,6 @@ adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
  *
  * This can be used to adjust the current position if snap points move during
  * the gesture.
- *
- * Since: 1.0
  */
 void
 adw_swipe_tracker_shift_position (AdwSwipeTracker *self,

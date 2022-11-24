@@ -30,8 +30,6 @@
  * `AdwStatusPage` can use the
  * [`.compact`](style-classes.html#compact-status-page) style class for when it
  * needs to fit into a small space such a sidebar or a popover.
- *
- * Since: 1.0
  */
 
 enum {
@@ -194,8 +192,6 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    * The name of the icon to be used.
    *
    * Changing this will set [property@StatusPage:paintable] to `NULL`.
-   *
-   * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
@@ -208,8 +204,6 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    * The paintable to be used.
    *
    * Changing this will set [property@StatusPage:icon-name] to `NULL`.
-   *
-   * Since: 1.0
    */
   props[PROP_PAINTABLE] =
     g_param_spec_object ("paintable", NULL, NULL,
@@ -220,8 +214,6 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    * AdwStatusPage:title: (attributes org.gtk.Property.get=adw_status_page_get_title org.gtk.Property.set=adw_status_page_set_title)
    *
    * The title to be displayed below the icon.
-   *
-   * Since: 1.0
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
@@ -232,8 +224,6 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    * AdwStatusPage:description: (attributes org.gtk.Property.get=adw_status_page_get_description org.gtk.Property.set=adw_status_page_set_description)
    *
    * The description to be displayed below the title.
-   *
-   * Since: 1.0
    */
   props[PROP_DESCRIPTION] =
     g_param_spec_string ("description", NULL, NULL,
@@ -244,8 +234,6 @@ adw_status_page_class_init (AdwStatusPageClass *klass)
    * AdwStatusPage:child: (attributes org.gtk.Property.get=adw_status_page_get_child org.gtk.Property.set=adw_status_page_set_child)
    *
    * The child widget.
-   *
-   * Since: 1.0
    */
   props[PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
@@ -306,8 +294,6 @@ adw_status_page_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwStatusPage`.
  *
  * Returns: the newly created `AdwStatusPage`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_status_page_new (void)
@@ -322,8 +308,6 @@ adw_status_page_new (void)
  * Gets the icon name for @self.
  *
  * Returns: (nullable): the icon name
- *
- * Since: 1.0
  */
 const char *
 adw_status_page_get_icon_name (AdwStatusPage *self)
@@ -341,8 +325,6 @@ adw_status_page_get_icon_name (AdwStatusPage *self)
  * Sets the icon name for @self.
  *
  * Changing this will set [property@StatusPage:paintable] to `NULL`.
- *
- * Since: 1.0
  */
 void
 adw_status_page_set_icon_name (AdwStatusPage *self,
@@ -375,8 +357,6 @@ adw_status_page_set_icon_name (AdwStatusPage *self,
  * Gets the paintable for @self.
  *
  * Returns: (nullable) (transfer none): the paintable
- *
- * Since: 1.0
  */
 GdkPaintable *
 adw_status_page_get_paintable (AdwStatusPage *self)
@@ -394,8 +374,6 @@ adw_status_page_get_paintable (AdwStatusPage *self)
  * Sets the paintable for @self.
  *
  * Changing this will set [property@StatusPage:icon-name] to `NULL`.
- *
- * Since: 1.0
  */
 void
 adw_status_page_set_paintable (AdwStatusPage *self,
@@ -428,8 +406,6 @@ adw_status_page_set_paintable (AdwStatusPage *self,
  * Gets the title for @self.
  *
  * Returns: the title
- *
- * Since: 1.0
  */
 const char *
 adw_status_page_get_title (AdwStatusPage *self)
@@ -447,8 +423,6 @@ adw_status_page_get_title (AdwStatusPage *self)
  * Sets the title for @self.
  *
  * The title is displayed below the icon.
- *
- * Since: 1.0
  */
 void
 adw_status_page_set_title (AdwStatusPage *self,
@@ -471,8 +445,6 @@ adw_status_page_set_title (AdwStatusPage *self,
  * Gets the description for @self.
  *
  * Returns: (nullable): the description
- *
- * Since: 1.0
  */
 const char *
 adw_status_page_get_description (AdwStatusPage *self)
@@ -490,8 +462,6 @@ adw_status_page_get_description (AdwStatusPage *self)
  * Sets the description for @self.
  *
  * The description is displayed below the title.
- *
- * Since: 1.0
  */
 void
 adw_status_page_set_description (AdwStatusPage *self,
@@ -514,8 +484,6 @@ adw_status_page_set_description (AdwStatusPage *self,
  * Gets the child widget of @self.
  *
  * Returns: (nullable) (transfer none): the child widget of @self
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_status_page_get_child (AdwStatusPage *self)
@@ -531,8 +499,6 @@ adw_status_page_get_child (AdwStatusPage *self)
  * @child: (nullable): the child widget
  *
  * Sets the child widget of @self.
- *
- * Since: 1.0
  */
 void
 adw_status_page_set_child (AdwStatusPage *self,

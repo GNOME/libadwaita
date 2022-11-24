@@ -60,8 +60,6 @@
  * If there's a chance the previous animation for the same target hasn't yet
  * finished, the previous animation should be stopped first, or the existing
  * `AdwAnimation` object can be reused.
- *
- * Since: 1.0
  */
 
 /**
@@ -76,8 +74,6 @@
  * The state can be controlled with [method@Animation.play],
  * [method@Animation.pause], [method@Animation.resume],
  * [method@Animation.reset] and [method@Animation.skip].
- *
- * Since: 1.0
  */
 
 typedef struct
@@ -351,8 +347,6 @@ adw_animation_class_init (AdwAnimationClass *klass)
    * The widget must be mapped in order for the animation to work. If it's not
    * mapped, or if it gets unmapped during an ongoing animation, the animation
    * will be automatically skipped.
-   *
-   * Since: 1.0
    */
   props[PROP_WIDGET] =
     g_param_spec_object ("widget", NULL, NULL,
@@ -363,8 +357,6 @@ adw_animation_class_init (AdwAnimationClass *klass)
    * AdwAnimation:target: (attributes org.gtk.Property.get=adw_animation_get_target org.gtk.Property.set=adw_animation_set_target)
    *
    * The target to animate.
-   *
-   * Since: 1.0
    */
   props[PROP_TARGET] =
     g_param_spec_object ("target", NULL, NULL,
@@ -375,8 +367,6 @@ adw_animation_class_init (AdwAnimationClass *klass)
    * AdwAnimation:value: (attributes org.gtk.Property.get=adw_animation_get_value)
    *
    * The current value of the animation.
-   *
-   * Since: 1.0
    */
   props[PROP_VALUE] =
     g_param_spec_double ("value", NULL, NULL,
@@ -392,8 +382,6 @@ adw_animation_class_init (AdwAnimationClass *klass)
    *
    * The state indicates whether the animation is currently playing, paused,
    * finished or hasn't been started yet.
-   *
-   * Since: 1.0
    */
   props[PROP_STATE] =
     g_param_spec_enum ("state", NULL, NULL,
@@ -408,8 +396,6 @@ adw_animation_class_init (AdwAnimationClass *klass)
    *
    * This signal is emitted when the animation has been completed, either on its
    * own or via calling [method@Animation.skip].
-   *
-   * Since: 1.0
    */
   signals[SIGNAL_DONE] =
     g_signal_new ("done",
@@ -443,8 +429,6 @@ adw_animation_init (AdwAnimation *self)
  * will be automatically skipped.
  *
  * Returns: (transfer none): the animation widget
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_animation_get_widget (AdwAnimation *self)
@@ -465,8 +449,6 @@ adw_animation_get_widget (AdwAnimation *self)
  * Gets the target @self animates.
  *
  * Returns: (transfer none): the animation target
- *
- * Since: 1.0
  */
 AdwAnimationTarget *
 adw_animation_get_target (AdwAnimation *self)
@@ -486,8 +468,6 @@ adw_animation_get_target (AdwAnimation *self)
  * @target: an animation target
  *
  * Sets the target @self animates to @target.
- *
- * Since: 1.0
  */
 void
 adw_animation_set_target (AdwAnimation       *self,
@@ -515,8 +495,6 @@ adw_animation_set_target (AdwAnimation       *self,
  * Gets the current value of @self.
  *
  * Returns: the current value
- *
- * Since: 1.0
  */
 double
 adw_animation_get_value (AdwAnimation *self)
@@ -540,8 +518,6 @@ adw_animation_get_value (AdwAnimation *self)
  * hasn't been started yet.
  *
  * Returns: the animation value
- *
- * Since: 1.0
  */
 AdwAnimationState
 adw_animation_get_state (AdwAnimation *self)
@@ -574,8 +550,6 @@ adw_animation_get_state (AdwAnimation *self)
  * example, when using [func@GLib.idle_add] and starting an animation
  * immediately afterwards, it's entirely possible that the idle callback will
  * run after the animation has already finished, and not while it's playing.
- *
- * Since: 1.0
  */
 void
 adw_animation_play (AdwAnimation *self)
@@ -604,8 +578,6 @@ adw_animation_play (AdwAnimation *self)
  * Does nothing if the current state of @self isn't `ADW_ANIMATION_PLAYING`.
  *
  * Sets [property@Animation:state] to `ADW_ANIMATION_PAUSED`.
- *
- * Since: 1.0
  */
 void
 adw_animation_pause (AdwAnimation *self)
@@ -643,8 +615,6 @@ adw_animation_pause (AdwAnimation *self)
  * [method@Animation.pause].
  *
  * Sets [property@Animation:state] to `ADW_ANIMATION_PLAYING`.
- *
- * Since: 1.0
  */
 void
 adw_animation_resume (AdwAnimation *self)
@@ -675,8 +645,6 @@ adw_animation_resume (AdwAnimation *self)
  * emitted.
  *
  * Sets [property@Animation:state] to `ADW_ANIMATION_FINISHED`.
- *
- * Since: 1.0
  */
 void
 adw_animation_skip (AdwAnimation *self)
@@ -720,8 +688,6 @@ adw_animation_skip (AdwAnimation *self)
  * Resets the animation for @self.
  *
  * Sets [property@Animation:state] to `ADW_ANIMATION_IDLE`.
- *
- * Since: 1.0
  */
 void
 adw_animation_reset (AdwAnimation *self)

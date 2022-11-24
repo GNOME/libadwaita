@@ -42,8 +42,6 @@
  * It contains the subnodes `row.header` for its main embedded row,
  * `list.nested` for the list it can expand, and `image.expander-row-arrow` for
  * its arrow.
- *
- * Since: 1.0
  */
 
 typedef struct
@@ -197,8 +195,6 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    *
    * The subtitle is interpreted as Pango markup unless
    * [property@PreferencesRow:use-markup] is set to `FALSE`.
-   *
-   * Since: 1.0
    */
   props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle", NULL, NULL,
@@ -209,8 +205,6 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    * AdwExpanderRow:icon-name: (attributes org.gtk.Property.get=adw_expander_row_get_icon_name org.gtk.Property.set=adw_expander_row_set_icon_name)
    *
    * The icon name for this row.
-   *
-   * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
@@ -221,8 +215,6 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    * AdwExpanderRow:expanded: (attributes org.gtk.Property.get=adw_expander_row_get_expanded org.gtk.Property.set=adw_expander_row_set_expanded)
    *
    * Whether the row is expanded.
-   *
-   * Since: 1.0
    */
   props[PROP_EXPANDED] =
     g_param_spec_boolean ("expanded", NULL, NULL,
@@ -233,8 +225,6 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    * AdwExpanderRow:enable-expansion: (attributes org.gtk.Property.get=adw_expander_row_get_enable_expansion org.gtk.Property.set=adw_expander_row_set_enable_expansion)
    *
    * Whether expansion is enabled.
-   *
-   * Since: 1.0
    */
   props[PROP_ENABLE_EXPANSION] =
     g_param_spec_boolean ("enable-expansion", NULL, NULL,
@@ -245,8 +235,6 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
    * AdwExpanderRow:show-enable-switch: (attributes org.gtk.Property.get=adw_expander_row_get_show_enable_switch org.gtk.Property.set=adw_expander_row_set_show_enable_switch)
    *
    * Whether the switch enabling the expansion is visible.
-   *
-   * Since: 1.0
    */
   props[PROP_SHOW_ENABLE_SWITCH] =
     g_param_spec_boolean ("show-enable-switch", NULL, NULL,
@@ -362,8 +350,6 @@ adw_expander_row_buildable_init (GtkBuildableIface *iface)
  * Creates a new `AdwExpanderRow`.
  *
  * Returns: the newly created `AdwExpanderRow`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_expander_row_new (void)
@@ -377,8 +363,6 @@ adw_expander_row_new (void)
  * @widget: a widget
  *
  * Adds an action widget to @self.
- *
- * Since: 1.0
  */
 void
 adw_expander_row_add_action (AdwExpanderRow *self,
@@ -401,8 +385,6 @@ adw_expander_row_add_action (AdwExpanderRow *self,
  * @widget: a widget
  *
  * Adds a prefix widget to @self.
- *
- * Since: 1.0
  */
 void
 adw_expander_row_add_prefix (AdwExpanderRow *self,
@@ -430,8 +412,6 @@ adw_expander_row_add_prefix (AdwExpanderRow *self,
  * Adds a widget to @self.
  *
  * The widget will appear in the expanding list below @self.
- *
- * Since: 1.0
  */
 void
 adw_expander_row_add_row (AdwExpanderRow *self,
@@ -458,8 +438,6 @@ adw_expander_row_add_row (AdwExpanderRow *self,
  * @widget: the child to be removed
  *
  * Removes a child from @self.
- *
- * Since: 1.0
  */
 void
 adw_expander_row_remove (AdwExpanderRow *self,
@@ -498,8 +476,6 @@ adw_expander_row_remove (AdwExpanderRow *self,
  * Gets the subtitle for @self.
  *
  * Returns: the subtitle for @self
- *
- * Since: 1.0
  */
 const char *
 adw_expander_row_get_subtitle (AdwExpanderRow *self)
@@ -522,8 +498,6 @@ adw_expander_row_get_subtitle (AdwExpanderRow *self)
  *
  * The subtitle is interpreted as Pango markup unless
  * [property@PreferencesRow:use-markup] is set to `FALSE`.
- *
- * Since: 1.0
  */
 void
 adw_expander_row_set_subtitle (AdwExpanderRow *self,
@@ -545,8 +519,6 @@ adw_expander_row_set_subtitle (AdwExpanderRow *self,
  * Gets the icon name for @self.
  *
  * Returns: (nullable): the icon name for @self
- *
- * Since: 1.0
  */
 const char *
 adw_expander_row_get_icon_name (AdwExpanderRow *self)
@@ -566,8 +538,6 @@ adw_expander_row_get_icon_name (AdwExpanderRow *self)
  * @icon_name: (nullable): the icon name
  *
  * Sets the icon name for @self.
- *
- * Since: 1.0
  */
 void
 adw_expander_row_set_icon_name (AdwExpanderRow *self,
@@ -589,8 +559,6 @@ adw_expander_row_set_icon_name (AdwExpanderRow *self,
  * Gets whether @self is expanded.
  *
  * Returns: whether @self is expanded
- *
- * Since: 1.0
  */
 gboolean
 adw_expander_row_get_expanded (AdwExpanderRow *self)
@@ -610,8 +578,6 @@ adw_expander_row_get_expanded (AdwExpanderRow *self)
  * @expanded: whether to expand the row
  *
  * Sets whether @self is expanded.
- *
- * Since: 1.0
  */
 void
 adw_expander_row_set_expanded (AdwExpanderRow *self,
@@ -645,8 +611,6 @@ adw_expander_row_set_expanded (AdwExpanderRow *self,
  * Gets whether the expansion of @self is enabled.
  *
  * Returns: whether the expansion of @self is enabled.
- *
- * Since: 1.0
  */
 gboolean
 adw_expander_row_get_enable_expansion (AdwExpanderRow *self)
@@ -666,8 +630,6 @@ adw_expander_row_get_enable_expansion (AdwExpanderRow *self)
  * @enable_expansion: whether to enable the expansion
  *
  * Sets whether the expansion of @self is enabled.
- *
- * Since: 1.0
  */
 void
 adw_expander_row_set_enable_expansion (AdwExpanderRow *self,
@@ -698,8 +660,6 @@ adw_expander_row_set_enable_expansion (AdwExpanderRow *self,
  * Gets whether the switch enabling the expansion of @self is visible.
  *
  * Returns: whether the switch enabling the expansion is visible
- *
- * Since: 1.0
  */
 gboolean
 adw_expander_row_get_show_enable_switch (AdwExpanderRow *self)
@@ -719,8 +679,6 @@ adw_expander_row_get_show_enable_switch (AdwExpanderRow *self)
  * @show_enable_switch: whether to show the switch enabling the expansion
  *
  * Sets whether the switch enabling the expansion of @self is visible.
- *
- * Since: 1.0
  */
 void
 adw_expander_row_set_show_enable_switch (AdwExpanderRow *self,

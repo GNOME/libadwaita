@@ -37,8 +37,6 @@
  *
  * - `style-hc-dark.css` contains styles used when the system high contrast
  *   preference is enabled and [property@StyleManager:dark] is `TRUE`.
- *
- * Since: 1.0
  */
 
 typedef struct
@@ -231,8 +229,6 @@ adw_application_class_init (AdwApplicationClass *klass)
    *
    * This is a convenience property allowing to access `AdwStyleManager` through
    * property bindings or expressions.
-   *
-   * Since: 1.0
    */
   props[PROP_STYLE_MANAGER] =
     g_param_spec_object ("style-manager", NULL, NULL,
@@ -261,8 +257,6 @@ adw_application_init (AdwApplication *self)
  * uniqueness) will be disabled.
  *
  * Returns: the newly created `AdwApplication`
- *
- * Since: 1.0
  */
 AdwApplication *
 adw_application_new (const char        *application_id,
@@ -284,8 +278,6 @@ adw_application_new (const char        *application_id,
  * property bindings or expressions.
  *
  * Returns: (transfer none): the style manager
- *
- * Since: 1.0
  */
 AdwStyleManager *
 adw_application_get_style_manager (AdwApplication *self)

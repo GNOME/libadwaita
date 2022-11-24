@@ -44,8 +44,6 @@
  * ## CSS nodes
  *
  * `AdwAvatar` has a single CSS node with name `avatar`.
- *
- * Since: 1.0
  */
 
 struct _AdwAvatar
@@ -343,8 +341,6 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    * The name of an icon to use as a fallback.
    *
    * If no name is set, `avatar-default-symbolic` will be used.
-   *
-   * Since: 1.0
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
@@ -358,8 +354,6 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    *
    * It's only used to generate the color if [property@Avatar:show-initials] is
    * `FALSE`.
-   *
-   * Since: 1.0
    */
   props[PROP_TEXT] =
     g_param_spec_string ("text", NULL, NULL,
@@ -372,8 +366,6 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    * Whether initials are used instead of an icon on the fallback avatar.
    *
    * See [property@Avatar:icon-name] for how to change the fallback icon.
-   *
-   * Since: 1.0
    */
   props[PROP_SHOW_INITIALS] =
     g_param_spec_boolean ("show-initials", NULL, NULL,
@@ -386,8 +378,6 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    * A custom image paintable.
    *
    * Custom image is displayed instead of initials or icon.
-   *
-   * Since: 1.0
    */
   props[PROP_CUSTOM_IMAGE] =
     g_param_spec_object ("custom-image", NULL, NULL,
@@ -398,8 +388,6 @@ adw_avatar_class_init (AdwAvatarClass *klass)
    * AdwAvatar:size: (attributes org.gtk.Property.get=adw_avatar_get_size org.gtk.Property.set=adw_avatar_set_size)
    *
    * The size of the avatar.
-   *
-   * Since: 1.0
    */
   props[PROP_SIZE] =
     g_param_spec_int ("size", NULL, NULL,
@@ -450,8 +438,6 @@ adw_avatar_init (AdwAvatar *self)
  * Creates a new `AdwAvatar`.
  *
  * Returns: the newly created `AdwAvatar`
- *
- * Since: 1.0
  */
 GtkWidget *
 adw_avatar_new (int         size,
@@ -472,8 +458,6 @@ adw_avatar_new (int         size,
  * Gets the name of an icon to use as a fallback.
  *
  * Returns: (nullable): the icon name
- *
- * Since: 1.0
  */
 const char *
 adw_avatar_get_icon_name (AdwAvatar *self)
@@ -491,8 +475,6 @@ adw_avatar_get_icon_name (AdwAvatar *self)
  * Sets the name of an icon to use as a fallback.
  *
  * If no name is set, `avatar-default-symbolic` will be used.
- *
- * Since: 1.0
  */
 void
 adw_avatar_set_icon_name (AdwAvatar  *self,
@@ -519,8 +501,6 @@ adw_avatar_set_icon_name (AdwAvatar  *self,
  *
  * Returns: (nullable): the text used to generate the fallback initials and
  *   color
- *
- * Since: 1.0
  */
 const char *
 adw_avatar_get_text (AdwAvatar *self)
@@ -539,8 +519,6 @@ adw_avatar_get_text (AdwAvatar *self)
  *
  * It's only used to generate the color if [property@Avatar:show-initials] is
  * `FALSE`.
- *
- * Since: 1.0
  */
 void
 adw_avatar_set_text (AdwAvatar  *self,
@@ -570,8 +548,6 @@ adw_avatar_set_text (AdwAvatar  *self,
  * Gets whether initials are used instead of an icon on the fallback avatar.
  *
  * Returns: whether initials are used instead of an icon as fallback
- *
- * Since: 1.0
  */
 gboolean
 adw_avatar_get_show_initials (AdwAvatar *self)
@@ -589,8 +565,6 @@ adw_avatar_get_show_initials (AdwAvatar *self)
  * Sets whether to use initials instead of an icon on the fallback avatar.
  *
  * See [property@Avatar:icon-name] for how to change the fallback icon.
- *
- * Since: 1.0
  */
 void
 adw_avatar_set_show_initials (AdwAvatar *self,
@@ -617,8 +591,6 @@ adw_avatar_set_show_initials (AdwAvatar *self,
  * Gets the custom image paintable.
  *
  * Returns: (nullable) (transfer none): the custom image
- *
- * Since: 1.0
  */
 GdkPaintable *
 adw_avatar_get_custom_image (AdwAvatar *self)
@@ -636,8 +608,6 @@ adw_avatar_get_custom_image (AdwAvatar *self)
  * Sets the custom image paintable.
  *
  * Custom image is displayed instead of initials or icon.
- *
- * Since: 1.0
  */
 void
 adw_avatar_set_custom_image (AdwAvatar    *self,
@@ -688,8 +658,6 @@ adw_avatar_set_custom_image (AdwAvatar    *self,
  * Gets the size of the avatar.
  *
  * Returns: the size of the avatar
- *
- * Since: 1.0
  */
 int
 adw_avatar_get_size (AdwAvatar *self)
@@ -705,8 +673,6 @@ adw_avatar_get_size (AdwAvatar *self)
  * @size: The size of the avatar
  *
  * Sets the size of the avatar.
- *
- * Since: 1.0
  */
 void
 adw_avatar_set_size (AdwAvatar *self,
@@ -744,8 +710,6 @@ adw_avatar_set_size (AdwAvatar *self,
  * This can be used to export the fallback avatar.
  *
  * Returns: (transfer full): the texture
- *
- * Since: 1.0
  */
 GdkTexture *
 adw_avatar_draw_to_texture (AdwAvatar *self,

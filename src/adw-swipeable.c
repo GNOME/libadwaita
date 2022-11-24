@@ -16,8 +16,6 @@
  * The `AdwSwipeable` interface is implemented by all swipeable widgets.
  *
  * See [class@SwipeTracker] for details about implementing it.
- *
- * Since: 1.0
  */
 
 G_DEFINE_INTERFACE (AdwSwipeable, adw_swipeable, GTK_TYPE_WIDGET)
@@ -36,8 +34,6 @@ adw_swipeable_default_init (AdwSwipeableInterface *iface)
  * This corresponds to how many pixels 1 unit represents.
  *
  * Returns: the swipe distance in pixels
- *
- * Since: 1.0
  */
 double
 adw_swipeable_get_distance (AdwSwipeable *self)
@@ -63,8 +59,6 @@ adw_swipeable_get_distance (AdwSwipeable *self)
  * end the swipe on.
  *
  * Returns: (array length=n_snap_points) (transfer full): the snap points
- *
- * Since: 1.0
  */
 double *
 adw_swipeable_get_snap_points (AdwSwipeable *self,
@@ -87,8 +81,6 @@ adw_swipeable_get_snap_points (AdwSwipeable *self,
  * Gets the current progress of @self.
  *
  * Returns: the current progress, unitless
- *
- * Since: 1.0
  */
 double
 adw_swipeable_get_progress (AdwSwipeable *self)
@@ -110,8 +102,6 @@ adw_swipeable_get_progress (AdwSwipeable *self)
  * Gets the progress @self will snap back to after the gesture is canceled.
  *
  * Returns: the cancel progress, unitless
- *
- * Since: 1.0
  */
 double
 adw_swipeable_get_cancel_progress (AdwSwipeable *self)
@@ -142,8 +132,6 @@ adw_swipeable_get_cancel_progress (AdwSwipeable *self)
  *
  * If not implemented, the default implementation returns the allocation of
  * @self, allowing swipes from anywhere.
- *
- * Since: 1.0
  */
 void
 adw_swipeable_get_swipe_area (AdwSwipeable           *self,
