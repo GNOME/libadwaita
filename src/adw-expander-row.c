@@ -475,10 +475,10 @@ adw_expander_row_remove (AdwExpanderRow *self,
 
   parent = gtk_widget_get_parent (child);
 
-  if (parent == GTK_WIDGET (priv->actions))
-    gtk_box_remove (priv->actions, child);
-  else if (parent == GTK_WIDGET (priv->prefixes))
-    gtk_box_remove (priv->prefixes, child);
+  if (parent == GTK_WIDGET (priv->prefixes) || parent == GTK_WIDGET (priv->actions)) {
+    gtk_box_remove (GTK_BOX (parent), child);
+    gtk_widget_set_visible (parent, gtk_widget_get_first_child (parent) != NULL);
+  }
   else if (parent == GTK_WIDGET (priv->list) ||
            (GTK_IS_WIDGET (parent) && (gtk_widget_get_parent (parent) == GTK_WIDGET (priv->list)))) {
     gtk_list_box_remove (priv->list, child);
@@ -486,8 +486,9 @@ adw_expander_row_remove (AdwExpanderRow *self,
     if (!gtk_widget_get_first_child (GTK_WIDGET (priv->list)))
       gtk_widget_add_css_class (GTK_WIDGET (self), "empty");
   }
-  else
+  else {
     ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
+  }
 }
 
 /**
