@@ -38,7 +38,6 @@ G_BEGIN_DECLS
 #include "adw-clamp-layout.h"
 #include "adw-clamp-scrollable.h"
 #include "adw-combo-row.h"
-#include "adw-deprecation-macros.h"
 #include "adw-easing.h"
 #include "adw-entry-row.h"
 #include "adw-enum-list-model.h"

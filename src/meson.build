@@ -99,7 +99,6 @@ src_headers = [
   'adw-clamp-layout.h',
   'adw-clamp-scrollable.h',
   'adw-combo-row.h',
-  'adw-deprecation-macros.h',
   'adw-easing.h',
   'adw-entry-row.h',
   'adw-enum-list-model.h',
