@@ -242,6 +242,8 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * AdwActionRow:icon-name: (attributes org.gtk.Property.get=adw_action_row_get_icon_name org.gtk.Property.set=adw_action_row_set_icon_name)
    *
    * The icon name for this row.
+   *
+   * Deprecated: 1.3: Use [method@ActionRow.add_prefix] to add an icon.
    */
   props[PROP_ICON_NAME] =
     g_param_spec_string ("icon-name", NULL, NULL,
@@ -499,6 +501,8 @@ adw_action_row_set_subtitle (AdwActionRow *self,
  * Gets the icon name for @self.
  *
  * Returns: (nullable): the icon name for @self
+ *
+ * Deprecated: 1.3: Use [method@ActionRow.add_prefix] to add an icon.
  */
 const char *
 adw_action_row_get_icon_name (AdwActionRow *self)
@@ -518,6 +522,8 @@ adw_action_row_get_icon_name (AdwActionRow *self)
  * @icon_name: (nullable): the icon name
  *
  * Sets the icon name for @self.
+ *
+ * Deprecated: 1.3: Use [method@ActionRow.add_prefix] to add an icon.
  */
 void
 adw_action_row_set_icon_name (AdwActionRow *self,

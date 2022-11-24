@@ -55,9 +55,9 @@ ADW_AVAILABLE_IN_ALL
 void         adw_action_row_set_subtitle (AdwActionRow *self,
                                           const char   *subtitle);
 
-ADW_AVAILABLE_IN_ALL
+ADW_DEPRECATED_IN_1_3_FOR (adw_action_row_add_prefix)
 const char  *adw_action_row_get_icon_name (AdwActionRow *self);
-ADW_AVAILABLE_IN_ALL
+ADW_DEPRECATED_IN_1_3_FOR (adw_action_row_add_prefix)
 void         adw_action_row_set_icon_name (AdwActionRow *self,
                                            const char   *icon_name);
 

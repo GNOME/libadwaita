@@ -46,22 +46,6 @@ test_adw_expander_row_subtitle (void)
 
 
 static void
-test_adw_expander_row_icon_name (void)
-{
-  AdwExpanderRow *row = g_object_ref_sink (ADW_EXPANDER_ROW (adw_expander_row_new ()));
-
-  g_assert_nonnull (row);
-
-  g_assert_null (adw_expander_row_get_icon_name (row));
-
-  adw_expander_row_set_icon_name (row, "dummy-icon-name");
-  g_assert_cmpstr (adw_expander_row_get_icon_name (row), ==, "dummy-icon-name");
-
-  g_assert_finalize_object (row);
-}
-
-
-static void
 test_adw_expander_row_expanded (void)
 {
   AdwExpanderRow *row = g_object_ref_sink (ADW_EXPANDER_ROW (adw_expander_row_new ()));
@@ -177,7 +161,6 @@ main (int   argc,
 
   g_test_add_func("/Adwaita/ExpanderRow/add_remove", test_adw_expander_row_add_remove);
   g_test_add_func("/Adwaita/ExpanderRow/subtitle", test_adw_expander_row_subtitle);
-  g_test_add_func("/Adwaita/ExpanderRow/icon_name", test_adw_expander_row_icon_name);
   g_test_add_func("/Adwaita/ExpanderRow/expanded", test_adw_expander_row_expanded);
   g_test_add_func("/Adwaita/ExpanderRow/enable_expansion", test_adw_expander_row_enable_expansion);
   g_test_add_func("/Adwaita/ExpanderRow/show_enable_switch", test_adw_expander_row_show_enable_switch);

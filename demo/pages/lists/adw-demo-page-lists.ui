@@ -20,8 +20,7 @@
                   <object class="AdwPreferencesGroup">
                     <child>
                       <object class="AdwActionRow">
-                        <property name="icon-name">row-preferences-symbolic</property>
-                        <property name="subtitle" translatable="yes">They also have a subtitle and an icon</property>
+                        <property name="subtitle" translatable="yes">They also have a subtitle</property>
                         <property name="title" translatable="yes">Rows have a title</property>
                       </object>
                     </child>
