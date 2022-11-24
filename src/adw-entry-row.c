@@ -763,12 +763,13 @@ adw_entry_row_remove (AdwEntryRow *self,
 
   parent = gtk_widget_get_parent (child);
 
-  if (parent == GTK_WIDGET (priv->prefixes))
-    gtk_box_remove (priv->prefixes, child);
-  else if (parent == GTK_WIDGET (priv->suffixes))
-    gtk_box_remove (priv->suffixes, child);
-  else
+  if (parent == GTK_WIDGET (priv->prefixes) || parent == GTK_WIDGET (priv->suffixes)) {
+    gtk_box_remove (GTK_BOX (parent), child);
+    gtk_widget_set_visible (parent, gtk_widget_get_first_child (parent) != NULL);
+  }
+  else {
     ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
+  }
 }
 
 /**
