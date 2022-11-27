@@ -1,0 +1,344 @@
+# Belarusian translation for libadwaita.
+# Copyright (C) 2022 libadwaita's COPYRIGHT HOLDER
+# This file is distributed under the same license as the libadwaita package.
+# 3abac <3abac@3a.by>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libadwaita libadwaita-1-2\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
+"POT-Creation-Date: 2022-10-22 15:33+0000\n"
+"PO-Revision-Date: 2022-10-26 20:03+0300\n"
+"Last-Translator: Launchpad translators\n"
+"Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
+"Language: be\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2\n"
+
+#: src/adw-about-window.c:203
+msgid "GNU General Public License, version 2 or later"
+msgstr "Агульная Грамадская Ліцэнзія GNU версіі 2 або любой пазнейшай"
+
+#: src/adw-about-window.c:204
+msgid "GNU General Public License, version 3 or later"
+msgstr ""
+"Агульная Грамадская Ліцэнзія GNU\n"
+"версіі 3 або любой пазнейшай"
+
+#: src/adw-about-window.c:205
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr ""
+"Спрошчаная Агульная Грамадская Ліцэнзія GNU версіі 2.1 або любой пазнейшай"
+
+#: src/adw-about-window.c:206
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr ""
+"Спрошчаная Агульная Грамадская Ліцэнзія GNU версіі 3 або любой пазнейшай"
+
+#: src/adw-about-window.c:207
+msgid "BSD 2-Clause License"
+msgstr "Ліцэнзія BSD 2-Clause"
+
+#: src/adw-about-window.c:208
+msgid "The MIT License (MIT)"
+msgstr "Ліцэнзія MIT"
+
+#: src/adw-about-window.c:209
+msgid "Artistic License 2.0"
+msgstr "Ліцэнзія Artistic 2.0"
+
+#: src/adw-about-window.c:210
+msgid "GNU General Public License, version 2 only"
+msgstr "Агульная Грамадская Ліцэнзія GNU, толькі версія 2"
+
+#: src/adw-about-window.c:211
+msgid "GNU General Public License, version 3 only"
+msgstr "Агульная Грамадская Ліцэнзія GNU, толькі версія 3"
+
+#: src/adw-about-window.c:212
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "Спрошчаная Агульная Грамадская Ліцэнзія GNU, толькі версія 2.1"
+
+#: src/adw-about-window.c:213
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "Спрошчаная Агульная Грамадская Ліцэнзія GNU, толькі версія 3"
+
+#: src/adw-about-window.c:214
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero General Public License версіі 3 або любой пазнейшай"
+
+#: src/adw-about-window.c:215
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero General Public License, толькі версія 3"
+
+#: src/adw-about-window.c:216
+msgid "BSD 3-Clause License"
+msgstr "Ліцэнзія BSD 3-Clause"
+
+#: src/adw-about-window.c:217
+msgid "Apache License, Version 2.0"
+msgstr "Ліцэнзія Apache, версія 2.0"
+
+#: src/adw-about-window.c:218
+msgid "Mozilla Public License 2.0"
+msgstr "Публічная ліцэнзія Mozilla версіі 2.0"
+
+#: src/adw-about-window.c:526
+msgid "Code by"
+msgstr "Код"
+
+#: src/adw-about-window.c:527
+msgid "Design by"
+msgstr "Дызайн"
+
+#: src/adw-about-window.c:528
+msgid "Artwork by"
+msgstr "Мастацкае афармленне"
+
+#: src/adw-about-window.c:529
+msgid "Documentation by"
+msgstr "Дакументацыя"
+
+#: src/adw-about-window.c:530
+msgid "Translated by"
+msgstr "Пераклад"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#.
+#: src/adw-about-window.c:559
+#, c-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
+msgstr ""
+"Праграма распаўсюджваецца без аніякіх гарантый. Падрабязнасці глядзіце тут: "
+"<a href=\"%s\">%s</a>."
+
+#: src/adw-about-window.c:637
+msgid "This Application"
+msgstr "Гэтая праграма"
+
+#: src/adw-about-window.c:939
+#, c-format
+msgid "Version %s"
+msgstr "Версія %s"
+
+#: src/adw-about-window.c:965
+msgid "Unable to parse release notes:"
+msgstr "Не ўдалося разабраць спіс змен:"
+
+#: src/adw-about-window.c:971
+#, c-format
+msgid "Line: %d, character: %d"
+msgstr "Радок: %d, знак: %d"
+
+#: src/adw-about-window.c:1264
+msgid "Copied to clipboard"
+msgstr "Скапіявана ў буфер абмену"
+
+#: src/adw-about-window.c:1299
+msgid "Unable to save debugging information"
+msgstr "Не ўдалося захаваць адладачную інфармацыю"
+
+#: src/adw-about-window.c:1304
+msgid "Close"
+msgstr "Закрыць"
+
+#: src/adw-about-window.c:1322
+msgid "Save debugging information"
+msgstr "Захаваць адладачную інфармацыю"
+
+#: src/adw-about-window.c:1325
+msgid "_Save"
+msgstr "_Захаваць"
+
+#: src/adw-about-window.c:1326
+msgid "_Cancel"
+msgstr "_Скасаваць"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Аб праграме"
+
+#: src/adw-about-window.ui:123
+msgid "_What’s New"
+msgstr "_Што новага"
+
+#: src/adw-about-window.ui:138
+msgid "_Details"
+msgstr "_Падрабязнасці"
+
+#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+msgid "_Website"
+msgstr "_Вэб-сайт"
+
+#: src/adw-about-window.ui:176
+msgid "_Support Questions"
+msgstr "П_ытанні падтрымкі"
+
+#: src/adw-about-window.ui:192
+msgid "_Report an Issue"
+msgstr "Паведаміць аб _праблеме"
+
+#: src/adw-about-window.ui:207
+msgid "_Troubleshooting"
+msgstr "_Выпраўленне непаладак"
+
+#: src/adw-about-window.ui:226
+msgid "_Credits"
+msgstr "_Удзельнікі"
+
+#: src/adw-about-window.ui:241
+msgid "_Legal"
+msgstr "Прававыя _звесткі"
+
+#: src/adw-about-window.ui:256
+msgid "_Acknowledgements"
+msgstr "_Падзякі"
+
+#: src/adw-about-window.ui:295
+msgid "What’s New"
+msgstr "Што новага"
+
+#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
+#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
+#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
+#: src/adw-about-window.ui:653
+msgid "Back"
+msgstr "Назад"
+
+#: src/adw-about-window.ui:351
+msgid "Details"
+msgstr "Падрабязнасці"
+
+#: src/adw-about-window.ui:432
+msgid "Troubleshooting"
+msgstr "Выпраўленне непаладак"
+
+#: src/adw-about-window.ui:461
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help diagnose "
+"any problems you encounter when you report an issue."
+msgstr ""
+"Вы можаце праглядзець адладачную інфармацыю, каб дапамагчы з выпраўленнем "
+"непаладак. Перадача гэтай інфармацыі распрацоўшчыкам праграмы, можа "
+"дапамагчы выявіць праблемы, з якімі вы сутыкнуліся."
+
+#: src/adw-about-window.ui:472
+msgid "_Debugging Information"
+msgstr "_Адладачная інфармацыя"
+
+#: src/adw-about-window.ui:507
+msgid "Credits"
+msgstr "Удзельнікі"
+
+#: src/adw-about-window.ui:554
+msgid "Legal"
+msgstr "Прававыя звесткі"
+
+#: src/adw-about-window.ui:601
+msgid "Acknowledgements"
+msgstr "Падзякі"
+
+#: src/adw-about-window.ui:648
+msgid "Debugging Information"
+msgstr "Адладачная інфармацыя"
+
+#: src/adw-about-window.ui:696
+msgid "_Copy Text"
+msgstr "_Капіраваць тэкст"
+
+#: src/adw-about-window.ui:703
+msgid "_Save as…"
+msgstr "Захаваць _як…"
+
+#: src/adw-entry-row.ui:95
+msgid "Apply"
+msgstr "Ужыць"
+
+#: src/adw-inspector-page.c:76
+msgid "No Preference"
+msgstr "Без пераваг"
+
+#: src/adw-inspector-page.c:78
+msgid "Prefer Dark"
+msgstr "Аддаваць перавагу цёмнай"
+
+#: src/adw-inspector-page.c:80
+msgid "Prefer Light"
+msgstr "Аддаваць перавагу светлай"
+
+#. Translators: The name of the library, not the stylesheet
+#: src/adw-inspector-page.c:98
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#: src/adw-inspector-page.ui:10
+msgid "System Appearance"
+msgstr "Выгляд сістэмы"
+
+#: src/adw-inspector-page.ui:11
+msgid ""
+"Override settings for this application. They will be reset upon closing the "
+"inspector."
+msgstr ""
+"Перавызначэнне налад для гэтай праграмы. Пры закрыцці інспектара налады "
+"будуць скінуты."
+
+#: src/adw-inspector-page.ui:14
+msgid "System Supports Color Schemes"
+msgstr "Сістэма падтрымлівае схемы колераў"
+
+#: src/adw-inspector-page.ui:26
+msgid "Preferred Color Scheme"
+msgstr "Пераважная схема колераў"
+
+#: src/adw-inspector-page.ui:43
+msgid "High Contrast"
+msgstr "Высокая кантраснасць"
+
+#: src/adw-password-entry-row.c:71
+msgid "Hide Text"
+msgstr "Схаваць тэкст"
+
+#: src/adw-password-entry-row.c:75
+msgid "Show Text"
+msgstr "Паказаць тэкст"
+
+#: src/adw-password-entry-row.c:169
+msgid "Caps Lock is on"
+msgstr "Caps Lock уключаны"
+
+#: src/adw-password-entry-row.c:177
+msgid "_Show Text"
+msgstr "_Паказаць тэкст"
+
+#: src/adw-preferences-window.c:245
+msgid "Untitled page"
+msgstr "Неназваная старонка"
+
+#: src/adw-preferences-window.ui:8
+msgid "Preferences"
+msgstr "Параметры"
+
+#: src/adw-preferences-window.ui:69
+msgid "Search"
+msgstr "Пошук"
+
+#: src/adw-preferences-window.ui:139
+msgid "No Results Found"
+msgstr "Нічога не знойдзена"
+
+#: src/adw-preferences-window.ui:140
+msgid "Try a different search."
+msgstr "Паспрабуйце іншы пошукавы запыт."
+
+#: src/adw-tab.ui:88
+msgid "Close Tab"
+msgstr "Закрыць укладку"
