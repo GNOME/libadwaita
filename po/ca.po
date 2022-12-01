@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
 "POT-Creation-Date: 2022-08-08 09:09+0000\n"
-"PO-Revision-Date: 2022-08-09 08:57+0100\n"
+"PO-Revision-Date: 2022-12-01 08:57+0100\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/"
 "ca/)\n"
@@ -101,7 +101,7 @@ msgstr "Treball artístic per"
 
 #: src/adw-about-window.c:529
 msgid "Documentation by"
-msgstr "Documentació per"
+msgstr "Documentat per"
 
 #: src/adw-about-window.c:530
 msgid "Translated by"
