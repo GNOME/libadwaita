@@ -32,6 +32,8 @@
  *   <img src="toast-overlay.png" alt="toast-overlay">
  * </picture>
  *
+ * Much like [class@Gtk.Overlay], `AdwToastOverlay` is a container with a single
+ * main child, on top of which it can display a [class@Toast], overlaid.
  * Toasts can be shown with [method@ToastOverlay.add_toast].
  *
  * See [class@Toast] for details.
