@@ -1207,6 +1207,8 @@ adw_carousel_insert (AdwCarousel *self,
 {
   ChildInfo *info;
   GList *next_link = NULL;
+  double snap_point = 0;
+  GList *children;
 
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
@@ -1214,7 +1216,8 @@ adw_carousel_insert (AdwCarousel *self,
 
   info = g_new0 (ChildInfo, 1);
   info->widget = widget;
-  info->size = 0;
+  // set a minimal size to give child it's own snap_point from the beginning
+  info->size = 0.00001;
   info->adding = TRUE;
 
   if (position >= 0)
@@ -1229,6 +1232,22 @@ adw_carousel_insert (AdwCarousel *self,
   } else {
     gtk_widget_set_parent (widget, GTK_WIDGET (self));
   }
+
+  // work around this usually happening in measure which can be too late
+  for (children = self->children; children; children = children->next) {
+    ChildInfo *child_info = children->data;
+
+    child_info->snap_point = snap_point + child_info->size - 1;
+
+    snap_point += child_info->size;
+
+    if (child_info == self->animation_target_child)
+      adw_spring_animation_set_value_to (ADW_SPRING_ANIMATION (self->animation),
+                                         child_info->snap_point);
+  }
+
+  // start animation from correct size
+  info->size = 0;
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 
