@@ -17,9 +17,11 @@ enum {
 static guint signals[SIGNAL_LAST_SIGNAL];
 
 static void
-message_response_cb (AdwDemoPageDialogs *self,
-                     const char         *response)
+message_cb (AdwMessageDialog   *dialog,
+            GAsyncResult       *result,
+            AdwDemoPageDialogs *self)
 {
+  const char *response = adw_message_dialog_choose_finish (dialog, result);
   AdwToast *toast = adw_toast_new_format (_("Dialog response: %s"), response);
 
   g_signal_emit (self, signals[SIGNAL_ADD_TOAST], 0, toast);
@@ -47,9 +49,8 @@ demo_message_dialog_cb (AdwDemoPageDialogs *self)
   adw_message_dialog_set_default_response (ADW_MESSAGE_DIALOG (dialog), "save");
   adw_message_dialog_set_close_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
 
-  g_signal_connect_swapped (dialog, "response", G_CALLBACK (message_response_cb), self);
-
-  gtk_window_present (GTK_WINDOW (dialog));
+  adw_message_dialog_choose (ADW_MESSAGE_DIALOG (dialog), NULL,
+                             (GAsyncReadyCallback) message_cb, self);
 }
 
 static void
