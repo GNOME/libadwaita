@@ -10,7 +10,7 @@ response_cb (AdwMessageDialog *dialog,
 
 static void
 response_text_cb (AdwMessageDialog *dialog,
-                   const char       *response)
+                  const char       *response)
 {
   GtkWidget *entry = adw_message_dialog_get_extra_child (dialog);
   const char *text;
@@ -20,6 +20,16 @@ response_text_cb (AdwMessageDialog *dialog,
   text = gtk_editable_get_text (GTK_EDITABLE (entry));
 
   g_message ("Response: %s, text: %s", response, text);
+}
+
+static void
+dialog_cb (AdwMessageDialog *dialog,
+           GAsyncResult     *result,
+           gpointer          user_data)
+{
+  const char *response = adw_message_dialog_choose_finish (dialog, result);
+
+  g_message ("Response: %s", response);
 }
 
 /* This dialog will always have horizontal buttons */
@@ -146,6 +156,27 @@ child_cb (GtkWindow *parent)
   gtk_window_present (GTK_WINDOW (dialog));
 }
 
+static void
+async_cb (GtkWindow *parent)
+{
+  GtkWidget *dialog =
+    adw_message_dialog_new (parent,
+                            _("Replace File?"),
+                            _("A file named “example.png” already exists. Do you want to replace it?"));
+
+  adw_message_dialog_add_responses (ADW_MESSAGE_DIALOG (dialog),
+                                    "cancel",  _("_Cancel"),
+                                    "replace", _("_Replace"),
+                                    NULL);
+
+  adw_message_dialog_set_response_appearance (ADW_MESSAGE_DIALOG (dialog), "replace", ADW_RESPONSE_DESTRUCTIVE);
+
+  adw_message_dialog_set_default_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
+  adw_message_dialog_set_close_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
+
+  adw_message_dialog_choose (ADW_MESSAGE_DIALOG (dialog), NULL, (GAsyncReadyCallback) dialog_cb, NULL);
+}
+
 static GtkWidget *
 create_content (GtkWindow *parent)
 {
@@ -177,6 +208,11 @@ create_content (GtkWindow *parent)
   button = gtk_button_new_with_label ("Extra Child");
   gtk_widget_add_css_class (button, "pill");
   g_signal_connect_swapped (button, "clicked", G_CALLBACK (child_cb), parent);
+  gtk_box_append (GTK_BOX (box), button);
+
+  button = gtk_button_new_with_label ("Async Call");
+  gtk_widget_add_css_class (button, "pill");
+  g_signal_connect_swapped (button, "clicked", G_CALLBACK (async_cb), parent);
   gtk_box_append (GTK_BOX (box), button);
 
   return box;

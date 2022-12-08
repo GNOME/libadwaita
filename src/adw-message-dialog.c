@@ -68,6 +68,48 @@
  * gtk_window_present (GTK_WINDOW (dialog));
  * ```
  *
+ * ## Async API
+ *
+ * `AdwMessageDialog` can also be used via the [method@MessageDialog.choose]
+ * method. This API follows the GIO async pattern, and the result can be
+ * obtained by calling [method@MessageDialog.choose_finish], for example:
+ *
+ * ```c
+ * static void
+ * dialog_cb (AdwMessageDialog *dialog,
+ *            GAsyncResult     *result,
+ *            MyWindow         *self)
+ * {
+ *   const char *response = adw_message_dialog_choose_finish (dialog, result);
+ *
+ *   ...
+ * }
+ *
+ * static void
+ * show_dialog (MyWindow *self)
+ * {
+ *   GtkWidget *dialog;
+ *
+ *   dialog = adw_message_dialog_new (GTK_WINDOW (self), _("Replace File?"), NULL);
+ *
+ *   adw_message_dialog_format_body (ADW_MESSAGE_DIALOG (dialog),
+ *                                   _("A file named “%s” already exists. Do you want to replace it?"),
+ *                                   filename);
+ *
+ *   adw_message_dialog_add_responses (ADW_MESSAGE_DIALOG (dialog),
+ *                                     "cancel",  _("_Cancel"),
+ *                                     "replace", _("_Replace"),
+ *                                     NULL);
+ *
+ *   adw_message_dialog_set_response_appearance (ADW_MESSAGE_DIALOG (dialog), "replace", ADW_RESPONSE_DESTRUCTIVE);
+ *
+ *   adw_message_dialog_set_default_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
+ *   adw_message_dialog_set_close_response (ADW_MESSAGE_DIALOG (dialog), "cancel");
+ *
+ *   adw_message_dialog_choose (ADW_MESSAGE_DIALOG (dialog), NULL, (GAsyncReadyCallback) dialog_cb, self);
+ * }
+ * ```
+ *
  * ## AdwMessageDialog as GtkBuildable
  *
  * `AdwMessageDialog` supports adding responses in UI definitions by via the
@@ -2251,4 +2293,92 @@ adw_message_dialog_has_response (AdwMessageDialog *self,
   g_return_val_if_fail (response != NULL, FALSE);
 
   return find_response (self, response) != NULL;
+}
+
+static void choose_cancelled_cb (GCancellable *cancellable,
+                                 GTask        *task);
+
+static void
+choose_response_cb (AdwMessageDialog *dialog,
+                    const char       *response,
+                    GTask            *task)
+{
+  GCancellable *cancellable = g_task_get_cancellable (task);
+
+  if (cancellable)
+    g_signal_handlers_disconnect_by_func (cancellable, choose_cancelled_cb, task);
+
+  g_task_return_int (task, g_quark_from_string (response));
+
+  g_object_unref (task);
+}
+
+static void
+choose_cancelled_cb (GCancellable *cancellable,
+                     GTask        *task)
+{
+  AdwMessageDialog *self = g_task_get_source_object (task);
+
+  choose_response_cb (self, adw_message_dialog_get_close_response (self), task);
+}
+
+/**
+ * adw_message_dialog_choose:
+ * @self: (transfer full): a message dialog
+ * @cancellable: (nullable): a `GCancellable` to cancel the operation
+ * @callback: (scope async): a callback to call when the operation is complete
+ * @user_data: (closure callback): data to pass to @callback
+ *
+ * This function shows @self to the user.
+ *
+ * The @callback will be called when the alert is dismissed. It should call
+ * [method@MessageDialog.choose_finish] to obtain the result.
+ *
+ * Since: 1.3
+ */
+void
+adw_message_dialog_choose (AdwMessageDialog    *self,
+                           GCancellable        *cancellable,
+                           GAsyncReadyCallback  callback,
+                           gpointer             user_data)
+{
+  GTask *task;
+
+  g_return_if_fail (ADW_IS_MESSAGE_DIALOG (self));
+
+  task = g_task_new (self, cancellable, callback, user_data);
+  g_task_set_source_tag (task, adw_message_dialog_choose);
+
+  if (cancellable)
+    g_signal_connect (cancellable, "cancelled", G_CALLBACK (choose_cancelled_cb), task);
+
+  g_signal_connect (self, "response", G_CALLBACK (choose_response_cb), task);
+
+  gtk_window_present (GTK_WINDOW (self));
+}
+
+/**
+ * adw_message_dialog_choose_finish:
+ * @self: a message dialog
+ * @result: a `GAsyncResult`
+ *
+ * Finishes the [method@MessageDialog.choose] call and returns the response ID.
+ *
+ * Returns: the ID of the response that was selected, or
+ *   [property@MessageDialog:close-response] if the call was cancelled.
+ *
+ * Since: 1.3
+ */
+const char *
+adw_message_dialog_choose_finish (AdwMessageDialog *self,
+                                  GAsyncResult     *result)
+{
+  GQuark id;
+  g_return_val_if_fail (ADW_IS_MESSAGE_DIALOG (self), NULL);
+  g_return_val_if_fail (g_task_is_valid (result, self), NULL);
+  g_return_val_if_fail (g_task_get_source_tag (G_TASK (result)) == adw_message_dialog_choose, NULL);
+
+  id = g_task_propagate_int (G_TASK (result), NULL);
+
+  return g_quark_to_string (id);
 }

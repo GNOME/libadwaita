@@ -150,4 +150,14 @@ ADW_AVAILABLE_IN_1_2
 gboolean adw_message_dialog_has_response (AdwMessageDialog *self,
                                           const char       *response);
 
+ADW_AVAILABLE_IN_1_3
+void        adw_message_dialog_choose        (AdwMessageDialog    *self,
+                                              GCancellable        *cancellable,
+                                              GAsyncReadyCallback  callback,
+                                              gpointer             user_data);
+
+ADW_AVAILABLE_IN_1_3
+const char *adw_message_dialog_choose_finish (AdwMessageDialog    *self,
+                                              GAsyncResult        *result);
+
 G_END_DECLS
