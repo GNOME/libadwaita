@@ -50,10 +50,10 @@
  *         <object class="AdwViewSwitcherTitle" id="title">
  *           <property name="stack">stack</property>
  *         </object>
- *       </child>
+ *       </property>
  *     </object>
  *   </property>
- *   <property>
+ *   <property name="child">
  *     <object class="GtkBox">
  *       <property name="orientation">vertical</property>
  *       <child>
