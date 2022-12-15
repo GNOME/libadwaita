@@ -27,11 +27,11 @@ popover.emoji-picker emoji {
 
   &:focus,
   &:hover {
-    background: $view_selected_color;
+    background: $hover_color;
   }
 
   &:active {
-    background: $view_active_color;
+    background: $active_color;
   }
 
   @if $contrast == 'high' {
@@ -78,12 +78,12 @@ emoji-completion-row {
 
   &:focus,
   &:hover {
-    background-color: $view_selected_color;
-    color: $view_fg_color;
+    background-color: $selected_color;
+    color: $popover_fg_color;
   }
 
   &:active {
-    background-color: $view_active_color; // matching buttons
+    background-color: $active_color; // matching buttons
   }
 
   @if $contrast == 'high' {

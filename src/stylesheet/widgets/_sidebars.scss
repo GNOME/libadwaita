@@ -57,6 +57,29 @@ separator.sidebar {
     color: $window_fg_color;
   }
 
+  row {
+    &.activatable {
+      &:hover { background-color: $hover_color; }
+
+      &:active { background-color: $active_color; }
+
+      // this is for indicathing which row generated a popover see https://bugzilla.gnome.org/show_bug.cgi?id=754411
+      &.has-open-popup { background-color: $hover_color; }
+
+      &:selected {
+        &:hover { background-color: $selected_hover_color; }
+
+        &:active { background-color: $selected_active_color; }
+
+        &.has-open-popup { background-color: $selected_hover_color; }
+      }
+    }
+
+    &:selected {
+      background-color: $selected_color;
+    }
+  }
+
   padding: $menu-margin 0; //only vertical padding. horizontal row size would clip
 
   > separator {

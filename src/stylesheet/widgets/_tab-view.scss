@@ -41,14 +41,14 @@ tabbar {
     }
 
     &:selected {
-      background-color: $view_selected_color;
+      background-color: $selected_color;
 
-      &:hover { background-color: $view_selected_hover_color; }
-      &:active { background-color: $view_selected_active_color; }
+      &:hover { background-color: $selected_hover_color; }
+      &:active { background-color: $selected_active_color; }
     }
 
-    &:hover { background-color: $view_hover_color; }
-    &:active { background-color: $view_active_color; }
+    &:hover { background-color: $hover_color; }
+    &:active { background-color: $active_color; }
   }
 
   tabbox.single-tab tab {
@@ -100,7 +100,7 @@ tabbar {
 
 dnd tab {
   background-color: $headerbar_bg_color;
-  background-image: image($view_selected_active_color);
+  background-image: image($selected_active_color);
   color: $headerbar_fg_color;
 
   box-shadow: 0 0 0 1px transparentize(black, 0.97),

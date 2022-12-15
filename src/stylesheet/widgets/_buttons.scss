@@ -229,24 +229,24 @@ button {
     }
 
     &:hover {
-      background: $view_hover_color;
+      background: $hover_color;
     }
 
     &.keyboard-activating,
     &:active {
-      background: $view_active_color;
+      background: $active_color;
     }
 
     &:checked {
-      background: $view_selected_color;
+      background: $selected_color;
 
       &:hover {
-        background: $view_selected_hover_color;
+        background: $selected_hover_color;
       }
 
       &.keyboard-activating,
       &:active {
-        background: $view_selected_active_color;
+        background: $selected_active_color;
       }
     }
 
@@ -325,12 +325,12 @@ button {
       background-color: $card_bg_color;
       background-image: image($view_selected_color);
 
-      &:hover { background-image: image($view_selected_hover_color); }
+      &:hover { background-image: image($selected_hover_color); }
 
       &.keyboard-activating,
-      &:active { background-image: image($view_selected_active_color); }
+      &:active { background-image: image($selected_active_color); }
 
-      &.has-open-popup { background-image: image($view_selected_hover_color); }
+      &.has-open-popup { background-image: image($selected_hover_color); }
     }
 
     &:drop(active) {
@@ -506,7 +506,7 @@ splitbutton {
     &:hover,
     &:active,
     &:checked {
-      background: $view_hover_color;
+      background: $hover_color;
 
       > separator {
         background: none;
