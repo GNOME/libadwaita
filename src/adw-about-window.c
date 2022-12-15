@@ -379,8 +379,10 @@ static gboolean
 activate_link_default_cb (AdwAboutWindow *self,
                           const char     *uri)
 {
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
   /* FIXME: We need our own alternative that uses AdwMessageDialog for errors */
   gtk_show_uri (GTK_WINDOW (self), uri, GDK_CURRENT_TIME);
+G_GNUC_END_IGNORE_DEPRECATIONS
 
   return GDK_EVENT_STOP;
 }
