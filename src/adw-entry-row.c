@@ -713,7 +713,7 @@ adw_entry_row_add_prefix (AdwEntryRow *self,
   priv = adw_entry_row_get_instance_private (self);
 
   gtk_box_prepend (priv->prefixes, widget);
-  gtk_widget_show (GTK_WIDGET (priv->prefixes));
+  gtk_widget_set_visible (GTK_WIDGET (priv->prefixes), TRUE);
 }
 
 /**
@@ -737,7 +737,7 @@ adw_entry_row_add_suffix (AdwEntryRow *self,
   priv = adw_entry_row_get_instance_private (self);
 
   gtk_box_append (priv->suffixes, widget);
-  gtk_widget_show (GTK_WIDGET (priv->suffixes));
+  gtk_widget_set_visible (GTK_WIDGET (priv->suffixes), TRUE);
 }
 
 /**

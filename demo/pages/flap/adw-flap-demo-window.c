@@ -51,12 +51,12 @@ start_toggle_button_toggled_cb (GtkToggleButton    *button,
 {
   if (gtk_toggle_button_get_active (button)) {
     adw_flap_set_flap_position (self->flap, GTK_PACK_START);
-    gtk_widget_hide (self->reveal_btn_end);
-    gtk_widget_show (self->reveal_btn_start);
+    gtk_widget_set_visible (self->reveal_btn_end, FALSE);
+    gtk_widget_set_visible (self->reveal_btn_start, TRUE);
   } else {
     adw_flap_set_flap_position (self->flap, GTK_PACK_END);
-    gtk_widget_hide (self->reveal_btn_start);
-    gtk_widget_show (self->reveal_btn_end);
+    gtk_widget_set_visible (self->reveal_btn_start, FALSE);
+    gtk_widget_set_visible (self->reveal_btn_end, TRUE);
   }
 }
 

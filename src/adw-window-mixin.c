@@ -71,7 +71,7 @@ adw_window_mixin_new (GtkWindow      *window,
 
   self->titlebar = adw_gizmo_new_with_role ("nothing", GTK_ACCESSIBLE_ROLE_PRESENTATION,
                                             NULL, NULL, NULL, NULL, NULL, NULL);
-  gtk_widget_hide (self->titlebar);
+  gtk_widget_set_visible (self->titlebar, FALSE);
   gtk_window_set_titlebar (self->window, self->titlebar);
 
   self->child = adw_gizmo_new_with_role ("contents", GTK_ACCESSIBLE_ROLE_GROUP,

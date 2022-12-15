@@ -110,10 +110,10 @@ test_adw_squeezer_show_hide_child (void)
   adw_squeezer_add (squeezer, child);
   g_assert (adw_squeezer_get_visible_child (squeezer) == child);
 
-  gtk_widget_hide (child);
+  gtk_widget_set_visible (child, FALSE);
   g_assert_null (adw_squeezer_get_visible_child (squeezer));
 
-  gtk_widget_show (child);
+  gtk_widget_set_visible (child, TRUE);
   g_assert (adw_squeezer_get_visible_child (squeezer) == child);
 
   adw_squeezer_remove (squeezer, child);

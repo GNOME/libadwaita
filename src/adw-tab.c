@@ -662,8 +662,8 @@ adw_tab_constructed (GObject *object)
 
   if (self->pinned) {
     gtk_widget_add_css_class (GTK_WIDGET (self), "pinned");
-    gtk_widget_hide (self->title);
-    gtk_widget_hide (self->close_btn);
+    gtk_widget_set_visible (self->title, FALSE);
+    gtk_widget_set_visible (self->close_btn, FALSE);
     gtk_widget_set_margin_start (self->icon_stack, 0);
     gtk_widget_set_margin_end (self->icon_stack, 0);
   }

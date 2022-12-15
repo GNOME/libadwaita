@@ -358,7 +358,7 @@ adw_tab_thumbnail_constructed (GObject *object)
 
     gtk_widget_set_halign (self->icon_title_box, GTK_ALIGN_FILL);
 
-    gtk_widget_hide (GTK_WIDGET (self->picture));
+    gtk_widget_set_visible (GTK_WIDGET (self->picture), FALSE);
   }
 }
 

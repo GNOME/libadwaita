@@ -921,7 +921,7 @@ update_release_notes (AdwAboutWindow *self)
   gtk_text_buffer_set_text (self->release_notes_buffer, "", -1);
 
   if (!self->release_notes || !*self->release_notes) {
-    gtk_widget_hide (self->whats_new_row);
+    gtk_widget_set_visible (self->whats_new_row, FALSE);
 
     return;
   }
@@ -974,7 +974,7 @@ update_release_notes (AdwAboutWindow *self)
     g_error_free (error);
     g_free (position);
 
-    gtk_widget_show (self->whats_new_row);
+    gtk_widget_set_visible (self->whats_new_row, TRUE);
 
     return;
   }
@@ -986,7 +986,7 @@ update_release_notes (AdwAboutWindow *self)
 
   g_markup_parse_context_free (context);
 
-  gtk_widget_show (self->whats_new_row);
+  gtk_widget_set_visible (self->whats_new_row, TRUE);
 }
 
 static void
@@ -2988,7 +2988,7 @@ adw_about_window_add_acknowledgement_section (AdwAboutWindow  *self,
 
   add_credits_section (self->acknowledgements_box, name, (char **) people);
 
-  gtk_widget_show (self->acknowledgements_box);
+  gtk_widget_set_visible (self->acknowledgements_box, TRUE);
 
   update_credits_legal_group (self);
 }

@@ -378,7 +378,7 @@ adw_expander_row_add_action (AdwExpanderRow *self,
   priv = adw_expander_row_get_instance_private (self);
 
   gtk_box_prepend (priv->actions, widget);
-  gtk_widget_show (GTK_WIDGET (priv->actions));
+  gtk_widget_set_visible (GTK_WIDGET (priv->actions), TRUE);
 }
 
 /**

@@ -1900,7 +1900,7 @@ adw_leaflet_size_allocate (GtkWidget *widget,
     gtk_widget_size_allocate (page->widget, &page->alloc, baseline);
 
     if (gtk_widget_get_realized (widget))
-      gtk_widget_show (page->widget);
+      gtk_widget_set_visible (page->widget, TRUE);
   }
 
   allocate_shadow (self, width, height, baseline);

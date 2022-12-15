@@ -267,7 +267,7 @@ adw_button_content_init (AdwButtonContent *self)
 
   self->label = gtk_label_new (NULL);
   gtk_widget_set_hexpand (self->label, TRUE);
-  gtk_widget_hide (self->label);
+  gtk_widget_set_visible (self->label, FALSE);
 
   gtk_widget_set_parent (self->icon, GTK_WIDGET (self));
   gtk_widget_set_parent (self->label, GTK_WIDGET (self));
