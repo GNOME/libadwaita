@@ -7,7 +7,6 @@ struct _AdwDemoColorRow
 
   AdwColor color_key;
   GtkWidget *color_button;
-  AdwStyleManager *style_manager;
 
   gboolean color_scheme_changing;
 };
@@ -32,7 +31,7 @@ rgba_changed (AdwDemoColorRow *self)
 
   new_color = (GdkRGBA *) gtk_color_dialog_button_get_rgba (GTK_COLOR_DIALOG_BUTTON (self->color_button));
 
-  adw_style_manager_set_color_from_rgba (self->style_manager,
+  adw_style_manager_set_color_from_rgba (adw_style_manager_get_default (),
                                          self->color_key,
                                          new_color);
 }
@@ -41,6 +40,7 @@ static void
 init_color (AdwDemoColorRow *self)
 {
   AdwColorTheme *theme;
+  AdwStyleManager *style_manager;
   const char *title;
 
   switch (self->color_key) {
@@ -99,10 +99,11 @@ init_color (AdwDemoColorRow *self)
 
   adw_preferences_row_set_title (ADW_PREFERENCES_ROW (self), title);
 
-  if (adw_style_manager_get_dark (self->style_manager))
-    theme = adw_style_manager_get_dark_colors (self->style_manager);
+  style_manager = adw_style_manager_get_default ();
+  if (adw_style_manager_get_dark (style_manager))
+    theme = adw_style_manager_get_dark_colors (style_manager);
   else
-    theme = adw_style_manager_get_light_colors (self->style_manager);
+    theme = adw_style_manager_get_light_colors (style_manager);
 
   self->color_button = gtk_color_dialog_button_new (gtk_color_dialog_new ());
   gtk_color_dialog_button_set_rgba (GTK_COLOR_DIALOG_BUTTON (self->color_button),
@@ -117,11 +118,13 @@ static void
 dark_changed_cb (AdwDemoColorRow *self)
 {
   AdwColorTheme *theme;
+  AdwStyleManager *style_manager;
 
-  if (adw_style_manager_get_dark (self->style_manager))
-    theme = adw_style_manager_get_dark_colors (self->style_manager);
+  style_manager = adw_style_manager_get_default ();
+  if (adw_style_manager_get_dark (style_manager))
+    theme = adw_style_manager_get_dark_colors (style_manager);
   else
-    theme = adw_style_manager_get_light_colors (self->style_manager);
+    theme = adw_style_manager_get_light_colors (style_manager);
 
   /* Workaround for `set_rgba` triggering the notify function */
   self->color_scheme_changing = TRUE;
@@ -172,10 +175,12 @@ static void
 adw_demo_color_row_constructed (GObject *object)
 {
   AdwDemoColorRow *self = ADW_DEMO_COLOR_ROW (object);
+  AdwStyleManager *style_manager;
 
   init_color (self);
 
-  g_signal_connect_object (self->style_manager,
+  style_manager = adw_style_manager_get_default ();
+  g_signal_connect_object (style_manager,
                            "notify::dark",
                            G_CALLBACK (dark_changed_cb),
                            self,
@@ -210,7 +215,6 @@ adw_demo_color_row_class_init (AdwDemoColorRowClass *klass)
 static void
 adw_demo_color_row_init (AdwDemoColorRow *self)
 {
-  self->style_manager = adw_style_manager_get_for_display (gtk_widget_get_display (GTK_WIDGET (self)));
   self->color_scheme_changing = FALSE;
 }
 
