@@ -259,7 +259,7 @@ adw_style_manager_constructed (GObject *object)
                              G_CONNECT_SWAPPED);
 
     if (!g_getenv ("GTK_THEME")) {
-      g_object_set (gtk_settings_get_for_display (self->display),
+      g_object_set (settings,
                     "gtk-theme-name", "Adwaita-empty",
                     NULL);
 
