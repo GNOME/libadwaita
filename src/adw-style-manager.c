@@ -507,7 +507,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    *
    * The color theme to use when the app is using the light style preference.
    *
-   * Since: 1.0
+   * Since: 1.3
    */
   props[PROP_LIGHT_COLORS] =
     g_param_spec_object ("light-colors",
@@ -521,7 +521,7 @@ adw_style_manager_class_init (AdwStyleManagerClass *klass)
    *
    * The color theme to use when the app is using the dark style preference.
    *
-   * Since: 1.0
+   * Since: 1.3
    */
   props[PROP_DARK_COLORS] =
     g_param_spec_object ("dark-colors",
@@ -786,7 +786,7 @@ adw_style_manager_get_high_contrast (AdwStyleManager *self)
  * Returns: (transfer none): the color theme to use when the app is using the
  * light style preference.
  *
- * Since: 1.0
+ * Since: 1.3
  */
 AdwColorTheme *
 adw_style_manager_get_light_colors (AdwStyleManager *self)
@@ -803,7 +803,7 @@ adw_style_manager_get_light_colors (AdwStyleManager *self)
  *
  * Sets the color theme to use when the app is using the light style preference.
  *
- * Since: 1.0
+ * Since: 1.3
  */
 void
 adw_style_manager_set_light_colors (AdwStyleManager *self,
@@ -847,7 +847,7 @@ adw_style_manager_set_light_colors (AdwStyleManager *self,
  * Returns: (transfer none): the color theme to use when the app is using the
  * dark style preference.
  *
- * Since: 1.0
+ * Since: 1.3
  */
 AdwColorTheme *
 adw_style_manager_get_dark_colors (AdwStyleManager *self)
@@ -864,7 +864,7 @@ adw_style_manager_get_dark_colors (AdwStyleManager *self)
  *
  * Sets the color theme to use when the app is using the dark style preference.
  *
- * Since: 1.0
+ * Since: 1.3
  */
 void
 adw_style_manager_set_dark_colors (AdwStyleManager *self,
@@ -907,7 +907,7 @@ adw_style_manager_set_dark_colors (AdwStyleManager *self,
  *
  * Sets the `color` to `rgba` for both light and dark styles.
  *
- * Since: 1.0
+ * Since: 1.3
  */
 void
 adw_style_manager_set_color_from_rgba (AdwStyleManager *self,
