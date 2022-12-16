@@ -29,7 +29,10 @@ G_STMT_START { \
  *
  * Copied from https://gist.github.com/chergert/acc7f41c4d5a45ba254188bb19764f72
  */
-# define _GDK_RGBA_DECODE(c) ((unsigned)((c >= 'A' && c <= 'F') ? (c-'A'+10) : (c >= 'a' && c <= 'f') ? (c-'a'+10) : (c >= '0' && c <= '9') ? (c-'0') : -1))
+# define _GDK_RGBA_DECODE(c) \
+  ((unsigned)((c >= 'A' && c <= 'F') ? (c-'A'+10) : \
+              (c >= 'a' && c <= 'f') ? (c-'a'+10) : \
+              (c >= '0' && c <= '9') ? (c-'0') : -1))
 # define _GDK_RGBA_HIGH(c) (_GDK_RGBA_DECODE(c) << 4)
 # define _GDK_RGBA_LOW(c) _GDK_RGBA_DECODE(c)
 # define _GDK_RGBA(r,g,b,a) ((GdkRGBA){(r)/255.,(g)/255.,(b)/255.,(a)/255.})

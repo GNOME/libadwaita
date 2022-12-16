@@ -30,7 +30,8 @@ G_DEFINE_FINAL_TYPE (AdwColorTheme, adw_color_theme, G_TYPE_OBJECT);
  * Adapted from https://gitlab.gnome.org/World/design/palette/-/blob/4aaa771584f3084f56502597d823c867500b90ef/src/palette.vala#L202
  * (C) Zander Brown, Tobias Bernard
  */
-#define USE_DARK(r, g, b) (((r * 255.0) * 0.299) + ((g * 255.0) * 0.587) + ((b * 255.0) * 0.114)) > 160.0
+#define USE_DARK(r, g, b) \
+(((r * 255.0) * 0.299) + ((g * 255.0) * 0.587) + ((b * 255.0) * 0.114)) > 160.0
 
 typedef struct {
   float hue;
