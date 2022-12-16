@@ -925,3 +925,26 @@ adw_style_manager_set_color_from_rgba (AdwStyleManager *self,
   adw_color_theme_set_color_from_rgba (self->light_colors, color, rgba);
   adw_color_theme_set_color_from_rgba (self->dark_colors, color, rgba);
 }
+
+/**
+ * adw_style_manager_lookup_color:
+ * @self: a `AdwStyleManager`
+ * @color: the color to look up
+ * @rgba: (out): Return location for the looked up color
+ *
+ * Look up the current color.
+ *
+ * Since: 1.3
+ */
+void
+adw_style_manager_lookup_color (AdwStyleManager *self,
+                                AdwColor         color,
+                                GdkRGBA         *rgba)
+{
+  g_return_if_fail (ADW_IS_STYLE_MANAGER (self));
+
+  if (self->dark)
+    rgba = adw_color_theme_get_color (self->dark_colors, color);
+  else
+    rgba = adw_color_theme_get_color (self->light_colors, color);
+}

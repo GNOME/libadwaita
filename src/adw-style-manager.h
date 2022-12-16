@@ -69,4 +69,8 @@ ADW_AVAILABLE_IN_1_3
 void adw_style_manager_set_color_from_rgba (AdwStyleManager *self,
                                             AdwColor         color,
                                             GdkRGBA         *rgba);
+ADW_AVAILABLE_IN_1_3
+void adw_style_manager_lookup_color        (AdwStyleManager *self,
+                                            AdwColor         color,
+                                            GdkRGBA         *rgba);
 G_END_DECLS
