@@ -203,7 +203,6 @@ calculate_scrollbar_outline (GdkRGBA *bg,
     out->blue = 1.0f;
     out->alpha = 1.0f;
   }
-
 }
 
 static void
@@ -251,7 +250,12 @@ adw_color_theme_constructed (GObject *object)
   G_OBJECT_CLASS (adw_color_theme_parent_class)->constructed (object);
 
   transparent_black (self->dark ? 0.64 : 0.93, &default_shade);
-  self->dark ? default_fg = WHITE : transparent_black (0.2, &default_fg);
+
+  if (self->dark)
+    default_fg = WHITE;
+  else
+    /* The default fg is slightly transparent in light mode */
+    transparent_black (0.2, &default_fg);
 
   main_color = GDK_RGBA ("3584e4");
   set_color (self, "accent_bg_color", &main_color);
