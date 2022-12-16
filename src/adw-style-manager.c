@@ -781,10 +781,11 @@ adw_style_manager_get_high_contrast (AdwStyleManager *self)
  * adw_style_manager_get_light_colors: (attributes org.gtk.Method.get_property=light-colors)
  * @self: a `AdwStyleManager`
  *
- * Gets the color theme to use when the app is using the light style preference.
+ * Gets the light color theme.
  *
- * Returns: (transfer none): the color theme to use when the app is using the
- * light style preference.
+ * This color theme is used for the light style preference.
+ *
+ * Returns: (transfer none): the light color theme
  *
  * Since: 1.3
  */
@@ -801,7 +802,9 @@ adw_style_manager_get_light_colors (AdwStyleManager *self)
  * @self: a `AdwStyleManager`
  * @colors: the color theme
  *
- * Sets the color theme to use when the app is using the light style preference.
+ * Sets the light color theme.
+ *
+ * This color theme is used for the light style preference.
  *
  * Since: 1.3
  */
@@ -842,10 +845,11 @@ adw_style_manager_set_light_colors (AdwStyleManager *self,
  * adw_style_manager_get_dark_colors: (attributes org.gtk.Method.get_property=dark-colors)
  * @self: a `AdwStyleManager`
  *
- * Gets the color theme to use when the app is using the dark style preference.
+ * Gets the dark color theme.
  *
- * Returns: (transfer none): the color theme to use when the app is using the
- * dark style preference.
+ * This color theme is used for the dark style preference.
+ *
+ * Returns: (transfer none): the dark color theme
  *
  * Since: 1.3
  */
@@ -862,7 +866,9 @@ adw_style_manager_get_dark_colors (AdwStyleManager *self)
  * @self: a `AdwStyleManager`
  * @colors: the color theme
  *
- * Sets the color theme to use when the app is using the dark style preference.
+ * Sets the dark color theme.
+ *
+ * This color theme is used for the dark style preference.
  *
  * Since: 1.3
  */
