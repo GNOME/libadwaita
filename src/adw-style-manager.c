@@ -909,7 +909,7 @@ adw_style_manager_set_dark_colors (AdwStyleManager *self,
  * adw_style_manager_set_color_from_rgba:
  * @self: a `AdwStyleManager`
  * @color: which color to set
- * @rgba: A [struct@GdkRGBA] color value
+ * @rgba: a color value
  *
  * Sets the `color` to `rgba` for both light and dark styles.
  *
