@@ -44,10 +44,10 @@ init_color (AdwDemoColorRow *self)
   const char *title;
 
   switch (self->color_key) {
-  case ADW_COLOR_ACCENT_BG_COLOR:
+  case ADW_COLOR_ACCENT_COLOR:
     title = _("Accent Color");
     break;
-  case ADW_COLOR_DESTRUCTIVE_BG_COLOR:
+  case ADW_COLOR_DESTRUCTIVE_COLOR:
     title = _("Destructive Color");
     break;
   case ADW_COLOR_SUCCESS_COLOR:
@@ -201,7 +201,7 @@ adw_demo_color_row_class_init (AdwDemoColorRowClass *klass)
                        "Color Key",
                        "The enum value representing the color this row sets",
                        ADW_TYPE_COLOR,
-                       ADW_COLOR_ACCENT_BG_COLOR,
+                       ADW_COLOR_ACCENT_COLOR,
                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);

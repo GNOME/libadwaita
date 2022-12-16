@@ -475,7 +475,7 @@ adw_color_theme_set_color_from_rgba (AdwColorTheme *self,
   g_return_if_fail (ADW_IS_COLOR_THEME (self));
 
   switch (color) {
-  case ADW_COLOR_ACCENT_BG_COLOR:
+  case ADW_COLOR_ACCENT_COLOR:
     calculate_accent_fg (rgba, &fg);
     hueshift_accent (self, rgba, &accent);
 
@@ -483,7 +483,7 @@ adw_color_theme_set_color_from_rgba (AdwColorTheme *self,
     set_color (self, "accent_fg_color", &fg);
     set_color (self, "accent_color", &accent);
     break;
-  case ADW_COLOR_DESTRUCTIVE_BG_COLOR:
+  case ADW_COLOR_DESTRUCTIVE_COLOR:
     calculate_accent_fg (rgba, &fg);
     hueshift_accent (self, rgba, &accent);
 
