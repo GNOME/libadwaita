@@ -2721,8 +2721,9 @@ drag_leave_cb (AdwTabGrid              *self,
 {
   GdkDrop *drop = gtk_drop_controller_motion_get_drop (controller);
   GdkDrag *drag = gdk_drop_get_drag (drop);
-  AdwTabGrid *source = ADW_TAB_GRID (g_object_get_data (G_OBJECT (drag),
-                                                      "adw-tab-overview-drag-origin"));
+  AdwTabGrid *source;
+
+  source = drag ? g_object_get_data (G_OBJECT (drag), "adw-tab-overview-drag-origin") : NULL;
 
   if (source)
     return;
@@ -2743,8 +2744,9 @@ drag_enter_motion_cb (AdwTabGrid              *self,
   TabInfo *info;
   GdkDrop *drop = gtk_drop_controller_motion_get_drop (controller);
   GdkDrag *drag = gdk_drop_get_drag (drop);
-  AdwTabGrid *source = ADW_TAB_GRID (g_object_get_data (G_OBJECT (drag),
-                                                      "adw-tab-overview-drag-origin"));
+  AdwTabGrid *source;
+
+  source = drag ? g_object_get_data (G_OBJECT (drag), "adw-tab-overview-drag-origin") : NULL;
 
   if (source)
     return;
