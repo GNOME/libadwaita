@@ -73,6 +73,12 @@ void adw_tab_bar_setup_extra_drop_target (AdwTabBar     *self,
                                           GType         *types,
                                           gsize          n_types);
 
+ADW_AVAILABLE_IN_1_3
+gboolean adw_tab_bar_get_extra_drag_preload (AdwTabBar *self);
+ADW_AVAILABLE_IN_1_3
+void     adw_tab_bar_set_extra_drag_preload (AdwTabBar *self,
+                                             gboolean   preload);
+
 ADW_AVAILABLE_IN_ALL
 gboolean adw_tab_bar_get_is_overflowing (AdwTabBar *self);
 

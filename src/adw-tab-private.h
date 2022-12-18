@@ -44,4 +44,7 @@ void adw_tab_setup_extra_drop_target (AdwTab        *self,
                                       GType         *types,
                                       gsize          n_types);
 
+void adw_tab_set_extra_drag_preload (AdwTab   *self,
+                                     gboolean  preload);
+
 G_END_DECLS

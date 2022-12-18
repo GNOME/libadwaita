@@ -38,6 +38,9 @@ void adw_tab_thumbnail_setup_extra_drop_target (AdwTabThumbnail *self,
                                                 GType           *types,
                                                 gsize            n_types);
 
+void adw_tab_thumbnail_set_extra_drag_preload (AdwTabThumbnail *self,
+                                               gboolean         preload);
+
 GtkWidget *adw_tab_thumbnail_get_thumbnail (AdwTabThumbnail *self);
 
 void adw_tab_thumbnail_fade_out (AdwTabThumbnail *self);

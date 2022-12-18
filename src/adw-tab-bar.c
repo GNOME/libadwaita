@@ -75,6 +75,7 @@ enum {
   PROP_EXPAND_TABS,
   PROP_INVERTED,
   PROP_IS_OVERFLOWING,
+  PROP_EXTRA_DRAG_PRELOAD,
   LAST_PROP
 };
 
@@ -344,6 +345,10 @@ adw_tab_bar_get_property (GObject    *object,
     g_value_set_boolean (value, adw_tab_bar_get_is_overflowing (self));
     break;
 
+  case PROP_EXTRA_DRAG_PRELOAD:
+    g_value_set_boolean (value, adw_tab_bar_get_extra_drag_preload (self));
+    break;
+
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -380,6 +385,10 @@ adw_tab_bar_set_property (GObject      *object,
 
   case PROP_INVERTED:
     adw_tab_bar_set_inverted (self, g_value_get_boolean (value));
+    break;
+
+  case PROP_EXTRA_DRAG_PRELOAD:
+    adw_tab_bar_set_extra_drag_preload (self, g_value_get_boolean (value));
     break;
 
   default:
@@ -494,6 +503,20 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
     g_param_spec_boolean ("is-overflowing", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwTabBar:extra-drag-preload: (attributes org.gtk.Property.get=adw_tab_bar_get_extra_drag_preload org.gtk.Property.set=adw_tab_bar_set_extra_drag_preload)
+   *
+   * Whether the drop data should be preloaded on hover.
+   *
+   * See [signal@Gtk.DropTarget:preload].
+   *
+   * Since: 1.3
+   */
+  props[PROP_EXTRA_DRAG_PRELOAD] =
+    g_param_spec_boolean ("extra-drag-preload", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
@@ -977,6 +1000,50 @@ adw_tab_bar_setup_extra_drop_target (AdwTabBar     *self,
 
   adw_tab_box_setup_extra_drop_target (self->box, actions, types, n_types);
   adw_tab_box_setup_extra_drop_target (self->pinned_box, actions, types, n_types);
+}
+
+/**
+ * adw_tab_bar_get_extra_drag_preload:
+ * @self: a tab bar
+ *
+ * Gets whether drop data should be preloaded on hover.
+ *
+ * Returns: whether drop data should be preloaded on hover
+ *
+ * Since: 1.3
+ */
+gboolean
+adw_tab_bar_get_extra_drag_preload (AdwTabBar *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_BAR (self), FALSE);
+
+  return adw_tab_box_get_extra_drag_preload (self->box);
+}
+
+/**
+ * adw_tab_bar_set_extra_drag_preload:
+ * @self: a tab bar
+ * @preload: whether to preload drop data
+ *
+ * Sets whether drop data should be preloaded on hover.
+ *
+ * See [signal@Gtk.DropTarget:preload].
+ *
+ * Since: 1.3
+ */
+void
+adw_tab_bar_set_extra_drag_preload (AdwTabBar *self,
+                                    gboolean   preload)
+{
+  g_return_if_fail (ADW_IS_TAB_BAR (self));
+
+  if (adw_tab_bar_get_extra_drag_preload (self) == preload)
+    return;
+
+  adw_tab_box_set_extra_drag_preload (self->box, preload);
+  adw_tab_box_set_extra_drag_preload (self->pinned_box, preload);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXTRA_DRAG_PRELOAD]);
 }
 
 /**

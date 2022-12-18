@@ -177,6 +177,7 @@ struct _AdwTabGrid
   GdkDragAction extra_drag_actions;
   GType *extra_drag_types;
   gsize extra_drag_n_types;
+  gboolean extra_drag_preload;
 
   double n_columns;
   double max_n_columns;
@@ -1847,6 +1848,7 @@ create_tab_info (AdwTabGrid *self,
                                              self->extra_drag_actions,
                                              self->extra_drag_types,
                                              self->extra_drag_n_types);
+  adw_tab_thumbnail_set_extra_drag_preload (info->tab, self->extra_drag_preload);
 
   gtk_widget_set_parent (GTK_WIDGET (info->tab), info->container);
   gtk_widget_insert_before (info->container, GTK_WIDGET (self), NULL);
@@ -3797,4 +3799,32 @@ adw_tab_grid_measure_height_final (AdwTabGrid *self,
   measure_tab_grid (self, GTK_ORIENTATION_VERTICAL, for_width, &minimum, NULL, FALSE);
 
   return minimum;
+}
+
+gboolean
+adw_tab_grid_get_extra_drag_preload (AdwTabGrid *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_GRID (self), FALSE);
+
+  return self->extra_drag_preload;
+}
+
+void
+adw_tab_grid_set_extra_drag_preload (AdwTabGrid *self,
+                                     gboolean    preload)
+{
+  GList *l;
+
+  g_return_if_fail (ADW_IS_TAB_GRID (self));
+
+  if (preload == self->extra_drag_preload)
+    return;
+
+  self->extra_drag_preload = preload;
+
+  for (l = self->tabs; l; l = l->next) {
+    TabInfo *info = l->data;
+
+    adw_tab_thumbnail_set_extra_drag_preload (info->tab, preload);
+  }
 }

@@ -650,6 +650,15 @@ adw_tab_thumbnail_setup_extra_drop_target (AdwTabThumbnail *self,
   gtk_drop_target_set_gtypes (self->drop_target, types, n_types);
 }
 
+void
+adw_tab_thumbnail_set_extra_drag_preload (AdwTabThumbnail *self,
+                                          gboolean         preload)
+{
+  g_return_if_fail (ADW_IS_TAB_THUMBNAIL (self));
+
+  gtk_drop_target_set_preload (self->drop_target, preload);
+}
+
 GtkWidget *
 adw_tab_thumbnail_get_thumbnail (AdwTabThumbnail *self)
 {

@@ -142,6 +142,7 @@ enum {
   PROP_SECONDARY_MENU,
   PROP_SHOW_START_TITLE_BUTTONS,
   PROP_SHOW_END_TITLE_BUTTONS,
+  PROP_EXTRA_DRAG_PRELOAD,
   LAST_PROP
 };
 
@@ -1354,6 +1355,9 @@ adw_tab_overview_get_property (GObject    *object,
   case PROP_SHOW_END_TITLE_BUTTONS:
     g_value_set_boolean (value, adw_tab_overview_get_show_end_title_buttons (self));
     break;
+  case PROP_EXTRA_DRAG_PRELOAD:
+    g_value_set_boolean (value, adw_tab_overview_get_extra_drag_preload (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -1394,6 +1398,9 @@ adw_tab_overview_set_property (GObject      *object,
     break;
   case PROP_SHOW_END_TITLE_BUTTONS:
     adw_tab_overview_set_show_end_title_buttons (self, g_value_get_boolean (value));
+    break;
+  case PROP_EXTRA_DRAG_PRELOAD:
+    adw_tab_overview_set_extra_drag_preload (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1604,6 +1611,20 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
   props[PROP_SHOW_END_TITLE_BUTTONS] =
     g_param_spec_boolean ("show-end-title-buttons", NULL, NULL,
                           TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwTabOverview:extra-drag-preload: (attributes org.gtk.Property.get=adw_tab_overview_get_extra_drag_preload org.gtk.Property.set=adw_tab_overview_set_extra_drag_preload)
+   *
+   * Whether the drop data should be preloaded on hover.
+   *
+   * See [signal@Gtk.DropTarget:preload].
+   *
+   * Since: 1.3
+   */
+  props[PROP_EXTRA_DRAG_PRELOAD] =
+    g_param_spec_boolean ("extra-drag-preload", NULL, NULL,
+                          FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
@@ -2386,4 +2407,48 @@ adw_tab_overview_get_pinned_tab_grid (AdwTabOverview *self)
   g_return_val_if_fail (ADW_IS_TAB_OVERVIEW (self), NULL);
 
   return self->pinned_grid;
+}
+
+/**
+ * adw_tab_overview_get_extra_drag_preload: (attributes org.gtk.Method.get_property=extra-drag-preload)
+ * @self: a tab overview
+ *
+ * Gets whether drop data should be preloaded on hover.
+ *
+ * Returns: whether drop data should be preloaded on hover
+ *
+ * Since: 1.3
+ */
+gboolean
+adw_tab_overview_get_extra_drag_preload (AdwTabOverview *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_OVERVIEW (self), FALSE);
+
+  return adw_tab_grid_get_extra_drag_preload (self->grid);
+}
+
+/**
+ * adw_tab_overview_set_extra_drag_preload: (attributes org.gtk.Method.set_property=extra-drag-preload)
+ * @self: a tab overview
+ * @preload: whether to preload drop data
+ *
+ * Sets whether drop data should be preloaded on hover.
+ *
+ * See [signal@Gtk.DropTarget:preload].
+ *
+ * Since: 1.3
+ */
+void
+adw_tab_overview_set_extra_drag_preload (AdwTabOverview *self,
+                                         gboolean        preload)
+{
+  g_return_if_fail (ADW_IS_TAB_OVERVIEW (self));
+
+  if (adw_tab_overview_get_extra_drag_preload (self) == preload)
+    return;
+
+  adw_tab_grid_set_extra_drag_preload (self->grid, preload);
+  adw_tab_grid_set_extra_drag_preload (self->pinned_grid, preload);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXTRA_DRAG_PRELOAD]);
 }

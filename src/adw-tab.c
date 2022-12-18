@@ -1038,3 +1038,12 @@ adw_tab_setup_extra_drop_target (AdwTab        *self,
   gtk_drop_target_set_actions (self->drop_target, actions);
   gtk_drop_target_set_gtypes (self->drop_target, types, n_types);
 }
+
+void
+adw_tab_set_extra_drag_preload (AdwTab   *self,
+                                gboolean  preload)
+{
+  g_return_if_fail (ADW_IS_TAB (self));
+
+  gtk_drop_target_set_preload (self->drop_target, preload);
+}

@@ -43,6 +43,10 @@ void adw_tab_grid_setup_extra_drop_target (AdwTabGrid    *self,
                                            GType         *types,
                                            gsize          n_types);
 
+gboolean adw_tab_grid_get_extra_drag_preload (AdwTabGrid *self);
+void     adw_tab_grid_set_extra_drag_preload (AdwTabGrid *self,
+                                              gboolean    preload);
+
 gboolean adw_tab_grid_get_inverted (AdwTabGrid *self);
 void     adw_tab_grid_set_inverted (AdwTabGrid *self,
                                     gboolean    inverted);
