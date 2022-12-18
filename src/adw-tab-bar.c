@@ -83,6 +83,7 @@ static GParamSpec *props[LAST_PROP];
 
 enum {
   SIGNAL_EXTRA_DRAG_DROP,
+  SIGNAL_EXTRA_DRAG_VALUE,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -248,6 +249,18 @@ extra_drag_drop_cb (AdwTabBar  *self,
   g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_DROP], 0, page, value, &ret);
 
   return ret;
+}
+
+static GdkDragAction
+extra_drag_value_cb (AdwTabBar  *self,
+                     AdwTabPage *page,
+                     GValue     *value)
+{
+  GdkDragAction preferred_action;
+
+  g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_VALUE], 0, page, value, &preferred_action);
+
+  return preferred_action;
 }
 
 static void
@@ -546,6 +559,37 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
                   ADW_TYPE_TAB_PAGE,
                   G_TYPE_VALUE);
 
+  /**
+   * AdwTabBar::extra-drag-value:
+   * @self: a tab bar
+   * @page: the page matching the tab the content was dropped onto
+   * @value: the `GValue` being dropped
+   *
+   * This signal is emitted when the dropped content is preloaded.
+   *
+   * In order for data to be preloaded, [property@TabBar:preload] must be set to
+   * `TRUE`.
+   *
+   * The content must be of one of the types set up via
+   * [method@TabBar.setup_extra_drop_target].
+   *
+   * See [signal@Gtk.DropTarget:value].
+   *
+   * Returns: the preferred action for the drop on @page
+   *
+   * Since: 1.3
+   */
+  signals[SIGNAL_EXTRA_DRAG_VALUE] =
+    g_signal_new ("extra-drag-value",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  g_signal_accumulator_first_wins, NULL, NULL,
+                  GDK_TYPE_DRAG_ACTION,
+                  2,
+                  ADW_TYPE_TAB_PAGE,
+                  G_TYPE_VALUE);
+
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-tab-bar.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwTabBar, revealer);
@@ -558,6 +602,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, notify_resize_frozen_cb);
   gtk_widget_class_bind_template_callback (widget_class, stop_kinetic_scrolling_cb);
   gtk_widget_class_bind_template_callback (widget_class, extra_drag_drop_cb);
+  gtk_widget_class_bind_template_callback (widget_class, extra_drag_value_cb);
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "tabbar");

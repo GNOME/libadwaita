@@ -188,6 +188,7 @@ static GParamSpec *props[LAST_PROP];
 enum {
   SIGNAL_STOP_KINETIC_SCROLLING,
   SIGNAL_EXTRA_DRAG_DROP,
+  SIGNAL_EXTRA_DRAG_VALUE,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -1734,6 +1735,19 @@ extra_drag_drop_cb (AdwTab    *tab,
   return ret;
 }
 
+static GdkDragAction
+extra_drag_value_cb (AdwTab    *tab,
+                     GValue    *value,
+                     AdwTabBox *self)
+{
+  GdkDragAction preferred_action;
+  AdwTabPage *page = adw_tab_get_page (tab);
+
+  g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_VALUE], 0, page, value, &preferred_action);
+
+  return preferred_action;
+}
+
 static void
 appear_animation_value_cb (double   value,
                            TabInfo *info)
@@ -1836,6 +1850,7 @@ create_tab_info (AdwTabBox  *self,
   gtk_widget_insert_before (info->container, GTK_WIDGET (self), self->needs_attention_left);
 
   g_signal_connect_object (info->tab, "extra-drag-drop", G_CALLBACK (extra_drag_drop_cb), self, 0);
+  g_signal_connect_object (info->tab, "extra-drag-value", G_CALLBACK (extra_drag_value_cb), self, 0);
   g_signal_connect_object (info->tab, "state-flags-changed", G_CALLBACK (state_flags_changed_cb), self, 0);
 
   return info;
@@ -3683,6 +3698,17 @@ adw_tab_box_class_init (AdwTabBoxClass *klass)
                   0,
                   g_signal_accumulator_first_wins, NULL, NULL,
                   G_TYPE_BOOLEAN,
+                  2,
+                  ADW_TYPE_TAB_PAGE,
+                  G_TYPE_VALUE);
+
+  signals[SIGNAL_EXTRA_DRAG_VALUE] =
+    g_signal_new ("extra-drag-value",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  g_signal_accumulator_first_wins, NULL, NULL,
+                  GDK_TYPE_DRAG_ACTION,
                   2,
                   ADW_TYPE_TAB_PAGE,
                   G_TYPE_VALUE);

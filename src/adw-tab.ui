@@ -12,6 +12,9 @@
     <child>
       <object class="GtkDropTarget" id="drop_target">
         <signal name="drop" handler="drop_cb" swapped="true"/>
+        <signal name="enter" handler="extra_drag_motion_cb" swapped="true"/>
+        <signal name="motion" handler="extra_drag_motion_cb" swapped="true"/>
+        <signal name="notify::value" handler="extra_drag_notify_value_cb" swapped="true"/>
       </object>
     </child>
     <child>

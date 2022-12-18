@@ -39,6 +39,7 @@ struct _AdwTab
   GtkWidget *close_btn;
   GtkWidget *needs_attention_indicator;
   GtkDropTarget *drop_target;
+  GdkDragAction preferred_action;
 
   AdwTabView *view;
   AdwTabPage *page;
@@ -76,6 +77,7 @@ static GParamSpec *props[LAST_PROP];
 
 enum {
   SIGNAL_EXTRA_DRAG_DROP,
+  SIGNAL_EXTRA_DRAG_VALUE,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -322,6 +324,35 @@ drop_cb (AdwTab *self,
   g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_DROP], 0, value, &ret);
 
   return ret;
+}
+
+static GdkDragAction
+extra_drag_motion_cb (AdwTab *self)
+{
+  return self->preferred_action;
+}
+
+static void
+extra_drag_notify_value_cb (AdwTab *self)
+{
+  const GValue *value = gtk_drop_target_get_value (self->drop_target);
+
+  g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_VALUE], 0, value, &self->preferred_action);
+}
+
+static GdkDragAction
+make_action_unique (GdkDragAction actions)
+{
+  if (actions & GDK_ACTION_COPY)
+    return GDK_ACTION_COPY;
+
+  if (actions & GDK_ACTION_MOVE)
+    return GDK_ACTION_MOVE;
+
+  if (actions & GDK_ACTION_LINK)
+    return GDK_ACTION_LINK;
+
+  return 0;
 }
 
 static void
@@ -814,6 +845,16 @@ adw_tab_class_init (AdwTabClass *klass)
                   1,
                   G_TYPE_VALUE);
 
+  signals[SIGNAL_EXTRA_DRAG_VALUE] =
+    g_signal_new ("extra-drag-value",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  g_signal_accumulator_first_wins, NULL, NULL,
+                  GDK_TYPE_DRAG_ACTION,
+                  1,
+                  G_TYPE_VALUE);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class,
@@ -833,6 +874,8 @@ adw_tab_class_init (AdwTabClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, motion_cb);
   gtk_widget_class_bind_template_callback (widget_class, leave_cb);
   gtk_widget_class_bind_template_callback (widget_class, drop_cb);
+  gtk_widget_class_bind_template_callback (widget_class, extra_drag_motion_cb);
+  gtk_widget_class_bind_template_callback (widget_class, extra_drag_notify_value_cb);
 
   gtk_widget_class_add_binding (widget_class, GDK_KEY_space,     0, (GtkShortcutFunc) activate_cb, NULL);
   gtk_widget_class_add_binding (widget_class, GDK_KEY_KP_Space,  0, (GtkShortcutFunc) activate_cb, NULL);
@@ -1037,6 +1080,8 @@ adw_tab_setup_extra_drop_target (AdwTab        *self,
 
   gtk_drop_target_set_actions (self->drop_target, actions);
   gtk_drop_target_set_gtypes (self->drop_target, types, n_types);
+
+  self->preferred_action = make_action_unique (actions);
 }
 
 void

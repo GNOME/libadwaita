@@ -36,6 +36,7 @@
                     <signal name="notify::resize-frozen" handler="notify_resize_frozen_cb" swapped="true"/>
                     <signal name="stop-kinetic-scrolling" handler="stop_kinetic_scrolling_cb" object="pinned_scrolled_window" swapped="true"/>
                     <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
+                    <signal name="extra-drag-value" handler="extra_drag_value_cb" swapped="true"/>
                   </object>
                 </property>
               </object>
@@ -53,6 +54,7 @@
                     <signal name="notify::resize-frozen" handler="notify_resize_frozen_cb" swapped="true"/>
                     <signal name="stop-kinetic-scrolling" handler="stop_kinetic_scrolling_cb" object="scrolled_window" swapped="true"/>
                     <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
+                    <signal name="extra-drag-value" handler="extra_drag_value_cb" swapped="true"/>
                   </object>
                 </property>
               </object>

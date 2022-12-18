@@ -151,6 +151,7 @@ static GParamSpec *props[LAST_PROP];
 enum {
   SIGNAL_CREATE_TAB,
   SIGNAL_EXTRA_DRAG_DROP,
+  SIGNAL_EXTRA_DRAG_VALUE,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -729,6 +730,18 @@ extra_drag_drop_cb (AdwTabOverview *self,
   g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_DROP], 0, page, value, &ret);
 
   return ret;
+}
+
+static GdkDragAction
+extra_drag_value_cb (AdwTabOverview *self,
+                     AdwTabPage     *page,
+                     GValue         *value)
+{
+  GdkDragAction preferred_action;
+
+  g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_VALUE], 0, page, value, &preferred_action);
+
+  return preferred_action;
 }
 
 static void
@@ -1683,6 +1696,37 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                   ADW_TYPE_TAB_PAGE,
                   G_TYPE_VALUE);
 
+  /**
+   * AdwTabOverview::extra-drag-value:
+   * @self: a tab overview
+   * @page: the page matching the tab the content was dropped onto
+   * @value: the `GValue` being dropped
+   *
+   * This signal is emitted when the dropped content is preloaded.
+   *
+   * In order for data to be preloaded, [property@TabOverview:preload] must be
+   * set to `TRUE`.
+   *
+   * The content must be of one of the types set up via
+   * [method@TabOverview.setup_extra_drop_target].
+   *
+   * See [signal@Gtk.DropTarget:value].
+   *
+   * Returns: the preferred action for the drop on @page
+   *
+   * Since: 1.3
+   */
+  signals[SIGNAL_EXTRA_DRAG_VALUE] =
+    g_signal_new ("extra-drag-value",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_LAST,
+                  0,
+                  g_signal_accumulator_first_wins, NULL, NULL,
+                  GDK_TYPE_DRAG_ACTION,
+                  2,
+                  ADW_TYPE_TAB_PAGE,
+                  G_TYPE_VALUE);
+
   gtk_widget_class_install_action (widget_class, "overview.open", NULL,
                                    (GtkWidgetActionActivateFunc) overview_open_cb);
   gtk_widget_class_install_action (widget_class, "overview.close", NULL,
@@ -1708,6 +1752,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwTabOverview, grid);
   gtk_widget_class_bind_template_child (widget_class, AdwTabOverview, pinned_grid);
   gtk_widget_class_bind_template_callback (widget_class, extra_drag_drop_cb);
+  gtk_widget_class_bind_template_callback (widget_class, extra_drag_value_cb);
   gtk_widget_class_bind_template_callback (widget_class, empty_changed_cb);
   gtk_widget_class_bind_template_callback (widget_class, search_changed_cb);
   gtk_widget_class_bind_template_callback (widget_class, stop_search_cb);

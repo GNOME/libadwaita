@@ -74,6 +74,7 @@
                         <property name="pinned">True</property>
                         <property name="tab-overview">AdwTabOverview</property>
                         <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="yes"/>
+                        <signal name="extra-drag-value" handler="extra_drag_value_cb" swapped="true"/>
                         <signal name="notify::empty" handler="empty_changed_cb" swapped="yes"/>
                       </object>
                     </property>
@@ -81,6 +82,7 @@
                       <object class="AdwTabGrid" id="grid">
                         <property name="tab-overview">AdwTabOverview</property>
                         <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="yes"/>
+                        <signal name="extra-drag-value" handler="extra_drag_value_cb" swapped="true"/>
                         <signal name="notify::empty" handler="empty_changed_cb" swapped="yes"/>
                       </object>
                     </property>
