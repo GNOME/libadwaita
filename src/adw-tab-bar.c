@@ -522,7 +522,7 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    *
    * Whether the drop data should be preloaded on hover.
    *
-   * See [signal@Gtk.DropTarget::preload].
+   * See [signal@Gtk.DropTarget:preload].
    *
    * Since: 1.3
    */
@@ -567,8 +567,8 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
    *
    * This signal is emitted when the dropped content is preloaded.
    *
-   * In order for data to be preloaded, [property@TabBar:extra-drag-preload]
-   * must be set to `TRUE`.
+   * In order for data to be preloaded, [property@TabBar:preload] must be set to
+   * `TRUE`.
    *
    * The content must be of one of the types set up via
    * [method@TabBar.setup_extra_drop_target].
@@ -1072,7 +1072,7 @@ adw_tab_bar_get_extra_drag_preload (AdwTabBar *self)
  *
  * Sets whether drop data should be preloaded on hover.
  *
- * See [signal@Gtk.DropTarget::preload].
+ * See [signal@Gtk.DropTarget:preload].
  *
  * Since: 1.3
  */

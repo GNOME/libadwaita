@@ -1631,7 +1631,7 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
    *
    * Whether the drop data should be preloaded on hover.
    *
-   * See [signal@Gtk.DropTarget::preload].
+   * See [signal@Gtk.DropTarget:preload].
    *
    * Since: 1.3
    */
@@ -1704,13 +1704,13 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
    *
    * This signal is emitted when the dropped content is preloaded.
    *
-   * In order for data to be preloaded, [property@TabOverview:extra-drag-preload]
-   * must be set to `TRUE`.
+   * In order for data to be preloaded, [property@TabOverview:preload] must be
+   * set to `TRUE`.
    *
    * The content must be of one of the types set up via
    * [method@TabOverview.setup_extra_drop_target].
    *
-   * See [signal@Gtk.DropTarget::value].
+   * See [signal@Gtk.DropTarget:value].
    *
    * Returns: the preferred action for the drop on @page
    *
@@ -2479,7 +2479,7 @@ adw_tab_overview_get_extra_drag_preload (AdwTabOverview *self)
  *
  * Sets whether drop data should be preloaded on hover.
  *
- * See [signal@Gtk.DropTarget::preload].
+ * See [signal@Gtk.DropTarget:preload].
  *
  * Since: 1.3
  */
