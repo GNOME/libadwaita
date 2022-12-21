@@ -370,7 +370,8 @@ states automatically, without needing the `.activatable` class.
 
 The `.navigation-sidebar` style class can be applied to a [class@Gtk.ListBox]
 or [class@Gtk.ListView] to make it look like a sidebar: it makes the
-items rounded and padded and removes the default list background.
+items rounded and padded, makes selected items use a neutral color instead of
+accent, and removes the default list background.
 
 When using it on a flap child in an [class@Flap], the lack of background can be
 problematic. In that case, it can be used together with the
