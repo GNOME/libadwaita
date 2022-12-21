@@ -46,7 +46,7 @@
                     </child>
                     <child>
                       <object class="AdwEntryRow" id="button_label_row">
-                        <property name="title" translatable="yes">Button Label</property>
+                        <property name="title" translatable="yes">Button</property>
                         <property name="use_underline">True</property>
                         <property name="text">_Network Settings</property>
                         <property name="editable" bind-source="label_switch" bind-property="active" bind-flags="sync-create"/>
