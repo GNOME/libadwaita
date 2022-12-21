@@ -240,3 +240,15 @@ infobar {
     @extend %button_basic_flat;
   }
 }
+
+/*************
+ * AdwBanner *
+ *************/
+banner {
+  background-color: gtkmix($accent_bg_color, $window_bg_color, 30%);
+  color: $window_fg_color;
+
+  > revealer > widget {
+    padding: 6px;
+  }
+}
