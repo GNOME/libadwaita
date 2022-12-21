@@ -22,11 +22,10 @@ G_DEFINE_TYPE (AdwDemoPageBanners, adw_demo_page_banners, ADW_TYPE_BIN)
 static void
 toggle_button_cb (AdwDemoPageBanners *self)
 {
-  if (g_strcmp0 (adw_banner_get_button_label (self->banner), "") == 0) {
+  if (g_strcmp0 (adw_banner_get_button_label (self->banner), "") == 0)
     adw_banner_set_button_label (self->banner, gtk_editable_get_text (GTK_EDITABLE (self->button_label_row)));
-  } else {
+  else
     adw_banner_set_button_label (self->banner, NULL);
-  }
 }
 
 static void
