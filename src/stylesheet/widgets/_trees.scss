@@ -128,6 +128,12 @@ treeview.view > header > button {
 
 treeview.navigation-sidebar {
   padding: 0;
+
+  &:selected {
+    &:focus, & {
+      background-color: $selected_color;
+    }
+  }
 }
 
 /********************************************************
