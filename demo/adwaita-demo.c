@@ -37,6 +37,7 @@ show_about (GSimpleAction *action,
     "Alexander Mikhaylenko",
     "Andrei Lișiță",
     "Guido Günther",
+    "Jamie Murphy"
     "Julian Sparber",
     "Manuel Genovés",
     "Zander Brown",
