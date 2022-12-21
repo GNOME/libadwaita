@@ -5,10 +5,11 @@
  */
 
 #include "config.h"
-#include "adw-banner.h"
-#include "adw-gizmo-private.h"
 
-#include "adw-macros-private.h"
+#include "adw-banner.h"
+
+#include "adw-gizmo-private.h"
+#include "adw-widget-utils-private.h"
 
 #define SPACING 6
 #define LABEL_MAX_WIDTH 500
@@ -399,6 +400,18 @@ adw_banner_class_init (AdwBannerClass *klass)
   g_type_ensure (ADW_TYPE_GIZMO);
 }
 
+static void
+adw_banner_init (AdwBanner *self)
+{
+  gtk_widget_init_template (GTK_WIDGET (self));
+  gtk_widget_set_layout_manager (GTK_WIDGET (self->gizmo), gtk_custom_layout_new (get_content_request_mode,
+                                                                                  measure_content,
+                                                                                  allocate_content));
+
+  adw_gizmo_set_focus_func (self->gizmo, (AdwGizmoFocusFunc) adw_widget_focus_child);
+  adw_gizmo_set_grab_focus_func (self->gizmo, (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
+}
+
 static const char *
 adw_banner_get_action_name (GtkActionable *actionable)
 {
@@ -440,15 +453,6 @@ adw_banner_actionable_init (GtkActionableInterface *iface)
   iface->set_action_name = adw_banner_set_action_name;
   iface->get_action_target_value = adw_banner_get_action_target_value;
   iface->set_action_target_value = adw_banner_set_action_target_value;
-}
-
-static void
-adw_banner_init (AdwBanner *self)
-{
-  gtk_widget_init_template (GTK_WIDGET (self));
-  gtk_widget_set_layout_manager (GTK_WIDGET (self->gizmo), gtk_custom_layout_new (get_content_request_mode,
-                                                                                  measure_content,
-                                                                                  allocate_content));
 }
 
 /**
