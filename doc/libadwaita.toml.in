@@ -84,6 +84,8 @@ content_images = [
   "images/application-window-dark.png",
   "images/avatar.png",
   "images/avatar-dark.png",
+  "images/banner.png",
+  "images/banner-dark.png",
   "images/bin.png",
   "images/bin-dark.png",
   "images/boxed-lists.png",
