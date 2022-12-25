@@ -131,7 +131,6 @@ avatar_open_cb (AdwDemoPageAvatar *self)
   gtk_file_dialog_open (dialog,
                         GTK_WINDOW (root),
                         NULL,
-                        NULL,
                         (GAsyncReadyCallback) avatar_open_dialog_cb,
                         self);
 }
@@ -173,8 +172,6 @@ avatar_save_cb (AdwDemoPageAvatar *self)
 
   gtk_file_dialog_save (dialog,
                         GTK_WINDOW (root),
-                        NULL,
-                        NULL,
                         NULL,
                         (GAsyncReadyCallback) avatar_save_dialog_cb,
                         self);

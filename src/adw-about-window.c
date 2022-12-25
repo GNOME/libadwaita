@@ -1318,11 +1318,10 @@ save_debug_info_cb (AdwAboutWindow *self)
   GtkFileDialog *dialog = gtk_file_dialog_new ();
 
   gtk_file_dialog_set_title (dialog, _("Save debugging information"));
+  gtk_file_dialog_set_initial_name (dialog, self->debug_info_filename);
 
   gtk_file_dialog_save (dialog,
                         GTK_WINDOW (self),
-                        NULL,
-                        self->debug_info_filename,
                         NULL,
                         (GAsyncReadyCallback) save_debug_info_dialog_cb,
                         self);
