@@ -31,6 +31,7 @@
                 <property name="valign">center</property>
                 <property name="focus-on-click">False</property>
                 <property name="use-underline">True</property>
+                <property name="visible">False</property>
                 <signal name="clicked" handler="button_clicked" swapped="yes" />
               </object>
             </child>
