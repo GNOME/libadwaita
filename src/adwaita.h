@@ -10,8 +10,8 @@
 
 G_BEGIN_DECLS
 
-#if !GTK_CHECK_VERSION(4, 9, 1)
-# error "libadwaita requires gtk4 >= 4.9.1"
+#if !GTK_CHECK_VERSION(4, 9, 2)
+# error "libadwaita requires gtk4 >= 4.9.2"
 #endif
 
 #if !GLIB_CHECK_VERSION(2, 72, 0)
