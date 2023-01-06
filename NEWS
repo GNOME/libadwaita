@@ -1,4 +1,22 @@
 =============
+Version 1.1.6
+=============
+
+- AdwAvatar
+  - Correctly redraw on custom image changes
+- AdwFlap
+  - Fix natural width with fold-policy=never
+- AdwSplitButton
+  - Don't make dropdown insensitive when the button is
+- AdwTabBar
+  - Fix focus handling
+  - Fix autoscroll for non-local drags
+- AdwToastOverlay
+  - Clarify documentation
+- Stylesheet
+  - Fix GtkSpinButton inside toolbars
+
+=============
 Version 1.1.5
 =============
 
