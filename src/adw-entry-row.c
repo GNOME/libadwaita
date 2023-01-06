@@ -1134,3 +1134,27 @@ adw_entry_row_set_show_indicator (AdwEntryRow *self,
 
   update_empty (self);
 }
+
+/**
+ * adw_entry_grab_focus_without_selecting:
+ * @self: an entry row
+ *
+ * Causes @self to have keyboard focus without selecting the text.
+ * 
+ * See [method@Gtk.Text.grab_focus_without_selecting] for more information.
+ *
+ * Returns: whether the focus is now inside @self
+ *
+ * Since: 1.3
+ */
+gboolean
+adw_entry_row_grab_focus_without_selecting (AdwEntryRow *self)
+{
+  AdwEntryRowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ENTRY_ROW (self), FALSE);
+
+  priv = adw_entry_row_get_instance_private (self);
+
+  return gtk_text_grab_focus_without_selecting (GTK_TEXT (priv->text));
+}
