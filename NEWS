@@ -1,3 +1,86 @@
+=================
+Verison 1.3.alpha
+=================
+
+- Introduce AdwBanner
+- Introduce AdwTabButton and AdwTabOverview
+- Fix or silence GTK 4.9.x deprecations
+- Require GTK 4.9.2 and GLib 2.72.0
+- Add developer name to metainfo
+- AdwActionRow
+  - Deprecate icon-name property
+  - Fix spacing after removing all prefixes/suffixes
+- AdwAvatar
+  - Correctly redraw on custom image changes
+- AdwEntryRow
+  - Add adw_entry_row_grab_focus_without_selecting()
+  - Respect use-markup property
+  - Fix error/warning/success styles
+  - Fix spacing after removing all prefixes/suffixes
+- AdwExpanderRow
+  - Add title-lines and subtitle-lines properties
+  - Deprecate icon-name property
+  - Fix spacing after removing all prefixes/suffixes
+- AdwFlap
+  - Fix natural width with fold-policy=never
+- AdwMessageDialog
+  - Add adw_message_dialog_choose()
+  - Fix focus styles in RTL
+  - Refactor adaptive layout
+- AdwTabBar
+  - Add preload property and extra-drag-value signal
+  - Fix focus handling
+  - Fix autoscroll for non-local drags
+- AdwTabView
+  - Update default tab icon
+  - Rewrite internals to allow overview thumbnails for inactive pages
+- AdwPreferencesPage
+  - Add a function to scroll to top
+- AdwPreferencesWindow
+  - Fix a memory leak
+- AdwSplitButton
+  - Don't make dropdown insensitive when the button is
+- AdwSpringAnimation
+  - Correctly mark as final
+- AdwToastOverlay
+  - Clarify documentation
+- AdwViewSwitcherBar
+  - Fix typos in examples
+- AdwViewSwitcherTitle
+  - Fix typos in examples
+- Demo
+  - Update icons
+  - Make tabs demo adaptive using the new widgets
+  - Use G_DEFINE_FINAL_TYPE where appropriate
+- Doc
+  - Rename visual index to widget gallery
+  - Stop marking symbols from 1.0 as such to reduce clutter
+- Stylesheet
+  - Fix GtkSpinButton inside toolbars
+  - Update for file chooser changes
+  - Use accent color for default list/grid selection
+- Tests
+  - Introduce manual tests in tests/manual/
+- Translation updates
+  - Belarusian
+  - British English
+  - Catalan
+  - Croatian
+  - Dutch
+  - French
+  - Friulian
+  - German
+  - Greek
+  - Hebrew
+  - Hindi
+  - Hungarian
+  - Indonesian
+  - Occitan
+  - Persian
+  - Russian
+  - Slovak
+  - Turkish
+
 =============
 Version 1.2.0
 =============
