@@ -1,4 +1,50 @@
 =============
+Version 1.2.1
+=============
+
+- AdwActionRow
+  - Fix spacing after removing all prefixes/suffixes
+- AdwAvatar
+  - Correctly redraw on custom image changes
+- AdwEntryRow
+  - Respect use-markup property
+  - Fix error/warning/success styles
+  - Fix spacing after removing all prefixes/suffixes
+- AdwExpanderRow
+  - Fix spacing after removing all prefixes/suffixes
+- AdwFlap
+  - Fix natural width with fold-policy=never
+- AdwMessageDialog
+  - Fix focus styles in RTL
+- AdwPreferencesWindow
+  - Fix a memory leak
+- AdwSplitButton
+  - Don't make dropdown insensitive when the button is
+- AdwTabBar
+  - Fix focus handling
+  - Fix autoscroll for non-local drags
+- AdwToastOverlay
+  - Clarify documentation
+- AdwViewSwitcherBar
+  - Fix typos in examples
+- AdwViewSwitcherTitle
+  - Fix typos in examples
+- Stylesheet
+  - Fix GtkSpinButton inside toolbars
+- Translation updates
+  - Abkhazian
+  - British English
+  - Croatian
+  - Friulian
+  - German
+  - Greek
+  - Hebrew
+  - Indonesian
+  - Persian
+  - Slovak
+  - Turkish
+
+=============
 Version 1.2.0
 =============
 
