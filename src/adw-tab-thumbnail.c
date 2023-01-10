@@ -205,6 +205,16 @@ drop_cb (AdwTabThumbnail *self,
 }
 
 static GdkDragAction
+extra_drag_enter_cb (AdwTabThumbnail *self)
+{
+  const GValue *value = gtk_drop_target_get_value (self->drop_target);
+
+  g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_VALUE], 0, value, &self->preferred_action);
+
+  return self->preferred_action;
+}
+
+static GdkDragAction
 extra_drag_motion_cb (AdwTabThumbnail *self)
 {
   return self->preferred_action;
@@ -543,6 +553,7 @@ adw_tab_thumbnail_class_init (AdwTabThumbnailClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, unpin_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, indicator_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, drop_cb);
+  gtk_widget_class_bind_template_callback (widget_class, extra_drag_enter_cb);
   gtk_widget_class_bind_template_callback (widget_class, extra_drag_motion_cb);
   gtk_widget_class_bind_template_callback (widget_class, extra_drag_notify_value_cb);
 
