@@ -83,12 +83,14 @@ typedef struct
   gboolean activates_default;
 } AdwEntryRowPrivate;
 
-static void adw_entry_row_editable_init (GtkEditableInterface *iface);
 static void adw_entry_row_buildable_init (GtkBuildableIface *iface);
+static void adw_entry_row_accessible_init (GtkAccessibleInterface *iface);
+static void adw_entry_row_editable_init (GtkEditableInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (AdwEntryRow, adw_entry_row, ADW_TYPE_PREFERENCES_ROW,
                          G_ADD_PRIVATE (AdwEntryRow)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_entry_row_buildable_init)
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ACCESSIBLE, adw_entry_row_accessible_init)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_EDITABLE, adw_entry_row_editable_init))
 
 static GtkBuildableIface *parent_buildable_iface;
@@ -660,6 +662,19 @@ adw_entry_row_buildable_init (GtkBuildableIface *iface)
 {
   parent_buildable_iface = g_type_interface_peek_parent (iface);
   iface->add_child = adw_entry_row_buildable_add_child;
+}
+
+static gboolean
+adw_entry_row_accessible_get_platform_state (GtkAccessible              *accessible,
+                                             GtkAccessiblePlatformState  state)
+{
+  return gtk_editable_delegate_get_accessible_platform_state (GTK_EDITABLE (accessible), state);
+}
+
+static void
+adw_entry_row_accessible_init (GtkAccessibleInterface *iface)
+{
+  iface->get_platform_state = adw_entry_row_accessible_get_platform_state;
 }
 
 static GtkEditable *
