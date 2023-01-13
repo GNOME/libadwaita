@@ -20,7 +20,7 @@ description = "The base type system library"
 docs_url = "https://developer.gnome.org/gobject/stable"
 
 [dependencies."Gtk-4.0"]
-name = "GTK"
+name = "Gtk"
 description = "The GTK toolkit"
 docs_url = "https://docs.gtk.org/gtk4/"
 
