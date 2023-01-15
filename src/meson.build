@@ -289,6 +289,12 @@ if target_system == 'darwin'
   libadwaita_c_args += ['-xobjective-c']
 endif
 
+if target_system == 'windows'
+  libadwaita_deps += [
+    dependency('gtk4-win32', version: gtk_min_version),
+  ]
+endif
+
 configure_file(
          output: 'config.h',
   configuration: config_h,

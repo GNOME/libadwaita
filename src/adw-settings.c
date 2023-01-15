@@ -6,6 +6,8 @@
  * Author: Alexander Mikhaylenko <alexander.mikhaylenko@puri.sm>
  */
 
+#define _WIN32_WINNT 0x0602
+
 #include "config.h"
 
 #include "adw-settings-private.h"
@@ -15,6 +17,22 @@
 
 #ifdef __APPLE__
 # include <AppKit/AppKit.h>
+#endif
+
+#ifdef G_OS_WIN32
+#  define INITGUID
+#  include <gdk/win32/gdkwin32.h>
+#  ifdef HAS_WINRT
+#    define COBJMACROS
+#    include <inspectable.h>
+#    include <roapi.h>
+#    include <winstring.h>
+#    include <Windows.UI.ViewManagement.h>
+#    include <Windows.Foundation.h>
+#  endif
+#  ifndef  WM_THEMECHANGED
+#    define WM_THEMECHANGED                 0x031A
+#  endif
 #endif
 
 #define PORTAL_BUS_NAME "org.freedesktop.portal.Desktop"
@@ -86,7 +104,7 @@ set_high_contrast (AdwSettings *self,
 {
   if (high_contrast == self->high_contrast)
     return;
-
+  
   self->high_contrast = high_contrast;
 
   if (!self->override)
@@ -428,6 +446,337 @@ init_nsapp_observer (AdwSettings *settings)
 }
 #endif
 
+#ifdef G_OS_WIN32
+
+// Set dark mode if the foreground color is brighter than a threshold.
+// Algorithm is suggested by IsColorLight() in this example:
+// https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/apply-windows-themes
+static inline gboolean
+scheme_for_fg_color (DWORD c)
+{
+  if (((5 * GetGValue (c)) + (2 * GetRValue (c)) + GetBValue (c)) > (8 * 128))
+    return ADW_SYSTEM_COLOR_SCHEME_PREFER_DARK;
+  else
+    return ADW_SYSTEM_COLOR_SCHEME_DEFAULT;
+}
+
+#  ifdef HAS_WINRT
+
+G_DEFINE_QUARK (winrt-settings, winrt_settings);
+
+DEFINE_GUID (IID_IUISettings3, 0x03021be4, 0x5254, 0x4781, 0x81, 0x94, 0x51, 0x68, 0xf7, 0xd0, 0x6d, 0x7b);
+DEFINE_GUID (IID_UISettingsEventHandler, 0x2dbdba9d, 0x20da, 0x519d, 0x90, 0x78, 0x09, 0xf8, 0x35, 0xbc, 0x5b, 0xc7);
+
+#define _RoInitialize (data->RoInitialize_func)
+#define _RoActivateInstance (data->RoActivateInstance_func)
+#define _WindowsCreateStringReference (data->WindowsCreateStringReference_func)
+
+typedef struct {
+  AdwSettings *settings;
+  gboolean initialized;
+
+  HMODULE combase;
+  HRESULT (WINAPI *RoInitialize_func)(RO_INIT_TYPE initType);
+  HRESULT (WINAPI *RoActivateInstance_func)(HSTRING activatableClassId, IInspectable **instance);
+  HRESULT (WINAPI *WindowsCreateStringReference_func)(PCWSTR sourceString, UINT32 length, HSTRING_HEADER *hstringHeader, HSTRING *string);
+
+  IInspectable *ii_ui;
+  __x_ABI_CWindows_CUI_CViewManagement_CIUISettings3 *ui;
+
+  EventRegistrationToken color_changed_token;
+} SettingsData;
+
+static void
+cleanup_winrt_settings (gpointer user_data)
+{
+  SettingsData *data = user_data;
+
+  if (data->color_changed_token.value)
+    data->ui->lpVtbl->remove_ColorValuesChanged (data->ui, data->color_changed_token);
+  if (data->ui)
+    data->ui->lpVtbl->Release (data->ui);
+  if (data->ii_ui)
+    IInspectable_Release (data->ii_ui);
+
+  if (data->combase)
+    FreeLibrary (data->combase);
+
+  g_free (data);
+}
+
+static inline IInspectable *
+activate (SettingsData *data, const WCHAR *name)
+{
+  HRESULT res;
+  HSTRING_HEADER header;
+  HSTRING str;
+  IInspectable *iface;
+
+  if (!data->initialized)
+    return NULL;
+
+  res = _WindowsCreateStringReference (name, wcslen (name), &header, &str);
+  if (FAILED (res))
+    return NULL;
+  res = _RoActivateInstance (str, &iface);
+  if (FAILED (res))
+    return NULL;
+
+  return iface;
+}
+
+typedef struct
+{
+  void *lpVtbl;
+  gint ref_count;
+  SettingsData *data;
+} TypedEventHandler;
+
+static inline TypedEventHandler *
+TypedEventHandler_New (void *vtbl, SettingsData *data)
+{
+  TypedEventHandler *handler = g_new0 (TypedEventHandler, 1);
+
+  handler->lpVtbl = vtbl;
+  handler->ref_count = 1;
+  handler->data = data;
+
+  return handler;
+}
+
+static ULONG STDMETHODCALLTYPE
+TypedEventHandler_AddRef (TypedEventHandler *self)
+{
+  return g_atomic_int_add (&self->ref_count, 1) + 1;
+}
+
+static ULONG STDMETHODCALLTYPE
+TypedEventHandler_Release (TypedEventHandler *self)
+{
+  gint rc;
+
+  rc = g_atomic_int_add (&self->ref_count, -1) - 1;
+  if (rc < 0)
+    g_error ("Event handler over-released");
+  if (rc == 0)
+    g_free (self);
+  return rc;
+}
+
+static HRESULT STDMETHODCALLTYPE
+UISettingsEvent_QueryInterface (__FITypedEventHandler_2_Windows__CUI__CViewManagement__CUISettings_IInspectable *self,
+                                REFIID iid,
+                                void **iface)
+{
+   if (IsEqualIID (iid, &IID_UISettingsEventHandler)
+      || IsEqualIID (iid, &IID_IUnknown) || IsEqualIID (iid, &IID_IAgileObject))
+    {
+      *iface = &self->lpVtbl;
+      self->lpVtbl->AddRef (self);
+      return S_OK;
+    }
+  *iface = NULL;
+  return E_NOINTERFACE;
+}
+
+static inline HRESULT
+color_values_changed (AdwSettings *settings)
+{
+  SettingsData *data;
+  struct __x_ABI_CWindows_CUI_CColor color;
+  HRESULT res;
+
+  data = g_object_get_qdata (G_OBJECT (settings), winrt_settings_quark ());
+  if (!data)
+    return S_FALSE;
+
+  res = data->ui->lpVtbl->GetColorValue (data->ui, UIColorType_Foreground, &color);
+  if (FAILED (res))
+    return res;
+
+  set_color_scheme (settings, scheme_for_fg_color (RGB (color.R, color.G, color.B)));
+
+  return S_OK;
+}
+
+static int
+color_values_changed_idle (gpointer settings)
+{
+  color_values_changed (settings);
+  return G_SOURCE_REMOVE;
+}
+
+static HRESULT STDMETHODCALLTYPE
+ColorValuesChanged_Invoke (__FITypedEventHandler_2_Windows__CUI__CViewManagement__CUISettings_IInspectable *self,
+                           __x_ABI_CWindows_CUI_CViewManagement_CIUISettings *sender,
+                           IInspectable *args)
+{
+  TypedEventHandler *handler = (void *) self;
+
+  g_idle_add (color_values_changed_idle, handler->data->settings);
+  return S_OK;
+}
+
+struct __FITypedEventHandler_2_Windows__CUI__CViewManagement__CUISettings_IInspectableVtbl ColorValuesChangedVtbl = {
+  .QueryInterface = UISettingsEvent_QueryInterface,
+  .AddRef = (void *) TypedEventHandler_AddRef,
+  .Release = (void *) TypedEventHandler_Release,
+  .Invoke = ColorValuesChanged_Invoke,
+};
+
+static void
+init_winrt_ui_settings (SettingsData *data)
+{
+  HRESULT res;
+  TypedEventHandler *handler;
+
+  data->ii_ui = activate (data, RuntimeClass_Windows_UI_ViewManagement_UISettings);
+  if (!data->ii_ui)
+    return;
+  res = IInspectable_QueryInterface (data->ii_ui,
+                                     &IID_IUISettings3,
+                                     (void **) &data->ui);
+  if (FAILED (res))
+    return;
+  res = color_values_changed (data->settings);
+  if (FAILED (res))
+    return;
+  handler = TypedEventHandler_New (&ColorValuesChangedVtbl, data);
+  data->ui->lpVtbl->add_ColorValuesChanged (data->ui,
+                                            (void *) handler,
+                                            &data->color_changed_token);
+  TypedEventHandler_Release (handler);
+
+  data->settings->has_color_scheme = TRUE;
+}
+
+static void
+init_winrt_module (SettingsData *data)
+{
+  HRESULT res;
+
+  data->RoInitialize_func = (void *) GetProcAddress (data->combase, "RoInitialize");
+  if (data->RoInitialize_func == NULL)
+    return;
+  data->RoActivateInstance_func = (void *) GetProcAddress (data->combase, "RoActivateInstance");
+  if (data->RoActivateInstance_func == NULL)
+    return;
+  data->WindowsCreateStringReference_func = (void *) GetProcAddress (data->combase, "WindowsCreateStringReference");
+  if (data->WindowsCreateStringReference_func == NULL)
+    return;
+
+  res = _RoInitialize (RO_INIT_MULTITHREADED);
+  if (res != RPC_E_CHANGED_MODE && FAILED (res))
+    return;
+
+  data->initialized = TRUE;
+}
+
+static void
+init_winrt_settings (AdwSettings *settings)
+{
+  SettingsData *data;
+  HMODULE combase;
+
+  combase = LoadLibraryW (L"combase.dll");
+  if (combase == NULL)
+    return;
+
+  data = g_new0 (SettingsData, 1);
+  data->settings = settings;
+  data->combase = combase;
+
+  init_winrt_module (data);
+  init_winrt_ui_settings (data);
+
+  if (settings->has_color_scheme)
+    g_object_set_qdata_full (G_OBJECT (settings),
+                             winrt_settings_quark (),
+                             data,
+                             cleanup_winrt_settings);
+  else
+    cleanup_winrt_settings (data);
+}
+
+static gboolean
+has_winrt_settings (AdwSettings *settings)
+{
+  return g_object_get_qdata (G_OBJECT (settings), winrt_settings_quark ()) != NULL;
+}
+#  else
+static void
+init_winrt_settings (AdwSettings *settings)
+{
+  // noop
+}
+static gboolean
+has_winrt_settings (AdwSettings *settings)
+{
+  return FALSE;
+}
+
+static inline HRESULT
+color_values_changed (AdwSettings *settings)
+{
+  DWORD c = GetSysColor(COLOR_WINDOWTEXT);
+
+  set_color_scheme (settings, scheme_for_fg_color (c));
+
+  return S_OK;
+}
+#  endif
+
+static void
+system_colors_changed (AdwSettings *settings)
+{
+  HIGHCONTRASTA hc;
+
+  hc.cbSize = sizeof hc;
+  hc.dwFlags = 0;
+  hc.lpszDefaultScheme = NULL;
+  if (SystemParametersInfoA (SPI_GETHIGHCONTRAST, sizeof hc, &hc, 0))
+    set_high_contrast (settings, !!(hc.dwFlags & HCF_HIGHCONTRASTON));
+  color_values_changed (settings);
+}
+
+static GdkWin32MessageFilterReturn
+system_colors_filter (GdkWin32Display *display,
+                      MSG             *message,
+                      int             *return_value,
+                      gpointer         data)
+{
+  if (message->message == WM_SYSCOLORCHANGE || message->message == WM_THEMECHANGED)
+    system_colors_changed (data);
+  return GDK_WIN32_MESSAGE_FILTER_CONTINUE;
+}
+
+static void
+cleanup_high_contrast_filter (gpointer display, GObject *settings)
+{
+  gdk_win32_display_remove_filter (GDK_WIN32_DISPLAY (display), system_colors_filter, settings);
+  g_object_unref (display);
+}
+
+static void
+init_win32_settings (AdwSettings *settings)
+{
+  GdkDisplay *display;
+
+  init_winrt_settings (settings);
+
+  display = gdk_display_get_default ();
+  if (GDK_IS_WIN32_DISPLAY (display))
+    {
+      settings->has_high_contrast = TRUE;
+      settings->has_color_scheme = TRUE;
+
+      gdk_win32_display_add_filter (GDK_WIN32_DISPLAY (display), system_colors_filter, settings);
+      g_object_weak_ref (G_OBJECT (settings), cleanup_high_contrast_filter, g_object_ref (display));
+      system_colors_changed (settings);
+    }
+}
+#endif
+
 /* GSettings */
 
 #ifndef G_OS_WIN32
@@ -558,6 +907,9 @@ adw_settings_constructed (GObject *object)
 #ifdef __APPLE__
   if (!self->has_color_scheme || !self->has_high_contrast)
     init_nsapp_observer (self);
+#elif defined(G_OS_WIN32)
+  if (!self->has_color_scheme || !self->has_high_contrast)
+    init_win32_settings (self);
 #elif defined(G_OS_UNIX)
   if (!self->has_color_scheme || !self->has_high_contrast)
     init_portal (self);

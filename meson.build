@@ -48,6 +48,15 @@ test_c_args = []
 
 target_system = target_machine.system()
 
+has_winrt = target_system == 'windows' \
+  and cc.check_header('roapi.h') \
+  and cc.check_header('Windows.Foundation.h') \
+  and cc.check_header('Windows.UI.ViewManagement.h')
+
+if has_winrt
+  add_project_arguments(['-DHAS_WINRT'], language: 'c')
+endif
+
 if cc.get_id() != 'msvc'
   test_c_args += [
     '-Wcast-align',
