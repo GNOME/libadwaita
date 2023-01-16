@@ -1218,7 +1218,7 @@ subpage_cb (AdwAboutWindow *self,
   const char *name = g_variant_get_string (params, NULL);
 
   gtk_stack_set_visible_child_name (GTK_STACK (self->subpage_stack), name);
-  adw_leaflet_navigate (ADW_LEAFLET (self->leaflet), ADW_NAVIGATION_DIRECTION_FORWARD);
+  adw_leaflet_set_visible_child (ADW_LEAFLET (self->leaflet), self->subpage_stack);
 }
 
 static void
