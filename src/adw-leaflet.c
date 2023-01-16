@@ -847,10 +847,12 @@ start_mode_transition (AdwLeaflet *self,
   adw_timed_animation_set_value_to (ADW_TIMED_ANIMATION (self->mode_transition.animation),
                                     target);
 
-  if (self->can_unfold)
+  if (self->can_unfold) {
     adw_animation_play (self->mode_transition.animation);
-  else
+  } else {
+    adw_animation_reset (self->mode_transition.animation);
     adw_animation_skip (self->mode_transition.animation);
+  }
 }
 
 static void
@@ -3060,7 +3062,7 @@ adw_leaflet_set_can_unfold (AdwLeaflet *self,
 
   self->can_unfold = can_unfold;
 
-  gtk_widget_queue_allocate (GTK_WIDGET (self));
+  gtk_widget_queue_resize (GTK_WIDGET (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_UNFOLD]);
 }
