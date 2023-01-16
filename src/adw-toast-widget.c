@@ -130,6 +130,7 @@ update_title_widget (AdwToastWidget *self)
     gtk_label_set_ellipsize (GTK_LABEL (title), PANGO_ELLIPSIZE_END);
     gtk_label_set_xalign (GTK_LABEL (title), 0.0);
     gtk_label_set_use_markup (GTK_LABEL (title), TRUE);
+    gtk_label_set_single_line_mode (GTK_LABEL (title), TRUE);
     gtk_widget_add_css_class (title, "heading");
 
     g_object_bind_property (self->toast, "title",
