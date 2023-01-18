@@ -11,9 +11,13 @@
 #include "adw-gizmo-private.h"
 #include "adw-widget-utils-private.h"
 
-#define SPACING 6
+#define HORZ_SPACING 6
+#define VERT_SPACING 9
+#define HORZ_PADDING 6
+#define VERT_PADDING 6
 #define LABEL_MAX_WIDTH 500
-#define BUTTON_MAX_WIDTH 160
+#define BUTTON_HORZ_MIN_WIDTH 84
+#define BUTTON_VERT_MIN_WIDTH 160
 
 /**
  * AdwBanner:
@@ -185,40 +189,66 @@ measure_content (GtkWidget       *widget,
                       &button_min, &button_nat, NULL, NULL);
 
   if (orientation == GTK_ORIENTATION_VERTICAL) {
-    if (button_shown) {
-      if (for_size > 0) {
-        int label_width_nat, button_width_min;
-        int avail;
+    int label_width_nat, label_min_padded, label_nat_padded;
 
-        gtk_widget_measure (GTK_WIDGET (self->title), GTK_ORIENTATION_HORIZONTAL, -1,
-                            NULL, &label_width_nat, NULL, NULL);
+    gtk_widget_measure (GTK_WIDGET (self->title),
+                        GTK_ORIENTATION_HORIZONTAL, -1,
+                        NULL, &label_width_nat, NULL, NULL);
+    gtk_widget_measure (GTK_WIDGET (self->title),
+                        orientation,
+                        for_size >= 0 ? for_size - HORZ_PADDING * 2 : -1,
+                        &label_min_padded, &label_nat_padded, NULL, NULL);
+
+    if (button_shown) {
+      if (for_size >= 0) {
+        int button_width_min;
+
         gtk_widget_measure (GTK_WIDGET (self->button), GTK_ORIENTATION_HORIZONTAL, -1,
                             &button_width_min, NULL, NULL, NULL);
 
-        avail = (for_size - MIN (label_width_nat, for_size));
+        button_width_min = MAX (button_width_min, BUTTON_HORZ_MIN_WIDTH);
 
-        if (avail <= button_width_min + SPACING) {
-          min = label_min + SPACING + button_min;
-          nat = label_nat + SPACING + button_nat;
+        /* Does button besides label + spacing + padding on the left fit? */
+        if (HORZ_PADDING + label_width_nat + HORZ_SPACING + button_width_min > for_size) {
+          /* Button below label, with spacing and padding above and below */
+          min = VERT_PADDING * 2 + label_min_padded + VERT_SPACING + button_min;
+          nat = VERT_PADDING * 2 + label_nat_padded + VERT_SPACING + button_nat;
         } else {
+          /* Button besides label, no padding */
           min = MAX (label_min, button_min);
           nat = MAX (label_nat, button_nat);
         }
       } else {
+        /* Unlimited width, button besides label, no padding */
         min = MAX (label_min, button_min);
         nat = MAX (label_nat, button_nat);
       }
     } else {
-      min = label_min;
-      nat = label_nat;
+      /* Does the whole label fit? */
+      if (for_size >= 0 && label_width_nat > for_size) {
+        /* It doesn't even with padding. No padding on either side */
+        min = label_min;
+        nat = label_nat;
+      } else if (for_size >= 0 && label_width_nat > for_size - HORZ_PADDING * 2) {
+        /* It fits without padding, but doesn't with it.
+         * Use padded size since we want to prefer two lines */
+        min = label_min_padded;
+        nat = label_nat_padded;
+      } else {
+        /* It fits with padding. Add padding on all sides */
+        min = VERT_PADDING * 2 + label_min_padded;
+        nat = VERT_PADDING * 2 + label_nat_padded;
+      }
     }
   } else {
     if (button_shown) {
-      min = MAX (label_min + SPACING + button_min, BUTTON_MAX_WIDTH);
-      nat = MAX (label_nat + SPACING + button_nat, BUTTON_MAX_WIDTH);
+      /* Button + label, with spacing and padding on the left only */
+      min = HORZ_PADDING * 2 + MAX (button_min, BUTTON_VERT_MIN_WIDTH);
+      nat = MAX (HORZ_PADDING + label_nat + HORZ_SPACING + button_nat, min);
     } else {
-      min = label_min;
-      nat = label_nat;
+      /* Only label, padding on the left and right */
+      min = HORZ_PADDING * 2 + label_min;
+      nat = HORZ_PADDING * 2 + label_nat;
     }
   }
 
@@ -241,42 +271,55 @@ allocate_content (GtkWidget *widget,
   AdwBanner *self = ADW_BANNER (gtk_widget_get_ancestor (widget, ADW_TYPE_BANNER));
   gboolean button_shown = gtk_widget_is_visible (GTK_WIDGET (self->button));
   int button_width, button_height;
-  int button_x, button_y;
-  int label_width_min, label_width, label_height;
+  int button_x = 0, button_y = 0;
+  int label_width, label_height;
   int label_x, label_y;
-  int avail;
   gboolean is_rtl = gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
 
-  gtk_widget_measure (GTK_WIDGET (self->title), GTK_ORIENTATION_HORIZONTAL,
-                      -1, &label_width_min, &label_width,
-                      NULL, NULL);
-  gtk_widget_measure (GTK_WIDGET (self->button), GTK_ORIENTATION_HORIZONTAL,
-                      -1, &button_width, NULL,
-                      NULL, NULL);
-  gtk_widget_measure (GTK_WIDGET (self->title), GTK_ORIENTATION_VERTICAL,
-                      width, NULL, &label_height,
-                      NULL, NULL);
-  gtk_widget_measure (GTK_WIDGET (self->button), GTK_ORIENTATION_VERTICAL,
-                      width, &button_height, NULL,
-                      NULL, NULL);
+  gtk_widget_measure (GTK_WIDGET (self->title),
+                      GTK_ORIENTATION_HORIZONTAL, -1,
+                      NULL, &label_width, NULL, NULL);
+  gtk_widget_measure (GTK_WIDGET (self->button),
+                      GTK_ORIENTATION_HORIZONTAL, -1,
+                      &button_width, NULL, NULL, NULL);
+  gtk_widget_measure (GTK_WIDGET (self->title),
+                      GTK_ORIENTATION_VERTICAL, width,
+                      NULL, &label_height, NULL, NULL);
+  gtk_widget_measure (GTK_WIDGET (self->button),
+                      GTK_ORIENTATION_VERTICAL, width,
+                      &button_height, NULL, NULL, NULL);
 
-  label_width =  MIN (label_width, width);
+  if (button_shown || label_width > width)
+    label_width = MIN (label_width, width);
+  else
+    label_width = MIN (label_width, width - HORZ_PADDING * 2);
+
   label_x = (width / 2) - (label_width / 2);
   label_y = (height / 2) - (label_height / 2);
-  button_x = is_rtl ? 0 : width - button_width;
-  button_y = (height / 2) - (button_height / 2);
 
-  avail = (width - label_width) / 2;
-  if (avail <= button_width + SPACING && button_shown) {
-    label_x = is_rtl ? (width - label_width - SPACING) : SPACING;
+  if (button_shown) {
+    if (HORZ_PADDING + label_width + HORZ_SPACING + MAX (button_width, BUTTON_HORZ_MIN_WIDTH) > width) {
+      /* Non-centered title + button don't fit. Now we need padding on the
+       * sides too, so measure the label for that width instead */
+      label_width = MIN (label_width, width - HORZ_PADDING * 2);
+      gtk_widget_measure (GTK_WIDGET (self->title),
+                          GTK_ORIENTATION_VERTICAL, width - HORZ_PADDING * 2,
+                          NULL, &label_height, NULL, NULL);
 
-    avail = (width - label_width);
-    if (avail <= button_width + SPACING) {
-      button_width = CLAMP (button_width, BUTTON_MAX_WIDTH, width);
+      button_width = CLAMP (button_width, BUTTON_VERT_MIN_WIDTH, width);
       label_x = (width - label_width) / 2;
-      label_y = 0;
+      label_y = VERT_PADDING;
       button_x = (width / 2) - (button_width / 2);
-      button_y = height - button_height;
+      button_y = height - button_height - VERT_PADDING;
+    } else {
+      button_width = MAX (button_width, BUTTON_HORZ_MIN_WIDTH);
+
+      /* Does centered title fit? */
+      if (label_width + (button_width + HORZ_SPACING) * 2 > width)
+        label_x = is_rtl ? (width - label_width - HORZ_PADDING) : HORZ_PADDING;
+
+      button_x = is_rtl ? 0 : width - button_width;
+      button_y = (height / 2) - (button_height / 2);
     }
   }
 
