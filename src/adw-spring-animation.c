@@ -251,8 +251,8 @@ adw_spring_animation_estimate_duration (AdwAnimation *animation)
 }
 
 static double
-adw_spring_animation_calculate_value (AdwAnimation *animation,
-                                      guint         t)
+adw_spring_animation_real_calculate_value (AdwAnimation *animation,
+                                           guint         t)
 {
   AdwSpringAnimation *self = ADW_SPRING_ANIMATION (animation);
   double value;
@@ -386,7 +386,7 @@ adw_spring_animation_class_init (AdwSpringAnimationClass *klass)
   object_class->get_property = adw_spring_animation_get_property;
 
   animation_class->estimate_duration = adw_spring_animation_estimate_duration;
-  animation_class->calculate_value = adw_spring_animation_calculate_value;
+  animation_class->calculate_value = adw_spring_animation_real_calculate_value;
 
   /**
    * AdwSpringAnimation:value-from: (attributes org.gtk.Property.get=adw_spring_animation_get_value_from org.gtk.Property.set=adw_spring_animation_set_value_from)
@@ -818,6 +818,56 @@ adw_spring_animation_set_clamp (AdwSpringAnimation *self,
   estimate_duration (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CLAMP]);
+}
+
+/**
+ * adw_spring_animation_calculate_value:
+ * @self: a spring animation
+ * @time: elapsed time
+ *
+ * Calculates the value @self will have at @time.
+ *
+ * The time starts at 0 and ends at
+ * [property@SprignAnimation.estimated_duration].
+ *
+ * See also [method@SpringAnimation.calculate_velocity].
+ *
+ * Returns: the value at @time
+ */
+double
+adw_spring_animation_calculate_value (AdwSpringAnimation *self,
+                                      guint               time)
+{
+  g_return_val_if_fail (ADW_IS_SPRING_ANIMATION (self), 0.0);
+
+  return oscillate (self, time, NULL);
+}
+
+/**
+ * adw_spring_animation_calculate_velocity:
+ * @self: a spring animation
+ * @time: elapsed time
+ *
+ * Calculates the velocity @self will have at @time.
+ *
+ * The time starts at 0 and ends at
+ * [property@SprignAnimation.estimated_duration].
+ *
+ * See also [method@SpringAnimation.calculate_value].
+ *
+ * Returns: the velocity at @time
+ */
+double
+adw_spring_animation_calculate_velocity (AdwSpringAnimation *self,
+                                         guint               time)
+{
+  double velocity;
+
+  g_return_val_if_fail (ADW_IS_SPRING_ANIMATION (self), 0.0);
+
+  oscillate (self, time, &velocity);
+
+  return velocity;
 }
 
 /**

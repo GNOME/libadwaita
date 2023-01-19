@@ -73,4 +73,11 @@ guint adw_spring_animation_get_estimated_duration (AdwSpringAnimation *self);
 ADW_AVAILABLE_IN_ALL
 double adw_spring_animation_get_velocity (AdwSpringAnimation *self);
 
+ADW_AVAILABLE_IN_1_3
+double adw_spring_animation_calculate_value    (AdwSpringAnimation *self,
+                                                guint              time);
+ADW_AVAILABLE_IN_1_3
+double adw_spring_animation_calculate_velocity (AdwSpringAnimation *self,
+                                                guint              time);
+
 G_END_DECLS
