@@ -68,4 +68,10 @@ void adw_animation_reset  (AdwAnimation *self);
 ADW_AVAILABLE_IN_ALL
 void adw_animation_skip   (AdwAnimation *self);
 
+ADW_AVAILABLE_IN_1_3
+gboolean adw_animation_get_follow_enable_animations_setting (AdwAnimation *self);
+ADW_AVAILABLE_IN_1_3
+void     adw_animation_set_follow_enable_animations_setting (AdwAnimation *self,
+                                                             gboolean      setting);
+
 G_END_DECLS

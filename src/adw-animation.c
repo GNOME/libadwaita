@@ -91,6 +91,8 @@ typedef struct
   gpointer user_data;
 
   AdwAnimationState state;
+
+  gboolean follow_enable_animations_setting;
 } AdwAnimationPrivate;
 
 G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (AdwAnimation, adw_animation, G_TYPE_OBJECT)
@@ -101,6 +103,7 @@ enum {
   PROP_TARGET,
   PROP_VALUE,
   PROP_STATE,
+  PROP_FOLLOW_ENABLE_ANIMATIONS_SETTING,
   LAST_PROP,
 };
 
@@ -222,7 +225,8 @@ play (AdwAnimation *self)
   priv->state = ADW_ANIMATION_PLAYING;
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_STATE]);
 
-  if (!adw_get_enable_animations (priv->widget) ||
+  if ((priv->follow_enable_animations_setting &&
+       !adw_get_enable_animations (priv->widget)) ||
       !gtk_widget_get_mapped (priv->widget)) {
     adw_animation_skip (g_object_ref (self));
 
@@ -296,6 +300,10 @@ adw_animation_get_property (GObject    *object,
     g_value_set_enum (value, adw_animation_get_state (self));
     break;
 
+  case PROP_FOLLOW_ENABLE_ANIMATIONS_SETTING:
+    g_value_set_boolean (value, adw_animation_get_follow_enable_animations_setting (self));
+    break;
+
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -316,6 +324,10 @@ adw_animation_set_property (GObject      *object,
 
   case PROP_TARGET:
     adw_animation_set_target (ADW_ANIMATION (self), g_value_get_object (value));
+    break;
+
+  case PROP_FOLLOW_ENABLE_ANIMATIONS_SETTING:
+    adw_animation_set_follow_enable_animations_setting (self, g_value_get_boolean (value));
     break;
 
   default:
@@ -389,6 +401,26 @@ adw_animation_class_init (AdwAnimationClass *klass)
                        ADW_ANIMATION_IDLE,
                        G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
 
+  /**
+   * AdwAnimation:follow-enable-animations-setting: (attributes org.gtk.Property.get=adw_animation_get_follow_enable_animations_setting org.gtk.Property.set=adw_animation_set_follow_enable_animations_setting)
+   *
+   * Whether to skip the animation when animations are globally disabled.
+   *
+   * The default behavior is to skip the animation. Set to `FALSE` to disable
+   * this behavior.
+   *
+   * This can be useful for cases where animation is essential, like spinners,
+   * or in demo applications. Most other animations should keep it enabled.
+   *
+   * See [property@Gtk.Settings:gtk-enable-animations].
+   *
+   * Since: 1.3
+   */
+  props[PROP_FOLLOW_ENABLE_ANIMATIONS_SETTING] =
+    g_param_spec_boolean ("follow-enable-animations-setting", NULL, NULL,
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   /**
@@ -413,6 +445,7 @@ adw_animation_init (AdwAnimation *self)
   AdwAnimationPrivate *priv = adw_animation_get_instance_private (self);
 
   priv->state = ADW_ANIMATION_IDLE;
+  priv->follow_enable_animations_setting = TRUE;
 }
 
 /**
@@ -719,4 +752,68 @@ adw_animation_reset (AdwAnimation *self)
 
   if (was_playing)
     g_object_unref (self);
+}
+
+/**
+ * adw_animation_get_follow_enable_animations_setting: (attributes org.gtk.Method.get_property=follow-enable-animations-setting)
+ * @self: an animation
+ *
+ * Gets whether @self should be skipped when animations are globally disabled.
+ *
+ * Returns: whether to follow the global setting
+ *
+ * Since: 1.3
+ */
+gboolean
+adw_animation_get_follow_enable_animations_setting (AdwAnimation *self)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_ANIMATION (self), FALSE);
+
+  priv = adw_animation_get_instance_private (self);
+
+  return priv->follow_enable_animations_setting;
+}
+
+/**
+ * adw_animation_set_follow_enable_animations_setting: (attributes org.gtk.Method.set_property=follow-enable-animations-setting)
+ * @self: an animation
+ * @setting: whether to follow the global setting
+ *
+ * Sets whether to skip @self when animations are globally disabled.
+ *
+ * The default behavior is to skip the animation. Set to `FALSE` to disable this
+ * behavior.
+ *
+ * This can be useful for cases where animation is essential, like spinners, or
+ * in demo applications. Most other animations should keep it enabled.
+ *
+ * See [property@Gtk.Settings:gtk-enable-animations].
+ *
+ * Since: 1.3
+ */
+void
+adw_animation_set_follow_enable_animations_setting (AdwAnimation *self,
+                                                    gboolean      setting)
+{
+  AdwAnimationPrivate *priv;
+
+  g_return_if_fail (ADW_IS_ANIMATION (self));
+
+  priv = adw_animation_get_instance_private (self);
+
+  setting = !!setting;
+
+  if (setting == priv->follow_enable_animations_setting)
+    return;
+
+  priv->follow_enable_animations_setting = setting;
+
+  if (setting &&
+      !adw_get_enable_animations (priv->widget) &&
+      priv->state != ADW_ANIMATION_IDLE)
+    adw_animation_skip (g_object_ref (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_FOLLOW_ENABLE_ANIMATIONS_SETTING]);
 }
