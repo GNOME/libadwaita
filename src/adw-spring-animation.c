@@ -833,6 +833,8 @@ adw_spring_animation_set_clamp (AdwSpringAnimation *self,
  * See also [method@SpringAnimation.calculate_velocity].
  *
  * Returns: the value at @time
+ *
+ * Since: 1.3
  */
 double
 adw_spring_animation_calculate_value (AdwSpringAnimation *self,
@@ -856,6 +858,8 @@ adw_spring_animation_calculate_value (AdwSpringAnimation *self,
  * See also [method@SpringAnimation.calculate_value].
  *
  * Returns: the velocity at @time
+ *
+ * Since: 1.3
  */
 double
 adw_spring_animation_calculate_velocity (AdwSpringAnimation *self,
