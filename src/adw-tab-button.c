@@ -395,8 +395,8 @@ adw_tab_button_set_action_name (GtkActionable *actionable,
 {
   AdwTabButton *self = ADW_TAB_BUTTON (actionable);
 
-  return gtk_actionable_set_action_name (GTK_ACTIONABLE (self->button),
-                                         action_name);
+  gtk_actionable_set_action_name (GTK_ACTIONABLE (self->button),
+                                  action_name);
 }
 
 static GVariant *
@@ -413,8 +413,8 @@ adw_tab_button_set_action_target_value (GtkActionable *actionable,
 {
   AdwTabButton *self = ADW_TAB_BUTTON (actionable);
 
-  return gtk_actionable_set_action_target_value (GTK_ACTIONABLE (self->button),
-                                                 action_target);
+  gtk_actionable_set_action_target_value (GTK_ACTIONABLE (self->button),
+                                          action_target);
 }
 
 static void
