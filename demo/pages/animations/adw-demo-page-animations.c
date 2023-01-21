@@ -395,6 +395,9 @@ adw_demo_page_animations_init (AdwDemoPageAnimations *self)
   adw_timed_animation_set_easing (ADW_TIMED_ANIMATION (self->timed_animation),
                                   ADW_EASE_IN_OUT_CUBIC);
 
+  adw_animation_set_follow_enable_animations_setting (self->timed_animation, FALSE);
+  adw_animation_set_follow_enable_animations_setting (self->spring_animation, FALSE);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TIMED_ANIMATION]);
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SPRING_ANIMATION]);
 
