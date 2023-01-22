@@ -828,7 +828,7 @@ adw_spring_animation_set_clamp (AdwSpringAnimation *self,
  * Calculates the value @self will have at @time.
  *
  * The time starts at 0 and ends at
- * [property@SprignAnimation.estimated_duration].
+ * [property@SpringAnimation.estimated_duration].
  *
  * See also [method@SpringAnimation.calculate_velocity].
  *
@@ -853,7 +853,7 @@ adw_spring_animation_calculate_value (AdwSpringAnimation *self,
  * Calculates the velocity @self will have at @time.
  *
  * The time starts at 0 and ends at
- * [property@SprignAnimation.estimated_duration].
+ * [property@SpringAnimation.estimated_duration].
  *
  * See also [method@SpringAnimation.calculate_value].
  *
