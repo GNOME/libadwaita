@@ -823,7 +823,7 @@ adw_spring_animation_set_clamp (AdwSpringAnimation *self,
 /**
  * adw_spring_animation_calculate_value:
  * @self: a spring animation
- * @time: elapsed time
+ * @time: elapsed time, in milliseconds
  *
  * Calculates the value @self will have at @time.
  *
@@ -848,7 +848,7 @@ adw_spring_animation_calculate_value (AdwSpringAnimation *self,
 /**
  * adw_spring_animation_calculate_velocity:
  * @self: a spring animation
- * @time: elapsed time
+ * @time: elapsed time, in milliseconds
  *
  * Calculates the velocity @self will have at @time.
  *
@@ -878,7 +878,7 @@ adw_spring_animation_calculate_velocity (AdwSpringAnimation *self,
  * adw_spring_animation_get_estimated_duration: (attributes org.gtk.Method.get_property=estimated-duration)
  * @self: a spring animation
  *
- * Gets the estimated duration of @self.
+ * Gets the estimated duration of @self, in milliseconds.
  *
  * Can be [const@DURATION_INFINITE] if the spring damping is set to 0.
  *
