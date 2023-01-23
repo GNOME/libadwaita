@@ -21,8 +21,21 @@
 G_DEFINE_INTERFACE (AdwSwipeable, adw_swipeable, GTK_TYPE_WIDGET)
 
 static void
+adw_swipeable_default_get_swipe_area (AdwSwipeable           *self,
+                                      AdwNavigationDirection  navigation_direction,
+                                      gboolean                is_drag,
+                                      GdkRectangle           *rect)
+{
+  rect->x = 0;
+  rect->y = 0;
+  rect->width = gtk_widget_get_width (GTK_WIDGET (self));
+  rect->height = gtk_widget_get_height (GTK_WIDGET (self));
+}
+
+static void
 adw_swipeable_default_init (AdwSwipeableInterface *iface)
 {
+  iface->get_swipe_area = adw_swipeable_default_get_swipe_area;
 }
 
 /**
@@ -146,13 +159,5 @@ adw_swipeable_get_swipe_area (AdwSwipeable           *self,
 
   iface = ADW_SWIPEABLE_GET_IFACE (self);
 
-  if (iface->get_swipe_area) {
-    iface->get_swipe_area (self, navigation_direction, is_drag, rect);
-    return;
-  }
-
-  rect->x = 0;
-  rect->y = 0;
-  rect->width = gtk_widget_get_width (GTK_WIDGET (self));
-  rect->height = gtk_widget_get_height (GTK_WIDGET (self));
+  iface->get_swipe_area (self, navigation_direction, is_drag, rect);
 }
