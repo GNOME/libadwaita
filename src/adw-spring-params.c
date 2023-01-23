@@ -88,7 +88,7 @@ adw_spring_params_new (double damping_ratio,
 {
   double critical_damping, damping;
 
-  g_return_val_if_fail (damping_ratio >= 0.0, NULL);
+  g_return_val_if_fail (G_APPROX_VALUE (damping_ratio, 0.0, DBL_EPSILON) || damping_ratio > 0.0, NULL);
 
   critical_damping = 2 * sqrt (mass * stiffness);
   damping = damping_ratio * critical_damping;
@@ -116,7 +116,7 @@ adw_spring_params_new_full (double damping,
 {
   AdwSpringParams *self;
 
-  g_return_val_if_fail (damping >= 0.0, NULL);
+  g_return_val_if_fail (G_APPROX_VALUE (damping, 0.0, DBL_EPSILON) || damping > 0.0, NULL);
   g_return_val_if_fail (mass > 0.0, NULL);
   g_return_val_if_fail (stiffness > 0.0, NULL);
 

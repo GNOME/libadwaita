@@ -1723,7 +1723,7 @@ adw_squeezer_set_xalign (AdwSqueezer *self,
 
   xalign = CLAMP (xalign, 0.0, 1.0);
 
-  if (self->xalign == xalign)
+  if (G_APPROX_VALUE (self->xalign, xalign, FLT_EPSILON))
     return;
 
   self->xalign = xalign;
@@ -1768,7 +1768,7 @@ adw_squeezer_set_yalign (AdwSqueezer *self,
 
   yalign = CLAMP (yalign, 0.0, 1.0);
 
-  if (self->yalign == yalign)
+  if (G_APPROX_VALUE (self->yalign, yalign, FLT_EPSILON))
     return;
 
   self->yalign = yalign;

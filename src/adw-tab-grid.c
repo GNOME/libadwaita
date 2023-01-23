@@ -504,7 +504,7 @@ get_tab_width (AdwTabGrid *self,
   total_size *= adw_lerp (SMALL_GRID_PERCENTAGE, LARGE_GRID_PERCENTAGE,
                           adw_easing_ease (ADW_EASE_OUT_CUBIC, t));
 
-  if (n <= self->max_n_columns) {
+  if (G_APPROX_VALUE (n, self->max_n_columns, DBL_EPSILON) || n < self->max_n_columns) {
     double max = get_n_columns (self, for_width, MAX_COLUMNS);
 
     total_size *= (SINGLE_TAB_MAX_PERCENTAGE + (1 - SINGLE_TAB_MAX_PERCENTAGE) * n / max);
@@ -1224,7 +1224,7 @@ animate_reorder_offset (AdwTabGrid *self,
 
   offset *= (is_rtl ? -1 : 1);
 
-  if (info->end_reorder_offset == offset)
+  if (G_APPROX_VALUE (info->end_reorder_offset, offset, DBL_EPSILON))
     return;
 
   info->end_reorder_offset = offset;
@@ -1428,7 +1428,8 @@ drag_autoscroll_cb (GtkWidget     *widget,
   int tab_height = 0;
   int autoscroll_area = 0;
 
-  if (self->visible_upper - self->visible_lower >= self->allocated_height)
+  if (G_APPROX_VALUE (self->visible_upper - self->visible_lower, self->allocated_height, DBL_EPSILON) ||
+      self->visible_upper - self->visible_lower > self->allocated_height)
     return G_SOURCE_CONTINUE;
 
   if (self->reordered_tab) {
@@ -1464,7 +1465,7 @@ drag_autoscroll_cb (GtkWidget     *widget,
   autoscroll_factor = adw_easing_ease (ADW_EASE_IN_CUBIC, autoscroll_factor);
   self->drag_autoscroll_prev_time = time;
 
-  if (autoscroll_factor == 0)
+  if (G_APPROX_VALUE (autoscroll_factor, 0, DBL_EPSILON))
     return G_SOURCE_CONTINUE;
 
   if (autoscroll_factor > 0)
@@ -2836,7 +2837,8 @@ do_popup (AdwTabGrid *self,
                              G_CONNECT_AFTER | G_CONNECT_SWAPPED);
   }
 
-  if (x >= 0 && y >= 0) {
+  if ((G_APPROX_VALUE (x, 0, DBL_EPSILON) || x > 0) &&
+      (G_APPROX_VALUE (y, 0, DBL_EPSILON) || y > 0)) {
     rect.x = x;
     rect.y = y;
   } else {

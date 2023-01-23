@@ -390,7 +390,7 @@ adw_timed_animation_set_value_from (AdwTimedAnimation *self,
 {
   g_return_if_fail (ADW_IS_TIMED_ANIMATION (self));
 
-  if (self->value_from == value)
+  if (G_APPROX_VALUE (self->value_from, value, DBL_EPSILON))
     return;
 
   self->value_from = value;
@@ -433,7 +433,7 @@ adw_timed_animation_set_value_to (AdwTimedAnimation *self,
 {
   g_return_if_fail (ADW_IS_TIMED_ANIMATION (self));
 
-  if (self->value_to == value)
+  if (G_APPROX_VALUE (self->value_to, value, DBL_EPSILON))
     return;
 
   self->value_to = value;

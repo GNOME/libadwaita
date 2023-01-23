@@ -40,16 +40,16 @@ test_adw_animation_value_from (void)
   g_signal_connect (animation, "notify::value-from", G_CALLBACK (notify_cb), NULL);
 
   g_object_get (animation, "value-from", &value, NULL);
-  g_assert_cmpfloat (value, ==, 10);
+  g_assert_true (G_APPROX_VALUE (value, 10, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 0);
 
   adw_timed_animation_set_value_from (animation, 20);
   g_object_get (animation, "value-from", &value, NULL);
-  g_assert_cmpfloat (value, ==, 20);
+  g_assert_true (G_APPROX_VALUE (value, 20, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (animation, "value-from", 30.0, NULL);
-  g_assert_cmpfloat (adw_timed_animation_get_value_from (animation), ==, 30);
+  g_assert_true (G_APPROX_VALUE (adw_timed_animation_get_value_from (animation), 30, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (animation);
@@ -77,16 +77,16 @@ test_adw_animation_value_to (void)
   g_signal_connect (animation, "notify::value-to", G_CALLBACK (notify_cb), NULL);
 
   g_object_get (animation, "value-to", &value, NULL);
-  g_assert_cmpfloat (value, ==, 20);
+  g_assert_true (G_APPROX_VALUE (value, 20, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 0);
 
   adw_timed_animation_set_value_to (animation, 10);
   g_object_get (animation, "value-to", &value, NULL);
-  g_assert_cmpfloat (value, ==, 10);
+  g_assert_true (G_APPROX_VALUE (value, 10, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (animation, "value-to", 30.0, NULL);
-  g_assert_cmpfloat (adw_timed_animation_get_value_to (animation), ==, 30);
+  g_assert_true (G_APPROX_VALUE (adw_timed_animation_get_value_to (animation), 30, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (animation);

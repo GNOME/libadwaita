@@ -3000,7 +3000,7 @@ adw_tab_page_set_thumbnail_xalign (AdwTabPage *self,
 
   xalign = CLAMP (xalign, 0.0, 1.0);
 
-  if (self->thumbnail_xalign == xalign)
+  if (G_APPROX_VALUE (self->thumbnail_xalign, xalign, FLT_EPSILON))
     return;
 
   self->thumbnail_xalign = xalign;
@@ -3052,7 +3052,7 @@ adw_tab_page_set_thumbnail_yalign (AdwTabPage *self,
 
   yalign = CLAMP (yalign, 0.0, 1.0);
 
-  if (self->thumbnail_yalign == yalign)
+  if (G_APPROX_VALUE (self->thumbnail_yalign, yalign, FLT_EPSILON))
     return;
 
   self->thumbnail_yalign = yalign;

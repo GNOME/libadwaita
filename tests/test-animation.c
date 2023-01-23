@@ -46,29 +46,29 @@ test_adw_animation_general (void)
   g_assert_true (adw_animation_get_target (animation) == target);
 
   g_assert_cmpint (adw_animation_get_state (animation), ==, ADW_ANIMATION_IDLE);
-  g_assert_cmpfloat (adw_animation_get_value (animation), ==, 10);
-  g_assert_cmpfloat (last_value, ==, 0);
+  g_assert_true (G_APPROX_VALUE (adw_animation_get_value (animation), 10, DBL_EPSILON));
+  g_assert_true (G_APPROX_VALUE (last_value, 0, DBL_EPSILON));
   g_assert_cmpint (done_count, ==, 0);
 
   adw_animation_play (animation);
 
   /* Since the widget is not mapped, the animation will immediately finish */
   g_assert_cmpint (adw_animation_get_state (animation), ==, ADW_ANIMATION_FINISHED);
-  g_assert_cmpfloat (adw_animation_get_value (animation), ==, 20);
-  g_assert_cmpfloat (last_value, ==, 20);
+  g_assert_true (G_APPROX_VALUE (adw_animation_get_value (animation), 20, DBL_EPSILON));
+  g_assert_true (G_APPROX_VALUE (last_value, 20, DBL_EPSILON));
   g_assert_cmpint (done_count, ==, 1);
 
   adw_animation_reset (animation);
 
-  g_assert_cmpfloat (adw_animation_get_value (animation), ==, 10);
-  g_assert_cmpfloat (last_value, ==, 10);
+  g_assert_true (G_APPROX_VALUE (adw_animation_get_value (animation), 10, DBL_EPSILON));
+  g_assert_true (G_APPROX_VALUE (last_value, 10, DBL_EPSILON));
   g_assert_cmpint (done_count, ==, 1);
 
   adw_animation_skip (animation);
 
   g_assert_cmpint (adw_animation_get_state (animation), ==, ADW_ANIMATION_FINISHED);
-  g_assert_cmpfloat (adw_animation_get_value (animation), ==, 20);
-  g_assert_cmpfloat (last_value, ==, 20);
+  g_assert_true (G_APPROX_VALUE (adw_animation_get_value (animation), 20, DBL_EPSILON));
+  g_assert_true (G_APPROX_VALUE (last_value, 20, DBL_EPSILON));
   g_assert_cmpint (done_count, ==, 2);
 
   adw_animation_set_target (animation, target2);
@@ -79,7 +79,7 @@ test_adw_animation_general (void)
   g_assert_finalize_object (target2);
   g_assert_finalize_object (widget);
 
-  g_assert_cmpfloat (last_value, ==, 20);
+  g_assert_true (G_APPROX_VALUE (last_value, 20, DBL_EPSILON));
   g_assert_cmpint (done_count, ==, 2);
 }
 

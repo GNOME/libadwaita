@@ -83,6 +83,7 @@ if cc.get_id() != 'msvc'
     '-Wtype-limits',
     '-Wundef',
     '-Wunused-function',
+    '-Wfloat-equal',
   ]
 
   if get_option('buildtype') != 'plain'

@@ -523,7 +523,7 @@ adw_tab_overview_scrollable_size_allocate (GtkWidget *widget,
   /* The value may have changed during gtk_adjustment_configure() */
   value = floor (gtk_adjustment_get_value (self->vadjustment));
 
-  if (value <= 0)
+  if (G_APPROX_VALUE (value, 0, DBL_EPSILON))
     gtk_widget_add_css_class (self->overview, "scrolled-to-top");
   else
     gtk_widget_remove_css_class (self->overview, "scrolled-to-top");

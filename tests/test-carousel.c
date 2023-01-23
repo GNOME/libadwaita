@@ -50,7 +50,7 @@ test_adw_carousel_add_remove (void)
   g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 2);
   g_assert_true (adw_carousel_get_nth_page (carousel, 0) == child2);
   g_assert_true (adw_carousel_get_nth_page (carousel, 1) == child1);
-  g_assert_cmpfloat (adw_carousel_get_position (carousel), ==, 1);
+  g_assert_true (G_APPROX_VALUE (adw_carousel_get_position (carousel), 1, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 2);
 
   adw_carousel_insert (carousel, child3, 1);
@@ -59,14 +59,14 @@ test_adw_carousel_add_remove (void)
   g_assert_true (adw_carousel_get_nth_page (carousel, 0) == child2);
   g_assert_true (adw_carousel_get_nth_page (carousel, 1) == child3);
   g_assert_true (adw_carousel_get_nth_page (carousel, 2) == child1);
-  g_assert_cmpfloat (adw_carousel_get_position (carousel), ==, 2);
+  g_assert_true (G_APPROX_VALUE (adw_carousel_get_position (carousel), 2, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 3);
 
   adw_carousel_scroll_to (carousel, child3, FALSE);
   adw_carousel_remove (carousel, child2);
   allocate_carousel (carousel);
   g_assert_cmpuint (adw_carousel_get_n_pages (carousel), ==, 2);
-  g_assert_cmpfloat (adw_carousel_get_position (carousel), ==, 0);
+  g_assert_true (G_APPROX_VALUE (adw_carousel_get_position (carousel), 0, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 4);
 
   adw_carousel_remove (carousel, child1);
@@ -89,7 +89,7 @@ assert_carousel_positions (AdwCarousel *carousel,
   g_assert_true (adw_carousel_get_nth_page (carousel, 1) == child2);
   g_assert_true (adw_carousel_get_nth_page (carousel, 2) == child3);
   g_assert_true (adw_carousel_get_nth_page (carousel, 3) == child4);
-  g_assert_cmpfloat (adw_carousel_get_position (carousel), ==, position);
+  g_assert_true (G_APPROX_VALUE (adw_carousel_get_position (carousel), position, DBL_EPSILON));
 }
 
 static void

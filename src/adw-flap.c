@@ -324,7 +324,7 @@ animate_reveal (AdwFlap *self,
                                        self->reveal_progress);
   adw_spring_animation_set_value_to (ADW_SPRING_ANIMATION (self->reveal_animation), to);
 
-  if (!G_APPROX_VALUE (self->reveal_progress, to, FLT_EPSILON))
+  if (!G_APPROX_VALUE (self->reveal_progress, to, DBL_EPSILON))
     adw_spring_animation_set_initial_velocity (ADW_SPRING_ANIMATION (self->reveal_animation),
                                                velocity / adw_swipeable_get_distance (ADW_SWIPEABLE (self)));
   else
@@ -402,10 +402,14 @@ static void
 begin_swipe_cb (AdwSwipeTracker *tracker,
                 AdwFlap         *self)
 {
-  if (self->reveal_progress <= 0 && !self->swipe_to_open)
+  if ((G_APPROX_VALUE (self->reveal_progress, 0, DBL_EPSILON) ||
+       self->reveal_progress < 0) &&
+      !self->swipe_to_open)
     return;
 
-  if (self->reveal_progress >= 1 && !self->swipe_to_close)
+  if ((G_APPROX_VALUE (self->reveal_progress, 1, DBL_EPSILON) ||
+       self->reveal_progress > 1) &&
+      !self->swipe_to_close)
     return;
 
   adw_animation_pause (self->reveal_animation);
@@ -681,9 +685,10 @@ interpolate_reveal (AdwFlap  *self,
                     int      *content_size,
                     int      *separator_size)
 {
-  if (self->reveal_progress <= 0) {
+  
+  if (G_APPROX_VALUE (self->reveal_progress, 0, DBL_EPSILON) || self->reveal_progress < 0) {
     compute_sizes (self, width, height, folded, FALSE, flap_size, content_size, separator_size);
-  } else if (self->reveal_progress >= 1) {
+  } else if (G_APPROX_VALUE (self->reveal_progress, 1, DBL_EPSILON) || self->reveal_progress > 1) {
     compute_sizes (self, width, height, folded, TRUE, flap_size, content_size, separator_size);
   } else {
     int flap_revealed, content_revealed, separator_revealed;
@@ -712,9 +717,9 @@ interpolate_fold (AdwFlap *self,
                   int     *content_size,
                   int     *separator_size)
 {
-  if (self->fold_progress <= 0) {
+  if (G_APPROX_VALUE (self->fold_progress, 0, DBL_EPSILON) || self->fold_progress < 0) {
     interpolate_reveal (self, width, height, FALSE, flap_size, content_size, separator_size);
-  } else if (self->fold_progress >= 1) {
+  } else if (G_APPROX_VALUE (self->fold_progress, 1, DBL_EPSILON) || self->fold_progress > 1) {
     interpolate_reveal (self, width, height, TRUE, flap_size, content_size, separator_size);
   } else {
     int flap_folded, content_folded, separator_folded;
@@ -1479,7 +1484,10 @@ adw_flap_class_init (AdwFlapClass *klass)
 static gboolean
 flap_close_cb (AdwFlap *self)
 {
-  if (self->reveal_progress <= 0 || self->fold_progress <= 0)
+  if (G_APPROX_VALUE (self->reveal_progress, 0, DBL_EPSILON) ||
+      self->reveal_progress < 0 ||
+      G_APPROX_VALUE (self->fold_progress, 0, DBL_EPSILON) ||
+      self->fold_progress < 0)
     return GDK_EVENT_PROPAGATE;
 
   adw_flap_set_reveal_flap (ADW_FLAP (self), FALSE);
@@ -1691,7 +1699,8 @@ adw_flap_get_swipe_area (AdwSwipeable           *swipeable,
   content_factor = transition_get_content_motion_factor (self);
 
   if (!is_drag ||
-      (flap_factor >= 1 && content_factor >= 1) ||
+      ((G_APPROX_VALUE (flap_factor, 1, DBL_EPSILON) || flap_factor > 1) &&
+       (G_APPROX_VALUE (content_factor, 1, DBL_EPSILON) || content_factor > 1)) ||
       (self->fold_progress < 1 && flap_factor > 0)) {
     rect->x = 0;
     rect->y = 0;

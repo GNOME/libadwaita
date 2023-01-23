@@ -283,7 +283,7 @@ find_next_point (double *points,
   guint i;
 
   for (i = 0; i < n; i++)
-    if (points[i] >= pos)
+    if (G_APPROX_VALUE (points[i], pos, DBL_EPSILON) || points[i] > pos)
       return i;
 
   return -1;
@@ -297,7 +297,7 @@ find_previous_point (double *points,
   int i;
 
   for (i = n - 1; i >= 0; i--)
-    if (points[i] <= pos)
+    if (G_APPROX_VALUE (points[i], pos, DBL_EPSILON) || points[i] < pos)
       return i;
 
   return -1;
@@ -494,8 +494,10 @@ is_in_swipe_area (AdwSwipeTracker        *self,
 
   adw_swipeable_get_swipe_area (self->swipeable, direction, is_drag, &rect);
 
-  return x >= rect.x && x < rect.x + rect.width &&
-         y >= rect.y && y < rect.y + rect.height;
+  return (G_APPROX_VALUE (x, rect.x, DBL_EPSILON) || x > rect.x) &&
+         x < rect.x + rect.width &&
+         (G_APPROX_VALUE (y, rect.y, DBL_EPSILON) || y > rect.y) &&
+         y < rect.y + rect.height;
 }
 
 static void
@@ -581,10 +583,13 @@ drag_update_cb (AdwSwipeTracker *self,
     get_range (self, &first_point, &last_point);
 
     drag_distance = sqrt (offset_x * offset_x + offset_y * offset_y);
-    is_overshooting = (offset < 0 && self->progress <= first_point) ||
-                      (offset > 0 && self->progress >= last_point);
+    is_overshooting = (offset < 0 && (G_APPROX_VALUE (self->progress, first_point, DBL_EPSILON) ||
+                                      self->progress < first_point)) ||
+                      (offset > 0 && (G_APPROX_VALUE (self->progress, last_point, DBL_EPSILON) ||
+                                      self->progress > last_point));
 
-    if (drag_distance >= DRAG_THRESHOLD_DISTANCE) {
+    if (G_APPROX_VALUE (drag_distance, DRAG_THRESHOLD_DISTANCE, DBL_EPSILON) ||
+        drag_distance > DRAG_THRESHOLD_DISTANCE) {
       double start_x, start_y;
       AdwNavigationDirection direction;
 
@@ -714,8 +719,12 @@ handle_scroll_event (AdwSwipeTracker *self,
 
     get_range (self, &first_point, &last_point);
 
-    is_overshooting = (delta < 0 && self->progress <= first_point) ||
-                      (delta > 0 && self->progress >= last_point);
+    is_overshooting = (delta < 0 &&
+                       (G_APPROX_VALUE (self->progress, first_point, DBL_EPSILON) ||
+                        self->progress < first_point)) ||
+                      (delta > 0 &&
+                       (G_APPROX_VALUE (self->progress, last_point, DBL_EPSILON) ||
+                        self->progress > last_point));
 
     append_to_history (self, delta, time);
 

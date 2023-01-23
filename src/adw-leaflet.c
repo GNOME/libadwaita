@@ -826,7 +826,9 @@ static void
 start_mode_transition (AdwLeaflet *self,
                        double      target)
 {
-  if (adw_timed_animation_get_value_to (ADW_TIMED_ANIMATION (self->mode_transition.animation)) == target)
+  double value_to = adw_timed_animation_get_value_to (ADW_TIMED_ANIMATION (self->mode_transition.animation));
+
+  if (G_APPROX_VALUE (value_to, target, DBL_EPSILON))
     return;
 
   adw_animation_skip (self->child_transition.animation);
@@ -936,7 +938,8 @@ adw_leaflet_size_allocate_folded (AdwLeaflet *self,
   mode_transition_type = self->transition_type;
 
   /* Avoid useless computations and allow visible child transitions. */
-  if (self->mode_transition.current_pos <= 0.0) {
+  if (G_APPROX_VALUE (self->mode_transition.current_pos, 0.0, DBL_EPSILON) ||
+      self->mode_transition.current_pos < 0.0) {
     /* Child transitions should be applied only when folded and when no mode
      * transition is ongoing.
      */
@@ -1488,9 +1491,9 @@ end_swipe_cb (AdwSwipeTracker *tracker,
                                       self->child_transition.progress);
   adw_spring_animation_set_value_to (ADW_SPRING_ANIMATION (self->child_transition.animation),
                                     ABS (to));
-  self->child_transition.is_cancelled = (to == 0);
+  self->child_transition.is_cancelled = (G_APPROX_VALUE (to, 0, DBL_EPSILON));
 
-  if (!G_APPROX_VALUE (self->child_transition.progress, ABS (to), FLT_EPSILON))
+  if (!G_APPROX_VALUE (self->child_transition.progress, ABS (to), DBL_EPSILON))
     adw_spring_animation_set_initial_velocity (ADW_SPRING_ANIMATION (self->child_transition.animation),
                                                -velocity / adw_swipeable_get_distance (ADW_SWIPEABLE (self)));
   else
@@ -2533,7 +2536,7 @@ adw_leaflet_get_snap_points (AdwSwipeable *swipeable,
     upper = MAX (0, page ? self->child_transition.swipe_direction : 0);
   }
 
-  n = (lower != upper) ? 2 : 1;
+  n = !G_APPROX_VALUE (lower, upper, DBL_EPSILON) ? 2 : 1;
 
   points = g_new0 (double, n);
   points[0] = lower;

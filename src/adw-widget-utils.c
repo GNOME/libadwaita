@@ -83,14 +83,14 @@ tab_sort_func (gconstpointer a,
   y1 = child_bounds1.origin.y + (child_bounds1.size.height / 2.0f);
   y2 = child_bounds2.origin.y + (child_bounds2.size.height / 2.0f);
 
-  if (y1 == y2) {
+  if (G_APPROX_VALUE (y1, y2, FLT_EPSILON)) {
     const float x1 = child_bounds1.origin.x + (child_bounds1.size.width / 2.0f);
     const float x2 = child_bounds2.origin.x + (child_bounds2.size.width / 2.0f);
 
     if (text_direction == GTK_TEXT_DIR_RTL)
-      return (x1 < x2) ? 1 : ((x1 == x2) ? 0 : -1);
+      return (x1 < x2) ? 1 : (G_APPROX_VALUE (x1, x2, FLT_EPSILON) ? 0 : -1);
     else
-      return (x1 < x2) ? -1 : ((x1 == x2) ? 0 : 1);
+      return (x1 < x2) ? -1 : (G_APPROX_VALUE (x1, x2, FLT_EPSILON) ? 0 : 1);
   }
 
   return (y1 < y2) ? -1 : 1;
@@ -235,7 +235,8 @@ focus_sort_left_right (GtkWidget        *widget,
           const float child_y1 = child_bounds.origin.y;
           const float child_y2 = child_bounds.origin.y + child_bounds.size.height;
 
-          if ((child_y2 <= compare_y1 || child_y1 >= compare_y2) /* No vertical overlap */ ||
+          if ((G_APPROX_VALUE (child_y2, compare_y1, FLT_EPSILON) || child_y2 < compare_y1 ||
+               G_APPROX_VALUE (child_y1, compare_y2, FLT_EPSILON) || child_y1 > compare_y2) /* No vertical overlap */ ||
               (direction == GTK_DIR_RIGHT && child_bounds.origin.x + child_bounds.size.width < compare_x) || /* Not to left */
               (direction == GTK_DIR_LEFT && child_bounds.origin.x > compare_x)) /* Not to right */ {
             g_ptr_array_remove_index (focus_order, i);
@@ -324,7 +325,8 @@ focus_sort_up_down (GtkWidget        *widget,
           const float child_x1 = child_bounds.origin.x;
           const float child_x2 = child_bounds.origin.x + child_bounds.size.width;
 
-          if ((child_x2 <= compare_x1 || child_x1 >= compare_x2) /* No horizontal overlap */ ||
+          if ((G_APPROX_VALUE (child_x2, compare_x1, FLT_EPSILON) || child_x2 < compare_x1 ||
+               G_APPROX_VALUE (child_x1, compare_x2, FLT_EPSILON) || child_x1 > compare_x2) /* No horizontal overlap */ ||
               (direction == GTK_DIR_DOWN && child_bounds.origin.y + child_bounds.size.height < compare_y) || /* Not below */
               (direction == GTK_DIR_UP && child_bounds.origin.y > compare_y)) /* Not above */ {
             g_ptr_array_remove_index (focus_order, i);

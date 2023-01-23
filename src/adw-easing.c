@@ -234,14 +234,14 @@ static inline double
 ease_in_expo (double t,
               double d)
 {
-  return (t == 0) ? 0.0 : pow (2, 10 * (t / d - 1));
+  return G_APPROX_VALUE (t, 0, DBL_EPSILON) ? 0.0 : pow (2, 10 * (t / d - 1));
 }
 
 static double
 ease_out_expo (double t,
                double d)
 {
-  return (t == d) ? 1.0 : -pow (2, -10 * t / d) + 1;
+  return G_APPROX_VALUE (t, d, DBL_EPSILON) ? 1.0 : -pow (2, -10 * t / d) + 1;
 }
 
 static inline double
@@ -250,10 +250,10 @@ ease_in_out_expo (double t,
 {
   double p;
 
-  if (t == 0)
+  if (G_APPROX_VALUE (t, 0, DBL_EPSILON))
     return 0.0;
 
-  if (t == d)
+  if (G_APPROX_VALUE (t, d, DBL_EPSILON))
     return 1.0;
 
   p = t / (d / 2);
@@ -306,7 +306,7 @@ ease_in_elastic (double t,
   double s = p / 4;
   double q = t / d;
 
-  if (q == 1)
+  if (G_APPROX_VALUE (q, 1, DBL_EPSILON))
     return 1.0;
 
   q -= 1;
@@ -322,7 +322,7 @@ ease_out_elastic (double t,
   double s = p / 4;
   double q = t / d;
 
-  if (q == 1)
+  if (G_APPROX_VALUE (q, 1, DBL_EPSILON))
     return 1.0;
 
   return pow (2, -10 * q) * sin ((q * d - s) * (2 * G_PI) / p) + 1.0;
@@ -336,7 +336,7 @@ ease_in_out_elastic (double t,
   double s = p / 4;
   double q = t / (d / 2);
 
-  if (q == 2)
+  if (G_APPROX_VALUE (q, 2, DBL_EPSILON))
     return 1.0;
 
   if (q < 1) {

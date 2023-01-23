@@ -43,12 +43,12 @@ test_adw_property_animation_target_basic (void)
   AdwAnimation *animation =
     adw_timed_animation_new (widget, 1, 0, 100, g_object_ref (target));
 
-  g_assert_cmpfloat (gtk_widget_get_opacity (widget), ==, 1);
+  g_assert_true (G_APPROX_VALUE (gtk_widget_get_opacity (widget), 1, DBL_EPSILON));
 
   adw_animation_play (animation);
 
   /* Since the widget is not mapped, the animation will immediately finish */
-  g_assert_cmpfloat (gtk_widget_get_opacity (widget), ==, 0);
+  g_assert_true (G_APPROX_VALUE (gtk_widget_get_opacity (widget), 0, DBL_EPSILON));
 
   g_assert_finalize_object (animation);
   g_assert_finalize_object (target);

@@ -318,7 +318,7 @@ adw_fading_label_set_align (AdwFadingLabel *self,
 
   align = CLAMP (align, 0.0, 1.0);
 
-  if (self->align == align)
+  if (G_APPROX_VALUE (self->align, align, FLT_EPSILON))
     return;
 
   self->align = align;

@@ -123,7 +123,7 @@ oscillate (AdwSpringAnimation *self,
    */
 
   /* Critically damped */
-  if (G_APPROX_VALUE (beta, omega0, FLT_EPSILON)) {
+  if (G_APPROX_VALUE (beta, omega0, DBL_EPSILON)) {
     if (velocity)
       *velocity = envelope * (-beta * t * v0 - beta * beta * t * x0 + v0);
     return self->value_to + envelope * (x0 + (beta * x0 + v0) * t);
@@ -157,8 +157,8 @@ get_first_zero (AdwSpringAnimation *self)
   guint i = 1;
   double y = oscillate (self, i, NULL);
 
-  while ((self->value_to - self->value_from > FLT_EPSILON && self->value_to - y > self->epsilon) ||
-         (self->value_from - self->value_to > FLT_EPSILON && y - self->value_to > self->epsilon)) {
+  while ((self->value_to - self->value_from > DBL_EPSILON && self->value_to - y > self->epsilon) ||
+         (self->value_from - self->value_to > DBL_EPSILON && y - self->value_to > self->epsilon)) {
     if (i > MAX_ITERATIONS)
       return 0;
 
@@ -183,11 +183,11 @@ calculate_duration (AdwSpringAnimation *self)
 
   int i = 0;
 
-  if (beta <= 0)
+  if (G_APPROX_VALUE (beta, 0, DBL_EPSILON) || beta < 0)
     return ADW_DURATION_INFINITE;
 
   if (self->clamp) {
-    if (G_APPROX_VALUE (self->value_to, self->value_from, FLT_EPSILON))
+    if (G_APPROX_VALUE (self->value_to, self->value_from, DBL_EPSILON))
       return 0;
 
     return get_first_zero (self);
@@ -202,7 +202,7 @@ calculate_duration (AdwSpringAnimation *self)
    */
   x0 = -log (self->epsilon) / beta;
 
-  if (beta <= omega0)
+  if (G_APPROX_VALUE (beta, omega0, DBL_EPSILON) || beta < omega0)
     return x0 * 1000;
 
   /*
@@ -593,7 +593,7 @@ adw_spring_animation_set_value_from (AdwSpringAnimation *self,
 {
   g_return_if_fail (ADW_IS_SPRING_ANIMATION (self));
 
-  if (G_APPROX_VALUE (self->value_from, value, FLT_EPSILON))
+  if (G_APPROX_VALUE (self->value_from, value, DBL_EPSILON))
     return;
 
   self->value_from = value;
@@ -635,7 +635,7 @@ adw_spring_animation_set_value_to (AdwSpringAnimation *self,
 {
   g_return_if_fail (ADW_IS_SPRING_ANIMATION (self));
 
-  if (G_APPROX_VALUE (self->value_to, value, FLT_EPSILON))
+  if (G_APPROX_VALUE (self->value_to, value, DBL_EPSILON))
     return;
 
   self->value_to = value;
@@ -717,7 +717,7 @@ adw_spring_animation_set_initial_velocity (AdwSpringAnimation *self,
 {
   g_return_if_fail (ADW_IS_SPRING_ANIMATION (self));
 
-  if (G_APPROX_VALUE (self->initial_velocity, velocity, FLT_EPSILON))
+  if (G_APPROX_VALUE (self->initial_velocity, velocity, DBL_EPSILON))
     return;
 
   self->initial_velocity = velocity;
@@ -768,7 +768,7 @@ adw_spring_animation_set_epsilon (AdwSpringAnimation *self,
   g_return_if_fail (ADW_IS_SPRING_ANIMATION (self));
   g_return_if_fail (epsilon> 0.0);
 
-  if (G_APPROX_VALUE (self->epsilon, epsilon, FLT_EPSILON))
+  if (G_APPROX_VALUE (self->epsilon, epsilon, DBL_EPSILON))
     return;
 
   self->epsilon = epsilon;

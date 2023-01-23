@@ -1263,16 +1263,16 @@ test_adw_tab_page_thumbnail_xalign (void)
   g_signal_connect (page, "notify::thumbnail-xalign", G_CALLBACK (notify_cb), NULL);
 
   g_object_get (page, "thumbnail_xalign", &xalign, NULL);
-  g_assert_cmpfloat (xalign, ==, 0);
+  g_assert_true (G_APPROX_VALUE (xalign, 0, FLT_EPSILON));
   g_assert_cmpint (notified, ==, 0);
 
   adw_tab_page_set_thumbnail_xalign (page, 1);
   g_object_get (page, "thumbnail-xalign", &xalign, NULL);
-  g_assert_cmpfloat (xalign, ==, 1);
+  g_assert_true (G_APPROX_VALUE (xalign, 1, FLT_EPSILON));
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (page, "thumbnail-xalign", 0.5, NULL);
-  g_assert_cmpfloat (adw_tab_page_get_thumbnail_xalign (page), ==, 0.5);
+  g_assert_true (G_APPROX_VALUE (adw_tab_page_get_thumbnail_xalign (page), 0.5, FLT_EPSILON));
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (view);
@@ -1294,16 +1294,16 @@ test_adw_tab_page_thumbnail_yalign (void)
   g_signal_connect (page, "notify::thumbnail-yalign", G_CALLBACK (notify_cb), NULL);
 
   g_object_get (page, "thumbnail_yalign", &yalign, NULL);
-  g_assert_cmpfloat (yalign, ==, 0);
+  g_assert_true (G_APPROX_VALUE (yalign, 0, FLT_EPSILON));
   g_assert_cmpint (notified, ==, 0);
 
   adw_tab_page_set_thumbnail_yalign (page, 1);
   g_object_get (page, "thumbnail-yalign", &yalign, NULL);
-  g_assert_cmpfloat (yalign, ==, 1);
+  g_assert_true (G_APPROX_VALUE (yalign, 1, FLT_EPSILON));
   g_assert_cmpint (notified, ==, 1);
 
   g_object_set (page, "thumbnail-yalign", 0.5, NULL);
-  g_assert_cmpfloat (adw_tab_page_get_thumbnail_yalign (page), ==, 0.5);
+  g_assert_true (G_APPROX_VALUE (adw_tab_page_get_thumbnail_yalign (page), 0.5, FLT_EPSILON));
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (view);

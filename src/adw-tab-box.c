@@ -225,7 +225,8 @@ find_tab_info_at (AdwTabBox *self,
   if (self->reordered_tab) {
     int pos = get_tab_position (self, self->reordered_tab, FALSE);
 
-    if (pos <= x && x < pos + self->reordered_tab->width)
+    if ((G_APPROX_VALUE (pos, x, DBL_EPSILON) || pos < x) &&
+        x < pos + self->reordered_tab->width)
       return self->reordered_tab;
   }
 
@@ -233,7 +234,8 @@ find_tab_info_at (AdwTabBox *self,
     TabInfo *info = l->data;
 
     if (info != self->reordered_tab &&
-        info->pos <= x && x < info->pos + info->width)
+        (G_APPROX_VALUE (info->pos, x, DBL_EPSILON) || info->pos < x) &&
+        x < info->pos + info->width)
       return info;
   }
 
@@ -789,8 +791,10 @@ update_visible (AdwTabBox *self)
     pos = get_tab_position (self, info, FALSE);
 
     adw_tab_set_fully_visible (info->tab,
-                               pos - SPACING >= value &&
-                               pos + info->width + SPACING <= value + page_size);
+                               (G_APPROX_VALUE (pos - SPACING, value, DBL_EPSILON) ||
+                                pos - SPACING > value) &&
+                               (G_APPROX_VALUE (pos + info->width + SPACING, value + page_size, DBL_EPSILON) ||
+                                pos + info->width + SPACING < value + page_size));
 
     if (!adw_tab_page_get_needs_attention (info->page))
       continue;
@@ -798,7 +802,8 @@ update_visible (AdwTabBox *self)
     if (pos + info->width / 2.0 <= value)
       left = TRUE;
 
-    if (pos + info->width / 2.0 >= value + page_size)
+    if (G_APPROX_VALUE (pos + info->width / 2.0, value + page_size, DBL_EPSILON) ||
+        pos + info->width / 2.0 > value + page_size)
       right = TRUE;
   }
 
@@ -1198,7 +1203,7 @@ animate_reorder_offset (AdwTabBox *self,
 
   offset *= (is_rtl ? -1 : 1);
 
-  if (info->end_reorder_offset == offset)
+  if (G_APPROX_VALUE (info->end_reorder_offset, offset, DBL_EPSILON))
     return;
 
   info->end_reorder_offset = offset;
@@ -1440,7 +1445,7 @@ drag_autoscroll_cb (GtkWidget     *widget,
                                        autoscroll_factor);
   self->drag_autoscroll_prev_time = time;
 
-  if (autoscroll_factor == 0)
+  if (G_APPROX_VALUE (autoscroll_factor, 0, DBL_EPSILON))
     return G_SOURCE_CONTINUE;
 
   if (autoscroll_factor > 0)
@@ -2846,7 +2851,8 @@ do_popup (AdwTabBox *self,
                              G_CONNECT_AFTER | G_CONNECT_SWAPPED);
   }
 
-  if (x >= 0 && y >= 0) {
+  if ((G_APPROX_VALUE (x, 0, DBL_EPSILON) || x > 0) &&
+      (G_APPROX_VALUE (y, 0, DBL_EPSILON) || y > 0)) {
     rect.x = x;
     rect.y = y;
   } else {

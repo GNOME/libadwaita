@@ -594,7 +594,7 @@ adw_carousel_size_allocate (GtkWidget *widget,
   gboolean is_rtl;
   double snap_point;
 
-  if (self->position_shift != 0) {
+  if (!G_APPROX_VALUE (self->position_shift, 0, DBL_EPSILON)) {
     set_position (self, self->position + self->position_shift);
     adw_swipe_tracker_shift_position (self->tracker, self->position_shift);
     self->position_shift = 0;
@@ -1316,11 +1316,13 @@ adw_carousel_reorder (AdwCarousel *self,
     gtk_widget_insert_before (child, GTK_WIDGET (self), NULL);
   }
 
-  if (closest_point == old_point)
+  if (G_APPROX_VALUE (closest_point, old_point, DBL_EPSILON))
     self->position_shift += new_point - old_point;
-  else if (old_point >= closest_point && closest_point >= new_point)
+  else if ((G_APPROX_VALUE (old_point, closest_point, DBL_EPSILON) || old_point > closest_point) &&
+           (G_APPROX_VALUE (closest_point, new_point, DBL_EPSILON) || closest_point > new_point))
     self->position_shift += info->size;
-  else if (new_point >= closest_point && closest_point >= old_point)
+  else if ((G_APPROX_VALUE (new_point, closest_point, DBL_EPSILON) || new_point > closest_point) &&
+           (G_APPROX_VALUE (closest_point, old_point, DBL_EPSILON) || closest_point > old_point))
     self->position_shift -= info->size;
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
