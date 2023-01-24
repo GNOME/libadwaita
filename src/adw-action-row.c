@@ -306,7 +306,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
   /**
    * AdwActionRow:subtitle-selectable: (attributes org.gtk.Property.get=adw_action_row_get_subtitle_selectable org.gtk.Property.set=adw_action_row_set_subtitle_selectable)
    *
-   * Whether the user can copy the title from the label.
+   * Whether the user can copy the subtitle from the label.
    *
    * See also [property@Gtk.Label:selectable].
    *
