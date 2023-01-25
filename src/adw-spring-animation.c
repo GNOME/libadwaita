@@ -124,6 +124,13 @@ oscillate (AdwSpringAnimation *self,
    * for the differential equation m*ẍ+b*ẋ+kx = 0
    */
 
+  /* Critically damped */
+  if (G_APPROX_VALUE (beta, omega0, FLT_EPSILON)) {
+    if (velocity)
+      *velocity = envelope * (-beta * t * v0 - beta * beta * t * x0 + v0);
+    return self->value_to + envelope * (x0 + (beta * x0 + v0) * t);
+  }
+
   /* Underdamped */
   if (beta < omega0) {
     double omega1 = sqrt ((omega0 * omega0) - (beta * beta));
@@ -141,11 +148,7 @@ oscillate (AdwSpringAnimation *self,
       *velocity = envelope * (v0 * coshl (omega2 * t) + (omega2 * x0 - (beta * beta * x0 + beta * v0) / omega2) * sinhl (omega2 * t));
     return self->value_to + envelope * (x0 * coshl (omega2 * t) + ((beta * x0 + v0) / omega2) * sinhl (omega2 * t));
   }
-
-  /* Critically damped */
-  if (velocity)
-    *velocity = envelope * (beta * x0 + v0) * (1 - beta);
-  return self->value_to + envelope * (x0 + (beta * x0 + v0) * t);
+  g_assert_not_reached ();
 }
 
 static guint
