@@ -2,14 +2,14 @@
 # Copyright (C) 2020 libhandy's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libhandy package.
 # Juliano de Souza Camargo <julianosc@protonmail.com>, 2020.
-# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022.
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-08-01 14:50+0000\n"
-"PO-Revision-Date: 2022-08-01 19:18+0100\n"
+"POT-Creation-Date: 2022-11-22 14:24+0000\n"
+"PO-Revision-Date: 2023-01-25 14:23+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://l10n.gnome.org/teams/pt/>\n"
 "Language: pt\n"
@@ -17,145 +17,137 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:202
 msgid "GNU General Public License, version 2 or later"
 msgstr "Licença Pública Geral GNU (GPL), versão 2 ou posterior"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:203
 msgid "GNU General Public License, version 3 or later"
 msgstr "Licença Pública Geral GNU (GPL), versão 3 ou posterior"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:204
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "Licença Pública Geral Reduzida GNU (LGPL), versão 2.1 ou posterior"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:205
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "Licença Pública Geral Reduzida GNU (LGPL), versão 3 ou posterior"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:206
 msgid "BSD 2-Clause License"
 msgstr "Licença BSD 2-Cláusulas"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:207
 msgid "The MIT License (MIT)"
 msgstr "A Licença do MIT (MIT)"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:208
 msgid "Artistic License 2.0"
 msgstr "Licença Artística 2.0"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:209
 msgid "GNU General Public License, version 2 only"
 msgstr "Licença Pública Geral GNU (GPL), apenas versão 2"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:210
 msgid "GNU General Public License, version 3 only"
 msgstr "Licença Pública Geral GNU (GPL), apenas versão 3"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:211
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "Licença Pública Geral Reduzida GNU (LGPL), apenas versão 2.1"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "Licença Pública Geral Reduzida GNU (LGPL), apenas versão 3"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:213
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "Licença Pública Geral GNU Affero (GPL), versão 3 ou posterior"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:214
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "Licença Pública Geral GNU Affero (GPL), apenas versão 3"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:215
 msgid "BSD 3-Clause License"
 msgstr "Licença BSD 3-Cláusulas"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:216
 msgid "Apache License, Version 2.0"
 msgstr "Licença Apache, versão 2.0"
 
-#: src/adw-about-window.c:218
+#: src/adw-about-window.c:217
 msgid "Mozilla Public License 2.0"
 msgstr "Licença Pública Mozilla 2.0"
 
-#: src/adw-about-window.c:526
+#: src/adw-about-window.c:525
 msgid "Code by"
 msgstr "Código por"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:526
 msgid "Design by"
 msgstr "Design por"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:527
 msgid "Artwork by"
 msgstr "Arte gráfica por"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:528
 msgid "Documentation by"
 msgstr "Documentação por"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:529
 msgid "Translated by"
 msgstr "Traduzido por"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:559
+#: src/adw-about-window.c:558
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a href=\"%s\">"
-"%s</a> for details."
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
 msgstr ""
-"Esta aplicação vem sem absolutamente nenhuma garantia. Veja os <a href=\"%s"
-"\">%s</a> detalhes."
+"Esta aplicação vem sem absolutamente nenhuma garantia. Veja os <a "
+"href=\"%s\">%s</a> detalhes."
 
-#: src/adw-about-window.c:637
+#: src/adw-about-window.c:636
 msgid "This Application"
 msgstr "Esta aplicação"
 
-#: src/adw-about-window.c:939
+#: src/adw-about-window.c:938
 #, c-format
 msgid "Version %s"
 msgstr "Versão %s"
 
-#: src/adw-about-window.c:965
+#: src/adw-about-window.c:964
 msgid "Unable to parse release notes:"
 msgstr "Não foi possível analisar as notas de lançamento:"
 
-#: src/adw-about-window.c:971
+#: src/adw-about-window.c:970
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Linha: %d, carácter: %d"
 
-#: src/adw-about-window.c:1264
+#: src/adw-about-window.c:1263
 msgid "Copied to clipboard"
 msgstr "Copiado para a área de transferência"
 
-#: src/adw-about-window.c:1299
+#: src/adw-about-window.c:1297
 msgid "Unable to save debugging information"
 msgstr "Não foi possível guardar a informação de depuração"
 
-#: src/adw-about-window.c:1304
+#: src/adw-about-window.c:1302
 msgid "Close"
 msgstr "Fechar"
 
-#: src/adw-about-window.c:1322
+#: src/adw-about-window.c:1318
 msgid "Save debugging information"
 msgstr "Guardar informação de depuração"
-
-#: src/adw-about-window.c:1325
-msgid "_Save"
-msgstr "_Guardar"
-
-#: src/adw-about-window.c:1326
-msgid "_Cancel"
-msgstr "_Cancelar"
 
 #: src/adw-about-window.ui:5
 msgid "About"
@@ -255,24 +247,24 @@ msgstr "_Copiar texto"
 msgid "_Save as…"
 msgstr "_Guardar como…"
 
-#: src/adw-entry-row.ui:93
+#: src/adw-entry-row.ui:95
 msgid "Apply"
 msgstr "Aplicar"
 
-#: src/adw-inspector-page.c:76
+#: src/adw-inspector-page.c:75
 msgid "No Preference"
 msgstr "Sem preferência"
 
-#: src/adw-inspector-page.c:78
+#: src/adw-inspector-page.c:77
 msgid "Prefer Dark"
 msgstr "Preferir escuro"
 
-#: src/adw-inspector-page.c:80
+#: src/adw-inspector-page.c:79
 msgid "Prefer Light"
 msgstr "Preferir claro"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:97
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -300,23 +292,23 @@ msgstr "Esquema de cores preferido"
 msgid "High Contrast"
 msgstr "Alto contraste"
 
-#: src/adw-password-entry-row.c:71
+#: src/adw-password-entry-row.c:70
 msgid "Hide Text"
 msgstr "Ocultar texto"
 
-#: src/adw-password-entry-row.c:75
+#: src/adw-password-entry-row.c:74
 msgid "Show Text"
 msgstr "Mostrar texto"
 
-#: src/adw-password-entry-row.c:169
+#: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
 msgstr "O Caps Lock está ligado"
 
-#: src/adw-password-entry-row.c:177
+#: src/adw-password-entry-row.c:176
 msgid "_Show Text"
 msgstr "Mo_strar texto"
 
-#: src/adw-preferences-window.c:242
+#: src/adw-preferences-window.c:245
 msgid "Untitled page"
 msgstr "Página sem título"
 
@@ -332,13 +324,43 @@ msgstr "Pesquisar"
 msgid "No Results Found"
 msgstr "Nenhum resultado encontrado"
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:111
 msgid "Try a different search."
 msgstr "Tente uma pesquisa diferente."
 
-#: src/adw-tab.ui:88
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "Ver separadores abertos"
+
+#: src/adw-tab-overview.ui:23
+msgid "Search Tabs"
+msgstr "Pesquisar Separadores"
+
+#: src/adw-tab-overview.ui:53
+msgid "Search tabs"
+msgstr "Pesquisar separadores"
+
+#: src/adw-tab-overview.ui:97
+msgid "No Open Tabs"
+msgstr "Nenhum separador aberto"
+
+#: src/adw-tab-overview.ui:110
+msgid "No Tabs Found"
+msgstr "Nenhum separador encontrado"
+
+#: src/adw-tab-overview.ui:131
+msgid "New _Tab"
+msgstr "Novo _separador"
+
+#: src/adw-tab-thumbnail.ui:36 src/adw-tab.ui:88
 msgid "Close Tab"
 msgstr "Fechar separador"
+
+#~ msgid "_Save"
+#~ msgstr "_Guardar"
+
+#~ msgid "_Cancel"
+#~ msgstr "_Cancelar"
 
 #~ msgid "This property does not apply when a custom title is set"
 #~ msgstr ""
