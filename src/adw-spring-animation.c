@@ -123,7 +123,9 @@ oscillate (AdwSpringAnimation *self,
    */
 
   /* Critically damped */
-  if (G_APPROX_VALUE (beta, omega0, DBL_EPSILON)) {
+  /* DBL_EPSILON is too small for this specific comparison, so we use
+   * FLT_EPSILON even though it's doubles */
+  if (G_APPROX_VALUE (beta, omega0, FLT_EPSILON)) {
     if (velocity)
       *velocity = envelope * (-beta * t * v0 - beta * beta * t * x0 + v0);
     return self->value_to + envelope * (x0 + (beta * x0 + v0) * t);
@@ -202,7 +204,9 @@ calculate_duration (AdwSpringAnimation *self)
    */
   x0 = -log (self->epsilon) / beta;
 
-  if (G_APPROX_VALUE (beta, omega0, DBL_EPSILON) || beta < omega0)
+  /* DBL_EPSILON is too small for this specific comparison, so we use
+   * FLT_EPSILON even though it's doubles */
+  if (G_APPROX_VALUE (beta, omega0, FLT_EPSILON) || beta < omega0)
     return x0 * 1000;
 
   /*
