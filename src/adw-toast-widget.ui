@@ -31,6 +31,7 @@
       <object class="GtkButton" id="action_button">
         <property name="valign">center</property>
         <property name="use-underline">True</property>
+        <property name="focus-on-click">False</property>
         <binding name="visible">
           <closure type="gboolean" function="string_is_not_empty">
             <lookup name="button-label" type="AdwToast">
@@ -60,6 +61,7 @@
       <object class="GtkButton" id="close_button">
         <property name="valign">center</property>
         <property name="icon-name">window-close-symbolic</property>
+        <property name="focus-on-click">False</property>
         <signal name="clicked" handler="dismiss" swapped="yes"/>
         <style>
           <class name="circular"/>
