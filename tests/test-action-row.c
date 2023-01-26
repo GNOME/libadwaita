@@ -99,6 +99,23 @@ test_adw_action_row_subtitle_lines (void)
   g_assert_finalize_object (row);
 }
 
+static void
+test_adw_action_row_subtitle_selectable (void)
+{
+  AdwActionRow *row = g_object_ref_sink (ADW_ACTION_ROW (adw_action_row_new ()));
+  g_assert_nonnull (row);
+
+  g_assert_false (adw_action_row_get_subtitle_selectable (row));
+
+  adw_action_row_set_subtitle_selectable (row, TRUE);
+  g_assert_true (adw_action_row_get_subtitle_selectable (row));
+
+  adw_action_row_set_subtitle_selectable (row, FALSE);
+  g_assert_false (adw_action_row_get_subtitle_selectable (row));
+
+  g_assert_finalize_object (row);
+}
+
 
 static void
 test_adw_action_row_activate (void)
@@ -127,6 +144,7 @@ main (int   argc,
   g_test_add_func("/Adwaita/ActionRow/subtitle", test_adw_action_row_subtitle);
   g_test_add_func("/Adwaita/ActionRow/title_lines", test_adw_action_row_title_lines);
   g_test_add_func("/Adwaita/ActionRow/subtitle_lines", test_adw_action_row_subtitle_lines);
+  g_test_add_func("/Adwaita/ActionRow/subtitle_selectable", test_adw_action_row_subtitle_selectable);
   g_test_add_func("/Adwaita/ActionRow/activate", test_adw_action_row_activate);
 
   return g_test_run();
