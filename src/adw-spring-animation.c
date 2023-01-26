@@ -128,6 +128,7 @@ oscillate (AdwSpringAnimation *self,
   if (G_APPROX_VALUE (beta, omega0, FLT_EPSILON)) {
     if (velocity)
       *velocity = envelope * (-beta * t * v0 - beta * beta * t * x0 + v0);
+
     return self->value_to + envelope * (x0 + (beta * x0 + v0) * t);
   }
 
@@ -137,6 +138,7 @@ oscillate (AdwSpringAnimation *self,
 
     if (velocity)
       *velocity = envelope * (v0 * cos (omega1 * t) - (x0 * omega1 + (beta * beta * x0 + beta * v0) / (omega1)) * sin (omega1 * t));
+
     return self->value_to + envelope * (x0 * cos (omega1 * t) + ((beta * x0 + v0) / omega1) * sin (omega1 * t));
   }
 
@@ -146,8 +148,10 @@ oscillate (AdwSpringAnimation *self,
 
     if (velocity)
       *velocity = envelope * (v0 * coshl (omega2 * t) + (omega2 * x0 - (beta * beta * x0 + beta * v0) / omega2) * sinhl (omega2 * t));
+
     return self->value_to + envelope * (x0 * coshl (omega2 * t) + ((beta * x0 + v0) / omega2) * sinhl (omega2 * t));
   }
+
   g_assert_not_reached ();
 }
 
@@ -215,22 +219,23 @@ calculate_duration (AdwSpringAnimation *self)
    * Newton's root finding method is a good candidate in this particular case:
    * https://en.wikipedia.org/wiki/Newton%27s_method
    */
-  y0 = oscillate (self, x0*1000, NULL);
+  y0 = oscillate (self, x0 * 1000, NULL);
   m = (oscillate (self, (x0 + DELTA) * 1000, NULL) - y0) / DELTA;
 
   x1 = (self->value_to - y0 + m * x0) / m;
-  y1 = oscillate (self, x1*1000, NULL);
+  y1 = oscillate (self, x1 * 1000, NULL);
 
   while (ABS (self->value_to - y1) > self->epsilon) {
     if (i>1000)
       return 0;
+
     x0 = x1;
     y0 = y1;
 
     m = (oscillate (self, (x0 + DELTA) * 1000, NULL) - y0) / DELTA;
 
     x1 = (self->value_to - y0 + m * x0) / m;
-    y1 = oscillate (self, x1*1000, NULL);
+    y1 = oscillate (self, x1 * 1000, NULL);
     i++;
   }
 
