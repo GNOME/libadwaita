@@ -218,6 +218,7 @@ actionbar > revealer > box {
  * AdwBanner *
  *************/
 banner > revealer > widget {
+  /* There are 2 more instances in _sidebars.css, keep in sync with that */
   background-color: gtkmix($accent_bg_color, $window_bg_color, 30%);
   color: $window_fg_color;
   padding: 6px;

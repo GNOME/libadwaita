@@ -49,10 +49,10 @@
  * When placed inside an [class@NavigationPage], `AdwHeaderBar` will display the
  * page title instead of window title.
  *
- * When used together with [class@NavigationView], it will also display a back
- * button that can be used to go back to the previous page. Set
- * [property@HeaderBar:show-back-button] to `FALSE` to disable that behavior if
- * it's unwanted.
+ * When used together with [class@NavigationView] or [class@NavigationSplitView],
+ * it will also display a back button that can be used to go back to the previous
+ * page. Set [property@HeaderBar:show-back-button] to `FALSE` to disable that
+ * behavior if it's unwanted.
  *
  * ## Centering Policy
  *

@@ -54,6 +54,7 @@ test_names = [
   'test-header-bar',
   'test-leaflet',
   'test-message-dialog',
+  'test-navigation-split-view',
   'test-navigation-view',
   'test-password-entry-row',
   'test-preferences-group',

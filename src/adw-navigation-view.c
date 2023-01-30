@@ -164,7 +164,7 @@
 /**
  * AdwNavigationPage:
  *
- * A page within [class@NavigationView].
+ * A page within [class@NavigationView] or [class@NavigationSplitView].
  *
  * Each page has a child widget, a title and optionally a tag.
  *
