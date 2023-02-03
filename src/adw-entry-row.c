@@ -1136,7 +1136,7 @@ adw_entry_row_set_show_indicator (AdwEntryRow *self,
 }
 
 /**
- * adw_entry_grab_focus_without_selecting:
+ * adw_entry_row_grab_focus_without_selecting:
  * @self: an entry row
  *
  * Causes @self to have keyboard focus without selecting the text.
