@@ -1052,6 +1052,8 @@ adw_entry_row_set_enable_emoji_completion (AdwEntryRow *self,
  * Gets whether activating the embedded entry can activate the default widget.
  *
  * Returns: whether to activate the default widget
+ *
+ * Since: 1.2
  */
 gboolean
 adw_entry_row_get_activates_default (AdwEntryRow *self)
