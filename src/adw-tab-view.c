@@ -62,6 +62,11 @@ static GSList *tab_view_list;
  * ## CSS nodes
  *
  * `AdwTabView` has a main CSS node with the name `tabview`.
+ *
+ * ## Accessibility
+ *
+ * `AdwTabView` uses the `GTK_ACCESSIBLE_ROLE_TAB_PANEL` for the tab pages which
+ * are the accessible parent objects of the child widgets.
  */
 
 /**
@@ -139,6 +144,8 @@ struct _AdwTabPage
   GtkWidget *last_focus;
   GBinding *transfer_binding;
 
+  GtkATContext *at_context;
+
   gboolean closing;
   GdkPaintable *paintable;
 
@@ -146,7 +153,10 @@ struct _AdwTabPage
   gboolean invalidated;
 };
 
-G_DEFINE_FINAL_TYPE (AdwTabPage, adw_tab_page, G_TYPE_OBJECT)
+static void adw_tab_page_accessible_init (GtkAccessibleInterface *iface);
+
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwTabPage, adw_tab_page, G_TYPE_OBJECT,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ACCESSIBLE, adw_tab_page_accessible_init))
 
 enum {
   PAGE_PROP_0,
@@ -166,7 +176,8 @@ enum {
   PAGE_PROP_THUMBNAIL_XALIGN,
   PAGE_PROP_THUMBNAIL_YALIGN,
   PAGE_PROP_LIVE_THUMBNAIL,
-  LAST_PAGE_PROP
+  LAST_PAGE_PROP,
+  PAGE_PROP_ACCESSIBLE_ROLE
 };
 
 static GParamSpec *page_props[LAST_PAGE_PROP];
@@ -192,9 +203,11 @@ struct _AdwTabView
 };
 
 static void adw_tab_view_buildable_init (GtkBuildableIface *iface);
+static void adw_tab_view_accessible_init (GtkAccessibleInterface *iface);
 
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwTabView, adw_tab_view, GTK_TYPE_WIDGET,
-                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_tab_view_buildable_init))
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_tab_view_buildable_init)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ACCESSIBLE, adw_tab_view_accessible_init))
 
 static GtkBuildableIface *parent_buildable_iface;
 
@@ -343,6 +356,8 @@ adw_tab_page_dispose (GObject *object)
 
   set_page_parent (self, NULL);
 
+  g_clear_object (&self->at_context);
+
   g_clear_object (&self->bin);
   g_clear_object (&self->paintable);
 
@@ -442,6 +457,10 @@ adw_tab_page_get_property (GObject    *object,
     g_value_set_boolean (value, adw_tab_page_get_live_thumbnail (self));
     break;
 
+  case PAGE_PROP_ACCESSIBLE_ROLE:
+    g_value_set_enum (value, GTK_ACCESSIBLE_ROLE_TAB_PANEL);
+    break;
+
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -511,6 +530,9 @@ adw_tab_page_set_property (GObject      *object,
 
   case PAGE_PROP_LIVE_THUMBNAIL:
     adw_tab_page_set_live_thumbnail (self, g_value_get_boolean (value));
+    break;
+
+  case PAGE_PROP_ACCESSIBLE_ROLE:
     break;
 
   default:
@@ -795,6 +817,8 @@ adw_tab_page_class_init (AdwTabPageClass *klass)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PAGE_PROP, page_props);
+
+  g_object_class_override_property (object_class, PAGE_PROP_ACCESSIBLE_ROLE, "accessible-role");
 }
 
 static void
@@ -806,6 +830,102 @@ adw_tab_page_init (AdwTabPage *self)
   self->thumbnail_xalign = 0;
   self->thumbnail_yalign = 0;
   self->bin = g_object_ref_sink (adw_bin_new ());
+}
+
+static GtkATContext *
+adw_tab_page_accessible_get_at_context (GtkAccessible *accessible)
+{
+  AdwTabPage *self = ADW_TAB_PAGE (accessible);
+
+  if (self->at_context == NULL) {
+    GtkAccessibleRole role = GTK_ACCESSIBLE_ROLE_TAB_PANEL;
+    GdkDisplay *display;
+
+    if (self->bin != NULL)
+      display = gtk_widget_get_display (self->bin);
+    else
+      display = gdk_display_get_default ();
+
+    self->at_context = gtk_at_context_create (role, accessible, display);
+  }
+
+  return self->at_context;
+}
+
+static gboolean
+adw_tab_page_accessible_get_platform_state (GtkAccessible              *self,
+                                            GtkAccessiblePlatformState  state)
+{
+  return FALSE;
+}
+
+static GtkAccessible *
+adw_tab_page_accessible_get_accessible_parent (GtkAccessible *accessible)
+{
+  AdwTabPage *self = ADW_TAB_PAGE (accessible);
+
+  if (self->bin)
+    return GTK_ACCESSIBLE (gtk_widget_get_parent (self->bin));
+
+  return NULL;
+}
+
+static GtkAccessible *
+adw_tab_page_accessible_get_first_accessible_child (GtkAccessible *accessible)
+{
+  AdwTabPage *self = ADW_TAB_PAGE (accessible);
+
+  if (self->bin)
+    return GTK_ACCESSIBLE (self->bin);
+
+  return NULL;
+}
+
+static GtkAccessible *
+adw_tab_page_accessible_get_next_accessible_sibling (GtkAccessible *accessible)
+{
+  AdwTabPage *self = ADW_TAB_PAGE (accessible);
+  GtkWidget *view = gtk_widget_get_parent (self->bin);
+  AdwTabPage *next_page;
+  int pos;
+
+  if (!ADW_TAB_VIEW (view))
+    return NULL;
+
+  pos = adw_tab_view_get_page_position (ADW_TAB_VIEW (view), self);
+
+  if (pos >= adw_tab_view_get_n_pages (ADW_TAB_VIEW (view)) - 1)
+    return NULL;
+
+  next_page = adw_tab_view_get_nth_page (ADW_TAB_VIEW (view), pos + 1);
+
+  return GTK_ACCESSIBLE (next_page);
+}
+
+static gboolean
+adw_tab_page_accessible_get_bounds (GtkAccessible *accessible,
+                                    int           *x,
+                                    int           *y,
+                                    int           *width,
+                                    int           *height)
+{
+  AdwTabPage *self = ADW_TAB_PAGE (accessible);
+
+  if (self->bin)
+    return gtk_accessible_get_bounds (GTK_ACCESSIBLE (self->bin), x, y, width, height);
+
+  return FALSE;
+}
+
+static void
+adw_tab_page_accessible_init (GtkAccessibleInterface *iface)
+{
+  iface->get_at_context = adw_tab_page_accessible_get_at_context;
+  iface->get_platform_state = adw_tab_page_accessible_get_platform_state;
+  iface->get_accessible_parent = adw_tab_page_accessible_get_accessible_parent;
+  iface->get_first_accessible_child = adw_tab_page_accessible_get_first_accessible_child;
+  iface->get_next_accessible_sibling = adw_tab_page_accessible_get_next_accessible_sibling;
+  iface->get_bounds = adw_tab_page_accessible_get_bounds;
 }
 
 #define ADW_TYPE_TAB_PAINTABLE (adw_tab_paintable_get_type ())
@@ -2469,6 +2589,23 @@ adw_tab_view_buildable_init (GtkBuildableIface *iface)
   iface->add_child = adw_tab_view_buildable_add_child;
 }
 
+static GtkAccessible *
+adw_tab_view_accessible_get_first_accessible_child (GtkAccessible *accessible)
+{
+  AdwTabView *self = ADW_TAB_VIEW (accessible);
+
+  if (adw_tab_view_get_n_pages (self) > 0)
+    return GTK_ACCESSIBLE (adw_tab_view_get_nth_page (self, 0));
+
+  return NULL;
+}
+
+static void
+adw_tab_view_accessible_init (GtkAccessibleInterface *iface)
+{
+  iface->get_first_accessible_child = adw_tab_view_accessible_get_first_accessible_child;
+}
+
 /**
  * adw_tab_page_get_child: (attributes org.gtk.Method.get_property=child)
  * @self: a tab page
@@ -2580,6 +2717,10 @@ adw_tab_page_set_title (AdwTabPage *self,
   self->title = g_strdup (title ? title : "");
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_TITLE]);
+
+  gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                  GTK_ACCESSIBLE_PROPERTY_LABEL, self->title,
+                                  -1);
 }
 
 /**
