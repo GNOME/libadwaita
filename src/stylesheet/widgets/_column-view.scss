@@ -5,42 +5,47 @@ columnview {
     box-shadow: none;
   }
 
-  > header {
-    > button {
-      @extend %undecorated_button;
-      padding-top: 3px;
-      padding-bottom: 3px;
-      border-radius: 0;
+  > header > button {
+    @extend %undecorated_button;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border-radius: 0;
+    box-shadow: none;
+    line-height: 100%;
+    border-left: 1px solid transparent;
+
+    &:first-child {
+      border-left-width: 0;
+    }
+
+    > box {
+      color: gtkalpha(currentColor, if($contrast == 'high', .6, .4));
+      font-weight: 700;
+      font-size: 9pt;
+      border-spacing: 6px;
+    }
+
+    &:hover > box {
+      color: gtkalpha(currentColor, if($contrast == 'high', .9, .7));
       box-shadow: none;
-      line-height: 100%;
+    }
 
-      > box {
-        color: gtkalpha(currentColor, if($contrast == 'high', .6, .4));
-        font-weight: 700;
-        font-size: 9pt;
-        border-spacing: 6px;
+    &:active > box {
+      color: currentColor;
+    }
+
+    sort-indicator {
+      &.ascending {
+        -gtk-icon-source: -gtk-icontheme('pan-up-symbolic');
+      }
+      &.descending {
+        -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
       }
 
-      &:hover > box {
-        color: gtkalpha(currentColor, if($contrast == 'high', .9, .7));
-        box-shadow: none;
-      }
-
-      &:active > box {
-        color: currentColor;
-      }
-
-      sort-indicator {
-        &.ascending {
-          -gtk-icon-source: -gtk-icontheme('pan-up-symbolic');
-        }
-        &.descending {
-          -gtk-icon-source: -gtk-icontheme('pan-down-symbolic');
-        }
-
-        min-height: 16px;
-        min-width: 16px;
-      }
+      min-height: 16px;
+      min-width: 16px;
     }
   }
 
@@ -52,15 +57,7 @@ columnview {
       transition: none;
     }
   }
-}
 
-/********************************************************
- * Data Tables                                          *
- * treeview like tables with individual focusable cells *
- * https://gitlab.gnome.org/GNOME/gtk/-/issues/2929     *
- ********************************************************/
-
-columnview {
   // move padding to child cells
   > listview > row {
     padding: 0;
@@ -72,16 +69,6 @@ columnview {
       &:not(:first-child) {
         border-left: 1px solid transparent;
       }
-    }
-  }
-
-  > header > button {
-    padding-left: 6px;
-    padding-right: 6px;
-    border-left: 1px solid transparent;
-
-    &:first-child {
-      border-left-width: 0;
     }
   }
 

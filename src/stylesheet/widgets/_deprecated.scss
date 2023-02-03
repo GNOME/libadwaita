@@ -192,11 +192,8 @@ treeview.view {
     background-color: gtkalpha(currentColor, 0.1);
   }
 
-  // Specificity bump
   ~ undershoot.top {
-    &:dir(ltr), &:dir(rtl) {
-      box-shadow: none;
-    }
+    box-shadow: none;
   }
 
   acceleditor > label {
