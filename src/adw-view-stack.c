@@ -70,6 +70,11 @@
  * ## CSS nodes
  *
  * `AdwViewStack` has a single CSS node named `stack`.
+ *
+ * ## Accessibility
+ *
+ * `AdwViewStack` uses the `GTK_ACCESSIBLE_ROLE_TAB_PANEL` for the stack pages
+ * which are the accessible parent objects of the child widgets.
  */
 
 /**
@@ -100,12 +105,18 @@ struct _AdwViewStackPage {
   guint badge_number;
   GtkWidget *last_focus;
 
+  GtkATContext *at_context;
+  AdwViewStackPage *next_page;
+
   bool needs_attention;
   bool visible;
   bool use_underline;
 };
 
-G_DEFINE_FINAL_TYPE (AdwViewStackPage, adw_view_stack_page, G_TYPE_OBJECT)
+static void adw_view_stack_page_accessible_init (GtkAccessibleInterface *iface);
+
+G_DEFINE_FINAL_TYPE_WITH_CODE (AdwViewStackPage, adw_view_stack_page, G_TYPE_OBJECT,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ACCESSIBLE, adw_view_stack_page_accessible_init))
 
 enum {
   PAGE_PROP_0,
@@ -117,7 +128,8 @@ enum {
   PAGE_PROP_NEEDS_ATTENTION,
   PAGE_PROP_BADGE_NUMBER,
   PAGE_PROP_VISIBLE,
-  LAST_PAGE_PROP
+  LAST_PAGE_PROP,
+  PAGE_PROP_ACCESSIBLE_ROLE
 };
 
 static GParamSpec *page_props[LAST_PAGE_PROP];
@@ -137,9 +149,11 @@ struct _AdwViewStack {
 static GParamSpec *props[LAST_PROP];
 
 static void adw_view_stack_buildable_init (GtkBuildableIface *iface);
+static void adw_view_stack_accessible_init (GtkAccessibleInterface *iface);
 
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwViewStack, adw_view_stack, GTK_TYPE_WIDGET,
-                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_view_stack_buildable_init))
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_view_stack_buildable_init)
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ACCESSIBLE, adw_view_stack_accessible_init))
 
 static GtkBuildableIface *parent_buildable_iface;
 
@@ -175,6 +189,9 @@ adw_view_stack_page_get_property (GObject      *object,
     break;
   case PAGE_PROP_VISIBLE:
     g_value_set_boolean (value, adw_view_stack_page_get_visible (self));
+    break;
+  case PAGE_PROP_ACCESSIBLE_ROLE:
+    g_value_set_enum (value, GTK_ACCESSIBLE_ROLE_TAB_PANEL);
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -215,10 +232,22 @@ adw_view_stack_page_set_property (GObject      *object,
   case PAGE_PROP_VISIBLE:
     adw_view_stack_page_set_visible (self, g_value_get_boolean (value));
     break;
+  case PAGE_PROP_ACCESSIBLE_ROLE:
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
     break;
   }
+}
+
+static void
+adw_view_stack_page_dispose (GObject *object)
+{
+  AdwViewStackPage *self = ADW_VIEW_STACK_PAGE (object);
+
+  g_clear_object (&self->at_context);
+
+  G_OBJECT_CLASS (adw_view_stack_page_parent_class)->dispose (object);
 }
 
 static void
@@ -243,6 +272,7 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (class);
 
+  object_class->dispose = adw_view_stack_page_dispose;
   object_class->finalize = adw_view_stack_page_finalize;
   object_class->get_property = adw_view_stack_page_get_property;
   object_class->set_property = adw_view_stack_page_set_property;
@@ -338,12 +368,97 @@ adw_view_stack_page_class_init (AdwViewStackPageClass *class)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PAGE_PROP, page_props);
+
+  g_object_class_override_property (object_class, PAGE_PROP_ACCESSIBLE_ROLE, "accessible-role");
 }
 
 static void
 adw_view_stack_page_init (AdwViewStackPage *self)
 {
   self->visible = TRUE;
+}
+
+static GtkATContext *
+adw_view_stack_page_accessible_get_at_context (GtkAccessible *accessible)
+{
+  AdwViewStackPage *self = ADW_VIEW_STACK_PAGE (accessible);
+
+  if (self->at_context == NULL) {
+    GtkAccessibleRole role = GTK_ACCESSIBLE_ROLE_TAB_PANEL;
+    GdkDisplay *display;
+
+    if (self->widget != NULL)
+      display = gtk_widget_get_display (self->widget);
+    else
+      display = gdk_display_get_default ();
+
+    self->at_context = gtk_at_context_create (role, accessible, display);
+  }
+
+  return self->at_context;
+}
+
+static gboolean
+adw_view_stack_page_accessible_get_platform_state (GtkAccessible              *self,
+                                                   GtkAccessiblePlatformState  state)
+{
+  return FALSE;
+}
+
+static GtkAccessible *
+adw_view_stack_page_accessible_get_accessible_parent (GtkAccessible *accessible)
+{
+  AdwViewStackPage *self = ADW_VIEW_STACK_PAGE (accessible);
+
+  if (self->widget)
+    return GTK_ACCESSIBLE (gtk_widget_get_parent (self->widget));
+
+  return NULL;
+}
+
+static GtkAccessible *
+adw_view_stack_page_accessible_get_first_accessible_child (GtkAccessible *accessible)
+{
+  AdwViewStackPage *self = ADW_VIEW_STACK_PAGE (accessible);
+
+  if (self->widget)
+    return GTK_ACCESSIBLE (self->widget);
+
+  return NULL;
+}
+
+static GtkAccessible *
+adw_view_stack_page_accessible_get_next_accessible_sibling (GtkAccessible *accessible)
+{
+  AdwViewStackPage *self = ADW_VIEW_STACK_PAGE (accessible);
+
+  return GTK_ACCESSIBLE (self->next_page);
+}
+
+static gboolean
+adw_view_stack_page_accessible_get_bounds (GtkAccessible *accessible,
+                                           int           *x,
+                                           int           *y,
+                                           int           *width,
+                                           int           *height)
+{
+  AdwViewStackPage *self = ADW_VIEW_STACK_PAGE (accessible);
+
+  if (self->widget)
+    return gtk_accessible_get_bounds (GTK_ACCESSIBLE (self->widget), x, y, width, height);
+
+  return FALSE;
+}
+
+static void
+adw_view_stack_page_accessible_init (GtkAccessibleInterface *iface)
+{
+  iface->get_at_context = adw_view_stack_page_accessible_get_at_context;
+  iface->get_platform_state = adw_view_stack_page_accessible_get_platform_state;
+  iface->get_accessible_parent = adw_view_stack_page_accessible_get_accessible_parent;
+  iface->get_first_accessible_child = adw_view_stack_page_accessible_get_first_accessible_child;
+  iface->get_next_accessible_sibling = adw_view_stack_page_accessible_get_next_accessible_sibling;
+  iface->get_bounds = adw_view_stack_page_accessible_get_bounds;
 }
 
 #define ADW_TYPE_VIEW_STACK_PAGES (adw_view_stack_pages_get_type ())
@@ -452,8 +567,8 @@ adw_view_stack_pages_new (AdwViewStack *stack)
   return pages;
 }
 
-static AdwViewStackPage *
-find_page_for_widget (AdwViewStack *self,
+static GList *
+find_link_for_widget (AdwViewStack *self,
                       GtkWidget    *child)
 {
   AdwViewStackPage *page;
@@ -463,8 +578,20 @@ find_page_for_widget (AdwViewStack *self,
     page = l->data;
 
     if (page->widget == child)
-      return page;
+      return l;
   }
+
+  return NULL;
+}
+
+static AdwViewStackPage *
+find_page_for_widget (AdwViewStack *self,
+                      GtkWidget    *child)
+{
+  GList *l = find_link_for_widget (self, child);
+
+  if (l)
+    return l->data;
 
   return NULL;
 }
@@ -604,6 +731,10 @@ update_child_visible (AdwViewStack     *self,
     set_visible_child (self, page);
   else if (self->visible_child == page && !visible)
     set_visible_child (self, NULL);
+
+  gtk_accessible_update_state (GTK_ACCESSIBLE (page),
+                               GTK_ACCESSIBLE_STATE_HIDDEN, !visible,
+                               -1);
 }
 
 static void
@@ -637,6 +768,14 @@ add_page (AdwViewStack     *self,
         break;
       }
     }
+  }
+
+  if (self->children) {
+    AdwViewStackPage *prev_last = g_list_last (self->children)->data;
+
+    prev_last->next_page = page;
+  } else {
+    page->next_page = NULL;
   }
 
   self->children = g_list_append (self->children, g_object_ref (page));
@@ -691,10 +830,13 @@ stack_remove (AdwViewStack  *self,
 {
   AdwViewStackPage *page;
   gboolean was_visible;
+  GList *l;
 
-  page = find_page_for_widget (self, child);
-  if (!page)
+  l = find_link_for_widget (self, child);
+  if (!l)
     return;
+
+  page = l->data;
 
   g_signal_handlers_disconnect_by_func (child,
                                         stack_child_visibility_notify_cb,
@@ -709,7 +851,15 @@ stack_remove (AdwViewStack  *self,
 
   g_clear_object (&page->widget);
 
+  l = l->prev;
+
   self->children = g_list_remove (self->children, page);
+
+  if (l) {
+    AdwViewStackPage *prev_page = l->data;
+
+    prev_page->next_page = page->next_page;
+  }
 
   g_object_unref (page);
 
@@ -979,6 +1129,23 @@ adw_view_stack_buildable_init (GtkBuildableIface *iface)
   iface->add_child = adw_view_stack_buildable_add_child;
 }
 
+static GtkAccessible *
+adw_view_stack_accessible_get_first_accessible_child (GtkAccessible *accessible)
+{
+  AdwViewStack *self = ADW_VIEW_STACK (accessible);
+
+  if (self->children)
+    return self->children->data;
+
+  return NULL;
+}
+
+static void
+adw_view_stack_accessible_init (GtkAccessibleInterface *iface)
+{
+  iface->get_first_accessible_child = adw_view_stack_accessible_get_first_accessible_child;
+}
+
 /**
  * adw_view_stack_page_get_child: (attributes org.gtk.Method.get_property=child)
  * @self: a view stack page
@@ -1095,6 +1262,10 @@ adw_view_stack_page_set_title (AdwViewStackPage *self,
   self->title = g_strdup (title);
 
   g_object_notify_by_pspec (G_OBJECT (self), page_props[PAGE_PROP_TITLE]);
+
+  gtk_accessible_update_property (GTK_ACCESSIBLE (self),
+                                  GTK_ACCESSIBLE_PROPERTY_LABEL, self->title,
+                                  -1);
 }
 
 /**
