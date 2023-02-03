@@ -275,6 +275,8 @@ button {
       margin: -3px -6px;
     }
 
+    &.text-button { min-width: 100px; }
+
     &.needs-attention {
       > label,
       > image { @extend %needs_attention; }
