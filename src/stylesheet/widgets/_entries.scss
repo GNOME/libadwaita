@@ -105,20 +105,3 @@ entry {
     border-color: $osd_fill_bg_color;
   }
 }
-
-treeview entry {
-  &:focus-within {
-    &:dir(rtl), &:dir(ltr) { // specificity bump hack
-      background-color: $view_bg_color;
-      transition-property: color, background;
-    }
-  }
-
-  &.flat, & {
-    border-radius: 0;
-    background-image: none;
-    background-color: $view_bg_color;
-
-    &:focus-within { border-color: $accent_color; }
-  }
-}

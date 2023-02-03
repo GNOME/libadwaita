@@ -1,15 +1,15 @@
-// .linked >        element            child
-$_linked_widgets: ("%button",          ""),
-                  ("button",           ""),
-                  ("menubutton",       "> button"),
-                  ("dropdown",         "> button"),
-                  ("colorbutton",      "> button"),
-                  ("fontbutton",       "> button"),
-                  ("tabbutton",        "> button"),
-                  ("combobox",         "> box > button.combo"),
-                  ("appchooserbutton", "> combobox > box > button.combo"),
-                  ("%entry",           ""),
-                  ("entry",            "");
+// .linked >        element       child
+$_linked_widgets: ("%button",     ""),
+                  ("button",      ""),
+                  ("menubutton",  "> button"),
+                  ("dropdown",    "> button"),
+                  ("colorbutton", "> button"),
+                  ("fontbutton",  "> button"),
+                  ("tabbutton",   "> button"),
+                  ("%entry",      ""),
+                  ("entry",       "");
+
+$_linked_widgets: join($_linked_widgets, $deprecated_linked_widgets);
 
 @each $widget, $child in $_linked_widgets {
   .linked:not(.vertical) > {

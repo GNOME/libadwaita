@@ -327,8 +327,6 @@ row.expander {
  * Boxed Lists *
  *****************/
 
-// Deprecated: use .boxed-list instead
-list.content,
 list.boxed-list {
   @extend %card;
 

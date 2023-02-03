@@ -27,6 +27,7 @@ if not fs.exists('base.css')
       'widgets/_calendar.scss',
       'widgets/_checks.scss',
       'widgets/_color-chooser.scss',
+      'widgets/_deprecated.scss',
       'widgets/_dialogs.scss',
       'widgets/_dropdowns.scss',
       'widgets/_emoji-chooser.scss',

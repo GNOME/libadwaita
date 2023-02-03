@@ -1,29 +1,3 @@
-// Deprecated: use .navigation-sidebar instead
-.sidebar {
-  &:not(separator) {
-    &:dir(ltr),
-    &.left,
-    &.left:dir(rtl) {
-      border-right: 1px solid $border_color;
-      border-left-style: none;
-    }
-
-    &:dir(rtl),
-    &.right {
-      border-left: 1px solid $border_color;
-      border-right-style: none;
-    }
-  }
-
-  listview.view,
-  list {
-    background-color: transparent;
-    color: inherit;
-  }
-
-  paned & { &.left, &.right, &.left:dir(rtl), &:dir(rtl), &:dir(ltr), & { border-style: none; }}
-}
-
 stacksidebar row {
   padding: 10px 4px;
 
@@ -36,10 +10,6 @@ stacksidebar row {
     @extend %needs_attention;
     background-size: 6px 6px, 0 0;
   }
-}
-
-separator.sidebar {
-  background-color: $border_color;
 }
 
 /**********************
