@@ -62,8 +62,6 @@ struct _AdwTabButton
   AdwIndicatorBin *indicator;
 
   AdwTabView *view;
-
-  int needs_attention;
 };
 
 static void adw_tab_button_actionable_init (GtkActionableInterface *iface);
@@ -168,30 +166,29 @@ update_icon (AdwTabButton *self)
 static void
 update_needs_attention (AdwTabButton *self)
 {
-  int needs_attention = self->needs_attention;
+  gboolean needs_attention = FALSE;
 
   if (self->view) {
-    AdwTabPage *selected_page = adw_tab_view_get_selected_page (self->view);
+    int i, n;
 
-    if (selected_page && adw_tab_page_get_needs_attention (selected_page))
-      needs_attention--;
+    n = adw_tab_view_get_n_pages (self->view);
+
+    for (i = 0; i < n; i++) {
+      AdwTabPage *page = adw_tab_view_get_nth_page (self->view, i);
+
+      if (adw_tab_page_get_selected (page))
+        continue;
+
+      if (!adw_tab_page_get_needs_attention (page))
+        continue;
+
+      needs_attention = TRUE;
+      break;
+    }
   }
 
   adw_indicator_bin_set_needs_attention (ADW_INDICATOR_BIN (self->indicator),
-                                         needs_attention > 0);
-}
-
-static void
-notify_needs_attention_cb (AdwTabButton *self,
-                           GParamSpec   *pspec,
-                           AdwTabPage   *page)
-{
-  if (adw_tab_page_get_needs_attention (page))
-    self->needs_attention++;
-  else
-    self->needs_attention--;
-
-  update_needs_attention (self);
+                                         needs_attention);
 }
 
 static void
@@ -199,11 +196,8 @@ page_attached_cb (AdwTabButton *self,
                   AdwTabPage   *page)
 {
   g_signal_connect_object (page, "notify::needs-attention",
-                           G_CALLBACK (notify_needs_attention_cb), self,
+                           G_CALLBACK (update_needs_attention), self,
                            G_CONNECT_SWAPPED);
-
-  if (adw_tab_page_get_needs_attention (page))
-    self->needs_attention++;
 
   update_needs_attention (self);
 }
@@ -212,10 +206,7 @@ static void
 page_detached_cb (AdwTabButton *self,
                   AdwTabPage   *page)
 {
-  g_signal_handlers_disconnect_by_func (page, notify_needs_attention_cb, self);
-
-  if (adw_tab_page_get_needs_attention (page))
-    self->needs_attention--;
+  g_signal_handlers_disconnect_by_func (page, update_needs_attention, self);
 
   update_needs_attention (self);
 }
