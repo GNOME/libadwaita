@@ -20,7 +20,7 @@
                   <object class="AdwAvatar" id="avatar">
                     <property name="valign">center</property>
                     <property name="size" bind-source="size" bind-property="value" bind-flags="sync-create"></property>
-                    <property name="show-initials" bind-source="show_initials" bind-property="state" bind-flags="sync-create"/>
+                    <property name="show-initials" bind-source="show_initials" bind-property="active" bind-flags="sync-create"/>
                     <property name="text" bind-source="text" bind-property="text" bind-flags="sync-create"/>
                     <property name="margin-bottom">36</property>
                   </object>
@@ -74,7 +74,7 @@
                             <child>
                               <object class="GtkSwitch" id="show_initials">
                                 <property name="valign">center</property>
-                                <property name="state">True</property>
+                                <property name="active">True</property>
                               </object>
                             </child>
                           </object>
