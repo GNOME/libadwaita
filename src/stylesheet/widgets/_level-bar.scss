@@ -70,7 +70,7 @@ levelbar {
     // level bar colours
     > block {
       &.low {
-        background-color: $warning_color;
+        background-color: $warning_bg_color;
       }
 
       &.high,
@@ -79,7 +79,7 @@ levelbar {
       }
 
       &.full {
-        background-color: $success_color;
+        background-color: $success_bg_color;
       }
 
       &.empty {
