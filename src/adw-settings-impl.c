@@ -1,0 +1,149 @@
+/*
+ * Copyright (C) 2023 Purism SPC
+ *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
+ * Author: Alexander Mikhaylenko <alexander.mikhaylenko@puri.sm>
+ */
+
+#include "config.h"
+
+#include "adw-settings-impl-private.h"
+
+typedef struct
+{
+  gboolean has_color_scheme;
+  gboolean has_high_contrast;
+
+  AdwSystemColorScheme color_scheme;
+  gboolean high_contrast;
+} AdwSettingsImplPrivate;
+
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (AdwSettingsImpl, adw_settings_impl, G_TYPE_OBJECT)
+
+enum {
+  SIGNAL_PREPARE,
+  SIGNAL_COLOR_SCHEME_CHANGED,
+  SIGNAL_HIGH_CONTRAST_CHANGED,
+  SIGNAL_LAST_SIGNAL,
+};
+
+static guint signals[SIGNAL_LAST_SIGNAL];
+
+static void
+adw_settings_impl_class_init (AdwSettingsImplClass *klass)
+{
+  signals[SIGNAL_COLOR_SCHEME_CHANGED] =
+    g_signal_new ("color-scheme-changed",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  1,
+                  ADW_TYPE_SYSTEM_COLOR_SCHEME);
+
+  signals[SIGNAL_HIGH_CONTRAST_CHANGED] =
+    g_signal_new ("high-contrast-changed",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  0,
+                  NULL, NULL, NULL,
+                  G_TYPE_NONE,
+                  1,
+                  G_TYPE_BOOLEAN);
+}
+
+static void
+adw_settings_impl_init (AdwSettingsImpl *self)
+{
+}
+
+gboolean
+adw_settings_impl_get_has_color_scheme (AdwSettingsImpl *self)
+{
+  AdwSettingsImplPrivate *priv = adw_settings_impl_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_SETTINGS_IMPL (self), FALSE);
+
+  return priv->has_color_scheme;
+}
+
+gboolean
+adw_settings_impl_get_has_high_contrast (AdwSettingsImpl *self)
+{
+  AdwSettingsImplPrivate *priv = adw_settings_impl_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_SETTINGS_IMPL (self), FALSE);
+
+  return priv->has_high_contrast;
+}
+
+void
+adw_settings_impl_set_features (AdwSettingsImpl *self,
+                                gboolean         has_color_scheme,
+                                gboolean         has_high_contrast)
+{
+  AdwSettingsImplPrivate *priv = adw_settings_impl_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_SETTINGS_IMPL (self));
+
+  priv->has_color_scheme = !!has_color_scheme;
+  priv->has_high_contrast = !!has_high_contrast;
+}
+
+AdwSystemColorScheme
+adw_settings_impl_get_color_scheme (AdwSettingsImpl *self)
+{
+  AdwSettingsImplPrivate *priv = adw_settings_impl_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_SETTINGS_IMPL (self), ADW_SYSTEM_COLOR_SCHEME_DEFAULT);
+
+  return priv->color_scheme;
+}
+
+void
+adw_settings_impl_set_color_scheme (AdwSettingsImpl      *self,
+                                    AdwSystemColorScheme  color_scheme)
+{
+  AdwSettingsImplPrivate *priv = adw_settings_impl_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_SETTINGS_IMPL (self));
+
+  if (priv->color_scheme == color_scheme)
+    return;
+
+  priv->color_scheme = color_scheme;
+
+  if (priv->has_color_scheme)
+    g_signal_emit (G_OBJECT (self), signals[SIGNAL_COLOR_SCHEME_CHANGED], 0, color_scheme);
+}
+
+gboolean
+adw_settings_impl_get_high_contrast (AdwSettingsImpl *self)
+{
+  AdwSettingsImplPrivate *priv = adw_settings_impl_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_SETTINGS_IMPL (self), FALSE);
+
+  return priv->high_contrast;
+}
+
+void
+adw_settings_impl_set_high_contrast (AdwSettingsImpl *self,
+                                     gboolean         high_contrast)
+{
+  AdwSettingsImplPrivate *priv = adw_settings_impl_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_SETTINGS_IMPL (self));
+
+  high_contrast = !!high_contrast;
+
+  if (priv->high_contrast == high_contrast)
+    return;
+
+  priv->high_contrast = high_contrast;
+
+  if (priv->has_high_contrast)
+    g_signal_emit (G_OBJECT (self), signals[SIGNAL_HIGH_CONTRAST_CHANGED], 0, high_contrast);
+}
