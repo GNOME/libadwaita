@@ -217,6 +217,9 @@ libadwaita_private_sources += files([
   'adw-indicator-bin.c',
   'adw-inspector-page.c',
   'adw-settings.c',
+  'adw-settings-impl.c',
+  'adw-settings-impl-gsettings.c',
+  'adw-settings-impl-legacy.c',
   'adw-shadow-helper.c',
   'adw-tab.c',
   'adw-tab-box.c',
@@ -232,16 +235,6 @@ libadwaita_public_headers += files(src_headers)
 libadwaita_public_sources += files(src_sources)
 
 install_headers(src_headers, subdir: libadwaita_header_subdir)
-
-
-libadwaita_sources = [
-  libadwaita_generated_headers,
-  libadwaita_public_sources,
-  libadwaita_private_sources,
-  libadwaita_resources,
-  libadwaita_stylesheet_resources,
-  libadwaita_init_public_types,
-]
 
 glib_min_version = '>= 2.72.0'
 gtk_min_version = '>= 4.9.3'
@@ -286,14 +279,31 @@ if target_system == 'darwin'
   libadwaita_deps += [
     dependency('appleframeworks', modules: appleframework_modules),
   ]
+  libadwaita_private_sources += [
+    'adw-settings-impl-mac.c',
+  ]
   libadwaita_c_args += ['-xobjective-c']
-endif
-
-if target_system == 'windows'
+elif target_system == 'windows'
   libadwaita_deps += [
     dependency('gtk4-win32', version: gtk_min_version),
   ]
+  libadwaita_private_sources += [
+    'adw-settings-impl-win32.c',
+  ]
+else
+  libadwaita_private_sources += [
+    'adw-settings-impl-portal.c',
+  ]
 endif
+
+libadwaita_sources = [
+  libadwaita_generated_headers,
+  libadwaita_public_sources,
+  libadwaita_private_sources,
+  libadwaita_resources,
+  libadwaita_stylesheet_resources,
+  libadwaita_init_public_types,
+]
 
 configure_file(
          output: 'config.h',
