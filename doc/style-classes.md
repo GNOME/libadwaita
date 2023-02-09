@@ -591,6 +591,28 @@ Most applications should use [class@ToolbarView] instead, as it manages
 undershoots automatically based on presence and visibility of top and bottom
 bars.
 
+## Property Rows
+
+<picture>
+  <source srcset="property-row-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="property-row.png" alt="property-row">
+</picture>
+
+The `.property` style class can be used with [class@ActionRow] and
+[class@ExpanderRow]. It deemphasizes the row title and emphasizes subtitle
+instead, which is useful for displaying read-only properties, as follows:
+
+```xml
+<object class="AdwActionRow">
+  <property name="title" translatable="yes">Property Name</property>
+  <property name="subtitle">Value</property>
+  <property name="subtitle-selectable">True</property>
+  <style>
+    <class name="property"/>
+  </style>
+</object>
+```
+
 # Deprecated Style Classes
 
 The following style classes are deprecated and remain there for compatibility.

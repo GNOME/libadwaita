@@ -109,6 +109,29 @@ secrets. It conceals the text and provides a button to show it, along with a
   <img src="password-entry-row.png" alt="password-entry-row">
 </picture>
 
+### Property Rows
+
+When used together with the [`.property`](style-classes.html#property-rows)
+style class, [class@ActionRow] and [class@ExpanderRow] deemphasize their title
+and emphasize their subtitle instead, which is useful for displaying read-only
+properties:
+
+```xml
+<object class="AdwActionRow">
+  <property name="title" translatable="yes">Property Name</property>
+  <property name="subtitle">Value</property>
+  <property name="subtitle-selectable">True</property>
+  <style>
+    <class name="property"/>
+  </style>
+</object>
+```
+
+<picture>
+  <source srcset="property-row-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="property-row.png" alt="property-row">
+</picture>
+
 ## Preferences Group
 
 [class@PreferencesGroup] provides a boxed list along with a title and a

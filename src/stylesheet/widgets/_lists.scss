@@ -144,6 +144,18 @@ row {
       &:dir(rtl) { margin-left: 6px; }
     }
   }
+
+  &.property > box.header > box.title > {
+    .title {
+      @extend .caption;
+      @extend .dim-label;
+    }
+
+    .subtitle {
+      font-size: inherit;
+      opacity: 1;
+    }
+  }
 }
 
 /***************
@@ -330,6 +342,10 @@ row.expander {
 
   .osd &:checked image.expander-row-arrow:not(:disabled) {
     color: inherit;
+  }
+
+  &.property box > list > row {
+    @extend .property;
   }
 }
 
