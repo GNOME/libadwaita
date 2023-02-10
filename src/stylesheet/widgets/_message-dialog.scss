@@ -76,7 +76,11 @@ window.messagedialog {
 
   .message-area {
     padding: 24px 30px;
-    border-spacing: 10px;
+    border-spacing: 24px;
+
+    &.has-heading.has-body {
+      border-spacing: 10px;
+    }
   }
 
   .response-area > button {

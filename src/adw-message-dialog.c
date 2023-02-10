@@ -1376,6 +1376,11 @@ adw_message_dialog_set_heading (AdwMessageDialog *self,
   gtk_label_set_label (GTK_LABEL (priv->heading_label), heading);
   gtk_widget_set_visible (priv->heading_label, heading && *heading);
 
+  if (heading && *heading)
+    gtk_widget_add_css_class (GTK_WIDGET (priv->message_area), "has-heading");
+  else
+    gtk_widget_remove_css_class (GTK_WIDGET (priv->message_area), "has-heading");
+
   update_window_title (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_HEADING]);
@@ -1581,6 +1586,11 @@ adw_message_dialog_set_body (AdwMessageDialog *self,
 
   gtk_label_set_label (GTK_LABEL (priv->body_label), body);
   gtk_widget_set_visible (priv->body_label, body && *body);
+
+  if (body && *body)
+    gtk_widget_add_css_class (GTK_WIDGET (priv->message_area), "has-body");
+  else
+    gtk_widget_remove_css_class (GTK_WIDGET (priv->message_area), "has-body");
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_BODY]);
 }
