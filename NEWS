@@ -1,4 +1,27 @@
 =============
+Version 1.2.2
+=============
+
+- AboutWindow
+  - Prevent double clicks from opening troubleshooting page
+- AdwLeaflet
+  - Fix can-unfold=false
+- AdwSpringAnimation
+  - Fix critical damping velocity
+- AdwSwipeable
+  - Fix get_swipe_area() fallback
+- AdwToastOverlay
+  - Don't focus buttons on click
+  - Prevent toast labels from wrapping
+- Demo
+  - Fix the switch on the avatar page
+- Stylesheet
+  - Fix GtkLevelBar fill colors
+- Fix dependency names in docs
+- Translation updates
+  - French
+
+=============
 Version 1.2.1
 =============
 
