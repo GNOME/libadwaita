@@ -2112,6 +2112,7 @@ adw_leaflet_dispose (GObject *object)
   GtkWidget *child;
 
   g_clear_object (&self->shadow_helper);
+  g_clear_object (&self->tracker);
 
   if (self->pages)
     g_list_model_items_changed (G_LIST_MODEL (self->pages), 0,
