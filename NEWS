@@ -1,3 +1,65 @@
+================
+Version 1.3.beta
+================
+
+- AboutWindow
+  - Prevent double clicks from opening troubleshooting page
+  - Fix a GTK 4.9.x deprecation
+- AdwActionRow
+  - Add :subtitle-selectable
+- AdwAnimation
+  - Add :follow-enable-animations-setting
+- AdwBanner
+  - Sizing fixes
+- AdwEntryRow
+  - Make accessible
+- AdwLeaflet
+  - Fix can-unfold=false
+- AdwMessageDialog
+  - Increase spacing when heading or body are missing
+- AdwSpringAnimation
+  - Add calculate_value() and calculate_velocity()
+  - Fix unsafe float comparisons
+  - Fix critical damping velocity
+- AdwStyleManager
+  - Support color schemes and high contrast on Windows
+- AdwSwipeable
+  - Fix get_swipe_area() fallback
+- AdwTabBar, AdwTabOverview
+  - Emit ::extra-drag-value on ::enter
+- AdwTabButton
+  - Fix needs-attention dot after viewing AdwTabPages in inspector
+  - Fix warning when building in Visual Studio
+- AdwTabView
+  - Make accessible
+- AdwToastOverlay
+  - Don't focus buttons on click
+  - Prevent toast labels from wrapping
+- AdwViewStack
+  - Make accessible
+- Demo
+  - Don't follow "enable animations" setting for the demo animation
+  - Fix the switch on the avatar page
+- Stylesheet
+  - Style GtkMenuBar like header bars and similar widgets
+  - Add minimum width to menu popovers
+  - Fix GtkLevelBar fill colors
+  - Fix GtkFileDialog path bar padding
+  - Fix GtkAssistant sidebar color
+  - Support marked days in GtkCalendar
+- Documentation fixes
+- Translation updates
+  - Basque
+  - Catalan
+  - Galician
+  - Georgian
+  - German
+  - Greek
+  - Indonesian
+  - Persian
+  - Portuguese
+  - Ukrainian
+
 =================
 Verison 1.3.alpha
 =================
