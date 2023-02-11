@@ -1,4 +1,8 @@
 popover.menu {
+  > contents {
+    min-width: 120px;
+  }
+
   box.inline-buttons {
     padding: 0 $menu_padding;
 
