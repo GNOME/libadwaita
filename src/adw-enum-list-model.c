@@ -209,8 +209,13 @@ static void
 adw_enum_list_model_finalize (GObject *object)
 {
   AdwEnumListModel *self = ADW_ENUM_LIST_MODEL (object);
+  guint i;
+
+  for (i = 0; i < self->enum_class->n_values; i++)
+    g_object_unref (self->objects[i]);
 
   g_clear_pointer (&self->enum_class, g_type_class_unref);
+
   g_clear_pointer (&self->objects, g_free);
 
   G_OBJECT_CLASS (adw_enum_list_model_parent_class)->finalize (object);
