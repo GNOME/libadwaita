@@ -166,8 +166,13 @@ adw_view_switcher_bar_dispose (GObject *object)
 {
   AdwViewSwitcherBar *self = ADW_VIEW_SWITCHER_BAR (object);
 
-  adw_view_switcher_bar_set_stack (self, NULL);
+  if (self->pages) {
+    g_signal_handlers_disconnect_by_func (self->pages, G_CALLBACK (update_bar_revealed), self);
+    g_clear_object (&self->pages);
+  }
+
   gtk_widget_unparent (self->action_bar);
+  self->view_switcher = NULL;
 
   G_OBJECT_CLASS (adw_view_switcher_bar_parent_class)->dispose (object);
 }
