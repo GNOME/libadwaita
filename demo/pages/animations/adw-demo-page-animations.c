@@ -297,6 +297,17 @@ adw_demo_page_animations_set_property (GObject      *object,
 }
 
 static void
+adw_demo_page_animations_dispose (GObject *object)
+{
+  AdwDemoPageAnimations *self = ADW_DEMO_PAGE_ANIMATIONS (object);
+
+  g_clear_object (&self->timed_animation);
+  g_clear_object (&self->spring_animation);
+
+  G_OBJECT_CLASS (adw_demo_page_animations_parent_class)->dispose (object);
+}
+
+static void
 adw_demo_page_animations_class_init (AdwDemoPageAnimationsClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -304,6 +315,7 @@ adw_demo_page_animations_class_init (AdwDemoPageAnimationsClass *klass)
 
   object_class->set_property = adw_demo_page_animations_set_property;
   object_class->get_property = adw_demo_page_animations_get_property;
+  object_class->dispose = adw_demo_page_animations_dispose;
 
   props[PROP_TIMED_ANIMATION] =
     g_param_spec_object ("timed-animation", NULL, NULL,
