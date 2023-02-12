@@ -208,8 +208,10 @@ adw_view_switcher_title_dispose (GObject *object)
 {
   AdwViewSwitcherTitle *self = ADW_VIEW_SWITCHER_TITLE (object);
 
-  if (self->pages)
+  if (self->pages) {
     g_signal_handlers_disconnect_by_func (self->pages, G_CALLBACK (update_view_switcher_visible), self);
+    g_clear_object (&self->pages);
+  }
 
   if (self->squeezer)
     gtk_widget_unparent (GTK_WIDGET (self->squeezer));
