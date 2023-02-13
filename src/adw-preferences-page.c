@@ -482,6 +482,14 @@ adw_preferences_page_set_use_underline (AdwPreferencesPage *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_UNDERLINE]);
 }
 
+static GListModel *
+preferences_group_to_rows (AdwPreferencesGroup *group)
+{
+  g_object_unref (group);
+
+  return adw_preferences_group_get_rows (group);
+}
+
 /**
  * adw_preferences_page_get_rows:
  * @self: a preferences page
@@ -508,7 +516,7 @@ adw_preferences_page_get_rows (AdwPreferencesPage *self)
   model = gtk_widget_observe_children (GTK_WIDGET (priv->box));
   model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (gtk_bool_filter_new (expr))));
   model = G_LIST_MODEL (gtk_map_list_model_new (model,
-                                                (GtkMapListModelMapFunc) adw_preferences_group_get_rows,
+                                                (GtkMapListModelMapFunc) preferences_group_to_rows,
                                                 NULL,
                                                 NULL));
 
