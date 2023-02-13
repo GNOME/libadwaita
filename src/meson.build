@@ -280,7 +280,7 @@ if target_system == 'darwin'
     dependency('appleframeworks', modules: appleframework_modules),
   ]
   libadwaita_private_sources += [
-    'adw-settings-impl-mac.c',
+    'adw-settings-impl-macos.c',
   ]
   libadwaita_c_args += ['-xobjective-c']
 elif target_system == 'windows'

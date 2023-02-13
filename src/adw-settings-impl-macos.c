@@ -88,25 +88,28 @@ AdwSettingsImpl *
 adw_settings_impl_macos_new (gboolean has_color_scheme,
                              gboolean has_high_contrast)
 {
-  static ThemeChangedObserver *observer;
   AdwSettingsImplMacOS *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_MACOS, NULL);
 
-  if (has_color_scheme || !@available(*, macOS 10.14))
+  if (has_color_scheme)
     return ADW_SETTINGS_IMPL (self);
 
-  observer = [[ThemeChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
+  if (@available(*, macOS 10.14)) {
+    static ThemeChangedObserver *observer;
+    
+    observer = [[ThemeChangedObserver alloc] initWithSettings:(AdwSettingsImpl *)self];
 
-  [[NSDistributedNotificationCenter defaultCenter]
-    addObserver:observer
-       selector:@selector(appDidChangeTheme:)
-           name:@"AppleInterfaceThemeChangedNotification"
-         object:nil];
+    [[NSDistributedNotificationCenter defaultCenter]
+      addObserver:observer
+        selector:@selector(appDidChangeTheme:)
+            name:@"AppleInterfaceThemeChangedNotification"
+          object:nil];
 
-  [observer appDidChangeTheme:nil];
+    [observer appDidChangeTheme:nil];
 
-  adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
-                                  /* has_color_scheme */ TRUE,
-                                  /* has_high_contrast */ FALSE);
+    adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
+                                    /* has_color_scheme */ TRUE,
+                                    /* has_high_contrast */ FALSE);
+  }
 
   return ADW_SETTINGS_IMPL (self);
 }
