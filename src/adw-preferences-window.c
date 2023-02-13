@@ -647,11 +647,12 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, stop_search_cb);
 }
 
-static gpointer
-preferences_page_to_rows (gpointer page,
-                          gpointer user_data)
+static GListModel *
+preferences_page_to_rows (AdwViewStackPage *page)
 {
-  GtkWidget *child = adw_view_stack_page_get_child (ADW_VIEW_STACK_PAGE (page));
+  GtkWidget *child = adw_view_stack_page_get_child (page);
+
+  g_object_unref (page);
 
   return adw_preferences_page_get_rows (ADW_PREFERENCES_PAGE (child));
 }
@@ -672,7 +673,10 @@ adw_preferences_window_init (AdwPreferencesWindow *self)
 
   model = G_LIST_MODEL (adw_view_stack_get_pages (priv->pages_stack));
   model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (gtk_bool_filter_new (expr))));
-  model = G_LIST_MODEL (gtk_map_list_model_new (model, preferences_page_to_rows, NULL, NULL));
+  model = G_LIST_MODEL (gtk_map_list_model_new (model,
+                                                (GtkMapListModelMapFunc) preferences_page_to_rows,
+                                                NULL,
+                                                NULL));
   model = G_LIST_MODEL (gtk_flatten_list_model_new (model));
   priv->filter_model = gtk_filter_list_model_new (model, priv->filter);
 
