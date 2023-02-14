@@ -74,16 +74,16 @@ set_high_contrast (AdwSettings *self,
 
 static void
 init_debug (AdwSettings *self,
-            gboolean    *has_color_scheme,
-            gboolean    *has_high_contrast)
+            gboolean    *found_color_scheme,
+            gboolean    *found_high_contrast)
 {
   const char *env = g_getenv ("ADW_DEBUG_HIGH_CONTRAST");
   if (env && *env) {
     if (!g_strcmp0 (env, "1")) {
-      *has_high_contrast = TRUE;
+      *found_high_contrast = TRUE;
       self->high_contrast = TRUE;
     } else if (!g_strcmp0 (env, "0")) {
-      *has_high_contrast = TRUE;
+      *found_high_contrast = TRUE;
       self->high_contrast = FALSE;
     } else {
       g_warning ("Invalid value for ADW_DEBUG_HIGH_CONTRAST: %s (Expected 0 or 1)", env);
@@ -93,13 +93,13 @@ init_debug (AdwSettings *self,
   env = g_getenv ("ADW_DEBUG_COLOR_SCHEME");
   if (env) {
     if (!g_strcmp0 (env, "default")) {
-      *has_color_scheme = TRUE;
+      *found_color_scheme = TRUE;
       self->color_scheme = ADW_SYSTEM_COLOR_SCHEME_DEFAULT;
     } else if (!g_strcmp0 (env, "prefer-dark")) {
-      *has_color_scheme = TRUE;
+      *found_color_scheme = TRUE;
       self->color_scheme = ADW_SYSTEM_COLOR_SCHEME_PREFER_DARK;
     } else if (!g_strcmp0 (env, "prefer-light")) {
-      *has_color_scheme = TRUE;
+      *found_color_scheme = TRUE;
       self->color_scheme = ADW_SYSTEM_COLOR_SCHEME_PREFER_LIGHT;
     } else {
       g_warning ("Invalid color scheme %s (Expected one of: default, prefer-dark, prefer-light)", env);
@@ -110,11 +110,11 @@ init_debug (AdwSettings *self,
 static void
 register_impl (AdwSettings     *self,
                AdwSettingsImpl *impl,
-               gboolean        *has_color_scheme,
-               gboolean        *has_high_contrast)
+               gboolean        *found_color_scheme,
+               gboolean        *found_high_contrast)
 {
   if (adw_settings_impl_get_has_color_scheme (impl)) {
-    *has_color_scheme = TRUE;
+    *found_color_scheme = TRUE;
 
     set_color_scheme (self, adw_settings_impl_get_color_scheme (impl));
 
@@ -123,7 +123,7 @@ register_impl (AdwSettings     *self,
   }
 
   if (adw_settings_impl_get_has_high_contrast (impl)) {
-    *has_high_contrast = TRUE;
+    *found_high_contrast = TRUE;
 
     set_high_contrast (self, adw_settings_impl_get_high_contrast (impl));
 
@@ -136,36 +136,36 @@ static void
 adw_settings_constructed (GObject *object)
 {
   AdwSettings *self = ADW_SETTINGS (object);
-  gboolean has_color_scheme = FALSE;
-  gboolean has_high_contrast = FALSE;
+  gboolean found_color_scheme = FALSE;
+  gboolean found_high_contrast = FALSE;
 
   G_OBJECT_CLASS (adw_settings_parent_class)->constructed (object);
 
-  init_debug (self, &has_color_scheme, &has_high_contrast);
+  init_debug (self, &found_color_scheme, &found_high_contrast);
 
-  if (!has_color_scheme || !has_high_contrast) {
+  if (!found_color_scheme || !found_high_contrast) {
 #ifdef __APPLE__
-    self->platform_impl = adw_settings_impl_macos_new (has_color_scheme, has_high_contrast);
+    self->platform_impl = adw_settings_impl_macos_new (!found_color_scheme, !found_high_contrast);
 #elif defined(G_OS_WIN32)
-    self->platform_impl = adw_settings_impl_win32_new (has_color_scheme, has_high_contrast);
+    self->platform_impl = adw_settings_impl_win32_new (!found_color_scheme, !found_high_contrast);
 #else
-    self->platform_impl = adw_settings_impl_portal_new (has_color_scheme, has_high_contrast);
+    self->platform_impl = adw_settings_impl_portal_new (!found_color_scheme, !found_high_contrast);
 #endif
 
-    register_impl (self, self->platform_impl, &has_color_scheme, &has_high_contrast);
+    register_impl (self, self->platform_impl, &found_color_scheme, &found_high_contrast);
   }
 
-  if (!has_color_scheme || !has_high_contrast) {
-    self->gsettings_impl = adw_settings_impl_gsettings_new (has_color_scheme, has_high_contrast);
-    register_impl (self, self->gsettings_impl, &has_color_scheme, &has_high_contrast);
+  if (!found_color_scheme || !found_high_contrast) {
+    self->gsettings_impl = adw_settings_impl_gsettings_new (!found_color_scheme, !found_high_contrast);
+    register_impl (self, self->gsettings_impl, &found_color_scheme, &found_high_contrast);
   }
 
-  if (!has_color_scheme || !has_high_contrast) {
-    self->legacy_impl = adw_settings_impl_legacy_new (has_color_scheme, has_high_contrast);
-    register_impl (self, self->legacy_impl, &has_color_scheme, &has_high_contrast);
+  if (!found_color_scheme || !found_high_contrast) {
+    self->legacy_impl = adw_settings_impl_legacy_new (!found_color_scheme, !found_high_contrast);
+    register_impl (self, self->legacy_impl, &found_color_scheme, &found_high_contrast);
   }
 
-  self->system_supports_color_schemes = has_color_scheme;
+  self->system_supports_color_schemes = found_color_scheme;
 }
 
 static void

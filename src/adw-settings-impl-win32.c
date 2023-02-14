@@ -375,16 +375,17 @@ adw_settings_impl_win32_init (AdwSettingsImplWin32 *self)
 }
 
 AdwSettingsImpl *
-adw_settings_impl_win32_new (gboolean has_color_scheme,
-                             gboolean has_high_contrast)
+adw_settings_impl_win32_new (gboolean enable_color_scheme,
+                             gboolean enable_high_contrast)
 {
   AdwSettingsImplWin32 *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_WIN32, NULL);
   GdkDisplay *display = gdk_display_get_default ();
+  gboolean found_color_scheme = FALSE;
 
   if (!GDK_IS_WIN32_DISPLAY (display))
     return ADW_SETTINGS_IMPL (self);
 
-  if (!has_high_contrast) {
+  if (enable_high_contrast) {
     gdk_win32_display_add_filter (GDK_WIN32_DISPLAY (display),
                                   system_colors_filter,
                                   self);
@@ -392,16 +393,16 @@ adw_settings_impl_win32_new (gboolean has_color_scheme,
   }
 
 #ifdef HAS_WINRT
-  if (!has_color_scheme && SUCCEEDED (init_winrt_settings (self)))
-    has_color_scheme = TRUE;
+  if (enable_color_scheme && SUCCEEDED (init_winrt_settings (self)))
+    found_color_scheme = TRUE;
 #endif
 
-  if (!has_high_contrast)
+  if (enable_high_contrast)
     system_colors_changed (self);
 
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
-                                  has_color_scheme,
-                                  has_high_contrast);
+                                  found_color_scheme,
+                                  enable_high_contrast);
 
   return ADW_SETTINGS_IMPL (self);
 }

@@ -85,12 +85,12 @@ adw_settings_impl_macos_init (AdwSettingsImplMacOS *self)
 }
 
 AdwSettingsImpl *
-adw_settings_impl_macos_new (gboolean has_color_scheme,
-                             gboolean has_high_contrast)
+adw_settings_impl_macos_new (gboolean enable_color_scheme,
+                             gboolean enable_high_contrast)
 {
   AdwSettingsImplMacOS *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_MACOS, NULL);
 
-  if (has_color_scheme)
+  if (!enable_color_scheme)
     return ADW_SETTINGS_IMPL (self);
 
   if (@available(*, macOS 10.14)) {

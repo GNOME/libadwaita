@@ -221,8 +221,8 @@ adw_settings_impl_portal_init (AdwSettingsImplPortal *self)
 }
 
 AdwSettingsImpl *
-adw_settings_impl_portal_new (gboolean has_color_scheme,
-                              gboolean has_high_contrast)
+adw_settings_impl_portal_new (gboolean enable_color_scheme,
+                              gboolean enable_high_contrast)
 {
   AdwSettingsImplPortal *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_PORTAL, NULL);
   GError *error = NULL;
@@ -247,10 +247,9 @@ adw_settings_impl_portal_new (gboolean has_color_scheme,
     return ADW_SETTINGS_IMPL (self);
   }
 
-  if (!has_color_scheme &&
+  if (enable_color_scheme &&
       read_setting (self, "org.freedesktop.appearance",
                     "color-scheme", "u", &variant)) {
-    has_color_scheme = TRUE;
     self->color_scheme_portal_state = COLOR_SCHEME_STATE_FDO;
 
     adw_settings_impl_set_color_scheme (ADW_SETTINGS_IMPL (self),
@@ -259,10 +258,10 @@ adw_settings_impl_portal_new (gboolean has_color_scheme,
     g_variant_unref (variant);
   }
 
-  if (!has_color_scheme &&
+  if (enable_color_scheme &&
+      self->color_scheme_portal_state == COLOR_SCHEME_STATE_NONE &&
       read_setting (self, "org.gnome.desktop.interface",
                     "color-scheme", "s", &variant)) {
-    has_color_scheme = TRUE;
     self->color_scheme_portal_state = COLOR_SCHEME_STATE_GNOME;
 
     adw_settings_impl_set_color_scheme (ADW_SETTINGS_IMPL (self),
@@ -271,10 +270,9 @@ adw_settings_impl_portal_new (gboolean has_color_scheme,
     g_variant_unref (variant);
   }
 
-  if (!has_high_contrast &&
+  if (enable_high_contrast &&
       read_setting (self, "org.gnome.desktop.a11y.interface",
                     "high-contrast", "b", &variant)) {
-    has_high_contrast = TRUE;
     self->high_contrast_portal_state = HIGH_CONTRAST_STATE_GNOME;
 
     adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
@@ -284,10 +282,11 @@ adw_settings_impl_portal_new (gboolean has_color_scheme,
   }
 
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
-                                  has_color_scheme,
-                                  has_high_contrast);
+                                  self->color_scheme_portal_state != COLOR_SCHEME_STATE_NONE,
+                                  self->high_contrast_portal_state != HIGH_CONTRAST_STATE_NONE);
 
-  if (has_color_scheme || has_high_contrast)
+  if (self->color_scheme_portal_state != COLOR_SCHEME_STATE_NONE ||
+      self->high_contrast_portal_state != HIGH_CONTRAST_STATE_NONE)
     g_signal_connect (self->settings_portal, "g-signal",
                       G_CALLBACK (changed_cb), self);
 

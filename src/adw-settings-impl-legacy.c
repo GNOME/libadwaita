@@ -61,13 +61,13 @@ adw_settings_impl_legacy_init (AdwSettingsImplLegacy *self)
 }
 
 AdwSettingsImpl *
-adw_settings_impl_legacy_new (gboolean has_color_scheme,
-                              gboolean has_high_contrast)
+adw_settings_impl_legacy_new (gboolean enable_color_scheme,
+                              gboolean enable_high_contrast)
 {
   AdwSettingsImplLegacy *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_LEGACY, NULL);
   GdkDisplay *display;
 
-  if (has_high_contrast)
+  if (!enable_high_contrast)
     return ADW_SETTINGS_IMPL (self);
 
   display = gdk_display_get_default ();
