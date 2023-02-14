@@ -215,12 +215,51 @@ update_custom_image_snapshot (AdwAvatar *self)
 {
   GtkSnapshot *snapshot = gtk_snapshot_new ();
   GdkPaintable *square_image;
-  int height = gdk_paintable_get_intrinsic_height (self->custom_image_source);
-  int width = gdk_paintable_get_intrinsic_width (self->custom_image_source);
-  int size = MIN (width, height);
+  int width, height;
+  float scaled_width, scaled_height;
+  float size;
 
-  gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT ((size - width) / 2.f, (size - height) / 2.f));
-  gdk_paintable_snapshot (self->custom_image_source, snapshot, width, height);
+  if (!self->custom_image_source)
+    return;
+
+  width = gdk_paintable_get_intrinsic_width (self->custom_image_source);
+  height = gdk_paintable_get_intrinsic_height (self->custom_image_source);
+
+  if (height == width && !GDK_IS_TEXTURE (self->custom_image_source)) {
+    gtk_image_set_from_paintable (self->custom_image, self->custom_image_source);
+    return;
+  }
+
+  size = self->size * gtk_widget_get_scale_factor (GTK_WIDGET (self));
+
+  if (width > height) {
+    scaled_height = size;
+    scaled_width = (float) width * scaled_height / (float) height;
+  } else if (width < height) {
+    scaled_width = self->size;
+    scaled_height = (float) height * scaled_width / (float) width;
+  } else {
+    scaled_width = scaled_height = size;
+  }
+
+  gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT ((size - scaled_width) / 2.f, (size - scaled_height) / 2.f));
+
+  if (GDK_IS_TEXTURE (self->custom_image_source)) {
+    GskScalingFilter filter;
+
+    if (scaled_width > width || scaled_height > height)
+      filter = GSK_SCALING_FILTER_NEAREST;
+    else
+      filter = GSK_SCALING_FILTER_TRILINEAR;
+
+    gtk_snapshot_append_scaled_texture (snapshot,
+                                        GDK_TEXTURE (self->custom_image_source),
+                                        filter,
+                                        &GRAPHENE_RECT_INIT (0, 0, scaled_width, scaled_height));
+
+  } else {
+    gdk_paintable_snapshot (self->custom_image_source, snapshot, scaled_width, scaled_height);
+  }
 
   square_image = gtk_snapshot_free_to_paintable (snapshot, &GRAPHENE_SIZE_INIT (size, size));
   gtk_image_set_from_paintable (self->custom_image, square_image);
@@ -427,6 +466,7 @@ adw_avatar_init (AdwAvatar *self)
   update_visibility (self);
 
   g_signal_connect (self, "notify::root", G_CALLBACK (update_font_size), NULL);
+  g_signal_connect (self, "notify::scale-factor", G_CALLBACK (update_custom_image_snapshot), NULL);
 }
 
 /**
@@ -630,10 +670,9 @@ adw_avatar_set_custom_image (AdwAvatar    *self,
     int height = gdk_paintable_get_intrinsic_height (custom_image);
     int width = gdk_paintable_get_intrinsic_width (custom_image);
 
-    if (height == width) {
-      gtk_image_set_from_paintable (self->custom_image, custom_image);
-    } else {
-      update_custom_image_snapshot (self);
+    update_custom_image_snapshot (self);
+
+    if (height != width && !GDK_IS_TEXTURE (custom_image)) {
       g_signal_connect_swapped (custom_image, "invalidate-contents",
                                 G_CALLBACK (update_custom_image_snapshot),
                                 self);
@@ -695,6 +734,7 @@ adw_avatar_set_size (AdwAvatar *self,
     gtk_widget_remove_css_class (self->gizmo, "contrasted");
 
   update_font_size (self);
+  update_custom_image_snapshot (self);
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SIZE]);
