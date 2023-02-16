@@ -158,6 +158,16 @@ row.entry {
     background-color: transparent;
   }
 
+  &:disabled {
+    text {
+      opacity: $disabled_opacity;
+    }
+
+    .dim-label, .subtitle {
+      opacity: 1;
+    }
+  }
+
   .edit-icon, .indicator {
     min-width: 24px;
     min-height: 24px;
