@@ -5,13 +5,17 @@ RUN dnf -y update \
     "dnf-command(builddep)" \
     expat-devel \
     git \
+    libabigail \
     libjpeg-turbo-devel \
     python3-jinja2 \
+    python3-packaging \
     python3-pygments \
     python3-toml \
     python3-typogrify \
     sassc \
- && sudo dnf -y build-dep gtk4 \
+    vala \
+ && dnf -y build-dep gtk4 \
+ && dnf -y remove gi-docgen \
  && dnf clean all
 
 RUN git clone https://gitlab.gnome.org/GNOME/gtk.git --depth=1 \
@@ -22,5 +26,3 @@ RUN git clone https://gitlab.gnome.org/GNOME/gtk.git --depth=1 \
  && sudo ninja install \
  && cd ../.. \
  && rm -rf gtk
-
-RUN dnf -y remove gi-docgen
