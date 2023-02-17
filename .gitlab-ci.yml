@@ -6,8 +6,7 @@ variables:
   MANIFEST_PATH: 'demo/org.gnome.Adwaita1.Demo.json'
   FLATPAK_MODULE: 'libadwaita'
   FLATPAK_BUILD_DIR: build
-  ABI_CHECKER_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/abi-checker:v2"
-  DOCS_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/docs:v2"
+  FEDORA_IMAGE: "registry.gitlab.gnome.org/gnome/libadwaita/fedora:v1"
 
 stages:
   - build
@@ -21,7 +20,7 @@ api-visibility:
     - ./.gitlab-ci/api-visibility.sh
 
 doc:
-  image: $DOCS_IMAGE
+  image: $FEDORA_IMAGE
   stage: build
   tags:
     - flatpak
@@ -48,7 +47,7 @@ build-flatpak:
     BUNDLE: 'org.gnome.Adwaita1.Demo.flatpak'
 
 abi-check:
-  image: $ABI_CHECKER_IMAGE
+  image: $FEDORA_IMAGE
   stage: build
   variables:
     LAST_ABI_BREAK: "11849510ba90790093ae130a3e46033b1f908e57"
