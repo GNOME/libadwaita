@@ -74,6 +74,7 @@ typedef struct {
   AdwAnimation *show_animation;
   AdwAnimation *hide_animation;
 
+  gulong shown_id;
   gulong dismissed_id;
   gboolean postponing;
 } ToastInfo;
@@ -107,6 +108,8 @@ static GtkBuildableIface *parent_buildable_iface;
 static void
 free_toast_info (ToastInfo *info)
 {
+  if (info->shown_id && info->show_animation)
+    g_signal_handler_disconnect (info->show_animation, info->shown_id);
   if (info->dismissed_id && info->toast)
     g_signal_handler_disconnect (info->toast, info->dismissed_id);
 
@@ -253,8 +256,8 @@ show_toast (AdwToastOverlay *self,
                              self->hiding_toasts ? REPLACE_DURATION : SHOW_DURATION,
                              target);
 
-  g_signal_connect_swapped (info->show_animation, "done",
-                            G_CALLBACK (show_done_cb), info);
+  info->shown_id = g_signal_connect_swapped (info->show_animation, "done",
+                                             G_CALLBACK (show_done_cb), info);
 
   adw_animation_play (info->show_animation);
 }
