@@ -22,13 +22,15 @@ struct _AdwSettingsImplGSettings
 
 G_DEFINE_FINAL_TYPE (AdwSettingsImplGSettings, adw_settings_impl_gsettings, ADW_TYPE_SETTINGS_IMPL)
 
-#ifndef G_OS_WIN32
 static gboolean
 is_running_in_flatpak (void)
 {
+#ifndef G_OS_WIN32
   return g_file_test ("/.flatpak-info", G_FILE_TEST_EXISTS);
-}
+#else
+  return FALSE;
 #endif
+}
 
 static void
 color_scheme_changed_cb (AdwSettingsImplGSettings *self)
