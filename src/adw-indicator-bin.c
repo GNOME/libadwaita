@@ -31,9 +31,6 @@ struct _AdwIndicatorBin
   GtkWidget *mask;
   GtkWidget *indicator;
   GtkWidget *label;
-
-  GskGLShader *shader;
-  gboolean shader_compiled;
 };
 
 static void adw_indicator_bin_buildable_init (GtkBuildableIface *iface);
@@ -52,34 +49,6 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
-
-
-static void
-ensure_shader (AdwIndicatorBin *self)
-{
-  GtkNative *native;
-  GskRenderer *renderer;
-  GError *error = NULL;
-
-  if (self->shader)
-    return;
-
-  self->shader = gsk_gl_shader_new_from_resource ("/org/gnome/Adwaita/glsl/mask.glsl");
-
-  native = gtk_widget_get_native (GTK_WIDGET (self));
-  renderer = gtk_native_get_renderer (native);
-
-  self->shader_compiled = gsk_gl_shader_compile (self->shader, renderer, &error);
-
-  if (error) {
-    /* If shaders aren't supported, the error doesn't matter and we just
-     * silently fall back */
-    if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
-      g_warning ("Couldn't compile shader: %s\n", error->message);
-  }
-
-  g_clear_error (&error);
-}
 
 static gboolean
 has_badge (AdwIndicatorBin *self)
@@ -165,48 +134,16 @@ adw_indicator_bin_snapshot (GtkWidget   *widget,
   }
 
   if (self->child) {
-    GtkSnapshot *child_snapshot;
-    GskRenderNode *child_node;
+    gtk_snapshot_push_mask (snapshot, GSK_MASK_MODE_INVERTED_ALPHA);
 
-    child_snapshot = gtk_snapshot_new ();
-    gtk_widget_snapshot_child (widget, self->child, child_snapshot);
-    child_node = gtk_snapshot_free_to_node (child_snapshot);
+    gtk_widget_snapshot_child (widget, self->mask, snapshot);
+    gtk_snapshot_pop (snapshot);
 
-    ensure_shader (self);
-
-    if (self->shader_compiled) {
-      graphene_rect_t bounds;
-
-      gsk_render_node_get_bounds (child_node, &bounds);
-      gtk_snapshot_push_gl_shader (snapshot, self->shader, &bounds,
-                                   gsk_gl_shader_format_args (self->shader, NULL));
-    }
-
-    gtk_snapshot_append_node (snapshot, child_node);
-
-    if (self->shader_compiled) {
-      gtk_snapshot_gl_shader_pop_texture (snapshot);
-
-      gtk_widget_snapshot_child (widget, self->mask, snapshot);
-      gtk_snapshot_gl_shader_pop_texture (snapshot);
-
-      gtk_snapshot_pop (snapshot);
-    }
-
-    gsk_render_node_unref (child_node);
+    gtk_widget_snapshot_child (widget, self->child, snapshot);
+    gtk_snapshot_pop (snapshot);
   }
 
   gtk_widget_snapshot_child (widget, self->indicator, snapshot);
-}
-
-static void
-adw_indicator_bin_unrealize (GtkWidget *widget)
-{
-  AdwIndicatorBin *self = ADW_INDICATOR_BIN (widget);
-
-  GTK_WIDGET_CLASS (adw_indicator_bin_parent_class)->unrealize (widget);
-
-  g_clear_object (&self->shader);
 }
 
 static void
@@ -286,7 +223,6 @@ adw_indicator_bin_class_init (AdwIndicatorBinClass *klass)
   widget_class->measure = adw_indicator_bin_measure;
   widget_class->size_allocate = adw_indicator_bin_size_allocate;
   widget_class->snapshot = adw_indicator_bin_snapshot;
-  widget_class->unrealize = adw_indicator_bin_unrealize;
   widget_class->get_request_mode = adw_widget_get_request_mode;
   widget_class->compute_expand = adw_widget_compute_expand;
 

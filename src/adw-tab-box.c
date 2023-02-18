@@ -160,9 +160,6 @@ struct _AdwTabBox
   gsize extra_drag_n_types;
   gboolean extra_drag_preload;
 
-  GskGLShader *shader;
-  gboolean shader_compiled;
-
   GtkWidget *needs_attention_left;
   GtkWidget *needs_attention_right;
 };
@@ -3305,33 +3302,6 @@ adw_tab_box_size_allocate (GtkWidget *widget,
 }
 
 static void
-ensure_shader (AdwTabBox *self)
-{
-  GtkNative *native;
-  GskRenderer *renderer;
-  GError *error = NULL;
-
-  if (self->shader)
-    return;
-
-  self->shader = gsk_gl_shader_new_from_resource ("/org/gnome/Adwaita/glsl/fade.glsl");
-
-  native = gtk_widget_get_native (GTK_WIDGET (self));
-  renderer = gtk_native_get_renderer (native);
-
-  self->shader_compiled = gsk_gl_shader_compile (self->shader, renderer, &error);
-
-  if (error) {
-    /* If shaders aren't supported, the error doesn't matter and we just
-     * silently fall back */
-    if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
-      g_warning ("Couldn't compile shader: %s\n", error->message);
-  }
-
-  g_clear_error (&error);
-}
-
-static void
 snapshot_tabs (AdwTabBox   *self,
                GtkSnapshot *snapshot)
 {
@@ -3416,48 +3386,55 @@ adw_tab_box_snapshot (GtkWidget   *widget,
   double value = gtk_adjustment_get_value (self->adjustment);
   double page_size = gtk_adjustment_get_page_size (self->adjustment);
   double upper = gtk_adjustment_get_upper (self->adjustment);
-  gboolean draw_fade = value > 0 || value + page_size < upper;
+  gboolean fadeLeft = value > 0;
+  gboolean fadeRight = value + page_size < upper;
 
   if (!self->n_tabs)
     return;
 
-  if (draw_fade) {
-    int width, height;
-    graphene_rect_t bounds;
+  if (fadeLeft || fadeRight) {
+    int width = gtk_widget_get_width (widget);
+    int height = gtk_widget_get_height (widget);
 
-    ensure_shader (self);
+    gtk_snapshot_push_mask (snapshot, GSK_MASK_MODE_INVERTED_ALPHA);
 
-    width = gtk_widget_get_width (widget);
-    height = gtk_widget_get_height (widget);
+    if (fadeLeft) {
+      float opacity = CLAMP (value / FADE_OFFSET, 0, 1);
 
-    graphene_rect_init (&bounds, 0, 0, width, height);
-
-    if (self->shader_compiled) {
-      gboolean fadeLeft = value > 0;
-      gboolean fadeRight = value + page_size < upper;
-
-      gtk_snapshot_push_gl_shader (snapshot, self->shader, &bounds,
-                                   gsk_gl_shader_format_args (self->shader,
-                                                              "offsetLeft", FADE_OFFSET,
-                                                              "offsetRight", FADE_OFFSET,
-                                                              "strengthLeft", fadeLeft ? 1.0f : 0.0f,
-                                                              "strengthRight", fadeRight ? 1.0f : 0.0f,
-                                                              "widthLeft", FADE_WIDTH,
-                                                              "widthRight", FADE_WIDTH,
-                                                              NULL));
-    } else {
-      gtk_snapshot_push_clip (snapshot, &bounds);
+      gtk_snapshot_append_linear_gradient (snapshot,
+                                           &GRAPHENE_RECT_INIT (0, 0,
+                                                                FADE_OFFSET + FADE_WIDTH, height),
+                                           &GRAPHENE_POINT_INIT (FADE_OFFSET, 0),
+                                           &GRAPHENE_POINT_INIT (FADE_WIDTH + FADE_OFFSET, 0),
+                                           (GskColorStop[2]) {
+                                               { 0, { 0, 0, 0, opacity } },
+                                               { 1, { 0, 0, 0, 0 } },
+                                           },
+                                           2);
     }
+
+    if (fadeRight) {
+      float opacity = CLAMP ((upper - value - page_size) / FADE_OFFSET, 0, 1);
+
+      gtk_snapshot_append_linear_gradient (snapshot,
+                                           &GRAPHENE_RECT_INIT (width - FADE_OFFSET - FADE_WIDTH, 0,
+                                                                FADE_OFFSET + FADE_WIDTH, height),
+                                           &GRAPHENE_POINT_INIT (width - FADE_OFFSET, 0),
+                                           &GRAPHENE_POINT_INIT (width - FADE_OFFSET - FADE_WIDTH, 0),
+                                           (GskColorStop[2]) {
+                                               { 0, { 0, 0, 0, opacity } },
+                                               { 1, { 0, 0, 0, 0 } },
+                                           },
+                                           2);
+    }
+
+    gtk_snapshot_pop (snapshot);
   }
 
   snapshot_tabs (self, snapshot);
 
-  if (draw_fade) {
-    if (self->shader_compiled)
-      gtk_snapshot_gl_shader_pop_texture (snapshot);
-
+  if (fadeLeft || fadeRight)
     gtk_snapshot_pop (snapshot);
-  }
 
   if (self->reordered_tab && gtk_widget_get_opacity (self->reordered_tab->container) > 0) {
     gtk_widget_snapshot_child (GTK_WIDGET (self), self->reordered_tab->container, snapshot);
@@ -3478,18 +3455,6 @@ adw_tab_box_focus (GtkWidget        *widget,
     return GDK_EVENT_PROPAGATE;
 
   return gtk_widget_grab_focus (self->selected_tab->container);
-}
-
-static void
-adw_tab_box_unrealize (GtkWidget *widget)
-{
-  AdwTabBox *self = ADW_TAB_BOX (widget);
-
-  g_clear_pointer (&self->context_menu, gtk_widget_unparent);
-
-  GTK_WIDGET_CLASS (adw_tab_box_parent_class)->unrealize (widget);
-
-  g_clear_object (&self->shader);
 }
 
 static void
@@ -3657,7 +3622,6 @@ adw_tab_box_class_init (AdwTabBoxClass *klass)
   widget_class->size_allocate = adw_tab_box_size_allocate;
   widget_class->snapshot = adw_tab_box_snapshot;
   widget_class->focus = adw_tab_box_focus;
-  widget_class->unrealize = adw_tab_box_unrealize;
   widget_class->unmap = adw_tab_box_unmap;
   widget_class->direction_changed = adw_tab_box_direction_changed;
 

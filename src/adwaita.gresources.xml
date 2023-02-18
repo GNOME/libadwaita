@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/org/gnome/Adwaita">
-    <file>glsl/fade.glsl</file>
-    <file>glsl/mask.glsl</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/adw-entry-apply-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/adw-external-link-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/adw-expander-arrow-symbolic.svg</file>

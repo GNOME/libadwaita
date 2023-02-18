@@ -56,9 +56,6 @@ struct _AdwTab
 
   AdwAnimation *close_btn_animation;
   AdwAnimation *needs_attention_animation;
-
-  GskGLShader *shader;
-  gboolean shader_compiled;
 };
 
 G_DEFINE_FINAL_TYPE (AdwTab, adw_tab, GTK_TYPE_WIDGET)
@@ -365,33 +362,6 @@ make_action_unique (GdkDragAction actions)
   return 0;
 }
 
-static void
-ensure_shader (AdwTab *self)
-{
-  GtkNative *native;
-  GskRenderer *renderer;
-  GError *error = NULL;
-
-  if (self->shader)
-    return;
-
-  self->shader = gsk_gl_shader_new_from_resource ("/org/gnome/Adwaita/glsl/fade.glsl");
-
-  native = gtk_widget_get_native (GTK_WIDGET (self));
-  renderer = gtk_native_get_renderer (native);
-
-  self->shader_compiled = gsk_gl_shader_compile (self->shader, renderer, &error);
-
-  if (error) {
-    /* If shaders aren't supported, the error doesn't matter and we just
-     * silently fall back */
-    if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
-      g_warning ("Couldn't compile shader: %s\n", error->message);
-  }
-
-  g_clear_error (&error);
-}
-
 static gboolean
 activate_cb (AdwTab   *self,
              GVariant *args)
@@ -634,40 +604,30 @@ adw_tab_snapshot (GtkWidget   *widget,
     float offset =
       gtk_widget_get_allocated_width (self->close_btn) +
       gtk_widget_get_margin_end (self->title);
-    graphene_rect_t bounds;
 
-    ensure_shader (self);
+    gtk_snapshot_push_mask (snapshot, GSK_MASK_MODE_INVERTED_ALPHA);
 
-    graphene_rect_init (&bounds, 0, 0, width, height);
-
-    if (self->shader_compiled) {
-      gtk_snapshot_push_gl_shader (snapshot, self->shader, &bounds,
-                                   gsk_gl_shader_format_args (self->shader,
-                                                              "offsetLeft", is_rtl ? offset : 0.0f,
-                                                              "offsetRight", is_rtl ? 0.0f : offset,
-                                                              "strengthLeft", is_rtl ? opacity : 0.0f,
-                                                              "strengthRight", is_rtl ? 0.0f : opacity,
-                                                              "widthLeft", FADE_WIDTH,
-                                                              "widthRight", FADE_WIDTH,
-                                                              NULL));
-    } else {
-      bounds.size.width -= offset;
-
-      if (is_rtl)
-        bounds.origin.x += offset;
-
-      gtk_snapshot_push_clip (snapshot, &bounds);
+    if (!is_rtl) {
+      gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT (width, 0));
+      gtk_snapshot_scale (snapshot, -1, 1);
     }
+
+    gtk_snapshot_append_linear_gradient (snapshot,
+                                         &GRAPHENE_RECT_INIT (0, 0, FADE_WIDTH + offset, height),
+                                         &GRAPHENE_POINT_INIT (offset, 0),
+                                         &GRAPHENE_POINT_INIT (FADE_WIDTH + offset, 0),
+                                         (GskColorStop[2]) {
+                                             { 0, { 0, 0, 0, opacity } },
+                                             { 1, { 0, 0, 0, 0 } },
+                                         },
+                                         2);
+    gtk_snapshot_pop (snapshot);
   }
 
   gtk_widget_snapshot_child (widget, self->title, snapshot);
 
-  if (draw_fade) {
-    if (self->shader_compiled)
-      gtk_snapshot_gl_shader_pop_texture (snapshot);
-
+  if (draw_fade)
     gtk_snapshot_pop (snapshot);
-  }
 
   gtk_widget_snapshot_child (widget, self->close_btn, snapshot);
 }
@@ -682,16 +642,6 @@ adw_tab_direction_changed (GtkWidget        *widget,
 
   GTK_WIDGET_CLASS (adw_tab_parent_class)->direction_changed (widget,
                                                               previous_direction);
-}
-
-static void
-adw_tab_unrealize (GtkWidget *widget)
-{
-  AdwTab *self = ADW_TAB (widget);
-
-  GTK_WIDGET_CLASS (adw_tab_parent_class)->unrealize (widget);
-
-  g_clear_object (&self->shader);
 }
 
 static void
@@ -789,7 +739,6 @@ adw_tab_dispose (GObject *object)
 
   adw_tab_set_page (self, NULL);
 
-  g_clear_object (&self->shader);
   g_clear_object (&self->close_btn_animation);
   g_clear_object (&self->needs_attention_animation);
   gtk_widget_unparent (self->indicator_btn);
@@ -818,7 +767,6 @@ adw_tab_class_init (AdwTabClass *klass)
   widget_class->unmap = adw_tab_unmap;
   widget_class->snapshot = adw_tab_snapshot;
   widget_class->direction_changed = adw_tab_direction_changed;
-  widget_class->unrealize = adw_tab_unrealize;
 
   props[PROP_VIEW] =
     g_param_spec_object ("view", NULL, NULL,

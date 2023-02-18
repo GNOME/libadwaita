@@ -20,9 +20,6 @@ struct _AdwFadingLabel
 
   GtkWidget *label;
   float align;
-
-  GskGLShader *shader;
-  gboolean shader_compiled;
 };
 
 G_DEFINE_FINAL_TYPE (AdwFadingLabel, adw_fading_label, GTK_TYPE_WIDGET)
@@ -52,33 +49,6 @@ is_rtl (AdwFadingLabel *self)
     return FALSE;
 
   return gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL;
-}
-
-static void
-ensure_shader (AdwFadingLabel *self)
-{
-  GtkNative *native;
-  GskRenderer *renderer;
-  GError *error = NULL;
-
-  if (self->shader)
-    return;
-
-  self->shader = gsk_gl_shader_new_from_resource ("/org/gnome/Adwaita/glsl/fade.glsl");
-
-  native = gtk_widget_get_native (GTK_WIDGET (self));
-  renderer = gtk_native_get_renderer (native);
-
-  self->shader_compiled = gsk_gl_shader_compile (self->shader, renderer, &error);
-
-  if (error) {
-    /* If shaders aren't supported, the error doesn't matter and we just
-     * silently fall back */
-    if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED))
-      g_warning ("Couldn't compile shader: %s\n", error->message);
-  }
-
-  g_clear_error (&error);
 }
 
 static void
@@ -153,40 +123,43 @@ adw_fading_label_snapshot (GtkWidget   *widget,
   bounds.size.width = width;
   bounds.size.height = ceil (bounds.size.height);
 
-  ensure_shader (self);
+  gtk_snapshot_push_mask (snapshot, GSK_MASK_MODE_INVERTED_ALPHA);
 
-  if (self->shader_compiled) {
-    gtk_snapshot_push_gl_shader (snapshot, self->shader, &bounds,
-                                 gsk_gl_shader_format_args (self->shader,
-                                                            "offsetLeft", 0.0f,
-                                                            "offsetRight", 0.0f,
-                                                            "strengthLeft", align > 0 ? 1.0f : 0.0f,
-                                                            "strengthRight", align < 1 ? 1.0f : 0.0f,
-                                                            "widthLeft", FADE_WIDTH,
-                                                            "widthRight", FADE_WIDTH,
-                                                            NULL));
-  } else {
-    gtk_snapshot_push_clip (snapshot, &bounds);
+  if (align > 0) {
+    gtk_snapshot_append_linear_gradient (snapshot,
+                                         &GRAPHENE_RECT_INIT (0, bounds.origin.y,
+                                                              FADE_WIDTH, bounds.size.height),
+                                         &GRAPHENE_POINT_INIT (0, 0),
+                                         &GRAPHENE_POINT_INIT (FADE_WIDTH, 0),
+                                         (GskColorStop[2]) {
+                                             { 0, { 0, 0, 0, 1 } },
+                                             { 1, { 0, 0, 0, 0 } },
+                                         },
+                                         2);
   }
 
-  gtk_snapshot_append_node (snapshot, node);
+  if (align < 1) {
+    gtk_snapshot_append_linear_gradient (snapshot,
+                                         &GRAPHENE_RECT_INIT (width - FADE_WIDTH, bounds.origin.y,
+                                                              FADE_WIDTH, bounds.size.height),
+                                         &GRAPHENE_POINT_INIT (width, 0),
+                                         &GRAPHENE_POINT_INIT (width - FADE_WIDTH, 0),
+                                         (GskColorStop[2]) {
+                                             { 0, { 0, 0, 0, 1 } },
+                                             { 1, { 0, 0, 0, 0 } },
+                                         },
+                                         2);
+  }
 
-  if (self->shader_compiled)
-    gtk_snapshot_gl_shader_pop_texture (snapshot);
+  gtk_snapshot_pop (snapshot);
+
+  gtk_snapshot_push_clip (snapshot, &bounds);
+  gtk_snapshot_append_node (snapshot, node);
+  gtk_snapshot_pop (snapshot);
 
   gtk_snapshot_pop (snapshot);
 
   gsk_render_node_unref (node);
-}
-
-static void
-adw_fading_label_unrealize (GtkWidget *widget)
-{
-  AdwFadingLabel *self = ADW_FADING_LABEL (widget);
-
-  GTK_WIDGET_CLASS (adw_fading_label_parent_class)->unrealize (widget);
-
-  g_clear_object (&self->shader);
 }
 
 static void
@@ -256,7 +229,6 @@ adw_fading_label_class_init (AdwFadingLabelClass *klass)
   widget_class->measure = adw_fading_label_measure;
   widget_class->size_allocate = adw_fading_label_size_allocate;
   widget_class->snapshot = adw_fading_label_snapshot;
-  widget_class->unrealize = adw_fading_label_unrealize;
 
   props[PROP_LABEL] =
     g_param_spec_string ("label", NULL, NULL,
