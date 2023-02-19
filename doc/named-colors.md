@@ -480,7 +480,18 @@ These colors are used for [class@Gtk.Popover].
     <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
   </tr>
+  <tr>
+    <td><tt>&#64;popover_shade_color</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
+  </tr>
 </table>
+
+<code>&#64;card_shade_color</code> is used for scroll undershoot styles within
+popovers. This color should always be partially transparent black, with the
+opacity tuned to be well visible on top of <code>&#64;popover_bg_color</code>.
 
 ### Miscellaneous Colors
 
@@ -508,9 +519,10 @@ These colors are used for [class@Gtk.Popover].
   </tr>
 </table>
 
-<code>&#64;shade_color</code> is used for transitions in [class@Leaflet] and
-[class@Flap]. This color should always be partially transparent black, with the
-opacity tuned to be well visible on top of <code>&#64;window_bg_color</code>.
+<code>&#64;shade_color</code> is used for scroll undershoots, as well as the
+transitions in [class@Leaflet] and [class@Flap]. This color should always be
+partially transparent black, with the opacity tuned to be well visible on top of
+<code>&#64;window_bg_color</code>.
 
 <code>&#64;scrollbar_outline_color</code> is used by [class@Gtk.Scrollbar] to
 ensure that overlay scrollbars are visible regardless of the content color. It

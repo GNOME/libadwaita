@@ -58,6 +58,7 @@
 // Popovers
 @define-color popover_bg_color #{if($variant == 'light', #ffffff, #383838)};
 @define-color popover_fg_color #{if($variant == 'light', transparentize(black, .2), white)};
+@define-color popover_shade_color #{if($variant == 'light', transparentize(black, .93), transparentize(black, .64))};
 
 // Thumbnails
 @define-color thumbnail_bg_color #{if($variant == 'light', #ffffff, #383838)};
