@@ -11,10 +11,10 @@
 #include "adw-about-window.h"
 
 #include "adw-action-row.h"
-#include "adw-leaflet.h"
 #include "adw-header-bar.h"
 #include "adw-marshalers.h"
 #include "adw-message-dialog.h"
+#include "adw-navigation-view.h"
 #include "adw-preferences-group.h"
 #include "adw-toast-overlay.h"
 
@@ -240,8 +240,7 @@ typedef struct {
 struct _AdwAboutWindow {
   AdwWindow parent_instance;
 
-  GtkWidget *leaflet;
-  GtkWidget *subpage_stack;
+  GtkWidget *navigation_view;
   GtkWidget *toast_overlay;
   GtkWidget *main_scrolled_window;
   GtkWidget *main_headerbar;
@@ -264,7 +263,7 @@ struct _AdwAboutWindow {
   GtkWidget *support_row;
   GtkWidget *issue_row;
   GtkWidget *troubleshooting_row;
-  GtkWidget *debug_info_page;
+  AdwNavigationPage *debug_info_page;
 
   GtkWidget *credits_legal_group;
   GtkWidget *credits_box;
@@ -1214,23 +1213,6 @@ adw_about_window_finalize (GObject *object)
 }
 
 static void
-back_cb (AdwAboutWindow *self)
-{
-  adw_leaflet_navigate (ADW_LEAFLET (self->leaflet), ADW_NAVIGATION_DIRECTION_BACK);
-}
-
-static void
-subpage_cb (AdwAboutWindow *self,
-            const char     *action_name,
-            GVariant       *params)
-{
-  const char *name = g_variant_get_string (params, NULL);
-
-  gtk_stack_set_visible_child_name (GTK_STACK (self->subpage_stack), name);
-  adw_leaflet_set_visible_child (ADW_LEAFLET (self->leaflet), self->subpage_stack);
-}
-
-static void
 show_url_cb (AdwAboutWindow *self,
              const char     *action_name,
              GVariant       *params)
@@ -1275,12 +1257,6 @@ copy_property_cb (AdwAboutWindow *self,
   }
 
   g_free (value);
-}
-
-static void
-debug_cb (AdwAboutWindow *self)
-{
-  adw_leaflet_navigate (ADW_LEAFLET (self->leaflet), ADW_NAVIGATION_DIRECTION_FORWARD);
 }
 
 static void
@@ -1343,10 +1319,8 @@ close_cb (GtkWidget *widget,
 {
   AdwAboutWindow *self = ADW_ABOUT_WINDOW (widget);
 
-  if (adw_leaflet_navigate (ADW_LEAFLET (self->leaflet), ADW_NAVIGATION_DIRECTION_BACK))
-    return GDK_EVENT_STOP;
-
-  gtk_window_close (GTK_WINDOW (self));
+  if (!adw_navigation_view_pop (ADW_NAVIGATION_VIEW (self->navigation_view)))
+    gtk_window_close (GTK_WINDOW (self));
 
   return GDK_EVENT_STOP;
 }
@@ -1358,7 +1332,7 @@ save_debug_info_shortcut_cb (GtkWidget *widget,
 {
   AdwAboutWindow *self = ADW_ABOUT_WINDOW (widget);
 
-  if (adw_leaflet_get_visible_child (ADW_LEAFLET (self->leaflet)) != self->debug_info_page)
+  if (adw_navigation_view_get_visible_page (ADW_NAVIGATION_VIEW (self->navigation_view)) != self->debug_info_page)
     return GDK_EVENT_PROPAGATE;
 
   save_debug_info_cb (self);
@@ -1848,8 +1822,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-about-window.ui");
-  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, leaflet);
-  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, subpage_stack);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, navigation_view);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, toast_overlay);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, main_scrolled_window);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, main_headerbar);
@@ -1881,18 +1854,12 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
 
   gtk_widget_class_bind_template_callback (widget_class, activate_link_cb);
 
-  gtk_widget_class_install_action (widget_class, "about.back", NULL,
-                                   (GtkWidgetActionActivateFunc) back_cb);
-  gtk_widget_class_install_action (widget_class, "about.subpage", "s",
-                                   (GtkWidgetActionActivateFunc) subpage_cb);
   gtk_widget_class_install_action (widget_class, "about.show-url", "s",
                                    (GtkWidgetActionActivateFunc) show_url_cb);
   gtk_widget_class_install_action (widget_class, "about.show-url-property", "s",
                                    (GtkWidgetActionActivateFunc) show_url_property_cb);
   gtk_widget_class_install_action (widget_class, "about.copy-property", "s",
                                    (GtkWidgetActionActivateFunc) copy_property_cb);
-  gtk_widget_class_install_action (widget_class, "about.debug", NULL,
-                                   (GtkWidgetActionActivateFunc) debug_cb);
   gtk_widget_class_install_action (widget_class, "about.save-debug-info", NULL,
                                    (GtkWidgetActionActivateFunc) save_debug_info_cb);
 
