@@ -1,23 +1,9 @@
 viewswitcher {
-  margin: 0;
-
-  &.wide {
-    border-spacing: 3px;
-  }
+  border-spacing: 3px;
 
   &.narrow button.toggle {
-    border-radius: 0;
-    margin: 0;
-
-    @if $contrast == 'high' {
-      &:hover,
-      &.keyboard-activating,
-      &:active,
-      &:checked {
-        box-shadow: inset  1px 0 $border_color,
-                    inset -1px 0 $border_color;
-      }
-    }
+    margin-top: 3px;
+    margin-bottom: 3px;
   }
 
   button.toggle {
@@ -27,9 +13,9 @@ viewswitcher {
     > stack > box {
       &.narrow {
         font-size: 0.75rem;
-        padding-top: 7px;
-        padding-bottom: 5px;
-        border-spacing: 4px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        border-spacing: 2px;
 
         > stack > label {
           padding-left: 8px;
