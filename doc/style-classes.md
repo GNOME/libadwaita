@@ -573,6 +573,20 @@ By default [class@Gtk.SearchBar] and [class@TabBar] look like a part of an
 attached to one. With the `.inline` style class they have neutral backgrounds
 and can be used in different contexts instead.
 
+## Undershoot Indicators
+
+<picture>
+  <source srcset="undershoot-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="undershoot.png" alt="undershoot">
+</picture>
+
+The `.undershoot-top`, `.undershoot-bottom`, `.undershoot-start` and
+`.undershoot-end` style classes can be used with [class@Gtk.ScrolledWindow] to
+add an undershoot indicator on the given edge, presented as a shadow.
+
+`.undershoot-start` and `.undershoot-end` automatically follow text direction,
+same as [property@Gtk.Widget:margin-start] and [property@Gtk.Widget:margin-end].
+
 # Deprecated Style Classes
 
 The following style classes are deprecated and remain there for compatibility.

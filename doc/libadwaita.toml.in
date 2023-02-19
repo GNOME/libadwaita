@@ -234,6 +234,8 @@ content_images = [
   "images/typography-numeric-dark.png",
   "images/typography-titles.png",
   "images/typography-titles-dark.png",
+  "images/undershoot.png",
+  "images/undershoot-dark.png",
   "images/view-switcher.png",
   "images/view-switcher-dark.png",
   "images/view-switcher-bar.png",

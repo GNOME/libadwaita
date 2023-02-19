@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkBox" id="widget">
+    <property name="spacing">36</property>
+    <property name="homogeneous">True</property>
+    <child>
+      <object class="GtkScrolledWindow" id="vscroll">
+        <property name="propagate-natural-width">True</property>
+        <property name="name">vscroll</property>
+        <style>
+          <class name="undershoot-top"/>
+          <class name="undershoot-bottom"/>
+          <class name="docs-background"/>
+        </style>
+        <property name="child">
+          <object class="GtkBox">
+            <property name="spacing">24</property>
+            <property name="margin-top">24</property>
+            <property name="margin-bottom">24</property>
+            <property name="margin-start">24</property>
+            <property name="margin-end">24</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="width-request">200</property>
+                <property name="height-request">100</property>
+                <property name="label">Top</property>
+                <style>
+                  <class name="card"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="width-request">200</property>
+                <property name="height-request">100</property>
+                <property name="label">Bottom</property>
+                <style>
+                  <class name="card"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow" id="hscroll">
+        <property name="propagate-natural-height">True</property>
+        <property name="name">hscroll</property>
+        <style>
+          <class name="undershoot-start"/>
+          <class name="undershoot-end"/>
+          <class name="docs-background"/>
+        </style>
+        <property name="child">
+          <object class="GtkBox">
+            <property name="spacing">24</property>
+            <property name="margin-top">24</property>
+            <property name="margin-bottom">24</property>
+            <property name="margin-start">24</property>
+            <property name="margin-end">24</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="width-request">140</property>
+                <property name="height-request">140</property>
+                <property name="label">Start</property>
+                <style>
+                  <class name="card"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="width-request">140</property>
+                <property name="height-request">140</property>
+                <property name="label">End</property>
+                <style>
+                  <class name="card"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </property>
+      </object>
+    </child>
+  </object>
+</interface>
