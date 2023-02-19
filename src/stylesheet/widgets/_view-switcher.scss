@@ -1,13 +1,12 @@
 viewswitcher {
   border-spacing: 3px;
 
-  &.narrow button.toggle {
-    margin-top: 3px;
-    margin-bottom: 3px;
+  &.narrow {
+    margin-top: -3px;
+    margin-bottom: -3px;
   }
 
   button.toggle {
-    font-weight: bold;
     padding: 0;
 
     > stack > box {
@@ -36,17 +35,42 @@ viewswitcher {
  **********************/
 
 viewswitcherbar actionbar > revealer > box {
-  padding: 0;
-  padding-top: 1px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+
+  > viewswitcher.narrow {
+    margin-top: 3px;
+  }
 }
 
 /************************
  * AdwViewSwitcherTitle *
  ************************/
 
-viewswitchertitle viewswitcher {
-  margin-left: 12px;
-  margin-right: 12px;
+viewswitchertitle {
+  margin-top: -6px;
+  margin-bottom: -3px;
+
+  viewswitcher {
+    margin-left: 12px;
+    margin-right: 12px;
+
+    &.narrow {
+      margin-top: 3px;
+      margin-bottom: 0;
+    }
+
+    &.wide {
+      margin-top: 6px;
+      margin-bottom: 3px;
+    }
+  }
+
+  windowtitle {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
 
 /*******************

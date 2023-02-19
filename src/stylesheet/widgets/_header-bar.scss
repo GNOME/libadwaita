@@ -12,7 +12,7 @@ headerbar {
   @extend %toolbar;
 
   > windowhandle > box {
-    padding: 0 7px 1px 7px;
+    padding: 6px 7px 7px 7px;
 
     &,
     > box.start,
@@ -37,7 +37,7 @@ headerbar {
     min-height: 37px;
 
     > windowhandle > box {
-      padding: 0 4px 1px 4px;
+      padding: 4px 4px 5px 4px;
     }
 
     windowcontrols {
@@ -62,20 +62,14 @@ headerbar {
     min-height: 46px;
 
     > windowhandle > box {
-      padding-bottom: 0;
+      padding-bottom: 6px;
     }
 
     &.default-decoration {
       min-height: 36px;
-    }
-  }
 
-  .solid-csd & {
-    &:backdrop, & {
-      &:dir(rtl), &:dir(ltr) { // specificity bump
-        margin-top: -1px;
-
-        > windowhandle > box { padding-top: 1px; }
+      > windowhandle > box {
+        padding-bottom: 4px;
       }
     }
   }
@@ -139,6 +133,11 @@ windowtitle {
     padding-right: 12px;
     @extend .dim-label;
   }
+}
+
+windowtitle {
+  margin-top: -6px;
+  margin-bottom: -6px;
 }
 
 // Development versions of apps to use a differently styled headerbar
