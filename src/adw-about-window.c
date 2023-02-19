@@ -12,6 +12,7 @@
 
 #include "adw-action-row.h"
 #include "adw-leaflet.h"
+#include "adw-header-bar.h"
 #include "adw-marshalers.h"
 #include "adw-message-dialog.h"
 #include "adw-preferences-group.h"
@@ -243,7 +244,7 @@ struct _AdwAboutWindow {
   GtkWidget *subpage_stack;
   GtkWidget *toast_overlay;
   GtkWidget *main_scrolled_window;
-  GtkWidget *headerbar_stack;
+  GtkWidget *main_headerbar;
 
   GtkWidget *app_icon_image;
   GtkWidget *app_name_label;
@@ -351,14 +352,11 @@ static void
 update_headerbar_cb (AdwAboutWindow *self)
 {
   GtkAdjustment *adj;
-  double value;
-  const char *name;
 
   adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (self->main_scrolled_window));
-  value = gtk_adjustment_get_value (adj);
-  name = g_strdup (value > 0 ? "regular" : "top");
 
-  gtk_stack_set_visible_child_name (GTK_STACK (self->headerbar_stack), name);
+  adw_header_bar_set_show_title (ADW_HEADER_BAR (self->main_headerbar),
+                                 gtk_adjustment_get_value (adj) > 0);
 }
 
 static inline void
@@ -1854,7 +1852,7 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, subpage_stack);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, toast_overlay);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, main_scrolled_window);
-  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, headerbar_stack);
+  gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, main_headerbar);
 
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, app_icon_image);
   gtk_widget_class_bind_template_child (widget_class, AdwAboutWindow, app_name_label);
@@ -1945,6 +1943,8 @@ adw_about_window_init (AdwAboutWindow *self)
   adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (self->main_scrolled_window));
 
   g_signal_connect_swapped (adj, "value-changed", G_CALLBACK (update_headerbar_cb), self);
+
+  update_headerbar_cb (self);
 }
 
 /**
