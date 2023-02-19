@@ -20,8 +20,6 @@ dropdown {
   }
 
   popover.menu {
-    > contents { padding: 0; }
-
     padding-top: 6px;
 
     listview > row {
@@ -31,7 +29,10 @@ dropdown {
     // dropdowns with searchboxes on top
     .dropdown-searchbar {
       padding: 6px;
-      border-bottom: 1px solid $border_color;
+
+      + scrolledwindow {
+        @include undershoot(top, $popover_shade_color);
+      }
     }
   }
 }
