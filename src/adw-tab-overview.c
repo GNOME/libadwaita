@@ -528,11 +528,6 @@ adw_tab_overview_scrollable_size_allocate (GtkWidget *widget,
   /* The value may have changed during gtk_adjustment_configure() */
   value = floor (gtk_adjustment_get_value (self->vadjustment));
 
-  if (G_APPROX_VALUE (value, 0, DBL_EPSILON))
-    gtk_widget_add_css_class (self->overview, "scrolled-to-top");
-  else
-    gtk_widget_remove_css_class (self->overview, "scrolled-to-top");
-
   adw_tab_grid_set_visible_range (ADW_TAB_GRID (self->pinned_grid),
                                   CLAMP (value - self->pinned_grid_pos, 0, pinned_height),
                                   CLAMP (value - self->pinned_grid_pos + height - new_button_height, 0, pinned_height),

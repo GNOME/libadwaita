@@ -257,19 +257,8 @@ tabthumbnail {
   }
 }
 
-taboverview > .overview {
-  &.scrolled-to-top {
-    headerbar,
-    searchbar > revealer > box {
-      background: none;
-      color: inherit;
-      box-shadow: none;
-    }
-  }
-
-  .new-tab-button {
-    margin: 18px;
-  }
+taboverview > .overview  .new-tab-button {
+  margin: 18px;
 }
 
 tabview:drop(active),

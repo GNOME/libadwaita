@@ -6,16 +6,14 @@
       <object class="AdwBin" id="child_bin"/>
     </child>
     <child>
-      <object class="GtkBox" id="overview">
-        <property name="orientation">vertical</property>
+      <object class="AdwToolbarView" id="overview">
         <property name="can-focus">False</property>
         <property name="can-target">False</property>
         <style>
           <class name="background"/>
           <class name="overview"/>
-          <class name="scrolled-to-top"/>
         </style>
-        <child>
+        <child type="top">
           <object class="AdwHeaderBar" id="header_bar">
             <child type="start">
               <object class="GtkToggleButton" id="search_button">
@@ -39,7 +37,7 @@
             </child>
           </object>
         </child>
-        <child>
+        <child type="top">
           <object class="GtkSearchBar" id="search_bar">
             <property name="search-mode-enabled" bind-source="search_button" bind-property="active" bind-flags="bidirectional"/>
             <property name="key-capture-widget">overview</property>
@@ -59,7 +57,7 @@
             </property>
           </object>
         </child>
-        <child>
+        <property name="content">
           <object class="GtkOverlay">
             <property name="vexpand">True</property>
             <property name="child">
@@ -142,7 +140,7 @@
               </object>
             </child>
           </object>
-        </child>
+        </property>
       </object>
     </child>
   </template>

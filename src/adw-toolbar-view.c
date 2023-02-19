@@ -632,6 +632,8 @@ adw_toolbar_view_init (AdwToolbarView *self)
   self->top_bar_style = ADW_TOOLBAR_FLAT;
   self->bottom_bar_style = ADW_TOOLBAR_FLAT;
 
+  gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
+
   self->top_bar = gtk_revealer_new ();
   gtk_revealer_set_reveal_child (GTK_REVEALER (self->top_bar), TRUE);
   gtk_widget_set_vexpand (self->top_bar, FALSE);
