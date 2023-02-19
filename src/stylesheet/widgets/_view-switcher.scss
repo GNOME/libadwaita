@@ -37,11 +37,12 @@ viewswitcher {
 viewswitcherbar actionbar > revealer > box {
   padding-left: 0;
   padding-right: 0;
-  padding-top: 1px;
+  padding-top: 7px;
+}
 
-  > viewswitcher.narrow {
-    margin-top: 3px;
-  }
+%viewswitcherbar-shrunk actionbar > revealer > box {
+  // Not 0px because view switcher has negative margin
+  padding-top: 6px;
 }
 
 /************************

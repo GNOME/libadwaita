@@ -74,6 +74,41 @@ headerbar {
   }
 }
 
+%headerbar-inline {
+  @extend .flat;
+
+  &:backdrop {
+    transition: none;
+
+    > windowhandle {
+      filter: none;
+      transition: none;
+    }
+  }
+
+  window.devel & > windowhandle {
+    background-image: none;
+  }
+}
+
+%headerbar-shrunk {
+  min-height: 40px;
+
+  > windowhandle > box {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+
+  &.default-decoration {
+    min-height: 30px;
+
+    > windowhandle > box {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+  }
+}
+
 .titlebar:not(headerbar) {
   separator { background-color: $headerbar_border_color; }
 }

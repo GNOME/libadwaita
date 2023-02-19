@@ -40,6 +40,14 @@ popover {
     }
   }
 
+  toolbarview.undershoot-top scrolledwindow {
+    @include undershoot(top, $popover_shade_color);
+  }
+
+  toolbarview.undershoot-bottom scrolledwindow {
+    @include undershoot(bottom, $popover_shade_color);
+  }
+
   scrolledwindow {
     &.undershoot-top {
       @include undershoot(top, $popover_shade_color);

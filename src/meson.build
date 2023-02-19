@@ -24,6 +24,7 @@ adw_public_enum_headers = [
   'adw-squeezer.h',
   'adw-tab-view.h',
   'adw-toast.h',
+  'adw-toolbar-view.h',
   'adw-view-switcher.h',
 ]
 
@@ -142,6 +143,7 @@ src_headers = [
   'adw-timed-animation.h',
   'adw-toast.h',
   'adw-toast-overlay.h',
+  'adw-toolbar-view.h',
   'adw-view-stack.h',
   'adw-view-switcher.h',
   'adw-view-switcher-bar.h',
@@ -210,6 +212,7 @@ src_sources = [
   'adw-timed-animation.c',
   'adw-toast.c',
   'adw-toast-overlay.c',
+  'adw-toolbar-view.c',
   'adw-version.c',
   'adw-view-stack.c',
   'adw-view-switcher.c',

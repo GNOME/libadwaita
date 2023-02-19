@@ -86,6 +86,11 @@
   }
 }
 
+%toolbar-shrunk {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
 /****************
  * GtkSearchBar *
  ****************/
@@ -151,6 +156,11 @@ searchbar {
   }
 }
 
+%searchbar-shrunk > revealer > box {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
 /****************
  * GtkActionBar *
  ****************/
@@ -178,6 +188,28 @@ actionbar > revealer > box {
   }
 }
 
+%actionbar-inline > revealer > box {
+  background-color: transparent;
+  color: inherit;
+  box-shadow: none;
+  padding-top: 6px;
+
+  &:backdrop {
+    background-color: transparent;
+    transition: none;
+
+    > * {
+      filter: none;
+      transition: none;
+    }
+  }
+}
+
+%actionbar-shrunk > revealer > box {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
 /*************
  * AdwBanner *
  *************/
@@ -185,4 +217,77 @@ banner > revealer > widget {
   background-color: gtkmix($accent_bg_color, $window_bg_color, 30%);
   color: $window_fg_color;
   padding: 6px;
+}
+
+/******************
+ * AdwToolbarView *
+ ******************/
+toolbarview {
+  > .top-bar,
+  > .bottom-bar {
+    headerbar { @extend %headerbar-inline; }
+    searchbar { @extend %searchbar-inline; }
+    actionbar { @extend %actionbar-inline; }
+    menubar   { @extend %menubar-inline; }
+    tabbar    { @extend %tabbar-inline; }
+
+    .collapse-spacing {
+      padding-top: 3px;
+      padding-bottom: 3px;
+
+      headerbar { @extend %headerbar-shrunk; }
+      searchbar { @extend %searchbar-shrunk; }
+      actionbar { @extend %actionbar-shrunk; }
+      menubar   { @extend %menubar-shrunk; }
+      .toolbar  { @extend %toolbar-shrunk; }
+      tabbar    { @extend %tabbar-shrunk; }
+
+      viewswitcherbar { @extend %viewswitcherbar-shrunk; }
+    }
+
+    &.raised {
+      background-color: $headerbar_bg_color;
+      color: $headerbar_fg_color;
+
+      &:backdrop {
+        background-color: $headerbar_backdrop_color;
+        transition: background-color $backdrop_transition,
+                    box-shadow $backdrop_transition;
+      }
+    }
+
+    &:backdrop > windowhandle {
+      filter: opacity(.5);
+      transition: filter $backdrop_transition;
+    }
+  }
+
+  > .top-bar.raised {
+    box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
+                0 2px 4px gtkalpha($headerbar_shade_color, .5);
+
+    &:backdrop {
+      box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .3)),
+                  0 2px 4px gtkalpha($headerbar_shade_color, .3);
+    }
+  }
+
+  > .bottom-bar.raised {
+    box-shadow: 0 -1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
+                0 -2px 4px gtkalpha($headerbar_shade_color, .5);
+
+    &:backdrop {
+      box-shadow: 0 -1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .3)),
+                  0 -2px 4px gtkalpha($headerbar_shade_color, .3);
+    }
+  }
+
+  &.undershoot-top    scrolledwindow { @include undershoot(top); }
+  &.undershoot-bottom scrolledwindow { @include undershoot(bottom); }
+
+  window.devel & > .top-bar {
+    background-image: cross-fade(5% -gtk-recolor(url("assets/devel-symbolic.svg")),
+                                 image(transparent));
+    background-repeat: repeat-x;
+  }
 }

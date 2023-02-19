@@ -214,6 +214,13 @@ See also: [class@ClampLayout], [class@ClampScrollable]
 
 ## Helpers
 
+### Toolbar View
+
+[<picture>
+  <source srcset="toolbar-view-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="toolbar-view.png" alt="toolbar-view">
+</picture>](class.ToolbarView.html)
+
 ### Window Title
 
 [<picture>

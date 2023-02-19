@@ -274,3 +274,22 @@ menubar {
     }
   }
 }
+
+%menubar-inline {
+  background-color: transparent;
+  color: inherit;
+  box-shadow: none;
+  padding-bottom: 0;
+
+  &:backdrop {
+    background-color: transparent;
+    transition: none;
+
+    > item {
+      filter: none;
+      transition: none;
+    }
+  }
+}
+
+%menubar-shrunk {}

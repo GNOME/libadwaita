@@ -118,6 +118,15 @@ tabbar {
   }
 }
 
+%tabbar-shrunk {
+  tabbox,
+  .start-action,
+  .end-action {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+}
+
 dnd tab {
   background-color: $headerbar_bg_color;
   background-image: image($selected_active_color);

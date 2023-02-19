@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwWindow" id="widget">
+    <property name="default-height">240</property>
+    <property name="default-width">400</property>
+    <property name="title">Toolbar View</property>
+    <property name="content">
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="GtkHeaderBar"/>
+        </child>
+        <property name="content">
+          <object class="GtkScrolledWindow">
+            <property name="child">
+              <object class="GtkLabel">
+                <property name="height-request">200</property>
+                <property name="margin-top">12</property>
+                <property name="margin-bottom">12</property>
+                <property name="margin-start">24</property>
+                <property name="margin-end">24</property>
+                <property name="label">Content</property>
+                <style>
+                  <class name="card"/>
+                </style>
+              </object>
+            </property>
+          </object>
+        </property>
+        <child type="bottom">
+          <object class="GtkActionBar">
+            <child type="start">
+              <object class="GtkButton">
+                <property name="label">Copy</property>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkButton">
+                <property name="label">Save</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </property>
+  </object>
+</interface>
