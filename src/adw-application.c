@@ -121,14 +121,16 @@ init_providers (AdwApplication *self)
   base_uri = g_strconcat ("resource://", base_path, NULL);
   base_file = g_file_new_for_uri (base_uri);
 
-  init_provider_from_file (&priv->base_style_provider,
-                           g_file_get_child (base_file, "style.css"));
-  init_provider_from_file (&priv->dark_style_provider,
-                           g_file_get_child (base_file, "style-dark.css"));
-  init_provider_from_file (&priv->hc_style_provider,
-                           g_file_get_child (base_file, "style-hc.css"));
-  init_provider_from_file (&priv->hc_dark_style_provider,
-                           g_file_get_child (base_file, "style-hc-dark.css"));
+  if (!adw_is_granite_present ()) {
+    init_provider_from_file (&priv->base_style_provider,
+                             g_file_get_child (base_file, "style.css"));
+    init_provider_from_file (&priv->dark_style_provider,
+                             g_file_get_child (base_file, "style-dark.css"));
+    init_provider_from_file (&priv->hc_style_provider,
+                             g_file_get_child (base_file, "style-hc.css"));
+    init_provider_from_file (&priv->hc_dark_style_provider,
+                             g_file_get_child (base_file, "style-hc-dark.css"));
+  }
 
   g_object_unref (base_file);
   g_free (base_uri);

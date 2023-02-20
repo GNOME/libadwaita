@@ -41,16 +41,18 @@ adw_init (void)
   bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
   adw_init_public_types ();
 
-  gtk_icon_theme_add_resource_path (gtk_icon_theme_get_for_display (gdk_display_get_default ()),
-                                    "/org/gnome/Adwaita/icons");
+  if (!adw_is_granite_present ()) {
+    gtk_icon_theme_add_resource_path (gtk_icon_theme_get_for_display (gdk_display_get_default ()),
+                                      "/org/gnome/Adwaita/icons");
 
-  adw_style_manager_ensure ();
+    adw_style_manager_ensure ();
 
-  if (g_io_extension_point_lookup ("gtk-inspector-page"))
-    g_io_extension_point_implement ("gtk-inspector-page",
-                                    ADW_TYPE_INSPECTOR_PAGE,
-                                    "libadwaita",
-                                    10);
+    if (g_io_extension_point_lookup ("gtk-inspector-page"))
+      g_io_extension_point_implement ("gtk-inspector-page",
+                                      ADW_TYPE_INSPECTOR_PAGE,
+                                      "libadwaita",
+                                      10);
+  }
 
   adw_initialized = TRUE;
 }
@@ -67,4 +69,22 @@ gboolean
 adw_is_initialized (void)
 {
   return adw_initialized;
+}
+
+/*
+ * Some applications, like Epiphany, are used on both GNOME and elementary.
+ * Make it possible to integrate those apps with it while still using libadwaita.
+ */
+gboolean
+adw_is_granite_present (void)
+{
+  static int present = -1;
+
+  if (present == -1) {
+    GType granite_settings = g_type_from_name ("GraniteSettings");
+
+    present = granite_settings != G_TYPE_INVALID;
+  }
+
+  return present;
 }

@@ -10,6 +10,7 @@
 
 #include "adw-style-manager-private.h"
 
+#include "adw-main-private.h"
 #include "adw-settings-private.h"
 #include <gtk/gtk.h>
 
@@ -252,7 +253,7 @@ adw_style_manager_constructed (GObject *object)
                              self,
                              G_CONNECT_SWAPPED);
 
-    if (!g_getenv ("GTK_THEME")) {
+    if (!adw_is_granite_present () && !g_getenv ("GTK_THEME")) {
       g_object_set (gtk_settings_get_for_display (self->display),
                     "gtk-theme-name", "Adwaita-empty",
                     NULL);
