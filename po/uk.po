@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-01-25 20:43+0000\n"
-"PO-Revision-Date: 2023-01-27 22:47+0200\n"
+"POT-Creation-Date: 2023-02-20 15:54+0000\n"
+"PO-Revision-Date: 2023-02-20 22:11+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -85,69 +85,69 @@ msgstr "Ліцензія Apache, версія 2.0"
 msgid "Mozilla Public License 2.0"
 msgstr "Громадська ліцензія Mozilla 2.0"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:528
 msgid "Code by"
 msgstr "Програмний код"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:529
 msgid "Design by"
 msgstr "Дизайн"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:530
 msgid "Artwork by"
 msgstr "Графіка"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:531
 msgid "Documentation by"
 msgstr "Документація"
 
-#: src/adw-about-window.c:531
+#: src/adw-about-window.c:532
 msgid "Translated by"
 msgstr "Переклад"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:560
+#: src/adw-about-window.c:561
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a href=\"%s\">"
-"%s</a> for details."
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
 msgstr ""
 "Ця програма постачається БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ. Щоб дізнатися більше, "
 "відвідайте <a href=\"%s\">%s</a>."
 
-#: src/adw-about-window.c:638
+#: src/adw-about-window.c:639
 msgid "This Application"
 msgstr "Ця програма"
 
-#: src/adw-about-window.c:940
+#: src/adw-about-window.c:941
 #, c-format
 msgid "Version %s"
 msgstr "Версія %s"
 
-#: src/adw-about-window.c:966
+#: src/adw-about-window.c:967
 msgid "Unable to parse release notes:"
 msgstr "Не вдалося обробити нотатки щодо випуску:"
 
-#: src/adw-about-window.c:972
+#: src/adw-about-window.c:973
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Рядок: %d, символ: %d"
 
-#: src/adw-about-window.c:1265
+#: src/adw-about-window.c:1266
 msgid "Copied to clipboard"
 msgstr "Скопійовано до буфера обміну"
 
-#: src/adw-about-window.c:1299
+#: src/adw-about-window.c:1300
 msgid "Unable to save debugging information"
 msgstr "Не вдалося зберегти діагностичні дані"
 
-#: src/adw-about-window.c:1304
+#: src/adw-about-window.c:1305
 msgid "Close"
 msgstr "Закрити"
 
-#: src/adw-about-window.c:1320
+#: src/adw-about-window.c:1321
 msgid "Save debugging information"
 msgstr "Зберегти діагностичні дані"
 
@@ -333,13 +333,20 @@ msgstr "Спробуйте інші критерії пошуку."
 msgid "View Open Tabs"
 msgstr "Переглянути відкриті вкладки"
 
+#: src/adw-tab-overview.c:894
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u вкладка"
+msgstr[1] "%u вкладки"
+msgstr[2] "%u вкладок"
+msgstr[3] "%u вкладка"
+
 #: src/adw-tab-overview.ui:23
-#| msgid "Search enabled"
 msgid "Search Tabs"
 msgstr "Шукати вкладки"
 
 #: src/adw-tab-overview.ui:53
-#| msgid "Search enabled"
 msgid "Search tabs"
 msgstr "Шукати вкладки"
 
@@ -348,7 +355,6 @@ msgid "No Open Tabs"
 msgstr "Немає відкритих вкладок"
 
 #: src/adw-tab-overview.ui:112
-#| msgid "No Results Found"
 msgid "No Tabs Found"
 msgstr "Вкладок не знайдено"
 
