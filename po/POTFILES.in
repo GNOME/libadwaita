@@ -9,6 +9,7 @@ src/adw-password-entry-row.c
 src/adw-preferences-window.c
 src/adw-preferences-window.ui
 src/adw-tab-button.ui
+src/adw-tab-overview.c
 src/adw-tab-overview.ui
 src/adw-tab-thumbnail.ui
 src/adw-tab.ui
