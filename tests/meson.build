@@ -61,6 +61,7 @@ test_names = [
   'test-squeezer',
   'test-status-page',
   'test-style-manager',
+  'test-switch-row',
   'test-tab-bar',
   'test-tab-button',
   'test-tab-overview',

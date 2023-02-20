@@ -63,6 +63,7 @@ G_BEGIN_DECLS
 #include "adw-style-manager.h"
 #include "adw-swipe-tracker.h"
 #include "adw-swipeable.h"
+#include "adw-switch-row.h"
 #include "adw-tab-bar.h"
 #include "adw-tab-button.h"
 #include "adw-tab-overview.h"

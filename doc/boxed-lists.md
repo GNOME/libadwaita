@@ -58,6 +58,16 @@ have prefix and suffix children.
   <img src="action-row.png" alt="action-row">
 </picture>
 
+## Switch Rows
+
+[class@SwitchRow] is an [class@ActionRow] with an embedded [class@Gtk.Switch].
+It's used to represent two states: "on" and "off".
+
+<picture>
+  <source srcset="switch-row-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="switch-row.png" alt="switch-row">
+</picture>
+
 ## Expander Rows
 
 [class@ExpanderRow] is similar to [class@ActionRow], but can expand to show

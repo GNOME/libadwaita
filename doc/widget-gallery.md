@@ -51,6 +51,13 @@ Slug: widget-gallery
   <img src="action-row.png" alt="action-row">
 </picture>](class.ActionRow.html)
 
+### Switch Row
+
+[<picture>
+  <source srcset="switch-row-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="switch-row.png" alt="switch-row">
+</picture>](class.SwitchRow.html)
+
 ### Combo Row
 
 [<picture>
