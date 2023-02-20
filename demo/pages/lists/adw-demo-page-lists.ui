@@ -108,6 +108,16 @@
                 </child>
                 <child>
                   <object class="AdwPreferencesGroup">
+                    <property name="title" translatable="yes">Switch Rows</property>
+                    <child>
+                      <object class="AdwSwitchRow" id="switch_row">
+                        <property name="title" translatable="yes">Switch Row</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwPreferencesGroup">
                     <property name="title" translatable="yes">Combo Rows</property>
                     <child>
                       <object class="AdwComboRow" id="combo_row">
