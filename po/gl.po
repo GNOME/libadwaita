@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-01-28 12:50+0000\n"
-"PO-Revision-Date: 2023-02-05 22:10+0100\n"
+"POT-Creation-Date: 2023-02-20 15:54+0000\n"
+"PO-Revision-Date: 2023-02-22 18:21+0100\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -160,7 +160,7 @@ msgstr "Sobre"
 
 #: src/adw-about-window.ui:123
 msgid "_What’s New"
-msgstr "Que hai de _novo?"
+msgstr "Que hai de _novo"
 
 #: src/adw-about-window.ui:138
 msgid "_Details"
@@ -336,6 +336,13 @@ msgstr "Probe con outra busca."
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
 msgstr "Ver as lapelas abertas"
+
+#: src/adw-tab-overview.c:894
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u lapela"
+msgstr[1] "%u lapelas"
 
 #: src/adw-tab-overview.ui:23
 msgid "Search Tabs"
