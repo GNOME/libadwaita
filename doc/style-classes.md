@@ -153,14 +153,13 @@ Linked boxes can be both horizontal and vertical.
 
 The following widgets can be linked:
 
-* [class@Gtk.AppChooserButton]
 * [class@Gtk.Button]
-* [class@Gtk.Entry]
-* [class@Gtk.ColorButton]
-* [class@Gtk.ComboBox]
-* [class@Gtk.DropDown]
-* [class@Gtk.FontButton]
 * [class@Gtk.MenuButton]
+* [class@Gtk.DropDown]
+* [class@Gtk.ColorDialogButton]
+* [class@Gtk.FontDialogButton]
+* [class@TabButton]
+* [class@Gtk.Entry]
 * [class@Gtk.PasswordEntry]
 * [class@Gtk.SearchEntry]
 * [class@Gtk.SpinButton]
