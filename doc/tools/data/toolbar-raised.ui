@@ -13,7 +13,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkColorButton">
+      <object class="GtkColorDialogButton">
         <property name="rgba">#9141ac</property>
       </object>
     </child>
