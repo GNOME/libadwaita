@@ -23,10 +23,9 @@ shortcut {
   }
 }
 
-shortcuts-section > stackswitcher.circular {
+shortcuts-section stackswitcher.circular {
   border-spacing: 12px;
 
-  // FIXME aggregate with buttons
   > button.circular,
   > button.text-button.circular {
     min-width: 32px;
