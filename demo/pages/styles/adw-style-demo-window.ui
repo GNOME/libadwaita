@@ -994,7 +994,12 @@ The "raised" style class can be used to make a button inside a toolbar use defau
                           </object>
                         </child>
                         <child>
-                          <object class="GtkVolumeButton"/>
+                          <object class="GtkScaleButton">
+                            <property name="icons">audio-volume-muted
+audio-volume-high
+audio-volume-low
+audio-volume-medium</property>
+                          </object>
                         </child>
                       </object>
                     </child>
