@@ -157,7 +157,6 @@ searchbar {
 
   > revealer > box {
     padding: 0px 6px;
-    border-spacing: 6px;
 
     @extend %toolbar;
 
@@ -167,6 +166,16 @@ searchbar {
       padding: 4px;
       border-radius: 50%;
       @extend %button_basic_flat;
+
+      &:dir(ltr) {
+        margin-left: 10px;
+        margin-right: 4px;
+      }
+
+      &:dir(rtl) {
+        margin-left: 4px;
+        margin-right: 10px;
+      }
     }
   }
 }
