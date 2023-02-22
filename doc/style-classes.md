@@ -183,8 +183,8 @@ buttons inside it won't get the flat appearance.
 </picture>
 
 The `.toolbar` style class can be applied to a horizontal [class@Gtk.Box]. The
-same appearance is also used by [class@Gtk.HeaderBar], [class@Gtk.ActionBar] and
-[class@Gtk.SearchBar] automatically.
+same appearance is also used by [class@HeaderBar], [class@Gtk.HeaderBar],
+[class@Gtk.ActionBar] and [class@Gtk.SearchBar] automatically.
 
 It changes the appearance of buttons inside it to make them flat when possible,
 according to the following rules:
@@ -519,8 +519,8 @@ It's equivalent to using the following CSS:
   <img src="flat-header-bar.png" alt="flat-header-bar">
 </picture>
 
-The `.flat` style class can be used with a [class@Gtk.HeaderBar] to give it a
-flat appearance.
+The `.flat` style class can be used with an [class@HeaderBar] or
+[class@Gtk.HeaderBar] to give it a flat appearance.
 
 ## Compact Status Page
 
@@ -551,7 +551,8 @@ inside it.
 </picture>
 
 The `.devel` style class can be used with [class@Gtk.Window]. This will give
-any [class@Gtk.HeaderBar] inside that window a striped appearance.
+any [class@HeaderBar] or [class@Gtk.HeaderBar] inside that window a striped
+appearance.
 
 This style class is typically used to indicate unstable or nightly applications.
 
@@ -567,10 +568,10 @@ This style class is typically used to indicate unstable or nightly applications.
   <img src="tab-bar-inline.png" alt="tab-bar-inline">
 </picture>
 
-By default [class@Gtk.SearchBar] and [class@TabBar] look like a part of a
-[class@Gtk.HeaderBar] and are intended to be used directly attached to one. With
-the `.inline` style class they have neutral backgrounds and can be used in
-different contexts instead.
+By default [class@Gtk.SearchBar] and [class@TabBar] look like a part of an
+[class@HeaderBar] or [class@Gtk.HeaderBar] and are intended to be used directly
+attached to one. With the `.inline` style class they have neutral backgrounds
+and can be used in different contexts instead.
 
 # Deprecated Style Classes
 
