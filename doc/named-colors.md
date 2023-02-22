@@ -499,10 +499,8 @@ These colors are used for [class@Gtk.Popover].
   </tr>
 </table>
 
-<code>&#64;shade_color</code> is used by [class@TabBar] with the
-[`.inline`](style-classes.html#inline-tab-bars-search-bars) style class, as well
-as the transitions in [class@Leaflet] and [class@Flap] and [class@Gtk.InfoBar]
-borders. This color should always be partially transparent black, with the
+<code>&#64;shade_color</code> is used for transitions in [class@Leaflet] and
+[class@Flap]. This color should always be partially transparent black, with the
 opacity tuned to be well visible on top of <code>&#64;window_bg_color</code>.
 
 <code>&#64;scrollbar_outline_color</code> is used by [class@Gtk.Scrollbar] to
