@@ -307,10 +307,19 @@ well as with the [`.view`](style-classes.html#view) style class.
 
 ### Header Bar Colors
 
-These colors are used for [class@Gtk.HeaderBar], as well as widgets that are
-meant to be visually attached to it, such as [class@Gtk.SearchBar] or
-[class@TabBar], unless they have the
-[`.inline`](style-classes.html#inline-tab-bars-search-bars) style class.
+These colors are used for header bars and similar widgets, generally attached to
+the top or bottom sides of a window. The full list of widgets using them:
+
+- [class@HeaderBar] except with the
+  [`.flat`](style-classes.html#flat-header-bar) style class
+- [class@TabBar] except with the
+  [`.inline`](style-classes.html#inline-tab-bars-search-bars) style class
+- [class@Gtk.HeaderBar] except with the
+  [`.flat`](style-classes.html#flat-header-bar) style class
+- [class@Gtk.SearchBar] except with the
+  [`.inline`](style-classes.html#inline-tab-bars-search-bars) style class
+- [class@Gtk.ActionBar]
+- [class@Gtk.PopoverMenuBar]
 
 <table>
   <tr>
