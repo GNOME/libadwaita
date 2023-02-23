@@ -1011,7 +1011,8 @@ adw_carousel_class_init (AdwCarouselClass *klass)
    * This signal is emitted after a page has been changed.
    *
    * It can be used to implement "infinite scrolling" by amending the pages
-   * after every scroll.
+   * after every scroll. Note that an empty carousel is indicated by
+   * `(int)index == -1`.
    */
   signals[SIGNAL_PAGE_CHANGED] =
     g_signal_new ("page-changed",
