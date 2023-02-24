@@ -16,6 +16,8 @@ static GOptionEntry entries[] =
 typedef struct {
   GtkWidget *widget;
   GtkWidget *hover_widget;
+  GtkWidget *hscroll_widget;
+  GtkWidget *vscroll_widget;
   GdkPaintable *paintable;
   char *name;
   GtkCssProvider *provider;
@@ -63,7 +65,6 @@ draw_paintable_cb (ScreenshotData *data)
     width = widget_width + x + gtk_widget_get_margin_end (data->widget);
     height = widget_height + y + gtk_widget_get_margin_bottom (data->widget);
   }
-
 
   snapshot = gtk_snapshot_new ();
 
@@ -137,6 +138,32 @@ take_screenshot_cb (ScreenshotData *data)
                                 flags | GTK_STATE_FLAG_PRELIGHT, FALSE);
   }
 
+  if (data->hscroll_widget) {
+    GtkAdjustment *adj;
+
+    g_assert (GTK_IS_SCROLLED_WINDOW (data->hscroll_widget));
+
+    adj = gtk_scrolled_window_get_hadjustment (GTK_SCROLLED_WINDOW (data->hscroll_widget));
+
+    gtk_adjustment_set_value (adj,
+                              (gtk_adjustment_get_lower (adj) +
+                               gtk_adjustment_get_upper (adj) -
+                               gtk_adjustment_get_page_size (adj)) / 2);
+  }
+
+  if (data->vscroll_widget) {
+    GtkAdjustment *adj;
+
+    g_assert (GTK_IS_SCROLLED_WINDOW (data->vscroll_widget));
+
+    adj = gtk_scrolled_window_get_vadjustment (GTK_SCROLLED_WINDOW (data->vscroll_widget));
+
+    gtk_adjustment_set_value (adj,
+                              (gtk_adjustment_get_lower (adj) +
+                               gtk_adjustment_get_upper (adj) -
+                               gtk_adjustment_get_page_size (adj)) / 2);
+  }
+
   g_signal_connect_swapped (data->paintable, "invalidate-contents",
                             G_CALLBACK (draw_paintable), data);
 
@@ -160,6 +187,8 @@ take_screenshot (const char *name,
   ScreenshotData *data;
   GObject *widget;
   GObject *hover_widget;
+  GObject *hscroll_widget;
+  GObject *vscroll_widget;
   GtkWidget *window;
   gboolean wait = FALSE;
 
@@ -186,6 +215,8 @@ take_screenshot (const char *name,
   builder = gtk_builder_new_from_file (input_path);
   widget = gtk_builder_get_object (builder, "widget");
   hover_widget = gtk_builder_get_object (builder, "hover");
+  hscroll_widget = gtk_builder_get_object (builder, "hscroll");
+  vscroll_widget = gtk_builder_get_object (builder, "vscroll");
 
   g_assert (GTK_IS_WIDGET (widget));
 
@@ -225,13 +256,23 @@ take_screenshot (const char *name,
   if (hover_widget)
     data->hover_widget = GTK_WIDGET (hover_widget);
 
+  if (hscroll_widget)
+    data->hscroll_widget = GTK_WIDGET (hscroll_widget);
+
+  if (vscroll_widget)
+    data->vscroll_widget = GTK_WIDGET (vscroll_widget);
+
   if (wait)
     g_timeout_add_seconds (1, G_SOURCE_FUNC (take_screenshot_cb), data);
 
   gtk_window_present (GTK_WINDOW (window));
 
-  if (!wait)
-    take_screenshot_cb (data);
+  if (!wait) {
+    if (hscroll_widget || vscroll_widget)
+      g_idle_add (G_SOURCE_FUNC (take_screenshot_cb), data);
+    else
+      take_screenshot_cb (data);
+  }
 
   g_main_loop_run (loop);
   g_main_loop_unref (loop);

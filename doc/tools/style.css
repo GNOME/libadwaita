@@ -13,6 +13,16 @@
   background-color: @warning_bg_color;
 }
 
+#vscroll {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+#hscroll {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
 .overview-tab-page {
   background: linear-gradient(to bottom right, @blue_1 25%, @green_1);
 }
