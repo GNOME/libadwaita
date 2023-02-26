@@ -6,14 +6,15 @@
 msgid ""
 msgstr "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-11-22 14:24+0000\n"
-"PO-Revision-Date: 2023-01-21 10:00+0100\n"
+"POT-Creation-Date: 2023-02-20 15:54+0000\n"
+"PO-Revision-Date: 2023-02-26 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asier.sarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
 
 #: src/adw-about-window.c:202
 msgid "GNU General Public License, version 2 or later"
@@ -79,67 +80,67 @@ msgstr "Apache lizentzia, 2.0 bertsioa"
 msgid "Mozilla Public License 2.0"
 msgstr "Mozillaren lizentzia publikoa 2.0"
 
-#: src/adw-about-window.c:525
+#: src/adw-about-window.c:528
 msgid "Code by"
 msgstr "Kodea:"
 
-#: src/adw-about-window.c:526
+#: src/adw-about-window.c:529
 msgid "Design by"
 msgstr "Diseinua:"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:530
 msgid "Artwork by"
 msgstr "Artelana:"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:531
 msgid "Documentation by"
 msgstr "Dokumentazioa:"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:532
 msgid "Translated by"
 msgstr "Itzulpena:"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:558
+#: src/adw-about-window.c:561
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a href=\"%s\">"
-"%s</a> for details."
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
 msgstr "Aplikazio honek ez du inolako bermerik. Xehetasun gehiagorako, ikusi <a href=\"%s\">%s</a>."
 
-#: src/adw-about-window.c:636
+#: src/adw-about-window.c:639
 msgid "This Application"
 msgstr "Aplikazio hau"
 
-#: src/adw-about-window.c:938
+#: src/adw-about-window.c:941
 #, c-format
 msgid "Version %s"
 msgstr "%s bertsioa"
 
-#: src/adw-about-window.c:964
+#: src/adw-about-window.c:967
 msgid "Unable to parse release notes:"
 msgstr "Ezin dira argitalpen-oharrak analizatu:"
 
-#: src/adw-about-window.c:970
+#: src/adw-about-window.c:973
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Lerroa: %d, karakterea: %d"
 
-#: src/adw-about-window.c:1263
+#: src/adw-about-window.c:1266
 msgid "Copied to clipboard"
 msgstr "Arbelean kopiatu da"
 
-#: src/adw-about-window.c:1297
+#: src/adw-about-window.c:1300
 msgid "Unable to save debugging information"
 msgstr "Ezin da arazketa-informazioa gorde"
 
-#: src/adw-about-window.c:1302
+#: src/adw-about-window.c:1305
 msgid "Close"
 msgstr "Itxi"
 
-#: src/adw-about-window.c:1318
+#: src/adw-about-window.c:1321
 msgid "Save debugging information"
 msgstr "Gorde arazketa-informazioa"
 
@@ -296,7 +297,7 @@ msgstr "Maiuskulen blokeoaren tekla aktibatuta dago"
 msgid "_Show Text"
 msgstr "_Erakutsi testua"
 
-#: src/adw-preferences-window.c:245
+#: src/adw-preferences-window.c:243
 msgid "Untitled page"
 msgstr "Izenbururik gabeko orrialdea"
 
@@ -312,13 +313,20 @@ msgstr "Bilatu"
 msgid "No Results Found"
 msgstr "Ez da emaitzarik aurkitu"
 
-#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:111
+#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:113
 msgid "Try a different search."
 msgstr "Saiatu bestelako bilaketa batekin."
 
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
 msgstr "Ikusi irekitako fitxak"
+
+#: src/adw-tab-overview.c:894
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "Fitxa %u"
+msgstr[1] "%u fitxa"
 
 #: src/adw-tab-overview.ui:23
 msgid "Search Tabs"
@@ -328,19 +336,19 @@ msgstr "Bilatu fitxak"
 msgid "Search tabs"
 msgstr "Bilatu fitxak"
 
-#: src/adw-tab-overview.ui:97
+#: src/adw-tab-overview.ui:99
 msgid "No Open Tabs"
 msgstr "Ez dago fitxarik irekita"
 
-#: src/adw-tab-overview.ui:110
+#: src/adw-tab-overview.ui:112
 msgid "No Tabs Found"
 msgstr "Ez da fitxarik aurkitu"
 
-#: src/adw-tab-overview.ui:131
+#: src/adw-tab-overview.ui:133
 msgid "New _Tab"
 msgstr "_Fitxa berria"
 
-#: src/adw-tab-thumbnail.ui:36 src/adw-tab.ui:88
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
 msgid "Close Tab"
 msgstr "Itxi fitxa"
 
