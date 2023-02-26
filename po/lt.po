@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-01-28 12:50+0000\n"
-"PO-Revision-Date: 2023-02-13 22:47+0200\n"
+"POT-Creation-Date: 2023-02-20 15:54+0000\n"
+"PO-Revision-Date: 2023-02-26 22:20+0200\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -329,6 +329,14 @@ msgstr "Bandykite kitą paiešką."
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
 msgstr "Rodyti atvertas korteles"
+
+#: src/adw-tab-overview.c:894
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u kortelė"
+msgstr[1] "%u kortelės"
+msgstr[2] "%u kortelių"
 
 #: src/adw-tab-overview.ui:23
 msgid "Search Tabs"
