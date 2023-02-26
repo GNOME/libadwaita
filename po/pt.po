@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-11-22 14:24+0000\n"
-"PO-Revision-Date: 2023-01-25 14:23+0000\n"
+"POT-Creation-Date: 2023-02-20 15:54+0000\n"
+"PO-Revision-Date: 2023-02-26 16:21+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://l10n.gnome.org/teams/pt/>\n"
 "Language: pt\n"
@@ -83,30 +83,30 @@ msgstr "Licença Apache, versão 2.0"
 msgid "Mozilla Public License 2.0"
 msgstr "Licença Pública Mozilla 2.0"
 
-#: src/adw-about-window.c:525
+#: src/adw-about-window.c:528
 msgid "Code by"
 msgstr "Código por"
 
-#: src/adw-about-window.c:526
+#: src/adw-about-window.c:529
 msgid "Design by"
 msgstr "Design por"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:530
 msgid "Artwork by"
 msgstr "Arte gráfica por"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:531
 msgid "Documentation by"
 msgstr "Documentação por"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:532
 msgid "Translated by"
 msgstr "Traduzido por"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:558
+#: src/adw-about-window.c:561
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -115,37 +115,37 @@ msgstr ""
 "Esta aplicação vem sem absolutamente nenhuma garantia. Veja os <a "
 "href=\"%s\">%s</a> detalhes."
 
-#: src/adw-about-window.c:636
+#: src/adw-about-window.c:639
 msgid "This Application"
 msgstr "Esta aplicação"
 
-#: src/adw-about-window.c:938
+#: src/adw-about-window.c:941
 #, c-format
 msgid "Version %s"
 msgstr "Versão %s"
 
-#: src/adw-about-window.c:964
+#: src/adw-about-window.c:967
 msgid "Unable to parse release notes:"
 msgstr "Não foi possível analisar as notas de lançamento:"
 
-#: src/adw-about-window.c:970
+#: src/adw-about-window.c:973
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Linha: %d, carácter: %d"
 
-#: src/adw-about-window.c:1263
+#: src/adw-about-window.c:1266
 msgid "Copied to clipboard"
 msgstr "Copiado para a área de transferência"
 
-#: src/adw-about-window.c:1297
+#: src/adw-about-window.c:1300
 msgid "Unable to save debugging information"
 msgstr "Não foi possível guardar a informação de depuração"
 
-#: src/adw-about-window.c:1302
+#: src/adw-about-window.c:1305
 msgid "Close"
 msgstr "Fechar"
 
-#: src/adw-about-window.c:1318
+#: src/adw-about-window.c:1321
 msgid "Save debugging information"
 msgstr "Guardar informação de depuração"
 
@@ -308,7 +308,7 @@ msgstr "O Caps Lock está ligado"
 msgid "_Show Text"
 msgstr "Mo_strar texto"
 
-#: src/adw-preferences-window.c:245
+#: src/adw-preferences-window.c:243
 msgid "Untitled page"
 msgstr "Página sem título"
 
@@ -324,13 +324,20 @@ msgstr "Pesquisar"
 msgid "No Results Found"
 msgstr "Nenhum resultado encontrado"
 
-#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:111
+#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:113
 msgid "Try a different search."
 msgstr "Tente uma pesquisa diferente."
 
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
 msgstr "Ver separadores abertos"
+
+#: src/adw-tab-overview.c:894
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u Separador"
+msgstr[1] "%u Separadores"
 
 #: src/adw-tab-overview.ui:23
 msgid "Search Tabs"
@@ -340,19 +347,19 @@ msgstr "Pesquisar Separadores"
 msgid "Search tabs"
 msgstr "Pesquisar separadores"
 
-#: src/adw-tab-overview.ui:97
+#: src/adw-tab-overview.ui:99
 msgid "No Open Tabs"
 msgstr "Nenhum separador aberto"
 
-#: src/adw-tab-overview.ui:110
+#: src/adw-tab-overview.ui:112
 msgid "No Tabs Found"
 msgstr "Nenhum separador encontrado"
 
-#: src/adw-tab-overview.ui:131
+#: src/adw-tab-overview.ui:133
 msgid "New _Tab"
 msgstr "Novo _separador"
 
-#: src/adw-tab-thumbnail.ui:36 src/adw-tab.ui:88
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
 msgid "Close Tab"
 msgstr "Fechar separador"
 
