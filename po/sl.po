@@ -2,14 +2,14 @@
 # Copyright (C) 2020 libhandy's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libhandy package.
 #
-# Matej Urbančič <mateju@src.gnome.org>, 2020–2022.
+# Matej Urbančič <mateju@src.gnome.org>, 2020–2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-09-08 17:18+0000\n"
-"PO-Revision-Date: 2022-09-09 22:13+0200\n"
+"POT-Creation-Date: 2023-02-26 20:21+0000\n"
+"PO-Revision-Date: 2023-02-27 21:24+0100\n"
 "Last-Translator: Matej Urbančič <mateju@src.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -21,94 +21,94 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:202
 msgid "GNU General Public License, version 2 or later"
 msgstr "Splošno Javno dovoljenje GNU, različice 2 ali kasnejše"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:203
 msgid "GNU General Public License, version 3 or later"
 msgstr "Splošno Javno dovoljenje GNU, različice 3 ali kasnejše"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:204
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "Manj Splošno Javno dovoljenje GNU, različice 2.1 ali kasnejše"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:205
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "Manj Splošno Javno dovoljenje GNU, različice 3 ali kasnejše"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:206
 msgid "BSD 2-Clause License"
 msgstr "Dovoljenje BSD 2-Clause"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:207
 msgid "The MIT License (MIT)"
 msgstr "Dovoljenje MIT"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:208
 msgid "Artistic License 2.0"
 msgstr "Umetniško dovoljenje 2.0"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:209
 msgid "GNU General Public License, version 2 only"
 msgstr "Splošno Javno dovoljenje GNU, le različice 2"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:210
 msgid "GNU General Public License, version 3 only"
 msgstr "Splošno Javno dovoljenje GNU, le različice 3"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:211
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "Manj Splošno Javno dovoljenje GNU, le različice 2.1"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "Manj Splošno Javno dovoljenje GNU, le različice 3"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:213
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "Splošno javno dovoljenje Affero GNU, različice 3 ali kasnejše"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:214
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "Splošno Javno dovoljenje GNU Affero, le različica 3"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:215
 msgid "BSD 3-Clause License"
 msgstr "Dovoljenje BSD 3-Clause"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:216
 msgid "Apache License, Version 2.0"
 msgstr "Dovoljenje Apache, različica 2.0"
 
-#: src/adw-about-window.c:218
+#: src/adw-about-window.c:217
 msgid "Mozilla Public License 2.0"
 msgstr "Javno dovoljenje Mozilla 2.0"
 
-#: src/adw-about-window.c:526
+#: src/adw-about-window.c:528
 msgid "Code by"
 msgstr "Programiranje:"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:529
 msgid "Design by"
 msgstr "Oblikovanje:"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:530
 msgid "Artwork by"
 msgstr "Grafična podoba:"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:531
 msgid "Documentation by"
 msgstr "Dokumentacija:"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:532
 msgid "Translated by"
 msgstr "Prevod:"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:559
+#: src/adw-about-window.c:561
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -117,47 +117,39 @@ msgstr ""
 "Ta program je objavljen brez vsakršnega jamstva. Več podrobnosti je "
 "zapisanih v datoteki <a href=\"%s\">%s</a>"
 
-#: src/adw-about-window.c:637
+#: src/adw-about-window.c:639
 msgid "This Application"
 msgstr "Program"
 
-#: src/adw-about-window.c:939
+#: src/adw-about-window.c:941
 #, c-format
 msgid "Version %s"
 msgstr "Različica %s"
 
-#: src/adw-about-window.c:965
+#: src/adw-about-window.c:967
 msgid "Unable to parse release notes:"
 msgstr "Ni mogoče razčleniti opomb k izdaji:"
 
-#: src/adw-about-window.c:971
+#: src/adw-about-window.c:973
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Vrstica: %d, znak: %d"
 
-#: src/adw-about-window.c:1264
+#: src/adw-about-window.c:1266
 msgid "Copied to clipboard"
 msgstr "Kopirano v odložišče"
 
-#: src/adw-about-window.c:1299
+#: src/adw-about-window.c:1300
 msgid "Unable to save debugging information"
 msgstr "Podrobnosti razhroščevanja ni mogoče shraniti."
 
-#: src/adw-about-window.c:1304
+#: src/adw-about-window.c:1305
 msgid "Close"
 msgstr "Zapri"
 
-#: src/adw-about-window.c:1322
+#: src/adw-about-window.c:1321
 msgid "Save debugging information"
 msgstr "Shrani podrobnosti razhroščevanja"
-
-#: src/adw-about-window.c:1325
-msgid "_Save"
-msgstr "_Shrani"
-
-#: src/adw-about-window.c:1326
-msgid "_Cancel"
-msgstr "_Prekliči"
 
 #: src/adw-about-window.ui:5
 msgid "About"
@@ -256,24 +248,24 @@ msgstr "_Kopiraj besedilo"
 msgid "_Save as…"
 msgstr "_Shrani kot …"
 
-#: src/adw-entry-row.ui:93
+#: src/adw-entry-row.ui:95
 msgid "Apply"
 msgstr "Uveljavi"
 
-#: src/adw-inspector-page.c:76
+#: src/adw-inspector-page.c:75
 msgid "No Preference"
 msgstr "Izbira ni navedena"
 
-#: src/adw-inspector-page.c:78
+#: src/adw-inspector-page.c:77
 msgid "Prefer Dark"
 msgstr "Prednostno uporabi temno"
 
-#: src/adw-inspector-page.c:80
+#: src/adw-inspector-page.c:79
 msgid "Prefer Light"
 msgstr "Prednostno uporabi svetlo"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:97
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -300,23 +292,23 @@ msgstr "Prednostna barvna shema."
 msgid "High Contrast"
 msgstr "Visok kontrast"
 
-#: src/adw-password-entry-row.c:71
+#: src/adw-password-entry-row.c:70
 msgid "Hide Text"
 msgstr "Skrij besedilo"
 
-#: src/adw-password-entry-row.c:75
+#: src/adw-password-entry-row.c:74
 msgid "Show Text"
 msgstr "Pokaži besedilo"
 
-#: src/adw-password-entry-row.c:169
+#: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
 msgstr "Tipka Caps Lock je vključena"
 
-#: src/adw-password-entry-row.c:177
+#: src/adw-password-entry-row.c:176
 msgid "_Show Text"
 msgstr "Pokaži _besedilo"
 
-#: src/adw-preferences-window.c:242
+#: src/adw-preferences-window.c:243
 msgid "Untitled page"
 msgstr "Neimenovana stran"
 
@@ -332,13 +324,52 @@ msgstr "Poišči"
 msgid "No Results Found"
 msgstr "Ni najdenih zadetkov."
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:113
 msgid "Try a different search."
 msgstr "Poskusite z drugačnim iskalnim nizom"
 
-#: src/adw-tab.ui:88
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "Pogled odprtih zavihkov"
+
+#: src/adw-tab-overview.c:894
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u zavihkov"
+msgstr[1] "%u zavihek"
+msgstr[2] "%u zavihka"
+msgstr[3] "%u zavihki"
+
+#: src/adw-tab-overview.ui:23
+msgid "Search Tabs"
+msgstr "Poišči zavihke"
+
+#: src/adw-tab-overview.ui:53
+msgid "Search tabs"
+msgstr "Poišči zavihke"
+
+#: src/adw-tab-overview.ui:99
+msgid "No Open Tabs"
+msgstr "Ni odprtih zavihkov"
+
+#: src/adw-tab-overview.ui:112
+msgid "No Tabs Found"
+msgstr "Ni najdenih zavihkov"
+
+#: src/adw-tab-overview.ui:133
+msgid "New _Tab"
+msgstr "Nov _zavihek"
+
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
 msgid "Close Tab"
 msgstr "Zapri zavihek"
+
+#~ msgid "_Save"
+#~ msgstr "_Shrani"
+
+#~ msgid "_Cancel"
+#~ msgstr "_Prekliči"
 
 #~ msgid "Insert placeholder to %s"
 #~ msgstr "Vstavi vsebnik za %s"
