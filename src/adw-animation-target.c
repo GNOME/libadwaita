@@ -176,7 +176,6 @@ object_weak_notify (gpointer  data,
 {
   AdwPropertyAnimationTarget *self = ADW_PROPERTY_ANIMATION_TARGET (data);
   self->object = NULL;
-  g_critical ("Finalizing object associated with an AdwPropertyAnimationTarget");
 }
 
 static void
