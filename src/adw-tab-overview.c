@@ -65,8 +65,9 @@
  * for the overview. Use it to add extra actions, e.g. to open a new window or
  * undo closed tab.
  *
- * `AdwTabOverview` is intended to be cover the whole window and shows window
- * buttons by default. They can be disabled by setting
+ * `AdwTabOverview` is intended to cover the whole window, i.e. [property@TabOverview:child]
+ * should contain the rest of the window widgetry.
+ * `AdwTabOverview` shows window buttons by default. They can be disabled by setting
  * [property@TabOverview:show-start-title-buttons] and/or
  * [property@TabOverview:show-end-title-buttons] to `FALSE`.
  *
