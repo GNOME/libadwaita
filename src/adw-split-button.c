@@ -5,6 +5,7 @@
  */
 
 #include "config.h"
+#include <glib/gi18n.h>
 
 #include "adw-split-button.h"
 
@@ -89,6 +90,7 @@ struct _AdwSplitButton
   GtkWidget *separator;
 
   guint disposed : 1;
+  guint has_dropdown_tooltip : 1;
 };
 
 static void adw_split_button_actionable_init (GtkActionableInterface *iface);
@@ -480,12 +482,17 @@ adw_split_button_init (AdwSplitButton *self)
   self->button = gtk_button_new ();
   gtk_widget_set_parent (self->button, GTK_WIDGET (self));
   gtk_widget_set_hexpand (self->button, TRUE);
+  gtk_accessible_update_relation (GTK_ACCESSIBLE (self->button),
+                                  GTK_ACCESSIBLE_RELATION_LABELLED_BY, self, NULL,
+                                  GTK_ACCESSIBLE_RELATION_DESCRIBED_BY, self, NULL,
+                                  -1);
 
   self->separator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
   gtk_widget_set_parent (self->separator, GTK_WIDGET (self));
 
   self->menu_button = gtk_menu_button_new ();
   gtk_widget_set_parent (self->menu_button, GTK_WIDGET (self));
+  gtk_widget_set_tooltip_text (self->menu_button, _("More Options"));
 
   /* FIXME: This is iffy, but we don't have any other way to do it */
   self->arrow_button = gtk_widget_get_first_child (self->menu_button);
@@ -913,13 +920,12 @@ adw_split_button_set_direction (AdwSplitButton *self,
 const char *
 adw_split_button_get_dropdown_tooltip (AdwSplitButton *self)
 {
-  const char *tooltip;
-
   g_return_val_if_fail (ADW_IS_SPLIT_BUTTON (self), NULL);
 
-  tooltip = gtk_widget_get_tooltip_markup (self->menu_button);
+  if (!self->has_dropdown_tooltip)
+    return "";
 
-  return tooltip ? tooltip : "";
+  return gtk_widget_get_tooltip_markup (self->menu_button);
 }
 
 /**
@@ -943,7 +949,12 @@ adw_split_button_set_dropdown_tooltip (AdwSplitButton *self,
   if (!g_strcmp0 (tooltip, adw_split_button_get_dropdown_tooltip (self)))
     return;
 
-  gtk_widget_set_tooltip_markup (self->menu_button, tooltip);
+  self->has_dropdown_tooltip = tooltip && *tooltip;
+
+  if (self->has_dropdown_tooltip)
+    gtk_widget_set_tooltip_markup (self->menu_button, tooltip);
+  else
+    gtk_widget_set_tooltip_text (self->menu_button, _("More Options"));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DROPDOWN_TOOLTIP]);
 }
