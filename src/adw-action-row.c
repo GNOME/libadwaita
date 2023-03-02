@@ -7,8 +7,8 @@
 #include "config.h"
 #include "adw-action-row.h"
 
-#include "adw-macros-private.h"
 #include "adw-marshalers.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwActionRow:

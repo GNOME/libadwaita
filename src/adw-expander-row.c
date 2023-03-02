@@ -8,7 +8,6 @@
 #include "adw-expander-row.h"
 
 #include "adw-action-row.h"
-#include "adw-macros-private.h"
 #include "adw-widget-utils-private.h"
 
 /**

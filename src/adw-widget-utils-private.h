@@ -25,6 +25,16 @@
 
 G_BEGIN_DECLS
 
+#define ADW_CRITICAL_CANNOT_REMOVE_CHILD(parent, child) \
+G_STMT_START { \
+  g_critical ("%s:%d: tried to remove non-child %p of type '%s' from %p of type '%s'", \
+              __FILE__, __LINE__, \
+              (child), \
+              G_OBJECT_TYPE_NAME ((GObject*) (child)), \
+              (parent), \
+              G_OBJECT_TYPE_NAME ((GObject*) (parent))); \
+} G_STMT_END
+
 gboolean adw_widget_focus_child (GtkWidget        *widget,
                                  GtkDirectionType  direction);
 

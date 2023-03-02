@@ -12,13 +12,13 @@
 #include "adw-animation-util.h"
 #include "adw-action-row.h"
 #include "adw-leaflet.h"
-#include "adw-macros-private.h"
 #include "adw-preferences-group-private.h"
 #include "adw-preferences-page-private.h"
 #include "adw-toast-overlay.h"
 #include "adw-view-switcher.h"
 #include "adw-view-switcher-bar.h"
 #include "adw-view-switcher-title.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwPreferencesWindow:
@@ -1035,3 +1035,4 @@ adw_preferences_window_add_toast (AdwPreferencesWindow *self,
 
   adw_toast_overlay_add_toast (priv->toast_overlay, toast);
 }
+

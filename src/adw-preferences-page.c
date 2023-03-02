@@ -8,7 +8,6 @@
 
 #include "adw-preferences-page-private.h"
 
-#include "adw-macros-private.h"
 #include "adw-preferences-group-private.h"
 #include "adw-widget-utils-private.h"
 
