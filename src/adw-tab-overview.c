@@ -14,6 +14,7 @@
 #include "adw-animation-util.h"
 #include "adw-bin.h"
 #include "adw-header-bar.h"
+#include "adw-marshalers.h"
 #include "adw-style-manager.h"
 #include "adw-tab-grid-private.h"
 #include "adw-tab-thumbnail-private.h"
@@ -1667,9 +1668,13 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                   G_SIGNAL_RUN_LAST,
                   0,
                   object_handled_accumulator,
-                  NULL, NULL,
+                  NULL,
+                  adw_marshal_OBJECT__VOID,
                   ADW_TYPE_TAB_PAGE,
                   0);
+  g_signal_set_va_marshaller (signals[SIGNAL_CREATE_TAB],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_OBJECT__VOIDv);
 
   /**
    * AdwTabOverview::extra-drag-drop:
@@ -1693,7 +1698,8 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  g_signal_accumulator_first_wins, NULL, NULL,
+                  g_signal_accumulator_first_wins,
+                  NULL, NULL,
                   G_TYPE_BOOLEAN,
                   2,
                   ADW_TYPE_TAB_PAGE,
@@ -1724,7 +1730,8 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  g_signal_accumulator_first_wins, NULL, NULL,
+                  g_signal_accumulator_first_wins,
+                  NULL, NULL,
                   GDK_TYPE_DRAG_ACTION,
                   2,
                   ADW_TYPE_TAB_PAGE,

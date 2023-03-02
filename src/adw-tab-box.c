@@ -13,6 +13,7 @@
 #include "adw-animation-util.h"
 #include "adw-easing.h"
 #include "adw-gizmo-private.h"
+#include "adw-marshalers.h"
 #include "adw-tab-private.h"
 #include "adw-tab-bar-private.h"
 #include "adw-tab-view-private.h"
@@ -3657,16 +3658,21 @@ adw_tab_box_class_init (AdwTabBoxClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
                   G_TYPE_NONE,
                   0);
+  g_signal_set_va_marshaller (signals[SIGNAL_STOP_KINETIC_SCROLLING],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
 
   signals[SIGNAL_EXTRA_DRAG_DROP] =
     g_signal_new ("extra-drag-drop",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  g_signal_accumulator_first_wins, NULL, NULL,
+                  g_signal_accumulator_first_wins,
+                  NULL, NULL,
                   G_TYPE_BOOLEAN,
                   2,
                   ADW_TYPE_TAB_PAGE,
@@ -3677,7 +3683,8 @@ adw_tab_box_class_init (AdwTabBoxClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  g_signal_accumulator_first_wins, NULL, NULL,
+                  g_signal_accumulator_first_wins,
+                  NULL, NULL,
                   GDK_TYPE_DRAG_ACTION,
                   2,
                   ADW_TYPE_TAB_PAGE,

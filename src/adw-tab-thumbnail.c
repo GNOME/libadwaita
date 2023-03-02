@@ -518,7 +518,8 @@ adw_tab_thumbnail_class_init (AdwTabThumbnailClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  g_signal_accumulator_first_wins, NULL, NULL,
+                  g_signal_accumulator_first_wins,
+                  NULL, NULL,
                   G_TYPE_BOOLEAN,
                   1,
                   G_TYPE_VALUE);
@@ -528,7 +529,8 @@ adw_tab_thumbnail_class_init (AdwTabThumbnailClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  g_signal_accumulator_first_wins, NULL, NULL,
+                  g_signal_accumulator_first_wins,
+                  NULL, NULL,
                   GDK_TYPE_DRAG_ACTION,
                   1,
                   G_TYPE_VALUE);

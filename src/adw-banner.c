@@ -9,6 +9,7 @@
 #include "adw-banner.h"
 
 #include "adw-gizmo-private.h"
+#include "adw-marshalers.h"
 #include "adw-widget-utils-private.h"
 
 #define HORZ_SPACING 6
@@ -419,9 +420,13 @@ adw_banner_class_init (AdwBannerClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
                   G_TYPE_NONE,
                   0);
+  g_signal_set_va_marshaller (signals[SIGNAL_BUTTON_CLICKED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
   g_object_class_override_property (object_class, PROP_ACTION_NAME, "action-name");

@@ -10,6 +10,8 @@
 
 #include "adw-settings-impl-private.h"
 
+#include "adw-marshalers.h"
+
 typedef struct
 {
   gboolean has_color_scheme;
@@ -38,20 +40,28 @@ adw_settings_impl_class_init (AdwSettingsImplClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__ENUM,
                   G_TYPE_NONE,
                   1,
                   ADW_TYPE_SYSTEM_COLOR_SCHEME);
+  g_signal_set_va_marshaller (signals[SIGNAL_COLOR_SCHEME_CHANGED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__ENUMv);
 
   signals[SIGNAL_HIGH_CONTRAST_CHANGED] =
     g_signal_new ("high-contrast-changed",
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__BOOLEAN,
                   G_TYPE_NONE,
                   1,
                   G_TYPE_BOOLEAN);
+  g_signal_set_va_marshaller (signals[SIGNAL_HIGH_CONTRAST_CHANGED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__BOOLEANv);
 }
 
 static void

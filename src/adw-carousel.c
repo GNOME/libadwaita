@@ -9,6 +9,7 @@
 #include "adw-carousel.h"
 
 #include "adw-animation-util.h"
+#include "adw-marshalers.h"
 #include "adw-navigation-direction.h"
 #include "adw-spring-animation.h"
 #include "adw-swipe-tracker.h"
@@ -1019,10 +1020,14 @@ adw_carousel_class_init (AdwCarouselClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__UINT,
                   G_TYPE_NONE,
                   1,
                   G_TYPE_UINT);
+  g_signal_set_va_marshaller (signals[SIGNAL_PAGE_CHANGED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__UINTv);
 
   gtk_widget_class_set_css_name (widget_class, "carousel");
 }

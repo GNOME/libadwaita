@@ -8,6 +8,7 @@
 
 #include "adw-swipe-tracker-private.h"
 
+#include "adw-marshalers.h"
 #include "adw-navigation-direction.h"
 
 #include <math.h>
@@ -1100,10 +1101,14 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__ENUM,
                   G_TYPE_NONE,
                   1,
                   ADW_TYPE_NAVIGATION_DIRECTION);
+  g_signal_set_va_marshaller (signals[SIGNAL_PREPARE],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__ENUMv);
 
   /**
    * AdwSwipeTracker::begin-swipe:
@@ -1116,9 +1121,13 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
                   G_TYPE_NONE,
                   0);
+  g_signal_set_va_marshaller (signals[SIGNAL_BEGIN_SWIPE],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
 
   /**
    * AdwSwipeTracker::update-swipe:
@@ -1132,10 +1141,14 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__DOUBLE,
                   G_TYPE_NONE,
                   1,
                   G_TYPE_DOUBLE);
+  g_signal_set_va_marshaller (signals[SIGNAL_UPDATE_SWIPE],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__DOUBLEv);
 
   /**
    * AdwSwipeTracker::end-swipe:
@@ -1155,10 +1168,14 @@ adw_swipe_tracker_class_init (AdwSwipeTrackerClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__DOUBLE_DOUBLE,
                   G_TYPE_NONE,
                   2,
                   G_TYPE_DOUBLE, G_TYPE_DOUBLE);
+  g_signal_set_va_marshaller (signals[SIGNAL_END_SWIPE],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__DOUBLE_DOUBLEv);
 }
 
 static void

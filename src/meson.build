@@ -82,6 +82,15 @@ libadwaita_public_sources += [adw_public_enums[0]]
 libadwaita_private_sources += adw_private_enums
 libadwaita_generated_headers += [adw_public_enums[1]]
 
+adw_marshalers = gnome.genmarshal('adw-marshalers',
+  sources: 'adw-marshalers.list',
+  prefix: 'adw_marshal',
+  valist_marshallers: true,
+)
+
+libadwaita_private_sources += adw_marshalers
+libadwaita_generated_headers += [adw_marshalers[1]]
+
 src_headers = [
   'adw-about-window.h',
   'adw-action-row.h',

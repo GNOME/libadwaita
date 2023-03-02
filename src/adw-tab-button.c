@@ -13,6 +13,7 @@
 #include "adw-tab-button.h"
 
 #include "adw-indicator-bin-private.h"
+#include "adw-marshalers.h"
 
 /* Copied from GtkInspector code */
 #define XFT_DPI_MULTIPLIER (96.0 * PANGO_SCALE)
@@ -309,9 +310,13 @@ adw_tab_button_class_init (AdwTabButtonClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
                   G_TYPE_NONE,
                   0);
+  g_signal_set_va_marshaller (signals[SIGNAL_CLICKED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
 
   /**
    * AdwTabButton::activate:
@@ -329,9 +334,13 @@ adw_tab_button_class_init (AdwTabButtonClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
                   G_TYPE_NONE,
                   0);
+  g_signal_set_va_marshaller (signals[SIGNAL_ACTIVATE],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
 
   gtk_widget_class_set_activate_signal (widget_class, signals[SIGNAL_ACTIVATE]);
 

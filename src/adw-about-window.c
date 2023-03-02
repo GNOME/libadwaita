@@ -11,6 +11,7 @@
 
 #include "adw-action-row.h"
 #include "adw-leaflet.h"
+#include "adw-marshalers.h"
 #include "adw-message-dialog.h"
 #include "adw-preferences-group.h"
 #include "adw-toast-overlay.h"
@@ -1825,10 +1826,14 @@ adw_about_window_class_init (AdwAboutWindowClass *klass)
                   G_SIGNAL_RUN_LAST,
                   0,
                   g_signal_accumulator_true_handled,
-                  NULL, NULL,
+                  NULL,
+                  adw_marshal_BOOLEAN__STRING,
                   G_TYPE_BOOLEAN,
                   1,
                   G_TYPE_STRING);
+  g_signal_set_va_marshaller (signals[SIGNAL_ACTIVATE_LINK],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_BOOLEAN__STRINGv);
 
   g_signal_override_class_handler ("activate-link",
                                    G_TYPE_FROM_CLASS (klass),

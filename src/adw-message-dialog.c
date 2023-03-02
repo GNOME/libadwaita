@@ -11,6 +11,7 @@
 
 #include "adw-gizmo-private.h"
 #include "adw-gtkbuilder-utils-private.h"
+#include "adw-marshalers.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -992,10 +993,14 @@ adw_message_dialog_class_init (AdwMessageDialogClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
                   G_STRUCT_OFFSET (AdwMessageDialogClass, response),
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__STRING,
                   G_TYPE_NONE,
                   1,
                   G_TYPE_STRING);
+  g_signal_set_va_marshaller (signals[SIGNAL_RESPONSE],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__STRINGv);
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-message-dialog.ui");

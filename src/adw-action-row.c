@@ -8,6 +8,7 @@
 #include "adw-action-row.h"
 
 #include "adw-macros-private.h"
+#include "adw-marshalers.h"
 
 /**
  * AdwActionRow:
@@ -329,9 +330,13 @@ adw_action_row_class_init (AdwActionRowClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
                   G_TYPE_NONE,
                   0);
+  g_signal_set_va_marshaller (signals[SIGNAL_ACTIVATED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
 
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-action-row.ui");

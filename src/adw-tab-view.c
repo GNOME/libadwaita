@@ -12,6 +12,7 @@
 
 #include "adw-bin.h"
 #include "adw-gizmo-private.h"
+#include "adw-marshalers.h"
 #include "adw-style-manager.h"
 #include "adw-widget-utils-private.h"
 
@@ -2379,10 +2380,14 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__OBJECT_INT,
                   G_TYPE_NONE,
                   2,
                   ADW_TYPE_TAB_PAGE, G_TYPE_INT);
+  g_signal_set_va_marshaller (signals[SIGNAL_PAGE_ATTACHED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__OBJECT_INTv);
 
   /**
    * AdwTabView::page-detached:
@@ -2405,10 +2410,14 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__OBJECT_INT,
                   G_TYPE_NONE,
                   2,
                   ADW_TYPE_TAB_PAGE, G_TYPE_INT);
+  g_signal_set_va_marshaller (signals[SIGNAL_PAGE_DETACHED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__OBJECT_INTv);
 
   /**
    * AdwTabView::page-reordered:
@@ -2423,10 +2432,14 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__OBJECT_INT,
                   G_TYPE_NONE,
                   2,
                   ADW_TYPE_TAB_PAGE, G_TYPE_INT);
+  g_signal_set_va_marshaller (signals[SIGNAL_PAGE_REORDERED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__OBJECT_INTv);
 
   /**
    * AdwTabView::close-page:
@@ -2466,10 +2479,14 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                   G_SIGNAL_RUN_LAST,
                   0,
                   g_signal_accumulator_true_handled,
-                  NULL, NULL,
+                  NULL,
+                  adw_marshal_BOOLEAN__OBJECT,
                   G_TYPE_BOOLEAN,
                   1,
                   ADW_TYPE_TAB_PAGE);
+  g_signal_set_va_marshaller (signals[SIGNAL_CLOSE_PAGE],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_BOOLEAN__OBJECTv);
 
   /**
    * AdwTabView::setup-menu:
@@ -2488,10 +2505,14 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__OBJECT,
                   G_TYPE_NONE,
                   1,
                   ADW_TYPE_TAB_PAGE);
+  g_signal_set_va_marshaller (signals[SIGNAL_SETUP_MENU],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__OBJECTv);
 
   /**
    * AdwTabView::create-window:
@@ -2512,9 +2533,13 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                   G_SIGNAL_RUN_LAST,
                   0,
                   object_handled_accumulator,
-                  NULL, NULL,
+                  NULL,
+                  adw_marshal_OBJECT__VOID,
                   ADW_TYPE_TAB_VIEW,
                   0);
+  g_signal_set_va_marshaller (signals[SIGNAL_CREATE_WINDOW],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_OBJECT__VOIDv);
 
   /**
    * AdwTabView::indicator-activated:
@@ -2531,10 +2556,14 @@ adw_tab_view_class_init (AdwTabViewClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_LAST,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__OBJECT,
                   G_TYPE_NONE,
                   1,
                   ADW_TYPE_TAB_PAGE);
+  g_signal_set_va_marshaller (signals[SIGNAL_INDICATOR_ACTIVATED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__OBJECTv);
 
   g_signal_override_class_handler ("close-page",
                                    G_TYPE_FROM_CLASS (klass),

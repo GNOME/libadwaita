@@ -8,6 +8,7 @@
 
 #include "adw-split-button.h"
 
+#include "adw-marshalers.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -410,8 +411,12 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
                   G_TYPE_NONE, 0);
+  g_signal_set_va_marshaller (signals[SIGNAL_CLICKED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
 
   /**
    * AdwSplitButton::activate:
@@ -426,8 +431,12 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
                   G_TYPE_FROM_CLASS (klass),
                   G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
                   0,
-                  NULL, NULL, NULL,
+                  NULL, NULL,
+                  adw_marshal_VOID__VOID,
                   G_TYPE_NONE, 0);
+  g_signal_set_va_marshaller (signals[SIGNAL_ACTIVATE],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__VOIDv);
 
   gtk_widget_class_set_activate_signal (widget_class, signals[SIGNAL_ACTIVATE]);
 
