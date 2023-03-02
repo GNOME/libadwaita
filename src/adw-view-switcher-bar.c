@@ -168,8 +168,7 @@ adw_view_switcher_bar_dispose (GObject *object)
     g_clear_object (&self->pages);
   }
 
-  gtk_widget_unparent (self->action_bar);
-  self->view_switcher = NULL;
+  gtk_widget_dispose_template (GTK_WIDGET (self), ADW_TYPE_VIEW_SWITCHER_BAR);
 
   G_OBJECT_CLASS (adw_view_switcher_bar_parent_class)->dispose (object);
 }

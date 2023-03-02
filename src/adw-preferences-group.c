@@ -231,8 +231,9 @@ adw_preferences_group_dispose (GObject *object)
   AdwPreferencesGroup *self = ADW_PREFERENCES_GROUP (object);
   AdwPreferencesGroupPrivate *priv = adw_preferences_group_get_instance_private (self);
 
-  gtk_widget_unparent (priv->box);
   g_clear_object (&priv->rows);
+
+  gtk_widget_dispose_template (GTK_WIDGET (self), ADW_TYPE_PREFERENCES_GROUP);
 
   G_OBJECT_CLASS (adw_preferences_group_parent_class)->dispose (object);
 }

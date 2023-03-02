@@ -1325,10 +1325,9 @@ adw_tab_overview_dispose (GObject *object)
 
   adw_tab_overview_set_view (self, NULL);
 
-  gtk_widget_unparent (GTK_WIDGET (self->overview));
-  gtk_widget_unparent (GTK_WIDGET (self->child_bin));
-
   g_clear_object (&self->open_animation);
+
+  gtk_widget_dispose_template (GTK_WIDGET (self), ADW_TYPE_TAB_OVERVIEW);
 
   G_OBJECT_CLASS (adw_tab_overview_parent_class)->dispose (object);
 }

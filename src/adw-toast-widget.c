@@ -15,6 +15,7 @@ struct _AdwToastWidget {
 
   AdwBin *title_bin;
   GtkWidget *action_button;
+  GtkWidget *close_button;
 
   AdwToast *toast;
 
@@ -173,14 +174,12 @@ static void
 adw_toast_widget_dispose (GObject *object)
 {
   AdwToastWidget *self = ADW_TOAST_WIDGET (object);
-  GtkWidget *child;
 
   end_timeout (self);
 
   set_toast (self, NULL);
 
-  while ((child = gtk_widget_get_first_child (GTK_WIDGET (self))))
-    gtk_widget_unparent (child);
+  gtk_widget_dispose_template (GTK_WIDGET (self), ADW_TYPE_TOAST_WIDGET);
 
   G_OBJECT_CLASS (adw_toast_widget_parent_class)->dispose (object);
 }
@@ -241,6 +240,7 @@ adw_toast_widget_class_init (AdwToastWidgetClass *klass)
 
   gtk_widget_class_bind_template_child (widget_class, AdwToastWidget, title_bin);
   gtk_widget_class_bind_template_child (widget_class, AdwToastWidget, action_button);
+  gtk_widget_class_bind_template_child (widget_class, AdwToastWidget, close_button);
 
   gtk_widget_class_bind_template_callback (widget_class, string_is_not_empty);
   gtk_widget_class_bind_template_callback (widget_class, action_clicked_cb);

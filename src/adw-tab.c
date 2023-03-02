@@ -741,11 +741,8 @@ adw_tab_dispose (GObject *object)
 
   g_clear_object (&self->close_btn_animation);
   g_clear_object (&self->needs_attention_animation);
-  gtk_widget_unparent (self->indicator_btn);
-  gtk_widget_unparent (self->icon_stack);
-  gtk_widget_unparent (self->title);
-  gtk_widget_unparent (self->close_btn);
-  gtk_widget_unparent (self->needs_attention_indicator);
+
+  gtk_widget_dispose_template (GTK_WIDGET (self), ADW_TYPE_TAB);
 
   G_OBJECT_CLASS (adw_tab_parent_class)->dispose (object);
 }

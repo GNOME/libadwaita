@@ -122,10 +122,7 @@ adw_preferences_page_set_property (GObject      *object,
 static void
 adw_preferences_page_dispose (GObject *object)
 {
-  AdwPreferencesPage *self = ADW_PREFERENCES_PAGE (object);
-  AdwPreferencesPagePrivate *priv = adw_preferences_page_get_instance_private (self);
-
-  gtk_widget_unparent (priv->scrolled_window);
+  gtk_widget_dispose_template (GTK_WIDGET (object), ADW_TYPE_PREFERENCES_PAGE);
 
   G_OBJECT_CLASS (adw_preferences_page_parent_class)->dispose (object);
 }

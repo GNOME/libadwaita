@@ -412,8 +412,7 @@ adw_tab_thumbnail_dispose (GObject *object)
 
   g_clear_object (&self->fade_animation);
 
-  if (self->contents)
-    gtk_widget_unparent (self->contents);
+  gtk_widget_dispose_template (GTK_WIDGET (self), ADW_TYPE_TAB_THUMBNAIL);
 
   G_OBJECT_CLASS (adw_tab_thumbnail_parent_class)->dispose (object);
 }

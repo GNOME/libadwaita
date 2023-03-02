@@ -312,7 +312,7 @@ adw_tab_bar_dispose (GObject *object)
 
   adw_tab_bar_set_view (self, NULL);
 
-  gtk_widget_unparent (GTK_WIDGET (self->revealer));
+  gtk_widget_dispose_template (GTK_WIDGET (self), ADW_TYPE_TAB_BAR);
 
   G_OBJECT_CLASS (adw_tab_bar_parent_class)->dispose (object);
 }

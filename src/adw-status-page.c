@@ -156,8 +156,9 @@ adw_status_page_dispose (GObject *object)
 
   adw_status_page_set_child (self, NULL);
 
-  gtk_widget_unparent (self->scrolled_window);
   self->user_widget = NULL;
+
+  gtk_widget_dispose_template (GTK_WIDGET (self), ADW_TYPE_STATUS_PAGE);
 
   G_OBJECT_CLASS (adw_status_page_parent_class)->dispose (object);
 }

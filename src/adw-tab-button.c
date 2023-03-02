@@ -218,7 +218,7 @@ adw_tab_button_dispose (GObject *object)
 
   adw_tab_button_set_view (self, NULL);
 
-  gtk_widget_unparent (GTK_WIDGET (self->button));
+  gtk_widget_dispose_template (GTK_WIDGET (self), ADW_TYPE_TAB_BUTTON);
 
   G_OBJECT_CLASS (adw_tab_button_parent_class)->dispose (object);
 }

@@ -211,8 +211,7 @@ adw_view_switcher_title_dispose (GObject *object)
     g_clear_object (&self->pages);
   }
 
-  if (self->squeezer)
-    gtk_widget_unparent (GTK_WIDGET (self->squeezer));
+  gtk_widget_dispose_template (GTK_WIDGET (self), ADW_TYPE_VIEW_SWITCHER_TITLE);
 
   G_OBJECT_CLASS (adw_view_switcher_title_parent_class)->dispose (object);
 }

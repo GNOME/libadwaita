@@ -826,10 +826,7 @@ adw_message_dialog_dispose (GObject *object)
 
   set_parent (self, NULL);
 
-  if (priv->child) {
-    gtk_box_remove (priv->message_area, priv->child);
-    priv->child = NULL;
-  }
+  priv->child = NULL;
 
   if (priv->responses) {
     g_list_free_full (priv->responses, (GDestroyNotify) response_info_free);

@@ -97,10 +97,7 @@ adw_window_title_set_property (GObject      *object,
 static void
 adw_window_title_dispose (GObject *object)
 {
-  AdwWindowTitle *self = ADW_WINDOW_TITLE (object);
-
-  if (self->box)
-    gtk_widget_unparent (GTK_WIDGET (self->box));
+  gtk_widget_dispose_template (GTK_WIDGET (object), ADW_TYPE_WINDOW_TITLE);
 
   G_OBJECT_CLASS (adw_window_title_parent_class)->dispose (object);
 }
