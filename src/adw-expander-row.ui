@@ -31,6 +31,9 @@
                 <property name="use-underline" bind-source="AdwExpanderRow" bind-property="use-underline" bind-flags="sync-create"/>
                 <property name="selectable" bind-source="AdwExpanderRow" bind-property="title-selectable" bind-flags="sync-create"/>
                 <property name="use-markup" bind-source="AdwExpanderRow" bind-property="use-markup" bind-flags="sync-create"/>
+                <accessibility>
+                  <state name="expanded">False</state>
+                </accessibility>
                 <style>
                   <class name="header"/>
                 </style>
