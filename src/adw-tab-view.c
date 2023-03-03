@@ -152,6 +152,7 @@ struct _AdwTabPage
 
   gboolean live_thumbnail;
   gboolean invalidated;
+  gboolean in_destruction;
 };
 
 static void adw_tab_page_accessible_init (GtkAccessibleInterface *iface);
@@ -354,6 +355,8 @@ static void
 adw_tab_page_dispose (GObject *object)
 {
   AdwTabPage *self = ADW_TAB_PAGE (object);
+
+  self->in_destruction = TRUE;
 
   set_page_parent (self, NULL);
 
@@ -837,6 +840,9 @@ static GtkATContext *
 adw_tab_page_accessible_get_at_context (GtkAccessible *accessible)
 {
   AdwTabPage *self = ADW_TAB_PAGE (accessible);
+
+  if (self->in_destruction)
+    return NULL;
 
   if (self->at_context == NULL) {
     GtkAccessibleRole role = GTK_ACCESSIBLE_ROLE_TAB_PANEL;

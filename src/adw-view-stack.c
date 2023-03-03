@@ -111,6 +111,7 @@ struct _AdwViewStackPage {
   bool needs_attention;
   bool visible;
   bool use_underline;
+  gboolean in_destruction;
 };
 
 static void adw_view_stack_page_accessible_init (GtkAccessibleInterface *iface);
@@ -244,6 +245,8 @@ static void
 adw_view_stack_page_dispose (GObject *object)
 {
   AdwViewStackPage *self = ADW_VIEW_STACK_PAGE (object);
+
+  self->in_destruction = TRUE;
 
   g_clear_object (&self->at_context);
 
@@ -382,6 +385,9 @@ static GtkATContext *
 adw_view_stack_page_accessible_get_at_context (GtkAccessible *accessible)
 {
   AdwViewStackPage *self = ADW_VIEW_STACK_PAGE (accessible);
+
+  if (self->in_destruction)
+    return NULL;
 
   if (self->at_context == NULL) {
     GtkAccessibleRole role = GTK_ACCESSIBLE_ROLE_TAB_PANEL;
