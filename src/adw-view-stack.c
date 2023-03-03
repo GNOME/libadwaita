@@ -108,9 +108,9 @@ struct _AdwViewStackPage {
   GtkATContext *at_context;
   AdwViewStackPage *next_page;
 
-  bool needs_attention;
-  bool visible;
-  bool use_underline;
+  gboolean needs_attention;
+  gboolean visible;
+  gboolean use_underline;
   gboolean in_destruction;
 };
 
