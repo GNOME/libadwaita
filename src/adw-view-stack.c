@@ -393,9 +393,12 @@ adw_view_stack_page_accessible_get_at_context (GtkAccessible *accessible)
       display = gdk_display_get_default ();
 
     self->at_context = gtk_at_context_create (role, accessible, display);
+
+    if (self->at_context == NULL)
+      return NULL;
   }
 
-  return self->at_context;
+  return g_object_ref (self->at_context);
 }
 
 static gboolean
@@ -409,11 +412,14 @@ static GtkAccessible *
 adw_view_stack_page_accessible_get_accessible_parent (GtkAccessible *accessible)
 {
   AdwViewStackPage *self = ADW_VIEW_STACK_PAGE (accessible);
+  GtkWidget *parent;
 
-  if (self->widget)
-    return GTK_ACCESSIBLE (gtk_widget_get_parent (self->widget));
+  if (!self->widget)
+    return NULL;
 
-  return NULL;
+  parent = gtk_widget_get_parent (self->widget);
+
+  return GTK_ACCESSIBLE (g_object_ref (parent));
 }
 
 static GtkAccessible *
@@ -421,10 +427,10 @@ adw_view_stack_page_accessible_get_first_accessible_child (GtkAccessible *access
 {
   AdwViewStackPage *self = ADW_VIEW_STACK_PAGE (accessible);
 
-  if (self->widget)
-    return GTK_ACCESSIBLE (self->widget);
+  if (!self->widget)
+    return NULL;
 
-  return NULL;
+  return GTK_ACCESSIBLE (g_object_ref (self->widget));
 }
 
 static GtkAccessible *
@@ -432,7 +438,10 @@ adw_view_stack_page_accessible_get_next_accessible_sibling (GtkAccessible *acces
 {
   AdwViewStackPage *self = ADW_VIEW_STACK_PAGE (accessible);
 
-  return GTK_ACCESSIBLE (self->next_page);
+  if (!self->next_page)
+    return NULL;
+
+  return GTK_ACCESSIBLE (g_object_ref (self->next_page));
 }
 
 static gboolean
@@ -1134,8 +1143,8 @@ adw_view_stack_accessible_get_first_accessible_child (GtkAccessible *accessible)
 {
   AdwViewStack *self = ADW_VIEW_STACK (accessible);
 
-  if (self->children)
-    return self->children->data;
+  if (self->children && self->children->data)
+    return g_object_ref (self->children->data);
 
   return NULL;
 }

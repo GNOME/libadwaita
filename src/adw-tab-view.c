@@ -848,9 +848,12 @@ adw_tab_page_accessible_get_at_context (GtkAccessible *accessible)
       display = gdk_display_get_default ();
 
     self->at_context = gtk_at_context_create (role, accessible, display);
+
+    if (self->at_context == NULL)
+      return NULL;
   }
 
-  return self->at_context;
+  return g_object_ref (self->at_context);
 }
 
 static gboolean
@@ -864,11 +867,14 @@ static GtkAccessible *
 adw_tab_page_accessible_get_accessible_parent (GtkAccessible *accessible)
 {
   AdwTabPage *self = ADW_TAB_PAGE (accessible);
+  GtkWidget *parent;
 
-  if (self->bin)
-    return GTK_ACCESSIBLE (gtk_widget_get_parent (self->bin));
+  if (!self->bin)
+    return NULL;
 
-  return NULL;
+  parent = gtk_widget_get_parent (self->bin);
+
+  return GTK_ACCESSIBLE (g_object_ref (parent));
 }
 
 static GtkAccessible *
@@ -877,7 +883,7 @@ adw_tab_page_accessible_get_first_accessible_child (GtkAccessible *accessible)
   AdwTabPage *self = ADW_TAB_PAGE (accessible);
 
   if (self->bin)
-    return GTK_ACCESSIBLE (self->bin);
+    return GTK_ACCESSIBLE (g_object_ref (self->bin));
 
   return NULL;
 }
@@ -900,7 +906,7 @@ adw_tab_page_accessible_get_next_accessible_sibling (GtkAccessible *accessible)
 
   next_page = adw_tab_view_get_nth_page (ADW_TAB_VIEW (view), pos + 1);
 
-  return GTK_ACCESSIBLE (next_page);
+  return GTK_ACCESSIBLE (g_object_ref (next_page));
 }
 
 static gboolean
@@ -2624,7 +2630,7 @@ adw_tab_view_accessible_get_first_accessible_child (GtkAccessible *accessible)
   AdwTabView *self = ADW_TAB_VIEW (accessible);
 
   if (adw_tab_view_get_n_pages (self) > 0)
-    return GTK_ACCESSIBLE (adw_tab_view_get_nth_page (self, 0));
+    return GTK_ACCESSIBLE (g_object_ref (adw_tab_view_get_nth_page (self, 0)));
 
   return NULL;
 }
