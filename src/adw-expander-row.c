@@ -606,6 +606,10 @@ adw_expander_row_set_expanded (AdwExpanderRow *self,
   else
     gtk_widget_unset_state_flags (GTK_WIDGET (self), GTK_STATE_FLAG_CHECKED);
 
+  gtk_accessible_update_state (GTK_ACCESSIBLE (priv->action_row),
+                               GTK_ACCESSIBLE_STATE_EXPANDED, priv->expanded,
+                               -1);
+
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXPANDED]);
 }
 
