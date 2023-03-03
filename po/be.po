@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita libadwaita-1-2\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-11-25 00:00+0000\n"
-"PO-Revision-Date: 2022-11-27 21:29+0300\n"
-"Last-Translator: Launchpad translators\n"
+"POT-Creation-Date: 2023-02-28 08:57+0000\n"
+"PO-Revision-Date: 2023-03-03 14:06+0300\n"
+"Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: src/adw-about-window.c:202
 msgid "GNU General Public License, version 2 or later"
@@ -87,69 +87,69 @@ msgstr "Ліцэнзія Apache, версія 2.0"
 msgid "Mozilla Public License 2.0"
 msgstr "Публічная ліцэнзія Mozilla версіі 2.0"
 
-#: src/adw-about-window.c:525
+#: src/adw-about-window.c:528
 msgid "Code by"
 msgstr "Код"
 
-#: src/adw-about-window.c:526
+#: src/adw-about-window.c:529
 msgid "Design by"
 msgstr "Дызайн"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:530
 msgid "Artwork by"
 msgstr "Мастацкае афармленне"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:531
 msgid "Documentation by"
 msgstr "Дакументацыя"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:532
 msgid "Translated by"
 msgstr "Пераклад"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:558
+#: src/adw-about-window.c:561
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a href=\"%s\">"
-"%s</a> for details."
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
 msgstr ""
 "Праграма распаўсюджваецца без аніякіх гарантый. Падрабязнасці глядзіце тут: "
 "<a href=\"%s\">%s</a>."
 
-#: src/adw-about-window.c:636
+#: src/adw-about-window.c:639
 msgid "This Application"
 msgstr "Праграма"
 
-#: src/adw-about-window.c:938
+#: src/adw-about-window.c:941
 #, c-format
 msgid "Version %s"
 msgstr "Версія %s"
 
-#: src/adw-about-window.c:964
+#: src/adw-about-window.c:967
 msgid "Unable to parse release notes:"
 msgstr "Не ўдалося разабраць спіс змен:"
 
-#: src/adw-about-window.c:970
+#: src/adw-about-window.c:973
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Радок: %d, знак: %d"
 
-#: src/adw-about-window.c:1263
+#: src/adw-about-window.c:1266
 msgid "Copied to clipboard"
 msgstr "Скапіявана ў буфер абмену"
 
-#: src/adw-about-window.c:1297
+#: src/adw-about-window.c:1300
 msgid "Unable to save debugging information"
 msgstr "Не ўдалося захаваць адладачную інфармацыю"
 
-#: src/adw-about-window.c:1302
+#: src/adw-about-window.c:1305
 msgid "Close"
 msgstr "Закрыць"
 
-#: src/adw-about-window.c:1318
+#: src/adw-about-window.c:1321
 msgid "Save debugging information"
 msgstr "Захаваць адладачную інфармацыю"
 
@@ -327,13 +327,21 @@ msgstr "Пошук"
 msgid "No Results Found"
 msgstr "Нічога не знойдзена"
 
-#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:111
+#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:113
 msgid "Try a different search."
 msgstr "Паспрабуйце іншы пошукавы запыт."
 
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
 msgstr "Паказаць адкрытыя ўкладкі"
+
+#: src/adw-tab-overview.c:894
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u укладка"
+msgstr[1] "%u укладкі"
+msgstr[2] "%u укладак"
 
 #: src/adw-tab-overview.ui:23
 msgid "Search Tabs"
@@ -343,19 +351,19 @@ msgstr "Пошук укладак"
 msgid "Search tabs"
 msgstr "Пошук укладак"
 
-#: src/adw-tab-overview.ui:97
+#: src/adw-tab-overview.ui:99
 msgid "No Open Tabs"
 msgstr "Няма адкрытых укладак"
 
-#: src/adw-tab-overview.ui:110
+#: src/adw-tab-overview.ui:112
 msgid "No Tabs Found"
 msgstr "Укладкі не знойдзены"
 
-#: src/adw-tab-overview.ui:131
+#: src/adw-tab-overview.ui:133
 msgid "New _Tab"
 msgstr "_Новая ўкладка"
 
-#: src/adw-tab-thumbnail.ui:36 src/adw-tab.ui:88
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
 msgid "Close Tab"
 msgstr "Закрыць укладку"
 
