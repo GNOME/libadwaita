@@ -21,7 +21,7 @@ allocate_carousel (AdwCarousel *carousel)
 
   gtk_widget_measure (GTK_WIDGET (carousel), GTK_ORIENTATION_HORIZONTAL, -1,
                       NULL, &width, NULL, NULL);
-  gtk_widget_measure (GTK_WIDGET (carousel), GTK_ORIENTATION_VERTICAL, -1,
+  gtk_widget_measure (GTK_WIDGET (carousel), GTK_ORIENTATION_VERTICAL, width,
                       NULL, &height, NULL, NULL);
   gtk_widget_allocate (GTK_WIDGET (carousel), width, height, 0, NULL);
 }
