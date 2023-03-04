@@ -1,3 +1,61 @@
+==============
+Version 1.3.rc
+==============
+
+- Build
+  - Depend on GTK 4.9.5.
+- AdwApplication
+  - Disable style loading if Granite is present
+- AdwAvatar
+  - Improve filtering for custom images
+- AdwCarousel
+  - Doc updates
+- AdwEntryRow
+  - Fix :disabled styles
+- AdwExpanderRow
+  - Expose expanded state for a11y
+- AdwPropertyAnimationTarget
+  - Remove critical when finalizing the object before the target
+- AdwSplitButton
+  - Correctly set a11y relations
+  - Add a default tooltip to the dropdown
+- AdwStyleManager
+  - Fix regressions from 1.3.beta
+  - Disable built-in styles if Granite is present
+- AdwTabOverview
+  - Clarify docs
+- AdwToastOverlay
+  - Fix a use-after-free when quickly creating and dismissing toasts
+- Docs
+  - Update named color descriptions
+  - Update .linked widget list to keep up with GTK 4.9.x
+  - Mention AdwHeaderBar along with GtkHeaderBar
+- Stylesheet
+  - Fix page switcher in GtkShortcutsWindow
+  - Fix GtkSearchBar spacing
+- Memory leak fixes
+- Various cleanups
+- Translation updates
+  - Basque
+  - Belarusian
+  - Czech
+  - Danish
+  - Finnish
+  - Galician
+  - German
+  - Hebrew
+  - Hungarian
+  - Indonesian
+  - Korean
+  - Lithuanian
+  - Occitan
+  - Portuguese
+  - Serbian
+  - Slovenian
+  - Spanish
+  - Turkish
+  - Ukrainian
+
 ================
 Version 1.3.beta
 ================
