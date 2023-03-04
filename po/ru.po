@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-09-17 13:15+0000\n"
-"PO-Revision-Date: 2022-10-09 13:10+0300\n"
+"POT-Creation-Date: 2023-03-03 21:06+0000\n"
+"PO-Revision-Date: 2023-03-04 12:55+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: src/adw-about-window.c:203
 msgid "GNU General Public License, version 2 or later"
@@ -83,30 +83,30 @@ msgstr "Apache License, версии 2.0"
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
-#: src/adw-about-window.c:526
+#: src/adw-about-window.c:529
 msgid "Code by"
 msgstr "Код"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:530
 msgid "Design by"
 msgstr "Проект"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:531
 msgid "Artwork by"
 msgstr "Художественная работа"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:532
 msgid "Documentation by"
 msgstr "Документация"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:533
 msgid "Translated by"
 msgstr "Перевод"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:559
+#: src/adw-about-window.c:562
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -115,33 +115,33 @@ msgstr ""
 "Это приложение распространяется без каких-либо гарантий. Подробнее в <a "
 "href=\"%s\">%s</a>."
 
-#: src/adw-about-window.c:637
+#: src/adw-about-window.c:640
 msgid "This Application"
 msgstr "Данное приложение"
 
-#: src/adw-about-window.c:939
+#: src/adw-about-window.c:942
 #, c-format
 msgid "Version %s"
 msgstr "Версия %s"
 
-#: src/adw-about-window.c:965
+#: src/adw-about-window.c:968
 msgid "Unable to parse release notes:"
 msgstr "Невозможно разобрать примечания к выпуску:"
 
-#: src/adw-about-window.c:971
+#: src/adw-about-window.c:974
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Строка: %d, символ: %d"
 
-#: src/adw-about-window.c:1264
+#: src/adw-about-window.c:1267
 msgid "Copied to clipboard"
 msgstr "Скопировано в буфер обмена"
 
-#: src/adw-about-window.c:1299
+#: src/adw-about-window.c:1301
 msgid "Unable to save debugging information"
 msgstr "Невозможно сохранить отладочную информацию"
 
-#: src/adw-about-window.c:1304
+#: src/adw-about-window.c:1306
 msgid "Close"
 msgstr "Закрыть"
 
@@ -149,17 +149,9 @@ msgstr "Закрыть"
 msgid "Save debugging information"
 msgstr "Сохранить отладочную информацию"
 
-#: src/adw-about-window.c:1325
-msgid "_Save"
-msgstr "_Сохранить"
-
-#: src/adw-about-window.c:1326
-msgid "_Cancel"
-msgstr "_Отменить"
-
 #: src/adw-about-window.ui:5
 msgid "About"
-msgstr "О программе"
+msgstr "О приложении"
 
 #: src/adw-about-window.ui:123
 msgid "_What’s New"
@@ -255,24 +247,24 @@ msgstr "_Копировать текст"
 msgid "_Save as…"
 msgstr "_Сохранить как…"
 
-#: src/adw-entry-row.ui:93
+#: src/adw-entry-row.ui:95
 msgid "Apply"
 msgstr "Применить"
 
-#: src/adw-inspector-page.c:76
+#: src/adw-inspector-page.c:75
 msgid "No Preference"
 msgstr "Без предпочтений"
 
-#: src/adw-inspector-page.c:78
+#: src/adw-inspector-page.c:77
 msgid "Prefer Dark"
 msgstr "Предпочитать темную"
 
-#: src/adw-inspector-page.c:80
+#: src/adw-inspector-page.c:79
 msgid "Prefer Light"
 msgstr "Предпочитать светлую"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:97
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -300,23 +292,23 @@ msgstr "Предпочтительная цветовая схема"
 msgid "High Contrast"
 msgstr "Высокая контрастность"
 
-#: src/adw-password-entry-row.c:71
+#: src/adw-password-entry-row.c:70
 msgid "Hide Text"
 msgstr "Скрыть текст"
 
-#: src/adw-password-entry-row.c:75
+#: src/adw-password-entry-row.c:74
 msgid "Show Text"
 msgstr "Показать текст"
 
-#: src/adw-password-entry-row.c:169
+#: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
 msgstr "Caps Lock включен"
 
-#: src/adw-password-entry-row.c:177
+#: src/adw-password-entry-row.c:176
 msgid "_Show Text"
 msgstr "_Показать текст"
 
-#: src/adw-preferences-window.c:242
+#: src/adw-preferences-window.c:243
 msgid "Untitled page"
 msgstr "Безымянная страница"
 
@@ -332,13 +324,25 @@ msgstr "Поиск"
 msgid "No Results Found"
 msgstr "Результатов не найдено"
 
-#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:111
+#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:113
 msgid "Try a different search."
 msgstr "Попробуйте другой поисковый запрос."
+
+#: src/adw-split-button.c:495 src/adw-split-button.c:957
+msgid "More Options"
+msgstr "Дополнительные параметры"
 
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
 msgstr "Просмотреть открытые вкладки"
+
+#: src/adw-tab-overview.c:899
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u вкладка"
+msgstr[1] "%u вкладки"
+msgstr[2] "%u вкладок"
 
 #: src/adw-tab-overview.ui:23
 msgid "Search Tabs"
@@ -348,18 +352,24 @@ msgstr "Поиск вкладок"
 msgid "Search tabs"
 msgstr "Поиск вкладок"
 
-#: src/adw-tab-overview.ui:97
+#: src/adw-tab-overview.ui:99
 msgid "No Open Tabs"
 msgstr "Нет открытых вкладок"
 
-#: src/adw-tab-overview.ui:110
+#: src/adw-tab-overview.ui:112
 msgid "No Tabs Found"
 msgstr "Вкладки не найдены"
 
-#: src/adw-tab-overview.ui:131
+#: src/adw-tab-overview.ui:133
 msgid "New _Tab"
 msgstr "Новая _вкладка"
 
-#: src/adw-tab-thumbnail.ui:36 src/adw-tab.ui:88
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
 msgid "Close Tab"
 msgstr "Закрыть вкладку"
+
+#~ msgid "_Save"
+#~ msgstr "_Сохранить"
+
+#~ msgid "_Cancel"
+#~ msgstr "_Отменить"
