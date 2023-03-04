@@ -52,6 +52,7 @@
                                 <property name="maximum-size">400</property>
                                 <property name="child">
                                   <object class="GtkSearchEntry" id="search_entry">
+                                    <property name="placeholder-text" translatable="yes">Search preferences</property>
                                     <signal name="search-started" handler="search_started_cb" swapped="yes"/>
                                     <signal name="search-changed" handler="search_changed_cb" swapped="yes"/>
                                     <signal name="stop-search" handler="stop_search_cb" swapped="yes"/>
