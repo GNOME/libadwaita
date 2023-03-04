@@ -656,9 +656,6 @@ adw_carousel_size_allocate (GtkWidget *widget,
                                          child_info->snap_point);
   }
 
-  if (!gtk_widget_get_realized (GTK_WIDGET (self)))
-    return;
-
   x = 0;
   y = 0;
 
