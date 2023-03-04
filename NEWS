@@ -1,4 +1,14 @@
 =============
+Version 1.2.3
+=============
+
+- AdwEntryRow
+  - Fix :disabled styles
+- AdwExpanderRow
+  - Expose expanded state for a11y
+- Memory leak fixes
+
+=============
 Version 1.2.2
 =============
 
