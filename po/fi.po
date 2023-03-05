@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-02-20 15:54+0000\n"
-"PO-Revision-Date: 2023-02-28 22:18+0200\n"
+"POT-Creation-Date: 2023-03-04 16:21+0000\n"
+"PO-Revision-Date: 2023-03-05 14:49+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -18,94 +18,94 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: src/adw-about-window.c:202
+#: src/adw-about-window.c:203
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU General Public -lisenssi (GPL), versio 2 tai myöhempi"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:204
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU General Public -lisenssi (GPL), versio 3 tai myöhempi"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:205
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU Lesser General Public -lisenssi (LGPL), versio 2.1 tai myöhempi"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:206
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU Lesser General Public -lisenssi (LGPL), versio 3 tai myöhempi"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:207
 msgid "BSD 2-Clause License"
 msgstr "2-lausekkeinen BSD-lisenssi"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:208
 msgid "The MIT License (MIT)"
 msgstr "MIT-lisenssi (MIT)"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:209
 msgid "Artistic License 2.0"
 msgstr "Artistic-lisenssi 2.0"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:210
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU General Public -lisenssi (GPL), vain versio 2"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:211
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU General Public -lisenssi (GPL), vain versio 3"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU Lesser General Public -lisenssi (LGPL), vain versio 2.1"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:213
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU Lesser General Public -lisenssi (LGPL), vain versio 3"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:214
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero General Public -lisenssi (AGPL), versio 3 tai myöhempi"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:215
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero General Public -lisenssi (AGPL), vain versio 3"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:216
 msgid "BSD 3-Clause License"
 msgstr "3-lausekkeinen BSD-lisenssi"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:217
 msgid "Apache License, Version 2.0"
 msgstr "Apache-lisenssi, versio 2.0"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:218
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public -lisenssi 2.0"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:529
 msgid "Code by"
 msgstr "Koodaus"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:530
 msgid "Design by"
 msgstr "Suunnittelu"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:531
 msgid "Artwork by"
 msgstr "Taiteellinen työ"
 
-#: src/adw-about-window.c:531
+#: src/adw-about-window.c:532
 msgid "Documentation by"
 msgstr "Dokumentaatio"
 
-#: src/adw-about-window.c:532
+#: src/adw-about-window.c:533
 msgid "Translated by"
 msgstr "Käännös"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:561
+#: src/adw-about-window.c:562
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -114,37 +114,37 @@ msgstr ""
 "Tämä sovellus ei sisällä minkäänlaista takuuta. Lisätietoja <a "
 "href=\"%s\">%s</a>."
 
-#: src/adw-about-window.c:639
+#: src/adw-about-window.c:640
 msgid "This Application"
 msgstr "Tämä sovellus"
 
-#: src/adw-about-window.c:941
+#: src/adw-about-window.c:942
 #, c-format
 msgid "Version %s"
 msgstr "Versio %s"
 
-#: src/adw-about-window.c:967
+#: src/adw-about-window.c:968
 msgid "Unable to parse release notes:"
 msgstr "Julkaisutietoja ei voitu jäsentää:"
 
-#: src/adw-about-window.c:973
+#: src/adw-about-window.c:974
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Rivi: %d, merkki: %d"
 
-#: src/adw-about-window.c:1266
+#: src/adw-about-window.c:1267
 msgid "Copied to clipboard"
 msgstr "Kopioitu leikepöydälle"
 
-#: src/adw-about-window.c:1300
+#: src/adw-about-window.c:1301
 msgid "Unable to save debugging information"
 msgstr "Vianjäljitystietoja ei voitu tallentaa"
 
-#: src/adw-about-window.c:1305
+#: src/adw-about-window.c:1306
 msgid "Close"
 msgstr "Sulje"
 
-#: src/adw-about-window.c:1321
+#: src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "Tallenna vianjäljitystiedot"
 
@@ -326,11 +326,15 @@ msgstr "Tuloksia ei löytynyt"
 msgid "Try a different search."
 msgstr "Kokeile eri hakuehtoja."
 
+#: src/adw-split-button.c:495 src/adw-split-button.c:957
+msgid "More Options"
+msgstr "Lisää valintoja"
+
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
 msgstr "Näytä avoimet välilehdet"
 
-#: src/adw-tab-overview.c:894
+#: src/adw-tab-overview.c:899
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
