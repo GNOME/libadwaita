@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-02-20 15:54+0000\n"
-"PO-Revision-Date: 2023-02-20 22:11+0200\n"
+"POT-Creation-Date: 2023-03-04 16:21+0000\n"
+"PO-Revision-Date: 2023-03-05 09:43+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -19,96 +19,96 @@ msgstr ""
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 20.12.0\n"
 
-#: src/adw-about-window.c:202
+#: src/adw-about-window.c:203
 msgid "GNU General Public License, version 2 or later"
 msgstr "Загальна громадська ліцензія GNU (GNU GPL), версія 2 або новіша"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:204
 msgid "GNU General Public License, version 3 or later"
 msgstr "Загальна громадська ліцензія GNU (GNU GPL), версія 3 або новіша"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:205
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr ""
 "Звужена загальна громадська ліцензія GNU (GNU LGPL), версія 2.1 або новіша"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:206
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr ""
 "Звужена загальна громадська ліцензія GNU (GNU LGPL), версія 3 або новіша"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:207
 msgid "BSD 2-Clause License"
 msgstr "Спрощена (2-Clause) ліцензія BSD"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:208
 msgid "The MIT License (MIT)"
 msgstr "Ліцензія MIT (MIT)"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:209
 msgid "Artistic License 2.0"
 msgstr "Артистична ліцензія 2.0"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:210
 msgid "GNU General Public License, version 2 only"
 msgstr "Загальна громадська ліцензія GNU (GNU GPL), лише версії 2"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:211
 msgid "GNU General Public License, version 3 only"
 msgstr "Загальна громадська ліцензія GNU (GNU GPL), лише версії 3"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "Скорочена загальна громадська ліцензія GNU, лише версії 2.1"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:213
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "Скорочена загальна громадська ліцензія GNU, лише версії 3"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:214
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "Звужена загальна громадська ліцензія GNU Affero, версія 3 або новіша"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:215
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "Загальна громадська ліцензія Affero GNU (GNU GPL), лише версії 3"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:216
 msgid "BSD 3-Clause License"
 msgstr "Спрощена (3-Clause) ліцензія BSD"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:217
 msgid "Apache License, Version 2.0"
 msgstr "Ліцензія Apache, версія 2.0"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:218
 msgid "Mozilla Public License 2.0"
 msgstr "Громадська ліцензія Mozilla 2.0"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:529
 msgid "Code by"
 msgstr "Програмний код"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:530
 msgid "Design by"
 msgstr "Дизайн"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:531
 msgid "Artwork by"
 msgstr "Графіка"
 
-#: src/adw-about-window.c:531
+#: src/adw-about-window.c:532
 msgid "Documentation by"
 msgstr "Документація"
 
-#: src/adw-about-window.c:532
+#: src/adw-about-window.c:533
 msgid "Translated by"
 msgstr "Переклад"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:561
+#: src/adw-about-window.c:562
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -117,37 +117,37 @@ msgstr ""
 "Ця програма постачається БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙ. Щоб дізнатися більше, "
 "відвідайте <a href=\"%s\">%s</a>."
 
-#: src/adw-about-window.c:639
+#: src/adw-about-window.c:640
 msgid "This Application"
 msgstr "Ця програма"
 
-#: src/adw-about-window.c:941
+#: src/adw-about-window.c:942
 #, c-format
 msgid "Version %s"
 msgstr "Версія %s"
 
-#: src/adw-about-window.c:967
+#: src/adw-about-window.c:968
 msgid "Unable to parse release notes:"
 msgstr "Не вдалося обробити нотатки щодо випуску:"
 
-#: src/adw-about-window.c:973
+#: src/adw-about-window.c:974
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Рядок: %d, символ: %d"
 
-#: src/adw-about-window.c:1266
+#: src/adw-about-window.c:1267
 msgid "Copied to clipboard"
 msgstr "Скопійовано до буфера обміну"
 
-#: src/adw-about-window.c:1300
+#: src/adw-about-window.c:1301
 msgid "Unable to save debugging information"
 msgstr "Не вдалося зберегти діагностичні дані"
 
-#: src/adw-about-window.c:1305
+#: src/adw-about-window.c:1306
 msgid "Close"
 msgstr "Закрити"
 
-#: src/adw-about-window.c:1321
+#: src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "Зберегти діагностичні дані"
 
@@ -329,11 +329,15 @@ msgstr "Нічого не знайдено"
 msgid "Try a different search."
 msgstr "Спробуйте інші критерії пошуку."
 
+#: src/adw-split-button.c:495 src/adw-split-button.c:957
+msgid "More Options"
+msgstr "Додаткові параметри"
+
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
 msgstr "Переглянути відкриті вкладки"
 
-#: src/adw-tab-overview.c:894
+#: src/adw-tab-overview.c:899
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
