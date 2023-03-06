@@ -67,11 +67,11 @@ notify_visibility_cb (AdwPasswordEntryRow *self)
   if (gtk_text_get_visibility (GTK_TEXT (delegate))) {
     gtk_button_set_icon_name (GTK_BUTTON (self->show_text_toggle),
                               "view-conceal-symbolic");
-    gtk_widget_set_tooltip_text (self->show_text_toggle, _("Hide Text"));
+    gtk_widget_set_tooltip_text (self->show_text_toggle, _("Hide Password"));
   } else {
     gtk_button_set_icon_name (GTK_BUTTON (self->show_text_toggle),
                               "view-reveal-symbolic");
-    gtk_widget_set_tooltip_text (self->show_text_toggle, _("Show Text"));
+    gtk_widget_set_tooltip_text (self->show_text_toggle, _("Show Password"));
   }
 
   if (self->keyboard)
@@ -173,7 +173,7 @@ adw_password_entry_row_init (AdwPasswordEntryRow *self)
 
   menu = g_menu_new ();
   section = g_menu_new ();
-  item = g_menu_item_new (_("_Show Text"), "misc.toggle-visibility");
+  item = g_menu_item_new (_("_Show Password"), "misc.toggle-visibility");
   g_menu_item_set_attribute (item, "touch-icon", "s", "view-reveal-symbolic");
   g_menu_append_item (section, item);
 
