@@ -152,7 +152,7 @@ adw_fading_label_snapshot (GtkWidget   *widget,
   bounds.origin.x = 0;
   bounds.origin.y = floor (bounds.origin.y);
   bounds.size.width = width;
-  bounds.size.height = ceil (bounds.size.height);
+  bounds.size.height = ceil (bounds.size.height) + 1;
 
   ensure_shader (self);
 
