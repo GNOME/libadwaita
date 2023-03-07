@@ -121,7 +121,7 @@ adw_fading_label_snapshot (GtkWidget   *widget,
   bounds.origin.x = 0;
   bounds.origin.y = floor (bounds.origin.y);
   bounds.size.width = width;
-  bounds.size.height = ceil (bounds.size.height);
+  bounds.size.height = ceil (bounds.size.height) + 1;
 
   gtk_snapshot_push_mask (snapshot, GSK_MASK_MODE_INVERTED_ALPHA);
 
