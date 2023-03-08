@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-02-26 20:21+0000\n"
-"PO-Revision-Date: 2023-02-27 21:24+0100\n"
+"POT-Creation-Date: 2023-03-07 21:04+0000\n"
+"PO-Revision-Date: 2023-03-08 23:02+0100\n"
 "Last-Translator: Matej Urbančič <mateju@src.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -21,94 +21,94 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: src/adw-about-window.c:202
+#: src/adw-about-window.c:203
 msgid "GNU General Public License, version 2 or later"
 msgstr "Splošno Javno dovoljenje GNU, različice 2 ali kasnejše"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:204
 msgid "GNU General Public License, version 3 or later"
 msgstr "Splošno Javno dovoljenje GNU, različice 3 ali kasnejše"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:205
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "Manj Splošno Javno dovoljenje GNU, različice 2.1 ali kasnejše"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:206
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "Manj Splošno Javno dovoljenje GNU, različice 3 ali kasnejše"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:207
 msgid "BSD 2-Clause License"
 msgstr "Dovoljenje BSD 2-Clause"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:208
 msgid "The MIT License (MIT)"
 msgstr "Dovoljenje MIT"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:209
 msgid "Artistic License 2.0"
 msgstr "Umetniško dovoljenje 2.0"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:210
 msgid "GNU General Public License, version 2 only"
 msgstr "Splošno Javno dovoljenje GNU, le različice 2"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:211
 msgid "GNU General Public License, version 3 only"
 msgstr "Splošno Javno dovoljenje GNU, le različice 3"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "Manj Splošno Javno dovoljenje GNU, le različice 2.1"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:213
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "Manj Splošno Javno dovoljenje GNU, le različice 3"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:214
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "Splošno javno dovoljenje Affero GNU, različice 3 ali kasnejše"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:215
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "Splošno Javno dovoljenje GNU Affero, le različica 3"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:216
 msgid "BSD 3-Clause License"
 msgstr "Dovoljenje BSD 3-Clause"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:217
 msgid "Apache License, Version 2.0"
 msgstr "Dovoljenje Apache, različica 2.0"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:218
 msgid "Mozilla Public License 2.0"
 msgstr "Javno dovoljenje Mozilla 2.0"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:529
 msgid "Code by"
 msgstr "Programiranje:"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:530
 msgid "Design by"
 msgstr "Oblikovanje:"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:531
 msgid "Artwork by"
 msgstr "Grafična podoba:"
 
-#: src/adw-about-window.c:531
+#: src/adw-about-window.c:532
 msgid "Documentation by"
 msgstr "Dokumentacija:"
 
-#: src/adw-about-window.c:532
+#: src/adw-about-window.c:533
 msgid "Translated by"
 msgstr "Prevod:"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:561
+#: src/adw-about-window.c:562
 #, c-format
 msgid ""
 "This application comes with absolutely no warranty. See the <a "
@@ -117,37 +117,37 @@ msgstr ""
 "Ta program je objavljen brez vsakršnega jamstva. Več podrobnosti je "
 "zapisanih v datoteki <a href=\"%s\">%s</a>"
 
-#: src/adw-about-window.c:639
+#: src/adw-about-window.c:640
 msgid "This Application"
 msgstr "Program"
 
-#: src/adw-about-window.c:941
+#: src/adw-about-window.c:942
 #, c-format
 msgid "Version %s"
 msgstr "Različica %s"
 
-#: src/adw-about-window.c:967
+#: src/adw-about-window.c:968
 msgid "Unable to parse release notes:"
 msgstr "Ni mogoče razčleniti opomb k izdaji:"
 
-#: src/adw-about-window.c:973
+#: src/adw-about-window.c:974
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Vrstica: %d, znak: %d"
 
-#: src/adw-about-window.c:1266
+#: src/adw-about-window.c:1267
 msgid "Copied to clipboard"
 msgstr "Kopirano v odložišče"
 
-#: src/adw-about-window.c:1300
+#: src/adw-about-window.c:1301
 msgid "Unable to save debugging information"
 msgstr "Podrobnosti razhroščevanja ni mogoče shraniti."
 
-#: src/adw-about-window.c:1305
+#: src/adw-about-window.c:1306
 msgid "Close"
 msgstr "Zapri"
 
-#: src/adw-about-window.c:1321
+#: src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "Shrani podrobnosti razhroščevanja"
 
@@ -328,11 +328,15 @@ msgstr "Ni najdenih zadetkov."
 msgid "Try a different search."
 msgstr "Poskusite z drugačnim iskalnim nizom"
 
+#: src/adw-split-button.c:495 src/adw-split-button.c:957
+msgid "More Options"
+msgstr "Več možnosti"
+
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
 msgstr "Pogled odprtih zavihkov"
 
-#: src/adw-tab-overview.c:894
+#: src/adw-tab-overview.c:899
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
