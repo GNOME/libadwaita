@@ -7,6 +7,7 @@ test_names = [
   'test-avatar-colors',
   'test-button-states',
   'test-message-dialogs',
+  'test-toolbars',
   'test-view-switcher-bars',
 ]
 
