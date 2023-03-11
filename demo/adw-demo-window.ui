@@ -91,9 +91,7 @@
                     <child>
                       <object class="AdwHeaderBar">
                         <property name="show-start-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
-                        <property name="title-widget">
-                          <object class="GtkBox"/>
-                        </property>
+                        <property name="show-title">False</property>
                         <child type="start">
                           <object class="GtkButton">
                             <property name="valign">center</property>
@@ -259,9 +257,7 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="AdwHeaderBar">
-                    <property name="title-widget">
-                      <object class="GtkBox"/>
-                    </property>
+                    <property name="show-title">False</property>
                     <child type="start">
                       <object class="GtkButton">
                         <property name="valign">center</property>

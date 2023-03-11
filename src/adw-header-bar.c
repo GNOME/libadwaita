@@ -23,6 +23,7 @@
 
 #include "adw-header-bar.h"
 
+#include "adw-bin.h"
 #include "adw-enums.h"
 #include "adw-gizmo-private.h"
 #include "adw-widget-utils-private.h"
@@ -136,6 +137,7 @@ struct _AdwHeaderBar {
   GtkWidget *center_box;
   GtkWidget *start_bin;
   GtkWidget *end_bin;
+  GtkWidget *center_bin;
 
   GtkWidget *start_box;
   GtkWidget *end_box;
@@ -165,6 +167,7 @@ enum {
   PROP_SHOW_END_TITLE_BUTTONS,
   PROP_DECORATION_LAYOUT,
   PROP_CENTERING_POLICY,
+  PROP_SHOW_TITLE,
   LAST_PROP
 };
 
@@ -243,7 +246,7 @@ construct_title_label (AdwHeaderBar *self)
   gtk_label_set_single_line_mode (GTK_LABEL (label), TRUE);
   gtk_label_set_ellipsize (GTK_LABEL (label), PANGO_ELLIPSIZE_END);
   gtk_label_set_width_chars (GTK_LABEL (label), MIN_TITLE_CHARS);
-  gtk_center_box_set_center_widget (GTK_CENTER_BOX (self->center_box), label);
+  adw_bin_set_child (ADW_BIN (self->center_bin), label);
 
   self->title_label = label;
 
@@ -286,6 +289,7 @@ adw_header_bar_dispose (GObject *object)
   self->end_box = NULL;
   self->start_bin = NULL;
   self->end_bin = NULL;
+  self->center_bin = NULL;
 
   g_clear_object (&self->size_group);
   g_clear_pointer (&self->handle, gtk_widget_unparent);
@@ -327,6 +331,9 @@ adw_header_bar_get_property (GObject    *object,
   case PROP_CENTERING_POLICY:
     g_value_set_enum (value, adw_header_bar_get_centering_policy (self));
     break;
+  case PROP_SHOW_TITLE:
+    g_value_set_boolean (value, adw_header_bar_get_show_title (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
     break;
@@ -356,6 +363,9 @@ adw_header_bar_set_property (GObject      *object,
     break;
   case PROP_CENTERING_POLICY:
     adw_header_bar_set_centering_policy (self, g_value_get_enum (value));
+    break;
+  case PROP_SHOW_TITLE:
+    adw_header_bar_set_show_title (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -469,6 +479,18 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                        ADW_CENTERING_POLICY_LOOSE,
                        G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwHeaderBar:show-title: (attributes org.gtk.Property.get=adw_header_bar_get_show_title org.gtk.Property.set=adw_header_bar_set_show_title)
+   *
+   * Whether the title widget should be shown.
+   *
+   * Since: 1.4
+   */
+  props[PROP_SHOW_TITLE] =
+    g_param_spec_boolean ("show-title", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
@@ -501,6 +523,9 @@ adw_header_bar_init (AdwHeaderBar *self)
                                  (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
   gtk_widget_set_layout_manager (self->end_bin, gtk_bin_layout_new ());
   gtk_center_box_set_end_widget (GTK_CENTER_BOX (self->center_box), self->end_bin);
+
+  self->center_bin = adw_bin_new ();
+  gtk_center_box_set_center_widget (GTK_CENTER_BOX (self->center_box), self->center_bin);
 
   self->start_box = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
   gtk_widget_set_halign (self->start_box, GTK_ALIGN_START);
@@ -611,8 +636,8 @@ adw_header_bar_remove (AdwHeaderBar *self,
     gtk_box_remove (GTK_BOX (self->start_box), child);
   else if (parent == self->end_box)
     gtk_box_remove (GTK_BOX (self->end_box), child);
-  else if (parent == self->center_box)
-    gtk_center_box_set_center_widget (GTK_CENTER_BOX (self->center_box), NULL);
+  else if (parent == self->center_bin)
+    adw_bin_set_child (ADW_BIN (self->center_bin), NULL);
   else
     ADW_CRITICAL_CANNOT_REMOVE_CHILD (self, child);
 }
@@ -668,13 +693,13 @@ adw_header_bar_set_title_widget (AdwHeaderBar *self,
   if (self->title_widget == title_widget)
     return;
 
-  gtk_center_box_set_center_widget (GTK_CENTER_BOX (self->center_box), NULL);
+  adw_bin_set_child (ADW_BIN (self->center_bin), NULL);
   self->title_widget = NULL;
 
   if (title_widget != NULL) {
     self->title_widget = title_widget;
 
-    gtk_center_box_set_center_widget (GTK_CENTER_BOX (self->center_box), title_widget);
+    adw_bin_set_child (ADW_BIN (self->center_bin), title_widget);
 
     self->title_label = NULL;
   } else if (self->title_label == NULL)
@@ -880,4 +905,47 @@ adw_header_bar_set_centering_policy (AdwHeaderBar       *self,
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CENTERING_POLICY]);
+}
+
+/**
+ * adw_header_bar_get_show_title: (attributes org.gtk.Method.get_property=show-title)
+ * @self: a header bar
+ *
+ * Gets whether the title widget should be shown.
+ *
+ * Returns: whether the title widget should be shown.
+ *
+ * Since: 1.4
+ */
+gboolean
+adw_header_bar_get_show_title (AdwHeaderBar *self)
+{
+  g_return_val_if_fail (ADW_IS_HEADER_BAR (self), FALSE);
+
+  return gtk_widget_get_visible (self->center_bin);
+}
+
+/**
+ * adw_header_bar_set_show_title: (attributes org.gtk.Method.set_property=show-title)
+ * @self: a header bar
+ * @show_title: whether the title widget is visible
+ *
+ * Sets whether the title widget should be shown.
+ *
+ * Since: 1.4
+ */
+void
+adw_header_bar_set_show_title (AdwHeaderBar *self,
+                               gboolean      show_title)
+{
+  g_return_if_fail (ADW_IS_HEADER_BAR (self));
+
+  show_title = !!show_title;
+
+  if (show_title == adw_header_bar_get_show_title (self))
+    return;
+
+  gtk_widget_set_visible (self->center_bin, show_title);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_TITLE]);
 }

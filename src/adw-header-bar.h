@@ -84,4 +84,10 @@ ADW_AVAILABLE_IN_ALL
 void               adw_header_bar_set_centering_policy (AdwHeaderBar       *self,
                                                         AdwCenteringPolicy  centering_policy);
 
+ADW_AVAILABLE_IN_1_4
+gboolean adw_header_bar_get_show_title (AdwHeaderBar *self);
+ADW_AVAILABLE_IN_1_4
+void     adw_header_bar_set_show_title (AdwHeaderBar *self,
+                                        gboolean      show_title);
+
 G_END_DECLS

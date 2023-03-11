@@ -27,12 +27,8 @@
                       <object class="GtkStackPage">
                         <property name="name">top</property>
                         <property name="child">
-                          <object class="GtkHeaderBar">
-                            <property name="title-widget">
-                              <object class="AdwWindowTitle">
-                                <property name="visible">False</property>
-                              </object>
-                            </property>
+                          <object class="AdwHeaderBar">
+                            <property name="show-title">False</property>
                             <style>
                               <class name="flat"/>
                             </style>
