@@ -160,7 +160,7 @@
                     <child>
                       <object class="AdwExpanderRow" id="action_expander_row">
                         <property name="title" translatable="yes">Expander Row With an Action</property>
-                        <child type="action">
+                        <child type="suffix">
                           <object class="GtkButton">
                             <property name="valign">center</property>
                             <property name="icon-name">row-copy-symbolic</property>

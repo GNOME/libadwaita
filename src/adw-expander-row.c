@@ -46,7 +46,7 @@
 typedef struct
 {
   GtkBox *box;
-  GtkBox *actions;
+  GtkBox *suffixes;
   GtkBox *prefixes;
   GtkListBox *list;
   AdwActionRow *action_row;
@@ -279,7 +279,7 @@ adw_expander_row_class_init (AdwExpanderRowClass *klass)
                                                "/org/gnome/Adwaita/ui/adw-expander-row.ui");
   gtk_widget_class_bind_template_child_private (widget_class, AdwExpanderRow, action_row);
   gtk_widget_class_bind_template_child_private (widget_class, AdwExpanderRow, box);
-  gtk_widget_class_bind_template_child_private (widget_class, AdwExpanderRow, actions);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwExpanderRow, suffixes);
   gtk_widget_class_bind_template_child_private (widget_class, AdwExpanderRow, list);
   gtk_widget_class_bind_template_child_private (widget_class, AdwExpanderRow, image);
   gtk_widget_class_bind_template_child_private (widget_class, AdwExpanderRow, enable_switch);
@@ -328,7 +328,9 @@ adw_expander_row_buildable_add_child (GtkBuildable *buildable,
   if (!priv->box)
     parent_buildable_iface->add_child (buildable, builder, child, type);
   else if (type && strcmp (type, "action") == 0)
-    adw_expander_row_add_action (self, GTK_WIDGET (child));
+    adw_expander_row_add_suffix (self, GTK_WIDGET (child));
+  else if (type && strcmp (type, "suffix") == 0)
+    adw_expander_row_add_suffix (self, GTK_WIDGET (child));
   else if (type && strcmp (type, "prefix") == 0)
     adw_expander_row_add_prefix (self, GTK_WIDGET (child));
   else if (!type && GTK_IS_WIDGET (child))
@@ -364,6 +366,8 @@ adw_expander_row_new (void)
  * @widget: a widget
  *
  * Adds an action widget to @self.
+ *
+ * Deprecated: 1.4: Use [method@ExpanderRow.add_suffix] to add a suffix.
  */
 void
 adw_expander_row_add_action (AdwExpanderRow *self,
@@ -376,8 +380,8 @@ adw_expander_row_add_action (AdwExpanderRow *self,
 
   priv = adw_expander_row_get_instance_private (self);
 
-  gtk_box_prepend (priv->actions, widget);
-  gtk_widget_set_visible (GTK_WIDGET (priv->actions), TRUE);
+  gtk_box_prepend (priv->suffixes, widget);
+  gtk_widget_set_visible (GTK_WIDGET (priv->suffixes), TRUE);
 }
 
 /**
@@ -403,6 +407,30 @@ adw_expander_row_add_prefix (AdwExpanderRow *self,
     adw_action_row_add_prefix (ADW_ACTION_ROW (priv->action_row), GTK_WIDGET (priv->prefixes));
   }
   gtk_box_append (priv->prefixes, widget);
+}
+
+/**
+ * adw_expander_row_add_suffix:
+ * @self: an expander row
+ * @widget: a widget
+ *
+ * Adds an suffix widget to @self.
+ *
+ * Since: 1.4
+ */
+void
+adw_expander_row_add_suffix (AdwExpanderRow *self,
+                             GtkWidget      *widget)
+{
+  AdwExpanderRowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
+  g_return_if_fail (GTK_IS_WIDGET (self));
+
+  priv = adw_expander_row_get_instance_private (self);
+
+  gtk_box_prepend (priv->suffixes, widget);
+  gtk_widget_set_visible (GTK_WIDGET (priv->suffixes), TRUE);
 }
 
 /**
@@ -454,7 +482,7 @@ adw_expander_row_remove (AdwExpanderRow *self,
 
   parent = gtk_widget_get_parent (child);
 
-  if (parent == GTK_WIDGET (priv->prefixes) || parent == GTK_WIDGET (priv->actions)) {
+  if (parent == GTK_WIDGET (priv->prefixes) || parent == GTK_WIDGET (priv->suffixes)) {
     gtk_box_remove (GTK_BOX (parent), child);
     gtk_widget_set_visible (parent, gtk_widget_get_first_child (parent) != NULL);
   }
