@@ -38,7 +38,7 @@
                   <class name="header"/>
                 </style>
                 <child>
-                  <object class="GtkBox" id="actions">
+                  <object class="GtkBox" id="suffixes">
                     <property name="spacing">12</property>
                     <property name="visible">False</property>
                   </object>
