@@ -11,11 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-01-25 20:43+0000\n"
+"POT-Creation-Date: 2023-03-06 12:53+0000\n"
 "PO-Revision-Date: 2023-01-26 08:57+0100\n"
 "Last-Translator: Jordi Mas i Hernàndez <jmas@softcatala.org>\n"
-"Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/"
-"ca/)\n"
+"Language-Team: Catalan (https://www.transifex.com/softcatala/teams/62837/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,133 +22,132 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.1\n"
 
-#: src/adw-about-window.c:202
+#: src/adw-about-window.c:203
 msgid "GNU General Public License, version 2 or later"
 msgstr "Llicència pública general de GNU, versió 2 o posterior"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:204
 msgid "GNU General Public License, version 3 or later"
 msgstr "Llicència pública general de GNU, versió 3 o posterior"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:205
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "Llicència pública general reduïda de GNU, versió 2.1 o posterior"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:206
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "Llicència pública general reduïda de GNU, versió 3 o posterior"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:207
 msgid "BSD 2-Clause License"
 msgstr "Llicència BSD de 2 clàusules"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:208
 msgid "The MIT License (MIT)"
 msgstr "Llicència MIT (MIT)"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:209
 msgid "Artistic License 2.0"
 msgstr "Llicència artística 2.0"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:210
 msgid "GNU General Public License, version 2 only"
 msgstr "Llicència Pública General GNU, només versió 2"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:211
 msgid "GNU General Public License, version 3 only"
 msgstr "Llicència Pública General GNU, només versió 3"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "Llicència pública general reduïda de GNU, només versió 2.1"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:213
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "Llicència pública general reduïda de GNU, només la versió 3"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:214
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "Llicència pública general GNU Affero, versió 3 o posterior"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:215
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "Llicència Pública General GNU Affero, només versió 3"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:216
 msgid "BSD 3-Clause License"
 msgstr "Llicència BSD de 3 clàusules"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:217
 msgid "Apache License, Version 2.0"
 msgstr "Llicència Apache, versió 2.0"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:218
 msgid "Mozilla Public License 2.0"
 msgstr "Llicència pública de Mozilla 2.0"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:529
 msgid "Code by"
 msgstr "Codi per"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:530
 msgid "Design by"
 msgstr "Dissenyat per"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:531
 msgid "Artwork by"
 msgstr "Treball artístic per"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:532
 msgid "Documentation by"
 msgstr "Documentat per"
 
-#: src/adw-about-window.c:531
+#: src/adw-about-window.c:533
 msgid "Translated by"
 msgstr "Traduït per"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
-#.
-#: src/adw-about-window.c:560
+#: src/adw-about-window.c:562
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a href=\"%s\">"
-"%s</a> for details."
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
 msgstr ""
-"Aquesta aplicació no té absolutament cap garantia. Vegeu el <a href=\"%s\">"
-"%s</a> per a més detalls."
+"Aquesta aplicació no té absolutament cap garantia. Vegeu el <a "
+"href=\"%s\">%s</a> per a més detalls."
 
-#: src/adw-about-window.c:638
+#: src/adw-about-window.c:640
 msgid "This Application"
 msgstr "Aquesta aplicació"
 
-#: src/adw-about-window.c:940
+#: src/adw-about-window.c:942
 #, c-format
 msgid "Version %s"
 msgstr "Versió %s"
 
-#: src/adw-about-window.c:966
+#: src/adw-about-window.c:968
 msgid "Unable to parse release notes:"
 msgstr "No s'han pogut analitzar les notes de publicació:"
 
-#: src/adw-about-window.c:972
+#: src/adw-about-window.c:974
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Línia: %d, caràcter: %d"
 
-#: src/adw-about-window.c:1265
+#: src/adw-about-window.c:1267
 msgid "Copied to clipboard"
 msgstr "Copiat al porta-retalls"
 
-#: src/adw-about-window.c:1299
+#: src/adw-about-window.c:1301
 msgid "Unable to save debugging information"
 msgstr "No s'ha pogut desar la informació de depuració"
 
-#: src/adw-about-window.c:1304
+#: src/adw-about-window.c:1306
 msgid "Close"
 msgstr "Tanca"
 
-#: src/adw-about-window.c:1320
+#: src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "Desa la informació de depuració"
 
@@ -332,9 +330,20 @@ msgstr "No s'ha trobat cap resultat"
 msgid "Try a different search."
 msgstr "Proveu una cerca diferent."
 
+#: src/adw-split-button.c:495 src/adw-split-button.c:957
+msgid "More Options"
+msgstr "Més opcions"
+
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
 msgstr "Mostra les pestanyes obertes"
+
+#: src/adw-tab-overview.c:899
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u pestanya"
+msgstr[1] "%u pestanyes"
 
 #: src/adw-tab-overview.ui:23
 msgid "Search Tabs"
