@@ -37,7 +37,7 @@ viewswitcher {
 viewswitcherbar actionbar > revealer > box {
   padding-left: 0;
   padding-right: 0;
-  padding-top: 0;
+  padding-top: 1px;
 
   > viewswitcher.narrow {
     margin-top: 3px;
@@ -50,7 +50,7 @@ viewswitcherbar actionbar > revealer > box {
 
 viewswitchertitle {
   margin-top: -6px;
-  margin-bottom: -3px;
+  margin-bottom: -6px;
 
   viewswitcher {
     margin-left: 12px;
@@ -58,12 +58,12 @@ viewswitchertitle {
 
     &.narrow {
       margin-top: 3px;
-      margin-bottom: 0;
+      margin-bottom: 3px;
     }
 
     &.wide {
       margin-top: 6px;
-      margin-bottom: 3px;
+      margin-bottom: 6px;
     }
   }
 
