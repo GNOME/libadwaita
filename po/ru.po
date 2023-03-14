@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-03-03 21:06+0000\n"
-"PO-Revision-Date: 2023-03-04 12:55+0300\n"
+"POT-Creation-Date: 2023-03-06 17:44+0000\n"
+"PO-Revision-Date: 2023-03-07 14:08+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -293,20 +293,20 @@ msgid "High Contrast"
 msgstr "Высокая контрастность"
 
 #: src/adw-password-entry-row.c:70
-msgid "Hide Text"
-msgstr "Скрыть текст"
+msgid "Hide Password"
+msgstr "Скрыть пароль"
 
 #: src/adw-password-entry-row.c:74
-msgid "Show Text"
-msgstr "Показать текст"
+msgid "Show Password"
+msgstr "Показать пароль"
 
 #: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
 msgstr "Caps Lock включен"
 
 #: src/adw-password-entry-row.c:176
-msgid "_Show Text"
-msgstr "_Показать текст"
+msgid "_Show Password"
+msgstr "_Показать пароль"
 
 #: src/adw-preferences-window.c:243
 msgid "Untitled page"
@@ -316,15 +316,19 @@ msgstr "Безымянная страница"
 msgid "Preferences"
 msgstr "Параметры"
 
-#: src/adw-preferences-window.ui:69
+#: src/adw-preferences-window.ui:55
+msgid "Search preferences"
+msgstr "Параметры поиска"
+
+#: src/adw-preferences-window.ui:70
 msgid "Search"
 msgstr "Поиск"
 
-#: src/adw-preferences-window.ui:139
+#: src/adw-preferences-window.ui:140
 msgid "No Results Found"
 msgstr "Результатов не найдено"
 
-#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:113
+#: src/adw-preferences-window.ui:141 src/adw-tab-overview.ui:113
 msgid "Try a different search."
 msgstr "Попробуйте другой поисковый запрос."
 
@@ -367,6 +371,15 @@ msgstr "Новая _вкладка"
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
 msgid "Close Tab"
 msgstr "Закрыть вкладку"
+
+#~ msgid "Hide Text"
+#~ msgstr "Скрыть текст"
+
+#~ msgid "Show Text"
+#~ msgstr "Показать текст"
+
+#~ msgid "_Show Text"
+#~ msgstr "_Показать текст"
 
 #~ msgid "_Save"
 #~ msgstr "_Сохранить"
