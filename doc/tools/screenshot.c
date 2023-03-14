@@ -35,6 +35,97 @@ screenshot_data_free (ScreenshotData *data)
   g_free (data);
 }
 
+static GdkPixbuf *
+crop_alpha (GdkPixbuf *pixbuf)
+{
+  const guint8 *pixels = gdk_pixbuf_read_pixels (pixbuf);
+  int row, col, width, height, stride, top, bottom, left, right;
+
+  if (!gdk_pixbuf_get_has_alpha (pixbuf))
+    return g_object_ref (pixbuf);
+
+  if (gdk_pixbuf_get_n_channels (pixbuf) != 4)
+    return g_object_ref (pixbuf);
+
+  width = gdk_pixbuf_get_width (pixbuf);
+  height = gdk_pixbuf_get_height (pixbuf);
+  stride = gdk_pixbuf_get_rowstride (pixbuf);
+
+  left = top = 0;
+  right = width;
+  bottom = height;
+
+  /* Left */
+  for (col = 0; col < width; col++) {
+    gboolean empty = TRUE;
+
+    for (row = 0; row < height; row++) {
+      if (pixels[row * stride + col * 4 + 3] != 0) {
+        empty = FALSE;
+        break;
+      }
+    }
+
+    if (!empty) {
+      left = col;
+      break;
+    }
+  }
+
+  /* Right */
+  for (col = width - 1; col > left; col--) {
+    gboolean empty = TRUE;
+
+    for (row = 0; row < height; row++) {
+      if (pixels[row * stride + col * 4 + 3] != 0) {
+        empty = FALSE;
+        break;
+      }
+    }
+
+    if (!empty) {
+      right = col + 1;
+      break;
+    }
+  }
+
+  /* Top */
+  for (row = 0; row < height; row++) {
+    gboolean empty = TRUE;
+
+    for (col = 0; col < width; col++) {
+      if (pixels[row * stride + col * 4 + 3] != 0) {
+        empty = FALSE;
+        break;
+      }
+    }
+
+    if (!empty) {
+      top = row;
+      break;
+    }
+  }
+
+  /* Bottom */
+  for (row = height - 1; row > top; row--) {
+    gboolean empty = TRUE;
+
+    for (col = 0; col < width; col++) {
+      if (pixels[row * stride + col * 4 + 3] != 0) {
+        empty = FALSE;
+        break;
+      }
+    }
+
+    if (!empty) {
+      bottom = row + 1;
+      break;
+    }
+  }
+
+  return gdk_pixbuf_new_subpixbuf (pixbuf, left, top, right - left, bottom - top);
+}
+
 static gboolean
 draw_paintable_cb (ScreenshotData *data)
 {
@@ -86,7 +177,17 @@ draw_paintable_cb (ScreenshotData *data)
   texture = gsk_renderer_render_texture (renderer, node,
                                          &GRAPHENE_RECT_INIT (0, 0, width, height));
 
-  gdk_texture_save_to_png (texture, data->name);
+  if (GTK_IS_NATIVE (data->widget)) {
+    GdkPixbuf *pixbuf = gdk_pixbuf_get_from_texture (texture);
+    GdkPixbuf *cropped_pixbuf = crop_alpha (pixbuf);
+
+    gdk_pixbuf_save (cropped_pixbuf, data->name, "png", NULL, NULL);
+
+    g_object_unref (cropped_pixbuf);
+    g_object_unref (pixbuf);
+  } else {
+    gdk_texture_save_to_png (texture, data->name);
+  }
 
   screenshot_data_free (data);
 
