@@ -37,14 +37,13 @@ headerbar {
     min-height: 37px;
 
     > windowhandle > box {
-      padding: 4px 4px 5px 4px;
+      padding: 3px 3px 4px 3px;
     }
 
     windowcontrols {
       > button {
         min-height: 22px;
         min-width: 22px;
-        margin: 0;
         padding: 4px;
       }
 
@@ -89,7 +88,6 @@ windowcontrols {
   > button {
     min-width: 24px;
     padding: 5px;
-    margin: 0;
     box-shadow: none;
 
     > image {
