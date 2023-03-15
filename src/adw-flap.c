@@ -1385,7 +1385,7 @@ adw_flap_class_init (AdwFlapClass *klass)
                           G_PARAM_READABLE);
 
   /**
-   * AdwFlap:fold-policy: (attributes org.gtk.Property.get=adw_flap_get_fold_policy)
+   * AdwFlap:fold-policy: (attributes org.gtk.Property.get=adw_flap_get_fold_policy org.gtk.Property.set=adw_flap_set_fold_policy)
    *
    * The fold policy for the flap.
    *
