@@ -988,7 +988,7 @@ adw_flap_measure (GtkWidget      *widget,
     }
 
     min = MAX (content_min + (int) round ((flap_min + separator_min) * min_progress), flap_min);
-    nat = MAX (content_nat + (int) round ((flap_nat + separator_min) * nat_progress), flap_nat);
+    nat = MAX (content_nat + (int) round ((flap_nat + separator_nat) * nat_progress), flap_nat);
   } else {
     min = MAX (MAX (content_min, flap_min), separator_min);
     nat = MAX (MAX (content_nat, flap_nat), separator_nat);
