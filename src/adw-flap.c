@@ -1230,10 +1230,9 @@ adw_flap_dispose (GObject *object)
 {
   AdwFlap *self = ADW_FLAP (object);
 
-  adw_flap_set_flap (self, NULL);
-  adw_flap_set_separator (self, NULL);
-  adw_flap_set_content (self, NULL);
-
+  g_clear_pointer (&self->flap.widget, gtk_widget_unparent);
+  g_clear_pointer (&self->separator.widget, gtk_widget_unparent);
+  g_clear_pointer (&self->content.widget, gtk_widget_unparent);
   g_clear_pointer (&self->shield, gtk_widget_unparent);
 
   g_clear_object (&self->shadow_helper);
