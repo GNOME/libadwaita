@@ -3271,6 +3271,8 @@ adw_about_window_add_legal_section (AdwAboutWindow *self,
  *   value, `NULL`-terminated
  *
  * A convenience function for showing an application’s about window.
+ *
+ * Since: 1.2
  */
 void
 adw_show_about_window (GtkWindow  *parent,
