@@ -21,6 +21,11 @@ RUN dnf -y update \
 RUN git clone https://gitlab.gnome.org/GNOME/gtk.git --depth=1 \
  && cd gtk \
  && meson build --prefix=/usr \
+                -Dgtk_doc=true \
+                -Ddemos=false \
+                -Dbuild-examples=false \
+                -Dbuild-tests=false \
+                -Dbuild-testsuite=false \
  && cd build \
  && ninja \
  && sudo ninja install \
