@@ -16,11 +16,14 @@
       <object class="AdwActionRow">
         <property name="title">Title</property>
         <property name="subtitle">Subtitle</property>
-        <property name="activatable-widget">switch</property>
+        <property name="activatable-widget">button</property>
         <child>
-          <object class="GtkSwitch" id="switch">
+          <object class="GtkButton" id="button">
+            <property name="icon-name">edit-copy-symbolic</property>
             <property name="valign">center</property>
-            <property name="active">True</property>
+            <style>
+              <class name="flat"/>
+            </style>
           </object>
         </child>
       </object>
