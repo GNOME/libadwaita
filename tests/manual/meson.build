@@ -4,6 +4,7 @@ test_cflags = [
 ]
 
 test_names = [
+  'test-avatar-colors',
   'test-button-states',
   'test-message-dialogs',
   'test-view-switcher-bars',
