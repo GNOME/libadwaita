@@ -1,4 +1,25 @@
 =============
+Version 1.3.1
+=============
+
+- AdwAboutWindow
+  - Add a missing Since annotation
+- AdwCarousel
+  - Fix allocation
+- AdwFlap
+  - Add a missing setter annotation for :fold-policy
+  - Correctly measure separator
+  - Avoid notify emissions in dispose()
+- AdwTabBar
+  - Fix clipped labels
+- AdwTabOverview
+  - Fix clipped labels
+  - Add a translator comment for "%u tabs"
+- Demo
+  - Open primary menu with F10
+- Don't show marshal functions in docs
+
+=============
 Version 1.3.0
 =============
 
