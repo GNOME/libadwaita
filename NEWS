@@ -1,4 +1,21 @@
 =============
+Version 1.2.4
+=============
+
+- AdwAboutWindow
+  - Add a missing Since annotation
+- AdwCarousel
+  - Fix allocation
+- AdwFlap
+  - Add a missing setter annotation for :fold-policy
+  - Correctly measure separator
+  - Avoid notify emissions in dispose()
+- AdwTabBar
+  - Fix clipped labels
+- Demo
+  - Open primary menu with F10
+
+=============
 Version 1.2.3
 =============
 
