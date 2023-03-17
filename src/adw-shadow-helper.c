@@ -46,10 +46,10 @@ adw_shadow_helper_constructed (GObject *object)
   self->outline = adw_gizmo_new_with_role ("outline", GTK_ACCESSIBLE_ROLE_PRESENTATION,
                                            NULL, NULL, NULL, NULL, NULL, NULL);
 
-  gtk_widget_set_child_visible (self->dimming, FALSE);
-  gtk_widget_set_child_visible (self->shadow, FALSE);
-  gtk_widget_set_child_visible (self->border, FALSE);
-  gtk_widget_set_child_visible (self->outline, FALSE);
+  gtk_widget_set_visible (self->dimming, FALSE);
+  gtk_widget_set_visible (self->shadow, FALSE);
+  gtk_widget_set_visible (self->border, FALSE);
+  gtk_widget_set_visible (self->outline, FALSE);
 
   gtk_widget_set_can_target (self->dimming, FALSE);
   gtk_widget_set_can_target (self->shadow, FALSE);
@@ -222,10 +222,10 @@ adw_shadow_helper_size_allocate (AdwShadowHelper *self,
     g_assert_not_reached ();
   }
 
-  gtk_widget_set_child_visible (self->dimming, progress < 1);
-  gtk_widget_set_child_visible (self->shadow, progress < 1);
-  gtk_widget_set_child_visible (self->border, progress < 1);
-  gtk_widget_set_child_visible (self->outline, progress < 1);
+  gtk_widget_set_visible (self->dimming, progress < 1);
+  gtk_widget_set_visible (self->shadow, progress < 1);
+  gtk_widget_set_visible (self->border, progress < 1);
+  gtk_widget_set_visible (self->outline, progress < 1);
 
   gtk_widget_measure (self->shadow, orientation, -1, &shadow_size, NULL, NULL, NULL);
   gtk_widget_measure (self->border, orientation, -1, &border_size, NULL, NULL, NULL);
