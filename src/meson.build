@@ -6,6 +6,7 @@ subdir('stylesheet')
 libadwaita_resources = gnome.compile_resources(
   'adw-resources',
   'adwaita.gresources.xml',
+  source_dir: meson.current_source_dir(),
   c_name: 'adw',
 )
 
