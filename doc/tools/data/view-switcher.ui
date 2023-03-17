@@ -63,6 +63,7 @@
                 <property name="stack">stack</property>
                 <property name="policy">narrow</property>
                 <property name="halign">center</property>
+                <property name="margin-bottom">9</property>
               </object>
             </child>
           </object>
