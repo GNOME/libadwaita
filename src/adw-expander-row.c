@@ -27,7 +27,7 @@
  * ## AdwExpanderRow as GtkBuildable
  *
  * The `AdwExpanderRow` implementation of the [iface@Gtk.Buildable] interface
- * supports adding a child as an action widget by specifying “action” as the
+ * supports adding a child as an suffix widget by specifying “suffix” as the
  * “type” attribute of a <child> element.
  *
  * It also supports adding it as a prefix widget by specifying “prefix” as the
