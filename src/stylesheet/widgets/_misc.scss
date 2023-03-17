@@ -222,6 +222,7 @@ statuspage {
 
 flap,
 leaflet,
-navigation-view {
+navigation-view,
+overlay-split-view {
   @include transition-shadows($shade_color);
 }

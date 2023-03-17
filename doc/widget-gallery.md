@@ -143,6 +143,17 @@ Slug: widget-gallery
   <img src="navigation-split-view-collapsed.png" alt="navigation-split-view-collapsed">
 </picture>](class.NavigationSplitView.html)
 
+### Overlay Split View
+
+[<picture>
+  <source srcset="overlay-split-view-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="overlay-split-view.png" alt="overlay-split-view">
+</picture>
+<picture>
+  <source srcset="overlay-split-view-collapsed-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="overlay-split-view-collapsed.png" alt="overlay-split-view-collapsed">
+</picture>](class.OverlaySplitView.html)
+
 ### Carousel
 
 [<picture>

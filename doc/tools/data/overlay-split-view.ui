@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwWindow" id="widget">
+    <property name="default-width">600</property>
+    <property name="default-height">200</property>
+    <property name="width-request">360</property>
+    <property name="height-request">200</property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 400sp</condition>
+        <setter object="split_view" property="collapsed">True</setter>
+      </object>
+    </child>
+    <property name="content">
+      <object class="AdwOverlaySplitView" id="split_view">
+        <property name="pin-sidebar">True</property>
+        <property name="sidebar">
+          <object class="AdwNavigationPage">
+            <property name="title">Sidebar</property>
+            <property name="child">
+              <object class="AdwToolbarView">
+                <property name="extend-content-to-top-edge">True</property>
+                <child type="top">
+                  <object class="AdwHeaderBar">
+                    <property name="show-title">False</property>
+                  </object>
+                </child>
+                <property name="content">
+                  <object class="AdwStatusPage">
+                    <property name="title">Sidebar</property>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </property>
+        <property name="content">
+          <object class="AdwNavigationPage">
+            <property name="title">Content</property>
+            <property name="child">
+              <object class="AdwToolbarView">
+                <property name="extend-content-to-top-edge">True</property>
+                <child type="top">
+                  <object class="AdwHeaderBar">
+                    <property name="show-title">False</property>
+                  </object>
+                </child>
+                <property name="content">
+                  <object class="AdwStatusPage">
+                    <property name="title">Content</property>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </object>
+</interface>

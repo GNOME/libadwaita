@@ -37,7 +37,8 @@
 
   flap,
   leaflet,
-  navigation-view {
+  navigation-view,
+  overlay-split-view {
     @include transition-shadows($sidebar_shade_color);
   }
 
@@ -104,7 +105,8 @@
 
   flap,
   leaflet,
-  navigation-view {
+  navigation-view,
+  overlay-split-view {
     @include transition-shadows($secondary_sidebar_shade_color);
   }
 

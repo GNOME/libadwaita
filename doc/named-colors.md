@@ -386,8 +386,8 @@ partially transparent black.
 ### Sidebar Colors
 
 These colors are used for sidebars, generally attached to the left or right
-sides of a window. They are used by [class@NavigationSplitView] when it's not
-collapsed.
+sides of a window. They are used by [class@NavigationSplitView] and
+[class@OverlaySplitView] when they are not collapsed.
 
 <table>
   <tr>
@@ -434,9 +434,9 @@ overriding sidebar colors, make sure to set it to a value matching your
 
 <code>&#64;sidebar_shade_color</code> is used to provide a dark border for
 sidebars, scroll undershoots within sidebars, as well as transitions in
-[class@NavigationView], [class@Leaflet] and [class@Flap]. This color should
-always be partially transparent black, with the opacity tuned to be well visible
-on top of <code>&#64;sidebar_bg_color</code>.
+[class@NavigationView], [class@OverlaySplitView], [class@Leaflet] and
+[class@Flap]. This color should always be partially transparent black, with the
+opacity tuned to be well visible on top of <code>&#64;sidebar_bg_color</code>.
 
 Since: 1.4
 
@@ -495,9 +495,10 @@ matching your <code>&#64;secondary_sidebar_bg_color</code>.
 
 <code>&#64;secondary_sidebar_shade_color</code> is used to provide a dark border
 for secondary sidebars, scroll undershoots within secondary sidebars, as well as
-transitions in [class@NavigationView], [class@Leaflet] and [class@Flap]. This
-color should always be partially transparent black, with the opacity tuned to be
-well visible on top of <code>&#64;secondary_sidebar_bg_color</code>.
+transitions in [class@NavigationView], [class@OverlaySplitView], [class@Leaflet]
+and [class@Flap]. This color should always be partially transparent black, with
+the opacity tuned to be well visible on top of
+<code>&#64;secondary_sidebar_bg_color</code>.
 
 Since: 1.4
 
@@ -637,10 +638,11 @@ These colors are used for [class@Gtk.Popover].
   </tr>
 </table>
 
-<code>&#64;popover_shade_color</code> is used for scroll undershoot styles within
-popovers, as well as transitions in [class@NavigationView], [class@Leaflet] and
-[class@Flap]. This color should always be partially transparent black, with the
-opacity tuned to be well visible on top of <code>&#64;popover_bg_color</code>.
+<code>&#64;popover_shade_color</code> is used for scroll undershoot styles
+within popovers, as well as transitions in [class@NavigationView],
+[class@OverlaySplitView], [class@Leaflet] and [class@Flap]. This color should
+always be partially transparent black, with the opacity tuned to be well visible
+on top of <code>&#64;popover_bg_color</code>.
 This color is only available since 1.4.
 
 ### Miscellaneous Colors
@@ -670,9 +672,9 @@ This color is only available since 1.4.
 </table>
 
 <code>&#64;shade_color</code> is used for scroll undershoots, as well as
-transitions in [class@NavigationView], [class@Leaflet] and [class@Flap]. This
-color should always be partially transparent black, with the opacity tuned to be
-well visible on top of <code>&#64;window_bg_color</code>.
+transitions in [class@NavigationView], [class@OverlaySplitView], [class@Leaflet]
+and [class@Flap]. This color should always be partially transparent black, with
+the opacity tuned to be well visible on top of <code>&#64;window_bg_color</code>.
 
 <code>&#64;scrollbar_outline_color</code> is used by [class@Gtk.Scrollbar] to
 ensure that overlay scrollbars are visible regardless of the content color. It
