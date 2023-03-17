@@ -70,7 +70,8 @@ popover {
 
   flap,
   leaflet,
-  navigation-view {
+  navigation-view,
+  overlay-split-view {
     @include transition-shadows($popover_shade_color);
   }
 }

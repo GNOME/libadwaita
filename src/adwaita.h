@@ -55,6 +55,7 @@ G_BEGIN_DECLS
 #include "adw-navigation-direction.h"
 #include "adw-navigation-split-view.h"
 #include "adw-navigation-view.h"
+#include "adw-overlay-split-view.h"
 #include "adw-password-entry-row.h"
 #include "adw-preferences-group.h"
 #include "adw-preferences-page.h"

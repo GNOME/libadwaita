@@ -39,6 +39,8 @@
  * [property@NavigationSplitView:show-content] controls which child is visible
  * while collapsed.
  *
+ * See also [class@OverlaySplitView].
+ *
  * `AdwNavigationSplitView` is typically used together with an [class@Breakpoint]
  * setting the `collapsed` property to `TRUE` on small widths, as follows:
  *

@@ -56,6 +56,7 @@ test_names = [
   'test-message-dialog',
   'test-navigation-split-view',
   'test-navigation-view',
+  'test-overlay-split-view',
   'test-password-entry-row',
   'test-preferences-group',
   'test-preferences-page',
