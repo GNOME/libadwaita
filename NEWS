@@ -1,4 +1,32 @@
 =============
+Version 1.1.7
+=============
+
+- AdwCarousel
+  - Fix allocation
+- AdwFlap
+  - Add a missing setter annotation for :fold-policy
+  - Correctly measure separator
+  - Avoid notify emissions in dispose()
+- AdwLeaflet
+  - Fix can-unfold=false
+- AdwSpringAnimation
+  - Fix critical damping velocity
+- AdwSwipeable
+  - Fix get_swipe_area() fallback
+- AdwTabBar
+  - Fix clipped labels
+- AdwToastOverlay
+  - Don't focus buttons on click
+- Demo
+  - Open primary menu with F10
+  - Fix the switch on the avatar page
+- Stylesheet
+  - Fix GtkLevelBar fill colors
+- Fix dependency names in docs
+- Memory leak fixes
+
+=============
 Version 1.1.6
 =============
 
