@@ -3520,6 +3520,7 @@ adw_tab_box_dispose (GObject *object)
 
   g_clear_pointer (&self->needs_attention_left, gtk_widget_unparent);
   g_clear_pointer (&self->needs_attention_right, gtk_widget_unparent);
+  g_clear_pointer (&self->context_menu, gtk_widget_unparent);
 
   G_OBJECT_CLASS (adw_tab_box_parent_class)->dispose (object);
 }

@@ -3228,6 +3228,8 @@ adw_tab_grid_dispose (GObject *object)
 
   g_clear_object (&self->resize_animation);
 
+  g_clear_pointer (&self->context_menu, gtk_widget_unparent);
+
   G_OBJECT_CLASS (adw_tab_grid_parent_class)->dispose (object);
 }
 
