@@ -108,14 +108,15 @@ avatar_open_dialog_cb (GtkFileDialog     *dialog,
     gtk_widget_action_set_enabled (GTK_WIDGET (self), "avatar.remove", TRUE);
 
     texture = gdk_texture_new_from_file (file, &error);
-    if (error)
+    if (error) {
       g_critical ("Failed to create texture from file: %s", error->message);
+      g_clear_error (&error);
+    }
 
     adw_avatar_set_custom_image (self->avatar, texture ? GDK_PAINTABLE (texture) : NULL);
 
-    g_clear_error (&error);
     g_clear_object (&info);
-    g_object_unref (texture);
+    g_clear_object (&texture);
     g_object_unref (file);
   }
 }
