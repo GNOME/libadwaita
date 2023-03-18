@@ -37,7 +37,8 @@ The `.destructive-action` style class makes the button use destructive colors.
 It can be used to draw attention to the potentially damaging consequences of
 using a button. This style acts as a warning to the user.
 
-It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
+It can be used in combination with [`.flat`](#flat), [`.circular`](#circular),
+or [`.pill`](#pill).
 
 Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 
@@ -86,22 +87,15 @@ Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 The `.opaque` style class gives the button an opaque background. It's intended
 to be used together with custom styles that override `background-color` and
 `color`, to create buttons with an appearance similar to
-[`.suggested-action`](#suggested-action) and
-[`.destructive-action`](#destructive-action), but with custom colors.
+[`.suggested-action`](#suggested-action) but with custom colors.
 
-For example, `.suggested-action` and `.destructive-action` are equivalent to
-using the `.opaque` style
+For example, `.suggested-action` is equivalent to using the `.opaque` style
 class with the following CSS:
 
 ```css
 #custom-suggested-action-button {
   background-color: @accent_bg_color;
   color: @accent_fg_color;
-}
-
-#custom-destructive-action-button {
-  background-color: @destructive_bg_color;
-  color: @destructive_fg_color;
 }
 ```
 
@@ -169,7 +163,6 @@ classes:
 
 * [`.flat`](#flat)
 * [`.suggested-action`](#suggested-action)
-* [`.destructive-action`](#destructive-action)
 * [`.opaque`](#opaque)
 
 If a linked box is contained within a [toolbar or a similar widget](#toolbars),
@@ -213,9 +206,10 @@ The following buttons keep default appearance:
 * Buttons with other content;
 * Buttons within widgets with the [`.linked`](#linked-controls) style
   class;
-* Buttons with the [`.suggested-action`](#suggested-action),
-  [`.destructive-action`](#destructive-action) or [`.opaque`](#opaque) style
-  classes.
+* Buttons with the [`.suggested-action`](style-classes.html#suggested-action) or
+  [`.opaque`](style-classes.html#opaque) style classes;
+* Buttons with the [`.destructive-action`](style-classes.html#destructive-action)
+  style class;
 * Buttons with the [`.raised`](#raised) style class.
 
 It also ensures 6px margins and spacing between widgets. The

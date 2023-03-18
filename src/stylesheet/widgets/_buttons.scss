@@ -7,6 +7,13 @@ $button_checked_active_color: gtkalpha(currentColor, .4);
 
 $opaque_button_default_bg: gtkmix($window_bg_color, $window_fg_color, 85%);
 
+$destructive_button_color: gtkalpha(currentColor, .15);
+$destructive_button_hover_color: gtkalpha(currentColor, .2);
+$destructive_button_active_color: gtkalpha(currentColor, .35);
+$destructive_button_checked_color: gtkalpha(currentColor, .35);
+$destructive_button_checked_hover_color: gtkalpha(currentColor, .4);
+$destructive_button_checked_active_color: gtkalpha(currentColor, .45);
+
 %button,
 button {
   @at-root %button_basic, & {
@@ -181,6 +188,34 @@ button {
     }
   }
 
+  @at-root %destructive_button {
+    @include focus-ring($transition: $button_transition, $fc: gtkalpha(currentColor, $focus_border_opacity));
+
+    color: $destructive_color;
+    background-color: $destructive_button_color;
+
+    &:hover {
+      background-color: $destructive_button_hover_color;
+    }
+
+    &:active, &.keyboard-activating {
+      background-color: $destructive_button_active_color;
+    }
+
+    &:checked {
+      background-color: $destructive_button_checked_color;
+
+      &:hover {
+        background-color: $destructive_button_checked_hover_color;
+      }
+
+      &.keyboard-activating,
+      &:active {
+        background-color: $destructive_button_checked_active_color;
+      }
+    }
+  }
+
   &.opaque {
     @extend %opaque_button;
 
@@ -189,13 +224,7 @@ button {
   }
 
   &.destructive-action {
-    @extend %opaque_button;
-
-    color: $destructive_fg_color;
-
-    &, &:checked {
-      background-color: $destructive_bg_color;
-    }
+    @extend %destructive_button;
   }
 
   &.suggested-action {
@@ -377,15 +406,11 @@ menubutton {
   &.circular > button { @extend %circular_button; }
   &.flat > button { @extend %button_basic_flat; }
   &.pill > button { @extend %pill_button; }
+  &.destructive-action > button { @extend %destructive_button; }
 
   &.suggested-action {
     background-color: $accent_bg_color;
     color: $accent_fg_color;
-  }
-
-  &.destructive-action {
-    background-color: $destructive_bg_color;
-    color: $destructive_fg_color;
   }
 
   &.opaque {
@@ -394,7 +419,6 @@ menubutton {
   }
 
   &.suggested-action,
-  &.destructive-action,
   &.opaque {
     border-radius: $button_radius;
 
@@ -545,8 +569,12 @@ splitbutton {
   }
 
   &.destructive-action {
-    background-color: $destructive_bg_color;
-    color: $destructive_fg_color;
+    color: $destructive_color;
+
+    > button,
+    > menubutton > button {
+      @extend %destructive_button;
+    }
   }
 
   &.opaque {
@@ -555,7 +583,6 @@ splitbutton {
   }
 
   &.suggested-action,
-  &.destructive-action,
   &.opaque {
     > button, > menubutton > button {
       @extend %opaque_button;

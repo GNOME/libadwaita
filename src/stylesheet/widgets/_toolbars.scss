@@ -36,7 +36,6 @@
   }
 
   menubutton.suggested-action,
-  menubutton.destructive-action,
   menubutton.opaque {
     > button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
       @extend %opaque_button;
@@ -44,6 +43,10 @@
       color: inherit;
       background-color: transparent;
     }
+  }
+
+  menubutton.destructive-action > button:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
+    @extend %destructive_button;
   }
 
   splitbutton:not(.raised):not(.suggested-action):not(.destructive-action):not(.opaque) {
