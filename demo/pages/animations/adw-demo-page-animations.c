@@ -11,8 +11,8 @@ struct _AdwDemoPageAnimations
   GtkWidget *timed_animation_sample;
   GtkWidget *timed_animation_button_box;
   GtkSpinButton *timed_animation_repeat_count;
-  GtkSwitch *timed_animation_reverse;
-  GtkSwitch *timed_animation_alternate;
+  AdwSwitchRow *timed_animation_reverse;
+  AdwSwitchRow *timed_animation_alternate;
   GtkSpinButton *timed_animation_duration;
   AdwComboRow *timed_animation_easing;
   AdwAnimation *spring_animation;
@@ -381,10 +381,10 @@ adw_demo_page_animations_init (AdwDemoPageAnimations *self)
   g_object_bind_property (self->timed_animation_repeat_count, "value",
                           self->timed_animation, "repeat-count",
                           G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
-  g_object_bind_property (self->timed_animation_reverse, "state",
+  g_object_bind_property (self->timed_animation_reverse, "active",
                           self->timed_animation, "reverse",
                           G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
-  g_object_bind_property (self->timed_animation_alternate, "state",
+  g_object_bind_property (self->timed_animation_alternate, "active",
                           self->timed_animation, "alternate",
                           G_BINDING_SYNC_CREATE | G_BINDING_BIDIRECTIONAL);
   g_object_bind_property (self->timed_animation_duration, "value",

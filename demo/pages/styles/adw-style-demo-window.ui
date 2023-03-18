@@ -1105,29 +1105,17 @@ audio-volume-medium</property>
                       </object>
                     </child>
                     <child>
-                      <object class="AdwActionRow">
+                      <object class="AdwSwitchRow" id="devel_switch">
+                        <property name="action-name">style.devel</property>
                         <property name="title" translatable="yes">Development Window</property>
                         <property name="subtitle" translatable="yes">"devel" style class on GtkWindow</property>
-                        <property name="activatable-widget">devel_switch</property>
-                        <child>
-                          <object class="GtkSwitch" id="devel_switch">
-                            <property name="action-name">style.devel</property>
-                            <property name="valign">center</property>
-                          </object>
-                        </child>
                       </object>
                     </child>
                     <child>
-                      <object class="AdwActionRow">
+                      <object class="AdwSwitchRow" id="progress_switch">
+                        <property name="action-name">style.progress</property>
                         <property name="title" translatable="yes">OSD Progress Bar</property>
                         <property name="subtitle" translatable="yes">"osd" style class on GtkProgressBar</property>
-                        <property name="activatable-widget">progress_switch</property>
-                        <child>
-                          <object class="GtkSwitch" id="progress_switch">
-                            <property name="action-name">style.progress</property>
-                            <property name="valign">center</property>
-                          </object>
-                        </child>
                       </object>
                     </child>
                   </object>

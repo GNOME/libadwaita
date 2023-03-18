@@ -210,27 +210,13 @@
                               </object>
                             </child>
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSwitchRow" id="timed_animation_reverse">
                                 <property name="title" translatable="yes">Reverse</property>
-                                <property name="activatable_widget">timed_animation_reverse</property>
-                                <child>
-                                  <object class="GtkSwitch" id="timed_animation_reverse">
-                                    <property name="valign">center</property>
-                                    <property name="state">False</property>
-                                  </object>
-                                </child>
                               </object>
                             </child>
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSwitchRow" id="timed_animation_alternate">
                                 <property name="title" translatable="yes">Alternate</property>
-                                <property name="activatable_widget">timed_animation_alternate</property>
-                                <child>
-                                  <object class="GtkSwitch" id="timed_animation_alternate">
-                                    <property name="valign">center</property>
-                                    <property name="state">False</property>
-                                  </object>
-                                </child>
                               </object>
                             </child>
                           </object>
@@ -348,14 +334,8 @@
                               </object>
                             </child>
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSwitchRow" id="spring_animation_clamp_switch">
                                 <property name="title" translatable="yes">Clamp</property>
-                                <property name="activatable-widget">spring_animation_clamp_switch</property>
-                                <child>
-                                  <object class="GtkSwitch" id="spring_animation_clamp_switch">
-                                    <property name="valign">center</property>
-                                  </object>
-                                </child>
                               </object>
                             </child>
                           </object>

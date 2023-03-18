@@ -73,15 +73,9 @@
                               </object>
                             </child>
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSwitchRow" id="locked_switch">
                                 <property name="title" translatable="yes">Locked</property>
                                 <property name="subtitle" translatable="yes">Sidebar visibility doesn't change when fold state changes</property>
-                                <property name="activatable_widget">locked_switch</property>
-                                <child>
-                                  <object class="GtkSwitch" id="locked_switch">
-                                    <property name="valign">center</property>
-                                  </object>
-                                </child>
                               </object>
                             </child>
                           </object>
@@ -151,41 +145,23 @@
                         <child>
                           <object class="AdwPreferencesGroup">
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSwitchRow" id="modal_switch">
                                 <property name="title" translatable="yes">Modal</property>
                                 <property name="subtitle" translatable="yes">Clicking outside the sidebar or pressing Esc will close it when folded</property>
                                 <property name="subtitle-lines">2</property>
-                                <property name="activatable_widget">modal_switch</property>
-                                <child>
-                                  <object class="GtkSwitch" id="modal_switch">
-                                    <property name="valign">center</property>
-                                    <property name="active">True</property>
-                                  </object>
-                                </child>
+                                <property name="active">True</property>
                               </object>
                             </child>
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSwitchRow" id="swipe_to_open_switch">
                                 <property name="title" translatable="yes">Swipe to Open</property>
-                                <property name="activatable_widget">swipe_to_open_switch</property>
-                                <child>
-                                  <object class="GtkSwitch" id="swipe_to_open_switch">
-                                    <property name="valign">center</property>
-                                    <property name="active">True</property>
-                                  </object>
-                                </child>
+                                <property name="active">True</property>
                               </object>
                             </child>
                             <child>
-                              <object class="AdwActionRow">
+                              <object class="AdwSwitchRow" id="swipe_to_close_switch">
                                 <property name="title" translatable="yes">Swipe to Close</property>
-                                <property name="activatable_widget">swipe_to_close_switch</property>
-                                <child>
-                                  <object class="GtkSwitch" id="swipe_to_close_switch">
-                                    <property name="valign">center</property>
-                                    <property name="active">True</property>
-                                  </object>
-                                </child>
+                                <property name="active">True</property>
                               </object>
                             </child>
                           </object>

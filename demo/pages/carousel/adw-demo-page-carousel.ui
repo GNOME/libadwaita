@@ -65,26 +65,14 @@
                       </object>
                     </child>
                     <child>
-                      <object class="AdwActionRow">
+                      <object class="AdwSwitchRow" id="scroll_wheel">
                         <property name="title" translatable="yes">Scroll Wheel</property>
-                        <property name="activatable_widget">scroll_wheel</property>
-                        <child>
-                          <object class="GtkSwitch" id="scroll_wheel">
-                            <property name="valign">center</property>
-                            <property name="active">True</property>
-                          </object>
-                        </child>
+                        <property name="active">True</property>
                       </object>
                     </child>
                     <child>
-                      <object class="AdwActionRow">
+                      <object class="AdwSwitchRow" id="long_swipes">
                         <property name="title" translatable="yes">Long Swipes</property>
-                        <property name="activatable_widget">long_swipes</property>
-                        <child>
-                          <object class="GtkSwitch" id="long_swipes">
-                            <property name="valign">center</property>
-                          </object>
-                        </child>
                       </object>
                     </child>
                   </object>
