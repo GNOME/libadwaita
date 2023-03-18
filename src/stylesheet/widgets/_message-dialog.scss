@@ -5,10 +5,6 @@
 window.dialog.message {
   .titlebar {
     min-height: 20px;
-    background: none;
-    border-style: none;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
   }
 
   box.dialog-vbox.vertical {
@@ -21,42 +17,12 @@ window.dialog.message {
     }
   }
 
-  &.csd {
-    // bigger radius for better antialiasing
-    border-bottom-left-radius: $window_radius+1;
-    border-bottom-right-radius: $window_radius+1;
-
-    .dialog-action-area {
-      border-top: 1px solid $border_color;
-      margin: 0;
-      border-spacing: 0;
-
-      > button {
-        @extend %button_basic_flat;
-        padding: 10px 14px; // labels are not vertically centered on message dialog, this is a workaround
-        border-radius: 0;
-        border: none;
-        background-clip: padding-box;
-        border-left: 1px solid $border_color;
-
-        &:first-child {
-          border-bottom-left-radius: $window_radius+1;
-          border-left: none;
-        }
-
-        &:last-child {
-          border-bottom-right-radius: $window_radius+1;
-        }
-
-        &.suggested-action {
-          color: $accent_color;
-        }
-
-        &.destructive-action {
-          color: $destructive_color;
-        }
-      }
-    }
+  .dialog-action-area {
+    border-spacing: 12px;
+    margin-top: 0;
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-bottom: 12px;
   }
 }
 
@@ -83,59 +49,21 @@ window.messagedialog {
     }
   }
 
-  .response-area > button {
-    padding: 10px 14px;
-    border-radius: 0;
+  .response-area {
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 12px;
 
-    @if $contrast == 'high' {
-      &:hover,
-      &.keyboard-activating,
-      &:active,
-      &:checked {
-        box-shadow: none;
-      }
+    > button {
+      margin-left: 6px;
+      margin-right: 6px;
     }
 
-    &.suggested {
-      color: $accent_color;
-    }
+    &.compact {
+      padding-bottom: 0px;
 
-    &.destructive {
-      color: $destructive_color;
-    }
-  }
-
-  &.csd:not(.solid-csd) {
-    border-radius: $window_radius+1;
-
-    .response-area {
-      &:not(.compact) > button {
-        margin-top: -1px;
-        margin-right: -1px;
-        margin-left: -1px;
-
-        &:first-child:dir(ltr),
-        &:last-child:dir(rtl) {
-          border-bottom-left-radius: $window_radius+1;
-          margin-left: 0;
-        }
-
-        &:last-child:dir(ltr),
-        &:first-child:dir(rtl) {
-          border-bottom-right-radius: $window_radius+1;
-          margin-right: 0;
-        }
-      }
-
-      &.compact > button {
-        margin-top: -1px;
-        margin-bottom: -1px;
-
-        &:first-child {
-          border-bottom-left-radius: $window_radius+1;
-          border-bottom-right-radius: $window_radius+1;
-          margin-bottom: 0;
-        }
+      button {
+        margin-bottom: 12px;
       }
     }
   }

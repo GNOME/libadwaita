@@ -179,7 +179,6 @@ typedef struct {
   gboolean enabled;
 
   GtkWidget *button;
-  GtkWidget *separator;
 } ResponseInfo;
 
 typedef struct
@@ -386,14 +385,12 @@ create_response_button (AdwMessageDialog *self,
 {
   GtkWidget *button = gtk_button_new_with_mnemonic (info->label);
 
-  gtk_widget_add_css_class (button, "flat");
-
   switch (info->appearance) {
   case ADW_RESPONSE_SUGGESTED:
-    gtk_widget_add_css_class (button, "suggested");
+    gtk_widget_add_css_class (button, "suggested-action");
     break;
   case ADW_RESPONSE_DESTRUCTIVE:
-    gtk_widget_add_css_class (button, "destructive");
+    gtk_widget_add_css_class (button, "destructive-action");
     break;
   case ADW_RESPONSE_DEFAULT:
   default:
@@ -528,19 +525,6 @@ measure_responses_do (AdwMessageDialog *self,
       min += child_min;
       nat += child_nat;
     }
-
-    if (response->separator) {
-      gtk_widget_measure (response->separator, orientation, -1,
-                          &child_min, &child_nat, NULL, NULL);
-
-    if (horiz == compact) {
-        min = MAX (min, child_min);
-        nat = MAX (nat, child_min);
-      } else {
-        min += child_min;
-        nat += child_nat;
-      }
-    }
   }
 
   if (horiz && !compact) {
@@ -618,16 +602,6 @@ allocate_responses (GtkWidget *widget,
       ResponseInfo *response = l->data;
       int child_height;
 
-      if (response->separator) {
-        gtk_widget_measure (response->separator, GTK_ORIENTATION_VERTICAL, -1,
-                            &child_height, NULL, NULL, NULL);
-
-        pos -= child_height;
-
-        gtk_widget_allocate (response->separator, width, child_height, -1,
-                             gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (0, pos)));
-      }
-
       gtk_widget_measure (response->button, GTK_ORIENTATION_VERTICAL, -1,
                           &child_height, NULL, NULL, NULL);
 
@@ -644,39 +618,10 @@ allocate_responses (GtkWidget *widget,
     int button_width;
     GList *l;
 
-    for (l = priv->responses; l; l = l->next) {
-      ResponseInfo *response = l->data;
-      int separator_width;
-
-      if (!response->separator)
-        continue;
-
-      gtk_widget_measure (response->separator, GTK_ORIENTATION_HORIZONTAL, -1,
-                          &separator_width, NULL, NULL, NULL);
-
-      total_width -= separator_width;
-    }
-
     button_width = (int) ceil ((double) total_width / n_buttons);
 
     for (l = priv->responses; l; l = l->next) {
       ResponseInfo *response = l->data;
-
-      if (response->separator) {
-        int separator_width;
-
-        gtk_widget_measure (response->separator, GTK_ORIENTATION_HORIZONTAL, -1,
-                            &separator_width, NULL, NULL, NULL);
-
-        if (is_rtl)
-          pos -= separator_width;
-
-        gtk_widget_allocate (response->separator, separator_width, height, -1,
-                             gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (pos, 0)));
-
-        if (!is_rtl)
-          pos += separator_width;
-      }
 
       button_width = MIN (button_width, total_width);
 
@@ -1854,11 +1799,6 @@ adw_message_dialog_add_response (AdwMessageDialog *self,
   info->appearance = ADW_RESPONSE_DEFAULT;
   info->enabled = TRUE;
 
-  if (priv->responses) {
-    info->separator = gtk_separator_new (GTK_ORIENTATION_VERTICAL);
-    gtk_widget_set_parent (info->separator, priv->response_area);
-  }
-
   info->button = create_response_button (self, info);
   gtk_widget_set_parent (info->button, priv->response_area);
 
@@ -2060,14 +2000,14 @@ adw_message_dialog_set_response_appearance (AdwMessageDialog      *self,
   info->appearance = appearance;
 
   if (info->appearance == ADW_RESPONSE_SUGGESTED)
-    gtk_widget_add_css_class (info->button, "suggested");
+    gtk_widget_add_css_class (info->button, "suggested-action");
   else
-    gtk_widget_remove_css_class (info->button, "suggested");
+    gtk_widget_remove_css_class (info->button, "suggested-action");
 
   if (info->appearance == ADW_RESPONSE_DESTRUCTIVE)
-    gtk_widget_add_css_class (info->button, "destructive");
+    gtk_widget_add_css_class (info->button, "destructive-action");
   else
-    gtk_widget_remove_css_class (info->button, "destructive");
+    gtk_widget_remove_css_class (info->button, "destructive-action");
 }
 
 /**

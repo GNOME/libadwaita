@@ -48,9 +48,6 @@
               </object>
             </child>
             <child>
-              <object class="GtkSeparator"/>
-            </child>
-            <child>
               <object class="AdwGizmo" id="response_area">
                 <style>
                   <class name="response-area"/>
