@@ -7,6 +7,13 @@ $button_checked_active_color: color-mix(in srgb, currentColor 40%, transparent);
 
 $opaque_button_default_bg: color-mix(in srgb, var(--window-bg-color) 85%, var(--window-fg-color));
 
+$destructive_button_color: color-mix(in srgb, currentColor 15%, transparent);
+$destructive_button_hover_color: color-mix(in srgb, currentColor 20%, transparent);
+$destructive_button_active_color: color-mix(in srgb, currentColor 35%, transparent);
+$destructive_button_checked_color: color-mix(in srgb, currentColor 35%, transparent);
+$destructive_button_checked_hover_color: color-mix(in srgb, currentColor 40%, transparent);
+$destructive_button_checked_active_color: color-mix(in srgb, currentColor 45%, transparent);
+
 %button,
 button {
   @at-root %button_basic, & {
@@ -173,6 +180,36 @@ button {
     }
   }
 
+  @at-root %destructive_button {
+    --accent-bg-color: var(--destructive-bg-color);
+    --accent-fg-color: var(--destructive-fg-color);
+    --accent-color: var(--destructive-color);
+
+    color: var(--accent-color);
+    background-color: $destructive_button_color;
+
+    &:hover {
+      background-color: $destructive_button_hover_color;
+    }
+
+    &:active, &.keyboard-activating {
+      background-color: $destructive_button_active_color;
+    }
+
+    &:checked {
+      background-color: $destructive_button_checked_color;
+
+      &:hover {
+        background-color: $destructive_button_checked_hover_color;
+      }
+
+      &.keyboard-activating,
+      &:active {
+        background-color: $destructive_button_checked_active_color;
+      }
+    }
+  }
+
   &.opaque {
     @extend %opaque_button;
 
@@ -180,8 +217,7 @@ button {
     color: var(--window-fg-color);
   }
 
-  &.suggested-action,
-  &.destructive-action {
+  &.suggested-action {
     @extend %opaque_button;
 
     color: var(--accent-fg-color);
@@ -192,9 +228,7 @@ button {
   }
 
   &.destructive-action {
-    --accent-bg-color: var(--destructive-bg-color);
-    --accent-fg-color: var(--destructive-fg-color);
-    --accent-color: var(--destructive-color);
+    @extend %destructive_button;
   }
 
   @at-root %button_basic_flat,
@@ -366,17 +400,11 @@ menubutton {
   &.circular > button { @extend %circular_button; }
   &.flat > button { @extend %button_basic_flat; }
   &.pill > button { @extend %pill_button; }
+  &.destructive-action > button { @extend %destructive_button; }
 
-  &.suggested-action,
-  &.destructive-action {
+  &.suggested-action {
     background-color: var(--accent-bg-color);
     color: var(--accent-fg-color);
-  }
-
-  &.destructive-action {
-    --accent-bg-color: var(--destructive-bg-color);
-    --accent-fg-color: var(--destructive-fg-color);
-    --accent-color: var(--destructive-color);
   }
 
   &.opaque {
@@ -385,7 +413,6 @@ menubutton {
   }
 
   &.suggested-action,
-  &.destructive-action,
   &.opaque {
     border-radius: $button_radius;
 
@@ -534,8 +561,7 @@ splitbutton {
     }
   }
 
-  &.suggested-action,
-  &.destructive-action {
+  &.suggested-action {
     background-color: var(--accent-bg-color);
     color: var(--accent-fg-color);
   }
@@ -544,6 +570,13 @@ splitbutton {
     --accent-bg-color: var(--destructive-bg-color);
     --accent-fg-color: var(--destructive-fg-color);
     --accent-color: var(--destructive-color);
+
+    color: var(--accent-color);
+
+    > button,
+    > menubutton > button {
+      @extend %destructive_button;
+    }
   }
 
   &.opaque {
@@ -552,7 +585,6 @@ splitbutton {
   }
 
   &.suggested-action,
-  &.destructive-action,
   &.opaque {
     > button, > menubutton > button {
       @extend %opaque_button;

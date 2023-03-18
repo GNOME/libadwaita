@@ -443,9 +443,10 @@ The following buttons keep default appearance:
 * Buttons with other content;
 * Buttons within widgets containing the
   [`.linked`](style-classes.html#linked-controls) class;
-* Buttons with the [`.suggested-action`](style-classes.html#suggested-action),
-  [`.destructive-action`](style-classes.html#destructive-action) or
-  [`.opaque`](style-classes.html#opaque) style classes.
+* Buttons with the [`.suggested-action`](style-classes.html#suggested-action) or
+  [`.opaque`](style-classes.html#opaque) style classes;
+* Buttons with the [`.destructive-action`](style-classes.html#destructive-action)
+  style class;
 * Buttons with the [`.raised`](style-classes.html#raised) style class.
 
 It's important to avoid ambiguous layouts, for example text-only buttons with
