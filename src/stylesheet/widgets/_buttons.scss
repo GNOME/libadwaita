@@ -315,24 +315,24 @@ button {
     transition: $button_transition;
 
     &:hover {
-      background-image: image(gtkalpha(currentColor, .03));
+      background-image: image($view_hover_color);
     }
 
     &.keyboard-activating,
     &:active {
-      background-image: image(gtkalpha(currentColor, .08));
+      background-image: image($view_active_color);
     }
 
     &:checked {
       background-color: $card_bg_color;
       background-image: image($view_selected_color);
 
-      &:hover { background-image: image($selected_hover_color); }
+      &:hover { background-image: image($view_selected_hover_color); }
 
       &.keyboard-activating,
-      &:active { background-image: image($selected_active_color); }
+      &:active { background-image: image($view_selected_active_color); }
 
-      &.has-open-popup { background-image: image($selected_hover_color); }
+      &.has-open-popup { background-image: image($view_selected_hover_color); }
     }
 
     &:drop(active) {
