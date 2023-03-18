@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-03-06 12:53+0000\n"
-"PO-Revision-Date: 2023-03-16 10:48+0330\n"
-"Last-Translator: MohammadSaleh Kamyab <mskf1383@envs.net>\n"
+"POT-Creation-Date: 2023-03-17 17:40+0000\n"
+"PO-Revision-Date: 2023-03-18 04:55+0330\n"
+"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
@@ -151,62 +151,62 @@ msgstr "ذخیرهٔ اطّلاعات اشکال‌زدایی"
 msgid "About"
 msgstr "درباره"
 
-#: src/adw-about-window.ui:123
+#: src/adw-about-window.ui:119
 msgid "_What’s New"
 msgstr "_چیزهای جدید"
 
-#: src/adw-about-window.ui:138
+#: src/adw-about-window.ui:134
 msgid "_Details"
 msgstr "_جزییات"
 
-#: src/adw-about-window.ui:153 src/adw-about-window.ui:395
+#: src/adw-about-window.ui:149 src/adw-about-window.ui:391
 msgid "_Website"
 msgstr "_پایگاه وب"
 
-#: src/adw-about-window.ui:176
+#: src/adw-about-window.ui:172
 msgid "_Support Questions"
 msgstr "_پرسش‌های پشتیبانی"
 
-#: src/adw-about-window.ui:192
+#: src/adw-about-window.ui:188
 msgid "_Report an Issue"
 msgstr "_گزارش یک مشکل"
 
-#: src/adw-about-window.ui:207
+#: src/adw-about-window.ui:203
 msgid "_Troubleshooting"
 msgstr "_رفع اشکال"
 
-#: src/adw-about-window.ui:226
+#: src/adw-about-window.ui:222
 msgid "_Credits"
 msgstr "_دست‌اندرکاران"
 
-#: src/adw-about-window.ui:241
+#: src/adw-about-window.ui:237
 msgid "_Legal"
 msgstr "_حقوقی"
 
-#: src/adw-about-window.ui:256
+#: src/adw-about-window.ui:252
 msgid "_Acknowledgements"
 msgstr "_سپاسگزاری‌ها"
 
-#: src/adw-about-window.ui:295
+#: src/adw-about-window.ui:291
 msgid "What’s New"
 msgstr "چیزهای جدید"
 
-#: src/adw-about-window.ui:300 src/adw-about-window.ui:356
-#: src/adw-about-window.ui:437 src/adw-about-window.ui:512
-#: src/adw-about-window.ui:559 src/adw-about-window.ui:606
-#: src/adw-about-window.ui:653
+#: src/adw-about-window.ui:296 src/adw-about-window.ui:352
+#: src/adw-about-window.ui:433 src/adw-about-window.ui:508
+#: src/adw-about-window.ui:555 src/adw-about-window.ui:602
+#: src/adw-about-window.ui:649
 msgid "Back"
 msgstr "بازگشت"
 
-#: src/adw-about-window.ui:351
+#: src/adw-about-window.ui:347
 msgid "Details"
 msgstr "جزییات"
 
-#: src/adw-about-window.ui:432
+#: src/adw-about-window.ui:428
 msgid "Troubleshooting"
 msgstr "رفع اشکال"
 
-#: src/adw-about-window.ui:461
+#: src/adw-about-window.ui:457
 msgid ""
 "To assist in troubleshooting, you can view your debugging information. "
 "Providing this information to the application developers can help diagnose "
@@ -216,31 +216,31 @@ msgstr ""
 "این اطّلاعات به توسعه‌دهندگان برنامه می‌تواند به تشخیص مشکلاتی که هنگام گزارش "
 "مشکل با آن مواجه شدید کمک کند."
 
-#: src/adw-about-window.ui:472
+#: src/adw-about-window.ui:468
 msgid "_Debugging Information"
 msgstr "_اطّلاعات اشکال‌زدایی"
 
-#: src/adw-about-window.ui:507
+#: src/adw-about-window.ui:503
 msgid "Credits"
 msgstr "دست‌اندرکاران"
 
-#: src/adw-about-window.ui:554
+#: src/adw-about-window.ui:550
 msgid "Legal"
 msgstr "حقوقی"
 
-#: src/adw-about-window.ui:601
+#: src/adw-about-window.ui:597
 msgid "Acknowledgements"
 msgstr "سپاسگزاری‌ها"
 
-#: src/adw-about-window.ui:648
+#: src/adw-about-window.ui:644
 msgid "Debugging Information"
 msgstr "اطّلاعات اشکال‌زدایی"
 
-#: src/adw-about-window.ui:696
+#: src/adw-about-window.ui:692
 msgid "_Copy Text"
 msgstr "_رونوشت از متن"
 
-#: src/adw-about-window.ui:703
+#: src/adw-about-window.ui:699
 msgid "_Save as…"
 msgstr "_ذخیره به عنوان…"
 
@@ -288,20 +288,20 @@ msgid "High Contrast"
 msgstr "سایه‌روشن بالا"
 
 #: src/adw-password-entry-row.c:70
-msgid "Hide Text"
-msgstr "نهفتن متن"
+msgid "Hide Password"
+msgstr "نهفتن گذرواژه"
 
 #: src/adw-password-entry-row.c:74
-msgid "Show Text"
-msgstr "نمایش متن"
+msgid "Show Password"
+msgstr "نمایش گذرواژه"
 
 #: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
 msgstr "قفل تبدیل روشن است"
 
 #: src/adw-password-entry-row.c:176
-msgid "_Show Text"
-msgstr "_نمایش متن"
+msgid "_Show Password"
+msgstr "_نمایش گذرواژه"
 
 #: src/adw-preferences-window.c:243
 msgid "Untitled page"
@@ -311,15 +311,19 @@ msgstr "صفحهٔ بی‌عنوان"
 msgid "Preferences"
 msgstr "ترجیحات"
 
-#: src/adw-preferences-window.ui:69
+#: src/adw-preferences-window.ui:55
+msgid "Search preferences"
+msgstr "ترجیحات جست‌وجو"
+
+#: src/adw-preferences-window.ui:70
 msgid "Search"
 msgstr "جست‌وجو"
 
-#: src/adw-preferences-window.ui:139
+#: src/adw-preferences-window.ui:140
 msgid "No Results Found"
 msgstr "هیچ نتیجه‌ای پیدا نشد"
 
-#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:113
+#: src/adw-preferences-window.ui:141 src/adw-tab-overview.ui:113
 msgid "Try a different search."
 msgstr "جست‌وجویی دیگر را بیازمایید."
 
@@ -331,7 +335,8 @@ msgstr "گزینه‌های بیش‌تر"
 msgid "View Open Tabs"
 msgstr "دیدن زبانه‌های باز"
 
-#: src/adw-tab-overview.c:899
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:900
 #, c-format
 msgid "%u Tab"
 msgid_plural "%u Tabs"
@@ -361,6 +366,15 @@ msgstr "_‌زبانهٔ جدید"
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
 msgid "Close Tab"
 msgstr "بستن زبانه"
+
+#~ msgid "Hide Text"
+#~ msgstr "نهفتن متن"
+
+#~ msgid "Show Text"
+#~ msgstr "نمایش متن"
+
+#~ msgid "_Show Text"
+#~ msgstr "_نمایش متن"
 
 #~ msgid "_Save"
 #~ msgstr "_ذخیره"
