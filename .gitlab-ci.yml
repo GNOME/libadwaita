@@ -37,7 +37,9 @@ doc:
     - ninja -C _build
     - mv _build/doc/libadwaita-1 _doc/
   artifacts:
+    expose_as: 'Browse documentation'
     paths:
+      - _doc/index.html
       - _doc
 
 build-flatpak:
