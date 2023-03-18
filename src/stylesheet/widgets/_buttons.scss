@@ -313,12 +313,12 @@ button {
     transition: $button_transition;
 
     &:hover {
-      background-image: image(gtkalpha(currentColor, .03));
+      background-image: image($view_hover_color);
     }
 
     &.keyboard-activating,
     &:active {
-      background-image: image(gtkalpha(currentColor, .08));
+      background-image: image($view_active_color);
     }
 
     &:checked {
