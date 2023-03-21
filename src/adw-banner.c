@@ -35,7 +35,8 @@
  * Banners have a title, set with [property@Banner:title]. Titles can be marked
  * up with Pango markup, use [property@Banner:use-markup] to enable it.
  *
- * Title can be shown centered or left-aligned depending on available space.
+ * The title will be shown centered or left-aligned depending on available
+ * space.
  *
  * Banners can optionally have a button with text on it, set through
  * [property@Banner:button-label]. The button can be used with a `GAction`,
