@@ -213,7 +213,7 @@ update_font_size (AdwAvatar *self)
 static void
 update_custom_image_snapshot (AdwAvatar *self)
 {
-  GtkSnapshot *snapshot = gtk_snapshot_new ();
+  GtkSnapshot *snapshot = NULL;
   GdkPaintable *square_image;
   int width, height;
   float scaled_width, scaled_height;
@@ -242,6 +242,7 @@ update_custom_image_snapshot (AdwAvatar *self)
     scaled_width = scaled_height = size;
   }
 
+  snapshot = gtk_snapshot_new ();
   gtk_snapshot_translate (snapshot, &GRAPHENE_POINT_INIT ((size - scaled_width) / 2.f, (size - scaled_height) / 2.f));
 
   if (GDK_IS_TEXTURE (self->custom_image_source)) {
