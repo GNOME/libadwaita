@@ -24,27 +24,11 @@ struct _AdwSettingsImplPortal
 
   GDBusProxy *settings_portal;
 
-  enum {
-    COLOR_SCHEME_STATE_FDO,
-    COLOR_SCHEME_STATE_GNOME,
-    COLOR_SCHEME_STATE_NONE
-  } color_scheme_portal_state;
-
-  enum {
-    HIGH_CONTRAST_STATE_GNOME,
-    HIGH_CONTRAST_STATE_NONE
-  } high_contrast_portal_state;
+  gboolean found_color_scheme;
+  gboolean found_high_contrast;
 };
 
 G_DEFINE_FINAL_TYPE (AdwSettingsImplPortal, adw_settings_impl_portal, ADW_TYPE_SETTINGS_IMPL)
-
-static gboolean
-get_disable_portal (void)
-{
-  const char *disable_portal = g_getenv ("ADW_DISABLE_PORTAL");
-
-  return disable_portal && disable_portal[0] == '1';
-}
 
 static gboolean
 read_setting (AdwSettingsImplPortal  *self,
@@ -126,25 +110,6 @@ get_fdo_color_scheme (GVariant *variant)
   return color_scheme;
 }
 
-static AdwSystemColorScheme
-get_gnome_color_scheme (GVariant *variant)
-{
-  const char *str = g_variant_get_string (variant, NULL);
-
-  if (!g_strcmp0 (str, "default"))
-    return ADW_SYSTEM_COLOR_SCHEME_DEFAULT;
-
-  if (!g_strcmp0 (str, "prefer-dark"))
-    return ADW_SYSTEM_COLOR_SCHEME_PREFER_DARK;
-
-  if (!g_strcmp0 (str, "prefer-light"))
-    return ADW_SYSTEM_COLOR_SCHEME_PREFER_LIGHT;
-
-  g_warning ("Invalid color scheme: %s", str);
-
-  return ADW_SYSTEM_COLOR_SCHEME_DEFAULT;
-}
-
 static void
 changed_cb (GDBusProxy            *proxy,
             const char            *sender_name,
@@ -163,7 +128,7 @@ changed_cb (GDBusProxy            *proxy,
 
   if (!g_strcmp0 (namespace, "org.freedesktop.appearance") &&
       !g_strcmp0 (name, "color-scheme") &&
-      self->color_scheme_portal_state == COLOR_SCHEME_STATE_FDO) {
+      self->found_color_scheme) {
     adw_settings_impl_set_color_scheme (ADW_SETTINGS_IMPL (self),
                                         get_fdo_color_scheme (value));
 
@@ -172,20 +137,9 @@ changed_cb (GDBusProxy            *proxy,
     return;
   }
 
-  if (!g_strcmp0 (namespace, "org.gnome.desktop.interface") &&
-      !g_strcmp0 (name, "color-scheme") &&
-      self->color_scheme_portal_state == COLOR_SCHEME_STATE_GNOME) {
-    adw_settings_impl_set_color_scheme (ADW_SETTINGS_IMPL (self),
-                                        get_gnome_color_scheme (value));
-
-    g_variant_unref (value);
-
-    return;
-  }
-
   if (!g_strcmp0 (namespace, "org.gnome.desktop.a11y.interface") &&
       !g_strcmp0 (name, "high-contrast") &&
-      self->high_contrast_portal_state == HIGH_CONTRAST_STATE_GNOME) {
+      self->found_high_contrast) {
     adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
                                          g_variant_get_boolean (value));
 
@@ -218,8 +172,6 @@ adw_settings_impl_portal_class_init (AdwSettingsImplPortalClass *klass)
 static void
 adw_settings_impl_portal_init (AdwSettingsImplPortal *self)
 {
-  self->high_contrast_portal_state = HIGH_CONTRAST_STATE_NONE;
-  self->color_scheme_portal_state = COLOR_SCHEME_STATE_NONE;
 }
 
 AdwSettingsImpl *
@@ -230,7 +182,7 @@ adw_settings_impl_portal_new (gboolean enable_color_scheme,
   GError *error = NULL;
   GVariant *variant;
 
-  if (get_disable_portal ())
+  if (adw_get_disable_portal ())
     return ADW_SETTINGS_IMPL (self);
 
   self->settings_portal = g_dbus_proxy_new_for_bus_sync (G_BUS_TYPE_SESSION,
@@ -252,7 +204,7 @@ adw_settings_impl_portal_new (gboolean enable_color_scheme,
   if (enable_color_scheme &&
       read_setting (self, "org.freedesktop.appearance",
                     "color-scheme", "u", &variant)) {
-    self->color_scheme_portal_state = COLOR_SCHEME_STATE_FDO;
+    self->found_color_scheme = TRUE;
 
     adw_settings_impl_set_color_scheme (ADW_SETTINGS_IMPL (self),
                                         get_fdo_color_scheme (variant));
@@ -260,22 +212,10 @@ adw_settings_impl_portal_new (gboolean enable_color_scheme,
     g_variant_unref (variant);
   }
 
-  if (enable_color_scheme &&
-      self->color_scheme_portal_state == COLOR_SCHEME_STATE_NONE &&
-      read_setting (self, "org.gnome.desktop.interface",
-                    "color-scheme", "s", &variant)) {
-    self->color_scheme_portal_state = COLOR_SCHEME_STATE_GNOME;
-
-    adw_settings_impl_set_color_scheme (ADW_SETTINGS_IMPL (self),
-                                        get_gnome_color_scheme (variant));
-
-    g_variant_unref (variant);
-  }
-
   if (enable_high_contrast &&
       read_setting (self, "org.gnome.desktop.a11y.interface",
                     "high-contrast", "b", &variant)) {
-    self->high_contrast_portal_state = HIGH_CONTRAST_STATE_GNOME;
+    self->found_high_contrast = TRUE;
 
     adw_settings_impl_set_high_contrast (ADW_SETTINGS_IMPL (self),
                                          g_variant_get_boolean (variant));
@@ -284,11 +224,10 @@ adw_settings_impl_portal_new (gboolean enable_color_scheme,
   }
 
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
-                                  self->color_scheme_portal_state != COLOR_SCHEME_STATE_NONE,
-                                  self->high_contrast_portal_state != HIGH_CONTRAST_STATE_NONE);
+                                  self->found_color_scheme,
+                                  self->found_high_contrast);
 
-  if (self->color_scheme_portal_state != COLOR_SCHEME_STATE_NONE ||
-      self->high_contrast_portal_state != HIGH_CONTRAST_STATE_NONE)
+  if (self->found_color_scheme || self->found_high_contrast)
     g_signal_connect (self->settings_portal, "g-signal",
                       G_CALLBACK (changed_cb), self);
 

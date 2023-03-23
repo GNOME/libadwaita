@@ -157,3 +157,11 @@ adw_settings_impl_set_high_contrast (AdwSettingsImpl *self,
   if (priv->has_high_contrast)
     g_signal_emit (G_OBJECT (self), signals[SIGNAL_HIGH_CONTRAST_CHANGED], 0, high_contrast);
 }
+
+gboolean
+adw_get_disable_portal (void)
+{
+  const char *disable_portal = g_getenv ("ADW_DISABLE_PORTAL");
+
+  return disable_portal && disable_portal[0] == '1';
+}

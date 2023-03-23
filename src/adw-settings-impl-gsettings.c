@@ -80,7 +80,6 @@ adw_settings_impl_gsettings_new (gboolean enable_color_scheme,
 {
   AdwSettingsImplGSettings *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_GSETTINGS, NULL);
   GSettingsSchemaSource *source;
-  GSettingsSchema *schema;
   gboolean found_color_scheme = FALSE;
   gboolean found_high_contrast = FALSE;
 
@@ -91,40 +90,43 @@ adw_settings_impl_gsettings_new (gboolean enable_color_scheme,
 
   source = g_settings_schema_source_get_default ();
 
-  schema = g_settings_schema_source_lookup (source, "org.gnome.desktop.interface", TRUE);
-  if (schema &&
-      enable_color_scheme &&
-      g_settings_schema_has_key (schema, "color-scheme")) {
+  if (enable_color_scheme && adw_get_disable_portal ()) {
+    GSettingsSchema *schema =
+      g_settings_schema_source_lookup (source, "org.gnome.desktop.interface", TRUE);
 
-    found_color_scheme = TRUE;
-    self->interface_settings = g_settings_new ("org.gnome.desktop.interface");
+    if (schema && g_settings_schema_has_key (schema, "color-scheme")) {
+      found_color_scheme = TRUE;
+      self->interface_settings = g_settings_new ("org.gnome.desktop.interface");
 
-    color_scheme_changed_cb (self);
+      color_scheme_changed_cb (self);
 
-    g_signal_connect_swapped (self->interface_settings,
-                              "changed::color-scheme",
-                              G_CALLBACK (color_scheme_changed_cb),
-                              self);
+      g_signal_connect_swapped (self->interface_settings,
+                                "changed::color-scheme",
+                                G_CALLBACK (color_scheme_changed_cb),
+                                self);
+    }
+
+    g_clear_pointer (&schema, g_settings_schema_unref);
   }
 
-  g_clear_pointer (&schema, g_settings_schema_unref);
+  if (enable_high_contrast) {
+    GSettingsSchema *schema =
+      g_settings_schema_source_lookup (source, "org.gnome.desktop.a11y.interface", TRUE);
 
-  schema = g_settings_schema_source_lookup (source, "org.gnome.desktop.a11y.interface", TRUE);
-  if (schema &&
-      enable_high_contrast &&
-      g_settings_schema_has_key (schema, "high-contrast")) {
-    found_high_contrast = TRUE;
-    self->a11y_settings = g_settings_new ("org.gnome.desktop.a11y.interface");
+    if (schema && g_settings_schema_has_key (schema, "high-contrast")) {
+      found_high_contrast = TRUE;
+      self->a11y_settings = g_settings_new ("org.gnome.desktop.a11y.interface");
 
-    high_contrast_changed_cb (self);
+      high_contrast_changed_cb (self);
 
-    g_signal_connect_swapped (self->a11y_settings,
-                              "changed::high-contrast",
-                              G_CALLBACK (high_contrast_changed_cb),
-                              self);
+      g_signal_connect_swapped (self->a11y_settings,
+                                "changed::high-contrast",
+                                G_CALLBACK (high_contrast_changed_cb),
+                                self);
+    }
+
+    g_clear_pointer (&schema, g_settings_schema_unref);
   }
-
-  g_clear_pointer (&schema, g_settings_schema_unref);
 
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
                                   found_color_scheme,

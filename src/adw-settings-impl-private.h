@@ -40,6 +40,8 @@ gboolean adw_settings_impl_get_high_contrast (AdwSettingsImpl *self);
 void     adw_settings_impl_set_high_contrast (AdwSettingsImpl *self,
                                               gboolean         high_contrast);
 
+gboolean adw_get_disable_portal (void);
+
 #ifdef __APPLE__
 #define ADW_TYPE_SETTINGS_IMPL_MACOS (adw_settings_impl_macos_get_type())
 
