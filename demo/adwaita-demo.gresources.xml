@@ -3,6 +3,7 @@
   <gresource prefix="/org/gnome/Adwaita1/Demo">
     <file preprocess="xml-stripblanks" alias="icons/scalable/apps/org.gnome.Adwaita1.Demo.svg">data/org.gnome.Adwaita1.Demo.svg</file>
     <file preprocess="xml-stripblanks" alias="icons/symbolic/apps/org.gnome.Adwaita1.Demo-symbolic.svg">data/org.gnome.Adwaita1.Demo-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="org.gnome.Adwaita1.Demo.metainfo.xml">data/org.gnome.Adwaita1.Demo.metainfo.xml</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/avatar-delete-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/avatar-save-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/clock-alarm-symbolic.svg</file>

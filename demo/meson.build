@@ -3,6 +3,7 @@ if get_option('examples')
 subdir('data')
 
 demo_config_data = configuration_data()
+demo_config_data.set_quoted('ADW_METAINFO', appstream_file.full_path())
 demo_config_data.set_quoted('ADW_DEMO_VCS_TAG', '@VCS_TAG@')
 
 demo_config_h = vcs_tag(
@@ -18,6 +19,8 @@ adwaita_demo_resources = gnome.compile_resources(
    'adwaita-demo.gresources.xml',
 
    c_name: 'adw',
+   dependencies: appstream_file,
+   source_dir: meson.current_build_dir(),
 )
 
 adwaita_demo_sources = [

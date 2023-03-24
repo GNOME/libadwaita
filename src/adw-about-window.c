@@ -6,6 +6,7 @@
 
 #include "config.h"
 #include <glib/gi18n-lib.h>
+#include <appstream.h>
 
 #include "adw-about-window.h"
 
@@ -192,30 +193,31 @@
 typedef struct {
   const char *name;
   const char *url;
+  const char *spdx_id;
 } LicenseInfo;
 
 /* Copied from GTK 4 for consistency with GtkAboutDialog. */
 /* LicenseInfo for each GtkLicense type; keep in the same order as the
  * enumeration. */
 static const LicenseInfo gtk_license_info [] = {
-  { NULL, NULL },
-  { NULL, NULL },
-  { N_("GNU General Public License, version 2 or later"), "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" },
-  { N_("GNU General Public License, version 3 or later"), "https://www.gnu.org/licenses/gpl-3.0.html" },
-  { N_("GNU Lesser General Public License, version 2.1 or later"), "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html" },
-  { N_("GNU Lesser General Public License, version 3 or later"), "https://www.gnu.org/licenses/lgpl-3.0.html" },
-  { N_("BSD 2-Clause License"), "https://opensource.org/licenses/bsd-license.php" },
-  { N_("The MIT License (MIT)"), "https://opensource.org/licenses/mit-license.php" },
-  { N_("Artistic License 2.0"), "https://opensource.org/licenses/artistic-license-2.0.php" },
-  { N_("GNU General Public License, version 2 only"), "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" },
-  { N_("GNU General Public License, version 3 only"), "https://www.gnu.org/licenses/gpl-3.0.html" },
-  { N_("GNU Lesser General Public License, version 2.1 only"), "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html" },
-  { N_("GNU Lesser General Public License, version 3 only"), "https://www.gnu.org/licenses/lgpl-3.0.html" },
-  { N_("GNU Affero General Public License, version 3 or later"), "https://www.gnu.org/licenses/agpl-3.0.html" },
-  { N_("GNU Affero General Public License, version 3 only"), "https://www.gnu.org/licenses/agpl-3.0.html" },
-  { N_("BSD 3-Clause License"), "https://opensource.org/licenses/BSD-3-Clause" },
-  { N_("Apache License, Version 2.0"), "https://opensource.org/licenses/Apache-2.0" },
-  { N_("Mozilla Public License 2.0"), "https://opensource.org/licenses/MPL-2.0" }
+  { NULL, NULL, NULL },
+  { NULL, NULL, NULL },
+  { N_("GNU General Public License, version 2 or later"), "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html", "GPL-2.0-or-later" },
+  { N_("GNU General Public License, version 3 or later"), "https://www.gnu.org/licenses/gpl-3.0.html", "GPL-3.0-or-later" },
+  { N_("GNU Lesser General Public License, version 2.1 or later"), "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html", "LGPL-2.1-or-later" },
+  { N_("GNU Lesser General Public License, version 3 or later"), "https://www.gnu.org/licenses/lgpl-3.0.html", "LGPL-3.0-or-later" },
+  { N_("BSD 2-Clause License"), "https://opensource.org/licenses/bsd-license.php", "BSD-2-Clause" },
+  { N_("The MIT License (MIT)"), "https://opensource.org/licenses/mit-license.php", "MIT" },
+  { N_("Artistic License 2.0"), "https://opensource.org/licenses/artistic-license-2.0.php", "Artistic-2.0" },
+  { N_("GNU General Public License, version 2 only"), "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html", "GPL-2.0" },
+  { N_("GNU General Public License, version 3 only"), "https://www.gnu.org/licenses/gpl-3.0.html", "GPL-3.0" },
+  { N_("GNU Lesser General Public License, version 2.1 only"), "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html", "LGPL-2.1-only" },
+  { N_("GNU Lesser General Public License, version 3 only"), "https://www.gnu.org/licenses/lgpl-3.0.html", "LGPL-3.0-only" },
+  { N_("GNU Affero General Public License, version 3 or later"), "https://www.gnu.org/licenses/agpl-3.0.html", "AGPL-3.0-or-later" },
+  { N_("GNU Affero General Public License, version 3 only"), "https://www.gnu.org/licenses/agpl-3.0.html", "AGPL-3.0-only" },
+  { N_("BSD 3-Clause License"), "https://opensource.org/licenses/BSD-3-Clause", "BSD-3-Clause" },
+  { N_("Apache License, Version 2.0"), "https://opensource.org/licenses/Apache-2.0", "Apache-2.0" },
+  { N_("Mozilla Public License 2.0"), "https://opensource.org/licenses/MPL-2.0", "MPL-2.0" }
 };
 /* Copied from GTK 4 for consistency with GtkAboutDialog. */
 /* Keep this static assertion updated with the last element of the enumeration,
@@ -387,6 +389,13 @@ activate_link_default_cb (AdwAboutWindow *self,
   g_object_unref (launcher);
 
   return GDK_EVENT_STOP;
+}
+
+static gboolean
+get_release_for_version (AsRelease  *rel,
+                         const char *version)
+{
+  return !g_strcmp0 (as_release_get_version (rel), version);
 }
 
 static void
@@ -1954,6 +1963,170 @@ adw_about_window_new (void)
 }
 
 /**
+ * adw_about_window_new_from_appdata:
+ * @resource_path: The resource to use
+ * @release_notes_version: (nullable): The version to retrieve release notes for
+ *
+ * Creates a new `AdwAboutWindow` using AppStream metadata.
+ *
+ * This automatically sets the following properties with the following AppStream
+ * values:
+ *
+ * * [property@AboutWindow:application-icon] is set from the `<id>`
+ * * [property@AboutWindow:application-name] is set from the `<name>`
+ * * [property@AboutWindow:developer-name] is set from the `<developer_name>`
+ * * [property@AboutWindow:version] is set from the version of the latest release
+ * * [property@AboutWindow:website] is set from the `<url type="homepage">`
+ * * [property@AboutWindow:support-url] is set from the `<url type="help">`
+ * * [property@AboutWindow:issue-url] is set from the `<url type="bugtracker">`
+ * * [property@AboutWindow:license-type] is set from the `<project_license>`
+ *   If the license type retrieved from AppStream is not listed in
+ *   [enum@Gtk.License], it will be set to `GTK_LICENCE_CUSTOM`.
+ *
+ * If @release_notes_version is not `NULL`,
+ * [property@AboutWindow:release-notes-version] is set to match it, while
+ * [property@AboutWindow:release-notes] is set from the AppStream release
+ * description for that version.
+ *
+ * Returns: the newly created `AdwAboutWindow`
+ *
+ * Since: 1.4
+ */
+GtkWidget *
+adw_about_window_new_from_appdata (const char *resource_path,
+                                   const char *release_notes_version)
+{
+  AdwAboutWindow *self;
+  GFile *appdata_file;
+  char *appdata_uri;
+  AsMetadata *metadata;
+  GPtrArray *releases;
+  AsComponent *component;
+  char *application_id;
+  const char *name, *developer_name, *project_license;
+  const char *issue_url, *support_url, *website_url;
+  GError *error = NULL;
+
+  g_return_val_if_fail (resource_path, NULL);
+
+  appdata_uri = g_strconcat ("resource://", resource_path, NULL);
+  appdata_file = g_file_new_for_uri (appdata_uri);
+
+  self = ADW_ABOUT_WINDOW (adw_about_window_new ());
+  metadata = as_metadata_new ();
+
+  if (!as_metadata_parse_file (metadata, appdata_file, AS_FORMAT_KIND_UNKNOWN, &error)) {
+    g_error ("Could not parse metadata file: %s", error->message);
+    g_clear_error (&error);
+  }
+
+  component = as_metadata_get_component (metadata);
+
+  if (component == NULL)
+    g_error ("Could not find valid AppStream metadata");
+
+  application_id = g_strdup (as_component_get_id (component));
+
+  if (g_str_has_suffix (application_id, ".desktop")) {
+    AsLaunchable *launchable;
+    char *appid_desktop;
+    GPtrArray *entries = NULL;
+
+    launchable = as_component_get_launchable (component,
+                                              AS_LAUNCHABLE_KIND_DESKTOP_ID);
+
+    if (launchable)
+      entries = as_launchable_get_entries (launchable);
+
+    appid_desktop = g_strconcat (application_id, ".desktop", NULL);
+
+    if (!entries || !g_ptr_array_find_with_equal_func (entries, appid_desktop,
+                                                       g_str_equal, NULL))
+      application_id[strlen(application_id) - 8] = '\0';
+
+    g_free (appid_desktop);
+  }
+
+  releases = as_component_get_releases (component);
+
+  if (release_notes_version) {
+    guint release_index = 0;
+
+    if (g_ptr_array_find_with_equal_func (releases, release_notes_version,
+                                         (GEqualFunc) get_release_for_version,
+                                         &release_index)) {
+      AsRelease *notes_release;
+      const char *release_notes, *version;
+
+      notes_release = g_ptr_array_index (releases, release_index);
+
+      release_notes = as_release_get_description (notes_release);
+      version = as_release_get_version (notes_release);
+
+      if (release_notes && version) {
+        adw_about_window_set_release_notes (self, release_notes);
+        adw_about_window_set_release_notes_version (self, version);
+      }
+    } else {
+      g_critical ("No valid release found for version %s", release_notes_version);
+    }
+  }
+
+  if (releases->len > 0) {
+    AsRelease *latest_release = g_ptr_array_index (releases, 0);
+    const char *version = as_release_get_version (latest_release);
+
+    if (version)
+      adw_about_window_set_version (self, version);
+  }
+
+  name = as_component_get_name (component);
+  developer_name = as_component_get_developer_name (component);
+  project_license = as_component_get_project_license (component);
+  issue_url = as_component_get_url (component, AS_URL_KIND_BUGTRACKER);
+  support_url = as_component_get_url (component, AS_URL_KIND_HELP);
+  website_url = as_component_get_url (component, AS_URL_KIND_HOMEPAGE);
+
+  adw_about_window_set_application_icon (self, application_id);
+
+  if (name)
+    adw_about_window_set_application_name (self, name);
+
+  if (developer_name)
+    adw_about_window_set_developer_name (self, developer_name);
+
+  if (project_license) {
+    int i;
+
+    for (i = 0; i < G_N_ELEMENTS (gtk_license_info); i++) {
+      if (g_strcmp0 (gtk_license_info[i].spdx_id, project_license) == 0) {
+        adw_about_window_set_license_type (self, (GtkLicense) i);
+        break;
+      }
+    }
+
+    if (adw_about_window_get_license_type (self) == GTK_LICENSE_UNKNOWN)
+      adw_about_window_set_license_type (self, GTK_LICENSE_CUSTOM);
+  }
+
+  if (issue_url)
+    adw_about_window_set_issue_url (self, issue_url);
+
+  if (support_url)
+    adw_about_window_set_support_url (self, support_url);
+
+  if (website_url)
+    adw_about_window_set_website (self, website_url);
+
+  g_object_unref (appdata_file);
+  g_object_unref (metadata);
+  g_free (application_id);
+  g_free (appdata_uri);
+
+  return GTK_WIDGET (self);
+}
+
+/**
  * adw_about_window_get_application_icon: (attributes org.gtk.Method.get_property=application-icon)
  * @self: an about window
  *
@@ -3281,6 +3454,45 @@ adw_show_about_window (GtkWindow  *parent,
   va_list var_args;
 
   window = adw_about_window_new ();
+
+  va_start (var_args, first_property_name);
+  g_object_set_valist (G_OBJECT (window), first_property_name, var_args);
+  va_end (var_args);
+
+  if (parent)
+    gtk_window_set_transient_for (GTK_WINDOW (window), parent);
+
+  gtk_window_present (GTK_WINDOW (window));
+}
+
+/**
+ * adw_show_about_window_from_appdata:
+ * @parent: (nullable): the parent top-level window
+ * @resource_path: The resource to use
+ * @release_notes_version: (nullable): The version to retrieve release notes for
+ * @first_property_name: the name of the first property
+ * @...: value of first property, followed by more pairs of property name and
+ *   value, `NULL`-terminated
+ *
+ * A convenience function for showing an application’s about window from
+ * AppStream metadata.
+ *
+ * See [ctor@AboutWindow.new_from_appdata] for details.
+ *
+ * Since: 1.4
+ */
+void
+adw_show_about_window_from_appdata (GtkWindow  *parent,
+                                    const char *resource_path,
+                                    const char *release_notes_version,
+                                    const char *first_property_name,
+                                    ...)
+{
+  GtkWidget *window;
+  va_list var_args;
+
+  window = adw_about_window_new_from_appdata (resource_path,
+                                              release_notes_version);
 
   va_start (var_args, first_property_name);
   g_object_set_valist (G_OBJECT (window), first_property_name, var_args);

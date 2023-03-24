@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <adwaita.h>
@@ -56,24 +58,16 @@ show_about (GSimpleAction *action,
 
   debug_info = adw_demo_generate_debug_info ();
 
-  about =
-    g_object_new (ADW_TYPE_ABOUT_WINDOW,
-                  "transient-for", window,
-                  "application-icon", "org.gnome.Adwaita1.Demo",
-                  "application-name", _("Adwaita Demo"),
-                  "developer-name", _("The GNOME Project"),
-                  "version", ADW_VERSION_S,
-                  "website", "https://gitlab.gnome.org/GNOME/libadwaita",
-                  "issue-url", "https://gitlab.gnome.org/GNOME/libadwaita/-/issues/new",
-                  "debug-info", debug_info,
-                  "debug-info-filename", "adwaita-1-demo-debug-info.txt",
-                  "copyright", "© 2017–2022 Purism SPC",
-                  "license-type", GTK_LICENSE_LGPL_2_1,
-                  "developers", developers,
-                  "designers", designers,
-                  "artists", designers,
-                  "translator-credits", _("translator-credits"),
-                  NULL);
+  about = adw_about_window_new_from_appdata ("/org/gnome/Adwaita1/Demo/org.gnome.Adwaita1.Demo.metainfo.xml", NULL);
+  gtk_window_set_transient_for (GTK_WINDOW (about), window);
+  adw_about_window_set_version (ADW_ABOUT_WINDOW (about), ADW_VERSION_S);
+  adw_about_window_set_debug_info (ADW_ABOUT_WINDOW (about), debug_info);
+  adw_about_window_set_debug_info_filename (ADW_ABOUT_WINDOW (about), "adwaita-1-demo-debug-info.txt");
+  adw_about_window_set_copyright (ADW_ABOUT_WINDOW (about), "© 2017–2022 Purism SPC");
+  adw_about_window_set_developers (ADW_ABOUT_WINDOW (about), developers);
+  adw_about_window_set_designers (ADW_ABOUT_WINDOW (about), designers);
+  adw_about_window_set_artists (ADW_ABOUT_WINDOW (about), designers);
+  adw_about_window_set_translator_credits (ADW_ABOUT_WINDOW (about), _("translator-credits"));
 
   adw_about_window_add_link (ADW_ABOUT_WINDOW (about),
                              _("_Documentation"),

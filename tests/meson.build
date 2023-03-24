@@ -2,6 +2,13 @@ if get_option('tests')
 
 subdir('manual')
 
+test_resources = gnome.compile_resources(
+   'adwaita-test-resources',
+   'tests.gresources.xml',
+
+   c_name: 'test',
+)
+
 test_env = [
   'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
   'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir()),
@@ -14,7 +21,6 @@ test_env = [
 
 test_cflags = [
   '-DADW_LOG_DOMAIN="Adwaita"',
-  '-DTEST_DATA_DIR="@0@/data"'.format(meson.current_source_dir()),
 ]
 
 test_link_args = []
@@ -69,7 +75,13 @@ test_names = [
 ]
 
 foreach test_name : test_names
-  t = executable(test_name, [test_name + '.c'] + libadwaita_generated_headers,
+  test_sources = [
+    test_name + '.c',
+    test_resources,
+    libadwaita_generated_headers
+  ]
+
+  t = executable(test_name, test_sources,
                        c_args: test_cflags,
                     link_args: test_link_args,
                  dependencies: libadwaita_deps + [libadwaita_dep],

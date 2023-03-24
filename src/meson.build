@@ -250,12 +250,16 @@ gtk_min_version = '>= 4.9.5'
 
 gio_dep = dependency('gio-2.0', version: glib_min_version)
 gtk_dep = dependency('gtk4', version: gtk_min_version)
+appstream_dep = dependency('appstream',
+  fallback : ['appstream', 'appstream_dep']
+)
 
 libadwaita_deps = [
   dependency('glib-2.0', version: glib_min_version),
   dependency('fribidi'),
   gio_dep,
   gtk_dep,
+  appstream_dep,
   cc.find_library('m', required: false),
 ]
 

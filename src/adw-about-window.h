@@ -25,6 +25,10 @@ G_DECLARE_FINAL_TYPE (AdwAboutWindow, adw_about_window, ADW, ABOUT_WINDOW, AdwWi
 ADW_AVAILABLE_IN_1_2
 GtkWidget *adw_about_window_new (void) G_GNUC_WARN_UNUSED_RESULT;
 
+ADW_AVAILABLE_IN_1_4
+GtkWidget *adw_about_window_new_from_appdata (const char *resource_path,
+                                              const char *release_notes_version) G_GNUC_WARN_UNUSED_RESULT;
+
 ADW_AVAILABLE_IN_1_2
 const char *adw_about_window_get_application_name (AdwAboutWindow *self);
 ADW_AVAILABLE_IN_1_2
@@ -171,5 +175,12 @@ ADW_AVAILABLE_IN_1_2
 void adw_show_about_window (GtkWindow  *parent,
                             const char *first_property_name,
                             ...);
+
+ADW_AVAILABLE_IN_1_4
+void adw_show_about_window_from_appdata (GtkWindow  *parent,
+                                         const char *resource_path,
+                                         const char *release_notes_version,
+                                         const char *first_property_name,
+                                         ...);
 
 G_END_DECLS

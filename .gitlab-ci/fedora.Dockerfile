@@ -3,6 +3,7 @@ FROM fedora:latest
 RUN dnf -y update \
  && dnf -y install \
     "dnf-command(builddep)" \
+    appstream-devel \
     expat-devel \
     git \
     libabigail \

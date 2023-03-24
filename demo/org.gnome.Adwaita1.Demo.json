@@ -12,6 +12,46 @@
   ],
   "modules": [
     {
+      "name": "appstream",
+      "buildsystem": "meson",
+      "config-opts": [
+        "-Dstemming=false",
+        "-Dapidocs=false"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/ximion/appstream.git"
+        }
+      ],
+      "modules": [
+        {
+          "name": "libyaml",
+          "buildsystem": "autotools",
+          "sources": [
+            {
+              "type": "git",
+              "url": "https://github.com/yaml/libyaml"
+            }
+          ]
+        },
+        {
+          "name": "libxmlb",
+          "buildsystem": "meson",
+          "config-opts": [
+            "-Dgtkdoc=false"
+          ],
+          "sources": [
+            {
+              "type": "git",
+              "url": "https://github.com/hughsie/libxmlb.git",
+              "branch": "main"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name" : "libsass",
       "buildsystem" : "meson",
       "sources" : [
