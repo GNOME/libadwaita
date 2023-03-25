@@ -8,8 +8,6 @@
 
 #include "adw-switch-row.h"
 
-#include "adw-marshalers.h"
-
 /**
  * AdwSwitchRow:
  *
