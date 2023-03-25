@@ -196,6 +196,8 @@ content_images = [
   "images/style-frame-dark.png",
   "images/style-view.png",
   "images/style-view-dark.png",
+  "images/switch-row.png",
+  "images/switch-row-dark.png",
   "images/tab-bar.png",
   "images/tab-bar-dark.png",
   "images/tab-bar-inline.png",
