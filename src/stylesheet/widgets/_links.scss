@@ -9,7 +9,7 @@ button.link {
   }
 
   &:hover {
-    color: gtkshade(currentColor, 1.1);
+    color: gtkshade($link_color, 1.1);
   }
 
   &:active {
