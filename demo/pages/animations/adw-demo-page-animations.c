@@ -21,7 +21,7 @@ struct _AdwDemoPageAnimations
   GtkSpinButton *spring_animation_mass;
   GtkSpinButton *spring_animation_stiffness;
   GtkSpinButton *spring_animation_epsilon;
-  GtkSwitch *spring_animation_clamp_switch;
+  AdwSwitchRow *spring_animation_clamp_switch;
 };
 
 enum {
