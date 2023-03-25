@@ -15,6 +15,11 @@
  *
  * A [class@Gtk.ListBoxRow] used to represent two states.
  *
+ * <picture>
+ *   <source srcset="switch-row-dark.png" media="(prefers-color-scheme: dark)">
+ *   <img src="switch-row.png" alt="switch-row">
+ * </picture>
+ *
  * The `AdwSwitchRow` widget contains a [class@Gtk.Switch] that allows the user
  * to select between two states: "on" or "off". When activated, the row will
  * invert its active state.
