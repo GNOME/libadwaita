@@ -4,6 +4,16 @@ $focus_border_opacity: if($contrast == 'high', 80%, 50%);
 // Colors from _defaults.scss
 
 :root {
+  --accent-blue: #3584e4;
+  --accent-teal: #2190a4;
+  --accent-green: #3a944a;
+  --accent-yellow: #c88800;
+  --accent-orange: #ed5b00;
+  --accent-red: #e62d42;
+  --accent-pink: #d56199;
+  --accent-purple: #9141ac;
+  --accent-slate: #6f8396;
+
   --accent-bg-color: @accent_bg_color;
   --accent-fg-color: @accent_fg_color;
 

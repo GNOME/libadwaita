@@ -375,7 +375,8 @@ adw_settings_impl_win32_init (AdwSettingsImplWin32 *self)
 
 AdwSettingsImpl *
 adw_settings_impl_win32_new (gboolean enable_color_scheme,
-                             gboolean enable_high_contrast)
+                              gboolean enable_high_contrast,
+                              gboolean enable_accent_colors)
 {
   AdwSettingsImplWin32 *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_WIN32, NULL);
   GdkDisplay *display = gdk_display_get_default ();
@@ -401,7 +402,8 @@ adw_settings_impl_win32_new (gboolean enable_color_scheme,
 
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
                                   found_color_scheme,
-                                  enable_high_contrast);
+                                  enable_high_contrast,
+                                  /* has_accent_colors */ FALSE);
 
   return ADW_SETTINGS_IMPL (self);
 }

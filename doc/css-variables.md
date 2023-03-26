@@ -94,37 +94,180 @@ large surfaces, or on too many items on the same view.
 The [`.accent`](style-classes.html#colors) style class allows to use it for
 widgets such as [class@Gtk.Label].
 
+The background color is available as `--accent-bg-color`, the foreground as
+`--accent-fg-color` and the standalone color as `--accent-color`.
+
 The `--accent-color` color is derived from `--accent-bg-color` as detailed
 above.
+
+The default values of these colors depend on the system preferences, and will
+always be one of the following:
+
+<table>
+  <tr>
+    <th>Color</th>
+    <th/>
+    <th>Background</th>
+    <th/>
+    <th>Foreground</th>
+    <th/>
+    <th>Standalone (Light)</th>
+    <th/>
+    <th>Standalone (Dark)</th>
+  </tr>
+  <tr>
+    <td>Blue</td>
+    <td><div class="color-pill" style="background-color: #3584e4"/></td>
+    <td><tt>#3584e4</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+    <td><div class="color-pill" style="background-color: #0461be"/></td>
+    <td><tt>#0461be</tt></td>
+    <td><div class="color-pill" style="background-color: #81d0ff"/></td>
+    <td><tt>#81d0ff</tt></td>
+  </tr>
+  <tr>
+    <td>Teal</td>
+    <td><div class="color-pill" style="background-color: #2190a4"/></td>
+    <td><tt>#2190a4</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+    <td><div class="color-pill" style="background-color: #007184"/></td>
+    <td><tt>#007184</tt></td>
+    <td><div class="color-pill" style="background-color: #7bdff4"/></td>
+    <td><tt>#7bdff4</tt></td>
+  </tr>
+  <tr>
+    <td>Green</td>
+    <td><div class="color-pill" style="background-color: #3a944a"/></td>
+    <td><tt>#3a944a</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+    <td><div class="color-pill" style="background-color: #15772e"/></td>
+    <td><tt>#15772e</tt></td>
+    <td><div class="color-pill" style="background-color: #8de698"/></td>
+    <td><tt>#8de698</tt></td>
+  </tr>
+  <tr>
+    <td>Yellow</td>
+    <td><div class="color-pill" style="background-color: #c88800"/></td>
+    <td><tt>#c88800</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+    <td><div class="color-pill" style="background-color: #905300"/></td>
+    <td><tt>#905300</tt></td>
+    <td><div class="color-pill" style="background-color: #ffc057"/></td>
+    <td><tt>#ffc057</tt></td>
+  </tr>
+  <tr>
+    <td>Orange</td>
+    <td><div class="color-pill" style="background-color: #ed5b00"/></td>
+    <td><tt>#ed5b00</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+    <td><div class="color-pill" style="background-color: #b62200"/></td>
+    <td><tt>#b62200</tt></td>
+    <td><div class="color-pill" style="background-color: #ff9c5b"/></td>
+    <td><tt>#ff9c5b</tt></td>
+  </tr>
+  <tr>
+    <td>Red</td>
+    <td><div class="color-pill" style="background-color: #e62d42"/></td>
+    <td><tt>#e62d42</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+    <td><div class="color-pill" style="background-color: #c00023"/></td>
+    <td><tt>#c00023</tt></td>
+    <td><div class="color-pill" style="background-color: #ff888c"/></td>
+    <td><tt>#ff888c</tt></td>
+  </tr>
+  <tr>
+    <td>Pink</td>
+    <td><div class="color-pill" style="background-color: #d56199"/></td>
+    <td><tt>#d56199</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+    <td><div class="color-pill" style="background-color: #a2326c"/></td>
+    <td><tt>#a2326c</tt></td>
+    <td><div class="color-pill" style="background-color: #ffa0d8"/></td>
+    <td><tt>#ffa0d8</tt></td>
+  </tr>
+  <tr>
+    <td>Purple</td>
+    <td><div class="color-pill" style="background-color: #9141ac"/></td>
+    <td><tt>#9141ac</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+    <td><div class="color-pill" style="background-color: #8939a4"/></td>
+    <td><tt>#8939a4</tt></td>
+    <td><div class="color-pill" style="background-color: #fba7ff"/></td>
+    <td><tt>#fba7ff</tt></td>
+  </tr>
+  <tr>
+    <td>Slate</td>
+    <td><div class="color-pill" style="background-color: #6f8396"/></td>
+    <td><tt>#6f8396</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+    <td><div class="color-pill" style="background-color: #526678"/></td>
+    <td><tt>#526678</tt></td>
+    <td><div class="color-pill" style="background-color: #bbd1e5"/></td>
+    <td><tt>#bbd1e5</tt></td>
+  </tr>
+</table>
+
+Each background color is also available as a variable, as follows:
 
 <table>
   <tr>
     <th>Name</th>
     <th/>
-    <th>Light</th>
-    <th/>
-    <th>Dark</th>
+    <th>Value</th>
   </tr>
   <tr>
-    <td><tt>--accent-bg-color</tt></td>
-    <td><div class="color-pill" style="background-color: #3584e4"/></td>
-    <td><tt>#3584e4</tt></td>
+    <td><tt>--accent-blue</tt></td>
     <td><div class="color-pill" style="background-color: #3584e4"/></td>
     <td><tt>#3584e4</tt></td>
   </tr>
   <tr>
-    <td><tt>--accent-fg-color</tt></td>
-    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
-    <td><tt>#ffffff</tt></td>
-    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
-    <td><tt>#ffffff</tt></td>
+    <td><tt>--accent-teal</tt></td>
+    <td><div class="color-pill" style="background-color: #2190a4"/></td>
+    <td><tt>#2190a4</tt></td>
   </tr>
   <tr>
-    <td><tt>--accent-color</tt></td>
-    <td><div class="color-pill" style="background-color: #0461be"/></td>
-    <td><tt>#0461be</tt></td>
-    <td><div class="color-pill" style="background-color: #81d0ff"/></td>
-    <td><tt>#81d0ff</tt></td>
+    <td><tt>--accent-green</tt></td>
+    <td><div class="color-pill" style="background-color: #3a944a"/></td>
+    <td><tt>#3a944a</tt></td>
+  </tr>
+  <tr>
+    <td><tt>--accent-yellow</tt></td>
+    <td><div class="color-pill" style="background-color: #c88800"/></td>
+    <td><tt>#c88800</tt></td>
+  </tr>
+  <tr>
+    <td><tt>--accent-orange</tt></td>
+    <td><div class="color-pill" style="background-color: #ed5b00"/></td>
+    <td><tt>#ed5b00</tt></td>
+  </tr>
+  <tr>
+    <td><tt>--accent-red</tt></td>
+    <td><div class="color-pill" style="background-color: #e62d42"/></td>
+    <td><tt>#e62d42</tt></td>
+  </tr>
+  <tr>
+    <td><tt>--accent-pink</tt></td>
+    <td><div class="color-pill" style="background-color: #d56199"/></td>
+    <td><tt>#d56199</tt></td>
+  </tr>
+  <tr>
+    <td><tt>--accent-purple</tt></td>
+    <td><div class="color-pill" style="background-color: #9141ac"/></td>
+    <td><tt>#9141ac</tt></td>
+  </tr>
+  <tr>
+    <td><tt>--accent-slate</tt></td>
+    <td><div class="color-pill" style="background-color: #6f8396"/></td>
+    <td><tt>#6f8396</tt></td>
   </tr>
 </table>
 

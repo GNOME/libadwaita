@@ -84,7 +84,8 @@ adw_settings_impl_macos_init (AdwSettingsImplMacOS *self)
 
 AdwSettingsImpl *
 adw_settings_impl_macos_new (gboolean enable_color_scheme,
-                             gboolean enable_high_contrast)
+                             gboolean enable_high_contrast,
+                             gboolean enable_accent_colors)
 {
   AdwSettingsImplMacOS *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_MACOS, NULL);
 
@@ -106,7 +107,8 @@ adw_settings_impl_macos_new (gboolean enable_color_scheme,
 
     adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
                                     /* has_color_scheme */ TRUE,
-                                    /* has_high_contrast */ FALSE);
+                                    /* has_high_contrast */ FALSE,
+                                    /* has_accent_colors */ FALSE);
   }
 
   return ADW_SETTINGS_IMPL (self);

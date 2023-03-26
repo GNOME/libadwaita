@@ -32,6 +32,49 @@
                 <signal name="notify::selected" handler="color_scheme_changed_cb" swapped="yes"/>
               </object>
             </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Accent Color</property>
+            <child>
+              <object class="AdwSwitchRow" id="support_accent_colors_row">
+                <property name="title" translatable="yes">System Supports Accent Colors</property>
+                <signal name="notify::active" handler="support_accent_colors_changed_cb" swapped="yes"/>
+              </object>
+            </child>
+            <child>
+              <object class="AdwComboRow" id="accent_color_row">
+                <property name="title" translatable="yes">Preferred Accent Color</property>
+                <style>
+                  <class name="accent-color-row"/>
+                </style>
+                <property name="model">
+                  <object class="AdwEnumListModel">
+                    <property name="enum-type">AdwAccentColor</property>
+                  </object>
+                </property>
+                <property name="expression">
+                  <closure type="gchararray" function="get_accent_color_name"/>
+                </property>
+                <property name="factory">
+                  <object class="GtkSignalListItemFactory">
+                    <signal name="setup" handler="accent_color_item_setup_cb"/>
+                    <signal name="bind" handler="accent_color_item_bind_cb"/>
+                    <signal name="unbind" handler="accent_color_item_unbind_cb"/>
+                  </object>
+                </property>
+                <binding name="sensitive">
+                  <lookup name="active">support_accent_colors_row</lookup>
+                </binding>
+                <signal name="notify::selected" handler="accent_color_changed_cb" swapped="yes"/>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Accessibility</property>
             <child>
               <object class="AdwSwitchRow" id="high_contrast_row">
                 <property name="title" translatable="yes">High Contrast</property>

@@ -1,0 +1,9 @@
+.accent-color-row color {
+  min-width: 16px;
+  min-height: 16px;
+  border-radius: 16px;
+}
+
+.accent-color-row color:disabled {
+  opacity: var(--disabled-opacity);
+}

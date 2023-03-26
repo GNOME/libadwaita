@@ -84,6 +84,54 @@ remains legible in both appearances:
 * [class@Application] allows loading additional styles for dark appearance via
   the `style-dark.css` resource.
 
+## Accent Color
+
+Libadwaita applications follow the system accent color by default. Applications
+with custom drawing or styles may need to ensure that they use the actual accent
+color instead of harcoding blue:
+
+* Use [accent color variables](css-variables.html#accent-colors) and the
+  [`.accent`](style-classes.html#colors) style class in CSS.
+
+* Use [property@StyleManager:accent-color-rgba] to get the background accent
+  color programmatically.
+
+* Use [property@StyleManager:accent-color] and 
+  [func@AccentColor.to_standalone_rgba] to get the standalone accent color
+  programmatically.
+
+Applications can override the accent color using CSS, as follows:
+
+```css
+:root {
+  --accent-bg-color: var(--accent-green); /* Always use the green color */
+}
+```
+
+Accent can also be overridden for an individual widget. In this case
+`--accent-color` must be manually overridden as well:
+
+```css
+my-widget {
+  --accent-bg-color: var(--accent-purple); /* Always use the purple color */
+  --accent-color: oklab(from var(--accent-bg-color) var(--standalone-color-oklab));
+}
+```
+
+All of the default accent colors use white text as the foreground color. If the
+custom accent color is too bright, use a dark foreground color instead:
+
+```css
+:root {
+  --accent-bg-color: var(--yellow-3);
+  --accent-fg-color: rgb(0 0 0 / 80%);
+}
+```
+
+::: note
+    When accent color is overridden, [class@StyleManager] API will still return
+    the system color.
+
 ## High Contrast
 
 The system can provide a high contrast preference. Libadwaita applications

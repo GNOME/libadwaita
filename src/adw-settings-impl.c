@@ -16,9 +16,11 @@ typedef struct
 {
   gboolean has_color_scheme;
   gboolean has_high_contrast;
+  gboolean has_accent_colors;
 
   AdwSystemColorScheme color_scheme;
   gboolean high_contrast;
+  AdwAccentColor accent_color;
 } AdwSettingsImplPrivate;
 
 G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (AdwSettingsImpl, adw_settings_impl, G_TYPE_OBJECT)
@@ -27,6 +29,7 @@ enum {
   SIGNAL_PREPARE,
   SIGNAL_COLOR_SCHEME_CHANGED,
   SIGNAL_HIGH_CONTRAST_CHANGED,
+  SIGNAL_ACCENT_COLOR_CHANGED,
   SIGNAL_LAST_SIGNAL,
 };
 
@@ -62,6 +65,20 @@ adw_settings_impl_class_init (AdwSettingsImplClass *klass)
   g_signal_set_va_marshaller (signals[SIGNAL_HIGH_CONTRAST_CHANGED],
                               G_TYPE_FROM_CLASS (klass),
                               adw_marshal_VOID__BOOLEANv);
+
+  signals[SIGNAL_ACCENT_COLOR_CHANGED] =
+    g_signal_new ("accent-color-changed",
+                  G_TYPE_FROM_CLASS (klass),
+                  G_SIGNAL_RUN_FIRST,
+                  0,
+                  NULL, NULL,
+                  adw_marshal_VOID__ENUM,
+                  G_TYPE_NONE,
+                  1,
+                  ADW_TYPE_ACCENT_COLOR);
+  g_signal_set_va_marshaller (signals[SIGNAL_ACCENT_COLOR_CHANGED],
+                              G_TYPE_FROM_CLASS (klass),
+                              adw_marshal_VOID__ENUMv);
 }
 
 static void
@@ -89,10 +106,21 @@ adw_settings_impl_get_has_high_contrast (AdwSettingsImpl *self)
   return priv->has_high_contrast;
 }
 
+gboolean
+adw_settings_impl_get_has_accent_colors (AdwSettingsImpl *self)
+{
+  AdwSettingsImplPrivate *priv = adw_settings_impl_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_SETTINGS_IMPL (self), FALSE);
+
+  return priv->has_accent_colors;
+}
+
 void
 adw_settings_impl_set_features (AdwSettingsImpl *self,
                                 gboolean         has_color_scheme,
-                                gboolean         has_high_contrast)
+                                gboolean         has_high_contrast,
+                                gboolean         has_accent_colors)
 {
   AdwSettingsImplPrivate *priv = adw_settings_impl_get_instance_private (self);
 
@@ -100,6 +128,7 @@ adw_settings_impl_set_features (AdwSettingsImpl *self,
 
   priv->has_color_scheme = !!has_color_scheme;
   priv->has_high_contrast = !!has_high_contrast;
+  priv->has_accent_colors = !!has_accent_colors;
 }
 
 AdwSystemColorScheme
@@ -156,6 +185,33 @@ adw_settings_impl_set_high_contrast (AdwSettingsImpl *self,
 
   if (priv->has_high_contrast)
     g_signal_emit (G_OBJECT (self), signals[SIGNAL_HIGH_CONTRAST_CHANGED], 0, high_contrast);
+}
+
+AdwAccentColor
+adw_settings_impl_get_accent_color (AdwSettingsImpl *self)
+{
+  AdwSettingsImplPrivate *priv  = adw_settings_impl_get_instance_private (self);
+
+  g_return_val_if_fail (ADW_IS_SETTINGS_IMPL (self), ADW_ACCENT_COLOR_BLUE);
+
+  return priv->accent_color;
+}
+
+void
+adw_settings_impl_set_accent_color (AdwSettingsImpl *self,
+                                    AdwAccentColor   accent_color)
+{
+  AdwSettingsImplPrivate *priv = adw_settings_impl_get_instance_private (self);
+
+  g_return_if_fail (ADW_IS_SETTINGS_IMPL (self));
+
+  if (priv->accent_color == accent_color)
+    return;
+
+  priv->accent_color = accent_color;
+
+  if (priv->has_accent_colors)
+    g_signal_emit (G_OBJECT (self), signals[SIGNAL_ACCENT_COLOR_CHANGED], 0, accent_color);
 }
 
 gboolean

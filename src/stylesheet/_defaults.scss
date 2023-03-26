@@ -8,10 +8,6 @@
 // These are the colors apps are can override. We define the defaults here and
 // define variables for them in _colors.scss
 
-// The main accent color and the matching text value
-@define-color accent_bg_color @blue_3;
-@define-color accent_fg_color white;
-
 // destructive-action buttons
 @define-color destructive_bg_color #{if($variant == 'light', "@red_3", "@red_4")};
 @define-color destructive_fg_color white;

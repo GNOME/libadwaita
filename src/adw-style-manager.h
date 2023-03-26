@@ -15,6 +15,8 @@
 #include "adw-version.h"
 
 #include <gtk/gtk.h>
+
+#include "adw-accent-color.h"
 #include "adw-enums.h"
 
 G_BEGIN_DECLS
@@ -53,5 +55,14 @@ ADW_AVAILABLE_IN_ALL
 gboolean adw_style_manager_get_dark          (AdwStyleManager *self);
 ADW_AVAILABLE_IN_ALL
 gboolean adw_style_manager_get_high_contrast (AdwStyleManager *self);
+
+ADW_AVAILABLE_IN_1_6
+gboolean adw_style_manager_get_system_supports_accent_colors (AdwStyleManager *self);
+
+ADW_AVAILABLE_IN_1_6
+AdwAccentColor adw_style_manager_get_accent_color (AdwStyleManager *self);
+
+ADW_AVAILABLE_IN_1_6
+GdkRGBA *adw_style_manager_get_accent_color_rgba (AdwStyleManager *self);
 
 G_END_DECLS

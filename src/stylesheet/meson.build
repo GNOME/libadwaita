@@ -37,6 +37,7 @@ if not fs.exists('base.css')
       'widgets/_expanders.scss',
       'widgets/_file-chooser.scss',
       'widgets/_header-bar.scss',
+      'widgets/_inspector.scss',
       'widgets/_labels.scss',
       'widgets/_level-bar.scss',
       'widgets/_linked.scss',

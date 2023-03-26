@@ -11,6 +11,7 @@ libadwaita_resources = gnome.compile_resources(
 )
 
 adw_public_enum_headers = [
+  'adw-accent-color.h',
   'adw-alert-dialog.h',
   'adw-animation.h',
   'adw-banner.h',
@@ -98,6 +99,7 @@ libadwaita_private_sources += adw_marshalers
 src_headers = [
   'adw-about-dialog.h',
   'adw-about-window.h',
+  'adw-accent-color.h',
   'adw-action-row.h',
   'adw-alert-dialog.h',
   'adw-animation.h',
@@ -183,6 +185,7 @@ libadwaita_init_public_types = custom_target('adw-public-types.c',
 src_sources = [
   'adw-about-dialog.c',
   'adw-about-window.c',
+  'adw-accent-color.c',
   'adw-action-row.c',
   'adw-alert-dialog.c',
   'adw-animation.c',
@@ -261,6 +264,8 @@ src_sources = [
 libadwaita_private_sources += files([
   'adw-back-button.c',
   'adw-bidi.c',
+  'adw-bottom-sheet.c',
+  'adw-color-utils.c',
   'adw-dialog-host.c',
   'adw-fading-label.c',
   'adw-floating-sheet.c',

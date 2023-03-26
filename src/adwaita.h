@@ -23,6 +23,7 @@ G_BEGIN_DECLS
 #include "adw-version.h"
 #include "adw-about-dialog.h"
 #include "adw-about-window.h"
+#include "adw-accent-color.h"
 #include "adw-action-row.h"
 #include "adw-alert-dialog.h"
 #include "adw-animation.h"

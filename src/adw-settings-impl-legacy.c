@@ -62,7 +62,8 @@ adw_settings_impl_legacy_init (AdwSettingsImplLegacy *self)
 
 AdwSettingsImpl *
 adw_settings_impl_legacy_new (gboolean enable_color_scheme,
-                              gboolean enable_high_contrast)
+                              gboolean enable_high_contrast,
+                              gboolean enable_accent_colors)
 {
   AdwSettingsImplLegacy *self = g_object_new (ADW_TYPE_SETTINGS_IMPL_LEGACY, NULL);
   GdkDisplay *display;
@@ -79,7 +80,8 @@ adw_settings_impl_legacy_new (gboolean enable_color_scheme,
                                        is_theme_high_contrast (display));
   adw_settings_impl_set_features (ADW_SETTINGS_IMPL (self),
                                   /* has_color_scheme */ FALSE,
-                                  /* has_high_contrast */ TRUE);
+                                  /* has_high_contrast */ TRUE,
+                                  /* has_accent_colors */ FALSE);
 
   g_signal_connect_swapped (display,
                             "setting-changed",
