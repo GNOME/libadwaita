@@ -3,165 +3,157 @@
 # This file is distributed under the same license as the libhandy package.
 # Adrien Plazas <kekun.plazas@laposte.net>, 2020
 # Claude Paroz <claude@2xlibre.net>, 2020-2021
-# Irénée THIRION <irenee.thirion@e.email>, 2022.
+# Irénée THIRION <irenee.thirion@e.email>, 2022-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libhandy master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-08-26 20:43+0000\n"
-"PO-Revision-Date: 2022-09-12 14:08+0200\n"
+"POT-Creation-Date: 2023-02-28 08:57+0000\n"
+"PO-Revision-Date: 2023-03-03 15:30+0100\n"
 "Last-Translator: Irénée THIRION <irenee.thirion@e.email>\n"
-"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
+"Language-Team: French <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 40.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Generator: Gtranslator 42.0\n"
 "X-DL-Team: fr\n"
 "X-DL-Module: libadwaita\n"
 "X-DL-Branch: main\n"
 "X-DL-Domain: po\n"
 "X-DL-State: Translating\n"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:202
 msgid "GNU General Public License, version 2 or later"
 msgstr "Licence publique générale GNU, version 2 ou ultérieure"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:203
 msgid "GNU General Public License, version 3 or later"
 msgstr "Licence publique générale GNU, version 3 ou ultérieure"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:204
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "Licence publique générale limitée GNU, version 2.1 ou ultérieure"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:205
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "Licence publique générale limitée GNU, version 3 ou ultérieure"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:206
 msgid "BSD 2-Clause License"
 msgstr "Licence BSD à 2 clauses"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:207
 msgid "The MIT License (MIT)"
 msgstr "Licence MIT"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:208
 msgid "Artistic License 2.0"
 msgstr "Licence artistique 2.0"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:209
 msgid "GNU General Public License, version 2 only"
 msgstr "Licence publique générale GNU, version 2 uniquement"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:210
 msgid "GNU General Public License, version 3 only"
 msgstr "Licence publique générale GNU, version 3 uniquement"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:211
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "Licence publique générale limitée GNU, version 2.1 uniquement"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "Licence publique générale limitée GNU, version 3 uniquement"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:213
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "Licence publique générale GNU Affero, version 3 ou ultérieure"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:214
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "Licence publique générale GNU Affero, version 3 uniquement"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:215
 msgid "BSD 3-Clause License"
 msgstr "Licence BSD à 3 clauses"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:216
 msgid "Apache License, Version 2.0"
 msgstr "Licence Apache, version 2.0"
 
-#: src/adw-about-window.c:218
+#: src/adw-about-window.c:217
 msgid "Mozilla Public License 2.0"
 msgstr "Licence Publique Mozilla 2.0"
 
-#: src/adw-about-window.c:526
+#: src/adw-about-window.c:528
 msgid "Code by"
 msgstr "Code par"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:529
 msgid "Design by"
 msgstr "Conception par"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:530
 msgid "Artwork by"
 msgstr "Graphisme par"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:531
 msgid "Documentation by"
 msgstr "Documentation par"
 
-#: src/adw-about-window.c:530
+#: src/adw-about-window.c:532
 msgid "Translated by"
 msgstr "Traduit par"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:559
+#: src/adw-about-window.c:561
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a "
-"href=\"%s\">%s</a> for details."
+"This application comes with absolutely no warranty. See the <a href=\"%s\">"
+"%s</a> for details."
 msgstr ""
 "Ce programme est fourni sans aucune garantie. Pour plus de détails, visitez "
 "<a href=\"%s\">%s</a>."
 
-#: src/adw-about-window.c:637
+#: src/adw-about-window.c:639
 msgid "This Application"
 msgstr "Cette application"
 
-#: src/adw-about-window.c:939
+#: src/adw-about-window.c:941
 #, c-format
 msgid "Version %s"
 msgstr "Version %s"
 
-#: src/adw-about-window.c:965
+#: src/adw-about-window.c:967
 msgid "Unable to parse release notes:"
 msgstr "Impossible d’analyser les notes de version :"
 
-#: src/adw-about-window.c:971
+#: src/adw-about-window.c:973
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Ligne : %d, caractère : %d"
 
-#: src/adw-about-window.c:1264
+#: src/adw-about-window.c:1266
 msgid "Copied to clipboard"
 msgstr "Copié dans le presse-papiers"
 
-#: src/adw-about-window.c:1299
+#: src/adw-about-window.c:1300
 msgid "Unable to save debugging information"
 msgstr "Impossible d’enregistrer les informations de débogage"
 
-#: src/adw-about-window.c:1304
+#: src/adw-about-window.c:1305
 msgid "Close"
 msgstr "Fermer"
 
-#: src/adw-about-window.c:1322
+#: src/adw-about-window.c:1321
 msgid "Save debugging information"
 msgstr "Enregistrer les informations de débogage"
-
-#: src/adw-about-window.c:1325
-msgid "_Save"
-msgstr "_Enregistrer"
-
-#: src/adw-about-window.c:1326
-msgid "_Cancel"
-msgstr "A_nnuler"
 
 #: src/adw-about-window.ui:5
 msgid "About"
@@ -261,24 +253,24 @@ msgstr "_Copier le texte"
 msgid "_Save as…"
 msgstr "Enregistrer _sous…"
 
-#: src/adw-entry-row.ui:93
+#: src/adw-entry-row.ui:95
 msgid "Apply"
 msgstr "Appliquer"
 
-#: src/adw-inspector-page.c:76
+#: src/adw-inspector-page.c:75
 msgid "No Preference"
 msgstr "Aucune préférence"
 
-#: src/adw-inspector-page.c:78
+#: src/adw-inspector-page.c:77
 msgid "Prefer Dark"
 msgstr "Préférer le sombre"
 
-#: src/adw-inspector-page.c:80
+#: src/adw-inspector-page.c:79
 msgid "Prefer Light"
 msgstr "Préférer le clair"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:97
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -306,23 +298,23 @@ msgstr "Jeu de couleurs préféré"
 msgid "High Contrast"
 msgstr "Contraste élevé"
 
-#: src/adw-password-entry-row.c:71
+#: src/adw-password-entry-row.c:70
 msgid "Hide Text"
 msgstr "Cacher le texte"
 
-#: src/adw-password-entry-row.c:75
+#: src/adw-password-entry-row.c:74
 msgid "Show Text"
 msgstr "Afficher le texte"
 
-#: src/adw-password-entry-row.c:169
+#: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
 msgstr "Le verrouillage des majuscules est activé"
 
-#: src/adw-password-entry-row.c:177
+#: src/adw-password-entry-row.c:176
 msgid "_Show Text"
 msgstr "_Afficher le texte"
 
-#: src/adw-preferences-window.c:242
+#: src/adw-preferences-window.c:243
 msgid "Untitled page"
 msgstr "Page sans titre"
 
@@ -338,10 +330,47 @@ msgstr "Recherche"
 msgid "No Results Found"
 msgstr "Aucun résultat trouvé"
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:113
 msgid "Try a different search."
 msgstr "Essayer une recherche différente."
 
-#: src/adw-tab.ui:88
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "Voir les onglets ouverts"
+
+#: src/adw-tab-overview.c:894
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u onglet"
+msgstr[1] "%u onglets"
+
+#: src/adw-tab-overview.ui:23
+msgid "Search Tabs"
+msgstr "Rechercher dans les onglets"
+
+#: src/adw-tab-overview.ui:53
+msgid "Search tabs"
+msgstr "Rechercher dans les onglets"
+
+#: src/adw-tab-overview.ui:99
+msgid "No Open Tabs"
+msgstr "Aucun onglet ouvert"
+
+#: src/adw-tab-overview.ui:112
+msgid "No Tabs Found"
+msgstr "Aucun onglet trouvé"
+
+#: src/adw-tab-overview.ui:133
+msgid "New _Tab"
+msgstr "Nouvel _onglet"
+
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
 msgid "Close Tab"
 msgstr "Fermer l’onglet"
+
+#~ msgid "_Save"
+#~ msgstr "_Enregistrer"
+
+#~ msgid "_Cancel"
+#~ msgstr "A_nnuler"
