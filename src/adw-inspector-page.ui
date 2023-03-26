@@ -10,15 +10,9 @@
             <property name="title" translatable="yes">System Appearance</property>
             <property name="description" translatable="yes">Override settings for this application. They will be reset upon closing the inspector.</property>
             <child>
-              <object class="AdwActionRow">
+              <object class="AdwSwitchRow" id="support_color_schemes_row">
                 <property name="title" translatable="yes">System Supports Color Schemes</property>
-                <property name="activatable-widget">support_color_schemes_switch</property>
-                <child>
-                  <object class="GtkSwitch" id="support_color_schemes_switch">
-                    <property name="valign">center</property>
-                    <signal name="notify::active" handler="support_color_schemes_changed_cb" swapped="yes"/>
-                  </object>
-                </child>
+                <signal name="notify::active" handler="support_color_schemes_changed_cb" swapped="yes"/>
               </object>
             </child>
             <child>
@@ -33,21 +27,15 @@
                   <closure type="gchararray" function="get_system_color_scheme_name"/>
                 </property>
                 <binding name="sensitive">
-                  <lookup name="active">support_color_schemes_switch</lookup>
+                  <lookup name="active">support_color_schemes_row</lookup>
                 </binding>
                 <signal name="notify::selected" handler="color_scheme_changed_cb" swapped="yes"/>
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
+              <object class="AdwSwitchRow" id="high_contrast_row">
                 <property name="title" translatable="yes">High Contrast</property>
-                <property name="activatable-widget">high_contrast_switch</property>
-                <child>
-                  <object class="GtkSwitch" id="high_contrast_switch">
-                    <property name="valign">center</property>
-                    <signal name="notify::active" handler="high_contrast_changed_cb" swapped="yes"/>
-                  </object>
-                </child>
+                <signal name="notify::active" handler="high_contrast_changed_cb" swapped="yes"/>
               </object>
             </child>
           </object>

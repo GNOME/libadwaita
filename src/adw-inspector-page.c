@@ -20,9 +20,9 @@ struct _AdwInspectorPage
 
   AdwSettings *settings;
 
-  GtkSwitch *support_color_schemes_switch;
+  AdwSwitchRow *support_color_schemes_row;
   AdwComboRow *color_scheme_row;
-  GtkSwitch *high_contrast_switch;
+  AdwSwitchRow *high_contrast_row;
 
   GObject *object;
 };
@@ -50,7 +50,7 @@ color_scheme_changed_cb (AdwInspectorPage *self)
 static void
 support_color_schemes_changed_cb (AdwInspectorPage *self)
 {
-  gboolean supports = gtk_switch_get_active (self->support_color_schemes_switch);
+  gboolean supports = adw_switch_row_get_active (self->support_color_schemes_row);
 
   adw_settings_override_system_supports_color_schemes (self->settings, supports);
 
@@ -61,7 +61,7 @@ support_color_schemes_changed_cb (AdwInspectorPage *self)
 static void
 high_contrast_changed_cb (AdwInspectorPage *self)
 {
-  gboolean hc = gtk_switch_get_active (self->high_contrast_switch);
+  gboolean hc = adw_switch_row_get_active (self->high_contrast_row);
 
   adw_settings_override_high_contrast (self->settings, hc);
 }
@@ -161,9 +161,9 @@ adw_inspector_page_class_init (AdwInspectorPageClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-inspector-page.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, support_color_schemes_switch);
+  gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, support_color_schemes_row);
   gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, color_scheme_row);
-  gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, high_contrast_switch);
+  gtk_widget_class_bind_template_child (widget_class, AdwInspectorPage, high_contrast_row);
 
   gtk_widget_class_bind_template_callback (widget_class, get_system_color_scheme_name);
   gtk_widget_class_bind_template_callback (widget_class, support_color_schemes_changed_cb);
@@ -187,8 +187,8 @@ adw_inspector_page_init (AdwInspectorPage *self)
   adw_combo_row_set_selected (self->color_scheme_row, color_scheme);
 
   supports = adw_settings_get_system_supports_color_schemes (self->settings);
-  gtk_switch_set_active (self->support_color_schemes_switch, supports);
+  adw_switch_row_set_active (self->support_color_schemes_row, supports);
 
   hc = adw_settings_get_high_contrast (self->settings);
-  gtk_switch_set_active (self->high_contrast_switch, hc);
+  adw_switch_row_set_active (self->high_contrast_row, hc);
 }
