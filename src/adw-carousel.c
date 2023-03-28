@@ -78,6 +78,7 @@ struct _AdwCarousel
 
   guint scroll_timeout_id;
   gboolean can_scroll;
+  gboolean is_being_allocated;
 };
 
 static void adw_carousel_buildable_init (GtkBuildableIface *iface);
@@ -703,6 +704,8 @@ adw_carousel_size_allocate (GtkWidget *widget,
     else
       x += self->distance * child_info->size;
   }
+
+  self->is_being_allocated = FALSE;
 }
 
 static void
@@ -1233,6 +1236,7 @@ adw_carousel_insert (AdwCarousel *self,
     gtk_widget_set_parent (widget, GTK_WIDGET (self));
   }
 
+  self->is_being_allocated = TRUE;
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 
   animate_child_resize (self, info, 1, self->reveal_duration);
@@ -1364,6 +1368,35 @@ adw_carousel_remove (AdwCarousel *self,
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_N_PAGES]);
 }
 
+static void
+do_scroll_to (AdwCarousel *self,
+              GtkWidget   *widget,
+              gboolean     animate)
+{
+  scroll_to (self, widget, 0);
+
+  if (!animate)
+    adw_animation_skip (self->animation);
+}
+
+typedef struct {
+  AdwCarousel *carousel;
+  GtkWidget *widget;
+  gboolean animate;
+} ScrollData;
+
+static gboolean
+scroll_to_idle_cb (ScrollData *data)
+{
+  do_scroll_to (data->carousel, data->widget, data->animate);
+
+  g_object_unref (data->carousel);
+  g_object_unref (data->widget);
+  g_free (data);
+
+  return FALSE;
+}
+
 /**
  * adw_carousel_scroll_to:
  * @self: a carousel
@@ -1379,14 +1412,32 @@ adw_carousel_scroll_to (AdwCarousel *self,
                         GtkWidget   *widget,
                         gboolean     animate)
 {
+  ChildInfo *info;
+
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
   g_return_if_fail (gtk_widget_get_parent (widget) == GTK_WIDGET (self));
 
-  scroll_to (self, widget, 0);
+  info = find_child_info (self, widget);
 
-  if (!animate)
-    adw_animation_skip (self->animation);
+  if (self->is_being_allocated) {
+    /* 'self' is still being allocated/resized by GTK
+     * async machinery (initiated from a previous adw_carousel_insert() call)
+     * So in this case let's do the scroll in an idle handler so
+     * it gets executed when everything is in place i.e. after GTK
+     * calls our adw_carousel_size_allocate() function - issue #597 */
+    ScrollData *data;
+
+    data = g_new (ScrollData, 1);
+    data->carousel = g_object_ref (self);
+    data->widget = g_object_ref (widget);
+    data->animate = animate;
+
+    g_idle_add (G_SOURCE_FUNC (scroll_to_idle_cb), data);
+    return;
+  }
+
+  do_scroll_to (self, widget, animate);
 }
 
 /**
