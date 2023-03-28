@@ -56,6 +56,12 @@ ADW_AVAILABLE_IN_ALL
 void        adw_preferences_page_set_title (AdwPreferencesPage *self,
                                             const char         *title);
 
+ADW_AVAILABLE_IN_1_4
+const char *adw_preferences_page_get_description (AdwPreferencesPage *self);
+ADW_AVAILABLE_IN_1_4
+void        adw_preferences_page_set_description (AdwPreferencesPage *self,
+                                                  const char         *description);
+
 ADW_AVAILABLE_IN_ALL
 const char *adw_preferences_page_get_name (AdwPreferencesPage *self);
 ADW_AVAILABLE_IN_ALL

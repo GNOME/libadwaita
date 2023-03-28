@@ -45,6 +45,25 @@ test_adw_preferences_page_title (void)
 
 
 static void
+test_adw_preferences_page_description (void)
+{
+  AdwPreferencesPage *page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
+
+  g_assert_nonnull (page);
+
+  g_assert_cmpstr (adw_preferences_page_get_description (page), ==, "");
+
+  adw_preferences_page_set_description (page, "Dummy description");
+  g_assert_cmpstr (adw_preferences_page_get_description (page), ==, "Dummy description");
+
+  adw_preferences_page_set_description (page, NULL);
+  g_assert_cmpstr (adw_preferences_page_get_description (page), ==, "");
+
+  g_assert_finalize_object (page);
+}
+
+
+static void
 test_adw_preferences_page_icon_name (void)
 {
   AdwPreferencesPage *page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
@@ -91,6 +110,7 @@ main (int   argc,
 
   g_test_add_func("/Adwaita/PreferencesPage/add_remove", test_adw_preferences_page_add_remove);
   g_test_add_func("/Adwaita/PreferencesPage/title", test_adw_preferences_page_title);
+  g_test_add_func("/Adwaita/PreferencesPage/description", test_adw_preferences_page_description);
   g_test_add_func("/Adwaita/PreferencesPage/icon_name", test_adw_preferences_page_icon_name);
   g_test_add_func("/Adwaita/PreferencesPage/use_underline", test_adw_preferences_page_use_underline);
 

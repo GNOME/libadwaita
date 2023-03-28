@@ -36,6 +36,7 @@
 typedef struct
 {
   GtkBox *box;
+  GtkLabel *description;
   GtkWidget *scrolled_window;
 
   char *icon_name;
@@ -59,12 +60,21 @@ enum {
   PROP_0,
   PROP_ICON_NAME,
   PROP_TITLE,
+  PROP_DESCRIPTION,
   PROP_NAME,
   PROP_USE_UNDERLINE,
   LAST_PROP,
 };
 
 static GParamSpec *props[LAST_PROP];
+
+static gboolean
+is_visible_group (GtkWidget *widget,
+                  gpointer   user_data)
+{
+  return ADW_IS_PREFERENCES_GROUP (widget) &&
+         gtk_widget_get_visible (widget);
+}
 
 static void
 adw_preferences_page_get_property (GObject    *object,
@@ -80,6 +90,9 @@ adw_preferences_page_get_property (GObject    *object,
     break;
   case PROP_TITLE:
     g_value_set_string (value, adw_preferences_page_get_title (self));
+    break;
+  case PROP_DESCRIPTION:
+    g_value_set_string (value, adw_preferences_page_get_description (self));
     break;
   case PROP_NAME:
     g_value_set_string (value, adw_preferences_page_get_name (self));
@@ -106,6 +119,9 @@ adw_preferences_page_set_property (GObject      *object,
     break;
   case PROP_TITLE:
     adw_preferences_page_set_title (self, g_value_get_string (value));
+    break;
+  case PROP_DESCRIPTION:
+    adw_preferences_page_set_description (self, g_value_get_string (value));
     break;
   case PROP_NAME:
     adw_preferences_page_set_name (self, g_value_get_string (value));
@@ -173,6 +189,18 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
+   * AdwPreferencesPage:description: (attributes org.gtk.Property.get=adw_preferences_page_get_description org.gtk.Property.set=adw_preferences_page_set_description)
+   *
+   * The description to be displayed at the top of the page.
+   * 
+   * Since: 1.4
+   */
+  props[PROP_DESCRIPTION] =
+    g_param_spec_string ("description", NULL, NULL,
+                         "",
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
    * AdwPreferencesPage:name: (attributes org.gtk.Property.get=adw_preferences_page_get_name org.gtk.Property.set=adw_preferences_page_set_name)
    *
    * The name of this page.
@@ -197,6 +225,7 @@ adw_preferences_page_class_init (AdwPreferencesPageClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class,
                                                "/org/gnome/Adwaita/ui/adw-preferences-page.ui");
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesPage, box);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesPage, description);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesPage, scrolled_window);
 
   gtk_widget_class_set_css_name (widget_class, "preferencespage");
@@ -386,6 +415,59 @@ adw_preferences_page_set_title (AdwPreferencesPage *self,
 }
 
 /**
+ * adw_preferences_page_get_description: (attributes org.gtk.Method.get_property=description)
+ * @self: a preferences page
+ *
+ * Gets the description of @self.
+ *
+ * Returns: the description of @self.
+ * 
+ * Since: 1.4
+ */
+const char *
+adw_preferences_page_get_description (AdwPreferencesPage *self)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_PAGE (self), NULL);
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  return gtk_label_get_text (priv->description);
+}
+
+/**
+ * adw_preferences_page_set_description: (attributes org.gtk.Method.set_property=description)
+ * @self: a preferences page
+ * @description: the description
+ *
+ * Sets the description of @self.
+ * 
+ * The description is displayed at the top of the page.
+ * 
+ * Since: 1.4
+ */
+void
+adw_preferences_page_set_description (AdwPreferencesPage *self,
+                                      const char         *description)
+{
+  AdwPreferencesPagePrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_PAGE (self));
+
+  priv = adw_preferences_page_get_instance_private (self);
+
+  if (g_strcmp0 (gtk_label_get_label (priv->description), description) == 0)
+    return;
+
+  gtk_label_set_label (priv->description, description);
+  gtk_widget_set_visible (GTK_WIDGET (priv->description),
+                          description && *description);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_DESCRIPTION]);
+}
+
+/**
  * adw_preferences_page_get_name: (attributes org.gtk.Method.get_property=name)
  * @self: a preferences page
  *
@@ -501,16 +583,16 @@ adw_preferences_page_get_rows (AdwPreferencesPage *self)
 {
   AdwPreferencesPagePrivate *priv;
   GListModel *model;
-  GtkExpression *expr;
+  GtkCustomFilter *filter;
 
   g_return_val_if_fail (ADW_IS_PREFERENCES_PAGE (self), NULL);
 
   priv = adw_preferences_page_get_instance_private (self);
 
-  expr = gtk_property_expression_new (GTK_TYPE_WIDGET, NULL, "visible");
+  filter = gtk_custom_filter_new ((GtkCustomFilterFunc) is_visible_group, NULL, NULL);
 
   model = gtk_widget_observe_children (GTK_WIDGET (priv->box));
-  model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (gtk_bool_filter_new (expr))));
+  model = G_LIST_MODEL (gtk_filter_list_model_new (model, GTK_FILTER (filter)));
   model = G_LIST_MODEL (gtk_map_list_model_new (model,
                                                 (GtkMapListModelMapFunc) preferences_group_to_rows,
                                                 NULL,

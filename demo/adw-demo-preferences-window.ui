@@ -8,6 +8,7 @@
       <object class="AdwPreferencesPage">
         <property name="icon_name">preferences-window-layout-symbolic</property>
         <property name="title">L_ayout</property>
+        <property name="description">Preferences pages can have a description.</property>
         <property name="use-underline">True</property>
         <child>
           <object class="AdwPreferencesGroup">
