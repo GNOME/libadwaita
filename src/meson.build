@@ -244,7 +244,6 @@ libadwaita_private_sources += files([
   'adw-toast-widget.c',
   'adw-view-switcher-button.c',
   'adw-widget-utils.c',
-  'adw-window-mixin.c',
 ])
 
 libadwaita_public_headers += files(src_headers)

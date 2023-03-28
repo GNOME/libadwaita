@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020 Alexander Mikhaylenko <alexm@gnome.org>
+ * Copyright (C) 2023 Purism SPC
  *
  * SPDX-License-Identifier: LGPL-2.1-or-later
  */
@@ -7,7 +8,9 @@
 #include "config.h"
 
 #include "adw-window.h"
-#include "adw-window-mixin-private.h"
+
+#include "adw-gizmo-private.h"
+#include "adw-widget-utils-private.h"
 
 /**
  * AdwWindow:
@@ -45,7 +48,9 @@
 
 typedef struct
 {
-  AdwWindowMixin *mixin;
+  GtkWidget *titlebar;
+  GtkWidget *bin;
+  GtkWidget *content;
 } AdwWindowPrivate;
 
 static void adw_window_buildable_init (GtkBuildableIface *iface);
@@ -64,29 +69,26 @@ enum {
 
 static GParamSpec *props[LAST_PROP];
 
-#define ADW_GET_WINDOW_MIXIN(obj) (((AdwWindowPrivate *) adw_window_get_instance_private (ADW_WINDOW (obj)))->mixin)
-
 static void
 adw_window_size_allocate (GtkWidget *widget,
                           int        width,
                           int        height,
                           int        baseline)
 {
-  adw_window_mixin_size_allocate (ADW_GET_WINDOW_MIXIN (widget),
-                                  width,
-                                  height,
-                                  baseline);
-}
-
-static void
-adw_window_finalize (GObject *object)
-{
-  AdwWindow *self = (AdwWindow *)object;
+  AdwWindow *self = ADW_WINDOW (widget);
   AdwWindowPrivate *priv = adw_window_get_instance_private (self);
 
-  g_clear_object (&priv->mixin);
+  /* We don't want to allow any other titlebar */
+  if (gtk_window_get_titlebar (GTK_WINDOW (self)) != priv->titlebar)
+    g_error ("gtk_window_set_titlebar() is not supported for AdwWindow");
 
-  G_OBJECT_CLASS (adw_window_parent_class)->finalize (object);
+  if (gtk_window_get_child (GTK_WINDOW (self)) != priv->bin)
+    g_error ("gtk_window_set_child() is not supported for AdwWindow");
+
+  GTK_WIDGET_CLASS (adw_window_parent_class)->size_allocate (widget,
+                                                             width,
+                                                             height,
+                                                             baseline);
 }
 
 static void
@@ -129,7 +131,6 @@ adw_window_class_init (AdwWindowClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-  object_class->finalize = adw_window_finalize;
   object_class->get_property = adw_window_get_property;
   object_class->set_property = adw_window_set_property;
   widget_class->size_allocate = adw_window_size_allocate;
@@ -154,8 +155,17 @@ adw_window_init (AdwWindow *self)
 {
   AdwWindowPrivate *priv = adw_window_get_instance_private (self);
 
-  priv->mixin = adw_window_mixin_new (GTK_WINDOW (self),
-                                      GTK_WINDOW_CLASS (adw_window_parent_class));
+  priv->titlebar = adw_gizmo_new_with_role ("nothing", GTK_ACCESSIBLE_ROLE_PRESENTATION,
+                                            NULL, NULL, NULL, NULL, NULL, NULL);
+  gtk_widget_set_visible (priv->titlebar, FALSE);
+  gtk_window_set_titlebar (GTK_WINDOW (self), priv->titlebar);
+
+  priv->bin = adw_gizmo_new_with_role ("contents", GTK_ACCESSIBLE_ROLE_GROUP,
+                                       NULL, NULL, NULL, NULL,
+                                       (AdwGizmoFocusFunc) adw_widget_focus_child,
+                                       (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
+  gtk_widget_set_layout_manager (priv->bin, gtk_bin_layout_new ());
+  gtk_window_set_child (GTK_WINDOW (self), priv->bin);
 }
 
 static void
@@ -206,16 +216,25 @@ void
 adw_window_set_content (AdwWindow *self,
                         GtkWidget *content)
 {
+  AdwWindowPrivate *priv;
+
   g_return_if_fail (ADW_IS_WINDOW (self));
   g_return_if_fail (content == NULL || GTK_IS_WIDGET (content));
 
   if (content)
     g_return_if_fail (gtk_widget_get_parent (content) == NULL);
 
+  priv = adw_window_get_instance_private (self);
+
   if (adw_window_get_content (self) == content)
     return;
 
-  adw_window_mixin_set_content (ADW_GET_WINDOW_MIXIN (self), content);
+  g_clear_pointer (&priv->content, gtk_widget_unparent);
+
+  if (content) {
+    priv->content = content;
+    gtk_widget_set_parent (content, priv->bin);
+  }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CONTENT]);
 }
@@ -233,7 +252,11 @@ adw_window_set_content (AdwWindow *self,
 GtkWidget *
 adw_window_get_content (AdwWindow *self)
 {
+  AdwWindowPrivate *priv;
+
   g_return_val_if_fail (ADW_IS_WINDOW (self), NULL);
 
-  return adw_window_mixin_get_content (ADW_GET_WINDOW_MIXIN (self));
+  priv = adw_window_get_instance_private (self);
+
+  return priv->content;
 }
