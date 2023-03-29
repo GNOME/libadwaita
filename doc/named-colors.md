@@ -155,8 +155,8 @@ or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_HIGH] offset.
   </tr>
   <tr>
     <td><tt>&#64;success_color</tt></td>
-    <td><div class="color-pill" style="background-color: #26a269"/></td>
-    <td><tt>#26a269</tt></td>
+    <td><div class="color-pill" style="background-color: #1b8553"/></td>
+    <td><tt>#1b8553</tt></td>
     <td><div class="color-pill" style="background-color: #8ff0a4"/></td>
     <td><tt>#8ff0a4</tt></td>
   </tr>
@@ -191,8 +191,8 @@ or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_LOW] offset.
   </tr>
   <tr>
     <td><tt>&#64;warning_color</tt></td>
-    <td><div class="color-pill" style="background-color: #ae7b03"/></td>
-    <td><tt>#ae7b03</tt></td>
+    <td><div class="color-pill" style="background-color: #9c6e03"/></td>
+    <td><tt>#9c6e03</tt></td>
     <td><div class="color-pill" style="background-color: #f8e45c"/></td>
     <td><tt>#f8e45c</tt></td>
   </tr>
