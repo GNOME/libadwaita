@@ -24,6 +24,23 @@
  *
  * See [class@Window] for details.
  *
+ * Example of an `AdwApplicationWindow` UI definition:
+ *
+ * ```xml
+ * <object class="AdwApplicationWindow">
+ *   <property name="content">
+ *     <object class="AdwToolbarView">
+ *       <child type="top">
+ *         <object class="AdwHeaderBar"/>
+ *       </child>
+ *       <property name="content">
+ *         <!-- ... -->
+ *       </property>
+ *     </object>
+ *   </property>
+ * </object>
+ * ```
+ *
  * Using [property@Gtk.Application:menubar] is not supported and may result in
  * visual glitches.
  */

@@ -10,10 +10,10 @@
     <property name="content">
       <object class="AdwLeaflet" id="leaflet">
         <child>
-          <object class="GtkBox">
-            <property name="orientation">vertical</property>
+          <object class="AdwToolbarView">
             <property name="width-request">150</property>
-            <child>
+            <property name="top-bar-style">raised</property>
+            <child type="top">
               <object class="AdwHeaderBar">
                 <binding name="show-end-title-buttons">
                   <lookup name="folded">leaflet</lookup>
@@ -36,10 +36,10 @@
           </object>
         </child>
         <child>
-          <object class="GtkBox">
-            <property name="orientation">vertical</property>
+          <object class="AdwToolbarView">
             <property name="hexpand">True</property>
-            <child>
+            <property name="top-bar-style">raised</property>
+            <child type="top">
               <object class="AdwHeaderBar">
                 <binding name="show-start-title-buttons">
                   <lookup name="folded">leaflet</lookup>

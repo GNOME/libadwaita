@@ -77,9 +77,9 @@ sidebar, a content view, and a separator between them:
   <object class="AdwLeaflet" id="leaflet">
     <property name="can-navigate-back">True</property>
     <child>
-      <object class="GtkBox">
-        <property name="orientation">vertical</property>
-        <child>
+      <object class="AdwToolbarView">
+        <property name="top-bar-style">raised</property>
+        <child type="top">
           <object class="AdwHeaderBar">
             <binding name="show-end-title-buttons">
               <lookup name="folded">leaflet</lookup>
@@ -103,10 +103,10 @@ sidebar, a content view, and a separator between them:
       </object>
     </child>
     <child>
-      <object class="GtkBox">
-        <property name="orientation">vertical</property>
+      <object class="AdwToolbarView">
+        <property name="top-bar-style">raised</property>
         <property name="hexpand">True</property>>
-        <child>
+        <child type="top">
           <object class="AdwHeaderBar">
             <binding name="show-start-title-buttons">
               <lookup name="folded">leaflet</lookup>
@@ -247,9 +247,8 @@ view switcher in a bottom bar otherwise.
 </picture>
 
 ```xml
-<object class="GtkBox">
-  <property name="orientation">vertical</property>
-  <child>
+<object class="AdwToolbarView">
+  <child type="top">
     <object class="AdwHeaderBar">
       <property name="centering-policy">strict</property>
       <property name="title-widget">
@@ -259,13 +258,12 @@ view switcher in a bottom bar otherwise.
       </property>
     </object>
   </child>
-  <child>
+  <property name="content">
     <object class="AdwViewStack" id="stack">
-      <property name="vexpand">True</property>
       <!-- pages -->
     </object>
-  </child>
-  <child>
+  </property>
+  <child type="bottom">
     <object class="AdwViewSwitcherBar">
       <property name="stack">stack</property>
       <binding name="reveal">

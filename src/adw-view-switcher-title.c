@@ -42,24 +42,23 @@
  * switcher, as follows:
  *
  * ```xml
- * <object class="GtkWindow">
- *   <property name="titlebar">
- *     <object class="AdwHeaderBar">
- *       <property name="centering-policy">strict</property>
- *       <property name="title-widget">
- *         <object class="AdwViewSwitcherTitle" id="title">
- *           <property name="stack">stack</property>
+ * <object class="AdwWindow">
+ *   <property name="content">
+ *     <object class="AdwToolbarView">
+ *       <child type="top">
+ *         <object class="AdwHeaderBar">
+ *           <property name="centering-policy">strict</property>
+ *           <property name="title-widget">
+ *             <object class="AdwViewSwitcherTitle" id="title">
+ *               <property name="stack">stack</property>
+ *             </object>
+ *           </property>
  *         </object>
- *       </property>
- *     </object>
- *   </property>
- *   <property name="child">
- *     <object class="GtkBox">
- *       <property name="orientation">vertical</property>
- *       <child>
- *         <object class="AdwViewStack" id="stack"/>
  *       </child>
- *       <child>
+ *       <property name="content">
+ *         <object class="AdwViewStack" id="stack"/>
+ *       </property>
+ *       <child type="bottom">
  *         <object class="AdwViewSwitcherBar">
  *           <property name="stack">stack</property>
  *           <binding name="reveal">

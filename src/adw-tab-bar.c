@@ -25,7 +25,7 @@
  * </picture>
  *
  * The `AdwTabBar` widget is a tab bar that can be used with conjunction with
- * `AdwTabView`.
+ * `AdwTabView`. It is typically used as a top bar within [class@ToolbarView].
  *
  * `AdwTabBar` can autohide and can optionally contain action widgets on both
  * sides of the tabs.

@@ -39,7 +39,8 @@
  * </picture>
  *
  * `AdwHeaderBar` is similar to [class@Gtk.HeaderBar], but provides additional
- * features compared to it. Refer to `GtkHeaderBar` for details.
+ * features compared to it. Refer to `GtkHeaderBar` for details. It is typically
+ * used as a top bar within [class@ToolbarView].
  *
  * [property@HeaderBar:centering-policy] allows to enforce strict centering of
  * the title widget, this is useful for [class@ViewSwitcherTitle].
@@ -51,9 +52,9 @@
  * ```xml
  * <object class="AdwLeaflet" id="leaflet">
  *   <child>
- *     <object class="GtkBox">
- *       <property name="orientation">vertical</property>
- *       <child>
+ *     <object class="AdwToolbarView">
+ *       <property name="top-bar-style">raised</property>
+ *       <child type="top">
  *         <object class="AdwHeaderBar">
  *           <binding name="show-end-title-buttons">
  *             <lookup name="folded">leaflet</lookup>
@@ -65,10 +66,10 @@
  *   </child>
  *   <!-- ... -->
  *   <child>
- *     <object class="GtkBox">
- *       <property name="orientation">vertical</property>
+ *     <object class="AdwToolbarView">
+ *       <property name="top-bar-style">raised</property>
  *       <property name="hexpand">True</property>
- *       <child>
+ *       <child type="top">
  *         <object class="AdwHeaderBar">
  *           <binding name="show-start-title-buttons">
  *             <lookup name="folded">leaflet</lookup>

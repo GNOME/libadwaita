@@ -20,19 +20,19 @@
  * </picture>
  *
  * The `AdwWindow` widget is a subclass of [class@Gtk.Window] which has no
- * titlebar area. It means [class@Gtk.HeaderBar] can be used as follows:
+ * titlebar area. Instead, [class@ToolbarView] can be used together with
+ * [class@HeaderBar] or [class@Gtk.HeaderBar] as follows:
  *
  * ```xml
  * <object class="AdwWindow">
  *   <property name="content">
- *     <object class="GtkBox">
- *       <property name="orientation">vertical</property>
- *       <child>
- *         <object class="GtkHeaderBar"/>
+ *     <object class="AdwToolbarView">
+ *       <child type="top">
+ *         <object class="AdwHeaderBar"/>
  *       </child>
- *       <child>
+ *       <property name="content">
  *         <!-- ... -->
- *       </child>
+ *       </property>
  *     </object>
  *   </property>
  * </object>

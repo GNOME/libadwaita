@@ -587,6 +587,10 @@ add an undershoot indicator on the given edge, presented as a shadow.
 `.undershoot-start` and `.undershoot-end` automatically follow text direction,
 same as [property@Gtk.Widget:margin-start] and [property@Gtk.Widget:margin-end].
 
+Most applications should use [class@ToolbarView] instead, as it manages
+undershoots automatically based on presence and visibility of top and bottom
+bars.
+
 # Deprecated Style Classes
 
 The following style classes are deprecated and remain there for compatibility.

@@ -18,7 +18,6 @@
         </child>
         <child>
           <object class="AdwTabView" id="view">
-            <property name="vexpand">True</property>
             <child>
               <object class="AdwTabPage">
                 <property name="title">Page 1</property>

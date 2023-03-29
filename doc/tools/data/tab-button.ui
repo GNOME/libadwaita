@@ -16,7 +16,6 @@
     </child>
   </object>
   <object class="AdwTabView" id="view">
-    <property name="vexpand">True</property>
     <child>
       <object class="AdwTabPage">
         <property name="child">
@@ -40,7 +39,6 @@
     </child>
   </object>
   <object class="AdwTabView" id="view2">
-    <property name="vexpand">True</property>
     <child>
       <object class="AdwTabPage">
         <property name="child">
