@@ -424,6 +424,36 @@ boxed list rows and similar widgets. This color should always be partially
 transparent black, with the opacity tuned to be well visible on top of
 <code>&#64;card_bg_color</code>.
 
+### Thumbnail Colors
+
+These colors are used for [class@TabOverview] thumbnails.
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th/>
+    <th>Light</th>
+    <th/>
+    <th>Dark</th>
+  </tr>
+  <tr>
+    <td><tt>&#64;thumbnail_bg_color</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+    <td><div class="color-pill" style="background-color: #383838"/></td>
+    <td><tt>#383838</tt></td>
+  </tr>
+  <tr>
+    <td><tt>&#64;thumbnail_fg_color</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+  </tr>
+</table>
+
+Since: 1.3
+
 ### Dialog Colors
 
 These colors are used for [class@MessageDialog].
