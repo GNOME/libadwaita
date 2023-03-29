@@ -331,8 +331,8 @@ the top or bottom sides of a window. The full list of widgets using them:
   </tr>
   <tr>
     <td><tt>&#64;headerbar_bg_color</tt></td>
-    <td><div class="color-pill" style="background-color: #ebebeb"/></td>
-    <td><tt>#ebebeb</tt></td>
+    <td><div class="color-pill" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
     <td><div class="color-pill dark" style="background-color: #303030"/></td>
     <td><tt>#303030</tt></td>
   </tr>
@@ -359,8 +359,8 @@ the top or bottom sides of a window. The full list of widgets using them:
   </tr>
   <tr>
     <td><tt>&#64;headerbar_shade_color</tt></td>
-    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
-    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.12)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.12)</tt></td>
     <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
     <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
   </tr>

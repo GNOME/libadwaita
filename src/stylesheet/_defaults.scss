@@ -40,11 +40,11 @@
 @define-color view_fg_color #{if($variant == 'light', transparentize(black, .2), white)};
 
 // Header bar, search bar, tab bar
-@define-color headerbar_bg_color #{if($variant == 'light', #ebebeb, #303030)};
+@define-color headerbar_bg_color #{if($variant == 'light', #ffffff, #303030)};
 @define-color headerbar_fg_color #{if($variant == 'light', transparentize(black, .2), white)};
 @define-color headerbar_border_color #{if($variant == 'light', transparentize(black, .2), white)};
 @define-color headerbar_backdrop_color @window_bg_color;
-@define-color headerbar_shade_color #{if($variant == 'light', transparentize(black, .93), transparentize(black, .64))};
+@define-color headerbar_shade_color #{if($variant == 'light', transparentize(black, .88), transparentize(black, .64))};
 
 // Cards, boxed lists
 @define-color card_bg_color #{if($variant == 'light', #ffffff, transparentize(white, .92))};
