@@ -319,7 +319,6 @@ the top or bottom sides of a window. The full list of widgets using them:
 - [class@Gtk.SearchBar] except with the
   [`.inline`](style-classes.html#inline-tab-bars-search-bars) style class
 - [class@Gtk.ActionBar]
-- [class@Gtk.PopoverMenuBar]
 
 <table>
   <tr>
