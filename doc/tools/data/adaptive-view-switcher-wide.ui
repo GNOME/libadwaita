@@ -67,7 +67,7 @@
             <child>
               <object class="AdwViewStackPage">
                 <property name="title">View 4</property>
-                <property name="icon-name">non-starred-symbolic</property>
+                <property name="icon-name">user-bookmarks-symbolic</property>
                 <property name="child">
                   <object class="GtkLabel">
                     <property name="label">View 4</property>

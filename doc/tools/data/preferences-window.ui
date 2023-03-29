@@ -7,7 +7,7 @@
     <child>
       <object class="AdwPreferencesPage">
         <property name="title">Page 1</property>
-        <property name="icon-name">preferences-other-symbolic</property>
+        <property name="icon-name">applications-system-symbolic</property>
         <child>
           <object class="AdwPreferencesGroup">
             <property name="title">Group Title</property>
@@ -55,7 +55,7 @@
     <child>
       <object class="AdwPreferencesPage">
         <property name="title">Page 2</property>
-        <property name="icon-name">preferences-other-symbolic</property>
+        <property name="icon-name">applications-system-symbolic</property>
         <child>
           <object class="AdwPreferencesGroup">
             <property name="title">Group Title</property>
