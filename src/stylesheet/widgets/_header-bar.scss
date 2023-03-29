@@ -74,6 +74,44 @@ headerbar {
   }
 }
 
+window > {
+  .titlebar:not(.flat) {
+    box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
+                0 2px 4px gtkalpha($headerbar_shade_color, .5);
+
+    &:backdrop {
+      box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .3)),
+                  0 2px 4px gtkalpha($headerbar_shade_color, .3);
+
+      transition: background-color $backdrop_transition,
+                  box-shadow $backdrop_transition;
+    }
+
+  }
+
+  .titlebar headerbar:not(.flat) {
+    box-shadow: inset  1px 0 $headerbar_border_color,
+                inset -1px 0 $headerbar_border_color;
+  }
+
+  headerbar.titlebar,
+  .titlebar headerbar {
+    min-height: 46px;
+
+    > windowhandle > box {
+      padding-bottom: 6px;
+    }
+
+    &.default-decoration {
+      min-height: 36px;
+
+      > windowhandle > box {
+        padding-bottom: 3px;
+      }
+    }
+  }
+}
+
 %headerbar-inline {
   @extend .flat;
 
