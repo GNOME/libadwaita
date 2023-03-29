@@ -26,6 +26,25 @@ test_adw_preferences_page_add_remove (void)
 
 
 static void
+test_adw_preferences_page_icon_name (void)
+{
+  AdwPreferencesPage *page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
+
+  g_assert_nonnull (page);
+
+  g_assert_null (adw_preferences_page_get_icon_name (page));
+
+  adw_preferences_page_set_icon_name (page, "dummy-icon-name");
+  g_assert_cmpstr (adw_preferences_page_get_icon_name (page), ==, "dummy-icon-name");
+
+  adw_preferences_page_set_icon_name (page, NULL);
+  g_assert_null (adw_preferences_page_get_icon_name (page));
+
+  g_assert_finalize_object (page);
+}
+
+
+static void
 test_adw_preferences_page_title (void)
 {
   AdwPreferencesPage *page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
@@ -64,25 +83,6 @@ test_adw_preferences_page_description (void)
 
 
 static void
-test_adw_preferences_page_icon_name (void)
-{
-  AdwPreferencesPage *page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
-
-  g_assert_nonnull (page);
-
-  g_assert_null (adw_preferences_page_get_icon_name (page));
-
-  adw_preferences_page_set_icon_name (page, "dummy-icon-name");
-  g_assert_cmpstr (adw_preferences_page_get_icon_name (page), ==, "dummy-icon-name");
-
-  adw_preferences_page_set_icon_name (page, NULL);
-  g_assert_null (adw_preferences_page_get_icon_name (page));
-
-  g_assert_finalize_object (page);
-}
-
-
-static void
 test_adw_preferences_page_use_underline (void)
 {
   AdwPreferencesPage *page = g_object_ref_sink (ADW_PREFERENCES_PAGE (adw_preferences_page_new ()));
@@ -109,9 +109,9 @@ main (int   argc,
   adw_init ();
 
   g_test_add_func("/Adwaita/PreferencesPage/add_remove", test_adw_preferences_page_add_remove);
+  g_test_add_func("/Adwaita/PreferencesPage/icon_name", test_adw_preferences_page_icon_name);
   g_test_add_func("/Adwaita/PreferencesPage/title", test_adw_preferences_page_title);
   g_test_add_func("/Adwaita/PreferencesPage/description", test_adw_preferences_page_description);
-  g_test_add_func("/Adwaita/PreferencesPage/icon_name", test_adw_preferences_page_icon_name);
   g_test_add_func("/Adwaita/PreferencesPage/use_underline", test_adw_preferences_page_use_underline);
 
   return g_test_run();
