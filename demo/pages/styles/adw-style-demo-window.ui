@@ -8,12 +8,11 @@
     <property name="default-width">800</property>
     <property name="default-height">640</property>
     <property name="content">
-      <object class="GtkBox">
-        <property name="orientation">vertical</property>
-        <child>
+      <object class="AdwToolbarView">
+        <child type="top">
           <object class="GtkHeaderBar"/>
         </child>
-        <child>
+        <property name="content">
           <object class="GtkOverlay">
             <child type="overlay">
               <object class="GtkProgressBar">
@@ -30,7 +29,6 @@
             </child>
             <child>
               <object class="AdwPreferencesPage">
-                <property name="vexpand">True</property>
                 <property name="width-request">360</property>
                 <child>
                   <object class="AdwPreferencesGroup">
@@ -1123,7 +1121,7 @@ audio-volume-medium</property>
               </object>
             </child>
           </object>
-        </child>
+        </property>
       </object>
     </property>
   </template>
@@ -1234,10 +1232,10 @@ audio-volume-medium</property>
       <object class="AdwLeaflet" id="sidebar_leaflet">
         <property name="can-navigate-back">True</property>
         <child>
-          <object class="GtkBox">
-            <property name="orientation">vertical</property>
+          <object class="AdwToolbarView">
             <property name="width-request">200</property>
-            <child>
+            <property name="top-bar-style">raised</property>
+            <child type="top">
               <object class="AdwHeaderBar">
                 <binding name="show-end-title-buttons">
                   <lookup name="folded">sidebar_leaflet</lookup>
@@ -1245,10 +1243,9 @@ audio-volume-medium</property>
                 <property name="show-title">False</property>
               </object>
             </child>
-            <child>
+            <property name="content">
               <object class="GtkScrolledWindow">
                 <property name="hscrollbar-policy">never</property>
-                <property name="vexpand">True</property>
                 <property name="child">
                   <object class="GtkListBox">
                     <property name="tooltip-text">navigation-sidebar</property>
@@ -1299,7 +1296,7 @@ audio-volume-medium</property>
                   </object>
                 </property>
               </object>
-            </child>
+            </property>
           </object>
         </child>
         <child>
@@ -1311,11 +1308,11 @@ audio-volume-medium</property>
           </object>
         </child>
         <child>
-          <object class="GtkBox">
-            <property name="orientation">vertical</property>
+          <object class="AdwToolbarView">
             <property name="hexpand">True</property>
             <property name="width-request">360</property>
-            <child>
+            <property name="top-bar-style">raised</property>
+            <child type="top">
               <object class="AdwHeaderBar">
                 <binding name="show-start-title-buttons">
                   <lookup name="folded">sidebar_leaflet</lookup>
@@ -1331,13 +1328,12 @@ audio-volume-medium</property>
                 </child>
               </object>
             </child>
-            <child>
+            <property name="content">
               <object class="AdwStatusPage">
-                <property name="vexpand">True</property>
                 <property name="title" translatable="yes">Sidebar</property>
                 <property name="description" translatable="yes">"navigation-sidebar" style class on GtkListBox or GtkListView</property>
               </object>
-            </child>
+            </property>
           </object>
         </child>
       </object>

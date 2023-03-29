@@ -8,9 +8,9 @@
     <property name="default-width">640</property>
     <property name="default-height">480</property>
     <property name="content">
-      <object class="GtkBox">
-        <property name="orientation">vertical</property>
-        <child>
+      <object class="AdwToolbarView">
+        <property name="top-bar-style">raised</property>
+        <child type="top">
           <object class="GtkHeaderBar">
             <child>
               <object class="GtkToggleButton" id="reveal_btn_start">
@@ -27,9 +27,8 @@
             </child>
           </object>
         </child>
-        <child>
+        <property name="content">
           <object class="AdwFlap" id="flap">
-            <property name="vexpand">True</property>
             <property name="locked" bind-source="locked_switch" bind-property="active" bind-flags="sync-create"/>
             <property name="modal" bind-source="modal_switch" bind-property="active" bind-flags="sync-create"/>
             <property name="swipe-to-open" bind-source="swipe_to_open_switch" bind-property="active" bind-flags="sync-create"/>
@@ -48,7 +47,6 @@
             </property>
             <property name="content">
               <object class="GtkStack" id="stack">
-                <property name="vexpand">True</property>
                 <property name="width-request">360</property>
                 <signal name="notify::visible-child" handler="stack_notify_visible_child_cb" swapped="true"/>
                 <child>
@@ -173,7 +171,7 @@
               </object>
             </property>
           </object>
-        </child>
+        </property>
       </object>
     </property>
   </template>

@@ -38,9 +38,9 @@
                 <property name="can-navigate-back">True</property>
                 <property name="transition-type" bind-source="leaflet_page" bind-property="transition-type" bind-flags="sync-create|bidirectional"/>
                 <child>
-                  <object class="GtkBox">
-                    <property name="orientation">vertical</property>
-                    <child>
+                  <object class="AdwToolbarView">
+                    <property name="top-bar-style">raised</property>
+                    <child type="top">
                       <object class="AdwHeaderBar">
                         <property name="show-end-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
                         <child type="start">
@@ -67,13 +67,12 @@
                         </child>
                       </object>
                     </child>
-                    <child>
+                    <property name="content">
                       <object class="GtkStackSidebar">
                         <property name="width_request">270</property>
-                        <property name="vexpand">True</property>
                         <property name="stack">stack</property>
                       </object>
-                    </child>
+                    </property>
                   </object>
                 </child>
                 <child>
@@ -85,10 +84,10 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkBox">
-                    <property name="orientation">vertical</property>
+                  <object class="AdwToolbarView">
+                    <property name="top-bar-style">raised</property>
                     <property name="hexpand">True</property>
-                    <child>
+                    <child type="top">
                       <object class="AdwHeaderBar">
                         <property name="show-start-title-buttons" bind-source="main_leaflet" bind-property="folded" bind-flags="sync-create"/>
                         <property name="show-title">False</property>
@@ -103,9 +102,8 @@
                         </child>
                       </object>
                     </child>
-                    <child>
+                    <property name="content">
                       <object class="GtkStack" id="stack">
-                        <property name="vexpand">True</property>
                         <property name="vhomogeneous">False</property>
                         <signal name="notify::visible-child" handler="notify_visible_child_cb" after="yes" swapped="yes"/>
                         <child>
@@ -247,15 +245,14 @@
                           </object>
                         </child>
                       </object>
-                    </child>
+                    </property>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="GtkBox">
-                <property name="orientation">vertical</property>
-                <child>
+              <object class="AdwToolbarView">
+                <child type="top">
                   <object class="AdwHeaderBar">
                     <property name="show-title">False</property>
                     <child type="start">
@@ -268,9 +265,8 @@
                     </child>
                   </object>
                 </child>
-                <child>
+                <property name="content">
                   <object class="AdwStatusPage">
-                    <property name="vexpand">True</property>
                     <property name="title" translatable="yes">Go Back</property>
                     <property name="child">
                       <object class="GtkBox">
@@ -298,7 +294,7 @@
                       </object>
                     </property>
                   </object>
-                </child>
+                </property>
               </object>
             </child>
           </object>

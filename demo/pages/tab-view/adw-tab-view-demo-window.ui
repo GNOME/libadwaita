@@ -14,9 +14,9 @@
         <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
         <signal name="create-tab" handler="create_tab_cb" swapped="true"/>
         <property name="child">
-          <object class="GtkBox">
-            <property name="orientation">vertical</property>
-            <child>
+          <object class="AdwToolbarView">
+            <property name="top-bar-style">raised</property>
+            <child type="top">
               <object class="GtkHeaderBar">
                 <child type="start">
                   <object class="GtkButton">
@@ -48,23 +48,22 @@
                 </child>
               </object>
             </child>
-            <child>
+            <child type="top">
               <object class="AdwTabBar" id="tab_bar">
                 <property name="visible" bind-source="AdwTabViewDemoWindow" bind-property="narrow" bind-flags="invert-boolean"/>
                 <property name="view">view</property>
                 <signal name="extra-drag-drop" handler="extra_drag_drop_cb" swapped="true"/>
               </object>
             </child>
-            <child>
+            <property name="content">
               <object class="AdwTabView" id="view">
-                <property name="vexpand">True</property>
                 <property name="menu-model">tab_menu</property>
                 <signal name="page-detached" handler="page_detached_cb" swapped="true"/>
                 <signal name="setup-menu" handler="setup_menu_cb" swapped="true"/>
                 <signal name="create-window" handler="create_window_cb" swapped="true"/>
                 <signal name="indicator-activated" handler="indicator_activated_cb" swapped="true"/>
               </object>
-            </child>
+            </property>
           </object>
         </property>
       </object>
