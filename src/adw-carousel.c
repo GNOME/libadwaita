@@ -1412,13 +1412,9 @@ adw_carousel_scroll_to (AdwCarousel *self,
                         GtkWidget   *widget,
                         gboolean     animate)
 {
-  ChildInfo *info;
-
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
   g_return_if_fail (gtk_widget_get_parent (widget) == GTK_WIDGET (self));
-
-  info = find_child_info (self, widget);
 
   if (self->is_being_allocated) {
     /* 'self' is still being allocated/resized by GTK
