@@ -215,6 +215,9 @@ adw_application_window_set_content (AdwApplicationWindow *self,
   g_return_if_fail (ADW_IS_APPLICATION_WINDOW (self));
   g_return_if_fail (content == NULL || GTK_IS_WIDGET (content));
 
+  if (content)
+    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
+
   if (adw_application_window_get_content (self) == content)
     return;
 
