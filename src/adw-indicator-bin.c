@@ -342,6 +342,9 @@ adw_indicator_bin_set_child (AdwIndicatorBin *self,
   g_return_if_fail (ADW_IS_INDICATOR_BIN (self));
   g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
 
+  if (child)
+    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
+
   if (self->child == child)
     return;
 
