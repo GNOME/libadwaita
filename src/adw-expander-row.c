@@ -377,6 +377,7 @@ adw_expander_row_add_action (AdwExpanderRow *self,
 
   g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
   g_return_if_fail (GTK_IS_WIDGET (self));
+  g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
 
   priv = adw_expander_row_get_instance_private (self);
 
@@ -399,6 +400,7 @@ adw_expander_row_add_prefix (AdwExpanderRow *self,
 
   g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
+  g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
 
   priv = adw_expander_row_get_instance_private (self);
 
@@ -426,6 +428,7 @@ adw_expander_row_add_suffix (AdwExpanderRow *self,
 
   g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
   g_return_if_fail (GTK_IS_WIDGET (self));
+  g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
 
   priv = adw_expander_row_get_instance_private (self);
 
@@ -450,6 +453,7 @@ adw_expander_row_add_row (AdwExpanderRow *self,
 
   g_return_if_fail (ADW_IS_EXPANDER_ROW (self));
   g_return_if_fail (GTK_IS_WIDGET (child));
+  g_return_if_fail (gtk_widget_get_parent (child) == NULL);
 
   priv = adw_expander_row_get_instance_private (self);
 
