@@ -897,6 +897,9 @@ adw_toast_set_custom_title (AdwToast  *self,
   g_return_if_fail (ADW_IS_TOAST (self));
   g_return_if_fail (widget == NULL || GTK_IS_WIDGET (widget));
 
+  if (widget)
+    g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
+
   if (self->custom_title == widget)
     return;
 
