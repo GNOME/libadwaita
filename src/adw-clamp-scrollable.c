@@ -369,6 +369,9 @@ adw_clamp_scrollable_set_child (AdwClampScrollable *self,
   g_return_if_fail (ADW_IS_CLAMP_SCROLLABLE (self));
   g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
 
+  if (child)
+    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
+
   if (self->child == child)
     return;
 
