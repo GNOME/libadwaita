@@ -1784,6 +1784,10 @@ adw_message_dialog_set_extra_child (AdwMessageDialog *self,
   AdwMessageDialogPrivate *priv;
 
   g_return_if_fail (ADW_IS_MESSAGE_DIALOG (self));
+  g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
+
+  if (child)
+    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
 
   priv = adw_message_dialog_get_instance_private (self);
 
