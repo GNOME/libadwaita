@@ -1174,6 +1174,7 @@ adw_carousel_prepend (AdwCarousel *self,
 {
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
+  g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
 
   adw_carousel_insert (self, widget, 0);
 }
@@ -1191,6 +1192,7 @@ adw_carousel_append (AdwCarousel *self,
 {
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
+  g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
 
   adw_carousel_insert (self, widget, -1);
 }
@@ -1216,6 +1218,7 @@ adw_carousel_insert (AdwCarousel *self,
 
   g_return_if_fail (ADW_IS_CAROUSEL (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
+  g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
   g_return_if_fail (position >= -1);
 
   info = g_new0 (ChildInfo, 1);
