@@ -414,6 +414,7 @@ adw_action_row_add_prefix (AdwActionRow *self,
 
   g_return_if_fail (ADW_IS_ACTION_ROW (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
+  g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
 
   priv = adw_action_row_get_instance_private (self);
 
@@ -436,6 +437,7 @@ adw_action_row_add_suffix (AdwActionRow *self,
 
   g_return_if_fail (ADW_IS_ACTION_ROW (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
+  g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
 
   priv = adw_action_row_get_instance_private (self);
 
