@@ -195,6 +195,9 @@ adw_bin_set_child (AdwBin    *self,
   g_return_if_fail (ADW_IS_BIN (self));
   g_return_if_fail (child == NULL || GTK_IS_WIDGET (child));
 
+  if (child)
+    g_return_if_fail (gtk_widget_get_parent (child) == NULL);
+
   priv = adw_bin_get_instance_private (self);
 
   if (priv->child == child)
