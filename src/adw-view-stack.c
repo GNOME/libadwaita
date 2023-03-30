@@ -1515,6 +1515,7 @@ adw_view_stack_add (AdwViewStack   *self,
 {
   g_return_val_if_fail (ADW_IS_VIEW_STACK (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
+  g_return_val_if_fail (gtk_widget_get_parent (child) == NULL, NULL);
 
   return add_internal (self, child, NULL, NULL, NULL);
 }
@@ -1538,6 +1539,7 @@ adw_view_stack_add_named (AdwViewStack   *self,
 {
   g_return_val_if_fail (ADW_IS_VIEW_STACK (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
+  g_return_val_if_fail (gtk_widget_get_parent (child) == NULL, NULL);
 
   return add_internal (self, child, name, NULL, NULL);
 }
@@ -1564,6 +1566,7 @@ adw_view_stack_add_titled (AdwViewStack   *self,
 {
   g_return_val_if_fail (ADW_IS_VIEW_STACK (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
+  g_return_val_if_fail (gtk_widget_get_parent (child) == NULL, NULL);
 
   return add_internal (self, child, name, title, NULL);
 }
@@ -1594,6 +1597,7 @@ adw_view_stack_add_titled_with_icon (AdwViewStack *self,
 {
   g_return_val_if_fail (ADW_IS_VIEW_STACK (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
+  g_return_val_if_fail (gtk_widget_get_parent (child) == NULL, NULL);
 
   return add_internal (self, child, name, title, icon_name);
 }
