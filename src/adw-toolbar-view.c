@@ -736,6 +736,9 @@ adw_toolbar_view_set_content (AdwToolbarView *self,
   g_return_if_fail (ADW_IS_TOOLBAR_VIEW (self));
   g_return_if_fail (content == NULL || GTK_IS_WIDGET (content));
 
+  if (content)
+    g_return_if_fail (gtk_widget_get_parent (content) == NULL);
+
   if (content == self->content)
     return;
 
@@ -765,6 +768,7 @@ adw_toolbar_view_add_top_bar (AdwToolbarView *self,
 {
   g_return_if_fail (ADW_IS_TOOLBAR_VIEW (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
+  g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
 
   if (gtk_widget_get_first_child (self->top_box))
     gtk_widget_add_css_class (self->top_box, "collapse-spacing");
@@ -787,6 +791,7 @@ adw_toolbar_view_add_bottom_bar (AdwToolbarView *self,
 {
   g_return_if_fail (ADW_IS_TOOLBAR_VIEW (self));
   g_return_if_fail (GTK_IS_WIDGET (widget));
+  g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
 
   if (gtk_widget_get_first_child (self->bottom_box))
     gtk_widget_add_css_class (self->bottom_box, "collapse-spacing");
