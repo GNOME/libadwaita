@@ -3941,6 +3941,7 @@ adw_tab_view_add_page (AdwTabView *self,
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
   g_return_val_if_fail (parent == NULL || ADW_IS_TAB_PAGE (parent), NULL);
+  g_return_val_if_fail (gtk_widget_get_parent (child) == NULL, NULL);
 
   if (parent) {
     AdwTabPage *page;
@@ -3987,6 +3988,7 @@ adw_tab_view_insert (AdwTabView *self,
 {
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
+  g_return_val_if_fail (gtk_widget_get_parent (child) == NULL, NULL);
   g_return_val_if_fail (position >= self->n_pinned_pages, NULL);
   g_return_val_if_fail (position <= self->n_pages, NULL);
 
@@ -4008,6 +4010,7 @@ adw_tab_view_prepend (AdwTabView *self,
 {
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
+  g_return_val_if_fail (gtk_widget_get_parent (child) == NULL, NULL);
 
   return create_and_insert_page (self, child, NULL, self->n_pinned_pages, FALSE);
 }
@@ -4027,6 +4030,7 @@ adw_tab_view_append (AdwTabView *self,
 {
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
+  g_return_val_if_fail (gtk_widget_get_parent (child) == NULL, NULL);
 
   return create_and_insert_page (self, child, NULL, self->n_pages, FALSE);
 }
@@ -4072,6 +4076,7 @@ adw_tab_view_prepend_pinned (AdwTabView *self,
 {
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
+  g_return_val_if_fail (gtk_widget_get_parent (child) == NULL, NULL);
 
   return create_and_insert_page (self, child, NULL, 0, TRUE);
 }
@@ -4091,6 +4096,7 @@ adw_tab_view_append_pinned (AdwTabView *self,
 {
   g_return_val_if_fail (ADW_IS_TAB_VIEW (self), NULL);
   g_return_val_if_fail (GTK_IS_WIDGET (child), NULL);
+  g_return_val_if_fail (gtk_widget_get_parent (child) == NULL, NULL);
 
   return create_and_insert_page (self, child, NULL, self->n_pinned_pages, TRUE);
 }
