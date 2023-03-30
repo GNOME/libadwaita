@@ -82,7 +82,7 @@
  *   <source srcset="toolbar-view-spacing-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="toolbar-view-spacing.png" alt="toolbar-view-spacing">
  * </picture>
- * <picture style="min-width: 40%; display: inline-block;>
+ * <picture style="min-width: 40%; display: inline-block;">
  *   <source srcset="toolbar-view-spacing-box-dark.png" media="(prefers-color-scheme: dark)">
  *   <img src="toolbar-view-spacing-box.png" alt="toolbar-view-spacing-box">
  * </picture>
