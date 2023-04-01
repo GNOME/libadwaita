@@ -251,8 +251,7 @@ toolbarview {
 
       &:backdrop {
         background-color: $headerbar_backdrop_color;
-        transition: background-color $backdrop_transition,
-                    box-shadow $backdrop_transition;
+        transition: background-color $backdrop_transition;
       }
     }
 
@@ -265,21 +264,11 @@ toolbarview {
   > .top-bar.raised {
     box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
                 0 2px 4px gtkalpha($headerbar_shade_color, .5);
-
-    &:backdrop {
-      box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .3)),
-                  0 2px 4px gtkalpha($headerbar_shade_color, .3);
-    }
   }
 
   > .bottom-bar.raised {
     box-shadow: 0 -1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
                 0 -2px 4px gtkalpha($headerbar_shade_color, .5);
-
-    &:backdrop {
-      box-shadow: 0 -1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .3)),
-                  0 -2px 4px gtkalpha($headerbar_shade_color, .3);
-    }
   }
 
   &.undershoot-top    scrolledwindow { @include undershoot(top); }

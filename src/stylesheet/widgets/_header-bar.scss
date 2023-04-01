@@ -78,15 +78,6 @@ window > {
   .titlebar:not(.flat) {
     box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .5)),
                 0 2px 4px gtkalpha($headerbar_shade_color, .5);
-
-    &:backdrop {
-      box-shadow: 0 1px if($contrast == 'high', $border_color, gtkalpha($headerbar_shade_color, .3)),
-                  0 2px 4px gtkalpha($headerbar_shade_color, .3);
-
-      transition: background-color $backdrop_transition,
-                  box-shadow $backdrop_transition;
-    }
-
   }
 
   .titlebar headerbar:not(.flat) {
