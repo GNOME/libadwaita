@@ -1,151 +1,151 @@
 # Dutch translation for libadwaita.
 # Copyright (C) 2021 libadwaita's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libadwaita package.
-# Nathan Follens <nfollens@gnome.org>, 2022.
-# Philip Goto, 2022.
+# Nathan Follens <nfollens@gnome.org>, 2022-2023.
+# Philip Goto <philip.goto@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-11-22 14:24+0000\n"
-"PO-Revision-Date: 2022-12-28 20:56+0100\n"
-"Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
-"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
+"POT-Creation-Date: 2023-03-17 14:21+0000\n"
+"PO-Revision-Date: 2023-04-02 14:58+0200\n"
+"Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
+"Language-Team: Dutch https://matrix.to/#/#nl:gnome.org\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
-#: src/adw-about-window.c:202
+#: src/adw-about-window.c:203
 msgid "GNU General Public License, version 2 or later"
 msgstr "GNU General Public License, versie 2 of later"
 
-#: src/adw-about-window.c:203
+#: src/adw-about-window.c:204
 msgid "GNU General Public License, version 3 or later"
 msgstr "GNU General Public License, versie 3 of later"
 
-#: src/adw-about-window.c:204
+#: src/adw-about-window.c:205
 msgid "GNU Lesser General Public License, version 2.1 or later"
 msgstr "GNU General Public License, versie 2.1 of later"
 
-#: src/adw-about-window.c:205
+#: src/adw-about-window.c:206
 msgid "GNU Lesser General Public License, version 3 or later"
 msgstr "GNU Lesser General Public License, versie 3 of later"
 
-#: src/adw-about-window.c:206
+#: src/adw-about-window.c:207
 msgid "BSD 2-Clause License"
 msgstr "BSD-2-clausulelicentie"
 
-#: src/adw-about-window.c:207
+#: src/adw-about-window.c:208
 msgid "The MIT License (MIT)"
 msgstr "De MIT-licentie (MIT)"
 
-#: src/adw-about-window.c:208
+#: src/adw-about-window.c:209
 msgid "Artistic License 2.0"
 msgstr "Artistic License 2.0"
 
-#: src/adw-about-window.c:209
+#: src/adw-about-window.c:210
 msgid "GNU General Public License, version 2 only"
 msgstr "GNU General Public License, alleen versie 2"
 
-#: src/adw-about-window.c:210
+#: src/adw-about-window.c:211
 msgid "GNU General Public License, version 3 only"
 msgstr "GNU General Public License, alleen versie 3"
 
-#: src/adw-about-window.c:211
+#: src/adw-about-window.c:212
 msgid "GNU Lesser General Public License, version 2.1 only"
 msgstr "GNU Lesser General Public License, alleen versie 2.1"
 
-#: src/adw-about-window.c:212
+#: src/adw-about-window.c:213
 msgid "GNU Lesser General Public License, version 3 only"
 msgstr "GNU Lesser General Public License, alleen versie 3"
 
-#: src/adw-about-window.c:213
+#: src/adw-about-window.c:214
 msgid "GNU Affero General Public License, version 3 or later"
 msgstr "GNU Affero General Public License, versie 3 of later"
 
-#: src/adw-about-window.c:214
+#: src/adw-about-window.c:215
 msgid "GNU Affero General Public License, version 3 only"
 msgstr "GNU Affero General Public License, alleen versie 3"
 
-#: src/adw-about-window.c:215
+#: src/adw-about-window.c:216
 msgid "BSD 3-Clause License"
 msgstr "BSD-3-clausulelicentie"
 
-#: src/adw-about-window.c:216
+#: src/adw-about-window.c:217
 msgid "Apache License, Version 2.0"
 msgstr "Apache-licentie, versie 2.0"
 
-#: src/adw-about-window.c:217
+#: src/adw-about-window.c:218
 msgid "Mozilla Public License 2.0"
 msgstr "Mozilla Public License 2.0"
 
-#: src/adw-about-window.c:525
+#: src/adw-about-window.c:529
 msgid "Code by"
 msgstr "Code door"
 
-#: src/adw-about-window.c:526
+#: src/adw-about-window.c:530
 msgid "Design by"
 msgstr "Ontwerp door"
 
-#: src/adw-about-window.c:527
+#: src/adw-about-window.c:531
 msgid "Artwork by"
 msgstr "Grafisch werk door"
 
-#: src/adw-about-window.c:528
+#: src/adw-about-window.c:532
 msgid "Documentation by"
 msgstr "Documentatie door"
 
-#: src/adw-about-window.c:529
+#: src/adw-about-window.c:533
 msgid "Translated by"
 msgstr "Vertaald door"
 
 #. Translators: this is the license preamble; the string at the end
 #. * contains the name of the license as link text.
 #.
-#: src/adw-about-window.c:558
+#: src/adw-about-window.c:562
 #, c-format
 msgid ""
-"This application comes with absolutely no warranty. See the <a href=\"%s\">"
-"%s</a> for details."
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
 msgstr ""
 "Deze toepassing wordt geleverd zonder enige vorm van garantie. Zie de <a "
 "href=\"%s\">%s</a> voor details."
 
-#: src/adw-about-window.c:636
+#: src/adw-about-window.c:640
 msgid "This Application"
 msgstr "Deze toepassing"
 
-#: src/adw-about-window.c:938
+#: src/adw-about-window.c:942
 #, c-format
 msgid "Version %s"
 msgstr "Versie %s"
 
-#: src/adw-about-window.c:964
+#: src/adw-about-window.c:968
 msgid "Unable to parse release notes:"
 msgstr "Kon uitgaveopmerkingen niet verwerken:"
 
-#: src/adw-about-window.c:970
+#: src/adw-about-window.c:974
 #, c-format
 msgid "Line: %d, character: %d"
 msgstr "Regel: %d, teken: %d"
 
-#: src/adw-about-window.c:1263
+#: src/adw-about-window.c:1267
 msgid "Copied to clipboard"
 msgstr "Gekopieerd naar klembord"
 
-#: src/adw-about-window.c:1297
+#: src/adw-about-window.c:1301
 msgid "Unable to save debugging information"
 msgstr "Kan foutopsporingsinformatie niet opslaan"
 
-#: src/adw-about-window.c:1302
+#: src/adw-about-window.c:1306
 msgid "Close"
 msgstr "Sluiten"
 
-#: src/adw-about-window.c:1318
+#: src/adw-about-window.c:1322
 msgid "Save debugging information"
 msgstr "Foutopsporingsinformatie opslaan"
 
@@ -308,7 +308,7 @@ msgstr "Caps lock is ingeschakeld"
 msgid "_Show Text"
 msgstr "Tekst _tonen"
 
-#: src/adw-preferences-window.c:245
+#: src/adw-preferences-window.c:243
 msgid "Untitled page"
 msgstr "Naamloze pagina"
 
@@ -324,13 +324,24 @@ msgstr "Zoeken"
 msgid "No Results Found"
 msgstr "Geen resultaten gevonden"
 
-#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:111
+#: src/adw-preferences-window.ui:140 src/adw-tab-overview.ui:113
 msgid "Try a different search."
 msgstr "Probeer een andere zoekopdracht."
+
+#: src/adw-split-button.c:495 src/adw-split-button.c:957
+msgid "More Options"
+msgstr "Meer opties"
 
 #: src/adw-tab-button.ui:7
 msgid "View Open Tabs"
 msgstr "Open tabbladen bekijken"
+
+#: src/adw-tab-overview.c:899
+#, c-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u tabblad"
+msgstr[1] "%u tabbladen"
 
 #: src/adw-tab-overview.ui:23
 msgid "Search Tabs"
@@ -340,19 +351,19 @@ msgstr "Tabbladen doorzoeken"
 msgid "Search tabs"
 msgstr "Tabbladen doorzoeken"
 
-#: src/adw-tab-overview.ui:97
+#: src/adw-tab-overview.ui:99
 msgid "No Open Tabs"
 msgstr "Geen open tabbladen"
 
-#: src/adw-tab-overview.ui:110
+#: src/adw-tab-overview.ui:112
 msgid "No Tabs Found"
 msgstr "Geen tabbladen gevonden"
 
-#: src/adw-tab-overview.ui:131
+#: src/adw-tab-overview.ui:133
 msgid "New _Tab"
 msgstr "Nieuw _tabblad"
 
-#: src/adw-tab-thumbnail.ui:36 src/adw-tab.ui:88
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
 msgid "Close Tab"
 msgstr "Tabblad sluiten"
 
