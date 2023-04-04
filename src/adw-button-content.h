@@ -44,4 +44,10 @@ ADW_AVAILABLE_IN_ALL
 void     adw_button_content_set_use_underline (AdwButtonContent *self,
                                                gboolean          use_underline);
 
+ADW_AVAILABLE_IN_1_4
+gboolean adw_button_content_get_can_shrink (AdwButtonContent *self);
+ADW_AVAILABLE_IN_1_4
+void     adw_button_content_set_can_shrink (AdwButtonContent *self,
+                                            gboolean          can_shrink);
+
 G_END_DECLS

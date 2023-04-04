@@ -69,6 +69,7 @@ struct _AdwButtonContent {
   GtkWidget *label;
 
   char *icon_name;
+  gboolean can_shrink;
 
   GtkWidget *button;
 };
@@ -80,6 +81,7 @@ enum {
   PROP_ICON_NAME,
   PROP_LABEL,
   PROP_USE_UNDERLINE,
+  PROP_CAN_SHRINK,
   LAST_PROP
 };
 
@@ -166,6 +168,9 @@ adw_button_content_get_property (GObject    *object,
   case PROP_USE_UNDERLINE:
     g_value_set_boolean (value, adw_button_content_get_use_underline (self));
     break;
+  case PROP_CAN_SHRINK:
+    g_value_set_boolean (value, adw_button_content_get_can_shrink (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -188,6 +193,9 @@ adw_button_content_set_property (GObject      *object,
     break;
   case PROP_USE_UNDERLINE:
     adw_button_content_set_use_underline (self, g_value_get_boolean (value));
+    break;
+  case PROP_CAN_SHRINK:
+    adw_button_content_set_can_shrink (self, g_value_get_boolean (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -241,6 +249,22 @@ adw_button_content_class_init (AdwButtonContentClass *klass)
    */
   props[PROP_USE_UNDERLINE] =
     g_param_spec_boolean ("use-underline", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwButtonContent:can-shrink: (attributes org.gtk.Property.get=adw_button_content_get_can_shrink org.gtk.Property.set=adw_button_content_set_can_shrink)
+   *
+   * Whether the button can be smaller than the natural size of its contents.
+   *
+   * If set to `TRUE`, the label will ellipsize.
+   *
+   * See [property@Gtk.Button:can-shrink].
+   *
+   * Since: 1.4
+   */
+  props[PROP_CAN_SHRINK] =
+    g_param_spec_boolean ("can-shrink", NULL, NULL,
                           FALSE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
@@ -414,4 +438,53 @@ adw_button_content_set_use_underline (AdwButtonContent *self,
   gtk_label_set_use_underline (GTK_LABEL (self->label), use_underline);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_USE_UNDERLINE]);
+}
+
+/**
+ * adw_button_content_get_can_shrink: (attributes org.gtk.Method.get_property=can-shrink)
+ * @self: a button content
+ *
+ * gets whether the button can be smaller than the natural size of its contents.
+ *
+ * Returns: whether the button can shrink
+ *
+ * Since: 1.4
+ */
+gboolean
+adw_button_content_get_can_shrink (AdwButtonContent *self)
+{
+  g_return_val_if_fail (ADW_IS_BUTTON_CONTENT (self), FALSE);
+
+  return gtk_label_get_ellipsize (GTK_LABEL (self->label)) != PANGO_ELLIPSIZE_NONE;
+}
+
+/**
+ * adw_button_content_set_can_shrink: (attributes org.gtk.Method.set_property=can-shrink)
+ * @self: a button content
+ * @can_shrink: whether the button can shrink
+ *
+ * Sets whether the button can be smaller than the natural size of its contents.
+ *
+ * If set to `TRUE`, the label will ellipsize.
+ *
+ * See [method@Gtk.Button.set_can_shrink].
+ *
+ * Since: 1.4
+ */
+void
+adw_button_content_set_can_shrink (AdwButtonContent *self,
+                                   gboolean          can_shrink)
+{
+  g_return_if_fail (ADW_IS_BUTTON_CONTENT (self));
+
+  can_shrink = !!can_shrink;
+
+  if (can_shrink == adw_button_content_get_can_shrink (self))
+    return;
+
+  gtk_label_set_ellipsize (GTK_LABEL (self->label),
+                           can_shrink ? PANGO_ELLIPSIZE_END
+                                      : PANGO_ELLIPSIZE_NONE);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_SHRINK]);
 }
