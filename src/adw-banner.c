@@ -203,15 +203,15 @@ measure_content (GtkWidget       *widget,
 
     if (button_shown) {
       if (for_size >= 0) {
-        int button_width_min;
+        int button_width_nat;
 
         gtk_widget_measure (GTK_WIDGET (self->button), GTK_ORIENTATION_HORIZONTAL, -1,
-                            &button_width_min, NULL, NULL, NULL);
+                            NULL, &button_width_nat, NULL, NULL);
 
-        button_width_min = MAX (button_width_min, BUTTON_HORZ_MIN_WIDTH);
+        button_width_nat = MAX (button_width_nat, BUTTON_HORZ_MIN_WIDTH);
 
         /* Does button besides label + spacing + padding on the left fit? */
-        if (HORZ_PADDING + label_width_nat + HORZ_SPACING + button_width_min > for_size) {
+        if (HORZ_PADDING + label_width_nat + HORZ_SPACING + button_width_nat > for_size) {
           /* Button below label, with spacing and padding above and below */
           min = VERT_PADDING * 2 + label_min_padded + VERT_SPACING + button_min;
           nat = VERT_PADDING * 2 + label_nat_padded + VERT_SPACING + button_nat;
@@ -283,7 +283,7 @@ allocate_content (GtkWidget *widget,
                       NULL, &label_width, NULL, NULL);
   gtk_widget_measure (GTK_WIDGET (self->button),
                       GTK_ORIENTATION_HORIZONTAL, -1,
-                      &button_width, NULL, NULL, NULL);
+                      NULL, &button_width, NULL, NULL);
   gtk_widget_measure (GTK_WIDGET (self->title),
                       GTK_ORIENTATION_VERTICAL, width,
                       NULL, &label_height, NULL, NULL);
