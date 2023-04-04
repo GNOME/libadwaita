@@ -63,7 +63,7 @@
                         </child>
                       </object>
                     </property>
-                    <child type="end">
+                    <child type="start">
                       <object class="GtkToggleButton" id="search_button">
                         <property name="valign">center</property>
                         <property name="tooltip-text" translatable="yes">Search</property>
