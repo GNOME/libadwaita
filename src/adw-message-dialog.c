@@ -519,10 +519,10 @@ measure_responses_do (AdwMessageDialog *self,
 
     if (horiz == compact) {
       min = MAX (min, child_min);
-      nat = MAX (nat, child_min);
+      nat = MAX (nat, child_nat);
     } else if (horiz) {
       button_min = MAX (button_min, child_min);
-      button_nat = MAX (button_nat, child_min);
+      button_nat = MAX (button_nat, child_nat);
       n_buttons++;
     } else {
       min += child_min;
@@ -575,12 +575,12 @@ measure_responses (GtkWidget      *widget,
     measure_responses_do (self, TRUE, orientation, minimum, NULL);
     measure_responses_do (self, FALSE, orientation, NULL, natural);
   } else {
-    int wide_min = 0;
+    int wide_nat = 0;
 
     if (for_size >= 0)
-      measure_responses_do (self, FALSE, GTK_ORIENTATION_HORIZONTAL, &wide_min, NULL);
+      measure_responses_do (self, FALSE, GTK_ORIENTATION_HORIZONTAL, NULL, &wide_nat);
 
-    measure_responses_do (self, for_size >= 0 && for_size < wide_min,
+    measure_responses_do (self, for_size >= 0 && for_size < wide_nat,
                           orientation, minimum, natural);
   }
 
@@ -599,11 +599,11 @@ allocate_responses (GtkWidget *widget,
   AdwMessageDialog *self = ADW_MESSAGE_DIALOG (gtk_widget_get_root (widget));
   AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
   gboolean compact;
-  int wide_min;
+  int wide_nat;
 
-  measure_responses_do (self, FALSE, GTK_ORIENTATION_HORIZONTAL, &wide_min, NULL);
+  measure_responses_do (self, FALSE, GTK_ORIENTATION_HORIZONTAL, NULL, &wide_nat);
 
-  compact = wide_min > width;
+  compact = wide_nat > width;
 
   if (compact)
     gtk_widget_add_css_class (widget, "compact");
