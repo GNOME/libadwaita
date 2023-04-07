@@ -363,9 +363,3 @@ msgstr "Нов _подпрозорец"
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
 msgid "Close Tab"
 msgstr "Затваряне на подпрозорец"
-
-#~ msgid "_Save"
-#~ msgstr "_Запазване"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Отказ"
