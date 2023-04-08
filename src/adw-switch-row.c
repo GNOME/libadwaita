@@ -37,6 +37,8 @@
  *
  * The [property@SwitchRow:active] property should be connected to in order to
  * monitor changes to the active state.
+ *
+ * Since: 1.4
  */
 
 struct _AdwSwitchRow
