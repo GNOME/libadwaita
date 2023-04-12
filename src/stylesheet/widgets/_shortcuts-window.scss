@@ -33,3 +33,22 @@ shortcuts-section stackswitcher.circular {
     padding: 0;
   }
 }
+
+window.shortcuts {
+  headerbar.titlebar {
+    @extend .flat;
+    @extend %headerbar-shrunk;
+
+    > windowhandle {
+      padding-top: 3px;
+    }
+  }
+
+  searchbar {
+    @extend %searchbar-flat;
+    @extend %searchbar-shrunk;
+
+    background: none;
+
+  }
+}

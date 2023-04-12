@@ -7,7 +7,7 @@
  * Print dialog *
 *****************/
 
-window.dialog.print {
+window.print {
   drawing {
     color: $window_fg_color;
     background: none;
@@ -21,12 +21,45 @@ window.dialog.print {
       border: 1px solid $border_color;
     }
   }
+
+  headerbar.titlebar {
+    @extend .flat;
+  }
+
+  .dialog-action-box {
+    @extend .view;
+  }
 }
 
-/****************
- * GtkAboutDialog *
- ****************/
+/********************
+ * Page setup dalog *
+ ********************/
 
-window.aboutdialog image.large-icons {
-  -gtk-icon-size: 128px;
+window.pagesetup {
+  headerbar.titlebar {
+    @extend .flat;
+  }
+}
+
+/******************
+ * GtkAboutDialog *
+ ******************/
+
+window.aboutdialog {
+  headerbar.titlebar {
+    @extend .flat;
+  }
+
+  image.large-icons {
+    -gtk-icon-size: 128px;
+  }
+}
+
+/*************************
+ * GtkColorChooserdialog *
+ *************************/
+window.colorchooser {
+  headerbar.titlebar {
+    @extend .flat;
+  }
 }

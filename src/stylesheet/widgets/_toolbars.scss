@@ -139,11 +139,15 @@ searchbar {
   }
 }
 
-%searchbar-inline > revealer > box {
+%searchbar-flat > revealer > box {
   background-color: transparent;
   color: inherit;
   box-shadow: none;
   padding-bottom: 6px;
+}
+
+%searchbar-inline > revealer > box {
+  @extend %searchbar-flat;
 
   &:backdrop {
     background-color: transparent;
