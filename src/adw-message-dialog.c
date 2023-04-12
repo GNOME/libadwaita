@@ -2320,6 +2320,8 @@ choose_response_cb (AdwMessageDialog *dialog,
   if (cancellable)
     g_signal_handlers_disconnect_by_func (cancellable, choose_cancelled_cb, task);
 
+  g_signal_handlers_disconnect_by_func (dialog, choose_response_cb, task);
+
   g_task_return_int (task, g_quark_from_string (response));
 
   g_object_unref (task);
