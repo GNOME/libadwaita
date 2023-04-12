@@ -260,7 +260,7 @@ adw_action_row_class_init (AdwActionRowClass *klass)
    * The widget to activate when the row is activated.
    *
    * The row can be activated either by clicking on it, calling
-   * [method@ActionRow.activate], or via mnemonics in the title or the subtitle.
+   * [method@ActionRow.activate], or via mnemonics in the title.
    * See the [property@PreferencesRow:use-underline] property to enable
    * mnemonics.
    *
@@ -612,7 +612,7 @@ activatable_widget_weak_notify (gpointer  data,
  * Sets the widget to activate when @self is activated.
  *
  * The row can be activated either by clicking on it, calling
- * [method@ActionRow.activate], or via mnemonics in the title or the subtitle.
+ * [method@ActionRow.activate], or via mnemonics in the title.
  * See the [property@PreferencesRow:use-underline] property to enable mnemonics.
  *
  * The target widget will be activated by emitting the
