@@ -83,7 +83,7 @@
  * {
  *   const char *response = adw_message_dialog_choose_finish (dialog, result);
  *
- *   ...
+ *   // ...
  * }
  *
  * static void
