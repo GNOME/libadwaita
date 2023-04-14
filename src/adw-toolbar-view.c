@@ -40,15 +40,15 @@
  *
  * The following kinds of top and bottom bars are supported:
  *
- * - [class@HeaderBar];
- * - [class@TabBar];
- * - [class@ViewSwitcherBar];
- * - [class@Gtk.ActionBar];
- * - [class@Gtk.HeaderBar];
- * - [class@Gtk.PopoverMenuBar];
- * - [class@Gtk.SearchBar];
+ * - [class@HeaderBar]
+ * - [class@TabBar]
+ * - [class@ViewSwitcherBar]
+ * - [class@Gtk.ActionBar]
+ * - [class@Gtk.HeaderBar]
+ * - [class@Gtk.PopoverMenuBar]
+ * - [class@Gtk.SearchBar]
  * - Any [class@Gtk.Box] or a similar widget with the
- *   [`.toolbar`](style-classes.html#toolbars) style class.
+ *   [`.toolbar`](style-classes.html#toolbars) style class
  *
  * By default, top and bottom bars are flat and scrolling content has a subtle
  * undershoot shadow, same as when using the
