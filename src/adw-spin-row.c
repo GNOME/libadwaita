@@ -29,7 +29,7 @@
  * Example of an `AdwSpinRow` UI definition:
  *
  * ```xml
- * <object class="AdwComboRow">
+ * <object class="AdwSpinRow">
  *   <property name="title" translatable="yes">Spin Row</property>
  *   <property name="adjustment">
  *     <object class="GtkAdjustment">
