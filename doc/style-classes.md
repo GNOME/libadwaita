@@ -628,3 +628,5 @@ style, infrequently used for display headings in greeters or assistants. It
 should only be used in conjunction with large amounts of whitespace.
 
 The [`.title-1`](#typography-styles) style class should be used instead.
+
+Deprecated since: 1.2
