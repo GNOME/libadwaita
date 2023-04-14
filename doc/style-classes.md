@@ -591,6 +591,8 @@ Most applications should use [class@ToolbarView] instead, as it manages
 undershoots automatically based on presence and visibility of top and bottom
 bars.
 
+Since: 1.4
+
 ## Property Rows
 
 <picture>
@@ -612,6 +614,8 @@ instead, which is useful for displaying read-only properties, as follows:
   </style>
 </object>
 ```
+
+Since: 1.4
 
 # Deprecated Style Classes
 
