@@ -32,7 +32,7 @@
  *   </child>
  *   <property name="content">
  *     <object class="AdwPreferencesPage">
- *       ...
+ *       <!-- ... -->
  *     </object>
  *   </property>
  * </object>
