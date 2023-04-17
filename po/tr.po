@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2023-03-04 17:37+0000\n"
-"PO-Revision-Date: 2023-03-04 21:39+0300\n"
+"POT-Creation-Date: 2023-03-07 00:12+0000\n"
+"PO-Revision-Date: 2023-03-08 22:07+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnometurk@gnome.org>\n"
 "Language: tr\n"
@@ -294,20 +294,20 @@ msgid "High Contrast"
 msgstr "Yüksek Karşıtlık"
 
 #: src/adw-password-entry-row.c:70
-msgid "Hide Text"
-msgstr "Yazıyı Gizle"
+msgid "Hide Password"
+msgstr "Parolayı Gizle"
 
 #: src/adw-password-entry-row.c:74
-msgid "Show Text"
-msgstr "Yazıyı Göster"
+msgid "Show Password"
+msgstr "Parolayı Göster"
 
 #: src/adw-password-entry-row.c:168
 msgid "Caps Lock is on"
 msgstr "Caps Lock açık"
 
 #: src/adw-password-entry-row.c:176
-msgid "_Show Text"
-msgstr "Yazıyı _Göster"
+msgid "_Show Password"
+msgstr "Parolayı _Göster"
 
 #: src/adw-preferences-window.c:243
 msgid "Untitled page"
@@ -370,6 +370,15 @@ msgstr "Yeni _Sekme"
 #: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
 msgid "Close Tab"
 msgstr "Sekmeyi Kapat"
+
+#~ msgid "Hide Text"
+#~ msgstr "Yazıyı Gizle"
+
+#~ msgid "Show Text"
+#~ msgstr "Yazıyı Göster"
+
+#~ msgid "_Show Text"
+#~ msgstr "Yazıyı _Göster"
 
 #~ msgid "_Save"
 #~ msgstr "_Kaydet"
