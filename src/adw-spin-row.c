@@ -458,10 +458,29 @@ adw_spin_row_class_init (AdwSpinRowClass *klass)
 static void
 adw_spin_row_init (AdwSpinRow *self)
 {
+  GListModel *controllers;
+  guint i, n;
+
   gtk_widget_init_template (GTK_WIDGET (self));
   gtk_editable_init_delegate (GTK_EDITABLE (self));
 
   adw_action_row_set_expand_suffixes (ADW_ACTION_ROW (self), TRUE);
+
+  /* XXX: We shouldn't be doing this, but there's no way to prevent scrolling
+   * on the spin button at the moment */
+  controllers = gtk_widget_observe_controllers (self->spin_button);
+
+  n = g_list_model_get_n_items (controllers);
+  for (i = 0; i < n; i++) {
+    GtkEventController *controller = g_list_model_get_item (controllers, i);
+
+    if (GTK_IS_EVENT_CONTROLLER_SCROLL (controller))
+      gtk_event_controller_set_propagation_phase (controller, GTK_PHASE_NONE);
+
+    g_object_unref (controller);
+  }
+
+  g_object_unref (controllers);
 }
 
 static gboolean
