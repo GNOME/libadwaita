@@ -1748,12 +1748,13 @@ select_page (AdwTabGrid *self,
 static gboolean
 extra_drag_drop_cb (AdwTabThumbnail *tab,
                     GValue          *value,
+                    GdkDragAction    preferred_action,
                     AdwTabGrid      *self)
 {
   gboolean ret = GDK_EVENT_PROPAGATE;
   AdwTabPage *page = adw_tab_thumbnail_get_page (tab);
 
-  g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_DROP], 0, page, value, &ret);
+  g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_DROP], 0, page, value, preferred_action, &ret);
 
   return ret;
 }
@@ -3388,9 +3389,10 @@ adw_tab_grid_class_init (AdwTabGridClass *klass)
                   g_signal_accumulator_first_wins,
                   NULL, NULL,
                   G_TYPE_BOOLEAN,
-                  2,
+                  3,
                   ADW_TYPE_TAB_PAGE,
-                  G_TYPE_VALUE);
+                  G_TYPE_VALUE,
+                  GDK_TYPE_DRAG_ACTION);
 
   signals[SIGNAL_EXTRA_DRAG_VALUE] =
     g_signal_new ("extra-drag-value",

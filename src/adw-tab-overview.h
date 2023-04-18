@@ -90,6 +90,9 @@ void adw_tab_overview_setup_extra_drop_target (AdwTabOverview *self,
                                                GType          *types,
                                                gsize           n_types);
 
+ADW_AVAILABLE_IN_1_4
+GdkDragAction adw_tab_overview_get_extra_drag_preferred_action (AdwTabOverview *self);
+
 ADW_AVAILABLE_IN_1_3
 gboolean adw_tab_overview_get_extra_drag_preload (AdwTabOverview *self);
 ADW_AVAILABLE_IN_1_3

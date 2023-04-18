@@ -125,6 +125,8 @@ struct _AdwTabOverview
   GtkWidget *transition_picture;
   gboolean transition_pinned;
 
+  GdkDragAction extra_drag_preferred_action;
+
   GtkWidget *last_focus;
 };
 
@@ -147,6 +149,7 @@ enum {
   PROP_SECONDARY_MENU,
   PROP_SHOW_START_TITLE_BUTTONS,
   PROP_SHOW_END_TITLE_BUTTONS,
+  PROP_EXTRA_DRAG_PREFERRED_ACTION,
   PROP_EXTRA_DRAG_PRELOAD,
   LAST_PROP
 };
@@ -720,14 +723,27 @@ adw_tab_overview_scrollable_init (AdwTabOverviewScrollable *self)
                             G_CALLBACK (scroll_animation_done_cb), self);
 }
 
+static void
+set_extra_drag_preferred_action (AdwTabOverview *self,
+                                 GdkDragAction   preferred_action)
+{
+  self->extra_drag_preferred_action = preferred_action;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXTRA_DRAG_PREFERRED_ACTION]);
+}
+
+
 static gboolean
 extra_drag_drop_cb (AdwTabOverview *self,
                     AdwTabPage     *page,
-                    GValue         *value)
+                    GValue         *value,
+                    GdkDragAction   preferred_action)
 {
   gboolean ret = GDK_EVENT_PROPAGATE;
 
+  set_extra_drag_preferred_action (self, preferred_action);
   g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_DROP], 0, page, value, &ret);
+  set_extra_drag_preferred_action (self, 0);
 
   return ret;
 }
@@ -1368,6 +1384,9 @@ adw_tab_overview_get_property (GObject    *object,
   case PROP_SHOW_END_TITLE_BUTTONS:
     g_value_set_boolean (value, adw_tab_overview_get_show_end_title_buttons (self));
     break;
+  case PROP_EXTRA_DRAG_PREFERRED_ACTION:
+    g_value_set_flags (value, adw_tab_overview_get_extra_drag_preferred_action (self));
+    break;
   case PROP_EXTRA_DRAG_PRELOAD:
     g_value_set_boolean (value, adw_tab_overview_get_extra_drag_preload (self));
     break;
@@ -1625,6 +1644,23 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
     g_param_spec_boolean ("show-end-title-buttons", NULL, NULL,
                           TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwTabOverview:extra-drag-preferred-action: (attributes org.gtk.Property.get=adw_tab_overview_get_extra_drag_preferred_action)
+   *
+   * The unique action on the `current-drop` of the
+   * [signal@TabOverview::extra-drag-drop].
+   *
+   * This property should only be used during a
+   * [signal@TabOverview::extra-drag-drop] and is always a subset of what was
+   * originally passed to [method@TabOverview.setup_extra_drop_target].
+   *
+   * Since: 1.4
+   */
+  props[PROP_EXTRA_DRAG_PREFERRED_ACTION] =
+    g_param_spec_flags ("extra-drag-preferred-action", NULL, NULL,
+                       GDK_TYPE_DRAG_ACTION, 0,
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwTabOverview:extra-drag-preload: (attributes org.gtk.Property.get=adw_tab_overview_get_extra_drag_preload org.gtk.Property.set=adw_tab_overview_set_extra_drag_preload)
@@ -2461,6 +2497,24 @@ adw_tab_overview_get_pinned_tab_grid (AdwTabOverview *self)
   g_return_val_if_fail (ADW_IS_TAB_OVERVIEW (self), NULL);
 
   return self->pinned_grid;
+}
+
+/**
+ * adw_tab_overview_get_extra_drag_preferred_action:
+ * @self: a tab overview
+ *
+ * Gets the current action during a drop on the extra_drop_target.
+ *
+ * Returns: the drag action of the current drop.
+ *
+ * Since: 1.4
+ */
+GdkDragAction
+adw_tab_overview_get_extra_drag_preferred_action (AdwTabOverview *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_OVERVIEW (self), 0);
+
+  return self->extra_drag_preferred_action;
 }
 
 /**
