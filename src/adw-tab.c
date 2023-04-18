@@ -317,8 +317,10 @@ drop_cb (AdwTab *self,
          GValue *value)
 {
   gboolean ret = GDK_EVENT_PROPAGATE;
+  GdkDrop *drop = gtk_drop_target_get_current_drop (self->drop_target);
+  GdkDragAction preferred_action = gdk_drop_get_actions (drop);
 
-  g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_DROP], 0, value, &ret);
+  g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_DROP], 0, value, preferred_action, &ret);
 
   return ret;
 }
@@ -797,8 +799,9 @@ adw_tab_class_init (AdwTabClass *klass)
                   g_signal_accumulator_first_wins,
                   NULL, NULL,
                   G_TYPE_BOOLEAN,
-                  1,
-                  G_TYPE_VALUE);
+                  2,
+                  G_TYPE_VALUE,
+                  GDK_TYPE_DRAG_ACTION);
 
   signals[SIGNAL_EXTRA_DRAG_VALUE] =
     g_signal_new ("extra-drag-value",

@@ -1726,14 +1726,15 @@ select_page (AdwTabBox  *self,
 /* Opening */
 
 static gboolean
-extra_drag_drop_cb (AdwTab    *tab,
-                    GValue    *value,
-                    AdwTabBox *self)
+extra_drag_drop_cb (AdwTab       *tab,
+                    GValue       *value,
+                    GdkDragAction current_action,
+                    AdwTabBox    *self)
 {
   gboolean ret = GDK_EVENT_PROPAGATE;
   AdwTabPage *page = adw_tab_get_page (tab);
 
-  g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_DROP], 0, page, value, &ret);
+  g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_DROP], 0, page, value, current_action, &ret);
 
   return ret;
 }
@@ -3675,9 +3676,10 @@ adw_tab_box_class_init (AdwTabBoxClass *klass)
                   g_signal_accumulator_first_wins,
                   NULL, NULL,
                   G_TYPE_BOOLEAN,
-                  2,
+                  3,
                   ADW_TYPE_TAB_PAGE,
-                  G_TYPE_VALUE);
+                  G_TYPE_VALUE,
+                  GDK_TYPE_DRAG_ACTION);
 
   signals[SIGNAL_EXTRA_DRAG_VALUE] =
     g_signal_new ("extra-drag-value",

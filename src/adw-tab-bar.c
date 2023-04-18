@@ -56,6 +56,8 @@ struct _AdwTabBar
   AdwTabView *view;
   gboolean autohide;
 
+  GdkDragAction extra_drag_preferred_action;
+
   gboolean is_overflowing;
   gboolean resize_frozen;
 };
@@ -76,6 +78,7 @@ enum {
   PROP_INVERTED,
   PROP_IS_OVERFLOWING,
   PROP_EXTRA_DRAG_PRELOAD,
+  PROP_EXTRA_DRAG_PREFERRED_ACTION,
   LAST_PROP
 };
 
@@ -239,14 +242,26 @@ stop_kinetic_scrolling_cb (GtkScrolledWindow *scrolled_window)
   gtk_scrolled_window_set_kinetic_scrolling (scrolled_window, TRUE);
 }
 
+static void
+set_extra_drag_preferred_action (AdwTabBar    *self,
+                                 GdkDragAction preferred_action)
+{
+  self->extra_drag_preferred_action = preferred_action;
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_EXTRA_DRAG_PREFERRED_ACTION]);
+}
+
 static gboolean
-extra_drag_drop_cb (AdwTabBar  *self,
-                    AdwTabPage *page,
-                    GValue     *value)
+extra_drag_drop_cb (AdwTabBar    *self,
+                    AdwTabPage   *page,
+                    GValue       *value,
+                    GdkDragAction preferred_action)
 {
   gboolean ret = GDK_EVENT_PROPAGATE;
 
+  set_extra_drag_preferred_action (self, preferred_action);
   g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_DROP], 0, page, value, &ret);
+  set_extra_drag_preferred_action (self, 0);
 
   return ret;
 }
@@ -356,6 +371,10 @@ adw_tab_bar_get_property (GObject    *object,
 
   case PROP_IS_OVERFLOWING:
     g_value_set_boolean (value, adw_tab_bar_get_is_overflowing (self));
+    break;
+
+  case PROP_EXTRA_DRAG_PREFERRED_ACTION:
+    g_value_set_flags (value, adw_tab_bar_get_extra_drag_preferred_action (self));
     break;
 
   case PROP_EXTRA_DRAG_PRELOAD:
@@ -516,6 +535,23 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
     g_param_spec_boolean ("is-overflowing", NULL, NULL,
                           FALSE,
                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
+  /**
+   * AdwTabBar:extra-drag-preferred-action: (attributes org.gtk.Property.get=adw_tab_bar_get_extra_drag_preferred_action)
+   *
+   * The unique action on the `current-drop` of the
+   * [signal@TabBar::extra-drag-drop].
+   *
+   * This property should only be used during a [signal@TabBar::extra-drag-drop]
+   * and is always a subset of what was originally passed to
+   * [method@TabBar.setup_extra_drop_target].
+   *
+   * Since: 1.4
+   */
+  props[PROP_EXTRA_DRAG_PREFERRED_ACTION] =
+    g_param_spec_flags ("extra-drag-preferred-action", NULL, NULL,
+                       GDK_TYPE_DRAG_ACTION, 0,
+                       G_PARAM_READABLE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwTabBar:extra-drag-preload: (attributes org.gtk.Property.get=adw_tab_bar_get_extra_drag_preload org.gtk.Property.set=adw_tab_bar_set_extra_drag_preload)
@@ -1047,6 +1083,24 @@ adw_tab_bar_setup_extra_drop_target (AdwTabBar     *self,
 
   adw_tab_box_setup_extra_drop_target (self->box, actions, types, n_types);
   adw_tab_box_setup_extra_drop_target (self->pinned_box, actions, types, n_types);
+}
+
+/**
+ * adw_tab_bar_get_extra_drag_preferred_action:
+ * @self: a tab bar
+ *
+ * Gets the current action during a drop on the extra_drop_target.
+ *
+ * Returns: the drag action of the current drop.
+ *
+ * Since: 1.4
+ */
+GdkDragAction
+adw_tab_bar_get_extra_drag_preferred_action (AdwTabBar *self)
+{
+  g_return_val_if_fail (ADW_IS_TAB_BAR (self), 0);
+
+  return self->extra_drag_preferred_action;
 }
 
 /**
