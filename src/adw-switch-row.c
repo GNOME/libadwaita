@@ -145,7 +145,6 @@ adw_switch_row_init (AdwSwitchRow *self)
   adw_action_row_add_suffix (ADW_ACTION_ROW (self), self->slider);
   adw_action_row_set_activatable_widget (ADW_ACTION_ROW (self), self->slider);
 
-  g_object_bind_property (ADW_ACTION_ROW (self), "action-name", self->slider, "action-name", G_BINDING_SYNC_CREATE);
   g_object_bind_property (self, "action-name",
                           self->slider, "action-name",
                           G_BINDING_SYNC_CREATE);
