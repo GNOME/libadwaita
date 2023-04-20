@@ -173,6 +173,13 @@ Slug: widget-gallery
 
 ## Adaptive Containers
 
+### Breakpoint Bin
+
+[<picture>
+  <source srcset="breakpoint-bin-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="breakpoint-bin.png" alt="breakpoint-bin">
+</picture>](class.BreakpointBin.html)
+
 ### Clamp
 
 [<picture>

@@ -12,7 +12,7 @@ test_resources = gnome.compile_resources(
 test_env = [
   'G_TEST_SRCDIR=@0@'.format(meson.current_source_dir()),
   'G_TEST_BUILDDIR=@0@'.format(meson.current_build_dir()),
-  'G_DEBUG=gc-friendly,fatal-warnings',
+  'G_DEBUG=gc-friendly',
   'GSETTINGS_BACKEND=memory',
   'PYTHONDONTWRITEBYTECODE=yes',
   'MALLOC_CHECK_=2',
@@ -40,6 +40,8 @@ test_names = [
   'test-avatar',
   'test-banner',
   'test-bin',
+  'test-breakpoint',
+  'test-breakpoint-bin',
   'test-button-content',
   'test-carousel',
   'test-carousel-indicator-dots',

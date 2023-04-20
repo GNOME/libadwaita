@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="GtkBox" id="widget">
+    <property name="spacing">12</property>
+    <property name="width-request">400</property>
+    <child>
+      <object class="AdwBreakpointBin">
+        <property name="width-request">150</property>
+        <property name="height-request">150</property>
+        <property name="hexpand">True</property>
+        <style>
+          <class name="docs-background"/>
+        </style>
+        <property name="child">
+          <object class="GtkLabel" id="child1">
+            <property name="label">Wide</property>
+            <style>
+              <class name="title-1"/>
+            </style>
+          </object>
+        </property>
+        <child>
+          <object class="AdwBreakpoint">
+            <condition>max-width: 200px</condition>
+            <setter object="child1" property="label">Narrow</setter>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwBreakpointBin">
+        <property name="width-request">150</property>
+        <property name="height-request">150</property>
+        <style>
+          <class name="docs-background"/>
+        </style>
+        <property name="child">
+          <object class="GtkLabel" id="child2">
+            <property name="label">Wide</property>
+            <style>
+              <class name="title-1"/>
+            </style>
+          </object>
+        </property>
+        <child>
+          <object class="AdwBreakpoint">
+            <condition>max-width: 200px</condition>
+            <setter object="child2" property="label">Narrow</setter>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
