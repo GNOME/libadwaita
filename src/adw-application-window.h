@@ -14,6 +14,8 @@
 
 #include <gtk/gtk.h>
 
+#include "adw-breakpoint.h"
+
 G_BEGIN_DECLS
 
 #define ADW_TYPE_APPLICATION_WINDOW (adw_application_window_get_type())
@@ -37,5 +39,12 @@ void       adw_application_window_set_content (AdwApplicationWindow *self,
                                                GtkWidget            *content);
 ADW_AVAILABLE_IN_ALL
 GtkWidget *adw_application_window_get_content (AdwApplicationWindow *self);
+
+ADW_AVAILABLE_IN_1_4
+void adw_application_window_add_breakpoint (AdwApplicationWindow *self,
+                                            AdwBreakpoint        *breakpoint);
+
+ADW_AVAILABLE_IN_1_4
+AdwBreakpoint *adw_application_window_get_current_breakpoint (AdwApplicationWindow *self);
 
 G_END_DECLS

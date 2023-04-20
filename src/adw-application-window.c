@@ -9,8 +9,8 @@
 
 #include "adw-application-window.h"
 
+#include "adw-breakpoint-bin-private.h"
 #include "adw-gizmo-private.h"
-#include "adw-widget-utils-private.h"
 
 /**
  * AdwApplicationWindow:
@@ -66,10 +66,17 @@ static GtkBuildableIface *parent_buildable_iface;
 enum {
   PROP_0,
   PROP_CONTENT,
+  PROP_CURRENT_BREAKPOINT,
   LAST_PROP,
 };
 
 static GParamSpec *props[LAST_PROP];
+
+static void
+notify_current_breakpoint_cb (AdwApplicationWindow *self)
+{
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CURRENT_BREAKPOINT]);
+}
 
 static void
 adw_application_window_size_allocate (GtkWidget *widget,
@@ -104,6 +111,9 @@ adw_application_window_get_property (GObject    *object,
   switch (prop_id) {
   case PROP_CONTENT:
     g_value_set_object (value, adw_application_window_get_content (self));
+    break;
+  case PROP_CURRENT_BREAKPOINT:
+    g_value_set_object (value, adw_application_window_get_current_breakpoint (self));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -149,6 +159,18 @@ adw_application_window_class_init (AdwApplicationWindowClass *klass)
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwApplicationWindow:current-breakpoint: (attributes org.gtk.Property.get=adw_application_window_get_current_breakpoint)
+   *
+   * The current breakpoint.
+   *
+   * Since: 1.4
+   */
+  props[PROP_CURRENT_BREAKPOINT] =
+    g_param_spec_object ("current-breakpoint", NULL, NULL,
+                         ADW_TYPE_BREAKPOINT,
+                         G_PARAM_READABLE | G_PARAM_STATIC_STRINGS);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);}
 
 static void
@@ -161,12 +183,13 @@ adw_application_window_init (AdwApplicationWindow *self)
   gtk_widget_set_visible (priv->titlebar, FALSE);
   gtk_window_set_titlebar (GTK_WINDOW (self), priv->titlebar);
 
-  priv->bin = adw_gizmo_new_with_role ("contents", GTK_ACCESSIBLE_ROLE_GROUP,
-                                       NULL, NULL, NULL, NULL,
-                                       (AdwGizmoFocusFunc) adw_widget_focus_child,
-                                       (AdwGizmoGrabFocusFunc) adw_widget_grab_focus_child);
-  gtk_widget_set_layout_manager (priv->bin, gtk_bin_layout_new ());
+  priv->bin = adw_breakpoint_bin_new ();
+  adw_breakpoint_bin_set_warning_widget (ADW_BREAKPOINT_BIN (priv->bin),
+                                         GTK_WIDGET (self));
   gtk_window_set_child (GTK_WINDOW (self), priv->bin);
+
+  g_signal_connect_swapped (priv->bin, "notify::current-breakpoint",
+                            G_CALLBACK (notify_current_breakpoint_cb), self);
 
   gtk_application_window_set_show_menubar (GTK_APPLICATION_WINDOW (self), FALSE);
 }
@@ -181,6 +204,9 @@ adw_application_window_buildable_add_child (GtkBuildable *buildable,
     GTK_BUILDER_WARN_INVALID_CHILD_TYPE (buildable, type);
   else if (GTK_IS_WIDGET (child))
     adw_application_window_set_content (ADW_APPLICATION_WINDOW (buildable), GTK_WIDGET (child));
+  else if (ADW_IS_BREAKPOINT (child))
+    adw_application_window_add_breakpoint (ADW_APPLICATION_WINDOW (buildable),
+                                           g_object_ref (ADW_BREAKPOINT (child)));
   else
     parent_buildable_iface->add_child (buildable, builder, child, type);
 }
@@ -235,12 +261,7 @@ adw_application_window_set_content (AdwApplicationWindow *self,
   if (adw_application_window_get_content (self) == content)
     return;
 
-  g_clear_pointer (&priv->content, gtk_widget_unparent);
-
-  if (content) {
-    priv->content = content;
-    gtk_widget_set_parent (content, priv->bin);
-  }
+  adw_breakpoint_bin_set_child (ADW_BREAKPOINT_BIN (priv->bin), content);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CONTENT]);
 }
@@ -264,5 +285,50 @@ adw_application_window_get_content (AdwApplicationWindow *self)
 
   priv = adw_application_window_get_instance_private (self);
 
-  return priv->content;
+  return adw_breakpoint_bin_get_child (ADW_BREAKPOINT_BIN (priv->bin));
+}
+
+/**
+ * adw_application_window_add_breakpoint:
+ * @self: an application window
+ * @breakpoint: (transfer full): the breakpoint to add
+ *
+ * Adds @breakpoint to @self.
+ *
+ * Since: 1.4
+ */
+void
+adw_application_window_add_breakpoint (AdwApplicationWindow *self,
+                                       AdwBreakpoint        *breakpoint)
+{
+  AdwApplicationWindowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_APPLICATION_WINDOW (self));
+  g_return_if_fail (ADW_IS_BREAKPOINT (breakpoint));
+
+  priv = adw_application_window_get_instance_private (self);
+
+  adw_breakpoint_bin_add_breakpoint (ADW_BREAKPOINT_BIN (priv->bin), breakpoint);
+}
+
+/**
+ * adw_application_window_get_current_breakpoint: (attributes org.gtk.Method.get_property=current-breakpoint)
+ * @self: an application window
+ *
+ * Gets the current breakpoint.
+ *
+ * Returns: (nullable) (transfer none): the current breakpoint
+ *
+ * Since: 1.4
+ */
+AdwBreakpoint *
+adw_application_window_get_current_breakpoint (AdwApplicationWindow *self)
+{
+  AdwApplicationWindowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_APPLICATION_WINDOW (self), NULL);
+
+  priv = adw_application_window_get_instance_private (self);
+
+  return adw_breakpoint_bin_get_current_breakpoint (ADW_BREAKPOINT_BIN (priv->bin));
 }
