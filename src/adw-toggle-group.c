@@ -108,11 +108,14 @@ struct _AdwToggleGroup
   char *delayed_active;
 
   GHashTable *toggles;
+
+  GtkOrientation orientation;
 };
 
 static void adw_toggle_group_buildable_init (GtkBuildableIface *iface);
 
 G_DEFINE_FINAL_TYPE_WITH_CODE (AdwToggleGroup, adw_toggle_group, GTK_TYPE_WIDGET,
+                               G_IMPLEMENT_INTERFACE (GTK_TYPE_ORIENTABLE, NULL)
                                G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_toggle_group_buildable_init))
 
 static GtkBuildableIface *parent_buildable_iface;
@@ -121,10 +124,34 @@ enum {
   PROP_0,
   PROP_ACTIVE,
   PROP_DISPLAY_MODE,
-  LAST_PROP
+
+  /* Overridden properties */
+  PROP_ORIENTATION,
+
+  LAST_PROP = PROP_DISPLAY_MODE + 1,
 };
 
 static GParamSpec *props[LAST_PROP];
+
+static GtkOrientation
+get_orientation (AdwToggleGroup *self)
+{
+  return self->orientation;
+}
+
+static void
+set_orientation (AdwToggleGroup *self,
+                 GtkOrientation  orientation)
+{
+  if (self->orientation == orientation)
+    return;
+
+  GtkLayoutManager *layout;
+  self->orientation = orientation;
+  layout = gtk_widget_get_layout_manager (GTK_WIDGET (self));
+  gtk_orientable_set_orientation (GTK_ORIENTABLE (layout), orientation);
+  g_object_notify (G_OBJECT (self), "orientation");
+}
 
 static void
 remove_and_free_toggle_info (ToggleInfo *info)
@@ -342,6 +369,9 @@ adw_toggle_group_get_property (GObject    *object,
   case PROP_DISPLAY_MODE:
     g_value_set_enum (value, adw_toggle_group_get_display_mode (self));
     break;
+  case PROP_ORIENTATION:
+    g_value_set_enum (value, get_orientation (self));
+    break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
   }
@@ -361,6 +391,9 @@ adw_toggle_group_set_property (GObject      *object,
     break;
   case PROP_DISPLAY_MODE:
     adw_toggle_group_set_display_mode (self, g_value_get_enum (value));
+    break;
+  case PROP_ORIENTATION:
+    set_orientation (self, g_value_get_enum (value));
     break;
   default:
     G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -397,6 +430,10 @@ adw_toggle_group_class_init (AdwToggleGroupClass *klass)
   object_class->get_property = adw_toggle_group_get_property;
   object_class->set_property = adw_toggle_group_set_property;
   object_class->finalize = adw_toggle_group_finalize;
+
+  g_object_class_override_property (object_class,
+                                    PROP_ORIENTATION,
+                                    "orientation");
 
   /**
    * AdwToggleGroup:active: (attributes org.gtk.Property.get=adw_toggle_group_get_active org.gtk.Property.set=adw_toggle_group_set_active)
