@@ -1,4 +1,37 @@
 =============
+Version 1.3.2
+=============
+
+- AdwAvatar
+  - Fix a memory leak
+- AdwMessageDialog
+  - Fix criticals when using choose() with hide-on-close=true
+- AdwTabBar/Overview
+  - Correctly unparent context menu
+- Build
+  - Fix build on Windows
+- Demo
+  - Fix a critical when trying to set a non-image file as avatar
+- Docs
+  - Remove an erroneous mention of mnemonics in row subtitles
+  - Clarify AdwBanner title placement
+  - Mention the version .large-title is deprecated since
+  - Fix successs/error color values
+  - List thumbnail colors on the named colors page
+- Stylesheet
+  - Improve selected list/grid item contrast
+  - Fix file chooser grid dimensions
+  - Fix button.card checked state
+- Translation updates
+  - British English
+  - Bulgarian
+  - Chinese (China)
+  - Dutch
+  - French
+  - Friulian
+  - Georgian
+
+=============
 Version 1.3.1
 =============
 
