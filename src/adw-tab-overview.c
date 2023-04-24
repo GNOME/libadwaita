@@ -760,6 +760,13 @@ extra_drag_value_cb (AdwTabOverview *self,
   return preferred_action;
 }
 
+static GdkDragAction
+extra_drag_value_notify (AdwTabOverview *self,
+                         GValue         *value)
+{
+  return GDK_ACTION_ALL;
+}
+
 static void
 empty_changed_cb (AdwTabOverview *self)
 {
@@ -1802,6 +1809,9 @@ adw_tab_overview_class_init (AdwTabOverviewClass *klass)
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "taboverview");
+
+  g_signal_override_class_handler ("extra-drag-value", G_TYPE_FROM_CLASS (klass),
+                                   G_CALLBACK (extra_drag_value_notify));
 
   g_type_ensure (ADW_TYPE_TAB_GRID);
   g_type_ensure (ADW_TYPE_TAB_OVERVIEW_SCROLLABLE);

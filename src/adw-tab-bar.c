@@ -278,6 +278,13 @@ extra_drag_value_cb (AdwTabBar  *self,
   return preferred_action;
 }
 
+static GdkDragAction
+extra_drag_value_notify (AdwTabBar *self,
+                         GValue    *value)
+{
+  return GDK_ACTION_ALL;
+}
+
 static void
 view_destroy_cb (AdwTabBar *self)
 {
@@ -644,6 +651,9 @@ adw_tab_bar_class_init (AdwTabBarClass *klass)
 
   gtk_widget_class_set_layout_manager_type (widget_class, GTK_TYPE_BIN_LAYOUT);
   gtk_widget_class_set_css_name (widget_class, "tabbar");
+
+  g_signal_override_class_handler ("extra-drag-value", G_TYPE_FROM_CLASS (klass),
+                                   G_CALLBACK (extra_drag_value_notify));
 
   g_type_ensure (ADW_TYPE_TAB_BOX);
 }

@@ -272,6 +272,21 @@ indicator_clicked_cb (AdwTab *self)
   g_signal_emit_by_name (self->view, "indicator-activated", self->page);
 }
 
+static GdkDragAction
+make_action_unique (GdkDragAction actions)
+{
+  if (actions & GDK_ACTION_COPY)
+    return GDK_ACTION_COPY;
+
+  if (actions & GDK_ACTION_MOVE)
+    return GDK_ACTION_MOVE;
+
+  if (actions & GDK_ACTION_LINK)
+    return GDK_ACTION_LINK;
+
+  return 0;
+}
+
 static void
 enter_cb (AdwTab             *self,
           double              x,
@@ -331,6 +346,7 @@ extra_drag_enter_cb (AdwTab *self)
   const GValue *value = gtk_drop_target_get_value (self->drop_target);
 
   g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_VALUE], 0, value, &self->preferred_action);
+  self->preferred_action = make_action_unique (self->preferred_action);
 
   return self->preferred_action;
 }
@@ -347,21 +363,7 @@ extra_drag_notify_value_cb (AdwTab *self)
   const GValue *value = gtk_drop_target_get_value (self->drop_target);
 
   g_signal_emit (self, signals[SIGNAL_EXTRA_DRAG_VALUE], 0, value, &self->preferred_action);
-}
-
-static GdkDragAction
-make_action_unique (GdkDragAction actions)
-{
-  if (actions & GDK_ACTION_COPY)
-    return GDK_ACTION_COPY;
-
-  if (actions & GDK_ACTION_MOVE)
-    return GDK_ACTION_MOVE;
-
-  if (actions & GDK_ACTION_LINK)
-    return GDK_ACTION_LINK;
-
-  return 0;
+  self->preferred_action = make_action_unique (self->preferred_action);
 }
 
 static gboolean
