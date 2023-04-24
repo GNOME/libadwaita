@@ -62,12 +62,14 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                 <child>
                                   <object class="GtkButton">
                                     <property name="label" translatable="yes">Regular</property>
+                                    <property name="can-shrink">True</property>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="GtkButton">
                                     <property name="label" translatable="yes">Flat</property>
                                     <property name="tooltip-text">flat</property>
+                                    <property name="can-shrink">True</property>
                                     <style>
                                       <class name="flat"/>
                                     </style>
@@ -88,6 +90,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                   <object class="GtkButton">
                                     <property name="label" translatable="yes">Suggested</property>
                                     <property name="tooltip-text">suggested-action</property>
+                                    <property name="can-shrink">True</property>
                                     <style>
                                       <class name="suggested-action"/>
                                     </style>
@@ -97,6 +100,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                   <object class="GtkButton">
                                     <property name="label" translatable="yes">Destructive</property>
                                     <property name="tooltip-text">destructive-action</property>
+                                    <property name="can-shrink">True</property>
                                     <style>
                                       <class name="destructive-action"/>
                                     </style>
@@ -117,12 +121,14 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                   <object class="GtkButton">
                                     <property name="label" translatable="yes">Custom</property>
                                     <property name="name">custom-button-1</property>
+                                    <property name="can-shrink">True</property>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="GtkButton">
                                     <property name="label" translatable="yes">Custom</property>
                                     <property name="name">custom-button-2</property>
+                                    <property name="can-shrink">True</property>
                                   </object>
                                 </child>
                               </object>
@@ -141,6 +147,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                     <property name="label" translatable="yes">Custom</property>
                                     <property name="name">custom-button-3</property>
                                     <property name="tooltip-text">opaque</property>
+                                    <property name="can-shrink">True</property>
                                     <style>
                                       <class name="opaque"/>
                                     </style>
@@ -151,6 +158,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                     <property name="label" translatable="yes">Custom</property>
                                     <property name="name">custom-button-4</property>
                                     <property name="tooltip-text">opaque</property>
+                                    <property name="can-shrink">True</property>
                                     <style>
                                       <class name="opaque"/>
                                     </style>
@@ -212,6 +220,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                                 <property name="halign">center</property>
                                 <property name="valign">center</property>
                                 <property name="tooltip-text">pill</property>
+                                <property name="can-shrink">True</property>
                                 <style>
                                   <class name="pill"/>
                                 </style>
@@ -378,6 +387,7 @@ The "opaque" style class allows to create buttons with custom colors that look s
                             <child>
                               <object class="GtkButton">
                                 <property name="label" translatable="yes">Button</property>
+                                <property name="can-shrink">True</property>
                               </object>
                             </child>
                           </object>

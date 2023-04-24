@@ -86,6 +86,7 @@
                 <property name="child">
                   <object class="GtkButton">
                     <property name="label" translatable="yes">_Return to the First Page</property>
+                    <property name="can-shrink">True</property>
                     <property name="use-underline">True</property>
                     <property name="halign">center</property>
                     <property name="action-name">carousel.return</property>

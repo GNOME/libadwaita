@@ -61,6 +61,7 @@
                       <object class="AdwSplitButton">
                         <property name="label" translatable="yes">_Open</property>
                         <property name="use-underline">True</property>
+                        <property name="can-shrink">True</property>
                         <property name="menu-model">sample_menu</property>
                         <layout>
                           <property name="column">1</property>
@@ -72,6 +73,7 @@
                       <object class="AdwSplitButton">
                         <property name="label" translatable="yes">_Open</property>
                         <property name="use-underline">True</property>
+                        <property name="can-shrink">True</property>
                         <property name="menu-model">sample_menu</property>
                         <style>
                           <class name="flat"/>
@@ -89,6 +91,7 @@
                             <property name="icon-name">document-open-symbolic</property>
                             <property name="label" translatable="yes">_Open</property>
                             <property name="use-underline">True</property>
+                            <property name="can-shrink">True</property>
                           </object>
                         </property>
                         <property name="menu-model">sample_menu</property>
@@ -105,6 +108,7 @@
                             <property name="icon-name">document-open-symbolic</property>
                             <property name="label" translatable="yes">_Open</property>
                             <property name="use-underline">True</property>
+                            <property name="can-shrink">True</property>
                           </object>
                         </property>
                         <property name="menu-model">sample_menu</property>
