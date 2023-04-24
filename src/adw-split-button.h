@@ -48,6 +48,12 @@ ADW_AVAILABLE_IN_ALL
 void       adw_split_button_set_child (AdwSplitButton *self,
                                        GtkWidget      *child);
 
+ADW_AVAILABLE_IN_1_4
+gboolean adw_split_button_get_can_shrink (AdwSplitButton *self);
+ADW_AVAILABLE_IN_1_4
+void     adw_split_button_set_can_shrink (AdwSplitButton *self,
+                                          gboolean        can_shrink);
+
 ADW_AVAILABLE_IN_ALL
 GMenuModel *adw_split_button_get_menu_model (AdwSplitButton *self);
 ADW_AVAILABLE_IN_ALL

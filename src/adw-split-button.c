@@ -59,6 +59,7 @@ enum {
   PROP_USE_UNDERLINE,
   PROP_ICON_NAME,
   PROP_CHILD,
+  PROP_CAN_SHRINK,
   PROP_MENU_MODEL,
   PROP_POPOVER,
   PROP_DIRECTION,
@@ -184,6 +185,9 @@ adw_split_button_get_property (GObject    *object,
   case PROP_CHILD:
     g_value_set_object (value, adw_split_button_get_child (self));
     break;
+  case PROP_CAN_SHRINK:
+    g_value_set_boolean (value, adw_split_button_get_can_shrink (self));
+    break;
   case PROP_MENU_MODEL:
     g_value_set_object (value, adw_split_button_get_menu_model (self));
     break;
@@ -228,6 +232,9 @@ adw_split_button_set_property (GObject      *object,
     break;
   case PROP_CHILD:
     adw_split_button_set_child (self, g_value_get_object (value));
+    break;
+  case PROP_CAN_SHRINK:
+    adw_split_button_set_can_shrink (self, g_value_get_boolean (value));
     break;
   case PROP_MENU_MODEL:
     adw_split_button_set_menu_model (self, g_value_get_object (value));
@@ -331,6 +338,23 @@ adw_split_button_class_init (AdwSplitButtonClass *klass)
     g_param_spec_object ("child", NULL, NULL,
                          GTK_TYPE_WIDGET,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwSplitButton:can-shrink: (attributes org.gtk.Property.get=adw_split_button_get_can_shrink org.gtk.Property.set=adw_split_button_set_can_shrink)
+   *
+   * Whether the button can be smaller than the natural size of its contents.
+   *
+   * If set to `TRUE`, the label will ellipsize.
+   *
+   * See [property@Gtk.Button:can-shrink] and
+   * [property@Gtk.MenuButton:can-shrink].
+   *
+   * Since: 1.4
+   */
+  props[PROP_CAN_SHRINK] =
+    g_param_spec_boolean ("can-shrink", NULL, NULL,
+                          FALSE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
    * AdwSplitButton:menu-model: (attributes org.gtk.Property.get=adw_split_button_get_menu_model org.gtk.Property.set=adw_split_button_set_menu_model)
@@ -781,6 +805,54 @@ adw_split_button_set_child (AdwSplitButton *self,
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CHILD]);
   g_object_thaw_notify (G_OBJECT (self));
+}
+
+/**
+ * adw_split_button_get_can_shrink: (attributes org.gtk.Method.get_property=can-shrink)
+ * @self: a split button
+ *
+ * gets whether the button can be smaller than the natural size of its contents.
+ *
+ * Returns: whether the button can shrink
+ *
+ * Since: 1.4
+ */
+gboolean
+adw_split_button_get_can_shrink (AdwSplitButton *self)
+{
+  g_return_val_if_fail (ADW_IS_SPLIT_BUTTON (self), FALSE);
+
+  return gtk_button_get_can_shrink (GTK_BUTTON (self->button));
+}
+
+/**
+ * adw_split_button_set_can_shrink: (attributes org.gtk.Method.set_property=can-shrink)
+ * @self: a split button
+ * @can_shrink: whether the button can shrink
+ *
+ * Sets whether the button can be smaller than the natural size of its contents.
+ *
+ * If set to `TRUE`, the label will ellipsize.
+ *
+ * See [method@Gtk.Button.set_can_shrink] and
+ * [method@Gtk.MenuButton.set_can_shrink].
+ *
+ * Since: 1.4
+ */
+void
+adw_split_button_set_can_shrink (AdwSplitButton *self,
+                                 gboolean        can_shrink)
+{
+  g_return_if_fail (ADW_IS_SPLIT_BUTTON (self));
+
+  can_shrink = !!can_shrink;
+
+  if (can_shrink == adw_split_button_get_can_shrink (self))
+    return;
+
+  gtk_button_set_can_shrink (GTK_BUTTON (self->button), can_shrink);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CAN_SHRINK]);
 }
 
 /**
