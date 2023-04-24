@@ -647,6 +647,7 @@
                         <property name="action-target">"debug-info"</property>
                         <property name="label" translatable="yes">_Copy Text</property>
                         <property name="use-underline">True</property>
+                        <property name="can-shrink">True</property>
                       </object>
                     </child>
                     <child type="end">
@@ -654,6 +655,7 @@
                         <property name="action-name">about.save-debug-info</property>
                         <property name="label" translatable="yes">_Save as…</property>
                         <property name="use-underline">True</property>
+                        <property name="can-shrink">True</property>
                       </object>
                     </child>
                   </object>
