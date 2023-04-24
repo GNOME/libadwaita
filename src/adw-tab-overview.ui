@@ -130,6 +130,7 @@
                     <property name="icon-name">tab-new-symbolic</property>
                     <property name="label" translatable="yes">New _Tab</property>
                     <property name="use-underline">True</property>
+                    <property name="can-shrink">True</property>
                   </object>
                 </property>
                 <style>
