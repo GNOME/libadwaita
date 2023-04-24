@@ -387,6 +387,7 @@ create_response_button (AdwMessageDialog *self,
   GtkWidget *button = gtk_button_new_with_mnemonic (info->label);
 
   gtk_widget_add_css_class (button, "flat");
+  gtk_button_set_can_shrink (GTK_BUTTON (button), TRUE);
 
   switch (info->appearance) {
   case ADW_RESPONSE_SUGGESTED:
