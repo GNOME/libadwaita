@@ -70,12 +70,8 @@
                                 <property name="halign">center</property>
                                 <property name="action-name">about.copy-property</property>
                                 <property name="action-target">"version"</property>
-                                <property name="child">
-                                  <object class="GtkLabel">
-                                    <property name="ellipsize">end</property>
-                                    <property name="label" bind-source="AdwAboutWindow" bind-property="version" bind-flags="sync-create"/>
-                                  </object>
-                                </property>
+                                <property name="can-shrink">True</property>
+                                <property name="label" bind-source="AdwAboutWindow" bind-property="version" bind-flags="sync-create"/>
                                 <style>
                                   <class name="app-version"/>
                                 </style>
