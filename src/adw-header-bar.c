@@ -511,6 +511,7 @@ adw_header_bar_init (AdwHeaderBar *self)
   gtk_widget_set_parent (self->handle, GTK_WIDGET (self));
 
   self->center_box = gtk_center_box_new ();
+  gtk_center_box_set_shrink_center_last (GTK_CENTER_BOX (self->center_box), TRUE);
   gtk_window_handle_set_child (GTK_WINDOW_HANDLE (self->handle), self->center_box);
 
   self->start_bin = adw_gizmo_new ("widget", NULL, NULL, NULL, NULL,
