@@ -27,6 +27,7 @@
 #include "adw-bin.h"
 #include "adw-enums.h"
 #include "adw-gizmo-private.h"
+#include "adw-navigation-split-view.h"
 #include "adw-navigation-view.h"
 #include "adw-widget-utils-private.h"
 
@@ -53,6 +54,12 @@
  * it will also display a back button that can be used to go back to the previous
  * page. Set [property@HeaderBar:show-back-button] to `FALSE` to disable that
  * behavior if it's unwanted.
+ *
+ * ## Split View Integration
+ *
+ * When placed inside `AdwNavigationSplitView`,
+ * `AdwHeaderBar` will automatically hide the title buttons other than at the
+ * edges of the window.
  *
  * ## Centering Policy
  *
@@ -147,6 +154,11 @@
 #define MOBILE_WINDOW_WIDTH  480
 #define MOBILE_WINDOW_HEIGHT 800
 
+typedef struct {
+  GtkWidget *split_view;
+  gboolean is_sidebar;
+} SplitViewData;
+
 struct _AdwHeaderBar {
   GtkWidget parent_instance;
 
@@ -179,6 +191,8 @@ struct _AdwHeaderBar {
   GtkSizeGroup *size_group;
 
   GtkWidget *title_navigation_page;
+
+  GSList *split_views;
 };
 
 enum {
@@ -243,6 +257,69 @@ create_back_button (AdwHeaderBar *self)
 }
 
 static void
+update_start_title_buttons (AdwHeaderBar *self)
+{
+  gboolean show = self->show_start_title_buttons;
+  GSList *l;
+
+  for (l = self->split_views; l; l = l->next) {
+    SplitViewData *data = l->data;
+
+    if (ADW_IS_NAVIGATION_SPLIT_VIEW (data->split_view)) {
+      AdwNavigationSplitView *split_view = ADW_NAVIGATION_SPLIT_VIEW (data->split_view);
+      gboolean collapsed = adw_navigation_split_view_get_collapsed (split_view);
+
+      show &= data->is_sidebar || collapsed;
+    }
+  }
+
+  if ((self->start_window_controls != NULL) == show)
+    return;
+
+  if (show) {
+    create_start_window_controls (self);
+  } else if (self->start_box && self->start_window_controls) {
+    gtk_box_remove (GTK_BOX (self->start_box), self->start_window_controls);
+    self->start_window_controls = NULL;
+  }
+}
+
+static void
+update_end_title_buttons (AdwHeaderBar *self)
+{
+  gboolean show = self->show_end_title_buttons;
+  GSList *l;
+
+  for (l = self->split_views; l; l = l->next) {
+    SplitViewData *data = l->data;
+
+    if (ADW_IS_NAVIGATION_SPLIT_VIEW (data->split_view)) {
+      AdwNavigationSplitView *split_view = ADW_NAVIGATION_SPLIT_VIEW (data->split_view);
+      gboolean collapsed = adw_navigation_split_view_get_collapsed (split_view);
+
+      show &= !data->is_sidebar || collapsed;
+    }
+  }
+
+  if ((self->end_window_controls != NULL) == show)
+    return;
+
+  if (show) {
+    create_end_window_controls (self);
+  } else if (self->end_box && self->end_window_controls) {
+    gtk_box_remove (GTK_BOX (self->end_box), self->end_window_controls);
+    self->end_window_controls = NULL;
+  }
+}
+
+static void
+update_title_buttons (AdwHeaderBar *self)
+{
+  update_start_title_buttons (self);
+  update_end_title_buttons (self);
+}
+
+static void
 update_title (AdwHeaderBar *self)
 {
   const char *title = NULL;
@@ -295,6 +372,7 @@ static void
 adw_header_bar_root (GtkWidget *widget)
 {
   AdwHeaderBar *self = ADW_HEADER_BAR (widget);
+  GtkWidget *parent;
 
   GTK_WIDGET_CLASS (adw_header_bar_parent_class)->root (widget);
 
@@ -312,13 +390,52 @@ adw_header_bar_root (GtkWidget *widget)
                                 G_CALLBACK (update_title), widget);
   }
 
+  parent = gtk_widget_get_parent (widget);
+
+  while (parent != NULL) {
+    GtkWidget *split_view = NULL;
+    gboolean is_sidebar = FALSE;
+
+    if (GTK_IS_NATIVE (parent))
+      break;
+
+    if (ADW_IS_NAVIGATION_SPLIT_VIEW (parent)) {
+      AdwNavigationPage *sidebar;
+
+      split_view = parent;
+
+      g_signal_connect_swapped (split_view, "notify::collapsed",
+                                G_CALLBACK (update_title_buttons), widget);
+
+      sidebar = adw_navigation_split_view_get_sidebar (ADW_NAVIGATION_SPLIT_VIEW (split_view));
+
+      if (sidebar) {
+        is_sidebar = widget == GTK_WIDGET (sidebar) ||
+                     (sidebar && gtk_widget_is_ancestor (widget, GTK_WIDGET (sidebar)));
+      }
+    }
+
+    if (split_view) {
+      SplitViewData *data = g_new0 (SplitViewData, 1);
+
+      data->split_view = split_view;
+      data->is_sidebar = is_sidebar;
+
+      self->split_views = g_slist_prepend (self->split_views, data);
+    }
+
+    parent = gtk_widget_get_parent (parent);
+  }
+
   update_title (self);
+  update_title_buttons (self);
 }
 
 static void
 adw_header_bar_unroot (GtkWidget *widget)
 {
   AdwHeaderBar *self = ADW_HEADER_BAR (widget);
+  GSList *l;
 
   if (self->title_navigation_page) {
     g_signal_handlers_disconnect_by_func (self->title_navigation_page,
@@ -329,6 +446,19 @@ adw_header_bar_unroot (GtkWidget *widget)
     g_signal_handlers_disconnect_by_func (gtk_widget_get_root (widget),
                                           update_title, widget);
   }
+
+  for (l = self->split_views; l; l = l->next) {
+    SplitViewData *data = l->data;
+
+    g_signal_handlers_disconnect_by_func (data->split_view,
+                                          update_title_buttons, widget);
+
+    g_free (data);
+  }
+
+  g_clear_pointer (&self->split_views, g_slist_free);
+
+  update_title_buttons (self);
 
   GTK_WIDGET_CLASS (adw_header_bar_parent_class)->unroot (widget);
 }
@@ -829,14 +959,8 @@ adw_header_bar_set_show_start_title_buttons (AdwHeaderBar *self,
 
   self->show_start_title_buttons = setting;
 
-  if (self->start_box) {
-    if (setting) {
-      create_start_window_controls (self);
-    } else if (self->start_box && self->start_window_controls) {
-      gtk_box_remove (GTK_BOX (self->start_box), self->start_window_controls);
-      self->start_window_controls = NULL;
-    }
-  }
+  if (self->start_box)
+    update_start_title_buttons (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_START_TITLE_BUTTONS]);
 }
@@ -883,14 +1007,8 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
 
   self->show_end_title_buttons = setting;
 
-  if (self->end_box) {
-    if (setting) {
-      create_end_window_controls (self);
-    } else if (self->end_box && self->end_window_controls) {
-      gtk_box_remove (GTK_BOX (self->end_box), self->end_window_controls);
-      self->end_window_controls = NULL;
-    }
-  }
+  if (self->end_box)
+    update_end_title_buttons (self);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_END_TITLE_BUTTONS]);
 }
