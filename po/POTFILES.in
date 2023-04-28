@@ -2,6 +2,7 @@
 # Please keep this file sorted alphabetically.
 src/adw-about-window.c
 src/adw-about-window.ui
+src/adw-back-button.c
 src/adw-entry-row.ui
 src/adw-inspector-page.c
 src/adw-inspector-page.ui

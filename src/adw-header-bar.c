@@ -23,6 +23,7 @@
 
 #include "adw-header-bar.h"
 
+#include "adw-back-button-private.h"
 #include "adw-bin.h"
 #include "adw-enums.h"
 #include "adw-gizmo-private.h"
@@ -47,6 +48,11 @@
  *
  * When placed inside an [class@NavigationPage], `AdwHeaderBar` will display the
  * page title instead of window title.
+ *
+ * When used together with [class@NavigationView], it will also display a back
+ * button that can be used to go back to the previous page. Set
+ * [property@HeaderBar:show-back-button] to `FALSE` to disable that behavior if
+ * it's unwanted.
  *
  * ## Centering Policy
  *
@@ -158,11 +164,13 @@ struct _AdwHeaderBar {
 
   GtkWidget *start_window_controls;
   GtkWidget *end_window_controls;
+  GtkWidget *back_button;
 
   char *decoration_layout;
 
   guint show_start_title_buttons : 1;
   guint show_end_title_buttons : 1;
+  guint show_back_button : 1;
   guint track_default_decoration : 1;
 
   AdwCenteringPolicy centering_policy;
@@ -178,6 +186,7 @@ enum {
   PROP_TITLE_WIDGET,
   PROP_SHOW_START_TITLE_BUTTONS,
   PROP_SHOW_END_TITLE_BUTTONS,
+  PROP_SHOW_BACK_BUTTON,
   PROP_DECORATION_LAYOUT,
   PROP_CENTERING_POLICY,
   PROP_SHOW_TITLE,
@@ -219,6 +228,18 @@ create_end_window_controls (AdwHeaderBar *self)
                           G_BINDING_SYNC_CREATE | G_BINDING_INVERT_BOOLEAN);
   gtk_box_append (GTK_BOX (self->end_box), controls);
   self->end_window_controls = controls;
+}
+
+static void
+create_back_button (AdwHeaderBar *self)
+{
+  GtkWidget *button = adw_back_button_new ();
+
+  gtk_box_insert_child_after (GTK_BOX (self->start_box),
+                              button,
+                              self->start_window_controls);
+
+  self->back_button = button;
 }
 
 static void
@@ -359,6 +380,9 @@ adw_header_bar_get_property (GObject    *object,
   case PROP_SHOW_END_TITLE_BUTTONS:
     g_value_set_boolean (value, adw_header_bar_get_show_end_title_buttons (self));
     break;
+  case PROP_SHOW_BACK_BUTTON:
+    g_value_set_boolean (value, adw_header_bar_get_show_back_button (self));
+    break;
   case PROP_DECORATION_LAYOUT:
     g_value_set_string (value, adw_header_bar_get_decoration_layout (self));
     break;
@@ -391,6 +415,9 @@ adw_header_bar_set_property (GObject      *object,
     break;
   case PROP_SHOW_END_TITLE_BUTTONS:
     adw_header_bar_set_show_end_title_buttons (self, g_value_get_boolean (value));
+    break;
+  case PROP_SHOW_BACK_BUTTON:
+    adw_header_bar_set_show_back_button (self, g_value_get_boolean (value));
     break;
   case PROP_DECORATION_LAYOUT:
     adw_header_bar_set_decoration_layout (self, g_value_get_string (value));
@@ -482,6 +509,21 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
+   * AdwHeaderBar:show-back-button: (attributes org.gtk.Property.get=adw_header_bar_get_show_back_button org.gtk.Property.set=adw_header_bar_set_show_back_button)
+   *
+   * Whether the header bar can show the back button.
+   *
+   * The back button will never be shown unless the header bar is placed inside an
+   * [class@NavigationView].
+   *
+   * Since: 1.4
+   */
+  props[PROP_SHOW_BACK_BUTTON] =
+    g_param_spec_boolean ("show-back-button", NULL, NULL,
+                          TRUE,
+                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
    * AdwHeaderBar:decoration-layout: (attributes org.gtk.Property.get=adw_header_bar_get_decoration_layout org.gtk.Property.set=adw_header_bar_set_decoration_layout)
    *
    * The decoration layout for buttons.
@@ -539,6 +581,7 @@ adw_header_bar_init (AdwHeaderBar *self)
   self->decoration_layout = NULL;
   self->show_start_title_buttons = TRUE;
   self->show_end_title_buttons = TRUE;
+  self->show_back_button = TRUE;
 
   self->handle = gtk_window_handle_new ();
   gtk_widget_set_parent (self->handle, GTK_WIDGET (self));
@@ -577,6 +620,7 @@ adw_header_bar_init (AdwHeaderBar *self)
   construct_title_label (self);
   create_start_window_controls (self);
   create_end_window_controls (self);
+  create_back_button (self);
 }
 
 static void
@@ -849,6 +893,61 @@ adw_header_bar_set_show_end_title_buttons (AdwHeaderBar *self,
   }
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_END_TITLE_BUTTONS]);
+}
+
+/**
+ * adw_header_bar_get_show_back_button: (attributes org.gtk.Method.get_property=show-back-button)
+ * @self: a header bar
+ *
+ * Gets whether @self can show the back button.
+ *
+ * Returns: whether to show the back button
+ *
+ * Since: 1.4
+ */
+gboolean
+adw_header_bar_get_show_back_button (AdwHeaderBar *self)
+{
+  g_return_val_if_fail (ADW_IS_HEADER_BAR (self), FALSE);
+
+  return self->show_back_button;
+}
+
+/**
+ * adw_header_bar_set_show_back_button: (attributes org.gtk.Method.set_property=show-back-button)
+ * @self: a header bar
+ * @show_back_button: whether to show the back button
+ *
+ * Sets whether @self can show the back button.
+ *
+ * The back button will never be shown unless the header bar is placed inside an
+ * [class@NavigationView].
+ *
+ * Since: 1.4
+ */
+void
+adw_header_bar_set_show_back_button (AdwHeaderBar *self,
+                                     gboolean      show_back_button)
+{
+  g_return_if_fail (ADW_IS_HEADER_BAR (self));
+
+  show_back_button = !!show_back_button;
+
+  if (self->show_back_button == show_back_button)
+    return;
+
+  self->show_back_button = show_back_button;
+
+  if (self->start_box) {
+    if (self->show_back_button) {
+      create_back_button (self);
+    } else if (self->back_button) {
+      gtk_box_remove (GTK_BOX (self->start_box), self->back_button);
+      self->back_button = NULL;
+    }
+  }
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_SHOW_BACK_BUTTON]);
 }
 
 /**
