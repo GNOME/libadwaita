@@ -15,6 +15,7 @@
   </description>
   <homepage rdf:resource="https://gitlab.gnome.org/GNOME/libadwaita" />
   <license rdf:resource="http://usefulinc.com/doap/licenses/lgpl" />
+  <developer-forum rdf:resource="https://discourse.gnome.org/tag/libadwaita" />
 
   <programming-language>C</programming-language>
 
