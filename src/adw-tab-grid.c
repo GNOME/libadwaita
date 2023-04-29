@@ -1817,8 +1817,8 @@ allocate_tab (AdwGizmo *widget,
 {
   TabInfo *info = g_object_get_data (G_OBJECT (widget), "info");
   GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (widget));
-  int allocated_width = gtk_widget_get_allocated_width (GTK_WIDGET (widget));
-  int width_diff = MAX (0, info->final_width - allocated_width);
+  int widget_width = gtk_widget_get_width (GTK_WIDGET (widget));
+  int width_diff = MAX (0, info->final_width - widget_width);
 
   gtk_widget_allocate (child, width + width_diff, height, baseline,
                        gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (-width_diff / 2, 0)));
@@ -2844,7 +2844,7 @@ do_popup (AdwTabGrid *self,
     rect.y = y;
   } else {
     rect.x = info->pos_x;
-    rect.y = info->pos_y + gtk_widget_get_allocated_height (GTK_WIDGET (info->container));
+    rect.y = info->pos_y + gtk_widget_get_height (info->container);
 
     if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
       rect.x += info->width;

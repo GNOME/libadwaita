@@ -601,9 +601,8 @@ adw_tab_snapshot (GtkWidget   *widget,
     gboolean is_rtl = gtk_widget_get_direction (widget) == GTK_TEXT_DIR_RTL;
     int width = gtk_widget_get_width (widget);
     int height = gtk_widget_get_height (widget);
-    float offset =
-      gtk_widget_get_allocated_width (self->close_btn) +
-      gtk_widget_get_margin_end (self->title);
+    float offset = gtk_widget_get_width (self->close_btn) +
+                   gtk_widget_get_margin_end (self->title);
 
     gtk_snapshot_push_mask (snapshot, GSK_MASK_MODE_INVERTED_ALPHA);
 

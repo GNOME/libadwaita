@@ -255,8 +255,8 @@ static void
 parent_size_cb (AdwMessageDialog *self)
 {
   AdwMessageDialogPrivate *priv = adw_message_dialog_get_instance_private (self);
-  int w = gtk_widget_get_allocated_width (GTK_WIDGET (priv->parent_window));
-  int h = gtk_widget_get_allocated_height (GTK_WIDGET (priv->parent_window));
+  int w = gtk_widget_get_width (GTK_WIDGET (priv->parent_window));
+  int h = gtk_widget_get_height (GTK_WIDGET (priv->parent_window));
 
   if (w == priv->parent_width && h == priv->parent_height)
       return;

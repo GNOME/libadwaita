@@ -136,8 +136,8 @@ draw_paintable_cb (ScreenshotData *data)
   int x, y, width, height;
   int widget_width, widget_height;
 
-  widget_width = gtk_widget_get_allocated_width (data->widget);
-  widget_height = gtk_widget_get_allocated_height (data->widget);
+  widget_width = gtk_widget_get_width (data->widget);
+  widget_height = gtk_widget_get_height (data->widget);
 
   if (GTK_IS_NATIVE (data->widget)) {
     GdkSurface *surface;

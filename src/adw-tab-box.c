@@ -1794,8 +1794,8 @@ allocate_tab (AdwGizmo *widget,
 {
   TabInfo *info = g_object_get_data (G_OBJECT (widget), "info");
   GtkWidget *child = gtk_widget_get_first_child (GTK_WIDGET (widget));
-  int allocated_width = gtk_widget_get_allocated_width (GTK_WIDGET (widget));
-  int width_diff = MAX (0, info->final_width - allocated_width);
+  int widget_width = gtk_widget_get_width (GTK_WIDGET (widget));
+  int width_diff = MAX (0, info->final_width - widget_width);
 
   gtk_widget_allocate (child, width + width_diff, height, baseline,
                        gsk_transform_translate (NULL, &GRAPHENE_POINT_INIT (-width_diff / 2, 0)));
@@ -2855,7 +2855,7 @@ do_popup (AdwTabBox *self,
     rect.y = y;
   } else {
     rect.x = info->pos;
-    rect.y = gtk_widget_get_allocated_height (GTK_WIDGET (info->container));
+    rect.y = gtk_widget_get_height (info->container);
 
     if (gtk_widget_get_direction (GTK_WIDGET (self)) == GTK_TEXT_DIR_RTL)
       rect.x += info->width;
@@ -3321,7 +3321,7 @@ snapshot_tabs (AdwTabBox   *self,
     int clip_x, clip_width;
 
     reordered_pos = get_tab_position (self, self->reordered_tab, FALSE);
-    reordered_width = gtk_widget_get_allocated_width (self->reordered_tab->container);
+    reordered_width = gtk_widget_get_width (self->reordered_tab->container);
 
     if (is_rtl) {
       clip_x = reordered_pos + reordered_width - scroll_start;
@@ -3340,7 +3340,7 @@ snapshot_tabs (AdwTabBox   *self,
     int pos, width;
 
     pos = get_tab_position (self, info, FALSE);
-    width = gtk_widget_get_allocated_width (info->container);
+    width = gtk_widget_get_width (info->container);
 
     if (pos + width < scroll_start)
       continue;

@@ -105,7 +105,7 @@ adw_fading_label_snapshot (GtkWidget   *widget,
   if (width <= 0)
     return;
 
-  clipped_size = gtk_widget_get_allocated_width (self->label) - width;
+  clipped_size = gtk_widget_get_width (self->label) - width;
 
   if (clipped_size <= 0) {
     gtk_widget_snapshot_child (widget, self->label, snapshot);

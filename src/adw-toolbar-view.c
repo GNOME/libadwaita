@@ -197,7 +197,7 @@ update_undershoots (AdwToolbarView *self)
 {
   if (self->top_bar_style == ADW_TOOLBAR_FLAT &&
       !self->extend_content_to_top_edge &&
-      gtk_widget_get_allocated_height (self->top_bar) > 0) {
+      gtk_widget_get_height (self->top_bar) > 0) {
     gtk_widget_add_css_class (GTK_WIDGET (self), "undershoot-top");
   } else {
     gtk_widget_remove_css_class (GTK_WIDGET (self), "undershoot-top");
@@ -205,7 +205,7 @@ update_undershoots (AdwToolbarView *self)
 
   if (self->bottom_bar_style == ADW_TOOLBAR_FLAT &&
       !self->extend_content_to_bottom_edge &&
-      gtk_widget_get_allocated_height (self->bottom_bar) > 0) {
+      gtk_widget_get_height (self->bottom_bar) > 0) {
     gtk_widget_add_css_class (GTK_WIDGET (self), "undershoot-bottom");
   } else {
     gtk_widget_remove_css_class (GTK_WIDGET (self), "undershoot-bottom");
