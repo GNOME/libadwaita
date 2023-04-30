@@ -213,6 +213,28 @@ update_undershoots (AdwToolbarView *self)
 }
 
 static void
+update_collapse_style (GtkWidget *box)
+{
+  int n_visible = 0;
+  GtkWidget *child;
+
+  for (child = gtk_widget_get_first_child (box);
+       child;
+       child = gtk_widget_get_next_sibling (child)) {
+    if (gtk_widget_get_visible (child))
+      n_visible++;
+
+    if (n_visible > 1)
+      break;
+   }
+
+  if (n_visible > 1)
+    gtk_widget_add_css_class (box, "collapse-spacing");
+  else
+    gtk_widget_remove_css_class (box, "collapse-spacing");
+}
+
+static void
 adw_toolbar_view_measure (GtkWidget      *widget,
                           GtkOrientation  orientation,
                           int             for_size,
@@ -770,10 +792,12 @@ adw_toolbar_view_add_top_bar (AdwToolbarView *self,
   g_return_if_fail (GTK_IS_WIDGET (widget));
   g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
 
-  if (gtk_widget_get_first_child (self->top_box))
-    gtk_widget_add_css_class (self->top_box, "collapse-spacing");
-
   gtk_box_append (GTK_BOX (self->top_box), widget);
+  update_collapse_style (self->top_box);
+
+  g_signal_connect_swapped (widget, "notify::visible",
+                            G_CALLBACK (update_collapse_style),
+                            self->top_box);
 }
 
 /**
@@ -793,10 +817,12 @@ adw_toolbar_view_add_bottom_bar (AdwToolbarView *self,
   g_return_if_fail (GTK_IS_WIDGET (widget));
   g_return_if_fail (gtk_widget_get_parent (widget) == NULL);
 
-  if (gtk_widget_get_first_child (self->bottom_box))
-    gtk_widget_add_css_class (self->bottom_box, "collapse-spacing");
-
   gtk_box_append (GTK_BOX (self->bottom_box), widget);
+  update_collapse_style (self->bottom_box);
+
+  g_signal_connect_swapped (widget, "notify::visible",
+                            G_CALLBACK (update_collapse_style),
+                            self->bottom_box);
 }
 
 /**
@@ -820,10 +846,13 @@ adw_toolbar_view_remove (AdwToolbarView *self,
   parent = gtk_widget_get_parent (widget);
 
   if (parent == self->top_box || parent == self->bottom_box) {
+    g_signal_handlers_disconnect_by_func (widget,
+                                          update_collapse_style,
+                                          parent);
+
     gtk_box_remove (GTK_BOX (parent), widget);
 
-    if (gtk_widget_get_first_child (parent) == gtk_widget_get_last_child (parent))
-      gtk_widget_remove_css_class (parent, "collapse-spacing");
+    update_collapse_style (parent);
 
     return;
   }
