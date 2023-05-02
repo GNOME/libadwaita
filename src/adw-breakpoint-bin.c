@@ -335,14 +335,10 @@ adw_breakpoint_bin_size_allocate (GtkWidget *widget,
     gtk_widget_set_child_visible (priv->child, FALSE);
   }
 
-  if (priv->current_breakpoint)
-    adw_breakpoint_unapply (priv->current_breakpoint);
+  adw_breakpoint_transition (priv->current_breakpoint, new_breakpoint);
 
   priv->current_breakpoint = new_breakpoint;
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_CURRENT_BREAKPOINT]);
-
-  if (priv->current_breakpoint)
-    adw_breakpoint_apply (priv->current_breakpoint);
 
   if (priv->first_allocation) {
     priv->block_warnings = TRUE;

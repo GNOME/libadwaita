@@ -16,8 +16,8 @@
 
 G_BEGIN_DECLS
 
-void adw_breakpoint_apply   (AdwBreakpoint *self);
-void adw_breakpoint_unapply (AdwBreakpoint *self);
+void adw_breakpoint_transition (AdwBreakpoint *from,
+                                AdwBreakpoint *to);
 
 gboolean adw_breakpoint_check_condition (AdwBreakpoint *self,
                                          GtkSettings   *settings,

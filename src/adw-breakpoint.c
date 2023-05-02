@@ -1003,7 +1003,7 @@ struct _AdwBreakpoint
   GObject parent_instance;
 
   AdwBreakpointCondition *condition;
-  GList *setters;
+  GHashTable *setters;
   gboolean active;
 };
 
@@ -1053,8 +1053,7 @@ setter_weak_notify (SetterData *setter,
 {
   g_assert (setter);
 
-  setter->breakpoint->setters =
-    g_list_remove (setter->breakpoint->setters, setter);
+  g_hash_table_steal (setter->breakpoint->setters, setter);
 
   setter->object = NULL;
   free_setter_data (setter);
@@ -1075,15 +1074,26 @@ free_setter_data (SetterData *setter)
   g_free (setter);
 }
 
+static guint
+setter_hash (const SetterData *setter)
+{
+  return g_direct_hash (setter->object) + g_direct_hash (setter->pspec);
+}
+
+static gboolean
+setter_equal (const SetterData *a,
+              const SetterData *b)
+{
+  return a->object == b->object && a->pspec == b->pspec;
+}
+
 static void
 adw_breakpoint_dispose (GObject *object)
 {
   AdwBreakpoint *self = ADW_BREAKPOINT (object);
 
   g_clear_pointer (&self->condition, adw_breakpoint_condition_free);
-
-  g_list_free_full (self->setters, (GDestroyNotify) free_setter_data);
-  self->setters = NULL;
+  g_clear_pointer (&self->setters, g_hash_table_unref);
 
   G_OBJECT_CLASS (adw_breakpoint_parent_class)->dispose (object);
 }
@@ -1193,6 +1203,10 @@ adw_breakpoint_class_init (AdwBreakpointClass *klass)
 static void
 adw_breakpoint_init (AdwBreakpoint *self)
 {
+  self->setters = g_hash_table_new_full ((GHashFunc) setter_hash,
+                                         (GEqualFunc) setter_equal,
+                                         NULL,
+                                         (GDestroyNotify) free_setter_data);
 }
 
 typedef struct {
@@ -1645,7 +1659,7 @@ adw_breakpoint_add_setter (AdwBreakpoint *self,
                      (GWeakNotify) setter_weak_notify,
                      setter);
 
-  self->setters = g_list_append (self->setters, setter);
+  g_hash_table_insert (self->setters, setter, setter);
 
   if (self->active)
     g_object_set_property (setter->object,
@@ -1785,45 +1799,46 @@ adw_breakpoint_add_setters_valist (AdwBreakpoint *self,
 }
 
 void
-adw_breakpoint_apply (AdwBreakpoint *self)
+adw_breakpoint_transition (AdwBreakpoint *from,
+                           AdwBreakpoint *to)
 {
-  GList *l;
+  GHashTableIter iter;
+  SetterData *setter;
 
-  g_assert (ADW_IS_BREAKPOINT (self));
-  g_assert (!self->active);
+  g_assert (!from || ADW_IS_BREAKPOINT (from));
+  g_assert (!from || from->active);
+  g_assert (!to || ADW_IS_BREAKPOINT (to));
+  g_assert (!to || !to->active);
 
-  self->active = TRUE;
+  if (from) {
+    g_signal_emit (from, signals[SIGNAL_UNAPPLY], 0);
+    from->active = FALSE;
 
-  for (l = self->setters; l; l = l->next) {
-    SetterData *setter = l->data;
+    g_hash_table_iter_init (&iter, from->setters);
 
-    g_object_set_property (setter->object,
-                           setter->pspec->name,
-                           &setter->value);
+    while (g_hash_table_iter_next (&iter, NULL, (gpointer) &setter)) {
+      /* Don't unset the property if we'll immediately set it again afterwards */
+      if (to && g_hash_table_contains (to->setters, setter))
+        continue;
+
+      g_object_set_property (setter->object,
+                             setter->pspec->name,
+                             &setter->original_value);
+    }
   }
 
-  g_signal_emit (self, signals[SIGNAL_APPLY], 0);
-}
+  if (to) {
+    g_hash_table_iter_init (&iter, to->setters);
 
-void
-adw_breakpoint_unapply (AdwBreakpoint *self)
-{
-  GList *l;
+    while (g_hash_table_iter_next (&iter, NULL, (gpointer) &setter)) {
+      g_object_set_property (setter->object,
+                             setter->pspec->name,
+                             &setter->value);
+    }
 
-  g_assert (ADW_IS_BREAKPOINT (self));
-  g_assert (self->active);
-
-  g_signal_emit (self, signals[SIGNAL_UNAPPLY], 0);
-
-  for (l = self->setters; l; l = l->next) {
-    SetterData *setter = l->data;
-
-    g_object_set_property (setter->object,
-                           setter->pspec->name,
-                           &setter->original_value);
+    to->active = TRUE;
+    g_signal_emit (to, signals[SIGNAL_APPLY], 0);
   }
-
-  self->active = FALSE;
 }
 
 gboolean
