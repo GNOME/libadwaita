@@ -13,6 +13,7 @@
 #include "adw-action-row.h"
 #include "adw-breakpoint-bin.h"
 #include "adw-leaflet.h"
+#include "adw-navigation-view.h"
 #include "adw-preferences-group-private.h"
 #include "adw-preferences-page-private.h"
 #include "adw-toast-overlay.h"
@@ -44,8 +45,8 @@
 typedef struct
 {
   AdwToastOverlay *toast_overlay;
-  AdwLeaflet *subpages_leaflet;
-  GtkWidget *preferences;
+  AdwNavigationView *subpages_nav_view;
+  GtkWidget *breakpoint_bin;
   GtkStack *content_stack;
   AdwViewStack *pages_stack;
   GtkToggleButton *search_button;
@@ -64,8 +65,10 @@ typedef struct
   GtkFilter *filter;
   GtkFilterListModel *filter_model;
 
-  GtkWidget *subpage;
   int n_pages;
+
+  AdwLeaflet *subpages_leaflet;
+  GtkWidget *subpage;
 } AdwPreferencesWindowPrivate;
 
 static void adw_preferences_window_buildable_init (GtkBuildableIface *iface);
@@ -338,7 +341,7 @@ search_results_unmap (AdwPreferencesWindow *self)
 }
 
 static void
-try_remove_subpages (AdwPreferencesWindow *self)
+try_remove_legacy_subpages (AdwPreferencesWindow *self)
 {
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
   GtkWidget *child;
@@ -346,7 +349,7 @@ try_remove_subpages (AdwPreferencesWindow *self)
   if (adw_leaflet_get_child_transition_running (priv->subpages_leaflet))
     return;
 
-  if (adw_leaflet_get_visible_child (priv->subpages_leaflet) == priv->preferences)
+  if (adw_leaflet_get_visible_child (priv->subpages_leaflet) == GTK_WIDGET (priv->subpages_nav_view))
     priv->subpage = NULL;
 
   child = gtk_widget_get_first_child (GTK_WIDGET (priv->subpages_leaflet));
@@ -355,21 +358,9 @@ try_remove_subpages (AdwPreferencesWindow *self)
 
     child = gtk_widget_get_next_sibling (child);
 
-    if (page != priv->preferences && page != priv->subpage)
+    if (page != GTK_WIDGET (priv->subpages_nav_view) && page != priv->subpage)
       adw_leaflet_remove (priv->subpages_leaflet, page);
   }
-}
-
-static void
-subpages_leaflet_child_transition_running_cb (AdwPreferencesWindow *self)
-{
-  try_remove_subpages (self);
-}
-
-static void
-subpages_leaflet_visible_child_cb (AdwPreferencesWindow *self)
-{
-  try_remove_subpages (self);
 }
 
 static void
@@ -392,7 +383,7 @@ update_view_switcher (AdwPreferencesWindow *self)
                                 adw_breakpoint_condition_new_or (main_condition,
                                                                  fallback_condition));
 
-  breakpoint = adw_breakpoint_bin_get_current_breakpoint (ADW_BREAKPOINT_BIN (priv->preferences));
+  breakpoint = adw_breakpoint_bin_get_current_breakpoint (ADW_BREAKPOINT_BIN (priv->breakpoint_bin));
 
   if (!breakpoint && priv->n_pages > 1)
     gtk_stack_set_visible_child (GTK_STACK (priv->view_switcher_stack), priv->view_switcher);
@@ -642,6 +633,11 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
    * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut.
    *
    * For right-to-left locales, gestures and shortcuts are reversed.
+   *
+   * Deprecated: 1.4: Use [property@NavigationPage:can-pop] instead.
+   *
+   * Has no effect for subpages added with
+   * [method@PreferencesWindow.push_subpage].
    */
   props[PROP_CAN_NAVIGATE_BACK] =
     g_param_spec_boolean ("can-navigate-back", NULL, NULL,
@@ -657,7 +653,8 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
                                                "/org/gnome/Adwaita/ui/adw-preferences-window.ui");
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, toast_overlay);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, subpages_leaflet);
-  gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, preferences);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, subpages_nav_view);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, breakpoint_bin);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, content_stack);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, pages_stack);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, search_button);
@@ -669,8 +666,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, view_switcher);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, title);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, breakpoint);
-  gtk_widget_class_bind_template_callback (widget_class, subpages_leaflet_child_transition_running_cb);
-  gtk_widget_class_bind_template_callback (widget_class, subpages_leaflet_visible_child_cb);
+  gtk_widget_class_bind_template_callback (widget_class, try_remove_legacy_subpages);
   gtk_widget_class_bind_template_callback (widget_class, update_view_switcher);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_transition_running_cb);
   gtk_widget_class_bind_template_callback (widget_class, title_stack_notify_visible_child_cb);
@@ -969,6 +965,10 @@ adw_preferences_window_set_search_enabled (AdwPreferencesWindow *self,
  * <kbd>Alt</kbd>+<kbd>←</kbd> shortcut.
  *
  * For right-to-left locales, gestures and shortcuts are reversed.
+ *
+ * Deprecated: 1.4: Use [method@NavigationPage.set_can_pop] instead.
+ *
+ * Has no effect for subpages added with [method@PreferencesWindow.push_subpage].
  */
 void
 adw_preferences_window_set_can_navigate_back (AdwPreferencesWindow *self,
@@ -997,6 +997,8 @@ adw_preferences_window_set_can_navigate_back (AdwPreferencesWindow *self,
  * Gets whether gestures and shortcuts for closing subpages are enabled.
  *
  * Returns: whether gestures and shortcuts are enabled.
+ *
+ * Deprecated: 1.4: Use [method@NavigationPage.get_can_pop] instead.
  */
 gboolean
 adw_preferences_window_get_can_navigate_back (AdwPreferencesWindow *self)
@@ -1019,6 +1021,8 @@ adw_preferences_window_get_can_navigate_back (AdwPreferencesWindow *self)
  *
  * The transition can be cancelled by the user, in which case visible child will
  * change back to the previously visible child.
+ *
+ * Deprecated: 1.4: Use [method@PreferencesWindow.push_subpage] instead.
  */
 void
 adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
@@ -1052,6 +1056,8 @@ adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
  * Closes the current subpage.
  *
  * If there is no presented subpage, this does nothing.
+ *
+ * Deprecated: 1.4: Use [method@PreferencesWindow.pop_subpage] instead.
  */
 void
 adw_preferences_window_close_subpage (AdwPreferencesWindow *self)
@@ -1065,7 +1071,52 @@ adw_preferences_window_close_subpage (AdwPreferencesWindow *self)
   if (priv->subpage == NULL)
     return;
 
-  adw_leaflet_set_visible_child (priv->subpages_leaflet, priv->preferences);
+  adw_leaflet_set_visible_child (priv->subpages_leaflet, GTK_WIDGET (priv->subpages_nav_view));
+}
+
+/**
+ * adw_preferences_window_push_subpage:
+ * @self: a preferences window
+ * @page: the subpage
+ *
+ * TODO
+ *
+ * Since: 1.4
+ */
+void
+adw_preferences_window_push_subpage (AdwPreferencesWindow *self,
+                                     AdwNavigationPage    *page)
+{
+  AdwPreferencesWindowPrivate *priv;
+
+  g_return_if_fail (ADW_IS_PREFERENCES_WINDOW (self));
+  g_return_if_fail (ADW_IS_NAVIGATION_PAGE (page));
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  adw_navigation_view_push (priv->subpages_nav_view, page);
+}
+
+/**
+ * adw_preferences_window_pop_subpage:
+ * @self: a preferences window
+ *
+ * TODO
+ *
+ * Returns: TODO
+ *
+ * Since: 1.4
+ */
+gboolean
+adw_preferences_window_pop_subpage (AdwPreferencesWindow *self)
+{
+  AdwPreferencesWindowPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_PREFERENCES_WINDOW (self), FALSE);
+
+  priv = adw_preferences_window_get_instance_private (self);
+
+  return adw_navigation_view_pop (priv->subpages_nav_view);
 }
 
 /**
@@ -1089,4 +1140,3 @@ adw_preferences_window_add_toast (AdwPreferencesWindow *self,
 
   adw_toast_overlay_add_toast (priv->toast_overlay, toast);
 }
-

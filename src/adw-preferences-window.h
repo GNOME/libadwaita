@@ -13,6 +13,7 @@
 #include "adw-version.h"
 
 #include <gtk/gtk.h>
+#include "adw-navigation-view.h"
 #include "adw-preferences-page.h"
 #include "adw-toast.h"
 #include "adw-window.h"
@@ -64,17 +65,23 @@ ADW_AVAILABLE_IN_ALL
 void     adw_preferences_window_set_search_enabled (AdwPreferencesWindow *self,
                                                     gboolean              search_enabled);
 
-ADW_AVAILABLE_IN_ALL
+ADW_DEPRECATED_IN_1_4_FOR (adw_navigation_page_get_can_pop)
 gboolean adw_preferences_window_get_can_navigate_back (AdwPreferencesWindow *self);
-ADW_AVAILABLE_IN_ALL
+ADW_DEPRECATED_IN_1_4_FOR (adw_navigation_page_set_can_pop)
 void     adw_preferences_window_set_can_navigate_back (AdwPreferencesWindow *self,
                                                        gboolean              can_navigate_back);
 
-ADW_AVAILABLE_IN_ALL
+ADW_DEPRECATED_IN_1_4_FOR (adw_preferences_window_push_subpage)
 void adw_preferences_window_present_subpage (AdwPreferencesWindow *self,
                                              GtkWidget            *subpage);
-ADW_AVAILABLE_IN_ALL
+ADW_DEPRECATED_IN_1_4_FOR (adw_preferences_window_pop_subpage)
 void adw_preferences_window_close_subpage   (AdwPreferencesWindow *self);
+
+ADW_AVAILABLE_IN_1_4
+void     adw_preferences_window_push_subpage (AdwPreferencesWindow *self,
+                                              AdwNavigationPage    *page);
+ADW_AVAILABLE_IN_1_4
+gboolean adw_preferences_window_pop_subpage  (AdwPreferencesWindow *self);
 
 ADW_AVAILABLE_IN_ALL
 void adw_preferences_window_add_toast (AdwPreferencesWindow *self,
