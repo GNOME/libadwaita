@@ -56,6 +56,11 @@ window {
       box-shadow: none;
       transition: none;
     }
+
+    &.ssd-frame {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
   }
 
   &.solid-csd {
