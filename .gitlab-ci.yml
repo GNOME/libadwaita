@@ -19,12 +19,14 @@ stages:
 api-visibility:
   stage: build
   before_script: []
+  needs: []
   script:
     - ./.gitlab-ci/api-visibility.sh
 
 doc:
   image: $FEDORA_IMAGE
   stage: build
+  needs: []
   tags:
     - flatpak
   variables:
@@ -46,15 +48,18 @@ build-flatpak:
   extends: '.flatpak@x86_64'
   stage: build
   before_script: []
+  needs: []
 
 build-flatpak-aarch64:
   extends: '.flatpak@aarch64'
   stage: build
   before_script: []
+  needs: []
 
 abi-check:
   image: $FEDORA_IMAGE
   stage: build
+  needs: []
   variables:
     LAST_ABI_BREAK: "11849510ba90790093ae130a3e46033b1f908e57"
   script:
@@ -63,6 +68,7 @@ abi-check:
 refresh-doc:
   image: fedora
   stage: publish
+  needs: ['doc']
   only:
     refs:
     - 'main'
