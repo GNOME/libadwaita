@@ -60,14 +60,14 @@ scrollbar {
         @if $contrast == 'high' {
           outline: 1px solid $scrollbar_outline_color;
         } @else {
-          outline: 1px solid gtkalpha($scrollbar_outline_color, .4);
+          outline: 1px solid gtkalpha($scrollbar_outline_color, .6);
         }
 
         .osd & {
           @if $contrast == 'high' {
             outline: 1px solid $osd_scrollbar_outline_color;
           } @else {
-            outline: 1px solid gtkalpha($osd_scrollbar_outline_color, .4);
+            outline: 1px solid gtkalpha($osd_scrollbar_outline_color, .6);
           }
         }
 
@@ -96,19 +96,9 @@ scrollbar {
 
     &.hovering > range > trough {
       @if $contrast == 'high' {
-        outline-color: gtkalpha($scrollbar_outline_color, .6);
         background-color: gtkalpha(currentColor, .25);
       } @else {
-        outline-color: gtkalpha($scrollbar_outline_color, .35);
         background-color: gtkalpha(currentColor, .1);
-      }
-
-      .osd & {
-        @if $contrast == 'high' {
-          outline-color: gtkalpha($osd_scrollbar_outline_color, .6);
-        } @else {
-          outline-color: gtkalpha($osd_scrollbar_outline_color, .35);
-        }
       }
     }
 
