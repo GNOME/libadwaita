@@ -210,15 +210,15 @@ get_n_pages (AdwPreferencesWindow *self)
   return count;
 }
 
-static gchar *
+static char *
 create_search_row_subtitle (AdwPreferencesWindow *self,
-                            GtkWidget            *row)
+                            AdwPreferencesRow    *row)
 {
   GtkWidget *group, *page;
   const char *group_title = NULL;
   char *page_title = NULL;
 
-  group = gtk_widget_get_ancestor (row, ADW_TYPE_PREFERENCES_GROUP);
+  group = gtk_widget_get_ancestor (GTK_WIDGET (row), ADW_TYPE_PREFERENCES_GROUP);
 
   if (group) {
     group_title = adw_preferences_group_get_title (ADW_PREFERENCES_GROUP (group));
@@ -236,6 +236,14 @@ create_search_row_subtitle (AdwPreferencesWindow *self,
       page_title = strip_mnemonic (title);
     else
       page_title = g_strdup (title);
+
+    if (adw_preferences_row_get_use_markup (row)) {
+      char *tmp = page_title;
+
+      page_title = g_markup_escape_text (page_title, -1);
+
+      g_free (tmp);
+    }
 
     if (g_strcmp0 (page_title, "") == 0)
       g_clear_pointer (&page_title, g_free);
@@ -267,13 +275,17 @@ new_search_row_for_preference (AdwPreferencesRow    *row,
 
   g_assert (ADW_IS_PREFERENCES_ROW (row));
 
-  subtitle = create_search_row_subtitle (self, GTK_WIDGET (row));
+  subtitle = create_search_row_subtitle (self, row);
   page = gtk_widget_get_ancestor (GTK_WIDGET (row), ADW_TYPE_PREFERENCES_PAGE);
 
   widget = ADW_ACTION_ROW (adw_action_row_new ());
   gtk_list_box_row_set_activatable (GTK_LIST_BOX_ROW (widget), TRUE);
-  g_object_bind_property (row, "title", widget, "title", G_BINDING_SYNC_CREATE);
-  g_object_bind_property (row, "use-underline", widget, "use-underline", G_BINDING_SYNC_CREATE);
+  adw_preferences_row_set_use_markup (ADW_PREFERENCES_ROW (widget),
+                                      adw_preferences_row_get_use_markup (row));
+  adw_preferences_row_set_use_underline (ADW_PREFERENCES_ROW (widget),
+                                         adw_preferences_row_get_use_underline (row));
+  adw_preferences_row_set_title (ADW_PREFERENCES_ROW (widget),
+                                 adw_preferences_row_get_title (row));
   adw_action_row_set_subtitle (widget, subtitle);
 
   g_object_set_data (G_OBJECT (widget), "page", page);
