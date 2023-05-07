@@ -8,6 +8,7 @@
 #include "config.h"
 
 #include "adw-enums.h"
+#include "adw-breakpoint-bin-private.h"
 #include "adw-view-switcher-bar.h"
 
 /**
@@ -116,6 +117,51 @@ update_bar_revealed (AdwViewSwitcherBar *self)
 }
 
 static void
+adw_view_switcher_bar_root (GtkWidget *widget)
+{
+  AdwViewSwitcherBar *self = ADW_VIEW_SWITCHER_BAR (widget);
+  gboolean found_breakpoint_bin = FALSE;
+  GtkWidget *bin;
+  GtkRevealer *revealer;
+
+  GTK_WIDGET_CLASS (adw_view_switcher_bar_parent_class)->root (widget);
+
+  bin = gtk_widget_get_ancestor (widget, ADW_TYPE_BREAKPOINT_BIN);
+
+  while (ADW_IS_BREAKPOINT_BIN (bin)) {
+    if (adw_breakpoint_bin_has_breakpoints (ADW_BREAKPOINT_BIN (bin))) {
+      found_breakpoint_bin = TRUE;
+      break;
+    }
+
+    bin = gtk_widget_get_parent (bin);
+
+    if (bin)
+      bin = gtk_widget_get_ancestor (bin, ADW_TYPE_BREAKPOINT_BIN);
+  }
+
+  revealer = GTK_REVEALER (gtk_widget_get_first_child (self->action_bar));
+
+  if (found_breakpoint_bin)
+    gtk_revealer_set_transition_duration (revealer, 0);
+  else
+    gtk_revealer_set_transition_duration (revealer, 250);
+}
+
+static void
+adw_view_switcher_bar_unroot (GtkWidget *widget)
+{
+  AdwViewSwitcherBar *self = ADW_VIEW_SWITCHER_BAR (widget);
+  GtkRevealer *revealer;
+
+  revealer = GTK_REVEALER (gtk_widget_get_first_child (self->action_bar));
+
+  gtk_revealer_set_transition_type (revealer, GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP);
+
+  GTK_WIDGET_CLASS (adw_view_switcher_bar_parent_class)->unroot (widget);
+}
+
+static void
 adw_view_switcher_bar_get_property (GObject    *object,
                                     guint       prop_id,
                                     GValue     *value,
@@ -181,6 +227,9 @@ adw_view_switcher_bar_class_init (AdwViewSwitcherBarClass *klass)
   object_class->get_property = adw_view_switcher_bar_get_property;
   object_class->set_property = adw_view_switcher_bar_set_property;
   object_class->dispose = adw_view_switcher_bar_dispose;
+
+  widget_class->root = adw_view_switcher_bar_root;
+  widget_class->unroot = adw_view_switcher_bar_unroot;
 
   /**
    * AdwViewSwitcherBar:stack: (attributes org.gtk.Property.get=adw_view_switcher_bar_get_stack org.gtk.Property.set=adw_view_switcher_bar_set_stack)

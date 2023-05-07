@@ -19,4 +19,6 @@ G_BEGIN_DECLS
 void adw_breakpoint_bin_set_warning_widget (AdwBreakpointBin *self,
                                             GtkWidget        *warning_widget);
 
+gboolean adw_breakpoint_bin_has_breakpoints (AdwBreakpointBin *self);
+
 G_END_DECLS

@@ -633,3 +633,15 @@ adw_breakpoint_bin_set_warning_widget (AdwBreakpointBin *self,
 
   priv->warning_widget = warning_widget;
 }
+
+gboolean
+adw_breakpoint_bin_has_breakpoints (AdwBreakpointBin *self)
+{
+  AdwBreakpointBinPrivate *priv;
+
+  g_return_val_if_fail (ADW_IS_BREAKPOINT_BIN (self), FALSE);
+
+  priv = adw_breakpoint_bin_get_instance_private (self);
+
+  return !!priv->breakpoints;
+}
