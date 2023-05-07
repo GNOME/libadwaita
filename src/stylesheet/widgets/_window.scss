@@ -1,7 +1,4 @@
 window {
-  // lamefun trick to get rounded borders regardless of CSD use
-  border-width: 0px;
-
   &.csd {
     box-shadow: 0 1px 3px 3px transparent,
                 0 2px 8px 2px transparentize(black, 0.87),
