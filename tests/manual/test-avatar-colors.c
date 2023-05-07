@@ -1,5 +1,4 @@
 #include <adwaita.h>
-#include <adwaita.h>
 
 static const char *names[] = {
   "Aaron",
