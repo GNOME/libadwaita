@@ -657,6 +657,7 @@ adw_toolbar_view_init (AdwToolbarView *self)
   gtk_widget_set_overflow (GTK_WIDGET (self), GTK_OVERFLOW_HIDDEN);
 
   self->top_bar = gtk_revealer_new ();
+  gtk_widget_set_overflow (self->top_bar, GTK_OVERFLOW_VISIBLE);
   gtk_revealer_set_reveal_child (GTK_REVEALER (self->top_bar), TRUE);
   gtk_widget_set_vexpand (self->top_bar, FALSE);
   gtk_widget_add_css_class (self->top_bar, "top-bar");
@@ -669,6 +670,7 @@ adw_toolbar_view_init (AdwToolbarView *self)
   gtk_window_handle_set_child (GTK_WINDOW_HANDLE (top_handle), self->top_box);
 
   self->bottom_bar = gtk_revealer_new ();
+  gtk_widget_set_overflow (self->bottom_bar, GTK_OVERFLOW_VISIBLE);
   gtk_revealer_set_reveal_child (GTK_REVEALER (self->bottom_bar), TRUE);
   gtk_revealer_set_transition_type (GTK_REVEALER (self->bottom_bar),
                                     GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP);
