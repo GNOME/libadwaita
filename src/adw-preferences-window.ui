@@ -26,7 +26,7 @@
                 <property name="height-request">150</property>
                 <signal name="notify::current-breakpoint" handler="update_view_switcher" swapped="true"/>
                 <child>
-                  <object class="AdwBreakpoint">
+                  <object class="AdwBreakpoint" id="breakpoint">
                     <condition>max-width: 600px</condition>
                     <setter object="view_switcher_bar" property="reveal">True</setter>
                   </object>

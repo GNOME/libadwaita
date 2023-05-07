@@ -19,6 +19,9 @@
 #include "adw-view-stack.h"
 #include "adw-widget-utils-private.h"
 
+#define VIEW_SWITCHER_PAGE_THRESHOLD 110
+#define VIEW_SWITCHER_FALLBACK_THRESHOLD 400
+
 /**
  * AdwPreferencesWindow:
  *
@@ -53,6 +56,7 @@ typedef struct
   GtkWidget *view_switcher_stack;
   GtkWidget *view_switcher;
   GtkWidget *title;
+  AdwBreakpoint *breakpoint;
 
   gboolean search_enabled;
   gboolean can_navigate_back;
@@ -361,6 +365,20 @@ update_view_switcher (AdwPreferencesWindow *self)
 {
   AdwPreferencesWindowPrivate *priv = adw_preferences_window_get_instance_private (self);
   AdwBreakpoint *breakpoint;
+  AdwBreakpointCondition *main_condition, *fallback_condition;
+
+  main_condition =
+    adw_breakpoint_condition_new_length (ADW_BREAKPOINT_CONDITION_MAX_WIDTH,
+                                         VIEW_SWITCHER_PAGE_THRESHOLD * MAX (1, priv->n_pages),
+                                         ADW_BREAKPOINT_CONDITION_PT);
+  fallback_condition =
+    adw_breakpoint_condition_new_length (ADW_BREAKPOINT_CONDITION_MAX_WIDTH,
+                                         VIEW_SWITCHER_FALLBACK_THRESHOLD,
+                                         ADW_BREAKPOINT_CONDITION_PX);
+
+  adw_breakpoint_set_condition (priv->breakpoint,
+                                adw_breakpoint_condition_new_or (main_condition,
+                                                                 fallback_condition));
 
   breakpoint = adw_breakpoint_bin_get_current_breakpoint (ADW_BREAKPOINT_BIN (priv->preferences));
 
@@ -638,6 +656,7 @@ adw_preferences_window_class_init (AdwPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, view_switcher_stack);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, view_switcher);
   gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, title);
+  gtk_widget_class_bind_template_child_private (widget_class, AdwPreferencesWindow, breakpoint);
   gtk_widget_class_bind_template_callback (widget_class, subpages_leaflet_child_transition_running_cb);
   gtk_widget_class_bind_template_callback (widget_class, subpages_leaflet_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, update_view_switcher);
