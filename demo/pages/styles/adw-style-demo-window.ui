@@ -32,11 +32,7 @@
             <child>
               <object class="AdwPreferencesPage">
                 <property name="width-request">360</property>
-                <child>
-                  <object class="AdwPreferencesGroup">
-                    <property name="description" translatable="yes">Hover over widgets to see their exact style class names.</property>
-                  </object>
-                </child>
+                <property name="description" translatable="yes">Hover over widgets to see their exact style class names.</property>
                 <child>
                   <object class="AdwPreferencesGroup">
                     <property name="title" translatable="yes">Buttons</property>
