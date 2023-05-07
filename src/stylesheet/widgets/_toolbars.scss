@@ -217,6 +217,16 @@ banner > revealer > widget {
   background-color: gtkmix($accent_bg_color, $window_bg_color, 30%);
   color: $window_fg_color;
   padding: 6px;
+
+  &:backdrop {
+    background-color: gtkmix($accent_bg_color, $window_bg_color, 15%);
+    transition: background-color $backdrop_transition;
+
+    > label, > button {
+      filter: opacity(.5);
+      transition: filter $backdrop_transition;
+    }
+  }
 }
 
 /******************
