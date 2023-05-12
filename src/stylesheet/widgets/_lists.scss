@@ -27,6 +27,13 @@ list {
   }
 }
 
+listview > header {
+  @extend .heading;
+  padding: 2px;
+  padding-top: 18px;
+  padding-bottom: 6px;
+}
+
 row {
   @include focus-ring();
 
@@ -95,6 +102,11 @@ row {
     > box {
       border-spacing: 12px;
     }
+  }
+
+  > header {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }
 
