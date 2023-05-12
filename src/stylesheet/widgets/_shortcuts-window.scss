@@ -10,6 +10,8 @@ shortcuts-section {
 // shortcut window keys
 shortcut {
   border-spacing: 6px;
+  border-radius: 6px;
+  @include focus-ring($outer: true, $offset: 4px);
 
   > .keycap {
     min-width: 20px;
