@@ -146,10 +146,10 @@ searchbar {
   padding-bottom: 6px;
 }
 
-%searchbar-inline > revealer > box {
+%searchbar-inline {
   @extend %searchbar-flat;
 
-  &:backdrop {
+  > revealer > box:backdrop {
     background-color: transparent;
     transition: none;
 
