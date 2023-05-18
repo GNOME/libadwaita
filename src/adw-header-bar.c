@@ -489,7 +489,7 @@ adw_header_bar_class_init (AdwHeaderBarClass *class)
    */
   props[PROP_SHOW_TITLE] =
     g_param_spec_boolean ("show-title", NULL, NULL,
-                          FALSE,
+                          TRUE,
                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
