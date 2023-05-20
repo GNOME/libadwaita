@@ -53,6 +53,35 @@
  * `AdwHeaderBar` will also display the title of the `AdwNavigationPage` it's
  * placed into, so most applications shouldn't need to customize it at all.
  *
+ * ## Shortcuts and Gestures
+ *
+ * `AdwNavigationView` supports the following shortcuts for going to the
+ * previous page:
+ *
+ * - <kbd>Alt</kbd>+<kbd>←</kbd>
+ * - Back mouse button
+ *
+ * Additionally, it supports interactive gestures:
+ *
+ * - One-finger swipe towards the right on touchscreens
+ * - Scrolling towards the right on touchpads (usually two-finger swipe)
+ *
+ * These gestures have transitions enabled regardless of the
+ * [property@NavigationView:animate-transitions] value.
+ *
+ * Applications can also enable shortcuts for pushing another page onto the
+ * navigation stack via connecting to the [signal@NavigationView::get-next-page]
+ * signal, in that case the following shortcuts are supported:
+ *
+ * - <kbd>Alt</kbd>+<kbd>→</kbd>
+ * - Forward mouse button
+ * - Swipe/scrolling towards the left
+ *
+ * For right-to-left locales, the gestures and shortcuts are reversed.
+ *
+ * [property@NavigationPage:can-pop] can be used to disable them, along with the
+ * header bar back buttons.
+ *
  * ## Actions
  *
  * `AdwNavigationView` defines actions for controlling the navigation stack.
@@ -2263,7 +2292,7 @@ adw_navigation_view_find_page (AdwNavigationView *self,
  * @self: a navigation view
  * @page: the page to push
  *
- * Pushes @page to the navigation stack.
+ * Pushes @page onto the navigation stack.
  *
  * If [method@NavigationView.add] hasn't been called, the page is automatically
  * removed once it's popped.
@@ -2292,7 +2321,7 @@ adw_navigation_view_push (AdwNavigationView *self,
  * @self: a navigation view
  * @tag: the page tag
  *
- * Pushes the page with the tag @tag to the navigation stack.
+ * Pushes the page with the tag @tag onto the navigation stack.
  *
  * If [method@NavigationView.add] hasn't been called, the page is automatically
  * removed once it's popped.
