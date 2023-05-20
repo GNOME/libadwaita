@@ -27,7 +27,10 @@
  *   <img src="navigation-view.png" alt="navigation-view">
  * </picture>
  *
- * `AdwNavigationView` presents one page at a time, similar to [class@Gtk.Stack].
+ * `AdwNavigationView` presents one child at a time, similar to
+ * [class@Gtk.Stack].
+ *
+ * `AdwNavigationView` can only contain [class@NavigationPage] children.
  *
  * It maintains a navigation stack that can be controlled with
  * [method@NavigationView.push] and [method@NavigationView.pop].
