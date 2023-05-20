@@ -23,27 +23,52 @@ G_BEGIN_DECLS
 ADW_AVAILABLE_IN_1_4
 G_DECLARE_DERIVABLE_TYPE (AdwNavigationPage, adw_navigation_page, ADW, NAVIGATION_PAGE, GtkWidget)
 
-/**
- * AdwNavigationPageClass:
- * @parent_class: The parent class
- * @showing: Called when the page shows at the beginning of the navigation view
- *   transition.
- * @shown: Called when the navigation view transition has been completed and the
- *   page is fully shown.
- * @hiding: Called when the page starts hiding at the beginning of the
- *   navigation view transition.
- * @hidden: Called when the navigation view transition has been completed and
- *   the page is fully hidden.
- *
- * Since: 1.4
- */
 struct _AdwNavigationPageClass
 {
   GtkWidgetClass parent_class;
 
+  /**
+   * AdwNavigationPageClass::showing:
+   * @self: a navigation page
+   *
+   * Called when the page shows at the beginning of the navigation view
+   * transition.
+   *
+   * Since: 1.4
+   */
   void (* showing) (AdwNavigationPage *self);
+
+  /**
+   * AdwNavigationPageClass::shown:
+   * @self: a navigation page
+   *
+   * Called when the navigation view transition has been completed and the page
+   * is fully shown.
+   *
+   * Since: 1.4
+   */
   void (* shown)   (AdwNavigationPage *self);
+
+  /**
+   * AdwNavigationPageClass::hiding:
+   * @self: a navigation page
+   *
+   * Called when the page starts hiding at the beginning of the navigation view
+   * transition.
+   *
+   * Since: 1.4
+   */
   void (* hiding)  (AdwNavigationPage *self);
+
+  /**
+   * AdwNavigationPageClass::hidden:
+   * @self: a navigation page
+   *
+   * Called when the navigation view transition has been completed and the page
+   * is fully hidden.
+   *
+   * Since: 1.4
+   */
   void (* hidden)  (AdwNavigationPage *self);
 
   /*< private >*/
