@@ -1152,35 +1152,46 @@ prepare_cb (AdwSwipeTracker        *tracker,
             AdwNavigationView      *self)
 {
   AdwNavigationPage *visible_page = adw_navigation_view_get_visible_page (self);
+  AdwNavigationPage *new_page;
+  gboolean remove_on_pop;
 
-  if (!visible_page || self->hiding_page || self->showing_page)
+  if (!visible_page)
     return;
-
-  adw_animation_reset (self->transition);
 
   switch (direction) {
   case ADW_NAVIGATION_DIRECTION_BACK:
     if (!adw_navigation_page_get_can_pop (visible_page))
       return;
 
-    self->showing_page =
-      adw_navigation_view_get_previous_page (self, visible_page);
+    new_page = adw_navigation_view_get_previous_page (self, visible_page);
 
-    if (!self->showing_page)
+    if (!new_page)
       return;
 
-    self->hiding_page = g_object_ref (visible_page);
+    if (self->showing_page || self->hiding_page)
+      adw_animation_skip (self->transition);
 
-    g_object_ref (self->showing_page);
+    self->showing_page = g_object_ref (new_page);
+    self->hiding_page = g_object_ref (visible_page);
 
     self->transition_pop = TRUE;
     break;
   case ADW_NAVIGATION_DIRECTION_FORWARD:
-    self->showing_page = get_next_page (self);
+    new_page = get_next_page (self);
 
-    if (!self->showing_page || !maybe_add_page (self, self->showing_page))
+    if (!new_page || !maybe_add_page (self, new_page))
       return;
 
+    remove_on_pop = get_remove_on_pop (new_page);
+    set_remove_on_pop (new_page, FALSE);
+
+    if (self->showing_page || self->hiding_page)
+      adw_animation_skip (self->transition);
+
+    if (remove_on_pop)
+      set_remove_on_pop (new_page, TRUE);
+
+    self->showing_page = new_page;
     self->hiding_page = g_object_ref (visible_page);
 
     gtk_widget_insert_before (GTK_WIDGET (self->shield), GTK_WIDGET (self), NULL);
@@ -1200,6 +1211,8 @@ prepare_cb (AdwSwipeTracker        *tracker,
   self->gesture_active = TRUE;
 
   gtk_widget_set_child_visible (GTK_WIDGET (self->showing_page), TRUE);
+
+  adw_animation_reset (self->transition);
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
 }
