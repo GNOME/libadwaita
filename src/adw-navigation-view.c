@@ -1153,7 +1153,7 @@ prepare_cb (AdwSwipeTracker        *tracker,
 {
   AdwNavigationPage *visible_page = adw_navigation_view_get_visible_page (self);
   AdwNavigationPage *new_page;
-  gboolean remove_on_pop;
+  gboolean remove_on_pop = FALSE;
 
   if (!visible_page)
     return;
