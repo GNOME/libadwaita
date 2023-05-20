@@ -4,8 +4,8 @@ struct _AdwDemoPreferencesWindow
 {
   AdwPreferencesWindow parent_instance;
 
-  GtkWidget *subpage1;
-  GtkWidget *subpage2;
+  AdwNavigationPage *subpage1;
+  AdwNavigationPage *subpage2;
 };
 
 G_DEFINE_FINAL_TYPE (AdwDemoPreferencesWindow, adw_demo_preferences_window, ADW_TYPE_PREFERENCES_WINDOW)
@@ -17,21 +17,15 @@ adw_demo_preferences_window_new (void)
 }
 
 static void
-return_to_preferences_cb (AdwDemoPreferencesWindow *self)
-{
-  adw_preferences_window_close_subpage (ADW_PREFERENCES_WINDOW (self));
-}
-
-static void
 subpage1_activated_cb (AdwDemoPreferencesWindow *self)
 {
-  adw_preferences_window_present_subpage (ADW_PREFERENCES_WINDOW (self), self->subpage1);
+  adw_preferences_window_push_subpage (ADW_PREFERENCES_WINDOW (self), self->subpage1);
 }
 
 static void
 subpage2_activated_cb (AdwDemoPreferencesWindow *self)
 {
-  adw_preferences_window_present_subpage (ADW_PREFERENCES_WINDOW (self), self->subpage2);
+  adw_preferences_window_push_subpage (ADW_PREFERENCES_WINDOW (self), self->subpage2);
 }
 
 static void
@@ -50,7 +44,6 @@ adw_demo_preferences_window_class_init (AdwDemoPreferencesWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwDemoPreferencesWindow, subpage1);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoPreferencesWindow, subpage2);
 
-  gtk_widget_class_bind_template_callback (widget_class, return_to_preferences_cb);
   gtk_widget_class_bind_template_callback (widget_class, subpage1_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, subpage2_activated_cb);
 

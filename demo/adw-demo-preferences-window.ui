@@ -3,7 +3,6 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
   <template class="AdwDemoPreferencesWindow" parent="AdwPreferencesWindow">
-    <property name="can-navigate-back">True</property>
     <child>
       <object class="AdwPreferencesPage">
         <property name="icon_name">preferences-window-layout-symbolic</property>
@@ -99,7 +98,7 @@
             <property name="title" translatable="yes">Subpages</property>
             <child>
               <object class="AdwActionRow">
-                <property name="title" translatable="yes">Go to a Subpage</property>
+                <property name="title" translatable="yes">Open Subpage</property>
                 <property name="activatable">True</property>
                 <signal name="activated" handler="subpage1_activated_cb" swapped="yes"/>
                 <child>
@@ -111,7 +110,7 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="title" translatable="yes">Go to Another Subpage</property>
+                <property name="title" translatable="yes">Open Another Subpage</property>
                 <property name="activatable">True</property>
                 <signal name="activated" handler="subpage2_activated_cb" swapped="yes"/>
                 <child>
@@ -163,33 +162,44 @@
       </object>
     </child>
   </template>
-  <object class="AdwStatusPage" id="subpage1">
-    <property name="title" translatable="yes">This is a Subpage</property>
+  <object class="AdwNavigationPage" id="subpage1">
+    <property name="title">Subpage</property>
     <property name="child">
-      <object class="GtkButton">
-        <property name="label" translatable="yes">Return to Preferences</property>
-        <property name="can-shrink">True</property>
-        <property name="halign">center</property>
-        <signal name="clicked" handler="return_to_preferences_cb" swapped="yes"/>
-        <style>
-          <class name="suggested-action"/>
-          <class name="pill"/>
-        </style>
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar"/>
+        </child>
+        <property name="content">
+          <object class="AdwStatusPage">
+            <property name="title" translatable="yes">This is a Subpage</property>
+            <property name="child">
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Open Another Subpage</property>
+                <property name="can-shrink">True</property>
+                <property name="halign">center</property>
+                <signal name="clicked" handler="subpage2_activated_cb" swapped="yes"/>
+                <style>
+                  <class name="pill"/>
+                </style>
+              </object>
+            </property>
+          </object>
+        </property>
       </object>
     </property>
   </object>
-  <object class="AdwStatusPage" id="subpage2">
-    <property name="title" translatable="yes">This is Another Subpage</property>
+  <object class="AdwNavigationPage" id="subpage2">
+    <property name="title">Another Subpage</property>
     <property name="child">
-      <object class="GtkButton">
-        <property name="label" translatable="yes">Return to Preferences</property>
-        <property name="can-shrink">True</property>
-        <property name="halign">center</property>
-        <signal name="clicked" handler="return_to_preferences_cb" swapped="yes"/>
-        <style>
-          <class name="suggested-action"/>
-          <class name="pill"/>
-        </style>
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar"/>
+        </child>
+        <property name="content">
+          <object class="AdwStatusPage">
+            <property name="title" translatable="yes">This is Another Subpage</property>
+          </object>
+        </property>
       </object>
     </property>
   </object>
