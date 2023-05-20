@@ -270,9 +270,8 @@ adw_style_manager_constructed (GObject *object)
     }
 
     self->animations_provider = gtk_css_provider_new ();
-    gtk_css_provider_load_from_data (self->animations_provider,
-                                     "* { transition: none; }",
-                                     -1);
+    gtk_css_provider_load_from_string (self->animations_provider,
+                                       "* { transition: none; }");
   }
 
   self->settings = adw_settings_get_default ();
