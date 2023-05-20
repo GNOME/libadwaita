@@ -9,6 +9,7 @@ test_names = [
   'test-button-states',
   'test-message-dialogs',
   'test-navigation',
+  'test-split-views',
   'test-toolbars',
   'test-view-switcher-bars',
 ]
