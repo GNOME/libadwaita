@@ -1158,8 +1158,7 @@ prepare_cb (AdwSwipeTracker        *tracker,
   if (!visible_page)
     return;
 
-  switch (direction) {
-  case ADW_NAVIGATION_DIRECTION_BACK:
+  if (direction == ADW_NAVIGATION_DIRECTION_BACK) {
     if (!adw_navigation_page_get_can_pop (visible_page))
       return;
 
@@ -1168,15 +1167,7 @@ prepare_cb (AdwSwipeTracker        *tracker,
     if (!new_page)
       return;
 
-    if (self->showing_page || self->hiding_page)
-      adw_animation_skip (self->transition);
-
-    self->showing_page = g_object_ref (new_page);
-    self->hiding_page = g_object_ref (visible_page);
-
-    self->transition_pop = TRUE;
-    break;
-  case ADW_NAVIGATION_DIRECTION_FORWARD:
+  } else {
     new_page = get_next_page (self);
 
     if (!new_page || !maybe_add_page (self, new_page))
@@ -1184,22 +1175,23 @@ prepare_cb (AdwSwipeTracker        *tracker,
 
     remove_on_pop = get_remove_on_pop (new_page);
     set_remove_on_pop (new_page, FALSE);
+  }
 
-    if (self->showing_page || self->hiding_page)
-      adw_animation_skip (self->transition);
+  if (self->showing_page || self->hiding_page)
+    adw_animation_skip (self->transition);
 
+  self->showing_page = new_page;
+  self->hiding_page = g_object_ref (visible_page);
+
+  self->transition_pop = (direction == ADW_NAVIGATION_DIRECTION_BACK);
+
+  if (direction == ADW_NAVIGATION_DIRECTION_BACK) {
+    g_object_ref (new_page);
+  } else {
     if (remove_on_pop)
       set_remove_on_pop (new_page, TRUE);
 
-    self->showing_page = new_page;
-    self->hiding_page = g_object_ref (visible_page);
-
     gtk_widget_insert_before (GTK_WIDGET (self->shield), GTK_WIDGET (self), NULL);
-
-    self->transition_pop = FALSE;
-    break;
-  default:
-    g_assert_not_reached ();
   }
 
   gtk_widget_insert_before (GTK_WIDGET (self->shield), GTK_WIDGET (self), NULL);
