@@ -2,9 +2,6 @@
 <interface domain="libadwaita">
   <requires lib="gtk" version="4.0"/>
   <template class="AdwEntryRow" parent="AdwPreferencesRow">
-    <accessibility>
-      <relation name="labelled-by">title</relation>
-    </accessibility>
     <property name="activatable">True</property>
     <child>
       <object class="GtkGestureClick">
@@ -70,6 +67,10 @@
                 <property name="max-length">0</property>
                 <property name="opacity">0</property>
                 <property name="valign">baseline-fill</property>
+                <property name="accessible-role">text-box</property>
+                <accessibility>
+                  <relation name="labelled-by">title</relation>
+                </accessibility>
                 <signal name="activate" handler="text_activated_cb" swapped="yes"/>
                 <signal name="state-flags-changed" handler="text_state_flags_changed_cb" swapped="yes"/>
                 <signal name="keynav-failed" handler="text_keynav_failed_cb" swapped="yes"/>

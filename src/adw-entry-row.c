@@ -84,13 +84,11 @@ typedef struct
 } AdwEntryRowPrivate;
 
 static void adw_entry_row_buildable_init (GtkBuildableIface *iface);
-static void adw_entry_row_accessible_init (GtkAccessibleInterface *iface);
 static void adw_entry_row_editable_init (GtkEditableInterface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (AdwEntryRow, adw_entry_row, ADW_TYPE_PREFERENCES_ROW,
                          G_ADD_PRIVATE (AdwEntryRow)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_BUILDABLE, adw_entry_row_buildable_init)
-                         G_IMPLEMENT_INTERFACE (GTK_TYPE_ACCESSIBLE, adw_entry_row_accessible_init)
                          G_IMPLEMENT_INTERFACE (GTK_TYPE_EDITABLE, adw_entry_row_editable_init))
 
 static GtkBuildableIface *parent_buildable_iface;
@@ -612,7 +610,6 @@ adw_entry_row_class_init (AdwEntryRowClass *klass)
   gtk_widget_class_bind_template_callback (widget_class, text_activated_cb);
   gtk_widget_class_bind_template_callback (widget_class, apply_button_clicked_cb);
 
-  gtk_widget_class_set_accessible_role (widget_class, GTK_ACCESSIBLE_ROLE_TEXT_BOX);
   g_type_ensure (ADW_TYPE_GIZMO);
 }
 
@@ -670,19 +667,6 @@ adw_entry_row_buildable_init (GtkBuildableIface *iface)
 {
   parent_buildable_iface = g_type_interface_peek_parent (iface);
   iface->add_child = adw_entry_row_buildable_add_child;
-}
-
-static gboolean
-adw_entry_row_accessible_get_platform_state (GtkAccessible              *accessible,
-                                             GtkAccessiblePlatformState  state)
-{
-  return gtk_editable_delegate_get_accessible_platform_state (GTK_EDITABLE (accessible), state);
-}
-
-static void
-adw_entry_row_accessible_init (GtkAccessibleInterface *iface)
-{
-  iface->get_platform_state = adw_entry_row_accessible_get_platform_state;
 }
 
 static GtkEditable *
