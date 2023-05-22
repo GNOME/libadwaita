@@ -1,37 +1,270 @@
 # Italian translation for libadwaita.
-# Copyright (C) 2021i, 2022 libadwaita's COPYRIGHT HOLDER
+# Copyright (C) 2021, 2022 libadwaita's COPYRIGHT HOLDER
 # This file is distributed under the same license as the libadwaita package.
 # Milo Casagrande <milo@milo.name>, 2021, 2022.
+# Mattia Borda <mattiagiovanni.borda@icloud.com>, 2023.
+# Davide Ferracin <davide.ferracin@protonmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: libadwaita main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/libadwaita/issues\n"
-"POT-Creation-Date: 2022-02-07 11:18+0000\n"
-"PO-Revision-Date: 2022-03-14 14:36+0100\n"
-"Last-Translator: Milo Casagrande <milo@milo.name>\n"
-"Language-Team: Italian <gnome-it-list@gnome.org>\n"
+"POT-Creation-Date: 2023-05-08 08:32+0000\n"
+"PO-Revision-Date: 2023-05-14 11:39+0200\n"
+"Last-Translator: Mattia Borda <mattiagiovanni.borda@icloud.com>\n"
 "Language: it\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: Italian <gnome-it-list@gnome.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
 
-#: src/adw-inspector-page.c:76
+#: src/adw-about-window.c:206
+msgid "GNU General Public License, version 2 or later"
+msgstr "GNU General Public License, versione 2 o successiva"
+
+#: src/adw-about-window.c:207
+msgid "GNU General Public License, version 3 or later"
+msgstr "GNU General Public License, versione 3 o successiva"
+
+#: src/adw-about-window.c:208
+msgid "GNU Lesser General Public License, version 2.1 or later"
+msgstr "GNU Lesser General Public License, versione 2.1 o successiva"
+
+#: src/adw-about-window.c:209
+msgid "GNU Lesser General Public License, version 3 or later"
+msgstr "GNU Lesser General Public License, versione 3 o successiva"
+
+#: src/adw-about-window.c:210
+msgid "BSD 2-Clause License"
+msgstr "BSD 2-Clause License"
+
+#: src/adw-about-window.c:211
+msgid "The MIT License (MIT)"
+msgstr "licenza MIT"
+
+#: src/adw-about-window.c:212
+msgid "Artistic License 2.0"
+msgstr "Artistic License 2.0"
+
+#: src/adw-about-window.c:213
+msgid "GNU General Public License, version 2 only"
+msgstr "GNU General Public License, solo versione 2"
+
+#: src/adw-about-window.c:214
+msgid "GNU General Public License, version 3 only"
+msgstr "GNU General Public License, solo versione 3"
+
+#: src/adw-about-window.c:215
+msgid "GNU Lesser General Public License, version 2.1 only"
+msgstr "GNU Lesser General Public License, solo versione 2.1"
+
+#: src/adw-about-window.c:216
+msgid "GNU Lesser General Public License, version 3 only"
+msgstr "GNU Lesser General Public License, solo versione 3"
+
+#: src/adw-about-window.c:217
+msgid "GNU Affero General Public License, version 3 or later"
+msgstr "GNU Affero General Public License, versione 3 o successiva"
+
+#: src/adw-about-window.c:218
+msgid "GNU Affero General Public License, version 3 only"
+msgstr "GNU Affero General Public License, solo versione 3"
+
+#: src/adw-about-window.c:219
+msgid "BSD 3-Clause License"
+msgstr "BSD 3-Clause License"
+
+#: src/adw-about-window.c:220
+msgid "Apache License, Version 2.0"
+msgstr "licenza Apache, versione 2.0"
+
+#: src/adw-about-window.c:221
+msgid "Mozilla Public License 2.0"
+msgstr "Mozilla Public License 2.0"
+
+#: src/adw-about-window.c:536
+msgid "Code by"
+msgstr "Codice di"
+
+#: src/adw-about-window.c:537
+msgid "Design by"
+msgstr "Design di"
+
+#: src/adw-about-window.c:538
+msgid "Artwork by"
+msgstr "Grafica di"
+
+#: src/adw-about-window.c:539
+msgid "Documentation by"
+msgstr "Documentazione di"
+
+#: src/adw-about-window.c:540
+msgid "Translated by"
+msgstr "Traduzione di"
+
+#. Translators: this is the license preamble; the string at the end
+#. * contains the name of the license as link text.
+#: src/adw-about-window.c:569
+#, c-format, python-format
+msgid ""
+"This application comes with absolutely no warranty. See the <a "
+"href=\"%s\">%s</a> for details."
+msgstr ""
+"Questa applicazione non fornisce alcuna garanzia. Per maggiori "
+"informazioni consultare la <a href=\"%s\">%s</a>."
+
+#: src/adw-about-window.c:647
+msgid "This Application"
+msgstr "Questa applicazione"
+
+#: src/adw-about-window.c:949
+#, c-format, python-format
+msgid "Version %s"
+msgstr "Versione %s"
+
+#: src/adw-about-window.c:975
+msgid "Unable to parse release notes:"
+msgstr "Impossibile interpretare le note di rilascio:"
+
+#: src/adw-about-window.c:981
+#, c-format, python-format
+msgid "Line: %d, character: %d"
+msgstr "Riga: %d, carattere: %d"
+
+#: src/adw-about-window.c:1274
+msgid "Copied to clipboard"
+msgstr "Copiata negli appunti"
+
+#: src/adw-about-window.c:1308
+msgid "Unable to save debugging information"
+msgstr "Salvataggio delle informazioni di debug non riuscito"
+
+#: src/adw-about-window.c:1313
+msgid "Close"
+msgstr "Chiudi"
+
+#: src/adw-about-window.c:1329
+msgid "Save debugging information"
+msgstr "Salva informazioni di debug"
+
+#: src/adw-about-window.ui:5
+msgid "About"
+msgstr "Informazioni"
+
+#: src/adw-about-window.ui:89
+msgid "_What’s New"
+msgstr "_Novità"
+
+#: src/adw-about-window.ui:104
+msgid "_Details"
+msgstr "_Dettagli"
+
+#: src/adw-about-window.ui:119 src/adw-about-window.ui:357
+msgid "_Website"
+msgstr "Sito _web"
+
+#: src/adw-about-window.ui:142
+msgid "_Support Questions"
+msgstr "Domande di _supporto"
+
+#: src/adw-about-window.ui:158
+msgid "_Report an Issue"
+msgstr "Segnala un _problema"
+
+#: src/adw-about-window.ui:173
+msgid "_Troubleshooting"
+msgstr "Risolu_zione dei problemi"
+
+#: src/adw-about-window.ui:192
+msgid "_Credits"
+msgstr "_Riconoscimenti"
+
+#: src/adw-about-window.ui:207
+msgid "_Legal"
+msgstr "Note _legali"
+
+#: src/adw-about-window.ui:222
+msgid "_Acknowledgements"
+msgstr "Rin_graziamenti"
+
+#: src/adw-about-window.ui:260
+msgid "What’s New"
+msgstr "Novità"
+
+#: src/adw-about-window.ui:265 src/adw-about-window.ui:319
+#: src/adw-about-window.ui:398 src/adw-about-window.ui:471
+#: src/adw-about-window.ui:516 src/adw-about-window.ui:561
+#: src/adw-about-window.ui:606
+msgid "Back"
+msgstr "Indietro"
+
+#: src/adw-about-window.ui:314
+msgid "Details"
+msgstr "Dettagli"
+
+#: src/adw-about-window.ui:393
+msgid "Troubleshooting"
+msgstr "Risoluzione dei problemi"
+
+#: src/adw-about-window.ui:421
+msgid ""
+"To assist in troubleshooting, you can view your debugging information. "
+"Providing this information to the application developers can help "
+"diagnose any problems you encounter when you report an issue."
+msgstr ""
+"Per ottenere assistenza nella risoluzione dei problemi, è possibile "
+"visualizzare le informazioni di debug. Fornire queste informazioni agli "
+"sviluppatori quando viene segnalato il problema può aiutare a "
+"identificarlo."
+
+#: src/adw-about-window.ui:432
+msgid "_Debugging Information"
+msgstr "Informazioni di _debug"
+
+#: src/adw-about-window.ui:466
+msgid "Credits"
+msgstr "Riconoscimenti"
+
+#: src/adw-about-window.ui:511
+msgid "Legal"
+msgstr "Note legali"
+
+#: src/adw-about-window.ui:556
+msgid "Acknowledgements"
+msgstr "Ringraziamenti"
+
+#: src/adw-about-window.ui:601
+msgid "Debugging Information"
+msgstr "Informazioni di debug"
+
+#: src/adw-about-window.ui:648
+msgid "_Copy Text"
+msgstr "_Copia testo"
+
+#: src/adw-about-window.ui:656
+msgid "_Save as…"
+msgstr "_Salva con nome…"
+
+#: src/adw-entry-row.ui:95
+msgid "Apply"
+msgstr "Applica"
+
+#: src/adw-inspector-page.c:75
 msgid "No Preference"
 msgstr "Nessuna preferenza"
 
-#: src/adw-inspector-page.c:78
+#: src/adw-inspector-page.c:77
 msgid "Prefer Dark"
 msgstr "Preferisci scuro"
 
-#: src/adw-inspector-page.c:80
+#: src/adw-inspector-page.c:79
 msgid "Prefer Light"
 msgstr "Preferisci chiaro"
 
 #. Translators: The name of the library, not the stylesheet
-#: src/adw-inspector-page.c:98
+#: src/adw-inspector-page.c:97
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -41,8 +274,8 @@ msgstr "Aspetto del sistema"
 
 #: src/adw-inspector-page.ui:11
 msgid ""
-"Override settings for this application. They will be reset upon closing the "
-"inspector."
+"Override settings for this application. They will be reset upon closing "
+"the inspector."
 msgstr ""
 "Sovrascrive le impostazioni per questa applicazione. Le impostazioni "
 "verranno ripristinate una volta chiuso l'analizzatore."
@@ -51,15 +284,31 @@ msgstr ""
 msgid "System Supports Color Schemes"
 msgstr "Il sistema supporta gli schemi di colore"
 
-#: src/adw-inspector-page.ui:26
+#: src/adw-inspector-page.ui:20
 msgid "Preferred Color Scheme"
-msgstr "Schema colore preferito"
+msgstr "Schema di colore preferito"
 
-#: src/adw-inspector-page.ui:43
+#: src/adw-inspector-page.ui:37
 msgid "High Contrast"
 msgstr "Contrasto elevato"
 
-#: src/adw-preferences-window.c:217
+#: src/adw-password-entry-row.c:70
+msgid "Hide Password"
+msgstr "Nascondi password"
+
+#: src/adw-password-entry-row.c:74
+msgid "Show Password"
+msgstr "Mostra password"
+
+#: src/adw-password-entry-row.c:168
+msgid "Caps Lock is on"
+msgstr "Blocco maiuscolo attivo"
+
+#: src/adw-password-entry-row.c:176
+msgid "_Show Password"
+msgstr "_Mostra password"
+
+#: src/adw-preferences-window.c:256
 msgid "Untitled page"
 msgstr "Pagina senza titolo"
 
@@ -67,14 +316,68 @@ msgstr "Pagina senza titolo"
 msgid "Preferences"
 msgstr "Preferenze"
 
-#: src/adw-preferences-window.ui:69
+#: src/adw-preferences-window.ui:76
+msgid "Search preferences"
+msgstr "Cerca preferenze"
+
+#: src/adw-preferences-window.ui:91
 msgid "Search"
 msgstr "Cerca"
 
-#: src/adw-preferences-window.ui:139
+#: src/adw-preferences-window.ui:158
 msgid "No Results Found"
 msgstr "Nessun risultato trovato"
 
-#: src/adw-preferences-window.ui:140
+#: src/adw-preferences-window.ui:159 src/adw-tab-overview.ui:111
 msgid "Try a different search."
 msgstr "Provare un altro criterio di ricerca."
+
+#: src/adw-split-button.c:519 src/adw-split-button.c:1033
+msgid "More Options"
+msgstr "Più opzioni"
+
+#: src/adw-tab-button.ui:7
+msgid "View Open Tabs"
+msgstr "Visualizza schede aperte"
+
+#. Translators: Tab overview title, %u is the number of open tabs
+#: src/adw-tab-overview.c:895
+#, c-format, python-format
+msgid "%u Tab"
+msgid_plural "%u Tabs"
+msgstr[0] "%u scheda"
+msgstr[1] "%u schede"
+
+#: src/adw-tab-overview.ui:21
+msgid "Search Tabs"
+msgstr "Cerca schede"
+
+#: src/adw-tab-overview.ui:51
+msgid "Search tabs"
+msgstr "Cerca schede"
+
+#: src/adw-tab-overview.ui:97
+msgid "No Open Tabs"
+msgstr "Nessuna scheda aperta"
+
+#: src/adw-tab-overview.ui:110
+msgid "No Tabs Found"
+msgstr "Nessuna scheda trovata"
+
+#: src/adw-tab-overview.ui:131
+msgid "New _Tab"
+msgstr "Nuova _scheda"
+
+#: src/adw-tab-thumbnail.ui:39 src/adw-tab.ui:91
+msgid "Close Tab"
+msgstr "Chiudi scheda"
+
+#~ msgid "Hide Text"
+#~ msgstr "Nascondi testo"
+
+#~ msgid "Show Text"
+#~ msgstr "Mostra testo"
+
+#~ msgid "_Show Text"
+#~ msgstr "_Mostra testo"
+
