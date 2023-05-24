@@ -11,6 +11,8 @@
 
 #include "adw-animation-util.h"
 #include "adw-easing.h"
+#include "adw-enums.h"
+#include "adw-length-unit.h"
 
 /**
  * AdwClampLayout:
@@ -34,6 +36,9 @@
  * If a child requires more than the requested maximum size, it will be
  * allocated the minimum size it can fit in instead.
  *
+ * `AdwClampLayout` can scale with the text scale factor, use the
+ * [property@ClampLayout:unit] property to enable that behavior.
+ *
  * Each child will get the style  classes .large when it reached its maximum
  * size, .small when it's allocated the full size, .medium in-between, or none
  * if it hasn't been allocated yet.
@@ -45,11 +50,12 @@ enum {
   PROP_0,
   PROP_MAXIMUM_SIZE,
   PROP_TIGHTENING_THRESHOLD,
+  PROP_UNIT,
 
   /* Overridden properties */
   PROP_ORIENTATION,
 
-  LAST_PROP = PROP_TIGHTENING_THRESHOLD + 1,
+  LAST_PROP = PROP_UNIT + 1,
 };
 
 struct _AdwClampLayout
@@ -58,6 +64,7 @@ struct _AdwClampLayout
 
   int maximum_size;
   int tightening_threshold;
+  AdwLengthUnit unit;
 
   GtkOrientation orientation;
 };
@@ -96,6 +103,9 @@ adw_clamp_layout_get_property (GObject    *object,
   case PROP_TIGHTENING_THRESHOLD:
     g_value_set_int (value, adw_clamp_layout_get_tightening_threshold (self));
     break;
+  case PROP_UNIT:
+    g_value_set_enum (value, adw_clamp_layout_get_unit (self));
+    break;
   case PROP_ORIENTATION:
     g_value_set_enum (value, self->orientation);
     break;
@@ -119,6 +129,9 @@ adw_clamp_layout_set_property (GObject      *object,
   case PROP_TIGHTENING_THRESHOLD:
     adw_clamp_layout_set_tightening_threshold (self, g_value_get_int (value));
     break;
+  case PROP_UNIT:
+    adw_clamp_layout_set_unit (self, g_value_get_enum (value));
+    break;
   case PROP_ORIENTATION:
     set_orientation (self, g_value_get_enum (value));
     break;
@@ -137,14 +150,21 @@ inverse_lerp (double a,
 
 static int
 clamp_size_from_child (AdwClampLayout *self,
+                       GtkSettings    *settings,
                        int             min,
                        int             nat)
 {
-  int max = 0, lower = 0, upper = 0;
-  double progress;
+  double max, lower, upper, progress, maximum_size, tightening_threshold;
 
-  lower = MAX (MIN (self->tightening_threshold, self->maximum_size), min);
-  max = MAX (lower, self->maximum_size);
+  maximum_size = adw_length_unit_to_px (self->unit,
+                                        self->maximum_size,
+                                        settings);
+  tightening_threshold = adw_length_unit_to_px (self->unit,
+                                                self->tightening_threshold,
+                                                settings);
+
+  lower = MAX (MIN (tightening_threshold, maximum_size), min);
+  max = MAX (lower, maximum_size);
   upper = lower + ADW_EASE_OUT_TAN_CUBIC * (max - lower);
 
   if (nat <= lower)
@@ -162,37 +182,45 @@ clamp_size_from_child (AdwClampLayout *self,
 
 static int
 child_size_from_clamp (AdwClampLayout *self,
+                       GtkSettings    *settings,
                        GtkWidget      *child,
                        int             for_size,
                        int            *child_maximum,
                        int            *lower_threshold)
 {
-  int min = 0, nat = 0, max = 0, lower = 0, upper = 0;
-  double progress;
+  double lower, upper, max, progress, maximum_size, tightening_threshold;
+  int min = 0, nat = 0;
+
+  maximum_size = adw_length_unit_to_px (self->unit,
+                                        self->maximum_size,
+                                        settings);
+  tightening_threshold = adw_length_unit_to_px (self->unit,
+                                                self->tightening_threshold,
+                                                settings);
 
   gtk_widget_measure (child, self->orientation, -1, &min, &nat, NULL, NULL);
 
-  lower = MAX (MIN (self->tightening_threshold, self->maximum_size), min);
-  max = MAX (lower, self->maximum_size);
+  lower = MAX (MIN (tightening_threshold, maximum_size), min);
+  max = MAX (lower, maximum_size);
   upper = lower + ADW_EASE_OUT_TAN_CUBIC * (max - lower);
 
   if (child_maximum)
-    *child_maximum = max;
+    *child_maximum = ceil (max);
   if (lower_threshold)
-    *lower_threshold = lower;
+    *lower_threshold = ceil (lower);
 
   if (for_size < 0)
-    return MIN (nat, max);
+    return MIN (nat, ceil (max));
 
   if (for_size <= lower)
     return for_size;
 
   if (for_size >= upper)
-    return max;
+    return ceil (max);
 
   progress = inverse_lerp (lower, upper, for_size);
 
-  return adw_lerp (lower, max, adw_easing_ease (ADW_EASE_OUT_CUBIC, progress));
+  return ceil (adw_lerp (lower, max, adw_easing_ease (ADW_EASE_OUT_CUBIC, progress)));
 }
 
 static GtkSizeRequestMode
@@ -217,6 +245,7 @@ adw_clamp_layout_measure (GtkLayoutManager *manager,
                           int              *natural_baseline)
 {
   AdwClampLayout *self = ADW_CLAMP_LAYOUT (manager);
+  GtkSettings *settings = gtk_widget_get_settings (widget);
   GtkWidget *child;
 
   for (child = gtk_widget_get_first_child (widget);
@@ -235,9 +264,9 @@ adw_clamp_layout_measure (GtkLayoutManager *manager,
                           &child_min, &child_nat,
                           &child_min_baseline, &child_nat_baseline);
 
-      child_nat = clamp_size_from_child (self, child_min, child_nat);
+      child_nat = clamp_size_from_child (self, settings, child_min, child_nat);
     } else {
-      int child_size = child_size_from_clamp (self, child, for_size, NULL, NULL);
+      int child_size = child_size_from_clamp (self, settings, child, for_size, NULL, NULL);
 
       gtk_widget_measure (child, orientation, child_size,
                           &child_min, &child_nat,
@@ -262,6 +291,7 @@ adw_clamp_layout_allocate (GtkLayoutManager *manager,
                            int               baseline)
 {
   AdwClampLayout *self = ADW_CLAMP_LAYOUT (manager);
+  GtkSettings *settings = gtk_widget_get_settings (widget);
   GtkWidget *child;
 
   for (child = gtk_widget_get_first_child (widget);
@@ -280,7 +310,8 @@ adw_clamp_layout_allocate (GtkLayoutManager *manager,
     }
 
     if (self->orientation == GTK_ORIENTATION_HORIZONTAL) {
-      child_allocation.width = child_size_from_clamp (self, child, width,
+      child_allocation.width = child_size_from_clamp (self, settings,
+                                                      child, width,
                                                       &child_maximum,
                                                       &lower_threshold);
       child_allocation.height = height;
@@ -288,7 +319,8 @@ adw_clamp_layout_allocate (GtkLayoutManager *manager,
       child_clamped_size = child_allocation.width;
     } else {
       child_allocation.width = width;
-      child_allocation.height = child_size_from_clamp (self, child, height,
+      child_allocation.height = child_size_from_clamp (self, settings,
+                                                       child, height,
                                                        &child_maximum,
                                                        &lower_threshold);
 
@@ -375,6 +407,21 @@ adw_clamp_layout_class_init (AdwClampLayoutClass *klass)
                       0, G_MAXINT, 400,
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
+  /**
+   * AdwClampLayout:unit: (attributes org.gtk.Property.get=adw_clamp_layout_get_unit org.gtk.Property.set=adw_clamp_layout_set_unit)
+   *
+   * The length unit for maximum size and tightening threshold.
+   *
+   * Allows the sizes to vary depending on the text scale factor.
+   *
+   * Since: 1.4
+   */
+  props[PROP_UNIT] =
+    g_param_spec_enum ("unit", NULL, NULL,
+                       ADW_TYPE_LENGTH_UNIT,
+                       ADW_LENGTH_UNIT_SP,
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
   g_object_class_install_properties (object_class, LAST_PROP, props);
 }
 
@@ -383,6 +430,7 @@ adw_clamp_layout_init (AdwClampLayout *self)
 {
   self->maximum_size = 600;
   self->tightening_threshold = 400;
+  self->unit = ADW_LENGTH_UNIT_SP;
 }
 
 /**
@@ -489,4 +537,51 @@ adw_clamp_layout_set_tightening_threshold (AdwClampLayout *self,
   gtk_layout_manager_layout_changed (GTK_LAYOUT_MANAGER (self));
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TIGHTENING_THRESHOLD]);
+}
+
+/**
+ * adw_clamp_layout_get_unit: (attributes org.gtk.Method.get_property=unit)
+ * @self: a clamp layout
+ *
+ * Gets the length unit for maximum size and tightening threshold.
+ *
+ * Returns: the length unit
+ *
+ * Since: 1.4
+ */
+AdwLengthUnit
+adw_clamp_layout_get_unit (AdwClampLayout *self)
+{
+  g_return_val_if_fail (ADW_IS_CLAMP_LAYOUT (self), ADW_LENGTH_UNIT_PX);
+
+  return self->unit;
+}
+
+/**
+ * adw_clamp_layout_set_unit: (attributes org.gtk.Method.set_property=unit)
+ * @self: a clamp layout
+ * @unit: the length unit
+ *
+ * Sets the length unit for maximum size and tightening threshold.
+ *
+ * Allows the sizes to vary depending on the text scale factor.
+ *
+ * Since: 1.4
+ */
+void
+adw_clamp_layout_set_unit (AdwClampLayout *self,
+                           AdwLengthUnit   unit)
+{
+  g_return_if_fail (ADW_IS_CLAMP_LAYOUT (self));
+  g_return_if_fail (unit >= ADW_LENGTH_UNIT_PX);
+  g_return_if_fail (unit <= ADW_LENGTH_UNIT_SP);
+
+  if (unit == self->unit)
+    return;
+
+  self->unit = unit;
+
+  gtk_layout_manager_layout_changed (GTK_LAYOUT_MANAGER (self));
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_UNIT]);
 }

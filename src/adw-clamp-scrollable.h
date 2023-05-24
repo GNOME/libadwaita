@@ -14,6 +14,8 @@
 
 #include <gtk/gtk.h>
 
+#include "adw-length-unit.h"
+
 G_BEGIN_DECLS
 
 #define ADW_TYPE_CLAMP_SCROLLABLE (adw_clamp_scrollable_get_type())
@@ -41,5 +43,11 @@ int  adw_clamp_scrollable_get_tightening_threshold (AdwClampScrollable *self);
 ADW_AVAILABLE_IN_ALL
 void adw_clamp_scrollable_set_tightening_threshold (AdwClampScrollable *self,
                                                     int                 tightening_threshold);
+
+ADW_AVAILABLE_IN_ALL
+AdwLengthUnit adw_clamp_scrollable_get_unit (AdwClampScrollable *self);
+ADW_AVAILABLE_IN_ALL
+void          adw_clamp_scrollable_set_unit (AdwClampScrollable *self,
+                                             AdwLengthUnit       unit);
 
 G_END_DECLS

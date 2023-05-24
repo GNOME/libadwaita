@@ -8,6 +8,8 @@
 #include "adw-clamp-scrollable.h"
 
 #include "adw-clamp-layout.h"
+#include "adw-enums.h"
+#include "adw-length-unit.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -27,6 +29,7 @@ enum {
   PROP_CHILD,
   PROP_MAXIMUM_SIZE,
   PROP_TIGHTENING_THRESHOLD,
+  PROP_UNIT,
 
   /* Overridden properties */
   PROP_ORIENTATION,
@@ -35,7 +38,7 @@ enum {
   PROP_HSCROLL_POLICY,
   PROP_VSCROLL_POLICY,
 
-  LAST_PROP = PROP_TIGHTENING_THRESHOLD + 1,
+  LAST_PROP = PROP_UNIT + 1,
 };
 
 struct _AdwClampScrollable
@@ -150,6 +153,9 @@ adw_clamp_scrollable_get_property (GObject    *object,
   case PROP_TIGHTENING_THRESHOLD:
     g_value_set_int (value, adw_clamp_scrollable_get_tightening_threshold (self));
     break;
+  case PROP_UNIT:
+    g_value_set_enum (value, adw_clamp_scrollable_get_unit (self));
+    break;
   case PROP_ORIENTATION:
     g_value_set_enum (value, self->orientation);
     break;
@@ -187,6 +193,9 @@ adw_clamp_scrollable_set_property (GObject      *object,
     break;
   case PROP_TIGHTENING_THRESHOLD:
     adw_clamp_scrollable_set_tightening_threshold (self, g_value_get_int (value));
+    break;
+  case PROP_UNIT:
+    adw_clamp_scrollable_set_unit (self, g_value_get_enum (value));
     break;
   case PROP_ORIENTATION:
     set_orientation (self, g_value_get_enum (value));
@@ -294,6 +303,21 @@ adw_clamp_scrollable_class_init (AdwClampScrollableClass *klass)
     g_param_spec_int ("tightening-threshold", NULL, NULL,
                       0, G_MAXINT, 400,
                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
+
+  /**
+   * AdwClampScrollable:unit: (attributes org.gtk.Property.get=adw_clamp_scrollable_get_unit org.gtk.Property.set=adw_clamp_scrollable_set_unit)
+   *
+   * The length unit for maximum size and tightening threshold.
+   *
+   * Allows the sizes to vary depending on the text scale factor.
+   *
+   * Since: 1.4
+   */
+  props[PROP_UNIT] =
+    g_param_spec_enum ("unit", NULL, NULL,
+                       ADW_TYPE_LENGTH_UNIT,
+                       ADW_LENGTH_UNIT_SP,
+                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
@@ -513,4 +537,57 @@ adw_clamp_scrollable_set_tightening_threshold (AdwClampScrollable *self,
   adw_clamp_layout_set_tightening_threshold (layout, tightening_threshold);
 
   g_object_notify_by_pspec (G_OBJECT (self), props[PROP_TIGHTENING_THRESHOLD]);
+}
+
+/**
+ * adw_clamp_scrollable_get_unit: (attributes org.gtk.Method.get_property=unit)
+ * @self: a clamp scrollable
+ *
+ * Gets the length unit for maximum size and tightening threshold.
+ *
+ * Returns: the length unit
+ *
+ * Since: 1.4
+ */
+AdwLengthUnit
+adw_clamp_scrollable_get_unit (AdwClampScrollable *self)
+{
+  AdwClampLayout *layout;
+
+  g_return_val_if_fail (ADW_IS_CLAMP_SCROLLABLE (self), ADW_LENGTH_UNIT_PX);
+
+  layout = ADW_CLAMP_LAYOUT (gtk_widget_get_layout_manager (GTK_WIDGET (self)));
+
+  return adw_clamp_layout_get_unit (layout);
+}
+
+/**
+ * adw_clamp_scrollable_set_unit: (attributes org.gtk.Method.set_property=unit)
+ * @self: a clamp
+ * @unit: the length unit
+ *
+ * Sets the length unit for maximum size and tightening threshold.
+ *
+ * Allows the sizes to vary depending on the text scale factor.
+ *
+ * Since: 1.4
+ */
+void
+adw_clamp_scrollable_set_unit (AdwClampScrollable *self,
+                               AdwLengthUnit       unit)
+{
+  AdwClampLayout *layout;
+
+  g_return_if_fail (ADW_IS_CLAMP_SCROLLABLE (self));
+  g_return_if_fail (unit >= ADW_LENGTH_UNIT_PX);
+  g_return_if_fail (unit <= ADW_LENGTH_UNIT_SP);
+
+  layout = ADW_CLAMP_LAYOUT (gtk_widget_get_layout_manager (GTK_WIDGET (self)));
+
+  if (adw_clamp_layout_get_unit (layout) == unit)
+    return;
+
+  adw_clamp_layout_set_unit (layout, unit);
+
+  g_object_notify_by_pspec (G_OBJECT (self), props[PROP_UNIT]);
 }
