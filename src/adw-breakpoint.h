@@ -16,6 +16,8 @@
 
 #include <gtk/gtk.h>
 
+#include "adw-length-unit.h"
+
 G_BEGIN_DECLS
 
 #define ADW_TYPE_BREAKPOINT_CONDITION (adw_breakpoint_condition_get_type ())
@@ -26,11 +28,6 @@ typedef enum {
   ADW_BREAKPOINT_CONDITION_MIN_HEIGHT,
   ADW_BREAKPOINT_CONDITION_MAX_HEIGHT,
 } AdwBreakpointConditionLengthType;
-
-typedef enum {
-  ADW_BREAKPOINT_CONDITION_PX,
-  ADW_BREAKPOINT_CONDITION_PT,
-} AdwBreakpointConditionLengthUnit;
 
 typedef enum {
   ADW_BREAKPOINT_CONDITION_MIN_ASPECT_RATIO,
@@ -45,7 +42,7 @@ GType adw_breakpoint_condition_get_type (void) G_GNUC_CONST;
 ADW_AVAILABLE_IN_1_4
 AdwBreakpointCondition *adw_breakpoint_condition_new_length (AdwBreakpointConditionLengthType type,
                                                              double                           value,
-                                                             AdwBreakpointConditionLengthUnit unit) G_GNUC_WARN_UNUSED_RESULT;
+                                                             AdwLengthUnit                    unit) G_GNUC_WARN_UNUSED_RESULT;
 
 ADW_AVAILABLE_IN_1_4
 AdwBreakpointCondition *adw_breakpoint_condition_new_ratio (AdwBreakpointConditionRatioType type,

@@ -373,11 +373,11 @@ update_view_switcher (AdwPreferencesWindow *self)
   main_condition =
     adw_breakpoint_condition_new_length (ADW_BREAKPOINT_CONDITION_MAX_WIDTH,
                                          VIEW_SWITCHER_PAGE_THRESHOLD * MAX (1, priv->n_pages),
-                                         ADW_BREAKPOINT_CONDITION_PT);
+                                         ADW_LENGTH_UNIT_PT);
   fallback_condition =
     adw_breakpoint_condition_new_length (ADW_BREAKPOINT_CONDITION_MAX_WIDTH,
                                          VIEW_SWITCHER_FALLBACK_THRESHOLD,
-                                         ADW_BREAKPOINT_CONDITION_PX);
+                                         ADW_LENGTH_UNIT_PX);
 
   adw_breakpoint_set_condition (priv->breakpoint,
                                 adw_breakpoint_condition_new_or (main_condition,

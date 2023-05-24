@@ -11,6 +11,7 @@
 #include "adw-breakpoint-private.h"
 
 #include "adw-gtkbuilder-utils-private.h"
+#include "adw-length-unit.h"
 #include "adw-marshalers.h"
 
 #include <gobject/gvaluecollector.h>
@@ -97,25 +98,6 @@
  */
 
 /**
- * AdwBreakpointConditionLengthUnit:
- * @ADW_BREAKPOINT_CONDITION_PX: pixels
- * @ADW_BREAKPOINT_CONDITION_PT: points, changes with text scale factor
- *
- * Describes length units for [struct@BreakpointCondition].
- *
- * | Unit | Regular Text | Large Text |
- * | ---- | ------------ | ---------- |
- * | 1px  | 1px          | 1px        |
- * | 1pt  | 1.333333px   | 1.666667px |
- *
- * See [ctor@BreakpointCondition.new_length].
- *
- * New values may be added to this enumeration over time.
- *
- * Since: 1.4
- */
-
-/**
  * AdwBreakpointConditionRatioType:
  * @ADW_BREAKPOINT_CONDITION_MIN_ASPECT_RATIO: true if the aspect ratio is
  *   greater than or equal to the condition value
@@ -162,7 +144,7 @@ struct _AdwBreakpointCondition
     struct {
       AdwBreakpointConditionLengthType type;
       double value;
-      AdwBreakpointConditionLengthUnit unit;
+      AdwLengthUnit unit;
     } length;
 
     struct {
@@ -178,18 +160,6 @@ struct _AdwBreakpointCondition
     } multi;
   } data;
 };
-
-#define DEFAULT_FONT_SIZE_PT 10
-
-static double
-get_dpi (GtkSettings *settings)
-{
-  int xft_dpi;
-
-  g_object_get (settings, "gtk-xft-dpi", &xft_dpi, NULL);
-
-  return xft_dpi / PANGO_SCALE;
-}
 
 static gboolean
 check_condition (AdwBreakpointCondition *self,
@@ -212,17 +182,9 @@ check_condition (AdwBreakpointCondition *self,
   }
 
   if (self->type == CONDITION_LENGTH) {
-    double value_px = self->data.length.value;
-
-    switch (self->data.length.unit) {
-    case ADW_BREAKPOINT_CONDITION_PX:
-      break;
-    case ADW_BREAKPOINT_CONDITION_PT:
-      value_px *= get_dpi (settings) / 72.0;
-      break;
-    default:
-      g_assert_not_reached ();
-    }
+    double value_px = adw_length_unit_to_px (self->data.length.unit,
+                                             self->data.length.value,
+                                             settings);
 
     switch (self->data.length.type) {
     case ADW_BREAKPOINT_CONDITION_MIN_WIDTH:
@@ -269,14 +231,14 @@ check_condition (AdwBreakpointCondition *self,
 AdwBreakpointCondition *
 adw_breakpoint_condition_new_length (AdwBreakpointConditionLengthType type,
                                      double                           value,
-                                     AdwBreakpointConditionLengthUnit unit)
+                                     AdwLengthUnit                    unit)
 {
   AdwBreakpointCondition *self;
 
   g_return_val_if_fail (type >= ADW_BREAKPOINT_CONDITION_MIN_WIDTH, NULL);
   g_return_val_if_fail (type <= ADW_BREAKPOINT_CONDITION_MAX_HEIGHT, NULL);
-  g_return_val_if_fail (unit >= ADW_BREAKPOINT_CONDITION_PX, NULL);
-  g_return_val_if_fail (unit <= ADW_BREAKPOINT_CONDITION_PT, NULL);
+  g_return_val_if_fail (unit >= ADW_LENGTH_UNIT_PX, NULL);
+  g_return_val_if_fail (unit <= ADW_LENGTH_UNIT_PT, NULL);
 
   self = g_new0 (AdwBreakpointCondition, 1);
   self->type = CONDITION_LENGTH;
@@ -538,7 +500,7 @@ parse_single (const char            *str,
   *endp = (char *) str;
 
   if (type == CONDITION_LENGTH) {
-    AdwBreakpointConditionLengthUnit unit;
+    AdwLengthUnit unit;
     double value;
 
     if (!parse_double (str, endp, &value, error))
@@ -555,13 +517,13 @@ parse_single (const char            *str,
     SKIP_WHITESPACES (str);
 
     if (!strncmp (str, "px", 2)) {
-      unit = ADW_BREAKPOINT_CONDITION_PX;
+      unit = ADW_LENGTH_UNIT_PX;
       str += 2;
     } else if (!strncmp (str, "pt", 2)) {
-      unit = ADW_BREAKPOINT_CONDITION_PT;
+      unit = ADW_LENGTH_UNIT_PT;
       str += 2;
     } else if (*str == ' ' || *str == ')' || *str == '\0') {
-      unit = ADW_BREAKPOINT_CONDITION_PX;
+      unit = ADW_LENGTH_UNIT_PX;
     } else {
       *endp = (char *) str;
       *error = CONDITION_PARSER_ERROR_UNKNOWN_UNIT;
@@ -904,10 +866,10 @@ adw_breakpoint_condition_to_string (AdwBreakpointCondition *self)
     }
 
     switch (self->data.length.unit) {
-    case ADW_BREAKPOINT_CONDITION_PX:
+    case ADW_LENGTH_UNIT_PX:
       unit = "px";
       break;
-    case ADW_BREAKPOINT_CONDITION_PT:
+    case ADW_LENGTH_UNIT_PT:
       unit = "pt";
       break;
     default:
