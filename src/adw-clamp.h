@@ -14,6 +14,8 @@
 
 #include <gtk/gtk.h>
 
+#include "adw-length-unit.h"
+
 G_BEGIN_DECLS
 
 #define ADW_TYPE_CLAMP (adw_clamp_get_type())
@@ -41,5 +43,11 @@ int  adw_clamp_get_tightening_threshold (AdwClamp *self);
 ADW_AVAILABLE_IN_ALL
 void adw_clamp_set_tightening_threshold (AdwClamp *self,
                                          int       tightening_threshold);
+
+ADW_AVAILABLE_IN_ALL
+AdwLengthUnit adw_clamp_get_unit (AdwClamp      *self);
+ADW_AVAILABLE_IN_ALL
+void          adw_clamp_set_unit (AdwClamp      *self,
+                                  AdwLengthUnit  unit);
 
 G_END_DECLS
