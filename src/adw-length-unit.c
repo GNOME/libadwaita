@@ -14,6 +14,7 @@
  * AdwLengthUnit:
  * @ADW_LENGTH_UNIT_PX: pixels
  * @ADW_LENGTH_UNIT_PT: points, changes with text scale factor
+ * @ADW_LENGTH_UNIT_SP: scale independent pixels, changes with text scale factor
  *
  * Describes length units.
  *
@@ -21,6 +22,7 @@
  * | ---- | ------------ | ---------- |
  * | 1px  | 1px          | 1px        |
  * | 1pt  | 1.333333px   | 1.666667px |
+ * | 1sp  | 1px          | 1.25px     |
  *
  * New values may be added to this enumeration over time.
  *
@@ -55,7 +57,7 @@ adw_length_unit_to_px (AdwLengthUnit  unit,
                        GtkSettings   *settings)
 {
   g_return_val_if_fail (unit >= ADW_LENGTH_UNIT_PX, 0.0);
-  g_return_val_if_fail (unit <= ADW_LENGTH_UNIT_PT, 0.0);
+  g_return_val_if_fail (unit <= ADW_LENGTH_UNIT_SP, 0.0);
   g_return_val_if_fail (settings == NULL || GTK_IS_SETTINGS (settings), 0.0);
 
   if (!settings)
@@ -69,6 +71,8 @@ adw_length_unit_to_px (AdwLengthUnit  unit,
     return value;
   case ADW_LENGTH_UNIT_PT:
     return value * get_dpi (settings) / 72.0;
+  case ADW_LENGTH_UNIT_SP:
+    return value * get_dpi (settings) / 96.0;
   default:
     g_assert_not_reached ();
   }
@@ -92,7 +96,7 @@ adw_length_unit_from_px (AdwLengthUnit  unit,
                          GtkSettings   *settings)
 {
   g_return_val_if_fail (unit >= ADW_LENGTH_UNIT_PX, 0.0);
-  g_return_val_if_fail (unit <= ADW_LENGTH_UNIT_PT, 0.0);
+  g_return_val_if_fail (unit <= ADW_LENGTH_UNIT_SP, 0.0);
   g_return_val_if_fail (settings == NULL || GTK_IS_SETTINGS (settings), 0.0);
 
   if (!settings)
@@ -106,6 +110,8 @@ adw_length_unit_from_px (AdwLengthUnit  unit,
     return value;
   case ADW_LENGTH_UNIT_PT:
     return value / get_dpi (settings) * 72.0;
+  case ADW_LENGTH_UNIT_SP:
+    return value / get_dpi (settings) * 96.0;
   default:
     g_assert_not_reached ();
   }
