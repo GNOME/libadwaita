@@ -56,12 +56,12 @@ test_adw_breakpoint_condition_to_string (void)
 
   check_to_string (adw_breakpoint_condition_new_length (ADW_BREAKPOINT_CONDITION_MAX_WIDTH,
                                                         400,
-                                                        ADW_BREAKPOINT_CONDITION_PX),
+                                                        ADW_LENGTH_UNIT_PX),
                    "max-width: 400px");
 
   check_to_string (adw_breakpoint_condition_new_length (ADW_BREAKPOINT_CONDITION_MIN_HEIGHT,
                                                         200,
-                                                        ADW_BREAKPOINT_CONDITION_PT),
+                                                        ADW_LENGTH_UNIT_PT),
                    "min-height: 200pt");
 
   check_to_string (adw_breakpoint_condition_new_ratio (ADW_BREAKPOINT_CONDITION_MIN_ASPECT_RATIO,
@@ -77,7 +77,7 @@ test_adw_breakpoint_condition_to_string (void)
 
   condition_1 = adw_breakpoint_condition_new_length (ADW_BREAKPOINT_CONDITION_MAX_WIDTH,
                                                      400,
-                                                     ADW_BREAKPOINT_CONDITION_PX);
+                                                     ADW_LENGTH_UNIT_PX);
   condition_2 = adw_breakpoint_condition_new_ratio (ADW_BREAKPOINT_CONDITION_MIN_ASPECT_RATIO,
                                                     4, 3);
   condition_3 = adw_breakpoint_condition_new_ratio (ADW_BREAKPOINT_CONDITION_MAX_ASPECT_RATIO,

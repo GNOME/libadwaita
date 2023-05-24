@@ -49,6 +49,7 @@ G_BEGIN_DECLS
 #include "adw-fold-threshold-policy.h"
 #include "adw-header-bar.h"
 #include "adw-leaflet.h"
+#include "adw-length-unit.h"
 #include "adw-main.h"
 #include "adw-message-dialog.h"
 #include "adw-navigation-direction.h"
