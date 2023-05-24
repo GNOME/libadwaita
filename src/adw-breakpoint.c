@@ -238,7 +238,7 @@ adw_breakpoint_condition_new_length (AdwBreakpointConditionLengthType type,
   g_return_val_if_fail (type >= ADW_BREAKPOINT_CONDITION_MIN_WIDTH, NULL);
   g_return_val_if_fail (type <= ADW_BREAKPOINT_CONDITION_MAX_HEIGHT, NULL);
   g_return_val_if_fail (unit >= ADW_LENGTH_UNIT_PX, NULL);
-  g_return_val_if_fail (unit <= ADW_LENGTH_UNIT_PT, NULL);
+  g_return_val_if_fail (unit <= ADW_LENGTH_UNIT_SP, NULL);
 
   self = g_new0 (AdwBreakpointCondition, 1);
   self->type = CONDITION_LENGTH;
@@ -521,6 +521,9 @@ parse_single (const char            *str,
       str += 2;
     } else if (!strncmp (str, "pt", 2)) {
       unit = ADW_LENGTH_UNIT_PT;
+      str += 2;
+    } else if (!strncmp (str, "sp", 2)) {
+      unit = ADW_LENGTH_UNIT_SP;
       str += 2;
     } else if (*str == ' ' || *str == ')' || *str == '\0') {
       unit = ADW_LENGTH_UNIT_PX;
@@ -871,6 +874,9 @@ adw_breakpoint_condition_to_string (AdwBreakpointCondition *self)
       break;
     case ADW_LENGTH_UNIT_PT:
       unit = "pt";
+      break;
+    case ADW_LENGTH_UNIT_SP:
+      unit = "sp";
       break;
     default:
       g_assert_not_reached ();
