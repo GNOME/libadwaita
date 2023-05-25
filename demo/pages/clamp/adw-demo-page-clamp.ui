@@ -21,7 +21,7 @@
                       <object class="GtkAdjustment" id="maximum_size_adjustment">
                         <property name="lower">0</property>
                         <property name="upper">10000</property>
-                        <property name="value">600</property>
+                        <property name="value">400</property>
                         <property name="page-increment">100</property>
                         <property name="step-increment">10</property>
                       </object>
@@ -35,7 +35,7 @@
                       <object class="GtkAdjustment" id="tightening_threshold_adjustment">
                         <property name="lower">0</property>
                         <property name="upper">10000</property>
-                        <property name="value">500</property>
+                        <property name="value">300</property>
                         <property name="page-increment">100</property>
                         <property name="step-increment">10</property>
                       </object>
