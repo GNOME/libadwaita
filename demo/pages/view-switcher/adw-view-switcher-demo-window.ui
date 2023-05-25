@@ -105,7 +105,7 @@
     </property>
     <child>
       <object class="AdwBreakpoint">
-        <condition>max-width: 420pt</condition>
+        <condition>max-width: 550sp</condition>
         <setter object="switcher_bar" property="reveal">True</setter>
         <setter object="header_bar" property="title-widget"/>
       </object>
