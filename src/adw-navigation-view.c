@@ -1208,6 +1208,8 @@ prepare_cb (AdwSwipeTracker        *tracker,
   adw_animation_reset (self->transition);
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
+
+  adw_swipe_tracker_set_upper_overshoot (self->swipe_tracker, TRUE);
 }
 
 static void
@@ -1272,6 +1274,8 @@ end_swipe_cb (AdwSwipeTracker   *tracker,
     else
       adw_animation_skip (self->transition);
   }
+
+  adw_swipe_tracker_set_upper_overshoot (self->swipe_tracker, FALSE);
 }
 
 static void
