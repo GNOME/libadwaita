@@ -52,6 +52,18 @@ ADW_AVAILABLE_IN_ALL
 void     adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
                                                   gboolean         allow_long_swipes);
 
+ADW_AVAILABLE_IN_1_4
+gboolean adw_swipe_tracker_get_lower_overshoot (AdwSwipeTracker *self);
+ADW_AVAILABLE_IN_1_4
+void     adw_swipe_tracker_set_lower_overshoot (AdwSwipeTracker *self,
+                                                gboolean         overshoot);
+
+ADW_AVAILABLE_IN_1_4
+gboolean adw_swipe_tracker_get_upper_overshoot (AdwSwipeTracker *self);
+ADW_AVAILABLE_IN_1_4
+void     adw_swipe_tracker_set_upper_overshoot (AdwSwipeTracker *self,
+                                                gboolean         overshoot);
+
 ADW_AVAILABLE_IN_ALL
 void adw_swipe_tracker_shift_position (AdwSwipeTracker *self,
                                        double           delta);
