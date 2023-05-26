@@ -1204,6 +1204,7 @@ prepare_cb (AdwSwipeTracker        *tracker,
 
   gtk_widget_set_child_visible (GTK_WIDGET (self->showing_page), TRUE);
 
+  adw_spring_animation_set_value_from (ADW_SPRING_ANIMATION (self->transition), 0);
   adw_animation_reset (self->transition);
 
   gtk_widget_queue_resize (GTK_WIDGET (self));
@@ -1217,7 +1218,10 @@ update_swipe_cb (AdwSwipeTracker   *tracker,
   if (!self->gesture_active)
     return;
 
-  self->transition_progress = ABS (progress);
+  if (self->transition_pop)
+    self->transition_progress = -progress;
+  else
+    self->transition_progress = progress;
 
   gtk_widget_queue_allocate (GTK_WIDGET (self));
 }
