@@ -11,7 +11,6 @@
 #include "pages/clamp/adw-demo-page-clamp.h"
 #include "pages/dialogs/adw-demo-page-dialogs.h"
 #include "pages/flap/adw-demo-page-flap.h"
-#include "pages/leaflet/adw-demo-page-leaflet.h"
 #include "pages/lists/adw-demo-page-lists.h"
 #include "pages/navigation-view/adw-demo-page-navigation-view.h"
 #include "pages/styles/adw-demo-page-styles.h"
@@ -26,7 +25,6 @@ struct _AdwDemoWindow
 
   GtkWidget *color_scheme_button;
   AdwLeaflet *main_leaflet;
-  AdwLeaflet *subpage_leaflet;
   AdwDemoPageToasts *toasts_page;
 };
 
@@ -75,18 +73,6 @@ back_clicked_cb (AdwDemoWindow *self)
 }
 
 static void
-leaflet_back_clicked_cb (AdwDemoWindow *self)
-{
-  adw_leaflet_navigate (self->subpage_leaflet, ADW_NAVIGATION_DIRECTION_BACK);
-}
-
-static void
-leaflet_next_page_cb (AdwDemoWindow *self)
-{
-  adw_leaflet_navigate (self->subpage_leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
-}
-
-static void
 toast_undo_cb (AdwDemoWindow *self)
 {
   adw_demo_page_toasts_undo (self->toasts_page);
@@ -102,14 +88,11 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/adw-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, color_scheme_button);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, main_leaflet);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, subpage_leaflet);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, toasts_page);
   gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
   gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
   gtk_widget_class_bind_template_callback (widget_class, back_clicked_cb);
-  gtk_widget_class_bind_template_callback (widget_class, leaflet_back_clicked_cb);
-  gtk_widget_class_bind_template_callback (widget_class, leaflet_next_page_cb);
 
   gtk_widget_class_install_action (widget_class, "toast.undo", NULL, (GtkWidgetActionActivateFunc) toast_undo_cb);
 }
@@ -128,7 +111,6 @@ adw_demo_window_init (AdwDemoWindow *self)
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CLAMP);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_DIALOGS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_FLAP);
-  g_type_ensure (ADW_TYPE_DEMO_PAGE_LEAFLET);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LISTS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_NAVIGATION_VIEW);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_STYLES);
