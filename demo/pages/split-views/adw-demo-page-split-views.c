@@ -3,6 +3,7 @@
 #include <glib/gi18n.h>
 
 #include "adw-navigation-split-view-demo-window.h"
+#include "adw-overlay-split-view-demo-window.h"
 
 struct _AdwDemoPageSplitViews
 {
@@ -22,6 +23,16 @@ demo_run_navigation_cb (AdwDemoPageSplitViews *self)
 }
 
 static void
+demo_run_overlay_cb (AdwDemoPageSplitViews *self)
+{
+  AdwOverlaySplitViewDemoWindow *window = adw_overlay_split_view_demo_window_new ();
+  GtkRoot *root = gtk_widget_get_root (GTK_WIDGET (self));
+
+  gtk_window_set_transient_for (GTK_WINDOW (window), GTK_WINDOW (root));
+  gtk_window_present (GTK_WINDOW (window));
+}
+
+static void
 adw_demo_page_split_views_class_init (AdwDemoPageSplitViewsClass *klass)
 {
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -29,6 +40,7 @@ adw_demo_page_split_views_class_init (AdwDemoPageSplitViewsClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/pages/split-views/adw-demo-page-split-views.ui");
 
   gtk_widget_class_install_action (widget_class, "demo.run-navigation", NULL, (GtkWidgetActionActivateFunc) demo_run_navigation_cb);
+  gtk_widget_class_install_action (widget_class, "demo.run-overlay", NULL, (GtkWidgetActionActivateFunc) demo_run_overlay_cb);
 }
 
 static void

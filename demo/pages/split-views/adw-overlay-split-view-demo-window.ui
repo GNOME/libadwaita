@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AdwOverlaySplitViewDemoWindow" parent="AdwWindow">
+    <property name="modal">True</property>
+    <property name="width-request">360</property>
+    <property name="height-request">200</property>
+    <property name="default-width">640</property>
+    <property name="default-height">480</property>
+    <property name="title" translatable="yes">Overlay Split View</property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 400sp</condition>
+        <setter object="split_view" property="collapsed">True</setter>
+      </object>
+    </child>
+    <property name="content">
+      <object class="AdwToolbarView">
+        <property name="top-bar-style">raised</property>
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <child type="start">
+              <object class="GtkToggleButton" id="show_sidebar_button">
+                <property name="icon-name">view-sidebar-start-symbolic</property>
+                <property name="tooltip-text" translatable="yes">Toggle Sidebar</property>
+                <property name="active">True</property>
+                <property name="visible" bind-source="start_button" bind-property="active" bind-flags="sync-create"/>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkToggleButton">
+                <property name="icon-name">view-sidebar-end-symbolic</property>
+                <property name="tooltip-text" translatable="yes">Toggle Sidebar</property>
+                <property name="active" bind-source="show_sidebar_button" bind-property="active" bind-flags="sync-create|bidirectional"/>
+                <property name="visible" bind-source="end_button" bind-property="active" bind-flags="sync-create"/>
+             </object>
+            </child>
+          </object>
+        </child>
+        <property name="content">
+          <object class="AdwOverlaySplitView" id="split_view">
+            <property name="show-sidebar" bind-source="show_sidebar_button" bind-property="active" bind-flags="sync-create|bidirectional"/>
+            <property name="sidebar">
+              <object class="AdwStatusPage">
+                <property name="title">Sidebar</property>
+                <property name="child">
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">18</property>
+                    <property name="halign">center</property>
+                    <child>
+                      <object class="GtkToggleButton" id="start_button">
+                        <property name="label" translatable="yes">Start</property>
+                        <property name="can-shrink">True</property>
+                        <property name="active">True</property>
+                        <signal name="notify::active" handler="start_button_notify_active_cb" swapped="yes"/>
+                        <style>
+                          <class name="pill"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkToggleButton" id="end_button">
+                        <property name="label" translatable="yes">End</property>
+                        <property name="can-shrink">True</property>
+                        <property name="group">start_button</property>
+                        <style>
+                          <class name="pill"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+              </object>
+            </property>
+            <property name="content">
+              <object class="AdwStatusPage">
+                <property name="title" translatable="yes">Content</property>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </template>
+</interface>

@@ -41,6 +41,7 @@ adwaita_demo_sources = [
   'pages/navigation-view/adw-navigation-view-demo-window.c',
   'pages/split-views/adw-demo-page-split-views.c',
   'pages/split-views/adw-navigation-split-view-demo-window.c',
+  'pages/split-views/adw-overlay-split-view-demo-window.c',
   'pages/styles/adw-demo-page-styles.c',
   'pages/styles/adw-style-demo-window.c',
   'pages/tab-view/adw-demo-page-tab-view.c',

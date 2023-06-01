@@ -9,13 +9,28 @@
         <property name="title" translatable="yes">Split Views</property>
         <property name="description" translatable="yes">Widgets that display sidebar and content.</property>
         <property name="child">
-          <object class="GtkButton">
-            <property name="label" translatable="yes">Run the Demo</property>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="spacing">18</property>
             <property name="halign">center</property>
-            <property name="action-name">demo.run-navigation</property>
-            <style>
-              <class name="pill"/>
-            </style>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Navigation Split View</property>
+                <property name="action-name">demo.run-navigation</property>
+                <style>
+                  <class name="pill"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Overlay Split View</property>
+                <property name="action-name">demo.run-overlay</property>
+                <style>
+                  <class name="pill"/>
+                </style>
+              </object>
+            </child>
           </object>
         </property>
       </object>
