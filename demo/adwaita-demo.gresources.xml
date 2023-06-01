@@ -30,6 +30,8 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-flap-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-list-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-navigation-view-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-split-views-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/widget-split-views-symbolic-rtl.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-tab-view-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-toast-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/widget-view-switcher-symbolic.svg</file>
@@ -56,6 +58,8 @@
     <file preprocess="xml-stripblanks">pages/lists/adw-demo-page-lists.ui</file>
     <file preprocess="xml-stripblanks">pages/navigation-view/adw-demo-page-navigation-view.ui</file>
     <file preprocess="xml-stripblanks">pages/navigation-view/adw-navigation-view-demo-window.ui</file>
+    <file preprocess="xml-stripblanks">pages/split-views/adw-demo-page-split-views.ui</file>
+    <file preprocess="xml-stripblanks">pages/split-views/adw-navigation-split-view-demo-window.ui</file>
     <file preprocess="xml-stripblanks">pages/styles/adw-demo-page-styles.ui</file>
     <file preprocess="xml-stripblanks">pages/styles/adw-style-demo-window.ui</file>
     <file preprocess="xml-stripblanks">pages/tab-view/adw-demo-page-tab-view.ui</file>
