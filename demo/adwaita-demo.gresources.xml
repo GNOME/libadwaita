@@ -60,6 +60,7 @@
     <file preprocess="xml-stripblanks">pages/navigation-view/adw-navigation-view-demo-window.ui</file>
     <file preprocess="xml-stripblanks">pages/split-views/adw-demo-page-split-views.ui</file>
     <file preprocess="xml-stripblanks">pages/split-views/adw-navigation-split-view-demo-window.ui</file>
+    <file preprocess="xml-stripblanks">pages/split-views/adw-overlay-split-view-demo-window.ui</file>
     <file preprocess="xml-stripblanks">pages/styles/adw-demo-page-styles.ui</file>
     <file preprocess="xml-stripblanks">pages/styles/adw-style-demo-window.ui</file>
     <file preprocess="xml-stripblanks">pages/tab-view/adw-demo-page-tab-view.ui</file>
