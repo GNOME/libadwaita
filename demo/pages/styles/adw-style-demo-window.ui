@@ -1125,76 +1125,78 @@ audio-volume-medium</property>
       </object>
     </property>
   </object>
-  <object class="GtkWindow" id="status_page_window">
+  <object class="AdwWindow" id="status_page_window">
     <property name="modal">True</property>
     <property name="transient-for">AdwStyleDemoWindow</property>
     <property name="title" translatable="yes">Status Pages</property>
     <property name="hide-on-close">True</property>
     <property name="default-width">640</property>
     <property name="default-height">480</property>
-    <property name="titlebar">
-      <object class="GtkHeaderBar">
-        <child>
-          <object class="GtkRevealer">
-            <property name="transition-type">crossfade</property>
-            <property name="reveal-child" bind-source="status_page_flap" bind-property="folded" bind-flags="sync-create"/>
-            <property name="child">
-              <object class="GtkToggleButton">
+    <property name="width-request">360</property>
+    <property name="height-request">200</property>
+    <property name="content">
+      <object class="AdwToolbarView">
+        <property name="top-bar-style">raised</property>
+        <child type="top">
+          <object class="GtkHeaderBar">
+            <child>
+              <object class="GtkToggleButton" id="compact_toggle_btn">
                 <property name="icon-name">view-sidebar-start</property>
-                <property name="active" bind-source="status_page_flap" bind-property="reveal-flap" bind-flags="sync-create|bidirectional"/>
+                <property name="active" bind-source="compact_split_view" bind-property="show-sidebar" bind-flags="sync-create|bidirectional"/>
               </object>
-            </property>
+            </child>
           </object>
         </child>
-      </object>
-    </property>
-    <property name="child">
-      <object class="AdwFlap" id="status_page_flap">
-        <property name="width-request">360</property>
-        <property name="flap">
-          <object class="AdwStatusPage">
-            <property name="width-request">250</property>
-            <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
-            <property name="title" translatable="yes">Compact</property>
-            <property name="description" translatable="yes">This status page has the "compact" style class.</property>
-            <property name="tooltip-text">compact</property>
-            <style>
-              <class name="compact"/>
-              <class name="background"/>
-            </style>
-            <property name="child">
-              <object class="GtkButton">
-                <property name="label" translatable="yes">Button</property>
-                <property name="halign">center</property>
-                <style>
-                  <class name="pill"/>
-                </style>
-              </object>
-            </property>
-          </object>
-        </property>
-        <property name="separator">
-          <object class="GtkSeparator"/>
-        </property>
         <property name="content">
-          <object class="AdwStatusPage">
-            <property name="hexpand">True</property>
-            <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
-            <property name="title" translatable="yes">Regular</property>
-            <property name="description" translatable="yes">This is a regular status page.</property>
-            <property name="child">
-              <object class="GtkButton">
-                <property name="label" translatable="yes">Button</property>
-                <property name="halign">center</property>
+          <object class="AdwOverlaySplitView" id="compact_split_view">
+            <property name="sidebar">
+              <object class="AdwStatusPage">
+                <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
+                <property name="title" translatable="yes">Compact</property>
+                <property name="description" translatable="yes">This status page has the "compact" style class.</property>
+                <property name="tooltip-text">compact</property>
                 <style>
-                  <class name="pill"/>
+                  <class name="compact"/>
                 </style>
+                <property name="child">
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">Button</property>
+                    <property name="halign">center</property>
+                    <style>
+                      <class name="pill"/>
+                    </style>
+                  </object>
+                </property>
+              </object>
+            </property>
+            <property name="content">
+              <object class="AdwStatusPage">
+                <property name="hexpand">True</property>
+                <property name="icon-name">org.gnome.Adwaita1.Demo-symbolic</property>
+                <property name="title" translatable="yes">Regular</property>
+                <property name="description" translatable="yes">This is a regular status page.</property>
+                <property name="child">
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">Button</property>
+                    <property name="halign">center</property>
+                    <style>
+                      <class name="pill"/>
+                    </style>
+                  </object>
+                </property>
               </object>
             </property>
           </object>
         </property>
       </object>
     </property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 450sp</condition>
+        <setter object="compact_split_view" property="collapsed">True</setter>
+        <setter object="compact_toggle_btn" property="visible">True</setter>
+      </object>
+    </child>
   </object>
   <object class="AdwWindow" id="sidebar_window">
     <property name="modal">True</property>
