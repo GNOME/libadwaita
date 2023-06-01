@@ -10,7 +10,6 @@
 #include "pages/carousel/adw-demo-page-carousel.h"
 #include "pages/clamp/adw-demo-page-clamp.h"
 #include "pages/dialogs/adw-demo-page-dialogs.h"
-#include "pages/flap/adw-demo-page-flap.h"
 #include "pages/lists/adw-demo-page-lists.h"
 #include "pages/navigation-view/adw-demo-page-navigation-view.h"
 #include "pages/split-views/adw-demo-page-split-views.h"
@@ -104,7 +103,6 @@ adw_demo_window_init (AdwDemoWindow *self)
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CAROUSEL);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_CLAMP);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_DIALOGS);
-  g_type_ensure (ADW_TYPE_DEMO_PAGE_FLAP);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_LISTS);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_NAVIGATION_VIEW);
   g_type_ensure (ADW_TYPE_DEMO_PAGE_SPLIT_VIEWS);
