@@ -158,14 +158,6 @@
                         </child>
                         <child>
                           <object class="GtkStackPage">
-                            <property name="title" translatable="yes">Flap</property>
-                            <property name="child">
-                              <object class="AdwDemoPageFlap"/>
-                            </property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkStackPage">
                             <property name="title" translatable="yes">Tab View</property>
                             <property name="child">
                               <object class="AdwDemoPageTabView"/>
