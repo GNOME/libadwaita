@@ -24,7 +24,7 @@ struct _AdwDemoWindow
   AdwApplicationWindow parent_instance;
 
   GtkWidget *color_scheme_button;
-  AdwLeaflet *main_leaflet;
+  AdwNavigationSplitView *split_view;
   AdwDemoPageToasts *toasts_page;
 };
 
@@ -63,13 +63,7 @@ notify_system_supports_color_schemes_cb (AdwDemoWindow *self)
 static void
 notify_visible_child_cb (AdwDemoWindow *self)
 {
-  adw_leaflet_navigate (self->main_leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
-}
-
-static void
-back_clicked_cb (AdwDemoWindow *self)
-{
-  adw_leaflet_navigate (self->main_leaflet, ADW_NAVIGATION_DIRECTION_BACK);
+  adw_navigation_split_view_set_show_content (self->split_view, TRUE);
 }
 
 static void
@@ -87,12 +81,11 @@ adw_demo_window_class_init (AdwDemoWindowClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/adw-demo-window.ui");
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, color_scheme_button);
-  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, main_leaflet);
+  gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, split_view);
   gtk_widget_class_bind_template_child (widget_class, AdwDemoWindow, toasts_page);
   gtk_widget_class_bind_template_callback (widget_class, get_color_scheme_icon_name);
   gtk_widget_class_bind_template_callback (widget_class, color_scheme_button_clicked_cb);
   gtk_widget_class_bind_template_callback (widget_class, notify_visible_child_cb);
-  gtk_widget_class_bind_template_callback (widget_class, back_clicked_cb);
 
   gtk_widget_class_install_action (widget_class, "toast.undo", NULL, (GtkWidgetActionActivateFunc) toast_undo_cb);
 }
@@ -129,7 +122,7 @@ adw_demo_window_init (AdwDemoWindow *self)
 
   notify_system_supports_color_schemes_cb (self);
 
-  adw_leaflet_navigate (self->main_leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
+  notify_visible_child_cb (self);
 }
 
 AdwDemoWindow *
