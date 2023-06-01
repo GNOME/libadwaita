@@ -29,6 +29,7 @@
 #include "adw-gizmo-private.h"
 #include "adw-navigation-split-view.h"
 #include "adw-navigation-view.h"
+#include "adw-overlay-split-view.h"
 #include "adw-widget-utils-private.h"
 
 /**
@@ -57,7 +58,7 @@
  *
  * ## Split View Integration
  *
- * When placed inside `AdwNavigationSplitView`,
+ * When placed inside `AdwNavigationSplitView` or `AdwOverlaySplitView`,
  * `AdwHeaderBar` will automatically hide the title buttons other than at the
  * edges of the window.
  *
@@ -271,6 +272,18 @@ update_start_title_buttons (AdwHeaderBar *self)
 
       show &= data->is_sidebar || collapsed;
     }
+
+    if (ADW_IS_OVERLAY_SPLIT_VIEW (data->split_view)) {
+      AdwOverlaySplitView *split_view = ADW_OVERLAY_SPLIT_VIEW (data->split_view);
+      gboolean collapsed = adw_overlay_split_view_get_collapsed (split_view);
+      gboolean show_sidebar = adw_overlay_split_view_get_show_sidebar (split_view);
+      GtkPackType sidebar_pos = adw_overlay_split_view_get_sidebar_position (split_view);
+
+      if (data->is_sidebar)
+        show &= sidebar_pos == GTK_PACK_START;
+      else
+        show &= collapsed || !show_sidebar || sidebar_pos == GTK_PACK_END;
+    }
   }
 
   if ((self->start_window_controls != NULL) == show)
@@ -298,6 +311,18 @@ update_end_title_buttons (AdwHeaderBar *self)
       gboolean collapsed = adw_navigation_split_view_get_collapsed (split_view);
 
       show &= !data->is_sidebar || collapsed;
+    }
+
+    if (ADW_IS_OVERLAY_SPLIT_VIEW (data->split_view)) {
+      AdwOverlaySplitView *split_view = ADW_OVERLAY_SPLIT_VIEW (data->split_view);
+      gboolean collapsed = adw_overlay_split_view_get_collapsed (split_view);
+      gboolean show_sidebar = adw_overlay_split_view_get_show_sidebar (split_view);
+      GtkPackType sidebar_pos = adw_overlay_split_view_get_sidebar_position (split_view);
+
+      if (data->is_sidebar)
+        show &= sidebar_pos == GTK_PACK_END;
+      else
+        show &= collapsed || !show_sidebar || sidebar_pos == GTK_PACK_START;
     }
   }
 
@@ -413,6 +438,22 @@ adw_header_bar_root (GtkWidget *widget)
         is_sidebar = widget == GTK_WIDGET (sidebar) ||
                      (sidebar && gtk_widget_is_ancestor (widget, GTK_WIDGET (sidebar)));
       }
+    } else if (ADW_IS_OVERLAY_SPLIT_VIEW (parent)) {
+      GtkWidget *sidebar;
+
+      split_view = parent;
+
+      g_signal_connect_swapped (split_view, "notify::collapsed",
+                                G_CALLBACK (update_title_buttons), widget);
+      g_signal_connect_swapped (split_view, "notify::sidebar-position",
+                                G_CALLBACK (update_title_buttons), widget);
+      g_signal_connect_swapped (split_view, "notify::show-sidebar",
+                                G_CALLBACK (update_title_buttons), widget);
+
+      sidebar = adw_overlay_split_view_get_sidebar (ADW_OVERLAY_SPLIT_VIEW (split_view));
+
+      is_sidebar = widget == sidebar ||
+                   (sidebar && gtk_widget_is_ancestor (widget, sidebar));
     }
 
     if (split_view) {
