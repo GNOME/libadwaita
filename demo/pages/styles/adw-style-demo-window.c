@@ -11,7 +11,7 @@ struct _AdwStyleDemoWindow
   GtkWindow *header_bar_window;
   GtkWindow *status_page_window;
   GtkWindow *sidebar_window;
-  AdwLeaflet *sidebar_leaflet;
+  AdwNavigationSplitView *split_view;
 };
 
 G_DEFINE_FINAL_TYPE (AdwStyleDemoWindow, adw_style_demo_window, ADW_TYPE_WINDOW)
@@ -78,22 +78,9 @@ set_devel_style (AdwStyleDemoWindow *self,
 }
 
 static void
-sidebar_back_cb (AdwStyleDemoWindow *self)
-{
-  adw_leaflet_navigate (self->sidebar_leaflet, ADW_NAVIGATION_DIRECTION_BACK);
-}
-
-static void
 sidebar_forward_cb (AdwStyleDemoWindow *self)
 {
-  adw_leaflet_navigate (self->sidebar_leaflet, ADW_NAVIGATION_DIRECTION_FORWARD);
-}
-
-static GtkSelectionMode
-selection_mode_for_folded (gpointer data,
-                           gboolean folded)
-{
-  return folded ? GTK_SELECTION_NONE : GTK_SELECTION_BROWSE;
+  adw_navigation_split_view_set_show_content (self->split_view, TRUE);
 }
 
 static void
@@ -179,9 +166,7 @@ adw_style_demo_window_class_init (AdwStyleDemoWindowClass *klass)
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, header_bar_window);
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, status_page_window);
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, sidebar_window);
-  gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, sidebar_leaflet);
-  gtk_widget_class_bind_template_callback (widget_class, selection_mode_for_folded);
-  gtk_widget_class_bind_template_callback (widget_class, sidebar_back_cb);
+  gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, split_view);
   gtk_widget_class_bind_template_callback (widget_class, sidebar_forward_cb);
 
   gtk_widget_class_install_property_action (widget_class, "style.devel", "devel");
