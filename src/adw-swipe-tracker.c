@@ -1521,6 +1521,8 @@ adw_swipe_tracker_set_allow_long_swipes (AdwSwipeTracker *self,
  * Gets whether to allow swiping past the first available snap point.
  *
  * Returns: whether to allow swiping past the first available snap point
+ *
+ * Since: 1.4
  */
 gboolean
 adw_swipe_tracker_get_lower_overshoot (AdwSwipeTracker *self)
@@ -1562,6 +1564,8 @@ adw_swipe_tracker_set_lower_overshoot (AdwSwipeTracker *self,
  * Gets whether to allow swiping past the last available snap point.
  *
  * Returns: whether to allow swiping past the last available snap point
+ *
+ * Since: 1.4
  */
 gboolean
 adw_swipe_tracker_get_upper_overshoot (AdwSwipeTracker *self)
