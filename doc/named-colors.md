@@ -550,10 +550,10 @@ This color is only available since 1.4.
   </tr>
 </table>
 
-<code>&#64;shade_color</code> is used for scroll undershoots, as well as the
-transitions in [class@Leaflet] and [class@Flap]. This color should always be
-partially transparent black, with the opacity tuned to be well visible on top of
-<code>&#64;window_bg_color</code>.
+<code>&#64;shade_color</code> is used for scroll undershoots, as well as
+transitions in [class@NavigationView], [class@Leaflet] and [class@Flap]. This
+color should always be partially transparent black, with the opacity tuned to be
+well visible on top of <code>&#64;window_bg_color</code>.
 
 <code>&#64;scrollbar_outline_color</code> is used by [class@Gtk.Scrollbar] to
 ensure that overlay scrollbars are visible regardless of the content color. It
