@@ -383,6 +383,124 @@ value matching your <code>&#64;headerbar_bg_color</code>.
 border for header bars and similar widgets. This color should always be
 partially transparent black.
 
+### Sidebar Colors
+
+These colors are used for sidebars, generally attached to the left or right
+sides of a window. They are used by [class@NavigationSplitView] when it's not
+collapsed.
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th/>
+    <th>Light</th>
+    <th/>
+    <th>Dark</th>
+  </tr>
+  <tr>
+    <td><tt>&#64;sidebar_bg_color</tt></td>
+    <td><div class="color-pill" style="background-color: #ebebeb"/></td>
+    <td><tt>#ebebeb</tt></td>
+    <td><div class="color-pill dark" style="background-color: #303030"/></td>
+    <td><tt>#303030</tt></td>
+  </tr>
+  <tr>
+    <td><tt>&#64;sidebar_fg_color</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+  </tr>
+  <tr>
+    <td><tt>&#64;sidebar_backdrop_color</tt></td>
+    <td><div class="color-pill" style="background-color: #f2f2f2"/></td>
+    <td><tt>#f2f2f2</tt></td>
+    <td><div class="color-pill dark" style="background-color: #2a2a2a"/></td>
+    <td><tt>#2a2a2a</tt></td>
+  </tr>
+  <tr>
+    <td><tt>&#64;sidebar_shade_color</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
+  </tr>
+</table>
+
+<code>&#64;sidebar_backdrop_color</code> is used instead of
+<code>&#64;sidebar_bg_color</code> when the window is not focused. When
+overriding sidebar colors, make sure to set it to a value matching your
+<code>&#64;sidebar_bg_color</code>.
+
+<code>&#64;sidebar_shade_color</code> is used to provide a dark border for
+sidebars, scroll undershoots within sidebars, as well as transitions in
+[class@NavigationView], [class@Leaflet] and [class@Flap]. This color should
+always be partially transparent black, with the opacity tuned to be well visible
+on top of <code>&#64;sidebar_bg_color</code>.
+
+Since: 1.4
+
+### Secondary Sidebar Colors
+
+These colors are used for middle panes in triple-pane layouts, created via
+nesting two split views within one another.
+
+<picture>
+  <source srcset="secondary-sidebar-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="secondary-sidebar.png" alt="secondary-sidebar">
+</picture>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th/>
+    <th>Light</th>
+    <th/>
+    <th>Dark</th>
+  </tr>
+  <tr>
+    <td><tt>&#64;secondary_sidebar_bg_color</tt></td>
+    <td><div class="color-pill" style="background-color: #f3f3f3"/></td>
+    <td><tt>#f3f3f3</tt></td>
+    <td><div class="color-pill dark" style="background-color: #2a2a2a"/></td>
+    <td><tt>#2a2a2a</tt></td>
+  </tr>
+  <tr>
+    <td><tt>&#64;secondary_sidebar_fg_color</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.8)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.8)</tt></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
+    <td><tt>#ffffff</tt></td>
+  </tr>
+  <tr>
+    <td><tt>&#64;secondary_sidebar_backdrop_color</tt></td>
+    <td><div class="color-pill" style="background-color: #f6f6f6"/></td>
+    <td><tt>#f6f6f6</tt></td>
+    <td><div class="color-pill dark" style="background-color: #272727"/></td>
+    <td><tt>#272727</tt></td>
+  </tr>
+  <tr>
+    <td><tt>&#64;secondary_sidebar_shade_color</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.07)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.07)</tt></td>
+    <td><div class="color-pill dark" style="background-color: rgba(0, 0, 0, 0.36)"/></td>
+    <td><tt>rgba(0, 0, 0, 0.36)</tt></td>
+  </tr>
+</table>
+
+<code>&#64;secondary_sidebar_backdrop_color</code> is used instead of
+<code>&#64;secondary_sidebar_bg_color</code> when the window is not focused.
+When overriding secondary sidebar colors, make sure to set it to a value
+matching your <code>&#64;secondary_sidebar_bg_color</code>.
+
+<code>&#64;secondary_sidebar_shade_color</code> is used to provide a dark border
+for secondary sidebars, scroll undershoots within secondary sidebars, as well as
+transitions in [class@NavigationView], [class@Leaflet] and [class@Flap]. This
+color should always be partially transparent black, with the opacity tuned to be
+well visible on top of <code>&#64;secondary_sidebar_bg_color</code>.
+
+Since: 1.4
+
 ### Card Colors
 
 These colors are used for

@@ -188,6 +188,8 @@ content_images = [
   "images/property-row-dark.png",
   "images/search-bar-inline.png",
   "images/search-bar-inline-dark.png",
+  "images/secondary-sidebar.png",
+  "images/secondary-sidebar-dark.png",
   "images/selection-mode-checks.png",
   "images/selection-mode-checks-dark.png",
   "images/spin-row.png",

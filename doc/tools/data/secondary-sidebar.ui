@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwWindow" id="widget">
+    <property name="default-width">1200</property>
+    <property name="default-height">300</property>
+    <property name="content">
+      <object class="AdwNavigationSplitView">
+        <property name="min-sidebar-width">470</property>
+        <property name="max-sidebar-width">780</property>
+        <property name="sidebar-width-fraction">0.47</property>
+        <property name="sidebar">
+          <object class="AdwNavigationPage">
+            <property name="child">
+              <object class="AdwNavigationSplitView">
+                <property name="max-sidebar-width">260</property>
+                <property name="sidebar-width-fraction">0.38</property>
+                <property name="sidebar">
+                  <object class="AdwNavigationPage">
+                    <property name="title">Sidebar</property>
+                    <property name="child">
+                      <object class="AdwToolbarView">
+                        <property name="extend-content-to-top-edge">True</property>
+                        <child type="top">
+                          <object class="AdwHeaderBar">
+                            <property name="show-title">False</property>
+                          </object>
+                        </child>
+                        <property name="content">
+                          <object class="AdwStatusPage">
+                            <property name="title">Sidebar</property>
+                          </object>
+                        </property>
+                      </object>
+                    </property>
+                  </object>
+                </property>
+                <property name="content">
+                  <object class="AdwNavigationPage">
+                    <property name="title">Secondary Sidebar</property>
+                    <property name="child">
+                      <object class="AdwToolbarView">
+                        <property name="extend-content-to-top-edge">True</property>
+                        <child type="top">
+                          <object class="AdwHeaderBar">
+                            <property name="show-title">False</property>
+                          </object>
+                        </child>
+                        <property name="content">
+                          <object class="AdwStatusPage">
+                            <property name="title">Secondary Sidebar</property>
+                          </object>
+                        </property>
+                      </object>
+                    </property>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </property>
+        <property name="content">
+          <object class="AdwNavigationPage">
+            <property name="title">Content</property>
+            <property name="child">
+              <object class="AdwToolbarView">
+                <property name="extend-content-to-top-edge">True</property>
+                <child type="top">
+                  <object class="AdwHeaderBar">
+                    <property name="show-title">False</property>
+                  </object>
+                </child>
+                <property name="content">
+                  <object class="AdwStatusPage">
+                    <property name="title">Content</property>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </object>
+</interface>
