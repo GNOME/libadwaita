@@ -310,6 +310,7 @@ well as with the [`.view`](style-classes.html#view) style class.
 These colors are used for header bars and similar widgets, generally attached to
 the top or bottom sides of a window. The full list of widgets using them:
 
+- [class@ToolbarView] uses it for the top and bottom bars
 - [class@HeaderBar] except with the
   [`.flat`](style-classes.html#flat-header-bar) style class
 - [class@TabBar] except with the
@@ -330,7 +331,7 @@ the top or bottom sides of a window. The full list of widgets using them:
   </tr>
   <tr>
     <td><tt>&#64;headerbar_bg_color</tt></td>
-    <td><div class="color-pill" style="background-color: #ffffff"/></td>
+    <td><div class="color-pill light" style="background-color: #ffffff"/></td>
     <td><tt>#ffffff</tt></td>
     <td><div class="color-pill dark" style="background-color: #303030"/></td>
     <td><tt>#303030</tt></td>
@@ -378,9 +379,9 @@ it's an alias of [<code>&#64;window_bg_color</code>](#window-colors) and changes
 together with it. When overriding header bar colors, make sure to set it to a
 value matching your <code>&#64;headerbar_bg_color</code>.
 
-<code>&#64;headerbar_shade_color</code> is used to provide a dark border for
-header bars and similar widgets. This color should always be partially
-transparent black.
+<code>&#64;headerbar_shade_color</code> is used to provide a dark shadow or a
+border for header bars and similar widgets. This color should always be
+partially transparent black.
 
 ### Card Colors
 
