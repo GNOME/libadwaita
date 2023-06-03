@@ -520,7 +520,8 @@ These colors are used for [class@Gtk.Popover].
 </table>
 
 <code>&#64;popover_shade_color</code> is used for scroll undershoot styles within
-popovers. This color should always be partially transparent black, with the
+popovers, as well as transitions in [class@NavigationView], [class@Leaflet] and
+[class@Flap]. This color should always be partially transparent black, with the
 opacity tuned to be well visible on top of <code>&#64;popover_bg_color</code>.
 This color is only available since 1.4.
 
