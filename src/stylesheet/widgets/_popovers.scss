@@ -67,4 +67,10 @@ popover {
       &:dir(rtl) { @include undershoot(left, $popover_shade_color); }
     }
   }
+
+  flap,
+  leaflet,
+  navigation-view {
+    @include transition-shadows($popover_shade_color);
+  }
 }

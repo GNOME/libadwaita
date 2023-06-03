@@ -100,3 +100,39 @@
   border: none;                  //
   box-shadow: none;              //
 }
+
+@mixin background-shadow($direction, $color) {
+  background-image:
+    linear-gradient($direction,
+                    gtkalpha($color, 0.7),
+                    gtkalpha($color, 0.14) 40px,
+                    gtkalpha($color, 0) 56px),
+    linear-gradient($direction,
+                    gtkalpha($color, 0.4),
+                    gtkalpha($color, 0.14) 7px,
+                    gtkalpha($color, 0) 24px);
+}
+
+@mixin transition-shadows($color) {
+  > dimming {
+    background: $color;
+  }
+
+  @if $contrast == 'high' {
+    > border {
+      min-width: 1px;
+      min-height: 1px;
+      background: $border_color;
+    }
+  }
+
+  > shadow {
+    min-width: 56px;
+    min-height: 56px;
+
+    &.left  { @include background-shadow(to right,  $color); }
+    &.right { @include background-shadow(to left,   $color); }
+    &.up    { @include background-shadow(to bottom, $color); }
+    &.down  { @include background-shadow(to top,    $color); }
+  }
+}

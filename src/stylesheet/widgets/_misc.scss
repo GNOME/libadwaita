@@ -218,3 +218,10 @@ statuspage {
   }
 }
 
+/* Transition shadows */
+
+flap,
+leaflet,
+navigation-view {
+  @include transition-shadows($shade_color);
+}

@@ -60,7 +60,6 @@ if not fs.exists('base.css')
       'widgets/_text-selection.scss',
       'widgets/_toolbars.scss',
       'widgets/_tooltip.scss',
-      'widgets/_transition-shadow.scss',
       'widgets/_views.scss',
       'widgets/_view-switcher.scss',
       'widgets/_window.scss',
