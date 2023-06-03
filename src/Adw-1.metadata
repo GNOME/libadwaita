@@ -1,0 +1,32 @@
+// Use this file only for fixing what can't be fixed with gobject-introspection annotations
+
+// Allow printf-like functions
+
+Toast
+  .new_format skip=false printf_format
+
+MessageDialog
+  .format_body skip=false printf_format
+  .format_heading skip=false printf_format
+  .format_body_markup skip=false printf_format
+  .format_heading_markup skip=false printf_format
+
+// Allow other variadic functions
+
+*.*_valist skip=false
+
+show_about_window skip=false
+show_about_window_from_appdata skip=false
+
+Breakpoint
+  .add_setters skip=false
+
+MessageDialog
+  .add_responses skip=false
+
+Toast
+  .set_action_target skip=false
+
+// Mark boxed types with reference counting as non-compact
+
+SpringParams compact=false
