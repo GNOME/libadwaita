@@ -2012,7 +2012,7 @@ adw_navigation_page_set_child (AdwNavigationPage *self,
  *
  * Gets the tag of @self.
  *
- * Returns: (transfer none): (nullable): the page tag
+ * Returns: (transfer none) (nullable): the page tag
  *
  * Since: 1.4
  */
