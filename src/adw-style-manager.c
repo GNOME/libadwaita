@@ -564,7 +564,7 @@ adw_style_manager_get_for_display (GdkDisplay *display)
  * The display will be `NULL` for the style manager returned by
  * [func@StyleManager.get_default].
  *
- * Returns: (transfer none): (nullable): the display
+ * Returns: (transfer none) (nullable): the display
  */
 GdkDisplay *
 adw_style_manager_get_display (AdwStyleManager *self)
