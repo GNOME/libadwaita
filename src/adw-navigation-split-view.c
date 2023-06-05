@@ -531,8 +531,8 @@ navigation_push_cb (AdwNavigationSplitView *self,
 
     if (!g_strcmp0 (tag, content_tag)) {
       if (self->show_content) {
-        g_critical ("Page '%s' is already in the navigation stack",
-                    adw_navigation_page_get_title (self->content));
+        g_critical ("Page with the tag '%s' is already in the navigation stack",
+                    tag);
 
         return;
       }
@@ -546,8 +546,8 @@ navigation_push_cb (AdwNavigationSplitView *self,
     const char *sidebar_tag = adw_navigation_page_get_tag (self->sidebar);
 
     if (!g_strcmp0 (tag, sidebar_tag)) {
-      g_critical ("Page '%s' is already in the navigation stack",
-                  adw_navigation_page_get_title (self->sidebar));
+      g_critical ("Page with the tag '%s' is already in the navigation stack",
+                  tag);
       return;
     }
   }
