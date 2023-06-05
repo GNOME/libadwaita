@@ -772,7 +772,7 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
    */
   props[PROP_MAX_SIDEBAR_WIDTH] =
     g_param_spec_double ("max-sidebar-width", NULL, NULL,
-                         0, G_MAXDOUBLE, 180,
+                         0, G_MAXDOUBLE, 280,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
