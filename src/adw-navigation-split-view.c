@@ -44,7 +44,7 @@
  *
  * ```xml
  * <object class="AdwWindow">
- *   <property name="width-request">360</property>
+ *   <property name="width-request">280</property>
  *   <property name="height-request">200</property>
  *   <property name="default-width">800</property>
  *   <property name="default-height">800</property>
@@ -92,8 +92,8 @@
  * The minimum and maximum sizes are using the length unit specified with the
  * [property@NavigationSplitView:sidebar-width-unit].
  *
- * By default, sidebar is using 30% of the total width, with 180sp as the
- * minimum size and 360sp as the maximum size.
+ * By default, sidebar is using 25% of the total width, with 180sp as the
+ * minimum size and 280sp as the maximum size.
  *
  * ## Header Bar Integration
  *
@@ -791,7 +791,7 @@ adw_navigation_split_view_class_init (AdwNavigationSplitViewClass *klass)
    */
   props[PROP_SIDEBAR_WIDTH_FRACTION] =
     g_param_spec_double ("sidebar-width-fraction", NULL, NULL,
-                         0, 1, 0.3,
+                         0, 1, 0.25,
                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS | G_PARAM_EXPLICIT_NOTIFY);
 
   /**
@@ -825,8 +825,8 @@ static void
 adw_navigation_split_view_init (AdwNavigationSplitView *self)
 {
   self->min_sidebar_width = 180;
-  self->max_sidebar_width = 360;
-  self->sidebar_width_fraction = 0.3;
+  self->max_sidebar_width = 280;
+  self->sidebar_width_fraction = 0.25;
   self->sidebar_width_unit = ADW_LENGTH_UNIT_SP;
 
   update_collapsed (self);

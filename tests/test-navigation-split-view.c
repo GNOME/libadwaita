@@ -232,17 +232,17 @@ test_adw_navigation_split_view_max_sidebar_width (void)
   g_signal_connect (split_view, "notify::max-sidebar-width", G_CALLBACK (notify_cb), NULL);
 
   g_object_get (split_view, "max-sidebar-width", &width, NULL);
-  g_assert_true (G_APPROX_VALUE (width, 360, DBL_EPSILON));
+  g_assert_true (G_APPROX_VALUE (width, 280, DBL_EPSILON));
 
-  adw_navigation_split_view_set_max_sidebar_width (split_view, 360);
+  adw_navigation_split_view_set_max_sidebar_width (split_view, 280);
   g_assert_cmpint (notified, ==, 0);
 
   adw_navigation_split_view_set_max_sidebar_width (split_view, 200);
   g_assert_true (G_APPROX_VALUE (adw_navigation_split_view_get_max_sidebar_width (split_view), 200, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 1);
 
-  g_object_set (split_view, "max-sidebar-width", 360.0, NULL);
-  g_assert_true (G_APPROX_VALUE (adw_navigation_split_view_get_max_sidebar_width (split_view), 360, DBL_EPSILON));
+  g_object_set (split_view, "max-sidebar-width", 280.0, NULL);
+  g_assert_true (G_APPROX_VALUE (adw_navigation_split_view_get_max_sidebar_width (split_view), 280, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (split_view);
@@ -260,17 +260,17 @@ test_adw_navigation_split_view_sidebar_width_fraction (void)
   g_signal_connect (split_view, "notify::sidebar-width-fraction", G_CALLBACK (notify_cb), NULL);
 
   g_object_get (split_view, "sidebar-width-fraction", &fraction, NULL);
-  g_assert_true (G_APPROX_VALUE (fraction, 0.3, DBL_EPSILON));
+  g_assert_true (G_APPROX_VALUE (fraction, 0.25, DBL_EPSILON));
 
-  adw_navigation_split_view_set_sidebar_width_fraction (split_view, 0.3);
+  adw_navigation_split_view_set_sidebar_width_fraction (split_view, 0.25);
   g_assert_cmpint (notified, ==, 0);
 
   adw_navigation_split_view_set_sidebar_width_fraction (split_view, 0.2);
   g_assert_true (G_APPROX_VALUE (adw_navigation_split_view_get_sidebar_width_fraction (split_view), 0.2, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 1);
 
-  g_object_set (split_view, "sidebar-width-fraction", 0.3, NULL);
-  g_assert_true (G_APPROX_VALUE (adw_navigation_split_view_get_sidebar_width_fraction (split_view), 0.3, DBL_EPSILON));
+  g_object_set (split_view, "sidebar-width-fraction", 0.25, NULL);
+  g_assert_true (G_APPROX_VALUE (adw_navigation_split_view_get_sidebar_width_fraction (split_view), 0.25, DBL_EPSILON));
   g_assert_cmpint (notified, ==, 2);
 
   g_assert_finalize_object (split_view);
