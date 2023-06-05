@@ -776,13 +776,20 @@ static void
 push_to_stack (AdwNavigationView *self,
                AdwNavigationPage *page,
                gboolean           animate,
-               double             velocity)
+               double             velocity,
+               gboolean           use_tag_for_errors)
 {
   AdwNavigationPage *previous_page = adw_navigation_view_get_visible_page (self);
 
   if (g_list_store_find (self->navigation_stack, page, NULL)) {
-    g_critical ("Page '%s' is already in navigation stack\n",
-                adw_navigation_page_get_title (page));
+    if (use_tag_for_errors) {
+      g_critical ("Page with the tag '%s' is already in navigation stack\n",
+                  adw_navigation_page_get_tag (page));
+    } else {
+      g_critical ("Page '%s' is already in navigation stack\n",
+                  adw_navigation_page_get_title (page));
+    }
+
     return;
   }
 
@@ -916,7 +923,7 @@ navigation_push_cb (AdwNavigationView *self,
   page = adw_navigation_view_find_page (self, tag);
 
   if (page) {
-    push_to_stack (self, page, self->animate_transitions, 0);
+    push_to_stack (self, page, self->animate_transitions, 0, TRUE);
     return;
   }
 
@@ -1095,7 +1102,7 @@ add_page (AdwNavigationView *self,
     g_hash_table_insert (self->tag_mapping, g_strdup (tag), page);
 
   if (auto_push && g_list_model_get_n_items (G_LIST_MODEL (self->navigation_stack)) == 0)
-    push_to_stack (self, page, FALSE, 0);
+    push_to_stack (self, page, FALSE, 0, FALSE);
   else
     gtk_widget_set_child_visible (GTK_WIDGET (page), FALSE);
 }
@@ -1248,7 +1255,7 @@ end_swipe_cb (AdwSwipeTracker   *tracker,
     if (self->transition_pop)
       pop_from_stack (self, self->showing_page, animate, -velocity);
     else
-      push_to_stack (self, self->showing_page, animate, velocity);
+      push_to_stack (self, self->showing_page, animate, velocity, FALSE);
   } else {
     self->transition_cancel = TRUE;
 
@@ -2326,7 +2333,7 @@ adw_navigation_view_push (AdwNavigationView *self,
   if (!maybe_add_page (self, page))
     return;
 
-  push_to_stack (self, page, self->animate_transitions, 0);
+  push_to_stack (self, page, self->animate_transitions, 0, FALSE);
 }
 
 /**
@@ -2362,7 +2369,7 @@ adw_navigation_view_push_by_tag (AdwNavigationView *self,
     return;
   }
 
-  push_to_stack (self, page, self->animate_transitions, 0);
+  push_to_stack (self, page, self->animate_transitions, 0, TRUE);
 }
 
 /**
