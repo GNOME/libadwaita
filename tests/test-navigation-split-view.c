@@ -361,9 +361,11 @@ test_adw_navigation_split_view_actions (void)
   g_assert_true (adw_navigation_split_view_get_show_content (split_view));
   g_assert_cmpint (notified, ==, 1);
 
-  g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*already in the navigation stack*");
   gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.push", "s", "content");
-  g_test_assert_expected_messages ();
+  gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.push", "s", "content");
+
+  g_assert_true (adw_navigation_split_view_get_show_content (split_view));
+  g_assert_cmpint (notified, ==, 1);
 
   g_test_expect_message (ADW_LOG_DOMAIN, G_LOG_LEVEL_CRITICAL, "*already in the navigation stack*");
   gtk_widget_activate_action (GTK_WIDGET (split_view), "navigation.push", "s", "sidebar");

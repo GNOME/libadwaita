@@ -530,7 +530,7 @@ navigation_push_cb (AdwNavigationSplitView *self,
     const char *content_tag = adw_navigation_page_get_tag (self->content);
 
     if (!g_strcmp0 (tag, content_tag)) {
-      if (self->show_content) {
+      if (self->show_content && self->collapsed) {
         g_critical ("Page with the tag '%s' is already in the navigation stack",
                     tag);
 
