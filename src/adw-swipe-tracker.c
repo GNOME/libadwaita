@@ -550,7 +550,8 @@ is_in_swipe_area (AdwSwipeTracker        *self,
 
   adw_swipeable_get_swipe_area (self->swipeable, direction, is_drag, &rect);
 
-  return (G_APPROX_VALUE (x, rect.x, DBL_EPSILON) || x > rect.x) &&
+  return rect.width > 0 && rect.height > 0 &&
+         (G_APPROX_VALUE (x, rect.x, DBL_EPSILON) || x > rect.x) &&
          x < rect.x + rect.width &&
          (G_APPROX_VALUE (y, rect.y, DBL_EPSILON) || y > rect.y) &&
          y < rect.y + rect.height;
