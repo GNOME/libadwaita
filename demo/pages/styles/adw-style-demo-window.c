@@ -8,7 +8,6 @@ struct _AdwStyleDemoWindow
 
   gboolean progress;
 
-  GtkWindow *header_bar_window;
   GtkWindow *status_page_window;
   GtkWindow *sidebar_window;
   AdwNavigationSplitView *split_view;
@@ -24,16 +23,6 @@ enum {
 };
 
 static GParamSpec *props[LAST_PROP];
-
-static void
-header_bar_cb (GtkWidget  *sender,
-               const char *name,
-               GVariant   *param)
-{
-  AdwStyleDemoWindow *self = ADW_STYLE_DEMO_WINDOW (sender);
-
-  gtk_window_present (self->header_bar_window);
-}
 
 static void
 status_page_cb (GtkWidget  *sender,
@@ -68,11 +57,9 @@ set_devel_style (AdwStyleDemoWindow *self,
 {
   if (devel) {
     gtk_widget_add_css_class (GTK_WIDGET (self), "devel");
-    gtk_widget_add_css_class (GTK_WIDGET (self->header_bar_window), "devel");
     gtk_widget_add_css_class (GTK_WIDGET (self->status_page_window), "devel");
   } else {
     gtk_widget_remove_css_class (GTK_WIDGET (self), "devel");
-    gtk_widget_remove_css_class (GTK_WIDGET (self->header_bar_window), "devel");
     gtk_widget_remove_css_class (GTK_WIDGET (self->status_page_window), "devel");
   }
 }
@@ -128,9 +115,6 @@ adw_style_demo_window_dispose (GObject *object)
 {
   AdwStyleDemoWindow *self = ADW_STYLE_DEMO_WINDOW (object);
 
-  if (self->header_bar_window)
-    gtk_window_destroy (self->header_bar_window);
-
   if (self->status_page_window)
     gtk_window_destroy (self->status_page_window);
 
@@ -163,7 +147,6 @@ adw_style_demo_window_class_init (AdwStyleDemoWindowClass *klass)
   g_object_class_install_properties (object_class, LAST_PROP, props);
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/Adwaita1/Demo/ui/pages/styles/adw-style-demo-window.ui");
-  gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, header_bar_window);
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, status_page_window);
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, sidebar_window);
   gtk_widget_class_bind_template_child (widget_class, AdwStyleDemoWindow, split_view);
@@ -171,7 +154,6 @@ adw_style_demo_window_class_init (AdwStyleDemoWindowClass *klass)
 
   gtk_widget_class_install_property_action (widget_class, "style.devel", "devel");
   gtk_widget_class_install_property_action (widget_class, "style.progress", "progress");
-  gtk_widget_class_install_action (widget_class, "style.header-bar", NULL, header_bar_cb);
   gtk_widget_class_install_action (widget_class, "style.status-page", NULL, status_page_cb);
   gtk_widget_class_install_action (widget_class, "style.sidebar", NULL, sidebar_cb);
   gtk_widget_class_install_action (widget_class, "style.dummy", NULL, dummy_cb);

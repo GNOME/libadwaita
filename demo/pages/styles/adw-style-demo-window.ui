@@ -1023,21 +1023,6 @@ audio-volume-medium</property>
                     <property name="title" translatable="yes">Misc</property>
                     <child>
                       <object class="AdwActionRow">
-                        <property name="title" translatable="yes">Flat Header Bar</property>
-                        <property name="activatable">True</property>
-                        <property name="action-name">style.header-bar</property>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="icon-name">go-next-symbolic</property>
-                            <style>
-                              <class name="dim-label"/>
-                            </style>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="AdwActionRow">
                         <property name="title" translatable="yes">Status Pages</property>
                         <property name="activatable">True</property>
                         <property name="action-name">style.status-page</property>
@@ -1100,31 +1085,6 @@ audio-volume-medium</property>
       </object>
     </child>
   </template>
-  <object class="GtkWindow" id="header_bar_window">
-    <property name="modal">True</property>
-    <property name="transient-for">AdwStyleDemoWindow</property>
-    <property name="title" translatable="yes">Flat Header Bar</property>
-    <property name="hide-on-close">True</property>
-    <property name="titlebar">
-      <object class="AdwHeaderBar">
-        <property name="tooltip-text">flat</property>
-        <property name="show-title">False</property>
-        <style>
-          <class name="flat"/>
-        </style>
-      </object>
-    </property>
-    <property name="child">
-      <object class="GtkLabel">
-        <property name="use-markup">True</property>
-        <property name="label" translatable="yes">The header bar in this window has the "flat" style class.</property>
-        <property name="wrap">True</property>
-        <property name="margin-start">48</property>
-        <property name="margin-end">48</property>
-        <property name="margin-bottom">48</property>
-      </object>
-    </property>
-  </object>
   <object class="AdwWindow" id="status_page_window">
     <property name="modal">True</property>
     <property name="transient-for">AdwStyleDemoWindow</property>
