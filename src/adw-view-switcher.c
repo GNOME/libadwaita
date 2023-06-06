@@ -32,8 +32,51 @@
  * displayed side by side, or icon on top of the label. This can be controlled
  * via the [property@ViewSwitcher:policy] property.
  *
- * Most applications should be using [class@ViewSwitcherBar] and
- * [class@ViewSwitcherTitle].
+ * `AdwViewSwitcher` is intended to be used in a header bar together with
+ * [class@ViewSwitcherBar] at the bottom of the window, and a [class@Breakpoint]
+ * showing the view switcher bar on narrow sizes, while removing the view
+ * switcher from the header bar, as follows:
+ *
+ * ```xml
+ * <object class="AdwWindow">
+ *   <property name="width-request">360</property>
+ *   <property name="height-request">200</property>
+ *   <child>
+ *     <object class="AdwBreakpoint">
+ *       <condition>max-width: 550sp</condition>
+ *       <setter object="switcher_bar" property="reveal">True</setter>
+ *       <setter object="header_bar" property="title-widget"/>
+ *     </object>
+ *   </child>
+ *   <property name="content">
+ *     <object class="AdwToolbarView">
+ *       <child type="top">
+ *         <object class="AdwHeaderBar" id="header_bar">
+ *           <property name="title-widget">
+ *             <object class="AdwViewSwitcher">
+ *               <property name="stack">stack</property>
+ *               <property name="policy">wide</property>
+ *             </object>
+ *           </property>
+ *         </object>
+ *       </child>
+ *       <property name="content">
+ *         <object class="AdwViewStack" id="stack"/>
+ *       </property>
+ *       <child type="bottom">
+ *         <object class="AdwViewSwitcherBar" id="switcher_bar">
+ *           <property name="stack">stack</property>
+ *         </object>
+ *       </child>
+ *     </object>
+ *   </property>
+ * </object>
+ * ```
+ *
+ * It's recommended to set [property@ViewSwitcher:policy] to
+ * `ADW_VIEW_SWITCHER_POLICY_WIDE` in this case.
+ *
+ * You may have to adjust the breakpoint condition for your specific pages.
  *
  * ## CSS nodes
  *

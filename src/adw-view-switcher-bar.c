@@ -27,23 +27,29 @@
  * on mobile phones. It can't be revealed if there are less than two pages.
  *
  * `AdwViewSwitcherBar` is intended to be used together with
- * [class@ViewSwitcherTitle].
- *
- * A common use case is to bind the [property@ViewSwitcherBar:reveal] property
- * to [property@ViewSwitcherTitle:title-visible] to automatically reveal the
- * view switcher bar when the title label is displayed in place of the view
- * switcher, as follows:
+ * `AdwViewSwitcher` in a header bar, and a [class@Breakpoint] showing the view
+ * switcher bar on narrow sizes, while removing the view switcher from the
+ * header bar, as follows:
  *
  * ```xml
  * <object class="AdwWindow">
+ *   <property name="width-request">360</property>
+ *   <property name="height-request">200</property>
+ *   <child>
+ *     <object class="AdwBreakpoint">
+ *       <condition>max-width: 550sp</condition>
+ *       <setter object="switcher_bar" property="reveal">True</setter>
+ *       <setter object="header_bar" property="title-widget"/>
+ *     </object>
+ *   </child>
  *   <property name="content">
  *     <object class="AdwToolbarView">
  *       <child type="top">
- *         <object class="AdwHeaderBar">
- *           <property name="centering-policy">strict</property>
+ *         <object class="AdwHeaderBar" id="header_bar">
  *           <property name="title-widget">
- *             <object class="AdwViewSwitcherTitle" id="title">
+ *             <object class="AdwViewSwitcher">
  *               <property name="stack">stack</property>
+ *               <property name="policy">wide</property>
  *             </object>
  *           </property>
  *         </object>
@@ -52,17 +58,19 @@
  *         <object class="AdwViewStack" id="stack"/>
  *       </property>
  *       <child type="bottom">
- *         <object class="AdwViewSwitcherBar">
+ *         <object class="AdwViewSwitcherBar" id="switcher_bar">
  *           <property name="stack">stack</property>
- *           <binding name="reveal">
- *             <lookup name="title-visible">title</lookup>
- *           </binding>
  *         </object>
  *       </child>
  *     </object>
  *   </property>
  * </object>
  * ```
+ *
+ * It's recommended to set [property@ViewSwitcher:policy] to
+ * `ADW_VIEW_SWITCHER_POLICY_WIDE` in this case.
+ *
+ * You may have to adjust the breakpoint condition for your specific pages.
  *
  * ## CSS nodes
  *
