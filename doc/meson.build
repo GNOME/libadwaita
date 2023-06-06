@@ -7,7 +7,6 @@ expand_content_md_files = [
   'boxed-lists.md',
   'build-howto.md',
   'initialization.md',
-  'migrating-between-development-versions.md',
   'migrating-libhandy-1-4-to-libadwaita.md',
   'named-colors.md',
   'styles-and-appearance.md',
