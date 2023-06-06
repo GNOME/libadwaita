@@ -200,7 +200,7 @@ Slug: widget-gallery
   <img src="tab-button.png" alt="tab-button">
 </picture>](class.TabButton.html)
 
-## Adaptive Containers
+## Helpers
 
 ### Breakpoint Bin
 
@@ -221,41 +221,6 @@ Slug: widget-gallery
 </picture>](class.Clamp.html)
 
 See also: [class@ClampLayout], [class@ClampScrollable]
-
-### Leaflet
-
-[<picture>
-  <source srcset="leaflet-wide-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="leaflet-wide.png" alt="leaflet-wide">
-</picture>
-<picture>
-  <source srcset="leaflet-narrow-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="leaflet-narrow.png" alt="leaflet-narrow">
-</picture>](class.Leaflet.html)
-
-### Flap
-
-[<picture>
-  <source srcset="flap-wide-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="flap-wide.png" alt="flap-wide">
-</picture>
-<picture>
-  <source srcset="flap-narrow-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="flap-narrow.png" alt="flap-narrow">
-</picture>](class.Flap.html)
-
-### Squeezer
-
-[<picture>
-  <source srcset="squeezer-wide-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="squeezer-wide.png" alt="squeezer-wide">
-</picture>
-<picture>
-  <source srcset="squeezer-narrow-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="squeezer-narrow.png" alt="squeezer-narrow">
-</picture>](class.Squeezer.html)
-
-## Helpers
 
 ### Toolbar View
 
