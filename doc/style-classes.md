@@ -372,10 +372,6 @@ or [class@Gtk.ListView] to make it look like a sidebar: it makes the
 items rounded and padded, makes selected items use a neutral color instead of
 accent, and removes the default list background.
 
-When using it on a flap child in an [class@Flap], the lack of background can be
-problematic. In that case, it can be used together with the
-[`.background`](#background) style class.
-
 ## App Icons
 
 <picture>
@@ -463,8 +459,7 @@ attached to the top of the window.
 The `.background` style class can be used with any widget to give it the default
 [window](named-colors.html#window-colors) background and foreground colors.
 
-This can be useful when a widget needs an opaque background - for example, a
-flap child inside an [class@Flap].
+This can be useful when a widget needs an opaque background.
 
 It's equivalent to using the following CSS:
 
