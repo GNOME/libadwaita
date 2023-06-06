@@ -35,7 +35,8 @@
 /**
  * AdwSwipeTracker:
  *
- * A swipe tracker used in [class@Carousel], [class@Flap] and [class@Leaflet].
+ * A swipe tracker used in [class@Carousel], [class@NavigationView] and
+ * [class@OverlaySplitView].
  *
  * The `AdwSwipeTracker` object can be used for implementing widgets with swipe
  * gestures. It supports touch-based swipes, pointer dragging, and touchpad
@@ -1639,3 +1640,4 @@ adw_swipe_tracker_reset (AdwSwipeTracker *self)
   if (self->scroll_controller)
     gtk_event_controller_reset (self->scroll_controller);
 }
+
