@@ -174,9 +174,9 @@ Slug: widget-gallery
 ### View Switcher
 
 [<picture>
-  <source srcset="view-switcher-title-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="view-switcher-title.png" alt="view-switcher-title">
-</picture>](class.ViewSwitcherTitle.html)
+  <source srcset="view-switcher-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="view-switcher.png" alt="view-switcher">
+</picture>](class.ViewSwitcher.html)
 
 [<picture>
   <source srcset="view-switcher-bar-dark.png" media="(prefers-color-scheme: dark)">
