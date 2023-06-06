@@ -69,47 +69,10 @@
  *
  * ## Title Buttons
  *
+ * Unlike `GtkHeaderBar`, `AdwHeaderBar` allows to toggle title button
+ * visibility for each side individually, using the
  * [property@HeaderBar:show-start-title-buttons] and
- * [property@HeaderBar:show-end-title-buttons] allow to easily create split
- * header bar layouts using [class@Leaflet], as follows:
- *
- * ```xml
- * <object class="AdwLeaflet" id="leaflet">
- *   <child>
- *     <object class="AdwToolbarView">
- *       <property name="top-bar-style">raised</property>
- *       <child type="top">
- *         <object class="AdwHeaderBar">
- *           <binding name="show-end-title-buttons">
- *             <lookup name="folded">leaflet</lookup>
- *           </binding>
- *         </object>
- *       </child>
- *       <!-- ... -->
- *     </object>
- *   </child>
- *   <!-- ... -->
- *   <child>
- *     <object class="AdwToolbarView">
- *       <property name="top-bar-style">raised</property>
- *       <property name="hexpand">True</property>
- *       <child type="top">
- *         <object class="AdwHeaderBar">
- *           <binding name="show-start-title-buttons">
- *             <lookup name="folded">leaflet</lookup>
- *           </binding>
- *         </object>
- *       </child>
- *       <!-- ... -->
- *     </object>
- *   </child>
- * </object>
- * ```
- *
- * <picture>
- *   <source srcset="header-bar-split-dark.png" media="(prefers-color-scheme: dark)">
- *   <img src="header-bar-split.png" alt="header-bar-split">
- * </picture>
+ * [property@HeaderBar:show-end-title-buttons] properties.
  *
  * ## CSS nodes
  *
