@@ -2,14 +2,22 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
-  <object class="GtkWindow">
-    <property name="decorated">False</property>
-    <property name="child">
-      <object class="GtkBox">
-        <property name="orientation">vertical</property>
-        <child>
+  <object class="AdwWindow" id="widget">
+    <property name="default-height">100</property>
+    <property name="content">
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <property name="title-widget">
+              <object class="AdwViewSwitcher">
+                <property name="stack">stack</property>
+                <property name="policy">wide</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <property name="content">
           <object class="AdwViewStack" id="stack">
-            <property name="vexpand">True</property>
             <child>
               <object class="AdwViewStackPage">
                 <property name="title">Page 1</property>
@@ -38,36 +46,7 @@
               </object>
             </child>
           </object>
-        </child>
-        <child>
-          <object class="GtkBox" id="widget">
-            <property name="orientation">vertical</property>
-            <property name="spacing">6</property>
-            <child>
-              <object class="GtkHeaderBar">
-                <property name="show-title-buttons">False</property>
-                <property name="title-widget">
-                  <object class="AdwViewSwitcher">
-                    <property name="stack">stack</property>
-                    <property name="policy">wide</property>
-                    <property name="halign">center</property>
-                  </object>
-                </property>
-                <style>
-                  <class name="flat"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="AdwViewSwitcher">
-                <property name="stack">stack</property>
-                <property name="policy">narrow</property>
-                <property name="halign">center</property>
-                <property name="margin-bottom">9</property>
-              </object>
-            </child>
-          </object>
-        </child>
+        </property>
       </object>
     </property>
   </object>
