@@ -340,14 +340,14 @@ calculate_velocity (AdwSwipeTracker *self)
     get_range (self, &lower, &upper);
 
   if (self->progress <= lower) {
-    if (self->lower_overshoot)
+    if (self->lower_overshoot && self->progress > lower)
       velocity *= adjust_for_overshoot (self, lower - self->progress) / (lower - self->progress);
     else if (velocity < 0)
       velocity = 0;
   }
 
   if (self->progress >= upper) {
-    if (self->upper_overshoot)
+    if (self->upper_overshoot && self->progress < upper)
       velocity *= adjust_for_overshoot (self, self->progress - upper) / (self->progress - upper);
     else if (velocity > 0)
       velocity = 0;
