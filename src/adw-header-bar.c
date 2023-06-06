@@ -65,7 +65,7 @@
  * ## Centering Policy
  *
  * [property@HeaderBar:centering-policy] allows to enforce strict centering of
- * the title widget, this is useful for [class@ViewSwitcherTitle].
+ * the title widget. This can be useful for entries inside [class@Clamp].
  *
  * ## Title Buttons
  *
