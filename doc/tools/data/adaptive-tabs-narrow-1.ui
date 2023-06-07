@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <object class="AdwWindow" id="widget">
+    <property name="title">Tab View</property>
+    <property name="width-request">360</property>
+    <property name="height-request">200</property>
+    <property name="default-width">360</property>
+    <property name="default-height">640</property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 500px</condition>
+        <setter object="overview_btn" property="visible">True</setter>
+        <setter object="new_tab_btn" property="visible">False</setter>
+        <setter object="tab_bar" property="visible">False</setter>
+      </object>
+    </child>
+    <property name="content">
+      <object class="AdwTabOverview">
+        <property name="view">view</property>
+        <property name="enable-new-tab">True</property>
+        <property name="child">
+          <object class="AdwToolbarView">
+            <property name="top-bar-style">raised</property>
+            <child type="top">
+              <object class="AdwHeaderBar">
+                <child type="end">
+                  <object class="AdwTabButton" id="overview_btn">
+                    <property name="visible">False</property>
+                    <property name="view">view</property>
+                    <property name="action-name">overview.open</property>
+                  </object>
+                </child>
+                <child type="end">
+                  <object class="GtkButton" id="new_tab_btn">
+                    <property name="icon-name">tab-new-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child type="top">
+              <object class="AdwTabBar" id="tab_bar">
+                <property name="view">view</property>
+              </object>
+            </child>
+            <property name="content">
+              <object class="AdwTabView" id="view">
+                <child>
+                  <object class="AdwTabPage">
+                    <property name="title">Page 1</property>
+                    <property name="child">
+                      <object class="AdwBin">
+                        <style>
+                          <class name="overview-tab-page"/>
+                        </style>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwTabPage">
+                    <property name="title">Page 2</property>
+                    <property name="child">
+                      <object class="AdwStatusPage">
+                        <style>
+                          <class name="overview-tab-page"/>
+                        </style>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwTabPage">
+                    <property name="title">Page 3</property>
+                    <property name="child">
+                      <object class="AdwStatusPage">
+                        <style>
+                          <class name="overview-tab-page"/>
+                        </style>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </property>
+      </object>
+    </property>
+  </object>
+</interface>

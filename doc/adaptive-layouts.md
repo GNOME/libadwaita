@@ -408,3 +408,73 @@ within an `AdwOverlaySplitView`'s content:
 
 When only the outer split view is collapsed the middle pane and content are
 visible, and the sidebar can be overlaid above them.
+
+# Tabs
+
+[class@TabView] is a dynamic tab container. It doesn't have a visible tab
+switcher on its own, leaving that to [class@TabBar], [class@TabButton] and
+[class@TabOverview]. When used together with breakpoints, these widgets can
+provide an adaptive tabbed interface.
+
+```xml
+<object class="AdwWindow">
+  <property name="width-request">360</property>
+  <property name="height-request">200</property>
+  <child>
+    <object class="AdwBreakpoint">
+      <condition>max-width: 500px</condition>
+      <setter object="overview_btn" property="visible">True</setter>
+      <setter object="new_tab_btn" property="visible">False</setter>
+      <setter object="tab_bar" property="visible">False</setter>
+    </object>
+  </child>
+  <property name="content">
+    <object class="AdwTabOverview">
+      <property name="view">view</property>
+      <property name="enable-new-tab">True</property>
+      <property name="child">
+        <object class="AdwToolbarView">
+          <property name="top-bar-style">raised</property>
+          <child type="top">
+            <object class="AdwHeaderBar">
+              <child type="end">
+                <object class="AdwTabButton" id="overview_btn">
+                  <property name="visible">False</property>
+                  <property name="view">view</property>
+                  <property name="action-name">overview.open</property>
+                </object>
+              </child>
+              <child type="end">
+                <object class="GtkButton" id="new_tab_btn">
+                  <property name="icon-name">tab-new-symbolic</property>
+                </object>
+              </child>
+            </object>
+          </child>
+          <child type="top">
+            <object class="AdwTabBar" id="tab_bar">
+              <property name="view">view</property>
+            </object>
+          </child>
+          <property name="content">
+            <object class="AdwTabView" id="view"/>
+          </property>
+        </object>
+      </property>
+    </object>
+  </property>
+</object>
+```
+
+<picture>
+  <source srcset="adaptive-tabs-wide-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-tabs-wide.png" alt="adaptive-tabs-wide">
+</picture>
+<picture style="width: 49%; display: inline-block;">
+  <source srcset="adaptive-tabs-narrow-1-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-tabs-narrow-1.png" alt="adaptive-tabs-narrow-1">
+</picture>
+<picture style="width: 49%; display: inline-block;">
+  <source srcset="adaptive-tabs-narrow-2-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-tabs-narrow-2.png" alt="adaptive-tabs-narrow-2">
+</picture>
