@@ -1079,7 +1079,9 @@ adw_preferences_window_close_subpage (AdwPreferencesWindow *self)
  * @self: a preferences window
  * @page: the subpage
  *
- * TODO
+ * Pushes @page onto the subpage stack of @self.
+ *
+ * The page will be automatically removed when popped.
  *
  * Since: 1.4
  */
@@ -1101,9 +1103,9 @@ adw_preferences_window_push_subpage (AdwPreferencesWindow *self,
  * adw_preferences_window_pop_subpage:
  * @self: a preferences window
  *
- * TODO
+ * Pop the visible page from the subpage stack of @self.
  *
- * Returns: TODO
+ * Returns: `TRUE` if a page has been popped
  *
  * Since: 1.4
  */
