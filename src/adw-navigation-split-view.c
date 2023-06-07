@@ -849,7 +849,7 @@ adw_navigation_split_view_add_child (GtkBuildable *buildable,
   else if (!g_strcmp0 (type, "sidebar"))
     adw_navigation_split_view_set_sidebar (ADW_NAVIGATION_SPLIT_VIEW (buildable),
                                            ADW_NAVIGATION_PAGE (child));
-  else if (!type)
+  else if (!type && ADW_IS_NAVIGATION_PAGE (child))
     adw_navigation_split_view_set_content (ADW_NAVIGATION_SPLIT_VIEW (buildable),
                                            ADW_NAVIGATION_PAGE (child));
   else
