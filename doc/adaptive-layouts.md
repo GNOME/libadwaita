@@ -7,7 +7,7 @@ Libadwaita provides a number of widgets that change their layout based on the
 available space. This can be used to make applications adapt their UI between
 desktop and mobile devices.
 
-## Clamp
+# Clamp
 
 [class@Clamp] has one child and constrains its maximum size while still
 allowing it to shrink. In other words, it allows the child to have padding when
@@ -51,191 +51,28 @@ This is commonly used for patterns such as [boxed lists](boxed-lists.html):
 
 See also: [class@ClampLayout], [class@ClampScrollable].
 
-## Leaflet
+# Breakpoints
 
-[class@Leaflet] shows all its children side by side when there's enough room, or
-one child otherwise. In other words, it behaves like a [class@Gtk.Box] or
-[class@Gtk.Stack].
+[class@Breakpoint] allows applications to restructure UI in arbitrary ways
+depending on available size. Breakpoints can be used with [class@Window],
+[class@ApplicationWindow], or [class@BreakpointBin].
 
-A common use for a leaflet is implementing a split header bar layout, with a
-sidebar, a content view, and a separator between them:
+When using breakpoints, the widget containing them will have no minimum size,
+and the application must manually set the [property@Gtk.Widget:width-request]
+and [property@Gtk.Widget:height-request] properties, indicating the smallest
+supported size.
 
-<picture>
-  <source srcset="adaptive-split-headers-wide-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="adaptive-split-headers-wide.png" alt="adaptive-split-headers-wide">
-</picture>
-<picture style="width: 49%; display: inline-block;">
-  <source srcset="adaptive-split-headers-narrow-1-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="adaptive-split-headers-narrow-1.png" alt="adaptive-split-headers-narrow-1">
-</picture>
-<picture style="width: 49%; display: inline-block;">
-  <source srcset="adaptive-split-headers-narrow-2-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="adaptive-split-headers-narrow-2.png" alt="adaptive-split-headers-narrow-2">
-</picture>
+All of the examples below use breakpoints.
 
-```xml
-  <object class="AdwLeaflet" id="leaflet">
-    <property name="can-navigate-back">True</property>
-    <child>
-      <object class="AdwToolbarView">
-        <property name="top-bar-style">raised</property>
-        <child type="top">
-          <object class="AdwHeaderBar">
-            <binding name="show-end-title-buttons">
-              <lookup name="folded">leaflet</lookup>
-            </binding>
-            <property name="title-widget">
-              <object class="AdwWindowTitle">
-                <property name="title" translatable="yes">Sidebar</property>
-              </object>
-            </property>
-          </object>
-        </child>
-        <!-- sidebar -->
-      </object>
-    </child>
-    <child>
-      <object class="AdwLeafletPage">
-        <property name="navigatable">False</property>
-        <property name="child">
-          <object class="GtkSeparator"/>
-        </property>
-      </object>
-    </child>
-    <child>
-      <object class="AdwToolbarView">
-        <property name="top-bar-style">raised</property>
-        <property name="hexpand">True</property>>
-        <child type="top">
-          <object class="AdwHeaderBar">
-            <binding name="show-start-title-buttons">
-              <lookup name="folded">leaflet</lookup>
-            </binding>
-            <child>
-              <object class="GtkButton">
-                <binding name="visible">
-                  <lookup name="folded">leaflet</lookup>
-                </binding>
-                <property name="icon-name">go-previous-symbolic</property>
-              </object>
-            </child>
-            <property name="title-widget">
-              <object class="AdwWindowTitle">
-                <property name="title" translatable="yes">Content</property>
-              </object>
-            </property>
-          </object>
-        </child>
-        <!-- content -->
-      </object>
-    </child>
-  </object>
-```
+# View Switcher
 
-When the window is wide, the leaflet shows the sidebar, separator, and content
-side by side. When it's narrow, the leaflet shows either sidebar or content,
-using the [browsing](https://developer.gnome.org/hig/patterns/nav/browsing.html)
-pattern to navigate between them. If [property@Leaflet:can-navigate-back] is set
-to `TRUE`, the leaflet will provide a swipe gesture allowing to go back from
-the content page, as well as handle the relevant keyboard shortcuts and mouse
-buttons.
-
-The application needs to provide a back button and to switch leaflet's visible
-child to content as appropriate (for example, show content after a sidebar row
-has been clicked, show sidebar after the back button has been clicked). The
-[method@Leaflet.navigate] method is convenient for this.
-
-Split header bars are typically used with [class@Window] or
-[class@ApplicationWindow], since the layout already contains header bars.
-
-## Flap
-
-[class@Flap] shows children side by side when there's enough room, or overlays
-one child on top of the other otherwise.
-
-This is commonly used to implement [utility panes](https://developer.gnome.org/hig/patterns/containers/utility-panes.html),
-via setting the utility pane as the [property@Flap:flap] and the main view as
-[property@Flap:content].
-
-<picture>
-  <source srcset="adaptive-utility-pane-wide-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="adaptive-utility-pane-wide.png" alt="adaptive-utility-pane-wide">
-</picture>
-<picture>
-  <source srcset="adaptive-utility-pane-narrow-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="adaptive-utility-pane-narrow.png" alt="adaptive-utility-pane-narrow">
-</picture>
-
-```xml
-<object class="GtkToggleButton" id="toggle_pane_button">
-  <property name="icon-name">sidebar-show-symbolic</property>
-  <property name="active">True</property>
-</object>
-<!-- ... -->
-<object class="AdwFlap">
-  <property name="reveal-flap"
-            bind-source="toggle_pane_button"
-            bind-property="active"
-            bind-flags="sync-create|bidirectional"/>
-  <property name="flap">
-    <!-- utility pane -->
-  </property>
-  <property name="separator">
-    <object class="GtkSeparator"/>
-  </property>
-  <property name="content">
-    <!-- main view -->
-  </property>
-</object>
-```
-
-To make the utility pane permanently visible on desktop, and only allow to show
-and hide it on mobile, bind the relevant properties to
-the flap's [property@Flap:folded] value. 
-
-```xml
-<object class="GtkToggleButton" id="toggle_pane_button">
-  <property name="icon-name">sidebar-show-symbolic</property>
-  <property name="active">True</property>
-  <property name="visible"
-            bind-source="flap"
-            bind-property="folded"
-            bind-flags="sync-create"/>
-</object>
-<!-- ... -->
-<object class="AdwFlap" id="flap">
-  <property name="reveal-flap"
-            bind-source="toggle_pane_button"
-            bind-property="active"
-            bind-flags="sync-create|bidirectional"/>
-  <property name="swipe-to-open"
-            bind-source="flap"
-            bind-property="folded"
-            bind-flags="sync-create"/>
-  <property name="swipe-to-close"
-            bind-source="flap"
-            bind-property="folded"
-            bind-flags="sync-create"/>
-  <property name="flap">
-    <!-- utility pane -->
-  </property>
-  <property name="separator">
-    <object class="GtkSeparator"/>
-  </property>
-  <property name="content">
-    <!-- main view -->
-  </property>
-</object>
-```
-
-## View Switcher
-
-The [class@ViewSwitcherTitle] and [class@ViewSwitcherBar] widgets implement an
+The [class@ViewSwitcher] and [class@ViewSwitcherBar] widgets implement an
 adaptive [view switcher](https://developer.gnome.org/hig/patterns/nav/view-switchers.html).
 
 They are typically used together, providing desktop and mobile UI for the same
 navigation: a view switcher in the header bar when there's enough space, or a
-view switcher in a bottom bar otherwise.
+view switcher in a bottom bar otherwise. An [class@Breakpoint] is used to
+switch between them depending on available width.
 
 <picture>
   <source srcset="adaptive-view-switcher-wide-dark.png" media="(prefers-color-scheme: dark)">
@@ -247,40 +84,327 @@ view switcher in a bottom bar otherwise.
 </picture>
 
 ```xml
-<object class="AdwToolbarView">
-  <child type="top">
-    <object class="AdwHeaderBar">
-      <property name="centering-policy">strict</property>
-      <property name="title-widget">
-        <object class="AdwViewSwitcherTitle" id="title">
-          <property name="stack">stack</property>
-        </object>
-      </property>
+<object class="AdwWindow">
+  <property name="width-request">360</property>
+  <property name="height-request">200</property>
+  <child>
+    <object class="AdwBreakpoint">
+      <condition>max-width: 550sp</condition>
+      <setter object="switcher_bar" property="reveal">True</setter>
+      <setter object="header_bar" property="title-widget"/>
     </object>
   </child>
   <property name="content">
-    <object class="AdwViewStack" id="stack">
-      <!-- pages -->
+    <object class="AdwToolbarView">
+      <child type="top">
+        <object class="AdwHeaderBar" id="header_bar">
+          <property name="title-widget">
+            <object class="AdwViewSwitcher">
+              <property name="stack">stack</property>
+              <property name="policy">wide</property>
+            </object>
+          </property>
+        </object>
+      </child>
+      <property name="content">
+        <object class="AdwViewStack" id="stack"/>
+      </property>
+      <child type="bottom">
+        <object class="AdwViewSwitcherBar" id="switcher_bar">
+          <property name="stack">stack</property>
+        </object>
+      </child>
     </object>
   </property>
-  <child type="bottom">
-    <object class="AdwViewSwitcherBar">
-      <property name="stack">stack</property>
-      <binding name="reveal">
-        <lookup name="title-visible">title</lookup>
-      </binding>
-    </object>
-  </child>
 </object>
 ```
 
-View switcher is also available separately as [class@ViewSwitcher]. This can be
-useful if the higher-level widgets cannot work for some reason.
+You may need to adjust the breakpoint threshold depending on the number of
+pages in your application, as well as their titles.
 
-## Squeezer
+# Split Views
 
-[class@Squeezer] is similar to [class@Gtk.Stack], but shows the largest of its
-children that can fit into the available space.
+Libadwaita provides two containers for creating multi-pane layouts that can
+collapse on small widths: [class@NavigationSplitView] and
+[class@OverlaySplitView].
 
-For example, [class@ViewSwitcherTitle] uses it to conditionally show a view
-switcher or the window title.
+Both widgets have two children: sidebar and content. They are typically used
+together with a [class@Breakpoint] toggling their `collapsed` property for
+narrow widths.
+
+## Navigation Split View
+
+`AdwNavigationSplitView` turns into an [class@NavigationView] when collapsed,
+containing the sidebar as the root page and content as its subpage. Only
+[class@NavigationPage] can be used for both the sidebar and content.
+
+<picture>
+  <source srcset="adaptive-sidebar-wide-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-sidebar-wide.png" alt="adaptive-sidebar-wide">
+</picture>
+<picture style="width: 49%; display: inline-block;">
+  <source srcset="adaptive-sidebar-narrow-1-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-sidebar-narrow-1.png" alt="adaptive-sidebar-narrow-1">
+</picture>
+<picture style="width: 49%; display: inline-block;">
+  <source srcset="adaptive-sidebar-narrow-2-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-sidebar-narrow-2.png" alt="adaptive-sidebar-narrow-2">
+</picture>
+
+```xml
+<object class="AdwWindow">
+  <property name="width-request">360</property>
+  <property name="height-request">200</property>
+  <child>
+    <object class="AdwBreakpoint">
+      <condition>max-width: 400sp</condition>
+      <setter object="split_view" property="collapsed">True</setter>
+    </object>
+  </child>
+  <property name="content">
+    <object class="AdwNavigationSplitView" id="split_view">
+      <property name="sidebar">
+        <object class="AdwNavigationPage">
+          <property name="title" translatable="yes">Sidebar</property>
+          <property name="tag">sidebar</property>
+          <property name="child">
+            <object class="AdwToolbarView">
+              <child type="top">
+                <object class="AdwHeaderBar"/>
+              </child>
+              <property name="content">
+                <!-- sidebar -->
+              </property>
+            </object>
+          </property>
+        </object>
+      </property>
+      <property name="content">
+        <object class="AdwNavigationPage">
+          <property name="title" translatable="yes">Content</property>
+          <property name="tag">content</property>
+          <property name="child">
+            <object class="AdwToolbarView">
+              <child type="top">
+                <object class="AdwHeaderBar"/>
+              </child>
+              <property name="content">
+                <!-- content -->
+              </property>
+            </object>
+          </property>
+        </object>
+      </property>
+    </object>
+  </property>
+</object>
+```
+
+`AdwHeaderBar` will automatically provide a back button, manage window controls
+and display the title from its `AdwNavigationPage`.
+
+## Overlay Split View
+
+`AdwOverlaySplitView` shows the sidebar as an overlay above the content when
+collapsed. It's commonly used to implement
+[utility panes](https://developer.gnome.org/hig/patterns/containers/utility-panes.html),
+but can be used with split header bars as well.
+
+<picture>
+  <source srcset="adaptive-utility-pane-wide-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-utility-pane-wide.png" alt="adaptive-utility-pane-wide">
+</picture>
+<picture>
+  <source srcset="adaptive-utility-pane-narrow-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-utility-pane-narrow.png" alt="adaptive-utility-pane-narrow">
+</picture>
+
+```xml
+<object class="AdwWindow">
+  <property name="width-request">360</property>
+  <property name="height-request">200</property>
+  <child>
+    <object class="AdwBreakpoint">
+      <condition>max-width: 400sp</condition>
+      <setter object="split_view" property="collapsed">True</setter>
+    </object>
+  </child>
+  <property name="content">
+    <object class="AdwToolbarView">
+      <property name="top-bar-style">raised</property>
+      <child type="top">
+        <object class="AdwHeaderBar">
+          <child type="start">
+            <object class="GtkToggleButton" id="show_sidebar_button">
+              <property name="icon-name">sidebar-show-symbolic</property>
+              <property name="active">True</property>
+            </object>
+          </child>
+        </object>
+      </child>
+      <property name="content">
+        <object class="AdwOverlaySplitView" id="split_view">
+          <property name="show-sidebar"
+                    bind-source="show_sidebar_button"
+                    bind-property="active"
+                    bind-flags="sync-create|bidirectional"/>
+          <property name="sidebar">
+            <!-- utility pane -->
+          </property>
+          <property name="content">
+            <!-- main view -->
+          </property>
+        </object>
+      </property>
+    </object>
+  </property>
+</object>
+```
+
+To make the utility pane permanently visible on desktop, and only allow to show
+and hide it on mobile, you can toggle the button's visibility with your
+breakpoint:
+
+```xml
+<object class="AdwBreakpoint">
+  <condition>max-width: 400sp</condition>
+  <setter object="split_view" property="collapsed">True</setter>
+  <setter object="toggle_pane_button" property="visible">True</setter>
+</object>
+<!-- ... -->
+<object class="GtkToggleButton" id="toggle_pane_button">
+  <property name="icon-name">sidebar-show-symbolic</property>
+  <property name="active">True</property>
+  <property name="visible">False</property>
+</object>
+```
+
+## Triple Pane Layouts
+
+Both split views can be used for creating triple pane layouts, via nesting two
+of the views within one another. The inner view can be placed as the sidebar or
+content widget in the outer view, depending on how you want to handle collapsing.
+
+An example of a triple-pane layout with the an `AdwNavigationSplitView` nested
+within another `AdwNavigationSplitView`'s sidebar:
+
+```xml
+<object class="AdwWindow">
+  <property name="width-request">360</property>
+  <property name="height-request">200</property>
+  <child>
+    <object class="AdwBreakpoint">
+      <condition>max-width: 860sp</condition>
+      <setter object="outer_view" property="collapsed">True</setter>
+      <setter object="inner_view" property="sidebar-width-fraction">0.33</setter>
+    </object>
+  </child>
+  <child>
+    <object class="AdwBreakpoint">
+      <condition>max-width: 500sp</condition>
+      <setter object="outer_view" property="collapsed">True</setter>
+      <setter object="inner_view" property="sidebar-width-fraction">0.33</setter>
+      <setter object="inner_view" property="collapsed">True</setter>
+    </object>
+  </child>
+  <property name="content">
+    <object class="AdwNavigationSplitView" id="outer_view">
+      <property name="min-sidebar-width">470</property>
+      <property name="max-sidebar-width">780</property>
+      <property name="sidebar-width-fraction">0.47</property>
+      <property name="sidebar">
+        <object class="AdwNavigationPage">
+          <property name="child">
+            <object class="AdwNavigationSplitView" id="inner_view">
+              <property name="max-sidebar-width">260</property>
+              <property name="sidebar-width-fraction">0.38</property>
+              <property name="sidebar">
+                <!-- sidebar -->
+              </property>
+              <property name="content">
+                <!-- middle pane -->
+              </property>
+            </object>
+          </property>
+        </object>
+      </property>
+      <property name="content">
+        <!-- content -->
+      </property>
+    </object>
+  </property>
+</object>
+```
+
+<picture>
+  <source srcset="adaptive-triple-pane-wide-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-triple-pane-wide.png" alt="adaptive-triple-pane-wide">
+</picture>
+<picture style="width: 60%; display: inline-block;">
+  <source srcset="adaptive-triple-pane-medium-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-triple-pane-medium.png" alt="adaptive-triple-pane-medium">
+</picture>
+<picture style="width: 38%; display: inline-block;">
+  <source srcset="adaptive-triple-pane-narrow-3-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-triple-pane-narrow-3.png" alt="adaptive-triple-pane-narrow-3">
+</picture>
+<picture style="width: 49%; display: inline-block;">
+  <source srcset="adaptive-triple-pane-narrow-1-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-triple-pane-narrow-1.png" alt="adaptive-triple-pane-narrow-1">
+</picture>
+<picture style="width: 49%; display: inline-block;">
+  <source srcset="adaptive-triple-pane-narrow-2-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="adaptive-triple-pane-narrow-2.png" alt="adaptive-triple-pane-narrow-2">
+</picture>
+
+When only the outer split view is collapsed, either the content is visible or
+the sidebar and middle pane are visible. When both split views are collapsed,
+only one pane is visible at a time.
+
+An example of a triple-pane layout with the an `AdwNavigationSplitView` nested
+within an `AdwOverlaySplitView`'s content:
+
+```xml
+<object class="AdwWindow">
+  <property name="width-request">360</property>
+  <property name="height-request">200</property>
+  <child>
+    <object class="AdwBreakpoint">
+      <condition>max-width: 860sp</condition>
+      <setter object="outer_view" property="collapsed">True</setter>
+    </object>
+  </child>
+  <child>
+    <object class="AdwBreakpoint">
+      <condition>max-width: 500sp</condition>
+      <setter object="outer_view" property="collapsed">True</setter>
+      <setter object="inner_view" property="collapsed">True</setter>
+    </object>
+  </child>
+  <property name="content">
+    <object class="AdwOverlaySplitView" id="outer_view">
+      <property name="max-sidebar-width">260</property>
+      <property name="sidebar-width-fraction">0.179</property>
+      <property name="sidebar">
+        <!-- sidebar -->
+      </property>
+      <property name="content">
+        <object class="AdwNavigationSplitView" id="inner_view">
+          <property name="min-sidebar-width">290</property>
+          <property name="max-sidebar-width">520</property>
+          <property name="sidebar-width-fraction">0.355</property>
+          <property name="sidebar">
+            <!-- middle pane -->
+          </property>
+          <property name="content">
+            <!-- content -->
+          </property>
+        </object>
+      </property>
+    </object>
+  </property>
+</object>
+```
+
+When only the outer split view is collapsed the middle pane and content are
+visible, and the sidebar can be overlaid above them.

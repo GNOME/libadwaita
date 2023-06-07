@@ -2,49 +2,48 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
-  <object class="GtkWindow" id="widget">
+  <object class="AdwWindow" id="widget">
+    <property name="width-request">360</property>
+    <property name="height-request">200</property>
     <property name="default-width">800</property>
     <property name="default-height">500</property>
     <property name="title" translatable="yes">Utility Pane</property>
-    <property name="titlebar">
-      <object class="GtkHeaderBar">
-        <child type="start">
-          <object class="GtkToggleButton" id="show_sidebar_button">
-            <property name="icon-name">sidebar-show-symbolic</property>
-            <property name="active">True</property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 400sp</condition>
+        <setter object="split_view" property="collapsed">True</setter>
+      </object>
+    </child>
+    <property name="content">
+      <object class="AdwToolbarView">
+        <property name="top-bar-style">raised</property>
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <child type="start">
+              <object class="GtkToggleButton" id="show_sidebar_button">
+                <property name="icon-name">sidebar-show-symbolic</property>
+                <property name="active">True</property>
+              </object>
+            </child>
           </object>
         </child>
-      </object>
-    </property>
-    <property name="child">
-      <object class="AdwFlap" id="flap">
-        <property name="reveal-flap"
-                  bind-source="show_sidebar_button"
-                  bind-property="active"
-                  bind-flags="sync-create|bidirectional"/>
-        <property name="locked">True</property>
-        <property name="flap">
-          <object class="GtkLabel">
-            <property name="label" translatable="yes">Utility Pane</property>
-            <property name="wrap">True</property>
-            <property name="width-request">250</property>
-            <style>
-              <class name="title-1"/>
-              <class name="background"/>
-            </style>
-          </object>
-        </property>
-        <property name="separator">
-          <object class="GtkSeparator"/>
-        </property>
         <property name="content">
-          <object class="GtkLabel">
-            <property name="width-request">360</property>
-            <property name="label" translatable="yes">Main View</property>
-            <property name="wrap">True</property>
-            <style>
-              <class name="title-1"/>
-            </style>
+          <object class="AdwOverlaySplitView" id="split_view">
+            <property name="show-sidebar"
+                      bind-source="show_sidebar_button"
+                      bind-property="active"
+                      bind-flags="sync-create|bidirectional"/>
+            <property name="pin-sidebar">True</property>
+            <property name="sidebar">
+              <object class="AdwStatusPage">
+                <property name="title" translatable="yes">Utility Pane</property>
+              </object>
+            </property>
+            <property name="content">
+              <object class="AdwStatusPage">
+                <property name="title" translatable="yes">Main View</property>
+              </object>
+            </property>
           </object>
         </property>
       </object>

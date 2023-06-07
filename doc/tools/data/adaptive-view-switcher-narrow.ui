@@ -3,17 +3,26 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
   <object class="AdwWindow" id="widget">
+    <property name="width-request">360</property>
+    <property name="height-request">200</property>
     <property name="default-width">360</property>
     <property name="default-height">500</property>
+    <property name="title">View Switcher</property>
+    <child>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 550sp</condition>
+        <setter object="switcher_bar" property="reveal">True</setter>
+        <setter object="header_bar" property="title-widget"/>
+      </object>
+    </child>
     <property name="content">
       <object class="AdwToolbarView">
         <child type="top">
-          <object class="AdwHeaderBar">
-            <property name="centering-policy">strict</property>
+          <object class="AdwHeaderBar" id="header_bar">
             <property name="title-widget">
-              <object class="AdwViewSwitcherTitle" id="title">
+              <object class="AdwViewSwitcher">
                 <property name="stack">stack</property>
-                <property name="title">View Switcher</property>
+                <property name="policy">wide</property>
               </object>
             </property>
           </object>
@@ -79,11 +88,8 @@
           </object>
         </property>
         <child type="bottom">
-          <object class="AdwViewSwitcherBar">
+          <object class="AdwViewSwitcherBar" id="switcher_bar">
             <property name="stack">stack</property>
-            <binding name="reveal">
-              <lookup name="title-visible">title</lookup>
-            </binding>
           </object>
         </child>
       </object>
