@@ -6,12 +6,12 @@ Slug: style-classes
 The Adwaita stylesheet provides a number of style classes. They can be applied
 to widgets to change their appearance.
 
-## Buttons
+# Buttons
 
 The following style classes can be applied to [class@Gtk.Button] to change its
 appearance.
 
-### Suggested Action
+## Suggested Action
 
 <picture>
   <source srcset="buttons-suggested-action-dark.png" media="(prefers-color-scheme: dark)">
@@ -26,7 +26,7 @@ It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
 Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 
-### Destructive Action
+## Destructive Action
 
 <picture>
   <source srcset="buttons-destructive-action-dark.png" media="(prefers-color-scheme: dark)">
@@ -41,7 +41,7 @@ It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
 Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 
-### Flat
+## Flat
 
 <picture>
   <source srcset="buttons-flat-dark.png" media="(prefers-color-scheme: dark)">
@@ -60,7 +60,7 @@ Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 Can be set via [property@Gtk.Button:has-frame] and
 [property@Gtk.MenuButton:has-frame].
 
-### Raised
+## Raised
 
 <picture>
   <source srcset="buttons-raised-dark.png" media="(prefers-color-scheme: dark)">
@@ -76,7 +76,7 @@ It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
 Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 
-### Opaque
+## Opaque
 
 <picture>
   <source srcset="buttons-opaque-dark.png" media="(prefers-color-scheme: dark)">
@@ -109,7 +109,7 @@ It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
 Can also be used with [class@Gtk.MenuButton] or [class@SplitButton].
 
-### Circular
+## Circular
 
 <picture>
   <source srcset="buttons-circular-dark.png" media="(prefers-color-scheme: dark)">
@@ -125,7 +125,7 @@ It can be used in combination with [`.suggested-action`](#suggested-action),
 
 Can also be used with [class@Gtk.MenuButton].
 
-### Pill
+## Pill
 
 <picture>
   <source srcset="buttons-pill-dark.png" media="(prefers-color-scheme: dark)">
@@ -139,7 +139,7 @@ It can be used in combination with [`.suggested-action`](#suggested-action),
 [`.destructive-action`](#destructive-action), [`.flat`](#flat),
 [`.raised`](#raised), [`.opaque`](#opaque) or [`.osd`](#overlay-buttons).
 
-## Linked Controls
+# Linked Controls
 
 <picture>
   <source srcset="linked-controls-dark.png" media="(prefers-color-scheme: dark)">
@@ -175,7 +175,7 @@ classes:
 If a linked box is contained within a [toolbar or a similar widget](#toolbars),
 buttons inside it won't get the flat appearance.
 
-## Toolbars
+# Toolbars
 
 <picture>
   <source srcset="toolbar-dark.png" media="(prefers-color-scheme: dark)">
@@ -226,7 +226,7 @@ Important: the [property@Gtk.Button:has-frame] property will **not** be set to
 set to `TRUE` to make a button raised, the style class should be used directly
 instead.
 
-## Spacers
+# Spacers
 
 <picture>
   <source srcset="toolbar-spacer-dark.png" media="(prefers-color-scheme: dark)">
@@ -237,7 +237,7 @@ The `.spacer` style class can be applied to a [class@Gtk.Separator] to make it
 appear invisible and act as whitespace. This can be useful with [toolbars and
 similar widgets](#toolbars) to separate groups of widgets from each other.
 
-## Dim Labels
+# Dim Labels
 
 <picture>
   <source srcset="dim-label-dark.png" media="(prefers-color-scheme: dark)">
@@ -250,7 +250,7 @@ transparent.
 The level of transparency differs between regular and high contrast styles. As
 such, it's highly recommended to be used instead of changing opacity manually.
 
-## Typography Styles
+# Typography Styles
 
 These style classes can be applied to any widgets, but are mostly used for
 [class@Gtk.Label] or other widgets that contain them.
@@ -312,7 +312,7 @@ This style is useful in situations where multiple labels are vertically aligned,
 or when displaying time, an operation progress or another number that can
 quickly change.
 
-## Colors
+# Colors
 
 <picture>
   <source srcset="style-colors-dark.png" media="(prefers-color-scheme: dark)">
@@ -334,7 +334,7 @@ The `.error`, `.warning` and `.success` style classes can be applied to
 [class@Gtk.Entry]. In that case, they can be used to indicate input validation
 state.
 
-## Boxed Lists & Cards
+# Boxed Lists & Cards
 
 <picture>
   <source srcset="boxed-lists-dark.png" media="(prefers-color-scheme: dark)">
@@ -360,7 +360,7 @@ inside a boxed list.
 If the `.card` style class is applied to a [class@Gtk.Button], it will get these
 states automatically, without needing the `.activatable` class.
 
-## Sidebars
+# Sidebars
 
 <picture>
   <source srcset="navigation-sidebar-dark.png" media="(prefers-color-scheme: dark)">
@@ -372,7 +372,7 @@ or [class@Gtk.ListView] to make it look like a sidebar: it makes the
 items rounded and padded, makes selected items use a neutral color instead of
 accent, and removes the default list background.
 
-## App Icons
+# App Icons
 
 <picture>
   <source srcset="app-icons-dark.png" media="(prefers-color-scheme: dark)">
@@ -386,7 +386,7 @@ with [class@Gtk.Image] or any other widget that contains an image.
 `.lowres-icon` should be used for 32×32 or smaller icons, and `.icon-dropshadow`
 should be used otherwise.
 
-## Selection Mode Check Buttons
+# Selection Mode Check Buttons
 
 <picture>
   <source srcset="selection-mode-checks-dark.png" media="(prefers-color-scheme: dark)">
@@ -397,7 +397,7 @@ The `.selection-mode` style class can be added to a [class@Gtk.CheckButton] to
 give it a larger and round appearance. These check buttons are intended to be
 used for selecting items from a list or a grid.
 
-## OSD
+# OSD
 
 <picture>
   <source srcset="osd-dark.png" media="(prefers-color-scheme: dark)">
@@ -412,7 +412,7 @@ makes its accent color white.
 
 However, it has different effects in a few specific cases.
 
-### Overlay Buttons
+## Overlay Buttons
 
 <picture>
   <source srcset="osd-buttons-dark.png" media="(prefers-color-scheme: dark)">
@@ -425,7 +425,7 @@ image viewer. They appear dark and slightly larger than regular buttons.
 
 It can be used in combination with [`.circular`](#circular) or [`.pill`](#pill).
 
-### Floating Toolbars
+## Floating Toolbars
 
 <picture>
   <source srcset="osd-toolbar-dark.png" media="(prefers-color-scheme: dark)">
@@ -436,7 +436,7 @@ When used along with the [`.toolbar`](#toolbars) style class, `.osd` gives the
 box additional padding and round corners. This can be used to create floating
 toolbars, such as video player controls.
 
-### Progress Bars
+## Progress Bars
 
 <picture>
   <source srcset="osd-progress-bar-dark.png" media="(prefers-color-scheme: dark)">
@@ -449,7 +449,7 @@ and removes its visible trough.
 OSD progress bars are intended to be used as [class@Gtk.Overlay] children,
 attached to the top of the window.
 
-## Background
+# Background
 
 <picture>
   <source srcset="style-background-dark.png" media="(prefers-color-scheme: dark)">
@@ -470,7 +470,7 @@ It's equivalent to using the following CSS:
 }
 ```
 
-## View
+# View
 
 <picture>
   <source srcset="style-view-dark.png" media="(prefers-color-scheme: dark)">
@@ -489,7 +489,7 @@ It's equivalent to using the following CSS:
 }
 ```
 
-## Frame
+# Frame
 
 <picture>
   <source srcset="style-frame-dark.png" media="(prefers-color-scheme: dark)">
@@ -507,7 +507,7 @@ It's equivalent to using the following CSS:
 }
 ```
 
-## Flat Header Bar
+# Flat Header Bar
 
 <picture>
   <source srcset="flat-header-bar-dark.png" media="(prefers-color-scheme: dark)">
@@ -517,7 +517,7 @@ It's equivalent to using the following CSS:
 The `.flat` style class can be used with an [class@HeaderBar] or
 [class@Gtk.HeaderBar] to give it a flat appearance.
 
-## Compact Status Page
+# Compact Status Page
 
 <picture>
   <source srcset="status-page-compact-dark.png" media="(prefers-color-scheme: dark)">
@@ -527,7 +527,7 @@ The `.flat` style class can be used with an [class@HeaderBar] or
 The `.compact` style class can be used with a [class@StatusPage] to make it take
 less space. This is usually used with sidebars or popovers.
 
-## Menu Popovers
+# Menu Popovers
 
 <picture>
   <source srcset="popover-menu-list-dark.png" media="(prefers-color-scheme: dark)">
@@ -538,7 +538,7 @@ The `.menu` style class can be used with a [class@Gtk.Popover] to give it a
 menu-like appearance if it has a [class@Gtk.ListBox] or a [class@Gtk.ListView]
 inside it.
 
-## Development Window
+# Development Window
 
 <picture>
   <source srcset="devel-window-dark.png" media="(prefers-color-scheme: dark)">
@@ -551,7 +551,7 @@ appearance.
 
 This style class is typically used to indicate unstable or nightly applications.
 
-## Inline Tab Bars & Search Bars
+# Inline Tab Bars & Search Bars
 
 <picture>
   <source srcset="search-bar-inline-dark.png" media="(prefers-color-scheme: dark)">
@@ -568,7 +568,7 @@ By default [class@Gtk.SearchBar] and [class@TabBar] look like a part of an
 attached to one. With the `.inline` style class they have neutral backgrounds
 and can be used in different contexts instead.
 
-## Undershoot Indicators
+# Undershoot Indicators
 
 <picture>
   <source srcset="undershoot-dark.png" media="(prefers-color-scheme: dark)">
@@ -588,7 +588,7 @@ bars.
 
 Since: 1.4
 
-## Property Rows
+# Property Rows
 
 <picture>
   <source srcset="property-row-dark.png" media="(prefers-color-scheme: dark)">
