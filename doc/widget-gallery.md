@@ -3,136 +3,136 @@ Slug: widget-gallery
 
 # Widget Gallery
 
-## Display
+# Display
 
-### Status Page
+## Status Page
 
 [<picture>
   <source srcset="status-page-dark.png" media="(prefers-color-scheme: dark)">
   <img src="status-page.png" alt="status-page">
 </picture>](class.StatusPage.html)
 
-### Toast Overlay
+## Toast Overlay
 
 [<picture>
   <source srcset="toast-overlay-dark.png" media="(prefers-color-scheme: dark)">
   <img src="toast-overlay.png" alt="toast-overlay">
 </picture>](class.ToastOverlay.html)
 
-### Banner
+## Banner
 
 [<picture>
   <source srcset="banner-dark.png" media="(prefers-color-scheme: dark)">
   <img src="banner.png" alt="banner">
 </picture>](class.Banner.html)
 
-### Avatar
+## Avatar
 
 [<picture>
   <source srcset="avatar-dark.png" media="(prefers-color-scheme: dark)">
   <img src="avatar.png" alt="avatar">
 </picture>](class.Avatar.html)
 
-## Dialogs
+# Dialogs
 
-### Message Dialog
+## Message Dialog
 
 [<picture>
   <source srcset="message-dialog-dark.png" media="(prefers-color-scheme: dark)">
   <img src="message-dialog.png" alt="message-dialog">
 </picture>](class.MessageDialog.html)
 
-## Boxed Lists
+# Boxed Lists
 
-### Action Row
+## Action Row
 
 [<picture>
   <source srcset="action-row-dark.png" media="(prefers-color-scheme: dark)">
   <img src="action-row.png" alt="action-row">
 </picture>](class.ActionRow.html)
 
-### Switch Row
+## Switch Row
 
 [<picture>
   <source srcset="switch-row-dark.png" media="(prefers-color-scheme: dark)">
   <img src="switch-row.png" alt="switch-row">
 </picture>](class.SwitchRow.html)
 
-### Combo Row
+## Combo Row
 
 [<picture>
   <source srcset="combo-row-dark.png" media="(prefers-color-scheme: dark)">
   <img src="combo-row.png" alt="combo-row">
 </picture>](class.ComboRow.html)
 
-### Expander Row
+## Expander Row
 
 [<picture>
   <source srcset="expander-row-dark.png" media="(prefers-color-scheme: dark)">
   <img src="expander-row.png" alt="expander-row">
 </picture>](class.ExpanderRow.html)
 
-### Entry Row
+## Entry Row
 
 [<picture>
   <source srcset="entry-row-dark.png" media="(prefers-color-scheme: dark)">
   <img src="entry-row.png" alt="entry-row">
 </picture>](class.EntryRow.html)
 
-### Password Entry Row
+## Password Entry Row
 
 [<picture>
   <source srcset="password-entry-row-dark.png" media="(prefers-color-scheme: dark)">
   <img src="password-entry-row.png" alt="password-entry-row">
 </picture>](class.PasswordEntryRow.html)
 
-### Spin Row
+## Spin Row
 
 [<picture>
   <source srcset="spin-row-dark.png" media="(prefers-color-scheme: dark)">
   <img src="spin-row.png" alt="switch-row">
 </picture>](class.SpinRow.html)
 
-## Preferences
+# Preferences
 
-### Preferences Group
+## Preferences Group
 
 [<picture>
   <source srcset="preferences-group-dark.png" media="(prefers-color-scheme: dark)">
   <img src="preferences-group.png" alt="preferences-group">
 </picture>](class.PreferencesGroup.html)
 
-### Preferences Page
+## Preferences Page
 
 [<picture>
   <source srcset="preferences-page-dark.png" media="(prefers-color-scheme: dark)">
   <img src="preferences-page.png" alt="preferences-page">
 </picture>](class.PreferencesPage.html)
 
-### Preferences Window
+## Preferences Window
 
 [<picture>
   <source srcset="preferences-window-dark.png" media="(prefers-color-scheme: dark)">
   <img src="preferences-window.png" alt="preferences-window">
 </picture>](class.PreferencesWindow.html)
 
-## About Window
+# About Window
 
 [<picture>
   <source srcset="about-window-dark.png" media="(prefers-color-scheme: dark)">
   <img src="about-window.png" alt="about-window">
 </picture>](class.AboutWindow.html)
 
-## Navigation
+# Navigation
 
-### Navigation View
+## Navigation View
 
 [<picture>
   <source srcset="navigation-view-dark.png" media="(prefers-color-scheme: dark)">
   <img src="navigation-view.png" alt="navigation-view">
 </picture>](class.NavigationView.html)
 
-### Navigation Split View
+## Navigation Split View
 
 [<picture>
   <source srcset="navigation-split-view-dark.png" media="(prefers-color-scheme: dark)">
@@ -143,7 +143,7 @@ Slug: widget-gallery
   <img src="navigation-split-view-collapsed.png" alt="navigation-split-view-collapsed">
 </picture>](class.NavigationSplitView.html)
 
-### Overlay Split View
+## Overlay Split View
 
 [<picture>
   <source srcset="overlay-split-view-dark.png" media="(prefers-color-scheme: dark)">
@@ -154,7 +154,7 @@ Slug: widget-gallery
   <img src="overlay-split-view-collapsed.png" alt="overlay-split-view-collapsed">
 </picture>](class.OverlaySplitView.html)
 
-### Carousel
+## Carousel
 
 [<picture>
   <source srcset="carousel-dark.png" media="(prefers-color-scheme: dark)">
@@ -171,7 +171,7 @@ Slug: widget-gallery
   <img src="carousel-indicator-lines.png" alt="carousel-indicator-lines">
 </picture>](class.CarouselIndicatorLines.html)
 
-### View Switcher
+## View Switcher
 
 [<picture>
   <source srcset="view-switcher-dark.png" media="(prefers-color-scheme: dark)">
@@ -183,7 +183,7 @@ Slug: widget-gallery
   <img src="view-switcher-bar.png" alt="view-switcher-bar">
 </picture>](class.ViewSwitcherBar.html)
 
-### Tabs
+## Tabs
 
 [<picture>
   <source srcset="tab-bar-dark.png" media="(prefers-color-scheme: dark)">
@@ -200,16 +200,16 @@ Slug: widget-gallery
   <img src="tab-button.png" alt="tab-button">
 </picture>](class.TabButton.html)
 
-## Helpers
+# Helpers
 
-### Breakpoint Bin
+## Breakpoint Bin
 
 [<picture>
   <source srcset="breakpoint-bin-dark.png" media="(prefers-color-scheme: dark)">
   <img src="breakpoint-bin.png" alt="breakpoint-bin">
 </picture>](class.BreakpointBin.html)
 
-### Clamp
+## Clamp
 
 [<picture>
   <source srcset="clamp-wide-dark.png" media="(prefers-color-scheme: dark)">
@@ -222,28 +222,28 @@ Slug: widget-gallery
 
 See also: [class@ClampLayout], [class@ClampScrollable]
 
-### Toolbar View
+## Toolbar View
 
 [<picture>
   <source srcset="toolbar-view-dark.png" media="(prefers-color-scheme: dark)">
   <img src="toolbar-view.png" alt="toolbar-view">
 </picture>](class.ToolbarView.html)
 
-### Window Title
+## Window Title
 
 [<picture>
   <source srcset="window-title-dark.png" media="(prefers-color-scheme: dark)">
   <img src="window-title.png" alt="window-title">
 </picture>](class.WindowTitle.html)
 
-### Header Bar
+## Header Bar
 
 [<picture>
   <source srcset="header-bar-dark.png" media="(prefers-color-scheme: dark)">
   <img src="header-bar.png" alt="header-bar">
 </picture>](class.HeaderBar.html)
 
-### Window
+## Window
 
 [<picture>
   <source srcset="window-dark.png" media="(prefers-color-scheme: dark)">
@@ -252,21 +252,21 @@ See also: [class@ClampLayout], [class@ClampScrollable]
 
 See also: [class@ApplicationWindow]
 
-### Split Button
+## Split Button
 
 [<picture>
   <source srcset="split-button-dark.png" media="(prefers-color-scheme: dark)">
   <img src="split-button.png" alt="split-button">
 </picture>](class.SplitButton.html)
 
-### Button Content
+## Button Content
 
 [<picture>
   <source srcset="button-content-dark.png" media="(prefers-color-scheme: dark)">
   <img src="button-content.png" alt="button-content">
 </picture>](class.ButtonContent.html)
 
-### Bin
+## Bin
 
 [<picture>
   <source srcset="bin-dark.png" media="(prefers-color-scheme: dark)">
