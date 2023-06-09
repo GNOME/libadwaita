@@ -1,4 +1,23 @@
 =============
+Version 1.3.3
+=============
+
+- Fix doc include path
+- AdwCarousel
+  - Fix scrolling to a recently inserted item
+- AdwEntryRow
+  - Fix accessibility
+- AdwPreferencesWindow
+  - Fix markup handling when searching
+- AdwStyleManager
+  - Fix get_for_display() annotation
+- AdwTabBar/AdwTabOverview
+  - Fix dropping data onto tabs/thumbnails
+- Translation updates
+  - Brazilian Portuguese
+  - Slovak
+
+=============
 Version 1.3.2
 =============
 
