@@ -83,8 +83,10 @@
  *         ├── widget
  *         │   ╰── box.start
  *         │       ├── windowcontrols.start
+ *         │       ├── [button.back]
  *         │       ╰── [other children]
- *         ├── [Title Widget]
+ *         ├── widget
+ *         │   ╰── [Title Widget]
  *         ╰── widget
  *             ╰── box.end
  *                 ├── [other children]
@@ -92,13 +94,16 @@
  * ```
  *
  * `AdwHeaderBar`'s CSS node is called `headerbar`. It contains a `windowhandle`
- * subnode, which contains a `box` subnode, which contains two `widget` subnodes
- * at the start and end of the header bar, each of which contains a `box`
- * subnode with the `.start` and `.end` style classes respectively, as well as a
- * center node that represents the title.
+ * subnode, which contains a `box` subnode, which contains three `widget`
+ * subnodes at the start, center and end of the header bar. The start and end
+ * subnotes contain a `box` subnode with the `.start` and `.end` style classes
+ * respectively, and the center node contains a node that represents the title.
  *
  * Each of the boxes contains a `windowcontrols` subnode, see
  * [class@Gtk.WindowControls] for details, as well as other children.
+ *
+ * When [property@HeaderBar:show-back-button] is `TRUE`, the start box also
+ * contains a node with the name `button` and `.back` style class.
  *
  * ## Accessibility
  *
