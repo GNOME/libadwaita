@@ -28,7 +28,7 @@ Slug: named-colors
 The Adwaita stylesheet provides a number of predefined colors that can be used
 from applications.
 
-## UI Colors
+# UI Colors
 
 These colors are used throughout the UI. They can differ between the light and
 dark styles.
@@ -63,7 +63,7 @@ Applications can override any of these colors by re-declaring them, for example:
 @define-color accent_bg_color #e01b24;
 ```
 
-### Accent Colors
+## Accent Colors
 
 The accent color is used across many different widgets, often to indicate that a
 widget is important, interactive, or currently active. Try to avoid using it on
@@ -103,7 +103,7 @@ widgets such as [class@Gtk.Label].
   </tr>
 </table>
 
-### Destructive Colors
+## Destructive Colors
 
 The destructive color indicates a dangerous action, such as deleting a file.
 It's used by [class@Gtk.Button] with the
@@ -140,7 +140,7 @@ It's used by [class@Gtk.Button] with the
   </tr>
 </table>
 
-### Success Colors
+## Success Colors
 
 This color is used with the [`.success`](style-classes.html#colors) style class,
 or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_HIGH] offset.
@@ -176,7 +176,7 @@ or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_HIGH] offset.
   </tr>
 </table>
 
-### Warning Colors
+## Warning Colors
 
 This color is used with the [`.warning`](style-classes.html#colors) style class,
 or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_LOW] offset.
@@ -212,7 +212,7 @@ or in a [class@Gtk.LevelBar] with the [const@Gtk.LEVEL_BAR_OFFSET_LOW] offset.
   </tr>
 </table>
 
-### Error Colors
+## Error Colors
 
 This color is used with the [`.error`](style-classes.html#colors) style class.
 
@@ -247,7 +247,7 @@ This color is used with the [`.error`](style-classes.html#colors) style class.
   </tr>
 </table>
 
-### Window Colors
+## Window Colors
 
 These colors are used on [class@Gtk.Window], as well as with the
 [`.background`](style-classes.html#background) style class.
@@ -276,7 +276,7 @@ These colors are used on [class@Gtk.Window], as well as with the
   </tr>
 </table>
 
-### View Colors
+## View Colors
 
 These colors are used in a variety of widgets such as [class@Gtk.TextView], as
 well as with the [`.view`](style-classes.html#view) style class.
@@ -305,7 +305,7 @@ well as with the [`.view`](style-classes.html#view) style class.
   </tr>
 </table>
 
-### Header Bar Colors
+## Header Bar Colors
 
 These colors are used for header bars and similar widgets, generally attached to
 the top or bottom sides of a window. The full list of widgets using them:
@@ -383,7 +383,7 @@ value matching your <code>&#64;headerbar_bg_color</code>.
 border for header bars and similar widgets. This color should always be
 partially transparent black.
 
-### Sidebar Colors
+## Sidebar Colors
 
 These colors are used for sidebars, generally attached to the left or right
 sides of a window. They are used by [class@NavigationSplitView] and
@@ -440,7 +440,7 @@ opacity tuned to be well visible on top of <code>&#64;sidebar_bg_color</code>.
 
 Since: 1.4
 
-### Secondary Sidebar Colors
+## Secondary Sidebar Colors
 
 These colors are used for middle panes in triple-pane layouts, created via
 nesting two split views within one another.
@@ -502,7 +502,7 @@ the opacity tuned to be well visible on top of
 
 Since: 1.4
 
-### Card Colors
+## Card Colors
 
 These colors are used for
 [cards and boxed lists](style-classes.html#boxed-lists-cards).
@@ -543,7 +543,7 @@ boxed list rows and similar widgets. This color should always be partially
 transparent black, with the opacity tuned to be well visible on top of
 <code>&#64;card_bg_color</code>.
 
-### Thumbnail Colors
+## Thumbnail Colors
 
 These colors are used for [class@TabOverview] thumbnails.
 
@@ -573,7 +573,7 @@ These colors are used for [class@TabOverview] thumbnails.
 
 Since: 1.3
 
-### Dialog Colors
+## Dialog Colors
 
 These colors are used for [class@MessageDialog].
 
@@ -603,7 +603,7 @@ These colors are used for [class@MessageDialog].
 
 Since: 1.2
 
-### Popover Colors
+## Popover Colors
 
 These colors are used for [class@Gtk.Popover].
 
@@ -645,7 +645,7 @@ always be partially transparent black, with the opacity tuned to be well visible
 on top of <code>&#64;popover_bg_color</code>.
 This color is only available since 1.4.
 
-### Miscellaneous Colors
+## Miscellaneous Colors
 
 <table>
   <tr>
@@ -681,7 +681,7 @@ ensure that overlay scrollbars are visible regardless of the content color. It
 should always be the opposite of the scrollbar color - light with a dark
 scrollbar and dark with a light scrollbar.
 
-## Helper Colors
+# Helper Colors
 
 The following colors are derived from the current foreground color
 (`currentColor`) and change between regular and high contrast modes. They should
@@ -691,7 +691,7 @@ Name                  | Regular                            | High contrast
 --------------------- | ---------------------------------- | ---------------------------------
 <tt>&#64;borders</tt> | <tt>alpha(currentColor, 0.15)</tt> | <tt>alpha(currentColor, 0.5)</tt>
 
-## Palette Colors
+# Palette Colors
 
 The stylesheet provides the full
 [GNOME color palette](https://developer.gnome.org/hig/reference/palette.html)
@@ -931,7 +931,7 @@ as the following set of named colors:
   </tr>
 </table>
 
-## Compatibility Colors
+# Compatibility Colors
 
 A number of colors has been available in Adwaita in GTK3. They are aliases of
 UI colors or otherwise derived from them:
