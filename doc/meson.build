@@ -8,6 +8,7 @@ expand_content_md_files = [
   'build-howto.md',
   'initialization.md',
   'migrating-libhandy-1-4-to-libadwaita.md',
+  'migrating-to-breakpoints.md',
   'named-colors.md',
   'styles-and-appearance.md',
   'style-classes.md',

@@ -13,4 +13,6 @@
  * @ADW_FOLD_THRESHOLD_POLICY_NATURAL: Folding is based on the natural size
  *
  * Determines when [class@Flap] and [class@Leaflet] will fold.
+ *
+ * Deprecated: 1.4: Stop using `AdwLeaflet` and `AdwFlap`
  */

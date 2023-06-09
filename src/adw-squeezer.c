@@ -48,12 +48,16 @@
  * ## CSS nodes
  *
  * `AdwSqueezer` has a single CSS node with name `squeezer`.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 
 /**
  * AdwSqueezerPage:
  *
  * An auxiliary class used by [class@Squeezer].
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 
 /**
@@ -62,6 +66,8 @@
  * @ADW_SQUEEZER_TRANSITION_TYPE_CROSSFADE: A cross-fade
  *
  * Describes the possible transitions in a [class@Squeezer] widget.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 
 struct _AdwSqueezerPage {
@@ -215,6 +221,8 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
    * AdwSqueezerPage:child: (attributes org.gtk.Property.get=adw_squeezer_page_get_child)
    *
    * The the squeezer child to which the page belongs.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   page_props[PAGE_PROP_CHILD] =
     g_param_spec_object ("child", NULL, NULL,
@@ -234,6 +242,8 @@ adw_squeezer_page_class_init (AdwSqueezerPageClass *klass)
    *
    * This can be used e.g. to ensure a certain child is hidden below a certain
    * window width, or any other constraint you find suitable.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   page_props[PAGE_PROP_ENABLED] =
     g_param_spec_boolean ("enabled", NULL, NULL,
@@ -1033,6 +1043,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * AdwSqueezer:visible-child: (attributes org.gtk.Property.get=adw_squeezer_get_visible_child)
    *
    * The currently visible child.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   props[PROP_VISIBLE_CHILD] =
     g_param_spec_object ("visible-child", NULL, NULL,
@@ -1047,6 +1059,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * For example, if a squeezer is horizontal and is homogeneous, it will
    * request the same height for all its children. If it isn't, the squeezer may
    * change size when a different child becomes visible.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   props[PROP_HOMOGENEOUS] =
     g_param_spec_boolean ("homogeneous", NULL, NULL,
@@ -1066,6 +1080,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    *
    * This can be useful if you have a long ellipsizing label and want to let it
    * ellipsize instead of immediately switching.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   props[PROP_SWITCH_THRESHOLD_POLICY] =
     g_param_spec_enum ("switch-threshold-policy", NULL, NULL,
@@ -1081,6 +1097,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * If set to `TRUE`, the squeezer can shrink to the point where no child can
    * be shown. This is functionally equivalent to appending a widget with 0×0
    * minimum size.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   props[PROP_ALLOW_NONE] =
     g_param_spec_boolean ("allow-none", NULL, NULL,
@@ -1091,6 +1109,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * AdwSqueezer:transition-duration: (attributes org.gtk.Property.get=adw_squeezer_get_transition_duration org.gtk.Property.set=adw_squeezer_set_transition_duration)
    *
    * The transition animation duration, in milliseconds.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   props[PROP_TRANSITION_DURATION] =
     g_param_spec_uint ("transition-duration", NULL, NULL,
@@ -1101,6 +1121,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * AdwSqueezer:transition-type: (attributes org.gtk.Property.get=adw_squeezer_get_transition_type org.gtk.Property.set=adw_squeezer_set_transition_type)
    *
    * The type of animation used for transitions between children.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   props[PROP_TRANSITION_TYPE] =
     g_param_spec_enum ("transition-type", NULL, NULL,
@@ -1116,6 +1138,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * If a transition is impossible, the property value will be set to `TRUE` and
    * then immediately to `FALSE`, so it's possible to rely on its notifications
    * to know that a transition has happened.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   props[PROP_TRANSITION_RUNNING] =
     g_param_spec_boolean ("transition-running", NULL, NULL,
@@ -1131,6 +1155,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    * previous visible child and the one of the new visible child, according to
    * the set transition duration and the orientation, e.g. if the squeezer is
    * horizontal, it will interpolate the its height.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   props[PROP_INTERPOLATE_SIZE] =
     g_param_spec_boolean ("interpolate-size", NULL, NULL,
@@ -1147,6 +1173,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    *
    * For example, 0.5 means the child will be centered, 0 means it will keep the
    * start side aligned and overflow the end side, and 1 means the opposite.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   props[PROP_XALIGN] =
     g_param_spec_float ("xalign", NULL, NULL,
@@ -1164,6 +1192,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    *
    * For example, 0.5 means the child will be centered, 0 means it will keep the
    * top side aligned and overflow the bottom side, and 1 means the opposite.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   props[PROP_YALIGN] =
     g_param_spec_float ("yalign", NULL, NULL,
@@ -1178,6 +1208,8 @@ adw_squeezer_class_init (AdwSqueezerClass *klass)
    *
    * This can be used to keep an up-to-date view. The model also implements
    * [iface@Gtk.SelectionModel] and can be used to track the visible page.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
    */
   props[PROP_PAGES] =
     g_param_spec_object ("pages", NULL, NULL,
@@ -1240,6 +1272,8 @@ adw_squeezer_buildable_init (GtkBuildableIface *iface)
  * Returns the squeezer child to which @self belongs.
  *
  * Returns: (transfer none): the child to which @self belongs
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 GtkWidget *
 adw_squeezer_page_get_child (AdwSqueezerPage *self)
@@ -1256,6 +1290,8 @@ adw_squeezer_page_get_child (AdwSqueezerPage *self)
  * Gets whether @self is enabled.
  *
  * Returns: whether @self is enabled
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 gboolean
 adw_squeezer_page_get_enabled (AdwSqueezerPage *self)
@@ -1280,6 +1316,8 @@ adw_squeezer_page_get_enabled (AdwSqueezerPage *self)
  *
  * This can be used e.g. to ensure a certain child is hidden below a certain
  * window width, or any other constraint you find suitable.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 void
 adw_squeezer_page_set_enabled (AdwSqueezerPage *self,
@@ -1310,6 +1348,8 @@ adw_squeezer_page_set_enabled (AdwSqueezerPage *self,
  * Creates a new `AdwSqueezer`.
  *
  * Returns: the newly created `AdwSqueezer`
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 GtkWidget *
 adw_squeezer_new (void)
@@ -1325,6 +1365,8 @@ adw_squeezer_new (void)
  * Adds a child to @self.
  *
  * Returns: (transfer none): the [class@SqueezerPage] for @child
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 AdwSqueezerPage *
 adw_squeezer_add (AdwSqueezer *self,
@@ -1351,6 +1393,8 @@ adw_squeezer_add (AdwSqueezer *self,
  * @child: the child to remove
  *
  * Removes a child widget from @self.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 void
 adw_squeezer_remove (AdwSqueezer *self,
@@ -1384,6 +1428,8 @@ adw_squeezer_remove (AdwSqueezer *self,
  * Returns the [class@SqueezerPage] object for @child.
  *
  * Returns: (transfer none): the page object for @child
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 AdwSqueezerPage *
 adw_squeezer_get_page (AdwSqueezer *self,
@@ -1402,6 +1448,8 @@ adw_squeezer_get_page (AdwSqueezer *self,
  * Gets the currently visible child of @self.
  *
  * Returns: (transfer none) (nullable): the visible child
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 GtkWidget *
 adw_squeezer_get_visible_child (AdwSqueezer *self)
@@ -1418,6 +1466,8 @@ adw_squeezer_get_visible_child (AdwSqueezer *self)
  * Gets whether all children have the same size for the opposite orientation.
  *
  * Returns: whether @self is homogeneous
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 gboolean
 adw_squeezer_get_homogeneous (AdwSqueezer *self)
@@ -1437,6 +1487,8 @@ adw_squeezer_get_homogeneous (AdwSqueezer *self)
  * For example, if a squeezer is horizontal and is homogeneous, it will request
  * the same height for all its children. If it isn't, the squeezer may change
  * size when a different child becomes visible.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 void
 adw_squeezer_set_homogeneous (AdwSqueezer *self,
@@ -1462,6 +1514,8 @@ adw_squeezer_set_homogeneous (AdwSqueezer *self,
  * @self: a squeezer
  *
  * Gets the switch threshold policy for @self.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 AdwFoldThresholdPolicy
 adw_squeezer_get_switch_threshold_policy (AdwSqueezer *self)
@@ -1487,6 +1541,8 @@ adw_squeezer_get_switch_threshold_policy (AdwSqueezer *self)
  *
  * This can be useful if you have a long ellipsizing label and want to let it
  * ellipsize instead of immediately switching.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 void
 adw_squeezer_set_switch_threshold_policy (AdwSqueezer            *self,
@@ -1512,6 +1568,8 @@ adw_squeezer_set_switch_threshold_policy (AdwSqueezer            *self,
  * Gets whether to allow squeezing beyond the last child's minimum size.
  *
  * Returns: whether @self allows squeezing beyond the last child
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 gboolean
 adw_squeezer_get_allow_none (AdwSqueezer *self)
@@ -1531,6 +1589,8 @@ adw_squeezer_get_allow_none (AdwSqueezer *self)
  * If set to `TRUE`, the squeezer can shrink to the point where no child can be
  * shown. This is functionally equivalent to appending a widget with 0×0 minimum
  * size.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 void
 adw_squeezer_set_allow_none (AdwSqueezer *self,
@@ -1557,6 +1617,8 @@ adw_squeezer_set_allow_none (AdwSqueezer *self,
  * Gets the transition animation duration for @self.
  *
  * Returns: the transition duration, in milliseconds
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 guint
 adw_squeezer_get_transition_duration (AdwSqueezer *self)
@@ -1572,6 +1634,8 @@ adw_squeezer_get_transition_duration (AdwSqueezer *self)
  * @duration: the new duration, in milliseconds
  *
  * Sets the transition animation duration for @self.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 void
 adw_squeezer_set_transition_duration (AdwSqueezer *self,
@@ -1594,6 +1658,8 @@ adw_squeezer_set_transition_duration (AdwSqueezer *self,
  * Gets the type of animation used for transitions between children in @self.
  *
  * Returns: the current transition type of @self
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 AdwSqueezerTransitionType
 adw_squeezer_get_transition_type (AdwSqueezer *self)
@@ -1609,6 +1675,8 @@ adw_squeezer_get_transition_type (AdwSqueezer *self)
  * @transition: the new transition type
  *
  * Sets the type of animation used for transitions between children in @self.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 void
 adw_squeezer_set_transition_type (AdwSqueezer               *self,
@@ -1634,6 +1702,8 @@ adw_squeezer_set_transition_type (AdwSqueezer               *self,
  * to know that a transition has happened.
  *
  * Returns: whether a transition is currently running
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 gboolean
 adw_squeezer_get_transition_running (AdwSqueezer *self)
@@ -1650,6 +1720,8 @@ adw_squeezer_get_transition_running (AdwSqueezer *self)
  * Gets whether @self interpolates its size when changing the visible child.
  *
  * Returns: whether the size is interpolated
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 gboolean
 adw_squeezer_get_interpolate_size (AdwSqueezer *self)
@@ -1670,6 +1742,8 @@ adw_squeezer_get_interpolate_size (AdwSqueezer *self)
  * previous visible child and the one of the new visible child, according to the
  * set transition duration and the orientation, e.g. if the squeezer is
  * horizontal, it will interpolate the its height.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 void
 adw_squeezer_set_interpolate_size (AdwSqueezer *self,
@@ -1693,6 +1767,8 @@ adw_squeezer_set_interpolate_size (AdwSqueezer *self,
  * Gets the horizontal alignment, from 0 (start) to 1 (end).
  *
  * Returns: the alignment value
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 float
 adw_squeezer_get_xalign (AdwSqueezer *self)
@@ -1714,6 +1790,8 @@ adw_squeezer_get_xalign (AdwSqueezer *self)
  *
  * For example, 0.5 means the child will be centered, 0 means it will keep the
  * start side aligned and overflow the end side, and 1 means the opposite.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 void
 adw_squeezer_set_xalign (AdwSqueezer *self,
@@ -1738,6 +1816,8 @@ adw_squeezer_set_xalign (AdwSqueezer *self,
  * Gets the vertical alignment, from 0 (top) to 1 (bottom).
  *
  * Returns: the alignment value
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 float
 adw_squeezer_get_yalign (AdwSqueezer *self)
@@ -1759,6 +1839,8 @@ adw_squeezer_get_yalign (AdwSqueezer *self)
  *
  * For example, 0.5 means the child will be centered, 0 means it will keep the
  * top side aligned and overflow the bottom side, and 1 means the opposite.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 void
 adw_squeezer_set_yalign (AdwSqueezer *self,
@@ -1786,6 +1868,8 @@ adw_squeezer_set_yalign (AdwSqueezer *self,
  * [iface@Gtk.SelectionModel] and can be used to track the visible page.
  *
  * Returns: (transfer full): a `GtkSelectionModel` for the squeezer's children
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwsqueezer)
  */
 GtkSelectionModel *
 adw_squeezer_get_pages (AdwSqueezer *self)

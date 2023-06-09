@@ -49,6 +49,7 @@ content_files = [
   "style-classes.md",
 
   "migrating-libhandy-1-4-to-libadwaita.md",
+  "migrating-to-breakpoints.md",
 
   "widget-gallery.md",
 ]

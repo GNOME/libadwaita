@@ -74,6 +74,8 @@
  * ## CSS nodes
  *
  * `AdwViewSwitcherTitle` has a single CSS node with name `viewswitchertitle`.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
  */
 
 enum {
@@ -282,6 +284,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    * AdwViewSwitcherTitle:stack: (attributes org.gtk.Property.get=adw_view_switcher_title_get_stack org.gtk.Property.set=adw_view_switcher_title_set_stack)
    *
    * The stack the view switcher controls.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
    */
   props[PROP_STACK] =
     g_param_spec_object ("stack", NULL, NULL,
@@ -295,6 +299,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    *
    * The title typically identifies the current view or content item, and
    * generally does not use the application name.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
    */
   props[PROP_TITLE] =
     g_param_spec_string ("title", NULL, NULL,
@@ -307,6 +313,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    * The subtitle to display.
    *
    * The subtitle should give the user additional details.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
    */
   props[PROP_SUBTITLE] =
     g_param_spec_string ("subtitle", NULL, NULL,
@@ -324,6 +332,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    *
    * This can be used e.g. to ensure the view switcher is hidden below a certain
    * window width, or any other constraint you find suitable.
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
    */
   props[PROP_VIEW_SWITCHER_ENABLED] =
     g_param_spec_boolean ("view-switcher-enabled", NULL, NULL,
@@ -337,6 +347,8 @@ adw_view_switcher_title_class_init (AdwViewSwitcherTitleClass *klass)
    *
    * If the title is visible, it means the view switcher is hidden an it may be
    * wanted to show an alternative switcher, e.g. a [class@ViewSwitcherBar].
+   *
+   * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
    */
   props[PROP_TITLE_VISIBLE] =
     g_param_spec_boolean ("title-visible", NULL, NULL,
@@ -376,6 +388,8 @@ adw_view_switcher_title_init (AdwViewSwitcherTitle *self)
  * Creates a new `AdwViewSwitcherTitle`.
  *
  * Returns: the newly created `AdwViewSwitcherTitle`
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
  */
 GtkWidget *
 adw_view_switcher_title_new (void)
@@ -390,6 +404,8 @@ adw_view_switcher_title_new (void)
  * Gets the stack controlled by @self.
  *
  * Returns: (nullable) (transfer none): the stack
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
  */
 AdwViewStack *
 adw_view_switcher_title_get_stack (AdwViewSwitcherTitle *self)
@@ -405,6 +421,8 @@ adw_view_switcher_title_get_stack (AdwViewSwitcherTitle *self)
  * @stack: (nullable): a stack
  *
  * Sets the stack controlled by @self.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
  */
 void
 adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
@@ -446,6 +464,8 @@ adw_view_switcher_title_set_stack (AdwViewSwitcherTitle *self,
  * Gets the title of @self.
  *
  * Returns: the title
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
  */
 const char *
 adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self)
@@ -464,6 +484,8 @@ adw_view_switcher_title_get_title (AdwViewSwitcherTitle *self)
  *
  * The title typically identifies the current view or content item, and
  * generally does not use the application name.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
  */
 void
 adw_view_switcher_title_set_title (AdwViewSwitcherTitle *self,
@@ -486,6 +508,8 @@ adw_view_switcher_title_set_title (AdwViewSwitcherTitle *self,
  * Gets the subtitle of @self.
  *
  * Returns: the subtitle
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
  */
 const char *
 adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self)
@@ -503,6 +527,8 @@ adw_view_switcher_title_get_subtitle (AdwViewSwitcherTitle *self)
  * Sets the subtitle of @self.
  *
  * The subtitle should give the user additional details.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
  */
 void
 adw_view_switcher_title_set_subtitle (AdwViewSwitcherTitle *self,
@@ -525,6 +551,8 @@ adw_view_switcher_title_set_subtitle (AdwViewSwitcherTitle *self,
  * Gets whether @self's view switcher is enabled.
  *
  * Returns: whether the view switcher is enabled
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
  */
 gboolean
 adw_view_switcher_title_get_view_switcher_enabled (AdwViewSwitcherTitle *self)
@@ -547,6 +575,8 @@ adw_view_switcher_title_get_view_switcher_enabled (AdwViewSwitcherTitle *self)
  *
  * This can be used e.g. to ensure the view switcher is hidden below a certain
  * window width, or any other constraint you find suitable.
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
  */
 void
 adw_view_switcher_title_set_view_switcher_enabled (AdwViewSwitcherTitle *self,
@@ -575,6 +605,8 @@ adw_view_switcher_title_set_view_switcher_enabled (AdwViewSwitcherTitle *self,
  * wanted to show an alternative switcher, e.g. a [class@ViewSwitcherBar].
  *
  * Returns: whether the title of @self is currently visible
+ *
+ * Deprecated: 1.4: See [the migration guide](migrating-to-breakpoints.html#replace-adwviewswitchertitle)
  */
 gboolean
 adw_view_switcher_title_get_title_visible (AdwViewSwitcherTitle *self)
