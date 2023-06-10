@@ -17,8 +17,14 @@ endif
 today = 'unknown'
 date = find_program('date',
          required: false)
+sh = find_program('sh')
 if date.found()
-  r = run_command(date, '-I')
+  time_epoch = run_command(sh, '-c', 'echo "$SOURCE_DATE_EPOCH"', check: true).stdout().strip()
+  if time_epoch != ''
+    r = run_command(date, '-I', '-u', '-d', '@' + time_epoch)
+  else
+    r = run_command(date, '-I')
+  endif
   if r.returncode() == 0
     today = r.stdout().strip()
   endif
