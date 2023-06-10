@@ -507,16 +507,6 @@ It's equivalent to using the following CSS:
 }
 ```
 
-# Flat Header Bar
-
-<picture>
-  <source srcset="flat-header-bar-dark.png" media="(prefers-color-scheme: dark)">
-  <img src="flat-header-bar.png" alt="flat-header-bar">
-</picture>
-
-The `.flat` style class can be used with an [class@HeaderBar] or
-[class@Gtk.HeaderBar] to give it a flat appearance.
-
 # Compact Status Page
 
 <picture>
@@ -670,3 +660,17 @@ should only be used in conjunction with large amounts of whitespace.
 The [`.title-1`](#typography-styles) style class should be used instead.
 
 Deprecated since: 1.2
+
+# Flat Header Bar
+
+<picture>
+  <source srcset="flat-header-bar-dark.png" media="(prefers-color-scheme: dark)">
+  <img src="flat-header-bar.png" alt="flat-header-bar">
+</picture>
+
+The `.flat` style class can be used with an [class@HeaderBar] or
+[class@Gtk.HeaderBar] to give it a flat appearance.
+
+Use [class@ToolbarView] instead.
+
+Deprecated since: 1.4

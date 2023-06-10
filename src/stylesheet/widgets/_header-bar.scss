@@ -52,26 +52,6 @@ headerbar {
       }
     }
   }
-
-  &.flat {
-    background: none;
-    box-shadow: none;
-    color: inherit;
-
-    min-height: 46px;
-
-    > windowhandle > box {
-      padding-bottom: 6px;
-    }
-
-    &.default-decoration {
-      min-height: 36px;
-
-      > windowhandle > box {
-        padding-bottom: 3px;
-      }
-    }
-  }
 }
 
 window > {
@@ -103,8 +83,28 @@ window > {
   }
 }
 
+%headerbar-flat {
+  background: none;
+  box-shadow: none;
+  color: inherit;
+
+  min-height: 46px;
+
+  > windowhandle > box {
+    padding-bottom: 6px;
+  }
+
+  &.default-decoration {
+    min-height: 36px;
+
+    > windowhandle > box {
+      padding-bottom: 3px;
+    }
+  }
+}
+
 %headerbar-inline {
-  @extend .flat;
+  @extend %headerbar-flat;
 
   &:backdrop {
     transition: none;

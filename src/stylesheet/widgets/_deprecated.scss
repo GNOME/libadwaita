@@ -279,3 +279,9 @@ list.content {
   font-weight: 300;
   font-size: 24pt;
 }
+
+// Deprecated: use AdwToolbarView
+
+headerbar.flat {
+  @extend %headerbar-flat;
+}
