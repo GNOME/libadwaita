@@ -514,7 +514,16 @@ update_collapsed (AdwNavigationSplitView *self)
     g_object_unref (self->content);
 
   if (focus) {
-    gtk_widget_grab_focus (focus);
+    gboolean should_focus = TRUE;
+
+    if (self->collapsed && self->content) {
+      gboolean is_content = gtk_widget_is_ancestor (focus, GTK_WIDGET (self->content));
+
+      should_focus = is_content == self->show_content;
+    }
+
+    if (should_focus)
+      gtk_widget_grab_focus (focus);
 
     g_object_remove_weak_pointer (G_OBJECT (focus), (gpointer *) &focus);
   }
