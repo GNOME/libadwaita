@@ -419,6 +419,9 @@ update_collapsed (AdwNavigationSplitView *self)
   if (root) {
     focus = gtk_root_get_focus (root);
 
+    if (!gtk_widget_get_ancestor (focus, GTK_WIDGET (self)))
+      focus = NULL;
+
     if (focus)
       g_object_add_weak_pointer (G_OBJECT (focus), (gpointer *) &focus);
   }
