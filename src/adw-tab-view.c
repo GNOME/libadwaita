@@ -80,10 +80,10 @@ static GSList *tab_view_list;
  * AdwTabViewShortcuts:
  * @ADW_TAB_VIEW_SHORTCUT_NONE: No shortcuts
  * @ADW_TAB_VIEW_SHORTCUT_CONTROL_TAB:
- *   <kbd>Ctrl</kbd>+<kbd>Tab</kbd> - switch to the next page, with looping
+ *   <kbd>Ctrl</kbd>+<kbd>Tab</kbd> - switch to the next page
  * @ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_TAB:
  *   <kbd>Shift</kbd>+<kbd>Ctrl</kbd>+<kbd>Tab</kbd> - switch to the previous
- *   page, with looping
+ *   page
  * @ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_UP:
  *   <kbd>Ctrl</kbd>+<kbd>Page Up</kbd> - switch to the previous page
  * @ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_DOWN:
@@ -1771,7 +1771,7 @@ select_page_cb (GtkWidget  *widget,
 {
   AdwTabViewShortcuts mask;
   GtkDirectionType direction;
-  gboolean last, loop, success = FALSE;
+  gboolean last, success = FALSE;
 
   if (!adw_tab_view_get_selected_page (self))
     return GDK_EVENT_PROPAGATE;
@@ -1779,7 +1779,7 @@ select_page_cb (GtkWidget  *widget,
   if (self->n_pages <= 1)
     return GDK_EVENT_PROPAGATE;
 
-  g_variant_get (args, "(hhbb)", &mask, &direction, &last, &loop);
+  g_variant_get (args, "(hhb)", &mask, &direction, &last);
 
   if (!(self->shortcuts & mask))
     return GDK_EVENT_PROPAGATE;
@@ -1790,7 +1790,7 @@ select_page_cb (GtkWidget  *widget,
     else
       success = adw_tab_view_select_previous_page (self);
 
-    if (!success && loop) {
+    if (!success && !last) {
       AdwTabPage *page = adw_tab_view_get_nth_page (self, self->n_pages - 1);
 
       adw_tab_view_set_selected_page (self, page);
@@ -1803,7 +1803,7 @@ select_page_cb (GtkWidget  *widget,
     else
       success = adw_tab_view_select_next_page (self);
 
-    if (!success && loop) {
+    if (!success && !last) {
       AdwTabPage *page = adw_tab_view_get_nth_page (self, 0);
 
       adw_tab_view_set_selected_page (self, page);
@@ -1826,8 +1826,7 @@ add_switch_shortcut (AdwTabView          *self,
                      guint                keypad_keysym,
                      GdkModifierType      modifiers,
                      GtkDirectionType     direction,
-                     gboolean             last,
-                     gboolean             loop)
+                     gboolean             last)
 {
   GtkShortcutTrigger *trigger;
   GtkShortcutAction *action;
@@ -1838,7 +1837,7 @@ add_switch_shortcut (AdwTabView          *self,
   action = gtk_callback_action_new ((GtkShortcutFunc) select_page_cb, self, NULL);
   shortcut = gtk_shortcut_new (trigger, action);
 
-  gtk_shortcut_set_arguments (shortcut, g_variant_new ("(hhbb)", mask, direction, last, loop));
+  gtk_shortcut_set_arguments (shortcut, g_variant_new ("(hhb)", mask, direction, last));
   gtk_shortcut_controller_add_shortcut (GTK_SHORTCUT_CONTROLLER (controller),
                                         shortcut);
 }
@@ -1965,27 +1964,27 @@ init_shortcuts (AdwTabView         *self,
   add_switch_shortcut (self, controller,
                        ADW_TAB_VIEW_SHORTCUT_CONTROL_TAB,
                        GDK_KEY_Tab, GDK_KEY_KP_Tab, GDK_CONTROL_MASK,
-                       GTK_DIR_TAB_FORWARD, FALSE, TRUE);
+                       GTK_DIR_TAB_FORWARD, FALSE);
   add_switch_shortcut (self, controller,
                        ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_TAB,
                        GDK_KEY_Tab, GDK_KEY_KP_Tab, GDK_CONTROL_MASK | GDK_SHIFT_MASK,
-                       GTK_DIR_TAB_BACKWARD, FALSE, TRUE);
+                       GTK_DIR_TAB_BACKWARD, FALSE);
   add_switch_shortcut (self, controller,
                        ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_UP,
                        GDK_KEY_Page_Up, GDK_KEY_KP_Page_Up, GDK_CONTROL_MASK,
-                       GTK_DIR_TAB_BACKWARD, FALSE, FALSE);
+                       GTK_DIR_TAB_BACKWARD, FALSE);
   add_switch_shortcut (self, controller,
                        ADW_TAB_VIEW_SHORTCUT_CONTROL_PAGE_DOWN,
                        GDK_KEY_Page_Down, GDK_KEY_KP_Page_Down, GDK_CONTROL_MASK,
-                       GTK_DIR_TAB_FORWARD, FALSE, FALSE);
+                       GTK_DIR_TAB_FORWARD, FALSE);
   add_switch_shortcut (self, controller,
                        ADW_TAB_VIEW_SHORTCUT_CONTROL_HOME,
                        GDK_KEY_Home, GDK_KEY_KP_Home, GDK_CONTROL_MASK,
-                       GTK_DIR_TAB_BACKWARD, TRUE, FALSE);
+                       GTK_DIR_TAB_BACKWARD, TRUE);
   add_switch_shortcut (self, controller,
                        ADW_TAB_VIEW_SHORTCUT_CONTROL_END,
                        GDK_KEY_End, GDK_KEY_KP_End, GDK_CONTROL_MASK,
-                       GTK_DIR_TAB_FORWARD, TRUE, FALSE);
+                       GTK_DIR_TAB_FORWARD, TRUE);
 
   add_reorder_shortcut (self, controller,
                         ADW_TAB_VIEW_SHORTCUT_CONTROL_SHIFT_PAGE_UP,
