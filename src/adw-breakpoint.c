@@ -712,7 +712,7 @@ parse_multi (const char            *str,
  *
  * - `<type>` can be `min-width`, `max-width`, `min-height` or `max-height`
  * - `<value>` is a fractional number
- * - `<unit>` can be `px`, `pt` or `rem`
+ * - `<unit>` can be `px`, `pt` or `sp`
  *
  * If the unit is omitted, `px` is assumed.
  *
@@ -722,7 +722,7 @@ parse_multi (const char            *str,
  *
  * - `min-width: 500px`
  * - `min-height: 400pt`
- * - `max-width: 100rem`
+ * - `max-width: 100sp`
  * - `max-height: 500`
  *
  * Ratio conditions are specified as `<type>: <width>[/<height>]`, where:
@@ -754,7 +754,7 @@ parse_multi (const char            *str,
  * Examples:
  *
  * - `min-width: 400px and max-aspect-ratio: 4/3`
- * - `max-width: 25rem or max-width: 360px`
+ * - `max-width: 360sp or max-width: 360px`
  *
  * Conditions can be further nested using parentheses, for example:
  *
