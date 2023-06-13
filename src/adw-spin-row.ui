@@ -14,6 +14,10 @@
         <signal name="output" handler="spin_button_output_cb" swapped="yes"/>
         <signal name="wrapped" handler="spin_button_wrapped_cb" swapped="yes"/>
         <signal name="notify::value" handler="spin_button_notify_value_cb" swapped="yes"/>
+        <accessibility>
+          <relation name="labelled-by">AdwSpinRow</relation>
+          <relation name="described-by">AdwSpinRow</relation>
+        </accessibility>
       </object>
     </child>
     <style>
