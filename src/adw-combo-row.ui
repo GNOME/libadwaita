@@ -22,6 +22,7 @@
         <child>
           <object class="GtkImage">
             <property name="icon_name">pan-down-symbolic</property>
+            <property name="accessible-role">presentation</property>
             <style>
               <class name="dropdown-arrow"/>
             </style>
