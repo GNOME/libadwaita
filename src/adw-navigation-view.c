@@ -109,7 +109,7 @@
  *         <object class="AdwToolbarView">
  *           <child type="top">
  *             <object class="AdwHeaderBar"/>
- *           </object>
+ *           </child>
  *           <property name="content">
  *             <object class="GtkButton">
  *               <property name="label" translatable="yes">Open Page 2</property>
@@ -123,7 +123,7 @@
  *             </object>
  *           </property>
  *         </object>
- *       </child>
+ *       </property>
  *     </object>
  *   </child>
  *   <child>
@@ -134,12 +134,12 @@
  *         <object class="AdwToolbarView">
  *           <child type="top">
  *             <object class="AdwHeaderBar"/>
- *           </object>
+ *           </child>
  *           <property name="content">
  *             <!-- ... -->
  *           </property>
  *         </object>
- *       </child>
+ *       </property>
  *     </object>
  *   </child>
  * </object>
