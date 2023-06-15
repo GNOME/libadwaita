@@ -23,6 +23,10 @@
  *   <img src="breakpoint-bin.png" alt="breakpoint-bin">
  * </picture>
  *
+ * `AdwBreakpointBin` provides a way to use breakpoints without [class@Window]
+ * or [class@ApplicationWindow]. It can be useful for limiting breakpoints to a
+ * single page and similar purposes. Most applications shouldn't need it.
+ *
  * `AdwBreakpointBin` is similar to [class@Bin]. It has one child, set via the
  * [property@BreakpointBin:child] property.
  *
